@@ -503,7 +503,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             }
             if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
-            $pre .= "\n<small>\n" .
+            $end .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<a class=\"mbx_link\" href=\"empty_trash.php\">"._("purge")."</a>)" .
                     "</small>";
             }
@@ -809,7 +809,7 @@ $xtra .= <<<ECHO
   }
 
   .mbx_par {
-     font-size:0.8em;
+     font-size:1.0em;
      margin-left:4px;
      margin-right:0px;
   }
@@ -833,7 +833,7 @@ $xtra .= <<<ECHO
      padding-right:0px;
      margin-left:4px;
      margin-right:0px;
-     font-size:0.7em;
+     font-size:0.9em;
   }
 
   .par_area {
