@@ -20,31 +20,49 @@
       }
    }
 
-   function getMessageHeaders($imapConnection, $i, &$from, &$subject, &$date) {
-      fputs($imapConnection, "messageFetch FETCH $i:$i RFC822.HEADER.LINES (From Subject Date)\n");
-      $read = fgets($imapConnection, 1024);
-      /* I have to replace <> with [] because HTML uses <> as tags, thus not printing what's in <> */
-      $read = ereg_replace("<", "[", $read);
-      $read = ereg_replace(">", "]", $read);
+   function getMessageHeaders($imapConnection, $start, $end, &$from, &$subject, &$date) {
 
-      while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
-         if (substr($read, 0, 5) == "From:") {
-            $read = ereg_replace("<", "EMAILSTART--", $read);
-            $read = ereg_replace(">", "--EMAILEND", $read);
-            $from = substr($read, 5, strlen($read) - 6);
-         }
-         else if (substr($read, 0, 5) == "Date:") {
-            $read = ereg_replace("<", "[", $read);
-            $read = ereg_replace(">", "]", $read);
-            $date = substr($read, 5, strlen($read) - 6);
-         }
-         else if (substr($read, 0, 8) == "Subject:") {
-            $read = ereg_replace("<", "[", $read);
-            $read = ereg_replace(">", "]", $read);
-            $subject = substr($read, 8, strlen($read) - 9);
-         }
+      $rel_start = $start;
 
+      if (($start > $end) || ($start < 1)) {
+         echo "Error in message header fetching.  Start message: $start, End message: $end<BR>";
+         exit;
+      }
+
+      while ($rel_start <= $end) {
+         if ($end - $rel_start > 50) {
+            $rel_end = $rel_start + 50;
+         } else {
+            $rel_end = $end;
+         }
+         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date)\n");
          $read = fgets($imapConnection, 1024);
+
+         $from_num = $rel_start - 1;
+         $date_num = $rel_start - 1;
+         $subj_num = $rel_start - 1;
+         while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
+            if (substr($read, 0, 5) == "From:") {
+               $read = ereg_replace("<", "EMAILSTART--", $read);
+               $read = ereg_replace(">", "--EMAILEND", $read);
+               $from[$from_num] = substr($read, 5, strlen($read) - 6);
+               $from_num++;
+            }
+            else if (substr($read, 0, 5) == "Date:") {
+               $read = ereg_replace("<", "[", $read);
+               $read = ereg_replace(">", "]", $read);
+               $date[$date_num] = substr($read, 5, strlen($read) - 6);
+               $date_num++;
+            }
+            else if (substr($read, 0, 8) == "Subject:") {
+               $read = ereg_replace("<", "[", $read);
+               $read = ereg_replace(">", "]", $read);
+               $subject[$subj_num] = substr($read, 8, strlen($read) - 9);
+               $subj_num++;
+            }
+            $read = fgets($imapConnection, 1024);
+         }
+         $rel_start = $rel_start + 50;
       }
    }
 
@@ -52,10 +70,11 @@
       fputs($imapConnection, "messageStore STORE $i:$q +FLAGS (\\$flag)\n");
    }
 
-   function getMessageFlags($imapConnection, $i, &$flags) {
+   function getMessageFlags($imapConnection, $j, &$flags) {
       /**   * 2 FETCH (FLAGS (\Answered \Seen))   */
-      fputs($imapConnection, "messageFetch FETCH $i:$i FLAGS\n");
+      fputs($imapConnection, "messageFetch FETCH $j:$j FLAGS\n");
       $read = fgets($imapConnection, 1024);
+      $count = 0;
       while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
          if (strpos($read, "FLAGS")) {
             $read = ereg_replace("\(", "", $read);
@@ -71,6 +90,7 @@
          } else {
             $flags[0] = "None";
          }
+         $count++;
          $read = fgets($imapConnection, 1024);
       }
    }
