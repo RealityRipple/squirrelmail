@@ -1,46 +1,67 @@
 Translating the help files.
----------------------------
+===========================
 
 I have tried to write the help files in plain english with good grammer.
-Since English is not my strong point you probably can't tell, but I hope it helps.
+Since English is not my strong point you probably can't tell, but I hope it 
+helps.
 
 The help files, at this point, are devided into functional areas.
-Each .hlp file represents a different functional block of how the program looks to the user.
+Each .hlp file represents a different functional block of how the program looks 
+to the user.
 
 I put each sentance on a line of its own because I thought it might make 
 it easier to translate. Hopefully as SquirrelMail is more widely used, 
 non-english translations will be used to make other non-english translations.
-You might want to keep this in mind when writing yours. Remember that these wil be used
-All over the world and in many different environments so local language dialects might
-confuse someone else. 
+You might want to keep this in mind when writing yours. Remember that these will
+be used all over the world and in many different environments so local language 
+dialects might confuse someone else. 
 
-File Structure.
+File Structure
+==============
 
-All translated files should be placed under the hlp directory.
-Under the hlp directory create another directory. This directory MUST be named
-to the two letter standard abbreviation for the language. English is "en" and 
-Spanish would be "sp" for example.
+All translated files should be placed under the help directory.  Under the help 
+directory create another directory. This directory MUST be named to the two letter 
+standard abbreviation for the language. English is "en" and Polish would be "pl" 
+for example.
 
-The help files are written in the following format:
-<P>
-<A NAME=some_name></A>
-<H1>Some Head</H1>
-Some text on some subject.
-</P>
+The help files are written in a basic xml format.  Don't worry, XML isn't hard
+at all.  All it does is contain values inside tags like <start> and </start>.
+For these help files, the tags must be on their own line like this:
+   <tag>
+      Value for this tag
+   </tag>
 
-<P>
-<A NAME=some_name></A>
-<H3>Some Head</H3>
-Some text on some subject.
-</P>
+There are two types of main tags: <chapter> and <section>.  There can be only 
+one <chapter> tag in a .hlp file.  However, there can be many <section> tags.
+Inside both of these tags, their can be any combination of any of the following
+tags:  <title>, <description>, <summary>.  Here is an example:
 
-This is important because the left menu is dynamically built from what is inside the .hlp files.
-All <A NAME></A>, <H1></H1>, and <H3></H3> tags MUST be on a line by themselves.
-No modifiers may be used for the <A> anchor tags. Modifiers other than the NAME modifier
-Will result in the additional modifier's inclusion in the left menu.
-Any other tags used such as <H4> will be ignored. I am currently working on making all the
-headers which are already listed in the po file translate automatically. We'll see how this goes.
-This will not work for files like FAQ.hlp and Basic.hlp which are not in the main program.
+                     | <chapter>
+ The title can only  |    <title>
+ be one line long    |       My first chapter   
+                     |    </title>
+ Summary may be many |    <summary>
+ lines, but is short |       Just a brief summary
+                     |    </summary>
+                     |    <description>
+ Description can be  |       This is a more detailed description that
+ very long.  It is   |       can span many lines.  Usually this is the 
+ the main part of    |       bulk of the help section or chapter description.
+ the help section.   |    </description>
+                     | </chapter>
 
-At the current time no logic is in place to check if help is written on a certain subject.
 
+Translating
+===========
+
+To translate, just copy all the .hlp files from help/en into your new directory
+that you created for this language (i.e.  help/pl).  You only need to translate
+what is inbetween the tags.  Do not translate the actual tags such as <chapter> 
+or <summary>.  The tag names need to remain in English.  You should only translate
+the test between tags.
+
+Often there may be other HTML tags such as <b> for bold or <a href...> to make
+a link.  If you see any of these tags, just leave them and don't translate
+them either.  Only what is contained inside them if needed.
+
+That should be all!!

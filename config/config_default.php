@@ -1,4 +1,14 @@
 <?php
+//
+//  BEFORE EDITING THIS FILE!
+//
+//  Don't edit this file directly.  Copy it to config.php before you
+//  edit it.  However, it is best to use the configuration script
+//  conf.pl if at all possible.  That is the easiest and cleanest way
+//  to configure.
+//
+
+
 //  Organization's logo picture (blank if none)
     $org_logo = "../images/sm_logo.jpg";
 
@@ -169,40 +179,40 @@
 
     // The first one HAS to be here, and is your system's default theme.
     // It can be any theme you want
-    $theme[0]["PATH"] = "../config/default_theme.php";
+    $theme[0]["PATH"] = "../themes/default_theme.php";
     $theme[0]["NAME"] = "Default";
 
-    $theme[1]["PATH"] = "../config/plain_blue_theme.php";
+    $theme[1]["PATH"] = "../themes/plain_blue_theme.php";
     $theme[1]["NAME"] = "Plain Blue";
 
-    $theme[2]["PATH"] = "../config/sandstorm_theme.php";
+    $theme[2]["PATH"] = "../themes/sandstorm_theme.php";
     $theme[2]["NAME"] = "Sand Storm";
 
-    $theme[3]["PATH"] = "../config/deepocean_theme.php";
+    $theme[3]["PATH"] = "../themes/deepocean_theme.php";
     $theme[3]["NAME"] = "Deep Ocean";
 
-    $theme[4]["PATH"] = "../config/slashdot_theme.php";
+    $theme[4]["PATH"] = "../themes/slashdot_theme.php";
     $theme[4]["NAME"] = "Slashdot";
 
-    $theme[5]["PATH"] = "../config/purple_theme.php";
+    $theme[5]["PATH"] = "../themes/purple_theme.php";
     $theme[5]["NAME"] = "Purple";
 
-    $theme[6]["PATH"] = "../config/forest_theme.php";
+    $theme[6]["PATH"] = "../themes/forest_theme.php";
     $theme[6]["NAME"] = "Forest";
 
-    $theme[7]["PATH"] = "../config/ice_theme.php";
+    $theme[7]["PATH"] = "../themes/ice_theme.php";
     $theme[7]["NAME"] = "Ice";
 
-    $theme[8]["PATH"] = "../config/seaspray_theme.php";
+    $theme[8]["PATH"] = "../themes/seaspray_theme.php";
     $theme[8]["NAME"] = "Sea Spray";
 
-    $theme[9]["PATH"] = "../config/bluesteel_theme.php";
+    $theme[9]["PATH"] = "../themes/bluesteel_theme.php";
     $theme[9]["NAME"] = "Blue Steel";
 
-    $theme[10]["PATH"] = "../config/dark_grey_theme.php";
+    $theme[10]["PATH"] = "../themes/dark_grey_theme.php";
     $theme[10]["NAME"] = "Dark Grey";
 
-    $theme[11]["PATH"] = "../config/high_contrast_theme.php";
+    $theme[11]["PATH"] = "../themes/high_contrast_theme.php";
     $theme[11]["NAME"] = "High Contrast";
 
 //  LDAP server(s)

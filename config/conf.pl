@@ -1024,8 +1024,8 @@ sub command41 {
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $theme_name[$#theme_name+1] = $name;
-         print "Be sure to put ../config/ before the filename.\n";
-         print "What file is this stored in (ex: ../config/default_theme.php): ";
+         print "Be sure to put ../themes/ before the filename.\n";
+         print "What file is this stored in (ex: ../themes/default_theme.php): ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $theme_path[$#theme_path+1] = $name;
@@ -1311,7 +1311,6 @@ sub save_data {
       print FILE ");\n\n";
    }
 
-   print FILE "\n";
    print FILE "\t\$motd = \"$motd\";\n";
 
    print FILE "?>\n";

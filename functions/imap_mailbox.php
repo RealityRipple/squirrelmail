@@ -106,7 +106,7 @@
             $dm_count--;
             
          for ($j = 0; $j < $dm_count - (countCharInString($folder_prefix, $dm)); $j++)
-            $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "  ";
+            $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "&nbsp;&nbsp;";
          $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
             
          $boxes[$g]["unformatted-dm"] = $mailbox;

@@ -111,8 +111,8 @@ b. Setting up directories
   must be writable by the webserver. If your webserver is running as
   the user nobody you can fix this by running:
 
-    chown -R nobody data
-    chgrp -R nobody data
+    $ chown -R nobody data
+    $ chgrp -R nobody data
   
   There also needs to be a directory where attachments are stored
   before they are sent. Since personal mail is stored in this
@@ -123,26 +123,32 @@ b. Setting up directories
   permissions. You could do this by running these commands (still
   granted that the webserver is running as nobody/nobody)
 
-    cd /var/some/place
-    mkdir SomeDirectory
-    chgrp -R nobody SomeDirectory
-    chmod 730 SomeDirectory
+    $ cd /var/some/place
+    $ mkdir SomeDirectory
+    $ chgrp -R nobody SomeDirectory
+    $ chmod 730 SomeDirectory
 
   If you trust all the users on you system not to read mail they are
   not supposed to read change the last line to chmod 777 SomeDirectory
-  or simply use /tmp as you attachments directory. If a user is
-  aborting a mail but has uploaded som attachments to it the files
-  will be lying around in this directory forever if you do not remove
-  them.
+  or simply use /tmp as you attachments directory. 
+  
+  If a user is aborting a mail but has uploaded som attachments to it 
+  the files will be lying around in this directory forever if you do not 
+  remove them.  To fix this, it is recommended to create a cron job that
+  deletes everything in the attachment directory.  Something similar
+  to the folling will be good enough:
+
+    $ cd /var/attach/directory
+    $ rm -f *
 
 c. Setting up SquirrelMail
 
   There are two ways to configure Squirrelmail.  In the config/ directory,
   there is a perl script called conf.pl that will aid you in the
-  configuration process.  This is the most recommended way of handling
+  configuration process.  This is the recommended way of handling
   the config.
 
-  You can also copy the config/config_default.php file to config.php
+  You can also copy the config/config_default.php file to config/config.php
   and edit that manually.
 
 4. RUNNING SQUIRRELMAIL
