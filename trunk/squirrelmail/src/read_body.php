@@ -317,13 +317,10 @@
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
-   $body = formatBody($imapConnection, $message, $color, $wrap_at);
    echo "<BR>";
+   
+   $body = formatBody($imapConnection, $message, $color, $wrap_at);
 
-   $whatnew = str_replace(" ", "&nbsp;", $what);
-   if ($where == "BODY" || $where == "TEXT") {
-      $body = eregi_replace($whatnew, "<b><font color=\"$color[2]\">\\0</font></b>", $body);
-   }
    echo "$body";
 
    echo "   </TD></TR>\n";

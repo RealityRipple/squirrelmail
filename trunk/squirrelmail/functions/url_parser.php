@@ -11,6 +11,22 @@
    }
 
    function parseEmail ($body) {
+      global $color;
+      /*
+        This is here in case we ever decide to use highlighting of searched
+        text.  this does it for email addresses
+        
+      if ($what && ($where == "BODY" || $where == "TEXT")) {
+         eregi ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+(\.([a-z]|[0-9]|_|-)+)*", $body, $regs);
+         $oldaddr = $regs[0];
+         if ($oldaddr) {
+            $newaddr = eregi_replace ($what, "<b><font color=\"$color[2]\">$what</font></font></b>", $oldaddr);
+            $body = str_replace ($oldaddr, "<a href=\"../src/compose.php?send_to=$oldaddr\">$newaddr</a>", $body); 
+         }
+      } else { 
+         $body = eregi_replace ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+(\.([a-z]|[0-9]|_|-)+)*", "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
+      }
+      */
       $body = eregi_replace ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+(\.([a-z]|[0-9]|_|-)+)*", "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
       return $body;
    }

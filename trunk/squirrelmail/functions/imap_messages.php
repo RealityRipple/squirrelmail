@@ -45,7 +45,6 @@
    }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
-      global $where, $what;
 
       fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
@@ -78,10 +77,6 @@
          }
       }
 
-      if ($where == "SUBJECT") {
-         $subject = eregi_replace($what, "<b>\\0</b>", $subject);
-      }
-      
       $header = new small_header;
       if ($sent == true)
          $header->from = $to;
