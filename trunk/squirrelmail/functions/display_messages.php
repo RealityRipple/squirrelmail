@@ -12,6 +12,17 @@
  * $Id$
  */
 
+function sqm_baseuri(){
+    global $base_uri, $PHP_SELF;
+    if (isset($base_uri)){
+        return $base_uri;
+    }
+    $dirs = array("|src/.*|", "|plugins/.*|", "|functions/.*|");
+    $repl = array("", "", "");
+    $base_uri = preg_replace($dirs, $repl, $PHP_SELF);
+    return $base_uri;
+}
+
 function error_username_password_incorrect() {
     global $frame_top, $color;
     /* XXX: Should really not start the HTML before this, or close off more
@@ -28,8 +39,8 @@ function error_username_password_incorrect() {
                 '</TR>' .
                 '<TR><TD>'.
                     '<CENTER><BR>' . _("Unknown user or password incorrect.") .
-                    '<BR><A HREF="login.php" TARGET='.$frame_top.'>' .
-                    _("Click here to try again") .
+                    '<BR><A HREF="' . sqm_baseuri() . '"login.php" TARGET='.
+                    $frame_top.'>' . _("Click here to try again") .
                     '</A>.</CENTER>'.
                 '</TD></TR>'.
                 '</TABLE>'.
@@ -80,7 +91,9 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
             '</TD></TR><TR><TD>'.
                "<CENTER><BR>$message<BR>\n".
                '<BR>'.
-                  "<A HREF=\"right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">";
+                  "<A HREF=\"" . sqm_baseuri() 
+                  . "right_main.php?sort=$sort&amp;startMessage=$startMessage"
+                  . "&amp;mailbox=$urlMailbox\">";
     printf (_("Click here to return to %s"), $mailbox);
     echo '</A>.'.
             '</TD></TR>'.
@@ -103,11 +116,11 @@ function logout_error( $errString, $errTitle = '' ) {
 
     GLOBAL $frame_top, $org_logo, $org_name, $org_logo_width, $org_logo_height,
            $hide_sm_attributions, $version;
-
-    include_once( '../functions/page_header.php' );
+    $base_uri = sqm_baseuri();
+    include_once($base_uri . 'functions/page_header.php' );
     if ( !isset( $org_logo ) ) {
         // Don't know yet why, but in some accesses $org_logo is not set.
-        include( '../config/config.php' );
+        include( $base_uri . '../config/config.php' );
     }
     /* Display width and height like good little people */
     $width_and_height = '';
