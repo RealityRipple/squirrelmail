@@ -57,7 +57,7 @@
       if (($move_to_trash == true) && (trim($real_box) == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
          $line .= "<FONT FACE=\"Arial,Helvetica\" SIZE=2>";
-         $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">empty</A></B>)";
+         $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">empty me</A></B>)";
          $line .= "</FONT></a>\n";
       }
 
