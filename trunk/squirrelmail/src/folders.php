@@ -93,11 +93,11 @@
 		$num_max++;
 
    for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
-      if (strtolower($boxes[$i]["unformatted"]) == "inbox")
+      if (strtolower($boxes[$p]["unformatted"]) == "inbox")
          $count_special_folders++;
-      else if ($boxes[$i]["unformatted"] == $trash_folder)
+      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
          $count_special_folders++;
-      else if ($boxes[$i]["unformatted"] == $sent_folder)
+      else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
          $count_special_folders++;
    }   
 

@@ -86,6 +86,9 @@
       $urlMailbox = urlencode($mailbox);
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
       echo "<FRAME SRC=\"right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\" NAME=\"right\">";
+   } else if ($right_frame == "options.php") {
+      echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";
+      echo "<FRAME SRC=\"options.php\" NAME=\"right\">";
    } else if ($right_frame == "folders.php") {
       $urlMailbox = urlencode($mailbox);
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";

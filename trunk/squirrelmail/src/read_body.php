@@ -29,6 +29,37 @@
    if (!isset($date_php))
       include("../functions/date.php");
 
+   include("../src/load_prefs.php");
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+   sqimap_mailbox_select($imapConnection, $mailbox);
+   displayPageHeader($color, $mailbox);
+
+   if ($view_hdr) {
+      fputs ($imapConnection, "a003 FETCH $passed_id BODY[HEADER]\r\n");
+      $read = sqimap_read_data ($imapConnection, "a003", true, $a, $b); 
+      
+      echo "<br>";
+      echo "<table width=95% cellpadding=2 cellspacing=0 border=0 align=center>\n";
+      echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . "</b> - ";
+      echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
+      echo ""._("View message") . "</a></b></center></td></tr>\n";
+      echo "<tr><td><pre>";
+      for ($i=1; $i < count($read)-1; $i++) {
+         $read[$i] = htmlspecialchars($read[$i]);
+         if (substr($read[$i], 0, 1) != "\t" && 
+             substr($read[$i], 0, 1) != " " && 
+             substr($read[$i], 0, 1) != "&" && 
+             trim($read[$i])) {
+            $pre = substr($read[$i], 0, strpos($read[$i], ":"));
+            $read[$i] = str_replace("$pre", "<b>$pre</b>", $read[$i]);
+         }
+         echo "$read[$i]";
+      }
+      echo "</pre></td></tr></table>\n";
+      echo "</body></html>";
+      exit;
+   }
+
    // given an IMAP message id number, this will look it up in the cached and sorted msgs array and
    //    return the index.  used for finding the next and previous messages
 
@@ -79,15 +110,9 @@
 			$msgs[$i]["FLAG_SEEN"] = true;
 	}
 
-   include("../src/load_prefs.php");
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   sqimap_mailbox_select($imapConnection, $mailbox);
-
    // $message contains all information about the message
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-
-   displayPageHeader($color, $mailbox);
 
    /** translate the subject and mailbox into url-able text **/
    $url_subj = urlencode(trim(stripslashes($message->header->subject)));
@@ -159,7 +184,7 @@
 
    echo "<BR>";
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=98% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
-   echo "   <TR><TD BGCOLOR=\"$color[0]\" WIDTH=100%>";
+   echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% CELLSPACING=0 BORDER=0 COLS=2 CELLPADDING=3>";
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=33%>";
@@ -208,42 +233,43 @@
    echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=3>\n";
    echo "      <TR>\n";
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("Subject:");
-   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
    echo "            <B>$subject</B>\n";
    echo "         </TD>\n";
+   echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
    echo "      </TR>\n";
    /** from **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("From:");
-   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% colspan=2>\n";
    echo "            <B>$from_name</B>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** date **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("Date:");
-   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% colspan=2>\n";
    echo "            <B>$dateString</B>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** to **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
    echo _("To:");
-   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% VALIGN=TOP colspan=2>\n";
    echo "            <B>$to_string</B>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
    if ($message->header->cc) {
       echo "      <TR>\n";
-      echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+      echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            Cc:\n";
-      echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
+      echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% VALIGN=TOP colspan=2>\n";
       echo "            <B>$cc_string</B>\n";
       echo "         </TD>\n";
       echo "      </TR>\n";
