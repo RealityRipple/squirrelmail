@@ -189,7 +189,7 @@ function attachFiles ($fp, $session, $rn="\r\n") {
 /* Delete files that are uploaded for attaching
  */
 function deleteAttachments($session) {
-    global $username, $attachments, $attachment_dir;
+    global $username, $attachments, $attachment_dir, $data_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     $rem_attachments = array();
@@ -204,6 +204,7 @@ function deleteAttachments($session) {
         }
     }
     $attachments = $rem_attachments;
+    setPref($data_dir, $username, 'attachments', serialize($attachments));
 }
 
 /* Return a nice MIME-boundary
