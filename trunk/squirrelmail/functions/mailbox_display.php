@@ -187,11 +187,34 @@
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=$color_lgray>";
+      echo "\n\n\n<TABLE BGCOLOR=$color_lgray><TR><TD>";
       echo "<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<SELECT NAME=move_or_delete><OPTION>Delete selected messages<OPTION>Move selected messages</SELECT>";
-      echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Go\">";
+      echo "<NOBR>\n";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete\">\n";
+      echo "checked mail";
+      echo "</NOBR></TD><TD ALIGN=\"right\"><NOBR>";
+      echo "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move messages to:\">\n";
+      echo "<SELECT NAME=\"targetMailbox\">\n";
+      getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
+      for ($i = 0; $i < count($boxesUnformatted); $i++) {
+         $use_folder = true;
+         for ($p = 0; $p < count($special_folders); $p++) {
+            // don't allow moving messages to any special folder EXCEPT for INBOX.
+            if (($boxesUnformatted[$i] == $special_folders[$p]) && ($boxesUnformatted[$i] != "INBOX")) {
+               $use_folder = false;
+            } else if (substr($boxesUnformatted[$i], 0, strlen($trash_folder)) == $trash_folder) {
+               $use_folder = false;
+            }
+         }
+         if ($use_folder == true)
+            echo "<OPTION VALUE=\"$boxesUnformatted[$i]\">$boxesUnformatted[$i]\n";
+      }
+      echo "</SELECT>\n";
       if (($move_to_trash == true) && ($mailbox == $trash_folder))
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></NOBR>";
+      else
+         echo "</NOBR>\n";
+      echo "</TD></TR></TABLE>\n\n\n";
       echo "</TD></TR>";
 
       echo "<TR><TD BGCOLOR=$color_lgray>";

@@ -15,7 +15,7 @@
 <?
    include("../config/config.php");
 
-   echo "<FORM ACTION=webmail.php METHOD=POST NAME=f>\n";
+   echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><FONT FACE=\"Arial,Helvetica\" SIZE=-2>SquirrelMail version $version<BR>By Nathan and Luke Ehresman<BR></FONT><CENTER>\n";
    echo "<TABLE COLS=1 WIDTH=350>\n";
