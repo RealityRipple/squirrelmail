@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-10 14:53+0200\n"
+"POT-Creation-Date: 2004-08-11 17:46+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -390,6 +390,15 @@ msgid "Check mail"
 msgstr ""
 
 msgid "Save folder tree"
+msgstr ""
+
+msgid "The IMAP server is reporting that logins are disabled."
+msgstr ""
+
+msgid "The use of TLS may allow SquirrelMail to login."
+msgstr ""
+
+msgid "Please contact your system administrator and report this error."
 msgstr ""
 
 msgid "Login"
@@ -984,9 +993,6 @@ msgstr ""
 msgid "Is PEAR installed, and is the include path set correctly to find %s?"
 msgstr ""
 
-msgid "Please contact your system administrator and report this error."
-msgstr ""
-
 msgid "Personal address book"
 msgstr ""
 
@@ -1362,9 +1368,6 @@ msgid "A"
 msgstr ""
 
 msgid "Thread sorting is not supported by your IMAP server."
-msgstr ""
-
-msgid "Please report this to the system administrator."
 msgstr ""
 
 msgid "Server-side sorting is not supported by your IMAP server."
