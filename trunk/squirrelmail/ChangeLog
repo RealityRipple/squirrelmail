@@ -199,6 +199,9 @@ Version 1.5.1 -- CVS
     issue with a specific IMAP server.
   - In sqgetGlobalVar(), reset $value if the var is not found in the
     specified location.
+  - Move default_pref to the config/ dir, but keep checking legacy locations
+    first for bc. Do not fail with an error when default_pref not found, just
+    create an empty one.
 
 Version 1.5.0
 --------------------
