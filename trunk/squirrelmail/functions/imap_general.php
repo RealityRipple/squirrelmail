@@ -74,7 +74,8 @@
          exit;
       }
 
-      fputs ($imap_stream, "a001 LOGIN \"$username\" \"$password\"\r\n");
+      fputs ($imap_stream, "a001 LOGIN \"" . quotemeta($username) . 
+         "\" \"" . quotemeta($password) . "\"\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", false, $response, $message);
 
       /** If the connection was not successful, lets see why **/
