@@ -284,6 +284,7 @@ function getPref($data_dir, $username, $string, $default = '') {
 
 /* Remove the pref $string */
 function removePref($data_dir, $username, $string) {
+    global $prefs_cache;
     $db = new dbPrefs;
     if(isset($db->error)) {
         $db->failQuery();
@@ -304,7 +305,7 @@ function setPref($data_dir, $username, $string, $set_to) {
     global $prefs_cache;
 
     if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $set_to)) {
-	return;
+        return;
     }
 
     if ($set_to === '') {
