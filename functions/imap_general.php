@@ -375,7 +375,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
             }
             $read = sqimap_fgets($imap_stream);
             if ($read === false) { /* error */
-                 break 3; /* switch switch while */
+                 break 2; /* switch while */
             }
             break;
           } // end case $tag{0}
