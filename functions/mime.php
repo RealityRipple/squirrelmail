@@ -220,4 +220,50 @@
       }
       return $newbody;
    }
+
+
+   // This functions decode strings that is encoded according to 
+   // RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
+   function rfc1522Decode ($string) {
+      // Recognizing only US-ASCII and ISO-8859. Other charsets should
+      // probably be recognized as well.
+      if (eregi('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=', 
+                $string, $res)) {
+         if (ucfirst($res[3]) == "B") {
+            $replace = base64_decode($res[4]);
+         } else {
+            $replace = ereg_replace("_", " ", $res[4]);
+            $replace = quoted_printable_decode($replace);
+         }
+
+         // Only US-ASCII and ISO-8859-1 can be displayed without further ado
+         if ($res[2] != "" && $res[2] != "1") {
+            // This get rid of all characters with over 0x9F
+            $replace = strtr($replace, "\240\241\242\243\244\245\246\247".
+                             "\250\251\252\253\254\255\256\257".
+                             "\260\261\262\263\264\265\266\267".
+                             "\270\271\272\273\274\275\276\277".
+                             "\300\301\302\303\304\305\306\307".
+                             "\310\311\312\313\314\315\316\317".
+                             "\320\321\322\323\324\325\326\327".
+                             "\330\331\332\333\334\335\336\337".
+                             "\340\341\342\343\344\345\346\347".
+                             "\350\351\352\353\354\355\356\357".
+                             "\360\361\362\363\364\365\366\367".
+                             "\370\371\372\373\374\375\376\377", 
+                             "????????????????????????????????????????".
+                             "????????????????????????????????????????".
+                             "????????????????????????????????????????".
+                             "????????");
+         }
+
+         $string = eregi_replace
+            ('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=',
+             $replace, $string);
+
+         return (rfc1522Decode($string));
+      } else         
+         return ($string);
+   }
+
 ?>
