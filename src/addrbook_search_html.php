@@ -2,6 +2,8 @@
    /**
     **  addrbook_search.php
     **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **  Handle addressbook searching with pure html. 
     **  This file is included from compose.php 
     **

@@ -1,4 +1,15 @@
 <?php
+   /**
+    **  options_submit.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This script saves all the options to the proper file when the 
+    **  submit button is pressed. Also displays conformation message.
+    **/
+
+
    session_start();
 
    if (!isset($config_php))

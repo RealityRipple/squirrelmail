@@ -2,7 +2,10 @@
    /**
     **  left_help.php
     **
-    **  This is the code for the left bar.  The left bar normally shows the folders
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This is the code for the left help bar.  The left bar normally shows the folders
     **  available, and has cookie information. This file is only used for the help system.
     **  To be used, webmail must be called with ?help.php.
     **

@@ -3,13 +3,16 @@
 
 <?php
 
-/**
- ** help.php
- **
- ** This checks if the user's preferred language has a directory and file present
- ** then loads it or english if preferred is not found.
- **
- **/
+   /**
+    ** help.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This checks if the user's preferred language has a directory and file present
+    **  then loads it or english if preferred is not found.
+    **
+    **/
 
   if (!isset($config_php))
       include("../config/config.php");

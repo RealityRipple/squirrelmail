@@ -1,5 +1,11 @@
 <?php
-   /** This code sends a mail.
+   /** 
+    ** compose.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    ** This code sends a mail.
     **
     ** There are 3 modes of operation:
     **  - Start new mail

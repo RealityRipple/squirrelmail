@@ -1,4 +1,15 @@
 <?php
+   /**
+    **  load_prefs.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Loads preferences from the $username.pref file used by almost
+    **  every other script in the source directory and alswhere.
+    **
+    **/
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($prefs_php))

@@ -1,4 +1,15 @@
 <?php
+   /**
+    **  folders.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Handles all interaction between the user and the other folder
+    **  scripts which do most of the work. Also handles the Special
+    **  Folders.
+    **/
+
    session_start();
 
    if (!isset($config_php))
