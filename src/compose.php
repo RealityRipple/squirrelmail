@@ -324,7 +324,7 @@ if ($draft) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
-                   "&message=$delete_draft&sort=$sort&startMessage=1&saved_draft=yes");
+                   "&message=$delete_draft&startMessage=1&saved_draft=yes");
             exit();
         }
         else {
@@ -333,7 +333,7 @@ if ($draft) {
                 exit();
             }
             else {
-                Header("Location: $location/right_main.php?mailbox=$draft_folder&sort=$sort".
+                Header("Location: $location/right_main.php?mailbox=$draft_folder".
                        "&startMessage=1&note=".urlencode($draft_message));
                 exit();
             }
@@ -400,7 +400,7 @@ if ($send) {
         unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                   "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
+                   "&message=$delete_draft&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
@@ -408,7 +408,7 @@ if ($send) {
             Header("Location: $location/compose.php?mail_sent=yes");
         }
         else {
-            Header("Location: $location/right_main.php?mailbox=$urlMailbox&sort=$sort".
+            Header("Location: $location/right_main.php?mailbox=$urlMailbox".
                    "&startMessage=$startMessage&mail_sent=yes");
         }
     } else {
@@ -1369,9 +1369,14 @@ function deliverMessage($composeMessage, $draft=false) {
     $rfc822_header = $composeMessage->rfc822_header;
 
     $abook = addressbook_init(false, true);
-    $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain, array(&$abook,'lookup'));
-    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain, array(&$abook,'lookup'));
-    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,true, array(), '',$domain, array(&$abook,'lookup'));
+    /* initialize properties for parseAddress */
+    $aAddressProps = array(
+                            'domain' => $domain,
+                            'abooklookup' => array(&$abook,'lookup')
+                          );
+    $rfc822_header->to = $rfc822_header->parseAddress($send_to,$aAddressProps);
+    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,$aAddressProps);
+    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,$aAddressProps);
     $rfc822_header->priority = $mailprio;
     $rfc822_header->subject = $subject;
     $special_encoding='';
