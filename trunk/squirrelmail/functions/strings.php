@@ -541,5 +541,21 @@ function sm_print_r() {
     print '</pre>';
 }
 
+/**
+ * version of fwrite which checks for failure
+ */
+function sq_fwrite($fp, $string) {
+	// write to file
+	$count = @fwrite($fp,$string);
+	// the number of bytes written should be the length of the string
+	if($count != strlen($string)) {
+		return FALSE;
+	}
+
+	return $count;
+}
+
+
+
 $PHP_SELF = php_self();
 ?>
