@@ -1,7 +1,10 @@
+<p>
 Here is a map of the message array that contains all the information about
 a message.  A single part message is handled the same as a multipart message,
 except in the "ENTITIES" part, there would only be one entry (0).
+</p>
 
+<pre>
 $message     ["HEADER"]                    (array)
                 ["TO"]                     (array)
                 ["CC"]                     (array)
@@ -71,6 +74,7 @@ $message     ["HEADER"]
                      ["CHARSET"]             "us-ascii"
                      ["BOUNDARY"]            ""
                      ["PRIORITY"]            20
-                     ["BODY"]                "<B>This is just a test to see</B><BR>"
-                                             "<FONT FACE="Arial,Helvetica">how this will handle a message"
-                                             "for this example</FONT>"
+                     ["BODY"]                "&lt;B>This is just a test to see&lt;/B>&lt;BR>"
+                                             "&lt;FONT FACE="Arial,Helvetica">how this will handle a message"
+                                             "for this example&lt;/FONT>"
+</pre>                                             

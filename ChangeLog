@@ -1,5 +1,9 @@
-Version 0.3pre1 -- Development
+Version 0.3pre2 -- Development
 ------------------------------
+- Rewrote all IMAP functions from scratch
+
+Version 0.3pre1 -- February 17, 2000
+------------------------------------
 - Added user-specific preferences including:
     Full Name (for outbound messages)
     Reply-to address
@@ -22,6 +26,7 @@ Version 0.3pre1 -- Development
 
 
 
+
 Version 0.2.1 -- January 05, 2000
 ---------------------------------
 - Rewrote how MULTIPART messages were handled and made it recursive
@@ -35,6 +40,7 @@ Version 0.2 -- January 02, 2000
 -------------------------------
 - Attachment support (much better MIME support in general)
 - Themeable support replaced Custom Colors.  Themes are pluggable.
+
 
 
 

@@ -269,4 +269,4 @@
       $body = $bodytmp;
       return decodeMime($body, $bound, $type0, $type1);
    }
-?>   
+?>
