@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-21 09:35+0300\n"
+"POT-Creation-Date: 2004-05-04 15:36+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -863,6 +863,30 @@ msgid "Or"
 msgstr ""
 
 msgid "No Messages Found"
+msgstr ""
+
+msgid "-"
+msgstr ""
+
+msgid "+"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
+msgid "Body"
+msgstr ""
+
+msgid "Everywhere"
+msgstr ""
+
+msgid "Standard search"
+msgstr ""
+
+msgid "Advanced search"
 msgstr ""
 
 msgid "Sign Out"
@@ -2056,6 +2080,18 @@ msgstr ""
 msgid "Allow server charset search"
 msgstr ""
 
+msgid "Search functions"
+msgstr ""
+
+msgid "Only basic search"
+msgstr ""
+
+msgid "Only advanced search"
+msgstr ""
+
+msgid "Both search functions"
+msgstr ""
+
 msgid "PHP session name"
 msgstr ""
 
@@ -2624,7 +2660,38 @@ msgstr ""
 msgid "Show fortunes at top of mailbox"
 msgstr ""
 
+msgid "Plugin is disabled."
+msgstr ""
+
 msgid "IMAP server information"
+msgstr ""
+
+msgid "Server Capability response:"
+msgstr ""
+
+msgid ""
+"Select the IMAP commands you would like to run. Most commands require a "
+"selected mailbox so the select command is already setup. You can clear all "
+"the commands and test your own IMAP command strings. The commands are "
+"executed in order. The default values are simple IMAP commands using your "
+"default_charset and folder_prefix from SquirrelMail when needed."
+msgstr ""
+
+msgid ""
+"NOTE: These commands are live, any changes made will effect your current "
+"email account."
+msgstr ""
+
+msgid "Select"
+msgstr ""
+
+msgid "Test Name"
+msgstr ""
+
+msgid "IMAP command string"
+msgstr ""
+
+msgid "Request:"
 msgstr ""
 
 msgid ""
