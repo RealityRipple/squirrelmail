@@ -46,35 +46,47 @@ echo '<br>' .
                     html_tag( 'tr' ) .
                         html_tag( 'td', '', 'center', $color[4] );
 
-if ((isset($success) && $success) ||
-    (isset($sent_create) && $sent_create == 'true') ||
-    (isset($trash_create) && $trash_create == 'true')) {
-    if ($success == "subscribe") {
-        $td_str = "<b>" . _("Subscribed successfully!") . "</b><br>";
-    } else if ($success == "unsubscribe") {
-        $td_str = "<b>" . _("Unsubscribed successfully!") . "</b><br>";
-    } else if ($success == "delete") {
-        $td_str = "<b>" . _("Deleted folder successfully!") . "</b><br>";
-    } else if ($success == "create") {
-        $td_str = "<b>" . _("Created folder successfully!") . "</b><br>";
-    } else if ($success == "rename") {
-        $td_str = "<b>" . _("Renamed successfully!") . "</b><br>";
-    } else if ($success == "subscribe-doesnotexist") {
-        $td_str = "<b>" .
-                  _("Subscription Unsuccessful - Folder does not exist.") .
-                  "</b><br>";
+if ( isset($success) && $success ) {
+
+    $td_str = '<b>';
+
+    switch ($success)
+    {
+        case 'subscribe':
+            $td_str .=  _("Subscribed successfully!");
+            break;
+        case 'unsubscribe':
+            $td_str .=  _("Unsubscribed successfully!");
+            break;
+        case 'delete':
+            $td_str .=  _("Deleted folder successfully!");
+            break;
+        case 'create':
+            $td_str .=  _("Created folder successfully!");
+            break;
+        case 'rename':
+            $td_str .=  _("Renamed successfully!");
+            break;
+        case 'subscribe-doesnotexist':
+            $td_str .=  _("Subscription Unsuccessful - Folder does not exist.");
+            break;
     }
+
+    $td_str .= '</b><br>';        
+
 
     echo html_tag( 'table',
                 html_tag( 'tr',
                      html_tag( 'td', $td_str .
-                               "<a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>" ,
+                               '<a href="../src/left_main.php" target=left>' .
+                               _("refresh folder list") . '</a>' ,
                      'center' )
                 ) ,
-            'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' ) . "<br>\n";
-} else {
-    echo "<br>";
+            'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
 }
+
+echo "\n<br>";
+
 $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection);
 
@@ -89,7 +101,7 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
      "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n".
      "<input type=TEXT SIZE=25 NAME=folder_name><BR>\n".
      _("as a subfolder of").
-     "<BR>".
+     '<BR>'.
      "<TT><SELECT NAME=subfolder>\n";
 if ($default_sub_of_inbox == false) {
     echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
@@ -118,9 +130,9 @@ for ($i = 0, $cnt=count($boxes); $i < $cnt; $i++) {
 }
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
-    echo "<br><input type=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
-    echo _("Let this folder contain subfolders");
-    echo "<BR>";
+    echo '<br><input type=CHECKBOX NAME="contain_subs"> &nbsp;'
+       . _("Let this folder contain subfolders")
+       . '<BR>';
 }
 echo "<input type=SUBMIT VALUE=\""._("Create")."\">\n";
 echo "</FORM></td></tr>\n";
@@ -189,7 +201,7 @@ if ($count_special_folders < count($boxes)) {
          "\">\n".
          "</FORM></td></tr>\n";
 } else {
-    echo _("No folders found") . "<br><br></td></tr>";
+    echo _("No folders found") . '<br><br></td></tr>';
 }
 $boxes_sub = $boxes;
 
@@ -223,11 +235,11 @@ if ($count_special_folders < count($boxes)) {
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
-    echo "</SELECT></TT>\n";
-    echo "<input type=SUBMIT VALUE=\"";
-    echo _("Delete");
-    echo "\">\n";
-    echo "</form></td></tr>\n";
+    echo "</SELECT></TT>\n"
+       . '<input type=SUBMIT VALUE="'
+       . _("Delete")
+       . "\">\n"
+       . "</form></td></tr>\n";
 } else {
     echo _("No folders found") . "<br><br></td></tr>";
 }
@@ -246,8 +258,8 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
                 html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
-    echo "<TT><SELECT NAME=\"mailbox[]\" multiple size=8>\n";
+    echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n"
+       . "<TT><SELECT NAME=\"mailbox[]\" multiple size=8>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
         if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
@@ -260,13 +272,13 @@ if ($count_special_folders < count($boxes)) {
             echo "         <OPTION VALUE=\"$box\">$box2\n";
         }
     }
-    echo "</SELECT></TT><br><br>\n";
-    echo "<input type=SUBMIT VALUE=\"";
-    echo _("Unsubscribe");
-    echo "\">\n";
-    echo "</FORM></td>\n";
+    echo "</SELECT></TT><br><br>\n"
+       . '<input type=SUBMIT VALUE="'
+       . _("Unsubscribe")
+       . "\">\n"
+       . "</FORM></td>\n";
 } else {
-    echo _("No folders were found to unsubscribe from!") . "</td>";
+    echo _("No folders were found to unsubscribe from!") . '</td>';
 }
 $boxes_sub = $boxes;
 
@@ -275,49 +287,48 @@ echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 if(!$no_list_for_subscribe) {
   $boxes_all = sqimap_mailbox_list_all ($imapConnection);
 
-  $box = "";
-  $box2 = "";
+  $box = '';
+  $box2 = '';
   for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
     $use_folder = true;
     for ($p = 0; $p < count ($boxes); $p++) {
-        if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
+        if ($boxes_all[$i]['unformatted'] == $boxes[$p]['unformatted']) {
             $use_folder = false;
             continue;
-        } else if ($boxes_all[$i]["unformatted-dm"] == $folder_prefix) {
+        } else if ($boxes_all[$i]['unformatted-dm'] == $folder_prefix) {
             $use_folder = false;
         }
     }
     if ($use_folder == true) {
-        $box[$q] = $boxes_all[$i]["unformatted-dm"];
-        $box2[$q] = imap_utf7_decode_local($boxes_all[$i]["unformatted-disp"]);
+        $box[$q] = $boxes_all[$i]['unformatted-dm'];
+        $box2[$q] = imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']);
         $q++;
     }
   }
   if ($box && $box2) {
-    echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
-    echo "<tt><select name=\"mailbox[]\" multiple size=8>";
+    echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n"
+       . '<tt><select name="mailbox[]" multiple size=8>';
 
     for ($q = 0; $q < count($box); $q++) {      
        echo "         <OPTION VALUE=\"$box[$q]\">".$box2[$q]."\n";
     }      
-    echo "</select></tt><br><br>";
-    echo "<input type=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
-    echo "</FORM></td></tr></table><BR>\n";
+    echo '</select></tt><br><br>'
+       . '<input type=SUBMIT VALUE="'. _("Subscribe") . "\">\n"
+       . "</FORM></td></tr></table><BR>\n";
   } else {
-    echo _("No folders were found to subscribe to!") . "</td></tr></table>";
+    echo _("No folders were found to subscribe to!") . '</td></tr></table>';
   }
 } else {
   /* don't perform the list action -- this is much faster */
-  echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
-  echo _("Subscribe to:") . "<br>";
-  echo "<tt><input type=\"text\" name=\"mailbox[]\" size=35>";
-  echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
-  echo "</FORM></TD></TR></TABLE><BR>\n";
+  echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n"
+     . _("Subscribe to:") . '<br>'
+     . '<tt><input type="text" name="mailbox[]" size=35>'
+     . '<INPUT TYPE=SUBMIT VALUE="'. _("Subscribe") . "\">\n"
+     . "</FORM></TD></TR></TABLE><BR>\n";
 }
 
-do_hook("folders_bottom");
+do_hook('folders_bottom');
 ?>
-
 
     </td></tr>
     </table>

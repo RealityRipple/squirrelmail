@@ -17,7 +17,6 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
@@ -34,13 +33,11 @@ $old = $_POST['old'];
 
 if ($old == '') {
     displayPageHeader($color, 'None');
-    echo "<html><body bgcolor=$color[4]>";
-    plain_error_message(_("You have not selected a folder to rename. Please do so.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
+
+    plain_error_message(_("You have not selected a folder to rename. Please do so.").
+        '<BR><A HREF="../src/folders.php">'._("Click here to go back").'</A>.', $color);
     exit;
 }
-
-
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
 if (substr($old, strlen($old) - strlen($delimiter)) == $delimiter) {
     $isfolder = TRUE;
@@ -59,24 +56,21 @@ if (strpos($old, $delimiter)) {
 
 displayPageHeader($color, 'None');
 echo '<br>' .
-    html_tag( 'table', '', 'center', '', 'width="95%" cols="1" border="0"' ) .
+    html_tag( 'table', '', 'center', '', 'width="95%" border="0"' ) .
         html_tag( 'tr',
             html_tag( 'td', '<b>' . _("Rename a folder") . '</b>', 'center', $color[0] )
         ) .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center', $color[4] ) .
-     "<FORM ACTION=\"folders_rename_do.php\" METHOD=\"POST\">\n".
+            '<FORM ACTION="folders_rename_do.php" METHOD="POST">'.
      _("New name:").
      "<br><B>$old_parent $delimiter </B><INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
 if ( $isfolder ) {
-    echo "<INPUT TYPE=HIDDEN NAME=isfolder VALUE=\"true\">";
+    echo '<INPUT TYPE=HIDDEN NAME="isfolder" VALUE="true">';
 }
-printf("<INPUT TYPE=HIDDEN NAME=orig VALUE=\"%s\">\n", $old);
-printf("<INPUT TYPE=HIDDEN NAME=old_name VALUE=\"%s\">\n", $old_name);
-echo "<INPUT TYPE=SUBMIT VALUE=\""._("Submit")."\">\n".
-     "</FORM><BR></td></tr>".
-     "</table>";
+printf("<INPUT TYPE=HIDDEN NAME=\"orig\" VALUE=\"%s\">\n", $old);
+printf("<INPUT TYPE=HIDDEN NAME=\"old_name\" VALUE=\"%s\">\n", $old_name);
+echo '<INPUT TYPE=SUBMIT VALUE="'._("Submit")."\">\n".
+     '</FORM><BR></td></tr></table>';
 
-/** Log out this session **/
-sqimap_logout($imapConnection);
 ?>
