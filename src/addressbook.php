@@ -387,7 +387,7 @@ if ($showaddrlist) {
                 }
             $email = $abook->full_address($row);
             if ($compose_new_win == '1') {
-                echo '<a href="javascript:void(0)" onclick=comp_in_new(false,"compose.php?send_to='.rawurlencode($email).'")>';
+                echo '<a href="javascript:void(0)" onclick=comp_in_new("compose.php?send_to='.rawurlencode($email).'")>';
             }
             else {
                 echo '<A HREF="compose.php?send_to=' . rawurlencode($email).'">';
