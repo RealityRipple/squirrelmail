@@ -27,7 +27,7 @@ function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
     global $color;
     $td_str = '<INPUT NAME="' . $name . '[' . $field . ']" SIZE="' . $size . '" VALUE="';
     if (isset($values[$field])) {
-        $td_str .= htmlspecialchars($values[$field]);
+        $td_str .= htmlspecialchars( strip_tags( $values[$field] ) );
     }
     $td_str .= '">' . $add . '';
     return html_tag( 'tr' ,
@@ -40,9 +40,10 @@ function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
 /* Output form to add and modify address data */
 function address_form($name, $submittext, $values = array()) {
     global $color;
+    
     echo html_tag( 'table',
                        adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                           '<SMALL>' . _("Must be unique") . '</SMALL>') .
+                           ' <SMALL>' . _("Must be unique") . '</SMALL>') .
                        adressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
                        adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
@@ -56,7 +57,6 @@ function address_form($name, $submittext, $values = array()) {
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
 }
 
-
 /* Open addressbook, with error messages on but without LDAP (the *
  * second "true"). Don't need LDAP here anyway                    */
 $abook = addressbook_init(true, true);
@@ -68,7 +68,6 @@ if($abook->localbackend == 0) {
 }
 
 displayPageHeader($color, 'None');
-
 
 $defdata   = array();
 $formerror = '';
@@ -85,7 +84,9 @@ if($REQUEST_METHOD == 'POST') {
      * Add new address                                *
      **************************************************/
     if (!empty($addaddr['nickname'])) {
-
+        foreach( $addaddr as $k => $adr ) {
+            $addaddr[$k] = strip_tags( $adr );
+        }
         $r = $abook->add($addaddr, $abook->localbackend);
 
         /* Handle error messages */
@@ -98,7 +99,6 @@ if($REQUEST_METHOD == 'POST') {
             $showaddrlist = false;
             $defdata = $addaddr;
         }
-
     } else {
 
         /************************************************
@@ -369,7 +369,7 @@ if ($showaddrlist) {
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n" .
     '<FORM ACTION="' . $form_url . '" NAME=f_add METHOD="POST">' . "\n" .
-    html_tag( 'table',
+    html_tag( 'table',  
         html_tag( 'tr',
             html_tag( 'td', "\n". '<strong>' . sprintf(_("Add to %s"), $abook->localbackendname) . '</strong>' . "\n",
                 'center', $color[0]
