@@ -1176,17 +1176,10 @@ function saveAttachedFiles($session) {
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
     }
 
-    if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-	if (function_exists("move_uploaded_file")) {
-            if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
-        	return true;
-    	    }
-	} else {
-    	    if (!@copy($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-                return true;
-            }
-	}
+    if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
+        return true;
     }
+
     $message = $compose_messages[$session];
     $type = strtolower($_FILES['attachfile']['type']);
     $name = $_FILES['attachfile']['name'];
