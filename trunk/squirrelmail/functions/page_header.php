@@ -27,7 +27,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         }
     } else {
         echo '<LINK REL="stylesheet" TYPE="text/css" HREF="' .
-             $base_uri . 'themes/css/$custom_css">';
+             $base_uri . 'themes/css/'.$custom_css.'">';
     }
     
     echo "\n<title>$title</title>$xtra</head>\n\n";
