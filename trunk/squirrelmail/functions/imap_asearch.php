@@ -459,7 +459,7 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
             if ($next_mailbox != $cur_mailbox) {
                 $search_string = trim($search_string);	/* Trim out last space */
                 if ($cur_mailbox == 'All Folders')
-                        $search_mboxes = $mboxes_array;
+                    $search_mboxes = $mboxes_array;
                 else if ((!empty($sub_array[$cur_crit - 1])) || (!in_array($cur_mailbox, $mboxes_array)))
                     $search_mboxes = sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array);
                 else
@@ -474,7 +474,6 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
                 }
                 $cur_mailbox = $next_mailbox;
                 $search_string = '';
-
             }
             if (isset($where_array[$cur_crit]) && empty($exclude_array[$cur_crit])) {
                 for ($crit = $cur_crit; $crit < count($where_array); $crit++) {
@@ -499,7 +498,7 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
                         $aSearch[] = 'OR '.$aCriteria[$i][1];
                     } else if ($cur_biop != 'OR') {
                         $aSearch[] = 'ALL '.$aCriteria[$i][1];
-                    } else { // or only supports 2 search keys so we need to create a parenthized list
+                    } else { // OR only supports 2 search keys so we need to create a parenthesized list
                         $prev_biop = (isset($aCriteria[$i-1][0])) ? $aCriteria[$i-1][0] : false;
                         if ($prev_biop == $cur_biop) {
                             $last = $aSearch[$i-1];
@@ -509,8 +508,8 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
                             } else {
                                 $sEnd = '';
                                 while ($last && substr($last,-1) == ')') {
-                                $last = substr($last,0,-1);
-                                $sEnd .= ')';
+                                    $last = substr($last,0,-1);
+                                    $sEnd .= ')';
                                 }
                                 $aSearch[$i-1] = "(OR $last";
                                 $aSearch[] = $aCriteria[$i][1].$sEnd.')';
@@ -519,11 +518,9 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
                             $aSearch[] = $aCriteria[$i][1];
                         }
                     }
-
                 }
                 $search_string .= implode(' ',$aSearch);
             }
-
         }
     }
     return ($mbox_search);
