@@ -45,7 +45,7 @@
          $tmpdate = explode(" ", trim($date[$j]));
 
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
-         $messages[$j]["DATE_STRING"] = getDateString($tmpdate);
+         $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
          $messages[$j]["ID"] = $j+1;
          $messages[$j]["FROM"] = getSenderName($from[$j]);
          $messages[$j]["SUBJECT"] = $subject[$j];

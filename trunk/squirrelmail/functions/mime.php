@@ -6,7 +6,7 @@
 
 
    function decodeMime($body, $bound, $type0, $type1) {
-//      echo "$type0/$type1<BR>";
+      echo "$type0/$type1<BR>";
       if ($type0 == "multipart") {
          if ($body[0] == "")
             $i = 1;
@@ -42,7 +42,7 @@
 
    /** This gets one entity's properties **/
    function getEntity($body, $bound, $type0, $type1, $encoding, $charset) {
-//      echo "$type0/$type1<BR>";
+      echo "$type0/$type1<BR>";
       $msg[0]["TYPE0"] = $type0;
       $msg[0]["TYPE1"] = $type1;
       $msg[0]["ENCODING"] = $encoding;
@@ -59,7 +59,11 @@
             $msg[0]["BODY"] = $body;
          } else {
             $msg[0]["PRIORITY"] = 1;
-            $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This attachment is an unknown text format:  $type0/$type1</FONT></B>";
+            $msg[0]["BODY"][0] = "This entity is of an unknown format.  Doing my best to display anyway...<BR><BR>";
+            for ($p = 1;$p < count($body);$p++) {
+               $q = $p - 1;
+               $msg[0]["BODY"][$p] = $body[$q];
+            }
          }
       } else if ($type0 == "image") {
          $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This is an image.  Squirrelmail currently cannot decode images.</FONT></B>";
