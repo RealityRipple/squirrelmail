@@ -215,6 +215,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   help_top                       src/help.php                    do_hook
   help_chapter                   src/help.php                    do_hook
   help_bottom                    src/help.php                    do_hook
+  left_main_after_each_folder    src/left_main.php               concat_hook
   left_main_before               src/left_main.php               do_hook
   left_main_after                src/left_main.php               do_hook
   login_cookie                   src/login.php                   do_hook
