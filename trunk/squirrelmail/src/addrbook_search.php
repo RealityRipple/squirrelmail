@@ -90,11 +90,14 @@ function to_address($addr) {
   var prefix    = "";
   var pwintype = typeof parent.opener.document.compose;
 
+  $addr = $addr.replace(/ {1,35}$/, "");
+
   if(pwintype != "undefined" ) {
     if ( parent.opener.document.compose.send_to.value ) {
       prefix = ", ";
       parent.opener.document.compose.send_to.value = 
-        parent.opener.document.compose.send_to.value + ", " + $addr;      
+        parent.opener.document.compose.send_to.value + ", " + $addr;
+        
     } else {
       parent.opener.document.compose.send_to.value = $addr;
     }
@@ -104,6 +107,8 @@ function to_address($addr) {
 function cc_address($addr) {
   var prefix    = "";
   var pwintype = typeof parent.opener.document.compose;
+
+  $addr = $addr.replace(/ {1,35}$/, "");
 
   if(pwintype != "undefined" ) {
     if ( parent.opener.document.compose.send_to_cc.value ) {
@@ -119,6 +124,8 @@ function cc_address($addr) {
 function bcc_address($addr) {
   var prefix    = "";
   var pwintype = typeof parent.opener.document.compose;
+  
+  $addr = $addr.replace(/ {1,35}$/, "");
 
   if(pwintype != "undefined" ) {
     if ( parent.opener.document.compose.bcc.value ) {
