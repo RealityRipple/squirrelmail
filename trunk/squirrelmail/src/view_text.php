@@ -29,11 +29,13 @@ if (!isset($_GET['passed_ent_id'])) {
     $passed_ent_id = $_GET['passed_ent_id'];
 }
 $passed_id = $_GET['passed_id'];
+$ent_id = $_GET['ent_id'];
 $username = $_SESSION['username'];
 $key = $_COOKIE['key'];
 $delimiter = $_SESSION['delimiter'];
 $onetimepad = $_SESSION['onetimepad'];
-
+$QUERY_STRING = $_SERVER['QUERY_STRING'];
+sqextractGlobalVar('messages');
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
