@@ -212,7 +212,7 @@ echo '<p>';
 echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button. It might pause a little while it is looking up information, so be a little patient. Read what it says, and submit the spam. Close the browser window. Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
 echo "</p>\n";
 
-echo '<p><b>' . _("Spamcop service type") . '</b><br />';
+echo '<p><b>' . _("SpamCop service type") . '</b><br />';
 echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms and does not display nags. You can purchase these services, if you want to support SpamCop.");
 echo "</p>\n";
 
