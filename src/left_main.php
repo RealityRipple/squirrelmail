@@ -14,8 +14,8 @@
       exit;
    }
 
-//**  Configure the left frame for the help menu
-  **/ Maybe this should be a function but since I haven't done one it isn't
+   // Configure the left frame for the help menu
+   // Maybe this should be a function but since I haven't done one it isn't
 
    $ishelp = substr(getenv(REQUEST_URI),-8);	// take the right 8 characters from the requested URL
    if ($ishelp == "help.php") {
@@ -45,11 +45,12 @@
    **  Build a menu dynamically for the left frame from the HTML tagged right frame include (.hlp) files listed in the $helpdir var.
    **  This is done by first listing all the .hlp files in the $helpdir array. 
    **  Next, we loop through the array, for every value of $helpdir we loop through the file and look for anchor tags (<A NAME=) and 
-   **  header tags (<H1> or <H3>). produces ugly HTML. Will try to clean up.
+   **  header tags (<H1> or <H3>).
    **/
 
 	if (!file_exists("../help/$user_language"))			// If the selected language doesn't exist, use english
 	   $user_language = "en";
+
 
 	while ( list( $key, $val ) = each( $helpdir ) ) {		// loop through the array of files
 	   $fcontents = file("../help/$user_language/$val");		// assign each line of the above file to another array
@@ -78,7 +79,6 @@
 	   }
 	}                  
    } else {
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($array_php))
@@ -190,6 +190,7 @@
 
 
    fclose($imapConnection);
+
    }                                  
 ?>
 </BODY></HTML>
