@@ -694,9 +694,17 @@ function formatAttachments ($message, $ent_id, $mailbox, $id) {
                "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
            $ImageURL = '';
 
+           / * this executes the attachment hook with a specific MIME-type.
+             * if that doens't have results, it tries if there's a rule
+             * for a more generic type. */
            $HookResults = do_hook("attachment $type0/$type1", $Links,
                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
                $display_filename, $where, $what);
+           if(count($HookResults[1]) <= 1) {
+               $HookResults = do_hook("attachment $type0/*", $Links,
+               $startMessage, $id, $urlMailbox, $ent, $DefaultLink,  
+               $display_filename, $where, $what);
+           }
 
            $Links = $HookResults[1];
            $DefaultLink = $HookResults[6];

@@ -56,8 +56,14 @@ register_attachment_common('text/richtext',  'link_text');
 /* Register HTML */
 register_attachment_common('text/html',      'link_html');
 
+
 /* Register vcards */
 register_attachment_common('text/x-vcard',   'link_vcard');
+
+/* Register rules for general types.
+ * These will be used if there isn't a more specific rule available. */
+register_attachment_common('text/*',  'link_text');
+register_attachment_common('message/*',  'link_text');
 
 /* Register "unknown" attachments */
 register_attachment_common('application/octet-stream', 'octet_stream');
