@@ -239,6 +239,9 @@ if ( $useSendmail ne "true" ) {
 if ( !$sendmail_path ) {
     $sendmail_path = "/usr/sbin/sendmail";
 }
+if ( !$pop_before_smtp ) {
+    $pop_before_smtp = "false";
+}
 if ( !$default_unseen_notify ) {
     $default_unseen_notify = 2;
 }
@@ -2199,79 +2202,133 @@ sub save_data {
         if ($print_config_version) {
             print CF "\$config_version = '$print_config_version';\n";
         }
-        print CF "\$config_use_color = '$config_use_color';\n";
+	# integer
+        print CF "\$config_use_color = $config_use_color;\n";
         print CF "\n";
-
+	
+	# string
         print CF "\$org_name      = '$org_name';\n";
-        print CF "\$org_logo      = '$org_logo';\n";
+        # string
+	print CF "\$org_logo      = '$org_logo';\n";
         $org_logo_width |= 0;
         $org_logo_height |= 0;
+	# string
         print CF "\$org_logo_width  = '$org_logo_width';\n";
-        print CF "\$org_logo_height = '$org_logo_height';\n";
+        # string
+	print CF "\$org_logo_height = '$org_logo_height';\n";
+	# string that can contain variables.
         print CF "\$org_title     = \"$org_title\";\n";
+	# string
         print CF "\$signout_page  = '$signout_page';\n";
+	# string
         print CF "\$frame_top     = '$frame_top';\n";
         print CF "\n";
 
-        print CF "\$motd = '$motd';\n";
+	# string that can contain variables
+        print CF "\$motd = \"$motd\";\n";
         print CF "\n";
-
+	
+	# string
         print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
         print CF "\n";
 
+	# string
         print CF "\$domain                 = '$domain';\n";
+	# string
         print CF "\$imapServerAddress      = '$imapServerAddress';\n";
-        print CF "\$imapPort               = '$imapPort';\n";
-        print CF "\$useSendmail            = '$useSendmail';\n";
+	# integer
+        print CF "\$imapPort               = $imapPort;\n";
+	# boolean
+        print CF "\$useSendmail            = $useSendmail;\n";
+	# string
         print CF "\$smtpServerAddress      = '$smtpServerAddress';\n";
-        print CF "\$smtpPort               = '$smtpPort';\n";
+	# integer
+        print CF "\$smtpPort               = $smtpPort;\n";
+	# string
         print CF "\$sendmail_path          = '$sendmail_path';\n";
-        print CF "\$use_authenticated_smtp = '$use_authenticated_smtp';\n";
-        print CF "\$pop_before_smtp        = '$pop_before_smtp';\n";
+	# boolean
+        print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
+	# boolean
+        print CF "\$pop_before_smtp        = $pop_before_smtp;\n";
+	# string
         print CF "\$imap_server_type       = '$imap_server_type';\n";
+	# boolean
         print CF "\$invert_time            = $invert_time;\n";
+	# string
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
         print CF "\n";
 
+	# string
         print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
+	# string
         print CF "\$trash_folder                   = '$trash_folder';\n";
+	# string
         print CF "\$sent_folder                    = '$sent_folder';\n";
+	# string
         print CF "\$draft_folder                   = '$draft_folder';\n";
-        print CF "\$default_move_to_trash          = '$default_move_to_trash';\n";
-        print CF "\$default_move_to_sent           = '$default_move_to_sent';\n";
-        print CF "\$default_save_as_draft          = '$default_save_as_draft';\n";
-        print CF "\$show_prefix_option             = '$show_prefix_option';\n";
-        print CF "\$list_special_folders_first     = '$list_special_folders_first';\n";
-        print CF "\$use_special_folder_color       = '$use_special_folder_color';\n";
-        print CF "\$auto_expunge                   = '$auto_expunge';\n";
-        print CF "\$default_sub_of_inbox           = '$default_sub_of_inbox';\n";
-        print CF "\$show_contain_subfolders_option = '$show_contain_subfolders_option';\n";
-        print CF "\$default_unseen_notify          = '$default_unseen_notify';\n";
-        print CF "\$default_unseen_type            = '$default_unseen_type';\n";
-        print CF "\$auto_create_special            = '$auto_create_special';\n";
-        print CF "\$delete_folder                  = '$delete_folder';\n";
+	# boolean
+        print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
+	# boolean
+        print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
+	# boolean
+        print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
+	# boolean
+        print CF "\$show_prefix_option             = $show_prefix_option;\n";
+	# boolean
+        print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
+	# boolean
+        print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
+	# boolean
+        print CF "\$auto_expunge                   = $auto_expunge;\n";
+	# boolean
+        print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
+	# boolean
+        print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
+	# integer
+        print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
+	# integer
+        print CF "\$default_unseen_type            = $default_unseen_type;\n";
+	# boolean
+        print CF "\$auto_create_special            = $auto_create_special;\n";
+	# boolean
+        print CF "\$delete_folder                  = $delete_folder;\n";
         print CF "\n";
 
+	# string
         print CF "\$default_charset          = '$default_charset';\n";
+	# string
         print CF "\$data_dir                 = '$data_dir';\n";
+	# string that can contain a variable
         print CF "\$attachment_dir           = \"$attachment_dir\";\n";
-        print CF "\$dir_hash_level           = '$dir_hash_level';\n";
+	# integer
+        print CF "\$dir_hash_level           = $dir_hash_level;\n";
+	# string
         print CF "\$default_left_size        = '$default_left_size';\n";
-        print CF "\$force_username_lowercase = '$force_username_lowercase';\n";
-        print CF "\$default_use_priority     = '$default_use_priority';\n";
-        print CF "\$hide_sm_attributions     = '$hide_sm_attributions';\n";
-        print CF "\$default_use_mdn          = '$default_use_mdn';\n";
-        print CF "\$edit_identity            = '$edit_identity';\n";
-        print CF "\$edit_name                = '$edit_name';\n";
-        print CF "\$allow_thread_sort        = '$allow_thread_sort';\n";
-        print CF "\$allow_server_sort        = '$allow_server_sort';\n";
+	# boolean
+        print CF "\$force_username_lowercase = $force_username_lowercase;\n";
+	# boolean
+        print CF "\$default_use_priority     = $default_use_priority;\n";
+	# boolean
+        print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
+	# boolean
+        print CF "\$default_use_mdn          = $default_use_mdn;\n";
+	# boolean
+        print CF "\$edit_identity            = $edit_identity;\n";
+	# boolean
+        print CF "\$edit_name                = $edit_name;\n";
+	# boolean
+        print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
+	# boolean
+        print CF "\$allow_server_sort        = $allow_server_sort;\n";
         print CF "\n";
-
+	
+	# all plugins are strings
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
             print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
         }
         print CF "\n";
 
+	# strings
         print CF "\$theme_css = '$theme_css';\n";
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
             print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
@@ -2282,38 +2339,53 @@ sub save_data {
         if ( $default_use_javascript_addr_book ne "true" ) {
             $default_use_javascript_addr_book = "false";
         }
+
+	# boolean
         print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
         for ( $count = 0 ; $count <= $#ldap_host ; $count++ ) {
             print CF "\$ldap_server[$count] = array(\n";
+	    # string
             print CF "    'host' => '$ldap_host[$count]',\n";
+	    # string
             print CF "    'base' => '$ldap_base[$count]'";
             if ( $ldap_name[$count] ) {
                 print CF ",\n";
+		# string
                 print CF "    'name' => '$ldap_name[$count]'";
             }
             if ( $ldap_port[$count] ) {
                 print CF ",\n";
-                print CF "    'port' => '$ldap_port[$count]'";
+		# integer
+                print CF "    'port' => $ldap_port[$count]";
             }
             if ( $ldap_charset[$count] ) {
                 print CF ",\n";
+		# string
                 print CF "    'charset' => '$ldap_charset[$count]'";
             }
             if ( $ldap_maxrows[$count] ) {
                 print CF ",\n";
-                print CF "    'maxrows' => '$ldap_maxrows[$count]'";
+		# integer
+                print CF "    'maxrows' => $ldap_maxrows[$count]";
             }
             print CF "\n";
             print CF ");\n";
             print CF "\n";
         }
 
+	# string
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
+	# string
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
+	# string
         print CF "\$prefs_dsn = '$prefs_dsn';\n";
+	# string
         print CF "\$prefs_table = '$prefs_table';\n";
+	# string
         print CF "\$prefs_user_field = '$prefs_user_field';\n";
+	# string
         print CF "\$prefs_key_field = '$prefs_key_field';\n";
+	# string
         print CF "\$prefs_val_field = '$prefs_val_field';\n";
         print CF "\n";
 
