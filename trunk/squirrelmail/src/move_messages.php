@@ -46,7 +46,6 @@ function attachSelectedMessages($msg, $imapConnection) {
     global $mailbox, $username, $attachment_dir, $attachments, $identity, 
            $data_dir, $composesession, $lastTargetMailbox, $uid_support;
 
-
     if (!isset($attachments)) {
 	    $attachments = array();
 	    session_register('attachments');
@@ -120,6 +119,7 @@ function attachSelectedMessages($msg, $imapConnection) {
 	    $i++;	
 	
     }
+    setPref($data_dir, $username, 'attachments', serialize($attachments));
     return $composesession;
 }
 
