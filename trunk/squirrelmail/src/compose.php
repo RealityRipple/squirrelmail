@@ -153,8 +153,8 @@ if (isset($send)) {
             if (strlen($line) <= $editor_size + 1) {
                 $newBody .= $line . "\n";
             } else {
-                sqWordWrap($line, $editor_size) . "\n";
-                $newBody .= $line;
+                sqWordWrap($line, $editor_size);
+                $newBody .= $line . "\n";
             }
         }
         $body = $newBody;
