@@ -6,14 +6,17 @@
  *  
  *  Philippe Mingo
  *  
- *  $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage administrator
  */
 
 /**
-*
-*/
+ * Check if user has access to administrative functions
+ *
+ * @return boolean
+ * @access private
+ */
 function adm_check_user() {
     global $PHP_SELF;
     require_once(SM_PATH . 'functions/global.php');
