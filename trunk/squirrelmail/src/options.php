@@ -28,8 +28,6 @@ require_once(SM_PATH . 'functions/html.php');
 /*** Build the resultant page. ***/
 /*********************************/
 
-displayPageHeader($color, 'None');
-
 define('SMOPT_MODE_DISPLAY', 'display');
 define('SMOPT_MODE_SUBMIT', 'submit');
 define('SMOPT_MODE_LINK', 'link');
@@ -217,20 +215,11 @@ if ( isset( $optpage_data ) ) {
             break;
     }
 }
-/*** MOVE THIS DISPLAY CODE DOWN EVENTUALLY!!! ***/
 
 $optpage_title = _("Options");
 if (isset($optpage_name) && ($optpage_name != '')) {
     $optpage_title .= " - $optpage_name";
 }
-
-echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
-        html_tag( 'tr' ) . "\n" .
-            html_tag( 'td', '', 'center' ) .
-                "<b>$optpage_title</b><br>\n".
-                html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n" .
-                    html_tag( 'tr' ) . "\n" .
-                        html_tag( 'td', '', 'center', $color[4] ) . "\n";
 
 /*******************************************************************/
 /* DO OLD SAVING OF SUBMITTED OPTIONS. THIS WILL BE REMOVED LATER. */
@@ -272,6 +261,16 @@ if ($optmode == SMOPT_MODE_SUBMIT) {
 /***************************************************************/
 /* Finally, display whatever page we are supposed to show now. */
 /***************************************************************/
+
+displayPageHeader($color, 'None', (isset($optpage_data['xtra']) ? $optpage_data['xtra'] : ''));
+
+echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
+        html_tag( 'tr' ) . "\n" .
+            html_tag( 'td', '', 'center' ) .
+                "<b>$optpage_title</b><br>\n".
+                html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n" .
+                    html_tag( 'tr' ) . "\n" .
+                        html_tag( 'td', '', 'center', $color[4] ) . "\n";
 
 /*
  * The main option page has a different layout then the rest of the option
