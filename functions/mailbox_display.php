@@ -44,15 +44,15 @@
 
       if (!$use_cache) {
          if ($numMessages >= 1) {
-				if ($mailbox == $sent_folder)
-              	$ary = sqimap_get_small_header ($imapConnection, 1, $numMessages, true);
-				else
-              	$ary = sqimap_get_small_header ($imapConnection, 1, $numMessages, false);
-						
             for ($q = 0; $q < $numMessages; $q++) {
-					$from[$q] = $ary[$q]->from;
-					$date[$q] = $ary[$q]->date;
-					$subject[$q] = $ary[$q]->subject;
+					if ($mailbox == $sent_folder)
+   	           	$hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
+					else
+         	     	$hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
+						
+					$from[$q] = $hdr->from;
+					$date[$q] = $hdr->date;
+					$subject[$q] = $hdr->subject;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
