@@ -356,7 +356,8 @@
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
       if ($numMessages == 0) { // if there's no messages in this folder
-         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=5><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
+         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order);
+         echo "><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage;
          reset($msort);
