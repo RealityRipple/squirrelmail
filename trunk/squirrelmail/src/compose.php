@@ -327,17 +327,46 @@
    } // function checkInput()
 
 
+   // True if FAILURE
+   function saveAttachedFiles() {
+      global $HTTP_POST_FILES, $attachment_dir, $attachments;
+      
+      is_logged_in();
+      $localfilename = GenerateRandomString(32, '', 7);
+      
+      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
+         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
+            return true;
+         }
+      }
+      
+      if (!$failed) {
+         // Write information about the file
+         $fp = fopen ($attachment_dir.$localfilename.".info", "w");
+         fputs ($fp, $HTTP_POST_FILES['attachfile']['type']."\n".$HTTP_POST_FILES['attachfile']['name']."\n");
+         fclose ($fp);
+
+         $attachments[$localfilename] = $HTTP_POST_FILES['attachfile']['name'];
+      }
+    }
+
    if (($mailbox == "") || ($mailbox == "None"))
       $mailbox = "INBOX";
 
    if(isset($send)) {
-      if (checkInput(false)) {
+      if ($HTTP_POST_FILES['attachfile']['tmp_name'])
+          $AttachFailure = saveAttachedFiles();
+      if (checkInput(false) && ! $AttachFailure) {
          $urlMailbox = urlencode ($mailbox);
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
+         
+         if ($AttachFailure)
+             plain_error_message(_("Could not move/copy file. File not attached"), $color);
+
          checkInput(true);
          
          showInputForm();
@@ -369,38 +398,8 @@
       // can think of a better way, please implement it.
       include ("./addrbook_search_html.php");
    } else if (isset($attach)) {
-      is_logged_in();
-      displayPageHeader($color, $mailbox);
-
-      $localfilename = md5($HTTP_POST_FILES['attachfile']['tmp_name'].", ".$HTTP_POST_FILES['attachfile']['name'].", $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
-//      $localfilename = $localfilename; // ??
-      
-      // Put the file in a better place
-      // This shouldn't be here... Ondrej Sury <ondrej@sury.cz>
-      //$tmp=explode('/',$attachfile);
-      //$attachfile=$tmp[count($tmp)-1];
-      //$attachfile=ereg_replace('\.{2,}','',$attachfile);
-
-      //error_reporting(0); // Rename will produce error output if it fails
-      //if (!rename($attachfile, $attachment_dir.$localfilename)) {
-      //   if (!copy($attachfile, $attachment_dir.$localfilename)) {
-      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
-         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
+      if (saveAttachedFiles())
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
-            $failed = true;
-         }
-      }
-      // If it still exists, PHP will remove the original file
-
-      if (!$failed) {
-         // Write information about the file
-         $fp = fopen ($attachment_dir.$localfilename.".info", "w");
-         fputs ($fp, $HTTP_POST_FILES['attachfile']['type']."\n".$HTTP_POST_FILES['attachfile']['name']."\n");
-         fclose ($fp);
-
-         $attachments[$localfilename] = $HTTP_POST_FILES['attachfile']['name'];
-      }
-      
       showInputForm();
    } else if (isset($do_delete)) {
       is_logged_in();
