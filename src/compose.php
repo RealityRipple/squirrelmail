@@ -666,8 +666,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);            
             $subject = decodeHeader($orig_header->subject,false,true);
 //            /* remember the references and in-reply-to headers in case of an reply */
-            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
-            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
+//            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
+//            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
             $body_ary = explode("\n", $body);
             $cnt = count($body_ary) ;
             $body = '';
@@ -774,16 +774,19 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
         if ( !in_array($message->entity_id, $entities) && $message->entity_id) {
            switch ($message->type0) {
            case 'message':
-                 if ($message->type1 == 'rfc822') {
-                $filename = $message->rfc822_header->subject.'.eml';
-                if ($filename == "") {
-                    $filename = "untitled-".$message->entity_id.'.eml';
-                }
-             } else {
-               $filename = $message->getFilename();
-             }
+                if ($message->type1 == 'rfc822') {
+                    $filename = $message->rfc822_header->subject.'.eml';
+                    if ($filename == "") {
+                        $filename = "untitled-".$message->entity_id.'.eml';
+                    }
+                 } else {
+                   $filename = $message->getFilename();
+                 }
              break;
            default:
+             if (!$message->mime_header) { /* temporary hack */
+                 $message->mime_header = $message->header;
+             }
              $filename = $message->getFilename();
              break;
            }
@@ -799,12 +802,10 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
                $full_localfilename = "$hashed_attachment_dir/$localfilename";
            }
            $message->att_local_name = $full_localfilename;
-           if (!$message->mime_header) { /* temporary hack */
-              $message->mime_header = $message->header;
-           }
+
+	   $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename, 
+             $full_localfilename);
            
-           $composeMessage->addEntity($message);
-            
            /* Write Attachment to file */
            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
            fputs($fp, decodeBody(mime_fetch_body($imapConnection,
@@ -880,14 +881,14 @@ function showInputForm ($session, $values=false) {
     }
     
     if ($use_javascript_addr_book) {
-        echo "\n". '<SCRIPT LANGUAGE=JavaScript><!--' . "\n" .
+        echo "\n". '<SCRIPT LANGUAGE=JavaScript>'."\n<!--\n" .
              'function open_abook() { ' . "\n" .
              '  var nwin = window.open("addrbook_popup.php","abookpopup",' .
              '"width=670,height=300,resizable=yes,scrollbars=yes");' . "\n" .
              '  if((!nwin.opener) && (document.windows != null))' . "\n" .
              '    nwin.opener = document.windows;' . "\n" .
              "}\n" .
-             '// --></SCRIPT>' . "\n\n";
+             "// -->\n</SCRIPT>\n\n";
     }
 
     echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
@@ -1085,7 +1086,7 @@ function showInputForm ($session, $values=false) {
     } else {
         $maxsize = '';
     }
-
+    echo '<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="'.min( $sizes ).'">';
     echo '   <tr>' . "\n" .
          '      <td colspan="2">' . "\n" .
          '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
@@ -1434,13 +1435,14 @@ function deliverMessage($composeMessage, $draft=false) {
         } else {    
             $rfc822_header->encoding = '8bit';
         }            
-        if ($default_charset) {
-            $content_type->properties['charset']=$default_charset;
-        }
-    }        
+    }
+    if ($default_charset) {
+        $content_type->properties['charset']=$default_charset;
+    }
+        
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
-    
+
     /* Here you can modify the message structure just before we hand 
        it over to deliver */
     do_hook('compose_send');
