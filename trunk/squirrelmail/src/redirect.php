@@ -57,14 +57,8 @@ set_up_language($squirrelmail_language, true);
 setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
 
 if (!isset($login_username)) {
-    displayHtmlHeader( _("You must be logged in to access this page.") );
-    echo "<BODY BGCOLOR=\"#ffffff\">\n" .
-        "&nbsp;<p>\n" .
-        "<CENTER>\n" .
-        '<B>' . _("You must be logged in to access this page.") . "</B><BR>" .
-        "<A HREF=\"$base_uri/src/login.php\">"  . _("Go to the login page") . "</A>\n" .
-        "</CENTER>\n" .
-        "</BODY></HTML>\n";
+    include_once( '../functions/display_messages.php' );
+    logout_error( _("You must be logged in to access this page.") );    
     exit;
 }
 
@@ -82,14 +76,11 @@ if (!session_is_registered('user_is_logged_in')) {
 
     $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
     if (!$imapConnection) {
-        displayHtmlHeader( _("There was an error contacting the mail server.") );
-        echo "<body bgcolor=\"#ffffff\">\n".
-            "<br> <br>\n".
-            "<center>\n".
-            '<b>' . _("There was an error contacting the mail server.") . "</b><br>\n".
-            _("Contact your administrator for help.") . "\n".
-            "</center>\n".
-            "</body></html>\n";
+        $errTitle = _("There was an error contacting the mail server.");
+        $errString = $errTitle . "<br>\n".
+                     _("Contact your administrator for help.");
+        include_once( '../functions/display_messages.php' );
+        logout_error( _("You must be logged in to access this page.") );            
         exit;
     } else {
         $delimiter = sqimap_get_delimiter ($imapConnection);
@@ -120,12 +111,13 @@ session_register('attachment_common_types_parsed');
 
 $debug = false;
 if (isset($HTTP_SERVER_VARS['HTTP_ACCEPT']) &&
-    !isset($attachment_common_types_parsed[$HTTP_SERVER_VARS['HTTP_ACCEPT']]))
+    !isset($attachment_common_types_parsed[$HTTP_SERVER_VARS['HTTP_ACCEPT']])) {
     attachment_common_parse($HTTP_SERVER_VARS['HTTP_ACCEPT'], $debug);
+}
 if (isset($HTTP_ACCEPT) &&
-    !isset($attachment_common_types_parsed[$HTTP_ACCEPT]))
+    !isset($attachment_common_types_parsed[$HTTP_ACCEPT])) {
     attachment_common_parse($HTTP_ACCEPT, $debug);
-
+}
 
 /* Complete autodetection of Javascript. */
 $javascript_setting = getPref
