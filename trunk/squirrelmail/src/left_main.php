@@ -965,7 +965,7 @@ if ($date_format != 6) {
         $clk = date($hr, time());
         break;
     default:
-        $clk = substr( getDayName( date( 'w', time() ) ), 0, 3 ) . date( ', ' . $hr, time() );
+        $clk = getDayAbrv( date( 'w', time() ) ) . date( ', ' . $hr, time() );
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
