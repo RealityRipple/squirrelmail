@@ -64,6 +64,7 @@ Version 1.5.1 -- CVS
   - Fixed XSS vulnerability in content-type display in the attachment area
     of read_body.php discovered by Roman Medina.
   - Get alternating row colors of addressbook in sync with mailbox list.
+  - Give proper error when PEAR DB not found.
 
 Version 1.5.0
 --------------------
