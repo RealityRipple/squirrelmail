@@ -113,8 +113,7 @@ html_tag( 'table',
                                 html_tag( 'td',
                                     '<input type="password" name="' . $password_form_name . '">' . "\n" .
                                     '<input type=hidden name="js_autodetect_results" value="SMPREF_JS_OFF">' . "\n" .
-                                    '<input type=hidden name="just_logged_in" value=1>' . "\n" .
-                                    $rcptaddress_input . "\n" ,
+                                    '<input type=hidden name="just_logged_in" value=1>' . "\n",
                                 'left', '', 'width="*"' )
                             ) ,
                         'center', '#ffffff', 'border="0" cols="2" width="100%"' ) ,
