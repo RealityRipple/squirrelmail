@@ -287,17 +287,12 @@ function is_parent_box($curbox_name, $parbox_name) {
 
 function ListBoxes ($boxes, $j=0 ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-    $move_to_trash, $trash_folder, $collapse_folders, $imapConnection;
+           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection;
+
     $pre = '<nobr>';
     $end = '';
     $collapse = false;
-    $unseen_type = 1;
-    $unseen_notify = 0;
     $unseen = 0;
-
-    /* Get unseen/total display prefs */
-    $unseen_type = getPref( $data_dir , $username , 'unseen_type' );
-    $unseen_notify = getPref( $data_dir , $username , 'unseen_notify' );
 
     if (isset($boxes) && !empty($boxes)) {
         $mailbox = $boxes->mailboxname_full;
@@ -431,7 +426,7 @@ function ListBoxes ($boxes, $j=0 ) {
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-    $move_to_trash, $trash_folder, $collapse_folders, $oldway, $advanced_tree;
+           $move_to_trash, $trash_folder, $collapse_folders;
 
     if (!$boxes)
     	return;
@@ -988,6 +983,26 @@ if ( $collapse_folders ) {
         setPref($data_dir, $username, 'collapse_folder_' . $fold, SM_BOX_COLLAPSED);
     } else if (isset($unfold)) {
         setPref($data_dir, $username, 'collapse_folder_' . $unfold, SM_BOX_UNCOLLAPSED);
+    }
+}
+
+/* Get unseen/total display prefs */
+$unseen_type = getPref( $data_dir , $username , 'unseen_type' );
+$unseen_notify = getPref( $data_dir , $username , 'unseen_notify' );
+
+if (!isset($unseen_type) || empty($unseen_type)) {
+    if (isset($default_unseen_type) && !empty($default_unseen_type)) {
+        $unseen_type = $default_unseen_type;
+    } else {
+        $unseen_type = 1;
+    }
+}
+
+if (!isset($unseen_notify) || empty($unseen_notify)) {
+    if (isset($default_unseen_notify) && !empty($default_unseen_notify)) {
+        $unseen_notify = $default_unseen_notify;
+    } else {
+        $unseen_notify = 0;
     }
 }
 
