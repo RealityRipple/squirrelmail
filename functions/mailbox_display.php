@@ -102,7 +102,13 @@
           ** 3 = Name (dn)
           **/
 
-         $msort = array_cleave ($msgs, "TIME_STAMP");
+         if (($sort == 0) || ($sort == 1))
+            $msort = array_cleave ($msgs, "TIME_STAMP");
+         if (($sort == 2) || ($sort == 3))
+            $msort = array_cleave ($msgs, "FROM");
+         if (($sort == 4) || ($sort == 5))
+            $msort = array_cleave ($msgs, "SUBJECT");
+
          if(($sort % 2) == 1) {
             asort($msort);
          } else {
