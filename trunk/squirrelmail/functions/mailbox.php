@@ -245,7 +245,6 @@
       $message["INFO"]["MAILBOX"] = $mailbox;
       $message["HEADER"] = fetchHeader($imapConnection, $id);
       $message["ENTITIES"] = fetchBody($imapConnection, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE0"], $message["HEADER"]["TYPE1"]);
-
       return $message;
    }
 
@@ -526,7 +525,14 @@
       $read = $entity;
    }
 
+   function parseHTMLMessage($line) {
+      /** Add any parsing you want to in here **/
+      return $line;
+   }
+
    function parsePlainTextMessage($line) {
+      /** Add any parsing you want to in here */
+
       $line = "^^$line";
 
       if ((strpos(strtolower($line), "<!") == false) &&
@@ -544,8 +550,6 @@
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
       $line = str_replace("\n", "", $line);
 
-      /** if >> or > are found at the beginning of a line, I'll assume that was
-          replied text, so make it different colors **/
       if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;&gt;") == 2) {
          $line = substr($line, 2, strlen($line));
          $line = "<TT><FONT COLOR=FF0000>$line</FONT></TT><BR>\n";
@@ -557,8 +561,6 @@
          $line = "<TT><FONT COLOR=000000>$line</FONT></TT><BR>\n";
       }
 
-      /** This translates "http://" into a link.  It could be made better to accept
-          "www" and "mailto" also.  That should probably be added later. **/
       if (strpos(strtolower($line), "http://") != false) {
          $line = ereg_replace("<BR>", "", $line);
          $start = strpos(strtolower($line), "http://");
