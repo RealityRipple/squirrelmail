@@ -57,7 +57,7 @@
 
       if ($debug_mime) $string = $charset.":".$string;
 
-      if (ereg("iso-8859-(.*)", $charset, $res)) {
+      if (ereg("iso-8859-([[:digit:]]+)", $charset, $res)) {
          if ($res[1] == "1")
             return charset_decode_iso_8859_1 ($string);
          else if ($res[1] == "2")
