@@ -82,7 +82,7 @@ if ($ldap_server[0] && ! extension_loaded('ldap')) {
 
 $body .= "\nMy IMAP server information:\n" .
             "  Server type:  $imap_server_type\n";
-$imap_stream = fsockopen ($imapServerAddress, $imapPort, &$error_number, &$error_string);
+$imap_stream = fsockopen ($imapServerAddress, $imapPort, $error_number, $error_string);
 $server_info = fgets ($imap_stream, 1024);
 if ($imap_stream) {
     // SUPRESS HOST NAME
