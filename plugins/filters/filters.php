@@ -11,7 +11,7 @@
  * running.
  *
  * If you need help with this, or see improvements that can be made, please
- * email me directly at the address above.  I definately welcome suggestions
+ * email me directly at the address above.  I definitely welcome suggestions
  * and comments.  This plugin, as is the case with all SquirrelMail plugins,
  * is not directly supported by the developers.  Please come to me off the
  * mailing list if you have trouble with it.
@@ -25,8 +25,58 @@
  * @subpackage filters
  */
 
+@include_once (SM_PATH . 'plugins/filters/config.php');
+
 /**
- * FIXME: Undocumented function
+ * Init Hooks
+ * @access private
+ */
+function filters_init_hooks () {
+    global $squirrelmail_plugin_hooks;
+    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
+    if (sqgetGlobalVar('mailbox',$mailbox,SQ_FORM)) {
+        sqgetGlobalVar('mailbox',$mailbox,SQ_FORM);
+    } else {
+        $mailbox = 'INBOX';
+    }
+
+    $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters_hook';
+    if (isset($mailbox) && $mailbox == 'INBOX') {
+        $squirrelmail_plugin_hooks['right_main_after_header']['filters'] = 'start_filters_hook';
+    }
+    $squirrelmail_plugin_hooks['optpage_register_block']['filters'] = 'filters_optpage_register_block_hook';
+    $squirrelmail_plugin_hooks['special_mailbox']['filters'] = 'filters_special_mailbox';
+    $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder_hook';
+    $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters_hook';
+}
+
+/**
+ * Register option blocks
+ * @access private
+ */
+function filters_optpage_register_block() {
+    global $optpage_blocks, $AllowSpamFilters;
+    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
+    
+    $optpage_blocks[] = array(
+        'name' => _("Message Filters"),
+        'url'  => SM_PATH . 'plugins/filters/options.php',
+        'desc' => _("Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."),
+        'js'   => false
+    );
+
+    if ($AllowSpamFilters) {
+        $optpage_blocks[] = array(
+            'name' => _("SPAM Filters"),
+            'url'  => SM_PATH . 'plugins/filters/spamoptions.php',
+            'desc' => _("SPAM filters allow you to select from various DNS based blacklists to detect junk email in your INBOX and move it to another folder (like Trash)."),
+            'js'   => false
+        );
+    }
+}
+
+/**
+ * Saves the DNS Cache to disk
  * @access private
  */
 function filters_SaveCache () {
@@ -45,7 +95,7 @@ function filters_SaveCache () {
        $fp = fopen($data_dir . '/dnscache', 'r');
        flock($fp,LOCK_EX);
     }
-    $fp1=fopen($data_dir . '/dnscache', 'w+');
+    $fp1 = fopen($data_dir . '/dnscache', 'w+');
 
     foreach ($SpamFilters_DNScache as $Key=> $Value) {
        $tstr = $Key . ',' . $Value['L'] . ',' . $Value['T'] . "\n";
@@ -57,7 +107,7 @@ function filters_SaveCache () {
 }
 
 /**
- * FIXME: Undocumented function
+ * Loads the DNS Cache from disk
  * @access private
  */
 function filters_LoadCache () {
@@ -67,20 +117,21 @@ function filters_LoadCache () {
         $SpamFilters_DNScache = array();
         if ($fp = fopen ($data_dir . '/dnscache', 'r')) {
             flock($fp,LOCK_SH);
-            while ($data=fgetcsv($fp,1024)) {
+            while ($data = fgetcsv($fp,1024)) {
                if ($data[2] > time()) {
                   $SpamFilters_DNScache[$data[0]]['L'] = $data[1];
                   $SpamFilters_DNScache[$data[0]]['T'] = $data[2];
                }
             }
-
             flock($fp,LOCK_UN);
         }
     }
 }
 
 /**
- * FIXME: Undocumented function
+ * Uses the BulkQuery executable to query all the RBLs at once
+ * @param array $filters Array of SPAM Fitlers
+ * @param array $IPs Array of IP Addresses
  * @access private
  */
 function filters_bulkquery($filters, $IPs) {
@@ -121,13 +172,15 @@ function filters_bulkquery($filters, $IPs) {
 }
 
 /**
- * FIXME: Undocumented function
+ * Starts the filtering process
  * @access private
  */
 function start_filters() {
     global $imapServerAddress, $imapPort, $imap_stream, $imapConnection,
            $UseSeparateImapConnection, $AllowSpamFilters;
-
+           
+    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
+    
     sqgetGlobalVar('username', $username, SQ_SESSION);
     sqgetGlobalVar('key',      $key,      SQ_COOKIE);
 
@@ -164,7 +217,8 @@ function start_filters() {
 }
 
 /**
- * FIXME: Undocumented function
+ * Does the loop through each filter
+ * @param stream imap_stream the stream to read from
  * @access private
  */
 function user_filters($imap_stream) {
@@ -203,7 +257,13 @@ function user_filters($imap_stream) {
 }
 
 /**
- * FIXME: Undocumented function
+ * Creates and runs the IMAP command to filter messages
+ * @param string $where Which part of the message to search (TO, CC, SUBJECT, etc...)
+ * @param string $what String to search for
+ * @param string $where_to Folder it will move to
+ * @param string $user_scan Whether to search all or just unseen
+ * @param string $should_expunge 
+ * @param boolean $where Which part of location to search
  * @access private
  */
 function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_scan,
@@ -213,7 +273,6 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     if (strtolower($where_to) == 'inbox') {
         return array();
     }
-
 
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
@@ -248,7 +307,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
     if (isset($read[0])) {
         $ids = array();
-        for ($i=0,$iCnt=count($read);$i<$iCnt;++$i) {
+        for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
             if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
                 $ids = preg_split("/ /", trim($regs[1]));
             break;
@@ -265,7 +324,8 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
 }
 
 /**
- * FIXME: Undocumented function
+ * Loops through all the Received Headers to find IP Addresses
+ * @param stream imap_stream the stream to read from
  * @access private
  */
 function spam_filters($imap_stream) {
@@ -305,7 +365,7 @@ function spam_filters($imap_stream) {
         $search_array = array();
         $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $response, $message, TRUE);
         if (isset($read[0])) {
-            for ($i=0,$iCnt=count($read);$i<$iCnt;++$i) {
+            for ($i = 0, $iCnt = count($read); $i < $iCnt; ++$i) {
                 if (preg_match("/^\* SEARCH (.+)$/", $read[$i], $regs)) {
                     $search_array = preg_split("/ /", trim($regs[1]));
                 break;
@@ -389,9 +449,14 @@ function spam_filters($imap_stream) {
 }
 
 /**
- * FIXME: Undocumented function
  * Does the loop through each enabled filter for the specified IP address.
  * IP format:  $a.$b.$c.$d
+ * @param int $a First subset of IP
+ * @param int $b Second subset of IP
+ * @param int $c Third subset of IP
+ * @param int $d Forth subset of IP
+ * @param array $filters The Spam Filters
+ * @return boolean Whether the IP is Spam
  * @access private
  */
 function filters_spam_check_site($a, $b, $c, $d, &$filters) {
@@ -425,14 +490,15 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
 }
 
 /**
- * FIXME: Undocumented function
+ * Loads the filters from the user preferences
+ * @return array All the user filters
  * @access private
  */
 function load_filters() {
     global $data_dir, $username;
 
     $filters = array();
-    for ($i=0; $fltr = getPref($data_dir, $username, 'filter' . $i); $i++) {
+    for ($i = 0; $fltr = getPref($data_dir, $username, 'filter' . $i); $i++) {
         $ary = explode(',', $fltr);
         $filters[$i]['where'] = $ary[0];
         $filters[$i]['what'] = $ary[1];
@@ -442,7 +508,8 @@ function load_filters() {
 }
 
 /**
- * FIXME: Undocumented function
+ * Loads the Spam Filters and checks the preferences for the enabled status
+ * @return array All the spam filters
  * @access private
  */
 function load_spam_filters() {
@@ -715,22 +782,21 @@ function load_spam_filters() {
         _("FREE - Distributed Sender Boycott List - UN-Confirmed Relays");
 
     foreach ($filters as $Key => $Value) {
-        $filters[$Key]['enabled'] = getPref($data_dir, $username,
-            $filters[$Key]['prefname']);
+        $filters[$Key]['enabled'] = getPref($data_dir, $username, $filters[$Key]['prefname']);
     }
 
     return $filters;
 }
 
 /**
- * FIXME: Undocumented function
+ * Removes a User filter
+ * @param int $id ID of the filter to remove
  * @access private
  */
 function remove_filter ($id) {
     global $data_dir, $username;
 
-    while ($nextFilter = getPref($data_dir, $username, 'filter' .
-        ($id + 1))) {
+    while ($nextFilter = getPref($data_dir, $username, 'filter' . ($id + 1))) {
         setPref($data_dir, $username, 'filter' . $id, $nextFilter);
         $id ++;
     }
@@ -739,7 +805,9 @@ function remove_filter ($id) {
 }
 
 /**
- * FIXME: Undocumented function
+ * Swaps two filters
+ * @param int $id1 ID of first filter to swap
+ * @param int $id2 ID of second filter to swap 
  * @access private
  */
 function filter_swap($id1, $id2) {
@@ -755,20 +823,23 @@ function filter_swap($id1, $id2) {
 }
 
 /**
- * This update the filter rules when renaming or deleting folders
+ * This updates the filter rules when renaming or deleting folders
  * @param array $args
  * @access private
  */
 function update_for_folder ($args) {
+
+    if (!file_exists(SM_PATH . 'plugins/filters/config.php')) return;
+    
     $old_folder = $args[0];
-        $new_folder = $args[2];
-        $action = $args[1];
+    $new_folder = $args[2];
+    $action = $args[1];
     global $data_dir, $username;
     $filters = array();
     $filters = load_filters();
     $filter_count = count($filters);
     $p = 0;
-    for ($i=0;$i<$filter_count;$i++) {
+    for ($i = 0; $i < $filter_count; $i++) {
         if (!empty($filters)) {
             if ($old_folder == $filters[$i]['folder']) {
                 if ($action == 'rename') {
@@ -798,4 +869,5 @@ function do_error($string) {
     echo $string;
     echo "</font></p>\n";
 }
+
 ?>
