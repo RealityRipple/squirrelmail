@@ -59,7 +59,7 @@
    for ($i = 0; $i < count($boxes); $i++) {
 	  if (!in_array("noselect", $boxes[$i]["flags"])) {
          $box = $boxes[$i]["unformatted"];
-         $box2 = replace_spaces($boxes[$i]["formatted"]);
+         $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
          if ($mailbox == $box)
             echo "         <OPTION VALUE=\"$box\" SELECTED>$box2\n";
          else
