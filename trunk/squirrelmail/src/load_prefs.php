@@ -101,4 +101,11 @@
          $user_language = en;
    }      
 
+   //  highlightX comes in with the form: name,color,header,value
+   for ($i=0; $hlt = getPref($data_dir, $username, "highlight$i"); $i++) {
+      $ary = explode(",", $hlt);
+      $message_highlight_list[$i]["name"] = $ary[0]; 
+      $message_highlight_list[$i]["color"] = $ary[1];
+      $message_highlight_list[$i]["value"] = $ary[2];
+   }
 ?>

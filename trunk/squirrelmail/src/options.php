@@ -403,6 +403,29 @@
    echo "<BR>Signature:<BR><TEXTAREA NAME=signature_edit ROWS=5 COLS=\"$sig_size\">$signature</TEXTAREA><BR>";
    echo "</CENTER>";
 
+   // MESSAGE HIGHLIGHTING
+   echo "<br>\n";
+   echo "<center><b>" . _("Message Highlighting") . "</b> - [<a href=\"msg_highlight.php?method=add\">" . _("New") . "</a>]</center><br>\n";
+   if (count($message_highlight_list) >= 1) {
+      echo "<table border=0 cellpadding=2 cellspacing=0 align=center width=100%>\n";
+      for ($i=0; $i < count($message_highlight_list); $i++) {
+         echo "<tr>\n";
+         echo "   <td width=1% bgcolor=" . $color[4] . ">\n";
+         echo "<small>[<a href=\"msg_highlight.php?method=edit&id=$i\">" . _("Edit") . "</a>]&nbsp;["._("Delete")."]</small>\n";
+         echo "   </td>";
+         echo "   <td bgcolor=" . $message_highlight_list[$i]["color"] . ">\n";
+         echo "      " . $message_highlight_list[$i]["name"];
+         echo "   </td>\n";
+         echo "   <td bgcolor=" . $message_highlight_list[$i]["color"] . ">\n";
+         echo "      " . $message_highlight_list[$i]["value"];
+         echo "   </td>\n";
+         echo "</tr>\n";
+      }
+      echo "</table>\n";
+   } else {
+      echo "<center>" . _("No highlighting is defined") . "</center><br>\n";
+   }
+   echo "<br>\n";
 
    // SUBMIT BUTTON
    echo "<BR><CENTER><INPUT TYPE=SUBMIT VALUE=\"";

@@ -1,3 +1,4 @@
+<html><body>
 <a name="top"></a>
 <h1>SquirrelMail IMAP functions</h1>
 <?
@@ -47,3 +48,4 @@
 		<?
 	}
 ?>
+</body></html>

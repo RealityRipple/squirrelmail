@@ -13,6 +13,7 @@
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage) {
       global $color, $msgs, $msort;
 		global $sent_folder;
+      global $message_highlight_list;
 
 		$msg = $msgs[$key];
 
@@ -25,12 +26,21 @@
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
 		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
-      echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
-      echo "   <td width=30%>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
-      echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
-		if ($msg["FLAG_ANSWERED"] == true) echo "   <td width=1%><b><small>A</small></b></td>";
-		else	echo "   <td width=1%>&nbsp;</td>";
-      echo "   <td width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
+      for ($i=0; $i < count($message_highlight_list); $i++) {
+         if (eregi($message_highlight_list[$i]["value"],$msg["FROM"])) {
+            $hlt_color = $message_highlight_list[$i]["color"];
+            continue;
+         }   
+      }   
+      if (!$hlt_color)
+         $hlt_color = $color[4];
+      
+      echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
+      echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
+      echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
+		if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>";
+		else	echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>";
+      echo "   <td bgcolor=$hlt_color width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
       echo "</tr>\n";
    }
@@ -41,6 +51,7 @@
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num, $use_cache) {
       global $msgs, $msort;
 		global $sent_folder;
+      global $message_highlight_list;
 
       if (!$use_cache) {
          if ($numMessages >= 1) {
