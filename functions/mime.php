@@ -6,6 +6,7 @@
     **
     **/
 
+   $debug_mime = false;
    $mime_php = true;
 
    if (!isset($i18n_php))
@@ -53,18 +54,21 @@
        fully parsed into the standard "message" object format.
     **/   
    function mime_structure ($imap_stream, $header) {
+      global $debug_mime;
       sqimap_messages_flag ($imap_stream, $header->id, $header->id, "Seen");
       
       $id = $header->id;
       fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $a, $b);
-      $read = strtolower($read[0]);
+      $read = fgets ($imap_stream, 10000);
+      $read = strtolower($read);
 
-      //echo $read."<br><br>";
+      if ($debug_mime) echo "<tt>$read</tt><br><br>";
       // isolate the body structure and remove beginning and end parenthesis
       $read = trim(substr ($read, strpos($read, "bodystructure") + 13));
       $read = trim(substr ($read, 0, -2));
       $read = trim(substr ($read, 1));
+
+      if ($debug_mime) echo "<tt>$read</tt><br><br>";
 
       $msg = mime_parse_structure ($read);
       $msg->header = $header;
@@ -72,13 +76,14 @@
    }
 
    function mime_parse_structure ($structure, $ent_id) {
-      //echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>";
+      global $debug_mime;
+      if ($debug_mime) echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>";
       $msg = new message();
       if (substr($structure, 0, 1) == "(") {
          $ent_id = mime_new_element_level($ent_id);
          $start = $end = -1;
          do {
-            //echo "<font color=008800><tt>Found entity...</tt></font><br>";
+            if ($debug_mime) echo "<font color=008800><tt>Found entity...</tt></font><br>";
             $start = $end+1;
             $end = mime_match_parenthesis ($start, $structure);
             
@@ -89,14 +94,14 @@
          } while (substr($structure, $end+1, 1) == "(");
       } else {
          // parse the elements
-         //echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
+         if ($debug_mime) echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
          $msg->header = new msg_header();
          $msg->header = mime_get_element (&$structure, $header);
          $msg->header->entity_id = $ent_id;
-         //echo "<br>";
+         if ($debug_mime) echo "<br>";
       }
       return $msg;
-      //echo "<font color=008800><tt>&nbsp;&nbsp;END: mime_parse_structure()</tt></font><br>";
+      if ($debug_mime) echo "<font color=008800><tt>&nbsp;&nbsp;END: mime_parse_structure()</tt></font><br>";
    }
 
    // Increments the element ID.  An element id can look like any of
@@ -129,6 +134,7 @@
    }
 
    function mime_get_element (&$structure, $header) {
+      global $debug_mime;
       $elem_num = 1;
       
       while (strlen($structure) > 0) {
@@ -165,30 +171,30 @@
             }
             $structure = substr($structure, strlen($text));
          }
-         //echo "$elem_num : $text<br>";
+         if ($debug_mime) echo "<tt>$elem_num : $text</tt><br>";
 
          // This is where all the text parts get put into the header
          switch ($elem_num) {
             case 1: 
                $header->type0 = $text;
-               //echo "<tt>type0 = $text</tt><br>";
+               if ($debug_mime) echo "<tt>type0 = $text</tt><br>";
                break;
             case 2: 
                $header->type1 = $text;
-               //echo "<tt>type1 = $text</tt><br>";
+               if ($debug_mime) echo "<tt>type1 = $text</tt><br>";
                break;
             case 6:
                $header->encoding = $text;
-               //echo "<tt>encoding = $text</tt><br>";
+               if ($debug_mime) echo "<tt>encoding = $text</tt><br>";
                break;
             case 7:
                $header->size = $text;
-               //echo "<tt>size = $text</tt><br>";
+               if ($debug_mime) echo "<tt>size = $text</tt><br>";
                break;
             default:
                if ($header->type0 == "text" && $elem_num == 8) {
                   $header->num_lines = $text;
-                  //echo "<tt>num_lines = $text</tt><br>";
+                  if ($debug_mime) echo "<tt>num_lines = $text</tt><br>";
                }
                break;
          }
@@ -198,7 +204,7 @@
       // loop through the additional properties and put those in the various headers
       for ($i=0; $i < count($properties); $i++) {
          $header->{$properties[$i]["name"]} = $properties[$i]["value"];
-         //echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
+         if ($debug_mime) echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
       }
       return $header;
    }
@@ -217,6 +223,7 @@
    //    $props[0]["name"] = "filename";
    //    $props[0]["value"] = "luke.tar.gz";
    function mime_get_props ($props, $structure) {
+      global $debug_mime;
       while (strlen($structure) > 0) {
          $structure = trim($structure);
          $char = substr($structure, 0, 1);
@@ -289,17 +296,11 @@
       if (!$ent_id) $ent_id = 1;
 
       fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $a, $b);
-      for ($i=1; $i < count($read)-1; $i++) {
-         // This fixes a bug in UW.  UW doesn't return what would normall be
-         // expected from the BODY fetch command.  It has an extra line at the
-         // end.  So if the second from the last line is a ), then remove it.
-         if (trim($read[$i]) == ")" && $i == count($read)-2) {
-            continue;
-         }
-         $text .= $read[$i];
-      }
-      return $text;
+      $topline = fgets ($imap_stream, 1024);
+      $size = substr ($topline, strpos($topline, "{")+1); 
+      $size = substr ($size, 0, strpos($size, "}"));
+      $read = fread ($imap_stream, $size);
+      return $read;
    }
 
    /* -[ END MIME DECODING ]----------------------------------------------------------- */
