@@ -341,7 +341,7 @@
 
 	 // Check that specified backend is writable
 	 if(!$this->backends[$bnum]->writeable) {
-	    $this->error = _("Addressbook $bnum is read-only");
+	    $this->error = sprintf(_("Addressbook %s is read-only", $bnum));
 	    return false;
 	 }
 
