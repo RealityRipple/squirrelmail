@@ -68,7 +68,7 @@
    }
    echo '         </select></tt>';  
    if (! $use_gettext)
-      echo '<br><small>This system doesn't support multiple languages</small>';
+      echo '<br><small>This system doesn\'t support multiple languages</small>';
       
 ?>
             </td>
@@ -262,7 +262,7 @@
    if (($left_refresh == 600))
       echo '                  <OPTION VALUE="600" SELECTED>10 '.$minutes_str;
    else
-      echo '                  <OPTION VALUE="600">10 '$minutes_str;
+      echo '                  <OPTION VALUE="600">10 '.$minutes_str;
  
    if (($left_refresh == 720))
       echo '                  <OPTION VALUE="720" SELECTED>12 '.$minutes_str;
