@@ -99,8 +99,9 @@
    
    /** Load up the Signature file **/
    if ($use_signature == true) {
-      $signature = getSig($data_dir, $username);
+      $signature_abs = $signature = getSig($data_dir, $username);
    } else {
+      $signature_abs = getSig($data_dir, $username);
    }
 
    /** Load up the Language preference **/
@@ -120,4 +121,5 @@
       $message_highlight_list[$i]["value"] = $ary[2];
       $message_highlight_list[$i]["match_type"] = $ary[3];
    }
+
 ?>

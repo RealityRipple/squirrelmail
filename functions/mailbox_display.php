@@ -17,7 +17,7 @@
 
 		$msg = $msgs[$key];
 
-      $senderName = $msg["FROM"];
+      $senderName = sqimap_find_displayable_name($msg["FROM"]);
       $urlMailbox = urlencode($mailbox);
       $subject = trim(stripslashes($msg["SUBJECT"]));
       echo "<TR>\n";

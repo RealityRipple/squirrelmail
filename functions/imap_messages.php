@@ -56,18 +56,16 @@
       $g = 0;
       for ($i = 0; $i < count($read); $i++) {
          if (eregi ("^to:", $read[$i])) {
-            $to = sqimap_find_displayable_name(substr($read[$i], 3));
-	 }	
-         if (eregi ("^from:", $read[$i])) {
-            $from = sqimap_find_displayable_name(substr($read[$i], 5));
-	 }	
-         if (eregi ("^x-priority:", $read[$i])) {
+            //$to = sqimap_find_displayable_name(substr($read[$i], 3));
+            $to = substr($read[$i], 3);
+	      } else if (eregi ("^from:", $read[$i])) {
+            //$from = sqimap_find_displayable_name(substr($read[$i], 5));
+            $from = substr($read[$i], 5);
+	      } else if (eregi ("^x-priority:", $read[$i])) {
             $priority = trim(substr($read[$i], 11));
-         }
-         if (eregi ("^message-id:", $read[$i])) {
+         } else if (eregi ("^message-id:", $read[$i])) {
             $messageid = trim(substr($read[$i], 11));
-         }
-         if (eregi ("^date:", $read[$i])) {
+         } else if (eregi ("^date:", $read[$i])) {
             $date = substr($read[$i], 5);
          } else if (eregi ("^subject:", $read[$i])) {
             $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
