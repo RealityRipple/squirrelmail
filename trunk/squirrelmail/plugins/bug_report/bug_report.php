@@ -60,6 +60,9 @@ $body = htmlspecialchars($body_top) . $body;
 <?php
 echo $warning_html;
 
+echo '<p><a href="show_system_specs.php" target="_blank">';
+echo _("Show System Specifications");
+echo "</a></p>\n\n";
 echo '<p><big>';
 echo _("Before you send your bug report, please make sure to check this checklist for any common problems.");
 echo "</big></p>\n";
