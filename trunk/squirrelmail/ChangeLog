@@ -25,7 +25,7 @@ Version 1.5.0 -- CVS
   - Remove obsoleted parsing functions.
   - Fixed language bug in posting on modifying/deleting servers on mail_fetch plugin
     (#742705).
-  - Fixed infinite loop in parseAddress on invalid mailadress (#742584).
+  - Fixed infinite loop in parseAddress on invalid mailaddress (#742584).
   - Rewrote ugly "Not a very useful errormessage" to something more friendly.
   - Make central function for compose links to make sure compose_in_new always
     works the same way.
@@ -48,10 +48,10 @@ Version 1.5.0 -- CVS
   - Replaced search with new version by Alex Lemaresquier. (Originally
     "asearch" plugin).
   - New debugging function: sm_print_r() in strings.php.
-  - Use SM_PATH in config_default. Change default server type to 'other' in stead
+  - Use SM_PATH in config_default. Change default server type to 'other' instead
     of cyrus. (#766577).
   - Added feature to allow user to switch on full date display in mailboxes instead
-    of just partial date/time based on time of email, and current date.
+    of just partial date/time based on time of email and current date.
   - Fixed bug that would cause e-mails dated in the future to be displayed with only
     the time.
   - Fixed unseen/total notifications to return behaviour back to 1.2.x style.
@@ -94,6 +94,8 @@ Version 1.5.0 -- CVS
   - Added SASL PLAIN to IMAP and SMTP. Thanks to avel for the prodding and
     code snippet.
   - conf.pl will no longer offer to detect login methods if TLS is enabled.
+  - conf.pl no longer offers UID support toggle, which is forced true in
+    global.php
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
