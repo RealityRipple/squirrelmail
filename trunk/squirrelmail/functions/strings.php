@@ -155,6 +155,13 @@ function php_self () {
     }
 
     if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
+
+      // need to add query string to end of PHP_SELF to match REQUEST_URI
+      //
+      if ( sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER) && !empty($query_string) ) {
+         $php_self .= '?' . $query_string;
+      }
+
       return $php_self;
     }
 
@@ -417,8 +424,10 @@ function TrimArray(&$array) {
     }
 }
 
-/* returns a link to the compose-page, taking in consideration
- * the compose_in_new and javascript settings. */
+// Returns a link to the compose-page, taking in 
+// consideration the compose_in_new and javascript 
+// settings. 
+//
 function makeComposeLink($url, $text = null)
 {
     global $compose_new_win,$javascript_on;
@@ -427,17 +436,32 @@ function makeComposeLink($url, $text = null)
         $text = _("Compose");
     }
 
+
+    // if not using "compose in new window", make 
+    // regular link and be done with it
+    //
     if($compose_new_win != '1') {
         return makeInternalLink($url, $text, 'right');
     }
 
-    /* if we can use JS, use the fancy window, else just open a new one HTML-style */
+
+    //
+    // build the compose in new window link...  
+    //
+
+
+    // if javascript is on, use onClick event to handle it
+    // 
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         return '<a href="javascript:void(0)" onclick="comp_in_new(\''.$base_uri.$url.'\')">'. $text.'</a>';
     }
 
+
+    // otherwise, just open new window using regular HTML
+    //
     return makeInternalLink($url, $text, '_blank');
+
 }
 
 /**
