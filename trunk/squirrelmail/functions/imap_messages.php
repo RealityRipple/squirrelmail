@@ -57,8 +57,9 @@ function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = tru
  * @param  resource imap connection
  * @param  string $mailbox mailbox, used for checking if it concerns the trash_folder
  * @param  array $id list with uid's
- * @param  bool   $bypass_trash skip copy to trash
+ * @param  bool   $bypass_trash (since 1.5.0) skip copy to trash
  * @return array  $aMessageList array with messages containing the new flags and UID @see parseFetch
+ * @since 1.4.0
  */
 function sqimap_msgs_list_delete($imap_stream, $mailbox, $id, $bypass_trash=false) {
     // FIX ME, remove globals by introducing an associative array with properties
