@@ -1011,7 +1011,8 @@ function decodeBody($body, $encoding) {
 
   global $show_html_default;
 
-  if ($encoding == 'quoted-printable') {
+  if ($encoding == 'quoted-printable' ||
+      $encoding == 'quoted_printable') {
      $body = quoted_printable_decode($body);
 
 
