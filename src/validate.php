@@ -9,12 +9,17 @@
 * $Id$
 */
 
+/* include the mime class before the session start ! otherwise we can't store
+ * messages with a session_register.
+ */
+ 
+require_once('../class/mime.class');
+
 session_start();
 
 require_once('../functions/i18n.php');
 require_once('../functions/auth.php');
 require_once('../functions/strings.php');
-require_once('../functions/prefs.php');
 
 is_logged_in();
 
@@ -74,15 +79,15 @@ $theme=array();
 require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
+require_once('../functions/prefs.php');
 
 /* Set up the language (i18n.php was included by auth.php). */
 global $username, $data_dir;
 set_up_language(getPref($data_dir, $username, 'language'));
 
 $timeZone = getPref($data_dir, $username, 'timezone');
-if ( $timeZone != SMPREF_NONE && ($timeZone <> '') 
-    && !ini_get( 'safe_mode' )) {
-    putenv( 'TZ=' . $timeZone );
+if ( $timeZone != SMPREF_NONE && ($timeZone != "") 
+    && !ini_get("safe_mode")) {
+    putenv("TZ=".$timeZone);
 }
-
 ?>
