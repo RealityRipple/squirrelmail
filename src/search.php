@@ -383,7 +383,7 @@ if ($recent_count > 0) {
             if (isset($attributes['search_what'][$i]) &&
                 !empty($attributes['search_what'][$i])) {
             echo html_tag( 'td', $attributes['search_folder'][$i], 'left', '', 'width="35%"' )
-               . html_tag( 'td', $attributes['search_what'][$i], 'left' )
+               . html_tag( 'td', htmlentities($attributes['search_what'][$i]), 'left' )
                . html_tag( 'td', $attributes['search_where'][$i], 'center' )
                . html_tag( 'td', '', 'right' )
                .   "<a href=search.php?count=$i&amp;submit=save>"
