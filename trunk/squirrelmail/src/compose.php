@@ -557,7 +557,7 @@ function showInputForm ($session) {
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
-           $saved_draft, $mail_sent, $sig_first;
+           $saved_draft, $mail_sent, $sig_first, $edit_as_new;
 
     $subject = decodeHeader($subject, false);
     $reply_subj = decodeHeader($reply_subj, false);
@@ -581,7 +581,7 @@ function showInputForm ($session) {
     
     echo ">\n";
 
-    if (isset($draft_id)) {
+    if (isset($draft_id) && !$edit_as_new) {
         echo '<input type="hidden" name="delete_draft" value="' . $draft_id . "\">\n";
     }
     if (isset($delete_draft)) {
