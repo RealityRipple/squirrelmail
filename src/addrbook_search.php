@@ -128,6 +128,8 @@ function bcc_address($addr) {
 
    session_start();
    
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($i18n_php))
       include('../functions/i18n.php');
 
@@ -159,6 +161,10 @@ function bcc_address($addr) {
    include('../src/load_prefs.php');
 
    displayHtmlHeader();
+
+   // Initialize vars
+   if(!isset($query)) $query = "";
+   if(!isset($show))  $show  = "";
 
    // Choose correct colors for top and bottom frame
    if($show == 'form') {

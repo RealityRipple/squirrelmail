@@ -12,6 +12,8 @@
 
    session_start();
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($i18n_php))
       include('../functions/i18n.php');
    if (!isset($config_php))
