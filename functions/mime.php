@@ -32,6 +32,19 @@ function mime_structure ($bodystructure, $flags=array()) {
     $read = trim(substr ($read, 0, -1));
     $res = $msg->parseStructure($read);
     $msg = $res[0];
+    if (!is_object($msg)) {
+        include_once( '../functions/display_messages.php' );
+	global $color, $mailbox;
+        displayPageHeader( $color, urldecode($mailbox) );
+        echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
+         '<CENTER>';
+	$errormessage = _("Squirrelmail could not decode the bodystructure of the message");
+	$errormessage .= '<BR>'._("the provided bodystructure by your imap-server").':<BR><BR>';
+        $errormessage .= '<table><tr><td>'.$read.'</td></tr></table>';
+        plain_error_message( $errormessage, $color );
+	echo '</body></html>';
+        exit;
+    }
     $msg->setEnt('0');
     if (count($flags)) {
         foreach ($flags as $flag) {
