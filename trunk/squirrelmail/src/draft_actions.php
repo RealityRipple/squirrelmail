@@ -13,9 +13,9 @@ require_once ('../src/validate.php');
       static $header, $headerlength;
 
       if ($header == '') {
-         $to = expandAddrs(parseAddrs($t));
-         $cc = expandAddrs(parseAddrs($c));
-         $bcc = expandAddrs(parseAddrs($b));
+         $to = parseAddrs($t);
+         $cc = parseAddrs($c);
+         $bcc = parseAddrs($b);
          if (isset($identity) && ($identity != 'default')) {
             $reply_to = getPref($data_dir, $username, 'reply_to' . $identity);
             $from = getPref($data_dir, $username, 'full_name' . $identity);
