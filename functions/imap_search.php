@@ -120,6 +120,4 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     return $msgs;
 }
 
-
-
 ?>

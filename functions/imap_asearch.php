@@ -406,8 +406,8 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
     $sort_opcodes = array ('DATE', 'FROM', 'SUBJECT', 'SIZE');
     if ($internal_date_sort == true)
         $sort_opcodes[0] = 'ARRIVAL';
-//	if (handleAsSent($mailbox))
-//	if (isSentFolder($mailbox))
+//        if (handleAsSent($mailbox))
+//        if (isSentFolder($mailbox))
     if ($mailbox == $sent_folder)
         $sort_opcodes[1] = 'TO';
     return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[($sort_by >> 1) & 3];

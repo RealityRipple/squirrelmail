@@ -136,7 +136,7 @@ class abook_database extends addressbook_backend {
 
 
     /**
-     * Open the database. 
+     * Open the database.
      * @param bool $new new connection if it is true
      * @return bool
      */
@@ -259,7 +259,7 @@ class abook_database extends addressbook_backend {
     }
 
     /**
-     * List all addresses 
+     * List all addresses
      * @return array search results
      */
     function &list_addr() {

@@ -54,12 +54,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
 
     if ($squirrelmail_language == 'ja_JP') {
         /*
-         * force correct detection of charset, when browser does not follow 
+         * force correct detection of charset, when browser does not follow
          * http content-type and tries to detect charset from page content.
          * Shooting of browser's creator can't be implemented in php.
-         * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/ 
+         * We might get rid of it, if we follow http://www.w3.org/TR/japanese-xml/
          * recommendations and switch to unicode.
-         */ 
+         */
         echo "<!-- \xfd\xfe -->\n";
         echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
     }
@@ -104,11 +104,11 @@ function makeInternalLink($path, $text, $target='') {
         $target = " target=\"$target\"";
     }
 
-    // This is an inefficient hook and is only used by 
+    // This is an inefficient hook and is only used by
     // one plugin that still needs to patch this code,
-    // plus if we are templat-izing SM, visual hooks 
-    // are not needed.  However, I am leaving the code 
-    // here just in case we find a good (non-visual?) 
+    // plus if we are templat-izing SM, visual hooks
+    // are not needed.  However, I am leaving the code
+    // here just in case we find a good (non-visual?)
     // use for the internal_link hook.
     //
     //$hooktext = do_hook_function('internal_link',$text);
