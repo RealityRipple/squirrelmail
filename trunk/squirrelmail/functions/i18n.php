@@ -26,10 +26,14 @@
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
+      global $debug_mime;
+
       // All HTML special characters are 7 bit and can be replaced first
       $string = htmlspecialchars ($string);
 
       $charset = strtolower($charset);
+
+      if ($debug_mime) $string = $charset.":".$string;
 
       if (ereg("iso-8859-(.*)", $charset, $res)) {
          if ($res[1] == "1")
