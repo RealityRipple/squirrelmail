@@ -147,7 +147,7 @@ function sent_subfolders_update_sentfolder() {
     global $sent_folder, $delimiter, $auto_create_special, $auto_create_done;
     global $sent_subfolders_base, $sent_subfolders_setting;
     global $username, $data_dir, $key, $imapServerAddress, $imapPort;
-    global $use_sent_subfolders, $move_to_sent;
+    global $use_sent_subfolders, $move_to_sent, $imap_server_type;
 
     if ($use_sent_subfolders || $move_to_sent) {
         $year = date('Y');
@@ -187,6 +187,11 @@ function sent_subfolders_update_sentfolder() {
             $level = 0;
             $sent_subfolder = $sent_folder;
             $year_folder = $sent_folder;
+        }
+
+        if( $sent_subfolders_setting <> SMPREF_SENT_SUBFOLDERS_DISABLED && 
+            $imap_server_type <> 'uw' ) {
+            $year_folder .= $delimiter;            
         }
 
         /* If this folder is NOT the current sent folder, update stuff. */
