@@ -103,7 +103,7 @@
    if ( $prefix_sig )
      echo ' checked';
    echo '>&nbsp;&nbsp;' .
-        _( "Prefix signature with '--' ?" ) . '<BR>';
+        _( "Prefix signature with '-- ' ?" ) . '<BR>';
    echo "\n<textarea name=\"signature_edit\" rows=\"5\" cols=\"50\">$signature_abs</textarea><br>";
 ?>
             </td>

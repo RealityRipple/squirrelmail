@@ -444,7 +444,8 @@
 	 $body = explode("\n", $body);
 	 $newBody = '';
 	 foreach ($body as $line) {
-	    $line = rtrim($line);
+	    if( $line <> '-- ' )
+	       $line = rtrim($line);
 	    if (strlen($line) <= $editor_size + 1)
 	       $newBody .= $line . "\n";
 	    else {
