@@ -161,6 +161,9 @@ if ($targetMailbox != $lastTargetMailbox) {
     sqsession_register($lastTargetMailbox, 'lastTargetMailbox');
 }
 $exception = false;
+
+do_hook('move_before_move');
+
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
     $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
