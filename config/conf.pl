@@ -159,12 +159,13 @@ while (($command ne "q") && ($command ne "Q")) {
       print "2.  Show Folder Prefix Option  : $WHT$show_prefix_option$NRM\n";
       print "3.  Trash Folder               : $WHT$trash_folder$NRM\n";
       print "4.  Sent Folder                : $WHT$sent_folder$NRM\n";
-      print "5.  List Special Folders First : $WHT$list_special_folders_first$NRM\n";
-      print "6.  Show Special Folders Color : $WHT$use_special_folder_color$NRM\n";
-      print "7.  By default, move to trash  : $WHT$default_move_to_trash$NRM\n";
-      print "8.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
-      print "9.  Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
-      print "10. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
+      print "5.  By default, move to trash  : $WHT$default_move_to_trash$NRM\n";
+      print "6.  By default, move to sent   : $WHT$default_move_to_sent$NRM\n";
+      print "7.  List Special Folders First : $WHT$list_special_folders_first$NRM\n";
+      print "8.  Show Special Folders Color : $WHT$use_special_folder_color$NRM\n";
+      print "9.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
+      print "10. Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
+      print "11. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -251,12 +252,13 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 2) { $show_prefix_option             = command22 (); }
          elsif ($command == 3) { $trash_folder                   = command23 (); }
          elsif ($command == 4) { $sent_folder                    = command24 (); }
-         elsif ($command == 5) { $list_special_folders_first     = command25 (); }
-         elsif ($command == 6) { $use_special_folder_color       = command26 (); }
-         elsif ($command == 7) { $default_move_to_trash          = command27 (); }
-         elsif ($command == 8) { $auto_expunge                   = command28 (); }
-         elsif ($command == 9) { $default_sub_of_inbox           = command29 (); }
-         elsif ($command == 10){ $show_contain_subfolders_option = command210(); }
+         elsif ($command == 5) { $default_move_to_trash          = command25 (); }
+         elsif ($command == 6) { $default_move_to_sent           = command26 (); }
+         elsif ($command == 7) { $list_special_folders_first     = command27 (); }
+         elsif ($command == 8) { $use_special_folder_color       = command28 (); }
+         elsif ($command == 9) { $auto_expunge                   = command29 (); }
+         elsif ($command == 10){ $default_sub_of_inbox           = command210(); }
+         elsif ($command == 11){ $show_contain_subfolders_option = command211(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset    = command31 (); }
          elsif ($command == 2) { $auto_forward       = command32 (); }
@@ -573,8 +575,58 @@ sub command24 {
    return $new_sent_folder;
 }
 
-# List special folders first 
+# default move to trash 
 sub command25 {
+   print "By default, should messages get moved to the trash folder?  You\n";
+   print "can specify the default trash folder in option 3.  If this is set\n";
+   print "to false, messages will get deleted immediately without moving\n";
+   print "to the trash folder.\n";
+   print "\n";
+   print "Trash folder is currently: $trash_folder\n";
+   print "\n";
+   
+   if ($default_move_to_trash eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "By default, move to trash (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      $default_move_to_trash = "true";
+   } else {
+      $default_move_to_trash = "false";
+   }
+   return $default_move_to_trash;
+}
+
+# default move to sent 
+sub command26 {
+   print "By default, should messages get moved to the sent folder?  You\n";
+   print "can specify the default sent folder in option 4.  If this is set\n";
+   print "to false, messages will get deleted immediately without moving\n";
+   print "to the sent folder.\n";
+   print "\n";
+   print "Trash folder is currently: $sent_folder\n";
+   print "\n";
+   
+   if ($default_move_to_sent eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "By default, move to sent (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      $default_move_to_sent = "true";
+   } else {
+      $default_move_to_sent = "false";
+   }
+   return $default_move_to_sent;
+}
+
+# List special folders first 
+sub command27 {
    print "SquirrelMail has what we call 'special folders' that are not\n";
    print "manipulated and viewed like normal folders.  Some examples of\n";
    print "these folders would be INBOX, Trash, Sent, etc.  This option\n";
@@ -599,7 +651,7 @@ sub command25 {
 }
 
 # Show special folders color 
-sub command26 {
+sub command28 {
    print "SquirrelMail has what we call 'special folders' that are not\n";
    print "manipulated and viewed like normal folders.  Some examples of\n";
    print "these folders would be INBOX, Trash, Sent, etc.  This option\n";
@@ -623,33 +675,8 @@ sub command26 {
    return $use_special_folder_color;
 }
 
-# default move to trash
-sub command27 {
-   print "By default, should messages get moved to the trash folder?  You\n";
-   print "can specify the default trash folder in option 3.  If this is set\n";
-   print "to false, messages will get deleted immediately without moving\n";
-   print "to the trash folder.\n";
-   print "\n";
-   print "Trash folder is currently: $trash_folder\n";
-   print "\n";
-   
-   if ($default_move_to_trash eq "true") {
-      $default_value = "y";
-   } else {
-      $default_value = "n";
-   }
-   print "By default, move to trash (y/n) [$WHT$default_value$NRM]: $WHT";
-   $new_show = <STDIN>;
-   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
-      $default_move_to_trash = "true";
-   } else {
-      $default_move_to_trash = "false";
-   }
-   return $default_move_to_trash;
-}
-
 # Auto expunge 
-sub command28 {
+sub command29 {
    print "The way that IMAP handles deleting messages is as follows.  You\n";
    print "mark the message as deleted, and then to 'really' delete it, you\n";
    print "expunge it.  This option asks if you want to just have messages\n";
@@ -673,7 +700,7 @@ sub command28 {
 }
 
 # Default sub of inbox 
-sub command29 {
+sub command210 {
    print "Some IMAP servers (Cyrus) have all folders as subfolders of INBOX.\n";
    print "This can cause some confusion in folder creation for users when\n";
    print "they try to create folders and don't put it as a subfolder of INBOX\n";
@@ -697,7 +724,7 @@ sub command29 {
 }
 
 # Show contain subfolder option 
-sub command210 {
+sub command211 {
    print "Some IMAP servers (UW) make it so that there are two types of\n";
    print "folders.  Those that contain messages, and those that contain\n";
    print "subfolders.  If this is the case for your server, set this to\n";
@@ -1090,10 +1117,11 @@ sub save_data {
    print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
    print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
    print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
+   print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
+   print FILE "\t\$default_move_to_sent             =  $default_move_to_sent;\n";
    print FILE "\t\$show_prefix_option               =  $show_prefix_option;\n";
    print FILE "\t\$list_special_folders_first       =  $list_special_folders_first;\n";
    print FILE "\t\$use_special_folder_color         =  $use_special_folder_color;\n";
-   print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
    print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
    print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
    print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";

@@ -79,6 +79,7 @@
 //         - This is the path to where Sent messages will be stored.
 
     $default_move_to_trash = true;
+    $default_move_to_sent  = true;
     $trash_folder = "INBOX.Trash";
     $auto_expunge = true;
     $sent_folder = "INBOX.Sent";
