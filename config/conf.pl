@@ -6,14 +6,110 @@
 ############################################################              
 $WHT = "\x1B[37;1m";
 $NRM = "\x1B[0m";
+$conf_pl_version = "x51";
 
 ############################################################              
 # First, lets read in the data already in there...
 ############################################################              
 if ( -e "config.php") {
+   open (FILE, "config.php");
+   while ($line = <FILE>) {
+      if ($line =~ /^\s+\$/) {
+         $line =~ s/^\s+\$//;
+         $var = $line;
+      
+         $var =~ s/=/EQUALS/;
+         if ($var =~ /^([a-z]|[A-Z])/) {
+            @o = split(/\s*EQUALS\s*/, $var);
+            if ($o[0] eq "config_version") {
+               $o[1] =~ s/[\n|\r]//g;
+               $o[1] =~ s/\";\s*$//;
+               $o[1] =~ s/;$//;
+               $o[1] =~ s/^"//;
+
+               $config_version = $o[1];
+               close (FILE);
+            }
+         }
+      }   
+   }
+   close (FILE);
+
+   if ($config_version ne $conf_pl_version) {
+      system "clear";
+      print $WHT."WARNING:\n".$NRM;
+      print "  The file \"config.php\" was found, but it is for an older version of\n";
+      print "  SquirrelMail.  It is possible to still read the defaults from this file\n";
+      print "  but be warned that many preferences change between versions.  It is\n";
+      print "  recommended that you start with a clean config.php for each upgrade that\n";
+      print "  you do.  To do this, just move config.php out of the way.\n\n";
+      print "Continue loading with the old config.php [y/n]? ";
+      $ctu = <STDIN>;
+      if (($ctu =~ /^n\n/i) || ($ctu =~ /^\n/)) {
+         exit;
+      }
+
+      print "\nDo you want me to stop warning you [y/n]? ";
+      $ctu = <STDIN>;
+      if ($ctu =~ /^y\n/i) {
+         $print_config_version = $conf_pl_version;
+      } else {
+         $print_config_version = $config_version;
+      }
+   } else {
+      $print_config_version = $config_version;
+   } 
+
    $config = 1;
    open (FILE, "config.php");
 } elsif (-e "config_default.php") {
+   open (FILE, "config_default.php");
+   while ($line = <FILE>) {
+      if ($line =~ /^\s+\$/) {
+         $line =~ s/^\s+\$//;
+         $var = $line;
+      
+         $var =~ s/=/EQUALS/;
+         if ($var =~ /^([a-z]|[A-Z])/) {
+            @o = split(/\s*EQUALS\s*/, $var);
+            if ($o[0] eq "config_version") {
+               $o[1] =~ s/[\n|\r]//g;
+               $o[1] =~ s/\";\s*$//;
+               $o[1] =~ s/;$//;
+               $o[1] =~ s/^"//;
+
+               $config_version = $o[1];
+               close (FILE);
+            }
+         }
+      }   
+   }
+   close (FILE);
+
+   if ($config_version ne $conf_pl_version) {
+      system "clear";
+      print $WHT."WARNING:\n".$NRM;
+      print "  You are trying to use a \"config_default.php\" from an older version of\n";
+      print "  SquirrelMail.  This is HIGHLY unrecommended.  You should get the\n";
+      print "  \"config_default.php\" that matches the version of SquirrelMail that you\n";
+      print "  are running.  You can get this from the SquirrelMail web page by going\n";
+      print "  to:  http://www.squirrelmail.org.\n\n";
+      print "Continue loading with the old config_default.php (not a good idea) [y/n]? ";
+      $ctu = <STDIN>;
+      if (($ctu =~ /^n\n/i) || ($ctu =~ /^\n/)) {
+         exit;
+      }
+
+      print "\nDo you want me to stop warning you [y/n]? ";
+      $ctu = <STDIN>;
+      if ($ctu =~ /^y\n/i) {
+         $print_config_version = $conf_pl_version;
+      } else {
+         $print_config_version = $config_version;
+      }
+   } else {
+      $print_config_version = $config_version;
+   }
    $config = 2;
    open (FILE, "config_default.php");
 } else {
@@ -1236,6 +1332,10 @@ sub save_data {
    print FILE "<?php\n\t/** SquirrelMail configuration\n";
    print FILE "\t ** Created using the configure script, conf.pl\n\t **/\n\n";
 
+   print FILE "\t\$config_version = \"$print_config_version\";\n";
+
+   print FILE "\n";
+   
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
    print FILE "\t\$org_title  = \"$org_title\";\n";
