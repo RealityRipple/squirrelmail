@@ -44,10 +44,9 @@
  * @return string $string Decoded string
  */
 function charset_decode_gb2312 ($string) {
-    global $default_charset;
+    global $default_charset,$agresive_decoding;
 
-    if (strtolower($default_charset) == 'gb2312')
-        return $string;
+    if (!$agresive_decoding) return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
     if ( ! ereg("[\241-\377]", $string) )
