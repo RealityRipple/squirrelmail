@@ -57,6 +57,7 @@ function filters_LoadCache () {
     global $data_dir, $SpamFilters_DNScache;
 
     if (file_exists($data_dir . "/dnscache")) {
+        $SpamFilters_DNScache = array();
         if ($fp = fopen ($data_dir . "/dnscache", "r")) {
             flock($fp,LOCK_SH);
             while ($data=fgetcsv($fp,1024)) {
@@ -73,7 +74,8 @@ function filters_LoadCache () {
 
 function filters_bulkquery($filters_spam_scan, $filters, $read) {
     global $SpamFilters_YourHop, $attachment_dir, $username,
-           $SpamFilters_DNScache, $SpamFilters_BulkQuery;
+           $SpamFilters_DNScache, $SpamFilters_BulkQuery,
+           $SpamFilters_CacheTTL;
 
     $IPs = array();
     $i = 0;
@@ -152,6 +154,7 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
 
         $bqfil = $attachment_dir . $username . "-bq.in";
         $fp = fopen($bqfil, "w");
+        fputs ($fp, $SpamFilters_CacheTTL . "\n");
         foreach ($rbls as $key => $value) {
             fputs ($fp, "." . $key . "\n");
         }
