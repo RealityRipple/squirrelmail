@@ -254,8 +254,16 @@
    function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
       global $sendmail_path, $username, $domain;
 
+      // Build envelope sender address. Make sure it doesn't contain 
+      // spaces or other "weird" chars that would allow a user to
+      // exploit the shell/pipe it is used in.
+      $envelopefrom = "$username@$domain";
+      $envelopefrom = ereg_replace("[[:blank:]]","", $envelopefrom);
+      $envelopefrom = ereg_replace("[[:space:]]","", $envelopefrom);
+      $envelopefrom = ereg_replace("[[:cntrl:]]","", $envelopefrom);
+
       // open pipe to sendmail
-      $fp = popen (escapeshellcmd("$sendmail_path -t -f$username@$domain"), "w");
+      $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
       
       $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($fp, $body);
