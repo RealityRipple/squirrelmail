@@ -117,5 +117,5 @@
 //  Relative (to the config directory):
 //    $data_dir = "../data/";
 
-    $data_dir = "../data/haha/";
+    $data_dir = "../data/";
 ?>

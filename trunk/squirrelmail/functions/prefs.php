@@ -69,8 +69,9 @@
    /** This checks if there is a pref file, if there isn't, it will create it. **/
    function checkForPrefs($data_dir, $username) {
       $filename = "$data_dir$username.pref";
+      echo "$filename";
       if (!file_exists($filename)) {
-         if (!copy("$data_dirdefault_pref", $filename)) {
+         if (!copy("$data_dir$default_pref", $filename)) {
             echo "Error opening $filename";
             exit;
          }
