@@ -30,6 +30,7 @@ description of what the different entries are for.
     $color[12]  = '#xxxxxx';
     $color[13]  = '#xxxxxx';
     $color[14]  = '#xxxxxx';
+    $color[15]  = '#xxxxxx';
 
 ?>
 ---<END>---
@@ -56,6 +57,7 @@ f 14: Color for text with more than one quote (default: #FF0000)
 f 15: Non-selectable folders in the left frame (defaults to $color[6])
 
 Next all you have to do is run conf.pl and add the theme to the list
-of themes available to you.  If you would like your theme to be 
-included in the distribution of SquirrelMail, just email it to
-<captbunzo@squirrelmail.org>.
+of themes available to you.
+
+
+$Id$
