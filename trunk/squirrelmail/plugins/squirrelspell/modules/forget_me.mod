@@ -25,7 +25,7 @@ if (sizeof($words_ary)){
   $words=sqspell_getWords();
   $lang_words = sqspell_getLang($words, $sqspell_use_app);
   $msg = '<p>'
-     . sprintf(_("Deleting the following entries from <strong>%s</strong> dictionary:", $sqspell_use_app)) .
+     . sprintf(_("Deleting the following entries from <strong>%s</strong> dictionary:"), $sqspell_use_app)
      . '</p>'
      . "<ul>\n";
   for ($i=0; $i<sizeof($words_ary); $i++){
@@ -68,7 +68,7 @@ if (sizeof($words_ary)){
   }
   $words_dic .= "# End\n";
   sqspell_writeWords($words_dic);
-  $msg .= '</ul><p>' _("All done!") . "</p>\n";
+  $msg .= '</ul><p>' . _("All done!") . "</p>\n";
   sqspell_makePage(_("Personal Dictionary Updated"), null, $msg);
 } else {
   /**

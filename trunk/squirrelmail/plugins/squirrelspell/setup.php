@@ -48,9 +48,7 @@ function squirrelspell_optpage_register_block() {
        array(
 	     'name' => _("SpellChecker Options"),
 	     'url'  => '../plugins/squirrelspell/sqspell_options.php',
-	     'desc' => _("Here you may set up how your personal dictionary "
-			 . "is stored, edit it, or choose which languages "
-			 . "should be available to you when spell-checking."),
+	     'desc' => _("Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."),
 	     'js'   => TRUE);
   }
 }
@@ -84,5 +82,4 @@ function squirrelspell_setup() {
       . "</script>\n";
   }
 }
-
 ?>
