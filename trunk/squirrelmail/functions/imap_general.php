@@ -874,8 +874,8 @@ function _adaptAddress(&$aAddr,$k) {
    $sPersonal = (isset($aAddr[SQM_ADDR_PERSONAL]) && $aAddr[SQM_ADDR_PERSONAL]) ?
        $aAddr[SQM_ADDR_PERSONAL] : '';
    $sEmail = ($aAddr[SQM_ADDR_HOST]) ?
-       $aAddr[SQM_ADDR_HOST] . '@'.$aAddr[SQM_ADDR_HOST] :
-       $aAddr[SQM_ADDR_HOST];
+       $aAddr[SQM_ADDR_MAILBOX] . '@'.$aAddr[SQM_ADDR_HOST] :
+       $aAddr[SQM_ADDR_MAILBOX];
    $aAddr = array($sEmail,$sPersonal);
 }
 
