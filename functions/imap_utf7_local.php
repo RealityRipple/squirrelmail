@@ -80,7 +80,8 @@ function imap_utf7_decode_local($s) {
     global $default_charset;
     set_my_charset();
 
-    if ( ! $default_charset == "iso-8859-1" ) {
+// FIXME: Something wrong. if I enable this test - decoding works incorrectly
+//    if ( ! $default_charset == "iso-8859-1" ) {
       // Allows mbstring functions only with iso-8859-*, utf-8 and 
       // iso-2022-jp (Japanese)
       // koi8-r and gb2312 can be added only in php 4.3+
@@ -91,7 +92,7 @@ function imap_utf7_decode_local($s) {
 	  return mb_convert_encoding($s, $default_charset, "UTF7-IMAP");
 	}
       }
-    }
+//    }
 
     // Later code works only for ISO-8859-1
     
