@@ -1109,6 +1109,11 @@ function saveAttachedFiles($session) {
     global $_FILES, $attachment_dir, $attachments, $username,
            $data_dir, $compose_messages;
 
+    /* get out of here if no file was attached at all */
+    if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
+        return true;
+    }
+
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     $localfilename = GenerateRandomString(32, '', 7);
     $full_localfilename = "$hashed_attachment_dir/$localfilename";
