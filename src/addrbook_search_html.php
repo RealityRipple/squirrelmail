@@ -111,9 +111,12 @@ if ($javascript_on) {
     echo "</tr>\n";
 
     foreach ($res as $row) {
-        $tr_bgcolor = '';
         $email = AddressBook::full_address($row);
-        if ($line % 2) { $tr_bgcolor = $color[0]; }
+        if ($line % 2) { 
+            $tr_bgcolor = $color[12];
+        } else {
+            $tr_bgcolor = $color[4];
+        }
         if ($squirrelmail_language == 'ja_JP')
             {
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
