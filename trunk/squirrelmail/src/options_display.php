@@ -18,7 +18,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 
 /* Define the optpage load function for the display options page. */
 function load_optpage_data_display() {
-    global $theme, $languages, $js_autodetect_results;
+    global $theme, $language, $languages, $js_autodetect_results;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -48,6 +48,7 @@ function load_optpage_data_display() {
         'save'    => 'save_option_theme'
     );
 
+    $language = (!isset($language) || ($language == '') ? 'en' : $language);
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
