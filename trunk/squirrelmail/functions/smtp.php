@@ -405,7 +405,7 @@
          $tmp = fgets($smtpConnection, 1024);
          if (errorCheck($tmp, $smtpConnection)!=5) return(0);
 
-         fputs($smtpConnection, base64_encode ($OneTimePadDecrypt($key, $onetimepad)) . "\r\n");
+         fputs($smtpConnection, base64_encode (OneTimePadDecrypt($key, $onetimepad)) . "\r\n");
          $tmp = fgets($smtpConnection, 1024);
          if (errorCheck($tmp, $smtpConnection)!=5) return(0);
       }
