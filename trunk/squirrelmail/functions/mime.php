@@ -905,10 +905,18 @@ function MagicHTML( $body, $id ) {
                 $tag .= $body{$pos};
                 $pos ++;
             }
+            /*
+               A comment in HTML is only three characters and isn't
+               guaranteed to have a space after it.  This fudges so
+               it will be caught by the switch statement.
+            */
+            if (ereg("!--", $tag)) {
+                $tag = "!-- ";
+            }
             switch( strtoupper( $tag ) ) {
             // Strips the entire tag and contents
             case 'APPL':
-            case 'EMBB':
+            case 'EMBE':
             case 'FRAM':
             case 'SCRI':
             case 'OBJE':
@@ -1023,8 +1031,21 @@ function MagicHTML( $body, $id ) {
                     $ret .= '<font color=#000000>';
                 break;
             case 'BASE':
-                $i += 5;
+                $i += 4;
                 $base = '';
+                if ( strncasecmp($body{$i}, 'font', 4) ) {
+                    $i += 5;
+                    while ( !isNoSep( $body{$i} ) && $i < $j ) {
+                        $i++;
+                    }
+                    while ( $body{$i} <> '>' && $i < $j ) {
+                            $base .= $body{$i};
+                        $i++;
+                    }
+                    $ret .= "<BASEFONT $base>\n";
+                    break;
+                }
+                $i++;
                 while ( !isNoSep( $body{$i} ) &&
                        $i < $j ) {
                         $i++;
