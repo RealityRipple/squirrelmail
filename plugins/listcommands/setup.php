@@ -35,6 +35,7 @@ function plugin_listcommands_menu() {
                          'archive'     => _("List Archives"),
                          'owner'       => _("Contact Listowner"),
                          'help'        => _("Help"));
+    $output = array();
 
     foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
