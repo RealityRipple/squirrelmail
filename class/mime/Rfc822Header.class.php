@@ -51,12 +51,14 @@ class Rfc822Header {
             $pos = strpos($line, ':');
             if ($pos > 0) {
                 $field = substr($line, 0, $pos);
-                $value = trim(substr($line, $pos+1));
-                if(!preg_match('/^X.*/i', $field) &&
-                   !preg_match('/^Subject/i', $field)) {
-                    $value = $this->stripComments($value);
-                }
-                $this->parseField($field, $value);
+		if (!strstr($field,' ')) { /* valid field */
+            	    $value = trim(substr($line, $pos+1));
+            	    if(!preg_match('/^X.*/i', $field) &&
+                       !preg_match('/^Subject/i', $field)) {
+                       $value = $this->stripComments($value);
+                    }
+            	    $this->parseField($field, $value);
+		}
             }
         }
         if ($this->content_type == '') {
@@ -459,6 +461,64 @@ class Rfc822Header {
             }
         }
         return $arr;
+    }
+    
+    function findAddress($address, $recurs = false) {
+	$result = false;
+        if (is_array($address)) {
+	    $i=0;
+            foreach($address as $argument) {
+                $match = $this->findAddress($argument, true);
+		$last = end($match);
+		if ($match[1]) {
+		    return $i;
+		} else {
+		    if (count($match[0]) && !$result) {
+			$result = $i;
+		    }
+		}
+		++$i;	
+            }
+	} else {
+	    $srch_addr = $this->parseAddress($address);
+	    $results = array();
+	    foreach ($this->to as $to) {
+		if ($to->host == $srch_addr->host) {
+		    if ($to->mailbox == $srch_addr->mailbox) {
+			$results[] = $srch_addr;
+			if ($to->personal == $srch_addr->personal) {
+			    if ($recurs) {
+				return array($results, true);
+			    } else {
+				return true;
+			    }
+			}
+		    }
+		}
+	    }
+ 	    foreach ($this->cc as $cc) {
+	        if ($cc->host == $srch_addr->host) {
+		    if ($cc->mailbox == $srch_addr->mailbox) {
+		        $results[] = $srch_addr;
+		        if ($cc->personal == $srch_addr->personal) {
+			    if ($recurs) {
+			        return array($results, true);
+			    } else {
+			        return true;
+			    }
+		        }
+		    }
+		}
+	    }
+	    if ($recurs) {
+		return array($results, false);
+	    } elseif (count($result)) {
+		return true;
+	    } else {
+		return false;
+	    }	
+	}
+	return $result;
     }
 
     function getContentType($type0, $type1) {
