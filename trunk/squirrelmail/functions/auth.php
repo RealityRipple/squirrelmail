@@ -218,4 +218,28 @@ function hmac_md5($data, $key='') {
     return $hmac;
 }
 
+/** 
+ * Fillin user and password based on SMTP auth settings.
+ *
+ * @global
+ * @param string $user Reference to SMTP username
+ * @param string $pass Reference to SMTP password (unencrypted)
+ */
+function get_smtp_user(&$user, &$pass) {
+    global $username, $smtp_auth_mech, 
+           $smtp_sitewide_user, $smtp_sitewide_pass;
+
+    if ($smtp_auth_mech == 'none') {
+        $user = '';
+        $pass = '';
+    } elseif ( isset($smtp_sitewide_user) && isset($smtp_sitewide_pass) ) {
+        $user = $smtp_sitewide_user;
+        $pass = $smtp_sitewide_pass;
+    } else {
+        global $key, $onetimepad;
+        $user = $username;
+        $pass = OneTimePadDecrypt($key, $onetimepad);
+    }
+}
+
 ?>
