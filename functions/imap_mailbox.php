@@ -338,7 +338,7 @@ function user_strcasecmp($a, $b) {
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 function sqimap_mailbox_list($imap_stream) {
-    global $boxesnew;
+    global $boxesnew, $default_folder_prefix;
 
     if ( !isset( $boxesnew ) ) {
 
@@ -460,11 +460,14 @@ function sqimap_mailbox_list($imap_stream) {
                 $used[$k] = false;
             }
         }
-
         /* List special folders and their subfolders, if requested. */
         if ($list_special_folders_first) {
             foreach ( $boxesall as $k => $box ) {
                 if ( !$used[$k] && isSpecialMailbox( $box['unformatted'] ) ) {
+                    $boxesnew[] = $box;
+                    $used[$k] = true;
+                }
+                if (!$used[$k] && preg_match("/$default_folder_prefix(Sent|Drafts|Trash)/", $box['unformatted']) ) {
                     $boxesnew[] = $box;
                     $used[$k] = true;
                 }
@@ -479,7 +482,6 @@ function sqimap_mailbox_list($imap_stream) {
             }
         }
     }
-
     return $boxesnew;
 }
 
