@@ -28,13 +28,7 @@
 function sqspell_makePage($title, $scriptsrc, $body){
   global $color, $SQSPELL_VERSION;
 
-  if ( !check_php_version(4,1) ) {
-      global $_GET;
-  }
-  if (isset($_GET['MOD'])) {
-      $MOD = $_GET['MOD'];
-  }
-  else {
+  if (! sqgetGlobalVar('MOD', $MOD, SQ_GET) ) {
       $MOD = 'options_main';
   }
 
@@ -342,9 +336,10 @@ function sqspell_getWords(){
      * the user's old mailbox password. I admin, this is rather dirty,
      * but efficient. ;)
      */
-    $key = $_COOKIE['key'];
-    $onetimepad = $_SESSION['onetimepad'];
-    $old_key = $_POST['old_key'];
+    sqgetGlobalVar('key', $key, SQ_COOKIE);
+    sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+    sqgetGlobalVar('old_key', $old_key, SQ_POST);
 
     if ($old_key != '') {
         $clear_key=$old_key;
@@ -457,8 +452,8 @@ function sqspell_writeWords($words){
      * User wants to encrypt the file. So be it.
      * Get the user's password to use as a key.
      */
-    $key = $_COOKIE['key'];
-    $onetimepad = $_SESSION['onetimepad'];
+    sqgetGlobalVar('key', $key, SQ_COOKIE);
+    sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
     $clear_key=OneTimePadDecrypt($key, $onetimepad);
     /**

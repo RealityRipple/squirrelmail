@@ -49,12 +49,10 @@ function squirrelmail_plugin_init_sent_subfolders() {
 function sent_subfolders_check_handleAsSent() {
     global $handleAsSent_result, $sent_subfolders_base,
            $use_sent_subfolders;
-    if ( !check_php_version(4,1) ) {
-        global $_SESSION;
-    }
+
     $sent_subfolders_base = 'INBOX.Sent';
     $args = func_get_arg(0);
-    $delimiter = $_SESSION['delimiter'];
+    sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 
     /* Only check the folder string if we have been passed a mailbox. */
     if ($use_sent_subfolders && (count($args) > 1)) {
@@ -88,11 +86,8 @@ function sent_subfolders_load_prefs() {
 function sent_subfolders_optpage_loadhook_folders() {
     global $optpage_data, $imapServerAddress, $imapPort;
 
-    if ( !check_php_version(4,1) ) {
-        global $_SESSION, $_COOKIE;
-    }
-    $username = $_SESSION['username'];
-    $key = $_COOKIE['key'];
+    sqgetGlobalVar('username', $username, SQ_SESSION);
+    sqgetGlobalVar('key', $key, SQ_COOKIE);
 
     /* Get some imap data we need later. */
     $imapConnection =
@@ -159,13 +154,10 @@ function sent_subfolders_update_sentfolder() {
     global $data_dir, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent, $imap_server_type;
 
-    if ( !check_php_version(4,1) ) {
-        global $_SESSION, $_COOKIE;
-    }
-    $username = $_SESSION['username'];
-    $key  = $_COOKIE['key'];
-    $delimiter = $_SESSION['delimiter'];
-
+    sqgetGlobalVar('username', $username, SQ_SESSION);
+    sqgetGlobalVar('key', $key, SQ_COOKIE);
+    sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+    
     if ($use_sent_subfolders || $move_to_sent) {
         $year = date('Y');
         $month = date('m');
