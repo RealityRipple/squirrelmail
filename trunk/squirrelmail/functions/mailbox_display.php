@@ -182,7 +182,6 @@
       } else {
          $endMessage = $numMessages;
       }
-
       
       if ($endMessage < $startMessage) {
          $startMessage = $startMessage - $show_num;
@@ -295,7 +294,7 @@
       if ($numMessages == 0) { // if there's no messages in this folder
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=5><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
-         $i = $startMessage - 1;
+         $i = $startMessage;
          reset($msort);
          do {
             $key = key($msort);
