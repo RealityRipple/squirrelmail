@@ -12,6 +12,8 @@ Version 1.5.0 -- CVS
   - Added mailto: support for Windows clients.  See
     contrib/squirrelmail.mailto.reg
   - Added lowsrc to the list of attributes to be removed.
+  - Fixed message highlighting for To, CC and From and
+    for RFC1522 headers (bug #719564)
 
 
 **************************************

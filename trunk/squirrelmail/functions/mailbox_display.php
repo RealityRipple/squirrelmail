@@ -93,8 +93,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         }
     }
 
-    $subject_full = decodeHeader($msg['SUBJECT']);
-    $subject = processSubject($subject_full, $indent_array[$msg['ID']]);
+    $msg['SUBJECT'] = decodeHeader($msg['SUBJECT']);
+    $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
 
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
@@ -145,6 +145,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                     case('TO'):
                     case('TO_CC'):
                         foreach ($msg['TO'] as $address) {
+                            $address[0] = decodeHeader($address[0]);
+                            $address[1] = decodeHeader($address[1]);
                             if (strstr('^^' . strtolower($address[0]), $high_val) ||
                                 strstr('^^' . strtolower($address[1]), $high_val)) {
                                 $hlt_color = $message_highlight_list_part['color'];
@@ -156,6 +158,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                         }
                     case('CC'):
                         foreach ($msg['CC'] as $address) {
+                            $address[0] = decodeHeader($address[0]);
+                            $address[1] = decodeHeader($address[1]);
                             if( strstr('^^' . strtolower($address[0]), $high_val) ||
                                 strstr('^^' . strtolower($address[1]), $high_val)) {
                                 $hlt_color = $message_highlight_list_part['color'];
@@ -165,6 +169,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                         break;
                     case('FROM'):
                         foreach ($msg['FROM'] as $address) {
+                            $address[0] = decodeHeader($address[0]);
+                            $address[1] = decodeHeader($address[1]);
                             if( strstr('^^' . strtolower($address[0]), $high_val) ||
                                 strstr('^^' . strtolower($address[1]), $high_val)) {
                                 $hlt_color = $message_highlight_list_part['color'];
@@ -227,10 +233,10 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                         .  '&amp;passed_id='. $msg["ID"]
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
                 $td_str .= ' ' .concat_hook_function('subject_link'); 
-                if ($subject != $subject_full) {
+                if ($subject != $msg['SUBJECT']) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
                     $title = array_flip($title);
-                    $title = strtr($subject_full, $title);
+                    $title = strtr($msg['SUBJECT'], $title);
                     $title = str_replace('"', "''", $title);
                     $td_str .= " title=\"$title\"";
                 }
