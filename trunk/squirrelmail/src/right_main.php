@@ -17,7 +17,6 @@
    }
 ?>
 <HTML>
-<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php");
@@ -30,6 +29,8 @@
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
 
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
    /////////////////////////////////////////////////////////////////////////////////
    //
    // incoming variables from URL:
@@ -52,8 +53,8 @@
    // If the page has been loaded without a specific mailbox,
    //    just show a page of general info.
    if (!isset($mailbox)) {
-      displayPageHeader("None");
-      general_info($motd, $org_logo, $version, $org_name);
+      displayPageHeader($color, "None");
+      general_info($motd, $org_logo, $version, $org_name, $color);
       echo "</BODY></HTML>";
       exit;
    }
@@ -62,7 +63,7 @@
    selectMailbox($imapConnection, $mailbox, $numMessages);
 
    // Display the header at the top of the page
-   displayPageHeader($mailbox);
+   displayPageHeader($color, $mailbox);
 
    // Get the list of messages for this mailbox
    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort);

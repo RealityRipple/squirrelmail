@@ -8,14 +8,14 @@
    include("../functions/display_messages.php");
 
    if ($passed_body == "") {
-      echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
-      displayPageHeader("None");
-      plain_error_message("You have not entered a message body.");
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      displayPageHeader($color, "None");
+      plain_error_message("You have not entered a message body.", $color);
       exit;
    } else if ($passed_to == "") {
-      echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
-      displayPageHeader("None");
-      plain_error_message("You have not filled in the \"To:\" field.");
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      displayPageHeader($color, "None");
+      plain_error_message("You have not filled in the \"To:\" field.", $color);
       echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
 
       echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_subject\" NAME=passed_subject><BR>";
@@ -28,9 +28,9 @@
 
       exit;
    } else if ($passed_subject == "") {
-      echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
-      displayPageHeader("None");
-      plain_error_message("You have not entered a subject.");
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      displayPageHeader($color, "None");
+      plain_error_message("You have not entered a subject.", $color);
       echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
       echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_to\" NAME=passed_to><BR>";
       echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_cc\" NAME=passed_cc><BR>";
@@ -46,9 +46,9 @@
    sendMessage($smtpServerAddress, $smtpPort, $username, $domain, $passed_to, $passed_cc, $passed_bcc, $passed_subject, $passed_body, $version);
 
    echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=right_main.php\">";
-   echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
 
-   displayPageHeader("None");
+   displayPageHeader($color, "None");
    echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>Message Sent!</B><BR><BR>";
    echo "You will be automatically forwarded.<BR>If not, <A HREF=\"right_main.php\">click here</A>";

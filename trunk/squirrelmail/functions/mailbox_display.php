@@ -161,35 +161,35 @@
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";
 
       if ($startMessage < $endMessage) {
-         echo "<TR BGCOLOR=FFFFFF><TD>";
+         echo "<TR BGCOLOR=\"$color[4]\"><TD>";
          echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing messages <B>$startMessage</B> to <B>$endMessage</B> ($numMessages total)</FONT></CENTER>\n";
          echo "</TD></TR>\n";
       } else if ($startMessage == $endMessage) {
-         echo "<TR BGCOLOR=FFFFFF><TD>";
+         echo "<TR BGCOLOR=\"$color[4]>\"TD>";
          echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing message <B>$startMessage</B> ($numMessages total)</FONT></CENTER>\n";
          echo "</TD></TR>\n";
       }
 
-      echo "<TR BGCOLOR=FFFFFF><TD>";
+      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=ACACAC>Next</FONT>\n";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Next</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=ACACAC>Previous</FONT>\n";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Previous</FONT>\n";
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
       }
       echo "</TD></TR>\n";
 
       /** The delete and move options */
-      echo "<TR><TD BGCOLOR=$color_lgray>";
+      echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<TABLE BGCOLOR=$color_lgray>\n";
+      echo "<TABLE BGCOLOR=\"$color[0]\">\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=30% ALIGN=LEFT>\n";
       echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\">\n";
@@ -219,9 +219,9 @@
       echo "</TABLE>\n\n\n";
       echo "</TD></TR>";
 
-      echo "<TR><TD BGCOLOR=$color_lgray>";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=FFFFFF>";
-      echo "<TR BGCOLOR=FFFFCC ALIGN=\"center\">";
+      echo "<TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[4]\">";
+      echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
       echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>Num</B></FONT></TD>";
       /** FROM HEADER **/
       echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>From</B></FONT>";
@@ -252,7 +252,7 @@
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
       if ($numMessages == 0) { // if there's no messages in this folder
-         echo "<TR><TD BGCOLOR=FFFFFF COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
+         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
          printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox, $sort, $startMessage);
@@ -267,17 +267,17 @@
       echo "</TABLE>\n";
       echo "</TD></TR>\n";
 
-      echo "<TR BGCOLOR=FFFFFF><TD>";
+      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=ACACAC>Next</FONT>\n";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Next</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=ACACAC>Previous</FONT>\n";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[9]\">Previous</FONT>\n";
          echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
       }
       echo "</TD></TR></TABLE>"; /** End of message-list table */

@@ -12,11 +12,11 @@
    $old_name = substr($old, strrpos($old, ".")+1, strlen($old));
    $old_parent = substr($old, 0, strrpos($old, "."));
 
-   echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
-   displayPageHeader("None");
+   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   displayPageHeader($color, "None");
    echo "<TABLE WIDTH=100% COLS=1>";
-   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move a folder</B></FONT></TD></TR>";
-   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move a folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename_do.php METHOD=POST>\n";
    echo "Original Name: &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
    echo "As a subfolder of: &nbsp;&nbsp;";

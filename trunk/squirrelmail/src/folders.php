@@ -1,4 +1,3 @@
-<HTML><BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <?
    include("../config/config.php");
    include("../functions/strings.php");
@@ -6,10 +5,12 @@
    include("../functions/imap.php");
    include("../functions/mailbox.php");
 
-   displayPageHeader("None");
+   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+
+   displayPageHeader($color, "None");
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-   echo "   <TR><TD BGCOLOR=DCDCDC ALIGN=CENTER>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
    echo "      <FONT FACE=\"Arial,Helvetica\">Folders</FONT>\n";
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
@@ -19,8 +20,8 @@
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
-   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Delete Folder</B></FONT></TD></TR>";
-   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Delete Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_delete.php METHOD=SUBMIT>\n";
    echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
@@ -41,8 +42,8 @@
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** CREATING FOLDERS **/
-   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Create Folder</B></FONT></TD></TR>";
-   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Create Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_create.php METHOD=POST>\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo "&nbsp;&nbsp;as a subfolder of<BR>";
@@ -55,8 +56,8 @@
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move Folder</B></FONT></TD></TR>";
-   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename_getname.php METHOD=POST>\n";
    echo "<SELECT NAME=old><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {

@@ -16,8 +16,8 @@
 
    echo "<HTML>";
    echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"" . $message["HEADER"]["TYPE"][0] . "/" . $message["HEADER"]["TYPE"][1] . "; charset=" . $message["HEADER"]["CHARSET"] . "\">";
-   echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">\n";
-   displayPageHeader($mailbox);
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   displayPageHeader($color, $mailbox);
 
    /** translate the subject and mailbox into url-able text **/
    $url_subj = urlencode(trim(stripslashes($message["HEADER"]["SUBJECT"])));
@@ -80,7 +80,7 @@
 
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
-   echo "   <TR><TD BGCOLOR=DCDCDC WIDTH=100%>";
+   echo "   <TR><TD BGCOLOR=\"$color[0]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% BORDER=0 COLS=2>";
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=50%>";
@@ -97,53 +97,53 @@
    echo "         </TR>";
    echo "      </TABLE>";
    echo "   </TD></TR>";
-   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
+   echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>";
    echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2>\n";
    echo "      <TR>\n";
    /** subject **/
-   echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
-   echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$subject</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** from **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">From:</FONT>\n";
-   echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$from_name</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** date **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">Date:</FONT>\n";
-   echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$dateString</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** to **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">To:</FONT>\n";
-   echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85% VALIGN=TOP>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$to_string</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
    if ($message["HEADER"]["CC"][0]) {
       echo "      <TR>\n";
-      echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+      echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            <FONT FACE=\"Arial,Helvetica\">Cc:</FONT>\n";
-      echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85% VALIGN=TOP>\n";
+      echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85% VALIGN=TOP>\n";
       echo "            <FONT FACE=\"Arial,Helvetica\"><B>$cc_string</B></FONT>\n";
       echo "         </TD>\n";
       echo "      </TR>\n";
    }
    echo "   </TABLE></TD></TR>\n";
 
-   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%>\n";
+   echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
    $body = formatBody($message);
 
    for ($i = 0; $i < count($body); $i++) {
@@ -151,7 +151,7 @@
    }
 
    echo "   <BR></TD></TR>\n";
-   echo "   <TR><TD BGCOLOR=DCDCDC>&nbsp;</TD></TR>";
+   echo "   <TR><TD BGCOLOR=\"$color[0]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
 ?>
