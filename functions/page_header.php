@@ -66,7 +66,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $username, $datadir, $compose_width, $compose_height,
-           $attachemessages, $session, $provider_name, $provider_uri;
+           $attachemessages, $provider_name, $provider_uri;
 
     if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
             global $_SESSION;
@@ -82,7 +82,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         $frame_top = '_top';
     }
 
-    if ($session != false) {
+    if ($session) {
 	$compose_uri = $base_uri.'src/compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
     } else {
         $compose_uri = $base_uri.'src/compose.php?newmessage=1';
