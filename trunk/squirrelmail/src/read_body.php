@@ -694,11 +694,13 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     // echo rows, with hooks
     $ret = do_hook_function('read_body_menu_top', array($nav_row, $menu_row));
-    if (!empty($ret[0])) {
-        $nav_row = $ret[0];
-    }
-    if (!empty($ret[1])) {
-        $menu_row = $ret[1];
+    if (is_array($ret)) {
+        if (isset($ret[0]) && !empty($ret[0])) {
+            $nav_row = $ret[0];
+        }
+        if (isset($ret[1]) && !empty($ret[1])) {
+            $menu_row = $ret[1];
+        }
     }
     echo '<table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
     echo $nav_on_top ? $nav_row . $menu_row : $menu_row . $nav_row;
