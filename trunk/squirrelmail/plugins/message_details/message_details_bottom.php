@@ -32,6 +32,12 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
+/**
+ * Calculates id of MIME entity
+ * @param string $entString
+ * @param integer $direction
+ * @return string
+ */
 function CalcEntity($entString, $direction) {
     $result = $entString;
     if ($direction == -1) {
@@ -62,13 +68,17 @@ function CalcEntity($entString, $direction) {
     return ($result);
 }
 
+/**
+ * Returns time in microseconds between selected and current timestamp
+ *
+ * @param array $start see details about array format at http://www.php.net/gettimeofday
+ * @return integer time in microseconds
+ * @access private
+ */
 function returnTime($start) {
  $stop = gettimeofday();
  $timepassed =  1000000 * ($stop['sec'] - $start['sec']) + $stop['usec'] - $start['usec'];
  return $timepassed;
-}
-
-function GetMimeProperties($header) {
 }
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -192,7 +202,8 @@ for ($i=1; $i < $count; $i++) {
                 $content_indx++;
                 $content[$content_indx]=array();
                 $content[$content_indx]['ent'] = '<a href="#'."$entStr \">$entStr".'</a>';
-                $pre .= "\n \n".'</div>'."\n \n".'<div class="entheader" id="'.$entStr.'H"><a name="'."$entStr".'"><b><font color="'.$color[2].'">';
+                $pre .= "\n \n".'</div>'."\n \n".'<div class="entheader" id="'.
+                    $entStr.'H"><a name="'."$entStr".'"><b><font color="'.$color[2].'">';
                 $end .= '</font></b>'."\n";
                 $header = true;
                 $mimepart = false;
