@@ -234,6 +234,18 @@ class Rfc822Header {
                 break;
             case '"':
                 $iEnd = strpos($address,$cChar,$i+1);
+                if ($iEnd) {
+                   // skip escaped quotes
+                   $prev_char = $address{$iEnd-1};
+                   while ($prev_char === '\\' && substr($address,$iEnd-2,2) !== '\\\\') {
+                       $iEnd = strpos($address,$cChar,$iEnd+1);
+                       if ($iEnd) {
+                          $prev_char = $address{$iEnd-1};
+                       } else {
+                          $prev_char = false;
+                       }
+                   }
+                }
                 if (!$iEnd) {
                     $sToken = substr($address,$i);
                     $i = $iCnt;
@@ -246,6 +258,7 @@ class Rfc822Header {
                 if ($sToken) $aTokens[] = $sToken;
                 break;
             case '(':
+                array_pop($aTokens); //remove inserted space
                 $iEnd = strpos($address,')',$i);
                 if (!$iEnd) {
                     $sToken = substr($address,$i);
@@ -277,11 +290,30 @@ class Rfc822Header {
                         $i = $iEnd;
                     }
                 }
+                // check the next token in case comments appear in the middle of email addresses
+                $prevToken = end($aTokens);
+                if (!in_array($prevToken,$aSpecials,true)) {
+                    if (isset($address{$i+1}) && !in_array($address{$i+1},$aSpecials,true)) {
+                        $iEnd = strpos($address,' ',$i+1);
+                        if ($iEnd) {
+                            $sNextToken = trim(substr($address,$i+1,$iEnd - $i -1));
+                            $i = $iEnd-1;
+                        } else {
+                            $sToken = trim(substr($address,$i+1));
+                            $i = $iCnt;
+                        }
+                        // remove the token
+                        array_pop($aTokens);
+                        // create token and add it again
+                        $sNewToken = $prevToken . $sNextToken;
+                        $aTokens[] = $sNewToken;
+                    }
+                }
                 $sToken = str_replace($aReplace, $aSpecials,$sToken);
                 $aTokens[] = $sToken;
                 break;
             case ',':
-            case ';':
+            case ':':
             case ';':
             case ' ':
                 $aTokens[] = $cChar;
@@ -302,6 +334,7 @@ class Rfc822Header {
         return $aTokens;
     }
     function createAddressObject(&$aStack,&$aComment,&$sEmail,$sGroup='') {
+        //$aStack=explode(' ',implode('',$aStack));
         if (!$sEmail) {
             while (count($aStack) && !$sEmail) {
                 $sEmail = trim(array_pop($aStack));
@@ -322,7 +355,7 @@ class Rfc822Header {
         } else {
             $oAddr->personal = $sPersonal;
         }
-        $oAddr->group = $sGroup;
+ //       $oAddr->group = $sGroup;
         $iPosAt = strpos($sEmail,'@');
         if ($iPosAt) {
            $oAddr->mailbox = substr($sEmail, 0, $iPosAt);
@@ -331,7 +364,6 @@ class Rfc822Header {
            $oAddr->mailbox = $sEmail;
            $oAddr->host = false;
         }
-        $oAddr->group = $sGroup;
         $sEmail = '';
         $aStack = $aComment = array();
         return $oAddr;
@@ -380,12 +412,10 @@ class Rfc822Header {
             case ';':
                 if ($sGroup) {
                     $oAddr = end($aAddress);
-                    if ($oAddr && $oAddr->group == $sGroup) {
-                        $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
-                    } else {
-                        /* group is empty */
-                        $aAddress[] = $this->createAddressObject(array(),array(),$sGroup,'');
-                    }
+                    if(!$oAddr || ((isset($oAddr)) && !$oAddr->mailbox && !$oAddr->personal)) {
+                        $sEmail = $sGroup . ':;';
+                    } 
+                    $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
                     $sGroup = '';
                     $aStack = $aComment = array();
                     break;
@@ -394,7 +424,8 @@ class Rfc822Header {
                 $aAddress[] = $this->createAddressObject($aStack,$aComment,$sEmail,$sGroup);
                 break;
             case ':': 
-                $sGroup = implode(' ',$aStack); break;
+                $sGroup = trim(implode(' ',$aStack)); break;
+                $sGroup = preg_replace('/\s+/',' ',$sGroup);
                 $aStack = array();
                 break;
             case '<':
