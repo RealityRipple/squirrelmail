@@ -98,10 +98,10 @@ example, we assume that user "nobody" and group "nobody" are the web server
 as is often the case with Apache.
 
   $ cd squirrelmail-1.2.0
-  $ chown -R nobody.nobody data
+  $ chown -R nobody:nobody data
   
 See INSTALL for alternate userid/groupid pairs.  Additionally, if "chown
-user.group" doesn't work, you can use "chown user" and "chgrp group"
+user:group" doesn't work, you can use "chown user" and "chgrp group"
 instead.  See the man pages for these commands for more information.
 
 
