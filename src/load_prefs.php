@@ -161,7 +161,7 @@ for ($i = 0; $hlt = getPref($data_dir, $username, "highlight$i"); ++$i) {
     $message_highlight_list[$i]['name'] = $highlight_array[0];
     $message_highlight_list[$i]['color'] = $highlight_array[1];
     $message_highlight_list[$i]['value'] = $highlight_array[2];
-    $message_highlight_list[$i]['match_type'] = $highligh_array[3];
+    $message_highlight_list[$i]['match_type'] = $highlight_array[3];
 }
 
 /* Index order lets you change the order of the message index */
