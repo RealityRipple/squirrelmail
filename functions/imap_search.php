@@ -31,19 +31,19 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 #  account for multiple search terms
 
         $multi_search = array ();
-        $search_what = ereg_replace("[ ]{2,}", " ", $search_what);
-        $multi_search = split (" ", $search_what);
+        $search_what = ereg_replace("[ ]{2,}", ' ', $search_what);
+        $multi_search = split (' ', $search_what);
         if (count($multi_search)==1) {
-                $search_string = $search_where . " " . "\"" . $multi_search[0] . "\"";
+                $search_string = $search_where . ' ' . '"' . $multi_search[0] . '"';
         }
         else {
-                $search_string = "";
+                $search_string = '';
 		$count = count($multi_search);
                 for ($x=0;$x<$count;$x++) {
-                	$search_string = $search_string . " " . $search_where . " " . "\"" . $multi_search[$x] . "\"";
+                	$search_string = $search_string . ' ' . $search_where . " " . '"' . $multi_search[$x] . '" ';
                 }
         }
-	$search_string = ereg_replace("^ ", "", $search_string);
+	$search_string = trim($search_string);
 
 # now use $search_string in the imap search
 
@@ -110,7 +110,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     $j = 0;
     while ($j < count($messagelist)) {
-            $date[$j] = ereg_replace('  ', ' ', $date[$j]);
+            $date[$j] = str_replace('  ', ' ', $date[$j]);
             $tmpdate = explode(" ", trim($date[$j]));
 
             $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);

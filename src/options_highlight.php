@@ -38,16 +38,16 @@ if ($action == 'delete' && isset($theid)) {
     exit;
 } else if ($action == 'save') {
     if (!$theid) $theid = 0;
-    $identname = ereg_replace(',', ' ', $identname);
+    $identname = str_replace(',', ' ', $identname);
     if ($color_type == 1) $newcolor = $newcolor_choose;
     elseif ($color_type == 2) $newcolor = $newcolor_input;
     else $newcolor = $color_type;
 
-    $newcolor = ereg_replace(',', '', $newcolor);
-    $newcolor = ereg_replace('#', '', $newcolor);
-    $newcolor = ereg_replace('"', '', $newcolor);
-    $newcolor = ereg_replace('\'', '', $newcolor);
-    $value = ereg_replace(',', ' ', $value);
+    $newcolor = str_replace(',', '', $newcolor);
+    $newcolor = str_replace('#', '', $newcolor);
+    $newcolor = str_replace('"', '', $newcolor);
+    $newcolor = str_replace('\'', '', $newcolor);
+    $value = str_replace(',', ' ', $value);
 
     setPref($data_dir, $username, "highlight$theid", $identname.','.$newcolor.','.$value.','.$match_type);
     $message_highlight_list[$theid]['name'] = $identname;
