@@ -243,24 +243,34 @@
         $proto = "https://";
       }
    
-      $port = "";
-      if (isset($SERVER_PORT)) {
-        if ($SERVER_PORT != 80) {
-            $port = sprintf(':%d', $SERVER_PORT);
-        }
-      }
-          
       // Get the hostname from the Host header or server config.
+      $host = "";
+      if (isset($HTTP_HOST) && !empty($HTTP_HOST))
+      {
+          $host = $HTTP_HOST;
+      }
+      else if (isset($SERVER_NAME) && !empty($SERVER_NAME))
+      {
+          $host = $SERVER_NAME;
+      }
+      
+      // Workaround to possibly get rid of extra port definitions.
+      $port = '';
+      if (! strstr($host, ':'))
+      {
+          if (isset($SERVER_PORT)) {
+              if ($SERVER_PORT != 80) {
+                  $port = sprintf(':%d', $SERVER_PORT);
+              }
+          }
+      }
+      
+      if ($host)
+          return $proto . $host . $port . $path;
+
       // Fallback is to omit the server name and use a relative URI,
       // although this is not RFC 2616 compliant.
-      if(isset($HTTP_HOST) && !empty($HTTP_HOST)) {
-        $location = $proto . $HTTP_HOST . $port . $path;
-      } else if(isset($SERVER_NAME) && !empty($SERVER_NAME)) {
-        $location = $proto . $SERVER_NAME . $port . $path;
-      } else {
-        $location = $path;
-      }
-      return $location;
+      return $path;    
    }   
 
    function sqStripSlashes($string) {
