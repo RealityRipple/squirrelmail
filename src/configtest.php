@@ -172,6 +172,24 @@ foreach($theme as $thm) {
 
 echo $IND . "Themes OK.<br />\n";
 
+if ( $squirrelmail_default_language != 'en_US' ) {
+    $loc_path = SM_PATH .'locale/'.$squirrelmail_default_language.'/LC_MESSAGES/squirrelmail.mo';
+    if( ! file_exists( $loc_path ) ) {
+        do_err('You have set <i>' . $squirrelmail_default_language . 
+            '</i> as your default language, but I cannot find this translation (should be '.
+            'in <tt>' . $loc_path . '</tt>). Please note that you have to download translations '.
+            'separately from the main SquirrelMail package.', FALSE);
+    } elseif ( ! is_readable( $loc_path ) ) {
+        do_err('You have set <i>' . $squirrelmail_default_language . 
+            '</i> as your default language, but I cannot read this translation (file '.
+            'in <tt>' . $loc_path . '</tt> unreadable).', FALSE);
+    } else {
+        echo $IND . "Default language OK.<br />\n";
+    }
+} else {
+    echo $IND . "Default language OK.<br />\n";
+}
+
 echo $IND . "Base URL detected as: <tt>" . htmlspecialchars(get_location()) . "</tt><br />\n";
 
 
