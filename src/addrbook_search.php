@@ -108,20 +108,21 @@ function display_result($res, $includesource = true) {
     
     while (list($undef, $row) = each($res)) {
         $tr_bgcolor = '';
+        $email = AddressBook::full_address($row);
         if ($line % 2) { $tr_bgcolor = $color[0]; }
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
              '<small><a href="javascript:to_address(' . 
-                                       "'" . $row['email'] . "');\">To</A> | " .
+                                       "'" . $email . "');\">To</A> | " .
              '<a href="javascript:cc_address(' . 
-                                       "'" . $row['email'] . "');\">Cc</A> | " .
+                                       "'" . $email . "');\">Cc</A> | " .
              '<a href="javascript:bcc_address(' . 
-                                 "'" . $row['email'] . "');\">Bcc</A></small>",
+                                 "'" . $email . "');\">Bcc</A></small>",
         'center', '', 'valign="top" width="5%" nowrap' ) .
         html_tag( 'td', '&nbsp;' . $row['name'], 'left', '', 'valign="top" nowrap' ) .
         html_tag( 'td', '&nbsp;' .
              '<a href="javascript:to_and_close(' .
-                 "'" . $row['email'] . "');\">" . $row['email'] . '</A>'
+                 "'" . $email . "');\">" . $row['email'] . '</A>'
         , 'left', '', 'valign="top"' ) .
         html_tag( 'td', $row['label'], 'left', '', 'valign="top" nowrap' );
         if ($includesource) {
