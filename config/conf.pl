@@ -284,6 +284,15 @@ if ( !$edit_identity ) {
 if ( !$edit_name ) {
     $edit_name = "true";
 }
+if ( !$prefs_user_field ) {
+    $prefs_user_field = 'user';
+}
+if ( !$prefs_key_field ) {
+    $prefs_key_field = 'prefkey';
+}
+if ( !$prefs_val_field ) {
+    $prefs_val_field = 'prefval';
+}
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -475,8 +484,12 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print $WHT. "Database\n" . $NRM;
         print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
         print "2.  Table for Address Book : $WHT$addrbook_table$NRM\n";
+        print "\n";
         print "3.  DSN for Preferences    : $WHT$prefs_dsn$NRM\n";
         print "4.  Table for Preferences  : $WHT$prefs_table$NRM\n";
+        print "5.  Field for username     : $WHT$prefs_user_field$NRM\n";
+        print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM\n";
+        print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
         print "\n";
         print "S   Save data\n";
         print "R   Return to Main Menu\n";
@@ -590,10 +603,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             if ( $command =~ /^[0-9]+/ ) { @plugins = command81(); }
             elsif ( $command eq "a" ) { command8s(); }
         } elsif ( $menu == 9 ) {
-            if    ( $command == 1 ) { $addrbook_dsn   = command91(); }
-            elsif ( $command == 2 ) { $addrbook_table = command92(); }
-            elsif ( $command == 3 ) { $prefs_dsn      = command93(); }
-            elsif ( $command == 4 ) { $prefs_table    = command94(); }
+            if    ( $command == 1 ) { $addrbook_dsn     = command91(); }
+            elsif ( $command == 2 ) { $addrbook_table   = command92(); }
+            elsif ( $command == 3 ) { $prefs_dsn        = command93(); }
+            elsif ( $command == 4 ) { $prefs_table      = command94(); }
+            elsif ( $command == 5 ) { $prefs_user_field = command95(); }
+            elsif ( $command == 6 ) { $prefs_key_field  = command96(); }
+            elsif ( $command == 7 ) { $prefs_val_field  = command97(); }
         }
     }
 }
@@ -2002,7 +2018,7 @@ sub command93 {
 
 sub command94 {
     print "This is the name of the table you want to store the preferences\n";
-    print "data in, it defaults to 'address'\n";
+    print "data in, it defaults to 'userprefs'\n";
     print "\n";
     print "[$WHT$prefs_table$NRM]: $WHT";
     $new_table = <STDIN>;
@@ -2012,6 +2028,50 @@ sub command94 {
         $new_table =~ s/[\r|\n]//g;
     }
     return $new_table;
+}
+
+sub command95 {
+    print "This is the name of the field in which you want to store the\n";
+    print "username of the person the prefs are for. It default to 'user'\n";
+    print "which clashes with a reserved keyword in PostgreSQL so this\n";
+    print "will need to be changed for that database at least\n";
+    print "\n";
+    print "[$WHT$prefs_user_field$NRM]: $WHT";
+    $new_field = <STDIN>;
+    if ( $new_field eq "\n" ) {
+        $new_field = $prefs_user_field;
+    } else {
+        $new_field =~ s/[\r|\n]//g;
+    }
+    return $new_field;
+}
+
+sub command96 {
+    print "This is the name of the field in which you want to store the\n";
+    print "preferences keyword. It defaults to 'prefkey'\n";
+    print "\n";
+    print "[$WHT$prefs_key_field$NRM]: $WHT";
+    $new_field = <STDIN>;
+    if ( $new_field eq "\n" ) {
+        $new_field = $prefs_key_field;
+    } else {
+        $new_field =~ s/[\r|\n]//g;
+    }
+    return $new_field;
+}
+
+sub command97 {
+    print "This is the name of the field in which you want to store the\n";
+    print "preferences value. It defaults to 'prefval'\n";
+    print "\n";
+    print "[$WHT$prefs_val_field$NRM]: $WHT";
+    $new_field = <STDIN>;
+    if ( $new_field eq "\n" ) {
+        $new_field = $prefs_val_field;
+    } else {
+        $new_field =~ s/[\r|\n]//g;
+    }
+    return $new_field;
 }
 
 sub save_data {
@@ -2134,7 +2194,11 @@ sub save_data {
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
         print CF "\$prefs_dsn = '$prefs_dsn';\n";
-        print CF "\$prefs_table = '$prefs_table';\n\n";
+        print CF "\$prefs_table = '$prefs_table';\n";
+        print CF "\$prefs_user_field = '$prefs_user_field';\n";
+        print CF "\$prefs_key_field = '$prefs_key_field';\n";
+        print CF "\$prefs_val_field = '$prefs_val_field';\n";
+        print CF "\n";
 
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";
