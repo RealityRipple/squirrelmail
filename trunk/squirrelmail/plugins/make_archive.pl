@@ -6,6 +6,7 @@ $i = 0;
 $Verbose = 0;
 $Plugin = "";
 $Version = "";
+$SMVersion = "";
 
 foreach $arg (@ARGV)
 {
@@ -21,6 +22,10 @@ foreach $arg (@ARGV)
     {
         $Version = $arg;
     }
+    elsif ($SMVersion eq "")
+    {
+        $SMVersion = $arg;
+    }
     else
     {
         print "Unrecognized argument:  $arg\n";
@@ -28,19 +33,32 @@ foreach $arg (@ARGV)
     }
 }
 
-if ($Version eq "")
+if ($SMVersion eq "")
 {
-    print "Syntax:  make_archive.pl [-v] plugin_name version.number\n";
+    print "Syntax:  make_archive.pl [-v] plugin_name version sm_version\n";
     print "-v = be verbose\n";
+    print "plugin_name:  The name of the plugin\n";
+    print "version:  The plugin's version number (1.0, 2.3, etc)\n";
+    print "sm_version:  The oldest version of SquirrelMail that this\n";
+    print "  plugin is for sure compatible with (1.0.1, 0.5, 1.1.0, etc)\n";
     exit(0);
 }
 
 
-print "Reformatting plugin name and version number.\n" if ($Verbose);
+print "Validating name and version\n" if ($Verbose);
 $Plugin =~ s/\///g;
-$Version =~ s/\./_/g;
+if ($Plugin =~ /[^a-z_]/)
+{
+    print "Plugin name can only contain a-z and _\n";
+    exit(0);
+}
+if ($Version =~ /[^\.0-9]/ || $SMVersion =~ /[^\.0-9]/)
+{
+    print "Version numbers can only have 0-9 and period\n";
+    exit(0);
+}
 
-VerifyInfo($Plugin, $Version);
+VerifyPluginDir($Plugin);
 
 print "Getting file list.\n" if ($Verbose);
 @Files = RecurseDir($Plugin);
@@ -48,20 +66,20 @@ print "Getting file list.\n" if ($Verbose);
 $QuietString = " > /dev/null 2> /dev/null" if (! $Verbose);
 
 print "\n\n" if ($Verbose);
-print "Creating $Plugin-$Version.tar.gz\n";
+print "Creating $Plugin.$Version-$SMVersion.tar.gz\n";
 system("tar cvfz $Plugin-$Version.tar.gz $Plugin" . FindTarExcludes(@Files)
     . $QuietString);
     
-print "\n\n" if ($Verbose);
-print "Creating $Plugin-$Version.zip\n";
-system("zip -r $Plugin-$Version.zip $Plugin/" . FindZipExcludes(@Files)
-    . $QuietString);
+#print "\n\n" if ($Verbose);
+#print "Creating $Plugin-$Version.zip\n";
+#system("zip -r $Plugin-$Version.zip $Plugin/" . FindZipExcludes(@Files)
+#    . $QuietString);
 
 
 
-sub VerifyInfo
+sub VerifyPluginDir
 {
-    local ($Plugin, $Version) = @_;
+    local ($Plugin) = @_;
     
     if (! -e $Plugin && ! -d $Plugin)
     {
