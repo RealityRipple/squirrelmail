@@ -567,6 +567,110 @@ function load_spam_filters() {
     $filters['SPAMcop']['comment'] =
         _("FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85% or more).");
 
+    $filters['dev.null.dk']['prefname'] = 'filters_spam_devnull';
+    $filters['dev.null.dk']['name'] = 'dev.null.dk Lists';
+    $filters['dev.null.dk']['link'] = 'http://dev.null.dk/';
+    $filters['dev.null.dk']['dns'] = 'dev.null.dk';
+    $filters['dev.null.dk']['result'] = '127.0.0.2';
+    $filters['dev.null.dk']['comment'] =
+        _("FREE - dev.null.dk - I don't have any detailed info on this list.");
+
+    $filters['visi.com']['prefname'] = 'filters_spam_visi';
+    $filters['visi.com']['name'] = 'visi.com Relay Stop List';
+    $filters['visi.com']['link'] = 'http://relays.visi.com';
+    $filters['visi.com']['dns'] = 'relays.visi.com';
+    $filters['visi.com']['result'] = '127.0.0.2';
+    $filters['visi.com']['comment'] =
+        _("FREE - visi.com - Relay Stop List. Very conservative OpenRelay List.");
+
+    $filters['2mbit.com Open Relays']['prefname'] = 'filters_spam_2mb_or';
+    $filters['2mbit.com Open Relays']['name'] = '2mbit.com Open Relays List';
+    $filters['2mbit.com Open Relays']['link'] = 'http://www.2mbit.com/sbl.php';
+    $filters['2mbit.com Open Relays']['dns'] = 'blackholes.2mbit.com';
+    $filters['2mbit.com Open Relays']['result'] = '127.0.0.2';
+    $filters['2mbit.com Open Relays']['comment'] =
+        _("FREE - 2mbit.com Open Relays - Another list of Open Relays.");
+
+    $filters['2mbit.com SPAM Source']['prefname'] = 'filters_spam_2mb_ss';
+    $filters['2mbit.com SPAM Source']['name'] = '2mbit.com SPAM Source List';
+    $filters['2mbit.com SPAM Source']['link'] = 'http://www.2mbit.com/sbl.php';
+    $filters['2mbit.com SPAM Source']['dns'] = 'blackholes.2mbit.com';
+    $filters['2mbit.com SPAM Source']['result'] = '127.0.0.4';
+    $filters['2mbit.com SPAM Source']['comment'] =
+        _("FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources.");
+
+    $filters['2mbit.com SPAM ISPs']['prefname'] = 'filters_spam_2mb_isp';
+    $filters['2mbit.com SPAM ISPs']['name'] = '2mbit.com SPAM-friendly ISP List';
+    $filters['2mbit.com SPAM ISPs']['link'] = 'http://www.2mbit.com/sbl.php';
+    $filters['2mbit.com SPAM ISPs']['dns'] = 'blackholes.2mbit.com';
+    $filters['2mbit.com SPAM ISPs']['result'] = '127.0.0.10';
+    $filters['2mbit.com SPAM ISPs']['comment'] =
+        _("FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs.");
+
+    $filters['Leadmon DUL']['prefname'] = 'filters_spam_lm_dul';
+    $filters['Leadmon DUL']['name'] = 'Leadmon.net DUL List';
+    $filters['Leadmon DUL']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon DUL']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon DUL']['result'] = '127.0.0.2';
+    $filters['Leadmon DUL']['comment'] =
+        _("FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically assigned IPs.");
+
+    $filters['Leadmon SPAM Source']['prefname'] = 'filters_spam_lm_ss';
+    $filters['Leadmon SPAM Source']['name'] = 'Leadmon.net SPAM Source List';
+    $filters['Leadmon SPAM Source']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon SPAM Source']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon SPAM Source']['result'] = '127.0.0.3';
+    $filters['Leadmon SPAM Source']['comment'] =
+        _("FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM directly from.");
+
+    $filters['Leadmon Bulk Mailers']['prefname'] = 'filters_spam_lm_bm';
+    $filters['Leadmon Bulk Mailers']['name'] = 'Leadmon.net Bulk Mailers List';
+    $filters['Leadmon Bulk Mailers']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon Bulk Mailers']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon Bulk Mailers']['result'] = '127.0.0.4';
+    $filters['Leadmon Bulk Mailers']['comment'] =
+        _("FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-in or that have allowed known spammers to become clients and abuse their services.");
+
+    $filters['Leadmon Open Relays']['prefname'] = 'filters_spam_lm_or';
+    $filters['Leadmon Open Relays']['name'] = 'Leadmon.net Open Relays List';
+    $filters['Leadmon Open Relays']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon Open Relays']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon Open Relays']['result'] = '127.0.0.5';
+    $filters['Leadmon Open Relays']['comment'] =
+        _("FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on other active RBLs.");
+
+    $filters['Leadmon Multi-stage']['prefname'] = 'filters_spam_lm_ms';
+    $filters['Leadmon Multi-stage']['name'] = 'Leadmon.net Multi-Stage Relay List';
+    $filters['Leadmon Multi-stage']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon Multi-stage']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon Multi-stage']['result'] = '127.0.0.6';
+    $filters['Leadmon Multi-stage']['comment'] =
+        _("FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on other active RBLs and that have sent SPAM to Leadmon.net.");
+
+    $filters['Leadmon SpamBlock']['prefname'] = 'filters_spam_lm_sb';
+    $filters['Leadmon SpamBlock']['name'] = 'Leadmon.net SpamBlock Sites List';
+    $filters['Leadmon SpamBlock']['link'] = 'http://www.leadmon.net/spamguard/';
+    $filters['Leadmon SpamBlock']['dns'] = 'spamguard.leadmon.net';
+    $filters['Leadmon SpamBlock']['result'] = '127.0.0.7';
+    $filters['Leadmon SpamBlock']['comment'] =
+        _("FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net direct SPAM from IPs in netblocks where the entire block has no DNS mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed Leadmon.net.");
+
+    $filters['NJABL Open Relays']['prefname'] = 'filters_spam_njabl_or';
+    $filters['NJABL Open Relays']['name'] = 'NJABL Open Relay/Direct Spam Source List';
+    $filters['NJABL Open Relays']['link'] = 'http://www.njabl.org/';
+    $filters['NJABL Open Relays']['dns'] = 'dnsbl.njabl.org';
+    $filters['NJABL Open Relays']['result'] = '127.0.0.2';
+    $filters['NJABL Open Relays']['comment'] =
+        _("FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct SPAM Sources.");
+
+    $filters['NJABL DUL']['prefname'] = 'filters_spam_njabl_dul';
+    $filters['NJABL DUL']['name'] = 'NJABL Dial-ups List';
+    $filters['NJABL DUL']['link'] = 'http://www.njabl.org/';
+    $filters['NJABL DUL']['dns'] = 'dnsbl.njabl.org';
+    $filters['NJABL DUL']['result'] = '127.0.0.3';
+    $filters['NJABL DUL']['comment'] =
+        _("FREE, for now - Not Just Another Blacklist - Dial-up IPs.");
+
     foreach ($filters as $Key => $Value) {
         $filters[$Key]['enabled'] = getPref($data_dir, $username,
             $filters[$Key]['prefname']);
