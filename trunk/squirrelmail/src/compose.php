@@ -453,22 +453,31 @@
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
-      for ($i=0; $i < count($send_to_search); $i++) {
-         if ($send_to)
-            $send_to .= ", ";
-         $send_to .= $send_to_search[$i];   
+      if (isset($send_to_search) && is_array($send_to_search))
+      {
+         for ($i=0; $i < count($send_to_search); $i++) {
+            if ($send_to)
+               $send_to .= ", ";
+            $send_to .= $send_to_search[$i];   
+         }
       }
       
-      for ($i=0; $i < count($send_to_cc_search); $i++) {
-         if ($send_to_cc)
-            $send_to_cc .= ", ";
-         $send_to_cc .= $send_to_cc_search[$i];   
+      if (isset($send_to_cc_search) && is_array($send_to_cc_search))
+      {
+         for ($i=0; $i < count($send_to_cc_search); $i++) {
+            if ($send_to_cc)
+               $send_to_cc .= ", ";
+            $send_to_cc .= $send_to_cc_search[$i];   
+         }
       }
       
-      for ($i=0; $i < count($send_to_bcc_search); $i++) {
-         if ($send_to_bcc)
-            $send_to_bcc .= ", ";
-         $send_to_bcc .= $send_to_bcc_search[$i];   
+      if (isset($send_to_bcc_search) && is_array($send_to_bcc_search))
+      {
+         for ($i=0; $i < count($send_to_bcc_search); $i++) {
+            if ($send_to_bcc)
+               $send_to_bcc .= ", ";
+            $send_to_bcc .= $send_to_bcc_search[$i];   
+         }
       }
       
       showInputForm();
