@@ -9,6 +9,19 @@ to perform this task on different systems.
 STATUS
 Development
 
+REQUIREMENTS:
+- SquirrelMail 1.4.3 or later. (plugin is included in squirrelmail 
+  1.5.0 and later versions).
+- ldap backend needs php ldap extension. It might need php
+  mhash extension and system crypt libraries that support crypto
+  used on ldap server.
+- mysql backend needs php mysql extension.
+- merak backend needs php curl extension.
+- poppass backend needs poppassd server that supports authentication
+  used by imap server.
+- vmailmgrd backend needs vmailmgr php library (vmail.inc) and
+  vmailmgrd service running on tcp port or unix socket.
+
 CONFIGURATION
 Edit the file config.php to set the backend you want to use.
 Probably, you need to set some config vars in the backend too
@@ -141,10 +154,10 @@ ABOUT LDAP BACKEND
       and openbsd.
     - blowfish crypt - used name 'blowfish' Uses php crypt function. Depends on
       blowfish support in system crypt libraries. Should work on openbsd. Is not
-      supported by glibc 2.3.3.
+      supported by glibc 2.3.2.
     - extended des crypt - used name 'extcrypt'. Uses php crypt function. Depends on
       extended des support in system crypt libraries. Should work on openbsd.
-      Is not supported by glibc 2.3.3,
+      Is not supported by glibc 2.3.2.
     - standard des crypt - used name 'crypt'. Uses php crypt function. Depends on
       standard des support in system crypt libraries. Should work on libc systems
       and openbsd.
