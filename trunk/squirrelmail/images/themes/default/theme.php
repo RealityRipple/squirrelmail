@@ -1,3 +1,9 @@
 <?php
-    $icon_themes[] = array('NAME'=>'Default','PATH'=> 'default');
+/**
+ * Theme description
+ *
+ * @package squirrelmail
+ * @subpackage themes
+ */
+    $icon_themes[] = array('NAME'=>_("Default"),'PATH'=> 'default');
 ?>
