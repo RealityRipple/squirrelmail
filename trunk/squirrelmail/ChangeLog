@@ -10,6 +10,8 @@ Version 1.4.0 RC 2
   - Patch from O'Shaughnessy Evans <shaug-sqm@wumpus.org> to allow disabled $org_logo
   - Lots of language/internationalization updates
   - conf.pl fixes for certain uses of SM_PATH, esp. $signout_page
+  - SMTP & IMAP auth method "plain" was a misnomer - now corrected to 
+    the more accurate name "login" (Plain to be implemented soon)
 	
 Version 1.4.0 RC 1
 ------------------
