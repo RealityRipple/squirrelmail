@@ -107,9 +107,9 @@ require_once(SM_PATH . 'include/load_prefs.php');
     ShowTrad( 'Babelfish',
               _("13 language pairs, maximum of 1000 characters translated, powered by Systran"),
               'http://babelfish.altavista.com/' );
-    ShowTrad( 'Translator.Go.com',
-              _("10 language pairs, maximum of 25 kilobytes translated, powered by Systran"),
-              'http://translator.go.com/' );
+//    ShowTrad( 'Translator.Go.com',
+//              _("10 language pairs, maximum of 25 kilobytes translated, powered by Systran"),
+//              'http://translator.go.com/' );
     ShowTrad( 'Dictionary.com',
               _("12 language pairs, no known limits, powered by Systran"),
               'http://www.dictionary.com/translate' );
@@ -132,7 +132,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
             '<td><select name="translate_translate_server">';
 
     ShowOption('server', 'babelfish', 'Babelfish');
-    ShowOption('server', 'go', 'Go.com');
+//    ShowOption('server', 'go', 'Go.com');
     ShowOption('server', 'dictionary', 'Dictionary.com');
     ShowOption('server', 'intertran', 'Intertran');
     ShowOption('server', 'gpltrans', 'GPLTrans');
