@@ -369,6 +369,7 @@ function translate_form_intertran($message) {
         translate_lang_opt('',      '',    'slo', _("Slovenian") . ' (CP 1250)').
         translate_lang_opt('es',    '',    'spa', _("Spanish")).
         translate_lang_opt('sv',    '',    'swe', _("Swedish")).
+        translate_lang_opt('',      '',    'tur', _("Turkish") . ' (CP 1254)').
         translate_lang_opt('',      '',    'wel', _("Welsh")).
         '</SELECT>';
 
@@ -399,6 +400,7 @@ function translate_form_intertran($message) {
         translate_lang_opt('',    '',      'slo', _("Slovenian") . ' (CP 1250)').
         translate_lang_opt('',    'es',    'spa', _("Spanish")).
         translate_lang_opt('',    'sv',    'swe', _("Swedish")).
+        translate_lang_opt('',      '',    'tur', _("Turkish") . ' (CP 1254)').
         translate_lang_opt('',    '',      'wel', _("Welsh")).
         '</SELECT>';
     printf( _("%s to %s"), $left, $right );
