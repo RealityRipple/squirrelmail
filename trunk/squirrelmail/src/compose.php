@@ -312,9 +312,8 @@
    } // function checkInput()
 
 
-
-
-
+   if ($mailbox == "")
+      $mailbox = "INBOX";
 
    if(isset($send)) {
       if (checkInput(false)) {
@@ -324,7 +323,7 @@
       } else {
          echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-         displayPageHeader($color, "None");
+         displayPageHeader($color, $mailbox);
          checkInput(true);
          
          showInputForm();
@@ -332,7 +331,7 @@
    } else if ($html_addr_search_done) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      displayPageHeader($color, "None");
+      displayPageHeader($color, $mailbox);
 
       $body = stripslashes($body);
       $send_to = stripslashes($send_to);
@@ -360,7 +359,7 @@
    } else if (isset($attach)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      displayPageHeader($color, "None");
+      displayPageHeader($color, $mailbox);
 
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
       $localfilename = $localfilename;
@@ -388,7 +387,7 @@
    } else if (isset($do_delete)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      displayPageHeader($color, "None");
+      displayPageHeader($color, $mailbox);
 
       while (list($key, $localname) = each($delete)) {
          array_splice ($attachments, $key, 1);
@@ -400,7 +399,7 @@
    } else {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      displayPageHeader($color, "None");
+      displayPageHeader($color, $mailbox);
 
       $newmail = true;
       newMail();
