@@ -38,8 +38,6 @@
    if (!isset($display_messages_php))
       include("../functions/display_messages.php");
 ?>
-<HTML>
-<FONT FACE="Arial,Helvetica">
 <?php
    /////////////////////////////////////////////////////////////////////////////////
    //
@@ -61,7 +59,6 @@
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
 
    // If the page has been loaded without a specific mailbox,
    //    just show a page of general info.

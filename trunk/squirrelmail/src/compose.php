@@ -321,7 +321,6 @@
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
-         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
          checkInput(true);
@@ -329,7 +328,6 @@
          showInputForm();
       }
    } else if ($html_addr_search_done) {
-      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
@@ -357,7 +355,6 @@
       //* can think of a better way, please implement it.
       include ("addrbook_search_html.php");
    } else if (isset($attach)) {
-      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
@@ -385,7 +382,6 @@
       
       showInputForm();
    } else if (isset($do_delete)) {
-      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
@@ -397,7 +393,6 @@
 
       showInputForm();
    } else {
-      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 

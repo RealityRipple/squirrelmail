@@ -36,17 +36,8 @@
    include("../src/load_prefs.php");
    sqimap_logout ($imapConnection);
 
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+   displayHtmlHeader();
 
-<HTML>
-<HEAD>
-<TITLE><?php 
-   printf("%s: %s", $org_title, _("Address Book")); 
-?></TITLE>
-</HEAD>
-
-<?php
    // Choose correct colors for top and bottom frame
    if($show == "form") {
       echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" ";

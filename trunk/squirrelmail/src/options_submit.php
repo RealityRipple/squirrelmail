@@ -52,8 +52,6 @@
    setcookie("squirrelmail_language", $language, time()+2592000);
    $squirrelmail_language = $language;
 
-   echo "<HTML>";
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
    echo "<BR><BR><BR><CENTER><B>";
    echo _("Options Saved!");

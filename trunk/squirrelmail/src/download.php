@@ -17,7 +17,6 @@
    include("../src/load_prefs.php");
 
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
-      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       displayPageHeader($color, "None");
 
       echo "<BR><TABLE WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";

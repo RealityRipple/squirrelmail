@@ -23,7 +23,6 @@
    $boxes = sqimap_mailbox_list($imapConnection, $boxes);
    fputs($imapConnection, "1 logout\n");
 
-   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
 
    /** load up some of the values from the pref file **/
