@@ -20,8 +20,8 @@ require_once('../functions/smtp.php');
 require_once('../functions/page_header.php');
 require_once('../src/load_prefs.php');
 
-$destination = 'retrievalerror@squirrelmail.org';
-
+#$destination = 'retrievalerror@squirrelmail.org';
+$destination = 'sethr@missoulafcu.org';
 $attachments = array();
 
 function ClearAttachments() {
@@ -88,7 +88,7 @@ if ($imap_stream) {
 
 $body .= "\nFETCH line for gathering the whole message: $topline2\n";
 
-sendMessage($destination, '', '', 'submitted message', $body, 0);
+sendMessage($destination, '', '', 'submitted message', $body, False, 0);
 
 displayPageHeader($color, $mailbox);
 
