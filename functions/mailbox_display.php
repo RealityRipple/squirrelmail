@@ -14,12 +14,12 @@
 
       echo "<TR>\n";
       if ($seen == false) {
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B><input type=checkbox name=\"msg[$t]\" value=$i></B></FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$senderName</B></FONT></TD>\n";
          echo "   <TD><CENTER><B><FONT FACE=\"Arial,Helvetica\">$dateString</FONT></B></CENTER></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$subject</B></FONT></TD>\n";
       } else {
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><input type=checkbox name=\"msg[$t]\" value=$i></FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\">$senderName</FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><CENTER>$dateString</CENTER></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\">$subject</FONT></TD>\n";
@@ -85,10 +85,13 @@
       $numMessagesOld = $numMessages;
       $numMessages = $i - 1;
 
-      if ($sort == 0)
-         $msgs = ary_sort($msgs, "TIME_STAMP", -1);
-      else
-         $msgs = ary_sort($msgs, "TIME_STAMP", 1);
+      // There's gotta be messages in the array for it to sort them.
+      if ($numMessages > 0) {
+         if ($sort == 0)
+            $msgs = ary_sort($msgs, "TIME_STAMP", -1);
+         else
+            $msgs = ary_sort($msgs, "TIME_STAMP", 1);
+      }
 
       if ($startMessage + 24 < $numMessages) {
          $endMessage = $startMessage + 24;
@@ -143,18 +146,26 @@
 
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
-      for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
+      if ($numMessages == 0) { // if there's no messages in this folder
+         echo "<TR><TD BGCOLOR=FFFFFF COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
+      } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
+         $i = $startMessage;
          printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
-         $t++;
+      } else {
+         for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
+            printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
+            $t++;
+         }
       }
-      echo "</FORM></TABLE>\n";
-      echo "</TD></TR>\n";
+      echo "</TABLE>";
 
       /** The "DELETE" button */
       echo "<TR><TD BGCOLOR=DCDCDC>";
-      echo "<FORM name=messageList method=post action=\"move_messages.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
       echo "<INPUT TYPE=SUBMIT VALUE=\"Delete\"> selected messages";
       echo "</TD></TR>";
+
+      echo "</FORM></TABLE>\n";
+      echo "</TD></TR>\n";
 
       echo "<TR BGCOLOR=FFFFFF><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {

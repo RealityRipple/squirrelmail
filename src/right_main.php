@@ -81,6 +81,7 @@
    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort);
 
    // close the connection
+   fputs($imapConnection, "1 logout\n");
    fclose($imapConnection);
 ?>
 </FONT>
