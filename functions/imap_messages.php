@@ -152,6 +152,11 @@ function get_parent_level ($imap_stream) {
     global $sort_by_ref, $default_charset, $thread_new;
         $parent = "";
         $child = "";
+        $cutoff = 0;
+        
+    /* loop through the threads and take unwanted characters out 
+       of the thread string then chop it up 
+     */
     for ($i=0;$i<count($thread_new);$i++) {
         $thread_new[$i] = preg_replace("/\s\(/", "(", $thread_new[$i]);
         $thread_new[$i] = preg_replace("/(\d+)/", "$1|", $thread_new[$i]);
@@ -161,53 +166,65 @@ function get_parent_level ($imap_stream) {
         if (!$thread_new) {
                 $thread_new = array();
         }
+    /* looping through the parts of one message thread */
+    
     for ($i=0;$i<count($thread_new);$i++) {
+    /* first grab the parent, it does not indent */
+    
         if (isset($thread_new[$i][0])) {
-        if (preg_match("/(\d+)/", $thread_new[$i][0], $regs)) {
-            $parent = $regs[1];
-        }
+            if (preg_match("/(\d+)/", $thread_new[$i][0], $regs)) {
+                $parent = $regs[1];
+            }
         }
         $indent_array[$parent] = 0;
+
+    /* now the children, checking each thread portion for
+       ),(, and space, adjusting the level and space values
+       to get the indent level
+    */
+        $level = 0;
+        $spaces = 0;
         $indent = 0;
-        $go = 'stop';
-        $spaces = array ();
-        $l = 0;
+        $fake = FALSE;
         for ($k=1;$k<(count($thread_new[$i]))-1;$k++) {
             $chars = count_chars($thread_new[$i][$k], 1);
-            if (isset($chars['40']) && isset($chars['41'])) {
-                $l--;
+            if (isset($chars['40'])) {       /* testing for ( */
+                $level = $level + $chars['40'];
             }
-            if (isset($chars['40'])) {  // (
-                $indent = $indent + $chars[40];
-                $go = 'start';
-                $l++;
-            }
-            if (isset($chars['41'])) {  //  )
-                if ($go == 'start') {
-                    if (!isset($spaces[$l])) {
-                                                $spaces[$l] = 0;
-                                        }
-                    $indent = $indent - $spaces[$l];
-                    $indent = $indent - $chars[41] ;
-                    $go = 'stop';
-                    $l--;
-                }
-                else {
-                    $indent = $indent - $chars[41];
+            if (isset($chars['41'])) {      /* testing for ) */
+                $level = $level - $chars['41'];
+                $spaces = 0;
+                /* if we were faking lets stop, this portion
+                   of the thread is over
+                */
+                if ($level == $cutoff) {
+                    $fake = FALSE;
                 }
             }
-            if (isset($chars['32'])) {  //  space
-                $indent = $indent + $chars[32];
-                if ($go == 'start') {
-                    if (!isset($spaces[$l])) {
-                                                $spaces[$l] = 0;
-                                        }
-                    $spaces[$l] = $spaces[$l] + $chars[32];
-                }
+            if (isset($chars['32'])) {      /* testing for space */
+                $spaces = $spaces + $chars['32'];
+            }
+            $indent = $level + $spaces;
+            /* must have run into a message that broke the thread
+               so we are adjusting for that portion
+            */
+            if ($fake == TRUE) {
+                $indent = $indent +1;
             }
             if (preg_match("/(\d+)/", $thread_new[$i][$k], $regs)) {
                 $child = $regs[1];
             }
+            /* the thread must be broken if $indent == 0
+               so indent the message once and start faking it
+            */
+            if ($indent == 0) {
+                $indent = 1;
+                $fake = TRUE;
+                $cutoff = $level;
+            }
+            /* dont need abs but if indent was negative
+               errors would occur
+            */
             $indent_array[$child] = abs($indent);
         }    
     }
@@ -222,7 +239,6 @@ function get_parent_level ($imap_stream) {
 
 function get_thread_sort ($imap_stream) {
     global $thread_new, $sort_by_ref, $default_charset, $server_sort_array;
-
     if (session_is_registered('thread_new')) {
         session_unregister('thread_new');
     }
@@ -277,7 +293,7 @@ function get_thread_sort ($imap_stream) {
                     }
             }
     }
-        session_register('$thread_new');
+    session_register('thread_new');
     $thread_new = array_reverse($thread_new);
     $thread_list = implode(" ", $thread_new);
     $thread_list = str_replace("(", " ", $thread_list);
