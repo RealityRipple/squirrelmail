@@ -7,7 +7,12 @@
    include("../functions/smtp.php");
    include("../functions/display_messages.php");
 
-   if ($passed_to == "") {
+   if ($passed_body == "") {
+      echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
+      displayPageHeader("None");
+      plain_error_message("You have not entered a message body.");
+      exit;
+   } else if ($passed_to == "") {
       echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
       displayPageHeader("None");
       plain_error_message("You have not filled in the \"To:\" field.");
@@ -21,11 +26,6 @@
       echo "<INPUT TYPE=SUBMIT VALUE=\"Send\">";
       echo "</CENTER></FORM>\n";
 
-      exit;
-
-      echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
-      displayPageHeader("None");
-      plain_error_message("Message NOT sent<BR><BR>You have not entered anything into the To: field.<BR>Press the BACK button on your browser");
       exit;
    } else if ($passed_subject == "") {
       echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";

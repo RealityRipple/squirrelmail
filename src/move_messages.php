@@ -7,9 +7,6 @@
    include("../functions/display_messages.php");
    include("../functions/imap.php");
 
-   for ($i = 0; $i < count($msg); $i++) {
-      echo "MSG: $msg[$i]<BR>";
-   }
 
    function putSelectedMessagesIntoString($msg) {
       $j = 0;
@@ -32,8 +29,7 @@
          $i++;
       }
    }
-   
-   
+
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    // switch to the mailbox, and get the number of messages in it.
@@ -51,6 +47,7 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
+               echo "MSG: $msg[$i]<BR>";
                deleteMessages($imapConnection, $msg[$i], $msg[$i], $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox);
                $j++;
             }
