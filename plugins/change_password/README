@@ -15,7 +15,18 @@ Probably, you need to set some config vars in the backend too
 (backend/<yourbackend>.php).
 
 BACKENDS
--
+- mysql
+
+  Default settings are supplied in backends/mysql.php.
+
+  You do not have to change any configuration vars in 
+  backend/mysql.php - instead, create an array in config.php 
+  containing the variable you want to override, for example:
+
+  To override the server name ($mysql_server), you would add
+    $mysql['server'] = 'remote_servername';
+  to config.php.
+
 -
 -
 

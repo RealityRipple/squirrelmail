@@ -13,9 +13,10 @@
  */
 
 global $mysql_server, $mysql_database, $mysql_table, $mysql_userid_field,
-       $mysql_password_field, $mysql_manager_id, $mysql_manager_pw;
+       $mysql_password_field, $mysql_manager_id, $mysql_manager_pw,
+       $mysql_saslcrypt, $mysql_unixcrypt, $mysql;
 
-// The MySQL Server
+// Initialize defaults
 $mysql_server = 'localhost';
 $mysql_database = 'email';
 $mysql_table = 'users';
@@ -28,6 +29,18 @@ $mysql_password_field ='password';
 $mysql_manager_id = 'email_admin';
 $mysql_manager_pw = 'xxxxxxx';
 
+// saslcrypt checked first - if it is 1, UNIX crypt is not used.
+$mysql_saslcrypt = 0; // use MySQL password() function
+$mysql_unixcrypt = 0; // use UNIX crypt() function
+
+if ( isset($mysql) && is_array($mysql) && !empty($mysql) )
+{
+  foreach ( $mysql as $key => $value )
+  {
+    if ( isset(${'mysql_'.$key}) )
+      ${'mysql_'.$key} = $value;
+  }   
+}
 
 // NO NEED TO CHANGE ANYTHING BELOW THIS LINE
 
@@ -59,22 +72,32 @@ function cpw_mysql_dochange($data)
     $msgs = array();
 
     global $mysql_server, $mysql_database, $mysql_table, $mysql_userid_field,
-           $mysql_password_field, $mysql_manager_id, $mysql_manager_pw;
+           $mysql_password_field, $mysql_manager_id, $mysql_manager_pw,
+           $mysql_saslcrypt, $mysql_unixcrypt;
 
     $ds = mysql_pconnect($mysql_server, $mysql_manager_id, $mysql_manager_pw);
     if (! $ds) {
         array_push($msgs, _("Cannot connect to Database Server, please try later!"));
-	return $msgs;
+        return $msgs;
     }
     if (!mysql_select_db($mysql_database, $ds)) {
         array_push($msgs, _("Database not found on server"));
-	return $msgs;
+        return $msgs;
     }
 
     $query_string = 'SELECT ' . $mysql_userid_field . ',' . $mysql_password_field
                   . ' FROM '  . $mysql_table
                   . ' WHERE ' . $mysql_userid_field . '="' . mysql_escape_string($username) .'"'
-		  . ' AND ' . $mysql_password_field . '="' . mysql_escape_string($curpw) . '"';
+                  . ' AND ' . $mysql_password_field;
+
+    if ($mysql_saslcrypt) {
+        $query_string  .= '=password("'.mysql_escape_string($curpw).'")';
+    } elseif ($mysql_unixcrypt) {
+        $query_string  .= '=encrypt("'.mysql_escape_string($curpw).'", '.$mysql_password_field . ')';
+    } else {
+        $query_string  .= '="' . mysql_escape_string($curpw) . '"';
+    }
+
     $select_result = mysql_query($query_string, $ds);
     if (!$select_result) {
         array_push($msgs, _("SQL call failed, try again later."));
@@ -91,9 +114,17 @@ function cpw_mysql_dochange($data)
         return $msgs;
     }
 
-    $update_string = 'UPDATE '. $mysql_table . ' SET ' . $mysql_password_field
-                   . ' = "' . mysql_escape_string($cp_newpass) . '"'
-		   . ' WHERE ' . $mysql_userid_field . ' = "' . mysql_escape_string($username) . '"';
+    $update_string = 'UPDATE '. $mysql_table . ' SET ' . $mysql_password_field;
+
+    if ($mysql_saslcrypt) {
+        $update_string  .= '=password("'.mysql_escape_string($newpw).'")';
+    } elseif ($mysql_unixcrypt) {
+        $update_string  .= '=encrypt("'.mysql_escape_string($newpw).'", '.$mysql_password_field . ')';
+    } else {
+        $update_string  .= '="' . mysql_escape_string($newpw) . '"';
+    }
+    $update_string .= ' WHERE ' . $mysql_userid_field . ' = "' . mysql_escape_string($username) . '"';
+
     if (!mysql_query($update_string, $ds)) {
         array_push($msgs, _("Password change was not successful!"));
     }
