@@ -608,17 +608,20 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     $target = '';
     $on_click='';
     $method='method="post" ';
+    $onsubmit='';
     if ($compose_new_win == '1') {
         if ( $javascript_on ) {
           $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form)"';
           $comp_uri = 'javascript:void(0)';
           $method='method="get" ';
+          $onsubmit = 'onsubmit="return false" ';
         } else {
           $target = 'target="_blank"';
         }
     }
 
-    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.' style="display: inline">'."\n";
+    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '
+              . $method.$target.$onsubmit.' style="display: inline">'."\n";
 
     // If Draft folder - create Resume link
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
