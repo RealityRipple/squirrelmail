@@ -44,6 +44,14 @@
    include ('../src/load_prefs.php');
 
    // We'll need this to later have a noframes version
+   //
+   // Check if the user has a language preference, but no cookie.
+   // Send him a cookie with his language preference, if there is
+   // such discrepancy.
+   $my_language=getPref($data_dir, $username, "language");
+   if ($my_language != $squirrelmail_language)
+     setcookie('squirrelmail_language', $my_language, time()+2592000);
+
    set_up_language(getPref($data_dir, $username, 'language'));
 
    echo "<html><head>\n";
