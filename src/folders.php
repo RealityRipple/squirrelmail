@@ -23,11 +23,15 @@
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
-         if ($special_folders[$p] == $boxesUnformatted[$i])
+         if (substr($boxesUnformatted[$i], 0, strlen($special_folders[$p])) == $special_folders[$p]) {
             $use_folder = false;
+         }
       }
+      if ($boxesUnformatted[$i] == "INBOX")
+         $use_folder = false;
+
       if ($use_folder == true)
-         echo "   <OPTION>$boxesUnformatted[$i]\n";
+         echo "<OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Delete>\n";
