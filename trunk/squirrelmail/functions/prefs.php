@@ -30,13 +30,13 @@ function cachePrefValues($data_dir, $username) {
     /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
-    /* A call to checkForPrefs here should take eliminate the need for
-    /* this to be called throughout the rest of the SquirrelMail code. 
+    /* A call to checkForPrefs here should take eliminate the need for */
+    /* this to be called throughout the rest of the SquirrelMail code. */
     checkForPrefs($data_dir, $username, $filename);
 
     /* Make sure that the preference file now DOES exist. */
     if (!file_exists($filename)) {
-        printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
+        echo sprintf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename) . "<br>\n";
         exit;
     }
 
@@ -146,13 +146,29 @@ function setPref($data_dir, $username, $string, $value) {
 function checkForPrefs($data_dir, $username, $filename = '') {
     /* First, make sure we have the filename. */
     if ($filename == '') {
-        $filename = getHashedFile($username, $data_dir, "$username.pref");
+        $filename = getHashedFile($username, $data_dir, '$username.pref');
     }
-    
+
     /* Then, check if the file exists. */
-    if (!file_exists($filename) ) {
-        if (!copy($data_dir . 'default_pref', $filename)) {
-            echo _("Error opening ") . $filename;
+    if (!@file_exists($filename) ) {
+        /* First, check the $data_dir for the default preference file. */
+        $default_pref = $data_dir . 'default_pref';
+
+        /* If it is not there, check the internal data directory. */
+        if (!@file_exists($default_pref)) {
+            $default_pref = '../data/default_pref';
+        }
+
+        /* Otherwise, report an error. */
+        if (!file_exists($default_pref)) {
+            echo _("Error opening ") . $default_pref . "<br>\n";
+            echo _("Default preference file not found!") . "<br>\n";
+            echo _("Please contact your system administrator and report this error.") . "<br>\n";
+            exit;
+        } else if (!@copy($default_pref, $filename)) {
+            echo _("Error opening ") . $default_pref . '<br>';
+            echo _("Could not create initial preference file!") . "<br>\n";
+            echo _("Please contact your system administrator and report this error.") . "<br>\n";
             exit;
         }
     }
@@ -203,9 +219,9 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
     $result = "$real_hash_dir/$datafile";
 
     /* Check for this file in the real hash directory. */
-    if ($hash_search && !file_exists($result)) {
+    if ($hash_search && !@file_exists($result)) {
         /* First check the base directory, the most common location. */
-        if (file_exists("$dir/$datafile")) {
+        if (@file_exists("$dir/$datafile")) {
             rename("$dir/$datafile", $result);
 
         /* Then check the full range of possible hash directories. */
@@ -228,6 +244,11 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
 function getHashedDir($username, $dir, $hash_dirs = '') {
     global $dir_hash_level;
 
+    /* Remove trailing slash from $dir if found */
+    if (substr($dir, -1) == '/') {
+        $dir = substr($dir, 0, strlen($dir) - 1);
+    }
+    
     /* If necessary, populate the hash dir variable. */
     if ($hash_dirs == '') {
         $hash_dirs = computeHashDirs($username);
@@ -237,8 +258,13 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
     $real_hash_dir = $dir;
     for ($h = 0; $h < $dir_hash_level; ++$h) {
         $real_hash_dir .= '/' . $hash_dirs[$h];
-        if (!is_dir($real_hash_dir)) {
-            mkdir($real_hash_dir, 0770);
+        if (!@is_dir($real_hash_dir)) {
+            if (!@mkdir($real_hash_dir, 0770)) {
+                echo sprintf(_("Error creating directory %s."), $real_hash_dir) . '<br>';
+                echo _("Could not create hashed directory structure!") . "<br>\n";
+                echo _("Please contact your system administrator and report this error.") . "<br>\n";
+                exit;
+            }
         }
     }
 

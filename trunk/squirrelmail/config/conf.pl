@@ -1945,77 +1945,69 @@ sub set_defaults {
 
       print "\n";
       if ($server eq "cyrus") { 
-			$default_folder_prefix = "";
-			$trash_folder = "INBOX.Trash";
-			$sent_folder = "INBOX.Sent";
-			$draft_folder = "INBOX.Drafts";
-			$show_prefix_option = false;
-			$default_sub_of_inbox = true;
-			$show_contain_subfolders_option = false;
-			$imap_server_type = "cyrus";
-
-         print "         default_folder_prefix = none\n";
-         print "                  trash_folder = INBOX.Trash\n";
-         print "                   sent_folder = INBOX.Sent\n";
-         print "                  draft_folder = INBOX.Drafts\n";
-         print "            show_prefix_option = false\n";
-         print "          default_sub_of_inbox = true\n";
-         print "show_contain_subfolders_option = false\n";
-         print "              imap_server_type = cyrus\n";
+         $default_folder_prefix = "";
+         $trash_folder = "INBOX.Trash";
+         $sent_folder = "INBOX.Sent";
+         $draft_folder = "INBOX.Drafts";
+         $show_prefix_option = false;
+         $default_sub_of_inbox = true;
+         $show_contain_subfolders_option = false;
+         $imap_server_type = "cyrus";
+         $disp_default_folder_prefix = "<none>";
 
          $continue = 1;
       } elsif ($server eq "uw") {
-			$default_folder_prefix = "mail/";
-			$trash_folder = "Trash";
-			$sent_folder = "Sent";
-			$draft_folder = "Drafts";
-			$show_prefix_option = true;
-			$default_sub_of_inbox = false;
-			$show_contain_subfolders_option = true;
-			$imap_server_type = "uw";
+         $default_folder_prefix = "mail/";
+         $trash_folder = "Trash";
+         $sent_folder = "Sent";
+         $draft_folder = "Drafts";
+         $show_prefix_option = true;
+         $default_sub_of_inbox = false;
+         $show_contain_subfolders_option = true;
+         $imap_server_type = "uw";
+         $disp_default_folder_prefix = $default_folder_prefix;
 
-         print "         default_folder_prefix = mail/\n";
-         print "                  trash_folder = Trash\n";
-         print "                   sent_folder = Sent\n";
-         print "                  draft_folder = Drafts\n";
-         print "            show_prefix_option = true\n";
-         print "          default_sub_of_inbox = false\n";
-         print "show_contain_subfolders_option = true\n";
-         print "              imap_server_type = uw\n";
-			
          $continue = 1;
       } elsif ($server eq "exchange") {
-			$default_folder_prefix = "";
-			$default_sub_of_inbox = true;
-			$trash_folder = "INBOX/Deleted Items";
-			$sent_folder = "INBOX/Sent Items";
-			$drafts_folder = "INBOX/Drafts";
-			$show_prefix_option = false;
-			$show_contain_subfolders_option = false;
-			$imap_server_type = "exchange";
+         $default_folder_prefix = "";
+         $default_sub_of_inbox = true;
+         $trash_folder = "INBOX/Deleted Items";
+         $sent_folder = "INBOX/Sent Items";
+         $drafts_folder = "INBOX/Drafts";
+         $show_prefix_option = false;
+         $show_contain_subfolders_option = false;
+         $imap_server_type = "exchange";
+         $disp_default_folder_prefix = "<none>";
          
-         print "          default_folder_prefix = <none>\n";
-         print "           default_sub_of_inbox = true\n";
-         print "                   trash_folder = \"INBOX/Deleted Items\"\n";
-         print "                    sent_folder = \"INBOX/Sent Items\"\n";
-         print "                   draft_folder = \"INBOX/Drafts\"\n";
-         print "             show_prefix_option = false\n";
-         print " show_contain_subfolders_option = false\n";
-         print "               imap_server_type = exchange\n";
-         
-			$continue = 1;
-      } elsif ($server eq "courier") {
-			$imap_server_type = "courier";
-
-         print "   imap_server_type = courier\n";
-			
          $continue = 1;
-		} elsif ($server eq "quit") {
-			$continue = 1;
+      } elsif ($server eq "courier") {
+         $default_folder_prefix = "mail/";
+         $trash_folder = "Trash";
+         $sent_folder = "Sent";
+         $draft_folder = "Drafts";
+         $show_prefix_option = true;
+         $default_sub_of_inbox = false;
+         $show_contain_subfolders_option = true;
+         $imap_server_type = "courier";
+         $disp_default_folder_prefix = $default_folder_prefix;
+
+         $continue = 1;
+      } elsif ($server eq "quit") {
+         $continue = 1;
       } else {
+         $disp_default_folder_prefix = $default_folder_prefix;
          print "Unrecognized server: $server\n";
-			print "\n";
+         print "\n";
       }
+
+      print "         default_folder_prefix = $disp_default_folder_prefix\n";
+      print "                  trash_folder = $trash_folder\n";
+      print "                   sent_folder = $sent_folder\n";
+      print "                  draft_folder = $draft_folder\n";
+      print "            show_prefix_option = $show_prefix_option\n";
+      print "          default_sub_of_inbox = $default_sub_of_inbox\n";
+      print "show_contain_subfolders_option = $show_contain_subfolders_option\n";
+      print "              imap_server_type = $imap_server_type\n";
    }   
    print "\nPress any key to continue...";
    $tmp = <STDIN>;
