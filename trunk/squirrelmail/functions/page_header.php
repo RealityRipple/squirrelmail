@@ -176,7 +176,6 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                      "}\n\n";
 
             }
-	$js .= $xtra;    
         $js .= "// -->\n". "</script>\n";
 	
 
