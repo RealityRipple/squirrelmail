@@ -1,17 +1,34 @@
-*************************************
-*** SquirrelMail Devel Series 1.3 ***
-*************************************
+**************************************
+*** SquirrelMail Stable Series 1.4 ***
+**************************************
 
-Version 1.3.3 -- cvs
--------------
+Version 1.4.0 RC 1
+------------------
   - Change the way highlighting rules are stored to make them more reliable and
     easier to manage.
   - Reorganization of conf.pl, menu #2
   - Added CRAM-MD5 and DIGEST-MD5 authentication support for IMAP and SMTP
   - Experimental TLS support for IMAP and SMTP (requires PHP 4.3.x)
   - Override settings with config_local.php
-  - compose form no longer shows attachment options if php file_uploads
-	disabled
+  - Compose form no longer shows attachment options if php file_uploads
+  	disabled
+  - Improved bodystructure parsing.
+  - Support for windows-1257 charset.
+  - Optimizations to the number of IMAP calls.
+  - Fix problem with IE6 + iso-8859-13.
+  - Allow Mail Fetch to use a different POP3 server port number.
+  - Force magic_quotes_runtime to be off to avoid problems with this setting.
+  - Introduce check_sm_version function for plugins wanting to know
+    which SquirrelMail function this is.
+  - Confirable session name to avoid conflicts with other PHP applications.
+  - Miscellaneous fixes for systems with error_reporting set to E_ALL.
+  - Many many other bugfixes and tweaks!
+
+
+*************************************
+*** SquirrelMail Devel Series 1.3 ***
+*************************************
+
 
 Version 1.3.2
 -------------
