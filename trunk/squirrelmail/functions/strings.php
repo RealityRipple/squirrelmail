@@ -362,9 +362,9 @@ function sqWordWrap(&$line, $wrap) {
     global $languages, $squirrelmail_language;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_wordwrap')) {
         if (mb_detect_encoding($line) != 'ASCII') {
-            $line = $languages[$squirrelmail_language]['XTRA_CODE']('wordwrap', $line, $wrap);
+            $line = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_wordwrap', $line, $wrap);
             return;
         }
     }
