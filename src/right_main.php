@@ -1,5 +1,4 @@
 <?php
-
 /**
  * right_main.php
  *
@@ -25,6 +24,7 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/plugin.php');
 
 /***********************************************************
  * incoming variables from URL:                            *
@@ -131,11 +131,11 @@ if ($allow_thread_sort == TRUE) {
     if (isset($set_thread)) {
         if ($set_thread == 1) {
             setPref($data_dir, $username, "thread_$mailbox", 1);
-            $thread_sort_messages = '1';    
+            $thread_sort_messages = '1';
         }
         elseif ($set_thread == 2)  {
             setPref($data_dir, $username, "thread_$mailbox", 0);
-            $thread_sort_messages = '0';    
+            $thread_sort_messages = '0';
         }
     }
     else {
@@ -144,7 +144,7 @@ if ($allow_thread_sort == TRUE) {
 }
 else {
     $thread_sort_messages = 0;
-} 
+}
 
 do_hook ('generic_header');
 
@@ -152,7 +152,7 @@ sqimap_mailbox_select($imapConnection, $mailbox);
 
 if ($composenew) {
     $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-		"&session=$session";
+        "&session=$session";
     displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri');", false);
 } else {
     displayPageHeader($color, $mailbox);
@@ -175,7 +175,7 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
         if (strlen(trim($motd)) > 0) {
             echo html_tag( 'table',
                         html_tag( 'tr',
-                            html_tag( 'td', 
+                            html_tag( 'td',
                                 html_tag( 'table',
                                     html_tag( 'tr',
                                         html_tag( 'td', $motd, 'center' )
@@ -216,7 +216,7 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 
     $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
 
-    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, 
+    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
                            $startMessage, $sort, $color, $show_num,
                            $use_mailbox_cache);
 
