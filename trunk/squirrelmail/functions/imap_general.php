@@ -17,11 +17,11 @@
       global $color, $squirrelmail_language, $imap_general_debug;
 
       $counter = 0;
-	  do {
+      do {
           $data[$counter] = $read = fgets ($imap_stream, 4096);
           if ($imap_general_debug) { echo "<small><tt><font color=cc0000>$read</font></tt></small><br>"; flush(); }
           $counter++;
-	  } while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs));
+      } while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs));
 
       $response = $regs[1];
       $message = trim($regs[2]);
@@ -89,9 +89,12 @@
                    printf (_("Unknown error: %s") . "<br>\n", $message);
                echo "<br>";
                echo _("Read data:") . "<br>\n";
-               foreach ($read as $line)
-               {
-                   echo htmlspecialchars($line) . "<br>\n";
+	       if (is_array($read))
+	       {
+                   foreach ($read as $line)
+                   {
+                       echo htmlspecialchars($line) . "<br>\n";
+		   }
                }
                exit;
             } else {
