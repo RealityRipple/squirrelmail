@@ -50,7 +50,7 @@
    // the header (lots of false alarms here tho).
 
    global $SpamFilters_YourHop;
-   $SpamFilters_YourHop = 'by firewall.persistence.com';
+   $SpamFilters_YourHop = ' ';
 
    // A cache of IPs we've already checked or are known bad boys or good boys
    // ie. $SpamFilters_DNScache["210.54.220.18"] = true;
