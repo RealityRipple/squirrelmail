@@ -12,7 +12,7 @@
  */
 
 /* Path for SquirrelMail required files. */
-define('SM_PATH','../');
+Define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
@@ -24,12 +24,12 @@ require_once(SM_PATH . 'include/load_prefs.php');
 /* globals */
 $key  = $_COOKIE['key'];
 $username = $_SESSION['username'];
-$onetimepad = $_SESISON['onetimepad'];
-
-$mailbox = $_GET['mailbox'];
+$onetimepad = $_SESSION['onetimepad'];
+$mailbox = decodeHeader($_GET['mailbox']);
 $passed_id = $_GET['passed_id'];
+$ent_id = $_GET['ent_id'];
 $passed_ent_id = $_GET['passed_ent_id'];
-
+$QUERY_STRING = $_SERVER['QUERY_STRING'];
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
