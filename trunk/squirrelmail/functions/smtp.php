@@ -2,23 +2,23 @@
    /** smtp.php
     **
     ** This contains all the functions needed to send messages through
-    ** an smtp server.
+    ** an smtp server or sendmail.
     **/
 
-   function sendMessage($username, $domain, $t, $c, $b, $subject, $body, $version) {
-      include("../config/config.php");
+   function sendMessage($t, $c, $b, $subject, $body, $version) {
+      global $useSendmail;
 
       if ($useSendmail==true) {  
-	 sendSendmail($username, $domain, $t, $c, $b, $subject, $body, $version);
+	 sendSendmail($t, $c, $b, $subject, $body, $version);
       } else {
-	 sendSMTP($username, $domain, $t, $c, $b, $subject, $body, $version);
+	 sendSMTP($t, $c, $b, $subject, $body, $version);
       }
     
    }
 
    // Send mail using the sendmail command
-   function sendSendmail($username, $domain, $t, $c, $b, $subject, $body, $version) {
-      include("../config/config.php");
+   function sendSendmail($t, $c, $b, $subject, $body, $version) {
+      global $username, $domain, $data_dir, $sendmail_path;
 
       // This is pretty much equal to the code in sendSMTP
       $to = parseAddrs($t);
@@ -72,7 +72,9 @@
       }
    }
 
-   function sendSMTP($username, $domain, $t, $c, $b, $subject, $body, $version) {
+   function sendSMTP($t, $c, $b, $subject, $body, $version) {
+      global $username, $domain;
+
       include("../config/config.php");
 
       $to = parseAddrs($t);
