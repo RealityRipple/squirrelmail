@@ -548,7 +548,7 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
  * @return imap-stream resource identifier
  */
 function sqimap_create_stream($server,$port,$tls=false) {
-    global $username, $use_imap_tls;
+    global $username, $use_imap_tls, $squirrelmail_language;
 
     if ($tls == true) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
@@ -556,10 +556,11 @@ function sqimap_create_stream($server,$port,$tls=false) {
             $server = 'tls://' . $server;
         } else {
             require_once(SM_PATH . 'functions/display_messages.php');
-            $string = "Unable to connect to IMAP server!<br />TLS is enabled, but this " .
-              "version of PHP does not support TLS sockets, or is missing the openssl " .
-              "extension.<br /><br />Please contact your system administrator.";
-            logout_error($string,$color);
+            logout_error( sprintf(_("Error connecting to IMAP server: %s."), $server).
+                '<br />'.
+                _("TLS is enabled, but this version of PHP does not support TLS sockets, or is missing the openssl extension.").
+                '<br /><br />'.
+                _("Please contact your system administrator and report this error.") );
         }
     }
 
@@ -569,10 +570,8 @@ function sqimap_create_stream($server,$port,$tls=false) {
     if (!$imap_stream) {
         set_up_language($squirrelmail_language, true);
         require_once(SM_PATH . 'functions/display_messages.php');
-        $string = sprintf (_("Error connecting to IMAP server: %s.") .
-           "<br />\r\n", $server) .
-           "$error_number : $error_string<br />\r\n";
-        logout_error($string,$color);
+        logout_error( sprintf(_("Error connecting to IMAP server: %s."), $server).
+            "<br />\r\n$error_number : $error_string<br />\r\n" );
         exit;
     }
     $server_info = fgets ($imap_stream, 1024);
@@ -603,7 +602,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     $password = OneTimePadDecrypt($password, $onetimepad);
 
     if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
-    // We're using some sort of authentication OTHER than plain or login
+        // We're using some sort of authentication OTHER than plain or login
         $tag=sqimap_session_id(false);
         if ($imap_auth_mech == 'digest-md5') {
             $query = $tag . " AUTHENTICATE DIGEST-MD5\r\n";
@@ -625,7 +624,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             fputs($imap_stream,$reply);
             $read=sqimap_fgets($imap_stream);
             if ($imap_auth_mech == 'digest-md5') {
-            // DIGEST-MD5 has an extra step..
+                // DIGEST-MD5 has an extra step..
                 if (substr($read,0,1) == '+') { // OK so far..
                     fputs($imap_stream,"\r\n");
                     $read=sqimap_fgets($imap_stream);
@@ -635,7 +634,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             $response=$results[1];
             $message=$results[2];
         } else {
-        // Fake the response, so the error trap at the bottom will work
+            // Fake the response, so the error trap at the bottom will work
             $response="BAD";
             $message='IMAP server does not appear to support the authentication method selected.';
             $message .= '  Please contact your system administrator.';
