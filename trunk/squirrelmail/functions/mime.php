@@ -1944,7 +1944,7 @@ function sq_sanitize($body,
  */
 function magicHTML($body, $id, $message){
     global $attachment_common_show_images, $view_unsafe_images,
-        $has_unsafe_images, $message;
+        $has_unsafe_images;
     /**
      * Don't display attached images in HTML mode.
      */
