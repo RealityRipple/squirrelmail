@@ -672,9 +672,9 @@ if ( $dir == 'ltr' ) {
 if ($use_css) {
    $table_ar = array('cellpadding' => 3);
 } else {
-   $table_ar = array( 'width' => '100%', 'cellpadding' => 3 ,
-                      'cellspacing'=> 0,'align'=> 'center', 
-		      'bgcolor' => $color[9]);
+   $table_ar = array( 'width' => '100%', 'cellpadding' => 3,
+                      'cellspacing' => 0, 'align'=> 'center',
+                      'border' => 0, 'bgcolor' => $color[9]);
 }
 		      
 $topbar = new html('table','','','rb_tb','',$table_ar);
@@ -845,6 +845,7 @@ if (!$use_css) {
    $ar_table = array( 'width' => '100%',
                       'cellpadding' => '0',
 		      'cellspacing' => '0',
+                      'border' => '0',
 		      'align' =>'center');
 } else {
    $ar_key = '';
@@ -1073,5 +1074,4 @@ if (($attachment_common_show_images) &&
 //do_hook('html_bottom');
 sqimap_logout($imapConnection);
 ?>
-</body>
-</html>
+
