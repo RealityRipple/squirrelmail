@@ -16,6 +16,13 @@
    include("../functions/strings.php");
 
    echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
+ 
+   // let's check to see if they compiled with gettext support
+   if (!function_exists("_")) {
+      echo "<CENTER>PHP was not configured --with-gettext.  Reconfigure and try again.</CENTER></BODY></HTML>";
+      exit;
+   }
+   
    echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><FONT FACE=\"Arial,Helvetica\" SIZE=-2>";
