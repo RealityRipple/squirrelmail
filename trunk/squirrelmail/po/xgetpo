@@ -18,6 +18,8 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/class/deliver/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/class/helper/*.php --output-dir=squirrelmail/po/    
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/include/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/include/options/*.php --output-dir=squirrelmail/po/
