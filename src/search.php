@@ -15,6 +15,7 @@ require_once('../functions/imap_search.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
 
+global $allow_thread_sort;
 
 /*  here are some functions, could go in imap_search.php
 
@@ -360,6 +361,12 @@ do_hook('search_after_form');
     folder it finds a match in.
 */
 
+$old_value = 0;
+if ($allow_thread_sort == true) {
+    $old_value = $allow_thread_sort;
+    $allow_thread_sort = false;
+}
+
 if ($search_all == 'all') {
     $mailbox == '';
     $boxcount = count($boxes);
@@ -404,6 +411,8 @@ else {
 if ($submit == _("Search") && empty($what)) {
     echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
 }
+
+$allow_thread_sort = $old_value;
 
 do_hook('search_bottom');
 sqimap_logout ($imapConnection);
