@@ -27,28 +27,6 @@ if ( !sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
   $composesession = 0;
 }
 
-/* obsolete ?? */
-function putSelectedMessagesIntoString($msg) {
-    $j = 0;
-    $i = 0;
-    $firstLoop = true;
-    // If they have selected nothing msg is size one still, but will
-    // be an infinite loop because we never increment j. so check to
-    // see if msg[0] is set or not to fix this.
-    while (($j < count($msg)) && ($msg[0])) {
-        if ($msg[$i]) {
-            if ($firstLoop != true) {
-                $selectedMessages .= "&amp;";
-            } else {
-                $firstLoop = false;
-            }
-            $selectedMessages .= "selMsg[$j]=$msg[$i]";
-            $j++;
-        }
-        $i++;
-    }
-}
-
 function attachSelectedMessages($msg, $imapConnection) {
     global $username, $attachment_dir, $startMessage,
            $data_dir, $composesession, $uid_support,
