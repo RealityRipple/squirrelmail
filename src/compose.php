@@ -29,8 +29,7 @@
    }
 
    echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
-   echo "<CENTER>";
-   echo "<TABLE COLS=2 WIDTH=100% ALIGN=CENTER>\n";
+   echo "<TABLE COLS=2 WIDTH=100% ALIGN=CENTER CELLSPACING=0>\n";
    echo "   <TR>\n";
    echo "      <TD WIDTH=15% BGCOLOR=FFFFFF ALIGN=RIGHT>\n";
    echo "         <FONT FACE=\"Arial,Helvetica\">To: </FONT>\n";
@@ -55,6 +54,7 @@
    echo "         <INPUT TYPE=TEXT NAME=passed_bcc SIZE=60><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
+
    echo "   <TR>\n";
    echo "      <TD WIDTH=15% BGCOLOR=FFFFFF ALIGN=RIGHT>\n";
    echo "         <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
@@ -64,13 +64,18 @@
    else if ($forward_subj)
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"[Fwd: $forward_subj]\"><BR>";
    else
-      echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60><BR>";
+      echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60>";
+   echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT VALUE=\"Send\"><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
+   echo "   <TR>\n";
+   echo "      <TD BGCOLOR=FFFFFF ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "      </TD>";
+   echo "      <TD BGCOLOR=FFFFFF>\n";
+   echo "         <TEXTAREA NAME=passed_body ROWS=20 COLS=76 WRAP=HARD>$body</TEXTAREA><BR>";
+   echo "      </TD>";
+   echo "   </TR>\n";
    echo "</TABLE>\n";
-
-   echo "<TEXTAREA NAME=passed_body ROWS=20 COLS=76 WRAP=HARD>$body</TEXTAREA><BR>";
-   echo "<INPUT TYPE=SUBMIT VALUE=\"Send\">";
-   echo "</CENTER>";
+   echo "<CENTER><INPUT TYPE=SUBMIT VALUE=\"Send\"></CENTER>";
    echo "</FORM>";
 ?>

@@ -31,7 +31,7 @@
       }
    </SCRIPT>
 </HEAD>
-<BODY BGCOLOR=A0B8C8 TEXT="#0000EE" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE" onUnLoad="unSetCookies()">
+<BODY BGCOLOR=A0B8C8 TEXT="#000000" LINK="#000000" VLINK="#000000" ALINK="#000000" onUnLoad="unSetCookies()">
 <FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php");
@@ -45,11 +45,10 @@
    fputs($imapConnection, "1 list \"\" *\n");
    $str = imapReadData($imapConnection);
 
-   echo "<FONT FACE=\"Arial,Helvetica\" COLOR=000000><B>";
-   echo "<CENTER>$org_name</B><BR>";
-   echo "Folders</CENTER>";
-   echo "</B><BR></FONT>";
-   echo "<code><FONT FACE=\"Arial,Helvetica\">\n";
+   echo "<FONT FACE=\"Arial,Helvetica\" COLOR=000000 SIZE=4><B><CENTER>";
+   echo "Folders</B><BR></FONT>";
+   echo "<FONT FACE=\"Arial,Helvetica\" COLOR=000000 SIZE=2>(<A HREF=\"../src/left_main.php\" TARGET=left>refresh folder list</A>)</FONT></CENTER><BR>";
+   echo "<FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0;$i < count($str); $i++) {
       $mailbox = Chop($str[$i]);
       $mailbox = findMailboxName($mailbox);
@@ -63,16 +62,23 @@
          echo "&nbsp;&nbsp;";
       
       $mailboxURL = urlencode($mailbox);
+      selectMailbox($imapConnection, $mailbox, $numNessages);
+      $unseen = unseenMessages($imapConnection, $numUnseen);
+      if ($unseen)
+         echo "<B>";
       echo "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
       echo readShortMailboxName($mailbox, ".");
       if (($move_to_trash == true) && ($mailbox == $trash_folder)) {
          $urlMailbox = urlencode($mailbox);
-         selectMailbox($imapConnection, $mailbox, $numNessages);
          echo "</A>&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">empty</A></B>)";
       }
-      echo "</FONT></a><br>\n";
+      echo "</FONT></a>\n";
+      if ($numUnseen > 0) {
+         echo "</B>&nbsp;</FONT><FONT FACE=\"Arial,Helvetica\" SIZE=2>($numUnseen)</FONT>";
+      }
+      echo "<BR>\n";
    }
-   echo "</code></FONT>";
+   echo "</FONT>";
 
    fclose($imapConnection);
                                   

@@ -11,6 +11,7 @@
       // select mailbox
       fputs($imapConnection, "mailboxSelect SELECT \"$mailbox\"\n");
       $read = fgets($imapConnection, 1024);
+      $unseen = false;
       while ((substr($read, 0, 16) != "mailboxSelect OK") && (substr($read, 0, 17) != "mailboxSelect BAD")) {
          if (substr(Chop($read), -6) == "EXISTS") {
             $array = explode(" ", $read);
@@ -18,6 +19,25 @@
          }
          $read = fgets($imapConnection, 1024);
       }
+   }
+
+   function unseenMessages($imapConnection, &$numUnseen) {
+      fputs($imapConnection, "1 SEARCH UNSEEN NOT DELETED\n");
+      $read = fgets($imapConnection, 1024);
+      $unseen = false;
+
+      if (strlen($read) > 10) {
+         $unseen = true;
+         $ary = explode(" ", $read);
+         $numUnseen = count($ary) - 2;
+      }
+      else {
+         $unseen = false;
+         $numUnseen = 0;
+      }
+
+      $read = fgets($imapConnection, 1024);
+      return $unseen;
    }
 
    /**  This function sends a request to the IMAP server for headers, 50 at a time
@@ -183,10 +203,8 @@
    function copyMessages($imapConnection, $from_id, $to_id, $folder) {
       fputs($imapConnection, "mailboxStore COPY $from_id:$to_id \"$folder\"\n");
       $read = fgets($imapConnection, 1024);
-      echo ">>> $read<BR>";
       while ((substr($read, 0, 15) != "mailboxStore OK") && (substr($read, 0, 15) != "mailboxStore NO")) {
          $read = fgets($imapConnection, 1024);
-         echo ">>> $read<BR>";
       }
 
       if (substr($read, 0, 15) == "mailboxStore NO") {
@@ -244,7 +262,7 @@
       while ($count < count($read)) {
          $read[$count] = "^^$read[$count]";
 
-         if (strpos(strtolower($read[$count]), "<html>") == true) {
+         if (strpos(strtolower($read[$count]), "<html") == true) {
             $useHTML = true;
          } else if (strpos(strtolower($read[$count]), "</html>") == true) {
             $useHTML = false;
@@ -277,14 +295,12 @@
          $line = str_replace(">", "&gt;", $line);
       }
 
-      $wrap_at = 80; // Make this configurable int the config file some time
+      $wrap_at = 86; // Make this configurable int the config file some time
       if (strlen($line) - 2 >= $wrap_at) // -2 because of the ^^ at the beginning
          $line = wordWrap($line, $wrap_at);
 
       $line = str_replace(" ", "&nbsp;", $line);
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
-      $line = str_replace("\n", "", $line);
-      $line = str_replace("\r", "", $line);
 
       /** if >> or > are found at the beginning of a line, I'll assume that was
           replied text, so make it different colors **/
