@@ -158,11 +158,10 @@ function sqsession_destroy() {
      */
 
     global $base_uri;
-    $cookie_params = session_get_cookie_params();
-    setcookie(session_name(), '', time() - 5, $cookie_params['path'],
-        $cookie_params['domain']);
-    setcookie('username','',time() - 5,$base_uri);
-    setcookie('key','',time() - 5,$base_uri);
+
+    if (isset($_COOKIE[session_name()])) setcookie(session_name(), '', time() - 5, $base_uri);
+    if (isset($_COOKIE['username'])) setcookie('username','',time() - 5,$base_uri);
+    if (isset($_COOKIE['key'])) setcookie('key','',time() - 5,$base_uri);
 
     $sessid = session_id();
     if (!empty( $sessid )) {
