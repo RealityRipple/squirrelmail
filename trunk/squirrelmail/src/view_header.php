@@ -63,7 +63,10 @@ function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
             $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
             $j++;
         }
-        parseEmail($s);
+        if(strtolower($f) != 'message-id:')
+	{
+		parseEmail($s);
+	}
         if (isset($f)) {
             $header_output[] = array($f,$s);
         }
