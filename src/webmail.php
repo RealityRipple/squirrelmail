@@ -129,7 +129,7 @@ if ($right_frame == 'right_main.php') {
 } else if ($right_frame == '') {
     $right_frame_url = 'right_main.php';
 } else {
-    $right_frame_url =  urldecode($right_frame);
+    $right_frame_url =  $right_frame;
 }
 
 if ($location_of_bar == 'right') {

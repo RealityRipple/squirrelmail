@@ -25,7 +25,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
 $key  = $_COOKIE['key'];
 $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
-$mailbox = urldecode($_GET['mailbox']);
+$mailbox = $_GET['mailbox'];
 $passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $startMessage = (int) $_GET['startMessage'];

@@ -396,7 +396,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
     $urlMailbox = urlencode($mailbox);
 
     foreach ($att_ar as $att) {
-        $ent = urldecode($att->entity_id);
+        $ent = $att->entity_id;
         $header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);

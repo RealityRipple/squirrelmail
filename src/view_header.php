@@ -107,7 +107,7 @@ if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
   $passed_id = (int) $temp;
 }
 if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
-  $mailbox = urldecode($temp);
+  $mailbox = $temp;
 }
 if ( !sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
   $passed_ent_id = '';
