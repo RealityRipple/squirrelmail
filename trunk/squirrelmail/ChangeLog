@@ -65,8 +65,8 @@ Version 1.5.1 -- CVS
   - Give proper error when PEAR DB not found.
   - Remove inappropriate strip_tags() from add-to-addressbook (#968475).
   - Prefs caching didn't work properly with register_globals off (#995102).
-  - Security: fix SQL injection vulnerability in addressbook
-    [CAN-2004-0521].
+  - Security: fix SQL injection vulnerability in addressbook.
+    [CAN-2004-0521]
   - Removed html_top and html_bottom hooks.  No longer used/needed.
   - Added "trailing text" for options built by SquirrelMail (text placed
     after text and select list inputs on options pages)
@@ -174,9 +174,9 @@ Version 1.5.1 -- CVS
   - Fix listcommands plugin to behave like normal reply/compose
     links, and return to message page that originally called from.
   - Max upload file size now correctly handles a '-1' value, meaning
-    unlimited (#1094569). 
+    unlimited. (#1094569).
   - Security: Added hook for Preferences Backend to resolve potential
-    file inclusions
+    file inclusions. [CAN-2005-0075] 
 
 Version 1.5.0
 --------------------
@@ -516,7 +516,7 @@ Version 1.2.6 -- April 29 2002
   - Added a server-side sorting global option
   - Compose in new window size can be set in Display prefs.
   - Logout error system unified.
-  - Security: Fix for a "theme passed as cookie" exploit. [CVE-2002-0516]
+  - Security: Fix for a "theme passed as cookie" exploit. [CAN-2002-0516]
   - PostgreSQL is now supported for database backed use
   - Added user option to sort messages by internal date
   - Changed attachment handling now attachments are adressed to
