@@ -15,42 +15,40 @@
    function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
       global $color, $squirrelmail_language, $imap_general_debug;
 
-      $keep_going = true;
       $read = fgets($imap_stream, 9096);
-      while ($keep_going)
-      {
-          // Continue if needed for this single line
-          while (strpos($read, "\n") === false)
-	  {
-	      $read .= fgets($imap_stream, 9096);
-	  }
-	  
-	  if ($imap_general_debug)
-	  {
-	      echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-	      flush();
-	  }
-
-          if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs))
-	  {
-	      // Test if this is really the last line.
-	      // Very much a hack, but what else can I do?
-	      socket_set_blocking($imap_stream, false);
-	      $read_next = fgets($imap_stream, 2);
-	      socket_set_blocking($imap_stream, true);
-	      
-	      if ($read_next == "")
-	      {
-    	          $keep_going = 0;
-	      }
-	  }
-	  else
-	  {
-	      $read_next = fgets($imap_stream, 9096);
-	  }
-
-          $data[] = $read;
-	  $read = $read_next;
+      if (preg_match ("/^\* [0-9]+ FETCH.*{([0-9]+)}/", $read, $regs)) {
+         $size = $regs[1];
+      }
+      
+      $continue = true;
+      while ($continue) {
+         // Continue if needed for this single line
+         while (strpos($read, "\n") === false) {
+            $read .= fgets($imap_stream, 9096);
+         }
+         if ($imap_general_debug) {
+            echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+            flush();
+         }
+         
+         if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
+            if ($size) {
+               $dt = $data;
+               $dt[0] = $dt[count($dt)-1] = "";
+               $d = implode ("", $dt);
+               if (strlen($d) >= $size) {
+                  $continue = false;
+               } else {
+                  $data[] = $read;
+                  $read = fgets ($imap_stream, 9096);
+               }
+            } else {
+               $continue = false;
+            }
+         } else {
+            $data[] = $read;
+            $read = fgets ($imap_stream, 9096);
+         }
       }
 
       $response = $regs[1];
@@ -60,7 +58,7 @@
 
       if ($handle_errors == false)
           return $data;
-	  
+     
       if ($response == "NO") {
          // ignore this error from m$ exchange, it is not fatal (aka bug)
          if (!ereg("command resulted in",$message)) { 
