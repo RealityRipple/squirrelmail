@@ -18,7 +18,7 @@
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
       if ($needle == '') return $haystack;
-      if ($needle == '.') $needle = '\.';
+      if ($needle == '.') $needle = '\\.';
       ereg("([^$needle]+)$needle?$", $haystack, $regs);
       return $regs[1];
    }
@@ -28,7 +28,7 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readMailboxParent($haystack, $needle) {
-      if ($needle == '.') $needle = '\.';
+      if ($needle == '.') $needle = '\\.';
       ereg("^(.+)$needle([^$needle]+)$needle?$", $haystack, $regs);
       return $regs[1];
    }
@@ -52,7 +52,7 @@
    // Specifically, &#039 comes up as 5 characters instead of 1.
    // This should not add newlines to the end of lines.
    function sqWordWrap(&$line, $wrap) {
-      preg_match("/^([\s>]*)([^\s>].*)?$/", $line, $regs);
+      preg_match('/^([\\s>]*)([^\\s>].*)?$/', $line, $regs);
       $beginning_spaces = $regs[1];
 	  if (isset($regs[2])) {
          $words = explode(' ', $regs[2]);
@@ -88,7 +88,7 @@
 
          // Go to the next line if we have more to process            
          if ($i < count($words)) {
-            $line .= "\n$beginning_spaces";
+            $line .= "\n" . $beginning_spaces;
          }
       }
    }
@@ -102,7 +102,7 @@
        $PreviousSpaces = "";
        for ($i = 0; $i < count($lines); $i ++)
        {
-           preg_match("/^([\s>]*)([^\s>].*)?$/", $lines[$i], $regs);
+           preg_match('/^([\\s>]*)([^\\s>].*)?$/', $lines[$i], $regs);
            $CurrentSpaces = $regs[1];
 	   if (isset($regs[2]))
                $CurrentRest = $regs[2];
@@ -134,7 +134,7 @@
          return array();
       $text = str_replace(' ', '', $text);
       $text = ereg_replace('"[^"]*"', '', $text);
-      $text = ereg_replace("\([^\)]*\)", '', $text);
+      $text = ereg_replace('\\([^\\)]*\\)', '', $text);
       $text = str_replace(',', ';', $text);
       $array = explode(';', $text);
       for ($i = 0; $i < count ($array); $i++) {
@@ -209,18 +209,6 @@
 
 
    function find_mailbox_name ($mailbox) {
-/*
-      $mailbox = trim($mailbox);
-      if (substr($mailbox, strlen($mailbox)-1, strlen($mailbox)) == '"') {
-         $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
-         $pos = strrpos ($mailbox, '"')+1;
-         $box = substr($mailbox, $pos);
-      } else {
-         $box = substr($mailbox, strrpos($mailbox, ' ')+1, strlen($mailbox));
-      }
-      return $box;
-*/      
-
       if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
           return $regs[1];
       ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
@@ -388,7 +376,7 @@
 	 $Str = '';
 	 foreach ($dat as $k => $v)
 	 {
-	     $Str .= "$k = $v\n";
+	     $Str .= $k . $v;
 	 }
 	 sq_mt_seed(md5($Str));
       }
@@ -418,7 +406,7 @@
    function sqCheckPHPVersion($major, $minor, $release) {
 
       $ver = phpversion();
-      eregi("^([0-9]+)\.([0-9]+)(.*)", $ver, $regs);
+      eregi('^([0-9]+)\\.([0-9]+)(.*)', $ver, $regs);
 
       // Parse the version string
       $vmajor  = strval($regs[1]);
