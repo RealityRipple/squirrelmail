@@ -21,7 +21,7 @@
       // (the default language) or empty.
       $squirrelmail_language = getPref ($data_dir, $username, "language");
       if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-         putenv("LANG=$squirrelmail_language");
+         putenv("LC_ALL=$squirrelmail_language");
          bindtextdomain("squirrelmail", "../locale/");
          textdomain("squirrelmail");
          $default_charset = $languages[$squirrelmail_language]["CHARSET"];
