@@ -270,6 +270,9 @@ if(!$hide_sm_attributions) {
 if(!$default_use_mdn) {
     $default_use_mdn = "true";
 }
+if(!$frame_top) {
+    $frame_top = "_top";
+}
 
 if ($ARGV[0] eq '--install-plugin') {
     print "Activating plugin " . $ARGV[1]
@@ -552,15 +555,15 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 16) { $auto_create_special            = command214(); }
          elsif ($command == 17) { $delete_folder                  = command215(); }
       } elsif ($menu == 4) {
-         if    ($command == 1) { $default_charset          = command31 (); }
-         elsif ($command == 2) { $data_dir                 = command33a (); }
-         elsif ($command == 3) { $attachment_dir           = command33b (); }
-         elsif ($command == 4) { $dir_hash_level           = command33c (); }
-         elsif ($command == 5) { $default_left_size        = command35 (); }
-	 elsif ($command == 6) { $force_username_lowercase = command36 (); }
-	 elsif ($command == 7) { $default_use_priority     = command37 (); }
-         elsif ($command == 8) { $hide_sm_attributions     = command38 (); }
-         elsif ($command == 9) { $default_use_mdn          = command39 (); }     
+         if    ($command == 1)  { $default_charset          = command31  (); }
+         elsif ($command == 2)  { $data_dir                 = command33a (); }
+         elsif ($command == 3)  { $attachment_dir           = command33b (); }
+         elsif ($command == 4)  { $dir_hash_level           = command33c (); }
+         elsif ($command == 5)  { $default_left_size        = command35  (); }
+         elsif ($command == 6)  { $force_username_lowercase = command36  (); }
+         elsif ($command == 7)  { $default_use_priority     = command37  (); }
+         elsif ($command == 8)  { $hide_sm_attributions     = command38  (); }
+         elsif ($command == 9)  { $default_use_mdn          = command39  (); }     
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1979,11 +1982,7 @@ sub save_data {
         print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
         print CF "\$signout_page  = '$signout_page';\n";
-        if ($frame_top eq "") {
-            print CF "\$frame_top     = '_top';\n";
-        } else {
-            print CF "\$frame_top     = '$frame_top';\n";
-        }
+        print CF "\$frame_top     = '$frame_top';\n";
         print CF "\n";
      
         print CF "\$motd = '$motd';\n";
@@ -2079,8 +2078,8 @@ sub save_data {
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
         print CF "\$prefs_dsn = '$prefs_dsn';\n";
-        print CF "\$prefs_table = '$prefs_table';\n";
-     
+        print CF "\$prefs_table = '$prefs_table';\n\n";
+
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";
         print CF " * tag below (including newline characters and whitespace).\n";
