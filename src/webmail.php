@@ -42,6 +42,9 @@ sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 if ( isset($_SESSION['session_expired_post']) ) {
     sqsession_unregister('session_expired_post');
 }
+if(!sqgetGlobalVar('mailto', $mailto)) {
+    $mailto = '';
+}
 
 is_logged_in();
 
@@ -120,6 +123,8 @@ if ($right_frame == 'right_main.php') {
     $right_frame_url = 'options.php';
 } elseif ($right_frame == 'folders.php') {
     $right_frame_url = 'folders.php';
+} elseif ($right_frame == 'compose.php') {
+    $right_frame_url = 'compose.php?' . $mailto;
 } else if ($right_frame == '') {
     $right_frame_url = 'right_main.php';
 } else {

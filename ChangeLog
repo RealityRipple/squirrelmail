@@ -9,6 +9,8 @@ Version 1.5.0 -- CVS
   - conf.pl changes for delete_folder restrictions with Courier-IMAP and
     UW-IMAP (#715550).
   - Fixed code to allow for \ in password/username (#718116).
+  - Added mailto: support for Windows clients.  See
+    contrib/squirrelmail.mailto.reg
 
 
 **************************************

@@ -95,6 +95,11 @@ if (isset($org_logo) && $org_logo) {
     }
 }
 
+if(sqgetGlobalVar('mailto', $mailto)) {
+    $rcptaddress = '<input type="hidden" name="mailto" value="' . urlencode($mailto) . '" />' . "\n";
+} else {
+    $rcptaddress = '';
+}
 echo html_tag( 'table',
     html_tag( 'tr',
         html_tag( 'td',
@@ -131,6 +136,7 @@ echo html_tag( 'table',
                                 html_tag( 'td',
                                     '<input type="password" name="' . $password_form_name . '" />' . "\n" .
                                     '<input type="hidden" name="js_autodetect_results" value="SMPREF_JS_OFF" />' . "\n" .
+                                    $rcptaddress .
                                     '<input type="hidden" name="just_logged_in" value="1" />' . "\n",
                                 'left', '', 'width="*"' )
                             ) ,
