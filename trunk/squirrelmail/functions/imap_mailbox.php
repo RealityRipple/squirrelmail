@@ -627,6 +627,7 @@ function sqimap_mailbox_list_all($imap_stream) {
     $read_ary = sqimap_read_data ($imap_stream, $ssid, true, $response, $message);
     $g = 0;
     $phase = 'inbox';
+    $fld_pre_length = strlen($folder_prefix);
 
     for ($i = 0; $i < count($read_ary); $i++) {
         /* Another workaround for EIMS */
@@ -637,7 +638,6 @@ function sqimap_mailbox_list_all($imap_stream) {
             $read_ary[$i] = $regs[1] . '"' . addslashes(trim($read_ary[$i])) . '"' . $regs[2];
         }
         if (substr($read_ary[$i], 0, $lsid) != $ssid ) {
-
             /* Store the raw IMAP reply */
             $boxes[$g]['raw'] = $read_ary[$i];
 
@@ -672,20 +672,24 @@ function sqimap_mailbox_list_all($imap_stream) {
                 $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             }
             $boxes[$g]['unformatted'] = $mailbox;
-            $boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
+            $boxes[$g]['unformatted-disp'] = substr($mailbox,$fld_pre_length);
+
             $boxes[$g]['id'] = $g;
 
             /* Now lets get the flags for this mailbox */
-            $read_mlbx = sqimap_run_command ($imap_stream, "LIST \"\" \"$mailbox\"",
-                                             true, $response, $message);
+	    $read_mlbx = $read_ary[$i];
+
+//            $read_mlbx = sqimap_run_command ($imap_stream, "LIST \"\" \"$mailbox\"",
+//                                             true, $response, $message);
 
             /* Another workaround for EIMS */
-            if (isset($read_mlbx[1]) &&
-                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", $read_mlbx[0], $regs)) {
-                $read_mlbx[0] = $regs[1] . '"' . addslashes(trim($read_mlbx[1])) . '"' . $regs[2];
-            }
+//            if (isset($read_mlbx[1]) &&
+//                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", $read_mlbx[0], $regs)) {
+//                $read_mlbx[0] = $regs[1] . '"' . addslashes(trim($read_mlbx[1])) . '"' . $regs[2];
+//            }
+//	    echo  $read_mlbx[0] .' raw 2 <br>';
 
-            $flags = substr($read_mlbx[0], strpos($read_mlbx[0], '(')+1);
+            $flags = substr($read_mlbx, strpos($read_mlbx, '(')+1);
             $flags = substr($flags, 0, strpos($flags, ')'));
             $flags = str_replace('\\', '', $flags);
             $flags = trim(strtolower($flags));
