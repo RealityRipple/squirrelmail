@@ -77,7 +77,14 @@
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
 
    $count_special_folders = 0;
-   for ($p = 0; $p < count($boxes); $p++) {
+	$num_max = 1;
+	if ($move_to_trash)
+		$num_max++;
+	if ($move_to_sent)
+		$num_max++;
+
+   for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
+		echo "$count_special_folders - $p<br>";
       if (strtolower($boxes[$i]["unformatted"]) == "inbox")
          $count_special_folders++;
       else if ($boxes[$i]["unformatted"] == $trash_folder)

@@ -42,43 +42,41 @@
 		var $from, $subject, $date;
 	}
 	 
-   function sqimap_get_small_header ($imap_stream, $start, $end, $sent) {
+   function sqimap_get_small_header ($imap_stream, $id, $sent) {
       //fputs ($imap_stream, "a001 FETCH $id BODY[HEADER.FIELDS (DATE FROM SUBJECT)]\r\n");
       //fputs ($imap_stream, "a001 FETCH $start:$end RFC822.HEADER\r\n");
-      fputs ($imap_stream, "a001 FETCH $start:$end BODY.PEEK[HEADER.FIELDS (Date To From Subject)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date From Subject)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
       $from = _("Unknown Sender");
+		$g = 0;
       for ($i = 0; $i < count($read); $i++) {
-			while (substr($read[$i], 0, 1) != ")") {
-				if ($sent == true) {
-	         	if (eregi ("^to:", $read[$i])) {
-	            	$from = sqimap_find_displayable_name(substr($read[$i], 3));
-					}	
-				} else { 
-	         	if (eregi ("^from:", $read[$i])) {
-	            	$from = sqimap_find_displayable_name(substr($read[$i], 5));
-					}	
-				}
-	
-	         if (eregi ("^date:", $read[$i])) {
-	            $date = substr($read[$i], 5);
-	         } else if (eregi ("^subject:", $read[$i])) {
-	            $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
-	            if (strlen($subject) == 0)
-	               $subject = _("(no subject)");
-	         }
-				$i++;
-      	}
-			$header = new small_header;
-			$header->from = $from;
-			$header->date = $date;
-			$header->subject = $subject;
-			$ary[$g] = $header;
-			$g++;
-		}
-		return $ary;
+			if ($sent == true) {
+         	if (eregi ("^to:", $read[$i])) {
+            	$from = sqimap_find_displayable_name(substr($read[$i], 3));
+				}	
+			} else { 
+         	if (eregi ("^from:", $read[$i])) {
+            	$from = sqimap_find_displayable_name(substr($read[$i], 5));
+				}	
+			}
+
+         if (eregi ("^date:", $read[$i])) {
+            $date = substr($read[$i], 5);
+         } else if (eregi ("^subject:", $read[$i])) {
+            $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
+            if (strlen($subject) == 0)
+               $subject = _("(no subject)");
+         }
+		}	
+
+		$header = new small_header;
+		$header->from = $from;
+		$header->date = $date;
+		$header->subject = $subject;
+
+		return $header;
    }
 
    /******************************************************************************

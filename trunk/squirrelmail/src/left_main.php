@@ -35,8 +35,9 @@
 		global $color, $move_to_sent, $move_to_trash;
 
       $mailboxURL = urlencode($real_box);
-//      sqimap_mailbox_select ($imapConnection, $real_box);
-      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+		if($real_box=="INBOX") {
+	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+		}
 
       echo "<NOBR>";
       if ($unseen > 0)
