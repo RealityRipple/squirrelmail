@@ -22,7 +22,9 @@ function squirrelmail_plugin_init_listcommands () {
 
 function plugin_listcommands_menu() {
     global $imapConnection, $passed_id, $color, $mailbox,
-           $subject, $ent_num, $priority_level, $compose_new_win;
+           $message, $ent_num, $priority_level, $compose_new_win;
+
+    $subject = trim($message->header->subject);
 
     /**
      * Array of commands we can deal with from the header. The Reply option
