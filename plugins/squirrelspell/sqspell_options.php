@@ -30,8 +30,8 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/page_header.php');
-require_once($SQSPELL_DIR . 'sqspell_config.php');
-require_once($SQSPELL_DIR . 'sqspell_functions.php');
+require_once(SM_PATH . $SQSPELL_DIR . 'sqspell_config.php');
+require_once(SM_PATH . $SQSPELL_DIR . 'sqspell_functions.php');
 
 /**
  * $MOD is the name of the module to invoke.
@@ -45,6 +45,6 @@ if (!isset($MOD) || !$MOD){
 }
 
 /* Load the stuff already. */
-require_once($SQSPELL_DIR . "modules/$MOD.mod");
+require_once(SM_PATH . $SQSPELL_DIR . "modules/$MOD.mod");
 
 ?>

@@ -18,8 +18,8 @@ $squirrelmail_plugin_hooks = array();
 
 /* This function adds a plugin. */
 function use_plugin ($name) {
-    if (file_exists("../plugins/$name/setup.php")) {
-        include_once("../plugins/$name/setup.php");
+    if (file_exists(SM_PATH . "plugins/$name/setup.php")) {
+        include_once(SM_PATH . "plugins/$name/setup.php");
         $function = "squirrelmail_plugin_init_$name";
         if (function_exists($function)) {
             $function();
