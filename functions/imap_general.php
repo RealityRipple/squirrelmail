@@ -818,6 +818,23 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
             exit;
         }
     }
+
+    /* Special error case:
+     * Login referrals. The server returns:
+	 * ? OK [REFERRAL <imap url>]
+	 * Check RFC 2221 for details. Since we do not support login referrals yet
+	 * we log the user out.
+	 */
+    if ( strpos($message, "REFERRAL") ) {
+        sqimap_logout($imap_stream);   
+        set_up_language($squirrelmail_language, true);
+        include_once(SM_PATH . 'functions/display_messages.php' );
+        sqsession_destroy();
+        logout_error( _("Your mailbox is not located on this server.<br>".
+	                   "Try a different server or consult your Administrator") );
+        exit;
+    }
+    
     return $imap_stream;
 }
 
