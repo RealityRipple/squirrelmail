@@ -108,18 +108,19 @@
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
    $count_special_folders = 0;
-	$num_max = 1;
-	if ($move_to_trash)
-		$num_max++;
-	if ($move_to_sent)
-		$num_max++;
+       $num_max = 1;
+       if (strtolower($imap_server_type) == "courier" || $move_to_trash)
+               $num_max++;
+       if ($move_to_sent)
+               $num_max++;
 
-   for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
+   for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {                                                                                 
       if (strtolower($boxes[$p]["unformatted"]) == "inbox")
          $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
+      else if (strtolower($imap_server_type) == "courier" &&
+               strtolower($boxes[$p]["unformatted"]) == "inbox.trash")                                                               
          $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
+      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)                                                                  
          $count_special_folders++;
    }   
 
@@ -128,10 +129,12 @@
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
-			    ($boxes[$i]["unformatted"] != $trash_folder) && 
-			    ($boxes[$i]["unformatted"] != $sent_folder)) 
-			{	
+        if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&                                                                             
+            ($boxes[$i]["unformatted"] != $trash_folder) && 
+            ($boxes[$i]["unformatted"] != $sent_folder) &&
+            (strtolower($imap_server_type) != "courier" ||
+             strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))                                                              
+          {
             $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
@@ -158,10 +161,12 @@
    echo _("as a subfolder of");
    echo "<BR>";
    echo "<TT><SELECT NAME=subfolder>\n";
-   if ($default_sub_of_inbox == false)
-      echo "<OPTION SELECTED>[ None ]\n";
-   else
-      echo "<OPTION>[ None ]\n";
+   if (strtolower($imap_server_type) != "courier"){
+     if ($default_sub_of_inbox == false)
+       echo "<OPTION SELECTED>[ None ]\n";
+     else
+       echo "<OPTION>[ None ]\n";
+   }
 
    for ($i = 0; $i < count($boxes); $i++) {
       if (count($boxes[$i]["flags"]) > 0) {
@@ -180,7 +185,9 @@
             } else {
                $box = $boxes[$i]["unformatted"];
                $box2 = replace_spaces($boxes[$i]["formatted"]);
-               echo "<OPTION VALUE=\"$box\">$box2\n";
+               if (strtolower($imap_server_type) != "courier" ||
+                  strtolower($box) != "inbox.trash")
+                echo "<OPTION VALUE=\"$box\">$box2\n";
             }
          }
       } else {
@@ -191,7 +198,9 @@
          } else {
             $box = $boxes[$i]["unformatted"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "<OPTION VALUE=\"$box\">$box2\n";
+           if (strtolower($imap_server_type) != "courier" ||
+               strtolower($box) != "inbox.trash")
+             echo "<OPTION VALUE=\"$box\">$box2\n";
          }
       }
    }

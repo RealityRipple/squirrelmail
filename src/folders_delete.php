@@ -42,17 +42,22 @@
    else
       $mailbox_no_dm = $mailbox;
 
-   /** lets see if we CAN move folders to the trash.. otherwise, just delete them **/
-   for ($i = 0; $i < count($boxes); $i++) {
-      if ($boxes[$i]["unformatted"] == $trash_folder) {
-         $can_move_to_trash = true;
-         for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-            if (strtolower($boxes[$i]["flags"][$j]) == "noinferiors")
+   /** lets see if we CAN move folders to the trash.. otherwise, 
+    ** just delete them **/
+   if (strtolower($imap_server_type) == "courier") {
+      // Courier IMAP doesn't like subfolders of Trash
+      $can_move_to_trash = false;
+   } else {
+      for ($i = 0; $i < count($boxes); $i++) {
+         if ($boxes[$i]["unformatted"] == $trash_folder) {
+            $can_move_to_trash = true;
+            for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
+               if (strtolower($boxes[$i]["flags"][$j]) == "noinferiors")                                                               
                $can_move_to_trash = false;
+            }
          }
       }
    }
-
 
    /** First create the top node in the tree **/
    for ($i = 0;$i < count($boxes);$i++) {
