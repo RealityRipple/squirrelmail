@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-02-21 13:58+0100\n"
+"POT-Creation-Date: 2002-03-01 11:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,12 +244,12 @@ msgid "Your Message has been sent"
 msgstr ""
 
 #: squirrelmail/plugins/listcommands/mailout.php:50
-#: squirrelmail/src/compose.php:528 squirrelmail/src/read_body.php:711
+#: squirrelmail/src/compose.php:528 squirrelmail/src/read_body.php:722
 msgid "From:"
 msgstr ""
 
 #: squirrelmail/src/compose.php:556 squirrelmail/src/read_body.php:167
-#: squirrelmail/src/read_body.php:728
+#: squirrelmail/src/read_body.php:739
 msgid "To:"
 msgstr ""
 
@@ -262,7 +262,7 @@ msgid "BCC:"
 msgstr ""
 
 #: squirrelmail/src/compose.php:579 squirrelmail/src/read_body.php:168
-#: squirrelmail/src/read_body.php:682
+#: squirrelmail/src/read_body.php:693
 msgid "Subject:"
 msgstr ""
 
@@ -282,23 +282,23 @@ msgstr ""
 msgid "Delete selected attachments"
 msgstr ""
 
-#: squirrelmail/src/compose.php:679 squirrelmail/src/read_body.php:757
+#: squirrelmail/src/compose.php:679 squirrelmail/src/read_body.php:768
 msgid "Priority"
 msgstr ""
 
 #: squirrelmail/plugins/administrator/defines.php:191
 #: squirrelmail/plugins/calendar/functions.php:98
-#: squirrelmail/src/compose.php:680 squirrelmail/src/read_body.php:553
+#: squirrelmail/src/compose.php:680 squirrelmail/src/read_body.php:564
 msgid "High"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/functions.php:97
-#: squirrelmail/src/compose.php:681 squirrelmail/src/read_body.php:566
+#: squirrelmail/src/compose.php:681 squirrelmail/src/read_body.php:577
 msgid "Normal"
 msgstr ""
 
 #: squirrelmail/plugins/administrator/defines.php:188
-#: squirrelmail/src/compose.php:682 squirrelmail/src/read_body.php:559
+#: squirrelmail/src/compose.php:682 squirrelmail/src/read_body.php:570
 msgid "Low"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgstr ""
 msgid "View message"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:640 squirrelmail/src/download.php:41
+#: squirrelmail/functions/mime.php:641 squirrelmail/src/download.php:41
 #: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
 msgid "Download this as a file"
 msgstr ""
@@ -440,7 +440,7 @@ msgstr ""
 #: squirrelmail/plugins/mail_fetch/options.php:170
 #: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:76
 #: squirrelmail/src/options_identities.php:341
-#: squirrelmail/src/read_body.php:602
+#: squirrelmail/src/read_body.php:613
 msgid "Delete"
 msgstr ""
 
@@ -472,7 +472,7 @@ msgstr ""
 
 #: squirrelmail/functions/options.php:414
 #: squirrelmail/plugins/filters/options.php:138
-#: squirrelmail/plugins/newmail/newmail_opt.php:133
+#: squirrelmail/plugins/newmail/newmail_opt.php:146
 #: squirrelmail/plugins/translate/options.php:160
 #: squirrelmail/src/folders_rename_getname.php:51
 #: squirrelmail/src/options_highlight.php:347
@@ -505,7 +505,7 @@ msgstr ""
 #: squirrelmail/plugins/delete_move_next/setup.php:148
 #: squirrelmail/plugins/delete_move_next/setup.php:150
 #: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
-#: squirrelmail/src/read_body.php:628 squirrelmail/src/read_body.php:630
+#: squirrelmail/src/read_body.php:639 squirrelmail/src/read_body.php:641
 msgid "Previous"
 msgstr ""
 
@@ -515,7 +515,7 @@ msgstr ""
 #: squirrelmail/plugins/delete_move_next/setup.php:153
 #: squirrelmail/plugins/delete_move_next/setup.php:155
 #: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
-#: squirrelmail/src/read_body.php:634 squirrelmail/src/read_body.php:636
+#: squirrelmail/src/read_body.php:645 squirrelmail/src/read_body.php:647
 msgid "Next"
 msgstr ""
 
@@ -854,7 +854,7 @@ msgstr ""
 
 #: squirrelmail/functions/page_header.php:150
 #: squirrelmail/plugins/filters/options.php:62
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
+#: squirrelmail/plugins/newmail/newmail_opt.php:37
 #: squirrelmail/plugins/translate/options.php:94
 #: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
 #: squirrelmail/src/options_identities.php:44
@@ -873,14 +873,14 @@ msgid "New"
 msgstr ""
 
 #: squirrelmail/plugins/filters/options.php:65
-#: squirrelmail/plugins/filters/spamoptions.php:157
+#: squirrelmail/plugins/filters/spamoptions.php:159
 #: squirrelmail/plugins/mail_fetch/fetch.php:225
 #: squirrelmail/src/options_highlight.php:67
 msgid "Done"
 msgstr ""
 
 #: squirrelmail/plugins/filters/options.php:152
-#: squirrelmail/plugins/filters/spamoptions.php:156
+#: squirrelmail/plugins/filters/spamoptions.php:158
 #: squirrelmail/src/options_highlight.php:74
 msgid "Edit"
 msgstr ""
@@ -1241,27 +1241,27 @@ msgstr ""
 msgid "less"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:594
+#: squirrelmail/src/read_body.php:605
 msgid "Message List"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:610
+#: squirrelmail/src/read_body.php:621
 msgid "Resume Draft"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:651
+#: squirrelmail/src/read_body.php:662
 msgid "Forward"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:660
+#: squirrelmail/src/read_body.php:671
 msgid "Reply"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:669
+#: squirrelmail/src/read_body.php:680
 msgid "Reply All"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:693 squirrelmail/src/read_body.php:696
+#: squirrelmail/src/read_body.php:704 squirrelmail/src/read_body.php:707
 msgid "View Full Header"
 msgstr ""
 
@@ -1270,35 +1270,35 @@ msgstr ""
 #: squirrelmail/plugins/calendar/event_edit.php:35
 #: squirrelmail/plugins/calendar/event_edit.php:93
 #: squirrelmail/plugins/calendar/event_edit.php:106
-#: squirrelmail/src/read_body.php:719
+#: squirrelmail/src/read_body.php:730
 msgid "Date:"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:771
+#: squirrelmail/src/read_body.php:782
 msgid "Mailer"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:821 squirrelmail/src/read_body.php:834
-#: squirrelmail/src/read_body.php:846 squirrelmail/src/read_body.php:871
-#: squirrelmail/src/read_body.php:915 squirrelmail/src/read_body.php:931
+#: squirrelmail/src/read_body.php:832 squirrelmail/src/read_body.php:845
+#: squirrelmail/src/read_body.php:857 squirrelmail/src/read_body.php:882
+#: squirrelmail/src/read_body.php:926 squirrelmail/src/read_body.php:942
 msgid "Read receipt"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:823 squirrelmail/src/read_body.php:917
+#: squirrelmail/src/read_body.php:834 squirrelmail/src/read_body.php:928
 msgid "send"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:836 squirrelmail/src/read_body.php:848
-#: squirrelmail/src/read_body.php:873 squirrelmail/src/read_body.php:933
+#: squirrelmail/src/read_body.php:847 squirrelmail/src/read_body.php:859
+#: squirrelmail/src/read_body.php:884 squirrelmail/src/read_body.php:944
 msgid "requested"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:849 squirrelmail/src/read_body.php:874
-#: squirrelmail/src/read_body.php:934
+#: squirrelmail/src/read_body.php:860 squirrelmail/src/read_body.php:885
+#: squirrelmail/src/read_body.php:945
 msgid "Send read receipt now"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:861
+#: squirrelmail/src/read_body.php:872
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
@@ -1331,6 +1331,10 @@ msgstr ""
 
 #: squirrelmail/src/search.php:252
 msgid "delete"
+msgstr ""
+
+#: squirrelmail/src/search.php:263
+msgid "Recent Searches"
 msgstr ""
 
 #: squirrelmail/src/search.php:280
@@ -1663,9 +1667,9 @@ msgstr ""
 
 #: squirrelmail/functions/db_prefs.php:52
 #: squirrelmail/functions/db_prefs.php:59
-#: squirrelmail/functions/db_prefs.php:102
-#: squirrelmail/functions/db_prefs.php:105
-#: squirrelmail/functions/db_prefs.php:251
+#: squirrelmail/functions/db_prefs.php:114
+#: squirrelmail/functions/db_prefs.php:117
+#: squirrelmail/functions/db_prefs.php:280
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
@@ -1929,23 +1933,23 @@ msgstr ""
 msgid "FETCH line:"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:643
+#: squirrelmail/functions/mime.php:644
 msgid "Hide Unsafe Images"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:645
+#: squirrelmail/functions/mime.php:646
 msgid "View Unsafe Images"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:674
+#: squirrelmail/functions/mime.php:675
 msgid "Attachments"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:713
+#: squirrelmail/functions/mime.php:714
 msgid "download"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:1009
+#: squirrelmail/functions/mime.php:1018
 #: squirrelmail/plugins/calendar/event_create.php:53
 #: squirrelmail/plugins/calendar/event_create.php:116
 #: squirrelmail/plugins/calendar/event_delete.php:36
@@ -1955,7 +1959,7 @@ msgstr ""
 msgid "Title:"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:1183
+#: squirrelmail/functions/mime.php:1207
 msgid "sec_remove_eng.png"
 msgstr ""
 
@@ -1998,196 +2002,196 @@ msgstr ""
 msgid "Could not create hashed directory structure!"
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:360
+#: squirrelmail/plugins/filters/filters.php:361
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:368
+#: squirrelmail/plugins/filters/filters.php:369
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:376
+#: squirrelmail/plugins/filters/filters.php:377
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:384
+#: squirrelmail/plugins/filters/filters.php:385
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:392
+#: squirrelmail/plugins/filters/filters.php:393
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:400
+#: squirrelmail/plugins/filters/filters.php:401
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:408
+#: squirrelmail/plugins/filters/filters.php:410
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:416
+#: squirrelmail/plugins/filters/filters.php:418
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:424
+#: squirrelmail/plugins/filters/filters.php:426
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
 "to catch abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:432
+#: squirrelmail/plugins/filters/filters.php:434
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:440
+#: squirrelmail/plugins/filters/filters.php:442
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:448
+#: squirrelmail/plugins/filters/filters.php:450
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:456
+#: squirrelmail/plugins/filters/filters.php:458
 msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
 "cgi scripts. (planned)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:464
+#: squirrelmail/plugins/filters/filters.php:466
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:472
+#: squirrelmail/plugins/filters/filters.php:474
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:480
+#: squirrelmail/plugins/filters/filters.php:482
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:488
+#: squirrelmail/plugins/filters/filters.php:490
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:496
+#: squirrelmail/plugins/filters/filters.php:498
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:504
+#: squirrelmail/plugins/filters/filters.php:506
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:512
+#: squirrelmail/plugins/filters/filters.php:514
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:520
+#: squirrelmail/plugins/filters/filters.php:522
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:528
+#: squirrelmail/plugins/filters/filters.php:530
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:536
+#: squirrelmail/plugins/filters/filters.php:538
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:544
+#: squirrelmail/plugins/filters/filters.php:546
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:552
+#: squirrelmail/plugins/filters/filters.php:554
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:560
+#: squirrelmail/plugins/filters/filters.php:562
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:568
+#: squirrelmail/plugins/filters/filters.php:570
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:576
+#: squirrelmail/plugins/filters/filters.php:578
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:584
+#: squirrelmail/plugins/filters/filters.php:586
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:592
+#: squirrelmail/plugins/filters/filters.php:594
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:600
+#: squirrelmail/plugins/filters/filters.php:602
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:608
+#: squirrelmail/plugins/filters/filters.php:610
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:616
+#: squirrelmail/plugins/filters/filters.php:618
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
 "assigned IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:624
+#: squirrelmail/plugins/filters/filters.php:626
 msgid ""
 "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
 "directly from."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:632
+#: squirrelmail/plugins/filters/filters.php:634
 msgid ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
 "in or that have allowed known spammers to become clients and abuse their "
 "services."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:640
+#: squirrelmail/plugins/filters/filters.php:642
 msgid ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
 "other active RBLs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:648
+#: squirrelmail/plugins/filters/filters.php:650
 msgid ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
 "other active RBLs and that have sent SPAM to Leadmon.net."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:656
+#: squirrelmail/plugins/filters/filters.php:658
 msgid ""
 "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
 "direct SPAM from IPs in netblocks where the entire block has no DNS "
@@ -2195,13 +2199,13 @@ msgid ""
 "Leadmon.net."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:664
+#: squirrelmail/plugins/filters/filters.php:666
 msgid ""
 "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
 "SPAM Sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:672
+#: squirrelmail/plugins/filters/filters.php:674
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr ""
 
@@ -2236,39 +2240,39 @@ msgstr ""
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/setup.php:94
+#: squirrelmail/plugins/filters/setup.php:103
 msgid "Message Filters"
 msgstr ""
 
-#: squirrelmail/plugins/filters/setup.php:96
+#: squirrelmail/plugins/filters/setup.php:105
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr ""
 
-#: squirrelmail/plugins/filters/setup.php:102
+#: squirrelmail/plugins/filters/setup.php:111
 msgid "SPAM Filters"
 msgstr ""
 
-#: squirrelmail/plugins/filters/setup.php:104
+#: squirrelmail/plugins/filters/setup.php:113
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:55
+#: squirrelmail/plugins/filters/spamoptions.php:57
 msgid "Spam Filtering"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:60
+#: squirrelmail/plugins/filters/spamoptions.php:62
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:82
+#: squirrelmail/plugins/filters/spamoptions.php:84
 msgid "Move spam to:"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:100
+#: squirrelmail/plugins/filters/spamoptions.php:102
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -2277,19 +2281,19 @@ msgid ""
 "around."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:103
+#: squirrelmail/plugins/filters/spamoptions.php:105
 msgid "What to Scan:"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:109
+#: squirrelmail/plugins/filters/spamoptions.php:111
 msgid "All messages"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:114
+#: squirrelmail/plugins/filters/spamoptions.php:116
 msgid "Only unread messages"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:120
+#: squirrelmail/plugins/filters/spamoptions.php:122
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
@@ -2298,37 +2302,37 @@ msgid ""
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:147
+#: squirrelmail/plugins/filters/spamoptions.php:149
 msgid "Save"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:158
+#: squirrelmail/plugins/filters/spamoptions.php:160
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:158
+#: squirrelmail/plugins/filters/spamoptions.php:160
 msgid "[<i>not set yet</i>]"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
+#: squirrelmail/plugins/filters/spamoptions.php:162
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
+#: squirrelmail/plugins/filters/spamoptions.php:162
 msgid "New Messages Only"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
+#: squirrelmail/plugins/filters/spamoptions.php:162
 msgid "All Messages"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:170
+#: squirrelmail/plugins/filters/spamoptions.php:172
 msgid "ON"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:172
+#: squirrelmail/plugins/filters/spamoptions.php:174
 msgid "OFF"
 msgstr ""
 
@@ -3099,30 +3103,30 @@ msgstr ""
 msgid "Latin"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
+#: squirrelmail/plugins/newmail/newmail_opt.php:37
 msgid "New Mail Notification"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:37
+#: squirrelmail/plugins/newmail/newmail_opt.php:41
 msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:39
+#: squirrelmail/plugins/newmail/newmail_opt.php:45
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:41
+#: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:43
+#: squirrelmail/plugins/newmail/newmail_opt.php:49
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
@@ -3130,7 +3134,7 @@ msgid ""
 "by sounds or popups for unseen mail."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:45
+#: squirrelmail/plugins/newmail/newmail_opt.php:51
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
@@ -3139,7 +3143,7 @@ msgid ""
 "enabled."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:47
+#: squirrelmail/plugins/newmail/newmail_opt.php:55
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
@@ -3147,48 +3151,48 @@ msgid ""
 "is specified, the system will use a default from the server."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:57
+#: squirrelmail/plugins/newmail/newmail_opt.php:67
 msgid "Enable Media Playing"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:65
+#: squirrelmail/plugins/newmail/newmail_opt.php:76
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:73
+#: squirrelmail/plugins/newmail/newmail_opt.php:84
 msgid "Count only messages that are RECENT"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
+#: squirrelmail/plugins/newmail/newmail_opt.php:92
 msgid "Change title on supported browsers."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
+#: squirrelmail/plugins/newmail/newmail_opt.php:92
+#: squirrelmail/plugins/newmail/newmail_opt.php:100
 msgid "requires JavaScript to work"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
+#: squirrelmail/plugins/newmail/newmail_opt.php:100
 msgid "Show popup window on new mail"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:92
+#: squirrelmail/plugins/newmail/newmail_opt.php:104
 msgid "Select server file:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:94
+#: squirrelmail/plugins/newmail/newmail_opt.php:106
 msgid "(local media)"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:111
+#: squirrelmail/plugins/newmail/newmail_opt.php:123
 msgid "Try"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:119
+#: squirrelmail/plugins/newmail/newmail_opt.php:131
 msgid "Local Media File:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:125
+#: squirrelmail/plugins/newmail/newmail_opt.php:137
 msgid "Current File:"
 msgstr ""
 
@@ -4174,11 +4178,23 @@ msgstr ""
 msgid "Preferences table"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:231
+#: squirrelmail/plugins/administrator/defines.php:230
+msgid "Preferences username field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:234
+msgid "Preferences key field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:238
+msgid "Preferences value field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:243
 msgid "Themes"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:233
+#: squirrelmail/plugins/administrator/defines.php:245
 msgid "Style Sheet URL (css)"
 msgstr ""
 
