@@ -34,7 +34,7 @@ $org_title = 'SquirrelMail $version';
  *   Use the two-letter code.
  */
 global $squirrelmail_default_language;
-$squirrelmail_default_language = 'en';
+$squirrelmail_default_language = 'en_US';
 
 /* The dns name and port for your imap server. */
 global $imapServerAddress, $imapPort;
