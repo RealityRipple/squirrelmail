@@ -10,7 +10,7 @@
  * gb2313 encoded mails in non-gb2312 locale.
  * 
  * Original data taken from:
- *  ftp://ftp.unicode.org/Public/
+ *  ftp://ftp.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/GB/GB2312.TXT
  *
  *   Name:             GB2312-80 to Unicode table (complete, hex format)
  *   Unicode version:  3.0

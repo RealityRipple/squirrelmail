@@ -3,7 +3,7 @@
  * decode/iso8859-2.php
  * $Id$
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains iso-8859-2 decoding function that is needed to read

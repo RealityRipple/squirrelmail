@@ -3,7 +3,7 @@
  * decode/utf-8.php
  * $Id$
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains utf-8 decoding function that is needed to read
@@ -19,15 +19,14 @@
  * 
  */
 function charset_decode_utf8 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+  global $default_charset;
 
     if (strtolower($default_charset) == 'utf-8')
         return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'utf-8')
-        return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
-    if (! ereg("[\200-\377]", $string))
+    /* avoid using 0xA0 (\240) in ereg ranges. RH73 does not like that */
+    if (! ereg("[\200-\237]", $string) and ! ereg("[\241-\377]", $string))
         return $string;
 
     // decode three byte unicode characters

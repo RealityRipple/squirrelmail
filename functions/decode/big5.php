@@ -4,11 +4,36 @@
  * decode/big5.php
  * $Id$
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains big5 decoding function that is needed to read
  * big5 encoded mails in non-big5 locale.
+ * 
+ * Original data taken from:
+ *  ftp://ftp.unicode.org/Public/MAPPINGS/OBSOLETE/EASTASIA/OTHER/BIG5.TXT
+ *
+ * Name:             BIG5 to Unicode table (complete)
+ * Unicode version:  1.1
+ * Table version:    0.0d3
+ * Table format:     Format A
+ * Date:             11 February 1994
+ *
+ * Copyright (c) 1991-1994 Unicode, Inc.  All Rights reserved.
+ *
+ * This file is provided as-is by Unicode, Inc. (The Unicode Consortium).
+ * No claims are made as to fitness for any particular purpose.  No
+ * warranties of any kind are expressed or implied.  The recipient
+ * agrees to determine applicability of information provided.  If this
+ * file has been provided on magnetic media by Unicode, Inc., the sole
+ * remedy for any claim will be exchange of defective media within 90
+ * days of receipt.
+ *
+ * Recipient is granted the right to make copies in any form for
+ * internal distribution and to freely use the information supplied
+ * in the creation of products supporting Unicode.  Unicode, Inc.
+ * specifically excludes the right to re-distribute this file directly
+ * to third parties or other organizations whether for profit or not.
  *
  */
 
