@@ -138,7 +138,7 @@
       $line = "";
       $mailbox = $boxes[$i]["formatted"];
       
-      if (isset($boxes[$i]["flags"])) {
+      if (count($boxes[$i]["flags"])) {
          $noselect = false;
          for ($h = 0; $h < count($boxes[$i]["flags"]); $h++) {
             if (strtolower($boxes[$i]["flags"][$h]) == "noselect")
