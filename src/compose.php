@@ -87,7 +87,10 @@ if (isset($draft)) {
     if (! isset($MDN)) {
         $MDN = 'False';
     }
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN, $session)) {
+    if (! isset($mailprio)) {
+        $mailprio = '';
+    }
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $mailprio, $session)) {
         showInputForm($session);
         exit();
     } else {
@@ -362,6 +365,9 @@ function newMail () {
     $send_to = decodeHeader($send_to, false);
     $send_to_cc = decodeHeader($send_to_cc, false);
     $send_to_bcc = decodeHeader($send_to_bcc, false);
+    $send_to = str_replace('&lt;', '<', str_replace('&gt;', '>', str_replace('&amp;', '&', str_replace('&quot;', '"', $send_to))));
+    $send_to_cc = str_replace('&lt;', '<', str_replace('&gt;', '>', str_replace('&amp;', '&', str_replace('&quot;', '"', $send_to_cc))));
+    $send_to_bcc = str_replace('&lt;', '<', str_replace('&gt;', '>', str_replace('&amp;', '&', str_replace('&quot;', '"', $send_to_bcc))));
 
     if ($forward_id) {
         $id = $forward_id;
