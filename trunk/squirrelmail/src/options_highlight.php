@@ -49,8 +49,8 @@
    displayPageHeader($color, "None");
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
-      <center><b><? echo _("Options") . " - " . _("Message Highlighting"); ?></b></center>
+   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+      <center><b><?php echo _("Options") . " - " . _("Message Highlighting"); ?></b></center>
    </td></tr></table>
 
 <?

@@ -31,14 +31,14 @@
    $chosen_language = getPref($data_dir, $username, "language");  
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
-      <center><b><? echo _("Options") . " - " . _("Display Preferences"); ?></b></center>
+   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+      <center><b><?php echo _("Options") . " - " . _("Display Preferences"); ?></b></center>
    </td></tr></table>
 
    <form action="options.php" method=post>
       <table width=100% cellpadding=0 cellspacing=2 border=0>
          <tr>
-            <td align=right nowrap><? echo _("Theme"); ?>:
+            <td align=right nowrap><?php echo _("Theme"); ?>:
             </td><td>
 <?
    echo "         <tt><select name=chosentheme>\n";
@@ -53,7 +53,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Language"); ?>:
+            <td align=right nowrap><?php echo _("Language"); ?>:
             </td><td>
 <?
    echo "         <tt><select name=language>\n";
@@ -71,7 +71,7 @@
          <tr>
             <td align=right nowrap>&nbsp;
             </td><td>
-               <? echo _("Use Javascript or HTML addressbook?") . "<br>"; 
+               <?php echo _("Use Javascript or HTML addressbook?") . "<br>"; 
                if ($use_javascript_addr_book == true) {
                   echo "         <input type=radio name=javascript_abook value=1 checked> " . _("JavaScript") . "&nbsp;&nbsp;&nbsp;&nbsp;";
                   echo "         <input type=radio name=javascript_abook value=0> " . _("HTML"); 
@@ -83,7 +83,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Number of Messages to Index"); ?>:
+            <td align=right nowrap><?php echo _("Number of Messages to Index"); ?>:
             </td><td>
 <?
    if (isset($show_num))
@@ -94,7 +94,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Wrap incoming text at"); ?>:
+            <td align=right nowrap><?php echo _("Wrap incoming text at"); ?>:
             </td><td>
 <?
    if (isset($wrap_at))
@@ -105,7 +105,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Size of editor window"); ?>:
+            <td align=right nowrap><?php echo _("Size of editor window"); ?>:
             </td><td>
 <?
    if ($editor_size >= 10 && $editor_size <= 255)
@@ -116,7 +116,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Width of left folder list"); ?>:
+            <td align=right nowrap><?php echo _("Width of left folder list"); ?>:
             </td><td>
 <?
    echo "         <select name=leftsize>\n";
@@ -170,7 +170,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><? echo _("Auto refresh folder list"); ?>:
+            <td align=right nowrap><?php echo _("Auto refresh folder list"); ?>:
             </td><td>
 <?
    echo "               <SELECT name=leftrefresh>";
