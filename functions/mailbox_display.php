@@ -717,6 +717,7 @@ function mail_message_listing_beginning ($imapConnection,
   echo getButton('SUBMIT', 'markRead',_("Read")) ."\n";   
   echo getButton('SUBMIT', 'markUnread',_("Unread")) ."\n";   
   echo getButton('SUBMIT', 'delete',_("Delete")) .'&nbsp;'."\n";
+  echo '<INPUT TYPE="HIDDEN" NAME="location" VALUE="'.$PHP_SELF.'">';
   echo "</TD>\n"
        . "   </TR>\n";
 
