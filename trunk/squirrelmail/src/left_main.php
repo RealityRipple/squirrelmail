@@ -38,7 +38,14 @@
 		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
 		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
-   }
+          if (isset ($draft_folder) && $draft_folder != 'none') {
+                 if (!sqimap_mailbox_exists ($imapConnection, $draft_folder)) {
+                        sqimap_mailbox_create ($imapConnection, $draft_folder, '');
+                 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $draft_folder)) {
+                    sqimap_subscribe($imapConnection, $draft_folder);
+                 }
+          }
+     }
 	  $auto_create_done = true;
 	  session_register('auto_create_done');
    }
@@ -47,6 +54,7 @@
       global $folder_prefix, $trash_folder, $sent_folder;
       global $color, $move_to_sent, $move_to_trash;
       global $unseen_notify, $unseen_type, $collapse_folders;
+      global $draft_folder, $save_as_draft;
 
       $real_box = $box_array['unformatted'];
       $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
@@ -76,7 +84,8 @@
       if ((strtolower($real_box) == 'inbox') ||
           (($real_box == $trash_folder) && ($move_to_trash)) ||
           (($real_box == $sent_folder) && ($move_to_sent)))
-         $special_color = true;
+          (($real_box == $draft_folder) && ($save_as_draft)))
+          $special_color = true;
          
       /* Start off with a blank line. */
       $line = '';
