@@ -158,10 +158,10 @@
             $line .= "<FONT COLOR=\"$color[10]\">";
             if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
                 $line .= str_replace(' ', '&nbsp;', $mailbox);
-                //if (isset($boxes[$i]['parent']))
+                if (isset($boxes[$i]['parent']))
                     $line .= FoldLink($boxes[$i]['unformatted'], $boxes[$i]['parent']);
-                //elseif ($collapse_folders)
-                //    $line .= '<tt>&nbsp;</tt>&nbsp;';
+                elseif ($collapse_folders)
+                    $line .= '<tt>&nbsp;</tt>&nbsp;';
             }
             $line .= '</FONT>';
          } else {
