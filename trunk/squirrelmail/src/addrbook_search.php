@@ -108,7 +108,7 @@ function display_result($res, $includesource = true) {
     
     while (list($undef, $row) = each($res)) {
         $tr_bgcolor = '';
-        $email = AddressBook::full_address($row);
+        $email = addslashes(AddressBook::full_address($row));
         if ($line % 2) { $tr_bgcolor = $color[0]; }
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
