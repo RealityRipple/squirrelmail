@@ -197,7 +197,7 @@
             if ($newmail_changetitle) {
                 echo "<script language=\"javascript\">\n" .
                     "function ChangeTitleLoad() {\n";
-                if( $totalNew > 1 ) {
+                if( $totalNew > 1 || $totalNew == 0 ) {
                     echo 'window.parent.document.title = "' .
                         sprintf(_("%s New Messages"), $totalNew ) .
                         "\";\n";
