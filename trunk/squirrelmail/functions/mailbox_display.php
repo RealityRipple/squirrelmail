@@ -1911,7 +1911,7 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
             foreach ($aUpdatedMsgs as $iUid => $aMsg) {
                 if (isset($aMsg['FLAGS'])) {
                     /**
-                     * Only update the cached headers if the header is 
+                     * Only update the cached headers if the header is
                      * cached.
                      */
                     if (isset($aMailbox['MSG_HEADERS'][$iUid])) {
@@ -1953,9 +1953,11 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                             unset($aMailbox['MSG_HEADERS'][$iUid]);
                         }
                         $aMailbox['UIDSET'][$aMailbox['SETINDEX']] = array_keys($aUidSetDummy);
-                        // update EXISTS info
-                        $aMailbox['EXISTS'] -= $iExpungedMessages;
                     }
+                }
+                // update EXISTS info
+                if ($iExpungedMessages) {
+                    $aMailbox['EXISTS'] -= (int) $iExpungedMessages;
                 }
                 // Change the startMessage number if the mailbox was changed
                 if (($aMailbox['PAGEOFFSET']+$iExpungedMessages-1) >= $aMailbox['EXISTS']) {
