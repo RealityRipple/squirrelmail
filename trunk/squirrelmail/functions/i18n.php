@@ -56,7 +56,7 @@
       return ($string);
    }
 
-   // iso-8859-1 is Greek.
+   // iso-8859-7 is Greek.
    function charset_decode_iso_8859_7 ($string) {
       // Could not find Unicode equivalent of 0xA1 and 0xA2
       // 0xA4, 0xA5, 0xAA, 0xAE, 0xD2 and 0xFF should not be used
@@ -70,8 +70,8 @@
       // ISO-8859-7 characters from 11/04 (0xB4) to 11/06 (0xB6)
       // These are Unicode 900-902
       while (ereg("([\264-\266])", $string, $res)) {
-         $replace = "&#." . ord($res[1])+720 . ";";
-         ereg_repleace("[\264-\266]", $replace, $string);
+         $replace = "&#" . (ord($res[1])+720) . ";";
+         $string = ereg_replace($res[1], $replace, $string);
       }
 
       // 11/07 (0xB7) Middle dot is the same in iso-8859-1
@@ -79,8 +79,8 @@
       // ISO-8859-7 characters from 11/08 (0xB8) to 11/10 (0xBA)
       // These are Unicode 900-902
       while (ereg("([\270-\272])", $string, $res)) {
-         $replace = "&#." . ord($res[1])+720 . ";";
-         ereg_repleace("[\270-\272]", $replace, $string);
+         $replace = "&#" . (ord($res[1])+720) . ";";
+         $string = ereg_replace($res[1], $replace, $string);
       }
 
       // 11/11 (0xBB) Right angle quotation mark is the same as in
@@ -88,8 +88,8 @@
 
       // And now the rest of the charset
       while (ereg("([\273-\376])", $string, $res)) {
-         $replace = "&#." . ord($res[1])+720 . ";";
-         ereg_repleace("[\273-\376]", $replace, $string);
+         $replace = "&#" . (ord($res[1])+720) . ";";
+         $string = ereg_replace($res[1], $replace, $string);
       }
 
       return $string;
