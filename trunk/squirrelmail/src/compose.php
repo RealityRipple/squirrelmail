@@ -899,9 +899,17 @@ function saveAttachedFiles($session) {
     }
 
     if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-        if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+	if (function_exists("move_uploaded_file")) {
+        	if (!@move_uploaded_file($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
             return true;
-        }
+        	}
+	} else {
+
+		if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+	            return true;
+       		}
+	}
+
     }
 
     $newAttachment['localfilename'] = $localfilename;
