@@ -1170,8 +1170,6 @@ function sq_skipspace($body, $offset){
     if (sizeof($matches{1})){
         $count = strlen($matches{1});
         $offset += $count;
-        //if ($pos >= strlen($body)){
-        //}
     }
     return $offset;
 }
@@ -1372,18 +1370,16 @@ function sq_getnxtag($body, $offset){
          */
         $matches = Array();
         if (preg_match("%^(\s*)(>|/>)%s", substr($body, $pos), $matches)) {
-           if ($matches{0}){
-               /**
-                * Yep. So we did.
-                */
-               $pos += strlen($matches{1});
-               if ($matches{2} == "/>"){
-                   $tagtype = 3;
-                   $pos++;
-               }
-               return Array($tagname, $attary, $tagtype, $lt, $pos);
-           }
-	}
+            /**
+             * Yep. So we did.
+             */
+            $pos += strlen($matches{1});
+            if ($matches{2} == "/>"){
+                $tagtype = 3;
+                $pos++;
+            }
+            return Array($tagname, $attary, $tagtype, $lt, $pos);
+        }
 
         /**
          * There are several types of attributes, with optional
@@ -1815,11 +1811,6 @@ function sq_sanitize($body,
              * content before we apply it.
              */
             $free_content = sq_fixstyle($message, $id, $free_content);
-        } else if ($tagname == "body"){
-            $tagname = "div";
-            if ($tagtype == 1){
-                $attary = sq_body2div($attary);
-            }
         }
         if ($skip_content == false){
             $trusted .= $free_content;
@@ -1835,11 +1826,15 @@ function sq_sanitize($body,
                     $skip_content = false;
                 } else {
                     if ($skip_content == false){
-                        if (isset($open_tags{$tagname}) && 
-                            $open_tags{$tagname} > 0){
-                            $open_tags{$tagname}--;
+                        if ($tagname == "body"){
+                            $tagname = "div";
                         } else {
-                            $tagname = false;
+                            if (isset($open_tags{$tagname}) && 
+                                $open_tags{$tagname} > 0){
+                                $open_tags{$tagname}--;
+                            } else {
+                                $tagname = false;
+                            }
                         }
                     } else {
                     }
@@ -1890,6 +1885,13 @@ function sq_sanitize($body,
                                                      $message,
                                                      $id
                                                      );
+                            }
+                            /**
+                             * Convert body into div.
+                             */
+                            if ($tagname == "body"){
+                                $tagname = "div";
+                                $attary = sq_body2div($attary, $message, $id);
                             }
                         }
                     }
