@@ -8,7 +8,7 @@ Version 1.5.0 -- CVS
   - conf.pl changes for relative paths outside the SM tree (#715119).
   - conf.pl changes for delete_folder restrictions with Courier-IMAP and
     UW-IMAP (#715550).
-
+  - Fixed code to allow for \ in password/username (#718116).
 
 
 **************************************
