@@ -3,8 +3,8 @@
 *************************************
 
 
-Version 1.3.0-DEVEL -- CVS
---------------------
+Version 1.3.0
+-------------
   - allow_call_time_by_reference=off fixes.
   - Added forward as attachment in read_body.
   - Better clean-up of left attachments at login.
