@@ -324,9 +324,18 @@ function user_filters($imap_stream) {
 }
 
 function filter_search_and_delete($imap, $where, $what, $where_to) {
-    // Don't mess with the " characters on this fputs line!
-    fputs ($imap, 'a001 SEARCH ALL ' . $where . ' "' . addslashes($what) .
-        "\"\r\n");
+    global $languages, $squirrelmail_language;
+    if (isset($languages[$squirrelmail_language]['CHARSET']) &&
+        $languages[$squirrelmail_language]['CHARSET']) {
+        $search_str = "SEARCH CHARSET "
+            . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
+            . " ALL ";
+    } else {
+        $search_str = "SEARCH CHARSET US-ASCII ALL ";
+    }
+    $search_str .= $where . ' {' . strlen($what) . "}\r\n" . $what . "\r\n";
+    
+    fputs ($imap, $search_str);
     $read = filters_sqimap_read_data ($imap, 'a001', true, $response, $message);
 
     // This may have problems with EIMS due to it being goofy
