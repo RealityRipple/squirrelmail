@@ -22,6 +22,12 @@ require_once(SM_PATH . 'functions/html.php');
 
 global $compose_new_win;
 
+if (isset($_SESSION['composesession'])) {
+    $composesession = $_SESSION['composesession'];
+} else {
+    $composesession = 0;
+} 
+
 function putSelectedMessagesIntoString($msg) {
     $j = 0;
     $i = 0;
@@ -55,11 +61,12 @@ function attachSelectedMessages($msg, $imapConnection) {
             sqsession_register($compose_messages,'compose_messages');
     }
 
-    if (!isset($composesession) ) {
+    if (!$composesession) {
 	    $composesession = 1;
             sqsession_register($composesession,'composesession');  	    
     } else {
 	    $composesession++;
+	    sqsession_register($composesession,'composesession');  	    
     }
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);
