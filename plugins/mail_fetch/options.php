@@ -17,61 +17,34 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
-    /* globals */
-    $username = $_SESSION['username'];
-    $key = $_COOKIE['key'];
-    $onetimepad = $_SESSION['onetimepad'];
-    $delimiter = $_SESSION['delimiter'];
+/* globals */
+sqgetGlobalVar('username',   $username,   SQ_SESSION);
+sqgetGlobalVar('key',        $key,        SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
     
-    if(isset($_POST['mf_cypher'])) {
-        $mf_cypher = $_POST['mf_cypher'];
-    }
-    else {
-        $mf_cyper = '';
-    }
-    if(isset($_POST['mf_sn'])) {
-        $mf_sn = $_POST['mf_sn'];
-    }
-    if(isset($_POST['mf_server'])) {
-        $mf_server = $_POST['mf_server'];
-    }
-    if(isset($_POST['mf_port'])) {
-        $mf_port = $_POST['mf_port'];
-    }
-    if(isset($_POST['mf_alias'])) {
-        $mf_alias = $_POST['mf_alias'];
-    }
-    if(isset($_POST['mf_user'])) {
-        $mf_user = $_POST['mf_user'];
-    }
-    if(isset($_POST['mf_pass'])) {
-        $mf_pass = $_POST['mf_pass'];
-    }
-    if(isset($_POST['mf_subfolder'])) {
-        $mf_subfolder = $_POST['mf_subfolder'];
-    }
-    if(isset($_POST['mf_login'])) {
-        $mf_login = $_POST['mf_login'];
-    }
-    if(isset($_POST['mf_fref'])) {
-        $mf_fref = $_POST['mf_fref'];
-    }
-    if(isset($_POST['submit_mailfetch'])) {
-        $submit_mailfetch = $_POST['submit_mailfetch'];
-    }
-    if(isset($_POST['mf_lmos'])) {
-        $mf_lmos = $_POST['mf_lmos'];
-    }
-    /* end globals */
+if(!sqgetGlobalVar('mf_cypher', $mf_cypher, SQ_POST)) {
+    $mf_cypher = '';
+}
+if(! sqgetGlobalVar('mf_action', $mf_action, SQ_POST) ) {
+    $mf_action = 'config';
+}
+
+sqgetGlobalVar('mf_sn',            $mf_an,            SQ_POST);
+sqgetGlobalVar('mf_server',        $mf_server,        SQ_POST);
+sqgetGlobalVar('mf_port',          $mf_port,          SQ_POST);
+sqgetGlobalVar('mf_alias',         $mf_alias,         SQ_POST);
+sqgetGlobalVar('mf_user',          $mf_user,          SQ_POST);
+sqgetGlobalVar('mf_pass',          $mf_pass,          SQ_POST);
+sqgetGlobalVar('mf_subfolder',     $mf_subfolder,     SQ_POST);
+sqgetGlobalVar('mf_login',         $mf_login,         SQ_POST);
+sqgetGlobalVar('mf_fref',          $mf_fref,          SQ_POST);
+sqgetGlobalVar('mf_lmos',          $mf_lmos,          SQ_POST);
+sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
+
+/* end globals */
 
     displayPageHeader( $color, 'None' );
-
-    //if dosen't select any option
-    if (!isset($_POST['mf_action'])) {
-        $mf_action = 'config';
-    } else {
-        $mf_action = $_POST['mf_action'];
-    }
 
     switch( $mf_action ) {
     case 'add':
@@ -156,7 +129,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     }
 
 
-    echo '<BR><form method=post action="'.$PHP_SELF.'">' .
+    echo '<br><form method="post" action="'.$PHP_SELF.'">' .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',

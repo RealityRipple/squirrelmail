@@ -21,20 +21,20 @@ require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
 require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 require_once(SM_PATH . 'functions/html.php' );
 
-    /* globals */ 
-    $username = $_SESSION['username'];
-    $key = $_COOKIE['key'];
-    $onetimepad = $_SESSION['onetimepad'];
-    $delimter = $_SESSION['delimiter'];
+/* globals */ 
+sqgetGlobalVar('username',   $username,   SQ_SESSION);
+sqgetGlobalVar('key',        $key,        SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
-    /* This form, like the advanced identities form
-       uses dynamic post variable names so we need
-       to extract the whole $_POST array to make 
-       things work
-    */
+/* FIXME: This form, like the advanced identities form
+ * uses dynamic post variable names so we need
+ * to extract the whole $_POST array to make 
+ * things work
+ */
 
-    extract($_POST);
-    /* end globals */
+extract($_POST);
+/* end globals */
 
     function Mail_Fetch_Status($msg) {
         echo html_tag( 'table',
