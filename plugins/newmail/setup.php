@@ -197,15 +197,9 @@
             if ($newmail_changetitle) {
                 echo "<script language=\"javascript\">\n" .
                     "function ChangeTitleLoad() {\n";
-                if( $totalNew > 1 || $totalNew == 0 ) {
-                    echo 'window.parent.document.title = "' .
-                        sprintf(_("%s New Messages"), $totalNew ) . 
-                        "\";\n";
-                } else {
-                    echo 'window.parent.document.title = "' .
-                        sprintf(_("%s New Message"), $totalNew ) . 
-                        "\";\n";
-                }
+                echo 'window.parent.document.title = "' .
+                     sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) . 
+                     "\";\n";
                 echo    "if (BeforeChangeTitle != null)\n".
                             "BeforeChangeTitle();\n".
                     "}\n".
