@@ -1,0 +1,105 @@
+<chapter>
+   <title>
+      Frequently Asked Questions (FAQ)
+   </title>   
+   <summary>
+      Dit hoofdstuk geeft antwoord op veel gestelde vragen (frequently
+      asked questions, FAQ) over SquirrelMail.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Kan ik meerdere namen uit het adresboek tegelijk gebruiken?
+   </title>
+   <description>
+      <p>
+      Ja. Het adresboek geeft alle resultaten weer van uw zoekopdracht.
+      Elke willekeurige combinatie kan geselecteerd worden voor het <I>Aan:</I>
+      of <I>Cc:</I>-veld. Alle geselecteerde adressen zullen in het juiste
+      veld ingevuld worden als <I>Adressen gebruiken</I> wordt aangeklikt.
+      </p>
+   </description>
+</section>   
+
+<section>
+   <title>
+      Kan ik namen direct vanuit een e-mail toevoegen aan het adresboek?
+   </title>
+   <description>
+      <p>
+      Nee. Momenteel kunt u nog geen namen direct uit een ontvangen e-mail
+      toevoegen aan het adresboek. U kunt wel het adres kopi&euml;ren naar
+      het klembord en vervolgens plakken in het adresboek. In de toekomst
+      zal deze functionaliteit wellicht toegevoegd worden.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Wie heeft SquirrelMail gemaakt? 
+   </title>
+   <description>
+      <p>
+      SquirrelMail is een groot project waar veel mensen aan hebben bijgedragen.
+      Voor een lijst, zie onze website
+      <a href="http://www.squirrelmail.org" target=_top>www.squirrelmail.org</a>.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Wat is webmail?
+   </title>
+   <description>
+      <p>
+      In het geval van SquirrelMail, webmail geeft u toegang tot uw e-mail
+      via een webbrowser. Dit betekent dat als u ergens anders bent u niet
+      iemand anders e-mailprogramma hoeft te gebruiken maar gewoon naar uw
+      e-mail kunt surfen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Vanaf waar kan ik deze webmail gebruiken?
+   </title>
+   <description>
+      <p>
+      Vanaf elke computer met een internetverbinding.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Waarom zou ik webmail gebruiken in plaats van een normaal e-mailprogramma?
+   </title>
+   <description>
+      <p>
+      Webmail zal waarschijnlijk nooit een complete vervanger worden voor een
+      normaal e-mailprogramma. Echter, als u bij iemand op bezoek bent, op
+      vakantie, op uw werk of juist thuis, heeft u zo toegang tot uw e-mail
+      zonder dat u op die locatie een e-mailprogramma hoeft op te zetten.
+      SquirrelMail is ontworpen om in deze zin een aanvulling te zijn op een
+      normaal e-mailprogramma.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Hoe werkt dit allemaal?
+   </title>
+   <description>
+      <p>
+      SquirrelMail gebruikt het IMAP protocol, meer informatie daarover is te vinden op 
+      <A HREF="http://imap.org"/>imap.org</A>.  Het systeem gebruikt zijn eigen IMAP-functies,
+      niet die ingebouwd zijn in PHP. Voor eindgebruikers is deze informatie niet echt
+      relevant.
+      </p>
+   </description>
+</section>

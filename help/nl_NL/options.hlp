@@ -1,0 +1,195 @@
+<chapter>
+   <title>
+      Opties
+   </title>
+   <summary>
+      Via dit menu kunt u instellingen wijzigen: hoe SquirrelMail eruit ziet en zich gedraagt.
+      Een groot deel van SquirrelMail is aanpasbaar aan uw wensen.
+   </summary>
+   <description>
+      <p>
+      Een van de goede eigenschappen van SquirrelMail is de mate waarin het aanpasbaar is
+      aan uw wensen. Afhankelijk van de instellingen heeft u brede keus uit stijlen,
+      talen, mappen en andere voorkeuren. Deze kunnen allemaal gewijzigd worden zonder van
+      invloed te zijn op de rest van de gebruikers van uw systeem. Er zijn vier hoofdonderdelen
+      van de Instellingen: persoonlijke informatie, weergave, berichtkleuren en mappen.
+      Afhankelijk van uw installatie kunnen er nog extra opties zijn toegevoegd.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Persoonlijke informatie
+   </title>
+   <description>
+      <b>Volledige Naam</b><br>
+      Hier moet u uw volledige naam instellen. Bijvoorbeeld "Jan Klaassen". Dit is wat
+      weergegeven wordt als afzender als mensen een bericht van u ontvangen. Als u dit
+      niet invult, ziet men alleen uw e-mailadres (bv. j.klaasen@bedrijf.nl).
+      <br><br>
+      
+      <b>E-mailadres</b><br>
+      <i>Optioneel</i> - Als uw e-mailadres verschilt van wat er door SquirrelMail
+      standaard wordt ingevuld, kunt u het hier wijzigen.
+      <br><br>
+      
+      <b>Antwoordadres</b><br>
+      <i>Optioneel</i> - Dit e-mailadres wordt bij uitgaande berichten ingevuld in
+      de Reply-To header. Als mensen uw bericht beantwoorden wordt hun antwoord niet
+      naar het adres gestuurd dat bij u als afzender staat maar naar het adres dat
+      u hier invult. U hoeft dit dus alleen in te vullen als u antwoorden naar een
+      ander dan uw normale adres wilt laten sturen.
+      <br><br>
+      
+      <b>Handtekening</b><br>
+      <i>Optioneel</i> - Onderaan elk bericht dat u verstuurd kunt u automatisch
+      een vooringestelde 'handtekening' laten plaatsen. Als u dat wilt, kunt u
+      het vinkje "Handtekening gebruiken" aankruisen en een handtekening typen
+      in het tekstveld daaronder.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Weergavevoorkeuren
+   </title>
+   <description>
+      <b>Thema</b><br>
+      SquirrelMail biedt verschillende stijlen. Als u hier een stijl selecteert zal
+      SquirrelMail de kleuren die daarbij horen aannemen. U kunt een van de vele
+      voorgedefinieerde stijlen kiezen.
+      <br><br>
+
+      <b>Taal</b><br>
+      Als u deze handleiding leest staat uw taal ingesteld op Nederlands. Als u een
+      andere taal uit de lijst kiest zal alles in SquirrelMail in het vervolg in
+      die taal weergegeven worden, inclusief deze helpbestanden. Deze optie vertaalt
+      niet door uzelf gedefinieerde zaken zoals mapnamen en binnenkomende berichten.
+      <br><br>
+
+      <b>JavaScript adresboek gebruiken?</b><br>
+      Een van de hoofddoelen bij het ontwerp van SquirrelMail is dat er standaard
+      nergens JavaScript gebruikt wordt. Dit omdat niet alle browsers ondersteuning
+      hebben voor JavaScript. Er is echter een heel goed zoeksysteem voor het adresboek
+      gemaakt in JavaScript, dus is besloten om dit als een optie weer te geven.
+      Als u niet precies begrijpt wat hier bedoeld wordt, is kiezen voor HTML de
+      veiligste optie (dit werkt altijd), maar u kunt proberen of JavaScript ook
+      werkt (waarschijnlijk wel).
+      <br><br>
+      
+      <b>Aantal berichten te indexeren</b><br>
+      Dit is het totaal aantal berichten dat per pagina wordt weergegeven voor een
+      map. Als er meer dan dit aantal berichten zijn, worden er ook links "Vorige"
+      en "Volgende" weergegeven boven en onder de lijst zodat u naar de vorige
+      en volgende pagina met berichten kunt bladeren.
+      <br><br>
+      
+      <b>Inkomende tekst afbreken op</b><br>
+      Hier kunt u opgeven na hoeveel tekens tekstregels afgebroken worden. Dit voorkomt
+      dat regels aan de rechterkant van het scherm aflopen. 86 is een veilige waarde
+      voor dit veld, maar u kunt het naar hartelust wijzigen.
+      <br><br>
+      
+      <b>Breedte van het tekstvenster:  </b><br>
+      Hoe groot wilt u het tekstveld bij "Nieuw bericht" hebben? Dit is hoeveel tekens u
+      per regel kunt typen voordat u naar de volgende regel springt.
+      <br><br>
+      
+      <b>Breedte van de mappenlijst</b><br>
+      Aan de linkerkant van uw scherm vindt u de lijst met uw mappen. Met deze optie
+      kunt u instellen hoe breed u deze wilt laten zijn. Als u erg lange mapnamen
+      of een groot lettertype heeft, is het een idee om deze wat hoger te zetten.
+      Anders kunt u het beter zou laag mogelijk houden, des te meer ruimte is er voor
+      de rest van het scherm.
+      <br><br>
+      
+      <b>Automatisch verversen mappenlijst</b><br>
+      SquirrelMail heeft de mogelijkheid om automatisch de mappenlijst aan de linker
+      kant van het scherm te verversen. Dit zorgt er ook voor dat het aantal ongelezen
+      berichten in die folders ververst wordt. Dit is een goede manier om te zien of
+      er nieuwe berichten zijn in de Inbox zonder daar telkens op te hoeven klikken.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Berichten weergave
+   </title>
+   <description>
+      Het idee voor deze optie is afkomstig van de situatie waarin u geabonneerd bent
+      op meerdere mailinglijsten. Het is dan vaak moeilijk om in een oogopslag te zien
+      welke berichten bij welke lijst horen.
+      Met berichtkleuren kunt u alle berichten afkomstig van
+      een bepaalde mailinglijst een andere achtergrondkleur geven dan een andere lijst.
+      <br><br>
+
+      Klik op [Nieuw] om een nieuwe regel aan te maken, of [Wijzig] om een bestaande
+      aan te passen. Onderstaande opties zullen verschijnen.
+      <br><br>
+      
+      <b>Naam</b><br>
+      Dit is slechts een naam zodat u kunt zien waar de regel voor is. Om bijvoorbeeld
+      berichten van uw moeder anders te kleuren, kunt u hier "Van Ma" instellen.
+      <br><br>
+      
+      <b>Kleur</b><br>
+      Dit is de achtergrondkleur dat u de berichten wilt laten krijgen. U kunt kiezen
+      tussen voorgedefinieerde kleuren of zelf een hexadecimale kleurcode invoeren
+      (bijv. A6B492). Als u kiest voor een eigen kleurcode moet u ook het vakje daarvoor
+      aankruisen.
+      <br><br>
+      
+      <b>Criteria</b><br>
+      Hier kunt u de criteria invoeren waaraan een bericht moet voldoen om deze kleur
+      te krijgen. Uit de selectielijst kunt u kiezen welk headerveld u op wilt selecteren
+      en in het tekstveld kunt u de tekst invoeren die moet voorkomen in dat veld
+      (bv mam@yahoo.com).
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Mapvoorkeuren
+   </title>
+   <description>
+      <b>Mappen-pad</b><br>
+      Dit wordt niet op alle systemen weergegeven. Als u deze optie niet ziet is deze
+      niet van toepassing. Op sommige systeem is dit juist essentieel. In principe is
+      de hier weergegeven waarde juist. Dit is de map in uw homedirectory die uw
+      mailmappen bevat. Als u niet precies weet waar dit over gaat, kunt u het het
+      beste laten staan op de standaard waarde.
+      <br><br>
+
+      <b>Verwijderde items</b><br>
+      Hier kunt u opgeven in welke map berichten verdwijnen die u verwijdert. Als u
+      niet wilt dat verwijderde berichten naar de Prullenbak gaan maar direct
+      definitief verwijderd worden, kunt u dit instellen op "Gebruik Verwijderde Items niet".
+      <br><br>
+      
+      <b>Verzonden items</b><br>
+      U kunt hier instellen in welke map uitgaande berichten geplaatst worden. Wilt u
+      niet dat uitgaande berichten bewaard worden, kies dan voor "Gebruik Verzonden Items niet".
+      <br><br>
+      
+      <b>Nieuwe mail</b><br>
+      Bij deze optie kunt u instellen hoe er aangegeven moet worden dat u nieuwe mail
+      hebt ontvangen. Als u dit instelt op "Geen notificatie", wordt het feit dat er nieuwe
+      berichten zijn niet apart aangegeven. De instelling "INBOX" leidt er toe dat bij
+      nieuwe berichten uw INBOX vet wordt weergegeven en er een nummer achter verschijnt
+      dat aangeeft hoeveel nieuwe berichten er zijn.
+      Als u het instelt op "alle mappen", gebeurt hetzelfde als bij INBOX maar dan voor
+      alle mappen waar ongelezen berichten in aanwezig zijn. Als het laden van de mappenlijst
+      erg langzaam is kunt u dit instellen op INBOX of Geen notificatie, dat zal e.e.a.
+      versnellen.
+      <br><br>
+      
+      <b>Nieuwe mail notificatie type</b><br>
+      Hier kunt u aangeven hoe u weergegeven wilt hebben dat een folder nieuwe
+      berichten bevat.
+      <br><br>
+   </description>
+</section>
