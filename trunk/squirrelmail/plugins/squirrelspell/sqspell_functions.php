@@ -211,16 +211,17 @@
                 $msg='<p>'.
                 '<strong>' . _("ATTENTION:") . '</strong><br>' .
                 _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.").
-                "</p>
-                <blockquote>
-                <form method=\"post\" onsubmit=\"return AYS()\">
-                 <input type=\"hidden\" name=\"MOD\" value=\"crypto_badkey\">
-                 <p><input type=\"checkbox\" name=\"delete_words\" value=\"ON\">" . _("Delete my dictionary and start a new one") . '<br>'.
-                 _("Decrypt my dictionary with my old password:") . "<input name=\"old_key\" size=\"10\"></p>
-                </blockquote>
-                 <p align=\"center\"><input type=\"submit\" value=\"" . _("Proceed") . " &gt;&gt;\"></p>
-                </form>
-                ";
+                '</p>' .
+                '<blockquote>'.
+                '<form method="post" onsubmit="return AYS()">'.
+                '<input type="hidden" name="MOD" value="crypto_badkey">'.
+                '<p><input type="checkbox" name="delete_words" value="ON">' . 
+                _("Delete my dictionary and start a new one") . '<br>'.
+                _("Decrypt my dictionary with my old password:") . 
+                '<input name="old_key" size=\"10\"></p>'.
+                '</blockquote>'.
+                '<p align="center"><input type="submit" value="' . _("Proceed") . ' &gt;&gt;"></p>'.
+                '</form>';
                 // See if this happened in the pop-up window or when accessing
                 // the SpellChecker options page. 
                 global $SCRIPT_NAME;

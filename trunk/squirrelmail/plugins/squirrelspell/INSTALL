@@ -1,11 +1,8 @@
 SquirrelSpell-v0.3.1
 ---------------------
 
-Untar SquirrelSpell into your squirrelmail/plugins directory. Move
-sqspell_config.dist to sqspell_config.php if this is a fresh install. If
-upgrading, just untar over your old installation.
-
-Modify the sqspell_config.php file making sure you have ispell or aspell
+Untar SquirrelSpell into your squirrelmail/plugins directory. Modify the 
+sqspell_config.php file making sure you have ispell or aspell
 available on your system and located in PHP's path. The squirrelspell
 doesn't check for that and if it is not available, you're just going to
 get a "No errors found"  message every time. :) Quite pleasing, but not
@@ -18,7 +15,7 @@ your squirrelmail install directory.
 
 Enjoy and report bugs. ;)
 
-This is a commented sqspell_config.php
+This is an options commented sqspell_config.php
 
 <?php
 
