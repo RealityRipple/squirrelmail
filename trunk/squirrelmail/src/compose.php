@@ -237,9 +237,9 @@ function newMail () {
            $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size,
            $draft_id, $use_signature;
 
-    $send_to = decodeHeader($send_to);
-    $send_to_cc = decodeHeader($send_to_cc);
-    $send_to_bcc = decodeHeader($send_to_bcc);
+    $send_to = decodeHeader($send_to, false);
+    $send_to_cc = decodeHeader($send_to_cc, false);
+    $send_to_bcc = decodeHeader($send_to_bcc, false);
 
     if ($forward_id) {
         $id = $forward_id;
@@ -316,7 +316,7 @@ function newMail () {
             $body = $bodyTop . $body;
         }
         elseif ($reply_id) {
-            $orig_from = decodeHeader($orig_header->from);
+            $orig_from = decodeHeader($orig_header->from, false);
             $body = getReplyCitation($orig_from) . $body;
         }
 
@@ -421,9 +421,9 @@ function showInputForm () {
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio;
 
-    $subject = decodeHeader($subject);
-    $reply_subj = decodeHeader($reply_subj);
-    $forward_subj = decodeHeader($forward_subj);
+    $subject = decodeHeader($subject, false);
+    $reply_subj = decodeHeader($reply_subj, false);
+    $forward_subj = decodeHeader($forward_subj, false);
 
     if ($use_javascript_addr_book) {
         echo "\n". '<SCRIPT LANGUAGE=JavaScript><!--' . "\n" .
