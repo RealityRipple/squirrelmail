@@ -5,22 +5,790 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2003-01-04 10:06+0200\n"
+"POT-Creation-Date: 2003-01-18 10:47+0200\n"
+"PO-Revision-Date: 2003-01-19 17:39+0200\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=windows-1257\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Delivery error report"
-msgstr "Ataskaita apie pristatymo klaidà"
+msgid "Address Book"
+msgstr "Adresø knyga"
 
-msgid "Undelivered Message Headers"
-msgstr "Nepristatytos þinutës antraðtës"
+msgid "All"
+msgstr "Visi"
 
-msgid "(no subject)"
-msgstr "(tema nenurodyta)"
+msgid "Name"
+msgstr "Vardas"
+
+msgid "E-mail"
+msgstr "E-paðtas"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "Source"
+msgstr "Ðaltinis"
+
+msgid "To"
+msgstr "Kam"
+
+msgid "Cc"
+msgstr "Cc"
+
+msgid "Bcc"
+msgstr "Bcc"
+
+msgid "Use Addresses"
+msgstr "Naudoti adresus"
+
+msgid "Address Book Search"
+msgstr "Paieðka adresø knygoje"
+
+msgid "Search for"
+msgstr "Ieðkoti"
+
+msgid "in"
+msgstr " "
+
+msgid "All address books"
+msgstr "Visose adresø knygose"
+
+msgid "Search"
+msgstr "Ieðkoti"
+
+msgid "List all"
+msgstr "Rodyti visus"
+
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Nepavyko gauti adresø ið %s"
+
+msgid "Your search failed with the following error(s)"
+msgstr "Paieðka nutrûko dël þemiau nurodytø(os) klaidø(os)"
+
+msgid "No persons matching your search was found"
+msgstr "Nerastas nei vienas asmuo, atitinkantis paieðkos kriterijus"
+
+msgid "Return"
+msgstr "Gráþti"
+
+msgid "Close"
+msgstr "Uþdaryti"
+
+msgid "Nickname"
+msgstr "Trumpas vardas"
+
+msgid "Must be unique"
+msgstr "Turi nesutapti su kitu vardu"
+
+msgid "E-mail address"
+msgstr "E-paðto adresas"
+
+msgid "First name"
+msgstr "Vardas"
+
+msgid "Last name"
+msgstr "Pavardë"
+
+msgid "Additional info"
+msgstr "Papildoma informacija"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Asmeninë adresø knyga nesukurta. Susisiekite su adminu."
+
+msgid "You can only edit one address at the time"
+msgstr "Galima redaguoti tik po vienà adresà"
+
+msgid "Update address"
+msgstr "Atnaujinti adresà"
+
+msgid "ERROR"
+msgstr "KLAIDA"
+
+msgid "Unknown error"
+msgstr "Neaiðki klaida"
+
+msgid "Add address"
+msgstr "Átraukti adresà"
+
+msgid "Edit selected"
+msgstr "Redaguoti pasirinktà"
+
+msgid "Delete selected"
+msgstr "Iðtrinti pasirinktà(us)"
+
+#, c-format
+msgid "Add to %s"
+msgstr "Átraukti á adresø knygà (%s)"
+
+msgid "Subject"
+msgstr "Tema"
+
+msgid "From"
+msgstr "Nuo"
+
+msgid "Date"
+msgstr "Data"
+
+msgid "Original Message"
+msgstr "Originali þinutë"
+
+msgid "Draft Email Saved"
+msgstr "Juodraðtis iðsaugotas"
+
+msgid "Could not move/copy file. File not attached"
+msgstr "Neámanoma perkelti/kopijuoti failo. Failas neprikabintas"
+
+msgid "Draft Saved"
+msgstr "Juodraðtis iðsaugotas"
+
+msgid "Your Message has been sent"
+msgstr "Jûsø þinutë iðsiøsta"
+
+msgid "From:"
+msgstr "Nuo:"
+
+msgid "To:"
+msgstr "Kam:"
+
+msgid "CC:"
+msgstr "CC:"
+
+msgid "BCC:"
+msgstr "BCC:"
+
+msgid "Subject:"
+msgstr "Tema:"
+
+msgid "Send"
+msgstr "Siøsti"
+
+msgid "Attach:"
+msgstr "Prikabinti:"
+
+msgid "Add"
+msgstr "Pridëti"
+
+msgid "Delete selected attachments"
+msgstr "Iðtrinti pasirinktus failus"
+
+msgid "Priority"
+msgstr "Prioritetas"
+
+msgid "High"
+msgstr "Aukðtas"
+
+msgid "Normal"
+msgstr "Normalus"
+
+msgid "Low"
+msgstr "Þemas"
+
+msgid "Receipt"
+msgstr "Patvirtinimas"
+
+msgid "On Read"
+msgstr "Skaitymo metu"
+
+msgid "On Delivery"
+msgstr "Pristatymo metu"
+
+msgid "Signature"
+msgstr "Paraðas"
+
+msgid "Addresses"
+msgstr "Adresai"
+
+msgid "Save Draft"
+msgstr "Iðsaugoti juodraðtá"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "Jûs neuþpildëte gavëjo lauko (Kam:)"
+
+msgid "said"
+msgstr "paraðë"
+
+msgid "quote"
+msgstr "citata"
+
+msgid "who"
+msgstr "kas"
+
+msgid "Draft folder"
+msgstr "Juodraðèiø aplankas"
+
+msgid "Server replied: "
+msgstr "Serveris atsakë: "
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Neteisingas aplanko vardas. Pasirinkite kità vardà."
+
+msgid "Click here to go back"
+msgstr "Spragtelëkite èia, kad gráþti atgal"
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "Bandant trinti buvo nepasirinktas joks aplankas."
+
+msgid "Delete Folder"
+msgstr "Iðtrinti aplankà"
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "Ar tikrai norite iðtrinti %s?"
+
+msgid "Yes"
+msgstr "Taip"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Folders"
+msgstr "Aplankai"
+
+msgid "Subscribed successfully!"
+msgstr "Uþsiprenumeravote sëkmingai!"
+
+msgid "Unsubscribed successfully!"
+msgstr "Atðaukëte prenumeratà sëkmingai!"
+
+msgid "Deleted folder successfully!"
+msgstr "Aplankas iðtrintas!"
+
+msgid "Created folder successfully!"
+msgstr "Aplankas sukurtas!"
+
+msgid "Renamed successfully!"
+msgstr "Pervadinta!"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr "Atðaukti prenumeratos nepavyko - aplankas neegzistuoja."
+
+msgid "refresh folder list"
+msgstr "atnaujinti"
+
+msgid "Create Folder"
+msgstr "Sukurti aplankà"
+
+msgid "as a subfolder of"
+msgstr "kaip papildomà aplankà aplanke"
+
+msgid "None"
+msgstr "Joks"
+
+msgid "Let this folder contain subfolders"
+msgstr "Ðiame aplanke galima kurti kitus aplankus"
+
+msgid "Create"
+msgstr "Sukurti"
+
+msgid "Rename a Folder"
+msgstr "Pervardinti aplankà"
+
+msgid "Select a folder"
+msgstr "Pasirinkti aplankà"
+
+msgid "Rename"
+msgstr "Pervardinti"
+
+msgid "No folders found"
+msgstr "Nerasta jokiø aplankø"
+
+msgid "Delete"
+msgstr "Iðtrinti"
+
+msgid "Unsubscribe"
+msgstr "Atðaukti prenumeratà"
+
+msgid "Subscribe"
+msgstr "Uþsiprenumeruoti"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "Nerasta aplankø, kuriuose galima bûti atðaukti prenumeratà!"
+
+msgid "No folders were found to subscribe to!"
+msgstr "Nerasti prenumeratos aplankai!"
+
+msgid "Subscribe to:"
+msgstr "Uþsiprenumeruoti:"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr "Bandant pervadinti buvo nepasirinktas joks aplankas."
+
+msgid "Rename a folder"
+msgstr "Pervardinti aplankà"
+
+msgid "New name:"
+msgstr "Naujas vardas:"
+
+msgid "Submit"
+msgstr "Vykdyti"
+
+msgid "ERROR: Help files are not in the right format!"
+msgstr "KLAIDA: Pagalbos sistemos formatas yra netinkamas!"
+
+msgid "Help"
+msgstr "Pagalba"
+
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "Pagalbos sistema neiðversta á %s. Ji bus tik anglø kalba."
+
+msgid "Some or all of the help documents are not present!"
+msgstr "Dalis arba visi pagalbos sistemos dokumentai nepasiekiami!"
+
+msgid "Table of Contents"
+msgstr "Turinys"
+
+msgid "Previous"
+msgstr "Ankstesnis"
+
+msgid "Next"
+msgstr "Kitas"
+
+msgid "Top"
+msgstr "Virðus"
+
+msgid "Viewing an image attachment"
+msgstr "Perþiûrëti prikabintà pieðiná"
+
+msgid "View message"
+msgstr "Perþiûrëti þinutæ"
+
+msgid "Download this as a file"
+msgstr "Parsisiøsti kaip failà"
+
+msgid "Not available"
+msgstr "Neprieinamas"
+
+msgid "INBOX"
+msgstr "INBOX"
+
+msgid "purge"
+msgstr "iðvalyti"
+
+msgid "Last Refresh"
+msgstr "Paskutinis atnaujinimas"
+
+msgid "Save folder tree"
+msgstr "Iðsaugoti aplankø struktûrà"
+
+msgid "Login"
+msgstr "Prisijungti"
+
+#, c-format
+msgid "%s Logo"
+msgstr "%s logo"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail versija %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "sukurta SquirrelMail programuotojø"
+
+#, c-format
+msgid "%s Login"
+msgstr "%s paðtas"
+
+msgid "Name:"
+msgstr "Vardas:"
+
+msgid "Password:"
+msgstr "Slaptaþodis:"
+
+msgid "No messages were selected."
+msgstr "Nepasirinkta nei viena þinutë."
+
+msgid "Options"
+msgstr "Nustatymai"
+
+msgid "Message Highlighting"
+msgstr "Þinuèiø þymëjimas"
+
+msgid "New"
+msgstr "Nauja"
+
+msgid "Done"
+msgstr "Baigti"
+
+msgid "To or Cc"
+msgstr "Kam arba Cc"
+
+msgid "subject"
+msgstr "tema"
+
+msgid "Edit"
+msgstr "Taisyti"
+
+msgid "No highlighting is defined"
+msgstr "Joks iðskyrimas neapraðytas"
+
+msgid "Identifying name"
+msgstr "Priskirtas vardas"
+
+msgid "Color"
+msgstr "Spalva"
+
+msgid "Dark Blue"
+msgstr "Tamsiai mëlyna"
+
+msgid "Dark Green"
+msgstr "Tamsiai þalia"
+
+msgid "Dark Yellow"
+msgstr "Tamsiai geltona"
+
+msgid "Dark Cyan"
+msgstr "Tamsiai violetinë"
+
+msgid "Dark Magenta"
+msgstr "Tamsiai purpurinë"
+
+msgid "Light Blue"
+msgstr "Ðviesiai mëlyna"
+
+msgid "Light Green"
+msgstr "Ðviesiai þalia"
+
+msgid "Light Yellow"
+msgstr "Ðviesiai geltona"
+
+msgid "Light Cyan"
+msgstr "Ðviesiai violetinë"
+
+msgid "Light Magenta"
+msgstr "Ðviesiai purpurinë"
+
+msgid "Dark Gray"
+msgstr "Tamsiai pilka"
+
+msgid "Medium Gray"
+msgstr "Vidutiniðkai pilka"
+
+msgid "Light Gray"
+msgstr "Ðviesiai pilka"
+
+msgid "White"
+msgstr "Balta"
+
+msgid "Other:"
+msgstr "Kita:"
+
+msgid "Ex: 63aa7f"
+msgstr "Pvz: 63aa7f"
+
+msgid "Matches"
+msgstr "Atitinka"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "Specialus ID %d"
+
+msgid "Advanced Identities"
+msgstr "Specialûs ID"
+
+msgid "Default Identity"
+msgstr "Standartinis ID"
+
+msgid "Add a New Identity"
+msgstr "Sukurti naujà ID"
+
+msgid "Full Name"
+msgstr "Pilnas vardas"
+
+msgid "E-Mail Address"
+msgstr "E-paðto adresas"
+
+msgid "Reply To"
+msgstr "Adresas, kuriuo reikia siøsti atsakymus"
+
+msgid "Save / Update"
+msgstr "Iðsaugoti / Atnaujinti"
+
+msgid "Make Default"
+msgstr "Padaryti standartiniu"
+
+msgid "Move Up"
+msgstr "Perkelti aukðtyn"
+
+msgid "Index Order"
+msgstr "Rûðiavimo tvarka"
+
+msgid "Checkbox"
+msgstr "Þymeklis"
+
+msgid "Flags"
+msgstr "Markeriai"
+
+msgid "Size"
+msgstr "Dydis"
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"Rûðiavimo tvarka nustato tai, kaip tvarkomas þinuèiø sàraðas. Jûs galite "
+"pridëti arba iðmesti stulpelius arba keisti jø eiliðkumà taip, kaip jums "
+"patinka."
+
+msgid "up"
+msgstr "aukðtyn"
+
+msgid "down"
+msgstr "þemyn"
+
+msgid "remove"
+msgstr "iðmesti"
+
+msgid "Return to options page"
+msgstr "Gráþti á nustatymø puslapá"
+
+msgid "Personal Information"
+msgstr "Asmeninë informacija"
+
+msgid "Display Preferences"
+msgstr "Grafiniai nustatymai"
+
+msgid "Folder Preferences"
+msgstr "Aplankø nustatymai"
+
+msgid "Successfully Saved Options"
+msgstr "Nustatymai sëkmingai iðsaugoti"
+
+msgid "Refresh Folder List"
+msgstr "Atnaujinti aplankø sàraðà"
+
+msgid "Refresh Page"
+msgstr "Atnaujinti puslapá"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Èia jûs nustatote asmeninæ informacijà (vardà, e-paðtà ir kt.)"
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"Jûs galite pakeisti bendrà SquirrelMail iðvaizdà, nustatydami patinkanèius "
+"spalvø, kalbos ir kitus nustatymus."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Laiðkai gali bûti suþymëti skirtingomis spalvomis pagal nustatytus "
+"kriterijus. Tai leidþia skirti laiðkø siuntëjus ir gali bûti naudinga "
+"dirbant su persiuntimo sàraðais (mailing lists)."
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "Èia jûs nustatote kaip tvarkomi jûsø paðto aplankai."
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"Rûðiavimo tvarka gali bûti pakeista spragtelëjus ant stulpelio antraðtës."
+
+msgid "Message not printable"
+msgstr "Þinutë netinka spausdinimui"
+
+msgid "Printer Friendly"
+msgstr "Spausdinimui"
+
+msgid "CC"
+msgstr "CC"
+
+msgid "Print"
+msgstr "Spausdinti"
+
+msgid "View Printable Version"
+msgstr "Rodyti spausdinamà versijà"
+
+msgid "Read:"
+msgstr "Perskaityta:"
+
+msgid "Your message"
+msgstr "Jûsø þinutë"
+
+msgid "Sent:"
+msgstr "Iðsiusta:"
+
+#, c-format
+msgid "Was displayed on %s"
+msgstr "Buvo perskaityta %s"
+
+msgid "less"
+msgstr "maþiau"
+
+msgid "more"
+msgstr "daugiau"
+
+msgid "Unknown sender"
+msgstr "Neþinomas siuntëjas"
+
+msgid "Mailer"
+msgstr "Paðto klientas"
+
+msgid "Read receipt"
+msgstr "Patvirtinimas apie perskaitymà"
+
+msgid "send"
+msgstr "siøsti"
+
+msgid "requested"
+msgstr "praðë"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"Þinutës siuntëjas papraðë patvirtinti, kad jûs jà perskaitëte. Ar norite "
+"iðsiøsti patvirtinimà?"
+
+msgid "Send read receipt now"
+msgstr "Iðsiøsti patvirtinimà apie perskaitymà"
+
+msgid "Search results"
+msgstr "Paieðkos rezultatai"
+
+msgid "Message List"
+msgstr "Þinuèiø sàraðas"
+
+msgid "Resume Draft"
+msgstr "Tæsti juodraðèio redagavimà"
+
+msgid "Edit Message as New"
+msgstr "Taisyti þinutæ kaip naujà"
+
+msgid "View Message"
+msgstr "Perþiûrëti þinutæ"
+
+msgid "Up"
+msgstr "Aukðtyn"
+
+msgid "Forward"
+msgstr "Persiøsti"
+
+msgid "Forward as Attachment"
+msgstr "Persiøsti kaip priedà"
+
+msgid "Reply"
+msgstr "Atsakyti"
+
+msgid "Reply All"
+msgstr "Atsakyti visiems"
+
+msgid "View Full Header"
+msgstr "Perþiûrëti visas antraðtes"
+
+msgid "Attachments"
+msgstr "Prikabinti:"
+
+msgid "You must be logged in to access this page."
+msgstr ""
+"Norint pasiekti ðiuos puslapius, bûtina þinoti teisingà vartotojo vardà ir "
+"slaptaþodá!"
+
+msgid "Folder:"
+msgstr "Aplankas:"
+
+msgid "edit"
+msgstr "taisyti"
+
+msgid "search"
+msgstr "ieðkoti"
+
+msgid "delete"
+msgstr "iðtrinti"
+
+msgid "Recent Searches"
+msgstr "Paskutinës paieðkos"
+
+msgid "save"
+msgstr "iIðsaugoti"
+
+msgid "forget"
+msgstr "pamirðti"
+
+msgid "Current Search"
+msgstr "Dabartinë paieðka"
+
+msgid "All Folders"
+msgstr "Visuose aplankuose"
+
+msgid "Body"
+msgstr "Tekstas"
+
+msgid "Everywhere"
+msgstr "Bet kur"
+
+msgid "Search Results"
+msgstr "Paieðkos rezultatai:"
+
+msgid "No Messages Found"
+msgstr "Naujø þinuèiø nerasta"
+
+msgid "Sign Out"
+msgstr "Atsijungti"
+
+msgid "You have been successfully signed out."
+msgstr "Jûs sëkmingai atsijungëte."
+
+msgid "Click here to log back in."
+msgstr "Spragtelëkite ant nuorodos norëdami vël prisijungti"
+
+msgid "Viewing a Business Card"
+msgstr "Vizitinës kortelës perþiûra"
+
+msgid "Title"
+msgstr "Antraðtë"
+
+msgid "Email"
+msgstr "E-paðtas"
+
+msgid "Web Page"
+msgstr "WWW puslapis"
+
+msgid "Organization / Department"
+msgstr "Organizacija / Padalinys"
+
+msgid "Address"
+msgstr "Adresas"
+
+msgid "Work Phone"
+msgstr "Darbo telefonas"
+
+msgid "Home Phone"
+msgstr "Namø telefonas"
+
+msgid "Cellular Phone"
+msgstr "Mobilus telefonas"
+
+msgid "Fax"
+msgstr "Faksas"
+
+msgid "Note"
+msgstr "Pastabos"
+
+msgid "Add to Addressbook"
+msgstr "Átraukti á adresø knygà"
+
+msgid "Title & Org. / Dept."
+msgstr "Pareigos ir organizacija / padalinys"
+
+msgid "Viewing Full Header"
+msgstr "Pilna antraðèiø perþiûra"
+
+msgid "Viewing a text attachment"
+msgstr "Perþiûrëti prikabintà tekstiná failà"
 
 msgid "Personal address book"
 msgstr "Asmeninë adresø knyga"
@@ -98,11 +866,6 @@ msgstr "perþiûra"
 
 msgid "Business Card"
 msgstr "Vizitinë kortelë"
-
-msgid "You must be logged in to access this page."
-msgstr ""
-"Norint pasiekti ðiuos puslapius, bûtina þinoti teisingà vartotojo vardà ir "
-"slaptaþodá!"
 
 msgid "Sunday"
 msgstr "Sekmadienis"
@@ -195,20 +958,6 @@ msgstr "Spragtelëkite èia norëdami bandyti dar kartà"
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Spragtelëkite èia norëdami gráþti á %s"
-
-#, c-format
-msgid "%s Logo"
-msgstr "%s logo"
-
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail versija %s"
-
-msgid "By the SquirrelMail Development Team"
-msgstr "sukurta SquirrelMail programuotojø"
-
-msgid "ERROR"
-msgstr "KLAIDA"
 
 msgid "Go to the login page"
 msgstr "Gráþti á prisijungimo puslapá"
@@ -319,16 +1068,18 @@ msgstr "Sprendimas:"
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
-msgstr "Paðalinkite nereikalingas þinutes ið savo aplankø. Pradëti valymà reiktø nuo ðiukðlyno (Trash aplankas)."
-
-msgid "INBOX"
-msgstr "INBOX"
+msgstr ""
+"Paðalinkite nereikalingas þinutes ið savo aplankø. Pradëti valymà reiktø nuo "
+"ðiukðlyno (Trash aplankas)."
 
 msgid "Unknown response from IMAP server: "
 msgstr "Nesuprantamas atsakymas ið IMAP serverio"
 
 msgid "Unknown message number in reply from server: "
 msgstr "Neþinomas þinutës numeris atsakyme, gautame ið serverio:"
+
+msgid "(no subject)"
+msgstr "(tema nenurodyta)"
 
 msgid "Unknown Sender"
 msgstr "Neþinomas siuntëjas"
@@ -368,9 +1119,6 @@ msgstr "Apdoroti pasirinktas þinutes"
 msgid "Move"
 msgstr "Perkelti"
 
-msgid "Forward"
-msgstr "Persiøsti"
-
 msgid "Expunge"
 msgstr "Iðtrinti"
 
@@ -383,29 +1131,11 @@ msgstr "Skaityta"
 msgid "Unread"
 msgstr "Neskaityta"
 
-msgid "Delete"
-msgstr "Iðtrinti"
-
 msgid "Unthread View"
 msgstr "Nerodyti sekø"
 
 msgid "Thread View"
 msgstr "Rodyti sekas"
-
-msgid "To"
-msgstr "Kam"
-
-msgid "From"
-msgstr "Nuo"
-
-msgid "Date"
-msgstr "Data"
-
-msgid "Subject"
-msgstr "Tema"
-
-msgid "Size"
-msgstr "Dydis"
 
 msgid "Toggle All"
 msgstr "Perjungti þymes"
@@ -423,12 +1153,6 @@ msgstr "Þinuèiø perþiûra: nuo <b>%s</b> iki <b>%s</b> (%s ið viso)"
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Þinuèiø perþiûra: <b>%s</b> (1 ið viso)"
-
-msgid "Previous"
-msgstr "Ankstesnis"
-
-msgid "Next"
-msgstr "Kitas"
 
 msgid "Paginate"
 msgstr "Skaidyti á puslapius"
@@ -461,15 +1185,6 @@ msgstr "Praneðimas:"
 msgid "FETCH line:"
 msgstr "FETCH eilutë:"
 
-msgid "High"
-msgstr "Aukðtas"
-
-msgid "Low"
-msgstr "Þemas"
-
-msgid "Normal"
-msgstr "Normalus"
-
 msgid "Hide Unsafe Images"
 msgstr "Paslëpti nesaugius pieðinius"
 
@@ -479,9 +1194,6 @@ msgstr "Perþiûrëti nesaugius pieðinius"
 msgid "download"
 msgstr "parsisiøsti"
 
-msgid "Unknown sender"
-msgstr "Neþinomas siuntëjas"
-
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_lt_LT.png"
 
@@ -489,38 +1201,11 @@ msgstr "sec_remove_lt_LT.png"
 msgid "Option Type '%s' Not Found"
 msgstr "Nustatymo tipas '%s' nerastas"
 
-msgid "Yes"
-msgstr "Taip"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Submit"
-msgstr "Vykdyti"
-
 msgid "Current Folder"
 msgstr "Dabartinis aplankas"
 
-msgid "Sign Out"
-msgstr "Atsijungti"
-
 msgid "Compose"
 msgstr "Raðyti"
-
-msgid "Addresses"
-msgstr "Adresai"
-
-msgid "Folders"
-msgstr "Aplankai"
-
-msgid "Options"
-msgstr "Nustatymai"
-
-msgid "Search"
-msgstr "Ieðkoti"
-
-msgid "Help"
-msgstr "Pagalba"
 
 #, c-format
 msgid "Error creating directory %s."
@@ -528,6 +1213,69 @@ msgstr "Ávyko klaida kuriant katalogà %s."
 
 msgid "Could not create hashed directory structure!"
 msgstr "Nepavyko sukurti koduotø katalogø struktûros!"
+
+msgid "Service not available, closing channel"
+msgstr "Paslauga nepasiekiama, uþdaromas kanalas"
+
+msgid "A password transition is needed"
+msgstr "Bûtinas slaptaþodþio ávedimas"
+
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "Nurodytas veiksmas neávykdytas: paðto dëþë nepasiekiama"
+
+msgid "Requested action aborted: error in processing"
+msgstr "Nurodytas veiksmas nutrauktas: ávyko klaida apdorojant"
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr "Nurodytas veiksmas neávykdytas: nepakanka vietos saugojimui"
+
+msgid "Temporary authentication failure"
+msgstr "Laikina autorizavimo klaida"
+
+msgid "Syntax error; command not recognized"
+msgstr "Sintaksës klaida. Nesuprantama komanda"
+
+msgid "Syntax error in parameters or arguments"
+msgstr "Sintaksës klaida komandos parametruose"
+
+msgid "Command not implemented"
+msgstr "Komanda nenaudojama"
+
+msgid "Bad sequence of commands"
+msgstr "Netinkama komandø seka"
+
+msgid "Command parameter not implemented"
+msgstr "Komandos opcija neágyvendinta"
+
+msgid "Authentication required"
+msgstr "Bûtina autorizacija"
+
+msgid "Authentication mechanism is too weak"
+msgstr "Per silpnas autorizavimo tipas"
+
+msgid "Authentication failed"
+msgstr "Autorizacija nepavyko"
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr "Nurodytas autorizavimo mechanizmas reikalauja kodavimo"
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "Nurodytas veiksmas neávykdytas: paðto dëþë nepasiekiama"
+
+msgid "User not local; please try forwarding"
+msgstr "Vartotojas nevietinis. Patikrinkite persiuntimo galimybes"
+
+msgid "Requested mail action aborted: exceeding storage allocation"
+msgstr "Nurodytas veiksmas nutrauktas: nepakanka vietos informacijai saugoti"
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "Nurodytas veiksmas neávykdytas: netinkamas paðto dëþës vardas"
+
+msgid "Transaction failed"
+msgstr "Transakcija nepavyko"
+
+msgid "Unknown response"
+msgstr "Nesuprantamas atsakymas"
 
 msgid "General Display Options"
 msgstr "Bendriniai grafiniai nustatymai"
@@ -619,9 +1367,6 @@ msgstr "Rodyti paðto kliento informacijà"
 msgid "Display Attached Images with Message"
 msgstr "Rodyti prikabintus pieðinius kartu su þinute"
 
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "Rodyti puslapiø, skirtø spausdinimui, nuorodas"
-
 msgid "Enable Printer Friendly Clean Display"
 msgstr "Ájungti ðvarø spausdinimui skirtà þinuèiø rodymà"
 
@@ -709,9 +1454,6 @@ msgstr "Jokiø perspëjimø"
 msgid "Only INBOX"
 msgstr "Tik INBOX"
 
-msgid "All Folders"
-msgstr "Visuose aplankuose"
-
 msgid "Unread Message Notification Type"
 msgstr "Perspëjimø apie naujas þinutes tipas"
 
@@ -766,17 +1508,8 @@ msgstr "Su skirtukais: "
 msgid "Name and Address Options"
 msgstr "Vardo ir adreso nustatymai"
 
-msgid "Full Name"
-msgstr "Pilnas vardas"
-
 msgid "Email Address"
 msgstr "E-paðto adresas"
-
-msgid "Reply To"
-msgstr "Adresas, kuriuo reikia siøsti atsakymus"
-
-msgid "Signature"
-msgstr "Paraðas"
 
 msgid "Edit Advanced Identities"
 msgstr "Taisyti specialius ID"
@@ -789,6 +1522,9 @@ msgstr "Skirtingi ID"
 
 msgid "Same as server"
 msgstr "Atitinka serverio laiko juostà"
+
+msgid "Error opening timezone config, contact administrator."
+msgstr "Ávyko klaida atidarant laiko juostø failà, susisiekite su administratoriumi."
 
 msgid "Timezone Options"
 msgstr "Laiko juostos nustatymai"
@@ -829,6 +1565,15 @@ msgstr "Naudoti paraðà"
 msgid "Prefix Signature with '-- ' Line"
 msgstr "Prieð paraðà raðyti '-- ' eilutæ"
 
+msgid "Take Address"
+msgstr "Iðsaugoti adresà"
+
+msgid "Address Book Take:"
+msgstr "Iðsaugojimas á adresø knygà:"
+
+msgid "Try to verify addresses"
+msgstr "Bandyti patikrinti adresus"
+
 msgid "Config File Version"
 msgstr "Konfiguracinio failo versija"
 
@@ -858,6 +1603,12 @@ msgstr "Organizacijos pavadinimas"
 
 msgid "Signout Page"
 msgstr "Atsijungimo puslapis"
+
+msgid "Provider Link URI"
+msgstr "Tiekëjo nuoroda"
+
+msgid "Provider Name"
+msgstr "Tiekëjo pavadinimas"
 
 msgid "Default Language"
 msgstr "Standartinë kalba"
@@ -901,7 +1652,16 @@ msgstr "IMAP katalogø skirtukas"
 msgid "Use \"detect\" to auto-detect."
 msgstr "Naudokite \"detect\", kad atpaþinti automatiðkai."
 
-msgid "Use Sendmail"
+msgid "Use TLS for IMAP Connections"
+msgstr "Naudoti TLS su IMAP jungtimis"
+
+msgid "Requires PHP 4.3.x! Experimental."
+msgstr "Reikalauja PHP 4.3.x! Eksperimentinis."
+
+msgid "IMAP Authentication Type"
+msgstr "IMAP autorizacijos tipas"
+
+msgid "Use Sendmail Binary"
 msgstr "Naudoti serverio sendmail programà"
 
 msgid "Sendmail Path"
@@ -913,8 +1673,14 @@ msgstr "SMTP serverio adresas"
 msgid "SMTP Server Port"
 msgstr "SMTP serverio jungtis"
 
-msgid "Authenticated SMTP"
-msgstr "SMTP autorizavimas"
+msgid "Use TLS for SMTP Connections"
+msgstr "Naudoti TLS su SMTP jungtimis"
+
+msgid "SMTP Authentication Type"
+msgstr "SMTP autorizacijos tipas"
+
+msgid "POP3 Before SMTP?"
+msgstr "Vykdyti POP3 prieð SMTP?"
 
 msgid "Invert Time"
 msgstr "Keisti laikà"
@@ -970,6 +1736,9 @@ msgstr "Standartinë Javascript adresø knyga"
 msgid "Auto delete folders"
 msgstr "Automatiðkai iðtrinti aplankus"
 
+msgid "Enable /NoSelect folder fix"
+msgstr "Naudoti /NoSelect aplanko pataisas"
+
 msgid "General Options"
 msgstr "Bendriniai nustatymai"
 
@@ -1015,6 +1784,21 @@ msgstr "Leisti keisti ID"
 msgid "Allow editing of full name"
 msgstr "Leisti keisti vardà"
 
+msgid "Use server-side sorting"
+msgstr "Naudoti rûðiavimà serverio pusëje"
+
+msgid "Use server-side thread sorting"
+msgstr "Naudoti sekø rûðiavimà serverio pusëje"
+
+msgid "Allow server charset search"
+msgstr "Leisti paieðkà pagal koduotæ serveryje"
+
+msgid "UID support"
+msgstr "UID palaikymas"
+
+msgid "PHP session name"
+msgstr "PHP sesijos vardas"
+
 msgid "Message of the Day"
 msgstr "Standartinis praneðimas"
 
@@ -1047,6 +1831,12 @@ msgstr "Temos"
 
 msgid "Style Sheet URL (css)"
 msgstr "Stiliaus lentelës adresas (CSS)"
+
+msgid "Default theme"
+msgstr "Standartinë tema"
+
+msgid "Use index number of theme"
+msgstr "Naudoti temà nurodytu numeriu"
 
 msgid "Configuration Administrator"
 msgstr "Konfiguracijos valdymas"
@@ -1344,7 +2134,6 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "NEMOKAMAS - SPAMhaus - Gerai þinomø spameriø sàraðas"
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -1456,20 +2245,8 @@ msgstr "Tik neperskaitytas þinutes"
 msgid "Save"
 msgstr "Iðsaugoti"
 
-msgid "New"
-msgstr "Nauja"
-
-msgid "Done"
-msgstr "Baigti"
-
 msgid "Match:"
 msgstr "Laukas:"
-
-msgid "Cc"
-msgstr "Cc"
-
-msgid "To or Cc"
-msgstr "Kam arba Cc"
 
 msgid "Header"
 msgstr "Antraðtë"
@@ -1477,14 +2254,8 @@ msgstr "Antraðtë"
 msgid "Contains:"
 msgstr "Turi:"
 
-msgid "Edit"
-msgstr "Taisyti"
-
 msgid "Down"
 msgstr "Þemyn"
-
-msgid "Up"
-msgstr "Aukðtyn"
 
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
@@ -1569,6 +2340,27 @@ msgstr "Ájungta"
 msgid "OFF"
 msgstr "Iðjungta"
 
+msgid " not found."
+msgstr " nerasta."
+
+msgid "Today's Fortune"
+msgstr "Eilinë citata"
+
+msgid "Fortunes:"
+msgstr "Citatos:"
+
+msgid "Show fortunes at top of mailbox"
+msgstr "Rodyti citatas virð þinuèiø sàraðo"
+
+msgid "IMAP server information"
+msgstr "IMAP serverio informacija"
+
+msgid ""
+"Run some test IMAP commands, displaying both the command and the result. "
+"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"configuration. Custom command strings can be used."
+msgstr "Galima paleisti bandomàsias IMAP komandas ir patikrinti serverio reakcijas. Paprastai testai naudoja IMAP komandas atitinkanèias dabartinæ SquirrelMail konfiguracijà. Galima naudoti ir kitas komandas."
+
 msgid "Mailinglist"
 msgstr "Susiraðinëjimo sàraðas"
 
@@ -1596,9 +2388,6 @@ msgstr ""
 "Ði komanda nusiøs þinutæ á %s, praðydama jus paðalinti ið ðio susiraðinëjimo "
 "sàraðo. Bandoma bus nuraðyti þemiau esantá adresà."
 
-msgid "From:"
-msgstr "Nuo:"
-
 msgid "Send Mail"
 msgstr "Iðsiøsti þinutæ"
 
@@ -1607,12 +2396,6 @@ msgstr "Iðsiøsti þinutæ sàraðan"
 
 msgid "Reply to List"
 msgstr "Atsakyti á sàraðà"
-
-msgid "Subscribe"
-msgstr "Uþsiprenumeruoti"
-
-msgid "Unsubscribe"
-msgstr "Atðaukti prenumeratà"
 
 msgid "List Archives"
 msgstr "Susiraðinëjimo archyvai"
@@ -1721,9 +2504,6 @@ msgstr "Nutolæs POP serveris. Gauname þinutes"
 
 msgid "Select Server:"
 msgstr "Pasirinkti serverá:"
-
-msgid "All"
-msgstr "Visi"
 
 msgid "Password for"
 msgstr "Slaptaþodis skirtas"
@@ -1845,9 +2625,6 @@ msgstr "Trumpas vardas:"
 msgid "Username:"
 msgstr "Vartotojo vardas:"
 
-msgid "Password:"
-msgstr "Slaptaþodis:"
-
 msgid "Store in Folder:"
 msgstr "Iðsaugoti aplanke:"
 
@@ -1914,6 +2691,21 @@ msgid ""
 msgstr ""
 "Èia apraðomi paðto paëmimo ið kito pop3 serverio ir jo patalpinimo á jûsø "
 "esamà paðto dëþæ parametrai."
+
+msgid "Message Details"
+msgstr "Þinutës detalës"
+
+msgid "Message details"
+msgstr "Þinuèiø detalës"
+
+msgid "Close Window"
+msgstr "Uþdaryti langà"
+
+msgid "Save Message"
+msgstr "Iðsaugoti þinutæ"
+
+msgid "View Message details"
+msgstr "Perþiûrëti þinutës detales"
 
 msgid "New Mail Notification"
 msgstr "Perspëjimai apie naujas þinutes"
@@ -2018,9 +2810,6 @@ msgstr "SquirrelMail informacija:"
 msgid "You have new mail!"
 msgstr "Jûs gavote naujø paðto þinuèiø!"
 
-msgid "Close Window"
-msgstr "Uþdaryti langà"
-
 msgid "NewMail Options"
 msgstr "Naujø þinuèiø nustatymai"
 
@@ -2047,9 +2836,6 @@ msgstr "Patikrinti garsà"
 
 msgid "Loading the sound..."
 msgstr "Kraunasi audio..."
-
-msgid "Close"
-msgstr "Uþdaryti"
 
 msgid "Sent Subfolders Options"
 msgstr "Iðsiøstø laiðkø aplankø nustatymai"
@@ -2079,7 +2865,10 @@ msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
-msgstr "Padëkite kovoti prieð nepriimtinus masinius laiðkus. SpamCop priedas ávertina nepriimtino laiðko antraðtes ir nustato adresus, kuriems reiktø skøstis. Tai yra gana greitas, protingas ir lengvai naudojamas árankis."
+msgstr ""
+"Padëkite kovoti prieð nepriimtinus masinius laiðkus. SpamCop priedas "
+"ávertina nepriimtino laiðko antraðtes ir nustato adresus, kuriems reiktø "
+"skøstis. Tai yra gana greitas, protingas ir lengvai naudojamas árankis."
 
 msgid "SpellChecker Options"
 msgstr "Raðybos tikrinimo nustatymai"
@@ -2144,6 +2933,311 @@ msgstr "Ávyko klaida atkoduojant þodynà"
 
 msgid "Cute."
 msgstr "Graþu."
+
+#, c-format
+msgid "I tried to execute '%s', but it returned:"
+msgstr "Bandant vykdyti '%s', buvo iðvesta"
+
+msgid "SquirrelSpell is misconfigured."
+msgstr "SquirrelSpell klaidingai sukonfiguruotas"
+
+msgid "SquirrelSpell Results"
+msgstr "Raðybos tikrinimo rezultatai"
+
+msgid "Spellcheck completed. Commit changes?"
+msgstr "Raðybos tikrinimas baigtas. Pritaikyti pakeitimus?"
+
+msgid "No changes were made."
+msgstr "Niekas nepakeista."
+
+msgid "Now saving your personal dictionary... Please wait."
+msgstr "Asmeninis þodynas saugomas... Laukite."
+
+#, c-format
+msgid "Found %s errors"
+msgstr "Rasta %s klaidø(os/a)"
+
+msgid "Line with an error:"
+msgstr "Eilutë su klaida:"
+
+msgid "Error:"
+msgstr "Klaida:"
+
+msgid "Suggestions:"
+msgstr "Pasiûlymai:"
+
+msgid "Suggestions"
+msgstr "Pasiûlymai"
+
+msgid "Change to:"
+msgstr "Keisti á:"
+
+msgid "Occurs times:"
+msgstr "Rasta atvejø:"
+
+msgid "Change this word"
+msgstr "Pakeisti ðá þodá"
+
+msgid "Change"
+msgstr "Pakeisti"
+
+msgid "Change ALL occurances of this word"
+msgstr "Pakeisti visus ðio þodio atvejus"
+
+msgid "Change All"
+msgstr "Pakeisti visus"
+
+msgid "Ignore this word"
+msgstr "Ignoruoti ðá þodá"
+
+msgid "Ignore"
+msgstr "Ignoruoti"
+
+msgid "Ignore ALL occurances this word"
+msgstr "Ignoruoti visus ðio þodþio atvejus"
+
+msgid "Ignore All"
+msgstr "Ignoruoti visus"
+
+msgid "Add this word to your personal dictionary"
+msgstr "Átraukti þodá á asmeniná þodynà"
+
+msgid "Add to Dic"
+msgstr "Átraukti á þodynà"
+
+msgid "Close and Commit"
+msgstr "Uþdaryti ir iðsaugoti"
+
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr ""
+"Raðybos tikrinimas nebaigtas. Ar tikrai uþdaryti ir iðsaugoti pakeitimus?"
+
+msgid "Close and Cancel"
+msgstr "Uþdaryti ir atðaukti"
+
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr ""
+"Raðybos tikrinimas nebaigtas. Ar tikrai uþdaryti ir atðaukti visus "
+"pakeitimus?"
+
+msgid "No errors found"
+msgstr "Nerasta jokiø klaidø"
+
+msgid "Your personal dictionary was erased."
+msgstr "Jûsø asmeninis þodynas iðtrintas"
+
+msgid "Dictionary Erased"
+msgstr "Þodynas iðtrintas"
+
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+"Jûsø asmeninis þodynas buvo iðtrintas. Uþdarykite ðá langà ir paspauskite "
+"\"Patikrinti raðybà\" mygtukà dar kartà, kad ið naujo patikrinti raðybà."
+
+msgid "Close this Window"
+msgstr "Uþdaryti langà"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+"Jûsø þodynas buvo sëkmingai ið naujo uþkoduotas. Dabar galite gráþti á &quot;"
+"Raðybos tikrinimo nustatymø&quot; meniu ir tæsti darbà."
+
+msgid "Successful Re-encryption"
+msgstr "Sëkmingai perkoduota"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"Jûsø asmeninis þodynas buvo sëkmingai perkoduotas. Uþdarykite ðá langà ir "
+"paspauskite \"Patikrinti raðybà\" mygtukà dar kartà, kad ið naujo patikrinti "
+"raðybà."
+
+msgid "Dictionary re-encrypted"
+msgstr "Þodynas perkoduotas"
+
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"Jûsø asmeninis þodynas buvo <strong>uþkoduotas</strong> ir dabar yra "
+"saugomas <strong>uþkoduotu</strong> formatu."
+
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"Jûsø asmeninis þodynas buvo <strong>atkoduotas</strong> ir dabar yra "
+"saugomas <strong>paprasto teksto</strong> formatu."
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Asmeninio þodyno kodavimo nustatymai"
+
+msgid "Personal Dictionary"
+msgstr "Asmeninis þodynas"
+
+msgid "No words in your personal dictionary."
+msgstr "Asmeninis þodynas tuðèias."
+
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr "Paþymëkite þodþius, kuriuos norite iðtrinti ið þodyno."
+
+#, c-format
+msgid "%s dictionary"
+msgstr "%s þodynas"
+
+msgid "Delete checked words"
+msgstr "Iðtrinti pasirinktà(us) þodþius"
+
+msgid "Edit your Personal Dictionary"
+msgstr "Taisyti asmeniná þodynà"
+
+msgid "Please make your selection first."
+msgstr "Turite pirmiau pasirinkti."
+
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
+msgstr ""
+"Asmeninis þodynas bus uþkoduotas (jo turinys be slaptaþodio neperskaitomas). "
+"Tæsti?"
+
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
+msgstr ""
+"Asmeninis þodynas bus atkoduotas (saugomas paprasto teksto formate). Tæsti?"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+"<p>Jûsø asmeninis þodynas yra <strong>uþkoduotas</strong>. Tai leidþia "
+"apsaugoti jûsø asmeninæ informacijà, jei www paðto sistemos saugumas "
+"paþeidþiamas. Ðiuo metu þodynas yra uþkoduojamas jûsø paðto slaptaþodþiu.</"
+"p> <p><strong>DËMESIO:</strong> Pamirðus slaptaþodá, jums nepavyks "
+"pasinaudoti þodynu, kadangi nebeiðeis jo atkoduoti. Pakeitus paðto "
+"slaptaþodá raðybos tikrinimo posistemë pastebës neatitikimà ir pasiûlys "
+"pateikti senàjá slaptaþodá ir perkoduoti þodynà nauju slaptaþodþiu."
+
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr "Praðau atkoduoti mano þodynà ir saugoti já paprasto teksto formate."
+
+msgid "Change crypto settings"
+msgstr "Pakeisti kodavimo nustatymus"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+"<p>Jûsø asmeninis þodynas ðiuo metu yra <strong>neuþkoduotas</strong>. Jûs "
+"galite uþkoduoti þodynà, siekdami apsaugoti savo asmeninæ informacijà www "
+"paðto sistemos saugumo paþeidimo atveju. Uþkoduoto þodyno informacijà galima "
+"perskaityti tik þinant jà uþkoduojant naudota raktà (jûsø paðto slaptaþodá)."
+"</p><p><strong>DËMESIO:</strong> Uþkodavus þodynà jûs turite atsiminti savo "
+"paðto slaptaþodá. Pamirðæ savo slaptaþodá, jûs dar galësite pasiekti paðtà "
+"administratoriui pakeitus slaptaþodá, taèiau þodyno informacijos atgaminti "
+"nebepavyks. Pakeitus slaptaþodá raðybos tikrinimo posistemë tai pastebës ir "
+"papraðys pateikti senàjá slaptaþodá, kad perkoduoti jûsø þodynà."
+
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr "Praðau uþkoduoti mano asmeniná þodynà."
+
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr "Triname nurodytus áraðus ið <strong>%s</strong> þodyno:"
+
+msgid "All done!"
+msgstr "Baigta!"
+
+msgid "Personal Dictionary Updated"
+msgstr "Asmeninis þodynas atnaujintas"
+
+msgid "No changes requested."
+msgstr "Niekas nepakeista."
+
+msgid "Please wait, communicating with the server..."
+msgstr "Palaukite, bandome susisiekti su serveriu..."
+
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr "Pasirinkite þodynà, kurá naudosite þinutës tikrinimui:"
+
+msgid "SquirrelSpell Initiating"
+msgstr "Pasileidþia raðybos tikrinimas"
+
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr ""
+"Nustatymai pakeisti á: <strong>%s</strong> su <strong>%s</strong> "
+"pagrindiniu þodynu."
+
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr "Naudojame <strong>%s</strong> þodynà (standartiná) raðybos tikrinimui."
+
+msgid "International Dictionaries Preferences Updated"
+msgstr "Tarptautiniai þodynø nustatymai atnaujinti"
+
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr "Pasirinkite kurios þodynus jûs norite naudoti tikrinant raðybà:"
+
+msgid "Make this dictionary my default selection:"
+msgstr "Padaryti ðá þodynà pagrindiniu"
+
+msgid "Make these changes"
+msgstr "Iðsaugoti pakeitimus"
+
+msgid "Add International Dictionaries"
+msgstr "Pridëti tarptautinius þodynus"
+
+msgid "Please choose which options you wish to set up:"
+msgstr "Pasirinkite opcijas, kurias norite ájungti:"
+
+msgid "Edit your personal dictionary"
+msgstr "Taisyti asmeniná þodynà"
+
+msgid "Set up international dictionaries"
+msgstr "Nustatyti tarptautinius þodynus"
+
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr "Uþkoduoti/atkoduoti asmeniná þodynà"
+
+msgid "not available"
+msgstr "neprieinamas"
+
+msgid "SquirrelSpell Options Menu"
+msgstr "Raðybos tikrinimo nustatymø meniu"
 
 msgid "Translator"
 msgstr "Vertëjas"
@@ -2216,9 +3310,6 @@ msgstr "Raðant:"
 
 msgid "Not yet functional, currently does nothing"
 msgstr "Ðiuo metu neveikia, nenaudojamas"
-
-msgid "Download this as a file"
-msgstr "Parsisiøsti kaip failà"
 
 msgid "Translation Options"
 msgstr "Vertimo nustatymai"
@@ -2313,6 +3404,9 @@ msgstr "slovënø"
 msgid "Swedish"
 msgstr "ðvedø"
 
+msgid "Turkish"
+msgstr "turkø"
+
 msgid "Welsh"
 msgstr "velsieèiø"
 
@@ -2322,953 +3416,23 @@ msgstr "indonezieèiø"
 msgid "Latin"
 msgstr "lotynø"
 
-msgid "Address Book"
-msgstr "Adresø knyga"
+msgid "Delivery error report"
+msgstr "Ataskaita apie pristatymo klaidà"
 
-msgid "Name"
-msgstr "Vardas"
+msgid "Undelivered Message Headers"
+msgstr "Nepristatytos þinutës antraðtës"
 
-msgid "E-mail"
-msgstr "E-paðtas"
+#~ msgid "Enable Subtle Printer Friendly Link"
+#~ msgstr "Rodyti puslapiø, skirtø spausdinimui, nuorodas"
 
-msgid "Info"
-msgstr "Info"
-
-msgid "Source"
-msgstr "Ðaltinis"
-
-msgid "Bcc"
-msgstr "Bcc"
-
-msgid "Use Addresses"
-msgstr "Naudoti adresus"
-
-msgid "Address Book Search"
-msgstr "Paieðka adresø knygoje"
-
-msgid "Search for"
-msgstr "Ieðkoti"
-
-msgid "in"
-msgstr " "
-
-msgid "All address books"
-msgstr "Visose adresø knygose"
-
-msgid "List all"
-msgstr "Rodyti visus"
-
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "Nepavyko gauti adresø ið %s"
-
-msgid "Your search failed with the following error(s)"
-msgstr "Paieðka nutrûko dël þemiau nurodytø(os) klaidø(os)"
-
-msgid "No persons matching your search was found"
-msgstr "Nerastas nei vienas asmuo, atitinkantis paieðkos kriterijus"
-
-msgid "Return"
-msgstr "Gráþti"
-
-msgid "Nickname"
-msgstr "Trumpas vardas"
-
-msgid "Must be unique"
-msgstr "Turi nesutapti su kitu vardu"
-
-msgid "E-mail address"
-msgstr "E-paðto adresas"
-
-msgid "First name"
-msgstr "Vardas"
-
-msgid "Last name"
-msgstr "Pavardë"
-
-msgid "Additional info"
-msgstr "Papildoma informacija"
-
-msgid "No personal address book is defined. Contact administrator."
-msgstr "Asmeninë adresø knyga nesukurta. Susisiekite su adminu."
-
-msgid "You can only edit one address at the time"
-msgstr "Galima redaguoti tik po vienà adresà"
-
-msgid "Update address"
-msgstr "Atnaujinti adresà"
-
-msgid "Unknown error"
-msgstr "Neaiðki klaida"
-
-msgid "Add address"
-msgstr "Átraukti adresà"
-
-msgid "Edit selected"
-msgstr "Redaguoti pasirinktà"
-
-msgid "Delete selected"
-msgstr "Iðtrinti pasirinktà(us)"
-
-#, c-format
-msgid "Add to %s"
-msgstr "Átraukti á adresø knygà (%s)"
-
-msgid "Original Message"
-msgstr "Originali þinutë"
-
-msgid "Draft Email Saved"
-msgstr "Juodraðtis iðsaugotas"
-
-msgid "Could not move/copy file. File not attached"
-msgstr "Neámanoma perkelti/kopijuoti failo. Failas neprikabintas"
-
-msgid "Draft Saved"
-msgstr "Juodraðtis iðsaugotas"
-
-msgid "Your Message has been sent"
-msgstr "Jûsø þinutë iðsiøsta"
-
-msgid "To:"
-msgstr "Kam:"
-
-msgid "CC:"
-msgstr "CC:"
-
-msgid "BCC:"
-msgstr "BCC:"
-
-msgid "Subject:"
-msgstr "Tema:"
-
-msgid "Send"
-msgstr "Siøsti"
-
-msgid "Attach:"
-msgstr "Prikabinti:"
-
-msgid "Add"
-msgstr "Pridëti"
-
-msgid "Delete selected attachments"
-msgstr "Iðtrinti pasirinktus failus"
-
-msgid "Priority"
-msgstr "Prioritetas"
-
-msgid "Receipt"
-msgstr "Patvirtinimas"
-
-msgid "On Read"
-msgstr "Skaitymo metu"
-
-msgid "On Delivery"
-msgstr "Pristatymo metu"
-
-msgid "Save Draft"
-msgstr "Iðsaugoti juodraðtá"
-
-msgid "You have not filled in the \"To:\" field."
-msgstr "Jûs neuþpildëte gavëjo lauko (Kam:)"
-
-msgid "said"
-msgstr "paraðë"
-
-msgid "quote"
-msgstr "citata"
-
-msgid "who"
-msgstr "kas"
-
-msgid "Draft folder"
-msgstr "Juodraðèiø aplankas"
-
-msgid "Illegal folder name.  Please select a different name."
-msgstr "Neteisingas aplanko vardas. Pasirinkite kità vardà."
-
-msgid "Click here to go back"
-msgstr "Spragtelëkite èia, kad gráþti atgal"
-
-msgid "You have not selected a folder to delete. Please do so."
-msgstr "Bandant trinti buvo nepasirinktas joks aplankas."
-
-msgid "Delete Folder"
-msgstr "Iðtrinti aplankà"
-
-#, c-format
-msgid "Are you sure you want to delete %s?"
-msgstr "Ar tikrai norite iðtrinti %s?"
-
-msgid "Subscribed successfully!"
-msgstr "Uþsiprenumeravote sëkmingai!"
-
-msgid "Unsubscribed successfully!"
-msgstr "Atðaukëte prenumeratà sëkmingai!"
-
-msgid "Deleted folder successfully!"
-msgstr "Aplankas iðtrintas!"
-
-msgid "Created folder successfully!"
-msgstr "Aplankas sukurtas!"
-
-msgid "Renamed successfully!"
-msgstr "Pervadinta!"
-
-msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr "Atðaukti prenumeratos nepavyko - aplankas neegzistuoja."
-
-msgid "refresh folder list"
-msgstr "atnaujinti"
-
-msgid "Create Folder"
-msgstr "Sukurti aplankà"
-
-msgid "as a subfolder of"
-msgstr "kaip papildomà aplankà aplanke"
-
-msgid "None"
-msgstr "Joks"
-
-msgid "Let this folder contain subfolders"
-msgstr "Ðiame aplanke galima kurti kitus aplankus"
-
-msgid "Create"
-msgstr "Sukurti"
-
-msgid "Rename a Folder"
-msgstr "Pervardinti aplankà"
-
-msgid "Select a folder"
-msgstr "Pasirinkti aplankà"
-
-msgid "Rename"
-msgstr "Pervardinti"
-
-msgid "No folders found"
-msgstr "Nerasta jokiø aplankø"
-
-msgid "No folders were found to unsubscribe from!"
-msgstr "Nerasta aplankø, kuriuose galima bûti atðaukti prenumeratà!"
-
-msgid "No folders were found to subscribe to!"
-msgstr "Nerasti prenumeratos aplankai!"
-
-msgid "Subscribe to:"
-msgstr "Uþsiprenumeruoti:"
-
-msgid "You have not selected a folder to rename. Please do so."
-msgstr "Bandant pervadinti buvo nepasirinktas joks aplankas."
-
-msgid "Rename a folder"
-msgstr "Pervardinti aplankà"
-
-msgid "New name:"
-msgstr "Naujas vardas:"
-
-msgid "ERROR: Help files are not in the right format!"
-msgstr "KLAIDA: Pagalbos sistemos formatas yra netinkamas!"
-
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr "Pagalbos sistema neiðversta á %s. Ji bus tik anglø kalba."
-
-msgid "Some or all of the help documents are not present!"
-msgstr "Dalis arba visi pagalbos sistemos dokumentai nepasiekiami!"
-
-msgid "Table of Contents"
-msgstr "Turinys"
-
-msgid "Top"
-msgstr "Virðus"
-
-msgid "Viewing an image attachment"
-msgstr "Perþiûrëti prikabintà pieðiná"
-
-msgid "View message"
-msgstr "Perþiûrëti þinutæ"
-
-msgid "Not available"
-msgstr "Neprieinamas"
-
-msgid "purge"
-msgstr "iðvalyti"
-
-msgid "Last Refresh"
-msgstr "Paskutinis atnaujinimas"
-
-msgid "Save folder tree"
-msgstr "Iðsaugoti aplankø struktûrà"
-
-msgid "Login"
-msgstr "Prisijungti"
-
-#, c-format
-msgid "%s Login"
-msgstr "%s paðtas"
-
-msgid "Name:"
-msgstr "Vardas:"
-
-msgid "No messages were selected."
-msgstr "Nepasirinkta nei viena þinutë."
-
-msgid "Message Highlighting"
-msgstr "Þinuèiø þymëjimas"
-
-msgid "subject"
-msgstr "tema"
-
-msgid "No highlighting is defined"
-msgstr "Joks iðskyrimas neapraðytas"
-
-msgid "Identifying name"
-msgstr "Priskirtas vardas"
-
-msgid "Color"
-msgstr "Spalva"
-
-msgid "Dark Blue"
-msgstr "Tamsiai mëlyna"
-
-msgid "Dark Green"
-msgstr "Tamsiai þalia"
-
-msgid "Dark Yellow"
-msgstr "Tamsiai geltona"
-
-msgid "Dark Cyan"
-msgstr "Tamsiai violetinë"
-
-msgid "Dark Magenta"
-msgstr "Tamsiai purpurinë"
-
-msgid "Light Blue"
-msgstr "Ðviesiai mëlyna"
-
-msgid "Light Green"
-msgstr "Ðviesiai þalia"
-
-msgid "Light Yellow"
-msgstr "Ðviesiai geltona"
-
-msgid "Light Cyan"
-msgstr "Ðviesiai violetinë"
-
-msgid "Light Magenta"
-msgstr "Ðviesiai purpurinë"
-
-msgid "Dark Gray"
-msgstr "Tamsiai pilka"
-
-msgid "Medium Gray"
-msgstr "Vidutiniðkai pilka"
-
-msgid "Light Gray"
-msgstr "Ðviesiai pilka"
-
-msgid "White"
-msgstr "Balta"
-
-msgid "Other:"
-msgstr "Kita:"
-
-msgid "Ex: 63aa7f"
-msgstr "Pvz: 63aa7f"
-
-msgid "Matches"
-msgstr "Atitinka"
-
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "Specialus ID %d"
-
-msgid "Advanced Identities"
-msgstr "Specialûs ID"
-
-msgid "Default Identity"
-msgstr "Standartinis ID"
-
-msgid "Add a New Identity"
-msgstr "Sukurti naujà ID"
-
-msgid "E-Mail Address"
-msgstr "E-paðto adresas"
-
-msgid "Save / Update"
-msgstr "Iðsaugoti / Atnaujinti"
-
-msgid "Make Default"
-msgstr "Padaryti standartiniu"
-
-msgid "Move Up"
-msgstr "Perkelti aukðtyn"
-
-msgid "Index Order"
-msgstr "Rûðiavimo tvarka"
-
-msgid "Checkbox"
-msgstr "Þymeklis"
-
-msgid "Flags"
-msgstr "Markeriai"
-
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr ""
-"Rûðiavimo tvarka nustato tai, kaip tvarkomas þinuèiø sàraðas. Jûs galite "
-"pridëti arba iðmesti stulpelius arba keisti jø eiliðkumà taip, kaip jums "
-"patinka."
-
-msgid "up"
-msgstr "aukðtyn"
-
-msgid "down"
-msgstr "þemyn"
-
-msgid "remove"
-msgstr "iðmesti"
-
-msgid "Return to options page"
-msgstr "Gráþti á nustatymø puslapá"
-
-msgid "Personal Information"
-msgstr "Asmeninë informacija"
-
-msgid "Display Preferences"
-msgstr "Grafiniai nustatymai"
-
-msgid "Folder Preferences"
-msgstr "Aplankø nustatymai"
-
-msgid "Successfully Saved Options"
-msgstr "Nustatymai sëkmingai iðsaugoti"
-
-msgid "Refresh Folder List"
-msgstr "Atnaujinti aplankø sàraðà"
-
-msgid "Refresh Page"
-msgstr "Atnaujinti puslapá"
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "Èia jûs nustatote asmeninæ informacijà (vardà, e-paðtà ir kt.)"
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-"Jûs galite pakeisti bendrà SquirrelMail iðvaizdà, nustatydami patinkanèius "
-"spalvø, kalbos ir kitus nustatymus."
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"Laiðkai gali bûti suþymëti skirtingomis spalvomis pagal nustatytus "
-"kriterijus. Tai leidþia skirti laiðkø siuntëjus ir gali bûti naudinga "
-"dirbant su persiuntimo sàraðais (mailing lists)."
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr "Èia jûs nustatote kaip tvarkomi jûsø paðto aplankai."
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-"Rûðiavimo tvarka gali bûti pakeista spragtelëjus ant stulpelio antraðtës."
-
-msgid "Message not printable"
-msgstr "Þinutë netinka spausdinimui"
-
-msgid "Printer Friendly"
-msgstr "Spausdinimui"
-
-msgid "CC"
-msgstr "CC"
-
-msgid "Print"
-msgstr "Spausdinti"
-
-msgid "View Printable Version"
-msgstr "Rodyti spausdinamà versijà"
-
-msgid "Read:"
-msgstr "Perskaityta:"
-
-msgid "Your message"
-msgstr "Jûsø þinutë"
-
-msgid "Sent:"
-msgstr "Iðsiusta:"
-
-#, c-format
-msgid "Was displayed on %s"
-msgstr "Buvo perskaitytas %s"
-
-msgid "less"
-msgstr "maþiau"
-
-msgid "more"
-msgstr "daugiau"
-
-msgid "Mailer"
-msgstr "Paðto klientas"
-
-msgid "Read receipt"
-msgstr "Patvirtinimas apie perskaitymà"
-
-msgid "send"
-msgstr "siøsti"
-
-msgid "requested"
-msgstr "praðë"
-
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
-msgstr ""
-"Þinutës siuntëjas papraðë patvirtinti, kad jûs jà perskaitëte. Ar norite "
-"iðsiøsti patvirtinimà?"
-
-msgid "Send read receipt now"
-msgstr "Iðsiøsti patvirtinimà apie perskaitymà"
-
-msgid "Search results"
-msgstr "Paieðkos rezultatai"
-
-msgid "Message List"
-msgstr "Þinuèiø sàraðas"
-
-msgid "Resume Draft"
-msgstr "Tæsti juodraðèio redagavimà"
-
-msgid "Edit Message as New"
-msgstr "Taisyti þinutæ kaip naujà"
-
-msgid "View Message"
-msgstr "Perþiûrëti þinutæ"
-
-msgid "Forward as Attachment"
-msgstr "Persiøsti kaip priedà"
-
-msgid "Reply"
-msgstr "Atsakyti"
-
-msgid "Reply All"
-msgstr "Atsakyti visiems"
-
-msgid "View Full Header"
-msgstr "Perþiûrëti visas antraðtes"
-
-msgid "Attachments"
-msgstr "Prikabinti:"
-
-msgid "Folder:"
-msgstr "Aplankas:"
-
-msgid "edit"
-msgstr "taisyti"
-
-msgid "search"
-msgstr "ieðkoti"
-
-msgid "delete"
-msgstr "iðtrinti"
-
-msgid "Recent Searches"
-msgstr "Paskutinës paieðkos"
-
-msgid "save"
-msgstr "iIðsaugoti"
-
-msgid "forget"
-msgstr "pamirðti"
-
-msgid "Current Search"
-msgstr "Dabartinë paieðka"
-
-msgid "Body"
-msgstr "Tekstas"
-
-msgid "Everywhere"
-msgstr "Bet kur"
-
-msgid "Search Results"
-msgstr "Paieðkos rezultatai:"
-
-msgid "No Messages Found"
-msgstr "Naujø þinuèiø nerasta"
-
-msgid "You have been successfully signed out."
-msgstr "Jûs sëkmingai atsijungëte."
-
-msgid "Click here to log back in."
-msgstr "Spragtelëkite ant nuorodos norëdami vël prisijungti"
-
-msgid "Viewing a Business Card"
-msgstr "Vizitinës kortelës perþiûra"
-
-msgid "Title"
-msgstr "Antraðtë"
-
-msgid "Email"
-msgstr "E-paðtas"
-
-msgid "Web Page"
-msgstr "WWW puslapis"
-
-msgid "Organization / Department"
-msgstr "Organizacija / Padalinys"
-
-msgid "Address"
-msgstr "Adresas"
-
-msgid "Work Phone"
-msgstr "Darbo telefonas"
-
-msgid "Home Phone"
-msgstr "Namø telefonas"
-
-msgid "Cellular Phone"
-msgstr "Mobilus telefonas"
-
-msgid "Fax"
-msgstr "Faksas"
-
-msgid "Note"
-msgstr "Pastabos"
-
-msgid "Add to Addressbook"
-msgstr "Átraukti á adresø knygà"
-
-msgid "Title & Org. / Dept."
-msgstr "Pareigos ir organizacija / padalinys"
-
-msgid "Viewing Full Header"
-msgstr "Pilna antraðèiø perþiûra"
-
-msgid "Viewing a text attachment"
-msgstr "Perþiûrëti prikabintà tekstiná failà"
+#~ msgid "Authenticated SMTP"
+#~ msgstr "SMTP autorizavimas"
 
 #~ msgid "There was an error contacting the mail server."
 #~ msgstr "Ávyko klaida bandant susisiekti su paðto serveriu."
 
 #~ msgid "Contact your administrator for help."
 #~ msgstr "Susisiekite su administratoriumi, jei reikia pagalbos."
-
-#~ msgid "I tried to execute '%s', but it returned:"
-#~ msgstr "Bandant vykdyti '%s', buvo iðvesta"
-
-#~ msgid "SquirrelSpell is misconfigured."
-#~ msgstr "SquirrelSpell klaidingai sukonfiguruotas"
-
-#~ msgid "SquirrelSpell Results"
-#~ msgstr "Raðybos tikrinimo rezultatai"
-
-#~ msgid "Spellcheck completed. Commit changes?"
-#~ msgstr "Raðybos tikrinimas baigtas. Pritaikyti pakeitimus?"
-
-#~ msgid "No changes were made."
-#~ msgstr "Niekas nepakeista."
-
-#~ msgid "Now saving your personal dictionary... Please wait."
-#~ msgstr "Asmeninis þodynas saugomas... Laukite."
-
-#~ msgid "Found %s errors"
-#~ msgstr "Rasta %s klaidø(os/a)"
-
-#~ msgid "Line with an error:"
-#~ msgstr "Eilutë su klaida:"
-
-#~ msgid "Error:"
-#~ msgstr "Klaida:"
-
-#~ msgid "Suggestions"
-#~ msgstr "Pasiûlymai"
-
-#~ msgid "Change to:"
-#~ msgstr "Keisti á:"
-
-#~ msgid "Occurs times:"
-#~ msgstr "Rasta atvejø:"
-
-#~ msgid "Change this word"
-#~ msgstr "Pakeisti ðá þodá"
-
-#~ msgid "Change"
-#~ msgstr "Pakeisti"
-
-#~ msgid "Change ALL occurances of this word"
-#~ msgstr "Pakeisti visus ðio þodio atvejus"
-
-#~ msgid "Change All"
-#~ msgstr "Pakeisti visus"
-
-#~ msgid "Ignore this word"
-#~ msgstr "Ignoruoti ðá þodá"
-
-#~ msgid "Ignore"
-#~ msgstr "Ignoruoti"
-
-#~ msgid "Ignore ALL occurances this word"
-#~ msgstr "Ignoruoti visus ðio þodþio atvejus"
-
-#~ msgid "Ignore All"
-#~ msgstr "Ignoruoti visus"
-
-#~ msgid "Add this word to your personal dictionary"
-#~ msgstr "Átraukti þodá á asmeniná þodynà"
-
-#~ msgid "Add to Dic"
-#~ msgstr "Átraukti á þodynà"
-
-#~ msgid "Close and Commit"
-#~ msgstr "Uþdaryti ir iðsaugoti"
-
-#~ msgid "The spellcheck is not finished. Really close and commit changes?"
-#~ msgstr ""
-#~ "Raðybos tikrinimas nebaigtas. Ar tikrai uþdaryti ir iðsaugoti pakeitimus?"
-
-#~ msgid "Close and Cancel"
-#~ msgstr "Uþdaryti ir atðaukti"
-
-#~ msgid "The spellcheck is not finished. Really close and discard changes?"
-#~ msgstr ""
-#~ "Raðybos tikrinimas nebaigtas. Ar tikrai uþdaryti ir atðaukti visus "
-#~ "pakeitimus?"
-
-#~ msgid "No errors found"
-#~ msgstr "Nerasta jokiø klaidø"
-
-#~ msgid "Your personal dictionary was erased."
-#~ msgstr "Jûsø asmeninis þodynas iðtrintas"
-
-#~ msgid "Dictionary Erased"
-#~ msgstr "Þodynas iðtrintas"
-
-#~ msgid ""
-#~ "Your personal dictionary was erased. Please close this window and click "
-#~ "\"Check Spelling\" button again to start your spellcheck over."
-#~ msgstr ""
-#~ "Jûsø asmeninis þodynas buvo iðtrintas. Uþdarykite ðá langà ir paspauskite "
-#~ "\"Patikrinti raðybà\" mygtukà dar kartà, kad ið naujo patikrinti raðybà."
-
-#~ msgid "Close this Window"
-#~ msgstr "Uþdaryti langà"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
-#~ "&quot;SpellChecker options&quot; menu and make your selection again."
-#~ msgstr ""
-#~ "Jûsø þodynas buvo sëkmingai ið naujo uþkoduotas. Dabar galite gráþti á "
-#~ "&quot;Raðybos tikrinimo nustatymø&quot; meniu ir tæsti darbà."
-
-#~ msgid "Successful Re-encryption"
-#~ msgstr "Sëkmingai perkoduota"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Please close this "
-#~ "window and click \"Check Spelling\" button again to start your spellcheck "
-#~ "over."
-#~ msgstr ""
-#~ "Jûsø asmeninis þodynas buvo sëkmingai perkoduotas. Uþdarykite ðá langà ir "
-#~ "paspauskite \"Patikrinti raðybà\" mygtukà dar kartà, kad ið naujo "
-#~ "patikrinti raðybà."
-
-#~ msgid "Dictionary re-encrypted"
-#~ msgstr "Þodynas perkoduotas"
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
-#~ "stored in an <strong>encrypted format</strong>."
-#~ msgstr ""
-#~ "Jûsø asmeninis þodynas buvo <strong>uþkoduotas</strong> ir dabar yra "
-#~ "saugomas <strong>uþkoduotu</strong> formatu."
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
-#~ "stored as <strong>clear text</strong>."
-#~ msgstr ""
-#~ "Jûsø asmeninis þodynas buvo <strong>atkoduotas</strong> ir dabar yra "
-#~ "saugomas <strong>paprasto teksto</strong> formatu."
-
-#~ msgid "Personal Dictionary Crypto Settings"
-#~ msgstr "Asmeninio þodyno kodavimo nustatymai"
-
-#~ msgid "Personal Dictionary"
-#~ msgstr "Asmeninis þodynas"
-
-#~ msgid "No words in your personal dictionary."
-#~ msgstr "Asmeninis þodynas tuðèias."
-
-#~ msgid "Please check any words you wish to delete from your dictionary."
-#~ msgstr "Paþymëkite þodþius, kuriuos norite iðtrinti ið þodyno."
-
-#~ msgid "%s dictionary"
-#~ msgstr "%s þodynas"
-
-#~ msgid "Delete checked words"
-#~ msgstr "Iðtrinti pasirinktà(us) þodþius"
-
-#~ msgid "Edit your Personal Dictionary"
-#~ msgstr "Taisyti asmeniná þodynà"
-
-#~ msgid "Please make your selection first."
-#~ msgstr "Turite pirmiau pasirinkti."
-
-#~ msgid ""
-#~ "This will encrypt your personal dictionary and store it in an encrypted "
-#~ "format. Proceed?"
-#~ msgstr ""
-#~ "Asmeninis þodynas bus uþkoduotas (jo turinys be slaptaþodio "
-#~ "neperskaitomas). Tæsti?"
-
-#~ msgid ""
-#~ "This will decrypt your personal dictionary and store it in a clear-text "
-#~ "format. Proceed?"
-#~ msgstr ""
-#~ "Asmeninis þodynas bus atkoduotas (saugomas paprasto teksto formate). "
-#~ "Tæsti?"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-#~ "helps protect your privacy in case the web-mail system gets compromized "
-#~ "and your personal dictionary ends up stolen. It is currently encrypted "
-#~ "with the password you use to access your mailbox, making it hard for "
-#~ "anyone to see what is stored in your personal dictionary.</p> "
-#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
-#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
-#~ "prompt you for your old password in order to re-encrypt the dictionary "
-#~ "with a new key.</p>"
-#~ msgstr ""
-#~ "<p>Jûsø asmeninis þodynas yra <strong>uþkoduotas</strong>. Tai leidþia "
-#~ "apsaugoti jûsø asmeninæ informacijà, jei www paðto sistemos saugumas "
-#~ "paþeidþiamas. Ðiuo metu þodynas yra uþkoduojamas jûsø paðto slaptaþodþiu."
-#~ "</p> <p><strong>DËMESIO:</strong> Pamirðus slaptaþodá, jums nepavyks "
-#~ "pasinaudoti þodynu, kadangi nebeiðeis jo atkoduoti. Pakeitus paðto "
-#~ "slaptaþodá raðybos tikrinimo posistemë pastebës neatitikimà ir pasiûlys "
-#~ "pateikti senàjá slaptaþodá ir perkoduoti þodynà nauju slaptaþodþiu."
-
-#~ msgid ""
-#~ "Please decrypt my personal dictionary and store it in a clear-text format."
-#~ msgstr "Praðau atkoduoti mano þodynà ir saugoti já paprasto teksto formate."
-
-#~ msgid "Change crypto settings"
-#~ msgstr "Pakeisti kodavimo nustatymus"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
-#~ "You may wish to encrypt your personal dictionary to protect your privacy "
-#~ "in case the webmail system gets compromized and your personal dictionary "
-#~ "file gets stolen. When encrypted, the file's contents look garbled and "
-#~ "are hard to decrypt without knowing the correct key (which is your "
-#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
-#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
-#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
-#~ "password and the administrator changes it to a new value, your personal "
-#~ "dictionary will become useless and will have to be created anew. However, "
-#~ "if you or your system administrator change your mailbox password but you "
-#~ "still have the old password at hand, you will be able to enter the old "
-#~ "key to re-encrypt the dictionary with the new value.</p>"
-#~ msgstr ""
-#~ "<p>Jûsø asmeninis þodynas ðiuo metu yra <strong>neuþkoduotas</strong>. "
-#~ "Jûs galite uþkoduoti þodynà, siekdami apsaugoti savo asmeninæ informacijà "
-#~ "www paðto sistemos saugumo paþeidimo atveju. Uþkoduoto þodyno informacijà "
-#~ "galima perskaityti tik þinant jà uþkoduojant naudota raktà (jûsø paðto "
-#~ "slaptaþodá).</p><p><strong>DËMESIO:</strong> Uþkodavus þodynà jûs turite "
-#~ "atsiminti savo paðto slaptaþodá. Pamirðæ savo slaptaþodá, jûs dar "
-#~ "galësite pasiekti paðtà administratoriui pakeitus slaptaþodá, taèiau "
-#~ "þodyno informacijos atgaminti nebepavyks. Pakeitus slaptaþodá raðybos "
-#~ "tikrinimo posistemë tai pastebës ir papraðys pateikti senàjá slaptaþodá, "
-#~ "kad perkoduoti jûsø þodynà."
-
-#~ msgid ""
-#~ "Please encrypt my personal dictionary and store it in an encrypted format."
-#~ msgstr "Praðau uþkoduoti mano asmeniná þodynà."
-
-#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-#~ msgstr "Triname nurodytus áraðus ið <strong>%s</strong> þodyno:"
-
-#~ msgid "All done!"
-#~ msgstr "Baigta!"
-
-#~ msgid "Personal Dictionary Updated"
-#~ msgstr "Asmeninis þodynas atnaujintas"
-
-#~ msgid "No changes requested."
-#~ msgstr "Niekas nepakeista."
-
-#~ msgid "Please wait, communicating with the server..."
-#~ msgstr "Palaukite, bandome susisiekti su serveriu..."
-
-#~ msgid ""
-#~ "Please choose which dictionary you would like to use to spellcheck this "
-#~ "message:"
-#~ msgstr "Pasirinkite þodynà, kurá naudosite þinutës tikrinimui:"
-
-#~ msgid "SquirrelSpell Initiating"
-#~ msgstr "Pasileidþia raðybos tikrinimas"
-
-#~ msgid ""
-#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-#~ "default dictionary."
-#~ msgstr ""
-#~ "Nustatymai pakeisti á: <strong>%s</strong> su <strong>%s</strong> "
-#~ "pagrindiniu þodynu."
-
-#~ msgid ""
-#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-#~ msgstr ""
-#~ "Naudojame <strong>%s</strong> þodynà (standartiná) raðybos tikrinimui."
-
-#~ msgid "International Dictionaries Preferences Updated"
-#~ msgstr "Tarptautiniai þodynø nustatymai atnaujinti"
-
-#~ msgid ""
-#~ "Please check any available international dictionaries which you would "
-#~ "like to use when spellchecking:"
-#~ msgstr "Pasirinkite kurios þodynus jûs norite naudoti tikrinant raðybà:"
-
-#~ msgid "Make this dictionary my default selection:"
-#~ msgstr "Padaryti ðá þodynà pagrindiniu"
-
-#~ msgid "Make these changes"
-#~ msgstr "Iðsaugoti pakeitimus"
-
-#~ msgid "Add International Dictionaries"
-#~ msgstr "Pridëti tarptautinius þodynus"
-
-#~ msgid "Please choose which options you wish to set up:"
-#~ msgstr "Pasirinkite opcijas, kurias norite ájungti:"
-
-#~ msgid "Edit your personal dictionary"
-#~ msgstr "Taisyti asmeniná þodynà"
-
-#~ msgid "Set up international dictionaries"
-#~ msgstr "Nustatyti tarptautinius þodynus"
-
-#~ msgid "Encrypt or decrypt your personal dictionary"
-#~ msgstr "Uþkoduoti/atkoduoti asmeniná þodynà"
-
-#~ msgid "not available"
-#~ msgstr "neprieinamas"
-
-#~ msgid "SquirrelSpell Options Menu"
-#~ msgstr "Raðybos tikrinimo nustatymø meniu"
-
-#~ msgid "Take Address"
-#~ msgstr "Iðsaugoti adresà"
-
-#~ msgid "Address Book Take"
-#~ msgstr "Iðsaugoti adresà á adresø knygà"
 
 #~ msgid "Left aligned"
 #~ msgstr "Iðlyginta pagal kairá kraðtà"
@@ -3284,6 +3448,3 @@ msgstr "Perþiûrëti prikabintà tekstiná failà"
 
 #~ msgid "Hide the box"
 #~ msgstr "paslëpti mygtukà"
-
-#~ msgid "Try to verify addresses"
-#~ msgstr "Bandyti patikrinti adresus"
