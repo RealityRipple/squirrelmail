@@ -645,7 +645,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
             $newAttachment['session'] = $session;
 
             /* Write Attachment to file */
-            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'w');
+            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
             fputs($fp, decodeBody(mime_fetch_body($imapConnection,
                   $passed_id, $message->entity_id),
                   $message->header->encoding));
@@ -684,7 +684,7 @@ function getMessage_RFC822_Attachment($message, $session, $passed_id,
         $localfilename = GenerateRandomString(32, 'FILE', 7);
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
             
-        $fp = fopen( $full_localfilename, 'w');
+        $fp = fopen( $full_localfilename, 'wb');
         fwrite ($fp, $body);
         fclose($fp);
         $newAttachment = array();
