@@ -43,6 +43,10 @@ if ((isset($success) && $success) ||
         $td_str = "<b>" . _("Created folder successfully!") . "</b><br>";
     } else if ($success == "rename") {
         $td_str = "<b>" . _("Renamed successfully!") . "</b><br>";
+    } else if ($success == "subscribe-doesnotexist") {
+        $td_str = "<b>" .
+                  _("Subscription Unsuccessful - Folder does not exist.") .
+                  "</b><br>";
     }
 
     echo html_tag( 'table',
@@ -252,12 +256,14 @@ $boxes_sub = $boxes;
 
 /** SUBSCRIBE TO FOLDERS **/
 echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
-$imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
-$boxes_all = sqimap_mailbox_list_all ($imap_stream);
+if(!$no_list_for_subscribe) {
+  $imap_stream = sqimap_login ($username, $key, $imapServerAddress,
+                               $imapPort, 1);
+  $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 
-$box = "";
-$box2 = "";
-for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
+  $box = "";
+  $box2 = "";
+  for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
     $use_folder = true;
     for ($p = 0; $p < count ($boxes); $p++) {
         if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
@@ -272,10 +278,10 @@ for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
         $box2[$q] = imap_utf7_decode_local($boxes_all[$i]["unformatted-disp"]);
         $q++;
     }
-}
-sqimap_logout($imap_stream);
+  }
+  sqimap_logout($imap_stream);
 
-if ($box && $box2) {
+  if ($box && $box2) {
     echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
     echo "<tt><select name=\"mailbox[]\" multiple size=8>";
 
@@ -285,8 +291,16 @@ if ($box && $box2) {
     echo "</select></tt><br><br>";
     echo "<input type=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
     echo "</FORM></td></tr></table><BR>\n";
-} else {
+  } else {
     echo _("No folders were found to subscribe to!") . "</td></tr></table>";
+  }
+} else {
+  /* don't perform the list action -- this is much faster */
+  echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
+  echo _("Subscribe to:") . "<br>";
+  echo "<tt><input type=\"text\" name=\"mailbox[]\" size=35>";
+  echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
+  echo "</FORM></TD></TR></TABLE><BR>\n";
 }
 
 do_hook("folders_bottom");
