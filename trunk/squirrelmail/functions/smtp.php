@@ -5,20 +5,38 @@
     ** an smtp server or sendmail.
     **/
 
-   function sendMessage($t, $c, $b, $subject, $body) {
-      global $useSendmail;
 
-      if ($useSendmail==true) {  
-	 sendSendmail($t, $c, $b, $subject, $body);
-      } else {
-	 sendSMTP($t, $c, $b, $subject, $body);
-      }
-    
+   /* These next 2 functions are stub functions for implementations of 
+      attachments */
+
+   // Returns true only if this message is multipart
+   function isMultipart () {
+      return true;
    }
 
+   // Attach the files that are due to be attached
+   function attachFile ($fp) {
+      return false;
+   }
+
+   // Return a nice MIME-boundary
+   function mimeBoundary () {
+      global $mimeBoundaryString, $version, $REMOTE_ADDR, $SERVER_NAME,
+         $REMOTE_PORT;
+
+      if ($mimeBoundaryString == "") {
+         $temp = "SquirrelMail".$version.$REMOTE_ADDR.$SERVER_NAME.
+            $REMOTE_PORT;
+         $mimeBoundaryString = "=-=_=-SqMB.".substr(md5($temp),1,15);
+      }
+
+      return $mimeBoundaryString;
+   }
+
+   /* Print all the needed RFC822 headers */
    function write822Header ($fp, $t, $c, $b, $subject) {
       global $REMOTE_ADDR, $SERVER_NAME;
-      global $data_dir, $username, $domain, $version;
+      global $data_dir, $username, $domain, $version, $useSendmail;
 
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
@@ -36,12 +54,14 @@
       else
          $from = $from . " <$from_addr>";
 
+      /* This creates an RFC 822 date showing GMT */
       $date = date("D, j M Y H:i:s +0000", gmmktime());
 
-      /* Make a RFC822 Received: line */
+      /* Make an RFC822 Received: line */
       fputs ($fp, "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ");
       fputs ($fp, "$date\n");
 
+      /* The rest of the header */
       fputs ($fp, "Date: $date\n");
       fputs ($fp, "Subject: $subject\n"); // Subject
       fputs ($fp, "From: $from\n"); // Subject
@@ -50,14 +70,43 @@
       if ($cc_list) {
          fputs($fp, "Cc: $cc_list\n"); // Who the CCs are
       }
-      if ($bcc_list) {
-         fputs($fp, "Bcc: $bcc_list\n"); // BCCs is removed from header by sendmail
-      }
-      fputs($fp, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
-      fputs($fp, "MIME-Version: 1.0\n");
-      fputs($fp, "Content-Type: text/plain\n");
+
       if ($reply_to != "")
          fputs($fp, "Reply-To: $reply_to\n");
+
+      if ($useSendmail) {
+         if ($bcc_list) {
+            // BCCs is removed from header by sendmail
+            fputs($fp, "Bcc: $bcc_list\n"); 
+         }
+      }
+
+      fputs($fp, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
+
+      // Do the MIME-stuff
+      fputs($fp, "MIME-Version: 1.0\n");
+
+      if (isMultipart()) {
+         fputs ($fp, "Content-Type: multipart/mixed; boundary=\"");
+         fputs ($fp, mimeBoundary());
+         fputs ($fp, "\"\n");
+      } else {
+         fputs($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
+         fputs($fp, "Content-Transfer-Encoding: 8bit\n");
+      }
+   }
+
+   // Send the body
+   function writeBody ($fp, $body) {
+     if (isMultipart()) {
+        fputs ($fp, "--".mimeBoundary()."\n");
+        fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
+        fputs ($fp, "Content-Transfer-Encoding: 8bit\n\n");
+        fputs ($fp, "$body\n");
+        fputs ($fp, "\n--".mimeBoundary()."--\n");
+     } else {
+       fputs ($fp, "$body\n");
+     }
    }
 
    // Send mail using the sendmail command
@@ -65,10 +114,10 @@
       global $sendmail_path, $username, $domain;
       
       // open pipe to sendmail
-      $fp = popen ("$sendmail_path -t -f$username@$domain", "w");
+      $fp = popen (escapeshellcmd("$sendmail_path -t -f$username@$domain"), "w");
       
       write822Header ($fp, $t, $c, $b, $subject);
-      fputs($fp, "\n$body\n"); // send the body of the message
+      writeBody($fp, $body);
 
       pclose($fp);
    }
@@ -138,7 +187,7 @@
 
       write822Header ($smtpConnection, $t, $c, $b, $subject);
 
-      fputs($smtpConnection, "$body\n"); // send the body of the message
+      writeBody($smtpConnection, $body); // send the body of the message
 
       fputs($smtpConnection, ".\n"); // end the DATA part
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
@@ -247,4 +296,16 @@
       }
       return $err_num;
    }
+
+   function sendMessage($t, $c, $b, $subject, $body) {
+      global $useSendmail;
+
+      if ($useSendmail==true) {  
+	 sendSendmail($t, $c, $b, $subject, $body);
+      } else {
+	 sendSMTP($t, $c, $b, $subject, $body);
+      }
+    
+   }
+
 ?>
