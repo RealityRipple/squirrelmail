@@ -148,6 +148,8 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
 				 '$pop_before_smtp' => array( 'name' => _("POP3 Before SMTP?"),
 				 							  'type' => SMOPT_TYPE_BOOLEAN,
 											  'default' => false ),
+                 '$skip_SM_header' => array( 'name' => _("Hide SquirrelMail Header"),
+                                          'type' => SMOPT_TYPE_BOOLEAN ),
                  '$invert_time' => array( 'name' => _("Invert Time"),
                                           'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
