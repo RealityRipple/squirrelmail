@@ -148,7 +148,7 @@ function sent_subfolders_update_sentfolder() {
     global $sent_subfolders_base, $sent_subfolders_setting;
     global $username, $data_dir, $key, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent;
-
+    
     if ($use_sent_subfolders && $move_to_sent) {
         $year = date('Y');
         $month = date('m');
