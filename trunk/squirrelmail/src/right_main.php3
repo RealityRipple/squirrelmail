@@ -83,7 +83,6 @@
    displayPageHeader($mailbox);
 
    // Get the list of messages for this mailbox
-   echo "$numMessages : $startMessage : $sort<BR><BR>";
    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort);
 
    // close the connection

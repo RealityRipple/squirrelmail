@@ -31,69 +31,87 @@
     ** This function loops through a group of messages in the mailbox and shows them
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
-      $i = 0;
       $j = 1;
       while ($j <= $numMessages) {
+         $q = 0;
          getMessageHeaders($imapConnection, $j, $from, $subject, $date);
          getMessageFlags($imapConnection, $j, $flags);
 
-         $messages[$i]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date)));
-         $messages[$i]["DATE_STRING"] = getDateString(explode(" ", trim($date)));
-         $messages[$i]["ID"] = $j;
-         $messages[$i]["FROM"] = $from;
-         $messages[$i]["SUBJECT"] = $subject;
+         $messages[$j]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date)));
+         $messages[$j]["DATE_STRING"] = getDateString(explode(" ", trim($date)));
+         $messages[$j]["ID"] = $j;
+         $messages[$j]["FROM"] = $from;
+         $messages[$j]["SUBJECT"] = $subject;
+         $messages[$j]["FLAG_DELETED"] = false;
+         $messages[$j]["FLAG_ANSWERED"] = false;
+         $messages[$j]["FLAG_SEEN"] = false;
 
-         $messages[$i]["FLAG_DELETED"] = false;
-         $messages[$i]["FLAG_ANSWERED"] = false;
-         $messages[$i]["FLAG_SEEN"] = false;
-
-         $q = 0;
          while ($q < count($flags)) {
-            if ($flags[$q] == "Deleted")
-               $messages[$i]["FLAG_DELETED"] = true;
-            else if ($flags[$q] == "Answered")
-               $messages[$i]["FLAG_ANSWERED"] = true;
-            else if ($flags[$q] == "Seen")
-               $messages[$i]["FLAG_SEEN"] = true;
+            if ($flags[$q] == "Deleted") {
+               $messages[$j]["FLAG_DELETED"] = true;
+            }
+            else if ($flags[$q] == "Answered") {
+               $messages[$j]["FLAG_ANSWERED"] = true;
+            }
+            else if ($flags[$q] == "Seen") {
+               $messages[$j]["FLAG_SEEN"] = true;
+            }
             $q++;
          }
 
-         if ($messages[$i]["FLAG_DELETED"] == false)
-            $i++;
+         $j++;
+      }
+
+      /** Find and remove the ones that are deleted */
+      $i = 1;
+      $j = 1;
+      while ($j <= $numMessages) {
+         if ($messages[$j]["FLAG_DELETED"] == true) {
+            $j++;
+            continue;
+         }
+         $msgs[$i]["TIME_STAMP"]    = $messages[$j]["TIME_STAMP"];
+         $msgs[$i]["DATE_STRING"]   = $messages[$j]["DATE_STRING"];
+         $msgs[$i]["ID"]            = $messages[$j]["ID"];
+         $msgs[$i]["FROM"]          = $messages[$j]["FROM"];
+         $msgs[$i]["SUBJECT"]       = $messages[$j]["SUBJECT"];
+         $msgs[$i]["FLAG_DELETED"]  = $messages[$j]["FLAG_DELETED"];
+         $msgs[$i]["FLAG_ANSWERED"] = $messages[$j]["FLAG_ANSWERED"];
+         $msgs[$i]["FLAG_SEEN"]     = $messages[$j]["FLAG_SEEN"];
+         $i++;
          $j++;
       }
 
       $numMessagesOld = $numMessages;
-      $numMessages = $i;
+      $numMessages = $i - 1;
 
       if ($sort == 0)
-         $msgs = ary_sort($messages, "TIME_STAMP", -1);
+         $msgs = ary_sort($msgs, "TIME_STAMP", -1);
       else
-         $msgs = ary_sort($messages, "TIME_STAMP", 1);
+         $msgs = ary_sort($msgs, "TIME_STAMP", 1);
 
       if ($startMessage + 24 < $numMessages) {
-         $nextGroup = $startMessage + 24 + 1; // +1 to go to beginning of next group
          $endMessage = $startMessage + 24;
       } else {
-         $nextGroup = -1;
          $endMessage = $numMessages;
       }
 
+      $nextGroup = $startMessage + 25;
       $prevGroup = $startMessage - 25;
 
-      echo "Messages:  $numMessages, $numMessagesOld<BR>";
+      echo "Messages:  $numMessages, $numMessagesOld -- ";
       echo "Start:     $startMessage to $endMessage<BR>";
-      echo "NextGroup: $nextGroup<BR>";
+      echo "NextGroup: $nextGroup -- ";
       echo "PrevGroup: $prevGroup<BR>";
 
-      if (($nextGroup > -1) && ($prevGroup > 0)) {
+      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$mailbox\" TARGET=\"right\">Next</A>\n";
          echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$mailbox\" TARGET=\"right\">Previous</A>\n";
       }
-      else if (($nextGroup == -1) && ($prevGroup >= 0)) {
+      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
          echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$mailbox\" TARGET=\"right\">Previous</A>\n";
       }
-      else if (($nextGroup > -1) && ($prevGroup < 0)) {
+      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$mailbox\" TARGET=\"right\">Next</A>\n";
       }
 
