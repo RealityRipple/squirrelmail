@@ -31,7 +31,7 @@
       }
    </SCRIPT>
 </HEAD>
-<BODY BGCOLOR=A0B8C8 TEXT="#000000" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE" onUnLoad="unSetCookies()">
+<BODY BGCOLOR=A0B8C8 TEXT="#0000EE" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE" onUnLoad="unSetCookies()">
 <FONT FACE="Arial,Helvetica">
 <?
    include("../config/config.php");
@@ -45,7 +45,7 @@
    fputs($imapConnection, "1 list \"\" *\n");
    $str = imapReadData($imapConnection);
 
-   echo "<FONT FACE=\"Arial,Helvetica\"><B>";
+   echo "<FONT FACE=\"Arial,Helvetica\" COLOR=000000><B>";
    echo "<CENTER>$org_name</B><BR>";
    echo "Folders</CENTER>";
    echo "</B><BR></FONT>";
@@ -64,11 +64,12 @@
       
       $mailboxURL = urlencode($mailbox);
       echo "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
-      if ($doBold == true)
-         echo "<B>";
       echo readShortMailboxName($mailbox, ".");
-      if ($doBold == true)
-         echo "</B>";
+      if (($move_to_trash == true) && ($mailbox == $trash_folder)) {
+         $urlMailbox = urlencode($mailbox);
+         selectMailbox($imapConnection, $mailbox, $numNessages);
+         echo "</A>&nbsp;&nbsp;<B>(<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right>empty</A>)</B>";
+      }
       echo "</FONT></a><br>\n";
    }
    echo "</code></FONT>";

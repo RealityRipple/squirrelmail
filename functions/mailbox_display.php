@@ -215,8 +215,6 @@
       echo "      </TD>";
       echo "   </TR>\n";
 
-      if (($move_to_trash == true) && ($mailbox == $trash_folder))
-         echo "<TR><TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></TD></TR>";
       echo "</TABLE>\n\n\n";
       echo "</TD></TR>";
 
