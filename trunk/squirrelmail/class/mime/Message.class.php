@@ -431,15 +431,12 @@ class Message {
         }
 
         if (count($arg_a) > 9) {
-            /* argument 1: date */
             $d = strtr($arg_a[0], array('  ' => ' '));
             $d = explode(' ', $d);
-            $hdr->date = getTimeStamp($d);
+	    if (!$arg_a[1]) $arg_1[1] = _("(no subject)");	    
 
-            /* argument 2: subject */
-            $arg_a[1] = (!trim($arg_a[1]) ? _("(no subject)") : $arg_a[1]);
-            $hdr->subject = $arg_a[1];
-
+            $hdr->date = getTimeStamp($d); /* argument 1: date */
+            $hdr->subject = $arg_a[1];     /* argument 2: subject */
             $hdr->from = $arg_a[2][0];     /* argument 3: from        */
             $hdr->sender = $arg_a[3][0];   /* argument 4: sender      */
             $hdr->replyto = $arg_a[4][0];  /* argument 5: reply-to    */
