@@ -368,7 +368,7 @@ function formatRecipientString($recipients, $item ) {
 
         $cnt = count($recipients);
         foreach($recipients as $r) {
-            $add = htmlspecialchars($r->getAddress());
+            $add = htmlspecialchars(decodeHeader($r->getAddress()));
             if ($string) {
                 $string .= '<BR>' . $add;
             } else {
@@ -396,11 +396,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
     $header = $message->rfc822_header;
     $env = array();
-    if ($squirrelmail_language == 'ja_JP') {
-        $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));
-    } else {
-	$env[_("Subject")] = decodeHeader(htmlspecialchars($header->subject));
-    }   
+    $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));
     $from_name = $header->getAddr_s('from');
     if (!$from_name) {
         $from_name = $header->getAddr_s('sender');
@@ -414,10 +410,10 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     $env[_("Cc")] = formatRecipientString($header->cc, "cc");
     $env[_("Bcc")] = formatRecipientString($header->bcc, "bcc");
     if ($default_use_priority) {
-        $env[_("Priority")] = getPriorityStr($header->priority);
+        $env[_("Priority")] = htmlspecialchars(getPriorityStr($header->priority));
     }
     if ($show_xmailer_default) {
-        $env[_("Mailer")] = htmlentities(decodeHeader($header->xmailer));
+        $env[_("Mailer")] = htmlspecialchars(decodeHeader($header->xmailer));
     }
     if ($default_use_mdn) {
         if ($mdn_user_support) {
