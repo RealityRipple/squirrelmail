@@ -64,7 +64,7 @@ $body = htmlspecialchars($body_top) . $body;
 
    echo "<ul>";
    echo "<li>";
-   printf(_("Make sure that you are running the most recent copy of %s.") . '<a href="http://www.squirrelmail.org/">SquirrelMail</a>');
+   printf(_("Make sure that you are running the most recent copy of %s."),'<a href="http://www.squirrelmail.org/">SquirrelMail</a>');
    printf(_("You are currently using version %s."),$version);
    echo "</li>\n";
 
