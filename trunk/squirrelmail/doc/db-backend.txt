@@ -40,7 +40,7 @@ For MySQL you would normally do something like:
 
  (from the mysql client)
  mysql> GRANT select,insert,update,delete ON squirrelmail.* 
-              TO squrreluser@localhost IDENTIFIED BY 'sqpassword';
+              TO squirreluser@localhost IDENTIFIED BY 'sqpassword';
 
 The table structure should be similar to this (for MySQL):
 
