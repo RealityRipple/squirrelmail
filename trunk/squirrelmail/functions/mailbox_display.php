@@ -17,15 +17,17 @@ require_once('../functions/strings.php');
 define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
 function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start_msg, $where, $what) {
-    global $checkall,
+    global $checkall, 
            $color, $msgs, $msort,
            $sent_folder, $draft_folder,
            $default_use_priority,
            $message_highlight_list,
            $index_order,
-           $pos;            /* Search postion (if any)  */
+           $indent_array,   /* indent subject by */
+           $pos,            /* Search postion (if any)  */
+           $thread_sort_messages; /* thread sorting on/off */
+           $color_string = $color[4];
 
-    $color_string = $color[4];
     if ($GLOBALS['alt_index_colors']) {
         if (!isset($GLOBALS['row_count'])) {
             $GLOBALS['row_count'] = 0;
@@ -135,7 +137,10 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
             break;
         case 4: /* subject */
             echo "   <td bgcolor=\"$hlt_color\">$bold";
-                if (! isset($search_stuff)) { $search_stuff = ''; }
+            if (! isset($search_stuff)) { $search_stuff = ''; }
+            if ($thread_sort_messages == 1) {
+                echo str_repeat("&nbsp;&nbsp;",$indent_array[$msg["ID"]]);
+            }
             echo "<a href=\"read_body.php?mailbox=$urlMailbox&amp;passed_id=".$msg["ID"]."&amp;startMessage=$start_msg&amp;show_more=0$search_stuff\"";
             do_hook("subject_link");
 
@@ -199,21 +204,34 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
     global $msgs, $msort,
            $sent_folder, $draft_folder,
            $message_highlight_list,
-           $auto_expunge;
-
+           $auto_expunge, $thread_sort_messages,
+	   	   $data_dir, $username;
     /* If autoexpunge is turned on, then do it now. */
+
+
+    if ($thread_sort_messages == 1 ) {
+        $id = get_thread_sort($imapConnection);
+        $sort = 6;
+        if ($start_msg + ($show_num - 1) < $num_msgs) {
+            $end_msg = $start_msg + ($show_num-1);
+        }
+        else {
+            $end_msg = $num_msgs;
+        }
+        $id = array_slice($id, ($start_msg-1), ($end_msg));
+    }
     if ($auto_expunge == true) {
         sqimap_mailbox_expunge($imapConnection, $mailbox, false);
     }
     sqimap_mailbox_select($imapConnection, $mailbox);
-
     $issent = handleAsSent($mailbox);
     if (!$use_cache) {
         /* If it is sorted... */
         if ($num_msgs >= 1) {
-            if ($sort < 6) {
+            if ($sort < 6 ) {
                 $id = range(1, $num_msgs);
-            } else {
+            } 
+            elseif ($thread_sort_messages != 1) {
                 // if it's not sorted
                 if ($start_msg + ($show_num - 1) < $num_msgs) {
                     $end_msg = $start_msg + ($show_num-1);
@@ -235,7 +253,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
                 }
                 $id = array_reverse(range($real_endMessage, $real_startMessage));
             }
-
             $msgs_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
             $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
             foreach ($msgs_list as $hdr) {
@@ -249,7 +266,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
             $type[] = $hdr->type0;
             }
         }
-
         $j = 0;
         if ($sort == 6) {
             $end = $start_msg + $show_num - 1;
@@ -264,7 +280,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
             $end = $num_msgs;
             $end_loop = $end;
         }
-
         while ($j < $end_loop) {
             if (isset($date[$j])) {
                 $date[$j] = str_replace('  ', ' ', $date[$j]);
@@ -310,7 +325,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
             }
             $j++;
         }
-
         /* Only ignore messages flagged as deleted if we are using a
         * trash folder or auto_expunge */
         if (((isset($move_to_trash) && $move_to_trash)
@@ -340,7 +354,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
     }
 
     // There's gotta be messages in the array for it to sort them.
-    if ($num_msgs > 0 && ! $use_cache) {
+    if ($num_msgs > 0 && ! $use_cache && $thread_sort_messages != 1) {
         /** 0 = Date (up)      4 = Subject (up)
         ** 1 = Date (dn)      5 = Subject (dn)
         ** 2 = Name (up)
@@ -360,10 +374,16 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
         if ($sort < 6) {
             if ($sort % 2) {
                 asort($msort);
-            } else {
+            } 
+			else {
                 arsort($msort);
             }
-        }
+        }		
+        session_register('msort');
+    }
+    elseif ($thread_sort_messages == 1 ) {
+        $msort = $msgs;
+        session_unregister('msgs');
         session_register('msort');
     }
     displayMessageArray($imapConnection, $num_msgs, $start_msg, $msgs, $msort, $mailbox, $sort, $color,$show_num);
@@ -377,6 +397,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
     global $folder_prefix, $sent_folder;
     global $imapServerAddress, $data_dir, $username, $use_mailbox_cache;
     global $index_order, $real_endMessage, $real_startMessage, $checkall;
+    global $indent_array, $thread_sort_messages;
 
     /* If cache isn't already set, do it now. */
     if (!session_is_registered('msgs')) { session_register('msgs'); }
@@ -405,6 +426,10 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
         $msg = '';
     }
 
+    /* get indent level for subject display */
+    if ($thread_sort_messages == 1 ) {
+        $indent_array = get_parent_level($imapConnection);
+    }
     mail_message_listing_beginning( $imapConnection,
         "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox&amp;startMessage=$start_msg",
         $mailbox, $sort, $msg_cnt_str, $paginator_str, $start_msg);
@@ -435,7 +460,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
         } else {
             $i = 1;
         }
-
+				
         reset($msort);
         $k = 0;
         do {
@@ -490,8 +515,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
 function mail_message_listing_beginning
         ($imapConnection, $moveURL, $mailbox = '', $sort = -1,
         $msg_cnt_str = '', $paginator = '&nbsp;', $start_msg = 1) {
-    global $color, $index_order, $auto_expunge, $move_to_trash;
-    global $checkall, $sent_folder, $draft_folder;
+    global $color, $index_order, $auto_expunge, $move_to_trash, $base_uri;
+    global $checkall, $sent_folder, $draft_folder, $thread_sort_messages, $allow_thread_sort;
     $urlMailbox = urlencode($mailbox);
 
     /*
@@ -502,8 +527,23 @@ function mail_message_listing_beginning
        . "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n"
        . "<TR BGCOLOR=\"$color[0]\"><TD>"
        . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n"
-       . "    <TD ALIGN=LEFT>$paginator</TD>\n"
-       . "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n"
+       . "    <TD ALIGN=LEFT>$paginator\n";
+
+if ($allow_thread_sort == TRUE) {
+    if ($thread_sort_messages == 1 ) {
+            $set_thread = 2;
+            $thread_name = 'Unthread View';
+        }
+    elseif ($thread_sort_messages == 0) {
+            $set_thread = 1;
+            $thread_name = 'Thread View';
+    }
+    echo   '|&nbsp;<a href='."$base_uri".'src/right_main.php?sort='."$sort".'&start_messages=1&set_thread='."$set_thread".'&mailbox='.urlencode($mailbox).'>'._("$thread_name").'</a>&nbsp;';
+}
+
+
+
+echo     "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n"
        . "  </TR></TABLE>\n"
        . '</TD></TR>'
        . "<TR><TD BGCOLOR=\"$color[0]\">\n"
@@ -533,8 +573,9 @@ function mail_message_listing_beginning
     }
     echo '         </SELECT></TT>&nbsp;'.
          '<INPUT TYPE="SUBMIT" NAME="moveButton" VALUE="' . _("Move") . '">&nbsp;'.
-	 '<INPUT TYPE="SUBMIT" NAME="attache" VALUE="' . _("Forward") . "\">&nbsp;\n"."</SMALL>\n".
-         "      </TD>\n".
+	 '<INPUT TYPE="SUBMIT" NAME="attache" VALUE="' . _("Forward") . "\">&nbsp;\n"."</SMALL>\n";
+
+echo     "      </TD>\n".
          "      <TD ALIGN=\"RIGHT\" NOWRAP>";
     if (!$auto_expunge) {
         echo '<INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="' . _("Expunge") . '">&nbsp;' . _("mailbox") . '&nbsp;';
@@ -572,20 +613,25 @@ function mail_message_listing_beginning
             } else {
                 echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
             }
-
-            ShowSortButton($sort, $mailbox, 2, 3);
+						if ($thread_sort_messages != 1) {
+            		ShowSortButton($sort, $mailbox, 2, 3);
+						}
             echo "</TD>\n";
             break;
 
         case 3: /* date */
             echo '   <TD NOWRAP WIDTH="5%"><B>'. _("Date") .'</B>';
-            ShowSortButton($sort, $mailbox, 0, 1);
-            echo "</TD>\n";
+						if ($thread_sort_messages != 1) {
+            		ShowSortButton($sort, $mailbox, 0, 1);
+            }
+						echo "</TD>\n";
             break;
 
         case 4: /* subject */
             echo '   <TD><B>'. _("Subject") .'</B> ';
-            ShowSortButton($sort, $mailbox, 4, 5);
+						if ($thread_sort_messages != 1) {
+                ShowSortButton($sort, $mailbox, 4, 5);
+            }
             echo "</TD>\n";
             break;
 

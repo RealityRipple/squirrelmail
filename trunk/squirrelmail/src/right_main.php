@@ -45,9 +45,29 @@ if( isset( $PG_SHOWNUM ) ) {
 
 if (isset($newsort) && $newsort != $sort) {
     setPref($data_dir, $username, 'sort', $newsort);
-    $sort = $newsort;
-    session_register('sort');
 }
+
+/* decide if we are thread sorting or not */
+global $allow_thread_sort;
+if ($allow_thread_sort == TRUE) {
+    if (isset($set_thread)) {
+        if ($set_thread == 1) {
+            setPref($data_dir, $username, 'thread_sort_messages', 1);
+            $thread_sort_messages = '1';    
+        }
+        elseif ($set_thread == 2)  {
+            setPref($data_dir, $username, 'thread_sort_messages', 0);
+            $thread_sort_messages = '0';    
+        }
+    }
+    else {
+        $thread_sort_messages = getPref($data_dir, $username, 'thread_sort_messages');
+    }
+}
+else {
+    $thread_sort_messages = 0;
+} 
+
 
 /* If the page has been loaded without a specific mailbox, */
 /* send them to the inbox                                  */
@@ -55,7 +75,8 @@ if (!isset($mailbox)) {
     $mailbox = 'INBOX';
     $startMessage = 1;
 }
-   
+
+
 if (!isset($startMessage) || ($startMessage == '')) {
     $startMessage = 1;
 }
@@ -65,11 +86,11 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
                                   substr($mailbox, 0, 1) == '/')) {
    $mailbox = 'INBOX';
 }
-global $color;
+    global $color;
 
-if( isset($do_hook) && $do_hook ) {
-    do_hook ("generic_header");
-}
+    if( isset($do_hook) && $do_hook ) {
+        do_hook ("generic_header");
+    }
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
@@ -91,7 +112,6 @@ if (isset($composenew)) {
 echo "<br>\n";
 
 do_hook('right_main_after_header');
-
 if (isset($note)) {
     echo "<CENTER><B>$note</B></CENTER><BR>\n";
 }
@@ -109,6 +129,11 @@ if ($just_logged_in == true) {
              '</table>' .
              '</td></tr></table>';
     }
+}
+
+if (isset($newsort)) {
+    $sort = $newsort;
+    session_register('sort');
 }
 
 /*********************************************************************
@@ -162,7 +187,6 @@ if ($use_mailbox_cache && session_is_registered('msgs')) {
     session_register('numMessages');
     $_SESSION['numMessages'] = $numMessages;
 }
-
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
 

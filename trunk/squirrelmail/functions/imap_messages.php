@@ -90,6 +90,145 @@ function get_reference_header ($imap_stream, $message) {
 	return $responses;
 }
 
+/* returns an indent array for printMessageinfo()
+   this represents the amount of indent needed
+   for this message number
+*/
+
+function get_parent_level ($imap_stream) {
+    global $sort_by_ref, $default_charset, $thread_new;
+        $parent = "";
+        $child = "";
+    for ($i=0;$i<count($thread_new);$i++) {
+        $thread_new[$i] = preg_replace("/\s\(/", "(", $thread_new[$i]);
+        $thread_new[$i] = preg_replace("/(\d+)/", "$1|", $thread_new[$i]);
+        $thread_new[$i] = preg_split("/\|/", $thread_new[$i], -1, PREG_SPLIT_NO_EMPTY);
+    } 
+    $indent_array = array();
+        if (!$thread_new) {
+                $thread_new = array();
+        }
+    for ($i=0;$i<count($thread_new);$i++) {
+        if (isset($thread_new[$i][0])) {
+        if (preg_match("/(\d+)/", $thread_new[$i][0], $regs)) {
+            $parent = $regs[1];
+        }
+        }
+        $indent_array[$parent] = 0;
+        $indent = 0;
+        $go = 'stop';
+        $spaces = array ();
+        $l = 0;
+        for ($k=1;$k<(count($thread_new[$i]))-1;$k++) {
+            $chars = count_chars($thread_new[$i][$k], 1);
+            if (isset($chars['40']) && isset($chars['41'])) {
+                $l--;
+            }
+            if (isset($chars['40'])) {  // (
+                $indent = $indent + $chars[40];
+                $go = 'start';
+                $l++;
+            }
+            if (isset($chars['41'])) {  //  )
+                if ($go == 'start') {
+                    if (!isset($spaces[$l])) {
+                                                $spaces[$l] = 0;
+                                        }
+                    $indent = $indent - $spaces[$l];
+                    $indent = $indent - $chars[41] ;
+                    $go = 'stop';
+                    $l--;
+                }
+                else {
+                    $indent = $indent - $chars[41];
+                }
+            }
+            if (isset($chars['32'])) {  //  space
+                $indent = $indent + $chars[32];
+                if ($go == 'start') {
+                    if (!isset($spaces[$l])) {
+                                                $spaces[$l] = 0;
+                                        }
+                    $spaces[$l] = $spaces[$l] + $chars[32];
+                }
+            }
+            if (preg_match("/(\d+)/", $thread_new[$i][$k], $regs)) {
+                $child = $regs[1];
+            }
+            $indent_array[$child] = abs($indent);
+        }    
+    }
+    return $indent_array;
+}
+
+
+/* returns an array with each element as a string
+   representing one message thread as returned by
+   the IMAP server
+*/
+
+function get_thread_sort ($imap_stream) {
+    global $thread_new, $sort_by_ref, $default_charset;
+
+    if (session_register('thread_new')) {
+        session_unregister('thread_new');
+    }
+    $sid = sqimap_session_id();
+    $thread_temp = array ();
+    if ($sort_by_ref == 1) {
+        $sort_type = 'REFERENCES';
+    }
+    else {
+        $sort_type = 'ORDEREDSUBJECT';
+    }
+    $thread_query = "$sid THREAD $sort_type $default_charset ALL\r\n";
+    fputs($imap_stream, $thread_query);
+    $thread_test = sqimap_read_data($imap_stream, $sid, true, $response, $message);
+    if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
+       $thread_list = trim($regs[1]);
+    }
+    else {
+       $thread_list = "";
+    }
+    $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+    $char_count = count($thread_temp);
+    $counter = 0;
+    $thread_new = array();
+    $k = 0;
+    $thread_new[0] = "";
+    for ($i=0;$i<$char_count;$i++) {
+            if ($thread_temp[$i] != ')' && $thread_temp[$i] != '(') {
+                    $thread_new[$k] = $thread_new[$k] . $thread_temp[$i];
+            }
+            elseif ($thread_temp[$i] == '(') {
+                    $thread_new[$k] .= $thread_temp[$i];
+                    $counter++;
+            }
+            elseif ($thread_temp[$i] == ')') {
+                    if ($counter > 1) {
+                            $thread_new[$k] .= $thread_temp[$i];
+                            $counter = $counter - 1;
+                    }
+                    else {
+                            $thread_new[$k] .= $thread_temp[$i];
+                            $k++;
+                            $thread_new[$k] = "";
+                            $counter = $counter - 1;
+                    }
+            }
+    }
+        session_register('$thread_new');
+    $thread_new = array_reverse($thread_new);
+    $thread_list = implode(" ", $thread_new);
+    $thread_list = str_replace("(", " ", $thread_list);
+    $thread_list = str_replace(")", " ", $thread_list);
+    $thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+    return $thread_list;
+}
+
+
+
+
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     global $squirrelmail_language, $color, $data_dir, $username;
 
@@ -100,7 +239,6 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     $results = array();
     $read_list = array();
     $sizes_list = array();
-
     /*
      * We need to return the data in the same order as the caller supplied
      * in $msg_list, but IMAP servers are free to return responses in

@@ -467,6 +467,16 @@ global $edit_identity, $edit_name;
 $edit_identity = true;
 $edit_name = true;
 
+
+/**
+* If you want to enable server side thread sorting options
+* Your IMAP server must support the THREAD extension for 
+* this to work.
+*/
+
+global $allow_thread_sort;
+$allow_thread_sort = false;
+
 /**
  * Make sure there are no characters after the PHP closing
  * tag below (including newline characters and whitespace).
