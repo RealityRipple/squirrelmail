@@ -16,6 +16,8 @@
       include("../functions/strings.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
    // let's check to see if they compiled with gettext support
    if (!function_exists("_")) {

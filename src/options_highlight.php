@@ -25,6 +25,8 @@
       include("../functions/array.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
 
    if ($action == "delete" && isset($theid)) {
@@ -113,7 +115,7 @@
       else if (!$selected_choose)
          $selected_input = " checked";
  
-      echo "<form action=\"options_highlight.php\">\n";
+      echo "<form name=f action=\"options_highlight.php\">\n";
       echo "<input type=\"hidden\" value=\"save\" name=\"action\">\n";
       echo "<input type=\"hidden\" value=\"$theid\" name=\"theid\">\n";
       echo "<table width=80% align=center cellpadding=3 cellspacing=0 border=0>\n";
@@ -184,6 +186,7 @@
       echo "</table>\n";
       echo "<center><input type=\"submit\" value=\"" . _("Submit") . "\"></center>\n";
       echo "</form>\n";
+      do_hook("options_highlight_bottom");
    } 
 ?>
 </body></html>

@@ -36,7 +36,7 @@
       </td></tr>
       <tr><td align=center>";
 
-   echo "<FORM ACTION=\"search.php\">\n";
+   echo "<FORM ACTION=\"search.php\" NAME=s>\n";
    echo "   <TABLE WIDTH=75%>\n";
    echo "     <TR>\n";
    echo "       <TD WIDTH=33%>\n";

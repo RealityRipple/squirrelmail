@@ -350,7 +350,7 @@
 
 
    // Display the "new address" form
-   printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
+   printf("<FORM ACTION=\"%s\" NAME=f_add METHOD=\"POST\">\n", $PHP_SELF);
    print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
    printf(_("Add to %s"), $abook->localbackendname);

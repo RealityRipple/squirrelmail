@@ -32,6 +32,8 @@
       include("../functions/display_messages.php");
    if (!isset($addressbook_php))
       include("../functions/addressbook.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
    include("../src/load_prefs.php");
 
@@ -120,7 +122,7 @@
 
    // Search form
    print "<CENTER>\n";
-   printf('<FORM METHOD=post ACTION="%s?html_addr_search=true">'."\n",
+   printf('<FORM METHOD=post NAME=f ACTION="%s?html_addr_search=true">'."\n",
 	  $PHP_SELF);
    print "<TABLE BORDER=0>\n";
    printf("<TR><TD NOWRAP VALIGN=middle>\n");
@@ -153,6 +155,7 @@
    addr_insert_hidden();
    print "</FORM>";
    print "</CENTER>";
+   do_hook("addrbook_html_search_below");
    // End search form
 
    // Show personal addressbook
@@ -206,3 +209,4 @@
    }
 
 ?>
+</body></html>

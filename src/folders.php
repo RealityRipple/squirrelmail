@@ -22,6 +22,8 @@
       include("../functions/imap.php");
    if (!isset($array_php))
       include("../functions/array.php");
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
    include("../src/load_prefs.php");
 
@@ -151,7 +153,7 @@
    echo _("Create Folder");
    echo "</TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-   echo "<FORM ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
+   echo "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo _("as a subfolder of");
    echo "<BR>";
@@ -307,6 +309,7 @@
       echo _("No folders were found to subscribe to!") . "</td></tr></table>";
    }
 
+   do_hook("folders_bottom");
    sqimap_logout($imapConnection);
 ?>
 </BODY></HTML>
