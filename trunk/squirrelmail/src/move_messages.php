@@ -57,7 +57,6 @@ function attachSelectedMessages($msg, $imapConnection) {
         $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822", true, $response, $readmessage, $uid_support);
 
         if ($response == 'OK') {
-
             // fetch the subject for the message with $id from msgs.
             // is there a more efficient way to do this?
             foreach($msgs as $k => $vals) {
@@ -113,6 +112,8 @@ sqgetGlobalVar('expungeButton',   $expungeButton,   SQ_POST);
 sqgetGlobalVar('undeleteButton',  $undeleteButton,  SQ_POST);
 sqgetGlobalVar('markRead',        $markRead,        SQ_POST);
 sqgetGlobalVar('markUnread',      $markUnread,      SQ_POST);
+sqgetGlobalVar('markFlagged',     $markFlagged,     SQ_POST);
+sqgetGlobalVar('markUnflagged',   $markUnflagged,   SQ_POST);
 sqgetGlobalVar('attache',         $attache,         SQ_POST);
 sqgetGlobalVar('location',        $location,        SQ_POST);
 sqgetGlobalVar('bypass_trash',    $bypass_trash,    SQ_POST);
