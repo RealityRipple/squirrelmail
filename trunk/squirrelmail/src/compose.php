@@ -285,7 +285,7 @@
       }
    } else if (isset($attach)) {
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
-      $localfilename = $data_dir.$localfilename;
+      $localfilename = $attachment_dir.$localfilename;
       
       // Put the file in a better place
       error_reporting(0); // Rename will produce error output if it fails

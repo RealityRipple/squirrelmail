@@ -133,4 +133,6 @@
 //    $data_dir = "../data/";
 
     $data_dir = "../data/";
+
+    $attachment_dir = $data_dir;
 ?>
