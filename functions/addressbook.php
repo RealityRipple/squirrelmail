@@ -180,7 +180,7 @@ function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
                                       'center', $color[0]
                                       )
                             )
-                  , 'center', '', 'width="100%"' ) ."\n";
+                  , 'center', '', 'width="90%"' ) ."\n";
     address_form($name, $button, $defdata);
 }
 
