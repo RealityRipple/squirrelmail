@@ -79,6 +79,8 @@
       $right_frame_url = 'options.php';
    } else if ($right_frame == 'folders.php') {
       $right_frame_url = 'folders.php';
+   } else if ($right_frame == 'compose.php') {
+      $right_frame_url = "compose.php?send_to=$rcptaddress";
    } else {
       if (!isset($just_logged_in)) $just_logged_in = 0;
       $right_frame_url = "right_main.php?just_logged_in=$just_logged_in";
