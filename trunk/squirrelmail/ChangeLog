@@ -52,6 +52,8 @@ Version 1.5.0 -- CVS
     of cyrus. (#766577).
   - Added feature to allow user to switch on full date display in mailboxes instead
     of just partial date/time based on time of email, and current date.
+  - Fixed bug that would cause e-mails dated in the future to be displayed with only
+    the time.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***

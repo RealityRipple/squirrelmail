@@ -294,8 +294,9 @@ function getDateString( $stamp ) {
         $dateZ = - $dateZ;
     }
     $midnight = $now - ($now % 86400) - $dateZ;
+    $nextmid = $midnight + 86400;
     
-    if ($show_full_date == 1) {
+    if (($show_full_date == 1) || ($nextmid < $stamp)) {
         $date_format = _("M j, Y");
     } else if ($midnight < $stamp) {
         /* Today */
