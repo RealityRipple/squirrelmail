@@ -26,7 +26,7 @@ function asearch_unhtml_strcoll($a, $b)
         
 function imap_get_mailbox_display($mailbox)
 {
-	if ($mailbox == 'INBOX')
+	if (strtoupper($mailbox) == 'INBOX')
 		return _("INBOX");
 	return imap_utf7_decode_local($mailbox);
 }
