@@ -1,11 +1,11 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.2.1                             *
- * The "Wouter for President" Release                            *
- * 25 December 2001                                              *
+ * Release Notes: SquirrelMail 1.2.2                             *
+ * The "International" Release                                   *
+ * 1 January 2002                                                *
  *****************************************************************/
 
-  Note: Please see the ChangeLog for 1.2.0 bugs that have been
-        fixed in this 1.2.1 release.
+  Note: Please see the ChangeLog for 1.2.0 and 1.2.1 bugs that have
+        been fixed in this 1.2.2 release.
 
 After a long wait, SquirrelMail is finally making a new major stable
 series release. The past year has been ANYTHING but uneventful for
