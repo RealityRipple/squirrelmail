@@ -1,11 +1,2 @@
 BUGS:
 
--  in options, if you have 'use a signature' set to yes already, it says:
-      <checkbox> use a signature?
-      use a signature?
-
--  the text in the body of the message is hard coded to #000000. could this be a color variable instead?
-
--  the left menu errors out if a mailbox is in .mailboxlist in the home 
-      directory and not in the home directory. it does not list the rest of the 
-      mailboxes. i don't know if this is a function of imap or s.m.
