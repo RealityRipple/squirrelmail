@@ -28,23 +28,24 @@ function use_plugin ($name) {
 }
 
 /* This function executes a hook. */
-function do_hook ($name) {
+function do_hook ($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks;
     $data = func_get_args();
+    $ret = '';
 
     if (isset($squirrelmail_plugin_hooks[$name])
           && is_array($squirrelmail_plugin_hooks[$name])) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $function($data);
+                $ret = $function($data,$parm);
             }
         }
     }
 
     /* Variable-length argument lists have a slight problem when */
     /* passing values by reference. Pity. This is a workaround.  */
-    return $data;
+    return $ret;
 }
 
 /*************************************/
