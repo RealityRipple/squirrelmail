@@ -547,7 +547,7 @@
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n";
-      echo '         <TT><SMALL>&nbsp;&nbsp;&nbsp;<SELECT NAME="targetMailbox">';
+      echo '         <TT><SMALL>&nbsp;<SELECT NAME="targetMailbox">';
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
