@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-09-28 06:12+0200\n"
+"POT-Creation-Date: 2004-09-28 08:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1307,6 +1307,11 @@ msgstr ""
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
+msgstr ""
+
+msgid ""
+"TLS is enabled, but this version of PHP does not support TLS sockets, or is "
+"missing the openssl extension."
 msgstr ""
 
 #, c-format
