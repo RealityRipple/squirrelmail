@@ -21,7 +21,7 @@
 
    echo "<BODY bgcolor=\"$color[4]\" topmargin=0 leftmargin=0 rightmargin=0 marginwidth=0 marginheight=0>\n".
         '<CENTER>'.
-        "<table width=100% cellpadding=2 cellspacing=2 border=0>\n".
+        "<table width=\"100%\" cellpadding=2 cellspacing=2 border=0>\n".
         "<tr>\n".
         "<td bgcolor=\"$color[0]\">\n".
         '<b><center>' . _("SquirrelMail Notice:") . "</center></b>\n".
