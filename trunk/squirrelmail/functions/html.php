@@ -72,7 +72,7 @@
         if ( $val <> '' ) {
             $ret .= ">$val</$tag>";
         } else {
-            $ret .= ' />';
+            $ret .= '>';
         } 
 
         return( $ret );
