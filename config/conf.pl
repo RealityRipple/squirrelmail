@@ -2833,7 +2833,7 @@ sub commandB3 {
     } else {
         $default_value = "n";
     }
-    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Use php recode functions? (y/n) [$WHT$default_value$NRM]: $WHT";
     $use_php_recode = <STDIN>;
     if ( ( $use_php_recode =~ /^y\n/i ) || ( ( $use_php_recode =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $use_php_recode = "true";
@@ -2857,7 +2857,7 @@ sub commandB4 {
     } else {
         $default_value = "n";
     }
-    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Use php iconv functions? (y/n) [$WHT$default_value$NRM]: $WHT";
     $use_php_iconv = <STDIN>;
     if ( ( $use_php_iconv =~ /^y\n/i ) || ( ( $use_php_iconv =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $use_php_iconv = "true";
