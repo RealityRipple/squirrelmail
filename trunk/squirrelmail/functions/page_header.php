@@ -94,7 +94,7 @@
       do_hook("menuline");
 
       echo "      </TD><TD ALIGN=right nowrap WIDTH=\"1%\">\n";
-      echo "         <A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_top\">SquirrelMail</A>\n";
+      echo "         <A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";
