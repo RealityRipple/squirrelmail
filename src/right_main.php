@@ -76,6 +76,11 @@
    $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
+	if (isset($newsort)) {
+		$sort = $newsort;
+		session_register("sort");
+	}	
+
    // Check to see if we can use cache or not.  Currently the only time when you wont use it is
    //    when a link on the left hand frame is used.  Also check to make sure we actually have the
    //    array in the registered session data.  :)
