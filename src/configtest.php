@@ -230,9 +230,49 @@ fclose($stream);
 
 echo $IND . 'IMAP server OK (<tt><small>'.trim($imapline)."</small></tt>)<br />\n";
 
+echo "Checking i18n settings:<br />\n";
+echo "$IND gettext - ";
+if (function_exists('gettext')) {
+    echo "Gettext functions are available. You must have appropriate system locales compiled.<br />\n";
+} else {
+    echo "Gettext functions are unavailable. SquirrelMail will use slower internal gettext functions.<br />\n";
+}
+echo "$IND mbstring - ";
+if (function_exists('mb_detect_encoding')) {
+    echo "Mbstring functions are available.<br />\n";
+} else {
+    echo "Mbstring functions are unavailable. Japanese translation won't work.<br />\n";
+}
+echo "$IND recode - ";
+if (function_exists('recode')) {
+    echo "Recode functions are available.<br />\n";
+} elseif ($use_php_recode) {
+    echo "Recode functions are unavailable.<br />\n";
+    do_err('Your configuration requires recode support, but recode support is missing.');
+} else {
+    echo "Recode functions are unavailable.<br />\n";
+}
+echo "$IND iconv - ";
+if (function_exists('iconv')) {
+    echo "Iconv functions are available.<br />\n";
+} elseif ($use_php_iconv) {
+    echo "Iconv functions are unavailable.<br />\n";
+    do_err('Your configuration requires iconv support, but iconv support is missing.');
+} else {
+    echo "Iconv functions are unavailable.<br />\n";
+}
+// same test as in include/validate.php
+echo "$IND timezone - ";
+if ( (!ini_get('safe_mode')) ||
+    !strcmp(ini_get('safe_mode_allowed_env_vars'),'') ||
+    preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')) ) {
+	echo "Webmail users can change their time zone settings.";
+} else {
+    echo "Webmail users can't change their time zone settings.";
+}
+
 // other possible checks:
 // ? prefs/abook DSN
-// ? locale/gettext
 // ? actually start a session to see if it works
 // ? ...
 ?>
