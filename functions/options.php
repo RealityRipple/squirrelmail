@@ -89,7 +89,7 @@
 
     function OptionSubmit( $name ) {
 
-        echo '<tr><td>&nbsp;</td><td><input type="submit" value="' . _("Submit") . '" name="$name">' .
+        echo '<tr><td>&nbsp;</td><td><input type="submit" value="' . _("Submit") . '" name="' . $name . '">' .
              '</td></tr>';
 
     }
