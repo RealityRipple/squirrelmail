@@ -67,7 +67,6 @@ while ($line = <FILE>) {
                   $tmp =~ s/^\s*"base"\s*=>\s*"//i;
                   $tmp =~ s/",\s*$//;
                   $tmp =~ s/"\);\s*$//;
-                  print $tmp."\n";
                   $base = $tmp;
                } elsif ($tmp =~ /^\s*"charset"/i) {
                   $tmp =~ s/^\s*"charset"\s*=>\s*"//i;
@@ -191,6 +190,7 @@ while (($command ne "q") && ($command ne "Q")) {
       for ($count = 0; $count <= $#ldap_host; $count++) {
          print "    >  $ldap_host[$count]\n";
       }
+      print "2.  Use Javascript Address Book Search  : $WHT$default_use_javascript_addr_book$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 7) {
@@ -270,7 +270,8 @@ while (($command ne "q") && ($command ne "Q")) {
             command41 (); 
          }
       } elsif ($menu == 6) {
-         if ($command == 1) { command61(); }
+         if    ($command == 1) { command61(); }
+         elsif ($command == 2) { command62(); }
       } elsif ($menu == 7) {
          if    ($command == 1) { $motd = command71 (); $motd =~ s/"/\\"/g;}
       }
@@ -1089,6 +1090,33 @@ sub command61 {
    }
 }   
 
+sub command62 {
+   print "Although our project goals stated that we would stay 100% HTML with\n";
+   print "no javascript, some of our developers have developed a wonderful\n";
+   print "javascript interface for searching for email addresses in your address\n";
+   print "books.  In order to stick with our project goals, and without having\n";
+   print "to refuse their work, we also developed an HTML version of address\n";
+   print "book searching.\n";
+   print "\n";
+   print "This is just the default value.  It is also a user option that each\n";
+   print "user can configure individually\n";
+   print "\n";
+   
+   if ($default_use_javascript_addr_book eq "true") {
+      $default_value = "y";
+   } else {
+      $default_use_javascript_addr_book = "false";
+      $default_value = "n";
+   }
+   print "Use javascript version (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      $default_use_javascript_addr_book = "true";
+   } else {
+      $default_use_javascript_addr_book = "false";
+   }
+   return $default_use_javascript_addr_book;
+}
 
 
 sub save_data {
@@ -1142,6 +1170,10 @@ sub save_data {
    
    print FILE "\n";
 
+   if ($default_use_javascript_addr_book ne "true") {
+      $default_use_javascript_addr_book = "false";
+   }   
+   print FILE "\t\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
    for ($count=0; $count <= $#ldap_host; $count++) {
       print FILE "\t\$ldap_server[$count] = Array(\n";
       print FILE "\t\t\t\"host\" => \"$ldap_host[$count]\",\n";
@@ -1161,6 +1193,7 @@ sub save_data {
       print FILE ");\n\n";
    }
 
+   print FILE "\n";
    print FILE "\t\$motd = \"$motd\";\n";
 
    print FILE "?>\n";

@@ -31,7 +31,7 @@
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
-         $reply_id, $send_to, $send_to_cc, $mailbox;
+         $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc;
 
       $send_to = decodeHeader($send_to);
       $send_to_cc = decodeHeader($send_to_cc);
@@ -144,28 +144,30 @@
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
-         $attachments, $subject, $newmail;
+         $attachments, $subject, $newmail, $use_javascript_addr_book,
+         $send_to_bcc;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
 
-      echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
-      echo "function open_abook() { \n";
-      echo "  var nwin = window.open(\"addrbook_popup.php\",\"abookpopup\",";
-      echo "\"width=670,height=300,resizable=yes,scrollbars=yes\");\n";
-      echo "  if((!nwin.opener) && (document.windows != null))\n";
-      echo "    nwin.opener = document.windows;\n";
-      echo "}\n";
-      echo "// --></SCRIPT>\n\n";
+      if ($use_javascript_addr_book) {
+         echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
+         echo "function open_abook() { \n";
+         echo "  var nwin = window.open(\"addrbook_popup.php\",\"abookpopup\",";
+         echo "\"width=670,height=300,resizable=yes,scrollbars=yes\");\n";
+         echo "  if((!nwin.opener) && (document.windows != null))\n";
+         echo "    nwin.opener = document.windows;\n";
+         echo "}\n";
+         echo "// --></SCRIPT>\n\n";
+      }
 
-      echo "\n<FORM name=compose action=\"compose.php?\" METHOD=POST\n";
-      echo "ENCTYPE=\"multipart/form-data\">\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");
-      echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD colspan=2 WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to)
          echo "         <INPUT TYPE=TEXT NAME=send_to VALUE=\"$send_to\" SIZE=60><BR>";
       else
@@ -175,7 +177,7 @@
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("CC:");
-      echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD WIDTH=% colspan=2 BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_cc)
          echo "         <INPUT TYPE=TEXT NAME=send_to_cc SIZE=60 VALUE=\"$send_to_cc\"><BR>";
       else
@@ -187,19 +189,22 @@
       echo _("BCC:");
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_bcc)
-         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc VALUE=\"$send_to_bcc\" SIZE=60><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc VALUE=\"$send_to_bcc\" SIZE=55><BR>";
       else
-         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc SIZE=60><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc SIZE=55><BR>";
       echo "      </TD>\n";
-      echo "   </TR>\n";
-
-      echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
-      echo "<TR><TD BGCOLOR=\\\"$color[4]\\\">&nbsp;</TD>";
-      echo "</TD><TD BGCOLOR=\\\"$color[4]\\\" ALIGN=LEFT>";
-      printf("<A HREF=\\\"javascript:open_abook();\\\">%s</A>",
-	     _("Lookup recipients in addressbook.")."<BR>");
-      echo "</TD></TR>\");\n";
-      echo "// --></SCRIPT>\n";
+      echo "<TD width=1% BGCOLOR=\"$color[4]\" ALIGN=Right>";
+      
+      if ($use_javascript_addr_book) {
+         $lookup_str = _("Addresses");
+         echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
+         echo "<a href=\\\"javascript:open_abook();\\\">$lookup_str</a><br>\");";
+         echo "// --></SCRIPT>\n";
+      } else {  
+         echo "<input type=submit name=html_addr_search value=\""._("Addresses")."\">";
+      }   
+      
+      echo "</TD></TR>\n";
 
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
@@ -211,7 +216,7 @@
          $reply_subj = trim($reply_subj);
          if (substr(strtolower($reply_subj), 0, 3) != "re:")
             $reply_subj = "Re: $reply_subj";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$reply_subj\">";
+         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=55 VALUE=\"$reply_subj\">";
       } else if ($forward_subj) {
          $forward_subj = str_replace("\"", "'", $forward_subj);
          $forward_subj = stripslashes($forward_subj);
@@ -220,16 +225,17 @@
              (substr(strtolower($forward_subj), 0, 5) != "[fwd:") &&
              (substr(strtolower($forward_subj), 0, 6) != "[ fwd:"))
             $forward_subj = "[Fwd: $forward_subj]";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=50 VALUE=\"$forward_subj\">";
+         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=55 VALUE=\"$forward_subj\">";
       } else {
-         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=50>";
+         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=55>";
       }
-      echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">";
+      echo "</td><td align=right>";
+      echo "<INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">";
       echo "      </TD>\n";
       echo "   </TR>\n";
 
       echo "   <TR>\n";
-      echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=3>\n";
       if ($use_signature == true && $newmail == true)
          echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n-- \n".$signature."</TEXTAREA><BR>";
       else
@@ -300,6 +306,14 @@
       return true;
    } // function checkInput()
 
+
+
+
+
+
+
+
+
    if(isset($send)) {
       if (checkInput(false)) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
@@ -312,6 +326,22 @@
          
          showInputForm();
       }
+   } else if ($html_addr_search) {
+      //* I am using an include so as to elminiate an extra unnecessary click.  If you
+      //* can think of a better way, please implement it.
+      include ("addrbook_search_html.php");
+   } else if ($html_addr_search_done) {
+      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      displayPageHeader($color, "None");
+
+      $body = stripslashes($body);
+      $send_to = stripslashes($send_to);
+      $send_to_cc = stripslashes($send_to_cc);
+      $send_to_bcc = stripslashes($send_to_bcc);
+      $subject = stripslashes($subject);
+      
+      showInputForm();
    } else if (isset($attach)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

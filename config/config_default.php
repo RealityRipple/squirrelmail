@@ -218,4 +218,11 @@
 			"base" => "",
 			"charset" => "iso8859-1");
 
+ // you have an option to chose between javascript or html version of
+ // address book searching.  
+ //   true = javascript
+ //  false = html
+
+ $default_use_javascript_addr_book = false;
+
 ?>
