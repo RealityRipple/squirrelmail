@@ -91,6 +91,7 @@ List of hooks
   menuline                        functions/page_header.php
   compose_button_row              src/compose.php
   compose_bottom                  src/compose.php
+  compose_form                    src/compose.php
   left_main_before                src/left_main.php
   left_main_after                 src/left_main.php
   * options_save                  src/options.php  (see note on options)
