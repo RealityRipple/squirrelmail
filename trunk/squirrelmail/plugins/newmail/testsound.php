@@ -11,8 +11,7 @@
  * $Id$
  */
 
-   chdir ("../");
-   chdir('..');
+   chdir('../');
    define('SM_PATH','../');
 
    /* SquirrelMail required files. */
