@@ -12,6 +12,9 @@
  * @package squirrelmail
  */
 
+/**
+ * Undocumented defines
+ */
 if (!defined('SQM_ADDR_PERSONAL')) define('SQM_ADDR_PERSONAL', 0);
 if (!defined('SQM_ADDR_ADLL'))     define('SQM_ADDR_ADL',      1);
 if (!defined('SQM_ADDR_MAILBOX'))  define('SQM_ADDR_MAILBOX',  2);
