@@ -14,12 +14,6 @@
       echo "You need a valid user and password to access this page!";
       exit;
    }
-
-   // Configure the left frame for the help menu
-   // Maybe this should be a function but since I haven't done one it isn't
-
-   $ishelp = substr(getenv(REQUEST_URI),-8);	// take the right 8 characters from the requested URL
-   if ($ishelp == "help.php") {
 	if (!isset($config_php))
       	   include("../config/config.php");
    	if (!isset($i18n_php))
@@ -27,7 +21,6 @@
 	include("../src/load_prefs.php");
 	echo "<HTML BGCOLOR=\"$color[3]\">";
   	echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" BGCOLOR=\"$color[3]\" LINK=\"$color[11]\" VLINK=\"$color[6]\" ALINK=\"$color[11]\">\n";
-   	$left_size = 250;	//doesn't seem to work
    /**
     ** Array used to list the include .hlp files, we could use a dir function
     ** to step through the directory and list its contents but it doesn't order those.
@@ -60,25 +53,24 @@
       	   	$tempanc="";
 
     	   	if ( eregi("<A NAME=", $line, $tempanc)) {		// if a name anchor is found, make a link
-		   $tempanc = $line;
-		   $tempanc = ereg_replace("<A NAME=", "", $tempanc);
-    		   $tempanc = ereg_replace("></A>", "", $tempanc);
+		   $tempanc = trim($line);
+		   $tempanc = str_replace("<A NAME=", "", $tempanc);
+    		   $tempanc = str_replace("></A>", "", $tempanc);
         	   echo "<A HREF=\"help.php#$tempanc\" target=\"right\">";
     	   	} 
     	   	if ( eregi("<H1>", $line, $temphed)) {			// grab a description for the link made above
-		   $temphed = $line;
-		   $temphed = ereg_replace("<H1>", "", $temphed);
-    		   $temphed = ereg_replace("</H1>", "", $temphed);
+		   $temphed = trim($line);
+		   $temphed = str_replace("<H1>", "", $temphed);
+    		   $temphed = str_replace("</H1>", "", $temphed);
 		   echo "<BR>";
 		   echo "<FONT SIZE=+1>" . _("$temphed") . "</FONT></A><BR>\n";	// make it bigger since it is a heading type 1
    	   	}
     	   	if ( eregi("<H3>", $line, $temphed)) {			// grab a description for the link made above
-		   $temphed = $line;
-		   $temphed = ereg_replace("<H3>", "", $temphed);
-    		   $temphed = ereg_replace("</H3>", "", $temphed);
+		   $temphed = trim($line);
+		   $temphed = str_replace("<H3>", "", $temphed);
+    		   $temphed = str_replace("</H3>", "", $temphed);
 		   echo "" . _("$temphed") . "</A><BR>\n";		// keep same size since it is a normal entry
     	   	}
 	   }
 	}                  
-   }
 ?>
