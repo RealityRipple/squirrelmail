@@ -1,12 +1,11 @@
 <?php
-
-/** setup file for the IMAP server info plugin
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *   
- * by: Jason Munro jason@stdbev.com
+/**
+ * setup file for the IMAP server info plugin
  * 
- * $Id$
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @author Jason Munro jason@stdbev.com
  * @package plugins
  * @subpackage info
  */
@@ -14,11 +13,19 @@
 /** @ignore */
 require_once (SM_PATH . 'plugins/info/functions.php');
 
+/**
+ * Plugin init function
+ * @access private
+ */
 function squirrelmail_plugin_init_info() {
     global $squirrelmail_plugin_hooks;
     $squirrelmail_plugin_hooks['optpage_register_block']['info'] = 'info_opt';
 }
 
+/**
+ * Plugin's block in option page
+ * @access private
+ */
 function info_opt() {
     global $optpage_blocks;
 
