@@ -135,6 +135,7 @@
 
    function translateText(&$body, $wrap_at, $charset) {
       global $where, $what; // from searching
+		global $url_parser_php;
 
       if (!isset($url_parser_php)) {
          include "../functions/url_parser.php";
