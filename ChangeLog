@@ -4,6 +4,7 @@
 
 Version 1.2.5 -- CVS
 --------------------
+  - Multiple mailbox list calls cached.
   - Added 'View unsafe images' link to the bottom of pages which contain
     unsafe images.
   - Fixed 'too many close table tags' and various other issues
