@@ -397,10 +397,12 @@ function listBoxes ($boxes, $j=0 ) {
             $fontend = "</font>";
         }
         $end .= '</nobr>';
-        
-        echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
-        $j++;
-        
+
+        if (!$boxes->is_root) {
+            echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
+            $j++;
+        }
+
         if (!$collapse || $boxes->is_root) {
             for ($i = 0; $i <count($boxes->mbxs); $i++) {
                 listBoxes($boxes->mbxs[$i],$j);
