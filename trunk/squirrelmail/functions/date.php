@@ -13,6 +13,7 @@
 
    // corrects a time stamp to be the local time
    function getGMTSeconds($stamp, $gmt) {
+      global $invert_time;
       if (($gmt == "Pacific") || ($gmt == "PST"))
          $gmt = "-0800";
       else if (($gmt == "EDT"))
@@ -70,6 +71,7 @@
    }
 
    function getDateString($stamp) {
+      global $invert_time;
       $now = time();
       $dateZ = date("Z", $now);
       if ($invert_time)
