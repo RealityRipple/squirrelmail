@@ -86,7 +86,6 @@ function sqimap_fgets($imap_stream) {
         if (!($read = fgets($imap_stream, $buffer))) {
             break;
         }
-//	echo $read;
         if ( $results != '' ) {
             $offset = strlen($results) - 1;
         }
@@ -101,120 +100,122 @@ function sqimap_fgets($imap_stream) {
  * the errors will be sent back through $response and $message
  */
 
-function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
+function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
     $read = '';
-    $pre_a = explode(' ',trim($pre));
-    $pre = $pre_a[0];
+    $tag_uid_a = explode(' ',trim($tag_uid));
+    $tag = $tag_uid_a[0];
     $resultlist = array();
     $data = array();
     $read = sqimap_fgets($imap_stream);
     $i = 0;
-    while (1) {
-	$char = $read{0};
-	switch ($char) {
-	    case $pre{0}:
-	         /* get the command */
-		 $arg = '';
-		 $i = strlen($pre)+1;
-		 $s = substr($read,$i);
-                 if (($j = strpos($s,' ')) || ($j = strpos($s,"\n"))) {
-		    $arg = substr($s,0,$j);
-		 }
-		 $tag = substr($read,0,$i-1);
-		 if ($arg && $tag==$pre) {
-		    switch ($arg) {
-			case 'OK':
-			case 'BAD':
-			case 'NO':
-			case 'BYE':
-			case 'PREAUTH':
-			   $response = $arg;
-			   $message = trim(substr($read,$i+strlen($arg)));
-			   break 3;
-			default: 
-			   /* this shouldn't happen */
-			   $response = $arg;
-			   $message = trim(substr($read,$i+strlen($arg)));
-			   break 3;
-		    }
-		} elseif($tag !== $pre) {
-		    /* reset data array because we do not need this reponse */
-		    $data = array();
-		    $read = sqimap_fgets($imap_stream);
-		    break;
-		}
-	    case '*':
-		if (preg_match('/^\*\s\d+\sFETCH/',$read)) {
-		    /* check for literal */
-		    $s = substr($read,-3);
-		    $fetch_data = array();
-		    do { /* outer loop, continue until next untagged fetch
-		            or tagged reponse */
-			do { /* innerloop for fetching literals. with this loop
-			        we prohibid that literal responses appear in the
-				outer loop so we can trust the untagged and
-				tagged info provided by $read */
-			    if ($s === "}\r\n") {
-			        $j = strrpos($read,'{');
-			        $iLit = substr($read,$j+1,-3);
-		                $fetch_data[] = $read;
-				$sLiteral = fread($imap_stream,$iLit);
-				/* backwards compattibility */
-				$aLiteral = explode("\n", $sLiteral);
-				/* release not neaded data */
-				unset($sLiteral);
-				foreach ($aLiteral as $line) {
-				    $fetch_data[] = $line ."\n";
-			        }
-				/* release not neaded data */
-				unset($aLiteral); 
-				/* next fgets belongs to this fetch because
-				   we just got teh exact literalsize and there
-				   must follow data to complete the response */
-			        $fetch_data[] = sqimap_fgets($imap_stream);
-			    } else {
-			        $fetch_data[] = $read;
-			    }
-			    /* retrieve next line and check in the while
-			       statements if it belongs to this fetch response */
-			    $read = sqimap_fgets($imap_stream);
-			    /* check for next untagged reponse and break */
-			    if ($read{0} == '*') break 2;
-			    $s = substr($read,-3);
-			} while ($s === "}\r\n");
-			$s = substr($read,-3);
-		    } while ($read{0} !== '*' &&
-			     substr($read,0,strlen($pre)) !== $pre);
-		    $resultlist[] = $fetch_data;
-		    /* release not neaded data */
-		    unset ($fetch_data);
-		} else {
-		    $s = substr($read,-3);
-		    do {
-			if ($s === "}\r\n") {
-			    $j = strrpos($read,'{');
-			    $iLit = substr($read,$j+1,-3);
-		            $data[] = $read;
-			    $data[] = fread($imap_stream,$iLit);
-			    $fetch_data[] = sqimap_fgets($imap_stream);
-			} else {
-			    $data[] = $read;
-			}
-			$read = sqimap_fgets($imap_stream);
-			if ($read{0} == '*') break;
-			$s = substr($read,-3);
-		    } while ($s === "}\r\n");
-            	    break 1;
-		}
-		break;
-	    case '+':
-		$read = sqimap_fgets($imap_stream);
-		break;
-	    default:
-		$read = sqimap_fgets($imap_stream);
-		break;
-	}
+    while ($read) {
+        $char = $read{0};
+        switch ($char)
+        {
+        case $tag{0}:
+            /* get the command */
+            $arg = '';
+            $i = strlen($tag)+1;
+            $s = substr($read,$i);
+            if (($j = strpos($s,' ')) || ($j = strpos($s,"\n"))) {
+                $arg = substr($s,0,$j);
+            }
+            $found_tag = substr($read,0,$i-1);
+            if ($arg && $found_tag==$tag) {
+                switch ($arg)
+                {
+                case 'OK':
+                case 'BAD':
+                case 'NO':
+                case 'BYE':
+                case 'PREAUTH':
+                    $response = $arg;
+                    $message = trim(substr($read,$i+strlen($arg)));
+                    break 3;
+                default: 
+                    /* this shouldn't happen */
+                    $response = $arg;
+                    $message = trim(substr($read,$i+strlen($arg)));
+                    break 3;
+                }
+            } elseif($found_tag !== $tag) {
+                /* reset data array because we do not need this reponse */
+                $data = array();
+                $read = sqimap_fgets($imap_stream);
+                break;
+            }
+            case '*':
+            if (preg_match('/^\*\s\d+\sFETCH/',$read)) {
+                /* check for literal */
+                $s = substr($read,-3);
+                $fetch_data = array();
+                do { /* outer loop, continue until next untagged fetch
+                        or tagged reponse */
+                    do { /* innerloop for fetching literals. with this loop
+                            we prohibid that literal responses appear in the
+                            outer loop so we can trust the untagged and
+                            tagged info provided by $read */
+                        if ($s === "}\r\n") {
+                            $j = strrpos($read,'{');
+                            $iLit = substr($read,$j+1,-3);
+                            $fetch_data[] = $read;
+                            $sLiteral = fread($imap_stream,$iLit);
+                            /* backwards compattibility */
+                            $aLiteral = explode("\n", $sLiteral);
+                            /* release not neaded data */
+                            unset($sLiteral);
+                            foreach ($aLiteral as $line) {
+                                $fetch_data[] = $line ."\n";
+                            }
+                            /* release not neaded data */
+                            unset($aLiteral); 
+                            /* next fgets belongs to this fetch because
+                               we just got the exact literalsize and there
+                               must follow data to complete the response */
+                            $fetch_data[] = sqimap_fgets($imap_stream);
+                        } else {
+                           $fetch_data[] = $read;
+                        }
+                        /* retrieve next line and check in the while
+                           statements if it belongs to this fetch response */
+                        $read = sqimap_fgets($imap_stream);
+                        /* check for next untagged reponse and break */
+                        if ($read{0} == '*') break 2;
+                        $s = substr($read,-3);
+                    } while ($s === "}\r\n");
+                    $s = substr($read,-3);
+                } while ($read{0} !== '*' &&
+                substr($read,0,strlen($tag)) !== $tag);
+                $resultlist[] = $fetch_data;
+                /* release not neaded data */
+                unset ($fetch_data);
+            } else {
+                $s = substr($read,-3);
+                do {
+                    if ($s === "}\r\n") {
+                        $j = strrpos($read,'{');
+                        $iLit = substr($read,$j+1,-3);
+                        $data[] = $read;
+                        $data[] = fread($imap_stream,$iLit);
+                        $fetch_data[] = sqimap_fgets($imap_stream);
+                    } else {
+                        $data[] = $read;
+                    }
+                    $read = sqimap_fgets($imap_stream);
+                    if ($read{0} == '*') break;
+                    $s = substr($read,-3);
+                } while ($s === "}\r\n");
+                break 1;
+            }
+            break;
+        case '+':
+            $read = sqimap_fgets($imap_stream);
+            break;
+        default:
+            $read = sqimap_fgets($imap_stream);
+            break;
+        }
     }
     if (!empty($data)) {
         $resultlist[] = $data;
@@ -259,8 +260,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     }
 }
 
-function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
-    $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message, $query);
+function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors, &$response, &$message, $query = '') {
+    $res = sqimap_read_data_list($imap_stream, $tag_uid, $handle_errors, $response, $message, $query);
   
     /* sqimap_read_data should be called for one response
        but since it just calls sqimap_read_data_list which 
@@ -382,12 +383,12 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 set_up_language($squirrelmail_language, true);
                 require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {
-                   $string = sprintf (_("Bad request: %s")."<br>\r\n", $message);
+                    $string = sprintf (_("Bad request: %s")."<br>\r\n", $message);
                 } else {
-                   $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
+                    $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
                 }
                 if (isset($read) && is_array($read)) {
-                        $string .= '<br>' . _("Read data:") . "<br>\n";
+                    $string .= '<br>' . _("Read data:") . "<br>\n";
                     foreach ($read as $line) {
                         $string .= htmlspecialchars($line) . "<br>\n";
                     }
@@ -526,17 +527,17 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
         $char = $address{$pos};
         switch ($char) {
             case '=':
-	        /* check if it is an encoded string */
+            /* check if it is an encoded string */
                 if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',substr($address,$pos),$reg)) {
-		    /* add stringpart before the encoded string to the personal var */
-		    if (!$personal) {
-			$personal = substr($address,0,$pos);
-		    }
+            /* add stringpart before the encoded string to the personal var */
+            if (!$personal) {
+            $personal = substr($address,0,$pos);
+            }
                     $personal .= $reg[1];
-		    $pos += strlen($reg[1]);
+            $pos += strlen($reg[1]);
                 } else {
-            	    ++$pos;
-		}
+                    ++$pos;
+        }
                 break;
             case '"': /* get the personal name */
                 ++$pos;
@@ -587,8 +588,8 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
             case ';': /* we reached a non rfc2822 compliant delimiter */
                 if ($group) {
                     $address = substr($address, 0, $pos - 1);
-		    ++$pos;
-		    break;
+            ++$pos;
+            break;
                 }
             case ',':  /* we reached a delimiter */
                 if ($addr == '') {
@@ -607,18 +608,14 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
                 break;
             case ':':  /* process the group addresses */
                 /* group marker */
-		if (strpos($address,';',$pos)) {
-            	    $group = substr($address, 0, $pos);
-            	    $address = substr($address, $pos+1);
-            	    $result = parseAddress($address, $max, $addr_ar, $group);
-            	    $addr_ar = $result[0];
-            	    $pos = $result[1];
-            	    $address = substr($address, $pos++);
-            	    $j = strlen($address);
-            	    $group = '';
-		} else {
-		    $pos = $j;
-		}
+                $group = substr($address, 0, $pos);
+                $address = substr($address, $pos+1);
+                $result = parseAddress($address, $max, $addr_ar, $group);
+                $addr_ar = $result[0];
+                $pos = $result[1];
+                $address = substr($address, $pos++);
+                $j = strlen($address);
+                $group = '';
                 break;
             default:
                 ++$pos;
