@@ -93,6 +93,9 @@ $unseen_type =
 $unseen_notify =
     getPref($data_dir, $username, 'unseen_notify', $default_unseen_notify);
 
+$unseen_cum =
+    getPref($data_dir, $username, 'unseen_cum', false);
+
 $folder_prefix =
     getPref($data_dir, $username, 'folder_prefix', $default_folder_prefix);
 
