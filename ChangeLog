@@ -80,6 +80,8 @@ Version 1.5.0 -- CVS
     with upcoming PHP 4.3.3.
   - Encoding of Russian translation changed to utf-8. Lithuanian translation changed
     to iso-8859-4. Fix allows to use national letters in folder names correctly.
+  - Added "Bypass Trash" checkbox to folder index, used with the Delete
+    button. (tassium)
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***

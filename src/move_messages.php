@@ -114,6 +114,7 @@ sqgetGlobalVar('markRead',        $markRead,        SQ_POST);
 sqgetGlobalVar('markUnread',      $markUnread,      SQ_POST);
 sqgetGlobalVar('attache',         $attache,         SQ_POST);
 sqgetGlobalVar('location',        $location,        SQ_POST);
+sqgetGlobalVar('bypass_trash',    $bypass_trash,    SQ_POST);
 
 /* end of get globals */
 
@@ -178,7 +179,7 @@ if(isset($expungeButton)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',false,true);
             } else  {
                 if (!$button_action) {
-                    sqimap_msgs_list_delete($imapConnection, $mailbox, $id);
+                    sqimap_msgs_list_delete($imapConnection, $mailbox, $id,$bypass_trash);
                     if ($auto_expunge) {
                         $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
                     }
