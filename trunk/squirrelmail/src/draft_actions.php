@@ -2,7 +2,7 @@
 require_once ('../src/validate.php');
 
    /* Print all the needed RFC822 headers */
-   function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, $send_it) {
+   function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
       global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -90,15 +90,13 @@ require_once ('../src/validate.php');
       }
 
       // Write the header
-      if ($send_it) {
-         fputs ($fp, $header);
-      }
+      fputs ($fp, $header);
 
       return $headerlength;
    }
 
    // Send the body
-   function writeBodyForDraft ($fp, $passedBody, $send_it) {
+   function writeBodyForDraft ($fp, $passedBody) {
       global $default_charset;
 
       $attachmentlength = 0;
@@ -113,26 +111,18 @@ require_once ('../src/validate.php');
 
          $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
          $body .= $passedBody . "\r\n\r\n";
-         if ($send_it) {
-            fputs ($fp, $body);
-         }
+         fputs ($fp, $body);
 
          $attachmentlength = attachFiles($fp);
 
          if (!isset($postbody)) $postbody = "";
          $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
-         if ($send_it) {
-            fputs ($fp, $postbody);
-         }
+         fputs ($fp, $postbody);
       } else {
          $body = $passedBody . "\r\n";
-         if ($send_it) {
-            fputs ($fp, $body);
-         }
+         fputs ($fp, $body);
          $postbody = "\r\n";
-         if ($send_it) {
-            fputs ($fp, $postbody);
-         }
+         fputs ($fp, $postbody);
       }
 
       return (strlen($body) + strlen($postbody) + $attachmentlength);
@@ -142,14 +132,19 @@ require_once ('../src/validate.php');
    function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
-      global $draft_folder;
+      global $draft_folder, $attachment_dir;
       $more_headers = Array();
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
-      $fp = "";
+      $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
+      while ( file_exists($attachment_dir .$tmpDraftFile) )
+         $tmpDraftFile = "draft-" . GenerateRandomString(32, '', 7);
+      $fp = fopen($attachment_dir . $tmpDraftFile, 'w');
+
       $headerlength = write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, FALSE);
       $bodylength = writeBodyForDraft ($fp, $body, FALSE);
+      fclose($fp);
 
       $length = ($headerlength + $bodylength);
 
@@ -162,6 +157,8 @@ require_once ('../src/validate.php');
       sqimap_logout($imap_stream);
       if ($length)
          ClearAttachments();
+         if (file_exists($attachment_dir . $tmpDraftFile) )
+            unlink ($attachment_dir . $tmpDraftFile);
       return $length;
 }
 ?>
