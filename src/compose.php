@@ -426,7 +426,11 @@
          set_my_charset();
          do_hook("compose_send");
 
-         if (sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id) == 0) {showInputForm(); exit();}
+         if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+	    showInputForm(); 
+	    exit();
+	 }
+	 Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);

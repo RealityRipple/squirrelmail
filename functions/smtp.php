@@ -409,7 +409,6 @@
          $tmp = nl2br(htmlspecialchars($tmp));
          displayPageHeader($color, 'None');
          include ("../functions/display_messages.php");
-         $lines = nl2br(htmlspecialchars($lines));
          $msg  = "Message not sent!<br>\nReason given: $tmp";
          plain_error_message($msg, $color);
          return(0);
@@ -573,7 +572,11 @@
       }
       sqimap_logout($imap_stream);
       // Delete the files uploaded for attaching (if any).
-      ClearAttachments();
+      // only if $length != 0 (if there was no error)
+      if ($length)
+         ClearAttachments();
+	 
+      return $length;
    }
 
 ?>
