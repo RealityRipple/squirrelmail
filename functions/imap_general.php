@@ -258,6 +258,8 @@
  			    $sqimap_capabilities[$cap_list[0]] = TRUE;
 		}
 	}
+	if (! isset($sqimap_capabilities[$capability]))
+	   return false;
 	return $sqimap_capabilities[$capability];
 }
 
