@@ -65,6 +65,9 @@
     $theme[6]["PATH"] = "../config/ice_theme.php";
     $theme[6]["NAME"] = "Ice";
 
+    $theme[7]["PATH"] = "../config/seaspray_theme.php";
+    $theme[7]["NAME"] = "Sea Spray";
+
 //  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-21 07:07-0500\n"
+"POT-Creation-Date: 2000-03-03 07:23-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,255 +14,271 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: src/compose.php:47 src/compose.php:83
+#: src/compose.php:58 src/compose.php:94
 msgid "No Message"
 msgstr ""
 
-#: src/compose.php:53
+#: src/compose.php:64
 msgid "-------- Original Message ---------\n"
 msgstr ""
 
-#: src/compose.php:145 src/read_body.php:154
+#: src/compose.php:159 src/read_body.php:160
 msgid "To:"
 msgstr ""
 
-#: src/compose.php:156
+#: src/compose.php:170
 msgid "CC"
 msgstr ""
 
-#: src/compose.php:177 src/read_body.php:124
+#: src/compose.php:191 src/read_body.php:130
 msgid "Subject:"
 msgstr ""
 
-#: src/compose.php:199 src/compose.php:212
+#: src/compose.php:213 src/compose.php:226
 msgid "Send"
 msgstr ""
 
-#: src/compose.php:219
+#: src/compose.php:233
 msgid "Attach:"
 msgstr ""
 
-#: src/compose.php:225
+#: src/compose.php:239
 msgid "Add"
 msgstr ""
 
-#: src/compose.php:238
+#: src/compose.php:252
 msgid "Delete selected attachments"
 msgstr ""
 
-#: src/compose.php:258
+#: src/compose.php:272
 msgid "You have not entered a message body."
 msgstr ""
 
-#: src/compose.php:262
+#: src/compose.php:276
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: src/compose.php:265
+#: src/compose.php:279
 msgid "You have not entered a subject."
 msgstr ""
 
-#: src/compose.php:286
+#: src/compose.php:300
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-#: src/download.php:17
+#: src/download.php:23
 msgid "Viewing a plain text attachment"
 msgstr ""
 
-#: functions/mime.php:148 src/download.php:22
+#: functions/mime.php:160 src/download.php:28
 msgid "Download this as a file"
 msgstr ""
 
-#: functions/page_header.php:24 src/folders.php:17 src/left_main.php:84
+#: functions/page_header.php:47 src/folders.php:22 src/left_main.php:88
 msgid "Folders"
 msgstr ""
 
-#: src/folders.php:28
+#: src/folders.php:33
 msgid "Delete Folder"
 msgstr ""
 
-#: functions/mailbox_display.php:223 src/folders.php:51 src/read_body.php:99
+#: functions/mailbox_display.php:226 src/folders.php:56 src/read_body.php:105
 msgid "Delete"
 msgstr ""
 
-#: src/folders.php:57
+#: src/folders.php:62
 msgid "Create Folder"
 msgstr ""
 
-#: src/folders.php:63
+#: src/folders.php:68
 msgid "as a subfolder of"
 msgstr ""
 
-#: src/folders.php:86
+#: src/folders.php:95
 msgid "Let this folder contain subfolders"
 msgstr ""
 
-#: src/folders.php:94
+#: src/folders.php:103
 msgid "Rename a Folder"
 msgstr ""
 
-#: src/folders.php:116
+#: src/folders.php:125
 msgid "Rename"
 msgstr ""
 
-#: src/folders_create.php:16
+#: src/folders_create.php:21
 msgid ""
 "Illegal folder name.  Please select a different name.<BR><A "
 "HREF=\"../src/folders.php\">Click here to go back</A>."
 msgstr ""
 
-#: src/folders_create.php:37
+#: src/folders_create.php:42
 msgid "Folder Created!"
 msgstr ""
 
-#: src/folders_create.php:39
+#: src/folders_create.php:44
 msgid "The folder has been successfully created."
 msgstr ""
 
-#: src/folders_create.php:41 src/folders_delete.php:82
-#: src/options_submit.php:32
+#: src/folders_create.php:46 src/folders_delete.php:91
+#: src/options_submit.php:42
 msgid "Click here"
 msgstr ""
 
-#: src/folders_create.php:43 src/folders_delete.php:84
-#: src/options_submit.php:34
+#: src/folders_create.php:48 src/folders_delete.php:93
+#: src/options_submit.php:44
 msgid "to continue."
 msgstr ""
 
-#: src/folders_delete.php:78
+#: src/folders_delete.php:87
 msgid "Folder Deleted!"
 msgstr ""
 
-#: src/folders_delete.php:80
+#: src/folders_delete.php:89
 msgid "The folder has been successfully deleted."
 msgstr ""
 
-#: src/folders_rename_do.php:36
+#: src/folders_rename_do.php:40
 msgid "Return"
 msgstr ""
 
-#: src/folders_rename_getname.php:25
+#: src/folders_rename_getname.php:29
 msgid "Rename a folder"
 msgstr ""
 
-#: src/folders_rename_getname.php:29
+#: src/folders_rename_getname.php:33
 msgid "New name:"
 msgstr ""
 
-#: src/folders_rename_getname.php:33 src/options.php:257
+#: src/folders_rename_getname.php:37 src/options.php:299
 msgid "Submit"
 msgstr ""
 
-#: src/left_main.php:87
+#: src/left_main.php:63
+msgid "purge"
+msgstr ""
+
+#: src/left_main.php:91
 msgid "refresh folder list"
 msgstr ""
 
-#: src/load_prefs.php:15
+#: src/load_prefs.php:17
 msgid "Theme: "
 msgstr ""
 
-#: src/load_prefs.php:17
+#: src/load_prefs.php:19
 msgid " was not found."
 msgstr ""
 
-#: src/load_prefs.php:19
+#: src/load_prefs.php:21
 msgid "Exiting abnormally"
 msgstr ""
 
-#: src/login.php:29
+#: src/login.php:30
+msgid "SquirrelMail Login"
+msgstr ""
+
+#: src/login.php:43
 msgid "SquirrelMail version $version<BR>By the SquirrelMail Development Team"
 msgstr ""
 
-#: src/login.php:42
+#: src/login.php:56
 msgid "Name:"
 msgstr ""
 
-#: src/login.php:50
+#: src/login.php:64
 msgid "Password:"
 msgstr ""
 
-#: src/login.php:60
+#: src/login.php:74
 msgid "Login"
 msgstr ""
 
-#: src/move_messages.php:56 src/move_messages.php:82
+#: src/move_messages.php:64 src/move_messages.php:89
 msgid "No messages were selected."
 msgstr ""
 
-#: functions/page_header.php:25 src/options.php:26
+#: functions/page_header.php:48 src/options.php:36
 msgid "Options"
 msgstr ""
 
-#: src/options.php:37
-msgid "         Full Name:"
+#: src/options.php:47
+msgid "Full Name:"
 msgstr ""
 
-#: src/options.php:50
-msgid "         Reply-to:"
+#: src/options.php:60
+msgid "E-mail address:"
 msgstr ""
 
-#: src/options.php:63
-msgid "         Theme:"
+#: src/options.php:73
+msgid "Reply-to:"
 msgstr ""
 
-#: src/options.php:87
-msgid "         Move deleted messages to "
+#: src/options.php:86
+msgid "Theme:"
 msgstr ""
 
-#: src/options.php:111
-msgid "         Wrap incoming text at:"
+#: src/options.php:105
+msgid "Language:"
 msgstr ""
 
-#: src/options.php:128
-msgid "         Size of editor window (in characters):"
+#: src/options.php:129
+msgid "Move deleted messages to "
 msgstr ""
 
-#: src/options.php:145
-msgid "         Time between auto refresh of folder list:"
+#: src/options.php:153
+msgid "Wrap incoming text at:"
 msgstr ""
 
-#: src/options.php:243
+#: src/options.php:170
+msgid "Size of editor window (in characters):"
+msgstr ""
+
+#: src/options.php:187
+msgid "Time between auto refresh of folder list:"
+msgstr ""
+
+#: src/options.php:285
 msgid "Use a signature?"
 msgstr ""
 
-#: src/options_submit.php:28
+#: src/options_submit.php:38
 msgid "Options Saved!"
 msgstr ""
 
-#: src/options_submit.php:30
+#: src/options_submit.php:40
 msgid "Your options have been saved."
 msgstr ""
 
-#: src/read_body.php:33
+#: src/read_body.php:39
 msgid "more"
 msgstr ""
 
-#: src/read_body.php:34
+#: src/read_body.php:40
 msgid "less"
 msgstr ""
 
-#: src/read_body.php:96
+#: src/read_body.php:102
 msgid "Message List"
 msgstr ""
 
-#: src/read_body.php:105
+#: src/read_body.php:111
 msgid "Forward"
 msgstr ""
 
-#: src/read_body.php:108
+#: src/read_body.php:114
 msgid "Reply"
 msgstr ""
 
-#: src/read_body.php:111
+#: src/read_body.php:117
 msgid "Reply All"
 msgstr ""
 
-#: src/read_body.php:134
+#: src/read_body.php:140
 msgid "From:"
 msgstr ""
 
-#: src/read_body.php:144
+#: src/read_body.php:150
 msgid "Date:"
 msgstr ""
 
@@ -282,60 +298,60 @@ msgstr ""
 msgid "You need a valid user and password to access this page!"
 msgstr ""
 
-#: functions/page_header.php:15 src/signout.php:24
+#: functions/page_header.php:38 src/signout.php:34
 msgid "Sign Out"
 msgstr ""
 
-#: src/signout.php:31
+#: src/signout.php:41
 msgid "You have been successfully signed out."
 msgstr ""
 
-#: src/signout.php:34
+#: src/signout.php:44
 msgid "Click here to "
 msgstr ""
 
-#: src/signout.php:36
+#: src/signout.php:46
 msgid "log back in."
 msgstr ""
 
-#: functions/display_messages.php:17 functions/imap_general.php:108
+#: functions/display_messages.php:19 functions/imap_general.php:108
 msgid "Unknown user or password incorrect."
 msgstr ""
 
-#: functions/display_messages.php:17 functions/imap_general.php:109
+#: functions/display_messages.php:19 functions/imap_general.php:109
 msgid "Click here to try again"
 msgstr ""
 
-#: functions/display_messages.php:29
+#: functions/display_messages.php:31
 msgid "Welcome to $org_name's WebMail system"
 msgstr ""
 
-#: functions/display_messages.php:38
+#: functions/display_messages.php:40
 msgid "Running SquirrelMail version $version (c) 1999-2000."
 msgstr ""
 
-#: functions/display_messages.php:56
+#: functions/display_messages.php:58
 msgid "Messages Deleted"
 msgstr ""
 
-#: functions/display_messages.php:58
+#: functions/display_messages.php:60
 msgid "The selected messages were deleted successfully."
 msgstr ""
 
-#: functions/display_messages.php:61 functions/display_messages.php:78
-#: functions/display_messages.php:95
+#: functions/display_messages.php:63 functions/display_messages.php:80
+#: functions/display_messages.php:97
 msgid "Click here to return to "
 msgstr ""
 
-#: functions/display_messages.php:73
+#: functions/display_messages.php:75
 msgid "Messages Moved"
 msgstr ""
 
-#: functions/display_messages.php:75
+#: functions/display_messages.php:77
 msgid "The selected messages were moved successfully."
 msgstr ""
 
-#: functions/display_messages.php:90 functions/display_messages.php:106
+#: functions/display_messages.php:92 functions/display_messages.php:108
 #: functions/imap_general.php:99
 msgid "ERROR"
 msgstr ""
@@ -356,103 +372,104 @@ msgstr ""
 msgid "Server responded: "
 msgstr ""
 
-#: functions/mailbox.php:52
-msgid "Error in message header fetching.  Start message: "
+#: functions/imap_messages.php:53 functions/imap_messages.php:223
+#: functions/imap_messages.php:252
+msgid "(no subject)"
 msgstr ""
 
-#: functions/mailbox.php:52
-msgid "End message: "
+#: functions/imap_messages.php:255
+msgid "(unknown sender)"
 msgstr ""
 
-#: functions/mailbox_display.php:167
+#: functions/mailbox_display.php:170
 msgid "Viewing messages "
 msgstr ""
 
-#: functions/mailbox_display.php:167
+#: functions/mailbox_display.php:170
 msgid " to "
 msgstr ""
 
-#: functions/mailbox_display.php:171
+#: functions/mailbox_display.php:174
 msgid "Viewing message "
 msgstr ""
 
-#: functions/mailbox_display.php:171
+#: functions/mailbox_display.php:174
 msgid "total"
 msgstr ""
 
-#: functions/mailbox_display.php:177 functions/mailbox_display.php:181
-#: functions/mailbox_display.php:281 functions/mailbox_display.php:285
+#: functions/mailbox_display.php:180 functions/mailbox_display.php:184
+#: functions/mailbox_display.php:284 functions/mailbox_display.php:288
 msgid "Previous"
 msgstr ""
 
-#: functions/mailbox_display.php:178 functions/mailbox_display.php:186
-#: functions/mailbox_display.php:282 functions/mailbox_display.php:286
-#: functions/mailbox_display.php:290
+#: functions/mailbox_display.php:181 functions/mailbox_display.php:189
+#: functions/mailbox_display.php:285 functions/mailbox_display.php:289
+#: functions/mailbox_display.php:293
 msgid "Next"
 msgstr ""
 
-#: functions/mailbox_display.php:197
+#: functions/mailbox_display.php:200
 msgid "Move selected to:"
 msgstr ""
 
-#: functions/mailbox_display.php:219
+#: functions/mailbox_display.php:222
 msgid "Move"
 msgstr ""
 
-#: functions/mailbox_display.php:223
+#: functions/mailbox_display.php:226
 msgid "checked messages"
 msgstr ""
 
-#: functions/mailbox_display.php:235
+#: functions/mailbox_display.php:238
 msgid "From"
 msgstr ""
 
-#: functions/mailbox_display.php:243
+#: functions/mailbox_display.php:246
 msgid "Date"
 msgstr ""
 
-#: functions/mailbox_display.php:251
+#: functions/mailbox_display.php:254
 msgid "Subject"
 msgstr ""
 
-#: functions/mailbox_display.php:264
+#: functions/mailbox_display.php:267
 msgid "THIS FOLDER IS EMPTY"
 msgstr ""
 
-#: functions/page_header.php:17
+#: functions/page_header.php:40
 msgid "Current Folder: "
 msgstr ""
 
-#: functions/page_header.php:22
+#: functions/page_header.php:45
 msgid "Compose"
 msgstr ""
 
-#: functions/page_header.php:23
+#: functions/page_header.php:46
 msgid "Addresses"
 msgstr ""
 
-#: functions/prefs.php:12
+#: functions/prefs.php:14
 msgid "Preference file "
 msgstr ""
 
-#: functions/prefs.php:12
+#: functions/prefs.php:14
 msgid " not found.  Exiting abnormally"
 msgstr ""
 
-#: functions/prefs.php:35
+#: functions/prefs.php:37
 msgid "Preference file, "
 msgstr ""
 
-#: functions/prefs.php:35
+#: functions/prefs.php:37
 msgid ""
 ", does not exist.  Log out, and log back in to create a default preference "
 "file. "
 msgstr ""
 
-#: functions/prefs.php:77
+#: functions/prefs.php:80
 msgid "Error opening "
 msgstr ""
 
-#: functions/prefs.php:106
+#: functions/prefs.php:109
 msgid "Signature file not found."
 msgstr ""
