@@ -745,7 +745,7 @@ function set_up_language($sm_language, $do_search = false) {
         }
         setlocale(LC_ALL, $sm_notAlias);
         $squirrelmail_language = $sm_notAlias;
-        if ($squirrelmail_language == 'ja_JP') {
+        if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding') ) {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
                 echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --with-mbstring).");
