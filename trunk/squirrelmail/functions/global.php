@@ -157,9 +157,12 @@ function sqsession_destroy() {
      * merging of sessions.
      */
 
-    setcookie(session_name());
-    setcookie('username');
-    setcookie('key');
+    global $base_uri;
+    $cookie_params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 5, $cookie_params['path'],
+        $cookie_params['domain']);
+    setcookie('username','',time() - 5,$base_uri);
+    setcookie('key','',time() - 5,$base_uri);
 
     $sessid = session_id();
     if (!empty( $sessid )) {
