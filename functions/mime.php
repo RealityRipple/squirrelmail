@@ -380,143 +380,96 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
     $att_ar = $message->getAttachments($exclude_id);
 
     if (!count($att_ar)) return '';
-    
+
     $attachments = '';
-   
+
     $urlMailbox = urlencode($mailbox);
 
     foreach ($att_ar as $att) {
-                
         $ent = urldecode($att->entity_id);
-	$header = $att->header;
+        $header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
-	$name = '';
-	if ($type0 =='message' && $type1 == 'rfc822') {
-	    $rfc822_header = $att->rfc822_header;
-            $filename = decodeHeader($rfc822_header->subject);
-            $display_filename = $filename;
-            
-            $DefaultLink =
-                "../src/read_body.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
-            if ($where && $what) {
-                $DefaultLink .= '&amp;where=' . urlencode($where) . '&amp;what=' . urlencode($what);
-            }
-            $Links['download link']['text'] = _("download");
-            $Links['download link']['href'] =
+        $name = '';
+        $Links['download link']['text'] = _("download");
+        $Links['download link']['href'] =
                 "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
-            $ImageURL = '';
+        $ImageURL = '';
+        if ($type0 =='message' && $type1 == 'rfc822') {
+            $default_page = '../src/read_body.php';
+            $rfc822_header = $att->rfc822_header;
+            $filename = decodeHeader($rfc822_header->subject);
 
-            /* this executes the attachment hook with a specific MIME-type.
-                * if that doens't have results, it tries if there's a rule
-                * for a more generic type. */
-            $HookResults = do_hook("attachment $type0/$type1", $Links,
-                $startMessage, $id, $urlMailbox, $ent, $DefaultLink, $display_filename, $where, $what);
-            if(count($HookResults[1]) <= 1) {
-                $HookResults = do_hook("attachment $type0/*", $Links,
-                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-                $display_filename, $where, $what);
+            $from_o = $rfc822_header->from;
+            if (is_object($from_o)) {
+                $from_name = $from_o->getAddress(false);
+            } else {
+                $from_name = _("Unknown sender");
             }
-
-            $Links = $HookResults[1];
-            $DefaultLink = $HookResults[6];
-
-            $attachments .= '<TR><TD>' .
-                        "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
-                        '<TD><SMALL><b>' . show_readable_size($header->size) .
-                        '</b>&nbsp;&nbsp;</small></TD>' .
-                        "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
-                        '<TD><SMALL>';
-	    $from_o = $rfc822_header->from;
-	    if (is_object($from_o)) {
-		$from_name = $from_o->getAddress(false);
-	    } else {
-		$from_name = _("Unknown sender");
-	    }
-	    $from_name = decodeHeader(htmlspecialchars($from_name));
-            $attachments .= '<b>' . $from_name . '</b>';
-            $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
-
-            $SkipSpaces = 1;
-            foreach ($Links as $Val) {
-                if ($SkipSpaces) {
-                    $SkipSpaces = 0;
-                } else {
-                    $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-                }
-                $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
-            }
-            unset($Links);
-	    $attachments .= "</TD></TR>\n";
+            $from_name = decodeHeader(htmlspecialchars($from_name));
         } else {
+            $default_page = '../src/download.php';
             $filename = decodeHeader($header->getParameter('filename'));
             if (trim($filename) == '') {
-	        $name = decodeHeader($header->getParameter('name'));
+                $name = decodeHeader($header->getParameter('name'));
                 if (trim($name) == '') {
                     if ( trim( $header->id ) == '' )
-                        $display_filename = 'untitled-[' . $ent . ']' ;
+                        $filename = 'untitled-[' . $ent . ']' ;
                     else
-                        $display_filename = 'cid: ' . $header->id;
+                        $filename = 'cid: ' . $header->id;
                 } else {
-                    $display_filename = $name;
                     $filename = $name;
                 }
-            } else {
-                $display_filename = $filename;
             }
-
-            $DefaultLink =
-                "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
-            if ($where && $what) {
-	       $DefaultLink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
+            if ($message->header->description) {
+                $from_name = htmlspecialchars(_($header->description));
             }
-            $Links['download link']['text'] = _("download");
-            $Links['download link']['href'] =
-                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
-            $ImageURL = '';
+        }
 
-            /* this executes the attachment hook with a specific MIME-type.
-                * if that doens't have results, it tries if there's a rule
-                * for a more generic type. */
-            $HookResults = do_hook("attachment $type0/$type1", $Links,
-                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-                $display_filename, $where, $what);
-            if(count($HookResults[1]) <= 1) {
-                $HookResults = do_hook("attachment $type0/*", $Links,
-                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-                $display_filename, $where, $what);
-            }
+        $display_filename = $filename;
+        $DefaultLink = $default_page . "?startMessage=$startMessage"
+                     . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
+                     . "&amp;passed_ent_id=$ent";
+        if ($where && $what) {
+           $DefaultLink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
+        }
+        /* this executes the attachment hook with a specific MIME-type.
+            * if that doens't have results, it tries if there's a rule
+            * for a more generic type. */
+        $HookResults = do_hook("attachment $type0/$type1", $Links,
+            $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
+            $display_filename, $where, $what);
+        if(count($HookResults[1]) <= 1) {
+            $HookResults = do_hook("attachment $type0/*", $Links,
+                    $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
+                    $display_filename, $where, $what);
+        }
 
-            $Links = $HookResults[1];
-            $DefaultLink = $HookResults[6];
+        $Links = $HookResults[1];
+        $DefaultLink = $HookResults[6];
 
-            $attachments .= '<TR><TD>' .
+        $attachments .= '<TR><TD>' .
                         "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
-            if ($message->header->description) {
-                $attachments .= '<b>' . htmlspecialchars(_($header->description)) . '</b>';
-            }
-            $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
+        $attachments .= '<b>' . $from_name . '</b>';
+        $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
-            $SkipSpaces = 1;
-            foreach ($Links as $Val) {
-                if ($SkipSpaces) {
-                    $SkipSpaces = 0;
-                } else {
-                    $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-                }
-                $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+        $SkipSpaces = 1;
+        foreach ($Links as $Val) {
+            if ($SkipSpaces) {
+                $SkipSpaces = 0;
+            } else {
+                $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
             }
-            $attachments .= "</TD></TR>\n";
-            unset($Links);
-	}         
-   
-     }
-   
-   return $attachments;
+            $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+        }
+        unset($Links);
+        $attachments .= "</TD></TR>\n";
+    }
+    return $attachments;
 }
 
 /** this function decodes the body depending on the encoding type. **/
