@@ -225,8 +225,9 @@
        
    global $collapse_folders, $show_html_default;
    $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
-   
-   $show_html_default = getPref($data_dir, $username, 'show_html_default');
+  
+   // show_html_default is a int value 
+   $show_html_default = intval(getPref($data_dir, $username, 'show_html_default'));
 
    do_hook("loading_prefs");
 
