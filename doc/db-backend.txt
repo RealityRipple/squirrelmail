@@ -1,0 +1,84 @@
+$Id$
+
+
+Storing private addressbooks and preferences in a database
+==========================================================
+
+
+On sites with many users you might want to store your user data in a
+database instead of in files. This document describe how to configure
+SquirrelMail to do this.
+
+Methods for storing both personal addressbooks and user preferences in
+a database is as a part of the distribution.
+
+
+
+Configuring PEAR DB
+-------------------
+
+To work you must install the PEAR classes that is a part of PHP. Make
+sure the directory where the PEAR files are located is a part of your
+include path. See the PHP documentation for info on how to do that.
+
+
+
+Configuring addressbooks in database
+------------------------------------
+
+First you need to create a database and a table to store the data in.
+Create a database user with access to read and write in that table.
+
+For MySQL you would normally do something like:
+
+ (from the command line)
+ # mysqladmin create squirrelmail
+
+ (from the mysql client)
+ mysql> GRANT select,insert,update,delete ON squirrelmail.* 
+              TO squrreluser@localhost IDENTIFIED BY 'sqpassword';
+
+The table structure should be similar to this (for MySQL):
+
+   CREATE TABLE address (
+     owner varchar(16) DEFAULT '' NOT NULL,
+     nickname varchar(16) DEFAULT '' NOT NULL,
+     firstname varchar(128) DEFAULT '' NOT NULL,
+     lastname varchar(128) DEFAULT '' NOT NULL,
+     email varchar(128) DEFAULT '' NOT NULL,
+     label varchar(255),
+     PRIMARY KEY (owner,nickname),
+     KEY firstname (firstname,lastname)
+   );
+
+
+Next, edit config/config.php and add a DSN (Data Source Name) for the
+database. It should look something like:
+
+ $addrbook_dsn = 'mysql://squirreluser:sqpassword@localhost/squirrelmail';
+
+From now on all users' personal addressbooks will be stored in a
+database.
+
+
+
+Configuring preferences in database
+-----------------------------------
+
+There is no easy way to do this yet. You will have to remove
+functions/prefs.php and replace it with functions/db_prefs.php. Then
+edit the new functions/prefs.php (db_prefs.php) and change the $DSN to
+point to a database you create (can be the same you use for
+addressbooks).  Create a table similar to this (for MySQL):
+
+  CREATE TABLE userprefs (
+    user varchar(32) DEFAULT '' NOT NULL,
+    prefkey varchar(64) DEFAULT '' NOT NULL,
+    prefval blob DEFAULT '' NOT NULL,
+    PRIMARY KEY (user,prefkey)
+  );
+
+
+Default preferences can be set by altering the $default array in
+prefs.php (db_prefs.php).
+

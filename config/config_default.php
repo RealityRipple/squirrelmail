@@ -285,6 +285,14 @@ global $ldap_server;
 //			"name" => "Netcenter Member Directory",
 //			"base" => "ou=member_directory,o=netcenter.com");
 
+//  Database-driven private addressbooks
+//
+//    DSN (Data Source Name) for a database where the private
+//    addressbooks are stored.  See doc/db-backend.txt for more info.
+//    If it is not defined, the addressbooks are stored in files
+//    in the data dir.
+//
+//	$addrbook_dsn = 'mysql://user:pass@hostname/dbname';
 
 
  // you have an option to chose between javascript or html version of
