@@ -41,7 +41,7 @@
    echo $org_name . " - " . _("Login");
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
-   echo "<FORM ACTION=\"webmail.php\" METHOD=\"POST\" NAME=f>\n";
+   echo "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
    
    $username_form_name = 'username';
    $password_form_name = 'secretkey';

@@ -12,16 +12,7 @@
     **
     **/
 
-   // Before starting the session, the base URI must be known.
-   // Assuming that this file is in the src/ subdirectory (or
-   // something).
-   ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-   $base_uri = $regs[1];
-
-   session_set_cookie_params (0, $base_uri);
    session_start();
-
-   session_register ("base_uri");
 
    if (!isset($i18n_php))
       include ("../functions/i18n.php");
@@ -30,11 +21,6 @@
       set_up_language($squirrelmail_language);
       echo _("You need a valid user and password to access this page!");
       exit;
-   }
-
-   // Refresh the language cookie.
-   if (isset($squirrelmail_language)) {
-      setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
    }
 
    include ("../config/config.php");
@@ -49,26 +35,6 @@
 
    if ($force_username_lowercase)
       $username = strtolower($username);
-
-   if (!session_is_registered("user_is_logged_in") || $logged_in != 1) {
-      do_hook ("login_before");
-
-      $onetimepad = OneTimePadCreate(strlen($secretkey));
-      $key = OneTimePadEncrypt(quotemeta($secretkey), $onetimepad);
-      session_register("onetimepad");
-      // verify that username and password are correct
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      sqimap_logout($imapConnection);
-
-      setcookie("username", $username, 0, $base_uri);
-      setcookie("key", $key, 0, $base_uri);
-      setcookie("logged_in", 1, 0, $base_uri);
-   
-      do_hook ("login_verified");
-   }
-
-   session_register ("user_is_logged_in");
-   $user_is_logged_in = true;
 
    include ("../src/load_prefs.php");
 
