@@ -12,12 +12,14 @@
       return; 
    define ('auth_php', true);
    
-   include '../functions/i18n.php';
-
    function is_logged_in () {
+      global $squirrelmail_language;
+      
       if (session_is_registered('user_is_logged_in'))
          return;
-	 
+
+      set_up_language($squirrelmail_language, true);
+      
       echo "<html><body bgcolor=\"ffffff\">\n";
       echo "<br><br>";
       echo "<center>";

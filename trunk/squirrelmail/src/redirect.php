@@ -14,7 +14,7 @@
     **/
 
    include('../functions/i18n.php');
-   include ('../functions/strings.php');
+   include('../functions/strings.php');
    include('../config/config.php');
 
    // Before starting the session, the base URI must be known.
@@ -32,10 +32,11 @@
    session_unregister ('user_is_logged_in');
    session_register ('base_uri');
 
+   if (! isset($squirrelmail_language)) 
+      $squirrelmail_language = '';
+   set_up_language($squirrelmail_language, true);
+   
    if(!isset($login_username)) {
-      if (! isset($squirrelmail_language)) 
-         $squirrelmail_language = '';
-      set_up_language($squirrelmail_language, true);
       echo "<html><body bgcolor=\"ffffff\">\n";
       echo "<br><br>";
       echo "<center>";
@@ -56,7 +57,7 @@
    include ('../functions/imap.php');
    include ('../functions/plugin.php');
 
-   if (!session_is_registered('user_is_logged_in') || $logged_in != 1) {
+   if (!session_is_registered('user_is_logged_in')) {
       do_hook ('login_before');
 
       $onetimepad = OneTimePadCreate(strlen($secretkey));
@@ -80,7 +81,6 @@
 
       setcookie('username', $login_username, 0, $base_uri);
       setcookie('key', $key, 0, $base_uri);
-      setcookie('logged_in', 1, 0, $base_uri);
       do_hook ('login_verified');
    }
 

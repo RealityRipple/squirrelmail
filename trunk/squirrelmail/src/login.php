@@ -34,7 +34,6 @@
 
    setcookie("username", '', 0, $base_uri);
    setcookie("key", '', 0, $base_uri);
-   setcookie("logged_in", 0, 0, $base_uri);
    header ("Pragma: no-cache");
 
    // In case the last session was not terminated properly, make sure

@@ -11,20 +11,7 @@
        return;
    define('page_header_php', true);
 
-   include('../src/validate.php');
-   include("../functions/prefs.php");
-   include("../functions/plugin.php");
-
-   // Check to see if gettext is installed
-   $headers_sent=set_up_language(getPref($data_dir, $username, "language"));
-
-   // This is done to ensure that the character set is correct.
-   // But first checks whether we have already sent headers
-   // with charset when we were setting up the user language.
-   // Otherwise user ends up with the default charset overriding
-   // his selected one.
-   if (!$headers_sent && $default_charset != "")
-      header ("Content-Type: text/html; charset=$default_charset");
+   // Always set up the language before calling these functions
 
    function displayHtmlHeader ($title="SquirrelMail") {
      global $theme_css;
