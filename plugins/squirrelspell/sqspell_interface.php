@@ -42,6 +42,12 @@ require_once(SM_PATH . $SQSPELL_DIR . 'sqspell_functions.php');
  * If $MOD is undefined, use "init", else check for security
  * breaches.
  */
+if(isset($_POST['MOD'])) {
+    $MOD = $_POST['MOD'];
+} elseif (isset($_GET['MOD'])) {
+    $MOD = $_GET['MOD'];
+} 
+
 if (!isset($MOD) || !$MOD){
     $MOD='init';
 } else {
