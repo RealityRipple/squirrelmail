@@ -13,7 +13,7 @@ function adm_check_user() {
     GLOBAL $username, $PHP_SELF;
 
     if ( substr( $PHP_SELF, -11 ) <> 'options.php' ) {
-    $auth = FALSE;
+        $auth = FALSE;
     } else if ( file_exists( '../plugins/administrator/admins' ) ) {
         $auths = file( '../plugins/administrator/admins' );
         $auth = in_array( "$username\n", $auths );
