@@ -113,10 +113,10 @@ $loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
 
 /* Display width and height like good little people */
 $width_and_height = '';
-if (isset($org_logo_width) && is_int($org_logo_width) && $org_logo_width>0) {
+if (isset($org_logo_width) && is_numeric($org_logo_width) && $org_logo_width>0) {
     $width_and_height = " width=\"$org_logo_width\"";
 }
-if (isset($org_logo_height) && is_int($org_logo_height) && $org_logo_height>0) {
+if (isset($org_logo_height) && is_numeric($org_logo_height) && $org_logo_height>0) {
     $width_and_height .= " height=\"$org_logo_height\"";
 }
 
