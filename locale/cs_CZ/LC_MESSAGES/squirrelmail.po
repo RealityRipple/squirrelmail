@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-03-17 12:28+0100\n"
+"POT-Creation-Date: 2003-01-01 18:33+0100\n"
 "PO-Revision-Date: 2001-05-09 18:45:00+0200\n"
 "Last-Translator: Ondøej Surý <ondrej@sury.cz>\n"
 "Language-Team: Czech <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -13,1749 +13,206 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: squirrelmail/src/addrbook_popup.php:22
-msgid "Address Book"
-msgstr "Adresáø"
-
-#: squirrelmail/src/addrbook_search.php:98
-#: squirrelmail/src/addrbook_search_html.php:67
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
-msgid "Name"
-msgstr "Jméno"
-
-#: squirrelmail/src/addrbook_search.php:99
-#: squirrelmail/src/addrbook_search_html.php:68
-#: squirrelmail/src/addressbook.php:286
-msgid "E-mail"
-msgstr "E-mail"
-
-#: squirrelmail/src/addrbook_search.php:100
-#: squirrelmail/src/addrbook_search_html.php:69
-#: squirrelmail/src/addressbook.php:287
-msgid "Info"
-msgstr "Informace"
-
-#: squirrelmail/src/addrbook_search.php:103
-#: squirrelmail/src/addrbook_search_html.php:72
-msgid "Source"
-msgstr "Zdroj"
-
-#: squirrelmail/functions/mailbox_display.php:571
-#: squirrelmail/plugins/filters/options.php:88
-#: squirrelmail/src/addrbook_search_html.php:82
-#: squirrelmail/src/compose.php:396 squirrelmail/src/download.php:311
-#: squirrelmail/src/download.php:318
-#: squirrelmail/src/options_highlight.php:325
-#: squirrelmail/src/printer_friendly_bottom.php:96
-#: squirrelmail/src/search.php:344
-msgid "To"
-msgstr "Komu"
-
-#: squirrelmail/plugins/filters/options.php:91
-#: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/options_highlight.php:328 squirrelmail/src/search.php:343
-msgid "Cc"
-msgstr "Kopie"
-
-#: squirrelmail/src/addrbook_search_html.php:86
-msgid "Bcc"
-msgstr "Neviditelná kopie"
-
-#: squirrelmail/src/addrbook_search_html.php:99
-msgid "Use Addresses"
-msgstr "Pou¾ít adresáø"
-
-#: squirrelmail/src/addrbook_search_html.php:122
-msgid "Address Book Search"
-msgstr "Hledat v adresáøi"
-
-#: squirrelmail/src/addrbook_search.php:174
-#: squirrelmail/src/addrbook_search_html.php:131
-msgid "Search for"
-msgstr "Odeslat"
-
-#: squirrelmail/src/addrbook_search.php:180
-#: squirrelmail/src/addrbook_search_html.php:141
-msgid "in"
-msgstr "v"
-
-#: squirrelmail/src/addrbook_search.php:181
-#: squirrelmail/src/addrbook_search_html.php:144
-msgid "All address books"
-msgstr "V¹echny adresáøe"
-
-#: squirrelmail/functions/page_header.php:148
-#: squirrelmail/src/addrbook_search.php:192
-#: squirrelmail/src/addrbook_search_html.php:155
-#: squirrelmail/src/search.php:178 squirrelmail/src/search.php:189
-#: squirrelmail/src/search.php:207 squirrelmail/src/search.php:348
-#: squirrelmail/src/search.php:373 squirrelmail/src/search.php:394
-#: squirrelmail/src/search.php:404
-msgid "Search"
-msgstr "Hledat"
-
-#: squirrelmail/src/addrbook_search.php:193
-#: squirrelmail/src/addrbook_search_html.php:156
-msgid "List all"
-msgstr "Zobrazit v¹e"
-
-#: squirrelmail/src/addrbook_search.php:214
-#: squirrelmail/src/addrbook_search_html.php:186
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "Nelze zobrazit adresy z %s"
-
-#: squirrelmail/src/addrbook_search.php:240
-#: squirrelmail/src/addrbook_search_html.php:211
-msgid "Your search failed with the following error(s)"
-msgstr "Va¹e hledání probìhlo neúspì¹nì díky tìmto chybám"
-
-#: squirrelmail/src/addrbook_search.php:160
-#: squirrelmail/src/addrbook_search.php:247
-#: squirrelmail/src/addrbook_search_html.php:216
-msgid "No persons matching your search was found"
-msgstr "Nebyla nalezena po¾adovaná osoba"
-
-#: squirrelmail/src/addrbook_search_html.php:229
-msgid "Return"
-msgstr "Zpìt"
-
-#: squirrelmail/plugins/newmail/testsound.php:33
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:119
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:427
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
-#: squirrelmail/src/addrbook_search.php:195 squirrelmail/src/compose.php:554
-msgid "Close"
-msgstr "Zavøít"
-
-#: squirrelmail/src/addressbook.php:39 squirrelmail/src/addressbook.php:285
-msgid "Nickname"
-msgstr "Pøezdívka"
-
-#: squirrelmail/src/addressbook.php:40
-msgid "Must be unique"
-msgstr "Musí být jedineèná"
-
-#: squirrelmail/src/addressbook.php:41
-msgid "E-mail address"
-msgstr "E-mailová adresa"
-
-#: squirrelmail/src/addressbook.php:42
-msgid "First name"
-msgstr "Jméno"
-
-#: squirrelmail/src/addressbook.php:43
-msgid "Last name"
-msgstr "Pøíjmení"
-
-#: squirrelmail/src/addressbook.php:44
-msgid "Additional info"
-msgstr "Dal¹í informace"
-
-#: squirrelmail/src/addressbook.php:58
-msgid "No personal address book is defined. Contact administrator."
-msgstr "Není definován ¾ádný osobní adresáø. Kontaktujte správce"
-
-#: squirrelmail/src/addressbook.php:154
-msgid "You can only edit one address at the time"
-msgstr "Nelze upravovat více adres najednou"
-
-#: squirrelmail/src/addressbook.php:168 squirrelmail/src/addressbook.php:170
-#: squirrelmail/src/addressbook.php:200 squirrelmail/src/addressbook.php:202
-msgid "Update address"
-msgstr "Aktualizovat adresu"
-
-#: squirrelmail/functions/display_messages.php:25
-#: squirrelmail/functions/display_messages.php:77
-#: squirrelmail/functions/display_messages.php:93
-#: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
-msgid "ERROR"
-msgstr "Chyba"
-
-#: squirrelmail/src/addressbook.php:214
-msgid "Unknown error"
-msgstr "Neznámá chyba"
-
-#: squirrelmail/src/addressbook.php:258 squirrelmail/src/addressbook.php:344
-msgid "Add address"
-msgstr "Pøidat adresu"
-
-#: squirrelmail/src/addressbook.php:270 squirrelmail/src/addressbook.php:326
-msgid "Edit selected"
-msgstr "Upravit vybrané polo¾ky"
-
-#: squirrelmail/src/addressbook.php:272 squirrelmail/src/addressbook.php:328
-msgid "Delete selected"
-msgstr "Odstranit vybrané polo¾ky"
-
-#: squirrelmail/src/addressbook.php:341
-#, c-format
-msgid "Add to %s"
-msgstr "Pøidat polo¾ku"
-
-#: squirrelmail/src/compose.php:59
-msgid "Draft Email Saved"
-msgstr "Email ulo¾en do Konceptù"
-
-#: squirrelmail/src/compose.php:163 squirrelmail/src/compose.php:207
-#: squirrelmail/src/compose.php:217
-msgid "Could not move/copy file. File not attached"
-msgstr "Nelze pøesunout/zkopírovat soubor. Soubor není pøilo¾en"
-
-#: squirrelmail/src/compose.php:391
-msgid "Original Message"
-msgstr "Pùvodní zpráva"
-
-#: squirrelmail/functions/mailbox_display.php:587
-#: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:392 squirrelmail/src/download.php:309
-#: squirrelmail/src/download.php:314
-#: squirrelmail/src/options_highlight.php:334
-#: squirrelmail/src/options_order.php:40
-#: squirrelmail/src/printer_friendly_bottom.php:101
-#: squirrelmail/src/search.php:341
-msgid "Subject"
-msgstr "Pøedmìt"
-
-#: squirrelmail/functions/mailbox_display.php:573
-#: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:393 squirrelmail/src/download.php:98
-#: squirrelmail/src/download.php:310 squirrelmail/src/download.php:316
-#: squirrelmail/src/options_highlight.php:322
-#: squirrelmail/src/options_order.php:38
-#: squirrelmail/src/printer_friendly_bottom.php:95
-#: squirrelmail/src/search.php:342
-msgid "From"
-msgstr "Od"
-
-#: squirrelmail/functions/mailbox_display.php:581
-#: squirrelmail/src/compose.php:394 squirrelmail/src/download.php:312
-#: squirrelmail/src/download.php:320 squirrelmail/src/options_order.php:39
-#: squirrelmail/src/printer_friendly_bottom.php:100
-msgid "Date"
-msgstr "Datum"
-
-#: squirrelmail/src/compose.php:547
-msgid "Draft Saved"
-msgstr "Email ulo¾en do Konceptù"
-
-#: squirrelmail/src/compose.php:550
-msgid "Your Message has been sent"
-msgstr "Zpráva byla odeslána"
-
-#: squirrelmail/plugins/listcommands/mailout.php:50
-#: squirrelmail/src/compose.php:565 squirrelmail/src/read_body.php:686
-msgid "From:"
-msgstr "Od:"
-
-#: squirrelmail/src/compose.php:593 squirrelmail/src/download.php:110
-#: squirrelmail/src/read_body.php:167 squirrelmail/src/read_body.php:703
-msgid "To:"
-msgstr "Komu:"
-
-#: squirrelmail/src/compose.php:601
-msgid "CC:"
-msgstr "Kopie"
-
-#: squirrelmail/src/compose.php:609
-msgid "BCC:"
-msgstr "Skrytá kopie"
-
-#: squirrelmail/src/compose.php:616 squirrelmail/src/download.php:103
-#: squirrelmail/src/read_body.php:168 squirrelmail/src/read_body.php:657
-msgid "Subject:"
-msgstr "Pøedmìt:"
-
-#: squirrelmail/src/compose.php:671 squirrelmail/src/compose.php:757
-msgid "Send"
-msgstr "Odeslat"
-
-#: squirrelmail/src/compose.php:677
-msgid "Attach:"
-msgstr "Pøilo¾it soubor"
-
-#: squirrelmail/src/compose.php:682 squirrelmail/src/options_order.php:126
-msgid "Add"
-msgstr "Pøilo¾it"
-
-#: squirrelmail/src/compose.php:701
-msgid "Delete selected attachments"
-msgstr "Odstranit vybrané pøilo¾ené soubory"
-
-#: squirrelmail/src/compose.php:728 squirrelmail/src/read_body.php:732
-msgid "Priority"
-msgstr "Priorita"
-
-#: squirrelmail/plugins/administrator/defines.php:201
-#: squirrelmail/plugins/calendar/functions.php:98
-#: squirrelmail/src/compose.php:729 squirrelmail/src/read_body.php:528
-msgid "High"
-msgstr "Vysoká"
-
-#: squirrelmail/plugins/calendar/functions.php:97
-#: squirrelmail/src/compose.php:730 squirrelmail/src/read_body.php:541
-msgid "Normal"
-msgstr "Normální"
-
-#: squirrelmail/plugins/administrator/defines.php:198
-#: squirrelmail/src/compose.php:731 squirrelmail/src/read_body.php:534
-msgid "Low"
-msgstr "Nízká"
-
-#: squirrelmail/src/compose.php:737
-msgid "Receipt"
-msgstr "Doruèenka"
-
-#: squirrelmail/src/compose.php:738
-msgid "On read"
-msgstr "Pøi pøeètení"
-
-#: squirrelmail/src/compose.php:739
-msgid "On Delivery"
-msgstr "Pøi doruèení"
-
-#: squirrelmail/src/compose.php:744
-#: squirrelmail/src/options_identities.php:329
-#: squirrelmail/src/options_personal.php:99
-msgid "Signature"
-msgstr "Podpis"
-
-#: squirrelmail/functions/page_header.php:142 squirrelmail/src/compose.php:747
-#: squirrelmail/src/compose.php:751 squirrelmail/src/compose.php:755
-msgid "Addresses"
-msgstr "Adresáø"
-
-#: squirrelmail/src/compose.php:760
-msgid "Save Draft"
-msgstr "Ulo¾it Koncept"
-
-#: squirrelmail/src/compose.php:779
-msgid "You have not filled in the \"To:\" field."
-msgstr "Nezadali jste adresáta"
-
-# squirrelmail/src/compose.php:572?
-#: squirrelmail/src/compose.php:868
-msgid "said"
-msgstr "napsal(a)"
-
-#: squirrelmail/src/compose.php:871
-msgid "quote"
-msgstr "citováno"
-
-#: squirrelmail/src/compose.php:871
-msgid "who"
-msgstr "kdo"
-
-#: squirrelmail/src/download.php:31
-msgid "Viewing a text attachment"
-msgstr "Náhled pøilo¾eného souboru"
-
-#: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
-#: squirrelmail/src/download.php:72 squirrelmail/src/image.php:31
-#: squirrelmail/src/image.php:35 squirrelmail/src/read_body.php:362
-#: squirrelmail/src/vcard.php:35 squirrelmail/src/vcard.php:39
-msgid "View message"
-msgstr "Zobrazit zprávu"
-
-#: squirrelmail/functions/mime.php:646 squirrelmail/src/download.php:41
-#: squirrelmail/src/download.php:77 squirrelmail/src/image.php:44
-#: squirrelmail/src/vcard.php:196
-msgid "Download this as a file"
-msgstr "Ulo¾it jako soubor"
-
-#: squirrelmail/src/download.php:70
-msgid "Viewing a message attachment"
-msgstr "Náhled pøilo¾eného souboru"
-
-#: squirrelmail/plugins/calendar/event_create.php:112
-#: squirrelmail/plugins/calendar/event_delete.php:32
-#: squirrelmail/plugins/calendar/event_edit.php:35
-#: squirrelmail/plugins/calendar/event_edit.php:93
-#: squirrelmail/plugins/calendar/event_edit.php:106
-#: squirrelmail/src/download.php:116 squirrelmail/src/read_body.php:694
-msgid "Date:"
-msgstr "Datum:"
-
-#: squirrelmail/src/download.php:124
-msgid "Cc:"
-msgstr "Kopie:"
-
-#: squirrelmail/src/download.php:132
-msgid "Bcc:"
-msgstr "Neviditelná kopie:"
-
-#: squirrelmail/src/download.php:149 squirrelmail/src/read_body.php:492
-msgid "more"
-msgstr "více"
-
-#: squirrelmail/src/download.php:150 squirrelmail/src/read_body.php:493
-msgid "less"
-msgstr "ménì"
-
-#: squirrelmail/src/folders_create.php:29
-msgid "Illegal folder name.  Please select a different name."
-msgstr "Neplatný název slo¾ky. Vyberte prosím jiný název."
-
-#: squirrelmail/src/folders_create.php:29
-#: squirrelmail/src/folders_delete.php:29
-#: squirrelmail/src/folders_rename_getname.php:23
-msgid "Click here to go back"
-msgstr "Kliknìte zde pro návrat zpìt"
-
-#: squirrelmail/src/folders_delete.php:29
-msgid "You have not selected a folder to delete. Please do so."
-msgstr "Neoznaèil jste slo¾ku ke smazání."
-
-#: squirrelmail/functions/page_header.php:144 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:238
-msgid "Folders"
-msgstr "Slo¾ky"
-
-#: squirrelmail/src/folders.php:42
-msgid "Subscribed successfully!"
-msgstr "Pøihlá¹ení probìhlo úspì¹nì"
-
-#: squirrelmail/src/folders.php:44
-msgid "Unsubscribed successfully!"
-msgstr "Pøihlá¹ení probìhlo neúspì¹nì"
-
-#: squirrelmail/src/folders.php:46
-msgid "Deleted folder successfully!"
-msgstr "Slo¾ka byla úspì¹nì smazána"
-
-#: squirrelmail/src/folders.php:48
-msgid "Created folder successfully!"
-msgstr "Slo¾ka byla úspì¹nì vytvoøena"
-
-#: squirrelmail/src/folders.php:50
-msgid "Renamed successfully!"
-msgstr "Úspì¹nì pøejmenováno"
-
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
-msgid "refresh folder list"
-msgstr "aktualizovat seznam slo¾ek"
-
-#: squirrelmail/src/folders.php:65
-msgid "Create Folder"
-msgstr "Vytvoøit slo¾ku"
-
-#: squirrelmail/src/folders.php:70
-msgid "as a subfolder of"
-msgstr "jako podslo¾ku"
-
-#: squirrelmail/src/folders.php:74 squirrelmail/src/folders.php:76
-msgid "None"
-msgstr "Nic"
-
-#: squirrelmail/src/folders.php:98
-msgid "Let this folder contain subfolders"
-msgstr "Slo¾ka mù¾e obsahovat podslo¾ku"
-
-#: squirrelmail/src/folders.php:101
-msgid "Create"
-msgstr "Vytvoøit"
-
-#: squirrelmail/src/folders.php:136
-msgid "Rename a Folder"
-msgstr "Pøejmenovat slo¾ku"
-
-#: squirrelmail/src/folders.php:142 squirrelmail/src/folders.php:179
-msgid "Select a folder"
-msgstr "Vybrat slo¾ku"
-
-#: squirrelmail/src/folders.php:160
-msgid "Rename"
-msgstr "Pøejmenovat"
-
-#: squirrelmail/src/folders.php:164 squirrelmail/src/folders.php:200
-msgid "No folders found"
-msgstr "Nebyla nalezena ¾ádná slo¾ka"
-
-#: squirrelmail/src/folders.php:172
-msgid "Delete Folder"
-msgstr "Odstranit slo¾ku"
-
-#: squirrelmail/functions/mailbox_display.php:544
-#: squirrelmail/plugins/filters/options.php:154
-#: squirrelmail/plugins/mail_fetch/options.php:163
-#: squirrelmail/plugins/mail_fetch/options.php:170
-#: squirrelmail/src/folders.php:196 squirrelmail/src/options_highlight.php:76
-#: squirrelmail/src/options_identities.php:341
-#: squirrelmail/src/read_body.php:577
-msgid "Delete"
-msgstr "Odstranit"
-
-#: squirrelmail/plugins/listcommands/setup.php:34
-#: squirrelmail/src/folders.php:207 squirrelmail/src/folders.php:226
-msgid "Unsubscribe"
-msgstr "Odhlásit"
-
-#: squirrelmail/plugins/listcommands/setup.php:33
-#: squirrelmail/src/folders.php:207 squirrelmail/src/folders.php:267
-msgid "Subscribe"
-msgstr "Pøihlásit"
-
-#: squirrelmail/src/folders.php:230
-msgid "No folders were found to unsubscribe from!"
-msgstr "Nebyly nalezeny ¾ádné slo¾ky, ze kterých se lze odhlásit!"
-
-#: squirrelmail/src/folders.php:270
-msgid "No folders were found to subscribe to!"
-msgstr "Nebyly nalezeny ¾ádné slo¾ky k pøihlá¹ení"
-
-#: squirrelmail/src/folders_rename_getname.php:23
-msgid "You have not selected a folder to rename. Please do so."
-msgstr "Neoznaèil jste slo¾ku k pøejmenování."
-
-#: squirrelmail/src/folders_rename_getname.php:48
-msgid "Rename a folder"
-msgstr "Pøejmenovat slo¾ku"
-
-#: squirrelmail/src/folders_rename_getname.php:52
-msgid "New name:"
-msgstr "Nový název:"
-
-#: squirrelmail/functions/options.php:414
-#: squirrelmail/plugins/filters/options.php:138
-#: squirrelmail/plugins/newmail/newmail_opt.php:146
-#: squirrelmail/plugins/translate/options.php:160
-#: squirrelmail/src/folders_rename_getname.php:59
-#: squirrelmail/src/options_highlight.php:347
-msgid "Submit"
-msgstr "Odeslat"
-
-#: squirrelmail/functions/page_header.php:150
-#: squirrelmail/plugins/listcommands/setup.php:37 squirrelmail/src/help.php:91
-msgid "Help"
-msgstr "Nápovìda"
-
-#: squirrelmail/src/help.php:131
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr "Nápovìda není pøelo¾ena do %s. Bude zobrazena v angliètinì."
-
-#: squirrelmail/src/help.php:137
-msgid "Some or all of the help documents are not present!"
-msgstr "Nìkteré texty nápovìdy nejsou dostupné!"
-
-#: squirrelmail/src/help.php:169 squirrelmail/src/help.php:191
-msgid "Table of Contents"
-msgstr "Obsah"
-
-#: squirrelmail/functions/mailbox_display.php:748
-#: squirrelmail/functions/mailbox_display.php:751
-#: squirrelmail/functions/mailbox_display.php:754
-#: squirrelmail/plugins/delete_move_next/setup.php:148
-#: squirrelmail/plugins/delete_move_next/setup.php:150
-#: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
-#: squirrelmail/src/read_body.php:603 squirrelmail/src/read_body.php:605
-msgid "Previous"
-msgstr "Pøedchozí"
-
-#: squirrelmail/functions/mailbox_display.php:749
-#: squirrelmail/functions/mailbox_display.php:752
-#: squirrelmail/functions/mailbox_display.php:755
-#: squirrelmail/plugins/delete_move_next/setup.php:153
-#: squirrelmail/plugins/delete_move_next/setup.php:155
-#: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
-#: squirrelmail/src/read_body.php:609 squirrelmail/src/read_body.php:611
-msgid "Next"
-msgstr "Dal¹í"
-
-#: squirrelmail/src/help.php:219
-msgid "Top"
-msgstr "Nahoru"
-
-#: squirrelmail/src/image.php:26
-msgid "Viewing an image attachment"
-msgstr "Náhled pøilo¾eného obrázku"
-
-#: squirrelmail/functions/imap_search.php:199
-#: squirrelmail/functions/mailbox_display.php:529
-#: squirrelmail/functions/page_header.php:115
-#: squirrelmail/plugins/delete_move_next/setup.php:200
-#: squirrelmail/plugins/mail_fetch/options.php:137
-#: squirrelmail/plugins/mail_fetch/options.php:214
-#: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:310
-msgid "INBOX"
-msgstr "Doruèená po¹ta"
-
-#: squirrelmail/src/left_main.php:97
-msgid "empty"
-msgstr "vyprázdnit"
-
-#: squirrelmail/src/left_main.php:271
-msgid "Last Refresh"
-msgstr "Poslední zobrazení"
-
-#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:151
-msgid "Login"
-msgstr "Pøihlásit"
-
-#: squirrelmail/src/login.php:119
-#, c-format
-msgid "%s Logo"
-msgstr "%s Logo"
-
-#: squirrelmail/src/login.php:122
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail verze %s"
-
-#: squirrelmail/src/login.php:123
-msgid "By the SquirrelMail Development Team"
-msgstr "Vytvoøeno týmem SquirrelMail"
-
-#: squirrelmail/src/login.php:129
-#, c-format
-msgid "%s Login"
-msgstr "%s Pøihlásit"
-
-#: squirrelmail/src/login.php:133
-msgid "Name:"
-msgstr "Jméno:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:126
-#: squirrelmail/plugins/mail_fetch/options.php:202
-#: squirrelmail/src/login.php:139
-msgid "Password:"
-msgstr "Heslo:"
-
-#: squirrelmail/src/move_messages.php:94
-msgid "<No subject>"
-msgstr "<¾ádný pøedmìt>"
-
-#: squirrelmail/src/move_messages.php:162
-#: squirrelmail/src/move_messages.php:206
-#: squirrelmail/src/move_messages.php:235
-msgid "No messages were selected."
-msgstr "Nebyly vybrány ¾ádné zprávy"
-
-#: squirrelmail/src/options_display.php:32
-msgid "General Display Options"
-msgstr "Obecné volby zobrazení"
-
-#: squirrelmail/src/options_display.php:44
-msgid "Theme"
-msgstr "Schéma"
-
-#: squirrelmail/plugins/administrator/defines.php:42
-#: squirrelmail/src/options_display.php:51
-#: squirrelmail/src/options_display.php:80
-msgid "Default"
-msgstr "Implicitní"
-
-#: squirrelmail/src/options_display.php:64
-msgid "Custom Stylesheet"
-msgstr "Vlastní CSS styl"
-
-#: squirrelmail/src/options_display.php:83
-msgid "Language"
-msgstr "Jazyk"
-
-#: squirrelmail/src/options_display.php:92
-msgid "Use Javascript"
-msgstr "Pou¾ívat Javascript"
-
-#: squirrelmail/src/options_display.php:95
-msgid "Autodetect"
-msgstr "Autodetekce"
-
-#: squirrelmail/src/options_display.php:96
-msgid "Always"
-msgstr "V¾dy"
-
-#: squirrelmail/src/options_display.php:97
-#: squirrelmail/src/options_folder.php:122
-msgid "Never"
-msgstr "Nikdy"
-
-#: squirrelmail/src/options_display.php:115
-msgid "Mailbox Display Options"
-msgstr "Volby zobrazení slo¾ky"
-
-#: squirrelmail/src/options_display.php:120
-msgid "Number of Messages to Index"
-msgstr "Poèet zpráv zobrazených ve slo¾ce"
-
-#: squirrelmail/src/options_display.php:128
-msgid "Enable Alternating Row Colors"
-msgstr "Pou¾ít støídající se barvy øádkù"
-
-#: squirrelmail/src/options_display.php:135
-msgid "Enable Page Selector"
-msgstr "Zapnout Stránkovaè"
-
-#: squirrelmail/src/options_display.php:142
-msgid "Maximum Number of Pages to Show"
-msgstr "Maximální zobrazený poèet stránek"
-
-#: squirrelmail/src/options_display.php:149
-msgid "Message Display and Composition"
-msgstr "Zobrazení a psaní zpráv"
-
-#: squirrelmail/src/options_display.php:154
-msgid "Wrap Incoming Text At"
-msgstr "Zalomit pøíchozí zprávu na"
-
-#: squirrelmail/src/options_display.php:162
-msgid "Size of Editor Window"
-msgstr "Velikost editaèního okna"
-
-#: squirrelmail/src/options_display.php:170
-msgid "Location of Buttons when Composing"
-msgstr "Umístìní tlaèítek pøi psaní nové zprávy"
-
-#: squirrelmail/src/options_display.php:173
-msgid "Before headers"
-msgstr "Pøed hlavièkou zprávy"
-
-#: squirrelmail/src/options_display.php:174
-msgid "Between headers and message body"
-msgstr "Mezi hlavièkou a tìlem zprávy"
-
-#: squirrelmail/src/options_display.php:175
-msgid "After message body"
-msgstr "Za tìlem zprávy"
-
-#: squirrelmail/src/options_display.php:180
-msgid "Addressbook Display Format"
-msgstr "Formát zobrazení adresáøe"
-
-#: squirrelmail/src/options_display.php:183
-msgid "Javascript"
-msgstr "Javascript"
-
-#: squirrelmail/src/options_display.php:184
-msgid "HTML"
-msgstr "HTML"
-
-#: squirrelmail/src/options_display.php:189
-msgid "Show HTML Version by Default"
-msgstr "Zobrazovat v¾dy HTML verzi"
-
-#: squirrelmail/src/options_display.php:196
-msgid "Include Me in CC when I Reply All"
-msgstr "Zahrò mou adresu do CC kdy¾ dám 'Odpovìdìt v¹em'"
-
-#: squirrelmail/src/options_display.php:203
-msgid "Enable Mailer Display"
-msgstr "Zobrazovat emailového klienta pøíchozích zpráv"
-
-#: squirrelmail/src/options_display.php:210
-msgid "Display Attached Images with Message"
-msgstr "Zobrazovat pøilo¾ené obrázky ve zprávì"
-
-#: squirrelmail/src/options_display.php:217
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "Zapnout odkaz na 'Vytisknout'"
-
-#: squirrelmail/src/options_display.php:224
-msgid "Enable Printer Friendly Clean Display"
-msgstr "Zapnout zobrazení pro tisk"
-
-#: squirrelmail/src/options_display.php:231
-msgid "Enable request/confirm reading"
-msgstr "Zapnout vy¾adování/potvrzení doruèenek"
-
-#: squirrelmail/src/options_display.php:238
-msgid "Always compose in a new window"
-msgstr "V¾dy psát zprávu v novém oknì"
-
-#: squirrelmail/src/options_display.php:244
-msgid "Append signature before reply/forward text"
-msgstr "Pøipojit podpis pøed text"
-
-#: squirrelmail/src/options_display.php:250
-msgid "Use receive date for sort"
-msgstr "Pou¾ít datum pøijetí pøi tøízení"
-
-#: squirrelmail/src/options_folder.php:40
-msgid "Special Folder Options"
-msgstr "Speciální nastavení slo¾ek"
-
-#: squirrelmail/src/options_folder.php:47
-msgid "Folder Path"
-msgstr "Cesta slo¾ky"
-
-#: squirrelmail/src/options_folder.php:63
-msgid "Do not use Trash"
-msgstr "Nepou¾ívat Ko¹"
-
-#: squirrelmail/plugins/administrator/defines.php:135
-#: squirrelmail/src/options_folder.php:67
-msgid "Trash Folder"
-msgstr "Slo¾ka Ko¹"
-
-#: squirrelmail/src/options_folder.php:74
-msgid "Do not use Sent"
-msgstr "Nepou¾ívat slo¾ku Odeslaná po¹ta"
-
-#: squirrelmail/plugins/administrator/defines.php:138
-#: squirrelmail/src/options_folder.php:78
-msgid "Sent Folder"
-msgstr "Slo¾ka Odeslaná po¹ta"
-
-#: squirrelmail/src/options_folder.php:85
-msgid "Do not use Drafts"
-msgstr "Nepou¾ívat Koncepty"
-
-#: squirrelmail/plugins/administrator/defines.php:141
-#: squirrelmail/src/options_folder.php:89
-msgid "Draft Folder"
-msgstr "Slo¾ka Konceptù"
-
-#: squirrelmail/src/options_folder.php:97
-msgid "Folder List Options"
-msgstr "Mo¾nosti - Výpis slo¾ek"
-
-#: squirrelmail/src/options_folder.php:102
-msgid "Location of Folder List"
-msgstr "Umístìní seznamu slo¾ek"
-
-#: squirrelmail/src/options_folder.php:105
-msgid "Left"
-msgstr "Vlevo"
-
-#: squirrelmail/src/options_folder.php:106
-msgid "Right"
-msgstr "Vpravo"
-
-#: squirrelmail/plugins/administrator/defines.php:45
-#: squirrelmail/src/options_folder.php:111
-msgid "pixels"
-msgstr "bodù"
-
-#: squirrelmail/src/options_folder.php:115
-msgid "Width of Folder List"
-msgstr "©íøka seznamu slo¾ek"
-
-#: squirrelmail/src/options_folder.php:121
-msgid "Minutes"
-msgstr "Minuty"
-
-#: squirrelmail/src/options_folder.php:125
-msgid "Seconds"
-msgstr "Sekund"
-
-#: squirrelmail/src/options_folder.php:127
-msgid "Minute"
-msgstr "Minuta"
-
-#: squirrelmail/src/options_folder.php:134
-msgid "Auto Refresh Folder List"
-msgstr "Automatické obnovování seznam slo¾ek"
-
-#: squirrelmail/src/options_folder.php:142
-msgid "Enable Unread Message Notification"
-msgstr "Zapnout oznamování o nepøeètených zprávách"
-
-#: squirrelmail/plugins/administrator/defines.php:162
-#: squirrelmail/src/options_folder.php:145
-msgid "No Notification"
-msgstr "Bez oznámení"
-
-#: squirrelmail/plugins/administrator/defines.php:163
-#: squirrelmail/src/options_folder.php:146
-msgid "Only INBOX"
-msgstr "Pouze slo¾ka Doruèená po¹ta"
-
-#: squirrelmail/plugins/administrator/defines.php:164
-#: squirrelmail/src/options_folder.php:147
-msgid "All Folders"
-msgstr "V¹echny slo¾ky"
-
-#: squirrelmail/src/options_folder.php:152
-msgid "Unread Message Notification Type"
-msgstr "Typ oznámení o nepøeètených zprávách"
-
-#: squirrelmail/plugins/administrator/defines.php:167
-#: squirrelmail/src/options_folder.php:155
-msgid "Only Unseen"
-msgstr "Pouze nepøeètené"
-
-#: squirrelmail/plugins/administrator/defines.php:168
-#: squirrelmail/src/options_folder.php:156
-msgid "Unseen and Total"
-msgstr "Nepøeètené a Celkem"
-
-#: squirrelmail/src/options_folder.php:161
-msgid "Enable Collapsable Folders"
-msgstr "Zpøístupni rozbalovatelné slo¾ky"
-
-#: squirrelmail/src/options_folder.php:168
-msgid "Show Clock on Folders Panel"
-msgstr "Zobraz èas na panelu Slo¾ek"
-
-#: squirrelmail/src/options_folder.php:176
-msgid "No Clock"
-msgstr "®ádný èas"
-
-#: squirrelmail/src/options_folder.php:181
-msgid "Hour Format"
-msgstr "Formát hodin"
-
-#: squirrelmail/src/options_folder.php:184
-msgid "12-hour clock"
-msgstr "12ti hodinový èas"
-
-#: squirrelmail/src/options_folder.php:185
-msgid "24-hour clock"
-msgstr "24ti hodinový èas"
-
-#: squirrelmail/src/options_folder.php:190
-msgid "Memory Search"
-msgstr "Hledat v pamìti"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:102
-#: squirrelmail/src/options_folder.php:193
-msgid "Disabled"
-msgstr "Vypnuto"
-
-#: squirrelmail/functions/page_header.php:146
-#: squirrelmail/plugins/filters/options.php:62
-#: squirrelmail/plugins/newmail/newmail_opt.php:37
-#: squirrelmail/plugins/translate/options.php:94
-#: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/src/options_identities.php:44
-#: squirrelmail/src/options_order.php:31
-msgid "Options"
-msgstr "Mo¾nosti"
-
-#: squirrelmail/src/options.php:146 squirrelmail/src/options.php:297
-#: squirrelmail/src/options_highlight.php:62
-msgid "Message Highlighting"
-msgstr "Zvýrazòování zpráv"
-
-#: squirrelmail/plugins/filters/options.php:64
-#: squirrelmail/src/options_highlight.php:66
-msgid "New"
-msgstr "Nová"
-
-#: squirrelmail/plugins/filters/options.php:65
-#: squirrelmail/plugins/filters/spamoptions.php:159
-#: squirrelmail/plugins/mail_fetch/fetch.php:225
-#: squirrelmail/src/options_highlight.php:67
-msgid "Done"
-msgstr "Hotovo"
-
-#: squirrelmail/plugins/filters/options.php:152
-#: squirrelmail/plugins/filters/spamoptions.php:158
-#: squirrelmail/src/options_highlight.php:74
-msgid "Edit"
-msgstr "Editovat"
-
-#: squirrelmail/src/options_highlight.php:87
-msgid "No highlighting is defined"
-msgstr "Není nadefinováno ¾ádné zvýraznìní"
-
-#: squirrelmail/src/options_highlight.php:259
-msgid "Identifying name"
-msgstr "Identifikaèní jméno"
-
-#: squirrelmail/src/options_highlight.php:273
-msgid "Color"
-msgstr "Barva"
-
-#: squirrelmail/src/options_highlight.php:277
-msgid "Dark Blue"
-msgstr "Tmavìmodrá"
-
-#: squirrelmail/src/options_highlight.php:278
-msgid "Dark Green"
-msgstr "Tmavìzelená"
-
-#: squirrelmail/src/options_highlight.php:279
-msgid "Dark Yellow"
-msgstr "Tmavì¾lutá"
-
-#: squirrelmail/src/options_highlight.php:280
-msgid "Dark Cyan"
-msgstr "Tmavìtyrkysová"
-
-#: squirrelmail/src/options_highlight.php:281
-msgid "Dark Magenta"
-msgstr "Tmavìfialová"
-
-#: squirrelmail/src/options_highlight.php:282
-msgid "Light Blue"
-msgstr "Svìtlemodrá"
-
-#: squirrelmail/src/options_highlight.php:283
-msgid "Light Green"
-msgstr "Svìtlezelená"
-
-#: squirrelmail/src/options_highlight.php:284
-msgid "Light Yellow"
-msgstr "Svìtle¾lutá"
-
-#: squirrelmail/src/options_highlight.php:285
-msgid "Light Cyan"
-msgstr "Svìtletyrkysová"
-
-#: squirrelmail/src/options_highlight.php:286
-msgid "Light Magenta"
-msgstr "Svìtlefialová"
-
-#: squirrelmail/src/options_highlight.php:287
-msgid "Dark Gray"
-msgstr "Tmavì¹edá"
-
-#: squirrelmail/src/options_highlight.php:288
-msgid "Medium Gray"
-msgstr "Støednì¹edá"
-
-#: squirrelmail/src/options_highlight.php:289
-msgid "Light Gray"
-msgstr "Svìtle¹edá"
-
-#: squirrelmail/src/options_highlight.php:290
-msgid "White"
-msgstr "Bílá"
-
-#: squirrelmail/src/options_highlight.php:292
-msgid "Other:"
-msgstr "Jiná:"
-
-#: squirrelmail/src/options_highlight.php:294
-msgid "Ex: 63aa7f"
-msgstr "Ex: 63aa7f"
-
-#: squirrelmail/plugins/filters/options.php:94
-#: squirrelmail/src/options_highlight.php:331
-msgid "To or Cc"
-msgstr "Komu nebo Kopie"
-
-#: squirrelmail/src/options_highlight.php:336
-msgid "Matches"
-msgstr "Odpovídá"
-
-#: squirrelmail/src/options_identities.php:44
-msgid "Advanced Identities"
-msgstr "Roz¹íøené identity"
-
-#: squirrelmail/src/options_identities.php:55
-msgid "Default Identity"
-msgstr "Základní/nastavená identita"
-
-#: squirrelmail/src/options_identities.php:66
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "Alternativní identita"
-
-#: squirrelmail/src/options_identities.php:76
-msgid "Add a New Identity"
-msgstr "Pøidej novou identitu"
-
-#: squirrelmail/src/options_identities.php:326
-#: squirrelmail/src/options_personal.php:56
-#: squirrelmail/src/options_personal.php:64
-msgid "Full Name"
-msgstr "Celé jméno"
-
-#: squirrelmail/src/options_identities.php:327
-msgid "E-Mail Address"
-msgstr "E-mailová adresa"
-
-#: squirrelmail/src/options_identities.php:328
-#: squirrelmail/src/options_personal.php:91
-msgid "Reply To"
-msgstr "Odpovìdìt na adresu"
-
-#: squirrelmail/src/options_identities.php:336
-msgid "Save / Update"
-msgstr "Ulo¾/Aktualizuj"
-
-#: squirrelmail/src/options_identities.php:339
-msgid "Make Default"
-msgstr "Vytvoø nastavení"
-
-#: squirrelmail/src/options_identities.php:345
-msgid "Move Up"
-msgstr "Pøesun nahoru"
-
-#: squirrelmail/src/options.php:158 squirrelmail/src/options.php:313
-#: squirrelmail/src/options_order.php:31
-msgid "Index Order"
-msgstr "Poøadí v seznamu"
-
-#: squirrelmail/src/options_order.php:37
-msgid "Checkbox"
-msgstr "Za¹krtávací pole"
-
-#: squirrelmail/src/options_order.php:41
-msgid "Flags"
-msgstr "Pøíznaky zprávy"
-
-#: squirrelmail/functions/mailbox_display.php:593
-#: squirrelmail/src/options_order.php:42
-msgid "Size"
-msgstr "Velikost"
-
-#: squirrelmail/src/options_order.php:85
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
+msgid "Delivery error report"
 msgstr ""
-"Poøadí seznamu zpráv je poøadí v jakém jsou uspoøádány sloupce ve výpisu\n"
-"zpráv.  Mù¾ete pøídávat, odebírat a pøesunovat jednotlivé slo¾ky."
 
-#: squirrelmail/src/options_order.php:94
-msgid "up"
-msgstr "nahoru"
-
-#: squirrelmail/src/options_order.php:96
-msgid "down"
-msgstr "dolù"
-
-#: squirrelmail/src/options_order.php:101
-msgid "remove"
-msgstr "odstranit"
-
-#: squirrelmail/src/options_order.php:130
-msgid "Return to options page"
-msgstr "Návrat na stránku s nastavením"
-
-#: squirrelmail/src/options_personal.php:43
-msgid "Name and Address Options"
-msgstr "Mo¾nosti - Jméno a emailová adresa"
-
-#: squirrelmail/src/options_personal.php:74
-#: squirrelmail/src/options_personal.php:82
-msgid "Email Address"
-msgstr "E-mailová adresa"
-
-#: squirrelmail/src/options_personal.php:108
-msgid "Edit Advanced Identities"
-msgstr "Edituj roz¹íøené identity"
-
-#: squirrelmail/src/options_personal.php:110
-msgid "(discards changes made on this form so far)"
-msgstr "(sma¾e doposud uèinìné zmìny v tomto formuláøi)"
-
-#: squirrelmail/src/options_personal.php:113
-msgid "Multiple Identities"
-msgstr "Vícenásobné identity"
-
-#: squirrelmail/src/options_personal.php:120
-msgid "Same as server"
-msgstr "Stejnì jako server"
-
-#: squirrelmail/src/options_personal.php:131
-msgid "Timezone Options"
-msgstr "Èasové pásmo"
-
-#: squirrelmail/src/options_personal.php:136
-msgid "Your current timezone"
-msgstr "Aktuální èasová zóna"
-
-#: squirrelmail/src/options_personal.php:143
-msgid "Reply Citation Options"
-msgstr "Mo¾nosti - Citace v odpovìdi"
-
-#: squirrelmail/src/options_personal.php:148
-msgid "Reply Citation Style"
-msgstr "Odpovìz ve stylu citace"
-
-#: squirrelmail/src/options_personal.php:151
-msgid "No Citation"
-msgstr "Bez citace"
-
-#: squirrelmail/src/options_personal.php:152
-msgid "AUTHOR Said"
-msgstr "Autor napsal"
-
-#: squirrelmail/src/options_personal.php:153
-msgid "Quote Who XML"
-msgstr "Cituj Kdo XML"
-
-#: squirrelmail/src/options_personal.php:154
-msgid "User-Defined"
-msgstr "Definováno u¾ivatelem"
-
-#: squirrelmail/src/options_personal.php:159
-msgid "User-Defined Citation Start"
-msgstr "Zaèátek u¾ivatelem definované citace odpovìdi"
-
-#: squirrelmail/src/options_personal.php:167
-msgid "User-Defined Citation End"
-msgstr "Konec u¾ivatelem definované citace odpovìdi"
-
-#: squirrelmail/src/options_personal.php:174
-msgid "Signature Options"
-msgstr "Mo¾nosti - Podpis"
-
-#: squirrelmail/src/options_personal.php:179
-msgid "Use Signature"
-msgstr "Pou¾ívat podpis?"
-
-#: squirrelmail/src/options_personal.php:186
-msgid "Prefix Signature with '-- ' Line"
-msgstr "Vlo¾it pøed podpis '-- ' ?"
-
-#: squirrelmail/src/options.php:134 squirrelmail/src/options.php:281
-msgid "Personal Information"
-msgstr "Osobní informace"
-
-#: squirrelmail/src/options.php:140 squirrelmail/src/options.php:289
-msgid "Display Preferences"
-msgstr "Vzhled - mo¾nosti"
-
-#: squirrelmail/src/options.php:152 squirrelmail/src/options.php:305
-msgid "Folder Preferences"
-msgstr "Slo¾ky - mo¾nosti"
-
-#: squirrelmail/src/options.php:264
-msgid "Successfully Saved Options"
-msgstr "Osobní informace byly úspì¹nì ulo¾eny"
-
-#: squirrelmail/src/options.php:269
-msgid "Refresh Folder List"
-msgstr "Obnovit seznam slo¾ek"
-
-#: squirrelmail/src/options.php:271
-msgid "Refresh Page"
-msgstr "Aktualizovat stránku"
-
-#: squirrelmail/src/options.php:283
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
+msgid "Undelivered Message Headers"
 msgstr ""
-"Obsahuje Va¹e osobní informace, napø. Va¹e jméno, e-mailovou adresu atd. "
 
-#: squirrelmail/src/options.php:291
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-"Mù¾ete mìnit vzhled a zpùsob zobrazení informací, napø. barvy, jazyk a jiná "
-"nastavení."
+msgid "(no subject)"
+msgstr "(¾ádný pøedmìt)"
 
-#: squirrelmail/src/options.php:299
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"Na základì uvedených kritérií mohou mít pøíchozí zprávy v seznamu rùznou "
-"barvu pozadí. Tato funkce umo¾òuje snadno rozli¹it odesílatele zpráv, "
-"zvlá¹tì pak e-mailové konference."
-
-#: squirrelmail/src/options.php:307
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-"Tato nastavení zmìní zpùsob, kterým se budou slo¾ky zobrazovat a jak s nimi "
-"budete zacházet."
-
-#: squirrelmail/src/options.php:315
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr "Poøadí sloupcù v seznamu zpráv mù¾e být upraveno podle va¹ich potøeb."
-
-#: squirrelmail/src/printer_friendly_bottom.php:61
-msgid "Message not printable"
-msgstr "Zprávu nelze tisknout"
-
-#: squirrelmail/src/printer_friendly_bottom.php:90
-#: squirrelmail/src/printer_friendly_main.php:15
-#: squirrelmail/src/printer_friendly_top.php:21
-msgid "Printer Friendly"
-msgstr "Verze pro tisk"
-
-#: squirrelmail/src/printer_friendly_bottom.php:98
-msgid "CC"
-msgstr "Kopie"
-
-#: squirrelmail/src/printer_friendly_top.php:36
-msgid "Print"
-msgstr "Tisknout"
-
-#: squirrelmail/src/printer_friendly_top.php:37
-msgid "Close Window"
-msgstr "Zavøít okno"
-
-#: squirrelmail/src/read_body.php:104
-msgid "View Printable Version"
-msgstr "Zobrazit verzi pro tisk"
-
-#: squirrelmail/src/read_body.php:166
-msgid "Your message"
-msgstr "Va¹e zpráva"
-
-#: squirrelmail/src/read_body.php:169
-msgid "Sent:"
-msgstr "Odeslána:"
-
-#: squirrelmail/src/read_body.php:171
-#, c-format
-msgid "Was displayed on %s"
-msgstr "Byla zobrazena %s"
-
-#: squirrelmail/src/read_body.php:203
-msgid "Read:"
-msgstr "Pøeètena:"
-
-#: squirrelmail/src/read_body.php:354
-msgid "Viewing Full Header"
-msgstr "Zobrazit celou hlavièku"
-
-#: squirrelmail/src/read_body.php:569
-msgid "Message List"
-msgstr "Seznam zpráv"
-
-#: squirrelmail/src/read_body.php:585
-msgid "Resume Draft"
-msgstr "Pokraèovat v psaní zprávy"
-
-#: squirrelmail/functions/mailbox_display.php:536
-#: squirrelmail/src/read_body.php:626
-msgid "Forward"
-msgstr "Pøedat dál"
-
-#: squirrelmail/src/read_body.php:635
-msgid "Reply"
-msgstr "Odpovìdìt"
-
-#: squirrelmail/src/read_body.php:644
-msgid "Reply All"
-msgstr "Odpovìdìt v¹em"
-
-#: squirrelmail/src/read_body.php:668 squirrelmail/src/read_body.php:671
-msgid "View Full Header"
-msgstr "Zobrazit celou hlavièku"
-
-#: squirrelmail/src/read_body.php:746
-msgid "Mailer"
-msgstr "Emailový klient"
-
-#: squirrelmail/src/read_body.php:796 squirrelmail/src/read_body.php:809
-#: squirrelmail/src/read_body.php:821 squirrelmail/src/read_body.php:846
-#: squirrelmail/src/read_body.php:890 squirrelmail/src/read_body.php:906
-msgid "Read receipt"
-msgstr "Doruèenka pøeètení"
-
-#: squirrelmail/src/read_body.php:798 squirrelmail/src/read_body.php:892
-msgid "send"
-msgstr "odeslat"
-
-#: squirrelmail/src/read_body.php:811 squirrelmail/src/read_body.php:823
-#: squirrelmail/src/read_body.php:848 squirrelmail/src/read_body.php:908
-msgid "requested"
-msgstr "vy¾adována"
-
-#: squirrelmail/src/read_body.php:824 squirrelmail/src/read_body.php:849
-#: squirrelmail/src/read_body.php:909
-msgid "Send read receipt now"
-msgstr "Odeslat potvrzení pøeètení nyní"
-
-#: squirrelmail/src/read_body.php:836
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
-msgstr "Odesílatel zprávy si pøeje vìdìt zda-li jste tuto zprávu pøeèetli.  Pøejete si odeslat potvrzení?"
-
-#: squirrelmail/functions/auth.php:42 squirrelmail/src/redirect.php:60
-#: squirrelmail/src/redirect.php:64
-msgid "You must be logged in to access this page."
-msgstr "Pro pøístup k této stránce musíte být pøihlá¹en."
-
-#: squirrelmail/functions/auth.php:43 squirrelmail/src/redirect.php:65
-msgid "Go to the login page"
-msgstr "Jdi na pøihla¹ovací stránku"
-
-#: squirrelmail/src/redirect.php:85 squirrelmail/src/redirect.php:89
-msgid "There was an error contacting the mail server."
-msgstr "Pøi navazování spojení se serverem do¹lo k chybì"
-
-#: squirrelmail/src/redirect.php:90
-msgid "Contact your administrator for help."
-msgstr "O pomoc kontaktujte va¹eho administrátora "
-
-#: squirrelmail/src/search.php:242
-msgid "edit"
-msgstr "editovat"
-
-#: squirrelmail/src/search.php:249 squirrelmail/src/search.php:288
-msgid "search"
-msgstr "hledat"
-
-#: squirrelmail/src/search.php:252
-msgid "delete"
-msgstr "odstranit"
-
-#: squirrelmail/src/search.php:263
-msgid "Recent Searches"
-msgstr "Poslední hledání"
-
-#: squirrelmail/src/search.php:280
-msgid "save"
-msgstr "ulo¾it"
-
-#: squirrelmail/src/search.php:291
-msgid "forget"
-msgstr "zapomenout"
-
-#: squirrelmail/src/search.php:300
-msgid "Current Search"
-msgstr "Aktuální slo¾ka"
-
-#: squirrelmail/src/search.php:339
-msgid "Body"
-msgstr "Text zprávy"
-
-#: squirrelmail/src/search.php:340
-msgid "Everywhere"
-msgstr "V¹ude"
-
-#: squirrelmail/src/search.php:367 squirrelmail/src/search.php:396
-msgid "Search Results"
-msgstr "Výsledky hledání"
-
-#: squirrelmail/src/search.php:387
-msgid "No Messages found"
-msgstr "Nebyly nalezeny ¾ádné zprávy"
-
-#: squirrelmail/functions/page_header.php:128 squirrelmail/src/signout.php:72
-msgid "Sign Out"
-msgstr "Odhlásit se"
-
-#: squirrelmail/src/signout.php:78
-msgid "You have been successfully signed out."
-msgstr "Odhlá¹ení probìhlo úspì¹nì"
-
-#: squirrelmail/src/signout.php:80
-msgid "Click here to log back in."
-msgstr "Pro nové pøihlá¹ení kliknìte zde "
-
-#: squirrelmail/src/vcard.php:30
-msgid "Viewing a Business Card"
-msgstr "Zobrazení Visitky"
-
-#: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
-msgid "Title"
-msgstr "Pozice"
-
-#: squirrelmail/src/vcard.php:87
-msgid "Email"
-msgstr "Email"
-
-#: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
-msgid "Web Page"
-msgstr "Webová stránka"
-
-#: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
-msgid "Organization / Department"
-msgstr "Organizace / Oddìlení"
-
-#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
-msgid "Address"
-msgstr "Adresa"
-
-#: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
-msgid "Work Phone"
-msgstr "Telefon (práce)"
-
-#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
-msgid "Home Phone"
-msgstr "Telefon (domù)"
-
-#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
-msgid "Cellular Phone"
-msgstr "Telefon (mobilní)"
-
-#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
-msgid "Fax"
-msgstr "Fax"
-
-#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
-msgid "Note"
-msgstr "Poznámka"
-
-#: squirrelmail/src/vcard.php:124
-msgid "Add to Addressbook"
-msgstr "Pøidat do adresáøe"
-
-#: squirrelmail/src/vcard.php:155
-msgid "Title & Org. / Dept."
-msgstr "Funkce & Firma / Oddìlení"
-
-#: squirrelmail/functions/abook_database.php:50
-#: squirrelmail/functions/abook_local_file.php:37
-#: squirrelmail/functions/addressbook.php:155
 msgid "Personal address book"
 msgstr "Osobní adresáø"
 
-#: squirrelmail/functions/abook_database.php:96
-#: squirrelmail/functions/abook_database.php:136
-#: squirrelmail/functions/abook_database.php:171
-#: squirrelmail/functions/abook_database.php:201
-#: squirrelmail/functions/abook_database.php:253
-#: squirrelmail/functions/abook_database.php:286
-#: squirrelmail/functions/abook_database.php:327
 #, c-format
 msgid "Database error: %s"
 msgstr "Chyba databáze: %s"
 
-#: squirrelmail/functions/abook_database.php:221
-#: squirrelmail/functions/abook_database.php:260
-#: squirrelmail/functions/abook_database.php:293
-#: squirrelmail/functions/abook_local_file.php:240
-#: squirrelmail/functions/abook_local_file.php:261
-#: squirrelmail/functions/abook_local_file.php:286
-#: squirrelmail/functions/abook_local_file.php:318
-#: squirrelmail/functions/addressbook.php:351
-#: squirrelmail/functions/addressbook.php:386
-#: squirrelmail/functions/addressbook.php:439
 msgid "Addressbook is read-only"
 msgstr "Adresáø pouze ke ètení"
 
-#: squirrelmail/functions/abook_database.php:231
-#: squirrelmail/functions/abook_local_file.php:245
 #, c-format
 msgid "User '%s' already exist"
 msgstr "U¾ivatel %s ji¾ existuje"
 
-#: squirrelmail/functions/abook_database.php:303
-#: squirrelmail/functions/abook_local_file.php:324
 #, c-format
 msgid "User '%s' does not exist"
 msgstr "U¾ivatel %s neexistuje"
 
-#: squirrelmail/functions/abook_global_file.php:35
 msgid "Global address book"
 msgstr "Centrální adresáø kontaktù"
 
-#: squirrelmail/functions/abook_global_file.php:56
-#: squirrelmail/functions/abook_local_file.php:83
 msgid "No such file or directory"
 msgstr "Nebyl nalezen ¾ádný soubor ani adresáø"
 
-#: squirrelmail/functions/abook_global_file.php:69
-#: squirrelmail/functions/abook_local_file.php:104
-#: squirrelmail/functions/abook_local_file.php:140
 msgid "Open failed"
 msgstr "Otevírání probìhlo neúspì¹nì"
 
-#: squirrelmail/functions/abook_global_file.php:171
-#: squirrelmail/functions/abook_global_file.php:177
-#: squirrelmail/functions/abook_global_file.php:183
 msgid "Can not modify global address book"
 msgstr "Nemù¾u modifikovat globální adresáø kontaktù"
 
-#: squirrelmail/functions/abook_local_file.php:46
 msgid "Not a file name"
 msgstr "Není název souboru"
 
-#: squirrelmail/functions/abook_local_file.php:266
-#: squirrelmail/functions/abook_local_file.php:292
-#: squirrelmail/functions/abook_local_file.php:331
+#, fuzzy
+msgid "Write failed"
+msgstr "Otevírání probìhlo neúspì¹nì"
+
+#, fuzzy
+msgid "Unable to update"
+msgstr "Ulo¾/Aktualizuj"
+
 msgid "Could not lock datafile"
 msgstr "Nelze uzamknout soubor s daty"
 
-#: squirrelmail/functions/abook_local_file.php:279
 msgid "Write to addressbook failed"
 msgstr "Zápis do adresáøe probehl neúspì¹nì"
 
-#: squirrelmail/functions/addressbook.php:73
 msgid "Error initializing addressbook database."
 msgstr "Chyba pøi inicializaci databáze kontaktù."
 
-#: squirrelmail/functions/addressbook.php:82
 #, c-format
 msgid "Error opening file %s"
 msgstr "Chyba pøi otevírání souboru %s"
 
-#: squirrelmail/functions/addressbook.php:92
 msgid "Error initializing global addressbook."
 msgstr "Chyba pøi inicializaci centrální databáze kontaktù."
 
-#: squirrelmail/functions/addressbook.php:108
 #, c-format
 msgid "Error initializing LDAP server %s:"
 msgstr "Chyba pøi spou¹tení LDAP serveru %s"
 
-#: squirrelmail/functions/addressbook.php:329
-#: squirrelmail/functions/addressbook.php:416
 msgid "Invalid input data"
 msgstr "Neplatné vstupní informace"
 
-#: squirrelmail/functions/addressbook.php:333
-#: squirrelmail/functions/addressbook.php:420
 msgid "Name is missing"
 msgstr "Chybí jméno"
 
-#: squirrelmail/functions/addressbook.php:337
-#: squirrelmail/functions/addressbook.php:424
 msgid "E-mail address is missing"
 msgstr "Chybí e-mailová adresa"
 
-#: squirrelmail/functions/addressbook.php:345
-#: squirrelmail/functions/addressbook.php:429
 msgid "Nickname contains illegal characters"
 msgstr "Pøezdívka obsahuje nedovolené znaky"
 
-#: squirrelmail/functions/attachment_common.php:107
-#: squirrelmail/functions/attachment_common.php:128
-#: squirrelmail/functions/attachment_common.php:143
-#: squirrelmail/functions/attachment_common.php:168
 msgid "view"
 msgstr "zobrazit"
 
-#: squirrelmail/functions/attachment_common.php:185
 msgid "Business Card"
 msgstr "visitka"
 
-#: squirrelmail/functions/date.php:91
-#: squirrelmail/plugins/calendar/calendar.php:49
+msgid "You must be logged in to access this page."
+msgstr "Pro pøístup k této stránce musíte být pøihlá¹en."
+
 msgid "Sunday"
 msgstr "Nedìle"
 
-#: squirrelmail/functions/date.php:94
-#: squirrelmail/plugins/calendar/calendar.php:50
 msgid "Monday"
 msgstr "Pondìlí"
 
-#: squirrelmail/functions/date.php:97
-#: squirrelmail/plugins/calendar/calendar.php:51
 msgid "Tuesday"
 msgstr "Úterý"
 
-#: squirrelmail/functions/date.php:100
-#: squirrelmail/plugins/calendar/calendar.php:52
 msgid "Wednesday"
 msgstr "Støeda"
 
-#: squirrelmail/functions/date.php:103
-#: squirrelmail/plugins/calendar/calendar.php:53
 msgid "Thursday"
 msgstr "Ètvrtek"
 
-#: squirrelmail/functions/date.php:106
-#: squirrelmail/plugins/calendar/calendar.php:54
 msgid "Friday"
 msgstr "Pátek"
 
-#: squirrelmail/functions/date.php:109
-#: squirrelmail/plugins/calendar/calendar.php:55
 msgid "Saturday"
 msgstr "Sobota"
 
-#: squirrelmail/functions/date.php:120
 msgid "January"
 msgstr "Leden"
 
-#: squirrelmail/functions/date.php:123
 msgid "February"
 msgstr "Únor"
 
-#: squirrelmail/functions/date.php:126
 msgid "March"
 msgstr "Bøezen"
 
-#: squirrelmail/functions/date.php:129
 msgid "April"
 msgstr "Duben"
 
-#: squirrelmail/functions/date.php:132
 msgid "May"
 msgstr "Kvìten"
 
-#: squirrelmail/functions/date.php:135
 msgid "June"
 msgstr "Èerven"
 
-#: squirrelmail/functions/date.php:138
 msgid "July"
 msgstr "Èervenec"
 
-#: squirrelmail/functions/date.php:141
 msgid "August"
 msgstr "Srpen"
 
-#: squirrelmail/functions/date.php:144
 msgid "September"
 msgstr "Záøí"
 
-#: squirrelmail/functions/date.php:147
 msgid "October"
 msgstr "Øíjen"
 
-#: squirrelmail/functions/date.php:150
 msgid "November"
 msgstr "Listopad"
 
-#: squirrelmail/functions/date.php:153
 msgid "December"
 msgstr "Prosinec"
 
-#: squirrelmail/functions/date.php:180
 msgid "D, F j, Y g:i a"
 msgstr "j F Y, G:i"
 
-#: squirrelmail/functions/date.php:182
 msgid "D, F j, Y G:i"
 msgstr "j F Y, G:i"
 
-#: squirrelmail/functions/date.php:204
 msgid "g:i a"
 msgstr "G:i"
 
-#: squirrelmail/functions/date.php:206
 msgid "G:i"
 msgstr "G:i"
 
-#: squirrelmail/functions/date.php:211
 msgid "D, g:i a"
 msgstr "D, G:i"
 
-#: squirrelmail/functions/date.php:213
 msgid "D, G:i"
 msgstr "D, G:i"
 
-#: squirrelmail/functions/date.php:217
 msgid "M j, Y"
 msgstr "j M, Y"
 
-#: squirrelmail/functions/db_prefs.php:56
-#: squirrelmail/functions/db_prefs.php:63
-#: squirrelmail/functions/db_prefs.php:126
-#: squirrelmail/functions/db_prefs.php:129
-#: squirrelmail/functions/db_prefs.php:344
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Soubor s nastavením %s nebyl nalezen. Abnormální ukonèení."
 
-#: squirrelmail/functions/display_messages.php:28
-#: squirrelmail/functions/imap_general.php:253
 msgid "Unknown user or password incorrect."
 msgstr "Neznámý u¾ivatel nebo neplatné heslo"
 
-#: squirrelmail/functions/display_messages.php:30
 msgid "Click here to try again"
 msgstr "Pro dal¹í pokus kliknìte zde"
 
-#: squirrelmail/functions/display_messages.php:45
-#, c-format
-msgid "Welcome to %s's WebMail system"
-msgstr "Vítejte v %s WebMail systému"
-
-#: squirrelmail/functions/display_messages.php:57
-#, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "SquirrelMail verze %s (c) 1999-2000"
-
-#: squirrelmail/functions/display_messages.php:82
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Pro návrat do %s klinìte zde"
 
-#: squirrelmail/functions/file_prefs.php:38
+#, c-format
+msgid "%s Logo"
+msgstr "%s Logo"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail verze %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "Vytvoøeno týmem SquirrelMail"
+
+msgid "ERROR"
+msgstr "Chyba"
+
+msgid "Go to the login page"
+msgstr "Jdi na pøihla¹ovací stránku"
+
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
@@ -1764,496 +221,1184 @@ msgstr ""
 "Soubor s nastavením, %s, neexistuje. Odhla¹te se a pøihlaste se zpìt, abyste "
 "vytvoøili výchozí soubor s nastavením."
 
-#: squirrelmail/functions/file_prefs.php:162
-#: squirrelmail/functions/file_prefs.php:167
-msgid "Error opening "
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
+
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
+
+#, fuzzy, c-format
+msgid "Error opening %s"
 msgstr "Chyba pøi otevírání"
 
-#: squirrelmail/functions/file_prefs.php:163
-msgid "Default preference file not found!"
+#, fuzzy
+msgid "Default preference file not found or not readable!"
 msgstr "Soubor s implicitním nastavením nenalezen"
 
-#: squirrelmail/functions/file_prefs.php:164
-#: squirrelmail/functions/file_prefs.php:169
-#: squirrelmail/functions/prefs.php:93
 msgid "Please contact your system administrator and report this error."
 msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
 
-#: squirrelmail/functions/file_prefs.php:168
 msgid "Could not create initial preference file!"
 msgstr "Nemohu vytvoøit poèáteèní soubor s preferencemi!"
 
-#: squirrelmail/functions/imap_general.php:133
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr ""
+
+#, fuzzy, c-format
 msgid ""
-"Please contact your system administrator and report the following error:"
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
 msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
 
-#: squirrelmail/functions/imap_general.php:164
-#: squirrelmail/functions/imap_messages.php:106
-#: squirrelmail/functions/imap_messages.php:113
-#: squirrelmail/functions/imap_messages.php:131
-#: squirrelmail/functions/imap_messages.php:140
-#: squirrelmail/functions/imap_messages.php:250
-#: squirrelmail/plugins/filters/filters.php:89
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+
+msgid "ERROR : No available imapstream."
+msgstr ""
+
 msgid "ERROR : Could not complete request."
 msgstr "Chyba: nelze dokonèit po¾adovaný úkol"
 
-#: squirrelmail/functions/imap_general.php:166
-#: squirrelmail/functions/imap_general.php:177
 msgid "Query:"
 msgstr "Dotaz:"
 
-#: squirrelmail/functions/imap_general.php:168
-#: squirrelmail/plugins/filters/filters.php:91
 msgid "Reason Given: "
 msgstr "Odùvodnìní: "
 
-#: squirrelmail/functions/imap_general.php:175
-#: squirrelmail/plugins/filters/filters.php:98
 msgid "ERROR : Bad or malformed request."
 msgstr "Chyba: ¹patnì zadaný po¾adovaný úkol"
 
-#: squirrelmail/functions/imap_general.php:179
-#: squirrelmail/plugins/filters/filters.php:100
 msgid "Server responded: "
 msgstr "Odpovìï serveru: "
 
-#: squirrelmail/functions/imap_general.php:212
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr "Chyba v pøipojování k serveru IMAP: %s "
 
-#: squirrelmail/functions/imap_general.php:228
 #, c-format
 msgid "Bad request: %s"
 msgstr "©patnì zadaný po¾adovaný úkol: %s"
 
-#: squirrelmail/functions/imap_general.php:230
 #, c-format
 msgid "Unknown error: %s"
 msgstr "Neznámá chyba: %s"
 
-#: squirrelmail/functions/imap_general.php:232
 msgid "Read data:"
 msgstr "Naètení dat:"
 
-#: squirrelmail/functions/imap_messages.php:108
-#: squirrelmail/functions/imap_messages.php:133
-#: squirrelmail/functions/imap_messages.php:252
+#, fuzzy
+msgid "ERROR : Could not append message to"
+msgstr "Chyba: nelze dokonèit po¾adovaný úkol"
+
+#, fuzzy
+msgid "Solution: "
+msgstr "Návrhy:"
+
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
+msgstr ""
+
+msgid "INBOX"
+msgstr "Doruèená po¹ta"
+
 msgid "Unknown response from IMAP server: "
 msgstr "Neznámá odpovìï IMAP serveru:"
 
-#: squirrelmail/functions/imap_messages.php:115
 msgid "Unknown message number in reply from server: "
 msgstr "©patné èíslo zprávy v odpovìdi serveru: "
 
-#: squirrelmail/functions/imap_messages.php:142
-msgid "Unknown messagenumber in reply from server: "
-msgstr "©patné èíslo zprávy v odpovìdi serveru: "
-
-#: squirrelmail/functions/imap_messages.php:151
-#: squirrelmail/functions/imap_messages.php:178
-#: squirrelmail/functions/imap_messages.php:416
-#: squirrelmail/functions/imap_messages.php:467
-#: squirrelmail/functions/mailbox_display.php:907
-msgid "(no subject)"
-msgstr "(¾ádný pøedmìt)"
-
-#: squirrelmail/functions/imap_messages.php:152
 msgid "Unknown Sender"
 msgstr "Neznámý Odesílatel"
 
-#: squirrelmail/functions/imap_messages.php:206
-msgid "No To Address"
-msgstr "Ne na adresu"
-
-#: squirrelmail/functions/imap_messages.php:470
 msgid "(unknown sender)"
 msgstr "(neznámý odesílatel)"
 
-#: squirrelmail/functions/imap_search.php:87
-msgid "No Messages Found"
-msgstr "Nebyly nalezeny ¾ádné zprávy"
+#, fuzzy
+msgid "Unknown date"
+msgstr "Neznámý Odesílatel"
 
-#: squirrelmail/functions/imap_search.php:188
-#: squirrelmail/functions/imap_search.php:196
-msgid "Found"
-msgstr "Nalezeno"
-
-#: squirrelmail/functions/imap_search.php:188
-#: squirrelmail/functions/imap_search.php:196
-msgid "messages"
-msgstr "zprávy"
-
-#: squirrelmail/functions/imap_search.php:203
-msgid "Folder:"
-msgstr "Slo¾ka:"
-
-#: squirrelmail/functions/mailbox_display.php:156
 msgid "A"
 msgstr "O"
 
-#: squirrelmail/functions/mailbox_display.php:429
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+
 msgid "THIS FOLDER IS EMPTY"
 msgstr "TATO SLO®KA JE PRÁZDNÁ"
 
-#: squirrelmail/functions/mailbox_display.php:513
-msgid "Move Selected To:"
+#, fuzzy
+msgid "Move Selected To"
 msgstr "Pøesunout vybrané polo¾ky do"
 
-#: squirrelmail/functions/mailbox_display.php:516
 msgid "Transform Selected Messages"
 msgstr "Operace s oznaèenými zprávami"
 
-#: squirrelmail/functions/mailbox_display.php:535
-#: squirrelmail/plugins/delete_move_next/setup.php:226
-#: squirrelmail/plugins/delete_move_next/setup.php:250
 msgid "Move"
 msgstr "Pøesunout"
 
-#: squirrelmail/functions/mailbox_display.php:540
+msgid "Forward"
+msgstr "Pøedat dál"
+
 msgid "Expunge"
 msgstr "Vysypat"
 
-#: squirrelmail/functions/mailbox_display.php:540
 msgid "mailbox"
 msgstr "schránka"
 
-#: squirrelmail/functions/mailbox_display.php:542
 msgid "Read"
 msgstr "Pøeètené"
 
-#: squirrelmail/functions/mailbox_display.php:543
 msgid "Unread"
 msgstr "Nepøeètené"
 
-#: squirrelmail/functions/mailbox_display.php:640
+msgid "Delete"
+msgstr "Odstranit"
+
+#, fuzzy
+msgid "Unthread View"
+msgstr "Náhled na mìsíc"
+
+#, fuzzy
+msgid "Thread View"
+msgstr "Náhled na den"
+
+msgid "To"
+msgstr "Komu"
+
+msgid "From"
+msgstr "Od"
+
+msgid "Date"
+msgstr "Datum"
+
+msgid "Subject"
+msgstr "Pøedmìt"
+
+msgid "Size"
+msgstr "Velikost"
+
 msgid "Toggle All"
 msgstr "Zmìnit oznaèení v¹ech"
 
-#: squirrelmail/functions/mailbox_display.php:668
 msgid "Unselect All"
 msgstr "Odznaèit v¹e"
 
-#: squirrelmail/functions/mailbox_display.php:670
 msgid "Select All"
 msgstr "Oznaèit v¹e"
 
-#: squirrelmail/functions/mailbox_display.php:687
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Zobrazení zpráv: <b>%s</b> a¾ <b>%s</b> (%s celkem)"
 
-#: squirrelmail/functions/mailbox_display.php:689
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Zobrazení zprávy: <b>%s</b> (1 celkem)"
 
-#: squirrelmail/functions/mailbox_display.php:874
+msgid "Previous"
+msgstr "Pøedchozí"
+
+msgid "Next"
+msgstr "Dal¹í"
+
 msgid "Paginate"
 msgstr "Odstránkování"
 
-#: squirrelmail/functions/mailbox_display.php:881
 msgid "Show All"
 msgstr "Zobraz v¹e"
 
-#: squirrelmail/functions/mime.php:367
-msgid "Error decoding mime structure.  Report this as a bug!"
-msgstr "Error decoding mime structure.  Report this as a bug!"
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr ""
 
-#: squirrelmail/functions/mime.php:441
+msgid "the provided bodystructure by your imap-server"
+msgstr ""
+
+#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
-"is malformed. Please help us making future versions better by submitting "
-"this message to the developers knowledgebase!"
+"is malformed."
 msgstr ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed. Please help us making future versions better by submitting "
 "this message to the developers knowledgebase!"
 
-#: squirrelmail/functions/mime.php:443
-msgid "Submit message"
-msgstr "Odeslat zprávu"
-
-#: squirrelmail/functions/mime.php:445
 msgid "Command:"
 msgstr "Pøíkaz:"
 
-#: squirrelmail/functions/mime.php:446
 msgid "Response:"
 msgstr "Odpovìï:"
 
-#: squirrelmail/functions/mime.php:447
-#: squirrelmail/plugins/calendar/event_create.php:118
-#: squirrelmail/plugins/calendar/event_delete.php:38
-#: squirrelmail/plugins/calendar/event_edit.php:101
-#: squirrelmail/plugins/calendar/event_edit.php:114
 msgid "Message:"
 msgstr "Zpráva:"
 
-#: squirrelmail/functions/mime.php:448
 msgid "FETCH line:"
 msgstr "FETCH øádek:"
 
-#: squirrelmail/functions/mime.php:649
+msgid "High"
+msgstr "Vysoká"
+
+msgid "Low"
+msgstr "Nízká"
+
+msgid "Normal"
+msgstr "Normální"
+
 msgid "Hide Unsafe Images"
 msgstr "Schovat nebezpeèné obrázky"
 
-#: squirrelmail/functions/mime.php:651
 msgid "View Unsafe Images"
 msgstr "Zobrazit nebezpeèné obrázky"
 
-#: squirrelmail/functions/mime.php:680
-msgid "Attachments"
-msgstr "Pøílohy"
-
-#: squirrelmail/functions/mime.php:714 squirrelmail/functions/mime.php:792
 msgid "download"
 msgstr "stáhnout"
 
-#: squirrelmail/functions/mime.php:1096
-#: squirrelmail/plugins/calendar/event_create.php:53
-#: squirrelmail/plugins/calendar/event_create.php:116
-#: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:71
-#: squirrelmail/plugins/calendar/event_edit.php:99
-#: squirrelmail/plugins/calendar/event_edit.php:112
-msgid "Title:"
-msgstr "Název"
+#, fuzzy
+msgid "Unknown sender"
+msgstr "Neznámý Odesílatel"
 
-#: squirrelmail/functions/mime.php:1285
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_eng.png"
 
-#: squirrelmail/functions/options.php:168
 #, c-format
 msgid "Option Type '%s' Not Found"
 msgstr "Volba typu '%s' nenalezena"
 
-#: squirrelmail/functions/options.php:263
-#: squirrelmail/plugins/administrator/options.php:357
-#: squirrelmail/plugins/calendar/event_delete.php:51
-#: squirrelmail/plugins/calendar/event_edit.php:134
 msgid "Yes"
 msgstr "Ano"
 
-#: squirrelmail/functions/options.php:268
-#: squirrelmail/plugins/administrator/options.php:358
-#: squirrelmail/plugins/calendar/event_delete.php:58
-#: squirrelmail/plugins/calendar/event_edit.php:141
 msgid "No"
 msgstr "Ne"
 
-#: squirrelmail/functions/page_header.php:122
+msgid "Submit"
+msgstr "Odeslat"
+
 msgid "Current Folder"
 msgstr "Aktuální slo¾ka"
 
-#: squirrelmail/functions/page_header.php:136
-#: squirrelmail/functions/page_header.php:139
-#: squirrelmail/functions/page_header.php:181
-#: squirrelmail/functions/page_header.php:208
+msgid "Sign Out"
+msgstr "Odhlásit se"
+
 msgid "Compose"
 msgstr "Nová zpráva"
 
-#: squirrelmail/functions/prefs.php:91
+msgid "Addresses"
+msgstr "Adresáø"
+
+msgid "Folders"
+msgstr "Slo¾ky"
+
+msgid "Options"
+msgstr "Mo¾nosti"
+
+msgid "Search"
+msgstr "Hledat"
+
+msgid "Help"
+msgstr "Nápovìda"
+
 #, c-format
 msgid "Error creating directory %s."
 msgstr "Chyba pøi otevírání souboru %s"
 
-#: squirrelmail/functions/prefs.php:92
 msgid "Could not create hashed directory structure!"
 msgstr "Nemohu vytvoøit hashovanou strukturu adresáøù"
 
-#: squirrelmail/plugins/filters/filters.php:361
+msgid "General Display Options"
+msgstr "Obecné volby zobrazení"
+
+msgid "Theme"
+msgstr "Schéma"
+
+msgid "Default"
+msgstr "Implicitní"
+
+msgid "Custom Stylesheet"
+msgstr "Vlastní CSS styl"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Use Javascript"
+msgstr "Pou¾ívat Javascript"
+
+msgid "Autodetect"
+msgstr "Autodetekce"
+
+msgid "Always"
+msgstr "V¾dy"
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "Mailbox Display Options"
+msgstr "Volby zobrazení slo¾ky"
+
+msgid "Number of Messages to Index"
+msgstr "Poèet zpráv zobrazených ve slo¾ce"
+
+msgid "Enable Alternating Row Colors"
+msgstr "Pou¾ít støídající se barvy øádkù"
+
+msgid "Enable Page Selector"
+msgstr "Zapnout Stránkovaè"
+
+msgid "Maximum Number of Pages to Show"
+msgstr "Maximální zobrazený poèet stránek"
+
+msgid "Message Display and Composition"
+msgstr "Zobrazení a psaní zpráv"
+
+msgid "Wrap Incoming Text At"
+msgstr "Zalomit pøíchozí zprávu na"
+
+msgid "Size of Editor Window"
+msgstr "Velikost editaèního okna"
+
+msgid "Location of Buttons when Composing"
+msgstr "Umístìní tlaèítek pøi psaní nové zprávy"
+
+msgid "Before headers"
+msgstr "Pøed hlavièkou zprávy"
+
+msgid "Between headers and message body"
+msgstr "Mezi hlavièkou a tìlem zprávy"
+
+msgid "After message body"
+msgstr "Za tìlem zprávy"
+
+msgid "Addressbook Display Format"
+msgstr "Formát zobrazení adresáøe"
+
+msgid "Javascript"
+msgstr "Javascript"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "Show HTML Version by Default"
+msgstr "Zobrazovat v¾dy HTML verzi"
+
+msgid "Enable Forward as Attachment"
+msgstr ""
+
+msgid "Include CCs when Forwarding Messages"
+msgstr ""
+
+msgid "Include Me in CC when I Reply All"
+msgstr "Zahrò mou adresu do CC kdy¾ dám 'Odpovìdìt v¹em'"
+
+msgid "Enable Mailer Display"
+msgstr "Zobrazovat emailového klienta pøíchozích zpráv"
+
+msgid "Display Attached Images with Message"
+msgstr "Zobrazovat pøilo¾ené obrázky ve zprávì"
+
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "Zapnout odkaz na 'Vytisknout'"
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Zapnout zobrazení pro tisk"
+
+#, fuzzy
+msgid "Enable Mail Delivery Notification"
+msgstr "Zapnout oznamování o nepøeètených zprávách"
+
+#, fuzzy
+msgid "Compose Messages in New Window"
+msgstr "V¾dy psát zprávu v novém oknì"
+
+#, fuzzy
+msgid "Width of Compose Window"
+msgstr "Zavøít okno"
+
+#, fuzzy
+msgid "Height of Compose Window"
+msgstr "Zavøít okno"
+
+#, fuzzy
+msgid "Append Signature before Reply/Forward Text"
+msgstr "Pøipojit podpis pøed text"
+
+msgid "Enable Sort by of Receive Date"
+msgstr ""
+
+msgid "Enable Thread Sort by References Header"
+msgstr ""
+
+msgid "Special Folder Options"
+msgstr "Speciální nastavení slo¾ek"
+
+msgid "Folder Path"
+msgstr "Cesta slo¾ky"
+
+msgid "Do not use Trash"
+msgstr "Nepou¾ívat Ko¹"
+
+msgid "Trash Folder"
+msgstr "Slo¾ka Ko¹"
+
+msgid "Do not use Sent"
+msgstr "Nepou¾ívat slo¾ku Odeslaná po¹ta"
+
+msgid "Sent Folder"
+msgstr "Slo¾ka Odeslaná po¹ta"
+
+msgid "Do not use Drafts"
+msgstr "Nepou¾ívat Koncepty"
+
+msgid "Draft Folder"
+msgstr "Slo¾ka Konceptù"
+
+msgid "Folder List Options"
+msgstr "Mo¾nosti - Výpis slo¾ek"
+
+msgid "Location of Folder List"
+msgstr "Umístìní seznamu slo¾ek"
+
+msgid "Left"
+msgstr "Vlevo"
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "pixels"
+msgstr "bodù"
+
+msgid "Width of Folder List"
+msgstr "©íøka seznamu slo¾ek"
+
+msgid "Minutes"
+msgstr "Minuty"
+
+msgid "Seconds"
+msgstr "Sekund"
+
+msgid "Minute"
+msgstr "Minuta"
+
+msgid "Auto Refresh Folder List"
+msgstr "Automatické obnovování seznam slo¾ek"
+
+msgid "Enable Unread Message Notification"
+msgstr "Zapnout oznamování o nepøeètených zprávách"
+
+msgid "No Notification"
+msgstr "Bez oznámení"
+
+msgid "Only INBOX"
+msgstr "Pouze slo¾ka Doruèená po¹ta"
+
+msgid "All Folders"
+msgstr "V¹echny slo¾ky"
+
+msgid "Unread Message Notification Type"
+msgstr "Typ oznámení o nepøeètených zprávách"
+
+msgid "Only Unseen"
+msgstr "Pouze nepøeètené"
+
+msgid "Unseen and Total"
+msgstr "Nepøeètené a Celkem"
+
+msgid "Enable Collapsable Folders"
+msgstr "Zpøístupni rozbalovatelné slo¾ky"
+
+#, fuzzy
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "Zapnout oznamování o nepøeètených zprávách"
+
+msgid "Show Clock on Folders Panel"
+msgstr "Zobraz èas na panelu Slo¾ek"
+
+msgid "No Clock"
+msgstr "®ádný èas"
+
+msgid "Hour Format"
+msgstr "Formát hodin"
+
+msgid "12-hour clock"
+msgstr "12ti hodinový èas"
+
+msgid "24-hour clock"
+msgstr "24ti hodinový èas"
+
+msgid "Memory Search"
+msgstr "Hledat v pamìti"
+
+msgid "Disabled"
+msgstr "Vypnuto"
+
+#, fuzzy
+msgid "Folder Selection Options"
+msgstr "Mo¾nosti - Výpis slo¾ek"
+
+#, fuzzy
+msgid "Selection List Style"
+msgstr "Odpovìz ve stylu citace"
+
+#, fuzzy
+msgid "Long: "
+msgstr "Délka:"
+
+msgid "Indented: "
+msgstr ""
+
+msgid "Delimited: "
+msgstr ""
+
+msgid "Name and Address Options"
+msgstr "Mo¾nosti - Jméno a emailová adresa"
+
+msgid "Full Name"
+msgstr "Celé jméno"
+
+msgid "Email Address"
+msgstr "E-mailová adresa"
+
+msgid "Reply To"
+msgstr "Odpovìdìt na adresu"
+
+msgid "Signature"
+msgstr "Podpis"
+
+msgid "Edit Advanced Identities"
+msgstr "Edituj roz¹íøené identity"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(sma¾e doposud uèinìné zmìny v tomto formuláøi)"
+
+msgid "Multiple Identities"
+msgstr "Vícenásobné identity"
+
+msgid "Same as server"
+msgstr "Stejnì jako server"
+
+msgid "Timezone Options"
+msgstr "Èasové pásmo"
+
+msgid "Your current timezone"
+msgstr "Aktuální èasová zóna"
+
+msgid "Reply Citation Options"
+msgstr "Mo¾nosti - Citace v odpovìdi"
+
+msgid "Reply Citation Style"
+msgstr "Odpovìz ve stylu citace"
+
+msgid "No Citation"
+msgstr "Bez citace"
+
+msgid "AUTHOR Said"
+msgstr "Autor napsal"
+
+msgid "Quote Who XML"
+msgstr "Cituj Kdo XML"
+
+msgid "User-Defined"
+msgstr "Definováno u¾ivatelem"
+
+msgid "User-Defined Citation Start"
+msgstr "Zaèátek u¾ivatelem definované citace odpovìdi"
+
+msgid "User-Defined Citation End"
+msgstr "Konec u¾ivatelem definované citace odpovìdi"
+
+msgid "Signature Options"
+msgstr "Mo¾nosti - Podpis"
+
+msgid "Use Signature"
+msgstr "Pou¾ívat podpis?"
+
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Vlo¾it pøed podpis '-- ' ?"
+
+#, fuzzy
+msgid "Config File Version"
+msgstr "Zobrazit verzi pro tisk"
+
+#, fuzzy
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail verze %s"
+
+msgid "PHP Version"
+msgstr ""
+
+#, fuzzy
+msgid "Organization Preferences"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Organization Name"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Organization Logo"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Organization Logo Width"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Organization Logo Height"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Organization Title"
+msgstr "Organizace / Oddìlení"
+
+#, fuzzy
+msgid "Signout Page"
+msgstr "Odhlásit se"
+
+#, fuzzy
+msgid "Default Language"
+msgstr "Jazyk"
+
+msgid "Top Frame"
+msgstr ""
+
+msgid "Server Settings"
+msgstr ""
+
+msgid "Mail Domain"
+msgstr ""
+
+msgid "IMAP Server Address"
+msgstr ""
+
+msgid "IMAP Server Port"
+msgstr ""
+
+msgid "IMAP Server Type"
+msgstr ""
+
+msgid "Cyrus IMAP server"
+msgstr ""
+
+msgid "University of Washington's IMAP server"
+msgstr ""
+
+msgid "Microsoft Exchange IMAP server"
+msgstr ""
+
+msgid "Courier IMAP server"
+msgstr ""
+
+#, fuzzy
+msgid "Not one of the above servers"
+msgstr "Chyba v pøipojování k serveru IMAP: %s "
+
+msgid "IMAP Folder Delimiter"
+msgstr ""
+
+msgid "Use \"detect\" to auto-detect."
+msgstr ""
+
+msgid "Use Sendmail"
+msgstr ""
+
+msgid "Sendmail Path"
+msgstr ""
+
+msgid "SMTP Server Address"
+msgstr ""
+
+msgid "SMTP Server Port"
+msgstr ""
+
+msgid "Authenticated SMTP"
+msgstr ""
+
+msgid "Invert Time"
+msgstr ""
+
+msgid "Use Confirmation Flags"
+msgstr ""
+
+#, fuzzy
+msgid "Folders Defaults"
+msgstr "Cesta slo¾ky"
+
+#, fuzzy
+msgid "Default Folder Prefix"
+msgstr "Odstranit slo¾ku"
+
+#, fuzzy
+msgid "Show Folder Prefix Option"
+msgstr "Mo¾nosti - Výpis slo¾ek"
+
+msgid "By default, move to trash"
+msgstr ""
+
+msgid "By default, move to sent"
+msgstr ""
+
+msgid "By default, save as draft"
+msgstr ""
+
+#, fuzzy
+msgid "List Special Folders First"
+msgstr "Speciální nastavení slo¾ek"
+
+#, fuzzy
+msgid "Show Special Folders Color"
+msgstr "Speciální nastavení slo¾ek"
+
+#, fuzzy
+msgid "Auto Expunge"
+msgstr "Vysypat"
+
+msgid "Default Sub. of INBOX"
+msgstr ""
+
+msgid "Show 'Contain Sub.' Option"
+msgstr ""
+
+#, fuzzy
+msgid "Default Unseen Notify"
+msgstr "Základní/nastavená identita"
+
+#, fuzzy
+msgid "Default Unseen Type"
+msgstr "Základní/nastavená identita"
+
+#, fuzzy
+msgid "Auto Create Special Folders"
+msgstr "Vytvoøit slo¾ku"
+
+msgid "Default Javascript Adrressbook"
+msgstr ""
+
+#, fuzzy
+msgid "Auto delete folders"
+msgstr "Odstranit slo¾ku"
+
+#, fuzzy
+msgid "General Options"
+msgstr "Obecné volby zobrazení"
+
+#, fuzzy
+msgid "Default Charset"
+msgstr "Základní/nastavená identita"
+
+msgid "Data Directory"
+msgstr ""
+
+msgid "Temp Directory"
+msgstr ""
+
+msgid "Hash Level"
+msgstr ""
+
+#, fuzzy
+msgid "Hash Disabled"
+msgstr "Vypnuto"
+
+#, fuzzy
+msgid "Moderate"
+msgstr "Cesta slo¾ky"
+
+#, fuzzy
+msgid "Medium"
+msgstr "Støednì¹edá"
+
+#, fuzzy
+msgid "Default Left Size"
+msgstr "Základní/nastavená identita"
+
+msgid "Usernames in Lowercase"
+msgstr ""
+
+msgid "Allow use of priority"
+msgstr ""
+
+msgid "Hide SM attributions"
+msgstr ""
+
+msgid "Enable use of delivery receipts"
+msgstr ""
+
+msgid "Allow editing of identities"
+msgstr ""
+
+msgid "Allow editing of full name"
+msgstr ""
+
+#, fuzzy
+msgid "Message of the Day"
+msgstr "Zprávu nelze tisknout"
+
+#, fuzzy
+msgid "Database"
+msgstr "Datum"
+
+#, fuzzy
+msgid "Address book DSN"
+msgstr "Adresáø"
+
+#, fuzzy
+msgid "Address book table"
+msgstr "Adresáø"
+
+#, fuzzy
+msgid "Preferences DSN"
+msgstr "Slo¾ky - mo¾nosti"
+
+#, fuzzy
+msgid "Preferences table"
+msgstr "Slo¾ky - mo¾nosti"
+
+msgid "Preferences username field"
+msgstr ""
+
+msgid "Preferences key field"
+msgstr ""
+
+msgid "Preferences value field"
+msgstr ""
+
+msgid "Themes"
+msgstr "Schémata"
+
+msgid "Style Sheet URL (css)"
+msgstr "URL souborù se styly (css)"
+
+msgid "Configuration Administrator"
+msgstr "Administrátor konfigurace"
+
+msgid "Theme Name"
+msgstr "Název schéma"
+
+msgid "Theme Path"
+msgstr "Cesta ke schématùm"
+
+msgid "Plugins"
+msgstr "Zásuvné moduly"
+
+msgid "Change Settings"
+msgstr "Zmìnit nastavení"
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr ""
+
+msgid "Administration"
+msgstr "Administrace"
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+
+msgid "Bug Reports:"
+msgstr "Hlá¹ení chyb:"
+
+msgid "Show button in toolbar"
+msgstr "Zobrazit tlaèítko na li¹tì"
+
+msgid "TODAY"
+msgstr "DNES"
+
+msgid "Go"
+msgstr "Pøejít"
+
+#, fuzzy
+msgid "l, F j Y"
+msgstr "j F Y, G:i"
+
+msgid "ADD"
+msgstr "PØIDEJ"
+
+msgid "EDIT"
+msgstr "ZMÌÒ"
+
+msgid "DEL"
+msgstr "SMA®"
+
+msgid "Start time:"
+msgstr "Poèáteèní èas:"
+
+msgid "Length:"
+msgstr "Délka:"
+
+msgid "Priority:"
+msgstr "Priorita:"
+
+msgid "Title:"
+msgstr "Název"
+
+msgid "Set Event"
+msgstr "Nastav událost"
+
+msgid "Event Has been added!"
+msgstr "Událost byla pøidána!"
+
+msgid "Date:"
+msgstr "Datum:"
+
+msgid "Time:"
+msgstr "Èas:"
+
+msgid "Day View"
+msgstr "Náhled na den"
+
+msgid "Do you really want to delete this event?"
+msgstr "Opravdu chcete smazat tuto událost?"
+
+msgid "Event deleted!"
+msgstr "Událost smazána!"
+
+msgid "Nothing to delete!"
+msgstr "Nic ke smazání!"
+
+msgid "Update Event"
+msgstr "Aktualizovat událost"
+
+msgid "Do you really want to change this event from:"
+msgstr "Opravdu chcete tuto událost zmìnit z:"
+
+msgid "to:"
+msgstr "do:"
+
+msgid "Event updated!"
+msgstr "Událost aktualizována!"
+
+msgid "Month View"
+msgstr "Náhled na mìsíc"
+
+msgid "0 min."
+msgstr "0 min."
+
+msgid "15 min."
+msgstr "15 min."
+
+msgid "35 min."
+msgstr "35 min."
+
+msgid "45 min."
+msgstr "45 min."
+
+msgid "1 hr."
+msgstr "1 hod."
+
+msgid "1.5 hr."
+msgstr "1.5 hod."
+
+msgid "2 hr."
+msgstr "2 hod."
+
+msgid "2.5 hr."
+msgstr "2.5 hod."
+
+msgid "3 hr."
+msgstr "3 hod."
+
+msgid "3.5 hr."
+msgstr "3.5 hod."
+
+msgid "4 hr."
+msgstr "4 hod."
+
+msgid "5 hr."
+msgstr "5 hod."
+
+msgid "6 hr."
+msgstr "6 hod."
+
+msgid "Calendar"
+msgstr "Kalendáø"
+
+#, fuzzy
+msgid "Delete & Prev"
+msgstr "Odstranit"
+
+#, fuzzy
+msgid "Delete & Next"
+msgstr "Odstranit vybrané polo¾ky"
+
+msgid "Move to:"
+msgstr "Pøesunout do:"
+
+msgid "Delete/Move/Next Buttons:"
+msgstr ""
+
+msgid "Display at top"
+msgstr ""
+
+msgid "with move option"
+msgstr ""
+
+msgid "Display at bottom"
+msgstr ""
+
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:369
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:377
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:385
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:393
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:401
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:410
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:418
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:426
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
 "to catch abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:434
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:442
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:450
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:458
 msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
 "cgi scripts. (planned)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:466
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:474
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:482
-msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:490
-msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:498
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:506
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:514
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:522
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:530
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:538
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:546
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:554
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:562
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:570
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:578
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:586
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:594
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:602
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:610
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:618
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
 "assigned IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:626
 msgid ""
 "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
 "directly from."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:634
 msgid ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
 "in or that have allowed known spammers to become clients and abuse their "
 "services."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:642
 msgid ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
 "other active RBLs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:650
 msgid ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
 "other active RBLs and that have sent SPAM to Leadmon.net."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:658
 msgid ""
 "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
 "direct SPAM from IPs in netblocks where the entire block has no DNS "
@@ -2261,52 +1406,79 @@ msgid ""
 "Leadmon.net."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:666
 msgid ""
 "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
 "SPAM Sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:674
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/options.php:62
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+msgid "Saved Scan type"
+msgstr ""
+
 msgid "Message Filtering"
 msgstr "Filtrování zpráv"
 
-#: squirrelmail/plugins/filters/options.php:78
+msgid "What to Scan:"
+msgstr "Co mám prohlí¾et:"
+
+msgid "All messages"
+msgstr "V¹echny zprávy"
+
+msgid "Only unread messages"
+msgstr "Jen nepøeètené"
+
+msgid "Save"
+msgstr "Ulo¾it"
+
+msgid "New"
+msgstr "Nová"
+
+msgid "Done"
+msgstr "Hotovo"
+
 msgid "Match:"
 msgstr "Odpovídá:"
 
-#: squirrelmail/plugins/filters/options.php:104
+msgid "Cc"
+msgstr "Kopie"
+
+msgid "To or Cc"
+msgstr "Komu nebo Kopie"
+
+#, fuzzy
+msgid "Header"
+msgstr "Pøeètené"
+
 msgid "Contains:"
 msgstr "Obsahuje:"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:222
-#: squirrelmail/plugins/delete_move_next/setup.php:246
-#: squirrelmail/plugins/filters/options.php:116
-msgid "Move to:"
-msgstr "Pøesunout do:"
+msgid "Edit"
+msgstr "Editovat"
 
-#: squirrelmail/plugins/filters/options.php:158
 msgid "Down"
 msgstr "Dolù"
 
-#: squirrelmail/plugins/filters/options.php:164
 msgid "Up"
 msgstr "Nahoru"
 
-#: squirrelmail/plugins/filters/options.php:167
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Pokud <b>%s</b> obsahuje <b>%s</b> pak zprávu pøesuò do <b>%s</b>"
 
-#: squirrelmail/plugins/filters/setup.php:104
 msgid "Message Filters"
 msgstr "Filtrování zpráv"
 
-#: squirrelmail/plugins/filters/setup.php:106
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
@@ -2314,29 +1486,23 @@ msgstr ""
 "Filtrování zpráv umo¾òuje automaticky pøesunovat zprávy podle rùzných "
 "kriterií do podslo¾ek."
 
-#: squirrelmail/plugins/filters/setup.php:112
 msgid "SPAM Filters"
 msgstr "Filtrování nevy¾ádané po¹ty"
 
-#: squirrelmail/plugins/filters/setup.php:114
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:57
 msgid "Spam Filtering"
 msgstr "Fitrování nevy¾ádané po¹ty"
 
-#: squirrelmail/plugins/filters/spamoptions.php:62
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:84
 msgid "Move spam to:"
 msgstr "Pøesunout nevy¾ádanou po¹tu do:"
 
-#: squirrelmail/plugins/filters/spamoptions.php:102
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -2345,19 +1511,6 @@ msgid ""
 "around."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:105
-msgid "What to Scan:"
-msgstr "Co mám prohlí¾et:"
-
-#: squirrelmail/plugins/filters/spamoptions.php:111
-msgid "All messages"
-msgstr "V¹echny zprávy"
-
-#: squirrelmail/plugins/filters/spamoptions.php:116
-msgid "Only unread messages"
-msgstr "Jen nepøeètené"
-
-#: squirrelmail/plugins/filters/spamoptions.php:122
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
@@ -2366,63 +1519,542 @@ msgid ""
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:149
-msgid "Save"
-msgstr "Ulo¾it"
-
-#: squirrelmail/plugins/filters/spamoptions.php:160
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
 msgid "[<i>not set yet</i>]"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:162
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:162
 msgid "New Messages Only"
 msgstr "Zobrazit pouze nové zprávy"
 
-#: squirrelmail/plugins/filters/spamoptions.php:162
 msgid "All Messages"
 msgstr "V¹echny zprávy"
 
-#: squirrelmail/plugins/filters/spamoptions.php:172
 msgid "ON"
 msgstr "ZAP"
 
-#: squirrelmail/plugins/filters/spamoptions.php:174
 msgid "OFF"
 msgstr "VYP"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:49
+msgid "Mailinglist"
+msgstr ""
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+
+msgid "From:"
+msgstr "Od:"
+
+#, fuzzy
+msgid "Send Mail"
+msgstr "Odeslat"
+
+#, fuzzy
+msgid "Post to List"
+msgstr "z %s do %s"
+
+#, fuzzy
+msgid "Reply to List"
+msgstr "Odpovìdìt na adresu"
+
+msgid "Subscribe"
+msgstr "Pøihlásit"
+
+msgid "Unsubscribe"
+msgstr "Odhlásit"
+
+msgid "List Archives"
+msgstr ""
+
+msgid "Contact Listowner"
+msgstr ""
+
+#, fuzzy
+msgid "Mailing List"
+msgstr "Seznam zpráv"
+
+msgid "POP3 connect:"
+msgstr ""
+
+msgid "No server specified"
+msgstr ""
+
+#, fuzzy
+msgid "Error "
+msgstr "Chyba pøi otevírání"
+
+msgid "POP3 noop:"
+msgstr ""
+
+#, fuzzy
+msgid "No connection to server"
+msgstr "Chyba v pøipojování k serveru IMAP: %s "
+
+msgid "POP3 user:"
+msgstr ""
+
+msgid "no login ID submitted"
+msgstr ""
+
+msgid "connection not established"
+msgstr ""
+
+msgid "POP3 pass:"
+msgstr ""
+
+msgid "No password submitted"
+msgstr ""
+
+msgid "authentication failed "
+msgstr ""
+
+msgid "POP3 apop:"
+msgstr ""
+
+msgid "No login ID submitted"
+msgstr ""
+
+msgid "No server banner"
+msgstr ""
+
+msgid "abort"
+msgstr ""
+
+msgid "apop authentication failed"
+msgstr ""
+
+msgid "POP3 login:"
+msgstr ""
+
+msgid "POP3 top:"
+msgstr ""
+
+msgid "POP3 pop_list:"
+msgstr ""
+
+msgid "Premature end of list"
+msgstr ""
+
+msgid "POP3 get:"
+msgstr ""
+
+msgid "POP3 last:"
+msgstr ""
+
+msgid "POP3 reset:"
+msgstr ""
+
+msgid "POP3 send_cmd:"
+msgstr ""
+
+msgid "Empty command string"
+msgstr ""
+
+msgid "POP3 quit:"
+msgstr ""
+
+#, fuzzy
+msgid "connection does not exist"
+msgstr "U¾ivatel %s neexistuje"
+
+msgid "POP3 uidl:"
+msgstr ""
+
+msgid "POP3 delete:"
+msgstr ""
+
+msgid "No msg number submitted"
+msgstr ""
+
+#, fuzzy
+msgid "Command failed "
+msgstr "Otevírání probìhlo neúspì¹nì"
+
+msgid "Remote POP server Fetching Mail"
+msgstr ""
+
+msgid "Select Server:"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+#, fuzzy
+msgid "Password for"
+msgstr "Heslo:"
+
+msgid "Fetch Mail"
+msgstr ""
+
+msgid "Fetching from "
+msgstr ""
+
+msgid "Oops, "
+msgstr ""
+
+msgid "Opening IMAP server"
+msgstr ""
+
+msgid "Opening POP server"
+msgstr ""
+
+msgid "Login Failed:"
+msgstr ""
+
+msgid "Login OK: No new messages"
+msgstr ""
+
+msgid "Login OK: Inbox EMPTY"
+msgstr ""
+
+msgid "Login OK: Inbox contains ["
+msgstr ""
+
+#, fuzzy
+msgid "] messages"
+msgstr "zprávy"
+
+msgid "Fetching UIDL..."
+msgstr ""
+
+msgid "Server does not support UIDL."
+msgstr ""
+
+msgid "Leaving Mail on Server..."
+msgstr ""
+
+msgid "Deleting messages from server..."
+msgstr ""
+
+#, fuzzy
+msgid "Fetching message "
+msgstr "Zobrazit zprávu"
+
+msgid "Server error...Disconnect"
+msgstr ""
+
+msgid "Reconnect from dead connection"
+msgstr ""
+
+msgid "Saving UIDL"
+msgstr ""
+
+#, fuzzy
+msgid "Refetching message "
+msgstr "Zobrazit zprávu"
+
+#, fuzzy
+msgid "Error Appending Message!"
+msgstr "Chyba pøi otevírání"
+
+msgid "Closing POP"
+msgstr ""
+
+msgid "Logging out from IMAP"
+msgstr ""
+
+msgid "Message appended to mailbox"
+msgstr ""
+
+#, fuzzy
+msgid "Message "
+msgstr "Seznam zpráv"
+
+msgid " deleted from Remote Server!"
+msgstr ""
+
+#, fuzzy
+msgid "Delete failed:"
+msgstr "Odstranit vybrané polo¾ky"
+
+msgid "Remote POP server settings"
+msgstr ""
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr ""
+
+msgid "Encrypt passwords (informative only)"
+msgstr ""
+
+msgid "Add Server"
+msgstr ""
+
+#, fuzzy
+msgid "Server:"
+msgstr "Nikdy"
+
+#, fuzzy
+msgid "Port:"
+msgstr "Priorita:"
+
+msgid "Alias:"
+msgstr ""
+
+#, fuzzy
+msgid "Username:"
+msgstr "Nový název:"
+
+msgid "Password:"
+msgstr "Heslo:"
+
+#, fuzzy
+msgid "Store in Folder:"
+msgstr "Slo¾ka Odeslaná po¹ta"
+
+msgid "Leave Mail on Server"
+msgstr ""
+
+msgid "Check mail during login"
+msgstr ""
+
+msgid "Check mail during folder refresh"
+msgstr ""
+
+msgid "Modify Server"
+msgstr ""
+
+#, fuzzy
+msgid "Server Name:"
+msgstr "Odpovìï serveru: "
+
+#, fuzzy
+msgid "Modify"
+msgstr "Pondìlí"
+
+msgid "No-one server in use. Try to add."
+msgstr ""
+
+msgid "Fetching Servers"
+msgstr ""
+
+msgid "Confirm Deletion of a Server"
+msgstr ""
+
+msgid "Selected Server:"
+msgstr ""
+
+msgid "Confirm delete of selected server?"
+msgstr ""
+
+#, fuzzy
+msgid "Confirm Delete"
+msgstr "Odstranit"
+
+msgid "Mofify a Server"
+msgstr ""
+
+msgid "Undefined Function"
+msgstr ""
+
+msgid "Hey! Wath do You are looking for?"
+msgstr ""
+
+msgid "Fetch"
+msgstr ""
+
+msgid "Warning, "
+msgstr ""
+
+msgid "Mail Fetch Result:"
+msgstr ""
+
+msgid "Simple POP3 Fetch Mail"
+msgstr ""
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+
+msgid "New Mail Notification"
+msgstr "Oznáméní o nových emailech"
+
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+
+msgid "Enable Media Playing"
+msgstr ""
+
+msgid "Check all boxes, not just INBOX"
+msgstr ""
+
+msgid "Count only messages that are RECENT"
+msgstr ""
+
+msgid "Change title on supported browsers."
+msgstr ""
+
+msgid "requires JavaScript to work"
+msgstr ""
+
+msgid "Show popup window on new mail"
+msgstr ""
+
+msgid "Select server file:"
+msgstr ""
+
+msgid "(local media)"
+msgstr ""
+
+msgid "Try"
+msgstr ""
+
+msgid "Local Media File:"
+msgstr ""
+
+msgid "Current File:"
+msgstr "Aktuální soubor:"
+
+msgid "New Mail"
+msgstr "Nová po¹ta"
+
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail poznámka:"
+
+msgid "You have new mail!"
+msgstr "Máte novou zprávu!"
+
+msgid "Close Window"
+msgstr "Zavøít okno"
+
+msgid "NewMail Options"
+msgstr "Mo¾nosti oznámení o nových emailech"
+
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+
+msgid "New Mail Notification options saved"
+msgstr ""
+
+#, c-format
+msgid "%s New Messages"
+msgstr "%s nových zpráv"
+
+#, c-format
+msgid "%s New Message"
+msgstr "%s nová zpráva"
+
+msgid "Test Sound"
+msgstr ""
+
+msgid "Loading the sound..."
+msgstr ""
+
+msgid "Close"
+msgstr "Zavøít"
+
+msgid "Sent Subfolders Options"
+msgstr "Mo¾nosti - Podslo¾ky Odeslané po¹ty"
+
+msgid "Use Sent Subfolders"
+msgstr "Pou¾ívat podslo¾ky Odeslané po¹ty"
+
+msgid "Monthly"
+msgstr "Mìsíènì"
+
+msgid "Quarterly"
+msgstr "Kvartálnì"
+
+msgid "Yearly"
+msgstr "Roènì"
+
+msgid "Base Sent Folder"
+msgstr "Základní slo¾ka Odeslané po¹ta"
+
+msgid "Report as Spam"
+msgstr ""
+
+msgid "SpamCop - Spam Reporting"
+msgstr ""
+
+msgid ""
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
+msgstr ""
+
 msgid "SpellChecker Options"
 msgstr "Mo¾nosti kontroly pravopisu"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:51
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/setup.php:77
 msgid "Check Spelling"
 msgstr "Kontrola pravopisu"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:54
 msgid "Back to &quot;SpellChecker Options&quot; page"
 msgstr "Zpìt na stránku &quot;Mo¾nosti kontroly pravopisu&quot;"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:356
 msgid "ATTENTION:"
 msgstr "VAROVÁNÍ:"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:357
 msgid ""
 "SquirrelSpell was unable to decrypt your personal dictionary. This is most "
 "likely due to the fact that you have changed your mailbox password. In order "
@@ -2434,1948 +2066,1009 @@ msgid ""
 "it, the encrypted data is no longer accessible."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:363
 msgid "Delete my dictionary and start a new one"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:364
 msgid "Decrypt my dictionary with my old password:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:368
 msgid "Proceed"
 msgstr "Pokraèovat"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:374
 msgid "You must make a choice"
 msgstr "Musíte si vybrat"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:375
 msgid ""
 "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:376
 msgid "This will delete your personal dictionary file. Proceed?"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:388
 msgid "Error Decrypting Dictionary"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:506
 msgid "Cute."
 msgstr "Bezva."
 
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:115
-#, c-format
-msgid "I tried to execute '%s', but it returned:"
-msgstr "Pokusil jsem se pustit '%s', ale on mi vrátil:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:121
-msgid "SquirrelSpell is misconfigured."
-msgstr "SquirrelSpell je ¹patnì nakonfigurován."
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:211
-msgid "SquirrelSpell Results"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:271
-msgid "Spellcheck completed. Commit changes?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:273
-msgid "No changes were made."
-msgstr "Nebyly provedeny ¾ádné zmìny."
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:275
-msgid "Now saving your personal dictionary... Please wait."
-msgstr "Nyní ukládám vá¹ osobní slovník...  Prosím èekejte."
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:296
-#, c-format
-msgid "Found %s errors"
-msgstr "Nalezeno %s chyb"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:317
-msgid "Line with an error:"
-msgstr "Øádka s chybou:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:327
-msgid "Error:"
-msgstr "Chyba:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:336
-msgid "Suggestions:"
-msgstr "Návrhy:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:343
-msgid "Suggestions"
-msgstr "Návrhy"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:351
-msgid "Change to:"
-msgstr "Zmìnit na:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:360
-msgid "Occurs times:"
-msgstr "Poèet výskytù:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:377
-msgid "Change this word"
-msgstr "Zmìnit toto slovo"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:378
-msgid "Change"
-msgstr "Zmìnit"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:380
-msgid "Change ALL occurances of this word"
-msgstr "Zmìnit V©ECHNY výskyty tohoto slova"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:381
-msgid "Change All"
-msgstr "Zmìnit v¹e"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:383
-msgid "Ignore this word"
-msgstr "Ignorovat toto slovo"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:384
-msgid "Ignore"
-msgstr "Ignorovat"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:386
-msgid "Ignore ALL occurances this word"
-msgstr "Ignorovat v¹echny výskyty tohoto slova"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:387
-msgid "Ignore All"
-msgstr "Ignorovat V©E"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:389
-msgid "Add this word to your personal dictionary"
-msgstr "Pøidat toto slovo do osobního slovníku"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:390
-msgid "Add to Dic"
-msgstr "Pøidat polo¾ku do slovníku"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:403
-msgid "Close and Commit"
-msgstr "Zavøít a potvrdit"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:405
-msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:408
-msgid "Close and Cancel"
-msgstr "Zavøít a zru¹it"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:410
-msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:429
-msgid "No errors found"
-msgstr "Nebyla nalezena ¾ádná chyba"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
-msgid "Your personal dictionary was erased."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
-msgid "Dictionary Erased"
-msgstr "Slovník smazán"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-msgid ""
-"Your personal dictionary was erased. Please close this window and click "
-"\"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
-msgid "Close this Window"
-msgstr "Zavøít okno"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
-msgid "Successful Re-encryption"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
-msgid "Dictionary re-encrypted"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-msgid "Personal Dictionary Crypto Settings"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
-msgid "Personal Dictionary"
-msgstr "Osobní slovník"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:29
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:99
-msgid "No words in your personal dictionary."
-msgstr "V osobním slovníku nejsou ¾ádná slova"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:36
-msgid "Please check any words you wish to delete from your dictionary."
-msgstr "Prosím oznaète slova, které chcete odstranit z osobního slovníku."
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:58
-#, c-format
-msgid "%s dictionary"
-msgstr "%s slovník"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:89
-msgid "Delete checked words"
-msgstr "Odstranit vybrané slova"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:103
-msgid "Edit your Personal Dictionary"
-msgstr "Editovat osobní slovník"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:25
-msgid "Please make your selection first."
-msgstr "Prosím nejprve proveïte volbu"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:27
-msgid ""
-"This will encrypt your personal dictionary and store it in an encrypted "
-"format. Proceed?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:30
-msgid ""
-"This will decrypt your personal dictionary and store it in a clear-text "
-"format. Proceed?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
-msgid ""
-"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-"helps protect your privacy in case the web-mail system gets compromized and "
-"your personal dictionary ends up stolen. It is currently encrypted with the "
-"password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
-"strong> If you forget your password, your personal dictionary will become "
-"unaccessible, since it can no longer be decrypted. If you change your "
-"mailbox password, SquirrelSpell will recognize it and prompt you for your "
-"old password in order to re-encrypt the dictionary with a new key.</p>"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:52
-msgid ""
-"Please decrypt my personal dictionary and store it in a clear-text format."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
-msgid "Change crypto settings"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:65
-msgid ""
-"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
-"may wish to encrypt your personal dictionary to protect your privacy in case "
-"the webmail system gets compromized and your personal dictionary file gets "
-"stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox password).</"
-"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
-"dictionary, you must remember that it gets &quot;hashed&quot; with your "
-"mailbox password. If you forget your mailbox password and the administrator "
-"changes it to a new value, your personal dictionary will become useless and "
-"will have to be created anew. However, if you or your system administrator "
-"change your mailbox password but you still have the old password at hand, "
-"you will be able to enter the old key to re-encrypt the dictionary with the "
-"new value.</p>"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
-msgid ""
-"Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:28
-#, c-format
-msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:71
-msgid "All done!"
-msgstr "V¹e hotovo!"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:72
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:71
-msgid "Personal Dictionary Updated"
-msgstr "Osobní slovník aktualizován"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:78
-msgid "No changes requested."
-msgstr "Nebyly po¾adovány ¾ádné zmìny."
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:33
-msgid "Please wait, communicating with the server..."
-msgstr "Prosím èekejte, komunikuji se serverem..."
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:42
-msgid ""
-"Please choose which dictionary you would like to use to spellcheck this "
-"message:"
-msgstr ""
-
-#: squirrelmail/plugins/calendar/calendar.php:113
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:53
-msgid "Go"
-msgstr "Pøejít"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:57
-msgid "SquirrelSpell Initiating"
-msgstr "SquirrelSpell se inicializuje"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:72
-#, c-format
-msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:79
-#, c-format
-msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:90
-msgid "International Dictionaries Preferences Updated"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:22
-msgid ""
-"Please check any available international dictionaries which you would like "
-"to use when spellchecking:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:32
-msgid "Make this dictionary my default selection:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:49
-msgid "Make these changes"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:50
-msgid "Add International Dictionaries"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:19
-msgid "Please choose which options you wish to set up:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:23
-msgid "Edit your personal dictionary"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:30
-msgid "Set up international dictionaries"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:40
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:44
-msgid "Encrypt or decrypt your personal dictionary"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
-msgid "not available"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:48
-msgid "SquirrelSpell Options Menu"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:94
 msgid "Translator"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:97
+#, fuzzy
+msgid "Saved Translation Options"
+msgstr "Mo¾nosti - Citace v odpovìdi"
+
 msgid "Your server options are as follows:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:102
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:105
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:111
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:114
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:120
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:141
 msgid "Show translation box"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:143
 msgid "to the left"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:144
 msgid "in the center"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:145
 msgid "to the right"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:150
 msgid "Translate inside the SquirrelMail frames"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:153
 msgid "When composing:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:157
 msgid "Not yet functional, currently does nothing"
 msgstr ""
 
-#: squirrelmail/plugins/translate/setup.php:104
+msgid "Download this as a file"
+msgstr "Ulo¾it jako soubor"
+
 msgid "Translation Options"
 msgstr ""
 
-#: squirrelmail/plugins/translate/setup.php:106
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
 msgstr ""
 
-#: squirrelmail/plugins/translate/setup.php:230
-#: squirrelmail/plugins/translate/setup.php:234
-#: squirrelmail/plugins/translate/setup.php:238
-#: squirrelmail/plugins/translate/setup.php:242
-#: squirrelmail/plugins/translate/setup.php:246
-#: squirrelmail/plugins/translate/setup.php:250
-#: squirrelmail/plugins/translate/setup.php:254
-#: squirrelmail/plugins/translate/setup.php:258
-#: squirrelmail/plugins/translate/setup.php:262
-#: squirrelmail/plugins/translate/setup.php:266
-#: squirrelmail/plugins/translate/setup.php:270
-#: squirrelmail/plugins/translate/setup.php:274
-#: squirrelmail/plugins/translate/setup.php:278
-#: squirrelmail/plugins/translate/setup.php:293
-#: squirrelmail/plugins/translate/setup.php:297
-#: squirrelmail/plugins/translate/setup.php:301
-#: squirrelmail/plugins/translate/setup.php:305
-#: squirrelmail/plugins/translate/setup.php:309
-#: squirrelmail/plugins/translate/setup.php:313
-#: squirrelmail/plugins/translate/setup.php:317
-#: squirrelmail/plugins/translate/setup.php:321
-#: squirrelmail/plugins/translate/setup.php:325
-#: squirrelmail/plugins/translate/setup.php:329
-#: squirrelmail/plugins/translate/setup.php:404
-#: squirrelmail/plugins/translate/setup.php:437
-#: squirrelmail/plugins/translate/setup.php:441
-#: squirrelmail/plugins/translate/setup.php:445
-#: squirrelmail/plugins/translate/setup.php:449
-#: squirrelmail/plugins/translate/setup.php:453
-#: squirrelmail/plugins/translate/setup.php:457
-#: squirrelmail/plugins/translate/setup.php:461
-#: squirrelmail/plugins/translate/setup.php:465
-#: squirrelmail/plugins/translate/setup.php:469
-#: squirrelmail/plugins/translate/setup.php:473
-#: squirrelmail/plugins/translate/setup.php:477
-#: squirrelmail/plugins/translate/setup.php:481
 #, c-format
 msgid "%s to %s"
 msgstr "z %s do %s"
 
-#: squirrelmail/plugins/translate/setup.php:231
-#: squirrelmail/plugins/translate/setup.php:235
-#: squirrelmail/plugins/translate/setup.php:239
-#: squirrelmail/plugins/translate/setup.php:243
-#: squirrelmail/plugins/translate/setup.php:247
-#: squirrelmail/plugins/translate/setup.php:252
-#: squirrelmail/plugins/translate/setup.php:256
-#: squirrelmail/plugins/translate/setup.php:260
-#: squirrelmail/plugins/translate/setup.php:264
-#: squirrelmail/plugins/translate/setup.php:268
-#: squirrelmail/plugins/translate/setup.php:280
-#: squirrelmail/plugins/translate/setup.php:294
-#: squirrelmail/plugins/translate/setup.php:298
-#: squirrelmail/plugins/translate/setup.php:302
-#: squirrelmail/plugins/translate/setup.php:306
-#: squirrelmail/plugins/translate/setup.php:310
-#: squirrelmail/plugins/translate/setup.php:315
-#: squirrelmail/plugins/translate/setup.php:319
-#: squirrelmail/plugins/translate/setup.php:323
-#: squirrelmail/plugins/translate/setup.php:327
-#: squirrelmail/plugins/translate/setup.php:331
-#: squirrelmail/plugins/translate/setup.php:352
-#: squirrelmail/plugins/translate/setup.php:382
-#: squirrelmail/plugins/translate/setup.php:438
-#: squirrelmail/plugins/translate/setup.php:442
-#: squirrelmail/plugins/translate/setup.php:446
-#: squirrelmail/plugins/translate/setup.php:450
-#: squirrelmail/plugins/translate/setup.php:454
-#: squirrelmail/plugins/translate/setup.php:459
-#: squirrelmail/plugins/translate/setup.php:471
-#: squirrelmail/plugins/translate/setup.php:475
-#: squirrelmail/plugins/translate/setup.php:479
-#: squirrelmail/plugins/translate/setup.php:483
 msgid "English"
 msgstr "Angliètina"
 
-#: squirrelmail/plugins/translate/setup.php:232
-#: squirrelmail/plugins/translate/setup.php:251
-#: squirrelmail/plugins/translate/setup.php:272
-#: squirrelmail/plugins/translate/setup.php:275
-#: squirrelmail/plugins/translate/setup.php:299
-#: squirrelmail/plugins/translate/setup.php:318
-#: squirrelmail/plugins/translate/setup.php:355
-#: squirrelmail/plugins/translate/setup.php:385
-#: squirrelmail/plugins/translate/setup.php:417
-#: squirrelmail/plugins/translate/setup.php:439
-#: squirrelmail/plugins/translate/setup.php:458
-#: squirrelmail/plugins/translate/setup.php:462
-#: squirrelmail/plugins/translate/setup.php:467
 msgid "French"
 msgstr "Francouz¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:236
-#: squirrelmail/plugins/translate/setup.php:255
-#: squirrelmail/plugins/translate/setup.php:271
-#: squirrelmail/plugins/translate/setup.php:276
-#: squirrelmail/plugins/translate/setup.php:303
-#: squirrelmail/plugins/translate/setup.php:322
-#: squirrelmail/plugins/translate/setup.php:356
-#: squirrelmail/plugins/translate/setup.php:386
-#: squirrelmail/plugins/translate/setup.php:418
-#: squirrelmail/plugins/translate/setup.php:443
-#: squirrelmail/plugins/translate/setup.php:463
-#: squirrelmail/plugins/translate/setup.php:466
-#: squirrelmail/plugins/translate/setup.php:470
 msgid "German"
 msgstr "Nìmèina"
 
-#: squirrelmail/plugins/translate/setup.php:240
-#: squirrelmail/plugins/translate/setup.php:259
-#: squirrelmail/plugins/translate/setup.php:307
-#: squirrelmail/plugins/translate/setup.php:326
-#: squirrelmail/plugins/translate/setup.php:360
-#: squirrelmail/plugins/translate/setup.php:390
-#: squirrelmail/plugins/translate/setup.php:420
-#: squirrelmail/plugins/translate/setup.php:447
-#: squirrelmail/plugins/translate/setup.php:474
 msgid "Italian"
 msgstr "Ital¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:244
-#: squirrelmail/plugins/translate/setup.php:263
-#: squirrelmail/plugins/translate/setup.php:311
-#: squirrelmail/plugins/translate/setup.php:330
-#: squirrelmail/plugins/translate/setup.php:365
-#: squirrelmail/plugins/translate/setup.php:395
-#: squirrelmail/plugins/translate/setup.php:422
-#: squirrelmail/plugins/translate/setup.php:451
-#: squirrelmail/plugins/translate/setup.php:478
 msgid "Portuguese"
 msgstr "Portugal¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:248
-#: squirrelmail/plugins/translate/setup.php:267
-#: squirrelmail/plugins/translate/setup.php:295
-#: squirrelmail/plugins/translate/setup.php:314
-#: squirrelmail/plugins/translate/setup.php:370
-#: squirrelmail/plugins/translate/setup.php:400
-#: squirrelmail/plugins/translate/setup.php:423
-#: squirrelmail/plugins/translate/setup.php:455
-#: squirrelmail/plugins/translate/setup.php:482
 msgid "Spanish"
 msgstr "©panìl¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:279
-#: squirrelmail/plugins/translate/setup.php:367
-#: squirrelmail/plugins/translate/setup.php:397
 msgid "Russian"
 msgstr "Ru¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:282
-#: squirrelmail/plugins/translate/setup.php:334
-#: squirrelmail/plugins/translate/setup.php:405
-#: squirrelmail/plugins/translate/setup.php:426
-#: squirrelmail/plugins/translate/setup.php:485
 msgid "Translate"
 msgstr "Pøelo¾it"
 
-#: squirrelmail/plugins/translate/setup.php:346
-#: squirrelmail/plugins/translate/setup.php:376
 msgid "Brazilian Portuguese"
 msgstr "Brazilská portugal¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:347
-#: squirrelmail/plugins/translate/setup.php:377
 msgid "Bulgarian"
 msgstr "Bulhar¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:348
-#: squirrelmail/plugins/translate/setup.php:378
 msgid "Croatian"
 msgstr "Chorvat¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:349
-#: squirrelmail/plugins/translate/setup.php:379
 msgid "Czech"
 msgstr "Èe¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:350
-#: squirrelmail/plugins/translate/setup.php:380
 msgid "Danish"
 msgstr "Dán¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:351
-#: squirrelmail/plugins/translate/setup.php:381
-#: squirrelmail/plugins/translate/setup.php:416
 msgid "Dutch"
 msgstr "Holand¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:353
-#: squirrelmail/plugins/translate/setup.php:383
 msgid "European Spanish"
 msgstr "Evropská ¹panìl¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:354
-#: squirrelmail/plugins/translate/setup.php:384
 msgid "Finnish"
 msgstr "Fin¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:357
-#: squirrelmail/plugins/translate/setup.php:387
 msgid "Greek"
 msgstr "Øeètina"
 
-#: squirrelmail/plugins/translate/setup.php:358
-#: squirrelmail/plugins/translate/setup.php:388
 msgid "Hungarian"
 msgstr "Maïar¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:359
-#: squirrelmail/plugins/translate/setup.php:389
 msgid "Icelandic"
 msgstr "Island¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:361
-#: squirrelmail/plugins/translate/setup.php:391
 msgid "Japanese"
 msgstr "Japon¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:362
-#: squirrelmail/plugins/translate/setup.php:392
 msgid "Latin American Spanish"
 msgstr "Latinsko-americká ¹panìl¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:363
-#: squirrelmail/plugins/translate/setup.php:393
 msgid "Norwegian"
 msgstr "Nór¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:364
-#: squirrelmail/plugins/translate/setup.php:394
 msgid "Polish"
 msgstr "Pol¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:366
-#: squirrelmail/plugins/translate/setup.php:396
 msgid "Romanian"
 msgstr "Rumun¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:368
-#: squirrelmail/plugins/translate/setup.php:398
 msgid "Serbian"
 msgstr "Srb¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:369
-#: squirrelmail/plugins/translate/setup.php:399
 msgid "Slovenian"
 msgstr "Sloven¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:371
-#: squirrelmail/plugins/translate/setup.php:401
 msgid "Swedish"
 msgstr "©véd¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:372
-#: squirrelmail/plugins/translate/setup.php:402
 msgid "Welsh"
 msgstr "Vel¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:419
 msgid "Indonesian"
 msgstr "Indonéz¹tina"
 
-#: squirrelmail/plugins/translate/setup.php:421
 msgid "Latin"
 msgstr "Latina"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:37
-msgid "New Mail Notification"
-msgstr "Oznáméní o nových emailech"
+msgid "Address Book"
+msgstr "Adresáø"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:41
-msgid ""
-"Select <b>Enable Media Playing</b> to turn on playing a media file when "
-"unseen mail is in your folders. When enabled, you can specify the media file "
-"to play in the provided file box."
-msgstr ""
+msgid "Name"
+msgstr "Jméno"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:45
-msgid ""
-"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
-"folders for unseen mail, not just the inbox for notification."
-msgstr ""
+msgid "E-mail"
+msgstr "E-mail"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:47
-msgid ""
-"Selecting the <b>Show popup</b> option will enable the showing of a popup "
-"window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
+msgid "Info"
+msgstr "Informace"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:49
-msgid ""
-"Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
-msgstr ""
+msgid "Source"
+msgstr "Zdroj"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:51
-msgid ""
-"Selecting the <b>Change title</b> option will change the title in some "
-"browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers).  This will "
-"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
-"enabled."
-msgstr ""
+msgid "Bcc"
+msgstr "Neviditelná kopie"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:55
-msgid ""
-"Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
-msgstr ""
+msgid "Use Addresses"
+msgstr "Pou¾ít adresáø"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:67
-msgid "Enable Media Playing"
-msgstr ""
+msgid "Address Book Search"
+msgstr "Hledat v adresáøi"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:76
-msgid "Check all boxes, not just INBOX"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:84
-msgid "Count only messages that are RECENT"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:92
-msgid "Change title on supported browsers."
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:92
-#: squirrelmail/plugins/newmail/newmail_opt.php:100
-msgid "requires JavaScript to work"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:100
-msgid "Show popup window on new mail"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:104
-msgid "Select server file:"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:106
-msgid "(local media)"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:123
-msgid "Try"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:131
-msgid "Local Media File:"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:137
-msgid "Current File:"
-msgstr "Aktuální soubor:"
-
-#: squirrelmail/plugins/newmail/newmail.php:20
-msgid "New Mail"
-msgstr "Nová po¹ta"
-
-#: squirrelmail/plugins/newmail/newmail.php:27
-msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail poznámka:"
-
-#: squirrelmail/plugins/newmail/newmail.php:31
-msgid "You have new mail!"
-msgstr "Máte novou zprávu!"
-
-#: squirrelmail/plugins/newmail/setup.php:78
-msgid "NewMail Options"
-msgstr "Mo¾nosti oznámení o nových emailech"
-
-#: squirrelmail/plugins/newmail/setup.php:80
-msgid ""
-"This configures settings for playing sounds and/or showing popup windows "
-"when new mail arrives."
-msgstr ""
-
-#: squirrelmail/plugins/newmail/setup.php:129
-msgid "New Mail Notification options saved"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/setup.php:202
-#, c-format
-msgid "%s New Messages"
-msgstr "%s nových zpráv"
-
-#: squirrelmail/plugins/newmail/setup.php:206
-#, c-format
-msgid "%s New Message"
-msgstr "%s nová zpráva"
-
-#: squirrelmail/plugins/newmail/testsound.php:24
-msgid "Test Sound"
-msgstr ""
-
-#: squirrelmail/plugins/newmail/testsound.php:30
-msgid "Loading the sound..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-msgid "POP3 connect:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-msgid "No server specified"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-#, fuzzy
-msgid "Error "
-msgstr "Chyba pøi otevírání"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:110
-msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-msgid "POP3 noop:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-#, fuzzy
-msgid "No connection to server"
-msgstr "Chyba v pøipojování k serveru IMAP: %s "
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-msgid "POP3 user:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-msgid "no login ID submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-msgid "connection not established"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-msgid "POP3 pass:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-msgid "No password submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-msgid "authentication failed "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "NOOP failed. Server not RFC 1939 compliant"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "POP3 apop:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-msgid "No login ID submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-msgid "No server banner"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "abort"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "apop authentication failed"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-msgid "POP3 login:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-msgid "POP3 top:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "POP3 pop_list:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "Premature end of list"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-msgid "POP3 get:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-msgid "POP3 last:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-msgid "POP3 reset:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "POP3 send_cmd:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "Empty command string"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-msgid "POP3 quit:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-#, fuzzy
-msgid "connection does not exist"
-msgstr "U¾ivatel %s neexistuje"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-msgid "POP3 uidl:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-msgid "POP3 delete:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-msgid "No msg number submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-#, fuzzy
-msgid "Command failed "
-msgstr "Otevírání probìhlo neúspì¹nì"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:54
-msgid "Remote POP server Fetching Mail"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:63
-msgid "Select Server:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:65
-msgid "All"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:78
-#, fuzzy
-msgid "Password for"
-msgstr "Heslo:"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:85
-msgid "Fetch Mail"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:117
-msgid "Fetching from "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:124
-#: squirrelmail/plugins/mail_fetch/fetch.php:184
-msgid "Oops, "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:128
-msgid "Opening IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:131
-msgid "Opening POP server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:134
-#: squirrelmail/plugins/mail_fetch/setup.php:123
-msgid "Login Failed:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:151
-msgid "Login OK: No new messages"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:156
-msgid "Login OK: Inbox EMPTY"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-msgid "Login OK: Inbox contains ["
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-#, fuzzy
-msgid "] messages"
-msgstr "zprávy"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:164
-msgid "Fetching UIDL..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:169
-#: squirrelmail/plugins/mail_fetch/setup.php:154
-msgid "Server does not support UIDL."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:172
-msgid "Leaving Mail on Server..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:174
-msgid "Deleting messages from server..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:178
-#, fuzzy
-msgid "Fetching message "
-msgstr "Zobrazit zprávu"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:201
-msgid "Message appended to mailbox"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-#, fuzzy
-msgid "Message "
-msgstr "Seznam zpráv"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid " deleted from Remote Server!"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:207
-#, fuzzy
-msgid "Delete failed:"
-msgstr "Odstranit vybrané polo¾ky"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:212
-#: squirrelmail/plugins/mail_fetch/setup.php:185
-#, fuzzy
-msgid "Error Appending Message!"
-msgstr "Chyba pøi otevírání"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:216
-msgid "Closing POP"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:218
-msgid "Logging out from IMAP"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:221
-msgid "Saving UIDL"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:105
-msgid "Remote POP server settings"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:107
-msgid ""
-"You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
-"encryption anyway. Additionally, the encryption that we do to save it on the "
-"server can be undone by a hacker reading the source to this file."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:109
-msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:113
-msgid "Encrypt passwords (informative only)"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:119
-#: squirrelmail/plugins/mail_fetch/options.php:146
-msgid "Add Server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:123
-#: squirrelmail/plugins/mail_fetch/options.php:196
-#, fuzzy
-msgid "Server:"
-msgstr "Nikdy"
-
-#: squirrelmail/plugins/mail_fetch/options.php:124
-#: squirrelmail/plugins/mail_fetch/options.php:198
-msgid "Alias:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:125
-#: squirrelmail/plugins/mail_fetch/options.php:200
-#, fuzzy
-msgid "Username:"
-msgstr "Nový název:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:127
-#: squirrelmail/plugins/mail_fetch/options.php:204
-#, fuzzy
-msgid "Store in Folder:"
-msgstr "Slo¾ka Odeslaná po¹ta"
-
-#: squirrelmail/plugins/mail_fetch/options.php:143
-#: squirrelmail/plugins/mail_fetch/options.php:224
-msgid "Leave Mail on Server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:144
-#: squirrelmail/plugins/mail_fetch/options.php:226
-msgid "Check mail during login"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:145
-#: squirrelmail/plugins/mail_fetch/options.php:228
-msgid "Check mail during folder refresh"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:152
-#: squirrelmail/plugins/mail_fetch/options.php:229
-msgid "Modify Server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:156
-#, fuzzy
-msgid "Server Name:"
-msgstr "Odpovìï serveru: "
-
-#: squirrelmail/plugins/mail_fetch/options.php:162
-#: squirrelmail/plugins/mail_fetch/options.php:185
-#, fuzzy
-msgid "Modify"
-msgstr "Pondìlí"
-
-#: squirrelmail/plugins/mail_fetch/options.php:166
-msgid "No-one server in use. Try to add."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:172
-#: squirrelmail/plugins/mail_fetch/options.php:187
-#: squirrelmail/plugins/mail_fetch/options.php:234
-msgid "Fetching Servers"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:176
-msgid "Confirm Deletion of a Server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:180
-msgid "Selected Server:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:181
-msgid "Confirm delete of selected server?"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:182
-#, fuzzy
-msgid "Confirm Delete"
-msgstr "Odstranit"
-
-#: squirrelmail/plugins/mail_fetch/options.php:191
-msgid "Mofify a Server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:237
-msgid "Undefined Function"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:239
-msgid "Hey! Wath do You are looking for?"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/setup.php:30
-msgid "Fetch"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/setup.php:115
-#: squirrelmail/plugins/mail_fetch/setup.php:162
-msgid "Warning, "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/setup.php:198
-msgid "Mail Fetch Result:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/setup.php:223
-msgid "Simple POP3 Fetch Mail"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/setup.php:225
-msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
-"account on this server."
-msgstr ""
-
-#: squirrelmail/plugins/bug_report/setup.php:65
-msgid "Bug Reports:"
-msgstr "Hlá¹ení chyb:"
-
-#: squirrelmail/plugins/bug_report/setup.php:70
-msgid "Show button in toolbar"
-msgstr "Zobrazit tlaèítko na li¹tì"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:94
-msgid "Sent Subfolders Options"
-msgstr "Mo¾nosti - Podslo¾ky Odeslané po¹ty"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:99
-msgid "Use Sent Subfolders"
-msgstr "Pou¾ívat podslo¾ky Odeslané po¹ty"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:103
-msgid "Monthly"
-msgstr "Mìsíènì"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:104
-msgid "Quarterly"
-msgstr "Kvartálnì"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:105
-msgid "Yearly"
-msgstr "Roènì"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:120
-msgid "Base Sent Folder"
-msgstr "Základní slo¾ka Odeslané po¹ta"
-
-#: squirrelmail/plugins/calendar/calendar.php:75
-msgid "TODAY"
-msgstr "DNES"
-
-#: squirrelmail/plugins/calendar/day.php:79
-msgid "ADD"
-msgstr "PØIDEJ"
-
-#: squirrelmail/plugins/calendar/day.php:93
-msgid "EDIT"
-msgstr "ZMÌÒ"
-
-#: squirrelmail/plugins/calendar/day.php:95
-msgid "DEL"
-msgstr "SMA®"
-
-#: squirrelmail/plugins/calendar/event_create.php:31
-msgid "Start time:"
-msgstr "Poèáteèní èas:"
-
-#: squirrelmail/plugins/calendar/event_create.php:41
-#: squirrelmail/plugins/calendar/event_edit.php:59
-msgid "Length:"
-msgstr "Délka:"
-
-#: squirrelmail/plugins/calendar/event_create.php:47
-#: squirrelmail/plugins/calendar/event_edit.php:65
-#: squirrelmail/plugins/calendar/event_edit.php:97
-#: squirrelmail/plugins/calendar/event_edit.php:110
-msgid "Priority:"
-msgstr "Priorita:"
-
-#: squirrelmail/plugins/calendar/event_create.php:61
-msgid "Set Event"
-msgstr "Nastav událost"
-
-#: squirrelmail/plugins/calendar/event_create.php:111
-msgid "Event Has been added!"
-msgstr "Událost byla pøidána!"
-
-#: squirrelmail/plugins/calendar/event_create.php:114
-#: squirrelmail/plugins/calendar/event_delete.php:34
-#: squirrelmail/plugins/calendar/event_edit.php:49
-#: squirrelmail/plugins/calendar/event_edit.php:95
-msgid "Time:"
-msgstr "Èas:"
-
-#: squirrelmail/plugins/calendar/event_create.php:121
-#: squirrelmail/plugins/calendar/event_delete.php:91
-#: squirrelmail/plugins/calendar/event_edit.php:189
-#: squirrelmail/plugins/calendar/functions.php:23
-msgid "Day View"
-msgstr "Náhled na den"
-
-#: squirrelmail/plugins/calendar/event_delete.php:31
-msgid "Do you really want to delete this event?"
-msgstr "Opravdu chcete smazat tuto událost?"
-
-#: squirrelmail/plugins/calendar/event_delete.php:89
-msgid "Event deleted!"
-msgstr "Událost smazána!"
-
-#: squirrelmail/plugins/calendar/event_delete.php:97
-msgid "Nothing to delete!"
-msgstr "Nic ke smazání!"
-
-#: squirrelmail/plugins/calendar/event_edit.php:79
-msgid "Update Event"
-msgstr "Aktualizovat událost"
-
-#: squirrelmail/plugins/calendar/event_edit.php:91
-msgid "Do you really want to change this event from:"
-msgstr "Opravdu chcete tuto událost zmìnit z:"
-
-#: squirrelmail/plugins/calendar/event_edit.php:104
-msgid "to:"
-msgstr "do:"
-
-#: squirrelmail/plugins/calendar/event_edit.php:187
-msgid "Event updated!"
-msgstr "Událost aktualizována!"
-
-#: squirrelmail/plugins/calendar/functions.php:21
-msgid "Month View"
-msgstr "Náhled na mìsíc"
-
-#: squirrelmail/plugins/calendar/functions.php:34
-msgid "0 min."
-msgstr "0 min."
-
-#: squirrelmail/plugins/calendar/functions.php:35
-msgid "15 min."
-msgstr "15 min."
-
-#: squirrelmail/plugins/calendar/functions.php:36
-msgid "35 min."
-msgstr "35 min."
-
-#: squirrelmail/plugins/calendar/functions.php:37
-msgid "45 min."
-msgstr "45 min."
-
-#: squirrelmail/plugins/calendar/functions.php:38
-msgid "1 hr."
-msgstr "1 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:39
-msgid "1.5 hr."
-msgstr "1.5 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:40
-msgid "2 hr."
-msgstr "2 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:41
-msgid "2.5 hr."
-msgstr "2.5 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:42
-msgid "3 hr."
-msgstr "3 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:43
-msgid "3.5 hr."
-msgstr "3.5 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:44
-msgid "4 hr."
-msgstr "4 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:45
-msgid "5 hr."
-msgstr "5 hod."
-
-#: squirrelmail/plugins/calendar/functions.php:46
-msgid "6 hr."
-msgstr "6 hod."
-
-#: squirrelmail/plugins/calendar/setup.php:21
-msgid "Calendar"
-msgstr "Kalendáø"
-
-#: squirrelmail/plugins/listcommands/mailout.php:19
-msgid "Mailinglist"
-msgstr ""
-
-#: squirrelmail/plugins/listcommands/mailout.php:25
-#, c-format
-msgid ""
-"This will send a message to %s requesting help for this list. You will "
-"receive an emailed response at the address below."
-msgstr ""
-
-#: squirrelmail/plugins/listcommands/mailout.php:28
-#, c-format
-msgid ""
-"This will send a message to %s requesting that you will be subscribed to "
-"this list. You will be subscribed with the address below."
-msgstr ""
-
-#: squirrelmail/plugins/listcommands/mailout.php:31
-#, c-format
-msgid ""
-"This will send a message to %s requesting that you will be unsubscribed from "
-"this list. It will try to unsubscribe the adress below."
-msgstr ""
-
-#: squirrelmail/plugins/listcommands/mailout.php:79
-#, fuzzy
-msgid "Send Mail"
+msgid "Search for"
 msgstr "Odeslat"
 
-#: squirrelmail/plugins/listcommands/setup.php:31
-#, fuzzy
-msgid "Post to List"
-msgstr "z %s do %s"
+msgid "in"
+msgstr "v"
 
-#: squirrelmail/plugins/listcommands/setup.php:32
-#, fuzzy
-msgid "Reply to List"
-msgstr "Odpovìdìt na adresu"
+msgid "All address books"
+msgstr "V¹echny adresáøe"
 
-#: squirrelmail/plugins/listcommands/setup.php:35
-msgid "List Archives"
-msgstr ""
+msgid "List all"
+msgstr "Zobrazit v¹e"
 
-#: squirrelmail/plugins/listcommands/setup.php:36
-msgid "Contact Listowner"
-msgstr ""
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Nelze zobrazit adresy z %s"
 
-#: squirrelmail/plugins/listcommands/setup.php:113
-#, fuzzy
-msgid "Mailing List:"
-msgstr "Seznam zpráv"
+msgid "Your search failed with the following error(s)"
+msgstr "Va¹e hledání probìhlo neúspì¹nì díky tìmto chybám"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:158
-#: squirrelmail/plugins/delete_move_next/setup.php:161
-#, fuzzy
-msgid "Delete & Prev"
-msgstr "Odstranit"
+msgid "No persons matching your search was found"
+msgstr "Nebyla nalezena po¾adovaná osoba"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:164
-#: squirrelmail/plugins/delete_move_next/setup.php:166
-#, fuzzy
-msgid "Delete & Next"
+msgid "Return"
+msgstr "Zpìt"
+
+msgid "Nickname"
+msgstr "Pøezdívka"
+
+msgid "Must be unique"
+msgstr "Musí být jedineèná"
+
+msgid "E-mail address"
+msgstr "E-mailová adresa"
+
+msgid "First name"
+msgstr "Jméno"
+
+msgid "Last name"
+msgstr "Pøíjmení"
+
+msgid "Additional info"
+msgstr "Dal¹í informace"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Není definován ¾ádný osobní adresáø. Kontaktujte správce"
+
+msgid "You can only edit one address at the time"
+msgstr "Nelze upravovat více adres najednou"
+
+msgid "Update address"
+msgstr "Aktualizovat adresu"
+
+msgid "Unknown error"
+msgstr "Neznámá chyba"
+
+msgid "Add address"
+msgstr "Pøidat adresu"
+
+msgid "Edit selected"
+msgstr "Upravit vybrané polo¾ky"
+
+msgid "Delete selected"
 msgstr "Odstranit vybrané polo¾ky"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:287
-msgid "Delete/Move/Next Buttons:"
-msgstr ""
+#, c-format
+msgid "Add to %s"
+msgstr "Pøidat polo¾ku"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:293
-msgid "Display at top"
-msgstr ""
+msgid "Original Message"
+msgstr "Pùvodní zpráva"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:299
-#: squirrelmail/plugins/delete_move_next/setup.php:311
-msgid "with move option"
-msgstr ""
+msgid "Draft Email Saved"
+msgstr "Email ulo¾en do Konceptù"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:305
-msgid "Display at bottom"
-msgstr ""
+msgid "Could not move/copy file. File not attached"
+msgstr "Nelze pøesunout/zkopírovat soubor. Soubor není pøilo¾en"
 
-#: squirrelmail/plugins/administrator/defines.php:48
+msgid "Draft Saved"
+msgstr "Email ulo¾en do Konceptù"
+
+msgid "Your Message has been sent"
+msgstr "Zpráva byla odeslána"
+
+msgid "To:"
+msgstr "Komu:"
+
+msgid "CC:"
+msgstr "Kopie"
+
+msgid "BCC:"
+msgstr "Skrytá kopie"
+
+msgid "Subject:"
+msgstr "Pøedmìt:"
+
+msgid "Send"
+msgstr "Odeslat"
+
+msgid "Attach:"
+msgstr "Pøilo¾it soubor"
+
+msgid "Add"
+msgstr "Pøilo¾it"
+
+msgid "Delete selected attachments"
+msgstr "Odstranit vybrané pøilo¾ené soubory"
+
+msgid "Priority"
+msgstr "Priorita"
+
+msgid "Receipt"
+msgstr "Doruèenka"
+
 #, fuzzy
-msgid "Config File Version"
-msgstr "Zobrazit verzi pro tisk"
+msgid "On Read"
+msgstr "Pøi pøeètení"
 
-#: squirrelmail/plugins/administrator/defines.php:51
+msgid "On Delivery"
+msgstr "Pøi doruèení"
+
+msgid "Save Draft"
+msgstr "Ulo¾it Koncept"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "Nezadali jste adresáta"
+
+# squirrelmail/src/compose.php:572?
+msgid "said"
+msgstr "napsal(a)"
+
+msgid "quote"
+msgstr "citováno"
+
+msgid "who"
+msgstr "kdo"
+
 #, fuzzy
-msgid "Squirrelmail Version"
-msgstr "SquirrelMail verze %s"
+msgid "Draft folder"
+msgstr "Slo¾ka Konceptù"
 
-#: squirrelmail/plugins/administrator/defines.php:54
-msgid "PHP Version"
-msgstr ""
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Neplatný název slo¾ky. Vyberte prosím jiný název."
 
-#: squirrelmail/plugins/administrator/defines.php:58
-#, fuzzy
-msgid "Organization Preferences"
-msgstr "Organizace / Oddìlení"
+msgid "Click here to go back"
+msgstr "Kliknìte zde pro návrat zpìt"
 
-#: squirrelmail/plugins/administrator/defines.php:60
-#, fuzzy
-msgid "Organization Name"
-msgstr "Organizace / Oddìlení"
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "Neoznaèil jste slo¾ku ke smazání."
 
-#: squirrelmail/plugins/administrator/defines.php:63
-#, fuzzy
-msgid "Organization Logo"
-msgstr "Organizace / Oddìlení"
-
-#: squirrelmail/plugins/administrator/defines.php:66
-#, fuzzy
-msgid "Organization Logo Width"
-msgstr "Organizace / Oddìlení"
-
-#: squirrelmail/plugins/administrator/defines.php:70
-#, fuzzy
-msgid "Organization Logo Height"
-msgstr "Organizace / Oddìlení"
-
-#: squirrelmail/plugins/administrator/defines.php:74
-#, fuzzy
-msgid "Organization Title"
-msgstr "Organizace / Oddìlení"
-
-#: squirrelmail/plugins/administrator/defines.php:77
-#, fuzzy
-msgid "Signout Page"
-msgstr "Odhlásit se"
-
-#: squirrelmail/plugins/administrator/defines.php:80
-#, fuzzy
-msgid "Default Language"
-msgstr "Jazyk"
-
-#: squirrelmail/plugins/administrator/defines.php:84
-msgid "Top Frame"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:89
-msgid "Server Settings"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:91
-msgid "Mail Domain"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:94
-msgid "IMAP Server Address"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:97
-msgid "IMAP Server Port"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:99
-msgid "IMAP Server Type"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:101
-msgid "Cyrus IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:102
-msgid "University of Washington's IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:103
-msgid "Microsoft Exchange IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:104
-msgid "Courier IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:105
-#, fuzzy
-msgid "Not one of the above servers"
-msgstr "Chyba v pøipojování k serveru IMAP: %s "
-
-#: squirrelmail/plugins/administrator/defines.php:106
-msgid "IMAP Folder Delimiter"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:108
-msgid "Use \"detect\" to auto-detect."
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:111
-msgid "Use Sendmail"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:113
-msgid "Sendmail Path"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:116
-msgid "SMTP Server Address"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:119
-msgid "SMTP Server Port"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:121
-msgid "Authenticated SMTP"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:123
-msgid "Invert Time"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:125
-msgid "Use Confirmation Flags"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:128
-#, fuzzy
-msgid "Folders Defaults"
-msgstr "Cesta slo¾ky"
-
-#: squirrelmail/plugins/administrator/defines.php:130
-#, fuzzy
-msgid "Default Folder Prefix"
+msgid "Delete Folder"
 msgstr "Odstranit slo¾ku"
 
-#: squirrelmail/plugins/administrator/defines.php:133
-#, fuzzy
-msgid "Show Folder Prefix Option"
-msgstr "Mo¾nosti - Výpis slo¾ek"
+#, fuzzy, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "Opravdu chcete smazat tuto událost?"
 
-#: squirrelmail/plugins/administrator/defines.php:144
-msgid "By default, move to trash"
+msgid "Subscribed successfully!"
+msgstr "Pøihlá¹ení probìhlo úspì¹nì"
+
+msgid "Unsubscribed successfully!"
+msgstr "Pøihlá¹ení probìhlo neúspì¹nì"
+
+msgid "Deleted folder successfully!"
+msgstr "Slo¾ka byla úspì¹nì smazána"
+
+msgid "Created folder successfully!"
+msgstr "Slo¾ka byla úspì¹nì vytvoøena"
+
+msgid "Renamed successfully!"
+msgstr "Úspì¹nì pøejmenováno"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:146
-msgid "By default, move to sent"
-msgstr ""
+msgid "refresh folder list"
+msgstr "aktualizovat seznam slo¾ek"
 
-#: squirrelmail/plugins/administrator/defines.php:148
-msgid "By default, save as draft"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:150
-#, fuzzy
-msgid "List Special Folders First"
-msgstr "Speciální nastavení slo¾ek"
-
-#: squirrelmail/plugins/administrator/defines.php:152
-#, fuzzy
-msgid "Show Special Folders Color"
-msgstr "Speciální nastavení slo¾ek"
-
-#: squirrelmail/plugins/administrator/defines.php:154
-#, fuzzy
-msgid "Auto Expunge"
-msgstr "Vysypat"
-
-#: squirrelmail/plugins/administrator/defines.php:156
-msgid "Default Sub. of INBOX"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:158
-msgid "Show 'Contain Sub.' Option"
-msgstr ""
-
-#: squirrelmail/plugins/administrator/defines.php:160
-#, fuzzy
-msgid "Default Unseen Notify"
-msgstr "Základní/nastavená identita"
-
-#: squirrelmail/plugins/administrator/defines.php:165
-#, fuzzy
-msgid "Default Unseen Type"
-msgstr "Základní/nastavená identita"
-
-#: squirrelmail/plugins/administrator/defines.php:169
-#, fuzzy
-msgid "Auto Create Special Folders"
+msgid "Create Folder"
 msgstr "Vytvoøit slo¾ku"
 
-#: squirrelmail/plugins/administrator/defines.php:171
-msgid "Default Javascript Adrressbook"
+msgid "as a subfolder of"
+msgstr "jako podslo¾ku"
+
+msgid "None"
+msgstr "Nic"
+
+msgid "Let this folder contain subfolders"
+msgstr "Slo¾ka mù¾e obsahovat podslo¾ku"
+
+msgid "Create"
+msgstr "Vytvoøit"
+
+msgid "Rename a Folder"
+msgstr "Pøejmenovat slo¾ku"
+
+msgid "Select a folder"
+msgstr "Vybrat slo¾ku"
+
+msgid "Rename"
+msgstr "Pøejmenovat"
+
+msgid "No folders found"
+msgstr "Nebyla nalezena ¾ádná slo¾ka"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "Nebyly nalezeny ¾ádné slo¾ky, ze kterých se lze odhlásit!"
+
+msgid "No folders were found to subscribe to!"
+msgstr "Nebyly nalezeny ¾ádné slo¾ky k pøihlá¹ení"
+
+#, fuzzy
+msgid "Subscribe to:"
+msgstr "Pøihlásit"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr "Neoznaèil jste slo¾ku k pøejmenování."
+
+msgid "Rename a folder"
+msgstr "Pøejmenovat slo¾ku"
+
+msgid "New name:"
+msgstr "Nový název:"
+
+msgid "ERROR: Help files are not in the right format!"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:173
-#, fuzzy
-msgid "Auto delete folders"
-msgstr "Odstranit slo¾ku"
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "Nápovìda není pøelo¾ena do %s. Bude zobrazena v angliètinì."
 
-#: squirrelmail/plugins/administrator/defines.php:176
-#, fuzzy
-msgid "General Options"
-msgstr "Obecné volby zobrazení"
+msgid "Some or all of the help documents are not present!"
+msgstr "Nìkteré texty nápovìdy nejsou dostupné!"
 
-#: squirrelmail/plugins/administrator/defines.php:178
-#, fuzzy
-msgid "Default Charset"
-msgstr "Základní/nastavená identita"
+msgid "Table of Contents"
+msgstr "Obsah"
 
-#: squirrelmail/plugins/administrator/defines.php:189
-msgid "Data Directory"
+msgid "Top"
+msgstr "Nahoru"
+
+msgid "Viewing an image attachment"
+msgstr "Náhled pøilo¾eného obrázku"
+
+msgid "View message"
+msgstr "Zobrazit zprávu"
+
+#, fuzzy
+msgid "Not available"
+msgstr "Není název souboru"
+
+#, fuzzy
+msgid "purge"
+msgstr "Vysypat"
+
+msgid "Last Refresh"
+msgstr "Poslední zobrazení"
+
+msgid "Save folder tree"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:192
-msgid "Temp Directory"
-msgstr ""
+msgid "Login"
+msgstr "Pøihlásit"
 
-#: squirrelmail/plugins/administrator/defines.php:195
-msgid "Hash Level"
-msgstr ""
+#, c-format
+msgid "%s Login"
+msgstr "%s Pøihlásit"
 
-#: squirrelmail/plugins/administrator/defines.php:197
+msgid "Name:"
+msgstr "Jméno:"
+
+msgid "No messages were selected."
+msgstr "Nebyly vybrány ¾ádné zprávy"
+
+msgid "Message Highlighting"
+msgstr "Zvýrazòování zpráv"
+
 #, fuzzy
-msgid "Hash Disabled"
-msgstr "Vypnuto"
+msgid "subject"
+msgstr "Pøedmìt"
 
-#: squirrelmail/plugins/administrator/defines.php:199
-#, fuzzy
-msgid "Moderate"
-msgstr "Cesta slo¾ky"
+msgid "No highlighting is defined"
+msgstr "Není nadefinováno ¾ádné zvýraznìní"
 
-#: squirrelmail/plugins/administrator/defines.php:200
-#, fuzzy
-msgid "Medium"
+msgid "Identifying name"
+msgstr "Identifikaèní jméno"
+
+msgid "Color"
+msgstr "Barva"
+
+msgid "Dark Blue"
+msgstr "Tmavìmodrá"
+
+msgid "Dark Green"
+msgstr "Tmavìzelená"
+
+msgid "Dark Yellow"
+msgstr "Tmavì¾lutá"
+
+msgid "Dark Cyan"
+msgstr "Tmavìtyrkysová"
+
+msgid "Dark Magenta"
+msgstr "Tmavìfialová"
+
+msgid "Light Blue"
+msgstr "Svìtlemodrá"
+
+msgid "Light Green"
+msgstr "Svìtlezelená"
+
+msgid "Light Yellow"
+msgstr "Svìtle¾lutá"
+
+msgid "Light Cyan"
+msgstr "Svìtletyrkysová"
+
+msgid "Light Magenta"
+msgstr "Svìtlefialová"
+
+msgid "Dark Gray"
+msgstr "Tmavì¹edá"
+
+msgid "Medium Gray"
 msgstr "Støednì¹edá"
 
-#: squirrelmail/plugins/administrator/defines.php:202
-#, fuzzy
-msgid "Default Left Size"
+msgid "Light Gray"
+msgstr "Svìtle¹edá"
+
+msgid "White"
+msgstr "Bílá"
+
+msgid "Other:"
+msgstr "Jiná:"
+
+msgid "Ex: 63aa7f"
+msgstr "Ex: 63aa7f"
+
+msgid "Matches"
+msgstr "Odpovídá"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "Alternativní identita"
+
+msgid "Advanced Identities"
+msgstr "Roz¹íøené identity"
+
+msgid "Default Identity"
 msgstr "Základní/nastavená identita"
 
-#: squirrelmail/plugins/administrator/defines.php:205
-msgid "Usernames in Lowercase"
-msgstr ""
+msgid "Add a New Identity"
+msgstr "Pøidej novou identitu"
 
-#: squirrelmail/plugins/administrator/defines.php:207
-msgid "Allow use of priority"
-msgstr ""
+msgid "E-Mail Address"
+msgstr "E-mailová adresa"
 
-#: squirrelmail/plugins/administrator/defines.php:209
-msgid "Hide SM attributions"
-msgstr ""
+msgid "Save / Update"
+msgstr "Ulo¾/Aktualizuj"
 
-#: squirrelmail/plugins/administrator/defines.php:211
-msgid "Enable use of delivery receipts"
-msgstr ""
+msgid "Make Default"
+msgstr "Vytvoø nastavení"
 
-#: squirrelmail/plugins/administrator/defines.php:213
-msgid "Allow editing of identities"
-msgstr ""
+msgid "Move Up"
+msgstr "Pøesun nahoru"
 
-#: squirrelmail/plugins/administrator/defines.php:215
-msgid "Allow editing of full name"
-msgstr ""
+msgid "Index Order"
+msgstr "Poøadí v seznamu"
 
-#: squirrelmail/plugins/administrator/defines.php:218
-#: squirrelmail/plugins/administrator/defines.php:220
-#, fuzzy
-msgid "Message of the Day"
+msgid "Checkbox"
+msgstr "Za¹krtávací pole"
+
+msgid "Flags"
+msgstr "Pøíznaky zprávy"
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"Poøadí seznamu zpráv je poøadí v jakém jsou uspoøádány sloupce ve výpisu\n"
+"zpráv.  Mù¾ete pøídávat, odebírat a pøesunovat jednotlivé slo¾ky."
+
+msgid "up"
+msgstr "nahoru"
+
+msgid "down"
+msgstr "dolù"
+
+msgid "remove"
+msgstr "odstranit"
+
+msgid "Return to options page"
+msgstr "Návrat na stránku s nastavením"
+
+msgid "Personal Information"
+msgstr "Osobní informace"
+
+msgid "Display Preferences"
+msgstr "Vzhled - mo¾nosti"
+
+msgid "Folder Preferences"
+msgstr "Slo¾ky - mo¾nosti"
+
+msgid "Successfully Saved Options"
+msgstr "Osobní informace byly úspì¹nì ulo¾eny"
+
+msgid "Refresh Folder List"
+msgstr "Obnovit seznam slo¾ek"
+
+msgid "Refresh Page"
+msgstr "Aktualizovat stránku"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+"Obsahuje Va¹e osobní informace, napø. Va¹e jméno, e-mailovou adresu atd. "
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"Mù¾ete mìnit vzhled a zpùsob zobrazení informací, napø. barvy, jazyk a jiná "
+"nastavení."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Na základì uvedených kritérií mohou mít pøíchozí zprávy v seznamu rùznou "
+"barvu pozadí. Tato funkce umo¾òuje snadno rozli¹it odesílatele zpráv, "
+"zvlá¹tì pak e-mailové konference."
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+"Tato nastavení zmìní zpùsob, kterým se budou slo¾ky zobrazovat a jak s nimi "
+"budete zacházet."
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr "Poøadí sloupcù v seznamu zpráv mù¾e být upraveno podle va¹ich potøeb."
+
+msgid "Message not printable"
 msgstr "Zprávu nelze tisknout"
 
-#: squirrelmail/plugins/administrator/defines.php:224
-#, fuzzy
-msgid "Database"
-msgstr "Datum"
+msgid "Printer Friendly"
+msgstr "Verze pro tisk"
 
-#: squirrelmail/plugins/administrator/defines.php:226
-#, fuzzy
-msgid "Address book DSN"
-msgstr "Adresáø"
+msgid "CC"
+msgstr "Kopie"
 
-#: squirrelmail/plugins/administrator/defines.php:229
-#, fuzzy
-msgid "Address book table"
-msgstr "Adresáø"
+msgid "Print"
+msgstr "Tisknout"
 
-#: squirrelmail/plugins/administrator/defines.php:233
-#, fuzzy
-msgid "Preferences DSN"
-msgstr "Slo¾ky - mo¾nosti"
+msgid "View Printable Version"
+msgstr "Zobrazit verzi pro tisk"
 
-#: squirrelmail/plugins/administrator/defines.php:236
-#, fuzzy
-msgid "Preferences table"
-msgstr "Slo¾ky - mo¾nosti"
+msgid "Read:"
+msgstr "Pøeètena:"
 
-#: squirrelmail/plugins/administrator/defines.php:240
-msgid "Preferences username field"
-msgstr ""
+msgid "Your message"
+msgstr "Va¹e zpráva"
 
-#: squirrelmail/plugins/administrator/defines.php:244
-msgid "Preferences key field"
-msgstr ""
+msgid "Sent:"
+msgstr "Odeslána:"
 
-#: squirrelmail/plugins/administrator/defines.php:248
-msgid "Preferences value field"
-msgstr ""
+#, c-format
+msgid "Was displayed on %s"
+msgstr "Byla zobrazena %s"
 
-#: squirrelmail/plugins/administrator/defines.php:253
-msgid "Themes"
-msgstr "Schémata"
+msgid "less"
+msgstr "ménì"
 
-#: squirrelmail/plugins/administrator/defines.php:255
-msgid "Style Sheet URL (css)"
-msgstr "URL souborù se styly (css)"
+msgid "more"
+msgstr "více"
 
-#: squirrelmail/plugins/administrator/options.php:186
-msgid "Configuration Administrator"
-msgstr "Administrátor konfigurace"
+msgid "Mailer"
+msgstr "Emailový klient"
 
-#: squirrelmail/plugins/administrator/options.php:379
-msgid "Theme Name"
-msgstr "Název schéma"
+msgid "Read receipt"
+msgstr "Doruèenka pøeètení"
 
-#: squirrelmail/plugins/administrator/options.php:380
-msgid "Theme Path"
-msgstr "Cesta ke schématùm"
+msgid "send"
+msgstr "odeslat"
 
-#: squirrelmail/plugins/administrator/options.php:418
-msgid "Plugins"
-msgstr "Zásuvné moduly"
+msgid "requested"
+msgstr "vy¾adována"
 
-#: squirrelmail/plugins/administrator/options.php:480
-msgid "Change Settings"
-msgstr "Zmìnit nastavení"
-
-#: squirrelmail/plugins/administrator/options.php:531
-msgid "Config file can't be opened. Please check config.php."
-msgstr ""
-
-#: squirrelmail/plugins/administrator/setup.php:30
-msgid "Administration"
-msgstr "Administrace"
-
-#: squirrelmail/plugins/administrator/setup.php:32
 msgid ""
-"This module allows administrators to manage SquirrelMail main configuration "
-"remotely."
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"Odesílatel zprávy si pøeje vìdìt zda-li jste tuto zprávu pøeèetli.  Pøejete "
+"si odeslat potvrzení?"
+
+msgid "Send read receipt now"
+msgstr "Odeslat potvrzení pøeètení nyní"
+
+#, fuzzy
+msgid "Search results"
+msgstr "Výsledky hledání"
+
+msgid "Message List"
+msgstr "Seznam zpráv"
+
+msgid "Resume Draft"
+msgstr "Pokraèovat v psaní zprávy"
+
+msgid "Edit Message as New"
 msgstr ""
 
-#: squirrelmail/po/independent_strings.txt:18
-msgid "Delivery error report"
-msgstr ""
+#, fuzzy
+msgid "View Message"
+msgstr "Zobrazit zprávu"
 
-#: squirrelmail/po/independent_strings.txt:19
-msgid "Undelivered Message Headers"
-msgstr ""
+#, fuzzy
+msgid "Forward as Attachment"
+msgstr "Pøílohy"
+
+msgid "Reply"
+msgstr "Odpovìdìt"
+
+msgid "Reply All"
+msgstr "Odpovìdìt v¹em"
+
+msgid "View Full Header"
+msgstr "Zobrazit celou hlavièku"
+
+msgid "Attachments"
+msgstr "Pøílohy"
+
+msgid "Folder:"
+msgstr "Slo¾ka:"
+
+msgid "edit"
+msgstr "editovat"
+
+msgid "search"
+msgstr "hledat"
+
+msgid "delete"
+msgstr "odstranit"
+
+msgid "Recent Searches"
+msgstr "Poslední hledání"
+
+msgid "save"
+msgstr "ulo¾it"
+
+msgid "forget"
+msgstr "zapomenout"
+
+msgid "Current Search"
+msgstr "Aktuální slo¾ka"
+
+msgid "Body"
+msgstr "Text zprávy"
+
+msgid "Everywhere"
+msgstr "V¹ude"
+
+msgid "Search Results"
+msgstr "Výsledky hledání"
+
+msgid "No Messages Found"
+msgstr "Nebyly nalezeny ¾ádné zprávy"
+
+msgid "You have been successfully signed out."
+msgstr "Odhlá¹ení probìhlo úspì¹nì"
+
+msgid "Click here to log back in."
+msgstr "Pro nové pøihlá¹ení kliknìte zde "
+
+msgid "Viewing a Business Card"
+msgstr "Zobrazení Visitky"
+
+msgid "Title"
+msgstr "Pozice"
+
+msgid "Email"
+msgstr "Email"
+
+msgid "Web Page"
+msgstr "Webová stránka"
+
+msgid "Organization / Department"
+msgstr "Organizace / Oddìlení"
+
+msgid "Address"
+msgstr "Adresa"
+
+msgid "Work Phone"
+msgstr "Telefon (práce)"
+
+msgid "Home Phone"
+msgstr "Telefon (domù)"
+
+msgid "Cellular Phone"
+msgstr "Telefon (mobilní)"
+
+msgid "Fax"
+msgstr "Fax"
+
+msgid "Note"
+msgstr "Poznámka"
+
+msgid "Add to Addressbook"
+msgstr "Pøidat do adresáøe"
+
+msgid "Title & Org. / Dept."
+msgstr "Funkce & Firma / Oddìlení"
+
+msgid "Viewing Full Header"
+msgstr "Zobrazit celou hlavièku"
+
+msgid "Viewing a text attachment"
+msgstr "Náhled pøilo¾eného souboru"
+
+#~ msgid "Viewing a message attachment"
+#~ msgstr "Náhled pøilo¾eného souboru"
+
+#~ msgid "Cc:"
+#~ msgstr "Kopie:"
+
+#~ msgid "Bcc:"
+#~ msgstr "Neviditelná kopie:"
+
+#~ msgid "empty"
+#~ msgstr "vyprázdnit"
+
+#~ msgid "<No subject>"
+#~ msgstr "<¾ádný pøedmìt>"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "Zapnout vy¾adování/potvrzení doruèenek"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "Pou¾ít datum pøijetí pøi tøízení"
+
+#~ msgid "There was an error contacting the mail server."
+#~ msgstr "Pøi navazování spojení se serverem do¹lo k chybì"
+
+#~ msgid "Contact your administrator for help."
+#~ msgstr "O pomoc kontaktujte va¹eho administrátora "
+
+#~ msgid "No Messages found"
+#~ msgstr "Nebyly nalezeny ¾ádné zprávy"
+
+#~ msgid "Welcome to %s's WebMail system"
+#~ msgstr "Vítejte v %s WebMail systému"
+
+#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
+#~ msgstr "SquirrelMail verze %s (c) 1999-2000"
+
+#~ msgid ""
+#~ "Please contact your system administrator and report the following error:"
+#~ msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
+
+#~ msgid "Unknown messagenumber in reply from server: "
+#~ msgstr "©patné èíslo zprávy v odpovìdi serveru: "
+
+#~ msgid "No To Address"
+#~ msgstr "Ne na adresu"
+
+#~ msgid "Found"
+#~ msgstr "Nalezeno"
+
+#~ msgid "messages"
+#~ msgstr "zprávy"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "Error decoding mime structure.  Report this as a bug!"
+
+#~ msgid "Submit message"
+#~ msgstr "Odeslat zprávu"
+
+#~ msgid "I tried to execute '%s', but it returned:"
+#~ msgstr "Pokusil jsem se pustit '%s', ale on mi vrátil:"
+
+#~ msgid "SquirrelSpell is misconfigured."
+#~ msgstr "SquirrelSpell je ¹patnì nakonfigurován."
+
+#~ msgid "No changes were made."
+#~ msgstr "Nebyly provedeny ¾ádné zmìny."
+
+#~ msgid "Now saving your personal dictionary... Please wait."
+#~ msgstr "Nyní ukládám vá¹ osobní slovník...  Prosím èekejte."
+
+#~ msgid "Found %s errors"
+#~ msgstr "Nalezeno %s chyb"
+
+#~ msgid "Line with an error:"
+#~ msgstr "Øádka s chybou:"
+
+#~ msgid "Error:"
+#~ msgstr "Chyba:"
+
+#~ msgid "Suggestions"
+#~ msgstr "Návrhy"
+
+#~ msgid "Change to:"
+#~ msgstr "Zmìnit na:"
+
+#~ msgid "Occurs times:"
+#~ msgstr "Poèet výskytù:"
+
+#~ msgid "Change this word"
+#~ msgstr "Zmìnit toto slovo"
+
+#~ msgid "Change"
+#~ msgstr "Zmìnit"
+
+#~ msgid "Change ALL occurances of this word"
+#~ msgstr "Zmìnit V©ECHNY výskyty tohoto slova"
+
+#~ msgid "Change All"
+#~ msgstr "Zmìnit v¹e"
+
+#~ msgid "Ignore this word"
+#~ msgstr "Ignorovat toto slovo"
+
+#~ msgid "Ignore"
+#~ msgstr "Ignorovat"
+
+#~ msgid "Ignore ALL occurances this word"
+#~ msgstr "Ignorovat v¹echny výskyty tohoto slova"
+
+#~ msgid "Ignore All"
+#~ msgstr "Ignorovat V©E"
+
+#~ msgid "Add this word to your personal dictionary"
+#~ msgstr "Pøidat toto slovo do osobního slovníku"
+
+#~ msgid "Add to Dic"
+#~ msgstr "Pøidat polo¾ku do slovníku"
+
+#~ msgid "Close and Commit"
+#~ msgstr "Zavøít a potvrdit"
+
+#~ msgid "Close and Cancel"
+#~ msgstr "Zavøít a zru¹it"
+
+#~ msgid "No errors found"
+#~ msgstr "Nebyla nalezena ¾ádná chyba"
+
+#~ msgid "Dictionary Erased"
+#~ msgstr "Slovník smazán"
+
+#~ msgid "Close this Window"
+#~ msgstr "Zavøít okno"
+
+#~ msgid "Personal Dictionary"
+#~ msgstr "Osobní slovník"
+
+#~ msgid "No words in your personal dictionary."
+#~ msgstr "V osobním slovníku nejsou ¾ádná slova"
+
+#~ msgid "Please check any words you wish to delete from your dictionary."
+#~ msgstr "Prosím oznaète slova, které chcete odstranit z osobního slovníku."
+
+#~ msgid "%s dictionary"
+#~ msgstr "%s slovník"
+
+#~ msgid "Delete checked words"
+#~ msgstr "Odstranit vybrané slova"
+
+#~ msgid "Edit your Personal Dictionary"
+#~ msgstr "Editovat osobní slovník"
+
+#~ msgid "Please make your selection first."
+#~ msgstr "Prosím nejprve proveïte volbu"
+
+#~ msgid "All done!"
+#~ msgstr "V¹e hotovo!"
+
+#~ msgid "Personal Dictionary Updated"
+#~ msgstr "Osobní slovník aktualizován"
+
+#~ msgid "No changes requested."
+#~ msgstr "Nebyly po¾adovány ¾ádné zmìny."
+
+#~ msgid "Please wait, communicating with the server..."
+#~ msgstr "Prosím èekejte, komunikuji se serverem..."
+
+#~ msgid "SquirrelSpell Initiating"
+#~ msgstr "SquirrelSpell se inicializuje"
