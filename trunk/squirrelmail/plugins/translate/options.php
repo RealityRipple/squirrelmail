@@ -144,7 +144,7 @@ function ShowTrad( $tit, $com, $url ) {
     ShowTrad( 'PROMT',
               _("Russian translations, maximum of 500 characters translated").
 	      "<br />".sprintf(_("Number of supported language pairs: %s"),"13")." " ,
-              'http://www.translate.ru/' );
+              'http://www.online-translator.com/' );
 ?>
    </ul>
    <p>
