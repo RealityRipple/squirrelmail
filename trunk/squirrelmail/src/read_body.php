@@ -490,7 +490,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft, $uid_support,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $data_dir, $username;
+           $data_dir, $username, $delete_prev_next_display;
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -577,7 +577,6 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
         // Only bother with Delete & Prev and Delete & Next IF
         // we have UID support, and top display is enabled.
-        $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', 1);
         if ( $uid_support && $delete_prev_next_display == 1 ) {
             $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
