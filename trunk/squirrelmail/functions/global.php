@@ -85,6 +85,7 @@ function sqsession_register ($var, $name) {
     else {
         $_SESSION["$name"] = $var; 
     }
+    session_register("$name");
 }
 
 function sqsession_unregister ($name) {
@@ -95,6 +96,7 @@ function sqsession_unregister ($name) {
     else {
         unset($_SESSION[$name]);
     }
+    session_unregister("$name");
 }
 
 function sqsession_is_registered ($name) {
