@@ -13,7 +13,7 @@
 
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
- 
+
 /* Define the group constants for the personal options page. */
 define('SMOPT_GRP_CONTACT', 0);
 define('SMOPT_GRP_REPLY', 1);
@@ -21,13 +21,14 @@ define('SMOPT_GRP_SIG', 2);
 
 /* Define the optpage load function for the personal options page. */
 function load_optpage_data_personal() {
-    global $data_dir, $username, $edit_identity, $edit_name;
-    global $full_name, $reply_to, $email_address;
+    global $data_dir, $username, $edit_identity, $edit_name,
+           $full_name, $reply_to, $email_address, $signature;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
     $reply_to = getPref($data_dir, $username, 'reply_to');
-    $email_address  = getPref($data_dir, $username, 'email_address'); 
+    $email_address  = getPref($data_dir, $username, 'email_address');
+    $signature  = getSig($data_dir, $username, 'g');
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -86,6 +87,15 @@ function load_optpage_data_personal() {
         'type'    => SMOPT_TYPE_STRING,
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_HUGE
+    );
+
+    $optvals[SMOPT_GRP_CONTACT][] = array(
+        'name'    => 'signature',
+        'caption' => _("Signature"),
+        'type'    => SMOPT_TYPE_TEXTAREA,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_MEDIUM,
+        'save'    => 'save_option_signature'
     );
 
     if ($edit_identity) {
@@ -151,15 +161,6 @@ function load_optpage_data_personal() {
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-    $optvals[SMOPT_GRP_SIG][] = array(
-        'name'    => 'signature_abs',
-        'caption' => _("Signature"),
-        'type'    => SMOPT_TYPE_TEXTAREA,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_MEDIUM,
-        'save'    => 'save_option_signature'
-    );
-
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
@@ -174,7 +175,7 @@ function load_optpage_data_personal() {
 
 function save_option_signature($option) {
     global $data_dir, $username;
-    setSig($data_dir, $username, $option->new_value);
+    setSig($data_dir, $username, 'g', $option->new_value);
 }
 
 ?>

@@ -134,6 +134,7 @@ class abook_local_file extends addressbook_backend {
     /* Overwrite the file with data from $rows
      * NOTE! Previous locks are broken by this function */
     function overwrite(&$rows) {
+        $this->unlock();
         $newfh = @fopen($this->filename, 'w');
         if(!$newfh) {
             return $this->set_error("$file: " . _("Open failed"));

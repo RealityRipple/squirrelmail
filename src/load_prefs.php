@@ -143,11 +143,7 @@ $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
 $sort = getPref($data_dir, $username, 'sort', 6 );
 
 /** Load up the Signature file **/
-if ($use_signature) {
-    $signature_abs = $signature = getSig($data_dir, $username);
-} else {
-    $signature_abs = getSig($data_dir, $username);
-}
+$signature_abs = $signature = getSig($data_dir, $username, "g");
 
 /* Highlight comes in with the form: name, color, header, value. */
 for ($i = 0; $hlt = getPref($data_dir, $username, "highlight$i"); ++$i) {
