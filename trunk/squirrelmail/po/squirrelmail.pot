@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-17 16:19+0200\n"
+"POT-Creation-Date: 2005-02-27 18:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1068,6 +1068,7 @@ msgstr ""
 msgid "Error initializing addressbook database."
 msgstr ""
 
+#. no need to use $abook->error, because message explains error.
 #, php-format
 msgid "Error opening file %s"
 msgstr ""
@@ -1707,7 +1708,7 @@ msgstr ""
 msgid "Mailbox Display Options"
 msgstr ""
 
-msgid "Number of Messages on one Page"
+msgid "Number of Messages per Page"
 msgstr ""
 
 msgid "Enable Alternating Row Colors"
@@ -2698,6 +2699,93 @@ msgstr ""
 msgid "Use this to change your email password."
 msgstr ""
 
+msgid "Current configuration requires ldap support in php."
+msgstr ""
+
+msgid "Plugin is not configured correctly."
+msgstr ""
+
+#. set error message
+#, php-format
+msgid "Setting of ldap connection option %s to value %s failed."
+msgstr ""
+
+#. FIXME: check if ldap_set_option modifies ldap_error.
+#, php-format
+msgid "Error: %s"
+msgstr ""
+
+msgid "Unable to use TLS."
+msgstr ""
+
+msgid "Unable to use LDAP TLS in current setup."
+msgstr ""
+
+msgid "Unable to bind to ldap server"
+msgstr ""
+
+#, php-format
+msgid "Server replied: %s"
+msgstr ""
+
+msgid "Unable to rebind to ldap server"
+msgstr ""
+
+msgid "Unable to connect to LDAP server."
+msgstr ""
+
+#. ldap_get_dn() returned error
+msgid "Unable to find user's dn."
+msgstr ""
+
+msgid "Search error."
+msgstr ""
+
+msgid "Multiple userid matches found."
+msgstr ""
+
+msgid "ldap_get_dn error."
+msgstr ""
+
+#, php-format
+msgid "Unsupported crypto: %s"
+msgstr ""
+
+msgid "php mhash extension is missing."
+msgstr ""
+
+msgid "System crypt library doesn't support standard des crypt."
+msgstr ""
+
+msgid "System crypt library doesn't have md5 support."
+msgstr ""
+
+msgid "System crypt library doesn't support extended des crypt."
+msgstr ""
+
+msgid "System crypt library doesn't have blowfish support."
+msgstr ""
+
+msgid "unknown"
+msgstr ""
+
+msgid "Unable to validate user's password."
+msgstr ""
+
+msgid "Blowfish is not supported by webserver's system crypt library."
+msgstr ""
+
+msgid "MD5 is not supported by webserver's system crypt library."
+msgstr ""
+
+msgid ""
+"Extended DES crypt is not supported by webserver's system crypt library."
+msgstr ""
+
+msgid ""
+"Standard DES crypt is not supported by webserver's system crypt library."
+msgstr ""
+
 #. user_error('Curl module NOT available!', E_USER_ERROR);
 msgid "Curl module NOT available! Unable to change password!"
 msgstr ""
@@ -2871,6 +2959,9 @@ msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
 msgstr ""
 
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+msgid "WARNING! You must enter something to search for."
 msgstr ""
 
 msgid ""
