@@ -1,5 +1,4 @@
 <?php
-
 /**
  * read_body.php
  *
@@ -633,27 +632,26 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     // Show Alt URI for Draft/Sent
     if (isset($comp_alt_uri)) {
-        $menu_row .= $topbar_delimiter;
         $menu_row .= makeComposeLink($comp_alt_uri, $comp_alt_string);
-        $menu_row .= $topbar_delimiter;
+        $menu_row .= $topbar_delimiter . "\n";
     }
 
     $comp_action_uri = $comp_uri . '&amp;smaction=reply';
-    $menu_row .= makeComposeLink($comp_action_uri, _("Reply"));
+    $menu_row .= makeComposeLink($comp_action_uri, _("Reply")) . "\n";
 
     $comp_action_uri = $comp_uri . '&amp;smaction=reply_all';
     $menu_row .= $topbar_delimiter;
-    $menu_row .= makeComposeLink($comp_action_uri, _("Reply All"));
+    $menu_row .= makeComposeLink($comp_action_uri, _("Reply All")) . "\n";
 
 
     $comp_action_uri = $comp_uri . '&amp;smaction=forward';
     $menu_row .= $topbar_delimiter;
-    $menu_row .= makeComposeLink($comp_action_uri, _("Forward"));
+    $menu_row .= makeComposeLink($comp_action_uri, _("Forward")) . "\n";
 
     if ($enable_forward_as_attachment) {
         $comp_action_uri = $comp_uri . '&amp;smaction=forward_as_attachment';
         $menu_row .= $topbar_delimiter;
-        $menu_row .= makeComposeLink($comp_action_uri, _("Forward as Attachment"));
+        $menu_row .= makeComposeLink($comp_action_uri, _("Forward as Attachment")) . "\n";
     }
 
     $delete_link = _("Delete");
@@ -671,24 +669,42 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                         ._("Bypass Trash").'</a>)';
         
     }
-    $menu_row .= $topbar_delimiter.$delete_link;
+    $menu_row .= $topbar_delimiter.$delete_link . "\n";
 
 
     // Add top move link
     $menu_row .= '</small></td><td align="right">';
-    if (!(isset($passed_ent_id) && $passed_ent_id)) {
-        $menu_row .= '<form action="read_body.php?mailbox='.$mailbox.'&sort='.$sort.'&startMessage='.$startMessage.'&passed_id='.$next.'" method="post">'.
+    if ( !(isset($passed_ent_id) && $passed_ent_id) ) {
+        // If we have a next message, move, and then go to next.
+        // Otherwise, use move_messages to move, and then return to index.
+        
+        $current_box = 'mailbox='.$mailbox.'&sort='.$sort.'&startMessage='.$startMessage;
+        $action = $base_uri;
+        if ( isset($next) && $next >= 0 ) {
+          $action .= 'src/read_body.php?passed_id='.$next.'&';
+        } else {
+          $action .= 'src/move_messages.php?';
+        }
+        $action .= $current_box;
+
+        $menu_row .= '<form action="'.$action.'" method="post">'.
               '<small><input type="hidden" name="show_more" value="0" />'.
-              '<input type="hidden" name="move_id" value="'.$passed_id.'" />'._("Move to:") .
+              '<input type="hidden" name="msg[0]" value="'.$passed_id.'" />'._("Move to:") .
               '<select name="targetMailbox" style="padding: 0px; margin: 0px">';
+
         if (isset($lastTargetMailbox) && !empty($lastTargetMailbox)) {
             $menu_row .= sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)));
         } else {
             $menu_row .= sqimap_mailbox_option_list($imapConnection);
         }
-        $menu_row .= '</select> '.
-              '<input type="submit" value="' . _("Move") . '" style="padding: 0px; margin: 0px"/>'.
-              '</small></form>';
+        $menu_row .= '</select> ';
+
+        // If we'll be using move_messages.php, also add location to form
+        if ( !isset($next) || $next < 0 ) {
+            $menu_row .= '<input type="hidden" name="location" value="'.$base_uri.'src/right_main.php?'.$current_box.'" />';
+        }
+
+        $menu_row .= getButton('SUBMIT', 'moveButton',_("Move")) . "\n" . '</form>';
     }
     $menu_row .= '</td></tr>';
 
@@ -802,8 +818,13 @@ if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
  * Process Move from delete-move-next
  * but only if move_id and target_mailbox were set
  */
-if ( sqgetGlobalVar('move_id', $move_id, SQ_POST) &&
-     sqgetGlobalVar('targetMailbox', $targetMailbox, SQ_POST) ) {
+if ( sqgetGlobalVar('moveButton', $moveButton, SQ_POST) &&
+     sqgetGlobalVar('msg', $msg, SQ_POST) &&
+     sqgetGlobalVar('targetMailbox', $targetMailbox, SQ_POST) &&
+     is_array($msg) && !empty($msg) ) {
+
+    $move_id = $msg[0];
+ 
     // Move message
     sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
     sqimap_messages_flag($imapConnection, $move_id, $move_id, 'Deleted', true);
