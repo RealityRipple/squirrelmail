@@ -153,8 +153,8 @@ msgstr "No se puede mover/copiar el archivo. Archivo no adjuntado"
 msgid "Draft Saved"
 msgstr "Borrador Guardado"
 
-msgid "Your Message has been sent"
-msgstr "Su mensaje ha sido enviado"
+msgid "Your Message has been sent."
+msgstr "Su mensaje ha sido enviado."
 
 msgid "From:"
 msgstr "De:"

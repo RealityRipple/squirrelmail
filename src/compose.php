@@ -912,7 +912,7 @@ function showInputForm ($session, $values=false) {
         echo '<BR><CENTER><B>'. _("Draft Saved").'</CENTER></B>';
     }
     if ($mail_sent == 'yes') {
-        echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
+        echo '<BR><CENTER><B>'. _("Your Message has been sent.").'</CENTER></B>';
     }
     echo '<table align="center" cellspacing="0" border="0">' . "\n";
     if ($compose_new_win == '1') {
