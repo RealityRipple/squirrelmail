@@ -836,6 +836,41 @@ function sq_check_save_extension($message) {
  */
 
 /**
+ * This function is more or less a wrapper around stripslashes. Apparently
+ * Explorer is stupid enough to just remove the backslashes and then
+ * execute the content of the attribute as if nothing happened.
+ * Who does that?
+ *
+ * @param  attvalue   The value of the attribute
+ * @return attvalue   The value of the attribute stripslashed.
+ */
+function sq_unbackslash($attvalue){
+    /**
+     * Remove any backslashes. See if there are any first.
+     */
+    if (strstr($attvalue, '\\') !== false){
+        $attvalue = stripslashes($attvalue);
+    }
+    return $attvalue;
+}
+
+/**
+ * Kill any tabs, newlines, or carriage returns. Our friends the
+ * makers of the browser with 95% market value decided that it'd
+ * be funny to make "java[tab]script" be just as good as "javascript".
+ * 
+ * @param  attvalue  The attribute value before extraneous spaces removed.
+ * @return attvalue  The attribute value after extraneous spaces removed.
+ */
+function sq_unspace($attvalue){
+    if (strcspn($attvalue, "\t\r\n") != strlen($attvalue)){
+        $attvalue = str_replace(Array("\t", "\r", "\n"), Array('', '', ''),
+                                $attvalue);
+    }
+    return $attvalue;
+}
+
+/**
  * This function returns the final tag out of the tag name, an array
  * of attributes, and the type of the tag. This function is called by 
  * sq_sanitize internally.
@@ -1321,9 +1356,11 @@ function sq_fixatts($tagname,
             }
         }
         /**
-         * Remove any entities.
+         * Remove any backslashes, entities, and extraneous whitespace.
          */
+        $attvalue = sq_unbackslash($attvalue);
         $attvalue = sq_deent($attvalue);
+        $attvalue = sq_unspace($attvalue);
 
         /**
          * Now let's run checks on the attvalues.
@@ -1425,8 +1462,9 @@ function sq_fixstyle($body, $pos, $message, $id){
      */
     $match   = Array('/expression/i',
                      '/behaviou*r/i',
-                     '/binding/i');
-    $replace = Array('idiocy', 'idiocy', 'idiocy');
+                     '/binding/i',
+                     '/include-source/i');
+    $replace = Array('idiocy', 'idiocy', 'idiocy', 'idiocy');
     $content = preg_replace($match, $replace, $content);
     return array($content, $newpos);
 }
@@ -1445,7 +1483,11 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
      * Get rid of quotes.
      */
     $quotchar = substr($cidurl, 0, 1);
-    $cidurl = str_replace($quotchar, "", $cidurl);
+    if ($quotchar == '"' || $quotchar == "'"){
+        $cidurl = str_replace($quotchar, "", $cidurl);
+    } else {
+        $quotchar = '';
+    }
     $cidurl = substr(trim($cidurl), 4);
     $linkurl = find_ent_id($cidurl, $message);
     /* in case of non-save cid links $httpurl should be replaced by a sort of
@@ -1463,10 +1505,13 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
  * This function changes the <body> tag into a <div> tag since we
  * can't really have a body-within-body.
  *
- * @param  $attary  an array of attributes and values of <body>
- * @return          a modified array of attributes to be set for <div>
+ * @param  $attary   an array of attributes and values of <body>
+ * @param  $mailbox  mailbox we're currently reading (for cid2http)
+ * @param  $message  current message (for cid2http)
+ * @param  $id       current message id (for cid2http)
+ * @return           a modified array of attributes to be set for <div>
  */
-function sq_body2div($attary){
+function sq_body2div($attary, $mailbox, $message, $id){
     $me = 'sq_body2div';
     $divattary = Array('class' => "'bodyclass'");
     $bgcolor = '#ffffff';
@@ -1478,6 +1523,8 @@ function sq_body2div($attary){
             $attvalue = str_replace($quotchar, "", $attvalue);
             switch ($attname){
                 case 'background':
+                    $attvalue = sq_cid2http($message, $id, 
+                                            $attvalue, $mailbox);
                     $styledef .= "background-image: url('$attvalue'); ";
                     break;
                 case 'bgcolor':
@@ -1542,7 +1589,7 @@ function sq_sanitize($body,
      */
     $curpos = 0;
     $open_tags = Array();
-    $trusted = "<!-- begin sanitized html -->\n";
+    $trusted = "\n<!-- begin sanitized html -->\n";
     $skip_content = false;
     /**
      * Take care of netscape's stupid javascript entities like
@@ -1581,13 +1628,12 @@ function sq_sanitize($body,
                     if ($skip_content == false){
                         if ($tagname == "body"){
                             $tagname = "div";
+                        }
+                        if (isset($open_tags{$tagname}) && 
+                            $open_tags{$tagname} > 0){
+                            $open_tags{$tagname}--;
                         } else {
-                            if (isset($open_tags{$tagname}) && 
-                                $open_tags{$tagname} > 0){
-                                $open_tags{$tagname}--;
-                            } else {
-                                $tagname = false;
-                            }
+                            $tagname = false;
                         }
                     }
                 }
@@ -1602,7 +1648,7 @@ function sq_sanitize($body,
                      */
                     if ($tagtype == 1
                         && in_array($tagname, $self_closing_tags)){
-                        $tagtype=3;
+                        $tagtype = 3;
                     }
                     /**
                      * See if we should skip this tag and any content
@@ -1618,6 +1664,14 @@ function sq_sanitize($body,
                              !in_array($tagname, $tag_list))){
                             $tagname = false;
                         } else {
+                            /**
+                             * Convert body into div.
+                             */
+                            if ($tagname == "body"){
+                                $tagname = "div";
+                                $attary = sq_body2div($attary, $mailbox, 
+                                                      $message, $id);
+                            }
                             if ($tagtype == 1){
                                 if (isset($open_tags{$tagname})){
                                     $open_tags{$tagname}++;
@@ -1638,13 +1692,6 @@ function sq_sanitize($body,
                                                      $id,
                                                      $mailbox
                                                      );
-                            }
-                            /**
-                             * Convert body into div.
-                             */
-                            if ($tagname == "body"){
-                                $tagname = "div";
-                                $attary = sq_body2div($attary, $message, $id);
                             }
                         }
                     }
@@ -1693,14 +1740,18 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                       "base",
                       "link",
                       "frame",
-                      "iframe"
+                      "iframe",
+                      "plaintext",
+                      "marquee"
                       );
 
     $rm_tags_with_content = Array(
                                   "script",
                                   "applet",
                                   "embed",
-                                  "title"
+                                  "title",
+                                  "frameset",
+                                  "xml"
                                   );
 
     $self_closing_tags =  Array(
@@ -1710,7 +1761,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "input"
                                 );
 
-    $force_tag_closing = false;
+    $force_tag_closing = true;
 
     $rm_attnames = Array(
                          "/.*/" =>
@@ -1730,7 +1781,6 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                 "/^src|background/i" =>
                     Array(
                           Array(
-                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
                                 "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
                                 "/^([\'\"])\s*about\s*:.*([\'\"])/si"
@@ -1745,16 +1795,15 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                 "/^href|action/i" =>
                     Array(
                           Array(
-                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
                                 "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
                                 "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
                           Array(
-                                "\\1#\\2",
-                                "\\1#\\2",
-                                "\\1#\\2",
-                                "\\1#\\2"
+                                "\\1#\\1",
+                                "\\1#\\1",
+                                "\\1#\\1",
+                                "\\1#\\1"
                                 )
                         ),
                 "/^style/i" =>
@@ -1763,7 +1812,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "/expression/i",
                                 "/binding/i",
                                 "/behaviou*r/i",
-                                "|url\s*\(\s*([\'\"])\s*\.\./.*([\'\"])\s*\)|si",
+                                "/include-source/i",
                                 "/url\s*\(\s*([\'\"])\s*\S+script\s*:.*([\'\"])\s*\)/si",
                                 "/url\s*\(\s*([\'\"])\s*mocha\s*:.*([\'\"])\s*\)/si",
                                 "/url\s*\(\s*([\'\"])\s*about\s*:.*([\'\"])\s*\)/si"
@@ -1772,16 +1821,17 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "idiocy",
                                 "idiocy",
                                 "idiocy",
-                                "url(\\1#\\2)",
-                                "url(\\1#\\2)",
-                                "url(\\1#\\2)",
-                                "url(\\1#\\2)"
+                                "idiocy",
+                                "url(\\1#\\1)",
+                                "url(\\1#\\1)",
+                                "url(\\1#\\1)",
+                                "url(\\1#\\1)"
                                )
                           )
                 )
         );
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
-	$view_unsafe_images = false;
+        $view_unsafe_images = false;
     }
     if (!$view_unsafe_images){
         /**
@@ -1791,16 +1841,19 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
          array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
                     '/^([\'\"])\s*https*:.*([\'\"])/si');
          array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
-                    "\\1$secremoveimg\\2");
+                    "\\1$secremoveimg\\1");
          array_push($bad_attvals{'/.*/'}{'/^style/i'}[0],
                     '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
          array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
-                    "url(\\1$secremoveimg\\2)");
+                    "url(\\1$secremoveimg\\1)");
     }
 
     $add_attr_to_tag = Array(
-                             "/^a$/i" => Array('target'=>'"_new"')
-                             );
+        "/^a$/i" => 
+            Array('target'=>'"_new"',
+                  'title'=>'"'._("This external link will open in a new window").'"'
+            )
+    );
     $trusted = sq_sanitize($body, 
                            $tag_list, 
                            $rm_tags_with_content,
