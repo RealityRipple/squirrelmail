@@ -38,6 +38,15 @@
 
    // corrects a time stamp to be the local time
    function getGMTSeconds($stamp, $gmt) {
+      if (($gmt == "Pacific") || ($gmt == "PST") || ($gmt == "PDT"))
+         $gmt = "-0800";
+      if (($gmt == "Eastern") || ($gmt == "EST") || ($gmt == "EDT"))
+         $gmt = "-0500";
+      if (($gmt == "Central") || ($gmt == "CST") || ($gmt == "CDT"))
+         $gmt = "-0600";
+      if (($gmt == "Mountain") || ($gmt == "MST") || ($gmt == "MDT"))
+         $gmt = "-0700";
+
       if (substr($gmt, 0, 1) == "-") {
          $neg = true;
          $gmt = substr($gmt, 1, strlen($gmt));
