@@ -94,7 +94,12 @@
     **  The array returned looks like this:
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
-      global $special_folders, $list_special_folders_first, $folder_prefix;
+      global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username;
+      if (!isset($load_prefs_php))
+         include "../src/load_prefs.php";
+      else
+         global $folder_prefix;
+      global $special_folders, $list_special_folders_first, $default_folder_prefix;
       
       if (!function_exists ("ary_sort"))
          include ("../functions/array.php");
