@@ -27,7 +27,7 @@
          $body = eregi_replace ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+(\.([a-z]|[0-9]|_|-)+)*", "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
       }
       */
-      $body = eregi_replace ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+(\.([a-z]|[0-9]|_|-)+)*", "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
+      $body = eregi_replace ("([a-z]|[0-9]|_|\.|-)+\@([a-z]|[0-9]|_|-)+\.(\.|[a-z]|[0-9]|_|-)+", "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body); 
       return $body;
    }
 
