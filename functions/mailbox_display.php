@@ -12,6 +12,8 @@
  * $Id$
  */
 
+include_once('../functions/strings.php');
+
 define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
 function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start_msg, $where, $what) {
