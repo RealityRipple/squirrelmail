@@ -335,13 +335,19 @@
 	    $this->error = _("E-mail address is missing");
 	    return false;
 	 }
+
+	 if(eregi("[\: \|\#\"\!]", $userdata["nickname"])) {
+	    $this->error = _("Nickname contain illegal characters");
+	    return false;
+	 }
+
 	 if(empty($userdata["nickname"])) {
 	    $userdata["nickname"] = $userdata["email"];
 	 }
 
 	 // Check that specified backend is writable
 	 if(!$this->backends[$bnum]->writeable) {
-	    $this->error = sprintf(_("Addressbook %s is read-only", $bnum));
+	    $this->error = _("Addressbook is read-only");;
 	    return false;
 	 }
 
