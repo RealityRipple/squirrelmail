@@ -187,9 +187,23 @@
                $header["CHARSET"] = "us-ascii";
             }
 
+         }
+
+         else if (strtolower(substr($read[$i], 0, 20)) == "content-disposition:") {   
+            /** Add better dontent-disposition support **/
+            
+            $line = $read[$i];
+            $i++;
+            while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
+               str_replace("\n", "", $line);
+               str_replace("\n", "", $read[$i]);
+               $line = "$line $read[$i]";
+               $i++;
+            }
+
             /** Detects filename if any **/
-            if (strpos(strtolower(trim($line)), "name=")) {
-               $pos = strpos($line, "name=") + 5;
+            if (strpos(strtolower(trim($line)), "filename=")) {
+               $pos = strpos($line, "filename=") + 9;
                $name = trim($line);
                if (strpos($line, " ", $pos) > 0) {
                   $name = substr($name, $pos, strpos($line, " ", $pos));
