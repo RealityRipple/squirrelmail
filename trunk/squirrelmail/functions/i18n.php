@@ -1332,7 +1332,7 @@ $languages['th_TH']['CHARSET'] = 'tis-620';
 $languages['th']['ALIAS'] = 'th_TH';
 
 $languages['lt_LT']['NAME']    = 'Lithuanian';
-$languages['lt_LT']['CHARSET'] = 'iso-8859-13';
+$languages['lt_LT']['CHARSET'] = 'windows-1257';
 $languages['lt']['ALIAS'] = 'lt_LT';
 
 $languages['sl_SI']['NAME']    = 'Slovenian';
