@@ -92,7 +92,7 @@ function mime_structure ($bodystructure, $flags=array()) {
  * to mime_get_elements()
  */
 
-function mime_fetch_body($imap_stream, $id, $ent_id=1) {
+function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     global $uid_support; 
     /* Do a bit of error correction.  If we couldn't find the entity id, just guess
      * that it is the first one.  That is usually the case anyway.
@@ -104,6 +104,8 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1) {
         $cmd = "FETCH $id BODY[$ent_id]";
     }
 
+    if ($fetch_size!=0) $cmd .= "<0.$fetch_size>";
+    
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, $uid_support);
     do {
         $topline = trim(array_shift($data));
