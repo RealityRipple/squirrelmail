@@ -18,7 +18,7 @@
 
       $counter = 0;
       do {
-          $data[$counter] = $read = fgets ($imap_stream, 4096);
+          $data[$counter] = $read = fgets ($imap_stream, 9096);
           if ($imap_general_debug) { echo "<small><tt><font color=cc0000>$read</font></tt></small><br>"; flush(); }
           $counter++;
       } while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs));
