@@ -116,8 +116,10 @@ function print_optionpages_row($leftopt, $rightopt = false) {
 /* ---------------------------- main ---------------------------- */
 
 /* Make sure we have an Option Page set. Default to main. */
-if (!isset($optpage)) {
-    $optpage = 'main';
+if ( !isset($optpage) || $optpage == '' ) {
+    $optpage = SMOPT_PAGE_MAIN;
+} else {
+    $optpage = strip_tags( $optpage );
 }
 
 /* Make sure we have an Option Mode set. Default to display. */
@@ -136,7 +138,8 @@ $optpage_loader = '';
 
 /* Set the load information for each page. */
 switch ($optpage) {
-    case SMOPT_PAGE_MAIN: break;
+    case SMOPT_PAGE_MAIN: 
+        break;
     case SMOPT_PAGE_PERSONAL:
         $optpage_name     = _("Personal Information");
         $optpage_file     = SM_PATH . 'include/options/personal.php';
@@ -174,8 +177,11 @@ switch ($optpage) {
 /*** Second, load the option information for this page. ***/
 /**********************************************************/
 
-if ($optpage != SMOPT_PAGE_MAIN) {
+if ( !is_file( $optpage_file ) ) {
+    $optpage = SMOPT_PAGE_MAIN;
+} else if ($optpage != SMOPT_PAGE_MAIN ) {
     /* Include the file for this optionpage. */
+    
     require_once($optpage_file);
 
     /* Assemble the data for this option page. */
