@@ -14,10 +14,10 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
-require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/mailbox_display.php');	//getButton()...
 
 function asearch_unhtml_strcoll($a, $b)
 {
@@ -357,7 +357,7 @@ function asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_ar
 					if ($what_type == 'adate')
 						$what_display = asearch_get_date_display($what);
 					else
-						$what_display = htmlspecialchars($what);
+						$what_display = htmlentities($what);
 					$what_display = ' <B>' . $what_display . '</B>';
 				}
 			}
@@ -522,7 +522,7 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 	$what_disp = str_replace('\\\\', '\\', $what_disp);
 	$what_disp = str_replace('\\"', '"', $what_disp);
 	$what_disp = str_replace('"', '&quot;', $what_disp);*/
-	$what_disp = htmlspecialchars($what, ENT_QUOTES);
+	$what_disp = htmlspecialchars($what);
 	echo html_tag('td', '<input type="text" size="35" name="what[' . $row_num . ']" value="' . $what_disp . '">', 'center') . "\n";
 
 /* Exclude criteria */
@@ -554,7 +554,7 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 			$mailbox = $boxes[0]['unformatted'];
 		$biop = strip_tags(asearch_nz($biop_array[$row_num]));
 		$unop = strip_tags(asearch_nz($unop_array[$row_num]));
-		$where = strip_tags(asearch_nz($where_array[$row_num]));
+		$where = asearch_nz($where_array[$row_num]);
 		$what = asearch_nz($what_array[$row_num]);
 		$exclude = strip_tags(asearch_nz($exclude_array[$row_num]));
 		asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop, $where, $what, $exclude, $row_num);
