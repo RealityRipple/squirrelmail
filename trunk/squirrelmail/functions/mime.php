@@ -442,13 +442,15 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                     }
                 }
             } else {
-                if (trim( $header->id ) == '') {
-                    $filename = 'untitled-[' . $ent . ']' ;
-                } else {
-                    $filename = 'cid: ' . $header->id;
-                }
-            }
-
+		$filename = decodeHeader($header->getParameter('name'));
+		if (!trim($filename)) {
+            	    if (trim( $header->id ) == '') {
+                	$filename = 'untitled-[' . $ent . ']' ;
+            	    } else {
+                	$filename = 'cid: ' . $header->id;
+            	    }
+        	}
+	    }
             if ($header->description) {
                 $description = htmlspecialchars($header->description);
             } else {
