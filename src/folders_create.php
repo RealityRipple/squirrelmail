@@ -13,10 +13,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -37,7 +37,7 @@
       exit;
    }
 
-   if ($contain_subs == true)
+   if (isset($contain_subs) && $contain_subs == true)
       $folder_name = "$folder_name$dm";
 
    if ($folder_prefix && (substr($folder_prefix, -1) != $dm)) {

@@ -13,10 +13,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -52,7 +52,7 @@
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
-   if ($isfolder) {
+   if (isset($isfolder)) {
       $newone = $newone.$dm;
       $orig = $orig.$dm;
    }   
