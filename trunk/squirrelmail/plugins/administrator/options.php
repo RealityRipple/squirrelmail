@@ -359,6 +359,7 @@ foreach ( $newcfg as $k => $v ) {
 
 }
 
+/* Special Themes Block */
 if ( !($colapse['Group7']) ) {
     $i = 0;
     echo '<tr><th>' . _("Theme Name") .
@@ -392,6 +393,7 @@ if ( !($colapse['Group7']) ) {
     }
 }
 
+/* Special Plugins Block */
 if ( $colapse['Group8'] ) {
     $sw = '(+)';
 } else {
@@ -401,7 +403,7 @@ echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
      "<a href=options.php?switch=Group7 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
      _("Plugins") . '</th></tr>';
 
-if( !$colapse['Group7'] ) {
+if( !$colapse['Group8'] ) {
 
     $fd = opendir( '../plugins/' );
     $op_plugin = array();
