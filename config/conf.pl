@@ -2229,7 +2229,7 @@ sub save_data {
         print CF "\$use_authenticated_smtp = '$use_authenticated_smtp';\n";
         print CF "\$pop_before_smtp        = '$pop_before_smtp';\n";
         print CF "\$imap_server_type       = '$imap_server_type';\n";
-        print CF "\$invert_time            = '$invert_time';\n";
+        print CF "\$invert_time            = $invert_time;\n";
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
         print CF "\n";
 
