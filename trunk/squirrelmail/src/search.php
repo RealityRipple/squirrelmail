@@ -800,7 +800,7 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 
 /** Print the $msgs messages from $mailbox mailbox
  */
-function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sort, $color, $where, $what)
+function asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $msgs, $cnt, $sort, $color, $where, $what)
 {
 	if ($cnt > 0) {
 		global $allow_server_sort, $allow_thread_sort, $thread_sort_messages;
@@ -834,7 +834,7 @@ function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sor
 
 		echo '<tr><td>';
 		if ($devel)
-			mail_message_listing_beginning($imapConnection, NULL, $mailbox, $real_sort, $msg_cnt_str, $mailbox_title, 1, 1);
+			mail_message_listing_beginning($imapConnection, $mbxresponse, $mailbox, $real_sort, $msg_cnt_str, $mailbox_title, 1, 1);
 		else
 			mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $mailbox_title, 1, 1);
 		echo '</td></tr>';
@@ -1315,14 +1315,14 @@ if ($submit == $search_button_text) {
 		else {
 			foreach($mboxes_msgs as $mailbox => $msgs) {
 				echo '<br>';
-				sqimap_mailbox_select($imapConnection, $mailbox);
+				$mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
 				$msgs = fillMessageArray($imapConnection, $msgs, count($msgs));
 /* For now just keep the first criteria to make the regular search happy if the user tries to come back to search */
 /*			$where = asearch_serialize($where_array);
 				$what = asearch_serialize($what_array);*/
 				$where = $where_array[0];
 				$what = $what_array[0];
-				asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, count($msgs), $sort, $color, urlencode($where), urlencode($what));
+				asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $msgs, count($msgs), $sort, $color, urlencode($where), urlencode($what));
 			}
 		}
 
