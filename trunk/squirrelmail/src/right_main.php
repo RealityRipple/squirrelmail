@@ -29,6 +29,7 @@
    include("../functions/date.php");
    include("../functions/page_header.php");
    include("../functions/array.php");
+   include("../functions/mime.php");
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
 

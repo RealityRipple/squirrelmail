@@ -7,6 +7,7 @@
     **  table row that has sender, date, subject, etc...
     **
     **/
+
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       require ("../config/config.php");
 
@@ -52,8 +53,8 @@
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
          $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
          $messages[$j]["ID"] = $j+1;
-         $messages[$j]["FROM"] = $from[$j];
-         $messages[$j]["SUBJECT"] = $subject[$j];
+         $messages[$j]["FROM"] = rfc1522Decode($from[$j]);
+         $messages[$j]["SUBJECT"] = rfc1522Decode($subject[$j]);
          $messages[$j]["FLAG_DELETED"] = false;
          $messages[$j]["FLAG_ANSWERED"] = false;
          $messages[$j]["FLAG_SEEN"] = false;
