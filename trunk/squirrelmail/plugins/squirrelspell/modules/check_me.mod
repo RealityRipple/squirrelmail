@@ -4,7 +4,7 @@
  * -------------
  * Squirrelspell module.
  *
- * Copyright (c) 1999-2003 The SquirrelMail development team
+ * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module is the main workhorse of SquirrelSpell. It submits
@@ -80,34 +80,38 @@ $sqspell_new_text=implode("\n", $sqspell_new_lines);
  */
 $sqspell_command=$SQSPELL_APP[$sqspell_use_app];
 /**
- * For the simplicity's sake we'll put all text into a file in
- * attachment_dir directory, then cat it and pipe it to
- * sqspell_command.  There are other ways to do it, including popen(),
- * but it's unidirectional and no fun at all.  
- *
- * The name of the file is an md5 hash of the message itself plus
- * microtime. This prevents symlink attacks. The loop is here to
- * further enhance this feature, and make sure we don't overwrite
- * someone else's data, although the possibility of this happening is
- * QUITE remote.
+ * If you have php >= 4.3.0, we can use proc_open and safe mode
+ * and not mess w/ temp files.  Otherwise we will do it the old
+ * way, (minus the uneeded call to cat that messes up Wintel 
+ * boxen.)
+ * Thanks Ray Ferguson for providing this patch.
  */
-do {
-  $floc = "$attachment_dir/" . md5($sqspell_new_text . microtime());
-} while (file_exists($floc));
-/**
- * Write the contents to the file.
- */
-$fp=fopen($floc, 'w');
-fwrite($fp, $sqspell_new_text);
-fclose($fp);
-/**
- * Execute ispell/aspell and catch the output.
- */
-exec("cat $floc | $sqspell_command 2>&1", $sqspell_output, $sqspell_exitcode);
-/**
- * Remove the temp file.
- */
-unlink($floc);
+if( check_php_version ( 4, 3 ) ) {
+    $descriptorspec = array(
+       0 => array('pipe', 'r'),  // stdin is a pipe that the child will read from
+       1 => array('pipe', 'w'),  // stdout is a pipe that the child will write to
+       2 => array('pipe', 'w'), // stderr is a pipe that the child will write to
+    );
+    $spell_proc=proc_open($sqspell_command, $descriptorspec, $pipes);
+    fwrite($pipes[0], $sqspell_new_text);
+    fclose($pipes[0]);
+    $sqspell_output = array();
+    for($i=1; $i<=2; $i++){
+        while(!feof($pipes[$i]))
+           array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\n")); 
+    	fclose($pipes[$i]);
+    }
+    $sqspell_exitcode=proc_close($spell_proc);
+} else {
+    do {
+      $floc = "$attachment_dir/" . md5($sqspell_new_text . microtime());
+    } while (file_exists($floc));
+    $fp=fopen($floc, 'w');
+    fwrite($fp, $sqspell_new_text);
+    fclose($fp);
+    exec("$sqspell_command < $floc 2>&1", $sqspell_output, $sqspell_exitcode);
+    unlink($floc);
+}
 
 /**
  * Check if the execution was successful. Bail out if it wasn't.
@@ -442,6 +446,6 @@ if ($errors){
  * Local variables:
  * mode: php
  * End:
- * vim: syntax=php
+ * vim: syntax=php et ts=4
  */
 ?>

@@ -1,17 +1,25 @@
-SquirrelSpell-v0.3.1
----------------------
+SquirrelSpell plugin
+--------------------
 
 Untar SquirrelSpell into your squirrelmail/plugins directory. Modify the 
 sqspell_config.php file making sure you have ispell or aspell
 available on your system and located in PHP's path. The squirrelspell
 doesn't check for that and if it is not available, you're just going to
-get a "No errors found"  message every time. :) Quite pleasing, but not
+get a "No errors found" message every time. :) Quite pleasing, but not
 very useful.
 
 Read files in "doc" directory -- they explain some features.
 
 Enable the plugin either by hand or by running the configure script from
 your squirrelmail install directory.
+
+NOTE: If you are using php >= 4.3.0 squirrelspell should work in safe mode.
+Otherwise, you may have to disable safe mode for the squirrelspell directory.
+   APACHE CONF EXAMPLE:
+	<Directory /webroot/squirrelmail/plugins/squirrelspell>
+		php_admin_value safe_mode 0
+	</Directory>
+
 
 Enjoy and report bugs. ;)
 
