@@ -130,14 +130,12 @@
          $cc_list = getLineOfAddrs($cc);
          $bcc_list = getLineOfAddrs($bcc);
          
+         /* Encoding 8-bit characters and making from line */
+         $subject = encodeHeader($subject);
          if ($from == "")
             $from = "<$from_addr>";
          else
-            $from = $from . " <$from_addr>";
-
-         /* Encoding 8-bit characters */
-         $subject = encodeHeader($subject);
-         $from = encodeHeader($from);
+            $from = encodeHeader($from) . " <$from_addr>";
          
          /* This creates an RFC 822 date */
          $date = date("D, j M Y H:i:s ", mktime()) . timezone();
