@@ -122,7 +122,7 @@ function sqimap_message_list_squisher($messages_array) {
 
 /**
 * Retrieves an array with a sorted uid list. Sorting is done on the imap server
-* @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
+* @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-17.txt
 * @param resource $imap_stream IMAP socket connection
 * @param string $sSortField Field to sort on
 * @param bool $reverse Reverse order search
