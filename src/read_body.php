@@ -39,7 +39,7 @@
       echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
       echo ""._("View message") . "</a></b></center></td></tr></table>\n";
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
-      echo "<tr><td><tt>";
+      echo "<tr><td><pre>";
       for ($i=1; $i < count($read)-1; $i++) {
          $read[$i] = htmlspecialchars($read[$i]);
          if (substr($read[$i], 0, 1) != "\t" && 
@@ -47,11 +47,11 @@
              substr($read[$i], 0, 1) != "&" && 
              trim($read[$i])) {
             $pre = substr($read[$i], 0, strpos($read[$i], ":"));
-            $read[$i] = str_replace("$pre", "<b>$pre</b>", $read[$i]);
+            $read[$i] = str_replace("$pre", "<b>$pre</b>", decodeHeader($read[$i]));
          }
          echo "$read[$i]";
       }
-      echo "</tt></td></tr></table>\n";
+      echo "</pre></td></tr></table>\n";
       echo "</body></html>";
       exit;
    }
