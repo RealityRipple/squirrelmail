@@ -100,10 +100,6 @@ function formatMailboxName($imapConnection, $box_array) {
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
                     "</small>";
         }
-    } else {
-        $line .= concat_hook_function('left_main_after_each_folder',
-                                      array(isset($numMessages) ? $numMessages : '',
-                                            $real_box, $imapConnection));
     }
 
     /* Return the final product. */
@@ -297,29 +293,24 @@ function listBoxes ($boxes, $j=0 ) {
     if (isset($boxes) && !empty($boxes)) {
         $mailbox = $boxes->mailboxname_full;
         $leader = '<tt>';
-        $leader .= str_repeat('&nbsp;&nbsp;',$j);
+        $leader .= str_repeat('&nbsp;&nbsp;&nbsp;',$j);
         $mailboxURL = urlencode($mailbox);
-
         /* get unseen/total messages information */
-        if ($boxes->unseen||$boxes->total) {
+        if ($boxes->unseen !== false || $boxes->total !== false) {
             $unseen = $boxes->unseen;
             $unseen_string = "($unseen)";
             if ($unseen>0||$boxes->total>0) {
                 $unseen_found = TRUE;
             }
-
             $unseen_before = '<font color="' . $color[11] . '">';
             $unseen_after = '</font>';
-
             if ((($unseen_notify == 2) && (strtolower($mailbox) == 'inbox')) || ($unseen_notify == 3)) {
                 $unseen_string = '(' . $unseen;
-                
+        
                 if ($unseen_type > 1) {
                     $unseen_string .= '/' . $boxes->total;
                 }
-
                 $unseen_string .= ')';
-
                 $unseen_string = $unseen_before . $unseen_string . $unseen_after;
             }
         } else {
@@ -343,25 +334,19 @@ function listBoxes ($boxes, $j=0 ) {
         }
 
         /* If there are unseen message, bold the line. */
-
         if (($move_to_trash) && ($mailbox == $trash_folder)) {
-            if (! isset($numMessages)) {
-                $status = sqimap_status_messages($imapConnection, $mailbox);
-                $numMessages = $status['MESSAGES'];
+            if (! isset($boxes->total)) {
+                $boxes->total = sqimap_status_messages($imapConnection, $mailbox);
             }
-
             if ($unseen > 0) {
                 $pre .= '<b>';
             }
-
             $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-
             if ($unseen > 0) {
                 $end .= '</b>';
             }
-
             $end .= '</a>';
-            if ($numMessages > 0) {
+            if ($boxes->total > 0) {
                 if ($unseen > 0) {
                     $pre .= '<b>';
                 }
@@ -428,12 +413,12 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $mailboxURL = urlencode($mailbox);
 
     /* get unseen/total messages information */
-        if ($boxes->unseen) {
+    if ($boxes->unseen !== false) {
         $unseen = $boxes->unseen;
-            $unseen_string = "($unseen)";
+        $unseen_string = "($unseen)";
         if ($unseen>0) $unseen_found = TRUE;
-            if ($boxes->total) {
-        $numMessages = $boxes->total;
+        if ($boxes->total) {
+            $numMessages = $boxes->total;
             $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
         }
     } else $unseen = 0;
@@ -987,6 +972,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         echo '</div></small>'."\n";
         echo '</form>'."\n";
     } else {
+        //sqimap_get_status_mbx_tree($imap_stream,$boxes)    
         ListBoxes($boxes);
     }
 } /* if ($oldway) else ... */
