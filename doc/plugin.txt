@@ -76,42 +76,78 @@ including any of the standard SquirrelMail files.
 
 List of hooks
 -------------
-  generic_header                 functions/page_header.php
-  menuline                       functions/page_header.php
-  compose_button_row             src/compose.php
-  compose_bottom                 src/compose.php
-  left_main_before               src/left_main.php
-  left_main_after                src/left_main.php
-  options_save                   src/options.php  (see note on options)
-  options_link_and_description   src/options.php  (see note on options)
-  options_highlight_bottom       src/options_highlight.php
-  options_personal_bottom        src/options_personal.php
-  options_display_bottom         src/options_display.php
-  options_folders_bottom         src/options_folders.php
-  logout                         src/signout.php
-  login_before                   src/webmail.php
-  login_verified                 src/webmail.php
-  loading_prefs                  src/load_prefs.php
-  mailbox_index_before           functions/mailbox_display.php
-  mailbox_index_after            functions/mailbox_display.php
-  right_main_after_header        src/right_main.php
-  right_main_bottom              src/right_main.php
-  login_top                      src/login.php
-  login_bottom                   src/login.php
-  read_body_top                  src/read_body.php
-  read_body_bottom               src/read_body.php
-  search_before_form             src/search.php
-  search_after_form              src/search.php
-  search_bottom                  src/search.php
-  help_top                       src/help.php
-  help_bottom                    src/help.php
-  help_chapter                   src/help.php
-  abook_html_search_below        src/addrbook_search_html.php
-  addressbook_bottom		 src/addressbook.php
+  generic_header                  functions/page_header.php
+  menuline                        functions/page_header.php
+  compose_button_row              src/compose.php
+  compose_bottom                  src/compose.php
+  left_main_before                src/left_main.php
+  left_main_after                 src/left_main.php
+  * options_save                  src/options.php  (see note on options)
+  * options_link_and_description  src/options.php  (see note on options)
+  * options_highlight_bottom      src/options_highlight.php
+  * options_personal_bottom       src/options_personal.php
+  * options_personal_inside       src/options_personal.php
+  * options_personal_save         src/options_personal.php
+  * options_display_bottom        src/options_display.php
+  * options_display_inside        src/options_display.php
+  * options_display_sav           src/options_display.php
+  * options_folders_bottom        src/options_folders.php
+  * options_folders_inside        src/options_folders.php
+  * options_folders_save          src/options_folders.php
+  logout                          src/signout.php
+  login_before                    src/webmail.php
+  login_verified                  src/webmail.php
+  loading_prefs                   src/load_prefs.php
+  mailbox_index_before            functions/mailbox_display.php
+  mailbox_index_after             functions/mailbox_display.php
+  right_main_after_header         src/right_main.php
+  right_main_bottom               src/right_main.php
+  login_top                       src/login.php
+  login_bottom                    src/login.php
+  read_body_top                   src/read_body.php
+  read_body_bottom                src/read_body.php
+  search_before_form              src/search.php
+  search_after_form               src/search.php
+  search_bottom                   src/search.php
+  help_top                        src/help.php
+  help_bottom                     src/help.php
+  help_chapter                    src/help.php
+  abook_html_search_below         src/addrbook_search_html.php
+  addressbook_bottom              src/addressbook.php
    
-Options
--------
+(*) Options
+-----------
+There are two ways to do options for your plugin.  First, you can incorporate it
+into an existing section of the preferences (Display, Personal, or Folders).
+The second way, you create your own section that they can choose from and it 
+displays its own range of options.
 
+
+First:  Integrating into existing options
+-----------------------------------------
+There are two hooks you need to use for this one:
+
+1.  options_YOUCHOOSE_inside
+    This is the code that goes inside the table for the section you choose.  Since
+    it is going inside an existing table, it must be in this form:
+    ------cut here-------
+      <tr>
+         <td>
+            OPTION_NAME
+         </td>
+         <td>
+            OPTION_INPUT
+         </td>
+      </tr>   
+    ------cut here-------
+
+2.  options_YOUCHOOSE_save
+    This is the code that saves your preferences into the users' preference 
+    file.  For an example of how to do this, see src/options.php.
+
+    
+Second:  Create your own section
+-------------------------------
 It is possible to create your own options sections with plugins.  There are
 three hooks you will need to use.
 
