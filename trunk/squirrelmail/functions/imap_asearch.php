@@ -238,6 +238,9 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 		echo '<!-- ' . htmlspecialchars($errors) . ' -->';
 	}
 
+	if (empty($messagelist))
+		return array();
+
 	$cnt = count($messagelist);
 	for ($q = 0; $q < $cnt; $q++)
 		$id[$q] = trim($messagelist[$q]);
