@@ -386,6 +386,10 @@ global $addrbook_dsn, $addrbook_table;
 $addrbook_dsn = '';
 $addrbook_table = 'address';
 
+global $prefs_dsn, $prefs_table;
+$prefs_dsn = '';
+$prefs_table = 'userprefs'
+
 /**
  * Users may search their addressbook via either a plain HTML or Javascript
  * enhanced user interface. This option allows you to set the default choice.

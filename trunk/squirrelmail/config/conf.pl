@@ -455,6 +455,8 @@ while (($command ne "q") && ($command ne "Q")) {
       print $WHT."Database\n".$NRM;
       print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
       print "2.  Table for Address Book : $WHT$addrbook_table$NRM\n";
+      print "3.  DSN for Preferences    : $WHT$prefs_dsn$NRM\n";
+      print "4.  Table for Preferences  : $WHT$prefs_table$NRM\n";
       print "\n";
       print "S   Save data\n";
       print "R   Return to Main Menu\n";
@@ -566,6 +568,8 @@ while (($command ne "q") && ($command ne "Q")) {
       } elsif ($menu == 9) {
          if    ($command == 1) { $addrbook_dsn   = command91(); }
          elsif ($command == 2) { $addrbook_table = command92(); }
+         elsif ($command == 3) { $prefs_dsn      = command93(); }
+         elsif ($command == 4) { $prefs_table    = command94(); }
       }
    }   
 }
@@ -1864,6 +1868,46 @@ sub command92 {
    return $new_table;
 }
 
+sub command93 {
+    print "If you want to store your users preferences in a database then\n";
+    print "you need to set this DSN to a valid value. The format for this is:\n";
+    print "mysql://user:pass\@hostname/dbname\n";
+    print "Where mysql can be one of the databases PHP supports, the most common\n";
+    print "of these are mysql, msql and pgsql\n";
+    print "If the DSN is left empty (hit space and then return) the database\n";
+    print "related code for address books will not be used\n";
+    print "\n";
+
+    if ($prefs_dsn eq "") {
+        $default_value = "Disabled";
+    } else {
+        $default_value = $prefs_dsn;
+    }
+    print "[$WHT$prefs_dsn$NRM]: $WHT";
+    $new_dsn = <STDIN>;
+    if ($new_dsn eq "\n") {
+        $new_dsn = "";
+    } else {
+        $new_dsn =~ s/[\r|\n]//g;
+        $new_dsn =~ s/^\s+$//g;
+    }
+    return $new_dsn;
+}
+
+sub command94 {
+    print "This is the name of the table you want to store the preferences\n";
+    print "data in, it defaults to 'address'\n";
+    print "\n";
+    print "[$WHT$prefs_table$NRM]: $WHT";
+    $new_table = <STDIN>;
+    if ($new_table eq "\n") {
+        $new_table = $prefs_table;
+    } else {
+        $new_table =~ s/[\r|\n]//g;
+    }
+    return $new_table;
+}  
+
 sub save_data {
     $tab = "    ";
     if(open (CF, ">config.php"))
@@ -2011,6 +2055,9 @@ sub save_data {
         print CF "\nglobal \$addrbook_dsn, \$addrbook_table;\n";
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
+        print CF "\nglobal \$prefs_dsn, \$prefs_table;\n";
+        print CF "\$prefs_dsn = '$prefs_dsn';\n";
+        print CF "\$prefs_table = '$prefs_table';\n";
      
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";

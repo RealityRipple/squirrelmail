@@ -27,22 +27,15 @@
  *                           primary key (user,prefkey));
  *
  * Configuration of databasename, username and password is done
- * by changing $DSN below.
+ * by using conf.pl or the administrator plugin
  *
  * $Id$
  */
 
 require_once('DB.php');
+require_once('../config/config.php');
 
 global $prefs_are_cached, $prefs_cache;
-
-if ( !session_is_registered('prefs_are_cached') ||
-     !isset( $prefs_cache) ||
-     !is_array( $prefs_cache) ||
-     substr( phpversion(), 0, 3 ) == '4.1' ) {
-    $prefs_are_cached = false;
-    $prefs_cache = array();
-}
 
 function cachePrefValues($username) {
     global $prefs_are_cached, $prefs_cache;
@@ -75,7 +68,6 @@ function cachePrefValues($username) {
 }
 
 class dbPrefs {
-    var $DSN   = 'mysql://user:passwd@host/database';
     var $table = 'userprefs';
 
     var $dbh   = NULL;
@@ -85,10 +77,16 @@ class dbPrefs {
                          'show_html_default' => '0');
 
     function open() {
+        global $prefs_dsn, $prefs_table;
+
         if(isset($this->dbh)) {
             return true;
         }
-        $dbh = DB::connect($this->DSN, true);
+
+        if (!empty($prefs_table)) {
+            $this->table = $prefs_table;
+        }
+        $dbh = DB::connect($prefs_dsn);
 
         if(DB::isError($dbh) || DB::isWarning($dbh)) {
             $this->error = DB::errorMessage($dbh);
@@ -315,91 +313,6 @@ function getSig($data_dir, $username) {
     }
 
     return $db->getKey($username, '___signature___');
-}
-
-/* Hashing functions */
-
-function getHashedFile($username, $dir, $datafile, $hash_search = true) {
-    global $dir_hash_level;
-
-    /* Remove trailing slash from $dir if found */
-    if (substr($dir, -1) == '/') {
-        $dir = substr($dir, 0, strlen($dir) - 1);
-    }
-
-    /* Compute the hash for this user and extract the hash directories. */
-    $hash_dirs = computeHashDirs($username);
-
-    /* First, get and make sure the full hash directory exists. */
-    $real_hash_dir = getHashedDir($username, $dir, $hash_dirs);
-     
-    /* Set the value of our real data file. */
-    $result = "$real_hash_dir/$datafile";
-
-    /* Check for this file in the real hash directory. */
-    if ($hash_search && !@file_exists($result)) {
-        /* First check the base directory, the most common location. */
-        if (@file_exists("$dir/$datafile")) {
-            rename("$dir/$datafile", $result);
-
-        /* Then check the full range of possible hash directories. */
-        } else {
-            $check_hash_dir = $dir;
-            for ($h = 0; $h < 4; ++$h) {
-                $check_hash_dir .= '/' . $hash_dirs[$h];
-                if (@is_readable("$check_hash_dir/$datafile")) {
-                    rename("$check_hash_dir/$datafile", $result);
-                    break;
-                }
-            }
-        }
-    }
-
-    /* Return the full hashed datafile path. */
-    return ($result);
-}
-
-function getHashedDir($username, $dir, $hash_dirs = '') {
-    global $dir_hash_level;
-
-    /* Remove trailing slash from $dir if found */
-    if (substr($dir, -1) == '/') {
-        $dir = substr($dir, 0, strlen($dir) - 1);
-    }
-   
-    /* If necessary, populate the hash dir variable. */
-    if ($hash_dirs == '') {
-        $hash_dirs = computeHashDirs($username);
-    }
-
-    /* Make sure the full hash directory exists. */
-    $real_hash_dir = $dir;
-    for ($h = 0; $h < $dir_hash_level; ++$h) {
-        $real_hash_dir .= '/' . $hash_dirs[$h];
-        if (!@is_dir($real_hash_dir)) {
-            if (!@mkdir($real_hash_dir, 0770)) {
-                echo sprintf(_("Error creating directory %s."), $real_hash_dir) . '<br>';
-                echo _("Could not create hashed directory structure!") . "<br>\n";
-                echo _("Please contact your system administrator and report this error.") . "<br>\n";
-                exit;
-            }
-        }
-    }
-
-    /* And return that directory. */
-    return ($real_hash_dir);
-}
-
-function computeHashDirs($username) {
-    /* Compute the hash for this user and extract the hash directories. */
-    $hash = base_convert(crc32($username), 10, 16);
-    $hash_dirs = array();
-    for ($h = 0; $h < 4; ++ $h) {
-        $hash_dirs[] = substr($hash, $h, 1);
-    }
-        
-    /* Return our array of hash directories. */
-    return ($hash_dirs);
 }
 
 ?>
