@@ -51,7 +51,7 @@ function isSpecialMailbox( $box ) {
              ($save_as_draft && $box == $draft_folder ) );
 
     if ( !$ret ) {
-        $ret = do_hook( 'special_mailbox', $box );
+        $ret = do_hook_function( 'special_mailbox', $box );
     }
 
     return( $ret );

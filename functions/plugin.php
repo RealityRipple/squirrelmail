@@ -28,7 +28,7 @@ function use_plugin ($name) {
 }
 
 /* This function executes a hook. */
-function do_hook ($name,$parm=NULL) {
+function do_hook ($name) {
     global $squirrelmail_plugin_hooks;
     $data = func_get_args();
     $ret = '';
@@ -38,7 +38,27 @@ function do_hook ($name,$parm=NULL) {
         foreach ($squirrelmail_plugin_hooks[$name] as $function) {
             /* Add something to set correct gettext domain for plugin. */
             if (function_exists($function)) {
-                $ret = $function($data,$parm);
+                $function($data);
+            }
+        }
+    }
+
+    /* Variable-length argument lists have a slight problem when */
+    /* passing values by reference. Pity. This is a workaround.  */
+    return $data;
+}
+
+/* This function executes a hook. */
+function do_hook_function($name,$parm=NULL) {
+    global $squirrelmail_plugin_hooks;
+    $ret = '';
+
+    if (isset($squirrelmail_plugin_hooks[$name])
+          && is_array($squirrelmail_plugin_hooks[$name])) {
+        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+            /* Add something to set correct gettext domain for plugin. */
+            if (function_exists($function)) {
+                $ret = $function($parm);
             }
         }
     }
@@ -47,6 +67,7 @@ function do_hook ($name,$parm=NULL) {
     /* passing values by reference. Pity. This is a workaround.  */
     return $ret;
 }
+
 
 /*************************************/
 /*** MAIN PLUGIN LOADING CODE HERE ***/
