@@ -1,21 +1,10 @@
 <?php
 
-/**
- * view_text.php
- *
- * Copyright (c) 1999-2002 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * This is the code to view the text attachments.
- *
- * $Id$
- */
-
-
    require_once('../src/validate.php');
    require_once('../functions/imap.php');
    require_once('../functions/mime.php');
-
+   require_once('../functions/html.php');
+   
    $mailbox = urldecode($mailbox);
    if (!isset($passed_ent_id)) {
       $passed_ent_id = '';
@@ -25,15 +14,16 @@
    $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
 
    $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
-   $message = &$message->getEntity($passed_ent_id);
+   $message = &$message->getEntity($ent_id);
 
    $header = $message->header;
-   $charset = $header->charset;
+   $charset = $header->getParameter('charset');
    $type0 = $header->type0;
    $type1 = $header->type1;
    $encoding = strtolower($header->encoding);
 
    $msg_url = 'read_body.php?' . $QUERY_STRING;
+   $msg_url = set_url_var($msg_url, 'ent_id', 0);
 
    $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
    $body = decodeBody($body, $encoding);
@@ -63,6 +53,4 @@
     }
     echo $body .
          "</TT></TD></TR></TABLE>";
-    
-    sqimap_logout($imapConnection);	 
 ?>
