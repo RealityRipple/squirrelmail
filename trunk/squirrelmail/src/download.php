@@ -43,10 +43,16 @@ if (!isset($passed_ent_id)) {
 }
 
 $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
-$message = &$message->getEntity($passed_ent_id);
-
+$subject = $message->rfc822_header->subject;
+$message = &$message->getEntity($ent_id);
 $header = $message->header;
-$charset = $header->getParameter('charset');
+if ($message->rfc822_header) {
+   $subject = $message->rfc822_header->subject;
+   $charset = $header->content_type->properties['charset'];
+} else {
+   $header = $message->header;
+   $charset = $header->getParameter('charset');
+}
 $type0 = $header->type0;
 $type1 = $header->type1;
 $encoding = strtolower($header->encoding);
@@ -85,34 +91,34 @@ if (isset($override_type0)) {
 if (isset($override_type1)) {
     $type1 = $override_type1;
 }
-
-$filename = decodeHeader($message->header->getParameter('filename'));
-
-if (!$filename) {
-    $filename = decodeHeader($message->header->getParameter('name'));
+$filename = '';
+if (is_object($message->header->disposition)) {
+    $filename = decodeHeader($header->disposition->getProperty('filename'));
+    if (!$filename) {
+	$filename = decodeHeader($header->disposition->getProperty('name'));
+    }
 }
-
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
-	$filename = $header->subject . '.txt';
+	$filename = $subject . '.txt';
     } else if ($type1 == 'richtext' && $type0 == 'text') {
         $suffix = 'rtf';
-	$filename = $header->subject . '.rtf';
+	$filename = $subject . '.rtf';
     } else if ($type1 == 'postscript' && $type0 == 'application') {
         $suffix = 'ps';
-	$filename = $header->subject . '.ps';
+	$filename = $subject . '.ps';
     } else if ($type1 == 'rfc822' && $type0 == 'message') {
         $suffix = 'eml';
-	$filename = $header->subject . '.msg';
+	$filename = $subject . '.msg';
     } else {
         $suffix = $type1;
     }
 
     if (strlen($filename) < 1) {
-    $filename = "untitled$passed_ent_id.$suffix";
+       $filename = "untitled$ent_id.$suffix";
     } else {
-    $filename = "$filename.$suffix";
+       $filename = "$filename.$suffix";
     }
 }
 
@@ -138,12 +144,11 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
 }
 /* be aware that any warning caused by download.php will corrupt the
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
-mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding);
+mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
 
-/*
 $message = &$message->getEntity('');
 $messages[$mbx_response['UIDVALIDITY']]["$passed_id"] = &$message;
-*/
+
 /*
  * This function is verified to work with Netscape and the *very latest*
  * version of IE.  I don't know if it works with Opera, but it should now.

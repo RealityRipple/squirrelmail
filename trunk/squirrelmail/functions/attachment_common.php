@@ -115,7 +115,6 @@ function attachment_common_link_text(&$Args)
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
 
-
 function attachment_common_link_message(&$Args)
 {
     $Args[1]['attachment_common']['href'] = '../src/read_body.php?startMessage=' .
@@ -145,7 +144,6 @@ function attachment_common_link_html(&$Args)
     $Args[6] = $Args[1]['attachment_common']['href'];
 }
 
-
 function attachment_common_link_image(&$Args)
 {
     global $attachment_common_show_images, $attachment_common_show_images_list;
@@ -156,14 +154,11 @@ function attachment_common_link_image(&$Args)
     
     $attachment_common_show_images_list[] = $info;
     
-    $Args[1]['attachment_common']['href'] = '../src/image.php?startMessage=' .
-        $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
-        '&amp;passed_ent_id=' . $Args[5];
-    
-    if ($Args[8] && $Args[9]) {
-        $Args[1]['attachment_common']['href'] .= '&amp;where=' . 
-        urlencode($Args[8]) . '&amp;what=' . urlencode($Args[9]);
-    }
+    global $QUERY_STRING;
+    $Args[1]['attachment_common']['href'] = '../src/image.php?'. $QUERY_STRING;
+    $Args[1]['attachment_common']['href'] =
+          set_url_var($Args[1]['attachment_common']['href'], 
+	  'ent_id',$Args[5]);
   
     $Args[1]['attachment_common']['text'] = _("view");
     
@@ -174,13 +169,11 @@ function attachment_common_link_image(&$Args)
 
 function attachment_common_link_vcard(&$Args)
 {
-    $Args[1]['attachment_common']['href'] = '../src/vcard.php?startMessage=' .
-        $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
-        '&amp;passed_ent_id=' . $Args[5];
-  
-    if (isset($where) && isset($what))
-        $Args[1]['attachment_common']['href'] .= '&amp;where=' . 
-        urlencode($Args[8]) . '&amp;what=' . urlencode($Args[9]);
+    global $QUERY_STRING;
+    $Args[1]['attachment_common']['href'] = '../src/vcard.php?'. $QUERY_STRING;
+    $Args[1]['attachment_common']['href'] =
+          set_url_var($Args[1]['attachment_common']['href'], 
+	  'ent_id',$Args[5]);
   
     $Args[1]['attachment_common']['text'] = _("Business Card");
   

@@ -485,9 +485,9 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
    if ($compose_new_win == '1') {
       $s .= '<a href="javascript:void(0)" '. 
-            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as Attachment").'</a>';
+            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as attachment").'</a>';
    } else {
-      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as Attachment").'</a>';
+      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as attachment").'</a>';
    }
    $s .= $topbar_delimiter;
 
@@ -586,6 +586,9 @@ $messages[$uidvalidity][$passed_id] = $message;
 
 if (isset($passed_ent_id) && $passed_ent_id) {
    $message = $message->getEntity($passed_ent_id);
+   if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {
+      $message = $message->parent;
+   }
    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
    $rfc822_header = new rfc822_header();
    $rfc822_header->parseHeader($read);
@@ -681,7 +684,7 @@ if (($attachment_common_show_images) &&
                 '?' .
                 'passed_id='     . urlencode($img['passed_id']) .
                 '&amp;mailbox='       . urlencode($mailbox) .
-                '&amp;passed_ent_id=' . urlencode($img['ent_id']) .
+                '&amp;ent_id=' . urlencode($img['ent_id']) .
                 '&amp;absolute_dl=true';
 
         echo html_tag( 'table', "\n" .

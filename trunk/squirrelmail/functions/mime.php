@@ -393,7 +393,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $name = '';
         $Links['download link']['text'] = _("download");
         $Links['download link']['href'] =
-                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
+                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         $ImageURL = '';
         if ($type0 =='message' && $type1 == 'rfc822') {
             $default_page = '../src/read_body.php';
@@ -438,9 +438,14 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         }
 
         $display_filename = $filename;
+	if (isset($passed_ent_id)) {
+	   $passed_ent_id_link = '&amp;passed_ent_id='.$passed_ent_id;
+	} else {
+	   $passed_ent_id_link = '';
+	}
         $DefaultLink = $default_page . "?startMessage=$startMessage"
                      . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
-                     . "&amp;passed_ent_id=$ent";
+                     . '&amp;ent_id='.$ent.$passed_ent_id_link;
         if ($where && $what) {
            $DefaultLink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
