@@ -19,6 +19,7 @@ Version 1.2.5 -- CVS
   - Version 0.3.7 of SquirrelSpell. Fixes a potential privacy
     vulnerability (symlink attack), plus introduces formatting fixes 
     and javadoc-style comments.
+  - Bugfix in mailfetch reported by Mateusz Mazur
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
