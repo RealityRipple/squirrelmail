@@ -17,6 +17,39 @@
          $rcptaddress = substr($emailaddress, 7);
       else
          $rcptaddress = $emailaddress;
+	 
+      if (($pos = strpos($rcptaddress, '?')) !== false)
+      {
+         $a = substr($rcptaddress, $pos + 1);
+	 $rcptaddress = substr($rcptaddress, 0, $pos);
+	 $a = explode('=', $a, 2);
+	 if (isset($a[1])) {
+	    $name = urldecode($a[0]);
+	    $val = urldecode($a[1]);
+	    global $$name;
+	    $$name = $val;
+	 }
+      }
+      
+      // At this point, we have parsed a lot of the mailto stuff.  Let's
+      // do the rest -- CC, BCC, Subject, Body
+      // Note:  They can all be case insensitive
+      foreach ($GLOBALS as $k => $v)
+      {
+          $key = strtolower($k);
+	  $value = urlencode($v);
+	  if ($key == 'cc')
+	     $rcptaddress .= '&send_to_cc=' . $value;
+	  elseif ($key == 'bcc')
+	     $rcptaddress .= '&send_to_bcc=' . $value;
+	  elseif ($key == 'subject')
+	     $rcptaddress .= '&subject=' . $value;
+	  elseif ($key == 'body')
+	     $rcptaddress .= '&body=' . $value;
+      }
+      
+      // Double-encode in this fashion to get past redirect.php properly
+      $rcptaddress = urlencode($rcptaddress);
    }
 
    include("../functions/strings.php");

@@ -92,7 +92,8 @@
    session_register ('just_logged_in');
 
    if(isset($rcptemail))
-      header("Location: webmail.php?right_frame=compose.php&rcptaddress=$rcptemail");
+      header("Location: webmail.php?right_frame=compose.php&rcptaddress=" .
+         urlencode($rcptemail));
    else
       header("Location: webmail.php");
 ?>
