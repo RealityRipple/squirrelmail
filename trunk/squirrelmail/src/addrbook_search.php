@@ -175,6 +175,10 @@ require_once('../functions/addressbook.php');
 
 displayHtmlHeader();
 
+/** set correct value of $default_charset */
+global $default_charset;
+set_my_charset();
+
 /* Initialize vars */
 if (!isset($query)) { $query = ''; }
 if (!isset($show))  { $show  = ''; }

@@ -173,6 +173,11 @@ if ($compose_new_win == '1') {
 else {
     displayPageHeader($color, $mailbox);
 }
+
+/** set correct value of $default_charset */
+global $default_charset;
+set_my_charset();
+
 /* Initialize addressbook */
 $abook = addressbook_init();
 
