@@ -252,6 +252,7 @@
 
          $attachmentlength = attachFiles($fp);
 
+         if (!isset($postbody)) $postbody = "";
          $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
          fputs ($fp, $postbody);
       } else {
