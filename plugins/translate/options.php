@@ -9,35 +9,61 @@
    chdir('..');
 
    session_start();
-
-   if (!isset($config_php))
-      include_once('../config/config.php');
-   if (!isset($strings_php))
-      include_once('../functions/strings.php');
-   if (!isset($page_header_php))
-      include_once('../functions/page_header.php');
-   if (!isset($display_messages_php))
-      include_once('../functions/display_messages.php');
-   if (!isset($imap_php))
-      include_once('../functions/imap.php');
-   if (!isset($array_php))
-      include_once('../functions/array.php');
-   if (!isset($i18n_php))
-      include_once('../functions/i18n.php');
-
-
+   
+   require_once('../config/config.php');
+   require_once('../functions/strings.php');
+   require_once('../functions/page_header.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/array.php');
+   require_once('../functions/i18n.php');
    require_once('../src/load_prefs.php');
    displayPageHeader($color, 'None');
 
-  $translate_server = getPref($data_dir, $username, 'translate_server');
-  if ($translate_server == '')
+    if ($submit_translate) {
+        if (isset($translate_translate_server)) {
+            setPref($data_dir, $username, 'translate_server', $translate_translate_server);
+        } else {
+            setPref($data_dir, $username, 'translate_server', 'babelfish');
+        }
+
+        if (isset($translate_translate_location)) {
+            setPref($data_dir, $username, 'translate_location', $translate_translate_location);
+        } else {
+            setPref($data_dir, $username, 'translate_location', 'center');
+        }
+
+        if (isset($translate_translate_show_read)) {
+            setPref($data_dir, $username, 'translate_show_read', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_show_read', '');
+        }
+
+        if (isset($translate_translate_show_send)) {
+            setPref($data_dir, $username, 'translate_show_send', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_show_send', '');
+        }
+
+        if (isset($translate_translate_same_window)) {
+           setPref($data_dir, $username, 'translate_same_window', '1');
+        } else {
+            setPref($data_dir, $username, 'translate_same_window', '');
+        }
+    }
+
+    $translate_server = getPref($data_dir, $username, 'translate_server');
+    if ($translate_server == '') {
     $translate_server = 'babelfish';
-  $translate_location = getPref($data_dir, $username, 'translate_location');
-  if ($translate_location == '')
+    }
+    $translate_location = getPref($data_dir, $username, 'translate_location');
+    if ($translate_location == '') {
     $translate_location = 'center';
-  $translate_show_read = getPref($data_dir, $username, 'translate_show_read');
-  $translate_show_send = getPref($data_dir, $username, 'translate_show_send');
-  $translate_same_window = getPref($data_dir, $username, 'translate_same_window');
+    }
+    $translate_show_read = getPref($data_dir, $username, 'translate_show_read');
+    $translate_show_send = getPref($data_dir, $username, 'translate_show_send');
+    $translate_same_window = getPref($data_dir, $username, 'translate_same_window');
+  
 
    function ShowOption($Var, $value, $Desc)
    {
@@ -90,14 +116,14 @@
    </ul>
    <p>
 <?php
-   echo _("You also decide if you want the translation box displayed, and where it will be located.");
-?></p>
+   echo _("You also decide if you want the translation box displayed, and where it will be located.") .
+        "<form action=\"$PHP_SELF\" method=post>".
+        '<table border=0 cellpadding=0 cellspacing=2>'.
+            '<tr><td align=right nowrap>' .
+             _("Select your translator:") .
+             '</td>'.
+            '<td><select name="translate_translate_server">';
 
-   <form action="../../src/options.php" method=post>
-   <table border=0 cellpadding=0 cellspacing=2>
-   <tr><td align=right nowrap><?php echo _("Select your translator:"); ?></td>
-       <td><select name="translate_translate_server">
-<?PHP
     ShowOption('server', 'babelfish', 'Babelfish');
     ShowOption('server', 'go', 'Go.com');
     ShowOption('server', 'dictionary', 'Dictionary.com');
@@ -135,3 +161,5 @@
    '</table>'.
    '</form>'.
 "</body></html>\n";
+
+?>
