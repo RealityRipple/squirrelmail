@@ -17,11 +17,55 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
+    /* globals */
+    $username = $_SESSION['username'];
+    $key = $_COOKIE['key'];
+    $onetimepad = $_SESSION['onetimepad'];
+    $delimiter = $_SESSION['delimiter'];
+    
+    if(isset($_POST['mf_cypher'])) {
+        $mf_cypher = $_POST['mf_cypher'];
+    }
+    if(isset($_POST['mf_sn'])) {
+        $mf_sn = $_POST['mf_sn'];
+    }
+    if(isset($_POST['mf_server'])) {
+        $mf_server = $_POST['mf_server'];
+    }
+    if(isset($_POST['mf_alias'])) {
+        $mf_alias = $_POST['mf_alias'];
+    }
+    if(isset($_POST['mf_user'])) {
+        $mf_user = $_POST['mf_user'];
+    }
+    if(isset($_POST['mf_pass'])) {
+        $mf_pass = $_POST['mf_pass'];
+    }
+    if(isset($_POST['mf_subfolder'])) {
+        $mf_subfolder = $_POST['mf_subfolder'];
+    }
+    if(isset($_POST['mf_login'])) {
+        $mf_login = $_POST['mf_login'];
+    }
+    if(isset($_POST['mf_fref'])) {
+        $mf_fref = $_POST['mf_fref'];
+    }
+    if(isset($_POST['submit_mailfetch'])) {
+        $submit_mailfetch = $_POST['submit_mailfetch'];
+    }
+    if(isset($_POST['mf_lmos'])) {
+        $mf_lmos = $_POST['mf_lmos'];
+    }
+    /* end globals */
+
     displayPageHeader( $color, 'None' );
 
     //if dosen't select any option
-    if (!isset($mf_action))
+    if (!isset($_POST['mf_action'])) {
         $mf_action = 'config';
+    } else {
+        $mf_action = $_POST['mf_action'];
+    }
 
     switch( $mf_action ) {
     case 'add':
@@ -31,7 +75,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
         setPref($data_dir,$username,"mailfetch_alias_$mf_sn", (isset($mf_alias)?$mf_alias:""));
         setPref($data_dir,$username,"mailfetch_user_$mf_sn",(isset($mf_user)?$mf_user:""));
         setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass )    :""));
-        if( $mf_cypher <> 'on' ) SetPref($data_dir,$username,"mailfetch_cypher",    'on');
+        if( isset($mf_cypher) && $mf_cypher <> 'on' ) SetPref($data_dir,$username,'mailfetch_cypher',    'on');
         setPref($data_dir,$username,"mailfetch_lmos_$mf_sn",(isset($mf_lmos)?$mf_lmos:""));
         setPref($data_dir,$username,"mailfetch_login_$mf_sn",(isset($mf_login)?$mf_login:""));
         setPref($data_dir,$username,"mailfetch_fref_$mf_sn",(isset($mf_fref)?$mf_fref:""));

@@ -16,7 +16,6 @@
 
     function squirrelmail_plugin_init_mail_fetch() {
         global $squirrelmail_plugin_hooks;
-        global $mailbox, $imap_stream, $imapConnection;
 
         $squirrelmail_plugin_hooks['menuline']['mail_fetch'] = 'mail_fetch_link';
         $squirrelmail_plugin_hooks['loading_prefs']['mail_fetch'] = 'mail_fetch_load_pref';
@@ -35,12 +34,16 @@
 
     function mail_fetch_load_pref() {
 
-        global $username,$data_dir;
+        global $data_dir;
         global $mailfetch_server_number;
         global $mailfetch_cypher;
         global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
         global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
         global $PHP_SELF;
+        if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+            global $_SESSION;
+        }
+        $username = $_SESSION['username'];
 
         if( stristr( $PHP_SELF, 'mail_fetch' ) ) {
             $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number', 0);
@@ -68,7 +71,12 @@
         require_once ('../plugins/mail_fetch/functions.php');
         require_once ('../functions/i18n.php');
 
-        global $username, $data_dir, $key,$imapServerAddress,$imapPort;
+        global $data_dir, $imapServerAddress, $imapPort;
+        if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+            global $_SESSION, $_COOKIE;
+        }
+        $username = $_SESSION['username'];
+        $key = $_COOKIE['key'];
 
         $mailfetch_newlog = getPref($data_dir, $username, 'mailfetch_newlog');
 
@@ -205,8 +213,14 @@
 
     function mail_fetch_setnew()    {
 
-        global $data_dir,$username;
+        global $data_dir;
         require_once(SM_PATH . 'functions/prefs.php');
+
+        if (isset($_SESSION['username'])) {
+            $username = $_SESSION['username'];
+        } else {
+           $username = '';
+        }
 
         if( $username <> '' ) {
             // Creates the pref file if it does not exist.
