@@ -18,9 +18,9 @@
 sq_mt_randomize();
 
 require_once(SM_PATH . 'functions/global.php');
-   
+
 global $theme;
-   
+
 if (!sqsession_is_registered('random_theme_good_theme')) {
     $good_themes = array();
     foreach ($theme as $data) {
@@ -38,7 +38,7 @@ if (!sqsession_is_registered('random_theme_good_theme')) {
     // get random theme stored in session
     sqgetGlobalVar('random_theme_good_theme',$random_theme_good_theme);
 }
-   
+
 @include_once ($random_theme_good_theme);
 
 ?>

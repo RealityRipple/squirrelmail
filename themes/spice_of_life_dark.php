@@ -20,7 +20,7 @@ sq_mt_randomize();
 
 /** light(1) or dark(0) background? **/
 $bg = mt_rand(0,1);
- 
+
 /** range delimiter **/
 $bgrd = $bg * 128;
 
