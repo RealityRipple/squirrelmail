@@ -24,6 +24,7 @@ require_once(SM_PATH . 'functions/constants.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'functions/imap_general.php');
 
 /*
  * $squirrelmail_language is set by a cookie when the user selects
@@ -47,6 +48,19 @@ $base_uri = sqm_baseuri();
 sqsession_destroy();
  
 header('Pragma: no-cache');
+
+$imap = sqimap_create_stream($imapServerAddress, $imapPort, $use_imap_tls);
+$logindisabled = sqimap_capability($imap,'LOGINDISABLED');
+sqimap_logout($imap);
+if ($logindisabled) {
+    $string = "The IMAP server is reporting that logins are disabled.<br>";
+    if (!$use_imap_tls) {
+        $string .= "The use of TLS may allow SquirrelMail to login.<br>";
+    }
+    $string .= "Please contact your system administrator.";
+    error_box($string,$color);
+    exit;
+}
 
 do_hook('login_cookie');
 
