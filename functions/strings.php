@@ -77,8 +77,6 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
 /**
  * Checks for spaces in strings - only used if PHP doesn't have native ctype support
  *
- * @author Tomas Kuliavas
- *
  * You might be able to rewrite the function by adding short evaluation form.
  *
  * possible problems:
@@ -127,7 +125,7 @@ function &sqBodyWrap (&$body, $wrap) {
     $outString = '';
     // current column since the last newline in the outstring
     $outStringCol = 0;
-    $length = strlen($body);
+    $length = sq_strlen($body);
     // where we are in the original string
     $pos = 0;
     // the number of >>> citation markers we are currently at
@@ -139,12 +137,12 @@ function &sqBodyWrap (&$body, $wrap) {
        // we're at the beginning of a line, get the new cite level
        $newCiteLevel = 0;
 
-       while (($pos < $length) && ($body{$pos} == '>')) {
+       while (($pos < $length) && (sq_substr($body,$pos,1) == '>')) {
            $newCiteLevel++;
            $pos++;
 
            // skip over any spaces interleaved among the cite markers
-           while (($pos < $length) && ($body{$pos} == ' ')) {
+           while (($pos < $length) && (sq_substr($body,$pos,1) == ' ')) {
 
                $pos++;
 
@@ -157,8 +155,8 @@ function &sqBodyWrap (&$body, $wrap) {
        // special case: if this is a blank line then maintain it
        // (i.e. try to preserve original paragraph breaks)
        // unless they occur at the very beginning of the text
-       if (($body{$pos} == "\n" ) && (strlen($outString) != 0)) {
-           $outStringLast = $outString{strlen($outString) - 1};
+       if ((sq_substr($body,$pos,1) == "\n" ) && (sq_strlen($outString) != 0)) {
+           $outStringLast = $outString{sq_strlen($outString) - 1};
            if ($outStringLast != "\n") {
                $outString .= "\n";
            }
@@ -192,7 +190,7 @@ function &sqBodyWrap (&$body, $wrap) {
        }
 
        // find the next newline -- we don't want to go further than that
-       $nextNewline = strpos ($body, "\n", $pos);
+       $nextNewline = sq_strpos ($body, "\n", $pos);
        if ($nextNewline === FALSE) {
            $nextNewline = $length;
        }
@@ -201,7 +199,7 @@ function &sqBodyWrap (&$body, $wrap) {
        // will work fine for this.  Maybe revisit this later though
        // (for completeness more than anything else, I think)
        if ($citeLevel == 0) {
-           $outString .= substr ($body, $pos, ($nextNewline - $pos));
+           $outString .= sq_substr ($body, $pos, ($nextNewline - $pos));
            $outStringCol = $nextNewline - $pos;
            if ($nextNewline != $length) {
                sqMakeNewLine ($outString, 0, $outStringCol);
@@ -217,7 +215,7 @@ function &sqBodyWrap (&$body, $wrap) {
        // the next newline
        while ($pos < $nextNewline) {
            // skip over initial spaces
-           while (($pos < $nextNewline) && (ctype_space ($body{$pos}))) {
+           while (($pos < $nextNewline) && (ctype_space (sq_substr($body,$pos,1)))) {
                $pos++;
            }
            // if this is a short line then just append it and continue outer loop
@@ -225,24 +223,24 @@ function &sqBodyWrap (&$body, $wrap) {
                // if this is the final line in the input string then include
                // any trailing newlines
                //      echo substr($body,$pos,$wrap). "<br />";
-               if (($nextNewline + 1 == $length) && ($body{$nextNewline} == "\n")) {
+               if (($nextNewline + 1 == $length) && (sq_substr($body,$nextNewline,1) == "\n")) {
                    $nextNewline++;
                }
 
                // trim trailing spaces
                $lastRealChar = $nextNewline;
-               while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
+               while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space (sq_substr($body,$lastRealChar,1)))) {
                    $lastRealChar--;
                }
                // decide if appending the short string is what we want
-               if (($nextNewline < $length && $body{$nextNewline} == "\n") &&
+               if (($nextNewline < $length && sq_substr($body,$nextNewline,1) == "\n") &&
                      isset($lastRealChar)) {
                    $mypos = $pos;
                    //check the first word:
-                   while (($mypos < $length) && ($body{$mypos} == '>')) {
+                   while (($mypos < $length) && (sq_substr($body,$mypos,1) == '>')) {
                        $mypos++;
                        // skip over any spaces interleaved among the cite markers
-                       while (($mypos < $length) && ($body{$mypos} == ' ')) {
+                       while (($mypos < $length) && (sq_substr($body,$mypos,1) == ' ')) {
                            $mypos++;
                        }
                    }
@@ -255,15 +253,15 @@ function &sqBodyWrap (&$body, $wrap) {
                      }
 */
 
-                   $firstword = substr($body,$mypos,strpos($body,' ',$mypos) - $mypos);
+                   $firstword = sq_substr($body,$mypos,sq_strpos($body,' ',$mypos) - $mypos);
                    //if ($dowrap || $ldnspacecnt > 1 || ($firstword && (
                    if (!$smartwrap || $firstword && (
                                         $firstword{0} == '-' ||
                                         $firstword{0} == '+' ||
                                         $firstword{0} == '*' ||
-                                        $firstword{0} == strtoupper($firstword{0}) ||
+                                        sq_substr($firstword,0,1) == sq_strtoupper(sq_substr($firstword,0,1)) ||
                                         strpos($firstword,':'))) {
-                        $outString .= substr($body,$pos,($lastRealChar - $pos+1));
+                        $outString .= sq_substr($body,$pos,($lastRealChar - $pos+1));
                         $outStringCol += ($lastRealChar - $pos);
                         sqMakeNewLine($outString,$citeLevel,$outStringCol);
                         $nextNewline++;
@@ -274,7 +272,7 @@ function &sqBodyWrap (&$body, $wrap) {
 
                }
 
-               $outString .= substr ($body, $pos, ($lastRealChar - $pos + 1));
+               $outString .= sq_substr ($body, $pos, ($lastRealChar - $pos + 1));
                $outStringCol += ($lastRealChar - $pos);
                $pos = $nextNewline + 1;
                continue;
@@ -293,7 +291,7 @@ function &sqBodyWrap (&$body, $wrap) {
 
            // start looking backwards for whitespace to break at.
            $breakPoint = $eol;
-           while (($breakPoint > $pos) && (! ctype_space ($body{$breakPoint}))) {
+           while (($breakPoint > $pos) && (! ctype_space (sq_substr($body,$breakPoint,1)))) {
                $breakPoint--;
            }
 
@@ -326,13 +324,13 @@ function &sqBodyWrap (&$body, $wrap) {
            }
 
            // skip newlines or whitespace at the beginning of the string
-           $substring = substr ($body, $pos, ($breakPoint - $pos));
+           $substring = sq_substr ($body, $pos, ($breakPoint - $pos));
            $substring = rtrim ($substring); // do rtrim and ctype_space have the same ideas about whitespace?
            $outString .= $substring;
-           $outStringCol += strlen ($substring);
+           $outStringCol += sq_strlen ($substring);
            // advance past the whitespace which caused the wrap
            $pos = $breakPoint;
-           while (($pos < $length) && (ctype_space ($body{$pos}))) {
+           while (($pos < $length) && (ctype_space (sq_substr($body,$pos,1)))) {
                $pos++;
            }
            if ($pos < $length) {
@@ -1065,6 +1063,7 @@ function sq_mb_list_encodings() {
         'koi8-u',
         'big5',
         'gb2312',
+        'gb18030',
         'windows-1251',
         'windows-1255',
         'windows-1256',
@@ -1094,8 +1093,9 @@ function sq_mb_list_encodings() {
  * Function returns number of characters in string.
  *
  * Returned number might be different from number of bytes in string,
- * if $charset is multibyte charset. Currently only utf-8 charset is 
- * supported.
+ * if $charset is multibyte charset. Detection depends on mbstring 
+ * functions. If mbstring does not support tested multibyte charset,
+ * vanilla string length function is used. 
  * @param string $str string
  * @param string $charset charset
  * @since 1.5.1
@@ -1115,83 +1115,15 @@ function sq_strlen($str, $charset=''){
     // lowercase charset name
     $charset=strtolower($charset);
 
-    // set initial returned length number
-    $real_length=0;
+    // Use mbstring only with listed charsets
+    $aList_of_mb_charsets=array('utf-8','big5','gb2312','gb18030','euc-jp','euc-cn','euc-tw','euc-kr');
 
     // calculate string length according to charset
-    // function can be modulized same way we modulize decode/encode/htmlentities
-    if ($charset=='utf-8') {
-        if (function_exists('mb_strlen')) {
-            $real_length = mb_strlen($str,'utf-8');
-        } else {
-            // function needs length of string in bytes.
-            // mbstring overloading might break it
-            $str_length=strlen($str);
-            $str_index=0;
-            while ($str_index < $str_length) {
-                // start of internal utf-8 multibyte character detection
-                if (preg_match("/[\xC0-\xDF]/",$str[$str_index]) &&
-                    isset($str[$str_index+1]) && 
-                    preg_match("/[\x80-\xBF]/",$str[$str_index+1])) {
-                    // two byte utf-8
-                    $str_index=$str_index+2;
-                    $real_length++;
-                } elseif (preg_match("/[\xE0-\xEF]/",$str[$str_index]) &&
-                    isset($str[$str_index+2]) && 
-                    preg_match("/[\x80-\xBF][\x80-\xBF]/",$str[$str_index+1].$str[$str_index+2])) {
-                    // three byte utf-8
-                    $str_index=$str_index+3;
-                    $real_length++;
-                } elseif (preg_match("/[\xF0-\xF7]/",$str[$str_index]) &&
-                    isset($str[$str_index+3]) && 
-                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF]/",$str[$str_index+1].$str[$str_index+2].$str[$str_index+3])) {
-                    // four byte utf-8
-                    $str_index=$str_index+4;
-                    $real_length++;
-                } elseif (preg_match("/[\xF8-\xFB]/",$str[$str_index]) &&
-                    isset($str[$str_index+4]) && 
-                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF][\x80-\xBF]/",
-                               $str[$str_index+1].$str[$str_index+2].$str[$str_index+3].$str[$str_index+4])) {
-                    // five byte utf-8
-                    $str_index=$str_index+5;
-                    $real_length++;
-                } elseif (preg_match("/[\xFC-\xFD]/",$str[$str_index]) &&
-                    isset($str[$str_index+5]) && 
-                    preg_match("/[\x80-\xBF][\x80-\xBF][\x80-\xBF][\x80-\xBF]/",
-                               $str[$str_index+1].$str[$str_index+2].$str[$str_index+3].$str[$str_index+4].$str[$str_index+5])) {
-                    // six byte utf-8
-                    $str_index=$str_index+6;
-                    $real_length++;
-                } else {
-                    $str_index++;
-                    $real_length++;
-                }
-                // end of internal utf-8 multibyte character detection
-            }
-        }
-        // end of utf-8 length detection
-    } elseif ($charset=='big5') {
-        // TODO: add big5 string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='gb2312') {
-        // TODO: add gb2312 string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='gb18030') {
-        // TODO: add gb18030 string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='euc-jp') {
-        // TODO: add euc-jp string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='euc-cn') {
-        // TODO: add euc-cn string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='euc-tw') {
-        // TODO: add euc-tw string length detection
-        $real_length=strlen($str);
-    } elseif ($charset=='euc-kr') {
-        // TODO: add euc-kr string length detection
-        $real_length=strlen($str);
+    if (in_array($charset,$aList_of_mb_charsets) && in_array($charset,sq_mb_list_encodings())) {
+        $real_length = mb_strlen($str,$charset);
     } else {
+        // own strlen detection code is removed because missing strpos, 
+        // strtoupper and substr implementations break string wrapping.
         $real_length=strlen($str);
     }
     return $real_length;
@@ -1228,6 +1160,94 @@ function sq_str_pad($string, $width, $pad, $padtype, $charset='') {
         $padded_string=str_pad($string,$width,$pad,$padtype);
     }
     return $padded_string;
+}
+
+/**
+ * Wrapper that is used to switch between vanilla and multibyte substr
+ * functions.
+ * @param string $string
+ * @param integer $start
+ * @param integer $length
+ * @param string $charset
+ * @return string
+ * @since 1.5.1
+ * @link http://www.php.net/substr
+ * @link http://www.php.net/mb_substr
+ */
+function sq_substr($string,$start,$length,$charset='auto') {
+    // use automatic charset detection, if function call asks for it
+    if ($charset=='auto') {
+        global $default_charset;
+        set_my_charset();
+        $charset=$default_charset;
+    }
+    $charset = strtolower($charset);
+    if (function_exists('mb_internal_encoding') && 
+        in_array($charset,sq_mb_list_encodings())) {
+        return mb_substr($string,$start,$length,$charset);
+    }
+    // TODO: add mbstring independent code
+
+    // use vanilla string functions as last option
+    return substr($string,$start,$length);
+}
+
+/**
+ * Wrapper that is used to switch between vanilla and multibyte strpos
+ * functions.
+ * @param string $haystack
+ * @param mixed $needle
+ * @param integer $offset
+ * @param string $charset
+ * @return string
+ * @since 1.5.1
+ * @link http://www.php.net/strpos
+ * @link http://www.php.net/mb_strpos
+ */
+function sq_strpos($haystack,$needle,$offset,$charset='auto') {
+    // use automatic charset detection, if function call asks for it
+    if ($charset=='auto') {
+        global $default_charset;
+        set_my_charset();
+        $charset=$default_charset;
+    }
+    $charset = strtolower($charset);
+    if (function_exists('mb_internal_encoding') && 
+        in_array($charset,sq_mb_list_encodings())) {
+        return mb_strpos($haystack,$needle,$offset,$charset);
+    }
+    // TODO: add mbstring independent code
+
+    // use vanilla string functions as last option
+    return strpos($haystack,$needle,$offset);
+}
+
+/**
+ * Wrapper that is used to switch between vanilla and multibyte strtoupper
+ * functions.
+ * @param string $string
+ * @param string $charset
+ * @return string
+ * @since 1.5.1
+ * @link http://www.php.net/strtoupper
+ * @link http://www.php.net/mb_strtoupper
+ */
+function sq_strtoupper($string,$charset='auto') {
+    // use automatic charset detection, if function call asks for it
+    if ($charset=='auto') {
+        global $default_charset;
+        set_my_charset();
+        $charset=$default_charset;
+    }
+    $charset = strtolower($charset);
+    if (function_exists('mb_internal_encoding') && 
+        in_array($charset,sq_mb_list_encodings())) {
+        return mb_strtoupper($string,$charset);
+    }
+    // TODO: add mbstring independent code
+
+    // use vanilla string functions as last option
+    return strtoupper($string);
 }
 $PHP_SELF = php_self();
 ?>
