@@ -18,7 +18,9 @@
 
     /* Define basic, general purpose preference constants. */
     define('SMPREF_NO', 0);
+    define('SMPREF_OFF', 0);
     define('SMPREF_YES', 1);
+    define('SMPREF_ON', 1);
     define('SMPREF_NONE', 'none');
 
     /* Define constants for location based preferences. */
