@@ -466,7 +466,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
     echo '</td></tr></table>';
     $t = elapsed($start);
-    echo("elapsed time = $t seconds\n");
+    //echo("elapsed time = $t seconds\n");
 }
 
 function calc_msort($msgs, $sort) {
@@ -1152,22 +1152,26 @@ function processSubject($subject, $threadlevel = 0) {
     if (strlen($subject) <= $trim_at)
         return $subject;
 
-    $ent_strlen = strlen($subject);
+    $ent_strlen = $orig_len = strlen($subject);
     $trim_val = $trim_at - 5;
     $ent_offset = 0;
     /*
      * see if this is entities-encoded string
      * If so, Iterate through the whole string, find out
      * the real number of characters, and if more
-     * than 55, substr with an updated trim value.
+     * than 55, substr with an updated trim value. 
      */
-
-    while ( (($ent_loc = strpos(substr($subject,0,$trim_val), '&', $ent_offset)) !== false) &&
-            (($ent_loc_end = strpos(substr($subject,0,$trim_val+5), ';', $ent_loc)) !== false) ) {
-        $trim_val   += ($ent_loc_end-$ent_loc)+1;
+    while ((($ent_loc = strpos(substr($subject,$ent_offset-1,$trim_val), '&', $ent_offset)) !== false) &&
+           (($ent_loc_end = strpos(substr($subject,$ent_offset+1,$trim_val+5), ';', $ent_loc)) !== false) ) {
+        $trim_val   += ($ent_loc_end-$ent_loc+1);
         $ent_strlen -= $ent_loc_end-$ent_loc;
         $ent_offset  = $ent_loc_end+1;
     }
+    /* fix cut in the middle special chars */
+    if (strpos($subject,';',$trim_val) < (6+$trim_val) && strpos($subject,'&',$trim_val-4)<$trim_val+1) {
+        $trim_val = strpos($subject,';',$trim_val);
+    }
+
 
     if ($ent_strlen <= $trim_at){
         return $subject;
