@@ -161,8 +161,10 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
       case 4: /* subject */
 	echo "   <td bgcolor=\"$hlt_color\">$bold";
 	if ($thread_sort_messages == 1) {
-	  echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg["ID"]]);
-	}
+      if (isset($indent_array[$msg["ID"]])) {
+	    echo str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg["ID"]]);
+	  }
+    }
 	echo "<a href=\"read_body.php?mailbox=$urlMailbox&amp;passed_id="
 	  . $msg["ID"] 
 	  . "&amp;startMessage=$start_msg&amp;show_more=0$search_stuff\"";
