@@ -86,7 +86,7 @@ require_once(SM_PATH . 'functions/html.php' );
                          '<option value="all" selected>..' . _("All") . "...\n";
         for ($i=0;$i<$mailfetch_server_number;$i++) {
              echo "<option value=\"$i\">" .
-                  (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) .
+                 htmlspecialchars((($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) .
                   '</option>' . "\n";
         } 
         echo            '</select>' .
@@ -98,7 +98,7 @@ require_once(SM_PATH . 'functions/html.php' );
              if ($mailfetch_pass_[$i]=='') {
                   echo html_tag( 'tr',
                               html_tag( 'td', _("Password for") . ' <b>' .
-                                  (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) .
+                                  htmlspecialchars((($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) .
                                   '</b>: &nbsp; &nbsp; ',
                               'right' ) .
                               html_tag( 'td', '<input type="password" name="pass_' . $i , '">', 'left' )
@@ -144,7 +144,7 @@ require_once(SM_PATH . 'functions/html.php' );
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Fetching from ") . 
-                    (($mailfetch_alias_[$i_loop] == '')?$mailfetch_server:$mailfetch_alias_[$i_loop]) . 
+                    htmlspecialchars((($mailfetch_alias_[$i_loop] == '')?$mailfetch_server:$mailfetch_alias_[$i_loop])) . 
                     '</b>',
                 'center' ) ,
             '', $color[9] ) ,
