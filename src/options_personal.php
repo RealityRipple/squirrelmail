@@ -45,9 +45,10 @@
     /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
     /******************************************************/
     define('SMOPT_GRP_CONTACT', 0);
-    define('SMOPT_GRP_SIGNATURE', 1);
+    define('SMOPT_GRP_REPLY', 1);
+    define('SMOPT_GRP_SIG', 2);
 
-    /*** Load the General Options into the array ***/
+    /*** Load the Contact Information Options into the array ***/
     $optgrps[SMOPT_GRP_CONTACT] = _("Name and Address Options");
     $optvals[SMOPT_GRP_CONTACT] = array();
 
@@ -78,8 +79,20 @@
         'size'    => SMOPT_SIZE_HUGE
     );
 
-    /*** Load the General Options into the array ***/
-    $optgrps[SMOPT_GRP_REPLY] = _("Reply and Signature Options");
+    $identities_link_value = '<A HREF="options_identities.php">'
+                           . _("Edit Advanced Identities")
+                           . '</A> '
+                           . _("(discards changes made on this form so far)");
+    $optvals[SMOPT_GRP_CONTACT][] = array(
+        'name'    => 'identities_link',
+        'caption' => _("Multiple Identities"),
+        'type'    => SMOPT_TYPE_COMMENT,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'comment' =>  $identities_link_value
+    );
+
+    /*** Load the Reply Citation Options into the array ***/
+    $optgrps[SMOPT_GRP_REPLY] = _("Reply Citation Options");
     $optvals[SMOPT_GRP_REPLY] = array();
 
     $optvals[SMOPT_GRP_REPLY][] = array(
@@ -109,33 +122,25 @@
         'size'    => SMOPT_SIZE_MEDIUM
     );
 
-    $identities_link_value = '<A HREF="options_identities.php">'
-                           . _("Edit Advanced Identities")
-                           . '</A> '
-                           . _("(discards changes made on this form so far)");
-    $optvals[SMOPT_GRP_REPLY][] = array(
-        'name'    => 'identities_link',
-        'caption' => _("Multiple Identities"),
-        'type'    => SMOPT_TYPE_COMMENT,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'comment' =>  $identities_link_value
-    );
+    /*** Load the Signature Options into the array ***/
+    $optgrps[SMOPT_GRP_SIG] = _("Signature Options");
+    $optvals[SMOPT_GRP_SIG] = array();
 
-    $optvals[SMOPT_GRP_REPLY][] = array(
+    $optvals[SMOPT_GRP_SIG][] = array(
         'name'    => 'use_signature',
         'caption' => _("Use Signature"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-    $optvals[SMOPT_GRP_REPLY][] = array(
+    $optvals[SMOPT_GRP_SIG][] = array(
         'name'    => 'prefix_sig',
         'caption' => _("Prefix Signature with '-- ' Line"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-    $optvals[SMOPT_GRP_REPLY][] = array(
+    $optvals[SMOPT_GRP_SIG][] = array(
         'name'    => 'signature_abs',
         'caption' => _("Signature"),
         'type'    => SMOPT_TYPE_TEXTAREA,
