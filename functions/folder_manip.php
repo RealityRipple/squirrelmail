@@ -27,8 +27,12 @@ function folders_checkname($imapConnection, $folder_name, $delimiter)
         substr_count($folder_name, $delimiter) || ($folder_name == '')) {
         
         global $color;
-        plain_error_message(_("Illegal folder name. Please select a different name.").
-            '<br /><a href="../src/folders.php">'._("Click here to go back").'</a>.', $color);
+        error_box(_("Illegal folder name.") . "<br />\n" .
+	    sprintf(_("The name may not contain any of the following: %s"), '<tt>" \\ '.$delimiter.'</tt>')
+	    . "<br />\n" .
+	    _("Please select a different name.").
+            '<br /><a href="folders.php">'.
+	    _("Click here to go back") . '</a>.', $color);
 
         sqimap_logout($imapConnection);
         exit;
