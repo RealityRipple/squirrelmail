@@ -207,8 +207,8 @@
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
       global $data_dir, $username, $list_special_folders_first;
-      global $trash_folder, $sent_folder;
-      global $move_to_trash, $move_to_sent, $folder_prefix;
+      global $folder_prefix, $trash_folder, $sent_folder, $draft_folder;
+      global $move_to_trash, $move_to_sent, $save_as_draft;
 
       $inbox_in_list = false;
       $inbox_subscribed = false;
@@ -281,8 +281,10 @@
             $inbox_in_list = true;
       }
                 
-      /** Just in case they're not subscribed to their inbox, we'll get it 
-          for them anyway **/
+      /**
+       * Just in case they're not subscribed to their inbox,
+       * we'll get it for them anyway
+       */
       if ($inbox_subscribed == false || $inbox_in_list == false) {
          fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"INBOX\"\r\n");
          $inbox_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
@@ -300,12 +302,10 @@
 
       $boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary, $dm);
 
-
       /** Now, lets sort for special folders **/
-
       $boxesnew = Array();
 
-      // Find INBOX
+      /* Find INBOX */
       for ($i = 0; $i < count($boxes); $i++) {
          if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
             $boxesnew[] = $boxes[$i];
@@ -314,25 +314,39 @@
          }
       }
 
+      /* List special folders and their subfolders, if requested. */
       if ($list_special_folders_first == true) {
-
-         // Then list special folders and their subfolders
+         /* First list the trash folder. */
          for ($i = 0 ; $i < count($boxes) ; $i++) {
             if ($move_to_trash &&
-                eregi('^' . quotemeta($trash_folder) . '(' .
-                quotemeta($dm) . '.*)?$', $boxes[$i]["unformatted"])) {
-               $boxesnew[] = $boxes[$i];
-               $used[$i] = true;
-            }
-            elseif ($move_to_sent &&
-                eregi('^' . quotemeta($sent_folder) . '(' .
-                quotemeta($dm) . '.*)?$', $boxes[$i]["unformatted"])) {
+                   eregi('^' . quotemeta($trash_folder) . '(' .
+                     quotemeta($dm) . '.*)?$', $boxes[$i]['unformatted'])) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
             }
          }
 
-         // Put INBOX.* folders ahead of the rest
+         /* Then list the sent folder. */
+         for ($i = 0 ; $i < count($boxes) ; $i++) {
+            if ($move_to_sent &&
+                  eregi('^' . quotemeta($sent_folder) . '(' .
+                    quotemeta($dm) . '.*)?$', $boxes[$i]['unformatted'])) {
+               $boxesnew[] = $boxes[$i];
+               $used[$i] = true;
+            }
+         }
+
+         /* Lastly, list the list the draft folder. */
+         for ($i = 0 ; $i < count($boxes) ; $i++) {
+            if ($save_as_draft &&
+                  eregi('^' . quotemeta($draft_folder) . '(' .
+                    quotemeta($dm) . '.*)?$', $boxes[$i]['unformatted'])) {
+               $boxesnew[] = $boxes[$i];
+               $used[$i] = true;
+            }
+         }
+
+         /* Put INBOX.* folders ahead of the rest. */
          for ($i = 0; $i < count($boxes); $i++) {
             if (eregi('^inbox\\.', $boxes[$i]["unformatted"]) &&
                 (!isset($used[$i]) || $used[$i] == false)) {
@@ -340,7 +354,6 @@
                $used[$i] = true;
             }
          }
-
       }
 
       // Rest of the folders

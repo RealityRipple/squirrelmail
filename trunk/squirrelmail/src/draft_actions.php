@@ -16,21 +16,19 @@ require_once ('../src/validate.php');
          $to = expandAddrs(parseAddrs($t));
          $cc = expandAddrs(parseAddrs($c));
          $bcc = expandAddrs(parseAddrs($b));
-         if (isset($identity) && $identity != 'default')
-         {
+         if (isset($identity) && ($identity != 'default')) {
             $reply_to = getPref($data_dir, $username, 'reply_to' . $identity);
             $from = getPref($data_dir, $username, 'full_name' . $identity);
             $from_addr = getPref($data_dir, $username, 'email_address' . $identity);
-         }
-         else
-         {
+         } else {
             $reply_to = getPref($data_dir, $username, 'reply_to');
             $from = getPref($data_dir, $username, 'full_name');
             $from_addr = getPref($data_dir, $username, 'email_address');
          }
 
-         if ($from_addr == '')
+         if ($from_addr == '') {
             $from_addr = $popuser.'@'.$domain;
+         }
 
          $to_list = getLineOfAddrs($to);
          $cc_list = getLineOfAddrs($cc);
@@ -38,10 +36,11 @@ require_once ('../src/validate.php');
 
          /* Encoding 8-bit characters and making from line */
          $subject = encodeHeader($subject);
-         if ($from == '')
+         if ($from == '') {
             $from = "<$from_addr>";
-         else
+         } else {
             $from = '"' . encodeHeader($from) . "\" <$from_addr>";
+         }
 
          /* This creates an RFC 822 date */
          $date = date("D, j M Y H:i:s ", mktime()) . timezone();
@@ -51,10 +50,11 @@ require_once ('../src/validate.php');
          $message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
 
          /* Make an RFC822 Received: line */
-         if (isset($REMOTE_HOST))
+         if (isset($REMOTE_HOST)) {
             $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
-         else
+         } else {
             $received_from = $REMOTE_ADDR;
+         }
 
          if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
             if ($HTTP_X_FORWARDED_FOR == '')
@@ -102,7 +102,7 @@ require_once ('../src/validate.php');
 
          $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; // Identify SquirrelMail
 
-         // Do the MIME-stuff
+         /* Do the MIME-stuff */
          $header .= "MIME-Version: 1.0\r\n";
 
          if (isMultipart()) {
@@ -127,7 +127,7 @@ require_once ('../src/validate.php');
       return $headerlength;
    }
 
-   function saveMessagetoDraft($t, $c, $b, $subject, $body, $reply_id) {
+   function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
       global $draft_folder;
@@ -137,7 +137,6 @@ require_once ('../src/validate.php');
 
       $body = ereg_replace("\n\\.", "\n..", $body);
       $body = ereg_replace("^\\.", "..", $body);
-
       $body = ereg_replace("\n", "\r\n", $body);
 
       $fp = fopen("/dev/null", a);

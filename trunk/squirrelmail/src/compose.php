@@ -1,18 +1,19 @@
 <?php
    /**
-    ** compose.php
-    **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    ** This code sends a mail.
-    **
-    ** There are 3 modes of operation:
-    **  - Start new mail
-    **  - Add an attachment
-    **  - Send mail
-    **
-    ** $Id$
+    * compose.php
+    *
+    * Copyright (c) 1999-2000 The SquirrelMail development team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * This code sends a mail.
+    *
+    * There are 4 modes of operation:
+    *    - Start new mail
+    *    - Add an attachment
+    *    - Send mail
+    *    - Save As Draft
+    *	
+    * $Id$
     **/
 
    require_once('../src/validate.php');
@@ -226,8 +227,9 @@
       do_hook("compose_form");
           echo ">\n";
 
-      if ( isset($draft_id))
+      if (isset($draft_id)) {
          echo "<input type=\"hidden\" name=\"delete_draft\" value=\"$draft_id\">\n";
+      }
 
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
 
@@ -382,9 +384,9 @@
       }
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
 
-      if ($save_as_draft == true)
-         echo "<input type=\"submit\" name =\"draft\" value=\"Save Draft\">\n";
-
+      if ($save_as_draft) {
+          echo "<input type=\"submit\" name =\"draft\" value=\"Save Draft\">\n";
+      }
 
       do_hook("compose_button_row");
 
@@ -438,11 +440,12 @@
 
    if (isset($draft)) {
       require_once ('../src/draft_actions.php');
-      if(! saveMessagetoDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $$reply_id)) {
+      if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
          showInputForm();
          exit();
       } else {
-         Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=Draft%20Email%20Saved");
+         $draft_message = _("Draft Email Saved");
+         Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=$draft_message");
          exit();
       }
    }

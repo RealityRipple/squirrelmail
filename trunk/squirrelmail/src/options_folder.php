@@ -48,15 +48,16 @@
          </tr>
 <?php }          
 
-   // TRASH FOLDER
+   /* TRASH FOLDER */
    echo '<tr><td nowrap align="right">';
    echo _("Trash Folder:");
    echo '</td><td>';
       echo "<TT><SELECT NAME=trash>\n";
-      if ($move_to_trash == true)
-         echo '<option value="none">' . _("Don't use Trash");
-      else
+      if ($move_to_trash == true) {
+         echo '<option value="none">' . _("Do not use Trash");
+      } else {
          echo '<option value="none" selected>' . _("Do not use Trash");
+      }
  
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -76,13 +77,13 @@
    echo '</td></tr>';  
 
 
-   // SENT FOLDER
+   /* SENT FOLDER */
    echo '<tr><td nowrap align="right">';
    echo _("Sent Folder:");
    echo '</td><td>';
       echo '<TT><SELECT NAME="sent">' . "\n";
       if ($move_to_sent == true)
-         echo '<option value="none">' . _("Don't use Sent");
+         echo '<option value="none">' . _("Do not use Sent");
       else
          echo "<option value=none selected>" . _("Do not use Sent");
  
@@ -103,13 +104,13 @@
       echo "</SELECT></TT>\n";
    echo '</td></tr>';  
 
-   // Drafts Folder
+   /* Drafts Folder. */
    echo '<tr><td nowrap align="right">';
    echo _("Drafts Folder:");
    echo '</td><td>';
    echo '<TT><SELECT NAME="draft">';
    if ($save_as_draft == true)
-      echo '<option value="none">' . _("Don't use drafts");
+      echo '<option value="none">' . _("Do not use Drafts");
    else
       echo '<option value="none selected">' . _("Do not use Drafts");
 

@@ -306,11 +306,11 @@
    do_hook('read_body_top');
    echo '<BR>' .
         '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
-        '   <TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">' .
-        '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">' .
-        '         <TR>' .
-        '            <TD ALIGN="LEFT" WIDTH="33%">' .
-        '               <SMALL>';
+        '   <TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">' . "\n" .
+        '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">' . "\n" .
+        '         <TR>' . "\n" .
+        '            <TD ALIGN="LEFT" WIDTH="33%">' . "\n" .
+        '               <SMALL>' . "\n";
    if ($where && $what) {
       echo "               <A HREF=\"search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=$urlMailbox\">";
    } else {
@@ -323,18 +323,17 @@
    } else {
       echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=$startMessage\">";
    }
-   echo _("Delete") .
-        '</A>&nbsp;';
+   echo _("Delete") . '</A>&nbsp;';
    if (($mailbox == $draft_folder) && ($save_as_draft)) {
       echo '|&nbsp;';
-      echo "               <A HREF=\"compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$
-      echo _("Resume") .
-           '</a>';
+      echo "               <A HREF=\"compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=\$bcc_string\">";
+      echo _("Resume Draft") . '</a>';
    }
    echo '&nbsp;&nbsp;' .
         '               </SMALL>' .
         '            </TD><TD WIDTH="33%" ALIGN="CENTER">' .
         '               <SMALL>' . "\n";
+
    if ($where && $what) {
    } else {
       if ($currentArrayIndex == -1) {
