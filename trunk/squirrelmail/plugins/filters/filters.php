@@ -227,7 +227,7 @@ function user_filters($imap_stream) {
             *  normally.
             */
             $id = filter_search_and_delete($imap_stream, $filters[$i]['where'],
-                 $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
+                 $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
         }
     }
     // Clean out the mailbox whether or not auto_expunge is on
