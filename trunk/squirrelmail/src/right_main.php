@@ -29,7 +29,6 @@
    include("../functions/date.php");
    include("../functions/page_header.php");
    include("../functions/array.php");
-   include("../functions/mailbox.php");
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
 
@@ -49,7 +48,7 @@
    /////////////////////////////////////////////////////////////////////////////////
 
    // open a connection on the imap port (143)
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
@@ -65,18 +64,14 @@
       exit;
    }
 
-   // switch to the mailbox, and get the number of messages in it.
-   selectMailbox($imapConnection, $mailbox, $numMessages);
-
-   // Display the header at the top of the page
+   sqimap_mailbox_select($imapConnection, $mailbox);
+   $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
-   // Get the list of messages for this mailbox
    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color);
 
    // close the connection
-   fputs($imapConnection, "1 logout\n");
-   fclose($imapConnection);
+   sqimap_logout ($imapConnection);
 ?>
 </FONT>
 </BODY>

@@ -4,7 +4,6 @@
    include("../functions/page_header.php");
    include("../functions/imap.php");
    include("../functions/mime.php");
-   include("../functions/mailbox.php");
    include("../functions/date.php");
 
    include("../src/load_prefs.php");
@@ -30,12 +29,12 @@
       echo "</TT></TD></TR></TABLE>";
    }
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   selectMailbox($imapConnection, $mailbox, $numMessages);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   sqimap_mailbox_select($imapConnection, $mailbox);
 
    // $message contains all information about the message
    // including header and body
-   $message = fetchMessage($imapConnection, $passed_id, $mailbox);
+   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
    $type0 = $message["ENTITIES"][$passed_ent_id]["TYPE0"];
    $type1 = $message["ENTITIES"][$passed_ent_id]["TYPE1"];
@@ -79,5 +78,5 @@
       }
    }
 
-   fputs($imapConnection, "1 logout\n");
+   sqimap_logout($imapConnection);
 ?>

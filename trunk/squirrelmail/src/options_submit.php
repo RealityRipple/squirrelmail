@@ -1,6 +1,5 @@
 <?
    include("../config/config.php");
-   include("../functions/mailbox.php");
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/display_messages.php");

@@ -3,14 +3,13 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../functions/mailbox.php");
 
    include("../src/load_prefs.php");
 
-   $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
-   selectMailbox($imapConnection, $old, $numMessages);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   sqimap_mailbox_select($imapConnection, $old);
 
-   $dm = findMailboxDelimeter($imapConnection);
+   $dm = sqimap_get_delimiter($imapConnection);
    if (strpos($old, $dm)) {
       $old_name = substr($old, strrpos($old, $dm)+1, strlen($old));
       $old_parent = substr($old, 0, strrpos($old, $dm));
@@ -37,7 +36,7 @@
    echo "</TABLE>";
 
    /** Log out this session **/
-   fputs($imapConnection, "1 logout");
+   sqimap_logout($imapConnection);
 ?>
 
 
