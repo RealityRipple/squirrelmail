@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2001-12-21 14:06+0100\n"
+"POT-Creation-Date: 2003-01-01 18:33+0100\n"
 "PO-Revision-Date: 2001-12-24 15:02+0700\n"
 "Last-Translator: Nartpong Ampornaramveth <webmaster@pramool.com>\n"
 "Language-Team: Thai <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -14,1982 +14,1582 @@ msgstr ""
 "Content-Type: text/plain; charset=tis-620\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: squirrelmail/src/addrbook_popup.php:22
-msgid "Address Book"
-msgstr "สมุดรายชื่อ"
-
-#: squirrelmail/src/addrbook_search.php:117
-#: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/addressbook.php:317 squirrelmail/src/vcard.php:107
-msgid "Name"
-msgstr "ชื่อ-สกุล"
-
-#: squirrelmail/src/addrbook_search.php:117
-#: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/addressbook.php:318
-msgid "E-mail"
-msgstr "อีเมล์"
-
-#: squirrelmail/src/addrbook_search.php:117
-#: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/addressbook.php:319
-msgid "Info"
-msgstr "รายละเอียดเพิ่มเติม"
-
-#: squirrelmail/src/addrbook_search.php:120
-#: squirrelmail/src/addrbook_search_html.php:87
-msgid "Source"
-msgstr "จาก"
-
-#: squirrelmail/src/addrbook_search_html.php:112
-msgid "Use Addresses"
-msgstr "ใช้สมุดรายชื่อ"
-
-#: squirrelmail/src/addrbook_search_html.php:131
-msgid "Address Book Search"
-msgstr "ค้นหาจากสมุดรายชื่อ"
-
-#: squirrelmail/src/addrbook_search.php:183
-#: squirrelmail/src/addrbook_search_html.php:141
-msgid "Search for"
-msgstr "ค้นหา"
-
-#: squirrelmail/src/addrbook_search.php:190
-#: squirrelmail/src/addrbook_search_html.php:152
-msgid "in"
-msgstr "ใน"
-
-#: squirrelmail/src/addrbook_search.php:192
-#: squirrelmail/src/addrbook_search_html.php:155
-msgid "All address books"
-msgstr "สมุดรายชื่อทั้งหมด"
-
-#: squirrelmail/functions/page_header.php:88
-#: squirrelmail/src/addrbook_search.php:202
-#: squirrelmail/src/addrbook_search_html.php:167
-#: squirrelmail/src/search.php:32 squirrelmail/src/search.php:79
-msgid "Search"
-msgstr "ค้นหา"
-
-#: squirrelmail/src/addrbook_search.php:204
-#: squirrelmail/src/addrbook_search_html.php:169
-msgid "List all"
-msgstr "แสดงทั้งหมด"
-
-#: squirrelmail/src/addrbook_search.php:223
-#: squirrelmail/src/addrbook_search_html.php:192
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "ไม่สามารถแสดงที่อยู่จาก %s"
-
-#: squirrelmail/src/addrbook_search.php:245
-#: squirrelmail/src/addrbook_search_html.php:215
-msgid "Your search failed with the following error(s)"
-msgstr "การค้นหามีข้อผิดพลาด ดังนี้"
-
-#: squirrelmail/src/addrbook_search.php:171
-#: squirrelmail/src/addrbook_search.php:252
-#: squirrelmail/src/addrbook_search_html.php:219
-msgid "No persons matching your search was found"
-msgstr "ไม่พบรายชื่อที่คุณต้องการ"
-
-#: squirrelmail/src/addrbook_search_html.php:228
-msgid "Return"
-msgstr "กลับไป"
-
-#: squirrelmail/src/addrbook_search.php:207
-msgid "Close window"
-msgstr "ปิดหน้าต่างนี้"
-
-#: squirrelmail/src/addressbook.php:66 squirrelmail/src/addressbook.php:316
-msgid "Nickname"
-msgstr "ชื่อเล่น"
-
-#: squirrelmail/src/addressbook.php:67
-msgid "Must be unique"
-msgstr "ต้องไม่ซ้ำกับที่มีอยู่แล้ว"
-
-#: squirrelmail/src/addressbook.php:68
-msgid "E-mail address"
-msgstr "อีเมล์"
-
-#: squirrelmail/src/addressbook.php:69
-msgid "First name"
-msgstr "ชื่อ"
-
-#: squirrelmail/src/addressbook.php:70
-msgid "Last name"
-msgstr "สกุล"
-
-#: squirrelmail/src/addressbook.php:71
-msgid "Additional info"
-msgstr "ข้อมูลเพิ่มเติม"
-
-#: squirrelmail/src/addressbook.php:85
-msgid "No personal address book is defined. Contact administrator."
-msgstr "ไม่มีสมุดรายชื่อที่กำหนด กรุณาแจ้งผู้ดูแลระบบ"
-
-#: squirrelmail/src/addressbook.php:181
-msgid "You can only edit one address at the time"
-msgstr "คุณสามารถแก้ไขได้ทีละ 1 ชื่อเท่านั้น"
-
-#: squirrelmail/src/addressbook.php:193 squirrelmail/src/addressbook.php:196
-#: squirrelmail/src/addressbook.php:225 squirrelmail/src/addressbook.php:228
-msgid "Update address"
-msgstr "ยืนยันการแก้ไข"
-
-#: squirrelmail/functions/display_messages.php:20
-#: squirrelmail/functions/display_messages.php:71
-#: squirrelmail/functions/display_messages.php:87
-#: squirrelmail/src/addressbook.php:216 squirrelmail/src/addressbook.php:266
-msgid "ERROR"
-msgstr "ผิดพลาด"
-
-#: squirrelmail/src/addressbook.php:241
-msgid "Unknown error"
-msgstr "เกิดข้อผิดพลาด"
-
-#: squirrelmail/src/addressbook.php:286 squirrelmail/src/addressbook.php:371
-msgid "Add address"
-msgstr "เพิ่มรายชื่อ"
-
-#: squirrelmail/src/addressbook.php:297 squirrelmail/src/addressbook.php:355
-msgid "Edit selected"
-msgstr "แก้ไขอันที่เลือก"
-
-#: squirrelmail/src/addressbook.php:299 squirrelmail/src/addressbook.php:357
-msgid "Delete selected"
-msgstr "ลบอันที่เลือก"
-
-#: squirrelmail/src/addressbook.php:368
-#, c-format
-msgid "Add to %s"
-msgstr "เพิ่มข้อมูลลงใน %s"
-
-#: squirrelmail/src/compose.php:118
-msgid "Original Message"
-msgstr "จดหมายดั้งเดิม"
-
-#: squirrelmail/functions/mailbox_display.php:564
-#: squirrelmail/plugins/filters/options.php:95
-#: squirrelmail/src/compose.php:119 squirrelmail/src/download.php:137
-#: squirrelmail/src/download.php:143
-#: squirrelmail/src/options_highlight.php:329
-#: squirrelmail/src/options_order.php:59
-#: squirrelmail/src/printer_friendly_bottom.php:97
-#: squirrelmail/src/search.php:71
-msgid "Subject"
-msgstr "หัวข้อ"
-
-#: squirrelmail/functions/mailbox_display.php:550
-#: squirrelmail/plugins/filters/options.php:83
-#: squirrelmail/src/compose.php:120 squirrelmail/src/download.php:138
-#: squirrelmail/src/download.php:145
-#: squirrelmail/src/options_highlight.php:317
-#: squirrelmail/src/options_order.php:57
-#: squirrelmail/src/printer_friendly_bottom.php:91
-#: squirrelmail/src/search.php:72
-msgid "From"
-msgstr "จาก"
-
-#: squirrelmail/functions/mailbox_display.php:548
-#: squirrelmail/plugins/filters/options.php:86
-#: squirrelmail/src/compose.php:121 squirrelmail/src/download.php:139
-#: squirrelmail/src/download.php:147
-#: squirrelmail/src/options_highlight.php:320
-#: squirrelmail/src/printer_friendly_bottom.php:92
-#: squirrelmail/src/search.php:74
-msgid "To"
-msgstr "ถึง"
-
-#: squirrelmail/src/compose.php:269 squirrelmail/src/read_body.php:551
-msgid "From:"
-msgstr "จาก:"
-
-#: squirrelmail/src/compose.php:294 squirrelmail/src/read_body.php:568
-msgid "To:"
-msgstr "ส่งถึง:"
-
-#: squirrelmail/src/compose.php:302
-msgid "CC:"
-msgstr "สำเนาถึง:"
-
-#: squirrelmail/src/compose.php:310
-msgid "BCC:"
-msgstr "แอบสำเนาถึง:"
-
-#: squirrelmail/src/compose.php:318 squirrelmail/src/read_body.php:526
-msgid "Subject:"
-msgstr "หัวข้อ:"
-
-#: squirrelmail/src/compose.php:360 squirrelmail/src/compose.php:414
-msgid "Send"
-msgstr "     ส่ง     "
-
-#: squirrelmail/src/compose.php:366
-msgid "Attach:"
-msgstr "แนบไฟล์:"
-
-#: squirrelmail/src/compose.php:370 squirrelmail/src/options_order.php:145
-msgid "Add"
-msgstr "  เพิ่ม  "
-
-#: squirrelmail/src/compose.php:385
-msgid "Delete selected attachments"
-msgstr "ลบไฟล์แนบที่เลือกไว้"
-
-#: squirrelmail/functions/page_header.php:82 squirrelmail/src/compose.php:407
-#: squirrelmail/src/compose.php:409 squirrelmail/src/compose.php:412
-msgid "Addresses"
-msgstr "สมุดรายชื่อ"
-
-#: squirrelmail/src/compose.php:417
-#, fuzzy
-msgid "Save Draft"
-msgstr "เขียนต่อจดหมายที่ร่างทิ้งไว้"
-
-#: squirrelmail/src/compose.php:423 squirrelmail/src/read_body.php:598
-msgid "Priority"
-msgstr "ระดับความสำคัญ"
-
-#: squirrelmail/src/compose.php:424 squirrelmail/src/read_body.php:433
-#, fuzzy
-msgid "High"
-msgstr "สูง"
-
-#: squirrelmail/src/compose.php:425 squirrelmail/src/read_body.php:436
-msgid "Normal"
-msgstr "ปานกลาง"
-
-#: squirrelmail/src/compose.php:426 squirrelmail/src/read_body.php:440
-msgid "Low"
-msgstr "ต่ำ"
-
-#: squirrelmail/src/compose.php:445
-msgid "You have not filled in the \"To:\" field."
-msgstr "คุณยังไม่ได้กำหนดว่าจะส่งให้ใคร ในช่อง ส่งถึง:"
-
-#: squirrelmail/src/compose.php:490
-msgid "Draft Email Saved"
-msgstr "จดหมายที่ร่างไว้ ได้ถูกจัดเก็บแล้ว"
-
-#: squirrelmail/src/compose.php:561 squirrelmail/src/compose.php:598
-#: squirrelmail/src/compose.php:605
-msgid "Could not move/copy file. File not attached"
-msgstr "ไม่พบไฟล์แนบ กดที่ปุ่ม Browse เพื่อเลือกไฟล์ก่อน กดปุ่มเพิ่ม"
-
-#: squirrelmail/src/compose.php:670
-msgid "said"
-msgstr "เขียนว่า"
-
-#: squirrelmail/src/compose.php:673
-msgid "quote"
-msgstr "อ้างจากข้อความ"
-
-#: squirrelmail/src/compose.php:673
-msgid "who"
-msgstr "ของ"
-
-#: squirrelmail/src/download.php:49
-msgid "Viewing a text attachment"
-msgstr "ดูข้อมูลในไฟล์แนบ"
-
-#: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
-#: squirrelmail/src/image.php:47 squirrelmail/src/image.php:51
-#: squirrelmail/src/read_body.php:55 squirrelmail/src/vcard.php:51
-#: squirrelmail/src/vcard.php:55
-msgid "View message"
-msgstr "ดูจดหมาย"
-
-#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:59
-#: squirrelmail/src/image.php:60 squirrelmail/src/vcard.php:212
-msgid "Download this as a file"
-msgstr "ดาวน์โหลดจดหมายนี้"
-
-#: squirrelmail/functions/mailbox_display.php:558
-#: squirrelmail/src/download.php:140 squirrelmail/src/download.php:149
-#: squirrelmail/src/options_order.php:58
-#: squirrelmail/src/printer_friendly_bottom.php:96
-msgid "Date"
-msgstr "วันที่"
-
-#: squirrelmail/src/folders_create.php:41
-msgid "Illegal folder name.  Please select a different name."
-msgstr "ชื่อกล่องจดหมายไม่ถูกต้อง กรุณาเปลี่ยนชื่อ"
-
-#: squirrelmail/src/folders_create.php:41
-msgid "Click here to go back"
-msgstr "กดที่นี่เพื่อกลับไป"
-
-#: squirrelmail/functions/page_header.php:84 squirrelmail/src/folders.php:45
-#: squirrelmail/src/left_main.php:261
-msgid "Folders"
-msgstr "กล่องจดหมาย"
-
-#: squirrelmail/src/folders.php:58
-msgid "Subscribed successfully!"
-msgstr "เพิ่มสำเร็จ"
-
-#: squirrelmail/src/folders.php:60
-msgid "Unsubscribed successfully!"
-msgstr "นำออกสำเร็จ"
-
-#: squirrelmail/src/folders.php:62
-msgid "Deleted folder successfully!"
-msgstr "ลบกล่องจดหมายสำเร็จ"
-
-#: squirrelmail/src/folders.php:64
-msgid "Created folder successfully!"
-msgstr "สร้างกล่องจดหมายสำเร็จ"
-
-#: squirrelmail/src/folders.php:66
-msgid "Renamed successfully!"
-msgstr "เปลี่ยนชื่อกล่องจดหมายสำเร็จ"
-
-#: squirrelmail/src/folders.php:69 squirrelmail/src/left_main.php:300
-msgid "refresh folder list"
-msgstr "รายชื่อกล่องจดหมายล่าสุด"
-
-#: squirrelmail/src/folders.php:79
-msgid "Delete Folder"
-msgstr "ลบกล่องจดหมาย"
-
-#: squirrelmail/functions/mailbox_display.php:520
-#: squirrelmail/plugins/filters/options.php:152
-#: squirrelmail/plugins/mail_fetch/options.php:168
-#: squirrelmail/plugins/mail_fetch/options.php:175
-#: squirrelmail/src/folders.php:125 squirrelmail/src/options_highlight.php:71
-#: squirrelmail/src/options_identities.php:320
-#: squirrelmail/src/read_body.php:468
-msgid "Delete"
-msgstr "     ลบ     "
-
-#: squirrelmail/src/folders.php:129 squirrelmail/src/folders.php:205
-msgid "No folders found"
-msgstr "ไม่พบกล่องจดหมาย"
-
-#: squirrelmail/src/folders.php:136
-msgid "Create Folder"
-msgstr "สร้างกล่องจดหมาย"
-
-#: squirrelmail/src/folders.php:141
-msgid "as a subfolder of"
-msgstr "เป็นกล่องจดหมายย่อยของ"
-
-#: squirrelmail/src/folders.php:146 squirrelmail/src/folders.php:148
-msgid "None"
-msgstr "ไม่มี"
-
-#: squirrelmail/src/folders.php:169
-msgid "Let this folder contain subfolders"
-msgstr "อนุญาติให้กล่องจดหมายนี้มีกล่องจดหมายย่อย"
-
-#: squirrelmail/src/folders.php:172
-msgid "Create"
-msgstr "สร้าง"
-
-#: squirrelmail/src/folders.php:179
-msgid "Rename a Folder"
-msgstr "เปลี่ยนชื่อกล่องจดหมาย"
-
-#: squirrelmail/src/folders.php:201
-msgid "Rename"
-msgstr "เปลี่ยนชื่อ"
-
-#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:234
-msgid "Unsubscribe"
-msgstr "เอาออก"
-
-#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:275
-msgid "Subscribe"
-msgstr "เพิ่ม"
-
-#: squirrelmail/src/folders.php:238
-msgid "No folders were found to unsubscribe from!"
-msgstr "ไม่พบกล่องจดหมายที่จะเอาออก"
-
-#: squirrelmail/src/folders.php:278
-msgid "No folders were found to subscribe to!"
-msgstr "ไม่พบกล่องจดหมายที่จะเพิ่ม"
-
-#: squirrelmail/src/folders_rename_getname.php:53
-msgid "Rename a folder"
-msgstr "เปลี่ยนชื่อกล่องจดหมาย"
-
-#: squirrelmail/src/folders_rename_getname.php:57
-msgid "New name:"
-msgstr "ชื่อใหม่:"
-
-#: squirrelmail/functions/options.php:404
-#: squirrelmail/plugins/filters/options.php:136
-#: squirrelmail/plugins/newmail/newmail_opt.php:132
-#: squirrelmail/plugins/translate/options.php:159
-#: squirrelmail/src/folders_rename_getname.php:63
-#: squirrelmail/src/options_highlight.php:342
-msgid "Submit"
-msgstr "ตกลง"
-
-#: squirrelmail/functions/page_header.php:90 squirrelmail/src/help.php:97
-msgid "Help"
-msgstr "ช่วยเหลือ"
-
-#: squirrelmail/src/help.php:131
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr "หัวข้อช่วยเหลือนี้ ยังไม่ได้ถูกแปลเป็นภาษาไทย"
-
-#: squirrelmail/src/help.php:137
-msgid "Some or all of the help documents are not present!"
-msgstr "บางส่วนของหัวข้อช่วยเหลือ จะไม่ถูกแสดง"
-
-#: squirrelmail/src/help.php:163 squirrelmail/src/help.php:182
-msgid "Table of Contents"
-msgstr "สารบาญ"
-
-#: squirrelmail/functions/mailbox_display.php:713
-#: squirrelmail/functions/mailbox_display.php:716
-#: squirrelmail/functions/mailbox_display.php:719
-#: squirrelmail/src/help.php:180 squirrelmail/src/help.php:181
-#: squirrelmail/src/read_body.php:490 squirrelmail/src/read_body.php:492
-msgid "Previous"
-msgstr "หน้าที่แล้ว"
-
-#: squirrelmail/functions/mailbox_display.php:714
-#: squirrelmail/functions/mailbox_display.php:717
-#: squirrelmail/functions/mailbox_display.php:720
-#: squirrelmail/src/help.php:183 squirrelmail/src/help.php:184
-#: squirrelmail/src/read_body.php:496 squirrelmail/src/read_body.php:498
-msgid "Next"
-msgstr "หน้าถัดไป"
-
-#: squirrelmail/src/help.php:204
-msgid "Top"
-msgstr "บนสุด"
-
-#: squirrelmail/src/image.php:42
-#, fuzzy
-msgid "Viewing an image attachment"
-msgstr "ดูรูปในไฟล์แนบ"
-
-#: squirrelmail/src/left_main.php:115
-#, fuzzy
-msgid "empty"
-msgstr "ลบทิ้ง"
-
-#: squirrelmail/src/left_main.php:294
-msgid "Last Refresh"
-msgstr "ข้อมูลล่าสุด"
-
-#: squirrelmail/src/login.php:105 squirrelmail/src/login.php:157
-msgid "Login"
-msgstr "เข้าสู่ระบบ"
-
-#: squirrelmail/src/login.php:128
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail version %s"
-
-#: squirrelmail/src/login.php:129
-msgid "By the SquirrelMail Development Team"
-msgstr "By the SquirrelMail Development Team"
-
-#: squirrelmail/src/login.php:135
-#, c-format
-msgid "%s Login"
-msgstr "เข้าสู่ระบบ %s"
-
-#: squirrelmail/src/login.php:139
-msgid "Name:"
-msgstr "ชื่อ:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:126
-#: squirrelmail/plugins/mail_fetch/options.php:207
-#: squirrelmail/src/login.php:145
-msgid "Password:"
-msgstr "รหัสผ่าน:"
-
-#: squirrelmail/src/move_messages.php:93
-#: squirrelmail/src/move_messages.php:128
-#: squirrelmail/src/move_messages.php:157
-msgid "No messages were selected."
-msgstr "ยังไม่ได้เลือกจดหมาย (เลือกโดยการกดที่ช่องสี่เหลี่ยม หน้าจดหมาย)"
-
-#: squirrelmail/src/options_display.php:32
-msgid "General Display Options"
-msgstr "ปรับแต่งการแสดงผล"
-
-#: squirrelmail/src/options_display.php:44
-msgid "Theme"
-msgstr "ใช้รูปแบบ"
-
-#: squirrelmail/src/options_display.php:59
-msgid "Language"
-msgstr "ภาษา"
-
-#: squirrelmail/src/options_display.php:68
-#, fuzzy
-msgid "Use Javascript"
-msgstr "ใช้จาวาสคริปต์"
-
-#: squirrelmail/src/options_display.php:71
-msgid "Autodetect"
-msgstr "อัตโนมัติ"
-
-#: squirrelmail/src/options_display.php:72
-msgid "Always"
-msgstr "ทุกครั้ง"
-
-#: squirrelmail/src/options_display.php:73
-#: squirrelmail/src/options_folder.php:122
-msgid "Never"
-msgstr "ไม่ใช้"
-
-#: squirrelmail/src/options_display.php:91
-msgid "Mailbox Display Options"
-msgstr "ปรับแต่งการแสดงจดหมายในกล่อง"
-
-#: squirrelmail/src/options_display.php:96
-msgid "Number of Messages to Index"
-msgstr "จำนวนจดหมายต่อหน้า"
-
-#: squirrelmail/src/options_display.php:104
-#, fuzzy
-msgid "Enable Alternating Row Colors"
-msgstr "สลับสีระหว่างบรรทัด"
-
-#: squirrelmail/src/options_display.php:111
-#, fuzzy
-msgid "Enable Page Selector"
-msgstr "แสดงตัวเลือกหน้า"
-
-#: squirrelmail/src/options_display.php:118
-#, fuzzy
-msgid "Maximum Number of Pages to Show"
-msgstr "จำนวนจดหมายต่อหน้า"
-
-#: squirrelmail/src/options_display.php:125
-msgid "Message Display and Composition"
-msgstr "การแสดงจดหมาย และการเขียนจดหมาย"
-
-#: squirrelmail/src/options_display.php:130
-#, fuzzy
-msgid "Wrap Incoming Text At"
-msgstr "แบ่งข้อความที่ตำแหน่ง"
-
-#: squirrelmail/src/options_display.php:138
-#, fuzzy
-msgid "Size of Editor Window"
-msgstr "ขนาดหน้าต่าง ที่ใช้เขียนจดหมาย"
-
-#: squirrelmail/src/options_display.php:146
-#, fuzzy
-msgid "Location of Buttons when Composing"
-msgstr "ตำแหน่งของปุ่มที่ใช้ส่งจดหมาย"
-
-#: squirrelmail/src/options_display.php:149
-msgid "Before headers"
-msgstr "ก่อนหน้าหัวข้อ"
-
-#: squirrelmail/src/options_display.php:150
-msgid "Between headers and message body"
-msgstr "ระหว่างหัวข้อ กับเนื้อความจดหมาย"
-
-#: squirrelmail/src/options_display.php:151
-msgid "After message body"
-msgstr "ถัดจากเนื้อความจดหมาย"
-
-#: squirrelmail/src/options_display.php:156
-#, fuzzy
-msgid "Addressbook Display Format"
-msgstr "รูปแบบการแสดงสมุดรายชื่อ"
-
-#: squirrelmail/src/options_display.php:159
-#, fuzzy
-msgid "Javascript"
-msgstr "จาวาสคริปต์"
-
-#: squirrelmail/src/options_display.php:160
-msgid "HTML"
-msgstr "HTML ธรรมดา"
-
-#: squirrelmail/src/options_display.php:165
-#, fuzzy
-msgid "Show HTML Version by Default"
-msgstr "แสดงผลในรูปแบบ HTML"
-
-#: squirrelmail/src/options_display.php:172
-msgid "Include Me in CC when I Reply All"
-msgstr "สำเนาถึงตัวคุณเองด้วย ถ้าเลือกที่ตอบกลับทุกคน"
-
-#: squirrelmail/src/options_display.php:179
-msgid "Enable Mailer Display"
-msgstr "แสดงโปรแกรมที่ใช้ส่งจดหมาย"
-
-#: squirrelmail/src/options_display.php:186
-msgid "Display Attached Images with Message"
-msgstr "แสดงรูปที่แนบมากับจดหมาย พร้อมกับข้อความจดหมาย"
-
-#: squirrelmail/src/options_display.php:193
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "แสดงลิงค์ สำหรับพิมพ์จดหมาย "
-
-#: squirrelmail/src/options_display.php:200
-msgid "Enable Printer Friendly Clean Display"
-msgstr "แสดงจดหมายแบบสะอาด ในโหมดพิมพ์จดหมาย"
-
-#: squirrelmail/src/options_folder.php:40
-msgid "Special Folder Options"
-msgstr "ปรับแต่งกล่องจดหมายแบบพิเศษ"
-
-#: squirrelmail/src/options_folder.php:47
-msgid "Folder Path"
-msgstr "ตำแหน่งกล่องจดหมาย"
-
-#: squirrelmail/src/options_folder.php:63
-msgid "Do not use Trash"
-msgstr "ไม่ต้องเก็บจดหมายที่ถูกลบ ลงในกล่องจดหมายที่ถูกลบ"
-
-#: squirrelmail/src/options_folder.php:67
-#, fuzzy
-msgid "Trash Folder"
-msgstr "กล่องเก็บจดหมายที่ถูกลบ:"
-
-#: squirrelmail/src/options_folder.php:74
-msgid "Do not use Sent"
-msgstr "ไม่ต้องเก็บจดหมายที่ส่ง ลงในกล่องจดหมายส่งแล้ว"
-
-#: squirrelmail/src/options_folder.php:78
-#, fuzzy
-msgid "Sent Folder"
-msgstr "กล่องเก็บจดหมายที่ส่งแล้ว:"
-
-#: squirrelmail/src/options_folder.php:85
-#, fuzzy
-msgid "Do not use Drafts"
-msgstr "ไม่ต้องเก็บจดหมายที่ถูกลบ ลงในกล่องจดหมายที่ถูกลบ"
-
-#: squirrelmail/src/options_folder.php:89
-#, fuzzy
-msgid "Draft Folder"
-msgstr "กล่องเก็บจดหมายที่ถูกลบ:"
-
-#: squirrelmail/src/options_folder.php:97
-msgid "Folder List Options"
-msgstr "ปรับแต่งแสดงรายการกล่องจดหมาย"
-
-#: squirrelmail/src/options_folder.php:102
-#, fuzzy
-msgid "Location of Folder List"
-msgstr "ตำแหน่งของรายการกล่องจดหมาย"
-
-#: squirrelmail/src/options_folder.php:105
-msgid "Left"
-msgstr "ด้านซ้าย"
-
-#: squirrelmail/src/options_folder.php:106
-msgid "Right"
-msgstr "ด้านขวา"
-
-#: squirrelmail/src/options_folder.php:111
-msgid "pixels"
-msgstr "พิกเซล"
-
-#: squirrelmail/src/options_folder.php:115
-#, fuzzy
-msgid "Width of Folder List"
-msgstr "ความกว้างของรายการกล่องจดหมาย"
-
-#: squirrelmail/src/options_folder.php:121
-msgid "Minutes"
-msgstr "นาที"
-
-#: squirrelmail/src/options_folder.php:125
-msgid "Seconds"
-msgstr "วินาที"
-
-#: squirrelmail/src/options_folder.php:127
-msgid "Minute"
-msgstr "นาที"
-
-#: squirrelmail/src/options_folder.php:134
-#, fuzzy
-msgid "Auto Refresh Folder List"
-msgstr "แสดงกล่องจดหมายล่าสุดโดยอัตโนมัติ"
-
-#: squirrelmail/src/options_folder.php:142
-#, fuzzy
-msgid "Enable Unread Message Notification"
-msgstr "แจ้งเตือนจดหมายที่ยังไม่เปิดดู"
-
-#: squirrelmail/src/options_folder.php:145
-#, fuzzy
-msgid "No Notification"
-msgstr "ไม่ต้องแจ้งเตือน"
-
-#: squirrelmail/src/options_folder.php:146
-msgid "Only INBOX"
-msgstr "เฉพาะในกล่องจดหมาย INBOX"
-
-#: squirrelmail/src/options_folder.php:147
-msgid "All Folders"
-msgstr "ทุกๆ กล่องจดหมาย"
-
-#: squirrelmail/src/options_folder.php:152
-#, fuzzy
-msgid "Unread Message Notification Type"
-msgstr "ชนิดของการแจ้งเตือน จดหมายที่ยังไม่เปิดดู"
-
-#: squirrelmail/src/options_folder.php:155
-#, fuzzy
-msgid "Only Unseen"
-msgstr "เฉพาะที่ยังไม่เปิดดู"
-
-#: squirrelmail/src/options_folder.php:156
-msgid "Unseen and Total"
-msgstr "ยังไม่เปิดดู /ทั้งหมด"
-
-#: squirrelmail/src/options_folder.php:161
-#, fuzzy
-msgid "Enable Collapsable Folders"
-msgstr "อนุญาติให้ซ่อนกล่องจดหมายย่อย (จะมีเครื่องหมาย + หน้ากล่องจดหมายตัวแม่)"
-
-#: squirrelmail/src/options_folder.php:168
-msgid "Show Clock on Folders Panel"
-msgstr "แสดงเวลาบนกล่องในหน้าต่างซ้ายมือ"
-
-#: squirrelmail/src/options_folder.php:176
-msgid "No Clock"
-msgstr "ไม่แสดงเวลา"
-
-#: squirrelmail/src/options_folder.php:181
-#, fuzzy
-msgid "Hour Format"
-msgstr "รูปแบบชั่วโมง"
-
-#: squirrelmail/src/options_folder.php:184
-msgid "12-hour clock"
-msgstr "แสดงเวลาแบบ 12 ชั่วโมง"
-
-#: squirrelmail/src/options_folder.php:185
-msgid "24-hour clock"
-msgstr "แสดงเวลาแบบ 24 ชั่วโมง"
-
-#: squirrelmail/functions/page_header.php:86
-#: squirrelmail/plugins/filters/options.php:60
-#: squirrelmail/plugins/newmail/newmail_opt.php:33
-#: squirrelmail/plugins/translate/options.php:93
-#: squirrelmail/src/options.php:158 squirrelmail/src/options_highlight.php:57
-#: squirrelmail/src/options_identities.php:58
-#: squirrelmail/src/options_order.php:48
-msgid "Options"
-msgstr "ปรับแต่ง"
-
-#: squirrelmail/src/options.php:110 squirrelmail/src/options.php:257
-#: squirrelmail/src/options_highlight.php:57
-msgid "Message Highlighting"
-msgstr "เน้นจดหมาย"
-
-#: squirrelmail/plugins/filters/options.php:62
-#: squirrelmail/src/options_highlight.php:61
-msgid "New"
-msgstr "กำหนดเพิ่ม"
-
-#: squirrelmail/plugins/filters/options.php:63
-#: squirrelmail/plugins/filters/spamoptions.php:148
-#: squirrelmail/plugins/mail_fetch/fetch.php:225
-#: squirrelmail/src/options_highlight.php:62
-msgid "Done"
-msgstr "เสร็จแล้ว"
-
-#: squirrelmail/plugins/filters/options.php:150
-#: squirrelmail/plugins/filters/spamoptions.php:147
-#: squirrelmail/src/options_highlight.php:69
-msgid "Edit"
-msgstr "แก้ไข"
-
-#: squirrelmail/src/options_highlight.php:82
-msgid "No highlighting is defined"
-msgstr "ไม่มีการกำหนดการเน้นจดหมาย"
-
-#: squirrelmail/src/options_highlight.php:254
-msgid "Identifying name"
-msgstr "ชื่อที่ใช้แยกแยะ"
-
-#: squirrelmail/src/options_highlight.php:268
-msgid "Color"
-msgstr "สี"
-
-#: squirrelmail/src/options_highlight.php:272
-msgid "Dark Blue"
-msgstr "น้ำเงินเข้ม"
-
-#: squirrelmail/src/options_highlight.php:273
-msgid "Dark Green"
-msgstr "เขียวเข้ม"
-
-#: squirrelmail/src/options_highlight.php:274
-msgid "Dark Yellow"
-msgstr "เหลืองเข้ม"
-
-#: squirrelmail/src/options_highlight.php:275
-msgid "Dark Cyan"
-msgstr "ฟ้าเข้ม"
-
-#: squirrelmail/src/options_highlight.php:276
-msgid "Dark Magenta"
-msgstr "ม่วงเข้ม"
-
-#: squirrelmail/src/options_highlight.php:277
-msgid "Light Blue"
-msgstr "น้ำเงินอ่อน"
-
-#: squirrelmail/src/options_highlight.php:278
-msgid "Light Green"
-msgstr "เขียวอ่อน"
-
-#: squirrelmail/src/options_highlight.php:279
-msgid "Light Yellow"
-msgstr "เหลืองอ่อน"
-
-#: squirrelmail/src/options_highlight.php:280
-msgid "Light Cyan"
-msgstr "ฟ้าอ่อน"
-
-#: squirrelmail/src/options_highlight.php:281
-msgid "Light Magenta"
-msgstr "ม่วงอ่อน"
-
-#: squirrelmail/src/options_highlight.php:282
-msgid "Dark Gray"
-msgstr "เทาเข้ม"
-
-#: squirrelmail/src/options_highlight.php:283
-msgid "Medium Gray"
-msgstr "เทาปานกลาง"
-
-#: squirrelmail/src/options_highlight.php:284
-msgid "Light Gray"
-msgstr "เทาอ่อน"
-
-#: squirrelmail/src/options_highlight.php:285
-msgid "White"
-msgstr "ขาว"
-
-#: squirrelmail/src/options_highlight.php:287
-msgid "Other:"
-msgstr "อื่นๆ:"
-
-#: squirrelmail/src/options_highlight.php:289
-msgid "Ex: 63aa7f"
-msgstr "เช่น: 63aa7f"
-
-#: squirrelmail/plugins/filters/options.php:89
-#: squirrelmail/src/options_highlight.php:323 squirrelmail/src/search.php:73
-msgid "Cc"
-msgstr "สำเนาถึง"
-
-#: squirrelmail/plugins/filters/options.php:92
-#: squirrelmail/src/options_highlight.php:326
-msgid "To or Cc"
+msgid "Delivery error report"
 msgstr ""
 
-#: squirrelmail/src/options_highlight.php:331
-msgid "Matches"
-msgstr "ตรงกับ"
+msgid "Undelivered Message Headers"
+msgstr ""
 
-#: squirrelmail/src/options_identities.php:58
-msgid "Advanced Identities"
-msgstr "รายละเอียดส่วนตัวเพิ่มเติม"
+msgid "(no subject)"
+msgstr "(ไม่มีหัวข้อ)"
 
-#: squirrelmail/src/options_identities.php:69
-msgid "Default Identity"
-msgstr "รายละเอียดส่วนตัวแบบปกติ"
-
-#: squirrelmail/src/options_identities.php:80
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "รายละเอียดส่วนตัวเพิ่มเติม ที่ %s"
-
-#: squirrelmail/src/options_identities.php:90
-msgid "Add a New Identity"
-msgstr "เพิ่มรายละเอียดส่วนตัวเพิ่มเติม"
-
-#: squirrelmail/src/options_identities.php:306
-#: squirrelmail/src/options_personal.php:49
-msgid "Full Name"
-msgstr "ชื่อเต็ม"
-
-#: squirrelmail/src/options_identities.php:307
-msgid "E-Mail Address"
-msgstr "อีเมล์แอดเดรส"
-
-#: squirrelmail/src/options_identities.php:308
-#: squirrelmail/src/options_personal.php:65
-msgid "Reply To"
-msgstr "ให้ตอบกลับไปที่"
-
-#: squirrelmail/src/options_identities.php:315
-msgid "Save / Update"
-msgstr "จัดเก็บ / เปลี่ยนแปลง"
-
-#: squirrelmail/src/options_identities.php:318
-msgid "Make Default"
-msgstr "ใช้อันนี้เป็นแบบปกติ"
-
-#: squirrelmail/src/options_identities.php:324
-msgid "Move Up"
-msgstr "เลื่อนขึ้น"
-
-#: squirrelmail/src/options.php:120 squirrelmail/src/options.php:273
-#: squirrelmail/src/options_order.php:48
-msgid "Index Order"
-msgstr "เรียงลำดับคอลัมน์ในหน้าจอแสดงรายการจดหมาย"
-
-#: squirrelmail/src/options_order.php:56
-msgid "Checkbox"
-msgstr "กล่องให้ติ๊กเพื่อเลือก"
-
-#: squirrelmail/src/options_order.php:60
-msgid "Flags"
-msgstr "สถานะ"
-
-#: squirrelmail/functions/mailbox_display.php:570
-#: squirrelmail/src/options_order.php:61
-msgid "Size"
-msgstr "ขนาด"
-
-#: squirrelmail/src/options_order.php:104
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr "คุณสามารถเรียงลำดับ คอลัมน์ต่างๆ ในหน้ารายการจดหมายได้ตามต้องการ"
-
-#: squirrelmail/src/options_order.php:113
-msgid "up"
-msgstr "เลื่อนขึ้น"
-
-#: squirrelmail/src/options_order.php:115
-msgid "down"
-msgstr "เลื่อนลง"
-
-#: squirrelmail/src/options_order.php:120
-msgid "remove"
-msgstr "เอาออก"
-
-#: squirrelmail/src/options_order.php:149
-msgid "Return to options page"
-msgstr "กลับไปยังหน้าปรับแต่ง"
-
-#: squirrelmail/src/options_personal.php:41
-msgid "Name and Address Options"
-msgstr "ปรับแต่ง ชื่อ และที่อยู่"
-
-#: squirrelmail/src/options_personal.php:57
-#, fuzzy
-msgid "Email Address"
-msgstr "อีเมล์แอดเดรส"
-
-#: squirrelmail/src/options_personal.php:72
-msgid "Edit Advanced Identities"
-msgstr "แก้ไขรายละเอียดส่วนตัวเพิ่มเติม"
-
-#: squirrelmail/src/options_personal.php:74
-msgid "(discards changes made on this form so far)"
-msgstr "(ยกเลิกการแก้ไขในฟอร์มนี้)"
-
-#: squirrelmail/src/options_personal.php:77
-msgid "Multiple Identities"
-msgstr "รายละเอียดส่วนตัวเพิ่มเติม"
-
-#: squirrelmail/src/options_personal.php:84
-#, fuzzy
-msgid "Reply Citation Options"
-msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
-
-#: squirrelmail/src/options_personal.php:89
-msgid "Reply Citation Style"
-msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
-
-#: squirrelmail/src/options_personal.php:92
-msgid "No Citation"
-msgstr "ไม่ต้องอ้างถึง"
-
-#: squirrelmail/src/options_personal.php:93
-msgid "AUTHOR Said"
-msgstr "คุณเชียนมาว่า"
-
-#: squirrelmail/src/options_personal.php:94
-msgid "Quote Who XML"
-msgstr "อ้างถึง"
-
-#: squirrelmail/src/options_personal.php:95
-msgid "User-Defined"
-msgstr "กำหนดเอง"
-
-#: squirrelmail/src/options_personal.php:100
-#, fuzzy
-msgid "User-Defined Citation Start"
-msgstr "รูปแบบการอ้างถึงที่กำหนดเอง"
-
-#: squirrelmail/src/options_personal.php:108
-#, fuzzy
-msgid "User-Defined Citation End"
-msgstr "รูปแบบการอ้างถึงที่กำหนดเอง"
-
-#: squirrelmail/src/options_personal.php:115
-#, fuzzy
-msgid "Signature Options"
-msgstr "ลายเซ็น"
-
-#: squirrelmail/src/options_personal.php:120
-#, fuzzy
-msgid "Use Signature"
-msgstr "ใช้ลายเซ็น"
-
-#: squirrelmail/src/options_personal.php:127
-#, fuzzy
-msgid "Prefix Signature with '-- ' Line"
-msgstr "นำหน้าลายเซ็นด้วย '-- ' ?"
-
-#: squirrelmail/src/options_personal.php:134
-msgid "Signature"
-msgstr "ลายเซ็น"
-
-#: squirrelmail/src/options.php:100 squirrelmail/src/options.php:241
-msgid "Personal Information"
-msgstr "ข้อมูลส่วนบุคคล"
-
-#: squirrelmail/src/options.php:105 squirrelmail/src/options.php:249
-msgid "Display Preferences"
-msgstr "รูปแบบการแสดงผล"
-
-#: squirrelmail/src/options.php:115 squirrelmail/src/options.php:265
-msgid "Folder Preferences"
-msgstr "กำหนดรูปแบบกล่องจดหมาย"
-
-#: squirrelmail/src/options.php:225
-#, fuzzy
-msgid "Successfully Saved Options"
-msgstr "จัดเก็บข้อมูลส่วนตัวสำเร็จ"
-
-#: squirrelmail/src/options.php:229
-msgid "Refresh Folder List"
-msgstr "ดูรายชื่อกล่องจดหมายล่าสุด"
-
-#: squirrelmail/src/options.php:231
-msgid "Refresh Page"
-msgstr "ดูหน้านี้อันล่าสุด"
-
-#: squirrelmail/src/options.php:243
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "ข้อมูลส่วนบุคคลของคุณ เช่น ชื่อ, อีเมล์ และอื่นๆ"
-
-#: squirrelmail/src/options.php:251
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr "คุณสามารถเปลี่ยนแปลงสิ่งต่างๆ เช่น  สี, ภาษา, และอื่นๆ"
-
-#: squirrelmail/src/options.php:259
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr "กำหนดเงื่อนไข สำหรับสีพื้นของจดหมาย เช่น จดหมายจากแฟนให้เป็นสีชมพู"
-
-#: squirrelmail/src/options.php:267
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr "เปลี่ยนรูปแบบการแสดงกล่องจดหมาย ตามที่คุณต้องการ"
-
-#: squirrelmail/src/options.php:275
-msgid ""
-"The order of the message index can be rearanged and changed to contain the "
-"headers in any order you want."
-msgstr "สามารถกำหนดให้เรียงลำดับตามที่คุณต้องการ"
-
-#: squirrelmail/src/printer_friendly_bottom.php:86
-#: squirrelmail/src/printer_friendly_main.php:31
-#: squirrelmail/src/printer_friendly_top.php:37
-msgid "Printer Friendly"
-msgstr "โหมดพิมพ์จดหมาย"
-
-#: squirrelmail/src/printer_friendly_bottom.php:94
-#, fuzzy
-msgid "CC"
-msgstr "สำเนาถึง:"
-
-#: squirrelmail/src/printer_friendly_top.php:52
-msgid "Print"
-msgstr "พิมพ์"
-
-#: squirrelmail/src/printer_friendly_top.php:53
-#, fuzzy
-msgid "Close Window"
-msgstr "ปิดหน้าต่างนี้"
-
-#: squirrelmail/src/read_body.php:48
-#, fuzzy
-msgid "Viewing Full Header"
-msgstr "ดูรายละเอียดของหัวจดหมายทั้งหมด"
-
-#: squirrelmail/src/read_body.php:180
-msgid "View Printable Version"
-msgstr "แสดงจดหมายในรูปแบบสำหรับพิมพ์"
-
-#: squirrelmail/src/read_body.php:314
-msgid "more"
-msgstr "มาก"
-
-#: squirrelmail/src/read_body.php:315
-msgid "less"
-msgstr "น้อย"
-
-#: squirrelmail/src/read_body.php:461
-msgid "Message List"
-msgstr "รายการจดหมาย"
-
-#: squirrelmail/src/read_body.php:472
-msgid "Resume Draft"
-msgstr "เขียนต่อจดหมายที่ร่างทิ้งไว้"
-
-#: squirrelmail/src/read_body.php:507
-msgid "Forward"
-msgstr "ส่งต่อ"
-
-#: squirrelmail/src/read_body.php:510
-msgid "Reply"
-msgstr "ตอบกลับ"
-
-#: squirrelmail/src/read_body.php:513
-msgid "Reply All"
-msgstr "ตอบกลับให้ทุกคน"
-
-#: squirrelmail/src/read_body.php:534 squirrelmail/src/read_body.php:536
-#, fuzzy
-msgid "View Full Header"
-msgstr "ดูหัวจดหมายทั้งหมด"
-
-#: squirrelmail/src/read_body.php:559
-msgid "Date:"
-msgstr "วันที่:"
-
-#: squirrelmail/src/read_body.php:615
-msgid "Mailer"
-msgstr "ส่งจดหมาย โดยโปรแกรม"
-
-#: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
-#: squirrelmail/src/redirect.php:85
-msgid "You must be logged in to access this page."
-msgstr "คุณต้องเข้าสู่ระบบก่อน"
-
-#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
-msgid "Go to the login page"
-msgstr "ไปยังหน้าจอ เข้าสู่ระบบ"
-
-#: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
-msgid "There was an error contacting the mail server."
-msgstr "มีปัญหาในการติดต่อกับเมล์เซิร์ฟเวอร์"
-
-#: squirrelmail/src/redirect.php:111
-msgid "Contact your administrator for help."
-msgstr "ติดต่อผู้ดูแลระบบของคุณ เพื่อแก้ไขปัญหา"
-
-#: squirrelmail/src/search.php:69
-msgid "Body"
-msgstr "เนื้อความ"
-
-#: squirrelmail/src/search.php:70
-msgid "Everywhere"
-msgstr "ทั้งหมด"
-
-#: squirrelmail/functions/page_header.php:72 squirrelmail/src/signout.php:83
-msgid "Sign Out"
-msgstr "ออกจากระบบ"
-
-#: squirrelmail/src/signout.php:89
-msgid "You have been successfully signed out."
-msgstr "คุณได้ออกจากระบบแล้ว"
-
-#: squirrelmail/src/signout.php:91
-msgid "Click here to log back in."
-msgstr "กดที่นี่ เพื่อเข้าสู่ระบบ"
-
-#: squirrelmail/src/vcard.php:46
-#, fuzzy
-msgid "Viewing a Business Card"
-msgstr "แสดงจดหมาย"
-
-#: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
-#, fuzzy
-msgid "Title"
-msgstr "หัวข้อ:"
-
-#: squirrelmail/src/vcard.php:109
-#, fuzzy
-msgid "Email"
-msgstr "อีเมล์"
-
-#: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
-#, fuzzy
-msgid "Web Page"
-msgstr "ดูหน้านี้อันล่าสุด"
-
-#: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
-msgid "Organization / Department"
-msgstr "บริษัท / แผนก"
-
-#: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
-#, fuzzy
-msgid "Address"
-msgstr "สมุดรายชื่อ"
-
-#: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
-msgid "Work Phone"
-msgstr "โทรศัพท์ที่ทำงาน"
-
-#: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
-msgid "Home Phone"
-msgstr "โทรศัพท์ที่บ้าน"
-
-#: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
-msgid "Cellular Phone"
-msgstr "โทรศัพท์มือถือ"
-
-#: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
-msgid "Fax"
-msgstr "แฟกซ์"
-
-#: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
-#, fuzzy
-msgid "Note"
-msgstr "ไม่มี"
-
-#: squirrelmail/src/vcard.php:149
-#, fuzzy
-msgid "Add to Addressbook"
-msgstr "เพิ่มรายชื่อ"
-
-#: squirrelmail/src/vcard.php:176
-msgid "Title & Org. / Dept."
-msgstr "ตำแหน่ง, บริษัท, แผนก"
-
-#: squirrelmail/functions/abook_database.php:50
-#: squirrelmail/functions/abook_local_file.php:53
-#: squirrelmail/functions/addressbook.php:152
 msgid "Personal address book"
 msgstr "สมุดรายชื่อ"
 
-#: squirrelmail/functions/abook_database.php:96
-#: squirrelmail/functions/abook_database.php:136
-#: squirrelmail/functions/abook_database.php:171
-#: squirrelmail/functions/abook_database.php:201
-#: squirrelmail/functions/abook_database.php:253
-#: squirrelmail/functions/abook_database.php:286
-#: squirrelmail/functions/abook_database.php:327
 #, c-format
 msgid "Database error: %s"
 msgstr "เกิดข้อผิดพลาดกับฐานข้อมูล %s"
 
-#: squirrelmail/functions/abook_database.php:221
-#: squirrelmail/functions/abook_database.php:260
-#: squirrelmail/functions/abook_database.php:293
-#: squirrelmail/functions/abook_local_file.php:247
-#: squirrelmail/functions/abook_local_file.php:267
-#: squirrelmail/functions/abook_local_file.php:290
-#: squirrelmail/functions/abook_local_file.php:319
-#: squirrelmail/functions/addressbook.php:349
-#: squirrelmail/functions/addressbook.php:384
-#: squirrelmail/functions/addressbook.php:437
 msgid "Addressbook is read-only"
 msgstr "ไม่สามารถแก้ไขสมุดรายชื่อได้"
 
-#: squirrelmail/functions/abook_database.php:231
-#: squirrelmail/functions/abook_local_file.php:252
 #, c-format
 msgid "User '%s' already exist"
 msgstr "ผู้ใช้งาน '%s' มีอยู่แล้วในระบบ"
 
-#: squirrelmail/functions/abook_database.php:303
-#: squirrelmail/functions/abook_local_file.php:324
 #, c-format
 msgid "User '%s' does not exist"
 msgstr "ไม่มีผู้ใช้งาน '%s' ในระบบ"
 
-#: squirrelmail/functions/abook_global_file.php:51
 msgid "Global address book"
 msgstr "สมุดรายชื่อส่วนรวม"
 
-#: squirrelmail/functions/abook_global_file.php:71
-#: squirrelmail/functions/abook_local_file.php:94
 msgid "No such file or directory"
 msgstr "ไม่พบแฟ้มข้อมูลที่ต้องการ"
 
-#: squirrelmail/functions/abook_global_file.php:81
-#: squirrelmail/functions/abook_local_file.php:114
-#: squirrelmail/functions/abook_local_file.php:150
 msgid "Open failed"
 msgstr "ไม่สามารถเปิดได้"
 
-#: squirrelmail/functions/abook_global_file.php:178
-#: squirrelmail/functions/abook_global_file.php:184
-#: squirrelmail/functions/abook_global_file.php:190
 msgid "Can not modify global address book"
 msgstr "ไม่สามารถแก้ไขสมุดรายชื่อส่วนรวม"
 
-#: squirrelmail/functions/abook_local_file.php:61
 msgid "Not a file name"
 msgstr "ไม่ใช่ชื่อแฟ้มข้อมูล"
 
-#: squirrelmail/functions/abook_local_file.php:271
-#: squirrelmail/functions/abook_local_file.php:295
-#: squirrelmail/functions/abook_local_file.php:330
+#, fuzzy
+msgid "Write failed"
+msgstr "ไม่สามารถเปิดได้"
+
+#, fuzzy
+msgid "Unable to update"
+msgstr "จัดเก็บ / เปลี่ยนแปลง"
+
 msgid "Could not lock datafile"
 msgstr "ไม่สามารถล๊อคแฟ้มข้อมูล"
 
-#: squirrelmail/functions/abook_local_file.php:283
 msgid "Write to addressbook failed"
 msgstr "ไม่สามารถเขียนข้อมูลได้"
 
-#: squirrelmail/functions/addressbook.php:70
 msgid "Error initializing addressbook database."
 msgstr "ไม่สามารถใช้งาน ฐานข้อมูลสมุดรายชื่อ"
 
-#: squirrelmail/functions/addressbook.php:79
 #, c-format
 msgid "Error opening file %s"
 msgstr "ไม่สามารถเปิดแฟ้มข้อมูล %s"
 
-#: squirrelmail/functions/addressbook.php:89
 msgid "Error initializing global addressbook."
 msgstr "ไม่สามารถใช้งาน สมุดรายชื่อส่วนรวม."
 
-#: squirrelmail/functions/addressbook.php:105
 #, c-format
 msgid "Error initializing LDAP server %s:"
 msgstr "ไม่สามารถใช้งาน LDAP server %s:"
 
-#: squirrelmail/functions/addressbook.php:327
-#: squirrelmail/functions/addressbook.php:414
 msgid "Invalid input data"
 msgstr "ข้อมูลที่ใส่ไม่ถูกต้อง"
 
-#: squirrelmail/functions/addressbook.php:331
-#: squirrelmail/functions/addressbook.php:418
 msgid "Name is missing"
 msgstr "ไม่ได้ใส่ ชื่อ"
 
-#: squirrelmail/functions/addressbook.php:335
-#: squirrelmail/functions/addressbook.php:422
 msgid "E-mail address is missing"
 msgstr "ไม่ได้ใส่ อีเมล์แอดเดรส"
 
-#: squirrelmail/functions/addressbook.php:343
-#: squirrelmail/functions/addressbook.php:427
 #, fuzzy
 msgid "Nickname contains illegal characters"
 msgstr "ชื่อเล่นมีตัวอักษรที่ไม่ถูกต้อง"
 
-#: squirrelmail/functions/attachment_common.php:116
-#: squirrelmail/functions/attachment_common.php:140
-#: squirrelmail/functions/attachment_common.php:164
 msgid "view"
 msgstr "เปิดดู"
 
-#: squirrelmail/functions/attachment_common.php:180
 msgid "Business Card"
 msgstr "นามบัตร"
 
-#: squirrelmail/functions/date.php:91
+msgid "You must be logged in to access this page."
+msgstr "คุณต้องเข้าสู่ระบบก่อน"
+
 msgid "Sunday"
 msgstr "อา."
 
-#: squirrelmail/functions/date.php:94
 msgid "Monday"
 msgstr "จ."
 
-#: squirrelmail/functions/date.php:97
 msgid "Tuesday"
 msgstr "อ."
 
-#: squirrelmail/functions/date.php:100
 msgid "Wednesday"
 msgstr "พ."
 
-#: squirrelmail/functions/date.php:103
 msgid "Thursday"
 msgstr "พฤ."
 
-#: squirrelmail/functions/date.php:106
 msgid "Friday"
 msgstr "ศ."
 
-#: squirrelmail/functions/date.php:109
 msgid "Saturday"
 msgstr "ส."
 
-#: squirrelmail/functions/date.php:120
 msgid "January"
 msgstr "มกราคม"
 
-#: squirrelmail/functions/date.php:123
 msgid "February"
 msgstr "กุมภาพันธ์"
 
-#: squirrelmail/functions/date.php:126
 msgid "March"
 msgstr "มีนาคม"
 
-#: squirrelmail/functions/date.php:129
 msgid "April"
 msgstr "เมษายน"
 
-#: squirrelmail/functions/date.php:132
 msgid "May"
 msgstr "พฤษภาคม"
 
-#: squirrelmail/functions/date.php:135
 msgid "June"
 msgstr "มิถุนายน"
 
-#: squirrelmail/functions/date.php:138
 msgid "July"
 msgstr "กรกฏาคม"
 
-#: squirrelmail/functions/date.php:141
 msgid "August"
 msgstr "สิงหาคม"
 
-#: squirrelmail/functions/date.php:144
 msgid "September"
 msgstr "กันยายน"
 
-#: squirrelmail/functions/date.php:147
 msgid "October"
 msgstr "ตุลาคม"
 
-#: squirrelmail/functions/date.php:150
 msgid "November"
 msgstr "พฤศจิกายน"
 
-#: squirrelmail/functions/date.php:153
 msgid "December"
 msgstr "ธันวาคม"
 
-#: squirrelmail/functions/date.php:178
 msgid "D, F j, Y g:i a"
 msgstr "D, j F,Y g:i a"
 
-#: squirrelmail/functions/date.php:180
 #, fuzzy
 msgid "D, F j, Y G:i"
 msgstr "D, j F,Y G:i"
 
 # "วัน, เดือน วันที่, ปี ชั่วโมง:นาที am/pm"
-#: squirrelmail/functions/date.php:202
 msgid "g:i a"
 msgstr "g:i a"
 
-#: squirrelmail/functions/date.php:204
 msgid "G:i"
 msgstr "G:i"
 
 # "ชั่วโมง:นาที am/pm"
-#: squirrelmail/functions/date.php:209
 msgid "D, g:i a"
 msgstr "D, g:i a"
 
 # "ชั่วโมง:นาที am/pm"
-#: squirrelmail/functions/date.php:211
 #, fuzzy
 msgid "D, G:i"
 msgstr "D, G:i"
 
 # "วัน, ชั่วโมง:นาที am/pm"
-#: squirrelmail/functions/date.php:215
 msgid "M j, Y"
 msgstr "j M, Y"
 
 # "เดือน วันที่, ปี"
-#: squirrelmail/functions/db_prefs.php:82
-#: squirrelmail/functions/db_prefs.php:85
-#: squirrelmail/functions/db_prefs.php:204
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "มีข้อผิดพลาดกับฐานข้อมูล (%s)"
 
-#: squirrelmail/functions/display_messages.php:23
-#: squirrelmail/functions/imap_general.php:206
 msgid "Unknown user or password incorrect."
 msgstr "ชื่อ หรือรหัสผ่านผิดพลาด"
 
-#: squirrelmail/functions/display_messages.php:25
 msgid "Click here to try again"
 msgstr "กดที่นี่เพื่อลองอีกครั้ง"
 
-#: squirrelmail/functions/display_messages.php:39
-#, c-format
-msgid "Welcome to %s's WebMail system"
-msgstr "ยินดีต้อนรับสู่ระบบเว็บเมล์ของ %s"
-
-#: squirrelmail/functions/display_messages.php:51
-#, fuzzy, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "Running SquirrelMail version %s (c) 1999-2000."
-
-#: squirrelmail/functions/display_messages.php:76
 #, c-format
 msgid "Click here to return to %s"
 msgstr "กดที่นี่เพื่อกลับไปยัง %s"
 
-#: squirrelmail/functions/imap_general.php:119
-#: squirrelmail/functions/imap_messages.php:132
-#: squirrelmail/functions/imap_messages.php:140
-#: squirrelmail/functions/imap_messages.php:159
-#: squirrelmail/functions/imap_messages.php:168
-#: squirrelmail/functions/imap_messages.php:280
-#: squirrelmail/plugins/filters/filters.php:88
-msgid "ERROR : Could not complete request."
-msgstr "ผิดพลาด: ไม่สามารถทำงานได้"
+#, fuzzy, c-format
+msgid "%s Logo"
+msgstr "เข้าสู่ระบบ %s"
 
-#: squirrelmail/functions/imap_general.php:121
-#: squirrelmail/plugins/filters/filters.php:90
-msgid "Reason Given: "
-msgstr "เพราะ: "
-
-#: squirrelmail/functions/imap_general.php:128
-#: squirrelmail/plugins/filters/filters.php:97
-msgid "ERROR : Bad or malformed request."
-msgstr "ผิดพลาด: การร้องขอไม่ถูกต้อง"
-
-#: squirrelmail/functions/imap_general.php:130
-#: squirrelmail/plugins/filters/filters.php:99
-msgid "Server responded: "
-msgstr "เซิร์ฟเวอร์ตอบกลับ: "
-
-#: squirrelmail/functions/imap_general.php:166
 #, c-format
-msgid "Error connecting to IMAP server: %s."
-msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ IMAP: %s."
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail version %s"
 
-#: squirrelmail/functions/imap_general.php:183
-#, c-format
-msgid "Bad request: %s"
-msgstr "คำร้องขอไม่ถูกต้อง: %s"
+msgid "By the SquirrelMail Development Team"
+msgstr "By the SquirrelMail Development Team"
 
-#: squirrelmail/functions/imap_general.php:185
-#, c-format
-msgid "Unknown error: %s"
-msgstr "ไม่รู้ว่าผิดพลาดตรงไหน: %s"
+msgid "ERROR"
+msgstr "ผิดพลาด"
 
-#: squirrelmail/functions/imap_general.php:187
-msgid "Read data:"
-msgstr "ข้อมูลที่อ่านได้:"
+msgid "Go to the login page"
+msgstr "ไปยังหน้าจอ เข้าสู่ระบบ"
 
-#: squirrelmail/functions/imap_messages.php:134
-#: squirrelmail/functions/imap_messages.php:161
-#: squirrelmail/functions/imap_messages.php:282
-msgid "Unknown response from IMAP server: "
-msgstr "Unknown response from IMAP server: "
-
-#: squirrelmail/functions/imap_messages.php:142
-msgid "Unknown message number in reply from server: "
-msgstr "Unknown message number in reply from server: "
-
-#: squirrelmail/functions/imap_messages.php:170
-msgid "Unknown messagenumber in reply from server: "
-msgstr "Unknown messagenumber in reply from server: "
-
-#: squirrelmail/functions/imap_messages.php:179
-#: squirrelmail/functions/imap_messages.php:208
-#: squirrelmail/functions/imap_messages.php:452
-#: squirrelmail/functions/imap_messages.php:502
-#: squirrelmail/functions/mailbox_display.php:868
-msgid "(no subject)"
-msgstr "(ไม่มีหัวข้อ)"
-
-#: squirrelmail/functions/imap_messages.php:180
-msgid "Unknown Sender"
-msgstr "ไม่รู้จักผู้ส่ง"
-
-#: squirrelmail/functions/imap_messages.php:233
-#, fuzzy
-msgid "No To Address"
-msgstr "สมุดรายชื่อ"
-
-#: squirrelmail/functions/imap_messages.php:505
-msgid "(unknown sender)"
-msgstr "(ไม่รู้จักผู้ส่ง)"
-
-#: squirrelmail/functions/imap_search.php:62
-#, fuzzy
-msgid "No Messages Found"
-msgstr "จำนวนจดหมายต่อหน้า"
-
-#: squirrelmail/functions/imap_search.php:150
-msgid "Found"
-msgstr "พบแล้ว"
-
-#: squirrelmail/functions/imap_search.php:150
-msgid "messages"
-msgstr "ฉบับ"
-
-#: squirrelmail/functions/mailbox_display.php:409
-msgid "THIS FOLDER IS EMPTY"
-msgstr "ไม่พบจดหมายในกล่องจดหมาย"
-
-#: squirrelmail/functions/mailbox_display.php:493
-msgid "Move selected to:"
-msgstr "ย้ายจดหมายที่เลือกไปยัง:"
-
-#: squirrelmail/functions/mailbox_display.php:496
-msgid "Transform Selected Messages"
-msgstr "แปลงจดหมายที่เลือก"
-
-#: squirrelmail/functions/mailbox_display.php:512
-msgid "Move"
-msgstr "    ย้าย    "
-
-#: squirrelmail/functions/mailbox_display.php:516
-msgid "Expunge"
-msgstr "     ลบ     "
-
-#: squirrelmail/functions/mailbox_display.php:516
-msgid "mailbox"
-msgstr "กล่องจดหมาย"
-
-#: squirrelmail/functions/mailbox_display.php:518
-msgid "Read"
-msgstr "อ่านแล้ว"
-
-#: squirrelmail/functions/mailbox_display.php:519
-msgid "Unread"
-msgstr "ยังไม่อ่าน"
-
-#: squirrelmail/functions/mailbox_display.php:615
-msgid "Toggle All"
-msgstr "เลือก/ไม่เลือก ทั้งหมด"
-
-#: squirrelmail/functions/mailbox_display.php:633
-msgid "Unselect All"
-msgstr "ไม่เลือกทั้งหมด"
-
-#: squirrelmail/functions/mailbox_display.php:635
-msgid "Select All"
-msgstr "เลือกทั้งหมด"
-
-#: squirrelmail/functions/mailbox_display.php:652
-#, c-format
-msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr "แสดงจดหมายฉบับที่: <B>%s</B> ถึง <B>%s</B> (%s ฉบับ)"
-
-#: squirrelmail/functions/mailbox_display.php:654
-#, c-format
-msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr "แสดงจดหมายฉบับที่: <B>%s</B> (1 ฉบับ)"
-
-#: squirrelmail/functions/mailbox_display.php:842
-msgid "Show All"
-msgstr "แสดงทั้งหมด"
-
-#: squirrelmail/functions/mime.php:647
-msgid "Attachments"
-msgstr "แนบไฟล์"
-
-#: squirrelmail/functions/mime.php:686
-msgid "download"
-msgstr "ดาวน์โหลด"
-
-#: squirrelmail/functions/mime.php:956
-msgid "Title:"
-msgstr "หัวข้อ:"
-
-#: squirrelmail/functions/options.php:167
-#, c-format
-msgid "Option Type '%s' Not Found"
-msgstr "ไม่พบตัวเลือก '%s'"
-
-#: squirrelmail/functions/options.php:253
-msgid "Yes"
-msgstr "ใช่"
-
-#: squirrelmail/functions/options.php:258
-msgid "No"
-msgstr "ไม่ใช่"
-
-#: squirrelmail/functions/page_header.php:74
-msgid "Current Folder"
-msgstr "กล่องจดหมายในขณะนี้"
-
-#: squirrelmail/functions/page_header.php:80
-msgid "Compose"
-msgstr "ส่งจดหมาย"
-
-#: squirrelmail/functions/prefs.php:33
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
-msgstr ""
-"ไม่พบแฟ้มเก็บข้อมูลส่วนบุคคล %s, ออกจากระบบ "
-"และเข้าใหม่เพื่อสร้างแฟ้มข้อมูลใหม่"
+msgstr "ไม่พบแฟ้มเก็บข้อมูลส่วนบุคคล %s, ออกจากระบบ และเข้าใหม่เพื่อสร้างแฟ้มข้อมูลใหม่"
 
-#: squirrelmail/functions/prefs.php:144
-msgid "Error opening "
-msgstr "ไม่สามารถเปิด "
-
-#: squirrelmail/plugins/filters/filters.php:359
-msgid ""
-"COMMERCIAL - This list contains servers that are verified spam senders. It "
-"is a pretty reliable list to scan spam from."
-msgstr ""
-"COMMERCIAL - This list contains servers that are verified spam senders. It "
-"is a pretty reliable list to scan spam from."
-
-#: squirrelmail/plugins/filters/filters.php:367
-msgid ""
-"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
-"be relayed through their system will be banned with this.  Another good one "
-"to use."
-msgstr ""
-"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
-"be relayed through their system will be banned with this.  Another good one "
-"to use."
-
-#: squirrelmail/plugins/filters/filters.php:375
-msgid ""
-"COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
-"account and send spam directly from there."
-msgstr ""
-"COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
-"account and send spam directly from there."
-
-#: squirrelmail/plugins/filters/filters.php:383
-msgid "COMMERCIAL - RBL+ Blackhole entries."
-msgstr "COMMERCIAL - RBL+ Blackhole entries."
-
-#: squirrelmail/plugins/filters/filters.php:391
-msgid "COMMERCIAL - RBL+ OpenRelay entries."
-msgstr "COMMERCIAL - RBL+ OpenRelay entries."
-
-#: squirrelmail/plugins/filters/filters.php:399
-#: squirrelmail/plugins/filters/filters.php:399
-msgid "COMMERCIAL - RBL+ Dial-up entries."
-msgstr "COMMERCIAL - RBL+ Dial-up entries."
-
-#: squirrelmail/plugins/filters/filters.php:407
-msgid ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
-msgstr ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
-
-#: squirrelmail/plugins/filters/filters.php:415
-msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-msgstr "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-
-#: squirrelmail/plugins/filters/filters.php:423
-msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
-msgstr ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
-
-#: squirrelmail/plugins/filters/filters.php:431
-msgid ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
-msgstr ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
-
-#: squirrelmail/plugins/filters/filters.php:439
-msgid ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
-msgstr ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
-
-#: squirrelmail/plugins/filters/filters.php:447
-msgid ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
-msgstr ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
-
-#: squirrelmail/plugins/filters/filters.php:455
-msgid ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
-msgstr ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
-
-#: squirrelmail/plugins/filters/filters.php:463
-msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr "FREE - Another ORBS replacement (just the INPUTS database used here)."
-
-#: squirrelmail/plugins/filters/filters.php:471
-msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-
-#: squirrelmail/plugins/filters/filters.php:479
-msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
-msgstr "FREE - Five-Ten-sg.com - Direct SPAM sources."
-
-#: squirrelmail/plugins/filters/filters.php:487
-msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-msgstr "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-
-#: squirrelmail/plugins/filters/filters.php:495
-msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-msgstr "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-
-#: squirrelmail/plugins/filters/filters.php:503
-msgid "FREE - Five-Ten-sg.com - Other misc. servers."
-msgstr "FREE - Five-Ten-sg.com - Other misc. servers."
-
-#: squirrelmail/plugins/filters/filters.php:511
-msgid "FREE - Five-Ten-sg.com - Single Stage servers."
-msgstr "FREE - Five-Ten-sg.com - Single Stage servers."
-
-#: squirrelmail/plugins/filters/filters.php:519
-msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
-msgstr "FREE - Five-Ten-sg.com - SPAM Support servers."
-
-#: squirrelmail/plugins/filters/filters.php:527
-msgid "FREE - Five-Ten-sg.com - Web Form IPs."
-msgstr "FREE - Five-Ten-sg.com - Web Form IPs."
-
-#: squirrelmail/plugins/filters/filters.php:535
-msgid ""
-"FREE - Dorkslayers appears to include only really bad open relays outside "
-"the US to avoid being sued. Interestingly enough, their website recommends "
-"you NOT use their service."
-msgstr ""
-"FREE - Dorkslayers appears to include only really bad open relays outside "
-"the US to avoid being sued. Interestingly enough, their website recommends "
-"you NOT use their service."
-
-#: squirrelmail/plugins/filters/filters.php:543
-msgid ""
-"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-"SLOOOOOOW!"
-msgstr ""
-"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-"SLOOOOOOW!"
-
-#: squirrelmail/plugins/filters/filters.php:551
-msgid "FREE - orbz.gst-group.co.uk - Inputs only."
-msgstr "FREE - orbz.gst-group.co.uk - Inputs only."
-
-#: squirrelmail/plugins/filters/filters.php:559
-msgid "FREE - orbz.gst-group.co.uk - Outputs only."
-msgstr "FREE - orbz.gst-group.co.uk - Outputs only."
-
-#: squirrelmail/plugins/filters/filters.php:567
-msgid ""
-"FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
-"addressed to postmaster@<theirdomain>."
-msgstr ""
-"FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
-"addressed to postmaster@<theirdomain>."
-
-#: squirrelmail/plugins/filters/filters.php:575
 #, c-format
 msgid ""
-"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
-"have a very high spam to legit email ratio (85% or more)."
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
 msgstr ""
-"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
-"have a very high spam to legit email ratio (85% or more)."
 
-#: squirrelmail/plugins/filters/options.php:60
+#, c-format
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr ""
+
+#, fuzzy, c-format
+msgid "Error opening %s"
+msgstr "ไม่สามารถเปิด "
+
+msgid "Default preference file not found or not readable!"
+msgstr ""
+
 #, fuzzy
-msgid "Message Filtering"
-msgstr "ตัวกรองจดหมาย"
+msgid "Please contact your system administrator and report this error."
+msgstr "ติดต่อผู้ดูแลระบบของคุณ เพื่อแก้ไขปัญหา"
 
-#: squirrelmail/plugins/filters/options.php:76
+msgid "Could not create initial preference file!"
+msgstr ""
+
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr ""
+
+#, c-format
+msgid ""
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr ""
+
+#, c-format
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr ""
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+
+msgid "ERROR : No available imapstream."
+msgstr ""
+
+msgid "ERROR : Could not complete request."
+msgstr "ผิดพลาด: ไม่สามารถทำงานได้"
+
+msgid "Query:"
+msgstr ""
+
+msgid "Reason Given: "
+msgstr "เพราะ: "
+
+msgid "ERROR : Bad or malformed request."
+msgstr "ผิดพลาด: การร้องขอไม่ถูกต้อง"
+
+msgid "Server responded: "
+msgstr "เซิร์ฟเวอร์ตอบกลับ: "
+
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ IMAP: %s."
+
+#, c-format
+msgid "Bad request: %s"
+msgstr "คำร้องขอไม่ถูกต้อง: %s"
+
+#, c-format
+msgid "Unknown error: %s"
+msgstr "ไม่รู้ว่าผิดพลาดตรงไหน: %s"
+
+msgid "Read data:"
+msgstr "ข้อมูลที่อ่านได้:"
+
 #, fuzzy
-msgid "Match:"
-msgstr "ตรงกับ"
+msgid "ERROR : Could not append message to"
+msgstr "ผิดพลาด: ไม่สามารถทำงานได้"
 
-#: squirrelmail/plugins/filters/options.php:102
-msgid "Contains:"
-msgstr "ถ้ามีคำว่า:"
+#, fuzzy
+msgid "Solution: "
+msgstr "ควรเป็น:"
 
-#: squirrelmail/plugins/filters/options.php:114
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
+msgstr ""
+
+#, fuzzy
+msgid "INBOX"
+msgstr "เฉพาะในกล่องจดหมาย INBOX"
+
+msgid "Unknown response from IMAP server: "
+msgstr "Unknown response from IMAP server: "
+
+msgid "Unknown message number in reply from server: "
+msgstr "Unknown message number in reply from server: "
+
+msgid "Unknown Sender"
+msgstr "ไม่รู้จักผู้ส่ง"
+
+msgid "(unknown sender)"
+msgstr "(ไม่รู้จักผู้ส่ง)"
+
+#, fuzzy
+msgid "Unknown date"
+msgstr "ไม่รู้จักผู้ส่ง"
+
+msgid "A"
+msgstr ""
+
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+
+msgid "THIS FOLDER IS EMPTY"
+msgstr "ไม่พบจดหมายในกล่องจดหมาย"
+
+#, fuzzy
+msgid "Move Selected To"
+msgstr "ย้ายจดหมายที่เลือกไปยัง:"
+
+msgid "Transform Selected Messages"
+msgstr "แปลงจดหมายที่เลือก"
+
+msgid "Move"
+msgstr "    ย้าย    "
+
+msgid "Forward"
+msgstr "ส่งต่อ"
+
+msgid "Expunge"
+msgstr "     ลบ     "
+
+msgid "mailbox"
+msgstr "กล่องจดหมาย"
+
+msgid "Read"
+msgstr "อ่านแล้ว"
+
+msgid "Unread"
+msgstr "ยังไม่อ่าน"
+
+msgid "Delete"
+msgstr "     ลบ     "
+
+#, fuzzy
+msgid "Unthread View"
+msgstr "ยังไม่อ่าน"
+
+msgid "Thread View"
+msgstr ""
+
+msgid "To"
+msgstr "ถึง"
+
+msgid "From"
+msgstr "จาก"
+
+msgid "Date"
+msgstr "วันที่"
+
+msgid "Subject"
+msgstr "หัวข้อ"
+
+msgid "Size"
+msgstr "ขนาด"
+
+msgid "Toggle All"
+msgstr "เลือก/ไม่เลือก ทั้งหมด"
+
+msgid "Unselect All"
+msgstr "ไม่เลือกทั้งหมด"
+
+msgid "Select All"
+msgstr "เลือกทั้งหมด"
+
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr "แสดงจดหมายฉบับที่: <B>%s</B> ถึง <B>%s</B> (%s ฉบับ)"
+
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr "แสดงจดหมายฉบับที่: <B>%s</B> (1 ฉบับ)"
+
+msgid "Previous"
+msgstr "หน้าที่แล้ว"
+
+msgid "Next"
+msgstr "หน้าถัดไป"
+
+#, fuzzy
+msgid "Paginate"
+msgstr "พิมพ์"
+
+msgid "Show All"
+msgstr "แสดงทั้งหมด"
+
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr ""
+
+msgid "the provided bodystructure by your imap-server"
+msgstr ""
+
+msgid ""
+"Body retrieval error. The reason for this is most probably that the message "
+"is malformed."
+msgstr ""
+
+msgid "Command:"
+msgstr ""
+
+#, fuzzy
+msgid "Response:"
+msgstr "เพราะ: "
+
+#, fuzzy
+msgid "Message:"
+msgstr "จดหมาย"
+
+msgid "FETCH line:"
+msgstr ""
+
+#, fuzzy
+msgid "High"
+msgstr "สูง"
+
+msgid "Low"
+msgstr "ต่ำ"
+
+msgid "Normal"
+msgstr "ปานกลาง"
+
+msgid "Hide Unsafe Images"
+msgstr ""
+
+#, fuzzy
+msgid "View Unsafe Images"
+msgstr "จดหมายฉบับที่"
+
+msgid "download"
+msgstr "ดาวน์โหลด"
+
+#, fuzzy
+msgid "Unknown sender"
+msgstr "ไม่รู้จักผู้ส่ง"
+
+msgid "sec_remove_eng.png"
+msgstr ""
+
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr "ไม่พบตัวเลือก '%s'"
+
+msgid "Yes"
+msgstr "ใช่"
+
+msgid "No"
+msgstr "ไม่ใช่"
+
+msgid "Submit"
+msgstr "ตกลง"
+
+msgid "Current Folder"
+msgstr "กล่องจดหมายในขณะนี้"
+
+msgid "Sign Out"
+msgstr "ออกจากระบบ"
+
+msgid "Compose"
+msgstr "ส่งจดหมาย"
+
+msgid "Addresses"
+msgstr "สมุดรายชื่อ"
+
+msgid "Folders"
+msgstr "กล่องจดหมาย"
+
+msgid "Options"
+msgstr "ปรับแต่ง"
+
+msgid "Search"
+msgstr "ค้นหา"
+
+msgid "Help"
+msgstr "ช่วยเหลือ"
+
+#, fuzzy, c-format
+msgid "Error creating directory %s."
+msgstr "ลบพจนานุกรมที่ถูกเข้ารหัส"
+
+msgid "Could not create hashed directory structure!"
+msgstr ""
+
+msgid "General Display Options"
+msgstr "ปรับแต่งการแสดงผล"
+
+msgid "Theme"
+msgstr "ใช้รูปแบบ"
+
+#, fuzzy
+msgid "Default"
+msgstr "ใช้อันนี้เป็นแบบปกติ"
+
+msgid "Custom Stylesheet"
+msgstr ""
+
+msgid "Language"
+msgstr "ภาษา"
+
+#, fuzzy
+msgid "Use Javascript"
+msgstr "ใช้จาวาสคริปต์"
+
+msgid "Autodetect"
+msgstr "อัตโนมัติ"
+
+msgid "Always"
+msgstr "ทุกครั้ง"
+
+msgid "Never"
+msgstr "ไม่ใช้"
+
+msgid "Mailbox Display Options"
+msgstr "ปรับแต่งการแสดงจดหมายในกล่อง"
+
+msgid "Number of Messages to Index"
+msgstr "จำนวนจดหมายต่อหน้า"
+
+#, fuzzy
+msgid "Enable Alternating Row Colors"
+msgstr "สลับสีระหว่างบรรทัด"
+
+#, fuzzy
+msgid "Enable Page Selector"
+msgstr "แสดงตัวเลือกหน้า"
+
+#, fuzzy
+msgid "Maximum Number of Pages to Show"
+msgstr "จำนวนจดหมายต่อหน้า"
+
+msgid "Message Display and Composition"
+msgstr "การแสดงจดหมาย และการเขียนจดหมาย"
+
+#, fuzzy
+msgid "Wrap Incoming Text At"
+msgstr "แบ่งข้อความที่ตำแหน่ง"
+
+#, fuzzy
+msgid "Size of Editor Window"
+msgstr "ขนาดหน้าต่าง ที่ใช้เขียนจดหมาย"
+
+#, fuzzy
+msgid "Location of Buttons when Composing"
+msgstr "ตำแหน่งของปุ่มที่ใช้ส่งจดหมาย"
+
+msgid "Before headers"
+msgstr "ก่อนหน้าหัวข้อ"
+
+msgid "Between headers and message body"
+msgstr "ระหว่างหัวข้อ กับเนื้อความจดหมาย"
+
+msgid "After message body"
+msgstr "ถัดจากเนื้อความจดหมาย"
+
+#, fuzzy
+msgid "Addressbook Display Format"
+msgstr "รูปแบบการแสดงสมุดรายชื่อ"
+
+#, fuzzy
+msgid "Javascript"
+msgstr "จาวาสคริปต์"
+
+msgid "HTML"
+msgstr "HTML ธรรมดา"
+
+#, fuzzy
+msgid "Show HTML Version by Default"
+msgstr "แสดงผลในรูปแบบ HTML"
+
+msgid "Enable Forward as Attachment"
+msgstr ""
+
+msgid "Include CCs when Forwarding Messages"
+msgstr ""
+
+msgid "Include Me in CC when I Reply All"
+msgstr "สำเนาถึงตัวคุณเองด้วย ถ้าเลือกที่ตอบกลับทุกคน"
+
+msgid "Enable Mailer Display"
+msgstr "แสดงโปรแกรมที่ใช้ส่งจดหมาย"
+
+msgid "Display Attached Images with Message"
+msgstr "แสดงรูปที่แนบมากับจดหมาย พร้อมกับข้อความจดหมาย"
+
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "แสดงลิงค์ สำหรับพิมพ์จดหมาย "
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "แสดงจดหมายแบบสะอาด ในโหมดพิมพ์จดหมาย"
+
+#, fuzzy
+msgid "Enable Mail Delivery Notification"
+msgstr "แจ้งเตือนจดหมายที่ยังไม่เปิดดู"
+
+msgid "Compose Messages in New Window"
+msgstr ""
+
+#, fuzzy
+msgid "Width of Compose Window"
+msgstr "ปิดหน้าต่างนี้"
+
+#, fuzzy
+msgid "Height of Compose Window"
+msgstr "ปิดหน้าต่างนี้"
+
+msgid "Append Signature before Reply/Forward Text"
+msgstr ""
+
+msgid "Enable Sort by of Receive Date"
+msgstr ""
+
+msgid "Enable Thread Sort by References Header"
+msgstr ""
+
+msgid "Special Folder Options"
+msgstr "ปรับแต่งกล่องจดหมายแบบพิเศษ"
+
+msgid "Folder Path"
+msgstr "ตำแหน่งกล่องจดหมาย"
+
+msgid "Do not use Trash"
+msgstr "ไม่ต้องเก็บจดหมายที่ถูกลบ ลงในกล่องจดหมายที่ถูกลบ"
+
+#, fuzzy
+msgid "Trash Folder"
+msgstr "กล่องเก็บจดหมายที่ถูกลบ:"
+
+msgid "Do not use Sent"
+msgstr "ไม่ต้องเก็บจดหมายที่ส่ง ลงในกล่องจดหมายส่งแล้ว"
+
+#, fuzzy
+msgid "Sent Folder"
+msgstr "กล่องเก็บจดหมายที่ส่งแล้ว:"
+
+#, fuzzy
+msgid "Do not use Drafts"
+msgstr "ไม่ต้องเก็บจดหมายที่ถูกลบ ลงในกล่องจดหมายที่ถูกลบ"
+
+#, fuzzy
+msgid "Draft Folder"
+msgstr "กล่องเก็บจดหมายที่ถูกลบ:"
+
+msgid "Folder List Options"
+msgstr "ปรับแต่งแสดงรายการกล่องจดหมาย"
+
+#, fuzzy
+msgid "Location of Folder List"
+msgstr "ตำแหน่งของรายการกล่องจดหมาย"
+
+msgid "Left"
+msgstr "ด้านซ้าย"
+
+msgid "Right"
+msgstr "ด้านขวา"
+
+msgid "pixels"
+msgstr "พิกเซล"
+
+#, fuzzy
+msgid "Width of Folder List"
+msgstr "ความกว้างของรายการกล่องจดหมาย"
+
+msgid "Minutes"
+msgstr "นาที"
+
+msgid "Seconds"
+msgstr "วินาที"
+
+msgid "Minute"
+msgstr "นาที"
+
+#, fuzzy
+msgid "Auto Refresh Folder List"
+msgstr "แสดงกล่องจดหมายล่าสุดโดยอัตโนมัติ"
+
+#, fuzzy
+msgid "Enable Unread Message Notification"
+msgstr "แจ้งเตือนจดหมายที่ยังไม่เปิดดู"
+
+#, fuzzy
+msgid "No Notification"
+msgstr "ไม่ต้องแจ้งเตือน"
+
+msgid "Only INBOX"
+msgstr "เฉพาะในกล่องจดหมาย INBOX"
+
+msgid "All Folders"
+msgstr "ทุกๆ กล่องจดหมาย"
+
+#, fuzzy
+msgid "Unread Message Notification Type"
+msgstr "ชนิดของการแจ้งเตือน จดหมายที่ยังไม่เปิดดู"
+
+#, fuzzy
+msgid "Only Unseen"
+msgstr "เฉพาะที่ยังไม่เปิดดู"
+
+msgid "Unseen and Total"
+msgstr "ยังไม่เปิดดู /ทั้งหมด"
+
+#, fuzzy
+msgid "Enable Collapsable Folders"
+msgstr "อนุญาติให้ซ่อนกล่องจดหมายย่อย (จะมีเครื่องหมาย + หน้ากล่องจดหมายตัวแม่)"
+
+#, fuzzy
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "แจ้งเตือนจดหมายที่ยังไม่เปิดดู"
+
+msgid "Show Clock on Folders Panel"
+msgstr "แสดงเวลาบนกล่องในหน้าต่างซ้ายมือ"
+
+msgid "No Clock"
+msgstr "ไม่แสดงเวลา"
+
+#, fuzzy
+msgid "Hour Format"
+msgstr "รูปแบบชั่วโมง"
+
+msgid "12-hour clock"
+msgstr "แสดงเวลาแบบ 12 ชั่วโมง"
+
+msgid "24-hour clock"
+msgstr "แสดงเวลาแบบ 24 ชั่วโมง"
+
+#, fuzzy
+msgid "Memory Search"
+msgstr "ค้นหา"
+
+msgid "Disabled"
+msgstr ""
+
+#, fuzzy
+msgid "Folder Selection Options"
+msgstr "ปรับแต่งแสดงรายการกล่องจดหมาย"
+
+#, fuzzy
+msgid "Selection List Style"
+msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
+
+msgid "Long: "
+msgstr ""
+
+msgid "Indented: "
+msgstr ""
+
+msgid "Delimited: "
+msgstr ""
+
+msgid "Name and Address Options"
+msgstr "ปรับแต่ง ชื่อ และที่อยู่"
+
+msgid "Full Name"
+msgstr "ชื่อเต็ม"
+
+#, fuzzy
+msgid "Email Address"
+msgstr "อีเมล์แอดเดรส"
+
+msgid "Reply To"
+msgstr "ให้ตอบกลับไปที่"
+
+msgid "Signature"
+msgstr "ลายเซ็น"
+
+msgid "Edit Advanced Identities"
+msgstr "แก้ไขรายละเอียดส่วนตัวเพิ่มเติม"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(ยกเลิกการแก้ไขในฟอร์มนี้)"
+
+msgid "Multiple Identities"
+msgstr "รายละเอียดส่วนตัวเพิ่มเติม"
+
+msgid "Same as server"
+msgstr ""
+
+#, fuzzy
+msgid "Timezone Options"
+msgstr "ลายเซ็น"
+
+msgid "Your current timezone"
+msgstr ""
+
+#, fuzzy
+msgid "Reply Citation Options"
+msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
+
+msgid "Reply Citation Style"
+msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
+
+msgid "No Citation"
+msgstr "ไม่ต้องอ้างถึง"
+
+msgid "AUTHOR Said"
+msgstr "คุณเชียนมาว่า"
+
+msgid "Quote Who XML"
+msgstr "อ้างถึง"
+
+msgid "User-Defined"
+msgstr "กำหนดเอง"
+
+#, fuzzy
+msgid "User-Defined Citation Start"
+msgstr "รูปแบบการอ้างถึงที่กำหนดเอง"
+
+#, fuzzy
+msgid "User-Defined Citation End"
+msgstr "รูปแบบการอ้างถึงที่กำหนดเอง"
+
+#, fuzzy
+msgid "Signature Options"
+msgstr "ลายเซ็น"
+
+#, fuzzy
+msgid "Use Signature"
+msgstr "ใช้ลายเซ็น"
+
+#, fuzzy
+msgid "Prefix Signature with '-- ' Line"
+msgstr "นำหน้าลายเซ็นด้วย '-- ' ?"
+
+#, fuzzy
+msgid "Config File Version"
+msgstr "แสดงจดหมายในรูปแบบสำหรับพิมพ์"
+
+#, fuzzy
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail version %s"
+
+msgid "PHP Version"
+msgstr ""
+
+#, fuzzy
+msgid "Organization Preferences"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Organization Name"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Organization Logo"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Organization Logo Width"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Organization Logo Height"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Organization Title"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Signout Page"
+msgstr "ออกจากระบบ"
+
+#, fuzzy
+msgid "Default Language"
+msgstr "ภาษา"
+
+msgid "Top Frame"
+msgstr ""
+
+msgid "Server Settings"
+msgstr ""
+
+msgid "Mail Domain"
+msgstr ""
+
+msgid "IMAP Server Address"
+msgstr ""
+
+msgid "IMAP Server Port"
+msgstr ""
+
+msgid "IMAP Server Type"
+msgstr ""
+
+msgid "Cyrus IMAP server"
+msgstr ""
+
+msgid "University of Washington's IMAP server"
+msgstr ""
+
+msgid "Microsoft Exchange IMAP server"
+msgstr ""
+
+msgid "Courier IMAP server"
+msgstr ""
+
+#, fuzzy
+msgid "Not one of the above servers"
+msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์"
+
+msgid "IMAP Folder Delimiter"
+msgstr ""
+
+msgid "Use \"detect\" to auto-detect."
+msgstr ""
+
+msgid "Use Sendmail"
+msgstr ""
+
+msgid "Sendmail Path"
+msgstr ""
+
+msgid "SMTP Server Address"
+msgstr ""
+
+msgid "SMTP Server Port"
+msgstr ""
+
+msgid "Authenticated SMTP"
+msgstr ""
+
+msgid "Invert Time"
+msgstr ""
+
+msgid "Use Confirmation Flags"
+msgstr ""
+
+#, fuzzy
+msgid "Folders Defaults"
+msgstr "ตำแหน่งกล่องจดหมาย"
+
+#, fuzzy
+msgid "Default Folder Prefix"
+msgstr "ลบกล่องจดหมาย"
+
+#, fuzzy
+msgid "Show Folder Prefix Option"
+msgstr "ปรับแต่งแสดงรายการกล่องจดหมาย"
+
+msgid "By default, move to trash"
+msgstr ""
+
+msgid "By default, move to sent"
+msgstr ""
+
+msgid "By default, save as draft"
+msgstr ""
+
+#, fuzzy
+msgid "List Special Folders First"
+msgstr "ปรับแต่งกล่องจดหมายแบบพิเศษ"
+
+#, fuzzy
+msgid "Show Special Folders Color"
+msgstr "ปรับแต่งกล่องจดหมายแบบพิเศษ"
+
+#, fuzzy
+msgid "Auto Expunge"
+msgstr "     ลบ     "
+
+msgid "Default Sub. of INBOX"
+msgstr ""
+
+msgid "Show 'Contain Sub.' Option"
+msgstr ""
+
+#, fuzzy
+msgid "Default Unseen Notify"
+msgstr "รายละเอียดส่วนตัวแบบปกติ"
+
+#, fuzzy
+msgid "Default Unseen Type"
+msgstr "รายละเอียดส่วนตัวแบบปกติ"
+
+#, fuzzy
+msgid "Auto Create Special Folders"
+msgstr "สร้างกล่องจดหมาย"
+
+#, fuzzy
+msgid "Default Javascript Adrressbook"
+msgstr "ใช้สมุดจดหมายที่เป็น จาวาสคริปต์ หรือ HTML ธรรมดา?"
+
+#, fuzzy
+msgid "Auto delete folders"
+msgstr "ปรับรายการกล่องจดหมายให้ทันสมัยโดยอัตโนมัติ"
+
+#, fuzzy
+msgid "General Options"
+msgstr "ปรับแต่งการแสดงผล"
+
+#, fuzzy
+msgid "Default Charset"
+msgstr "รายละเอียดส่วนตัวแบบปกติ"
+
+msgid "Data Directory"
+msgstr ""
+
+msgid "Temp Directory"
+msgstr ""
+
+msgid "Hash Level"
+msgstr ""
+
+msgid "Hash Disabled"
+msgstr ""
+
+#, fuzzy
+msgid "Moderate"
+msgstr "ตำแหน่งกล่องจดหมาย"
+
+#, fuzzy
+msgid "Medium"
+msgstr "เทาปานกลาง"
+
+#, fuzzy
+msgid "Default Left Size"
+msgstr "รายละเอียดส่วนตัวแบบปกติ"
+
+msgid "Usernames in Lowercase"
+msgstr ""
+
+msgid "Allow use of priority"
+msgstr ""
+
+msgid "Hide SM attributions"
+msgstr ""
+
+msgid "Enable use of delivery receipts"
+msgstr ""
+
+msgid "Allow editing of identities"
+msgstr ""
+
+msgid "Allow editing of full name"
+msgstr ""
+
+#, fuzzy
+msgid "Message of the Day"
+msgstr "จดหมาย"
+
+#, fuzzy
+msgid "Database"
+msgstr "วันที่"
+
+#, fuzzy
+msgid "Address book DSN"
+msgstr "สมุดรายชื่อ"
+
+#, fuzzy
+msgid "Address book table"
+msgstr "สมุดรายชื่อ"
+
+#, fuzzy
+msgid "Preferences DSN"
+msgstr "กำหนดรูปแบบกล่องจดหมาย"
+
+#, fuzzy
+msgid "Preferences table"
+msgstr "กำหนดรูปแบบกล่องจดหมาย"
+
+msgid "Preferences username field"
+msgstr ""
+
+msgid "Preferences key field"
+msgstr ""
+
+msgid "Preferences value field"
+msgstr ""
+
+#, fuzzy
+msgid "Themes"
+msgstr "ใช้รูปแบบ"
+
+msgid "Style Sheet URL (css)"
+msgstr ""
+
+#, fuzzy
+msgid "Configuration Administrator"
+msgstr "ติดต่อผู้ดูแลระบบของคุณ เพื่อแก้ไขปัญหา"
+
+#, fuzzy
+msgid "Theme Name"
+msgstr "ใช้รูปแบบ"
+
+#, fuzzy
+msgid "Theme Path"
+msgstr "ใช้รูปแบบ"
+
+msgid "Plugins"
+msgstr ""
+
+#, fuzzy
+msgid "Change Settings"
+msgstr "เปลี่ยนแปลงการเข้ารหัส"
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr ""
+
+msgid "Administration"
+msgstr ""
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+
+msgid "Bug Reports:"
+msgstr ""
+
+msgid "Show button in toolbar"
+msgstr ""
+
+msgid "TODAY"
+msgstr ""
+
+msgid "Go"
+msgstr "ดำเนินการ"
+
+#, fuzzy
+msgid "l, F j Y"
+msgstr "D, j F,Y G:i"
+
+msgid "ADD"
+msgstr ""
+
+msgid "EDIT"
+msgstr ""
+
+msgid "DEL"
+msgstr ""
+
+msgid "Start time:"
+msgstr ""
+
+msgid "Length:"
+msgstr ""
+
+#, fuzzy
+msgid "Priority:"
+msgstr "ระดับความสำคัญ"
+
+msgid "Title:"
+msgstr "หัวข้อ:"
+
+msgid "Set Event"
+msgstr ""
+
+msgid "Event Has been added!"
+msgstr ""
+
+msgid "Date:"
+msgstr "วันที่:"
+
+#, fuzzy
+msgid "Time:"
+msgstr "หัวข้อ:"
+
+msgid "Day View"
+msgstr ""
+
+msgid "Do you really want to delete this event?"
+msgstr ""
+
+#, fuzzy
+msgid "Event deleted!"
+msgstr "แก้ไขอันที่เลือก"
+
+msgid "Nothing to delete!"
+msgstr ""
+
+#, fuzzy
+msgid "Update Event"
+msgstr "ยืนยันการแก้ไข"
+
+msgid "Do you really want to change this event from:"
+msgstr ""
+
+#, fuzzy
+msgid "to:"
+msgstr "ถึง"
+
+msgid "Event updated!"
+msgstr ""
+
+msgid "Month View"
+msgstr ""
+
+msgid "0 min."
+msgstr ""
+
+msgid "15 min."
+msgstr ""
+
+msgid "35 min."
+msgstr ""
+
+msgid "45 min."
+msgstr ""
+
+msgid "1 hr."
+msgstr ""
+
+msgid "1.5 hr."
+msgstr ""
+
+msgid "2 hr."
+msgstr ""
+
+msgid "2.5 hr."
+msgstr ""
+
+msgid "3 hr."
+msgstr ""
+
+msgid "3.5 hr."
+msgstr ""
+
+msgid "4 hr."
+msgstr ""
+
+msgid "5 hr."
+msgstr ""
+
+msgid "6 hr."
+msgstr ""
+
+msgid "Calendar"
+msgstr ""
+
+#, fuzzy
+msgid "Delete & Prev"
+msgstr "     ลบ     "
+
+#, fuzzy
+msgid "Delete & Next"
+msgstr "ลบอันที่เลือก"
+
 #, fuzzy
 msgid "Move to:"
 msgstr "    ย้าย    "
 
-#: squirrelmail/plugins/filters/options.php:156
+msgid "Delete/Move/Next Buttons:"
+msgstr ""
+
+msgid "Display at top"
+msgstr ""
+
+msgid "with move option"
+msgstr ""
+
+msgid "Display at bottom"
+msgstr ""
+
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+
+msgid "COMMERCIAL - RBL+ Blackhole entries."
+msgstr "COMMERCIAL - RBL+ Blackhole entries."
+
+msgid "COMMERCIAL - RBL+ OpenRelay entries."
+msgstr "COMMERCIAL - RBL+ OpenRelay entries."
+
+msgid "COMMERCIAL - RBL+ Dial-up entries."
+msgstr "COMMERCIAL - RBL+ Dial-up entries."
+
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+msgstr ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+
+msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+msgstr "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+msgstr ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+msgstr ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+msgstr ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+msgstr ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+
+msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
+msgstr ""
+
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr ""
+
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+
+msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
+msgstr "FREE - Five-Ten-sg.com - Direct SPAM sources."
+
+msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+msgstr "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+
+msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+"FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+
+msgid "FREE - Five-Ten-sg.com - Other misc. servers."
+msgstr "FREE - Five-Ten-sg.com - Other misc. servers."
+
+msgid "FREE - Five-Ten-sg.com - Single Stage servers."
+msgstr "FREE - Five-Ten-sg.com - Single Stage servers."
+
+msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
+msgstr "FREE - Five-Ten-sg.com - SPAM Support servers."
+
+msgid "FREE - Five-Ten-sg.com - Web Form IPs."
+msgstr "FREE - Five-Ten-sg.com - Web Form IPs."
+
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+
+msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
+msgstr ""
+
+#, c-format
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+msgstr ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+
+msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
+msgstr ""
+
+msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
+msgstr ""
+
+msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgstr ""
+
+#, fuzzy
+msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgstr "FREE - Five-Ten-sg.com - Direct SPAM sources."
+
+msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
+msgstr ""
+
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
+msgstr ""
+
+msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+msgid "Saved Scan type"
+msgstr ""
+
+#, fuzzy
+msgid "Message Filtering"
+msgstr "ตัวกรองจดหมาย"
+
+msgid "What to Scan:"
+msgstr "มองหาคำว่า:"
+
+#, fuzzy
+msgid "All messages"
+msgstr "จดหมายทั้งหมด"
+
+#, fuzzy
+msgid "Only unread messages"
+msgstr "เฉพาะจดหมายที่ยังไม่เปิดอ่าน"
+
+msgid "Save"
+msgstr "จัดเก็บ"
+
+msgid "New"
+msgstr "กำหนดเพิ่ม"
+
+msgid "Done"
+msgstr "เสร็จแล้ว"
+
+#, fuzzy
+msgid "Match:"
+msgstr "ตรงกับ"
+
+msgid "Cc"
+msgstr "สำเนาถึง"
+
+msgid "To or Cc"
+msgstr ""
+
+#, fuzzy
+msgid "Header"
+msgstr "อ่านแล้ว"
+
+msgid "Contains:"
+msgstr "ถ้ามีคำว่า:"
+
+msgid "Edit"
+msgstr "แก้ไข"
+
 #, fuzzy
 msgid "Down"
 msgstr "เลื่อนลง"
 
-#: squirrelmail/plugins/filters/options.php:162
 msgid "Up"
 msgstr "เลื่อนขึ้น"
 
-#: squirrelmail/plugins/filters/options.php:165
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "ถ้า <b>%s</b> มีคำว่า <b>%s</b> ให้ย้ายไปยัง <b>%s</b>"
 
-#: squirrelmail/plugins/filters/setup.php:79
 #, fuzzy
 msgid "Message Filters"
 msgstr "ตัวกรองจดหมาย"
 
-#: squirrelmail/plugins/filters/setup.php:81
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr ""
 "ตัวกรองจดหมาย เอาไว้สำหรับ คัดแยกจดหมายโดยอัตโนมัติ ลงในกล่องจดหมายต่างๆ ที่คุณกำหนด"
 
-#: squirrelmail/plugins/filters/setup.php:87
 #, fuzzy
 msgid "SPAM Filters"
 msgstr "ตัวกรองจดหมายขยะ"
 
-#: squirrelmail/plugins/filters/setup.php:89
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
-"ตัวกรองจดหมายขยะ ทำให้คุณสามารถกรองจดหมาย โดยดูจากรานชื่อเซิร์ฟเวอร์ที่ส่ง และย้ายจดหมายเหล่านั้น ไปยังกล่องจดหมายที่คุณกำหนด เช่น กล่องจดหมายขยะ"
+"ตัวกรองจดหมายขยะ ทำให้คุณสามารถกรองจดหมาย โดยดูจากรานชื่อเซิร์ฟเวอร์ที่ส่ง "
+"และย้ายจดหมายเหล่านั้น ไปยังกล่องจดหมายที่คุณกำหนด เช่น กล่องจดหมายขยะ"
 
-#: squirrelmail/plugins/filters/spamoptions.php:52
 msgid "Spam Filtering"
 msgstr "ตัวกรองจดหมายขยะ"
 
-#: squirrelmail/plugins/filters/spamoptions.php:56
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr "คำเตือน! แจ้งผู้ดูและระบบของคุณ เพื่อให้ตั้งค่า SpamFilters_YourHop"
 
-#: squirrelmail/plugins/filters/spamoptions.php:76
 #, fuzzy
 msgid "Move spam to:"
 msgstr "ย้ายจดหมาย ขยะไปยัง:"
 
-#: squirrelmail/plugins/filters/spamoptions.php:93
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -1997,833 +1597,406 @@ msgid ""
 "periodically, so that you don't have an excessively large mailbox hanging "
 "around."
 msgstr ""
-"การย้ายจดหมายขยะ ไปยังกล่องจดหมายขยะโดยทันที ไม่ใช่ความคิดที่ดี เพราะเพื่อนของคุณ หรือจดหมายข่าวสารที่คุณสมัครไว้ อาจจะถูกเข้าใจผิดว่าเป็นจดหมายขยะ อย่าลืมว่าคุณควรจะหมั่นลบจดหมายในกล่องจดหมายขยะนี้ เพราะว่าคุณอาจจะใช้เนื้อที่เก็บเมล์เกินกำหนดได้"
+"การย้ายจดหมายขยะ ไปยังกล่องจดหมายขยะโดยทันที ไม่ใช่ความคิดที่ดี เพราะเพื่อนของคุณ "
+"หรือจดหมายข่าวสารที่คุณสมัครไว้ อาจจะถูกเข้าใจผิดว่าเป็นจดหมายขยะ "
+"อย่าลืมว่าคุณควรจะหมั่นลบจดหมายในกล่องจดหมายขยะนี้ "
+"เพราะว่าคุณอาจจะใช้เนื้อที่เก็บเมล์เกินกำหนดได้"
 
-#: squirrelmail/plugins/filters/spamoptions.php:96
-msgid "What to Scan:"
-msgstr "มองหาคำว่า:"
-
-#: squirrelmail/plugins/filters/spamoptions.php:101
-#, fuzzy
-msgid "All messages"
-msgstr "จดหมายทั้งหมด"
-
-#: squirrelmail/plugins/filters/spamoptions.php:105
-#, fuzzy
-msgid "Only unread messages"
-msgstr "เฉพาะจดหมายที่ยังไม่เปิดอ่าน"
-
-#: squirrelmail/plugins/filters/spamoptions.php:111
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
 "it to scan all messages, then go view my INBOX, then come back and set it to "
 "scan only new messages.  That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
-msgstr "ถ้าคุณเลือกให้ตรวจสอบจดหมายทุกฉบับ จะช้ามาก เราแนะนำให้คุณเลือกตรวจสอบเฉพาะจดหมายใหม่ ในกรณีที่คุณมีการเพิ่มตัวกรองจดหมาย คุณสามารถเลือกให้ตรวจสอบจดหมายทุกฉบับ จากนั้นกดเลือกดูจดหมายใน INBOX เพื่อให้ระบบตรวจสอบจดหมายโดยใช้ตัวกรองใหม่กับจดหมายทุกฉบับที่อยู่ใน INBOX จากนั้นเลือกกลับไปเป็น ให้ตรวจสอบเฉพาะจดหมายใหม่"
+msgstr ""
+"ถ้าคุณเลือกให้ตรวจสอบจดหมายทุกฉบับ จะช้ามาก เราแนะนำให้คุณเลือกตรวจสอบเฉพาะจดหมายใหม่ "
+"ในกรณีที่คุณมีการเพิ่มตัวกรองจดหมาย คุณสามารถเลือกให้ตรวจสอบจดหมายทุกฉบับ "
+"จากนั้นกดเลือกดูจดหมายใน INBOX "
+"เพื่อให้ระบบตรวจสอบจดหมายโดยใช้ตัวกรองใหม่กับจดหมายทุกฉบับที่อยู่ใน INBOX "
+"จากนั้นเลือกกลับไปเป็น ให้ตรวจสอบเฉพาะจดหมายใหม่"
 
-#: squirrelmail/plugins/filters/spamoptions.php:137
-msgid "Save"
-msgstr "จัดเก็บ"
-
-#: squirrelmail/plugins/filters/spamoptions.php:149
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
 msgstr "จดหมายขยะได้ถูกส่งถึง <b>%s</b>"
 
-#: squirrelmail/plugins/filters/spamoptions.php:149
 msgid "[<i>not set yet</i>]"
 msgstr "[<i>ยังไม่ได้ตั้งค่า</i>]"
 
-#: squirrelmail/plugins/filters/spamoptions.php:151
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr "การตรวจสอบจดหมายขยะ ถูกจำกัด ที่ <b>%s</b>"
 
-#: squirrelmail/plugins/filters/spamoptions.php:151
 #, fuzzy
 msgid "New Messages Only"
 msgstr "เฉพาะจดหมายใหม่"
 
-#: squirrelmail/plugins/filters/spamoptions.php:151
 #, fuzzy
 msgid "All Messages"
 msgstr "ทุกฉบับ"
 
-#: squirrelmail/plugins/filters/spamoptions.php:161
 msgid "ON"
 msgstr "เปิด"
 
-#: squirrelmail/plugins/filters/spamoptions.php:163
 msgid "OFF"
 msgstr "ปิด"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:46
-msgid "SpellChecker Options"
-msgstr "ปรับแต่งการตรวจสอบความถูกต้องของตัวอักษร"
-
-#: squirrelmail/plugins/squirrelspell/setup.php:48
-msgid ""
-"Here you may set up how your personal dictionary is stored, edit it, or "
-"choose which languages should be available to you when spell-checking."
-msgstr "คุณสามารถตั้งค่าเกี่ยวกับพจนานุกรมที่คุณต้องการใช้ แก้ไขมัน หรือเลือกภาษาที่คุณสามารถให้ระบบตรวจสอบตัวสะกดให้คุณได้"
-
-#: squirrelmail/plugins/squirrelspell/setup.php:64
-msgid "Check Spelling"
-msgstr "ตรวจสอบตัวสะกด"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
-msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr "กลับไปยังหน้าจอ &quot;ตัวเลือกตรวจสอบตัวสะกด&quot;"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:212
-msgid "ATTENTION:"
-msgstr "ATTENTION:"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:213
-msgid ""
-"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
-"likely due to the fact that you have changed your mailbox password. In order "
-"to proceed, you will have to supply your old password so that SquirrelSpell "
-"can decrypt your personal dictionary. It will be re-encrypted with your new "
-"password after this.<br>If you haven't encrypted your dictionary, then it "
-"got mangled and is no longer valid. You will have to delete it and start "
-"anew. This is also true if you don't remember your old password -- without "
-"it, the encrypted data is no longer accessible."
+msgid "Mailinglist"
 msgstr ""
-"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
-"likely due to the fact that you have changed your mailbox password. In order "
-"to proceed, you will have to supply your old password so that SquirrelSpell "
-"can decrypt your personal dictionary. It will be re-encrypted with your new "
-"password after this.<br>If you haven't encrypted your dictionary, then it "
-"got mangled and is no longer valid. You will have to delete it and start "
-"anew. This is also true if you don't remember your old password -- without "
-"it, the encrypted data is no longer accessible."
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:219
-msgid "Delete my dictionary and start a new one"
-msgstr "ลบพจนานุกรมที่มีอยู่ และเริ่มเขียนขึ้นใหม่"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:220
-msgid "Decrypt my dictionary with my old password:"
-msgstr "ถอดรหัสพจนานุกรม ด้วยรหัสผ่านเก่า"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:223
-msgid "Proceed"
-msgstr "เสร็จแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:229
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:231
-msgid "Error Decrypting Dictionary"
-msgstr "ลบพจนานุกรมที่ถูกเข้ารหัส"
-
-#: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
-#: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
-msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
-msgstr "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:24
-msgid "Your personal dictionary was erased."
-msgstr "พจนานุกรมของคุณ ได้ถูกลบแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:25
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:32
-msgid "Dictionary Erased"
-msgstr "พจนานุกรมถูกลบแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:30
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:57
-msgid "Close this Window"
-msgstr "ปิดหน้าต่างนี้"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:48
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr "พจนานุกรมส่วนตัวของคุณ ได้รับการเข้ารหัสแล้ว กำลังกลับสู่ &quot;ตัวเลือกการสะกดคำ&quot;"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
-msgid "Successful Re-encryption"
-msgstr "เข้ารหัสเสร็จแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:54
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
-msgstr "พจนานุกรมส่วนตัวของคุณ ถูกเข้ารหัสแล้ว กรุณาปิดหน้าต่างนี้ และเลือกที่ ปุ่ม \"ตรวจสอบการสะกด\" เพื่อเริ่มตรวจสอบการสะกดคำ"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
-msgid "Dictionary re-encrypted"
-msgstr "พจนานุกรม ถูกเข้ารหัสอีกครั้ง"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr "พจนานุกรมส่วนตัวของคุณ ได้ถูก <strong>เข้ารหัส</strong> และจัดเก็บโดย <strong>เข้ารหัส</strong>เอาไว้"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr "พจนานุกรมส่วนตัวของคุณ ได้ถูก <strong>ถอดรหัส</strong> และจัดเก็บไว้ในรูปแบบที่ <strong>ไม่ได้เข้ารหัส</strong>"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
-msgid "Personal Dictionary Crypto Settings"
-msgstr "ติดตั้งตัวเข้ารหัส พจนานุกรมส่วนตัว"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:121
-msgid "SquirrelSpell Results"
-msgstr "ผลลัพท์ของการตรวจสอบการสะกด"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:170
-msgid "Found %s errors"
-msgstr "พบคำผิด %s แห่ง"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:183
-msgid "Line with an error:"
-msgstr "บรรทัดที่ผิด:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:192
-msgid "Error:"
-msgstr "คำผิด:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:200
-msgid "Suggestions:"
-msgstr "ควรเป็น:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:206
-msgid "Suggestions"
-msgstr "คำแนะนำ"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:214
-msgid "Change to:"
-msgstr "เปลี่ยนเป็น:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:223
-msgid "Occurs times:"
-msgstr "จำนวนคำ:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:239
-msgid "Change this word"
-msgstr "เปลี่ยนศัพท์คำนี้"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:240
-msgid "Change"
-msgstr "เปลี่ยน"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:242
-msgid "Change ALL occurances of this word"
-msgstr "เปลี่ยนศัพท์คำนี้ทั้งหมด"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:243
-msgid "Change All"
-msgstr "เปลี่ยนทั้งหมด"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:245
-msgid "Ignore this word"
-msgstr "ไม่ต้องสนใจศัพท์คำนี้"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:246
-msgid "Ignore"
-msgstr "ไม่สนใจ"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:248
-msgid "Ignore ALL occurances this word"
-msgstr "ไม่สนใจศัพท์คำนี้"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:249
-msgid "Ignore All"
-msgstr "ไม่สนใจทั้งหมด"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:251
-msgid "Add this word to your personal dictionary"
-msgstr "เพิ่มศัพท์คำนี้ลงในพจนานุกรมส่วนตัว"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:252
-msgid "Add to Dic"
-msgstr "เพิ่มลงในพจนานุกรม"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:264
-msgid "Close and Commit"
-msgstr "ปิดหน้าต่างนี้"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
-msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr "การตรวจสอบตัวสะกด ยังไม่เสร็จ ต้องการปิด และจัดเก็บการเปลี่ยนแปลง?"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
-msgid "Close and Cancel"
-msgstr "ปิด และยกเลิก"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
-msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr "การตรวจสอบตัวสะกด ยังไม่เสร็จ ต้องการปิด และยกเลิกการเปลี่ยนแปลง?"
-
-#: squirrelmail/plugins/newmail/testsound.php:33
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
-msgid "Close"
-msgstr "ปิด"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:286
-msgid "No errors found"
-msgstr "ไม่พบข้อผิดพลาด"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
-msgid "Personal Dictionary"
-msgstr "พจนานุกรมส่วนตัว"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:61
-msgid "No words in your personal dictionary."
-msgstr "ไม่มีคำศัพท์ในพจนานุกรมส่วนตัวของคุณ"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:24
-msgid "Please check any words you wish to delete from your dictionary."
-msgstr "เลือกคำศัพท์ที่คุณต้องการลบออกจากพจนานุกรมของคุณ"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:35
-msgid "%s dictionary"
-msgstr "พจนานุกรมภาษา %s"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:54
-msgid "Delete checked words"
-msgstr "ลบศัพท์ที่เลือก"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:65
-msgid "Edit your Personal Dictionary"
-msgstr "แก้ไขพจนานุกรมส่วนตัว"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:22
-msgid ""
-"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-"helps protect your privacy in case the web-mail system gets compromized and "
-"your personal dictionary ends up stolen. It is currently encrypted with the "
-"password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> "
-"<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-"dictionary will become unaccessible, since it can no longer be decrypted. If "
-"you change your mailbox password, SquirrelSpell will recognize it and prompt "
-"you for your old password in order to re-encrypt the dictionary with a new "
-"key.</p>"
-msgstr ""
-"<p>"
-"พจนานุกรมส่วนตัวของคุณได้ถูก <strong>เข้ารหัส</strong> ไว้แล้ว ซึ่งรหัสสำหรับถอดรหัส คือรหัสผ่านของคุณ"
-"</p>"
-
-"<p>"
-"ถ้าคุณลืมรหัสผ่าน พจนานุกรมส่วนตัวของคุณ จะไม่สามารถนำมาใช้ได้ เพราะไม่สามารถถอดรหัสออกมาได้ ในกรณีที่คุณเปลี่ยนรหัสผ่าน ระบบจะถามถึงรหัสผ่านก่อนหน้านั้นของคุณ และดำเนินการเข้ารหัส โดยใช้รหัสผ่านอันใหม่ของคุณ"
-"</p>"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
-msgid ""
-"Please decrypt my personal dictionary and store it in a clear-text format."
-msgstr "ถอดรหัสพจนานุกรมส่วน และเก็บไว้ในรูปแบบที่ไม่ได้เข้ารหัส"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
-msgid "Change crypto settings"
-msgstr "เปลี่ยนแปลงการเข้ารหัส"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
-msgid ""
-"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
-"may wish to encrypt your personal dictionary to protect your privacy in case "
-"the webmail system gets compromized and your personal dictionary file gets "
-"stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox "
-"password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your "
-"personal dictionary, you must remember that it gets &quot;hashed&quot; with "
-"your mailbox password. If you forget your mailbox password and the "
-"administrator changes it to a new value, your personal dictionary will "
-"become useless and will have to be created anew. However, if you or your "
-"system administrator change your mailbox password but you still have the old "
-"password at hand, you will be able to enter the old key to re-encrypt the "
-"dictionary with the new value.</p>"
-msgstr "<p>พจนานุกรมส่วนตัวของคุณ <strong>ยังไม่ได้ถูกเข้ารหัสไว้</strong> คุณสามารถเข้ารหัสเอาไว้ได้ เพื่อป้องกันผู้อื่น แอบดูข้อมูล โดยรหัสผ่านของคุณจะถูกนำมาใช้ในการเข้ารหัส ในกรณีที่คุณเปลี่ยนรหัสผ่าน ข้อมูลที่ถูกเข้ารหัสไว้ ยังต้องใช้รหัสผ่านอันเก่า ในการถอดรหัส หลังจากนั้นข้อมูลจะถูกเข้ารหัสโดยรหัสผ่านอันใหม่ให้โดยอัตโนมัติ"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
-msgid ""
-"Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr "เข้ารหัสพจนานุกรมส่วนตัว และเก็บไว้ในรูปแบบที่ถูกเข้ารหัสไว้"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:22
-#, c-format
-msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr "ลบศัพท์ต่อไปนี้ ออกจากพจนานุกรม <strong>%s</strong>"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:52
-msgid "All done!"
-msgstr "เสร็จแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:53
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:51
-msgid "Personal Dictionary Updated"
-msgstr "พจนานุกรมส่วนตัว ปรับปรุงแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
-msgid "No changes requested."
-msgstr "ไม่มีการเปลี่ยนแปลง"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:25
-msgid "Please wait, communicating with the server..."
-msgstr "กรุณารอสักครู่ กำลังติดต่อกับเซิร์ฟเวอร์"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:32
-msgid ""
-"Please choose which dictionary you would like to use to spellcheck this "
-"message:"
-msgstr "กรุณาเลือกพจนานุกรม ที่คุณต้องการใช้การตรวจสะกด:"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
-msgid "Go"
-msgstr "ดำเนินการ"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:48
-msgid "SquirrelSpell Initiating"
-msgstr "เริ่มการตรวจสะกด"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:56
 #, c-format
 msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
 #, c-format
-msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
-msgid "International Dictionaries Preferences Updated"
-msgstr "ตัวเลือกพจนานุกรมได้รับการปรับแล้ว"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:19
 msgid ""
-"Please check any available international dictionaries which you would like "
-"to use when spellchecking:"
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
-msgid "Make this dictionary my default selection:"
-msgstr "เลือกพจนานุกรมอันนี้ เป็นพจนานุกรมหลัก"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:41
-msgid "Make these changes"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:42
-msgid "Add International Dictionaries"
-msgstr "เพิ่มพจนานุกรมต่างประเทศ"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:18
-msgid "Please choose which options you wish to set up:"
-msgstr "เลือกหัวข้อที่คุณต้องการแก้ไข"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:22
-msgid "Edit your personal dictionary"
-msgstr "แก้ไขพจนานุกรมส่วนตัวของคุณ"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:27
-msgid "Set up international dictionaries"
-msgstr "ติดตั้งพจนานุกรมต่างประเทศ"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:35
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
-msgid "Encrypt or decrypt your personal dictionary"
-msgstr "เข้ารหัส หรือถอดรหัส พจนานุกรมส่วนตัวของคุณ"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
-msgid "not available"
-msgstr "ไม่มีอยู่"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:43
-msgid "SquirrelSpell Options Menu"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:93
-msgid "Translator"
-msgstr "ผู้แปล"
-
-#: squirrelmail/plugins/translate/options.php:96
-msgid "Your server options are as follows:"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:101
+#, c-format
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:104
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
+msgid "From:"
+msgstr "จาก:"
 
-#: squirrelmail/plugins/translate/options.php:107
-msgid "12 language pairs, no known limits, powered by Systran"
-msgstr ""
+#, fuzzy
+msgid "Send Mail"
+msgstr "     ส่ง     "
 
-#: squirrelmail/plugins/translate/options.php:110
-msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
-"InterTran"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:113
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:119
-msgid ""
-"You also decide if you want the translation box displayed, and where it will "
-"be located."
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:123
-msgid "Select your translator:"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:135
-msgid "When reading:"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:140
-msgid "Show translation box"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:142
-msgid "to the left"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:143
-msgid "in the center"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:144
-msgid "to the right"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:149
-msgid "Translate inside the SquirrelMail frames"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:152
-msgid "When composing:"
-msgstr ""
-
-#: squirrelmail/plugins/translate/options.php:156
-msgid "Not yet functional, currently does nothing"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:95
-msgid "Translation Options"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:97
-msgid ""
-"Which translator should be used when you get messages in a different "
-"language?"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:221
-#: squirrelmail/plugins/translate/setup.php:225
-#: squirrelmail/plugins/translate/setup.php:229
-#: squirrelmail/plugins/translate/setup.php:233
-#: squirrelmail/plugins/translate/setup.php:237
-#: squirrelmail/plugins/translate/setup.php:241
-#: squirrelmail/plugins/translate/setup.php:245
-#: squirrelmail/plugins/translate/setup.php:249
-#: squirrelmail/plugins/translate/setup.php:253
-#: squirrelmail/plugins/translate/setup.php:257
-#: squirrelmail/plugins/translate/setup.php:261
-#: squirrelmail/plugins/translate/setup.php:265
-#: squirrelmail/plugins/translate/setup.php:269
-#: squirrelmail/plugins/translate/setup.php:284
-#: squirrelmail/plugins/translate/setup.php:288
-#: squirrelmail/plugins/translate/setup.php:292
-#: squirrelmail/plugins/translate/setup.php:296
-#: squirrelmail/plugins/translate/setup.php:300
-#: squirrelmail/plugins/translate/setup.php:304
-#: squirrelmail/plugins/translate/setup.php:308
-#: squirrelmail/plugins/translate/setup.php:312
-#: squirrelmail/plugins/translate/setup.php:316
-#: squirrelmail/plugins/translate/setup.php:320
-#: squirrelmail/plugins/translate/setup.php:395
-#: squirrelmail/plugins/translate/setup.php:428
-#: squirrelmail/plugins/translate/setup.php:432
-#: squirrelmail/plugins/translate/setup.php:436
-#: squirrelmail/plugins/translate/setup.php:440
-#: squirrelmail/plugins/translate/setup.php:444
-#: squirrelmail/plugins/translate/setup.php:448
-#: squirrelmail/plugins/translate/setup.php:452
-#: squirrelmail/plugins/translate/setup.php:456
-#: squirrelmail/plugins/translate/setup.php:460
-#: squirrelmail/plugins/translate/setup.php:464
-#: squirrelmail/plugins/translate/setup.php:468
-#: squirrelmail/plugins/translate/setup.php:472
-#, fuzzy, c-format
-msgid "%s to %s"
+#, fuzzy
+msgid "Post to List"
 msgstr "%s เป็น %s"
 
-#: squirrelmail/plugins/translate/setup.php:222
-#: squirrelmail/plugins/translate/setup.php:226
-#: squirrelmail/plugins/translate/setup.php:230
-#: squirrelmail/plugins/translate/setup.php:234
-#: squirrelmail/plugins/translate/setup.php:238
-#: squirrelmail/plugins/translate/setup.php:243
-#: squirrelmail/plugins/translate/setup.php:247
-#: squirrelmail/plugins/translate/setup.php:251
-#: squirrelmail/plugins/translate/setup.php:255
-#: squirrelmail/plugins/translate/setup.php:259
-#: squirrelmail/plugins/translate/setup.php:271
-#: squirrelmail/plugins/translate/setup.php:285
-#: squirrelmail/plugins/translate/setup.php:289
-#: squirrelmail/plugins/translate/setup.php:293
-#: squirrelmail/plugins/translate/setup.php:297
-#: squirrelmail/plugins/translate/setup.php:301
-#: squirrelmail/plugins/translate/setup.php:306
-#: squirrelmail/plugins/translate/setup.php:310
-#: squirrelmail/plugins/translate/setup.php:314
-#: squirrelmail/plugins/translate/setup.php:318
-#: squirrelmail/plugins/translate/setup.php:322
-#: squirrelmail/plugins/translate/setup.php:343
-#: squirrelmail/plugins/translate/setup.php:373
-#: squirrelmail/plugins/translate/setup.php:429
-#: squirrelmail/plugins/translate/setup.php:433
-#: squirrelmail/plugins/translate/setup.php:437
-#: squirrelmail/plugins/translate/setup.php:441
-#: squirrelmail/plugins/translate/setup.php:445
-#: squirrelmail/plugins/translate/setup.php:450
-#: squirrelmail/plugins/translate/setup.php:462
-#: squirrelmail/plugins/translate/setup.php:466
-#: squirrelmail/plugins/translate/setup.php:470
-#: squirrelmail/plugins/translate/setup.php:474
-msgid "English"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:223
-#: squirrelmail/plugins/translate/setup.php:242
-#: squirrelmail/plugins/translate/setup.php:263
-#: squirrelmail/plugins/translate/setup.php:266
-#: squirrelmail/plugins/translate/setup.php:290
-#: squirrelmail/plugins/translate/setup.php:309
-#: squirrelmail/plugins/translate/setup.php:346
-#: squirrelmail/plugins/translate/setup.php:376
-#: squirrelmail/plugins/translate/setup.php:408
-#: squirrelmail/plugins/translate/setup.php:430
-#: squirrelmail/plugins/translate/setup.php:449
-#: squirrelmail/plugins/translate/setup.php:453
-#: squirrelmail/plugins/translate/setup.php:458
-msgid "French"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:227
-#: squirrelmail/plugins/translate/setup.php:246
-#: squirrelmail/plugins/translate/setup.php:262
-#: squirrelmail/plugins/translate/setup.php:267
-#: squirrelmail/plugins/translate/setup.php:294
-#: squirrelmail/plugins/translate/setup.php:313
-#: squirrelmail/plugins/translate/setup.php:347
-#: squirrelmail/plugins/translate/setup.php:377
-#: squirrelmail/plugins/translate/setup.php:409
-#: squirrelmail/plugins/translate/setup.php:434
-#: squirrelmail/plugins/translate/setup.php:454
-#: squirrelmail/plugins/translate/setup.php:457
-#: squirrelmail/plugins/translate/setup.php:461
-msgid "German"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:231
-#: squirrelmail/plugins/translate/setup.php:250
-#: squirrelmail/plugins/translate/setup.php:298
-#: squirrelmail/plugins/translate/setup.php:317
-#: squirrelmail/plugins/translate/setup.php:351
-#: squirrelmail/plugins/translate/setup.php:381
-#: squirrelmail/plugins/translate/setup.php:411
-#: squirrelmail/plugins/translate/setup.php:438
-#: squirrelmail/plugins/translate/setup.php:465
-msgid "Italian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:235
-#: squirrelmail/plugins/translate/setup.php:254
-#: squirrelmail/plugins/translate/setup.php:302
-#: squirrelmail/plugins/translate/setup.php:321
-#: squirrelmail/plugins/translate/setup.php:356
-#: squirrelmail/plugins/translate/setup.php:386
-#: squirrelmail/plugins/translate/setup.php:413
-#: squirrelmail/plugins/translate/setup.php:442
-#: squirrelmail/plugins/translate/setup.php:469
-msgid "Portuguese"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:239
-#: squirrelmail/plugins/translate/setup.php:258
-#: squirrelmail/plugins/translate/setup.php:286
-#: squirrelmail/plugins/translate/setup.php:305
-#: squirrelmail/plugins/translate/setup.php:361
-#: squirrelmail/plugins/translate/setup.php:391
-#: squirrelmail/plugins/translate/setup.php:414
-#: squirrelmail/plugins/translate/setup.php:446
-#: squirrelmail/plugins/translate/setup.php:473
-msgid "Spanish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:270
-#: squirrelmail/plugins/translate/setup.php:358
-#: squirrelmail/plugins/translate/setup.php:388
-msgid "Russian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:273
-#: squirrelmail/plugins/translate/setup.php:325
-#: squirrelmail/plugins/translate/setup.php:396
-#: squirrelmail/plugins/translate/setup.php:417
-#: squirrelmail/plugins/translate/setup.php:476
-msgid "Translate"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:337
-#: squirrelmail/plugins/translate/setup.php:367
-msgid "Brazilian Portuguese"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:338
-#: squirrelmail/plugins/translate/setup.php:368
-msgid "Bulgarian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:339
-#: squirrelmail/plugins/translate/setup.php:369
-msgid "Croatian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:340
-#: squirrelmail/plugins/translate/setup.php:370
-msgid "Czech"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:341
-#: squirrelmail/plugins/translate/setup.php:371
-msgid "Danish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:342
-#: squirrelmail/plugins/translate/setup.php:372
-#: squirrelmail/plugins/translate/setup.php:407
-msgid "Dutch"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:344
-#: squirrelmail/plugins/translate/setup.php:374
-msgid "European Spanish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:345
-#: squirrelmail/plugins/translate/setup.php:375
-msgid "Finnish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:348
-#: squirrelmail/plugins/translate/setup.php:378
-msgid "Greek"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:349
-#: squirrelmail/plugins/translate/setup.php:379
-msgid "Hungarian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:350
-#: squirrelmail/plugins/translate/setup.php:380
-msgid "Icelandic"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:352
-#: squirrelmail/plugins/translate/setup.php:382
-msgid "Japanese"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:353
-#: squirrelmail/plugins/translate/setup.php:383
-msgid "Latin American Spanish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:354
-#: squirrelmail/plugins/translate/setup.php:384
-msgid "Norwegian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:355
-#: squirrelmail/plugins/translate/setup.php:385
-msgid "Polish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:357
-#: squirrelmail/plugins/translate/setup.php:387
-msgid "Romanian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:359
-#: squirrelmail/plugins/translate/setup.php:389
-msgid "Serbian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:360
-#: squirrelmail/plugins/translate/setup.php:390
-msgid "Slovenian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:362
-#: squirrelmail/plugins/translate/setup.php:392
-msgid "Swedish"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:363
-#: squirrelmail/plugins/translate/setup.php:393
-msgid "Welsh"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:410
-msgid "Indonesian"
-msgstr ""
-
-#: squirrelmail/plugins/translate/setup.php:412
 #, fuzzy
-msgid "Latin"
+msgid "Reply to List"
+msgstr "ให้ตอบกลับไปที่"
+
+msgid "Subscribe"
+msgstr "เพิ่ม"
+
+msgid "Unsubscribe"
+msgstr "เอาออก"
+
+msgid "List Archives"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:33
+msgid "Contact Listowner"
+msgstr ""
+
+#, fuzzy
+msgid "Mailing List"
+msgstr "รายการจดหมาย"
+
+msgid "POP3 connect:"
+msgstr ""
+
+msgid "No server specified"
+msgstr ""
+
+msgid "Error "
+msgstr ""
+
+msgid "POP3 noop:"
+msgstr ""
+
+msgid "No connection to server"
+msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์"
+
+msgid "POP3 user:"
+msgstr ""
+
+msgid "no login ID submitted"
+msgstr ""
+
+msgid "connection not established"
+msgstr ""
+
+msgid "POP3 pass:"
+msgstr ""
+
+msgid "No password submitted"
+msgstr ""
+
+msgid "authentication failed "
+msgstr ""
+
+msgid "POP3 apop:"
+msgstr ""
+
+msgid "No login ID submitted"
+msgstr ""
+
+msgid "No server banner"
+msgstr ""
+
+msgid "abort"
+msgstr ""
+
+msgid "apop authentication failed"
+msgstr ""
+
+msgid "POP3 login:"
+msgstr ""
+
+msgid "POP3 top:"
+msgstr ""
+
+msgid "POP3 pop_list:"
+msgstr ""
+
+msgid "Premature end of list"
+msgstr ""
+
+msgid "POP3 get:"
+msgstr ""
+
+msgid "POP3 last:"
+msgstr ""
+
+msgid "POP3 reset:"
+msgstr ""
+
+msgid "POP3 send_cmd:"
+msgstr ""
+
+msgid "Empty command string"
+msgstr ""
+
+msgid "POP3 quit:"
+msgstr ""
+
+msgid "connection does not exist"
+msgstr ""
+
+msgid "POP3 uidl:"
+msgstr ""
+
+msgid "POP3 delete:"
+msgstr ""
+
+msgid "No msg number submitted"
+msgstr ""
+
+msgid "Command failed "
+msgstr ""
+
+msgid "Remote POP server Fetching Mail"
+msgstr ""
+
+msgid "Select Server:"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Password for"
+msgstr "รหัสผ่าน"
+
+msgid "Fetch Mail"
+msgstr ""
+
+msgid "Fetching from "
+msgstr ""
+
+msgid "Oops, "
+msgstr ""
+
+msgid "Opening IMAP server"
+msgstr ""
+
+msgid "Opening POP server"
+msgstr ""
+
+msgid "Login Failed:"
+msgstr ""
+
+msgid "Login OK: No new messages"
+msgstr ""
+
+msgid "Login OK: Inbox EMPTY"
+msgstr ""
+
+msgid "Login OK: Inbox contains ["
+msgstr ""
+
+msgid "] messages"
+msgstr "] ฉบับ"
+
+msgid "Fetching UIDL..."
+msgstr ""
+
+msgid "Server does not support UIDL."
+msgstr ""
+
+msgid "Leaving Mail on Server..."
+msgstr ""
+
+msgid "Deleting messages from server..."
+msgstr ""
+
+msgid "Fetching message "
+msgstr ""
+
+msgid "Server error...Disconnect"
+msgstr ""
+
+msgid "Reconnect from dead connection"
+msgstr ""
+
+msgid "Saving UIDL"
+msgstr ""
+
+#, fuzzy
+msgid "Refetching message "
+msgstr "จดหมายฉบับที่"
+
+msgid "Error Appending Message!"
+msgstr ""
+
+msgid "Closing POP"
+msgstr ""
+
+msgid "Logging out from IMAP"
+msgstr ""
+
+msgid "Message appended to mailbox"
+msgstr ""
+
+msgid "Message "
+msgstr "จดหมาย"
+
+msgid " deleted from Remote Server!"
+msgstr ""
+
+#, fuzzy
+msgid "Delete failed:"
+msgstr "ลบไม่สำเร็จ:"
+
+msgid "Remote POP server settings"
+msgstr ""
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr ""
+
+msgid "Encrypt passwords (informative only)"
+msgstr ""
+
+msgid "Add Server"
+msgstr ""
+
+msgid "Server:"
+msgstr ""
+
+#, fuzzy
+msgid "Port:"
+msgstr "ระดับความสำคัญ"
+
+msgid "Alias:"
+msgstr ""
+
+msgid "Username:"
+msgstr "ชื่อ:"
+
+msgid "Password:"
+msgstr "รหัสผ่าน:"
+
+msgid "Store in Folder:"
+msgstr ""
+
+msgid "Leave Mail on Server"
+msgstr ""
+
+msgid "Check mail during login"
+msgstr ""
+
+msgid "Check mail during folder refresh"
+msgstr ""
+
+msgid "Modify Server"
+msgstr ""
+
+msgid "Server Name:"
+msgstr ""
+
+msgid "Modify"
+msgstr ""
+
+msgid "No-one server in use. Try to add."
+msgstr ""
+
+msgid "Fetching Servers"
+msgstr ""
+
+msgid "Confirm Deletion of a Server"
+msgstr ""
+
+msgid "Selected Server:"
+msgstr ""
+
+msgid "Confirm delete of selected server?"
+msgstr ""
+
+msgid "Confirm Delete"
+msgstr ""
+
+msgid "Mofify a Server"
+msgstr ""
+
+msgid "Undefined Function"
+msgstr ""
+
+msgid "Hey! Wath do You are looking for?"
+msgstr ""
+
+msgid "Fetch"
+msgstr ""
+
+msgid "Warning, "
+msgstr ""
+
+msgid "Mail Fetch Result:"
+msgstr ""
+
+msgid "Simple POP3 Fetch Mail"
+msgstr ""
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+
 #, fuzzy
 msgid "New Mail Notification"
 msgstr "แจ้งเตือนเมื่อมีจดหมายใหม่"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:36
 msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:38
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:40
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:42
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
@@ -2831,7 +2004,6 @@ msgid ""
 "by sounds or popups for unseen mail."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:44
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
@@ -2840,7 +2012,6 @@ msgid ""
 "enabled."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:46
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
@@ -2848,535 +2019,1286 @@ msgid ""
 "is specified, the system will use a default from the server."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:56
 msgid "Enable Media Playing"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:64
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:72
 msgid "Count only messages that are RECENT"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:80
 msgid "Change title on supported browsers."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:80
-#: squirrelmail/plugins/newmail/newmail_opt.php:88
 msgid "requires JavaScript to work"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:88
 msgid "Show popup window on new mail"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:91
 msgid "Select server file:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:93
 msgid "(local media)"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:110
 msgid "Try"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:118
 msgid "Local Media File:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:124
-#, fuzzy
 msgid "Current File:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail.php:19
 msgid "New Mail"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail.php:26
-#, fuzzy
 msgid "SquirrelMail Notice:"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail.php:30
 msgid "You have new mail!"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/setup.php:76
 #, fuzzy
+msgid "Close Window"
+msgstr "ปิดหน้าต่างนี้"
+
 msgid "NewMail Options"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/setup.php:78
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/setup.php:127
 msgid "New Mail Notification options saved"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/setup.php:200
-#, fuzzy, c-format
+#, c-format
 msgid "%s New Messages"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/setup.php:204
-#, fuzzy, c-format
+#, c-format
 msgid "%s New Message"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/testsound.php:24
 msgid "Test Sound"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/testsound.php:30
 msgid "Loading the sound..."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-msgid "POP3 connect:"
-msgstr ""
+msgid "Close"
+msgstr "ปิด"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-msgid "No server specified"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
 #, fuzzy
-msgid "Error "
-msgstr ""
+msgid "Sent Subfolders Options"
+msgstr "ปรับแต่งกล่องจดหมายแบบพิเศษ"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:110
-msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-msgid "POP3 noop:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-msgid "No connection to server"
-msgstr "ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-msgid "POP3 user:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-msgid "no login ID submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-msgid "connection not established"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-msgid "POP3 pass:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-msgid "No password submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-msgid "authentication failed "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "NOOP failed. Server not RFC 1939 compliant"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "POP3 apop:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-msgid "No login ID submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-msgid "No server banner"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "abort"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "apop authentication failed"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-msgid "POP3 login:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-msgid "POP3 top:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "POP3 pop_list:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "Premature end of list"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-msgid "POP3 get:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-msgid "POP3 last:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-msgid "POP3 reset:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "POP3 send_cmd:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "Empty command string"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-msgid "POP3 quit:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-msgid "connection does not exist"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-msgid "POP3 uidl:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-msgid "POP3 delete:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-msgid "No msg number submitted"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-msgid "Command failed "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:54
-msgid "Remote POP server Fetching Mail"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:63
-msgid "Select Server:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:65
-msgid "All"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:78
-msgid "Password for"
-msgstr "รหัสผ่าน"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:85
-msgid "Fetch Mail"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:117
-msgid "Fetching from "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:124
-#: squirrelmail/plugins/mail_fetch/fetch.php:184
-msgid "Oops, "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:128
-msgid "Opening IMAP server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:131
-msgid "Opening POP server"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:134
-#: squirrelmail/plugins/mail_fetch/setup.php:123
-msgid "Login Failed:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:151
-msgid "Login OK: No new messages"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:156
-msgid "Login OK: Inbox EMPTY"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-msgid "Login OK: Inbox contains ["
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-msgid "] messages"
-msgstr "] ฉบับ"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:164
-msgid "Fetching UIDL..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:169
-#: squirrelmail/plugins/mail_fetch/setup.php:154
-msgid "Server does not support UIDL."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:172
-msgid "Leaving Mail on Server..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:174
-msgid "Deleting messages from server..."
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:178
-msgid "Fetching message "
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:201
-msgid "Message appended to mailbox"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid "Message "
-msgstr "จดหมาย"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid " deleted from Remote Server!"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:207
 #, fuzzy
-msgid "Delete failed:"
-msgstr "ลบไม่สำเร็จ:"
+msgid "Use Sent Subfolders"
+msgstr "กล่องเก็บจดหมายที่ส่งแล้ว:"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:212
-#: squirrelmail/plugins/mail_fetch/setup.php:185
-msgid "Error Appending Message!"
+#, fuzzy
+msgid "Monthly"
+msgstr "จ."
+
+msgid "Quarterly"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:216
-msgid "Closing POP"
+msgid "Yearly"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:218
-msgid "Logging out from IMAP"
+#, fuzzy
+msgid "Base Sent Folder"
+msgstr "กล่องเก็บจดหมายที่ส่งแล้ว:"
+
+msgid "Report as Spam"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:221
-msgid "Saving UIDL"
+msgid "SpamCop - Spam Reporting"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:105
-msgid "Remote POP server settings"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/options.php:107
 msgid ""
-"You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
-"encryption anyway. Additionally, the encryption that we do to save it on the "
-"server can be undone by a hacker reading the source to this file."
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:109
-msgid "If you leave password empty, it will be required when you fetch mail."
+msgid "SpellChecker Options"
+msgstr "ปรับแต่งการตรวจสอบความถูกต้องของตัวอักษร"
+
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+"คุณสามารถตั้งค่าเกี่ยวกับพจนานุกรมที่คุณต้องการใช้ แก้ไขมัน "
+"หรือเลือกภาษาที่คุณสามารถให้ระบบตรวจสอบตัวสะกดให้คุณได้"
+
+msgid "Check Spelling"
+msgstr "ตรวจสอบตัวสะกด"
+
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr "กลับไปยังหน้าจอ &quot;ตัวเลือกตรวจสอบตัวสะกด&quot;"
+
+msgid "ATTENTION:"
+msgstr "ATTENTION:"
+
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+
+msgid "Delete my dictionary and start a new one"
+msgstr "ลบพจนานุกรมที่มีอยู่ และเริ่มเขียนขึ้นใหม่"
+
+msgid "Decrypt my dictionary with my old password:"
+msgstr "ถอดรหัสพจนานุกรม ด้วยรหัสผ่านเก่า"
+
+msgid "Proceed"
+msgstr "เสร็จแล้ว"
+
+msgid "You must make a choice"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:113
-msgid "Encrypt passwords (informative only)"
+msgid ""
+"You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:119
-#: squirrelmail/plugins/mail_fetch/options.php:151
-msgid "Add Server"
+#, fuzzy
+msgid "This will delete your personal dictionary file. Proceed?"
+msgstr "เพิ่มศัพท์คำนี้ลงในพจนานุกรมส่วนตัว"
+
+msgid "Error Decrypting Dictionary"
+msgstr "ลบพจนานุกรมที่ถูกเข้ารหัส"
+
+#, fuzzy
+msgid "Cute."
+msgstr "อ้างจากข้อความ"
+
+msgid "Translator"
+msgstr "ผู้แปล"
+
+#, fuzzy
+msgid "Saved Translation Options"
+msgstr "การอ้างถึงจดหมายที่ส่งมา ประกอบการตอบกลับ"
+
+msgid "Your server options are as follows:"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:123
-#: squirrelmail/plugins/mail_fetch/options.php:201
-msgid "Server:"
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:124
-#: squirrelmail/plugins/mail_fetch/options.php:203
-msgid "Alias:"
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:125
-#: squirrelmail/plugins/mail_fetch/options.php:205
-msgid "Username:"
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr ""
+
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr ""
+
+msgid "Select your translator:"
+msgstr ""
+
+msgid "When reading:"
+msgstr ""
+
+msgid "Show translation box"
+msgstr ""
+
+msgid "to the left"
+msgstr ""
+
+msgid "in the center"
+msgstr ""
+
+msgid "to the right"
+msgstr ""
+
+msgid "Translate inside the SquirrelMail frames"
+msgstr ""
+
+msgid "When composing:"
+msgstr ""
+
+msgid "Not yet functional, currently does nothing"
+msgstr ""
+
+msgid "Download this as a file"
+msgstr "ดาวน์โหลดจดหมายนี้"
+
+msgid "Translation Options"
+msgstr ""
+
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+
+#, fuzzy, c-format
+msgid "%s to %s"
+msgstr "%s เป็น %s"
+
+msgid "English"
+msgstr ""
+
+msgid "French"
+msgstr ""
+
+msgid "German"
+msgstr ""
+
+msgid "Italian"
+msgstr ""
+
+msgid "Portuguese"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
+
+msgid "Russian"
+msgstr ""
+
+msgid "Translate"
+msgstr ""
+
+msgid "Brazilian Portuguese"
+msgstr ""
+
+msgid "Bulgarian"
+msgstr ""
+
+msgid "Croatian"
+msgstr ""
+
+msgid "Czech"
+msgstr ""
+
+msgid "Danish"
+msgstr ""
+
+msgid "Dutch"
+msgstr ""
+
+msgid "European Spanish"
+msgstr ""
+
+msgid "Finnish"
+msgstr ""
+
+msgid "Greek"
+msgstr ""
+
+msgid "Hungarian"
+msgstr ""
+
+msgid "Icelandic"
+msgstr ""
+
+msgid "Japanese"
+msgstr ""
+
+msgid "Latin American Spanish"
+msgstr ""
+
+msgid "Norwegian"
+msgstr ""
+
+msgid "Polish"
+msgstr ""
+
+msgid "Romanian"
+msgstr ""
+
+msgid "Serbian"
+msgstr ""
+
+msgid "Slovenian"
+msgstr ""
+
+msgid "Swedish"
+msgstr ""
+
+msgid "Welsh"
+msgstr ""
+
+msgid "Indonesian"
+msgstr ""
+
+msgid "Latin"
+msgstr ""
+
+msgid "Address Book"
+msgstr "สมุดรายชื่อ"
+
+msgid "Name"
+msgstr "ชื่อ-สกุล"
+
+msgid "E-mail"
+msgstr "อีเมล์"
+
+msgid "Info"
+msgstr "รายละเอียดเพิ่มเติม"
+
+msgid "Source"
+msgstr "จาก"
+
+msgid "Bcc"
+msgstr ""
+
+msgid "Use Addresses"
+msgstr "ใช้สมุดรายชื่อ"
+
+msgid "Address Book Search"
+msgstr "ค้นหาจากสมุดรายชื่อ"
+
+msgid "Search for"
+msgstr "ค้นหา"
+
+msgid "in"
+msgstr "ใน"
+
+msgid "All address books"
+msgstr "สมุดรายชื่อทั้งหมด"
+
+msgid "List all"
+msgstr "แสดงทั้งหมด"
+
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "ไม่สามารถแสดงที่อยู่จาก %s"
+
+msgid "Your search failed with the following error(s)"
+msgstr "การค้นหามีข้อผิดพลาด ดังนี้"
+
+msgid "No persons matching your search was found"
+msgstr "ไม่พบรายชื่อที่คุณต้องการ"
+
+msgid "Return"
+msgstr "กลับไป"
+
+msgid "Nickname"
+msgstr "ชื่อเล่น"
+
+msgid "Must be unique"
+msgstr "ต้องไม่ซ้ำกับที่มีอยู่แล้ว"
+
+msgid "E-mail address"
+msgstr "อีเมล์"
+
+msgid "First name"
+msgstr "ชื่อ"
+
+msgid "Last name"
+msgstr "สกุล"
+
+msgid "Additional info"
+msgstr "ข้อมูลเพิ่มเติม"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "ไม่มีสมุดรายชื่อที่กำหนด กรุณาแจ้งผู้ดูแลระบบ"
+
+msgid "You can only edit one address at the time"
+msgstr "คุณสามารถแก้ไขได้ทีละ 1 ชื่อเท่านั้น"
+
+msgid "Update address"
+msgstr "ยืนยันการแก้ไข"
+
+msgid "Unknown error"
+msgstr "เกิดข้อผิดพลาด"
+
+msgid "Add address"
+msgstr "เพิ่มรายชื่อ"
+
+msgid "Edit selected"
+msgstr "แก้ไขอันที่เลือก"
+
+msgid "Delete selected"
+msgstr "ลบอันที่เลือก"
+
+#, c-format
+msgid "Add to %s"
+msgstr "เพิ่มข้อมูลลงใน %s"
+
+msgid "Original Message"
+msgstr "จดหมายดั้งเดิม"
+
+msgid "Draft Email Saved"
+msgstr "จดหมายที่ร่างไว้ ได้ถูกจัดเก็บแล้ว"
+
+msgid "Could not move/copy file. File not attached"
+msgstr "ไม่พบไฟล์แนบ กดที่ปุ่ม Browse เพื่อเลือกไฟล์ก่อน กดปุ่มเพิ่ม"
+
+#, fuzzy
+msgid "Draft Saved"
+msgstr "จดหมายที่ร่างไว้ ได้ถูกจัดเก็บแล้ว"
+
+#, fuzzy
+msgid "Your Message has been sent"
+msgstr "ยังไม่ได้เลือกจดหมาย (เลือกโดยการกดที่ช่องสี่เหลี่ยม หน้าจดหมาย)"
+
+msgid "To:"
+msgstr "ส่งถึง:"
+
+msgid "CC:"
+msgstr "สำเนาถึง:"
+
+msgid "BCC:"
+msgstr "แอบสำเนาถึง:"
+
+msgid "Subject:"
+msgstr "หัวข้อ:"
+
+msgid "Send"
+msgstr "     ส่ง     "
+
+msgid "Attach:"
+msgstr "แนบไฟล์:"
+
+msgid "Add"
+msgstr "  เพิ่ม  "
+
+msgid "Delete selected attachments"
+msgstr "ลบไฟล์แนบที่เลือกไว้"
+
+msgid "Priority"
+msgstr "ระดับความสำคัญ"
+
+msgid "Receipt"
+msgstr ""
+
+#, fuzzy
+msgid "On Read"
+msgstr "อ่านแล้ว"
+
+msgid "On Delivery"
+msgstr ""
+
+#, fuzzy
+msgid "Save Draft"
+msgstr "เขียนต่อจดหมายที่ร่างทิ้งไว้"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "คุณยังไม่ได้กำหนดว่าจะส่งให้ใคร ในช่อง ส่งถึง:"
+
+msgid "said"
+msgstr "เขียนว่า"
+
+msgid "quote"
+msgstr "อ้างจากข้อความ"
+
+msgid "who"
+msgstr "ของ"
+
+#, fuzzy
+msgid "Draft folder"
+msgstr "กล่องเก็บจดหมายที่ถูกลบ:"
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "ชื่อกล่องจดหมายไม่ถูกต้อง กรุณาเปลี่ยนชื่อ"
+
+msgid "Click here to go back"
+msgstr "กดที่นี่เพื่อกลับไป"
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr ""
+
+msgid "Delete Folder"
+msgstr "ลบกล่องจดหมาย"
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr ""
+
+msgid "Subscribed successfully!"
+msgstr "เพิ่มสำเร็จ"
+
+msgid "Unsubscribed successfully!"
+msgstr "นำออกสำเร็จ"
+
+msgid "Deleted folder successfully!"
+msgstr "ลบกล่องจดหมายสำเร็จ"
+
+msgid "Created folder successfully!"
+msgstr "สร้างกล่องจดหมายสำเร็จ"
+
+msgid "Renamed successfully!"
+msgstr "เปลี่ยนชื่อกล่องจดหมายสำเร็จ"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr ""
+
+msgid "refresh folder list"
+msgstr "รายชื่อกล่องจดหมายล่าสุด"
+
+msgid "Create Folder"
+msgstr "สร้างกล่องจดหมาย"
+
+msgid "as a subfolder of"
+msgstr "เป็นกล่องจดหมายย่อยของ"
+
+msgid "None"
+msgstr "ไม่มี"
+
+msgid "Let this folder contain subfolders"
+msgstr "อนุญาติให้กล่องจดหมายนี้มีกล่องจดหมายย่อย"
+
+msgid "Create"
+msgstr "สร้าง"
+
+msgid "Rename a Folder"
+msgstr "เปลี่ยนชื่อกล่องจดหมาย"
+
+#, fuzzy
+msgid "Select a folder"
+msgstr "เปลี่ยนชื่อกล่องจดหมาย"
+
+msgid "Rename"
+msgstr "เปลี่ยนชื่อ"
+
+msgid "No folders found"
+msgstr "ไม่พบกล่องจดหมาย"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "ไม่พบกล่องจดหมายที่จะเอาออก"
+
+msgid "No folders were found to subscribe to!"
+msgstr "ไม่พบกล่องจดหมายที่จะเพิ่ม"
+
+#, fuzzy
+msgid "Subscribe to:"
+msgstr "เพิ่ม"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr ""
+
+msgid "Rename a folder"
+msgstr "เปลี่ยนชื่อกล่องจดหมาย"
+
+msgid "New name:"
+msgstr "ชื่อใหม่:"
+
+msgid "ERROR: Help files are not in the right format!"
+msgstr ""
+
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "หัวข้อช่วยเหลือนี้ ยังไม่ได้ถูกแปลเป็นภาษาไทย"
+
+msgid "Some or all of the help documents are not present!"
+msgstr "บางส่วนของหัวข้อช่วยเหลือ จะไม่ถูกแสดง"
+
+msgid "Table of Contents"
+msgstr "สารบาญ"
+
+msgid "Top"
+msgstr "บนสุด"
+
+#, fuzzy
+msgid "Viewing an image attachment"
+msgstr "ดูรูปในไฟล์แนบ"
+
+msgid "View message"
+msgstr "ดูจดหมาย"
+
+#, fuzzy
+msgid "Not available"
+msgstr "ไม่มีอยู่"
+
+msgid "purge"
+msgstr "ลบทิ้ง"
+
+msgid "Last Refresh"
+msgstr "ข้อมูลล่าสุด"
+
+msgid "Save folder tree"
+msgstr ""
+
+msgid "Login"
+msgstr "เข้าสู่ระบบ"
+
+#, c-format
+msgid "%s Login"
+msgstr "เข้าสู่ระบบ %s"
+
+msgid "Name:"
 msgstr "ชื่อ:"
 
-#: squirrelmail/plugins/mail_fetch/options.php:127
-#: squirrelmail/plugins/mail_fetch/options.php:209
-msgid "Store in Folder:"
-msgstr ""
+msgid "No messages were selected."
+msgstr "ยังไม่ได้เลือกจดหมาย (เลือกโดยการกดที่ช่องสี่เหลี่ยม หน้าจดหมาย)"
 
-#: squirrelmail/plugins/mail_fetch/options.php:148
-#: squirrelmail/plugins/mail_fetch/options.php:233
-msgid "Leave Mail on Server"
-msgstr ""
+msgid "Message Highlighting"
+msgstr "เน้นจดหมาย"
 
-#: squirrelmail/plugins/mail_fetch/options.php:149
-#: squirrelmail/plugins/mail_fetch/options.php:235
-msgid "Check mail during login"
-msgstr ""
+#, fuzzy
+msgid "subject"
+msgstr "หัวข้อ"
 
-#: squirrelmail/plugins/mail_fetch/options.php:150
-#: squirrelmail/plugins/mail_fetch/options.php:237
-msgid "Check mail during folder refresh"
-msgstr ""
+msgid "No highlighting is defined"
+msgstr "ไม่มีการกำหนดการเน้นจดหมาย"
 
-#: squirrelmail/plugins/mail_fetch/options.php:157
-#: squirrelmail/plugins/mail_fetch/options.php:238
-msgid "Modify Server"
-msgstr ""
+msgid "Identifying name"
+msgstr "ชื่อที่ใช้แยกแยะ"
 
-#: squirrelmail/plugins/mail_fetch/options.php:161
-msgid "Server Name:"
-msgstr ""
+msgid "Color"
+msgstr "สี"
 
-#: squirrelmail/plugins/mail_fetch/options.php:167
-#: squirrelmail/plugins/mail_fetch/options.php:190
-msgid "Modify"
-msgstr ""
+msgid "Dark Blue"
+msgstr "น้ำเงินเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/options.php:171
-msgid "No-one server in use. Try to add."
-msgstr ""
+msgid "Dark Green"
+msgstr "เขียวเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/options.php:177
-#: squirrelmail/plugins/mail_fetch/options.php:192
-#: squirrelmail/plugins/mail_fetch/options.php:243
-msgid "Fetching Servers"
-msgstr ""
+msgid "Dark Yellow"
+msgstr "เหลืองเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/options.php:181
-msgid "Confirm Deletion of a Server"
-msgstr ""
+msgid "Dark Cyan"
+msgstr "ฟ้าเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/options.php:185
-msgid "Selected Server:"
-msgstr ""
+msgid "Dark Magenta"
+msgstr "ม่วงเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/options.php:186
-msgid "Confirm delete of selected server?"
-msgstr ""
+msgid "Light Blue"
+msgstr "น้ำเงินอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/options.php:187
-msgid "Confirm Delete"
-msgstr ""
+msgid "Light Green"
+msgstr "เขียวอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/options.php:196
-msgid "Mofify a Server"
-msgstr ""
+msgid "Light Yellow"
+msgstr "เหลืองอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/options.php:246
-msgid "Undefined Function"
-msgstr ""
+msgid "Light Cyan"
+msgstr "ฟ้าอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/options.php:248
-msgid "Hey! Wath do You are looking for?"
-msgstr ""
+msgid "Light Magenta"
+msgstr "ม่วงอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/setup.php:30
-msgid "Fetch"
-msgstr ""
+msgid "Dark Gray"
+msgstr "เทาเข้ม"
 
-#: squirrelmail/plugins/mail_fetch/setup.php:115
-#: squirrelmail/plugins/mail_fetch/setup.php:162
-msgid "Warning, "
-msgstr ""
+msgid "Medium Gray"
+msgstr "เทาปานกลาง"
 
-#: squirrelmail/plugins/mail_fetch/setup.php:198
-msgid "Mail Fetch Result:"
-msgstr ""
+msgid "Light Gray"
+msgstr "เทาอ่อน"
 
-#: squirrelmail/plugins/mail_fetch/setup.php:224
-msgid "Simple POP3 Fetch Mail"
-msgstr ""
+msgid "White"
+msgstr "ขาว"
 
-#: squirrelmail/plugins/mail_fetch/setup.php:226
+msgid "Other:"
+msgstr "อื่นๆ:"
+
+msgid "Ex: 63aa7f"
+msgstr "เช่น: 63aa7f"
+
+msgid "Matches"
+msgstr "ตรงกับ"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "รายละเอียดส่วนตัวเพิ่มเติม ที่ %s"
+
+msgid "Advanced Identities"
+msgstr "รายละเอียดส่วนตัวเพิ่มเติม"
+
+msgid "Default Identity"
+msgstr "รายละเอียดส่วนตัวแบบปกติ"
+
+msgid "Add a New Identity"
+msgstr "เพิ่มรายละเอียดส่วนตัวเพิ่มเติม"
+
+msgid "E-Mail Address"
+msgstr "อีเมล์แอดเดรส"
+
+msgid "Save / Update"
+msgstr "จัดเก็บ / เปลี่ยนแปลง"
+
+msgid "Make Default"
+msgstr "ใช้อันนี้เป็นแบบปกติ"
+
+msgid "Move Up"
+msgstr "เลื่อนขึ้น"
+
+msgid "Index Order"
+msgstr "เรียงลำดับคอลัมน์ในหน้าจอแสดงรายการจดหมาย"
+
+msgid "Checkbox"
+msgstr "กล่องให้ติ๊กเพื่อเลือก"
+
+msgid "Flags"
+msgstr "สถานะ"
+
 msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
-"account on this server."
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr "คุณสามารถเรียงลำดับ คอลัมน์ต่างๆ ในหน้ารายการจดหมายได้ตามต้องการ"
+
+msgid "up"
+msgstr "เลื่อนขึ้น"
+
+msgid "down"
+msgstr "เลื่อนลง"
+
+msgid "remove"
+msgstr "เอาออก"
+
+msgid "Return to options page"
+msgstr "กลับไปยังหน้าปรับแต่ง"
+
+msgid "Personal Information"
+msgstr "ข้อมูลส่วนบุคคล"
+
+msgid "Display Preferences"
+msgstr "รูปแบบการแสดงผล"
+
+msgid "Folder Preferences"
+msgstr "กำหนดรูปแบบกล่องจดหมาย"
+
+#, fuzzy
+msgid "Successfully Saved Options"
+msgstr "จัดเก็บข้อมูลส่วนตัวสำเร็จ"
+
+msgid "Refresh Folder List"
+msgstr "ดูรายชื่อกล่องจดหมายล่าสุด"
+
+msgid "Refresh Page"
+msgstr "ดูหน้านี้อันล่าสุด"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "ข้อมูลส่วนบุคคลของคุณ เช่น ชื่อ, อีเมล์ และอื่นๆ"
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "คุณสามารถเปลี่ยนแปลงสิ่งต่างๆ เช่น  สี, ภาษา, และอื่นๆ"
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr "กำหนดเงื่อนไข สำหรับสีพื้นของจดหมาย เช่น จดหมายจากแฟนให้เป็นสีชมพู"
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "เปลี่ยนรูปแบบการแสดงกล่องจดหมาย ตามที่คุณต้องการ"
+
+#, fuzzy
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr "สามารถกำหนดให้เรียงลำดับตามที่คุณต้องการ"
+
+#, fuzzy
+msgid "Message not printable"
+msgstr "ตัวกรองจดหมาย"
+
+msgid "Printer Friendly"
+msgstr "โหมดพิมพ์จดหมาย"
+
+#, fuzzy
+msgid "CC"
+msgstr "สำเนาถึง:"
+
+msgid "Print"
+msgstr "พิมพ์"
+
+msgid "View Printable Version"
+msgstr "แสดงจดหมายในรูปแบบสำหรับพิมพ์"
+
+#, fuzzy
+msgid "Read:"
+msgstr "อ่านแล้ว"
+
+#, fuzzy
+msgid "Your message"
+msgstr "] ฉบับ"
+
+#, fuzzy
+msgid "Sent:"
+msgstr "     ส่ง     "
+
+#, c-format
+msgid "Was displayed on %s"
 msgstr ""
 
-#~ msgid "purge"
+msgid "less"
+msgstr "น้อย"
+
+msgid "more"
+msgstr "มาก"
+
+msgid "Mailer"
+msgstr "ส่งจดหมาย โดยโปรแกรม"
+
+msgid "Read receipt"
+msgstr ""
+
+#, fuzzy
+msgid "send"
+msgstr "     ส่ง     "
+
+#, fuzzy
+msgid "requested"
+msgstr "ไม่มีการเปลี่ยนแปลง"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+
+msgid "Send read receipt now"
+msgstr ""
+
+#, fuzzy
+msgid "Search results"
+msgstr "ค้นหา"
+
+msgid "Message List"
+msgstr "รายการจดหมาย"
+
+msgid "Resume Draft"
+msgstr "เขียนต่อจดหมายที่ร่างทิ้งไว้"
+
+msgid "Edit Message as New"
+msgstr ""
+
+#, fuzzy
+msgid "View Message"
+msgstr "ดูจดหมาย"
+
+#, fuzzy
+msgid "Forward as Attachment"
+msgstr "แนบไฟล์"
+
+msgid "Reply"
+msgstr "ตอบกลับ"
+
+msgid "Reply All"
+msgstr "ตอบกลับให้ทุกคน"
+
+#, fuzzy
+msgid "View Full Header"
+msgstr "ดูหัวจดหมายทั้งหมด"
+
+msgid "Attachments"
+msgstr "แนบไฟล์"
+
+#, fuzzy
+msgid "Folder:"
+msgstr "กล่องจดหมาย"
+
+#, fuzzy
+msgid "edit"
+msgstr "แก้ไข"
+
+#, fuzzy
+msgid "search"
+msgstr "ค้นหา"
+
+#, fuzzy
+msgid "delete"
+msgstr "     ลบ     "
+
+msgid "Recent Searches"
+msgstr ""
+
+#, fuzzy
+msgid "save"
+msgstr "จัดเก็บ"
+
+#, fuzzy
+msgid "forget"
+msgstr "มาก"
+
+#, fuzzy
+msgid "Current Search"
+msgstr "กล่องจดหมายในขณะนี้"
+
+msgid "Body"
+msgstr "เนื้อความ"
+
+msgid "Everywhere"
+msgstr "ทั้งหมด"
+
+#, fuzzy
+msgid "Search Results"
+msgstr "ค้นหา"
+
+#, fuzzy
+msgid "No Messages Found"
+msgstr "จำนวนจดหมายต่อหน้า"
+
+msgid "You have been successfully signed out."
+msgstr "คุณได้ออกจากระบบแล้ว"
+
+msgid "Click here to log back in."
+msgstr "กดที่นี่ เพื่อเข้าสู่ระบบ"
+
+#, fuzzy
+msgid "Viewing a Business Card"
+msgstr "แสดงจดหมาย"
+
+#, fuzzy
+msgid "Title"
+msgstr "หัวข้อ:"
+
+#, fuzzy
+msgid "Email"
+msgstr "อีเมล์"
+
+#, fuzzy
+msgid "Web Page"
+msgstr "ดูหน้านี้อันล่าสุด"
+
+msgid "Organization / Department"
+msgstr "บริษัท / แผนก"
+
+#, fuzzy
+msgid "Address"
+msgstr "สมุดรายชื่อ"
+
+msgid "Work Phone"
+msgstr "โทรศัพท์ที่ทำงาน"
+
+msgid "Home Phone"
+msgstr "โทรศัพท์ที่บ้าน"
+
+msgid "Cellular Phone"
+msgstr "โทรศัพท์มือถือ"
+
+msgid "Fax"
+msgstr "แฟกซ์"
+
+#, fuzzy
+msgid "Note"
+msgstr "ไม่มี"
+
+#, fuzzy
+msgid "Add to Addressbook"
+msgstr "เพิ่มรายชื่อ"
+
+msgid "Title & Org. / Dept."
+msgstr "ตำแหน่ง, บริษัท, แผนก"
+
+#, fuzzy
+msgid "Viewing Full Header"
+msgstr "ดูรายละเอียดของหัวจดหมายทั้งหมด"
+
+msgid "Viewing a text attachment"
+msgstr "ดูข้อมูลในไฟล์แนบ"
+
+#~ msgid "Close window"
+#~ msgstr "ปิดหน้าต่างนี้"
+
+#, fuzzy
+#~ msgid "empty"
 #~ msgstr "ลบทิ้ง"
 
-#~ msgid "Use Javascript or HTML addressbook?"
-#~ msgstr "ใช้สมุดจดหมายที่เป็น จาวาสคริปต์ หรือ HTML ธรรมดา?"
+#~ msgid "There was an error contacting the mail server."
+#~ msgstr "มีปัญหาในการติดต่อกับเมล์เซิร์ฟเวอร์"
 
-#~ msgid "Auto refresh folder list"
-#~ msgstr "ปรับรายการกล่องจดหมายให้ทันสมัยโดยอัตโนมัติ"
+#~ msgid "Welcome to %s's WebMail system"
+#~ msgstr "ยินดีต้อนรับสู่ระบบเว็บเมล์ของ %s"
+
+#, fuzzy
+#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
+#~ msgstr "Running SquirrelMail version %s (c) 1999-2000."
+
+#~ msgid "Unknown messagenumber in reply from server: "
+#~ msgstr "Unknown messagenumber in reply from server: "
+
+#, fuzzy
+#~ msgid "No To Address"
+#~ msgstr "สมุดรายชื่อ"
+
+#~ msgid "Found"
+#~ msgstr "พบแล้ว"
+
+#~ msgid "messages"
+#~ msgstr "ฉบับ"
+
+#~ msgid ""
+#~ "FREE - Another ORBS replacement (just the INPUTS database used here)."
+#~ msgstr ""
+#~ "FREE - Another ORBS replacement (just the INPUTS database used here)."
+
+#~ msgid ""
+#~ "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
+#~ msgstr ""
+#~ "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
+
+#~ msgid ""
+#~ "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+#~ "SLOOOOOOW!"
+#~ msgstr ""
+#~ "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+#~ "SLOOOOOOW!"
+
+#~ msgid "FREE - orbz.gst-group.co.uk - Inputs only."
+#~ msgstr "FREE - orbz.gst-group.co.uk - Inputs only."
+
+#~ msgid "FREE - orbz.gst-group.co.uk - Outputs only."
+#~ msgstr "FREE - orbz.gst-group.co.uk - Outputs only."
+
+#~ msgid ""
+#~ "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
+#~ "addressed to postmaster@<theirdomain>."
+#~ msgstr ""
+#~ "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
+#~ "addressed to postmaster@<theirdomain>."
+
+#~ msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+#~ msgstr "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+
+#~ msgid "Your personal dictionary was erased."
+#~ msgstr "พจนานุกรมของคุณ ได้ถูกลบแล้ว"
+
+#~ msgid "Dictionary Erased"
+#~ msgstr "พจนานุกรมถูกลบแล้ว"
+
+#~ msgid "Close this Window"
+#~ msgstr "ปิดหน้าต่างนี้"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
+#~ "&quot;SpellChecker options&quot; menu and make your selection again."
+#~ msgstr ""
+#~ "พจนานุกรมส่วนตัวของคุณ ได้รับการเข้ารหัสแล้ว กำลังกลับสู่ &quot;ตัวเลือกการสะกดคำ&quot;"
+
+#~ msgid "Successful Re-encryption"
+#~ msgstr "เข้ารหัสเสร็จแล้ว"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Please close this "
+#~ "window and click \"Check Spelling\" button again to start your spellcheck "
+#~ "over."
+#~ msgstr ""
+#~ "พจนานุกรมส่วนตัวของคุณ ถูกเข้ารหัสแล้ว กรุณาปิดหน้าต่างนี้ และเลือกที่ ปุ่ม \"ตรวจสอบการสะกด"
+#~ "\" เพื่อเริ่มตรวจสอบการสะกดคำ"
+
+#~ msgid "Dictionary re-encrypted"
+#~ msgstr "พจนานุกรม ถูกเข้ารหัสอีกครั้ง"
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
+#~ "stored in an <strong>encrypted format</strong>."
+#~ msgstr ""
+#~ "พจนานุกรมส่วนตัวของคุณ ได้ถูก <strong>เข้ารหัส</strong> และจัดเก็บโดย "
+#~ "<strong>เข้ารหัส</strong>เอาไว้"
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
+#~ "stored as <strong>clear text</strong>."
+#~ msgstr ""
+#~ "พจนานุกรมส่วนตัวของคุณ ได้ถูก <strong>ถอดรหัส</strong> และจัดเก็บไว้ในรูปแบบที่ "
+#~ "<strong>ไม่ได้เข้ารหัส</strong>"
+
+#~ msgid "Personal Dictionary Crypto Settings"
+#~ msgstr "ติดตั้งตัวเข้ารหัส พจนานุกรมส่วนตัว"
+
+#~ msgid "SquirrelSpell Results"
+#~ msgstr "ผลลัพท์ของการตรวจสอบการสะกด"
+
+#~ msgid "Found %s errors"
+#~ msgstr "พบคำผิด %s แห่ง"
+
+#~ msgid "Line with an error:"
+#~ msgstr "บรรทัดที่ผิด:"
+
+#~ msgid "Error:"
+#~ msgstr "คำผิด:"
+
+#~ msgid "Suggestions"
+#~ msgstr "คำแนะนำ"
+
+#~ msgid "Change to:"
+#~ msgstr "เปลี่ยนเป็น:"
+
+#~ msgid "Occurs times:"
+#~ msgstr "จำนวนคำ:"
+
+#~ msgid "Change this word"
+#~ msgstr "เปลี่ยนศัพท์คำนี้"
+
+#~ msgid "Change"
+#~ msgstr "เปลี่ยน"
+
+#~ msgid "Change ALL occurances of this word"
+#~ msgstr "เปลี่ยนศัพท์คำนี้ทั้งหมด"
+
+#~ msgid "Change All"
+#~ msgstr "เปลี่ยนทั้งหมด"
+
+#~ msgid "Ignore this word"
+#~ msgstr "ไม่ต้องสนใจศัพท์คำนี้"
+
+#~ msgid "Ignore"
+#~ msgstr "ไม่สนใจ"
+
+#~ msgid "Ignore ALL occurances this word"
+#~ msgstr "ไม่สนใจศัพท์คำนี้"
+
+#~ msgid "Ignore All"
+#~ msgstr "ไม่สนใจทั้งหมด"
+
+#~ msgid "Add to Dic"
+#~ msgstr "เพิ่มลงในพจนานุกรม"
+
+#~ msgid "Close and Commit"
+#~ msgstr "ปิดหน้าต่างนี้"
+
+#~ msgid "The spellcheck is not finished. Really close and commit changes?"
+#~ msgstr "การตรวจสอบตัวสะกด ยังไม่เสร็จ ต้องการปิด และจัดเก็บการเปลี่ยนแปลง?"
+
+#~ msgid "Close and Cancel"
+#~ msgstr "ปิด และยกเลิก"
+
+#~ msgid "The spellcheck is not finished. Really close and discard changes?"
+#~ msgstr "การตรวจสอบตัวสะกด ยังไม่เสร็จ ต้องการปิด และยกเลิกการเปลี่ยนแปลง?"
+
+#~ msgid "No errors found"
+#~ msgstr "ไม่พบข้อผิดพลาด"
+
+#~ msgid "Personal Dictionary"
+#~ msgstr "พจนานุกรมส่วนตัว"
+
+#~ msgid "No words in your personal dictionary."
+#~ msgstr "ไม่มีคำศัพท์ในพจนานุกรมส่วนตัวของคุณ"
+
+#~ msgid "Please check any words you wish to delete from your dictionary."
+#~ msgstr "เลือกคำศัพท์ที่คุณต้องการลบออกจากพจนานุกรมของคุณ"
+
+#~ msgid "%s dictionary"
+#~ msgstr "พจนานุกรมภาษา %s"
+
+#~ msgid "Delete checked words"
+#~ msgstr "ลบศัพท์ที่เลือก"
+
+#~ msgid "Edit your Personal Dictionary"
+#~ msgstr "แก้ไขพจนานุกรมส่วนตัว"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+#~ "helps protect your privacy in case the web-mail system gets compromized "
+#~ "and your personal dictionary ends up stolen. It is currently encrypted "
+#~ "with the password you use to access your mailbox, making it hard for "
+#~ "anyone to see what is stored in your personal dictionary.</p> "
+#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
+#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
+#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
+#~ "prompt you for your old password in order to re-encrypt the dictionary "
+#~ "with a new key.</p>"
+#~ msgstr ""
+#~ "<p>พจนานุกรมส่วนตัวของคุณได้ถูก <strong>เข้ารหัส</strong> ไว้แล้ว ซึ่งรหัสสำหรับถอดรหัส "
+#~ "คือรหัสผ่านของคุณ</p><p>ถ้าคุณลืมรหัสผ่าน พจนานุกรมส่วนตัวของคุณ จะไม่สามารถนำมาใช้ได้ "
+#~ "เพราะไม่สามารถถอดรหัสออกมาได้ ในกรณีที่คุณเปลี่ยนรหัสผ่าน "
+#~ "ระบบจะถามถึงรหัสผ่านก่อนหน้านั้นของคุณ และดำเนินการเข้ารหัส โดยใช้รหัสผ่านอันใหม่ของคุณ</p>"
+
+#~ msgid ""
+#~ "Please decrypt my personal dictionary and store it in a clear-text format."
+#~ msgstr "ถอดรหัสพจนานุกรมส่วน และเก็บไว้ในรูปแบบที่ไม่ได้เข้ารหัส"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
+#~ "You may wish to encrypt your personal dictionary to protect your privacy "
+#~ "in case the webmail system gets compromized and your personal dictionary "
+#~ "file gets stolen. When encrypted, the file's contents look garbled and "
+#~ "are hard to decrypt without knowing the correct key (which is your "
+#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
+#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
+#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
+#~ "password and the administrator changes it to a new value, your personal "
+#~ "dictionary will become useless and will have to be created anew. However, "
+#~ "if you or your system administrator change your mailbox password but you "
+#~ "still have the old password at hand, you will be able to enter the old "
+#~ "key to re-encrypt the dictionary with the new value.</p>"
+#~ msgstr ""
+#~ "<p>พจนานุกรมส่วนตัวของคุณ <strong>ยังไม่ได้ถูกเข้ารหัสไว้</strong> "
+#~ "คุณสามารถเข้ารหัสเอาไว้ได้ เพื่อป้องกันผู้อื่น แอบดูข้อมูล "
+#~ "โดยรหัสผ่านของคุณจะถูกนำมาใช้ในการเข้ารหัส ในกรณีที่คุณเปลี่ยนรหัสผ่าน ข้อมูลที่ถูกเข้ารหัสไว้ "
+#~ "ยังต้องใช้รหัสผ่านอันเก่า ในการถอดรหัส "
+#~ "หลังจากนั้นข้อมูลจะถูกเข้ารหัสโดยรหัสผ่านอันใหม่ให้โดยอัตโนมัติ"
+
+#~ msgid ""
+#~ "Please encrypt my personal dictionary and store it in an encrypted format."
+#~ msgstr "เข้ารหัสพจนานุกรมส่วนตัว และเก็บไว้ในรูปแบบที่ถูกเข้ารหัสไว้"
+
+#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+#~ msgstr "ลบศัพท์ต่อไปนี้ ออกจากพจนานุกรม <strong>%s</strong>"
+
+#~ msgid "All done!"
+#~ msgstr "เสร็จแล้ว"
+
+#~ msgid "Personal Dictionary Updated"
+#~ msgstr "พจนานุกรมส่วนตัว ปรับปรุงแล้ว"
+
+#~ msgid "Please wait, communicating with the server..."
+#~ msgstr "กรุณารอสักครู่ กำลังติดต่อกับเซิร์ฟเวอร์"
+
+#~ msgid ""
+#~ "Please choose which dictionary you would like to use to spellcheck this "
+#~ "message:"
+#~ msgstr "กรุณาเลือกพจนานุกรม ที่คุณต้องการใช้การตรวจสะกด:"
+
+#~ msgid "SquirrelSpell Initiating"
+#~ msgstr "เริ่มการตรวจสะกด"
+
+#~ msgid "International Dictionaries Preferences Updated"
+#~ msgstr "ตัวเลือกพจนานุกรมได้รับการปรับแล้ว"
+
+#~ msgid "Make this dictionary my default selection:"
+#~ msgstr "เลือกพจนานุกรมอันนี้ เป็นพจนานุกรมหลัก"
+
+#~ msgid "Add International Dictionaries"
+#~ msgstr "เพิ่มพจนานุกรมต่างประเทศ"
+
+#~ msgid "Please choose which options you wish to set up:"
+#~ msgstr "เลือกหัวข้อที่คุณต้องการแก้ไข"
+
+#~ msgid "Edit your personal dictionary"
+#~ msgstr "แก้ไขพจนานุกรมส่วนตัวของคุณ"
+
+#~ msgid "Set up international dictionaries"
+#~ msgstr "ติดตั้งพจนานุกรมต่างประเทศ"
+
+#~ msgid "Encrypt or decrypt your personal dictionary"
+#~ msgstr "เข้ารหัส หรือถอดรหัส พจนานุกรมส่วนตัวของคุณ"
 
 #~ msgid "Yes, show me the HTML version of a mail message, if it is available."
 #~ msgstr "แสดงจดหมายในรูปแบบ HTML ถ้าจดหมายนั้นมีการใช้ HTML"
@@ -3407,12 +3329,6 @@ msgstr ""
 
 #~ msgid "Successfully saved folder preferences!"
 #~ msgstr "จัดเก็บการกำหนดรูปแบบกล่องจดหมาย สำเร็จ!"
-
-#~ msgid "Viewing messages"
-#~ msgstr "จดหมายฉบับที่"
-
-#~ msgid "to"
-#~ msgstr "ถึง"
 
 #~ msgid "total"
 #~ msgstr "ฉบับในกล่องจดหมายนี้"

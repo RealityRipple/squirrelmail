@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$ \n"
-"POT-Creation-Date: 2002-02-11 19:55+0100\n"
+"POT-Creation-Date: 2003-01-01 18:33+0100\n"
 "PO-Revision-Date: 2002-01-30 19:30+2\n"
 "Last-Translator: Teemu Junnila <teejun@vallcom.com>\n"
 "Language-Team: Finnish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -13,1688 +13,206 @@ msgstr ""
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: squirrelmail/src/addrbook_popup.php:22
-msgid "Address Book"
-msgstr "Osoitekirja"
+msgid "Delivery error report"
+msgstr "Perilletoimituksen virheraportti"
 
-#: squirrelmail/src/addrbook_search.php:98
-#: squirrelmail/src/addrbook_search_html.php:67
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
-msgid "Name"
-msgstr "Nimi"
+msgid "Undelivered Message Headers"
+msgstr "Toimittamattomat Viestiotsakkeet"
 
-#: squirrelmail/src/addrbook_search.php:99
-#: squirrelmail/src/addrbook_search_html.php:68
-#: squirrelmail/src/addressbook.php:286
-msgid "E-mail"
-msgstr "Sähköposti"
+msgid "(no subject)"
+msgstr "(tyhjä)"
 
-#: squirrelmail/src/addrbook_search.php:100
-#: squirrelmail/src/addrbook_search_html.php:69
-#: squirrelmail/src/addressbook.php:287
-msgid "Info"
-msgstr "Tietoja"
-
-#: squirrelmail/src/addrbook_search.php:103
-#: squirrelmail/src/addrbook_search_html.php:72
-msgid "Source"
-msgstr "Lähde"
-
-#: squirrelmail/functions/mailbox_display.php:570
-#: squirrelmail/plugins/filters/options.php:88
-#: squirrelmail/src/addrbook_search_html.php:82
-#: squirrelmail/src/compose.php:345 squirrelmail/src/download.php:132
-#: squirrelmail/src/download.php:139
-#: squirrelmail/src/options_highlight.php:325
-#: squirrelmail/src/printer_friendly_bottom.php:96
-#: squirrelmail/src/search.php:344
-msgid "To"
-msgstr "Vastaanottaja"
-
-#: squirrelmail/plugins/filters/options.php:91
-#: squirrelmail/src/addrbook_search_html.php:84
-#: squirrelmail/src/options_highlight.php:328 squirrelmail/src/search.php:343
-msgid "Cc"
-msgstr "Kopio (Cc)"
-
-#: squirrelmail/src/addrbook_search_html.php:86
-msgid "Bcc"
-msgstr "Piilokopio (Bcc)"
-
-#: squirrelmail/src/addrbook_search_html.php:99
-msgid "Use Addresses"
-msgstr "Käytä Osoitteita"
-
-#: squirrelmail/src/addrbook_search_html.php:122
-msgid "Address Book Search"
-msgstr "Haku Osoitekirjasta"
-
-#: squirrelmail/src/addrbook_search.php:173
-#: squirrelmail/src/addrbook_search_html.php:131
-msgid "Search for"
-msgstr "Etsi"
-
-#: squirrelmail/src/addrbook_search.php:179
-#: squirrelmail/src/addrbook_search_html.php:141
-msgid "in"
-msgstr "seuraavista:"
-
-#: squirrelmail/src/addrbook_search.php:180
-#: squirrelmail/src/addrbook_search_html.php:144
-msgid "All address books"
-msgstr "Kaikista osoitekirjoista"
-
-#: squirrelmail/functions/page_header.php:150
-#: squirrelmail/src/addrbook_search.php:191
-#: squirrelmail/src/addrbook_search_html.php:155
-#: squirrelmail/src/search.php:178 squirrelmail/src/search.php:189
-#: squirrelmail/src/search.php:207 squirrelmail/src/search.php:348
-#: squirrelmail/src/search.php:373 squirrelmail/src/search.php:394
-#: squirrelmail/src/search.php:404
-msgid "Search"
-msgstr "Etsi"
-
-#: squirrelmail/src/addrbook_search.php:192
-#: squirrelmail/src/addrbook_search_html.php:156
-msgid "List all"
-msgstr "Näytä kaikki"
-
-#: squirrelmail/src/addrbook_search.php:213
-#: squirrelmail/src/addrbook_search_html.php:186
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "Osoitteita ei löytynyt: %s"
-
-#: squirrelmail/src/addrbook_search.php:239
-#: squirrelmail/src/addrbook_search_html.php:211
-msgid "Your search failed with the following error(s)"
-msgstr "Hakusi epäonnistui seuraavin virheilmoituksin"
-
-#: squirrelmail/src/addrbook_search.php:159
-#: squirrelmail/src/addrbook_search.php:246
-#: squirrelmail/src/addrbook_search_html.php:216
-msgid "No persons matching your search was found"
-msgstr "Ketään hakemaasi ei löytynyt"
-
-#: squirrelmail/src/addrbook_search_html.php:229
-msgid "Return"
-msgstr "Paluu"
-
-#: squirrelmail/plugins/newmail/testsound.php:33
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:412
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
-#: squirrelmail/src/addrbook_search.php:194
-msgid "Close"
-msgstr "Sulje"
-
-#: squirrelmail/src/addressbook.php:39 squirrelmail/src/addressbook.php:285
-msgid "Nickname"
-msgstr "Lempinimi"
-
-#: squirrelmail/src/addressbook.php:40
-msgid "Must be unique"
-msgstr "Täytyy olla ainutlaatuinen"
-
-#: squirrelmail/src/addressbook.php:41
-msgid "E-mail address"
-msgstr "Sähköpostiosoite"
-
-#: squirrelmail/src/addressbook.php:42
-msgid "First name"
-msgstr "Etunimi"
-
-#: squirrelmail/src/addressbook.php:43
-msgid "Last name"
-msgstr "Sukunimi"
-
-#: squirrelmail/src/addressbook.php:44
-msgid "Additional info"
-msgstr "Lisätietoja"
-
-#: squirrelmail/src/addressbook.php:58
-msgid "No personal address book is defined. Contact administrator."
-msgstr "Osoitekirjaa ei löydy. Ota yhteys Administraattoriin."
-
-#: squirrelmail/src/addressbook.php:154
-msgid "You can only edit one address at the time"
-msgstr "Osoitteita voi muokata vain yksi kerrallaan"
-
-#: squirrelmail/src/addressbook.php:168 squirrelmail/src/addressbook.php:170
-#: squirrelmail/src/addressbook.php:200 squirrelmail/src/addressbook.php:202
-msgid "Update address"
-msgstr "Päivitä osoite"
-
-#: squirrelmail/functions/display_messages.php:25
-#: squirrelmail/functions/display_messages.php:76
-#: squirrelmail/functions/display_messages.php:92
-#: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
-msgid "ERROR"
-msgstr "VIRHE"
-
-#: squirrelmail/src/addressbook.php:214
-msgid "Unknown error"
-msgstr "Tuntematon virhe"
-
-#: squirrelmail/src/addressbook.php:258 squirrelmail/src/addressbook.php:344
-msgid "Add address"
-msgstr "Lisää osoite"
-
-#: squirrelmail/src/addressbook.php:270 squirrelmail/src/addressbook.php:326
-msgid "Edit selected"
-msgstr "Muokkaa valittuja"
-
-#: squirrelmail/src/addressbook.php:272 squirrelmail/src/addressbook.php:328
-msgid "Delete selected"
-msgstr "Poista valitut"
-
-#: squirrelmail/src/addressbook.php:341
-#, c-format
-msgid "Add to %s"
-msgstr "Lisää (%s)"
-
-#: squirrelmail/src/compose.php:43
-msgid "Draft Email Saved"
-msgstr "Luonnos Talletettu"
-
-#: squirrelmail/src/compose.php:147 squirrelmail/src/compose.php:193
-#: squirrelmail/src/compose.php:204
-msgid "Could not move/copy file. File not attached"
-msgstr "Tiedoston siirto/kopiointi epäonnistu. Tiedostoa ei liittetty viestiin"
-
-#: squirrelmail/src/compose.php:340
-msgid "Original Message"
-msgstr "Alkuperäinen viesti"
-
-#: squirrelmail/functions/mailbox_display.php:586
-#: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:341 squirrelmail/src/download.php:130
-#: squirrelmail/src/download.php:135
-#: squirrelmail/src/options_highlight.php:334
-#: squirrelmail/src/options_order.php:40
-#: squirrelmail/src/printer_friendly_bottom.php:101
-#: squirrelmail/src/search.php:341
-msgid "Subject"
-msgstr "Aihe"
-
-#: squirrelmail/functions/mailbox_display.php:572
-#: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:342 squirrelmail/src/download.php:131
-#: squirrelmail/src/download.php:137
-#: squirrelmail/src/options_highlight.php:322
-#: squirrelmail/src/options_order.php:38
-#: squirrelmail/src/printer_friendly_bottom.php:95
-#: squirrelmail/src/search.php:342
-msgid "From"
-msgstr "Lähettäjä"
-
-#: squirrelmail/functions/mailbox_display.php:580
-#: squirrelmail/src/compose.php:343 squirrelmail/src/download.php:133
-#: squirrelmail/src/download.php:141 squirrelmail/src/options_order.php:39
-#: squirrelmail/src/printer_friendly_bottom.php:100
-msgid "Date"
-msgstr "Päiväys"
-
-#: squirrelmail/src/compose.php:490
-msgid "Draft Saved"
-msgstr "Luonnos Talletettu"
-
-#: squirrelmail/src/compose.php:493
-msgid "Your Message has been sent"
-msgstr "Viesti lähetetty"
-
-#: squirrelmail/plugins/listcommands/mailout.php:50
-#: squirrelmail/src/compose.php:508 squirrelmail/src/read_body.php:735
-msgid "From:"
-msgstr "Lähettäjä:"
-
-#: squirrelmail/src/compose.php:536 squirrelmail/src/read_body.php:184
-#: squirrelmail/src/read_body.php:752
-msgid "To:"
-msgstr "Vastaanottaja:"
-
-#: squirrelmail/src/compose.php:544
-msgid "CC:"
-msgstr "Kopio (CC):"
-
-#: squirrelmail/src/compose.php:552
-msgid "BCC:"
-msgstr "Piilokopio (BCC):"
-
-#: squirrelmail/src/compose.php:559 squirrelmail/src/read_body.php:185
-#: squirrelmail/src/read_body.php:706
-msgid "Subject:"
-msgstr "Aihe:"
-
-#: squirrelmail/src/compose.php:604 squirrelmail/src/compose.php:687
-msgid "Send"
-msgstr "Lähetä"
-
-#: squirrelmail/src/compose.php:610
-msgid "Attach:"
-msgstr "Liite:"
-
-#: squirrelmail/src/compose.php:615 squirrelmail/src/options_order.php:126
-msgid "Add"
-msgstr "Lisää liite"
-
-#: squirrelmail/src/compose.php:632
-msgid "Delete selected attachments"
-msgstr "Poista valitut liitteet"
-
-#: squirrelmail/src/compose.php:659 squirrelmail/src/read_body.php:782
-msgid "Priority"
-msgstr "Prioriteetti"
-
-#: squirrelmail/plugins/administrator/defines.php:191
-#: squirrelmail/plugins/calendar/functions.php:98
-#: squirrelmail/src/compose.php:660 squirrelmail/src/read_body.php:577
-msgid "High"
-msgstr "Korkea"
-
-#: squirrelmail/plugins/calendar/functions.php:97
-#: squirrelmail/src/compose.php:661 squirrelmail/src/read_body.php:590
-msgid "Normal"
-msgstr "Normaali"
-
-#: squirrelmail/plugins/administrator/defines.php:188
-#: squirrelmail/src/compose.php:662 squirrelmail/src/read_body.php:583
-msgid "Low"
-msgstr "Alhainen"
-
-#: squirrelmail/src/compose.php:668
-msgid "Receipt"
-msgstr "Kuitti"
-
-#: squirrelmail/src/compose.php:669
-msgid "On read"
-msgstr "Luettaessa"
-
-#: squirrelmail/src/compose.php:670
-msgid "On Delivery"
-msgstr "Perille toimitettaessa"
-
-#: squirrelmail/functions/page_header.php:144 squirrelmail/src/compose.php:677
-#: squirrelmail/src/compose.php:681 squirrelmail/src/compose.php:685
-msgid "Addresses"
-msgstr "Osoitteet"
-
-#: squirrelmail/src/compose.php:690
-msgid "Save Draft"
-msgstr "Talleta Luonnos"
-
-#: squirrelmail/src/compose.php:709
-msgid "You have not filled in the \"To:\" field."
-msgstr "Et ole valinnut Vastaanottajaa."
-
-#: squirrelmail/src/compose.php:794
-msgid "said"
-msgstr "kirjoitti"
-
-#: squirrelmail/src/compose.php:797
-msgid "quote"
-msgstr "lainaus"
-
-#: squirrelmail/src/compose.php:797
-msgid "who"
-msgstr "kuka"
-
-#: squirrelmail/src/download.php:31
-msgid "Viewing a text attachment"
-msgstr "Näytössä tekstiliite"
-
-#: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
-#: squirrelmail/src/image.php:31 squirrelmail/src/image.php:35
-#: squirrelmail/src/read_body.php:307 squirrelmail/src/vcard.php:35
-#: squirrelmail/src/vcard.php:39
-msgid "View message"
-msgstr "Näytä viesti"
-
-#: squirrelmail/functions/mime.php:636 squirrelmail/src/download.php:41
-#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
-msgid "Download this as a file"
-msgstr "Lataa tämä tiedostona"
-
-#: squirrelmail/src/folders_create.php:27
-msgid "Illegal folder name.  Please select a different name."
-msgstr "Epäkelpo nimi kansiolle. Ole hyvä ja valitse joku toinen nimi."
-
-#: squirrelmail/src/folders_create.php:27
-msgid "Click here to go back"
-msgstr "Klikkaa tästä päästäksesi takaisin"
-
-#: squirrelmail/functions/page_header.php:146 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:238
-msgid "Folders"
-msgstr "Kansiot"
-
-#: squirrelmail/src/folders.php:42
-msgid "Subscribed successfully!"
-msgstr "Käyttöönotto onnistui!"
-
-#: squirrelmail/src/folders.php:44
-msgid "Unsubscribed successfully!"
-msgstr "Käytöstäpoisto onnistui!"
-
-#: squirrelmail/src/folders.php:46
-msgid "Deleted folder successfully!"
-msgstr "Kansio poistettu!"
-
-#: squirrelmail/src/folders.php:48
-msgid "Created folder successfully!"
-msgstr "Kansio luotu!"
-
-#: squirrelmail/src/folders.php:50
-msgid "Renamed successfully!"
-msgstr "Nimi vaihdettu!"
-
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
-msgid "refresh folder list"
-msgstr "päivitä lista"
-
-#: squirrelmail/src/folders.php:65
-msgid "Create Folder"
-msgstr "Luo Kansio"
-
-#: squirrelmail/src/folders.php:70
-msgid "as a subfolder of"
-msgstr "alikansiona seuraavalle: "
-
-#: squirrelmail/src/folders.php:74 squirrelmail/src/folders.php:76
-msgid "None"
-msgstr "----"
-
-#: squirrelmail/src/folders.php:98
-msgid "Let this folder contain subfolders"
-msgstr "Tämä kansio voi sisältää alikansioita"
-
-#: squirrelmail/src/folders.php:101
-msgid "Create"
-msgstr "Luo"
-
-#: squirrelmail/src/folders.php:108
-msgid "Rename a Folder"
-msgstr "Muuta Kansion nimeä"
-
-#: squirrelmail/src/folders.php:131
-msgid "Rename"
-msgstr "Muuta nimeä"
-
-#: squirrelmail/src/folders.php:135 squirrelmail/src/folders.php:194
-msgid "No folders found"
-msgstr "Kansioita ei löydy"
-
-#: squirrelmail/src/folders.php:143
-msgid "Delete Folder"
-msgstr "Poista Kansio"
-
-#: squirrelmail/functions/mailbox_display.php:543
-#: squirrelmail/plugins/filters/options.php:154
-#: squirrelmail/plugins/mail_fetch/options.php:163
-#: squirrelmail/plugins/mail_fetch/options.php:170
-#: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:76
-#: squirrelmail/src/options_identities.php:305
-#: squirrelmail/src/read_body.php:626
-msgid "Delete"
-msgstr "Poista"
-
-#: squirrelmail/plugins/listcommands/setup.php:34
-#: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
-msgid "Unsubscribe"
-msgstr "Poista käytöstä"
-
-#: squirrelmail/plugins/listcommands/setup.php:33
-#: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
-msgid "Subscribe"
-msgstr "Ota käyttöön"
-
-#: squirrelmail/src/folders.php:224
-msgid "No folders were found to unsubscribe from!"
-msgstr "Ei käytössäolevia kansioita!"
-
-#: squirrelmail/src/folders.php:264
-msgid "No folders were found to subscribe to!"
-msgstr "Ei käyttöönotettavia kansioita!"
-
-#: squirrelmail/src/folders_rename_getname.php:40
-msgid "Rename a folder"
-msgstr "Muuta kansion nimi"
-
-#: squirrelmail/src/folders_rename_getname.php:44
-msgid "New name:"
-msgstr "Uusi nimi:"
-
-#: squirrelmail/functions/options.php:414
-#: squirrelmail/plugins/filters/options.php:138
-#: squirrelmail/plugins/newmail/newmail_opt.php:133
-#: squirrelmail/plugins/translate/options.php:160
-#: squirrelmail/src/folders_rename_getname.php:51
-#: squirrelmail/src/options_highlight.php:347
-msgid "Submit"
-msgstr "Aktivoi"
-
-#: squirrelmail/functions/page_header.php:152
-#: squirrelmail/plugins/listcommands/setup.php:37 squirrelmail/src/help.php:91
-msgid "Help"
-msgstr "Apua"
-
-#: squirrelmail/src/help.php:131
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr ""
-"Apua ei valitettavasti ole käännetty suomeksi. Apu näytetään englanniksi "
-
-#: squirrelmail/src/help.php:137
-msgid "Some or all of the help documents are not present!"
-msgstr "Joku tai kaikki dokumentit puuttuvat!"
-
-#: squirrelmail/src/help.php:169 squirrelmail/src/help.php:191
-msgid "Table of Contents"
-msgstr "Sisältö"
-
-#: squirrelmail/functions/mailbox_display.php:746
-#: squirrelmail/functions/mailbox_display.php:749
-#: squirrelmail/functions/mailbox_display.php:752
-#: squirrelmail/plugins/delete_move_next/setup.php:149
-#: squirrelmail/plugins/delete_move_next/setup.php:151
-#: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
-#: squirrelmail/src/read_body.php:652 squirrelmail/src/read_body.php:654
-msgid "Previous"
-msgstr "Edellinen"
-
-#: squirrelmail/functions/mailbox_display.php:747
-#: squirrelmail/functions/mailbox_display.php:750
-#: squirrelmail/functions/mailbox_display.php:753
-#: squirrelmail/plugins/delete_move_next/setup.php:154
-#: squirrelmail/plugins/delete_move_next/setup.php:156
-#: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
-#: squirrelmail/src/read_body.php:658 squirrelmail/src/read_body.php:660
-msgid "Next"
-msgstr "Seuraava"
-
-#: squirrelmail/src/help.php:219
-msgid "Top"
-msgstr "Alkuun"
-
-#: squirrelmail/src/image.php:26
-msgid "Viewing an image attachment"
-msgstr "Näytössä kuvaliite"
-
-#: squirrelmail/functions/imap_search.php:199
-#: squirrelmail/functions/mailbox_display.php:529
-#: squirrelmail/functions/page_header.php:117
-#: squirrelmail/plugins/mail_fetch/options.php:137
-#: squirrelmail/plugins/mail_fetch/options.php:214
-#: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:310
-msgid "INBOX"
-msgstr "Saapuneet"
-
-#: squirrelmail/src/left_main.php:97
-msgid "empty"
-msgstr "tyhjä"
-
-#: squirrelmail/src/left_main.php:271
-msgid "Last Refresh"
-msgstr "Viimeinen Päivitys"
-
-#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:141
-msgid "Login"
-msgstr "Kirjaudu sisään"
-
-#: squirrelmail/src/login.php:112
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail versio %s"
-
-#: squirrelmail/src/login.php:113
-msgid "By the SquirrelMail Development Team"
-msgstr "SquirrelMailin kehitystiimiltä"
-
-#: squirrelmail/src/login.php:119
-#, c-format
-msgid "%s Login"
-msgstr "Kirjaudu sisään"
-
-#: squirrelmail/src/login.php:123
-msgid "Name:"
-msgstr "Nimi:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:126
-#: squirrelmail/plugins/mail_fetch/options.php:202
-#: squirrelmail/src/login.php:129
-msgid "Password:"
-msgstr "Tunnussana:"
-
-#: squirrelmail/src/move_messages.php:79
-#: squirrelmail/src/move_messages.php:114
-#: squirrelmail/src/move_messages.php:143
-msgid "No messages were selected."
-msgstr "Ei valittuja viestejä."
-
-#: squirrelmail/src/options_display.php:32
-msgid "General Display Options"
-msgstr "Yleiset Näyttöasetukset"
-
-#: squirrelmail/src/options_display.php:44
-msgid "Theme"
-msgstr "Teema"
-
-#: squirrelmail/plugins/administrator/defines.php:42
-#: squirrelmail/src/options_display.php:51
-#: squirrelmail/src/options_display.php:80
-msgid "Default"
-msgstr "Oletus"
-
-#: squirrelmail/src/options_display.php:64
-msgid "Custom Stylesheet"
-msgstr "Sovellettu Tyylimalli"
-
-#: squirrelmail/src/options_display.php:83
-msgid "Language"
-msgstr "Kieli"
-
-#: squirrelmail/src/options_display.php:92
-msgid "Use Javascript"
-msgstr "Käytä JavaScriptiä"
-
-#: squirrelmail/src/options_display.php:95
-msgid "Autodetect"
-msgstr "Automaattinen tunnistus"
-
-#: squirrelmail/src/options_display.php:96
-msgid "Always"
-msgstr "Aina"
-
-#: squirrelmail/src/options_display.php:97
-#: squirrelmail/src/options_folder.php:122
-msgid "Never"
-msgstr "Ei koskaan"
-
-#: squirrelmail/src/options_display.php:115
-msgid "Mailbox Display Options"
-msgstr "Postilaatikon Näyttöasetukset"
-
-#: squirrelmail/src/options_display.php:120
-msgid "Number of Messages to Index"
-msgstr "Viestien lukumäärä indeksissä"
-
-#: squirrelmail/src/options_display.php:128
-msgid "Enable Alternating Row Colors"
-msgstr "Käytä vaihtelevia värejä eri riveillä?"
-
-#: squirrelmail/src/options_display.php:135
-msgid "Enable Page Selector"
-msgstr "Käytä Sivunvalitsinta"
-
-#: squirrelmail/src/options_display.php:142
-msgid "Maximum Number of Pages to Show"
-msgstr "Sivujen maksimi lukumäärä näytössä"
-
-#: squirrelmail/src/options_display.php:149
-msgid "Message Display and Composition"
-msgstr "Viestien Näyttö ja Kirjoittaminen"
-
-#: squirrelmail/src/options_display.php:154
-msgid "Wrap Incoming Text At"
-msgstr "Näytettävien kirjaimien määrä riviä kohti"
-
-#: squirrelmail/src/options_display.php:162
-msgid "Size of Editor Window"
-msgstr "Editori-ikkunan koko"
-
-#: squirrelmail/src/options_display.php:170
-msgid "Location of Buttons when Composing"
-msgstr "Nappien paikka viestiä kirjoitettaessa"
-
-#: squirrelmail/src/options_display.php:173
-msgid "Before headers"
-msgstr "Ennen otsikkoja"
-
-#: squirrelmail/src/options_display.php:174
-msgid "Between headers and message body"
-msgstr "Otsikoiden ja viestin välissä"
-
-#: squirrelmail/src/options_display.php:175
-msgid "After message body"
-msgstr "Viestin jälkeen"
-
-#: squirrelmail/src/options_display.php:180
-msgid "Addressbook Display Format"
-msgstr "Osoitekirjan Näyttömuoto"
-
-#: squirrelmail/src/options_display.php:183
-msgid "Javascript"
-msgstr "JavaScript"
-
-#: squirrelmail/src/options_display.php:184
-msgid "HTML"
-msgstr "HTML"
-
-#: squirrelmail/src/options_display.php:189
-msgid "Show HTML Version by Default"
-msgstr "Näytä HTML-versio"
-
-#: squirrelmail/src/options_display.php:196
-msgid "Include Me in CC when I Reply All"
-msgstr "Lisää minut kopionsaajiin kun vastaan kaikille"
-
-#: squirrelmail/src/options_display.php:203
-msgid "Enable Mailer Display"
-msgstr "Postitusnäyttö päälle"
-
-#: squirrelmail/src/options_display.php:210
-msgid "Display Attached Images with Message"
-msgstr "Näytä kuvaliitteet viestissä"
-
-#: squirrelmail/src/options_display.php:217
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "Tulostusystävällinen Linkki päälle"
-
-#: squirrelmail/src/options_display.php:224
-msgid "Enable Printer Friendly Clean Display"
-msgstr "Tulostusystävällinen Puhdas Näyttö päälle"
-
-#: squirrelmail/src/options_display.php:231
-msgid "Enable request/confirm reading"
-msgstr "Käytä lukemisen konfirmointia"
-
-#: squirrelmail/src/options_display.php:238
-msgid "Always compose in a new window"
-msgstr "Avaa aina uusi ikkuna uuden viestin kirjoittamiseen"
-
-#: squirrelmail/src/options_folder.php:40
-msgid "Special Folder Options"
-msgstr "Erikoiskansio-ominaisuudet"
-
-#: squirrelmail/src/options_folder.php:47
-msgid "Folder Path"
-msgstr "Kansion hakemistopolku"
-
-#: squirrelmail/src/options_folder.php:63
-msgid "Do not use Trash"
-msgstr "Älä käytä Paperikoria"
-
-#: squirrelmail/plugins/administrator/defines.php:125
-#: squirrelmail/src/options_folder.php:67
-msgid "Trash Folder"
-msgstr "Paperikori"
-
-#: squirrelmail/src/options_folder.php:74
-msgid "Do not use Sent"
-msgstr "Älä käytä Lähetettyjä"
-
-#: squirrelmail/plugins/administrator/defines.php:128
-#: squirrelmail/src/options_folder.php:78
-msgid "Sent Folder"
-msgstr "Lähetettyjen Kansio:"
-
-#: squirrelmail/src/options_folder.php:85
-msgid "Do not use Drafts"
-msgstr "Älä käytä Luonnoksia"
-
-#: squirrelmail/plugins/administrator/defines.php:131
-#: squirrelmail/src/options_folder.php:89
-msgid "Draft Folder"
-msgstr "Luonnosten Kansio"
-
-#: squirrelmail/src/options_folder.php:97
-msgid "Folder List Options"
-msgstr "Kansiolista-asetukset"
-
-#: squirrelmail/src/options_folder.php:102
-msgid "Location of Folder List"
-msgstr "Kansiolistan paikka"
-
-#: squirrelmail/src/options_folder.php:105
-msgid "Left"
-msgstr "Vasemmalla"
-
-#: squirrelmail/src/options_folder.php:106
-msgid "Right"
-msgstr "Oikealla"
-
-#: squirrelmail/plugins/administrator/defines.php:45
-#: squirrelmail/src/options_folder.php:111
-msgid "pixels"
-msgstr "pikseliä"
-
-#: squirrelmail/src/options_folder.php:115
-msgid "Width of Folder List"
-msgstr "Kansiolistan leveys"
-
-#: squirrelmail/src/options_folder.php:121
-msgid "Minutes"
-msgstr "Minuuttia"
-
-#: squirrelmail/src/options_folder.php:125
-msgid "Seconds"
-msgstr "Sekuntia"
-
-#: squirrelmail/src/options_folder.php:127
-msgid "Minute"
-msgstr "Minuutti"
-
-#: squirrelmail/src/options_folder.php:134
-msgid "Auto Refresh Folder List"
-msgstr "Päivitä Kansiolista automaattisesti"
-
-#: squirrelmail/src/options_folder.php:142
-msgid "Enable Unread Message Notification"
-msgstr "Ei-luettujen viestien esitys käyttöön"
-
-#: squirrelmail/plugins/administrator/defines.php:152
-#: squirrelmail/src/options_folder.php:145
-msgid "No Notification"
-msgstr "Ei esitetä"
-
-#: squirrelmail/plugins/administrator/defines.php:153
-#: squirrelmail/src/options_folder.php:146
-msgid "Only INBOX"
-msgstr "Vain Saapuneet"
-
-#: squirrelmail/plugins/administrator/defines.php:154
-#: squirrelmail/src/options_folder.php:147
-msgid "All Folders"
-msgstr "Kaikki Kansiot"
-
-#: squirrelmail/src/options_folder.php:152
-msgid "Unread Message Notification Type"
-msgstr "Ei-luettujen viestien esityksen tyyppi"
-
-#: squirrelmail/plugins/administrator/defines.php:157
-#: squirrelmail/src/options_folder.php:155
-msgid "Only Unseen"
-msgstr "Vain ei-luetut"
-
-#: squirrelmail/plugins/administrator/defines.php:158
-#: squirrelmail/src/options_folder.php:156
-msgid "Unseen and Total"
-msgstr "Ei-luetut ja Kaikkiaan"
-
-#: squirrelmail/src/options_folder.php:161
-msgid "Enable Collapsable Folders"
-msgstr "Käytä hierarkisia kansioita"
-
-#: squirrelmail/src/options_folder.php:168
-msgid "Show Clock on Folders Panel"
-msgstr "Näytä Kello Kansiopaneelissa"
-
-#: squirrelmail/src/options_folder.php:176
-msgid "No Clock"
-msgstr "Ei Kelloa"
-
-#: squirrelmail/src/options_folder.php:181
-msgid "Hour Format"
-msgstr "Tuntinäytön Muoto"
-
-#: squirrelmail/src/options_folder.php:184
-msgid "12-hour clock"
-msgstr "12-tuntinen kello"
-
-#: squirrelmail/src/options_folder.php:185
-msgid "24-hour clock"
-msgstr "24-tuntinen kello"
-
-#: squirrelmail/src/options_folder.php:190
-msgid "Memory Search"
-msgstr "Muistietsintä"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:102
-#: squirrelmail/src/options_folder.php:193
-msgid "Disabled"
-msgstr "Ei käytössä"
-
-#: squirrelmail/functions/page_header.php:148
-#: squirrelmail/plugins/filters/options.php:62
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
-#: squirrelmail/plugins/translate/options.php:94
-#: squirrelmail/src/options.php:198 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/src/options_identities.php:44
-#: squirrelmail/src/options_order.php:31
-msgid "Options"
-msgstr "Asetukset"
-
-#: squirrelmail/src/options.php:146 squirrelmail/src/options.php:297
-#: squirrelmail/src/options_highlight.php:62
-msgid "Message Highlighting"
-msgstr "Viestien Merkintä"
-
-#: squirrelmail/plugins/filters/options.php:64
-#: squirrelmail/src/options_highlight.php:66
-msgid "New"
-msgstr "Uusi"
-
-#: squirrelmail/plugins/filters/options.php:65
-#: squirrelmail/plugins/filters/spamoptions.php:157
-#: squirrelmail/plugins/mail_fetch/fetch.php:225
-#: squirrelmail/src/options_highlight.php:67
-msgid "Done"
-msgstr "Valmis"
-
-#: squirrelmail/plugins/filters/options.php:152
-#: squirrelmail/plugins/filters/spamoptions.php:156
-#: squirrelmail/src/options_highlight.php:74
-msgid "Edit"
-msgstr "Muokkaa"
-
-#: squirrelmail/src/options_highlight.php:87
-msgid "No highlighting is defined"
-msgstr "Merkintäesitystä ei ole määritelty"
-
-#: squirrelmail/src/options_highlight.php:259
-msgid "Identifying name"
-msgstr "Tunnistukseen käytettävä nimi"
-
-#: squirrelmail/src/options_highlight.php:273
-msgid "Color"
-msgstr "Väri"
-
-#: squirrelmail/src/options_highlight.php:277
-msgid "Dark Blue"
-msgstr "Tummansininen"
-
-#: squirrelmail/src/options_highlight.php:278
-msgid "Dark Green"
-msgstr "Tummanvihreä"
-
-#: squirrelmail/src/options_highlight.php:279
-msgid "Dark Yellow"
-msgstr "Tummankeltainen"
-
-#: squirrelmail/src/options_highlight.php:280
-msgid "Dark Cyan"
-msgstr "Tumma Cyan"
-
-#: squirrelmail/src/options_highlight.php:281
-msgid "Dark Magenta"
-msgstr "Tumma Magenta"
-
-#: squirrelmail/src/options_highlight.php:282
-msgid "Light Blue"
-msgstr "Vaaleansininen"
-
-#: squirrelmail/src/options_highlight.php:283
-msgid "Light Green"
-msgstr "Vaaleanvihreä"
-
-#: squirrelmail/src/options_highlight.php:284
-msgid "Light Yellow"
-msgstr "Vaaleankeltainen"
-
-#: squirrelmail/src/options_highlight.php:285
-msgid "Light Cyan"
-msgstr "Vaalea Cyan"
-
-#: squirrelmail/src/options_highlight.php:286
-msgid "Light Magenta"
-msgstr "Vaalea Magenta"
-
-#: squirrelmail/src/options_highlight.php:287
-msgid "Dark Gray"
-msgstr "Tummanharmaa"
-
-#: squirrelmail/src/options_highlight.php:288
-msgid "Medium Gray"
-msgstr "Harmaa"
-
-#: squirrelmail/src/options_highlight.php:289
-msgid "Light Gray"
-msgstr "Vaaleanharmaa"
-
-#: squirrelmail/src/options_highlight.php:290
-msgid "White"
-msgstr "Valkoinen"
-
-#: squirrelmail/src/options_highlight.php:292
-msgid "Other:"
-msgstr "Muu:"
-
-#: squirrelmail/src/options_highlight.php:294
-msgid "Ex: 63aa7f"
-msgstr "Esim. 63aa7f"
-
-#: squirrelmail/plugins/filters/options.php:94
-#: squirrelmail/src/options_highlight.php:331
-msgid "To or Cc"
-msgstr "Vastaanottaja tai Kopionvastaanottaja"
-
-#: squirrelmail/src/options_highlight.php:336
-msgid "Matches"
-msgstr "Täsmää"
-
-#: squirrelmail/src/options_identities.php:44
-msgid "Advanced Identities"
-msgstr "Henkilötietojen lisähallinta"
-
-#: squirrelmail/src/options_identities.php:55
-msgid "Default Identity"
-msgstr "Henkilötiedot"
-
-#: squirrelmail/src/options_identities.php:66
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "Vaihtoehtoinen informaatio %d"
-
-#: squirrelmail/src/options_identities.php:76
-msgid "Add a New Identity"
-msgstr "Lisää uusi"
-
-#: squirrelmail/src/options_identities.php:291
-#: squirrelmail/src/options_personal.php:49
-msgid "Full Name"
-msgstr "Koko Nimi"
-
-#: squirrelmail/src/options_identities.php:292
-msgid "E-Mail Address"
-msgstr "Sähköpostiosoite"
-
-#: squirrelmail/src/options_identities.php:293
-#: squirrelmail/src/options_personal.php:65
-msgid "Reply To"
-msgstr "Vastaus Osoitteeseen"
-
-#: squirrelmail/src/options_identities.php:300
-msgid "Save / Update"
-msgstr "Talleta / Päivitä"
-
-#: squirrelmail/src/options_identities.php:303
-msgid "Make Default"
-msgstr "Käytä tätä"
-
-#: squirrelmail/src/options_identities.php:309
-msgid "Move Up"
-msgstr "Siirrä ylöspäin"
-
-#: squirrelmail/src/options.php:158 squirrelmail/src/options.php:313
-#: squirrelmail/src/options_order.php:31
-msgid "Index Order"
-msgstr "Indeksijärjestys"
-
-#: squirrelmail/src/options_order.php:37
-msgid "Checkbox"
-msgstr "Kontrolliruutu"
-
-#: squirrelmail/src/options_order.php:41
-msgid "Flags"
-msgstr "Liput"
-
-#: squirrelmail/functions/mailbox_display.php:592
-#: squirrelmail/src/options_order.php:42
-msgid "Size"
-msgstr "Koko"
-
-#: squirrelmail/src/options_order.php:85
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr ""
-"Indeksijärjestys on sarakkeiden esittämisjärjestys. Voit lisätä, poistaa ja "
-"siirtää sarakkeita tarpeen mukaan."
-
-#: squirrelmail/src/options_order.php:94
-msgid "up"
-msgstr "ylös"
-
-#: squirrelmail/src/options_order.php:96
-msgid "down"
-msgstr "alas"
-
-#: squirrelmail/src/options_order.php:101
-msgid "remove"
-msgstr "poista"
-
-#: squirrelmail/src/options_order.php:130
-msgid "Return to options page"
-msgstr "Paluu asetussivulle"
-
-#: squirrelmail/src/options_personal.php:41
-msgid "Name and Address Options"
-msgstr "Nimi- ja Osoiteasetukset"
-
-#: squirrelmail/src/options_personal.php:57
-msgid "Email Address"
-msgstr "Sähköpostiosoite"
-
-#: squirrelmail/src/options_personal.php:72
-msgid "Edit Advanced Identities"
-msgstr "Muokkaa Henkilötietoja"
-
-#: squirrelmail/src/options_personal.php:74
-msgid "(discards changes made on this form so far)"
-msgstr "(peruuttaa tähän mennessä tehdyt muutokset)"
-
-#: squirrelmail/src/options_personal.php:77
-msgid "Multiple Identities"
-msgstr "Useat Henkilötiedot"
-
-#: squirrelmail/src/options_personal.php:84
-msgid "Reply Citation Options"
-msgstr "Vastauksen Muodon Asetukset"
-
-#: squirrelmail/src/options_personal.php:89
-msgid "Reply Citation Style"
-msgstr "Vastauksen muoto"
-
-#: squirrelmail/src/options_personal.php:92
-msgid "No Citation"
-msgstr "Ei esitetä"
-
-#: squirrelmail/src/options_personal.php:93
-msgid "AUTHOR Said"
-msgstr "LÄHETTÄJÄ kirjoitti"
-
-#: squirrelmail/src/options_personal.php:94
-msgid "Quote Who XML"
-msgstr "Lainaus XML"
-
-#: squirrelmail/src/options_personal.php:95
-msgid "User-Defined"
-msgstr "Käyttäjän määrittämä"
-
-#: squirrelmail/src/options_personal.php:100
-msgid "User-Defined Citation Start"
-msgstr "Käyttäjän määrittämä vastaussitaatin alku"
-
-#: squirrelmail/src/options_personal.php:108
-msgid "User-Defined Citation End"
-msgstr "Käyttäjän määrittämä vastaussitaatin loppu"
-
-#: squirrelmail/src/options_personal.php:115
-msgid "Signature Options"
-msgstr "Allekirjoitusasetukset"
-
-#: squirrelmail/src/options_personal.php:120
-msgid "Use Signature"
-msgstr "Käytä Allekirjoitusta"
-
-#: squirrelmail/src/options_personal.php:127
-msgid "Prefix Signature with '-- ' Line"
-msgstr "Lisää '-- ' allekirjoituksen edelle"
-
-#: squirrelmail/src/options_personal.php:134
-msgid "Signature"
-msgstr "Allekirjoitus"
-
-#: squirrelmail/src/options.php:134 squirrelmail/src/options.php:281
-msgid "Personal Information"
-msgstr "Henkilötiedot"
-
-#: squirrelmail/src/options.php:140 squirrelmail/src/options.php:289
-msgid "Display Preferences"
-msgstr "Näyttöasetukset"
-
-#: squirrelmail/src/options.php:152 squirrelmail/src/options.php:305
-msgid "Folder Preferences"
-msgstr "Kansioasetukset"
-
-#: squirrelmail/src/options.php:264
-msgid "Successfully Saved Options"
-msgstr "Asetukset talletettu!"
-
-#: squirrelmail/src/options.php:269
-msgid "Refresh Folder List"
-msgstr "Päivitä Kansiolista"
-
-#: squirrelmail/src/options.php:271
-msgid "Refresh Page"
-msgstr "Päivitä Sivu"
-
-#: squirrelmail/src/options.php:283
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "Sisältää henkilötietoja, nimesi, epostiosoitteesi jne."
-
-#: squirrelmail/src/options.php:291
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr "Voit vaihtaa SquirrelMailin näytön värejä sekä kielen jne."
-
-#: squirrelmail/src/options.php:299
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"Listatut viestit voidaan määritellä näytettäväksi erilaisin taustavärein. "
-"Tämä helpottaa erottamaan esimerkiksi sen keneltä viesti on tullut. "
-"Erityisen sopiva viestilistojen yhteydessä"
-
-#: squirrelmail/src/options.php:307
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-"Nämä asetukset määrittävät sen miten kansiot näytetään ja miten niitä "
-"käsitellään."
-
-#: squirrelmail/src/options.php:315
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-"Viestilista voidaan määritellä näyttämään otsikkotiedot halutussa "
-"järjestyksessä."
-
-#: squirrelmail/src/printer_friendly_bottom.php:61
-msgid "Message not printable"
-msgstr "Viestiä ei voida tulostaa"
-
-#: squirrelmail/src/printer_friendly_bottom.php:90
-#: squirrelmail/src/printer_friendly_main.php:15
-#: squirrelmail/src/printer_friendly_top.php:21
-msgid "Printer Friendly"
-msgstr "Tulostusystävällinen"
-
-#: squirrelmail/src/printer_friendly_bottom.php:98
-msgid "CC"
-msgstr "Kopio (CC):"
-
-#: squirrelmail/src/printer_friendly_top.php:36
-msgid "Print"
-msgstr "Tulosta"
-
-#: squirrelmail/src/printer_friendly_top.php:37
-msgid "Close Window"
-msgstr "Sulje ikkuna"
-
-#: squirrelmail/src/read_body.php:104
-msgid "View Printable Version"
-msgstr "Näytä Tulostettavassa Muodossa"
-
-#: squirrelmail/src/read_body.php:183
-msgid "Your message"
-msgstr "Viestisi"
-
-#: squirrelmail/src/read_body.php:186
-msgid "Sent:"
-msgstr "Lähetetty:"
-
-#: squirrelmail/src/read_body.php:188
-#, c-format
-msgid "Was displayed on %s"
-msgstr "Avattiin näyttöön, %s"
-
-#: squirrelmail/src/read_body.php:225
-msgid "Read:"
-msgstr "Luettu:"
-
-#: squirrelmail/src/read_body.php:299
-msgid "Viewing Full Header"
-msgstr "Näytössä kaikki otsaketiedot"
-
-#: squirrelmail/src/read_body.php:435
-msgid "more"
-msgstr "lisää"
-
-#: squirrelmail/src/read_body.php:436
-msgid "less"
-msgstr "vähemmän"
-
-#: squirrelmail/src/read_body.php:618
-msgid "Message List"
-msgstr "Viestilista"
-
-#: squirrelmail/src/read_body.php:634
-msgid "Resume Draft"
-msgstr "Palaa luonnoksen muokkaamiseen"
-
-#: squirrelmail/src/read_body.php:675
-msgid "Forward"
-msgstr "Edelleenlähetys"
-
-#: squirrelmail/src/read_body.php:684
-msgid "Reply"
-msgstr "Vastaus"
-
-#: squirrelmail/src/read_body.php:693
-msgid "Reply All"
-msgstr "Vastaus kaikille"
-
-#: squirrelmail/src/read_body.php:717 squirrelmail/src/read_body.php:720
-msgid "View Full Header"
-msgstr "Näytä kaikki otsaketiedot"
-
-#: squirrelmail/plugins/calendar/event_create.php:112
-#: squirrelmail/plugins/calendar/event_delete.php:32
-#: squirrelmail/plugins/calendar/event_edit.php:35
-#: squirrelmail/plugins/calendar/event_edit.php:93
-#: squirrelmail/plugins/calendar/event_edit.php:106
-#: squirrelmail/src/read_body.php:743
-msgid "Date:"
-msgstr "Päiväys:"
-
-#: squirrelmail/src/read_body.php:797
-msgid "Mailer"
-msgstr "Postittaja"
-
-#: squirrelmail/src/read_body.php:835 squirrelmail/src/read_body.php:845
-#: squirrelmail/src/read_body.php:856 squirrelmail/src/read_body.php:868
-#: squirrelmail/src/read_body.php:893 squirrelmail/src/read_body.php:928
-#: squirrelmail/src/read_body.php:936 squirrelmail/src/read_body.php:950
-msgid "Read receipt"
-msgstr "Lukukuitti"
-
-#: squirrelmail/src/read_body.php:838 squirrelmail/src/read_body.php:847
-#: squirrelmail/src/read_body.php:930 squirrelmail/src/read_body.php:938
-msgid "send"
-msgstr "lähetä"
-
-#: squirrelmail/src/read_body.php:839 squirrelmail/src/read_body.php:930
-msgid "Remove MDN flag"
-msgstr "Poista MDN merkintä"
-
-#: squirrelmail/src/read_body.php:858 squirrelmail/src/read_body.php:870
-#: squirrelmail/src/read_body.php:895 squirrelmail/src/read_body.php:952
-msgid "requested"
-msgstr "pyydetään"
-
-#: squirrelmail/src/read_body.php:871 squirrelmail/src/read_body.php:896
-#: squirrelmail/src/read_body.php:953
-msgid "Send read receipt now"
-msgstr "Lähetä lukukuitti nyt"
-
-#: squirrelmail/src/read_body.php:883
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
-msgstr ""
-"Viestin lähettäjä haluaa varmistuksen siitä että olet lukenut tämän viestin. "
-"Haluatko lähettää lukukuitin?"
-
-#: squirrelmail/functions/auth.php:33 squirrelmail/src/redirect.php:60
-#: squirrelmail/src/redirect.php:64
-msgid "You must be logged in to access this page."
-msgstr "Tarvitset voimassaolevan käyttäjätunnuksen ja salasanan!"
-
-#: squirrelmail/functions/auth.php:34 squirrelmail/src/redirect.php:65
-msgid "Go to the login page"
-msgstr "Poistu sisäänkirjoitussivulle"
-
-#: squirrelmail/src/redirect.php:85 squirrelmail/src/redirect.php:89
-msgid "There was an error contacting the mail server."
-msgstr "Ongelmia postipalvelimen yhteydenotossa."
-
-#: squirrelmail/src/redirect.php:90
-msgid "Contact your administrator for help."
-msgstr "Ota yhteys administraattoriin saadaksesi apua."
-
-#: squirrelmail/src/search.php:242
-msgid "edit"
-msgstr "muokkaa"
-
-#: squirrelmail/src/search.php:249 squirrelmail/src/search.php:288
-msgid "search"
-msgstr "etsi"
-
-#: squirrelmail/src/search.php:252
-msgid "delete"
-msgstr "poista"
-
-#: squirrelmail/src/search.php:280
-msgid "save"
-msgstr "talleta"
-
-#: squirrelmail/src/search.php:291
-msgid "forget"
-msgstr "unohda"
-
-#: squirrelmail/src/search.php:300
-msgid "Current Search"
-msgstr "Tämänhetkinen Haku"
-
-#: squirrelmail/src/search.php:339
-msgid "Body"
-msgstr "Viesti"
-
-#: squirrelmail/src/search.php:340
-msgid "Everywhere"
-msgstr "Kaikki kentät"
-
-#: squirrelmail/src/search.php:367 squirrelmail/src/search.php:396
-msgid "Search Results"
-msgstr "Hakutulokset"
-
-#: squirrelmail/src/search.php:387
-msgid "No Messages found"
-msgstr "Ei löytynyt viestejä"
-
-#: squirrelmail/functions/page_header.php:130 squirrelmail/src/signout.php:72
-msgid "Sign Out"
-msgstr "Poistu"
-
-#: squirrelmail/src/signout.php:78
-msgid "You have been successfully signed out."
-msgstr "Olet poistunut systeemistä."
-
-#: squirrelmail/src/signout.php:80
-msgid "Click here to log back in."
-msgstr "Klikkaa tästä kirjautuaksesi uudestaan sisään."
-
-#: squirrelmail/src/vcard.php:30
-msgid "Viewing a Business Card"
-msgstr "Näytössä Käyntikortti"
-
-#: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
-msgid "Title"
-msgstr "Otsikko:"
-
-#: squirrelmail/src/vcard.php:87
-msgid "Email"
-msgstr "Sähköposti"
-
-#: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
-msgid "Web Page"
-msgstr "Web-Sivu"
-
-#: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
-msgid "Organization / Department"
-msgstr "Organisaatio / Osasto"
-
-#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
-msgid "Address"
-msgstr "Osoite"
-
-#: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
-msgid "Work Phone"
-msgstr "Työpuhelin"
-
-#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
-msgid "Home Phone"
-msgstr "Kotipuhelin"
-
-#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
-msgid "Cellular Phone"
-msgstr "Kännykkä"
-
-#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
-msgid "Fax"
-msgstr "Faksi"
-
-#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
-msgid "Note"
-msgstr "Merkintä"
-
-#: squirrelmail/src/vcard.php:124
-msgid "Add to Addressbook"
-msgstr "Lisää Osoitekirjaan"
-
-#: squirrelmail/src/vcard.php:155
-msgid "Title & Org. / Dept."
-msgstr "Titteli ja Organisaatio / Osasto"
-
-#: squirrelmail/functions/abook_database.php:50
-#: squirrelmail/functions/abook_local_file.php:37
-#: squirrelmail/functions/addressbook.php:155
 msgid "Personal address book"
 msgstr "Henkilökohtainen osoitekirja"
 
-#: squirrelmail/functions/abook_database.php:96
-#: squirrelmail/functions/abook_database.php:136
-#: squirrelmail/functions/abook_database.php:171
-#: squirrelmail/functions/abook_database.php:201
-#: squirrelmail/functions/abook_database.php:253
-#: squirrelmail/functions/abook_database.php:286
-#: squirrelmail/functions/abook_database.php:327
 #, c-format
 msgid "Database error: %s"
 msgstr "Tietokantavirhe: %s"
 
-#: squirrelmail/functions/abook_database.php:221
-#: squirrelmail/functions/abook_database.php:260
-#: squirrelmail/functions/abook_database.php:293
-#: squirrelmail/functions/abook_local_file.php:239
-#: squirrelmail/functions/abook_local_file.php:260
-#: squirrelmail/functions/abook_local_file.php:285
-#: squirrelmail/functions/abook_local_file.php:317
-#: squirrelmail/functions/addressbook.php:351
-#: squirrelmail/functions/addressbook.php:386
-#: squirrelmail/functions/addressbook.php:439
 msgid "Addressbook is read-only"
 msgstr "Osoitekirja on kirjoitussuojattu"
 
-#: squirrelmail/functions/abook_database.php:231
-#: squirrelmail/functions/abook_local_file.php:244
 #, c-format
 msgid "User '%s' already exist"
 msgstr "Käyttäjä '%s' on jo olemassa"
 
-#: squirrelmail/functions/abook_database.php:303
-#: squirrelmail/functions/abook_local_file.php:323
 #, c-format
 msgid "User '%s' does not exist"
 msgstr "Käyttäjää '%s' ei ole olemassa"
 
-#: squirrelmail/functions/abook_global_file.php:35
 msgid "Global address book"
 msgstr "Yleinen osoitekirja"
 
-#: squirrelmail/functions/abook_global_file.php:56
-#: squirrelmail/functions/abook_local_file.php:83
 msgid "No such file or directory"
 msgstr "Tiedostoa tai hakemistoa ei ole olemassa"
 
-#: squirrelmail/functions/abook_global_file.php:69
-#: squirrelmail/functions/abook_local_file.php:104
-#: squirrelmail/functions/abook_local_file.php:139
 msgid "Open failed"
 msgstr "Avaus epäonnistui"
 
-#: squirrelmail/functions/abook_global_file.php:171
-#: squirrelmail/functions/abook_global_file.php:177
-#: squirrelmail/functions/abook_global_file.php:183
 msgid "Can not modify global address book"
 msgstr "Osoitekirjaa ei voi muokata"
 
-#: squirrelmail/functions/abook_local_file.php:46
 msgid "Not a file name"
 msgstr "Virheellinen tiedostonimi"
 
-#: squirrelmail/functions/abook_local_file.php:265
-#: squirrelmail/functions/abook_local_file.php:291
-#: squirrelmail/functions/abook_local_file.php:330
+#, fuzzy
+msgid "Write failed"
+msgstr "Avaus epäonnistui"
+
+#, fuzzy
+msgid "Unable to update"
+msgstr "Talleta / Päivitä"
+
 msgid "Could not lock datafile"
 msgstr "Tietokantatiedoston lukistus epäonnistui"
 
-#: squirrelmail/functions/abook_local_file.php:278
 msgid "Write to addressbook failed"
 msgstr "Osoitekirjaan kirjoittaminen epäonnistui"
 
-#: squirrelmail/functions/addressbook.php:73
 msgid "Error initializing addressbook database."
 msgstr "Virhe LDAP tietokannan initialisoinnissa:"
 
-#: squirrelmail/functions/addressbook.php:82
 #, c-format
 msgid "Error opening file %s"
 msgstr "Virhe tiedoston %s avauksessa"
 
-#: squirrelmail/functions/addressbook.php:92
 msgid "Error initializing global addressbook."
 msgstr "Virhe LDAP palvelimen initialisoinnissa:"
 
-#: squirrelmail/functions/addressbook.php:108
 #, c-format
 msgid "Error initializing LDAP server %s:"
 msgstr "Virhe LDAP palvelimen %s initialisoinnissa:"
 
-#: squirrelmail/functions/addressbook.php:329
-#: squirrelmail/functions/addressbook.php:416
 msgid "Invalid input data"
 msgstr "Virhe syöttötiedossa"
 
-#: squirrelmail/functions/addressbook.php:333
-#: squirrelmail/functions/addressbook.php:420
 msgid "Name is missing"
 msgstr "Nimi puuttuu"
 
-#: squirrelmail/functions/addressbook.php:337
-#: squirrelmail/functions/addressbook.php:424
 msgid "E-mail address is missing"
 msgstr "Sähköpostiosoite puuttuu"
 
-#: squirrelmail/functions/addressbook.php:345
-#: squirrelmail/functions/addressbook.php:429
 msgid "Nickname contains illegal characters"
 msgstr "Lempinimessä kiellettyjä merkkejä"
 
-#: squirrelmail/functions/attachment_common.php:106
-#: squirrelmail/functions/attachment_common.php:131
-#: squirrelmail/functions/attachment_common.php:156
 msgid "view"
 msgstr "näytä"
 
-#: squirrelmail/functions/attachment_common.php:173
 msgid "Business Card"
 msgstr "Käyntikortti"
 
-#: squirrelmail/functions/date.php:91
-#: squirrelmail/plugins/calendar/calendar.php:49
+msgid "You must be logged in to access this page."
+msgstr "Tarvitset voimassaolevan käyttäjätunnuksen ja salasanan!"
+
 msgid "Sunday"
 msgstr "Sunnuntai"
 
-#: squirrelmail/functions/date.php:94
-#: squirrelmail/plugins/calendar/calendar.php:50
 msgid "Monday"
 msgstr "Maanantai"
 
-#: squirrelmail/functions/date.php:97
-#: squirrelmail/plugins/calendar/calendar.php:51
 msgid "Tuesday"
 msgstr "Tiistai"
 
-#: squirrelmail/functions/date.php:100
-#: squirrelmail/plugins/calendar/calendar.php:52
 msgid "Wednesday"
 msgstr "Keskiviikko"
 
-#: squirrelmail/functions/date.php:103
-#: squirrelmail/plugins/calendar/calendar.php:53
 msgid "Thursday"
 msgstr "Torstai"
 
-#: squirrelmail/functions/date.php:106
-#: squirrelmail/plugins/calendar/calendar.php:54
 msgid "Friday"
 msgstr "Perjantai"
 
-#: squirrelmail/functions/date.php:109
-#: squirrelmail/plugins/calendar/calendar.php:55
 msgid "Saturday"
 msgstr "Lauantai"
 
-#: squirrelmail/functions/date.php:120
 msgid "January"
 msgstr "Tammikuu"
 
-#: squirrelmail/functions/date.php:123
 msgid "February"
 msgstr "Helmikuu"
 
-#: squirrelmail/functions/date.php:126
 msgid "March"
 msgstr "Maaliskuu"
 
-#: squirrelmail/functions/date.php:129
 msgid "April"
 msgstr "Huhtikuu"
 
-#: squirrelmail/functions/date.php:132
 msgid "May"
 msgstr "Toukokuu"
 
-#: squirrelmail/functions/date.php:135
 msgid "June"
 msgstr "Kesäkuu"
 
-#: squirrelmail/functions/date.php:138
 msgid "July"
 msgstr "Heinäkuu"
 
-#: squirrelmail/functions/date.php:141
 msgid "August"
 msgstr "Elokuu"
 
-#: squirrelmail/functions/date.php:144
 msgid "September"
 msgstr "Syyskuu"
 
-#: squirrelmail/functions/date.php:147
 msgid "October"
 msgstr "Lokakuu"
 
-#: squirrelmail/functions/date.php:150
 msgid "November"
 msgstr "Marraskuu"
 
-#: squirrelmail/functions/date.php:153
 msgid "December"
 msgstr "Joulukuu"
 
-#: squirrelmail/functions/date.php:180
 msgid "D, F j, Y g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:182
 msgid "D, F j, Y G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:204
 msgid "g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:206
 msgid "G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:211
 msgid "D, g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:213
 msgid "D, G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:217
 msgid "M j, Y"
 msgstr ""
 
-#: squirrelmail/functions/db_prefs.php:52
-#: squirrelmail/functions/db_prefs.php:59
-#: squirrelmail/functions/db_prefs.php:102
-#: squirrelmail/functions/db_prefs.php:105
-#: squirrelmail/functions/db_prefs.php:251
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Asetustietokantavirhe (%s). Ohjelma lopetataan"
 
-#: squirrelmail/functions/display_messages.php:28
-#: squirrelmail/functions/imap_general.php:249
 msgid "Unknown user or password incorrect."
 msgstr "Tuntematon käyttäjä tai väärä tunnussana."
 
-#: squirrelmail/functions/display_messages.php:30
 msgid "Click here to try again"
 msgstr "Klikkaa tästä ja yritä uudestaan"
 
-#: squirrelmail/functions/display_messages.php:44
-#, c-format
-msgid "Welcome to %s's WebMail system"
-msgstr "Tervetuloa %s WebMailiin"
-
-#: squirrelmail/functions/display_messages.php:56
-#, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "Käytössä SquirrelMail versio %s (c) 1999-2001."
-
-#: squirrelmail/functions/display_messages.php:81
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Klikkaa tästä palaataksesi (%s)"
 
-#: squirrelmail/functions/file_prefs.php:38
+#, fuzzy, c-format
+msgid "%s Logo"
+msgstr "Kirjaudu sisään"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail versio %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "SquirrelMailin kehitystiimiltä"
+
+msgid "ERROR"
+msgstr "VIRHE"
+
+msgid "Go to the login page"
+msgstr "Poistu sisäänkirjoitussivulle"
+
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
@@ -1703,291 +221,1011 @@ msgstr ""
 "Asetustiedostoa %s ei löydy. Poistu ja kirjaudu uudestaan sisään luodaksesi "
 "uuden asetustiedoston."
 
-#: squirrelmail/functions/file_prefs.php:162
-#: squirrelmail/functions/file_prefs.php:167
-msgid "Error opening "
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "Ota yhteys administraattoriin, ilmoita tämä virhe."
+
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "Ota yhteys administraattoriin, ilmoita tämä virhe."
+
+#, fuzzy, c-format
+msgid "Error opening %s"
 msgstr "Virhe avatessa "
 
-#: squirrelmail/functions/file_prefs.php:163
-msgid "Default preference file not found!"
+#, fuzzy
+msgid "Default preference file not found or not readable!"
 msgstr "Systeemin asetustiedostoa ei löytynyt!"
 
-#: squirrelmail/functions/file_prefs.php:164
-#: squirrelmail/functions/file_prefs.php:169
-#: squirrelmail/functions/prefs.php:93
 msgid "Please contact your system administrator and report this error."
 msgstr "Ota yhteys administraattoriin, ilmoita tämä virhe."
 
-#: squirrelmail/functions/file_prefs.php:168
 msgid "Could not create initial preference file!"
 msgstr "Asetustiedoston teko epäonnistui!"
 
-#: squirrelmail/functions/imap_general.php:156
-#: squirrelmail/functions/imap_messages.php:119
-#: squirrelmail/functions/imap_messages.php:127
-#: squirrelmail/functions/imap_messages.php:146
-#: squirrelmail/functions/imap_messages.php:155
-#: squirrelmail/functions/imap_messages.php:268
-#: squirrelmail/plugins/filters/filters.php:89
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr ""
+
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "Ota yhteys administraattoriin, ilmoita tämä virhe."
+
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "Ota yhteys administraattoriin, ilmoita tämä virhe."
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+
+msgid "ERROR : No available imapstream."
+msgstr ""
+
 msgid "ERROR : Could not complete request."
 msgstr "VIRHE : Pyyntöä ei voida täyttää."
 
-#: squirrelmail/functions/imap_general.php:158
-#: squirrelmail/functions/imap_general.php:169
 msgid "Query:"
 msgstr "Pyyntö:"
 
-#: squirrelmail/functions/imap_general.php:160
-#: squirrelmail/plugins/filters/filters.php:91
 msgid "Reason Given: "
 msgstr "Syyksi Annettu: "
 
-#: squirrelmail/functions/imap_general.php:167
-#: squirrelmail/plugins/filters/filters.php:98
 msgid "ERROR : Bad or malformed request."
 msgstr "VIRHE : Huono tai väärinmuotoiltu pyyntö."
 
-#: squirrelmail/functions/imap_general.php:171
-#: squirrelmail/plugins/filters/filters.php:100
 msgid "Server responded: "
 msgstr "Palvelin vastasi: "
 
-#: squirrelmail/functions/imap_general.php:208
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr "Virhe yhteydenotossa IMAP palvelimeen: %s."
 
-#: squirrelmail/functions/imap_general.php:224
 #, c-format
 msgid "Bad request: %s"
 msgstr "Huono pyyntö: %s"
 
-#: squirrelmail/functions/imap_general.php:226
 #, c-format
 msgid "Unknown error: %s"
 msgstr "Tuntematon virhe: %s"
 
-#: squirrelmail/functions/imap_general.php:228
 msgid "Read data:"
 msgstr "Lue tietoja:"
 
-#: squirrelmail/functions/imap_messages.php:121
-#: squirrelmail/functions/imap_messages.php:148
-#: squirrelmail/functions/imap_messages.php:270
+#, fuzzy
+msgid "ERROR : Could not append message to"
+msgstr "VIRHE : Pyyntöä ei voida täyttää."
+
+#, fuzzy
+msgid "Solution: "
+msgstr "Ehdotuksia:"
+
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
+msgstr ""
+
+msgid "INBOX"
+msgstr "Saapuneet"
+
 msgid "Unknown response from IMAP server: "
 msgstr "IMAP palvelimen vastaus tuntematon: "
 
-#: squirrelmail/functions/imap_messages.php:129
 msgid "Unknown message number in reply from server: "
 msgstr "Palvelin vastasi tuntemattomalla viestinumerolla: "
 
-#: squirrelmail/functions/imap_messages.php:157
-msgid "Unknown messagenumber in reply from server: "
-msgstr "Palvelin vastasi tuntemattomalla viestinumerolla: "
-
-#: squirrelmail/functions/imap_messages.php:166
-#: squirrelmail/functions/imap_messages.php:195
-#: squirrelmail/functions/imap_messages.php:440
-#: squirrelmail/functions/imap_messages.php:495
-#: squirrelmail/functions/mailbox_display.php:905
-msgid "(no subject)"
-msgstr "(tyhjä)"
-
-#: squirrelmail/functions/imap_messages.php:167
 msgid "Unknown Sender"
 msgstr "Tuntematon Lähettäjä"
 
-#: squirrelmail/functions/imap_messages.php:222
-msgid "No To Address"
-msgstr "Ei Vastaanottajaa"
-
-#: squirrelmail/functions/imap_messages.php:498
 msgid "(unknown sender)"
 msgstr "(tuntematon lähettäjä)"
 
-#: squirrelmail/functions/imap_search.php:87
-msgid "No Messages Found"
-msgstr "Ei Viestejä"
+#, fuzzy
+msgid "Unknown date"
+msgstr "Tuntematon Lähettäjä"
 
-#: squirrelmail/functions/imap_search.php:188
-#: squirrelmail/functions/imap_search.php:196
-msgid "Found"
-msgstr "Löytyi"
-
-#: squirrelmail/functions/imap_search.php:188
-#: squirrelmail/functions/imap_search.php:196
-msgid "messages"
-msgstr "viesteissä"
-
-#: squirrelmail/functions/imap_search.php:203
-msgid "Folder:"
-msgstr "Kansio:"
-
-#: squirrelmail/functions/mailbox_display.php:156
 msgid "A"
 msgstr "V"
 
-#: squirrelmail/functions/mailbox_display.php:429
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+
 msgid "THIS FOLDER IS EMPTY"
 msgstr "TÄMÄ KANSIO ON TYHJÄ"
 
-#: squirrelmail/functions/mailbox_display.php:513
-msgid "Move Selected To:"
+#, fuzzy
+msgid "Move Selected To"
 msgstr "Siirrä valitut kansioon:"
 
-#: squirrelmail/functions/mailbox_display.php:516
 msgid "Transform Selected Messages"
 msgstr "Valitut Viestit"
 
-#: squirrelmail/functions/mailbox_display.php:535
 msgid "Move"
 msgstr "Siirrä"
 
-#: squirrelmail/functions/mailbox_display.php:539
+msgid "Forward"
+msgstr "Edelleenlähetys"
+
 msgid "Expunge"
 msgstr "Siivoa"
 
-#: squirrelmail/functions/mailbox_display.php:539
 msgid "mailbox"
 msgstr "postilaatikko"
 
-#: squirrelmail/functions/mailbox_display.php:541
 msgid "Read"
 msgstr "Luettu"
 
-#: squirrelmail/functions/mailbox_display.php:542
 msgid "Unread"
 msgstr "Ei luettu"
 
-#: squirrelmail/functions/mailbox_display.php:638
+msgid "Delete"
+msgstr "Poista"
+
+#, fuzzy
+msgid "Unthread View"
+msgstr "Kuukausinäyttö"
+
+#, fuzzy
+msgid "Thread View"
+msgstr "Päivänäyttö"
+
+msgid "To"
+msgstr "Vastaanottaja"
+
+msgid "From"
+msgstr "Lähettäjä"
+
+msgid "Date"
+msgstr "Päiväys"
+
+msgid "Subject"
+msgstr "Aihe"
+
+msgid "Size"
+msgstr "Koko"
+
 msgid "Toggle All"
 msgstr "Vaihda kaikki valinnat"
 
-#: squirrelmail/functions/mailbox_display.php:666
 msgid "Unselect All"
 msgstr "Peruuta Kaikki Valinnat"
 
-#: squirrelmail/functions/mailbox_display.php:668
 msgid "Select All"
 msgstr "Valitse Kaikki"
 
-#: squirrelmail/functions/mailbox_display.php:685
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Näytössä Viestit: <B>%s</B> - <B>%s</B> (%s kaikkiaan)"
 
-#: squirrelmail/functions/mailbox_display.php:687
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Näytössä Viesti: <B>%s</B>"
 
-#: squirrelmail/functions/mailbox_display.php:872
+msgid "Previous"
+msgstr "Edellinen"
+
+msgid "Next"
+msgstr "Seuraava"
+
 msgid "Paginate"
 msgstr "Sivuta"
 
-#: squirrelmail/functions/mailbox_display.php:879
 msgid "Show All"
 msgstr "Näytä kaikki"
 
-#: squirrelmail/functions/mime.php:368
-msgid "Error decoding mime structure.  Report this as a bug!"
-msgstr "MIME-rakenteen avaus epäonnistui. Ohjelmassa on virhe!"
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr ""
 
-#: squirrelmail/functions/mime.php:440
+msgid "the provided bodystructure by your imap-server"
+msgstr ""
+
+#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
-"is malformed. Please help us making future versions better by submitting "
-"this message to the developers knowledgebase!"
+"is malformed."
 msgstr ""
 "Viestin haku epäonnistui. Todennäköisin syy tähän on se että viesti ei ole "
 "standardinmukainen. Auta meitä tekemään tulevista versioista parempia "
 "lähettämällä tämä viesti kehitystiimille!"
 
-#: squirrelmail/functions/mime.php:442
-msgid "Submit message"
-msgstr "Lähetä viesti"
-
-#: squirrelmail/functions/mime.php:444
 msgid "Command:"
 msgstr "Komento:"
 
-#: squirrelmail/functions/mime.php:445
 msgid "Response:"
 msgstr "Vastaus:"
 
-#: squirrelmail/functions/mime.php:446
-#: squirrelmail/plugins/calendar/event_create.php:118
-#: squirrelmail/plugins/calendar/event_delete.php:38
-#: squirrelmail/plugins/calendar/event_edit.php:101
-#: squirrelmail/plugins/calendar/event_edit.php:114
 msgid "Message:"
 msgstr "Viesti"
 
-#: squirrelmail/functions/mime.php:447
 msgid "FETCH line:"
 msgstr "HAE rivi:"
 
-#: squirrelmail/functions/mime.php:665
-msgid "Attachments"
-msgstr "Liitteet:"
+msgid "High"
+msgstr "Korkea"
 
-#: squirrelmail/functions/mime.php:704
+msgid "Low"
+msgstr "Alhainen"
+
+msgid "Normal"
+msgstr "Normaali"
+
+msgid "Hide Unsafe Images"
+msgstr ""
+
+#, fuzzy
+msgid "View Unsafe Images"
+msgstr "Näytä viesti"
+
 msgid "download"
 msgstr "lataa"
 
-#: squirrelmail/functions/mime.php:999
-#: squirrelmail/plugins/calendar/event_create.php:53
-#: squirrelmail/plugins/calendar/event_create.php:116
-#: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:71
-#: squirrelmail/plugins/calendar/event_edit.php:99
-#: squirrelmail/plugins/calendar/event_edit.php:112
-msgid "Title:"
-msgstr "Otsikko:"
+#, fuzzy
+msgid "Unknown sender"
+msgstr "Tuntematon Lähettäjä"
 
-#: squirrelmail/functions/mime.php:1169
 msgid "sec_remove_eng.png"
 msgstr ""
 
-#: squirrelmail/functions/options.php:168
 #, c-format
 msgid "Option Type '%s' Not Found"
 msgstr "Asetustyyppiä '%s' Ei Löydy"
 
-#: squirrelmail/functions/options.php:263
-#: squirrelmail/plugins/administrator/options.php:357
-#: squirrelmail/plugins/calendar/event_delete.php:51
-#: squirrelmail/plugins/calendar/event_edit.php:134
 msgid "Yes"
 msgstr "Kyllä"
 
-#: squirrelmail/functions/options.php:268
-#: squirrelmail/plugins/administrator/options.php:358
-#: squirrelmail/plugins/calendar/event_delete.php:58
-#: squirrelmail/plugins/calendar/event_edit.php:141
 msgid "No"
 msgstr "Ei"
 
-#: squirrelmail/functions/page_header.php:124
+msgid "Submit"
+msgstr "Aktivoi"
+
 msgid "Current Folder"
 msgstr "Tämänhetkinen Kansio"
 
-#: squirrelmail/functions/page_header.php:138
-#: squirrelmail/functions/page_header.php:141
-#: squirrelmail/functions/page_header.php:170
+msgid "Sign Out"
+msgstr "Poistu"
+
 msgid "Compose"
 msgstr "Uusi Viesti"
 
-#: squirrelmail/functions/prefs.php:91
+msgid "Addresses"
+msgstr "Osoitteet"
+
+msgid "Folders"
+msgstr "Kansiot"
+
+msgid "Options"
+msgstr "Asetukset"
+
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Help"
+msgstr "Apua"
+
 #, c-format
 msgid "Error creating directory %s."
 msgstr "Virhe sanaston %s teossa."
 
-#: squirrelmail/functions/prefs.php:92
 msgid "Could not create hashed directory structure!"
 msgstr "Hakemistopolun teko epäonnistui!"
 
-#: squirrelmail/plugins/filters/filters.php:360
+msgid "General Display Options"
+msgstr "Yleiset Näyttöasetukset"
+
+msgid "Theme"
+msgstr "Teema"
+
+msgid "Default"
+msgstr "Oletus"
+
+msgid "Custom Stylesheet"
+msgstr "Sovellettu Tyylimalli"
+
+msgid "Language"
+msgstr "Kieli"
+
+msgid "Use Javascript"
+msgstr "Käytä JavaScriptiä"
+
+msgid "Autodetect"
+msgstr "Automaattinen tunnistus"
+
+msgid "Always"
+msgstr "Aina"
+
+msgid "Never"
+msgstr "Ei koskaan"
+
+msgid "Mailbox Display Options"
+msgstr "Postilaatikon Näyttöasetukset"
+
+msgid "Number of Messages to Index"
+msgstr "Viestien lukumäärä indeksissä"
+
+msgid "Enable Alternating Row Colors"
+msgstr "Käytä vaihtelevia värejä eri riveillä?"
+
+msgid "Enable Page Selector"
+msgstr "Käytä Sivunvalitsinta"
+
+msgid "Maximum Number of Pages to Show"
+msgstr "Sivujen maksimi lukumäärä näytössä"
+
+msgid "Message Display and Composition"
+msgstr "Viestien Näyttö ja Kirjoittaminen"
+
+msgid "Wrap Incoming Text At"
+msgstr "Näytettävien kirjaimien määrä riviä kohti"
+
+msgid "Size of Editor Window"
+msgstr "Editori-ikkunan koko"
+
+msgid "Location of Buttons when Composing"
+msgstr "Nappien paikka viestiä kirjoitettaessa"
+
+msgid "Before headers"
+msgstr "Ennen otsikkoja"
+
+msgid "Between headers and message body"
+msgstr "Otsikoiden ja viestin välissä"
+
+msgid "After message body"
+msgstr "Viestin jälkeen"
+
+msgid "Addressbook Display Format"
+msgstr "Osoitekirjan Näyttömuoto"
+
+msgid "Javascript"
+msgstr "JavaScript"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "Show HTML Version by Default"
+msgstr "Näytä HTML-versio"
+
+msgid "Enable Forward as Attachment"
+msgstr ""
+
+msgid "Include CCs when Forwarding Messages"
+msgstr ""
+
+msgid "Include Me in CC when I Reply All"
+msgstr "Lisää minut kopionsaajiin kun vastaan kaikille"
+
+msgid "Enable Mailer Display"
+msgstr "Postitusnäyttö päälle"
+
+msgid "Display Attached Images with Message"
+msgstr "Näytä kuvaliitteet viestissä"
+
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "Tulostusystävällinen Linkki päälle"
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Tulostusystävällinen Puhdas Näyttö päälle"
+
+#, fuzzy
+msgid "Enable Mail Delivery Notification"
+msgstr "Ei-luettujen viestien esitys käyttöön"
+
+#, fuzzy
+msgid "Compose Messages in New Window"
+msgstr "Avaa aina uusi ikkuna uuden viestin kirjoittamiseen"
+
+#, fuzzy
+msgid "Width of Compose Window"
+msgstr "Sulje ikkuna"
+
+#, fuzzy
+msgid "Height of Compose Window"
+msgstr "Sulje ikkuna"
+
+msgid "Append Signature before Reply/Forward Text"
+msgstr ""
+
+msgid "Enable Sort by of Receive Date"
+msgstr ""
+
+msgid "Enable Thread Sort by References Header"
+msgstr ""
+
+msgid "Special Folder Options"
+msgstr "Erikoiskansio-ominaisuudet"
+
+msgid "Folder Path"
+msgstr "Kansion hakemistopolku"
+
+msgid "Do not use Trash"
+msgstr "Älä käytä Paperikoria"
+
+msgid "Trash Folder"
+msgstr "Paperikori"
+
+msgid "Do not use Sent"
+msgstr "Älä käytä Lähetettyjä"
+
+msgid "Sent Folder"
+msgstr "Lähetettyjen Kansio:"
+
+msgid "Do not use Drafts"
+msgstr "Älä käytä Luonnoksia"
+
+msgid "Draft Folder"
+msgstr "Luonnosten Kansio"
+
+msgid "Folder List Options"
+msgstr "Kansiolista-asetukset"
+
+msgid "Location of Folder List"
+msgstr "Kansiolistan paikka"
+
+msgid "Left"
+msgstr "Vasemmalla"
+
+msgid "Right"
+msgstr "Oikealla"
+
+msgid "pixels"
+msgstr "pikseliä"
+
+msgid "Width of Folder List"
+msgstr "Kansiolistan leveys"
+
+msgid "Minutes"
+msgstr "Minuuttia"
+
+msgid "Seconds"
+msgstr "Sekuntia"
+
+msgid "Minute"
+msgstr "Minuutti"
+
+msgid "Auto Refresh Folder List"
+msgstr "Päivitä Kansiolista automaattisesti"
+
+msgid "Enable Unread Message Notification"
+msgstr "Ei-luettujen viestien esitys käyttöön"
+
+msgid "No Notification"
+msgstr "Ei esitetä"
+
+msgid "Only INBOX"
+msgstr "Vain Saapuneet"
+
+msgid "All Folders"
+msgstr "Kaikki Kansiot"
+
+msgid "Unread Message Notification Type"
+msgstr "Ei-luettujen viestien esityksen tyyppi"
+
+msgid "Only Unseen"
+msgstr "Vain ei-luetut"
+
+msgid "Unseen and Total"
+msgstr "Ei-luetut ja Kaikkiaan"
+
+msgid "Enable Collapsable Folders"
+msgstr "Käytä hierarkisia kansioita"
+
+#, fuzzy
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "Ei-luettujen viestien esitys käyttöön"
+
+msgid "Show Clock on Folders Panel"
+msgstr "Näytä Kello Kansiopaneelissa"
+
+msgid "No Clock"
+msgstr "Ei Kelloa"
+
+msgid "Hour Format"
+msgstr "Tuntinäytön Muoto"
+
+msgid "12-hour clock"
+msgstr "12-tuntinen kello"
+
+msgid "24-hour clock"
+msgstr "24-tuntinen kello"
+
+msgid "Memory Search"
+msgstr "Muistietsintä"
+
+msgid "Disabled"
+msgstr "Ei käytössä"
+
+#, fuzzy
+msgid "Folder Selection Options"
+msgstr "Kansiolista-asetukset"
+
+#, fuzzy
+msgid "Selection List Style"
+msgstr "Vastauksen muoto"
+
+#, fuzzy
+msgid "Long: "
+msgstr "Kesto:"
+
+msgid "Indented: "
+msgstr ""
+
+msgid "Delimited: "
+msgstr ""
+
+msgid "Name and Address Options"
+msgstr "Nimi- ja Osoiteasetukset"
+
+msgid "Full Name"
+msgstr "Koko Nimi"
+
+msgid "Email Address"
+msgstr "Sähköpostiosoite"
+
+msgid "Reply To"
+msgstr "Vastaus Osoitteeseen"
+
+msgid "Signature"
+msgstr "Allekirjoitus"
+
+msgid "Edit Advanced Identities"
+msgstr "Muokkaa Henkilötietoja"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(peruuttaa tähän mennessä tehdyt muutokset)"
+
+msgid "Multiple Identities"
+msgstr "Useat Henkilötiedot"
+
+msgid "Same as server"
+msgstr ""
+
+#, fuzzy
+msgid "Timezone Options"
+msgstr "Yleisasetukset"
+
+msgid "Your current timezone"
+msgstr ""
+
+msgid "Reply Citation Options"
+msgstr "Vastauksen Muodon Asetukset"
+
+msgid "Reply Citation Style"
+msgstr "Vastauksen muoto"
+
+msgid "No Citation"
+msgstr "Ei esitetä"
+
+msgid "AUTHOR Said"
+msgstr "LÄHETTÄJÄ kirjoitti"
+
+msgid "Quote Who XML"
+msgstr "Lainaus XML"
+
+msgid "User-Defined"
+msgstr "Käyttäjän määrittämä"
+
+msgid "User-Defined Citation Start"
+msgstr "Käyttäjän määrittämä vastaussitaatin alku"
+
+msgid "User-Defined Citation End"
+msgstr "Käyttäjän määrittämä vastaussitaatin loppu"
+
+msgid "Signature Options"
+msgstr "Allekirjoitusasetukset"
+
+msgid "Use Signature"
+msgstr "Käytä Allekirjoitusta"
+
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Lisää '-- ' allekirjoituksen edelle"
+
+msgid "Config File Version"
+msgstr "Konfiguraatiotiedoston versio"
+
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail versio"
+
+msgid "PHP Version"
+msgstr "PHP Versio"
+
+msgid "Organization Preferences"
+msgstr "Organisaatioasetukset"
+
+msgid "Organization Name"
+msgstr "Organisaation nimi"
+
+msgid "Organization Logo"
+msgstr "Organisaation logo"
+
+#, fuzzy
+msgid "Organization Logo Width"
+msgstr "Organisaation logo"
+
+#, fuzzy
+msgid "Organization Logo Height"
+msgstr "Organisaation logo"
+
+msgid "Organization Title"
+msgstr "Organisaation titteli"
+
+msgid "Signout Page"
+msgstr "Poistumissivu"
+
+msgid "Default Language"
+msgstr "Oletuskieli"
+
+msgid "Top Frame"
+msgstr "Näytön yläosa"
+
+msgid "Server Settings"
+msgstr "Palvelimen asetukset"
+
+msgid "Mail Domain"
+msgstr "Postidomeeni (domain)"
+
+msgid "IMAP Server Address"
+msgstr "IMAP Palvelimen Osoite"
+
+msgid "IMAP Server Port"
+msgstr "IMAP Palvelimen portti"
+
+msgid "IMAP Server Type"
+msgstr "IMAP Palvelimen tyyppi"
+
+msgid "Cyrus IMAP server"
+msgstr "Cyrus IMAP palvelin"
+
+msgid "University of Washington's IMAP server"
+msgstr "Washingtonin Yliopistin IMAP palvelin"
+
+msgid "Microsoft Exchange IMAP server"
+msgstr "Microsoft Exchange IMAP palvelin"
+
+msgid "Courier IMAP server"
+msgstr "Courier IMAP palvelin"
+
+msgid "Not one of the above servers"
+msgstr "Ei mikään edelläolevista"
+
+msgid "IMAP Folder Delimiter"
+msgstr "IMAP kansion erotusmerkki"
+
+msgid "Use \"detect\" to auto-detect."
+msgstr "Käytä \"tunnista\" automaattiseen tunnistukseen."
+
+msgid "Use Sendmail"
+msgstr "Käytä sendmailia"
+
+msgid "Sendmail Path"
+msgstr "Sendmailin hakemistopolku"
+
+msgid "SMTP Server Address"
+msgstr "Postipalvelimen (SMTP) Osoite"
+
+msgid "SMTP Server Port"
+msgstr "Postipalvelimen (SMTP) Portti"
+
+msgid "Authenticated SMTP"
+msgstr "Varmistettu SMTP"
+
+msgid "Invert Time"
+msgstr "Kellonaika Päinvastoin"
+
+msgid "Use Confirmation Flags"
+msgstr ""
+
+msgid "Folders Defaults"
+msgstr "Kansion oletusarvot"
+
+msgid "Default Folder Prefix"
+msgstr "Kansion etuliite"
+
+msgid "Show Folder Prefix Option"
+msgstr "Näytä Kansion etuliite vaihoehto"
+
+msgid "By default, move to trash"
+msgstr "Siirrä roskakoriin jos ei määritetä toisin"
+
+msgid "By default, move to sent"
+msgstr "Siirrä lähetettyihin jos ei määritetä toisin"
+
+msgid "By default, save as draft"
+msgstr "Siirrä luonnoksiin jos ei määritetä toisin"
+
+msgid "List Special Folders First"
+msgstr "Näytä Erikoiskansiot ensimmäisenä"
+
+msgid "Show Special Folders Color"
+msgstr "Näytä Erikoiskansiot eri värillä"
+
+msgid "Auto Expunge"
+msgstr "Siivoa automaattisesti"
+
+msgid "Default Sub. of INBOX"
+msgstr "Oletusarvoisesti Saapuneitten Alikansiona"
+
+msgid "Show 'Contain Sub.' Option"
+msgstr "Näytä 'Sisältää Alikansioita' Vaihtoehto"
+
+msgid "Default Unseen Notify"
+msgstr "Ei nähtyjen viestien oletusarvoinen esitystapa"
+
+msgid "Default Unseen Type"
+msgstr "Ei nähtyjen viestien oletusarvoinen tyyppi"
+
+msgid "Auto Create Special Folders"
+msgstr "Luo Erikoiskansiot automaattisesti"
+
+msgid "Default Javascript Adrressbook"
+msgstr "Oletusarvona Javascript Osoitekirja"
+
+msgid "Auto delete folders"
+msgstr "Kansioitten automaattinen poistaminen"
+
+msgid "General Options"
+msgstr "Yleisasetukset"
+
+msgid "Default Charset"
+msgstr "Kirjasimen oletustyyppi"
+
+msgid "Data Directory"
+msgstr "Tietohakemisto"
+
+msgid "Temp Directory"
+msgstr "Väliaikaisten Hakemisto"
+
+msgid "Hash Level"
+msgstr "Sisennystasojen Määrä"
+
+msgid "Hash Disabled"
+msgstr "Sisennys ei käytössä"
+
+msgid "Moderate"
+msgstr "Maltillinen"
+
+msgid "Medium"
+msgstr "Keskinkertainen"
+
+msgid "Default Left Size"
+msgstr "Vasemman puolen oletusleveys"
+
+msgid "Usernames in Lowercase"
+msgstr "Käyttäjänimet Pienillä Kirjaimilla"
+
+msgid "Allow use of priority"
+msgstr "Salli prioriteettien käyttö"
+
+msgid "Hide SM attributions"
+msgstr "Piilota SM atribuutiot"
+
+msgid "Enable use of delivery receipts"
+msgstr ""
+
+msgid "Allow editing of identities"
+msgstr ""
+
+msgid "Allow editing of full name"
+msgstr ""
+
+msgid "Message of the Day"
+msgstr "Päivän ilmoitusviesti"
+
+msgid "Database"
+msgstr "Tietokanta"
+
+msgid "Address book DSN"
+msgstr "Osoitekirja DSN"
+
+msgid "Address book table"
+msgstr "Osoitekirjataulukko"
+
+msgid "Preferences DSN"
+msgstr "Asetukset DSN"
+
+msgid "Preferences table"
+msgstr "Asetukset taulukko"
+
+#, fuzzy
+msgid "Preferences username field"
+msgstr "Asetukset taulukko"
+
+#, fuzzy
+msgid "Preferences key field"
+msgstr "Asetukset taulukko"
+
+#, fuzzy
+msgid "Preferences value field"
+msgstr "Asetukset taulukko"
+
+msgid "Themes"
+msgstr "Teemat"
+
+msgid "Style Sheet URL (css)"
+msgstr "Tyylisivujen internetosoite (css)"
+
+msgid "Configuration Administrator"
+msgstr "Konfiguraatioadministraattori"
+
+msgid "Theme Name"
+msgstr "Teeman nimi"
+
+msgid "Theme Path"
+msgstr "Teeman hakemistopolku"
+
+msgid "Plugins"
+msgstr "Lisätoimintoohjelmistot (plugin)"
+
+msgid "Change Settings"
+msgstr "Muuta asetuksia"
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr ""
+
+msgid "Administration"
+msgstr "Administrointi"
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+"Tämä moduuli mahdollistaa SquirrelMailin pääkonfiguraation etäiskäsittelyn."
+
+msgid "Bug Reports:"
+msgstr "Virheraportointi:"
+
+msgid "Show button in toolbar"
+msgstr "Näytä painike menupalkissa"
+
+msgid "TODAY"
+msgstr "TÄNÄÄN"
+
+msgid "Go"
+msgstr "Siirry"
+
+msgid "l, F j Y"
+msgstr ""
+
+msgid "ADD"
+msgstr "LISÄÄ"
+
+msgid "EDIT"
+msgstr "MUOKKAA"
+
+msgid "DEL"
+msgstr "POISTA"
+
+msgid "Start time:"
+msgstr "Alkuaika:"
+
+msgid "Length:"
+msgstr "Kesto:"
+
+msgid "Priority:"
+msgstr "Prioriteetti:"
+
+msgid "Title:"
+msgstr "Otsikko:"
+
+msgid "Set Event"
+msgstr "Aseta Tapahtuma"
+
+msgid "Event Has been added!"
+msgstr "Tapahtuma lisätty!"
+
+msgid "Date:"
+msgstr "Päiväys:"
+
+msgid "Time:"
+msgstr "Aika:"
+
+msgid "Day View"
+msgstr "Päivänäyttö"
+
+msgid "Do you really want to delete this event?"
+msgstr "Haluatko varmasti poistaa tämän tapahtuman?"
+
+msgid "Event deleted!"
+msgstr "Tapahtuma poistettu!"
+
+msgid "Nothing to delete!"
+msgstr "Ei poistettavaa!"
+
+msgid "Update Event"
+msgstr "Päivitä tapahtuma"
+
+msgid "Do you really want to change this event from:"
+msgstr "Haluatko varmasti vaihtaa tapahtuman:"
+
+msgid "to:"
+msgstr "Seuraavasti:"
+
+msgid "Event updated!"
+msgstr "Tapahtuma päivitetty!"
+
+msgid "Month View"
+msgstr "Kuukausinäyttö"
+
+msgid "0 min."
+msgstr "0 minuuttia"
+
+msgid "15 min."
+msgstr "15 minuuttia"
+
+msgid "35 min."
+msgstr "35 minuuttia"
+
+msgid "45 min."
+msgstr "45 minuuttia"
+
+msgid "1 hr."
+msgstr "1 tunti"
+
+msgid "1.5 hr."
+msgstr "1,5 tuntia"
+
+msgid "2 hr."
+msgstr "2 tuntia"
+
+msgid "2.5 hr."
+msgstr "2,5 tuntia"
+
+msgid "3 hr."
+msgstr "3 tuntia"
+
+msgid "3.5 hr."
+msgstr "3,5 tuntia"
+
+msgid "4 hr."
+msgstr "4 tuntia"
+
+msgid "5 hr."
+msgstr "5 tuntia"
+
+msgid "6 hr."
+msgstr "6 tuntia"
+
+msgid "Calendar"
+msgstr "Kalenteri"
+
+msgid "Delete & Prev"
+msgstr "Poista & Edellinen"
+
+msgid "Delete & Next"
+msgstr "Poista & Seuraava"
+
+msgid "Move to:"
+msgstr "Siirrä"
+
+msgid "Delete/Move/Next Buttons:"
+msgstr ""
+
+#, fuzzy
+msgid "Display at top"
+msgstr "näytä ylälaidassa"
+
+msgid "with move option"
+msgstr "siirtomahdollisuudella"
+
+#, fuzzy
+msgid "Display at bottom"
+msgstr "näytä alalaidassa"
+
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
@@ -1996,7 +1234,6 @@ msgstr ""
 "roskapostin lähettäjiä. Tämä on kohtalaisen luotettava lista roskapostin "
 "skannaukseen."
 
-#: squirrelmail/plugins/filters/filters.php:368
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
@@ -2005,7 +1242,6 @@ msgstr ""
 "KAUPALLINEN - Palvelimia jotka ovat huonosti administroituja, näiden kautta "
 "tulee myös roskapostia. Myös hyvin käyttökelpoinen lista."
 
-#: squirrelmail/plugins/filters/filters.php:376
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
@@ -2015,19 +1251,15 @@ msgstr ""
 "pitäisi käyttää oman nettipalvelunsa palvelimia mailin lähetykseen. "
 "Roskapostinlähettäjät käyttävät usein puhelinverkkoyhteyksiä."
 
-#: squirrelmail/plugins/filters/filters.php:384
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr "KAUPALLINEN - RBL+ Mustat aukot."
 
-#: squirrelmail/plugins/filters/filters.php:392
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr "KAUPALLINEN - RBL+ avoimet palvelimet."
 
-#: squirrelmail/plugins/filters/filters.php:400
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "KAUPALLINEN - RBL+ Puhelinverkkoliitännät."
 
-#: squirrelmail/plugins/filters/filters.php:408
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
@@ -2035,11 +1267,9 @@ msgstr ""
 "VAPAA - Osirusoft Relays - Osirusoftin lista avoimista palvelimista. Näyttä "
 "sisältävän myös palvelimia abuse@uunet.net auto-replies listalta."
 
-#: squirrelmail/plugins/filters/filters.php:416
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr "VAPAA - Osirusoft Dialups - Puhelinverkkoyhteysroskapostilista."
 
-#: squirrelmail/plugins/filters/filters.php:424
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
@@ -2049,7 +1279,6 @@ msgstr ""
 "roskapostia jatkuvasti ja ovat laitettu listalle manuaalisesti. Käytä "
 "varoen. Saattaa napata joittenkin nettiyritysten abuse automaattivastauksia."
 
-#: squirrelmail/plugins/filters/filters.php:432
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
@@ -2057,18 +1286,16 @@ msgstr ""
 "VAPAA - Osirusoft Smart Hosts - Lista varmoista palvelimista jotka päästävät "
 "läpi muita palvelimia jotka eivät ole kunnollisia."
 
-#: squirrelmail/plugins/filters/filters.php:440
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
 msgstr ""
-"VAPAA - Osirusoft Spamware Developers - On luultavaa että nämä ovat "
-"osoite-alueita jotka kuuluvat yrityksille jotka tunnetaan roskapostiohjemien "
+"VAPAA - Osirusoft Spamware Developers - On luultavaa että nämä ovat osoite-"
+"alueita jotka kuuluvat yrityksille jotka tunnetaan roskapostiohjemien "
 "valmistamisesta. Saattaa napata joittenkin verkkoyritysten abuse "
 "autovastauksia."
 
-#: squirrelmail/plugins/filters/filters.php:448
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
@@ -2076,19 +1303,16 @@ msgstr ""
 "VAPAA - Osirusoft Unconfirmed OptIn Servers - Lista palvelimista jotka "
 "päästävät sisään käyttäjiä ilman konfirmaatiota."
 
-#: squirrelmail/plugins/filters/filters.php:456
 msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
-"formmail.cgi scripts. (planned)."
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
 msgstr ""
-"VAPAA - Osirusof Insecure formmail.cgi scripts - Lista epävarmoista "
-"formmail.cgi skripteistä (suunnitteilla)."
+"VAPAA - Osirusof Insecure formmail.cgi scripts - Lista epävarmoista formmail."
+"cgi skripteistä (suunnitteilla)."
 
-#: squirrelmail/plugins/filters/filters.php:464
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr "VAPAA - Osirusoft Open Proxy Servers - Lista avoimista Välittäjistä."
 
-#: squirrelmail/plugins/filters/filters.php:472
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
@@ -2096,43 +1320,27 @@ msgstr ""
 "VAPAA - ORDB syntyi kun ORBS poistui. Näyttää sisältävän vähemmän vääriä "
 "ilmoituksia kuin ORBS."
 
-#: squirrelmail/plugins/filters/filters.php:480
-msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr "VAPAA - Toinen ORBS sijainen (vain syötetyt tiedot)."
-
-#: squirrelmail/plugins/filters/filters.php:488
-msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr "VAPAA - Toinen ORBS sijainen (vain tulostetut tiedot)."
-
-#: squirrelmail/plugins/filters/filters.php:496
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "VAPAA - Five-Ten-sg.com - Suorat roskapostilähteet."
 
-#: squirrelmail/plugins/filters/filters.php:504
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr "VAPAA - Five-Ten-sg.com - Puhelinverkkoroskapostilähteet."
 
-#: squirrelmail/plugins/filters/filters.php:512
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr "VAPAA - Five-Ten-sg.com - Massapostittajia."
 
-#: squirrelmail/plugins/filters/filters.php:520
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "VAPAA - Five-Ten-sg.com - Muita sekalaisia."
 
-#: squirrelmail/plugins/filters/filters.php:528
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "VAPAA - Five-Ten-sg.com - Yksivaiheisia palvelimia."
 
-#: squirrelmail/plugins/filters/filters.php:536
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "VAPAA - Five-Ten-sg.com - Roskapostin tukijoita."
 
-#: squirrelmail/plugins/filters/filters.php:544
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "VAPAA - Five-Ten-sg.com - WWW osoitteita."
 
-#: squirrelmail/plugins/filters/filters.php:552
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -2143,11 +1351,9 @@ msgstr ""
 "Mielenkiintoista on se että heidän websivunsa suosittelevat olemaan "
 "käyttämättä heidän palvelujaan."
 
-#: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "VAPAA - SPAMhaus - Lista tunnetuista roskapostilähteistä."
 
-#: squirrelmail/plugins/filters/filters.php:568
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
@@ -2157,40 +1363,128 @@ msgstr ""
 "palvelimia joilla on erittäin suuri roskapostin suhde kunnolliseen postiin "
 "verrattuna (85% tai enemmän)."
 
-#: squirrelmail/plugins/filters/options.php:62
+msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
+msgstr ""
+
+msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
+msgstr ""
+
+msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgstr ""
+
+#, fuzzy
+msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgstr "VAPAA - Five-Ten-sg.com - Suorat roskapostilähteet."
+
+msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
+msgstr ""
+
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
+msgstr ""
+
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
+msgstr ""
+
+msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+msgid "Saved Scan type"
+msgstr ""
+
 msgid "Message Filtering"
 msgstr "Viestien Suodatus"
 
-#: squirrelmail/plugins/filters/options.php:78
+msgid "What to Scan:"
+msgstr "Mitä skannataan:"
+
+msgid "All messages"
+msgstr "Kaikki viestit"
+
+msgid "Only unread messages"
+msgstr "Vain lukemattomat"
+
+msgid "Save"
+msgstr "Talleta"
+
+msgid "New"
+msgstr "Uusi"
+
+msgid "Done"
+msgstr "Valmis"
+
 msgid "Match:"
 msgstr "Täsmää"
 
-#: squirrelmail/plugins/filters/options.php:104
+msgid "Cc"
+msgstr "Kopio (Cc)"
+
+msgid "To or Cc"
+msgstr "Vastaanottaja tai Kopionvastaanottaja"
+
+#, fuzzy
+msgid "Header"
+msgstr "Luettu"
+
 msgid "Contains:"
 msgstr "Sisältää:"
 
-#: squirrelmail/plugins/filters/options.php:116
-msgid "Move to:"
-msgstr "Siirrä"
+msgid "Edit"
+msgstr "Muokkaa"
 
-#: squirrelmail/plugins/filters/options.php:158
 msgid "Down"
 msgstr "Alaspäin"
 
-#: squirrelmail/plugins/filters/options.php:164
 msgid "Up"
 msgstr "Ylöspäin"
 
-#: squirrelmail/plugins/filters/options.php:167
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Jos <b>%s</b> sisältää <b>%s</b> niin siirrä: <b>%s</b>"
 
-#: squirrelmail/plugins/filters/setup.php:94
 msgid "Message Filters"
 msgstr "Viestisuodattimet"
 
-#: squirrelmail/plugins/filters/setup.php:96
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
@@ -2198,11 +1492,9 @@ msgstr ""
 "Suodattaminen mahdollistaa asetustenmukaisen viestien automaattisiirron eri "
 "kansioihin."
 
-#: squirrelmail/plugins/filters/setup.php:102
 msgid "SPAM Filters"
 msgstr "Roskapostisuodattimet"
 
-#: squirrelmail/plugins/filters/setup.php:104
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
@@ -2211,19 +1503,15 @@ msgstr ""
 "viestienlähettäjien viestien siirtämisen muihin kansioihin (esim "
 "roskakoriin)."
 
-#: squirrelmail/plugins/filters/spamoptions.php:55
 msgid "Spam Filtering"
 msgstr "Roskapostin Suodatus"
 
-#: squirrelmail/plugins/filters/spamoptions.php:60
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr "VAROITUS Pyydä administraattoriasi asettamaan SpamFilters_YourHop"
 
-#: squirrelmail/plugins/filters/spamoptions.php:82
 msgid "Move spam to:"
 msgstr "Siirrä roskaposti kansioon:"
 
-#: squirrelmail/plugins/filters/spamoptions.php:100
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -2236,19 +1524,6 @@ msgstr ""
 "Valitsetpa minkä tahansa kansion niin pidä huoli siitä että tyhjennät sen "
 "sisällön silloin tällöin ettei palvelimesi turhaan täyty suurista kansioista."
 
-#: squirrelmail/plugins/filters/spamoptions.php:103
-msgid "What to Scan:"
-msgstr "Mitä skannataan:"
-
-#: squirrelmail/plugins/filters/spamoptions.php:109
-msgid "All messages"
-msgstr "Kaikki viestit"
-
-#: squirrelmail/plugins/filters/spamoptions.php:114
-msgid "Only unread messages"
-msgstr "Vain lukemattomat"
-
-#: squirrelmail/plugins/filters/spamoptions.php:120
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
@@ -2261,45 +1536,542 @@ msgstr ""
 "päälle kaikkien viestien skannaus, skannaa kansiosi, ja palauta skannaus "
 "takaisin vain uusille viesteille."
 
-#: squirrelmail/plugins/filters/spamoptions.php:147
-msgid "Save"
-msgstr "Talleta"
-
-#: squirrelmail/plugins/filters/spamoptions.php:158
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
 msgstr "Roskaposti lähetty vastaanottajalle: <b>%s</b>"
 
-#: squirrelmail/plugins/filters/spamoptions.php:158
 msgid "[<i>not set yet</i>]"
 msgstr "[<i>ei vielä asetettu</i>]"
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr "Roskapostin skannaus rajoitettu: <b>%s</b>"
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
 msgid "New Messages Only"
 msgstr "Vain Uudet Viestit"
 
-#: squirrelmail/plugins/filters/spamoptions.php:160
 msgid "All Messages"
 msgstr "Kaikki Viestit"
 
-#: squirrelmail/plugins/filters/spamoptions.php:170
 msgid "ON"
 msgstr "PÄÄLLÄ"
 
-#: squirrelmail/plugins/filters/spamoptions.php:172
 msgid "OFF"
 msgstr "POIS PÄÄLTÄ"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:49
+msgid "Mailinglist"
+msgstr "Postituslista"
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+"Lähettää viestin vastaanottajalle %s ja pyytää apua listan käytöstä. Saat "
+"vastauksen allaolevaan osoitteeseen."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+"Lähettää viestin vastaanottajalle %s ja ilmoittaa sinut listan tilaajaksi. "
+"Tilausosoitteesi on allaoleva osoite."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+"Lähettää viestin vastaanottajalle %s ja peruuttaa tilauksesi. Osoite joka "
+"yritetään poistaa on allaoleva osoite."
+
+msgid "From:"
+msgstr "Lähettäjä:"
+
+msgid "Send Mail"
+msgstr "Lähetä Viesti"
+
+msgid "Post to List"
+msgstr "Lähetä listaosoitteeseen"
+
+msgid "Reply to List"
+msgstr "Vastaa listaosoitteeseen"
+
+msgid "Subscribe"
+msgstr "Ota käyttöön"
+
+msgid "Unsubscribe"
+msgstr "Poista käytöstä"
+
+msgid "List Archives"
+msgstr "Listaa Arkkiivit"
+
+msgid "Contact Listowner"
+msgstr "Ota yhteys listan omistajaan"
+
+#, fuzzy
+msgid "Mailing List"
+msgstr "Postituslista:"
+
+msgid "POP3 connect:"
+msgstr "POP3 yhteys:"
+
+msgid "No server specified"
+msgstr "Palvelinta ei määritelty"
+
+msgid "Error "
+msgstr "Virhe "
+
+msgid "POP3 noop:"
+msgstr ""
+
+msgid "No connection to server"
+msgstr "Ei yhteyttä palvelimeen"
+
+msgid "POP3 user:"
+msgstr "POP3 käyttäjä:"
+
+msgid "no login ID submitted"
+msgstr "käyttäjätunnus puuttuu"
+
+msgid "connection not established"
+msgstr "yhteyttä ei muodostettu"
+
+msgid "POP3 pass:"
+msgstr "POP3 salasana:"
+
+msgid "No password submitted"
+msgstr "Salasanaa ei annettu"
+
+msgid "authentication failed "
+msgstr "käyttäjän tarkastus epäonnistui"
+
+msgid "POP3 apop:"
+msgstr ""
+
+msgid "No login ID submitted"
+msgstr "Käyttäjätunnus puuttuu"
+
+msgid "No server banner"
+msgstr "Ei palvelinviestiä"
+
+msgid "abort"
+msgstr "keskeytys"
+
+msgid "apop authentication failed"
+msgstr "apop käyttäjäntarkistus epäonnistui"
+
+msgid "POP3 login:"
+msgstr "POP3 sisääkirjoittautuminen:"
+
+msgid "POP3 top:"
+msgstr "POP3 alkuun:"
+
+msgid "POP3 pop_list:"
+msgstr "POP3 pop_listaus:"
+
+msgid "Premature end of list"
+msgstr "Lista keskeneräinen"
+
+msgid "POP3 get:"
+msgstr "POP3 haku:"
+
+msgid "POP3 last:"
+msgstr "POP3 viimeinen:"
+
+msgid "POP3 reset:"
+msgstr "POP3 palautus:"
+
+msgid "POP3 send_cmd:"
+msgstr "POP3 lähetyskomento:"
+
+msgid "Empty command string"
+msgstr "Tyhjä komento:"
+
+msgid "POP3 quit:"
+msgstr "POP3 lopetus:"
+
+msgid "connection does not exist"
+msgstr "ei yhteyttä"
+
+msgid "POP3 uidl:"
+msgstr ""
+
+msgid "POP3 delete:"
+msgstr "POP3 poisto:"
+
+msgid "No msg number submitted"
+msgstr "Ei viestinumeroa"
+
+msgid "Command failed "
+msgstr "Komento epäonnistui"
+
+msgid "Remote POP server Fetching Mail"
+msgstr "POP palvelin lataa Viestejä"
+
+msgid "Select Server:"
+msgstr "Valitse Palvelin:"
+
+msgid "All"
+msgstr "Kaikki"
+
+msgid "Password for"
+msgstr "Tunnussana:"
+
+msgid "Fetch Mail"
+msgstr "Lataa Viestit"
+
+msgid "Fetching from "
+msgstr "Ladataan: "
+
+msgid "Oops, "
+msgstr "Hups,"
+
+msgid "Opening IMAP server"
+msgstr "Yhteys IMAP palvelimeen"
+
+msgid "Opening POP server"
+msgstr "Yhteys POP palvelimeen"
+
+msgid "Login Failed:"
+msgstr "Sisäänkirjoittautuminen epäonnistui:"
+
+msgid "Login OK: No new messages"
+msgstr "Sisäänkirjoittautuminen oikein: Ei uusia viestejä"
+
+msgid "Login OK: Inbox EMPTY"
+msgstr "Sisäänkirjoittautuminen oikein: INBOX tyhjä"
+
+msgid "Login OK: Inbox contains ["
+msgstr "Sisäänkirjoittautuminen oikein: INBOXissa ["
+
+msgid "] messages"
+msgstr "] viestiä"
+
+msgid "Fetching UIDL..."
+msgstr "Ladataan UIDL"
+
+msgid "Server does not support UIDL."
+msgstr "Palvelin ei tue UIDLlää"
+
+msgid "Leaving Mail on Server..."
+msgstr "Jätetään Viestit palvelimeen..."
+
+msgid "Deleting messages from server..."
+msgstr "Poistetaan viestit palvelimesta..."
+
+msgid "Fetching message "
+msgstr "Ladataan viesti"
+
+msgid "Server error...Disconnect"
+msgstr ""
+
+msgid "Reconnect from dead connection"
+msgstr ""
+
+msgid "Saving UIDL"
+msgstr "Talletetaan UIDL"
+
+#, fuzzy
+msgid "Refetching message "
+msgstr "Ladataan viesti"
+
+msgid "Error Appending Message!"
+msgstr "Virhe viestin lisäämisessä!"
+
+msgid "Closing POP"
+msgstr "POP suljetaan"
+
+msgid "Logging out from IMAP"
+msgstr "Kirjoittaudutaan pois IMAPista"
+
+msgid "Message appended to mailbox"
+msgstr "Viesti lisätty kansioon"
+
+msgid "Message "
+msgstr "Viesti"
+
+msgid " deleted from Remote Server!"
+msgstr " poistettu palvelimesta!"
+
+msgid "Delete failed:"
+msgstr "Poisto epäonnistui:"
+
+msgid "Remote POP server settings"
+msgstr "POP palvelimen asetukset"
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+"Huomaa että salasanasi suojaus ei ole täydellinen. Jos käytät POP palvelinta "
+"niin silloin suojausta ei ole ollenkaan. Suojaus on "
+"valitettavastimahdollista murtaa lukemalla ja ymmärtämällä tämä tiedosto."
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr "Jos et laita tähän salasanaa niin sitä kysytään viestejä haettaessa."
+
+msgid "Encrypt passwords (informative only)"
+msgstr "Suojaa salasanat (vain informaatioksi)"
+
+msgid "Add Server"
+msgstr "Lisää Palvelin"
+
+msgid "Server:"
+msgstr "Palvelin:"
+
+#, fuzzy
+msgid "Port:"
+msgstr "Prioriteetti:"
+
+msgid "Alias:"
+msgstr "Lempinimi:"
+
+msgid "Username:"
+msgstr "Käyttäjätunnus:"
+
+msgid "Password:"
+msgstr "Tunnussana:"
+
+msgid "Store in Folder:"
+msgstr "Talleta Kansioon:"
+
+msgid "Leave Mail on Server"
+msgstr "Jätä Viestit Palvelimeen"
+
+msgid "Check mail during login"
+msgstr "Tarkista viestit sisäänkirjoittauduttaessa"
+
+msgid "Check mail during folder refresh"
+msgstr "Tarkista viestit kansion päivityksen aikana"
+
+msgid "Modify Server"
+msgstr "Muuta Palvelinta"
+
+msgid "Server Name:"
+msgstr "Palvelimen nimi: "
+
+msgid "Modify"
+msgstr "Muokkaa"
+
+msgid "No-one server in use. Try to add."
+msgstr "Ei palvelimia käytössä. Yritä lisätä"
+
+msgid "Fetching Servers"
+msgstr "Ladataan Palvelimet"
+
+msgid "Confirm Deletion of a Server"
+msgstr "Poista Palvelin"
+
+msgid "Selected Server:"
+msgstr "Valittu Palvelin"
+
+msgid "Confirm delete of selected server?"
+msgstr "Poista valittu palvelin?"
+
+msgid "Confirm Delete"
+msgstr "Poista"
+
+msgid "Mofify a Server"
+msgstr "Muokkaa palvelinta"
+
+msgid "Undefined Function"
+msgstr "Tuntematon Toiminto"
+
+msgid "Hey! Wath do You are looking for?"
+msgstr "Hei! Mitä yrität tehdä?"
+
+msgid "Fetch"
+msgstr "Hae"
+
+msgid "Warning, "
+msgstr "Varoitus, "
+
+msgid "Mail Fetch Result:"
+msgstr "Viestien haun Tulokset:"
+
+msgid "Simple POP3 Fetch Mail"
+msgstr "Tavallinen POP3 Viestinhaku"
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+"Tässä asetukset viestien hakuun POP3 postilaatikolta tämän palvelimen "
+"kansioihisi."
+
+msgid "New Mail Notification"
+msgstr "Uusien Viestien Esitys"
+
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+"Valitse <b>Käytä Multimediaa</b> jos haluat soittaa multimediatiedoston "
+"uusien viestien saapuessa. Voit valita haluamasi multimediatiedoston, "
+"esimerkiksi jonkin äänitiedoston."
+
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+"<b>Tarkista kaikki kansiot, ei ainosastaan INBOX</b> jos haluat että uusien "
+"viestien ilmoitus koskee kaikkia kansioitasi."
+
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+"Valitsemalla <b>Näytä ilmoitusruutu<b> asetuksella uusi ikkuna avautuu jos "
+"kansioihisi on tullut uusia viestejä (vaatii JavaScriptin)."
+
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+"Käytä <b>Tarkista viimeisimmät</b> tarkistaaksesi viimeisimmät viestit. "
+"Viimeisimmät viestit ovat ne jotka ovat saapuneet mutta joita ei ole vielä "
+"\"luettu\" tai tarkistettu. Tällä voi välttyä jatkuvalta piippitykseltä "
+"uusien viestien saapuessa."
+
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+"Valitsemalla <b>Vaihda otsikko</b> saadaan Internet Explorerin otsake "
+"vaihtumaan uusien viestien saapuessa (vaatii JavaScriptin, ei aiheuta "
+"virheitä muissa selaimissa vaikka näistä toiminto puuttuu). Tämän "
+"valitsemalla näet aina jos sinulla on uusia viestejä, jopa silloin kun "
+"<b>Tarkista viimeisimmät</b> on käytössä."
+
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+"Valitse <b>palvelimen tiedostot</b> listalta multimediatiedosto joka "
+"soitetaan uusien viestien saapuessa. Valitsemalla <b>paikallinen "
+"multimediatiedosto</b> voit käyttää omassa koneessasi olevia tiedostoja. Jos "
+"et valitse mitään niin palvelimen oletustiedosto otetaan käyttöön."
+
+msgid "Enable Media Playing"
+msgstr "Käytä Multimediaa"
+
+msgid "Check all boxes, not just INBOX"
+msgstr "Tarkista kaikki kansiot, ei ainosastaan INBOX"
+
+msgid "Count only messages that are RECENT"
+msgstr "Ota huomioon vain viimeisimmät viestit"
+
+msgid "Change title on supported browsers."
+msgstr "Vaihda otsake selaimissa jotka tätä tukevat."
+
+msgid "requires JavaScript to work"
+msgstr "vatii JavaScriptin"
+
+msgid "Show popup window on new mail"
+msgstr "Näytä uudessa ikkunassa ilmoitus uusista viesteistä"
+
+msgid "Select server file:"
+msgstr "Valitse palvelimen tiedosto:"
+
+msgid "(local media)"
+msgstr "(paikallinen multimediatiedosto)"
+
+msgid "Try"
+msgstr "Kokeile"
+
+msgid "Local Media File:"
+msgstr "Paikallinen Multimediatiedosto:"
+
+msgid "Current File:"
+msgstr "Tämänhetkinen Tiedosto:"
+
+msgid "New Mail"
+msgstr "Uusi viesti"
+
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail Merkintö:"
+
+msgid "You have new mail!"
+msgstr "Olet saanut uusia viestejä!"
+
+msgid "Close Window"
+msgstr "Sulje ikkuna"
+
+msgid "NewMail Options"
+msgstr "Uusien Viestien Asetukset"
+
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+"Tässä setuksia äänien ja/tai ikkunailmoitusten käytöstä kun uusia viestejä "
+"on tullut kansioihin."
+
+msgid "New Mail Notification options saved"
+msgstr "Uusien Viestien Ilmoitusasetukset talletettu"
+
+#, c-format
+msgid "%s New Messages"
+msgstr "%s Uutta Viestiä"
+
+#, c-format
+msgid "%s New Message"
+msgstr "%s Uusi Viesti"
+
+msgid "Test Sound"
+msgstr "Kokeile Ääntä"
+
+msgid "Loading the sound..."
+msgstr "Ladataan ääntä..."
+
+msgid "Close"
+msgstr "Sulje"
+
+msgid "Sent Subfolders Options"
+msgstr "Lähetettyjen Alikansioasetukset"
+
+msgid "Use Sent Subfolders"
+msgstr "Käytä Lähetettyjen Alikansioita:"
+
+msgid "Monthly"
+msgstr "Kuukausittain"
+
+msgid "Quarterly"
+msgstr "Neljännesvuosittain"
+
+msgid "Yearly"
+msgstr "Vuosittain"
+
+msgid "Base Sent Folder"
+msgstr "Lähetettyjen Peruskansio:"
+
+msgid "Report as Spam"
+msgstr ""
+
+msgid "SpamCop - Spam Reporting"
+msgstr ""
+
+msgid ""
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
+msgstr ""
+
 msgid "SpellChecker Options"
 msgstr "Oikeinkirjoituksen tarkistuksen Asetukset"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:51
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
@@ -2307,19 +2079,15 @@ msgstr ""
 "Tässä voit määrittää miten henkilökohtainen sanastosi talletetaan, muokata "
 "sitä, tai valita mitä kieliä tarkistetaan."
 
-#: squirrelmail/plugins/squirrelspell/setup.php:77
 msgid "Check Spelling"
 msgstr "Tarkista Oikeinkirjoitus"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:54
 msgid "Back to &quot;SpellChecker Options&quot; page"
 msgstr "Takaisin &quot;Oikeinkirjoitusasetuksiin&quot; sivu"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:356
 msgid "ATTENTION:"
 msgstr "HUOMIO:"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:357
 msgid ""
 "SquirrelSpell was unable to decrypt your personal dictionary. This is most "
 "likely due to the fact that you have changed your mailbox password. In order "
@@ -2338,445 +2106,52 @@ msgstr ""
 "vaihtoehtoa kuin poistaa se ja tehdä uusi. Näin myös silloin jos olet "
 "unohtanut vanhan salasanasi."
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:363
 msgid "Delete my dictionary and start a new one"
 msgstr "Poista vanha sanastoni ja alusta uusi"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:364
 msgid "Decrypt my dictionary with my old password:"
 msgstr "Avaa sanastoni vanhalla salasanallani:"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:368
 msgid "Proceed"
 msgstr "Jatka"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:374
 msgid "You must make a choice"
 msgstr "Sinun on valittava yksi vaihtoehdoista"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:375
 msgid ""
 "You can either delete your dictionary or type in the old password. Not both."
-msgstr ""
-"Voit joko poistaa sanaston tai antaa vanhan tunnussanasi. Ei Molempia."
+msgstr "Voit joko poistaa sanaston tai antaa vanhan tunnussanasi. Ei Molempia."
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:376
 msgid "This will delete your personal dictionary file. Proceed?"
 msgstr "Tämä poistaa henkilökohtaisen sanastotiedoston. Jatketaanko?"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:388
 msgid "Error Decrypting Dictionary"
 msgstr "Virhe Sanaston Lukemisessa"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:506
 msgid "Cute."
 msgstr "Hienoa."
 
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:196
-msgid "SquirrelSpell Results"
-msgstr "SquirrelSpell Tulokset"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:256
-msgid "Spellcheck completed. Commit changes?"
-msgstr "Oikeinkirjoituksen tarkistus valmis. Tehdäänkö muutokset?"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:258
-msgid "No changes were made."
-msgstr "Ei muutoksia."
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:260
-msgid "Now saving your personal dictionary... Please wait."
-msgstr "Henkilökohtainen sanastosi talletetaan... Odota."
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:281
-#, c-format
-msgid "Found %s errors"
-msgstr "Löytyi %s virhettä"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:302
-msgid "Line with an error:"
-msgstr "Virheellinen rivi:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:312
-msgid "Error:"
-msgstr "Virhe:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:321
-msgid "Suggestions:"
-msgstr "Ehdotuksia:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:328
-msgid "Suggestions"
-msgstr "Ehdotuksia:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:336
-msgid "Change to:"
-msgstr "Vaihda:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:345
-msgid "Occurs times:"
-msgstr "Löytyy kertaa:"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:362
-msgid "Change this word"
-msgstr "Vaihda tämä sana"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:363
-msgid "Change"
-msgstr "Vaihda"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:365
-msgid "Change ALL occurances of this word"
-msgstr "Vaihda tämä sana kaikkialla"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:366
-msgid "Change All"
-msgstr "Vaihda kaikki valinnat"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:368
-msgid "Ignore this word"
-msgstr "Älä välitä tästä sanasta"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:369
-msgid "Ignore"
-msgstr "Hyppää yli"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:371
-msgid "Ignore ALL occurances this word"
-msgstr "Älä välitä tästä sanasta koko tekstissä"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:372
-msgid "Ignore All"
-msgstr "Hyppää yli Kaikki"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:374
-msgid "Add this word to your personal dictionary"
-msgstr "Lisää tämä sana omaan sanastoon"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:375
-msgid "Add to Dic"
-msgstr "Lisää Sanastoon"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:388
-msgid "Close and Commit"
-msgstr "Sulje ikkuna ja tee muutokset"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:390
-msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr "Oikeikirjoituksen tarkistus kesken. Poistu ja talleta?"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:393
-msgid "Close and Cancel"
-msgstr "Poistu ja Peruuta"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:395
-msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr "Oikeikirjoituksen tarkistus kesken. Poistu ja peruuta?"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:414
-msgid "No errors found"
-msgstr "Ei virheitä"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
-msgid "Your personal dictionary was erased."
-msgstr "Sanastosi poistettu."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
-msgid "Dictionary Erased"
-msgstr "Sanasto Poistettu"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-msgid ""
-"Your personal dictionary was erased. Please close this window and click "
-"\"Check Spelling\" button again to start your spellcheck over."
-msgstr ""
-"Henkilökohtainen sanastosi tyhjennettiin. Ole hyvä ja sulje tämä ikkuna ja "
-"klikkaa uudestaan \"Tarkista Oikeikirjoitus\"-nappia."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
-msgid "Close this Window"
-msgstr "Sulje ikkuna"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
-"Sanastosi uudelleentalletus onnistui. Palaa "
-"&quot;Oikeikirjoitusasetuksiin&quot; ja tee valintasi uudelleen."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
-msgid "Successful Re-encryption"
-msgstr "Uudelleentalletus Onnistui"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
-msgstr ""
-"Sanastosi uudelleentallennus onnistui. Ole hyvä ja sulje tämä ikkuna ja "
-"klikkaa uudestaan \"Tarkista Oikeikirjoitus\"-nappia."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
-msgid "Dictionary re-encrypted"
-msgstr "Sanasto uudelleentalletettu"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-"Sanastosi on <strong>suojattu</strong> ja talletettu <strong>suojatussa "
-"muodossa</strong>."
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-"Sanastosio on <strong>avattu</strong> ja talletettu <strong>avoimena</strong>"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-msgid "Personal Dictionary Crypto Settings"
-msgstr "Oman Sanaston Suojausasetukset"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
-msgid "Personal Dictionary"
-msgstr "Oma Sanasto"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:29
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:99
-msgid "No words in your personal dictionary."
-msgstr "Sanastosi on tyhjä"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:36
-msgid "Please check any words you wish to delete from your dictionary."
-msgstr "Valitse sanastostasi poistettavat sanat."
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:58
-#, c-format
-msgid "%s dictionary"
-msgstr "%s sanasto"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:89
-msgid "Delete checked words"
-msgstr "Poista valitut sanat"
-
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:103
-msgid "Edit your Personal Dictionary"
-msgstr "Muokkaa omaa sanastoasi"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:25
-msgid "Please make your selection first."
-msgstr "Ole hyvä ja tee valinta ensin."
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:27
-msgid ""
-"This will encrypt your personal dictionary and store it in an encrypted "
-"format. Proceed?"
-msgstr "Tallettaa henkilökohtaisen sanastosi suojatussa muodossa. "
-"Jatketaanko?"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:30
-msgid ""
-"This will decrypt your personal dictionary and store it in a clear-text "
-"format. Proceed?"
-msgstr "Avaa oman sanastosi ja tallettaa se avoimessa muodossa. Jatketaanko?"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
-msgid ""
-"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-"helps protect your privacy in case the web-mail system gets compromized and "
-"your personal dictionary ends up stolen. It is currently encrypted with the "
-"password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> "
-"<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-"dictionary will become unaccessible, since it can no longer be decrypted. If "
-"you change your mailbox password, SquirrelSpell will recognize it and prompt "
-"you for your old password in order to re-encrypt the dictionary with a new "
-"key.</p>"
-msgstr ""
-"<p>Oma sanastosi on <strong>suojattu</strong>. Tämän ansiosta sitä ei pysty "
-"kuka tahansa lukemaan, esim silloin jos joku murtautuu sisään "
-"webmailsysteemiin ja kopioi sen. Sanastosi on suojattu samalla salasanalla "
-"kuin kirjoittaudut sisään webmailiin. </p> <p><strong>HUOMIO:</strong> jos "
-"unohdat salasanasi niin et pysty itsekään käyttämään omaa sanastoasi. Jos "
-"vaihdat salasanasi niin SquirrelSpell pyytää sinulta vanhan salasanan jotta "
-"oma sanastosi voidaan avata ja suojata uudella salasanallasi.</p>"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:52
-msgid ""
-"Please decrypt my personal dictionary and store it in a clear-text format."
-msgstr "Avaa oma sanastoni ja talleta se avoimessa muodossa."
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
-msgid "Change crypto settings"
-msgstr "Muuta suojausasetuksia"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:65
-msgid ""
-"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
-"may wish to encrypt your personal dictionary to protect your privacy in case "
-"the webmail system gets compromized and your personal dictionary file gets "
-"stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox "
-"password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your "
-"personal dictionary, you must remember that it gets &quot;hashed&quot; with "
-"your mailbox password. If you forget your mailbox password and the "
-"administrator changes it to a new value, your personal dictionary will "
-"become useless and will have to be created anew. However, if you or your "
-"system administrator change your mailbox password but you still have the old "
-"password at hand, you will be able to enter the old key to re-encrypt the "
-"dictionary with the new value.</p>"
-msgstr ""
-"<p>Oma sanastosi on <strong>talletettu avoimena</strong>. Voit haluta "
-"suojata sen niin ettei kukaan muu pysty sitä lukemaan jos esimerkiksi "
-"webmail palvelimeen murtaudutaan ja tiedostoja saadaan kopioiduksi. "
-"Suojattuna sanastoasi ei voi lukea ilman salasanaa (sama jolla lirjoittaudut "
-"sisään webmailiin).</p> <p><strong>HUOMIO:</strong> Jos suojaat sanastosi "
-"niin muista että tarvitset sen lukemiseen salasanasi. Jos unohdat salasanasi "
-"niin et pysty käyttämään sanastoasi vaan sinun pitää alustaa uusi. Jos sinä "
-"tai administraattori vaihtaa salasanasi niin voit kuitenkin avata ja "
-"uudelleen suojata sanastosi antamalla vanhan salasanasi ku SquirrelSpell "
-"sitä kysyy.<p>"
-
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
-msgid ""
-"Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr "Talleta sanastoni suojatussa muodossa."
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:28
-#, c-format
-msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr "Poistetaan seuraavat <strong>%s</strong> sanastostasi:"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:71
-msgid "All done!"
-msgstr "Kaikki valmista!"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:72
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:71
-msgid "Personal Dictionary Updated"
-msgstr "Oma Sanasto Päivitetty"
-
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:78
-msgid "No changes requested."
-msgstr "Ei muutoksia."
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:33
-msgid "Please wait, communicating with the server..."
-msgstr "Odota, otetaan yhteys palvelimeen..."
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:42
-msgid ""
-"Please choose which dictionary you would like to use to spellcheck this "
-"message:"
-msgstr ""
-"Valitse sanasto jota käytetään tämän viestin oikeikirjoituksen "
-"tarkistukseen: "
-
-#: squirrelmail/plugins/calendar/calendar.php:113
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:53
-msgid "Go"
-msgstr "Siirry"
-
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:57
-msgid "SquirrelSpell Initiating"
-msgstr "SquirrelSpell Alustus"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:72
-#, c-format
-msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
-msgstr ""
-"Asetettu: <strong>%s</strong> ja <strong>%s</strong> käytettäväksi "
-"sanastoksi."
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:79
-#, c-format
-msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr "Käytössä <strong>%s</strong> sanasto (systeemin oletusarvo)."
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:90
-msgid "International Dictionaries Preferences Updated"
-msgstr "Kansainvälisten Sanastojen Asetukset Päivitetty"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:22
-msgid ""
-"Please check any available international dictionaries which you would like "
-"to use when spellchecking:"
-msgstr ""
-"Valitse mahdolliset kansainväliset sanastot joita haluat käyttää "
-"oikeinkirjoituksen tarkistuksessa:"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:32
-msgid "Make this dictionary my default selection:"
-msgstr "Aseta tämä sanaso oletusarvoksi:"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:49
-msgid "Make these changes"
-msgstr "Tee nämä muutokset"
-
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:50
-msgid "Add International Dictionaries"
-msgstr "Lisää Kansainvälisiä Sanastoja"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:19
-msgid "Please choose which options you wish to set up:"
-msgstr "Valitse mitä asetuksia haluat käsitellä:"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:23
-msgid "Edit your personal dictionary"
-msgstr "Muokkaa omaa sanastoasi"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:30
-msgid "Set up international dictionaries"
-msgstr "Aseta kansainvälisiä sanastoja"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:40
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:44
-msgid "Encrypt or decrypt your personal dictionary"
-msgstr "Suojaa tai avaa oma sanastosi"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
-msgid "not available"
-msgstr "ei olemassa"
-
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:48
-msgid "SquirrelSpell Options Menu"
-msgstr "SquirrelSpell Asetusmenu"
-
-#: squirrelmail/plugins/translate/options.php:94
 msgid "Translator"
 msgstr "Kääntäjä"
 
-#: squirrelmail/plugins/translate/options.php:97
+#, fuzzy
+msgid "Saved Translation Options"
+msgstr "Käännösasetukset"
+
 msgid "Your server options are as follows:"
 msgstr "Palvelinasetuksesi ovat seuraavat:"
 
-#: squirrelmail/plugins/translate/options.php:102
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr "13 kieliparia, maksimi 1000 merkkiä käännetty, tehty Systranilla"
 
-#: squirrelmail/plugins/translate/options.php:105
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr "10 kieliparia, maksimi 25 kilotavua käännetty, tehty Systranilla"
 
-#: squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 kieliparia, ei tunnettuja rajoituksia, tehty Systranilla"
 
-#: squirrelmail/plugins/translate/options.php:111
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
@@ -2784,1471 +2159,1141 @@ msgstr ""
 "767 kieliparia, ei tunnettuja rajoituksia, tehty Translation Experts "
 "InterTranilla"
 
-#: squirrelmail/plugins/translate/options.php:114
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 "8 kieliparia, ei tunnettuja rajoituksia, tehty GPLTransilla (vapaa, open "
 "source)"
 
-#: squirrelmail/plugins/translate/options.php:120
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr "Voit myös päättää näytetäänkö käännösruutu ja missä sen paikka on."
 
-#: squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
 msgstr "Valitse kääntäjäsi:"
 
-#: squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
 msgstr "Luettaessa:"
 
-#: squirrelmail/plugins/translate/options.php:141
 msgid "Show translation box"
 msgstr "Näytä käännösruutru"
 
-#: squirrelmail/plugins/translate/options.php:143
 msgid "to the left"
 msgstr "vasemmalla"
 
-#: squirrelmail/plugins/translate/options.php:144
 msgid "in the center"
 msgstr "keskellä"
 
-#: squirrelmail/plugins/translate/options.php:145
 msgid "to the right"
 msgstr "oikealla"
 
-#: squirrelmail/plugins/translate/options.php:150
 msgid "Translate inside the SquirrelMail frames"
 msgstr "Käännös SquirrelMail ruutujen sisällä"
 
-#: squirrelmail/plugins/translate/options.php:153
 msgid "When composing:"
 msgstr "Kirjoitettasessa:"
 
-#: squirrelmail/plugins/translate/options.php:157
 msgid "Not yet functional, currently does nothing"
 msgstr "Ei vielä käytettävissä"
 
-#: squirrelmail/plugins/translate/setup.php:104
+msgid "Download this as a file"
+msgstr "Lataa tämä tiedostona"
+
 msgid "Translation Options"
 msgstr "Käännösasetukset"
 
-#: squirrelmail/plugins/translate/setup.php:106
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
 msgstr "Mitä kääntäjää käytetään muunkielisten viestien saapuessa?"
 
-#: squirrelmail/plugins/translate/setup.php:230
-#: squirrelmail/plugins/translate/setup.php:234
-#: squirrelmail/plugins/translate/setup.php:238
-#: squirrelmail/plugins/translate/setup.php:242
-#: squirrelmail/plugins/translate/setup.php:246
-#: squirrelmail/plugins/translate/setup.php:250
-#: squirrelmail/plugins/translate/setup.php:254
-#: squirrelmail/plugins/translate/setup.php:258
-#: squirrelmail/plugins/translate/setup.php:262
-#: squirrelmail/plugins/translate/setup.php:266
-#: squirrelmail/plugins/translate/setup.php:270
-#: squirrelmail/plugins/translate/setup.php:274
-#: squirrelmail/plugins/translate/setup.php:278
-#: squirrelmail/plugins/translate/setup.php:293
-#: squirrelmail/plugins/translate/setup.php:297
-#: squirrelmail/plugins/translate/setup.php:301
-#: squirrelmail/plugins/translate/setup.php:305
-#: squirrelmail/plugins/translate/setup.php:309
-#: squirrelmail/plugins/translate/setup.php:313
-#: squirrelmail/plugins/translate/setup.php:317
-#: squirrelmail/plugins/translate/setup.php:321
-#: squirrelmail/plugins/translate/setup.php:325
-#: squirrelmail/plugins/translate/setup.php:329
-#: squirrelmail/plugins/translate/setup.php:404
-#: squirrelmail/plugins/translate/setup.php:437
-#: squirrelmail/plugins/translate/setup.php:441
-#: squirrelmail/plugins/translate/setup.php:445
-#: squirrelmail/plugins/translate/setup.php:449
-#: squirrelmail/plugins/translate/setup.php:453
-#: squirrelmail/plugins/translate/setup.php:457
-#: squirrelmail/plugins/translate/setup.php:461
-#: squirrelmail/plugins/translate/setup.php:465
-#: squirrelmail/plugins/translate/setup.php:469
-#: squirrelmail/plugins/translate/setup.php:473
-#: squirrelmail/plugins/translate/setup.php:477
-#: squirrelmail/plugins/translate/setup.php:481
 #, c-format
 msgid "%s to %s"
 msgstr "%s -> %s"
 
-#: squirrelmail/plugins/translate/setup.php:231
-#: squirrelmail/plugins/translate/setup.php:235
-#: squirrelmail/plugins/translate/setup.php:239
-#: squirrelmail/plugins/translate/setup.php:243
-#: squirrelmail/plugins/translate/setup.php:247
-#: squirrelmail/plugins/translate/setup.php:252
-#: squirrelmail/plugins/translate/setup.php:256
-#: squirrelmail/plugins/translate/setup.php:260
-#: squirrelmail/plugins/translate/setup.php:264
-#: squirrelmail/plugins/translate/setup.php:268
-#: squirrelmail/plugins/translate/setup.php:280
-#: squirrelmail/plugins/translate/setup.php:294
-#: squirrelmail/plugins/translate/setup.php:298
-#: squirrelmail/plugins/translate/setup.php:302
-#: squirrelmail/plugins/translate/setup.php:306
-#: squirrelmail/plugins/translate/setup.php:310
-#: squirrelmail/plugins/translate/setup.php:315
-#: squirrelmail/plugins/translate/setup.php:319
-#: squirrelmail/plugins/translate/setup.php:323
-#: squirrelmail/plugins/translate/setup.php:327
-#: squirrelmail/plugins/translate/setup.php:331
-#: squirrelmail/plugins/translate/setup.php:352
-#: squirrelmail/plugins/translate/setup.php:382
-#: squirrelmail/plugins/translate/setup.php:438
-#: squirrelmail/plugins/translate/setup.php:442
-#: squirrelmail/plugins/translate/setup.php:446
-#: squirrelmail/plugins/translate/setup.php:450
-#: squirrelmail/plugins/translate/setup.php:454
-#: squirrelmail/plugins/translate/setup.php:459
-#: squirrelmail/plugins/translate/setup.php:471
-#: squirrelmail/plugins/translate/setup.php:475
-#: squirrelmail/plugins/translate/setup.php:479
-#: squirrelmail/plugins/translate/setup.php:483
 msgid "English"
 msgstr "Englanti"
 
-#: squirrelmail/plugins/translate/setup.php:232
-#: squirrelmail/plugins/translate/setup.php:251
-#: squirrelmail/plugins/translate/setup.php:272
-#: squirrelmail/plugins/translate/setup.php:275
-#: squirrelmail/plugins/translate/setup.php:299
-#: squirrelmail/plugins/translate/setup.php:318
-#: squirrelmail/plugins/translate/setup.php:355
-#: squirrelmail/plugins/translate/setup.php:385
-#: squirrelmail/plugins/translate/setup.php:417
-#: squirrelmail/plugins/translate/setup.php:439
-#: squirrelmail/plugins/translate/setup.php:458
-#: squirrelmail/plugins/translate/setup.php:462
-#: squirrelmail/plugins/translate/setup.php:467
 msgid "French"
 msgstr "Ranska"
 
-#: squirrelmail/plugins/translate/setup.php:236
-#: squirrelmail/plugins/translate/setup.php:255
-#: squirrelmail/plugins/translate/setup.php:271
-#: squirrelmail/plugins/translate/setup.php:276
-#: squirrelmail/plugins/translate/setup.php:303
-#: squirrelmail/plugins/translate/setup.php:322
-#: squirrelmail/plugins/translate/setup.php:356
-#: squirrelmail/plugins/translate/setup.php:386
-#: squirrelmail/plugins/translate/setup.php:418
-#: squirrelmail/plugins/translate/setup.php:443
-#: squirrelmail/plugins/translate/setup.php:463
-#: squirrelmail/plugins/translate/setup.php:466
-#: squirrelmail/plugins/translate/setup.php:470
 msgid "German"
 msgstr "Saksa"
 
-#: squirrelmail/plugins/translate/setup.php:240
-#: squirrelmail/plugins/translate/setup.php:259
-#: squirrelmail/plugins/translate/setup.php:307
-#: squirrelmail/plugins/translate/setup.php:326
-#: squirrelmail/plugins/translate/setup.php:360
-#: squirrelmail/plugins/translate/setup.php:390
-#: squirrelmail/plugins/translate/setup.php:420
-#: squirrelmail/plugins/translate/setup.php:447
-#: squirrelmail/plugins/translate/setup.php:474
 msgid "Italian"
 msgstr "Italia"
 
-#: squirrelmail/plugins/translate/setup.php:244
-#: squirrelmail/plugins/translate/setup.php:263
-#: squirrelmail/plugins/translate/setup.php:311
-#: squirrelmail/plugins/translate/setup.php:330
-#: squirrelmail/plugins/translate/setup.php:365
-#: squirrelmail/plugins/translate/setup.php:395
-#: squirrelmail/plugins/translate/setup.php:422
-#: squirrelmail/plugins/translate/setup.php:451
-#: squirrelmail/plugins/translate/setup.php:478
 msgid "Portuguese"
 msgstr "Portugali"
 
-#: squirrelmail/plugins/translate/setup.php:248
-#: squirrelmail/plugins/translate/setup.php:267
-#: squirrelmail/plugins/translate/setup.php:295
-#: squirrelmail/plugins/translate/setup.php:314
-#: squirrelmail/plugins/translate/setup.php:370
-#: squirrelmail/plugins/translate/setup.php:400
-#: squirrelmail/plugins/translate/setup.php:423
-#: squirrelmail/plugins/translate/setup.php:455
-#: squirrelmail/plugins/translate/setup.php:482
 msgid "Spanish"
 msgstr "Espanja"
 
-#: squirrelmail/plugins/translate/setup.php:279
-#: squirrelmail/plugins/translate/setup.php:367
-#: squirrelmail/plugins/translate/setup.php:397
 msgid "Russian"
 msgstr "Venäjä"
 
-#: squirrelmail/plugins/translate/setup.php:282
-#: squirrelmail/plugins/translate/setup.php:334
-#: squirrelmail/plugins/translate/setup.php:405
-#: squirrelmail/plugins/translate/setup.php:426
-#: squirrelmail/plugins/translate/setup.php:485
 msgid "Translate"
 msgstr "Käännä"
 
-#: squirrelmail/plugins/translate/setup.php:346
-#: squirrelmail/plugins/translate/setup.php:376
 msgid "Brazilian Portuguese"
 msgstr "Brasilian portugali"
 
-#: squirrelmail/plugins/translate/setup.php:347
-#: squirrelmail/plugins/translate/setup.php:377
 msgid "Bulgarian"
 msgstr "Bulgaria"
 
-#: squirrelmail/plugins/translate/setup.php:348
-#: squirrelmail/plugins/translate/setup.php:378
 msgid "Croatian"
 msgstr "Kroatia"
 
-#: squirrelmail/plugins/translate/setup.php:349
-#: squirrelmail/plugins/translate/setup.php:379
 msgid "Czech"
 msgstr "Tsekki"
 
-#: squirrelmail/plugins/translate/setup.php:350
-#: squirrelmail/plugins/translate/setup.php:380
 msgid "Danish"
 msgstr "Tanska"
 
-#: squirrelmail/plugins/translate/setup.php:351
-#: squirrelmail/plugins/translate/setup.php:381
-#: squirrelmail/plugins/translate/setup.php:416
 msgid "Dutch"
 msgstr "Hollanti"
 
-#: squirrelmail/plugins/translate/setup.php:353
-#: squirrelmail/plugins/translate/setup.php:383
 msgid "European Spanish"
 msgstr "Euroopan espanja"
 
-#: squirrelmail/plugins/translate/setup.php:354
-#: squirrelmail/plugins/translate/setup.php:384
 msgid "Finnish"
 msgstr "Suomi"
 
-#: squirrelmail/plugins/translate/setup.php:357
-#: squirrelmail/plugins/translate/setup.php:387
 msgid "Greek"
 msgstr "Kreikka"
 
-#: squirrelmail/plugins/translate/setup.php:358
-#: squirrelmail/plugins/translate/setup.php:388
 msgid "Hungarian"
 msgstr "Unkari"
 
-#: squirrelmail/plugins/translate/setup.php:359
-#: squirrelmail/plugins/translate/setup.php:389
 msgid "Icelandic"
 msgstr "Islanti"
 
-#: squirrelmail/plugins/translate/setup.php:361
-#: squirrelmail/plugins/translate/setup.php:391
 msgid "Japanese"
 msgstr "Japani"
 
-#: squirrelmail/plugins/translate/setup.php:362
-#: squirrelmail/plugins/translate/setup.php:392
 msgid "Latin American Spanish"
 msgstr "Latinalaisamerikkalainen espanja"
 
-#: squirrelmail/plugins/translate/setup.php:363
-#: squirrelmail/plugins/translate/setup.php:393
 msgid "Norwegian"
 msgstr "Norja"
 
-#: squirrelmail/plugins/translate/setup.php:364
-#: squirrelmail/plugins/translate/setup.php:394
 msgid "Polish"
 msgstr "Puola"
 
-#: squirrelmail/plugins/translate/setup.php:366
-#: squirrelmail/plugins/translate/setup.php:396
 msgid "Romanian"
 msgstr "Romania"
 
-#: squirrelmail/plugins/translate/setup.php:368
-#: squirrelmail/plugins/translate/setup.php:398
 msgid "Serbian"
 msgstr "Serbia"
 
-#: squirrelmail/plugins/translate/setup.php:369
-#: squirrelmail/plugins/translate/setup.php:399
 msgid "Slovenian"
 msgstr "Slovenia"
 
-#: squirrelmail/plugins/translate/setup.php:371
-#: squirrelmail/plugins/translate/setup.php:401
 msgid "Swedish"
 msgstr "Ruotsi"
 
-#: squirrelmail/plugins/translate/setup.php:372
-#: squirrelmail/plugins/translate/setup.php:402
 msgid "Welsh"
 msgstr "Wales"
 
-#: squirrelmail/plugins/translate/setup.php:419
 msgid "Indonesian"
 msgstr "Indonesia"
 
-#: squirrelmail/plugins/translate/setup.php:421
 msgid "Latin"
 msgstr "Latina"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
-msgid "New Mail Notification"
-msgstr "Uusien Viestien Esitys"
+msgid "Address Book"
+msgstr "Osoitekirja"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:37
-msgid ""
-"Select <b>Enable Media Playing</b> to turn on playing a media file when "
-"unseen mail is in your folders. When enabled, you can specify the media file "
-"to play in the provided file box."
-msgstr ""
-"Valitse <b>Käytä Multimediaa</b> jos haluat soittaa multimediatiedoston "
-"uusien viestien saapuessa. Voit valita haluamasi multimediatiedoston, "
-"esimerkiksi jonkin äänitiedoston."
+msgid "Name"
+msgstr "Nimi"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:39
-msgid ""
-"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
-"folders for unseen mail, not just the inbox for notification."
-msgstr ""
-"<b>Tarkista kaikki kansiot, ei ainosastaan INBOX</b> jos haluat että uusien "
-"viestien ilmoitus koskee kaikkia kansioitasi."
+msgid "E-mail"
+msgstr "Sähköposti"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:41
-msgid ""
-"Selecting the <b>Show popup</b> option will enable the showing of a popup "
-"window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
-"Valitsemalla <b>Näytä ilmoitusruutu<b> asetuksella uusi ikkuna avautuu jos "
-"kansioihisi on tullut uusia viestejä (vaatii JavaScriptin)."
+msgid "Info"
+msgstr "Tietoja"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:43
-msgid ""
-"Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
-msgstr ""
-"Käytä <b>Tarkista viimeisimmät</b> tarkistaaksesi viimeisimmät viestit. "
-"Viimeisimmät viestit ovat ne jotka ovat saapuneet mutta joita ei ole vielä "
-"\"luettu\" tai tarkistettu. Tällä voi välttyä jatkuvalta piippitykseltä "
-"uusien viestien saapuessa."
+msgid "Source"
+msgstr "Lähde"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:45
-msgid ""
-"Selecting the <b>Change title</b> option will change the title in some "
-"browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers).  This will "
-"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
-"enabled."
-msgstr ""
-"Valitsemalla <b>Vaihda otsikko</b> saadaan Internet Explorerin otsake "
-"vaihtumaan uusien viestien saapuessa (vaatii JavaScriptin, ei aiheuta "
-"virheitä muissa selaimissa vaikka näistä toiminto puuttuu). Tämän "
-"valitsemalla näet aina jos sinulla on uusia viestejä, jopa silloin kun "
-"<b>Tarkista viimeisimmät</b> on käytössä."
+msgid "Bcc"
+msgstr "Piilokopio (Bcc)"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:47
-msgid ""
-"Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
-msgstr ""
-"Valitse <b>palvelimen tiedostot</b> listalta multimediatiedosto joka "
-"soitetaan uusien viestien saapuessa. Valitsemalla <b>paikallinen "
-"multimediatiedosto</b> voit käyttää omassa koneessasi olevia tiedostoja. Jos "
-"et valitse mitään niin palvelimen oletustiedosto otetaan käyttöön."
+msgid "Use Addresses"
+msgstr "Käytä Osoitteita"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:57
-msgid "Enable Media Playing"
-msgstr "Käytä Multimediaa"
+msgid "Address Book Search"
+msgstr "Haku Osoitekirjasta"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:65
-msgid "Check all boxes, not just INBOX"
-msgstr "Tarkista kaikki kansiot, ei ainosastaan INBOX"
+msgid "Search for"
+msgstr "Etsi"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:73
-msgid "Count only messages that are RECENT"
-msgstr "Ota huomioon vain viimeisimmät viestit"
+msgid "in"
+msgstr "seuraavista:"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
-msgid "Change title on supported browsers."
-msgstr "Vaihda otsake selaimissa jotka tätä tukevat."
+msgid "All address books"
+msgstr "Kaikista osoitekirjoista"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
-msgid "requires JavaScript to work"
-msgstr "vatii JavaScriptin"
+msgid "List all"
+msgstr "Näytä kaikki"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
-msgid "Show popup window on new mail"
-msgstr "Näytä uudessa ikkunassa ilmoitus uusista viesteistä"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:92
-msgid "Select server file:"
-msgstr "Valitse palvelimen tiedosto:"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:94
-msgid "(local media)"
-msgstr "(paikallinen multimediatiedosto)"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:111
-msgid "Try"
-msgstr "Kokeile"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:119
-msgid "Local Media File:"
-msgstr "Paikallinen Multimediatiedosto:"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:125
-msgid "Current File:"
-msgstr "Tämänhetkinen Tiedosto:"
-
-#: squirrelmail/plugins/newmail/newmail.php:20
-msgid "New Mail"
-msgstr "Uusi viesti"
-
-#: squirrelmail/plugins/newmail/newmail.php:27
-msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail Merkintö:"
-
-#: squirrelmail/plugins/newmail/newmail.php:31
-msgid "You have new mail!"
-msgstr "Olet saanut uusia viestejä!"
-
-#: squirrelmail/plugins/newmail/setup.php:78
-msgid "NewMail Options"
-msgstr "Uusien Viestien Asetukset"
-
-#: squirrelmail/plugins/newmail/setup.php:80
-msgid ""
-"This configures settings for playing sounds and/or showing popup windows "
-"when new mail arrives."
-msgstr ""
-"Tässä setuksia äänien ja/tai ikkunailmoitusten käytöstä kun uusia viestejä "
-"on tullut kansioihin."
-
-#: squirrelmail/plugins/newmail/setup.php:129
-msgid "New Mail Notification options saved"
-msgstr "Uusien Viestien Ilmoitusasetukset talletettu"
-
-#: squirrelmail/plugins/newmail/setup.php:202
 #, c-format
-msgid "%s New Messages"
-msgstr "%s Uutta Viestiä"
+msgid "Unable to list addresses from %s"
+msgstr "Osoitteita ei löytynyt: %s"
 
-#: squirrelmail/plugins/newmail/setup.php:206
+msgid "Your search failed with the following error(s)"
+msgstr "Hakusi epäonnistui seuraavin virheilmoituksin"
+
+msgid "No persons matching your search was found"
+msgstr "Ketään hakemaasi ei löytynyt"
+
+msgid "Return"
+msgstr "Paluu"
+
+msgid "Nickname"
+msgstr "Lempinimi"
+
+msgid "Must be unique"
+msgstr "Täytyy olla ainutlaatuinen"
+
+msgid "E-mail address"
+msgstr "Sähköpostiosoite"
+
+msgid "First name"
+msgstr "Etunimi"
+
+msgid "Last name"
+msgstr "Sukunimi"
+
+msgid "Additional info"
+msgstr "Lisätietoja"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Osoitekirjaa ei löydy. Ota yhteys Administraattoriin."
+
+msgid "You can only edit one address at the time"
+msgstr "Osoitteita voi muokata vain yksi kerrallaan"
+
+msgid "Update address"
+msgstr "Päivitä osoite"
+
+msgid "Unknown error"
+msgstr "Tuntematon virhe"
+
+msgid "Add address"
+msgstr "Lisää osoite"
+
+msgid "Edit selected"
+msgstr "Muokkaa valittuja"
+
+msgid "Delete selected"
+msgstr "Poista valitut"
+
 #, c-format
-msgid "%s New Message"
-msgstr "%s Uusi Viesti"
+msgid "Add to %s"
+msgstr "Lisää (%s)"
 
-#: squirrelmail/plugins/newmail/testsound.php:24
-msgid "Test Sound"
-msgstr "Kokeile Ääntä"
+msgid "Original Message"
+msgstr "Alkuperäinen viesti"
 
-#: squirrelmail/plugins/newmail/testsound.php:30
-msgid "Loading the sound..."
-msgstr "Ladataan ääntä..."
+msgid "Draft Email Saved"
+msgstr "Luonnos Talletettu"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-msgid "POP3 connect:"
-msgstr "POP3 yhteys:"
+msgid "Could not move/copy file. File not attached"
+msgstr "Tiedoston siirto/kopiointi epäonnistu. Tiedostoa ei liittetty viestiin"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
-msgid "No server specified"
-msgstr "Palvelinta ei määritelty"
+msgid "Draft Saved"
+msgstr "Luonnos Talletettu"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-msgid "Error "
-msgstr "Virhe "
+msgid "Your Message has been sent"
+msgstr "Viesti lähetetty"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:110
-msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-msgstr "POP3: vastaus puutteellinen, palvelin ei ole RFC1939 mukainen"
+msgid "To:"
+msgstr "Vastaanottaja:"
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-msgid "POP3 noop:"
+msgid "CC:"
+msgstr "Kopio (CC):"
+
+msgid "BCC:"
+msgstr "Piilokopio (BCC):"
+
+msgid "Subject:"
+msgstr "Aihe:"
+
+msgid "Send"
+msgstr "Lähetä"
+
+msgid "Attach:"
+msgstr "Liite:"
+
+msgid "Add"
+msgstr "Lisää liite"
+
+msgid "Delete selected attachments"
+msgstr "Poista valitut liitteet"
+
+msgid "Priority"
+msgstr "Prioriteetti"
+
+msgid "Receipt"
+msgstr "Kuitti"
+
+#, fuzzy
+msgid "On Read"
+msgstr "Luettaessa"
+
+msgid "On Delivery"
+msgstr "Perille toimitettaessa"
+
+msgid "Save Draft"
+msgstr "Talleta Luonnos"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "Et ole valinnut Vastaanottajaa."
+
+msgid "said"
+msgstr "kirjoitti"
+
+msgid "quote"
+msgstr "lainaus"
+
+msgid "who"
+msgstr "kuka"
+
+#, fuzzy
+msgid "Draft folder"
+msgstr "Luonnosten Kansio"
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Epäkelpo nimi kansiolle. Ole hyvä ja valitse joku toinen nimi."
+
+msgid "Click here to go back"
+msgstr "Klikkaa tästä päästäksesi takaisin"
+
+msgid "You have not selected a folder to delete. Please do so."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-msgid "No connection to server"
-msgstr "Ei yhteyttä palvelimeen"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
-msgid "POP3 user:"
-msgstr "POP3 käyttäjä:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
-msgid "no login ID submitted"
-msgstr "käyttäjätunnus puuttuu"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-msgid "connection not established"
-msgstr "yhteyttä ei muodostettu"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-msgid "POP3 pass:"
-msgstr "POP3 salasana:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-msgid "No password submitted"
-msgstr "Salasanaa ei annettu"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
-msgid "authentication failed "
-msgstr "käyttäjän tarkastus epäonnistui"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "NOOP failed. Server not RFC 1939 compliant"
-msgstr "NOOP epäonnistui. Palvelin ei ole RFC 1939 mukainen"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
-msgid "POP3 apop:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
-msgid "No login ID submitted"
-msgstr "Käyttäjätunnus puuttuu"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-msgid "No server banner"
-msgstr "Ei palvelinviestiä"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "abort"
-msgstr "keskeytys"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
-msgid "apop authentication failed"
-msgstr "apop käyttäjäntarkistus epäonnistui"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
-msgid "POP3 login:"
-msgstr "POP3 sisääkirjoittautuminen:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
-msgid "POP3 top:"
-msgstr "POP3 alkuun:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "POP3 pop_list:"
-msgstr "POP3 pop_listaus:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
-msgid "Premature end of list"
-msgstr "Lista keskeneräinen"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
-msgid "POP3 get:"
-msgstr "POP3 haku:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
-msgid "POP3 last:"
-msgstr "POP3 viimeinen:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
-msgid "POP3 reset:"
-msgstr "POP3 palautus:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "POP3 send_cmd:"
-msgstr "POP3 lähetyskomento:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
-msgid "Empty command string"
-msgstr "Tyhjä komento:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-msgid "POP3 quit:"
-msgstr "POP3 lopetus:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
-msgid "connection does not exist"
-msgstr "ei yhteyttä"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
-msgid "POP3 uidl:"
-msgstr ""
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-msgid "POP3 delete:"
-msgstr "POP3 poisto:"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
-msgid "No msg number submitted"
-msgstr "Ei viestinumeroa"
-
-#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
-msgid "Command failed "
-msgstr "Komento epäonnistui"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:54
-msgid "Remote POP server Fetching Mail"
-msgstr "POP palvelin lataa Viestejä"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:63
-msgid "Select Server:"
-msgstr "Valitse Palvelin:"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:65
-msgid "All"
-msgstr "Kaikki"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:78
-msgid "Password for"
-msgstr "Tunnussana:"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:85
-msgid "Fetch Mail"
-msgstr "Lataa Viestit"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:117
-msgid "Fetching from "
-msgstr "Ladataan: "
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:124
-#: squirrelmail/plugins/mail_fetch/fetch.php:184
-msgid "Oops, "
-msgstr "Hups,"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:128
-msgid "Opening IMAP server"
-msgstr "Yhteys IMAP palvelimeen"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:131
-msgid "Opening POP server"
-msgstr "Yhteys POP palvelimeen"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:134
-#: squirrelmail/plugins/mail_fetch/setup.php:123
-msgid "Login Failed:"
-msgstr "Sisäänkirjoittautuminen epäonnistui:"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:151
-msgid "Login OK: No new messages"
-msgstr "Sisäänkirjoittautuminen oikein: Ei uusia viestejä"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:156
-msgid "Login OK: Inbox EMPTY"
-msgstr "Sisäänkirjoittautuminen oikein: INBOX tyhjä"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-msgid "Login OK: Inbox contains ["
-msgstr "Sisäänkirjoittautuminen oikein: INBOXissa ["
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
-msgid "] messages"
-msgstr "] viestiä"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:164
-msgid "Fetching UIDL..."
-msgstr "Ladataan UIDL"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:169
-#: squirrelmail/plugins/mail_fetch/setup.php:154
-msgid "Server does not support UIDL."
-msgstr "Palvelin ei tue UIDLlää"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:172
-msgid "Leaving Mail on Server..."
-msgstr "Jätetään Viestit palvelimeen..."
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:174
-msgid "Deleting messages from server..."
-msgstr "Poistetaan viestit palvelimesta..."
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:178
-msgid "Fetching message "
-msgstr "Ladataan viesti"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:201
-msgid "Message appended to mailbox"
-msgstr "Viesti lisätty kansioon"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid "Message "
-msgstr "Viesti"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid " deleted from Remote Server!"
-msgstr " poistettu palvelimesta!"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:207
-msgid "Delete failed:"
-msgstr "Poisto epäonnistui:"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:212
-#: squirrelmail/plugins/mail_fetch/setup.php:185
-msgid "Error Appending Message!"
-msgstr "Virhe viestin lisäämisessä!"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:216
-msgid "Closing POP"
-msgstr "POP suljetaan"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:218
-msgid "Logging out from IMAP"
-msgstr "Kirjoittaudutaan pois IMAPista"
-
-#: squirrelmail/plugins/mail_fetch/fetch.php:221
-msgid "Saving UIDL"
-msgstr "Talletetaan UIDL"
-
-#: squirrelmail/plugins/mail_fetch/options.php:105
-msgid "Remote POP server settings"
-msgstr "POP palvelimen asetukset"
-
-#: squirrelmail/plugins/mail_fetch/options.php:107
-msgid ""
-"You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
-"encryption anyway. Additionally, the encryption that we do to save it on the "
-"server can be undone by a hacker reading the source to this file."
-msgstr ""
-"Huomaa että salasanasi suojaus ei ole täydellinen. Jos käytät POP palvelinta "
-"niin silloin suojausta ei ole ollenkaan. Suojaus on "
-"valitettavastimahdollista murtaa lukemalla ja ymmärtämällä tämä tiedosto."
-
-#: squirrelmail/plugins/mail_fetch/options.php:109
-msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr "Jos et laita tähän salasanaa niin sitä kysytään viestejä haettaessa."
-
-#: squirrelmail/plugins/mail_fetch/options.php:113
-msgid "Encrypt passwords (informative only)"
-msgstr "Suojaa salasanat (vain informaatioksi)"
-
-#: squirrelmail/plugins/mail_fetch/options.php:119
-#: squirrelmail/plugins/mail_fetch/options.php:146
-msgid "Add Server"
-msgstr "Lisää Palvelin"
-
-#: squirrelmail/plugins/mail_fetch/options.php:123
-#: squirrelmail/plugins/mail_fetch/options.php:196
-msgid "Server:"
-msgstr "Palvelin:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:124
-#: squirrelmail/plugins/mail_fetch/options.php:198
-msgid "Alias:"
-msgstr "Lempinimi:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:125
-#: squirrelmail/plugins/mail_fetch/options.php:200
-msgid "Username:"
-msgstr "Käyttäjätunnus:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:127
-#: squirrelmail/plugins/mail_fetch/options.php:204
-msgid "Store in Folder:"
-msgstr "Talleta Kansioon:"
-
-#: squirrelmail/plugins/mail_fetch/options.php:143
-#: squirrelmail/plugins/mail_fetch/options.php:224
-msgid "Leave Mail on Server"
-msgstr "Jätä Viestit Palvelimeen"
-
-#: squirrelmail/plugins/mail_fetch/options.php:144
-#: squirrelmail/plugins/mail_fetch/options.php:226
-msgid "Check mail during login"
-msgstr "Tarkista viestit sisäänkirjoittauduttaessa"
-
-#: squirrelmail/plugins/mail_fetch/options.php:145
-#: squirrelmail/plugins/mail_fetch/options.php:228
-msgid "Check mail during folder refresh"
-msgstr "Tarkista viestit kansion päivityksen aikana"
-
-#: squirrelmail/plugins/mail_fetch/options.php:152
-#: squirrelmail/plugins/mail_fetch/options.php:229
-msgid "Modify Server"
-msgstr "Muuta Palvelinta"
-
-#: squirrelmail/plugins/mail_fetch/options.php:156
-msgid "Server Name:"
-msgstr "Palvelimen nimi: "
-
-#: squirrelmail/plugins/mail_fetch/options.php:162
-#: squirrelmail/plugins/mail_fetch/options.php:185
-msgid "Modify"
-msgstr "Muokkaa"
-
-#: squirrelmail/plugins/mail_fetch/options.php:166
-msgid "No-one server in use. Try to add."
-msgstr "Ei palvelimia käytössä. Yritä lisätä"
-
-#: squirrelmail/plugins/mail_fetch/options.php:172
-#: squirrelmail/plugins/mail_fetch/options.php:187
-#: squirrelmail/plugins/mail_fetch/options.php:234
-msgid "Fetching Servers"
-msgstr "Ladataan Palvelimet"
-
-#: squirrelmail/plugins/mail_fetch/options.php:176
-msgid "Confirm Deletion of a Server"
-msgstr "Poista Palvelin"
-
-#: squirrelmail/plugins/mail_fetch/options.php:180
-msgid "Selected Server:"
-msgstr "Valittu Palvelin"
-
-#: squirrelmail/plugins/mail_fetch/options.php:181
-msgid "Confirm delete of selected server?"
-msgstr "Poista valittu palvelin?"
-
-#: squirrelmail/plugins/mail_fetch/options.php:182
-msgid "Confirm Delete"
-msgstr "Poista"
-
-#: squirrelmail/plugins/mail_fetch/options.php:191
-msgid "Mofify a Server"
-msgstr "Muokkaa palvelinta"
-
-#: squirrelmail/plugins/mail_fetch/options.php:237
-msgid "Undefined Function"
-msgstr "Tuntematon Toiminto"
-
-#: squirrelmail/plugins/mail_fetch/options.php:239
-msgid "Hey! Wath do You are looking for?"
-msgstr "Hei! Mitä yrität tehdä?"
-
-#: squirrelmail/plugins/mail_fetch/setup.php:30
-msgid "Fetch"
-msgstr "Hae"
-
-#: squirrelmail/plugins/mail_fetch/setup.php:115
-#: squirrelmail/plugins/mail_fetch/setup.php:162
-msgid "Warning, "
-msgstr "Varoitus, "
-
-#: squirrelmail/plugins/mail_fetch/setup.php:198
-msgid "Mail Fetch Result:"
-msgstr "Viestien haun Tulokset:"
-
-#: squirrelmail/plugins/mail_fetch/setup.php:223
-msgid "Simple POP3 Fetch Mail"
-msgstr "Tavallinen POP3 Viestinhaku"
-
-#: squirrelmail/plugins/mail_fetch/setup.php:225
-msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
-"account on this server."
-msgstr ""
-"Tässä asetukset viestien hakuun POP3 postilaatikolta tämän palvelimen "
-"kansioihisi."
-
-#: squirrelmail/plugins/bug_report/setup.php:65
-msgid "Bug Reports:"
-msgstr "Virheraportointi:"
-
-#: squirrelmail/plugins/bug_report/setup.php:70
-msgid "Show button in toolbar"
-msgstr "Näytä painike menupalkissa"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:94
-msgid "Sent Subfolders Options"
-msgstr "Lähetettyjen Alikansioasetukset"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:99
-msgid "Use Sent Subfolders"
-msgstr "Käytä Lähetettyjen Alikansioita:"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:103
-msgid "Monthly"
-msgstr "Kuukausittain"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:104
-msgid "Quarterly"
-msgstr "Neljännesvuosittain"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:105
-msgid "Yearly"
-msgstr "Vuosittain"
-
-#: squirrelmail/plugins/sent_subfolders/setup.php:120
-msgid "Base Sent Folder"
-msgstr "Lähetettyjen Peruskansio:"
-
-#: squirrelmail/plugins/calendar/calendar.php:75
-msgid "TODAY"
-msgstr "TÄNÄÄN"
-
-#: squirrelmail/plugins/calendar/day.php:79
-msgid "ADD"
-msgstr "LISÄÄ"
-
-#: squirrelmail/plugins/calendar/day.php:93
-msgid "EDIT"
-msgstr "MUOKKAA"
-
-#: squirrelmail/plugins/calendar/day.php:95
-msgid "DEL"
-msgstr "POISTA"
-
-#: squirrelmail/plugins/calendar/event_create.php:31
-msgid "Start time:"
-msgstr "Alkuaika:"
-
-#: squirrelmail/plugins/calendar/event_create.php:41
-#: squirrelmail/plugins/calendar/event_edit.php:59
-msgid "Length:"
-msgstr "Kesto:"
-
-#: squirrelmail/plugins/calendar/event_create.php:47
-#: squirrelmail/plugins/calendar/event_edit.php:65
-#: squirrelmail/plugins/calendar/event_edit.php:97
-#: squirrelmail/plugins/calendar/event_edit.php:110
-msgid "Priority:"
-msgstr "Prioriteetti:"
-
-#: squirrelmail/plugins/calendar/event_create.php:61
-msgid "Set Event"
-msgstr "Aseta Tapahtuma"
-
-#: squirrelmail/plugins/calendar/event_create.php:111
-msgid "Event Has been added!"
-msgstr "Tapahtuma lisätty!"
-
-#: squirrelmail/plugins/calendar/event_create.php:114
-#: squirrelmail/plugins/calendar/event_delete.php:34
-#: squirrelmail/plugins/calendar/event_edit.php:49
-#: squirrelmail/plugins/calendar/event_edit.php:95
-msgid "Time:"
-msgstr "Aika:"
-
-#: squirrelmail/plugins/calendar/event_create.php:121
-#: squirrelmail/plugins/calendar/event_delete.php:91
-#: squirrelmail/plugins/calendar/event_edit.php:189
-#: squirrelmail/plugins/calendar/functions.php:23
-msgid "Day View"
-msgstr "Päivänäyttö"
-
-#: squirrelmail/plugins/calendar/event_delete.php:31
-msgid "Do you really want to delete this event?"
+msgid "Delete Folder"
+msgstr "Poista Kansio"
+
+#, fuzzy, c-format
+msgid "Are you sure you want to delete %s?"
 msgstr "Haluatko varmasti poistaa tämän tapahtuman?"
 
-#: squirrelmail/plugins/calendar/event_delete.php:89
-msgid "Event deleted!"
-msgstr "Tapahtuma poistettu!"
+msgid "Subscribed successfully!"
+msgstr "Käyttöönotto onnistui!"
 
-#: squirrelmail/plugins/calendar/event_delete.php:97
-msgid "Nothing to delete!"
-msgstr "Ei poistettavaa!"
+msgid "Unsubscribed successfully!"
+msgstr "Käytöstäpoisto onnistui!"
 
-#: squirrelmail/plugins/calendar/event_edit.php:79
-msgid "Update Event"
-msgstr "Päivitä tapahtuma"
+msgid "Deleted folder successfully!"
+msgstr "Kansio poistettu!"
 
-#: squirrelmail/plugins/calendar/event_edit.php:91
-msgid "Do you really want to change this event from:"
-msgstr "Haluatko varmasti vaihtaa tapahtuman:"
+msgid "Created folder successfully!"
+msgstr "Kansio luotu!"
 
-#: squirrelmail/plugins/calendar/event_edit.php:104
-msgid "to:"
-msgstr "Seuraavasti:"
+msgid "Renamed successfully!"
+msgstr "Nimi vaihdettu!"
 
-#: squirrelmail/plugins/calendar/event_edit.php:187
-msgid "Event updated!"
-msgstr "Tapahtuma päivitetty!"
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:21
-msgid "Month View"
-msgstr "Kuukausinäyttö"
+msgid "refresh folder list"
+msgstr "päivitä lista"
 
-#: squirrelmail/plugins/calendar/functions.php:34
-msgid "0 min."
-msgstr "0 minuuttia"
+msgid "Create Folder"
+msgstr "Luo Kansio"
 
-#: squirrelmail/plugins/calendar/functions.php:35
-msgid "15 min."
-msgstr "15 minuuttia"
+msgid "as a subfolder of"
+msgstr "alikansiona seuraavalle: "
 
-#: squirrelmail/plugins/calendar/functions.php:36
-msgid "35 min."
-msgstr "35 minuuttia"
+msgid "None"
+msgstr "----"
 
-#: squirrelmail/plugins/calendar/functions.php:37
-msgid "45 min."
-msgstr "45 minuuttia"
+msgid "Let this folder contain subfolders"
+msgstr "Tämä kansio voi sisältää alikansioita"
 
-#: squirrelmail/plugins/calendar/functions.php:38
-msgid "1 hr."
-msgstr "1 tunti"
+msgid "Create"
+msgstr "Luo"
 
-#: squirrelmail/plugins/calendar/functions.php:39
-msgid "1.5 hr."
-msgstr "1,5 tuntia"
+msgid "Rename a Folder"
+msgstr "Muuta Kansion nimeä"
 
-#: squirrelmail/plugins/calendar/functions.php:40
-msgid "2 hr."
-msgstr "2 tuntia"
+#, fuzzy
+msgid "Select a folder"
+msgstr "Muuta kansion nimi"
 
-#: squirrelmail/plugins/calendar/functions.php:41
-msgid "2.5 hr."
-msgstr "2,5 tuntia"
+msgid "Rename"
+msgstr "Muuta nimeä"
 
-#: squirrelmail/plugins/calendar/functions.php:42
-msgid "3 hr."
-msgstr "3 tuntia"
+msgid "No folders found"
+msgstr "Kansioita ei löydy"
 
-#: squirrelmail/plugins/calendar/functions.php:43
-msgid "3.5 hr."
-msgstr "3,5 tuntia"
+msgid "No folders were found to unsubscribe from!"
+msgstr "Ei käytössäolevia kansioita!"
 
-#: squirrelmail/plugins/calendar/functions.php:44
-msgid "4 hr."
-msgstr "4 tuntia"
+msgid "No folders were found to subscribe to!"
+msgstr "Ei käyttöönotettavia kansioita!"
 
-#: squirrelmail/plugins/calendar/functions.php:45
-msgid "5 hr."
-msgstr "5 tuntia"
+#, fuzzy
+msgid "Subscribe to:"
+msgstr "Ota käyttöön"
 
-#: squirrelmail/plugins/calendar/functions.php:46
-msgid "6 hr."
-msgstr "6 tuntia"
+msgid "You have not selected a folder to rename. Please do so."
+msgstr ""
 
-#: squirrelmail/plugins/calendar/setup.php:21
-msgid "Calendar"
-msgstr "Kalenteri"
+msgid "Rename a folder"
+msgstr "Muuta kansion nimi"
 
-#: squirrelmail/plugins/listcommands/mailout.php:19
-msgid "Mailinglist"
-msgstr "Postituslista"
+msgid "New name:"
+msgstr "Uusi nimi:"
 
-#: squirrelmail/plugins/listcommands/mailout.php:25
+msgid "ERROR: Help files are not in the right format!"
+msgstr ""
+
 #, c-format
 msgid ""
-"This will send a message to %s requesting help for this list. You will "
-"receive an emailed response at the address below."
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
 msgstr ""
-"Lähettää viestin vastaanottajalle %s ja pyytää apua listan käytöstä. Saat "
-"vastauksen allaolevaan osoitteeseen."
+"Apua ei valitettavasti ole käännetty suomeksi. Apu näytetään englanniksi "
 
-#: squirrelmail/plugins/listcommands/mailout.php:28
+msgid "Some or all of the help documents are not present!"
+msgstr "Joku tai kaikki dokumentit puuttuvat!"
+
+msgid "Table of Contents"
+msgstr "Sisältö"
+
+msgid "Top"
+msgstr "Alkuun"
+
+msgid "Viewing an image attachment"
+msgstr "Näytössä kuvaliite"
+
+msgid "View message"
+msgstr "Näytä viesti"
+
+#, fuzzy
+msgid "Not available"
+msgstr "ei olemassa"
+
+#, fuzzy
+msgid "purge"
+msgstr "Siivoa"
+
+msgid "Last Refresh"
+msgstr "Viimeinen Päivitys"
+
+msgid "Save folder tree"
+msgstr ""
+
+msgid "Login"
+msgstr "Kirjaudu sisään"
+
 #, c-format
-msgid ""
-"This will send a message to %s requesting that you will be subscribed to "
-"this list. You will be subscribed with the address below."
-msgstr ""
-"Lähettää viestin vastaanottajalle %s ja ilmoittaa sinut listan tilaajaksi. "
-"Tilausosoitteesi on allaoleva osoite."
+msgid "%s Login"
+msgstr "Kirjaudu sisään"
 
-#: squirrelmail/plugins/listcommands/mailout.php:31
+msgid "Name:"
+msgstr "Nimi:"
+
+msgid "No messages were selected."
+msgstr "Ei valittuja viestejä."
+
+msgid "Message Highlighting"
+msgstr "Viestien Merkintä"
+
+#, fuzzy
+msgid "subject"
+msgstr "Aihe"
+
+msgid "No highlighting is defined"
+msgstr "Merkintäesitystä ei ole määritelty"
+
+msgid "Identifying name"
+msgstr "Tunnistukseen käytettävä nimi"
+
+msgid "Color"
+msgstr "Väri"
+
+msgid "Dark Blue"
+msgstr "Tummansininen"
+
+msgid "Dark Green"
+msgstr "Tummanvihreä"
+
+msgid "Dark Yellow"
+msgstr "Tummankeltainen"
+
+msgid "Dark Cyan"
+msgstr "Tumma Cyan"
+
+msgid "Dark Magenta"
+msgstr "Tumma Magenta"
+
+msgid "Light Blue"
+msgstr "Vaaleansininen"
+
+msgid "Light Green"
+msgstr "Vaaleanvihreä"
+
+msgid "Light Yellow"
+msgstr "Vaaleankeltainen"
+
+msgid "Light Cyan"
+msgstr "Vaalea Cyan"
+
+msgid "Light Magenta"
+msgstr "Vaalea Magenta"
+
+msgid "Dark Gray"
+msgstr "Tummanharmaa"
+
+msgid "Medium Gray"
+msgstr "Harmaa"
+
+msgid "Light Gray"
+msgstr "Vaaleanharmaa"
+
+msgid "White"
+msgstr "Valkoinen"
+
+msgid "Other:"
+msgstr "Muu:"
+
+msgid "Ex: 63aa7f"
+msgstr "Esim. 63aa7f"
+
+msgid "Matches"
+msgstr "Täsmää"
+
 #, c-format
+msgid "Alternate Identity %d"
+msgstr "Vaihtoehtoinen informaatio %d"
+
+msgid "Advanced Identities"
+msgstr "Henkilötietojen lisähallinta"
+
+msgid "Default Identity"
+msgstr "Henkilötiedot"
+
+msgid "Add a New Identity"
+msgstr "Lisää uusi"
+
+msgid "E-Mail Address"
+msgstr "Sähköpostiosoite"
+
+msgid "Save / Update"
+msgstr "Talleta / Päivitä"
+
+msgid "Make Default"
+msgstr "Käytä tätä"
+
+msgid "Move Up"
+msgstr "Siirrä ylöspäin"
+
+msgid "Index Order"
+msgstr "Indeksijärjestys"
+
+msgid "Checkbox"
+msgstr "Kontrolliruutu"
+
+msgid "Flags"
+msgstr "Liput"
+
 msgid ""
-"This will send a message to %s requesting that you will be unsubscribed from "
-"this list. It will try to unsubscribe the adress below."
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
 msgstr ""
-"Lähettää viestin vastaanottajalle %s ja peruuttaa tilauksesi. Osoite joka "
-"yritetään poistaa on allaoleva osoite."
+"Indeksijärjestys on sarakkeiden esittämisjärjestys. Voit lisätä, poistaa ja "
+"siirtää sarakkeita tarpeen mukaan."
 
-#: squirrelmail/plugins/listcommands/mailout.php:79
-msgid "Send Mail"
-msgstr "Lähetä Viesti"
+msgid "up"
+msgstr "ylös"
 
-#: squirrelmail/plugins/listcommands/setup.php:31
-msgid "Post to List"
-msgstr "Lähetä listaosoitteeseen"
+msgid "down"
+msgstr "alas"
 
-#: squirrelmail/plugins/listcommands/setup.php:32
-msgid "Reply to List"
-msgstr "Vastaa listaosoitteeseen"
+msgid "remove"
+msgstr "poista"
 
-#: squirrelmail/plugins/listcommands/setup.php:35
-msgid "List Archives"
-msgstr "Listaa Arkkiivit"
+msgid "Return to options page"
+msgstr "Paluu asetussivulle"
 
-#: squirrelmail/plugins/listcommands/setup.php:36
-msgid "Contact Listowner"
-msgstr "Ota yhteys listan omistajaan"
+msgid "Personal Information"
+msgstr "Henkilötiedot"
 
-#: squirrelmail/plugins/listcommands/setup.php:113
-msgid "Mailing List:"
-msgstr "Postituslista:"
+msgid "Display Preferences"
+msgstr "Näyttöasetukset"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:159
-#: squirrelmail/plugins/delete_move_next/setup.php:162
-msgid "Delete & Prev"
-msgstr "Poista & Edellinen"
+msgid "Folder Preferences"
+msgstr "Kansioasetukset"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:165
-#: squirrelmail/plugins/delete_move_next/setup.php:167
-msgid "Delete & Next"
-msgstr "Poista & Seuraava"
+msgid "Successfully Saved Options"
+msgstr "Asetukset talletettu!"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:290
-msgid "delete_move_next:"
-msgstr "poista_mene_seuraavaan:"
+msgid "Refresh Folder List"
+msgstr "Päivitä Kansiolista"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:296
-msgid "display at top"
-msgstr "näytä ylälaidassa"
+msgid "Refresh Page"
+msgstr "Päivitä Sivu"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:302
-#: squirrelmail/plugins/delete_move_next/setup.php:314
-msgid "with move option"
-msgstr "siirtomahdollisuudella"
-
-#: squirrelmail/plugins/delete_move_next/setup.php:308
-msgid "display at bottom"
-msgstr "näytä alalaidassa"
-
-#: squirrelmail/plugins/administrator/defines.php:48
-msgid "Config File Version"
-msgstr "Konfiguraatiotiedoston versio"
-
-#: squirrelmail/plugins/administrator/defines.php:51
-msgid "Squirrelmail Version"
-msgstr "SquirrelMail versio"
-
-#: squirrelmail/plugins/administrator/defines.php:54
-msgid "PHP Version"
-msgstr "PHP Versio"
-
-#: squirrelmail/plugins/administrator/defines.php:58
-msgid "Organization Preferences"
-msgstr "Organisaatioasetukset"
-
-#: squirrelmail/plugins/administrator/defines.php:60
-msgid "Organization Name"
-msgstr "Organisaation nimi"
-
-#: squirrelmail/plugins/administrator/defines.php:63
-msgid "Organization Logo"
-msgstr "Organisaation logo"
-
-#: squirrelmail/plugins/administrator/defines.php:66
-msgid "Organization Title"
-msgstr "Organisaation titteli"
-
-#: squirrelmail/plugins/administrator/defines.php:69
-msgid "Signout Page"
-msgstr "Poistumissivu"
-
-#: squirrelmail/plugins/administrator/defines.php:72
-msgid "Default Language"
-msgstr "Oletuskieli"
-
-#: squirrelmail/plugins/administrator/defines.php:76
-msgid "Top Frame"
-msgstr "Näytön yläosa"
-
-#: squirrelmail/plugins/administrator/defines.php:81
-msgid "Server Settings"
-msgstr "Palvelimen asetukset"
-
-#: squirrelmail/plugins/administrator/defines.php:83
-msgid "Mail Domain"
-msgstr "Postidomeeni (domain)"
-
-#: squirrelmail/plugins/administrator/defines.php:86
-msgid "IMAP Server Address"
-msgstr "IMAP Palvelimen Osoite"
-
-#: squirrelmail/plugins/administrator/defines.php:89
-msgid "IMAP Server Port"
-msgstr "IMAP Palvelimen portti"
-
-#: squirrelmail/plugins/administrator/defines.php:91
-msgid "IMAP Server Type"
-msgstr "IMAP Palvelimen tyyppi"
-
-#: squirrelmail/plugins/administrator/defines.php:93
-msgid "Cyrus IMAP server"
-msgstr "Cyrus IMAP palvelin"
-
-#: squirrelmail/plugins/administrator/defines.php:94
-msgid "University of Washington's IMAP server"
-msgstr "Washingtonin Yliopistin IMAP palvelin"
-
-#: squirrelmail/plugins/administrator/defines.php:95
-msgid "Microsoft Exchange IMAP server"
-msgstr "Microsoft Exchange IMAP palvelin"
-
-#: squirrelmail/plugins/administrator/defines.php:96
-msgid "Courier IMAP server"
-msgstr "Courier IMAP palvelin"
-
-#: squirrelmail/plugins/administrator/defines.php:97
-msgid "Not one of the above servers"
-msgstr "Ei mikään edelläolevista"
-
-#: squirrelmail/plugins/administrator/defines.php:98
-msgid "IMAP Folder Delimiter"
-msgstr "IMAP kansion erotusmerkki"
-
-#: squirrelmail/plugins/administrator/defines.php:100
-msgid "Use \"detect\" to auto-detect."
-msgstr "Käytä \"tunnista\" automaattiseen tunnistukseen."
-
-#: squirrelmail/plugins/administrator/defines.php:103
-msgid "Use Sendmail"
-msgstr "Käytä sendmailia"
-
-#: squirrelmail/plugins/administrator/defines.php:105
-msgid "Sendmail Path"
-msgstr "Sendmailin hakemistopolku"
-
-#: squirrelmail/plugins/administrator/defines.php:108
-msgid "SMTP Server Address"
-msgstr "Postipalvelimen (SMTP) Osoite"
-
-#: squirrelmail/plugins/administrator/defines.php:111
-msgid "SMTP Server Port"
-msgstr "Postipalvelimen (SMTP) Portti"
-
-#: squirrelmail/plugins/administrator/defines.php:113
-msgid "Authenticated SMTP"
-msgstr "Varmistettu SMTP"
-
-#: squirrelmail/plugins/administrator/defines.php:115
-msgid "Invert Time"
-msgstr "Kellonaika Päinvastoin"
-
-#: squirrelmail/plugins/administrator/defines.php:118
-msgid "Folders Defaults"
-msgstr "Kansion oletusarvot"
-
-#: squirrelmail/plugins/administrator/defines.php:120
-msgid "Default Folder Prefix"
-msgstr "Kansion etuliite"
-
-#: squirrelmail/plugins/administrator/defines.php:123
-msgid "Show Folder Prefix Option"
-msgstr "Näytä Kansion etuliite vaihoehto"
-
-#: squirrelmail/plugins/administrator/defines.php:134
-msgid "By default, move to trash"
-msgstr "Siirrä roskakoriin jos ei määritetä toisin"
-
-#: squirrelmail/plugins/administrator/defines.php:136
-msgid "By default, move to sent"
-msgstr "Siirrä lähetettyihin jos ei määritetä toisin"
-
-#: squirrelmail/plugins/administrator/defines.php:138
-msgid "By default, save as draft"
-msgstr "Siirrä luonnoksiin jos ei määritetä toisin"
-
-#: squirrelmail/plugins/administrator/defines.php:140
-msgid "List Special Folders First"
-msgstr "Näytä Erikoiskansiot ensimmäisenä"
-
-#: squirrelmail/plugins/administrator/defines.php:142
-msgid "Show Special Folders Color"
-msgstr "Näytä Erikoiskansiot eri värillä"
-
-#: squirrelmail/plugins/administrator/defines.php:144
-msgid "Auto Expunge"
-msgstr "Siivoa automaattisesti"
-
-#: squirrelmail/plugins/administrator/defines.php:146
-msgid "Default Sub. of INBOX"
-msgstr "Oletusarvoisesti Saapuneitten Alikansiona"
-
-#: squirrelmail/plugins/administrator/defines.php:148
-msgid "Show 'Contain Sub.' Option"
-msgstr "Näytä 'Sisältää Alikansioita' Vaihtoehto"
-
-#: squirrelmail/plugins/administrator/defines.php:150
-msgid "Default Unseen Notify"
-msgstr "Ei nähtyjen viestien oletusarvoinen esitystapa"
-
-#: squirrelmail/plugins/administrator/defines.php:155
-msgid "Default Unseen Type"
-msgstr "Ei nähtyjen viestien oletusarvoinen tyyppi"
-
-#: squirrelmail/plugins/administrator/defines.php:159
-msgid "Auto Create Special Folders"
-msgstr "Luo Erikoiskansiot automaattisesti"
-
-#: squirrelmail/plugins/administrator/defines.php:161
-msgid "Default Javascript Adrressbook"
-msgstr "Oletusarvona Javascript Osoitekirja"
-
-#: squirrelmail/plugins/administrator/defines.php:163
-msgid "Auto delete folders"
-msgstr "Kansioitten automaattinen poistaminen"
-
-#: squirrelmail/plugins/administrator/defines.php:166
-msgid "General Options"
-msgstr "Yleisasetukset"
-
-#: squirrelmail/plugins/administrator/defines.php:168
-msgid "Default Charset"
-msgstr "Kirjasimen oletustyyppi"
-
-#: squirrelmail/plugins/administrator/defines.php:179
-msgid "Data Directory"
-msgstr "Tietohakemisto"
-
-#: squirrelmail/plugins/administrator/defines.php:182
-msgid "Temp Directory"
-msgstr "Väliaikaisten Hakemisto"
-
-#: squirrelmail/plugins/administrator/defines.php:185
-msgid "Hash Level"
-msgstr "Sisennystasojen Määrä"
-
-#: squirrelmail/plugins/administrator/defines.php:187
-msgid "Hash Disabled"
-msgstr "Sisennys ei käytössä"
-
-#: squirrelmail/plugins/administrator/defines.php:189
-msgid "Moderate"
-msgstr "Maltillinen"
-
-#: squirrelmail/plugins/administrator/defines.php:190
-msgid "Medium"
-msgstr "Keskinkertainen"
-
-#: squirrelmail/plugins/administrator/defines.php:192
-msgid "Default Left Size"
-msgstr "Vasemman puolen oletusleveys"
-
-#: squirrelmail/plugins/administrator/defines.php:195
-msgid "Usernames in Lowercase"
-msgstr "Käyttäjänimet Pienillä Kirjaimilla"
-
-#: squirrelmail/plugins/administrator/defines.php:197
-msgid "Allow use of priority"
-msgstr "Salli prioriteettien käyttö"
-
-#: squirrelmail/plugins/administrator/defines.php:199
-msgid "Hide SM attributions"
-msgstr "Piilota SM atribuutiot"
-
-#: squirrelmail/plugins/administrator/defines.php:202
-#: squirrelmail/plugins/administrator/defines.php:204
-msgid "Message of the Day"
-msgstr "Päivän ilmoitusviesti"
-
-#: squirrelmail/plugins/administrator/defines.php:208
-msgid "Database"
-msgstr "Tietokanta"
-
-#: squirrelmail/plugins/administrator/defines.php:210
-msgid "Address book DSN"
-msgstr "Osoitekirja DSN"
-
-#: squirrelmail/plugins/administrator/defines.php:213
-msgid "Address book table"
-msgstr "Osoitekirjataulukko"
-
-#: squirrelmail/plugins/administrator/defines.php:217
-msgid "Preferences DSN"
-msgstr "Asetukset DSN"
-
-#: squirrelmail/plugins/administrator/defines.php:220
-msgid "Preferences table"
-msgstr "Asetukset taulukko"
-
-#: squirrelmail/plugins/administrator/defines.php:225
-msgid "Themes"
-msgstr "Teemat"
-
-#: squirrelmail/plugins/administrator/defines.php:227
-msgid "Style Sheet URL (css)"
-msgstr "Tyylisivujen internetosoite (css)"
-
-#: squirrelmail/plugins/administrator/options.php:186
-msgid "Configuration Administrator"
-msgstr "Konfiguraatioadministraattori"
-
-#: squirrelmail/plugins/administrator/options.php:379
-msgid "Theme Name"
-msgstr "Teeman nimi"
-
-#: squirrelmail/plugins/administrator/options.php:380
-msgid "Theme Path"
-msgstr "Teeman hakemistopolku"
-
-#: squirrelmail/plugins/administrator/options.php:418
-msgid "Plugins"
-msgstr "Lisätoimintoohjelmistot (plugin)"
-
-#: squirrelmail/plugins/administrator/options.php:480
-msgid "Change Settings"
-msgstr "Muuta asetuksia"
-
-#: squirrelmail/plugins/administrator/setup.php:30
-msgid "Administration"
-msgstr "Administrointi"
-
-#: squirrelmail/plugins/administrator/setup.php:32
 msgid ""
-"This module allows administrators to manage SquirrelMail main configuration "
-"remotely."
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Sisältää henkilötietoja, nimesi, epostiosoitteesi jne."
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "Voit vaihtaa SquirrelMailin näytön värejä sekä kielen jne."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
 msgstr ""
-"Tämä moduuli mahdollistaa SquirrelMailin pääkonfiguraation etäiskäsittelyn."
+"Listatut viestit voidaan määritellä näytettäväksi erilaisin taustavärein. "
+"Tämä helpottaa erottamaan esimerkiksi sen keneltä viesti on tullut. "
+"Erityisen sopiva viestilistojen yhteydessä"
 
-#: squirrelmail/po/independent_strings.txt:18
-msgid "Delivery error report"
-msgstr "Perilletoimituksen virheraportti"
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+"Nämä asetukset määrittävät sen miten kansiot näytetään ja miten niitä "
+"käsitellään."
 
-#: squirrelmail/po/independent_strings.txt:19
-msgid "Undelivered Message Headers"
-msgstr "Toimittamattomat Viestiotsakkeet"
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"Viestilista voidaan määritellä näyttämään otsikkotiedot halutussa "
+"järjestyksessä."
+
+msgid "Message not printable"
+msgstr "Viestiä ei voida tulostaa"
+
+msgid "Printer Friendly"
+msgstr "Tulostusystävällinen"
+
+msgid "CC"
+msgstr "Kopio (CC):"
+
+msgid "Print"
+msgstr "Tulosta"
+
+msgid "View Printable Version"
+msgstr "Näytä Tulostettavassa Muodossa"
+
+msgid "Read:"
+msgstr "Luettu:"
+
+msgid "Your message"
+msgstr "Viestisi"
+
+msgid "Sent:"
+msgstr "Lähetetty:"
+
+#, c-format
+msgid "Was displayed on %s"
+msgstr "Avattiin näyttöön, %s"
+
+msgid "less"
+msgstr "vähemmän"
+
+msgid "more"
+msgstr "lisää"
+
+msgid "Mailer"
+msgstr "Postittaja"
+
+msgid "Read receipt"
+msgstr "Lukukuitti"
+
+msgid "send"
+msgstr "lähetä"
+
+msgid "requested"
+msgstr "pyydetään"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"Viestin lähettäjä haluaa varmistuksen siitä että olet lukenut tämän viestin. "
+"Haluatko lähettää lukukuitin?"
+
+msgid "Send read receipt now"
+msgstr "Lähetä lukukuitti nyt"
+
+#, fuzzy
+msgid "Search results"
+msgstr "Hakutulokset"
+
+msgid "Message List"
+msgstr "Viestilista"
+
+msgid "Resume Draft"
+msgstr "Palaa luonnoksen muokkaamiseen"
+
+msgid "Edit Message as New"
+msgstr ""
+
+#, fuzzy
+msgid "View Message"
+msgstr "Näytä viesti"
+
+#, fuzzy
+msgid "Forward as Attachment"
+msgstr "Liitteet:"
+
+msgid "Reply"
+msgstr "Vastaus"
+
+msgid "Reply All"
+msgstr "Vastaus kaikille"
+
+msgid "View Full Header"
+msgstr "Näytä kaikki otsaketiedot"
+
+msgid "Attachments"
+msgstr "Liitteet:"
+
+msgid "Folder:"
+msgstr "Kansio:"
+
+msgid "edit"
+msgstr "muokkaa"
+
+msgid "search"
+msgstr "etsi"
+
+msgid "delete"
+msgstr "poista"
+
+#, fuzzy
+msgid "Recent Searches"
+msgstr "Tämänhetkinen Haku"
+
+msgid "save"
+msgstr "talleta"
+
+msgid "forget"
+msgstr "unohda"
+
+msgid "Current Search"
+msgstr "Tämänhetkinen Haku"
+
+msgid "Body"
+msgstr "Viesti"
+
+msgid "Everywhere"
+msgstr "Kaikki kentät"
+
+msgid "Search Results"
+msgstr "Hakutulokset"
+
+msgid "No Messages Found"
+msgstr "Ei Viestejä"
+
+msgid "You have been successfully signed out."
+msgstr "Olet poistunut systeemistä."
+
+msgid "Click here to log back in."
+msgstr "Klikkaa tästä kirjautuaksesi uudestaan sisään."
+
+msgid "Viewing a Business Card"
+msgstr "Näytössä Käyntikortti"
+
+msgid "Title"
+msgstr "Otsikko:"
+
+msgid "Email"
+msgstr "Sähköposti"
+
+msgid "Web Page"
+msgstr "Web-Sivu"
+
+msgid "Organization / Department"
+msgstr "Organisaatio / Osasto"
+
+msgid "Address"
+msgstr "Osoite"
+
+msgid "Work Phone"
+msgstr "Työpuhelin"
+
+msgid "Home Phone"
+msgstr "Kotipuhelin"
+
+msgid "Cellular Phone"
+msgstr "Kännykkä"
+
+msgid "Fax"
+msgstr "Faksi"
+
+msgid "Note"
+msgstr "Merkintä"
+
+msgid "Add to Addressbook"
+msgstr "Lisää Osoitekirjaan"
+
+msgid "Title & Org. / Dept."
+msgstr "Titteli ja Organisaatio / Osasto"
+
+msgid "Viewing Full Header"
+msgstr "Näytössä kaikki otsaketiedot"
+
+msgid "Viewing a text attachment"
+msgstr "Näytössä tekstiliite"
+
+#~ msgid "empty"
+#~ msgstr "tyhjä"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "Käytä lukemisen konfirmointia"
+
+#~ msgid "Remove MDN flag"
+#~ msgstr "Poista MDN merkintä"
+
+#~ msgid "There was an error contacting the mail server."
+#~ msgstr "Ongelmia postipalvelimen yhteydenotossa."
+
+#~ msgid "Contact your administrator for help."
+#~ msgstr "Ota yhteys administraattoriin saadaksesi apua."
+
+#~ msgid "No Messages found"
+#~ msgstr "Ei löytynyt viestejä"
+
+#~ msgid "Welcome to %s's WebMail system"
+#~ msgstr "Tervetuloa %s WebMailiin"
+
+#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
+#~ msgstr "Käytössä SquirrelMail versio %s (c) 1999-2001."
+
+#~ msgid "Unknown messagenumber in reply from server: "
+#~ msgstr "Palvelin vastasi tuntemattomalla viestinumerolla: "
+
+#~ msgid "No To Address"
+#~ msgstr "Ei Vastaanottajaa"
+
+#~ msgid "Found"
+#~ msgstr "Löytyi"
+
+#~ msgid "messages"
+#~ msgstr "viesteissä"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "MIME-rakenteen avaus epäonnistui. Ohjelmassa on virhe!"
+
+#~ msgid "Submit message"
+#~ msgstr "Lähetä viesti"
+
+#~ msgid ""
+#~ "FREE - Another ORBS replacement (just the INPUTS database used here)."
+#~ msgstr "VAPAA - Toinen ORBS sijainen (vain syötetyt tiedot)."
+
+#~ msgid ""
+#~ "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
+#~ msgstr "VAPAA - Toinen ORBS sijainen (vain tulostetut tiedot)."
+
+#~ msgid "SquirrelSpell Results"
+#~ msgstr "SquirrelSpell Tulokset"
+
+#~ msgid "Spellcheck completed. Commit changes?"
+#~ msgstr "Oikeinkirjoituksen tarkistus valmis. Tehdäänkö muutokset?"
+
+#~ msgid "No changes were made."
+#~ msgstr "Ei muutoksia."
+
+#~ msgid "Now saving your personal dictionary... Please wait."
+#~ msgstr "Henkilökohtainen sanastosi talletetaan... Odota."
+
+#~ msgid "Found %s errors"
+#~ msgstr "Löytyi %s virhettä"
+
+#~ msgid "Line with an error:"
+#~ msgstr "Virheellinen rivi:"
+
+#~ msgid "Error:"
+#~ msgstr "Virhe:"
+
+#~ msgid "Suggestions"
+#~ msgstr "Ehdotuksia:"
+
+#~ msgid "Change to:"
+#~ msgstr "Vaihda:"
+
+#~ msgid "Occurs times:"
+#~ msgstr "Löytyy kertaa:"
+
+#~ msgid "Change this word"
+#~ msgstr "Vaihda tämä sana"
+
+#~ msgid "Change"
+#~ msgstr "Vaihda"
+
+#~ msgid "Change ALL occurances of this word"
+#~ msgstr "Vaihda tämä sana kaikkialla"
+
+#~ msgid "Change All"
+#~ msgstr "Vaihda kaikki valinnat"
+
+#~ msgid "Ignore this word"
+#~ msgstr "Älä välitä tästä sanasta"
+
+#~ msgid "Ignore"
+#~ msgstr "Hyppää yli"
+
+#~ msgid "Ignore ALL occurances this word"
+#~ msgstr "Älä välitä tästä sanasta koko tekstissä"
+
+#~ msgid "Ignore All"
+#~ msgstr "Hyppää yli Kaikki"
+
+#~ msgid "Add this word to your personal dictionary"
+#~ msgstr "Lisää tämä sana omaan sanastoon"
+
+#~ msgid "Add to Dic"
+#~ msgstr "Lisää Sanastoon"
+
+#~ msgid "Close and Commit"
+#~ msgstr "Sulje ikkuna ja tee muutokset"
+
+#~ msgid "The spellcheck is not finished. Really close and commit changes?"
+#~ msgstr "Oikeikirjoituksen tarkistus kesken. Poistu ja talleta?"
+
+#~ msgid "Close and Cancel"
+#~ msgstr "Poistu ja Peruuta"
+
+#~ msgid "The spellcheck is not finished. Really close and discard changes?"
+#~ msgstr "Oikeikirjoituksen tarkistus kesken. Poistu ja peruuta?"
+
+#~ msgid "No errors found"
+#~ msgstr "Ei virheitä"
+
+#~ msgid "Your personal dictionary was erased."
+#~ msgstr "Sanastosi poistettu."
+
+#~ msgid "Dictionary Erased"
+#~ msgstr "Sanasto Poistettu"
+
+#~ msgid ""
+#~ "Your personal dictionary was erased. Please close this window and click "
+#~ "\"Check Spelling\" button again to start your spellcheck over."
+#~ msgstr ""
+#~ "Henkilökohtainen sanastosi tyhjennettiin. Ole hyvä ja sulje tämä ikkuna "
+#~ "ja klikkaa uudestaan \"Tarkista Oikeikirjoitus\"-nappia."
+
+#~ msgid "Close this Window"
+#~ msgstr "Sulje ikkuna"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
+#~ "&quot;SpellChecker options&quot; menu and make your selection again."
+#~ msgstr ""
+#~ "Sanastosi uudelleentalletus onnistui. Palaa &quot;"
+#~ "Oikeikirjoitusasetuksiin&quot; ja tee valintasi uudelleen."
+
+#~ msgid "Successful Re-encryption"
+#~ msgstr "Uudelleentalletus Onnistui"
+
+#~ msgid ""
+#~ "Your personal dictionary was re-encrypted successfully. Please close this "
+#~ "window and click \"Check Spelling\" button again to start your spellcheck "
+#~ "over."
+#~ msgstr ""
+#~ "Sanastosi uudelleentallennus onnistui. Ole hyvä ja sulje tämä ikkuna ja "
+#~ "klikkaa uudestaan \"Tarkista Oikeikirjoitus\"-nappia."
+
+#~ msgid "Dictionary re-encrypted"
+#~ msgstr "Sanasto uudelleentalletettu"
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
+#~ "stored in an <strong>encrypted format</strong>."
+#~ msgstr ""
+#~ "Sanastosi on <strong>suojattu</strong> ja talletettu <strong>suojatussa "
+#~ "muodossa</strong>."
+
+#~ msgid ""
+#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
+#~ "stored as <strong>clear text</strong>."
+#~ msgstr ""
+#~ "Sanastosio on <strong>avattu</strong> ja talletettu <strong>avoimena</"
+#~ "strong>"
+
+#~ msgid "Personal Dictionary Crypto Settings"
+#~ msgstr "Oman Sanaston Suojausasetukset"
+
+#~ msgid "Personal Dictionary"
+#~ msgstr "Oma Sanasto"
+
+#~ msgid "No words in your personal dictionary."
+#~ msgstr "Sanastosi on tyhjä"
+
+#~ msgid "Please check any words you wish to delete from your dictionary."
+#~ msgstr "Valitse sanastostasi poistettavat sanat."
+
+#~ msgid "%s dictionary"
+#~ msgstr "%s sanasto"
+
+#~ msgid "Delete checked words"
+#~ msgstr "Poista valitut sanat"
+
+#~ msgid "Edit your Personal Dictionary"
+#~ msgstr "Muokkaa omaa sanastoasi"
+
+#~ msgid "Please make your selection first."
+#~ msgstr "Ole hyvä ja tee valinta ensin."
+
+#~ msgid ""
+#~ "This will encrypt your personal dictionary and store it in an encrypted "
+#~ "format. Proceed?"
+#~ msgstr ""
+#~ "Tallettaa henkilökohtaisen sanastosi suojatussa muodossa. Jatketaanko?"
+
+#~ msgid ""
+#~ "This will decrypt your personal dictionary and store it in a clear-text "
+#~ "format. Proceed?"
+#~ msgstr ""
+#~ "Avaa oman sanastosi ja tallettaa se avoimessa muodossa. Jatketaanko?"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+#~ "helps protect your privacy in case the web-mail system gets compromized "
+#~ "and your personal dictionary ends up stolen. It is currently encrypted "
+#~ "with the password you use to access your mailbox, making it hard for "
+#~ "anyone to see what is stored in your personal dictionary.</p> "
+#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
+#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
+#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
+#~ "prompt you for your old password in order to re-encrypt the dictionary "
+#~ "with a new key.</p>"
+#~ msgstr ""
+#~ "<p>Oma sanastosi on <strong>suojattu</strong>. Tämän ansiosta sitä ei "
+#~ "pysty kuka tahansa lukemaan, esim silloin jos joku murtautuu sisään "
+#~ "webmailsysteemiin ja kopioi sen. Sanastosi on suojattu samalla "
+#~ "salasanalla kuin kirjoittaudut sisään webmailiin. </p> <p><strong>HUOMIO:"
+#~ "</strong> jos unohdat salasanasi niin et pysty itsekään käyttämään omaa "
+#~ "sanastoasi. Jos vaihdat salasanasi niin SquirrelSpell pyytää sinulta "
+#~ "vanhan salasanan jotta oma sanastosi voidaan avata ja suojata uudella "
+#~ "salasanallasi.</p>"
+
+#~ msgid ""
+#~ "Please decrypt my personal dictionary and store it in a clear-text format."
+#~ msgstr "Avaa oma sanastoni ja talleta se avoimessa muodossa."
+
+#~ msgid "Change crypto settings"
+#~ msgstr "Muuta suojausasetuksia"
+
+#~ msgid ""
+#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
+#~ "You may wish to encrypt your personal dictionary to protect your privacy "
+#~ "in case the webmail system gets compromized and your personal dictionary "
+#~ "file gets stolen. When encrypted, the file's contents look garbled and "
+#~ "are hard to decrypt without knowing the correct key (which is your "
+#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
+#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
+#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
+#~ "password and the administrator changes it to a new value, your personal "
+#~ "dictionary will become useless and will have to be created anew. However, "
+#~ "if you or your system administrator change your mailbox password but you "
+#~ "still have the old password at hand, you will be able to enter the old "
+#~ "key to re-encrypt the dictionary with the new value.</p>"
+#~ msgstr ""
+#~ "<p>Oma sanastosi on <strong>talletettu avoimena</strong>. Voit haluta "
+#~ "suojata sen niin ettei kukaan muu pysty sitä lukemaan jos esimerkiksi "
+#~ "webmail palvelimeen murtaudutaan ja tiedostoja saadaan kopioiduksi. "
+#~ "Suojattuna sanastoasi ei voi lukea ilman salasanaa (sama jolla "
+#~ "lirjoittaudut sisään webmailiin).</p> <p><strong>HUOMIO:</strong> Jos "
+#~ "suojaat sanastosi niin muista että tarvitset sen lukemiseen salasanasi. "
+#~ "Jos unohdat salasanasi niin et pysty käyttämään sanastoasi vaan sinun "
+#~ "pitää alustaa uusi. Jos sinä tai administraattori vaihtaa salasanasi niin "
+#~ "voit kuitenkin avata ja uudelleen suojata sanastosi antamalla vanhan "
+#~ "salasanasi ku SquirrelSpell sitä kysyy.<p>"
+
+#~ msgid ""
+#~ "Please encrypt my personal dictionary and store it in an encrypted format."
+#~ msgstr "Talleta sanastoni suojatussa muodossa."
+
+#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+#~ msgstr "Poistetaan seuraavat <strong>%s</strong> sanastostasi:"
+
+#~ msgid "All done!"
+#~ msgstr "Kaikki valmista!"
+
+#~ msgid "Personal Dictionary Updated"
+#~ msgstr "Oma Sanasto Päivitetty"
+
+#~ msgid "No changes requested."
+#~ msgstr "Ei muutoksia."
+
+#~ msgid "Please wait, communicating with the server..."
+#~ msgstr "Odota, otetaan yhteys palvelimeen..."
+
+#~ msgid ""
+#~ "Please choose which dictionary you would like to use to spellcheck this "
+#~ "message:"
+#~ msgstr ""
+#~ "Valitse sanasto jota käytetään tämän viestin oikeikirjoituksen "
+#~ "tarkistukseen: "
+
+#~ msgid "SquirrelSpell Initiating"
+#~ msgstr "SquirrelSpell Alustus"
+
+#~ msgid ""
+#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+#~ "default dictionary."
+#~ msgstr ""
+#~ "Asetettu: <strong>%s</strong> ja <strong>%s</strong> käytettäväksi "
+#~ "sanastoksi."
+
+#~ msgid ""
+#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+#~ msgstr "Käytössä <strong>%s</strong> sanasto (systeemin oletusarvo)."
+
+#~ msgid "International Dictionaries Preferences Updated"
+#~ msgstr "Kansainvälisten Sanastojen Asetukset Päivitetty"
+
+#~ msgid ""
+#~ "Please check any available international dictionaries which you would "
+#~ "like to use when spellchecking:"
+#~ msgstr ""
+#~ "Valitse mahdolliset kansainväliset sanastot joita haluat käyttää "
+#~ "oikeinkirjoituksen tarkistuksessa:"
+
+#~ msgid "Make this dictionary my default selection:"
+#~ msgstr "Aseta tämä sanaso oletusarvoksi:"
+
+#~ msgid "Make these changes"
+#~ msgstr "Tee nämä muutokset"
+
+#~ msgid "Add International Dictionaries"
+#~ msgstr "Lisää Kansainvälisiä Sanastoja"
+
+#~ msgid "Please choose which options you wish to set up:"
+#~ msgstr "Valitse mitä asetuksia haluat käsitellä:"
+
+#~ msgid "Edit your personal dictionary"
+#~ msgstr "Muokkaa omaa sanastoasi"
+
+#~ msgid "Set up international dictionaries"
+#~ msgstr "Aseta kansainvälisiä sanastoja"
+
+#~ msgid "Encrypt or decrypt your personal dictionary"
+#~ msgstr "Suojaa tai avaa oma sanastosi"
+
+#~ msgid "SquirrelSpell Options Menu"
+#~ msgstr "SquirrelSpell Asetusmenu"
+
+#~ msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
+#~ msgstr "POP3: vastaus puutteellinen, palvelin ei ole RFC1939 mukainen"
+
+#~ msgid "NOOP failed. Server not RFC 1939 compliant"
+#~ msgstr "NOOP epäonnistui. Palvelin ei ole RFC 1939 mukainen"
+
+#~ msgid "delete_move_next:"
+#~ msgstr "poista_mene_seuraavaan:"
