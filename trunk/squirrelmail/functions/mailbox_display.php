@@ -77,7 +77,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         * This is done in case you're looking into Sent folders,
         * because you can have multiple receivers.
         */
-        
+
     $senderNames = $msg['FROM'];
     $senderName  = '';
     if (sizeof($senderNames)){
@@ -91,8 +91,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 $senderName .= htmlspecialchars($senderNames_part[0]);
             }
         }
-    } 
-    
+    }
+
     $subject_full = decodeHeader($msg['SUBJECT']);
     $subject = processSubject($subject_full, $indent_array[$msg['ID']]);
 
@@ -136,31 +136,48 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     * AAAAH! Make my eyes stop bleeding!
     * Who wrote this?!
     */
-    if (is_array($message_highlight_list) && count($message_highlight_list)){
+    if (is_array($message_highlight_list) && count($message_highlight_list)) {
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
                 $high_val   = strtolower($message_highlight_list_part['value']);
                 $match_type = strtoupper($message_highlight_list_part['match_type']);
-                if ($match_type == 'TO_CC') {
-                    foreach ($msg['TO'] as $address) {
-                        if (strstr('^^' . strtolower($address[0]), $high_val) ||
-                            strstr('^^' . strtolower($address[1]), $high_val)) {
+                switch($match_type) {
+                    case('TO'):
+                    case('TO_CC'):
+                        foreach ($msg['TO'] as $address) {
+                            if (strstr('^^' . strtolower($address[0]), $high_val) ||
+                                strstr('^^' . strtolower($address[1]), $high_val)) {
+                                $hlt_color = $message_highlight_list_part['color'];
+                                continue;
+                            }
+                        }
+                        if($match_type != 'TO_CC') {
+                            break;
+                        }
+                    case('CC'):
+                        foreach ($msg['CC'] as $address) {
+                            if( strstr('^^' . strtolower($address[0]), $high_val) ||
+                                strstr('^^' . strtolower($address[1]), $high_val)) {
+                                $hlt_color = $message_highlight_list_part['color'];
+                                continue;
+                            }
+                        }
+                        break;
+                    case('FROM'):
+                        foreach ($msg['FROM'] as $address) {
+                            if( strstr('^^' . strtolower($address[0]), $high_val) ||
+                                strstr('^^' . strtolower($address[1]), $high_val)) {
+                                $hlt_color = $message_highlight_list_part['color'];
+                                continue;
+                            }
+                        }
+                        break;
+                    default:
+                        if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
                             $hlt_color = $message_highlight_list_part['color'];
                             continue;
                         }
-                    }
-                    foreach ($msg['CC'] as $address) {
-                        if( strstr('^^' . strtolower($address[0]), $high_val) ||
-                            strstr('^^' . strtolower($address[1]), $high_val)) {
-                            $hlt_color = $message_highlight_list_part['color'];
-                            continue;
-                        }
-                    }
-                } else {
-                    if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
-                        $hlt_color = $message_highlight_list_part['color'];
-                        continue;
-                    }
+                        break;
                 }
             }
         }
