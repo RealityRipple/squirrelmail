@@ -561,7 +561,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
     $urlMailbox = urlencode($mailbox);
 
     /* get indent level for subject display */
-    if ($thread_sort_messages == 1 ) {
+    if ($thread_sort_messages == 1 && $num_msgs) {
         $indent_array = get_parent_level($imapConnection);
     }
 
@@ -585,7 +585,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
 
     /* messages display */
 
-    if ($num_msgs == 0) {
+    if (!$num_msgs) {
     /* if there's no messages in this folder */
         echo html_tag( 'tr',
                 html_tag( 'td',
