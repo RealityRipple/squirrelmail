@@ -1,11 +1,17 @@
 <?php
-/*
- This is a template for a password changing mechanism. Currently,
- this contains two parts: the first is to register your function
- in the squirrelmail_plugin_hooks global, and the second is
- the function that does the actual changing.
-
- Replace the word template everywhere with a name for your backend.
+/**
+ * Change password backend template
+ *
+ * This is a template for a password changing mechanism. Currently,
+ * this contains two parts: the first is to register your function
+ * in the squirrelmail_plugin_hooks global, and the second is
+ * the function that does the actual changing.
+ *
+ * Replace the word template everywhere with a name for your backend.
+ *
+ * @version $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 /**

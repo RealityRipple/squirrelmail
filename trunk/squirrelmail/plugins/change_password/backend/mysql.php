@@ -1,6 +1,11 @@
 <?php
-/* MySQL change password backend
- * Author: Thijs Kinkhorst <kink@squirrelmail.org>
+/**
+ * MySQL change password backend
+ *
+ * @author Thijs Kinkhorst <kink@squirrelmail.org>
+ * @version $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 /**
