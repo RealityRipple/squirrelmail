@@ -2491,6 +2491,7 @@ sub set_defaults {
         print "    uw         = University of Washington's IMAP server\n";
         print "    exchange   = Microsoft Exchange IMAP server\n";
         print "    courier    = Courier IMAP server\n";
+        print "    macosx     = Mac OS X Mailserver\n";
         print "    quit       = Do not change anything\n";
         print "Command >> ";
         $server = <STDIN>;
@@ -2546,6 +2547,20 @@ sub set_defaults {
             $default_sub_of_inbox           = false;
             $show_contain_subfolders_option = false;
             $optional_delimiter             = ".";
+            $disp_default_folder_prefix     = $default_folder_prefix;
+
+            $continue = 1;
+        } elsif ( $server eq "macosx" ) {
+            $imap_server_type               = "macosx";
+            $default_folder_prefix          = "INBOX/";
+            $trash_folder                   = "Trash";
+            $sent_folder                    = "Sent";
+            $draft_folder                   = "Drafts";
+            $show_prefix_option             = false;
+            $default_sub_of_inbox           = true;
+            $show_contain_subfolders_option = false;
+            $optional_delimiter             = "detect";
+            $allow_charset_search           = false;
             $disp_default_folder_prefix     = $default_folder_prefix;
 
             $continue = 1;
