@@ -255,7 +255,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       }
   }
 
-  if ($allow_server_sort == TRUE && $thread_sort_messages != 1) {
+  if ($allow_server_sort == 'true' && $thread_sort_messages != 1) {
     $server_sort_order = $sort;
     $id = sqimap_get_sort_order($imapConnection, $server_sort_order);
   if ($id == 'no') {
@@ -290,7 +290,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       if ($sort < 6 ) {
 	$id = range(1, $num_msgs);
       } 
-      elseif ($thread_sort_messages != 1 && $allow_server_sort != TRUE && $sort == 6) {
+      elseif ($thread_sort_messages != 1 && $allow_server_sort != 'true' && $sort == 6) {
 	/* if it's not sorted */
 	if ($start_msg + ($show_num - 1) < $num_msgs){
 	  $end_msg = $start_msg + ($show_num - 1);
@@ -454,7 +454,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       }
     }		
     session_register('msort');
-  } elseif ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
+  } elseif ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
     $msort = $msgs;
     session_unregister('msgs');
     session_register('msort');
@@ -670,8 +670,8 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     . "</TD>\n"
     . "   </TR>\n";
 
-/* draws thread sorting links */
-  if ($allow_thread_sort == TRUE) {
+  /* draws thread sorting links */
+  if ($allow_thread_sort == 'true') {
     if ($thread_sort_messages == 1 ) {
       $set_thread = 2;
       $thread_name = 'Unthread View';
@@ -703,7 +703,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
    * instead. but here we reset sort for a bit
    * since its easy
    */
-  if ($allow_server_sort == TRUE) {
+  if ($allow_server_sort == 'true') {
     $sort = $server_sort_order;
   }
   /* Print the headers. */
@@ -746,7 +746,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   /* if using server-sorting,
    * send sort back to 6
    */
-  if ($allow_server_sort == TRUE) {
+  if ($allow_server_sort == 'true') {
     $sort = 6;
   }
   echo "</TR>\n";
