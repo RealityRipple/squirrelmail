@@ -57,8 +57,6 @@ $disable_compose_translate=true;
  * If you enable custon translation engines, you must include
  * translate_custom(), translate_custom_showtrad() and
  * $translate_custom_showoption() functions in your config.
- * @example config-sample.php
- * @global bool $translate_custom_enabled
  */
 global $translate_custom_enabled;
 $translate_custom_enabled=true;
