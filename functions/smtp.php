@@ -427,17 +427,22 @@
       return $err_num;
    }
 
-   function sendMessage($t, $c, $b, $subject, $body) {
-      global $useSendmail, $msg_id, $is_reply;
+   function sendMessage($t, $c, $b, $subject, $body, $reply_id) {
+      global $useSendmail, $msg_id, $is_reply, $mailbox;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
 
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
+      if ($reply_id) {
+         sqimap_mailbox_select ($imap_stream, $mailbox);
+         sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, "Answered");
+      }
+      
       if ($useSendmail==true) {  
          $length = sendSendmail($t, $c, $b, $subject, $body);
       } else {
          $length = sendSMTP($t, $c, $b, $subject, $body);
       }
 
-      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
       if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
          sqimap_append ($imap_stream, $sent_folder, $length);
          write822Header ($imap_stream, $t, $c, $b, $subject);

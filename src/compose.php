@@ -145,7 +145,7 @@
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
          $attachments, $subject, $newmail, $use_javascript_addr_book,
-         $send_to_bcc;
+         $send_to_bcc, $reply_id, $mailbox;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -163,6 +163,10 @@
       }
 
       echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
+      if ($reply_id) {
+         echo "<input type=hidden name=reply_id value=$reply_id>\n";
+      }		 
+	  	echo "<input type=hidden name=mailbox value=$mailbox>\n";
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
@@ -314,8 +318,9 @@
 
    if(isset($send)) {
       if (checkInput(false)) {
-         sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
-         header ("Location: right_main.php");
+         $urlMailbox = urlencode ($mailbox);
+         sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
+         header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
