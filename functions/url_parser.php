@@ -57,7 +57,7 @@ function parseEmail (&$body) {
     if( eregi($Email_RegExp_Match, $body, $regs) ) {
         if ($compose_new_win == '1') {
 	    $comp_uri = '../src/compose.php?send_to='.urlencode($regs[0]);
-            $body = str_replace($regs[0],  '<a href="javascript:void(0)" onClick="comp_in_new(false,'."'$comp_uri'".')">'.$regs[0].'</a>', $body);
+            $body = str_replace($regs[0],  '<a href="javascript:void(0)" onClick="comp_in_new('."'$comp_uri'".')">'.$regs[0].'</a>', $body);
         }
         else {
             $body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.
