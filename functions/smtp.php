@@ -149,7 +149,7 @@ function attachFiles ($fp, $session) {
                     $header .= "Content-Disposition: attachment; filename=\""
                         . $info['remotefilename'] . "\"$rn";
                 } else {
-                    $header .= "Content-Type: $filetype;$rn";
+                    $header .= "Content-Type: $filetype$rn";
                 }
 
                 
