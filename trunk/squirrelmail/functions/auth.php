@@ -15,9 +15,8 @@
  * $base_uri isn't set because it the session is invalid.
  */
 
-if (! isset($base_uri)) {
-    ereg ('(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
-    $base_uri = $regs[1];    
+if (!isset($base_uri)) {
+    $base_uri = dirname(dirname($PHP_SELF));
 }
 
 function is_logged_in() {

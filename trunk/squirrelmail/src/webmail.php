@@ -21,8 +21,7 @@ require_once('../functions/plugin.php');
 require_once('../functions/i18n.php');
 require_once('../functions/auth.php');
 
-ereg( '(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
-$base_uri = $regs[1];
+$base_uri = dirname(dirname($PHP_SELF));
 
 session_start();
 is_logged_in();

@@ -36,8 +36,7 @@ if (get_magic_quotes_gpc()) {
 
 /* Before starting the session, the base URI must be known. Assuming */
 /* that this file is in the src/ subdirectory (or something).        */
-ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-$base_uri = $regs[1];
+$base_uri = dirname(dirname($PHP_SELF));
 
 header('Pragma: no-cache');
 $location = get_location();
@@ -54,7 +53,8 @@ if (! isset($squirrelmail_language) ||
 }
 set_up_language($squirrelmail_language, true);
 /* Refresh the language cookie. */
-setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_uri);
+setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000, 
+          $base_uri);
 
 if (!isset($login_username)) {
     include_once( '../functions/display_messages.php' );
