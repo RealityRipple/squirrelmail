@@ -295,7 +295,8 @@ function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $i
             $end_loop = $num_msgs - $start_msg + 1;
         } else {
             $end_loop = $show_num;
-        }        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
+        }
+        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
     } else {
         return false;
     }
@@ -345,7 +346,8 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
             } else {
                 $end_loop = $show_num;
             }
-        }        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
+        }
+        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
     }
     return $msgs;
 }
