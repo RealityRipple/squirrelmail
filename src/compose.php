@@ -406,7 +406,7 @@
       displayPageHeader($color, $mailbox);
 
       while (list($lkey, $localname) = each($delete)) {
-         array_splice ($attachments, $lkey, 1);
+         unset ($attachments[$localname]);
          unlink ($attachment_dir.$localname);
          unlink ($attachment_dir.$localname.".info");
       }
