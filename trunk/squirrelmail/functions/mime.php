@@ -690,8 +690,17 @@
       } else if ($encoding == "base64") {
          $body = base64_decode($body);
       }
-
-      // All other encodings are returned raw.
+     
+    switch($show_html_default) {
+        case '1': // Safe HTML
+	      // Philippe's code
+            break;
+        case '2': // Any HTML
+            break;
+        default: // No HTML
+	    $body = str_replace('<', '&lt;', $body);
+            break;
+       }
       return $body;
    }
 
