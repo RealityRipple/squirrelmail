@@ -23,12 +23,13 @@
       Het totaal aantal berichten kan verschillen van het totaal aantal <I>nieuwe</I>
       berichten dat in het linker frame achter de mapnaam weergegeven wordt.
       </p><p>
-      Hierna volgt een balk met drie knoppen. Aan de linkerkant is een selectielijst
+      Hierna volgt een balk met vier knoppen. Aan de linkerkant is een selectielijst
       met al uw mappen. Een geselecteerd bericht zal hiernaar verplaatst worden als
       er op de <I>Verplaats</I>-knop geklikt wordt. U kunt meerdere berichten
       tegelijk verplaatsen.
       Aan de rechterkant van de balk is een knop die u kunt gebruiken om geselecteerde
-      berichten te verwijderen.
+      berichten te verwijderen. Links naast deze knop zijn twee knoppen waarmee u geselecteerde
+      berichten kunt markeren als gelezen danwel ongelezen.
       </p><p>
       Op de regel daaronder staat een kopregel met drie velden (Van, Datum en Onderwerp).
       Deze verdelen de berichtentabel in drie delen: onder Van staat wie het bericht
@@ -45,7 +46,15 @@
        Verwijder of Gelezen uitvoeren.<BR>
       Bijvoorbeeld, u wilt twee berichten verwijderen. U zet een vinkje voor de betreffende berichten.
       Daarna klikt u op de knop Verwijderen. De berichten zullen dan niet meer voorkomen in het
-      berichtenoverzicht.
+      berichtenoverzicht.<BR>
+      De link <EM>(de)selecteren</EM> bovenaan de lijst selecteert alle berichten of deselecteert
+      alle berichten.
       </p>
+      <P>
+      Als er veel berichten in uw mailbox staan, zal de lijst zijn opgesplitst in meerdere pagina's
+      en wordt de eerste pagina weergegeven. Om andere pagina's te bekijken kunt u de Volgende en Vorige
+      links boven en onderaan de lijst gebruiken. U kunt ook direct naar een bepaalde pagina springen
+      door op een van de paginanummers te klikken. <EM>Alle Weergeven</EM> geeft alle berichten weer op &eacute;&eacute;n
+      lange pagina.</P>
    </description>
 </section>

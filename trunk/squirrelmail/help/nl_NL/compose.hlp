@@ -17,6 +17,20 @@
 
 <section>
    <title>
+      Van
+   </title>
+   <description>
+      <p>
+	Dit veld wordt uitsluitend weergegeven als u meerdere identiteiten heeft
+	ingesteld (via het Opties, Persoonlijke instellingen menu). Indien u dat
+	heeft gedaan, kunt u hier kiezen welke identiteit u wilt gebruiken, m.a.w.
+	welke naam en e-mailadres als afzender moeten staan.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
       Aan
    </title>
    <description>
@@ -82,9 +96,38 @@
       <p>
       Deze knop opent het adressenboek met daarin een zoekscherm. Hier moet u
       iets invullen om resultaten te krijgen. Als u alle adressen uit het adressenboek
-      wilt zien dient u een spatie in te voeren en op Zoeken te klikken. Het adresboek
+      wilt zien kunt u op <EM>Alle weergeven</EM> drukken. Het adresboek
       heeft uitgebreide mogelijkheden die aan bod komen in een apart hoofdstuk in
       deze handleiding.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Bewaar Concept-knop
+   </title>
+   <description>
+      <p>
+      Als u een bericht heeft opgesteld maar om een bepaalde reden nog niet
+      wilt versturen, kunt u op deze knop drukken om het op te slaan in de
+      <EM>Drafts</EM>-map. Als u het later daadwerkelijk wilt versturen, gaat
+      u naar deze folder, opent het bericht en u komt weer in het Nieuw Bericht
+      scherm waar u verder kunt werken aan uw bericht.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Prioriteit
+   </title>
+   <description>
+      <p>
+      Als uw systeembeheerder deze mogelijkheid aan heeft gezet, kunt u rechts naast
+      de knoppen een prioriteit voor uw bericht selecteren. Een hoge-prioriteit bericht
+      zal anders worden weergegeven in het mailprogramma van de ontvanger. Pas op dat
+      overmatig gebruik van deze optie het effect zal devalueren.
       </p>
    </description>
 </section>

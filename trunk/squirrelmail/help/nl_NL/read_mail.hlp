@@ -45,7 +45,10 @@
       <p>
       Klik hierop om dit bericht te verwijderen. Alle bijlages (attachments)
       worden ook verwijderd. Als u de bijlages wilt bewaren, kunt u ze eerst
-      downloaden (dit wordt verderop uitgelegd).
+      downloaden (dit wordt verderop uitgelegd).<BR>
+      Verwijderen betekent hier dat het bericht in kwestie wordt verplaatst naar
+      de Trash-folder. Als u het toch nog wilt bewaren, ga dan naar die folder
+      en verplaats het bericht terug naar uw INBOX.
       </p>
    </description>
 </section>
@@ -123,6 +126,18 @@
 
 <section>
    <title>
+      Printvriendelijke versie
+   </title>
+   <description>
+      <P>Als u een bericht wilt printen, kunt u op deze link klikken. Dat geeft u
+      een nieuw venster met het bericht, maar zonder overbodige informatie en menu's,
+      klaar om af te drukken. Druk op Print om dat ook daadwerkelijk te doen, of Sluiten
+      om terug te keren naar uw bericht.</P>
+   </description>
+</section>
+
+<section>
+   <title>
       Download dit als een bestand
    </title>
    <description>
@@ -146,7 +161,10 @@
       het attachment weer of geeft u een dialoogvenster om het bestand te downloaden.
       Dit is afhankelijk van het bestandstype. Door op de 'download' link te
       klikken downloadt u het bestand sowieso, ook al kan het door uw browser
-      worden weergegeven.
+      worden weergegeven.<BR>
+      Als uw browser ondersteuning heeft voor het weergeven van dit type bestand,
+      zal er een extra "bekijk" link staan waarmee u de bijlage direct in uw browser
+      kunt weergeven.
       </p>
    </description>
 </section>

@@ -71,3 +71,16 @@
       </p>
    </description>
 </section>
+
+<section>
+   <title>
+      Recente zoekopdrachten
+   </title>
+   <description>
+      <P>Als u deze optie heeft aangezet, zal de zoekpagina ook de 9 meest recente
+      zoekopdrachten weergeven zodat u die snel opnieuw kunt uitvoeren. Klik op
+      <EM>Zoek</EM> naast de zoekopdracht om die opnieuw uit te voeren. Met de
+      link <EM>Opslaan</EM> kunt u een opdracht verplaatsen naar <EM>Opgeslagen
+      zoekopdrachten</EM> die bewaard worden totdat u ze weer verwijdert.</P>
+   </description>
+</section>
