@@ -69,7 +69,10 @@
             sqimap_mailbox_expunge($imapConnection, $mailbox);
          }
          $location = get_location();
-         header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+         if ($where && $what)
+            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+         else   
+            header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
       } else {
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -95,7 +98,10 @@
             sqimap_mailbox_expunge($imapConnection, $mailbox);
 
          $location = get_location();
-         header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
+         if ($where && $what)
+            header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
+         else   
+            header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
       } else {
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);

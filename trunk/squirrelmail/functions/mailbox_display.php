@@ -10,7 +10,7 @@
 
    $mailbox_display_php = true;
 
-   function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage) {
+   function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
       global $color, $msgs, $msort;
 		global $sent_folder;
       global $message_highlight_list;
@@ -40,6 +40,10 @@
       
       if (!$hlt_color)
          $hlt_color = $color[4];
+
+      if ($where && $what) {
+         $search_stuff = "&where=".urlencode($where)."&what=".urlencode($what);
+      }
       
       echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
       echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
@@ -47,7 +51,7 @@
 		if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>";
 		elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>";
 		else	echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>";
-      echo "   <td bgcolor=$hlt_color width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
+      echo "   <td bgcolor=$hlt_color width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
       echo "</tr>\n";
    }
@@ -293,7 +297,7 @@
             next($msort);
             $k++;
          } while (isset ($key) && ($k < $i));
-         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
+         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
       } else {
          $i = $startMessage;
          reset($msort);
@@ -304,7 +308,7 @@
          } while (isset ($key) && ($k < $i));
 
 		   do {
-            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
+            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
             $key = key($msort);
             $t++;
             $i++;
