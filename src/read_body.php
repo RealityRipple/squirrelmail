@@ -883,7 +883,7 @@ $cnt = count($ent_ar);
 for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
    if ($i != $cnt-1) {
-       $messagebody .= '<hr noshade size="1" />';
+       $messagebody .= '<hr style="height: 1px;" />';
    }
 }
 
