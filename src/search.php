@@ -359,7 +359,7 @@ function asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_ar
 					if ($what_type == 'adate')
 						$what_display = asearch_get_date_display($what);
 					else
-						$what_display = htmlentities($what);
+						$what_display = htmlspecialchars($what);
 					$what_display = ' <B>' . $what_display . '</B>';
 				}
 			}
