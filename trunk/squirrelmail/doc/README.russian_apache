@@ -2,77 +2,25 @@ HOW TO CONFIGURE SQUIRRELMAIL WITH RUSSIAN APACHE
 --------------------------------------------------
 
 This text is available in Russian at 
-http://www.mricon.com/SM/russian_apache.html
+http://mricon.com/SM/russian_apache.html
 
-*****
-NOTE: Russian Apache will recode all attachments, even if they
-are binary, thus corrupting them. To fix this problem, refer to
-Russian Apache FAQ: http://apache.lexa.ru/faq.html#5
-Turn multipart form recoding off in your apache config. If you
-don't, you're in for mucho trouble.
-*****
- 
-This howto is for people who are using Russian Apache and
-who use charsets other than koi8-r for their source documents.
-If you _do_ use KOI8-R as default encoding for all your source
-documents, you don't need to do anything. Otherwise, here's
-a very simple way to make this work.
+It is no longer advised to try and make SquirrelMail live in peace with
+RussianApache. Too many problems arise trying to make charset recoding
+co-exist with SquirrelMail. SM is completely capable of providing necessary
+charset headers, so most modern browsers will not have any problems 
+interacting with SquirrelMail in the necessary Charset.
 
-The general idea is to tell Russian Apache that everything 
-residing in the squirrel-mail directory is in koi8-r. This
-way all input submitted by users will be automagically 
-converted by mod_charset from anything into koi8-r.
-Squirrel-Mail will then correctly stamp it with
-"Charset=koi8-r" and send off without any additional
-conversion.
+To turn off Charset Recoding of Russian Apache, use the following
+directive:
 
-There are two equally efficient ways to do it:
+CharsetDisable on
 
+You may put this directive into VirtualHost, Directory, Location, or
+a .htaccess file in the SquirrelMail's main directory (unless you
+turned off .htaccess files).
 
-1. THE HTTPD.CONF WAY.
------------------------
-
-In your httpd.conf, add the following declaration for the
-server that handles the squirrel-mail:
-
-<Directory /path/to/your/squirrel-mail>
-CharsetSourceEnc koi8-r
-</Directory>
-
-Warning: If you use CharsetByExtension elsewhere, it will 
-override the CharsetSourceEnc directive. In that case you will 
-have to put this directive instead of the above:
-
-<Directory /path/to/your/squirrel-mail>
-CharsetByExtension koi8-r .php
-</Directory>
-
-It is advised to use the CharsetSourceEnc declaration instead
-of the other one. Use the CharsetByExtension only if the
-other fails.
-
-2. THE .HTACCESS WAY (PREFERRED).
-----------------------------------
-
-Create a .htaccess file in your squirrel-mail directory. In it,
-simply put this line:
-
-CharsetSourceEnc koi8-r
-
-That's it. Note the warning about the ChatsetByExtension directive
-in the previous section. If you used CharsetByExtension declaration
-elsewhere and it's active for this server, then you will have to
-put this line in your .htaccess instead:
-
-CharsetByExtension koi8-r .php
-
-But again, this is only if the CharsetSourceEnc fails.
-
-I mark this method "Preferred" simply because you don't have to 
-restart your server if you use .htaccess. However, if you've
-specified "AllowOverride None" in your Server config, then you
-will have to go with "the httpd.conf way".
-
+This is the best solution so far -- others involve so many steps that
+they are no longer viable.
 
 If you have any questions or problems, please address them to
 the squirrelmail-list@lists.sourceforge.net to have them 
