@@ -13,7 +13,7 @@
 
 require_once('../functions/strings.php');
 
-// Always set up the language before calling these functions
+/* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
     global $theme_css, $custom_css, $base_uri;
@@ -23,14 +23,14 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
-            echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+            echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">";
         }
     } else {
         echo '<LINK REL="stylesheet" TYPE="text/css" HREF="' .
-             $base_uri . "themes/css/$custom_css\">\n";
+             $base_uri . 'themes/css/$custom_css">';
     }
     
-    echo "<title>$title</title>$xtra</head>\n\n";
+    echo "\n<title>$title</title>$xtra</head>\n\n";
 }
 
 function displayInternalLink($path, $text, $target='') {
@@ -124,9 +124,9 @@ function displayPageHeader($color, $mailbox, $xtra='') {
         echo '&nbsp;';
     }
     echo  "      </TD>\n"
-        . "      <TD ALIGN=right><b>\n";
+        . '      <TD ALIGN=right><b>';
     displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
-    echo "      </b></TD>\n"
+    echo "</b></TD>\n"
         . "   </TR>\n"
         . "   <TR BGCOLOR=\"$color[4]\">\n"
         . "      <TD ALIGN=left>\n";
@@ -152,10 +152,10 @@ function displayPageHeader($color, $mailbox, $xtra='') {
 
     do_hook("menuline");
 
-    echo "      </TD><TD ALIGN=right>\n";
+    echo "      </TD>\n      <TD ALIGN=\"right\">";
     echo ($hide_sm_attributions ? '&nbsp;' :
-            "<A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n");
-    echo "      </TD>\n".
+            '<A HREF="http://www.squirrelmail.org/" TARGET="_blank">SquirrelMail</A>');
+    echo "</TD>\n".
         "   </TR>\n".
         "</TABLE>\n\n";
 }

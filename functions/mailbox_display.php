@@ -517,7 +517,7 @@ function mail_message_listing_beginning
        . "      </TD>\n"
        . "   </TR>\n"
        . "   <TR>\n"
-       . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
+       . "      <TD ALIGN=\"LEFT\" VALIGN=\"MIDDLE\" NOWRAP>\n"
        . '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
 
     $boxes = sqimap_mailbox_list($imapConnection);
@@ -532,17 +532,17 @@ function mail_message_listing_beginning
         }
     }
     echo '         </SELECT></TT>&nbsp;'.
-         "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . '">&nbsp;'.
-	 "<INPUT TYPE=SUBMIT NAME=\"attache\" VALUE=\"". _("Forward") . "\">&nbsp;\n"."</SMALL>\n".
+         '<INPUT TYPE="SUBMIT" NAME="moveButton" VALUE="' . _("Move") . '">&nbsp;'.
+	 '<INPUT TYPE="SUBMIT" NAME="attache" VALUE="' . _("Forward") . "\">&nbsp;\n"."</SMALL>\n".
          "      </TD>\n".
-         "      <TD ALIGN=RIGHT NOWRAP>\n";
+         "      <TD ALIGN=\"RIGHT\" NOWRAP>";
     if (!$auto_expunge) {
-        echo '         <INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."&nbsp;\n";
+        echo '<INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="' . _("Expunge") . '">&nbsp;' . _("mailbox") . '&nbsp;';
     }
-    echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n".
-         "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n".
-	 "	   <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n".
-         "      </TD>\n".
+    echo '<INPUT TYPE="SUBMIT" NAME="markRead" VALUE="' . _("Read") . '">' .
+         '<INPUT TYPE="SUBMIT" NAME="markUnread" VALUE="' . _("Unread") . '">' .
+	 '<INPUT TYPE="SUBMIT" VALUE="' . _("Delete") . '">&nbsp;' .
+         "</TD>\n".
          "   </TR>\n".
          "</TABLE>\n";
     do_hook('mailbox_form_before');
