@@ -128,7 +128,14 @@ class Deliver_SMTP extends Deliver {
 	  if ($this->errorCheck($tmp, $stream)) {
     	return(0);
 	  }
-	}
+	} else {
+		/* Right here, they've reached an unsupported auth mechanism.
+		   This is the ugliest hack I've ever done, but it'll do till I can fix
+		   things up better tomorrow.  So tired... */
+		if ($this->errorCheck("535 Unable to use this auth type",$stream)) {
+			return(0);
+		}
+    }
     
 	/* Ok, who is sending the message? */
         fputs($stream, 'MAIL FROM: <'.$from->mailbox.'@'.$from->host.">\r\n");
