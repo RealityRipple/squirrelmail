@@ -263,16 +263,11 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn
         if (isset($identity) && $identity != 'default') {
             $reply_to = getPref($data_dir, $username, 'reply_to' . $identity);
             $from = getPref($data_dir, $username, 'full_name' . $identity);
-            $from_addr = getPref($data_dir, $username, 
-                                 'email_address' . $identity);
+            $from_addr = getFrom();
         } else {
             $reply_to = getPref($data_dir, $username, 'reply_to');
             $from = getPref($data_dir, $username, 'full_name');
-            $from_addr = getPref($data_dir, $username, 'email_address');
-        }
-        
-        if ($from_addr == '') {
-            $from_addr = $popuser.'@'.$domain;
+            $from_addr = getFrom();
         }
         
         $to_list = getLineOfAddrs($to);
@@ -438,7 +433,7 @@ function sendSendmail($t, $c, $b, $subject, $body, $more_headers, $session) {
      * spaces or other "weird" chars that would allow a user to
      * exploit the shell/pipe it is used in.
      */
-    $envelopefrom = "$popuser@$domain";
+    $envelopefrom = getFrom();
     $envelopefrom = ereg_replace("[[:blank:]]",'', $envelopefrom);
     $envelopefrom = ereg_replace("[[:space:]]",'', $envelopefrom);
     $envelopefrom = ereg_replace("[[:cntrl:]]",'', $envelopefrom);
@@ -458,7 +453,7 @@ function sendSendmail($t, $c, $b, $subject, $body, $more_headers, $session) {
     $bodylength = writeBody($fp, $body, $session, "\n");
     
     pclose($fp);
-    
+
     return ($headerlength + $bodylength);
 }
 
@@ -935,6 +930,25 @@ function createReceiptHeaders($receipt) {
         $receipt_headers["Disposition-Notification-To"] = $from;
     }
     return $receipt_headers;
+}
+
+/* Figure out what the 'From:' address is
+ */
+
+function getFrom() {
+    global $username, $popuser, $domain, $data_dir, $identity;
+    if (isset($identity) && $identity != 'default') {
+        $from_addr = getPref($data_dir, $username, 
+                             'email_address' . $identity);
+    }
+    else {
+        $from_addr = getPref($data_dir, $username, 'email_address');
+    }
+    
+    if (!$from_addr) {
+        $from_addr = "$popuser@$domain";
+    }
+    return $from_addr;
 }
 
 
