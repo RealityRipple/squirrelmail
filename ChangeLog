@@ -42,6 +42,7 @@ Version 1.2.6 -- CVS
     added by popular demand.
   - Improved the handling of IMAP [PARSE] messages to reduce retrieval error.
   - Fixed small bug in handeling timezone (bug #536149)	
+  - MDN message now RFC compatible (bug #537662)
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
