@@ -165,7 +165,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
     $rfc822_header->content_type = $content_type;
     $rfc822_header->to[] = $header->dnt;
-    $rfc822_header->subject = _("Read:") . ' ' . decodeHeader($header->subject);
+    $rfc822_header->subject = _("Read:") . ' ' . encodeHeader($header->subject);
 
 
     $reply_to = '';
@@ -202,8 +202,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $now = getLongDateString( time() );
     set_my_charset();
     $body = _("Your message") . "\r\n\r\n" .
-            "\t" . _("To:") . ' ' . decodeHeader($to) . "\r\n" .
-            "\t" . _("Subject:") . ' ' . decodeHeader($header->subject) . "\r\n" .
+            "\t" . _("To:") . ' ' . decodeHeader($to,true,false) . "\r\n" .
+            "\t" . _("Subject:") . ' ' . decodeHeader($header->subject,true,false) . "\r\n" .
             "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
@@ -272,10 +272,10 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
         $deliver = new Deliver_SMTP();
         global $smtpServerAddress, $smtpPort, $smtp_auth_mech, $pop_before_smtp;
-		if ($smtp_auth_mech == 'none') {
-			$user = '';
-			$pass = '';
-		} else {
+        if ($smtp_auth_mech == 'none') {
+            $user = '';
+            $pass = '';
+        } else {
             global $key, $onetimepad;
             $user = $username;
             $pass = OneTimePadDecrypt($key, $onetimepad);
