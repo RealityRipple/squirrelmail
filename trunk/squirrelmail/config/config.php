@@ -1,6 +1,6 @@
 <?
 //  Organization's logo picture (blank if none)
-    $org_logo = "../images/logo.jpg";
+    $org_logo = "../images/logo.gif";
 
 //  Organization's name
     $org_name = "SquirrelMail";
@@ -34,7 +34,7 @@
 //     want.  For an example of a theme, see the ones included in the config
 //     directory.
 //   Example:   require("../config/default_theme.php");
-    require("../config/default_theme.php");
+    require("../config/tan_theme.php");
 
 //  Whether or not to use $color[11] for special folders.  If not, special
 //  folders will be the same color as the other folders
