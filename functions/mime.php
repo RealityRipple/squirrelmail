@@ -552,7 +552,8 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decodeheader', $string);
-        return $string;
+	// Do we need to return at this point?
+	// return $string;
     }
     $i = 0;
     $aString = explode(' ',$string);
@@ -598,7 +599,11 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         }
         ++$i;
     }
-    return implode('&nbsp;',$aString);
+    if ($htmlsave) {
+	return implode('&nbsp;',$aString);
+    } else {
+	return implode (' ',$aString);
+    }
 }
 
 /*
