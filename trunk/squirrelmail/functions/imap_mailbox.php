@@ -36,7 +36,7 @@
     ******************************************************************************/
    function sqimap_mailbox_close ($imap_stream) {
       fputs ($imap_stream, "a001 CLOSE\r\n");
-      $tmp = sqimap_read_data($imap_stream, "a001", close, $response, $message);
+      $tmp = sqimap_read_data($imap_stream, "a001", false, $response, $message);
    }
 
    /******************************************************************************
