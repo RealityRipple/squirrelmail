@@ -17,7 +17,7 @@
       include "../config/config.php";
 
 
-   /** Setting up the object that has the structure for the message **/
+   /** Setting up the objects that have the structure for the message **/
 
    class msg_header {
       /** msg_header contains generic variables for values that **/
@@ -49,10 +49,9 @@
    /* MIME DECODING                                                                     */
    /* --------------------------------------------------------------------------------- */
    
-   /** This function gets the structure of a message and stores it in the "message" class.
-       It will return this object for use with all relevant header information and
-       fully parsed into the standard "message" object format.
-    **/   
+   // This function gets the structure of a message and stores it in the "message" class.
+   // It will return this object for use with all relevant header information and
+   // fully parsed into the standard "message" object format.
    function mime_structure ($imap_stream, $header) {
       global $debug_mime;
       sqimap_messages_flag ($imap_stream, $header->id, $header->id, "Seen");
@@ -80,6 +79,13 @@
       return $msg;
    }
 
+   // this starts the parsing of a particular structure.  It is called recursively,
+   // so it can be passed different structures.  It returns an object of type
+   // $message.
+   // First, it checks to see if it is a multipart message.  If it is, then it
+   // handles that as it sees is necessary.  If it is just a regular entity,
+   // then it parses it and adds the necessary header information (by calling out
+   // to mime_get_elements()
    function mime_parse_structure ($structure, $ent_id) {
       global $debug_mime;
       if ($debug_mime) echo "<font color=008800><tt>START: mime_parse_structure()</tt></font><br>";
@@ -204,8 +210,11 @@
                break;
             default:
                if ($msg->header->type0 == "text" && $elem_num == 8) {
+                  // This is a plain text message, so lets get the number of lines
+                  // that it contains.
                   $msg->header->num_lines = $text;
                   if ($debug_mime) echo "<tt>num_lines = $text</tt><br>";
+
                } else if ($msg->header->type0 == "message" && $msg->header->type1 == "rfc822" && $elem_num == 8) {
                   // This is an encapsulated message, so lets start all over again and 
                   // parse this message adding it on to the existing one.
@@ -215,15 +224,19 @@
                      $structure = substr($structure, 0, $e);
                      $structure = substr($structure, 1);
                      $m = mime_parse_structure($structure, $msg->header->entity_id);
+                     
+                     // the following conditional is there to correct a bug that wasn't
+                     // incrementing the entity IDs correctly because of the special case
+                     // that message/rfc822 is.  This fixes it fine.
                      if (substr($structure, 1, 1) != "(") 
                         $m->header->entity_id = mime_increment_id(mime_new_element_level($ent_id));
+                        
+                     // Now we'll go through and reformat the results.
                      if ($m->entities) {
                         for ($i=0; $i < count($m->entities); $i++) {
-                           //echo "<big>TYPE: $i - ".$m->entities[$i]->header->type0." - ".$m->entities[$i]->header->type1."</big><br>";
                            $msg->addEntity($m->entities[$i]);
                         }
                      } else {
-                        //echo "<big>TYPE: ".$m->header->type0." - ".$m->header->type1."</big><br>";
                         $msg->addEntity($m);
                      }
                      $structure = ""; 
@@ -236,10 +249,10 @@
       }
       // loop through the additional properties and put those in the various headers
       if ($msg->header->type0 != "message") {
-      for ($i=0; $i < count($properties); $i++) {
-         $msg->header->{$properties[$i]["name"]} = $properties[$i]["value"];
-         if ($debug_mime) echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
-      }
+         for ($i=0; $i < count($properties); $i++) {
+            $msg->header->{$properties[$i]["name"]} = $properties[$i]["value"];
+            if ($debug_mime) echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
+         }
       }
       return $msg;
    }
@@ -249,6 +262,7 @@
    // in the morning and had a flash of insight.  I went to the white-board
    // and scribbled it out, then spent a bit programming it, and this is the
    // result.  Nothing complicated, but I think my brain was fried yesterday.
+   // Funny how that happens some times.
    //
    // This gets properties in a nested parenthesisized list.  For example,
    // this would get passed something like:  ("attachment" ("filename" "luke.tar.gz"))
@@ -354,18 +368,21 @@
       return mime_structure ($imap_stream, $header);
    }
 
+   // This is here for debugging purposese.  It will print out a list
+   // of all the entity IDs that are in the $message object.
    function listEntities ($message) {
       if ($message) {
-            if ($message->header->entity_id)
-            echo "<tt>" . $message->header->entity_id . " : " . $message->header->type0 . "/" . $message->header->type1 . "<br>";
-            for ($i = 0; $message->entities[$i]; $i++) {
-               $msg = listEntities($message->entities[$i], $ent_id);
-               if ($msg)
-                  return $msg;
-            }
+         if ($message->header->entity_id)
+         echo "<tt>" . $message->header->entity_id . " : " . $message->header->type0 . "/" . $message->header->type1 . "<br>";
+         for ($i = 0; $message->entities[$i]; $i++) {
+            $msg = listEntities($message->entities[$i], $ent_id);
+            if ($msg)
+               return $msg;
+         }
       }
    }
 
+   // returns a $message object for a particular entity id
    function getEntity ($message, $ent_id) {
       if ($message) {
          if ($message->header->entity_id == $ent_id && strlen($ent_id) == strlen($message->header->entity_id)) {
@@ -380,6 +397,8 @@
       }
    }
 
+   // figures out what entity to display and returns the $message object
+   // for that entity.
    function findDisplayEntity ($message) {
       if ($message) {
          if ($message->header->type0 == "text") {
@@ -401,12 +420,10 @@
        bottom, etc.
     **/
    function formatBody($message, $color, $wrap_at) {
-      /** this if statement checks for the entity to show as the
-          primary message. To add more of them, just put them in the
-          order that is their priority.
-       **/
+      // this if statement checks for the entity to show as the
+      // primary message. To add more of them, just put them in the
+      // order that is their priority.
       global $username, $key, $imapServerAddress, $imapPort;
-
 
       $id = $message->header->id;
       $urlmailbox = urlencode($message->header->mailbox);
@@ -417,11 +434,11 @@
       $ent_num = findDisplayEntity ($message);
       $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
 
-      /** If there are other types that shouldn't be formatted, add
-          them here **/
-      //if ($->type1 != "html") {   
+      // If there are other types that shouldn't be formatted, add
+      // them here 
+      if ($message->header->type1 != "html") {   
          $body = translateText($body, $wrap_at, $charset);
-      //}   
+      }   
 
       $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
 
