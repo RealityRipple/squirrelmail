@@ -7,6 +7,9 @@
  * @subpackage change_password
  */
 
+/** get imap server global */
+global $imapServerAddress;
+
 /** Default plugin configuration.*/
 /**
  * Address of ldap server.
@@ -22,7 +25,7 @@
  * @global string $cpw_ldap_server
  */
 global $cpw_ldap_server;
-$cpw_ldap_server='localhost';
+$cpw_ldap_server=$imapServerAddress;
 
 /**
  * Port of ldap server.
