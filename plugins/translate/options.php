@@ -134,7 +134,7 @@ function ShowTrad( $tit, $com, $url ) {
 	      "<br />".sprintf(_("Number of supported language pairs: %s"),"16")." " ,
               'http://www.translator.cx/' );
     ShowTrad( 'InterTran',
-              _("No known limits, powered by Translation Experts's InterTran").
+              _("No known limits, powered by Translation Experts' InterTran").
 	      "<br />".sprintf(_("Number of supported languages: %s"),"29")." " ,
               'http://www.tranexp.com/' );
     ShowTrad( 'OTEnet',
