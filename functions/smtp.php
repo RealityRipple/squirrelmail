@@ -254,7 +254,7 @@
 
    function sendSMTP($t, $c, $b, $subject, $body) {
       global $username, $domain, $version, $smtpServerAddress, $smtpPort,
-         $data_dir;
+         $data_dir, $color;
 
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
@@ -316,7 +316,7 @@
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       $num = errorCheck($tmp);
       if ($num != 250) {
-         echo "<HTML><BODY BGCOLOR=FFFFFF>ERROR<BR>Message not sent!<BR>Reason given: $tmp<BR></BODY></HTML>";
+         echo "ERROR<BR>Message not sent!<BR>Reason given: $tmp<BR></BODY></HTML>";
       }
 
       fputs($smtpConnection, "QUIT\r\n"); // log off
@@ -328,6 +328,7 @@
 
 
    function errorCheck($line) {
+      global $color;
       // Status:  0 = fatal
       //          5 = ok
 
@@ -409,7 +410,7 @@
       }
 
       if ($status == 0) {
-         echo "<HTML><BODY BGCOLOR=FFFFFF>";
+         echo "<HTML><BODY BGCOLOR=ffffff>";
          echo "<TT>";
          echo "<BR><B>ERROR</B><BR><BR>";
          echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";
@@ -432,18 +433,12 @@
          $length = sendSMTP($t, $c, $b, $subject, $body);
       }
 
-        
-      // This is a proposed interface to save messages in the sent folder
-      //  -- gustavf
-      //
-//      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
-//      sqimap_append ($imap_stream, $sent_folder, $length);
-//      write822Header ($imap_stream, $t, $c, $b, $subject);
-//      writeBody ($imap_stream, $body); 
-      //sqimap_append_done($imap_stream);
-      //
-      // Or something like that... 
-   
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
+      sqimap_append ($imap_stream, $sent_folder, $length);
+      write822Header ($imap_stream, $t, $c, $b, $subject);
+      writeBody ($imap_stream, $body); 
+      sqimap_append_done ($imap_stream);
+
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
 

@@ -236,7 +236,11 @@
     **  Saves a message to a given folder -- used for saving sent messages
     ******************************************************************************/
    function sqimap_append ($imap_stream, $sent_folder, $length) {
-      fputs ($imap_stream, "a001 APPEND $sent_folder (\\Seen) \{$length}\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
+      fputs ($imap_stream, "a001 APPEND $sent_folder (\\Seen) \{$length}\n");
+      $tmp = fgets ($imap_stream, 1024);
    } 
+
+   function sqimap_append_done ($imap_stream) {
+      fputs ($imap_stream, "\r\n");
+   }
 ?>
