@@ -66,6 +66,7 @@
       global $use_special_folder_color;
 
       $real_box = $box_array['unformatted'];
+      $fm = $box_array['formatted'];
       $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
       $mailboxURL = urlencode($real_box);
 
@@ -229,6 +230,7 @@
             if (in_array('noselect', $boxes[$i]['flags'])) {
                 $line .= "<FONT COLOR=\"$color[10]\">";
                 if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
+                    $mailbox = str_replace('&nbsp;','',$mailbox);
                     $line .= str_replace(' ', '&nbsp;', $mailbox);
                 }
                 $line .= '</FONT>';
