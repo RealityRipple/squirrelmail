@@ -1,19 +1,15 @@
 <?php
 
    /**
-    **  imap_mailbox.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
-    **
-    **  This impliments all functions that manipulate mailboxes
-    **
-    **  $Id$
-    **/
-
-   if (defined ('imap_mailbox_php'))
-      return;
-   define ('imap_mailbox_php', true);
+    *   imap_mailbox.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This impliments all functions that manipulate mailboxes
+    *
+    *   $Id$
+    */
 
    /******************************************************************************
     **  Expunges a mailbox 

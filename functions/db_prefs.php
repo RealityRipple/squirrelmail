@@ -1,35 +1,35 @@
 <?php
    /**
-    **  db_prefs.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This contains functions for manipulating user preferences
-    **  stored in a database, accessed though the Pear DB layer.
-    **
-    **  To use this instead of the regular prefs.php, create a 
-    **  database as described below, and replace prefs.php
-    **  with this file.
-    **
-    **  Database:
-    **  ---------
-    **
-    **  The preferences table should have tree columns:
-    **     username   char  \  primary
-    **     prefkey    char  /  key
-    **     prefval    blob
-    **
-    **    CREATE TABLE userprefs (user CHAR(32) NOT NULL DEFAULT '', 
-    **                            prefkey CHAR(64) NOT NULL DEFAULT '', 
-    **                            prefval BLOB NOT NULL DEFAULT '', 
-    **                            primary key (user,prefkey));
-    **
-    **  Configuration of databasename, username and password is done
-    **  by changing $DSN below.
-    **
-    **  $Id$
-    **/
+    *   db_prefs.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This contains functions for manipulating user preferences
+    *   stored in a database, accessed though the Pear DB layer.
+    *
+    *   To use this instead of the regular prefs.php, create a
+    *   database as described below, and replace prefs.php
+    *   with this file.
+    *
+    *   Database:
+    *   ---------
+    *
+    *   The preferences table should have tree columns:
+    *      username   char  \  primary
+    *      prefkey    char  /  key
+    *      prefval    blob
+    *
+    *     CREATE TABLE userprefs (user CHAR(32) NOT NULL DEFAULT '',
+    *                             prefkey CHAR(64) NOT NULL DEFAULT '',
+    *                             prefval BLOB NOT NULL DEFAULT '',
+    *                             primary key (user,prefkey));
+    *
+    *   Configuration of databasename, username and password is done
+    *   by changing $DSN below.
+    *
+    *   $Id$
+    */
 
    require_once('DB.php');
 

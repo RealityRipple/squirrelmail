@@ -1,14 +1,15 @@
 <?php
-    /**
-    ** attachment_common.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    ** This file provides the handling of often-used attachment types.
-    **
-    ** $Id$
-    **/
+
+   /**
+    *  attachment_common.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *  This file provides the handling of often-used attachment types.
+    *
+    *  $Id$
+    */
 
   global $attachment_common_show_images_list;
   $attachment_common_show_images_list = array();

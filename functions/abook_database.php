@@ -1,34 +1,34 @@
 <?php {
    
    /**
-    **  abook_database.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Backend for personal addressbook stored in a database,
-    **  accessed using the DB-classes in PEAR.
-    **
-    **  IMPORTANT:  The PEAR modules must be in the include path
-    **  for this class to work.
-    **
-    **  An array with the following elements must be passed to
-    **  the class constructor (elements marked ? are optional):
-    **
-    **     dsn       => database DNS (see PEAR for syntax)
-    **     table     => table to store addresses in (must exist)
-    **     owner     => current user (owner of address data)
-    **   ? writeable => set writeable flag (true/false)
-    **
-    ** The table used should have the following columns:
-    **  owner, nickname, firstname, lastname, email, label
-    ** The pair (owner,nickname) should be unique (primary key).
-    **
-    **  NOTE. This class should not be used directly. Use the
-    **        "AddressBook" class instead.
-    **
-    ** $Id$
-    **/
+    *   abook_database.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   Backend for personal addressbook stored in a database,
+    *   accessed using the DB-classes in PEAR.
+    *
+    *   IMPORTANT:  The PEAR modules must be in the include path
+    *   for this class to work.
+    *
+    *   An array with the following elements must be passed to
+    *   the class constructor (elements marked ? are optional):
+    *
+    *      dsn       => database DNS (see PEAR for syntax)
+    *      table     => table to store addresses in (must exist)
+    *      owner     => current user (owner of address data)
+    *    ? writeable => set writeable flag (true/false)
+    *
+    *  The table used should have the following columns:
+    *   owner, nickname, firstname, lastname, email, label
+    *  The pair (owner,nickname) should be unique (primary key).
+    *
+    *   NOTE. This class should not be used directly. Use the
+    *         "AddressBook" class instead.
+    *
+    *  $Id$
+    */
    
    require_once('DB.php');
    

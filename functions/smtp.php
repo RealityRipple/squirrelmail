@@ -1,15 +1,16 @@
 <?php
 
-   /** smtp.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    ** This contains all the functions needed to send messages through
-    ** an smtp server or sendmail.
-    **
-    ** $Id$
-    **/
+   /**
+    *   smtp.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *  This contains all the functions needed to send messages through
+    *  an smtp server or sendmail.
+    *
+    *  $Id$
+    */
 
    require_once('../functions/addressbook.php');
    require_once('../functions/plugin.php');
@@ -20,7 +21,7 @@
    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
       $popuser = $usernamedata[1];
       $domain  = $usernamedata[2];
-	  unset($usernamedata);
+      unset($usernamedata);
    } else {
       $popuser = $username;
    }

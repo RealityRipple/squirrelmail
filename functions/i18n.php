@@ -1,19 +1,19 @@
 <?php
 
-    /**
-    ** i18n.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    ** This file contains variuos functions that are needed to do
-    ** internationalization of SquirrelMail.
-    **
-    ** Internally the output character set is used. Other characters are
-    ** encoded using Unicode entities according to HTML 4.0.
-    **
-    ** $Id$
-    **/
+   /**
+    *  i18n.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *  This file contains variuos functions that are needed to do
+    *  internationalization of SquirrelMail.
+    *
+    *  Internally the output character set is used. Other characters are
+    *  encoded using Unicode entities according to HTML 4.0.
+    *
+    *  $Id$
+    */
 
    global $squirrelmail_language, $languages;
    if (! isset($squirrelmail_language)) { $squirrelmail_language = ''; }

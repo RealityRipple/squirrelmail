@@ -1,14 +1,15 @@
 <?php
+
    /**
-    **  page_header.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Prints the page header (duh)
-    **
-    **  $Id$
-    **/
+    *   page_header.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   Prints the page header (duh)
+    *
+    *   $Id$
+    */
 
    // Always set up the language before calling these functions
 

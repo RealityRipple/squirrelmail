@@ -1,15 +1,15 @@
 <?php
 
    /**
-    **  imap_search.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  IMAP search routines
-    **
-    ** $Id$
-    **/
+    *   imap_search.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   IMAP search routines
+    *
+    *  $Id$
+    */
 
 
     require_once('../functions/imap.php');

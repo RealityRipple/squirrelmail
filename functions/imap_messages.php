@@ -1,14 +1,15 @@
 <?php
+
    /**
-    **  imap_messages.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This implements functions that manipulate messages
-    **
-    **  $Id$
-    **/
+    *   imap_messages.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This implements functions that manipulate messages
+    *
+    *   $Id$
+    */
 
    /******************************************************************************
     **  Copies specified messages to specified folder

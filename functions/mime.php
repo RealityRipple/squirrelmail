@@ -1,15 +1,16 @@
 <?php
 
-   /** mime.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    ** This contains the functions necessary to detect and decode MIME
-    ** messages.
-    **
-    ** $Id$
-    **/
+   /**
+    *  mime.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *  This contains the functions necessary to detect and decode MIME
+    *  messages.
+    *
+    *  $Id$
+    */
 
    require_once('../functions/imap.php');
    require_once('../functions/attachment_common.php');

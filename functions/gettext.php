@@ -1,19 +1,19 @@
 <?PHP
 
    /**
-    **  gettext.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Alternate to the system's built-in gettext.
-    **  relies on .po files (can't read .mo easily).
-    **  Uses the session for caching (speed increase)
-    **  Possible use in other PHP scripts?  The only SM-specific thing is
-    **    $sm_language, I think
-    **
-    ** $Id$
-    **/
+    *   gettext.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   Alternate to the system's built-in gettext.
+    *   relies on .po files (can't read .mo easily).
+    *   Uses the session for caching (speed increase)
+    *   Possible use in other PHP scripts?  The only SM-specific thing is
+    *     $sm_language, I think
+    *
+    *  $Id$
+    */
 
    global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
       $gettext_php_translateStrings, $gettext_php_loaded_language,

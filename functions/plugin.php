@@ -1,17 +1,17 @@
 <?php
 
    /**
-    **  plugin.php
-    **
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This file provides the framework for a plugin architecture.
-    **
-    **  Documentation on how to write plugins might show up some time.
-    **
-    **  $Id$
-    **/
+    *   plugin.php
+    *
+    *   Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *   Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    *   This file provides the framework for a plugin architecture.
+    *
+    *   Documentation on how to write plugins might show up some time.
+    *
+    *   $Id$
+    */
 
     global $squirrelmail_plugin_hooks;
 
