@@ -55,14 +55,14 @@
                $from_num++;
             }
             else if (substr($read, 0, 5) == "Date:") {
-               $read = ereg_replace("<", "[", $read);
-               $read = ereg_replace(">", "]", $read);
+               $read = ereg_replace("<", "&lt;", $read);
+               $read = ereg_replace(">", "&gt;", $read);
                $date[$date_num] = substr($read, 5, strlen($read) - 6);
                $date_num++;
             }
             else if (substr($read, 0, 8) == "Subject:") {
-               $read = ereg_replace("<", "[", $read);
-               $read = ereg_replace(">", "]", $read);
+               $read = ereg_replace("<", "&lt;", $read);
+               $read = ereg_replace(">", "&gt;", $read);
                $subject[$subj_num] = substr($read, 8, strlen($read) - 9);
                $subj_num++;
             }
