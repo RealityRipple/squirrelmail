@@ -73,12 +73,12 @@ do_hook('logout_above_text');
 echo
 html_tag( 'table',
     html_tag( 'tr',
-         html_tag( 'td', '<b>'. _("Sign Out") . '</b>', 'center' ) ,
+         html_tag( 'th', _("Sign Out"), 'center' ) ,
     '', $color[0], 'width="100%"' ) .
     html_tag( 'tr',
          html_tag( 'td', _("You have been successfully signed out.") .
-             '<br><a href="login.php" target="' . $frame_to . '"><br>' .
-             _("Click here to log back in.") . '</a><br><br>' ,
+             '<br><a href="login.php" target="' . $frame_to . '">' .
+             _("Click here to log back in.") . '</a><br>' ,
          'center' ) ,
     '', $color[4], 'width="100%"' ) .
     html_tag( 'tr',
