@@ -443,9 +443,9 @@ class Message {
 
             $hdr->date = getTimeStamp($d); /* argument 1: date */
             $hdr->subject = $arg_a[1];     /* argument 2: subject */
-            $hdr->from = $arg_a[2][0];     /* argument 3: from        */
-            $hdr->sender = $arg_a[3][0];   /* argument 4: sender      */
-            $hdr->replyto = $arg_a[4][0];  /* argument 5: reply-to    */
+            $hdr->from = is_array($arg_a[2]) ? $arg_a[2][0] : '';     /* argument 3: from        */
+            $hdr->sender = is_array($arg_a[3]) ? $arg_a[3][0] : '';   /* argument 4: sender      */
+            $hdr->replyto = is_array($arg_a[4]) ? $arg_a[4][0] : '';  /* argument 5: reply-to    */
             $hdr->to = $arg_a[5];          /* argument 6: to          */
             $hdr->cc = $arg_a[6];          /* argument 7: cc          */
             $hdr->bcc = $arg_a[7];         /* argument 8: bcc         */

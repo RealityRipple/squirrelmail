@@ -33,7 +33,8 @@ Version 1.4.0 CVS
   - Fixed handling of encoding/decoding strings.
   - Fixed wrong array_slice call for a subset of the headers.
   - Allow encoded personal names in compose.php.
-  - Improved addresparsing from addresses coming from the compose form.
+  - Improved address parsing from addresses coming from the compose form.
+  - Fixed uninitialized indices when parsing attachments.
 
 Version 1.4.0 RC 2a
 -------------------
