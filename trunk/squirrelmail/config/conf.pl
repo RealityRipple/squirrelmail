@@ -503,7 +503,6 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM\n";
         print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
         print "\n";
-        print "S   Save data\n";
         print "R   Return to Main Menu\n";
     }
     if ( $config_use_color == 1 ) {
