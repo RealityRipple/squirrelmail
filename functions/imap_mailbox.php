@@ -184,7 +184,7 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox)
     $read_ary = sqimap_run_command($imap_stream, "DELETE \"$mailbox\"",
                                  TRUE, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
- //   do_hook("rename_or_delete_folder");
+  	do_hook_function("rename_or_delete_folder",$args = array($mailbox, 'delete', ''));
 }
 
 /***********************************************************************
@@ -222,7 +222,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                                  TRUE, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
-//        do_hook("rename_or_delete_folder");
+        do_hook_function("rename_or_delete_folder",$args = array($old_name, 'rename', $new_name));
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
         foreach ( $boxesall as $box ) {
@@ -235,7 +235,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                 }
                 sqimap_unsubscribe($imap_stream, $box[$p]);
                 sqimap_subscribe($imap_stream, $new_sub);
-            //    do_hook("rename_or_delete_folder");
+        		do_hook_function("rename_or_delete_folder",$args = array($box[$p], 'rename', $new_sub));
             }
         }
     }

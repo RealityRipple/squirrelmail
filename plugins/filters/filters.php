@@ -707,7 +707,10 @@ function filter_swap($id1, $id2) {
 
 /* This update the filter rules when
    renaming or deleting folders */
-function update_for_folder ($old_folder, $action, $new_folder = 'INBOX') {
+function update_for_folder ($args) {
+    $old_folder = $args[0];
+	$new_folder = $args[2];
+	$action = $args[1];
     global $plugins, $data_dir, $username;
     $filters = array();
     $filters = load_filters();
