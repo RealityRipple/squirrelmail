@@ -60,7 +60,8 @@ class rfc822_header
             {
                 $field = substr($line,0,$pos);
                 $value = trim(substr($line,$pos+1));
-                if(!preg_match('/^X.*/i',$field)) {
+                if(!preg_match('/^X.*/i',$field) &&
+                   !preg_match('/^Subject/i', $field)) {
                     $value = $this->stripComments($value);
                 }
                 $this->parseField($field,$value);
@@ -114,7 +115,7 @@ class rfc822_header
 	   $i++;    
 	}
         return $s;
-    }     
+    }
     
     function parseField($field,$value)
     {
