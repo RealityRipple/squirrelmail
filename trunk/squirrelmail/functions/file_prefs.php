@@ -78,7 +78,6 @@ function cachePrefValues($data_dir, $username) {
 function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
 
-    $result = '';
     $result = do_hook_function('get_pref_override',array($username,$string));
     if (!$result) {
 	cachePrefValues($data_dir, $username);
