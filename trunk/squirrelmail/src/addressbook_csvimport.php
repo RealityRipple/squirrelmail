@@ -34,16 +34,30 @@
       exit;
    }
 	if (!isset($config_php))
-      	   include("../config/config.php");
+      include("../config/config.php");
    if (!isset($i18n_php))
-	include("../functions/i18n.php");
+      include("../functions/i18n.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+   if (!isset($addressbook_php))
+      include("../functions/addressbook.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
 
-	include("../functions/page_header.php");
-	include("../functions/addressbook.php");
-	include("../src/load_prefs.php");
+   include("../src/load_prefs.php");
 
-	echo "<HTML BGCOLOR=\"$color[4]\">";
-	echo "<BODY BGCOLOR=\"$color[4]\" TEXT=\"$color[6]\" LINK=\"$color[11]\" VLINK=\"$color[6]\" ALINK=\"$color[11]\">\n";
+   displayPageHeader($color, "None");
+
+   if (!isset($smusercsv) || $smusercsv == "none") {
+      echo "<br><br>\n";
+      echo "<table align=\"center\">\n";
+      echo "   <tr>\n";
+      echo "      <td>" . _("Please select a file for uploading.  You can do this by clicking on the browse button on the ") . "<a href=\"addressbook.php\">" . _("Address Book") . "</a> " . _("page.") . "</td>\n";
+      echo "   </tr>\n";
+      echo "</table>\n";
+      echo "</body></html>\n";
+      exit;
+   }
 
    /** 
     ** Script-wide vars. Used all over the place or something you might want to change later.
