@@ -373,23 +373,47 @@ if ($showaddrlist) {
                                           html_tag( 'td', '&nbsp;<br>', 'center', '', 'colspan="5"' )
                                     ) ,
                              'center' );
-                }
-    
-                echo html_tag( 'table',
-                                html_tag( 'tr',
-                                    html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] )
-                                ) ,
-                        'center', '', 'width="95%"' ) ."\n" .
-		    "<!-- start of address book table -->\n" .
-            	  html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
-                      html_tag( 'tr', "\n" .
-                          html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) .
-                          html_tag( 'th', _("Nickname"), 'left', '', 'width="1%"' ) .
-                          html_tag( 'th', _("Name"), 'left', '', 'width="1%"' ) .
-                          html_tag( 'th', _("E-mail"), 'left', '', 'width="1%"' ) .
-                          html_tag( 'th', _("Info"), 'left', '', 'width="1%"' ) ,
+		    echo "\n<!-- start of address book table -->\n" .
+            		  html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
+			  html_tag( 'tr', "\n" .
+                            html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Nickname") .
+					  " <a href=\"$form_url?abook_sort=nickname\">".
+					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" alt=\"sort by nickname\" title=\"" .
+					  _("Click here to change the sorting of the address list") . 
+					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Name") . 
+					  " <a href=\"$form_url?abook_sort=name\">" .
+					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+					  "alt=\"sort by name\" title=\"" .
+					  _("Click here to change the sorting of the address list") . 
+					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("E-mail") . 
+					  " <a href=\"$form_url?abook_sort=email\">" .
+					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+					  "alt=\"sort by email\" title=\"" .
+					  _("Click here to change the sorting of the address list") . 
+					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Info") .
+					  " <a href=\"$form_url?abook_sort=label\">" .
+					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+					  "alt=\"sort by info\" title=\"" .
+					  _("Click here to change the sorting of the address list") . 
+					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n",
                       '', $color[9] ) . "\n";
-    
+                }
+
+		// Separate different backends with <hr />
+                if($prevbackend > 0) {
+                    echo  html_tag( 'tr',
+                        html_tag( 'td', "<hr />", 'center', '' ,'colspan="5"' )
+                      );
+		}
+		// Print backend name
+                echo  html_tag( 'tr',
+                        html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,'colspan="5"' )
+                      );
+
                 $line = 0;
                 $headerprinted = true;
             } /* End of header */
@@ -431,10 +455,10 @@ if ($showaddrlist) {
             html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
             "</tr>\n";
             $line++;
-	    echo "</table>\n".
-		"<!-- end of address book table -->\n";
         }
-    
+	echo "</table>" .
+	    "\n<!-- end of address book table -->\n";
+
         /* End of list. Add edit/delete select buttons */
         if ($headerprinted) {
             echo html_tag( 'table',
