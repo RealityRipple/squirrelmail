@@ -105,23 +105,32 @@ require_once(SM_PATH . 'include/load_prefs.php');
    <ul>
 <?php
     ShowTrad( 'Babelfish',
-              _("19 language pairs, maximum of 1000 characters translated, powered by Systran"),
+              _("Maximum of 1000 characters translated, powered by Systran").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"19")." " ,
               'http://babelfish.altavista.com/' );
 //    ShowTrad( 'Translator.Go.com',
 //              _("10 language pairs, maximum of 25 kilobytes translated, powered by Systran"),
 //              'http://translator.go.com/' );
     ShowTrad( 'Dictionary.com',
-              _("12 language pairs, no known limits, powered by Systran"),
+              _("No known limits, powered by Systran").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
               'http://www.dictionary.com/translate' );
     ShowTrad( 'InterTran',
-              _("784 language pairs, no known limits, powered by Translation Experts's InterTran"),
+              _("No known limits, powered by Translation Experts's InterTran").
+	      "<br>".sprintf(_("Number of supported languages: %s"),"28")." " ,
               'http://www.tranexp.com/' );
     ShowTrad( 'GPLTrans',
-              _("8 language pairs, no known limits, powered by GPLTrans (free, open source)"),
+              _("No known limits, powered by GPLTrans (free, open source)").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"8")." " ,
               'http://www.translator.cx/' );
     ShowTrad( 'OTEnet',
-              _("4 language pairs for Hellenic, no known limits, powered by Systran"),
+              _("Hellenic translations, no known limits, powered by Systran").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"4")." " ,
               'http://systran.otenet.gr/' );
+    ShowTrad( 'PROMT',
+              _("Russian translations, maximum of 500 characters translated").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+              'http://www.translate.ru/' );
 ?>
    </ul>
    <p>
@@ -140,6 +149,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     ShowOption('server', 'intertran', 'Intertran');
     ShowOption('server', 'gpltrans', 'GPLTrans');
     ShowOption('server', 'otenet', 'OTEnet');
+    ShowOption('server', 'promt', 'PROMT');
     echo '</select>' .
          '</td></tr>' .
          '<tr><td align=right nowrap>' .

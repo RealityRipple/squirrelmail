@@ -556,4 +556,74 @@ function translate_form_otenet($message) {
     translate_table_end();
 
 }
+
+function translate_form_promt($message) {
+    translate_new_form('http://www.translate.ru/text.asp#tr_form');
+    echo '<input type="hidden" name="status" value="translate">';
+    echo "<input type=\"hidden\" name=\"source\" value=\"$message\">";
+    echo _("Interface language")." : ";
+    echo "<select size=\"1\" name=\"lang\">\n";
+    echo "<option value=\"en\">" . _("English") . "</option>\n";
+    echo "<option value=\"ru\">" . _("Russian") . "</option>\n";
+    echo "<option value=\"de\">" . _("German") . "</option>\n";
+    echo "<option value=\"fr\">" . _("French") . "</option>\n";
+    echo "<option value=\"es\">" . _("Spanish") . "</option>\n";
+    echo "</select><br>\n";
+    echo _("Translation direction")." : ";
+    echo '<select size="1" id="direction" name="direction">';
+        echo translate_lang_opt('en',  'ru',  'er',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Russian"))) .
+             translate_lang_opt('ru',  'en',  're',
+                                sprintf( _("%s to %s"),
+                                         _("Russian"), 
+                                         _("English"))) .
+	     translate_lang_opt('de',  'ru',  'gr',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("Russian"))) .
+	     translate_lang_opt('ru',  'de',  'rg',
+                                sprintf( _("%s to %s"),
+                                         _("Russian"),
+                                         _("German"))) .
+	     translate_lang_opt('fr',  'ru',  'fr',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("Russian"))) .
+	     translate_lang_opt('ru',  'fr',  'rf',
+                                sprintf( _("%s to %s"),
+                                         _("Russian"),
+                                         _("French"))) .
+	     translate_lang_opt('es',  'ru',  'sr',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("Russian"))) .
+	     translate_lang_opt('it',  'ru',  'ir',
+                                sprintf( _("%s to %s"),
+                                         _("Italian"),
+                                         _("Russian"))) .
+	     translate_lang_opt('en',  'de',  'eg',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("German"))) .
+	     translate_lang_opt('de',  'en',  'ge',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("English"))) .
+	     translate_lang_opt('en',  'es',  'es',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Spanish"))) .
+	     translate_lang_opt('es',  'en',  'se',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("English"))) ;
+    echo "</select><br>\n";
+    echo "<input type=\"hidden\" name=\"template\" value=\"General\">\n";
+    echo 'PROMT: <input type="submit" value="' . _("Translate") . '">';
+
+    translate_table_end();
+}
+
 ?>
