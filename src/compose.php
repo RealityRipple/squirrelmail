@@ -333,6 +333,7 @@ if ($send) {
         $body = $newBody;
         do_hook('compose_send');
         $composeMessage=$compose_messages[$session];
+
 	$Result = sendMessage($composeMessage);
         if (! $Result) {
             showInputForm($session);
@@ -642,6 +643,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $body = getforwardHeader($orig_header) . $body;
             sqUnWordWrap($body);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+	    $body = "\n" . $body;
             break;
         case ('forward_as_attachment'):
             $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
