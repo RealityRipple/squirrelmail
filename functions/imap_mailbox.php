@@ -207,37 +207,35 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
 
     if ( $old_name <> $new_name ) {
 
-        global $delimiter;
+        global $delimiter, $imap_server_type;
 
         if ( substr( $old_name, -1 ) == $delimiter  ) {
             $old_name = substr( $old_name, 0, strlen( $old_name ) - 1 );
             $new_name = substr( $new_name, 0, strlen( $new_name ) - 1 );
             $postfix = $delimiter;
-            $boxesall = sqimap_mailbox_list($imap_stream);
         } else {
             $postfix = '';
-            $boxesall = FALSE;
         }
-
+        $boxesall = sqimap_mailbox_list($imap_stream);
         $cmd = 'RENAME "' . quoteIMAP($old_name) . '" "' .  quoteIMAP($new_name) . '"';
         $data = sqimap_run_command($imap_stream, $cmd,
                                  TRUE, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
-
-        if ( $boxesall ) {
-            // Sub-unsub subfolders
-            $l = strlen( $old_name ) + 1;
-            $p = 'unformatted';
-            foreach ( $boxesall as $box ) {
-                if ( substr( $box[$p], 0, $l ) == $old_name . $delimiter ) {
-                    sqimap_unsubscribe($imap_stream, $box[$p]);
-                    sqimap_subscribe($imap_stream,
-                                     $new_name . $delimiter . substr( $box[$p], $l ) );
+        $l = strlen( $old_name ) + 1;
+        $p = 'unformatted';
+        foreach ( $boxesall as $box ) {
+            if ( substr( $box[$p], 0, $l ) == $old_name . $delimiter ) {
+                $new_sub = $new_name . $delimiter . substr($box[$p], $l);
+                if ($imap_server_type == 'cyrus') {
+                    $cmd = 'RENAME "' . quoteIMAP($box[$p]) . '" "' .  quoteIMAP($new_sub) . '"';
+                    $data = sqimap_run_command($imap_stream, $cmd, TRUE, 
+                                               $response, $message);
                 }
+                sqimap_unsubscribe($imap_stream, $box[$p]);
+                sqimap_subscribe($imap_stream, $new_sub);
             }
         }
-
     }
 
 }
