@@ -123,6 +123,11 @@
       //    the 3 times it was getting called by calling the functions
       //    getHour, getMinute, and getSecond.
       //
+      if (! isset($dateParts[1])) $dateParts[1] = '';
+      if (! isset($dateParts[2])) $dateParts[2] = '';
+      if (! isset($dateParts[3])) $dateParts[3] = '';
+      if (! isset($dateParts[4])) $dateParts[4] = '';
+      if (! isset($dateParts[5])) $dateParts[5] = '';
       if (intval(trim($dateParts[0])) > 0) {
          $string = $dateParts[0] . ' ' . $dateParts[1] . ' ' . 
                    $dateParts[2] . ' ' . $dateParts[3];
