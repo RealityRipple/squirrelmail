@@ -39,7 +39,19 @@ $bob = getHashedFile($username, $data_dir, "username.pref");
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
-if( isset( $PG_SHOWNUM ) ) {
+global $PG_SHOWNUM;
+if (isset($PG_SHOWALL)) {
+    if ($PG_SHOWALL) {
+       $PG_SHOWNUM=999999;
+       $show_num=$PG_SHOWNUM;
+       session_register('PG_SHOWNUM');
+    }
+    else {
+       session_unregister('PG_SHOWNUM');
+       unset($PG_SHOWNUM);
+    }
+}
+else if( isset( $PG_SHOWNUM ) ) {
     $show_num = $PG_SHOWNUM;
 }
 
@@ -69,7 +81,7 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
 
 /* decide if we are thread sorting or not */
 global $allow_thread_sort;
-if ($allow_thread_sort == TRUE) {
+if ($allow_thread_sort == 'true') {
     if (isset($set_thread)) {
         if ($set_thread == 1) {
             setPref($data_dir, $username, "thread_$mailbox", 1);

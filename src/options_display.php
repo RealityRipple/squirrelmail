@@ -260,7 +260,7 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
-    if ($allow_thread_sort == 'TRUE') {
+    if ($allow_thread_sort == 'true') {
         $optvals[SMOPT_GRP_MESSAGE][] = array(
             'name'    => 'sort_by_ref',
             'caption' => _("Use References header for thread sort"),
