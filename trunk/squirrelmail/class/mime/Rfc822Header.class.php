@@ -469,7 +469,11 @@ class Rfc822Header {
                 if ($sHost && $oAddr->mailbox) {
                     $oAddr->host = $sHost;
                 }
-            }
+            } else if (!$grouplookup && !$oAddr->host) {
+                if ($sHost && $oAddr->mailbox) {
+                    $oAddr->host = $sHost;
+                }
+	    }
           }
           if (!$aAddrBookAddress && $oAddr->mailbox) {
               $aProcessedAddress[] = $oAddr;
