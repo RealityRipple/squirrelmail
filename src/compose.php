@@ -286,30 +286,33 @@
       }
    } else if (isset($attach)) {
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
-      $localfilename = $attachment_dir.$localfilename;
+      $localfilename = $localfilename;
       
       // Put the file in a better place
       error_reporting(0); // Rename will produce error output if it fails
-      if (!rename($attachfile, $localfilename)) {
-         if (!copy($attachfile, $localfilename)) {
+      if (!rename($attachfile, $attachment_dir.$localfilename)) {
+         if (!copy($attachfile, $attachment_dir.$localfilename)) {
             plain_error_message(_("Could not move/copy file. File not attached"));
+            $failed = true;
          }
       }
       // If it still exists, PHP will remove the original file
 
-      // Write information about the file
-      $fp = fopen ($localfilename.".info", "w");
-      fputs ($fp, "$attachfile_type\n$attachfile_name\n");
-      fclose ($fp);
+      if (!$failed) {
+         // Write information about the file
+         $fp = fopen ($attachment_dir.$localfilename.".info", "w");
+         fputs ($fp, "$attachfile_type\n$attachfile_name\n");
+         fclose ($fp);
 
-      $attachments[$localfilename] = $attachfile_name;
+         $attachments[$localfilename] = $attachfile_name;
+      }
       
       showInputForm();
    } else if (isset($do_delete)) {
       while (list($key, $localname) = each($delete)) {
          array_splice ($attachments, $localname, 1);
-         unlink ($localname);
-         unlink ($localname.".info");
+         unlink ($attachment_dir.$localname);
+         unlink ($attachment_dir.$localname.".info");
       }
 
       showInputForm();
