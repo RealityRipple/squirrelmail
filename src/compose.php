@@ -88,7 +88,7 @@ sqgetGlobalVar('do_delete',             $do_delete,             SQ_POST);
 sqgetGlobalVar('delete',                $delete,                SQ_POST);
 sqgetGlobalVar('restoremessages',       $restoremessages,       SQ_POST);
 if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
-  $html_addr_search_done = 'Use Addresses';
+    $html_addr_search_done = 'Use Addresses';
 }
 
 /** GET VARS */
@@ -97,12 +97,12 @@ sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
 /** get smaction */
 if ( !sqgetGlobalVar('smaction',$action) )
 {
-  if ( sqgetGlobalVar('smaction_reply',$tmp) )      $action = 'reply';
-  if ( sqgetGlobalVar('smaction_reply_all',$tmp) )  $action = 'reply_all';
-  if ( sqgetGlobalVar('smaction_forward',$tmp) )    $action = 'forward';
-  if ( sqgetGlobalVar('smaction_attache',$tmp) )    $action = 'forward_as_attachment';
-  if ( sqgetGlobalVar('smaction_draft',$tmp) )      $action = 'draft';
-  if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
+    if ( sqgetGlobalVar('smaction_reply',$tmp) )      $action = 'reply';
+    if ( sqgetGlobalVar('smaction_reply_all',$tmp) )  $action = 'reply_all';
+    if ( sqgetGlobalVar('smaction_forward',$tmp) )    $action = 'forward';
+    if ( sqgetGlobalVar('smaction_attache',$tmp) )    $action = 'forward_as_attachment';
+    if ( sqgetGlobalVar('smaction_draft',$tmp) )      $action = 'draft';
+    if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
 }
 
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */
@@ -113,49 +113,49 @@ $idents = get_identities();
 /* --------------------- Specific Functions ------------------------------ */
 
 function replyAllString($header) {
-   global $include_self_reply_all, $idents;
-   $excl_ar = array();
-   /**
-    * 1) Remove the addresses we'll be sending the message 'to'
-    */
-   $url_replytoall_avoid_addrs = '';
-   if (isset($header->replyto)) {
-      $excl_ar = $header->getAddr_a('replyto');
-   }
-   /**
-    * 2) Remove our identities from the CC list (they still can be in the
-    * TO list) only if $include_self_reply_all is turned off
-    */
-   if (!$include_self_reply_all) {
-       foreach($idents as $id) {
-           $excl_ar[strtolower(trim($id['email_address']))] = '';
+    global $include_self_reply_all, $idents;
+    $excl_ar = array();
+    /**
+     * 1) Remove the addresses we'll be sending the message 'to'
+     */
+    $url_replytoall_avoid_addrs = '';
+    if (isset($header->replyto)) {
+        $excl_ar = $header->getAddr_a('replyto');
+    }
+    /**
+     * 2) Remove our identities from the CC list (they still can be in the
+     * TO list) only if $include_self_reply_all is turned off
+     */
+    if (!$include_self_reply_all) {
+        foreach($idents as $id) {
+            $excl_ar[strtolower(trim($id['email_address']))] = '';
         }
-   }
+    }
 
-   /**
-    * 3) get the addresses.
-    */
-   $url_replytoall_ar = $header->getAddr_a(array('to','cc'), $excl_ar);
+    /**
+     * 3) get the addresses.
+     */
+    $url_replytoall_ar = $header->getAddr_a(array('to','cc'), $excl_ar);
 
-   /**
-    * 4) generate the string.
-    */
-   $url_replytoallcc = '';
-   foreach( $url_replytoall_ar as $email => $personal) {
-      if ($personal) {
-         // if personal name contains address separator then surround
-         // the personal name with double quotes.
-         if (strpos($personal,',') !== false) {
-             $personal = '"'.$personal.'"';
-         }
-         $url_replytoallcc .= ", $personal <$email>";
-      } else {
-         $url_replytoallcc .= ', '. $email;
-      }
-   }
-   $url_replytoallcc = substr($url_replytoallcc,2);
+    /**
+     * 4) generate the string.
+     */
+    $url_replytoallcc = '';
+    foreach( $url_replytoall_ar as $email => $personal) {
+        if ($personal) {
+            // if personal name contains address separator then surround
+            // the personal name with double quotes.
+            if (strpos($personal,',') !== false) {
+                $personal = '"'.$personal.'"';
+            }
+            $url_replytoallcc .= ", $personal <$email>";
+        } else {
+            $url_replytoallcc .= ', '. $email;
+        }
+    }
+    $url_replytoallcc = substr($url_replytoallcc,2);
 
-   return $url_replytoallcc;
+    return $url_replytoallcc;
 }
 
 function getReplyCitation($orig_from, $orig_date) {
@@ -174,25 +174,25 @@ function getReplyCitation($orig_from, $orig_date) {
 
     /* Otherwise, try to select the desired citation style. */
     switch ($reply_citation_style) {
-    case 'author_said':
-        $start = '';
-        $end   = ' ' . _("said") . ':';
-        break;
-    case 'quote_who':
-        $start = '<' . _("quote") . ' ' . _("who") . '="';
-        $end   = '">';
-        break;
-    case 'date_time_author':
-        $start = 'On ' . getLongDateString($orig_date) . ', ';
-        $end = ' ' . _("said") . ':';
-        break;
-    case 'user-defined':
-        $start = $reply_citation_start .
-         ($reply_citation_start == '' ? '' : ' ');
-        $end   = $reply_citation_end;
-        break;
-    default:
-        return '';
+        case 'author_said':
+            $start = '';
+            $end   = ' ' . _("said") . ':';
+            break;
+        case 'quote_who':
+            $start = '<' . _("quote") . ' ' . _("who") . '="';
+            $end   = '">';
+            break;
+        case 'date_time_author':
+            $start = 'On ' . getLongDateString($orig_date) . ', ';
+            $end = ' ' . _("said") . ':';
+            break;
+        case 'user-defined':
+            $start = $reply_citation_start .
+                ($reply_citation_start == '' ? '' : ' ');
+            $end   = $reply_citation_end;
+            break;
+        default:
+            return '';
     }
 
     /* Build and return the citation string. */
@@ -202,35 +202,35 @@ function getReplyCitation($orig_from, $orig_date) {
 function getforwardHeader($orig_header) {
     global $editor_size;
 
-   $display = array( _("Subject") => strlen(_("Subject")),
-                     _("From")    => strlen(_("From")),
-                     _("Date")    => strlen(_("Date")),
-                     _("To")      => strlen(_("To")),
-                     _("Cc")      => strlen(_("Cc")) );
-   $maxsize = max($display);
-   $indent = str_pad('',$maxsize+2);
-   foreach($display as $key => $val) {
-      $display[$key] = $key .': '. str_pad('', $maxsize - $val);
-   }
-   $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false,true);
-   $from = str_replace('&nbsp;',' ',$from);
-   $to = decodeHeader($orig_header->getAddr_s('to',"\n$indent"),false,false,true);
-   $to = str_replace('&nbsp;',' ',$to);
-   $subject = decodeHeader($orig_header->subject,false,false,true);
-   $subject = str_replace('&nbsp;',' ',$subject);
-   $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH) .
-               "\n". $display[_("Subject")] . $subject . "\n" .
-               $display[_("From")] . $from . "\n" .
-               $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
-               $display[_("To")] . $to . "\n";
-   if ($orig_header->cc != array() && $orig_header->cc !='') {
-      $cc = decodeHeader($orig_header->getAddr_s('cc',"\n$indent"),false,false,true);
-      $cc = str_replace('&nbsp;',' ',$cc);
-     $bodyTop .= $display[_("Cc")] .$cc . "\n";
-  }
-  $bodyTop .= str_pad('', $editor_size -2 , '-') .
-              "\n\n";
-  return $bodyTop;
+    $display = array( _("Subject") => strlen(_("Subject")),
+            _("From")    => strlen(_("From")),
+            _("Date")    => strlen(_("Date")),
+            _("To")      => strlen(_("To")),
+            _("Cc")      => strlen(_("Cc")) );
+    $maxsize = max($display);
+    $indent = str_pad('',$maxsize+2);
+    foreach($display as $key => $val) {
+        $display[$key] = $key .': '. str_pad('', $maxsize - $val);
+    }
+    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false,true);
+    $from = str_replace('&nbsp;',' ',$from);
+    $to = decodeHeader($orig_header->getAddr_s('to',"\n$indent"),false,false,true);
+    $to = str_replace('&nbsp;',' ',$to);
+    $subject = decodeHeader($orig_header->subject,false,false,true);
+    $subject = str_replace('&nbsp;',' ',$subject);
+    $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH) .
+        "\n". $display[_("Subject")] . $subject . "\n" .
+        $display[_("From")] . $from . "\n" .
+        $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
+        $display[_("To")] . $to . "\n";
+    if ($orig_header->cc != array() && $orig_header->cc !='') {
+        $cc = decodeHeader($orig_header->getAddr_s('cc',"\n$indent"),false,false,true);
+        $cc = str_replace('&nbsp;',' ',$cc);
+        $bodyTop .= $display[_("Cc")] .$cc . "\n";
+    }
+    $bodyTop .= str_pad('', $editor_size -2 , '-') .
+        "\n\n";
+    return $bodyTop;
 }
 /* ----------------------------------------------------------------------- */
 
@@ -290,18 +290,18 @@ if (!isset($session) || (isset($newmessage) && $newmessage)) {
     sqsession_register($composesession,'composesession');
 }
 if (!isset($compose_messages)) {
-  $compose_messages = array();
+    $compose_messages = array();
 }
 if (!isset($compose_messages[$session]) || ($compose_messages[$session] == NULL)) {
-/* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
-  $composeMessage = new Message();
-  $rfc822_header = new Rfc822Header();
-  $composeMessage->rfc822_header = $rfc822_header;
-  $composeMessage->reply_rfc822_header = '';
-  $compose_messages[$session] = $composeMessage;
-  sqsession_register($compose_messages,'compose_messages');
+    /* if (!array_key_exists($session, $compose_messages)) {  /* We can only do this in PHP >= 4.1 */
+    $composeMessage = new Message();
+    $rfc822_header = new Rfc822Header();
+    $composeMessage->rfc822_header = $rfc822_header;
+    $composeMessage->reply_rfc822_header = '';
+    $compose_messages[$session] = $composeMessage;
+    sqsession_register($compose_messages,'compose_messages');
 } else {
-  $composeMessage=$compose_messages[$session];
+    $composeMessage=$compose_messages[$session];
 }
 
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
@@ -324,7 +324,7 @@ if ($draft) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
-                   "&message=$delete_draft&startMessage=1&saved_draft=yes");
+                    "&message=$delete_draft&startMessage=1&saved_draft=yes");
             exit();
         }
         else {
@@ -334,7 +334,7 @@ if ($draft) {
             }
             else {
                 Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
-                       "&startMessage=1&note=".urlencode($draft_message));
+                        "&startMessage=1&note=".urlencode($draft_message));
                 exit();
             }
         }
@@ -343,15 +343,15 @@ if ($draft) {
 
 if ($send) {
     if (isset($_FILES['attachfile']) &&
-        $_FILES['attachfile']['tmp_name'] &&
-        $_FILES['attachfile']['tmp_name'] != 'none') {
+            $_FILES['attachfile']['tmp_name'] &&
+            $_FILES['attachfile']['tmp_name'] != 'none') {
         $AttachFailure = saveAttachedFiles($session);
     }
     if (checkInput(false) && !isset($AttachFailure)) {
-                if ($mailbox == "All Folders") {
-                        /* We entered compose via the search results page */
-                        $mailbox="INBOX"; /* Send 'em to INBOX, that's safe enough */
-                }
+        if ($mailbox == "All Folders") {
+            /* We entered compose via the search results page */
+            $mailbox="INBOX"; /* Send 'em to INBOX, that's safe enough */
+        }
         $urlMailbox = urlencode (trim($mailbox));
         if (! isset($passed_id)) {
             $passed_id = 0;
@@ -375,7 +375,7 @@ if ($send) {
         $newBody = '';
         foreach ($body as $line) {
             if( $line <> '-- ' ) {
-               $line = rtrim($line);
+                $line = rtrim($line);
             }
             if (strlen($line) <= $editor_size + 1) {
                 $newBody .= $line . "\n";
@@ -398,7 +398,7 @@ if ($send) {
         unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                   "&message=$delete_draft&startMessage=1&mail_sent=yes");
+                    "&message=$delete_draft&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
@@ -407,7 +407,7 @@ if ($send) {
         }
         else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                   "&startMessage=$startMessage&mail_sent=yes");
+                    "&startMessage=$startMessage&mail_sent=yes");
         }
     } else {
         if ($compose_new_win == '1') {
@@ -417,20 +417,20 @@ if ($send) {
             displayPageHeader($color, $mailbox);
         }
         if (isset($AttachFailure)) {
-             plain_error_message(_("Could not move/copy file. File not attached"),
-                                 $color);
+            plain_error_message(_("Could not move/copy file. File not attached"),
+                    $color);
         }
         checkInput(true);
         showInputForm($session);
         /* sqimap_logout($imapConnection); */
     }
 } elseif (isset($html_addr_search_done)) {
-        if ($compose_new_win == '1') {
-            compose_Header($color, $mailbox);
-        }
-        else {
-            displayPageHeader($color, $mailbox);
-        }
+    if ($compose_new_win == '1') {
+        compose_Header($color, $mailbox);
+    }
+    else {
+        displayPageHeader($color, $mailbox);
+    }
 
     if (isset($send_to_search) && is_array($send_to_search)) {
         foreach ($send_to_search as $k => $v) {
@@ -457,8 +457,8 @@ if ($send) {
     showInputForm($session);
 } elseif (isset($html_addr_search)) {
     if (isset($_FILES['attachfile']) &&
-        $_FILES['attachfile']['tmp_name'] &&
-        $_FILES['attachfile']['tmp_name'] != 'none') {
+            $_FILES['attachfile']['tmp_name'] &&
+            $_FILES['attachfile']['tmp_name'] != 'none') {
         if(saveAttachedFiles($session)) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
         }
@@ -472,12 +472,11 @@ if ($send) {
     if (saveAttachedFiles($session)) {
         plain_error_message(_("Could not move/copy file. File not attached"), $color);
     }
-        if ($compose_new_win == '1') {
-            compose_Header($color, $mailbox);
-        }
-        else {
-            displayPageHeader($color, $mailbox);
-        }
+    if ($compose_new_win == '1') {
+        compose_Header($color, $mailbox);
+    } else {
+        displayPageHeader($color, $mailbox);
+    }
     showInputForm($session);
 }
 elseif (isset($sigappend)) {
@@ -485,18 +484,17 @@ elseif (isset($sigappend)) {
 
     $body .= "\n\n".($prefix_sig==true? "-- \n":'').$signature;
     if ($compose_new_win == '1') {
-         compose_Header($color, $mailbox);
+        compose_Header($color, $mailbox);
     } else {
         displayPageHeader($color, $mailbox);
     }
     showInputForm($session);
 } elseif (isset($do_delete)) {
-        if ($compose_new_win == '1') {
-            compose_Header($color, $mailbox);
-        }
-        else {
-            displayPageHeader($color, $mailbox);
-        }
+    if ($compose_new_win == '1') {
+        compose_Header($color, $mailbox);
+    } else {
+        displayPageHeader($color, $mailbox);
+    }
 
     if (isset($delete) && is_array($delete)) {
         $composeMessage = $compose_messages[$session];
@@ -521,9 +519,9 @@ elseif (isset($sigappend)) {
      */
 
     if ($compose_new_win == '1') {
-       compose_Header($color, $mailbox);
+        compose_Header($color, $mailbox);
     } else {
-       displayPageHeader($color, $mailbox);
+        displayPageHeader($color, $mailbox);
     }
 
     $newmail = true;
@@ -545,16 +543,16 @@ elseif (isset($sigappend)) {
 
     /* in case the origin is not read_body.php */
     if (isset($send_to)) {
-       $values['send_to'] = $send_to;
+        $values['send_to'] = $send_to;
     }
     if (isset($send_to_cc)) {
-       $values['send_to_cc'] = $send_to_cc;
+        $values['send_to_cc'] = $send_to_cc;
     }
     if (isset($send_to_bcc)) {
-       $values['send_to_bcc'] = $send_to_bcc;
+        $values['send_to_bcc'] = $send_to_bcc;
     }
     if (isset($subject)) {
-       $values['subject'] = $subject;
+        $values['subject'] = $subject;
     }
     showInputForm($session, $values);
 }
@@ -566,8 +564,8 @@ exit();
 function getforwardSubject($subject)
 {
     if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
-        (substr(strtolower($subject), 0, 5) != '[fwd:') &&
-        (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
+            (substr(strtolower($subject), 0, 5) != '[fwd:') &&
+            (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
         $subject = '[Fwd: ' . $subject . ']';
     }
     return $subject;
@@ -576,9 +574,9 @@ function getforwardSubject($subject)
 /* This function is used when not sending or adding attachments */
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body, $idents,
-           $use_signature, $composesession, $data_dir, $username,
-           $username, $key, $imapServerAddress, $imapPort, $compose_messages,
-           $composeMessage, $body_quote;
+        $use_signature, $composesession, $data_dir, $username,
+        $username, $key, $imapServerAddress, $imapPort, $compose_messages,
+        $composeMessage, $body_quote;
     global $languages, $squirrelmail_language, $default_charset;
 
     /*
@@ -593,7 +591,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
     if ($passed_id) {
         $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-        $imapPort, 0);
+                $imapPort, 0);
 
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
@@ -603,15 +601,15 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             /* redefine the messsage in case of message/rfc822 */
             $message = $message->getEntity($passed_ent_id);
             /* message is an entity which contains the envelope and type0=message
-            * and type1=rfc822. The actual entities are childs from
-            * $message->entities[0]. That's where the encoding and is located
-            */
+             * and type1=rfc822. The actual entities are childs from
+             * $message->entities[0]. That's where the encoding and is located
+             */
 
             $entities = $message->entities[0]->findDisplayEntity
-            (array(), $alt_order = array('text/plain'));
+                (array(), $alt_order = array('text/plain'));
             if (!count($entities)) {
                 $entities = $message->entities[0]->findDisplayEntity
-                (array(), $alt_order = array('text/plain','html/plain'));
+                    (array(), $alt_order = array('text/plain','html/plain'));
             }
             $orig_header = $message->rfc822_header; /* here is the envelope located */
             /* redefine the message for picking up the attachments */
@@ -635,7 +633,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $unencoded_bodypart = mime_fetch_body($imapConnection, $passed_id, $ent);
             $body_part_entity = $message->getEntity($ent);
             $bodypart = decodeBody($unencoded_bodypart,
-            $body_part_entity->header->encoding);
+                    $body_part_entity->header->encoding);
             if ($type1 == 'html') {
                 $bodypart = str_replace("\n", ' ', $bodypart);
                 $bodypart = preg_replace(array('/<\/?p>/i','/<div><\/div>/i','/<br\s*(\/)*>/i','/<\/?div>/i'), "\n", $bodypart);
@@ -643,21 +641,21 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $bodypart = strip_tags($bodypart);
             }
             if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-                function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
+                    function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
                 if (mb_detect_encoding($bodypart) != 'ASCII') {
                     $bodypart = call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode', $bodypart);
                 }
             }
 
-        if (isset($body_part_entity->header->parameters['charset'])) {
-            $actual = $body_part_entity->header->parameters['charset'];
-        } else {
-            $actual = 'us-ascii';
-        }
+            if (isset($body_part_entity->header->parameters['charset'])) {
+                $actual = $body_part_entity->header->parameters['charset'];
+            } else {
+                $actual = 'us-ascii';
+            }
 
-        if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
-          $bodypart = charset_convert($actual,$bodypart,$default_charset,false);
-        }
+            if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
+                $bodypart = charset_convert($actual,$bodypart,$default_charset,false);
+            }
 
             $body .= $bodypart;
         }
@@ -702,112 +700,112 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         }
 
         switch ($action) {
-        case ('draft'):
-            $use_signature = FALSE;
-            $composeMessage->rfc822_header = $orig_header;
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
-            $send_from = $orig_header->getAddr_s('from');
-            $send_from_parts = new AddressStructure();
-            $send_from_parts = $orig_header->parseAddress($send_from);
-            $send_from_add = $send_from_parts->mailbox . '@' . $send_from_parts->host;
-            $identities = get_identities();
-            if (count($identities) > 0) {
-                foreach($identities as $iddata) {
-                    if ($send_from_add == $iddata['email_address']) {
-                        $identity = $iddata['index'];
-                        break;
+            case ('draft'):
+                $use_signature = FALSE;
+                $composeMessage->rfc822_header = $orig_header;
+                $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
+                $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
+                $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
+                $send_from = $orig_header->getAddr_s('from');
+                $send_from_parts = new AddressStructure();
+                $send_from_parts = $orig_header->parseAddress($send_from);
+                $send_from_add = $send_from_parts->mailbox . '@' . $send_from_parts->host;
+                $identities = get_identities();
+                if (count($identities) > 0) {
+                    foreach($identities as $iddata) {
+                        if ($send_from_add == $iddata['email_address']) {
+                            $identity = $iddata['index'];
+                            break;
+                        }
                     }
                 }
-            }
-            $subject = decodeHeader($orig_header->subject,false,false,true);
-            ///* remember the references and in-reply-to headers in case of an reply */
-            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
-            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
-            //rewrap the body to clean up quotations and line lengths
-            sqBodyWrap($body, $editor_size);
-            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
-            break;
-        case ('edit_as_new'):
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
-            $subject = decodeHeader($orig_header->subject,false,false,true);
-            $mailprio = $orig_header->priority;
-            $orig_from = '';
-            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
-            //rewrap the body to clean up quotations and line lengths
-            sqBodyWrap($body, $editor_size);
-            break;
-        case ('forward'):
-            $send_to = '';
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
-            $body = getforwardHeader($orig_header) . $body;
-            // the logic for calling sqUnWordWrap here would be to allow the browser to wrap the lines
-            // forwarded message text should be as undisturbed as possible, so commenting out this call
-            // sqUnWordWrap($body);
-            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
-            //add a blank line after the forward headers
-            $body = "\n" . $body;
-            break;
-        case ('forward_as_attachment'):
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
-            $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
-            $body = '';
-            break;
-        case ('reply_all'):
-            if(isset($orig_header->mail_followup_to) && $orig_header->mail_followup_to) {
-                $send_to = $orig_header->getAddr_s('mail_followup_to');
-            } else {
-                $send_to_cc = replyAllString($orig_header);
-                $send_to_cc = decodeHeader($send_to_cc,false,false,true);
-            }
-        case ('reply'):
-            // skip this if send_to was already set right above here
-            if(!$send_to) {
-                $send_to = $orig_header->reply_to;
-                if (is_array($send_to) && count($send_to)) {
-                    $send_to = $orig_header->getAddr_s('reply_to');
-                } else if (is_object($send_to)) { /* unneccesarry, just for failsafe purpose */
-                    $send_to = $orig_header->getAddr_s('reply_to');
+                $subject = decodeHeader($orig_header->subject,false,false,true);
+                /* remember the references and in-reply-to headers in case of an reply */
+                $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
+                $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
+                // rewrap the body to clean up quotations and line lengths
+                sqBodyWrap($body, $editor_size);
+                $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+                break;
+            case ('edit_as_new'):
+                $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
+                $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
+                $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
+                $subject = decodeHeader($orig_header->subject,false,false,true);
+                $mailprio = $orig_header->priority;
+                $orig_from = '';
+                $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+                // rewrap the body to clean up quotations and line lengths
+                sqBodyWrap($body, $editor_size);
+                break;
+            case ('forward'):
+                $send_to = '';
+                $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
+                $body = getforwardHeader($orig_header) . $body;
+                // the logic for calling sqUnWordWrap here would be to allow the browser to wrap the lines
+                // forwarded message text should be as undisturbed as possible, so commenting out this call
+                // sqUnWordWrap($body);
+                $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
+                //add a blank line after the forward headers
+                $body = "\n" . $body;
+                break;
+            case ('forward_as_attachment'):
+                $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
+                $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
+                $body = '';
+                break;
+            case ('reply_all'):
+                if(isset($orig_header->mail_followup_to) && $orig_header->mail_followup_to) {
+                    $send_to = $orig_header->getAddr_s('mail_followup_to');
                 } else {
-                    $send_to = $orig_header->getAddr_s('from');
+                    $send_to_cc = replyAllString($orig_header);
+                    $send_to_cc = decodeHeader($send_to_cc,false,false,true);
                 }
-            }
-            $send_to = decodeHeader($send_to,false,false,true);
-            $subject = decodeHeader($orig_header->subject,false,false,true);
-            $subject = str_replace('"', "'", $subject);
-            $subject = trim($subject);
-            if (substr(strtolower($subject), 0, 3) != 're:') {
-                $subject = 'Re: ' . $subject;
-            }
-            /* this corrects some wrapping/quoting problems on replies */
-            $rewrap_body = explode("\n", $body);
-            $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
-            $body = '';
-            $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
-            foreach ($rewrap_body as $line) {
-                if ($strip_sigs && substr($line,0,3) == '-- ') {
-            break;
+            case ('reply'):
+                // skip this if send_to was already set right above here
+                if(!$send_to) {
+                    $send_to = $orig_header->reply_to;
+                    if (is_array($send_to) && count($send_to)) {
+                        $send_to = $orig_header->getAddr_s('reply_to');
+                    } else if (is_object($send_to)) { /* unneccesarry, just for failsafe purpose */
+                        $send_to = $orig_header->getAddr_s('reply_to');
+                    } else {
+                        $send_to = $orig_header->getAddr_s('from');
+                    }
                 }
-                if (preg_match("/^(>+)/", $line, $matches)) {
-                    $gt = $matches[1];
-                    $body .= $body_quote . str_replace("\n", "\n$body_quote$gt ", rtrim($line)) ."\n";
-                } else {
-                    $body .= $body_quote . (!empty($body_quote) ? ' ' : '') . str_replace("\n", "\n$body_quote" . (!empty($body_quote) ? ' ' : ''), rtrim($line)) . "\n";
+                $send_to = decodeHeader($send_to,false,false,true);
+                $subject = decodeHeader($orig_header->subject,false,false,true);
+                $subject = str_replace('"', "'", $subject);
+                $subject = trim($subject);
+                if (substr(strtolower($subject), 0, 3) != 're:') {
+                    $subject = 'Re: ' . $subject;
                 }
-            }
+                /* this corrects some wrapping/quoting problems on replies */
+                $rewrap_body = explode("\n", $body);
+                $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
+                $body = '';
+                $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
+                foreach ($rewrap_body as $line) {
+                    if ($strip_sigs && substr($line,0,3) == '-- ') {
+                        break;
+                    }
+                    if (preg_match("/^(>+)/", $line, $matches)) {
+                        $gt = $matches[1];
+                        $body .= $body_quote . str_replace("\n", "\n$body_quote$gt ", rtrim($line)) ."\n";
+                    } else {
+                        $body .= $body_quote . (!empty($body_quote) ? ' ' : '') . str_replace("\n", "\n$body_quote" . (!empty($body_quote) ? ' ' : ''), rtrim($line)) . "\n";
+                    }
+                }
 
-            //rewrap the body to clean up quotations and line lengths
-            $body = sqBodyWrap ($body, $editor_size);
+                //rewrap the body to clean up quotations and line lengths
+                $body = sqBodyWrap ($body, $editor_size);
 
-            $body = getReplyCitation($from , $orig_header->date) . $body;
-            $composeMessage->reply_rfc822_header = $orig_header;
+                $body = getReplyCitation($from , $orig_header->date) . $body;
+                $composeMessage->reply_rfc822_header = $orig_header;
 
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
         $compose_messages[$session] = $composeMessage;
         sqsession_register($compose_messages, 'compose_messages');
@@ -815,12 +813,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         sqimap_logout($imapConnection);
     }
     $ret = array( 'send_to' => $send_to,
-                  'send_to_cc' => $send_to_cc,
-                  'send_to_bcc' => $send_to_bcc,
-                  'subject' => $subject,
-                  'mailprio' => $mailprio,
-                  'body' => $body,
-                  'identity' => $identity );
+            'send_to_cc' => $send_to_cc,
+            'send_to_bcc' => $send_to_bcc,
+            'subject' => $subject,
+            'mailprio' => $mailprio,
+            'body' => $body,
+            'identity' => $identity );
 
     return ($ret);
 } /* function newMail() */
@@ -829,49 +827,49 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
     global $attachment_dir, $username, $data_dir, $squirrelmail_language;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!count($message->entities) ||
-       ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
+            ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
         if ( !in_array($message->entity_id, $entities) && $message->entity_id) {
-           switch ($message->type0) {
-           case 'message':
-                if ($message->type1 == 'rfc822') {
-                    $filename = $message->rfc822_header->subject;
-                    if ($filename == "") {
-                        $filename = "untitled-".$message->entity_id;
+            switch ($message->type0) {
+                case 'message':
+                    if ($message->type1 == 'rfc822') {
+                        $filename = $message->rfc822_header->subject;
+                        if ($filename == "") {
+                            $filename = "untitled-".$message->entity_id;
+                        }
+                        $filename .= '.msg';
+                    } else {
+                        $filename = $message->getFilename();
                     }
-                    $filename .= '.msg';
-                 } else {
-                   $filename = $message->getFilename();
-                 }
-             break;
-           default:
-             if (!$message->mime_header) { /* temporary hack */
-                 $message->mime_header = $message->header;
-             }
-             $filename = $message->getFilename();
-             break;
-           }
-           $filename = str_replace('&#32;', ' ', decodeHeader($filename));
-           if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-               function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
+                    break;
+                default:
+                    if (!$message->mime_header) { /* temporary hack */
+                        $message->mime_header = $message->header;
+                    }
+                    $filename = $message->getFilename();
+                    break;
+            }
+            $filename = str_replace('&#32;', ' ', decodeHeader($filename));
+            if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+                    function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode')) {
                 $filename =  call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_encode', $filename);
-           }
-           $localfilename = GenerateRandomString(32, '', 7);
-           $full_localfilename = "$hashed_attachment_dir/$localfilename";
-           while (file_exists($full_localfilename)) {
-               $localfilename = GenerateRandomString(32, '', 7);
-               $full_localfilename = "$hashed_attachment_dir/$localfilename";
-           }
-           $message->att_local_name = $full_localfilename;
+            }
+            $localfilename = GenerateRandomString(32, '', 7);
+            $full_localfilename = "$hashed_attachment_dir/$localfilename";
+            while (file_exists($full_localfilename)) {
+                $localfilename = GenerateRandomString(32, '', 7);
+                $full_localfilename = "$hashed_attachment_dir/$localfilename";
+            }
+            $message->att_local_name = $full_localfilename;
 
-       $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename,
-             $full_localfilename);
+            $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename,
+                    $full_localfilename);
 
-           /* Write Attachment to file */
-           $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
-           fputs($fp, decodeBody(mime_fetch_body($imapConnection,
-              $passed_id, $message->entity_id),
-              $message->header->encoding));
-           fclose ($fp);
+            /* Write Attachment to file */
+            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
+            fputs($fp, decodeBody(mime_fetch_body($imapConnection,
+                            $passed_id, $message->entity_id),
+                        $message->header->encoding));
+            fclose ($fp);
         }
     } else {
         for ($i=0, $entCount=count($message->entities); $i<$entCount;$i++) {
@@ -882,18 +880,18 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
 }
 
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
-                                      $passed_ent_id='', $imapConnection) {
+        $passed_ent_id='', $imapConnection) {
     global $attachments, $attachment_dir, $username, $data_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection,
-                                    'FETCH '.$passed_id.' RFC822',
-                                    TRUE, $response, $readmessage,
-                                    TRUE);
+                'FETCH '.$passed_id.' RFC822',
+                TRUE, $response, $readmessage,
+                TRUE);
     } else {
         $body_a = sqimap_run_command($imapConnection,
-                                     'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
-                                     TRUE, $response, $readmessage, TRUE);
+                'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
+                TRUE, $response, $readmessage, TRUE);
         $message = $message->parent;
     }
     if ($response == 'OK') {
@@ -909,50 +907,50 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
         fwrite ($fp, $body);
         fclose($fp);
         $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
-                         $full_localfilename);
+                $full_localfilename);
     }
     return $composeMessage;
 }
 
 function showInputForm ($session, $values=false) {
     global $send_to, $send_to_cc, $body, $startMessage,
-           $passed_body, $color, $use_signature, $signature, $prefix_sig,
-           $editor_size, $editor_height, $attachments, $subject, $newmail,
-           $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
-           $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-           $username, $data_dir, $identity, $idents, $draft_id, $delete_draft,
-           $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
-           $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action,
-           $username, $compose_messages, $composesession, $default_charset;
+        $passed_body, $color, $use_signature, $signature, $prefix_sig,
+        $editor_size, $editor_height, $attachments, $subject, $newmail,
+        $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
+        $from_htmladdr_search, $location_of_buttons, $attachment_dir,
+        $username, $data_dir, $identity, $idents, $draft_id, $delete_draft,
+        $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
+        $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action,
+        $username, $compose_messages, $composesession, $default_charset;
 
     $composeMessage = $compose_messages[$session];
     if ($values) {
-       $send_to = $values['send_to'];
-       $send_to_cc = $values['send_to_cc'];
-       $send_to_bcc = $values['send_to_bcc'];
-       $subject = $values['subject'];
-       $mailprio = $values['mailprio'];
-       $body = $values['body'];
-       $identity = (int) $values['identity'];
+        $send_to = $values['send_to'];
+        $send_to_cc = $values['send_to_cc'];
+        $send_to_bcc = $values['send_to_bcc'];
+        $subject = $values['subject'];
+        $mailprio = $values['mailprio'];
+        $body = $values['body'];
+        $identity = (int) $values['identity'];
     } else {
-       $send_to = decodeHeader($send_to, true, false);
-       $send_to_cc = decodeHeader($send_to_cc, true, false);
-       $send_to_bcc = decodeHeader($send_to_bcc, true, false);
+        $send_to = decodeHeader($send_to, true, false);
+        $send_to_cc = decodeHeader($send_to_cc, true, false);
+        $send_to_bcc = decodeHeader($send_to_bcc, true, false);
     }
 
     if ($use_javascript_addr_book) {
         echo "\n". '<script language="JavaScript">'."\n<!--\n" .
-             'function open_abook() { ' . "\n" .
-             '  var nwin = window.open("addrbook_popup.php","abookpopup",' .
-             '"width=670,height=300,resizable=yes,scrollbars=yes");' . "\n" .
-             '  if((!nwin.opener) && (document.windows != null))' . "\n" .
-             '    nwin.opener = document.windows;' . "\n" .
-             "}\n" .
-             "// -->\n</script>\n\n";
+            'function open_abook() { ' . "\n" .
+            '  var nwin = window.open("addrbook_popup.php","abookpopup",' .
+            '"width=670,height=300,resizable=yes,scrollbars=yes");' . "\n" .
+            '  if((!nwin.opener) && (document.windows != null))' . "\n" .
+            '    nwin.opener = document.windows;' . "\n" .
+            "}\n" .
+            "// -->\n</script>\n\n";
     }
 
     echo "\n" . '<form name="compose" action="compose.php" method="post" ' .
-         'enctype="multipart/form-data"';
+        'enctype="multipart/form-data"';
     do_hook('compose_form');
 
     echo ">\n";
@@ -982,7 +980,9 @@ function showInputForm ($session, $values=false) {
     echo '<table align="center" cellspacing="0" border="0">' . "\n";
     if ($compose_new_win == '1') {
         echo '<table align="center" bgcolor="'.$color[0].'" width="100%" border="0">'."\n" .
-             '   <tr><td></td>'. html_tag( 'td', '', 'right' ) . '<input type="button" name="Close" onClick="return self.close()" value="'._("Close").'" /></td></tr>'."\n";
+            '   <tr><td></td>'.html_tag( 'td', '', 'right' ).
+            '<input type="button" name="Close" onClick="return self.close()" value="'.
+            _("Close").'" /></td></tr>'."\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -990,50 +990,50 @@ function showInputForm ($session, $values=false) {
 
     /* display select list for identities */
     if (count($idents) > 1) {
-      $ident_list = array();
-      foreach($idents as $id => $data) {
-        $ident_list[$id] =
-          $data['full_name'].' <'.$data['email_address'].'>';
-      }
+        $ident_list = array();
+        foreach($idents as $id => $data) {
+            $ident_list[$id] =
+                $data['full_name'].' <'.$data['email_address'].'>';
+        }
         echo '   <tr>' . "\n" .
-                    html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-                    _("From:") . '</td>' . "\n" .
-                    html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-              '         '.
-              addSelect('identity', $ident_list, $identity, TRUE);
+            html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
+            _("From:") . '</td>' . "\n" .
+            html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
+            '         '.
+            addSelect('identity', $ident_list, $identity, TRUE);
 
         echo '      </td>' . "\n" .
-             '   </tr>' . "\n";
+            '   </tr>' . "\n";
     }
 
     echo '   <tr>' . "\n" .
-                html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-                _("To") . ':</td>' . "\n" .
-                html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-                addInput('send_to', $send_to, 60). '<br />' . "\n" .
-         '      </td>' . "\n" .
-         '   </tr>' . "\n" .
-         '   <tr>' . "\n" .
-                html_tag( 'td', '', 'right', $color[4] ) .
-                _("Cc") . ':</td>' . "\n" .
-                html_tag( 'td', '', 'left', $color[4] ) .
-                addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
-         '      </td>' . "\n" .
-         '   </tr>' . "\n" .
-         '   <tr>' . "\n" .
-                html_tag( 'td', '', 'right', $color[4] ) .
-                _("Bcc") . ':</td>' . "\n" .
-                html_tag( 'td', '', 'left', $color[4] ) .
-                addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
-         '      </td>' . "\n" .
-         '   </tr>' . "\n" .
-         '   <tr>' . "\n" .
-                html_tag( 'td', '', 'right', $color[4] ) .
-                _("Subject") . ':</td>' . "\n" .
-                html_tag( 'td', '', 'left', $color[4] ) . "\n";
+        html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
+        _("To") . ':</td>' . "\n" .
+        html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
+        addInput('send_to', $send_to, 60). '<br />' . "\n" .
+        '      </td>' . "\n" .
+        '   </tr>' . "\n" .
+        '   <tr>' . "\n" .
+        html_tag( 'td', '', 'right', $color[4] ) .
+        _("Cc") . ':</td>' . "\n" .
+        html_tag( 'td', '', 'left', $color[4] ) .
+        addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
+        '      </td>' . "\n" .
+        '   </tr>' . "\n" .
+        '   <tr>' . "\n" .
+        html_tag( 'td', '', 'right', $color[4] ) .
+        _("Bcc") . ':</td>' . "\n" .
+        html_tag( 'td', '', 'left', $color[4] ) .
+        addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
+        '      </td>' . "\n" .
+        '   </tr>' . "\n" .
+        '   <tr>' . "\n" .
+        html_tag( 'td', '', 'right', $color[4] ) .
+        _("Subject") . ':</td>' . "\n" .
+        html_tag( 'td', '', 'left', $color[4] ) . "\n";
     echo '         '.addInput('subject', $subject, 60).
-         '      </td>' . "\n" .
-         '   </tr>' . "\n\n";
+        '      </td>' . "\n" .
+        '   </tr>' . "\n\n";
 
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
@@ -1042,9 +1042,9 @@ function showInputForm ($session, $values=false) {
     /* why this distinction? */
     if ($compose_new_win == '1') {
         echo '   <tr>' . "\n" .
-             '      <td bgcolor="' . $color[0] . '" colspan="2" align="center">' . "\n" .
-             '         <textarea name="body" id="body" rows="' . (int)$editor_height .
-             '" cols="' . (int)$editor_size . '" wrap="virtual">';
+            '      <td bgcolor="' . $color[0] . '" colspan="2" align="center">' . "\n" .
+            '         <textarea name="body" id="body" rows="' . (int)$editor_height .
+            '" cols="' . (int)$editor_size . '" wrap="virtual">';
     }
     else {
         echo '   <tr>' . "\n" .
@@ -1060,7 +1060,7 @@ function showInputForm ($session, $values=false) {
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             } else {
-            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
+                echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
             echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
         }
@@ -1069,104 +1069,102 @@ function showInputForm ($session, $values=false) {
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
-            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
+                echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
+            }
         }
-    }
-    }
-    else {
-       echo htmlspecialchars(decodeHeader($body,false,false));
+    } else {
+        echo htmlspecialchars(decodeHeader($body,false,false));
     }
     echo '</textarea><br />' . "\n" .
-         '      </td>' . "\n" .
-         '   </tr>' . "\n";
+        '      </td>' . "\n" .
+        '   </tr>' . "\n";
 
 
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
         echo '   <tr>' . "\n" .
-                    html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
-             '         ' . addSubmit(_("Send"), 'send').
-             '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
-             '      </td>' . "\n" .
-             '   </tr>' . "\n";
+            html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
+            '         ' . addSubmit(_("Send"), 'send').
+            '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
+            '      </td>' . "\n" .
+            '   </tr>' . "\n";
     }
 
     /* This code is for attachments */
-        if ((bool) ini_get('file_uploads')) {
+    if ((bool) ini_get('file_uploads')) {
 
-    /* Calculate the max size for an uploaded file.
-     * This is advisory for the user because we can't actually prevent
-     * people to upload too large files. */
-    $sizes = array();
-    /* php.ini vars which influence the max for uploads */
-    $configvars = array('post_max_size', 'memory_limit', 'upload_max_filesize');
-    foreach($configvars as $var) {
-        /* skip 0 or empty values */
-        if( $size = getByteSize(ini_get($var)) ) {
-            $sizes[] = $size;
+        /* Calculate the max size for an uploaded file.
+         * This is advisory for the user because we can't actually prevent
+         * people to upload too large files. */
+        $sizes = array();
+        /* php.ini vars which influence the max for uploads */
+        $configvars = array('post_max_size', 'memory_limit', 'upload_max_filesize');
+        foreach($configvars as $var) {
+            /* skip 0 or empty values */
+            if( $size = getByteSize(ini_get($var)) ) {
+                $sizes[] = $size;
+            }
         }
-    }
 
-    if(count($sizes) > 0) {
-        $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')';
-    } else {
-        $maxsize = '';
-    }
-    echo addHidden('MAX_FILE_SIZE', min( $sizes ));
-    echo '   <tr>' . "\n" .
-         '      <td colspan="2">' . "\n" .
-         '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
-                   ' border="0" bgcolor="'.$color[9].'">' . "\n" .
-         '            <tr>' . "\n" .
-         '               <td>' . "\n" .
-         '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-                           ' border="0">' . "\n" .
-         '                    <tr>' . "\n" .
-                                 html_tag( 'td', '', 'right', '', 'valign="middle"' ) .
-                                 _("Attach:") . '</td>' . "\n" .
-                                 html_tag( 'td', '', 'left', '', 'valign="middle"' ) .
-         '                          <input name="attachfile" size="48" type="file" />' . "\n" .
-         '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
-                                    ' value="' . _("Add") .'" />' . "\n" .
-                                    $maxsize .
-         '                       </td>' . "\n" .
-         '                    </tr>' . "\n";
+        if(count($sizes) > 0) {
+            $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')';
+        } else {
+            $maxsize = '';
+        }
+        echo addHidden('MAX_FILE_SIZE', min( $sizes )).
+            '   <tr>' . "\n" .
+            '      <td colspan="2">' . "\n" .
+            '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
+            ' border="0" bgcolor="'.$color[9].'">' . "\n" .
+            '            <tr>' . "\n" .
+            '               <td>' . "\n" .
+            '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
+            ' border="0">' . "\n" .
+            '                    <tr>' . "\n" .
+            html_tag( 'td', '', 'right', '', 'valign="middle"' ) .
+            _("Attach:") . '</td>' . "\n" .
+            html_tag( 'td', '', 'left', '', 'valign="middle"' ) .
+            '                          <input name="attachfile" size="48" type="file" />' . "\n" .
+            '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
+            ' value="' . _("Add") .'" />' . "\n" .
+            $maxsize .
+            '                       </td>' . "\n" .
+            '                    </tr>' . "\n";
 
-
-    $s_a = array();
-    if ($composeMessage->entities) {
-        foreach ($composeMessage->entities as $key => $attachment) {
-           $attached_file = $attachment->att_local_name;
-           if ($attachment->att_local_name || $attachment->body_part) {
-                $attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
-                $type = $attachment->mime_header->type0.'/'.
+        $s_a = array();
+        if ($composeMessage->entities) {
+            foreach ($composeMessage->entities as $key => $attachment) {
+                $attached_file = $attachment->att_local_name;
+                if ($attachment->att_local_name || $attachment->body_part) {
+                    $attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
+                    $type = $attachment->mime_header->type0.'/'.
                         $attachment->mime_header->type1;
 
-                $s_a[] = '<table bgcolor="'.$color[0].
-                    '" border="0"><tr><td>'.
-                    addCheckBox('delete[]', FALSE, $key).
-                    "</td><td>\n" . $attached_filename .
-                    '</td><td>-</td><td> ' . $type . '</td><td>('.
-                    show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
-           }
+                    $s_a[] = '<table bgcolor="'.$color[0].
+                        '" border="0"><tr><td>'.
+                        addCheckBox('delete[]', FALSE, $key).
+                        "</td><td>\n" . $attached_filename .
+                        '</td><td>-</td><td> ' . $type . '</td><td>('.
+                        show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
+                }
+            }
         }
-    }
-    if (count($s_a)) {
-       foreach ($s_a as $s) {
-          echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . $s .'</td></tr>';
-       }
-       echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
-            _("Delete selected attachments") . "\" />\n" .
-            '</td></tr>';
-    }
-    echo '                  </table>' . "\n" .
-         '               </td>' . "\n" .
-         '            </tr>' . "\n" .
-         '         </table>' . "\n" .
-         '      </td>' . "\n" .
-         '   </tr>' . "\n";
-        } // End of file_uploads if-block
+        if (count($s_a)) {
+            foreach ($s_a as $s) {
+                echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . $s .'</td></tr>';
+            }
+            echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
+                _("Delete selected attachments") . "\" />\n" .
+                '</td></tr>';
+        }
+        echo '                  </table>' . "\n" .
+            '               </td>' . "\n" .
+            '            </tr>' . "\n" .
+            '         </table>' . "\n" .
+            '      </td>' . "\n" .
+            '   </tr>' . "\n";
+    } // End of file_uploads if-block
     /* End of attachment code */
     if ($compose_new_win == '1') {
         echo '</table>'."\n";
@@ -1179,17 +1177,17 @@ function showInputForm ($session, $values=false) {
     /*
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
-    */
+     */
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo addHidden('restoremessages', serialize($compose_messages)).
-         addHidden('composesession', $composesession).
-         addHidden('querystring', $queryString).
-         "</form>\n";
+        addHidden('composesession', $composesession).
+        addHidden('querystring', $queryString).
+        "</form>\n";
     if (!(bool) ini_get('file_uploads')) {
-      /* File uploads are off, so we didn't show that part of the form.
-         To avoid bogus bug reports, tell the user why. */
-      echo 'Because PHP file uploads are turned off, you can not attach files ';
-      echo "to this message.  Please see your system administrator for details.\r\n";
+        /* File uploads are off, so we didn't show that part of the form.
+           To avoid bogus bug reports, tell the user why. */
+        echo 'Because PHP file uploads are turned off, you can not attach files ';
+        echo "to this message.  Please see your system administrator for details.\r\n";
     }
 
     do_hook('compose_bottom');
@@ -1199,49 +1197,49 @@ function showInputForm ($session, $values=false) {
 
 function showComposeButtonRow() {
     global $use_javascript_addr_book, $save_as_draft,
-           $default_use_priority, $mailprio, $default_use_mdn,
-           $request_mdn, $request_dr,
-           $data_dir, $username;
+        $default_use_priority, $mailprio, $default_use_mdn,
+        $request_mdn, $request_dr,
+        $data_dir, $username;
 
     echo '   <tr>' . "\n" .
-         '      <td></td>' . "\n" .
-         '      <td>' . "\n";
+        '      <td></td>' . "\n" .
+        '      <td>' . "\n";
     if ($default_use_priority) {
         if(!isset($mailprio)) {
             $mailprio = '3';
         }
         echo '          ' . _("Priority") .
-             addSelect('mailprio', array(
-                                         '1' => _("High"),
-                                         '3' => _("Normal"),
-                                         '5' => _("Low") ), $mailprio, TRUE);
+            addSelect('mailprio', array(
+                        '1' => _("High"),
+                        '3' => _("Normal"),
+                        '5' => _("Low") ), $mailprio, TRUE);
     }
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '          ' . _("Receipt") .': '.
-              addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
-              addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
+                addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
+                addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
         }
     }
 
     echo '      </td>' . "\n" .
-         '   </tr>' . "\n" .
-         '   <tr>'  . "\n" .
-         '      <td></td>' . "\n" .
-         '      <td>' . "\n" .
-         '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
+        '   </tr>' . "\n" .
+        '   <tr>'  . "\n" .
+        '      <td></td>' . "\n" .
+        '      <td>' . "\n" .
+        '         <input type="submit" name="sigappend" value="' . _("Signature") . '" />' . "\n";
     if ($use_javascript_addr_book) {
         echo "         <script language=\"JavaScript\"><!--\n document.write(\"".
-             "            <input type=button value=\\\""._("Addresses").
-                                 "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
-             "            // --></script><noscript>\n".
-             '            <input type="submit" name="html_addr_search" value="'.
-                              _("Addresses").'" />'.
-             "         </noscript>\n";
+            "            <input type=button value=\\\""._("Addresses").
+            "\\\" onclick=\\\"javascript:open_abook();\\\" />\");".
+            "            // --></script><noscript>\n".
+            '            <input type="submit" name="html_addr_search" value="'.
+            _("Addresses").'" />'.
+            "         </noscript>\n";
     } else {
         echo '         <input type="submit" name="html_addr_search" value="'.
-                                 _("Addresses").'" />' . "\n";
+            _("Addresses").'" />' . "\n";
     }
 
     if ($save_as_draft) {
@@ -1252,7 +1250,7 @@ function showComposeButtonRow() {
     do_hook('compose_button_row');
 
     echo '      </td>' . "\n" .
-         '   </tr>' . "\n\n";
+        '   </tr>' . "\n\n";
 }
 
 function checkInput ($show) {
@@ -1277,7 +1275,7 @@ function checkInput ($show) {
 /* True if FAILURE */
 function saveAttachedFiles($session) {
     global $_FILES, $attachment_dir, $attachments, $username,
-           $data_dir, $compose_messages;
+        $data_dir, $compose_messages;
 
     /* get out of here if no file was attached at all */
     if (! is_uploaded_file($_FILES['attachfile']['tmp_name']) ) {
@@ -1295,9 +1293,9 @@ function saveAttachedFiles($session) {
     // FIXME: we SHOULD prefer move_uploaded_file over rename because
     // m_u_f works better with restricted PHP installes (safe_mode, open_basedir)
     if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-            if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
-                return true;
-                }
+        if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
+            return true;
+        }
     }
     $message = $compose_messages[$session];
     $type = strtolower($_FILES['attachfile']['type']);
@@ -1333,14 +1331,14 @@ function getByteSize($ini_size) {
 
         switch(strtoupper(substr($ini_size, -1))) {
             case 'G':
-               $bytesize = 1073741824;
-               break;
+                $bytesize = 1073741824;
+                break;
             case 'M':
-               $bytesize = 1048576;
-               break;
+                $bytesize = 1048576;
+                break;
             case 'K':
-               $bytesize = 1024;
-               break;
+                $bytesize = 1024;
+                break;
         }
 
         return ($bytesize * (int)substr($ini_size, 0, -1));
@@ -1354,13 +1352,13 @@ function getByteSize($ini_size) {
    In the future the responsable backend should be automaticly loaded
    and conf.pl should show a list of available backends.
    The message also should be constructed by the message class.
-*/
+ */
 
 function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
-           $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
-           $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-           $domain, $action, $default_move_to_sent, $move_to_sent;
+        $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
+        $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
+        $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
@@ -1384,18 +1382,18 @@ function deliverMessage($composeMessage, $draft=false) {
     $composeMessage->setBody($body);
 
     if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
-       $popuser = $usernamedata[1];
-       $domain  = $usernamedata[2];
-       unset($usernamedata);
+        $popuser = $usernamedata[1];
+        $domain  = $usernamedata[2];
+        unset($usernamedata);
     } else {
-       $popuser = $username;
+        $popuser = $username;
     }
     $reply_to = '';
     $from_mail = $idents[$identity]['email_address'];
     $full_name = $idents[$identity]['full_name'];
     $reply_to  = $idents[$identity]['reply_to'];
     if (!$from_mail) {
-       $from_mail = "$popuser@$domain";
+        $from_mail = "$popuser@$domain";
     }
     $rfc822_header->from = $rfc822_header->parseAddress($from_mail,true);
     if ($full_name) {
@@ -1410,15 +1408,15 @@ function deliverMessage($composeMessage, $draft=false) {
         $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     }
     if ($reply_to) {
-       $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
+        $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
     }
     /* Receipt: On Read */
     if (isset($request_mdn) && $request_mdn) {
-       $rfc822_header->dnt = $rfc822_header->parseAddress($from_mail,true);
+        $rfc822_header->dnt = $rfc822_header->parseAddress($from_mail,true);
     }
     /* Receipt: On Delivery */
     if (isset($request_dr) && $request_dr) {
-       $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
+        $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail;
     }
     /* multipart messages */
     if (count($composeMessage->entities)) {
@@ -1448,7 +1446,7 @@ function deliverMessage($composeMessage, $draft=false) {
         }
         if ($default_charset) {
             $content_type->properties['charset']=$default_charset;
-    }
+        }
     }
 
     $rfc822_header->content_type = $content_type;
@@ -1470,31 +1468,31 @@ function deliverMessage($composeMessage, $draft=false) {
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
         get_smtp_user($user, $pass);
         $stream = $deliver->initStream($composeMessage,$domain,0,
-                          $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
+                $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
     } elseif (!$draft) {
-       require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
-       global $sendmail_path;
-       $deliver = new Deliver_SendMail();
-       $stream = $deliver->initStream($composeMessage,$sendmail_path);
+        require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
+        global $sendmail_path;
+        $deliver = new Deliver_SendMail();
+        $stream = $deliver->initStream($composeMessage,$sendmail_path);
     } elseif ($draft) {
-       global $draft_folder;
-       require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-       $imap_stream = sqimap_login($username, $key, $imapServerAddress,
-                      $imapPort, 0);
-       if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
-           require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
-           $imap_deliver = new Deliver_IMAP();
-           $length = $imap_deliver->mail($composeMessage);
-           sqimap_append ($imap_stream, $draft_folder, $length);
-           $imap_deliver->mail($composeMessage, $imap_stream);
-               sqimap_append_done ($imap_stream, $draft_folder);
-           sqimap_logout($imap_stream);
-           unset ($imap_deliver);
-           return $length;
+        global $draft_folder;
+        require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
+                $imapPort, 0);
+        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
+            require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
+            $imap_deliver = new Deliver_IMAP();
+            $length = $imap_deliver->mail($composeMessage);
+            sqimap_append ($imap_stream, $draft_folder, $length);
+            $imap_deliver->mail($composeMessage, $imap_stream);
+            sqimap_append_done ($imap_stream, $draft_folder);
+            sqimap_logout($imap_stream);
+            unset ($imap_deliver);
+            return $length;
         } else {
-           $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), $draft_folder);
-           plain_error_message($msg, $color);
-           return false;
+            $msg  = '<br />'.sprintf(_("Error: Draft folder %s does not exist."), $draft_folder);
+            plain_error_message($msg, $color);
+            return false;
         }
     }
     $succes = false;
@@ -1504,8 +1502,8 @@ function deliverMessage($composeMessage, $draft=false) {
     }
     if (!$succes) {
         $msg  = $deliver->dlv_msg . '<br />' .
-                _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
-                $deliver->dlv_server_msg;
+            _("Server replied: ") . $deliver->dlv_ret_nr . ' '.
+            $deliver->dlv_server_msg;
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
@@ -1520,7 +1518,7 @@ function deliverMessage($composeMessage, $draft=false) {
         }
 
         if (isset($sent_folder) && (($sent_folder != '') || ($sent_folder != 'none'))
-           && sqimap_mailbox_exists( $imap_stream, $sent_folder)) {
+                && sqimap_mailbox_exists( $imap_stream, $sent_folder)) {
             $fld_sent = true;
         } else {
             $fld_sent = false;
@@ -1553,7 +1551,7 @@ function deliverMessage($composeMessage, $draft=false) {
             sqimap_mailbox_select ($imap_stream, $mailbox);
             sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', false);
         }
-            sqimap_logout($imap_stream);
+        sqimap_logout($imap_stream);
     }
     return $succes;
 }
