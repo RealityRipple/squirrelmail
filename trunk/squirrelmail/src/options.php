@@ -14,7 +14,7 @@
    session_start();
 
    if (!isset($strings_php))
-      include'../functions/strings.php');
+      include('../functions/strings.php');
    if (!isset($config_php))
       include('../config/config.php');
    if (!isset($page_header_php))
