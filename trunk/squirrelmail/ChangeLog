@@ -211,6 +211,9 @@ Version 1.5.1 -- CVS
     an already subscribed folder (#1115409).
   - Added blank.png for missing image support.
   - Use the proper attachment filenames in case of forwarding a message.
+  - Fix for #855320 where Outlook Express was creating CID: based URLs,
+    but not assigning a content-id to the attachment.  This is a bug in
+	Outlook Express and is non-RFC compliant behaviour.
 
 
 Version 1.5.0
