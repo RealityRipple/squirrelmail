@@ -18,7 +18,6 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'functions/array.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 

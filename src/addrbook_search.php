@@ -158,7 +158,6 @@ function display_result($res, $includesource = true) {
 
 /* ================= End of functions ================= */
     
-require_once('../functions/array.php');
 require_once('../functions/strings.php');
 require_once('../functions/addressbook.php');
     

@@ -455,12 +455,19 @@ function calc_msort($msgs, $sort) {
      * 4 = Subject (up)
      * 5 = Subject (dn)
      */
+
     if (($sort == 0) || ($sort == 1)) {
-        $msort = array_cleave ($msgs, 'TIME_STAMP');
+        foreach ($msgs as $item) {
+            $msort[] = $item['TIME_STAMP'];
+        }
     } elseif (($sort == 2) || ($sort == 3)) {
-        $msort = array_cleave ($msgs, 'FROM-SORT');
+        foreach ($msgs as $item) {
+            $msort[] = $item['FROM-SORT'];
+        }
     } elseif (($sort == 4) || ($sort == 5)) {
-        $msort = array_cleave ($msgs, 'SUBJECT-SORT');
+        foreach ($msgs as $item) {
+            $msort[] = $item['SUBJECT-SORT'];
+        }
     } else {
         $msort = $msgs;
     }

@@ -500,7 +500,6 @@ function sqimap_mailbox_list($imap_stream) {
         $inbox_subscribed = false;
 
         require_once(SM_PATH . 'include/load_prefs.php');
-        require_once(SM_PATH . 'functions/array.php');
 
         if ($noselect_fix_enable) {
             $lsub_args = "LSUB \"$folder_prefix\" \"*%\"";
@@ -658,8 +657,6 @@ function sqimap_mailbox_list($imap_stream) {
 function sqimap_mailbox_list_all($imap_stream) {
     global $list_special_folders_first, $folder_prefix, $delimiter;
 
-    require_once(SM_PATH . 'functions/array.php');
-
     $ssid = sqimap_session_id();
     $lsid = strlen( $ssid );
     fputs ($imap_stream, $ssid . " LIST \"$folder_prefix\" *\r\n");
@@ -739,7 +736,7 @@ function sqimap_mailbox_list_all($imap_stream) {
         $g++;
     }
     if(is_array($boxes)) {
-        $boxes = ary_sort ($boxes, 'unformatted', 1);
+        $boxes = sort ($boxes);
     }
 
     return $boxes;
@@ -757,7 +754,6 @@ function sqimap_mailbox_tree($imap_stream) {
         $inbox_subscribed = false;
 
         require_once(SM_PATH . 'include/load_prefs.php');
-        require_once(SM_PATH . 'functions/array.php');
 
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
