@@ -133,9 +133,10 @@ function attachment_common_link_html(&$Args)
      $Args[2] . '&passed_id=' . $Args[3] . '&mailbox=' . $Args[4] .
     '&passed_ent_id=' . $Args[5] . '&override_type0=text&override_type1=html';
   
-  if ($Args[8] && $Args[9])
+  if ($Args[8] && $Args[9]) {
      $Args[1]['attachment_common']['href'] .= '&where=' . 
      urlencode($Args[8]) . '&what=' . urlencode($Args[9]);
+  }
 
   $Args[1]['attachment_common']['text'] = _("view");
   
@@ -157,13 +158,15 @@ function attachment_common_link_image(&$Args)
      $Args[2] . '&passed_id=' . $Args[3] . '&mailbox=' . $Args[4] .
      '&passed_ent_id=' . $Args[5];
   
-  if ($Args[8] && $Args[9])
+  if ($Args[8] && $Args[9]) {
      $Args[1]['attachment_common']['href'] .= '&where=' . 
      urlencode($Args[8]) . '&what=' . urlencode($Args[9]);
+  }
 
   $Args[1]['attachment_common']['text'] = _("view");
   
   $Args[6] = $Args[1]['attachment_common']['href'];
+  
 }
 
 

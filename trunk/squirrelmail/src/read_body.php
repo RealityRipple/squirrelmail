@@ -659,9 +659,9 @@ if (($attachment_common_show_images) &&
 
     foreach ($attachment_common_show_images_list as $img) {
         $imgurl = '../src/download.php' .
-                "?startMessage=$startMessage".
-                '&passed_id='     . urlencode($img['passed_id']) .
-                '&mailbox='       . urlencode($img['mailbox']) .
+                '?' . 
+                'passed_id='     . urlencode($img['passed_id']) .
+                '&mailbox='       . urlencode($mailbox) .
                 '&passed_ent_id=' . urlencode($img['ent_id']) .
                 '&absolute_dl=true';
 
