@@ -204,21 +204,6 @@ function compose_Header($color, $mailbox) {
                     "document.forms[i-1].elements[pos].focus();\n".
                 "}\n".
             "}\n";
-            if ($compose_new_win == '1') {
-                $width= getPref($username, $datadir, 'editor_size', 76);
-                if ($width < 65) {
-                    $pix_width = 560;
-                }
-                else {
-                    $width = (.9*$width);
-                    $pix_width = intval($width).'0';
-                }
-                echo "function comp_in_new() {\n".
-                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
-                     ", \"compose_window\", \"width=".$pix_width.",height=650".
-                     ",scrollbars=yes,resizable=yes\");\n".
-                     "}\n";
-            }
         echo "// -->\n".
         	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";

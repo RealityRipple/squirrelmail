@@ -36,6 +36,12 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
 
 if (isset($draft)) {
     include_once ('../src/draft_actions.php');
+    if (! isset($reply_id)) {
+         $reply_id = 0;
+    }
+	if (! isset($MDN)) {
+	     $MDN = 'False';
+    }
     if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN)) {
         showInputForm();
         exit();
@@ -494,7 +500,7 @@ function showInputForm () {
     }
     echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
     if ($compose_new_win == '1') {
-        echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE="Close"></TD></TR>'."\n";
+        echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
