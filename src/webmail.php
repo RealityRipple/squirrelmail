@@ -90,7 +90,7 @@
    } else if ($right_frame == 'folders.php') {
       $right_frame_url = 'folders.php';
    } else {
-      if (!isset($just_logged_in)) $just_logged_in = 0;
+      if (!isset($just_logged_in)) $just_logged_in = 1;
       $right_frame_url = "right_main.php?just_logged_in=$just_logged_in";
    }
 
