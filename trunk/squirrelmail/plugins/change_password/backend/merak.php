@@ -1,6 +1,11 @@
 <?php
-/* Merakchange password backend
- * Author: Edwin van Elk <Edwin@eve-software.com>
+/**
+ * Merakchange password backend
+ *
+ * @author Edwin van Elk <Edwin@eve-software.com>
+ * @version $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 /**
