@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-07 22:40+0300\n"
+"POT-Creation-Date: 2004-04-10 08:33+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -222,7 +222,8 @@ msgstr ""
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-msgid "Draft folder"
+#, c-format
+msgid "Error: Draft folder %s does not exist."
 msgstr ""
 
 msgid "Server replied: "
@@ -2164,6 +2165,10 @@ msgstr ""
 msgid "Plugins"
 msgstr ""
 
+#, c-format
+msgid "Plugin directory could not be found: %s"
+msgstr ""
+
 msgid "Change Settings"
 msgstr ""
 
@@ -2199,7 +2204,7 @@ msgid "You are currently using version %s."
 msgstr ""
 
 msgid ""
-"Check to see if you bug is already listed in the <a href=\"http://"
+"Check to see if your bug is already listed in the <a href=\"http://"
 "sourceforge.net/bugs/?group_id=311\">Bug List</a> on SourceForge. If it is, "
 "we already know about it and are trying to fix it."
 msgstr ""
