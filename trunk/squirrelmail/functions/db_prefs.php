@@ -41,6 +41,9 @@ require_once(SM_PATH . 'config/config.php');
 
 global $prefs_are_cached, $prefs_cache;
 
+/**
+ * @ignore
+ */
 function cachePrefValues($username) {
     global $prefs_are_cached, $prefs_cache;
 
@@ -278,7 +281,10 @@ class dbPrefs {
 } /* end class dbPrefs */
 
 
-/* returns the value for the pref $string */
+/**
+ * returns the value for the pref $string
+ * @ignore
+ */
 function getPref($data_dir, $username, $string, $default = '') {
     $db = new dbPrefs;
     if(isset($db->error)) {
@@ -290,7 +296,10 @@ function getPref($data_dir, $username, $string, $default = '') {
     return $db->getKey($username, $string, $default);
 }
 
-/* Remove the pref $string */
+/**
+ * Remove the pref $string
+ * @ignore
+ */
 function removePref($data_dir, $username, $string) {
     global $prefs_cache;
     $db = new dbPrefs;
@@ -308,7 +317,10 @@ function removePref($data_dir, $username, $string) {
     return;
 }
 
-/* sets the pref, $string, to $set_to */
+/**
+ * sets the pref, $string, to $set_to
+ * @ignore
+ */
 function setPref($data_dir, $username, $string, $set_to) {
     global $prefs_cache;
 
@@ -335,7 +347,10 @@ function setPref($data_dir, $username, $string, $set_to) {
     return;
 }
 
-/* This checks if the prefs are available */
+/**
+ * This checks if the prefs are available
+ * @ignore
+ */
 function checkForPrefs($data_dir, $username) {
     $db = new dbPrefs;
     if(isset($db->error)) {
@@ -343,7 +358,10 @@ function checkForPrefs($data_dir, $username) {
     }
 }
 
-/* Writes the Signature */
+/**
+ * Writes the Signature
+ * @ignore
+ */
 function setSig($data_dir, $username, $number, $string) {
     if ($number == "g") {
         $key = '___signature___';
@@ -354,7 +372,10 @@ function setSig($data_dir, $username, $number, $string) {
     return;
 }
 
-/* Gets the signature */
+/**
+ * Gets the signature
+ * @ignore
+ */
 function getSig($data_dir, $username, $number) {
     if ($number == "g") {
         $key = '___signature___';
