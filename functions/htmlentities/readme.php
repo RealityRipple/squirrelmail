@@ -23,10 +23,12 @@
  * Why own functions are used instead of htmlspecialchars() and 
  * htmlentities() provided by php.
  *
- * <li>a) removes dependency on options available only in php v.4.1+
- * <li>b) default behavior of htmlentities() is disastrous in non iso-8859-1 environment.
- * <li>c) provides better control of transformations.
- * 
+ * <ul>
+ * <li>a) removes dependency on options available only in php v.4.1+</li>
+ * <li>b) default behavior of htmlentities() is disastrous in non iso-8859-1 environment.</li>
+ * <li>c) provides better control of transformations.</li>
+ * </ul>
+ *
  * <pre>
  * --- Full list of entities (w3.org html4.01 recommendations)
  * 1. regural symbols
