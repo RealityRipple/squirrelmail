@@ -20,6 +20,9 @@
  *  ? maxrows   => Maximum # of rows in search result
  *  ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
  *                 Might not work for all LDAP libraries or servers.
+ *  ? binddn    => LDAP Bind DN.
+ *  ? bindpw    => LDAP Bind Password.
+ *  ? protocol  => LDAP Bind protocol.
  *
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.
@@ -46,6 +49,9 @@ class abook_ldap_server extends addressbook_backend {
     var $bound   = false;        /* True if LDAP server is bound */
     var $maxrows = 250;          /* Max rows in result */
     var $timeout = 30;           /* Timeout for LDAP operations (in seconds) */
+    var $binddn = '';            /* DN to bind to (non-anonymous bind) */
+    var $bindpw = '';            /* password to bind with (non-anonymous bind) */
+    var $protocol = '';          /* protocol used to connect to ldap server */
 
     /* Constructor. Connects to database */
     function abook_ldap_server($param) {
@@ -68,6 +74,15 @@ class abook_ldap_server extends addressbook_backend {
             if(isset($param['timeout'])) {
                 $this->timeout = $param['timeout'];
             }
+            if(isset($param['binddn'])) {
+                $this->binddn = $param['binddn'];
+            }
+            if(isset($param['bindpw'])) {
+                $this->bindpw = $param['bindpw'];
+	    }
+            if(isset($param['protocol'])) {
+                $this->protocol = $param['protocol'];
+	    }
             if(empty($param['name'])) {
                 $this->sname = 'LDAP: ' . $param['host'];
             }
@@ -99,15 +114,35 @@ class abook_ldap_server extends addressbook_backend {
                 return $this->set_error('ldap_connect failed');
             }
         }
-        
-        if(!@ldap_bind($this->linkid)) {
-            if(function_exists('ldap_error')) {
-                return $this->set_error(ldap_error($this->linkid)); 
-            } else {
-                return $this->set_error('ldap_bind failed');
-            }
+	
+	if(!empty($this->protocol)) {
+            if(!@ldap_set_option($this->linkid, LDAP_OPT_PROTOCOL_VERSION, $this->protocol)) {
+                if(function_exists('ldap_error')) {
+                    return $this->set_error(ldap_error($this->linkid));
+                } else {
+                    return $this->set_error('ldap_set_option failed');
+        	}
+	    }
+	}
+
+        if(!empty($this->binddn)) {
+            if(!@ldap_bind($this->linkid, $this->binddn, $this->bindpw)) {
+                if(function_exists('ldap_error')) {
+                    return $this->set_error(ldap_error($this->linkid));
+                } else {
+                    return $this->set_error('authenticated ldap_bind failed');
+                }
+              }
+        } else {
+    	    if(!@ldap_bind($this->linkid)) {
+        	if(function_exists('ldap_error')) {
+            	    return $this->set_error(ldap_error($this->linkid)); 
+        	} else {
+            	    return $this->set_error('anonymous ldap_bind failed');
+        	}
+    	    }
         }
-        
+
         $this->bound = true;
         
         return true;

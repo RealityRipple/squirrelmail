@@ -74,6 +74,10 @@ class abook_database extends addressbook_backend {
                $this->writeable = $param['writeable'];
             }
 
+            if (isset($param['listing'])) {
+               $this->listing = $param['listing'];
+            }
+
             $this->open(true);
         }
         else {
@@ -121,7 +125,7 @@ class abook_database extends addressbook_backend {
         if(!$this->open()) {
             return false;
         }
-         
+
         /* To be replaced by advanded search expression parsing */
         if (is_array($expr)) {
             return;
@@ -197,6 +201,11 @@ class abook_database extends addressbook_backend {
         if (!$this->open()) {
             return false;
         }
+	
+	if(!$this->listing) {
+	    return array();
+	}
+
 
         $query = sprintf("SELECT * FROM %s WHERE owner='%s'",
                          $this->table, $this->owner);
