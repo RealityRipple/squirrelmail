@@ -76,7 +76,14 @@
    echo _("Password:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
    echo "                  <INPUT TYPE=PASSWORD NAME=\"$password_form_name\">\n";
-   echo "               </TD>\n"; 
+   echo "               </TD>\n";
+   if (isset($emailaddress)) {
+      if (stristr($emailaddress,"mailto:"))
+         $rcptaddress = substr ($emailaddress, 7,strlen($emailaddress)-7);
+      else
+         $rcptaddress = $emailaddress;
+      echo "               <INPUT TYPE=HIDDEN NAME=\"rcptemail\" VALUE=\"".htmlspecialchars($rcptaddress)."\">\n";
+   }
    echo "         </TABLE>\n";
    echo "      </TD>\n";
    echo "   </TR><TR>\n";

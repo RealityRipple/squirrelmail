@@ -84,5 +84,8 @@
    $user_is_logged_in = true;
    session_register ('user_is_logged_in');
 
-   header("Location: webmail.php");
+   if(isset($rcptemail))
+      header("Location: webmail.php?right_frame=compose.php&rcptaddress=$rcptemail");
+   else
+      header("Location: webmail.php");
 ?>
