@@ -1,7 +1,7 @@
 SquirrelMail Addressbook Internals
 ==================================
 
-This document describe how the SquirrelMail address book works. It is
+This document describes how the SquirrelMail address book works. It is
 primarily intended for developers.
 
 
@@ -21,7 +21,7 @@ To initialize the address book, the function addressbook_init() from
 functions/addressbook.php is called. This function will create an
 AddressBook object, add one backend for a personal address book (file
 based storage), and add the LDAP backends defined in the $ldap_server
-configuration directive (is any).
+configuration directive (if any).
 
 An addressbook can also be initialized like this if you want to:
 
@@ -144,7 +144,7 @@ AddressBook->error variable. Feel free to ignore it.
 For the result of a search, lookup or list_addr, one or more result
 arrays are used. These arrays contain the following keys: 
 
-  nickname:  Unique identifier for this name in this backend. Onlu
+  nickname:  Unique identifier for this name in this backend. Only
              usable for the local_file backend, and possibly LDAP.
   name:      Person's full name.
   email:     Person's e-mail address.
