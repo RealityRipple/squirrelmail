@@ -195,7 +195,12 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
                 -1,
                 '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b></tr><tr>');
         }
-        echo '<b><big>' . _("Folder:") . " $mailbox</big></b>";
+        if ( $mailbox == 'INBOX' ) {
+            $showbox = _("INBOX");
+        } else {
+            $showbox = $mailbox;
+        }
+        echo '<b><big>' . _("Folder:") . " $showbox</big></b>";
         while ($j < count($msgs)) {
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, '', 0, $search_where, $search_what);
             $j++;
