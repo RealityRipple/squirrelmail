@@ -59,12 +59,16 @@
    echo "      <TD WIDTH=15% BGCOLOR=FFFFFF ALIGN=RIGHT>\n";
    echo "         <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
    echo "      </TD><TD WIDTH=85% BGCOLOR=FFFFFF ALIGN=LEFT>\n";
-   if ($reply_subj)
+   if ($reply_subj) {
+      $reply_subj = str_replace("\"", "'", $reply_subj);
+      $reply_subj = stripslashes($reply_subj);
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"Re: $reply_subj\"><BR>";
-   else if ($forward_subj)
+   } else if ($forward_subj) {
+      $forward_subj = stripquotes($forward_subj);
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"[Fwd: $forward_subj]\"><BR>";
-   else
+   } else {
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60>";
+   }
    echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT VALUE=\"Send\"><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
