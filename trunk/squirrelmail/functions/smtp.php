@@ -132,7 +132,7 @@
          $bcc_list = getLineOfAddrs($bcc);
          
          /* Encoding 8-bit characters and making from line */
-         $subject = encodeHeader($subject);
+         $subject = stripslashes(encodeHeader($subject));
          if ($from == "")
             $from = "<$from_addr>";
          else
