@@ -18,6 +18,8 @@
 
    $plugin_php = true;
    $plugin_general_debug = false;
+   
+   $squirrelmail_plugin_hooks = array();
 
    // This function adds a plugin
    function use_plugin ($name) {
@@ -71,7 +73,6 @@
 
    if ($plugin_general_debug)
    {
-      global $squirrelmail_plugin_hooks;
       echo "plugin:  Hook list<br>\n";
       foreach ($squirrelmail_plugin_hooks as $Hook => $Plugins)
       {
