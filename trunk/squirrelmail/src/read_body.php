@@ -427,8 +427,6 @@
    
    $body = formatBody($imapConnection, $message, $color, $wrap_at);
 
-   $body = str_replace("&amp;", "&", $body);
-
    echo $body;
    
    echo '</TABLE>';
