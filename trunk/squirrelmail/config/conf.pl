@@ -231,7 +231,7 @@ if (!$default_unseen_type) {
    $default_unseen_type = 1;
 }
 if (!$config_use_color) {
-   $config_use_color = 1;
+   $config_use_color = 0;
 }
 if (!$invert_time) {
    $invert_time = "false";
