@@ -82,7 +82,7 @@
      
       if ($response == 'NO') {
          // ignore this error from m$ exchange, it is not fatal (aka bug)
-         if (!ereg('command resulted in',$message)) { 
+         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
@@ -257,8 +257,8 @@ function sqimap_get_delimiter ($imap_stream = false) {
 			*/
 			fputs ($imap_stream, "a001 NAMESPACE\r\n");
 			$read = sqimap_read_data($imap_stream, 'a001', true, $a, $b);
-			if (eregi('\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)', $read[0], $data)) {
-				if (eregi('^\( *\((.*)\) *\)', $data[1], $data2))
+			if (eregi('\\* NAMESPACE +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL)', $read[0], $data)) {
+				if (eregi('^\\( *\\((.*)\\) *\\)', $data[1], $data2))
 					$pn = $data2[1];
 				$pna = explode(')(', $pn);
 				while (list($k, $v) = each($pna))
