@@ -30,8 +30,8 @@
   Include backends here.
 */
 
-require_once('../functions/abook_local_file.php');
-require_once('../functions/abook_ldap_server.php');
+require_once(SM_PATH . 'functions/abook_local_file.php');
+require_once(SM_PATH . 'functions/abook_ldap_server.php');
 
 global $addrbook_dsn;
 

@@ -12,7 +12,7 @@
  * $Id$
  */
 
-require_once('../functions/imap.php');
+require_once(SM_PATH . 'functions/imap.php');
 
 /**
  * findParentForChild
