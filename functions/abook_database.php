@@ -202,7 +202,7 @@ class abook_database extends addressbook_backend {
             return false;
         }
 	
-	if(!$this->listing) {
+	if(isset($this->listing) && !$this->listing) {
 	    return array();
 	}
 
