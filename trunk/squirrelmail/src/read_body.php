@@ -369,7 +369,7 @@ function formatRecipientString($recipients, $item ) {
 
         $cnt = count($recipients);
         foreach($recipients as $r) {
-            $add = htmlspecialchars(decodeHeader($r->getAddress()));
+            $add = decodeHeader($r->getAddress(true));
             if ($string) {
                 $string .= '<BR>' . $add;
             } else {
@@ -397,7 +397,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
     $header = $message->rfc822_header;
     $env = array();
-    $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));
+    $env[_("Subject")] = decodeHeader($header->subject);
     $from_name = $header->getAddr_s('from');
     if (!$from_name) {
         $from_name = $header->getAddr_s('sender');
@@ -405,7 +405,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
             $from_name = _("Unknown sender");
         }
     }
-    $env[_("From")] = htmlspecialchars(decodeHeader($from_name));
+    $env[_("From")] = decodeHeader($from_name);
     $env[_("Date")] = getLongDateString($header->date);
     $env[_("To")] = formatRecipientString($header->to, "to");
     $env[_("Cc")] = formatRecipientString($header->cc, "cc");
@@ -414,7 +414,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         $env[_("Priority")] = htmlspecialchars(getPriorityStr($header->priority));
     }
     if ($show_xmailer_default) {
-        $env[_("Mailer")] = htmlspecialchars(decodeHeader($header->xmailer));
+        $env[_("Mailer")] = decodeHeader($header->xmailer);
     }
     if ($default_use_mdn) {
         if ($mdn_user_support) {
@@ -601,7 +601,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= $link_open . $comp_action_uri . $link_close . _("Forward as Attachment") . '</a>';
     }
 
-    $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
+    $comp_action_uri = $comp_uri . '&amp;action=reply';
     $s .= $topbar_delimiter;
     $s .= $link_open . $comp_action_uri . $link_close . _("Reply") . '</a>';
 

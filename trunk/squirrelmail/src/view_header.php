@@ -114,7 +114,7 @@ if (!isset($_GET['passed_ent_id'])) {
     $passed_ent_id = $_GET['passed_ent_id'];
 }
 
-$mailbox = decodeHeader($_GET['mailbox']);
+$mailbox = urldecode($_GET['mailbox']);
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, 
                                $imapPort, 0);
