@@ -76,9 +76,6 @@
       if (isMultipart()) {
          foreach ($attachments as $info)
 	 {
-//	    echo "<pre>Attachment Info:\n";
-//	    var_dump($info);
-//	    echo "\n</pre>\n";
 	    if (isset($info['type']))
  	       $filetype = $info['type'];
             else
@@ -90,7 +87,9 @@
             $header .= "Content-Disposition: attachment; filename=\"" .
 	        $info['remotefilename'] . "\"\r\n";
             
-            $file = fopen ($attachment_dir . $info['localfilename'], 'r');
+	    // Use 'rb' for NT systems -- read binary
+	    // Unix doesn't care -- everything's binary!  :-)
+            $file = fopen ($attachment_dir . $info['localfilename'], 'rb');
 	    if (substr($filetype, 0, 5) == 'text/' ||
  	        $filetype == 'message/rfc822') {
 	       $header .= "\r\n";
