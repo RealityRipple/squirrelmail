@@ -209,7 +209,7 @@ if(isset($expungeButton)) {
 } else {    // Move messages
 
     if (count($id)) {
-        sqimap_msgs_list_copy($imapConnection,$id,$targetMailbox);
+        sqimap_msgs_list_move($imapConnection,$id,$targetMailbox);
         if ($auto_expunge) {
             $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
         } else {
