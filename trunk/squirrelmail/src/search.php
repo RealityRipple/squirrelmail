@@ -23,7 +23,6 @@ require_once(SM_PATH . 'functions/strings.php');
 global $allow_thread_sort;
 
 /*  here are some functions, could go in imap_search.php
-
     this was here, pretty handy  */
 function s_opt( $val, $sel, $tit ) {
     echo "            <option value=\"$val\"";
@@ -204,6 +203,31 @@ $search_all = 'none';
 $perbox_count = array ();
 $recent_count = getPref($data_dir, $username, 'search_memory', 0);
 
+/* get globals we may need */
+
+$key = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['mailbox'])) {
+    $mailbox = strip_tags($_GET['mailbox']);
+}
+if (isset($_GET['submit'])) {
+    $submit = strip_tags($_GET['submit']);
+}
+if (isset($_GET['what'])) {
+    $what = $_GET['what'];
+}
+if (isset($_GET['where'])) {
+    $where = strip_tags($_GET['where']);
+}
+if (isset($_GET['checkall'])) {
+    $checkall = strip_tags($_GET['checkall']);
+}
+if (isset($_GET['count'])) {
+    $count = strip_tags($_GET['count']);
+}
 
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -281,9 +305,9 @@ if ($saved_count > 0) {
         . html_tag( 'td', $saved_attributes['saved_where'][$i], 'center' )
         . html_tag( 'td', '', 'right' )
         .   '<a href=search.php'
-        .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
-        .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
-        .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
+        .     '?mailbox=' . htmlentities($saved_attributes['saved_folder'][$i])
+        .     '&amp;what=' . htmlentities($saved_attributes['saved_what'][$i])
+        .     '&amp;where=' . htmlentities($saved_attributes['saved_where'][$i])
         .   '>' . _("edit") . '</a>'
         .   '&nbsp;|&nbsp;'
         .   '<a href=search.php'
