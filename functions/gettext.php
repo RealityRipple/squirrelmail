@@ -134,6 +134,9 @@ global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
 	    }
             $gettext_php_translateStrings[$key] =
                stripslashes($gettext_php_translateStrings[$key]);
+	    // If there is no translation, just use the untranslated string
+	    if ($gettext_php_translateStrings[$key] == '')
+	       $gettext_php_translateStrings[$key] = $key;
 	    $key = '';
 	 }
       }
