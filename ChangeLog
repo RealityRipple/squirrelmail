@@ -163,6 +163,7 @@ Version 1.5.1 -- CVS
   - Prevent & being eaten in set_url_var, thanks Marcin Orlowski. Fixes #1053725.
   - Removed internal_link hook.
   - Added sq_setlocale function in order to use multiple locale names.
+  - Added size attributes to new_mail sound tags. Fixes #818958.
 
 Version 1.5.0
 --------------------
