@@ -34,8 +34,12 @@ function charset_decode ($charset, $string) {
             $ret = charset_decode_iso_8859_1 ($string);
         } else if ($res[1] == '2') {
             $ret = charset_decode_iso_8859_2 ($string);
+        } else if ($res[1] == '4') {
+            $ret = charset_decode_iso_8859_4 ($string);
         } else if ($res[1] == '7') {
             $ret = charset_decode_iso_8859_7 ($string);
+        } else if ($res[1] == '13') {
+            $ret = charset_decode_iso_8859_13 ($string);
         } else if ($res[1] == '15') {
             $ret = charset_decode_iso_8859_15 ($string);
         } else {
@@ -403,6 +407,53 @@ function charset_decode_iso_8859_2 ($string) {
     return $string;
 }
 
+/* 
+   iso-8859-4 is Baltic codeset used in some email clients 
+   instead of iso-8859-13 in Lithuania 
+   only Lithuanian charactes are added.
+*/
+
+function charset_decode_iso_8859_4 ($string) {
+    // latin capital a with ogonek
+    $string = str_replace ("\241", '&#0260;', $string);
+    // latin capital c with caron
+    $string = str_replace ("\310", '&#0268;', $string);
+    // latin capital e with ogonek
+    $string = str_replace ("\312", '&#0280;', $string);
+    // latin capital e with dot above
+    $string = str_replace ("\314", '&#0278;', $string);
+    // latin capital i with ogonek
+    $string = str_replace ("\307", '&#0302;', $string);
+    // latin capital s with caron
+    $string = str_replace ("\251", '&#0352;', $string);
+    // latin capital u with ogonek
+    $string = str_replace ("\331", '&#0370;', $string);
+    // latin capital u with macron
+    $string = str_replace ("\336", '&#0362;', $string);
+    // latin capital z with caron
+    $string = str_replace ("\256", '&#0381;', $string);
+    // latin small a with ogonek
+    $string = str_replace ("\261", '&#0261;', $string);
+    // latin small c with caron
+    $string = str_replace ("\350", '&#0269;', $string);
+    // latin small e with ogonek
+    $string = str_replace ("\352", '&#0281;', $string);
+    // latin small e with dot above
+    $string = str_replace ("\354", '&#0279;', $string);
+    // latin small i with ogonek
+    $string = str_replace ("\347", '&#0303;', $string);
+    // latin small s with caron
+    $string = str_replace ("\271", '&#0353;', $string);
+    // latin small u with ogonek
+    $string = str_replace ("\371", '&#0371;', $string);
+    // latin small u with macron
+    $string = str_replace ("\376", '&#0363;', $string);
+    // latin small z with caron
+    $string = str_replace ("\276", '&#0382;', $string);
+
+    return (charset_decode_iso_8859_1($string));
+}
+
 /* iso-8859-7 is Greek. */
 function charset_decode_iso_8859_7 ($string) {
     global $default_charset;
@@ -462,6 +513,52 @@ function charset_decode_iso_8859_7 ($string) {
     $string = preg_replace("/([\274-\376])/","'&#' . (ord(\\1)+720)",$string);
 
     return $string;
+}
+
+/*
+ iso-8859-13 codeset used in Lithuania
+ only Lithuanian charactes are added.
+*/
+
+function charset_decode_iso_8859_13 ($string) {
+    // latin capital a with ogonek
+    $string = str_replace ("\300", '&#0260;', $string);
+    // latin capital c with caron
+    $string = str_replace ("\310", '&#0268;', $string);
+    // latin capital e with ogonek
+    $string = str_replace ("\306", '&#0280;', $string);
+    // latin capital e with dot above
+    $string = str_replace ("\313", '&#0278;', $string);
+    // latin capital i with ogonek
+    $string = str_replace ("\301", '&#0302;', $string);
+    // latin capital s with caron
+    $string = str_replace ("\320", '&#0352;', $string);
+    // latin capital u with ogonek
+    $string = str_replace ("\330", '&#0370;', $string);
+    // latin capital u with macron
+    $string = str_replace ("\333", '&#0362;', $string);
+    // latin capital z with caron
+    $string = str_replace ("\336", '&#0381;', $string);
+    // latin small a with ogonek
+    $string = str_replace ("\340", '&#0261;', $string);
+    // latin small c with caron
+    $string = str_replace ("\350", '&#0269;', $string);
+    // latin small e with ogonek
+    $string = str_replace ("\346", '&#0281;', $string);
+    // latin small e with dot above
+    $string = str_replace ("\353", '&#0279;', $string);
+    // latin small i with ogonek
+    $string = str_replace ("\341", '&#0303;', $string);
+    // latin small s with caron
+    $string = str_replace ("\360", '&#0353;', $string);
+    // latin small u with ogonek
+    $string = str_replace ("\370", '&#0371;', $string);
+    // latin small u with macron
+    $string = str_replace ("\373", '&#0363;', $string);
+    // latin small z with caron
+    $string = str_replace ("\376", '&#0382;', $string);
+
+    return (charset_decode_iso_8859_1($string));
 }
 
 /*
