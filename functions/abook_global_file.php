@@ -16,8 +16,9 @@
  *
  * Make sure you configure this before using it!
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage addressbook
  */
 
 /**
