@@ -29,12 +29,15 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
+require_once(SM_PATH . 'functions/set_language_align.php');
 
 /* --------------------- Get globals ------------------------------------- */
 $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $base_uri = $_SESSION['base_uri'];
 $delimiter = $_SESSION['delimiter'];
+
+$language_align = set_language_align();
 
 if (isset($_POST['return'])) {
     $html_addr_search_done = 'Use Addresses';
@@ -804,7 +807,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 }
 
 function showInputForm ($session, $values=false) {
-    global $send_to, $send_to_cc, $body,
+    global $send_to, $send_to_cc, $body, $language_align, 
            $passed_body, $color, $use_signature, $signature, $prefix_sig,
            $editor_size, $attachments, $subject, $newmail,
            $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
@@ -838,6 +841,7 @@ function showInputForm ($session, $values=false) {
              '// --></SCRIPT>' . "\n\n";
     }
 
+
     echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
          'ENCTYPE="multipart/form-data"';
     do_hook("compose_form");
@@ -864,10 +868,10 @@ function showInputForm ($session, $values=false) {
     if ($mail_sent == 'yes') {
         echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
     }
-    echo '<TABLE ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
+    echo '<TABLE dir="' . $language_align['dir'] . '" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
     if ($compose_new_win == '1') {
-        echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n" .
-             '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
+        echo '<TABLE dir="' . $language_align['dir'] . '" ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n" .
+             '   <TR dir="' . $language_align['dir'] . '"><TD dir="' . $language_align['dir'] . '"></TD><TD dir="' . $language_align['dir'] . '" ALIGN="' . $language_align['right'] . '"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -875,10 +879,10 @@ function showInputForm ($session, $values=false) {
 
     $idents = getPref($data_dir, $username, 'identities', 0);
     if ($idents > 1) {
-        echo '   <TR>' . "\n" .
-             '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
+        echo '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+             '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN="' . $language_align['right'] . '">' .
                     _("From:") . '</TD>' . "\n" .
-             '      <TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
+             '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" WIDTH="90%" ALIGN="' . $language_align['left'] . '">' . "\n" .
              '         <select name=identity>' . "\n" .
              '         <option value=default>' .
                        htmlspecialchars(getPref($data_dir, $username, 'full_name'));
@@ -903,34 +907,34 @@ function showInputForm ($session, $values=false) {
              '      </TD>' . "\n" .
              '   </TR>' . "\n";
     }
-    echo '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
+    echo '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN="' . $language_align['right'] . '">' .
                 _("To:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" WIDTH="90%" ALIGN="' . $language_align['left'] . '">' . "\n" .
          '         <INPUT TYPE=text NAME="send_to" VALUE="' .
                    htmlspecialchars($send_to) . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+         '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['right'] . '">' .
                 _("CC:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['left'] . '">' . "\n" .
          '         <INPUT TYPE=text NAME="send_to_cc" SIZE=60 VALUE="' .
                    htmlspecialchars($send_to_cc) . '"><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+         '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['right'] . '">' .
                 _("BCC:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['left'] . '">' . "\n" .
          '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
                 htmlspecialchars($send_to_bcc) . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
-         '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+         '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['right'] . '">' .
                 _("Subject:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n";
+         '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" ALIGN="' . $language_align['left'] . '">' . "\n";
     echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
                    htmlspecialchars($subject) . '">' . "\n" .
          '      </TD>' . "\n" .
@@ -941,14 +945,14 @@ function showInputForm ($session, $values=false) {
     }
 
     if ($compose_new_win == '1') {
-        echo '   <TR>' . "\n" .
-             '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
+        echo '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+             '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
              '         <TEXTAREA NAME=body ROWS=20 COLS="' .
                        $editor_size . '" WRAP="VIRTUAL">';
     }
     else {
-        echo '   <TR>' . "\n" .
-            '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
+        echo '   <TR dir="' . $language_align['dir'] . '">' . "\n" .
+            '      <TD dir="' . $language_align['dir'] . '" BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
             '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
                       $editor_size . '" WRAP="VIRTUAL">';
     }
@@ -1001,11 +1005,11 @@ function showInputForm ($session, $values=false) {
 	if ((bool) ini_get('file_uploads')) {
     echo '   <TR>' . "\n" .
          '      <TD COLSPAN=2>' . "\n" .
-         '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
+         '         <table dir="' . $language_align['dir'] . '" width="100%" cellpadding="1" cellspacing="0" align="center"'.
                    ' border="0" bgcolor="'.$color[9].'">' . "\n" .
          '            <TR>' . "\n" .
          '               <TD>' . "\n" .
-         '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
+         '                 <table dir="' . $language_align['dir'] . '" width="100%" cellpadding="3" cellspacing="0" align="center"'.
                            ' border="0">' . "\n" .
          '                    <TR>' . "\n" .
          '                       <TD VALIGN=MIDDLE ALIGN=RIGHT>' .
@@ -1026,16 +1030,14 @@ function showInputForm ($session, $values=false) {
 		$attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
 		$type = $attachment->mime_header->type0.'/'.
 		        $attachment->mime_header->type1;
-        	$s_a[] = '<input type="checkbox" name="delete[]" value="' . 
-		         $key . "\">\n" . $attached_filename . ' - ' . $type . 
-		         ' ('.show_readable_size( filesize( $attached_file ) ) 
-		         . ')<br>'."\n";
+        	$s_a[] = '<table><tr><td><input type="checkbox" name="delete[]" value="' . 
+		         $key . "\"></td><td>\n" . $attached_filename . '</td><td>-</td><td> ' . $type . '</td><td>('.show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
            }
         }
     }
     if (count($s_a)) {
-       foreach ($s_a as $s) {
-          echo '<tr><td align=left colspan="2" bgcolor="' . $color[0] . '">'.$s.'</td></tr>';
+     foreach ($s_a as $s) {
+       echo '<tr><td align="' . $language_align['left'] . '" colspan="2" bgcolor="' . $color[0] . '">'.$s.'</td></tr>';
        }         
        echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
             _("Delete selected attachments") . "\">\n" .
