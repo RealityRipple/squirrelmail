@@ -687,7 +687,7 @@ function parseFetch($aResponse,$aMessageList = array()) {
             case 'BODYSTRUCTURE':
                 break;
             case 'INTERNALDATE':
-                $msg['INTERNALDATE'] = str_replace('  ', ' ',parseString($read,$i));
+                $msg['INTERNALDATE'] = trim(str_replace('  ', ' ',parseString($read,$i)));
                 break;
             case 'BODY.PEEK[HEADER.FIELDS':
             case 'BODY[HEADER.FIELDS':
