@@ -139,9 +139,13 @@ $show_prefix_option = false;
  *      marked 'Deleted'.
  *   $sent_folder
  *      This is the path to where Sent messages will be stored.
+ *   $delete_folder
+ *      If this is true, when a folder is deleted then it will
+ *      not get moved into the Trash folder.
  */
 global $default_move_to_trash, $default_move_to_sent, $default_save_as_draft;
 global $trash_folder, $sent_folder, $draft_folder, $auto_expunge;
+global $delete_folder;
 $default_move_to_trash = true;
 $default_move_to_sent  = true;
 $default_save_as_draft = true;
@@ -149,6 +153,7 @@ $trash_folder = 'INBOX.Trash';
 $sent_folder  = 'INBOX.Sent';
 $draft_folder = 'INBOX.Drafts';
 $auto_expunge = true;
+$delete_folder = false;
 
 /**
  * Should I create the Sent and Trash folders automatically for

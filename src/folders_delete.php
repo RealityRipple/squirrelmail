@@ -25,7 +25,7 @@ require_once('../functions/tree.php');
 
 $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list ($imap_stream);
-global $delimiter;
+global $delimiter, $delete_folder;
 
 if (substr($mailbox, -1) == $delimiter)
     $mailbox_no_dm = substr($mailbox, 0, strlen($mailbox) - 1);
@@ -37,6 +37,11 @@ else
 
 // Courier IMAP doesn't like subfolders of Trash
 if (strtolower($imap_server_type) == "courier") {
+    $can_move_to_trash = false;
+}
+
+// If global options say we can't move it into Trash
+else if(isset($delete_folder) && $delete_folder == true) {
     $can_move_to_trash = false;
 }
 
