@@ -159,10 +159,8 @@
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
          $boxes[$g]['unformatted'] = $mailbox;
          if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) { 
-            $boxes[$g]['unformatted-disp'] = substr($mailbox, strlen($folder_prefix));
-         } else if (strtolower($mailbox) == "inbox") {
-            $boxes[$g]['unformatted-disp'] = $mailbox;
-         }
+            $mailbox = substr($mailbox, strlen($folder_prefix));
+         $boxes[$g]['unformatted-disp'] = $mailbox;
          $boxes[$g]['id'] = $g;
 
          if (isset($line[$g]))
