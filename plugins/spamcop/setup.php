@@ -62,15 +62,15 @@ function spamcop_show_link() {
       return;
 
    /* GLOBALS */
-   $passed_id = $_GET['passed_id'];
-   $mailbox = $_GET['mailbox'];
-   $startMessage = $_GET['startMessage'];
+   sqgetGlobalVar('passed_id',    $passed_id,    SQ_GET);
+   sqgetGlobalVar('mailbox',      $mailbox,      SQ_GET);
+   sqgetGlobalVar('startMessage', $startMessage, SQ_GET);
    /* END GLOBALS */
 
    echo "<br>\n";
    
    if ($spamcop_method == 'web_form') {
-?><script language=javascript>
+?><script language="javascript" type="text/javascript">
 document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
 echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP
 echo urlencode($mailbox); ?>" target="_blank">');

@@ -17,8 +17,9 @@ displayPageHeader($color, 'None');
 /* globals */
 sqgetGlobalVar('action', $action);
 sqgetGlobalVar('meth', $meth);
-sqgetGlobalVar('ID' , $meth);
-extract($_SESSION);
+sqgetGlobalVar('ID' , $ID);
+
+sqgetGlobalVar('username', $username, SQ_SESSION);
 /* end of globals */
 
 $action = (!isset($action) ? '' : $action);
@@ -55,16 +56,17 @@ global $spamcop_enabled, $spamcop_delete;
 spamcop_load();
 
 ?>
-      <br>
-      <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
-         <center><b><?php echo _("Options") ?> - Message Filtering</b></center>
+      <br />
+      <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
+      <tr><td bgcolor="<?php echo $color[0]; ?>">
+         <center><b><?php echo _("Options"); ?> - Message Filtering</b></center>
       </td></tr></table>
-      <br>
+      <br />
       
-      <table align=center>
+      <table align="center">
         <tr>
-	  <td align=right>SpamCop link is:</td>
-	  <td><?PHP if ($spamcop_enabled) { 
+	  <td align="right">SpamCop link is:</td>
+	  <td><?php if ($spamcop_enabled) { 
 	  ?>Enabled (<a href="options.php?action=disable">Disable it</a>)
 	  <?PHP } else {
 	  ?>Disabled (<a href="options.php?action=enable">Enable it</a>)
@@ -72,43 +74,43 @@ spamcop_load();
 	  ?></td>
 	</tr>
         <tr>
-	  <td align=right valign=top>Delete spam when reported:<br>
+	  <td align="right" valign="top">Delete spam when reported:<br />
 	    <font size="-2">(Only works with email-based reporting)</font>
 	  </td>
-	  <td valign=top><?PHP if ($spamcop_delete) { 
+	  <td valign="top"><?php if ($spamcop_delete) { 
 	  ?>Enabled (<a href="options.php?action=save">Disable it</a>)
-	  <?PHP } else {
+	  <?php } else {
 	  ?>Disabled (<a href="options.php?action=delete">Enable it</a>)
-	  <?PHP }
+	  <?php }
 	  ?></td>
 	</tr>
 	<tr>
-	  <td align=right>Spam Reporting Method:</td>
-	  <form method=post action=options.php><td>
-	    <select name=meth>
-	      <option value="quick_email"<?PHP
-	        if ($spamcop_method == 'quick_email') echo ' SELECTED'
+	  <td align="right">Spam Reporting Method:</td>
+	  <form method="post" action="options.php"><td>
+	    <select name="meth">
+	      <option value="quick_email"<?php
+	        if ($spamcop_method == 'quick_email') echo ' selected'
 	        ?>>Quick email-based reporting</option>
-	      <option value="thorough_email"<?PHP
-	        if ($spamcop_method == 'thorough_email') echo ' SELECTED'
+	      <option value="thorough_email"<?php
+	        if ($spamcop_method == 'thorough_email') echo ' selected'
 	        ?>>Thorough email-based reporting</option>
-	      <option value="web_form"<?PHP
-	        if ($spamcop_method == 'web_form') echo ' SELECTED'
+	      <option value="web_form"<?php
+	        if ($spamcop_method == 'web_form') echo ' selected'
 	        ?>>Web-based form</option>
 	    </select>
-	    <input type=hidden name=action value=meth>
-	    <input type=submit value="Save Method">
+	    <input type="hidden" name="action" value="meth">
+	    <input type="submit" value="Save Method">
 	  </td></form>
 	</tr>
 	<tr>
-	  <td valign=top align=right>Your SpamCop authorization code:<br>
+	  <td valign="top" align="right">Your SpamCop authorization code:<br />
 	    <font size="-2">(see below)</font>
 	  </td>
-	  <form method=post action=options.php><td valign=top>
-	    <input type=text size=30 name="ID" value="<?PHP
-	      echo htmlspecialchars($spamcop_id) ?>">
-	    <input type=hidden name=action value=save_id>
-	    <input type=submit value="Save ID">
+	  <form method="post" action="options.php"><td valign="top">
+	    <input type="text" size="30" name="ID" value="<?php
+	      echo htmlspecialchars($spamcop_id) ?>" />
+	    <input type="hidden" name="action" value="save_id" />
+	    <input type="submit" value="Save ID" />
 	  </td></form>
 	</tr>
       </table>
@@ -140,7 +142,7 @@ this message as spam.  Clicking on it brings you to a confirmation page.
 Confirming that you want the spam report sent will do different things with
 different reporting methods.</p>
 
-<p><b>Email-based Reporting</b><br>
+<p><b>Email-based Reporting</b><br />
 Pressing the button forwards the message to the SpamCop service and will
 optionally delete the message.  From there, you just need to go to your 
 INBOX and quite soon a message should appear from SpamCop.  (It gets sent to
@@ -152,7 +154,7 @@ window will open.</p>
 reporting.  Also, it appears that this is for members (non-free) only.
 Hopefully this will change soon.</p>
 
-<p><b>Web-based Reporting</b><br>
+<p><b>Web-based Reporting</b><br />
 When you press the button on the confirmation page, this will pop open a new
 browser window and the SpamCop service should appear inside.  The message
 will not be deleted (working on that part), but you won't need to wait for a
