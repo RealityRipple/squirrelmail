@@ -463,7 +463,7 @@
             next($msort);
          } while ($i && $i < $endVar);
       }
-      echo '</TABLE>';
+      echo '</TABLE></FORM>';
 
       echo "</td></tr>\n";
 
