@@ -89,7 +89,8 @@
       if ($reply_to != "")
          fputs($smtpConnection, "Reply-To: $reply_to\n");
 
-      $body = stripslashes($body);
+      str_replace("\\\"", "\"", $body);
+      str_replace("\\\'", "\'", $body);
       fputs($smtpConnection, "$body\n"); // send the body of the message
 
       fputs($smtpConnection, ".\n"); // end the DATA part
