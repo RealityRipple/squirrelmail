@@ -62,7 +62,7 @@ class Deliver {
             if ($i == $entCount-1) $last = true;
         }
         if ($boundary && $last) {
-            $s = "--".$boundary."--\r\n\r\n";
+            $s = "--".$boundary_new."--\r\n\r\n";
             $length_raw += strlen($s);
             if ($stream) {
                 $this->preWriteToStream($s);
@@ -307,8 +307,8 @@ class Deliver {
         }
         /* Identify SquirrelMail */    
         $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
-	// Spamassassin complains about no X-Mailer in combination with X-Priority
-	$header[] = 'X-Mailer: SquirrelMail/' . $version . $rn; 
+        // Spamassassin complains about no X-Mailer in combination with X-Priority
+        $header[] = 'X-Mailer: SquirrelMail/' . $version . $rn; 
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
