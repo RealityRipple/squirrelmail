@@ -102,7 +102,7 @@ function forget_recent($forget_index, $username, $data_dir) {
     $attributes = get_recent( $username, $data_dir);
     reset($types);
     foreach ($types as $key) {
-        array_splice($attributes[$key], $forget_index, 1);
+        array_splice($attributes[$key], $forget_index - 1, 1);
         array_unshift($attributes[$key], '');
     }
     reset($types);
