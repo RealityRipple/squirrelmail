@@ -2,6 +2,8 @@
    include("../config/config.php");
    include("../functions/prefs.php");
 
+   checkForPrefs($data_dir, $username);
+
    $chosen_theme = getPref($data_dir, $username, "chosen_theme");
 
    if ((isset($chosen_theme)) && (file_exists($chosen_theme))) {

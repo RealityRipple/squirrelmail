@@ -16,8 +16,6 @@
    /** load up some of the values from the pref file **/
    $fullname = getPref($data_dir, $username, "full_name");
    $replyto  = getPref($data_dir, $username, "reply_to");
-   if ($replyto == "")
-      $replyto = "$username@$domain";
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
@@ -36,7 +34,7 @@
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         <INPUT TYPE=TEXT NAME=full_name VALUE=\"$fullname\" SIZE=50>";
+   echo "         <INPUT TYPE=TEXT NAME=full_name VALUE=\"$fullname\" SIZE=50><BR>";
    echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
@@ -49,7 +47,7 @@
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         <INPUT TYPE=TEXT NAME=reply_to VALUE=\"$replyto\" SIZE=50>";
+   echo "         <INPUT TYPE=TEXT NAME=reply_to VALUE=\"$replyto\" SIZE=50><BR>";
    echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
