@@ -45,7 +45,7 @@
       <p>
       This must be the persons' fully qualified email address.  Guessing here 
       just won't cut it.  There are three parts to an email address.  First is 
-      the recipients identifier, such as "johnq" Next is the domain name 
+      the recipients identifier, such as "johnq". Next is the domain name 
       section, which could take the form "tayloru".  Last comes the top level 
       domain, which could be one of a ton of things like au, cc, us, com, org, 
       net or might look like edu.  So if we put all those together it must be 
