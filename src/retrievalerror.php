@@ -92,11 +92,11 @@ sendMessage($destination, '', '', 'submitted message', $body, 0);
 
 displayPageHeader($color, $mailbox);
 
-$par = 'mailbox='.urlencode($mailbox)."&passed_id=$passed_id";
+$par = 'mailbox='.urlencode($mailbox)."&amp;passed_id=$passed_id";
 if (isset($where) && isset($what)) {
-    $par .= '&where='.urlencode($where).'&what='.urlencode($what);
+    $par .= '&amp;where='.urlencode($where).'&amp;what='.urlencode($what);
 } else {
-    $par .= "&startMessage=$startMessage&show_more=0";
+    $par .= "&amp;startMessage=$startMessage&amp;show_more=0";
 }
 
 echo '<BR>The message has been submitted to the developers knowledgebase!<BR>' .

@@ -237,18 +237,18 @@ if ($saved_count > 0) {
         . '<TD ALIGN=RIGHT>'
         .   '<A HREF=search.php'
         .     '?mailbox=' . urlencode($saved_folder_array[$i])
-        .     '&what=' . urlencode($saved_what_array[$i])
-        .     '&where=' . urlencode($saved_where_array[$i])
+        .     '&amp;what=' . urlencode($saved_what_array[$i])
+        .     '&amp;where=' . urlencode($saved_where_array[$i])
         .   '>' . _("edit") . '</A>'
         .   '&nbsp;|&nbsp;'
         .   '<A HREF=search.php'
         .     '?mailbox=' . urlencode($saved_folder_array[$i])
-        .     '&what=' . urlencode($saved_what_array[$i])
-        .     '&where=' . urlencode($saved_where_array[$i])
-        .     '&submit=Search_no_update'
+        .     '&amp;what=' . urlencode($saved_what_array[$i])
+        .     '&amp;where=' . urlencode($saved_where_array[$i])
+        .     '&amp;submit=Search_no_update'
         .   '>' . _("search") . '</A>'
         .   '&nbsp;|&nbsp;'
-        .   "<A HREF=search.php?count=$i&submit=delete>"
+        .   "<A HREF=search.php?count=$i&amp;submit=delete>"
         .     _("delete")
         .   '</A>'
         . '</TD></TR>';
@@ -276,18 +276,18 @@ if ($recent_count > 0) {
                . "<TD ALIGN=LEFT>$what_array[$i]</TD>"
                . "<TD ALIGN=CENTER>$where_array[$i]</TD>"
                . '<TD ALIGN=RIGHT>'
-               .   "<A HREF=search.php?count=$i&submit=save>"
+               .   "<A HREF=search.php?count=$i&amp;submit=save>"
                .     _("save")
                .   '</A>'
                .   '&nbsp;|&nbsp;'
                .   '<A HREF=search.php'
                .     '?mailbox=' . urlencode($folder_array[$i])
-               .     '&what=' . urlencode($what_array[$i])
-               .     '&where=' . urlencode($where_array[$i])
-               .     '&submit=Search_no_update'
+               .     '&amp;what=' . urlencode($what_array[$i])
+               .     '&amp;where=' . urlencode($where_array[$i])
+               .     '&amp;submit=Search_no_update'
                .   '>' . _("search") . '</A>'
                .   '&nbsp;|&nbsp;'
-               .   "<A HREF=search.php?count=$i&submit=forget>"
+               .   "<A HREF=search.php?count=$i&amp;submit=forget>"
                .     _("forget")
                .   '</A>'
                . '</TD></TR>';

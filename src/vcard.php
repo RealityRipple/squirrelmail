@@ -31,12 +31,12 @@ echo '<br><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
 if (isset($where) && isset($what)) {
     // from a search
     echo '<a href="../src/read_body.php?mailbox=' . urlencode($mailbox) .
-            '&passed_id=' . $passed_id . '&where=' . urlencode($where) .
-            '&what=' . urlencode($what). '">' . _("View message") . '</a>';
+            '&amp;passed_id=' . $passed_id . '&amp;where=' . urlencode($where) .
+            '&amp;what=' . urlencode($what). '">' . _("View message") . '</a>';
 } else {
     echo '<a href="../src/read_body.php?mailbox=' . urlencode($mailbox) .
-        '&passed_id=' . $passed_id . '&startMessage=' . $startMessage .
-        '&show_more=0">' . _("View message") . '</a>';
+        '&amp;passed_id=' . $passed_id . '&amp;startMessage=' . $startMessage .
+        '&amp;show_more=0">' . _("View message") . '</a>';
 }
 echo '</center></b></td></tr>';
 
@@ -190,9 +190,9 @@ echo '</select>' .
         '</FORM>' .
         '</td></tr>' .
         '<tr><td align=center>' .
-        '<a href="../src/download.php?absolute_dl=true&passed_id=' .
-        $passed_id . '&mailbox=' . urlencode($mailbox) .
-        '&passed_ent_id=' . $passed_ent_id . '">' .
+        '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
+        $passed_id . '&amp;mailbox=' . urlencode($mailbox) .
+        '&amp;passed_ent_id=' . $passed_ent_id . '">' .
         _("Download this as a file") . '</A>' .
         '</TD></TR></TABLE>' .
 

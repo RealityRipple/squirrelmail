@@ -27,17 +27,17 @@ echo '<BR>' .
 if (isset($where) && isset($what)) {
   // from a search
   echo '<a href="../src/read_body.php?mailbox=' . urlencode($mailbox) .
-        '&passed_id=' . $passed_id . '&where=' . urlencode($where) . 
-        '&what=' . urlencode($what). '">' . _("View message") . '</a>';
+        '&amp;passed_id=' . $passed_id . '&amp;where=' . urlencode($where) . 
+        '&amp;what=' . urlencode($what). '">' . _("View message") . '</a>';
 } else {   
   echo '<a href="../src/read_body.php?mailbox=' . urlencode($mailbox) .
-       '&passed_id=' . $passed_id . '&startMessage=' . $startMessage .
-       '&show_more=0">' . _("View message") . '</a>';
+       '&amp;passed_id=' . $passed_id . '&amp;startMessage=' . $startMessage .
+       '&amp;show_more=0">' . _("View message") . '</a>';
 }   
 
 $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
-               '&mailbox=' . urlencode($mailbox) . 
-               '&passed_ent_id=' . $passed_ent_id . '&absolute_dl=true';
+               '&amp;mailbox=' . urlencode($mailbox) . 
+               '&amp;passed_ent_id=' . $passed_ent_id . '&amp;absolute_dl=true';
 
 echo '</b></td></tr>' . "\n" .
     '<tr><td align=center><A HREF="' . $DownloadLink . '">' .
