@@ -66,6 +66,10 @@ function charset_decode ($charset, $string) {
 	$ret = charset_decode_windows_1253 ($string);
     } else if ($charset == 'windows-1254') {
 	$ret = charset_decode_windows_1254 ($string);
+    } else if ($charset == 'windows-1255') {
+	     $ret = charset_decode_windows_1255 ($string);
+    } else if ($charset == 'windows-1256') {
+	     $ret = charset_decode_windows_1256 ($string);
     } else if ($charset == 'windows-1257') {
         $ret = charset_decode_windows_1257 ($string);
     } else if ($charset == 'utf-8') {
@@ -1448,6 +1452,140 @@ function charset_decode_windows_1254 ($string) {
     $string = str_replace("\375", '&#305;', $string);
     // latin small letter s with cedilla 254->351
     $string = str_replace("\376", '&#351;', $string);
+
+    // Rest of charset is like iso-8859-1
+    return (charset_decode_iso_8859_1($string));
+}
+
+/*
+ windows-1255 (Hebr)
+ */
+function charset_decode_windows_1255 ($string) {
+    global $default_charset;
+
+    if (strtolower($default_charset) == 'windows-1255')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    $string = str_replace("\200", '&#8364;', $string);
+    $string = str_replace("\202", '&#8218;', $string);
+    $string = str_replace("\203", '&#402;',  $string);
+    $string = str_replace("\204", '&#8222;', $string);
+    $string = str_replace("\205", '&#8230;', $string);
+    $string = str_replace("\206", '&#8224;', $string);
+    $string = str_replace("\207", '&#8225;', $string);
+    $string = str_replace("\211", '&#8240;', $string);
+    $string = str_replace("\213", '&#8249;', $string);
+    $string = str_replace("\221", '&#8216;', $string);
+    $string = str_replace("\222", '&#8217;', $string);
+    $string = str_replace("\223", '&#8220;', $string);
+    $string = str_replace("\224", '&#8221;', $string);
+    $string = str_replace("\225", '&#8226;', $string);
+    $string = str_replace("\226", '&#8211;', $string);
+    $string = str_replace("\227", '&#8212;', $string);
+    $string = str_replace("\231", '&#8482;', $string);
+    $string = str_replace("\233", '&#8250;', $string);
+    $string = str_replace("\240", '&#160;', $string);
+    // 162-169
+    $string = preg_replace("/([\242-\251])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = str_replace("\252", '&#215;', $string);
+    // 171-174
+    $string = preg_replace("/([\253-\256])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = str_replace ("\257", '&#781;', $string);
+    // 176-185
+    $string = preg_replace("/([\260-\271])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = str_replace ("\272", '&#247;', $string);
+    // 187-190
+    $string = preg_replace("/([\273-\276])/e","'&#' . ord('\\1') . ';'",$string);
+    $string = str_replace ("\337", '&#8215;', $string);
+    // 224-250  1488-1514 (+1264)
+    $string = preg_replace("/([\340-\372])/e","'&#' . (ord('\\1')+1264) . ';'",$string);
+
+    return ($string);
+}
+
+/*
+ windows-1256 (Arab)
+ */
+function charset_decode_windows_1256 ($string) {
+    global $default_charset;
+
+    if (strtolower($default_charset) == 'windows-1256')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    $string = str_replace("\200", '&#1548;', $string);
+    $string = str_replace("\202", '&#8218;', $string);
+    $string = str_replace("\204", '&#8222;', $string);
+    $string = str_replace("\205", '&#8230;', $string);
+    $string = str_replace("\206", '&#8224;', $string);
+    $string = str_replace("\207", '&#8225;', $string);
+    $string = str_replace("\211", '&#8240;', $string);
+    $string = str_replace("\213", '&#8249;', $string);
+    $string = str_replace("\221", '&#8216;', $string);
+    $string = str_replace("\222", '&#8217;', $string);
+    $string = str_replace("\223", '&#8220;', $string);
+    $string = str_replace("\224", '&#8221;', $string);
+    $string = str_replace("\225", '&#8226;', $string);
+    $string = str_replace("\226", '&#8211;', $string);
+    $string = str_replace("\227", '&#8212;', $string);
+    $string = str_replace("\230", '&#1564;', $string);
+    $string = str_replace("\231", '&#8482;', $string);
+    $string = str_replace("\232", '&#1567;', $string);
+    $string = str_replace("\233", '&#8250;', $string);
+    $string = str_replace("\234", '&#1569;', $string);
+    $string = str_replace("\235", '&#1570;', $string);
+    $string = str_replace("\236", '&#1571;', $string);
+    $string = str_replace("\237", '&#376;', $string);
+    $string = str_replace("\241", '&#1572;', $string);
+    $string = str_replace("\242", '&#1573;', $string);
+    $string = str_replace("\245", '&#1574;', $string);
+    $string = str_replace ("\250", '&#1575;', $string);
+    $string = str_replace ("\252", '&#1576;', $string);
+    $string = str_replace ("\262", '&#1577;', $string);
+    $string = str_replace ("\263", '&#1578;', $string);
+    $string = str_replace ("\264", '&#1579;', $string);
+    $string = str_replace ("\270", '&#1580;', $string);
+    $string = str_replace ("\272", '&#1581;', $string);
+    $string = str_replace ("\274", '&#1582;', $string);
+    $string = str_replace ("\275", '&#1583;', $string);
+    $string = str_replace ("\276", '&#1584;', $string);
+    $string = str_replace ("\277", '&#1585;', $string);
+    $string = str_replace ("\301", '&#1586;', $string);
+    $string = str_replace ("\304", '&#1587;', $string);
+    $string = str_replace ("\305", '&#1588;', $string);
+    $string = str_replace ("\306", '&#1589;', $string);
+    $string = str_replace ("\314", '&#1590;', $string);
+    $string = str_replace ("\315", '&#1591;', $string);
+    $string = str_replace ("\320", '&#1592;', $string);
+    $string = str_replace ("\321", '&#1593;', $string);
+    $string = str_replace ("\322", '&#1594;', $string);
+    $string = str_replace ("\323", '&#1600;', $string);
+    $string = str_replace ("\325", '&#1601;', $string);
+    $string = str_replace ("\326", '&#1602;', $string);
+    $string = str_replace ("\330", '&#1603;', $string);
+    $string = str_replace ("\332", '&#1711;', $string);
+    $string = str_replace ("\335", '&#1604;', $string);
+    $string = str_replace ("\336", '&#1605;', $string);
+    $string = str_replace ("\337", '&#1606;', $string);
+    $string = str_replace ("\341", '&#1607;', $string);
+    $string = str_replace ("\344", '&#1608;', $string);
+    $string = str_replace ("\345", '&#1609;', $string);
+    $string = str_replace ("\346", '&#1610;', $string);
+    $string = str_replace ("\354", '&#1611;', $string);
+    $string = str_replace ("\355", '&#1612;', $string);
+    $string = str_replace ("\360", '&#1613;', $string);
+    $string = str_replace ("\361", '&#1614;', $string);
+    $string = str_replace ("\362", '&#1615;', $string);
+    $string = str_replace ("\363", '&#1616;', $string);
+    $string = str_replace ("\365", '&#1617;', $string);
+    $string = str_replace ("\366", '&#1618;', $string);
 
     // Rest of charset is like iso-8859-1
     return (charset_decode_iso_8859_1($string));
