@@ -35,7 +35,7 @@
       echo "</TT></TD></TR></TABLE>";
    }
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
 
    // $message contains all information about the message

@@ -22,7 +22,7 @@
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
-   $imapConnection = sqimap_login ($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection);
 
    /** DELETING FOLDERS **/

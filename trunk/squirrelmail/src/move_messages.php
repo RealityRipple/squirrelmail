@@ -37,7 +37,7 @@
       }
    }
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
 
    // If the delete button was pressed, the moveButton variable will not be set.

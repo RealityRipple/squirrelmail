@@ -71,7 +71,7 @@
    }
 
    // open a connection on the imap port (143)
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 10); // the 10 is to hide the output
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");

@@ -58,7 +58,7 @@
    /////////////////////////////////////////////////////////////////////////////////
 
    // open a connection on the imap port (143)
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");

@@ -12,7 +12,7 @@
 
    include("../src/load_prefs.php");
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
 
    if (strpos($folder_name, "\"") || strpos($folder_name, ".") ||

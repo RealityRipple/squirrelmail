@@ -17,7 +17,7 @@
    include("../src/load_prefs.php");
 
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress);
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort);
    $boxes = sqimap_mailbox_list($imapConnection, $boxes);
    fputs($imapConnection, "1 logout\n");
 
