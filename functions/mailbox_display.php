@@ -239,7 +239,7 @@
 
       echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage\">";
       do_hook("mailbox_form_before");
-      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0>\n";
+      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
       echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
