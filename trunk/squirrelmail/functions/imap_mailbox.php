@@ -188,7 +188,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 
 /* Checks whether or not the specified mailbox exists */
 function sqimap_mailbox_exists ($imap_stream, $mailbox) {
-    if (!isset($mailbox)) {
+    if (!isset($mailbox) || empty($mailbox)) {
         return false;
     }
     $mbx = sqimap_run_command($imap_stream, "LIST \"\" \"$mailbox\"",
