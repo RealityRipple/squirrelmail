@@ -83,8 +83,6 @@ $icon_theme = getPref($data_dir, $username, 'icon_theme', 'none' );
 // show (or not) flag and unflag buttons on mailbox list screen
 $show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_OFF );
 
-$use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
-
 /* Load the user's special folder preferences */
 $move_to_sent =
     getPref($data_dir, $username, 'move_to_sent', $default_move_to_sent);
@@ -216,7 +214,6 @@ $alt_index_colors =
     getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
 
 /* Folder List Display Format */
-$use_javascript_folder_list = getPref($data_dir, $username, 'use_javascript_folder_list');
 $location_of_bar =
     getPref($data_dir, $username, 'location_of_bar', SMPREF_LOC_LEFT);
 $location_of_buttons =
@@ -268,10 +265,14 @@ $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF
 $sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', 1);
 
 /* Load the javascript settings. */
-$javascript_setting =
-    getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
-$javascript_on = getPref($data_dir, $username, 'javascript_on', SMPREF_ON);
-
+if ( checkForJavascript() )
+{
+  $use_javascript_folder_list = getPref($data_dir, $username, 'use_javascript_folder_list');
+  $use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
+} else {
+  $use_javascript_folder_list = false;
+  $use_javascript_addr_book = false;
+}
 
 $search_memory = getPref($data_dir, $username, 'search_memory', 0);
 

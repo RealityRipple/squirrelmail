@@ -98,6 +98,8 @@ if ( !sqgetGlobalVar('smaction',$action) )
   if ( sqgetGlobalVar('smaction_reply_all',$tmp) )  $action = 'reply_all';
   if ( sqgetGlobalVar('smaction_forward',$tmp) )    $action = 'forward';
   if ( sqgetGlobalVar('smaction_attache',$tmp) )    $action = 'forward_as_attachment';
+  if ( sqgetGlobalVar('smaction_draft',$tmp) )      $action = 'draft';
+  if ( sqgetGlobalVar('smaction_edit_new',$tmp) )   $action = 'edit_as_new';
 }
 
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */

@@ -831,11 +831,11 @@ function mail_message_listing_beginning ($imapConnection,
                     // display flag buttons only if supported
                     if ($show_flag_buttons && $mbxresponse != NULL && 
                         strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
-                        echo getButton('SUBMIT', 'markUnflagged',_("Un"));
+                        echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
                         echo getButton('SUBMIT', 'markFlagged',_("Flag"));
                         echo '&nbsp;';
                     }
-                    echo getButton('SUBMIT', 'markUnread',_("Un"));
+                    echo getButton('SUBMIT', 'markUnread',_("Unread"));
                     echo getButton('SUBMIT', 'markRead',_("Read"));
                     echo '&nbsp;';
 
@@ -1366,9 +1366,10 @@ function getMbxList($imapConnection, $boxes = 0) {
     echo '         </SELECT></TT>&nbsp;';
 }
 
-function getButton($type, $name, $value, $enabled = TRUE) {
+function getButton($type, $name, $value, $js = '', $enabled = TRUE) {
     $disabled = ( $enabled ? '' : 'disabled ' );
-    return '<INPUT '.$disabled.
+    $js = ( $js ? $js.' ' : '' );
+    return '<INPUT '.$disabled.$js.
                'TYPE="'.$type.
              '" NAME="'.$name.
             '" VALUE="'.$value .

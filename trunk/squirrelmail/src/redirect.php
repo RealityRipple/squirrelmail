@@ -46,7 +46,6 @@ sqsession_register ($base_uri, 'base_uri');
 /* get globals we me need */
 sqGetGlobalVar('login_username', $login_username);
 sqGetGlobalVar('secretkey', $secretkey);
-sqGetGlobalVar('js_autodetect_results', $js_autodetect_results);
 if(!sqGetGlobalVar('squirrelmail_language', $squirrelmail_language) || $squirrelmail_language == '') {
 	$squirrelmail_language = $squirrelmail_default_language;
 }
@@ -120,23 +119,7 @@ if ( sqgetGlobalVar('HTTP_ACCEPT', $http_accept, SQ_SERVER) &&
 }
 
 /* Complete autodetection of Javascript. */
-$javascript_setting = getPref
-    ($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
-$js_autodetect_results = (isset($js_autodetect_results) ?
-    $js_autodetect_results : SMPREF_JS_OFF);
-/* See if it's set to "Always on" */
-$js_pref = SMPREF_JS_ON;
-if ($javascript_setting != SMPREF_JS_ON){
-    if ($javascript_setting == SMPREF_JS_AUTODETECT) {
-        if ($js_autodetect_results == SMPREF_JS_OFF) {
-            $js_pref = SMPREF_JS_OFF;
-        }
-    } else {
-        $js_pref = SMPREF_JS_OFF;
-    }
-}
-/* Update the prefs */
-setPref($data_dir, $username, 'javascript_on', $js_pref);
+checkForJavascript();
 
 /* Compute the URL to forward the user to. */
 $redirect_url = $location . '/webmail.php';

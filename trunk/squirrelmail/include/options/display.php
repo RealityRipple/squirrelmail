@@ -478,16 +478,8 @@ function save_option_theme($option) {
 function save_option_javascript_autodetect($option) {
     global $data_dir, $username, $new_javascript_setting;
 
-    /* Set javascript either on or off. */
-    if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
-        if ($option->new_value == SMPREF_JS_ON) {
-            setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
-        } else {
-            setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
-        }
-    } else {
-        setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
-    }
+    setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
+    checkForJavascript();
 }
 
 /** 

@@ -29,7 +29,11 @@ Version 1.5.1 -- CVS
     (#915527).
   - Remove code related to non-UID-supporting IMAP servers.
   - Fix quoteimap() regex escaping problem (#921291).
+  - Added option to suppress Received: line in outbound SM headers (#847107)
+  - Changed read_body header from links to buttons (looks like message index)
   - Add functions for building HTML forms (functions/forms.php).
+  - Moved javascript_on to session (from prefs). Centralized javascript detection
+    in prefs.php method checkForJavascript.
 
 Version 1.5.0
 --------------------

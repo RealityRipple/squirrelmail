@@ -489,7 +489,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft, 
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $data_dir, $username, $delete_prev_next_display;
+           $data_dir, $username, $delete_prev_next_display,
+           $compose_new_win, $javascript_on;
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -613,36 +614,48 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     // BEGIN MENU ROW - DELETE/REPLY/FORWARD/MOVE/etc.
     $menu_row = '<tr bgcolor="'.$color[9].'"><td><small>';
-
-    // Start form for reply/reply all/forward.. 
     $comp_uri = $base_uri.'src/compose.php' .
                 '?passed_id=' . $passed_id .
                 '&amp;mailbox=' . $urlMailbox .
                 '&amp;startMessage=' . $startMessage .
                  (isset($passed_ent_id) ? '&amp;passed_ent_id='.$passed_ent_id : '');
-    $menu_row .= '<form action="'.$comp_uri.'" method="post"><small>';
+ 
+    // Start form for reply/reply all/forward.. 
+    $target = '';
+    $on_click='';
+    $method='method="get" ';
+    if ($compose_new_win == '1') {
+        if ( $javascript_on ) {
+          $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form)"';
+          $comp_uri = 'javascript:void(0)';
+        } else {
+          $target = 'target="_blank"';
+          $method='method="post" ';
+        }
+    }
+
+    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.'><small>'."\n";
 
     // If Draft folder - create Resume link
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
-        $new_button = 'draft';
+        $new_button = 'smaction_draft';
         $comp_alt_string = _("Resume Draft");
     } else if (handleAsSent($mailbox)) {
     // If in Sent folder, edit as new
-        $new_button = 'edit_as_new';
+        $new_button = 'smaction_edit_new';
         $comp_alt_string = _("Edit Message as New");
     }
     // Show Alt URI for Draft/Sent
     if (isset($comp_alt_string))
-        $menu_row .= getButton('SUBMIT', $new_button, $comp_alt_string) . "\n";
+        $menu_row .= getButton('SUBMIT', $new_button, $comp_alt_string, $on_click) . "\n";
 
-    $menu_row .= getButton('SUBMIT', 'smaction_reply', _("Reply"));
-    $menu_row .= '&nbsp;'.getButton('SUBMIT', 'smaction_reply_all', _("Reply All"));
-    $menu_row .= '&nbsp;'.getButton('SUBMIT', 'smaction_forward', _("Forward"));
-
+    $menu_row .= getButton('SUBMIT', 'smaction_reply', _("Reply"), $on_click) . "\n";
+    $menu_row .= getButton('SUBMIT', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
+    $menu_row .= getButton('SUBMIT', 'smaction_forward', _("Forward"), $on_click);
     if ($enable_forward_as_attachment)
-        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("Attachment");
+        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("Attachment") ."\n";
 
-    $menu_row .= '</form>'.'&nbsp;&nbsp;';
+    $menu_row .= '</form>'.'&nbsp;&nbsp;'."\n";
 
     // Form for deletion
     $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
@@ -662,7 +675,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
     }
     else
-      $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), FALSE) . "\n"; // delete button is disabled
+      $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
 
     $menu_row .= '</form>' . "\n";
 
