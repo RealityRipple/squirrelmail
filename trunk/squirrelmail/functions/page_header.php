@@ -121,7 +121,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         	       "</script>\n";
 	     
              }
-             displayHtmlHeader ('Squirrelmail', $js);
+             displayHtmlHeader ('SquirrelMail', $js);
              $onload = $xtra;
         break;
     case 'src/compose.php':
@@ -150,7 +150,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         $js .= "// -->\n".
         	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
-        displayHtmlHeader ('Squirrelmail', $js);
+        displayHtmlHeader ('SquirrelMail', $js);
         break;   
 
     default:
@@ -199,7 +199,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 	
 
         $onload = "onLoad=\"checkForm();\"";
-        displayHtmlHeader ('Squirrelmail', $js);
+        displayHtmlHeader ('SquirrelMail', $js);
         break;   
 
     }
