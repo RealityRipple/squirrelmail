@@ -158,7 +158,12 @@ do_hook('addrbook_html_search_below');
 /* End search form */
 
 /* Show personal addressbook */
-if ($addrquery == '' || !empty($listall)) {
+
+if ( !empty( $listall ) ){
+    $addrquery = '*';
+}
+
+if ($addrquery == '' && empty($listall)) {
 
     if (! isset($backend) || $backend != -1 || $addrquery == '') {
         if ($addrquery == '') {
@@ -185,11 +190,8 @@ if ($addrquery == '' || !empty($listall)) {
         addr_display_result($res, true);
     }
     exit;
-
-    if ( !empty( $listall ) ){
-        $addrquery = '*';
-    }
-} else {
+}
+else {
 
     /* Do the search */
     if (!empty($addrquery)) {
