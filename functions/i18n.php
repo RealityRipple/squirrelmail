@@ -510,6 +510,12 @@ $languages['ar']['NAME']    = 'Arabic';
 $languages['ar']['CHARSET'] = 'windows-1256';
 $languages['ar']['DIR']     = 'rtl';
 
+$languages['fa_IR']['NAME']    = 'Farsi';
+$languages['fa_IR']['CHARSET'] = 'utf-8';
+$languages['fa_IR']['DIR']     = 'rtl';
+$languages['fa_IR']['LOCALE']  = 'fa_IR.UTF-8';
+$languages['fa']['ALIAS']      = 'fa_IR';
+
 $languages['he_IL']['NAME']    = 'Hebrew';
 $languages['he_IL']['CHARSET'] = 'windows-1255';
 $languages['he_IL']['DIR']     = 'rtl';
