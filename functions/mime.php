@@ -459,7 +459,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         }
         $defaultlink = $default_page . "?startMessage=$startMessage"
                      . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
-                     . '&amp;ent_id='.$ent.$passed_ent_id_link;
+                     . '&amp;ent_id='.$ent.$passed_ent_id_link.'&amp;absolute_dl=true';
         if ($where && $what) {
            $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
