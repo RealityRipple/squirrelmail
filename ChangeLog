@@ -45,6 +45,10 @@ Version 1.4.0 CVS
   - Add display of the maximum filesize for attachment uploads.
   - Do not add < and > if an identity doesn't contain a full name.
   - Fixed bug in parsing Content-Type properties part.
+  - Added move_before_move hook to allow plugins to act upon the different buttons
+  - Fixed bug in Forwarding of Emails (move_messages.php)
+  - Fixed variable spelling error in filters.php
+  - Fixed some operator bugs in compose.php, move_messages.php, and spamcop.php
 
 Version 1.4.0 RC 2a
 -------------------
