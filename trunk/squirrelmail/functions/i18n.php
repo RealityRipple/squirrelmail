@@ -56,7 +56,7 @@
    $languages['hr_HR']['ALIAS'] = 'hr';
 
    $languages['hu']['NAME']    = 'Hungarian';
-   $languages['hu']['CHARSET'] = 'iso-8859-1';
+   $languages['hu']['CHARSET'] = 'iso-8859-2';
    $languages['hu_HU']['ALIAS'] = 'hu';
 
    $languages['id']['NAME']    = 'Indonesian';
