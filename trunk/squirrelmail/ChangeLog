@@ -8,6 +8,7 @@ Version 1.3.2 -- cvs
   - Added Japanese support thanks to Masato HIGASHIYAMA <masato@yamaai-tech.com>
   - Remove NOOP checks in the POP3 client of mail_fetch to make things more
     compatible and not break things which don't need to be broken.
+  - Fix src directory being moved on Windows systems, bugs #586518 #605256 #610676.
 
 Version 1.3.1
 -------------
