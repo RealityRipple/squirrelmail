@@ -201,7 +201,7 @@
                  // re-connect pop3
                  Mail_Fetch_Status(_("Server error...Disconnect"));
 	         $pop3->quit();
-                 Mail_Fetch_Status(_("Re-connect from dead connectoin"));
+                 Mail_Fetch_Status(_("Re-connect from dead connection"));
                  if (!$pop3->connect($mailfetch_server)) {
                      Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR );
                      Mail_Fetch_Status(_("Saving UIDL"));
