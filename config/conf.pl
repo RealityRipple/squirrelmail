@@ -279,6 +279,7 @@ while (($command ne "q") && ($command ne "Q")) {
          print "7.    SMTP Port          : $WHT$smtpPort$NRM\n";
       }
       print "8.  Server               : $WHT$imap_server_type$NRM\n";
+      print "9.  Invert Time          : $WHT$invert_time$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
@@ -431,6 +432,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 6) { $smtpServerAddress  = command16 (); }
          elsif ($command == 7) { $smtpPort           = command17 (); }
          elsif ($command == 8) { $imap_server_type   = command18 (); }
+         elsif ($command == 9) { $invert_time        = command19 (); }
       } elsif ($menu == 3) {
          if    ($command == 1) { $default_folder_prefix          = command21 (); }
          elsif ($command == 2) { $show_prefix_option             = command22 (); }
@@ -626,7 +628,7 @@ sub command17 {
 }
 # imap_server_type 
 sub command18 {
-   print "Eash IMAP server has its own quirks.  As much as we tried to stick\n";
+   print "Each IMAP server has its own quirks.  As much as we tried to stick\n";
    print "to standards, it doesn't help much if the IMAP server doesn't follow\n";
    print "the same principles.  We have made some work-arounds for some of\n";
    print "these servers.  If you would like to use them, please select your\n";
@@ -645,6 +647,29 @@ sub command18 {
    }
    return $new_imap_server_type;
 }
+
+# invert_time
+sub command19 {
+   print "Sometimes the date of messages sent is messed up (off by a few hours\n";
+   print "on some machines).  Typically this happens if the system doesn't support\n";
+   print "tm_gmtoff.  It will happen only if your time zone is \"negative\".\n";
+   print "This most often occurs on Solaris 7 machines in the United States.\n";
+   print "By default, this is off.  It should be kept off unless problems surface\n";
+   print "about the time that messages are sent.\n";
+   print "    no  = Do NOT fix time -- almost always correct\n";
+   print "    yes = Fix the time for this system\n";
+   
+   $YesNo = 'n';
+   $YesNo = 'y' if ($invert_time eq "true");
+
+   print "Fix the time for this system (y/n) [$WHT$YesNo$NRM]: $WHT";
+
+   $new_invert_time = <STDIN>;
+   $new_invert_time =~ tr/yn//cd;
+   return "true" if ($new_invert_time eq "y");
+   return "false" if ($new_invert_time eq "n");
+   return $invert_time;
+}   
 
 # MOTD
 sub command71 {
@@ -1451,8 +1476,9 @@ sub save_data {
    print FILE "\t\$useSendmail          =  $useSendmail;\n";
    print FILE "\t\$smtpServerAddress    = \"$smtpServerAddress\";\n";
    print FILE "\t\$smtpPort             =  $smtpPort;\n";
-   print FILE "\t\$sendmail_path         = \"$sendmail_path\";\n";
+   print FILE "\t\$sendmail_path        = \"$sendmail_path\";\n";
    print FILE "\t\$imap_server_type     = \"$imap_server_type\";\n";
+   print FILE "\t\$invert_time          = $invert_time;\n";
    
    print FILE "\n";
 
