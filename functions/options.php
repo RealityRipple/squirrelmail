@@ -62,6 +62,7 @@ class SquirrelOption {
     var $size;
     var $comment;
     var $script;
+    var $post_script;
 
     /* The name of the Save Function for this option. */
     var $save_function;
@@ -72,7 +73,7 @@ class SquirrelOption {
     var $possible_values;
 
     function SquirrelOption
-    ($name, $caption, $type, $refresh_level, $possible_values = '') {
+    ($name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '') {
         /* Set the basic stuff. */
         $this->name = $name;
         $this->caption = $caption;
@@ -82,9 +83,12 @@ class SquirrelOption {
         $this->size = SMOPT_SIZE_MEDIUM;
         $this->comment = '';
         $this->script = '';
+        $this->post_script = '';
 
         /* Check for a current value. */
-        if (isset($GLOBALS[$name])) {
+        if (!empty($initial_value)) {
+            $this->value = $initial_value;
+        } else if (isset($GLOBALS[$name])) {
             $this->value = $GLOBALS[$name];
         } else {
             $this->value = '';
@@ -126,6 +130,11 @@ class SquirrelOption {
     /* Set the script for this option. */
     function setScript($script) {
         $this->script = $script;
+    }
+
+    /* Set the "post script" for this option. */
+    function setPostScript($post_script) {
+        $this->post_script = $post_script;
     }
 
     /* Set the save function for this option. */
@@ -171,6 +180,9 @@ class SquirrelOption {
                        . '</font>';
         }
 
+        /* Add the "post script" for this option. */
+        $result .= $this->post_script;
+        
         /* Now, return the created widget. */
         return ($result);
     }
@@ -328,7 +340,7 @@ class SquirrelOption {
 
     function createWidget_Hidden() {
         $result = '<input type="hidden" name="new_' . $this->name
-                . '" value="' . $this->value . ' ' . $this->script . '">';
+                . '" value="' . $this->value . '" ' . $this->script . '>';
         return ($result);
     }
 
@@ -396,6 +408,7 @@ function create_option_groups($optgrps, $optvals) {
                     $optset['caption'],
                     $optset['type'],
                     $optset['refresh'],
+                    (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
                     $optset['posvals']
                 );
             } else {
@@ -404,7 +417,8 @@ function create_option_groups($optgrps, $optvals) {
                     $optset['name'],
                     $optset['caption'],
                     $optset['type'],
-                    $optset['refresh']
+                    $optset['refresh'],
+                    (isset($optset['initial_value']) ? $optset['initial_value'] : '')
                 );
             }
 
@@ -426,6 +440,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the script for this option. */
             if (isset($optset['script'])) {
                 $next_option->setScript($optset['script']);
+            }
+
+            /* If provided, set the "post script" for this option. */
+            if (isset($optset['post_script'])) {
+                $next_option->setPostScript($optset['post_script']);
             }
 
             /* Add this option to the option array. */
