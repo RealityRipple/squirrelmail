@@ -85,6 +85,7 @@
       echo "         <A HREF=\"addressbook.php\">" . _("Addresses") . "</A>&nbsp;&nbsp;\n";
       echo "         <A HREF=\"folders.php\">" . _("Folders") . "</A>&nbsp;&nbsp;\n";
       echo "         <A HREF=\"options.php\">" . _("Options") . "</A>&nbsp;&nbsp;\n";
+      echo "         <A HREF=\"webmail.php?right_frame=help.php\" TARGET=\"Help Me!\">" . _("Help") . "</A>&nbsp&nbsp";
       echo "      </TD><TD ALIGN=right WIDTH=\"30%\">\n";
       echo "         <A HREF=\"http://squirrelmail.sourceforge.net/index.php3?from=1\" TARGET=\"_top\">SquirrelMail</A>\n";
       echo "      </TD>\n";
