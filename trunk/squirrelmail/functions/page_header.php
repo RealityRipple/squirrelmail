@@ -75,7 +75,7 @@ function makeInternalLink($path, $text, $target='') {
 }
 
 function displayInternalLink($path, $text, $target='') {
-    echo makeInternalLink($path, $text, $target='');
+    echo makeInternalLink($path, $text, $target);
 }
 
 function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
