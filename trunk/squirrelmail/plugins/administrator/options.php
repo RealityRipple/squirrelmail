@@ -23,9 +23,15 @@ displayPageHeader($color, 'None');
 $cfgfile = '../config/config.php';
 $cfg_defaultfile = '../config/config_default.php';
 $cfg = file( $cfg_defaultfile );
-$newcfg = $defcfg = array( );
+$newcfg = $dfncfg = array( );
 $cm = FALSE;
+
+foreach ( $defcfg as $key => $def ) {
+    $newcfg[$key] = '';
+}
+
 foreach ( $cfg as $l ) {
+    // Remove inline /* */ Blocks
     $l = preg_replace( '/\/\*.*\*\//', '', $l );
     $l = preg_replace( '/#.*$/', '', $l );
     $l = preg_replace( '/\/\/.*$/', '', $l );
@@ -54,13 +60,12 @@ foreach ( $cfg as $l ) {
         $key = trim( substr( $v, 0, $i - 1 ) );
         $val = str_replace( ';', '', trim( substr( $v, $i + 1 ) ) );
         $newcfg[$key] = $val;
-        $defcfg[$key] = $val;
+        $dfncfg[$key] = $val;
     }
 
 }
 
 $cfg = file( $cfgfile );
-asort( $cfg );
 
 $cm = FALSE;
 foreach ( $cfg as $l ) {
@@ -97,7 +102,8 @@ foreach ( $cfg as $l ) {
 }
 
 echo "<form action=$PHP_SELF method=post>" .
-    '<table width=100%>' ,
+    "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
+    "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
 foreach ( $newcfg as $k => $v ) {
     $l = strtolower( $v );
@@ -108,10 +114,10 @@ foreach ( $newcfg as $k => $v ) {
     $e = 'adm_' . $n;
     $name = $k;
     $size = 50;
-    if ( isset( $namcfg[$k] ) ) {
-        $name = $namcfg[$k]['name'];
-        $type = $namcfg[$k]['type'];
-        $size = $namcfg[$k]['size'];
+    if ( isset( $defcfg[$k] ) ) {
+        $name = $defcfg[$k]['name'];
+        $type = $defcfg[$k]['type'];
+        $size = $defcfg[$k]['size'];
     } else if ( $l == 'true' ) {
         $v = 'TRUE';
         $type = SMOPT_TYPE_BOOLEAN;
@@ -124,14 +130,22 @@ foreach ( $newcfg as $k => $v ) {
         $type = SMOPT_TYPE_STRING;
     }
 
-    echo "<tr><td>$name</td><td>";
-
     switch ( $type ) {
+    case SMOPT_TYPE_TITLE:
+        echo "<tr bgcolor=\"$color[5]\"><th colspan=2>$name</th></tr>";
+        break;
+    case SMOPT_TYPE_COMMENT:
+        $v = substr( $v, 1, strlen( $v ) - 2 );
+        echo "<tr><td>$name</td><td>";
+        echo "<b>$v</b>";
+        $newcfg[$k] = "'$v'";
+        break;
     case SMOPT_TYPE_INTEGER:
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
             $v = intval( $HTTP_POST_VARS[$e] );
             $newcfg[$k] = $v;
         }
+        echo "<tr><td>$name</td><td>";
         echo "<input size=10 name=\"adm_$n\" value=\"$v\">";
         break;
     case SMOPT_TYPE_STRLIST:
@@ -139,8 +153,9 @@ foreach ( $newcfg as $k => $v ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
             $newcfg[$k] = $v;
         }
+        echo "<tr><td>$name</td><td>";
         echo "<select name=\"adm_$n\">";
-        foreach ( $namcfg[$k]['posvals'] as $kp => $vp ) {
+        foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
             echo "<option value=\"$kp\"";
             if ( $kp == substr( $v, 1, strlen( $v ) - 2 ) ) {
                 echo ' selected';
@@ -155,6 +170,7 @@ foreach ( $newcfg as $k => $v ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
             $newcfg[$k] = $v;
         }
+        echo "<tr><td>$name</td><td>";
         echo "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
         break;
     case SMOPT_TYPE_BOOLEAN:
@@ -169,17 +185,19 @@ foreach ( $newcfg as $k => $v ) {
             $ct = '';
             $cf = ' checked';
         }
+        echo "<tr><td>$name</td><td>";
         echo "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
             "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
         break;
     default:
+        echo "<tr><td>$name</td><td>";
         echo "<b><i>$v</i></b>";
     }
     echo "</td></tr>\n";
 }
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
      _("Change Settings") . "\" type=submit></th></tr>" ,
-     '</table></form>';
+     '</table></td></tr></table></form>';
 
 /*
     Write the options to the file.
@@ -194,25 +212,29 @@ fwrite( $fp, "<?PHP\n".
 fwrite( $fp, 'GLOBAL ' );
 $not_first = FALSE;
 foreach ( $newcfg as $k => $v ) {
-    if( $i = strpos( $k, '[' ) ) {
-        if( strpos( $k, '[0]' ) ) {
+    if ( $k{0} == '$' ) {
+        if( $i = strpos( $k, '[' ) ) {
+            if( strpos( $k, '[0]' ) ) {
+                if( $not_first ) {
+                    fwrite( $fp, ', ' );
+                }
+                fwrite( $fp, substr( $k, 0, $i) );
+                $not_first = TRUE;
+            }
+        } else {
             if( $not_first ) {
                 fwrite( $fp, ', ' );
             }
-            fwrite( $fp, substr( $k, 0, $i) );
+            fwrite( $fp, $k );
             $not_first = TRUE;
         }
-    } else {
-        if( $not_first ) {
-            fwrite( $fp, ', ' );
-        }
-        fwrite( $fp, $k );
-        $not_first = TRUE;
     }
 }
 fwrite( $fp, ";\n" );
 foreach ( $newcfg as $k => $v ) {
-    fwrite( $fp, "$k = $v;\n" );
+    if ( $k{0} == '$' ) {
+        fwrite( $fp, "$k = $v;\n" );
+    }
 }
 fwrite( $fp, '?>' );
 fclose( $fp );
