@@ -50,9 +50,15 @@ class Deliver_SMTP extends Deliver {
     	    return(0);
 	}
 
-	/* If $_SERVER['HTTP_HOST'] is set, use that in our HELO to the SMTP
-	   server.  This should fix the DNS issues some people have had */
+	/* 
+     * If $_SERVER['HTTP_HOST'] is set, use that in our HELO to the SMTP
+	 * server.  This should fix the DNS issues some people have had 
+     */
 	if (sqgetGlobalVar('HTTP_HOST', $HTTP_HOST, SQ_SERVER)) { // HTTP_HOST is set
+        // optionally trim off port number
+        if($p = strrpos($HTTP_HOST, ':')) {
+            $HTTP_HOST = substr($HTTP_HOST, 0, $p);
+        }
 		$helohost = $HTTP_HOST;
 	} else { // For some reason, HTTP_HOST is not set - revert to old behavior
 		$helohost = $domain;
@@ -71,6 +77,7 @@ class Deliver_SMTP extends Deliver {
 	  } elseif ($smtp_auth_mech == 'digest-md5') {
 	    fputs($stream, "AUTH DIGEST-MD5\r\n");
 	  }
+
 	  $tmp = fgets($stream,1024);
 	   
 	  if ($this->errorCheck($tmp,$stream)) {
@@ -174,6 +181,7 @@ class Deliver_SMTP extends Deliver {
 		}
 	    }
 	}
+
 	for ($i = 0, $cnt = count($bcc); $i < $cnt; $i++) {
 	    if (!$bcc[$i]->host) $bcc[$i]->host = $domain;
 	    if ($bcc[$i]->mailbox) {
@@ -286,17 +294,17 @@ class Deliver_SMTP extends Deliver {
                   . " $err_no : $err_str");
         } else {
             $tmp = fgets($popConnection, 1024); /* banner */
-            if (!eregi("^\+OK", $tmp, $regs)) {
+            if (substr($tmp, 0, 3) != '+OK') {
                 return(0);
             }
             fputs($popConnection, "USER $user\r\n");
             $tmp = fgets($popConnection, 1024);
-            if (!eregi("^\+OK", $tmp, $regs)) {
+            if (substr($tmp, 0, 3) != '+OK') {
                 return(0);
             }
             fputs($popConnection, 'PASS ' . $pass . "\r\n");
             $tmp = fgets($popConnection, 1024);
-            if (!eregi("^\+OK", $tmp, $regs)) {
+            if (substr($tmp, 0, 3) != '+OK') {
                 return(0);
             }
             fputs($popConnection, "QUIT\r\n"); /* log off */
