@@ -31,6 +31,7 @@ $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                  'png'  => 'image/png',
                                  'rtf'  => 'text/richtext',
                                  'txt'  => 'text/plain',
+                                 'patch'=> 'text/plain',
                                  'vcf'  => 'text/x-vcard');
 
 /* Register browser-supported image types */
