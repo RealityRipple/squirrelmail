@@ -225,7 +225,7 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     if (strtolower($type) == 'noselect') {
         $mailbox .= $delimiter;
     }
-    $mailbox  = imap_utf7_encode_local($mailbox);
+
     $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
@@ -239,7 +239,6 @@ function sqimap_subscribe ($imap_stream, $mailbox) {
 
 /* Unsubscribes to an existing folder */
 function sqimap_unsubscribe ($imap_stream, $mailbox) {
-    global $imap_server_type;
     $read_ary = sqimap_run_command($imap_stream, "UNSUBSCRIBE \"$mailbox\"",
                                    true, $response, $message);
 }
@@ -250,7 +249,7 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command($imap_stream, "DELETE \"$mailbox\"",
                                    true, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
-    do_hook_function("rename_or_delete_folder", $args = array($mailbox, 'delete', ''));
+    do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
     removePref($data_dir, $username, "thread_$mailbox");
 }
 
@@ -277,9 +276,6 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
             $postfix = '';
         }
 
-        $old_name = imap_utf7_encode_local($old_name);
-        $new_name = imap_utf7_encode_local($new_name);
-
         $boxesall = sqimap_mailbox_list($imap_stream);
         $cmd = 'RENAME "' . $old_name . '" "' . $new_name . '"';
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
@@ -288,7 +284,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         removePref($data_dir, $username, 'thread_'.$old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
         setPref($data_dir, $username, 'thread_'.$new_name.$postfix, $oldpref);
-        do_hook_function("rename_or_delete_folder",$args = array($old_name, 'rename', $new_name));
+        do_hook_function('rename_or_delete_folder',$args = array($old_name, 'rename', $new_name));
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
 
@@ -330,9 +326,9 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
     for ($g = 0, $cnt = count($line); $g < $cnt; $g++) {
         /* Store the raw IMAP reply */
         if (isset($line[$g])) {
-            $boxesall[$g]["raw"] = $line[$g];
+            $boxesall[$g]['raw'] = $line[$g];
         } else {
-            $boxesall[$g]["raw"] = '';
+            $boxesall[$g]['raw'] = '';
         }
 
         /* Count number of delimiters ($delimiter) in folder name */
@@ -741,7 +737,7 @@ function sqimap_mailbox_list_all($imap_stream) {
         $g++;
     }
     if(is_array($boxes)) {
-        $boxes = sort ($boxes);
+        sort ($boxes);
     }
 
     return $boxes;
