@@ -86,10 +86,10 @@ function newMail () {
                     $message->header->encoding);
             }
         } else {
-            $body = "";
+            $body = '';
         }
 
-        if ($message->header->type1 == "html") {
+        if ($message->header->type1 == 'html') {
             $body = strip_tags($body);
         }
 
@@ -119,6 +119,7 @@ function newMail () {
             $bodyTop =  '-------- ' . _("Original Message") . " --------\n" .
                         _("Subject") . ': ' . $orig_header->subject . "\n" .
                         _("From")    . ': ' . $orig_header->from    . "\n" .
+                        _("Date")      . ': ' . getLongDateString( $orig_header->date ). "\n" .
                         _("To")      . ': ' . $orig_header->to[0]   . "\n";
              if (count($orig_header->to) > 1) {
                  for ($x=1; $x < count($orig_header->to); $x++) {
@@ -173,7 +174,7 @@ function newMail () {
 function getAttachments($message) {
     global $mailbox, $attachments, $attachment_dir, $imapConnection,
            $ent_num, $forward_id, $draft_id, $username;
- 
+
     if (isset($draft_id)) {
          $id = $draft_id;
     } else {
@@ -231,7 +232,7 @@ function showInputForm () {
            $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
-	   $mailprio;
+       $mailprio;
 
     $subject = decodeHeader($subject);
     $reply_subj = decodeHeader($reply_subj);
@@ -338,7 +339,7 @@ function showInputForm () {
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($forward_subj) . '">';
     } else {
-        echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' . 
+        echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($subject) . '">';
     }
     echo '</td></tr>' . "\n\n";
@@ -414,7 +415,7 @@ function showInputForm () {
 
 
    function showComposeButtonRow() {
-      global $use_javascript_addr_book, $save_as_draft, 
+      global $use_javascript_addr_book, $save_as_draft,
              $default_use_priority, $mailprio;
 
       echo "   <TR><td>\n   </td><td>\n";
@@ -434,13 +435,13 @@ function showInputForm () {
       }
       if ($default_use_priority) {
         if(!isset($mailprio)) {
-	  $mailprio = "3";
-	}
-	echo "\n\t". _("Priority") .":<select name=\"mailprio\">".
-	  "\n\t\t<option value=1".($mailprio=="1"?" selected":"").">". _("High") ."</option>".
-	  "\n\t\t<option value=3".($mailprio=="3"?" selected":"").">". _("Normal") ."</option>".
-	  "\n\t\t<option value=5".($mailprio=="5"?" selected":"").">". _("Low")."</option>".
-	  "\n\t</select>";
+      $mailprio = "3";
+    }
+    echo "\n\t". _("Priority") .":<select name=\"mailprio\">".
+      "\n\t\t<option value=1".($mailprio=="1"?" selected":"").">". _("High") ."</option>".
+      "\n\t\t<option value=3".($mailprio=="3"?" selected":"").">". _("Normal") ."</option>".
+      "\n\t\t<option value=5".($mailprio=="5"?" selected":"").">". _("Low")."</option>".
+      "\n\t</select>";
       }
 
       do_hook("compose_button_row");
@@ -468,7 +469,7 @@ function showInputForm () {
    // True if FAILURE
    function saveAttachedFiles() {
       global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
-      
+
       $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
       $localfilename = GenerateRandomString(32, '', 7);
       $full_localfilename = "$hashed_attachment_dir/$localfilename";
@@ -554,11 +555,11 @@ function showInputForm () {
          do_hook("compose_send");
 
          if (! isset($mailprio))
-	    $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc, 
-	                          $subject, $body, $reply_id);
-	 else
-	    $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-	                          $subject, $body, $reply_id, $mailprio);
+        $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                              $subject, $body, $reply_id);
+     else
+        $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                              $subject, $body, $reply_id, $mailprio);
          if (! $Result) {
             showInputForm();
             exit();
@@ -567,7 +568,7 @@ function showInputForm () {
             Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
             exit();
          }
-         
+
          Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
