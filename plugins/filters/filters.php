@@ -25,7 +25,8 @@
  * @subpackage filters
  */
 
-@include_once (SM_PATH . 'plugins/filters/config.php');
+if (file_exists(SM_PATH . 'plugins/filters/config.php'))
+    include_once (SM_PATH . 'plugins/filters/config.php');
 
 /**
  * Init Hooks

@@ -12,7 +12,7 @@
  * @access private
  */
 function squirrelmail_plugin_init_filters() {
-    @include_once(SM_PATH . 'plugins/filters/filters.php');
+    include_once(SM_PATH . 'plugins/filters/filters.php');
     filters_init_hooks ();
 }
 
@@ -32,7 +32,7 @@ function filters_special_mailbox( $mb ) {
  * @access private
  */
 function filters_optpage_register_block_hook() {
-    @include_once(SM_PATH . 'plugins/filters/filters.php');
+    include_once(SM_PATH . 'plugins/filters/filters.php');
     filters_optpage_register_block ();
 }
 
@@ -42,7 +42,7 @@ function filters_optpage_register_block_hook() {
  * @access private
  */
 function start_filters_hook($args) {
-    @include_once(SM_PATH . 'plugins/filters/filters.php');
+    include_once(SM_PATH . 'plugins/filters/filters.php');
     start_filters ();
 }
 
@@ -51,7 +51,7 @@ function start_filters_hook($args) {
  * @access private
  */
 function update_for_folder_hook() {
-    @include_once(SM_PATH . 'plugins/filters/filters.php');
+    include_once(SM_PATH . 'plugins/filters/filters.php');
     update_for_folder ();
 }
 
