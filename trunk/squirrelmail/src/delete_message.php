@@ -32,8 +32,13 @@ if (isset($_GET['saved_draft'])) {
 if (isset($_GET['mail_sent'])) {
     $mail_sent = urlencode($_GET['mail_sent']);
 }
-$sort = (int) $_GET['sort'];
-$startMessage = (int) $_GET['startMessage'];
+if (isset($_GET['sort'])) {
+	$sort = (int) $_GET['sort'];
+}
+
+if (isset($_GET['startMessage'])) {
+	$startMessage = (int) $_GET['startMessage'];
+}
 
 if(isset($_GET['where'])) {
     $where = urlencode($_GET['where']);
