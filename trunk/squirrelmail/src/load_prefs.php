@@ -92,27 +92,27 @@
     global $trash_folder, $sent_folder, $draft_folder;
 
     /** Load special folder - trash **/
-    $new_trash_folder = getPref($data_dir, $username, 'trash_folder');
-    if (($new_trash_folder == '') && ($move_to_trash)) {
+    $load_trash_folder = getPref($data_dir, $username, 'trash_folder');
+    if (($load_trash_folder == '') && ($move_to_trash)) {
         $trash_folder = $folder_prefix . $trash_folder;
     } else {
-        $trash_folder = $new_trash_folder;
+        $trash_folder = $load_trash_folder;
     }
 
     /** Load special folder - sent **/
-    $new_sent_folder = getPref($data_dir, $username, 'sent_folder');
-    if (($new_sent_folder == '') && ($move_to_sent)) {
+    $load_sent_folder = getPref($data_dir, $username, 'sent_folder');
+    if (($load_sent_folder == '') && ($move_to_sent)) {
         $sent_folder = $folder_prefix . $sent_folder;
     } else {
-        $sent_folder = $new_sent_folder;
+        $sent_folder = $load_sent_folder;
     }
 
     /** Load special folder - draft **/
-    $new_draft_folder = getPref($data_dir, $username, 'draft_folder');
-    if (($new_draft_folder == '') && ($save_as_draft)) {
+    $load_draft_folder = getPref($data_dir, $username, 'draft_folder');
+    if (($load_draft_folder == '') && ($save_as_draft)) {
         $draft_folder = $folder_prefix . $draft_folder;
     } else {
-        $draft_folder = $new_draft_folder;
+        $draft_folder = $load_draft_folder;
     }
 
     global $show_num, $wrap_at, $left_size;

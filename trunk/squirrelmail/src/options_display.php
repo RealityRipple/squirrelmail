@@ -203,16 +203,14 @@
     foreach ($options as $option) {
         if ($option->type != SMOPT_TYPE_HIDDEN) {
             echo "<TR>\n";
-            echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE" NOWRAP><font color=red><b>'
-               . $option->caption . "</b></font>:</TD>\n";
+            echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE" NOWRAP>'
+               . $option->caption . ":</TD>\n";
             echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
             echo "</TR>\n";
         } else {
             echo $option->createHTMLWidget();
         }
     }
-
-    /*** NOT YET CONVERTED TO OPTION OBJECTS ***/
 
    echo '<tr><td colspan=2><hr noshade></td></tr>';
    do_hook('options_display_inside');

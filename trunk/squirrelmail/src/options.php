@@ -112,28 +112,34 @@
         echo '<br><b>'._("Successfully saved display preferences!").'</b><br>';
         echo '<a href="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</a><br>';
     } else if (isset($submit_folder)) { 
-        /* Save folder preferences. */
-        if ($trash != 'none') {
-            setPref($data_dir, $username, 'move_to_trash', true);
-           setPref($data_dir, $username, 'trash_folder', $trash);
+        /* Save trash folder preferences. */
+        if ($new_trash_folder != SMPREF_NONE) {
+            setPref($data_dir, $username, 'move_to_trash', SMPREF_ON);
+            setPref($data_dir, $username, 'trash_folder', $new_trash_folder);
         } else {
-            setPref($data_dir, $username, 'move_to_trash', '0');
-            setPref($data_dir, $username, 'trash_folder', 'none');
+            setPref($data_dir, $username, 'move_to_trash', SMPREF_OFF);
+            setPref($data_dir, $username, 'trash_folder', SMPREF_NONE);
         }
-        if ($sent != 'none') {
-            setPref($data_dir, $username, 'move_to_sent', true);
-            setPref($data_dir, $username, 'sent_folder', $sent);
+
+        /* Save sent folder preferences. */
+        if ($new_sent_folder != SMPREF_NONE) {
+            setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
+            setPref($data_dir, $username, 'sent_folder', $new_sent_folder);
         } else {
-            setPref($data_dir, $username, 'move_to_sent', '0');
-            setPref($data_dir, $username, 'sent_folder', 'none');
+            setPref($data_dir, $username, 'move_to_sent', SMPREF_OFF);
+            setPref($data_dir, $username, 'sent_folder', SMPREF_NONE);
         }
-        if ($draft != 'none') {
-            setPref($data_dir, $username, 'save_as_draft', true);
-            setPref($data_dir, $username, 'draft_folder', $draft);
+
+        /* Save draft folder preferences. */
+        if ($new_draft_folder != SMPREF_NONE) {
+            setPref($data_dir, $username, 'save_as_draft', SMPREF_ON);
+            setPref($data_dir, $username, 'draft_folder', $new_draft_folder);
         } else {
-            setPref($data_dir, $username, 'save_as_draft', '0');
-            setPref($data_dir, $username, 'draft_folder', 'none');
+            setPref($data_dir, $username, 'save_as_draft', SMPREF_OFF);
+            setPref($data_dir, $username, 'draft_folder', SMPREF_NONE);
         }
+
+        /* Save folder prefix preferences. */
         if (isset($folderprefix)) {
             setPref($data_dir, $username, 'folder_prefix', $folderprefix);
         } else {
