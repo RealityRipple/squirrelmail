@@ -103,6 +103,9 @@ function checkForm() {
 
     /** Here is the header and wrapping table **/
     $shortBoxName = readShortMailboxName($mailbox, $delimiter);
+    if ( $shorBoxName == 'INBOX' ) {
+        $shortBoxName = _("INBOX");
+    }
     echo "<A NAME=pagetop></A>\n"
         . "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n"
         . "   <TR BGCOLOR=\"$color[9]\" >\n"
