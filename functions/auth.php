@@ -43,7 +43,7 @@ function is_logged_in() {
         return;
     } else {
         global $PHP_SELF, $session_expired_post, 
-	       $session_expired_location;
+	       $session_expired_location, $squirrelmail_language;
 
         /*  First we store some information in the new session to prevent
          *  information-loss.
