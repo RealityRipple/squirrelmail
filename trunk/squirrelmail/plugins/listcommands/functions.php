@@ -45,7 +45,7 @@ function plugin_listcommands_menu_do() {
             } else {
                 $url = "plugins/listcommands/mailout.php?action=$cmd&amp;";
             }
-            $url .= 'send_to=' . strtr($act,'?','&');
+            $url .= 'send_to=' . str_replace('?','&amp;', $act);
 
             $output[] = makeComposeLink($url, $fieldsdescr[$cmd]);
 
