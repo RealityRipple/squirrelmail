@@ -17,7 +17,7 @@ require_once('../functions/i18n.php');
 require_once('../functions/plugin.php');
 require_once('../functions/constants.php');
 require_once('../functions/page_header.php');
-require_once('../class/browser.class');
+//require_once('../class/browser.class.php');
 
 // initialize some vars
 if(!isset($UA)) $UA = '';
@@ -25,10 +25,10 @@ if(!isset($cc)) $cc = '';
 if(!isset($dl)) $dl = '';
 if(!isset($am)) $am = '';
 
-$sniffer_settings = array('check_cookies'=>$cc,
-                          'default_language'=>$dl,
-                          'allow_masquerading'=>$am);
-$browser = new phpSniff($UA,$sniffer_settings);
+//$sniffer_settings = array('check_cookies'=>$cc,
+//                          'default_language'=>$dl,
+//                          'allow_masquerading'=>$am);
+//$browser = new phpSniff($UA,$sniffer_settings);
 
 /*
  * $squirrelmail_language is set by a cookie when the user selects
@@ -45,7 +45,7 @@ if (!function_exists('sqm_baseuri')){
 $base_uri = sqm_baseuri();
 @session_destroy();
 session_start();
-session_register('browser');
+//session_register('browser');
 /*
  * In case the last session was not terminated properly, make sure
  * we get a new one.
