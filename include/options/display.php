@@ -379,6 +379,13 @@ function load_optpage_data_display() {
             'type'    => SMOPT_TYPE_BOOLEAN,
             'refresh' => SMOPT_REFRESH_ALL
         );
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'delete_prev_next_display',
+        'caption' => _("Show 'Delete & Prev/Next' Links"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_ALL
+    );
+        
     }
     /* Assemble all this together and return it as our result. */
     $result = array(
