@@ -237,6 +237,8 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
         }
         break;
     }
+    /* Nothing found, reset $value and return FALSE */
+    $value = null;
     return FALSE;
 }
 
