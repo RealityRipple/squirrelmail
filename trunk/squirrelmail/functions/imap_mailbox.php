@@ -162,13 +162,13 @@
          $boxes[$g]['unformatted-disp'] = $mailbox;
          $boxes[$g]['id'] = $g;
 
-         if (isset($line[$g]))
+         $boxes[$g]['flags'] = array();
+         if (isset($line[$g])) {
             ereg("\(([^)]*)\)",$line[$g],$regs);
-         $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
-         if ($flags) {
-            $boxes[$g]['flags'] = explode(' ', $flags);
-         } else
-            $boxes[$g]['flags'] = array();
+            $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
+            if ($flags)
+               $boxes[$g]['flags'] = explode(' ', $flags);
+	 }
       }
 
       return $boxes;
