@@ -1,0 +1,72 @@
+HOW TO CONFIGURE SQUIRREL-MAIL WITH RUSSIAN APACHE
+--------------------------------------------------
+
+This howto is for people who are using Russian Apache and
+who use charsets other than koi8-r for their source documents.
+If you _do_ use KOI8-R as default encoding for all your source
+documents, you don't need to do anything. Otherwise, here's
+a very simple way to make this work.
+
+The general idea is to tell Russian Apache that everything 
+residing in the squirrel-mail directory is in koi8-r. This
+way all input submitted by users will be automagically 
+converted by mod_charset from anything into koi8-r.
+Squirrel-Mail will then correctly stamp it with
+"Charset=koi8-r" and send off without any additional
+conversion.
+
+There are two equally efficient ways to do it:
+
+
+1. THE HTTPD.CONF WAY.
+-----------------------
+
+In your httpd.conf, add the following declaration for the
+server that handles the squirrel-mail:
+
+<Directory /path/to/your/squirrel-mail>
+CharsetSourceEnc koi8-r
+</Directory>
+
+Warning: If you use CharsetByExtension elsewhere, it will 
+override the CharsetSourceEnc directive. In that case you will 
+have to put this directive instead of the above:
+
+<Directory /path/to/your/squirrel-mail>
+CharsetByExtension koi8-r .php
+</Directory>
+
+It is advised to use the CharsetSourceEnc declaration instead
+of the other one. Use the CharsetByExtension only if the
+other fails.
+
+2. THE .HTACCESS WAY (PREFERRED).
+----------------------------------
+
+Create a .htaccess file in your squirrel-mail directory. In it,
+simply put this line:
+
+CharsetSourceEnc koi8-r
+
+That's it. Note the warning about the ChatsetByExtension directive
+in the previous section. If you used CharsetByExtension declaration
+elsewhere and it's active for this server, then you will have to
+put this line in your .htaccess instead:
+
+CharsetByExtension koi8-r .php
+
+But again, this is only if the CharsetSourceEnc fails.
+
+I mark this method "Preferred" simply because you don't have to 
+restart your server if you use .htaccess. However, if you've
+specified "AllowOverride None" in your Server config, then you
+will have to go with "the httpd.conf way".
+
+
+If you have any questions or problems, please address them to
+the squirrelmail-list@lists.sourceforge.net to have them 
+promptly answered. ;)
+
+--
+Konstantin Riabitsev (a.k.a. Graf)
+graf@relhum.org
