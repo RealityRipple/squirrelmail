@@ -38,7 +38,6 @@ require_once('../src/validate.php');
     require_once('../functions/constants.php');
       
     if (!isset($username)) { $username = ''; }
-    checkForPrefs($data_dir, $username);
 
     $chosen_theme = getPref($data_dir, $username, "chosen_theme");
     $in_ary = false;

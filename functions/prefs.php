@@ -3,7 +3,7 @@
 /**
  * prefs.php
  *
- * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Copyright (c) 1999-2002 The SquirrelMail Development Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This contains functions for manipulating user preferences
@@ -27,6 +27,11 @@ function cachePrefValues($data_dir, $username) {
         return;
     }
 
+    /* A call to checkForPrefs here should take eliminate the need for
+    /* this to be called throughout the rest of the SquirrelMail code. 
+    checkForPrefs($data_dir, $username);
+
+    /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
     if (!file_exists($filename)) {

@@ -211,7 +211,6 @@
 
         if( $username <> '' ) {
             // Creates the pref file if it does not exist.
-        checkForPrefs( $data_dir, $username );
             setPref( $data_dir, $username, 'mailfetch_newlog', 'on' );
         }
 
