@@ -112,8 +112,8 @@ if (isset($send)) {
         }
         $body = $newBody;
 
-        do_hook("compose_send");
-  
+        do_hook('compose_send');
+
         $MDN = False;  // we are not sending a mdn response
         if (! isset($mailprio)) {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
@@ -158,8 +158,7 @@ if (isset($send)) {
         showInputForm();
         /* sqimap_logout($imapConnection); */
     }
-}
-elseif (isset($html_addr_search_done)) {
+} elseif (isset($html_addr_search_done)) {
         if ($compose_new_win == '1') {
             compose_Header($color, $mailbox);
         }
@@ -190,8 +189,7 @@ elseif (isset($html_addr_search_done)) {
         }
     }
     showInputForm();
-}
-elseif (isset($html_addr_search)) {
+} elseif (isset($html_addr_search)) {
     if (isset($HTTP_POST_FILES['attachfile']) &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
@@ -204,8 +202,7 @@ elseif (isset($html_addr_search)) {
      * click.  If you can think of a better way, please implement it.
      */
     include_once('./addrbook_search_html.php');
-}
-elseif (isset($attach)) {
+} elseif (isset($attach)) {
     if (saveAttachedFiles()) {
         plain_error_message(_("Could not move/copy file. File not attached"), $color);
     }
@@ -216,8 +213,7 @@ elseif (isset($attach)) {
             displayPageHeader($color, $mailbox);
         }
     showInputForm();
-}
-elseif (isset($do_delete)) {
+} elseif (isset($do_delete)) {
         if ($compose_new_win == '1') {
             compose_Header($color, $mailbox);
         }
@@ -482,7 +478,7 @@ function showInputForm () {
     echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
          'ENCTYPE="multipart/form-data"';
     do_hook("compose_form");
-  
+
     
     echo ">\n";
 
