@@ -245,6 +245,12 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'internal_date_sort',
+        'caption' => _("Use receive date for sort"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_ALL
+    );
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
