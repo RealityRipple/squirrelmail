@@ -36,6 +36,10 @@ require_once('../functions/display_messages.php');
 /* Open a connection on the imap port (143) */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
+if( isset( $PG_SHOWNUM ) ) {
+    $show_num = $PG_SHOWNUM;
+}
+
 if (isset($newsort) && $newsort != $sort) {
     setPref($data_dir, $username, 'sort', $newsort);
 }
