@@ -22,11 +22,13 @@ global $use_icons;
 if ($use_icons) {
     global $icon_themes;
     $dirName = SM_PATH . 'images/themes';
-    $d = dir($dirName);
-    while($dir = $d->read()) {
-        if ($dir != "." && $dir != "..") {
-            if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/theme.php"))
-                include("$dirName/$dir/theme.php");
+    if (is_readable($dirName) && is_dir($dirName)) {
+        $d = dir($dirName);
+        while($dir = $d->read()) {
+            if ($dir != "." && $dir != "..") {
+                if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/theme.php"))
+                    include("$dirName/$dir/theme.php");
+            }
         }
     }
 }
@@ -78,13 +80,16 @@ function load_optpage_data_display() {
     );
  
     $css_values = array( 'none' => _("Default" ) );
-    $handle=opendir('../themes/css/');
-    while ($file = readdir($handle) ) {
-        if ( substr( $file, -4 ) == '.css' ) {
-            $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
+
+    if (is_readable(SM_PATH . 'themes/css') && is_dir(SM_PATH . 'themes/css')) {
+        $handle=opendir(SM_PATH . 'themes/css');
+        while ($file = readdir($handle) ) {
+            if ( substr( $file, -4 ) == '.css' ) {
+                $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
+            }
         }
+        closedir($handle);
     }
-    closedir($handle);
     
     if ( count( $css_values ) > 1 ) {
     
@@ -191,15 +196,17 @@ function load_optpage_data_display() {
             if ($icon_theme == $icon_themes[$count]['PATH'])
                 $value = $count;
         }
-        $optvals[SMOPT_GRP_MAILBOX][] = array(
-            'name'          => 'icon_theme',
-            'caption'       => _("Message Flags Icon Theme"),
-            'type'          => SMOPT_TYPE_STRLIST,
-            'refresh'       => SMOPT_REFRESH_NONE,
-            'posvals'       => $temp,
-            'initial_value' => $value,
-            'save'          => 'icon_theme_save'
-        );
+        if (sizeof($icon_themes) > 0) {
+            $optvals[SMOPT_GRP_MAILBOX][] = array(
+                'name'          => 'icon_theme',
+                'caption'       => _("Message Flags Icon Theme"),
+                'type'          => SMOPT_TYPE_STRLIST,
+                'refresh'       => SMOPT_REFRESH_NONE,
+                'posvals'       => $temp,
+                'initial_value' => $value,
+                'save'          => 'icon_theme_save'
+            );
+        }
     }
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
