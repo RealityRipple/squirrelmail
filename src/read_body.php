@@ -350,12 +350,12 @@
    echo ' width=5% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
-      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
+      echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
    } else {
-      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a>\n";
+      echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a>\n";
    }
       do_hook("read_body_header_right");
-   echo '         </small>&nbsp;&nbsp;</TD>' . "\n";
+   echo '</small></TD>' . "\n";
    echo ' </TR>' ."\n";
    /** from **/
    echo '      <TR>' . "\n";
