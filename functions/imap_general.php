@@ -177,7 +177,7 @@ function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$mes
  * will be displayed.  This function returns the imap connection handle.
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
-    global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
+    global $color, $squirrelmail_language, $onetimepad;
 
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
 

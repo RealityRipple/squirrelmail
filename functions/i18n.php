@@ -785,7 +785,7 @@ function charset_decode_koi8r ($string) {
 function set_up_language($sm_language, $do_search = false) {
 
     static $SetupAlready = 0;
-    global $HTTP_ACCEPT_LANGUAGE, $use_gettext, $languages,
+    global $use_gettext, $languages,
            $squirrelmail_language, $squirrelmail_default_language,
            $sm_notAlias;
 
@@ -794,8 +794,8 @@ function set_up_language($sm_language, $do_search = false) {
     }
     $SetupAlready = TRUE;
 
-    if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
-        $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
+    if ($do_search && ! $sm_language && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $sm_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
     }
     
     if (!$sm_language && isset($squirrelmail_default_language)) {

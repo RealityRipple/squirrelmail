@@ -44,8 +44,8 @@ function cachePrefValues($username) {
         return;
     }
 
-    session_unregister('prefs_cache');
-    session_unregister('prefs_are_cached');
+    sqsession_unregister('prefs_cache');
+    sqsession_unregister('prefs_are_cached');
 
     $db = new dbPrefs;
     if(isset($db->error)) {
@@ -63,8 +63,8 @@ function cachePrefValues($username) {
 
     $prefs_are_cached = true;
 
-    session_register('prefs_cache');
-    session_register('prefs_are_cached');
+    sqsession_register($prefs_cache, 'prefs_cache');
+    sqsession_register($prefs_are_cached, 'prefs_are_cached');
 }
 
 class dbPrefs {
