@@ -698,15 +698,15 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   if ($allow_thread_sort == TRUE) {
     if ($thread_sort_messages == 1 ) {
       $set_thread = 2;
-      $thread_name = 'Unthread View';
+      $thread_name = _("Unthread View");
     } 
 	elseif ($thread_sort_messages == 0) {
       $set_thread = 1;
-      $thread_name = 'Thread View';
+      $thread_name = _("Thread View");
     }
     echo   '<tr><td>&nbsp;<a href=' . "$base_uri" . 'src/right_main.php?sort=' 
       . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
-      . '&mailbox=' . urlencode($mailbox) . '><small>' . _("$thread_name")
+      . '&mailbox=' . urlencode($mailbox) . '><small>' . $thread_name
       . '</a></small>&nbsp;</td></tr>';
   }
 
