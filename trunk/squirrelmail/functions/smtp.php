@@ -749,13 +749,22 @@ function calculate_references($refs, $inreplyto, $old_reply_to) {
     $refer = "";
     for ($i=1;$i<count($refs[0]);$i++) {
         if (!empty($refs[0][$i])) {
-            if (preg_match("/^References:(.+)$/", $refs[0][$i], $regs)) {
+            if (preg_match("/^References:(.+)$/UA", $refs[0][$i], $regs)) {
                 $refer = trim($regs[1]);
             }
-            else {   
-                $refer .= ' ' . trim($refs[0][$i]);
-            }
+            else {
+               $refer .= ' ' . trim($regs[1]);
+	    }
+            
         }
+    }
+    $refer_a = explode(' ', $refer);
+    $refer = '';
+    foreach ($refer_a as $ref) {
+       $ref = trim($ref);
+       if ($ref{0} == '<' && $ref{(strlen($ref)-1)} == '>') {
+          $refer .= $ref . ' ';
+       }
     }
     $refer = trim($refer);
     if (strlen($refer) > 2) {
