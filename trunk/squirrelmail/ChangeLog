@@ -2,6 +2,7 @@ Version 1.1.0 -- DEVELOPMENT
 ----------------------------
 - Added collapseable folder listing (an option that can be turned on)
 - Added alternating row colors to improve interface
+- Added Croatian translation by Albert Novak <anovak@pu.carnet.hr>
 
 Version 1.0.3 -- DEVELOPMENT
 ----------------------------
