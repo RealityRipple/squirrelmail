@@ -81,7 +81,7 @@
    }
 
    // compensate for the UW vulnerability
-   if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
+   if ($imap_server_type == 'uw' && (strstr($mailbox, '../') !== false ||
                                      substr($mailbox, 0, 1) == '/')) {
       $mailbox = 'INBOX';
    }
