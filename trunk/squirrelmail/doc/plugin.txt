@@ -107,6 +107,7 @@ List of hooks
   help_bottom                    src/help.php
   help_chapter                   src/help.php
   abook_html_search_below        src/addrbook_search_html.php
+  addressbook_bottom		 src/addressbook.php
    
 Options
 -------
