@@ -186,15 +186,15 @@ function confirm_update() {
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Priority:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $tmparray[priority] , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', $tmparray['priority'] , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Title:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $tmparray[title] , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', $tmparray['title'] , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Message:") , 'right', $color[4] ) ."\n" .
-                    html_tag( 'td', $tmparray[message] , 'left', $color[4] ) ."\n"
+                    html_tag( 'td', $tmparray['message'] , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("to:") . "<br>\n", '', $color[4], 'colspan="2"' ) ."\n"

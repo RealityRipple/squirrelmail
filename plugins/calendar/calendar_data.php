@@ -40,6 +40,11 @@ function readcalendardata() {
                                                             'reminder' => $fdata[6] );
             }
             fclose ($fp);
+            // this is to sort the events within a day on starttime
+            foreach($calendardata as $day => $data) {
+                ksort($data, SORT_NUMERIC);
+                $calendardata[$day] = $data;
+            }
         }
     }
 }
