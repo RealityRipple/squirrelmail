@@ -1,8 +1,15 @@
-body { font-family: helvetica,arial,sans;
-       font-size: 6pt; }
-td { font-family: helvetica,arial,sans;
-       font-size: 8pt; }
-th { font-family: helvetica,arial,sans;
-       font-size: 8pt; }
-small { font-family: helvetica,arial,sans;
-       font-size: 6pt; }
+body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
+  font-family: helvetica,arial,sans;
+}
+body {
+  font-size: 6pt;
+}
+td {
+  font-size: 8pt;
+}
+th {
+  font-size: 8pt;
+}
+small { 
+  font-size: 6pt;
+}

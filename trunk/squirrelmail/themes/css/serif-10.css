@@ -1,8 +1,15 @@
-body { font-family: serif;
-       font-size: 8pt; }
-td { font-family: serif;
-       font-size: 10pt; }
-th { font-family: serif;
-       font-size: 10pt; }
-small { font-family: serif;
-       font-size: 8pt; }
+body, td, th, dd, dt, h1, h2, h3, h4, h5, h6, p, ol, ul, li {
+  font-family: serif;
+}
+body {
+  font-size: 8pt;
+}
+td {
+  font-size: 10pt;
+}
+th {
+  font-size: 10pt;
+}
+small { 
+  font-size: 8pt;
+}
