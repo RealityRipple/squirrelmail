@@ -362,7 +362,11 @@ function sqimap_find_displayable_name ($string) {
     $string = trim($string);
     
     if ( ereg('^(.+)<.*>', $string, $regs) ) {
+        $orig_string = $string;
         $string = ereg_replace ('"', '', $regs[1] );
+        if (trim($string) == '') {
+             $string = sqimap_find_email($orig_string);
+        }
         if( $string == '' || $string == ' ' ){
             $string = '&nbsp';
         }
