@@ -286,6 +286,7 @@
    }
    
    function showComposeButtonRow() {
+      global $use_javascript_addr_book;
       echo "   <TR><td>\n   </td><td>\n";
       if ($use_javascript_addr_book) {
          echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
@@ -366,7 +367,7 @@
    } else if ($html_addr_search) {
       // I am using an include so as to elminiate an extra unnecessary click.  If you
       // can think of a better way, please implement it.
-      include ("addrbook_search_html.php");
+      include ("./addrbook_search_html.php");
    } else if (isset($attach)) {
       is_logged_in();
       displayPageHeader($color, $mailbox);
