@@ -339,10 +339,11 @@ require_once(SM_PATH . 'include/load_prefs.php');
         $boxes = sqimap_mailbox_list($imapConnection);
         echo '<select name="mf_subfolder">';
         $selected = 0;
-        if ( isset($mf_subfolder) )
-          $selected = array(strtolower($mf_subfolder));
-        echo sqimap_mailbox_option_list($imapConnection, $selected);
-        echo '</select></td></tr>' .
+        if ( isset($mailfetch_subfolder_[$mf_sn]) ) {
+            $selected = array(strtolower($mailfetch_subfolder_[$mf_sn]));
+	} 
+        echo sqimap_mailbox_option_list($imapConnection, $selected) .
+             '</select></td></tr>' .
 
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
