@@ -17,6 +17,7 @@ require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/tree.php');
+require_once('../functions/display_messages.php');
 
 /*
 *  Incoming values:
