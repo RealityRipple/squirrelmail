@@ -261,6 +261,9 @@ function getTimeStamp($dateParts) {
      * array is an integer or not.
      * Since the day of week is optional, this check is needed.
      */
+     if (count($dateParts) <2) {
+        return 0;
+     }
 
     /* remove day of week */
     if (!is_numeric(trim($dateParts[0]))) {
