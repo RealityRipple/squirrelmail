@@ -189,7 +189,7 @@ function load_optpage_data_folder() {
         'name'    => 'search_memory',
         'caption' => _("Memory Search"),
         'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => array( 0 => _("Disabled"),
                             1 => '1',
                             2 => '2',
