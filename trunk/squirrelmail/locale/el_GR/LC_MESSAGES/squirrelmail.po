@@ -4,22 +4,21 @@
 # Proofreading & some help by Alexandros Vellis <avel@noc.uoa.gr>
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$ POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"PO-Revision-Date: 2003-02-18 22:52+0200\n"
+"Project-Id-Version: $Id$ "
+"POT-Creation-Date: 2003-05-02 14:08+0300\n"
+"PO-Revision-Date: 2003-06-04 22:52+0200\n"
 "Last-Translator: George P. Kremmydas <george@kefalonia-ithaki.gr>\n"
 "Language-Team: Greek Squirrelmail i18n team <squirrelmail-i18n@lists."
 "sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-7\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
 
 msgid "Address Book"
 msgstr "Βιβλίο Διευθύνσεων"
 
 msgid "All"
-msgstr "Όλα"
+msgstr "Όλοι"
 
 msgid "Name"
 msgstr "Όνομα"
@@ -88,11 +87,11 @@ msgstr "Πρέπει να είναι μοναδικό"
 msgid "E-mail address"
 msgstr "Διεύθυνση E-mail"
 
-msgid "First name"
-msgstr "Όνομα"
-
 msgid "Last name"
 msgstr "Επώνυμο"
+
+msgid "First name"
+msgstr "Όνομα"
 
 msgid "Additional info"
 msgstr "Πρόσθετες πληροφορίες"
@@ -126,6 +125,15 @@ msgstr "Διαγραφή επιλεγμένων"
 #, c-format
 msgid "Add to %s"
 msgstr "Προσθήκη στο %s"
+
+msgid "said"
+msgstr "είπε"
+
+msgid "quote"
+msgstr "ανέφερε"
+
+msgid "who"
+msgstr "ποιός"
 
 msgid "Subject"
 msgstr "Θέμα"
@@ -212,15 +220,6 @@ msgstr "Αποθήκευση Προχείρου"
 
 msgid "You have not filled in the \"To:\" field."
 msgstr "Δεν έχετε συμπληρώσει το πεδίο \"Προς:\"."
-
-msgid "said"
-msgstr "είπε"
-
-msgid "quote"
-msgstr "ανέφερε"
-
-msgid "who"
-msgstr "ποιός"
 
 msgid "Draft folder"
 msgstr "Φάκελος Πρόχειρα"
@@ -368,9 +367,6 @@ msgstr "Εμφάνιση μηνύματος"
 
 msgid "Download this as a file"
 msgstr "Κατέβασμα ως αρχείο"
-
-msgid "Not available"
-msgstr "Mη διαθέσιμο"
 
 msgid "INBOX"
 msgstr "ΕΙΣΕΡΧΟΜΕΝΑ"
@@ -901,6 +897,27 @@ msgstr "Παρασκευή"
 msgid "Saturday"
 msgstr "Σάββατο"
 
+msgid "Sun"
+msgstr "Κυρ"
+
+msgid "Mon"
+msgstr "Δευ"
+
+msgid "Tue"
+msgstr "Τρι"
+
+msgid "Wed"
+msgstr "Τετ"
+
+msgid "Thu"
+msgstr "Πεμ"
+
+msgid "Fri"
+msgstr "Παρ"
+
+msgid "Sat"
+msgstr "Σαβ"
+
 msgid "January"
 msgstr "Ιανουάριος"
 
@@ -936,6 +953,42 @@ msgstr "Νοέμβριος"
 
 msgid "December"
 msgstr "Δεκέμβριος"
+
+msgid "Jan"
+msgstr "Ιαν"
+
+msgid "Feb"
+msgstr "Φεβ"
+
+msgid "Mar"
+msgstr "Μαρ"
+
+msgid "Apr"
+msgstr "Απρ"
+
+msgid "Ma&#121;"
+msgstr "Μάι"
+
+msgid "Jun"
+msgstr "Ιουν"
+
+msgid "Jul"
+msgstr "Ιουλ"
+
+msgid "Aug"
+msgstr "Αυγ"
+
+msgid "Sep"
+msgstr "Σεπ"
+
+msgid "Oct"
+msgstr "Οκτ"
+
+msgid "Nov"
+msgstr "Νοε"
+
+msgid "Dec"
+msgstr "Δεκ"
 
 msgid "D, F j, Y g:i a"
 msgstr "D, F j, Y g:i a"
@@ -1000,6 +1053,14 @@ msgstr ""
 "διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
 
 #, c-format
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Το αρχείο προτιμήσεων, %s, δεν ήταν δυνατόν να αντιγραφεί από το προσωρινό αρχείο %s. "
+"Επικοινωνήστε με τον διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
+
+#, c-format
 msgid "Error opening %s"
 msgstr "Σφάλμα στο άνοιγμα %s"
 
@@ -1034,12 +1095,20 @@ msgstr ""
 "Το αρχείο υπογραφής, %s, δεν ήταν δυνατό να γραφτεί. Επικοινωνήστε με τον "
 "διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
 
+#, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Το αρχείο υπογραφής, %s, δεν ήταν δυνατόν να αντιγραφεί από το προσωρινό αρχείο %s. "
+"Επικοινωνήστε με τον διαχειριστή του συστήματος για να επιλύσετε αυτό το θέμα."
+
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"(using configure option --enable-mbstring)."
 msgstr ""
-"Πρέπει να έχετε εγκαταστήσει php4 με ενεργοποιημένη multibyte string "
-"function (χρήση επιλογής ρυθμίσεων --with-mbstring)"
+"Πρέπει να έχετε εγκαταστήσει php4 με ενεργοποιημένες τις λειτουργίες multibyte string "
+"(χρήση επιλογής ρυθμίσεων --with-mbstring)"
 
 msgid "ERROR : No available imapstream."
 msgstr "ΣΦΑΛΜΑ : Μη διαθέσιμο imapstream."
@@ -1490,7 +1559,7 @@ msgstr "Μόνο όσα δεν έχουν Κοιταχτεί"
 msgid "Unseen and Total"
 msgstr "Όσα δεν έχουν κοιταχτεί και Συνολικά"
 
-msgid "Enable Collapsable Folders"
+msgid "Enable Collapsible Folders"
 msgstr "Ενεργοποίηση Πτυσσόμενων Φακέλων"
 
 msgid "Enable Cumulative Unread Message Notification"
@@ -1977,8 +2046,8 @@ msgstr "0 λεπτά"
 msgid "15 min."
 msgstr "15 λεπτά"
 
-msgid "35 min."
-msgstr "35 λεπτά"
+msgid "30 min."
+msgstr "30 λεπτά"
 
 msgid "45 min."
 msgstr "45 λεπτά"
@@ -2181,7 +2250,6 @@ msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 "ΔΩΡΕΑΝ - SPAMhaus - Λίστα γνωστών πηγών κακόβουλου ταχυδρομείου (SPAM)."
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2669,7 +2737,7 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
-"Πρέπει να γνωρίζεται ότι η κρυπτογράφηση που χρησιμοποιείται για να "
+"Πρέπει να γνωρίζετε ότι η κρυπτογράφηση που χρησιμοποιείται για να "
 "αποθηκευτεί ο κωδικός σας δεν είναι τελείως ασφαλής. Ωστόσο, αν "
 "χρησιμοποιείτε pop, έτσι και αλλιώς δεν υπάρχει κρυπτογράφηση. Επιπλέον, η "
 "κρυπτογράφηση που κάνουμε για να τον αποθηκεύσουμε στον εξυπηρετητή μπορεί "
@@ -2718,7 +2786,7 @@ msgid "Modify"
 msgstr "Προσαρμογή"
 
 msgid "No-one server in use. Try to add."
-msgstr "Κανένας εξυπηρετητής σε χρήση. Προσπάθεια προσθήκης."
+msgstr "Κανένας εξυπηρετητής σε χρήση. Προσπαθήστε να προσθέσετε έναν."
 
 msgid "Fetching Servers"
 msgstr "Fetching Servers"
@@ -2764,9 +2832,6 @@ msgstr ""
 "γραμματοκιβώτιο pop3 στον λογαριασμό σας σε αυτόν τον εξυπηρετητή."
 
 msgid "Message Details"
-msgstr "Λεπτομέρειες Μηνύματος"
-
-msgid "Message details"
 msgstr "Λεπτομέρειες Μηνύματος"
 
 msgid "Close Window"
@@ -2834,16 +2899,11 @@ msgstr ""
 
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
 "Επέλεξε από την λίστα των <b>αρχείων εξυπηρετητή</b> το αρχείο πολυμέσων που "
-"θα εκτελεστεί όταν καταφθάνει νέο ταχυδρομείο.  Επιλέγοντας <b>τοπικά "
-"πολυμέσα</b> θα εκτελέσει το αρχείο που καθορίζεται στο κουτί<b>αρχείο "
-"τοπικών πολυμέσων</b> για να εκτελεστεί από τον τοπικό υπολογιστή.  Αν δεν "
-"έχει ορισθεί κάποιο αρχείο, το σύστημα θα χρησιμοποιήσει ένα εξ ορισμού από "
-"τον εξυπηρετητή."
+"θα εκτελεστεί όταν καταφθάνει νέο ταχυδρομείο. Αν δεν έχει ορισθεί κάποιο αρχείο, "
+"\"(κανένα)\", δε θα χρησιμοποιηθεί κάποιος ήχος."
 
 msgid "Enable Media Playing"
 msgstr "Ενεργοποίηση Εκτέλεσης Πολυμέσων"
@@ -2866,14 +2926,11 @@ msgstr "Εμφάνιση παραθύρου με νέο ταχυδρομείο"
 msgid "Select server file:"
 msgstr "Επιλογή αρχείου εξυπηρετητή:"
 
-msgid "(local media)"
-msgstr "(τοπικά πολυμέσα)"
+msgid "(none)"
+msgstr "(κανένα)"
 
 msgid "Try"
 msgstr "Δοκιμή"
-
-msgid "Local Media File:"
-msgstr "Τοπικό Αρχείο Πολυμέσων"
 
 msgid "Current File:"
 msgstr "Τρέχον Αρχείο:"
@@ -2910,6 +2967,9 @@ msgstr "%s Νέο Μήνυμα"
 
 msgid "Test Sound"
 msgstr "Έλεγχος Ήχου"
+
+msgid "No sound specified"
+msgstr "Δεν έχει καθοριστεί ήχος"
 
 msgid "Loading the sound..."
 msgstr "Φόρτωμα ήχου..."
@@ -3356,28 +3416,27 @@ msgid "Your server options are as follows:"
 msgstr "Οι επιλογές του εξυπηρετητή σας έχουν ως εξής:"
 
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 ζεύγη γλωσσών, μέγιστο μετάφρασης 1000 χαρακτήρων, από το Systran"
-
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 ζεύγη γλωσσών, μέγιστο μετάφρασης 25 kilobytes, από το Systran"
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "19 ζεύγη γλωσσών, μέγιστο μετάφρασης 1000 χαρακτήρων, από το Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το Systran"
 
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το Translation Experts's "
-"InterTran"
+"784 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το InterTran "
+"των Translation Experts"
 
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 "8 ζεύγη γλωσσών, κανένας γνωστός περιορισμός, από το GPLTrans (ελεύθερο, "
 "ανοικτός κώδικας)"
+
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr "4 ζεύγη γλωσσών για Ελληνικά, κανένας γνωστός περιορισμός, από το Systran"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3430,6 +3489,9 @@ msgstr "%s σε %s"
 msgid "English"
 msgstr "Αγγλικά"
 
+msgid "Chinese"
+msgstr "Κινέζικα"
+
 msgid "French"
 msgstr "Γαλλικά"
 
@@ -3438,6 +3500,12 @@ msgstr "Γερμανικά"
 
 msgid "Italian"
 msgstr "Ιταλικά"
+
+msgid "Japanese"
+msgstr "Ιαπωνικά"
+
+msgid "Korean"
+msgstr "Κορεάτικα"
 
 msgid "Portuguese"
 msgstr "Πορτογαλικά"
@@ -3484,9 +3552,6 @@ msgstr "Ουγγρική"
 msgid "Icelandic"
 msgstr "Ισλανδικά"
 
-msgid "Japanese"
-msgstr "Ιαπωνικά"
-
 msgid "Latin American Spanish"
 msgstr "Ισπανικά Λατινικής Αμερικής"
 
@@ -3520,11 +3585,36 @@ msgstr "Ινδονησιακά"
 msgid "Latin"
 msgstr "Λατινικά"
 
+msgid "to English"
+msgstr "σε Αγγλικά"
+
+msgid "from English"
+msgstr "από Αγγλικά"
+
 msgid "Delivery error report"
 msgstr "Αναφορά σφάλματος παράδοσης"
 
 msgid "Undelivered Message Headers"
 msgstr "Κεφαλίδες Μη-Απεσταλμένων Μηνυμάτων"
+
+#~ msgid "Not available"
+#~ msgstr "Mη διαθέσιμο"
+
+#~ msgid "35 min."
+#~ msgstr "35 λεπτά"
+
+#~ msgid "Message details"
+#~ msgstr "Λεπτομέρειες Μηνύματος"
+
+#~ msgid "(local media)"
+#~ msgstr "(τοπικά πολυμέσα)"
+
+#~ msgid "Local Media File:"
+#~ msgstr "Τοπικό Αρχείο Πολυμέσων"
+
+#~ msgid ""
+#~ "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+#~ msgstr "10 ζεύγη γλωσσών, μέγιστο μετάφρασης 25 kilobytes, από το Systran"
 
 #~ msgid "Viewing a message attachment"
 #~ msgstr "Βλέπετε ένα συνημμένο με μορφή μηνύματος"
@@ -3559,60 +3649,6 @@ msgstr "Κεφαλίδες Μη-Απεσταλμένων Μηνυμάτων"
 
 #~ msgid "Note Field Contains"
 #~ msgstr "Το Πεδίο Σημειώσεων Περιέχει"
-
-#~ msgid "Sun"
-#~ msgstr "Κυρ"
-
-#~ msgid "Mon"
-#~ msgstr "Δευ"
-
-#~ msgid "Tue"
-#~ msgstr "Τρι"
-
-#~ msgid "Wed"
-#~ msgstr "Τετ"
-
-#~ msgid "Thu"
-#~ msgstr "Πεμ"
-
-#~ msgid "Fri"
-#~ msgstr "Παρ"
-
-#~ msgid "Sat"
-#~ msgstr "Σαβ"
-
-#~ msgid "Jan"
-#~ msgstr "Ιαν"
-
-#~ msgid "Feb"
-#~ msgstr "Φεβ"
-
-#~ msgid "Mar"
-#~ msgstr "Μαρ"
-
-#~ msgid "Apr"
-#~ msgstr "Απρ"
-
-#~ msgid "Jun"
-#~ msgstr "Ιουν"
-
-#~ msgid "Jul"
-#~ msgstr "Ιουλ"
-
-#~ msgid "Aug"
-#~ msgstr "Αυγ"
-
-#~ msgid "Sep"
-#~ msgstr "Σεπ"
-
-#~ msgid "Oct"
-#~ msgstr "Οκτ"
-
-#~ msgid "Nov"
-#~ msgstr "Νοε"
-
-#~ msgid "Dec"
-#~ msgstr "Δεκ"
 
 #~ msgid "No To Address"
 #~ msgstr "Όχι Στη Διεύθυνση"
