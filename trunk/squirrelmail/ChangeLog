@@ -233,6 +233,8 @@ Version 1.5.1 -- CVS
   - Fixed bug #1032366, remove NUL characters in text attachments on sent.
   - URL Encode required for string being passed in mailto: links to pass on
     additional values (cc, body, subject etc).
+  - Fixed bug #801060.  Removed option for INBOX in filters plugin as source
+    is always INBOX.
 
 Version 1.5.0
 --------------------

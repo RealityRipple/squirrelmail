@@ -84,11 +84,18 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         $filter_what = str_replace("\\\"", '"', $filter_what);
         $filter_what = str_replace('"', '&quot;', $filter_what);
 
+        if (empty($filter_what)) {
+            do_error(_("WARNING! You must enter something to search for."));
+            $action = 'edit';
+        }
+
         if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
             do_error(_("WARNING! Header filters should be of the format &quot;Header: value&quot;"));
             $action = 'edit';
         }
+        if ($action != 'edit') {
         setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
+        }
         $filters[$theid]['where'] = $filter_where;
         $filters[$theid]['what'] = $filter_what;
         $filters[$theid]['folder'] = $filter_folder;
@@ -149,6 +156,13 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
+
+        for ($a = 0, $cnt = count($boxes); $a < $cnt; $a++) {
+            if (strtolower($boxes[$a]['formatted']) == 'inbox') {
+                unset($boxes[$a]);
+            }
+        }
+
         sqimap_logout($imapConnection);
         if ( !isset($theid) ) {
             $theid = count($filters);

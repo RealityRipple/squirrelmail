@@ -210,6 +210,11 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
                                   $should_expunge) {
     global $languages, $squirrelmail_language, $allow_charset_search, $imap_server_type;
 
+    if (strtolower($where_to) == 'inbox') {
+        return array();
+    }
+
+
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
