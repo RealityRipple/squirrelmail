@@ -73,8 +73,8 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
 }
 
 
-if (!defined('download_php')) { 
-    sqsession_register($theme_css, 'theme_css'); 
+if (!defined('download_php')) {
+    sqsession_register($theme_css, 'theme_css');
 }
 
 // user's icon theme, if using icons
@@ -91,11 +91,11 @@ $move_to_trash =
 $save_as_draft =
     getPref($data_dir, $username, 'save_as_draft', $default_save_as_draft);
 
-if ($default_unseen_type == '') { 
-    $default_unseen_type = 1; 
+if ($default_unseen_type == '') {
+    $default_unseen_type = 1;
 }
-if ($default_unseen_notify == '') { 
-    $default_unseen_notify = 2; 
+if ($default_unseen_notify == '') {
+    $default_unseen_notify = 2;
 }
 $unseen_type =
     getPref($data_dir, $username, 'unseen_type', $default_unseen_type);
@@ -173,8 +173,6 @@ $reply_focus = getPref($data_dir, $username, 'reply_focus', '');
 /* left refresh rate, strtolower makes 1.0.6 prefs compatible */
 $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
 $left_refresh = strtolower($left_refresh);
-
-$sort = getPref($data_dir, $username, 'sort', 6 );
 
 /** Load up the Signature file **/
 $signature_abs = $signature = getSig($data_dir, $username, 'g');

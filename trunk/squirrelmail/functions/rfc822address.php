@@ -29,15 +29,15 @@ if (!defined('SQM_ADDR_HOST'))     define('SQM_ADDR_HOST',     3);
  **/
 
 function parseRFC822Address($sAddress,$aProps) {
-    $aPropsDefault = array (
-                            'domain' => '',         //
-                            'limit'  => 0,          // limits returned addresses
-                            'abooklookup' => false); // callback function for addressbook lookup
+//    $aPropsDefault = array (
+//                            'domain' => '',         //
+//                            'limit'  => 0,          // limits returned addresses
+//                            'abooklookup' => false); // callback function for addressbook lookup
+//
+//    $aProps = is_array($aProps) ? array_merge($aPropsDefault,$aProps) : $aPropsDefault;
 
-    $aProps = is_array($aProps) ? array_merge($aPropsDefault,$aProps) : $aPropsDefault;
-
-    $cbLookup = $aProps['abooklookup'];
-    $sDomain  = $aProps['domain'];
+//    $cbLookup = $aProps['abooklookup'];
+//    $sDomain  = $aProps['domain'];
     $iLimit   = $aProps['limit'];
 
     $aTokens = _getAddressTokens($sAddress);

@@ -1,5 +1,5 @@
 <?php
-
+exit;
 /**
  * move_messages.php
  *
@@ -264,6 +264,137 @@ if ($exception) {
 } else {
     header("Location: $location");
     exit;
+}
+
+function handleMessageListForm($imapConnection,&$aMailbox) {
+    /* incoming formdata */
+    sqgetGlobalVar('moveButton',      $moveButton,      SQ_POST);
+    sqgetGlobalVar('expungeButton',   $expungeButton,   SQ_POST);
+    sqgetGlobalVar('targetMailbox',   $targetMailbox,   SQ_POST);
+    sqgetGlobalVar('expungeButton',   $expungeButton,   SQ_POST);
+    sqgetGlobalVar('undeleteButton',  $undeleteButton,  SQ_POST);
+    sqgetGlobalVar('markRead',        $markRead,        SQ_POST);
+    sqgetGlobalVar('markUnread',      $markUnread,      SQ_POST);
+    sqgetGlobalVar('markFlagged',     $markFlagged,     SQ_POST);
+    sqgetGlobalVar('markUnflagged',   $markUnflagged,   SQ_POST);
+    sqgetGlobalVar('attache',         $attache,         SQ_POST);
+    sqgetGlobalVar('location',        $location,        SQ_POST);
+    sqgetGlobalVar('bypass_trash',    $bypass_trash,    SQ_POST);
+    sqgetGlobalVar('msg',             $msg,             SQ_POST);
+
+    $sError = '';
+    /* retrieve the check boxes */
+    $aUid = array();
+    if (isset($msg) && is_array($msg)) {
+        foreach( $msg as $key=>$iUid ) {
+            // using foreach removes the risk of infinite loops that was there //
+            $aUid[] = $iUid;
+        }
+    }
+    $num_ids = count($id);
+
+    if (count($num_ids) && !isset($expungeButton)) {
+        /* handle submit buttons */
+        $sButton = '';
+        $sButton = (isset($expungeButton)) ? 'expunge'      : $sButton;
+        $sButton = (isset($attache))       ? 'attache'      : $sButton;
+        $sButton = (isset($moveButton))    ? 'move'         : $sButton;
+        $sButton = (isset($copyButton))    ? 'copy'         : $sButton;
+        $sButton = (isset($markDelete))    ? 'setDeleted'   : $sButton;
+        $sButton = (isset($markUndelete))  ? 'unsetDeleted' : $sButton;
+        $sButton = (isset($markSeen))      ? 'setSeen'      : $sButton;
+        $sButton = (isset($markUnseen))    ? 'unsetSeen'    : $sButton;
+        $sButton = (isset($markFlagged))   ? 'setFlagged'   : $sButton;
+        $sButton = (isset($markUnflagged)) ? 'unsetFlagged' : $sButton;
+
+        $aUpdatedMsgs = false;
+        $bExpunge = false;
+        switch ($sButton) {
+          case 'setDeleted':
+            // What kind of hook is this, can it be removed?
+            if (!boolean_hook_function('move_messages_button_action', NULL, 1)) {
+                $aUpdatedMsgs = sqimap_msgs_list_delete($imapConnection, $mailbox, $aUid,$bypass_trash);
+                $bExpunge = true;
+            }
+            break;
+          case 'unsetDeleted':
+          case 'setSeen':
+          case 'unsetSeen':
+          case 'setFlagged':
+          case 'unsetFlagged':
+            // get flag
+            $sFlag = (substr($sButton,0,3) == 'set') ? '\\'.substr($sButton,3) : '\\'.substr($sButton,5);
+            $bSet  = (substr($sButton,0,3) == 'set') ? true : false;
+            $aUpdatedMsgs = sqimap_toggle_flag($imapConnection, $aUid, $sFlag, $bSet, true);
+            break;
+          case 'move':
+            $aUpdatedMsgs = sqimap_msgs_list_move($imapConnection,$aId,$targetMailbox);
+            $bExpunge = true;
+            break;
+          case 'attache':
+            $composesession = attachSelectedMessages($id, $imapConnection);
+            // dirty hack, add info to $aMailbox
+            $aMailbox['FORWARD_SESSION'] = $composesession;
+            break;
+        }
+
+        if ($aUpdatedMsgs) {
+            foreach ($aUpdatedMsgs as $iUid => $aMsg) {
+                if (isset($aMsg['FLAGS'])) {
+                    $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                }
+            }
+            if ($bExpunge && $aMailbox['AUTO_EXPUNGE'] &&
+                $iExpungedMessages = sqimap_mailbox_expunge($imapConnection, $aMailbox['NAME'], true))
+                {
+                if (count($aUpdateMsgs != $iExpungedMessages)) {
+                    // there are more messages deleted permanently then we expected
+                    // invalidate the cache
+                    $aMailbox['UIDSET'] = false;
+                    $aMailbox['MSG_HEADERS'] = false;
+                } else {
+                    // remove expunged messages from cache
+                    $aUidSet = $aMailbox['UIDSET'];
+                    $aDeleted = array();
+                    foreach ($aUpdatedMsgs as $iUid => $aValue) {
+                        if (isset($aValue['FLAGS']['\\deleted']) && $aValue['FLAGS']['\\deleted']) {
+                            $aDeleted[] = $iUid;
+                        }
+                    }
+                    if (count($aDeleted)) {
+                        // create a UID => array index temp array
+                        $aUidSetDummy = array_flip($aUidSet);
+                        foreach ($aDeleted as $iUid) {
+                            unset($aUidSetDummy[$iUid]);
+                        }
+                        $aUidSet = array_keys($aUidSetDummy);
+                        $aMailbox['UIDSET'] = $aUidSet;
+                        // update EXISTS info
+                        $aMailbox['EXISTS'] -= $iExpungedMessages;
+                    }
+                }
+                // Change the startMessage number if the mailbox was changed
+                if (($aMailbox['PAGEOFFSET']+$iExpungedMessages-1) >= $aMailbox['EXISTS']) {
+                    $aMailbox['PAGEOFFSET'] = ($aMailbox['PAGEOFFSET'] > $aMailbox['LIMIT']) ?
+                        $aMailbox['PAGEOFFSET'] - $aMailbox['LIMIT'] : 1;
+                }
+            }
+        }
+    } else {
+        if (isset($expungeButton)) {
+            // on expunge we do not know which messages will be deleted
+            // so it's useless to try to sync the cache
+
+            // Close the mailbox so we do not need to parse the untagged expunge responses
+            sqimap_run_command($imapConnection,'CLOSE',false,$result,$message);
+            $aMbxResponse = sqimap_select($imapConnection,$aMailbox['NAME'];
+            // update the $aMailbox array
+            $aMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
+            $aMailbox['UIDSET'] = false;
+        } else {
+            $sError = _("No messages were selected.");
+        }
+    }
 }
 ?>
 </BODY></HTML>

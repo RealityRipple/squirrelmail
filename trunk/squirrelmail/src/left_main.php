@@ -68,7 +68,7 @@ function formatMailboxName($imapConnection, $box_array) {
 
     /* Create the link for this folder. */
     if ($status !== false) {
-    $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox='.
+    $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox='.
                 $mailboxURL.'" TARGET="right" STYLE="text-decoration:none">';
     }
     if ($special_color) {
@@ -297,7 +297,7 @@ function is_parent_box($curbox_name, $parbox_name) {
 
 function ListBoxes ($boxes, $j=0 ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection, 
+           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection,
            $use_icons, $icon_theme, $use_special_folder_color;
 
     if (!isset($boxes) || empty($boxes))
@@ -380,7 +380,7 @@ function ListBoxes ($boxes, $j=0 ) {
         if ($unseen > 0) {
             $pre .= '<b>';
         }
-        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
         if ($unseen > 0) {
             $end .= '</b>';
         }
@@ -389,7 +389,7 @@ function ListBoxes ($boxes, $j=0 ) {
             if ($unseen > 0) {
                 $pre .= '<b>';
             }
-            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
             if ($unseen > 0) {
                 $end .= '</b>';
             }
@@ -406,7 +406,7 @@ function ListBoxes ($boxes, $j=0 ) {
             if ($unseen > 0) {
                 $pre .= '<b>';
             }
-            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
             if ($unseen > 0) {
                 $end .= '</b>';
             }
@@ -428,7 +428,7 @@ function ListBoxes ($boxes, $j=0 ) {
 
     // let plugins fiddle with end of line
     $end .= concat_hook_function('left_main_after_each_folder',
-        array(isset($numMessages) ? $numMessages : '', 
+        array(isset($numMessages) ? $numMessages : '',
               $boxes->mailboxname_full, $imapConnection));
 
     $end .= '</nobr>';
@@ -519,7 +519,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         if (! isset($numMessages)) {
             $numMessages = $boxes->total;
         }
-        $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
+        $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
         $end .= '</a>';
         if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
@@ -529,7 +529,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         }
     } else {
         if (!$boxes->is_noselect) { /* \Noselect boxes can't be selected */
-            $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
+            $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
             $end .= '</a>';
         }
     }
@@ -537,7 +537,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     // let plugins fiddle with end of line
     global $imapConnection;
     $end .= concat_hook_function('left_main_after_each_folder',
-        array(isset($numMessages) ? $numMessages : '', 
+        array(isset($numMessages) ? $numMessages : '',
               $boxes->mailboxname_full, $imapConnection));
 
     if (!$boxes->is_root) {
@@ -934,7 +934,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
             } else {
                 //if (!sqimap_mailbox_is_subscribed($imapConnection, $folder)) {
-                // check for subscription is useless and expensive  just 
+                // check for subscription is useless and expensive  just
                 // surpress the NO response
                 sqimap_subscribe($imapConnection, $folder, false);
             }
@@ -1112,7 +1112,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         echo '</small>';
         echo '</form>'."\n";
     } else {
-        //sqimap_get_status_mbx_tree($imap_stream,$boxes)    
+        //sqimap_get_status_mbx_tree($imap_stream,$boxes)
         ListBoxes($boxes);
     }
 } /* if ($oldway) else ... */
