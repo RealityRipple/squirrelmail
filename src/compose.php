@@ -619,15 +619,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
                   $filename = "untitled-".$message->entity_id.'.eml';
                }
 	    } else {
-               $filename = decodeHeader($message->header->disposition->getProperty('filename'));
-               if ($filename == '') {
-	          $name = decodeHeader($message->header->disposition->getProperty('name'));
-		  if ($name == '') {
-                     $filename = "untitled-".$message->entity_id;
-		  } else {
-		     $filename = $name;
-		  }
-               }
+	       $filename = decodeHeader($message->getFilename());
             }
             $localfilename = GenerateRandomString(32, '', 7);
             $full_localfilename = "$hashed_attachment_dir/$localfilename";
