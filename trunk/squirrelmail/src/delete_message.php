@@ -33,7 +33,7 @@
       sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 
    $location = get_location();
-   if ($where && $what)
+   if (isset($where) && isset($what))
       header ("Location: $location/search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=".urlencode($mailbox));
    else   
       header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=".urlencode($mailbox));
