@@ -44,13 +44,22 @@ if ($my_language != $squirrelmail_language) {
 set_up_language(getPref($data_dir, $username, 'language'));
 
 echo "<html><head>\n" .
-     "<TITLE>$org_title</TITLE>";
+     "<title>$org_title</title>";
 
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
-if ($location_of_bar == '') {
-    $location_of_bar = 'left';
+
+if (strtolower($languages[$squirrelmail_language]['DIR']) == 'rtl') {
+    $temp_location_of_bar = 'right';
+} else {
+    $temp_location_of_bar = 'left';
 }
+
+if ($location_of_bar == '') {
+    $location_of_bar = $temp_location_of_bar;
+}
+$temp_location_of_bar = '';
+
 if ($left_size == "") {
     if (isset($default_left_size)) {
          $left_size = $default_left_size;
@@ -61,10 +70,10 @@ if ($left_size == "") {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<FRAMESET COLS=\"*, $left_size\" BORDER=0 ID=fs1>";
+    echo "<frameset cols=\"*, $left_size\" border=\"0\" id=\"fs1\">";
 }
 else {
-    echo "<FRAMESET COLS=\"$left_size, *\" BORDER=0 ID=fs1>";
+    echo "<frameset cols=\"$left_size, *\" border=\"0\" id=\"fs1\">";
 }
 
 /*

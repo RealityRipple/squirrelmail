@@ -18,6 +18,7 @@ require_once('../functions/mime.php');
 require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
 require_once('../functions/smtp.php');
+require_once('../functions/html.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
