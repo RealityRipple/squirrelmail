@@ -28,6 +28,7 @@ function parseConfig( $cfg_file ) {
             $c = preg_replace( '/\/\*.*\*\//', '', $c );
             $c = preg_replace( '/#.*$/', '', $c );
             $c = preg_replace( '/\/\/.*$/', '', $c );
+            $c = trim( $c );
             $l .= $c;
             $i++;
         } while( $first_char == '$' && substr( $c, -1 ) <> ';' && $i < $j );
@@ -131,8 +132,8 @@ foreach ( $newcfg as $k => $v ) {
         break;
     case SMOPT_TYPE_COMMENT:
         $v = substr( $v, 1, strlen( $v ) - 2 );
-        echo "<tr><td>$name</td><td>";
-        echo "<b>$v</b>";
+        echo "<tr><td>$name</td><td>".
+             "<b>$v</b>";
         $newcfg[$k] = "'$v'";
         break;
     case SMOPT_TYPE_INTEGER:
@@ -140,8 +141,8 @@ foreach ( $newcfg as $k => $v ) {
             $v = intval( $HTTP_POST_VARS[$e] );
             $newcfg[$k] = $v;
         }
-        echo "<tr><td>$name</td><td>";
-        echo "<input size=10 name=\"adm_$n\" value=\"$v\">";
+        echo "<tr><td>$name</td><td>".
+             "<input size=10 name=\"adm_$n\" value=\"$v\">";
         break;
     case SMOPT_TYPE_NUMLIST:
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
@@ -164,8 +165,8 @@ foreach ( $newcfg as $k => $v ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
             $newcfg[$k] = $v;
         }
-        echo "<tr><td>$name</td><td>";
-        echo "<select name=\"adm_$n\">";
+        echo "<tr><td>$name</td><td>".
+             "<select name=\"adm_$n\">";
         foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
             echo "<option value=\"$kp\"";
             if ( $kp == substr( $v, 1, strlen( $v ) - 2 ) ) {
@@ -181,13 +182,15 @@ foreach ( $newcfg as $k => $v ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
             $newcfg[$k] = $v;
         }
-        echo "<tr><td>$name</td><td>";
-        echo "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
+        echo "<tr><td>$name</td><td>".
+             "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
         break;
     case SMOPT_TYPE_BOOLEAN:
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
             $v = $HTTP_POST_VARS[$e];
             $newcfg[$k] = $v;
+        } else {
+            $v = strtoupper( $v );
         }
         if ( $v == 'TRUE' ) {
             $ct = ' checked';
@@ -196,13 +199,13 @@ foreach ( $newcfg as $k => $v ) {
             $ct = '';
             $cf = ' checked';
         }
-        echo "<tr><td>$name</td><td>";
-        echo "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
-            "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
+        echo "<tr><td>$name</td><td>" .
+             "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
+             "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
         break;
     default:
-        echo "<tr><td>$name</td><td>";
-        echo "<b><i>$v</i></b>";
+        echo "<tr><td>$name</td><td>" .
+             "<b><i>$v</i></b>";
     }
     echo "</td></tr>\n";
 }
