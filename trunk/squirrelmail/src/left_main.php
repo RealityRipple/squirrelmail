@@ -260,7 +260,7 @@ if ($date_format != 6) {
         $clk = date($hr, time());
         break;
     default:
-        $clk = date('D, '.$hr, time());
+        $clk = substr( getDayName( date( 'w', time() ) ), 0, 3 ) . date( ', ' . $hr, time() );
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
