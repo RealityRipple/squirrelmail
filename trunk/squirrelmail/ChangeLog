@@ -22,6 +22,7 @@ Version 1.5.0 -- CVS
   - Fix max attachment filesize off by factor 10 when ini_var set in bytes (#730742).
   - Fix for parsing fetch results. We are now able to extract the UID if it's
     returned after the header.
+  - Remove obsoleted parsing functions.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
