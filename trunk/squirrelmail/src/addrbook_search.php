@@ -33,229 +33,236 @@
 
 require_once('../src/validate.php');
 
-   // Function to include JavaScript code
-   function insert_javascript() {
-?>
-<SCRIPT LANGUAGE="Javascript"><!--
+/* Function to include JavaScript code */
+function insert_javascript() {
+    ?>
+    <SCRIPT LANGUAGE="Javascript"><!--
 
-function to_and_close($addr) {
-  to_address($addr);
-  parent.close();
-}
-
-function to_address($addr) {
-  var prefix    = "";
-  var pwintype = typeof parent.opener.document.compose;
-
-  $addr = $addr.replace(/ {1,35}$/, "");
-
-  if(pwintype != "undefined" ) {
-    if ( parent.opener.document.compose.send_to.value ) {
-      prefix = ", ";
-      parent.opener.document.compose.send_to.value =
-        parent.opener.document.compose.send_to.value + ", " + $addr;
-
-    } else {
-      parent.opener.document.compose.send_to.value = $addr;
+    function to_and_close($addr) {
+        to_address($addr);
+        parent.close();
     }
-  }
-}
 
-function cc_address($addr) {
-  var prefix    = "";
-  var pwintype = typeof parent.opener.document.compose;
+    function to_address($addr) {
+        var prefix    = "";
+        var pwintype = typeof parent.opener.document.compose;
 
-  $addr = $addr.replace(/ {1,35}$/, "");
+        $addr = $addr.replace(/ {1,35}$/, "");
 
-  if(pwintype != "undefined" ) {
-    if ( parent.opener.document.compose.send_to_cc.value ) {
-      prefix = ", ";
-      parent.opener.document.compose.send_to_cc.value =
-        parent.opener.document.compose.send_to_cc.value + ", " + $addr;
-    } else {
-      parent.opener.document.compose.send_to_cc.value = $addr;
+        if (pwintype != "undefined") {
+            if (parent.opener.document.compose.send_to.value) {
+                prefix = ", ";
+                parent.opener.document.compose.send_to.value =
+                    parent.opener.document.compose.send_to.value + ", " + $addr;
+            } else {
+                parent.opener.document.compose.send_to.value = $addr;
+            }
+        }
     }
-  }
-}
 
-function bcc_address($addr) {
-  var prefix    = "";
-  var pwintype = typeof parent.opener.document.compose;
+    function cc_address($addr) {
+        var prefix    = "";
+        var pwintype = typeof parent.opener.document.compose;
 
-  $addr = $addr.replace(/ {1,35}$/, "");
+        $addr = $addr.replace(/ {1,35}$/, "");
 
-  if(pwintype != "undefined" ) {
-    if ( parent.opener.document.compose.send_to_bcc.value ) {
-      prefix = ", ";
-      parent.opener.document.compose.send_to_bcc.value =
-        parent.opener.document.compose.send_to_bcc.value + ", " + $addr;
-    } else {
-      parent.opener.document.compose.send_to_bcc.value = $addr;
+        if (pwintype != "undefined") {
+            if (parent.opener.document.compose.send_to_cc.value) {
+                prefix = ", ";
+                parent.opener.document.compose.send_to_cc.value =
+                    parent.opener.document.compose.send_to_cc.value + ", " + $addr;
+            } else {
+                parent.opener.document.compose.send_to_cc.value = $addr;
+            }
+        }
     }
-  }
-}
+
+    function bcc_address($addr) {
+        var prefix    = "";
+        var pwintype = typeof parent.opener.document.compose;
+
+        $addr = $addr.replace(/ {1,35}$/, "");
+
+        if (pwintype != "undefined") {
+            if (parent.opener.document.compose.send_to_bcc.value) {
+                prefix = ", ";
+                parent.opener.document.compose.send_to_bcc.value =
+                    parent.opener.document.compose.send_to_bcc.value + ", " + $addr;
+            } else {
+                parent.opener.document.compose.send_to_bcc.value = $addr;
+            }
+        }
+    }
 
 // --></SCRIPT>
-
 <?php
-   } // End of included JavaScript
+} /* End of included JavaScript */
 
 
-    // List search results
-    function display_result($res, $includesource = true) {
-        global $color;
+/* List search results */
+function display_result($res, $includesource = true) {
+    global $color;
         
-        if(sizeof($res) <= 0) return;
+    if(sizeof($res) <= 0) return;
         
-        insert_javascript();
+    insert_javascript();
         
-        $line = 0;
-        echo '<TABLE BORDER="0" WIDTH="98%" ALIGN=center>';
-        printf("<TR BGCOLOR=\"$color[9]\"><TH ALIGN=left>&nbsp;".
-            "<TH ALIGN=left>&nbsp;%s<TH ALIGN=left>&nbsp;%s".
-            "<TH ALIGN=left>&nbsp;%s",
-            _("Name"), _("E-mail"), _("Info"));
-        
-        if($includesource)
-            printf("<TH ALIGN=left WIDTH=\"10%%\">&nbsp;%s", _("Source"));
+    $line = 0;
+    echo '<TABLE BORDER="0" WIDTH="98%" ALIGN=center>' .
+         '<TR BGCOLOR="' . $color[9] . '"><TH ALIGN=left>&nbsp;' .
+         '<TH ALIGN=left>&nbsp;' . _("Name") .
+         '<TH ALIGN=left>&nbsp;' . _("E-mail") .
+         '<TH ALIGN=left>&nbsp;' . _("Info");
+
+    if ($includesource) {
+        echo '<TH ALIGN=left WIDTH="10%">&nbsp;' . _("Source");
+    }    
+    echo "</TR>\n";
     
+    while (list($undef, $row) = each($res)) {
+        echo '<tr' . (($line % 2) ? " bgcolor=\"$color[0]\"" : '') .
+             ' nowrap><td valign=top nowrap align=center width="5%">' .
+             '<small><a href="javascript:to_address(' . 
+                                       "'" . $row['email'] . "');\">To</A> | " .
+             '<a href="javascript:cc_address(' . 
+                                       "'" . $row["email'] . "');\">Cc</A> | " .
+             '<a href="javascript:bcc_address(' . 
+                                 "'" . $row["email'] . "');\">Bcc</A></small>" .
+             '<td nowrap valign=top>&nbsp;' .
+                                 $row['name'] . '&nbsp;<td nowrap valign=top>' .
+             '&nbsp;<a href="javascript:to_and_close(' .
+                 "'" . $row["email'] . "');\">" . $row["email'] . '</A>&nbsp;' .
+             '<td valign=top>&nbsp;' . $row['label'] . '&nbsp;';
+        if ($includesource) {
+            echo '<td nowrap valign=top>&nbsp;' . $row['source'];
+        }
+
         echo "</TR>\n";
-    
-        while(list($undef, $row) = each($res)) {
-            printf("<tr%s nowrap><td valign=top nowrap align=center width=\"5%%\">".
-                    "<small><a href=\"javascript:to_address('%s');\">To</A> | ".
-                    "<a href=\"javascript:cc_address('%s');\">Cc</A> | ".
-                    "<a href=\"javascript:bcc_address('%s');\">Bcc</A></small>".
-                    "<td nowrap valign=top>&nbsp;%s&nbsp;<td nowrap valign=top>".
-                    "&nbsp;<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
-                    "<td valign=top>&nbsp;%s&nbsp;",
-                    ($line % 2) ? " bgcolor=\"$color[0]\"" : "",
-                    $row["email"], $row["email"], $row["email"],
-                    $row["name"],  $row["email"], $row["email"],
-                    $row["label"]);
-    
-            if($includesource)
-                printf("<td nowrap valign=top>&nbsp;%s", $row["source"]);
-    
-            echo "</TR>\n";
-            $line++;
-        }
-        echo '</TABLE>';
+        $line++;
     }
+    echo '</TABLE>';
+}
 
-    /* ================= End of functions ================= */
+/* ================= End of functions ================= */
     
-    require_once('../functions/array.php');
-    require_once('../functions/strings.php');
-    require_once('../functions/addressbook.php');
+require_once('../functions/array.php');
+require_once('../functions/strings.php');
+require_once('../functions/addressbook.php');
     
-    displayHtmlHeader();
+displayHtmlHeader();
     
-    // Initialize vars
-    if(!isset($query)) $query = "";
-    if(!isset($show))  $show  = "";
+/* Initialize vars */
+if (!isset($query)) { $query = ''; }
+if (!isset($show))  { $show  = ''; }
 
-    // Choose correct colors for top and bottom frame
-    if($show == 'form') {
-        echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" ";
-        echo "LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\" ";
-        echo 'OnLoad="document.sform.query.focus();">';
+/* Choose correct colors for top and bottom frame */
+if ($show == 'form') {
+    echo '<BODY TEXT="' . $color[6] . '" BGCOLOR="' . $color[3] . '" ' .
+               'LINK="' . $color[6] . '" VLINK="'   . $color[6] . '" ' .
+                                        'ALINK="'   . $color[6] . '" ' .
+         'OnLoad="document.sform.query.focus();">';
+} else {
+    echo '<BODY TEXT="' . $color[8] . '" BGCOLOR="' . $color[4] . '" ' .
+               'LINK="' . $color[7] . '" VLINK="'   . $color[7] . '" ' .
+                                        'ALINK="'   . $color[7] . "\">\n";
+}
+
+/* Empty search */
+if (empty($query) && empty($show) && empty($listall)) {
+    echo '<P ALIGN=center><BR>' .
+          _("No persons matching your search was found") .
+          "</P>\n</BODY></HTML>\n",
+    exit;
+}
+
+/* Initialize addressbook */
+$abook = addressbook_init();
+
+/* Create search form */
+if ($show == 'form') {
+    echo '<FORM NAME=sform TARGET=abookres ACTION="' . $PHP_SELF .
+         '" METHOD="POST">' . "\n" .
+         '<TABLE BORDER="0" WIDTH="100%" HEIGHT="100%">' .
+         '<TR><TD NOWRAP VALIGN=middle>' . "\n" .
+         '  <STRONG>' . _("Search for") . "</STRONG>\n" .
+         '  <INPUT TYPE=text NAME=query VALUE="' . htmlspecialchars($query) .
+         "\" SIZE=26>\n",
+
+    /* List all backends to allow the user to choose where to search */
+    if ($abook->numbackends > 1) {
+        echo '<STRONG>' . _("in") . '</STRONG>&nbsp;<SELECT NAME=backend>'."\n".
+             '<OPTION VALUE=-1 SELECTED>' . _("All address books") . "\n";
+        $ret = $abook->get_backend_list();
+        while (list($undef,$v) = each($ret)) {
+            echo '<OPTION VALUE=' . $v->bnum . '>' . $v->sname . "\n";
+        }
+        echo "</SELECT>\n";
     } else {
-        echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" ";
-        echo "LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+        echo '<INPUT TYPE=hidden NAME=backend VALUE=-1>' . "\n";
     }
-
-    // Empty search
-    if(empty($query) && empty($show) && empty($listall))  {
-        printf("<P ALIGN=center><BR>%s</P>\n</BODY></HTML>\n",
-         _("No persons matching your search was found"));
-      exit;
-    }
-
-    // Initialize addressbook
-    $abook = addressbook_init();
-
-    // Create search form
-    if($show == 'form') {
-        echo "<FORM NAME=sform TARGET=abookres ACTION=\"$PHP_SELF\" METHOD=\"POST\">\n";
-        echo '<TABLE BORDER="0" WIDTH="100%" HEIGHT="100%">';
-        echo "<TR><TD NOWRAP VALIGN=middle>\n";
-        printf("  <STRONG>%s</STRONG>\n", _("Search for"));
-        printf("  <INPUT TYPE=text NAME=query VALUE=\"%s\" SIZE=26>\n",
-         htmlspecialchars($query));
         
-        // List all backends to allow the user to choose where to search
-        if($abook->numbackends > 1) {
-            printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n",
-               _("in"));
-            printf("<OPTION VALUE=-1 SELECTED>%s\n",
-               _("All address books"));
-            $ret = $abook->get_backend_list();
-            while(list($undef,$v) = each($ret))
-                printf("<OPTION VALUE=%d>%s\n", $v->bnum, $v->sname);
-            print "</SELECT>\n";
-        } else {
-            print "<INPUT TYPE=hidden NAME=backend VALUE=-1>\n";
-        }
-        
-        printf("<INPUT TYPE=submit VALUE=\"%s\">",
-             _("Search"));
-        printf("&nbsp;|&nbsp;<INPUT TYPE=submit VALUE=\"%s\" NAME=listall>\n",
-             _("List all"));
-        print "</TD><TD ALIGN=right>\n";
-        printf("<INPUT TYPE=button VALUE=\"%s\" onclick=\"parent.close();\">\n",
-             _("Close window"));
-        print "</TD></TR></TABLE></FORM>\n";
-    } else
+    echo '<INPUT TYPE=submit VALUE="' . _("Search") . '">' .
+         '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
+         '" NAME=listall>' . "\n" .
+         '</TD><TD ALIGN=right>' . "\n" .
+         '<INPUT TYPE=button VALUE=" . _("Close window") .
+         '" onclick="parent.close();">' . "\n" .
+         '</TD></TR></TABLE></FORM>' . "\n";
+} else {
 
-    // Show personal addressbook
-    if($show == 'blank' || !empty($listall)) {
+    /* Show personal addressbook */
+    if ($show == 'blank' || !empty($listall)) {
 
         if($backend != -1 || $show == 'blank') {
-            if($show == 'blank')
+            if ($show == 'blank') {
                 $backend = $abook->localbackend;
-
+            }
             $res = $abook->list_addr($backend);
 
             if(is_array($res)) {
                 display_result($res, false);
             } else {
-                printf("<P ALIGN=center><STRONG>"._("Unable to list addresses from %s").
-                       "</STRONG></P>\n", $abook->backends[$backend]->sname);
+                echo '<P ALIGN=center><STRONG>' .
+                     sprintf(_("Unable to list addresses from %s"),
+                         $abook->backends[$backend]->sname) .
+                     '</STRONG></P>' . "\n";
             }
-
         } else {
-         $res = $abook->list_addr();
-         display_result($res, true);
+            $res = $abook->list_addr();
+            display_result($res, true);
         }
 
-    } else
+    } else {
 
-    // Do the search
-    if(!empty($query) && empty($listall)) {
+        /* Do the search */
+        if (!empty($query) && empty($listall)) {
     
-        if($backend == -1) {
-            $res = $abook->s_search($query);
-        } else {
-            $res = $abook->s_search($query, $backend);
-        }
+            if($backend == -1) {
+                $res = $abook->s_search($query);
+            } else {
+                $res = $abook->s_search($query, $backend);
+            }
         
-        if(!is_array($res)) {
-            printf("<P ALIGN=center><B><BR>%s:<br>%s</B></P>\n</BODY></HTML>\n",
-                   _("Your search failed with the following error(s)"),
-            $abook->error);
-            exit;
-        }
+            if (!is_array($res)) {
+                echo '<P ALIGN=center><B><BR>' .
+                     _("Your search failed with the following error(s)") .
+                     ':<br>' . $abook->error . "</B></P>\n</BODY></HTML>\n";
+                exit;
+            }
         
-        if(sizeof($res) == 0) {
-            printf("<P ALIGN=center><BR><B>%s.</B></P>\n</BODY></HTML>\n",
-                   _("No persons matching your search was found"));
-            exit;
-        }
+            if (sizeof($res) == 0) {
+                echo '<P ALIGN=center><BR><B>' .
+                     _("No persons matching your search was found") .
+                     ".</B></P>\n</BODY></HTML>\n";
+                exit;
+            }
         
-        display_result($res);
+            display_result($res);
+        }
     }
    
-   echo "</BODY></HTML>\n";
+}
+
+echo "</BODY></HTML>\n";
    
 ?>
