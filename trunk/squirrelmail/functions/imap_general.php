@@ -104,19 +104,23 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     if (!$filter || !$outputstream) {
         $iBufferSize = $iSize;
     } else {
-        $iBufferSize = 32768;
+        // FIXME This doesn't work with base64 decode, Why ?
+	// The idea is to use a buffersize of 32k i.e.
+        $iBufferSize = $iSize;
     }
     $iRet = $iSize - $iBufferSize;
+    $iRetrieved = 0;
     $i = 0;
     $results = '';
-    while (($i * $iBufferSize) < $iRet) {
+    while (($iRetrieved < ($iSize - $iBufferSize))) {
         $sRead = fread($imap_stream,$iBufferSize);
-        if (!$sRead) {
+        if ($sRead === false) {
             $results = false;
             break;
         }
-        ++$i;
+        $iRetrieved += $iBufferSize;
         if ($filter) {
+	   
            $filter($sRead);
         }
         if ($outputstream) {
@@ -132,7 +136,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         $results .= $sRead;
     }
     if ($results !== false) {
-        $sRead = fread($imap_stream,($iSize - ($i * $iBufferSize)));  
+        $sRead = fread($imap_stream,($iSize - ($iRetrieved)));  
         if ($filter) {
            $filter($sRead);
         }
