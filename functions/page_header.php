@@ -86,7 +86,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $compose_width, $compose_height,
            $attachemessages, $provider_name, $provider_uri,
-           $javascript_on;
+           $javascript_on, $default_use_mdn, $mdn_user_support;
 
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION );
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
@@ -110,6 +110,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
       switch ( $module ) {
         case 'src/read_body.php':
                 $js ='';
+
+                // compose in new window code
                 if ($compose_new_win == '1') {
                     if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
                         $compose_width = '640';
@@ -117,8 +119,6 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                     if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
                         $compose_height = '550';
                     }
-                    $js .= "\n".'<script language="JavaScript" type="text/javascript">' .
-                        "\n<!--\n";
                     $js .= "function comp_in_new(comp_uri) {\n".
     		     "       if (!comp_uri) {\n".
     		     '           comp_uri = "'.$compose_uri."\";\n".
@@ -128,19 +128,24 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                          '"width='.$compose_width. ',height='.$compose_height.
                          ',scrollbars=yes,resizable=yes");'."\n".
                          "}\n\n";
+                }
 
-
+                // javascript for sending read receipts
+                if($default_use_mdn && $mdn_user_support) {
                     $js .= 'function sendMDN() {'."\n".
-                           "mdnuri=window.location+'&sendreceipt=1';".
+                           "    mdnuri=window.location+'&sendreceipt=1'; ".
                            "var newwin = window.open(mdnuri,'right');".
     	               "\n}\n\n";
+                }
 
-                    $js .= "// -->\n".
-            	       "</script>\n";
-	     
-                 }
-                 displayHtmlHeader ('SquirrelMail', $js);
-                 $onload = $xtra;
+                // if any of the above passes, add the JS tags too.
+                if($js) {
+                    $js = "\n".'<script language="JavaScript" type="text/javascript">' .
+                        "\n<!--\n" . $js . "// -->\n</script>\n";
+                }
+
+                displayHtmlHeader ('SquirrelMail', $js);
+                $onload = $xtra;
             break;
         case 'src/compose.php':
             $js = '<script language="JavaScript" type="text/javascript">' .
