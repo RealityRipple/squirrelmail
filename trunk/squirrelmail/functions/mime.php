@@ -676,6 +676,14 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         }
         ++$i;
     }
+    /* remove the first added space */
+    if ($ret) {
+        if ($htmlsave) {
+            $ret = substr($ret,6);
+        } else {
+            $ret = substr($ret,1);
+        }
+    }
 
     return $ret;
 }
