@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-13 08:02+0200\n"
+"POT-Creation-Date: 2004-05-15 12:12+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1280,6 +1280,9 @@ msgid "ERROR : Bad function call."
 msgstr ""
 
 msgid "Reason:"
+msgstr ""
+
+msgid "Server responded:"
 msgstr ""
 
 msgid "Server responded: "
@@ -3143,64 +3146,69 @@ msgstr ""
 msgid "New Mail Notification"
 msgstr ""
 
+#, c-format
 msgid ""
-"Select <b>Enable Media Playing</b> to turn on playing a media file when "
-"unseen mail is in your folders. When enabled, you can specify the media file "
-"to play in the provided file box."
-msgstr ""
-
-msgid ""
-"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
-"folders for unseen mail, not just the inbox for notification."
-msgstr ""
-
-msgid ""
-"Selecting the <b>Show popup</b> option will enable the showing of a popup "
-"window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
-
-msgid ""
-"Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet. This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
-msgstr ""
-
-msgid ""
-"Selecting the <b>Change title</b> option will change the title in some "
-"browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers). This will "
-"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
-"enabled."
-msgstr ""
-
-msgid ""
-"Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives. If no file is specified, \"(none)\", no sound will be used."
-msgstr ""
-
-msgid "Enable Media Playing"
+"The %s option will check ALL of your folders for unseen mail, not just the "
+"inbox for notification."
 msgstr ""
 
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
-msgid "Count only messages that are RECENT"
-msgstr ""
-
-msgid "Change title on supported browsers."
-msgstr ""
-
-msgid "requires JavaScript to work"
+#, c-format
+msgid ""
+"Selecting the %s option will enable the showing of a popup window when "
+"unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
 msgid "Show popup window on new mail"
 msgstr ""
 
-msgid "Select server file:"
+#, c-format
+msgid ""
+"Use the %s option to only check for messages that are recent. Recent "
+"messages are those that have just recently showed up and have not been "
+"\"viewed\" or checked yet. This can prevent being continuously annoyed by "
+"sounds or popups for unseen mail."
+msgstr ""
+
+msgid "Count only messages that are RECENT"
+msgstr ""
+
+#, c-format
+msgid ""
+"Selecting the %s option will change the title in some browsers to let you "
+"know when you have new mail (requires JavaScript, and only works in IE but "
+"you won't see errors with other browsers). This will always tell you if you "
+"have new mail, even if you have %s enabled."
+msgstr ""
+
+msgid "Change title on supported browsers"
+msgstr ""
+
+#, c-format
+msgid ""
+"Select %s to turn on playing a media file when unseen mail is in your "
+"folders. When enabled, you can specify the media file to play in the "
+"provided file box."
+msgstr ""
+
+msgid "Enable Media Playing"
+msgstr ""
+
+#, c-format
+msgid ""
+"Select from the list of %s the media file to play when new mail arrives. If "
+"no file is specified, %s, no sound will be used."
+msgstr ""
+
+msgid "Select server file"
 msgstr ""
 
 msgid "(none)"
+msgstr ""
+
+msgid "requires JavaScript to work"
 msgstr ""
 
 msgid "Try"
