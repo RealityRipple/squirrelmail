@@ -6,8 +6,19 @@ Version 1.1.0 -- DEVELOPMENT
 - Added alternating row colors to improve interface
 - Added Croatian translation by Albert Novak <anovak@pu.carnet.hr>
 
-Version 1.0.3 -- DEVELOPMENT
+Version 1.0.5 -- DEVELOPMENT
 ----------------------------
+
+Version 1.0.4 -- April 9, 2001 
+------------------------------
+- Fixed some bugs with folder creation
+- Security fix for UW IMAP server to disallow folder paths outside of $folder_prefix
+- Some problems with header encoding/decoding fixed
+- Made subject column take up whatever width is available
+- Added bcc to html addressbook search
+
+Version 1.0.3 -- March 9, 2001 
+------------------------------
 - Made folder drop-down list consistant in look to the other drop-downs
 - Fixed problem where some attachment filenames would not be displayed
 - Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
