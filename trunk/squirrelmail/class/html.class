@@ -80,7 +80,12 @@ class html {
      $this->htmlAdd($el);
   }
   
-  function echoHtml( $usecss=false, $indent='') {
+  function echoHtml( $usecss=false, $indent='x') {
+    if ($indent == 'x') {
+      $indent = ''; $indentmore = '';
+    } else {
+      $indentmore = $indent . '  ';
+    }
     $tag = $this->tag;
     $text = $this->text;
     $class = $this->class;
@@ -149,7 +154,6 @@ class html {
 	  }
        }
        echo "\n";
-       $indentmore = $indent . '  ';
        for($i = 0;$i<$cnt;$i++) {
           $el = $this->html_el[$i];
 	  $el->echoHtml($usecss,$indentmore);
@@ -163,7 +167,7 @@ class html {
        }
     }
     if ($tag) {
-       echo '</'.$tag.'>'."\n";
+       echo $indent . '</'.$tag.'>'."\n";
     } else {
        echo "\n";
     }
