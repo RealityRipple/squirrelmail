@@ -227,6 +227,7 @@
    function expungeBox($imapConnection, $mailbox) {
       selectMailbox($imapConnection, $mailbox, $num);
       fputs($imapConnection, "1 EXPUNGE\n");
+      imapReadData($imapConnection, "1", true, $response, $message);
    }
 
    function getFolderNameMinusINBOX($mailbox, $del) {
