@@ -517,7 +517,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
 
         foreach ($read as $read_part) {
             //unfold multi-line headers
-            if ($prevline && strpos($read_part, "\t ") === true) {
+            if ($prevline && $prevline{strlen($prevline)-1} == "\n" 
+                   && ($read_part{0} == ' ' || $read_part{0} == "\t")) {
                 $read_part = substr($prevline, 0, -2) . preg_replace('/(\t\s+)/',' ',$read_part);
             }
             $prevline = $read_part;
