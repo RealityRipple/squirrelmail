@@ -824,7 +824,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 } /* function newMail() */
 
 function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
-    global $attachment_dir, $username, $data_dir, $squirrelmail_language;
+    global $attachment_dir, $username, $data_dir, $squirrelmail_language, $languages;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!count($message->entities) ||
             ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
