@@ -23,7 +23,9 @@
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
-   echo "      <FONT FACE=\"Arial,Helvetica\">Options</FONT>\n";
+   echo "      <FONT FACE=\"Arial,Helvetica\">";
+   echo _("Options");
+   echo "</FONT>\n";
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
@@ -33,7 +35,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Full Name:";
+   echo _("         Full Name:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -46,7 +48,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Reply-to:";
+   echo _("         Reply-to:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -59,7 +61,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Theme:";
+   echo _("         Theme:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
@@ -83,7 +85,8 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Move deleted messages to \"$trash_folder\"?";
+   echo _("         Move deleted messages to ");
+   echo "\"$trash_folder\"?";
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
@@ -106,7 +109,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Wrap incoming text at:";
+   echo _("         Wrap incoming text at:");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
@@ -123,7 +126,7 @@
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
    echo "         <FONT FACE=\"Arial,Helvetica\">";
-   echo "         Size of editor window (in characters):";
+   echo _("         Size of editor window (in characters):");
    echo "         </FONT>";
    echo "      </TD>";
    echo "      <TD WIDTH=40% ALIGN=LEFT>";
@@ -142,7 +145,9 @@
    if ($use_signature == true)
       echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature CHECKED>&nbsp;&nbsp;Use a signature?<BR>";
    else
-      echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature>&nbsp;&nbsp;Use a signature?<BR>";
+      echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature>&nbsp;&nbsp;";
+      echo _("Use a signature?");
+      echo "<BR>";
 
    if ($editor_size < 5)
       $sig_size = 76;
@@ -154,7 +159,9 @@
 
 
    // SUBMIT BUTTON
-   echo "<BR><CENTER><INPUT TYPE=SUBMIT VALUE=\"Submit\"></CENTER>\n";
+   echo "<BR><CENTER><INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Submit");
+   echo "\"></CENTER>\n";
    echo "</FORM>";
 
    echo "</BODY></HTML>";
