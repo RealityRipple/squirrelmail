@@ -27,9 +27,9 @@ function day_header() {
 
     echo "    <TR BGCOLOR=\"$color[0]\"><TD>" .
          "         <TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">\n" .
-         "         <TR><TH ALIGN=LEFT><A HREF=\"day.php?year=$prev_year&month=$prev_month&day=$prev_day\">&lt;&nbsp;".
+         "         <TR><TH WIDTH=\"5%\" ALIGN=LEFT><A HREF=\"day.php?year=$prev_year&month=$prev_month&day=$prev_day\">&lt;&nbsp;".
          date_intl('D',$prev_date)."</A></TH>\n" .
-         "         <TH>" .
+         "         <TH WIDTH=\"75%\">" .
          date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year)) . "</TH>\n" .
          "         <TH ALIGN=RIGHT><A HREF=\"day.php?year=$next_year&month=$next_month&day=$next_day\">".
          date_intl('D',$next_date)."&nbsp;&gt;</A></TH></TR>\n";
@@ -74,7 +74,7 @@ function display_events() {
         $eminute = substr($calfoo[key],2,2);
         if (!is_array($calfoo[value])){
             echo "         <TR BGCOLOR=\"$color[$eo]\"><TD>$ehour:$eminute</TD>\n" .
-                 "              <TD WIDTH=\"100%\">&nbsp;</TD>\n" .
+                 "              <TD>&nbsp;</TD>\n" .
                  "              <TD ALIGN=CENTER><FONT SIZE=-1><A HREF=\"event_create.php?year=$year&month=$month&day=$day&hour=".substr($calfoo[key],0,2)."\">".
                  _("ADD") . "</A></FONT></TD></TR>\n";
         } else {
@@ -85,7 +85,7 @@ function display_events() {
                 $elength='';
             }
             echo "         <TR BGCOLOR=\"$color[$eo]\"><TD>$ehour:$eminute$elength</TD>\n" .
-                 "              <TD WIDTH=\"100%\">[";
+                 "              <TD>[";
             echo ($calbar[priority]==1) ? "<FONT COLOR=\"$color[1]\">$calbar[title]</FONT>" : "$calbar[title]";
             echo"] $calbar[message]&nbsp;</TD>\n" .
                  "              <TD ALIGN=CENTER><FONT SIZE=-1><nobr>\n" .
