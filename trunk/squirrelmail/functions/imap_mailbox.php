@@ -26,12 +26,14 @@ class mailboxes {
       for ($i=$start; $i < (count($ary) -1); $i++) {
         $mbx_childs = &$mbx_parent->mbxs;
 	$found = false;
-        foreach ($mbx_childs as $key => $parent) {
+	if ($mbx_childs) {
+          foreach ($mbx_childs as $key => $parent) {
 	    if ($parent->mailboxname_sub == $ary[$i]) {
 		$mbx_parent = &$mbx_parent->mbxs[$key];
 		$found = true;
 	    } 
-	}
+	  }
+	}  
 	if (!$found) {
 	    $no_select_mbx = new mailboxes();
 	    if (isset($mbx_parent->mailboxname_full) && $mbx_parent->mailboxname_full != '') {
@@ -161,8 +163,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
 }
 
 /* Selects a mailbox */
-function sqimap_mailbox_select ($imap_stream, $mailbox,
-                                $hide = true, $recent = false, $extrainfo = false) {
+function sqimap_mailbox_select ($imap_stream, $mailbox) {
     global $auto_expunge;
 
     if ( $mailbox == 'None' ) {
@@ -171,20 +172,13 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
 
     $read = sqimap_run_command($imap_stream, "SELECT \"$mailbox\"",
                                true, $response, $message);
-    if ($recent) {
-        for ($i=0; $i<count($read); $i++) {
-            if (strpos(strtolower($read[$i]), 'recent')) {
-                $r = explode(' ', $read[$i]);
-            }
-        }
-        return $r[1];
-    } else {
-        if ($auto_expunge) {
-            $tmp = sqimap_run_command($imap_stream, 'EXPUNGE', false, $a, $b);
-        }
-        if (isset( $extrainfo ) && $extrainfo) {
-            $result = array();
-            for ($i=0; $i<count($read); $i++) {
+    $result = array();
+    for ($i=0; $i<count($read); $i++) {
+        if (preg_match('/^\*\s+OK\s\[(\w+)\s(\w+)\]/',$read[$i], $regs)) {
+	   $result[strtoupper($regs[1])] = $regs[2];
+	} else if (preg_match('/^\*\s([0-9]+)\s(\w+)/',$read[$i], $regs)) {
+	   $result[strtoupper($regs[2])] = $regs[1];
+	} else {
                 if (preg_match("/PERMANENTFLAGS(.*)/i",$read[$i], $regs)) {
                     $regs[1]=trim(preg_replace (  array ("/\(/","/\)/","/\]/") ,'', $regs[1])) ;
                     $result['PERMANENTFLAGS'] = $regs[1];
@@ -193,20 +187,16 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
                     $regs[1]=trim(preg_replace (  array ("/\(/","/\)/") ,'', $regs[1])) ;
                     $result['FLAGS'] = $regs[1];
                 }
-                else if (preg_match("/(.*)EXISTS/i",$read[$i], $regs)) {
-                    $result['EXISTS']=trim($regs[1]);
-                }
-                else if (preg_match("/(.*)RECENT/i",$read[$i], $regs)) {
-                    $result['RECENT']=trim($regs[1]);
-                }
-                else if (preg_match("/\[UNSEEN(.*)\]/i",$read[$i], $regs)) {
-                    $result['UNSEEN']=trim($regs[1]);
-                }
-
-            }
-            return( $result );
-        }
+	}
     }
+    if (preg_match('/^\[(.+)\]/',$message, $regs)) {
+       $result['RIGHTS']=$regs[1];
+    }
+
+    if ($auto_expunge) {
+            $tmp = sqimap_run_command($imap_stream, 'EXPUNGE', false, $a, $b);
+    }
+    return $result;
 }
 
 /* Creates a folder */
@@ -694,7 +684,7 @@ function sqimap_mailbox_tree($imap_stream) {
     if ( !isset( $boxesnew ) ) {
 
         global $data_dir, $username, $list_special_folders_first,
-               $folder_prefix, $delimiter;
+               $folder_prefix, $delimiter, $trash_folder, $move_to_trash;
 
 
         $inbox_in_list = false;
@@ -712,8 +702,8 @@ function sqimap_mailbox_tree($imap_stream) {
          * We don't return "* OK" anymore from sqimap_read_data
          */
         $sorted_lsub_ary = array();
-
-        for ($i=0;$i < count($lsub_ary); $i++) {
+        $cnt = count($lsub_ary);
+        for ($i=0;$i < $cnt; $i++) {
             /*
              * Workaround for EIMS
              * Doesn't work if the mailbox name is multiple lines
@@ -736,7 +726,7 @@ function sqimap_mailbox_tree($imap_stream) {
     	    }
 	    $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => ''); 
         }
-	array_multisort($sorted_lsub_ary, SORT_ASC, SORT_STRING);
+	array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
 
 	foreach ($sorted_lsub_ary as $mbx) {
 	    if ($mbx['mbx'] == 'INBOX') {
@@ -777,21 +767,22 @@ function sqimap_mailbox_tree($imap_stream) {
 //    		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
 //	    }
         }
-
-	for ($i=0 ; $i < count($sorted_lsub_ary); $i++) {
-	    if (($unseen_notify == 2 && $sorted_lsub_ary[$i]['mbx'] == 'INBOX') 
+        $cnt = count($sorted_lsub_ary);
+	for ($i=0 ; $i < $cnt; $i++) {
+	    $mbx = $sorted_lsub_ary[$i]['mbx'];
+	    if (($unseen_notify == 2 && $mbx == 'INBOX') 
 		|| $unseen_notify == 3 
-		|| ($move_to_trash && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder))) {
-    		$sorted_lsub_ary[$i]['unseen'] = sqimap_unseen_messages($imap_stream, $mbx['mbx']);
+		|| ($move_to_trash && ($mbx == $trash_folder))) {
+    		$sorted_lsub_ary[$i]['unseen'] = sqimap_unseen_messages($imap_stream, $mbx);
 		if ($unseen_type == 2 || ($move_to_trash 
-		    && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder) )) {
-        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx['mbx']);
+		    && ($mbx == $trash_folder) )) {
+        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx);
     		}
-		if ($unseen_notify != 3 && !($move_to_trash 
-		    && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder) )) break;
+		if ($mbx == $trash_folder) {
+        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx);
+		}	    
 	    }
 	}
-
 	$boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary);
     return $boxesnew;
     }
@@ -821,8 +812,8 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
 	}
 	$mailboxes->mailboxname_sub = $mailboxes->mailboxname_full;
     } else $start = 0;
-
-    for ($i=0; $i < count($mbx_ary); $i++) {
+    $cnt =  count($mbx_ary);
+    for ($i=0; $i < $cnt; $i++) {
        if ($mbx_ary[$i]['mbx'] !='' ) {
 	    $mbx = new mailboxes();
 	    $mailbox = $mbx_ary[$i]['mbx'];
