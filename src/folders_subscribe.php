@@ -32,6 +32,9 @@
          header("Location: $location/folders.php?success=unsubscribe");
       }
    }
+   if (!isset($mailbox)) {
+         header("Location: $location/folders.php");
+   }
    sqimap_logout($imapConnection);
 
    /*
