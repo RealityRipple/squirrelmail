@@ -182,7 +182,9 @@ if ($mailbox == 'All Folders') {
 }
 
 if (isset($composenew) && $composenew) {
-    displayPageHeader($color, $mailbox, 'comp_in_new('.$session.',true);');
+    $comp_uri = "../src/compose.php?mailbox=". urlencode($mailbox).
+		"&amp;session=$composesession&amp;attachedmessages=true&amp";
+    displayPageHeader($color, $mailbox, "comp_in_new(false,'$comp_uri');", false);
 } else {
     displayPageHeader($color, $mailbox);
 }
