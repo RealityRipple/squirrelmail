@@ -22,7 +22,7 @@ Table of Contents:
 
   NOTE: The new plugin architecture required the use of some functions 
   which are not in all versions of PHP4. You will need at least 
-  PHP4 beta2. If you need to upgrade please go ahead and install the
+  PHP4 v4.0.2. If you need to upgrade please go ahead and install the
   latest release version of PHP4.
 
 a. Obtaining and compiling PHP4
