@@ -1,12 +1,17 @@
 <?php
 
-/*
- * Generic Change Password plugin
+/**
+ * setup.php - Generic Change Password plugin
+ *
+ * Copyright (c) 2003-2004 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This plugin aims to provide a general framework for all password
  * changing methods that currently have their own plugins.
  *
- * $Id $
+ * $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 function squirrelmail_plugin_init_change_password() {
@@ -27,5 +32,5 @@ function change_password_optpage() {
 }
 
 function change_password_version() {
-    return '0.1';
+    return '0.2';
 }

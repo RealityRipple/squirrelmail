@@ -12,6 +12,7 @@
  *
  * $Id$
  * @package plugins
+ * @subpackage change_password
  */
 
 header("Location:../index.php");
