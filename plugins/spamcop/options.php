@@ -12,6 +12,15 @@
 define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 
+function spamcop_enable_disable($option,$disable_action,$enable_action) {
+    if ($option) { 
+	$ret= _("Enabled") . "(<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
+    } else {
+	$ret = _("Disabled") . "(<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
+    }
+    return $ret;
+}
+
 displayPageHeader($color, 'None');
    
 /* globals */
@@ -59,57 +68,64 @@ spamcop_load();
       <br />
       <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
       <tr><td bgcolor="<?php echo $color[0]; ?>">
-         <center><b><?php echo _("Options"); ?> - Message Filtering</b></center>
+         <center><b><?php echo _("Options") . " - " . _("Spam reporting"); ?></b></center>
       </td></tr></table>
       <br />
       
       <table align="center">
         <tr>
-	  <td align="right">SpamCop link is:</td>
-	  <td><?php if ($spamcop_enabled) { 
-	  ?>Enabled (<a href="options.php?action=disable">Disable it</a>)
-	  <?PHP } else {
-	  ?>Disabled (<a href="options.php?action=enable">Enable it</a>)
-	  <?PHP }
-	  ?></td>
+	  <?php
+	  echo html_tag('td',_("SpamCop link is:"),'right');
+	  echo html_tag('td', spamcop_enable_disable($spamcop_enabled,'disable','enable') );
+	  ?>
 	</tr>
         <tr>
-	  <td align="right" valign="top">Delete spam when reported:<br />
-	    <font size="-2">(Only works with email-based reporting)</font>
-	  </td>
-	  <td valign="top"><?php if ($spamcop_delete) { 
-	  ?>Enabled (<a href="options.php?action=save">Disable it</a>)
-	  <?php } else {
-	  ?>Disabled (<a href="options.php?action=delete">Enable it</a>)
-	  <?php }
-	  ?></td>
+	  <?php
+	  echo html_tag('td',_("Delete spam when reported:") . "<br />\n" .
+	  '<font size="-2">(' . _("Only works with email-based reporting") . ')</font>',
+	  'right','','valign="top"');
+	  echo html_tag('td', spamcop_enable_disable($spamcop_delete,'save','delete'),'','','valign="top"');
+	  ?>
 	</tr>
 	<tr>
-	  <td align="right">Spam Reporting Method:</td>
-	  <form method="post" action="options.php"><td>
+	  <?php
+	  echo html_tag('td',_("Spam Reporting Method:"),'right');
+	  ?>
+	  <form method="post" action="options.php">
+	  <td>
 	    <select name="meth">
-	      <option value="quick_email"<?php
-	        if ($spamcop_method == 'quick_email') echo ' selected'
-	        ?>>Quick email-based reporting</option>
-	      <option value="thorough_email"<?php
-	        if ($spamcop_method == 'thorough_email') echo ' selected'
-	        ?>>Thorough email-based reporting</option>
-	      <option value="web_form"<?php
-	        if ($spamcop_method == 'web_form') echo ' selected'
-	        ?>>Web-based form</option>
+	      <option value="quick_email"
+		<?php
+	          if ($spamcop_method == 'quick_email') echo ' selected';
+	          echo ">"._("Quick email-based reporting");
+		?>
+	      </option>
+	      <option value="thorough_email"
+		<?php
+	    	  if ($spamcop_method == 'thorough_email') echo ' selected';
+	    	  echo ">"._("Thorough email-based reporting");
+		?>
+	      </option>
+	      <option value="web_form"
+	        <?php
+	          if ($spamcop_method == 'web_form') echo ' selected';
+	    	  echo ">"._("Web-based form");
+		?>
+	      </option>
 	    </select>
 	    <input type="hidden" name="action" value="meth">
-	    <input type="submit" value="Save Method">
+	    <input type="submit" value="<?php echo _("Save Method"); ?>">
 	  </td></form>
 	</tr>
 	<tr>
-	  <td valign="top" align="right">Your SpamCop authorization code:<br />
-	    <font size="-2">(see below)</font>
-	  </td>
+	  <?php
+	    echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
+	    '<font size="-2">(' . _("see below") . ')</font>','right','','valign="top"');
+	  ?>
 	  <form method="post" action="options.php"><td valign="top">
 	    <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
 	    <input type="hidden" name="action" value="save_id" />
-	    <input type="submit" value="Save ID" />
+	    <input type="submit" value="<?php echo _("Save ID"); ?>" />
 	  </td></form>
 	</tr>
       </table>
