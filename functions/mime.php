@@ -318,7 +318,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
 	$body = mime_fetch_body ($imap_stream, $id, $ent_num);
-	
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
@@ -328,12 +327,14 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         if ($body_message->header->type1 == 'html') {
             if ( $show_html_default <> 1 ) {
                 $body = strip_tags( $body );
-                translateText($body, $wrap_at, $body_message->header->charset);
+                translateText($body, $wrap_at, 
+		  $body_message->header->getParameter['charset']);
             } else {
                 $body = magicHTML( $body, $id, $message, $mailbox );
             }
         } else {
-            translateText($body, $wrap_at, $body_message->header->charset);
+            translateText($body, $wrap_at, 
+	       $body_message->header->getParameter('charset'));
         }
 
         if ($has_unsafe_images) {
@@ -367,14 +368,14 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
     foreach ($att_ar as $att) {
                 
-        $ent = urlencode($att->entity_id);
+        $ent = urldecode($att->entity_id);
 	$header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
 	$name = '';
 	if ($type0 =='message' && $type1 == 'rfc822') {
-
-            $filename = decodeHeader($header->subject);
+	    $rfc822_header = $att->rfc822_header;
+            $filename = decodeHeader($rfc822_header->subject);
             $display_filename = $filename;
             
             $DefaultLink =
@@ -407,7 +408,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
-	    $from_o = $header->from;
+	    $from_o = $rfc822_header->from;
 	    if (is_object($from_o)) {
 		$from_name = $from_o->getAddress(false);
 	    } else {
@@ -428,9 +429,9 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             }
             unset($Links);
         } else {
-            $filename = decodeHeader($header->filename);
+            $filename = decodeHeader($header->getParameter('filename'));
             if (trim($filename) == '') {
-	        $name = decodeHeader($header->name);
+	        $name = decodeHeader($header->getParameter('name'));
                 if (trim($name) == '') {
                     if ( trim( $header->id ) == '' )
                         $display_filename = 'untitled-[' . $ent . ']' ;
