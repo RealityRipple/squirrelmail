@@ -159,6 +159,26 @@ function save_recent($save_index, $username, $data_dir) {
     }
 }
 
+function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = false, $newsort = false) {
+    global $sort, $color;
+    
+    $msort = calc_msort($msgs, $sort, $cnt, true);
+
+    if ($cnt > 0) {
+       if ( $mailbox == 'INBOX' ) {
+           $showbox = _("INBOX");
+       } else {
+            $showbox = imap_utf7_decode_local($mailbox);
+       }
+       echo html_tag( 'div', '<b><big>' . _("Folder:") . ' '. $showbox.'</big></b>','center') . "\n";
+
+       displayMessageArray($imapConnection, $cnt, 1, 
+			     $msgs, $msort, $mailbox, $sort, $color, 
+			     $cnt, true);
+       
+    }
+}			      
+
 /* ------------------------ main ------------------------ */
 
 /*  reset these arrays on each page load just in case  */
@@ -172,12 +192,6 @@ $recent_count = getPref($data_dir, $username, 'search_memory', 0);
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection);
-
-if (isset($newsort)) {
-    printSearchMessages('',$mailbox, '', $imapConnection, true, $newsort);
-}
-
-
 
 /*  set current mailbox to INBOX if none was selected or if page
     was called to search all folders.  */
@@ -318,38 +332,6 @@ if ($recent_count > 0) {
     echo '</table></td></tr></table><br>';
 }
 
-function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = false, $newsort = false) {
-    global $sort, $color;
-
-    if (!$usecache) {
-       if (!isset($search_msgs) || !session_is_registered('search_msgs')) {
-          $search_msgs = array();
-          $search_msgs[$mailbox] = $msgs;    
-          session_register('search_msgs');
-       } else {
-          $old_search_msgs = $search_msgs;
-          session_unregister('search_msgs');
-          $old_search_msgs[$mailbox] = $msgs;
-          $search_msgs = $old_search_msgs;
-          session_register('search_msgs');
-       }
-    } else {
-//       if (session_is_registered('search_msgs')) {
-//          global $search_msgs;
-          $msgs = $search_msgs[$mailbox];
-//       } else {
-//          $msgs = $search_msgs[$mailbox];
-//       }
-    }
-    if ($newsort) {
-      $cnt = count($msgs);
-      $sort = $newsort;
-    }
-    $msort = calc_msort($msgs, $sort, $cnt, true);
-    displayMessageArray($imapConnection, $cnt, 1, 
-			     $msgs, $msort, $mailbox, $sort, $color, 
-			     $cnt, true);
-}			      
 
 if (isset($newsort)) {
     $sort = $newsort;
@@ -462,15 +444,13 @@ if ($search_all == 'all') {
         }
     }
     for ($i=0;$i<count($perbox_count);$i++) {
-        if ($perbox_count[$i] != "") {
-            $count_all = "found";
+        if ($perbox_count[$i]) {
+            $count_all = true;
             break;
         }
     }
-    if ($count_all != "found") {
-        echo '<br><b>' .
-             _("No Messages found") .
-             '</b><br>';
+    if (!$count_all) {
+       echo '<br><center>' . _("No Messages Found") . '</center>';
     }
 }
 
@@ -481,7 +461,11 @@ else {
         . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
         $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
-        printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection);
+	if (count($msgs)) {
+           printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection);
+	} else {
+           echo '<br><center>' . _("No Messages Found") . '</center>';
+	}
     }
 }
 
