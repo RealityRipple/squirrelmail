@@ -205,6 +205,9 @@ $page_selector_max = getPref($data_dir, $username, 'page_selector_max', 10);
 $date_format = getPref($data_dir, $username, 'date_format', 3);
 $hour_format = getPref($data_dir, $username, 'hour_format', 2);
 
+/*  compose in new window setting */
+$compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
+
 /* Load the javascript settings. */
 $javascript_setting =
     getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);

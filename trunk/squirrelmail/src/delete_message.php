@@ -23,14 +23,22 @@ sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
 if ($auto_expunge) {
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 }
+if (!isset($saved_draft)) {
+    $saved_draft = '';
+}
 
 $location = get_location();
 if (isset($where) && isset($what)) {
     header("Location: $location/search.php?where=" . urlencode($where) .
            '&what=' . urlencode($what) . '&mailbox=' . urlencode($mailbox));
 } else {
+    if ($compose_new_win == '1') {
+          header("Location: $location/compose.php?mail_sent=$mail_sent&saved_draft=$saved_draft");
+    }
+    else {
     header("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=" .
            urlencode($mailbox));
+    }
 }
 
 sqimap_logout($imapConnection);

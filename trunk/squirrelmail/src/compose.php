@@ -44,12 +44,19 @@ if (isset($draft)) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=$draft_folder".
-                   "&message=$delete_draft&sort=$sort&startMessage=1");
+                   "&message=$delete_draft&sort=$sort&startMessage=1&saved_draft=yes");
             exit();
-        } else {
+        } 
+        else {
+            if ($compose_new_win == '1') {
+                Header("Location: compose.php?saved_draft=yes");
+            exit();
+            }
+            else {
             Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
                    "&startMessage=1&note=$draft_message");
             exit();
+            }
         }
     }
 }
@@ -115,19 +122,27 @@ if (isset($send)) {
         }
         if ( isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=$draft_folder".
-                   "&message=$delete_draft&sort=$sort&startMessage=1");
+                   "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
             exit();
         }
-
-        Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
-               "&startMessage=1");
+        if ($compose_new_win == '1') {
+            Header("Location: compose.php?mail_sent=yes");
+        }
+        else {
+            Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
+                   "&startMessage=1");
+        }
     } else {
         /*
          *$imapConnection = sqimap_login($username, $key, $imapServerAddress,
          *                               $imapPort, 0);
          */
-        displayPageHeader($color, $mailbox);
-
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
         if (isset($AttachFailure)) {
              plain_error_message(_("Could not move/copy file. File not attached"),
                                  $color);
@@ -139,7 +154,12 @@ if (isset($send)) {
     }
 }
 elseif (isset($html_addr_search_done)) {
-    displayPageHeader($color, $mailbox);
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
 
     if (isset($send_to_search) && is_array($send_to_search)) {
         foreach ($send_to_search as $k => $v) {
@@ -183,11 +203,21 @@ elseif (isset($attach)) {
     if (saveAttachedFiles()) {
         plain_error_message(_("Could not move/copy file. File not attached"), $color);
     }
-    displayPageHeader($color, $mailbox);
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
     showInputForm();
 }
 elseif (isset($do_delete)) {
-    displayPageHeader($color, $mailbox);
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (isset($delete) && is_array($delete)) {
@@ -207,7 +237,12 @@ elseif (isset($do_delete)) {
      */
     $imapConnection = sqimap_login($username, $key, $imapServerAddress,
                                    $imapPort, 0);
-    displayPageHeader($color, $mailbox);
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
 
     $newmail = true;
 
@@ -420,7 +455,8 @@ function showInputForm () {
            $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
-           $mailprio, $default_use_mdn, $mdn_user_support;
+           $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
+           $saved_draft, $mail_sent;
 
     $subject = decodeHeader($subject, false);
     $reply_subj = decodeHeader($reply_subj, false);
@@ -450,9 +486,16 @@ function showInputForm () {
     if (isset($delete_draft)) {
         echo '<input type="hidden" name="delete_draft" value="' . $delete_draft. "\">\n";
     }
-
+    if ($saved_draft == 'yes') {
+        echo '<BR><CENTER><B>'. _("Draft Saved").'</CENTER></B>';
+    }
+    if ($mail_sent == 'yes') {
+        echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
+    }
     echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
-
+    if ($compose_new_win == '1') {
+        echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE="Close"></TD></TR>'."\n";
+    }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
     }
