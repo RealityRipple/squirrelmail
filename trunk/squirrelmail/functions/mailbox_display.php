@@ -7,7 +7,6 @@
     **  table row that has sender, date, subject, etc...
     **
     **/
-
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       require ("../config/config.php");
 
@@ -37,6 +36,7 @@
 
       if (1 <= $numMessages) {
          getMessageHeaders($imapConnection, 1, $numMessages, $from, $subject, $date);
+         getMessageFlags($imapConnection, 1, $numMessages, $flags);
       }
 
       $j = 0;
@@ -54,15 +54,14 @@
          $messages[$j]["FLAG_SEEN"] = false;
 
          $num = 0;
-         getMessageFlags($imapConnection, $j+1, $flags);
-         while ($num < count($flags)) {
-            if ($flags[$num] == "Deleted") {
+         while ($num < count($flags[$j])) {
+            if ($flags[$j][$num] == "Deleted") {
                $messages[$j]["FLAG_DELETED"] = true;
             }
-            else if ($flags[$num] == "Answered") {
+            else if ($flags[$j][$num] == "Answered") {
                $messages[$j]["FLAG_ANSWERED"] = true;
             }
-            else if ($flags[$num] == "Seen") {
+            else if ($flags[$j][$num] == "Seen") {
                $messages[$j]["FLAG_SEEN"] = true;
             }
             $num++;
@@ -100,11 +99,13 @@
           ** 2 = Name (up)
           ** 3 = Name (dn)
           **/
+
          if ($sort == 0)
             $msgs = ary_sort($msgs, "TIME_STAMP", -1);
          else if ($sort == 1)
             $msgs = ary_sort($msgs, "TIME_STAMP", 1);
          else {
+
             $original = $msgs;
             $i = 0;
             while ($i < count($msgs)) {
@@ -127,10 +128,14 @@
             $i = 0;
             while ($i < count($msgs)) {
                $j = 0;
+               $loop = true;
                while ($j < count($original)) {
                   if ($msgs[$i]["ID"] == $original[$j]["ID"]) {
                      $msgs[$i]["FROM"] = $original[$j]["FROM"];
                      $msgs[$i]["SUBJECT"] = $original[$j]["SUBJECT"];
+
+                     // exit out of this loop if we find the thing.
+                     $j = count($original) + 1;
                   }
                   $j++;
                }
@@ -148,7 +153,6 @@
       $nextGroup = $startMessage + 25;
       $prevGroup = $startMessage - 25;
       $urlMailbox = urlencode($mailbox);
-
 
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";
