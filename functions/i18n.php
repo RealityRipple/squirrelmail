@@ -20,17 +20,9 @@
    if (! isset($squirrelmail_language)) { $squirrelmail_language = ''; }
 
    // This array specifies the available languages.
-   $languages['en']['NAME']    = 'English';
-   $languages['en']['CHARSET'] = 'iso-8859-1';
-   $languages['en_EN']['ALIAS'] = 'en';
-   
    $languages['ca']['NAME']    = 'Catalan';
    $languages['ca']['CHARSET'] = 'iso-8859-1';
    $languages['ca_CA']['ALIAS'] = 'ca';
-
-   $languages['hr']['NAME']    = 'Croatian';
-   $languages['hr']['CHARSET'] = 'iso-8859-2';
-   $languages['hr_HR']['ALIAS'] = 'hr';
 
    $languages['cs_CZ']['NAME']    = 'Czech';
    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
@@ -43,26 +35,34 @@
    $languages['de']['CHARSET'] = 'iso-8859-1';
    $languages['de_DE']['ALIAS'] = 'de';
    
-   $languages['id']['NAME']    = 'Indonesian';
-   $languages['id']['CHARSET'] = 'iso-8859-1';
-   $languages['id_ID']['ALIAS'] = 'id';
+   $languages['en']['NAME']    = 'English';
+   $languages['en']['CHARSET'] = 'iso-8859-1';
+   $languages['en_EN']['ALIAS'] = 'en';
    
-   $languages['nl']['NAME']    = 'Dutch';
-   $languages['nl']['CHARSET'] = 'iso-8859-1';
-   $languages['nl_NL']['ALIAS'] = 'nl';
-   
+   $languages['es']['NAME']    = 'Spanish';
+   $languages['es']['CHARSET'] = 'iso-8859-1';
+   $languages['es_ES']['ALIAS'] = 'es';
+
+   $languages['fi']['NAME']    = 'Finnish';
+   $languages['fi']['CHARSET'] = 'iso-8859-1';
+   $languages['fi_FI']['ALIAS'] = 'fi';
+
    $languages['fr']['NAME']    = 'French';
    $languages['fr']['CHARSET'] = 'iso-8859-1';
    $languages['fr_FR']['ALIAS'] = 'fr';
    
-   $languages['fi']['NAME']    = 'Finnish';
-   $languages['fi']['CHARSET'] = 'iso-8859-1';
-   $languages['fi_FI']['ALIAS'] = 'fi';
+   $languages['hr']['NAME']    = 'Croatian';
+   $languages['hr']['CHARSET'] = 'iso-8859-2';
+   $languages['hr_HR']['ALIAS'] = 'hr';
 
    $languages['hu']['NAME']    = 'Hungarian';
    $languages['hu']['CHARSET'] = 'iso-8859-1';
    $languages['hu_HU']['ALIAS'] = 'hu';
 
+   $languages['id']['NAME']    = 'Indonesian';
+   $languages['id']['CHARSET'] = 'iso-8859-1';
+   $languages['id_ID']['ALIAS'] = 'id';
+   
    $languages['is']['NAME']    = 'Icelandic';
    $languages['is']['CHARSET'] = 'iso-8859-1';
    $languages['is_IS']['ALIAS'] = 'is';
@@ -75,10 +75,13 @@
    $languages['ko']['CHARSET'] = 'euc-KR';
    $languages['ko_KO']['ALIAS'] = 'ko';
    
+   $languages['nl']['NAME']    = 'Dutch';
+   $languages['nl']['CHARSET'] = 'iso-8859-1';
+   $languages['nl_NL']['ALIAS'] = 'nl';
+   
    $languages['no']['NAME']    = 'Norwegian (Bokm&aring;l)';
    $languages['no']['CHARSET'] = 'iso-8859-1';
    $languages['no_NO']['ALIAS'] = 'no';
-   
    $languages['no_NO_ny']['NAME']    = 'Norwegian (Nynorsk)';
    $languages['no_NO_ny']['CHARSET'] = 'iso-8859-1';
    
@@ -88,10 +91,9 @@
    
    $languages['pt']['NAME'] = 'Português (Portugal)';
    $languages['pt']['CHARSET'] = 'iso-8859-1';
-   $languages['pt_PT']['ALIAS'] = 'pt';
-   
    $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
    $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
+   $languages['pt_PT']['ALIAS'] = 'pt';
    
    $languages['ru']['NAME']    = 'Russian KOI8-R';
    $languages['ru']['CHARSET'] = 'koi8-r';
@@ -101,10 +103,6 @@
    $languages['sr']['CHARSET'] = 'iso-8859-2';
    $languages['sr_SR']['ALIAS'] = 'sr';
    
-   $languages['es']['NAME']    = 'Spanish';
-   $languages['es']['CHARSET'] = 'iso-8859-1';
-   $languages['es_ES']['ALIAS'] = 'es';
-
    $languages['sv']['NAME']    = 'Swedish';
    $languages['sv']['CHARSET'] = 'iso-8859-1';
    $languages['sv_SV']['ALIAS'] = 'sv';
