@@ -67,13 +67,13 @@ $QuietString = " > /dev/null 2> /dev/null" if (! $Verbose);
 
 print "\n\n" if ($Verbose);
 print "Creating $Plugin.$Version-$SMVersion.tar.gz\n";
-system("tar cvfz $Plugin-$Version.tar.gz $Plugin" . FindTarExcludes(@Files)
-    . $QuietString);
+system("tar cvfz $Plugin.$Version-$SMVersion.tar.gz $Plugin" . 
+    FindTarExcludes(@Files) . $QuietString);
     
 #print "\n\n" if ($Verbose);
-#print "Creating $Plugin-$Version.zip\n";
-#system("zip -r $Plugin-$Version.zip $Plugin/" . FindZipExcludes(@Files)
-#    . $QuietString);
+#print "Creating $Plugin.$Version-$SMVersion.zip\n";
+#system("zip -r $Plugin.$Version-$SMVersion.zip $Plugin/" . 
+#    FindZipExcludes(@Files) . $QuietString);
 
 
 
@@ -100,13 +100,8 @@ sub FindTarExcludes
     {
         if ($File =~ /^(.*\/CVS)\/$/)
 	{
-	    $ExcludeStr .= " $1";
+	    $ExcludeStr .= " --exclude $1";
 	}
-    }
-    
-    if ($ExcludeStr ne "")
-    {
-        $ExcludeStr = " --exclude" . $ExcludeStr;
     }
     
     return $ExcludeStr;
