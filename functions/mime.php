@@ -617,14 +617,14 @@ function getEntity ($message, $ent_id) {
  * figures out what entity to display and returns the $message object
  * for that entity.
  */
-function findDisplayEntity ($msg, $textOnly = 1, $entity = array() )   {
+function findDisplayEntity ($msg, $textOnly = true, $entity = array() )   {
     global $show_html_default;
     
     $found = false;    
     if ($msg) {
         $type = $msg->header->type0.'/'.$msg->header->type1;
         if ( $type == 'multipart/alternative') {
-	    $msg = findAlternativeEntity($msg);
+	    $msg = findAlternativeEntity($msg, $textOnly);
 	    if (count($msg->entities) == 0) {
         	$entity[] = $msg->header->entity_id;
 	    } else {
@@ -687,12 +687,12 @@ function findDisplayEntityHTML ($message) {
     return 0;
 }
 
-function findAlternativeEntity ($message) {
+function findAlternativeEntity ($message, $textOnly) {
     global $show_html_default;
     /* if we are dealing with alternative parts then we choose the best 
      * viewable message supported by SM.
      */
-    if ($show_html_default) {     
+    if ($show_html_default && !$textOnly) {     
 	$alt_order = array ('text/plain','text/html');
     } else {
 	$alt_order = array ('text/plain');
