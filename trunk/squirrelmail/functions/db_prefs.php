@@ -303,24 +303,34 @@ function checkForPrefs($data_dir, $username) {
 }
 
 /* Writes the Signature */
-function setSig($data_dir, $username, $string) {
+function setSig($data_dir, $username, $number, $string) {
     $db = new dbPrefs;
     if(isset($db->error)) {
         $db->failQuery();
     }
 
-    $db->setKey($username, '___signature___', $string);
+    if ($number == "g") {
+        $key = '___signature___';
+    } else {
+        $key = sprintf('___sig%s___', $number);
+    }
+    $db->setKey($username, $key, $string);
     return;
 }
 
 /* Gets the signature */
-function getSig($data_dir, $username) {
+function getSig($data_dir, $username, $number) {
     $db = new dbPrefs;
     if(isset($db->error)) {
         $db->failQuery();
     }
 
-    return $db->getKey($username, '___signature___');
+    if ($number == "g") {
+        $key = '___signature___';
+    } else {
+        $key = sprintf('___sig%d___', $number);
+    }
+    return $db->getKey($username, $key);
 }
 
 ?>
