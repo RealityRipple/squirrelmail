@@ -23,7 +23,7 @@
       /** msg_header contains generic variables for values that **/
       /** could be in a header.                                 **/
       
-      var $type0, $type1, $boundary, $charset, $encoding;
+      var $type0, $type1, $boundary, $charset, $encoding, $size;
       var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
       var $id, $mailbox, $description;
       var $entity_id, $message_id, $charset;
@@ -526,13 +526,16 @@
                $Links = $HookResults[1];
                $DefaultLink = $HookResults[6];
 
-               $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD><FONT SIZE="-1">';
-               $body .= "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</FONT></TD>";
-               $body .= "<TD><FONT SIZE=\"-1\">($type0/$type1)&nbsp;</FONT></TD>";
-               $body .= '<TD><FONT SIZE="-1">';
+               $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>';
+               $body .= "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>";
+               $size = $message->header->size / 1024;
+               settype($size, "integer");
+               $body .= "<TD><SMALL><b>" . $size . "k</b>&nbsp;&nbsp;</small></TD>";
+               $body .= "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>";
+               $body .= '<TD><SMALL>';
                if ($message->header->description)
                   $body .= '<b>' . htmlspecialchars($message->header->description) . '</b>';
-               $body .= '</FONT></TD><TD><FONT SIZE="-1">&nbsp;';
+               $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
                
                
                $SkipSpaces = 1;
@@ -544,15 +547,14 @@
                   }
                   else
                   {
-                     $body .= '&nbsp;&nbsp;';
+                     $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
                   }
-                  $body .= '(<a href="' . $Val['href'] . '">' . 
-                     $Val['text'] . '</a>)';
+                  $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
                }
                
                unset($Links);
                
-               $body .= "</FONT></TD></TR>\n";
+               $body .= "</SMALL></TD></TR>\n";
             }
             return $body;
          } else {

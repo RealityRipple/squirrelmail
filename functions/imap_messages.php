@@ -92,6 +92,12 @@
          $date = implode (" ", $date_ary);
       }
 
+      fputs ($imap_stream, "a003 FETCH $id RFC822.SIZE\r\n");
+      $read = sqimap_read_data($imap_stream, "a003", true, $r, $m);
+      preg_match("/([0-9]+)\)\s*$/i", $read[0], $regs);
+      $size = $regs[1] / 1024;
+      settype($size, "integer");
+      
       $header = new small_header;
       if ($sent == true)
          $header->from = $to;
@@ -104,6 +110,7 @@
       $header->priority = $priority;
       $header->message_id = $messageid;
       $header->cc = $cc;
+      $header->size = $size;
 
       return $header;
    }
@@ -178,6 +185,9 @@
       $hdr->type0 = "text";
       $hdr->type1 = "plain";
       $hdr->charset = "us-ascii";
+
+      preg_match("/\{([0-9]+)\}/", $read[$i], $regs);
+      preg_match("/[0-9]+/", $regs[0], $regs);
 
       while ($i < count($read)) {
          if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
