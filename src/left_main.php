@@ -293,7 +293,7 @@ function listBoxes ($boxes, $j=0 ) {
     if (isset($boxes) && !empty($boxes)) {
         $mailbox = $boxes->mailboxname_full;
         $leader = '<tt>';
-        $leader .= str_repeat('&nbsp;&nbsp;&nbsp;',$j);
+        $leader .= str_repeat('&nbsp;&nbsp;',$j);
         $mailboxURL = urlencode($mailbox);
 
         /* get unseen/total messages information */
