@@ -474,15 +474,10 @@
    
                $urlMailbox = urlencode($mailbox);
                $ent = urlencode($message->header->entity_id);
-               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent&view=true\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
                if ($message->header->description)
                   $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
-               if ($message->header->type0 == "image" &&
-                   ($message->header->type1 == "jpg" ||
-                    $message->header->type1 == "jpeg" ||
-                    $message->header->type1 == "gif" ||
-                    $message->header->type1 == "png"))
-                  $body .= "&nbsp;(<a href=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent&view=true\">"._("view")."</a>)\n";     
+               $body .= "&nbsp;(<a href=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     
                $body .= "</TT><BR>";
                $num++;
             }
