@@ -16,6 +16,8 @@ require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/html.class.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
+require_once(SM_PATH . 'functions/mime.php');
 
 /* Constants:
  *   PG_SEL_MAX:   default value for page_selector_max
@@ -88,15 +90,21 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 
     $senderNames = $msg['FROM'];
     $senderName  = '';
+    $senderAddress = '';
     if (sizeof($senderNames)){
         foreach ($senderNames as $senderNames_part) {
             if ($senderName != '') {
                 $senderName .= ', ';
+                $senderAddress .= ', ';
             }
-            if ($senderNames_part[1]) {
-                $senderName .= decodeHeader($senderNames_part[1]);
+            $sender_address_part = htmlspecialchars($senderNames_part[0]);
+            $sender_name_part = decodeHeader($senderNames_part[1]);
+            if ($sender_name_part) {
+                $senderName .= $sender_name_part;
+                $senderAddress .= $sender_name_part . ' <' . $sender_address_part . '>';
             } else {
-                $senderName .= htmlspecialchars($senderNames_part[0]);
+                $senderName .= $sender_address_part;
+                $senderAddress .= $sender_address_part;
             }
         }
     }
@@ -188,9 +196,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     }
     $checked = ($checkall == 1) ? ' CHECKED' : '';
     $col = 0;
-    $msg['SUBJECT'] = decodeHeader($msg['SUBJECT']);
+    $msg['SUBJECT'] = str_replace('&nbsp;', ' ', decodeHeader($msg['SUBJECT']));
     $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
-    $subject = str_replace('&nbsp;',' ',$subject);    
     if (sizeof($index_order)) {
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
@@ -201,11 +208,17 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                                $hlt_color );
                 break;
             case 2: /* from */
+                if ($senderAddress != $senderName) {
+                    $senderAddress = strtr($senderAddress, array_flip(get_html_translation_table(HTML_SPECIALCHARS)));
+                    $title = ' title="' . str_replace('"', "''", $senderAddress) . '"';
+                }
+                else
+                    $title = '';
                 echo html_tag( 'td',
                                $italic . $bold . $flag . $fontstr . $senderName .
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
-                               $hlt_color );
+                               $hlt_color, $title );
                 break;
             case 3: /* date */
                 $date_string = $msg['DATE_STRING'] . '';
@@ -1247,10 +1260,10 @@ function processSubject($subject, $threadlevel = 0) {
     }
 }
 
-function getMbxList($imapConnection) {
+function getMbxList($imapConnection, $boxes = 0) {
     global $lastTargetMailbox;
     echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
-    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)) ); 
+    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes); 
     echo '         </SELECT></TT>&nbsp;';
 }
 
