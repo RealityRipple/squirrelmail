@@ -20,7 +20,7 @@
       echo "<br><br>";
       echo "<center>";
       echo "<b>"._("You must be logged in to access this page.")."</b><br>";
-      echo "<a href=\"../src/login.php\">"._("Go to the login page")."</a>\n";
+      echo "<a href=\"../src/login.php\" target=\"_top\">"._("Go to the login page")."</a>\n";
       echo "</center>";
       echo "</body></html>\n";
       exit;
