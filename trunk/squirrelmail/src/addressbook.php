@@ -332,11 +332,12 @@ if ($showaddrlist) {
             html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
             html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
             html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
+            $email = $abook->full_address($row);
             if ($compose_new_win == '1') {
-                echo '<a href="javascript:void(0)" onclick=comp_in_new(false,"compose.php?send_to='.rawurlencode($row['email']).'")>';
+                echo '<a href="javascript:void(0)" onclick=comp_in_new(false,"compose.php?send_to='.rawurlencode($email).'")>';
             }
             else {
-                echo '<A HREF="compose.php?send_to=' . rawurlencode($row['email']).'">';
+                echo '<A HREF="compose.php?send_to=' . rawurlencode($email).'">';
             }
             echo $row['email'] . '</A>&nbsp;</td>'."\n".
             html_tag( 'td', '&nbsp;' . $row['label'] . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .

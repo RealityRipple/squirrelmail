@@ -99,15 +99,16 @@ if ($javascript_on) {
 
     foreach ($res as $row) {
         $tr_bgcolor = '';
+        $email = AddressBook::full_address($row);
         if ($line % 2) { $tr_bgcolor = $color[0]; }
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
              '<input type=checkbox name="send_to_search[T' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;' . _("To") . '&nbsp;' .
+             htmlspecialchars($email) . '">&nbsp;' . _("To") . '&nbsp;' .
              '<input type=checkbox name="send_to_search[C' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;' . _("Cc") . '&nbsp;' .
+             htmlspecialchars($email) . '">&nbsp;' . _("Cc") . '&nbsp;' .
              '<input type=checkbox name="send_to_search[B' . $line . ']" value = "' .
-             htmlspecialchars($row['email']) . '">&nbsp;' . _("Bcc") . '&nbsp;' ,
+             htmlspecialchars($email) . '">&nbsp;' . _("Bcc") . '&nbsp;' ,
         'center', '', 'width="5%" nowrap' ) .
         html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'nowrap' ) .
         html_tag( 'td', '&nbsp;' . $row['email'] . '&nbsp;', 'left', '', 'nowrap' ) .
