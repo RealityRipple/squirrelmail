@@ -79,6 +79,11 @@
       $startMessage = 1;
    }
 
+   // compensate for the UW vulnerability
+   if ($imap_server_type == "uw" && strstr($mailbox, "../")) {
+      $mailbox = "INBOX";
+   }
+
    sqimap_mailbox_select($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
