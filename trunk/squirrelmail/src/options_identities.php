@@ -34,7 +34,7 @@ require_once('../functions/display_messages.php');
         SaveUpdateFunction();
     }
  
-    LoadInfo($full_name, $email_address, $reply_to, '');
+   LoadInfo($full_name, $email_address, $reply_to, $signature, '');
 
 ?>
 <br>
@@ -56,10 +56,10 @@ require_once('../functions/display_messages.php');
   </tr>
 <?PHP
 
-    ShowTableInfo($full_name, $email_address, $reply_to, '');
+   ShowTableInfo($full_name, $email_address, $reply_to, $signature, '');
   
     $num = 1;
-    while (LoadInfo($full_name, $email_address, $reply_to, $num))
+   while (LoadInfo($full_name, $email_address, $reply_to, $signature, $num))
     {
 ?>
   <tr bgcolor="<?PHP echo $color[9] ?>">
@@ -67,7 +67,7 @@ require_once('../functions/display_messages.php');
     $num) ?></th>
   </tr>
 <?PHP
-        ShowTableInfo($full_name, $email_address, $reply_to, $num);
+       ShowTableInfo($full_name, $email_address, $reply_to, $signature, $num);
         $num ++;
     }
    
@@ -76,7 +76,7 @@ require_once('../functions/display_messages.php');
     <th colspan=2 align=center><?PHP echo _("Add a New Identity") ?></th>
   </tr>
 <?php
-    ShowTableInfo('', '', '', $num);
+    ShowTableInfo('', '', '', '', $num);
 ?>
 </table>
 </form>
@@ -91,7 +91,7 @@ require_once('../functions/display_messages.php');
 <?PHP
 
     function SaveUpdateFunction() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to;
+        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
 
         $i = 1;
         $fakeI = 1;
@@ -125,6 +125,12 @@ require_once('../functions/display_messages.php');
                 $filled ++;
                 setPref($data_dir, $username, 'reply_to' . $fakeI, $$name);
 
+                $name = 'signature' . $i;
+                global $$name;
+            if ($$name != '')
+                $filled ++;
+                setSig($data_dir, $username, $fakeI, $$name);
+
             if ($filled == 0)
                 $fakeI --;
             }
@@ -142,16 +148,19 @@ require_once('../functions/display_messages.php');
             removePref($data_dir, $username, 'full_name' . $fakeI);
             removePref($data_dir, $username, 'email_address' . $fakeI);
             removePref($data_dir, $username, 'reply_to' . $fakeI);
+            setSig($data_dir, $username, $fakeI, "");
             $fakeI ++;
         }
 
         setPref($data_dir, $username, 'full_name', $full_name);
         setPref($data_dir, $username, 'email_address', $email_address);
         setPref($data_dir, $username, 'reply_to', $reply_to);
+        setSig($data_dir, $username, "g", $signature);
+        
     }
 
     function CheckAndDoDefault() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to;
+        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
 
         $i = 1;
         $name = 'form_for_' . $i;
@@ -162,7 +171,7 @@ require_once('../functions/display_messages.php');
             global $$name;
             if (isset($$name)) {
                 do_hook('options_identities_renumber', $i, 'default');
-                global $full_name, $email_address, $reply_to;
+                global $full_name, $email_address, $reply_to, $signature;
 
                 $name = 'full_name' . $i;
                 global $$name;
@@ -182,6 +191,13 @@ require_once('../functions/display_messages.php');
                 $reply_to = $$name;
                 $$name = $temp;
 
+                $name = 'signature' . $i;
+                global $$name;
+                $temp = $signature;
+                $signature = $$name;
+                $$name = $temp;
+
+
                 return true;
             }
 
@@ -193,7 +209,7 @@ require_once('../functions/display_messages.php');
     }
 
     function CheckForDelete() {
-        global $username, $data_dir, $full_name, $email_address, $reply_to;
+        global $username, $data_dir, $full_name, $email_address, $reply_to, $signature;
 
         $i = 1;
         $name = 'form_for_' . $i;
@@ -246,6 +262,13 @@ require_once('../functions/display_messages.php');
                 $$nameA = $$nameB;
                 $$nameB = $temp;
 
+            $nameA = 'signature' . $i;
+            $nameB = 'signature' . ($i - 1);
+            global $$nameA, $$nameB;
+            $temp = $$nameA;
+            $$nameA = $$nameB;
+            $$nameB = $temp;
+
                 return true;
             }
 
@@ -256,14 +279,17 @@ require_once('../functions/display_messages.php');
         return false;
     }
 
-    function LoadInfo(&$n, &$e, &$r, $post) {
+    function LoadInfo(&$n, &$e, &$r, &$s, $post) {
         global $username, $data_dir;
 
         $n = getPref($data_dir, $username, 'full_name' . $post);
         $e = getPref($data_dir, $username, 'email_address' . $post);
         $r = getPref($data_dir, $username, 'reply_to' . $post);
+        if ($post == '')
+           $post = 'g';
+        $s = getSig($data_dir,$username,$post);
 
-        if ($n != '' || $e != '' || $r != '')
+        if ($n != '' || $e != '' || $r != '' || $s != '')
             return true;
     }
 
@@ -276,14 +302,23 @@ function sti_input( $title, $hd, $data, $post, $bg ) {
 
 }
 
-function ShowTableInfo($full_name, $email_address, $reply_to, $post) {
+function sti_textarea( $title, $hd, $data, $post, $bg ) {
+
+    echo "<tr$bg><td align=right nowrap>$title:".
+         '</td><td>'.
+         "<textarea cols=50 rows=5 name=\"$hd$post\">" . htmlspecialchars($data) .
+         "</textarea></td></tr>";
+
+}
+
+function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post) {
     global $color;
 
     $OtherBG = ' bgcolor="' . $color[0] . '"';
-    if ($full_name == '' && $email_address == '' && $reply_to == '')
+    if ($full_name == '' && $email_address == '' && $reply_to == '' && $signature == '')
         $OtherBG = '';
 
-    if ($full_name == '' && $email_address == '' && $reply_to == '')
+    if ($full_name == '' && $email_address == '' && $reply_to == '' && $signature == '')
         $isEmptySection = true;
     else
         $isEmptySection = false;
@@ -291,6 +326,7 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post) {
     sti_input( _("Full Name"), 'full_name', $full_name, $post, $OtherBG );
     sti_input( _("E-Mail Address"), 'email_address', $email_address, $post, $OtherBG );
     sti_input( _("Reply To"), 'reply_to', $reply_to, $post, $OtherBG );
+    sti_textarea( _("Signature"), 'signature', $signature, $post, $OtherBG );
 
     do_hook('options_identities_table', $OtherBG, $isEmptySection, $post);
     echo "<tr$OtherBG>".

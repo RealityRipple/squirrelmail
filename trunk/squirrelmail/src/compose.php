@@ -213,6 +213,24 @@ if (isset($send)) {
             displayPageHeader($color, $mailbox);
         }
     showInputForm();
+}
+elseif (isset($sigappend)) {
+    $idents = getPref($data_dir, $username, 'identities', 0);
+    if ($idents > 1) {
+       if ($identity == 'default') {
+          $no = 'g';
+       } else {
+          $no = $identity;
+       }
+       $signature = getSig($data_dir, $username, $no);
+    }
+    $body .= "\n\n".($prefix_sig==true? "-- \n":'').$signature;
+    if ($compose_new_win == '1') {
+         compose_Header($color, $mailbox);
+    } else {
+        displayPageHeader($color, $mailbox);
+    }
+    showInputForm();
 } elseif (isset($do_delete)) {
         if ($compose_new_win == '1') {
             compose_Header($color, $mailbox);
@@ -674,6 +692,7 @@ function showComposeButtonRow() {
     }
 
     echo "   <TR><td>\n   </td><td>\n";
+    echo "\n    <INPUT TYPE=SUBMIT NAME=\"sigappend\" VALUE=\"". _("Signature") . "\">\n";
     if ($use_javascript_addr_book) {
         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"".
              "         <input type=button value=\\\""._("Addresses").

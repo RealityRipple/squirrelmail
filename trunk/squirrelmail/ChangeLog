@@ -4,7 +4,7 @@
 
 Version 1.2.5 -- CVS
 --------------------
-  - Added the possibility to add special folders through plugins.
+  - Added the ability to add special folders through plugins.
   - Made searching on multiple criteria possible, with thanks to Jason Munro
   - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
   - Fixed small bugs in db_prefs
@@ -18,15 +18,16 @@ Version 1.2.5 -- CVS
   - conf.pl can now configure database backed address books and
     preferences.
   - Version 0.3.7 of SquirrelSpell. Fixes a potential privacy
-    vulnerability (symlink attack), plus introduces formatting fixes 
+    vulnerability (symlink attack), plus introduces formatting fixes
     and javadoc-style comments.
   - Bugfix in mailfetch reported by Mateusz Mazur
   - Administrator plugin. A web based conf.pl replacement.
   - Removed GLOBALS from conf.pl
   - HTML messages optimization.
-  - Added support for requesting read receipts (MDN) and delivery receipts.  
+  - Added support for requesting read receipts (MDN) and delivery receipts.
   - Added the ability to stop users changing their names and email addresses.
-	
+  - Added signature into multiple identities (Stefan Meier <Stefan.Meier@cimsource.com>)
+
 Version 1.2.4 -- 25 January 2002
 --------------------------------
   - Fixes a nasty remote arbitrary command execution vulnerability

@@ -175,8 +175,8 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 /**
  * Write the User Signature.
  */
-function setSig($data_dir, $username, $value) {
-    $filename = getHashedFile($username, $data_dir, "$username.sig");
+function setSig($data_dir, $username, $number, $value) {
+    $filename = getHashedFile($username, $data_dir, "$username.si$number");
     $file = fopen($filename, 'w');
     fwrite($file, $value);
     fclose($file);
@@ -185,9 +185,9 @@ function setSig($data_dir, $username, $value) {
 /**
  * Get the signature.
  */
-function getSig($data_dir, $username) {
-    #$filename = $data_dir . $username . '.sig';
-    $filename = getHashedFile($username, $data_dir, "$username.sig");
+function getSig($data_dir, $username, $number) {
+    #$filename = $data_dir . $username . '.si$number';
+    $filename = getHashedFile($username, $data_dir, "$username.si$number");
     $sig = '';
     if (file_exists($filename)) {
         $file = fopen($filename, 'r');
