@@ -1,5 +1,6 @@
 Version 1.0pre3 -- DEVELOPMENT
 ------------------------------
+- Fixed some "Select All" bugs
 - Finally fixed the IE/SSL download problem!!
 - Updated Polish translation
 - Added Danish translation by Claus Rasmussen <claus@webclaus.com>
