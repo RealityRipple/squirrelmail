@@ -61,6 +61,15 @@ if (isset($send)
 * Include them down here instead of at the top so that all config
 * variables overwrite any passed in variables (for security).
 */
+
+/**
+ * Reset the $theme() array in case a value was passed via a cookie.
+ * This is until theming is rewritten.
+ */
+global $theme;
+unset($theme);
+$theme=array();
+
 require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
