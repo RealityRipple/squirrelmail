@@ -158,37 +158,41 @@
       
       if (!$message) {
            sqimap_mailbox_select($imapConnection, $mailbox);
-           $message = sqimap_get_message($imapConnection, $forward_id, $mailbox); }
-      
-      if (!$message->entities) {
-      if ($message->header->entity_id != $ent_num) {
-      $filename = decodeHeader($message->header->filename);
-      
-      if ($filename == "")
-              $filename = "untitled-".$message->header->entity_id;
-      
-      $localfilename = md5($filename.", $REMOTE_IP, REMOTE_PORT, $UNIQUE_ID, extra-stuff here");
-      
-        // Write File Info
-        $fp = fopen ($attachment_dir.$localfilename.".info", "w");
-        fputs ($fp, strtolower($message->header->type0)."/".strtolower($message->header->type1)."\n".$filename."\n");
-        fclose ($fp);
-
-        // Write Attachment to file
-        $fp = fopen ($attachment_dir.$localfilename, "w");
-      fputs ($fp, decodeBody(mime_fetch_body($imapConnection, $forward_id, $message->header->entity_id), $message->header->encoding));
-      fclose ($fp);
-      
-      $attachments[$localfilename] = $filename;
-      
+           $message = sqimap_get_message($imapConnection, $forward_id, 
+	       $mailbox);
       }
+      
+      if (count($message->entities) == 0) {
+          if ($message->header->entity_id != $ent_num) {
+              $filename = decodeHeader($message->header->filename);
+      
+              if ($filename == "")
+                  $filename = "untitled-".$message->header->entity_id;
+      
+              $localfilename = GenerateRandomString(32, '', 7);
+      
+              // Write File Info
+              $fp = fopen ($attachment_dir.$localfilename.".info", "w");
+              fputs ($fp, strtolower($message->header->type0)."/".
+	          strtolower($message->header->type1)."\n".$filename."\n");
+              fclose ($fp);
+
+              // Write Attachment to file
+              $fp = fopen ($attachment_dir.$localfilename, "w");
+              fputs ($fp, decodeBody(mime_fetch_body($imapConnection, 
+	          $forward_id, $message->header->entity_id), 
+		  $message->header->encoding));
+              fclose ($fp);
+      
+              $attachments[$localfilename] = $filename;
+          }
       } else {
-              for ($i = 0; $i < count($message->entities); $i++) {
+          for ($i = 0; $i < count($message->entities); $i++) {
               getAttachments($message->entities[$i]);
-              }       
+          }       
       }
       return;
-      }       
+   }       
 
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
@@ -305,7 +309,7 @@
       echo " value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
       echo "   </tr>\n";
-      if (isset($attachments) && count($attachments)>0) {
+      if (count($attachments) > 0) {
          echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
          echo "</td><td align=left bgcolor=\"$color[0]\">";
@@ -483,23 +487,16 @@
       }
 
       showInputForm();
-	} else if (isset($smtpErrors)) {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-      displayPageHeader($color, $mailbox);
-
-      $newmail = true;
-      if ($forward_id && $ent_num)  getAttachments(0);
-              
-      newMail();
-      showInputForm();
-      sqimap_logout($imapConnection);
    } else {
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      // This handles the default case as well as the error case
+      // (they had the same code) --> if (isset($smtpErrors))
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 
+          $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
       $newmail = true;
-		
-      if (isset($forward_id) && isset($ent_num))  getAttachments(0);
+      if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num)
+          getAttachments(0);
               
       newMail();
       showInputForm();
