@@ -165,7 +165,7 @@
       $index_order[$i] = $order;
       $order = getPref($data_dir, $username, "order".($i+1));
    }
-   if (!$index_order) {
+   if (!isset($index_order)) {
       $index_order[1] = 1;
       $index_order[2] = 2;
       $index_order[3] = 3;

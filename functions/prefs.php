@@ -140,9 +140,9 @@
    /** Gets the signature **/
    function getSig($data_dir, $username) {
       $filename = "$data_dir$username.sig";
+      $sig = "";
       if (file_exists($filename)) {
          $file = fopen($filename, "r");
-         $sig = "";
          while (!feof($file)) {
             $sig .= fgets($file, 1024);
          }

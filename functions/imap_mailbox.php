@@ -121,7 +121,11 @@
       for ($g=0; $g < count($line); $g++) {
 
          // Store the raw IMAP reply
-         $boxes[$g]["raw"] = $line[$g];
+         if (isset($line[$g]))
+            $boxes[$g]["raw"] = $line[$g];
+         else
+            $boxes[$g]["raw"] = "";
+
 
          // Count number of delimiters ($dm) in folder name
          $mailbox = trim($line_lsub[$g]);
@@ -153,6 +157,7 @@
          $boxes[$g]["unformatted-disp"] = ereg_replace("^" . $folder_prefix, "", $mailbox);
          $boxes[$g]["id"] = $g;
 
+         if (isset($line[$g]))
          ereg("\(([^)]*)\)",$line[$g],$regs);
          $flags = trim(strtolower(str_replace("\\", "",$regs[1])));
          if ($flags) {
@@ -230,8 +235,13 @@
 
          fputs ($imap_stream, "a001 LIST \"\" \"$mbx\"\r\n");
          $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+         if (isset($sorted_list_ary[$i]))
+            $sorted_list_ary[$i] = "";
+         if (isset($read[0]))
          $sorted_list_ary[$i] = $read[0];
-         if (find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
+         else
+         $sorget_list_ary[$i] = "";
+         if (isset($sorted_list_ary[$i]) && find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
             $inbox_in_list = true;
       }
                 

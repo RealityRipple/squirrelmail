@@ -72,6 +72,8 @@
     This was done to create a pure HTML way of refreshing the folder list since
     we would like to use as little Javascript as possible.
 **/
+   if (!isset($right_frame)) $right_frame = "";
+
    if ($right_frame == 'right_main.php') {
       $urlMailbox = urlencode($mailbox);
       $right_frame_url = "right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage";
