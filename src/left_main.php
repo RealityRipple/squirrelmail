@@ -334,13 +334,7 @@ for ($i = 0;$i < count($boxes); $i++) {
 
         /* Add the folder name and link. */
 	if (! isset($color[15])) {
-	    if (isset($color[14])) {
-	        $color[15] = $color[14];
-	    } elseif (isset($color[13])) {
-	        $color[15] = $color[13];
-	    } else {
-  	        $color[15] = $color[6];
-	    }
+            $color[15] = $color[6];
 	}
         if (in_array('noselect', $boxes[$i]['flags'])) {
             $line .= "<FONT COLOR=\"$color[15]\">";
