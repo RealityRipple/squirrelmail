@@ -286,7 +286,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
                     html_tag( 'td',
                         "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
                         '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_delete">' .
-                        '<br>' . _("Selected Server:") . " <b>$mailfetch_server_[$mf_sn]</b><br>" .
+                        '<br>' . _("Selected Server:") . " <b>" . htmlentities($mailfetch_server_[$mf_sn]) . "</b><br>" .
                         _("Confirm delete of selected server?") . '<br><br>' .
                         '<input type=submit name=submit_mailfetch value="' . _("Confirm Delete") . '">' .
                         '<br></form>' ,
@@ -313,7 +313,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
             html_tag( 'table' ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_server" value="' . $mailfetch_server_[$mf_sn] . '" size="40">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_server" value="' . htmlentities($mailfetch_server_[$mf_sn]) . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Port:"), 'right' ) .
@@ -321,7 +321,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_alias" value="' . $mailfetch_alias_[$mf_sn] . '" size="40">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_alias" value="' . htmlentities($mailfetch_alias_[$mf_sn]) . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Username:"), 'right' ) .
