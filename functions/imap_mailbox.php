@@ -800,10 +800,14 @@ function sqimap_mailbox_tree($imap_stream) {
 			    0 : sqimap_unseen_messages($imap_stream, $mbx);
 		if ($unseen_type == 2 || ($move_to_trash 
 		    && ($mbx == $trash_folder) )) {
-        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx);
+                    $sorted_lsub_ary[$i]['nummessages'] =
+			$sorted_lsub_ary[$i]['noselect'] ?
+			    0 : sqimap_get_num_messages($imap_stream, $mbx);
     		}
 		if ($mbx == $trash_folder) {
-        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx);
+                    $sorted_lsub_ary[$i]['nummessages'] =
+			$sorted_lsub_ary[$i]['noselect'] ?
+			    0 : sqimap_get_num_messages($imap_stream, $mbx);
 		}	    
 	    }
 	}
