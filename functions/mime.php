@@ -161,7 +161,7 @@
          $structure = trim($structure);
          $char = substr($structure, 0, 1);
 
-         if (substr($structure, 0, 3) == "nil") {
+         if (strtolower(substr($structure, 0, 3)) == "nil") {
             $text = "";
             $structure = substr($structure, 3);
          } else if ($char == "\"") {
