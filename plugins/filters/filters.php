@@ -274,6 +274,10 @@
                         $IsSpam ++;
                                 break;  // no sense in checking more IPs
                             }
+			// If we've checked one IP and YourHop is just a space
+			if ($SpamFilters_YourHop == ' ') {
+			   break;  // don't check any more
+			}
                         }
                         }
                     }
