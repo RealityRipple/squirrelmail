@@ -13,7 +13,7 @@
  * @subpackage abook_take
  */
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/forms.php');
 
