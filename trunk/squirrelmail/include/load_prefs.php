@@ -265,6 +265,7 @@ $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF
 $sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', 1);
 
 /* Load the javascript settings. */
+$javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
 if ( checkForJavascript() )
 {
   $use_javascript_folder_list = getPref($data_dir, $username, 'use_javascript_folder_list');

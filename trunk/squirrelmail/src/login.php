@@ -77,7 +77,6 @@ do_hook('login_cookie');
 $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
-          "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
           "    var textElements = 0;\n".
           "    for (i = 0; i < document.forms[0].elements.length; i++) {\n".
           "      if (document.forms[0].elements[i].type == \"text\" || document.forms[0].elements[i].type == \"password\") {\n".
@@ -98,7 +97,7 @@ if (@file_exists($theme[$theme_default]['PATH']))
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" onLoad=\"squirrelmail_loginpage_onload()\">" .
-     "\n" . '<form action="redirect.php" method="post">' . "\n";
+     "\n" . '<form action="redirect.php" method="post" onSubmit="document.forms[0].js_autodetect_results.value=\'' . SMPREF_JS_ON .'\';">' . "\n";
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
@@ -160,7 +159,7 @@ echo html_tag( 'table',
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
                                     '<input type="password" name="' . $password_form_name . '" />' . "\n" .
-                                    '<input type="hidden" name="js_autodetect_results" value="SMPREF_JS_OFF" />' . "\n" .
+                                    '<input type="hidden" name="js_autodetect_results" value="'.SMPREF_JS_OFF.'" />' . "\n" .
                                     $rcptaddress .
                                     '<input type="hidden" name="just_logged_in" value="1" />' . "\n",
                                 'left', '', 'width="*"' )

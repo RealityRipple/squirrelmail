@@ -45,7 +45,7 @@ if ($use_icons) {
  * @return array all option information
  */
 function load_optpage_data_display() {
-    global $theme, $language, $languages, $js_autodetect_results,
+    global $theme, $language, $languages, $js_autodetect_results, $javascript_setting,
     $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
     $optmode, $show_alternative_names, $available_languages, $use_icons;
 
@@ -151,22 +151,17 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_ALL,
         'posvals' => array(SMPREF_JS_AUTODETECT => _("Autodetect"),
                            SMPREF_JS_ON         => _("Always"),
-                           SMPREF_JS_OFF        => _("Never"))
+                           SMPREF_JS_OFF        => _("Never")),
+        'save'    => 'save_option_javascript_autodetect',
+        'script'  => 'onclick="document.forms[0].new_js_autodetect_results.value = \'' . SMPREF_JS_ON . '\';"'
     );
-
-
-    if ($optmode != 'submit')
-       $onLoadScript = 'document.forms[0].new_js_autodetect_results.value = \'' . SMPREF_JS_ON . '\'';
-    else
-       $onLoadScript = '';
 
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'js_autodetect_results',
         'caption' => '',
         'type'    => SMOPT_TYPE_HIDDEN,
-        'refresh' => SMOPT_REFRESH_NONE,
+        'refresh' => SMOPT_REFRESH_NONE
         //'post_script' => $js_autodetect_script,
-        'save'    => 'save_option_javascript_autodetect'
     );
 
     /*** Load the General Options into the array ***/
@@ -438,8 +433,7 @@ function load_optpage_data_display() {
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
-        'vals' => $optvals,
-        'xtra' => $onLoadScript
+        'vals' => $optvals
     );
     return ($result);
 }
@@ -476,10 +470,10 @@ function save_option_theme($option) {
  * This function saves the javascript detection option.
  */
 function save_option_javascript_autodetect($option) {
-    global $data_dir, $username, $new_javascript_setting;
+    global $data_dir, $username;
 
-    setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
-    checkForJavascript();
+    save_option($option);
+    checkForJavascript(TRUE);
 }
 
 /** 
