@@ -24,6 +24,7 @@ require_once('../functions/mime.php');
 require_once('../functions/smtp.php');
 require_once('../functions/plugin.php');
 require_once('../functions/display_messages.php');
+
 /* --------------------- Specific Functions ------------------------------ */
 
 function replyAllString($header) {
@@ -157,7 +158,8 @@ if (!isset($composesession)) {
 
 if (!isset($session) || (isset($newmessage) && $newmessage)) {
     $session = "$composesession" +1; 
-    $composesession = $session;        
+    $composesession = $session;
+    session_register('composesession');            
 }     
 
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
@@ -423,11 +425,11 @@ exit();
 
 /* This function is used when not sending or adding attachments */
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
-    global $editor_size, $default_use_priority,
+    global $editor_size, $default_use_priority, $body,
            $use_signature, $composesession, $data_dir, $username,
 	   $username, $key, $imapServerAddress, $imapPort;
 
-    $send_to = $send_to_cc = $send_to_bcc = $subject = $body = $identity = '';
+    $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
 
     if ($passed_id) {
@@ -436,7 +438,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-	$body = '';	
+	$body = '';
 	if ($passed_ent_id) {
 	   /* redefine the messsage in case of message/rfc822 */
 	   $message = $message->getEntity($passed_ent_id);
@@ -867,6 +869,13 @@ function showInputForm ($session, $values=false) {
     }
 
     /* This code is for attachments */
+    echo '<table width="100%" cellpadding="0" cellspacing="4" align="center" border="0">';
+    echo '   <tr><td>';
+    echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+    echo '      <tr><td>';
+    echo '      <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
+
+    
     echo '   <TR>' . "\n" .
          '     <TD VALIGN=MIDDLE ALIGN=RIGHT>' . "\n" .
                 _("Attach:") .
@@ -877,25 +886,30 @@ function showInputForm ($session, $values=false) {
          ' value="' . _("Add") .'">' . "\n" .
          '     </TD>' . "\n" .
          '   </TR>' . "\n";
+    
 
-    if (count($attachments)) {
-        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-        echo '<tr><td bgcolor="' . $color[0] . '" align=right>' . "\n" .
-             '&nbsp;' .
-             '</td><td align=left bgcolor="' . $color[0] . '">';
-        foreach ($attachments as $key => $info) {
-    	    if ($info['session'] == $session) { 
-            	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
-            	echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
-                        $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
-                        show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
-    	    }
-        }
-
-        echo '<input type="submit" name="do_delete" value="' .
-             _("Delete selected attachments") . "\">\n" .
-             '</td></tr>';
+    $s_a = array();
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    foreach ($attachments as $key => $info) {
+        if ($info['session'] == $session) { 
+           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+           $s_a[] = '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
+                    $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
+                    show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
+    	}
     }
+    if (count($s_a)) {
+       foreach ($s_a as $s) {
+          echo '<tr><td align=left colspan="2" bgcolor="' . $color[0] . '">'.$s.'</td></tr>';
+       }    	 
+       echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
+            _("Delete selected attachments") . "\">\n" .
+            '</td></tr>';
+    }
+    echo '      </table></td></tr>';
+    echo '   </table>';
+    echo '   </td></tr>';
+
     /* End of attachment code */
     if ($compose_new_win == '1') {
         echo '</TABLE>'."\n";
