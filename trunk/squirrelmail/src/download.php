@@ -66,6 +66,7 @@ if ($ent_id) {
     $type0 = 'message';
     $type1 = 'rfc822';
     $encoding = 'US-ASCII';
+    $header = $message->header;
 }
 
 /*
@@ -90,7 +91,7 @@ if (is_object($message->header->disposition)) {
         $filename = $header->getParameter('name');
     }    
 } else {
-    $filename = $message->header->getParameter('name');
+    $filename = $header->getParameter('name');
 }
 
 $filename = decodeHeader($filename);
@@ -112,7 +113,7 @@ if (strlen($filename) < 1) {
     }
 
     if (strlen($filename) < 1) {
-       $filename = 'untitled'.strip_tags($ent_id).$suffix;
+       $filename = 'untitled'.strip_tags($ent_id).'.'.$suffix;
     } else {
        $filename = "$filename.$suffix";
     }
