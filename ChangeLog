@@ -4,7 +4,10 @@
 
 Version 1.5.0 -- CVS
 --------------------
-  - Added support in conf.pl for MS cls command
+  - Added support in conf.pl for MS cls command.
+  - conf.pl changes for relative paths outside the SM tree (#715119).
+  - conf.pl changes for delete_folder restrictions with Courier-IMAP and
+    UW-IMAP (#715550).
 
 
 

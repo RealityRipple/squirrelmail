@@ -1764,13 +1764,13 @@ sub command214 {
 
 # Automatically delete folders 
 sub command215 {
-    print "Should folders selected for deletion bypass the Trash folder?\n\n";
-
     if ( $imap_server_type == "courier" ) {
         print "Courier(or Courier-IMAP) IMAP servers do not support ";
         print "subfolders of Trash. \n";
         print "Deleting folders will bypass the trash folder and ";
         print "be immediately deleted.\n\n";
+        print "If this is not the correct value for your server,\n";
+        print "please use option D on the Main Menu to configure your server correctly.\n\n";
         print "Press any key to continue...\n";
         $new_delete = <STDIN>;
         $delete_folder = "true";
@@ -1779,10 +1779,13 @@ sub command215 {
         print "mail to also contain folders.\n";
         print "Deleting folders will bypass the trash folder and";
         print "be immediately deleted\n\n";
+        print "If this is not the correct value for your server,\n";
+        print "please use option D on the Main Menu to configure your server correctly.\n\n";
         print "Press any key to continue...\n";
         $new_delete = <STDIN>;
         $delete_folder = "true";
     } else { 
+        print "Should folders selected for deletion bypass the Trash folder?\n\n";
         if ( lc($delete_folder) eq "true" ) {
             $default_value = "y";
         } else {
