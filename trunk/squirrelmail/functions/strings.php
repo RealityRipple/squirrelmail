@@ -28,20 +28,23 @@
 
    // Wraps text at $wrap characters
    function wordWrap($passed, $wrap) {
+      $passed = str_replace("&gt;", ">", $passed);
+      $passed = str_replace("&lt;", "<", $passed);
+
       $words = explode(" ", trim($passed));
       $i = 0;
       $line_len = strlen($words[$i])+1;
       $line = "";
       while ($i < count($words)) {
          while ($line_len < $wrap) {
-            $line = "$line$words[$i]&nbsp;";
+            $line = "$line$words[$i] ";
             $i++;
             $line_len = $line_len + strlen($words[$i])+1;
          }
          $line_len = strlen($words[$i])+1;
          if ($line_len < $wrap) {
             if ($i < count($words)) // don't <BR> the last line
-               $line = "$line<BR>";
+               $line = "$line\n";
          } else {
             $endline = $words[$i];
             while ($line_len >= $wrap) {
@@ -54,6 +57,9 @@
             $i++;
          }
       }
+
+      $line = str_replace(">", "&gt;", $line);
+      $line = str_replace("<", "&lt;", $line);
       return $line;
    }
 
@@ -80,9 +86,40 @@
       return $to_line;
    }
 
-   function translateText($body) {
-      $body = ereg_replace(" ", "&nbsp;", $body);
-      return $body;
+   function translateText($body, $wrap_at) {
+      /** Add any parsing you want to in here */
+      $body = trim($body);
+      $body_ary = explode("\n", $body);
+
+      for ($i = 0; $i < count($body_ary); $i++) {
+         $line = $body_ary[$i];
+         $line = "^^$line";
+
+         $line = str_replace(">", "&gt;", $line);
+         $line = str_replace("<", "&lt;", $line);
+
+         if (strlen($line) >= $wrap_at) // -2 because of the ^^ at the beginning
+            $line = wordWrap($line, $wrap_at);
+
+         $line = str_replace(" ", "&nbsp;", $line);
+         $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
+         $line = nl2br($line);
+
+         if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;&gt;") == 2) {
+            $line = substr($line, 2, strlen($line));
+            $line = "<TT><FONT COLOR=FF0000>$line</FONT></TT><BR>\n";
+         } else if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;") == 2) {
+            $line = substr($line, 2, strlen($line));
+            $line = "<TT><FONT COLOR=800000>$line</FONT></TT><BR>\n";
+         } else {
+            $line = substr($line, 2, strlen($line));
+            $line = "<TT><FONT COLOR=000000>$line</FONT></TT><BR>\n";
+         }
+
+         $new_body[$i] = "$line";
+      }
+      $bdy = implode("\n", $new_body);
+      return $bdy;
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */

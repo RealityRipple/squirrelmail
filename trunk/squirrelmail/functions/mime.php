@@ -117,36 +117,33 @@
        as the actual message in the HTML.   It contains everything needed, including
        HTML Tags, Attachments at the bottom, etc.
     **/
-   function formatBody($message, $color) {
+   function formatBody($message, $color, $wrap_at) {
 
       /** this if statement checks for the entity to show as the primary message.  To
           add more of them, just put them in the order that is their priority.
        **/
       $id = $message["INFO"]["ID"];
       $urlmailbox = urlencode($message["INFO"]["MAILBOX"]);
-      $body = "";
 
       if (containsType($message, "text", "html", $ent_num)) {
-         $body .= decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
       } else if (containsType($message, "text", "plain", $ent_num)) {
-         $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-         $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
+         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
       }
       // add other primary displaying message types here
       else {
          // find any type that's displayable
          if (containsType($message, "text", "any_type", $ent_num)) {
-            $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
+            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
          } else if (containsType($message, "message", "any_type", $ent_num)) {
-            $tmpbody = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
-            $body .= "<TT>" . nl2br(trim($tmpbody)) . "</TT>";
+            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
          }
       }
 
       /** If there are other types that shouldn't be formatted, add them here **/
       if ($message["ENTITIES"][$ent_num]["TYPE1"] != "html")
-         $body = translateText($body);
+         $body = translateText($body, $wrap_at);
+
 
       $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR></SMALL>";
 
