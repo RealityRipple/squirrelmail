@@ -51,8 +51,8 @@ function get_info($doc, $pos) {
     for ($n=$pos; $n < $cntdoc; $n++) {
         if (trim(strtolower($doc[$n])) == '<chapter>'
             || trim(strtolower($doc[$n])) == '<section>') {
-            for ($n++; $n < $cntdoc 
-                 && (trim(strtolower($doc[$n])) != '</section>') 
+            for ($n++; $n < $cntdoc
+                 && (trim(strtolower($doc[$n])) != '</section>')
                  && (trim(strtolower($doc[$n])) != '</chapter>'); $n++) {
                 if (trim(strtolower($doc[$n])) == '<title>') {
                     $n++;
@@ -60,7 +60,7 @@ function get_info($doc, $pos) {
                 }
                 if (trim(strtolower($doc[$n])) == '<description>') {
                     $ary[1] = '';
-                    for ($n++;$n < $cntdoc 
+                    for ($n++;$n < $cntdoc
                          && (trim(strtolower($doc[$n])) != '</description>');
                          $n++) {
                         $ary[1] .= $doc[$n];
@@ -68,8 +68,8 @@ function get_info($doc, $pos) {
                 }
                 if (trim(strtolower($doc[$n])) == '<summary>') {
                     $ary[2] = '';
-                    for ($n++; $n < $cntdoc 
-                         && (trim(strtolower($doc[$n])) != '</summary>'); 
+                    for ($n++; $n < $cntdoc
+                         && (trim(strtolower($doc[$n])) != '</summary>');
                          $n++) {
                         $ary[2] .= $doc[$n];
                     }
@@ -193,7 +193,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     } else {
         echo html_tag( 'p', $help_info[2], 'left' );
     }
-             
+
     $section = 0;
     for ($n = $help_info[3], $cnt = count($doc); $n < $cnt; $n++) {
         $section++;

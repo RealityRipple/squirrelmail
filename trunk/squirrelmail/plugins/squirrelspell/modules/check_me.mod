@@ -82,7 +82,7 @@ $sqspell_command=$SQSPELL_APP[$sqspell_use_app];
 /**
  * If you have php >= 4.3.0, we can use proc_open and safe mode
  * and not mess w/ temp files.  Otherwise we will do it the old
- * way, (minus the uneeded call to cat that messes up Wintel 
+ * way, (minus the uneeded call to cat that messes up Wintel
  * boxen.)
  * Thanks Ray Ferguson for providing this patch.
  */
@@ -98,7 +98,7 @@ if( check_php_version ( 4, 3 ) ) {
     $sqspell_output = array();
     for($i=1; $i<=2; $i++){
         while(!feof($pipes[$i]))
-           array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\n")); 
+           array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\n"));
         fclose($pipes[$i]);
     }
     $sqspell_exitcode=proc_close($spell_proc);
@@ -176,7 +176,7 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
       }
       if (isset($locations[$sqspell_word])){
         $locations[$sqspell_word] .= ', ';
-      } else { 
+      } else {
         $locations[$sqspell_word] = '';
       }
       $locations[$sqspell_word] .= "$current_line:$sqspell_symb";
@@ -190,7 +190,7 @@ for ($i=0; $i<sizeof($sqspell_output); $i++){
     $tmparray = explode(" ", $sqspell_output[$i]);
     $sqspell_word=$tmparray[1];
     /**
-     * 
+     *
      * Check if the word is in user dictionary.
      */
     if (!$SQSPELL_EREG("\n$sqspell_word\n", $words)){
@@ -218,7 +218,7 @@ if ($errors){
    */
   $extrajs="<script type=\"text/javascript\">\n"
     . "<!--\n";
-  
+
   $sqspell_lines = explode("\n", $sqspell_text);
   /**
    * The javascript array sqspell_lines[] contains all lines of
@@ -226,9 +226,9 @@ if ($errors){
    */
   $extrajs.= "var sqspell_lines=new Array();\n";
   for ($i=0; $i<sizeof($sqspell_lines); $i++){
-    $extrajs.= "sqspell_lines[$i] = \"" 
+    $extrajs.= "sqspell_lines[$i] = \""
       . chop(addslashes($sqspell_lines[$i])) . "\";\n";
-  }  
+  }
   $extrajs.= "\n\n";
 
   /**
@@ -239,7 +239,7 @@ if ($errors){
     $extrajs.= "misses[$i] = \"" . $missed_words[$i] . "\";\n";
   }
   $extrajs.= "\n\n";
-  
+
   /**
    * Suggestions are (guess what!) suggestions for misspellings
    */
@@ -262,16 +262,16 @@ if ($errors){
     $i++;
   }
 
-  /** 
+  /**
    * Add some strings so they can be i18n'd.
    */
   $extrajs.= "var ui_completed = \"" . _("Spellcheck completed. Commit changes?")
     . "\";\n";
   $extrajs.= "var ui_nochange = \"" . _("No changes were made.") . "\";\n";
-  $extrajs.= "var ui_wait = \"" 
+  $extrajs.= "var ui_wait = \""
     . _("Now saving your personal dictionary... Please wait.")
     . "\";\n";
-  
+
 
   /**
    * Did I mention that I hate dots on the end of contcatenated lines?
@@ -280,7 +280,7 @@ if ($errors){
   $extrajs.= "//-->\n"
     . "</script>\n"
     . "<script src=\"js/check_me.js\" type=\"text/javascript\"></script>\n";
-  
+
 
   displayHtmlHeader(_("SquirrelSpell Results"),$extrajs);
 
@@ -306,7 +306,7 @@ if ($errors){
      <form method="post">
       <input type="hidden" name="MOD" value="forget_me_not" />
       <input type="hidden" name="words" value="" />
-      <input type="hidden" name="sqspell_use_app" 
+      <input type="hidden" name="sqspell_use_app"
              value="<?php echo $sqspell_use_app ?>" />
       <table border="0" width="100%">
        <tr align="center">
@@ -316,7 +316,7 @@ if ($errors){
           echo $sptag . _("Line with an error:") . '</span>';
          ?>
          <br />
-         <textarea name="sqspell_line_area" cols="50" rows="3" 
+         <textarea name="sqspell_line_area" cols="50" rows="3"
                    wrap="hard" onfocus="this.blur()"></textarea>
         </td>
        </tr>
@@ -327,7 +327,7 @@ if ($errors){
          ?>
         </td>
         <td align="left" width="25%">
-         <input name="sqspell_error" size="10" value="" 
+         <input name="sqspell_error" size="10" value=""
                 onfocus="this.blur()" />
         </td>
         <td align="right" width="25%">
@@ -336,7 +336,7 @@ if ($errors){
          ?>
         </td>
         <td align="left" width="25%">
-         <select name="sqspell_suggestion" 
+         <select name="sqspell_suggestion"
                  onchange="if (this.options[this.selectedIndex].value != '_NONE') document.forms[0].sqspell_oruse.value=this.options[this.selectedIndex].value">
           <?php
            echo '<option>' . _("Suggestions") . '</option>';

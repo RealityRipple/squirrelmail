@@ -5,7 +5,7 @@
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This contains internal squirrelmail functions needed to handle 
+ * This contains internal squirrelmail functions needed to handle
  * translations when php gettext extension is missing or some functions
  * are not available.
  *

@@ -74,7 +74,7 @@ class Message {
             $cur_ent_a = explode('.', $this->entity_id);
         }
         $ent_a = explode('.', $ent);
-        
+
         for ($i = 0,$entCount = count($ent_a) - 1; $i < $entCount; ++$i) {
             if (isset($cur_ent_a[$i]) && ($cur_ent_a[$i] != $ent_a[$i])) {
                 $msg = $msg->parent;
@@ -145,12 +145,12 @@ class Message {
         if($msg) $msg->setEntIds($msg,false,0);
         return $msg;
     }
-    
+
     function setEntIds(&$msg,$init=false,$i=0) {
         $iCnt = count($msg->entities);
         if ($init !==false) {
             $iEntSub = $i+1;
-            if ($msg->parent->type0 == 'message' && 
+            if ($msg->parent->type0 == 'message' &&
                 $msg->parent->type1 == 'rfc822' &&
                 $msg->type0 == 'multipart') {
                 $iEntSub = '0';
@@ -166,8 +166,8 @@ class Message {
             $msg->entity_id='1';
         }
         for ($i=0;$i<$iCnt;++$i) {
-            $msg->entities[$i]->parent =& $msg;    
-            if (strrchr($msg->entity_id, '.') != '.0') {    
+            $msg->entities[$i]->parent =& $msg;
+            if (strrchr($msg->entity_id, '.') != '.0') {
                 $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->entity_id,$i);
             } else {
                 $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->parent->entity_id,$i);
@@ -183,7 +183,7 @@ class Message {
         } else {
             $message = new Message();
         }
-    
+
         for ($cnt = strlen($read); $i < $cnt; ++$i) {
             $char = strtoupper($read{$i});
             switch ($char) {
@@ -294,7 +294,7 @@ class Message {
                     $arg_a[] = $msg->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
-        case '0':    
+        case '0':
                 case is_numeric($read{$i}):
                     /* process integers */
                     if ($read{$i} == ' ') { break; }
@@ -442,7 +442,7 @@ class Message {
         if (count($arg_a) > 9) {
             $d = strtr($arg_a[0], array('  ' => ' '));
             $d = explode(' ', $d);
-        if (!$arg_a[1]) $arg_a[1] = _("(no subject)");        
+        if (!$arg_a[1]) $arg_a[1] = _("(no subject)");
 
             $hdr->date = getTimeStamp($d); /* argument 1: date */
             $hdr->subject = $arg_a[1];     /* argument 2: subject */
@@ -691,7 +691,7 @@ class Message {
 //        $alt_order[] = "message/rfc822";
             foreach ($alt_order as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
-                    if ((count($this->entities) == 0) && 
+                    if ((count($this->entities) == 0) &&
                 (!isset($ent->header->parameters['filename'])) &&
                 (!isset($ent->header->parameters['name'])) &&
                         (strtolower($this->header->disposition->name) != 'attachment')) {
@@ -765,7 +765,7 @@ class Message {
 
     function getAttachments($exclude_id=array(), $result = array()) {
 /*
-        if (($this->type0 == 'message') && 
+        if (($this->type0 == 'message') &&
         ($this->type1 == 'rfc822') &&
         ($this->entity_id) ) {
             $this = $this->entities[0];
@@ -801,7 +801,7 @@ class Message {
         }
         return $result;
     }
-    
+
     function initAttachment($type, $name, $location) {
         $attachment = new Message();
         $mime_header = new MessageHeader();

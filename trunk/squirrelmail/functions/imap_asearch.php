@@ -33,7 +33,7 @@ $imap_asearch_debug_dump = FALSE;
 */
 global $imap_asearch_opcodes;
 $imap_asearch_opcodes = array(
-/* <sequence-set> => 'asequence', */	// Special handling, @see sqimap_asearch_build_criteria()
+/* <sequence-set> => 'asequence', */    // Special handling, @see sqimap_asearch_build_criteria()
 /*'ALL' is binary operator */
     'ANSWERED' => '',
     'BCC' => 'astring',
@@ -44,7 +44,7 @@ $imap_asearch_opcodes = array(
     'DRAFT' => '',
     'FLAGGED' => '',
     'FROM' => 'astring',
-    'HEADER' => 'afield',	// Special syntax for this one, @see sqimap_asearch_build_criteria()
+    'HEADER' => 'afield',    // Special syntax for this one, @see sqimap_asearch_build_criteria()
     'KEYWORD' => 'akeyword',
     'LARGER' => 'anum',
     'NEW' => '',
@@ -123,7 +123,7 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
         $message_title = _("Possible reason : ");
     if (function_exists('sqimap_error_box'))
         sqimap_error_box($title, $query, $message_title, $message, $link);
-    else {	//Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
+    else {    //Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
         global $color;
     require_once(SM_PATH . 'functions/display_messages.php');
     $string = "<font color=\"$color[2]\"><b>\n" . $title . "</b><br />\n";
@@ -161,7 +161,7 @@ function asearch_nz(&$var, $def = '')
 */
 function asearch_unhtmlentities($string) {
     $trans_tbl = array_flip(get_html_translation_table(HTML_ENTITIES));
-    for ($i=127; $i<255; $i++)	/* Add &#<dec>; entities */
+    for ($i=127; $i<255; $i++)    /* Add &#<dec>; entities */
         $trans_tbl['&#' . $i . ';'] = chr($i);
     return strtr($string, $trans_tbl);
 /* I think the one above is quicker, though it should be benchmarked
@@ -180,8 +180,8 @@ function s_debug_dump($var_name, $var_var)
 {
     global $imap_asearch_debug_dump;
     if ($imap_asearch_debug_dump) {
-        if (function_exists('sm_print_r'))	//Only exists since 1.4.2
-            sm_print_r($var_name, $var_var);	//Better be the 'varargs' version ;)
+        if (function_exists('sm_print_r'))      //Only exists since 1.4.2
+            sm_print_r($var_name, $var_var);    //Better be the 'varargs' version ;)
         else {
             echo '<pre>';
             echo htmlentities($var_name);
@@ -194,21 +194,21 @@ function s_debug_dump($var_name, $var_var)
 /** Encode a string to quoted or literal as defined in rfc 3501
 *
 * -  4.3 String:
-*	A quoted string is a sequence of zero or more 7-bit characters,
-*	 excluding CR and LF, with double quote (<">) characters at each end.
+*        A quoted string is a sequence of zero or more 7-bit characters,
+*         excluding CR and LF, with double quote (<">) characters at each end.
 * -  9. Formal Syntax:
-*	quoted-specials = DQUOTE / "\"
+*        quoted-specials = DQUOTE / "\"
 * @param string $what string to encode
 * @param string $charset search charset used
 * @return string encoded string
 */
 function sqimap_asearch_encode_string($what, $charset)
 {
-    if (strtoupper($charset) == 'ISO-2022-JP')	// This should be now handled in imap_utf7_local?
+    if (strtoupper($charset) == 'ISO-2022-JP')    // This should be now handled in imap_utf7_local?
         $what = mb_convert_encoding($what, 'JIS', 'auto');
     if (preg_match('/["\\\\\r\n\x80-\xff]/', $what))
-        return '{' . strlen($what) . "}\r\n" . $what;	// 4.3 literal form
-    return '"' . $what . '"';	// 4.3 quoted string form
+        return '{' . strlen($what) . "}\r\n" . $what;    // 4.3 literal form
+    return '"' . $what . '"';    // 4.3 quoted string form
 }
 
 /**
@@ -232,7 +232,7 @@ function sqimap_asearch_parse_date($what)
         preg_match('/^([0-9]+)-+([^\-]+)-+([0-9]+)$/', $what, $what_parts);
         if (count($what_parts) == 4) {
             $what_month = strtolower(asearch_unhtmlentities($what_parts[2]));
-/*		if (!in_array($what_month, $imap_asearch_months)) {*/
+/*                if (!in_array($what_month, $imap_asearch_months)) {*/
                 foreach ($imap_asearch_months as $month_number => $month_code) {
                     if (($what_month == $month_number)
                     || ($what_month == $month_code)
@@ -244,7 +244,7 @@ function sqimap_asearch_parse_date($what)
                         break;
                     }
                 }
-/*		}*/
+/*                }*/
         }
     }
     else
@@ -285,10 +285,10 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
                 $criteria = $opcode . ' ' . $what . ' ';
             }
         break;
-        case '':	//aflag
+        case '':    //aflag
             $criteria = $opcode . ' ';
         break;
-        case 'afield':	/* HEADER field-name: field-body */
+        case 'afield':    /* HEADER field-name: field-body */
             preg_match('/^([^:]+):(.*)$/', $what, $what_parts);
             if (count($what_parts) == 3)
                 $criteria = $opcode . ' ' .
@@ -364,7 +364,7 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
     }
     $messagelist = parseUidList($readin,'SEARCH');
 
-    if (empty($messagelist))	//Empty search response, ie '* SEARCH'
+    if (empty($messagelist))    //Empty search response, ie '* SEARCH'
         return array();
 
     $cnt = count($messagelist);
@@ -449,13 +449,13 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
     $mbox_search = array();
     $search_string = '';
     $cur_mailbox = $mailbox_array[0];
-    $cur_biop = '';	/* Start with ALL */
+    $cur_biop = '';    /* Start with ALL */
     /* We loop one more time than the real array count, so the last search gets fired */
     for ($cur_crit=0,$iCnt=count($where_array); $cur_crit <= $iCnt; ++$cur_crit) {
         if (empty($exclude_array[$cur_crit])) {
             $next_mailbox = (isset($mailbox_array[$cur_crit])) ? $mailbox_array[$cur_crit] : false;
             if ($next_mailbox != $cur_mailbox) {
-                $search_string = trim($search_string);	/* Trim out last space */
+                $search_string = trim($search_string);    /* Trim out last space */
                 if ($cur_mailbox == 'All Folders')
                     $search_mboxes = $mboxes_array;
                 else if ((!empty($sub_array[$cur_crit - 1])) || (!in_array($cur_mailbox, $mboxes_array)))

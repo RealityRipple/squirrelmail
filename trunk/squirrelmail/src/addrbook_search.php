@@ -12,7 +12,7 @@
  *       addrbook_search_html.html -- If you change one,
  *       change the other one too!
  *
- * @version $Id$ 
+ * @version $Id$
  * @package squirrelmail
  * @subpackage addressbook
  */
@@ -118,11 +118,11 @@ function insert_javascript() {
  */
 function display_result($res, $includesource = true) {
     global $color;
-        
+
     if(sizeof($res) <= 0) return;
-        
+
     insert_javascript();
-        
+
     $line = 0;
     echo html_tag( 'table', '', 'center', '', 'border="0" width="98%"' ) .
     html_tag( 'tr', '', '', $color[9] ) .
@@ -133,23 +133,23 @@ function display_result($res, $includesource = true) {
 
     if ($includesource) {
         echo html_tag( 'th', '&nbsp;' . _("Source"), 'left', 'width="10%"' );
-    }    
+    }
     echo "</tr>\n";
-    
+
     while (list($undef, $row) = each($res)) {
         $email = htmlspecialchars(addcslashes(AddressBook::full_address($row), "'"), ENT_QUOTES);
-        if ($line % 2) { 
+        if ($line % 2) {
             $tr_bgcolor = $color[12];
         } else {
             $tr_bgcolor = $color[4];
         }
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
-             '<small><a href="javascript:to_address(' . 
+             '<small><a href="javascript:to_address(' .
                                        "'" . $email . "');\">"._("To")."</a> | " .
-             '<a href="javascript:cc_address(' . 
+             '<a href="javascript:cc_address(' .
                                        "'" . $email . "');\">"._("Cc")."</a> | " .
-             '<a href="javascript:bcc_address(' . 
+             '<a href="javascript:bcc_address(' .
                                  "'" . $email . "');\">"._("Bcc")."</a></small>",
         'center', '', 'valign="top" width="5%" nowrap' ) .
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" nowrap' ) .
@@ -169,12 +169,12 @@ function display_result($res, $includesource = true) {
 }
 
 /* ================= End of functions ================= */
-    
+
 require_once('../functions/strings.php');
 require_once('../functions/addressbook.php');
-    
+
 displayHtmlHeader();
-    
+
 /* Initialize vars */
 if (!isset($query)) { $query = ''; }
 if (!isset($show))  { $show  = ''; }
@@ -206,7 +206,7 @@ $abook = addressbook_init();
 
 /* Create search form */
 if ($show == 'form' && empty($listall)) {
-    echo '<form name="sform" target="abookres" action="addrbook_search.php'. 
+    echo '<form name="sform" target="abookres" action="addrbook_search.php'.
             '" method="post">' . "\n" .
          html_tag( 'table', '', '', '', 'border="0" width="100%" height="100%"' ) .
          html_tag( 'tr' ) .
@@ -227,7 +227,7 @@ if ($show == 'form' && empty($listall)) {
     } else {
         echo addHidden('backend', '-1');
     }
-        
+
     echo '</td></tr>' .
     html_tag( 'tr',
                     html_tag( 'td', '', 'left' ) .
@@ -273,13 +273,13 @@ if ($show == 'form' && empty($listall)) {
 
         /* Do the search */
         if (!empty($query)) {
-    
+
             if($backend == -1) {
                 $res = $abook->s_search($query);
             } else {
                 $res = $abook->s_search($query, $backend);
             }
-        
+
             if (!is_array($res)) {
                 echo html_tag( 'p', '<b><br />' .
                                  _("Your search failed with the following error(s)") .
@@ -288,7 +288,7 @@ if ($show == 'form' && empty($listall)) {
                 "\n</body></html>\n";
                 exit;
             }
-        
+
             if (sizeof($res) == 0) {
                 echo html_tag( 'p', '<br /><b>' .
                                  _("No persons matching your search were found") . "</b>\n" ,
@@ -296,11 +296,11 @@ if ($show == 'form' && empty($listall)) {
                 "\n</body></html>\n";
                 exit;
             }
-        
+
             display_result($res);
         }
     }
-   
+
 }
 ?>
 </body></html>

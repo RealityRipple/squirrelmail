@@ -25,7 +25,7 @@ if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
 
     /* perform basic checks */
     $Messages = cpw_check_input();
-    
+
     /* if no errors, go ahead with the actual change */
     if(count($Messages) == 0) {
         $Messages = cpw_do_change();
@@ -68,7 +68,7 @@ if (isset($Messages) && count($Messages) > 0) {
       </tr>
       <tr>
         <td align="center" colspan="2">
-	<?php echo addSubmit(_("Change Password"), 'cpw_go'); ?></td>
+        <?php echo addSubmit(_("Change Password"), 'cpw_go'); ?></td>
       </tr>
     </table>
     </form>

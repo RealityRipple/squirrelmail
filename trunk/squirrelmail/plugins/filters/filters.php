@@ -232,9 +232,9 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     }
 
     if ($imap_server_type == 'macosx') {
-	$search_str .= ' ' . $where . ' ' . $what;
+        $search_str .= ' ' . $where . ' ' . $what;
     } else {
-	$search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
+        $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
                     . $what . "\r\n";
     }
 

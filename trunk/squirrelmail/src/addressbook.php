@@ -268,10 +268,10 @@ if ($showaddrlist) {
                                 html_tag( 'th', _("Nickname") .
                                     show_abook_sort_button($abook_sort_order, _("sort by nickname"), 0, 1),
                                     'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("Name") . 
+                                html_tag( 'th', _("Name") .
                                     show_abook_sort_button($abook_sort_order, _("sort by name"), 2, 3),
                                     'left', '', 'width="1%"' ) . "\n" .
-                                html_tag( 'th', _("E-mail") . 
+                                html_tag( 'th', _("E-mail") .
                                     show_abook_sort_button($abook_sort_order, _("sort by email"), 4, 5),
                                     'left', '', 'width="1%"' ) . "\n" .
                                 html_tag( 'th', _("Info") .
@@ -320,7 +320,7 @@ if ($showaddrlist) {
                             '&nbsp;' ,
                             'center', '', 'valign="top" width="1%"' );
                 }
-                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) . 
+                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
                     html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
                     html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
             } else {

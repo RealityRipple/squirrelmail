@@ -4,7 +4,7 @@
  *
  * Here are two functions for the info plugin
  * The first gets the CAPABILITY response from your IMAP server.
- * The second runs the passed IMAP test and returns the results 
+ * The second runs the passed IMAP test and returns the results
  * The third prints the results of the IMAP command
  * to options.php.
  *

@@ -35,7 +35,7 @@ include_once(SM_PATH . 'functions/display_messages.php');
  *
  * @param object $imapConnection
  * @param mixed $mailbox FIXME: option is not used
- * @param string $real_box unformated mailbox name 
+ * @param string $real_box unformated mailbox name
  * @param mixed $delimeter FIXME: option is not used
  * @param string $unseen FIXME: option is not used
  * @param integer $total_new number of new messages
@@ -43,7 +43,7 @@ include_once(SM_PATH . 'functions/display_messages.php');
  */
 function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_new) {
     global $trash_folder, $sent_folder,
-        $unseen_notify, $newmail_allbox, 
+        $unseen_notify, $newmail_allbox,
         $newmail_recent;
 
     $mailboxURL = urlencode($real_box);
@@ -70,7 +70,7 @@ function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, 
     return 0;
 }
 
-/** 
+/**
  * Init newmail plugin
  */
 function squirrelmail_plugin_init_newmail() {
@@ -198,19 +198,19 @@ function newmail_plugin() {
                     }
                 }
                 if (! $noselect) {
-                    $status += CheckNewMailboxSound($imapConnection, 
+                    $status += CheckNewMailboxSound($imapConnection,
                                                     $mailbox,
-                                                    $boxes[$i]['unformatted'], 
-                                                    $delimeter, 
+                                                    $boxes[$i]['unformatted'],
+                                                    $delimeter,
                                                     $boxes[$i]['unseen'],
                                                     $totalNew);
                 }
             } else {
-                $status += CheckNewMailboxSound($imapConnection, 
-                                                $mailbox, 
+                $status += CheckNewMailboxSound($imapConnection,
+                                                $mailbox,
                                                 $boxes[$i]['unformatted'],
-                                                $delimeter, 
-                                                $boxes[$i]['unseen'], 
+                                                $delimeter,
+                                                $boxes[$i]['unseen'],
                                                 $totalNew);
             }
         }
@@ -224,7 +224,7 @@ function newmail_plugin() {
             echo "<script language=\"javascript\">\n" .
                 "function ChangeTitleLoad() {\n";
             echo 'window.parent.document.title = "' .
-                sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) . 
+                sprintf(ngettext("%s New Message","%s New Messages",$totalNew), $totalNew) .
                 "\";\n";
             echo    "if (BeforeChangeTitle != null)\n".
                 "BeforeChangeTitle();\n".

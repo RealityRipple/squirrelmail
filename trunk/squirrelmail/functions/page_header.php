@@ -38,7 +38,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
 
     if ($frames) {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">';
-    } else {          
+    } else {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">';
     }
     echo "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
@@ -302,7 +302,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
     $shortBoxName = htmlspecialchars(imap_utf7_decode_local(
-		      readShortMailboxName($mailbox, $delimiter)));
+                readShortMailboxName($mailbox, $delimiter)));
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }

@@ -6,7 +6,7 @@
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * Deletes folders from the IMAP server. 
+ * Deletes folders from the IMAP server.
  * Called from the folders.php
  *
  * @version $Id$
@@ -93,7 +93,7 @@ else
 /* Courier IMAP doesn't like subfolders of Trash
  * If global options say we can't move it into Trash
  * If it's already a subfolder of trash, we'll have to delete it */
-if (strtolower($imap_server_type) == 'courier' || 
+if (strtolower($imap_server_type) == 'courier' ||
     (isset($delete_folder) && $delete_folder) ||
     eregi('^'.$trash_folder.'.+', $mailbox) )
 {

@@ -2,7 +2,7 @@
 /**
  * SquirrelMail translate plugin sample configuration
  *
- * WARNING: This is only an example config. Don't use it for your 
+ * WARNING: This is only an example config. Don't use it for your
  * configuration. Almisbar translation engine is not public.
  *
  * Copyright (c) 2004 The SquirrelMail Project Team

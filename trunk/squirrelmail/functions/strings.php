@@ -977,7 +977,7 @@ function sq_htmlentities($string,$quote_style=ENT_COMPAT,$charset='us-ascii') {
  * Tests if string contains 8bit symbols.
  *
  * If charset is not set, function defaults to default_charset.
- * $default_charset global must be set correctly if $charset is 
+ * $default_charset global must be set correctly if $charset is
  * not used.
  * @param string $string tested string
  * @param string $charset charset used in a string
@@ -991,7 +991,7 @@ function sq_is8bit($string,$charset='') {
 
     /**
      * Don't use \240 in ranges. Sometimes RH 7.2 doesn't like it.
-     * Don't use \200-\237 for iso-8859-x charsets. This ranges 
+     * Don't use \200-\237 for iso-8859-x charsets. This ranges
      * stores control symbols in those charsets.
      * Use preg_match instead of ereg in order to avoid problems
      * with mbstring overloading
@@ -1011,10 +1011,10 @@ function sq_is8bit($string,$charset='') {
  * in php 5.x. Function does not test all mbstring encodings. Only the ones
  * that might be used in SM translations.
  *
- * Supported arrays are stored in session in order to reduce number of 
+ * Supported arrays are stored in session in order to reduce number of
  * mb_internal_encoding function calls.
  *
- * If you want to test all mbstring encodings - fill $list_of_encodings 
+ * If you want to test all mbstring encodings - fill $list_of_encodings
  * array.
  * @return array list of encodings supported by mbstring
  * @since 1.5.1

@@ -465,14 +465,14 @@ class Deliver {
             switch($rfc822_header->priority)
             {
             case 1:
-	    	$header[] = 'X-Priority: 1 (Highest)'.$rn;
-	    	$header[] = 'Importance: High'. $rn; break;
+                $header[] = 'X-Priority: 1 (Highest)'.$rn;
+                $header[] = 'Importance: High'. $rn; break;
             case 3:
-	    	$header[] = 'X-Priority: 3 (Normal)'.$rn;
-	    	$header[] = 'Importance: Normal'. $rn; break;
+                $header[] = 'X-Priority: 3 (Normal)'.$rn;
+                $header[] = 'Importance: Normal'. $rn; break;
             case 5:
-	    	$header[] = 'X-Priority: 5 (Lowest)'.$rn;
-	    	$header[] = 'Importance: Low'. $rn; break;
+                $header[] = 'X-Priority: 5 (Lowest)'.$rn;
+                $header[] = 'Importance: Low'. $rn; break;
             default: break;
             }
         }

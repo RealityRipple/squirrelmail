@@ -60,12 +60,12 @@ if (!sqgetGlobalVar('mailto', $mailto)) {
 
 set_up_language($squirrelmail_language, true);
 /* Refresh the language cookie. */
-setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000, 
+setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,
           $base_uri);
 
 if (!isset($login_username)) {
     include_once(SM_PATH .  'functions/display_messages.php' );
-    logout_error( _("You must be logged in to access this page.") );    
+    logout_error( _("You must be logged in to access this page.") );
     exit;
 }
 
@@ -154,13 +154,13 @@ function attachment_common_parse($str, $debug) {
     global $attachment_common_types, $attachment_common_types_parsed;
 
     $attachment_common_types_parsed[$str] = true;
-    
-    /* 
-     * Replace ", " with "," and explode on that as Mozilla 1.x seems to  
+
+    /*
+     * Replace ", " with "," and explode on that as Mozilla 1.x seems to
      * use "," to seperate whilst IE, and earlier versions of Mozilla use
      * ", " to seperate
      */
-    
+
     $str = str_replace( ', ' , ',' , $str );
     $types = explode(',', $str);
 

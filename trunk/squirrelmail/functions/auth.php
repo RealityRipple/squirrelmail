@@ -43,13 +43,13 @@ function is_logged_in() {
         return;
     } else {
         global $PHP_SELF, $session_expired_post,
-	       $session_expired_location, $squirrelmail_language;
+               $session_expired_location, $squirrelmail_language;
 
         /*  First we store some information in the new session to prevent
          *  information-loss.
          */
 
-	$session_expired_post = $_POST;
+        $session_expired_post = $_POST;
         $session_expired_location = $PHP_SELF;
         if (!sqsession_is_registered('session_expired_post')) {
            sqsession_register($session_expired_post,'session_expired_post');
@@ -110,7 +110,7 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
 
   /* This can be auth (authentication only), auth-int (integrity protection), or
      auth-conf (confidentiality protection).  Right now only auth is supported.
-	 DO NOT CHANGE THIS VALUE */
+     DO NOT CHANGE THIS VALUE */
   $qop_value = "auth";
 
   $digest_uri_value = $service . '/' . $host;
@@ -175,10 +175,10 @@ function digest_md5_parse_challenge($challenge) {
       // We're in a "simple" value - explode to next comma
       $val=explode(',',$challenge,2);
       if (isset($val[1])) {
-	  	$challenge=$val[1];
-	  } else {
-	    unset($challenge);
-	  }
+          $challenge=$val[1];
+      } else {
+          unset($challenge);
+      }
       $value=$val[0];
     }
     $parsed["$key"]=$value;

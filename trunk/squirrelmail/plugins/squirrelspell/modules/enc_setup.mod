@@ -7,8 +7,8 @@
  * Copyright (c) 1999-2004 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This module shows the user a nice invitation to encrypt or decypt        
- * his/her personal dictionary and explains the caveats of such a decision. 
+ * This module shows the user a nice invitation to encrypt or decypt
+ * his/her personal dictionary and explains the caveats of such a decision.
  *
  * @author Konstantin Riabitsev <icon@duke.edu>
  * @version $Id$
@@ -16,15 +16,15 @@
  * @subpackage squirrelspell
  */
 
-global $SQSPELL_CRYPTO; 
+global $SQSPELL_CRYPTO;
 
 /**
  * Set up some i18n'able wrappers for javascript.
  */
 $msg = '<script type="text/javascript"><!--'."\n"
     . 'var ui_makesel = "' . _("Please make your selection first.") . "\";\n"
-    . 'var ui_encrypt = "' 
-    . _("This will encrypt your personal dictionary and store it in an encrypted format. Proceed?") 
+    . 'var ui_encrypt = "'
+    . _("This will encrypt your personal dictionary and store it in an encrypted format. Proceed?")
     . "\";\n"
     . 'var ui_decrypt = "'
     . _("This will decrypt your personal dictionary and store it in a plain text format. Proceed?")
@@ -87,7 +87,7 @@ if ($SQSPELL_CRYPTO){
         . _("Change crypto settings") . ' " /></p>'
         . '</form>';
 }
-sqspell_makePage(_("Personal Dictionary Crypto Settings"), 
+sqspell_makePage(_("Personal Dictionary Crypto Settings"),
     "crypto_settings.js", $msg);
 
 /**
@@ -96,6 +96,6 @@ sqspell_makePage(_("Personal Dictionary Crypto Settings"),
  * mode: php
  * End:
  * vim: syntax=php
- */ 
+ */
 
 ?>

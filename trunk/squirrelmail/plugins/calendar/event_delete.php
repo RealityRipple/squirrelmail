@@ -8,7 +8,7 @@
  *
  * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
  *
- * Functions to delete a event. 
+ * Functions to delete a event.
  *
  * $Id$
  * @package plugins

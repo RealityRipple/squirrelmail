@@ -43,14 +43,14 @@ function plugin_listcommands_menu() {
 
     foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
-	/* I don't know this action... skip it */
-	if ( !array_key_exists($cmd, $fieldsdescr) ) {
+        /* I don't know this action... skip it */
+        if ( !array_key_exists($cmd, $fieldsdescr) ) {
             continue;
         }
 
         /* proto = {mailto,href} */
-	$proto = array_shift(array_keys($actions));
-	$act   = array_shift($actions);
+        $proto = array_shift(array_keys($actions));
+        $act   = array_shift($actions);
 
         if ($proto == 'mailto') {
 
@@ -66,9 +66,9 @@ function plugin_listcommands_menu() {
             if ($cmd == 'post') {
                 if (!isset($mailbox))
                     $mailbox = 'INBOX';
-	        $url .= '&amp;passed_id='.$passed_id.
-		        '&amp;mailbox='.urlencode($mailbox).
-		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
+                $url .= '&amp;passed_id='.$passed_id.
+                        '&amp;mailbox='.urlencode($mailbox).
+                        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;smaction=reply';
 
                 $output[] = makeComposeLink($url, $fieldsdescr['reply']);

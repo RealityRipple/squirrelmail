@@ -22,17 +22,17 @@ function charset_encode_iso_8859_9 ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetoiso88599('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetoiso88599(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return iso-8859-9 symbol when unicode character number is provided
- * 
- * This function is used internally by charset_encode_iso_8859_9 
+ *
+ * This function is used internally by charset_encode_iso_8859_9
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/iso_8859_9.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/iso_8859_9.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string iso-8859-9 character

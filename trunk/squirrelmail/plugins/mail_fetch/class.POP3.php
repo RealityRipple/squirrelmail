@@ -1,4 +1,4 @@
-<?php 
+<?php
 
    /**
     * mail_fetch/setup.php
@@ -79,8 +79,8 @@ class POP3 {
         //  port defaults to 110. Returns true on success, false on fail
 
         // If MAILSERVER is set, override $server with it's value
-	
-	if (!isset($port) || !$port) {$port = 110;}
+
+        if (!isset($port) || !$port) {$port = 110;}
         if(!empty($this->MAILSERVER))
             $server = $this->MAILSERVER;
 

@@ -35,7 +35,7 @@ sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
     $passed_ent_id = '';
-} 
+}
 /* end globals */
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', false);
@@ -52,7 +52,7 @@ if ($passed_ent_id) {
 
 /* --start display setup-- */
 
-$rfc822_header = $message->rfc822_header; 
+$rfc822_header = $message->rfc822_header;
 /* From and Date are usually fine as they are... */
 $from = $rfc822_header->getAddr_s('from');
 $date = getLongDateString($rfc822_header->date);
@@ -80,7 +80,7 @@ if ($ent_ar[0] != '') {
 }
 
  /* now, if they choose to, we clean up the display a bit... */
- 
+
 if ($pf_cleandisplay) {
 
     $num_leading_spaces = 9; // nine leading spaces for indentation
@@ -158,7 +158,7 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
  * @param string unclean_string
  * @param integer num_leading_spaces
  * @return string
- * @access private 
+ * @access private
  */
 function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
     global $data_dir, $username;

@@ -76,7 +76,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
 
     /* This would be for the global addressbook */
     if (isset($abook_global_file) && isset($abook_global_file_writeable)
-	&& trim($abook_global_file)!=''){
+        && trim($abook_global_file)!=''){
         // Detect place of address book
         if (! preg_match("/[\/\\\]/",$abook_global_file)) {
             // no path chars
@@ -620,7 +620,7 @@ class AddressBook {
     }
 
     /**
-     * Create a new address 
+     * Create a new address
      * @param array $userdata added address record
      * @param integer $bnum backend number
      * @return integer the backend number that the/ address was added
@@ -671,7 +671,7 @@ class AddressBook {
 
     /**
      * Remove the entries from address book
-     * @param mixed $alias entries that have to be removed. Can be string with nickname or array with list of nicknames 
+     * @param mixed $alias entries that have to be removed. Can be string with nickname or array with list of nicknames
      * @param integer $bnum backend number
      * @return bool true if removed successfully. false if there s an error. $this->error contains error message
      */

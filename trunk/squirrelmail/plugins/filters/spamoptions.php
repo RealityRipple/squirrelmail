@@ -54,20 +54,20 @@ displayPageHeader($color, 'None');
 if (sqgetGlobalVar('spam_submit',$spam_submit,SQ_POST)) {
     $spam_filters = load_spam_filters();
 
-    // setting spam folder    
+    // setting spam folder
     sqgetGlobalVar('filters_spam_folder_set',$filters_spam_folder_set,SQ_POST);
     if (isset($filters_spam_folder_set)) {
         setPref($data_dir, $username, 'filters_spam_folder', $filters_spam_folder_set);
     } else {
-	echo _("You must select a spam folder.");
+        echo _("You must select a spam folder.");
     }
 
     // setting scan type
     sqgetGlobalVar('filters_spam_scan_set',$filters_spam_scan_set,SQ_POST);
     if (isset($filters_spam_scan_set)) {
-	setPref($data_dir, $username, 'filters_spam_scan', $filters_spam_scan_set);
+        setPref($data_dir, $username, 'filters_spam_scan', $filters_spam_scan_set);
     } else {
-	echo _("You must select a scan type.");
+        echo _("You must select a scan type.");
     }
 
     foreach ($spam_filters as $Key => $Value) {
@@ -217,7 +217,7 @@ if (isset($action) && $action == 'spam') {
             echo _("OFF");
         }
 
-        echo '</th>' . 
+        echo '</th>' .
                html_tag( 'td', '&nbsp;-&nbsp;', 'left' ) .
                html_tag( 'td', '', 'left' );
 

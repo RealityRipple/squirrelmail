@@ -21,16 +21,16 @@ require_once(SM_PATH . 'include/validate.php');
  * @access private
  */
 function spamcop_enable_disable($option,$disable_action,$enable_action) {
-    if ($option) { 
-	$ret= _("Enabled") . "(<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
+    if ($option) {
+        $ret= _("Enabled") . "(<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
     } else {
-	$ret = _("Disabled") . "(<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
+        $ret = _("Disabled") . "(<a href=\"options.php?action=$enable_action\">" . _("Enable it") . "</a>)\n";
     }
     return $ret;
 }
 
 displayPageHeader($color, 'None');
-   
+
 /* globals */
 sqgetGlobalVar('action', $action);
 sqgetGlobalVar('meth', $meth);
@@ -64,7 +64,7 @@ switch ($action) {
         if (isset($type)) {
             setPref($data_dir, $username, 'spamcop_type', $type);
         }
-	break;
+        break;
     case 'save_id':
         if (isset($ID)) {
             $ID = trim($ID);
@@ -82,100 +82,100 @@ spamcop_load();
       <br />
       <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
       <tr><td bgcolor="<?php echo $color[0]; ?>">
-         <center><b>
-	 <?php echo _("Options") . " - " . _("Spam reporting"); ?>
-	 </b></center>
+        <center><b>
+        <?php echo _("Options") . " - " . _("Spam reporting"); ?>
+        </b></center>
       </td></tr></table>
       <br />
-      
+
       <table align="center">
         <tr>
-	  <?php
-	  echo html_tag('td',_("SpamCop link is:"),'right');
-	  echo html_tag('td', spamcop_enable_disable($spamcop_enabled,'disable','enable') );
-	  ?>
-	</tr>
+          <?php
+            echo html_tag('td',_("SpamCop link is:"),'right');
+            echo html_tag('td', spamcop_enable_disable($spamcop_enabled,'disable','enable') );
+          ?>
+        </tr>
         <tr>
-	  <?php
-	  echo html_tag('td',_("Delete spam when reported:") . "<br />\n" .
-	  '<small>(' . _("Only works with email-based reporting") . ')</small>',
-	  'right','','valign="top"');
-	  echo html_tag('td', spamcop_enable_disable($spamcop_delete,'save','delete'),'','','valign="top"');
-	  ?>
-	</tr>
-	<tr>
-	  <?php
-	  echo html_tag('td',_("Spam Reporting Method:"),'right');
-	  ?>
-	  <td>
-	  <form method="post" action="options.php">
-	    <select name="meth">
-		<?php
-		    if ($spamcop_quick_report) {
-			echo '<option value="quick_email"';
-    	    		if ($spamcop_method == 'quick_email') echo ' selected="selected"';
-			echo ">"._("Quick email-based reporting");
-			echo '</option>';
-		    }
-	        ?>
-	      <option value="thorough_email"
-		<?php
-	    	  if ($spamcop_method == 'thorough_email') echo ' selected="selected"';
-	    	  echo ">"._("Thorough email-based reporting");
-		?>
-	      </option>
-	      <option value="web_form"
-	        <?php
-	          if ($spamcop_method == 'web_form') echo ' selected="selected"';
-	    	  echo ">"._("Web-based form");
-		?>
-	      </option>
-	    </select>
-	    <input type="hidden" name="action" value="meth" />
-	    <?php
-		echo '<input type="submit" value="' . _("Save Method") . "\" />\n";
-	    ?>
-	  </form></td>
-	</tr>
-	<tr>
-	    <?php
-		echo html_tag('td',_("Spam Service Type:"),'right');
-	    ?>
-	  <td>
-	  <form method="post" action="options.php">
-	    <select name="type">
-	      <option value="free"
-		<?php
-	    	  if ($spamcop_type == 'free') echo ' selected="selected"';
-	    	  echo ">"._("Free reporting");
-		?>
-	      </option>
-	      <option value="member"
-	        <?php
-	          if ($spamcop_type == 'member') echo ' selected="selected"';
-	    	  echo ">"._("Member services");
-		?>
-	      </option>
-	    </select>
-	    <?php
-	    echo '<input type="hidden" name="action" value="type" />' .
-		 '<input type="submit" value="' . _("Save Service Type") . "\" />\n";
-	    ?>
-	   </form></td>
-	</tr>
-	<tr>
-	  <?php
-	    echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
-	    '<small>(' . _("see below") . ')</small>','right','','valign="top"');
-	  ?>
-	  <td valign="top"><form method="post" action="options.php">
-	    <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
-	    <input type="hidden" name="action" value="save_id" />
-	    <?php
-		echo '<input type="submit" value="' . _("Save ID") . "\" />\n";
-	    ?>
-	  </form></td>
-	</tr>
+          <?php
+            echo html_tag('td',_("Delete spam when reported:") . "<br />\n" .
+            '<small>(' . _("Only works with email-based reporting") . ')</small>',
+            'right','','valign="top"');
+            echo html_tag('td', spamcop_enable_disable($spamcop_delete,'save','delete'),'','','valign="top"');
+          ?>
+        </tr>
+        <tr>
+          <?php
+            echo html_tag('td',_("Spam Reporting Method:"),'right');
+          ?>
+          <td>
+          <form method="post" action="options.php">
+            <select name="meth">
+              <?php
+                if ($spamcop_quick_report) {
+                    echo '<option value="quick_email"';
+                    if ($spamcop_method == 'quick_email') echo ' selected="selected"';
+                    echo ">"._("Quick email-based reporting");
+                    echo '</option>';
+                }
+              ?>
+              <option value="thorough_email"
+                <?php
+                  if ($spamcop_method == 'thorough_email') echo ' selected="selected"';
+                  echo ">"._("Thorough email-based reporting");
+                ?>
+              </option>
+              <option value="web_form"
+                <?php
+                  if ($spamcop_method == 'web_form') echo ' selected="selected"';
+                  echo ">"._("Web-based form");
+                ?>
+              </option>
+            </select>
+            <input type="hidden" name="action" value="meth" />
+            <?php
+              echo '<input type="submit" value="' . _("Save Method") . "\" />\n";
+            ?>
+          </form></td>
+        </tr>
+        <tr>
+            <?php
+              echo html_tag('td',_("Spam Service Type:"),'right');
+            ?>
+          <td>
+          <form method="post" action="options.php">
+            <select name="type">
+              <option value="free"
+                <?php
+                  if ($spamcop_type == 'free') echo ' selected="selected"';
+                  echo ">"._("Free reporting");
+                ?>
+              </option>
+              <option value="member"
+                <?php
+                  if ($spamcop_type == 'member') echo ' selected="selected"';
+                  echo ">"._("Member services");
+                ?>
+              </option>
+            </select>
+            <?php
+              echo '<input type="hidden" name="action" value="type" />' .
+                   '<input type="submit" value="' . _("Save Service Type") . "\" />\n";
+            ?>
+           </form></td>
+        </tr>
+        <tr>
+          <?php
+            echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
+            '<small>(' . _("see below") . ')</small>','right','','valign="top"');
+          ?>
+          <td valign="top"><form method="post" action="options.php">
+            <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
+            <input type="hidden" name="action" value="save_id" />
+            <?php
+              echo '<input type="submit" value="' . _("Save ID") . "\" />\n";
+            ?>
+          </form></td>
+        </tr>
       </table>
 <?php
 echo '<p><b>' . _("About SpamCop") . '</b><br />';

@@ -37,7 +37,7 @@ sqgetGlobalVar('ent_id',        $ent_id,        SQ_GET);
 sqgetGlobalVar('QUERY_STRING',  $QUERY_STRING,  SQ_SERVER);
 /* end globals */
 
-echo '<br />' . 
+echo '<br />' .
     '<table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">' .
     "\n" .
     '<tr><td bgcolor="' . $color[0] . '">' .
@@ -50,7 +50,7 @@ echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
 
 $DownloadLink = '../src/download.php?passed_id=' . $passed_id .
-               '&amp;mailbox=' . urlencode($mailbox) . 
+               '&amp;mailbox=' . urlencode($mailbox) .
                '&amp;ent_id=' . urlencode($ent_id) . '&amp;absolute_dl=true';
 ?>
 </b></td></tr>

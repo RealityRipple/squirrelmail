@@ -10,7 +10,7 @@
  * ns_4551-1 encoded mails in non-ns_4551-1 locale.
  *
  * This is the same as ISO-646-NO and is used by some
- * Microsoft programs when sending Norwegian characters 
+ * Microsoft programs when sending Norwegian characters
  *
  * @version $Id$
  * @package squirrelmail
@@ -21,7 +21,7 @@
  * ns_4551_1 decoding function
  *
  * @param string $string
- * @return string 
+ * @return string
  */
 function charset_decode_ns_4551_1 ($string) {
     /*

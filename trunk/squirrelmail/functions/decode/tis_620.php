@@ -7,14 +7,14 @@
  *
  * This file contains tis620 decoding function that is needed to read
  * tis620 encoded mails in non-tis620 locale.
- * 
+ *
  * Original data taken from:
  *  http://www.inet.co.th/cyberclub/trin/thairef/tis620-iso10646.html
  *
  * Original copyright:
  *  Note: The information contained herein is provided as-is. It was
  *  complied from various references given at the end of the page.
- *  The author (trin@mozart.inet.co.th) believes all information 
+ *  The author (trin@mozart.inet.co.th) believes all information
  *  presented here is accurate.
  *
  *     References

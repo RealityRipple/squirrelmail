@@ -15,7 +15,7 @@
  * @subpackage addressbook
  */
 
-/** 
+/**
  * Path for SquirrelMail required files.
  * @ignore
  */
@@ -113,7 +113,7 @@ if ($javascript_on) {
 
     foreach ($res as $row) {
         $email = AddressBook::full_address($row);
-        if ($line % 2) { 
+        if ($line % 2) {
             $tr_bgcolor = $color[12];
         } else {
             $tr_bgcolor = $color[4];
@@ -202,10 +202,10 @@ echo addInput('addrquery', $addrquery, 26);
 if (!isset($backend)) { $backend = ''; }
 if ($abook->numbackends > 1) {
     echo '<strong>' . _("in") . '</strong>&nbsp;';
-    
-    $selopts['-1'] = _("All address books"); 
+
+    $selopts['-1'] = _("All address books");
     $ret = $abook->get_backend_list();
-    
+
     while (list($undef,$v) = each($ret)) {
         $selopts[$v->bnum] = $v->sname;
     }
@@ -248,7 +248,7 @@ if ($addrquery == '' && empty($listall)) {
             addr_display_result($res, false);
         } else {
             echo html_tag( 'p', '<strong><br />' .
-                 sprintf(_("Unable to list addresses from %s"), 
+                 sprintf(_("Unable to list addresses from %s"),
                  $abook->backends[$backend]->sname) . "</strong>\n" ,
             'center' );
         }

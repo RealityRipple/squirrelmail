@@ -5,7 +5,7 @@
  * Plugin to view the RFC822 raw message output and the bodystructure of a message
  *
  * Licensed under the GNU GPL. For full terms see the file COPYING.
- * 
+ *
  * @author Marc Groot Koerkamp
  * @copyright Copyright &copy; 2002 Marc Groot Koerkamp, The Netherlands
  * @copyright Copyright &copy; 2004 The SquirrelMail Project Team
@@ -52,7 +52,7 @@ function CalcEntity($entString, $direction) {
             if ($pos === false) {
                 $entString++;
                 $result= $entString;
-            } 
+            }
             else {
                 $level = substr($entString,0,$pos);
                 $sublevel = substr($entString,$pos+1);
@@ -116,7 +116,7 @@ for ($i=1; $i < $count; $i++) {
         } else if ($messageheader) {
             if ($header) {
                 $header=false;
-                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n"; 
+                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n";
             }
             $mimepart = -$header;
             $bnd_end = false;
@@ -128,11 +128,11 @@ for ($i=1; $i < $count; $i++) {
         } else {
             if ($header) {
                 $pre = '';
-                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n"; 
+                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n";
             }
             $header = false;
             $mimepart=true;
-        }  
+        }
         $contentset = false;
         $nameset = false;
     } else {
@@ -142,7 +142,7 @@ for ($i=1; $i < $count; $i++) {
                 $pre = '<i><font color ="'.$color[1].'">';
                 $end = '</i></font>';
             }
-        }     
+        }
         if (!$messageheader && !$header ) {
             $mimepart=true;
         }  else {
@@ -153,7 +153,7 @@ for ($i=1; $i < $count; $i++) {
     }
     if (  ( $header || $messageheader) && (preg_match("/^.*boundary=\"?(.+(?=\")|.+).*/i",$line,$reg)) )  {
         $bnd = $reg[1];
-        $bndreg = $bnd;    
+        $bndreg = $bnd;
         $bndreg = str_replace("\\","\\\\",$bndreg);
         $bndreg = str_replace("?","\\?",$bndreg);
         $bndreg = str_replace("+","\\+",$bndreg);
@@ -173,18 +173,18 @@ for ($i=1; $i < $count; $i++) {
             $entStr = CalcEntity("$entStr",1);
         }
     }
-    
+
     if (($line != '' && $line{0} == '-' || $header)  && isset($boundaries[0])) {
         $cnt=count($boundaries)-1;
         $bnd = $boundaries[$cnt]['bnd'];
         $bndreg = $boundaries[$cnt]['bndreg'];
-      
+
         $regstr = '/^--'."($bndreg)".".*".'/';
         if (preg_match($regstr,$line,$reg) ) {
             $bndlen = strlen($reg[1]);
-            $bndend = false;            
+            $bndend = false;
             if (strlen($line) > ($bndlen + 3)) {
-                if ($line{$bndlen+2} == '-' && $line{$bndlen+3} == '-') 
+                if ($line{$bndlen+2} == '-' && $line{$bndlen+3} == '-')
                     $bndend = true;
             }
             if ($bndend) {
@@ -222,7 +222,7 @@ for ($i=1; $i < $count; $i++) {
                         $entities["$entStr"] = array();
                         $entities["$entStr"]['entity'] = $entStr;
                         $entities["$entStr"]['contenttype']=$reg[2].'/'.$reg[3];
-                    }        
+                    }
                    } else if (!$nameset && preg_match("/^.*(name=\s*)\"(.*)\".*/i",$line,$reg)) {
                     $name = htmlspecialchars($reg[2]);
                     $content[$content_indx]['name'] = decodeHeader($name);

@@ -51,11 +51,11 @@ $base_uri = sqm_baseuri();
  */
 
 sqsession_destroy();
- 
+
 header('Pragma: no-cache');
 
 /**
- * This detects if the IMAP server has logins disabled, and if so, 
+ * This detects if the IMAP server has logins disabled, and if so,
  * squelches the display of the login form and puts up a message
  * explaining the situation.
  */
@@ -171,7 +171,7 @@ echo html_tag( 'table',
                             ) ,
                         'center', $color[4], 'border="0" width="100%"' ) ,
                     'left', $color[4] )
-                ) . 
+                ) .
                 html_tag( 'tr',
                     html_tag( 'td',
                         '<center>'. addSubmit(_("Login")) .'</center>',

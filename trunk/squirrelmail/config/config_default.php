@@ -80,7 +80,7 @@ $frame_top = '_top';
  *
  * Here you can set name of the link displayed on the right side of main page.
  *
- * Link will be displayed only if you have $hide_sm_attributions 
+ * Link will be displayed only if you have $hide_sm_attributions
  * option set to true.
  * @global string $provider_name
  */
@@ -91,7 +91,7 @@ $provider_name = 'SquirrelMail';
  *
  * Here you can set URL of the link displayed on the right side of main page.
  *
- * Link will be displayed only if you have $hide_sm_attributions 
+ * Link will be displayed only if you have $hide_sm_attributions
  * option set to true.
  * @global string $provider_uri
  */
@@ -125,7 +125,7 @@ $invert_time = false;
  *
  * What should be used when sending email.
  * If it is set to false, SquirrelMail will use SMTP server settings.
- * If it is set to true, SquirrelMail will use program defined in 
+ * If it is set to true, SquirrelMail will use program defined in
  * $sendmail_path
  * @global bool $useSendmail
  */
@@ -149,8 +149,8 @@ $smtpPort = 25;
  * This can increase user's privacy and solve problems with spam filters
  * that increase spam marks for dynamic dialup addresses.
  *
- * If admin enables this setting, system should have some logging facility 
- * or other tools to control users. SquirrelMail's Received: header provides 
+ * If admin enables this setting, system should have some logging facility
+ * or other tools to control users. SquirrelMail's Received: header provides
  * information, that can't be forged by webmail user.
  * @global bool $skip_SM_header
  */
@@ -160,12 +160,12 @@ $skip_SM_header = false;
  * Path to Sendmail
  *
  * Program that should be used when sending email. SquirrelMail expects that
- * this program will follow options used by original sendmail 
+ * this program will follow options used by original sendmail
  * (http://www.sendmail.org).
  * @global string $sendmail_path
  */
 $sendmail_path = '/usr/sbin/sendmail';
-    
+
 /**
  * IMAP server address
  *
@@ -360,7 +360,7 @@ $auto_create_special = true;
  * List Special Folders First Control
  *
  * Whether or not to list the special folders first (true/false).
- * @global bool $list_special_folders_first 
+ * @global bool $list_special_folders_first
  */
 $list_special_folders_first = true;
 
@@ -382,7 +382,7 @@ $default_sub_of_inbox = true;
  * option during folder creation. The option toggles which type of
  * folder it should be.
  *
- * If this option confuses you, just set it to 'true'. You can not hurt 
+ * If this option confuses you, just set it to 'true'. You can not hurt
  * anything if it's true, but some servers will respond weird if it's
  * false. (Cyrus works fine whether it's true OR false).
  * @global bool $show_contain_subfolders_option
@@ -393,7 +393,7 @@ $show_contain_subfolders_option = false;
  * These next two options set the defaults for the way that the
  * users see their folder list.
  *   $default_unseen_notify
- *       Specifies whether or not the users will see the number of 
+ *       Specifies whether or not the users will see the number of
  *       unseen in each folder by default and also which folders to
  *       do this to. Valid values are: 1=none, 2=inbox, 3=all.
  *   $default_unseen_type
@@ -445,7 +445,7 @@ $data_dir = SM_PATH . 'data/';
  *      list files in this directory. Confidential data might be laying
  *      around there.
  *    + Since the webserver is not able to list the files in the content
- *       is also impossible for the webserver to delete files lying around 
+ *       is also impossible for the webserver to delete files lying around
  *       there for too long.
  *    + It should probably be another directory than data_dir.
  * @global string $attachment_dir
@@ -454,12 +454,12 @@ $attachment_dir = $data_dir;
 
 /**
  * Hash level used for data directory.
- * 
+ *
  * This option allows spliting file based squirrelmail user
  * data storage directory into several subfolders. Number from
  * 0 to 4 allows allows having up to four subfolder levels.
  *
- * Hashing should speed up directory access if you have big number 
+ * Hashing should speed up directory access if you have big number
  * of users (500 and more).
  * @global integer $dir_hash_level
  */
@@ -496,7 +496,7 @@ $default_use_priority = true;
 /**
  * SquirrelMail Attributions Control
  *
- * This option disables display of "created by squirrelmail developers" 
+ * This option disables display of "created by squirrelmail developers"
  * strings and provider link
  * @global bool $hide_sm_attributions
  */
@@ -528,7 +528,7 @@ $edit_name = true;
  * Server Side Threading Control
  *
  * If you want to enable server side thread sorting options
- * Your IMAP server must support the THREAD extension for 
+ * Your IMAP server must support the THREAD extension for
  * this to work.
  * @global bool $allow_thread_sort
  */
@@ -548,7 +548,7 @@ $allow_server_sort = false;
  * IMAP Charset Use Control
  *
  * This option allows you to choose if SM uses charset search
- * Your imap server should support SEARCH CHARSET command for 
+ * Your imap server should support SEARCH CHARSET command for
  * this to work.
  * @global bool $allow_charset_search
  */
@@ -582,9 +582,9 @@ $session_name = 'SQMSESSID';
  *
  * To add a new theme to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
- * 
+ *
  * $theme_default sets theme that will be used by default
- * $theme_css sets stylesheet (from theme/css directory) that will be 
+ * $theme_css sets stylesheet (from theme/css directory) that will be
  * used by default.
  * @global integer $theme_default
  * @global string $theme_css
@@ -718,7 +718,7 @@ $theme[36]['NAME'] = 'Redmond';
  *       'host' => 'memberdir.netscape.com',
  *       'name' => 'Netcenter Member Directory',
  *       'base' => 'ou=member_directory,o=netcenter.com'
- *   ); 
+ *   );
  */
 // Add your ldap server options here
 
@@ -749,7 +749,7 @@ $abook_global_file_writeable = false;
 /**
  * MOTD
  *
- * This is a message that is displayed immediately after a user logs in. 
+ * This is a message that is displayed immediately after a user logs in.
  * @global string $motd
  */
 $motd = "";
@@ -768,7 +768,7 @@ $motd = "";
 
 /*** Database ***/
 /**
- * Read doc/database.txt in order to get more information 
+ * Read doc/database.txt in order to get more information
  * about these settings.
  */
 /**
@@ -805,7 +805,7 @@ $addrbook_global_listing = false;
  *
  *   This is the default language. It is used as a last resort
  *   if SquirrelMail can't figure out which language to display.
- *   Language names usually consist of language code, undercore 
+ *   Language names usually consist of language code, undercore
  *   symbol and country code
  * @global string $squirrelmail_default_language
  */
@@ -839,7 +839,7 @@ $available_languages   = 'all';
 /**
  * Alternative Language Names Control
  *
- * This options allows displaying native language names in language 
+ * This options allows displaying native language names in language
  * selection box.
  * @global bool $show_alternative_names
  * @since 1.5.0
@@ -849,7 +849,7 @@ $show_alternative_names   = false;
 /**
  * Aggressive Decoding Control
  *
- * This option enables reading of Eastern multibyte encodings. 
+ * This option enables reading of Eastern multibyte encodings.
  * Functions that provide this support are very cpu and memory intensive.
  * Don't enable this option unless you really need it.
  * @global bool $aggressive_decoding
@@ -860,8 +860,8 @@ $aggressive_decoding = false;
 /**
  * Lossy Encoding Control
  *
- * This option allows charset conversions when output charset does not support 
- * all symbols used in original charset. Symbols unsupported by output charset 
+ * This option allows charset conversions when output charset does not support
+ * all symbols used in original charset. Symbols unsupported by output charset
  * will be replaced with question marks.
  * @global bool $lossy_encoding
  * @since 1.5.1
@@ -870,7 +870,7 @@ $lossy_encoding = false;
 
 /*** Tweaks ***/
 /**
- * Advanced DHTML tree control 
+ * Advanced DHTML tree control
  *
  * Use experimental DHTML folder listing
  * @global bool $advanced_tree
@@ -900,8 +900,8 @@ $use_icons = false;
  * Use experimental code with php recode functions when reading messages with
  * different encoding. This code is faster that original SM functions,
  * but it require php with recode support.
- * 
- * Don't enable this option if you are not sure about availability of 
+ *
+ * Don't enable this option if you are not sure about availability of
  * recode support.
  * @global bool $use_php_recode
  * @since 1.5.0
@@ -914,8 +914,8 @@ $use_php_recode = false;
  * Use experimental code with php iconv functions when reading messages with
  * different encoding. This code is faster that original SM functions,
  * but it require php with iconv support and works only with some translations.
- * 
- * Don't enable this option if you are not sure about availability of 
+ *
+ * Don't enable this option if you are not sure about availability of
  * iconv support.
  * @global bool $use_php_iconv
  * @since 1.5.0
@@ -929,7 +929,7 @@ $use_php_iconv = false;
  * generate the folder subscribe listbox (this can take a long time
  * when you have a lot of folders).  Instead, a textbox will be
  * displayed allowing users to enter a specific folder name to subscribe to
- * 
+ *
  * This option can't be changed by conf.pl
  * @global bool $no_list_for_subscribe
  */
@@ -939,7 +939,7 @@ $no_list_for_subscribe = false;
  * Color in config control
  *
  * This option is used only by conf.pl script to generate configuration
- * menu with some colors and is provided here only as reference. 
+ * menu with some colors and is provided here only as reference.
  * @global integer $config_use_color
  */
 $config_use_color = 2;

@@ -27,9 +27,9 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
  *                     'Spanish' => 'ispell -d spanish -a' );
  */
 $SQSPELL_APP = array('English' => 'ispell -a',
-			'Spanish' => 'ispell -d spanish -a');
+                        'Spanish' => 'ispell -d spanish -a');
 $SQSPELL_APP_DEFAULT = 'English';
-$SQSPELL_WORDS_FILE = 
+$SQSPELL_WORDS_FILE =
    getHashedFile($username, $data_dir, "$username.words");
 
 $SQSPELL_EREG = 'ereg';

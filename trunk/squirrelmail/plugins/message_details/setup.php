@@ -1,6 +1,6 @@
 <?php
 /**
- * Message Details plugin - main setup script  
+ * Message Details plugin - main setup script
  *
  * Plugin to view the RFC822 raw message output and the bodystructure of a message
  *
@@ -54,8 +54,8 @@ function show_message_details() {
                 "// -->\n" .
                 "</script>\n" .
                 "&nbsp;|&nbsp;<a href=\"javascript:MessageSource();\">$print_text</a>\n";
-    } 
+    }
     echo $result;
 }
- 
+
 ?>

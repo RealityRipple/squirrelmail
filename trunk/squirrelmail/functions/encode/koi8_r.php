@@ -22,17 +22,17 @@ function charset_encode_koi8_r ($string) {
 
     $string=preg_replace("/&#([0-9]+);/e","unicodetokoi8r('\\1')",$string);
     // $string=preg_replace("/&#[xX]([0-9A-F]+);/e","unicodetokoi8r(hexdec('\\1'))",$string);
-    
+
     return $string;
 }
 
 /**
  * Return koi8-r symbol when unicode character number is provided
- * 
- * This function is used internally by charset_encode_koi8_r 
+ *
+ * This function is used internally by charset_encode_koi8_r
  * function. It might be unavailable to other squirrelmail functions.
- * Don't use it or make sure, that functions/encode/koi8_r.php is 
- * included. 
+ * Don't use it or make sure, that functions/encode/koi8_r.php is
+ * included.
  *
  * @param int $var decimal unicode value
  * @return string koi8-r character

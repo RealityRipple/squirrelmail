@@ -1498,7 +1498,7 @@ function get_selectall_link($aMailbox) {
             $result = preg_replace("/checkall=(\d)/","checkall=$checkall_val",$result);
         }
 
-        // FIXME: I suspect that search pages use different variables in 1.5.1cvs 
+        // FIXME: I suspect that search pages use different variables in 1.5.1cvs
         // and these variables are present in $PHP_SELF.
         if (isset($aMailbox['SEARCH']) && isset($aMailbox['SEARCH'][0]) && ! sqgetGlobalVar('where',$tmp,SQ_GET)) {
             $result .= '&amp;where=' . urlencode($aMailbox['SEARCH'][0]);
@@ -2067,7 +2067,7 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                 if (($aMailbox['PAGEOFFSET']-1) >= $aMailbox['EXISTS']) {
                     $aMailbox['PAGEOFFSET'] = ($aMailbox['PAGEOFFSET'] > $aMailbox['LIMIT']) ?
                         $aMailbox['PAGEOFFSET'] - $aMailbox['LIMIT'] : 1;
-                    $aMailbox['OFFSET'] = $aMailbox['PAGEOFFSET'] - 1 ; 
+                    $aMailbox['OFFSET'] = $aMailbox['PAGEOFFSET'] - 1 ;
                 }
             }
         }

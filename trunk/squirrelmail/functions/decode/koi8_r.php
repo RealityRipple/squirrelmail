@@ -7,7 +7,7 @@
  *
  * This file contains koi8-r decoding function that is needed to read
  * koi8-r encoded mails in non-koi8-r locale.
- * 
+ *
  * Original data taken from:
  *  ftp://ftp.unicode.org/Public/MAPPINGS/VENDORS/MISC/KOI8-R.TXT
  *
