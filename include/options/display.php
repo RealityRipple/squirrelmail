@@ -99,17 +99,14 @@ function load_optpage_data_display() {
                            SMPREF_JS_OFF        => _("Never"))
     );
 
-    $js_autodetect_script =
-        "<SCRIPT LANGUAGE=\"JavaScript\" TYPE=\"text/javascript\"><!--\n".
-           "document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
-        "// --></SCRIPT>\n";
+    $onLoadScript = "document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "'";
     $js_autodetect_results = SMPREF_JS_OFF;
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'js_autodetect_results',
         'caption' => '',
         'type'    => SMOPT_TYPE_HIDDEN,
         'refresh' => SMOPT_REFRESH_NONE,
-        'post_script' => $js_autodetect_script,
+        //'post_script' => $js_autodetect_script,
         'save'    => 'save_option_javascript_autodetect'
     );
 
@@ -315,7 +312,8 @@ function load_optpage_data_display() {
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,
-        'vals' => $optvals
+        'vals' => $optvals,
+        'xtra' => $onLoadScript
     );
     return ($result);
 }
