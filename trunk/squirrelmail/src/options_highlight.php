@@ -42,7 +42,7 @@ sqGetGlobalVar('value', $value);
 function oh_opt( $val, $sel, $tit ) {
     echo "<option value=\"$val\"";
     if ( $sel )
-        echo ' selected';
+        echo ' selected="selected"';
     echo  ">$tit</option>\n";
 }
 

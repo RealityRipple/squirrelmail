@@ -630,11 +630,11 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
     }
     // Show Alt URI for Draft/Sent
     if (isset($comp_alt_string))
-        $menu_row .= getButton('SUBMIT', $new_button, $comp_alt_string, $on_click) . "\n";
+        $menu_row .= getButton('submit', $new_button, $comp_alt_string, $on_click) . "\n";
 
-    $menu_row .= getButton('SUBMIT', 'smaction_reply', _("Reply"), $on_click) . "\n";
-    $menu_row .= getButton('SUBMIT', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
-    $menu_row .= getButton('SUBMIT', 'smaction_forward', _("Forward"), $on_click);
+    $menu_row .= getButton('submit', 'smaction_reply', _("Reply"), $on_click) . "\n";
+    $menu_row .= getButton('submit', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
+    $menu_row .= getButton('submit', 'smaction_forward', _("Forward"), $on_click);
     if ($enable_forward_as_attachment)
         $menu_row .= '<input type="checkbox" name="smaction_attache" />' . _("As Attachment") .'&nbsp;&nbsp;'."\n";
 
@@ -648,10 +648,10 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
             $menu_row .= addHidden('mailbox', $aMailbox['NAME']);
             $menu_row .= addHidden('msg[0]', $passed_id);
-            $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
+            $menu_row .= getButton('submit', 'delete', _("Delete"));
             $menu_row .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
         } else {
-            $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
+            $menu_row .= getButton('submit', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
         }
 
         $menu_row .= '</form>';
@@ -676,7 +676,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         }
         $menu_row .= '</select> ';
 
-        $menu_row .= getButton('SUBMIT', 'moveButton',_("Move")) . "\n" . '</form>';
+        $menu_row .= getButton('submit', 'moveButton',_("Move")) . "\n" . '</form>';
     }
     $menu_row .= '</td></tr>';
 

@@ -69,7 +69,7 @@ function formatMailboxName($imapConnection, $box_array) {
     /* Create the link for this folder. */
     if ($status !== false) {
     $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox='.
-                $mailboxURL.'" TARGET="right" STYLE="text-decoration:none">';
+                $mailboxURL.'" target="right" style="text-decoration:none">';
     }
     if ($special_color) {
         $line .= "<font color=\"$color[11]\">";
@@ -663,7 +663,7 @@ if (! isset($oldway) || $oldway=="" ) {
 
 if ($advanced_tree) {
 $xtra .= <<<ECHO
-<script language="Javascript" TYPE="text/javascript">
+<script language="Javascript" type="text/javascript">
 
 <!--
 

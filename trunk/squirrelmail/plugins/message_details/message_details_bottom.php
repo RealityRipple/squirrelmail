@@ -104,7 +104,7 @@ for ($i=1; $i < $count; $i++) {
         } else if ($messageheader) {
             if ($header) {
                 $header=false;
-                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" ID="'.$entStr.'B">'."\n \n"; 
+                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n"; 
             }
             $mimepart = -$header;
             $bnd_end = false;
@@ -116,7 +116,7 @@ for ($i=1; $i < $count; $i++) {
         } else {
             if ($header) {
                 $pre = '';
-                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" ID="'.$entStr.'B">'."\n \n"; 
+                $end = "\n \n".'</div>'."\n \n".'<div class="ent_body" id="'.$entStr.'B">'."\n \n"; 
             }
             $header = false;
             $mimepart=true;
@@ -191,7 +191,7 @@ for ($i=1; $i < $count; $i++) {
                 $content_indx++;
                 $content[$content_indx]=array();
                 $content[$content_indx]['ent'] = '<a href="#'."$entStr \">$entStr".'</a>';
-                $pre .= "\n \n".'</div>'."\n \n".'<div class="entheader" ID="'.$entStr.'H"><a name="'."$entStr".'"><b><font color="'.$color[2].'">';
+                $pre .= "\n \n".'</div>'."\n \n".'<div class="entheader" id="'.$entStr.'H"><a name="'."$entStr".'"><b><font color="'.$color[2].'">';
                 $end .= '</font></b>'."\n";
                 $header = true;
                 $mimepart = false;
