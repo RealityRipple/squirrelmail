@@ -4,6 +4,7 @@
 
 Version 1.2.5 -- CVS
 --------------------
+  - Added the possibility to add special folders through plugins.
   - Made searching on multiple criteria possible, with thanks to Jason Munro
   - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
   - Fixed a small bug in db_prefs
