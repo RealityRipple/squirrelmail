@@ -21,89 +21,61 @@ function squirrelmail_plugin_init_listcommands () {
 }
 
 function plugin_listcommands_menu() {
-    global $imapConnection, $passed_id, $color, $mailbox,
-           $message, $ent_num, $priority_level, $compose_new_win, $uid_support;
-
-    $subject = trim($message->rfc822_header->subject);
+    global $passed_id, $passed_ent_id, $color, $mailbox,
+           $message, $compose_new_win;
 
     /**
      * Array of commands we can deal with from the header. The Reply option
      * is added later because we generate it using the Post information.
      */
-    $fieldsdescr = array('Post'        => _("Post to List"),
-                         'Reply'       => _("Reply to List"),
-                         'Subscribe'   => _("Subscribe"),
-                         'Unsubscribe' => _("Unsubscribe"),
-                         'Archive'     => _("List Archives"),
-                         'Owner'       => _("Contact Listowner"),
-                         'Help'        => _("Help"));
-    $fields = array_keys($fieldsdescr);
+    $fieldsdescr = array('post'        => _("Post to List"),
+                         'reply'       => _("Reply to List"),
+                         'subscribe'   => _("Subscribe"),
+                         'unsubscribe' => _("Unsubscribe"),
+                         'archive'     => _("List Archives"),
+                         'owner'       => _("Contact Listowner"),
+                         'help'        => _("Help"));
 
-    $sorted_cmds = array();
-    $unsorted_cmds = array();
-    $output = array();
+    foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
-    $lfields = 'List-' . implode (' List-', $fields);
-
-    $sid = sqimap_session_id($uid_support);
-    fputs ($imapConnection, "$sid FETCH $passed_id BODY.PEEK[HEADER.FIELDS ($lfields)]\r\n");
-    $read = sqimap_read_data($imapConnection, $sid, true, $response, $emessage);
-
-    for ($i = 1; $i < count($read); $i++) {
-        foreach ($fields as $field) {
-            if ( preg_match("/^List-$field: *<(.+?)>/i", $read[$i], $match) ) {
-                $unsorted_cmds[$field] = $match[1];
-            }
+	/* I don't know this action... skip it */
+	if(!array_key_exists($cmd, $fieldsdescr)) {
+            continue;
         }
-    }
 
-    if (count($unsorted_cmds) == 0) {
-        return;
-    }
+        /* proto = {mailto,href} */
+	$proto = array_shift(array_keys($actions));
+	$act   = array_shift($actions);
 
-    foreach ($fields as $field) {
-        foreach ($unsorted_cmds as $cmd => $url) {
-            if ($field == $cmd) {
-                $cmds[$cmd] = $url;
-            }
-        }
-    }
+        if ($proto == 'mailto') {
 
-    foreach ($cmds as $cmd => $url) {
-        if (eregi('mailto:(.+)', $url, $regs)) {
-            $purl = parse_url($url);
-
-            if (($cmd == 'Post') || ($cmd == 'Owner')) {
+            if (($cmd == 'post') || ($cmd == 'owner')) {
                 $url = 'compose.php?';
             } else {
                 $url = "../plugins/listcommands/mailout.php?action=$cmd&amp;";
-		
             }
-            $url .= '&amp;send_to=' . $purl['path'];
+            $url .= 'send_to=' . strtr($act,'?','&');
 
-            if (isset($purl['query'])) {
-                $url .= '&amp;' . $purl['query'];
-            }
             if ($compose_new_win == '1') {
                 $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr[$cmd] . '</A>';
             }
             else {
                 $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
             }
-            if ($cmd == 'Post') {
+            if ($cmd == 'post') {
 	        $url .= '&amp;passed_id='.$passed_id.
 		        '&amp;mailbox='.urlencode($mailbox).
 		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
                 $url .= '&amp;action=reply';
                 if ($compose_new_win == '1') {
-                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new('$url')\">" . $fieldsdescr['Reply'] . '</A>';
+                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new('$url')\">" . $fieldsdescr['reply'] . '</A>';
                 }
                 else {
-                    $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
+                    $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['reply'] . '</A>';
                 }
             }
-        } else if (eregi('^(http|ftp)', $url)) {
-            $output[] = '<A HREF="' . $url . '" TARGET="_blank">'
+        } elseif ($proto == 'href') {
+            $output[] = '<A HREF="' . $act . '" TARGET="_blank">'
                       . $fieldsdescr[$cmd] . '</A>';
         }
     }
