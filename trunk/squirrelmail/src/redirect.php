@@ -37,6 +37,20 @@ require_once('../functions/plugin.php');
 require_once('../functions/constants.php');
 require_once('../functions/page_header.php');
 
+// Remove slashes if PHP added them
+if (get_magic_quotes_gpc()) {
+    global $REQUEST_METHOD;
+    
+    if ($REQUEST_METHOD == "POST") {
+        global $HTTP_POST_VARS;
+        RemoveSlashes($HTTP_POST_VARS);
+    } else if ($REQUEST_METHOD == "GET") {
+        global $HTTP_GET_VARS;
+        RemoveSlashes($HTTP_GET_VARS);
+    }
+}
+
+
 function attachment_common_parse($str, $debug) {
     global $attachment_common_types, $attachment_common_types_parsed;
 
