@@ -13,6 +13,7 @@
 
 require_once('../functions/strings.php');
 require_once('../functions/imap_utf7_decode_local.php');
+require_once('../functions/html.php');
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
@@ -183,29 +184,29 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     }
 
-    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
+    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
     $shortBoxName = imap_utf7_decode_local(
 		      readShortMailboxName($mailbox, $delimiter));
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
-    echo "<A NAME=pagetop></A>\n"
-        . "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n"
-        . "   <TR BGCOLOR=\"$color[9]\" >\n"
-        . "      <TD ALIGN=left>\n";
+    echo "<a name=\"pagetop\"></a>\n"
+        . html_tag( 'table', '', '', $color[4], 'border="0" width="100%" cellspacing="0" cellpadding="2"' ) ."\n"
+        . html_tag( 'tr', '', '', $color[9] ) ."\n"
+        . html_tag( 'td', '', 'left' ) ."\n";
     if ( $shortBoxName <> '' && strtolower( $shortBoxName ) <> 'none' ) {
-        echo '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n";
+        echo '         ' . _("Current Folder") . ": <b>$shortBoxName&nbsp;</b>\n";
     } else {
         echo '&nbsp;';
     }
-    echo  "      </TD>\n"
-        . '      <TD ALIGN=right><b>';
+    echo  "      </td>\n"
+        . html_tag( 'td', '', 'right' ) ."<b>\n";
     displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
-    echo "</b></TD>\n"
-        . "   </TR>\n"
-        . "   <TR BGCOLOR=\"$color[4]\">\n"
-        . "      <TD ALIGN=left>\n";
+    echo "</b></td>\n"
+        . "   </tr>\n"
+        . html_tag( 'tr', '', '', $color[4] ) ."\n"
+        . html_tag( 'td', '', 'left' ) ."\n";
     $urlMailbox = urlencode($mailbox);
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(true,'')\">". _("Compose"). '</a>';
@@ -227,12 +228,13 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     do_hook("menuline");
 
-    echo "      </TD>\n      <TD ALIGN=\"right\">";
+    echo "      </td>\n"
+        . html_tag( 'td', '', 'right' ) ."\n";
     echo ($hide_sm_attributions ? '&nbsp;' :
-            '<A HREF="http://www.squirrelmail.org/" TARGET="_blank">SquirrelMail</A>');
-    echo "</TD>\n".
-        "   </TR>\n".
-        "</TABLE>\n\n";
+            '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>');
+    echo "</td>\n".
+        "   </tr>\n".
+        "</table>\n\n";
 }
 
 /* blatently copied/truncated/modified from the above function */
@@ -285,6 +287,6 @@ function compose_Header($color, $mailbox) {
 
     }
 
-    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
+    echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
 }
 ?>

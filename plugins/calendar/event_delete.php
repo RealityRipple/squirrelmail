@@ -19,6 +19,7 @@ require_once('../functions/date.php');
 require_once('../config/config.php');
 require_once('../functions/page_header.php');
 require_once('../src/load_prefs.php');
+require_once('../functions/html.php');
 
 function confirm_deletion()
 {
@@ -26,41 +27,51 @@ function confirm_deletion()
 
     $tmparray = $calendardata["$dmonth$dday$dyear"]["$dhour$dminute"];
 
-    echo "  <TABLE BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">\n".
-         "    <TR><TH COLSPAN=2 BGCOLOR=\"$color[4]\">\n".
-         _("Do you really want to delete this event?") . "<br></th>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Date:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$dmonth/$dday/$dyear</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Time:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$dhour:$dminute</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Title:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$tmparray[title]</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">" . _("Message:") . "</TD>\n".
-         "    <TD ALIGN=LEFT BGCOLOR=\"$color[4]\">$tmparray[message]</TD></TR>\n".
-         "    <TR><TD ALIGN=RIGHT BGCOLOR=\"$color[4]\">\n".
-         "    <FORM NAME=\"delevent\" METHOD=POST ACTION=\"$calself\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"dyear\" VALUE=\"$dyear\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"dmonth\" VALUE=\"$dmonth\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"dday\" VALUE=\"$dday\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"dhour\" VALUE=\"$dhour\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"dminute\" VALUE=\"$dminute\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"confirmed\" VALUE=\"yes\">\n".
-         '       <INPUT TYPE=SUBMIT VALUE="' . _("Yes") . "\">\n".
-         "    </FORM>\n".
-         "    </TD><TD ALIGN=LEFT BGCOLOR=\"$color[4]\">\n".
-         "    <FORM NAME=\"nodelevent\" METHOD=POST ACTION=\"day.php\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-         "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-         '       <INPUT TYPE=SUBMIT VALUE="' . _("No") . "\">\n".
-         "    </FORM>\n".
-         "    </TD></TR>\n".
-         "  </TABLE>\n";
-
-
+    echo html_tag( 'table',
+               html_tag( 'tr',
+                   html_tag( 'th', _("Do you really want to delete this event?") . '<br>', '', $color[4], 'colspan="2"' )
+               ) .
+               html_tag( 'tr',
+                   html_tag( 'td', _("Date:"), 'right', $color[4] ) .
+                   html_tag( 'td', $dmonth.'/'.$dday.'/'.$dyear, 'left', $color[4] )
+               ) .
+               html_tag( 'tr',
+                   html_tag( 'td', _("Time:"), 'right', $color[4] ) .
+                   html_tag( 'td', $dhour.':'.$dminute, 'left', $color[4] )
+               ) .
+               html_tag( 'tr',
+                   html_tag( 'td', _("Title:"), 'right', $color[4] ) .
+                   html_tag( 'td', $tmparray[title], 'left', $color[4] )
+               ) .
+               html_tag( 'tr',
+                   html_tag( 'td', _("Message:"), 'right', $color[4] ) .
+                   html_tag( 'td', $tmparray[message], 'left', $color[4] )
+               ) .
+               html_tag( 'tr',
+                   html_tag( 'td',
+                       "    <FORM NAME=\"delevent\" METHOD=POST ACTION=\"$calself\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"dyear\" VALUE=\"$dyear\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"dmonth\" VALUE=\"$dmonth\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"dday\" VALUE=\"$dday\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"dhour\" VALUE=\"$dhour\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"dminute\" VALUE=\"$dminute\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"confirmed\" VALUE=\"yes\">\n".
+                       '       <INPUT TYPE=SUBMIT VALUE="' . _("Yes") . "\">\n".
+                       "    </FORM>\n" ,
+                   'right', $color[4] ) .
+                   html_tag( 'td',
+                       "    <FORM NAME=\"nodelevent\" METHOD=POST ACTION=\"day.php\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
+                       "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
+                       '       <INPUT TYPE=SUBMIT VALUE="' . _("No") . "\">\n".
+                       "    </FORM>\n" ,
+                   'left', $color[4] )
+               ) ,
+           '', $color[0], 'border="0" cellpadding="2" cellspacing="1"' );
 }
 
 if ($month <= 0){
@@ -79,16 +90,18 @@ displayPageHeader($color, 'None');
 //load calendar menu
 calendar_header();
 
-echo "<TR BGCOLOR=\"$color[0]\"><TD>".
-     "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">".
-     '<tr><td>'.
+echo html_tag( 'tr', '', '', $color[0] ) .
+           html_tag( 'td' ) .
+               html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) .
+                   html_tag( 'tr' ) .
+                       html_tag( 'td', '', 'left' ) .
      date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year));
 if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($dminute)){
     if (isset($confirmed)){
         delete_event("$dmonth$dday$dyear", "$dhour$dminute");
-        echo '<br><br>' . _("Event deleted!") . "<BR>\n";
-        echo "<A HREF=\"day.php?year=$year&month=$month&day=$day\">" .
-          _("Day View") . "</A>\n";
+        echo '<br><br>' . _("Event deleted!") . "<br>\n";
+        echo "<a href=\"day.php?year=$year&month=$month&day=$day\">" .
+          _("Day View") . "</a>\n";
     } else {
         readcalendardata();
         confirm_deletion();

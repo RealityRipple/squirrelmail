@@ -34,27 +34,37 @@ function startcalendar() {
     $next_year = date( 'Y', $next_date );
     $self = 'calendar.php';
 
-    echo "<TR BGCOLOR=\"$color[0]\"><TD>" .
-         "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">" .
-         '<tr>'.
-         "<th><a href=\"$self?year=".($year-1)."&month=$month\">&lt;&lt;&nbsp;".($year-1)."</a></th>\n".
-         "<th><a href=\"$self?year=$prev_year&month=$prev_month\">&lt;&nbsp;" .
-         date_intl( 'M', $prev_date). "</a></th>\n".
-         "<th bgcolor=$color[0] colspan=3>" .
-         date_intl( 'F Y', $act_date ) . "</th>\n" .
-         "<th><a href=\"$self?year=$next_year&month=$next_month\">" .
-         date_intl( 'M', $next_date) . "&nbsp;&gt;</a></th>".
-         "<th><a href=\"$self?year=".($year+1)."&month=$month\">".($year+1)."&nbsp;&gt;&gt;</a></th>".
-         '</tr><tr>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Sunday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Monday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Tuesday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Wednesday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Thursday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Friday") . '</th>'.
-         "<th WIDTH=\"14%\" bgcolor=$color[5] width=90>" . _("Saturday") . '</th>'.
-        '</tr>';
-
+    echo html_tag( 'tr', "\n".
+               html_tag( 'td', "\n".
+                   html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) .
+                       html_tag( 'tr', "\n".
+                            html_tag( 'th',
+                                "<a href=\"$self?year=".($year-1)."&month=$month\">&lt;&lt;&nbsp;".($year-1)."</a>"
+                            ) . "\n".
+                            html_tag( 'th',
+                                "<a href=\"$self?year=$prev_year&month=$prev_month\">&lt;&nbsp;" .
+                                date_intl( 'M', $prev_date). "</a>"
+                            ) . "\n".
+                            html_tag( 'th', date_intl( 'F Y', $act_date ), '', $color[0], 'colspan="3"') .
+                            html_tag( 'th',
+                                "<a href=\"$self?year=$next_year&month=$next_month\">" .
+                                date_intl( 'M', $next_date) . "&nbsp;&gt;</a>"
+                            ) . "\n".
+                            html_tag( 'th',
+                                "<a href=\"$self?year=".($year+1)."&month=$month\">".($year+1)."&nbsp;&gt;&gt;</a>"
+                            )
+                       ) . "\n".
+                       html_tag( 'tr',
+                           html_tag( 'th', _("Sunday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Monday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Tuesday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Wednesday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Thursday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Friday"), '', $color[5], 'width="14%" width="90"' ) ."\n" .
+                           html_tag( 'th', _("Saturday"), '', $color[5], 'width="14%" width="90"' ) ."\n"
+                       )
+               ) ,
+           '', $color[0] ) ."\n";
 }
 
 //main logic for month view of calendar
@@ -64,20 +74,20 @@ function drawmonthview() {
     $aday = 1 - date('w', mktime(0, 0, 0, $month, 1, $year));
     $days_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));
     while ($aday <= $days_in_month) {
-        echo '<tr>';
+        echo html_tag( 'tr' );
         for ($j=1; $j<=7; $j++) {
             $cdate="$month";
             ($aday<10)?$cdate=$cdate."0$aday":$cdate=$cdate."$aday";
             $cdate=$cdate."$year";
             if ( $aday <= $days_in_month && $aday > 0){
-                echo "<TD BGCOLOR=\"$color[4]\" height=50 valign=top>\n" .
-                     "<div align=right>";
+                echo html_tag( 'td', '', 'left', $color[4], 'height="50" valign="top"' ) ."\n".
+                     html_tag( 'div', '', 'right' );
                 echo(($cdate==$todayis) ? "<font size=-1 color=$color[1]>[ " . _("TODAY") . " ] " : "<font size=-1>");
                 echo "<a href=day.php?year=$year&month=$month&day=";
                 echo(($aday<10) ? "0" : "");
                 echo "$aday>$aday</a></font></div>";
             } else {
-                echo "<TD BGCOLOR=\"$color[0]\">\n".
+                echo html_tag( 'td', '', 'left', $color[0]) ."\n".
                      "&nbsp;";
             }
             if (isset($calendardata[$cdate])){
@@ -91,7 +101,7 @@ function drawmonthview() {
                     }
                 }
             }
-            echo "\n</TD>\n";
+            echo "\n</td>\n";
             $aday++;
         }
         echo '</tr>';
@@ -102,7 +112,8 @@ function drawmonthview() {
 function endcalendar() {
     global $year, $month, $day, $color;
 
-    echo "          <TR><TD COLSPAN=7>\n".
+    echo html_tag( 'tr' ) ."\n" .
+           html_tag( 'td', '', 'left', '', 'colspan="7"' ) ."\n" .
          "          <FORM NAME=caljump ACTION=\"calendar.php\" METHOD=POST>\n".
          "          <SELECT NAME=\"year\">\n";
     select_option_year($year);
