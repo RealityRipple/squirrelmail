@@ -74,15 +74,15 @@
          setPref($data_dir, $username, "move_to_trash", true);
          setPref($data_dir, $username, "trash_folder", $trash);
       } else {
-         setPref($data_dir, $username, "move_to_trash", false);
-         setPref($data_dir, $username, "trash_folder", "");
+         setPref($data_dir, $username, "move_to_trash", "0");
+         setPref($data_dir, $username, "trash_folder", "none");
       }
       if ($sent != "none") {
          setPref($data_dir, $username, "move_to_sent", true);
          setPref($data_dir, $username, "sent_folder", $sent);
       } else {
-         setPref($data_dir, $username, "move_to_sent", false);
-         setPref($data_dir, $username, "sent_folder", "");
+         setPref($data_dir, $username, "move_to_sent", "0");
+         setPref($data_dir, $username, "sent_folder", "none");
       } 
       setPref($data_dir, $username, "folder_prefix", $folderprefix);
       setPref($data_dir, $username, "unseen_notify", $unseennotify);

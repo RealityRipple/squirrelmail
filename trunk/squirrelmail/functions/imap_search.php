@@ -13,8 +13,10 @@
    if (!isset($mime_php))
       include("../functions/mime.php");
 
+   $imap_search_php = true;
+
 function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color) {
-   global $msgs;
+   global $msgs, $message_highlight_list;
    $urlMailbox = urlencode($mailbox);
    
    # Construct the Search QuERY
@@ -55,9 +57,13 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
          $hdr = sqimap_get_small_header ($imapConnection, $messagelist[$q], true);
       else
          $hdr = sqimap_get_small_header ($imapConnection, $messagelist[$q], false);
-         $from[$q] = $hdr->from;
-         $date[$q] = $hdr->date;
-         $subject[$q] = $hdr->subject;
+						
+			$from[$q] = $hdr->from;
+			$date[$q] = $hdr->date;
+			$subject[$q] = $hdr->subject;
+         $to[$q] = $hdr->to;
+         $priority[$q] = $hdr->priority;
+         $cc[$q] = $hdr->cc;
          $id[$q] = $messagelist[$q];
 
          $flags[$q] = sqimap_get_flags ($imapConnection, $messagelist[$q]);
@@ -70,9 +76,14 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
          $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
-         $messages[$j]["ID"] = $id[$j]; 
+         $messages[$j]["ID"] = $id[$j];
          $messages[$j]["FROM"] = decodeHeader($from[$j]);
+         $messages[$j]["FROM-SORT"] = strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
          $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
+         $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
+         $messages[$j]["TO"] = decodeHeader($to[$j]);
+			$messages[$j]["PRIORITY"] = $priority[$j];
+         $messages[$j]["CC"] = $cc[$j];
 
          $num = 0;
          while ($num < count($flags[$j])) {
@@ -166,7 +177,6 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
  
          while ($j < count($msgs)) {
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, "", 0, $search_where, $search_what);
-            //echo $msgs[$j]["SUBJECT"]."<br>";
             $j++;
          }
          echo "</table>";

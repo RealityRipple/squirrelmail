@@ -135,7 +135,7 @@
    $to_string = "";
    $to_ary = $message->header->to;
    while ($i < count($to_ary)) {
-      $to_ary[$i] = htmlspecialchars($to_ary[$i]);
+      $to_ary[$i] = htmlspecialchars(decodeHeader($to_ary[$i]));
 
       if ($to_string)
          $to_string = "$to_string<BR>$to_ary[$i]";
@@ -169,7 +169,7 @@
    $i = 0;
    $cc_string = "";
    $cc_ary = $message->header->cc;
-   while ($i < count($cc_ary)) {
+   while ($i < count(decodeHeader($cc_ary))) {
       $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
       if ($cc_string)
          $cc_string = "$cc_string<BR>$cc_ary[$i]";
@@ -218,7 +218,7 @@
    echo _("Message List");
    echo "</A>&nbsp;|&nbsp;";
    if ($where && $what) {
-      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1&where=".urlencode($where)."&what=".urlencode($what)."\">";
+      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."\">";
    } else {
       echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
    }

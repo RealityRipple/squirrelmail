@@ -28,11 +28,6 @@
    if (!isset($auth_php))
       include ("../functions/auth.php"); 
 
-   if ($language) {
-      setcookie("squirrelmail_language", $language, time()+2592000);
-      $squirrelmail_language = $language;
-   }   
-
    include("../src/load_prefs.php");
    displayPageHeader($color, "None");
    is_logged_in(); 
@@ -47,6 +42,10 @@
 	$helpdir[7] = "FAQ.hlp";
 
    /****************[ HELP FUNCTIONS ]********************/
+   // parses through and gets the information from the different documents.  
+   // this returns one section at a time.  You must keep track of the position
+   // so that it knows where to start to look for the next section.
+
    function get_info($doc, $pos) {
       for ($n=$pos; $n < count($doc); $n++) {
          if (trim(strtolower($doc[$n])) == "<chapter>" || trim(strtolower($doc[$n])) == "<section>") {
@@ -111,13 +110,12 @@
          $context = "read"; 
    }
    
-   if (file_exists("../help/$user_language")) {
+   if (file_exists("../help/$squirrelmail_language")) {
       $help_exists = true;
-      $user_language = $user_language;
    } else if (file_exists("../help/en")) {
       $help_exists = true;
       echo "<center><font color=\"$color[2]\">";
-      echo _("The help has not been translated to your preferred language.  It will be displayed in English instead.");
+      printf (_("The help has not been translated to %s.  It will be displayed in English instead."), $languages[$squirrelmail_language]["NAME"]);
       echo "</font></center><br>";
       $user_language = "en";
    } else {
