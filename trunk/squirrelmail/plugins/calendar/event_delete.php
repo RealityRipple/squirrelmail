@@ -48,14 +48,14 @@ function confirm_deletion()
          "       <INPUT TYPE=HIDDEN NAME=\"dhour\" VALUE=\"$dhour\">\n".
          "       <INPUT TYPE=HIDDEN NAME=\"dminute\" VALUE=\"$dminute\">\n".
          "       <INPUT TYPE=HIDDEN NAME=\"confirmed\" VALUE=\"yes\">\n".
-         "       <INPUT TYPE=SUBMIT VALUE=\"Yes\">\n".
+         '       <INPUT TYPE=SUBMIT VALUE="' . _("Yes") . "\">\n".
          "    </FORM>\n".
          "    </TD><TD ALIGN=LEFT BGCOLOR=\"$color[4]\">\n".
          "    <FORM NAME=\"nodelevent\" METHOD=POST ACTION=\"day.php\">\n".
          "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
          "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
          "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-         "       <INPUT TYPE=SUBMIT VALUE=\"No\">\n".
+         '       <INPUT TYPE=SUBMIT VALUE="' . _("No") . "\">\n".
          "    </FORM>\n".
          "    </TD></TR>\n".
          "  </TABLE>\n";
@@ -87,7 +87,8 @@ if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($d
     if (isset($confirmed)){
         delete_event("$dmonth$dday$dyear", "$dhour$dminute");
         echo '<br><br>' . _("Event deleted!") . "<BR>\n";
-        echo "<A HREF=\"day.php?year=$year&month=$month&day=$day\">Day View</A>\n";
+        echo "<A HREF=\"day.php?year=$year&month=$month&day=$day\">" .
+          _("Day View") . "</A>\n";
     } else {
         readcalendardata();
         confirm_deletion();

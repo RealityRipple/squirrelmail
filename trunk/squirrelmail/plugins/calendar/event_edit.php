@@ -184,7 +184,7 @@ if (!isset($updated)){
         confirm_update();
     } else {
         update_event("$month$day$year", "$hour$minute");
-        echo "<tr><td>Event updated!</td></tr>\n";
+        echo "<tr><td>" . _("Event updated!") . "</td></tr>\n";
         echo "<tr><td><A HREF=\"day.php?year=$year&month=$month&day=$day\">" . 
         _("Day View") ."</A></td></tr>\n";
         $fixdate = date( 'mdY', mktime(0, 0, 0, $event_month, $event_day, $event_year));
