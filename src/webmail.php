@@ -41,6 +41,18 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
+if (sqgetGlobalVar('sort', $sort)) {
+    $sort = (int) $sort;
+}
+
+if (sqgetGlobalVar('startMessage', $startMessage)) {
+    $startMessage = (int) $startMessage;
+}
+
+if (!sqgetGlobalVar('mailbox',$mailbox)) {
+    $mailbox = 'INBOX';
+}
+
 sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 
 if ( isset($_SESSION['session_expired_post']) ) {
@@ -136,8 +148,9 @@ if (empty($right_frame) || (strpos(urldecode($right_frame), '://'))) {
 
 if ($right_frame == 'right_main.php') {
     $urlMailbox = urlencode($mailbox);
-    $right_frame_url =
-        "right_main.php?mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage";
+    $right_frame_url = "right_main.php?mailbox=$urlMailbox"
+                       . (!empty($sort)?"&amp;sort=$sort":'')
+                       . (!empty($startMessage)?"&amp;startMessage=$startMessage":'');
 } elseif ($right_frame == 'options.php') {
     $right_frame_url = 'options.php';
 } elseif ($right_frame == 'folders.php') {
@@ -147,7 +160,7 @@ if ($right_frame == 'right_main.php') {
 } else if ($right_frame == '') {
     $right_frame_url = 'right_main.php';
 } else {
-    $right_frame_url =  $right_frame;
+    $right_frame_url =  htmlspecialchars($right_frame);
 }
 
 $left_frame  = '<frame src="left_main.php" name="left" frameborder="1" title="'.
