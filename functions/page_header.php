@@ -19,13 +19,7 @@ require_once(SM_PATH . 'functions/global.php');
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
-    if ( !check_php_version(4,1) ) {
-            global $_SESSION;
-    }
-    if (isset($_SESSION['base_uri'])) {
-        $base_uri = $_SESSION['base_uri'];
-    }
-    else {
+    if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
     global $theme_css, $custom_css;
@@ -68,11 +62,7 @@ ECHO;
 
 
 function displayInternalLink($path, $text, $target='') {
-    if ( !check_php_version(4,1) ) {
-            global $_SESSION;
-    }
-
-    $base_uri = $_SESSION['base_uri']; 
+    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
     if ($target != '') {
         $target = " target=\"$target\"";
     }
@@ -85,12 +75,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
            $compose_new_win, $compose_width, $compose_height,
            $attachemessages, $provider_name, $provider_uri;
 
-    if ( !check_php_version(4,1) ) {
-            global $_SESSION;
-    }
-
-    $base_uri = $_SESSION['base_uri'];
-    $delimiter = $_SESSION['delimiter'];
+    sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION );
+    sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if ($qmark = strpos($module, '?')) {
         $module = substr($module, 0, $qmark);
