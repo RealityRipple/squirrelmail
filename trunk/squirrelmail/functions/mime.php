@@ -24,6 +24,7 @@
       var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
       var $id = 0, $mailbox = '', $description = '', $filename = '';
       var $entity_id = 0, $message_id = 0, $name = '';
+      // var $priority = "";
    }
 
    class message {

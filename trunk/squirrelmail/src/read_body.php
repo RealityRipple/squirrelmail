@@ -334,6 +334,17 @@
          }
       }
    }
+
+   if($default_use_priority) {
+       switch(substr($message->header->priority,0,1)) {
+	 case "1" : $priority_string = _("High");
+	 break;
+	 case "3" : $priority_string = _("Normal");
+	 break;
+	 case "5" : $priority_string = _("Low");
+	 break;
+       }
+   }
    /** make sure everything will display in HTML format **/
    $from_name = decodeHeader(htmlspecialchars($message->header->from));
    $subject = decodeHeader(htmlspecialchars($message->header->subject));
@@ -465,6 +476,17 @@
            "            <B>$bcc_string</B>&nbsp;\n" .
            '         </TD>' . "\n" .
            '      </TR>' . "\n";
+   }
+   if ($default_use_priority) {
+      if (isset($priority_string)) {
+	echo "      <TR>\n" .
+	  "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
+	  "            "._("Priority").": \n".
+	  "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n" .
+	  "            <B>$priority_string</B>&nbsp;\n" .
+	  "         </TD>" . "\n" .
+	  "      </TR>" . "\n";
+      }
    }
    do_hook("read_body_header");
    echo '</TABLE>' .
