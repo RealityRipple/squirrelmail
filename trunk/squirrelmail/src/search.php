@@ -60,6 +60,9 @@
    echo "       <TD ALIGN=\"RIGHT\" WIDTH=33%>\n";
    echo "         <SELECT NAME=\"where\">";
    
+   if ($where == "BODY") echo "           <OPTION VALUE=\"BODY\" SELECTED>"._("Body")."\n";
+   else echo "           <OPTION VALUE=\"BODY\">"._("Body")."\n";
+   
    if ($where == "TEXT") echo "           <OPTION VALUE=\"TEXT\" SELECTED>"._("Everywhere")."\n";
    else echo "           <OPTION VALUE=\"TEXT\">"._("Everywhere")."\n";
    
@@ -68,6 +71,9 @@
    
    if ($where == "FROM") echo "           <OPTION VALUE=\"FROM\" SELECTED>"._("From")."\n";
    else echo "           <OPTION VALUE=\"FROM\">"._("From")."\n";
+   
+   if ($where == "CC") echo "           <OPTION VALUE=\"Cc\" SELECTED>"._("Cc")."\n";
+   else echo "           <OPTION VALUE=\"CC\">"._("Cc")."\n";
    
    if ($where == "TO") echo "           <OPTION VALUE=\"TO\" SELECTED>"._("To")."\n";
    else echo "           <OPTION VALUE=\"TO\">"._("To")."\n";
