@@ -491,6 +491,8 @@
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
+      // The trim() is a workaround for RedHat's PHP 4.0.4pl1-3
+      // Possibly is there to make Konq work.
       if ($reply_id = trim($reply_id)) {
          sqimap_mailbox_select ($imap_stream, $mailbox);
          sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, 'Answered');
@@ -523,6 +525,8 @@
          $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
       }
 
+      // The trim() is a workaround for RedHat's PHP 4.0.4pl1-3
+      // Possibly is there to make Konq work.
       $sent_folder = trim($sent_folder);
       if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
          sqimap_append ($imap_stream, $sent_folder, $length);
