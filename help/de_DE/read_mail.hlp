@@ -1,0 +1,197 @@
+<chapter>
+   <title>
+      Eine EMail lesen.
+   </title>
+   <summary>
+      Die M&ouml;glichkeit eine EMail zu lesen ist eine der Grundfunktionalit&auml;ten
+      eines EMail-Programms. Aber nat&uuml;rlich h&auml;lt SquirrelMail hierf&uuml;r einige
+      spezielle Features bereit. Hier wird erkl&auml;rt, was man alles machen
+      kann.
+   </summary>
+   <description>
+      <p>
+      Wenn man in der Nachrichtenliste auf den Betreff einer bestimmten
+      EMail klickt, dann wird diese EMail angezeigt. Eine Sache ist hier direkt
+      zu bemerken: Alle EMail-Adressen und Web-Links sind gleich f&uuml;r den 
+      Browser verlinkt und k&ouml;nnen einfach mit einem Mausklick aktiviert
+      werden. Es &ouml;ffnet sich entsprechend die Website bzw. man kann eine 
+      EMail schreiben.<BR> 
+      Was auch wirklich praktisch ist, ist die Farbkodierung der Zitierung.
+      Normalerweise wird in einer Antwortmail die vorhergehende EMail mit 
+      einem ">" zitiert, d.h. vor jeder Zeile der alten Mail steht dieses
+      Zeichen. SquirrelMail erkennt dies und verarbeitet dies in eine 
+      Farbkodierung. So kann man allein aufgrund der Farbe schon eigentliche
+      EMail und das Zitat der vorhergehenden EMail voneinander trennen. Dies
+      gilt sogar auch f&uuml;r tiefere Zitate. Die Farbkodierung von SquirrelMail 
+      funktioniert zwei Ebenen tief. <BR>
+      Unter der Haupt Men&uuml;leiste gibt es bei der angezeigten Mail noch eine
+      weitere, die in drei Bereiche aufgeteilt ist. Links kann man die Mail 
+      l&ouml;schen oder man kommt per Mausklick zur&uuml;ck zur &Uuml;bersicht. 
+      In der Mitte kann man in der Nachrichtenliste vor und zur&uuml;ck navigieren. 
+      Und auf der rechten Seite kann man verschiedene EMail-Funktionen
+      ausw&auml;hlen.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Nachrichtenliste
+   </title>
+   <description>
+      <p>
+      Beim Anklicken kommt man zur&uuml;ck zur &Uuml;bersicht des Ordners aus
+      dem man kam.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      L&ouml;schen
+   </title>
+   <description>
+      <p>
+      Mit diesem Link kann man die aktuell angezeigte EMail l&ouml;schen. Auch 
+      alle Anh&auml;nge der EMail werden hierbei gel&ouml;scht. Dies kann man nat&uuml;rlich 
+      verhindern, indem man die Anh&auml;nge vorher auf den eigenen Computer 
+      herunterl&auml;dt und erst dann die EMail l&ouml;scht. Das Speichern von 
+      Anh&auml;ngen ist untenstehend erkl&auml;rt.<BR>
+      In diesem Zusammenhang heisst L&ouml;schen einer EMail eigentlich nur, dass
+      die EMail in den Ordner Namens "Trash" (also Abfall) verschoben wird. 
+      Wenn diese EMail also f&uuml;r immer gel&ouml;scht werden soll, dann muss man auch
+      noch den "Trash"-Folder leeren. Dies kann &uuml;ber das Optionenmen&uuml; auch
+      automatisiert werden.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Navigation
+   </title>
+   <description>
+      <p>
+      In der Mitte der Men&uuml;leiste befinden sich Links zum Navigieren 
+      durch den EMail-Ordner. Zur&uuml;ck kann nat&uuml;rlich nur angeklickt werden,
+      wenn es eine vorhergehende EMail gibt - andernfalls ist es nur normaler
+      Text, den man nicht anklicken kann. Wenn man also "Zur&uuml;ck" anklickt, 
+      kann man die vorhergehende EMail lesen, ohne das man zur
+      Nachrichtenliste zur&uuml;ckgehen muss. Das selbe gilt entsprechend
+      auch f&uuml;r den Weiter-Link. Wird hier angeklickt, liest man die auf die
+      aktuell angezeigte EMail folgende Mail.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Weiterleiten
+   </title>
+   <description>
+      <p>
+      Auf der rechten Seite gibt es die Option zum Weiterleiten der aktuell
+      angezeigten EMail. Dabei &ouml;ffnet sich die Seite zum schreiben einer
+      Mail und im Nachrichtenfeld der EMail ist die Original-EMail unter 
+      ""--Original Message--" zitiert. Zudem wird dem Betreff der EMail noch
+      ein "Fwd:" vorangestellt, damit der Empf&auml;nger weiss, worum es sich
+      handelt. Die Zitierte EMail kann man kommentieren und an beliebiger 
+      Stelle etwas dazu schreiben. Auch hier kann man wieder einen Anhang
+      an die EMail h&auml;ngen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Antworten
+   </title>
+   <description>
+      <p>
+      Wenn man Antworten anklickt, kann man auf die EMail die angezeigt
+      wurde direkt und schnell antworten. Es &ouml;ffnet sich wieder die 
+      "Nachrichten verfassen" Seite und die Original-EMail wird einger&uuml;ckt
+      und vor jede Zeile wird ein ">" gestellt. Zum Teil klappt dies nicht so
+      richtig wegen dem Zeilenumbruch in der eingehenden Mail. Dann kann man
+      unter Optionen den Zeilenumbruch etwas h&ouml;her einstellen. Zudem wird 
+      vor das Betreff der Nachricht "Re:" f&uuml;r "Reply", also Antwort,
+      vorgestellt. 
+      Auch hier kann man wieder an einer beliebigen Stelle im Text 
+      weiterschreiben und auch eine Datei anh&auml;ngen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Allen Antworten
+   </title>
+   <description>
+      <p>
+      Im Prinzip das gleiche wie "Antworten", nur dann hier alle EMail-
+      Adressen aus den Kopfzeilen eine Antwort erhalten. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Alle Kopfzeilen anzeigen
+   </title>
+   <description>
+      <p>
+      Dies zeigt alle Kopfzeilen der EMail an. Hier kann man sehen &uuml;ber 
+      welchen Weg die EMail lief, bis sie ihren Empf&auml;nger erreicht hat. 
+      Zudem sieht man hier noch viele weitere Informationen. F&uuml;r normale
+      User ist dieses Feature selten interessant.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Druckversion anzeigen
+   </title>
+   <description>
+      <p>
+      Wenn eine EMail ausgedruckt werden soll, ist es praktisch diesen Link
+      auszuw&auml;hlen. Es &ouml;ffnet sich ein neues Fenster, bei dem die ganzen Men&uuml;s
+      und Schaltfl&auml;chen ausgeblendet sind. Wenn man dann auf Drucken klickt
+      sollte die Nachricht dann auch ausgedruckt werden. Um das entstandene
+      Fenster zu schliessen kann man den "Schliessen"-Knopf bet&auml;tigen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Datei herunterladen
+   </title>
+   <description>
+      <p>
+      &Uuml;ber der unteren Men&uuml;leiste findet sich der Link "Als Datei runterladen"
+      Wenn man hier anklickt, dann kann man die EMail als Text auf die 
+      lokale Festplatte speichern. Zudem wird ein einfacher EMail-Kopf 
+      &uuml;ber die Nachricht geschrieben.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Anh&auml;nge
+   </title>
+   <description>
+      <p>
+      Alle Dateianh&auml;nge die bei der empfangenen EMail dabei sind werden
+      hier in einer farbigen Box angezeigt. Hier sieht man den Dateinamen 
+      und einen Dateityp. Wenn man den Dateianhang anklickt, wird dieser 
+      entweder angezeigt oder man kann ihn direkt herunterladen. Was passiert
+      h&auml;ngt vom Dateityp und vom verwendeten Browser ab.<BR>
+      Wenn man den Anhang nur runterladen m&ouml;chte, dann kann man auch den
+      "Herunterladen"-Link ausw&auml;hlen und man kann die Datei direkt speichern.
+      Wenn man den Anhang auch ansehen kann, erscheint auch der Link "anzeigen"
+      neben dem Dateianhang.
+      </p>
+   </description>
+</section>
