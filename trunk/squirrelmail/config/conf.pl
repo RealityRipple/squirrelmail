@@ -402,6 +402,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
           if ( lc($useSendmail) eq 'true' ) {
             print $WHT . "Sendmail" . $NRM . "\n--------\n";
             print "4.   Sendmail Path         : $WHT$sendmail_path$NRM\n";
+            print "5.   Suppress SM header    : $WHT$skip_SM_header$NRM\n";
             print "\n";
           } else {
             print $WHT . "SMTP Settings" . $NRM . "\n-------------\n";
