@@ -49,10 +49,10 @@
       echo "<TABLE WIDTH=98% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
 
-      if ($type1 == "html")
-         echo $body;
-      else
-         echo translateText($body, $wrap_at, $charset);
+      if ($type1 != "html")
+         translateText($body, $wrap_at, $charset);
+      
+      echo $body;
 
       echo "</TT></TD></TR></TABLE>";
    }
