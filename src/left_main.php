@@ -19,6 +19,8 @@
     define('SM_BOX_UNCOLLAPSED', 0);
     define('SM_BOX_COLLAPSED',   1);
 
+    global $delimiter;
+
     // open a connection on the imap port (143)
     $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
 
@@ -58,7 +60,7 @@
         session_register('auto_create_done');
     }
 
-   function formatMailboxName($imapConnection, $box_array, $delimeter) {
+   function formatMailboxName($imapConnection, $box_array) {
       global $folder_prefix, $trash_folder, $sent_folder;
       global $color, $move_to_sent, $move_to_trash;
       global $unseen_notify, $unseen_type, $collapse_folders;
@@ -198,7 +200,6 @@
     echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
     echo _("refresh folder list");
     echo '</A>)</SMALL></CENTER><BR>';
-    $delimeter = sqimap_get_delimiter($imapConnection);
 
     /* Lastly, display the folder list. */
     if (isset($collapse_folders) && $collapse_folders) {
@@ -223,7 +224,7 @@
     for ($i = 0;$i < count($boxes); $i++) {
         if ($boxes[$i]['visible'] == true) {
             $mailbox = $boxes[$i]['formatted'];
-            $mblevel = substr_count($boxes[$i]['unformatted'], $delimeter) + 1;
+            $mblevel = substr_count($boxes[$i]['unformatted'], $delimiter) + 1;
 
             /* Create the prefix for the folder name and link. */
             $prefix = str_repeat('  ',$mblevel);
@@ -244,7 +245,7 @@
                 }
                 $line .= '</FONT>';
             } else {
-                $line .= formatMailboxName($imapConnection, $boxes[$i], $delimeter);
+                $line .= formatMailboxName($imapConnection, $boxes[$i]);
             }
 
             /* Put the final touches on our folder line. */
@@ -284,12 +285,12 @@
      * This simple function checks if a box is another box's parent.
      */
     function is_parent_box($curbox_name, $parbox_name) {
-        global $delimeter;
+        global $delimiter;
 
         /* Extract the name of the parent of the current box. */
-        $curparts = explode($delimeter, $curbox_name);
+        $curparts = explode($delimiter, $curbox_name);
         $curname = array_pop($curparts);
-        $actual_parname = implode($delimeter, $curparts);
+        $actual_parname = implode($delimiter, $curparts);
         $actual_parname = substr($actual_parname,0,strlen($parbox_name));
 
         /* Compare the actual with the given parent name. */

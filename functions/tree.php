@@ -90,29 +90,29 @@
       }
    }
 
-   function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tree, $dm, $topFolderName) {
-      global $trash_folder;
+   function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tree, $topFolderName) {
+      global $trash_folder, $delimiter;
 
-      $position = strrpos($topFolderName, $dm) + 1;
+      $position = strrpos($topFolderName, $delimiter) + 1;
       $subFolderName = substr($tree[$index]['value'], $position);
 
       if ($tree[$index]['doIHaveChildren']) {
-         sqimap_mailbox_create($imap_stream, $trash_folder . $dm . $subFolderName, "");
+         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
          sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         
          $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
          if ($messageCount > 0)
-            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $dm . $subFolderName);
+            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $delimiter . $subFolderName);
          
          for ($j = 0;$j < count($tree[$index]['subNodes']); $j++)
-            walkTreeInPostOrderCreatingFoldersUnderTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree, $dm, $topFolderName);
+            walkTreeInPostOrderCreatingFoldersUnderTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree, $topFolderName);
       } else {
-         sqimap_mailbox_create($imap_stream, $trash_folder . $dm . $subFolderName, '');
+         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
          sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
          
          $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
          if ($messageCount > 0)
-            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $dm . $subFolderName);
+            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $delimiter . $subFolderName);
       }
    }
 

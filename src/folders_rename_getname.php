@@ -16,15 +16,15 @@
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
-   $dm = sqimap_get_delimiter($imapConnection);
-   if (substr($old, strlen($old) - strlen($dm)) == $dm) {
+   global $delimiter;
+   if (substr($old, strlen($old) - strlen($delimiter)) == $delimiter) {
       $isfolder = true;
       $old = substr($old, 0, strlen($old) - 1);
    }
    
-   if (strpos($old, $dm)) {
-      $old_name = substr($old, strrpos($old, $dm)+1, strlen($old));
-      $old_parent = substr($old, 0, strrpos($old, $dm));
+   if (strpos($old, $delimiter)) {
+      $old_name = substr($old, strrpos($old, $delimiter)+1, strlen($old));
+      $old_parent = substr($old, 0, strrpos($old, $delimiter));
    } else {
       $old_name = $old;
       $old_parent = "";

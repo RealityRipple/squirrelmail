@@ -21,15 +21,15 @@
    }
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   $dm = sqimap_get_delimiter($imapConnection);
+   global $delimiter;
 
-   if (strpos($orig, $dm))
-      $old_dir = substr($orig, 0, strrpos($orig, $dm));
+   if (strpos($orig, $delimiter))
+      $old_dir = substr($orig, 0, strrpos($orig, $delimiter));
    else
       $old_dir = "";
 
    if ($old_dir != "")
-      $newone = "$old_dir$dm$new_name";
+      $newone = "$old_dir$delimiter$new_name";
    else
       $newone = "$new_name";
 
@@ -41,8 +41,8 @@
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
    if (isset($isfolder)) {
-      $newone = $newone.$dm;
-      $orig = $orig.$dm;
+      $newone = $newone.$delimiter;
+      $orig = $orig.$delimiter;
    }   
    sqimap_unsubscribe($imapConnection, $orig);
    sqimap_subscribe($imapConnection, $newone);
