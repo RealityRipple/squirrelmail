@@ -15,8 +15,8 @@
 function error_username_password_incorrect() {
 
     echo '<BR>'.
-                '<TABLE COLS=1 WIDTH="75%" NOBORDER BGCOLOR="#FFFFFF" ALIGN=CENTER>'.
-                '<TR BGCOLOR="#DCDCDC">'.
+                '<TABLE COLS=1 WIDTH="75%" NOBORDER BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
+                '<TR BGCOLOR="' . $color[0] . '">'.
                     '<TH>' . _("ERROR") . '</TH>'.
                 '</TR>' .
                 '<TR><TD>'.
@@ -32,16 +32,16 @@ function error_username_password_incorrect() {
 function general_info($motd, $org_logo, $version, $org_name, $color) {
     echo '<BR>';
     echo "<TABLE COLS=1 WIDTH=\"80%\" CELLSPACING=0 CELLPADDING=2 NOBORDER ALIGN=CENTER><TR><TD BGCOLOR=\"$color[9]\">";
-    echo '<TABLE COLS=1 WIDTH="100%" CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR="#FFFFFF" ALIGN=CENTER>';
+    echo '<TABLE COLS=1 WIDTH="100%" CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR="' .  $color[4] . '" ALIGN=CENTER>';
     echo '   <TR>';
     echo "      <TD BGCOLOR=\"$color[0]\">";
     echo '         <B><CENTER>';
     printf (_("Welcome to %s's WebMail system"), $org_name);
     echo '         </CENTER></B>';
-    echo '   <TR><TD BGCOLOR="#FFFFFF">';
+    echo '   <TR><TD BGCOLOR="' . $color[4] .  '">';
     echo '      <TABLE COLS=2 WIDTH="90%" CELLSPACING=0 CELLPADDING=3 NOBORDER align="center">';
     echo '         <TR>';
-    echo '            <TD BGCOLOR="#FFFFFF"><CENTER>';
+    echo '            <TD BGCOLOR="' . $color[4] .  '"><CENTER>';
     if ( strlen($org_logo) > 3 ) {
         echo "               <IMG SRC=\"$org_logo\">";
     } else {
@@ -51,7 +51,7 @@ function general_info($motd, $org_logo, $version, $org_name, $color) {
     printf (_("Running SquirrelMail version %s (c) 1999-2001."), $version);
     echo '            </CENTER><BR>';
     echo '            </CENTER></TD></TR><TR>';
-    echo '            <TD BGCOLOR="#FFFFFF">';
+    echo '            <TD BGCOLOR="' . $color[4] .  '">';
     echo "               $motd";
     echo '            </TD>';
     echo '         </TR>';

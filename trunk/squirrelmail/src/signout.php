@@ -77,7 +77,7 @@ require_once('../functions/strings.php');
 LINK="<?php echo $color[7] ?>" VLINK="<?php echo $color[7] ?>"
 ALINK="<?php echo $color[7] ?>">
 <BR><BR>
-<TABLE BGCOLOR="FFFFFF" BORDER="0" COLS="1" WIDTH="50%" CELLSPACING="0" 
+<TABLE BGCOLOR="<?php echo $color[4]; ?>" BORDER="0" COLS="1" WIDTH="50%" CELLSPACING="0" 
 CELLPADDING="2" ALIGN="CENTER">
   <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH="100%">
     <TD ALIGN="CENTER">
