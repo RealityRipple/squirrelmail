@@ -609,7 +609,7 @@ function load_spam_filters() {
     $filters['SPAMcop']['dns'] = 'bl.spamcop.net';
     $filters['SPAMcop']['result'] = '127.0.0.2';
     $filters['SPAMcop']['comment'] =
-        _("FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85% or more).");
+        _("FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85 percent or more).");
 
     $filters['dev.null.dk']['prefname'] = 'filters_spam_devnull';
     $filters['dev.null.dk']['name'] = 'dev.null.dk Lists';
