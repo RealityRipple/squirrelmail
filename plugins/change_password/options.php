@@ -13,10 +13,11 @@
 
 define('SM_PATH','../../');
 
-include_once (SM_PATH . 'include/validate.php');
-include_once (SM_PATH . 'functions/page_header.php');
-include_once (SM_PATH . 'plugins/change_password/functions.php');
-include_once (SM_PATH . 'plugins/change_password/config.php');
+require_once (SM_PATH . 'include/validate.php');
+require_once (SM_PATH . 'functions/page_header.php');
+require_once (SM_PATH . 'plugins/change_password/functions.php');
+require_once (SM_PATH . 'plugins/change_password/config.php');
+require_once (SM_PATH . 'functions/forms.php');
 
 /* the form was submitted, go for it */
 if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
@@ -50,23 +51,23 @@ if (isset($Messages) && count($Messages) > 0) {
 }
 
 ?><tr><td>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
+    <?php echo addForm($_SERVER['PHP_SELF'], 'POST'); ?>
     <table>
       <tr>
         <th align="right"><?php echo _("Current Password:")?></th>
-        <td><input type="password" name="cpw_curpass" value="" size="20" /></td>
+        <td><?php echo addPwField('cpw_curpass'); ?></td>
       </tr>
       <tr>
         <th align="right"><?php echo _("New Password:")?></th>
-        <td><input type="password" name="cpw_newpass" value="" size="20" /></td>
+        <td><?php echo addPwField('cpw_newpass'); ?></td>
       </tr>
       <tr>
         <th align=right><?php echo _("Verify New Password:")?></th>
-        <td><input type="password" name="cpw_verify" value="" size="20" /></td>
+        <td><?php echo addPwField('cpw_verify'); ?></td>
       </tr>
       <tr>
         <td align="center" colspan="2">
-        <input type="submit" name="cpw_go" value="<?php echo _("Change Password") ?>" /></td>
+	<?php echo addSubmit(_("Change Password"), 'cpw_go'); ?></td>
       </tr>
     </table>
     </form>
