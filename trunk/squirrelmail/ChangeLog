@@ -72,6 +72,8 @@ Version 1.5.0 -- CVS
     if IMAP connection dropped during login
   - Modified preference loading code to always have a complete $color array
     set in case a user uses an incomplete theme.
+  - new function sqimap_msgs_list_move() to replace sqimap_msgs_list_copy()
+  - sqimap_msgs_list_copy() no longer deletes messages copied.
   
 
 **************************************

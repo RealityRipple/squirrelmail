@@ -20,11 +20,23 @@ function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
     $read = sqimap_run_command ($imap_stream, "COPY $start:$end " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
 }
 
+/**
+* copy a range of messages ($id) to another mailbox ($mailbox)
+*/
 function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
     global $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);    
     $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
+}
+
+/**
+* move a range of messages ($id) to another mailbox. Deletes the originals.
+*/
+function sqimap_msgs_list_move ($imap_stream, $id, $mailbox) {
+    global $uid_support;
+    $msgs_id = sqimap_message_list_squisher($id);
+    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response,$message, $uid_support);
 }
 
 
