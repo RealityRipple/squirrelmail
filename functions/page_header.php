@@ -168,6 +168,15 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                            '"width='.$compose_width. ',height='.$compose_height.
                            ',scrollbars=yes,resizable=yes");'."\n".
                            "}\n\n";
+                    $js .= "function comp_in_new(comp_uri) {\n".
+                           "       if (!comp_uri) {\n".
+                           '           comp_uri = "'.$compose_uri."\";\n".
+                           '       }'. "\n".
+                           '    var newwin = window.open(comp_uri' .
+                           ', "_blank",'.
+                           '"width='.$compose_width. ',height='.$compose_height.
+                           ',scrollbars=yes,resizable=yes");'."\n".
+                           "}\n\n";
                 }
 
                 // javascript for sending read receipts
