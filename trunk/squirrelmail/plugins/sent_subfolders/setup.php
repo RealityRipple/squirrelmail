@@ -47,8 +47,8 @@ function squirrelmail_plugin_init_sent_subfolders() {
 }
 
 function sent_subfolders_check_handleAsSent() {
-    global $handleAsSent_result, $sent_subfolders_base;
-    global $use_sent_subfolders;
+    global $handleAsSent_result, $sent_subfolders_base,
+           $use_sent_subfolders, $delimiter;
     $sent_subfolders_base = 'INBOX.Sent';
     $args = func_get_arg(0);
 
