@@ -120,7 +120,8 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $compose_width, $compose_height,
            $attachemessages, $provider_name, $provider_uri,
-           $javascript_on, $default_use_mdn, $mdn_user_support;
+           $javascript_on, $default_use_mdn, $mdn_user_support,
+           $startMessage;
 
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION );
     sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION );
@@ -300,7 +301,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                                  : html_tag( 'td', '', 'left' ) )
         . "\n";
     $urlMailbox = urlencode($mailbox);
-    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox);
+    echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox.'&startMessage='.$startMessage);
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ('src/addressbook.php', _("Addresses"), 'right');
     echo "&nbsp;&nbsp;\n";
