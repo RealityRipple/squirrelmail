@@ -12,9 +12,12 @@
  * @version $Id$
  * @package squirrelmail
  * @subpackage encode
+ */
+
+/**
+ * Converts string to utf-8
  * @param $source string of unicode entities [STRING]
  * @return a utf-8 encoded string [STRING]
- * @access public
  */
 function charset_encode_utf_8 ($source) {
    $utf8Str = '';
