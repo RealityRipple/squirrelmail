@@ -460,7 +460,7 @@ function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
  */
 function getServerSortMessages($imapConnection, $start_msg, $show_num,
                                $num_msgs, $server_sort_order, $mbxresponse) {
-    if (isset($mbxresponse['SORT_ARRAY']) && $mbxresponse['SORT_ARRAY']) {
+    if (isset($mbxresponse['SORT_ARRAY']) && is_array($mbxresponse['SORT_ARRAY'])) {
         $id = $mbxresponse['SORT_ARRAY'];
     } else {
         $id = sqimap_get_sort_order($imapConnection, $server_sort_order,$mbxresponse);

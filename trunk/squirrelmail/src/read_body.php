@@ -830,8 +830,7 @@ $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false,
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
-
-    sqimap_mailbox_expunge_dmn($delete_id);
+    sqimap_mailbox_expunge_dmn($delete_id,$mbx_response,$server_sort_array);
 }
 
 /**
@@ -844,7 +843,7 @@ $uidvalidity = $mbx_response['UIDVALIDITY'];
 if (!isset($messages[$uidvalidity])) {
    $messages[$uidvalidity] = array();
 }
-if (!isset($messages[$uidvalidity][$passed_id])) {
+if (!isset($messages[$uidvalidity][$passed_id]) || $delete_id) {
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $FirstTimeSee = !$message->is_seen;
    $message->is_seen = true;
