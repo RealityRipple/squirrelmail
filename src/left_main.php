@@ -968,8 +968,9 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
-         ":<br />$clk</small><br />";
+    echo '<small><span style="white-space: nowrap;">' 
+       . str_replace(' ', '&nbsp;', _("Last Refresh")) 
+       . ":</span><br /><span style=\"white-space: nowrap;\">$clk</span></small><br />";
 }
 
 /* Next, display the refresh button. */
