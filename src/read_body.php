@@ -52,20 +52,14 @@ function findNextMessage($passed_id) {
             }
         }
     } else {
-        if ($sort == 6) {
-            if ($passed_id != 1) {
-                $result = $passed_id - 1;
-            }
-        } else {
-            if (is_array($msort)) {
-                for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
-                    if ($passed_id == $msgs[$key]['ID']) {
-                        next($msort);
-                        $key = key($msort);
-                        if (isset($key)){
-                            $result = $msgs[$key]['ID'];
-                            break;
-                        }
+        if (is_array($msort)) {
+            for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
+                if ($passed_id == $msgs[$key]['ID']) {
+                    next($msort);
+                    $key = key($msort);
+                    if (isset($key)){
+                        $result = $msgs[$key]['ID'];
+                        break;
                     }
                 }
             }
@@ -95,21 +89,14 @@ function findPreviousMessage($numMessages, $passed_id) {
             }
         }
     } else {
-        if ($sort == 6) {
-            if ($passed_id != $numMessages) {
-                $result = $passed_id + 1;
-            }
-        } else {
-            if (is_array($msort)) {
-                for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
-                    if ($passed_id == $msgs[$key]['ID']) {
-                        prev($msort);
-                        $key = key($msort);
-                        if (isset($key)) {
-                            //echo $msort[$key];   /* Why again were we echoing here? */
-                            $result = $msgs[$key]['ID'];
-                            break;
-                        }
+        if (is_array($msort)) {
+            for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
+                if ($passed_id == $msgs[$key]['ID']) {
+                    prev($msort);
+                    $key = key($msort);
+                    if (isset($key)) {
+                        $result = $msgs[$key]['ID'];
+                        break;
                     }
                 }
             }
