@@ -21,42 +21,42 @@
 
     // open a connection on the imap port (143)
     $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
-   
+
     displayHtmlHeader();
 
     /* If requested and not yet complete, attempt to autocreate folders. */
     if ($auto_create_special && ! isset($auto_create_done)) {
-          /* Autocreate the sent folder, if needed. */
-   	  if (isset ($sent_folder) && $sent_folder != 'none') {
-	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
-		 	sqimap_mailbox_create ($imapConnection, $sent_folder, '');
-		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $sent_folder)) {
-		    sqimap_subscribe($imapConnection, $sent_folder);
-		 }
-	  }
+        /* Autocreate the sent folder, if needed. */
+        if (isset ($sent_folder) && $sent_folder != 'none') {
+            if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
+                sqimap_mailbox_create ($imapConnection, $sent_folder, '');
+            } else if (! sqimap_mailbox_is_subscribed($imapConnection, $sent_folder)) {
+                sqimap_subscribe($imapConnection, $sent_folder);
+            }
+        }
 
-          /* Autocreate the trash folder, if needed. */
-   	  if (isset ($trash_folder) && $trash_folder != 'none') {
-	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
-		 	sqimap_mailbox_create ($imapConnection, $trash_folder, '');
-		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
-		    sqimap_subscribe($imapConnection, $trash_folder);
-		 }
-          }
+            /* Autocreate the trash folder, if needed. */
+        if (isset ($trash_folder) && $trash_folder != 'none') {
+            if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
+                sqimap_mailbox_create ($imapConnection, $trash_folder, '');
+            } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
+                sqimap_subscribe($imapConnection, $trash_folder);
+            }
+        }
 
-          /* Autocreate the drafts folder, if needed. */
-          if (isset ($draft_folder) && $draft_folder != 'none') {
-                 if (!sqimap_mailbox_exists ($imapConnection, $draft_folder)) {
-                        sqimap_mailbox_create ($imapConnection, $draft_folder, '');
-                 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $draft_folder)) {
-                    sqimap_subscribe($imapConnection, $draft_folder);
-                 }
-          }
+        /* Autocreate the drafts folder, if needed. */
+        if (isset ($draft_folder) && $draft_folder != 'none') {
+            if (!sqimap_mailbox_exists ($imapConnection, $draft_folder)) {
+                sqimap_mailbox_create ($imapConnection, $draft_folder, '');
+            } else if (! sqimap_mailbox_is_subscribed($imapConnection, $draft_folder)) {
+                sqimap_subscribe($imapConnection, $draft_folder);
+            }
+        }
 
           /* Let the world know that autocreation is complete! Hurrah! */
-	  $auto_create_done = true;
-	  session_register('auto_create_done');
-   }
+        $auto_create_done = true;
+        session_register('auto_create_done');
+    }
 
    function formatMailboxName($imapConnection, $box_array, $delimeter) {
       global $folder_prefix, $trash_folder, $sent_folder;
@@ -73,7 +73,7 @@
       if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
           $mailbox = $regs[2];
       }
-      
+
       $unseen = 0;
 
       if (($unseen_notify == 2 && $real_box == 'INBOX') ||
@@ -182,10 +182,11 @@
       $clk = date($hr, time()); 
       break;
     default:   
-      $clk = date("D, ".$hr, time()); 
+      $clk = date("D, ".$hr, time());
     }
 
-    echo "<center><small>$clk</small></center>";
+    echo '<center><small>' . _("Last Refresh") . ":<br>$clk";
+    echo '</small></center>';
     echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
     echo _("refresh folder list");
     echo '</A>)</SMALL></CENTER><BR>';

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-03 00:41+0100\n"
+"POT-Creation-Date: 2001-11-03 00:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Renamed successfully!"
 msgstr ""
 
-#: squirrelmail/src/folders.php:52 squirrelmail/src/left_main.php:190
+#: squirrelmail/src/folders.php:52 squirrelmail/src/left_main.php:191
 msgid "refresh folder list"
 msgstr ""
 
@@ -428,6 +428,10 @@ msgstr ""
 
 #: squirrelmail/src/left_main.php:133
 msgid "purge"
+msgstr ""
+
+#: squirrelmail/src/left_main.php:188
+msgid "Last Refresh"
 msgstr ""
 
 #: squirrelmail/src/login.php:88 squirrelmail/src/login.php:137
