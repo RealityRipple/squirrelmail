@@ -35,8 +35,10 @@ function load_optpage_data_display() {
     /* Load the theme option. */
     $theme_values = array();
     foreach ($theme as $theme_key => $theme_attributes) {
-        $theme_values[$theme_attributes['PATH']] = $theme_attributes['NAME'];
+        $theme_values[$theme_attributes['NAME']] = $theme_attributes['PATH'];
     }
+    ksort($theme_values);
+    $theme_values = array_flip($theme_values);
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'chosen_theme',
         'caption' => _("Theme"),
