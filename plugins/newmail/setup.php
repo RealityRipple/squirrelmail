@@ -207,7 +207,7 @@ function newmail_set_loadinfo() {
 function newmail_plugin() {
     global $username, $newmail_media, $newmail_enable, $newmail_popup,
         $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
-    global $newmail_mmedia;
+    global $newmail_mmedia, $newmail_allowsound;
     global $newmail_userfile_type;
 
     if ($newmail_enable == 'on' ||
@@ -274,7 +274,7 @@ function newmail_plugin() {
         }
 
         // create media output if there are new email messages
-        if ($totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
+        if ($newmail_allowsound && $totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
             echo newmail_create_media_tags($newmail_media);
         }
 

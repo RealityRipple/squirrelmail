@@ -49,3 +49,11 @@ to disallow the use of audio, change
 to 
     $allowsound = "false";
 on line 33 of newmail_opt.php
+
+-----------------------------------------
+
+From SquirrelMail 1.5.1 newmail plugin's site configuration can be stored in
+config/newmail_config.php or plugins/newmail/config.php.
+
+$allowsound setting is replaced with $newmail_allowsound and should be stored
+inside plugin's site configuration file.

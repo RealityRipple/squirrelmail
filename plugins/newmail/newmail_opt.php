@@ -32,9 +32,6 @@ $media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
 $media = getPref($data_dir,$username,'newmail_media', '(none)');
 $media_userfile_name = getPref($data_dir,$username,'newmail_userfile_name','');
 
-// Set $allowsound to false if you don't want sound files available
-$allowsound = "true";
-
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
             html_tag( 'td', '', 'center' ) .
@@ -55,7 +52,7 @@ echo html_tag( 'p',
      html_tag( 'p',
         sprintf(_("Selecting the %s option will change the title in some browsers to let you know when you have new mail (requires JavaScript, and only works in IE but you won't see errors with other browsers). This will always tell you if you have new mail, even if you have %s enabled."), '&quot;'._("Change title on supported browsers").'&quot;', '&quot;'._("Count only messages that are RECENT").'&quot;')
      ) . "\n";
-if ($allowsound == "true") {
+if ($newmail_allowsound) {
     echo html_tag( 'p',
             sprintf(_("Select %s to turn on playing a media file when unseen mail is in your folders. When enabled, you can specify the media file to play in the provided file box."), '&quot;'._("Enable Media Playing").'&quot;')
          ) . "\n" .
@@ -111,7 +108,7 @@ if($media_popup == 'on') {
 }
 echo 'name="media_popup" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
 
-if ($allowsound == "true") {
+if ($newmail_allowsound) {
 // Option: media_enable
     echo html_tag( 'tr' ) .
             html_tag( 'td', _("Enable Media Playing").':', 'right', '', 'style="white-space: nowrap;"' ) .
