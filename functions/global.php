@@ -24,10 +24,11 @@ if(isset($session_name) && $session_name) {
     ini_set('session.name' , 'SQMSESSID');
 }
 
-/** If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
- *  Force magic_quotes_runtime off.
- *  tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
- *  If there's a better place, please let me know.
+/**
+ * If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+ * Force magic_quotes_runtime off.
+ * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
+ * If there's a better place, please let me know.
  */
 ini_set('magic_quotes_runtime','0');
 
@@ -197,8 +198,8 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
        as strings. */
     switch ($search) {
         /* we want the default case to be first here,
-	   so that if a valid value isn't specified,
-	   all three arrays will be searched. */
+           so that if a valid value isn't specified,
+           all three arrays will be searched. */
       default:
       case SQ_INORDER: // check session, post, get
       case SQ_SESSION:
