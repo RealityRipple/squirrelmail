@@ -722,7 +722,7 @@ function sqimap_mailbox_tree($imap_stream) {
         $has_inbox = false;
 
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
-            if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.{1})\"\s+\"INBOX\".*$/",$lsub_ary[$i])) {
+            if (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ary[$i])) {
                 $has_inbox = true;
                 break;
             }
@@ -731,8 +731,14 @@ function sqimap_mailbox_tree($imap_stream) {
         if ($has_inbox == false) {
             $lsub_ibx = sqimap_run_command( $imap_stream, "LSUB \"\" \"INBOX\"", true, $response, $message );
             if (isset($lsub_ibx[0])) {
-                if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.{1})\"\s+\"INBOX\".*$/",$lsub_ibx[0])) {
+                if (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0])) {
                     $lsub_ary[] = $lsub_ibx[0];
+                } else {
+                    $lsub_ibx = sqimap_run_command( $imap_stream, "LIST \"\" \"INBOX\"", true, $response, $message );
+                    if (preg_match("/^\*\s+LIST(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0])) {
+                        $lsub_ibx[0] = str_replace("LIST","LSUB",$lsub_ibx[0]);
+                        $lsub_ary[] = $lsub_ibx[0];
+                    }
                 }
             }
         }
@@ -743,6 +749,7 @@ function sqimap_mailbox_tree($imap_stream) {
          */
         $sorted_lsub_ary = array();
         $cnt = count($lsub_ary);
+
         for ($i = 0; $i < $cnt; $i++) {
             /*
              * Workaround for EIMS
@@ -798,7 +805,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
     global $data_dir, $username, $list_special_folders_first,
            $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
-           $delimiter;
+           $delimiter, $imap_server_type;
 
     $special_folders = array ('INBOX', $sent_folder, $draft_folder, $trash_folder);
 
@@ -812,7 +819,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
         have a default_folder_prefix set on this
 
 
-    if (isset($folder_prefix) && $folder_prefix != '') {
+    if (isset($folder_prefix) && ($folder_prefix != '')) {
         $start = substr_count($folder_prefix,$delimiter);
         if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
             $trail_del = true;
