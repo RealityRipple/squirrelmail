@@ -11,11 +11,15 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/prefs.php');
-require_once('../functions/plugin.php');
-require_once('../functions/strings.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/prefs.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/html.php');
 
 /* Erase any lingering attachments */
 if (isset($attachments) && is_array($attachments) 
@@ -37,7 +41,7 @@ if (!isset($frame_top)) {
  * because it was deleted with the session. */
 if (!isset($base_uri)) {
     if (!function_exists('sqm_baseuri')){
-        require_once('../functions/display_messages.php');
+        require_once(SM_PATH . 'functions/display_messages.php');
     }
     $base_uri = sqm_baseuri();
 }

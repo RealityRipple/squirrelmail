@@ -11,12 +11,16 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/display_messages.php');
-require_once('../functions/imap.php');
-require_once('../functions/array.php');
-require_once('../functions/plugin.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/array.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/html.php');
 
 if (! isset($action)) { $action = ''; }
 if ($action == 'delete' && isset($theid)) {

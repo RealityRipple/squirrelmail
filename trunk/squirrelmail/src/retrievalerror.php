@@ -14,11 +14,15 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/imap.php');
-require_once('../functions/smtp.php');
-require_once('../functions/page_header.php');
-require_once('../src/load_prefs.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/smtp.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'src/load_prefs.php');
 
 $destination = 'retrievalerror@squirrelmail.org';
 $attachments = array();

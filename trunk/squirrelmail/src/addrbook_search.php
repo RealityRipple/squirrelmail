@@ -15,9 +15,13 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/strings.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/html.php');
 
 /* Function to include JavaScript code */
 function insert_javascript() {

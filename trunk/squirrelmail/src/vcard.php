@@ -11,11 +11,15 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/date.php');
-require_once('../functions/page_header.php');
-require_once('../functions/mime.php');
-require_once('../src/load_prefs.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'src/load_prefs.php');
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);

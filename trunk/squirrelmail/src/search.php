@@ -9,12 +9,16 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/imap.php');
-require_once('../functions/imap_search.php');
-require_once('../functions/imap_mailbox.php');
-require_once('../functions/array.php');
-require_once('../functions/strings.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_search.php');
+require_once(SM_PATH . 'functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/array.php');
+require_once(SM_PATH . 'functions/strings.php');
 
 global $allow_thread_sort;
 

@@ -13,14 +13,18 @@
  * messages with a session_register.
  */
  
-require_once('../class/mime.class.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'class/mime.class.php');
 
 session_start();
 
-require_once('../functions/i18n.php');
-require_once('../functions/auth.php');
-require_once('../functions/strings.php');
-require_once('../functions/global.php');
+require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'functions/auth.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/global.php');
 
 is_logged_in();
 
@@ -77,10 +81,10 @@ global $theme;
 unset($theme);
 $theme=array();
 
-require_once('../config/config.php');
-require_once('../src/load_prefs.php');
-require_once('../functions/page_header.php');
-require_once('../functions/prefs.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/prefs.php');
 
 /* Set up the language (i18n.php was included by auth.php). */
 global $username, $data_dir;
