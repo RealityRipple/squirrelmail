@@ -10,6 +10,9 @@
     ** $Id$
     **/
 
+  global $attachment_common_show_images_list;
+  $attachment_common_show_images_list = array();
+
   global $FileExtensionToMimeType, $attachment_common_types;
   $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                    'gif'  => 'image/gif',
