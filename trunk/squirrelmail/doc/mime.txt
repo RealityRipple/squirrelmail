@@ -105,4 +105,4 @@ The code in mime.php is pretty well documented, so you might want to poke
 around there as well to find out more details of how this works.
 
 If you have questions about this, please direct them to our mailing list:
-squirrelmail-users@sourceforge.net
+squirrelmail-users@lists.sourceforge.net
