@@ -19,6 +19,20 @@
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['template'] = 
 	'cpw_template_dochange';
+$squirrelmail_plugin_hooks['change_password_init']['template'] = 
+	'cpw_template_init';
+
+
+/**
+ * Use this function to do any backend-specific initialization,
+ * e.g. checking requirements, before the password change form
+ * is displayed to the user.
+ */
+function cpw_template_init()
+{
+
+}
+
 
 /**
  * This is the function that is specific to your backend. It takes
