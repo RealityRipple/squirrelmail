@@ -160,6 +160,9 @@ $sort = getPref($data_dir, $username, 'sort', 6 );
 /** Load up the Signature file **/
 $signature_abs = $signature = getSig($data_dir, $username, 'g');
 
+/* Message Highlighting Rules */
+$message_highlight_list = array();
+
 /* use new way of storing highlighting rules */
 if( $ser = getPref($data_dir, $username, 'hililist') ) {
     $message_highlight_list = unserialize($ser);
