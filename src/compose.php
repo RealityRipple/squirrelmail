@@ -623,8 +623,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to = $orig_header->getAddr_s('to');
             $send_to_cc = $orig_header->getAddr_s('cc');
             $send_to_bcc = $orig_header->getAddr_s('bcc');
-            $subject = $orig_header->subject;
-
+            $subject = decodeHeader($orig_header->subject,true,false);
             $body_ary = explode("\n", $body);
             $cnt = count($body_ary) ;
             $body = '';
@@ -642,7 +641,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to = $orig_header->getAddr_s('to');
             $send_to_cc = $orig_header->getAddr_s('cc');
             $send_to_bcc = $orig_header->getAddr_s('bcc');
-            $subject = $orig_header->subject;
+            $subject = decodeHeader($orig_header->subject,true,false);
             $mailprio = $orig_header->priority;
             $orig_from = '';
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
@@ -651,7 +650,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('forward'):
             $send_to = '';
             $subject = decodeHeader($orig_header->subject,true,false);
-            if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
+	    if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
                 (substr(strtolower($subject), 0, 5) != '[fwd:') &&
                 (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
                 $subject = '[Fwd: ' . $subject . ']';
@@ -676,7 +675,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             } else {
                 $send_to = $orig_header->getAddr_s('from');
             }
-            $subject =  $orig_header->subject;
+            $subject = decodeHeader($orig_header->subject,true,false);
             $subject = str_replace('"', "'", $subject);
             $subject = trim($subject);
             if (substr(strtolower($subject), 0, 3) != 're:') {
@@ -934,7 +933,7 @@ function showInputForm ($session, $values=false) {
                 _("Subject:") . '</TD>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) . "\n";
     echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
-                   decodeHeader($subject,false) . '">' . "\n" .
+                   $subject . '">' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n\n";
 
