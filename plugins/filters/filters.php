@@ -704,4 +704,30 @@ function filter_swap($id1, $id2) {
         setPref($data_dir, $username, 'filter' . $id1, $SecondFilter);
     }
 }
+
+/* This update the filter rules when
+   renaming or deleting folders */
+function update_for_folder ($old_folder, $action, $new_folder = 'INBOX') {
+    global $plugins, $data_dir, $username;
+    $filters = array();
+    $filters = load_filters();
+    $filter_count = count($filters);
+    $p = 0;
+    for ($i=0;$i<$filter_count;$i++) {
+        if (!empty($filters)) {
+            if ($old_folder == $filters[$i]['folder']) {
+                if ($action == 'rename') {
+                    $filters[$i]['folder'] = $new_folder;
+                    setPref($data_dir, $username, 'filter'.$i,
+                    $filters[$i]['where'].','.$filters[$i]['what'].','.$new_folder);
+                }
+                elseif ($action == 'delete') {
+                    remove_filter($p);
+                    $p = $p-1;
+                }
+            }
+        $p++;
+        }
+    }
+}
 ?>
