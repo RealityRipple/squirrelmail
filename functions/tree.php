@@ -12,22 +12,6 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below.                              ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../functions/imap.php');
 
 /**
@@ -36,121 +20,121 @@ require_once('../functions/imap.php');
  * Recursive function to find the correct parent for a new node
  */
 
-   function findParentForChild($value, $treeIndexToStart, $tree) {
-      // is $value in $tree[$treeIndexToStart]['value']
-      if ((isset($tree[$treeIndexToStart])) && (strstr($value, $tree[$treeIndexToStart]['value']))) {
-         // do I have children, if not then must be a childnode of the current node
-         if ($tree[$treeIndexToStart]['doIHaveChildren']) {
+function findParentForChild($value, $treeIndexToStart, $tree) {
+    // is $value in $tree[$treeIndexToStart]['value']
+    if ((isset($tree[$treeIndexToStart])) && (strstr($value, $tree[$treeIndexToStart]['value']))) {
+        // do I have children, if not then must be a childnode of the current node
+        if ($tree[$treeIndexToStart]['doIHaveChildren']) {
             // loop through each subNode checking to see if we are a subNode of one of them
             for ($i=0;$i< count($tree[$treeIndexToStart]['subNodes']);$i++) {
-               $result = findParentForChild($value, $tree[$treeIndexToStart]['subNodes'][$i], $tree);
-               if ($result > -1)
-                  return $result;
+            $result = findParentForChild($value, $tree[$treeIndexToStart]['subNodes'][$i], $tree);
+            if ($result > -1)
+                return $result;
             }
             // if we aren't a child of one of the subNodes, must be a child of current node
             return $treeIndexToStart;
-         } else
+        } else
             return $treeIndexToStart;
-      } else {
-         // we aren't a child of this node at all
-         return -1;
-      }
-   }  
+    } else {
+        // we aren't a child of this node at all
+        return -1;
+    }
+}
 
-   function addChildNodeToTree($comparisonValue, $value, &$tree) {
-      $parentNode = findParentForChild($comparisonValue, 0, $tree);
+function addChildNodeToTree($comparisonValue, $value, &$tree) {
+    $parentNode = findParentForChild($comparisonValue, 0, $tree);
 
-      // create a new subNode
-      $newNodeIndex = count($tree);
-      $tree[$newNodeIndex]['value'] = $value;
-      $tree[$newNodeIndex]['doIHaveChildren'] = false;
+    // create a new subNode
+    $newNodeIndex = count($tree);
+    $tree[$newNodeIndex]['value'] = $value;
+    $tree[$newNodeIndex]['doIHaveChildren'] = false;
 
-      if ($tree[$parentNode]['doIHaveChildren'] == false) {
-         // make sure the parent knows it has children
-         $tree[$parentNode]['subNodes'][0] = $newNodeIndex;
-         $tree[$parentNode]['doIHaveChildren'] = true;
-      } else {
-         $nextSubNode = count($tree[$parentNode]['subNodes']);
-         // make sure the parent knows it has children
-         $tree[$parentNode]['subNodes'][$nextSubNode] = $newNodeIndex;
-      }
-   }
+    if ($tree[$parentNode]['doIHaveChildren'] == false) {
+        // make sure the parent knows it has children
+        $tree[$parentNode]['subNodes'][0] = $newNodeIndex;
+        $tree[$parentNode]['doIHaveChildren'] = true;
+    } else {
+        $nextSubNode = count($tree[$parentNode]['subNodes']);
+        // make sure the parent knows it has children
+        $tree[$parentNode]['subNodes'][$nextSubNode] = $newNodeIndex;
+    }
+}
 
-   function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
-      global $trash_folder;
-      if ($tree[$index]['doIHaveChildren']) {
-         for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
+function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
+    global $trash_folder;
+    if ($tree[$index]['doIHaveChildren']) {
+        for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
             walkTreeInPreOrderEmptyTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree);
-         }
-         if ($tree[$index]['value'] != $trash_folder) {
+        }
+        if ($tree[$index]['value'] != $trash_folder) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
-         } else {
+        } else {
             $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
             if ($numMessages > 0) {
-               sqimap_mailbox_select($imap_stream, $trash_folder);
-               sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
-               sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
+            sqimap_mailbox_select($imap_stream, $trash_folder);
+            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
+            sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
             }
-         }
-      } else {
-         if ($tree[$index]['value'] != $trash_folder) {
+        }
+    } else {
+        if ($tree[$index]['value'] != $trash_folder) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
-         } else {
+        } else {
             $numMessages = sqimap_get_num_messages($imap_stream, $trash_folder);
             if ($numMessages > 0) {
-               sqimap_mailbox_select($imap_stream, $trash_folder);
-               sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
-               sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
+            sqimap_mailbox_select($imap_stream, $trash_folder);
+            sqimap_messages_flag ($imap_stream, 1, $numMessages, 'Deleted');
+            sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
             }
-         }
-      }
-   }
-   
-   function walkTreeInPreOrderDeleteFolders($index, $imap_stream, $tree) {
-      if ($tree[$index]['doIHaveChildren']) {
-         for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
+        }
+    }
+}
+
+function walkTreeInPreOrderDeleteFolders($index, $imap_stream, $tree) {
+    if ($tree[$index]['doIHaveChildren']) {
+        for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
             walkTreeInPreOrderDeleteFolders($tree[$index]['subNodes'][$j], $imap_stream, $tree);
-         }
-         sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
-      } else {
-         sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
-      }
-   }
+        }
+        sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
+    } else {
+        sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
+    }
+}
 
-   function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tree, $topFolderName) {
-      global $trash_folder, $delimiter;
+function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tree, $topFolderName) {
+    global $trash_folder, $delimiter;
 
-      $position = strrpos($topFolderName, $delimiter) + 1;
-      $subFolderName = substr($tree[$index]['value'], $position);
+    $position = strrpos($topFolderName, $delimiter) + 1;
+    $subFolderName = substr($tree[$index]['value'], $position);
 
-      if ($tree[$index]['doIHaveChildren']) {
-         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
-         sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
-        
-         $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
-         if ($messageCount > 0)
+    if ($tree[$index]['doIHaveChildren']) {
+        sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
+        sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
+
+        $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
+        if ($messageCount > 0)
             sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $delimiter . $subFolderName);
-         
-         for ($j = 0;$j < count($tree[$index]['subNodes']); $j++)
+
+        for ($j = 0;$j < count($tree[$index]['subNodes']); $j++)
             walkTreeInPostOrderCreatingFoldersUnderTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree, $topFolderName);
-      } else {
-         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
-         sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
-         
-         $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
-         if ($messageCount > 0)
-            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $delimiter . $subFolderName);
-      }
-   }
+    } else {
+        sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
+        sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
 
-   function simpleWalkTreePre($index, $tree) {
-      if ($tree[$index]['doIHaveChildren']) {
-         for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
+        $messageCount = sqimap_get_num_messages($imap_stream, $tree[$index]['value']);
+        if ($messageCount > 0)
+            sqimap_messages_copy($imap_stream, 1, $messageCount, $trash_folder . $delimiter . $subFolderName);
+    }
+}
+
+function simpleWalkTreePre($index, $tree) {
+    if ($tree[$index]['doIHaveChildren']) {
+        for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
             simpleWalkTreePre($tree[$index]['subNodes'][$j], $tree);
-         }
-         echo $tree[$index]['value'] . '<br>';
-      } else {
-         echo $tree[$index]['value'] . '<br>';
-      }
-   }
+        }
+        echo $tree[$index]['value'] . '<br>';
+    } else {
+        echo $tree[$index]['value'] . '<br>';
+    }
+}
 ?>

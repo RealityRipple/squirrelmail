@@ -41,11 +41,9 @@ if ($my_language != $squirrelmail_language) {
 
 set_up_language(getPref($data_dir, $username, 'language'));
 
-echo "<html><head>\n";
-echo '<TITLE>';
-echo $org_title;
-echo '</TITLE>';
-   
+echo "<html><head>\n" .
+     "<TITLE>$org_title</TITLE>";
+
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
 if ($location_of_bar == '') {
@@ -58,8 +56,8 @@ if ($left_size == "") {
     else {
         $left_size = 200;
     }
-}      
-   
+}
+
 if ($location_of_bar == 'right') {
     echo "<FRAMESET COLS=\"*, $left_size\" BORDER=0>";
 }
@@ -87,17 +85,13 @@ if ($right_frame == 'right_main.php') {
     $urlMailbox = urlencode($mailbox);
     $right_frame_url =
         "right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage";
-}
-elseif ($right_frame == 'options.php') {
+} elseif ($right_frame == 'options.php') {
     $right_frame_url = 'options.php';
-}
-elseif ($right_frame == 'folders.php') {
+} elseif ($right_frame == 'folders.php') {
     $right_frame_url = 'folders.php';
-}
-elseif ($right_frame == 'compose.php') {
+} elseif ($right_frame == 'compose.php') {
     $right_frame_url = "compose.php?send_to=$rcptaddress";
-}
-else {
+} else {
     $right_frame_url = 'right_main.php';
 }
 

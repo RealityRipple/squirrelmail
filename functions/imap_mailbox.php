@@ -43,8 +43,7 @@ function isBoxBelow( $box2, $box1 ) {
 function isSpecialMailbox( $box ) {
 
     global $trash_folder, $sent_folder, $draft_folder,
-           $move_to_trash, $move_to_sent, $save_as_draft,
-           $delimiter, $folder_prefix, $imap_server_type;
+           $move_to_trash, $move_to_sent, $save_as_draft;
 
     $ret = ( (strtolower($box) == 'inbox') ||
              ( $move_to_trash && isBoxBelow( $box, $trash_folder ) ) ||
@@ -357,13 +356,13 @@ function user_strcasecmp($a, $b) {
  **  See comment on sqimap_mailbox_parse() for info about the returned array.
  ******************************************************************************/
 function sqimap_mailbox_list ($imap_stream) {
+
     global $data_dir, $username, $list_special_folders_first,
            $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
            $delimiter;
 
-    $inbox_in_list = false;
-    $inbox_subscribed = false;
+    $inbox_in_list = $inbox_subscribed = FALSE;
 
     require_once('../src/load_prefs.php');
     require_once('../functions/array.php');
@@ -495,6 +494,7 @@ function sqimap_mailbox_list ($imap_stream) {
     }
 
     return( $boxesnew );
+
 }
 
 /*
@@ -505,9 +505,7 @@ function sqimap_mailbox_list_all ($imap_stream)
     global $list_special_folders_first, $folder_prefix;
     global $delimiter;
 
-    if (!function_exists('ary_sort')) {
-        include_once('../functions/array.php');
-    }
+    require_once('../functions/array.php');
 
     $ssid = sqimap_session_id();
     $lsid = strlen( $ssid );
@@ -529,7 +527,7 @@ function sqimap_mailbox_list_all ($imap_stream)
         if (substr($read_ary[$i], 0, $lsid) != $ssid ) {
 
             /* Store the raw IMAP reply */
-            $boxes[$g]["raw"] = $read_ary[$i];
+            $boxes[$g]['raw'] = $read_ary[$i];
 
             /* Count number of delimiters ($delimiter) in folder name */
             $mailbox = find_mailbox_name($read_ary[$i]);
