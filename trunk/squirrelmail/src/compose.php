@@ -32,6 +32,7 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/identity.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /* --------------------- Get globals ------------------------------------- */
 /** COOKIE VARS */
@@ -689,9 +690,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('draft'):
             $use_signature = FALSE;
             $composeMessage->rfc822_header = $orig_header;
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true,true);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
             $send_from = $orig_header->getAddr_s('from');
             $send_from_parts = new AddressStructure();
             $send_from_parts = $orig_header->parseAddress($send_from);
@@ -705,7 +706,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     }
                 }
             }
-            $subject = decodeHeader($orig_header->subject,false,true,true);
+            $subject = decodeHeader($orig_header->subject,false,false,true);
 //            /* remember the references and in-reply-to headers in case of an reply */
             $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
             $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
@@ -723,10 +724,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true,true);
-            $subject = decodeHeader($orig_header->subject,false,true,true);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,false,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,false,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,false,true);
+            $subject = decodeHeader($orig_header->subject,false,false,true);
             $mailprio = $orig_header->priority;
             $orig_from = '';
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
@@ -734,14 +735,14 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             break;
         case ('forward'):
             $send_to = '';
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true,true));
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
             $body = getforwardHeader($orig_header) . $body;
             sqUnWordWrap($body);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             $body = "\n" . $body;
             break;
         case ('forward_as_attachment'):
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true,true));
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,false,true));
             $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
             $body = '';
             break;
@@ -750,7 +751,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $send_to = $orig_header->getAddr_s('mail_followup_to');
             } else {
                 $send_to_cc = replyAllString($orig_header);
-                $send_to_cc = decodeHeader($send_to_cc,false,true,true);
+                $send_to_cc = decodeHeader($send_to_cc,false,false,true);
             }
         case ('reply'):
             // skip this if send_to was already set right above here
@@ -764,8 +765,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $send_to = $orig_header->getAddr_s('from');
                 }
             }
-            $send_to = decodeHeader($send_to,false,true,true);
-            $subject = decodeHeader($orig_header->subject,false,true,true);
+            $send_to = decodeHeader($send_to,false,false,true);
+            $subject = decodeHeader($orig_header->subject,false,false,true);
             $subject = str_replace('"', "'", $subject);
             $subject = trim($subject);
             if (substr(strtolower($subject), 0, 3) != 're:') {
@@ -913,7 +914,6 @@ function showInputForm ($session, $values=false) {
            $username, $compose_messages, $composesession, $default_charset;
 
     $composeMessage = $compose_messages[$session];
-
     if ($values) {
        $send_to = $values['send_to'];
        $send_to_cc = $values['send_to_cc'];
@@ -923,9 +923,9 @@ function showInputForm ($session, $values=false) {
        $body = $values['body'];
        $identity = (int) $values['identity'];
     } else {
-       $send_to = decodeHeader($send_to);
-       $send_to_cc = decodeHeader($send_to_cc);
-       $send_to_bcc = decodeHeader($send_to_bcc);
+       $send_to = decodeHeader($send_to, true, false);
+       $send_to_cc = decodeHeader($send_to_cc, true, false);
+       $send_to_bcc = decodeHeader($send_to_bcc, true, false);
     }
 
     if ($use_javascript_addr_book) {
@@ -945,20 +945,20 @@ function showInputForm ($session, $values=false) {
 
     echo ">\n";
 
-    echo '<input type="hidden" name="startMessage" value="' . $startMessage . "\">\n";
+    echo addHidden('startMessage', $startMessage);
 
     if ($action == 'draft') {
-        echo '<input type="hidden" name="delete_draft" value="' . $passed_id . "\">\n";
+        echo addHidden('delete_draft', $passed_id);
     }
     if (isset($delete_draft)) {
-        echo '<input type="hidden" name="delete_draft" value="' . $delete_draft. "\">\n";
+        echo addHidden('delete_draft', $delete_draft);
     }
     if (isset($session)) {
-        echo '<input type="hidden" name="session" value="' . $session . "\">\n";
+        echo addHidden('session', $session);
     }
 
     if (isset($passed_id)) {
-        echo '<input type="hidden" name="passed_id" value="' . $passed_id . "\">\n";
+        echo addHidden('passed_id', $passed_id);
     }
 
     if ($saved_draft == 'yes') {
@@ -978,54 +978,47 @@ function showInputForm ($session, $values=false) {
 
     /* display select list for identities */
     if (count($idents) > 1) {
+    	$ident_list = array();
+    	foreach($idents as $id => $data) {
+		$ident_list[$id] =
+			$data['full_name'].' <'.$data['email_address'].'>';
+	}
         echo '   <tr>' . "\n" .
                     html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
                     _("From:") . '</td>' . "\n" .
                     html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-             '         <select name="identity">' . "\n" ;
-        foreach($idents as $id=>$data) {
-            echo '<option value="'.$id.'"';
-            if($id == $identity) {
-                echo ' selected';
-            }
-            echo '>'.htmlspecialchars($data['full_name'].' <'.$data['email_address'].'>').
-                 "</option>\n";
-        }
+             '         '.
+	     addSelect('identitiy', $ident_list, $identity, TRUE);
 
-        echo '</select>' . "\n" .
-             '      </td>' . "\n" .
+        echo '      </td>' . "\n" .
              '   </tr>' . "\n";
     }
     echo '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
                 _("To:") . '</TD>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
-         '         <input type="text" name="send_to" value="' .
-                   $send_to . '" size="60" /><br />' . "\n" .
+                addInput('send_to', $send_to, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("CC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-         '         <input type="text" name="send_to_cc" size="60" value="' .
-                   $send_to_cc . '" /><br />' . "\n" .
+		addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("BCC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-         '         <input type="text" name="send_to_bcc" value="' .
-                $send_to_bcc . '" size="60" /><br />' . "\n" .
+		addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("Subject:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) . "\n";
-    echo '         <input type="text" name="subject" size="60" value="' .
-                   $subject . '" />' . "\n" .
+    echo '         '.addInput('subject', $subject, 60).
          '      </td>' . "\n" .
          '   </tr>' . "\n\n";
 
@@ -1037,14 +1030,14 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
-             '         <TEXTAREA NAME="body" ID="body" ROWS="' . $editor_height .
-             '" COLS="' . $editor_size . '" WRAP="VIRTUAL">';
+             '         <TEXTAREA NAME="body" ID="body" ROWS="' . (int)$editor_height .
+             '" COLS="' . (int)$editor_size . '" WRAP="VIRTUAL">';
     }
     else {
         echo '   <TR>' . "\n" .
             '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
-            '         &nbsp;&nbsp;<TEXTAREA NAME="body" ID="body" ROWS="' . $editor_height .
-            '" COLS="' . $editor_size . '" WRAP="VIRTUAL">';
+            '         &nbsp;&nbsp;<TEXTAREA NAME="body" ID="body" ROWS="' . (int)$editor_height .
+            '" COLS="' . (int)$editor_size . '" WRAP="VIRTUAL">';
     }
 
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
@@ -1056,10 +1049,10 @@ function showInputForm ($session, $values=false) {
             } else {
             echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
-            echo "\n\n".decodeHeader($body,false,false);
+            echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
         }
         else {
-            echo "\n\n".decodeHeader($body,false,false);
+            echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
@@ -1068,7 +1061,7 @@ function showInputForm ($session, $values=false) {
     }
     }
     else {
-       echo decodeHeader($body,false,false);
+       echo htmlspecialchars(decodeHeader($body,false,false));
     }
     echo '</textarea><br />' . "\n" .
          '      </td>' . "\n" .
@@ -1107,7 +1100,7 @@ function showInputForm ($session, $values=false) {
     } else {
         $maxsize = '';
     }
-    echo '<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="'.min( $sizes ).'">';
+    echo addHidden('MAX_FILE_SIZE', min( $sizes ));
     echo '   <tr>' . "\n" .
          '      <td colspan="2">' . "\n" .
          '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
@@ -1138,8 +1131,9 @@ function showInputForm ($session, $values=false) {
                         $attachment->mime_header->type1;
 
                 $s_a[] = '<table bgcolor="'.$color[0].
-                '" border="0"><tr><td><input type="checkbox" name="delete[]" value="' .
-                    $key . "\"></td><td>\n" . $attached_filename .
+                '" border="0"><tr><td>'.
+		addCheckBox('delete[]', $key).
+		    "</td><td>\n" . $attached_filename .
                     '</td><td>-</td><td> ' . $type . '</td><td>('.
                     show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
            }
@@ -1166,19 +1160,18 @@ function showInputForm ($session, $values=false) {
     }
 
     echo '</TABLE>' . "\n" .
-         '<input type="hidden" name="username" value="'. $username . "\">\n" .
-         '<input type=hidden name=smaction value="' . $action . "\">\n" .
-         '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
-         "\">\n";
+         addHidden('username', $username).
+	 addHidden('smaction', $action).
+	 addHidden('mailbox', $mailbox);
     /*
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
     */
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
-    echo '<input type=hidden name=restoremessages value="' . urlencode(serialize($compose_messages)) . "\">\n";
-    echo '<input type=hidden name=composesession value="' . $composesession . "\">\n";
-    echo '<input type=hidden name=querystring value="' . $queryString . "\">\n";
-    echo '</FORM>';
+    echo addHidden('restoremessages', serialize($compose_messages)).
+         addHidden('composesession', $composesession).
+	 addHidden('querystring', $queryString).
+	 "</form>\n";
     if (!(bool) ini_get('file_uploads')) {
       /* File uploads are off, so we didn't show that part of the form.
          To avoid bogus bug reports, tell the user why. */
@@ -1202,22 +1195,20 @@ function showComposeButtonRow() {
          '      <TD>' . "\n";
     if ($default_use_priority) {
         if(!isset($mailprio)) {
-            $mailprio = "3";
-    }
-    echo '          ' . _("Priority") .': <select name="mailprio">'.
-         '<option value="1"'.($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
-         '<option value="3"'.($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
-         '<option value="5"'.($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
-         '</select>' . "\n";
+            $mailprio = '3';
+        }
+        echo '          ' . _("Priority") .
+             addSelect('mailprio', array(
+	         '1' => _("High"),
+	         '3' => _("Normal"),
+	         '5' => _("Low") ), $mailprio, TRUE);
     }
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '          ' . _("Receipt") .': '.
-            '<input type="checkbox" name="request_mdn" value=1'.
-        ($request_mdn=='1'?' checked':'') .'>'. _("On Read").
-            ' <input type="checkbox" name="request_dr" value=1'.
-        ($request_dr=='1'?' checked':'') .'>'. _("On Delivery");
+	    addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
+	    addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
         }
     }
 
