@@ -196,6 +196,8 @@
     /*****************************************************/
     /* Let's sort Javascript Option Pages to the bottom. */
     /*****************************************************/
+    $js_optionpages = array();
+    $reg_optionpages = array();
     foreach ($optionpages as $optpage) {
         if (!$optpage['js']) {
             $reg_optionpages[] = $optpage;
