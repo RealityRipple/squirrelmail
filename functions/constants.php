@@ -1,16 +1,17 @@
 <?php
+
     /**
-     * constants.php
-     *
-     * Copyright (c) 1999-2001 The SquirrelMail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * Loads constants used by the rest of the Squirrelmail source.
-     * This file is include by src/login.php, src/redirect.php and
-     * src/load_prefs.php.
-     *
-     * $Id$
-     */
+     ** constants.php
+     **
+     ** Copyright (c) 1999-2001 The SquirrelMail Development Team
+     ** Licensed under the GNU GPL. For full terms see the file COPYING.
+     **
+     ** Loads constants used by the rest of the Squirrelmail source.
+     ** This file is include by src/login.php, src/redirect.php and
+     ** src/load_prefs.php.
+     **
+     ** $Id$
+     **/
 
     /**************************************************************/
     /* Set values for constants used by Squirrelmail preferences. */

@@ -2,6 +2,9 @@
    /**
     **  db_prefs.php
     **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  This contains functions for manipulating user preferences
     **  stored in a database, accessed though the Pear DB layer.
     **

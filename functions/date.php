@@ -2,6 +2,9 @@
    /**
     **  date.php
     **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  Takes a date and parses it into a usable format.  The form that a
     **  date SHOULD arrive in is:
     **        <Tue,> 29 Jun 1999 09:52:11 -0500 (EDT)

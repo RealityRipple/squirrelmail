@@ -1,15 +1,16 @@
 <?php
+
    /**
-    * mailbox_display.php
-    *
-    * Copyright (c) 1999-2001 The Squirrelmail Development Team
-    * Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    * This contains functions that display mailbox information, such as the
-    * table row that has sender, date, subject, etc...
-    *
-    * $Id$
-    */
+    **  mailbox_display.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This contains functions that display mailbox information, such as the
+    **  table row that has sender, date, subject, etc...
+    **
+    **  $Id$
+    **/
 
    define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
@@ -399,9 +400,9 @@
       /* Loop through and display the info for each message. */
       $t = 0; // $t is used for the checkbox number
       if ($num_msgs == 0) { // if there's no messages in this folder
-          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order) . ">\n";
-          echo "  <CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER>\n";
-          echo "</TD></TR>";
+          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order) . ">\n".
+               "  <CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER>\n".
+               "</TD></TR>";
       } else if ($start_msg == $end_msg) {
           /* If there's only one message in the box, handle it differently. */
           if ($sort != 6) {
@@ -438,8 +439,8 @@
           } while ($i && $i < $endVar);
       }
 
-      echo '</table>';
-      echo "<table bgcolor=\"$color[9]\" width=100% border=0 cellpadding=1 cellspacing=1>" .
+      echo '</table>'.
+           "<table bgcolor=\"$color[9]\" width=100% border=0 cellpadding=1 cellspacing=1>" .
               "<tr BGCOLOR=\"$color[4]\">" .
                  "<table width=100% BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$paginator_str</td>".
                  "<td align=right>$msg_cnt_str</td></tr></table>".
@@ -472,23 +473,18 @@
        * This is the beginning of the message list table. *
        * It wraps around all messages                     *
        ****************************************************/
-      echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n";
-
-      echo "<TR BGCOLOR=\"$color[0]\"><TD>";
-      echo "  <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n";
-      echo "    <TD ALIGN=LEFT>$paginator</TD>\n";
-      echo '    <TD ALIGN=CENTER>' . get_selectall_link($start_msg, $sort) . "</TD>\n";
-      echo "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n";
-      echo "  </TR></TABLE>\n";
-      echo "</TD></TR>";
-
-      /** The delete and move options */
-      echo "<TR><TD BGCOLOR=\"$color[0]\">";
-
-      echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
-      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
-
-      echo "   <TR>\n" .
+      echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n".
+           "<TR BGCOLOR=\"$color[0]\"><TD>".
+             "<TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n".
+           "    <TD ALIGN=LEFT>$paginator</TD>\n".
+           '    <TD ALIGN=CENTER>' . get_selectall_link($start_msg, $sort) . "</TD>\n".
+           "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n".
+           "  </TR></TABLE>\n".
+           '</TD></TR>'.
+           "<TR><TD BGCOLOR=\"$color[0]\">\n".
+           "<FORM name=messageList method=post action=\"$moveURL\">\n".
+           "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n".
+           "   <TR>\n" .
            "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
            '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n" .
            "      </TD>\n" .
@@ -508,31 +504,31 @@
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
          }
       }
-      echo '         </SELECT></TT></SMALL>';
-      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n";
-      echo "      </TD>\n";
-      echo "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
+      echo '         </SELECT></TT></SMALL>'.
+                    "<SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n".
+           "      </TD>\n".
+           "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
       if (!$auto_expunge) {
          echo '         <INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."&nbsp;\n";
       }
-      echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n";
-      echo "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n";
-      echo "         <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n";
-      echo "      </TD>\n";
-      echo "   </TR>\n";
-      echo "</TABLE>\n";
+      echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n".
+           "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n".
+           "         <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n".
+           "      </TD>\n".
+           "   </TR>\n".
+           "</TABLE>\n";
       do_hook('mailbox_form_before');
-      echo '</TD></TR>';
+      echo '</TD></TR>'.
 
-      echo "<TR><TD BGCOLOR=\"$color[0]\">";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
+           "<TR><TD BGCOLOR=\"$color[0]\">".
+           "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
       if ($GLOBALS['alt_index_colors']) {
         echo "0";
       } else {
         echo "1";
       }
-      echo " BGCOLOR=\"$color[0]\">";
-      echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
+      echo " BGCOLOR=\"$color[0]\">".
+           "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       /* Print the headers. */
       for ($i=1; $i <= count($index_order); $i++) {
@@ -550,7 +546,7 @@
                    echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
                }
 
-           ShowSortButton($sort, $mailbox, 2, 3);
+               ShowSortButton($sort, $mailbox, 2, 3);
                echo "</TD>\n";
                break;
 
