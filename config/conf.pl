@@ -272,6 +272,9 @@ if ( !$hide_sm_attributions ) {
 if ( !$default_use_mdn ) {
     $default_use_mdn = "true";
 }
+if ( !$delete_folder ) {
+    $delete_folder = "false";
+}
 if ( !$frame_top ) {
     $frame_top = "_top";
 }
@@ -1119,7 +1122,7 @@ sub command24b {
     print "can specify the default sent folder in option 4.  If this is set\n";
     print "to false, messages will get sent and no copy will be made.\n";
     print "\n";
-    print "Trash folder is currently: $sent_folder\n";
+    print "Sent folder is currently: $sent_folder\n";
     print "\n";
 
     if ( lc($default_move_to_sent) eq "true" ) {
