@@ -445,8 +445,14 @@
          exit();
       } else {
          $draft_message = _("Draft Email Saved");
-         Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=$draft_message");
-         exit();
+         /* If this is a resumed draft, then delete the original */
+         if(isset($delete_draft)) {
+            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
+            exit();
+         } else {
+            Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=$draft_message");
+            exit();
+         }
       }
    }
 
