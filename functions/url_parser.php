@@ -51,7 +51,7 @@ $Email_RegExp_Match = $dot_atom . '(%' . $Host_RegExp_Match . ')?@' .
  * @return int the number of unique addresses found
  */
 function parseEmail (&$body) {
-    global $color, $Email_RegExp_Match;
+    global $Email_RegExp_Match;
     $sbody     = $body;
     $addresses = array();
 
@@ -61,11 +61,13 @@ function parseEmail (&$body) {
         $start = strpos($sbody, $regs[0]) + strlen($regs[0]);
         $sbody = substr($sbody, $start);
     }
+
     /* Replace each email address with a compose URL */
     foreach ($addresses as $text => $email) {
         $comp_uri = makeComposeLink('src/compose.php?send_to='.urlencode($email), $text);
         $body = str_replace($text, $comp_uri, $body);
     }
+
     /* Return number of unique addresses found */
     return count($addresses);
 }
@@ -198,4 +200,27 @@ function parseUrl (&$body) {
         $blength = strlen($body);
     }
 }
+
+/**
+ * Parses a string and returns the first e-mail address found.
+ *
+ * @param string string the string to process
+ * @return string the first e-mail address found
+ */
+function getEmail($string) {
+    global $Email_RegExp_Match;
+    $addresses = array();
+
+    /* Find all the email addresses in the body */
+    while (eregi($Email_RegExp_Match, $string, $regs)) {
+        $addresses[$regs[0]] = strtr($regs[0], array('&amp;' => '&'));
+       	$start = strpos($string, $regs[0]) + strlen($regs[0]);
+       	$string = substr($string, $start);
+    }
+
+    /* Return the first address, or an empty string if no address was found */
+    $addresses = array_values($addresses);
+    return (array_key_exists(0, $addresses) ? $addresses[0] : '');
+}
+
 ?>
