@@ -141,7 +141,7 @@
    }
 
    function getTimeStamp($dateParts) {
-      if (eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp)) {
+//      if (eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp)) {
          $d[0] = getHour($dateParts[4]);
          $d[1] = getMinute($dateParts[4]);
          $d[2] = getSecond($dateParts[4]);
@@ -149,13 +149,13 @@
          $d[4] = getDayOfMonth($dateParts[1]);
          $d[5] = getYear($dateParts[3]);
          return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
-      }
-      $d[0] = getHour($dateParts[3]);
-      $d[1] = getMinute($dateParts[3]);
-      $d[2] = getSecond($dateParts[3]);
-      $d[3] = getMonthNum($dateParts[1]);
-      $d[4] = getDayOfMonth($dateParts[0]);
-      $d[5] = getYear($dateParts[2]);
-      return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
+//      }
+//      $d[0] = getHour($dateParts[3]);
+//      $d[1] = getMinute($dateParts[3]);
+//      $d[2] = getSecond($dateParts[3]);
+//      $d[3] = getMonthNum($dateParts[1]);
+//      $d[4] = getDayOfMonth($dateParts[0]);
+//      $d[5] = getYear($dateParts[2]);
+//      return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
    }
 ?>
