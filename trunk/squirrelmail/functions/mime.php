@@ -605,7 +605,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     // primary message. To add more of them, just put them in the
     // order that is their priority.
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
-           $show_html_default;
+           $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
+
+    $has_unsafe_images = 0;
     
     $id = $message->header->id;
     $urlmailbox = urlencode($message->header->mailbox);
@@ -636,6 +638,13 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         }
 
         $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
+	if ($has_unsafe_images) {
+	    if ($view_unsafe_images) {
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Don't view unsafe images") ."</A></SMALL></CENTER><BR>\n";
+            } else {
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View unsafe images") ."</A></SMALL></CENTER><BR>\n";
+            }
+	}
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
         if (isset($message->entities[0])) {
@@ -1131,7 +1140,7 @@ change on with no (onload -> noload)
 
 function stripEvent( &$i, $j, &$body, $id, $base ) {
 
-    global $message, $base_uri;
+    global $message, $base_uri, $has_unsafe_images, $view_unsafe_images;
 
     $ret = '';
 
@@ -1170,7 +1179,10 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                 } else if ( strtolower( substr( $src, 0, 4 ) ) <> 'http' || 
                             stristr( $src, $base_uri ) ) {
                     /* Javascript and local urls goes out */
-                    $src = '../images/' . _("sec_remove_eng.png");
+		    if (!$view_unsafe_images) {
+                        $src = '../images/' . _("sec_remove_eng.png");
+		    }
+		    $has_unsafe_images = 1;
                 }
                 $ret .= 'src="' . $src . '" ';
                 $i = $k - 2;
