@@ -57,7 +57,7 @@ if (!empty($_POST)) {
    do_hook('options_identities_top');
    LoadInfo($full_name, $email_address, $reply_to, $signature, '');
    $td_str = '';
-   $td_str .= '<form name="f" action="options_identities.php" method="post"><br>';
+   $td_str .= '<form name="f" action="options_identities.php" method="post"><br />';
    $td_str .= ShowTableInfo($full_name, $email_address, $reply_to, $signature, '');
   
    $num = 1;
@@ -69,11 +69,11 @@ if (!empty($_POST)) {
        $num ++;
        }
 
-   echo '<br>' . 
+   echo '<br />' . 
    html_tag( 'table', "\n" .
        html_tag( 'tr', "\n" .
            html_tag( 'td', "\n" .
-               '<b>'. _("Options") . ' - ' . _("Advanced Identities") .'</b><br>' .
+               '<b>'. _("Options") . ' - ' . _("Advanced Identities") .'</b><br />' .
                html_tag( 'table', "\n" .
                    html_tag( 'tr', "\n" .
                        html_tag( 'td', "\n" .
@@ -336,14 +336,14 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post)
     $return_val .= html_tag( 'tr', '', '', $OtherBG);
     $return_val .= html_tag( 'td', '&nbsp;', 'left' );
     $return_val .= html_tag( 'td', '', 'left' );
-    $return_val .= '<input type=hidden name="form_for_'. $post .'" value="1">';
+    $return_val .= '<input type="hidden" name="form_for_'. $post .'" value="1">';
     $return_val .= '<input type="submit" name="update" value="' . _("Save / Update") . '">';
 
 
     if (! $isEmptySection && $post != '') {
         $return_val .= '<input type="submit" name="make_default_' . $post . '" value="'.
              _("Make Default") . '">'.
-             '<input type=submit name="delete_' . $post . '" value="'.
+             '<input type="submit" name="delete_' . $post . '" value="'.
              _("Delete") . '">';
     }
     if (! $isEmptySection && $post != '' && $post > 1) {

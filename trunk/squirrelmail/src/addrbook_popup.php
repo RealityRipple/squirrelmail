@@ -29,7 +29,7 @@ require_once(SM_PATH . 'functions/addressbook.php');
     <head>
         <title><?php echo "$org_title: " . _("Address Book"); ?></title>
     </head>
-    <frameset rows="60,*" border=0>
+    <frameset rows="60,*" border="0">
         <frame name="abookmain"
                marginwidth="0"
                scrolling="no"

@@ -145,16 +145,16 @@ function display_result($res, $includesource = true) {
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
              '<small><a href="javascript:to_address(' . 
-                                       "'" . $email . "');\">To</A> | " .
+                                       "'" . $email . "');\">To</a> | " .
              '<a href="javascript:cc_address(' . 
-                                       "'" . $email . "');\">Cc</A> | " .
+                                       "'" . $email . "');\">Cc</a> | " .
              '<a href="javascript:bcc_address(' . 
-                                 "'" . $email . "');\">Bcc</A></small>",
+                                 "'" . $email . "');\">Bcc</a></small>",
         'center', '', 'valign="top" width="5%" nowrap' ) .
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" nowrap' ) .
         html_tag( 'td', '&nbsp;' .
              '<a href="javascript:to_and_close(' .
-                 "'" . $email . "');\">" . htmlspecialchars($row['email']) . '</A>'
+                 "'" . $email . "');\">" . htmlspecialchars($row['email']) . '</a>'
         , 'left', '', 'valign="top"' ) .
         html_tag( 'td', htmlspecialchars($row['label']), 'left', '', 'valign="top" nowrap' );
         if ($includesource) {
@@ -181,22 +181,22 @@ if (!isset($backend)) { $backend = ''; }
 
 /* Choose correct colors for top and bottom frame */
 if ($show == 'form' && !isset($listall)) {
-    echo '<BODY TEXT="' . $color[6] . '" BGCOLOR="' . $color[3] . '" ' .
-               'LINK="' . $color[6] . '" VLINK="'   . $color[6] . '" ' .
-                                        'ALINK="'   . $color[6] . '" ' .
+    echo '<body text="' . $color[6] . '" bgcolor="' . $color[3] . '" ' .
+               'link="' . $color[6] . '" vlink="'   . $color[6] . '" ' .
+                                        'alink="'   . $color[6] . '" ' .
          'OnLoad="document.sform.query.focus();">';
 } else {
-    echo '<BODY TEXT="' . $color[8] . '" BGCOLOR="' . $color[4] . '" ' .
-               'LINK="' . $color[7] . '" VLINK="'   . $color[7] . '" ' .
-                                        'ALINK="'   . $color[7] . "\">\n";
+    echo '<body text="' . $color[8] . '" bgcolor="' . $color[4] . '" ' .
+               'link="' . $color[7] . '" vlink="'   . $color[7] . '" ' .
+                                        'alink="'   . $color[7] . "\">\n";
 }
 
 /* Empty search */
 if (empty($query) && empty($show) && empty($listall)) {
-    echo html_tag( 'p', '<br>' .
+    echo html_tag( 'p', '<br />' .
                       _("No persons matching your search were found"),
             'center' ) .
-          "\n</BODY></HTML>\n",
+          "\n</body></html>\n",
     exit;
 }
 
@@ -205,8 +205,8 @@ $abook = addressbook_init();
 
 /* Create search form */
 if ($show == 'form' && empty($listall)) {
-    echo '<FORM NAME=sform TARGET=abookres ACTION="addrbook_search.php'. 
-         '" METHOD="POST">' . "\n" .
+    echo '<form name="sform" target="abookres" action="addrbook_search.php'. 
+         '" method="post">' . "\n" .
          html_tag( 'table', '', '', '', 'border="0" width="100%" height="100%"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'nowrap valign="middle" width="10%"' ) .
@@ -215,7 +215,7 @@ if ($show == 'form' && empty($listall)) {
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
-        echo '<STRONG>' . _("in") . '</STRONG>&nbsp;'."\n".
+        echo '<strong>' . _("in") . '</strong>&nbsp;'."\n".
 	$selopts['-1'] = _("All address books");
 	
         $ret = $abook->get_backend_list();
@@ -231,11 +231,11 @@ if ($show == 'form' && empty($listall)) {
     html_tag( 'tr',
                     html_tag( 'td', '', 'left' ) .
                     html_tag( 'td',
-                            '<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
-                            '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
-                            '" NAME=listall>' . "\n" .
-                            '&nbsp;|&nbsp;<INPUT TYPE=button VALUE="' . _("Close") .
-                            '" onclick="parent.close();">' . "\n" ,
+                            '<input type="submit" value="' . _("Search") . '" name="show" />' .
+                            '&nbsp;|&nbsp;<input type="submit" value="' . _("List all") .
+                            '" name="listall" />' . "\n" .
+                            '&nbsp;|&nbsp;<input type="button" value="' . _("Close") .
+                            '" onclick="parent.close();" />' . "\n" ,
                     'left' )
             ) .
          '</table></form>' . "\n";
@@ -280,19 +280,19 @@ if ($show == 'form' && empty($listall)) {
             }
         
             if (!is_array($res)) {
-                echo html_tag( 'p', '<b><br>' .
+                echo html_tag( 'p', '<b><br />' .
                                  _("Your search failed with the following error(s)") .
-                                 ':<br>' . $abook->error . "</b>\n" ,
+                                 ':<br />' . $abook->error . "</b>\n" ,
                        'center' ) .
-                "\n</BODY></HTML>\n";
+                "\n</body></html>\n";
                 exit;
             }
         
             if (sizeof($res) == 0) {
-                echo html_tag( 'p', '<br><b>' .
+                echo html_tag( 'p', '<br /><b>' .
                                  _("No persons matching your search were found") . "</b>\n" ,
                        'center' ) .
-                "\n</BODY></HTML>\n";
+                "\n</body></html>\n";
                 exit;
             }
         
@@ -301,7 +301,5 @@ if ($show == 'form' && empty($listall)) {
     }
    
 }
-
-echo "</BODY></HTML>\n";
-   
 ?>
+</BODY></HTML>

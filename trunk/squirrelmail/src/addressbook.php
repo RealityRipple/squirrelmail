@@ -79,7 +79,7 @@ function address_form($name, $submittext, $values = array()) {
         {
     echo html_tag( 'table',
                        addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                           ' <SMALL>' . _("Must be unique") . '</SMALL>') .
+                           ' <small>' . _("Must be unique") . '</small>') .
                        addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
                        addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
                        addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
@@ -87,15 +87,15 @@ function address_form($name, $submittext, $values = array()) {
                    list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
-                                       '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
-                                       $submittext . '">',
+                                       '<input type="submit" name="' . htmlentities($name) . '[SUBMIT]" value="' .
+                                       $submittext . '" />',
                                    'center', $color[4], 'colspan="2"')
                        )
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
         } else {
     echo html_tag( 'table',
                        addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
-                           ' <SMALL>' . _("Must be unique") . '</SMALL>') .
+                           ' <small>' . _("Must be unique") . '</small>') .
                        addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
                        addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
@@ -103,8 +103,8 @@ function address_form($name, $submittext, $values = array()) {
                    list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
-                                       '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
-                                       $submittext . '">',
+                                       '<input type="submit" name="' . htmlentities($name) . '[SUBMIT]" value="' .
+                                       $submittext . '" />',
                                    'center', $color[4], 'colspan="2"')
                        )
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
@@ -115,12 +115,12 @@ function list_writable_backends($name) {
   global $color, $abook;
   if ( $name != 'addaddr' ) { return; }
   if ( $abook->numbackends > 1 ) {
-    $ret = "<select name=backend>";
+    $ret = '<select name="backend">';
     $backends = $abook->get_backend_list();
     while (list($undef,$v) = each($backends)) {
       if ($v->writeable) {
-        $ret .= '<OPTION VALUE=' . $v->bnum;
-        $ret .= '>' . $v->sname . "\n";
+        $ret .= '<option value="' . $v->bnum;
+        $ret .= '">' . $v->sname . "</option>\n";
       }
     }
     $ret .= "</select>";
@@ -247,7 +247,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $olddata = $abook->lookup($enick, $ebackend);
 
                         /* Display the "new address" form */
-                        echo '<FORM ACTION="' . $form_url . '" METHOD="POST">' .
+                        echo '<form action="' . $form_url . '" method="post">' .
                              "\n" .
                              html_tag( 'table',
                                 html_tag( 'tr',
@@ -260,7 +260,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         echo addHidden('oldnick', $olddata['nickname']).
                              addHidden('backend', $olddata['backend']).
                              addHidden('doedit', '1').
-                             '</FORM>';
+                             '</form>';
                     }
                 } else {
 
@@ -282,8 +282,8 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                              'center', '', 'width="100%"' );
 
                             /* Display the "new address" form again */
-                            echo '<FORM ACTION="' . $form_url .
-                                 '" METHOD="POST">' . "\n" .
+                            echo '<form action="' . $form_url .
+                                 '" method="post">' . "\n" .
                                  html_tag( 'table',
                                      html_tag( 'tr',
                                          html_tag( 'td',
@@ -296,7 +296,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                               addHidden('oldnick', $oldnick).
                               addHidden('backend', $backend).
                               addHidden('doedit',  '1').
-                                 "\n" . '</FORM>';
+                                 "\n" . '</form>';
                             $abortform = true;
                         }
                     } else {
@@ -312,7 +312,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
 
     // Some times we end output before forms are printed
     if($abortform) {
-       echo "</BODY></HTML>\n";
+       echo "</body></html>\n";
        exit();
     }
 }
@@ -328,7 +328,7 @@ if (!empty($formerror)) {
     echo html_tag( 'table',
         html_tag( 'tr',
             html_tag( 'td',
-                   "\n". '<br><strong><font color="' . $color[2] .
+                   "\n". '<br /><strong><font color="' . $color[2] .
                    '">' . _("ERROR") . ': ' . $formerror . '</font></strong>' ."\n",
             'center' )
         ),
@@ -362,14 +362,14 @@ if ($showaddrlist) {
                     echo html_tag( 'table',
                                     html_tag( 'tr',
                                           html_tag( 'td',
-                                                     '<input type=submit name=editaddr value="' . 
+                                                     '<input type="submit" name="editaddr" value="' . 
                                                      _("Edit selected") . "\" />\n" .
-                                                     '<input type=submit name=deladdr value="' .
+                                                     '<input type="submit" name="deladdr" value="' .
                                                      _("Delete selected") . "\" />\n",
                                           'center', '', 'colspan="5"' )
                                     ) .
                                     html_tag( 'tr',
-                                          html_tag( 'td', '&nbsp;<br>', 'center', '', 'colspan="5"' )
+                                          html_tag( 'td', '&nbsp;<br />', 'center', '', 'colspan="5"' )
                                     ) ,
                              'center' );
                     echo "\n<!-- start of address book table -->\n" .
@@ -440,7 +440,7 @@ if ($showaddrlist) {
             if ($abook->backends[$row['backend']]->writeable) {
                 echo html_tag( 'td',
                 '<small>' .
-                '<input type=checkbox ' . $selected . ' name="sel[]" value="' .
+                '<input type="checkbox" ' . $selected . ' name="sel[]" value="' .
                 $row['backend'] . ':' . $row['nickname'] . '" /></small>' ,
                 'center', '', 'valign="top" width="1%"' );
             } else {

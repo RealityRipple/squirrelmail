@@ -80,7 +80,7 @@ if ( isset($success) && $success ) {
     echo html_tag( 'table',
                 html_tag( 'tr',
                      html_tag( 'td', $td_str .
-                               '<a href="../src/left_main.php" target=left>' .
+                               '<a href="../src/left_main.php" target="left">' .
                                _("refresh folder list") . '</a>' ,
                      'center' )
                 ) ,
