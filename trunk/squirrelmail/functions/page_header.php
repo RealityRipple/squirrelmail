@@ -46,7 +46,24 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
        do_hook("generic_header");
     }
     
-    echo "\n<title>$title</title>$xtra</head>\n\n";
+    echo "\n<title>$title</title>$xtra\n";
+
+    /* work around IE6's scrollbar bug */
+    echo <<<ECHO
+<style type="text/css">
+<!--
+  /* avoid stupid IE6 bug with frames and scrollbars */
+  body { 
+      voice-family: "\"}\""; 
+      voice-family: inherit; 
+      width: expression(document.documentElement.clientWidth - 30);
+  }
+-->
+</style>
+
+ECHO;
+
+    echo "\n</head>\n\n";
 }
 
 
