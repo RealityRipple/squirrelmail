@@ -270,6 +270,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                 fputs($imap_stream, $Message);
                 fputs($imap_stream, "\r\n");
                 sqimap_read_data($imap_stream, "A3$i", false, $response, $message);
+		// sqimap_retrieve_imap_response provides $response in array
+		$response=(implode('',$response));
                 if ($response != 'OK') {
                     Mail_Fetch_Status(_("Error Appending Message!")." ".$message );
                     Mail_Fetch_Status(_("Closing POP"));
