@@ -24,13 +24,8 @@ include_once(SM_PATH . 'plugins/newmail/functions.php');
 
 displayPageHeader($color, 'None');
 
-$media_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
-$media_popup = getPref($data_dir, $username,'newmail_popup');
-$media_allbox = getPref($data_dir,$username,'newmail_allbox');
-$media_recent = getPref($data_dir,$username,'newmail_recent');
-$media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
-$media = getPref($data_dir,$username,'newmail_media', '(none)');
-$media_userfile_name = getPref($data_dir,$username,'newmail_userfile_name','');
+// plugin uses squirrelmail loading_pref hook.
+// vars are already loaded in include/validate.php
 
 echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
@@ -73,7 +68,7 @@ echo html_tag( 'tr' ) .
         html_tag( 'td', _("Check all boxes, not just INBOX").':', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_allbox == 'on') {
+if ($newmail_allbox == 'on') {
     echo 'checked="checked" ';
 }
 echo 'name="media_allbox" /></td></tr>' . "\n";
@@ -83,7 +78,7 @@ echo html_tag( 'tr' ) .
         html_tag( 'td', _("Count only messages that are RECENT").':', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_recent == 'on') {
+if ($newmail_recent == 'on') {
     echo 'checked="checked" ';
 }
 echo 'name="media_recent" /></td></tr>' . "\n";
@@ -93,20 +88,34 @@ echo html_tag( 'tr' ) .
         html_tag( 'td', _("Change title on supported browsers").':', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if ($media_changetitle == 'on') {
+if ($newmail_changetitle == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_changetitle" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
+echo 'name="media_changetitle" />&nbsp;<small>('._("requires JavaScript to work").')</small></td></tr>' . "\n";
 
 // Option: media_popup
 echo html_tag( 'tr' ) .
         html_tag( 'td', _("Show popup window on new mail").':', 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td', '', 'left' ) .
                 '<input type="checkbox" ';
-if($media_popup == 'on') {
+if($newmail_popup == 'on') {
     echo 'checked="checked" ';
 }
-echo 'name="media_popup" />&nbsp;('._("requires JavaScript to work").')</td></tr>' . "\n";
+echo 'name="media_popup" />&nbsp;<small>('._("requires JavaScript to work").')</small></td></tr>' . "\n";
+
+echo html_tag( 'tr' )
+     . html_tag('td',_("Width of popup window:"),'right','', 'style="white-space: nowrap;"')
+     . html_tag('td','<input type="text" name="popup_width" value="' 
+                . (int)$newmail_popup_width . '" size="3" maxlengh="3" />'
+                . '&nbsp;<small>(' . _("If set to 0, reverts to default value") . ')</small>','left')
+     . "</tr>\n";
+
+echo html_tag( 'tr' )
+     . html_tag('td',_("Height of popup window:"),'right','', 'style="white-space: nowrap;"')
+     . html_tag('td','<input type="text" name="popup_height" value="' 
+                . (int)$newmail_popup_height . '" size="3" maxlengh="3" />'
+                . '&nbsp;<small>(' . _("If set to 0, reverts to default value") . ')</small>','left')
+     . "</tr>\n";
 
 if ($newmail_allowsound) {
 // Option: media_enable
@@ -114,7 +123,7 @@ if ($newmail_allowsound) {
             html_tag( 'td', _("Enable Media Playing").':', 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
-    if ($media_enable == 'on') {
+    if ($newmail_enable == 'on') {
         echo 'checked="checked" ';
     }
     echo 'name="media_enable" /></td></tr>' . "\n";
@@ -125,7 +134,7 @@ if ($newmail_allowsound) {
             html_tag( 'td', '', 'left' ) .
                 '<select name="media_sel">' . "\n" .
                     '<option value="(none)"';
-    if ( $media == '(none)') {
+    if ( $newmail_media == '(none)') {
         echo 'selected="selected" ';
     }
     echo '>' . _("(none)") . '</option>' .  "\n";
@@ -135,7 +144,7 @@ if ($newmail_allowsound) {
         $fname = get_location () . '/sounds/' . $entry;
         if ($entry != '..' && $entry != '.' && $entry != 'CVS') {
             echo '<option ';
-            if ($fname == $media) {
+            if ($fname == $newmail_media) {
                 echo 'selected="selected" ';
             }
             echo 'value="' . htmlspecialchars($fname) . '">' .
@@ -146,7 +155,7 @@ if ($newmail_allowsound) {
     // display media selection
     foreach($newmail_mmedia as $newmail_mm_name => $newmail_mm_data) {
         echo '<option ';
-        if ($media=='mmedia_' . $newmail_mm_name) {
+        if ($newmail_media=='mmedia_' . $newmail_mm_name) {
             echo 'selected="selected" ';
         }
         echo 'value="mmedia_' . $newmail_mm_name . '">'
@@ -154,7 +163,7 @@ if ($newmail_allowsound) {
     }
     // display local file option
     echo '<option ';
-    if ($media=='(userfile)') {
+    if ($newmail_media=='(userfile)') {
         echo 'selected="selected" ';
     }
     echo 'value="(userfile)">'.
@@ -162,14 +171,14 @@ if ($newmail_allowsound) {
     // end of local file option
 
     // Set media file name
-    if ($media == '(none)') {
+    if ($newmail_media == '(none)') {
         $media_output = _("none");
-    } elseif ($media == '(userfile)') {
-        $media_output = basename($media_userfile_name);
-    } elseif (preg_match("/^mmedia_+/",$media)) {
-        $media_output = preg_replace("/^mmedia_/",'',$media);
+    } elseif ($newmail_media == '(userfile)') {
+        $media_output = basename($newmail_userfile_name);
+    } elseif (preg_match("/^mmedia_+/",$newmail_media)) {
+        $media_output = preg_replace("/^mmedia_/",'',$newmail_media);
     } else {
-        $media_output = substr($media, strrpos($media, '/')+1);
+        $media_output = substr($newmail_media, strrpos($newmail_media, '/')+1);
     }
 
     echo '</select>'.
@@ -178,30 +187,26 @@ if ($newmail_allowsound) {
             "'width=150,height=30,scrollbars=no');" .
             'return false;' .
             '" /></td></tr>';
-    echo  '<tr>'.
-        '<td align="right" nowrap>' . _("Upload Media File:") .
-        '</td><td>'.
-        '<input type="file" size="40" name="media_file">'.
-        '</td>'.
-        '</tr>';
+    echo  html_tag('tr')
+        . html_tag('td',_("Upload Media File:"),'right','','style="white-space: nowrap;"')
+        . html_tag('td','<input type="file" size="40" name="media_file">')
+        . "</tr>\n";
 
-    echo  '<tr>'.
-        '<td align="right" nowrap>' . _("Uploaded Media File:") .
-        '</td><td>'.
-        ($media_userfile_name!='' ? htmlspecialchars($media_userfile_name) : _("unavailable")).
-        '</td>'.
-        '</tr>';
+    echo  html_tag('tr')
+        . html_tag('td',_("Uploaded Media File:"),'right','','style="white-space: nowrap;"')
+        . html_tag('td',($newmail_userfile_name!='' ? htmlspecialchars($newmail_userfile_name) : _("unavailable")))
+        ."</tr>\n";
 
-    if ($media_userfile_name!='') {
+    if ($newmail_userfile_name!='') {
         echo '<tr>'
             .'<td colspan="2" align="center">'
-            .sprintf(_("Media file %s will be removed, if you upload other media file."),basename($media_userfile_name))
+            .sprintf(_("Media file %s will be removed, if you upload other media file."),basename($newmail_userfile_name))
             .'</td></tr>';
     }
     echo html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'style="white-space: nowrap;"' ) .
                     html_tag( 'td', '<input type="hidden" value="' .
-                        htmlspecialchars($media) . '" name="media_default" />' .
+                        htmlspecialchars($newmail_media) . '" name="media_default" />' .
                         htmlspecialchars($media_output) . '', 'left' )
              ) . "\n";
 }
