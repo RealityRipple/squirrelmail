@@ -2,6 +2,9 @@
    /**
     **  right_main.php
     **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  This is where the mailboxes are listed.  This controls most of what
     **  goes on in SquirrelMail.
     **
