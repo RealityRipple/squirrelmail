@@ -97,8 +97,8 @@ if ($vcard_nice['version'] == '2.1') {
          sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."),
                  htmlspecialchars($vcard_nice['version'])) .
          "</td></tr>\n";
-    $vcard_nice['firstname']='';
-    $vcard_nice['lastname']='';
+    $vcard_nice['firstname'] = '';
+    $vcard_nice['lastname'] = '';
 }
 
 foreach ($vcard_nice as $k => $v) {
@@ -154,8 +154,9 @@ echo '</table>' .
      addForm('../src/addressbook.php', 'post', 'f_add') .
      '<table border="0" cellpadding="2" cellspacing="0" align="center">' .
      '<tr><td align="right"><b>' . _("Nickname:") . '</b></td>' .
-     '<td>'.
-     addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'], '20').
+     '<td>' .
+     addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' .
+             $vcard_safe['lastname'], '20') .
      '</td></tr>' .
      '<tr><td align="right"><b>' . _("Note Field Contains:") . '</b></td><td>' ;
 
@@ -196,8 +197,9 @@ echo    addSelect('addaddr[label]', $opts, '', TRUE);
 </td></tr>
 <tr><td colspan="2" align="center">
 <?php
-if (isset($vcard_nice['email;internet']))
+if (isset($vcard_nice['email;internet'])) {
     echo addHidden('addaddr[email]', $vcard_nice['email;internet']);
+}
 
 echo addHidden('addaddr[firstname]', $vcard_safe['firstname']).
     addHidden('addaddr[lastname]', $vcard_safe['lastname']).
