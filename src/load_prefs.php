@@ -161,9 +161,6 @@
    }
 
    $prefix_sig = getPref($data_dir, $username, "prefix_sig");
-   if ($prefix_sig == "") {
-      $prefix_sig = true;
-   }
 
    /* Load preferences for reply citation style. */
    global $reply_citation_style, $reply_citation_start, $reply_citation_end;

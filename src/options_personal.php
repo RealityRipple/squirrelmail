@@ -21,7 +21,7 @@
    $fullname = getPref($data_dir, $username, 'full_name');
    $replyto = getPref($data_dir, $username, 'reply_to');
    $email_address  = getPref($data_dir, $username, 'email_address'); 
-
+echo $prefix_sig;
 ?>
    <br>
 <table width=95% align=center border=0 cellpadding=2 cellspacing=0>
@@ -86,24 +86,23 @@
 	 <tr>
 	    <td align=right nowrap><?PHP echo _("Multiple Identities"); ?>:
 	    </td><td>
-	       <a href="options_identities.php">Edit Advanced Identities</a>
-               (discards changes made on this form so far)
-	    </td>
+	       <a href="options_identities.php"><?PHP 
+   echo _("Edit Advanced Identities") . '</a> ' . _("(discards changes made on this form so far)");
+	    ?></td>
 	 </tr>
          <tr><td colspan=2><hr size=1 width=80%></td></tr>
          <tr>
             <td align=right nowrap valign=top><br><?php echo _("Signature"); ?>:
             </td><td>
 <?php
-   if ($use_signature == true)
-      echo '<input type=checkbox value="1" name=usesignature checked>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
-   else
-      echo '<input type=checkbox value="1" name=usesignature>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
-  if ( ! isset($prefix_sig) && $prefix_sig == true )
-    echo '<input type="checkbox" value="1" name="prefixsig" checked>&nbsp;&nbsp;' 
-        . _( "Prefix signature with '--' ?" ) . '<BR>';
-  else
-    echo '<input type="checkbox" value="1" name="prefixsig">&nbsp;&nbsp;' . 
+   echo '<input type=checkbox value="1" name=usesignature';
+   if ($use_signature)
+      echo ' checked';
+   echo '>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
+   echo '<input type="checkbox" value="1" name="prefixsig"';
+   if ( $prefix_sig )
+     echo ' checked';
+   echo '>&nbsp;&nbsp;' .
         _( "Prefix signature with '--' ?" ) . '<BR>';
    echo "\n<textarea name=\"signature_edit\" rows=\"5\" cols=\"50\">$signature_abs</textarea><br>";
 ?>
