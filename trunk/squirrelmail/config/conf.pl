@@ -526,8 +526,6 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         closedir DIR;
 
         print "\n";
-        print "A   Sanitize all plugins for use with Squirrelmail 1.2\n";
-        print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 9 ) {
         print $WHT. "Database\n" . $NRM;
@@ -659,7 +657,6 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             if ( $command == 1 ) { $motd = command71(); }
         } elsif ( $menu == 8 ) {
             if ( $command =~ /^[0-9]+/ ) { @plugins = command81(); }
-            elsif ( $command eq "a" ) { command8s(); }
         } elsif ( $menu == 9 ) {
             if    ( $command == 1 ) { $addrbook_dsn     = command91(); }
             elsif ( $command == 2 ) { $addrbook_table   = command92(); }
@@ -1094,17 +1091,6 @@ sub command81 {
             while ( $ct <= $#unused_plugins ) {
                 if ( $ct == $num ) {
                     @newplugins = ( @newplugins, $unused_plugins[$ct] );
-
-                    # sanitize the plugin
-                    $dir = $unused_plugins[$ct];
-                    if (-d "../plugins/$dir") {
-                        `./ri_once.pl ../plugins/$dir`;
-                    } else {
-                        print "Could not locate ../plugins/$dir\n" ;
-                        print "The plugin $dir could *not* be sanitized!\n" ;
-                        print "If you want to try to do this manually, please run\n" ;
-                         print "config/ri_once.pl with the full path to the $dir plugin.\n" ;
-                    }
                 }
                 $ct++;
             }
@@ -1112,18 +1098,6 @@ sub command81 {
         }
     }
     return @plugins;
-}
-
-sub command8s {
-    print "This command will sanitize all plugins for use with\n";
-    print "Squirrelmail 1.2. That is, it will rewrite some php-\n";
-    print "constructs that are *incompatible* with the 1.2 design\n";
-    print "into ones that are *compatible*\n";
-    print "Do you wish to issue this command [y/N]? ";
-    $ctu = <STDIN>;
-    if ( $ctu =~ /^y\n/i ) {
-        `./ri_once.pl ../plugins`;
-    }
 }
 
 ################# FOLDERS ###################

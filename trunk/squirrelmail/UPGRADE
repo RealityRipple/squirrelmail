@@ -111,15 +111,10 @@ Run config/conf.pl to see the new configuration options available with the
 new version, as well as to verify that all of your old options are set
 properly.
 
-When you have migrated plugins from your old install to your new
-install, or even use any plugins at all, you *must* run conf.pl and do
-the following:
+Always save your options, also if you haven't changed anything.
+This will ensure that any problems with conf.pl that might have been solved
+are effective to your installation.
 
-A.  Select "8" (Plugins)
-B.  Select "A" (Sanitize all plugins for use with Squirrelmail 1.2)
-
-This will make sure the plugins work more efficiently (and will
-release you from any "cannot redeclare" error messages).
 
 6.  DONE!
 =========
