@@ -139,7 +139,7 @@ if (file_exists("../help/$squirrelmail_language")) {
     echo "<br><center><font color=\"$color[2]\">" .
          _("Some or all of the help documents are not present!").
          '</font></center>'.
-         '</td></tr></table>';
+         '</td></tr></table></body></html>';
     /* this is really silly, because there may be some
      * footers. What about them.
      * TODO: Fix this so it's not just "exit".
@@ -171,7 +171,7 @@ if ($help_exists == true) {
     	$chapter = 0;
     }
 
-    if ( $chapter == 0 || !isset( $helpdir[$chapter] ) ) {
+    if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
         echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' );
 	            html_tag( 'tr' ) .
                         html_tag( 'td' ) .
