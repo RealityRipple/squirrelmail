@@ -78,7 +78,9 @@
    echo "<FONT FACE=\"Arial,Helvetica\" SIZE=4><B><CENTER>";
    echo "Folders</B><BR></FONT>";
 
-   echo "<FONT FACE=\"Arial,Helvetica\" SIZE=2>(<A HREF=\"../src/left_main.php\" TARGET=left>refresh folder list</A>)</FONT></CENTER><BR>";
+   echo "<FONT FACE=\"Arial,Helvetica\" SIZE=2>(<A HREF=\"../src/left_main.php\" TARGET=\"left\">";
+   echo _("refresh folder list");
+   echo "</A>)</FONT></CENTER><BR>";
    echo "<FONT FACE=\"Arial,Helvetica\">\n";
    $delimeter = findMailboxDelimeter($imapConnection);
    for ($i = 0;$i < count($boxes); $i++) {
