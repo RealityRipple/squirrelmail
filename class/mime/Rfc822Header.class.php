@@ -211,10 +211,10 @@ class Rfc822Header {
     function getAddressTokens($address) {
         $aTokens = array();
         $aAddress = array();
-        $iCnt = strlen($address);
         $aSpecials = array('(' ,'<' ,',' ,';' ,':');
         $aReplace =  array(' (',' <',' ,',' ;',' :');
         $address = str_replace($aSpecials,$aReplace,$address);
+        $iCnt = strlen($address);
         $i = 0;
         while ($i < $iCnt) {
             $cChar = $address{$i};
@@ -251,8 +251,31 @@ class Rfc822Header {
                     $sToken = substr($address,$i);
                     $i = $iCnt;
                 } else {
-                    $sToken = substr($address,$i,$iEnd - $i + 1);
-                    $i = $iEnd;
+                    $iDepth = 1;
+                    $iComment = $i;
+                    while (($iDepth > 0) && (++$iComment < $iCnt)) {
+                        $cCharComment = $address{$iComment};
+                        switch($cCharComment) {
+                            case '\\':
+                                ++$iComment;
+                                break;
+                            case '(':
+                                ++$iDepth;
+                                break;
+                            case ')':
+                                --$iDepth;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if ($iDepth == 0) {
+                        $sToken = substr($address,$i,$iComment - $i +1);
+                        $i = $iComment;
+                    } else {
+                        $sToken = substr($address,$i,$iEnd - $i + 1);
+                        $i = $iEnd;
+                    }
                 }
                 $sToken = str_replace($aReplace, $aSpecials,$sToken);
                 $aTokens[] = $sToken;
