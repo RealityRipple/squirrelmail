@@ -490,7 +490,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft, $uid_support,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
-           $delete_move_next_t, $delete_move_next_b;
+           $data_dir, $username;
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -577,7 +577,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
         // Only bother with Delete & Prev and Delete & Next IF
         // we have UID support, and top display is enabled.
-        if ( $uid_support && $delete_move_next_t == 'on' ) {
+        $delete_prev_next_display = getPref($data_dir, $username, 'delete_prev_next_display', 1);
+        if ( $uid_support && $delete_prev_next_display == 1 ) {
             $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
@@ -955,12 +956,7 @@ if (($attachment_common_show_images) &&
     }
 }
 
-// If a bar at the bottom is also wanted, print menu bar again,
-// only upside down.
-if ($delete_move_next_b != 'off') {
-    formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, FALSE);
-}
-
+formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, FALSE);
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');
