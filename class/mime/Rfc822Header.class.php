@@ -33,6 +33,7 @@ class Rfc822Header {
         $xmailer = '',
         $priority = 3,
         $dnt = '',
+        $encoding = '',
         $mlist = array(),
         $more_headers = array(); /* only needed for constructing headers
                                     in smtp.php */
