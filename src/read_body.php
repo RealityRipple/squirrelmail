@@ -36,7 +36,12 @@
       echo "<br>";
       echo "<table width=100% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . "</b> - ";
-      echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
+      if ($where && $what) {
+         // Got here from a search
+         echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."\">";
+      } else {  
+         echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
+      }
       echo ""._("View message") . "</a></b></center></td></tr></table>\n";
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
       echo "<tr><td><pre>";
@@ -141,11 +146,21 @@
       if (count($to_ary) > 1) {
          if ($show_more == false) {
             if ($i == 1) {
-               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+               if ($where && $what) {
+                  // from a search
+                  $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+               } else {
+                  $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
+               }   
                $i = count($to_ary);
             }
          } else if ($i == 1) {
-            $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+            if ($where && $what) {
+               // from a search
+               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+            } else {
+               $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
+            }
          }
       }
    }
@@ -165,11 +180,21 @@
       if (count($cc_ary) > 1) {
          if ($show_more_cc == false) {
             if ($i == 1) {
-               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+               if ($where && $what) {
+                  // from a search
+                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+               } else {
+                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+               }   
                $i = count($cc_ary);
             }
          } else if ($i == 1) {
-            $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+            if ($where && $what) {
+               // from a search
+               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+            } else {
+               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+            }   
          }
       }
    }
@@ -245,7 +270,12 @@
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
    echo "            <B>$subject</B>\n";
    echo "         </TD>\n";
-   echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
+   if ($where && $what) {
+      // Got here from a search
+      echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
+   } else {   
+      echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
+   }
    echo "      </TR>\n";
    /** from **/
    echo "      <TR>\n";
