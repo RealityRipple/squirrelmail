@@ -1,14 +1,14 @@
 <?php
    /**
-    **  left_main.php
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  This is the code for the left bar.  The left bar shows the folders
-    **  available, and has cookie information.
-    **
-    **  $Id$
-    **/
+    * left_main.php
+    * Copyright (c) 1999-2001 The Squirrelmail Development Team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * This is the code for the left bar.  The left bar shows the folders
+    * available, and has cookie information.
+    *
+    * $Id$
+    */
 
     require_once('../src/validate.php');
     require_once('../functions/array.php');
@@ -158,16 +158,19 @@
     echo '<CENTER><FONT SIZE=4><B>';
     echo _("Folders") . "</B><BR></FONT>\n\n";
 
+    /* First, display the clock. */
     if ($hour_format == 1) {
-      if ($date_format == 4)
+      if ($date_format == 4) {
          $hr = "G:i:s";
-      else
+      } else {
          $hr = "G:i";
+      }
     } else {  
-      if ($date_format == 4)
+      if ($date_format == 4) {
          $hr = "g:i:s a";
-      else   
+      } else {
          $hr = "g:i a";
+      }
     }
     
     switch( $date_format ) {
@@ -184,14 +187,18 @@
     default:   
       $clk = date("D, ".$hr, time());
     }
+    $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<center><small>' . _("Last Refresh") . ":<br>$clk";
-    echo '</small></center>';
+    echo '<CENTER><SMALL>' . str_replace(' ','&nbsp;',_("Last Refresh"))
+         .  ": $clk</SMALL></CENTER>";
+
+    /* Next, display the refresh button. */
     echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
     echo _("refresh folder list");
     echo '</A>)</SMALL></CENTER><BR>';
     $delimeter = sqimap_get_delimiter($imapConnection);
 
+    /* Lastly, display the folder list. */
     if (isset($collapse_folders) && $collapse_folders) {
         /* If directed, collapse or uncollapse a folder. */
         if (isset($fold)) {

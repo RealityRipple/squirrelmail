@@ -14,6 +14,7 @@
     session_start();
     require_once('../functions/i18n.php');
     require_once('../functions/auth.php');
+    require_once('../functions/strings.php');
 
     is_logged_in();
 
@@ -52,54 +53,15 @@
         }
     }
 
-    /************************************/
-    /* Trims every element in the array */
-    /************************************/
-    function TrimArray(&$array) {
-        foreach ($array as $k => $v) {
-            global $$k;
-            if (is_array($$k)) {
-                foreach ($$k as $k2 => $v2) {
-	           $$k[$k2] = substr($v2, 1);
-                }
-            } else {
-                $$k = substr($v, 1);
-            }
-
-	    /* Re-assign back to array. */
-            $array[$k] = $$k;
-        }
-    }
-   
-   
-    /***************************************************/
-    /* Removes slashes from every element in the array */
-    /***************************************************/
-    function RemoveSlashes(&$array) {
-        foreach ($array as $k => $v) {
-            global $$k;
-            if (is_array($$k)) {
-                foreach ($$k as $k2 => $v2) {
-                    $newArray[stripslashes($k2)] = stripslashes($v2);
-                }
-                $$k = $newArray;
-            } else {
-                $$k = stripslashes($v);
-            }
-
-	    /* Re-assign back to the array. */
-            $array[$k] = $$k;
-        }
-    }
-
-   /**
-    * Everyone needs stuff from config, and config needs stuff from
-    * strings.php, so include them both here.
-    *
-    * Include them down here instead of at the top so that all config
-    * variables overwrite any passed in variables (for security).
-    */
-    require_once('../functions/strings.php');
+    /**
+     * Everyone needs stuff from config, and config needs stuff from
+     * strings.php, so include them both here. Actually, strings is
+     * included at the top now as the string array functions have
+     * been moved into it.
+     *
+     * Include them down here instead of at the top so that all config
+     * variables overwrite any passed in variables (for security).
+     */
     require_once('../config/config.php');
     require_once('../src/load_prefs.php');
     require_once('../functions/page_header.php');

@@ -1,13 +1,15 @@
 <?php
-
    /**
-    **  mailbox_display.php
-    **
-    **  This contains functions that display mailbox information, such as the
-    **  table row that has sender, date, subject, etc...
-    **
-    **  $Id$
-    **/
+    * mailbox_display.php
+    *
+    * Copyright (c) 1999-2001 The Squirrelmail Development Team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * This contains functions that display mailbox information, such as the
+    * table row that has sender, date, subject, etc...
+    *
+    * $Id$
+    */
 
    if (defined('mailbox_display_php'))
        return;
@@ -15,7 +17,7 @@
 
    define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
-   function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
+   function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start_msg, $where, $what) {
       global $checkall;
       global $color, $msgs, $msort;
       global $sent_folder, $draft_folder;
@@ -116,7 +118,7 @@
             case 4: /* subject */
                echo "   <td bgcolor=$hlt_color>$bold";
                    if (! isset($search_stuff)) { $search_stuff = ''; }
-               echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
+               echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$start_msg&show_more=0$search_stuff\"";
                do_hook("subject_link");
 
                if ($subject != $msg['SUBJECT']) {
@@ -169,7 +171,7 @@
     * and shows them to the user.
     */
    function showMessagesForMailbox
-        ($imapConnection, $mailbox, $numMessages, $startMessage,
+        ($imapConnection, $mailbox, $num_msgs, $start_msg,
          $sort, $color,$show_num, $use_cache) {
       global $msgs, $msort;
       global $sent_folder, $draft_folder;
@@ -185,26 +187,26 @@
       $issent = (($mailbox == $sent_folder) || ($mailbox == $draft_folder));
       if (!$use_cache) {
          /* If it is sorted... */
-         if ($numMessages >= 1) {
+         if ($num_msgs >= 1) {
             if ($sort < 6) {
-               $id = range(1, $numMessages);
+               $id = range(1, $num_msgs);
             } else {
                // if it's not sorted
-               if ($startMessage + ($show_num - 1) < $numMessages) {
-                  $endMessage = $startMessage + ($show_num-1);
+               if ($start_msg + ($show_num - 1) < $num_msgs) {
+                  $end_msg = $start_msg + ($show_num-1);
                } else {
-                  $endMessage = $numMessages;
+                  $end_msg = $num_msgs;
                }
 
-               if ($endMessage < $startMessage) {
-                  $startMessage = $startMessage - $show_num;
-                  if ($startMessage < 1) {
-                      $startMessage = 1;
+               if ($end_msg < $start_msg) {
+                  $start_msg = $start_msg - $show_num;
+                  if ($start_msg < 1) {
+                      $start_msg = 1;
                   }
                }
 
-               $real_startMessage = $numMessages - $startMessage + 1;
-               $real_endMessage = $numMessages - $startMessage - $show_num + 2;
+               $real_startMessage = $num_msgs - $start_msg + 1;
+               $real_endMessage = $num_msgs - $start_msg - $show_num + 2;
                if ($real_endMessage <= 0) {
                    $real_endMessage = 1;
                }
@@ -227,16 +229,16 @@
 
          $j = 0;
          if ($sort == 6) {
-             $end = $startMessage + $show_num - 1;
-             if ($numMessages < $show_num) {
-                 $end_loop = $numMessages;
-             } else if ($end > $numMessages) {
-                 $end_loop = $numMessages - $startMessage + 1;
+             $end = $start_msg + $show_num - 1;
+             if ($num_msgs < $show_num) {
+                 $end_loop = $num_msgs;
+             } else if ($end > $num_msgs) {
+                 $end_loop = $num_msgs - $start_msg + 1;
              } else {
                  $end_loop = $show_num;
              }
          } else {
-            $end = $numMessages;
+            $end = $num_msgs;
             $end_loop = $end;
          }
 
@@ -294,7 +296,7 @@
             $i = 0;
             $j = 0;
 
-            while ($j < $numMessages) {
+            while ($j < $num_msgs) {
                if (isset($messages[$j]['FLAG_DELETED']) && $messages[$j]['FLAG_DELETED'] == true) {
                   $j++;
                   continue;
@@ -304,7 +306,7 @@
                $i++;
                $j++;
             }
-            $numMessages = $i;
+            $num_msgs = $i;
          } else {
              if (!isset($messages)) {
                  $messages = array();
@@ -314,7 +316,7 @@
       }
 
       // There's gotta be messages in the array for it to sort them.
-      if ($numMessages > 0 && ! $use_cache) {
+      if ($num_msgs > 0 && ! $use_cache) {
          /** 0 = Date (up)      4 = Subject (up)
           ** 1 = Date (dn)      5 = Subject (dn)
           ** 2 = Name (up)
@@ -339,14 +341,14 @@
          }
          session_register('msort');
       }
-      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $msort, $mailbox, $sort, $color,$show_num);
+      displayMessageArray($imapConnection, $num_msgs, $start_msg, $msgs, $msort, $mailbox, $sort, $color,$show_num);
       session_register('msgs');
    }
 
    /******************************************************************/
    /* Generic function to convert the msgs array into an HTML table. */
    /******************************************************************/
-   function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
+   function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $msort, $mailbox, $sort, $color, $show_num) {
       global $folder_prefix, $sent_folder;
       global $imapServerAddress, $data_dir, $username, $use_mailbox_cache;
       global $index_order, $real_endMessage, $real_startMessage, $checkall;
@@ -355,146 +357,93 @@
       if (!session_is_registered('msgs')) { session_register('msgs'); }
       if (!session_is_registered('msort')) { session_register('msort'); }
 
-      if ($startMessage + ($show_num - 1) < $numMessages) {
-         $endMessage = $startMessage + ($show_num-1);
+      if ($start_msg + ($show_num - 1) < $num_msgs) {
+         $end_msg = $start_msg + ($show_num-1);
       } else {
-         $endMessage = $numMessages;
+         $end_msg = $num_msgs;
       }
 
-      if ($endMessage < $startMessage) {
-         $startMessage = $startMessage - $show_num;
-         if ($startMessage < 1) { $startMessage = 1; }
+      if ($end_msg < $start_msg) {
+         $start_msg = $start_msg - $show_num;
+         if ($start_msg < 1) { $start_msg = 1; }
       }
 
-      $nextGroup = $startMessage + $show_num;
-      $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);
 
       do_hook('mailbox_index_before');
 
-      $Message = '';
-      if ($startMessage < $endMessage) {
-         $Message = sprintf( _("Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"), $startMessage, $endMessage, $numMessages );
-      } elseif ($startMessage == $endMessage) {
-         $Message = _("Viewing Message: <b>1</b> (1 total)");
-      } else {
-         $Message = '<br>';
-      }
+      $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
+      $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num);
 
-      if ($sort == 6) {
-         $use = 0;
-      } else {
-         $use = 1;
-      }
-      $lMore = '';
-      $rMore = '';
-      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
-         $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
-      } else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
-         $rMore = "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
-      } else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         $lMore = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
-         $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
-      }
-      if ($lMore <> '') {
-          $lMore .= ' | ';
-      }
-
-      /* Page selector block. Following code computes page links. */
-      $mMore = '';
-      if (!getPref($data_dir, $username, 'page_selector')
-             && ($numMessages > $show_num)) {
-         $j = intval( $numMessages / $show_num );  // Max pages
-         $k = max( 1, $j / getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX ) );
-         if ($numMessages % $show_num <> 0 ) {
-             $j++;
-         }
-         $startMessage = min( $startMessage, $numMessages );
-         $p = intval( $startMessage / $show_num ) + 1;
-         $i = 1;
-         while( $i < $p ) {
-            $pg = intval( $i );
-            $start = ( ($pg-1) * $show_num ) + 1;
-            $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                    "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
-            $i += $k;
-         }
-         $mMore .= "<b>$p</b> ";
-         $i += $k;
-         while( $i <= $j ) {
-            $pg = intval( $i );
-            $start = ( ($pg-1) * $show_num ) + 1;
-            $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                    "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
-            $i+=$k;
-         }
-         $mMore .= ' | ';
-      }
-
-      if (! isset($msg))
+      if (! isset($msg)) {
           $msg = '';
-      mail_message_listing_beginning($imapConnection,
-         "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
-          $mailbox, $sort, $Message, $lMore . $mMore . $rMore, $startMessage);
+      }
 
-      $groupNum = $startMessage % ($show_num - 1);
-      $real_startMessage = $startMessage;
+      mail_message_listing_beginning
+         ($imapConnection,
+         "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$start_msg",
+          $mailbox, $sort, $msg_cnt_str, $paginator_str, $start_msg);
+
+      $groupNum = $start_msg % ($show_num - 1);
+      $real_startMessage = $start_msg;
       if ($sort == 6) {
-         if ($endMessage - $startMessage < $show_num - 1) {
-            $endMessage = $endMessage - $startMessage + 1;
-            $startMessage = 1;
-         } else if ($startMessage > $show_num) {
-            $endMessage = $show_num;
-            $startMessage = 1;
+         if ($end_msg - $start_msg < $show_num - 1) {
+            $end_msg = $end_msg - $start_msg + 1;
+            $start_msg = 1;
+         } else if ($start_msg > $show_num) {
+            $end_msg = $show_num;
+            $start_msg = 1;
          }
       }
-      $endVar = $endMessage + 1;
+      $endVar = $end_msg + 1;
 
-      // loop through and display the info for each message.
+      /* Loop through and display the info for each message. */
       $t = 0; // $t is used for the checkbox number
-      if ($numMessages == 0) { // if there's no messages in this folder
-         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order);
-         echo "><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER></TD></TR>";
-      } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
-         if ($sort != 6)
-            $i = $startMessage;
-         else
-            $i = 1;
-         reset($msort);
-         $k = 0;
-         do {
-            $key = key($msort);
-            next($msort);
-            $k++;
-         } while (isset ($key) && ($k < $i));
-         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
+      if ($num_msgs == 0) { // if there's no messages in this folder
+          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" . count($index_order) . ">\n";
+          echo "  <CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp;</CENTER>\n";
+          echo "</TD></TR>";
+      } else if ($start_msg == $end_msg) {
+          /* If there's only one message in the box, handle it differently. */
+          if ($sort != 6) {
+              $i = $start_msg;
+          } else {
+              $i = 1;
+          }
+
+          reset($msort);
+          $k = 0;
+          do {
+              $key = key($msort);
+              next($msort);
+              $k++;
+          } while (isset ($key) && ($k < $i));
+          printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
       } else {
-         $i = $startMessage;
+          $i = $start_msg;
 
-         reset($msort);
-         $k = 0;
-         do {
-            $key = key($msort);
-            next($msort);
-            $k++;
-         } while (isset ($key) && ($k < $i));
+          reset($msort);
+          $k = 0;
+          do {
+              $key = key($msort);
+              next($msort);
+              $k++;
+          } while (isset ($key) && ($k < $i));
 
-         do {
-            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
-            $key = key($msort);
-            $t++;
-            $i++;
-            next($msort);
-         } while ($i && $i < $endVar);
+          do {
+              printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $real_startMessage, 0, 0);
+              $key = key($msort);
+              $t++;
+              $i++;
+              next($msort);
+          } while ($i && $i < $endVar);
       }
 
       echo '</table>';
       echo "<table bgcolor=\"$color[9]\" width=100% border=0 cellpadding=1 cellspacing=1>" .
               "<tr BGCOLOR=\"$color[4]\">" .
-                 "<table width=100% BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$lMore$mMore$rMore</td>".
-                 "<td align=right>$Message</td></tr></table>".
+                 "<table width=100% BGCOLOR=\"$color[4]\" border=0 cellpadding=1 cellspacing=0><tr><td>$paginator_str</td>".
+                 "<td align=right>$msg_cnt_str</td></tr></table>".
               "</tr>".
            "</table>";
       /** End of message-list table */
@@ -503,8 +452,10 @@
       echo "</TABLE></FORM>\n";
    }
 
-   /* Displays the standard message list header.
-    * To finish the table, you need to do a "</table></table>";
+   /**
+    * Displays the standard message list header. To finish the table,
+    * you need to do a "</table></table>";
+    *
     * $moveURL is the URL to submit the delete/move form to
     * $mailbox is the current mailbox
     * $sort is the current sorting method (-1 for no sorting available [searches])
@@ -513,25 +464,27 @@
     */
    function mail_message_listing_beginning
         ($imapConnection, $moveURL, $mailbox = '', $sort = -1,
-         $Message = '', $More = '', $startMessage = 1) {
+         $msg_cnt_str = '', $paginator = '', $start_msg = 1) {
       global $color, $index_order, $auto_expunge, $move_to_trash;
       global $checkall, $sent_folder, $draft_folder;
       $urlMailbox = urlencode($mailbox);
 
-      /** This is the beginning of the message list table.  It wraps around all messages */
-      echo "<center>$Message</center>" .
-           '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="1" CELLSPACING="0">';
+      /****************************************************
+       * This is the beginning of the message list table. *
+       * It wraps around all messages                     *
+       ****************************************************/
+      echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n";
 
-      echo "<TR BGCOLOR=\"$color[9]\"><TD>";
-
-      echo  "<table bgcolor=\"$color[4]\" cellpadding=2".
-           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>' .
-           "$More</td><td align=right>";
-      ShowSelectAllLink($startMessage, $sort);
-      echo "</td></tr></table>\n</td></tr>";
+      echo "<TR BGCOLOR=\"$color[0]\"><TD>";
+      echo "  <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n";
+      echo "    <TD ALIGN=LEFT>$paginator</TD>\n";
+      echo '    <TD ALIGN=CENTER>' . get_selectall_link($start_msg, $sort) . "</TD>\n";
+      echo "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n";
+      echo "  </TR></TABLE>\n";
+      echo "</TD></TR>";
 
       /** The delete and move options */
-      echo "<TD BGCOLOR=\"$color[0]\">";
+      echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
@@ -645,10 +598,11 @@
            '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
    }
 
-   function ShowSelectAllLink($startMessage, $sort) {
+   function get_selectall_link($start_msg, $sort) {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
 
-       echo '&nbsp;<script language="JavaScript">' .
+       $result =
+            '&nbsp;<script language="JavaScript">' .
             "\n<!-- \n" .
             "function CheckAll() {\n" .
             "   for (var i = 0; i < document.messageList.elements.length; i++) {\n" .
@@ -661,25 +615,115 @@
             "//-->\n" .
             "</script>\n<noscript>\n";
 
-       echo "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
-          "&startMessage=$startMessage&sort=$sort&checkall=";
-       if (isset($checkall) && $checkall == '1')
-           echo '0';
-       else
-           echo '1';
-       if (isset($where) && isset($what))
-           echo '&where=' . urlencode($where) . '&what=' . urlencode($what);
-       echo "\">";
-       if (isset($checkall) && $checkall == '1')
-           echo _("Unselect All");
-       else
-           echo _("Select All");
+       $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
+          .  "&startMessage=$start_msg&sort=$sort&checkall=";
+       if (isset($checkall) && $checkall == '1') {
+           $result .= '0';
+       } else {
+           $result .= '1';
+       }
 
-       echo "</A>\n</noscript>\n";
+       if (isset($where) && isset($what)) {
+           $result .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
+       }
+
+       $result .= "\">";
+
+       if (isset($checkall) && ($checkall == '1')) {
+           $result .= _("Unselect All");
+       } else {
+           $result .= _("Select All");
+       }
+
+       $result .= "</A>\n</noscript>\n";
+
+       /* Return our final result. */
+       return ($result);
    }
 
-   function processSubject($subject)
-   {
+    /**
+     * This function computes the "Viewing Messages..." string.
+     */
+    function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
+        /* Compute the $msg_cnt_str. */
+        $result = '';
+        if ($start_msg < $end_msg) {
+            $result = sprintf(_("Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"), $start_msg, $end_msg, $num_msgs);
+        } else if ($start_msg == $end_msg) {
+            $result = sprintf(_("Viewing Message: <B>%s</B> (1 total)"), $start_msg);
+        } else {
+            $result = '<br>';
+        }
+
+        /* Return our result string. */
+        return ($result);
+    }
+
+    /**
+     * This function computes the paginator string.
+     */
+    function get_paginator_str
+    ($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num) {
+        $nextGroup = $start_msg + $show_num;
+        $prevGroup = $start_msg - $show_num;
+
+        if ($sort == 6) {
+            $use = 0;
+        } else {
+            $use = 1;
+        }
+        $lMore = '';
+        $rMore = '';
+        if (($nextGroup <= $num_msgs) && ($prevGroup >= 0)) {
+            $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
+            $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+        } else if (($nextGroup > $num_msgs) && ($prevGroup >= 0)) {
+            $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
+            $rMore = "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
+        } else if (($nextGroup <= $num_msgs) && ($prevGroup < 0)) {
+            $lMore = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
+            $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+        }
+        if ($lMore <> '') {
+            $lMore .= ' | ';
+        }
+
+        /* Page selector block. Following code computes page links. */
+        $mMore = '';
+        if (!getPref($data_dir, $username, 'page_selector')
+               && ($num_msgs > $show_num)) {
+            $j = intval( $num_msgs / $show_num );  // Max pages
+            $k = max( 1, $j / getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX ) );
+            if ($num_msgs % $show_num <> 0 ) {
+                $j++;
+            }
+            $start_msgs = min( $start_msgs, $num_msgs );
+            $p = intval( $start_msgs / $show_num ) + 1;
+            $i = 1;
+            while( $i < $p ) {
+                $pg = intval( $i );
+                $start = ( ($pg-1) * $show_num ) + 1;
+                $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
+                          "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+                $i += $k;
+            }
+            $mMore .= "<b>$p</b> ";
+            $i += $k;
+            while( $i <= $j ) {
+               $pg = intval( $i );
+               $start = ( ($pg-1) * $show_num ) + 1;
+               $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start"
+                       . "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+               $i+=$k;
+            }
+            $mMore .= ' | ';
+        }
+
+        /* Return the resulting string. */
+        return ($lMore . $mMore . $rMore);
+    }
+
+   function processSubject($subject) {
       // Shouldn't ever happen -- caught too many times in the IMAP functions
       if ($subject == '')
           return _("(no subject)");

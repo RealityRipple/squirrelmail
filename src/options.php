@@ -82,6 +82,7 @@
         setPref($data_dir, $username, 'chosen_theme', $chosentheme);
         setPref($data_dir, $username, 'language', $language);
         setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
+        setPref($data_dir, $username, 'javascript_setting', $new_javascript_setting);
         setPref($data_dir, $username, 'show_num', $shownum);
         setPref($data_dir, $username, 'wrap_at', $wrapat);
         setPref($data_dir, $username, 'editor_size', $editorsize);
@@ -115,6 +116,17 @@
         } else {
             setPref($data_dir, $username, 'page_selector', 1);
         }
+
+        $js_autodetect_results = (isset($js_autodetect_results) ? $js_autodetect_results : SMPREF_JS_OFF);
+        if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
+            if ($js_autodetect_results == SMPREF_JS_ON) {
+                setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
+            } else {
+                setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
+            }
+        } else {
+            setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
+        }  
 
         do_hook('options_display_save');
 
@@ -213,13 +225,13 @@
     /* Let's sort Javascript Option Pages to the bottom. */
     /*****************************************************/
     foreach ($optionpages as $optpage) {
-        if ($optpage['js']) {
+        if (!$optpage['js']) {
+            $reg_optionpages[] = $optpage;
+        } else if ($javascript_on == SMPREF_JS_ON) {
             $js_optionpages[] = $optpage;
-        } else {
-            $nojs_optionpages[] = $optpage;
         }
     }
-    $optionpages = array_merge($nojs_optionpages, $js_optionpages);
+    $optionpages = array_merge($reg_optionpages, $js_optionpages);
 
     /********************************************/
     /* Now, print out each option page section. */
@@ -271,121 +283,9 @@
     /*******************************************************************/
 
     /**
-     * This function prints out an option page row. All it actually
-     * does is call the three functions below.
+     * This function prints out an option page row.
      */
     function print_optionpages_row($leftopt, $rightopt = false) {
-        if ($rightopt == false) {
-            if ($leftopt['js']) {
-                print_optionpages_row_fulljs($leftopt);
-            } else {
-                print_optionpages_row_nojs($leftopt);
-            }
-        } else {
-            if ($leftopt['js']) {
-                if ($rightopt['js']) {
-                    print_optionpages_row_fulljs($leftopt, $rightopt);
-                } else {
-                    print_optionpages_row_partjs($leftopt, $rightopt);
-                }
-            } else {
-                print_optionpages_row_nojs($leftopt, $rightopt);
-            }
-        }
-    }
-
-    /**
-     * This function prints out an option page row: in which the left
-     *   Left:  options for functionality that do not require javascript
-     *   Right: options for functionality that do not require javascript
-     */
-    function print_optionpages_row_nojs($leftopt, $rightopt = false) {
-        global $color;
-?>
-<table bgcolor="<?php echo $color[4] ?>" width="100%" cellpadding="0" cellspacing="5" border="0">
-   <tr><td valign=top>
-      <table width="100%" cellpadding="3" cellspacing="0" border="0">
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $leftopt['url'] ?>"><?php echo $leftopt['name'] ?></a>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $rightopt['url'] ?>"><?php echo $rightopt['name'] ?></a>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>" width="50%">&nbsp;</td>
-<?php } ?>
-         </tr>
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $leftopt['desc'] ?>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $rightopt['desc'] ?>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php } ?>
-         </tr>
-      </table>
-   </td></tr>
-</table>
-<?php
-    }
-
-    /**
-     * This function prints out an option page row: in which the left
-     *   Left:  options for functionality that does not require javascript
-     *   Right: options for functionality that are javascript only
-     */
-    function print_optionpages_row_partjs($leftopt, $rightopt = false) {
-        global $color;
-?>
-<table bgcolor="<?php echo $color[4] ?>" width="100%" cellpadding="0" cellspacing="5" border="0">
-   <tr><td valign=top>
-      <table width="100%" cellpadding="3" cellspacing="0" border="0">
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $leftopt['url'] ?>"><?php echo $leftopt['name'] ?></a>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[9] ?>" width="50%">
-               <a href="<?php echo $rightopt['url'] ?>"><?php echo $rightopt['name'] ?></a>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>" width="50%">&nbsp;</td>
-<?php } ?>
-         </tr>
-         <tr>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $leftopt['desc'] ?>
-            </td>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php if ($rightopt != false) { ?>
-            <td valign="top" bgcolor="<?php echo $color[0] ?>">
-               <?php echo $rightopt['desc'] ?>
-            </td>
-<?php } else { ?>
-            <td valign="top" bgcolor="<?php echo $color[4] ?>">&nbsp;</td>
-<?php } ?>
-         </tr>
-      </table>
-   </td></tr>
-</table>
-<?php
-    }
-
-    /**
-     * This function prints out an option page row: in which the left
-     *   Left:  options for functionality that are javascript only
-     *   Right: options for functionality that are javascript only
-     */
-    function print_optionpages_row_fulljs($leftopt, $rightopt = false) {
         global $color;
 ?>
 <table bgcolor="<?php echo $color[4] ?>" width="100%" cellpadding="0" cellspacing="5" border="0">

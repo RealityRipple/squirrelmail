@@ -14,7 +14,7 @@
     require_once('../src/validate.php');
 
     /**************************************************************/
-    /* Following code should be removed in the next foo_once step
+    /* Following code should be removed in the next foo_once step */
     if (defined('load_prefs_php')) { return; }
     define('load_prefs_php', true);
     /**************************************************************/
@@ -24,6 +24,7 @@
     if (! isset($color)) { $color = array(); }
     require_once('../functions/prefs.php');
     require_once('../functions/plugin.php');
+    require_once('../functions/constants.php');
       
     if (!isset($username)) { $username = ''; }
     checkForPrefs($data_dir, $username);
@@ -193,11 +194,15 @@
     /* show_html_default is a int value. */
     $show_html_default = intval(getPref($data_dir, $username, 'show_html_default', 1 ) );
 
-    /* SqClock into the core */
+    /* SqClock now in the core */
     global $date_format, $hour_format, $username, $data_dir;
-    
     $date_format = getPref($data_dir, $username, 'date_format', 3);
     $hour_format = getPref($data_dir, $username, 'hour_format', 2);
+
+    /* Load the javascript settings. */
+    global $javascript_setting, $javascript_on;
+    $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
+    $javascript_on = getPref($data_dir, $username, 'javascript_on', true);
 
     do_hook("loading_prefs");
 ?>

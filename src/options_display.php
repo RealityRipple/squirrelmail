@@ -39,6 +39,12 @@
                  array( '1' => _("JavaScript"),
                         '0' => _("HTML") ),
                  $use_javascript_addr_book );
+    OptionSelect( _("Use Javascript"), 'new_javascript_setting',
+                 array(SMPREF_JS_AUTODETECT => _("Autodetect"),
+                       SMPREF_JS_ON         => _("Always"),
+                       SMPREF_JS_OFF        => _("Never") ),
+                 $javascript_setting );
+    OptionHidden('js_autodetect_results', SMPREF_JS_OFF);
     OptionText( _("Number of Messages to Index"), 'shownum', $show_num, 5 );
     OptionText( _("Wrap incoming text at"), 'wrapat', $wrap_at, 5 );
     OptionText( _("Size of editor window"), 'editorsize', $editor_size, 5 );
@@ -104,6 +110,10 @@
 
     </td></tr>
     </table>
+
+<SCRIPT LANGUAGE="JavaScript"><!--
+  document.forms[0].js_autodetect_results.value = '<?php echo SMPREF_JS_ON; ?>';
+// --></SCRIPT>
 
 </td></tr>
 </table>
