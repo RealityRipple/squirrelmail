@@ -16,10 +16,18 @@
  * Helper function to create form fields, not to be called directly,
  * only by other functions below.
  */
-function addInputField($type, $name, $value, $attributes = '') {
-    return '<input type="'.$type.'" name="'.htmlentities($name).'" '.
-        ' value="'.htmlentities($value).'"'.
+function addInputField($type, $name = null, $value = null, $attributes = '') {
+    return '<input type="'.$type.'"'.
+        ($name  !== null ? ' name="'.htmlentities($name).'"'   : '').
+        ($value !== null ? ' value="'.htmlentities($value).'"' : '').
         $attributes . ">\n";
+}
+
+/**
+ * Password input field
+ */
+function addPwField($name) {
+    return addInputField('password', $name);
 }
 
 
@@ -91,6 +99,20 @@ function addSelect($name, $values, $default = null, $usekeys = false)
     $ret .= "</select>\n";
 
     return $ret;
+}
+
+/**
+ * Form submission button
+ * Note the switched value/name parameters!
+ */
+function addSubmit($value, $name = null) {
+    return addInputField('submit', $name, $value);
+}
+/**
+ * Form reset button, $value = caption
+ */
+function addReset($value) {
+    return addInputField('reset', null, $value);
 }
 
 /**
