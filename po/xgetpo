@@ -35,8 +35,6 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     --no-location -C squirrelmail/plugins/calendar/*.php --output=squirrelmail/po/squirrelmail.pot
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    --no-location -C squirrelmail/plugins/delete_move_next/*.php --output=squirrelmail/po/squirrelmail.pot
-xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     --no-location -C squirrelmail/plugins/filters/*.php --output=squirrelmail/po/squirrelmail.pot
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     --no-location -C squirrelmail/plugins/fortune/*.php --output=squirrelmail/po/squirrelmail.pot

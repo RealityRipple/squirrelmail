@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-12-26 17:26+0200\n"
+"POT-Creation-Date: 2004-01-28 22:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -653,7 +653,16 @@ msgstr ""
 msgid "Send read receipt now"
 msgstr ""
 
-msgid "Search results"
+msgid "View Message"
+msgstr ""
+
+msgid "Delete & Prev"
+msgstr ""
+
+msgid "Delete & Next"
+msgstr ""
+
+msgid "Search Results"
 msgstr ""
 
 msgid "Message List"
@@ -665,7 +674,10 @@ msgstr ""
 msgid "Edit Message as New"
 msgstr ""
 
-msgid "View Message"
+msgid "Reply"
+msgstr ""
+
+msgid "Reply All"
 msgstr ""
 
 msgid "Forward"
@@ -674,10 +686,10 @@ msgstr ""
 msgid "Forward as Attachment"
 msgstr ""
 
-msgid "Reply"
+msgid "Move to:"
 msgstr ""
 
-msgid "Reply All"
+msgid "Move"
 msgstr ""
 
 msgid "View Full Header"
@@ -843,9 +855,6 @@ msgid "And"
 msgstr ""
 
 msgid "Or"
-msgstr ""
-
-msgid "Search Results"
 msgstr ""
 
 msgid "No Messages Found"
@@ -1298,9 +1307,6 @@ msgstr ""
 msgid "Transform Selected Messages"
 msgstr ""
 
-msgid "Move"
-msgstr ""
-
 msgid "Expunge"
 msgstr ""
 
@@ -1605,6 +1611,9 @@ msgid "Enable Sort by of Receive Date"
 msgstr ""
 
 msgid "Enable Thread Sort by References Header"
+msgstr ""
+
+msgid "Show 'Delete & Prev/Next' Links"
 msgstr ""
 
 msgid "Special Folder Options"
@@ -2322,27 +2331,6 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-msgid "Delete & Prev"
-msgstr ""
-
-msgid "Delete & Next"
-msgstr ""
-
-msgid "Move to:"
-msgstr ""
-
-msgid "Delete/Move/Next Buttons:"
-msgstr ""
-
-msgid "Display at top"
-msgstr ""
-
-msgid "with move option"
-msgstr ""
-
-msgid "Display at bottom"
-msgstr ""
-
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
@@ -2415,13 +2403,13 @@ msgstr ""
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
 
-msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgid "FREE - ahbl.org Open Relays - Another list of Open Relays."
 msgstr ""
 
-msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgid "FREE - ahbl.org SPAM Source - List of Direct SPAM Sources."
 msgstr ""
 
-msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgid "FREE - ahbl.org SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr ""
 
 msgid ""
@@ -3656,7 +3644,7 @@ msgstr ""
 msgid "Dutch"
 msgstr ""
 
-msgid "European Spanish"
+msgid "Filipino (Tagalog)"
 msgstr ""
 
 msgid "Finnish"
@@ -3669,6 +3657,9 @@ msgid "Hungarian"
 msgstr ""
 
 msgid "Icelandic"
+msgstr ""
+
+msgid "Latin"
 msgstr ""
 
 msgid "Latin American Spanish"
@@ -3701,13 +3692,16 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
-msgid "Latin"
-msgstr ""
-
 msgid "to English"
 msgstr ""
 
 msgid "from English"
+msgstr ""
+
+msgid "Simplified Chinese"
+msgstr ""
+
+msgid "Traditional Chinese"
 msgstr ""
 
 msgid "Interface language"
