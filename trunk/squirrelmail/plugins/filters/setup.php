@@ -73,6 +73,7 @@
    }
 
    function filters_special_mailbox( $mb ) {
+       GLOBAL $data_dir, $username;
 
        if ( $mb == getPref($data_dir, $username, 'filters_spam_folder', 'na' ) ) {
            return( TRUE );
