@@ -242,7 +242,7 @@
    
       // Check if this is a HTTPS or regular HTTP request
       $proto = "http://";
-      if(isset($HTTPS) && $HTTPS == 'on' ) {
+      if(isset($HTTPS) && !strcasecmp($HTTPS, 'on') ) {
         $proto = "https://";
       }
    
