@@ -264,11 +264,11 @@ function sqimap_get_flags_list ($imap_stream, $msg_list) {
             $result_flags[$id2index[$regs[1]]] = explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[2])));
         } else {
             set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n";
-            echo _("ERROR : Could not complete request.");
-            echo "</b><br>\n";
-            echo _("Unknown response from IMAP server: ");
-            echo $result_list[$i][0] . "</font><br>\n";
+            echo "<br><b><font color=$color[2]>\n" .
+                 _("ERROR : Could not complete request.") .
+                 "</b><br>\n" .
+                 _("Unknown response from IMAP server: ") .
+                 $result_list[$i][0] . "</font><br>\n";
             exit;
         }
     }
