@@ -76,6 +76,7 @@
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
+      $subject = stripslashes($subject);
       fputs($smtpConnection, "Subject: $subject\n"); // Subject
       fputs($smtpConnection, "From: $from\n"); // Subject
       fputs($smtpConnection, "To: $to_list\n");    // Who it's TO
@@ -89,8 +90,7 @@
       if ($reply_to != "")
          fputs($smtpConnection, "Reply-To: $reply_to\n");
 
-      str_replace("\\\"", "\"", $body);
-      str_replace("\\\'", "\'", $body);
+      $body = stripslashes($body);
       fputs($smtpConnection, "$body\n"); // send the body of the message
 
       fputs($smtpConnection, ".\n"); // end the DATA part
