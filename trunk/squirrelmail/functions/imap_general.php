@@ -14,12 +14,14 @@
       global $color;
 
       $read = fgets ($imap_stream, 1024);
+//		echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
       $counter = 0;
       while ((substr($read, 0, strlen("$pre OK")) != "$pre OK") &&
              (substr($read, 0, strlen("$pre BAD")) != "$pre BAD") &&
              (substr($read, 0, strlen("$pre NO")) != "$pre NO")) {
          $data[$counter] = $read;
          $read = fgets ($imap_stream, 1024);
+//			echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
          $counter++;
       }       
       if (substr($read, 0, strlen("$pre OK")) == "$pre OK") {
