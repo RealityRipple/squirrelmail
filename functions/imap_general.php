@@ -515,7 +515,7 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
                 $group = substr($address, 0, $pos);
                 $address = substr($address, $pos+1);
                 $result = parseAddress($address, $max, $addr_ar, $group);
-                $addr_ar = $result[0];
+                $addr_ar = array( $result[0] );
                 $pos = $result[1];
                 $address = substr($address, $pos++);
                 $j = strlen($address);
