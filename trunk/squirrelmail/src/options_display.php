@@ -23,10 +23,10 @@
 <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
 <tr><td bgcolor="<?php echo $color[0] ?>" align="center">
 
-      <b><?php echo _("Options") . ' - ' . _("Display Preferences"); ?></b><br>
+   <b><?php echo _("Options") . ' - ' . _("Display Preferences"); ?></b><br>
 
-    <table width="100%" border="0" cellpadding="1" cellspacing="1">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+   <table width="100%" border="0" cellpadding="1" cellspacing="1">
+   <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
 
    <form name="f" action="options.php" method="post"><br>
       <table width="100%" cellpadding="2" cellspacing="0" border="0">
@@ -111,15 +111,32 @@
             </td>
          </tr>
          <tr>
-            <td align="right" nowrap><?PHP echo _("Location of folder list") ?>:</td>
-            <td><select name="folder_new_location">
-                <option value="left"<?PHP
-                    if ($location_of_bar != 'right') echo ' SELECTED';
-                    ?>><?PHP echo _("Left"); ?></option>
-                <option value="right"<?PHP
-                    if ($location_of_bar == 'right') echo ' SELECTED';
-                    ?>><?PHP echo _("Right"); ?></option>
+            <td align="right" nowrap><?PHP echo _("Reply Citation Style") ?>:</td>
+            <td><select name="new_reply_citation_style">
+                <option value="none"<?PHP
+                    if ($reply_citation_style == 'none') echo ' SELECTED';
+                    ?>>- <?PHP echo _("Not Used"); ?> -</option>
+                <option value="author_said"<?PHP
+                    if ($reply_citation_style == 'author_said') echo ' SELECTED';
+                    ?>><?PHP echo _("AUTHOR Said"); ?></option>
+                <option value="quote_who"<?PHP
+                    if ($reply_citation_style == 'quote_who') echo ' SELECTED';
+                    ?>><?PHP echo _("Quote Who XML"); ?></option>
+                <option value="user-defined"<?PHP
+                    if ($reply_citation_style == 'user-defined') echo ' SELECTED';
+                    ?>><?PHP echo _("User-Defined"); ?></option>
                 </select>
+            </td>
+         </tr>
+         <tr>
+            <td align="right" nowrap><?php echo _("User-Defined Reply Citation"); ?>:</td>
+            <td>
+               <tt><input type="text" size="15" name="new_reply_citation_start" value="<?php
+                  echo $reply_citation_start;
+               ?>"></tt> &lt;<?PHP echo _("Author's Name"); ?>&gt;
+               <tt><input type="text" size="15" name="new_reply_citation_end" value="<?php
+                  echo $reply_citation_end;
+               ?>"></tt>
             </td>
          </tr>
          <tr>
@@ -134,6 +151,18 @@
                 <option value="bottom"<?PHP
                     if ($location_of_buttons == 'bottom') echo ' SELECTED';
                     ?>><?PHP echo _("After message body"); ?></option>
+                </select>
+            </td>
+         </tr>
+         <tr>
+            <td align="right" nowrap><?PHP echo _("Location of folder list") ?>:</td>
+            <td><select name="folder_new_location">
+                <option value="left"<?PHP
+                    if ($location_of_bar != 'right') echo ' SELECTED';
+                    ?>><?PHP echo _("Left"); ?></option>
+                <option value="right"<?PHP
+                    if ($location_of_bar == 'right') echo ' SELECTED';
+                    ?>><?PHP echo _("Right"); ?></option>
                 </select>
             </td>
          </tr>
