@@ -1044,11 +1044,11 @@ files.
       After you're done translating, you can create the .mo file very simply 
       by running the following command (available on most linux systems):
 
-         msgfmt -0 <plugin name>.mo <plugin name>.po
+         msgfmt -o <plugin name>.mo <plugin name>.po
 
       In the case of the "demo" plugin:
 
-         msgfmt -0 demo.mo demo.po
+         msgfmt -o demo.mo demo.po
 
       Please be sure that the .po and .mo files both are named exactly the
       same as the domain you bound in step 2 above and everything else works
@@ -1077,7 +1077,7 @@ Small setup.php
 
 In order for SquirrelMail to remain fast and lean, we are now asking
 that all plugin authors remove all unnecessary functionality from setup.php
-and refactoring it into another file.  There are a few ways to accomplish
+and refactor it into another file.  There are a few ways to accomplish
 this, none of which are difficult.  At a minimum, you'll want to have the
 squirrelmail_plugin_init_<plugin name>() function in setup.php, and naturally,
 you'll need functions that are merely stubs for each hook that you are using.
