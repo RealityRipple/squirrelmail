@@ -2,7 +2,7 @@
 require_once ('../src/validate.php');
 
    /* Print all the needed RFC822 headers */
-   function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {
+   function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, $send_it) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
       global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -90,10 +90,54 @@ require_once ('../src/validate.php');
       }
 
       // Write the header
-      fputs ($fp, $header);
+      if ($send_it) {
+         fputs ($fp, $header);
+      }
 
       return $headerlength;
    }
+
+   // Send the body
+   function writeBodyForDraft ($fp, $passedBody, $send_it) {
+      global $default_charset;
+
+      $attachmentlength = 0;
+
+      if (isMultipart()) {
+         $body = '--'.mimeBoundary()."\r\n";
+
+         if ($default_charset != "")
+            $body .= "Content-Type: text/plain; charset=$default_charset\r\n";
+         else
+            $body .= "Content-Type: text/plain\r\n";
+
+         $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+         $body .= $passedBody . "\r\n\r\n";
+         if ($send_it) {
+            fputs ($fp, $body);
+         }
+
+         $attachmentlength = attachFiles($fp);
+
+         if (!isset($postbody)) $postbody = "";
+         $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
+         if ($send_it) {
+            fputs ($fp, $postbody);
+         }
+      } else {
+         $body = $passedBody . "\r\n";
+         if ($send_it) {
+            fputs ($fp, $body);
+         }
+         $postbody = "\r\n";
+         if ($send_it) {
+            fputs ($fp, $postbody);
+         }
+      }
+
+      return (strlen($body) + strlen($postbody) + $attachmentlength);
+   }
+
 
    function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
@@ -103,17 +147,16 @@ require_once ('../src/validate.php');
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
-      $fp = fopen("/dev/null", a);
-      $headerlength = write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers);
-      $bodylength = writeBody ($fp, $body);
-      fclose ($fp);
+      $fp = "";
+      $headerlength = write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, FALSE);
+      $bodylength = writeBodyForDraft ($fp, $body, FALSE);
 
       $length = ($headerlength + $bodylength);
 
       if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
          sqimap_append ($imap_stream, $draft_folder, $length);
-         write822HeaderForDraft ($imap_stream, $t, $c, $b, $subject, $more_headers);
-         writeBody ($imap_stream, $body);
+         write822HeaderForDraft ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE);
+         writeBodyForDraft ($imap_stream, $body, TRUE);
          sqimap_append_done ($imap_stream);
       }
       sqimap_logout($imap_stream);
