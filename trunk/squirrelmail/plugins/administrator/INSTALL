@@ -9,4 +9,4 @@ the user you want to have access to that plugin (only one) and
 the group of the user that is running php.
 
 Use this plugin at your won risk, and never before to make a backup
-of the conf.pl file. The code is not tested and not finished.
+of the config.php file. The code is not tested and not finished.

@@ -155,7 +155,7 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                  '$auto_create_special' => array( 'name' => _("Auto Create Special Folders"),
                                                   'type' => SMOPT_TYPE_BOOLEAN ),
                  /* --------------------------------------------------------*/
-                 'Group4' => array( 'name' => _("General OPtions"),
+                 'Group4' => array( 'name' => _("General Options"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$default_charset' => array( 'name' => _("Default Charset"),
                                               'type' => SMOPT_TYPE_STRING,
