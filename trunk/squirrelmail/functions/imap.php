@@ -30,4 +30,14 @@
       }
       return strrev($temp);
    }
+
+   /** must be sent in the form:  user.<USER>.<FOLDER> **/
+   function createFolder($imapConnection, $folder) {
+      fputs($imapConnection, "1 create \"$folder\"\n");
+   }
+
+   /** must be sent in the form:  user.<USER>.<FOLDER> **/
+   function deleteFolder($imapConnection, $folder) {
+      fputs($imapConnection, "1 delete \"$folder\"\n");
+   }
 ?>

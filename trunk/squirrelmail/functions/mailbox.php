@@ -152,4 +152,14 @@
       selectMailbox($imapConnection, $mailbox, $num);
       fputs($imapConnection, "1 EXPUNGE\n");
    }
+
+   function getFolderNameMinusINBOX($mailbox) {
+      if (substr($mailbox, 0, 6) == "INBOX.")
+         $box = substr($mailbox, 6, strlen($mailbox));
+      else
+         $box = $mailbox;
+
+      return $box;
+   }
+
 ?>
