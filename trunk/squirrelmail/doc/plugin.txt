@@ -188,6 +188,8 @@ version is not listed, files are included from v.1.3.2.):
       9.2. $prefs_backend (from 1.4.3rc1 and 1.5.0)
            functions/db_prefs.php
            functions/file_prefs.php
+         9.2.1. functions/display_messages.php 
+                (loaded only by file_prefs.php)
 
 Hook Types:  Parameters and Return Values
 -----------------------------------------
