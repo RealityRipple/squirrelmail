@@ -1217,7 +1217,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
       /* Compute the 'show all' string. */
       $all_str = "<A HREF=\"right_main.php?PG_SHOWALL=1"
                  . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
-                 . "TARGET=\"right\">" . _("Show All") . '</A>'; 
+                 . ">" . _("Show All") . '</A>'; 
     }
 
     $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
