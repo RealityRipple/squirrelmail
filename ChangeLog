@@ -4,8 +4,11 @@
 
 Version 1.2.7 -- CVS
 --------------------
+  - Fixed send MDN link.
+  - Fixed dealing with \r\n and \n in smtp.php. 
+  - Fixed to, cc, bcc arrays in message->header
   - Speed optimizements in generating message-lists.    
-
+ 
 Version 1.2.6 -- April 29 2002 
 --------------------
   - A complete MagicHTML rewrite since the existing codebase was
