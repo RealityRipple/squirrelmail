@@ -318,7 +318,10 @@ function printMessageInfo($aMsg) {
         // highlighting of checked rows
         //
         //$clickedColor = '';
-        $clickedColor = $color[2];
+        if (!empty($color[16]))
+           $clickedColor = $color[16];
+        else
+           $clickedColor = $color[2];
 
         $row_extra .= ' onmouseover="setPointer(this, ' . $t . ', \'over\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmouseout="setPointer(this, ' . $t . ', \'out\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmousedown="setPointer(this, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
 
