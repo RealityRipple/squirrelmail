@@ -20,33 +20,33 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 
-    displayPageHeader($color, 'None');
+displayPageHeader($color, 'None');
 
-    $media_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
-    $media_popup = getPref($data_dir, $username,'newmail_popup');
-    $media_allbox = getPref($data_dir,$username,'newmail_allbox');
-    $media_recent = getPref($data_dir,$username,'newmail_recent');
-    $media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
-    $media = getPref($data_dir,$username,'newmail_media', '../plugins/newmail/sounds/Notify.wav');
+$media_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
+$media_popup = getPref($data_dir, $username,'newmail_popup');
+$media_allbox = getPref($data_dir,$username,'newmail_allbox');
+$media_recent = getPref($data_dir,$username,'newmail_recent');
+$media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
+$media = getPref($data_dir,$username,'newmail_media', '(none)');
 
-    // Set $allowsound to false if you don't want sound files available
-    $allowsound = "true";
+// Set $allowsound to false if you don't want sound files available
+$allowsound = "true";
 
-    echo html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "\n" .
-             html_tag( 'tr', "\n" .
+echo html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "\n" .
+         html_tag( 'tr', "\n" .
                  html_tag( 'td', '<b>' . _("Options") . ' - ' . _("New Mail Notification") . '</b>', 'center', $color[0] )
-             ) . "\n" .
+            ) . "\n" .
              html_tag( 'tr' ) . "\n" .
                  html_tag( 'td', '', 'left' );
-    if ($allowsound == "true") {
-        echo html_tag( 'p',
+if ($allowsound == "true") {
+     echo html_tag( 'p',
             _("Select <b>Enable Media Playing</b> to turn on playing a media file when unseen mail is in your folders. When enabled, you can specify the media file to play in the provided file box.")
-        ) . "\n";
-    }
-    echo html_tag( 'p',
-                _("The <b>Check all boxes, not just INBOX</b> option will check ALL of your folders for unseen mail, not just the inbox for notification.")
-            ) . "\n" .
-            html_tag( 'p',
+          ) . "\n";
+}
+      echo html_tag( 'p',
+             _("The <b>Check all boxes, not just INBOX</b> option will check ALL of your folders for unseen mail, not just the inbox for notification.")
+           ) . "\n" .
+           html_tag( 'p',
                _("Selecting the <b>Show popup</b> option will enable the showing of a popup window when unseen mail is in your folders (requires JavaScript).")
            ) . "\n" .
            html_tag( 'p',
@@ -57,16 +57,16 @@ require_once(SM_PATH . 'include/load_prefs.php');
            );
     if ($allowsound == "true") {
         echo html_tag( 'p',
-                    _("Select from the list of <b>server files</b> the media file to play when new mail arrives.  Selecting <b>local media</b> will play the file specified in the <b>local media file</b> box to play from the local computer.  If no file is specified, the system will use a default from the server.")
+                    _("Select from the list of <b>server files</b> the media file to play when new mail arrives.  If no file is specified, \"(none)\", no sound will be used.")
                ) . "\n";
     }
-    echo '<form action="../../src/options.php" method=post>'.
+    echo '<form action="'.sqm_baseuri().'src/options.php" method=post>'.
          html_tag( 'table', '', '', '', 'width="100%" cellpadding="0" cellspacing="2" border="0"' ) . "\n" .
              html_tag( 'tr' ) . "\n" .
                  html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n";
     if ($allowsound == "true") {
-                echo html_tag( 'td', '', 'left' ) .
-                            '<input type="checkbox" ';
+                echo html_tag( 'td', '', 'left' ) . 
+                     '<input type="checkbox" ';
         if ($media_enable == 'on') {
                 echo 'checked ';
         }
@@ -113,35 +113,34 @@ require_once(SM_PATH . 'include/load_prefs.php');
             echo html_tag( 'tr' ) . "\n" .
                         html_tag( 'td', _("Select server file:"), 'right', '', 'nowrap' ) . "\n" .
                         html_tag( 'td', '', 'left' ) .
-                            '<select name="media_sel">'.  "\n" .
-                            '<option value="(local media)">' . _("(local media)") . '</option>' .  "\n";
+                            '<select name="media_sel">'.  "\n".
+                            '<option value="(none)"';
+            if ( $media == '(none)') {
+                echo 'selected ';
+            }
+            echo '>' . _("(none)") . '</option>' .  "\n";
 
     // Iterate sound files for options
-
     $d = dir(SM_PATH . 'plugins/newmail/sounds');
     while($entry=$d->read()) {
-        $fname = $d->path . "/" . $entry;
-        if ($entry != '..' && $entry != '.') {
-            echo "<option ";
+        $fname = get_location () . '/sounds/' . $entry;
+        if ($entry != '..' && $entry != '.' && $entry != 'CVS') {
+            echo '<option ';
             if ($fname == $media) {
-                echo "selected ";
+                echo 'selected ';
             }
-            echo "value=\"" . $fname . "\">" . $entry . "</option>\n";
+            echo 'value="' . $fname . '">' . $entry . "</option>\n";
         }
     }
     $d->close();
     echo '</select>'.
                '<input type="submit" value=" ' . _("Try") . ' " name="test" onClick="'.
                     "window.open('testsound.php?sound='+media_sel.options[media_sel.selectedIndex].value, 'TestSound',".
-                       "'width=150,height=30,scrollbars=no');".
+                    "'width=150,height=30,scrollbars=no');".
                     'return false;'.
                '">'.
             '</td>'.
          '</tr>'.
-         html_tag( 'tr', "\n" .
-             html_tag( 'td', _("Local Media File:"), 'right', '', 'nowrap' ) .
-             html_tag( 'td', '<input type="file" size="40" name="media_file">', 'left' )
-         ) . "\n" .
          html_tag( 'tr', "\n" .
              html_tag( 'td', _("Current File:"), 'right', '', 'nowrap' ) .
              html_tag( 'td', '<input type="hidden" value="' . $media . '" name="media_default">' . $media . '', 'left' )
