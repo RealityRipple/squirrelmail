@@ -623,17 +623,17 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $bodypart = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $bodypart);
                 }
             }
-	    
-	    if (isset($body_part_entity->header->parameters['charset'])) {
+
+        if (isset($body_part_entity->header->parameters['charset'])) {
             $actual = $body_part_entity->header->parameters['charset'];
         } else {
             $actual = 'us-ascii';
         }
 
-	    if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
-		$bodypart = charset_decode($actual,$bodypart);
-	    }
-	    
+        if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
+        $bodypart = charset_decode($actual,$bodypart);
+        }
+
             $body .= $bodypart;
         }
         if ($default_use_priority) {
@@ -669,8 +669,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             if ($identity_match) {
                 $identity = $identity_match;
             }
-	    // we need identiy here fore draft case #845290
-	    // echo $identity."leer";
+        // we need identiy here fore draft case #845290
+        // echo $identity."leer";
         }
 
         switch ($action) {
@@ -762,12 +762,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             /* this corrects some wrapping/quoting problems on replies */
             $rewrap_body = explode("\n", $body);
             $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
-            sqUnWordWrap($body);	// unwrap and then reset it?!
+            sqUnWordWrap($body);    // unwrap and then reset it?!
             $body = '';
             $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
             foreach ($rewrap_body as $line) {
                 if ($strip_sigs && substr($line,0,3) == '-- ') {
-			break;
+            break;
                 }
                 sqWordWrap($line, ($editor_size));
                 if (preg_match("/^(>+)/", $line, $matches)) {
@@ -838,7 +838,7 @@ function getAttachments($message, &$composeMessage, $passed_id, $entities, $imap
            }
            $message->att_local_name = $full_localfilename;
 
-	   $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename,
+       $composeMessage->initAttachment($message->type0.'/'.$message->type1,$filename,
              $full_localfilename);
 
            /* Write Attachment to file */
@@ -1351,8 +1351,8 @@ function deliverMessage($composeMessage, $draft=false) {
        by replacing them back to spaces addressparsing works */
     /* FIXME: How to handle in case of other charsets where "\240"
        is not a non breaking space ??? */
-    /* THEFIX: browsers don't replace space with nbsp. SM replaces 
-       space with nbsp when decodes headers. If problem still happens, 
+    /* THEFIX: browsers don't replace space with nbsp. SM replaces
+       space with nbsp when decodes headers. If problem still happens,
        use cleanup_nbsp() */
 
 //    $send_to = str_replace("\240",' ',$send_to);
@@ -1443,7 +1443,7 @@ function deliverMessage($composeMessage, $draft=false) {
         }
         if ($default_charset) {
             $content_type->properties['charset']=$default_charset;
-	}
+    }
     }
 
     $rfc822_header->content_type = $content_type;
@@ -1528,6 +1528,13 @@ function deliverMessage($composeMessage, $draft=false) {
         }
 
         if (($fld_sent && $svr_allow_sent && !$lcl_allow_sent) || ($fld_sent && $lcl_allow_sent)) {
+            global $passed_id, $mailbox, $action;
+            if ($action == 'reply' || $action == 'reply_all') {
+                $save_reply_with_orig=getPref($data_dir,$username,'save_reply_with_orig');
+                if ($save_reply_with_orig) {
+                    $sent_folder = $mailbox;
+                }
+            }
             sqimap_append ($imap_stream, $sent_folder, $length);
             require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
             $imap_deliver = new Deliver_IMAP();
