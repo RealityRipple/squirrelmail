@@ -82,6 +82,7 @@ $imap_error_titles = array(
 );
 
 // why can't this just use sqimap_error_box() ?
+// It does, indeed I isolated sqimap_error_box() as a stand-alone function just for this purpose ;)
 function sqimap_asearch_error_box($response, $query, $message)
 {
 	global $imap_error_titles;
@@ -269,10 +270,9 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 
 	unset($messagelist);
 
-	/* Keep going till we find the SEARCH response */
+	/* Keep going till we find the * SEARCH response */
 	foreach ($readin as $readin_part) {
 		s_debug_dump('S:', $readin_part);
-		/* Check to see if a SEARCH response was received */
 		if (substr($readin_part, 0, 9) == '* SEARCH ') {
 			$messagelist = preg_split("/ /", substr($readin_part, 9));
 			break;	// Should be the last anyway
@@ -301,6 +301,129 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 	return $id;
 }
 
+function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort_criteria)
+{
+	global $uid_support;
+
+	if ($search_charset == '')
+		$search_charset = 'US-ASCII';
+	$query = 'SORT (' . $sort_criteria . ') ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+	s_debug_dump('C:', $query);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+
+	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
+	if (($search_charset != 'US-ASCII')  && (strtoupper($response) == 'NO')) {
+		$query = 'SORT (' . $sort_criteria . ') US-ASCII ALL ' . $search_string;
+		s_debug_dump('C:', $query);
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	}
+
+	if (strtoupper($response) != 'OK') {
+//		sqimap_asearch_error_box($response, $query, $message);
+//		return array();
+			return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
+	}
+
+	/* Keep going till we find the * SORT response */
+	foreach ($readin as $readin_part) {
+		s_debug_dump('S:', $readin_part);
+		if (substr($readin_part, 0, 7) == '* SORT ') {
+			$messagelist = preg_split("/ /", substr($readin_part, 7));
+			break;	// Should be the last anyway
+		}
+	}
+
+	if (empty($messagelist))	//Empty search response, ie '* SORT'
+		return array();
+
+	$cnt = count($messagelist);
+	for ($q = 0; $q < $cnt; $q++)
+		$id[$q] = trim($messagelist[$q]);
+	return $id;
+}
+
+function sqimap_run_thread($imapConnection, $search_string, $search_charset, $thread_algorithm)
+{
+	global $thread_new, $server_sort_array;
+
+	if (sqsession_is_registered('thread_new'))
+		sqsession_unregister('thread_new');
+	if (sqsession_is_registered('server_sort_array'))
+		sqsession_unregister('server_sort_array');
+
+	$thread_new = array();
+	$thread_new[0] = "";
+
+	$server_sort_array = array();
+
+	global $uid_support;
+
+	if ($search_charset == '')
+		$search_charset = 'US-ASCII';
+	$query = 'THREAD ' . $thread_algorithm . ' ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+	s_debug_dump('C:', $query);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+
+	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
+	if (($search_charset != 'US-ASCII')  && (strtoupper($response) == 'NO')) {
+		$query = 'THREAD ' . $thread_algorithm . ' US-ASCII ALL ' . $search_string;
+		s_debug_dump('C:', $query);
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	}
+
+	if (strtoupper($response) != 'OK') {
+//		sqimap_asearch_error_box($response, $query, $message);
+//		return array();
+			return sqimap_run_search($imapConnection, $search_string, $search_charset);	// Fell back to standard search
+	}
+
+	/* Keep going till we find the * THREAD response */
+	foreach ($readin as $readin_part) {
+		s_debug_dump('S:', $readin_part);
+		if (substr($readin_part, 0, 9) == '* THREAD ') {
+			$thread_temp = preg_split("//", substr($readin_part, 9), -1, PREG_SPLIT_NO_EMPTY);
+			break;	// Should be the last anyway
+		}
+	}
+
+	if (empty($thread_temp))	//Empty search response, ie '* THREAD'
+		return array();
+
+	$char_count = count($thread_temp);
+	$counter = 0;
+	$k = 0;
+	for ($i=0;$i<$char_count;$i++) {
+        if ($thread_temp[$i] != ')' && $thread_temp[$i] != '(') {
+                $thread_new[$k] = $thread_new[$k] . $thread_temp[$i];
+        }
+        elseif ($thread_temp[$i] == '(') {
+                $thread_new[$k] .= $thread_temp[$i];
+                $counter++;
+        }
+        elseif ($thread_temp[$i] == ')') {
+                if ($counter > 1) {
+                        $thread_new[$k] .= $thread_temp[$i];
+                        $counter = $counter - 1;
+                }
+                else {
+                        $thread_new[$k] .= $thread_temp[$i];
+                        $k++;
+                        $thread_new[$k] = "";
+                        $counter = $counter - 1;
+                }
+        }
+	}
+	sqsession_register($thread_new, 'thread_new');
+	$thread_new = array_reverse($thread_new);
+	$thread_list = implode(" ", $thread_new);
+	$thread_list = str_replace("(", " ", $thread_list);
+	$thread_list = str_replace(")", " ", $thread_list);
+	$thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+	$server_sort_array = $thread_list;
+	sqsession_register($server_sort_array, 'server_sort_array');
+	return $thread_list;
+}
+
 function sqimap_asearch_get_charset()
 {
 	global $allow_charset_search, $languages, $squirrelmail_language;
@@ -308,6 +431,20 @@ function sqimap_asearch_get_charset()
 	if ($allow_charset_search)
 		return $languages[$squirrelmail_language]['CHARSET'];
 	return '';
+}
+
+function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
+{
+	global $internal_date_sort, $sent_folder;
+
+	$sort_opcodes = array ('DATE', 'FROM', 'SUBJECT');
+	if ($internal_date_sort == true)
+		$sort_opcodes[0] = 'ARRIVAL';
+//	if (handleAsSent($mailbox))
+//	if (isSentFolder($mailbox))
+	if ($mailbox == $sent_folder)
+		$sort_opcodes[1] = 'TO';
+	return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[$sort_by >> 1];
 }
 
 /* replaces $mbox_msgs[$search_mailbox] = array_values(array_unique(array_merge($mbox_msgs[$search_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset))));*/
@@ -324,6 +461,9 @@ function sqimap_array_merge_unique($to, $from)
 
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $mboxes_array)
 {
+	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages;
+	global $data_dir, $username;
+
 	$search_charset = sqimap_asearch_get_charset();
 	$mbox_msgs = array();
 	$search_string = '';
@@ -342,14 +482,26 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 				foreach ($search_mboxes as $cur_mailbox) {
 					s_debug_dump('C:SELECT:', $cur_mailbox);
 					sqimap_mailbox_select($imapConnection, $cur_mailbox);
+					$thread_sort_messages = $allow_thread_sort && getPref($data_dir, $username, 'thread_' . $cur_mailbox);
+					if ($thread_sort_messages) {
+						$thread_algorithm = 'REFERENCES';
+						$found_msgs = sqimap_run_thread($imapConnection, $search_string, $search_charset, $thread_algorithm);
+					}
+					else
+					if (($allow_server_sort) && ($sort < 6)) {
+						$sort_criteria = sqimap_asearch_get_sort_criteria($cur_mailbox, $sort);
+						$found_msgs = sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort_criteria);
+					}
+					else
+						$found_msgs = sqimap_run_search($imapConnection, $search_string, $search_charset);
 					if (isset($mbox_msgs[$cur_mailbox])) {
 						if ($cur_biop == 'OR')	/* Merge with previous results */
-							$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset));
+							$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], $found_msgs);
 						else	/* Intersect previous results */
-							$mbox_msgs[$cur_mailbox] = array_values(array_intersect(sqimap_run_search($imapConnection, $search_string, $search_charset), $mbox_msgs[$cur_mailbox]));
+							$mbox_msgs[$cur_mailbox] = array_values(array_intersect($found_msgs, $mbox_msgs[$cur_mailbox]));
 					}
 					else /* No previous results */
-						$mbox_msgs[$cur_mailbox] = sqimap_run_search($imapConnection, $search_string, $search_charset);
+						$mbox_msgs[$cur_mailbox] = $found_msgs;
 					if (empty($mbox_msgs[$cur_mailbox]))	/* Can happen with intersect, and we need at the end a contiguous array */
 						unset($mbox_msgs[$cur_mailbox]);
 				}
