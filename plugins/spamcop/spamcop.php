@@ -2,7 +2,7 @@
 /**
  * spamcop.php -- SpamCop plugin -- main page
  *
- * @copyright (c) 1999-2005 The SquirrelMail development team
+ * @copyright (c) 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins
