@@ -659,7 +659,11 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             }
             $iLastMatch = $i;
             $j = $i;
-            $ret .= $res[1];
+            if ($htmlsave) {
+                $ret .= htmlspecialchars($res[1]);
+            } else {
+                $ret .= $res[1];
+            }
             $encoding = ucfirst($res[3]);
 
             /* decide about valid decoding */
