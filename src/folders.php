@@ -100,7 +100,7 @@ require_once('../functions/plugin.php');
       else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
          $count_special_folders++;
       else if ($boxes[$p]["unformatted"] == $draft_folder && $draft_folder)
-         $count_special_folder++;
+         $count_special_folders++;
    }   
 
    if ($count_special_folders < count($boxes)) {
