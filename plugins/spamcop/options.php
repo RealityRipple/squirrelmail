@@ -107,8 +107,8 @@ spamcop_load();
 	  <?php
 	  echo html_tag('td',_("Spam Reporting Method:"),'right');
 	  ?>
-	  <form method="post" action="options.php">
 	  <td>
+	  <form method="post" action="options.php">
 	    <select name="meth">
 		<?php
 		    if ($spamcop_quick_report) {
@@ -135,14 +135,14 @@ spamcop_load();
 	    <?php
 		echo '<input type="submit" value="' . _("Save Method") . "\" />\n";
 	    ?>
-	  </td></form>
+	  </form></td>
 	</tr>
 	<tr>
 	    <?php
 		echo html_tag('td',_("Spam Service Type:"),'right');
 	    ?>
-	  <form method="post" action="options.php">
 	  <td>
+	  <form method="post" action="options.php">
 	    <select name="type">
 	      <option value="free"
 		<?php
@@ -161,20 +161,20 @@ spamcop_load();
 	    echo '<input type="hidden" name="action" value="type" />' .
 		 '<input type="submit" value="' . _("Save Service Type") . "\" />\n";
 	    ?>
-	   </td></form>
+	   </form></td>
 	</tr>
 	<tr>
 	  <?php
 	    echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
 	    '<small>(' . _("see below") . ')</small>','right','','valign="top"');
 	  ?>
-	  <form method="post" action="options.php"><td valign="top">
+	  <td valign="top"><form method="post" action="options.php">
 	    <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
 	    <input type="hidden" name="action" value="save_id" />
 	    <?php
 		echo '<input type="submit" value="' . _("Save ID") . "\" />\n";
 	    ?>
-	  </td></form>
+	  </form></td>
 	</tr>
       </table>
 <?php
@@ -191,16 +191,16 @@ echo _("<b>Before you sign up, be warned:</b> Some users have reported that the 
 echo "</p>\n";
 
 echo "<p>";
-echo _("Once you have signed up with SpamCop and have received your SpamCop authorization code, you need to enable this plugin -- just click the link above.  Once enabled, you go about your normal life.  If you encounter a spam message in your mailbox, just view it.  On the right-hand side, near the top of where the message is displayed, you will see a link to report this message as spam.  Clicking on it brings you to a confirmation page. Confirming that you want the spam report sent will do different things with different reporting methods.");
+echo _("Once you have signed up with SpamCop and have received your SpamCop authorization code, you need to enable this plugin -- just click the link above. Once enabled, you go about your normal life. If you encounter a spam message in your mailbox, just view it. On the right-hand side, near the top of where the message is displayed, you will see a link to report this message as spam. Clicking on it brings you to a confirmation page. Confirming that you want the spam report sent will do different things with different reporting methods.");
 echo "</p>\n";
 
 echo "<p><b>" . _("Email-based Reporting") . "</b><br />";
-echo _("Pressing the button forwards the message to the SpamCop service and will optionally delete the message.  From there, you just need to go to your INBOX and quite soon a message should appear from SpamCop.  (It gets sent to the account you registered with, so make sure that your mail forwarder works!) Open it up, click on the appropriate link at the top, and a new browser window will open.");
+echo _("Pressing the button forwards the message to the SpamCop service and will optionally delete the message. From there, you just need to go to your INBOX and quite soon a message should appear from SpamCop. (It gets sent to the account you registered with, so make sure that your mail forwarder works!) Open it up, click on the appropriate link at the top, and a new browser window will open.");
 echo "</p>";
 
 if ($spamcop_quick_report) {
 echo "<p>";
-echo _("Currently, the quick reporting just forwards the request to the thorough reporting.  Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
+echo _("Currently, the quick reporting just forwards the request to the thorough reporting. Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
 echo "</p>\n";
 }
 
@@ -209,11 +209,11 @@ echo _("When you press the button on the confirmation page, this will pop open a
 echo "</p>\n";
 
 echo "<p>";
-echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button. It might pause a little while it is looking up information, so be a little patient. Read what it says, and submit the spam. Close the browser window.  Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
+echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button. It might pause a little while it is looking up information, so be a little patient. Read what it says, and submit the spam. Close the browser window. Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
 echo "</p>\n";
 
 echo "<p><b>". _("Spamcop Service Type") . "</b><br />\n";
-echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms  and does not display nags. You can purchase these services, if you want to support SpamCop.");
+echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms and does not display nags. You can purchase these services, if you want to support SpamCop.");
 echo "</p>\n";
 
 echo "<p>";
