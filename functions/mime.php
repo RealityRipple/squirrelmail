@@ -185,40 +185,17 @@
    function decodeBody($body, $encoding) {
       $encoding = strtolower($encoding);
 
-      if ($encoding == "us-ascii") {
-         $newbody = $body; // if only they all were this easy
+      if ($encoding == "quoted-printable") {
+         $body = quoted_printable_decode($body);
 
-      } else if ($encoding == "quoted-printable") {
-         $body_ary = explode("\n", $body);
-
-         for ($q=0; $q < count($body_ary); $q++) {
-            if (substr(trim($body_ary[$q]), -1) == "=") {
-               $body_ary[$q] = trim($body_ary[$q]);
-               $body_ary[$q] = substr($body_ary[$q], 0, strlen($body_ary[$q])-1);
-            } else if (substr(trim($body_ary[$q]), -3) == "=20") {
-               $body_ary[$q] = trim($body_ary[$q]);
-               $body_ary[$q] = substr($body_ary[$q], 0, strlen($body_ary[$q])-3);
-               $body_ary[$q] = "$body_ary[$q]\n";
-            }
-         }
-
-         for ($q=0;$q < count($body_ary);$q++) {
-            $body_ary[$q] = ereg_replace("=3D", "=", $body_ary[$q]);
-         }
-
-         $body = "";
-         for ($i = 0; $i < count($body_ary); $i++) {
-            $body .= "$body_ary[$i]\n";
-         }
-
-         $newbody = $body;
+         while (ereg("=\n", $body))
+            $body = ereg_replace ("=\n", "", $body);
       } else if ($encoding == "base64") {
-         $newbody = base64_decode($body);
-
-      } else {
-         $newbody = $body;
+         $body = base64_decode($body);
       }
-      return $newbody;
+
+      // All other encodings are returned raw.
+      return $body;
    }
 
 
@@ -238,7 +215,8 @@
 
          // Only US-ASCII and ISO-8859-1 can be displayed without further ado
          if ($res[2] != "" && $res[2] != "1") {
-            // This get rid of all characters with over 0x9F
+            // This gets rid of all characters with over 0x9F for other
+            // charsets.
             $replace = strtr($replace, "\240\241\242\243\244\245\246\247".
                              "\250\251\252\253\254\255\256\257".
                              "\260\261\262\263\264\265\266\267".
