@@ -9,7 +9,6 @@
  * An "about box" detailing SquirrelMail info.
  *
  * TODO:
- * - Add localisation
  * - Insert org_name, provider_url?
  * - What more information is needed?
  *
@@ -33,33 +32,42 @@ displayPageHeader($color, 'None' );
 <img src="../images/sm_logo.png" width="308" height="111"
     alt="SquirrelMail Logo" /><br />
 <table align="center" width="80%" cellpadding="1" cellspacing="2" border="0">
-<tr><td bgcolor="#dcdcdc" align="center"><center><b>About SquirrelMail <?php echo $version; ?></b></center></td></tr>
+<tr><td bgcolor="#dcdcdc" align="center"><center><b>
+<?php echo sprintf(_("About SquirrelMail %s"),$version); ?>
+</b></center></td></tr>
 <tr><td>
 <br />
-SquirrelMail is the name of the program that provides access to your email via the web.<br />
+<?php echo _("SquirrelMail is the name of the program that provides access to your email via the web."); ?>
 <br />
-<strong>If you have questions about or problems with your mail account, passwords, abuse etc,
-please refer to your system administrator or provider<?php
-if ( $org_name != 'SquirrelMail' ) {
-    echo '(' . $org_name . ')';
-}
-?>.</strong>
-They can assist you adequately with these issues. The SquirrelMail development team
-cannot help you with that. The <a href="help.php">help system</a> provides answers
-to frequently asked questions.<br />
 <br />
-SquirrelMail is a feature rich, standards compliant webmail application written in PHP.
-It was made by a group of volunteers united in the SquirrelMail Development Team and is
-released as open source, free software under the <a href="http://www.gnu.org/copyleft/gpl.html"
-target="_blank">GNU General Public License</a>.
-For more information about SquirrelMail and the SquirrelMail development team, see
-<a href="http://www.squirrelmail.org/" target="_blank">the SquirrelMail website</a>.<br />
-<br /><br />
-<b>System information</b><br/><br/>
-<small>
-You are using SquirrelMail version: <?php echo $version; ?><br />
-The administrator installed the following plugins:<br />
+<strong>
 <?php
+// i18n: %s displays org_name variable value enclosed in () or empty string.
+echo sprintf(_("If you have questions about or problems with your mail account, passwords, abuse etc, please refer to your system administrator or provider%s."),( $org_name != 'SquirrelMail' ? ' (' . $org_name . ')':''));
+echo "</strong>\n";
+
+// i18n: %s tags are used in order to remove html URL attributes from translation
+echo sprintf(_("They can assist you adequately with these issues. The SquirrelMail Project Team cannot help you with that. The %shelp system%s provides answers to frequently asked questions."),'<a href="help.php">','</a>');
+
+echo "<br />\n<br />\n";
+
+// i18n: %s tags are used in order to remove html URL attributes from translation
+echo sprintf(_("SquirrelMail is a feature rich, standards compliant webmail application written in PHP. It was made by a group of volunteers united in the SquirrelMail Project Team and is released as open source, free software under the %sGNU General Public License%s."),'<a href="http://www.gnu.org/copyleft/gpl.html" target="_blank">','</a>');
+
+// i18n: %s tags are used in order to remove html URL attributes from translation
+echo sprintf(_("For more information about SquirrelMail and the SquirrelMail Project Team, see %sthe SquirrelMail website%s."),'<a href="http://www.squirrelmail.org/" target="_blank">','</a>');
+?>
+<br />
+<br /><br />
+<b>
+<?php echo _("System information"); ?>
+</b><br/><br/>
+<small>
+<?php
+echo sprintf(_("You are using SquirrelMail version: %s"),$version);
+echo "<br />\n";
+echo _("The administrator installed the following plugins:");
+echo "<br />\n";
 if ( count ($plugins) > 0 ) {
     sort($plugins);
     echo "<ul>\n";
@@ -68,7 +76,7 @@ if ( count ($plugins) > 0 ) {
     }
     echo "</ul>\n\n";
 } else {
-    echo "<em>none installed</em>\n\n";
+    echo '<em>'._("none installed")."</em>\n\n";
 }
 ?>
 </small>
