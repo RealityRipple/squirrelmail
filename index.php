@@ -11,10 +11,7 @@
  * $Id$
  */
 
-require_once('./functions/strings.php');
-
-$location = get_location();
-header("Location: $location/src/login.php\n\n");
+header("Location: src/login.php\n\n");
 exit();
 
 ?>
