@@ -258,14 +258,14 @@
 
          // Then list special folders and their subfolders
          for ($i = 0 ; $i <= count($boxes) ; $i++) {
-            if((eregi("^".$trash_folder.'$', $boxes[$i]["unformatted"]) ||
-                eregi("^".$trash_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+            if((eregi("^".quotemeta($trash_folder).'$', $boxes[$i]["unformatted"]) ||
+                eregi("^".quotemeta($trash_folder).quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
                ($move_to_trash)) {        
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }
-            else if((eregi("^".$sent_folder.'$', $boxes[$i]["unformatted"]) ||
-                     eregi("^".$sent_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+            else if((eregi("^".quotemeta($sent_folder).'$', $boxes[$i]["unformatted"]) ||
+                     eregi("^".quotemeta($sent_folder).quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
                     ($move_to_sent)) {        
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
