@@ -850,6 +850,7 @@ function sq_unbackslash($attvalue){
     /**
      * Remove any backslashes. See if there are any first.
      */
+
     if (strstr($attvalue, '\\') !== false){
         $attvalue = stripslashes($attvalue);
     }
@@ -1282,13 +1283,14 @@ function sq_getnxtag($body, $offset){
  * @param  $attvalue A string to run entity check against.
  * @return           Translated value.
  */
+
 function sq_deent($attvalue){
     $me = 'sq_deent';
     /**
      * See if we have to run the checks first. All entities must start
      * with "&".
      */
-    if (strpos($attvalue, "&") === false){
+    if (strpos($attvalue, '&') === false){
         return $attvalue;
     }
     /**
@@ -1299,22 +1301,22 @@ function sq_deent($attvalue){
      * Leave &quot; in, as it can mess us up.
      */
     $trans = array_flip($trans);
-    unset($trans{"&quot;"});
+    unset($trans{'&quot;'});
     while (list($ent, $val) = each($trans)){
-        $attvalue = preg_replace("/$ent*(\W)/si", "$val\\1", $attvalue);
+        $attvalue = preg_replace('/' . $ent . '*/si', $val, $attvalue);
     }
     /**
      * Now translate numbered entities from 1 to 255 if needed.
      */
-    if (strpos($attvalue, "#") !== false){
+    if (strpos($attvalue, '#') !== false){
         $omit = Array(34, 39);
-        for ($asc=1; $asc<256; $asc++){
+        for ($asc = 256; $asc >= 0; $asc--){
             if (!in_array($asc, $omit)){
                 $chr = chr($asc);
-                $attvalue = preg_replace("/\&#0*$asc;*(\D)/si", "$chr\\1",
-                                         $attvalue);
-                $attvalue = preg_replace("/\&#x0*".dechex($asc).";*(\W)/si",
-                                         "$chr\\1", $attvalue);
+                $octrule = '/\&#0*' . $asc . ';*/si';
+                $hexrule = '/\&#x0*' . dechex($asc) . ';*/si';
+                $attvalue = preg_replace($octrule, $chr, $attvalue);
+                $attvalue = preg_replace($hexrule, $chr, $attvalue);
             }
         }
     }
