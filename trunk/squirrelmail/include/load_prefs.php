@@ -158,15 +158,23 @@ $left_refresh = strtolower($left_refresh);
 $sort = getPref($data_dir, $username, 'sort', 6 );
 
 /** Load up the Signature file **/
-$signature_abs = $signature = getSig($data_dir, $username, "g");
+$signature_abs = $signature = getSig($data_dir, $username, 'g');
 
-/* Highlight comes in with the form: name, color, header, value. */
-for ($i = 0; $hlt = getPref($data_dir, $username, "highlight$i"); ++$i) {
-    $highlight_array = explode(',', $hlt);
-    $message_highlight_list[$i]['name'] = $highlight_array[0];
-    $message_highlight_list[$i]['color'] = $highlight_array[1];
-    $message_highlight_list[$i]['value'] = $highlight_array[2];
-    $message_highlight_list[$i]['match_type'] = $highlight_array[3];
+/* use new way of storing highlighting rules */
+if( $ser = getPref($data_dir, $username, 'hililist') ) {
+    $message_highlight_list = unserialize($ser);
+} else {
+    /* use old way */
+    for ($i = 0; $hlt = getPref($data_dir, $username, "highlight$i"); ++$i) {
+        $highlight_array = explode(',', $hlt);
+        $message_highlight_list[$i]['name'] = $highlight_array[0];
+        $message_highlight_list[$i]['color'] = $highlight_array[1];
+        $message_highlight_list[$i]['value'] = $highlight_array[2];
+        $message_highlight_list[$i]['match_type'] = $highlight_array[3];
+        removePref($data_dir, $user_name, "highlight$i");
+    }
+    /* store in new format for the next time */
+    setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 }
 
 /* Index order lets you change the order of the message index */

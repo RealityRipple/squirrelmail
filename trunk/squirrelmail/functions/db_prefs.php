@@ -165,10 +165,6 @@ class dbPrefs {
 
         unset($prefs_cache[$key]);
 
-        if(substr($key, 0, 9) == 'highlight') {
-            $this->renumberHighlightList($user);
-        }
-
         return true;
     }
 
@@ -269,65 +265,6 @@ class dbPrefs {
         while ($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
             $prefs_cache[$row['prefkey']] = $row['prefval'];
         }
-    }
-
-    /*
-     * When a highlight option is deleted the preferences module
-     * must renumber the list.  This should be done somewhere else,
-     * but it is not, so....
-     */
-    function renumberHighlightList($user) {
-        if (!$this->open()) {
-            return;
-        }
-        $query = sprintf("SELECT %s, %s as prefkey, %s as prefval FROM %s WHERE %s='%s' ".
-                         "AND %s LIKE 'highlight%%' ORDER BY %s",
-                         $this->user_field,
-                         $this->key_field,
-                         $this->val_field,
-                         $this->table,
-                         $this->user_field,
-                         $this->dbh->quoteString($user),
-                         $this->key_field,
-                         $this->key_field);
-
-        $res = $this->dbh->query($query);
-        if(DB::isError($res)) {
-            $this->failQuery($res);
-        }
-
-        /* Store old data in array */
-        $rows = Array();
-        while($row = $res->fetchRow(DB_FETCHMODE_ASSOC)) {
-            $rows[] = $row;
-        }
-
-        /* Renumber keys of old data */
-        $hilinum = 0;
-        for($i = 0; $i < count($rows) ; $i++) {
-            $oldkey = $rows[$i]['prefkey'];
-            $newkey = substr($oldkey, 0, 9) . $hilinum;
-            $hilinum++;
-
-            if($oldkey != $newkey) {
-                $query = sprintf("UPDATE %s SET %s='%s' ".
-                                 "WHERE %s ='%s' AND %s='%s'",
-                                 $this->table,
-                                 $this->key_field,
-                                 $this->dbh->quoteString($newkey),
-                                 $this->user_field,
-                                 $this->dbh->quoteString($user),
-                                 $this->key_field,
-                                 $this->dbh->quoteString($oldkey));
-
-                $res = $this->dbh->simpleQuery($query);
-                if(DB::isError($res)) {
-                    $this->failQuery($res);
-                }
-            }
-        }
-
-        return;
     }
 
 } /* end class dbPrefs */

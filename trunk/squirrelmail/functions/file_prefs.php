@@ -54,6 +54,7 @@ function cachePrefValues($data_dir, $username) {
         if ($equalsAt > 0) {
             $key = substr($pref, 0, $equalsAt);
             $value = substr($pref, $equalsAt + 1);
+            /* this is to 'rescue' old-style highlighting rules. */
             if (substr($key, 0, 9) == 'highlight') {
                 $key = 'highlight' . $highlight_num;
                 $highlight_num ++;

@@ -1,9 +1,13 @@
 *************************************
-*** Squirrelmail Devel Series 1.3 ***
+*** SquirrelMail Devel Series 1.3 ***
 *************************************
 
-	
-Version 1.3.2 -- cvs
+Version 1.3.3 -- cvs
+-------------
+  - Change the way highlighting rules are stored to make them more reliable and
+    easier to manage.
+
+Version 1.3.2
 -------------
   - Rewrite of message delivery related functions.
   - Userinterface modifications.

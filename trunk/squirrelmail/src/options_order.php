@@ -6,7 +6,7 @@
  * Copyright (c) 1999-2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * Displays message highlighting options
+ * Displays messagelist column order options
  *
  * $Id$
  */
@@ -22,9 +22,6 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 
 /* get globals */
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
-}
 if (isset($_GET['num'])) {
     $num = $_GET['num'];
 }
@@ -45,11 +42,6 @@ elseif (isset($_POST['submit'])) {
 }
 /* end of get globals */
 
-if (! isset($action)) { $action = ''; }
-if ($action == 'delete' && isset($theid)) {
-    removePref($data_dir, $username, "highlight$theid");
-} elseif ($action == 'save') {
-} 
 displayPageHeader($color, 'None');
 
    echo
