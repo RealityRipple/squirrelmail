@@ -34,6 +34,7 @@ function cachePrefValues($data_dir, $username) {
     /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
+    checkForPrefs($data_dir, $username);º
     if (!file_exists($filename)) {
         printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
         exit;
