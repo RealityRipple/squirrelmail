@@ -217,7 +217,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
                         .  '&amp;passed_id='. $msg["ID"]
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
-                $td_str .= ' ' .concat_hook_function('subject_link'); 
+                $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
                 if ($subject != $msg['SUBJECT']) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
                     $title = array_flip($title);
