@@ -24,11 +24,11 @@ function isSpecialMailbox( $box ) {
     if ( $move_to_sent  ) {
         $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
     }
-     
+     // echo '[' . substr( $sent_folder, 0, $i ) . '] (' . $box . ')'; 
     $ret = ( (strtolower($box) == 'inbox') ||
              ($box == $trash_folder &&
               $move_to_trash) ||
-             ( substr( $sent_folder, 0, max( $i, strlen( $box ) ) ) == $box &&
+             ( substr( $sent_folder, 0, $i ) == substr( $box, 0, $i ) &&
               $move_to_sent) ||
              ($box == $draft_folder &&
               $save_as_draft) );
