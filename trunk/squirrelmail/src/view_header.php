@@ -20,7 +20,7 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 
-function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
+function parse_viewheader($imapConnection,$id, $passed_ent_id) {
    global $uid_support;
 
    $header_full = array();
@@ -35,39 +35,39 @@ function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
-        if (eregi("^&gt;", $line)) {
+	switch (true) {
+	  case (eregi("^&gt;", $line)):
             $second[$i] = $line;
             $first[$i] = '&nbsp;';
             $cnum++;
-        } else if (eregi("^[ |\t]", $line)) {
+	    break;
+	  case (eregi("^[ |\t]", $line)):
             $second[$i] = $line;
             $first[$i] = '';
-        } else if (eregi("^([^:]+):(.+)", $line, $regs)) {
+	    break;
+	  case (eregi("^([^:]+):(.+)", $line, $regs)):
             $first[$i] = $regs[1] . ':';
             $second[$i] = $regs[2];
             $cnum++;
-        } else {
+	    break;
+	  default:
             $second[$i] = trim($line);
             $first[$i] = '';
+	    break;
         }
     }
     for ($i=0; $i < count($second); $i = $j) {
-        if (isset($first[$i])) {
-            $f = $first[$i];
-        }
-        if (isset($second[$i])) {
-            $s = nl2br($second[$i]);
-        }
+        $f = (isset($first[$i]) ? $first[$i] : '');
+        $s = (isset($second[$i]) ? nl2br($second[$i]) : ''); 
         $j = $i + 1;
         while (($first[$j] == '') && ($j < count($first))) {
             $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
             $j++;
         }
-        if(strtolower($f) != 'message-id:')
-	{
+        if(strtolower($f) != 'message-id:') {
 		parseEmail($s);
 	}
-        if (isset($f)) {
+        if ($f) {
             $header_output[] = array($f,$s);
         }
     }
@@ -76,9 +76,7 @@ function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
 }
 
 function view_header($header, $mailbox, $color) {
-    global $base_uri;
-
-    $ret_addr = $base_uri . 'src/read_body.php?'.$_SERVER['QUERY_STRING'];
+    $ret_addr = SM_PATH . 'src/read_body.php?'.$_SERVER['QUERY_STRING'];
 
     displayPageHeader($color, $mailbox);
 
