@@ -300,7 +300,11 @@ function get_location () {
         $host = $HTTP_HOST;
     } else if (isset($SERVER_NAME) && !empty($SERVER_NAME)) {
         $host = $SERVER_NAME;
+    } else if (isset($HTTP_SERVER_VARS['SERVER_NAME']) &&
+               !empty($HTTP_SERVER_VARS['SERVER_NAME'])) {
+        $host = $HTTP_SERVER_VARS['SERVER_NAME'];
     }
+
     
     $port = '';
     if (! strstr($host, ':')) {
