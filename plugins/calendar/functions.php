@@ -51,10 +51,10 @@ function select_option_length($selected) {
     );
 
     while( $bar = each($eventlength)) {
-        if($selected==$bar[key]){
-                echo "        <OPTION VALUE=\"".$bar[key]."\" SELECTED>".$bar[value]."</OPTION>\n";
+        if($selected==$bar['key']){
+                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar[key]."\">".$bar[value]."</OPTION>\n";
+                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
         }
     }
 }
@@ -76,10 +76,10 @@ function select_option_minute($selected) {
     );
 
     while ( $bar = each($eventminute)) {
-        if ($selected==$bar[key]){
-                echo "        <OPTION VALUE=\"".$bar[key]."\" SELECTED>".$bar[value]."</OPTION>\n";
+        if ($selected==$bar['key']){
+                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar[key]."\">".$bar[value]."</OPTION>\n";
+                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
         }
     }
 }
@@ -103,10 +103,10 @@ function select_option_priority($selected) {
     );
 
     while( $bar = each($eventpriority)) {
-        if($selected==$bar[key]){
-                echo "        <OPTION VALUE=\"".$bar[key]."\" SELECTED>".$bar[value]."</OPTION>\n";
+        if($selected==$bar['key']){
+                echo "        <OPTION VALUE=\"".$bar['key']."\" SELECTED>".$bar['value']."</OPTION>\n";
         } else {
-                echo "        <OPTION VALUE=\"".$bar[key]."\">".$bar[value]."</OPTION>\n";
+                echo "        <OPTION VALUE=\"".$bar['key']."\">".$bar['value']."</OPTION>\n";
         }
     }
 }

@@ -140,14 +140,14 @@ function show_event_form() {
          html_tag( 'td', _("Length:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
          "      <SELECT NAME=\"event_length\">\n";
-    select_option_length($tmparray[length]);
+    select_option_length($tmparray['length']);
     echo "      </SELECT>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Priority:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
          "      <SELECT NAME=\"event_priority\">\n";
-    select_option_priority($tmparray[priority]);
+    select_option_priority($tmparray['priority']);
     echo "      </SELECT>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
