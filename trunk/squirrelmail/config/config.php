@@ -51,4 +51,7 @@ $special_folders[1] = $trash_folder;
 $special_folders[2] = "INBOX.Sent";
 $special_folders[3] = "INBOX.Drafts";
 $special_folders[4] = "INBOX.Templates";
+
+/** This is the max chars before a line wrap on plain text messages */
+$wrap_max = 80;
 ?>

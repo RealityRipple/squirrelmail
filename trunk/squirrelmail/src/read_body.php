@@ -53,12 +53,12 @@
    echo "   </TABLE></TD></TR>\n";
 
    echo "   <TR><TD BGCOLOR=FFFFFF><BR>\n";
-   $i = 1;
-   while ($i < count($body)-2) {
-      echo "$body[$i]<BR>";
+   $i = 0;
+   while ($i < count($body)) {
+      echo "$body[$i]";
       $i++;
    }
-   echo "   </TD></TR>\n";
+   echo "   <BR></TD></TR>\n";
    echo "   <TR><TD BGCOLOR=DCDCDC>&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
