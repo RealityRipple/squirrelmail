@@ -15,6 +15,8 @@
    **   ? name      => Name for LDAP server (default "LDAP: hostname")
    **                  Used to tag the result data
    **   ? maxrows   => Maximum # of rows in search result
+   **   ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
+   **                  Might not work for all LDAP libraries or servers.
    **
    **  NOTE. This class should not be used directly. Use the
    **        "AddressBook" class instead.
@@ -33,7 +35,7 @@
      var $linkid  = false;        // PHP LDAP link ID
      var $bound   = false;        // True if LDAP server is bound
      var $maxrows = 250;          // Max rows in result
-     
+     var $timeout = 30;           // Timeout for LDAP operations (in seconds)
 
      // Constructor. Connects to database
      function abook_ldap_server($param) {
@@ -50,6 +52,8 @@
 	   $this->charset = strtolower($param["charset"]);
 	 if(isset($param["maxrows"]))
 	   $this->maxrows = $param["maxrows"];
+	 if(isset($param["timeout"]))
+	   $this->timeout = $param["timeout"];
 	 if(empty($param["name"]))
 	   $this->sname = "LDAP: ".$param["host"];
 	 else
@@ -133,10 +137,18 @@
        if(!$this->open())
 	 return false;
 
-       // Do the search
-       $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-			    array("dn", "o", "ou", "sn", "givenname", 
-				  "cn", "mail", "telephonenumber"));
+       // Do the search. Use improved ldap_search() if PHP version is
+       // 4.0.2 or newer.
+       if(sqCheckPHPVersion(4, 0, 2)) {
+	  $sret = @ldap_search($this->linkid, $this->basedn, $expression,
+			       array("dn", "o", "ou", "sn", "givenname", 
+				     "cn", "mail", "telephonenumber"),
+			       0, $this->maxrows, $this->timeout);
+       } else {
+	  $sret = @ldap_search($this->linkid, $this->basedn, $expression,
+			       array("dn", "o", "ou", "sn", "givenname", 
+				     "cn", "mail", "telephonenumber"));
+       }
 
        // Should get error from server using the ldap_error() function,
        // but it only exist in the PHP LDAP documentation.
