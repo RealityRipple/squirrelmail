@@ -16,7 +16,7 @@
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.3.1 [CVS-DEVEL]';
+$version = '1.3.1 [DEVEL]';
 
 /**
  * Wraps text at $wrap characters
