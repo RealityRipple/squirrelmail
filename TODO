@@ -38,4 +38,5 @@ Finished:
 (lme) (18.6.00)  Background highlighting messages in list based on header criteria (like pine 4.2x)
 (lme) (18.6.00)  Fix conf.pl script and add more error checking so it doesn't throw parse errors
 (lme) (21.6.00)  Rewrite of mime.php (see Gustav before any work is done)
+(lrb) (30.6.00)  CSV import for address book.
 (pl)  (5.7.00)   Insert In-Reply-To and References headers when replying to a message.
