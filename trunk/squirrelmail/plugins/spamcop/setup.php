@@ -6,7 +6,7 @@ function squirrelmail_plugin_init_spamcop() {
    global $squirrelmail_plugin_hooks, $data_dir, $username,
       $spamcop_is_composing;
 
-   $squirrelmail_plugin_hooks['options_register']['spamcop'] =
+   $squirrelmail_plugin_hooks['optpage_register_block']['spamcop'] =
       'spamcop_options';
    $squirrelmail_plugin_hooks['loading_prefs']['spamcop'] =
       'spamcop_load';
@@ -65,14 +65,14 @@ echo urlencode($mailbox); ?>" target="_blank">');
 document.write("<?PHP echo _("Report as Spam"); ?>");
 document.write("</a>");
 </script><noscript>
-<a href="../plugins/spamcop/spamcop_web.php?passed_id=<?PHP
+<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
 echo urlencode($passed_id); ?>&mailbox=<?PHP
 echo urlencode($mailbox); ?>&startMessage=<?PHP
 echo urlencode($startMessage); ?>"><?PHP
 echo _("Report as Spam"); ?></a>
 </noscript><?PHP
    } else {
-?><a href="../plugins/spamcop/spamcop_web.php?passed_id=<?PHP
+?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP
 echo urlencode($passed_id); ?>&mailbox=<?PHP
 echo urlencode($mailbox); ?>&startMessage=<?PHP
 echo urlencode($startMessage); ?>"><?PHP
@@ -84,9 +84,9 @@ echo _("Report as Spam"); ?></a><?PHP
 // Show the link to our own custom options page
 function spamcop_options()
 {
-   global $optionpages;
+   global $optpage_blocks;
    
-   $optionpages[] = array(
+   $optpage_blocks[] = array(
       'name' => _("SpamCop - Spam Reporting"),
       'url' => '../plugins/spamcop/options.php',
       'desc' => _("Help fight the battle against unsolicited email.  SpamCop reads the spam email and determines the correct addresses to send complaints to.  Quite fast, really smart, and easy to use."),
