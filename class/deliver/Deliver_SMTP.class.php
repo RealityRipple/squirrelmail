@@ -197,119 +197,71 @@ class Deliver_SMTP extends Deliver {
 	return true;
     }
     
+    /* check if an SMTP reply is an error and set an error message) */
     function errorCheck($line, $smtpConnection) {
-	global $color, $compose_new_win;
-	
-	/* Read new lines on a multiline response */
-	$lines = $line;
-	while(ereg("^[0-9]+-", $line)) {
-    	    $line = fgets($smtpConnection, 1024);
-    	    $lines .= $line;
-	}
-	/* Status:  0 = fatal
-         *          5 = ok
-         */
-	$err_num = substr($line, 0, strpos($line, " "));
-	switch ($err_num) {
-	case 500:   $message = 'Syntax error; command not recognized';
-    	    $status = 0;
-    	    break;
-	case 501:   $message = 'Syntax error in parameters or arguments';
-    	    $status = 0;
-    	    break;
-	case 502:   $message = 'Command not implemented';
-    	    $status = 0;
-    	    break;
-	case 503:   $message = 'Bad sequence of commands';
-    	    $status = 0;
-    	    break;
-	case 504:   $message = 'Command parameter not implemented';
-    	    $status = 0;
-    	    break;    
-	case 211:   $message = 'System status, or system help reply';
-    	    $status = 5;
-    	    break;
-	case 214:   $message = 'Help message';
-    	    $status = 5;
-    	    break;
-	case 220:   $message = 'Service ready';
-    	    $status = 5;
-    	    break;
-	case 221:   $message = 'Service closing transmission channel';
-    	    $status = 5;
-    	    break;
-	case 421:   $message = 'Service not available, closing channel';
-    	    $status = 0;
-    	    break;
-	case 235:   $message = 'Authentication successful';
-			$status = 5;
-			break;
-	case 250:   $message = 'Requested mail action okay, completed';
-    	    $status = 5;
-    	    break;
-	case 251:   $message = 'User not local; will forward';
-    	    $status = 5;
-    	    break;
-	case 334:   $message = 'OK - continue request';
-			$status = 5;
-			break;
-	case 450:   $message = 'Requested mail action not taken:  mailbox unavailable';
-    	    $status = 0;
-    	    break;
-	case 550:   $message = 'Requested action not taken:  mailbox unavailable';
-    	    $status = 0;
-    	    break;
-	case 451:   $message = 'Requested action aborted:  error in processing';
-    	    $status = 0;
-    	    break;
-	case 551:   $message = 'User not local; please try forwarding';
-    	    $status = 0;
-    	    break;
-	case 452:   $message = 'Requested action not taken:  insufficient system storage';
-    	    $status = 0;
-    	    break;
-	case 552:   $message = 'Requested mail action aborted:  exceeding storage allocation';
-    	    $status = 0;
-    	    break;
-	case 553:   $message = 'Requested action not taken: mailbox name not allowed';
-    	    $status = 0;
-    	    break;
-	case 354:   $message = 'Start mail input; end with .';
-    	    $status = 5;
-    	    break;
-	case 554:   $message = 'Transaction failed';
-    	    $status = 0;
-    	    break;
-	/* RFC 2554 */    
-	case 432: $message = 'A password transition is needed';
-	    $status = 0;
-	    break;
-	case 534: $message = 'Authentication mechanism is too weak';
-	    $status = 0;
-	    break;
-	case 538: $message = 'Encryption required for requested authentication mechanism';
-	    $status = 0;
-	    break;
-	case 454:   $message = 'Temmporary authentication failure';
-	    $status = 0;
-	    break;
-	case 530: $message = 'Authentication required';
-	    $status = 0;
-	    break;
-        /* end RFC2554 */	
-	case 535: $message = 'Authentication failed';
-		$status = 0;
-        break;
-	default:    $message = 'Unknown response: '. nl2br(htmlspecialchars($lines));
-    	    $status = 0;
-    	    $err_num = '001';
-    	    break;
-	}
-	$this->dlv_ret_nr = $err_num;
-	$this->dlv_msg = $message;
-	if ($status == 5) {
-	    return false;
-	}
+
+        $err_num = substr($line, 0, 3);
+        $this->dlv_ret_nr = $err_num;
+        $server_msg = substr($line, 4);
+
+        while(substr($line, 0, 4) == ($err_num.'-')) {
+            $line = fgets($smtpConnection, 1024);
+            $server_msg .= substr($line, 4);
+        }
+
+        if ( ((int) $err_num{0}) < 4)
+        {
+        	return false;
+        }
+
+        switch ($err_num) {
+        case '421': $message = _("Service not available, closing channel");
+            break;
+        case '432': $message = _("A password transition is needed");
+            break;
+        case '450': $message = _("Requested mail action not taken: mailbox unavailable");
+            break;
+        case '451': $message = _("Requested action aborted: error in processing");
+            break;
+        case '452': $message = _("Requested action not taken: insufficient system storage");
+            break;
+        case '454': $message = _("Temporary authentication failure");
+            break;
+        case '500': $message = _("Syntax error; command not recognized");
+            break;
+        case '501': $message = _("Syntax error in parameters or arguments");
+            break;
+        case '502': $message = _("Command not implemented");
+            break;
+        case '503': $message = _("Bad sequence of commands");
+            break;
+        case '504': $message = _("Command parameter not implemented");
+            break;    
+        case '530': $message = _("Authentication required");
+            break;
+        case '534': $message = _("Authentication mechanism is too weak");
+            break;
+        case '535': $message = _("Authentication failed");
+            break;
+        case '538': $message = _("Encryption required for requested authentication mechanism");
+            break;
+        case '550': $message = _("Requested action not taken: mailbox unavailable");
+            break;
+        case '551': $message = _("User not local; please try forwarding");
+            break;
+        case '552': $message = _("Requested mail action aborted: exceeding storage allocation");
+            break;
+        case '553': $message = _("Requested action not taken: mailbox name not allowed");
+            break;
+        case '554': $message = _("Transaction failed");
+            break;
+        default:    $message = _("Unknown response");
+            break;
+        }
+
+        $this->dlv_msg = $message;
+        $this->dlv_server_msg = nl2br(htmlspecialchars($server_msg));
+
         return true;
     }
     
