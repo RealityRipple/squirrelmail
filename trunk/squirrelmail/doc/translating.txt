@@ -13,7 +13,7 @@ a) You must have gettext installed. If it is not installed you can
 
 b) Find the language code for the language you are going to translate
    into. A list of language codes can be found at
-   <URL:http://lcweb.loc.gov/standards/iso639-2/iso639jac.html>. If
+   <URL:http://lcweb.loc.gov/standards/iso639-2/langhome.html>. If
    there is a 2 letter code for the language, use this.
 
    Create a directory squirrelmail/locale/language_code/LC_MESSAGES/.
