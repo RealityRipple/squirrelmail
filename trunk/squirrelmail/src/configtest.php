@@ -34,6 +34,9 @@ ob_implicit_flush();
 /** @ignore */
 define('SM_PATH', '../');
 
+/* set default value in order to block remote access to script */
+$allow_remote_configtest=false;
+
 /*
  * Load config before output begins. functions/strings.php depends on
  * functions/globals.php. functions/global.php needs to be run before
@@ -58,7 +61,6 @@ in the <tt>config/</tt> directory first before you run this script.</p>
 
 <?php
 
-
 $included = array_map('basename', get_included_files() );
 if(!in_array('config.php', $included)) {
     if(!file_exists(SM_PATH . 'config/config.php')) {
@@ -72,6 +74,13 @@ if(!in_array('strings.php', $included)) {
            'Check permissions on that file.');
 }
 
+/* Block remote use of script */
+if (! $allow_remote_configtest) {
+    sqGetGlobalVar('REMOTE_ADDR',$client_ip,SQ_SERVER);
+    if (! isset($client_ip) || $client_ip!='127.0.0.1') {
+	do_err('Enable "Allow remote configtest" option in squirrelmail configuration in order to use this script.');
+    }
+}
 /* checking PHP specs */
 
 echo "<p><table>\n<tr><td>SquirrelMail version:</td><td><b>" . $version . "</b></td></tr>\n" .
@@ -100,7 +109,7 @@ echo $IND . "PHP extensions OK.<br />\n";
 /**
  * mbstring.func_overload allows to replace original string and regexp functions
  * with their equivalents from php mbstring extension. It causes problems when
- * scripts analyse 8bit strings byte after byte or use 8bit strings in regexp tests.
+ * scripts analyze 8bit strings byte after byte or use 8bit strings in regexp tests.
  * Setting can be controlled in php.ini (php 4.2.0), webserver config (php 4.2.0)
  * and .htaccess files (php 4.3.5).
  */
@@ -117,22 +126,45 @@ if (function_exists('mb_internal_encoding') &&
 echo "Checking paths...<br />\n";
 
 if(!file_exists($data_dir)) {
-    do_err("Data dir ($data_dir) does not exist!");
+    // data_dir is not that important in db_setups.
+    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+        $data_dir_error = "Data dir ($data_dir) does not exist!\n";
+        echo $IND .'<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
+    } else {
+        do_err("Data dir ($data_dir) does not exist!");
+    }
 }
-if(!is_dir($data_dir)) {
-    do_err("Data dir ($data_dir) is not a directory!");
+// don't check if errors
+if(!isset($data_dir_error) && !is_dir($data_dir)) {
+    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+        $data_dir_error = "Data dir ($data_dir) is not a directory!\n";
+        echo $IND . '<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
+    } else {
+        do_err("Data dir ($data_dir) is not a directory!");
+    }
 }
 // datadir should be executable - but no clean way to test on that
-if(!is_writable($data_dir)) {
-    do_err("I cannot write to data dir ($data_dir)!");
+if(!isset($data_dir_error) && !is_writable($data_dir)) {
+    if (isset($prefs_dsn) && ! empty($prefs_dsn)) {
+        $data_dir_error = "Data dir ($data_dir) is not writable!\n";
+        echo $IND . '<font color="red"><b>ERROR:</b></font> ' . $data_dir_error;
+    } else {
+        do_err("Data dir ($data_dir) is not writable!");
+    }
 }
 
-// todo_ornot: actually write something and read it back.
-echo $IND . "Data dir OK.<br />\n";
-
+if (isset($data_dir_error)) {
+    echo " Some plugins might need access to data directory.<br />\n";
+} else {
+    // todo_ornot: actually write something and read it back.
+    echo $IND . "Data dir OK.<br />\n";
+}
 
 if($data_dir == $attachment_dir) {
     echo $IND . "Attachment dir is the same as data dir.<br />\n";
+    if (isset($data_dir_error)) {
+        do_err($data_dir_error);
+    }
 } else {
     if(!file_exists($attachment_dir)) {
         do_err("Attachment dir ($attachment_dir) does not exist!");
@@ -411,13 +443,13 @@ echo "Checking LDAP functions...<br />\n";
 if( empty($ldap_server) ) {
     echo $IND."not using LDAP functionality.<br />\n";
 } else {
-    if ( !function_exists(ldap_connect) ) {
+    if ( !function_exists('ldap_connect') ) {
         do_err('Required LDAP support is not available.');
     } else {
         echo "$IND LDAP support present.<br />\n";
         foreach ( $ldap_server as $param ) {
 
-            $linkid = ldap_connect($param['host'], (empty($param['port']) ? 389 : $param['port']) );
+            $linkid = @ldap_connect($param['host'], (empty($param['port']) ? 389 : $param['port']) );
 
             if ( $linkid ) {
                echo "$IND LDAP connect to ".$param['host']." successful: ".$linkid."<br />\n";
@@ -428,9 +460,9 @@ if( empty($ldap_server) ) {
                 }
 
                 if ( empty($param['binddn']) ) {
-                    $bind = ldap_bind($linkid);
+                    $bind = @ldap_bind($linkid);
                 } else {
-                    $bind = ldap_bind($param['binddn'], $param['bindpw']);
+                    $bind = @ldap_bind($param['binddn'], $param['bindpw']);
                 }
 
                 if ( $bind ) {
@@ -439,7 +471,7 @@ if( empty($ldap_server) ) {
                     do_err('Unable to Bind to LDAP Server');
                 }
 
-                ldap_close($linkid);
+                @ldap_close($linkid);
             } else {
                 do_err('Connection to LDAP failed');
             }
