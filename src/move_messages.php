@@ -118,7 +118,6 @@ $key  = $_COOKIE['key'];
 $onetimepad = $_SESSION['onetimepad'];
 $base_uri = $_SESSION['base_uri'];
 $delimiter = $_SESSION['delimiter'];
-
 if (isset($_GET['mailbox'])) {
     $mailbox = $_GET['mailbox'];
 }
@@ -159,6 +158,10 @@ if (isset($_POST['attache'])) {
     $attache = $_POST['attache'];
 }
 
+if (isset($_POST['location'])) {
+    $location = $_POST['location'];
+}
+
 /* end of get globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -188,6 +191,7 @@ if(isset($expungeButton)) {
 	}
     }
     header("Location: $location");
+    exit;
 } elseif(isset($undeleteButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
     if (is_array($msg) == 1) {
@@ -204,6 +208,7 @@ if(isset($expungeButton)) {
             $i++;
         }
 	header ("Location: $location"); 
+	exit;
     } else {
         displayPageHeader($color, $mailbox);
         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -240,10 +245,12 @@ if(isset($expungeButton)) {
 	    $composesession = attachSelectedMessages($msg, $imapConnection);
 	    if ($compose_new_win) {
         	header ("Location: $location&composenew=1&session=$composesession");
+		exit;
 	    } else {
 		$location = str_replace('search.php','compose.php',$location);
 		$location = str_replace('right_main.php','compose.php',$location);
 		header ("Location: $location&session=$composesession");
+		exit;
 	    }
 	} else {		
 	    if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
@@ -254,6 +261,7 @@ if(isset($expungeButton)) {
 	       }
 	    }
             header ("Location: $location");
+	    exit;
         } 
     } else {
         displayPageHeader($color, $mailbox);
@@ -289,7 +297,8 @@ if(isset($expungeButton)) {
 		$location = set_url_var($location,'startMessage',1);
 	    }
 	}
-	header ("Location: $location"); 
+	header ("Location: $location");
+	exit;
     } else {
         displayPageHeader($color, $mailbox);
         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -297,6 +306,5 @@ if(isset($expungeButton)) {
 }
 // Log out this session
 sqimap_logout($imapConnection);
-
 ?>
 </BODY></HTML>
