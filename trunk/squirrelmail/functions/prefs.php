@@ -51,7 +51,8 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
     /* First, get and make sure the full hash directory exists. */
     $real_hash_dir = getHashedDir($username, $dir, $hash_dirs);
 
-    /* Set the value of our real data file. */
+    /* Set the value of our real data file, after we've removed unwanted characters. */
+    $datafile = str_replace('/', '_', $datafile);
     $result = "$real_hash_dir/$datafile";
 
     /* Check for this file in the real hash directory. */
