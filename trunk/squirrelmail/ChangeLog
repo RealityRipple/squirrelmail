@@ -4,15 +4,15 @@
 
 Version 1.4.0 RC 2
 ------------------
-  - Fix broken themes box in display options
-  - Massive overhaul of administrator plugin
+  - Fix broken themes box in display options.
+  - Massive overhaul of administrator plugin.
   - Added new function sqgetGlobalVar to global.php to provide direct access
     to variables in $_GET, $_POST, $_SESSION, $_COOKIE and $_SERVER.
   - Patch from O'Shaughnessy Evans <shaug-sqm@wumpus.org> to allow disabled $org_logo
   - Lots of language/internationalization updates
-  - conf.pl fixes for certain uses of SM_PATH, esp. $signout_page
+  - conf.pl fixes for certain uses of SM_PATH, esp. $signout_page.
   - SMTP & IMAP auth method "plain" was a misnomer - now corrected to 
-    the more accurate name "login" (Plain to be implemented soon)
+    the more accurate name "login" (Plain to be implemented soon).
   - Fix for compose after search bug.  (Closes #662346)
   - Improved error reporting when sending mail with SMTP.
   - Changed SquirrelMail identification to use User-Agent instead of X-Mailer.
@@ -20,7 +20,12 @@ Version 1.4.0 RC 2
   - Fix IMAP error when returning to message from viewing image attachment.
   - Do more trimming to indented subjects in threadview so they don't wrap.
   - Trash folder now displays purge link in all cases. (Closes #655943)
-
+  - Fix typo in delete_move_next plugin which caused php file-handle errors.
+  - Make vCard more liberal in what it accepts (thanks Kurt Pires).
+  - Fix problem with subject encoding when using Japanse.
+  - Move login_form hook to be actually in the login form.
+  - Fix message_details plugin ability to save a raw message.
+  - Try better to get the filename of an attachment.
 	
 Version 1.4.0 RC 1
 ------------------
