@@ -320,9 +320,9 @@ if ($showaddrlist) {
                             '&nbsp;' ,
                             'center', '', 'valign="top" width="1%"' );
                 }
-                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
-                    html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
-                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
+                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
+                    html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
+                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
             } else {
                 echo html_tag( 'tr', '', '', $tr_bgcolor);
                 if ($abook->backends[$row['backend']]->writeable) {
@@ -336,9 +336,9 @@ if ($showaddrlist) {
                             '&nbsp;' ,
                             'center', '', 'valign="top" width="1%"' );
                 }
-                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
-                    html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
-                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
+                echo html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
+                    html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) .
+                    html_tag( 'td', '', 'left', '', 'valign="top" width="1%" style="white-space: nowrap;"' ) . '&nbsp;';
             }
             $email = $abook->full_address($row);
             echo makeComposeLink('src/compose.php?send_to='.rawurlencode($email),

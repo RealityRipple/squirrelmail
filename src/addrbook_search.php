@@ -143,7 +143,7 @@ function display_result($res, $includesource = true) {
         } else {
             $tr_bgcolor = $color[4];
         }
-        echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
+        echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
         html_tag( 'td',
              '<small><a href="javascript:to_address(' .
                                        "'" . $email . "');\">"._("To")."</a> | " .
@@ -151,15 +151,15 @@ function display_result($res, $includesource = true) {
                                        "'" . $email . "');\">"._("Cc")."</a> | " .
              '<a href="javascript:bcc_address(' .
                                  "'" . $email . "');\">"._("Bcc")."</a></small>",
-        'center', '', 'valign="top" width="5%" nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" nowrap' ) .
+        'center', '', 'valign="top" width="5%" style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" style="white-space: nowrap;"' ) .
         html_tag( 'td', '&nbsp;' .
              '<a href="javascript:to_and_close(' .
                  "'" . $email . "');\">" . htmlspecialchars($row['email']) . '</a>'
         , 'left', '', 'valign="top"' ) .
-        html_tag( 'td', htmlspecialchars($row['label']), 'left', '', 'valign="top" nowrap' );
+        html_tag( 'td', htmlspecialchars($row['label']), 'left', '', 'valign="top" style="white-space: nowrap;"' );
         if ($includesource) {
-            echo html_tag( 'td', '&nbsp;' . $row['source'], 'left', '', 'valign="top" nowrap' );
+            echo html_tag( 'td', '&nbsp;' . $row['source'], 'left', '', 'valign="top" style="white-space: nowrap;"' );
         }
 
         echo "</tr>\n";
@@ -210,7 +210,7 @@ if ($show == 'form' && empty($listall)) {
             '" method="post">' . "\n" .
          html_tag( 'table', '', '', '', 'border="0" width="100%" height="100%"' ) .
          html_tag( 'tr' ) .
-         html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'nowrap valign="middle" width="10%"' ) .
+         html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'style="white-space: nowrap;" valign="middle" width="10%"' ) .
          html_tag( 'td', '', 'left', '', '' ) .
          addInput('query', $query, 28);
 

@@ -669,7 +669,7 @@ function print_option_groups($option_groups) {
             echo html_tag( 'tr', "\n".
                         html_tag( 'td',
                             '<b>' . $next_optgrp['name'] . '</b>' ,
-                        'center' ,'', 'valign="middle" colspan="2" nowrap' )
+                        'center' ,'', 'valign="middle" colspan="2" style="white-space: nowrap;"' )
                     ) ."\n";
         }
 

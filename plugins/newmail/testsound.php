@@ -26,7 +26,7 @@ if ( ! sqgetGlobalVar('sound', $sound, SQ_GET) ) {
 } elseif ( $sound == '(none)' ) {
     echo '<center><form><br /><br />'.
          '<b>' . _("No sound specified") . '</b><br /><br />'.
-         '<input type="button" name="close" value="' . _("Close") . '" onClick="window.close()" />'.
+         '<input type="button" name="close" value="' . _("Close") . '" onclick="window.close()" />'.
          '</form></center>'.
          '</body></html>';
     return;
@@ -41,7 +41,7 @@ echo html_tag( 'table',
                     '<form>'.
                     '<input type="button" name="close" value="  ' .
                     _("Close") .
-                    '  " onClick="window.close()" />'.
+                    '  " onclick="window.close()" />'.
                     '</form>' ,
                 'center' )
             ) ,

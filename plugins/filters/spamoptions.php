@@ -118,7 +118,7 @@ if (isset($action) && $action == 'spam') {
         '<center>'.
         html_tag( 'table', '', '', '', 'width="85%" border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
-                html_tag( 'th', _("Move spam to:"), 'right', '', 'nowrap' ) .
+                html_tag( 'th', _("Move spam to:"), 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<select name="filters_spam_folder_set">';
 
@@ -136,7 +136,7 @@ if (isset($action) && $action == 'spam') {
             'left' )
         ) .
         html_tag( 'tr' ) .
-            html_tag( 'th', _("What to Scan:"), 'right', '', 'nowrap' ) .
+            html_tag( 'th', _("What to Scan:"), 'right', '', 'style="white-space: nowrap;"' ) .
             html_tag( 'td' ) .
             '<select name="filters_spam_scan_set">'.
             '<option value=""';
@@ -163,7 +163,7 @@ if (isset($action) && $action == 'spam') {
 
     foreach ($spam_filters as $Key => $Value) {
         echo html_tag( 'tr' ) .
-                   html_tag( 'th', $Key, 'right', '', 'nowrap' ) ."\n" .
+                   html_tag( 'th', $Key, 'right', '', 'style="white-space: nowrap;"' ) ."\n" .
                    html_tag( 'td' ) .
             '<input type="checkbox" name="' .
             $spam_filters[$Key]['prefname'] .

@@ -79,7 +79,7 @@ function bug_report_load() {
 function bug_report_options() {
     global $bug_report_visible;
 
-    echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','nowrap') . "\n" .
+    echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','style="white-space: nowrap;"') . "\n" .
          '<td><input name="bug_report_bug_report_visible" type="checkbox"';
     if ($bug_report_visible) {
         echo ' checked="checked"';

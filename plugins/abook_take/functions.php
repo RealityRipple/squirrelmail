@@ -84,7 +84,7 @@ function abook_take_options()
 {
     global $abook_take_verify;
 
-    echo '<tr>' . html_tag('td',_("Address Book Take:"),'right','','nowrap') . "\n" .  '<td>' .
+    echo '<tr>' . html_tag('td',_("Address Book Take:"),'right','','style="white-space: nowrap;"') . "\n" .  '<td>' .
          addCheckbox('abook_take_abook_take_verify', $abook_take_verify) .
          _("Try to verify addresses") . "</td></tr>\n";
 }

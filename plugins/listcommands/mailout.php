@@ -51,7 +51,7 @@ case 'unsubscribe':
 
 printf( $out_string, htmlspecialchars($send_to) );
 
-echo addForm('../../src/compose.php', 'POST');
+echo addForm('../../src/compose.php', 'post');
 
 
 $idents = get_identities();

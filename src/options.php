@@ -407,12 +407,10 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /* If we are not looking at the main option page, display the page here. */
 /*************************************************************************/
 } else {
-    echo addForm('options.php', 'POST', 'f')
+    echo addForm('options.php', 'post', 'f')
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT)
-       . html_tag( 'table', '', '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n"
-       . html_tag( 'tr' ) . "\n"
-       . html_tag( 'td', '', 'left' ) . "\n";
+       . html_tag( 'table', '', '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n";
 
     /* Output the option groups for this page. */
     print_option_groups($optpage_data['options']);
@@ -457,7 +455,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 
     /* Spit out a submit button. */
     OptionSubmit($submit_name);
-    echo '</td></tr></table></form>';
+    echo '</table></form>';
 
     /* If it is not empty, trigger the bottom hook. */
     if ($bottom_hook_name != '') {

@@ -26,11 +26,11 @@ function calendar_header() {
          html_tag( 'tr' ) .
          html_tag( 'td', '', 'left', '', 'width="100%"' );
 
-    displayInternalLink("plugins/calendar/calendar.php?year=$year&month=$month",_("Month View"),"right");
+    displayInternalLink("plugins/calendar/calendar.php?year=$year&amp;month=$month",_("Month View"),"right");
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink("plugins/calendar/day.php?year=$year&month=$month&day=$day",_("Day View"),"right");
+    displayInternalLink("plugins/calendar/day.php?year=$year&amp;month=$month&amp;day=$day",_("Day View"),"right");
     echo "&nbsp;&nbsp;\n";
-    // displayInternalLink("plugins/calendar/event_create.php?year=$year&month=$month&day=$day",_("Add Event"),"right");
+    // displayInternalLink("plugins/calendar/event_create.php?year=$year&amp;month=$month&amp;day=$day",_("Add Event"),"right");
     // echo "&nbsp;&nbsp;\n";
     echo '</td></tr>';
 
