@@ -417,23 +417,28 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
 
     do_hook('mailbox_index_before');
+    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+    echo '<tr><td>';
 
-    mail_message_listing_beginning($imapConnection, $mailbox, $sort,
-                                   $msg_cnt_str, $paginator_str, $start_msg);
+    mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
+                                  $msg_cnt_str, $paginator_str, $start_msg);
+    echo '</td></tr>';
+    /* line between the button area and the list */
+    echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
 
-
-    echo '<table bgcolor="' . $color[0] . '" border="0" width="100%" cellpadding="1" cellspacing="0"><tr><td>';
+    echo '<tr><td>';
+    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+    echo '     <tr><td>';
+    echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
+    echo '<tr><td>';
     printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
-    displayMessageArray($imapConnection, $num_msgs, $start_msg,
-                        $msort, $mailbox, $sort, $color, $show_num, 0, 0);
+    displayMessageArray($imapConnection, $num_msgs, $start_msg, 
+		      $msort, $mailbox, $sort, $color, $show_num,0,0);
+    echo '</td></tr></table></td></tr></table>';
 
-    mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color);
+    mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
     echo '</td></tr></table>';
-
-  /**
-   * TODO: Switch to using $_SESSION[] whenever we ditch the 4.0.x series.
-   */
 }
 
 function calc_msort($msgs, $sort) {
@@ -661,34 +666,41 @@ function mail_message_listing_beginning ($imapConnection,
      * This is the beginning of the message list table.
      * It wraps around all messages
      */
-
     echo "<FORM name=\"messageList\" method=post action=\"$moveURL\">\n"
-        . html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' ) .
+        . html_tag( 'table' ,
             html_tag( 'tr',
                 html_tag( 'td' ,
                     html_tag( 'table' ,
                         html_tag( 'tr',
                             html_tag( 'td', $paginator, 'left' ) .
-                            html_tag( 'td', $msg_cnt_str, 'right' )
+                            html_tag( 'td', $msg_cnt_str, 'right' ) 
                         )
-                    , '', $color[4], 'border="0" width="100%" cellpadding="2"  cellspacing="0"' )
+                    , '', $color[4], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' ) 
                 , 'left', '', '' )
             , '', $color[0] )
-        . html_tag( 'tr' ) . "\n"
-        . html_tag( 'td' ,'' , 'left', $color[0], '' )
-        . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
+	    , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+        echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
+        echo '<tr><td>';
+
+        echo html_tag( 'tr' ) . "\n"
+        . html_tag( 'td' ,'' , 'left', '', '' )
+         . html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
+	  . '<tr><td>'
+           . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
             . html_tag( 'tr',
-                getSmallStringCell('&nbsp;' . _("Move Selected To"), 'left') .
-                getSmallStringCell(_("Transform Selected Messages"), 'right')
+	        getSmallStringCell(_("Move Selected To"), 'left', 'nowrap') .
+	        getSmallStringCell(_("Transform Selected Messages"), 'right')
             )
             . html_tag( 'tr' ) ."\n"
             . html_tag( 'td', '', 'left', '', 'valign="middle" nowrap' );
-            getMbxList($imapConnection);
-            echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";
-            echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";
+            getMbxList($imapConnection);  
+            echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";   
+            echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";   
 
-    echo "      </TD>\n"
+  echo "      </TD>\n"
          . html_tag( 'td', '', 'right', '', 'nowrap' );
+
+
 
     if (!$auto_expunge) {
         echo getButton('SUBMIT', 'expungeButton',_("Expunge"))
@@ -726,14 +738,9 @@ function mail_message_listing_beginning ($imapConnection,
                  , '', '', '' );
     }
 
-    echo "</TABLE>\n";
-    echo "</table>\n";
+    echo "</TABLE></td></tr></table></td></tr>\n";
 
     do_hook('mailbox_form_before');
-
-    echo '</td></tr>'
-         . html_tag( 'tr' )
-         . html_tag( 'td' ,'' , '', $color[0], '' );
 
     /* if using server sort we highjack the
      * the $sort var and use $server_sort_order
@@ -746,8 +753,10 @@ function mail_message_listing_beginning ($imapConnection,
 }
 
 function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color) {
-    if ($num_msgs) {
-        echo html_tag( 'table',
+  if ($num_msgs) {
+    echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'" COLSPAN="1">';  
+    echo '</td></tr><tr><td>';
+    echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
                     html_tag( 'table',
@@ -755,12 +764,12 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
                             html_tag( 'td', $paginator_str ) .
                             html_tag( 'td', $msg_cnt_str, 'right' )
                         )
-                    , '', $color[4], 'width="100%" cellpadding="1" cellspacing="1"' )
+                    , '', $color[4], 'width="100%" border="0" cellpadding="1" cellspacing="0"' )
                 )
-            , '', $color[4] )
-        , '', $color[9], 'width="100%" cellpadding="1"  cellspacing="1"' );
-
-    }
+            )
+        , '', $color[9], 'width="100%" border="0" cellpadding="1"  cellspacing="0"' );
+    echo '</td></tr>';
+  }
     /* End of message-list table */
 
     do_hook('mailbox_index_after');
@@ -769,7 +778,6 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 
 function printHeader($mailbox, $sort, $color, $showsort=true) {
     global $index_order;
-    echo html_tag( 'table' ,'' , '', $color[4], 'border="0" width="100%" cellpadding="1" cellspacing="0"' );
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
     for ($i = 1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
