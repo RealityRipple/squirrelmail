@@ -249,53 +249,39 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 
 
 /**
- * Expunge specified message, updated $msgs and $msort
+ * Expunge specified message
  *
- * Until Marc and I come up with a better way to maintain
- * these stupid arrays, we'll use this wrapper function to
+ * We'll use this wrapper function to
  * remove the message with the matching UID .. the order
  * won't be changed - the array element for the message
  * will just be removed.
  */
-function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_array)
-{
-    global $msgs, $msort, $sort, $imapConnection,
-           $mailbox, $auto_expunge,
-           $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
-           $username, $data_dir;
+
+function sqimap_mailbox_expunge_dmn($imapConnection, &$aMailbox, $message_id) {
     $cnt = 0;
 
-    if (!isset($sort) || $sort === false) {
-        sqgetGlobalVar('sort',$sort,SQ_GET);
-    }
-
-    if ($auto_expunge) {
-         $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    if ($aMailbox['AUTO_EXPUNGE']) {
+         $cnt = sqimap_mailbox_expunge($imapConnection, $aMailbox['NAME'], true);
     } else {
          return $cnt;
     }
-
-    // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
-    if ($allow_thread_sort && getPref($data_dir, $username, "thread_$mailbox",0)) {
-        $mode = 'THREAD';
-    } else if ($allow_server_sort) {
-        $mode = 'SERVER';
-    } else {
-        $mode = 'SQUIRREL';
-    }
     $error = '';
-    if (is_array($server_sort_array)) {
-        $key = array_search($message_id,$server_sort_array,true);
+    $message_id = (int) $message_id; // we use strickt array_search
+    if (is_array($aMailbox['UIDSET'])) {
+        $key = array_search($message_id,$aMailbox['UIDSET'],true);
         if ($key !== false) {
-            unset($server_sort_array[$key]);
-            $server_sort_array = array_values($server_sort_array);
+            unset($aMailbox['UIDSET'][$key]);
+            $aMailbox['UIDSET'] = array_values($aMailbox['UIDSET']);
+            // adapt the exists count to avoid triggering of a new sort
+            $aMailbox['EXISTS'] -= 1;
         } else {
-            $server_sort_array = get_sorted_msgs_list($imapConnection,$sort,$mode,$error);
+            $aMailbox['UIDSET'] = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
         }
     } else {
-        $server_sort_array = get_sorted_msgs_list($imapConnection,$sort,$mode,$error);
+        $aMailbox['UIDSET'] = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
     }
-    sqsession_register($server_sort_array,'server_sort_array');
+    sqsession_register($aMailbox,'aLastSelectedMailbox');
+    sqsession_register($aMailbox['UIDSET'],'server_sort_array'); //fix me, use aMailbox instead
     return $cnt;
 }
 

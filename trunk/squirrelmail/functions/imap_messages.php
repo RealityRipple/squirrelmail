@@ -137,7 +137,7 @@ function sqimap_message_list_squisher($messages_array) {
 * @param bool $reverse Reverse order search
 * @return array $id sorted uid list
 */
-function sqimap_get_sort_order ($imap_stream, $sSortField = 'UID',$reverse) {
+function sqimap_get_sort_order ($imap_stream, $sSortField,$reverse) {
     global  $default_charset,
             $sent_folder;
 
@@ -145,20 +145,6 @@ function sqimap_get_sort_order ($imap_stream, $sSortField = 'UID',$reverse) {
     $sort_test = array();
     $sort_query = '';
 
-    if ($sSortField == 'UID') {
-        $query = "SEARCH UID 1:*";
-        $uids = sqimap_run_command ($imap_stream, $query, true, $response, $message, true);
-        if (isset($uids[0])) {
-            if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
-                $id = preg_split("/ /", trim($regs[1]));
-            }
-        }
-        if (!preg_match("/OK/", $response)) {
-            $id = false;
-        }
-        $id = array_reverse($id);
-        return $id;
-    }
     if ($sSortField) {
         if ($reverse) {
             $sSortField = 'REVERSE '.$sSortField;
@@ -190,25 +176,12 @@ function sqimap_get_sort_order ($imap_stream, $sSortField = 'UID',$reverse) {
 * @return array $aUid sorted uid list
 */
 function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
-
-    if ($sSortField == 'UID') {
-        // FIX ME: this is not needed. Try to find another way to solve this
-        $query = "SEARCH UID 1:*";
-        $uids = sqimap_run_command ($imap_stream, $query, true, $response, $message, true);
-        if (isset($uids[0])) {
-            if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
-                $msgs = preg_split("/ /", trim($regs[1]));
-            }
-        }
-        if (!preg_match("/OK/", $response)) {
-            $msgs = false;
-        }
-    } else if ($sSortField != 'RFC822.SIZE' && $sSortField != 'INTERNALDATE') {
+    if ($sSortField != 'RFC822.SIZE' && $sSortField != 'INTERNALDATE') {
         $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
-                                      array($sSortField), array('UID'));
+                                      array($sSortField), array());
     } else {
         $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
-                                      array(), array('UID', $sSortField));
+                                      array(), array($sSortField));
     }
     $aUid = array();
     $walk = false;

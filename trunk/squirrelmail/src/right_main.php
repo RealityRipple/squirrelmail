@@ -54,11 +54,10 @@ sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 
 sqgetGlobalVar('mailbox',   $mailbox);
 sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
-sqgetGlobalVar('numMessages'      , $numMessages,       SQ_SESSION);
+sqgetGlobalVar('sort'             , $sort,              SQ_SESSION);
 sqgetGlobalVar('session',           $session,           SQ_GET);
 sqgetGlobalVar('note',              $note,              SQ_GET);
 sqgetGlobalVar('mail_sent',         $mail_sent,         SQ_GET);
-sqgetGlobalVar('use_mailbox_cache', $use_mailbox_cache, SQ_GET);
 
 if ( sqgetGlobalVar('startMessage', $temp) ) {
   $startMessage = (int) $temp;
@@ -84,7 +83,7 @@ if ( !sqgetGlobalVar('composenew', $composenew, SQ_GET) ) {
 /* end of get globals */
 
 
-/* Open a connection on the imap port (143) */
+/* Open an imap connection */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
@@ -102,30 +101,20 @@ if (isset($PG_SHOWALL)) {
 else if( isset( $PG_SHOWNUM ) ) {
     $show_num = $PG_SHOWNUM;
 }
-
-if (isset($newsort) ) {
-    if ( $newsort != $sort )
-        setPref($data_dir, $username, 'sort', $newsort);
-
-    $sort = $newsort;
-    sqsession_register($sort, 'sort');
-}
-
-/* If the page has been loaded without a specific mailbox, */
-/* send them to the inbox                                  */
-//if (!isset($mailbox)) {
-//    $mailbox = 'INBOX';
-//    $startMessage = 1;
-//}
-
-//if (!isset($startMessage) || ($startMessage == '')) {
-//    $startMessage = 1;
-//}
-
+$mailbox = (isset($mailbox) && $mailbox) ? $mailbox : 'INBOX';
 /* compensate for the UW vulnerability. */
 if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
                                   substr($mailbox, 0, 1) == '/')) {
    $mailbox = 'INBOX';
+}
+
+if (isset($newsort) ) {
+    if ( $newsort != $sort ) {
+        setPref($data_dir, $username, 'sort', $newsort);
+    }
+    $oldsort = $sort;
+    $sort = $newsort;
+    sqsession_register($sort, 'sort');
 }
 
 do_hook ('generic_header');
@@ -145,15 +134,24 @@ if (!isset($aMbxResponse['UIDNEXT']) || !isset($aMbxResponse['UIDVALIDITY'])) {
     $aMbxResponse['UIDVALIDTY'] = $aStatus['UIDVALIDITY'];
 }
 
-if ($aLastSelectedMailbox && !isset($newsort)) {
+if ($aLastSelectedMailbox) {
     // check if we deal with the same mailbox
     if ($aLastSelectedMailbox['NAME'] == $mailbox) {
        if ($aLastSelectedMailbox['EXISTS'] == $aMbxResponse['EXISTS'] &&
            $aLastSelectedMailbox['UIDVALIDITY'] == $aMbxResponse['UIDVALIDITY'] &&
            $aLastSelectedMailbox['UIDNEXT']  == $aMbxResponse['UIDNEXT']) {
-           // sort is still valid
            sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
            if ($server_sort_array && is_array($server_sort_array)) {
+               $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
+               // check if oldsort can be used in case we changed the sort order of the same column
+               if (isset($newsort) ) {
+                    if ((($newsort % 2) && ($newsort + 1 == $oldsort)) ||
+                        (!($newsort % 2) && ($newsort - 1 == $oldsort))) {
+                        $server_sort_array = array_reverse($server_sort_array);
+                    } else {
+                        $server_sort_array = false;
+                    }
+               }
                $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
            }
        }
@@ -168,7 +166,7 @@ $aLastSelectedMailbox['PERMANENTFLAGS'] = $aMbxResponse['PERMANENTFLAGS'];
 $aLastSelectedMailbox['OFFSET'] = (isset($startMessage) && $startMessage) ? $startMessage -1 : 0;
 $aLastSelectedMailbox['PAGEOFFSET'] = (isset($startMessage) && $startMessage) ? $startMessage : 1;
 $aLastSelectedMailbox['SORT'] = ($sort !== false) ? $sort : 0;
-$aLastSelectedMailbox['LIMIT'] = $show_num;
+$aLastSelectedMailbox['LIMIT'] = ($show_num != 999999) ? $show_num : $aMbxResponse['EXISTS'];
 
 $aLastSelectedMailbox['UIDSET'] = $aMbxResponse['SORT_ARRAY'];
 $aLastSelectedMailbox['SEEN'] = (isset($aMbxResponse['SEEN'])) ? $aMbxResponse['SEEN'] : $aMbxResponse['EXISTS'];
@@ -246,52 +244,8 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
     }
 }
 
+showMessagesForMailbox($imapConnection,$aLastSelectedMailbox);
 
-/*********************************************************************
- * Check to see if we can use cache or not. Currently the only time  *
- * when you will not use it is when a link on the left hand frame is *
- * used. Also check to make sure we actually have the array in the   *
- * registered session data.  :)                                      *
- *********************************************************************/
-if (! isset($use_mailbox_cache)) {
-    $use_mailbox_cache = 0;
-}
-
-if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
-    showMessagesForMailbox($imapConnection,$aLastSelectedMailbox);
-//    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
-//                           $startMessage, $sort, $color, $show_num,
-//                           $use_mailbox_cache, '',$aMbxResponse);
-} else {
-    if (sqsession_is_registered('msgs')) {
-        unset($msgs);
-    }
-
-    if (sqsession_is_registered('msort')) {
-        unset($msort);
-    }
-
-    if (sqsession_is_registered('numMessages')) {
-        unset($numMessages);
-    }
-
-    $numMessages = $aMbxResponse['EXISTS'];
-
-    showMessagesForMailbox($imapConnection,$aLastSelectedMailbox);
-//    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
-//                           $startMessage, $sort, $color, $show_num,
-//                           $use_mailbox_cache,'',$aMbxResponse);
-
-    if (sqsession_is_registered('msgs') && isset($msgs)) {
-        sqsession_register($msgs, 'msgs');
-    }
-
-    if (sqsession_is_registered('msort') && isset($msort)) {
-        sqsession_register($msort, 'msort');
-    }
-
-    sqsession_register($numMessages, 'numMessages');
-}
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
 echo '</body></html>';
