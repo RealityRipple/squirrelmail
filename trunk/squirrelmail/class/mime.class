@@ -332,6 +332,7 @@ class message {
 	            $i++;
 		    $arg_a[] = $msg->parseDisposition($read,&$i);
 		 } else {
+		    $i++;
 		    $arg_a[] = $msg->parseLanguage($read,&$i);
 		 }
 		 $arg_no++;    
@@ -339,8 +340,10 @@ class message {
 	       case 10:
 	         if ($arg_a[0] == 'text' ||
 		       ($arg_a[0] == 'message' && $arg_a[1] == 'rfc822')) {
+		    $i++;		       
  	    	    $arg_a[] = $msg->parseLanguage($read,&$i);
 		 }  else {
+		    $msg->parseParenthesis($read,&$i);
 		    $arg_a[] = ''; /* not yet desribed in rfc2060 */
 		 }
 	       	 $arg_no++;
@@ -689,24 +692,34 @@ class message {
     
     function parseLanguage($read,&$i) {
         /* no idea how to process this one without examples */
-        $arg = '';
+        $arg_a = array();
         while ($read{$i} != ')') {
 	   switch ($read{$i}) {
 	     case '"':
-	       $arg = $this->parseQuote($read,&$i);
+	       $arg_a[] = $this->parseQuote($read,&$i);
 	       break;
 	     case '{': 
-	       $arg = $this->parseLiteral($read,&$i);
+	       $arg_a[] = $this->parseLiteral($read,&$i);
 	       break;
 	     case '(':
-	       $arg = $this->parseProperties($read,&$i);
+	       $arg_a[] = $this->parseProperties($read,&$i);
 	       break;
 	     default:
 	       break;
 	   }
 	   $i++;
         }
-        return $arg;;
+	if (isset($arg_a[0])) {
+	   $lang = new language($arg_a[0]);
+	   if (isset($arg_a[1])) {
+	      $lang->properties = $arg_a[1];
+	   }
+	}
+	if (is_object($lang)) { 
+	   return $lang;
+	} else {
+	   return '';
+        }
     }
     
     function parseParenthesis($read,&$i) {
@@ -851,6 +864,13 @@ class message {
 
 class disposition {
   function disposition($name) {
+     $this->name = $name;
+     $this->properties = array();
+  }
+}
+
+class language {
+  function language($name) {
      $this->name = $name;
      $this->properties = array();
   }
