@@ -31,6 +31,10 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
         echo '<LINK REL="stylesheet" TYPE="text/css" HREF="' .
              $base_uri . 'themes/css/'.$custom_css.'">';
     }
+
+    if ($do_hook) {
+        do_hook ("generic_header");
+    }
     
     echo "\n<title>$title</title>$xtra</head>\n\n";
 }
