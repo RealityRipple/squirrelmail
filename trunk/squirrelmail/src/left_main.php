@@ -37,6 +37,7 @@
    include("../config/config.php");
    include("../functions/strings.php");
    include("../functions/imap.php");
+   include("../functions/mailbox.php");
 
    // open a connection on the imap port (143)
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
@@ -51,9 +52,10 @@
    echo "<code><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0;$i < count($str); $i++) {
       $mailbox = Chop($str[$i]);
+      $mailbox = findMailboxName($mailbox);
+
       // find the quote at the begining of the mailbox name.
       //    i subtract 1 from the strlen so it doesn't find the quote at the end of the mailbox name.
-      $mailbox = findMailboxName($mailbox);
       $periodCount = countCharInString($mailbox, ".");
       
       // indent the correct number of spaces.
@@ -62,7 +64,11 @@
       
       $mailboxURL = urlencode($mailbox);
       echo "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
+      if ($doBold == true)
+         echo "<B>";
       echo readShortMailboxName($mailbox, ".");
+      if ($doBold == true)
+         echo "</B>";
       echo "</FONT></a><br>\n";
    }
    echo "</code></FONT>";

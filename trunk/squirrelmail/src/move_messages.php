@@ -47,20 +47,11 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
-               /** check if they would like to move it to the trash folder or not */
-               if ($move_to_trash == true) {
-                  $success = copyMessages($imapConnection, $msg[$i], $msg[$i], $trash_folder);
-                  if ($success == true)
-                     setMessageFlag($imapConnection, $msg[$i], $msg[$i], "Deleted");
-               } else {
-                  setMessageFlag($imapConnection, $msg[$i], "Deleted");
-               }
+               deleteMessages($imapConnection, $msg[$i], $msg[$i], $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox);
                $j++;
             }
             $i++;
          }
-         if ($auto_expunge == true)
-            expungeBox($imapConnection, $mailbox, $numMessages);
          messages_deleted_message($mailbox, $sort, $startMessage);
       } else {
          echo "<BR><BR><CENTER>No messages selected.</CENTER>";
@@ -86,11 +77,10 @@
          }
          if ($auto_expunge == true)
             expungeBox($imapConnection, $mailbox, $numMessages);
- 
-         echo "Messages are moved.<br>";
+
+         messages_moved_message($mailbox, $sort, $startMessage);
       } else {
-         echo "\n<BR><BR><BR>\n";
-         echo "<CENTER>No messages selected.</CENTER>\n";
+         error_message("No messages were selected.", $mailbox, $sort, $startMessage);
       }
    }
 

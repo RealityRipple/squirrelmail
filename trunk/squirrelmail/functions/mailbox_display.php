@@ -192,7 +192,7 @@
       echo "<TABLE BGCOLOR=$color_lgray>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=30% ALIGN=LEFT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\"></FONT>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\">\n";
       echo "         <SELECT NAME=\"targetMailbox\">\n";
       getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
       for ($i = 0; $i < count($boxesUnformatted); $i++) {
@@ -208,11 +208,11 @@
          if ($use_folder == true)
             echo "         <OPTION VALUE=\"$boxesUnformatted[$i]\">$boxesUnformatted[$i]\n";
       }
-      echo "         </SELECT></NOBR>\n";
+      echo "         </SELECT></NOBR></FONT>\n";
 
       echo "      </TD>\n";
       echo "      <TD WIDTH=70% ALIGN=RIGHT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=\"Delete\">&nbsp;checked messages</FONT></NOBR>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT VALUE=\"Delete\">&nbsp;checked messages</FONT></NOBR>\n";
       echo "      </TD>";
       echo "   </TR>\n";
 

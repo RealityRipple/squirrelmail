@@ -26,7 +26,10 @@
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
    echo "   <TR><TD BGCOLOR=DCDCDC WIDTH=100%>";
+   echo "      <FONT FACE=\"Arial,Helvetica\" SIZE=2>";
    echo "      <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">Message List</A>&nbsp;&nbsp;";
+   echo "      <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">Delete</A>&nbsp;&nbsp;";
+   echo "      </FONT>";
    echo "   </TD></TR>";
    echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
    echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2>\n";
