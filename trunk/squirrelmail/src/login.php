@@ -67,7 +67,7 @@ if($imap_auth_mech == 'login') {
         $string = _("The IMAP server is reporting that plain text logins are disabled.").'<br />'.
             _("Using CRAM-MD5 or DIGEST-MD5 authentication instead may work.").'<br />';
         if (!$use_imap_tls) {
-            $string .= _("The use of TLS may allow SquirrelMail to login.").'<br />';
+            $string .= _("Also, the use of TLS may allow SquirrelMail to login.").'<br />';
         }
         $string .= _("Please contact your system administrator and report this error.");
         error_box($string,$color);
