@@ -173,10 +173,9 @@ while (($command ne "q") && ($command ne "Q")) {
    } elsif ($menu == 4) {
       print $WHT."General Options\n".$NRM;
       print "1.  Default Charset      : $WHT$default_charset$NRM\n";
-      print "2.  Auto Forward         : $WHT$auto_forward$NRM\n";
-      print "3.  Data Directory       : $WHT$data_dir$NRM\n";
-      print "4.  Attachment Directory : $WHT$attachment_dir$NRM\n";
-      print "5.  Default Left Size    : $WHT$default_left_size$NRM\n";
+      print "2.  Data Directory       : $WHT$data_dir$NRM\n";
+      print "3.  Attachment Directory : $WHT$attachment_dir$NRM\n";
+      print "4.  Default Left Size    : $WHT$default_left_size$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -264,10 +263,9 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 11){ $show_contain_subfolders_option = command211(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset    = command31 (); }
-         elsif ($command == 2) { $auto_forward       = command32 (); }
-         elsif ($command == 3) { $data_dir           = command33 (); }
-         elsif ($command == 4) { $attachment_dir     = command34 (); }
-         elsif ($command == 5) { $default_left_size  = command35 (); }
+         elsif ($command == 2) { $data_dir           = command33 (); }
+         elsif ($command == 3) { $attachment_dir     = command34 (); }
+         elsif ($command == 4) { $default_left_size  = command35 (); }
       } elsif ($menu == 5) {
          if ($command == 1) { 
             command41 (); 
@@ -614,8 +612,7 @@ sub command25 {
 sub command26 {
    print "By default, should messages get moved to the sent folder?  You\n";
    print "can specify the default sent folder in option 4.  If this is set\n";
-   print "to false, messages will get deleted immediately without moving\n";
-   print "to the sent folder.\n";
+   print "to false, messages will get sent an no copy will be made.\n";
    print "\n";
    print "Trash folder is currently: $sent_folder\n";
    print "\n";
@@ -776,32 +773,6 @@ sub command31 {
       $new_default_charset =~ s/[\r|\n]//g;
    }
    return $new_default_charset;
-}
-
-# Auto Forward
-sub command32 {
-   print "There are some places that we will automatically forward the user\n";
-   print "rather than display pointless messages like 'Message sent!' or\n";
-   print "stuff like that.  Use this or not?\n";
-   print "\n";
-   print "NOTE:  This is not working currently as we are trying to find a\n";
-   print "       better way to handle this.  This option really doesn't do\n";
-   print "       much.\n";
-   print "\n";
-   
-   if ($auto_forward eq "true") {
-      $default_value = "y";
-   } else {
-      $default_value = "n";
-   }
-   print "Auto forward (y/n) [$WHT$default_value$NRM]: $WHT";
-   $new_show = <STDIN>;
-   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
-      $auto_forward = "true";
-   } else {
-      $auto_forward = "false";
-   }
-   return $auto_forward;
 }
 
 # Data directory
@@ -1164,7 +1135,6 @@ sub save_data {
    print FILE "\n";
 
    print FILE "\t\$default_charset   = \"$default_charset\";\n";
-   print FILE "\t\$auto_forward      =  $auto_forward;\n";
    print FILE "\t\$data_dir          = \"$data_dir\";\n";
    print FILE "\t\$attachment_dir    = \"$attachment_dir\";\n";
    print FILE "\t\$default_left_size =  $default_left_size;\n";

@@ -39,7 +39,7 @@
       echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
       echo ""._("View message") . "</a></b></center></td></tr></table>\n";
       echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
-      echo "<tr><td><small><pre>";
+      echo "<tr><td><tt>";
       for ($i=1; $i < count($read)-1; $i++) {
          $read[$i] = htmlspecialchars($read[$i]);
          if (substr($read[$i], 0, 1) != "\t" && 
@@ -51,7 +51,7 @@
          }
          echo "$read[$i]";
       }
-      echo "</pre></small></td></tr></table>\n";
+      echo "</tt></td></tr></table>\n";
       echo "</body></html>";
       exit;
    }
