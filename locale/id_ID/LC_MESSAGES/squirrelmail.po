@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id $\n"
 "POT-Creation-Date: 2002-05-03 13:21+0200\n"
-"PO-Revision-Date: 2002-05-27 15:27+0700\n"
+"PO-Revision-Date: 2002-06-14 16:31+0700\n"
 "Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
 "Language-Team: Indonesian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -2414,8 +2414,8 @@ msgid ""
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 "Pemilah SPAM memungkinkan Anda memilih berbagai daftar hitam berbasis DNS "
-"untuk mendeteksi surate sampah dalam INBOX Anda dan memindahkannya ke laci "
-"lain ( seperti laci Sampah )."
+"untuk mendeteksi surate sampah dalam KOTAK POS Anda dan memindahkannya ke "
+"laci lain ( seperti laci Sampah )."
 
 #: squirrelmail/plugins/filters/spamoptions.php:57
 msgid "Spam Filtering"
@@ -2453,7 +2453,7 @@ msgid ""
 msgstr ""
 "Makin banyak pesan yang dipindai, makin lama waktu yang dibutuhkan. Saya "
 "sarankan Anda hanya memindai pesan baru. Jika Anda mengubah Pemilah Anda, "
-"saya akan membuatnya memindai semua pesan, lalu melihat kotak INBOX, kemudian "
+"saya akan membuatnya memindai semua pesan, lalu melihat KOTAK POS, kemudian "
 "kembali lagi dan membuatnya hanya akan memindai pesan yang baru. Dengan cara "
 "ini, Pemilah spam baru Anda akan diberlakukan dan Anda akan memindai spam "
 "dengan pemilah baru."
@@ -3342,8 +3342,8 @@ msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"Pilihan <b>Periksa semua laci, bukan hanya INBOX </b> akan memeriksa pesan "
-"baru semua di laci Anda , jadi bukan hanya INBOX ."
+"Pilihan <b>Periksa semua laci, bukan hanya KOTAK POS </b> akan memeriksa "
+"pesan baru semua di laci Anda , jadi bukan hanya KOTAK POS ."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
@@ -3397,7 +3397,7 @@ msgstr "Aktifkan Pemutar Media"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:76
 msgid "Check all boxes, not just INBOX"
-msgstr "Periksa semua laci, bukan hanya INBOX"
+msgstr "Periksa semua laci, bukan hanya KOTAK POS"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:84
 msgid "Count only messages that are RECENT"
@@ -3710,11 +3710,11 @@ msgstr "BERHASIL masuk: tidak ada pesan baru"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
 msgid "Login OK: Inbox EMPTY"
-msgstr "BERHASIL masuk: INBOX KOSONG"
+msgstr "BERHASIL masuk: KOTAK POS KOSONG"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "Login OK: Inbox contains ["
-msgstr "BERHASIL masuk: INBOX berisi ["
+msgstr "BERHASIL masuk: KOTAK POS berisi ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "] messages"
