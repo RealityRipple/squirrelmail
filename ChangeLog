@@ -1,5 +1,7 @@
-Version 0.6pre1 -- DEVELOPMENT
+Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- Using <pre> tags for viewing message body instead of <tt> and &nbsp;
+- Added redirection from subdirectories to login page
 - Attachments are shown in message index (shown as a "+")
 - Updated attachment plugin support and passing values to hooks (see plugins.txt)
 - Added file and message size in many locations
