@@ -84,6 +84,9 @@ function sqimap_fgets($imap_stream) {
     $i=0;
     while (strpos($results, "\r\n", $offset) === false) {
         if (!($read = fgets($imap_stream, $buffer))) {
+	    /* this happens in case of an error */
+	    /* reset $results because it's useless */
+	    $results = false;
             break;
         }
         if ( $results != '' ) {
@@ -138,12 +141,12 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                   case 'PREAUTH':
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
-                    break 3;
+                    break 3; /* switch switch while */
                  default: 
                     /* this shouldn't happen */
                     $response = $arg;
                     $message = trim(substr($read,$i+strlen($arg)));
-                    break 3;
+                    break 3; /* switch switch while */
                 }
             } elseif($found_tag !== $tag) {
                 /* reset data array because we do not need this reponse */
@@ -170,6 +173,9 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                             $iLit = substr($read,$j+1,-3);
                             $fetch_data[] = $read;
                             $sLiteral = fread($imap_stream,$iLit);
+			    if ($sLiteral === false) { /* error */
+				break 4; /* while while switch while */
+			    }
                             /* backwards compattibility */
                             $aLiteral = explode("\n", $sLiteral);
                             /* release not neaded data */
@@ -182,13 +188,20 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                             /* next fgets belongs to this fetch because
                                we just got the exact literalsize and there
                                must follow data to complete the response */
-                            $fetch_data[] = sqimap_fgets($imap_stream);
+			    $read = sqimap_fgets($imap_stream);
+			    if ($read === false) { /* error */
+				break 4; /* while while switch while */
+			    }
+                            $fetch_data[] = $read;
                         } else {
                            $fetch_data[] = $read;
                         }
                         /* retrieve next line and check in the while
                            statements if it belongs to this fetch response */
                         $read = sqimap_fgets($imap_stream);
+			if ($read === false) { /* error */
+			    break 4; /* while while switch while */
+			}
                         /* check for next untagged reponse and break */
                         if ($read{0} == '*') break 2;
                         $s = substr($read,-3);
@@ -206,13 +219,18 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                         $j = strrpos($read,'{');
                         $iLit = substr($read,$j+1,-3);
                         $data[] = $read;
-                        $data[] = fread($imap_stream,$iLit);
+			$sLiteral = fread($imap_stream,$iLit);
+                        if ($sLiteral === false) { /* error */
+			   $read = false;
+			   break 3; /* while switch while */
+			}
+                        $data[] = $sLiteral;
                         $fetch_data[] = sqimap_fgets($imap_stream);
                     } else {
                         $data[] = $read;
                     }
                     $read = sqimap_fgets($imap_stream);
-                    if ($read{0} == '*') break;
+                    if ($read && $read{0} == '*') break;
                     $s = substr($read,-3);
                 } while ($s === "}\r\n");
                 break 1;
@@ -220,8 +238,22 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
             break;
           } // end case '*'
         }   // end switch
+    } // end while
+    
+    /* error processing in case $read is false */
+    if ($read === false) {
+        unset($data);
+        set_up_language($squirrelmail_language);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = "<b><font color=$color[2]>\n" .
+            _("ERROR : Connection dropped by imap-server.") .
+            "</b><br>\n" .
+            _("Query:") . ' '.
+            htmlspecialchars($query) . '<br>' . "</font><br>\n";
+        error_box($string,$color);    
+        exit;
     }
-
+    
     /* Set $resultlist array */
     if (!empty($data)) {
         $resultlist[] = $data;
