@@ -19,16 +19,19 @@ function isSpecialMailbox( $box ) {
 
     global $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
-           $delimiter, $folder_prefix;
+           $delimiter, $folder_prefix, $imap_server_type;
 
     if ( $move_to_sent  ) {
-        $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
-        if ( $i === FALSE ) {
+        if ( $imap_server_type == 'uw' ) {
+            $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
+            if ( $i === FALSE ) {
+                $i = strlen( $box );
+            }
+        } else {
             $i = strlen( $box );
         }
-        
     }
-    
+
     $ret = ( (strtolower($box) == 'inbox') ||
              ($box == $trash_folder &&
               $move_to_trash) ||

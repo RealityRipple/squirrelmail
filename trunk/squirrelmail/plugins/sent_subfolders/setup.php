@@ -160,16 +160,22 @@ function sent_subfolders_update_sentfolder() {
             Multiple year holders with messages in it. level 1.
             Multiple year folders with holders in it. level 2.
         */
+
+        if( $imap_server_type == 'uw' ) {
+            $cnd_delimiter = '';
+        } else {
+            $cnd_delimiter = $delimiter;
+        }
+                                        
         switch ($sent_subfolders_setting) {
         case SMPREF_SENT_SUBFOLDERS_YEARLY:
             $level = 1;
-            $sent_subfolder = $sent_subfolders_base
+            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
                             . $year;
-            $year_folder = $sent_subfolder;
             break;
         case SMPREF_SENT_SUBFOLDERS_QUARTERLY:
             $level = 2;
-            $sent_subfolder = $sent_subfolders_base
+            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter 
                             . $year
                             . $delimiter . $quarter;
             $year_folder = $sent_subfolders_base
@@ -177,7 +183,7 @@ function sent_subfolders_update_sentfolder() {
             break;
         case SMPREF_SENT_SUBFOLDERS_MONTHLY:
             $level = 2;
-            $sent_subfolder = $sent_subfolders_base
+            $sent_subfolder = $sent_subfolders_base . $cnd_delimiter
                             . $year
                             . $delimiter . $month;
             $year_folder = $sent_subfolders_base . $year;
@@ -187,11 +193,6 @@ function sent_subfolders_update_sentfolder() {
             $level = 0;
             $sent_subfolder = $sent_folder;
             $year_folder = $sent_folder;
-        }
-
-        if( $sent_subfolders_setting <> SMPREF_SENT_SUBFOLDERS_DISABLED && 
-            $imap_server_type <> 'uw' ) {
-            $year_folder .= $delimiter;            
         }
 
         /* If this folder is NOT the current sent folder, update stuff. */
