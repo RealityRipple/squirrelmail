@@ -417,7 +417,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         $env[_("Priority")] = getPriorityStr($header->priority);
     }
     if ($show_xmailer_default) {
-        $env[_("Mailer")] = decodeHeader($header->xmailer);
+        $env[_("Mailer")] = htmlentities(decodeHeader($header->xmailer));
     }
     if ($default_use_mdn) {
         if ($mdn_user_support) {
