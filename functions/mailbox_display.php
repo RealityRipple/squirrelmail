@@ -110,13 +110,13 @@
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
             case 1: # checkbox
-               echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
+               echo "   <td bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
                break;
             case 2: # from
-               echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$fontstr$senderName$fontstr_end$flag_end$bold_end$italic_end</td>\n";
+               echo "   <td bgcolor=$hlt_color>$italic$bold$flag$fontstr$senderName$fontstr_end$flag_end$bold_end$italic_end</td>\n";
                break;
             case 3: # date
-               echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag$fontstr".$msg["DATE_STRING"]."$fontstr_end$flag_end$bold_end</center></td>\n";
+               echo "   <td nowrap bgcolor=$hlt_color><center>$bold$flag$fontstr".$msg["DATE_STRING"]."$fontstr_end$flag_end$bold_end</center></td>\n";
                break;
             case 4: # subject
                echo "   <td bgcolor=$hlt_color>$bold";
@@ -127,7 +127,7 @@
                break;
             case 5: # flags
                $stuff = false;
-               echo "   <td bgcolor=$hlt_color align=center width=1% nowrap><b><small>\n";
+               echo "   <td bgcolor=$hlt_color align=center nowrap><b><small>\n";
                if (isset($msg['FLAG_ANSWERED']) && 
                    $msg['FLAG_ANSWERED'] == true) {
                   echo "A\n";
@@ -150,7 +150,7 @@
                echo "</small></b></td>\n";
                break;
             case 6: # size
-               echo "   <td bgcolor=$hlt_color width=1%>$bold$fontstr".show_readable_size($msg['SIZE'])."$fontstr_end$bold_end</td>\n";
+               echo "   <td bgcolor=$hlt_color>$bold$fontstr".show_readable_size($msg['SIZE'])."$fontstr_end$bold_end</td>\n";
                break;
          }
       }
@@ -567,9 +567,9 @@
                
             case 2: # from
                if ($mailbox == $sent_folder)
-                  echo '   <TD WIDTH="30%"><B>'. _("To") .'</B>';
+                  echo '   <TD WIDTH="25%"><B>'. _("To") .'</B>';
                else
-                    echo '   <TD WIDTH="30%"><B>'. _("From") .'</B>';
+                    echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
          
                if ($sort == 2)
                   echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
@@ -581,22 +581,22 @@
                break;
                
             case 3: # date
-               echo '   <TD nowrap WIDTH="1%"><B>'. _("Date") .'</B>';
+               echo '   <TD NOWRAP WIDTH="5%"><B>'. _("Date") .'</B>';
                if ($sort == 0)
-                  echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+                  echo " <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 1)
-                  echo "   <A HREF=\"right_main.php?newsort=6&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+                  echo " <A HREF=\"right_main.php?newsort=6&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 6)
-                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+                  echo " <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                elseif ($sort != -1)
-                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+                  echo " <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                echo '</TD>';
                break;
                
             case 4: # subject
                echo '   <TD><B>'. _("Subject") ."</B>\n";
                if ($sort == 4)
-                 echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+                 echo "    <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 5)
                   echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort != -1)
@@ -604,8 +604,8 @@
                echo "</TD>";
                break;
                
-            case 6: # size   
-               echo '   <TD WIDTH="1%"><b>' . _("Size")."</b></TD>\n";
+            case 6: # size 
+               echo '   <TD WIDTH="5%"><b>' . _("Size")."</b></TD>\n";
                break;
          }
       }
