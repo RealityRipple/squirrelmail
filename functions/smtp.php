@@ -5,22 +5,21 @@
     ** an smtp server or sendmail.
     **/
 
-   function sendMessage($t, $c, $b, $subject, $body, $version) {
+   function sendMessage($t, $c, $b, $subject, $body) {
       global $useSendmail;
 
       if ($useSendmail==true) {  
-	 sendSendmail($t, $c, $b, $subject, $body, $version);
+	 sendSendmail($t, $c, $b, $subject, $body);
       } else {
-	 sendSMTP($t, $c, $b, $subject, $body, $version);
+	 sendSMTP($t, $c, $b, $subject, $body);
       }
     
    }
 
-   // Send mail using the sendmail command
-   function sendSendmail($t, $c, $b, $subject, $body, $version) {
-      global $username, $domain, $data_dir, $sendmail_path;
+   function write822Header ($fp, $t, $c, $b, $subject) {
+      global $REMOTE_ADDR, $SERVER_NAME;
+      global $data_dir, $username, $domain, $version;
 
-      // This is pretty much equal to the code in sendSMTP
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
@@ -37,12 +36,16 @@
       else
          $from = $from . " <$from_addr>";
 
-      // open pipe to sendmail
-      $fp = popen ("$sendmail_path -t -f$from_addr", "w");
-      
-      fputs($fp, "Subject: $subject\n"); // Subject
-      fputs($fp, "From: $from\n"); // Subject
-      fputs($fp, "To: $to_list\n");    // Who it's TO
+      $date = date("D, j M Y H:i:s +0000", gmmktime());
+
+      /* Make a RFC822 Received: line */
+      fputs ($fp, "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ");
+      fputs ($fp, "$date\n");
+
+      fputs ($fp, "Date: $date\n");
+      fputs ($fp, "Subject: $subject\n"); // Subject
+      fputs ($fp, "From: $from\n"); // Subject
+      fputs ($fp, "To: $to_list\n");    // Who it's TO
 
       if ($cc_list) {
          fputs($fp, "Cc: $cc_list\n"); // Who the CCs are
@@ -55,7 +58,16 @@
       fputs($fp, "Content-Type: text/plain\n");
       if ($reply_to != "")
          fputs($fp, "Reply-To: $reply_to\n");
+   }
 
+   // Send mail using the sendmail command
+   function sendSendmail($t, $c, $b, $subject, $body) {
+      global $sendmail_path, $username, $domain;
+      
+      // open pipe to sendmail
+      $fp = popen ("$sendmail_path -t -f$username@$domain", "w");
+      
+      write822Header ($fp, $t, $c, $b, $subject);
       fputs($fp, "\n$body\n"); // send the body of the message
 
       pclose($fp);
@@ -72,22 +84,13 @@
       }
    }
 
-   function sendSMTP($t, $c, $b, $subject, $body, $version) {
-      global $username, $domain;
-
-      include("../config/config.php");
+   function sendSMTP($t, $c, $b, $subject, $body) {
+      global $username, $domain, $version, $smtpServerAddress, $smtpPort;
 
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
       $from_addr = "$username@$domain";
-      $reply_to = getPref($data_dir, $username, "reply_to");
-      $from = getPref($data_dir, $username, "full_name");
-
-      if ($from == "")
-         $from = "<$from_addr>";
-      else
-         $from = $from . " <$from_addr>";
 
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
@@ -133,18 +136,7 @@
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
-      fputs($smtpConnection, "Subject: $subject\n"); // Subject
-      fputs($smtpConnection, "From: $from\n"); // Subject
-      fputs($smtpConnection, "To: $to_list\n");    // Who it's TO
-
-      if ($cc_list) {
-         fputs($smtpConnection, "Cc: $cc_list\n"); // Who the CCs are
-      }
-      fputs($smtpConnection, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
-      fputs($smtpConnection, "MIME-Version: 1.0\n");
-      fputs($smtpConnection, "Content-Type: text/plain\n");
-      if ($reply_to != "")
-         fputs($smtpConnection, "Reply-To: $reply_to\n");
+      write822Header ($smtpConnection, $t, $c, $b, $subject);
 
       fputs($smtpConnection, "$body\n"); // send the body of the message
 
