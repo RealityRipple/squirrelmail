@@ -1,27 +1,27 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.2.3                             *
- * The "One-Eyed Programmer" Release                             *
- * 21 January 2002                                               *
+ * Release Notes: SquirrelMail 1.2.5                             *
+ * The "Welcome to the Teams" Release                            *
+ * 22 February 2002                                              *
  *****************************************************************/
-
-  Note: Please see the ChangeLog for 1.2.0, 1.2.1 and 1.2.2 bugs
-        that have been fixed in this 1.2.2 release.
-
-After a long wait, SquirrelMail is finally making a new major stable
-series release. The past year has been ANYTHING but uneventful for
-the SquirrelMail Project. This year has seen two leadership changes,
-the release of the 1.0 series, the 1.1 development series, and now
-finally the much awaited 1.2 release.
 
 In this edition of SquirrelMail Release Notes:
    * All about this Release!!!
    * Reporting my favorite SquirrelMail 1.2 bug
    * Important Note about PHP 4.1.0
-   * Where are we going from here?
    * About our Release Aliases
 
 All about this Release!!!
 =========================
+
+The 1.2 series is continuing to get better and more featured. The
+latest added features are:
+
+  * MDN Support - You can send and request delivery & read receipts.
+  * Enhanced Search functions - search multiple folders at once,
+          search history
+  * And another pileful of fixes and omtimisations
+
+See the Changelog file for details.
 
 Being one of the most popular webmail clients, the developers of
 SquirrelMail feel a huge desire and responsibility to continue push
@@ -107,71 +107,31 @@ been fixed in CVS already.
 Important Note about PHP 4.1.0
 ==============================
 
-First of all, let me say that you all HAVE been warned: the
-SquirrelMail Project Team is not supporting PHP 4.1.0 for the 1.2.0
-release. Basically, SquirrelMail was in the final death throws of
-this development series when the witty PHP folks decided to make the
-release of 4.1.0. Of course, we greatly appreciate their hard work! :)
+Finally, we have managed to make *this* SquirrelMail release cooperate
+nicely with the new PHP 4.1 release. As opposed to 1.2.4 and before,
+which was less good friends with PHP 4.1.
 
-However, we were too close to the end of this whole thing to be able
-to spend the week or two EXTRA that it will take to get SquirrelMail
-1.2 PHP 4.1.0 ready. This will, on the bright side, be a major
-priority amongst the team in the immediate future. At first look, it
-seems that 4.1.0 support should just require a collection of
-relatively minor tweaks. You can expect 4.1.0 support within 2-3
-weeks, as a part of a later 1.2.X release.
-
-
-Where are we going from here?
-=============================
-
-After things cool down a bit and the smoke clears from 1.2,
-progress will begin on the Great SquirrelMail Rewrite, also known as
-the 1.3 development branch. This branch will eventually become the
-long talked about SquirrelMail 2.0. The major developmental emphasis
-for SquirrelMail 2.0 will be in making SquirrelMail more flexible
-and modular so that it might do a better job meeting the needs of
-our system administrators and end-users. We are greatly anticipating
-working in this area.
-
-At the same time, we will kick start the SquirrelMail Teams. For
-some time now, we have been planning a reorganization of the project
-into a variety of sub-teams. Each sub-team will focus on a different
-aspect of SquirrelMail Project work. These teams will hopefully help
-keep the SquirrelMail project more on track and to provide some
-semblance of order. This project has grown so large in the past two
-years that an orderly structure is necessary if anything is to get
-done effectively. The teams (as planned) are as follows:
-
-   Stable Series Team:      Maintains the stable series
-   Development Series Team: Works on the development series
-   i18n Team:               Handles i18n (internationalization) work
-   Plugin Team:             Manages the mass of plugins
-   User Support Team:       Helps users with their problems
-   Documentation Team:      Manages the documentation
-   Evangelism Team:         Spreads the good news of SquirrelMail
-
-Teams will be led by one or two SquirrelMail team members. And team
-members can participate in as many teams as he or she desires.
-
-For the next few weeks, the developers will be working on bug-fixing
-and making the 1.2 series rock solid. After that, about mid January,
-focus will shift toward getting the teams in gear and starting work
-on the SquirrelMail 1.3 development series.
-
+So: "Yes! It works"
 
 About our Release Aliases - by Wouter Teepe
 =========================
 
-Philippe, one of our main developers has been having quite some trouble
-with the health of his eyes. Though luckily it is not of a permanent
-nature, it is terrible enough. Essentially he had only one eye
-available when he was squashing many of the bugs that are fixed in this
-release.
+Back with the release of 1.2.0, back when Christmas was recent, and
+not the Olympics, there was this vision of structurgin the
+SquirrelMail community into "Teams", all doing their own thing.
 
-However, more eyes have been helping in making this release
-possible. I'd also like to specially thank Bron Godwana, who traced a
-bug in the IMAP code - and fixed it.
+Finally, the teams have really kicked off. :-)
+
+And, I would like to welcome all our new community members, being both
+YOU, the eventful users of SquirrelMail, as well as Simon Dick, Jason
+Munro, Pete Palmer and Chris Hills who have became team leads, as
+well as Marc Groot Koerkamp and Thijs Kinkhorst (both just by incident
+inhabitants of the same country as me :-)) who have recently joined
+SquirrelMail and have made worthy contributions.
+
+Welcome to the SquirrelMail teams.
+
+(And now...get the Great Rewrite geared up)
 
 See http://www.squirrelmail.org/wiki/SquirrelRelease for more details.
 
