@@ -33,6 +33,7 @@ Version 1.5.0 -- CVS
   - Do not output JavaScript functions in page_header when JavaScript off.
   - Support MS Exchange "DOMAIN/username/mailbox"-style usernames (#745814).
   - Do not set Full Name to empty when edit_identity is false and edit_name is true (#750728).
+  - Added koi8-u, windows-1255, windows-1256, iso-8859-6 charset decoding support.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
