@@ -242,7 +242,7 @@
 
       pclose($fp);
 
-      return ($headerlength + $bodylenght);
+      return ($headerlength + $bodylength);
    }
 
    function smtpReadData($smtpConnection) {
