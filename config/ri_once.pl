@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # ri_once.pl
 # Wouter Teepe (wouter@teepe.com)
 #
