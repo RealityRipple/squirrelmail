@@ -32,10 +32,14 @@ $mailbox = $_GET['mailbox'];
 $passed_id = $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $messages = $_SESSION['messages'];
-if (!isset($passed_ent_id)) {
-   $passed_ent_id = '';
-} else {
+if (isset($_GET['passed_ent_id'])) {
    $passed_ent_id = $_GET['passed_ent_id'];
+} else {
+   $passed_ent_id = '';
+}
+
+if (isset($_GET['absolute_dl'])) {
+   $absolute_dl = $_GET['absolute_dl'];
 }
 
 /* end globals */
@@ -122,7 +126,7 @@ if (strlen($filename) < 1) {
  *    viewer (built in to squirrelmail).  Otherwise, it sets the
  *    content-type as application/octet-stream
  */
-if (isset($absolute_dl) && $absolute_dl == 'true') {
+if (isset($absolute_dl) && $absolute_dl) {
     DumpHeaders($type0, $type1, $filename, 1);
 } else {
     DumpHeaders($type0, $type1, $filename, 0);
@@ -137,7 +141,7 @@ mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
  */
 function DumpHeaders($type0, $type1, $filename, $force) {
     global $_SERVER, $languages, $squirrelmail_language;
-    $isIE = 0;
+    $isIE = $isIE6 = 0;
 
     $HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
 
@@ -160,7 +164,7 @@ function DumpHeaders($type0, $type1, $filename, $force) {
     }
 
     // A Pox on Microsoft and it's Office!
-    if (! $force) {
+    if (!$force) {
         // Try to show in browser window
         header("Content-Disposition: inline; filename=\"$filename\"");
         header("Content-Type: $type0/$type1; name=\"$filename\"");
@@ -175,7 +179,7 @@ function DumpHeaders($type0, $type1, $filename, $force) {
         //
         // The best thing you can do for IE is to upgrade to the latest
         // version
-        if ($isIE && !isset($isIE6)) {
+        if ($isIE && !$isIE6) {
             // http://support.microsoft.com/support/kb/articles/Q182/3/15.asp
             // Do not have quotes around filename, but that applied to
             // "attachment"... does it apply to inline too?
@@ -183,7 +187,6 @@ function DumpHeaders($type0, $type1, $filename, $force) {
             // This combination seems to work mostly.  IE 5.5 SP 1 has
             // known issues (see the Microsoft Knowledge Base)
             header("Content-Disposition: inline; filename=$filename");
-
             // This works for most types, but doesn't work with Word files
             header("Content-Type: application/download; name=\"$filename\"");
 
