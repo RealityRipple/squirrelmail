@@ -39,7 +39,7 @@
 	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
 		}
 
-      echo "<NOBR>";
+      $line .= "<NOBR>";
       if ($unseen > 0)
          $line .= "<B>";
 
@@ -56,7 +56,7 @@
       } else {
          $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
          $line .= replace_spaces($mailbox);
-         $line .= "</font></a>";
+         $line .= "</a>";
       }
 
       if ($unseen > 0)
@@ -68,12 +68,12 @@
 
       if (($move_to_trash == true) && ($real_box == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
-         $line .= "<small>";
-         $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
-         $line .= "</small></a>\n";
+         $line .= "\n<small>\n";
+         $line .= "  &nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
+         $line .= "\n</small>\n";
       }
+      $line .= "</NOBR>";
       return $line;
-      echo "</NOBR>";
    }
 
    // open a connection on the imap port (143)
@@ -83,17 +83,17 @@
    include("../src/load_prefs.php");
 
    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
-      echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">";
-      echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">"; 
-      echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">";
+      echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
+      echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n"; 
+      echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
    }
    
-   echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
+   echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n\n";
 
    $boxes = sqimap_mailbox_list($imapConnection);
 
-   echo "<FONT SIZE=4><B><CENTER>";
-   echo _("Folders") . "</B><BR></FONT>";
+   echo "<CENTER><FONT SIZE=4><B>";
+   echo _("Folders") . "</B><BR></FONT>\n\n";
 
    echo "<small>(<A HREF=\"../src/left_main.php\" TARGET=\"left\">";
    echo _("refresh folder list");
@@ -120,7 +120,7 @@
       } else {
          $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
       }
-      echo "$line<BR>";
+      echo "\n$line<BR>\n";
    }
 
 
