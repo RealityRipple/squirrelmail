@@ -11,21 +11,6 @@
     **  $Id$
     **/
 
-    /**
-     * This function checks whether the user's USER_AGENT is known to
-     * be broken. If so, returns true and the plugin is invisible to the
-     * offending browser.
-     */
-    function soupNazi(){
-
-        global $HTTP_USER_AGENT, $SQSPELL_SOUP_NAZI;
-        
-        require_once('../plugins/squirrelspell/sqspell_config.php');
-
-        $soup_menu = explode( ',', $SQSPELL_SOUP_NAZI );
-        return( in_array( trim( $HTTP_USER_AGENT ), $soup_menu ) );
-    }
-
     function squirrelmail_plugin_init_squirrelspell() {
         /* Standard initialization API. */
         global $squirrelmail_plugin_hooks;
