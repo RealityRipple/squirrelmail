@@ -179,13 +179,13 @@ if ( isset( $switch ) ) {
     setPref($data_dir, $username, "adm_$switch", $colapse[$switch] );
 }
 
-echo "<form action=$PHP_SELF method=post>" .
+echo "<form action=options.php method=post>" .
     "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
 
 $act_grp = 'Titles';  /* Active group */
-    
+
 foreach ( $newcfg as $k => $v ) {
     $l = strtolower( $v );
     $type = SMOPT_TYPE_UNDEFINED;
@@ -300,7 +300,7 @@ foreach ( $newcfg as $k => $v ) {
             }
             echo "</td></tr>\n";
             break;
-    
+
         case SMOPT_TYPE_TEXTAREA:
             if ( isset( $HTTP_POST_VARS[$e] ) ) {
                 $v = '"' . $HTTP_POST_VARS[$e] . '"';
@@ -389,7 +389,7 @@ if ( !($colapse['Group7']) ) {
              "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
              "</tr>\n";
         $i++;
-    
+
     }
 }
 
@@ -400,50 +400,66 @@ if ( $colapse['Group8'] ) {
     $sw = '(-)';
 }
 echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
-     "<a href=options.php?switch=Group7 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+     "<a href=options.php?switch=Group8 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
      _("Plugins") . '</th></tr>';
 
 if( !$colapse['Group8'] ) {
 
     $fd = opendir( '../plugins/' );
     $op_plugin = array();
+    $p_count = 0;
     while (false!==($file = readdir($fd))) {
         if ($file != '.' && $file != '..' && $file != 'CVS' ) {
             if ( filetype( $file ) == 'dir' ) {
                 $op_plugin[] = $file;
+                $p_count++;
             }
         }
     }
     closedir($fd);
     asort( $op_plugin );
-    
-    $i = 0;
-    while ( isset( $newcfg["\$plugins[$i]"] ) ) {
-        $k = "\$plugins[$i]";
-        $e = "plugin_$i";
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = '"' . $HTTP_POST_VARS[$e] . '"';
-            $newcfg[$k] = $v;
-        } else {
-            $v = $newcfg[$k];
-        }
-        $name = substr( $v, 1, strlen( $v ) - 2 );
-        echo '<tr>'.
-             "<td align=right>$i.</td>".
-             "<td><select name=\"$e\">";
-        foreach ( $op_plugin as $op ) {
-            if ( $op == $name ) {
-                $cs = ' selected';
-            } else {
-                $cs = '';
+
+    /* Lets get the plugins that are active */
+    $plugins = array();
+    if ( isset( $HTTP_POST_VARS['plg'] ) ) {
+        foreach ( $op_plugin as $plg ) {
+            if ( $HTTP_POST_VARS["plgs_$plg"] == 'on' ) {
+                $plugins[] = $plg;
             }
-            echo "<option$cs>$op</option>";
         }
-        echo "</select></td>".
-             '</tr>';
-        $i++;
-    
+        $i = 0;
+        foreach ( $plugins as $plg ) {
+            $k = "\$plugins[$i]";
+            $newcfg[$k] = "'$plg'";
+            $i++;
+        }
+        while ( isset( $newcfg["\$plugins[$i]"] ) ) {
+            $k = "\$plugins[$i]";
+            $newcfg[$k] = '';
+            $i++;
+        }
+    } else {
+        $i = 0;
+        while ( isset( $newcfg["\$plugins[$i]"] ) ) {
+            $k = "\$plugins[$i]";
+            $v = $newcfg[$k];
+            $plugins[] = substr( $v, 1, strlen( $v ) - 2 );
+            $i++;
+        }
     }
+    echo "<tr><td colspan=2><input type=hidden name=plg value=on><center><table><tr><td>";
+    foreach ( $op_plugin as $plg ) {
+        if ( in_array( $plg, $plugins ) ) {
+            $sw = ' checked';
+        } else {
+            $sw = '';
+        }
+        echo '<tr>' .
+             "<td>$plg</td><td><input$sw type=checkbox name=plgs_$plg></td>".
+             '</tr>';
+    }
+    echo '</td></tr></table>';
+
 }
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
      _("Change Settings") . "\" type=submit></th></tr>" ,
@@ -484,7 +500,7 @@ foreach ( $newcfg as $k => $v ) {
 fwrite( $fp, ";\n" );
 */
 foreach ( $newcfg as $k => $v ) {
-    if ( $k{0} == '$' ) {
+    if ( $k{0} == '$' && $v <> '' ) {
         if ( substr( $k, 1, 11 ) == 'ldap_server' ) {
             $v = substr( $v, 0, strlen( $v ) - 1 ) . "\n)";
             $v = str_replace( 'array(', "array(\n\t", $v );
