@@ -79,6 +79,7 @@ sqgetGlobalVar('addr_search_done',      $html_addr_search_done, SQ_POST);
 sqgetGlobalVar('send_to_search',        $send_to_search,        SQ_POST);
 sqgetGlobalVar('do_delete',             $do_delete,             SQ_POST);
 sqgetGlobalVar('delete',                $delete,                SQ_POST);
+sqgetGlobalVar('restoremessages',       $restoremessages,       SQ_POST);
 if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
   $html_addr_search_done = 'Use Addresses';
 }
@@ -1218,6 +1219,7 @@ function saveAttachedFiles($session) {
     $name = $_FILES['attachfile']['name'];
     $message->initAttachment($type, $name, $full_localfilename);
     $compose_messages[$session] = $message;
+    sqsession_register($compose_messages , 'compose_messages');
 }
 
 function ClearAttachments($composeMessage) {
