@@ -104,6 +104,8 @@
    //    viewer (built in to squirrelmail).  Otherwise, it sets the
    //    content-type as application/octet-stream
 
+   header("Pragma: ");
+   header("Content-Description: SquirrelMail Attachment");
    if ($absolute_dl == "true") {
       switch($type0) {
          case "text":
@@ -140,13 +142,14 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+//            header("Pragma: ");
             header("Content-type: $type0/$type1; name=\"$filename\"");
+            header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
       }
-   }
-
+   }    
+    
    sqimap_mailbox_close($imapConnection);
    sqimap_logout($imapConnection);
 ?>
