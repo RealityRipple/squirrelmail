@@ -35,7 +35,7 @@ if ( -e "config.php") {
                $o[1] =~ s/[\n|\r]//g;
                $o[1] =~ s/\";\s*$//;
                $o[1] =~ s/;$//;
-               $o[1] =~ s/^"//;
+               $o[1] =~ s/^\"//;
 
                $config_version = $o[1];
                close (FILE);
@@ -86,7 +86,7 @@ if ( -e "config.php") {
                $o[1] =~ s/[\n|\r]//g;
                $o[1] =~ s/\";\s*$//;
                $o[1] =~ s/;$//;
-               $o[1] =~ s/^"//;
+               $o[1] =~ s/^\"//;
 
                $config_version = $o[1];
                close (FILE);
@@ -251,6 +251,9 @@ if (!$auto_create_special) {
 if(!$default_use_priority) {
         $default_use_priority = "true";
 }
+if(!$hide_sm_attributions) {
+        $hide_sm_attributions = "false";
+}
 
 #####################################################################################
 if ($config_use_color == 1) {
@@ -344,6 +347,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "4.  Default Left Size      : $WHT$default_left_size$NRM\n";
       print "5.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
       print "6.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
+      print "7.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -502,6 +506,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 4) { $default_left_size        = command35 (); }
 	 elsif ($command == 5) { $force_username_lowercase = command36 (); }
 	 elsif ($command == 6) { $default_use_priority     = command37 (); }
+         elsif ($command == 7) { $hide_sm_attributions     = command38 (); }
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1380,6 +1385,25 @@ sub command37 {
 }
 							 
 
+sub command38 {
+   print "";
+   print "\n";
+   
+   if ($default_hide_attribution eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   
+   print "Hide SM attributions (y/n) [$WHT$default_value$NRM]: $WHT";
+      $new_show = <STDIN>;
+      if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+         return "true";
+      }
+      return "false";
+}
+
+
 sub command41 {
    print "\nNow we will define the themes that you wish to use.  If you have added\n";
    print "a theme of your own, just follow the instructions (?) about how to add\n";
@@ -1772,13 +1796,14 @@ sub save_data {
 
    print FILE "\tglobal \$default_charset, \$data_dir, \$attachment_dir;\n";
    print FILE "\tglobal \$default_left_size, \$force_username_lowercase;\n";
-   print FILE "\tglobal \$default_use_priority;\n";
+   print FILE "\tglobal \$default_use_priority, \$hide_sm_attributions;\n";
    print FILE "\t\$default_charset          = \"$default_charset\";\n";
    print FILE "\t\$data_dir                 = \"$data_dir\";\n";
    print FILE "\t\$attachment_dir           = \"$attachment_dir\";\n";
    print FILE "\t\$default_left_size        =  $default_left_size;\n";
    print FILE "\t\$force_username_lowercase = $force_username_lowercase;\n";
    print FILE "\t\$default_use_priority     = $default_use_priority;\n";
+   print FILE "\t\$hide_sm_attributions     = $hide_sm_attributions;\n";
 
    print FILE "\n";
 
