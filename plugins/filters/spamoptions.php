@@ -141,12 +141,12 @@ if (isset($action) && $action == 'spam') {
             '<select name="filters_spam_scan_set">'.
             '<option value=""';
     if ($filters_spam_scan == '') {
-        echo ' selected';
+        echo ' selected="selected"';
     }
     echo '>' . _("All messages") . '</option>'.
             '<option value="new"';
     if ($filters_spam_scan == 'new') {
-        echo ' selected';
+        echo ' selected="selected"';
     }
     echo '>' . _("Unread messages only") . '</option>' .
             '</select>'.
