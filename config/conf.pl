@@ -307,7 +307,7 @@ $session_name = 'SQMSESSID'             if ( !$session_name );
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
-$loosy_encoding = 'false'        if ( !$loosy_encoding );
+$lossy_encoding = 'false'        if ( !$lossy_encoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $oldway = 'false'                       if ( !$oldway );
 $use_icons = 'false'                    if ( !$use_icons );
@@ -574,7 +574,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
     print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
     print "4.  Available languages             : $WHT$available_languages$NRM\n";
     print "5.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
-    print "6.  Enable loosy encoding           : $WHT$loosy_encoding$NRM\n";
+    print "6.  Enable lossy encoding           : $WHT$lossy_encoding$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
@@ -735,7 +735,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 3 ) { $show_alternative_names        = commandA3(); }
             elsif ( $command == 4 ) { $available_languages         = commandA4(); }
             elsif ( $command == 5 ) { $aggressive_decoding         = commandA5(); }
-            elsif ( $command == 6 ) { $loosy_encoding         = commandA6(); }
+            elsif ( $command == 6 ) { $lossy_encoding         = commandA6(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
             elsif ( $command == 2 ) { $oldway            = commandB2(); }
@@ -2866,27 +2866,27 @@ sub commandA5 {
     return $aggressive_decoding;
 }
 
-# Loosy encoding
+# Lossy encoding
 sub commandA6 {
-    print "Enable this option if you want to allow loosy charset encoding in message\n";
+    print "Enable this option if you want to allow lossy charset encoding in message\n";
     print "composition pages. This option allows charset conversions when output\n";
     print "charset does not support all symbols used in original charset. Symbols\n";
     print "unsupported by output charset will be replaced with question marks.\n";
     print "\n";
 
-    if ( lc($loosy_encoding) eq 'true' ) {
+    if ( lc($lossy_encoding) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
     }
-    print "Enable loosy encoding? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $loosy_encoding = <STDIN>;
-    if ( ( $loosy_encoding =~ /^y\n/i ) || ( ( $loosy_encoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $loosy_encoding = 'true';
+    print "Enable lossy encoding? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $lossy_encoding = <STDIN>;
+    if ( ( $lossy_encoding =~ /^y\n/i ) || ( ( $lossy_encoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $lossy_encoding = 'true';
     } else {
-        $loosy_encoding = 'false';
+        $lossy_encoding = 'false';
     }
-    return $loosy_encoding;
+    return $lossy_encoding;
 }
 
 
@@ -3064,7 +3064,7 @@ sub save_data {
         # boolean
         print CF "\$aggressive_decoding   = $aggressive_decoding;\n";
         # boolean
-        print CF "\$loosy_encoding        = $loosy_encoding;\n";
+        print CF "\$lossy_encoding        = $lossy_encoding;\n";
         print CF "\n";
 
         # string

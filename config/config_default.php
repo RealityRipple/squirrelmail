@@ -847,15 +847,15 @@ $show_alternative_names   = false;
 $aggressive_decoding = false;
 
 /**
- * Loosy Encoding Control
+ * Lossy Encoding Control
  *
  * This option allows charset conversions when output charset does not support 
  * all symbols used in original charset. Symbols unsupported by output charset 
  * will be replaced with question marks.
- * @global bool $loosy_encoding
+ * @global bool $lossy_encoding
  * @since 1.5.1
  */
-$loosy_encoding = false;
+$lossy_encoding = false;
 
 /*** Tweaks ***/
 /**
