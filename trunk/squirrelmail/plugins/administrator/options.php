@@ -1,14 +1,15 @@
 <?php
 
 /**
- * Administrator Plugin
+ * Administrator Plugin - Options Page
  *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * Philippe Mingo
+ * This script creates separate page, that allows to review and modify
+ * SquirrelMail configuration file.
  *
  * @version $Id$
+ * @author Philippe Mingo
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage administrator
  */
@@ -224,7 +225,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'plugins/administrator/defines.php');
 require_once(SM_PATH . 'plugins/administrator/auth.php');
 
-GLOBAL $data_dir, $username;
+global $data_dir, $username;
 
 if ( !adm_check_user() ) {
     header('Location: ' . SM_PATH . 'src/options.php') ;
@@ -267,9 +268,9 @@ if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
 
 echo '<form action="options.php" method="post" name="options">' .
     "<center><table width=\"95%\" bgcolor=\"$color[5]\"><tr><td>".
-    "<table width=\"100%\" cellspacing=0 bgcolor=\"$color[4]\">" ,
-    "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>",
-    "<tr bgcolor=\"$color[5]\"><td colspan=2 align=\"center\">";
+    "<table width=\"100%\" cellspacing=\"0\" bgcolor=\"$color[4]\">" ,
+    "<tr bgcolor=\"$color[5]\"><th colspan=\"2\">" . _("Configuration Administrator") . "</th></tr>",
+    "<tr bgcolor=\"$color[5]\"><td colspan=\"2\" align=\"center\">";
 
 echo "<small>";
 echo _("Note: it is recommended that you configure your system using conf.pl, and not this plugin. conf.pl contains additional information regarding the purpose of variables and appropriate values, as well as additional verification steps.");
@@ -336,7 +337,7 @@ foreach ( $newcfg as $k => $v ) {
             } else {
                 $sw = '(-)';
             }
-            echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
+            echo "<tr bgcolor=\"$color[0]\"><th colspan=\"2\">" .
                  "<a href=\"options.php?switch=$k\" style=\"text-decoration:none\"><b>$sw</b> </a>" .
                  "$name</th></tr>";
             $act_grp = $k;
@@ -358,7 +359,7 @@ foreach ( $newcfg as $k => $v ) {
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>".
-                 "<input size=10 name=\"adm_$n\" value=\"$v\">";
+                 "<input size=\"10\" name=\"adm_$n\" value=\"$v\">";
             if ( isset( $defcfg[$k]['comment'] ) ) {
                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
@@ -507,8 +508,8 @@ if ( $colapse['Group7'] == 'off' ) {
         $name = substr( $v1, 1, strlen( $v1 ) - 2 );
         $path = change_to_rel_path($v2);
         echo '<tr>'.
-             "<td align=\"right\">$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
-             "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
+             "<td align=\"right\">$i. <input name=\"$e1\" value=\"$name\" size=\"30\"></td>".
+             "<td><input name=\"$e2\" value=\"$path\" size=\"40\"></td>".
              "</tr>\n";
         $i++;
 
@@ -521,8 +522,8 @@ if ( $colapse['Group8'] == 'on' ) {
 } else {
     $sw = '(-)';
 }
-echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
-     "<a href=\"options.php?switch=Group8\" STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+echo "<tr bgcolor=\"$color[0]\"><th colspan=\"2\">" .
+     "<a href=\"options.php?switch=Group8\" style=\"text-decoration:none\"><b>$sw</b> </a>" .
      _("Plugins") . '</th></tr>';
 
 if( $colapse['Group8'] == 'off' ) {
@@ -569,23 +570,29 @@ if( $colapse['Group8'] == 'off' ) {
             $i++;
         }
       }
-      echo "<tr><td colspan=2><input type=\"hidden\" name=\"plg\" value=\"on\"><center><table>";
+      echo "<tr><td colspan=\"2\"><input type=\"hidden\" name=\"plg\" value=\"on\"><center><table>";
       foreach ( $op_plugin as $plg ) {
         if ( in_array( $plg, $plugins ) ) {
             $sw = ' checked';
         } else {
             $sw = '';
         }
-        echo '<tr>' .
-             "<td>$plg</td><td><input$sw type=\"checkbox\" name=plgs_$plg></td>".
+        echo '<tr><td>';
+	if (file_exists(SM_PATH . "plugins/$plg/README")) {
+	    echo "<a href=\"../$plg/README\" target=\"_blank\">$plg</a>";
+	} else {
+	    echo $plg;
+	}
+	echo "</td>\n".
+	     "<td><input$sw type=\"checkbox\" name=\"plgs_$plg\"></td>".
              "</tr>\n";
       }
       echo '</table></center></td></tr>';
   } else {
-      echo '<tr><td colspan=2 align="center">' . sprintf(_("Plugin directory could not be found: %s"),$plugpath) . "</td></tr>\n";
+      echo '<tr><td colspan="2" align="center">' . sprintf(_("Plugin directory could not be found: %s"),$plugpath) . "</td></tr>\n";
   }
 }
-echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
+echo "<tr bgcolor=\"$color[5]\"><th colspan=\"2\"><input value=\"" .
      _("Change Settings") . '" type="submit"><br />'.
      '<a href="'.SM_PATH.'src/configtest.php" target="_blank">'._("Test Configuration").
      "</a></th></tr>\n" ,
