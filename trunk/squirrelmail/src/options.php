@@ -80,6 +80,7 @@
         setPref($data_dir, $username, 'page_selector', $new_page_selector);
         setPref($data_dir, $username, 'page_selector_max', $new_page_selector_max);
         setPref($data_dir, $username, 'show_xmailer_default', $new_show_xmailer_default);
+        setPref($data_dir, $username, 'attachment_common_show_images', $new_attachment_common_show_images);
 
         $js_autodetect_results = (isset($new_js_autodetect_results) ? $new_js_autodetect_results : SMPREF_JS_OFF);
         if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {

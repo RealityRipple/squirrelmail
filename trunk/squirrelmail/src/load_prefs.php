@@ -188,12 +188,13 @@
     $location_of_bar = getPref($data_dir, $username, 'location_of_bar', SMPREF_LOC_LEFT);
     $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons', SMPREF_LOC_BETWEEN);
 
-    global $collapse_folders, $show_html_default, $show_xmailer_default;
+    global $collapse_folders, $show_html_default, $show_xmailer_default, $attachment_common_show_images;
     $collapse_folders = getPref($data_dir, $username, 'collapse_folders', SMPREF_ON);
 
     /* show_html_default is a int value. */
     $show_html_default = intval(getPref($data_dir, $username, 'show_html_default', SMPREF_ON));
     $show_xmailer_default = intval(getPref($data_dir, $username, 'show_xmailer_default', SMPREF_OFF ) );
+    $attachment_common_show_images = intval(getPref($data_dir, $username, 'attachment_common_show_images', SMPREF_OFF ) );
 
     global $include_self_reply_all;
     $include_self_reply_all = getPref($data_dir, $username, 'include_self_reply_all', SMPREF_ON);
