@@ -237,18 +237,22 @@
       #
       #   http://www.myhost.com/squirrelmail/src/login.php
    
-      global $PHP_SELF, $SERVER_NAME, $HTTPS, $HTTP_HOST, $SERVER_PORT;
-
-      // check for HTTPS mode (you must have 'SSLOptions +StdEnvVars'
-      // in your apache config).
-      $HTTPS=getenv('HTTPS');
+      global $PHP_SELF, $SERVER_NAME, $HTTP_HOST, $SERVER_PORT,
+         $HTTP_SERVER_VARS;
 
       // Get the path
       $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
    
       // Check if this is a HTTPS or regular HTTP request
       $proto = 'http://';
-      if(isset($HTTPS) && !strcasecmp($HTTPS, 'on') ) {
+      // If you have 'SSLOptions +StdEnvVars' in your apache config
+      // OR if you have HTTPS in your HTTP_SERVER_VARS
+      // OR if you are on port 443
+      $getEnvVar = getenv('HTTPS');
+      if ((isset($getEnvVar) && !strcasecmp($getEnvVar, 'on')) ||
+          (isset($HTTP_SERVER_VARS['HTTPS'])) ||
+	  (isset($HTTP_SERVER_VARS['SERVER_PORT']) &&
+	   $HTTP_SERVER_VARS['SERVER_PORT'] == 443)) {
         $proto = 'https://';
       }
    
