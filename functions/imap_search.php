@@ -54,7 +54,9 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     /* now use $search_string in the imap search */
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
-        $ss = "SEARCH CHARSET ".$languages[$squirrelmail_language]['CHARSET']." ALL $search_string";
+        $ss = "SEARCH CHARSET "
+            . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
+            . " ALL $search_string";
     } else {
         $ss = "SEARCH ALL $search_string";
     }
@@ -63,9 +65,11 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     $readin = sqimap_run_command($imapConnection, $ss, true, $result, $message);
 
     /* try US-ASCII charset if search fails */
-    if (isset($languages[$squirrelmail_language]['CHARSET']) && strtolower($result) == 'no') {
+    if (isset($languages[$squirrelmail_language]['CHARSET']) 
+        && strtolower($result) == 'no') {
         $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_string";
-        $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
+        $readin = sqimap_run_command ($imapConnection, $ss, true, 
+                                      $result, $message);
     }
 
     unset($messagelist);
