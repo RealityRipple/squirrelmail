@@ -115,7 +115,7 @@
       static $mimeBoundaryString;
 
       if ($mimeBoundaryString == "") {
-         $mimeBoundaryString = "----=" . 
+         $mimeBoundaryString = "----=_" . 
 	     GenerateRandomString(60, '\'()+,-./:=?_', 7);
       }
 
