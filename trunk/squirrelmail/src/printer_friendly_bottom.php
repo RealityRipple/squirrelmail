@@ -26,6 +26,16 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* get some of these globals */
+$key = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+
+$passed_ent_id = $_GET['passed_ent_id'];
+$passed_id = $_GET['passed_id'];
+$mailbox = $_GET['mailbox'];
+/* end globals */
+
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
 $mailbox = urldecode($mailbox);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

@@ -22,6 +22,33 @@ require_once(SM_PATH . 'functions/strings.php');
 
 global $allow_thread_sort;
 
+/* get globals we may need */
+
+$key = $_COOKIE['key'];
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['mailbox'])) {
+    $mailbox = strip_tags($_GET['mailbox']);
+}
+if (isset($_GET['submit'])) {
+    $submit = strip_tags($_GET['submit']);
+}
+if (isset($_GET['what'])) {
+    $what = $_GET['what'];
+}
+if (isset($_GET['where'])) {
+    $where = strip_tags($_GET['where']);
+}
+if (isset($_GET['checkall'])) {
+    $checkall = strip_tags($_GET['checkall']);
+}
+if (isset($_GET['count'])) {
+    $count = strip_tags($_GET['count']);
+}
+/* end of get globals */
+
 /*  here are some functions, could go in imap_search.php
     this was here, pretty handy  */
 function s_opt( $val, $sel, $tit ) {

@@ -156,17 +156,17 @@ function getLineOfAddrs($array) {
 }
 
 function php_self () {
-    global $PHP_SELF, $HTTP_SERVER_VARS;
+    global $PHP_SELF, $_SERVER;
     
-    if (isset($HTTP_SERVER_VARS['REQUEST_URI']) && !empty($HTTP_SERVER_VARS['REQUEST_URI']) ) {
-        return $HTTP_SERVER_VARS['REQUEST_URI'];
+    if (isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ) {
+        return $_SERVER['REQUEST_URI'];
     }
 
     if (isset($PHP_SELF) && !empty($PHP_SELF)) {
         return $PHP_SELF;
-    } else if (isset($HTTP_SERVER_VARS['PHP_SELF']) &&
-               !empty($HTTP_SERVER_VARS['PHP_SELF'])) {
-        return $HTTP_SERVER_VARS['PHP_SELF'];
+    } else if (isset($_SERVER['PHP_SELF']) &&
+               !empty($_SERVER['PHP_SELF'])) {
+        return $_SERVER['PHP_SELF'];
     } else {
         return '';
     }
@@ -184,8 +184,7 @@ function php_self () {
  */
 function get_location () {
     
-    global $PHP_SELF, $SERVER_NAME, $HTTP_HOST, $SERVER_PORT,
-        $HTTP_SERVER_VARS, $imap_server_type;
+    global $_SERVER, $imap_server_type;
     
     /* Get the path, handle virtual directories */
     $path = substr(php_self(), 0, strrpos(php_self(), '/'));
@@ -200,30 +199,27 @@ function get_location () {
      */
     $getEnvVar = getenv('HTTPS');
     if ((isset($getEnvVar) && !strcasecmp($getEnvVar, 'on')) ||
-        (isset($HTTP_SERVER_VARS['HTTPS'])) ||
-        (isset($HTTP_SERVER_VARS['SERVER_PORT']) &&
-         $HTTP_SERVER_VARS['SERVER_PORT'] == 443)) {
+        (isset($_SERVER['HTTPS'])) ||
+        (isset($_SERVER['SERVER_PORT']) &&
+         $_SERVER['SERVER_PORT'] == 443)) {
         $proto = 'https://';
     }
     
     /* Get the hostname from the Host header or server config. */
     $host = '';
-    if (isset($HTTP_HOST) && !empty($HTTP_HOST)) {
-        $host = $HTTP_HOST;
-    } else if (isset($SERVER_NAME) && !empty($SERVER_NAME)) {
-        $host = $SERVER_NAME;
-    } else if (isset($HTTP_SERVER_VARS['SERVER_NAME']) &&
-               !empty($HTTP_SERVER_VARS['SERVER_NAME'])) {
-        $host = $HTTP_SERVER_VARS['SERVER_NAME'];
+    if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])) {
+        $host = $_SERVER['HTTP_HOST'];
+    } else if (isset($_SERVER['SERVER_NAME']) &&
+        !empty($_SERVER['SERVER_NAME'])) {
     }
 
     
     $port = '';
     if (! strstr($host, ':')) {
-        if (isset($SERVER_PORT)) {
-            if (($SERVER_PORT != 80 && $proto == 'http://')
-                || ($SERVER_PORT != 443 && $proto == 'https://')) {
-                $port = sprintf(':%d', $SERVER_PORT);
+        if (isset($_SERVER['SERVER_PORT'])) {
+            if (($_SERVER['SERVER_PORT'] != 80 && $proto == 'http://')
+                || ($_SERVER['SERVER_PORT'] != 443 && $proto == 'https://')) {
+                $port = sprintf(':%d', $_SERVER['SERVER_PORT']);
             }
         }
     }
@@ -317,7 +313,7 @@ function sq_mt_seed($Val) {
  * the same 'random' numbers twice in one session.
  */
 function sq_mt_randomize() {
-    global $REMOTE_PORT, $REMOTE_ADDR, $UNIQUE_ID;
+    global $_SERVER;
     static $randomized;
     
     if ($randomized) {
@@ -326,7 +322,7 @@ function sq_mt_randomize() {
     
     /* Global. */
     sq_mt_seed((int)((double) microtime() * 1000000));
-    sq_mt_seed(md5($REMOTE_PORT . $REMOTE_ADDR . getmypid()));
+    sq_mt_seed(md5($_SERVER['REMOTE_PORT'] . $_SERVER['REMOTE_ADDR'] . getmypid()));
     
     /* getrusage */
     if (function_exists('getrusage')) {
@@ -342,8 +338,9 @@ function sq_mt_randomize() {
         }
     }
     
-    /* Apache-specific */
-    sq_mt_seed(md5($UNIQUE_ID));
+    if(isset($_SERVER['UNIQUE_ID'])) {
+        sq_mt_seed(md5($_SERVER['UNIQUE_ID']));
+    }
     
     $randomized = 1;
 }

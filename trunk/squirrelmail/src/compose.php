@@ -30,7 +30,78 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
+/* --------------------- Get globals ------------------------------------- */
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+$base_uri = $_SESSION['base_uri'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_POST['return'])) {
+    $html_addr_search_done = 'Use Addresses';
+}
+if ( isset($_SESSION['composesession']) ) {
+    $composesession = $_SESSION['composesession'];
+}
+sqextractGlobalVar('session');
+sqextractGlobalVar('mailbox');
+sqextractGlobalVar('identity');
+sqextractGlobalVar('send_to');
+sqextractGlobalVar('send_to_cc');
+sqextractGlobalVar('send_to_bcc');
+sqextractGlobalVar('subject');
+sqextractGlobalVar('body');
+sqextractGlobalVar('mailprio');
+sqextractGlobalVar('request_mdn');
+sqextractGlobalVar('request_dr');
+sqextractGlobalVar('html_addr_search');
+sqextractGlobalVar('mail_sent');
+sqextractGlobalVar('passed_id');
+
+if ( isset($_POST['sigappend']) ) {
+    $sigappend = $_POST['sigappend'];
+}
+/* From addressbook search */
+if ( isset($_POST['from_htmladdr_search']) ) {
+    $from_htmladdr_search = $_POST['from_htmladdr_search'];
+}
+if ( isset($_POST['addr_search_done']) ) {
+    $html_addr_search_done = $_POST['addr_search_done'];
+}
+if ( isset($_POST['send_to_search']) ) {
+    $send_to_search = &$_POST['send_to_search'];
+}
+
+/* Attachments */
+sqextractGlobalVar('attach');
+if ( isset($_POST['do_delete']) ) {
+    $do_delete = $_POST['do_delete'];
+}
+if ( isset($_POST['delete']) ) {
+    $delete = &$_POST['delete'];
+}
+if ( isset($_POST['attachments']) ) {
+    $attachments = &$_POST['attachments'];
+}
+elseif ( isset($_SESSION['attachments'])) {
+    $attachments = &$_SESSION['attachments'];
+}
+
+/* Forward message as attachment */
+if ( isset($_GET['attachedmessages']) ) {
+    $attachedmessages = $_GET['attachedmessages'];
+}
+
+/* Drafts */
+sqextractGlobalVar('draft');
+sqextractGlobalVar('draft_id');
+sqextractGlobalVar('ent_num');
+sqextractGlobalVar('saved_draft');
+sqextractGlobalVar('delete_draft');
+
+$key = $_COOKIE['key'];
+
 /* --------------------- Specific Functions ------------------------------ */
+
 function replyAllString($header) {
    global $include_self_reply_all, $username, $data_dir;
    $excl_arr = array();
@@ -125,8 +196,8 @@ if (session_is_registered('session_expired_post')) {
      * another user during this session.
      */
     if ($session_expired_post['username'] != $username) {
-        session_unregister('session_expired_post');
-        session_unregister('session_expired');      
+        sqsession_unregister('session_expired_post');
+        sqsession_unregister('session_expired');      
     } else {
         foreach ($session_expired_post as $postvar => $val) {
             if (isset($val)) {
@@ -140,8 +211,8 @@ if (session_is_registered('session_expired_post')) {
         }
         $session_expired = true;
     }
-    session_unregister('session_expired_post');
-    session_unregister('session_expired');
+    sqsession_unregister('session_expired_post');
+    sqsession_unregister('session_expired');
     if (!isset($mailbox)) {
         $mailbox = '';
     }
@@ -160,6 +231,7 @@ if (!isset($composesession)) {
 }
 
 if (!isset($session) || (isset($newmessage) && $newmessage)) {
+    sqsession_unregister('composesession');
     $session = "$composesession" +1; 
     $composesession = $session;
     sqsession_register($composesession,'composesession');
@@ -219,9 +291,9 @@ if (isset($draft)) {
 }
 
 if (isset($send)) {
-    if (isset($HTTP_POST_FILES['attachfile']) &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
+    if (isset($_FILES['attachfile']) &&
+        $_FILES['attachfile']['tmp_name'] &&
+        $_FILES['attachfile']['tmp_name'] != 'none') {
         $AttachFailure = saveAttachedFiles($session);
     }
     if (checkInput(false) && !isset($AttachFailure)) {
@@ -330,10 +402,10 @@ if (isset($send)) {
     }
     showInputForm($session);
 } elseif (isset($html_addr_search)) {
-    if (isset($HTTP_POST_FILES['attachfile']) &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
-        if (saveAttachedFiles($session)) {
+    if (isset($_FILES['attachfile']) &&
+        $_FILES['attachfile']['tmp_name'] &&
+        $_FILES['attachfile']['tmp_name'] != 'none') {
+        if(saveAttachedFiles($session)) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
         }
     }
@@ -1032,7 +1104,7 @@ function checkInput ($show) {
 
 /* True if FAILURE */
 function saveAttachedFiles($session) {
-    global $HTTP_POST_FILES, $attachment_dir, $attachments, $username,
+    global $_FILES, $attachment_dir, $attachments, $username,
            $data_dir, $compose_messages;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -1043,20 +1115,20 @@ function saveAttachedFiles($session) {
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
     }
 
-    if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+    if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
 	if (function_exists("move_uploaded_file")) {
-            if (!@move_uploaded_file($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+            if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
         	return true;
     	    }
 	} else {
-    	    if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+    	    if (!@copy($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
                 return true;
             }
 	}
     }
     $message = $compose_messages[$session];
-    $type = strtolower($HTTP_POST_FILES['attachfile']['type']);
-    $name = $HTTP_POST_FILES['attachfile']['name'];
+    $type = strtolower($_FILES['attachfile']['type']);
+    $name = $_FILES['attachfile']['name'];
     $message->initAttachment($type, $name, $full_localfilename);
     $compose_messages[$session] = $message;
 }

@@ -23,6 +23,13 @@ require_once(SM_PATH . 'include/load_prefs.php');
 
 displayPageHeader($color, 'None');
 
+/* globals */
+
+$mailbox = $_GET['mailbox'];
+$passed_id = $_GET['passed_id'];
+
+/* end globals */
+
 echo '<BR>' . 
     '<TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
     "\n" .

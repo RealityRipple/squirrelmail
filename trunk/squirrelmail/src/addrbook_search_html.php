@@ -30,6 +30,18 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
+$session = $_POST['session'];
+$mailbox = $_POST['mailbox'];
+if ( isset($_POST['addrquery']) ) {
+    $addrquery = $_POST['addrquery'];
+}
+if ( isset($_POST['listall']) ) {
+    $listall = $_POST['listall'];
+}
+if ( isset($_POST['backend'] ) ) {
+    $backend = $_POST['backend'];
+}
+
 /* Insert hidden data */
 function addr_insert_hidden() {
     global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
@@ -138,7 +150,6 @@ if ($javascript_on) {
 
 /* --- End functions --- */
 
-global $mailbox;
 if ($compose_new_win == '1') {
     compose_Header($color, $mailbox);
 }
