@@ -15,7 +15,7 @@ FAQ ................................................................. 4.0
   Can SquirrelMail run with PHP3? ................................... 4.1
   Why PHP4 when it's only in BETA? .................................. 4.2
   Where did you get the name "SquirrelMail?" ........................ 4.3
-
+  Is SquirrelMail stable enough to actually use? .................... 4.4
 
 
 
@@ -109,3 +109,8 @@ FAQ ................................................................. 4.0
       try to jump between trees. He failed miserably and fell 40 feet to
       the ground. So, we had squirrels on our mind the next day when we
       were coming up with a name.
+      
+   Q: Is SquirrelMail stable enough to actually use?
+      SquirrelMail is stable, however, many of the features that are 
+      usually desired from an email client have not yet been implemented.
+

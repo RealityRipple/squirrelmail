@@ -1,3 +1,12 @@
+Version 0.2.1 -- January 05, 2000
+---------------------------------
+- Rewrote how MULTIPART messages were handled and made it recursive
+- We now take into account the encoding type rather than guessing
+- Redesigned how attachments are displayed
+- Fixed the bug that wouldn't let you send messages (I hope)
+- Added a "download message" option
+- Added a plain text viewer for text messages
+
 Version 0.2 -- January 02, 2000
 -------------------------------
 - Attachment support (much better MIME support in general)
