@@ -29,8 +29,8 @@
    $languages['hr']['NAME']    = 'Croatian';
    $languages['hr']['CHARSET'] = 'iso-8859-2';
 
-   //$languages['cs_CZ']['NAME']    = 'Czech';
-   //$languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+   $languages['cs_CZ']['NAME']    = 'Czech';
+   $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
