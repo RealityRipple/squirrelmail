@@ -755,7 +755,7 @@ class msg_header {
 
    // This functions decode strings that is encoded according to
    // RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
-   function decodeHeader ($string) {
+   function decodeHeader ($string, $utfencode=true) {
       if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
                 $string, $res)) {
          if (ucfirst($res[2]) == "B") {
@@ -769,8 +769,11 @@ class msg_header {
         }
             $replace = quoted_printable_decode($replace);
          }
-
-         $replace = charset_decode ($res[1], $replace);
+         /* Only encode into entities by default. Some places
+            don't need the encoding, like the compose form. */
+         if ($utfencode){
+             $replace = charset_decode ($res[1], $replace);
+         }
 
          // Remove the name of the character set.
          $string = eregi_replace ('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
