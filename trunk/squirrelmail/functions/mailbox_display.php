@@ -142,7 +142,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     if (!isset($hlt_color)) {
         $hlt_color = $color_string;
     }
-    $checked = ($checkall == 1) ? true : false;
+    $checked = ($checkall == 1) ? ' CHECKED' : '';
     $col = 0;
     if (sizeof($index_order)) {
         foreach ($index_order as $index_order_part) {
@@ -543,8 +543,7 @@ function fillMessageArray($imapConnection, $id, $count) {
 function displayMessageArray($imapConnection, $num_msgs, $start_msg,
                              $msort, $mailbox, $sort, $color,
                              $show_num, $where=0, $what=0) {
-    global $imapServerAddress, $use_mailbox_cache,
-           $index_order, $checkall,
+    global $imapServerAddress, $use_mailbox_cache, $index_order,
            $indent_array, $thread_sort_messages, $allow_server_sort,
            $server_sort_order, $PHP_SELF;
 
