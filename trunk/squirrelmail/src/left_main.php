@@ -386,7 +386,7 @@ function listBoxes ($boxes, $j=0 ) {
                         "</small>";
             }
         } else {
-            if (!$boxes->is_noselect || strtolower($boxes->mailboxname_full)=="inbox") {
+            if (!$boxes->is_noselect) {
                 if ($unseen > 0) {
                     $pre .= '<b>';
                 }
@@ -501,6 +501,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             if (! isset($numMessages)) {
             $numMessages = $boxes->total;
             }
+            $pre .= "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">";
+            $end .= '</a>';
             if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
             $end .= "\n<small>\n" .
@@ -529,7 +531,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         } else $folder_img = '';
         if (!isset($boxes->mbxs[0])) {
             echo '   ' . html_tag( 'div',
-                            $pre . $folder_img . $boxes->mailboxname_sub . $end ,
+                            '<tt>'. $pre . $folder_img . '</tt>'. $boxes->mailboxname_sub . $end,
                     'left', '', 'class="mbx_sub" id="' .$j. '"' )
                 . "\n";
         } else {
