@@ -9,10 +9,6 @@
  * This contains functions for manipulating user preferences
  * stored in a database, accessed though the Pear DB layer.
  *
- * To use this instead of the regular prefs.php, create a
- * database as described below, and replace prefs.php
- * with this file.
- *
  * Database:
  * ---------
  *
