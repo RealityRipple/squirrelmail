@@ -15,6 +15,10 @@
 function error_username_password_incorrect() {
     global $frame_top;
 
+    if (!isset($frame_top)) {
+        $frame_top = '_top';
+    }
+
     echo '<BR>'.
                 '<TABLE COLS=1 WIDTH="75%" NOBORDER BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
                 '<TR BGCOLOR="' . $color[0] . '">'.

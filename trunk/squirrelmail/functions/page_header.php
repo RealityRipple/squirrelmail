@@ -54,6 +54,9 @@ function displayPageHeader($color, $mailbox) {
     displayHtmlHeader ();
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
+    if (!isset($frame_top)) {
+        $frame_top = '_top';
+    }
 
     /*
         Locate the first displayable form element

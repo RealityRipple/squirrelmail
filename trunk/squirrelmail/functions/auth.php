@@ -20,6 +20,10 @@ function is_logged_in () {
         return;
     }
 
+    if (!isset($frame_top)) {
+        $frame_top = '_top';
+    }
+
     set_up_language($squirrelmail_language, true);
 
     displayHtmlHeader( 'SquirrelMail', '', FALSE );
