@@ -23,51 +23,45 @@ require_once('../functions/page_header.php');
 require_once('../functions/html.php');
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
-
-$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-sqimap_mailbox_select($imap_stream, $mailbox);
-$message = sqimap_get_message($imap_stream, $passed_id, $mailbox);
+$mailbox = urldecode($mailbox);
+$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+sqimap_mailbox_select($imapConnection, $mailbox);
+$message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
 /* --start display setup-- */
 
 /* From and Date are usually fine as they are... */
-$from = decodeHeader($message->header->from);
+$from = decodeHeader($message->header->getAddr_s('from'));
 $date = getLongDateString($message->header->date);
 
 /* we can clean these up if the list is too long... */
-$cc = decodeHeader(getLineOfAddrs($message->header->cc));
-$to = decodeHeader(getLineOfAddrs($message->header->to));
+$cc = decodeHeader($message->header->getAddr_s('cc'));
+$to = decodeHeader($message->header->getAddr_s('to'));
+//$cc = decodeHeader(getLineOfAddrs($message->header->cc));
+//$to = decodeHeader(getLineOfAddrs($message->header->to));
 
 /* and Body and Subject could easily stream off the page... */
-$id = $message->header->id;
-$ent_ar = findDisplayEntity ($message, 0);
-$ent_num = $ent_ar[0];
-  
-$body_message = getEntity($message, $ent_num);
-if (($body_message->header->type0 == 'text') ||
-    ($body_message->header->type0 == 'rfc822')) {    
-    $body = mime_fetch_body ($imap_stream, $id, $ent_num);
-    $body = decodeBody($body, $body_message->header->encoding);
-    $hookResults = do_hook('message_body', $body);
-    $body = $hookResults[1];
-    if ($body_message->header->type1 == 'html') {
-    if( $show_html_default <> 1 ) {
-        $body = strip_tags( $body );
-        translateText($body, $wrap_at, $body_message->header->charset);
-    } else {
-        $body = MagicHTML( $body, $id, $message );
-    }
-    } else {
-        translateText($body, $wrap_at, $body_message->header->charset);
-    }              
+$id = $passed_id;
+if (isset($passed_ent_id)) {
+   $message = $message->getEntity($passed_ent_id);
+}
+$ent_ar = $message->findDisplayEntity();
+//$ent_num = $ent_ar[0];
+$body = '';
+if ($ent_ar[0] != '') {
+  for ($i = 0; $i < count($ent_ar); $i++) {
+     $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
+  }
+  $hookResults = do_hook('message_body', $body);
+  $body = $hookResults[1];
 } else {
-    $body = _("Message not printable");
+  $body = _("Message not printable");
 }
 
 $subject = trim(decodeHeader($message->header->subject));
 
  /* now, if they choose to, we clean up the display a bit... */
- /*
+ 
 if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
 
     $num_leading_spaces = 9; // nine leading spaces for indentation
@@ -85,7 +79,7 @@ if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
     $date = pf_clean_string($date, $num_leading_spaces);
 
 } // end cleanup
-*/
+
 // --end display setup--
 
 
