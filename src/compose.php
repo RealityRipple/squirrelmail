@@ -11,14 +11,16 @@
     **  - Start new mail
     **  - Add an attachment
     **  - Send mail
+    **
+    ** $Id$
     **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -53,7 +55,7 @@
          $id = $reply_id;
 
 
-      if ($id) {
+      if (isset($id)) {
          sqimap_mailbox_select($imapConnection, $mailbox);
          $message = sqimap_get_message($imapConnection, $id, $mailbox);
          $orig_header = $message->header;
@@ -397,11 +399,14 @@
       $mailbox = "INBOX";
 
    if(isset($send)) {
-      if ($HTTP_POST_FILES['attachfile']['tmp_name'] &&
+      if (isset($HTTP_POST_FILES['attachfile']) &&
+          $HTTP_POST_FILES['attachfile']['tmp_name'] &&
           $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
-      if (checkInput(false) && ! $AttachFailure) {
+      if (checkInput(false) && ! isset($AttachFailure)) {
          $urlMailbox = urlencode ($mailbox);
+	 if (! isset($reply_id))
+	     $reply_id = 0;
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
@@ -416,7 +421,7 @@
          showInputForm();
          //sqimap_logout($imapConnection);
       }
-   } else if ($html_addr_search_done) {
+   } else if (isset($html_addr_search_done)) {
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
@@ -437,7 +442,7 @@
       }
       
       showInputForm();
-   } else if ($html_addr_search) {
+   } else if (isset($html_addr_search)) {
       // I am using an include so as to elminiate an extra unnecessary click.  If you
       // can think of a better way, please implement it.
       include ("./addrbook_search_html.php");
@@ -457,7 +462,7 @@
       }
 
       showInputForm();
-	} else if ($smtpErrors) {
+	} else if (isset($smtpErrors)) {
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
@@ -473,7 +478,7 @@
 
       $newmail = true;
 		
-      if ($forward_id && $ent_num)  getAttachments(0);
+      if (isset($forward_id) && isset($ent_num))  getAttachments(0);
               
       newMail();
       showInputForm();

@@ -5,6 +5,7 @@
  **
  ** Contains functions used to do authentication.
  **
+ ** $Id$
  **/
 
    $auth_php = true;

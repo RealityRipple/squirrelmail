@@ -3,6 +3,8 @@
     **  prefs.php
     **
     **  This contains functions for manipulating user preferences
+    **
+    **  $Id$
     **/
 
    $prefs_php = true;

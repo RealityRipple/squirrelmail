@@ -7,6 +7,8 @@
     **
     **  Subscribe and unsubcribe form folders. 
     **  Called from folders.php
+    **
+    **  $Id$
     **/
 
    session_start();

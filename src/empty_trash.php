@@ -7,6 +7,8 @@
     **
     **  Handles deleting messages from the trash folder without
     **  deleting subfolders.
+    **
+    **  $Id$
     **/
 
    session_start();

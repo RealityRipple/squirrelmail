@@ -12,6 +12,8 @@
     **  NOTE: A lot of this code is similar to the code in
     **        addrbook_search.html -- If you change one, change
     **        the other one too!
+    **
+    **  $Id$
     **/
 
    session_start();
@@ -134,6 +136,8 @@
    print "<CENTER>\n";
    printf("  <nobr><STRONG>%s</STRONG>\n", _("Search for"));
    addr_insert_hidden();
+   if (! isset($addrquery))
+       $addrquery = "";
    printf("  <INPUT TYPE=text NAME=addrquery VALUE=\"%s\" SIZE=26>\n",
           htmlspecialchars($addrquery));
 
@@ -169,7 +173,7 @@
    // Show personal addressbook
    if(!isset($addrquery) || !empty($listall)) {
 
-      if($backend != -1 || !isset($addrquery)) {
+      if((isset($backend) && $backend != -1) || !isset($addrquery)) {
          if(!isset($addrquery)) 
             $backend = $abook->localbackend;
 

@@ -6,6 +6,7 @@
     **  This contains functions that display mailbox information, such as the
     **  table row that has sender, date, subject, etc...
     **
+    **  $Id$
     **/
 
    $mailbox_display_php = true;
@@ -27,10 +28,46 @@
 
       echo "<TR>\n";
 
-      if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
-      if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
-      if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
-      if ($msg["FLAG_DELETED"]) { $fontstr = "<font color=\"$color[9]\">"; $fontstr_end = "</font>"; }
+      if (isset($msg['FLAG_FLAGGED']) && $msg["FLAG_FLAGGED"] == true) 
+      { 
+         $flag = "<font color=$color[2]>"; 
+	 $flag_end = "</font>"; 
+      }
+      else
+      {
+         $flag = "";
+	 $flag_end = "";
+      }
+      if (isset($msg['FLAG_SEEN']) && $msg["FLAG_SEEN"] == false) 
+      { 
+         $bold = "<b>"; 
+	 $bold_end = "</b>"; 
+      }
+      else
+      {
+         $bold = "";
+	 $bold_end = "";
+      }
+      if ($mailbox == $sent_folder) 
+      { 
+         $italic = "<i>"; 
+	 $italic_end = "</i>"; 
+      }
+      else
+      {
+         $italic = "";
+	 $italic_end = "";
+      }
+      if (isset($msg['FLAG_DELETED']) && $msg["FLAG_DELETED"])
+      { 
+         $fontstr = "<font color=\"$color[9]\">"; 
+	 $fontstr_end = "</font>"; 
+      }
+      else
+      {
+         $fontstr = "";
+	 $fontstr_end = "";
+      }
 
       for ($i=0; $i < count($message_highlight_list); $i++) {
          if (trim($message_highlight_list[$i]["value"]) != "") {
@@ -46,7 +83,7 @@
          }
       }
 
-      if (!$hlt_color)
+      if (!isset($hlt_color))
          $hlt_color = $color[4];
 
       if ($where && $what) {
@@ -71,14 +108,17 @@
                break;
             case 4: # subject
                echo "   <td bgcolor=$hlt_color>$bold";
-			   echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
-			   do_hook("subject_link");
-			   echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
+	       if (! isset($search_stuff))
+	           $search_stuff = "";
+	       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
+	       do_hook("subject_link");
+	       echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
                echo "   <td bgcolor=$hlt_color align=center width=1% nowrap><b><small>\n";
-               if ($msg["FLAG_ANSWERED"] == true) {
+               if (isset($msg['FLAG_ANSWERED']) && 
+	           $msg["FLAG_ANSWERED"] == true) {
                   echo "A\n";
                   $stuff = true;
                }
@@ -90,7 +130,7 @@
                   echo "<font color=$color[1]>!</font>\n";
                   $stuff = true;
                }
-               if ($msg["FLAG_DELETED"]) {
+               if (isset($msg['FLAG_DELETED']) && $msg["FLAG_DELETED"]) {
                   echo "<font color=\"$color[1]\">D</font>\n";
                   $stuff = true;
                }
@@ -189,6 +229,7 @@
          } else {
             $end = $numMessages;
          }
+	 if ($end > $numMessages) $end = $numMessages;
          while ($j < $end) {
             $date[$j] = ereg_replace("  ", " ", $date[$j]);
             $tmpdate = explode(" ", trim($date[$j]));
@@ -234,7 +275,8 @@
 
          /* Only ignore messages flagged as deleted if we are using a
           * trash folder or auto_expunge */
-         if (($move_to_trash || $auto_expunge) && $sort != 6)
+         if (((isset($move_to_trash) && $move_to_trash) 
+	      || (isset($auto_expunge) && $auto_expunge)) && $sort != 6)
          {
             /** Find and remove the ones that are deleted */
             $i = 0;
@@ -251,6 +293,8 @@
             }
             $numMessages = $i;
          } else {
+	    if (! isset($messages))
+	        $messages = array();
             $msgs = $messages;
          }
       }         
@@ -341,6 +385,8 @@
          $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
 
+      if (! isset($msg))
+          $msg = "";
       mail_message_listing_beginning($imapConnection,
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
           $mailbox, $sort, $Message, $More, $startMessage);
@@ -370,6 +416,7 @@
          else
             $i = 1;
          reset($msort);
+	 $k = 0;
          do {
             $key = key($msort);
             next($msort);

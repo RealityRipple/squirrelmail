@@ -1,4 +1,7 @@
 <?php
+
+   /* $Id$ */
+
    session_start();
 
    if(!isset($logged_in)) {
@@ -18,12 +21,12 @@
       exit;
    }
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
    if (!isset($config_php))
       include("../config/config.php");
-   if (!isset($strings_php))
-      include("../functions/strings.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -66,6 +69,8 @@
    echo "         </SELECT></SMALL></TT>";
    echo "       </TD>\n";
    echo "        <TD ALIGN=\"CENTER\" WIDTH=33%>\n";
+   if (!isset($what))
+       $what = "";
    $what_disp = ereg_replace(",", " ", $what);
    $what_disp = str_replace("\\\\", "\\", $what_disp);
    $what_disp = str_replace("\\\"", "\"", $what_disp);
@@ -103,7 +108,7 @@
    echo "</FORM>";
    echo "</td></tr></table>";
    do_hook("search_after_form");
-   if ($where && $what) {   
+   if (isset($where) && $where && isset($what) && $what) {   
       sqimap_mailbox_select($imapConnection, $mailbox);
       sqimap_search($imapConnection, $where, $what, $mailbox, $color);
    }

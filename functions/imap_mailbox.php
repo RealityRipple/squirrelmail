@@ -3,6 +3,8 @@
     **  imap_mailbox.php
     **
     **  This impliments all functions that manipulate mailboxes
+    **
+    **  $Id$
     **/
 
    /******************************************************************************
@@ -257,7 +259,7 @@
       if ($list_special_folders_first == true) {
 
          // Then list special folders and their subfolders
-         for ($i = 0 ; $i <= count($boxes) ; $i++) {
+         for ($i = 0 ; $i < count($boxes) ; $i++) {
             if ($move_to_trash &&
 	        eregi("^" . quotemeta($trash_folder) . "(" .
 		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
@@ -273,9 +275,9 @@
          }
 
          // Put INBOX.* folders ahead of the rest
-         for ($i = 0; $i <= count($boxes); $i++) {
+         for ($i = 0; $i < count($boxes); $i++) {
             if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
-                ($boxes[$i]["used"] == false)) {
+                (!isset($boxes[$i]["used"]) || $boxes[$i]["used"] == false)) {
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }

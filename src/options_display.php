@@ -7,6 +7,7 @@
     **
     **  Displays all optinos about display preferences
     **
+    **  $Id$
     **/
 
    session_start();

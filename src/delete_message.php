@@ -6,15 +6,16 @@
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  Deletes a meesage from the IMAP server 
-    **  
+    **
+    **  $Id$
     **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_message_php))

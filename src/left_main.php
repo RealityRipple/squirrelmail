@@ -7,6 +7,7 @@
     **  This is the code for the left bar.  The left bar shows the folders
     **  available, and has cookie information.
     **
+    **  $Id$
     **/
 
    session_start();
@@ -24,12 +25,12 @@
    }
 
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($array_php))
       include("../functions/array.php");
-   if (!isset($strings_php))
-      include("../functions/strings.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
    if (!isset($page_header_php))
@@ -76,7 +77,7 @@
          }
       }
       
-      $line .= "<NOBR>";
+      $line = "<NOBR>";
       if ($unseen > 0)
          $line .= "<B>";
 
@@ -99,7 +100,7 @@
       if ($unseen > 0)
          $line .= "</B>";
       
-      if ($unseen_found) {
+      if (isset($unseen_found) && $unseen_found) {
          $line .= "&nbsp;<small>$unseen_string</small>";
       }
 
@@ -148,6 +149,8 @@
             $line .= replace_spaces($mailbox);
             $line .= "</FONT>";
          } else {
+	    if (! isset($boxes[$i]["unseen"])) 
+	        $boxes[$i]["unseen"] = 0;
             $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);
          }
       } else {

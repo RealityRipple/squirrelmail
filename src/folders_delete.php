@@ -7,6 +7,8 @@
     **
     **  Deltes folders from the IMAP server. 
     **  Called from the folders.php
+    **
+    **  $Id$
     **/
 
    session_start();

@@ -7,6 +7,7 @@
     **
     **  Frameset for the JavaScript version of the address book.
     **
+    **  $Id$
     **/
 
    session_start();

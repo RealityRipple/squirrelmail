@@ -5,6 +5,7 @@
     **  This contains functions that work with array manipulation.  They
     **  will help sort, and do other types of things with arrays
     **
+    **  $Id$
     **/
 
    $array_php = true;
@@ -19,7 +20,7 @@
       $GLOBALS["col"] = $col;  // Column or Columns as an array
       $GLOBALS["dir"] = $dir;  // Direction, a positive number for ascending a negative for descending
 
-      usort($ary,comp2);
+      usort($ary,'comp2');
       return $ary;
   }
 

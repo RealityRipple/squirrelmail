@@ -4,6 +4,7 @@
     ** This contains the functions necessary to detect and decode MIME
     ** messages.
     **
+    ** $Id$
     **/
 
    $debug_mime = false;
@@ -23,10 +24,11 @@
       /** msg_header contains generic variables for values that **/
       /** could be in a header.                                 **/
       
-      var $type0, $type1, $boundary, $charset, $encoding, $size;
-      var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
-      var $id, $mailbox, $description;
-      var $entity_id, $message_id, $charset;
+      var $type0 = '', $type1 = '', $boundary = '', $charset = '';
+      var $encoding = '', $size = 0, $to = '', $from = '', $date = '';
+      var $cc = '', $bcc = '', $reply_to = '', $subject = '';
+      var $id = 0, $mailbox = '', $description = '';
+      var $entity_id = 0, $message_id = 0;
    }
    
    class message {
@@ -58,14 +60,17 @@
       
       $id = $header->id;
       fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
+      //
+      // This should use sqimap_read_data instead of reading it itself
+      //
       $read = fgets ($imap_stream, 10000);
       $response = substr($read, 0, 4);
+      $bodystructure = "";
       while ($response != "a001") {
          $bodystructure .= $read;
          $read = fgets ($imap_stream, 10000);
          $response = substr($read, 0, 4);
       }
-   //   $read = strtolower($bodystructure);
       $read = $bodystructure;
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>\n";
@@ -168,6 +173,7 @@
             // loop through until we find the matching quote, and return that as a string
             $pos = 1;
             $char = substr($structure, $pos, 1);
+	    $text = "";
             while ($char != "\"" && $pos < strlen($structure)) {
                $text .= $char;
                $pos++;
@@ -178,6 +184,8 @@
             // comment me
             $end = mime_match_parenthesis (0, $structure);
             $sub = substr($structure, 1, $end-1);
+	    if (! isset($properties))
+	        $properties = array();
             $properties = mime_get_props($properties, $sub);
             $structure = substr($structure, strlen($sub) + 2);
          } else {
@@ -288,6 +296,7 @@
          if ($char == "\"") {
             $pos = 1;
             $char = substr($structure, $pos, 1);
+	    $tmp = "";
             while ($char != "\"" && $pos < strlen($structure)) {
                $tmp .= $char;
                $pos++;
@@ -299,6 +308,7 @@
             if ($char == "\"") {
                $pos = 1;
                $char = substr($structure, $pos, 1);
+	       $value = "";
                while ($char != "\"" && $pos < strlen($structure)) {
                   $value .= $char;
                   $pos++;
@@ -312,6 +322,8 @@
             } else if ($char == "(") {
                $end = mime_match_parenthesis (0, $structure);
                $sub = substr($structure, 1, $end-1);
+	       if (! isset($props))
+	           $props = array();
                $props = mime_get_props($props, $sub);
                $structure = substr($structure, strlen($sub) + 2);
             }
@@ -423,7 +435,7 @@
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
-   function decodeMime ($imap_stream, $body, $header) {
+   function decodeMime ($imap_stream, $header) {
       global $username, $key, $imapServerAddress, $imapPort;
       return mime_structure ($imap_stream, $header);
    }
@@ -464,7 +476,9 @@
          if ($message->header->type0 == "text") {
             if ($message->header->type1 == "plain" ||
                 $message->header->type1 == "html") {
-               return $message->header->entity_id; 
+	       if (isset($message->header->entity_id))
+                   return $message->header->entity_id;
+	       return 0;
             }
          } else {
             for ($i=0; $message->entities[$i]; $i++) {
@@ -507,7 +521,7 @@
    
          /** Display the ATTACHMENTS: message if there's more than one part **/
          $body .= "</TD></TR></TABLE>";
-         if ($message->entities) {
+         if (isset($message->entities)) {
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          }
       } else {

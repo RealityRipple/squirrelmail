@@ -7,6 +7,7 @@
     **
     **  Displays message highlighting options
     **
+    **  $Id$
     **/
 
    session_start();

@@ -7,6 +7,7 @@
     **
     **  Displays help for the user
     **
+    **  $Id$
     **/
 
    session_start();

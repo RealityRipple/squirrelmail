@@ -7,6 +7,8 @@
     **
     **  Handles attachment downloads to the users computer.
     **  Also allows displaying of attachments when possible.
+    **
+    **  $Id$
     **/
 
    if (!isset($config_php))

@@ -5,6 +5,7 @@
    **
    **  Functions and classes for the addressbook system.
    **
+   **  $Id$
    **/
     
    $addressbook_php = true;

@@ -7,6 +7,8 @@
     **
     **  Does the actual renaming of files on the IMAP server. 
     **  Called from the folders.php
+    **
+    **  $Id$
     **/
 
    session_start();
