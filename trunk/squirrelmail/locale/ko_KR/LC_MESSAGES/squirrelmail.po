@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-01 18:33+0100\n"
+"POT-Creation-Date: 2003-01-25 09:07+0100\n"
 "PO-Revision-Date: 2001-12-15 09:45+0200\n"
 "Last-Translator: J.I. Kim <aporie@netian.com>\n"
 "Language-Team: Korean <squirrelmail-i18n@lists.sourceforge.org>\n"
@@ -13,14 +13,780 @@ msgstr ""
 "Content-Type: text/plain; charset=EUC-KR\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Delivery error report"
-msgstr "전송 오류 보고"
+msgid "Address Book"
+msgstr "주소록"
 
-msgid "Undelivered Message Headers"
-msgstr "전송할 수 없는 메세지 헤더"
+msgid "All"
+msgstr "전체"
 
-msgid "(no subject)"
-msgstr "(제목 없음)"
+msgid "Name"
+msgstr "이름"
+
+msgid "E-mail"
+msgstr "전자메일"
+
+msgid "Info"
+msgstr "정보 사항"
+
+msgid "Source"
+msgstr "원본보기"
+
+msgid "To"
+msgstr "받는 사람"
+
+msgid "Cc"
+msgstr "참조"
+
+msgid "Bcc"
+msgstr "숨은 참조"
+
+msgid "Use Addresses"
+msgstr "주소록 사용"
+
+msgid "Address Book Search"
+msgstr "주소록 찾기"
+
+msgid "Search for"
+msgstr "찾기"
+
+msgid "in"
+msgstr " : "
+
+msgid "All address books"
+msgstr "전체 주소록"
+
+msgid "Search"
+msgstr "찾기"
+
+msgid "List all"
+msgstr "전체 목록"
+
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "%s(으)로부터 주소목록을 가져올 수 없습니다."
+
+msgid "Your search failed with the following error(s)"
+msgstr "다음과 같은 오류가 발생했습니다."
+
+msgid "No persons matching your search was found"
+msgstr "당신이 찾고있는 사람이 없습니다."
+
+msgid "Return"
+msgstr "돌아가기"
+
+msgid "Close"
+msgstr "종료"
+
+msgid "Nickname"
+msgstr "별명"
+
+msgid "Must be unique"
+msgstr "중복된 이름은 사용할 수 없습니다."
+
+msgid "E-mail address"
+msgstr "전자메일 주소"
+
+msgid "First name"
+msgstr "이름"
+
+msgid "Last name"
+msgstr "성"
+
+msgid "Additional info"
+msgstr "추가 정보"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "개인 주소록이 정의되지 않았습니다. 관리자에게 연락하세요"
+
+msgid "You can only edit one address at the time"
+msgstr "한번에 하나의 주소만 편집할 수 있습니다."
+
+msgid "Update address"
+msgstr "주소 변경"
+
+msgid "ERROR"
+msgstr "오류"
+
+msgid "Unknown error"
+msgstr "알 수 없는 오류"
+
+msgid "Add address"
+msgstr "주소 추가"
+
+msgid "Edit selected"
+msgstr "선택한 주소 편집"
+
+msgid "Delete selected"
+msgstr "선택한 주소 삭제"
+
+#, c-format
+msgid "Add to %s"
+msgstr "%s에 추가"
+
+msgid "Subject"
+msgstr "제목"
+
+msgid "From"
+msgstr "보낸 사람"
+
+msgid "Date"
+msgstr "날짜"
+
+msgid "Original Message"
+msgstr "원래 메세지"
+
+msgid "Draft Email Saved"
+msgstr "이메일이 임시보관함에 저장되었습니다."
+
+msgid "Could not move/copy file. File not attached"
+msgstr "파일을 이동/복사할 수 없습니다. 파일이 첨부되지 않았습니다. "
+
+msgid "Draft Saved"
+msgstr "임시보관함에 저장되었습니다."
+
+msgid "Your Message has been sent"
+msgstr "메세지가 전송되었습니다."
+
+msgid "From:"
+msgstr "보낸 사람:"
+
+msgid "To:"
+msgstr "받는 사람:"
+
+msgid "CC:"
+msgstr "참조:"
+
+msgid "BCC:"
+msgstr "숨은 참조:"
+
+msgid "Subject:"
+msgstr "제목:"
+
+msgid "Send"
+msgstr "전송"
+
+msgid "Attach:"
+msgstr "첨부"
+
+msgid "Add"
+msgstr "추가"
+
+msgid "Delete selected attachments"
+msgstr "선택한 첨부물 삭제"
+
+msgid "Priority"
+msgstr "우선순위"
+
+msgid "High"
+msgstr "높음"
+
+msgid "Normal"
+msgstr "보통"
+
+msgid "Low"
+msgstr "낮음"
+
+msgid "Receipt"
+msgstr "수신"
+
+msgid "On Read"
+msgstr "읽을 때"
+
+msgid "On Delivery"
+msgstr "배달시"
+
+msgid "Signature"
+msgstr "서명"
+
+msgid "Addresses"
+msgstr "주소록"
+
+msgid "Save Draft"
+msgstr "임시보관함에 저장"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "\"받는사람:\"란이 비었습니다."
+
+msgid "said"
+msgstr "님이 쓰시길"
+
+msgid "quote"
+msgstr "인용"
+
+msgid "who"
+msgstr "글쓴이"
+
+msgid "Draft folder"
+msgstr "임시 보관함"
+
+msgid "Server replied: "
+msgstr "서버 응답: "
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "편지함 이름이 잘못되었습니다. 다른이름을 사용하세요."
+
+msgid "Click here to go back"
+msgstr "되돌아가려면 여기를 누르세요."
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "삭제할 편지함을 선택하시기 바랍니다."
+
+msgid "Delete Folder"
+msgstr "편지함 삭제"
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "%s을(를) 삭제하시겠습니까?"
+
+msgid "Yes"
+msgstr "예"
+
+msgid "No"
+msgstr "아니오"
+
+msgid "Folders"
+msgstr "편지함"
+
+msgid "Subscribed successfully!"
+msgstr "편지함으로 사용"
+
+msgid "Unsubscribed successfully!"
+msgstr "편지함으로 사용하지 않음"
+
+msgid "Deleted folder successfully!"
+msgstr "편지함이 삭제되었습니다."
+
+msgid "Created folder successfully!"
+msgstr "편지함이 생성되었습니다."
+
+msgid "Renamed successfully!"
+msgstr "변경되었습니다."
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr "메일함 사용 실패 - 폴더가 존재하지 않습니다."
+
+msgid "refresh folder list"
+msgstr "편지함 목록 갱신"
+
+msgid "Create Folder"
+msgstr "편지함 생성"
+
+msgid "as a subfolder of"
+msgstr "의 하위편지함으로"
+
+msgid "None"
+msgstr "없음"
+
+msgid "Let this folder contain subfolders"
+msgstr "이 편지함은 하위편지함을 갖습니다."
+
+msgid "Create"
+msgstr "만들기"
+
+msgid "Rename a Folder"
+msgstr "편지함 이름 변경"
+
+msgid "Select a folder"
+msgstr "편지함 선택"
+
+msgid "Rename"
+msgstr "이름변경"
+
+msgid "No folders found"
+msgstr "편지함이 없습니다."
+
+msgid "Delete"
+msgstr "삭제"
+
+msgid "Unsubscribe"
+msgstr "사용하지 않음"
+
+msgid "Subscribe"
+msgstr "사용함"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "사용하지 않기 위한 편지함이 없습니다."
+
+msgid "No folders were found to subscribe to!"
+msgstr "사용하기 위한 편지함이 없습니다."
+
+msgid "Subscribe to:"
+msgstr "사용함:"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr "이름을 변경할 편지함을 선택하시기 바랍니다."
+
+msgid "Rename a folder"
+msgstr "편지함 이름 변경"
+
+msgid "New name:"
+msgstr "새로운 이름:"
+
+msgid "Submit"
+msgstr "완료"
+
+msgid "ERROR: Help files are not in the right format!"
+msgstr "오류: 도움말 파일의 형식이 올바르지 않습니다!"
+
+msgid "Help"
+msgstr "도움말"
+
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr ""
+"이 도움말은 %s으(로) 번역되지 않았습니다. 번역되지 않은 메세지는 영어로 표시"
+"됩니다"
+
+msgid "Some or all of the help documents are not present!"
+msgstr "도움말의 일부 또는 전체가 없습니다!"
+
+msgid "Table of Contents"
+msgstr "목차"
+
+msgid "Previous"
+msgstr "이전"
+
+msgid "Next"
+msgstr "다음"
+
+msgid "Top"
+msgstr "위로"
+
+msgid "Viewing an image attachment"
+msgstr "첨부된 문서 보기"
+
+msgid "View message"
+msgstr "메세지 보기"
+
+msgid "Download this as a file"
+msgstr "파일로 다운받기"
+
+msgid "Not available"
+msgstr "사용할 수 없습니다."
+
+msgid "INBOX"
+msgstr "받은 편지함"
+
+msgid "purge"
+msgstr "비우기"
+
+msgid "Last Refresh"
+msgstr "최종 갱신시간"
+
+msgid "Save folder tree"
+msgstr "메일함 트리 저장"
+
+msgid "Login"
+msgstr "로그인"
+
+#, c-format
+msgid "%s Logo"
+msgstr "%s 로고"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail 버전 %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "SquirrelMail 개발팀"
+
+#, c-format
+msgid "%s Login"
+msgstr "%s 로그인"
+
+msgid "Name:"
+msgstr "이름:"
+
+msgid "Password:"
+msgstr "비밀번호:"
+
+msgid "No messages were selected."
+msgstr "메세지가 선택되지 않았습니다."
+
+msgid "Options"
+msgstr "환경 설정"
+
+msgid "Message Highlighting"
+msgstr "메세지 강조"
+
+msgid "New"
+msgstr "새 편지"
+
+msgid "Done"
+msgstr "완료"
+
+msgid "To or Cc"
+msgstr "받는 사람 또는 참조"
+
+msgid "subject"
+msgstr "제목"
+
+msgid "Edit"
+msgstr "수정"
+
+msgid "No highlighting is defined"
+msgstr "메세지 강조가 정의되지 않았습니다."
+
+msgid "Identifying name"
+msgstr "식별할 수 있는 이름"
+
+msgid "Color"
+msgstr "색상"
+
+msgid "Dark Blue"
+msgstr "Dark Blue"
+
+msgid "Dark Green"
+msgstr "Dark Green"
+
+msgid "Dark Yellow"
+msgstr "Dark Yellow"
+
+msgid "Dark Cyan"
+msgstr "Dark Cyan"
+
+msgid "Dark Magenta"
+msgstr "Dark Magenta"
+
+msgid "Light Blue"
+msgstr "Light Blue"
+
+msgid "Light Green"
+msgstr "Light Green"
+
+msgid "Light Yellow"
+msgstr "Light Yellow"
+
+msgid "Light Cyan"
+msgstr "Light Cyan"
+
+msgid "Light Magenta"
+msgstr "Light Magenta"
+
+msgid "Dark Gray"
+msgstr "Dark Gray"
+
+msgid "Medium Gray"
+msgstr "Medium Gray"
+
+msgid "Light Gray"
+msgstr "Light Gray"
+
+msgid "White"
+msgstr "White"
+
+msgid "Other:"
+msgstr "기타:"
+
+msgid "Ex: 63aa7f"
+msgstr "예: 63aa7f"
+
+msgid "Matches"
+msgstr "일치"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "대체 식별자 %d"
+
+msgid "Advanced Identities"
+msgstr "상세 설정"
+
+msgid "Default Identity"
+msgstr "기본 정보"
+
+msgid "Add a New Identity"
+msgstr "새로운 식별자 추가"
+
+msgid "Full Name"
+msgstr "전체 이름"
+
+msgid "E-Mail Address"
+msgstr "전자메일 주소"
+
+msgid "Reply To"
+msgstr "회신"
+
+msgid "Save / Update"
+msgstr "저장 / 갱신"
+
+msgid "Make Default"
+msgstr "기본 식별자로 사용"
+
+msgid "Move Up"
+msgstr "이동"
+
+msgid "Index Order"
+msgstr "인덱스 순서"
+
+msgid "Checkbox"
+msgstr "체크박스"
+
+msgid "Flags"
+msgstr "플래그"
+
+msgid "Size"
+msgstr "크기"
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"인덱스 순서는 메세지 인덱스에 정렬된 칼럼 순서입니다. 당신의 필요에 따라 칼럼"
+"을 추가, 삭제, 이동 할 수 있습니다."
+
+msgid "up"
+msgstr "위로"
+
+msgid "down"
+msgstr "아래로"
+
+msgid "remove"
+msgstr "삭제"
+
+msgid "Return to options page"
+msgstr "환경 설정 페이지로 돌아가기"
+
+msgid "Personal Information"
+msgstr "개인 정보"
+
+msgid "Display Preferences"
+msgstr "화면 설정"
+
+msgid "Folder Preferences"
+msgstr "편지함 환경설정"
+
+msgid "Successfully Saved Options"
+msgstr "설정상태가 저장되었습니다."
+
+msgid "Refresh Folder List"
+msgstr "편지함 갱신"
+
+msgid "Refresh Page"
+msgstr "페이지 갱신"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "이름, 전자메일 주소등 개인정보를 저장합니다."
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "색상, 언어등 SquirrelMail의 겉모습을 변경합니다."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"주어진 범주에 따라, 수신된 메세지는 메세지 목록에서 서로 다른 배경색으로 설정"
+"할 수 있습니다. 메세지를 보낸 사람을 쉽게 구분할 수 있으며, 특히 메일링리스"
+"트 구분에 도움이 됩니다."
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "이 설정은 메일함 표시방법과 조작방식을 변경합니다."
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"메세지 인덱스의 순서는 다시 정렬될수 있으며 당신이 원하는 순서로 변경할 수 있"
+"습니다."
+
+msgid "Message not printable"
+msgstr "메세지를 인쇄할 수 없습니다."
+
+msgid "Printer Friendly"
+msgstr "출력용"
+
+msgid "CC"
+msgstr "참조:"
+
+msgid "Print"
+msgstr "인쇄"
+
+msgid "View Printable Version"
+msgstr "인쇄용 보기"
+
+msgid "Read:"
+msgstr "읽음:"
+
+msgid "Your message"
+msgstr "메세지"
+
+msgid "Sent:"
+msgstr "전송:"
+
+#, c-format
+msgid "Was displayed on %s"
+msgstr "%s으(로) 표시되었습니다."
+
+msgid "less"
+msgstr "숨김"
+
+msgid "more"
+msgstr "자세히"
+
+msgid "Unknown sender"
+msgstr "알 수 없는 전송자"
+
+msgid "Mailer"
+msgstr "메일러"
+
+msgid "Read receipt"
+msgstr ""
+
+msgid "send"
+msgstr "전송"
+
+msgid "requested"
+msgstr "요청되었습니다."
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"메세지 전송자가 이 메세지에 대한 회신 메일을 요청하였습니다. 답장을 보내시겠"
+"습니까?"
+
+msgid "Send read receipt now"
+msgstr "지금 답장 보내기"
+
+msgid "Search results"
+msgstr "검색 결과"
+
+msgid "Message List"
+msgstr "메세지 목록"
+
+msgid "Resume Draft"
+msgstr "이메일 임시보관함 보기"
+
+msgid "Edit Message as New"
+msgstr "새메일로 메세지 편집"
+
+msgid "View Message"
+msgstr "메세지 보기"
+
+msgid "Up"
+msgstr "위로"
+
+msgid "Forward"
+msgstr "전달"
+
+msgid "Forward as Attachment"
+msgstr "첨부파일로 전달"
+
+msgid "Reply"
+msgstr "회신"
+
+msgid "Reply All"
+msgstr "전체 회신"
+
+msgid "View Full Header"
+msgstr "전체 헤더 보기"
+
+msgid "Attachments"
+msgstr "첨부"
+
+msgid "You must be logged in to access this page."
+msgstr "이 페이지에 접근하기 위해서는 정당한 비밀번호가 있어야 합니다."
+
+msgid "Folder:"
+msgstr "편지함:"
+
+msgid "edit"
+msgstr "수정"
+
+msgid "search"
+msgstr "찾기"
+
+msgid "delete"
+msgstr "삭제"
+
+msgid "Recent Searches"
+msgstr "최근 검색"
+
+msgid "save"
+msgstr "저장"
+
+msgid "forget"
+msgstr "forget?"
+
+msgid "Current Search"
+msgstr "현재 찾기"
+
+msgid "All Folders"
+msgstr "전체 편지함"
+
+msgid "Body"
+msgstr "본문"
+
+msgid "Everywhere"
+msgstr "전체"
+
+msgid "Search Results"
+msgstr "검색 결과"
+
+msgid "No Messages Found"
+msgstr "메세지가 없습니다."
+
+msgid "Sign Out"
+msgstr "웹메일 종료"
+
+msgid "You have been successfully signed out."
+msgstr "웹메일이 종료되었습니다."
+
+msgid "Click here to log back in."
+msgstr "다시 로그인 하시려면 여기를 누르세요."
+
+msgid "Viewing a Business Card"
+msgstr "업무용 카드 보기"
+
+msgid "Title"
+msgstr "제목"
+
+msgid "Email"
+msgstr "전자메일"
+
+msgid "Web Page"
+msgstr "웹 페이지"
+
+msgid "Organization / Department"
+msgstr "부서"
+
+msgid "Address"
+msgstr "주소록"
+
+msgid "Work Phone"
+msgstr "사무실 전화"
+
+msgid "Home Phone"
+msgstr "집 전화"
+
+msgid "Cellular Phone"
+msgstr "휴대폰"
+
+msgid "Fax"
+msgstr "팩스"
+
+msgid "Note"
+msgstr "참조"
+
+msgid "Add to Addressbook"
+msgstr "주소 추가"
+
+msgid "Title & Org. / Dept."
+msgstr "타이틀 및 부서"
+
+msgid "Viewing Full Header"
+msgstr "전체 헤더보기"
+
+msgid "Viewing a text attachment"
+msgstr "첨부된 문서 보기"
 
 msgid "Personal address book"
 msgstr "개인 주소록"
@@ -98,9 +864,6 @@ msgstr "보기"
 
 msgid "Business Card"
 msgstr "업무용 카드"
-
-msgid "You must be logged in to access this page."
-msgstr "이 페이지에 접근하기 위해서는 정당한 비밀번호가 있어야 합니다."
 
 msgid "Sunday"
 msgstr "일"
@@ -193,20 +956,6 @@ msgstr "다시 시도하려면 여기를 누르세요"
 #, c-format
 msgid "Click here to return to %s"
 msgstr "%s(으)로 되돌아가려면 여기를 누르세요 "
-
-#, c-format
-msgid "%s Logo"
-msgstr "%s 로고"
-
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail 버전 %s"
-
-msgid "By the SquirrelMail Development Team"
-msgstr "SquirrelMail 개발팀"
-
-msgid "ERROR"
-msgstr "오류"
 
 msgid "Go to the login page"
 msgstr "로그인 페이지로 이동"
@@ -319,14 +1068,14 @@ msgid ""
 "folder."
 msgstr "현재 메일함에서 불필요한 메세지를 삭제하며, 휴지통에서 시작합니다."
 
-msgid "INBOX"
-msgstr "받은 편지함"
-
 msgid "Unknown response from IMAP server: "
 msgstr "IMAP 서버로부터 알 수 없는 응답을 받았습니다:"
 
 msgid "Unknown message number in reply from server: "
 msgstr "알 수 없는 메세지 번호를 서버로부터 받았습니다:"
+
+msgid "(no subject)"
+msgstr "(제목 없음)"
 
 msgid "Unknown Sender"
 msgstr "알 수 없는 전송자"
@@ -366,9 +1115,6 @@ msgstr "메세지 표시"
 msgid "Move"
 msgstr "이동"
 
-msgid "Forward"
-msgstr "전달"
-
 msgid "Expunge"
 msgstr "비우기"
 
@@ -381,29 +1127,11 @@ msgstr "읽음"
 msgid "Unread"
 msgstr "읽지 않음"
 
-msgid "Delete"
-msgstr "삭제"
-
 msgid "Unthread View"
 msgstr "쓰레드 숨김"
 
 msgid "Thread View"
 msgstr "쓰레드 보기"
-
-msgid "To"
-msgstr "받는 사람"
-
-msgid "From"
-msgstr "보낸 사람"
-
-msgid "Date"
-msgstr "날짜"
-
-msgid "Subject"
-msgstr "제목"
-
-msgid "Size"
-msgstr "크기"
 
 msgid "Toggle All"
 msgstr "전체 선택"
@@ -421,12 +1149,6 @@ msgstr "메세지 보기: <B>%s</B> - <B>%s</B> (전체: %s)"
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "메세지 보기: <b>1</b> (1개의 메세지)"
-
-msgid "Previous"
-msgstr "이전"
-
-msgid "Next"
-msgstr "다음"
 
 msgid "Paginate"
 msgstr "페이지 만들기"
@@ -458,15 +1180,6 @@ msgstr "메세지:"
 msgid "FETCH line:"
 msgstr "가져온 라인:"
 
-msgid "High"
-msgstr "높음"
-
-msgid "Low"
-msgstr "낮음"
-
-msgid "Normal"
-msgstr "보통"
-
 msgid "Hide Unsafe Images"
 msgstr "안전하지 않은 그림 숨기기"
 
@@ -476,9 +1189,6 @@ msgstr "안전하지 않은 그림 보기"
 msgid "download"
 msgstr "다운로드"
 
-msgid "Unknown sender"
-msgstr "알 수 없는 전송자"
-
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_ko_KR.png"
 
@@ -486,38 +1196,11 @@ msgstr "sec_remove_ko_KR.png"
 msgid "Option Type '%s' Not Found"
 msgstr "설정 형식 '%s'을(를) 찾을 수 없습니다."
 
-msgid "Yes"
-msgstr "예"
-
-msgid "No"
-msgstr "아니오"
-
-msgid "Submit"
-msgstr "완료"
-
 msgid "Current Folder"
 msgstr "현재 편지함"
 
-msgid "Sign Out"
-msgstr "웹메일 종료"
-
 msgid "Compose"
 msgstr "편지 쓰기"
-
-msgid "Addresses"
-msgstr "주소록"
-
-msgid "Folders"
-msgstr "편지함"
-
-msgid "Options"
-msgstr "환경 설정"
-
-msgid "Search"
-msgstr "찾기"
-
-msgid "Help"
-msgstr "도움말"
 
 #, c-format
 msgid "Error creating directory %s."
@@ -525,6 +1208,69 @@ msgstr "%s 디렉토리 생성 오류"
 
 msgid "Could not create hashed directory structure!"
 msgstr "해시된 디렉토리 만들기 오류!"
+
+msgid "Service not available, closing channel"
+msgstr "서비스가 제공되지 않습니다, 채널 닫음"
+
+msgid "A password transition is needed"
+msgstr "암호전송이 필요합니다."
+
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "요청된 메일 명령 오류: mailbox 오류"
+
+msgid "Requested action aborted: error in processing"
+msgstr "요청된 메일 명령 취소: 처리 오류"
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr "요청된 메일 명령 오류: 시스템 저장공간 부족"
+
+msgid "Temporary authentication failure"
+msgstr "일시적인 인증 오류"
+
+msgid "Syntax error; command not recognized"
+msgstr "구문 오류; 명령어 식별 오류"
+
+msgid "Syntax error in parameters or arguments"
+msgstr "구문 오류; 매개변수 오류"
+
+msgid "Command not implemented"
+msgstr "명령어 실행 오류"
+
+msgid "Bad sequence of commands"
+msgstr "잘못된 명령어 순서"
+
+msgid "Command parameter not implemented"
+msgstr "명령어 매개변수 오류"
+
+msgid "Authentication required"
+msgstr "인증이 필요합니다."
+
+msgid "Authentication mechanism is too weak"
+msgstr "인증 메커니즘이 너무 취약합니다."
+
+msgid "Authentication failed"
+msgstr "인증 실패 "
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr "요청된 인증 메커니즘에 암호화를 필요로 합니다."
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "요청 명령 오류: mailbox 오류"
+
+msgid "User not local; please try forwarding"
+msgstr "내부사용자가 아님; 포워딩을 하십시요"
+
+msgid "Requested mail action aborted: exceeding storage allocation"
+msgstr "요청 메일 명령 취소; 할당된 저장공간 초과"
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "요청 메일 명령 오류: mailbox 이름 오류"
+
+msgid "Transaction failed"
+msgstr "트랜잭션 실패 "
+
+msgid "Unknown response"
+msgstr "알 수 없는 응답"
 
 msgid "General Display Options"
 msgstr "일반적인 화면 설정"
@@ -616,9 +1362,6 @@ msgstr "메일러 보기 설정"
 msgid "Display Attached Images with Message"
 msgstr "첨부된 이미지 보기"
 
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "미세한 프린터 설정"
-
 msgid "Enable Printer Friendly Clean Display"
 msgstr "인쇄용 화면 설정"
 
@@ -706,9 +1449,6 @@ msgstr "사용 안함"
 msgid "Only INBOX"
 msgstr "받은 편지함만 사용"
 
-msgid "All Folders"
-msgstr "전체 편지함"
-
 msgid "Unread Message Notification Type"
 msgstr "읽지않은 메세지 알림 방법"
 
@@ -749,32 +1489,22 @@ msgid "Folder Selection Options"
 msgstr "편지함 선택 설정"
 
 msgid "Selection List Style"
-msgstr "선택 목록 형식"
+msgstr "목록 선택 형식"
 
-#, fuzzy
 msgid "Long: "
-msgstr "길이:"
+msgstr "Long: "
 
 msgid "Indented: "
-msgstr "들여쓰기"
+msgstr "Indented: "
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Delimited: "
 
 msgid "Name and Address Options"
 msgstr "이름 및 주소 설정"
 
-msgid "Full Name"
-msgstr "전체 이름"
-
 msgid "Email Address"
 msgstr "전자메일 주소"
-
-msgid "Reply To"
-msgstr "회신"
-
-msgid "Signature"
-msgstr "서명"
 
 msgid "Edit Advanced Identities"
 msgstr "상세한 개인정보 설정"
@@ -787,6 +1517,9 @@ msgstr "다중 식별"
 
 msgid "Same as server"
 msgstr "서버와 동일"
+
+msgid "Error opening timezone config, contact administrator."
+msgstr "시간대 설정파일 읽기 오류, 관리자에게 문의."
 
 msgid "Timezone Options"
 msgstr "시간대 설정"
@@ -827,6 +1560,15 @@ msgstr "서명을 사용하시겠습니까?"
 msgid "Prefix Signature with '-- ' Line"
 msgstr " '--' 로 서명 접두사 사용 ?"
 
+msgid "Take Address"
+msgstr "주소 추가"
+
+msgid "Address Book Take:"
+msgstr "주소록 추가박스:"
+
+msgid "Try to verify addresses"
+msgstr "주소 검증"
+
 msgid "Config File Version"
 msgstr "설정 파일 버전"
 
@@ -856,6 +1598,12 @@ msgstr "부서 타이틀"
 
 msgid "Signout Page"
 msgstr "페이지 닫기"
+
+msgid "Provider Link URI"
+msgstr "링크 URI 제공자"
+
+msgid "Provider Name"
+msgstr "제공자 이름: "
 
 msgid "Default Language"
 msgstr "기본 언어"
@@ -899,8 +1647,17 @@ msgstr "IMAP 폴더 구분자"
 msgid "Use \"detect\" to auto-detect."
 msgstr "자동검색을 위해 \"검색\"을 사용하세요"
 
-msgid "Use Sendmail"
-msgstr "센드메일 사용"
+msgid "Use TLS for IMAP Connections"
+msgstr "IMAP 연결시 TLS 사용"
+
+msgid "Requires PHP 4.3.x! Experimental."
+msgstr "PHP 4.3.x 필요! 실험적."
+
+msgid "IMAP Authentication Type"
+msgstr "IMAP 인증 형태"
+
+msgid "Use Sendmail Binary"
+msgstr "센드메일 바이너리 사용"
 
 msgid "Sendmail Path"
 msgstr "센드메일 경로"
@@ -911,8 +1668,14 @@ msgstr "SMTP 서버 주소"
 msgid "SMTP Server Port"
 msgstr "SMTP 서버 포트"
 
-msgid "Authenticated SMTP"
-msgstr "인증된 SMTP"
+msgid "Use TLS for SMTP Connections"
+msgstr "SMTP 연결시 TLS 사용"
+
+msgid "SMTP Authentication Type"
+msgstr "SMTP 인증 형식 "
+
+msgid "POP3 Before SMTP?"
+msgstr "SMTP전 POP3?"
 
 msgid "Invert Time"
 msgstr "인버트 시간"
@@ -968,6 +1731,9 @@ msgstr "기본 자바스크립트 주소록"
 msgid "Auto delete folders"
 msgstr "자동 삭제 편지함"
 
+msgid "Enable /NoSelect folder fix"
+msgstr "메일함 수정 할성화/NoSelect"
+
 msgid "General Options"
 msgstr "일반 설정 "
 
@@ -1013,6 +1779,21 @@ msgstr "식별자 편집 허용"
 msgid "Allow editing of full name"
 msgstr "전체 이름 편집 가능"
 
+msgid "Use server-side sorting"
+msgstr "서버정렬 사용"
+
+msgid "Use server-side thread sorting"
+msgstr "서버 쓰레드 정렬 사용"
+
+msgid "Allow server charset search"
+msgstr "서버 문자셋 검색 허용"
+
+msgid "UID support"
+msgstr "UID 지원"
+
+msgid "PHP session name"
+msgstr "PHP 세션 이름"
+
 msgid "Message of the Day"
 msgstr "오늘의 메세지"
 
@@ -1045,6 +1826,12 @@ msgstr "테마"
 
 msgid "Style Sheet URL (css)"
 msgstr "스타일시트 URL (css)"
+
+msgid "Default theme"
+msgstr "기본 테마"
+
+msgid "Use index number of theme"
+msgstr "테마의 인덱스 번호 사용"
 
 msgid "Configuration Administrator"
 msgstr "관리자 설정"
@@ -1398,13 +2185,13 @@ msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr "현재 무료 - 또다른 블랙 리스트 - 전화접속 IP 목록"
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
-msgstr ""
+msgstr "무료 - 분산 전송자 거부 목록 - 확인된 릴레이"
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
-msgstr ""
+msgstr "무료 - 분산 전송자 거부 목록 - 확인된 다단계 릴레이"
 
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
-msgstr ""
+msgstr "무료 - 분산 전송자 거부 목록 - 확인되지 않은 릴레이"
 
 msgid "Saved Scan type"
 msgstr "저장된 스캔 형식"
@@ -1424,20 +2211,8 @@ msgstr "새 메세지만"
 msgid "Save"
 msgstr "저장"
 
-msgid "New"
-msgstr "새 편지"
-
-msgid "Done"
-msgstr "완료"
-
 msgid "Match:"
 msgstr "일치"
-
-msgid "Cc"
-msgstr "참조"
-
-msgid "To or Cc"
-msgstr "받는 사람 또는 참조"
 
 msgid "Header"
 msgstr "헤더"
@@ -1445,14 +2220,8 @@ msgstr "헤더"
 msgid "Contains:"
 msgstr "내용물:"
 
-msgid "Edit"
-msgstr "수정"
-
 msgid "Down"
 msgstr "아래로"
-
-msgid "Up"
-msgstr "위로"
 
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
@@ -1534,6 +2303,30 @@ msgstr "사용"
 msgid "OFF"
 msgstr "사용하지 않음"
 
+msgid " not found."
+msgstr " 찾지 못함."
+
+msgid "Today's Fortune"
+msgstr "오늘의 포츈."
+
+msgid "Fortunes:"
+msgstr "포츈:"
+
+msgid "Show fortunes at top of mailbox"
+msgstr "메일박스 상단에 포츈 보여주기"
+
+msgid "IMAP server information"
+msgstr "IMAP 서버 정보"
+
+msgid ""
+"Run some test IMAP commands, displaying both the command and the result. "
+"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"configuration. Custom command strings can be used."
+msgstr ""
+"약간의 IMAP 명령어를 실행합니다. 명령어와 그 결과를 보여줍니다. 이 테스트들"
+"은 Squirrelmail IMAP 명령어와 현재 Squirrelmail 설정을 사용합니다. 사용자 명"
+"령어 문자열도 사용할 수 있습니다."
+
 msgid "Mailinglist"
 msgstr "메일링 리스트"
 
@@ -1561,9 +2354,6 @@ msgstr ""
 "이 리스트를 탈퇴하기 위한 %s 요청 메세지를 보내게 됩니다. 이것은 아래의 주소"
 "에서 탈퇴하기를 시도합니다."
 
-msgid "From:"
-msgstr "보낸 사람:"
-
 msgid "Send Mail"
 msgstr "메일 보내기"
 
@@ -1572,12 +2362,6 @@ msgstr "리스트에 메일 보내기"
 
 msgid "Reply to List"
 msgstr "리스트에 회신"
-
-msgid "Subscribe"
-msgstr "사용함"
-
-msgid "Unsubscribe"
-msgstr "사용하지 않음"
 
 msgid "List Archives"
 msgstr "리스트 목록"
@@ -1686,9 +2470,6 @@ msgstr "원격 POP 서버에서 메일 가져오기"
 
 msgid "Select Server:"
 msgstr "서버 선택:"
-
-msgid "All"
-msgstr "전체"
 
 msgid "Password for"
 msgstr "비밀번호 "
@@ -1806,9 +2587,6 @@ msgstr "가명:"
 msgid "Username:"
 msgstr "사용자 이름:"
 
-msgid "Password:"
-msgstr "비밀번호:"
-
 msgid "Store in Folder:"
 msgstr "편지함에 보관:"
 
@@ -1875,6 +2653,21 @@ msgid ""
 msgstr ""
 "이 설정은 서버에서 당신의 계정으로 pop3 편지함으로부터 이메일을 다운받을 수 "
 "있게 설정합니다."
+
+msgid "Message Details"
+msgstr "상세 메세지"
+
+msgid "Message details"
+msgstr "상세 메세지"
+
+msgid "Close Window"
+msgstr "창 닫기"
+
+msgid "Save Message"
+msgstr "메세지 저장"
+
+msgid "View Message details"
+msgstr "상세 메세지 보기"
 
 msgid "New Mail Notification"
 msgstr "새로운 메일 통지"
@@ -1978,9 +2771,6 @@ msgstr "SquirrelMail 통지:"
 msgid "You have new mail!"
 msgstr "새로운 메일이 도착했습니다!"
 
-msgid "Close Window"
-msgstr "창 닫기"
-
 msgid "NewMail Options"
 msgstr "NewMail 설정"
 
@@ -2007,9 +2797,6 @@ msgstr "사운드 테스트"
 
 msgid "Loading the sound..."
 msgstr "사운드 불러오기..."
-
-msgid "Close"
-msgstr "종료"
 
 msgid "Sent Subfolders Options"
 msgstr "보낸 편지함 하위폴더 유형"
@@ -2103,6 +2890,304 @@ msgstr "사전 암호해제 오류"
 msgid "Cute."
 msgstr "인용"
 
+#, c-format
+msgid "I tried to execute '%s', but it returned:"
+msgstr "'%s' 을(를) 실행했지만, 그 결과는:"
+
+msgid "SquirrelSpell is misconfigured."
+msgstr "SquirrelSpell 설정 오류."
+
+msgid "SquirrelSpell Results"
+msgstr "SquirrelSpell 결과"
+
+msgid "Spellcheck completed. Commit changes?"
+msgstr "철자검사가 완료되었습니다. 변경사항을 반영하시겠습니까?"
+
+msgid "No changes were made."
+msgstr "변경사항이 없습니다."
+
+msgid "Now saving your personal dictionary... Please wait."
+msgstr "이제 개인 사전을 저장합니다... 잠시 기다리세요."
+
+#, c-format
+msgid "Found %s errors"
+msgstr "%s 오류 발견"
+
+msgid "Line with an error:"
+msgstr "오류 라인:"
+
+msgid "Error:"
+msgstr "오류:"
+
+msgid "Suggestions:"
+msgstr "제안:"
+
+msgid "Suggestions"
+msgstr "제안:"
+
+msgid "Change to:"
+msgstr "변경:"
+
+msgid "Occurs times:"
+msgstr "발생 시간:"
+
+msgid "Change this word"
+msgstr "이 단어 변경"
+
+msgid "Change"
+msgstr "변경"
+
+msgid "Change ALL occurances of this word"
+msgstr "이 단어 모두 변경"
+
+msgid "Change All"
+msgstr "모두 변경"
+
+msgid "Ignore this word"
+msgstr "이 단어 무시"
+
+msgid "Ignore"
+msgstr "무시"
+
+msgid "Ignore ALL occurances this word"
+msgstr "이 단어 모두 무시"
+
+msgid "Ignore All"
+msgstr "모두 무시"
+
+msgid "Add this word to your personal dictionary"
+msgstr "이 단어를 개인사전파일에 추가"
+
+msgid "Add to Dic"
+msgstr "사전에 추가"
+
+msgid "Close and Commit"
+msgstr "저장"
+
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr "철자검사가 완료되지 않았습니다. 변경사항을 반영하고 완료하시겠습니까?"
+
+msgid "Close and Cancel"
+msgstr "취소"
+
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr "철자검사가 완료되지 않았습니다. 변경사항을 취소하시겠습니까?"
+
+msgid "No errors found"
+msgstr "오류가 없습니다."
+
+msgid "Your personal dictionary was erased."
+msgstr "개인사전파일이 삭제되었습니다."
+
+msgid "Dictionary Erased"
+msgstr "사전 삭제"
+
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+"개인 사전이 삭제되었습니다. 이 창을 닫고 \"철자 검사\" 버튼을 다시 클릭하면 "
+"철자검사를 다시 시작할 수 있습니다."
+
+msgid "Close this Window"
+msgstr "창 닫기"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+"개인 사전의 재암호화가 완료되었습니다. 이제 &quot;철자검사 설정&quot; 메뉴로 "
+"돌아가서 다시 선택해주세요."
+
+msgid "Successful Re-encryption"
+msgstr "재 암호화 완료"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"개인 사전이 재암호화되었습니다. 이 창을 닫고 \"철자 검사\" 버튼을 다시 클릭하"
+"여 철자검사를 다시 시작하세요."
+
+msgid "Dictionary re-encrypted"
+msgstr "사전 재암호화"
+
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"개인 사전이 <strong>암호화</strong>되었습니다. 이제 <strong>암호화된 포맷</"
+"strong>으로 저장되어집니다."
+
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"개인 사전이 <strong>암호해제</strong>되었습니다. 이제 <strong> 일반 문서 포맷"
+"</strong>으로 저장되어집니다."
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr "개인 사전 암호화 설정"
+
+msgid "Personal Dictionary"
+msgstr "개인 사전"
+
+msgid "No words in your personal dictionary."
+msgstr "개인사전에 단어가 없습니다."
+
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr "사전에서 삭제하고자 하는 단어을 선택하시기 바랍니다."
+
+#, c-format
+msgid "%s dictionary"
+msgstr "%s 사전"
+
+msgid "Delete checked words"
+msgstr "선택한 단어 삭제"
+
+msgid "Edit your Personal Dictionary"
+msgstr "개인 사전 편집"
+
+msgid "Please make your selection first."
+msgstr "먼저 선택하세요."
+
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
+msgstr ""
+"이것은 개인 사전을 암호화하고 암호화된 포맷으로 저장합니다. 계속하시겠습니까?"
+
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
+msgstr ""
+"이것은 개인 사전을 암호해제하고 일반 문서 포맷으로 저장합니다. 계속하시겠습니"
+"까?"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+"<p>개인 사전은 <strong>현재 암호화</strong>되어 있습니다. 이것은 웹메일 시스"
+"템과 개인 사전 분실시 당신의 사생화를 보호할 수 있게 도와 줍니다. 현재 메일함"
+"에 접근할 때 사용하는  암호로 암호화 되어 있기 때문에 개인사전에 저장된 내용"
+"을 아무나 보기 어렵게 만듭니다.</p><p><strong>주의:</strong>만약 암호를 모르"
+"는 경우, 개인 사전에 접근할 수 없어서, 암호해제를 할 수 없게 됩니다. 만약 메"
+"일함의 암호를 변경하게 되는 경우, SquirrelSpell은 변경사항을 인식하고 새로운 "
+"키로 사전을 재 암호화하기 위해 이전 암호를 요구하게 될 것입니다.</p>"
+
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr "개인 사전을 암호해제하고 일반 문서 포맷으로 저장합니다."
+
+msgid "Change crypto settings"
+msgstr "암호화 설정 변경"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+"<p>개인 사전은 <strong>현재 암호화 되어 있지 않습니다.</strong>. 이것은 웹메"
+"일 시스템과 개인 사전 분실시 당신의 사생화를 보호할 수 있게 하기 위해 암호화 "
+"할 수 있습니다. 암호화를 하게 되면 파일의 내용은 뒤섞여 정확한 키(메일함의 암"
+"호)를 알지 못하는 경우 해독하기 어렵습니다.<p><strong>주의:</strong>개인 사전"
+"을 암호화하기로 결정했다면, 메일함의 암호를 기억해야 합니다. 만약 암호를 모르"
+"는 경우, 시스템 관리자가 새로운 암호를 설정하게 되면, 개인 사전은 쓸모없게 되"
+"어 새로 만들어야 합니다. 만약 암호를 변경하더라도 이전의 암호를 알고 있다면, "
+"새로운 값으로 사전을 재암호화할 수 있도록 이전 암호를 입력받게 될 것입니다."
+
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr "개인 사전을 암호화하고 암호화된 포맷으로 저장합니다."
+
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr "<strong>%s</strong> 사전에서 다음의 항목을 삭제합니다:"
+
+msgid "All done!"
+msgstr "모두 완료!"
+
+msgid "Personal Dictionary Updated"
+msgstr "개인 사전 갱신"
+
+msgid "No changes requested."
+msgstr "변경 사항 없음"
+
+msgid "Please wait, communicating with the server..."
+msgstr "서버와 통신하기 위해 잠시 기다려 주세요..."
+
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr "이 메세지의 철자검사를 수행할 사전을 선택해 주세요."
+
+msgid "SquirrelSpell Initiating"
+msgstr "SquirrelSpell 초기화중"
+
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr "설정 변경: 기본 사전 <strong>%s</strong>(<strong>%s</strong>)"
+
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr "철자검사를 위해 <strong>%s</strong> 사전(시스템 기본)을 사용"
+
+msgid "International Dictionaries Preferences Updated"
+msgstr "국제 사전 환경설정 갱신"
+
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr "철자검사를 위해 사용가능한 국제 사전을 확인하세요"
+
+msgid "Make this dictionary my default selection:"
+msgstr "이 사전을 기본으로 설정함:"
+
+msgid "Make these changes"
+msgstr "변경"
+
+msgid "Add International Dictionaries"
+msgstr "국제 사전 추가"
+
+msgid "Please choose which options you wish to set up:"
+msgstr "설정하고자 하는 옵션을 선택하세요:"
+
+msgid "Edit your personal dictionary"
+msgstr "개인 사전 편집"
+
+msgid "Set up international dictionaries"
+msgstr "국제 사전 설정"
+
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr "개인 사전 암호 및 해독"
+
+msgid "not available"
+msgstr "사용할 수 없습니다."
+
+msgid "SquirrelSpell Options Menu"
+msgstr "SquirrelSpell 설정 메뉴"
+
 msgid "Translator"
 msgstr "번역기"
 
@@ -2167,9 +3252,6 @@ msgstr "작성 시기:"
 
 msgid "Not yet functional, currently does nothing"
 msgstr "아직 기능이 없습니다. 현재 동작하지 않습니다."
-
-msgid "Download this as a file"
-msgstr "파일로 다운받기"
 
 msgid "Translation Options"
 msgstr "번역 설정"
@@ -2264,6 +3346,9 @@ msgstr "슬로베니아"
 msgid "Swedish"
 msgstr "스웨덴"
 
+msgid "Turkish"
+msgstr "터키어"
+
 msgid "Welsh"
 msgstr "웨일스어"
 
@@ -2273,637 +3358,8 @@ msgstr "인도네시아"
 msgid "Latin"
 msgstr "라틴어"
 
-msgid "Address Book"
-msgstr "주소록"
-
-msgid "Name"
-msgstr "이름"
-
-msgid "E-mail"
-msgstr "전자메일"
-
-msgid "Info"
-msgstr "정보 사항"
-
-msgid "Source"
-msgstr "원본보기"
-
-msgid "Bcc"
-msgstr "숨은 참조"
-
-msgid "Use Addresses"
-msgstr "주소록 사용"
-
-msgid "Address Book Search"
-msgstr "주소록 찾기"
-
-msgid "Search for"
-msgstr "찾기"
-
-msgid "in"
-msgstr " : "
-
-msgid "All address books"
-msgstr "전체 주소록"
-
-msgid "List all"
-msgstr "전체 목록"
-
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "%s(으)로부터 주소목록을 가져올 수 없습니다."
-
-msgid "Your search failed with the following error(s)"
-msgstr "다음과 같은 오류가 발생했습니다."
-
-msgid "No persons matching your search was found"
-msgstr "당신이 찾고있는 사람이 없습니다."
-
-msgid "Return"
-msgstr "돌아가기"
-
-msgid "Nickname"
-msgstr "별명"
-
-msgid "Must be unique"
-msgstr "중복된 이름은 사용할 수 없습니다."
-
-msgid "E-mail address"
-msgstr "전자메일 주소"
-
-msgid "First name"
-msgstr "이름"
-
-msgid "Last name"
-msgstr "성"
-
-msgid "Additional info"
-msgstr "추가 정보"
-
-msgid "No personal address book is defined. Contact administrator."
-msgstr "개인 주소록이 정의되지 않았습니다. 관리자에게 연락하세요"
-
-msgid "You can only edit one address at the time"
-msgstr "한번에 하나의 주소만 편집할 수 있습니다."
-
-msgid "Update address"
-msgstr "주소 변경"
-
-msgid "Unknown error"
-msgstr "알 수 없는 오류"
-
-msgid "Add address"
-msgstr "주소 추가"
-
-msgid "Edit selected"
-msgstr "선택한 주소 편집"
-
-msgid "Delete selected"
-msgstr "선택한 주소 삭제"
-
-#, c-format
-msgid "Add to %s"
-msgstr "%s에 추가"
-
-msgid "Original Message"
-msgstr "원래 메세지"
-
-msgid "Draft Email Saved"
-msgstr "이메일이 임시보관함에 저장되었습니다."
-
-msgid "Could not move/copy file. File not attached"
-msgstr "파일을 이동/복사할 수 없습니다. 파일이 첨부되지 않았습니다. "
-
-msgid "Draft Saved"
-msgstr "임시보관함에 저장되었습니다."
-
-msgid "Your Message has been sent"
-msgstr "메세지가 전송되었습니다."
-
-msgid "To:"
-msgstr "받는 사람:"
-
-msgid "CC:"
-msgstr "참조:"
-
-msgid "BCC:"
-msgstr "숨은 참조:"
-
-msgid "Subject:"
-msgstr "제목:"
-
-msgid "Send"
-msgstr "전송"
-
-msgid "Attach:"
-msgstr "첨부"
-
-msgid "Add"
-msgstr "추가"
-
-msgid "Delete selected attachments"
-msgstr "선택한 첨부물 삭제"
-
-msgid "Priority"
-msgstr "우선순위"
-
-msgid "Receipt"
-msgstr "수신"
-
-msgid "On Read"
-msgstr "읽을 때"
-
-msgid "On Delivery"
-msgstr "배달시"
-
-msgid "Save Draft"
-msgstr "임시보관함에 저장"
-
-msgid "You have not filled in the \"To:\" field."
-msgstr "\"받는사람:\"란이 비었습니다."
-
-msgid "said"
-msgstr "님이 쓰시길"
-
-msgid "quote"
-msgstr "인용"
-
-msgid "who"
-msgstr "글쓴이"
-
-msgid "Draft folder"
-msgstr "임시 보관함"
-
-msgid "Illegal folder name.  Please select a different name."
-msgstr "편지함 이름이 잘못되었습니다. 다른이름을 사용하세요."
-
-msgid "Click here to go back"
-msgstr "되돌아가려면 여기를 누르세요."
-
-msgid "You have not selected a folder to delete. Please do so."
-msgstr "삭제할 편지함을 선택하시기 바랍니다."
-
-msgid "Delete Folder"
-msgstr "편지함 삭제"
-
-#, c-format
-msgid "Are you sure you want to delete %s?"
-msgstr "%s을(를) 삭제하시겠습니까?"
-
-msgid "Subscribed successfully!"
-msgstr "편지함으로 사용"
-
-msgid "Unsubscribed successfully!"
-msgstr "편지함으로 사용하지 않음"
-
-msgid "Deleted folder successfully!"
-msgstr "편지함이 삭제되었습니다."
-
-msgid "Created folder successfully!"
-msgstr "편지함이 생성되었습니다."
-
-msgid "Renamed successfully!"
-msgstr "변경되었습니다."
-
-msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr "메일함 사용 실패 - 폴더가 존재하지 않습니다."
-
-msgid "refresh folder list"
-msgstr "편지함 목록 갱신"
-
-msgid "Create Folder"
-msgstr "편지함 생성"
-
-msgid "as a subfolder of"
-msgstr "의 하위편지함으로"
-
-msgid "None"
-msgstr "없음"
-
-msgid "Let this folder contain subfolders"
-msgstr "이 편지함은 하위편지함을 갖습니다."
-
-msgid "Create"
-msgstr "만들기"
-
-msgid "Rename a Folder"
-msgstr "편지함 이름 변경"
-
-msgid "Select a folder"
-msgstr "편지함 선택"
-
-msgid "Rename"
-msgstr "이름변경"
-
-msgid "No folders found"
-msgstr "편지함이 없습니다."
-
-msgid "No folders were found to unsubscribe from!"
-msgstr "사용하지 않기 위한 편지함이 없습니다."
-
-msgid "No folders were found to subscribe to!"
-msgstr "사용하기 위한 편지함이 없습니다."
-
-msgid "Subscribe to:"
-msgstr "사용함:"
-
-msgid "You have not selected a folder to rename. Please do so."
-msgstr "이름을 변경할 편지함을 선택하시기 바랍니다."
-
-msgid "Rename a folder"
-msgstr "편지함 이름 변경"
-
-msgid "New name:"
-msgstr "새로운 이름:"
-
-msgid "ERROR: Help files are not in the right format!"
-msgstr ""
-
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr ""
-"이 도움말은 %s으(로) 번역되지 않았습니다. 번역되지 않은 메세지는 영어로 표시"
-"됩니다"
-
-msgid "Some or all of the help documents are not present!"
-msgstr "도움말의 일부 또는 전체가 없습니다!"
-
-msgid "Table of Contents"
-msgstr "목차"
-
-msgid "Top"
-msgstr "위로"
-
-msgid "Viewing an image attachment"
-msgstr "첨부된 문서 보기"
-
-msgid "View message"
-msgstr "메세지 보기"
-
-msgid "Not available"
-msgstr "사용할 수 없습니다."
-
-msgid "purge"
-msgstr "비우기"
-
-msgid "Last Refresh"
-msgstr "최종 갱신시간"
-
-msgid "Save folder tree"
-msgstr "메일함 트리 저장"
-
-msgid "Login"
-msgstr "로그인"
-
-#, c-format
-msgid "%s Login"
-msgstr "%s 로그인"
-
-msgid "Name:"
-msgstr "이름:"
-
-msgid "No messages were selected."
-msgstr "메세지가 선택되지 않았습니다."
-
-msgid "Message Highlighting"
-msgstr "메세지 강조"
-
-msgid "subject"
-msgstr "제목"
-
-msgid "No highlighting is defined"
-msgstr "메세지 강조가 정의되지 않았습니다."
-
-msgid "Identifying name"
-msgstr "식별할 수 있는 이름"
-
-msgid "Color"
-msgstr "색상"
-
-msgid "Dark Blue"
-msgstr "Dark Blue"
-
-msgid "Dark Green"
-msgstr "Dark Green"
-
-msgid "Dark Yellow"
-msgstr "Dark Yellow"
-
-msgid "Dark Cyan"
-msgstr "Dark Cyan"
-
-msgid "Dark Magenta"
-msgstr "Dark Magenta"
-
-msgid "Light Blue"
-msgstr "Light Blue"
-
-msgid "Light Green"
-msgstr "Light Green"
-
-msgid "Light Yellow"
-msgstr "Light Yellow"
-
-msgid "Light Cyan"
-msgstr "Light Cyan"
-
-msgid "Light Magenta"
-msgstr "Light Magenta"
-
-msgid "Dark Gray"
-msgstr "Dark Gray"
-
-msgid "Medium Gray"
-msgstr "Medium Gray"
-
-msgid "Light Gray"
-msgstr "Light Gray"
-
-msgid "White"
-msgstr "White"
-
-msgid "Other:"
-msgstr "기타:"
-
-msgid "Ex: 63aa7f"
-msgstr "예: 63aa7f"
-
-msgid "Matches"
-msgstr "일치"
-
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "대체 식별자 %d"
-
-msgid "Advanced Identities"
-msgstr "상세 설정"
-
-msgid "Default Identity"
-msgstr "기본 정보"
-
-msgid "Add a New Identity"
-msgstr "새로운 식별자 추가"
-
-msgid "E-Mail Address"
-msgstr "전자메일 주소"
-
-msgid "Save / Update"
-msgstr "저장 / 갱신"
-
-msgid "Make Default"
-msgstr "기본 식별자로 사용"
-
-msgid "Move Up"
-msgstr "이동"
-
-msgid "Index Order"
-msgstr "인덱스 순서"
-
-msgid "Checkbox"
-msgstr "체크박스"
-
-msgid "Flags"
-msgstr "플래그"
-
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr ""
-"인덱스 순서는 메세지 인덱스에 정렬된 칼럼 순서입니다. 당신의 필요에 따라 칼럼"
-"을 추가, 삭제, 이동 할 수 있습니다."
-
-msgid "up"
-msgstr "위로"
-
-msgid "down"
-msgstr "다운로드"
-
-msgid "remove"
-msgstr "삭제"
-
-msgid "Return to options page"
-msgstr "환경 설정 페이지로 돌아가기"
-
-msgid "Personal Information"
-msgstr "개인 정보"
-
-msgid "Display Preferences"
-msgstr "화면 설정"
-
-msgid "Folder Preferences"
-msgstr "편지함 환경설정"
-
-msgid "Successfully Saved Options"
-msgstr "설정상태가 저장되었습니다."
-
-msgid "Refresh Folder List"
-msgstr "편지함 갱신"
-
-msgid "Refresh Page"
-msgstr "페이지 갱신"
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "이름, 전자메일 주소등 개인정보를 저장합니다."
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr "색상, 언어등 SquirrelMail의 겉모습을 변경합니다."
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"주어진 범주에 따라, 수신된 메세지는 메세지 목록에서 서로 다른 배경색으로 설정"
-"할 수 있습니다. 메세지를 보낸 사람을 쉽게 구분할 수 있으며, 특히 메일링리스"
-"트 구분에 도움이 됩니다."
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr "이 설정은 메일함 표시방법과 조작방식을 변경합니다."
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-"메세지 인덱스의 순서는 다시 정렬될수 있으며 당신이 원하는 순서로 변경할 수 있"
-"습니다."
-
-msgid "Message not printable"
-msgstr "메세지를 인쇄할 수 없습니다."
-
-msgid "Printer Friendly"
-msgstr "출력용"
-
-msgid "CC"
-msgstr "참조:"
-
-msgid "Print"
-msgstr "인쇄"
-
-msgid "View Printable Version"
-msgstr "인쇄용 보기"
-
-msgid "Read:"
-msgstr "읽음:"
-
-msgid "Your message"
-msgstr "메세지"
-
-msgid "Sent:"
-msgstr "전송:"
-
-#, c-format
-msgid "Was displayed on %s"
-msgstr "%s으(로) 표시되었습니다."
-
-msgid "less"
-msgstr "숨김"
-
-msgid "more"
-msgstr "자세히"
-
-msgid "Mailer"
-msgstr "메일러"
-
-msgid "Read receipt"
-msgstr ""
-
-msgid "send"
-msgstr "전송"
-
-msgid "requested"
-msgstr "요청되었습니다."
-
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
-msgstr ""
-"메세지 전송자가 이 메세지에 대한 회신 메일을 요청하였습니다. 답장을 보내시겠"
-"습니까?"
-
-msgid "Send read receipt now"
-msgstr "지금 답장 보내기"
-
-msgid "Search results"
-msgstr "검색 결과"
-
-msgid "Message List"
-msgstr "메세지 목록"
-
-msgid "Resume Draft"
-msgstr "이메일 임시보관함 보기"
-
-msgid "Edit Message as New"
-msgstr "새메일로 메세지 편집"
-
-msgid "View Message"
-msgstr "메세지 보기"
-
-msgid "Forward as Attachment"
-msgstr "첨부파일로 전달"
-
-msgid "Reply"
-msgstr "회신"
-
-msgid "Reply All"
-msgstr "전체 회신"
-
-msgid "View Full Header"
-msgstr "전체 헤더 보기"
-
-msgid "Attachments"
-msgstr "첨부"
-
-msgid "Folder:"
-msgstr "편지함:"
-
-msgid "edit"
-msgstr "수정"
-
-msgid "search"
-msgstr "찾기"
-
-msgid "delete"
-msgstr "삭제"
-
-msgid "Recent Searches"
-msgstr "최근 검색"
-
-msgid "save"
-msgstr "저장"
-
-msgid "forget"
-msgstr "forget?"
-
-msgid "Current Search"
-msgstr "현재 찾기"
-
-msgid "Body"
-msgstr "본문"
-
-msgid "Everywhere"
-msgstr "전체"
-
-msgid "Search Results"
-msgstr "검색 결과"
-
-msgid "No Messages Found"
-msgstr "메세지가 없습니다."
-
-msgid "You have been successfully signed out."
-msgstr "웹메일이 종료되었습니다."
-
-msgid "Click here to log back in."
-msgstr "다시 로그인 하시려면 여기를 누르세요."
-
-msgid "Viewing a Business Card"
-msgstr "업무용 카드 보기"
-
-msgid "Title"
-msgstr "제목"
-
-msgid "Email"
-msgstr "전자메일"
-
-msgid "Web Page"
-msgstr "웹 페이지"
-
-msgid "Organization / Department"
-msgstr "부서"
-
-msgid "Address"
-msgstr "주소록"
-
-msgid "Work Phone"
-msgstr "사무실 전화"
-
-msgid "Home Phone"
-msgstr "집 전화"
-
-msgid "Cellular Phone"
-msgstr "휴대폰"
-
-msgid "Fax"
-msgstr "팩스"
-
-msgid "Note"
-msgstr "참조"
-
-msgid "Add to Addressbook"
-msgstr "주소 추가"
-
-msgid "Title & Org. / Dept."
-msgstr "타이틀 및 부서"
-
-msgid "Viewing Full Header"
-msgstr "전체 헤더보기"
-
-msgid "Viewing a text attachment"
-msgstr "첨부된 문서 보기"
+msgid "Delivery error report"
+msgstr "전송 오류 보고"
+
+msgid "Undelivered Message Headers"
+msgstr "전송할 수 없는 메세지 헤더"
