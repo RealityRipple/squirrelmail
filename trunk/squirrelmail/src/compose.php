@@ -666,8 +666,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);            
             $subject = decodeHeader($orig_header->subject,false,true);
 //            /* remember the references and in-reply-to headers in case of an reply */
-//            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
-//            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
+            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
+            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
             $body_ary = explode("\n", $body);
             $cnt = count($body_ary) ;
             $body = '';
@@ -1435,9 +1435,9 @@ function deliverMessage($composeMessage, $draft=false) {
         } else {    
             $rfc822_header->encoding = '8bit';
         }            
-    }
-    if ($default_charset) {
-        $content_type->properties['charset']=$default_charset;
+        if ($default_charset) {
+            $content_type->properties['charset']=$default_charset;
+	}
     }
         
     $rfc822_header->content_type = $content_type;
