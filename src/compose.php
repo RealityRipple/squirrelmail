@@ -408,7 +408,10 @@
       $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
       $newAttachment['type'] = 
          strtolower($HTTP_POST_FILES['attachfile']['type']);
-      
+
+      if ($newAttachment['type'] == "")
+         $newAttachment['type'] = 'application/octet-stream';
+
       $attachments[] = $newAttachment;
     }
   
