@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Deliver.class.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * This contains all the functions needed to send messages through
+ * a delivery backend.
+ *
+ * $Id$
+ */
+
 class Deliver {
 
     function mail($message, $stream) {
@@ -97,14 +109,14 @@ class Deliver {
 	}
     }
     
-    function clean_crlf($s) {
+    function clean_crlf(&$s) {
         $s = str_replace("\r\n", "\n", $s);
         $s = str_replace("\r", "\n", $s);
         $s = str_replace("\n", "\r\n", $s);
 	return strlen($s);
     }
 
-    function preWriteToStream($&s) {
+    function preWriteToStream(&$s) {
     }
     
     function writeToStream($stream, $data) {
@@ -383,6 +395,4 @@ function timezone () {
     return ($result);
 }
 
-
 ?>
-
