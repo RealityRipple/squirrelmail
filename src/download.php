@@ -151,7 +151,7 @@ mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
  * version of IE.  I don't know if it works with Opera, but it should now.
  */
 function DumpHeaders($type0, $type1, $filename, $force) {
-    global $HTTP_USER_AGENT, $squirrelmail_language;
+    global $HTTP_USER_AGENT, $languages, $squirrelmail_language;
     $isIE = 0;
 
     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
@@ -164,13 +164,9 @@ function DumpHeaders($type0, $type1, $filename, $force) {
         $isIE6 = 1;
     }
 
-    if ($squirrelmail_language == 'ja_JP') {
-        if (strstr($HTTP_USER_AGENT, 'Windows') !== false ||
-            strstr($HTTP_USER_AGENT, 'Mac_') !== false) {
-            $filename = mb_convert_encoding($filename, 'SJIS', 'AUTO');
-        } else {
-            $filename = mb_convert_encoding($filename, 'EUC-JP', 'AUTO');
-        }
+    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        $filename = 
+            $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
     } else {
     $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
     }

@@ -1178,7 +1178,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
 }
 
 function processSubject($subject) {
-    global $squirrelmail_language;
+    global $languages, $squirrelmail_language;
   /* Shouldn't ever happen -- caught too many times in the IMAP functions */
   if ($subject == '')
     return _("(no subject)");
@@ -1206,8 +1206,8 @@ function processSubject($subject) {
     return $subject;
   }
   
-  if ($squirrelmail_language == 'ja_JP' && function_exists('mb_strimwidth')) {
-  	  return mb_strimwidth($subject, 0, $trim_val, '...');
+  if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+      return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
   }
   
   return substr($subject, 0, $trim_val) . '...';

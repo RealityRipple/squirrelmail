@@ -516,7 +516,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 	   $send_to = $orig_header->getAddr_s('to');	
 	   $send_to_cc = $orig_header->getAddr_s('cc');
 	   $send_to_bcc = $orig_header->getAddr_s('bcc');
-           $subject = $orig_header->subject;
+           $subject = decodeHeader($orig_header->subject);
 
            $body_ary = explode("\n", $body);
            $cnt = count($body_ary) ;
@@ -535,7 +535,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $send_to = $orig_header->getAddr_s('to');	
            $send_to_cc = $orig_header->getAddr_s('cc');
            $send_to_bcc = $orig_header->getAddr_s('bcc');
-           $subject = $orig_header->subject;
+           $subject = decodeHeader($orig_header->subject);
            $mailprio = $orig_header->priority;
            $orig_from = '';
            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
@@ -543,13 +543,13 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 	   break;
 	case ('forward'):
 	   $send_to = '';
-           $subject = $orig_header->subject;
+           $subject = decodeHeader($orig_header->subject);
            if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
               (substr(strtolower($subject), 0, 5) != '[fwd:') &&
               (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
               $subject = '[Fwd: ' . $subject . ']';
            }
-	   $body = getforwardHeader($orig_header) . charset_decode_japanese($body);
+	   $body = getforwardHeader($orig_header) . $body;
 	   sqUnWordWrap($body);
            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
 	   break;

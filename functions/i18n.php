@@ -17,8 +17,11 @@
 
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
+    global $languages, $squirrelmail_language;
 
-    $string = charset_decode_japanese($string);
+    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        $string = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $string);
+    }
 
     /* All HTML special characters are 7 bit and can be replaced first */
     $string = htmlspecialchars ($string);
@@ -675,31 +678,62 @@ function charset_decode_koi8r ($string) {
     return $string;
 }
 
+
 /*
- * for japanese
+ * Japanese charset extra function
+ *
  */
-function charset_decode_japanese($string)
-{
-    global $squirrelmail_language;
-    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding')) {
-        $detect_encoding = mb_detect_encoding($string);
-        if ($detect_encoding == 'JIS' || $detect_encoding == 'EUC-JP' || $detect_encoding == 'SJIS') {
-            $string = mb_convert_encoding($string, 'EUC-JP', 'AUTO');
+function japanese_charset_xtra() {
+    $ret = func_get_arg(1);  /* default return value */
+    if (function_exists('mb_detect_encoding')) {
+        switch (func_get_arg(0)) { /* action */
+        case 'decode':
+            $detect_encoding = mb_detect_encoding($ret);
+            if ($detect_encoding == 'JIS' ||
+                $detect_encoding == 'EUC-JP' ||
+                $detect_encoding == 'SJIS') {
+                
+                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+            }
+            break;
+        case 'encode':
+            $detect_encoding = mb_detect_encoding($ret);
+            if ($detect_encoding == 'JIS' ||
+                $detect_encoding == 'EUC-JP' ||
+                $detect_encoding == 'SJIS') {
+                
+                $ret = mb_convert_encoding($ret, 'JIS', 'AUTO');
+            }
+            break;
+        case 'strimwidth':
+            $width = func_get_arg(2);
+            $ret = mb_strimwidth($ret, 0, $width, '...'); 
+            break;
+        case 'encodeheader':
+            $ret = mb_encode_mimeheader($ret);
+            break;
+        case 'decodeheader':
+            $ret = str_replace("\t", "", $ret);
+            if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
+                $ret = mb_decode_mimeheader($ret);
+            $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+            break;
+        case 'downloadfilename':
+            $useragent = func_get_arg(2);
+            if (strstr($useragent, 'Windows') !== false ||
+                strstr($useragent, 'Mac_') !== false) {
+                $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
+            } else {
+                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+}
+            break;
+        default:
+            break;
         }
     }
-    return $string;
+    return $ret;
 }
-function charset_encode_japanese($string)
-{
-    global $squirrelmail_language;
-    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding')) {
-        $detect_encoding = mb_detect_encoding($string);
-        if ($detect_encoding == 'JIS' || $detect_encoding == 'EUC-JP' || $detect_encoding == 'SJIS') {
-            $string = mb_convert_encoding($string, 'JIS', 'AUTO');
-        }
-    }
-    return $string;
-}
+
 
 /*
  * Set up the language to be output
@@ -859,6 +893,7 @@ $languages['it']['ALIAS'] = 'it_IT';
 
 $languages['ja_JP']['NAME']    = 'Japanese';
 $languages['ja_JP']['CHARSET'] = 'iso-2022-jp';
+$languages['ja_JP']['XTRA_CODE'] = 'japanese_charset_xtra';
 $languages['ja']['ALIAS'] = 'ja_JP';
 
 $languages['ko_KR']['NAME']    = 'Korean';
