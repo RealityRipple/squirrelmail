@@ -567,10 +567,10 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
 function sqimap_create_stream($server,$port,$tls=false) {
     global $username, $use_imap_tls;
 
-    if ($use_imap_tls == true) {
+    if ($tls == true) {
         if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
             /* Use TLS by prefixing "tls://" to the hostname */
-            $server = 'tls://' . $imap_server_address;
+            $server = 'tls://' . $server;
         } else {
             require_once(SM_PATH . 'functions/display_messages.php');
             $string = "Unable to connect to IMAP server!<br>TLS is enabled, but this " .
