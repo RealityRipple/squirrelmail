@@ -173,13 +173,16 @@ if(isset($expungeButton)) {
     if (count($id)) {
         $cnt = count($id);
         if (!isset($attache)) {
-            $button_action = concat_hook_function('move_messages_button_action');
             if (isset($markRead)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',true,true);
             } else if (isset($markUnread)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',false,true);
+            } else if (isset($markFlagged)) {
+                sqimap_toggle_flag($imapConnection, $id, '\\Flagged', true, true);
+            } else if (isset($markUnflagged)) {
+                sqimap_toggle_flag($imapConnection, $id, '\\Flagged', false, true);
             } else  {
-                if (!$button_action) {
+                if (!boolean_hook_function('move_messages_button_action', NULL, 1)) {
                     sqimap_msgs_list_delete($imapConnection, $mailbox, $id,$bypass_trash);
                     if ($auto_expunge) {
                         $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
