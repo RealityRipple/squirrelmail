@@ -104,9 +104,11 @@ function sq_setlocale($category,$locale) {
  *
  * @param string $charset
  * @param string $string Text to be decoded
+ * @param boolean $force_decode converts string to html without $charset!=$default_charset check. 
+ * Argument is available since 1.5.1.
  * @return string decoded string
  */
-function charset_decode ($charset, $string) {
+function charset_decode ($charset, $string, $force_decode=false) {
     global $languages, $squirrelmail_language, $default_charset;
     global $use_php_recode, $use_php_iconv, $aggressive_decoding;
 
@@ -126,7 +128,7 @@ function charset_decode ($charset, $string) {
         $use_php_iconv=false; }
 
     // Don't do conversion if charset is the same.
-    if ( $charset == strtolower($default_charset) )
+    if ( ! $force_decode && $charset == strtolower($default_charset) )
         return htmlspecialchars($string);
 
     // catch iso-8859-8-i thing
@@ -225,7 +227,7 @@ function charset_encode($string,$charset,$htmlencode=true) {
  * @return string converted string
  */
 function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
-    $string=charset_decode($in_charset,$string);
+    $string=charset_decode($in_charset,$string,true);
     $string=charset_encode($string,$out_charset,$htmlencode);
     return $string;
 }
