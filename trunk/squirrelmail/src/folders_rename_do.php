@@ -33,10 +33,10 @@
    else
       $newone = "$new_name";
 
-   $cmd = "a024 RENAME \"" . quoteIMAP($orig) . "\" \"" .
+   $cmd = sqimap_session_id() . " RENAME \"" . quoteIMAP($orig) . "\" \"" .
       quoteIMAP($newone) . "\"\r\n";
    fputs ($imapConnection, $cmd);
-   $data = sqimap_read_data($imapConnection, "a024", true, $a, $b);
+   $data = sqimap_read_data($imapConnection, sqimap_session_id(), true, $a, $b);
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
@@ -47,9 +47,9 @@
    sqimap_unsubscribe($imapConnection, $orig);
    sqimap_subscribe($imapConnection, $newone);
 
-   fputs ($imapConnection, "a001 LIST \"\" \"" . quoteIMAP($newone) .
+   fputs ($imapConnection, sqimap_session_id() . " LIST \"\" \"" . quoteIMAP($newone) .
       "*\"\r\n");
-   $data = sqimap_read_data($imapConnection, "a001", true, $a, $b);
+   $data = sqimap_read_data($imapConnection, sqimap_session_id(), true, $a, $b);
    for ($i=0; $i < count($data); $i++)
    {
       $name = find_mailbox_name($data[$i]);
