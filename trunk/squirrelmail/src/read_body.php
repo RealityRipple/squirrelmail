@@ -694,6 +694,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
         $menu_row .= '<form action="'.$base_uri.'src/move_messages.php?'.$current_box.'" method="post">'.
               '<small><input type="hidden" name="show_more" value="0" />'.
+              '<input type="hidden" name="dmn" value="1" />'.
               '<input type="hidden" name="location" value="'.$location.$current_box.'" />'.
               '<input type="hidden" name="msg[0]" value="'.$passed_id.'" />'._("Move to:") .
               '<select name="targetMailbox" style="padding: 0px; margin: 0px">';

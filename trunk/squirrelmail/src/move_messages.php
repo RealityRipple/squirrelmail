@@ -117,6 +117,7 @@ sqgetGlobalVar('markUnflagged',   $markUnflagged,   SQ_POST);
 sqgetGlobalVar('attache',         $attache,         SQ_POST);
 sqgetGlobalVar('location',        $location,        SQ_POST);
 sqgetGlobalVar('bypass_trash',    $bypass_trash,    SQ_POST);
+sqgetGlobalVar('dmn',             $is_dmn,          SQ_POST);
 
 /* end of get globals */
 
@@ -214,12 +215,18 @@ if(isset($expungeButton)) {
     }
 } else {    // Move messages
 
-    if (count($id)) {
-        sqimap_msgs_list_move($imapConnection,$id,$targetMailbox);
-        if ($auto_expunge) {
-            $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    $num_ids = count($id);
+    if ( $num_ids > 0 ) {
+        if ( $is_dmn && count($id) == 1 ) {
+            sqimap_msgs_list_move($imapConnection,$id[0],$targetMailbox);
+            $cnt = sqimap_mailbox_expunge_dmn($id[0]);
         } else {
-            $cnt = 0;
+            sqimap_msgs_list_move($imapConnection,$id,$targetMailbox);
+            if ($auto_expunge) {
+                $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+            } else {
+                $cnt = 0;
+            }
         }
 
         if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
