@@ -1249,19 +1249,21 @@ sub command41 {
          $cnt = 0;
          while ($cnt <= $#files) {
             $filename = "../themes/" . $files[$cnt];
-            $found = 0;
-            for ($x=0; $x <= $#theme_path; $x++) {
-               if ($theme_path[$x] eq $filename) {
-                  $found = 1;
+               if ($filename ne "../themes/index.php") {
+               $found = 0;
+               for ($x=0; $x <= $#theme_path; $x++) {
+                  if ($theme_path[$x] eq $filename) {
+                     $found = 1;
+                  }
                }
-            }
-            if ($found != 1) {
-               print "** Found theme: $filename\n";
-               print "   What is its name? ";
-               $nm = <STDIN>;
-               $nm =~ s/[\n|\r]//g;
-               $theme_name[$#theme_name+1] = $nm;
-               $theme_path[$#theme_path+1] = $filename;
+               if ($found != 1) {
+                  print "** Found theme: $filename\n";
+                  print "   What is its name? ";
+                  $nm = <STDIN>;
+                  $nm =~ s/[\n|\r]//g;
+                  $theme_name[$#theme_name+1] = $nm;
+                  $theme_path[$#theme_path+1] = $filename;
+               }
             }
             $cnt++;
          }
