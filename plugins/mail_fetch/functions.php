@@ -20,6 +20,7 @@
         /* Original code by josh@superfork.com */
 
         $len = strlen($data);
+        $newdata = '';
         for( $i=0; $i < $len; $i += 2 ) {
             $newdata .= pack( "C", hexdec( substr( $data, $i, 2) ) );
         }
