@@ -187,12 +187,12 @@ function sqimap_get_sort_order ($imap_stream, $sSortField = 'UID',$reverse) {
 * @param resource $imap_stream IMAP socket connection
 * @param string $sSortField Field to sort on
 * @param bool $reverse Reverse order search
-* @param mixed $key UNDOCUMENTED
-* @return array $id sorted uid list
+* @return array $aUid sorted uid list
 */
 function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
 
     if ($sSortField == 'UID') {
+        // FIX ME: this is not needed. Try to find another way to solve this
         $query = "SEARCH UID 1:*";
         $uids = sqimap_run_command ($imap_stream, $query, true, $response, $message, true);
         if (isset($uids[0])) {
@@ -210,82 +210,66 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
                                       array(), array('UID', $sSortField));
     }
+    $walk = false;
     switch ($sSortField) {
+      // natcasesort section
       case 'FROM':
-        array_walk($msgs, create_function('&$v,&$k',
-              '$from = parseAddress($v["FROM"]);
-               $v["FROM"] = ($from[0][1]) ? decodeHeader($from[0][1]):$from[0][0];'));
-        foreach ($msgs as $item) {
-            $msort["$item[ID]"] = (isset($item['FROM'])) ? $item['FROM'] : '';
-        }
-
-        natcasesort($msort);
-        $msort = array_keys($msort);
-        if ($reverse) {
-           array_reverse($msort);
-        }
-        break;
       case 'TO':
-        array_walk($msgs, create_function('&$v,&$k',
-              '$from = parseAddress($v["TO"]);
-               $v["TO"] = ($from[0][1]) ? decodeHeader($from[0][1]):$from[0][0];'));
-        foreach ($msgs as $item) {
-            $msort["$item[ID]"] = (isset($item['TO'])) ? $item['TO'] : '';
+      case 'CC':
+        if(!$walk) {
+            array_walk($msgs, create_function('&$v,&$k,$f',
+                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
+                 $addr = parseAddress($v[$f]);
+                 $v[$f] = ($addr[0][1]) ? decodeHeader($addr[0][1]):$addr[0][0];'),$sSortField);
+            $walk = true;
         }
-
-        natcasesort($msort);
-        $msort = array_keys($msort);
-        if ($reverse) {
-           array_reverse($msort);
-        }
-        break;
-
+        // nobreak
       case 'SUBJECT':
-        array_walk($msgs, create_function('&$v,&$k',
-              '$v["SUBJECT"] = strtolower(decodeHeader(trim($v["SUBJECT"])));
-               $v["SUBJECT"] = (preg_match("/^(vedr|sv|re|aw|\[\w\]):\s*(.*)$/si", $v["SUBJECT"], $matches)) ?
-                                  $matches[2] : $v["SUBJECT"];'));
-        foreach ($msgs as $item) {
-            $msort["$item[ID]"] = $item['SUBJECT'];
+        if(!$walk) {
+            array_walk($msgs, create_function('&$v,&$k,$f',
+                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
+                 $v[$f] = strtolower(decodeHeader(trim($v[$f])));
+                 $v[$f] = (preg_match("/^(vedr|sv|re|aw|\[\w\]):\s*(.*)$/si", $v[$f], $matches)) ?
+                                    $matches[2] : $v[$f];'),$sSortField);
+            $walk = true;
         }
-        natcasesort($msort);
-        $msort = array_keys($msort);
+        foreach ($msgs as $item) {
+            $aUid[$item['ID']] = $item[$sSortField];
+        }
+        natcasesort($aUid);
+        $aUid = array_keys($aUid);
         if ($reverse) {
-           array_reverse($msort);
+             array_reverse($aUid);
         }
         break;
+        //  \natcasesort section
+      // sort_numeric section
       case 'DATE':
-        array_walk($msgs, create_function('&$v,$k',
-            '$v["DATE"] = getTimeStamp(explode(" ",$v["DATE"]));'));
-        foreach ($msgs as $item) {
-            $msort[$item['ID']] = $item['DATE'];
-        }
-        if ($reverse) {
-            arsort($msort,SORT_NUMERIC);
-        } else {
-            asort( $msort, SORT_NUMERIC);
-        }
-        $msort = array_keys($msort);
-        break;
-      case 'RFC822.SIZE':
       case 'INTERNALDATE':
-        //array_walk($msgs, create_function('&$v,$k',
-        //    '$v["RFC822.SIZE"] = getTimeStamp(explode(" ",$v["RFC822.SIZE"]));'));
+        if(!$walk) {
+            array_walk($msgs, create_function('&$v,$k,$f',
+                '$v[$f] = (isset($v[$f])) ? $v[$f] : "";
+                 $v[$f] = getTimeStamp(explode(" ",$v[$f]));'),$sSortField);
+            $walk = true;
+        }
+        // nobreak;
+      case 'RFC822.SIZE':
         foreach ($msgs as $item) {
-            $msort[$item['ID']] = $item[$sSortField];
+            $aUid[$item['ID']] = isset($item['SIZE']) ? $item['SIZE'] : 0;
         }
         if ($reverse) {
-            arsort($msort,SORT_NUMERIC);
+            arsort($aUid,SORT_NUMERIC);
         } else {
-            asort($msort, SORT_NUMERIC);
+            asort($aUid, SORT_NUMERIC);
         }
-        $msort = array_keys($msort);
+        $aUid = array_keys($aUid);
         break;
+        // \sort_numeric section
       case 'UID':
-        $msort = array_reverse($msgs);
+        $aUid = array_reverse($msgs);
         break;
     }
-    return $msort;
+    return $aUid;
 }
 
 /**
@@ -293,27 +277,49 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
 * This represents the amount of indent needed (value),
 * for this message number (key)
 */
+
+/*
+ * Notes for future work:
+ * indent_array should contain: indent_level, parent and flags,
+ * sibling notes ..
+ * To achieve that we  need to define the following flags:
+ * 0: hasnochildren
+ * 1: haschildren
+ * 2: is first
+ * 4: is last
+ * a node has sibling nodes if it's not the last node
+ * a node has no sibling nodes if it's the last node
+ * By using binary comparations we can store the flag in one var
+ *
+ * example:
+ * -1      par = 0, level = 0, flag = 1 + 2 + 4 = 7 (haschildren,   isfirst, islast)
+ *  \-2    par = 1, level = 1, flag = 0 + 2     = 2 (hasnochildren, isfirst)
+ *  |-3    par = 1, level = 1, flag = 1 + 4     = 5 (haschildren,   islast)
+ *   \-4   par = 3, level = 2, flag = 1 + 2 + 4 = 7 (haschildren,   isfirst, islast)
+ *     \-5 par = 4, level = 3, flag = 0 + 2 + 4 = 6 (hasnochildren, isfirst, islast)
+ */
 function get_parent_level ($thread_new) {
     $parent = '';
     $child  = '';
     $cutoff = 0;
 
-    /* loop through the threads and take unwanted characters out
-    of the thread string then chop it up
-    */
+    /*
+     * loop through the threads and take unwanted characters out
+     * of the thread string then chop it up
+     */
     for ($i=0;$i<count($thread_new);$i++) {
         $thread_new[$i] = preg_replace("/\s\(/", "(", $thread_new[$i]);
         $thread_new[$i] = preg_replace("/(\d+)/", "$1|", $thread_new[$i]);
         $thread_new[$i] = preg_split("/\|/", $thread_new[$i], -1, PREG_SPLIT_NO_EMPTY);
     }
     $indent_array = array();
-        if (!$thread_new) {
-            $thread_new = array();
-        }
+    if (!$thread_new) {
+        $thread_new = array();
+    }
     /* looping through the parts of one message thread */
 
     for ($i=0;$i<count($thread_new);$i++) {
-    /* first grab the parent, it does not indent */
+        /* first grab the parent, it does not indent */
 
         if (isset($thread_new[$i][0])) {
             if (preg_match("/(\d+)/", $thread_new[$i][0], $regs)) {
@@ -322,26 +328,27 @@ function get_parent_level ($thread_new) {
         }
         $indent_array[$parent] = 0;
 
-    /* now the children, checking each thread portion for
-    ),(, and space, adjusting the level and space values
-    to get the indent level
-    */
+        /*
+         * now the children, checking each thread portion for
+         * ),(, and space, adjusting the level and space values
+         * to get the indent level
+         */
         $level = 0;
         $spaces = array();
         $spaces_total = 0;
         $indent = 0;
         $fake = FALSE;
-        for ($k=1;$k<(count($thread_new[$i]))-1;$k++) {
+        for ($k=1,$iCnt=count($thread_new[$i])-1;$k<$iCnt;++$k) {
             $chars = count_chars($thread_new[$i][$k], 1);
             if (isset($chars['40'])) {       /* testing for ( */
-                $level = $level + $chars['40'];
+                $level += $chars['40'];
             }
             if (isset($chars['41'])) {      /* testing for ) */
-                $level = $level - $chars['41'];
+                $level -= $chars['41'];
                 $spaces[$level] = 0;
                 /* if we were faking lets stop, this portion
-                of the thread is over
-                */
+                 * of the thread is over
+                 */
                 if ($level == $cutoff) {
                     $fake = FALSE;
                 }
@@ -350,17 +357,17 @@ function get_parent_level ($thread_new) {
                 if (!isset($spaces[$level])) {
                     $spaces[$level] = 0;
                 }
-                $spaces[$level] = $spaces[$level] + $chars['32'];
+                $spaces[$level] += $chars['32'];
             }
             for ($x=0;$x<=$level;$x++) {
                 if (isset($spaces[$x])) {
-                    $spaces_total = $spaces_total + $spaces[$x];
+                    $spaces_total += $spaces[$x];
                 }
             }
             $indent = $level + $spaces_total;
             /* must have run into a message that broke the thread
-            so we are adjusting for that portion
-            */
+             * so we are adjusting for that portion
+             */
             if ($fake == TRUE) {
                 $indent = $indent +1;
             }
@@ -368,17 +375,17 @@ function get_parent_level ($thread_new) {
                 $child = $regs[1];
             }
             /* the thread must be broken if $indent == 0
-            so indent the message once and start faking it
-            */
+             * so indent the message once and start faking it
+             */
             if ($indent == 0) {
                 $indent = 1;
                 $fake = TRUE;
                 $cutoff = $level;
             }
             /* dont need abs but if indent was negative
-            errors would occur
-            */
-            $indent_array[$child] = abs($indent);
+             * errors would occur
+             */
+            $indent_array[$child] = ($indent < 0) ? 0 : $indent;
             $spaces_total = 0;
         }
     }
@@ -404,58 +411,66 @@ function get_thread_sort ($imap_stream) {
     $thread_temp = array ();
     if ($sort_by_ref == 1) {
         $sort_type = 'REFERENCES';
-    }
-    else {
+    } else {
         $sort_type = 'ORDEREDSUBJECT';
     }
     $query = "THREAD $sort_type ".strtoupper($default_charset)." ALL";
     $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
     if (isset($thread_test[0])) {
         for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
-        if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
-            $thread_list = trim($regs[1]);
-        break;
+            if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
+                $thread_list = trim($regs[1]);
+                break;
+            }
         }
-        }
-    }
-    else {
-    $thread_list = "";
+    } else {
+        $thread_list = "";
     }
     if (!preg_match("/OK/", $response)) {
-    $server_sort_array = 'no';
-    return $server_sort_array;
+        $server_sort_array = 'no';
+        return $server_sort_array;
     }
     if (isset($thread_list)) {
         $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     }
+
     $char_count = count($thread_temp);
     $counter = 0;
     $thread_new = array();
     $k = 0;
     $thread_new[0] = "";
-    for ($i=0;$i<$char_count;$i++) {
+    /*
+     * parse the thread response into separate threads
+     *
+     * example:
+     *         [0] => (540)
+     *         [1] => (1386)
+     *         [2] => (1599 759 959 37)
+     *         [3] => (492 1787)
+     *         [4] => ((933)(1891))
+     *         [5] => (1030 (1497)(845)(1637))
+     */
+    for ($i=0,$iCnt=count($thread_temp);$i<$iCnt;$i++) {
         if ($thread_temp[$i] != ')' && $thread_temp[$i] != '(') {
                 $thread_new[$k] = $thread_new[$k] . $thread_temp[$i];
-        }
-        elseif ($thread_temp[$i] == '(') {
+        } elseif ($thread_temp[$i] == '(') {
                 $thread_new[$k] .= $thread_temp[$i];
                 $counter++;
-        }
-        elseif ($thread_temp[$i] == ')') {
-                if ($counter > 1) {
-                        $thread_new[$k] .= $thread_temp[$i];
-                        $counter = $counter - 1;
-                }
-                else {
-                        $thread_new[$k] .= $thread_temp[$i];
-                        $k++;
-                        $thread_new[$k] = "";
-                        $counter = $counter - 1;
-                }
+        } elseif ($thread_temp[$i] == ')') {
+            if ($counter > 1) {
+                $thread_new[$k] .= $thread_temp[$i];
+                $counter = $counter - 1;
+            } else {
+                $thread_new[$k] .= $thread_temp[$i];
+                $k++;
+                $thread_new[$k] = "";
+                $counter = $counter - 1;
+            }
         }
     }
     sqsession_register($thread_new, 'thread_new');
     $thread_new = array_reverse($thread_new);
+    /* place the threads after each other in one string */
     $thread_list = implode(" ", $thread_new);
     $thread_list = str_replace("(", " ", $thread_list);
     $thread_list = str_replace(")", " ", $thread_list);
