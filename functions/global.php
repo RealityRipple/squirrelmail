@@ -229,19 +229,11 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
  *  (in that order) and register it as a global var.
  */
 function sqextractGlobalVar ($name) {
-    if ( !check_php_version(4,1) ) {
-        global $_SESSION, $_GET, $_POST;
-    }
-    global  $$name;
-    if( isset($_SESSION[$name]) ) {
-        $$name = $_SESSION[$name];
-    }
-    if( isset($_POST[$name]) ) {
-        $$name = $_POST[$name];
-    }
-    else if ( isset($_GET[$name]) ) {
-        $$name =  $_GET[$name];
-    }
+
+    global $$name;
+
+    sqgetGlobalVar($name, $$name);
+
 }
 
 function sqsession_destroy() {
