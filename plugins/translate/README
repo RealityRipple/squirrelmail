@@ -42,7 +42,7 @@ Babelfish = babelfish.altavista.com
 Go.com = translator.go.com (disabled - service unavailable)
 Dictionary.com = www.dictionary.com/translate
 InterTran = tranexp.com
-GPLTrans = www.translator.cx
+GPLTrans = www.translator.cx (disabled - service unavailable)
 OteNet = systran.otenet.gr
 Promt = www.translate.ru
 Google Translate = www.google.com/translate
@@ -52,3 +52,7 @@ Installation
 
 Go back to the main directory, run configure and add the plugin.
 
+Some plugin settings can be adjusted by creating 
+config/translate_config.php or plugins/translate/config.php 
+configuration file. See plugins/translate/config_default.php and 
+plugins/translate/config_sample.php
