@@ -2,7 +2,7 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
-Version 1.2.6 -- CVS
+Version 1.2.6 -- April 29 2002 
 --------------------
   - A complete MagicHTML rewrite since the existing codebase was
     causing too many XSS problems. Hopefully now Nick Cleaton will
