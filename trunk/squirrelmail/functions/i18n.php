@@ -6,8 +6,8 @@
  ** This file contains variuos functions that are needed to do
  ** internationalization of SquirrelMail.
  **
- ** Internally iso-8859-1 is used as character set. Other characters
- ** are encoded using Unicode entities according to HTML 4.0.
+ ** Internally the output character set is used. Other characters are
+ ** encoded using Unicode entities according to HTML 4.0.
  **
  **/
 
