@@ -36,7 +36,8 @@ function adm_check_user() {
     } else if (file_exists(SM_PATH . 'config/admins')) {
         $auths = file(SM_PATH . 'config/admins');
         $auth = in_array("$username\n", $auths);
-    } else if ($adm_id = fileowner(SM_PATH . 'config/config.php')) {
+    } else if ($adm_id = fileowner(SM_PATH . 'config/config.php') &&
+               function_exists('posix_getpwuid')) {
         $adm = posix_getpwuid( $adm_id );
         $auth = ($username == $adm['name']);
     } else {
