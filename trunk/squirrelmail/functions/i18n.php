@@ -32,6 +32,7 @@
    $languages['cs_CZ']['NAME']    = 'Czech';
    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    $languages['cs']['ALIAS']      = 'cs_CZ';
+   $languages['cz']['ALIAS']      = 'cs_CZ'; // set up by some ancient versions of IE
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
