@@ -60,6 +60,8 @@ Version 1.5.0 -- CVS
   - Fix when forwarding messages as attachment from message list, the displayed subject
     was wrong (appearing to the user that the wrong messages were attached).
     Closes #772371.
+  - Fix that when user has no theme preference set, Alien Glow would be selected under
+    display preferences in stead of Default.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
