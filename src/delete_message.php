@@ -19,7 +19,7 @@
 
    displayPageHeader($color, $mailbox);
 
-   sqimap_message_delete($imapConnection, $message, $message, $mailbox);
+   sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
    messages_deleted_message($mailbox, $sort, $startMessage, $color);
 ?>
 </BODY></HTML>
