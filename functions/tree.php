@@ -60,7 +60,7 @@
             if ($numMessages > 0) {
                sqimap_mailbox_select($imap_stream, $trash_folder);
                sqimap_messages_flag ($imap_stream, 1, $numMessages, "Deleted");
-               sqimap_mailbox_expunge($imap_stream, $trash_folder);
+               sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
                sqimap_mailbox_close($imap_stream);
             }
          }
@@ -72,7 +72,7 @@
             if ($numMessages > 0) {
                sqimap_mailbox_select($imap_stream, $trash_folder);
                sqimap_messages_flag ($imap_stream, 1, $numMessages, "Deleted");
-               sqimap_mailbox_expunge($imap_stream, $trash_folder);
+               sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
                sqimap_mailbox_close($imap_stream);
             }
          }
