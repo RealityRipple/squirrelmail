@@ -25,6 +25,7 @@ Version 1.5.0 -- CVS
   - Remove obsoleted parsing functions.
   - Fixed language bug in posting on modifying/deleting servers on mail_fetch plugin
     (#742705).
+  - Fixed infinite loop in parseAddress on invalid mailadress (#742584).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
