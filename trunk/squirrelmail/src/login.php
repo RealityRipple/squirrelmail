@@ -120,6 +120,7 @@
    if ($rcptaddress != '') {
       echo "               <INPUT TYPE=HIDDEN NAME=\"rcptemail\" VALUE=\"".htmlspecialchars($rcptaddress)."\">\n";
    }
+   echo "            </TR>\n";
    echo "         </TABLE>\n";
    echo "      </TD>\n";
    echo "   </TR><TR>\n";
