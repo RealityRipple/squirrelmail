@@ -214,6 +214,11 @@ Version 1.5.1 -- CVS
   - Fix for #855320 where Outlook Express was creating CID: based URLs,
     but not assigning a content-id to the attachment.  This is a bug in
 	Outlook Express and is non-RFC compliant behaviour.
+  - Strip <outbind://> tags out. This is a Microsoft only protocol and
+    references files local to the sending machine.  This causes issues
+	with Internet Explorer.
+  - Replace <img src="outbind://"> links with clean images to stop
+    issues with Internet Explorer not being able to track down the image.
 
 
 Version 1.5.0
