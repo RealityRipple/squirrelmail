@@ -667,6 +667,25 @@ class message
         $this->entities[] = $msg;
     }
 
+    function getFilename()
+    {
+	$filename = '';
+	if (is_object($this->header->disposition))
+	{
+	    $filename = $this->header->disposition->getproperty('filename');
+	    if (!$filename)
+	    {
+		$filename = $this->header->disposition->getproperty('name');
+	    }
+	}
+	if (!$filename)
+	{
+	    $filename = 'untitled-'.$this->entity_id;
+	}
+	return $filename;
+    }
+
+
     function addRFC822Header($read)
     {
 	$header = new rfc822_header();
