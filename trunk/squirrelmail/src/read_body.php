@@ -102,7 +102,7 @@
          }
       } else {
          for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
-            if ($currentArrayIndex == $msgs[$key]['ID') {
+            if ($currentArrayIndex == $msgs[$key]['ID']) {
                next($msort); 
                $key = key($msort);
                if (isset($key)) 
