@@ -34,7 +34,8 @@
    function parseUrl ($body) {
       #Possible ways a URL could finish.
 
-      $poss_ends=array(" ", "\n", "\r", "<", ">", ".\r", ".\n", ".&nbsp", "&nbsp", ")", "(","&quot");
+      $poss_ends=array(" ", "\n", "\r", "<", ">", ".\r", ".\n", ".&nbsp;", "&nbsp;", ")", "(", 
+                       "&quot;", "&lt;", "&gt;", ".<");
       $done=False;
       while (!$done) {
          #Look for when a URL starts
@@ -56,12 +57,14 @@
                if ($end == 0) $end = $enda;
                if ($enda < $end and $enda != 0) $end = $enda;
             } 
+            if (!$end) $end = strlen($body);
             #Extract URL
             $url = substr($body,$where,$end-$where);
             #Replace URL with HyperLinked Url
             if ($url != "") {
                $url_str = "<a href=\"$url\" target=\"_blank\">$url</a>";
                #    $body = str_replace($url,$url_str,$body); 
+               echo "$where, $end<br>";
                $body = replaceBlock($body,$url_str,$where,$end);
                $start = strpos($body,"</a>",$where);
             } else { 

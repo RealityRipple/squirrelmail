@@ -224,12 +224,13 @@ if (!$default_unseen_type) {
 
 while (($command ne "q") && ($command ne "Q")) {
    system "clear";
-   if ($menu == 0) {
-      print $WHT."SquirrelMail Configuration : ".$NRM;
-      if ($config == 1) { print "Read: config.php"; }
-      elsif ($config == 2) { print "Read: config_default.php"; }
-      print "\n";
+   print $WHT."SquirrelMail Configuration : ".$NRM;
+   if ($config == 1) { print "Read: config.php"; }
+   elsif ($config == 2) { print "Read: config_default.php"; }
+   print "\n";
+   print "---------------------------------------------------------\n";
 
+   if ($menu == 0) {
       print $WHT."Main Menu --\n".$NRM;
       print "1.  Organization Preferences\n";
       print "2.  Server Settings\n";
@@ -1475,6 +1476,12 @@ sub save_data {
 
 sub set_defaults {
    system "clear";
+   print $WHT."SquirrelMail Configuration : ".$NRM;
+   if ($config == 1) { print "Read: config.php"; }
+   elsif ($config == 2) { print "Read: config_default.php"; }
+   print "\n";
+   print "---------------------------------------------------------\n";
+
    print "While we have been building SquirrelMail, we have discovered some\n";
    print "preferences that work better with some servers that don't work so\n";
    print "well with others.  If you select your IMAP server, this option will\n";
@@ -1541,12 +1548,21 @@ sub set_defaults {
 			$sent_folder = "INBOX/Sent Items";
 			$show_prefix_option = false;
 			$show_contain_subfolders_option = false;
-			
 			$imap_server_type = "exchange";
+         
+         print "          default_folder_prefix = INBOX/\n";
+         print "           default_sub_of_inbox = true\n";
+         print "                   trash_folder = \"INBOX/Deleted Items\"\n";
+         print "                    sent_folder = \"INBOX/Sent Items\"\n";
+         print "             show_prefix_option = false\n";
+         print " show_contain_subfolders_option = false\n";
+         print "               imap_server_type = exchange\n";
          
 			$continue = 1;
       } elsif ($server eq "courier") {
 			$imap_server_type = "courier";
+
+         print "   imap_server_type = courier\n";
 			
          $continue = 1;
 		} elsif ($server eq "quit") {
