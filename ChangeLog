@@ -38,6 +38,8 @@ Version 1.2.2 -- 1 January 2002
   - Fixes for entities in the subject when replying.
   - Fixes for entities in the To: header. (Bug #489365)
   - Fix for incorrect javascript prefs handling (Bug #497688)
+  - Added color 15 for themes to separate background and foreground colors.
+  - Added several new themes.
 
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
