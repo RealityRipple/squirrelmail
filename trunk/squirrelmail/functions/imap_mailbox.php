@@ -1,6 +1,9 @@
 <?php
+
    /**
     **  imap_mailbox.php
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
     **
     **  This impliments all functions that manipulate mailboxes
     **
@@ -44,8 +47,8 @@
              $read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
       if ($recent) {
          for ($i=0; $i<count($read); $i++) {
-            if (strpos(strtolower($read[$i]), "recent")) {
-               $r = explode(" ", $read[$i]);
+            if (strpos(strtolower($read[$i]), 'recent')) {
+               $r = explode(' ', $read[$i]);
             }
          }
          return $r[1];
