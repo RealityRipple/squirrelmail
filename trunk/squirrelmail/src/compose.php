@@ -808,7 +808,7 @@ function showInputForm ($session, $values=false) {
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
            $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action, 
-           $username, $compose_messages, $composesession;
+           $username, $compose_messages, $composesession, $default_charset;
 
     $composeMessage = $compose_messages[$session];
 
@@ -950,7 +950,7 @@ function showInputForm ($session, $values=false) {
     }
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($sig_first == '1') {
-            if ($charset == 'iso-2022-jp') {
+            if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             } else {
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
@@ -959,7 +959,7 @@ function showInputForm ($session, $values=false) {
         }
         else {
             echo "\n\n".htmlspecialchars($body);
-            if ($charset == 'iso-2022-jp') {
+            if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
