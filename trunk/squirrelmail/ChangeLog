@@ -10,6 +10,7 @@ Version 1.2.3 -- ??
   - Disabled prefs caching under PHP 4.1
   - Added "Search Memory". Enabling to store up to
     9 predefined searchs.
+  - Increased security in html message.
 
 Version 1.2.2 -- 1 January 2002
 -------------------------------
