@@ -155,6 +155,8 @@ function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$mes
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
     global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
 
+    $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
+
     $imap_stream = fsockopen ( $imap_server_address, $imap_port, $error_number, $error_string, 15);
     if ( !$imap_stream ) {
         return false;
@@ -395,5 +397,25 @@ function sqimap_append_done ($imap_stream) {
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
 }
+
+function sqimap_get_user_server ($imap_server, $username) {
+
+   if (substr($imap_server, 0, 4) != "map:") {
+       return $imap_server;
+   }
+
+   $function = substr($imap_server, 4);
+   return $function($username);
+}
+
+/* This is an example that gets imapservers from yellowpages (NIS).
+ * you can simple put map:map_yp_alias in your $imap_server_address 
+ * in config.php use your own function instead map_yp_alias to map your
+ * LDAP whatever way to find the users imapserver. */
+
+function map_yp_alias($username) {
+   $yp = `ypmatch $username aliases`;
+   return chop(substr($yp, strlen($username)+1));
+} 
 
 ?>
