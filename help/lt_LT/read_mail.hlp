@@ -1,26 +1,26 @@
 <chapter>
    <title>
-      Paðto þinuèiø skaitymas
+      Pa¹to ¾inuèiù skaitymas
    </title>
    <summary>
-      Gebëjimas skaityti paðto þinutes yra privaloma kiekvienos paðto
-      programos savybë. Squirrelmail turi kelias paprastas galimybes.
-      Ðioje pagalbos sistemos dalyje jûs galite rasti, kà tokio ir kaip 
+      Gebìjimas skaityti pa¹to ¾inutes yra privaloma kiekvienos pa¹to
+      programos savybì. Squirrelmail turi kelias paprastas galimybes.
+      ©ioje pagalbos sistemos dalyje jþs galite rasti, k± tokio ir kaip 
 		galima padaryti.
    </summary>
    <description>
       <p>
-	Þinutës turinys yra parodomas spragtelëjus ant jos antraðtës. Paðto
-	ir interneto adresai paprastai atrodo kaip nuorodos ir spragtelëjæ 
-	ant jø jûs galite pradëti raðyti laiðkà arba nukeliauti á koká nors
-	puslapá. Be to susijusios þinutës paprastai yra skiriamos spalviniais
-	kodais. Atsakymo á þinutæ standartas yra paþymëti anktesnës þinutës
-	tekstus su ">" simboliu. Sàuirrelmail atpaþásta ðá simbolá ir 
-  	nuspalvina visa kita tos eilutes tekstà kita spalva. Visa tai veikia 
-	dviem lygiais (antra ir aukðtesnë þinutë turës tà paèià spalvà). Be to
-	pasirodo dar viena meniu juosta, kuri leidþia iðtrinti þinutæ arba
-	gráþti á þinuèiø sàraðà. Taip pat pateikiamos judëjimo tarp þinuèiø 
-	nuorodos bei galimybës atsakyti á þinutes arba jas persiøsti treèiam
+	®inutìs turinys yra parodomas spragtelìjus ant jos antra¹tìs. Pa¹to
+	ir interneto adresai paprastai atrodo kaip nuorodos ir spragtelìjê 
+	ant jù jþs galite pradìti ra¹yti lai¹k± arba nukeliauti ç kokç nors
+	puslapç. Be to susijusios ¾inutìs paprastai yra skiriamos spalviniais
+	kodais. Atsakymo ç ¾inutê standartas yra pa¾ymìti anktesnìs ¾inutìs
+	tekstus su ">" simboliu. S±uirrelmail atpa¾çsta ¹ç simbolç ir 
+  	nuspalvina visa kita tos eilutes tekst± kita spalva. Visa tai veikia 
+	dviem lygiais (antra ir auk¹tesnì ¾inutì turìs t± paèi± spalv±). Be to
+	pasirodo dar viena meniu juosta, kuri leid¾ia i¹trinti ¾inutê arba
+	grç¾ti ç ¾inuèiù s±ra¹±. Taip pat pateikiamos judìjimo tarp ¾inuèiù 
+	nuorodos bei galimybìs atsakyti ç ¾inutes arba jas persiùsti treèiam
 	asmeniui.
       </p>
    </description>
@@ -28,38 +28,38 @@
 
 <section>
    <title>
-      Þinuèiø sàraðas
+      ®inuèiù s±ra¹as
    </title>
    <description>
       <p>
-      Paspaudæ èia jûs gráðite á þinuèiø sàraðà.
+      Paspaudê èia jþs grç¹ite ç ¾inuèiù s±ra¹±.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Iðtrinti
+      I¹trinti
    </title>
    <description>
       <p>
-      Nuoroda leidþia iðtrinti tà þinutæ, kurià ðiuo metu skaitote. Bus
-	iðtrinta ne tik þinutë bet ir visi prie jos prikabinti failai. Todël
-	jei nenorite prarasti tø dokumentø - nepamirðkite jø parsisiøsti
-	arba netrinkite svarbiø þinuèiø.
+      Nuoroda leid¾ia i¹trinti t± ¾inutê, kuri± ¹iuo metu skaitote. Bus
+	i¹trinta ne tik ¾inutì bet ir visi prie jos prikabinti failai. Todìl
+	jei nenorite prarasti tù dokumentù - nepamir¹kite jù parsisiùsti
+	arba netrinkite svarbiù ¾inuèiù.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Judëjimas
+      Judìjimas
    </title>
    <description>
       <p>
-      Juostos viduryje yra judëjimo mygtukai. Nuoroda "Ankstesnis" parodys jums
-	þinutæ, atëjusià anksèiau. Nuoroda veiks tik tuo atveju, jei atitinkama 
-	þinutë egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
+      Juostos viduryje yra judìjimo mygtukai. Nuoroda "Ankstesnis" parodys jums
+	¾inutê, atìjusi± anksèiau. Nuoroda veiks tik tuo atveju, jei atitinkama 
+	¾inutì egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
       </p>
    </description>
 </section>
@@ -70,23 +70,23 @@
    </title>
    <description>
       <p>
-	Nuoroda "Kitas" naujesnæ þinutæ (laiðkà). Nuoroda veiks tik tuo atveju, 
-	jei atitinkama  þinutë egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
+	Nuoroda "Kitas" naujesnê ¾inutê (lai¹k±). Nuoroda veiks tik tuo atveju, 
+	jei atitinkama  ¾inutì egzistuos. Kitu atveju ji niekur neves ir bus neaktyvi.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Persiøsti
+      Persiùsti
    </title>
    <description>
       <p>
-      Nuoroda Persiøsti atidarys þinutës raðymo langà kuriame bus iðvestas 
-	laiðko turinys atskirtas þyme "--Originali þinutë--".  Fwd: bus áterptas
-	naujojo laiðko temoje prieðais senojo laiðko temos pavadinimà. Visos kitos 
-	atsiverusio puslapio opcijos atitiks standartiná þinuèiø raðymo puslapá 
-	apie kurá yra paraðytas atskiras pagalbos sistemos puslapis.
+      Nuoroda Persiùsti atidarys ¾inutìs ra¹ymo lang± kuriame bus i¹vestas 
+	lai¹ko turinys atskirtas ¾yme "--Originali ¾inutì--".  Fwd: bus çterptas
+	naujojo lai¹ko temoje prie¹ais senojo lai¹ko temos pavadinim±. Visos kitos 
+	atsiverusio puslapio opcijos atitiks standartinç ¾inuèiù ra¹ymo puslapç 
+	apie kurç yra para¹ytas atskiras pagalbos sistemos puslapis.
       </p>
    </description>
 </section>
@@ -97,11 +97,11 @@
    </title>
    <description>
       <p>
-      Paspaudæ ant ðios nuorodos jûs galite paraðyti naujà þinutæ þmogui,
-		kuris atsiuntë jums laiðkà. "Re:" uþraðas yra automatiðkai pridedamas
-		prie ankstesnës þinutës pavadinimo. Senoji þinutë yra cituojama naujoje
-		po ">" simboliø. Atsakydami jûs galite raðyti tekstà bet kurioje þinutës
-		lango dalyje bei prikabinti papildomus priedus prie laiðko.
+      Paspaudê ant ¹ios nuorodos jþs galite para¹yti nauj± ¾inutê ¾mogui,
+		kuris atsiuntì jums lai¹k±. "Re:" u¾ra¹as yra automati¹kai pridedamas
+		prie ankstesnìs ¾inutìs pavadinimo. Senoji ¾inutì yra cituojama naujoje
+		po ">" simboliù. Atsakydami jþs galite ra¹yti tekst± bet kurioje ¾inutìs
+		lango dalyje bei prikabinti papildomus priedus prie lai¹ko.
 		</p>
    </description>
 </section>
@@ -112,33 +112,33 @@
    </title>
    <description>
       <p>
-      Visas taip pat kaip ir paprasto "Atsakyti" atveju, tik laiðkà gaus visi
-		kuriø adresai yra laiðko antraðtëse.
+      Visas taip pat kaip ir paprasto "Atsakyti" atveju, tik lai¹k± gaus visi
+		kuriù adresai yra lai¹ko antra¹tìse.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-	Perþiûrëti visas antraðtes
+	Per¾iþrìti visas antra¹tes
    </title>
    <description>
       <p>
-	Nuoroda parodys pilnas laiðko antraðtes. Ten paprastai bûna nurodyta,
-	per kur ëjo laiðkas ir tam tikra tarnybinë laiðko informacija.
+	Nuoroda parodys pilnas lai¹ko antra¹tes. Ten paprastai bþna nurodyta,
+	per kur ìjo lai¹kas ir tam tikra tarnybinì lai¹ko informacija.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Parsisiøsti kaip failà
+      Parsisiùsti kaip fail±
    </title>
    <description>
       <p>
-      Ði nuoroda leidþia iðsaugoti laiðkà kaip paprasta tekstiná dokumentà
-	tame kompiuteryje su kuriuo jûs dirbate. Kartu bus iðsaugota ir trumpa
-	laiðko antraðtë.
+      ©i nuoroda leid¾ia i¹saugoti lai¹k± kaip paprasta tekstinç dokument±
+	tame kompiuteryje su kuriuo jþs dirbate. Kartu bus i¹saugota ir trumpa
+	lai¹ko antra¹tì.
       </p>
    </description>
 </section>
@@ -149,9 +149,9 @@
    </title>
    <description>
       <p>
-	Bet kokie su laiðku atëjæ priedai parodomi þemiau þinutës teksto. Kartu yra
-	nusakomas priedo tipas ir duodama nuoroda, kuri leidþia parsisiøsti prikabintà
-	failà arba já perþiûrëti.
+	Bet kokie su lai¹ku atìjê priedai parodomi ¾emiau ¾inutìs teksto. Kartu yra
+	nusakomas priedo tipas ir duodama nuoroda, kuri leid¾ia parsisiùsti prikabint±
+	fail± arba jç per¾iþrìti.
       </p>
    </description>
 </section>
