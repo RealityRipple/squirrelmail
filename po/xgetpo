@@ -11,4 +11,10 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail \
     -C squirrelmail/src/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/functions/*.php --output-dir=squirrelmail/po/
+    
+# ** Plugins
+    
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/filters/*.php --output-dir=squirrelmail/po/
+
 cd squirrelmail/po

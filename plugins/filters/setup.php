@@ -1,6 +1,6 @@
 <?php
    /*
-    *  Message and Spam Filter Plugin 
+    *  Message and Spam Filter Plugin
     *  By Luke Ehresman <luke@squirrelmail.org>
     *     Tyler Akins
     *     Brent Bice
@@ -29,12 +29,12 @@
    //        Seems to be related to UW
    global $UseSeparateImapConnection;
    $UseSeparateImapConnection = false;
-   
+
    // Set this to false if you do not want the user to be able to enable
    // spam filters
    global $AllowSpamFilters;
    $AllowSpamFilters = true;
-   
+
    // Set this to a string containing something unique to the line in the
    // header you want me to find IPs to scan the databases with.  For example,
    // All the email coming IN from the internet to my site has a line in
@@ -52,33 +52,31 @@
    $SpamFilters_YourHop = 'by firewall.persistence.com';
 
    // A cache of IPs we've already checked or are known bad boys or good boys
-   // ie. $SpamFilters_DNScache["210.54.220.18"] = true; 
+   // ie. $SpamFilters_DNScache["210.54.220.18"] = true;
    // would tell filters to not even bother doing the DNS queries for that
    // IP and any email coming from it are SPAM - false would mean that any
    // email coming from it would NOT be SPAM
    global $SpamFilters_DNScache;
 
-   require_once ("../plugins/filters/filters.php");
+   require_once ('../plugins/filters/filters.php');
 
    function squirrelmail_plugin_init_filters() {
       global $squirrelmail_plugin_hooks;
       global $mailbox, $imap_stream, $imapConnection;
 
-      $squirrelmail_plugin_hooks["left_main_before"]["filters"] = "start_filters";
-      if ($mailbox == "INBOX")
-         $squirrelmail_plugin_hooks["right_main_after_header"]["filters"] = "start_filters";
-      $squirrelmail_plugin_hooks["options_register"]["filters"] = "squirrelmail_plugin_register";
+      $squirrelmail_plugin_hooks['left_main_before']['filters'] = 'start_filters';
+      if ($mailbox == 'INBOX')
+         $squirrelmail_plugin_hooks["right_main_after_header"]['filters'] = 'start_filters';
+      $squirrelmail_plugin_hooks['options_register']['filters'] = 'squirrelmail_plugin_register';
    }
 
    function squirrelmail_plugin_register() {
       global $optionpages;
 
       $optionpages[] = array(
-         'name' => 'Message Filters',
+         'name' => _("Message Filters"),
          'url'  => '../plugins/filters/options.php',
-         'desc' => 'Filtering enables messages with different criteria to
-                    be automatically filtered into different folders for
-                    easier organization.',
+         'desc' => _("Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."),
          'js'   => false
       );
    }

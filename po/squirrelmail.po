@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-07 14:41+0100\n"
+"POT-Creation-Date: 2001-11-08 11:06+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -171,6 +171,7 @@ msgid "Original Message"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:568
+#: squirrelmail/plugins/filters/options.php:188
 #: squirrelmail/src/compose.php:102 squirrelmail/src/download.php:120
 #: squirrelmail/src/download.php:126 squirrelmail/src/options_order.php:42
 #: squirrelmail/src/search.php:58 squirrelmail/src/search.php:59
@@ -178,6 +179,7 @@ msgid "Subject"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:554
+#: squirrelmail/plugins/filters/options.php:176
 #: squirrelmail/src/compose.php:103 squirrelmail/src/download.php:121
 #: squirrelmail/src/download.php:128 squirrelmail/src/options_order.php:40
 #: squirrelmail/src/search.php:61 squirrelmail/src/search.php:62
@@ -185,6 +187,7 @@ msgid "From"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:552
+#: squirrelmail/plugins/filters/options.php:179
 #: squirrelmail/src/compose.php:104 squirrelmail/src/download.php:122
 #: squirrelmail/src/download.php:130 squirrelmail/src/search.php:67
 #: squirrelmail/src/search.php:68
@@ -345,6 +348,7 @@ msgid "Delete Folder"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:524
+#: squirrelmail/plugins/filters/options.php:92
 #: squirrelmail/src/folders.php:103 squirrelmail/src/read_body.php:372
 msgid "Delete"
 msgstr ""
@@ -402,6 +406,7 @@ msgid "New name:"
 msgstr ""
 
 #: squirrelmail/functions/options.php:94
+#: squirrelmail/plugins/filters/options.php:229
 #: squirrelmail/src/folders_rename_getname.php:46
 #: squirrelmail/src/options_highlight.php:330
 msgid "Submit"
@@ -486,7 +491,8 @@ msgstr ""
 msgid "No messages were selected."
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:67 squirrelmail/src/options.php:34
+#: squirrelmail/functions/page_header.php:67
+#: squirrelmail/plugins/filters/options.php:74 squirrelmail/src/options.php:34
 #: squirrelmail/src/options_display.php:27
 #: squirrelmail/src/options_folder.php:30
 #: squirrelmail/src/options_highlight.php:49
@@ -740,10 +746,12 @@ msgstr ""
 msgid "Message Highlighting"
 msgstr ""
 
+#: squirrelmail/plugins/filters/options.php:76
 #: squirrelmail/src/options_highlight.php:53
 msgid "New"
 msgstr ""
 
+#: squirrelmail/plugins/filters/options.php:77
 #: squirrelmail/src/options_highlight.php:54
 msgid "Done"
 msgstr ""
@@ -1082,7 +1090,8 @@ msgstr ""
 msgid "Everywhere"
 msgstr ""
 
-#: squirrelmail/src/search.php:64 squirrelmail/src/search.php:65
+#: squirrelmail/plugins/filters/options.php:182 squirrelmail/src/search.php:64
+#: squirrelmail/src/search.php:65
 msgid "Cc"
 msgstr ""
 
@@ -1343,18 +1352,22 @@ msgstr ""
 #: squirrelmail/functions/imap_messages.php:143
 #: squirrelmail/functions/imap_messages.php:152
 #: squirrelmail/functions/imap_messages.php:264
+#: squirrelmail/plugins/filters/sqimap_read_data.php:64
 msgid "ERROR : Could not complete request."
 msgstr ""
 
 #: squirrelmail/functions/imap_general.php:126
+#: squirrelmail/plugins/filters/sqimap_read_data.php:66
 msgid "Reason Given: "
 msgstr ""
 
 #: squirrelmail/functions/imap_general.php:133
+#: squirrelmail/plugins/filters/sqimap_read_data.php:73
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
 #: squirrelmail/functions/imap_general.php:135
+#: squirrelmail/plugins/filters/sqimap_read_data.php:75
 msgid "Server responded: "
 msgstr ""
 
@@ -1502,4 +1515,182 @@ msgstr ""
 
 #: squirrelmail/functions/prefs.php:124
 msgid "Error opening "
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:258
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:265
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:272
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:279
+msgid "COMMERCIAL - RBL+ is a combination of RSS, DUL, and RBL."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:286
+msgid ""
+"FREE - Osirusoft - Very thorough, but also rejects replies from many ISP's "
+"abuse@domain.name email messages for some reason."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:293
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:300
+msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:307
+msgid "FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and and Dialup IPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:314
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:321
+msgid ""
+"'FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+"SLOOOOOOW!"
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:328
+msgid ""
+"FREE - orbz.gst-group.co.uk lists not only open relays, but also mailservers "
+"that refuse or bounce email addressed to postmaster@<theirdomain>."
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:74
+msgid "Message Filtering"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:90
+msgid "Edit"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:96
+msgid "Down"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:102
+msgid "Up"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:105
+#, c-format
+msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:118
+msgid "Spam Filtering"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:123
+#, c-format
+msgid "Spam is sent to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:123
+msgid "[<i>not set yet</i>]"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:125
+#, c-format
+msgid "Spam scan is limited to <b>%s</b>"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:125
+msgid "New Messages Only"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:125
+msgid "All Messages"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:135
+msgid "ON"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:137
+msgid "OFF"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:185
+msgid "To or Cc"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:195
+msgid "Contains:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:207
+msgid "Move to:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:250
+msgid "Move spam to:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:267
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:270
+msgid "What to Scan:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:275
+msgid "All messages"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:279
+msgid "Only unread messages"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:285
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:311
+msgid "Save"
+msgstr ""
+
+#: squirrelmail/plugins/filters/setup.php:77
+msgid "Message Filters"
+msgstr ""
+
+#: squirrelmail/plugins/filters/setup.php:79
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
 msgstr ""
