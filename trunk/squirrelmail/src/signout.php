@@ -61,7 +61,7 @@
       echo "\n";
    }
    echo "<TITLE>$title - Signout</TITLE>\n";
-   echo "</HEAD><BODY TEXT=000000 BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
+   echo "</HEAD><BODY TEXT=$color[8] BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
    echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
    echo "   <TR BGCOLOR=$color[0] WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
