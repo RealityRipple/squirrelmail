@@ -369,12 +369,24 @@ if ($send) {
         $body = str_replace("\r", "\n", $body);
 
         /**
-         * If the browser doesn't support "VIRTUAL" as the wrap type.
-         * then the line length will be longer than $editor_size
-         * almost all browsers support VIRTUAL, so remove the line by line checking
-         * If this causes a problem, call sqBodyWrap
+         * Rewrap $body so that no line is bigger than $editor_size
          */
-        // sqBodyWrap($body, $editor_size);
+        $body = explode("\n", $body);
+        $newBody = '';
+        foreach ($body as $line) {
+            if( $line <> '-- ' ) {
+               $line = rtrim($line);
+            }
+            if (strlen($line) <= $editor_size + 1) {
+                $newBody .= $line . "\n";
+            } else {
+                sqWordWrap($line, $editor_size);
+                $newBody .= $line . "\n";
+
+            }
+
+        }
+        $body = $newBody;
 
         $composeMessage=$compose_messages[$session];
 
