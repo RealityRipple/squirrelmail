@@ -33,10 +33,10 @@ sqGetGlobalVar('numnew', $numnew, SQ_GET);
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',
-                    '<br /><big><font color="' . $color[2] . '">' . _("You have").' '.
-		    sprintf( ( $numnew == 1 ?
-		        _("%s new message") :
-			_("%s new messages") ), $numnew ) .
+                    '<br /><big><font color="' . $color[2] . '">'.
+        	    sprintf( ( $numnew == 1 ?
+        	        _("You have %s new message") :
+        		_("You have %s new messages") ), $numnew ) .
                     '</font><br /></big><br />' . "\n" .
                     '<form name="nm">' . "\n".
                     '<input type="button" name="bt" value="' . _("Close Window") .
