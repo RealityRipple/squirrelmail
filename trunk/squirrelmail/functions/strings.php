@@ -255,29 +255,88 @@
       return $decrypted;
    }
 
-   function OneTimePadCreate ($length=100) {
+
+   // Randomize the mt_rand() function.  Toss this in strings or
+   // integers and it will seed the generator appropriately.
+   // With strings, it is better to get them long. Use md5() to
+   // lengthen smaller strings.
+   function sq_mt_seed($Val)
+   {
+       // if mt_getrandmax() does not return a 2^n - 1 number,
+       // this might not work well.  This uses $Max as a bitmask.
+       $Max = mt_getrandmax();
+       
+       if (! is_int($Val))
+       {
+           if (function_exists("crc32"))
+           {
+               $Val = crc32($Val);
+           }
+           else
+           {
+               $Str = $Val;
+               $Pos = 0;
+               $Val = 0;
+               $Mask = $Max / 2;
+               $HighBit = $Max ^ $Mask;
+               while ($Pos < strlen($Str))
+               {
+                   if ($Val & $HighBit)
+                   {
+                       $Val = (($Val & $Mask) << 1) + 1;
+                   }
+                   else
+                   {
+                       $Val = ($Val & $Mask) << 1;
+                   }
+                   $Val ^= $Str[$Pos];
+                   $Pos ++;
+               }
+           }
+       }
+
+       if ($Val < 0)
+         $Val *= -1;
+       if ($Val = 0)
+         return;
+
+       mt_srand(($Val ^ mt_rand(0, $Max)) & $Max);
+   }
+   
+   
+   // This function initializes the random number generator fairly well.
+   // It also only initializes it once, so you don't accidentally get
+   // the same 'random' numbers twice in one session.
+   function sq_mt_randomize()
+   {
       global $REMOTE_PORT, $REMOTE_ADDR, $UNIQUE_ID;
-
-      // Entropy gathering
-      if (function_exists("crc32")) {
-	 $seed1 = (double) microtime() * 1000000;
-	 $seed2 = md5($REMOTE_PORT . $REMOTE_ADDR . $UNIQUE_ID);
-	 if (function_exists("getrusage")) {
-	    $dat = getrusage();
-	    $seed3 = md5($dat["ru_nswap"].$dat["ru_majflt"].$dat["ru_utime.tv_sec"].$dat["ru_utime.tv_usec"].getmypid());
-	 } else {
-	    $seed3 = getmypid();
-	 }
-
-	 $seed = crc32($seed1)*1000000 + crc32($seed2)*10000 + crc32($seed3);
-      } else {
-	 $seed = (double) microtime() * 1000000;
+      static $randomized;
+      
+      if ($randomized)
+         return;
+      
+      // Global   
+      sq_mt_seed((int)((double) microtime() * 1000000));
+      sq_mt_seed(md5($REMOTE_PORT . $REMOTE_ADDR . getmypid()));
+      
+      // getrusage
+      if (function_exists("getrusage")) {
+         $dat = getrusage();
+	 sq_mt_seed(md5($dat["ru_nswap"] . $dat["ru_majflt"] . 
+	    $dat["ru_utime.tv_sec"] . $dat["ru_utime.tv_usec"]));
       }
-
-      srand ($seed);
+      
+      // Apache-specific
+      sq_mt_seed(md5($UNIQUE_ID));
+      
+      $randomized = 1;
+   }
+   
+   function OneTimePadCreate ($length=100) {
+      sq_mt_randomize();
       
       for ($i = 0; $i < $length; $i++) {
-	 $pad .= chr(rand(0,255));
+	 $pad .= chr(mt_rand(0,255));
       }
 
       return $pad;
