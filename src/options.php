@@ -54,9 +54,11 @@ function process_optionmode_submit($optpage, $optpage_data) {
     /* Save each option in each option group. */
     foreach ($optpage_data['options'] as $option_grp) {
         foreach ($option_grp['options'] as $option) {
+            /* Remove Debug Mode Until Needed
             echo "name = '$option->name', "
                . "value = '$option->value', "
                . "new_value = '$option->new_value'<BR>\n";
+            */
             if ($option->changed()) {
                 $option->save();
                 $max_refresh = max($max_refresh, $option->refresh_level);
