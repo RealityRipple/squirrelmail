@@ -294,13 +294,22 @@ function sqimap_mailbox_expunge_dmn($message_id)
 
     // And after all that mucking around, update the sort list!
     // Remind me why the hell we need those two arrays again?!
+
+    sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
+
+
     if ( $allow_thread_sort && $thread_sort_messages ) {
         $server_sort_array = get_thread_sort($imapConnection);
     } elseif ( $allow_server_sort ) {
-        $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbx_response);
-    } else {
+        $key = array_search($message_id,$server_sort_array,true);
+        if ($key !== false) {
+           unset($server_sort_array[$key]);
+           $server_sort_array = array_values($server_sort_array);
+        }
+     } else {
         $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
     }
+    sqsession_register('server_sort_array',$server_sort_array);
     return $cnt;
 }
 
@@ -608,15 +617,16 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
  * Returns sorted mailbox lists in several different ways. 
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
-function sqimap_mailbox_list($imap_stream) {
+
+
+function sqimap_mailbox_list($imap_stream, $force=false) {
     global $default_folder_prefix;
 
-    if (!isset($boxesnew)) {
+    if (!sqgetGlobalVar('boxesnew',$boxesnew,SQ_SESSION) || $force) {
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
                $move_to_trash, $move_to_sent, $save_as_draft,
                $delimiter, $noselect_fix_enable;
-
         $inbox_in_list = false;
         $inbox_subscribed = false;
 
@@ -630,20 +640,33 @@ function sqimap_mailbox_list($imap_stream) {
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
                                         true, $response, $message);
-        $lsub_ary = compact_mailboxes_response($lsub_ary);
 
         $sorted_lsub_ary = array();
         for ($i = 0, $cnt = count($lsub_ary);$i < $cnt; $i++) {
+            /*
+             * Workaround for mailboxes returned as literal
+             * Doesn't work if the mailbox name is multiple lines
+             * (larger then fgets buffer)
+             */
+            if (isset($lsub_ary[$i + 1]) && substr($lsub_ary[$i],-3) == "}\r\n") {
+                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                     $lsub_ary[$i], $regs)) {
+                    $i++;
+                    $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
+                }
+            }
             $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
             $sorted_lsub_ary[] = $temp_mailbox_name;
             if (!$inbox_subscribed && strtoupper($temp_mailbox_name) == 'INBOX') {
                 $inbox_subscribed = true;
             }
         }
+        /* remove duplicates */
+        $sorted_lsub_ary = array_unique($sorted_lsub_ary);
 
         /* natural sort mailboxes */
         if (isset($sorted_lsub_ary)) {
-            usort($sorted_lsub_ary, 'strnatcasecmp');
+            usort($sorted_lsub_ary, 'user_strcasecmp');
         }
         /*
          * The LSUB response doesn't provide us information about \Noselect
@@ -651,7 +674,7 @@ function sqimap_mailbox_list($imap_stream) {
          * call to retrieve the flags for the mailbox
            * Note: according RFC2060 an imap server may provide \NoSelect flags in the LSUB response.
            * in other words, we cannot rely on it.
-        */
+         */
         $sorted_list_ary = array();
         for ($i=0; $i < count($sorted_lsub_ary); $i++) {
             if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
@@ -660,10 +683,19 @@ function sqimap_mailbox_list($imap_stream) {
             else {
                 $mbx = $sorted_lsub_ary[$i];
             }
-            $mbx = stripslashes($mbx);
-            $read = sqimap_run_command ($imap_stream, 'LIST "" ' . sqimap_encode_mailbox_name($mbx),
+
+            $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
                                         true, $response, $message);
-            $read = compact_mailboxes_response($read);
+
+            /* Another workaround for literals */
+
+            if (isset($read[1]) && substr($read[1],-3) == "}\r\n") {
+                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                     $read[0], $regs)) {
+                    $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) . '"' . $regs[2];
+                }
+            }
+
             if (isset($read[0])) {
                 $sorted_list_ary[$i] = $read[0];
             } else {
@@ -675,9 +707,17 @@ function sqimap_mailbox_list($imap_stream) {
          * we'll get it for them anyway
          */
         if (!$inbox_subscribed) {
-            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" INBOX',
+            $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
                                              true, $response, $message);
-            $sorted_list_ary[] = implode('', compact_mailboxes_response($inbox_ary));
+            /* Another workaround for literals */
+            if (isset($inbox_ary[1]) && substr($inbox_ary[0],-3) == "}\r\n") {
+                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                     $inbox_ary[0], $regs)) {
+                    $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
+                                '"' . $regs[2];
+                }
+            }
+            $sorted_list_ary[] = $inbox_ary[0];
             $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
         }
 
@@ -705,15 +745,14 @@ function sqimap_mailbox_list($imap_stream) {
                 }
             }
         }
-
-        /* Rest of the folders */
+       /* Rest of the folders */
         for($k = 0; $k < $cnt; $k++) {
             if (!$used[$k]) {
                 $boxesnew[] = $boxesall[$k];
             }
         }
+        sqsession_register($boxesnew,'boxesnew');
     }
-    
     return $boxesnew;
 }
 
