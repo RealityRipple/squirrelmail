@@ -11,9 +11,8 @@ require_once(SM_PATH . 'functions/imap.php');
     $imap_stream = sqimap_login($username, $key, $imapServerAddress, 
        $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
-    fputs($imap_stream, 'a010 FETCH ' . $passed_id . ' RFC822' . "\r\n");
-    $sid = 'a010';
-    if ($uid_support) $sid .= ' UID';
+    $sid = sqimap_session_id($uid_support)
+    fputs($imap_stream, '$sid FETCH ' . $passed_id . ' RFC822' . "\r\n");
     
     $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
     array_shift($read);
