@@ -16,7 +16,7 @@
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/imap_general.php');
 
-/* Define the group constants for the folder options page. */   
+/* Define the group constants for the folder options page. */
 define('SMOPT_GRP_SPCFOLDER', 0);
 define('SMOPT_GRP_FOLDERLIST', 1);
 define('SMOPT_GRP_FOLDERSELECT', 2);
@@ -76,7 +76,18 @@ function load_optpage_data_folder() {
         'posvals' => $trash_folder_values,
         'save'    => 'save_option_trash_folder'
     );
-    
+
+    $draft_folder_values = array(SMPREF_NONE => '[ '._("Do not use Drafts").' ]',
+                                 'whatever'  => $boxes);
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
+        'name'    => 'draft_folder',
+        'caption' => _("Draft Folder"),
+        'type'    => SMOPT_TYPE_FLDRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => $draft_folder_values,
+        'save'    => 'save_option_draft_folder'
+    );
+
     $sent_folder_values = array(SMPREF_NONE => '[ '._("Do not use Sent").' ]',
                                 'whatever'  => $boxes);
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
@@ -87,16 +98,12 @@ function load_optpage_data_folder() {
         'posvals' => $sent_folder_values,
         'save'    => 'save_option_sent_folder'
     );
-    
-    $draft_folder_values = array(SMPREF_NONE => '[ '._("Do not use Drafts").' ]',
-                                 'whatever'  => $boxes);
+
     $optvals[SMOPT_GRP_SPCFOLDER][] = array(
-        'name'    => 'draft_folder',
-        'caption' => _("Draft Folder"),
-        'type'    => SMOPT_TYPE_FLDRLIST,
-        'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $draft_folder_values,
-        'save'    => 'save_option_draft_folder'
+        'name'    => 'save_reply_with_orig',
+        'caption' => _("Save Replies with Original Message"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST
     );
 
     /*** Load the General Options into the array ***/
@@ -159,7 +166,7 @@ function load_optpage_data_folder() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array(SMPREF_UNSEEN_ONLY  => _("Only Unseen"),
-                           SMPREF_UNSEEN_TOTAL => _("Unseen and Total")) 
+                           SMPREF_UNSEEN_TOTAL => _("Unseen and Total"))
     );
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
@@ -196,7 +203,7 @@ function load_optpage_data_folder() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array(SMPREF_TIME_12HR => _("12-hour clock"),
-                           SMPREF_TIME_24HR => _("24-hour clock")) 
+                           SMPREF_TIME_24HR => _("24-hour clock"))
     );
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
