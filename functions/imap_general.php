@@ -355,6 +355,11 @@ function sqimap_find_displayable_name ($string) {
         if (trim($string) == '') {
             $string = sqimap_find_email($orig_string);
         }
+     } else if (strpos($string, '(') && strpos($string, ')')) {
+         $fn_start = strpos($string, '(') + 1;
+         $fn_len   = strpos($string, ')') - $fn_start;
+ 
+         $string = substr($string, $fn_start, $fn_len);
     }
     return $string;
 }
