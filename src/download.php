@@ -108,7 +108,7 @@ if (is_object($message->header->disposition)) {
     $filename = $header->getParameter('name');
 }
 
-$filename = decodeHeader($filename,true,true);
+$filename = decodeHeader($filename,true,false);
 $filename = charset_encode($filename,$default_charset,false);
 
 // If name is not set, use subject of email
