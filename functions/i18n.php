@@ -31,6 +31,7 @@
 	*/
    $languages['cs_CZ']['NAME']    = 'Czech';
    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+   $languages['cs']['ALIAS']      = 'cs_CZ';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
@@ -126,6 +127,7 @@
    
    $languages['sk_SK']['NAME']     = 'Slovak';
    $languages['sk_SK']['CHARSET']  = 'iso-8859-2';
+   $languages['sk']['ALIAS']       = 'sk_SK';
    
    $languages['ro']['NAME']    = 'Romanian';
    $languages['ro']['CHARSET'] = 'iso-8859-2';
@@ -850,7 +852,7 @@
          setlocale('LC_ALL', $sm_notAlias);
          bindtextdomain('squirrelmail', '../locale/');
          textdomain('squirrelmail');
-         header ('Content-Type: text/html; charset=' . $languages[$sm_language]['CHARSET']);
+         header ('Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET']);
       }
    }
 
