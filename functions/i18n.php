@@ -196,7 +196,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
 
     static $SetupAlready = 0;
     global $use_gettext, $languages,
-           $squirrelmail_language, $squirrelmail_default_language,
+           $squirrelmail_language, $squirrelmail_default_language, $default_charset,
            $sm_notAlias, $username, $data_dir;
 
     if ($SetupAlready) {
@@ -296,10 +296,12 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
             }
             mb_internal_encoding('EUC-JP');
             mb_http_output('pass');
+        } elseif ($squirrelmail_language == 'en_US') {
+            header( 'Content-Type: text/html; charset=' . $default_charset );
         } else {
-        header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
+            header( 'Content-Type: text/html; charset=' . $languages[$sm_notAlias]['CHARSET'] );
+        }
     }
-}
     return 0;
 }
 
@@ -333,7 +335,7 @@ function set_my_charset(){
         $my_language = $languages[$my_language]['ALIAS'];
     }
     $my_charset = $languages[$my_language]['CHARSET'];
-    if ($my_charset) {
+    if ($my_language!='en_US') {
         $default_charset = $my_charset;
     }
 }

@@ -2784,13 +2784,10 @@ sub commandA1 {
 }
 # Default Charset
 sub commandA2 {
-#    print "This option controls what character set is used when sending\n";
-#    print "mail and when sending HTML to the browser.  Do not set this\n";
-#    print "to US-ASCII, use ISO-8859-1 instead.  For cyrillic, it is best\n";
-#    print "to use KOI8-R, since this implementation is faster than most\n";
-#    print "of the alternatives\n";
-    print "This option is obsolate. Default charset depends on language\n";
-    print "you have selected in \"Default language\" option.\n";
+    print "This option controls what character set is used when sending\n";
+    print "mail and when sending HTML to the browser. Option works only\n";
+    print "with US English (en_US) translation. Other translations use\n";
+    print "charsets that are set in functions/i18n.php.\n";
     print "\n";
 
     print "[$WHT$default_charset$NRM]: $WHT";
@@ -2834,18 +2831,7 @@ sub commandA4 {
     print "listed. If you enter special key \'none\' - user won't be able to change";
     print "language and interface will use language set it \"Default language\" option.\n";
     print "\n";
-    print "Valid language names are:\n";
-    print " ar (Arabic), bg_BG (Bulgarian), ca_ES (Catalan), cy_GB (Welsh)\n";
-    print " cs_CZ (Chech), da_DK (Danish), de_DE (German), el_GR (Greek),\n";
-    print " en_US (English), es_ES (Spanish), et_EE (Estonian), fi_FI (Finnish),\n";
-    print " fo_FO (Faroese), fr_FR (French), he_IL (Hebrew), hr_HR (Croatian),\n";
-    print " hu_HU (Hungarian), id_ID (Indonesian), is_IS (Icelandic), it_IT (Italian),\n";
-    print " ja_JP (Japanese), ko_KR (Korean), lt_LT (Lithuanian), ms_MY (Malay),\n";
-    print " nl_NL (Dutch), nn_NO (Norwegian (Nynorsk)), no_NO (Norwegian (Bokmal)),\n";
-    print " pl_PL (Polish), pt_BR (Portuguese (Brazil)), pt_PT (Portuguese (Portugal)),\n";
-    print " ro_RO (Romanian), ru_RU (Russian), sk_SK (Slovak), sl_SI (Slovenian),\n";
-    print " sr_YU (Serbian), sv_SE (Swedish), th_TH (Thai), tr_TR (Turkish),\n";
-    print " zh_CN (Chinese Simplified), zh_TW (Chinese Traditional).\n";
+    print "You can find valid language names in doc/i18n.txt.\n";
     print "\n";
     print "[$WHT$available_languages$NRM]: $WHT";
     $new_available_languages = <STDIN>;
