@@ -58,7 +58,9 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
            $allow_server_sort,    /* enable/disable server-side sorting */
            $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
            $email_address,
-           $show_recipient_instead;	/* show recipient name instead of default identity */
+           $show_recipient_instead,	/* show recipient name instead of default identity */
+           $use_icons,            /* indicates to use icons or text markers */
+           $icon_theme;           /* icons theming */
 
     $color_string = $color[4];
 
@@ -274,41 +276,102 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 echo html_tag( 'td', $td_str, 'left', $hlt_color );
                 break;
             case 5: /* flags */
-                $stuff = false;
-                $td_str = "<b><small>";
 
-                if (isset($msg['FLAG_ANSWERED']) && $msg['FLAG_ANSWERED'] == true) {
-                    $td_str .= _("A");
-                    $stuff = true;
+                // icon message markers
+                //
+                if ($use_icons && $icon_theme != 'none') {
+                    $td_str = "<b><small>";
+                    if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) {
+                        $td_str .= _('<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.gif" border="0" height="10" width="10"> ');
+                    }
+                    if ($default_use_priority) {
+                        if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
+                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_high.gif" border="0" height="10" width="5"> ';
+                        }
+                        else if ($msg['PRIORITY'] == 5) {
+                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_low.gif" border="0" height="10" width="5"> ';
+                        }
+                        else
+                        {
+                            $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.gif" border="0" width="5"> ';
+                        }
+                    }
+                    if ($msg['TYPE0'] == 'multipart') {
+                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/attach.gif" border="0" height="10" width="6">';
+                    }
+                    else
+                    {
+                        $td_str .= '<IMG SRC="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.gif" border="0" width="6">';
+                    }
+
+                    $msg_icon = '';
+                    if (!isset($msg['FLAG_SEEN']) || ($msg['FLAG_SEEN']) == false)
+                    {
+                        $msg_alt = '(' . _("New") . ')';
+                        $msg_title = '(' . _("New") . ')';
+                        $msg_icon .= SM_PATH . 'images/themes/' . $icon_theme . '/msg_new';
+                    }
+                    else
+                    {
+                        $msg_alt = '(' . _("Read") . ')';
+                        $msg_title = '(' . _("Read") . ')';
+                        $msg_icon .= SM_PATH . 'images/themes/' . $icon_theme . '/msg_read';
+                    }
+                    if (isset($msg['FLAG_DELETED']) && ($msg['FLAG_DELETED']) == true)
+                    {
+                        $msg_icon .= '_deleted';
+                    }
+                    if (isset($msg['FLAG_ANSWERED']) && ($msg['FLAG_ANSWERED']) == true)
+                    {
+                        $msg_icon .= '_reply';
+                    }
+                    $td_str .= '<IMG SRC="' . $msg_icon . '.gif" border="0" alt="'. $msg_alt . '" title="' . $msg_title . '" height="12" width="18" >';
+                    $td_str .= '</small></b>';
+                    echo html_tag( 'td',
+                                   $td_str,
+                                   'right',
+                                   $hlt_color,
+                                   'nowrap' );
                 }
-                if ($msg['TYPE0'] == 'multipart') {
-                    $td_str .= '+';
-                    $stuff = true;
-                }
-                if ($default_use_priority) {
-                    if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
-                        $td_str .= "<font color=\"$color[1]\">!</font>";
+
+
+                // plain text message markers
+                //
+                else {
+                    $stuff = false;
+                    $td_str = "<b><small>";
+                    if (isset($msg['FLAG_ANSWERED']) && $msg['FLAG_ANSWERED'] == true) {
+                        $td_str .= _("A");
                         $stuff = true;
                     }
-                    if ($msg['PRIORITY'] == 5) {
-                        $td_str .= "<font color=\"$color[8]\">?</font>";
+                    if ($msg['TYPE0'] == 'multipart') {
+                        $td_str .= '+';
                         $stuff = true;
                     }
+                    if ($default_use_priority) {
+                        if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
+                            $td_str .= "<font color=\"$color[1]\">!</font>";
+                            $stuff = true;
+                        }
+                        if ($msg['PRIORITY'] == 5) {
+                            $td_str .= "<font color=\"$color[8]\">?</font>";
+                            $stuff = true;
+                        }
+                    }
+                    if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'] == true) {
+                        $td_str .= "<font color=\"$color[1]\">D</font>";
+                        $stuff = true;
+                    }
+                    if (!$stuff) {
+                        $td_str .= '&nbsp;';
+                    }
+                    $td_str .= '</small></b>';
+                    echo html_tag( 'td',
+                                   $td_str,
+                                   'center',
+                                   $hlt_color,
+                                   'nowrap' );
                 }
-                if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'] == true) {
-                    $td_str .= "<font color=\"$color[1]\">D</font>";
-                    $stuff = true;
-                }
-                if (!$stuff) {
-                    $td_str .= '&nbsp;';
-                }
-                do_hook("msg_envelope");
-                $td_str .= '</small></b>';
-                echo html_tag( 'td',
-                               $td_str,
-                               'center',
-                               $hlt_color,
-                               'nowrap' );
                 break;
             case 6: /* size */
                 echo html_tag( 'td',

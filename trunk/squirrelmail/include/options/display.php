@@ -17,6 +17,20 @@ define('SMOPT_GRP_GENERAL', 0);
 define('SMOPT_GRP_MAILBOX', 1);
 define('SMOPT_GRP_MESSAGE', 2);
 
+// load icon themes if in use
+global $use_icons;
+if ($use_icons) {
+    global $icon_themes;
+    $dirName = SM_PATH . 'images/themes';
+    $d = dir($dirName);
+    while($dir = $d->read()) {
+        if ($dir != "." && $dir != "..") {
+            if (is_dir($dirName."/".$dir) && file_exists("$dirName/$dir/theme.php"))
+                include("$dirName/$dir/theme.php");
+        }
+    }
+}
+
 /**
  * This function builds an array with all the information about
  * the options available to the user, and returns it. The options
@@ -33,7 +47,7 @@ define('SMOPT_GRP_MESSAGE', 2);
 function load_optpage_data_display() {
     global $theme, $language, $languages, $js_autodetect_results,
     $compose_new_win, $default_use_mdn, $squirrelmail_language, $allow_thread_sort,
-    $optmode, $show_alternative_names, $available_languages;
+    $optmode, $show_alternative_names, $available_languages, $use_icons;
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -173,6 +187,26 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
+
+echo "use icons? $use_icons<br>";
+    if ($use_icons) {
+        global $icon_themes, $icon_theme;
+        $temp = array();
+        for ($count = 0; $count < sizeof($icon_themes); $count++) {
+            $temp[$count] = $icon_themes[$count]['NAME'];
+            if ($icon_theme == $icon_themes[$count]['PATH'])
+                $value = $count;
+        }
+        $optvals[SMOPT_GRP_MAILBOX][] = array(
+            'name'          => 'icon_theme',
+            'caption'       => _("Message Flags Icon Theme"),
+            'type'          => SMOPT_TYPE_STRLIST,
+            'refresh'       => SMOPT_REFRESH_NONE,
+            'posvals'       => $temp,
+            'initial_value' => $value,
+            'save'          => 'icon_theme_save'
+        );
+    }
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'page_selector',
@@ -448,6 +482,24 @@ function save_option_javascript_autodetect($option) {
     } else {
         setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
     }
+}
+
+/** 
+ * This function saves the user's icon theme setting
+ */
+function icon_theme_save($option) {
+
+    global $icon_themes, $data_dir, $username;
+
+
+    // Don't assume the new value is there, double check 
+    // and only save if found 
+    //
+    if (isset($icon_themes[$option->new_value]['PATH']))
+        setPref($data_dir, $username, 'icon_theme', $icon_themes[$option->new_value]['PATH']);
+    else
+       setPref($data_dir, $username, 'icon_theme', 'none');
+
 }
 
 ?>
