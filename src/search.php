@@ -862,58 +862,54 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 
 function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color)
 {
-    if (fetchMessageHeaders($imapConnection, $aMailbox)) {
-        /**
-         * A mailbox can contain different sets with uid's. Default, for normal
-         * message list view we use '0' as setindex and for search a different
-         * setindex.
-         */
-        $iSetIndx = $aMailbox['SETINDEX'];
+    /**
+     * A mailbox can contain different sets with uid's. Default, for normal
+     * message list view we use '0' as setindex and for search a different
+     * setindex.
+     */
+    $iSetIndx = $aMailbox['SETINDEX'];
 
-        $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
-        $mailbox_title = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
+    $mailbox_display = asearch_get_mailbox_display($aMailbox['NAME']);
+    $mailbox_title = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
 
-        /**
-         * UIDSET contains the array with uid's returned by a search
-         */
-        $cnt = count($aMailbox['UIDSET'][$iSetIndx]);
+    /**
+     * UIDSET contains the array with uid's returned by a search
+     */
+    $cnt = count($aMailbox['UIDSET'][$iSetIndx]);
 
-        $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $cnt : $aMailbox['LIMIT'];
-        $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $aMailbox['EXISTS']) ?
-                $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $cnt;
+    $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $cnt : $aMailbox['LIMIT'];
+    $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $aMailbox['EXISTS']) ?
+            $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $cnt;
 
-        $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
-                                        $cnt, $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
+    $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
+                                    $cnt, $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
 
-        $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$cnt);
+    $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$cnt);
 
-        echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
 
-        echo '<tr><td>';
-        mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $mailbox_title . " $paginator_str");
-        echo '</td></tr>';
+    echo '<tr><td>';
+    mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $mailbox_title . " $paginator_str");
+    echo '</td></tr>';
 
-        echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
+    echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
 
-        echo '<tr><td>';
-        echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-        echo '     <tr><td>';
+    echo '<tr><td>';
+    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+    echo '     <tr><td>';
 
-        echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
-        echo '        <tr><td>';
-        printHeader($aMailbox);
-        displayMessageArray($imapConnection, $aMailbox);
-        echo '        </td></tr>';
-        echo '       </table>';
-        echo '     </td></tr>';
-        echo '    </table>';
-        mail_message_listing_end($cnt, '', $msg_cnt_str);
-        echo '</td></tr>';
+    echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
+    echo '        <tr><td>';
+    printHeader($aMailbox);
+    displayMessageArray($imapConnection, $aMailbox);
+    echo '        </td></tr>';
+    echo '       </table>';
+    echo '     </td></tr>';
+    echo '    </table>';
+    mail_message_listing_end($cnt, '', $msg_cnt_str);
+    echo '</td></tr>';
 
-        echo '</table>';
-    } else {
-        echo '<br />' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
-    }
+    echo '</table>';
 }
 
 /**
@@ -1398,6 +1394,7 @@ if (!$search_silent) {
 do_hook('search_after_form');
 
 if ($submit == $search_button_text) {
+    $msgsfound = false;
     echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="0" border="0"');
     echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Results")), 'center', $color[5]));
     echo html_tag('tr', html_tag('td', asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array), 'center', $color[4]));
@@ -1450,7 +1447,6 @@ if ($submit == $search_button_text) {
             $aMailboxPref[MBX_PREF_AUTO_EXPUNGE] = (bool) $auto_expunge;
             $aMailboxPref[MBX_PREF_INTERNALDATE] = (bool) getPref($data_dir, $username, 'internal_date_sort');
 
-            echo '<br />';
             $aConfig['search'] = $search['search'];
             $aConfig['charset'] = $search['charset'];
             $aConfig['setindex'] = 1; // $what $where = 'search'
@@ -1464,11 +1460,19 @@ if ($submit == $search_button_text) {
                     handleMessageListForm($imapConnection,$aMailbox);
                 }
             }
-            asearch_print_mailbox_msgs($imapConnection, $aMailbox, $color);
+            if (fetchMessageHeaders($imapConnection, $aMailbox)) {
+                $msgsfound = true;
+                echo '<br />';
+                asearch_print_mailbox_msgs($imapConnection, $aMailbox, $color);
+                flush();
+            }
             /* add the mailbox to the cache */
             $mailbox_cache[$aMailbox['NAME']] = $aMailbox;
 
         }
+    }
+    if(!$msgsfound) {
+        echo '<br />' . html_tag('div', asearch_get_error_display($color, _("No Messages Found")), 'center') . "\n";
     }
 }
 
