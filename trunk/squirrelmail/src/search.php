@@ -934,6 +934,10 @@ sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
+if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
+  $checkall = (int) $temp;
+}
+
 $search_button_html = _("Search");
 $search_button_text = asearch_unhtmlentities($search_button_html);
 $add_criteria_button_html = _("Add New Criteria");
