@@ -109,7 +109,7 @@
          case "text":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Disposition: filename=\"$filename\"");
             header("Content-type: application/octet-stream; name=\"$filename\"");
             set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
@@ -121,7 +121,7 @@
             echo trim($body);
             break;
          default:
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Disposition: filename=$filename");
             header("Content-type: application/octet-stream; name=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
@@ -138,7 +138,7 @@
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
                 header("Content-type: $type0/$type1; name=\"$filename\"");
-                header("Content-Disposition: attachment; filename=\"$filename\"");
+                header("Content-Disposition: filename=\"$filename\"");
                 echo $body;
             }
             break;
@@ -150,7 +150,7 @@
             break;
          default:
             header("Content-type: $type0/$type1; name=\"$filename\"");
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Disposition: filename=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
