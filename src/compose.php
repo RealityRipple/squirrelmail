@@ -12,12 +12,23 @@
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    displayPageHeader("None");
 
-   if ($reply_id || $forward_id) {
+   if ($forward_id) {
       selectMailbox($imapConnection, $mailbox, $numMessages);
-      if ($reply_id)
-         $msg = fetchMessage($imapConnection, $reply_id);
-      else
-         $msg = fetchMessage($imapConnection, $forward_id);
+      $msg = fetchMessage($imapConnection, $forward_id);
+
+      $body_ary = formatBody($msg);
+      $tmp = "-------- Original Message ---------\n";
+      for ($i=0;$i < count($body_ary);$i++) {
+         $tmp .= strip_tags($body_ary[$i]);
+         $tmp = substr($tmp, 0, strlen($tmp) -1);
+         $body = "$body$tmp";
+         $tmp = "";
+      }
+   }
+
+   if ($reply_id) {
+      selectMailbox($imapConnection, $mailbox, $numMessages);
+      $msg = fetchMessage($imapConnection, $reply_id);
 
       $body_ary = formatBody($msg);
       for ($i=0;$i < count($body_ary);$i++) {
@@ -26,6 +37,9 @@
          $body = "$body> $tmp";
       }
    }
+
+   $send_to = ereg_replace("\"", "", $send_to);
+   $send_to = stripslashes($send_to);
 
    echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
    echo "<TABLE COLS=2 WIDTH=50 ALIGN=CENTER CELLSPACING=0 BORDER=0>\n";
