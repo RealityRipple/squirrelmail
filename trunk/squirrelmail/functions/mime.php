@@ -464,6 +464,7 @@
    // A recursive function that returns a list of attachments with links
    // to where to download these attachments
    function formatAttachments ($message, $ent_id, $mailbox, $id) {
+      global $where, $what;
       if ($message) {
          if (!$message->entities) {
             $type0 = strtolower($message->header->type0);
@@ -479,7 +480,12 @@
    
                $urlMailbox = urlencode($mailbox);
                $ent = urlencode($message->header->entity_id);
-               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               if ($where && $what) {   
+                  // from a search
+                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?where=".urlencode($where)."&what=".urlencode($what)."&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               } else {   
+                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               }
                if ($message->header->description)
                   $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
                $body .= "&nbsp;(<a href=\"../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     

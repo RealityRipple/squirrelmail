@@ -9,8 +9,7 @@ The help files, at this point, are devided into functional areas.
 Each .hlp file represents a different functional block of how the program looks 
 to the user.
 
-I put each sentance on a line of its own because I thought it might make 
-it easier to translate. Hopefully as SquirrelMail is more widely used, 
+Hopefully as SquirrelMail is more widely used, 
 non-english translations will be used to make other non-english translations.
 You might want to keep this in mind when writing yours. Remember that these will
 be used all over the world and in many different environments so local language 
@@ -58,7 +57,7 @@ To translate, just copy all the .hlp files from help/en into your new directory
 that you created for this language (i.e.  help/pl).  You only need to translate
 what is inbetween the tags.  Do not translate the actual tags such as <chapter> 
 or <summary>.  The tag names need to remain in English.  You should only translate
-the test between tags.
+the text between tags.
 
 Often there may be other HTML tags such as <b> for bold or <a href...> to make
 a link.  If you see any of these tags, just leave them and don't translate
