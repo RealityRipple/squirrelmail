@@ -66,7 +66,8 @@ set_up_language(getPref($data_dir, $username, 'language'));
 
 echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
      "<html><head>\n" .
-     "<title>$org_title</title>\n";
+     "<title>$org_title</title>\n".
+     "</head>";
 
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
@@ -139,4 +140,4 @@ else {
 do_hook('webmail_bottom');
 ?>
 </FRAMESET>
-</HEAD></HTML>
+</HTML>
