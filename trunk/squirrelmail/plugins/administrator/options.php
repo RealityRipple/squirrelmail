@@ -28,6 +28,7 @@ function parseConfig( $cfg_file ) {
     $mode = '';
     $l = count( $cfg );
     $modifier = FALSE;
+    $arraykey = 0;
 
     for ($i=0;$i<$l;$i++) {
         $line = trim( $cfg[$i] );
@@ -49,6 +50,11 @@ function parseConfig( $cfg_file ) {
                     $mode = '=';
                 } else {
                     $key .= $line{$j};
+                    // FIXME: this is only pour workaround for plugins[] array.
+                    if ($line{$j}=='[' && $line{($j+1)}==']') {
+                        $key .= $arraykey;
+                        $arraykey++;
+                    }
                 }
                 break;
             case ';':
@@ -219,9 +225,7 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'plugins/administrator/defines.php');
 require_once(SM_PATH . 'plugins/administrator/auth.php');
 
@@ -255,7 +259,7 @@ $colapse = array( 'Titles' => 'off',
                   'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ),
                   'Group9' => getPref($data_dir, $username, 'adm_Group9', 'on' ),
                   'Group10' => getPref($data_dir, $username, 'adm_Group10', 'on' ),
-                  'Group11' => getPref($data_dir, $username, 'adm_Group10', 'on' ) );
+                  'Group11' => getPref($data_dir, $username, 'adm_Group11', 'on' ) );
 
 /* look in $_GET array for 'switch' */
 if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
@@ -354,8 +358,8 @@ foreach ( $newcfg as $k => $v ) {
             break;
         case SMOPT_TYPE_INTEGER:
             /* look for variable $e in POST, fill into $v */
-            if ( sqgetGlobalVar($e, $v, SQ_POST) ) {
-                $v = intval( $v );
+            if ( sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = intval( $new_v );
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>".
@@ -366,7 +370,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_NUMLIST:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = $new_v;
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>";
@@ -385,8 +390,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_STRLIST:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
-                $v = '"' . $v . '"';
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = '"' . $new_v . '"';
                 $newcfg[$k] = $v;
             }
             echo "<tr><td>$name</td><td>".
@@ -406,8 +411,8 @@ foreach ( $newcfg as $k => $v ) {
             break;
 
         case SMOPT_TYPE_TEXTAREA:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
-                $v = '"' . $v . '"';
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = '"' . $new_v . '"';
                 $newcfg[$k] = str_replace( "\n", '', $v );
             }
             echo "<tr><td valign=\"top\">$name</td><td>".
@@ -418,8 +423,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_STRING:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
-                $v = '"' . $v . '"';
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = '"' . $new_v . '"';
                 $newcfg[$k] = $v;
             }
             if ( $v == '""' && isset( $defcfg[$k]['default'] ) ) {
@@ -434,7 +439,8 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_BOOLEAN:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                $v = $new_v;
                 $newcfg[$k] = $v;
             } else {
                 $v = strtoupper( $v );
@@ -455,9 +461,10 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
             break;
         case SMOPT_TYPE_PATH:
-            if (  sqgetGlobalVar($e, $v, SQ_POST) ) {
-               $v = change_to_sm_path($v);
-               $newcfg[$k] = $v;
+            if (  sqgetGlobalVar($e, $new_v, SQ_POST) ) {
+                // FIXME: fix use of $data_dir in $attachment_dir 
+                $v = change_to_sm_path($new_v);
+                $newcfg[$k] = $v;
             }
             if ( $v == "''" && isset( $defcfg[$k]['default'] ) ) {
                $v = change_to_sm_path($defcfg[$k]['default']);
@@ -544,9 +551,9 @@ if ( $colapse['Group8'] == 'off' ) {
 
         /* Lets get the plugins that are active */
         $plugins = array();
-        if (  sqgetGlobalVar('plg', $v, SQ_POST) ) {
+        if ( sqgetGlobalVar('plg', $v, SQ_POST) ) {
             foreach ( $op_plugin as $plg ) {
-                if (  sqgetGlobalVar("plgs_$plg", $v, SQ_POST) && $v == 'on' ) {
+                if (  sqgetGlobalVar("plgs_$plg", $v2, SQ_POST) && $v2 == 'on' ) {
                     $plugins[] = $plg;
                 }
             }
@@ -620,9 +627,13 @@ if ( $fp = @fopen( $cfgfile, 'w' ) ) {
                 $v = str_replace( 'array(', "array(\n\t", $v );
                 $v = str_replace( "',", "',\n\t", $v );
             }
+            /* FIXME: add elseif that reverts plugins[#] to plugins[] */
             fwrite( $fp, "$k = $v;\n" );
         }
     }
+    // add local config support
+    fwrite( $fp, "@include SM_PATH . 'config/config_local.php';\n" );
+    // close php
     fwrite( $fp, '?>' );
     fclose( $fp );
 } else {
