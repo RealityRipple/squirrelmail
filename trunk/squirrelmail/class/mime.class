@@ -192,12 +192,13 @@ class message {
 	        $msg = $msg->entities[0];
 	      }
 	   }
-	   if ($msg->type0 == 'message') { 
+	   if ($msg->type0 == 'message' && $msg->type1 == 'rfc822') { 
 	      /*this is a header for a message/rfc822 entity */
 	      $msg = $msg->entities[0];
 	   }
 	}
-	if ($msg->type0 == 'message') { 
+
+	if ($msg->type0 == 'message' && $msg->type1 == 'rfc822') { 
 	   /*this is a header for a message/rfc822 entity */
 	   $msg = $msg->entities[0];
 	}
@@ -205,6 +206,7 @@ class message {
 	if (isset($msg->entities[($ent_a[$cnt-1])-1])) {
 	    $msg = $msg->entities[($ent_a[$cnt-1]-1)];
         }
+
         return $msg;
     }
     
@@ -228,7 +230,7 @@ class message {
      * Ask for me (Marc Groot Koerkamp, stekkel@users.sourceforge.net.
      *
      */
-    function parseStructure($read, $i=0, $message = false) {
+    function &parseStructure($read, $i=0, $message = false) {
       $arg_no = 0;
       $arg_a = array();
       $cnt = strlen($read);
@@ -297,6 +299,11 @@ class message {
 		 }
  	         $arg_no++;
                  break;
+	       case 3:
+	         if (isset($msg->type0) &&  $msg->type0 == 'multipart') {
+		    $i++;
+		    $arg_a[]= $msg->parseLanguage($read,&$i);
+		 }
 	       case 7:
 	         if ($arg_a[0] == 'message' && $arg_a[1] == 'rfc822') {
 
@@ -357,7 +364,8 @@ class message {
 	   break;
 	case 'N':
 	   /* probably NIL argument */
-	   if (strtolower(substr($read,$i,3)) == 'nil') {
+	   if (strtoupper(substr($read,$i,4)) == 'NIL ' || 
+	       strtoupper(substr($read,$i,4)) == 'NIL)') {
 	      $arg_a[] = '';
 	      $arg_no++;
 	      $i = $i+2;
@@ -511,7 +519,7 @@ class message {
 	       break;
 	     case 'N':   
 	       /* probably NIL argument */
-	       if (strtolower(substr($read,$i,3)) == 'nil') {
+	       if (strtoupper(substr($read,$i,3)) == 'NIL') {
 	          $arg_a[] = '';
 	          $arg_no++;
 	          $i = $i+2;
@@ -584,7 +592,7 @@ class message {
 	    $hdr->inreplyto = $arg_a[8];
 	    /* argument 10: message-id */
 	    $hdr->message_id = $arg_a[9];
-	}
+	} 
     }
     
     function parseLiteral($read, $i) {
@@ -606,8 +614,7 @@ class message {
     function parseQuote($read, $i) {
 	$i++;
 	$s = '';
-	$cnt = strlen($read);
-	while ($i < $cnt && $read{$i} != '"') {
+	while ($read{$i} != '"') {
 	   if ($read{$i} == '\\') {
 	       $i++;
 	   } 
@@ -619,7 +626,7 @@ class message {
     
     function parseAddress($read, $i) {
 	$arg_a = array();
-        while ($read{$i} != ')') {
+        while ($read{$i} != ')' ) { //&& $i < count($read)) {
 	   $char = strtoupper($read{$i});
 	   switch ($char) {
 	     case '"':
@@ -633,6 +640,7 @@ class message {
 	          $arg_a[] = '';
 	          $i = $i+2;
 	       }
+	       break;
 	     default:
 	       break;
 	   }
@@ -644,11 +652,13 @@ class message {
 	    $adr->adl = $arg_a[1];
 	    $adr->mailbox = $arg_a[2];
 	    $adr->host = $arg_a[3];
-	} else $adr = '';
+	} else {
+	   $adr = '';
+	}
 	return $adr;
     }
     
-    function parseDisposition($read,$i) {
+    function parseDisposition($read,&$i) {
         $arg_a = array();
         while ($read{$i} != ')') {
 	   switch ($read{$i}) {
@@ -672,12 +682,31 @@ class message {
 	      $disp->properties = $arg_a[1];
 	   }
 	}
-	if (is_object($disp)) return $disp;
+	if (is_object($disp)) { 
+	   return $disp;
+	}
     }
     
     function parseLanguage($read,&$i) {
-      /* no idea how to process this one without examples */
-      return '';
+        /* no idea how to process this one without examples */
+        $arg = '';
+        while ($read{$i} != ')') {
+	   switch ($read{$i}) {
+	     case '"':
+	       $arg = $this->parseQuote($read,&$i);
+	       break;
+	     case '{': 
+	       $arg = $this->parseLiteral($read,&$i);
+	       break;
+	     case '(':
+	       $arg = $this->parseProperties($read,&$i);
+	       break;
+	     default:
+	       break;
+	   }
+	   $i++;
+        }
+        return $arg;;
     }
     
     function parseParenthesis($read,&$i) {
@@ -700,7 +729,6 @@ class message {
     }
 
     function findDisplayEntity ($entity = array(), $alt_order = array('text/plain','text/html')) {
-
        $found = false;    
        $type = $this->type0.'/'.$this->type1;
        if ( $type == 'multipart/alternative') {
@@ -724,7 +752,8 @@ class message {
 	    }
 	} else if ( $this->type0 == 'text' &&
              ( $this->type1 == 'plain' ||
-               $this->type1 == 'html' ) &&
+               $this->type1 == 'html' ||
+	       $this->type1 == 'message') &&
              isset($this->entity_id) ) {
 	     if (count($this->entities) == 0) {
 	        if (!$this->header->disposition->name == 'attachment') {
