@@ -28,6 +28,7 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
+require_once(SM_PATH . 'functions/addressbook.php');
 
 /* --------------------- Get globals ------------------------------------- */
 $username = $_SESSION['username'];
@@ -1245,9 +1246,12 @@ function deliverMessage($composeMessage, $draft=false) {
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
-    $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain);
-    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain);
-    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,true, array(), '',$domain);
+
+    $abook = addressbook_init(false, true);
+    
+    $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain, array(&$abook,'lookup'));
+    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain, array(&$abook,'lookup'));
+    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,true, array(), '',$domain, array(&$abook,'lookup'));
     $rfc822_header->priority = $mailprio;
     $rfc822_header->subject = $subject;
     $special_encoding='';
