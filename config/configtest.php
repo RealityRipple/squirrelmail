@@ -5,27 +5,13 @@
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * $Id $
+ * $Id$
  */
 
 /************************************************************
  * NOTE: you do not need to change this script!             *
  * If it throws errors you need to adjust your config.      *
  ************************************************************/
-
-?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-    <title>SquirrelMail configtest</title>
-</head>
-<body>
-<h1>SquirrelMail configtest</h1>
-
-<p>This script will try to check some aspects of your SquirrelMail configuration
-and point you to errors whereever it can find them. You need to go run <tt>conf.pl</tt>
-in this directory first before you run this script.</p>
-
-<?php
 
 function do_err($str, $exit = TRUE) {
     echo '<p><font color="red"><b>ERROR:</b></font> ' .$str. "</p>\n";
@@ -40,8 +26,30 @@ $IND = str_repeat('&nbsp;',4);
 ob_implicit_flush();
 define('SM_PATH', '../');
 
-include(SM_PATH . 'config/config.php');
-include(SM_PATH . 'functions/strings.php');
+/*
+ * Load config before output begins. functions/strings.php depends on 
+ * functions/globals.php. functions/global.php needs to be run before
+ * any html output starts. If config.php is missing, error will be displayed 
+ * later.
+ */
+if (file_exists(SM_PATH . 'config/config.php')) {
+    include(SM_PATH . 'config/config.php');
+    include(SM_PATH . 'functions/strings.php');
+}
+?><!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+    <title>SquirrelMail configtest</title>
+</head>
+<body>
+<h1>SquirrelMail configtest</h1>
+
+<p>This script will try to check some aspects of your SquirrelMail configuration
+and point you to errors whereever it can find them. You need to go run <tt>conf.pl</tt>
+in this directory first before you run this script.</p>
+
+<?php
+
 
 $included = array_map('basename', get_included_files() );
 if(!in_array('config.php', $included)) {
@@ -120,17 +128,18 @@ if($data_dir == $attachment_dir) {
 
 
 /* check plugins and themes */
-
-foreach($plugins as $plugin) {
-    if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
-        do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot find it.', FALSE);
-    } elseif (!is_readable(SM_PATH .'plugins/'.$plugin.'/setup.php')) {
-        do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot read its setup.php file.', FALSE);
+if (isset($plugins[0])) {
+    foreach($plugins as $plugin) {
+        if(!file_exists(SM_PATH .'plugins/'.$plugin)) {
+            do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot find it.', FALSE);
+        } elseif (!is_readable(SM_PATH .'plugins/'.$plugin.'/setup.php')) {
+            do_err('You have enabled the <i>'.$plugin.'</i> plugin but I cannot read its setup.php file.', FALSE);
+        }
     }
+    echo $IND . "Plugins OK.<br />\n";
+} else {
+    echo $IND . "Plugins are not enabled in config.<br />\n";
 }
-
-echo $IND . "Plugins OK.<br />\n";
-
 foreach($theme as $thm) {
     if(!file_exists($thm['PATH'])) {
         do_err('You have enabled the <i>'.$thm['NAME'].'</i> theme but I cannot find it ('.$thm['PATH'].').', FALSE);
