@@ -20,7 +20,7 @@
    displayPageHeader($mailbox);
 
    /** translate the subject and mailbox into url-able text **/
-   $url_subj = urlencode(trim($message["HEADER"]["SUBJECT"]));
+   $url_subj = urlencode(trim(stripslashes($message["HEADER"]["SUBJECT"])));
    $urlMailbox = urlencode($mailbox);
    $url_replyto = urlencode($message["HEADER"]["REPLYTO"]);
 
@@ -76,7 +76,7 @@
 
    /** make sure everything will display in HTML format **/
    $from_name = htmlspecialchars($message["HEADER"]["FROM"]);
-   $subject = htmlspecialchars($message["HEADER"]["SUBJECT"]);
+   $subject = htmlspecialchars(stripslashes($message["HEADER"]["SUBJECT"]));
 
    echo "<BR>";
    echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";

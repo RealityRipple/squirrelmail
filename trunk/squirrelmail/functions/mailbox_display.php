@@ -11,7 +11,7 @@
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       $senderName = getSenderName($from);
       $urlMailbox = urlencode($mailbox);
-      $subject = trim($subject);
+      $subject = trim(stripslashes($subject));
       echo "<TR>\n";
       if ($seen == false) {
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></FONT></TD>\n";
