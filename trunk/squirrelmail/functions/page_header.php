@@ -41,7 +41,8 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
     } else {
         echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">';
     }
-    echo "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
+    echo "\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) .
+        "<head>\n<meta name=\"robots\" content=\"noindex,nofollow\">\n";
 
     /*
      * Add closing / to link and meta elements only after switching to xhtml 1.0 Transitional.
@@ -72,7 +73,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true
         do_hook('generic_header');
     }
 
-    echo "\n<title>$title</title>$xtra\n";
+    echo "<title>$title</title>\n$xtra\n";
 
     /* work around IE6's scrollbar bug */
     echo <<<ECHO

@@ -292,6 +292,7 @@ Version 1.5.1 -- CVS
   - Fixed checking for quota when appending to Sent folder (#1172694).
   - Create a generic function to empty a folder tree, thanks to
     Randy Smith (#1145578).
+  - Add robots noindex/nofollow meta tag to SquirrelMail generated pages.
   
 Version 1.5.0
 --------------------
