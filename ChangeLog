@@ -1,6 +1,6 @@
-**************************************
+*************************************
 *** Squirrelmail Devel Series 1.3 ***
-**************************************
+*************************************
 
 
 Version 1.3.0-DEVEL -- CVS
@@ -13,6 +13,9 @@ Version 1.3.0-DEVEL -- CVS
   - Added possibility to extract message/rfc822 attachments and store them as
     the original message in a folder. 
   - Right to left languages implementation initiated
+  - Enable people with file_uploads = off to still send mail. Patch from Seth
+    E. Randall.
+
   
 Version 1.2.7 -- CVS
 --------------------
@@ -26,6 +29,7 @@ Version 1.2.7 -- CVS
   - Speed optimizements in generating message-lists.    
   - Fixed loss of attachment with html addressbook.
   - Fixed saving drafts with attachments
+
   
 Version 1.2.6 -- April 29 2002 
 --------------------
