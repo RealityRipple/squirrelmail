@@ -38,8 +38,8 @@ function Darkness_HeaderPlugin() {
    global $PHP_SELF, $Darkness_Transition;
    
    if (substr($PHP_SELF, -18) == '/src/left_main.php') {
-      echo '<meta http-equiv='Page-Enter' content='' .
-         'blendTrans(Duration=2.0)'>' . '\n';
+      echo '<meta http-equiv="Page-Enter" content="' .
+         'blendTrans(Duration=2.0)">' . '\n';
    }
 	 
 ?><script language=javascript>

@@ -61,7 +61,7 @@ function abook_take_read_array($array)
   $i = 0;
   while ($i < count($array))
   {
-    abook_take_read_string($array[$i]);
+    abook_take_read_string($array[$i]->getAddress());
     $i ++;
   }
 }
@@ -83,10 +83,14 @@ function abook_take_read()
                   html_tag( 'tr' ) .
                       html_tag( 'td' );
 
-              abook_take_read_string($message->header->from);
-              abook_take_read_array($message->header->cc);
-              abook_take_read_array($message->header->reply_to);
-              abook_take_read_array($message->header->to);
+              if (isset($message->rfc822_header->from))
+                  abook_take_read_array($message->rfc822_header->from);
+              if (isset($message->rfc822_header->cc))
+                  abook_take_read_array($message->rfc822_header->cc);
+              if (isset($message->rfc822_header->reply_to))
+                  abook_take_read_array($message->rfc822_header->reply_to);
+              if (isset($message->rfc822_header->to))
+                  abook_take_read_array($message->rfc822_header->to);
 
 
               $new_body = $body;

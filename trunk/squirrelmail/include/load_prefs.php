@@ -174,7 +174,7 @@ if( $ser = getPref($data_dir, $username, 'hililist') ) {
         $message_highlight_list[$i]['color'] = $highlight_array[1];
         $message_highlight_list[$i]['value'] = $highlight_array[2];
         $message_highlight_list[$i]['match_type'] = $highlight_array[3];
-        removePref($data_dir, $user_name, "highlight$i");
+        removePref($data_dir, $username, "highlight$i");
     }
     /* store in new format for the next time */
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
