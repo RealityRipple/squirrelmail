@@ -19,6 +19,7 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 displayHtmlHeader( _("Message Details"),
              "<script language=\"javascript\">\n".
@@ -35,14 +36,14 @@ sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
      '<center><b>' .
-     '<form action="' . SM_PATH . 'src/download.php" method="GET">' .     
+     addForm(SM_PATH . 'src/download.php', 'GET').
+     addHidden('mailbox', $mailbox).
+     addHidden('passed_id', $passed_id).
+     addHidden('ent_id', '0').
+     addHidden('absolute_dl', 'true').
      '<input type="button" value="' . _("Print") . '" onClick="printPopup()" />&nbsp;&nbsp;'.
      '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()" />&nbsp;&nbsp;'.
-     '<input type="submit" value="' . _("Save Message") . '" /> '.
-     '<input type="hidden" name="mailbox" value="' . urlencode($mailbox) . '" />' .
-     '<input type="hidden" name="passed_id" value="' . urlencode($passed_id) . '" />' .
-     '<input type="hidden" name="ent_id" value="0" />' .
-     '<input type="hidden" name="absolute_dl" value="true" />' .
+     addSubmit(_("Save Message")).
      '</form>'.
      '</b>'.
      '</body>'.

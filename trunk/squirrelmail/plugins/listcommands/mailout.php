@@ -19,6 +19,7 @@ include_once(SM_PATH . 'functions/page_header.php');
 include_once(SM_PATH . 'include/load_prefs.php');
 include_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/identity.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 displayPageHeader($color, $mailbox);
 
@@ -50,7 +51,7 @@ case 'unsubscribe':
 
 printf( $out_string, htmlspecialchars($send_to) );
 
-echo '<form method="post" action="../../src/compose.php">';
+echo addForm('../../src/compose.php', 'POST');
 
 
 $idents = get_identities();
@@ -71,10 +72,11 @@ if (count($idents) > 1) {
 }
 
 echo '<br />'
-. '<input type="hidden" name="send_to" value="' . htmlspecialchars($send_to) . '">'
-. '<input type="hidden" name="subject" value="' . htmlspecialchars($subject) . '">'
-. '<input type="hidden" name="body" value="' . htmlspecialchars($body) . '">'
-. '<input type="hidden" name="mailbox" value="' . htmlspecialchars($mailbox) . '">'
-. '<input type="submit" name="send" value="' . _("Send Mail") . '"><br /><br /></center>'
+. addHidden('send_to', $send_to)
+. addHidden('subject', $subject)
+. addHidden('body', $body)
+. addHidden('mailbox', $mailbox)
+. addSubmit(_("Send Mail"), 'send')
+. '<br /><br /></center>'
 . '</form></td></tr></table></p></body></html>';
 ?>
