@@ -1726,6 +1726,9 @@ sub save_data {
 
    print FILE "\tglobal \$motd;\n";
    print FILE "\t\$motd = \"$motd\";\n";
+   
+   print FILE "\tglobal \$squirrelmail_default_language;\n";
+   print FILE "\t\$squirrelmail_default_language = \"$squirrelmail_default_language\";\n";
 
    close FILE;
 }
