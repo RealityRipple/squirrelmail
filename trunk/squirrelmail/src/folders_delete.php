@@ -8,8 +8,6 @@
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    // switch to the mailbox, and get the number of messages in it.
-   echo "$mailbox<BR>";
-   exit;
    selectMailbox($imapConnection, $mailbox, $numMessages);
 
    $folder = getFolderNameMinusINBOX($mailbox);
@@ -29,7 +27,6 @@
    } else {
       removeFolder($imapConnection, "user.$username.$folder");
    }
-   echo "success";
 
    // Log out this session
    fputs($imapConnection, "1 logout");

@@ -1,4 +1,5 @@
 <?
+
    /**
     **  mailbox_display.php
     **

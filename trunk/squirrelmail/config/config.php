@@ -29,7 +29,7 @@ $version = "0.0.1";
  *           will get expunged, removing all messages marked "Deleted".
  */
 
-$move_to_trash = false;
+$move_to_trash = true;
 $trash_folder = "INBOX.Trash";
 $auto_expunge = true;
 

@@ -35,13 +35,12 @@
    }
 
    /** DELETING FOLDERS **/
+
    echo "<FORM ACTION=folders_delete.php METHOD=POST>\n";
    echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($str); $i++) {
       $thisbox = Chop($str[$i]);
       $thisbox = findMailboxName($thisbox);
-      $thisbox = getFolderNameMinuxINBOX($thisbox);
-
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
          if ($special_folders[$p] == $long_name_boxes[$i])
