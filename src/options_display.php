@@ -195,15 +195,22 @@ function load_optpage_data_display() {
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'include_self_reply_all',
-        'caption' => _("Include Me in CC when I Reply All"),
+        'name'    => 'enable_forward_as_attachment',
+        'caption' => _("Enable Forward as Attachment"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'forward_cc',
-        'caption' => _("Include CCs when forwarding messages"),
+        'caption' => _("Include CCs when Forwarding Messages"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'include_self_reply_all',
+        'caption' => _("Include Me in CC when I Reply All"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
@@ -239,7 +246,7 @@ function load_optpage_data_display() {
     if ($default_use_mdn) {
         $optvals[SMOPT_GRP_MESSAGE][] = array(
             'name'    => 'mdn_user_support',
-            'caption' => _("Enable request/confirm reading"),
+            'caption' => _("Enable Mail Delivery Notification"),
             'type'    => SMOPT_TYPE_BOOLEAN,
             'refresh' => SMOPT_REFRESH_NONE
         );
@@ -247,14 +254,14 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'compose_new_win',
-        'caption' => _("Always compose in a new window"),
+        'caption' => _("Compose Messages in New Window"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'compose_width',
-        'caption' => _("Width of compose window"),
+        'caption' => _("Width of Compose Window"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_ALL,
         'size'    => SMOPT_SIZE_TINY
@@ -262,7 +269,7 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'compose_height',
-        'caption' => _("Height of compose window"),
+        'caption' => _("Height of Compose Window"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_ALL,
         'size'    => SMOPT_SIZE_TINY
@@ -270,21 +277,21 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'sig_first',
-        'caption' => _("Append signature before reply/forward text"),
+        'caption' => _("Append Signature before Reply/Forward Text"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'internal_date_sort',
-        'caption' => _("Use receive date for sort"),
+        'caption' => _("Enable Sort by of Receive Date"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
     if ($allow_thread_sort == TRUE) {
         $optvals[SMOPT_GRP_MESSAGE][] = array(
             'name'    => 'sort_by_ref',
-            'caption' => _("Use References header for thread sort"),
+            'caption' => _("Enable Thread Sort by References Header"),
             'type'    => SMOPT_TYPE_BOOLEAN,
             'refresh' => SMOPT_REFRESH_ALL
         );

@@ -235,7 +235,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
             '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>');
     echo "</td>\n".
         "   </tr>\n".
-        "</table>\n\n";
+        "</table><br>\n\n";
 }
 
 /* blatently copied/truncated/modified from the above function */

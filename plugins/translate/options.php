@@ -89,8 +89,7 @@
     }
 
 ?>
-   <br>
-   <table width="100%" align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+   <table width="95%" align=center border=0 cellpadding=1 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
       <center><b><?php echo _("Options") . ' - '. _("Translator"); ?></b></center>
    </td></tr></table>
 

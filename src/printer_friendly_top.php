@@ -30,16 +30,16 @@ displayHtmlHeader( _("Printer Friendly"),
              "</script>\n", FALSE );
 
 
-echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
+echo "<body text='$color[8]' bgcolor='$color[3]' link='$color[7]' vlink='$color[7]' alink='$color[7]'>\n" .
      //'<table width="100%" height="100%" cellpadding="0" cellspacing="0" border="0"><tr><td valign="middle" align="center">'.
      html_tag( 'div',
          '<b>'.
          '<form>'.
          '<input type="button" value="' . _("Print") . '" onClick="printPopup()"> '.
-         '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()">'.
+         '<input type="button" value="' . _("Close") . '" onClick="window.parent.close()">'.
          '</form>'.
          '</b>',
-     'center' );
+     'right' );
      //'</td></tr></table>'.
      '</body></html>'. "\n";
 

@@ -758,7 +758,7 @@ function showInputForm ($session, $values=false) {
     if ($mail_sent == 'yes') {
         echo '<BR><CENTER><B>'. _("Your Message has been sent").'</CENTER></B>';
     }
-    echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
+    echo '<TABLE ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
     if ($compose_new_win == '1') {
         echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n";
         echo '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
@@ -864,8 +864,10 @@ function showInputForm ($session, $values=false) {
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
-        echo '   <TR><TD COLSPAN=2 ALIGN=LEFT>';
-        echo ' &nbsp; <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
+        echo '   <TR><TD COLSPAN=2 ALIGN=RIGHT>';
+        echo '     <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '">';
+        echo '     &nbsp;&nbsp;&nbsp;&nbsp;<BR><BR>';
+        echo '   </TD></TR>' . "\n";
     }
 
     /* This code is for attachments */
@@ -948,7 +950,7 @@ function showComposeButtonRow() {
         if ($mdn_user_support) {
             echo "\n\t". _("Receipt") .': '.
             '<input type="checkbox" name="request_mdn" value=1'.
-		($request_mdn=='1'?' checked':'') .'>'. _("On read").
+		($request_mdn=='1'?' checked':'') .'>'. _("On Read").
             ' <input type="checkbox" name="request_dr" value=1'.
 		($request_dr=='1'?' checked':'') .'>'. _("On Delivery");
         }
@@ -968,12 +970,12 @@ function showComposeButtonRow() {
         echo "      <input type=submit name=\"html_addr_search\" value=\"".
                               _("Addresses")."\">";
     }
-    echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
 
     if ($save_as_draft) {
         echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
     }
 
+    echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
     do_hook('compose_button_row');
 
     echo "   </TD></TR>\n\n";

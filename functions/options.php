@@ -289,7 +289,7 @@ class SquirrelOption {
     }
 
     function changed() {
-        return ($this->value !== $this->new_value);
+        return ($this->value != $this->new_value);
     }
 }
 

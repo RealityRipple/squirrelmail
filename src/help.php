@@ -84,12 +84,11 @@ function get_info($doc, $pos) {
 
 
 
-echo '<br>' .
-    html_tag( 'table',
+echo html_tag( 'table',
         html_tag( 'tr',
             html_tag( 'td','<center><b>' . _("Help") .'</b></center>', 'center', $color[0] )
         ) ,
-    'center', '', 'width="95%" cellpadding="2" cellspacing="2" border="0"' );
+    'center', '', 'width="95%" cellpadding="1" cellspacing="2" border="0"' );
 
 do_hook("help_top");
 
