@@ -1,5 +1,4 @@
 <?php
-
 /**
  * SquirrelMail internationalization functions
  *
@@ -26,6 +25,7 @@ require_once(SM_PATH . 'functions/global.php');
  * Wrapper solves differences between php versions in order to provide
  * ngettext support. Should be used if translation uses ngettext
  * functions.
+ * @since 1.5.1
  * @param string $domain gettext domain name
  * @param string $dir directory that contains all translations
  * @return string path to translation directory
@@ -49,6 +49,7 @@ function sq_bindtextdomain($domain,$dir) {
 /**
  * Gettext textdomain wrapper.
  * Makes sure that gettext_domain global is modified.
+ * @since 1.5.1
  * @param string $name gettext domain name
  * @return string gettext domain name
  */
@@ -147,6 +148,7 @@ function charset_decode ($charset, $string) {
 
 /**
  * Converts html string to given charset
+ * @since 1.5.1
  * @param string $string
  * @param string $charset
  * @param boolean $htmlencode keep htmlspecialchars encoding
@@ -177,6 +179,7 @@ function charset_encode($string,$charset,$htmlencode=true) {
  *
  * If conversion is done to charset different that utf-8, unsupported symbols
  * will be replaced with question marks.
+ * @since 1.5.1
  * @param string $in_charset initial charset
  * @param string $string string that has to be converted
  * @param string $out_charset final charset
@@ -192,6 +195,7 @@ function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
 /**
  * Makes charset name suitable for decoding cycles
  *
+ * @since 1.5.0
  * @param string $charset Name of charset
  * @return string $charset Adjusted name of charset
  */
@@ -621,6 +625,7 @@ function japanese_xtra_strimwidth($ret,$width) {
  *
  * @param string default return value
  * @return string
+ * @since 1.5.1
  */
 function korean_xtra_downloadfilename($ret) {
     $ret = str_replace("\x0D\x0A", '', $ret);  /* Hanmail's CR/LF Clear */
