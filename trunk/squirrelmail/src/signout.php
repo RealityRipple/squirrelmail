@@ -75,8 +75,7 @@ CELLPADDING="2" ALIGN="CENTER">
     <TD ALIGN="CENTER">
       <?php do_hook('logout_above_text'); ?>
       <?php echo _("You have been successfully signed out.") ?><BR>
-      <A HREF="<?php echo "$base_uri/login.php" ?>" 
-           TARGET="<?php echo $frame_top ?>">
+      <A HREF="login.php" TARGET="<?php echo $frame_top ?>">
       <?php echo _("Click here to log back in.") ?>
       </A><BR><BR>
     </TD>
