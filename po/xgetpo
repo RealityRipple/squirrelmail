@@ -8,54 +8,56 @@
 # **  $Id$ 
 cd ../..
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail \
-    -C squirrelmail/src/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/src/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/functions/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/functions/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/class/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/class/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/class/mime/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/class/mime/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/class/deliver/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/class/deliver/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/class/helper/*.php --output-dir=squirrelmail/po/    
+    --no-location -C squirrelmail/class/helper/*.php --output-dir=squirrelmail/po/    
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/include/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/include/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/include/options/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/include/options/*.php --output-dir=squirrelmail/po/
     
 # ** Plugins
     
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/filters/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/filters/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/squirrelspell/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/squirrelspell/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/squirrelspell/modules/*.mod \
+    --no-location -C squirrelmail/plugins/squirrelspell/modules/*.mod \
     --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/translate/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/translate/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/newmail/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/newmail/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/mail_fetch/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/mail_fetch/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/bug_report/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/bug_report/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/sent_subfolders/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/sent_subfolders/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/calendar/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/calendar/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/listcommands/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/listcommands/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/delete_move_next/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/delete_move_next/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/administrator/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/administrator/*.php --output-dir=squirrelmail/po/
 #xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-#    -C squirrelmail/plugins/spamcop/*.php --output-dir=squirrelmail/po/
+#   --no-location  -C squirrelmail/plugins/spamcop/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/plugins/abook_take/*.php --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/abook_take/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/po/independent_strings.txt --output-dir=squirrelmail/po/
+    --no-location -C squirrelmail/plugins/fortune/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    --no-location -C squirrelmail/po/independent_strings.txt --output-dir=squirrelmail/po/
 
 cd squirrelmail/po
