@@ -210,6 +210,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
                                       array(), array('UID', $sSortField));
     }
+    $aUid = array();
     $walk = false;
     switch ($sSortField) {
       // natcasesort section
@@ -254,8 +255,13 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         }
         // nobreak;
       case 'RFC822.SIZE':
+        if(!$walk) {
+            // redefine $sSortField to maintain the same namespace between
+            // server-side sorting and squirrelmail sorting
+            $sSortField = 'SIZE';
+        }
         foreach ($msgs as $item) {
-            $aUid[$item['ID']] = isset($item['SIZE']) ? $item['SIZE'] : 0;
+            $aUid[$item['ID']] = (isset($item[$sSortField])) ? $item[$sSortField] : 0;
         }
         if ($reverse) {
             arsort($aUid,SORT_NUMERIC);
@@ -666,7 +672,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
 
                 break;
             case 'INTERNALDATE':
-                $msg['INTERNALDATE'] = parseString($read,$i);
+                $msg['INTERNALDATE'] = str_replace('  ', ' ',parseString($read,$i));
                 break;
             case 'BODY.PEEK[HEADER.FIELDS':
             case 'BODY[HEADER.FIELDS':
