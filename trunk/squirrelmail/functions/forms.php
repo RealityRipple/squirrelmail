@@ -17,9 +17,11 @@
  * Helper function to create form fields, not to be called directly,
  * only by other functions below.
  */
-function addInputField($type, $name = null, $value = null, $attributes = '') {
+function addInputField($type, $name = null, $value = null, $attributes = '', $id = null) {
     return '<input type="'.$type.'"'.
         ($name  !== null ? ' name="'.htmlspecialchars($name).'"'   : '').
+        ($id  !== null ? ' id="'.htmlspecialchars($id).'"'   
+            : ($name  !== null ? ' id="'.htmlspecialchars($name).'"'   : '')).
         ($value !== null ? ' value="'.htmlspecialchars($value).'"' : '').
         $attributes . " />\n";
 }
@@ -45,7 +47,7 @@ function addCheckBox($name, $checked = false, $value = null) {
  */
 function addRadioBox($name, $checked = false, $value = null) {
     return addInputField('radio', $name, $value,
-        ($checked ? ' checked="checked"' : ''));
+        ($checked ? ' checked="checked"' : ''), $name . $value);
 }
 
 /**
