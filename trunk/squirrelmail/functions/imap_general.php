@@ -100,7 +100,7 @@
                    echo htmlspecialchars($line) . "<br>\n";
                }
                exit;
-            } else if ($response == "NO") {
+            } else {
                // If the user does not log in with the correct
                // username and password it is not possible to get the
                // correct locale from the user's preferences.
