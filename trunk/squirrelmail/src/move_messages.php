@@ -77,7 +77,7 @@ function attachSelectedMessages($msg, $imapConnection) {
             $fp = fopen( $full_localfilename, 'wb');
             fwrite ($fp, $body);
             fclose($fp);
-            $composeMessage->initAttachment('message/rfc822',$subject.'.eml',
+            $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
                  $full_localfilename);
         }
     }
