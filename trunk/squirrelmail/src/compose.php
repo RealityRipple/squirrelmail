@@ -21,9 +21,10 @@ require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/date.php');
 require_once('../functions/mime.php');
-require_once('../functions/smtp.php');
+//require_once('../functions/smtp.php');
 require_once('../functions/plugin.php');
 require_once('../functions/display_messages.php');
+require_once('../class/deliver/Deliver.class.php');
 
 /* --------------------- Specific Functions ------------------------------ */
 
@@ -150,19 +151,31 @@ if (session_is_registered('session_expired_post')) {
 
 if (!isset($attachments)) {
     $attachments = array();
-    session_register('attachments');
+    sqsession_register(array(), 'attachments');
 }
 
 if (!isset($composesession)) {
     $composesession = 0;
-    session_register('composesession');
+    sqsession_register(0,'composesession');
 }
 
 if (!isset($session) || (isset($newmessage) && $newmessage)) {
     $session = "$composesession" +1; 
     $composesession = $session;
-    session_register('composesession');            
+    sqsession_register($composesession,'composesession');
 }     
+
+if (!isset($compose_messages)) {
+  $compose_messages = array();
+}
+if (!array_key_exists($session, $compose_messages)) {
+  $composeMessage = new message();
+  $rfc822_header = new Rfc822Header();
+  $composeMessage->rfc822_header = $rfc822_header;
+  $composeMessage->reply_rfc822_header = '';
+  $compose_messages[$session] = $composeMessage;
+}
+sqsession_register($compose_messages,'compose_messages');
 
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
     $mailbox = 'INBOX';
@@ -247,17 +260,9 @@ if (isset($send)) {
             }
         }
         $body = $newBody;
-
         do_hook('compose_send');
-
-        $MDN = False;  // we are not sending a mdn response
-        if (! isset($mailprio)) {
-            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $passed_id, $MDN, '', $session);
-        } else {
-            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $passed_id, $MDN, $mailprio, $session);
-        }
+        $composeMessage=$compose_messages[$session];
+	$Result = sendMessage($composeMessage);
         if (! $Result) {
             showInputForm($session);
             exit();
@@ -374,17 +379,22 @@ elseif (isset($sigappend)) {
             displayPageHeader($color, $mailbox);
         }
 
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (isset($delete) && is_array($delete)) {
+        $composeMessage = $compose_messages[$session];
         foreach($delete as $index) {
-            $attached_file = $hashed_attachment_dir . '/'
-                           . $attachments[$index]['localfilename'];
+	    $attached_file = $composeMessage->entities[$index]->att_local_name;
             unlink ($attached_file);
-            unset ($attachments[$index]);
+	    unset ($composeMessage->entities[$index]);
         }
-        setPref($data_dir, $username, 'attachments', serialize($attachments));
+	$new_entities = array();
+	foreach ($composeMessage->entities as $entity) {
+	    $new_entities[] = $entity;
+	}
+	$composeMessage->entities = $new_entities;
+	$compose_messages[$session] = $composeMessage;
+	sqsession_register($compose_messages, 'compose_messages');
+//        setPref($data_dir, $username, 'attachments', serialize($attachments));
     }
-
     showInputForm($session);
 } else {
     /*
@@ -437,7 +447,8 @@ exit();
 function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority, $body,
            $use_signature, $composesession, $data_dir, $username,
-           $username, $key, $imapServerAddress, $imapPort;
+           $username, $key, $imapServerAddress, $imapPort, $compose_messages,
+	   $composeMessage;
 
     $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
@@ -448,6 +459,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+	
         $body = '';
         if ($passed_ent_id) {
             /* redefine the messsage in case of message/rfc822 */
@@ -474,6 +486,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             }
             $orig_header = $message->rfc822_header;
         }
+	
         $encoding = $message->header->encoding;
         $type0 = $message->type0;
         $type1 = $message->type1;
@@ -495,7 +508,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         } else {
             $mailprio = '';
         }
-        ClearAttachments($session);
+        //ClearAttachments($session);
 
         $identity = '';
         $idents = getPref($data_dir, $username, 'identities');
@@ -539,7 +552,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 unset($body_ary[$i]);
             }
             sqUnWordWrap($body);
-            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
             $send_to = $orig_header->getAddr_s('to');
@@ -548,7 +561,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $subject = decodeHeader($orig_header->subject);
             $mailprio = $orig_header->priority;
             $orig_from = '';
-            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             sqUnWordWrap($body);
             break;
         case ('forward'):
@@ -561,10 +574,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             }
             $body = getforwardHeader($orig_header) . $body;
             sqUnWordWrap($body);
-            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+            $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('forward_as_attachment'):
-            getMessage_RFC822_Attachment($message, $session, $passed_id, $passed_ent_id, $imapConnection);
+            $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
             $body = '';
             break;
         case ('reply_all'):
@@ -597,10 +610,14 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
                 unset($rewrap_body[$i]);
             }
+            $composeMessage->reply_rfc822_header = $orig_header;
             break;
             default:
             break;
         }
+	$compose_messages[$session] = $composeMessage;
+	sqsession_register($compose_messages, 'compose_messages');
+
         sqimap_logout($imapConnection);
     }
     $ret = array( 'send_to' => $send_to,
@@ -614,54 +631,62 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     return ($ret);
 } /* function newMail() */
 
-function getAttachments($message, $session, $passed_id, $entities, $imapConnection) {
-    global $attachments, $attachment_dir, $username, $data_dir;
-    
+function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
+    global $attachment_dir, $username, $data_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!count($message->entities) || 
        ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
         if ( !in_array($message->entity_id, $entities) && $message->entity_id) {
-        if ($message->type0 == 'message' && $message->type1 == 'rfc822') {
-           $filename = decodeHeader($message->rfc822_header->subject.'.eml');
-               if ($filename == "") {
-                  $filename = "untitled-".$message->entity_id.'.eml';
-               }
-        } else {
-           $filename = decodeHeader($message->getFilename());
-            }
-            $localfilename = GenerateRandomString(32, '', 7);
-            $full_localfilename = "$hashed_attachment_dir/$localfilename";
-            while (file_exists($full_localfilename)) {
-                $localfilename = GenerateRandomString(32, '', 7);
-                $full_localfilename = "$hashed_attachment_dir/$localfilename";
-            }
-
-            $newAttachment = array();
-            $newAttachment['localfilename'] = $localfilename;
-            $newAttachment['remotefilename'] = $filename;
-            $newAttachment['type'] = strtolower($message->type0 .
-                                                '/' . $message->type1);
-            $newAttachment['id'] = strtolower($message->header->id);
-            $newAttachment['session'] = $session;
-
-            /* Write Attachment to file */
-            $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
-            fputs($fp, decodeBody(mime_fetch_body($imapConnection,
-                  $passed_id, $message->entity_id),
-                  $message->header->encoding));
-            fclose ($fp);
-            $attachments[] = $newAttachment;
+	   switch ($message->type0) {
+	   case 'message':
+    	     if ($message->type1 == 'rfc822') {
+                $filename = decodeHeader($message->rfc822_header->subject.'.eml');
+                if ($filename == "") {
+                    $filename = "untitled-".$message->entity_id.'.eml';
+                }
+	     } else {
+               $filename = decodeHeader($message->getFilename());
+             }
+	     break;
+	   default:
+	     $filename = decodeHeader($message->getFilename());
+	     break;
+	   }
+           if (isset($languages[$squirrelmail_language]['XTRA_CODE']) && 
+	       function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+                $filename =  $languages[$squirrelmail_language]['XTRA_CODE']('encode', $filename);
+           }
+	   
+           $localfilename = GenerateRandomString(32, '', 7);
+           $full_localfilename = "$hashed_attachment_dir/$localfilename";
+           while (file_exists($full_localfilename)) {
+               $localfilename = GenerateRandomString(32, '', 7);
+               $full_localfilename = "$hashed_attachment_dir/$localfilename";
+           }
+	   $message->att_local_name = $full_localfilename;
+	   if (!$message->mime_header) { /* temporary hack */
+	      $message->mime_header = $message->header;
+	   }
+	   
+	   $composeMessage->addEntity($message);
+	    
+           /* Write Attachment to file */
+           $fp = fopen ("$hashed_attachment_dir/$localfilename", 'wb');
+           fputs($fp, decodeBody(mime_fetch_body($imapConnection,
+              $passed_id, $message->entity_id),
+              $message->header->encoding));
+           fclose ($fp);
         }
     } else {
-        for ($i = 0; $i < count($message->entities); $i++) {
-            getAttachments($message->entities[$i], $session, $passed_id, $entities, $imapConnection);
+        for ($i=0, $entCount=count($message->entities); $i<$entCount;$i++) {
+            $composeMessage=getAttachments($message->entities[$i], $composeMessage, $passed_id, $entities, $imapConnection);
         }
     }
-    setPref($data_dir, $username, 'attachments', serialize($attachments));    
-    return;
+//    setPref($data_dir, $username, 'attachments', serialize($attachments));
+    return $composeMessage;
 }
 
-function getMessage_RFC822_Attachment($message, $session, $passed_id, 
+function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
                                       $passed_ent_id='', $imapConnection) {
     global $attachments, $attachment_dir, $username, $data_dir, $uid_support;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -684,18 +709,13 @@ function getMessage_RFC822_Attachment($message, $session, $passed_id,
         $localfilename = GenerateRandomString(32, 'FILE', 7);
         $full_localfilename = "$hashed_attachment_dir/$localfilename";
             
-        $fp = fopen( $full_localfilename, 'wb');
+        $fp = fopen( $full_localfilename, 'w');
         fwrite ($fp, $body);
         fclose($fp);
-        $newAttachment = array();
-        $newAttachment['localfilename'] = $localfilename;
-        $newAttachment['type'] = "message/rfc822";
-        $newAttachment['remotefilename'] = $subject.'.eml';
-        $newAttachment['session'] = $session;
-        $attachments[] = $newAttachment;
+	$composeMessage->initAttachment('message/rfc822',$subject.'.eml', 
+	                 $full_localfilename);
     }
-    setPref($data_dir, $username, 'attachments', serialize($attachments));
-    return;
+    return $composeMessage;
 }
 
 function showInputForm ($session, $values=false) {
@@ -707,7 +727,9 @@ function showInputForm ($session, $values=false) {
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
            $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action, 
-           $username;
+           $username, $compose_messages;
+
+    $composeMessage = $compose_messages[$session];
 
     $subject = decodeHeader($subject, false);
     if ($values) {
@@ -897,14 +919,17 @@ function showInputForm ($session, $values=false) {
     
 
     $s_a = array();
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    foreach ($attachments as $key => $info) {
-        if ($info['session'] == $session) { 
-           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-           $s_a[] = '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
-                    $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
-                    show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
-        }
+    foreach ($composeMessage->entities as $key => $attachment) {
+           $attached_file = $attachment->att_local_name;
+	   if ($attachment->att_local_name || $attachment->body_part) { 
+		$attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
+		$type = $attachment->mime_header->type0.'/'.
+		        $attachment->mime_header->type1;
+        	$s_a[] = '<input type="checkbox" name="delete[]" value="' . 
+		         $key . "\">\n" . $attached_filename . ' - ' . $type . 
+		         ' ('.show_readable_size( filesize( $attached_file ) ) 
+		         . ')<br>'."\n";
+           }
     }
     if (count($s_a)) {
        foreach ($s_a as $s) {
@@ -1008,7 +1033,7 @@ function checkInput ($show) {
 /* True if FAILURE */
 function saveAttachedFiles($session) {
     global $HTTP_POST_FILES, $attachment_dir, $attachments, $username,
-           $data_dir;
+           $data_dir, $compose_messages;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     $localfilename = GenerateRandomString(32, '', 7);
@@ -1019,55 +1044,38 @@ function saveAttachedFiles($session) {
     }
 
     if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-    if (function_exists("move_uploaded_file")) {
+	if (function_exists("move_uploaded_file")) {
             if (!@move_uploaded_file($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-            return true;
-            }
-    } else {
-        if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+        	return true;
+    	    }
+	} else {
+    	    if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
                 return true;
             }
+	}
     }
-
-    }
-    $newAttachment['localfilename'] = $localfilename;
-    $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
-    $newAttachment['type'] = strtolower($HTTP_POST_FILES['attachfile']['type']);
-    $newAttachment['session'] = $session;
-
-    if ($newAttachment['type'] == "") {
-         $newAttachment['type'] = 'application/octet-stream';
-    }
-    $attachments[] = $newAttachment;
-    setPref($data_dir, $username, 'attachments', serialize($attachments));
+    $message = $compose_messages[$session];
+    $type = strtolower($HTTP_POST_FILES['attachfile']['type']);
+    $name = $HTTP_POST_FILES['attachfile']['name'];
+    $message->initAttachment($type, $name, $full_localfilename);
+    $compose_messages[$session] = $message;
 }
 
-function ClearAttachments($session)
-{
-    global $username, $attachments, $attachment_dir, $data_dir;
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-
-    $rem_attachments = array();
-    if (is_array($attachments)) {
-        foreach ($attachments as $info) {
-            if ($info['session'] == $session) {
-                $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-                if (file_exists($attached_file)) {
-                    unlink($attached_file);
-                }
-            } 
-            else {
-                $rem_attachments[] = $info;
-            }
+function ClearAttachments($composeMessage) {
+    if ($message->att_local_name) {
+        $attached_file = $message->att_local_name;
+        if (file_exists($attached_file)) {
+            unlink($attached_file);
         }
     }
-    $attachments = $rem_attachments;
-    setPref($data_dir, $username, 'attachments', serialize($attachments));    
+    for ($i=0, $entCount=count($composeMessage->entities);$i< $entCount; ++$i) {
+        ClearAttachments($composeMessage->entities[$i]);
+    }
 }
 
 
-function getReplyCitation($orig_from)
-{
+
+function getReplyCitation($orig_from) {
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
 
     /* First, return an empty string when no citation style selected. */
@@ -1101,6 +1109,150 @@ function getReplyCitation($orig_from)
 
     /* Build and return the citation string. */
     return ($start . $orig_from . $end . "\n");
+}
+
+/* temporary function to make use of the deliver class.
+   In the future the responsable backend should be automaticly loaded
+   and conf.pl should show a list of available backends.
+   The message also should be constructed by the message class.
+*/
+
+function sendMessage($composeMessage) {
+    global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
+           $username, $popuser, $usernamedata, $identity, $data_dir,
+	   $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
+	   $domain;
+    global $imapServerAddress, $imapPort, $sent_folder, $key;
+
+    $rfc822_header = $composeMessage->rfc822_header;
+    $rfc822_header->to = $rfc822_header->parseAddress($send_to,true, array(), '', $domain);
+    $rfc822_header->cc = $rfc822_header->parseAddress($send_to_cc,true,array(), '',$domain);
+    $rfc822_header->bcc = $rfc822_header->parseAddress($send_to_bcc,true, array(), '',$domain);
+    $rfc822_header->priority = $mailprio;
+    $rfc822_header->subject = $subject;
+    $special_encoding='';
+    if (strtolower($default_charset) == 'iso-2022-jp') {
+        if (mb_detect_encoding($body) == 'ASCII') {
+	    $special_encoding = '8bit';
+        } else {
+            $body = mb_convert_encoding($body, 'JIS');
+            $special_encoding = '7bit';
+        }
+    }
+    $composeMessage->setBody($body);
+
+    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
+       $popuser = $usernamedata[1];
+       $domain  = $usernamedata[2];
+       unset($usernamedata);
+    } else {
+       $popuser = $username;
+    }
+    $reply_to = '';
+    if (isset($identity) && $identity != 'default') {
+        $from_mail = getPref($data_dir, $username, 
+                     'email_address' . $identity);
+        $full_name = getPref($data_dir, $username, 
+                     'full_name' . $identity);
+        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
+        $reply_to = getPref($data_dir, $username, 
+                     'reply_to' . $identity);
+    } else {
+        $from_mail = getPref($data_dir, $username, 'email_address');
+        $full_name = getPref($data_dir, $username, 'full_name');
+        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
+        $reply_to = getPref($data_dir, $username,'reply_to');
+    }
+    if (!$from_addr) {
+       $from_addr = "$popuser@$domain";
+       $from_mail = $from_addr;
+    }
+    $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
+    if ($reply_to) {
+       $rfc822_header->reply_to = $rfc822_header->parseAddress($reply_to,true);
+    }
+    /* Receipt: On Read */
+    if (isset($request_mdn) && $request_mdn) {
+       $rfc822_header->dnt = $rfc822_header->parseAddress($from_mail,true);
+    }
+    /* Receipt: On Delivery */
+    if (isset($request_dr) && $request_dr) {
+       $rfc822_header->more_headers['Return-Receipt-To'] = $from_mail; 
+    }
+    /* multipart messages */
+    if (count($composeMessage->entities)) {
+        $message_body = new Message();
+	$message_body->body_part = $composeMessage->body_part;
+	$composeMessage->body_part = '';
+	$mime_header = new MessageHeader;
+	$mime_header->type0 = 'text';
+	$mime_header->type1 = 'plain';
+	if ($special_encoding) {
+	    $mime_header->encoding = $special_encoding;
+	} else {    
+	    $mime_header->encoding = 'us-ascii';
+	}
+	if ($default_charset) {
+	    $mime_header->parameters['charset'] = $default_charset;
+	}
+	$message_body->mime_header = $mime_header;  
+        array_unshift($composeMessage->entities, $message_body);
+	$content_type = new ContentType('multipart/mixed');
+    } else {
+    	$content_type = new ContentType('text/plain');
+    }
+    if ($default_charset) {
+	$content_type->properties['charset']=$default_charset;
+    }
+        
+    $rfc822_header->content_type = $content_type;
+    $composeMessage->rfc822_header = $rfc822_header;
+
+    if (!$useSendmail) {
+	require_once('../class/deliver/Deliver_SMTP.class.php');
+	$deliver = new Deliver_SMTP();
+	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
+	if ($use_authenticated_smtp) {
+    	    global $key, $onetimepad;
+    	    $user = $username;
+    	    $pass = OneTimePadDecrypt($key, $onetimepad);
+	} else {
+    	    $user = '';
+    	    $pass = '';
+	}
+	$authpop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+	$stream = $deliver->initStream($composeMessage,$domain,0,
+	                  $smtpServerAddress, $smtpPort, $authPop);
+    } else {
+      require_once('../class/deliver/Deliver_SentMail.class.php');
+      global $sendmail_path;
+      $deliver = new Deliver_SendMail();
+      $stream = $deliver->initStream($composeMessage,$sendmail_path);
+    }
+    $succes = false;
+    if ($stream) {
+	$length = $deliver->mail($composeMessage, $stream);
+	$succes = $deliver->finalizeStream($stream);
+    }
+    if (!$succes) {
+        $msg  = $deliver->dlv_msg . '<br>Server replied: '.$deliver->dlv_ret_nr;
+        plain_error_message($msg, $color);
+    } else {
+        unset ($deliver);
+        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
+        $imapPort, 0);
+	if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
+    	    sqimap_append ($imap_stream, $sent_folder, $length);
+	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    $imap_deliver = new Deliver_IMAP();
+	    $imap_deliver->mail($composeMessage, $imap_stream);
+    	    sqimap_append_done ($imap_stream);
+	    sqimap_logout($imap_stream);
+	    unset ($imap_deliver);
+	}
+	ClearAttachments($composeMessage);
+    }
+    return $succes;
 }
 
 ?>
