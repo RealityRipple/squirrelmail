@@ -32,5 +32,9 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/bug_report/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/sent_subfolders/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/calendar/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/listcommands/*.php --output-dir=squirrelmail/po/
 
 cd squirrelmail/po
