@@ -602,16 +602,28 @@ elseif ($gettext_flags == 0) {
 } else {
     /* Uh-ho.  A weird install */
     if (! $gettext_flags & 1) {
+	/**
+	 * Function is used as replacement in broken installs
+	 * @ignore
+	 */
         function _($str) {
             return $str;
         }
     }
     if (! $gettext_flags & 2) {
+	/**
+	 * Function is used as replacement in broken installs
+	 * @ignore
+	 */
         function bindtextdomain() {
             return;
         }
     }
     if (! $gettext_flags & 4) {
+	/**
+	 * Function is used as replacemet in broken installs
+	 * @ignore
+	 */
         function textdomain() {
             return;
         }
