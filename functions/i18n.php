@@ -763,7 +763,7 @@
 
       if (isset($sm_language) && $use_gettext &&
          $squirrelmail_language != '' &&
-         $languages[$sm_language]['CHARSET']) {
+	 isset($languages[$sm_language]['CHARSET'])) {
          if ((ini_get('safe_mode') == FALSE) && (getenv('LC_ALL') != $sm_language)) {
            putenv('LC_ALL=' . $sm_language);
          }

@@ -19,6 +19,8 @@
       include("../functions/plugin.php");
       
    $load_prefs_php = true;
+   if (!isset($username))
+       $username = '';
    checkForPrefs($data_dir, $username);
 
    $chosen_theme = getPref($data_dir, $username, "chosen_theme");
