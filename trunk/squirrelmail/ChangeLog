@@ -28,6 +28,8 @@ Version 1.4.0 RC 2
   - Try better to get the filename of an attachment.
   - Deliver_SMTP class now uses HTTP_HOST in SMTP HELO.  Should fix DNS
     issues some people have reported. (Closes #560524)
+  - Obsolete sqm_topdir(), which caused login trouble with installs that
+    have open_basedir restrictions. Thanks Jimmy Connor.
 	
 Version 1.4.0 RC 1
 ------------------
