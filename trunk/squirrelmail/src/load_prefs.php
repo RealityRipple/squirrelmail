@@ -182,6 +182,8 @@
    $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons');
    if ($location_of_buttons == '')
        $location_of_buttons = 'between';
+       
+   $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
 
    do_hook("loading_prefs");
 

@@ -42,7 +42,7 @@
    </td></tr></table>
 
    <form name="f" action="options.php" method="post">
-      <table width="100%" cellpadding="0" cellspacing="2" border="0">
+      <table width="100%" cellpadding="0" cellspacing="5" border="0">
 
 <?php if ($show_prefix_option == true) {   ?>   
          <tr>
@@ -74,7 +74,7 @@
          }
          if ($use_folder == true) {
             $box = $boxes[$i]['unformatted-dm'];
-            $box2 = replace_spaces($boxes[$i]['formatted']);
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
             if (($boxes[$i]['unformatted'] == $trash_folder) && ($move_to_trash == true))
                echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
             else
@@ -102,7 +102,7 @@
          }
          if ($use_folder == true) {
             $box = $boxes[$i]['unformatted-dm'];
-            $box2 = replace_spaces($boxes[$i]['formatted']);
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
             if (($boxes[$i]['unformatted'] == $sent_folder) && ($move_to_sent == true))
                echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
             else
@@ -114,24 +114,30 @@
 ?>
          <tr>
             <td valign=top align=right>
-               <br>
                <?php echo _("Unseen message notification"); ?>:
             </td>
             <td>
                <input type=radio name=unseennotify value=1<?php if ($unseen_notify == 1) echo " checked"; ?>> <?php echo _("No notification") ?><br>
                <input type=radio name=unseennotify value=2<?php if ($unseen_notify != 1 && $unseen_notify != 3) echo " checked"; ?>> <?php echo _("Only INBOX") ?><br>
                <input type=radio name=unseennotify value=3<?php if ($unseen_notify == 3) echo " checked"; ?>> <?php echo _("All Folders") ?><br>
-               <br>
             </td>
          </tr>
          <tr>
             <td valign=top align=right>
-               <br>
                <?php echo _("Unseen message notification type"); ?>:
             </td>
-            <td>
-               <input type=radio name=unseentype value=1<?php if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <?php echo _("Only unseen"); ?> - (4)<br> 
+	    <td>
+               <input type=radio name=unseentype value=1<?php if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <?php echo _("Only unseen"); ?> - (4)<br>
                <input type=radio name=unseentype value=2<?php if ($unseen_type == 2) echo " checked"; ?>> <?php echo _("Unseen and Total"); ?> - (4/27)
+            </td>
+         </tr>
+         <tr>
+            <td valign=top align=right>
+               <?php echo _("Collapseable folders"); ?>:
+            </td>
+            <td>
+               <input type=checkbox name=collapsefolders <?php if ($collapse_folders) echo " checked"; ?>>
+	         <?php echo _("Enable Collapseable Folders"); ?>
             </td>
          </tr>
          <?php do_hook("options_folders_inside"); ?>

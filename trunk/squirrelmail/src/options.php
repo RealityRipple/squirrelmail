@@ -91,9 +91,12 @@
          setPref($data_dir, $username, 'move_to_sent', '0');
          setPref($data_dir, $username, 'sent_folder', 'none');
       } 
-      setPref($data_dir, $username, 'folder_prefix', $folderprefix);
       setPref($data_dir, $username, 'unseen_notify', $unseennotify);
       setPref($data_dir, $username, 'unseen_type', $unseentype);
+      if (isset($collapsefolders))
+          setPref($data_dir, $username, 'collapse_folders', $collapsefolders);
+      else
+          removePref($data_dir, $username, 'collapse_folders');
       do_hook('options_folders_save');
       echo '<br><center><b>'._("Successfully saved folder preferences!").'</b><br>';
       echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a></center><br>';
