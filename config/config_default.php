@@ -488,8 +488,17 @@ $allow_thread_sort = false;
  * Your IMAP server must support the SORT extension for this
  * to work.
  */
+
 global $allow_server_sort;
 $allow_server_sort = false;
+
+/**
+ * This enables the no select fix for Cyrus when subfolders
+ * exist but parent folders do not
+ */
+
+global $noselect_fix_enable;
+$noselect_fix_enable = false;
 
 /**
  * Make sure there are no characters after the PHP closing

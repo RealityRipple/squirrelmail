@@ -278,6 +278,9 @@ if ( !$default_use_mdn ) {
 if ( !$delete_folder ) {
     $delete_folder = "false";
 }
+if ( !$noselect_fix_enable ) {
+    $noselect_fix_enable = "false";
+}
 if ( !$frame_top ) {
     $frame_top = "_top";
 }
@@ -410,6 +413,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "15. Default Unseen Type           : $WHT$default_unseen_type$NRM\n";
         print "16. Auto Create Special Folders   : $WHT$auto_create_special$NRM\n";
         print "17. Don't move folders into Trash : $WHT$delete_folder$NRM\n";
+        print "18. Enable /NoSelect folder fix   : $WHT$noselect_fix_enable$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 4 ) {
@@ -596,6 +600,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 15 ) { $default_unseen_type            = command213(); }
             elsif ( $command == 16 ) { $auto_create_special            = command214(); }
             elsif ( $command == 17 ) { $delete_folder                  = command215(); }
+            elsif ( $command == 18 ) { $noselect_fix_enable            = command216(); }
         } elsif ( $menu == 4 ) {
             if    ( $command == 1 )  { $default_charset          = command31(); }
             elsif ( $command == 2 )  { $data_dir                 = command33a(); }
@@ -1463,6 +1468,27 @@ sub command215 {
     return $delete_folder;
 }
 
+#noselect fix
+sub command216 {
+    print "Some IMAP server allow subfolders to exist even if the parent\n";
+    print "folders do not. This fixes some problems with the folder list\n";
+    print "when this is the case, causing the /NoSelect folders to be displayed\n";
+    print "\n";
+
+    if ( lc($noselect_fix_enable) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "enable noselect fix? (y/n) [$WHT$noselect_fix_enable$NRM]: $WHT";
+    $noselect_fix_enable = <STDIN>;
+    if ( ( $noselect_fix_enable =~ /^y\n/i ) || ( ( $noselect_fix_enable =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $noselect_fix_enable = "true";
+    } else {
+        $noselect_fix_enable = "false";
+    }
+    return $noselect_fix_enable;
+}
 ############# GENERAL OPTIONS #####################
 
 # Default Charset
@@ -2321,6 +2347,9 @@ sub save_data {
         print CF "\$auto_create_special            = $auto_create_special;\n";
 	# boolean
         print CF "\$delete_folder                  = $delete_folder;\n";
+    # boolean
+        print CF "\$noselect_fix_enable            = $noselect_fix_enable;\n";
+
         print CF "\n";
 
 	# string

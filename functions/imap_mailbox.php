@@ -444,7 +444,7 @@ function sqimap_mailbox_list($imap_stream) {
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
                $move_to_trash, $move_to_sent, $save_as_draft,
-               $delimiter;
+               $delimiter, $noselect_fix_enable;
 
         $inbox_in_list = false;
         $inbox_subscribed = false;
@@ -452,9 +452,16 @@ function sqimap_mailbox_list($imap_stream) {
         require_once('../src/load_prefs.php');
         require_once('../functions/array.php');
 
+    if ($noselect_fix_enable) {
+        $lsub_args = "LSUB \"$folder_prefix\" \"*%\"";
+    }
+    else {
+        $lsub_args = "LSUB \"$folder_prefix\" \"*\"";
+    }
         /* LSUB array */
-        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*%\"",
+        $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
                                         true, $response, $message);
+
 
         /*
          * Section about removing the last element was removed 
