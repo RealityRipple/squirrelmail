@@ -122,26 +122,6 @@ if (!isset($squirrelmail_language)) {
     $squirrelmail_language = 'en';
 }
 
-/** 
- * This harebrained solution is here because it produces the
- * smallest patchfile.
- * The real solution would be to either:
- * a) move all locales into full-name locale names, like they
- * really should be according to the ISO docs (e.g. en -> en_US, 
- * es -> es_ES, ru -> ru_RU), since it's standard to have a language
- * name + undescore + country name. 
- * b) Provide a $languages['ru_RU']['HELPALIAS'] = 'ru';
- *
- * Konstantin Riabitsev
- */
-global $languages;
-while (list($key, $val) = each($languages)){
-    if ($val['ALIAS'] == $squirrelmail_language){
-        $squirrelmail_language = $key;
-        break;
-    }
-}
-
 if (file_exists("../help/$squirrelmail_language")) {
     $help_exists = true;
     $user_language = $squirrelmail_language;
