@@ -10,7 +10,7 @@
  * the To, Cc, From and Reply-To headers, also searches the body of the
  * message.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage abook_take
  */

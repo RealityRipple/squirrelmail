@@ -8,7 +8,7 @@
  *
  * This is a standard SquirrelMail 1.2 API for plugins.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage sent_subfolders
  */

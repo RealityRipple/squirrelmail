@@ -90,7 +90,7 @@ function getGMTSeconds($stamp, $tzc) {
     if ($neg) $iTzc = -1 * (int) $iTzc;
     /* stamp in gmt */
     $stamp -= $iTzc;
-    /** now find what the server is at **/
+    /* now find what the server is at */
     $current = date('Z', time());
     /* stamp in local timezone */
     $stamp += $current;
@@ -391,18 +391,18 @@ function getDateString( $stamp ) {
  * @return int the timestamp calculated from the header
  */
 function getTimeStamp($dateParts) {
-    /** $dateParts[0] == <day of week>   Mon, Tue, Wed
-    ** $dateParts[1] == <day of month>  23
-    ** $dateParts[2] == <month>         Jan, Feb, Mar
-    ** $dateParts[3] == <year>          1999
-    ** $dateParts[4] == <time>          18:54:23 (HH:MM:SS)
-    ** $dateParts[5] == <from GMT>      +0100
-    ** $dateParts[6] == <zone>          (EDT)
-    **
-    ** NOTE:  In RFC 822, it states that <day of week> is optional.
-    **        In that case, dateParts[0] would be the <day of month>
-    **        and everything would be bumped up one.
-    **/
+    /* $dateParts[0] == <day of week>   Mon, Tue, Wed
+     * $dateParts[1] == <day of month>  23
+     * $dateParts[2] == <month>         Jan, Feb, Mar
+     * $dateParts[3] == <year>          1999
+     * $dateParts[4] == <time>          18:54:23 (HH:MM:SS)
+     * $dateParts[5] == <from GMT>      +0100
+     * $dateParts[6] == <zone>          (EDT)
+     *
+     * NOTE:  In RFC 822, it states that <day of week> is optional.
+     *        In that case, dateParts[0] would be the <day of month>
+     *        and everything would be bumped up one.
+     */
 
     /*
      * Simply check to see if the first element in the dateParts

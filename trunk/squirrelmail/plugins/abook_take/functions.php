@@ -8,7 +8,7 @@
  *
  * Functions for the Address Take plugin
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage abook_take
  */
