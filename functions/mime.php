@@ -487,7 +487,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $defaultlink = $hookresults[6];
 
         $attachments .= '<TR><TD>' .
-                        "<A HREF=\"$defaultlink\">$display_filename</A>&nbsp;</TD>" .
+                        '<A HREF="'.$defaultlink.'">'.htmlspecialchars($display_filename).'</A>&nbsp;</TD>' .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
@@ -566,6 +566,8 @@ function decodeHeader ($string, $utfencode=true) {
 
         if (ucfirst($res[4]) == 'B') {
             $replace = base64_decode($res[5]);
+            $replace = charset_decode($res[3],$replace);
+            
         } else {
             $replace = str_replace('_', ' ', $res[5]);
             $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))', 
