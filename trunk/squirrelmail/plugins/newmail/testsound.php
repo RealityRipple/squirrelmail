@@ -16,8 +16,6 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
-require_once(SM_PATH . 'functions/html.php');
 
 displayHtmlHeader( _("Test Sound"), '', FALSE );
 
