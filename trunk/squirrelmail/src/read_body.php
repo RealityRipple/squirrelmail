@@ -186,6 +186,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message) {
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
 
+    $body = charset_encode_japanese($body);
+    
     // part2  (RFC2298)
     $original_recipient = $to;
     $original_message_id = $header->message_id;
@@ -310,7 +312,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
    $header = $message->rfc822_header;
    $env = array();
-   $env[_("Subject")] = htmlspecialchars($header->subject);   
+   $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));   
    $from_name = $header->getAddr_s('from');
    if (!$from_name) {
      $from_name = $header->getAddr_s('sender');
@@ -318,7 +320,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
          $from_name = _("Unknown sender");
      }
    }
-   $env[_("From")] = htmlspecialchars($from_name);
+   $env[_("From")] = htmlspecialchars(decodeHeader($from_name));
    $env[_("Date")] = getLongDateString($header->date);
    $env[_("To")] = formatRecipientString($header->to, "to");
    $env[_("Cc")] = formatRecipientString($header->cc, "cc");
@@ -327,7 +329,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
       $env[_("Priority")] = getPriorityStr($header->priority);
    }
    if ($show_xmailer_default) {
-       $env[_("Mailer")] = $header->xmailer;
+       $env[_("Mailer")] = decodeHeader($header->xmailer);
    }
    if ($default_use_mdn) {
       if ($mdn_user_support) {

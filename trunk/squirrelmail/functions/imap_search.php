@@ -45,11 +45,17 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
 
     if ($imap_server_type == 'macosx') {
         foreach ($multi_search as $multi_search_part) {
+            if (strtoupper($languages[$squirrelmail_language]['CHARSET']) == 'ISO-2022-JP') {
+                $multi_search_part = mb_convert_encoding($multi_search_part, 'JIS', 'auto');
+            }
             $search_string .= $search_where . ' ' .$multi_search_part . ' ';
         }
     }
     else {
         foreach ($multi_search as $multi_search_part) {
+            if (strtoupper($languages[$squirrelmail_language]['CHARSET']) == 'ISO-2022-JP') {
+                $multi_search_part = mb_convert_encoding($multi_search_part, 'JIS', 'auto');
+            }
             $search_string .= $search_where . ' {' . strlen($multi_search_part)
                 . "}\r\n" . $multi_search_part . ' ';
         }

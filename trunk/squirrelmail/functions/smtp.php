@@ -130,9 +130,9 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                 if ( isset($info['remotefilename']) 
                      && $info['remotefilename'] != '') {
                     $header .= "Content-Type: $filetype; name=\"" .
-                        $info['remotefilename'] . "\"$rn";
+                         encodeHeader(charset_encode_japanese($info['remotefilename'])) . "\"$rn";
                     $header .= "Content-Disposition: attachment; filename=\""
-                        . $info['remotefilename'] . "\"$rn";
+                         . encodeHeader(charset_encode_japanese($info['remotefilename'])) . "\"$rn";
                 } else {
                     $header .= "Content-Type: $filetype$rn";
                 }
@@ -248,7 +248,7 @@ function timezone () {
 }
 
 /* Print all the needed RFC822 headers */
-function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn="\r\n") {
+function write822Header ($fp, $t, $c, $b, $subject, $body, $more_headers, $session, $rn="\r\n") {
     global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
     global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
     global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -376,8 +376,18 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn
             $header .= mimeBoundary();
             $header .= "\"$rn";
         } else {
+            if (strtolower($default_charset) == 'iso-2022-jp') {
+                if (mb_detect_encoding($body) == 'ASCII') {
+                    $header .= 'Content-Type: text/plain; US-ASCII' . $rn;
+                    $header .= "Content-Transfer-Encoding: 8bit" . $rn;
+                } else {
+                    $header .= 'Content-Type: '.$contentType . $rn;
+                    $header .= "Content-Transfer-Encoding: 7bit" . $rn;
+                }
+            } else {
             $header .= 'Content-Type: ' . $contentType . $rn;
             $header .= "Content-Transfer-Encoding: 8bit" . $rn;
+        }
         }
         $header .= $rn; // One blank line to separate header and body
         
@@ -413,9 +423,21 @@ function writeBody ($fp, $passedBody, $session, $rn="\r\n") {
             $body .= "Content-Type: text/plain" . $rn;
         }
         
-        $body .= "Content-Transfer-Encoding: 8bit" . $rn . $rn;
-        $body .= $passedBody . $rn . $rn;
-        if ($fp) fputs ($fp, $body);
+        if (strtolower($default_charset) == 'iso-2022-jp') {
+            if (mb_detect_encoding($passedBody) == 'ASCII') {
+                $body .= "Content-Transfer-Encoding: 8bit" . $rn . $rn .
+                         $passedBody . $rn . $rn;
+            } else {
+                $body .= "Content-Transfer-Encoding: 7bit\r\n\r\n" .
+                         mb_convert_encoding($passedBody, 'JIS') . "\r\n\r\n";
+            }
+        } else {
+        $body .= "Content-Transfer-Encoding: 8bit" . $rn . $rn .
+                 $passedBody . $rn . $rn;
+        }
+        if ($fp) {
+	    fputs ($fp, $body);
+	}
         
         $attachmentlength = attachFiles($fp, $session, $rn);
         
@@ -425,10 +447,18 @@ function writeBody ($fp, $passedBody, $session, $rn="\r\n") {
         $postbody .= $rn . "--" . mimeBoundary() . "--" . $rn . $rn;
         if ($fp) fputs ($fp, $postbody);
     } else {
-        $body = $passedBody . $rn;
-        if ($fp) fputs ($fp, $body);
+        if (strtolower($default_charset) == 'iso-2022-jp') {
+            $body = mb_convert_encoding($passedBody, 'JIS') . $rn;
+        } else {
+            $body = $passedBody . $rn;
+	}
+        if ($fp) {
+	    fputs ($fp, $body);
+	}
         $postbody = $rn;
-        if ($fp) fputs ($fp, $postbody);
+        if ($fp) {
+	    fputs ($fp, $postbody);
+	}
     }
 
     return (strlen($body) + strlen($postbody) + $attachmentlength);
@@ -458,7 +488,7 @@ function sendSendmail($t, $c, $b, $subject, $body, $more_headers, $session) {
         $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
     }
     
-    $headerlength = write822Header ($fp, $t, $c, $b, $subject, 
+    $headerlength = write822Header ($fp, $t, $c, $b, $subject, $body,
                                     $more_headers, $session, "\n");
     $bodylength = writeBody($fp, $body, $session, "\n");
     
@@ -616,7 +646,7 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers, $session) {
 
     /* Send the message */
     $headerlength = write822Header ($smtpConnection, $t, $c, $b, 
-                                    $subject, $more_headers, $session);
+                                    $subject, $body, $more_headers, $session);
     $bodylength = writeBody($smtpConnection, $body, $session);
     
     fputs($smtpConnection, ".\r\n"); /* end the DATA part */
@@ -879,7 +909,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
 		$length = $headerlength + $bodylength;
 
         sqimap_append ($imap_stream, $sent_folder, $length);
-        write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers, 
+        write822Header ($imap_stream, $t, $c, $b, $subject, $body, $more_headers, 
                         $session);
         writeBody ($imap_stream, $body, $session);
         sqimap_append_done ($imap_stream);
