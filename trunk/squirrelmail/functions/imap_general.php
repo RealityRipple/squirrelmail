@@ -162,6 +162,9 @@ function sqimap_session_id() {
 
       $imap_stream = fsockopen ( $imap_server_address, $imap_port,
                                  $error_number, $error_string, 15);
+      if( !$imap_stream ) {
+          return FALSE;
+      }
       $server_info = fgets ($imap_stream, 1024);
         
       // Decrypt the password
