@@ -20,6 +20,7 @@ require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/imap.php');
 require_once('../functions/page_header.php');
+require_once('../functions/html.php');
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
 
@@ -93,23 +94,40 @@ displayHtmlHeader( _("Printer Friendly"), '', FALSE );
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
      /* headers (we use table because translations are not all the same width) */
-     '<table>'.
-     '<tr><td>' . _("From") . ':</td><td>' . htmlentities($from) . "</td></tr>\n".
-     '<tr><td>' . _("To") . ':</td><td>' . htmlentities($to) . "</td></tr>\n";
-if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
-     echo '<tr><td>' . _("CC") . ':</td><td>' . htmlentities($cc) . "</td></tr>\n";
-}
-echo '<tr><td>' . _("Date") . ':</td><td>' . htmlentities($date) . "</td></tr>\n".
-     '<tr><td>' . _("Subject") . ':</td><td>' . htmlentities($subject) . "</td></tr>\n".
-     '</table>'.
-     "\n";
-/* body */
-echo "<hr noshade size=1>\n";
-echo $body;
+     html_tag( 'table', '', '', '', 'width="100%" cellspacing="0" cellpadding="0" border="0"' ) .
+     html_tag( 'tr',
+         html_tag( 'td', _("From"), 'left' ) .
+         html_tag( 'td', htmlentities($from), 'left' )
+     ) . "\n" .
+     html_tag( 'tr',
+         html_tag( 'td', _("To"), 'left' ) .
+         html_tag( 'td', htmlentities($to), 'left' )
+     ) . "\n";
+    if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
+         echo html_tag( 'tr',
+             html_tag( 'td', _("CC"), 'left' ) .
+             html_tag( 'td', htmlentities($cc), 'left' )
+         );
+     }
+     echo html_tag( 'tr',
+         html_tag( 'td', _("Date"), 'left' ) .
+         html_tag( 'td', htmlentities($date), 'left' )
+     ) . "\n" .
+     html_tag( 'tr',
+         html_tag( 'td', _("Subject"), 'left' ) .
+         html_tag( 'td', htmlentities($subject), 'left' )
+     ) . "\n" .
+
+     /* body */
+     html_tag( 'tr',
+         html_tag( 'td', '<hr noshade size=1><br>' . "\n" . $body, 'left', '', 'colspan="2"' )
+     ) . "\n" .
+
+     '</table>' . "\n" .
+     '</body></html>';
 
 /* --end browser output-- */
 
-echo '</body></html>';
 
 /* --start pf-specific functions-- */
 

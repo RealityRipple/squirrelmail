@@ -17,6 +17,7 @@ require_once('../functions/strings.php');
 require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
+require_once('../functions/html.php');
 
 displayHtmlHeader( _("Printer Friendly"),
              "<script language=\"javascript\" type=\"text/javascript\">\n".
@@ -31,14 +32,15 @@ displayHtmlHeader( _("Printer Friendly"),
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
      //'<table width="100%" height="100%" cellpadding="0" cellspacing="0" border="0"><tr><td valign="middle" align="center">'.
-     '<center><b>'.
-     '<form>'.
-     '<input type="button" value="' . _("Print") . '" onClick="printPopup()"> '.
-     '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()">'.
-     '</form>'.
-     '</b>'.
+     html_tag( 'div',
+         '<b>'.
+         '<form>'.
+         '<input type="button" value="' . _("Print") . '" onClick="printPopup()"> '.
+         '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()">'.
+         '</form>'.
+         '</b>',
+     'center' );
      //'</td></tr></table>'.
-     '</center></body>'.
-     "</html>\n";
+     '</body></html>'. "\n";
 
 ?>
