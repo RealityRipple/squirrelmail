@@ -57,7 +57,8 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
     /* Read Data Back From IMAP */
     $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
     if (isset($languages[$squirrelmail_language]['CHARSET']) && strtolower($result) == 'no') {
-        $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"";
+        // $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"";
+        $ss = "SEARCH CHARSET \"US-ASCII\" ALL $search_string";
         $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
     }
 
