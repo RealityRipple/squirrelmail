@@ -10,10 +10,10 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include("../functions/display_messages.php");
-   include("../functions/imap.php");
-   include("../functions/array.php");
+   require_once('../src/validate.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/array.php');
 
 
    displayPageHeader($color, "None");

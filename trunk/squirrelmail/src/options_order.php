@@ -10,11 +10,11 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include('../functions/display_messages.php');
-   include('../functions/imap.php');
-   include('../functions/array.php');
-   include('../functions/plugin.php');
+   require_once('../src/validate.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/array.php');
+   require_once('../functions/plugin.php');
 
 
    if (! isset($action)) { $action = ''; }
@@ -68,7 +68,7 @@
       $index_order = array();
       $index_order = $new_ary;
       if (count($index_order) < 1) {
-         include ('../src/load_prefs.php');
+         include_once('../src/load_prefs.php');
       }
    } else if ($method == 'add' && $add) {
       // User should not be able to insert PHP-code here

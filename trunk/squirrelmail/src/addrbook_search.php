@@ -14,7 +14,7 @@
     **  $Id$
     **/
 
-   include("../src/validate.php");
+   require_once('../src/validate.php');
 
    // Function to include JavaScript code
    function insert_javascript() {
@@ -128,9 +128,9 @@ function bcc_address($addr) {
 
    /* ================= End of functions ================= */
 
-   include('../functions/array.php');
-   include('../functions/strings.php');
-   include('../functions/addressbook.php');
+   require_once('../functions/array.php');
+   require_once('../functions/strings.php');
+   require_once('../functions/addressbook.php');
 
    displayHtmlHeader();
 

@@ -10,9 +10,9 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include("../functions/display_messages.php");
-   include("../functions/imap.php");
+   require_once('../src/validate.php');
+   require_once('../functions/display_messages.php');
+   require_once('../functions/imap.php');
 
    function putSelectedMessagesIntoString($msg) {
       $j = 0;

@@ -11,13 +11,13 @@
     **  $Id$
     **/
 
-   include('../src/validate.php');
-   include('../functions/imap.php');
-   include('../functions/date.php');
-   include('../functions/array.php');
-   include('../functions/mime.php');
-   include('../functions/mailbox_display.php');
-   include('../functions/display_messages.php');
+   require_once('../src/validate.php');
+   require_once('../functions/imap.php');
+   require_once('../functions/date.php');
+   require_once('../functions/array.php');
+   require_once('../functions/mime.php');
+   require_once('../functions/mailbox_display.php');
+   require_once('../functions/display_messages.php');
 
    /////////////////////////////////////////////////////////////////////////////////
    //

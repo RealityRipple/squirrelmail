@@ -11,9 +11,8 @@
     **  $Id$
     **/
 
-   include("../src/validate.php");
-   include("../functions/imap.php");
-
+   require_once('../src/validate.php');
+   require_once('../functions/imap.php');
 
    if($old_name == $new_name) {
       $location = get_location();

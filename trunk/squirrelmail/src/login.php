@@ -52,10 +52,10 @@
       $rcptaddress = urlencode($rcptaddress);
    }
 
-   include("../functions/strings.php");
-   include("../config/config.php");
-   include('../functions/i18n.php');
-   include("../functions/plugin.php");
+   require_once('../functions/strings.php');
+   require_once('../config/config.php');
+   require_once('../functions/i18n.php');
+   require_once('../functions/plugin.php');
 
    // $squirrelmail_language is set by a cookie when the user selects
    // language and logs out
