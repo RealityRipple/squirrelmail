@@ -157,11 +157,6 @@ function charset_decode ($charset, $string) {
 function charset_encode($string,$charset,$htmlencode=true) {
     global $default_charset;
 
-    // Undo html special chars
-    if (! $htmlencode ) {
-        $string = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$string);
-    }
-
     $encode=fixcharset($charset);
     $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
     if (file_exists($encodefile)) {
@@ -170,6 +165,16 @@ function charset_encode($string,$charset,$htmlencode=true) {
     } else {
         include_once(SM_PATH . 'functions/encode/us_ascii.php');
         $ret = charset_encode_us_ascii($string);
+    }
+
+    /**
+     * Undo html special chars, some places (like compose form) have
+     * own sanitizing functions and don't need html symbols.
+     * Undo chars only after encoding in order to prevent conversion of
+     * html entities in plain text emails.
+     */
+    if (! $htmlencode ) {
+        $ret = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$ret);
     }
     return( $ret );
 }
