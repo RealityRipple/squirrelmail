@@ -36,7 +36,7 @@
    }
 
    if ((isset($chosen_theme)) && (file_exists($chosen_theme))) {
-      require("$chosen_theme");
+      $loaded=@include("$chosen_theme");
    } else {
       if (file_exists($theme[0]["PATH"])) {
          require($theme[0]["PATH"]);
@@ -61,7 +61,7 @@
           $color[11]  = "#770000"; // (dark red)       Special Folders color
       }
    }
-
+    if (!isset($loaded)) echo "loading configured theme $chosen_theme failed";
     if (!isset($download_php)) session_register("theme_css");
 
    $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
