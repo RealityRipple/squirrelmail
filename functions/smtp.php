@@ -511,6 +511,39 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers, $session) {
     if (!$from_addr) {
         $from_addr = "$popuser@$domain";
     }
+
+    /* POP3 BEFORE SMTP CODE HERE */
+    global $pop_before_smtp;
+    if (isset($pop_before_smtp) && $pop_before_smtp === true) {
+        if (!isset($pop_port)) {
+            $pop_port = 110;
+        }
+        if (!isset($pop_server)) {
+            $pop_server = $smtpServerAddress; /* usually the same host! */
+        }
+        $popConnection = fsockopen($pop_server, $pop_port, $err_no, $err_str);
+        if (!$popConnection) {
+            error_log("Error connecting to POP Server ($pop_server:$pop_port)"
+                  . " $err_no : $err_str");
+        } else {
+            $tmp = fgets($popConnection, 1024); /* banner */
+            if (!eregi("^\+OK", $tmp, $regs)) {
+                return(0);
+            }
+            fputs($popConnection, "USER $username\r\n");
+            $tmp = fgets($popConnection, 1024);
+            if (!eregi("^\+OK", $tmp, $regs)) {
+                return(0);
+            }
+            fputs($popConnection, 'PASS ' . OneTimePadDecrypt($key, $onetimepad) . "\r\n");
+            $tmp = fgets($popConnection, 1024);
+            if (!eregi("^\+OK", $tmp, $regs)) {
+                return(0);
+            }
+            fputs($popConnection, "QUIT\r\n"); /* log off */
+            fclose($popConnection);
+        }
+    }
     
     $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, 
                                 $errorNumber, $errorString);
@@ -751,7 +784,7 @@ function calculate_references($refs, $inreplyto, $old_reply_to) {
         }
         else {
             $refer .= $inreplyto;
-        }			
+        }                        
     }
     trim($refer);
     $refer = str_replace(' ', "$rn        ", $refer);
@@ -789,7 +822,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
         if(strlen($hdr->message_id) > 2) {
             $refs = get_reference_header ($imap_stream, $reply_id);
             $inreplyto = $hdr->message_id;
-			$old_reply_to = $hdr->inrepto;
+            $old_reply_to = $hdr->inrepto;
             $refer = calculate_references ($refs, $inreplyto, $old_reply_to);
             $more_headers['In-Reply-To'] = $inreplyto;
             $more_headers['References']  = $refer;

@@ -4,6 +4,7 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Added POP3 Before SMTP option (feature request: #498428)
   - Added a server-side thread sorting option per folder
   - Added a server-side sorting global option
   - Fix for jumping buttons in Mozilla (bug #522149)

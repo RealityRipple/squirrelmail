@@ -378,10 +378,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             print "6.    SMTP Server        : $WHT$smtpServerAddress$NRM\n";
             print "7.    SMTP Port          : $WHT$smtpPort$NRM\n";
             print "8.    Authenticated SMTP : $WHT$use_authenticated_smtp$NRM\n";
+            print "9.    POP Before SMTP    : $WHT$pop_before_smtp$NRM\n";
         }
-        print "9.  Server               : $WHT$imap_server_type$NRM\n";
-        print "10. Invert Time          : $WHT$invert_time$NRM\n";
-        print "11. Delimiter            : $WHT$optional_delimiter$NRM\n";
+        print "10.  Server               : $WHT$imap_server_type$NRM\n";
+        print "11. Invert Time          : $WHT$invert_time$NRM\n";
+        print "12. Delimiter            : $WHT$optional_delimiter$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 3 ) {
@@ -567,9 +568,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 6 )  { $smtpServerAddress      = command16(); }
             elsif ( $command == 7 )  { $smtpPort               = command17(); }
             elsif ( $command == 8 )  { $use_authenticated_smtp = command18(); }
-            elsif ( $command == 9 )  { $imap_server_type       = command19(); }
-            elsif ( $command == 10 ) { $invert_time            = command110(); }
-            elsif ( $command == 11 ) { $optional_delimiter     = command111(); }
+            elsif ( $command == 9 )  { $pop_before_smtp        = command18a(); }
+            elsif ( $command == 10 ) { $imap_server_type       = command19(); }
+            elsif ( $command == 11 ) { $invert_time            = command110(); }
+            elsif ( $command == 12 ) { $optional_delimiter     = command111(); }
         } elsif ( $menu == 3 ) {
             if    ( $command == 1 )  { $default_folder_prefix          = command21(); }
             elsif ( $command == 2 )  { $show_prefix_option             = command22(); }
@@ -879,6 +881,23 @@ sub command18 {
     return "true"  if ( $new_use_authenticated_smtp eq "y" );
     return "false" if ( $new_use_authenticated_smtp eq "n" );
     return $use_authenticated_smtp;
+}
+
+# pop before SMTP
+sub command18a {
+    print "Do you wish to use POP3 before SMTP?  Your server must\n";
+    print "support this in order for SquirrelMail to work with it.\n";
+
+    $YesNo = 'n';
+    $YesNo = 'y' if ( lc($pop_before_smtp) eq "true" );
+
+    print "Use pop before SMTP (y/n) [$WHT$YesNo$NRM]: $WHT";
+
+    $new_pop_before_smtp = <STDIN>;
+    $new_pop_before_smtp =~ tr/yn//cd;
+    return "true"  if ( $new_pop_before_smtp eq "y" );
+    return "false"  if ( $new_pop_before_smtp eq "n" );
+    return $pop_before_smtp;
 }
 
 # imap_server_type 
@@ -2208,6 +2227,7 @@ sub save_data {
         print CF "\$smtpPort               = $smtpPort;\n";
         print CF "\$sendmail_path          = '$sendmail_path';\n";
         print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
+        print CF "\$pop_before_smtp        = $pop_before_smtp;\n";
         print CF "\$imap_server_type       = '$imap_server_type';\n";
         print CF "\$invert_time            = $invert_time;\n";
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
