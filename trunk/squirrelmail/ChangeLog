@@ -6,6 +6,7 @@ Version 1.0.2 -- DEVELOPMENT
 - Better escaped string handling from POST variables
 - Many more code cleanups and optimizations
 - Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
+- Added Icelandic translation by Karl Heiðar" <karlh@macho.is>
 - Updated Taiwan translation
 - Updated Sweedish translation
 - Updated Finnish translation
