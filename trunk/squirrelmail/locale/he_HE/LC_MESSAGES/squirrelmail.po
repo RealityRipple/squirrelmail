@@ -311,7 +311,7 @@ msgstr "קבלה"
 
 #: squirrelmail/src/compose.php:798
 msgid "On read"
-msgstr "בקריה"
+msgstr "בקריאה"
 
 #: squirrelmail/src/compose.php:800
 msgid "On Delivery"
@@ -536,7 +536,7 @@ msgstr "עזרה"
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
-msgstr "הכזרה עדיין לא תורגמה ל %s. היא תוצג באנגלית במקום זאת."
+msgstr "העזרה עדיין לא תורגמה ל %s. היא תוצג באנגלית במקום זאת."
 
 #: squirrelmail/src/help.php:137
 msgid "Some or all of the help documents are not present!"

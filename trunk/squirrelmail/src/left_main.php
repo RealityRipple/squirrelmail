@@ -17,6 +17,7 @@ require_once('../functions/array.php');
 require_once('../functions/imap.php');
 require_once('../functions/plugin.php');
 require_once('../functions/page_header.php');
+require_once('../functions/html.php');
 
 /* These constants are used for folder stuff. */
 define('SM_BOX_UNCOLLAPSED', 0);
@@ -65,9 +66,9 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($unseen > 0) { $line .= '<B>'; }
 
     /* Crate the link for this folder. */
-    $line .= "<A HREF=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
+    $line .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
     if ($special_color) {
-        $line .= "<FONT COLOR=\"$color[11]\">";
+        $line .= "<font color=\"$color[11]\">";
     }
     if ( $mailbox == 'INBOX' ) {
         $line .= _("INBOX");
@@ -75,8 +76,8 @@ function formatMailboxName($imapConnection, $box_array) {
         $line .= str_replace(' ','&nbsp;',$mailbox);
     }
     if ($special_color == TRUE)
-        $line .= "</FONT>";
-    $line .= '</A>';
+        $line .= '</font>';
+    $line .= '</a>';
 
     /* If there are unseen message, close bolding. */
     if ($unseen > 0) { $line .= "</B>"; }
@@ -362,7 +363,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 	      $folder_img = '&nbsp<img src="'.$folder_img.'" heigth="15" valign="center">&nbsp';
 	    } else $folder_img = '';
 	    if (!isset($boxes->mbxs[0])) {
-		echo '   <div class="mbx_sub" id='.$j. ' onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)">' . $folder_img .$pre .$font. $boxes->mailboxname_sub .$fontend . $end. '</div>'."\n";
+	        echo '   ' . html_tag( 'div',
+	                        $folder_img .$pre .$font. $boxes->mailboxname_sub .$fontend . $end ,
+	                'left', '', 'class="mbx_sub" id="' .$j. '" onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)"' )
+		        . "\n";
 	    } else {
     		/* get collapse information */
 		if ($collapse_folders) {
@@ -386,7 +390,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 		    }
 		    $collapse_link = $link;
 		} else $collapse_link='';
-		echo '   <div class="mbx_par" id='.$j. 'P onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)">' . $collapse_link . $folder_img .$pre.  $font. '&nbsp '. $boxes->mailboxname_sub .$fontend . $end. '</div>'."\n";
+	        echo '   ' . html_tag( 'div',
+	                        $collapse_link . $folder_img .$pre.  $font. '&nbsp '. $boxes->mailboxname_sub .$fontend . $end ,
+	                'left', '', 'class="mbx_par" id="' .$j. 'P" onmouseover="changerowcolor(this,true)" onmouseout="changerowcolor(this,false)"' )
+		        . "\n";
 		echo '   <INPUT TYPE="hidden" name=mbx['.$j. 'F] value="'.$collapse.'" id=mbx['.$j.'F>'."\n";
 	    }
 	}
@@ -397,7 +404,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 	}
 
 	if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
-	    echo '<div class="par_area" id='.$j.'.0 '. $visible .'>'."\n"; 
+	    echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0 '. $visible ) . "\n";
+
 	    if ($j !='ID.0') {
 	       $j = $j .'.0';
 	}
@@ -740,8 +748,10 @@ if ($advanced_tree) {
    echo '<div ID="leftframe"><br><br>';
 }
 
-
-echo '<CENTER><FONT SIZE=4><B>'. _("Folders") . "</B><BR></FONT>\n\n";
+echo "\n\n" . html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0" width="100%"' ) . 
+    html_tag( 'tr' ) . 
+    html_tag( 'td', '', 'left' ) . 
+    '<center><font size="4"><b>'. _("Folders") . "</b><br></font>\n\n";
 
 if ($date_format != 6) {
     /* First, display the clock. */
@@ -774,13 +784,13 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<CENTER><SMALL>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
-         ": $clk</SMALL></CENTER>";
+    echo '<center><small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
+         ": $clk</small></center>";
 }
 
 /* Next, display the refresh button. */
-echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">'.
-     _("refresh folder list") . '</A>)</SMALL></CENTER><BR>';
+echo '<small>(<a href="../src/left_main.php" target="left">'.
+     _("refresh folder list") . '</a>)</small></center><br>';
 
 /* Lastly, display the folder list. */
 if ( $collapse_folders ) {
@@ -867,6 +877,7 @@ for ($i = 0; $i < count($boxes); $i++) {
 do_hook('left_main_after');
 sqimap_logout($imapConnection);
 
-echo "</div></BODY></HTML>\n";
+echo '</td></tr></table>' . "\n".
+    "</div></body></html>\n";
 
 ?>
