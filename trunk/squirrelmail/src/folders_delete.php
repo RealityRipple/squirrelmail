@@ -12,11 +12,9 @@
     **/
 
    include('../src/validate.php');
-   include("../functions/page_header.php");
    include("../functions/imap.php");
    include("../functions/array.php");
    include("../functions/tree.php");
-   include("../src/load_prefs.php");
 
    /*
    *  Incoming values:

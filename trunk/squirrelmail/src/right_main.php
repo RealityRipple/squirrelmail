@@ -14,14 +14,11 @@
    include('../src/validate.php');
    include('../functions/imap.php');
    include('../functions/date.php');
-   include('../functions/page_header.php');
    include('../functions/array.php');
    include('../functions/mime.php');
    include('../functions/mailbox_display.php');
    include('../functions/display_messages.php');
 
-?>
-<?php
    /////////////////////////////////////////////////////////////////////////////////
    //
    // incoming variables from URL:
@@ -39,9 +36,6 @@
 
    // open a connection on the imap port (143)
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-
-   /** If it was a successful login, lets load their preferences **/
-   include('../src/load_prefs.php');
 
    if (isset($newsort) && $newsort != $sort) {
       setPref($data_dir, $username, 'sort', $newsort);

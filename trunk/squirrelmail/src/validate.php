@@ -104,5 +104,11 @@
    // variables overwrite any passed in variables (for security)
    include ('../functions/strings.php');
    include ('../config/config.php');
-   
+   include ('../src/load_prefs.php');
+   include ('../functions/page_header.php');
+
+   // Set up the language
+   // i18n.php was included by auth.php
+   global $username, $data_dir;
+   set_up_language(getPref($data_dir, $username, 'language'));
 ?>

@@ -11,11 +11,9 @@
     **/
 
    include('../src/validate.php');
-   include("../functions/page_header.php");
    include("../functions/display_messages.php");
    include("../functions/imap.php");
    include("../functions/array.php");
-   include("../src/load_prefs.php");
 
 
    displayPageHeader($color, "None");

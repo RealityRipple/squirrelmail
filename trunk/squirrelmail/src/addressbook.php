@@ -12,7 +12,6 @@
 
    include('../src/validate.php');
    include('../functions/array.php');
-   include('../functions/page_header.php');
    include('../functions/display_messages.php');
    include('../functions/addressbook.php');
 
@@ -75,8 +74,6 @@
       print "</TABLE>\n";
    }
 
-
-   include('../src/load_prefs.php');
 
    // Open addressbook, with error messages on but without LDAP (the
    // second "true"). Don't need LDAP here anyway

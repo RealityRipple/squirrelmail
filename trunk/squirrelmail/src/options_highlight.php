@@ -11,7 +11,6 @@
     **/
 
    include('../src/validate.php');
-   include('../functions/page_header.php');
    include('../functions/display_messages.php');
    include('../functions/imap.php');
    include('../functions/array.php');
@@ -47,7 +46,6 @@
       $message_highlight_list[$theid]['value'] = $value;
       $message_highlight_list[$theid]['match_type'] = $match_type;
    } 
-   include('../src/load_prefs.php');
    displayPageHeader($color, 'None');
 ?>
    <br>

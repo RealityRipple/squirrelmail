@@ -13,9 +13,7 @@
    include('../src/validate.php');
    include("../functions/array.php");
    include("../functions/imap.php");
-   include("../functions/page_header.php");
    include("../functions/plugin.php");
-   include("../src/load_prefs.php");
 
    // open a connection on the imap port (143)
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output

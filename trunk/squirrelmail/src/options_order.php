@@ -11,7 +11,6 @@
     **/
 
    include('../src/validate.php');
-   include('../functions/page_header.php');
    include('../functions/display_messages.php');
    include('../functions/imap.php');
    include('../functions/array.php');
@@ -23,7 +22,6 @@
       removePref($data_dir, $username, "highlight$theid");
    } else if ($action == 'save') {
    } 
-   include('../src/load_prefs.php');
    displayPageHeader($color, 'None');
 ?>
    <br>

@@ -12,12 +12,10 @@
    **/
 
    include("../src/validate.php");
-   include('../functions/page_header.php');
    include('../functions/imap.php');
    include('../functions/mime.php');
    include('../functions/date.php');
    include('../functions/url_parser.php');
-   include('../src/load_prefs.php');
    
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);

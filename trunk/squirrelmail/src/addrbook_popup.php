@@ -11,11 +11,7 @@
     **/
 
    include('../src/validate.php');
-   include('../functions/page_header.php');
    include('../functions/addressbook.php');
-   include('../src/load_prefs.php');
-   
-   set_up_language(getPref($data_dir, $username, 'language'));
    
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">

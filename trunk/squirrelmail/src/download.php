@@ -17,7 +17,6 @@
    include("../functions/imap.php");
    include("../functions/mime.php");
    include("../functions/date.php");
-   include("../src/load_prefs.php");
 
    header("Pragma: ");
    header("Cache-Control: cache");
@@ -144,7 +143,6 @@
             if ($type1 == "plain" || $type1 == "html") {
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
-                include("../functions/page_header.php");
                 viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             } else {
 		DumpHeaders($type0, $type1, $filename, 0);
@@ -156,7 +154,6 @@
          case "message":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            include("../functions/page_header.php");
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          default:

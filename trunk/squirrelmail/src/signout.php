@@ -12,7 +12,6 @@
     **/
 
    include('../src/validate.php');
-   include ('../src/load_prefs.php');
    include ('../functions/prefs.php');
    include ('../functions/plugin.php');
 
@@ -25,7 +24,6 @@
            unlink($attachment_dir . $info['localfilename']);
        }
    }
-   set_up_language(getPref($data_dir, $username, 'language'));
 
    // If a user hits reload on the last page, $base_uri isn't set
    // because it was deleted with the session.
