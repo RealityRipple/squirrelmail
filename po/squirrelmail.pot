@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-03-30 17:11+0300\n"
+"POT-Creation-Date: 2004-03-31 21:14+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,13 +69,16 @@ msgstr ""
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-msgid "No persons matching your search was found"
+msgid "No persons matching your search were found"
 msgstr ""
 
 msgid "Return"
 msgstr ""
 
 msgid "Close"
+msgstr ""
+
+msgid "No persons matching your search was found"
 msgstr ""
 
 msgid "Nickname"
@@ -681,7 +684,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-msgid "Attachment"
+msgid "As Attachment"
 msgstr ""
 
 msgid "Bypass Trash"
@@ -1930,6 +1933,9 @@ msgstr ""
 msgid "POP3 Before SMTP?"
 msgstr ""
 
+msgid "Hide SquirrelMail Header"
+msgstr ""
+
 msgid "Invert Time"
 msgstr ""
 
@@ -2222,6 +2228,9 @@ msgid "the general program"
 msgstr ""
 
 msgid "a specific plugin"
+msgstr ""
+
+msgid "Start Bug Report Form"
 msgstr ""
 
 msgid "Bug Reports:"
