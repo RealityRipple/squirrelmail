@@ -6,6 +6,12 @@ Version 1.3.3 -- cvs
 -------------
   - Change the way highlighting rules are stored to make them more reliable and
     easier to manage.
+  - Reorganization of conf.pl, menu #2 (tassium)
+  - Added CRAM-MD5 and DIGEST-MD5 authentication support for IMAP and SMTP
+	(tassium)
+  - Experimental TLS support for IMAP and SMTP (requires PHP 4.3.x) (tassium)
+  - config_local.php now gets appended to config.php by conf.pl when saved
+	(tassium)
 
 Version 1.3.2
 -------------
