@@ -17,13 +17,13 @@
 /* obsolete */
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
     global $uid_support;
-    $read = sqimap_run_command ($imap_stream, "COPY $start:$end \"$mailbox\"", true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "COPY $start:$end " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
 }
 
 function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
     global $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);    
-    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \"$mailbox\"", true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
     $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
 }
 
@@ -43,7 +43,7 @@ function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id) {
     global $move_to_trash, $trash_folder, $uid_support;
     $msgs_id = sqimap_message_list_squisher($id);
     if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
-        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \"$trash_folder\"", true, $response, $message, $uid_support);
+        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($trash_folder), true, $response, $message, $uid_support);
     }
     $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
 }
