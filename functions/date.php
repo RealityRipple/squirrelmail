@@ -154,30 +154,29 @@
 
    function date_intl( $date_format, $stamp ) {
 
-      $date_format = str_replace( 'D', '[D]', $date_format );
-      $date_format = str_replace( 'F', '[F]', $date_format );
-      $date_format = str_replace( '[D]', 
-                                  ereg_replace( "([a-zA-Z])", "\\\\1", substr( getDayName( date( 'w', $stamp ) ), 0, 3 ) ), 
-                                  $date_format );
-      $date_format = str_replace( '[F]', 
-                                  ereg_replace( "([a-zA-Z])", "\\\\1", getMonthName( date( 'm', $stamp ) ) ), 
-                                  $date_format );
-      return( $date_format . ' ' );
+      $ret = str_replace( 'D', '$1', $date_format );
+      $ret = str_replace( 'F', '$2', $ret );
+      $ret = date( '$3'. $ret . '$3', $stamp ); // Workaround for a PHP 4.0.4 problem
+      $ret = str_replace( '$1', substr( getDayName( date( 'w', $stamp ) ), 0, 3 ), $ret );
+      $ret = str_replace( '$2', getMonthName( date( 'm', $stamp ) ), $ret );
+      $ret = str_replace( '$3', '', $ret );
+      
+      return( $ret );
    }
 
-   function getLongDateString($stamp) {
+   function getLongDateString( $stamp ) {
    
-      $date_format = date_intl( _("D, F j, Y g:i a"), $stamp );
-      return date( $date_format, $stamp );
+      return( date_intl( _("D, F j, Y g:i a"), $stamp ) );
       
    }
 
-   function getDateString($stamp) {
+   function getDateString( $stamp ) {
    
       global $invert_time;
-      
+
       $now = time();
-      $dateZ = date('Z', $now);
+      
+      $dateZ = date('Z', $now );
       if ($invert_time)
           $dateZ = - $dateZ;
       $midnight = $now - ($now % 86400) - $dateZ;
@@ -193,7 +192,8 @@
          $date_format = _("M j, Y");
       }
       
-      return( date( date_intl( $date_format, $stamp ), $stamp ) );
+      return( date_intl( $date_format, $stamp ) );
+      // return( date( $date_i, $stamp ) );
    }
 
    function getTimeStamp($dateParts) {
@@ -244,10 +244,12 @@
 
    // I use this function for profiling. Should never be called in
    // actual versions of squirrelmail released to public.
+/*
    function getmicrotime() {
       $mtime = microtime();
       $mtime = explode(' ',$mtime);
       $mtime = $mtime[1] + $mtime[0];
       return ($mtime);
    }
+*/
 ?>
