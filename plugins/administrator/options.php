@@ -18,6 +18,19 @@ require_once('../functions/imap.php');
 require_once('../src/load_prefs.php');
 require_once('../plugins/administrator/defines.php');
 
+$auth = FALSE;
+if ( $adm_id = fileowner('../config/config.php') ) {
+    $adm = posix_getpwuid( $adm_id );
+    if ( $username == $adm['name'] ) {
+        $auth = TRUE;
+    }
+}
+
+if ( !auth ) {
+    header("Location: ../../src/options.php") ;
+    exit;
+}
+
 displayPageHeader($color, 'None');
 
 $cfgfile = '../config/config.php';
@@ -132,7 +145,7 @@ foreach ( $newcfg as $k => $v ) {
 
     switch ( $type ) {
     case SMOPT_TYPE_TITLE:
-        echo "<tr bgcolor=\"$color[5]\"><th colspan=2>$name</th></tr>";
+        echo "<tr bgcolor=\"$color[0]\"><th colspan=2>$name</th></tr>";
         break;
     case SMOPT_TYPE_COMMENT:
         $v = substr( $v, 1, strlen( $v ) - 2 );
@@ -147,6 +160,22 @@ foreach ( $newcfg as $k => $v ) {
         }
         echo "<tr><td>$name</td><td>";
         echo "<input size=10 name=\"adm_$n\" value=\"$v\">";
+        break;
+    case SMOPT_TYPE_NUMLIST:
+        if ( isset( $HTTP_POST_VARS[$e] ) ) {
+            $v = $HTTP_POST_VARS[$e];
+            $newcfg[$k] = $v;
+        }
+        echo "<tr><td>$name</td><td>";
+        echo "<select name=\"adm_$n\">";
+        foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
+            echo "<option value=\"$kp\"";
+            if ( $kp == $v ) {
+                echo ' selected';
+            }
+            echo ">$vp</option>";
+        }
+        echo '</select>';
         break;
     case SMOPT_TYPE_STRLIST:
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
