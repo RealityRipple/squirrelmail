@@ -85,7 +85,7 @@
          echo "&nbsp;&nbsp;";
       
       $mailboxURL = urlencode($mailbox);
-      echo "<a href=\"right_main.php3?sort=0&startMessage=0&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
+      echo "<a href=\"right_main.php3?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
       echo readShortMailboxName($mailbox, ".");
       echo "</FONT></a><br>\n";
    }
