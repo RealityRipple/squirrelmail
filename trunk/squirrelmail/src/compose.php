@@ -483,255 +483,291 @@ function checkInput ($show)
 } /* function checkInput() */
 
 
-   // True if FAILURE
-   function saveAttachedFiles() {
-      global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
+// True if FAILURE
+function saveAttachedFiles() {
+    global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
 
-      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-      $localfilename = GenerateRandomString(32, '', 7);
-      $full_localfilename = "$hashed_attachment_dir/$localfilename";
-      while (file_exists($full_localfilename)) {
-          $localfilename = GenerateRandomString(32, '', 7);
-          $full_localfilename = "$hashed_attachment_dir/$localfilename";
-      }
-
-      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
-            return true;
-         }
-      }
-
-      $newAttachment['localfilename'] = $localfilename;
-      $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
-      $newAttachment['type'] =
-         strtolower($HTTP_POST_FILES['attachfile']['type']);
-
-      if ($newAttachment['type'] == "")
-         $newAttachment['type'] = 'application/octet-stream';
-
-      $attachments[] = $newAttachment;
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    $localfilename = GenerateRandomString(32, '', 7);
+    $full_localfilename = "$hashed_attachment_dir/$localfilename";
+    while (file_exists($full_localfilename)) {
+        $localfilename = GenerateRandomString(32, '', 7);
+        $full_localfilename = "$hashed_attachment_dir/$localfilename";
     }
 
-   if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None'))
-      $mailbox = "INBOX";
+    if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+        if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $full_localfilename)) {
+            return true;
+        }
+    }
 
-   if (isset($draft)) {
-      require_once ('../src/draft_actions.php');
-      if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
-         showInputForm();
-         exit();
-      } else {
-         $draft_message = _("Draft Email Saved");
-         /* If this is a resumed draft, then delete the original */
-         if(isset($delete_draft)) {
+    $newAttachment['localfilename'] = $localfilename;
+    $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
+    $newAttachment['type'] = strtolower($HTTP_POST_FILES['attachfile']['type']);
+
+    if ($newAttachment['type'] == "") {
+         $newAttachment['type'] = 'application/octet-stream';
+    }
+
+    $attachments[] = $newAttachment;
+}
+
+if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
+    $mailbox = "INBOX";
+}
+
+if (isset($draft)) {
+    require_once ('../src/draft_actions.php');
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+        showInputForm();
+        exit();
+    }
+    else {
+        $draft_message = _("Draft Email Saved");
+        /* If this is a resumed draft, then delete the original */
+        if(isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
             exit();
-         } else {
+        }
+        else {
             Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=$draft_message");
             exit();
-         }
-      }
-   }
+        }
+    }
+}
 
-   if (isset($send)) {
-      if (isset($HTTP_POST_FILES['attachfile']) &&
-          $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-          $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
-          $AttachFailure = saveAttachedFiles();
-      if (checkInput(false) && !isset($AttachFailure)) {
-         $urlMailbox = urlencode (trim($mailbox));
-         if (! isset($reply_id))
-             $reply_id = 0;
-         // Set $default_charset to correspond with the user's selection
-         // of language interface.
-         set_my_charset();
+if (isset($send)) {
+    if (isset($HTTP_POST_FILES['attachfile']) &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
+        $AttachFailure = saveAttachedFiles();
+    }
+    if (checkInput(false) && !isset($AttachFailure)) {
+        $urlMailbox = urlencode (trim($mailbox));
+        if (! isset($reply_id)) {
+            $reply_id = 0;
+        }
+        /*
+         * Set $default_charset to correspond with the user's selection
+         * of language interface. 
+         */
+        set_my_charset();
 
-         // This is to change all newlines to \n
-         // We'll change them to \r\n later (in the sendMessage function)
-         $body = str_replace("\r\n", "\n", $body);
-         $body = str_replace("\r", "\n", $body);
+        /*
+         * This is to change all newlines to \n
+         * We'll change them to \r\n later (in the sendMessage function) 
+         */
+        $body = str_replace("\r\n", "\n", $body);
+        $body = str_replace("\r", "\n", $body);
 
-         // Rewrap $body so that no line is bigger than $editor_size
-         // This should only really kick in the sqWordWrap function
-         // if the browser doesn't support "HARD" as the wrap type
-         // Or, in Opera's case, something goes wrong.
-         $body = explode("\n", $body);
-         $newBody = '';
-         foreach ($body as $line) {
-            if( $line <> '-- ' )
+        /*
+         * Rewrap $body so that no line is bigger than $editor_size
+         * This should only really kick in the sqWordWrap function
+         * if the browser doesn't support "HARD" as the wrap type
+         * Or, in Opera's case, something goes wrong. 
+         */
+        $body = explode("\n", $body);
+        $newBody = '';
+        foreach ($body as $line) {
+            if( $line <> '-- ' ) {
                $line = rtrim($line);
-            if (strlen($line) <= $editor_size + 1)
-               $newBody .= $line . "\n";
-            else {
-               sqWordWrap($line, $editor_size) . "\n";
-               $newBody .= $line;
             }
-         }
-         $body = $newBody;
+            if (strlen($line) <= $editor_size + 1) {
+                $newBody .= $line . "\n";
+            }
+            else {
+                sqWordWrap($line, $editor_size) . "\n";
+                $newBody .= $line;
+            }
+        }
+        $body = $newBody;
 
-         do_hook("compose_send");
+        do_hook("compose_send");
 
-         if (! isset($mailprio))
-        $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                              $subject, $body, $reply_id);
-     else
-        $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                              $subject, $body, $reply_id, $mailprio);
-         if (! $Result) {
+        if (! isset($mailprio)) {
+            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                                  $subject, $body, $reply_id);
+        }
+        else {
+            $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
+                                  $subject, $body, $reply_id, $mailprio);
+        }
+        if (! $Result) {
             showInputForm();
             exit();
-         }
-         if ( isset($delete_draft)) {
+        }
+        if ( isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
             exit();
-         }
+        }
 
-         Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
-      } else {
-         //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-         displayPageHeader($color, $mailbox);
+        Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
+    }
+    else {
+        /* $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0); */
+        displayPageHeader($color, $mailbox);
 
-         if (isset($AttachFailure))
+        if (isset($AttachFailure)) {
              plain_error_message(_("Could not move/copy file. File not attached"), $color);
+        }
 
-         checkInput(true);
+        checkInput(true);
 
-         showInputForm();
-         //sqimap_logout($imapConnection);
-      }
-   } else if (isset($html_addr_search_done)) {
-      displayPageHeader($color, $mailbox);
+        showInputForm();
+        /* sqimap_logout($imapConnection); */
+    }
+}
+elseif (isset($html_addr_search_done)) {
+    displayPageHeader($color, $mailbox);
 
-      if (isset($send_to_search) && is_array($send_to_search)) {
-         foreach ($send_to_search as $k => $v) {
-       if (substr($k, 0, 1) == 'T') {
-               if ($send_to)
-                  $send_to .= ', ';
-               $send_to .= $v;
-       }
-       elseif (substr($k, 0, 1) == 'C') {
-          if ($send_to_cc)
-             $send_to_cc .= ', ';
-          $send_to_cc .= $v;
-       }
-       elseif (substr($k, 0, 1) == 'B') {
-          if ($send_to_bcc)
-             $send_to_bcc .= ', ';
-          $send_to_bcc .= $v;
-       }
-         }
-      }
-
-      showInputForm();
-   } else if (isset($html_addr_search)) {
-      if (isset($HTTP_POST_FILES['attachfile']) &&
-          $HTTP_POST_FILES['attachfile']['tmp_name'] &&
-          $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
-      {
-          if (saveAttachedFiles())
-                plain_error_message(_("Could not move/copy file. File not attached"), $color);
-      }
-      // I am using an include so as to elminiate an extra unnecessary click.  If you
-      // can think of a better way, please implement it.
-      include_once('./addrbook_search_html.php');
-   } else if (isset($attach)) {
-      if (saveAttachedFiles())
+    if (isset($send_to_search) && is_array($send_to_search)) {
+        foreach ($send_to_search as $k => $v) {
+            if (substr($k, 0, 1) == 'T') {
+                if ($send_to) {
+                    $send_to .= ', ';
+                }
+                $send_to .= $v;
+            }
+            elseif (substr($k, 0, 1) == 'C') {
+                if ($send_to_cc) {
+                    $send_to_cc .= ', ';
+                }
+                $send_to_cc .= $v;
+            }
+            elseif (substr($k, 0, 1) == 'B') {
+                if ($send_to_bcc) {
+                    $send_to_bcc .= ', ';
+                }
+                $send_to_bcc .= $v;
+            }
+        }
+    }
+    showInputForm();
+}
+elseif (isset($html_addr_search)) {
+    if (isset($HTTP_POST_FILES['attachfile']) &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] &&
+        $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
+        if (saveAttachedFiles()) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
-      displayPageHeader($color, $mailbox);
-      showInputForm();
-   } else if (isset($do_delete)) {
-      displayPageHeader($color, $mailbox);
+        }
+    }
+    /*
+     * I am using an include so as to elminiate an extra unnecessary
+     * click.  If you can think of a better way, please implement it.
+     */
+    include_once('./addrbook_search_html.php');
+}
+elseif (isset($attach)) {
+    if (saveAttachedFiles()) {
+        plain_error_message(_("Could not move/copy file. File not attached"), $color);
+    }
+    displayPageHeader($color, $mailbox);
+    showInputForm();
+}
+elseif (isset($do_delete)) {
+    displayPageHeader($color, $mailbox);
 
-      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-      if (isset($delete) && is_array($delete)) {
-         foreach($delete as $index) {
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    if (isset($delete) && is_array($delete)) {
+        foreach($delete as $index) {
             $attached_file = $hashed_attachment_dir . '/'
                            . $attachments[$index]['localfilename'];
             unlink ($attached_file);
             unset ($attachments[$index]);
-         }
-      }
+        }
+    }
 
-      showInputForm();
-   } else {
-      // This handles the default case as well as the error case
-      // (they had the same code) --> if (isset($smtpErrors))
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-          $imapPort, 0);
-      displayPageHeader($color, $mailbox);
+    showInputForm();
+}
+else {
+    /*
+     * This handles the default case as well as the error case
+     * (they had the same code) --> if (isset($smtpErrors)) 
+     */
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+                                   $imapPort, 0);
+    displayPageHeader($color, $mailbox);
 
-      $newmail = true;
+    $newmail = true;
 
-      ClearAttachments();
+    ClearAttachments();
 
-      if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num)
-          getAttachments(0);
+    if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num) {
+        getAttachments(0);
+    }
 
-      if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num)
-          getAttachments(0);
+    if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num) {
+        getAttachments(0);
+    }
 
-      newMail();
-      showInputForm();
-      sqimap_logout($imapConnection);
-   }
+    newMail();
+    showInputForm();
+    sqimap_logout($imapConnection);
+}
 
-   function ClearAttachments() {
-       global $username, $attachments, $attachment_dir;
-       $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+function ClearAttachments()
+{
+    global $username, $attachments, $attachment_dir;
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
-       foreach ($attachments as $info) {
-           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-           if (file_exists($attached_file)) {
-               unlink($attached_file);
-           }
-       }
+    foreach ($attachments as $info) {
+        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        if (file_exists($attached_file)) {
+            unlink($attached_file);
+        }
+    }
 
-       $attachments = array();
-   }
+    $attachments = array();
+}
 
-   function getReplyCitation($orig_from) {
-      global $reply_citation_style, $reply_citation_start, $reply_citation_end;
+function getReplyCitation($orig_from)
+{
+    global $reply_citation_style, $reply_citation_start, $reply_citation_end;
 
-      /* First, return an empty string when no citation style selected. */
-      if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
-         return ('');
-      }
+    /* First, return an empty string when no citation style selected. */
+    if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
+        return '';
+    }
 
-      /* Decode the users name. */
-      $parpos = strpos($orig_from, '(');
-      if ($parpos === false) {
-          $orig_from = trim(substr($orig_from, 0, strpos($orig_from, '<')));
-          $orig_from = str_replace('"', '', $orig_from);
-          $orig_from = str_replace("'", '', $orig_from);
-      } else {
-          $end_parpos = strrpos($orig_from, ')');
-          $end_parpos -= ($end_parpos === false ? $end_parpos : $parpos + 1);
-          $orig_from = trim(substr($orig_from, $parpos + 1, $end_parpos));
-      }
+    /* Decode the users name. */
+    $parpos = strpos($orig_from, '(');
+    if ($parpos === false) {
+        $orig_from = trim(substr($orig_from, 0, strpos($orig_from, '<')));
+        $orig_from = str_replace('"', '', $orig_from);
+        $orig_from = str_replace("'", '', $orig_from);
+    }
+    else {
+        $end_parpos = strrpos($orig_from, ')');
+        $end_parpos -= ($end_parpos === false ? $end_parpos : $parpos + 1);
+        $orig_from = trim(substr($orig_from, $parpos + 1, $end_parpos));
+    }
 
-      /* Make sure our final value isn't an empty string. */
-      if ($orig_from == '') {
-          return ('');
-      }
+    /* Make sure our final value isn't an empty string. */
+    if ($orig_from == '') {
+        return '';
+    }
 
-      /* Otherwise, try to select the desired citation style. */
-      switch ($reply_citation_style) {
-         case 'author_said':
-            $start = '';
-            $end   = ' ' . _("said") . ':';
-            break;
-         case 'quote_who':
-            $start = '<' . _("quote") . ' ' . _("who") . '="';
-            $end   = '">';
-            break;
-         case 'user-defined':
-            $start = $reply_citation_start;
-            $end   = $reply_citation_end;
-            break;
-         default: return ('');
-      }
+    /* Otherwise, try to select the desired citation style. */
+    switch ($reply_citation_style) {
+    case 'author_said':
+        $start = '';
+        $end   = ' ' . _("said") . ':';
+        break;
+    case 'quote_who':
+        $start = '<' . _("quote") . ' ' . _("who") . '="';
+        $end   = '">';
+        break;
+    case 'user-defined':
+        $start = $reply_citation_start;
+        $end   = $reply_citation_end;
+        break;
+    default:
+        return '';
+    }
 
-      /* Build and return the citation string. */
-      return ($start . $orig_from . $end . "\n");
-   }
+    /* Build and return the citation string. */
+    return ($start . $orig_from . $end . "\n");
+}
+
 ?>
