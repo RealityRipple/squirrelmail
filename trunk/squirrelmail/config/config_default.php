@@ -376,12 +376,15 @@ global $ldap_server;
  * Database-driven private addressbooks
  *   DSN (Data Source Name) for a database where the private
  *   addressbooks are stored.  See doc/db-backend.txt for more info.
- *   If it is not defined, the addressbooks are stored in files
+ *   If it is not set, the addressbooks are stored in files
  *   in the data dir.
  *   The DSN is in the format: mysql://user:pass@hostname/dbname
+ *   The table is the name of the table to use within the
+ *   specified database.
  */
-global $addrbook_dsn;
+global $addrbook_dsn, $addrbook_table;
 $addrbook_dsn = '';
+$addrbook_table = 'address';
 
 /**
  * Users may search their addressbook via either a plain HTML or Javascript

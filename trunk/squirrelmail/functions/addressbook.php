@@ -51,7 +51,7 @@ if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
 */
 function addressbook_init($showerr = true, $onlylocal = false) {
     global $data_dir, $username, $ldap_server, $address_book_global_filename;
-    global $addrbook_dsn;
+    global $addrbook_dsn, $addrbook_table;
 
     /* Create a new addressbook object */
     $abook = new AddressBook;
@@ -63,9 +63,12 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     */
     if (isset($addrbook_dsn) && !empty($addrbook_dsn)) {
         /* Database */
+        if (!isset($addrbook_table) || isempty($addrbook_table)) {
+            $addrbook_table = 'address';
+        }
         $r = $abook->add_backend('database', Array('dsn' => $addrbook_dsn,
                             'owner' => $username,
-                            'table' => 'address'));
+                            'table' => $addrbook_table));
         if (!$r && $showerr) {
             echo _("Error initializing addressbook database.");
             exit;
