@@ -32,7 +32,7 @@ Version 1.4.0 CVS
   - Fixed handling of encoding/decoding strings.
   - Fixed wrong array_slice call for a subset of the headers.
   - Allow encoded personal names in compose.php.
-  - Improved address parsing from addresses coming from the compose form.
+  - Improved address parsing of addresses coming from the compose form.
   - Fixed uninitialized indices when parsing attachments.
   - Support text/directory MIME-type for vCards (RFC 2425).
   - Added Arabic locale. Thanks to Asrar Abbasi <asrar at canasoft.net> and
@@ -43,6 +43,7 @@ Version 1.4.0 CVS
   - Fixed possible XSS in compose when replying to malicious sources.
   - Add display of the maximum filesize for attachment uploads.
   - Do not add < and > if an identity doesn't contain a full name.
+  - Fixed bug in parsing Content-Type properties part.
 
 Version 1.4.0 RC 2a
 -------------------
