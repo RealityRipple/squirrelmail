@@ -1243,15 +1243,15 @@ function getMbxList($imapConnection) {
 
 function getButton($type, $name, $value) {
 global $color;
-$style = ' STYLE="background:'.$color[3].';font-size:xx-small;font-weight:bold;'.
+$style = ' STYLE="background:'.$color[4].';font-size:80%;font-weight:bold;'.
                   'color:'.$color[8].';margin:0.05em;border:0.2em outset '.
 		  $color[9].';"';
-$javascript = " onmouseover=\"this.style.borderColor='$color[8]'".
+$javascript = " onmouseover=\"this.style.color='$color[4]'".
                            ";this.style.borderStyle='inset'" .
-                           ";this.style.background='$color[0]';\";" .
-	      " onmouseout=\"this.style.borderColor='$color[9]'".
+                           ";this.style.background='$color[3]';\";" .
+	      " onmouseout=\"this.style.color='$color[8]'".
                            ";this.style.borderStyle='outset'" . 
-                           ";this.style.background='$color[3]';\";";
+                           ";this.style.background='$color[4]';\";";
 
 return '<INPUT TYPE="'.$type.'" NAME="'.$name.'" VALUE="'.$value . '"'.$style.$javascript.'>';
 }
