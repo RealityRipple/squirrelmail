@@ -1005,14 +1005,14 @@ function showInputForm ($session, $values=false) {
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("Cc") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-      addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
+                addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("Bcc") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-      addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
+                addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
@@ -1074,7 +1074,7 @@ function showInputForm ($session, $values=false) {
     } else {
         echo '   <tr>' . "\n" .
                     html_tag( 'td', '', 'right', '', 'colspan="2"' ) . "\n" .
-             '         <input type="submit" name="send" value="' . _("Send") . '" />' . "\n" .
+             '         ' . addSubmit(_("Send"), 'send').
              '         &nbsp;&nbsp;&nbsp;&nbsp;<br /><br />' . "\n" .
              '      </td>' . "\n" .
              '   </tr>' . "\n";
@@ -1132,9 +1132,9 @@ function showInputForm ($session, $values=false) {
                         $attachment->mime_header->type1;
 
                 $s_a[] = '<table bgcolor="'.$color[0].
-                '" border="0"><tr><td>'.
-                  addCheckBox('delete[]', FALSE, $key).
-                  "</td><td>\n" . $attached_filename .
+                    '" border="0"><tr><td>'.
+                    addCheckBox('delete[]', FALSE, $key).
+                    "</td><td>\n" . $attached_filename .
                     '</td><td>-</td><td> ' . $type . '</td><td>('.
                     show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
            }
@@ -1161,18 +1161,18 @@ function showInputForm ($session, $values=false) {
     }
 
     echo '</table>' . "\n" .
-      addHidden('username', $username).
-      addHidden('smaction', $action).
-      addHidden('mailbox', $mailbox);
+        addHidden('username', $username).
+        addHidden('smaction', $action).
+        addHidden('mailbox', $mailbox);
     /*
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
     */
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo addHidden('restoremessages', serialize($compose_messages)).
-      addHidden('composesession', $composesession).
-      addHidden('querystring', $queryString).
-      "</form>\n";
+         addHidden('composesession', $composesession).
+         addHidden('querystring', $queryString).
+         "</form>\n";
     if (!(bool) ini_get('file_uploads')) {
       /* File uploads are off, so we didn't show that part of the form.
          To avoid bogus bug reports, tell the user why. */
@@ -1546,4 +1546,5 @@ function deliverMessage($composeMessage, $draft=false) {
     return $succes;
 }
 
+// vim: et ts=4
 ?>
