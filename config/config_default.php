@@ -79,6 +79,7 @@
 // For instance, the following would return the user to your
 // home page:    $signout_page = "/";
 // Set to the empty string to continue to use the default signout page.
+    global $signout_page;
     $signout_page = "";
 
 //  Many servers store mail in your home directory.  With this, they
