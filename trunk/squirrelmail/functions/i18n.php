@@ -841,7 +841,7 @@ $languages['pl']['NAME']    = 'Polish';
 $languages['pl']['CHARSET'] = 'iso-8859-2';
 $languages['pl_PL']['ALIAS'] = 'pl';
 
-$languages['pt']['NAME'] = 'Português (Portugal)';
+$languages['pt']['NAME'] = 'Portuguese (Portugal)';
 $languages['pt']['CHARSET'] = 'iso-8859-1';
 $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
 $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
