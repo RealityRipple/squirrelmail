@@ -274,7 +274,7 @@ function ClearAttachments() {
 
 	$rem_attachments = array();
         foreach ($attachments as $info) {
-	    if ($info->session == -1) {
+	    if ($info['session'] == -1) {
         	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
         	if (file_exists($attached_file)) {
             	    unlink($attached_file);
@@ -1019,6 +1019,7 @@ if ($default_use_mdn) {
                 if ( SendMDN( $MDN_to, $final_recipient ) > 0 && $supportMDN ) {
                     ToggleMDNflag( true);
                 }
+	        ClearAttachements();
             }
             $sendreceipt = 'removeMDN';
             $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
