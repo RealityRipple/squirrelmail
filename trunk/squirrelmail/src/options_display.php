@@ -46,7 +46,7 @@ function load_optpage_data_display() {
         'save'    => 'save_option_theme'
     );
 
-    $language_values = array();
+    $language_values = array('');
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
             $language_values[$lang_key] = $lang_attributes['NAME'];
