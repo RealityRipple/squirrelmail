@@ -12,8 +12,7 @@ initials = taken by that person
   -     Session management -- do away with cookies
   -     Importing of address books
   -     Navigation between messages without going to folder list (next, prev)
-  -     Configurable headers shown on the message listing
-             like:  cc, to, etc
+  -     Configurable headers shown on the message listing, like:  cc, to, etc
   -     Advanced statuses on messages (Seen, Answered, etc)
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
