@@ -103,12 +103,11 @@
 
    /** Returns a line of comma separated email addresses from an array **/
    function getLineOfAddrs($array) {
-      $to_line = "";
-      for ($i = 0; $i < count($array); $i++) {
-         if ($to_line)
-            $to_line = "$to_line, $array[$i]";
-         else
-            $to_line = "$array[$i]";
+      if (is_array($array)) {
+        $to_line = implode(", ", $array);
+        $to_line = trim(ereg_replace(",,+", ",", $to_line));
+      } else {
+        $to_line = "";
       }
       return $to_line;
    }
