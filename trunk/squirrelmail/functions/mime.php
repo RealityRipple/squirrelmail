@@ -521,7 +521,7 @@
                
                $HookResults = do_hook("attachment $type0/$type1", $Links,
                    $startMessage, $id, $urlMailbox, $ent, $DefaultLink, 
-                   $where, $what);
+                   $display_filename, $where, $what);
 
                $Links = $HookResults[1];
                $DefaultLink = $HookResults[6];
