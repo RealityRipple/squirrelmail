@@ -165,6 +165,7 @@ $attributes = array ();
 $saved_attributes = array ();
 $search_all = 'none';
 $perbox_count = array ();
+$recent_count = getPref($data_dir, $username, 'search_memory', 0);
 
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -188,7 +189,9 @@ if ((!isset($submit) || empty($submit)) && !empty($what)) {
 if ( !isset( $submit ) ) {
     $submit = '';
 } else if ($submit == _("Search") && !empty($what)) {
-    update_recent($what, $where, $mailbox, $username, $data_dir);
+    if ($recent_count > 0) {
+        update_recent($what, $where, $mailbox, $username, $data_dir);
+    }
 }
 elseif ($submit == 'forget') {
     forget_recent($count, $username, $data_dir);
@@ -211,7 +214,6 @@ echo "<BR>\n".
 
 /*  update the recent and saved searches from the pref files  */
 $attributes = get_recent($username, $data_dir);
-$recent_count = getPref($data_dir, $username, 'search_memory', 0);
 $saved_attributes = get_saved($username, $data_dir);
 $saved_count = count($saved_attributes['saved_what']);
 $count_all = 0;
