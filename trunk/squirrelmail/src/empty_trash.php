@@ -32,23 +32,19 @@
       }
    }
 
-   $trash = getFolderNameMinusINBOX($trash_folder);
-   $trash = "user.$username.$trash";
    // mark them as deleted
    setMessageFlag($imapConnection, 1, $numMessages, "Deleted");
    expungeBox($imapConnection, $mailbox);
 
    // remove subfolders
    for ($i = 0; $i < count($folders); $i++) {
-      if ($folders[$i] != "NONE") {
-         $trash = getFolderNameMinusINBOX($folders[$i]);
-         $trash = "user.$username.$trash";
-         echo "$trash<BR>";
-         removeFolder($imapConnection, $trash);
+      if (($folders[$i] == "NOPE") || ($folders[$i] == "$trash_folder")) {
+      } else {
+         $thisfolder = getFolderNameMinusINBOX($folders[$i]);
+         $thisfolder = "user.$username.$thisfolder";
+         removeFolder($imapConnection, $thisfolder);
       }
    }
-
-   createFolder($imapConnection, "user.$username.$trash_folder");
 
    // Log out this session
    fputs($imapConnection, "1 logout");
