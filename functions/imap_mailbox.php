@@ -24,7 +24,7 @@ global $boxesnew;
 */
 
 class mailboxes {
-    var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, 
+    var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
         $is_trash = false, $is_draft = false,  $mbxs = array(), 
         $unseen = false, $total = false;
@@ -83,6 +83,26 @@ function sortSpecialMbx($a, $b) {
     return ($acmp > $bcmp) ? 1: -1;
 }
 
+function compact_mailboxes_response($ary)
+{
+    /*
+     * Workaround for mailboxes returned as literal
+     * FIXME : Doesn't work if the mailbox name is multiple lines 
+     * (larger then fgets buffer)
+     */
+    for ($i = 0, $iCnt=count($ary); $i < $iCnt; $i++) {
+        if (isset($ary[$i + 1]) && substr($ary[$i], -3) == "}\r\n") {
+            if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                 $ary[$i], $regs)) {
+                $ary[$i] = $regs[1] . '"' . addslashes(trim($ary[$i+1])) . '"' . $regs[2];
+                array_splice($ary, $i+1, 2);
+            }
+        }
+    }
+    /* remove duplicates and ensure array is contiguous */
+    return array_values(array_unique($ary));
+}
+
 /*
 function find_mailbox_name ($mailbox) {
     if (preg_match('/\*.+\"([^\r\n\"]*)\"[\s\r\n]*$/', $mailbox, $regs)) 
@@ -107,28 +127,12 @@ function find_mailbox_name($line)
     return '';
 }
 
-function compact_mailboxes_response($ary)
-{
-    /*
-     * Workaround for mailboxes returned as literal
-     * FIXME : Doesn't work if the mailbox name is multiple lines 
-     * (larger then fgets buffer)
-     */
-    for ($i = 0, $iCnt=count($ary); $i < $iCnt; $i++) {
-        if (isset($ary[$i + 1]) && substr($ary[$i], -3) == "}\r\n") {
-            if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $ary[$i], $regs)) {
-                $ary[$i] = $regs[1] . '"' . addslashes(trim($ary[$i+1])) . '"' . $regs[2];
-                array_splice($ary, $i+1, 2);
-            }
-        }
-    }
-    /* remove duplicates and ensure array is contiguous */
-    return array_values(array_unique($ary));
-}
-
 function check_is_noselect ($lsub_line) {
     return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noselect[^\)]*\)/i", $lsub_line);
+}
+
+function check_is_noinferiors ($lsub_line) {
+    return preg_match("/^\* (LSUB|LIST) \([^\)]*\\\\Noinferiors[^\)]*\)/i", $lsub_line);
 }
 
 /**
@@ -364,9 +368,9 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
 }
 
 /*
- * Formats a mailbox into 4 parts for the $boxesall array
+ * Formats a mailbox into parts for the $boxesall array
  *
- * The four parts are:
+ * The parts are:
  *
  *     raw            - Raw LIST/LSUB response from the IMAP server
  *     formatted      - nicely formatted folder name
@@ -387,7 +391,7 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
         }
 
         /* Count number of delimiters ($delimiter) in folder name */
-        $mailbox  = trim($line_lsub[$g]);
+        $mailbox  = /*trim(*/$line_lsub[$g]/*)*/;
         $dm_count = substr_count($mailbox, $delimiter);
         if (substr($mailbox, -1) == $delimiter) {
             /* If name ends in delimiter, decrement count by one */
@@ -509,14 +513,14 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                     $box2 = $boxes_part['formatted'];
                     break;
                   default:  /* default, long names, style = 0 */
-                    $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
+                    $box2 = str_replace(' ', '&nbsp;', htmlentities(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
                     break;
                 }
             }
             if ($show_selected != 0 && in_array($lowerbox, $show_selected) ) {
-                $mbox_options .= '<OPTION VALUE="'.$box.'" SELECTED>'.$box2.'</OPTION>' . "\n";
+                $mbox_options .= '<OPTION VALUE="' . htmlspecialchars($box) .'" SELECTED>'.$box2.'</OPTION>' . "\n";
             } else {
-                $mbox_options .= '<OPTION VALUE="'.$box.'">'.$box2.'</OPTION>' . "\n";
+                $mbox_options .= '<OPTION VALUE="' . htmlspecialchars($box) .'">'.$box2.'</OPTION>' . "\n";
             }
         }
     }
@@ -632,6 +636,7 @@ function sqimap_mailbox_list($imap_stream) {
             }
         }
     }
+    
     return $boxesnew;
 }
 
@@ -716,6 +721,7 @@ function sqimap_mailbox_tree($imap_stream) {
         $inbox_in_list = false;
         $inbox_subscribed = false;
         $noselect = false;
+        $noinferiors = false;
 
         require_once(SM_PATH . 'include/load_prefs.php');
 
@@ -752,11 +758,12 @@ function sqimap_mailbox_tree($imap_stream) {
             // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
             if ($imap_server_type != "uw") {                
                 $noselect = check_is_noselect($lsub_ary[$i]);
+                $noinferiors = check_is_noinferiors($lsub_ary[$i]);
             }
             if (substr($mbx, -1) == $delimiter) {
                 $mbx = substr($mbx, 0, strlen($mbx) - 1);
             }
-            $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect); 
+            $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors); 
         }
         // FIX ME this requires a config setting inside conf.pl instead of checking on server type
         if ($imap_server_type == "uw") {
@@ -775,7 +782,8 @@ function sqimap_mailbox_tree($imap_stream) {
                if ($aServerResponse[$tag] == 'OK') {
                    $sResponse = implode('', $aResponse[$tag]);
                    $noselect = check_is_noselect($sResponse);
-                   $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect);
+                   $noinferiors = check_is_noinferiors($sResponse);
+                   $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
                }
            }
            $cnt = count($sorted_lsub_ary);
@@ -867,6 +875,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             }
 
             $mbx->is_noselect = $mbx_ary[$i]['noselect'];
+            $mbx->is_noinferiors = $mbx_ary[$i]['noinferiors'];
 
             $r_del_pos = strrpos($mbx_ary[$i]['mbx'], $delimiter);
             if ($r_del_pos) {
