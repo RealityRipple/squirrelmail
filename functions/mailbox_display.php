@@ -1121,7 +1121,7 @@ function processSubject($subject, $threadlevel = 0) {
 
     $trim_at = 55;
 
-    /* if this is threaded, substract two chars per indentlevel */
+    /* if this is threaded, subtract two chars per indentlevel */
     if($threadlevel > 0 && $threadlevel <= 10)
         $trim_at -= (2*$threadlevel);
 
@@ -1137,8 +1137,9 @@ function processSubject($subject, $threadlevel = 0) {
      * the real number of characters, and if more
      * than 55, substr with an updated trim value.
      */
-    while ( (($ent_loc = strpos($subject, '&', $ent_offset)) !== false) &&
-            (($ent_loc_end = strpos($subject, ';', $ent_loc)) !== false) ) {
+
+    while ( (($ent_loc = strpos(substr($subject,0,$trim_val), '&', $ent_offset)) !== false) &&
+            (($ent_loc_end = strpos(substr($subject,0,$trim_val+5), ';', $ent_loc)) !== false) ) {
         $trim_val   += ($ent_loc_end-$ent_loc)+1;
         $ent_strlen -= $ent_loc_end-$ent_loc;
         $ent_offset  = $ent_loc_end+1;
