@@ -8,7 +8,10 @@
  * @subpackage new_mail
  */
 
-/** define SM_PATH */
+/**
+ * define SM_PATH 
+ * @ignore
+ */
 define('SM_PATH','../../');
 
 /** Load squirrelmail functions */

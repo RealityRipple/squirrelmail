@@ -1,4 +1,13 @@
 <?php
+/**
+ * SquirrelMail NewMail plugin
+ *
+ * Default configuration file
+ * @version $Id$
+ * @package plugins
+ * @subpackage new_mail
+ */
+
 // Set $allowsound to false if you don't want sound files available
 global $newmail_allowsound;
 $newmail_allowsound = true;
