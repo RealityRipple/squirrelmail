@@ -182,23 +182,20 @@ function getforwardHeader($orig_header) {
 }
 /* ----------------------------------------------------------------------- */
 
-/* OLD: should be adapted to composeMessage */
-
 /*
  * If the session is expired during a post this restores the compose session 
  * vars.
  */
-//$session_expired = false; 
-sqsession_unregister('session_expired_post');
-if (false && sqsession_is_registered('session_expired_post')) {
-    global $session_expired_post, $session_expired;
+if (sqsession_is_registered('session_expired_post')) {
+    $session_expired_post = $_SESSION['session_expired_post'];
     /* 
      * extra check for username so we don't display previous post data from
      * another user during this session.
      */
     if ($session_expired_post['username'] != $username) {
+	unset($session_expired_post);    
         sqsession_unregister('session_expired_post');
-        sqsession_unregister('session_expired');      
+	session_write_close();
     } else {
         foreach ($session_expired_post as $postvar => $val) {
             if (isset($val)) {
@@ -207,13 +204,17 @@ if (false && sqsession_is_registered('session_expired_post')) {
                 $$postvar = '';
             }
         }
+	$compose_messages = unserialize(urldecode($restoremessages));
+	sqsession_register($compose_messages,'compose_messages');
+	sqsession_register($composesession,'composesession');
         if (isset($send)) {
             unset($send);
         }
         $session_expired = true;
     }
+    unset($session_expired_post);
     sqsession_unregister('session_expired_post');
-    sqsession_unregister('session_expired');
+    session_write_close();
     if (!isset($mailbox)) {
         $mailbox = '';
     }
@@ -237,7 +238,6 @@ if (!isset($session) || (isset($newmessage) && $newmessage)) {
     $composesession = $session;
     sqsession_register($composesession,'composesession');
 }     
-
 if (!isset($compose_messages)) {
   $compose_messages = array();
 }
@@ -268,6 +268,7 @@ if ($draft) {
         showInputForm($session);
         exit();
     } else {
+        unset($compose_messages[$session]);
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
@@ -339,12 +340,14 @@ if ($send) {
             showInputForm($session);
             exit();
         }
+	unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=" . urlencode( $draft_folder ).
                    "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
+	    
             Header("Location: compose.php?mail_sent=yes");
         }
         else {
@@ -688,7 +691,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         }
 	$compose_messages[$session] = $composeMessage;
 	sqsession_register($compose_messages, 'compose_messages');
-
+        session_write_close();
         sqimap_logout($imapConnection);
     }
     $ret = array( 'send_to' => $send_to,
@@ -798,7 +801,7 @@ function showInputForm ($session, $values=false) {
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
            $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action, 
-           $username, $compose_messages;
+           $username, $compose_messages, $composesession;
 
     $composeMessage = $compose_messages[$session];
 
@@ -1022,9 +1025,17 @@ function showInputForm ($session, $values=false) {
     }
     echo '</TABLE>' . "\n" .
          '<input type="hidden" name="username" value="'. $username . "\">\n" .   
-         '<input type=hidden name=action value=' . $action . ">\n" .
+         '<input type=hidden name=action value="' . $action . "\">\n" .
          '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
          "\">\n";
+    /* 
+	store the complete ComposeMessages array in a hidden input value 
+	so we can restore them in case of a session timeout.
+    */
+    echo '<input type=hidden name=restoremessages value="' . urlencode(serialize($compose_messages)) . "\">\n";
+    echo '<input type=hidden name=composesession value="' . $composesession . "\">\n";
+    echo '<input type=hidden name=querystring value="' . $_SERVER['QUERY_STRING'] . "\">\n";
+
     echo '</FORM>';
     do_hook('compose_bottom');
     echo '</BODY></HTML>' . "\n";
