@@ -31,6 +31,7 @@ require_once(SM_PATH . 'functions/forms.php');
 displayPageHeader($color, 'None');
 
 include_once(SM_PATH . 'plugins/bug_report/system_specs.php');
+include_once(SM_PATH . 'plugins/bug_report/functions.php');
 global $body;
 
 $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
@@ -114,4 +115,25 @@ $body = htmlspecialchars($body_top) . $body;
    </tr>
    </table>
    </form>
+   <br />
+   <?php
+        // special forms that allow searching for bugs in mailing list and bugtracker
+	echo html_tag('table',
+                  html_tag('tr',
+                           html_tag('th',_("Search Mailing List Archives"),'center',$color[0])
+                           ) .
+                  html_tag('tr',
+                           html_tag('td', add_gmane_form())
+                           ) .
+                  html_tag('tr',
+                           html_tag('td', '&nbsp;<br />')
+                           ) .
+                  html_tag('tr',
+                           html_tag('th',_("Search SourceForge Bugtracker"),'center',$color[0])
+                           ) .
+                  html_tag('tr',
+                           html_tag('td', add_sf_bug_form())
+                           )
+                  ,'center','','width="95%"');
+  ?>
 </body></html>
