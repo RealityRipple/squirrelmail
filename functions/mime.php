@@ -1626,7 +1626,7 @@ function sq_body2div($attary, $mailbox, $message, $id){
  * special description.
  *
  * Since the description is quite lengthy, see it here:
- * http://www.mricon.com/html/phpfilter.html
+ * http://linux.duke.edu/projects/mini/htmlfilter/
  *
  * @param $body                 the string with HTML you wish to filter
  * @param $tag_list             see description above
