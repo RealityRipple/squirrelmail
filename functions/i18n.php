@@ -20,6 +20,7 @@ require_once(SM_PATH . 'functions/global.php');
 /* Decodes a string to the internal encoding from the given charset */
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language, $default_charset;
+    global $use_php_recode, $use_php_iconv, $agresive_decoding;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
@@ -31,8 +32,10 @@ function charset_decode ($charset, $string) {
     set_my_charset();
 
     // Variables that allow to use functions without function_exist() calls
-    $use_php_recode=false;
-    $use_php_iconv=false;
+    if (! isset($use_php_recode) || $use_php_recode=="" ) {
+	     $use_php_recode=false; }
+    if (! isset($use_php_iconv) || $use_php_iconv=="" ) {
+         $use_php_iconv=false; }
 
     // Don't do conversion if charset is the same.
     if ( $charset == strtolower($default_charset) )
@@ -74,7 +77,8 @@ function charset_decode ($charset, $string) {
     $string = htmlspecialchars ($string);
 
     /* controls cpu and memory intensive decoding cycles */
-    $agresive_decoding = false;
+    if (! isset($agresive_decoding) || $agresive_decoding=="" ) {
+         $agresive_decoding=false; }
 
     if (ereg('iso-8859-([[:digit:]]+)', $charset, $res)) {
         if ($res[1] == '1') {
