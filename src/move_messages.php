@@ -43,7 +43,8 @@ function putSelectedMessagesIntoString($msg) {
 
 function attachSelectedMessages($msg, $imapConnection) {
 
-    global $mailbox, $username, $attachment_dir, $attachments, $identity, $data_dir, $composesession, $lastTargetMailbox;
+    global $mailbox, $username, $attachment_dir, $attachments, $identity, 
+           $data_dir, $composesession, $lastTargetMailbox, $uid_support;
 
 
     if (!isset($attachments)) {
@@ -81,10 +82,10 @@ function attachSelectedMessages($msg, $imapConnection) {
     while ($j < count($msg)) {
         if (isset($msg[$i])) {
     	    $id = $msg[$i];
-    	    $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage);
+    	    $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);
     	    if ($response = 'OK') {
     		    // get subject so we can set the remotefilename
-        		$read = sqimap_run_command ($imapConnection, "FETCH $id BODY.PEEK[HEADER.FIELDS (Subject)]", true, $response, $readmessage);
+        		$read = sqimap_run_command ($imapConnection, "FETCH $id BODY.PEEK[HEADER.FIELDS (Subject)]", true, $response, $readmessage, $uid_support);
         		$subject = substr($read[1], strpos($read[1], ' '));
     		    $subject = trim($subject);
     
