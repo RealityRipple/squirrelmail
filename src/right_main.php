@@ -73,7 +73,6 @@
    }
 
    sqimap_mailbox_select($imapConnection, $mailbox);
-   $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
 	if (isset($newsort)) {
@@ -91,6 +90,10 @@
          unset($msgs);
       if (session_is_registered("msort"))
          unset($msort);
+		if (session_is_registered("numMessages"))
+			unset($numMessages);
+
+   	$numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
 
       showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
       
@@ -98,6 +101,7 @@
          session_register("msgs");
       if (session_is_registered("msort") && isset($msort))
          session_register("msort");
+      session_register("numMessages");
    }
 
    // close the connection

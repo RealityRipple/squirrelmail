@@ -59,6 +59,11 @@
       $currentArrayIndex = -1;
    }
 
+	for ($i = 0; $i < count($msgs); $i++) {
+		if ($msgs[$i]["ID"] == $passed_id)
+			$msgs[$i]["FLAG_SEEN"] = true;
+	}
+
    include("../src/load_prefs.php");
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);

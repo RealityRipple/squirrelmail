@@ -1,15 +1,15 @@
 Known BUGS to be fixed before 0.4pre1:
 
-  -    If a new message comes in while still browsing cached message 
-       list, the space is allocated, but it is blank.
-(lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
-       look into this one.  
-  -    When reading through 7 unread messages, every time I would read
-       a message and click on "Message List" to go back, they would stay
-		 marked "unread".  The caching was doing too good of a job.  (:
 
 
 --SQUASHED--
+(lme)  When reading through 7 unread messages, every time I would read
+       a message and click on "Message List" to go back, they would stay
+		 marked "unread".  The caching was doing too good of a job.  (:
+(lme)  If a new message comes in while still browsing cached message 
+       list, the space is allocated, but it is blank.
+(lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
+       look into this one.  
 (lme)  LDAP preferences in conf.pl are not working.
 (lme)  Next/Previous while viewing a message should take into account 
        the way that the mailbox is sorted.  Right now, it just does it 
