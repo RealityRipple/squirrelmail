@@ -1121,7 +1121,7 @@ sub command62 {
 sub save_data {
    open (FILE, ">config.php");
 
-   print FILE "<?\n\t/** SquirrelMail configuration\n";
+   print FILE "<?php\n\t/** SquirrelMail configuration\n";
    print FILE "\t ** Created using the configure script, conf.pl\n\t **/\n\n";
 
    print FILE "\t\$org_name   = \"$org_name\";\n";

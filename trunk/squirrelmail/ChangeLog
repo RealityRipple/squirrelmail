@@ -1,4 +1,8 @@
-Version 0.4pre2 -- DEVELOPMENT
+Version 0.4 -- DEVELOPMENT
+--------------------------
+- Changed <? to <?php in a few places
+
+Version 0.4pre2 -- May 5, 2000
 ------------------------------
 - Replying sets the "Answered" flag on the original message
 - When message is sent, it sends you to the folder you were looking at.
