@@ -22,10 +22,11 @@ class Deliver {
        } else {
           $boundary='';
        }
+       $raw_length = 0;
        $reply_rfc822_header = (isset($message->reply_rfc822_header) 
         	             ? $message->reply_rfc822_header : '');
-       $header = $this->prepareRFC822_Header($rfc822_header, $reply_rfc822_header);
-       $raw_length = strlen($header);
+       $header = $this->prepareRFC822_Header($rfc822_header, $reply_rfc822_header, $raw_length);
+
        if ($stream) {
             $this->preWriteToStream($header);
             $this->writeToStream($stream, $header);
@@ -201,14 +202,14 @@ class Deliver {
 	$cnt = count($header);
 	$hdr_s = '';
 	for ($i = 0 ; $i < $cnt ; $i++)	{
-    	    $hdr_s .= $this->foldLine($header[$i], 78, '    ');
+    	    $hdr_s .= $this->foldLine($header[$i], 78,str_pad('',4));
 	}
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate mimeheader and body-entity */
 	return $header;
     }    
 
-    function prepareRFC822_Header($rfc822_header, $reply_rfc822_header) {
+    function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
 	global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
 	global $version, $useSendmail, $username;
 	global $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -250,7 +251,9 @@ class Deliver {
         if (count($rfc822_header->from) > 1) {
 	    $header[] = 'Sender: '. encodeHeader($rfc822_header->getAddr_s('sender')) . $rn;
 	}
-	$header[] = 'To: '. encodeHeader($rfc822_header->getAddr_s('to')) . $rn;    // Who it's TO
+	if (count($rfc822_header->to)) {
+	    $header[] = 'To: '. encodeHeader($rfc822_header->getAddr_s('to')) . $rn;
+        }
 	if (count($rfc822_header->cc)) {
 	    $header[] = 'Cc: '. encodeHeader($rfc822_header->getAddr_s('cc')) . $rn;
 	}
@@ -259,8 +262,14 @@ class Deliver {
 	}
 	/* Sendmail should return true. Default = false */
 	$bcc = $this->getBcc();
-	if ($bcc && count($rfc822_header->bcc)) {
-	    $header[] = 'Bcc: '. encodeHeader($rfc822_header->getAddr_s('bcc')) . $rn;
+	if (count($rfc822_header->bcc)) {
+	    $s = 'Bcc: '. encodeHeader($rfc822_header->getAddr_s('bcc')) . $rn;
+	    if (!$bcc) {
+	       $s = $this->foldLine($s, 78, str_pad('',4));
+	       $raw_length += strlen($s);
+	    } else {
+	       $header[] = $s;
+	    }
 	}
 	/* Identify SquirrelMail */	
 	$header[] = "X-Mailer: SquirrelMail (version $version)" . $rn; 
@@ -303,10 +312,11 @@ class Deliver {
 	$cnt = count($header);
 	$hdr_s = '';
 	for ($i = 0 ; $i < $cnt ; $i++) {
-    	    $hdr_s .= $this->foldLine($header[$i], 78, '    ');
+    	    $hdr_s .= $this->foldLine($header[$i], 78, str_pad('',4));
 	}
 	$header = $hdr_s;
 	$header .= $rn; /* One blank line to separate header and body */
+	$raw_length += strlen($header);
 	return $header;
     }
 
