@@ -76,6 +76,8 @@ function replyAllString($header) {
 }
 
 function getforwardHeader($orig_header) {
+    global $editor_size;
+
    $display = array(
                      _("Subject") => strlen(_("Subject")),
                      _("From")    => strlen(_("From")),		     
@@ -88,7 +90,7 @@ function getforwardHeader($orig_header) {
    foreach($display as $key => $val) {
       $display[$key] = $key .': '. str_pad('', $maxsize - $val);
    }      
-   $bodyTop =  str_pad(' '._("Original Message").' ',78, '-',STR_PAD_BOTH);
+   $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH);
    $bodyTop .=  "\n". $display[_("Subject")] . $orig_header->subject . "\n" .
         $display[_("From")] . $orig_header->getAddr_s('from',"\n$indent") . "\n" .
         $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
@@ -96,7 +98,7 @@ function getforwardHeader($orig_header) {
   if ($orig_header->cc != array() && $orig_header->cc !='') {
      $bodyTop .= $display[_("Cc")] . $orig_header->getAddr_s('cc',"\n$indent") . "\n";
   }
-  $bodyTop .= str_pad('',78, '-');
+  $bodyTop .= str_pad('', $editor_size -2 , '-');
   $bodyTop .= "\n";
   return $bodyTop;
 }
