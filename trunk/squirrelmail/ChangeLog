@@ -1,5 +1,6 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
+- Rewrote MIME support from scratch, optomizing it an unbelievable amount
 - Added support for message highlighting
 - Moved Address and Send buttons on Compose form for easier access 
 - Added Polish translation from Lukasz Klimek <casa@LO.Pila.PL>

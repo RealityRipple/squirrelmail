@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # conf.pl
 # Written March 26, 2000
-# Luke Ehresman (lehresma@css.tayloru.edu)
+# Luke Ehresman (luke@squirrelmail.org)
 #
 # A simple configure script to configure squirrelmail
 ############################################################              
