@@ -183,7 +183,7 @@
 
 
    /** returns the value for the pref $string **/
-   function getPref($data_dir, $username, $string) {
+   function getPref($data_dir, $username, $string, $default ) {
       $db = new dbPrefs;
       if(isset($db->error)) {
 	 printf(_("Preference database error (%s). Exiting abnormally"),

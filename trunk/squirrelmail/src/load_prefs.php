@@ -75,74 +75,52 @@
        session_register("theme_css");
 
    global $use_javascript_addr_book;
-   $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
-   if ($use_javascript_addr_book == "")
-      $use_javascript_addr_book = $default_use_javascript_addr_book;
+   $use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
 
-   
    /** Load the user's sent folder preferences **/
    global $move_to_sent, $move_to_trash;
-   $move_to_sent = getPref($data_dir, $username, "move_to_sent");
-   if ($move_to_sent == "")
-      $move_to_sent = $default_move_to_sent;
+   $move_to_sent = getPref($data_dir, $username, 'move_to_sent', $default_move_to_sent);
 
    /** Load the user's trash folder preferences **/
-   $move_to_trash = getPref($data_dir, $username, "move_to_trash");
-   if ($move_to_trash == "")
-      $move_to_trash = $default_move_to_trash;
-
+   $move_to_trash = getPref($data_dir, $username, 'move_to_trash', $default_move_to_trash);
 
    global $unseen_type, $unseen_notify;
-   $unseen_type = getPref($data_dir, $username, "unseen_type");
-   if ($default_unseen_type == "")
+   if ($default_unseen_type == '')
       $default_unseen_type = 1;
-   if ($unseen_type == "")
-      $unseen_type = $default_unseen_type;
-
-   $unseen_notify = getPref($data_dir, $username, "unseen_notify");
-   if ($default_unseen_notify == "")
+   $unseen_type = getPref($data_dir, $username, 'unseen_type', $default_unseen_type);
+   if ($default_unseen_notify == '')
       $default_unseen_notify = 2;
-   if ($unseen_notify == "")
-      $unseen_notify = $default_unseen_notify;
-
+   $unseen_notify = getPref($data_dir, $username, 'unseen_notify', $default_unseen_notify);
 
    global $folder_prefix;
-   $folder_prefix = getPref($data_dir, $username, "folder_prefix");
-   if ($folder_prefix == "") {
-      $folder_prefix = $default_folder_prefix;
-   }
+   $folder_prefix = getPref($data_dir, $username, 'folder_prefix', $default_folder_prefix);
 
    /** Load special folders **/
    global $trash_folder, $sent_folder;
-   $new_trash_folder = getPref($data_dir, $username, "trash_folder");
-   if (($new_trash_folder == "") && ($move_to_trash == true)) {
+   $new_trash_folder = getPref($data_dir, $username, 'trash_folder');
+   if ( ( $new_trash_folder == '' ) && ( $move_to_trash ) ) {
       $trash_folder = $folder_prefix . $trash_folder;
    } else {
       $trash_folder = $new_trash_folder;
    }
 
    /** Load special folders **/
-   $new_sent_folder = getPref($data_dir, $username, "sent_folder");
-   if (($new_sent_folder == "") && ($move_to_sent == true)) {
+   $new_sent_folder = getPref($data_dir, $username, 'sent_folder');
+   if ( ( $new_sent_folder == '' ) && ( $move_to_sent ) ) {
       $sent_folder = $folder_prefix . $sent_folder;
    } else {
       $sent_folder = $new_sent_folder;
    }
 
    global $show_num, $wrap_at, $left_size;
-   $show_num = getPref($data_dir, $username, "show_num");
-   if ($show_num == "") {
-      $show_num = 25;
-   }
-   
-   $wrap_at = getPref($data_dir, $username, "wrap_at");
-   if ($wrap_at == "") {
-      $wrap_at = 86;
-   } else if ($wrap_at < 15) {
+   $show_num = getPref($data_dir, $username, 'show_num', 15 );
+
+   $wrap_at = getPref( $data_dir, $username, 'wrap_at', 86 );
+   if ($wrap_at < 15) {
       $wrap_at = 15;
    }
 
-   $left_size = getPref($data_dir, $username, "left_size");
+   $left_size = getPref($data_dir, $username, 'left_size');
    if ($left_size == "") {
       if (isset($default_left_size)) {
          $left_size = $default_left_size;
@@ -152,44 +130,27 @@
    }
 
    global $editor_size, $use_signature, $prefix_sig;
-   $editor_size = getPref($data_dir, $username, "editor_size");
-   if ($editor_size == "") {
-      $editor_size = 76;
-   }
+   $editor_size = getPref($data_dir, $username, "editor_size", 76 );
 
-
-   $use_signature = getPref($data_dir, $username, "use_signature");
-   if ($use_signature == "") {
-      $use_signature = false;
-   }
+   $use_signature = getPref($data_dir, $username, 'use_signature', FALSE );
 
    $prefix_sig = getPref($data_dir, $username, "prefix_sig");
 
    /* Load preferences for reply citation style. */
    global $reply_citation_style, $reply_citation_start, $reply_citation_end;
 
-   $reply_citation_style = getPref($data_dir, $username, 'reply_citation_style');
-   if ($reply_citation_style == '') {
-      $reply_citation_style = 'none';
-   }
+   $reply_citation_style = getPref($data_dir, $username, 'reply_citation_style', 'none' );
    $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
    $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
 
    global $left_refresh, $sort;
-   $left_refresh = getPref($data_dir, $username, "left_refresh");
-   if ($left_refresh == "") {
-      $left_refresh = false;
-   }
+   $left_refresh = getPref($data_dir, $username, 'left_refresh', 'None' );
+   $sort = getPref($data_dir, $username, 'sort', 6 );
 
-   $sort = getPref($data_dir, $username, "sort");
-   if ($sort == "") {
-      $sort = 6;
-   }
-   
    /** Load up the Signature file **/
    global $signature_abs;
-   if ($use_signature == true) {
+   if ($use_signature) {
       $signature_abs = $signature = getSig($data_dir, $username);
    } else {
       $signature_abs = getSig($data_dir, $username);
@@ -200,19 +161,19 @@
    global $message_highlight_list;
    for ($i=0; $hlt = getPref($data_dir, $username, "highlight$i"); $i++) {
       $ary = explode(",", $hlt);
-      $message_highlight_list[$i]["name"] = $ary[0]; 
-      $message_highlight_list[$i]["color"] = $ary[1];
-      $message_highlight_list[$i]["value"] = $ary[2];
-      $message_highlight_list[$i]["match_type"] = $ary[3];
+      $message_highlight_list[$i]['name'] = $ary[0];
+      $message_highlight_list[$i]['color'] = $ary[1];
+      $message_highlight_list[$i]['value'] = $ary[2];
+      $message_highlight_list[$i]['match_type'] = $ary[3];
    }
 
 
    #index order lets you change the order of the message index
    global $index_order;
-   $order = getPref($data_dir, $username, "order1");
+   $order = getPref($data_dir, $username, 'order1');
    for ($i=1; $order; $i++) {
       $index_order[$i] = $order;
-      $order = getPref($data_dir, $username, "order".($i+1));
+      $order = getPref($data_dir, $username, 'order'.($i+1));
    }
    if (!isset($index_order)) {
       $index_order[1] = 1;
@@ -221,30 +182,19 @@
       $index_order[4] = 5;
       $index_order[5] = 4;
    }
-   
+
    global $alt_index_colors;
-   $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors');
-   if ($alt_index_colors == 0) {
-      $alt_index_colors = false;
-   } else {
-      $alt_index_colors = true;
-   }
-      
+   $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors', FALSE );
+
    global $location_of_bar, $location_of_buttons;
-   $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
-   if ($location_of_bar == '')
-       $location_of_bar = 'left';
-       
-   $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons');
-   if ($location_of_buttons == '') {
-       $location_of_buttons = 'between';
-   }
-    
+   $location_of_bar = getPref($data_dir, $username, 'location_of_bar', 'left');
+   $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons', 'between' );
+
    global $collapse_folders, $show_html_default;
    $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
-  
-   // show_html_default is a int value 
-   $show_html_default = intval(getPref($data_dir, $username, 'show_html_default'));
+
+   // show_html_default is a int value
+   $show_html_default = intval(getPref($data_dir, $username, 'show_html_default'), 1 );
 
    do_hook("loading_prefs");
 
