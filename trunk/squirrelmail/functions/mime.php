@@ -1062,424 +1062,6 @@ function encodeHeader ($string) {
     return( $string );
 }
 
-/*
-    Strips dangerous tags from html messages.
-*/
-function MagicHTML( $body, $id ) {
-
-    global $message, $HTTP_SERVER_VARS,
-           $attachment_common_show_images;
-
-    $attachment_common_show_images =
-                     FALSE; // Don't display attached images in HTML mode
-    $j = strlen( $body );   // Legnth of the HTML
-    $ret = '';              // Returned string
-    $bgcolor = '#ffffff';   // Background style color (defaults to white)
-    $textcolor = '#000000'; // Foreground style color (defaults to black)
-    $leftmargin = '';       // Left margin style
-    $title = '';            // HTML title if any
-
-    $i = 0;
-    while ( $i < $j ) {
-        if ( $body{$i} == '<' ) {
-            $pos = $i + 1;
-            $tag = '';
-            while ($body{$pos} == ' ' || $body{$pos} == "\t" ||
-                   $body{$pos} == "\n") {
-                $pos ++;
-            }
-            while (strlen($tag) < 4 && $body{$pos} != ' ' &&
-                   $body{$pos} != "\t" && $body{$pos} != "\n" &&
-                   $pos < $j ) {
-                if ($body{$pos} == "<"){
-                    $tag = '';
-                    $pos++;
-                }
-                $tag .= $body{$pos};
-                $pos ++;
-            }
-            /*
-               A comment in HTML is only three characters and isn't
-               guaranteed to have a space after it.  This fudges so
-               it will be caught by the switch statement.
-            */
-            if (ereg("!--", $tag)) {
-                $tag = "!-- ";
-            }
-            switch( strtoupper( $tag ) ) {
-            // Strips the entire tag and contents
-            case 'APPL':
-            case 'EMBE':
-            case 'FRAM':
-            case 'SCRI':
-            case 'OBJE':
-                $etg = '/' . $tag;
-                while ( $body{$i+1}.$body{$i+2}.$body{$i+3}.$body{$i+4}.$body{$i+5} <> $etg  &&
-                       $i < $j  ) $i++;
-                while ( $i < $j && $body{++$i} <> '>' );
-                // $ret .= "<!-- $tag removed -->";
-                break;
-            // Substitute Title
-            case 'TITL':
-                $i += 5;
-                while ( $body{$i} <> '>' &&  // </title>
-                       $i < $j )
-                        $i++;
-                $i++;
-                $title = '';
-                while ( $body{$i} <> '<' &&  // </title>
-                       $i < $j ) {
-                    $title .= $body{$i};
-                    $i++;
-                }
-                $i += 7;
-                break;
-            // Destroy these tags
-            case 'HTML':
-            case 'HEAD':
-            case '/HTM':
-            case '/HEA':
-            case '!DOC':
-            case 'META':
-            //case 'DIV ':
-            //case '/DIV':
-            case '!-- ':
-                $i += 4;
-                while ( $body{$i}  <> '>' &&
-                       $i < $j )
-                    $i++;
-                // $i++;
-                break;
-            case 'STYL':
-                $i += 5;
-                while ( $body{$i} <> '>' &&  // </title>
-                       $i < $j )
-                        $i++;
-                $i++;
-                // We parse the style to look for interesting stuff
-                $styleblk = '';
-                while ( $body{$i} <> '>' &&
-                       $i < $j ) {
-                    // First we get the name of the style
-                    $style = '';
-                    while ( $body{$i} <> '>' &&
-                           $body{$i} <> '<' &&
-                           $body{$i} <> '{' &&
-                           $i < $j ) {
-                       if ( isnoSep( $body{$i} ) )
-                           $style .= $body{$i};
-                       $i++;
-                    }
-                    stripComments( $i, $j, $body );
-                    $style = strtoupper( trim( $style ) );
-                    if ( $style == 'BODY' ) {
-                        // Next we look into the definitions of the body style
-                        while ( $body{$i} <> '>' &&
-                               $body{$i} <> '}' &&
-                               $i < $j ) {
-                            // We look for the background color if any.
-                            if ( substr( $body, $i, 17 ) == 'BACKGROUND-COLOR:' ) {
-                                $i += 17;
-                                $bgcolor = getStyleData( $i, $j, $body );
-                            } elseif ( substr( $body, $i, 12 ) == 'MARGIN-LEFT:' ) {
-                                $i += 12;
-                                $leftmargin = getStyleData( $i, $j, $body );
-                            }
-                            $i++;
-                        }
-                    } else {
-                        // Other style are mantained
-                        $styleblk .= "$style ";
-                        while ( $body{$i} <> '>' &&
-                               $body{$i} <> '<' &&
-                               $body{$i} <> '}' &&
-                               $i < $j ) {
-                            $styleblk .= $body{$i};
-                            $i++;
-                        }
-                        $styleblk .= $body{$i};
-                    }
-                    stripComments( $i, $j, $body );
-                    if ( $body{$i} <> '>' )
-                        $i++;
-                }
-                if ( $styleblk <> '' )
-                    $ret .= "<style>$styleblk";
-                break;
-            case 'BODY':
-                if ( $title <> '' )
-                    $ret .= '<b>' . _("Title:") . " </b>$title<br>\n";
-                $ret .= "<TABLE";
-                $i += 5;
-                if (! isset($base)) {
-                    $base = '';
-                }
-                $ret .= stripEvent( $i, $j, $body, $id, $base );
-                $ret .= " bgcolor=$bgcolor width=\"100%\"><tr>";
-                if ( $leftmargin <> '' )
-                    $ret .= "<td width=$leftmargin>&nbsp;</td>";
-                $ret .= '<td>';
-                if (strtolower($bgcolor) == 'ffffff' ||
-                    strtolower($bgcolor) == '#ffffff')
-                    $ret .= '<font color=#000000>';
-                break;
-            case 'BASE':
-                $i += 4;
-                $base = '';
-                if ( strncasecmp($body{$i}, 'font', 4) ) {
-                    $i += 5;
-                    while ( !isNoSep( $body{$i} ) && $i < $j ) {
-                        $i++;
-                    }
-                    while ( $body{$i} <> '>' && $i < $j ) {
-                            $base .= $body{$i};
-                        $i++;
-                    }
-                    $ret .= "<BASEFONT $base>\n";
-                    break;
-                }
-                $i++;
-                while ( !isNoSep( $body{$i} ) &&
-                       $i < $j ) {
-                        $i++;
-                }
-                if ( strcasecmp( substr( $base, 0, 4 ), 'href'  ) ) {
-                        $i += 5;
-                        while ( !isNoSep( $body{$i} ) &&
-                               $i < $j ) {
-                                $i++;
-                        }
-                        while ( $body{$i} <> '>' &&
-                               $i < $j ) {
-                            if ( $body{$i} <> '"' ) {
-                                $base .= $body{$i};
-                            }
-                            $i++;
-                        }
-                        // Debuging $ret .= "<!-- base == $base -->";
-                        if ( strcasecmp( substr( $base, 0, 4 ), 'file' ) <> 0 ) {
-                            $ret .= "\n<BASE HREF=\"$base\">\n";
-                        }
-                }
-                break;
-            case '/BOD':
-                $ret .= '</font></td></tr></TABLE>';
-                $i += 6;
-                break;
-            default:
-                // Following tags can contain some event handler, lets search it
-                stripComments( $i, $j, $body );
-                if (! isset($base)) {
-                   $base = '';
-                }
-                $ret .= stripEvent( $i, $j, $body, $id, $base ) . '>';
-                        // $ret .= "<!-- $tag detected -->";
-            }
-        } else {
-            $ret .= $body{$i};
-        }
-    $i++;
-    }
-
-return( "\n\n<!-- HTML Output ahead -->\n" .
-        $ret .
-        /* Base is illegal within HTML
-        "\n<!-- END of HTML Output --><base href=\"".
-        get_location() . '/'.
-        "\">\n\n" );
-        */
-        "\n<!-- END of HTML Output -->\n\n" );
-}
-
-function isNoSep( $char ) {
-
-    switch( $char ) {
-    case ' ':
-    case "\n":
-    case "\t":
-    case "\r":
-    case '>':
-    case '"':
-        return( FALSE );
-        break;
-    default:
-        return( TRUE );
-    }
-
-}
-
-/*
-  The following function is usefull to remove extra data that can cause
-  html not to display properly. Especialy with MS stuff.
-*/
-
-function stripComments( &$i, $j, &$body ) {
-
-    while ( $body{$i}.$body{$i+1}.$body{$i+2}.$body{$i+3} == '<!--' &&
-           $i < $j ) {
-        $i += 5;
-        while ( $body{$i-2}.$body{$i-1}.$body{$i} <> '-->' &&
-               $i < $j )
-            $i++;
-        $i++;
-    }
-
-    return;
-
-}
-
-/* Gets the style data of a specific style */
-
-function getStyleData( &$i, $j, &$body ) {
-
-    // We skip spaces
-    while ( $body{$i} <> '>' && !isNoSep( $body{$i} ) &&
-           $i < $j ) {
-        $i++;
-    }
-    // And get the color
-    $ret = '';
-    while ( isNoSep( $body{$i} ) &&
-           $i < $j ) {
-        $ret .= $body{$i};
-        $i++;
-    }
-
-    return( $ret );
-}
-
-/*
-Private function for strip_dangerous_tag. Look for event based coded and "remove" it
-change on with no (onload -> noload)
-*/
-
-function stripEvent( &$i, $j, &$body, $id, $base ) {
-
-    global $message, $base_uri, $has_unsafe_images, $view_unsafe_images;
-
-    $ret = '';
-
-    while ( $body{$i} <> '>' &&
-           $i < $j ) {
-        /**
-         * [ 545933 ] Cross-site scripting vulnerability
-         * <hr>
-         * <img x="<foo>" src=javascript:alert(1) y="</foo>">
-         * <hr>
-         *
-         * This code will ignore anything within the quotes
-         * so they don't mess us up.
-         */
-        if ( $body{$i} == '"' || $body{$i} == "'" ){
-            $quotechar = $body{$i};
-            do {
-                $ret .= $body{$i};
-                $i++;
-            } while ($body{$i} != $quotechar && $i < $j);
-        }
-        $etg = strtolower($body{$i}.$body{$i+1}.$body{$i+2});
-        switch( $etg ) {
-        case 'src':
-            // This is probably a src specification
-            $k = $i + 3;
-            while( !isNoSep( $body{$k} )) {
-                $k++;
-            }
-            if ( $body{$k} == '=' ) {
-                /* It is indeed */
-                $k++;
-                while( !isNoSep( $body{$k} ) &&
-                       $k < $j ) {
-                    $k++;
-                }
-                $src = '';
-                while ( $body{$k} <> '>' && isNoSep( $body{$k} ) &&
-                       $k < $j ) {
-                    $src .= $body{$k};
-                    $k++;
-                }
-                $k++;
-                while( !isNoSep( $body{$k} ) &&
-                       $k < $j ) {
-                    $k++;
-                }
-                $k++;
-                if ( strtolower( substr( $src, 0, 4 ) ) == 'cid:' ) {
-                    $src = substr( $src, 4 );
-                    $src = "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
-                           urlencode( $message->header->mailbox ) .
-                           "&amp;passed_ent_id=" . find_ent_id( $src, $message );
-                } else if ( strtolower( substr( $src, 0, 4 ) ) <> 'http' ||
-                            stristr( $src, $base_uri ) ) {
-                    /* Javascript and local urls goes out */
-                    if (!$view_unsafe_images) {
-                        $src = '../images/' . _("sec_remove_eng.png");
-                    }
-                    $has_unsafe_images = 1;
-                }
-                $ret .= 'src="' . $src . '" ';
-                $i = $k - 2;
-            } else {
-                $ret .= 'src';
-                $i = $i + 3;
-            }
-            
-            break;
-        case '../':
-            // Retrolinks are not allowed without a base because they mess with SM security
-            if ( $base == '' ) {
-                    $i += 2;
-            } else {
-                    $ret .= '.';
-            }
-            break; 
-        case 'cid':
-            // Internal link
-            $k = $i-1;
-            if ( $body{$i+3} == ':') {
-                $i +=4;
-                $name = '';
-                while ( isNoSep( $body{$i} ) &&
-                       $i < $j  ) {
-                    $name .= $body{$i++};
-                }
-                if ( $name <> '' ) {
-                    $ret .= "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
-                                urlencode( $message->header->mailbox ) .
-                                "&amp;passed_ent_id=" . find_ent_id( $name, $message );
-                    if ( $body{$k} == '"' )
-                        $ret .= '" ';
-                    else
-                        $ret .= ' ';
-                }
-                if ( $body{$i} == '>' )
-                    $i -= 1;
-            }
-            break;
-        case ' on':
-        case "\non":
-        case "\ron":
-        case "\ton":
-            $ret .= ' no';
-            $i += 2;
-            break;
-        case 'pt:':
-            if ( strcasecmp( $body{$i-4}.$body{$i-3}.$body{$i-2}.$body{$i-1}.$body{$i}.$body{$i+1}.$body{$i+2}, 'script:') == 0 ) {
-                $ret .= '_no/';
-            } else {
-                $ret .= $etg;
-            }
-            $i += 2;
-            break;
-        default:
-            $ret .= $body{$i};
-        }
-        $i++;
-    }
-    return( $ret );
-}
-
-
 /* This function trys to locate the entity_id of a specific mime element */
 
 function find_ent_id( $id, $message ) {
@@ -1496,5 +1078,941 @@ function find_ent_id( $id, $message ) {
 
     return( $ret );
 
+}
+
+/**
+ ** HTMLFILTER ROUTINES
+ */
+
+/**
+ * This function returns the final tag out of the tag name, an array
+ * of attributes, and the type of the tag. This function is called by 
+ * sq_sanitize internally.
+ *
+ * @param  $tagname  the name of the tag.
+ * @param  $attary   the array of attributes and their values
+ * @param  $tagtype  The type of the tag (see in comments).
+ * @return           a string with the final tag representation.
+ */
+function sq_tagprint($tagname, $attary, $tagtype){
+    $me = "sq_tagprint";
+    if ($tagtype == 2){
+        $fulltag = '</' . $tagname . '>';
+    } else {
+        $fulltag = '<' . $tagname;
+        if (is_array($attary) && sizeof($attary)){
+            $atts = Array();
+            while (list($attname, $attvalue) = each($attary)){
+                array_push($atts, "$attname=$attvalue");
+            }
+            $fulltag .= ' ' . join(" ", $atts);
+        }
+        if ($tagtype == 3){
+            $fulltag .= " /";
+        }
+        $fulltag .= ">";
+    }
+    return $fulltag;
+}
+
+/**
+ * A small helper function to use with array_walk. Modifies a by-ref
+ * value and makes it lowercase.
+ *
+ * @param  $val a value passed by-ref.
+ * @return      void since it modifies a by-ref value.
+ */
+function sq_casenormalize(&$val){
+    $val = strtolower($val);
+}
+
+/**
+ * This function skips any whitespace from the current position within
+ * a string and to the next non-whitespace value.
+ * 
+ * @param  $body   the string
+ * @param  $offset the offset within the string where we should start
+ *                 looking for the next non-whitespace character.
+ * @return         the location within the $body where the next
+ *                 non-whitespace char is located.
+ */
+function sq_skipspace($body, $offset){
+    $me = "sq_skipspace";
+    preg_match("/^(\s*)/s", substr($body, $offset), $matches);
+    if (sizeof($matches{1})){
+        $count = strlen($matches{1});
+        $offset += $count;
+        if ($pos >= strlen($body)){
+        }
+    }
+    return $offset;
+}
+
+/**
+ * This function looks for the next character within a string.  It's
+ * really just a glorified "strpos", except it catches if failures
+ * nicely.
+ *
+ * @param  $body   The string to look for needle in.
+ * @param  $offset Start looking from this position.
+ * @param  $needle The character/string to look for.
+ * @return         location of the next occurance of the needle, or
+ *                 strlen($body) if needle wasn't found.
+ */
+function sq_findnxstr($body, $offset, $needle){
+    $me = "sq_findnxstr";
+    $pos = strpos($body, $needle, $offset);
+    if ($pos === FALSE){
+        $pos = strlen($body);
+    }
+    return $pos;
+}
+
+/**
+ * This function takes a PCRE-style regexp and tries to match it
+ * within the string.
+ *
+ * @param  $body   The string to look for needle in.
+ * @param  $offset Start looking from here.
+ * @param  $reg    A PCRE-style regex to match.
+ * @return         Returns a false if no matches found, or an array
+ *                 with the following members:
+ *                 - integer with the location of the match within $body
+ *                 - string with whatever content between offset and the match
+ *                 - string with whatever it is we matched
+ */
+function sq_findnxreg($body, $offset, $reg){
+    $me = "sq_findnxreg";
+    $matches = Array();
+    $retarr = Array();
+    preg_match("%^(.*?)($reg)%s", substr($body, $offset), $matches);
+    if (!$matches{0}){
+        $retarr = false;
+    } else {
+        $retarr{0} = $offset + strlen($matches{1});
+        $retarr{1} = $matches{1};
+        $retarr{2} = $matches{2};
+    }
+    return $retarr;
+}
+
+/**
+ * This function looks for the next tag.
+ *
+ * @param  $body   String where to look for the next tag.
+ * @param  $offset Start looking from here.
+ * @return         false if no more tags exist in the body, or
+ *                 an array with the following members:
+ *                 - string with the name of the tag
+ *                 - array with attributes and their values
+ *                 - integer with tag type (1, 2, or 3)
+ *                 - integer where the tag starts (starting "<")
+ *                 - integer where the tag ends (ending ">")
+ *                 first three members will be false, if the tag is invalid.
+ */
+function sq_getnxtag($body, $offset){
+    $me = "sq_getnxtag";
+    if ($offset > strlen($body)){
+        return false;
+    }
+    $lt = sq_findnxstr($body, $offset, "<");
+    if ($lt == strlen($body)){
+        return false;
+    }
+    /**
+     * We are here:
+     * blah blah <tag attribute="value">
+     * \---------^
+     */
+    $pos = sq_skipspace($body, $lt+1);
+    if ($pos >= strlen($body)){
+        return Array(false, false, false, $lt, strlen($body));
+    }
+    /**
+     * There are 3 kinds of tags:
+     * 1. Opening tag, e.g.:
+     *    <a href="blah">
+     * 2. Closing tag, e.g.:
+     *    </a>
+     * 3. XHTML-style content-less tag, e.g.:
+     *    <img src="blah"/>
+     */
+    $tagtype = false;
+    switch (substr($body, $pos, 1)){
+    case "/":
+        $tagtype = 2;
+        $pos++;
+        break;
+    case "!":
+        /**
+         * A comment or an SGML declaration.
+         */
+        if (substr($body, $pos+1, 2) == "--"){
+            $gt = strpos($body, "-->", $pos)+2;
+            if ($gt === false){
+                $gt = strlen($body);
+            }
+            return Array(false, false, false, $lt, $gt);
+        } else {
+            $gt = sq_findnxstr($body, $pos, ">");
+            return Array(false, false, false, $lt, $gt);
+        }
+        break;
+    default:
+        /**
+         * Assume tagtype 1 for now. If it's type 3, we'll switch values
+         * later.
+         */
+        $tagtype = 1;
+        break;
+    }
+
+    $tag_start = $pos;
+    $tagname = '';
+    /**
+     * Look for next [\W-_], which will indicate the end of the tag name.
+     */
+    $regary = sq_findnxreg($body, $pos, "[^\w\-_]");
+    if ($regary == false){
+        return Array(false, false, false, $lt, strlen($body));
+    }
+    list($pos, $tagname, $match) = $regary;
+    $tagname = strtolower($tagname);
+
+    /**
+     * $match can be either of these:
+     * '>'  indicating the end of the tag entirely.
+     * '\s' indicating the end of the tag name.
+     * '/'  indicating that this is type-3 xhtml tag.
+     * 
+     * Whatever else we find there indicates an invalid tag.
+     */
+    switch ($match){
+    case "/":
+        /**
+         * This is an xhtml-style tag with a closing / at the
+         * end, like so: <img src="blah"/>. Check if it's followed
+         * by the closing bracket. If not, then this tag is invalid
+         */
+        if (substr($body, $pos, 2) == "/>"){
+            $pos++;
+            $tagtype = 3;
+        } else {
+            $gt = sq_findnxstr($body, $pos, ">");
+            $retary = Array(false, false, false, $lt, $gt);
+            return $retary;
+        }
+    case ">":
+        return Array($tagname, false, $tagtype, $lt, $pos);
+        break;
+    default:
+        /**
+         * Check if it's whitespace
+         */
+        if (preg_match("/\s/", $match)){
+        } else {
+            /**
+             * This is an invalid tag! Look for the next closing ">".
+             */
+            $gt = sq_findnxstr($body, $offset, ">");
+            return Array(false, false, false, $lt, $gt);
+        }
+    }
+    
+    /**
+     * At this point we're here:
+     * <tagname  attribute='blah'>
+     * \-------^
+     *
+     * At this point we loop in order to find all attributes.
+     */
+    $attname = '';
+    $atttype = false;
+    $attary = Array();
+
+    while ($pos <= strlen($body)){
+        $pos = sq_skipspace($body, $pos);
+        if ($pos == strlen($body)){
+            /**
+             * Non-closed tag.
+             */
+            return Array(false, false, false, $lt, $pos);
+        }
+        /**
+         * See if we arrived at a ">" or "/>", which means that we reached
+         * the end of the tag.
+         */
+        $matches = Array();
+        preg_match("%^(\s*)(>|/>)%s", substr($body, $pos), $matches);
+        if ($matches{0}){
+            /**
+             * Yep. So we did.
+             */
+            $pos += strlen($matches{1});
+            if ($matches{2} == "/>"){
+                $tagtype = 3;
+                $pos++;
+            }
+            return Array($tagname, $attary, $tagtype, $lt, $pos);
+        }
+
+        /**
+         * There are several types of attributes, with optional
+         * [:space:] between members.
+         * Type 1:
+         *   attrname[:space:]=[:space:]'CDATA'
+         * Type 2:
+         *   attrname[:space:]=[:space:]"CDATA"
+         * Type 3:
+         *   attr[:space:]=[:space:]CDATA
+         * Type 4:
+         *   attrname
+         *
+         * We leave types 1 and 2 the same, type 3 we check for
+         * '"' and convert to "&quot" if needed, then wrap in
+         * double quotes. Type 4 we convert into:
+         * attrname="yes".
+         */
+        $regary = sq_findnxreg($body, $pos, "[^\w\-_]");
+        if ($regary == false){
+            /**
+             * Looks like body ended before the end of tag.
+             */
+            return Array(false, false, false, $lt, strlen($body));
+        }
+        list($pos, $attname, $match) = $regary;
+        $attname = strtolower($attname);
+        /**
+         * We arrived at the end of attribute name. Several things possible
+         * here:
+         * '>'  means the end of the tag and this is attribute type 4
+         * '/'  if followed by '>' means the same thing as above
+         * '\s' means a lot of things -- look what it's followed by.
+         *      anything else means the attribute is invalid.
+         */
+        switch($match){
+        case "/":
+            /**
+             * This is an xhtml-style tag with a closing / at the
+             * end, like so: <img src="blah"/>. Check if it's followed
+             * by the closing bracket. If not, then this tag is invalid
+             */
+            if (substr($body, $pos, 2) == "/>"){
+                $pos++;
+                $tagtype = 3;
+            } else {
+                $gt = getnxstr($body, $pos, ">");
+                $retary = Array(false, false, false, $lt, $gt);
+                return $retary;
+            }
+        case ">":
+            $attary{$attname} = '"yes"';
+            return Array($tagname, $attary, $tagtype, $lt, $pos);
+            break;
+        default:
+            /**
+             * Skip whitespace and see what we arrive at.
+             */
+            $pos = sq_skipspace($body, $pos);
+            $char = substr($body, $pos, 1);
+            /**
+             * Two things are valid here:
+             * '=' means this is attribute type 1 2 or 3.
+             * \w means this was attribute type 4.
+             * anything else we ignore and re-loop. End of tag and
+             * invalid stuff will be caught by our checks at the beginning
+             * of the loop.
+             */
+            if ($char == "="){
+                $pos++;
+                $pos = sq_skipspace($body, $pos);
+                /**
+                 * Here are 3 possibilities:
+                 * "'"  attribute type 1
+                 * '"'  attribute type 2
+                 * everything else is the content of tag type 3
+                 */
+                $quot = substr($body, $pos, 1);
+                if ($quot == "'"){
+                    $regary = sq_findnxreg($body, $pos+1, "\'");
+                    if ($regary == false){
+                        return Array(false, false, false, $lt, strlen($body));
+                    }
+                    list($pos, $attval, $match) = $regary;
+                    $pos++;
+                    $attary{$attname} = "'" . $attval . "'";
+                } else if ($quot == '"'){
+                    $regary = sq_findnxreg($body, $pos+1, '\"');
+                    if ($regary == false){
+                        return Array(false, false, false, $lt, strlen($body));
+                    }
+                    list($pos, $attval, $match) = $regary;
+                    $pos++;
+                    $attary{$attname} = '"' . $attval . '"';
+                } else {
+                    /**
+                     * These are hateful. Look for \s, or >.
+                     */
+                    $regary = sq_findnxreg($body, $pos, "[\s>]");
+                    if ($regary == false){
+                        return Array(false, false, false, $lt, strlen($body));
+                    }
+                    list($pos, $attval, $match) = $regary;
+                    /**
+                     * If it's ">" it will be caught at the top.
+                     */
+                    $attval = preg_replace("/\"/s", "&quot;", $attval);
+                    $attary{$attname} = '"' . $attval . '"';
+                }
+            } else if (preg_match("|[\w/>]|", $char)) {
+                /**
+                 * That was attribute type 4.
+                 */
+                $attary{$attname} = '"yes"';
+            } else {
+                /**
+                 * An illegal character. Find next '>' and return.
+                 */
+                $gt = sq_findnxstr($body, $pos, ">");
+                return Array(false, false, false, $lt, $gt);
+            }
+        }
+    }
+    /**
+     * The fact that we got here indicates that the tag end was never
+     * found. Return invalid tag indication so it gets stripped.
+     */
+    return Array(false, false, false, $lt, strlen($body));
+}
+
+/**
+ * This function checks attribute values for entity-encoded values
+ * and returns them translated into 8-bit strings so we can run
+ * checks on them.
+ *
+ * @param  $attvalue A string to run entity check against.
+ * @return           Translated value.
+ */
+function sq_deent($attvalue){
+    $me="sq_deent";
+    /**
+     * See if we have to run the checks first. All entities must start
+     * with "&".
+     */
+    if (strpos($attvalue, "&") === false){
+        return $attvalue;
+    }
+    /**
+     * Check named entities first.
+     */
+    $trans = get_html_translation_table(HTML_ENTITIES);
+    /**
+     * Leave &quot; in, as it can mess us up.
+     */
+    $trans = array_flip($trans);
+    unset($trans{"&quot;"});
+    while (list($ent, $val) = each($trans)){
+        $attvalue = preg_replace("/$ent*(\W)/si", "$val\\1", $attvalue);
+    }
+    /**
+     * Now translate numbered entities from 1 to 255 if needed.
+     */
+    if (strpos($attvalue, "#") !== false){
+        $omit = Array(34, 39);
+        for ($asc=1; $asc<256; $asc++){
+            if (!in_array($asc, $omit)){
+                $chr = chr($asc);
+                $attvalue = preg_replace("/\&#0*$asc;*(\D)/si", "$chr\\1", 
+                                         $attvalue);
+                $attvalue = preg_replace("/\&#x0*".dechex($asc).";*(\W)/si",
+                                         "$chr\\1", $attvalue);
+            }
+        }
+    }
+    return $attvalue;
+}
+
+/**
+ * This function runs various checks against the attributes.
+ *
+ * @param  $tagname         String with the name of the tag.
+ * @param  $attary          Array with all tag attributes.
+ * @param  $rm_attnames     See description for sq_sanitize
+ * @param  $bad_attvals     See description for sq_sanitize
+ * @param  $add_attr_to_tag See description for sq_sanitize
+ * @param  $message         message object
+ * @param  $id              message id
+ * @return                  Array with modified attributes.
+ */
+function sq_fixatts($tagname, 
+                    $attary, 
+                    $rm_attnames,
+                    $bad_attvals,
+                    $add_attr_to_tag,
+                    $message,
+                    $id
+                    ){
+    $me = "sq_fixatts";
+    while (list($attname, $attvalue) = each($attary)){
+        /**
+         * See if this attribute should be removed.
+         */
+        foreach ($rm_attnames as $matchtag=>$matchattrs){
+            if (preg_match($matchtag, $tagname)){
+                foreach ($matchattrs as $matchattr){
+                    if (preg_match($matchattr, $attname)){
+                        unset($attary{$attname});
+                        continue;
+                    }
+                }
+            }
+        }
+        /**
+         * Remove any entities.
+         */
+        $attvalue = sq_deent($attvalue);
+
+        /**
+         * Now let's run checks on the attvalues.
+         * I don't expect anyone to comprehend this. If you do,
+         * get in touch with me so I can drive to where you live and
+         * shake your hand personally. :)
+         */
+        foreach ($bad_attvals as $matchtag=>$matchattrs){
+            if (preg_match($matchtag, $tagname)){
+                foreach ($matchattrs as $matchattr=>$valary){
+                    if (preg_match($matchattr, $attname)){
+                        /**
+                         * There are two arrays in valary.
+                         * First is matches.
+                         * Second one is replacements
+                         */
+                        list($valmatch, $valrepl) = $valary;
+                        $newvalue = 
+                            preg_replace($valmatch, $valrepl, $attvalue);
+                        if ($newvalue != $attvalue){
+                            $attary{$attname} = $newvalue;
+                        }
+                    }
+                }
+            }
+        }
+        /**
+         * Turn cid: urls into http-friendly ones.
+         */
+        if (preg_match("/^[\'\"]\s*cid:/si", $attvalue)){
+            $attary{$attname} = sq_cid2http($message, $id, $attvalue);
+        }
+    }
+    /**
+     * See if we need to append any attributes to this tag.
+     */
+    foreach ($add_attr_to_tag as $matchtag=>$addattary){
+        if (preg_match($matchtag, $tagname)){
+            $attary = array_merge($attary, $addattary);
+        }
+    }
+    return $attary;
+}
+
+/**
+ * This function edits the style definition to make them friendly and
+ * usable in squirrelmail.
+ * 
+ * @param  $message  the message object
+ * @param  $id       the message id
+ * @param  $content  a string with whatever is between <style> and </style>
+ * @return           a string with edited content.
+ */
+function sq_fixstyle($message, $id, $content){
+    global $view_unsafe_images;
+    $me = "sq_fixstyle";
+    /**
+     * First look for general BODY style declaration, which would be
+     * like so:
+     * body {background: blah-blah}
+     * and change it to .bodyclass so we can just assign it to a <div>
+     */
+    $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
+    $secremoveimg = "../images/" . _("sec_remove_eng.png");
+    /**
+     * Fix url('blah') declarations.
+     */
+    $content = preg_replace("|url\(([\'\"])\s*\S+script\s*:.*?([\'\"])\)|si",
+                            "url(\\1$secremoveimg\\2)", $content);
+    /**
+     * Fix url('https*://.*) declarations but only if $view_unsafe_images
+     * is false.
+     */
+    if (!$view_unsafe_images){
+        $content = preg_replace("|url\(([\'\"])\s*https*:.*?([\'\"])\)|si",
+                                "url(\\1$secremoveimg\\2)", $content);
+    }
+    
+    /**
+     * Fix urls that refer to cid:
+     */
+    while (preg_match("|url\(([\'\"]\s*cid:.*?[\'\"])\)|si", $content, 
+                      $matches)){
+        $cidurl = $matches{1};
+        $httpurl = sq_cid2http($message, $id, $cidurl);
+        $content = preg_replace("|url\($cidurl\)|si",
+                                "url($httpurl)", $content);
+    }
+
+    /**
+     * Fix stupid expression: declarations which lead to vulnerabilities
+     * in IE.
+     */
+    $content = preg_replace("/expression\s*:/si", "idiocy:", $content);
+    return $content;
+}
+
+/**
+ * This function converts cid: url's into the ones that can be viewed in
+ * the browser.
+ *
+ * @param  $message  the message object
+ * @param  $id       the message id
+ * @param  $cidurl   the cid: url.
+ * @return           a string with a http-friendly url
+ */
+function sq_cid2http($message, $id, $cidurl){
+    /**
+     * Get rid of quotes.
+     */
+    $quotchar = substr($cidurl, 0, 1);
+    $cidurl = str_replace($quotchar, "", $cidurl);
+    $cidurl = substr(trim($cidurl), 4);
+    $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
+        "passed_id=$id&amp;mailbox=" . urlencode($message->header->mailbox) .
+        "&amp;passed_ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
+    return $httpurl;
+}
+
+/**
+ * This function changes the <body> tag into a <div> tag since we
+ * can't really have a body-within-body.
+ *
+ * @param  $attary  an array of attributes and values of <body>
+ * @return          a modified array of attributes to be set for <div>
+ */
+function sq_body2div($attary){
+    $me = "sq_body2div";
+    $divattary = Array("class"=>"'bodyclass'");
+    $bgcolor="#ffffff";
+    $text="#000000";
+    $styledef="";
+    if (is_array($attary) && sizeof($attary) > 0){
+        foreach ($attary as $attname=>$attvalue){
+            $quotchar = substr($attvalue, 0, 1);
+            $attvalue = str_replace($quotchar, "", $attvalue);
+            switch ($attname){
+            case "background":
+                $styledef .= "background-image: url('$attvalue'); ";
+                break;
+            case "bgcolor":
+                $styledef .= "background-color: $attvalue; ";
+                break;
+            case "text":
+                $styledef .= "color: $attvalue; ";
+            }
+        }
+        if (strlen($styledef) > 0){
+            $divattary{"style"} = "\"$styledef\"";
+        }
+    }
+    return $divattary;
+}
+
+/**
+ * This is the main function and the one you should actually be calling.
+ * There are several variables you should be aware of an which need
+ * special description.
+ *
+ * Since the description is quite lengthy, see it here:
+ * http://www.mricon.com/html/phpfilter.html
+ *
+ * @param $body                 the string with HTML you wish to filter
+ * @param $tag_list             see description above
+ * @param $rm_tags_with_content see description above
+ * @param $self_closing_tags    see description above
+ * @param $force_tag_closing    see description above
+ * @param $rm_attnames          see description above
+ * @param $bad_attvals          see description above
+ * @param $add_attr_to_tag      see description above
+ * @param $message              message object
+ * @param $id                   message id
+ * @return                      sanitized html safe to show on your pages.
+ */
+function sq_sanitize($body, 
+                     $tag_list, 
+                     $rm_tags_with_content,
+                     $self_closing_tags,
+                     $force_tag_closing,
+                     $rm_attnames,
+                     $bad_attvals,
+                     $add_attr_to_tag,
+                     $message,
+                     $id
+                     ){
+    $me = "sq_sanitize";
+    /**
+     * Normalize rm_tags and rm_tags_with_content.
+     */
+    @array_walk($rm_tags, 'sq_casenormalize');
+    @array_walk($rm_tags_with_content, 'sq_casenormalize');
+    @array_walk($self_closing_tags, 'sq_casenormalize');
+    /**
+     * See if tag_list is of tags to remove or tags to allow.
+     * false  means remove these tags
+     * true   means allow these tags
+     */
+    $rm_tags = array_shift($tag_list);
+    $curpos = 0;
+    $open_tags = Array();
+    $trusted = "<!-- begin sanitized html -->\n";
+    $skip_content = false;
+
+    while (($curtag=sq_getnxtag($body, $curpos)) != FALSE){
+        list($tagname, $attary, $tagtype, $lt, $gt) = $curtag;
+        $free_content = substr($body, $curpos, $lt-$curpos);
+        /**
+         * Take care of <style>
+         */
+        if ($tagname == "style" && $tagtype == 2){
+            /**
+             * This is a closing </style>. Edit the
+             * content before we apply it.
+             */
+            $free_content = sq_fixstyle($message, $id, $free_content);
+        } else if ($tagname == "body"){
+            $tagname = "div";
+            if ($tagtype == 1){
+                $attary = sq_body2div($attary);
+            }
+        }
+        if ($skip_content == false){
+            $trusted .= $free_content;
+        } else {
+        }
+        if ($tagname != FALSE){
+            if ($tagtype == 2){
+                if ($skip_content == $tagname){
+                    /**
+                     * Got to the end of tag we needed to remove.
+                     */
+                    $tagname = false;
+                    $skip_content = false;
+                } else {
+                    if ($skip_content == false){
+                        if (isset($open_tags{$tagname}) && 
+                            $open_tags{$tagname} > 0){
+                            $open_tags{$tagname}--;
+                        } else {
+                            $tagname = false;
+                        }
+                    } else {
+                    }
+                }
+            } else {
+                /**
+                 * $rm_tags_with_content
+                 */
+                if ($skip_content == false){
+                    /**
+                     * See if this is a self-closing type and change
+                     * tagtype appropriately.
+                     */
+                    if ($tagtype == 1
+                        && in_array($tagname, $self_closing_tags)){
+                        $tagtype=3;
+                    }
+                    /**
+                     * See if we should skip this tag and any content
+                     * inside it.
+                     */
+                    if ($tagtype == 1 &&
+                        in_array($tagname, $rm_tags_with_content)){
+                        $skip_content = $tagname;
+                    } else {
+                        if (($rm_tags == false 
+                             && in_array($tagname, $tag_list)) ||
+                            ($rm_tags == true &&
+                             !in_array($tagname, $tag_list))){
+                            $tagname = false;
+                        } else {
+                            if ($tagtype == 1){
+                                if (isset($open_tags{$tagname})){
+                                    $open_tags{$tagname}++;
+                                } else {
+                                    $open_tags{$tagname}=1;
+                                }
+                            }
+                            /**
+                             * This is where we run other checks.
+                             */
+                            if (is_array($attary) && sizeof($attary) > 0){
+                                $attary = sq_fixatts($tagname,
+                                                     $attary,
+                                                     $rm_attnames,
+                                                     $bad_attvals,
+                                                     $add_attr_to_tag,
+                                                     $message,
+                                                     $id
+                                                     );
+                            }
+                        }
+                    }
+                } else {
+                }
+            }
+            if ($tagname != false && $skip_content == false){
+                $trusted .= sq_tagprint($tagname, $attary, $tagtype);
+            }
+        } else {
+        }
+        $curpos = $gt+1;
+    }
+    $trusted .= substr($body, $curpos, strlen($body)-$curpos);
+    if ($force_tag_closing == true){
+        foreach ($open_tags as $tagname=>$opentimes){
+            while ($opentimes > 0){
+                $trusted .= '</' . $tagname . '>';
+                $opentimes--;
+            }
+        }
+        $trusted .= "\n";
+    }
+    $trusted .= "<!-- end sanitized html -->\n";
+    return $trusted;
+}
+
+/**
+ * This is a wrapper function to call html sanitizing routines.
+ *
+ * @param  $body  the body of the message
+ * @param  $id    the id of the message
+ * @return        a string with html safe to display in the browser.
+ */
+function magicHTML($body, $id){
+    global $attachment_common_show_images, $view_unsafe_images,
+        $has_unsafe_images, $message;
+    /**
+     * Don't display attached images in HTML mode.
+     */
+    $attachment_common_show_images = false;
+    $tag_list = Array(
+                      false,
+                      "object",
+                      "meta",
+                      "html",
+                      "head",
+                      "base"
+                      );
+
+    $rm_tags_with_content = Array(
+                                  "script",
+                                  "applet",
+                                  "embed",
+                                  "title"
+                                  );
+
+    $self_closing_tags =  Array(
+                                "img",
+                                "br",
+                                "hr",
+                                "input"
+                                );
+
+    $force_tag_closing = false;
+
+    $rm_attnames = Array(
+                         "/.*/" =>
+                         Array(
+                               "/target/si",
+                               "/^on.*/si"
+                               )
+                         );
+
+    $secremoveimg = "../images/" . _("sec_remove_eng.png");
+    $bad_attvals = Array(
+        "/.*/" =>
+            Array(
+                "/^src|background|href|action/i" =>
+                    Array(
+                          Array(
+                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
+                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si"
+                                ),
+                          Array(
+                                "\\1$secremoveimg\\2",
+                                "\\1$secremoveimg\\2"
+                                )
+                        ),
+                "/^style/si" =>
+                    Array(
+                          Array(
+                                "/expression\s*:/si",
+                                "|url\(([\'\"])\s*\.\./.*([\'\"])\)|si",
+                                "/url\(([\'\"])\s*\S+script:.*([\'\"])\)/si"
+                               ),
+                          Array(
+                                "idiocy:",
+                                "url(\\1$secremoveimg\\2)",
+                                "url(\\1$secremoveimg\\2)"
+                               )
+                          )
+                )
+        );
+    if (!$view_unsafe_images){
+        /**
+         * Remove any references to http/https if view_unsafe_images set
+         * to false.
+         */
+        $addendum = Array(
+          "/.*/" =>
+            Array(
+                "/^src|background/i" =>
+                    Array(
+                          Array(
+                                "/^([\'\"])\s*https*:.*([\'\"])/si"
+                                ),
+                          Array(
+                                "\\1$secremoveimg\\2"
+                                )
+                        ),
+                "/^style/si" =>
+                    Array(
+                          Array(
+                                "/url\(([\'\"])\s*https*:.*([\'\"])\)/si"
+                               ),
+                          Array(
+                                "url(\\1$secremoveimg\\2)"
+                               )
+                          )
+                )
+          );
+        $bad_attvals = array_merge($bad_attvals, $addendum);
+    }
+
+    $add_attr_to_tag = Array(
+                             "/^a$/si" => Array('target'=>'"_new"')
+                             );
+    $trusted = sq_sanitize($body, 
+                           $tag_list, 
+                           $rm_tags_with_content,
+                           $self_closing_tags,
+                           $force_tag_closing,
+                           $rm_attnames,
+                           $bad_attvals,
+                           $add_attr_to_tag,
+                           $message,
+                           $id
+                           );
+    if (preg_match("|$secremoveimg|si", $trusted)){
+        $has_unsafe_images = true;
+    }
+    return $trusted;
 }
 ?>
