@@ -470,7 +470,9 @@ if (isset($view_hdr)) {
             $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
             $j++;
         }
-        parseEmail($s);
+        if(strtolower($f) != 'message-id:') {
+		parseEmail($s);		/* Find and linkify emailaddresses except msgid */
+	}
         if (isset($f)) {
             echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
         }
