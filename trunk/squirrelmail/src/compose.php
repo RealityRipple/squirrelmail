@@ -603,30 +603,29 @@ function showInputForm () {
 }
 
 
-function showComposeButtonRow()
-{
+function showComposeButtonRow() {
     global $use_javascript_addr_book, $save_as_draft,
-           $default_use_priority, $mailprio, $default_use_mdn,
-           $data_dir, $username;
-    
+        $default_use_priority, $mailprio, $default_use_mdn,
+        $data_dir, $username;
+
     echo "  <TR><TD>\n</TD><TD>\n";
     if ($default_use_priority) {
         if(!isset($mailprio)) {
             $mailprio = "3";
-	}
-	echo _("Priority") .':<select name="mailprio">'.
-             "<option value=1".($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
-             "<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
-             "<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
-             "</select>";
+    }
+    echo _("Priority") .': <select name="mailprio">'.
+         '<option value="1"'.($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
+         '<option value="3"'.($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
+         '<option value="5"'.($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
+         "</select>";
     }
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
     if ($default_use_mdn) {
-      if ($mdn_user_support) {
-          echo "\n\t". _("Receipt") .': '.
-	    '<input type="checkbox" name="request_mdn" value=1>'. _("On read").
-	    ' <input type="checkbox" name="request_dr" value=1>'. _("On Delivery");
-      }
+        if ($mdn_user_support) {
+            echo "\n\t". _("Receipt") .': '.
+            '<input type="checkbox" name="request_mdn" value=1>'. _("On read").
+            ' <input type="checkbox" name="request_dr" value=1>'. _("On Delivery");
+        }
     }
 
     echo "   <TR><td>\n   </td><td>\n";
@@ -653,8 +652,7 @@ function showComposeButtonRow()
     echo "   </TD></TR>\n\n";
 }
 
-function checkInput ($show)
-{
+function checkInput ($show) {
     /*
      * I implemented the $show variable because the error messages
      * were getting sent before the page header.  So, I check once
