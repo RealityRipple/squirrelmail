@@ -120,8 +120,9 @@ b. Setting up directories
     $ chgrp -R nobody data
 
   Keep in mind that with different installations, the web server could
-  typically run as userid/groupid of apache/apache or www-data/www-data.
-  The best way to find out is to read the web server's configuration file.
+  typically run as userid/groupid of nobody/nobody, nobody/nogroup, 
+  apache/apache or www-data/www-data.  The best way to find out is to read 
+  the web server's configuration file.
 
   There also needs to be a directory where attachments are stored
   before they are sent. Since personal mail is stored in this
