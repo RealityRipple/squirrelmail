@@ -77,6 +77,9 @@ if (!session_is_registered('user_is_logged_in')) {
     $key = OneTimePadEncrypt($secretkey, $onetimepad);
     session_register('onetimepad');
 
+    /* remove redundant spaces */
+    $login_username = trim($login_username);
+
     /* Verify that username and password are correct. */
     if ($force_username_lowercase) {
         $login_username = strtolower($login_username);
