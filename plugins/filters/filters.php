@@ -246,23 +246,24 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $
         $category = 'ALL';
     }
 
-    if ($allow_charset_search && isset($languages[$squirrelmail_language]['CHARSET']) &&
+    if ($allow_charset_search &&
+        isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
-        $search_str = "SEARCH CHARSET "
-            . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
-            . ' ' . $category . ' ';
+        $search_str = 'SEARCH CHARSET '
+                    . strtoupper($languages[$squirrelmail_language]['CHARSET'])
+                    . ' ' . $category;
     } else {
-        $search_str = 'SEARCH CHARSET US-ASCII ' . $category . ' ';
+        $search_str = 'SEARCH CHARSET US-ASCII ' . $category;
     }
     if ($where == "Header") {
-       $what = explode(':', $what);
-       $where = trim($where . ' ' . $what[0]);
-       $what = addslashes(trim($what[1]));
+        $what  = explode(':', $what);
+        $where = trim($where . ' ' . $what[0]);
+        $what  = addslashes(trim($what[1]));
     }
 
     /* read data back from IMAP */
     $read = sqimap_run_command($imap, $search_str, true, $reponse, $message, $uid_support);
-    
+
     // This may have problems with EIMS due to it being goofy
 
     for ($r=0; $r < count($read) &&
