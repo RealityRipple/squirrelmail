@@ -145,11 +145,11 @@ function display_result($res, $includesource = true) {
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
              '<small><a href="javascript:to_address(' . 
-                                       "'" . $email . "');\">To</a> | " .
+                                       "'" . $email . "');\">"._("To")."</a> | " .
              '<a href="javascript:cc_address(' . 
-                                       "'" . $email . "');\">Cc</a> | " .
+                                       "'" . $email . "');\">"._("Cc")."</a> | " .
              '<a href="javascript:bcc_address(' . 
-                                 "'" . $email . "');\">Bcc</a></small>",
+                                 "'" . $email . "');\">"._("Bcc")."</a></small>",
         'center', '', 'valign="top" width="5%" nowrap' ) .
         html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" nowrap' ) .
         html_tag( 'td', '&nbsp;' .
