@@ -979,6 +979,9 @@ if ($date_format != 6) {
     }
 
     switch( $date_format ) {
+    case 0:
+	$clk = date('Y-m-d '.$hr. ' T', time());
+	break;
     case 1:
         $clk = date('m/d/y '.$hr, time());
         break;
