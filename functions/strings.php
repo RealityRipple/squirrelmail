@@ -231,4 +231,36 @@
       }
       return $string;
    }
+
+
+   // These functions are used to encrypt the passowrd before it is
+   // stored in a cookie.
+   function OneTimePadEncrypt ($string, $pad) {
+      for ($i = 0; $i < strlen ($string); $i++) {
+	 $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
+      }
+
+      return base64_encode($encrypted);
+   }
+
+   function OneTimePadDecrypt ($string, $pad) {
+      $encrypted = base64_decode ($string);
+      
+      for ($i = 0; $i < strlen ($encrypted); $i++) {
+	 $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
+      }
+
+      return $decrypted;
+   }
+
+   function OneTimePadCreate ($length=100) {
+      srand ((double) microtime() * 1000000);
+      
+      for ($i = 0; $i < $length; $i++) {
+	 $pad .= chr(rand(0,255));
+      }
+
+      return $pad;
+   }
+
 ?>

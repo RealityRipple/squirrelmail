@@ -67,11 +67,14 @@
     **  will be displayed.  This function returns the imap connection handle.
     ******************************************************************************/
    function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
-      global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE;
+      global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
 
       $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string);
       $server_info = fgets ($imap_stream, 1024);
       
+      // Decrypt the password
+      $password = OneTimePadDecrypt($password, $onetimepad);
+
       // This function can sometimes be called before the check for
       // gettext is done.
       if (!function_exists("_")) {

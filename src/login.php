@@ -88,7 +88,7 @@
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Password:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <INPUT TYPE=PASSWORD NAME=key>\n";
+   echo "                  <INPUT TYPE=PASSWORD NAME=secretkey>\n";
    echo "               </TD>\n"; 
    echo "         </TABLE>\n";
    echo "      </TD>\n";
