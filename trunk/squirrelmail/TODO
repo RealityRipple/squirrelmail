@@ -14,6 +14,8 @@ initials = taken by that person
             a link
 (mcp)   Spell checking
 (ssg)   Search mailbox(es) for given criteria
+  -     Remove subject and body requirements in Compose
+  -     Select multiple Unsubscribe/Subscribe folders at one time
 
 
 Finished:

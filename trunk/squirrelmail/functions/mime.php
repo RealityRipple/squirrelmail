@@ -25,7 +25,7 @@
       
       var $type0, $type1, $boundary, $charset, $encoding;
       var $to, $from, $date, $cc, $bcc, $reply_to, $subject;
-      var $id, $mailbox;
+      var $id, $mailbox, $description;
       var $entity_id;
    }
    
@@ -65,8 +65,13 @@
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
       // isolate the body structure and remove beginning and end parenthesis
       $read = trim(substr ($read, strpos($read, "bodystructure") + 13));
-      $read = trim(substr ($read, 0, -2));
-      $read = trim(substr ($read, 1));
+      $read = trim(substr ($read, 0, -1));
+      $end = mime_match_parenthesis(0, $read);
+      while ($end == strlen($read)-1) {
+         $read = trim(substr ($read, 0, -1));
+         $read = trim(substr ($read, 1));
+         $end = mime_match_parenthesis(0, $read);
+      }
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
 
@@ -82,22 +87,21 @@
       if (substr($structure, 0, 1) == "(") {
          $ent_id = mime_new_element_level($ent_id);
          $start = $end = -1;
+         if ($debug_mime) echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
          do {
             if ($debug_mime) echo "<font color=008800><tt>Found entity...</tt></font><br>";
             $start = $end+1;
             $end = mime_match_parenthesis ($start, $structure);
             
             $element = substr($structure, $start+1, ($end - $start)-1);
-            $ent_id = mime_increment_id($ent_id);
+            $ent_id = mime_increment_id ($ent_id);
             $newmsg = mime_parse_structure ($element, $ent_id);
             $msg->addEntity ($newmsg);
          } while (substr($structure, $end+1, 1) == "(");
       } else {
          // parse the elements
          if ($debug_mime) echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
-         $msg->header = new msg_header();
-         $msg->header = mime_get_element (&$structure, $header);
-         $msg->header->entity_id = $ent_id;
+         $msg = mime_get_element (&$structure, $msg, $ent_id);
          if ($debug_mime) echo "<br>";
       }
       return $msg;
@@ -108,14 +112,16 @@
    // the following:  1, 1.2, 4.3.2.4.1, etc.  This function increments
    // the last number of the element id, changing 1.2 to 1.3.
    function mime_increment_id ($id) {
+      global $debug_mime;
       if (strpos($id, ".")) {
          $first = substr($id, 0, strrpos($id, "."));
-         $last = substr($id, strlen($id) - strlen($first));
+         $last = substr($id, strrpos($id, ".")+1);
          $last++;
-         $new = $first . $last;
+         $new = $first . "." .$last;
       } else {
          $new = $id + 1;
       }
+      if ($debug_mime) echo "<b>INCREMENT: $new</b><br>";
       return $new;
    }
 
@@ -126,16 +132,17 @@
    //        to make a special case if it is the first entity_id.  It
    //        always increments it, and that works fine.
    function mime_new_element_level ($id) {
-      if (!$id)
-         $id = 0;
-      else 
-         $id . ".0";
+      if (!$id) $id = 0;
+      else      $id = $id . ".0";
+
       return $id;   
    }
 
-   function mime_get_element (&$structure, $header) {
+   function mime_get_element (&$structure, $msg, $ent_id) {
       global $debug_mime;
       $elem_num = 1;
+      $msg->header = new msg_header();
+      $msg->header->entity_id = $ent_id;
       
       while (strlen($structure) > 0) {
          $structure = trim($structure);
@@ -176,25 +183,51 @@
          // This is where all the text parts get put into the header
          switch ($elem_num) {
             case 1: 
-               $header->type0 = $text;
+               $msg->header->type0 = $text;
                if ($debug_mime) echo "<tt>type0 = $text</tt><br>";
                break;
             case 2: 
-               $header->type1 = $text;
+               $msg->header->type1 = $text;
                if ($debug_mime) echo "<tt>type1 = $text</tt><br>";
                break;
+            case 5:
+               $msg->header->description = $text;
+               if ($debug_mime) echo "<tt>description = $text</tt><br>";
+               break;
             case 6:
-               $header->encoding = $text;
+               $msg->header->encoding = $text;
                if ($debug_mime) echo "<tt>encoding = $text</tt><br>";
                break;
             case 7:
-               $header->size = $text;
+               $msg->header->size = $text;
                if ($debug_mime) echo "<tt>size = $text</tt><br>";
                break;
             default:
-               if ($header->type0 == "text" && $elem_num == 8) {
-                  $header->num_lines = $text;
+               if ($msg->header->type0 == "text" && $elem_num == 8) {
+                  $msg->header->num_lines = $text;
                   if ($debug_mime) echo "<tt>num_lines = $text</tt><br>";
+               } else if ($msg->header->type0 == "message" && $msg->header->type1 == "rfc822" && $elem_num == 8) {
+                  // This is an encapsulated message, so lets start all over again and 
+                  // parse this message adding it on to the existing one.
+                  $structure = trim($structure);
+                  if (substr($structure, 0, 1) == "(") {
+                     $e = mime_match_parenthesis (0, $structure);
+                     $structure = substr($structure, 0, $e);
+                     $structure = substr($structure, 1);
+                     $m = mime_parse_structure($structure, $msg->header->entity_id);
+                     if (substr($structure, 1, 1) != "(") 
+                        $m->header->entity_id = mime_increment_id(mime_new_element_level($ent_id));
+                     if ($m->entities) {
+                        for ($i=0; $i < count($m->entities); $i++) {
+                           //echo "<big>TYPE: $i - ".$m->entities[$i]->header->type0." - ".$m->entities[$i]->header->type1."</big><br>";
+                           $msg->addEntity($m->entities[$i]);
+                        }
+                     } else {
+                        //echo "<big>TYPE: ".$m->header->type0." - ".$m->header->type1."</big><br>";
+                        $msg->addEntity($m);
+                     }
+                     $structure = ""; 
+                  }
                }
                break;
          }
@@ -202,11 +235,13 @@
          $text = "";
       }
       // loop through the additional properties and put those in the various headers
+      if ($msg->header->type0 != "message") {
       for ($i=0; $i < count($properties); $i++) {
-         $header->{$properties[$i]["name"]} = $properties[$i]["value"];
+         $msg->header->{$properties[$i]["name"]} = $properties[$i]["value"];
          if ($debug_mime) echo "<tt>".$properties[$i]["name"]." = " . $properties[$i]["value"] . "</tt><br>";
       }
-      return $header;
+      }
+      return $msg;
    }
 
    // I did most of the MIME stuff yesterday (June 20, 2000), but I couldn't
@@ -264,6 +299,7 @@
             $sub = substr($structure, 1, $end-1);
             $props = mime_get_props($props, $sub);
             $structure = substr($structure, strlen($sub) + 2);
+            return $props;
          } else {
             return $props;
          }
@@ -318,9 +354,21 @@
       return mime_structure ($imap_stream, $header);
    }
 
+   function listEntities ($message) {
+      if ($message) {
+            if ($message->header->entity_id)
+            echo "<tt>" . $message->header->entity_id . " : " . $message->header->type0 . "/" . $message->header->type1 . "<br>";
+            for ($i = 0; $message->entities[$i]; $i++) {
+               $msg = listEntities($message->entities[$i], $ent_id);
+               if ($msg)
+                  return $msg;
+            }
+      }
+   }
+
    function getEntity ($message, $ent_id) {
       if ($message) {
-         if ($message->header->entity_id == $ent_id) {
+         if ($message->header->entity_id == $ent_id && strlen($ent_id) == strlen($message->header->entity_id)) {
             return $message;
          } else {
             for ($i = 0; $message->entities[$i]; $i++) {
@@ -402,14 +450,17 @@
             if ($message->header->entity_id != $ent_id) {
                $filename = $message->header->filename;
                if (trim($filename) == "") {
-                  $display_filename = "untitled-$ent_id";
+                  $display_filename = "untitled-".$message->header->entity_id;
                } else {
                   $display_filename = $filename;
                }
    
                $urlMailbox = urlencode($mailbox);
                $ent = urlencode($message->header->entity_id);
-               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
+               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               if ($message->header->description)
+                  $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
+               $body .= "</TT><BR>";
                $num++;
             }
             return $body;
