@@ -649,6 +649,7 @@ function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $removed
         if (!(isset($passed_ent_id) && $passed_ent_id)) {
             $menu_row .= addHidden('mailbox', $aMailbox['NAME']);
             $menu_row .= addHidden('msg[0]', $passed_id);
+            $menu_row .= addHidden('startMessage', $startMessage);
             $menu_row .= getButton('submit', 'delete', _("Delete"));
             $menu_row .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
         } else {
