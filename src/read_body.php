@@ -93,9 +93,16 @@ function findPreviousMessage($uidset, $passed_id) {
 function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     global $javascript_on;
 
+    /* hackydiehack */
+    if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
+        $view_unsafe_images = false;
+    } else {
+        $view_unsafe_images = true;
+    }
     $params = '?passed_ent_id=' . urlencode($passed_ent_id) .
               '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . urlencode($passed_id);
+              '&passed_id=' . urlencode($passed_id).
+              '&view_unsafe_images='. (bool) $view_unsafe_images;
 
     $print_text = _("View Printable Version");
 
