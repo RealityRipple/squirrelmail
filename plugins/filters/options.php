@@ -32,6 +32,7 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'plugins/filters/filters.php');
 
@@ -125,7 +126,7 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
         '</form>'.
 
         html_tag( 'div', '[<a href="options.php?action=add">' . _("New") .
-            '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]' ,
+            '</a>] - [<a href="'.SM_PATH.'src/options.php">' . _("Done") . '</a>]' ,
         'center' ) . '<br>';
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
@@ -184,18 +185,10 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
                 html_tag( 'td', '', 'left' ) .
                     '<tt>'.
                     '<select name=filter_folder>';
-
-        for ($i = 0, $num = count($boxes); $i < $num; $i++) {
-            if (! in_array('noselect', $boxes[$i]['flags'])) {
-                $box = $boxes[$i]['unformatted'];
-                $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
-                if (isset($filters[$theid]['folder']) &&
-                    $filters[$theid]['folder'] == $box)
-                echo "<OPTION VALUE=\"$box\" SELECTED>$box2</option>";
-                else
-                echo "<OPTION VALUE=\"$box\">$box2</option>";
-            }
-        }
+        $selected = 0;
+        if ( isset($filters[$theid]['folder']) )
+          $selected = array(strtolower($filters[$theid]['folder']));
+        echo sqimap_mailbox_option_list(0, $selected, 0, $boxes);
         echo         '</tt>'.
                     '</select>'.
                 '</td>'.
