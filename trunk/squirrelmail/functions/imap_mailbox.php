@@ -338,7 +338,7 @@ function user_strcasecmp($a, $b) {
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 function sqimap_mailbox_list($imap_stream) {
-    global $boxesnew, $default_folder_prefix, $optional_delimiter;
+    global $boxesnew, $default_folder_prefix;
 
     if ( !isset( $boxesnew ) ) {
 
@@ -467,8 +467,7 @@ function sqimap_mailbox_list($imap_stream) {
                     $boxesnew[] = $box;
                     $used[$k] = true;
                 }
-                $spec_sub =  $box['formatted'];
-                $spec_sub = str_replace("&nbsp;", "", $box['formatted']);
+                $spec_sub = str_replace('&nbsp;', '', $box['formatted']);
                 if (!$used[$k] && preg_match("/^$default_folder_prefix(Sent|Drafts|Trash).{1}$spec_sub$/", $box['unformatted']) ) {
                     $boxesnew[] = $box;
                     $used[$k] = true;
