@@ -163,7 +163,7 @@ while (($command ne "q") && ($command ne "Q")) {
       $menu = 0;
    } elsif (($command eq "s") || ($command eq "S")) {
       save_data ();
-      print "Data saved in cf.php\n";
+      print "Data saved in config.php\n";
       print "Press any key to continue...";
       $tmp = <STDIN>;
       $saved = 1;
@@ -216,7 +216,7 @@ while (($command ne "q") && ($command ne "Q")) {
          }
       } elsif ($menu == 6) {
       } elsif ($menu == 7) {
-         if    ($command == 1) { $motd   = command71 (); }
+         if    ($command == 1) { $motd = command71 (); $motd =~ s/"/\\"/g;}
       }
    }   
 }
@@ -962,7 +962,7 @@ sub save_data {
    print FILE "\n";
 
    print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
-   print FILE "\t\$trash_folder                     = \"$default_trash_folder\";\n";
+   print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
    print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
    print FILE "\t\$show_prefix_option               =  $show_prefix_option;\n";
    print FILE "\t\$list_special_folders_first       =  $list_special_folders_first;\n";
@@ -970,28 +970,28 @@ sub save_data {
    print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
    print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
    print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
-   print FILE "\t\$show_contains_subfolders_option  = $show_contains_subfolders_option;\n";
+   print FILE "\t\$show_contain_subfolders_option  = $show_contain_subfolders_option;\n";
    for ($count=0; $count <= $#special_folders; $count++) {
-      print FILE "\t\$special_folders[$count]              = \"$special_folders[$count]\";\n";
+      print FILE "\t\$special_folders[$count]               = \"$special_folders[$count]\";\n";
    }
    print FILE "\n";
 
-	print FILE "\t\$default_charset   = \"$default_charset\";\n";
-	print FILE "\t\$auto_forward      =  $auto_forward;\n";
-	print FILE "\t\$data_dir          = \"$data_dir\";\n";
-	print FILE "\t\$attachment_dir    = \"$attachment_dir\";\n";
-	print FILE "\t\$default_left_size =  $default_left_size;\n";
+   print FILE "\t\$default_charset   = \"$default_charset\";\n";
+   print FILE "\t\$auto_forward      =  $auto_forward;\n";
+   print FILE "\t\$data_dir          = \"$data_dir\";\n";
+   print FILE "\t\$attachment_dir    = \"$attachment_dir\";\n";
+   print FILE "\t\$default_left_size =  $default_left_size;\n";
 
    print FILE "\n";
 
    for ($count=0; $count <= $#theme_name; $count++) {
-		print FILE "\t\$theme[$count][\"PATH\"] = \"$theme_path[$count]\";\n";
-		print FILE "\t\$theme[$count][\"NAME\"] = \"$theme_name[$count]\";\n";
-	}
-	
+      print FILE "\t\$theme[$count][\"PATH\"] = \"$theme_path[$count]\";\n";
+      print FILE "\t\$theme[$count][\"NAME\"] = \"$theme_name[$count]\";\n";
+   }
+   
    print FILE "\n";
 
-	print FILE "\t\$motd = \"$motd\";\n";
+   print FILE "\t\$motd = \"$motd\";\n";
 
    print FILE "?>\n";
    close FILE;
