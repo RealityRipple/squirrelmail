@@ -46,7 +46,7 @@ sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
 
 /** SESSION/POST/GET VARS */
-sqgetGlobalVar('action',$action);
+sqgetGlobalVar('smaction',$action);
 sqgetGlobalVar('session',$session);
 sqgetGlobalVar('mailbox',$mailbox);
 if(!sqgetGlobalVar('identity',$identity)) {
@@ -1105,7 +1105,7 @@ function showInputForm ($session, $values=false) {
 
     echo '</TABLE>' . "\n" .
          '<input type="hidden" name="username" value="'. $username . "\">\n" .
-         '<input type=hidden name=action value="' . $action . "\">\n" .
+         '<input type=hidden name=smaction value="' . $action . "\">\n" .
          '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
          "\">\n";
     /*
