@@ -1,64 +1,44 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.3.2                             *
- * The "Nut cracker" Release                                     *
- * 29 October 2002                                               *
+ * Release Notes: SquirrelMail 1.4.0 Release Candidate 1         *
+ * 31 December 2002                                              *
  *****************************************************************/
 
 In this edition of SquirrelMail Release Notes:
    * All about this Release!!!
    * Major updates
-   * A note on solved bugs
+   * A note on plugins
    * Reporting my favorite SquirrelMail 1.3 bug
    * About our Release Aliases
 
 All about this Release!!!
 =========================
 
-This is the third release on our way to a new stable series.
-On our way to, that is, this is a development release, which is not
-intended for production servers. We feel that releasing development
-versions will help us making the to-be stable release more stable, and
-restricting the ability to test no longer to people who use CVS.
+This is the first Release Candidate (RC) for the 1.4.x stable series.
+Please note that this release is not yet labeled STABLE officially.
+
+However, we've been running this on a number of systems and a variety
+of configs and we think it's worthy of the "stable"-title. Before we
+can call it stable we want to test it on as many systems as possible
+to iron out the last issues. 
 
 So download it! Install it, and try to break it! We are hungry for any
-bug report you send. If stumbling over a bug is a true non-option,
-this release is not for you. In that case, download the stable version
-and enjoy that one.
+bug report you send. 
 
-In general, we are planning to regularly release a 1.3.x version until
-it is stable enough to call her 1.4 or 2.0. While I'm at it, one
-comment on version numbers. Our version numbers take the form of A.B.C
- A increases with time, but only very seldomly.
- B if it is even (0, 2, 4 etc), it is a stable release
-   if it is odd (1, 3, 5 etc), it is a development release
- C indicates small changes.
-Which is to say our version numbering system is the same as that of
-the linux kernel. So 1.2.9 is a stable version, and 1.3.2 (this one)
-is a development release.
-
-We are excited to bring you the fruits of a very good development
-series. Major rewrites of the back-end and the user interface have
-been happening since the 1.2 series.
 
 Major updates
 ==============
 
-To summarize the major updates in the 1.3.2 release:
-* The support of register globals = off
-* A complete rewrite of the way we send mail (Deliver-class)
-* Lot's of bugfixes.
+The 1.4.0 series (as a result of 1.3 devel series) brings:
 
+* A complete rewrite of the way we send mail (Deliver-class),
+  and of the way we parse mail (MIME-bodystructure parsing).
+  This makes SquirrelMail more reliable and more efficient
+  at the same time!
+* Support for IMAP UID which makes SquirrelMail more reliable.
+* Optimizations to code and the number of IMAP calls.
+* Support for a wider range of authentication mechanisms.
+* Lots of bugfixes and a couple of UI-tweaks.
 
-A note on solved bugs
-=====================
-
-After the release of 1.3.0 and 1.3.1 we received lots of usefull bug-reports.
-At this moment we can say that most issues are solved.
-One of the biggest bug reporter was Cor Bosman from the dutch ISP XS4ALL.
-They scheduled the use of SquirrelMail 1.3.2 because of it's UID support.
-At this moment they are switched over to 1.3.2 CVS and it's running fine on
-the production servers. The imap-server load was dropped significantly and
-that's exactly what we tried to establish in the DEVEL branche.
 
 
 A note on plugins
@@ -70,6 +50,7 @@ this release (eg. in the same .tar.gz file) may work. Plugins not
 distributed with this plugin most probably WILL NOT WORK.
 
 So if you have ANY problem at all, first try turning off all plugins.
+
 
 A note on your configuration
 ============================
@@ -88,15 +69,15 @@ If you have problems with UID support, please do these 2 things:
      * The value of "sort" (as in conf.pl)
    bugs can be submitted at: http://www.squirrelmail.org/bugs
 2) For your own pleasure and comfort:
-   turn of UID support in conf.pl, so you can continue to use 1.3.2
+   turn of UID support in conf.pl, so you can continue to use 1.4.0
 
 
-Reporting my favorite SquirrelMail 1.3 bug
+Reporting my favorite SquirrelMail 1.4 bug
 ==========================================
 
-It is not unlikely you will experience some bugs while using this
-development version. Please submit these bugs. Also, please mention
-that the bug is in this 1.3.2 release.
+This RC is meant to catch the last bugs. So we need you to submit
+any bug you come across! Also, please mention that the bug is in
+this 1.4.0 RC1 release.
 
    http://www.squirrelmail.org/bugs
 
@@ -113,17 +94,6 @@ In case you want to join us on coding SquirrelMail, or have other
 things to share with the developers, join the development mailinglist:
 
    squirrelmail-devel@lists.sourceforge.net
-
-
-About our Release Aliases
-=========================
-With the release of 1.3.2 we can say we realy cracked some nuts regarding
-hard to solve issues. 
-Future devel versions will continue carrying "Nut" releasenames
-to keep the squirrel satisfied. Since winter is coming we better hurry up
-with new "Nut" releases. We don't want a death squirrel due to starvation.
-So next time you see a squirrel feed him nuts, think about SquirrelMail and
-a new friendship is born.
 
 
                   Happy SquirrelMailing!

@@ -7,7 +7,7 @@
  *    Date:    January 7, 2000
  *    Comment: This Theme is composed entirely of shades of purple.
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

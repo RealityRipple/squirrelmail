@@ -3,7 +3,7 @@
  * options_main.mod
  * ----------------
  * Squirrelspell module
- * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Copyright (c) 1999-2003 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Default page called when accessing SquirrelSpell's options.

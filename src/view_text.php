@@ -3,7 +3,7 @@
 /**
  * view_text.php -- Displays the main frameset
  *
- * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Copyright (c) 1999-2003 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Who knows what this file does. However PUT IT HERE DID NOT PUT

@@ -7,7 +7,7 @@
  *    Date:    January 7, 2000
  *    Comment: This theme uses Forest-ish colors (mostly green).
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
