@@ -50,6 +50,14 @@
                <input size=50 type=text value="<?php echo $replyto ?>" name=reply_to> 
             </td>
          </tr>
+	 <tr>
+	    <td align=right nowrap><?PHP echo _("Multiple Identities"); ?>:
+	    </td><td>
+	       <a href="options_identities.php">Edit Advanced Identities</a>
+               (discards changes made on this form so far)
+	    </td>
+	 </tr>
+         <tr><td colspan=2><hr size=1 width=80%></td></tr>
          <tr>
             <td align=right nowrap valign=top><br><?php echo _("Signature"); ?>:
             </td><td>

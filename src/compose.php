@@ -189,7 +189,8 @@
          $passed_body, $color, $use_signature, $signature, $prefix_sig, 
          $editor_size, $attachments, $subject, $newmail, 
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox, 
-         $from_htmladdr_search, $location_of_buttons, $attachment_dir;
+         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
+	 $username, $data_dir, $identity;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -217,6 +218,34 @@
 
       if ($location_of_buttons == 'top') showComposeButtonRow();
 
+      $idents = getPref($data_dir, $username, 'identities');
+      if ($idents != '' && $idents > 1)
+      {
+         echo "   <TR>\n";
+         echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+         echo _("From:");
+         echo "      </TD><TD BGCOLOR=\"$color[4]\">\n";
+	 echo "<select name=identity>\n";
+	 echo "<option value=default>" . 
+	    htmlspecialchars(getPref($data_dir, $username, 'full_name'));
+	 $em = getPref($data_dir, $username, 'email_address');
+	 if ($em != '')
+	    echo htmlspecialchars(' <' . $em . '>') . "\n";
+	 for ($i = 1; $i < $idents; $i ++) {
+ 	    echo '<option value="' . $i . '"';
+	    if (isset($identity) && $identity == $i)
+	       echo ' SELECTED';
+	    echo '>';
+	    echo htmlspecialchars(getPref($data_dir, $username, 'full_name' . 
+	                                  $i));
+  	    $em = getPref($data_dir, $username, 'email_address' . $i);
+	    if ($em != '')
+	       echo htmlspecialchars(' <' . $em . '>') . "\n";
+	 }
+	 echo "</select>\n";
+         echo "      </TD>\n";
+         echo "   </TR>\n";
+      }
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");

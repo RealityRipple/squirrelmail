@@ -88,16 +88,30 @@
 	        $info['remotefilename'] . "\"\r\n";
             $header .= "Content-Disposition: attachment; filename=\"" .
 	        $info['remotefilename'] . "\"\r\n";
-            $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
-            fputs ($fp, $header);
-            $length += strlen($header);
             
             $file = fopen ($attachment_dir . $info['localfilename'], 'r');
-            while ($tmp = fread($file, 570)) {
-               $encoded = chunk_split(base64_encode($tmp));
-               $length += strlen($encoded);
-               fputs ($fp, $encoded);
-            }
+	    if (substr($filetype, 0, 5) == 'text/' ||
+ 	        $filetype == 'message/rfc822') {
+	       $header .= "\r\n";
+               fputs ($fp, $header);
+               $length += strlen($header);
+	       while ($tmp = fgets($file, 4096)) {
+	          $tmp = str_replace("\r\n", "\n", $tmp);
+	          $tmp = str_replace("\r", "\n", $tmp);
+	          $tmp = str_replace("\n", "\r\n", $tmp);
+		  fputs($fp, $tmp);
+		  $length += strlen($tmp);
+	       }
+	    } else {
+               $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
+               fputs ($fp, $header);
+               $length += strlen($header);
+               while ($tmp = fread($file, 570)) {
+                  $encoded = chunk_split(base64_encode($tmp));
+                  $length += strlen($encoded);
+                  fputs ($fp, $encoded);
+               }
+	    }
             fclose ($file);
          }
       }
@@ -159,7 +173,7 @@
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
       global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
-      global $REMOTE_HOST;
+      global $REMOTE_HOST, $identity;
 
       // Storing the header to make sure the header is the same
       // everytime the header is printed.
@@ -169,9 +183,18 @@
          $to = expandAddrs(parseAddrs($t));
          $cc = expandAddrs(parseAddrs($c));
          $bcc = expandAddrs(parseAddrs($b));
-         $reply_to = getPref($data_dir, $username, 'reply_to');
-         $from = getPref($data_dir, $username, 'full_name');
-         $from_addr = getPref($data_dir, $username, 'email_address');
+	 if (isset($identity) && $identity != 'default')
+	 {
+	    $reply_to = getPref($data_dir, $username, 'reply_to' . $identity);
+	    $from = getPref($data_dir, $username, 'full_name' . $identity);
+	    $from_addr = getPref($data_dir, $username, 'email_address' . $identity);
+	 }
+	 else
+	 {
+            $reply_to = getPref($data_dir, $username, 'reply_to');
+            $from = getPref($data_dir, $username, 'full_name');
+            $from_addr = getPref($data_dir, $username, 'email_address');
+	 }
 
          if ($from_addr == '')
             $from_addr = $popuser.'@'.$domain;
@@ -336,12 +359,15 @@
 
    function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
       global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
-         $data_dir, $color, $use_authenticated_smtp;
+         $data_dir, $color, $use_authenticated_smtp, $identity;
 
       $to = expandAddrs(parseAddrs($t));
       $cc = expandAddrs(parseAddrs($c));
       $bcc = expandAddrs(parseAddrs($b));
-      $from_addr = getPref($data_dir, $username, 'email_address');
+      if (isset($identity) && $identity != 'default')
+	 $from_addr = getPref($data_dir, $username, 'email_address' . $identity);
+      else
+         $from_addr = getPref($data_dir, $username, 'email_address');
 
       if (!$from_addr)
          $from_addr = "$popuser@$domain";

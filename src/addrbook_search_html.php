@@ -41,6 +41,8 @@
           . '" name=send_to_cc>' . "\n";
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_bcc)
           . '" name=send_to_bcc>' . "\n";
+      echo "<input type=hidden value=\"" . htmlspecialchars($identity)
+          . '" name=identity>' . "\n";
       echo "<input type=hidden name=mailbox value=\"" .
           htmlspecialchars($mailbox) . "\">\n";
       echo "<input type=hidden value=\"true\" name=from_htmladdr_search>\n";
