@@ -71,13 +71,18 @@ do_hook('login_top');
 
 $loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
 
-/* Display width and height like good little people */
-$width_and_height = '';
-if (isset($org_logo_width) && is_numeric($org_logo_width) && $org_logo_width>0) {
-    $width_and_height = " width=\"$org_logo_width\"";
-}
-if (isset($org_logo_height) && is_numeric($org_logo_height) && $org_logo_height>0) {
-    $width_and_height .= " height=\"$org_logo_height\"";
+/* If they don't have a logo, don't bother.. */
+if (isset($org_logo) && $org_logo) {
+    /* Display width and height like good little people */
+    $width_and_height = '';
+    if (isset($org_logo_width) && is_numeric($org_logo_width) &&
+     $org_logo_width>0) {
+        $width_and_height = " width=\"$org_logo_width\"";
+    }
+    if (isset($org_logo_height) && is_numeric($org_logo_height) &&
+     $org_logo_height>0) {
+        $width_and_height .= " height=\"$org_logo_height\"";
+    }
 }
 
 echo "\n" . '<form action="redirect.php" method="post">' . "\n" .
@@ -85,8 +90,11 @@ html_tag( 'table',
     html_tag( 'tr',
         html_tag( 'td',
             '<center>'.
-            '<img src="' . $org_logo . '" alt="' . sprintf(_("%s Logo"), $org_name) .'"' .
-            $width_and_height .' /><br />' . "\n".
+            ( isset($org_logo) && $org_logo
+              ? '<img src="' . $org_logo . '" alt="' .
+                sprintf(_("%s Logo"), $org_name) .'"' . $width_and_height .
+                ' /><br />' . "\n"
+              : '' ).
             ( $hide_sm_attributions ? '' :
             '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
             '  ' . _("By the SquirrelMail Development Team") . '<br /></small>' . "\n" ) .
