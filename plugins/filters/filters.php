@@ -473,22 +473,6 @@ function load_spam_filters() {
     $filters['ORDB']['comment'] =
         _("FREE - ORDB was born when ORBS went off the air. It seems to have fewer false positives than ORBS did though.");
 
-    $filters['ORBZ Inputs']['prefname'] = 'filters_spam_orbz';
-    $filters['ORBZ Inputs']['name'] = 'ORBZ Inputs List';
-    $filters['ORBZ Inputs']['link'] = 'http://www.orbz.org/';
-    $filters['ORBZ Inputs']['dns'] = 'inputs.orbz.org';
-    $filters['ORBZ Inputs']['result'] = '127.0.0.2';
-    $filters['ORBZ Inputs']['comment'] =
-        _("FREE - Another ORBS replacement (just the INPUTS database used here).");
-
-    $filters['ORBZ Outputs']['prefname'] = 'filters_spam_orbz_outputs';
-    $filters['ORBZ Outputs']['name'] = 'ORBZ Outputs List';
-    $filters['ORBZ Outputs']['link'] = 'http://www.orbz.org/';
-    $filters['ORBZ Outputs']['dns'] = 'outputs.orbz.org';
-    $filters['ORBZ Outputs']['result'] = '127.0.0.2';
-    $filters['ORBZ Outputs']['comment'] =
-        _("FREE - Another ORBS replacement (just the OUTPUTS database used here).");
-
     $filters['FiveTen Direct']['prefname'] = 'filters_spam_fiveten_src';
     $filters['FiveTen Direct']['name'] = 'Five-Ten-sg.com Direct SPAM Sources';
     $filters['FiveTen Direct']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
