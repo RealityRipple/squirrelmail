@@ -230,7 +230,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
             $id = sqimap_message_list_squisher($id);
         }
         $id = ' '.$id;
-	$uid = TRUE;
+        $uid = TRUE;
     } else {
         $uid = false;
     }
@@ -751,7 +751,6 @@ function sqimap_mailbox_list_all($imap_stream) {
 function sqimap_mailbox_tree($imap_stream) {
     global $default_folder_prefix, $unseen_notify, $unseen_type;
     if (true) {
-
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
                $imap_server_type;
@@ -774,7 +773,7 @@ function sqimap_mailbox_tree($imap_stream) {
 
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
             if (preg_match("/^\*\s+LSUB.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
-	        $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
+                $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
                 // in case of an unsubscribed inbox an imap server can
                 // return the inbox in the lsub results with a \NoSelect
                 // flag.
@@ -847,10 +846,14 @@ function sqimap_mailbox_tree($imap_stream) {
            $cnt = count($sorted_lsub_ary);
        }
        $sorted_lsub_ary = array_values($sorted_lsub_ary);
-       array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
+       usort($sorted_lsub_ary, 'mbxSort');
        $boxestree = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
        return $boxestree;
     }
+}
+
+function mbxSort($a, $b) {
+    return strnatcasecmp($a['mbx'], $b['mbx']);
 }
 
 function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
@@ -882,7 +885,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
         $start = 0;
     }
 
-    $cnt =  count($mbx_ary);
+    $cnt = count($mbx_ary);
     for ($i=0; $i < $cnt; $i++) {
         if ($mbx_ary[$i]['mbx'] !='' ) {
             $mbx = new mailboxes();
