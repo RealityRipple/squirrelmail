@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# SquirrelMail Spanish Translation
+# Copyright (c) 1999-2003 The Squirrelmail Development Team
+# Kent B. Hansen <kent@squirrelmail.dk>, 2001.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
 "PO-Revision-Date: 2003-01-03 11:24+0100\n"
 "Last-Translator: Kent B. Hansen <kent@squirrelmail.dk>\n"
-"Language-Team: Danish\n"
+"Language-Team: Danish <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -315,8 +315,7 @@ msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
-"Flyt ikke nødvendige beskedder fra din mappe og start med din "
-"papirkurv."
+"Flyt ikke nødvendige beskedder fra din mappe og start med din papirkurv."
 
 msgid "INBOX"
 msgstr "Indbakke"
@@ -1061,7 +1060,8 @@ msgid "Change Settings"
 msgstr "Gem indstillingerne"
 
 msgid "Config file can't be opened. Please check config.php."
-msgstr "Konfigurationsfilen kan ikke åbnes. Vær venlig at kontrollere config.php."
+msgstr ""
+"Konfigurationsfilen kan ikke åbnes. Vær venlig at kontrollere config.php."
 
 msgid "Administration"
 msgstr "Administration"
@@ -1350,7 +1350,8 @@ msgstr ""
 "servere som har et meget højt spam/ikke spam forhold (85% eller mere)."
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
-msgstr "GRATIS - dev.null.dk - Jeg har ingen detaljerede oplysninger om denne liste."
+msgstr ""
+"GRATIS - dev.null.dk - Jeg har ingen detaljerede oplysninger om denne liste."
 
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
@@ -1364,7 +1365,8 @@ msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr "GRATIS - 2mbit.com SPAM Source - En liste over direkte spamkilder."
 
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
-msgstr "GRATIS - 2mbit.com SPAM ISPs - En liste over spamvenlige internetudbydere."
+msgstr ""
+"GRATIS - 2mbit.com SPAM ISPs - En liste over spamvenlige internetudbydere."
 
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
@@ -1422,16 +1424,19 @@ msgstr ""
 "servere samt direkte spamkilder."
 
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
-msgstr "GRATIS, indtil videre - Not Just Another Blacklist - Dial-up ip-adresser."
+msgstr ""
+"GRATIS, indtil videre - Not Just Another Blacklist - Dial-up ip-adresser."
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
 msgstr "GRATIS - Distributed Sender Boycott List - Bekræftede åbne servere"
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
-msgstr "GRATIS - Distributed Sender Boycott List - Bekræftede flertrins åbne servere"
+msgstr ""
+"GRATIS - Distributed Sender Boycott List - Bekræftede flertrins åbne servere"
 
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
-msgstr "GRATIS - Distributed Sender Boycott List - Ikke-bekræftede åbne servere"
+msgstr ""
+"GRATIS - Distributed Sender Boycott List - Ikke-bekræftede åbne servere"
 
 msgid "Saved Scan type"
 msgstr "Skanningstype gemt"
@@ -2074,9 +2079,9 @@ msgid ""
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
 msgstr ""
-"Hjælp i kampen mod post som man ikke har anmodet om. SpamCop "
-"læser spam-posten, og finder de rette adresser, som man kan klage "
-"til. Hurtigt, smart og let at bruge."
+"Hjælp i kampen mod post som man ikke har anmodet om. SpamCop læser spam-"
+"posten, og finder de rette adresser, som man kan klage til. Hurtigt, smart "
+"og let at bruge."
 
 msgid "SpellChecker Options"
 msgstr "Stavekontrolindstillinger"
@@ -2128,7 +2133,8 @@ msgstr "Fortsæt"
 msgid "You must make a choice"
 msgstr "Du skal foretage et valg"
 
-msgid "You can either delete your dictionary or type in the old password. Not both."
+msgid ""
+"You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
 "Du kan enten slette din ordbog eller angive din gamle adgangskode. Ikke "
 "begge dele."
@@ -2151,10 +2157,12 @@ msgstr "Gemte oversættelsesindstillinger"
 msgid "Your server options are as follows:"
 msgstr "Dine serverindstillinger er som følger:"
 
-msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr "13 sprogpar, maksimum 1000 tegn oversat, drevet af Systran"
 
-msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr "10 sprogpar, maksimum 25 kilobytes oversat, drevet af Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
@@ -2163,10 +2171,13 @@ msgstr "12 sprogpar, ingen kendte grænser, drevet af Systran"
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
-msgstr "767 sprogpar, ingen kendte grænser, drevet af Translation Expert's InterTran"
+msgstr ""
+"767 sprogpar, ingen kendte grænser, drevet af Translation Expert's InterTran"
 
-msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr "8 sprogpar, ingen kendte grænser, drevet af GPLTrans (gratis, åben source)"
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+"8 sprogpar, ingen kendte grænser, drevet af GPLTrans (gratis, åben source)"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -2211,7 +2222,8 @@ msgstr "Oversættelsesindstillinger"
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
-msgstr "Hvilken oversætter skal benyttes når du modtager beskeder på et andet sprog?"
+msgstr ""
+"Hvilken oversætter skal benyttes når du modtager beskeder på et andet sprog?"
 
 #, c-format
 msgid "%s to %s"
@@ -2742,7 +2754,8 @@ msgstr "Opdatér siden"
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr "Her er dine personlige oplysninger, såsom dit navn, din e-mail-adresse m.v."
+msgstr ""
+"Her er dine personlige oplysninger, såsom dit navn, din e-mail-adresse m.v."
 
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
@@ -2757,7 +2770,8 @@ msgstr ""
 "Her kan du vælge en bestemt baggrundsfarve til bestemte typer e-mails, så de "
 "træder ud fra mængden."
 
-msgid "These settings change the way your folders are displayed and manipulated."
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
 msgstr "Her bestemmer du, hvordan mapperne skal vises i mappelisten."
 
 msgid ""
@@ -3371,4 +3385,3 @@ msgstr "Viser vedhæftet tekst"
 
 #~ msgid "Try to verify addresses"
 #~ msgstr "Forsøg at verificere adresser"
-
