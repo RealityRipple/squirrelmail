@@ -13,8 +13,10 @@
  * @package squirrelmail
  */
 
+/**
+ * including plugin functions
+ */
 require_once(SM_PATH . 'functions/plugin.php');
-
 
 /**
  * Find out where squirrelmail lives and try to be smart about it.
