@@ -352,6 +352,7 @@ if ($action == 'edit' || $action == 'add') {
         $current_color = '63aa7f';
     }
 
+    $pre_defined_color = 0;
     for($x = 0; $x < 5; $x++) {
         for($y = 0; $y < 19; $y++) {
             $gridindex = "$y,$x";

@@ -68,6 +68,8 @@ function plugin_listcommands_menu() {
             $output[] = makeComposeLink($url, $fieldsdescr[$cmd]);
 
             if ($cmd == 'post') {
+                if (!isset($mailbox))
+                    $mailbox = 'INBOX';
 	        $url .= '&amp;passed_id='.$passed_id.
 		        '&amp;mailbox='.urlencode($mailbox).
 		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
