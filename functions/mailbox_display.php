@@ -27,6 +27,21 @@ require_once(SM_PATH . 'functions/forms.php');
 */
 define('PG_SEL_MAX', 10);
 
+define('SQSORT_NONE',0);
+define('SQSORT_DATE_ASC',1);
+define('SQSORT_DATE_DEC',2);
+define('SQSORT_FROM_ASC',3);
+define('SQSORT_FROM_DEC',4);
+define('SQSORT_SUBJ_ASC',5);
+define('SQSORT_SUBJ_DEC',6);
+define('SQSORT_SIZE_ASC',7);
+define('SQSORT_SIZE_DEC',8);
+define('SQSORT_TO_ASC',9);
+define('SQSORT_TO_DEC',10);
+define('SQSORT_CC_ASC',11);
+define('SQSORT_CC_DEC',12);
+define('SQSORT_INT_DATE_ASC',13);
+define('SQSORT_INT_DATE_DEC',14);
 /**
 * @param mixed $start UNDOCUMENTED
 */
@@ -75,6 +90,24 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
 
     $color_string = $color[4];
 
+    // initialisation:
+   $sSubject = (isset($msg['SUBJECT']) && $msg['SUBJECT'] != '') ? $msg['SUBJECT'] : _("(no subject)");
+   $sFrom    = (isset($msg['FROM'])) ? $msg['FROM'] : _("Unknown sender");
+   $sTo      = (isset($msg['TO'])) ? $msg['TO'] : _("Unknown recipient");
+   $sCc      = (isset($msg['CC'])) ? $msg['CC'] : '';
+   $aFlags   = (isset($msg['FLAGS'])) ? $msg['FLAGS'] : array();
+   $iPrio    = (isset($msg['PRIORITY'])) ? $msg['PRIORITY'] : 3;
+   $iSize    = (isset($msg['SIZE'])) ? $msg['SIZE'] : 0;
+   $sType0   = (isset($msg['TYPE0'])) ? $msg['TYPE0'] : 'text';
+   $sType1   = (isset($msg['TYPE1'])) ? $msg['TYPE1'] : 'plain';
+   $sDate    = (isset($msg['DATE'])) ? getDateString(getTimeStamp(explode(' ',$msg['DATE']))) : '';
+   $iId      = (isset($msg['ID'])) ? $msg['ID'] : false;
+
+   sqgetGlobalVar('indent_array',$indent_array,SQ_SESSION);
+   if (!$iId) {
+       return;
+   }
+
     if ($GLOBALS['alt_index_colors']) {
         if (!isset($row_count)) {
             $row_count = 0;
@@ -93,7 +126,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
     $bSentFolder = handleAsSent($mailbox);
     if ((!$bSentFolder) && ($show_recipient_instead)) {
         // If the From address is the same as $email_address, then handle as Sent
-        $from_array = parseAddress($msg['FROM'], 1);
+        $from_array = parseAddress($sFrom, 1);
         if (!isset($email_address)) {
             global $datadir, $username;
             $email_address = getPref($datadir, $username, 'email_address');
@@ -103,16 +136,17 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
     else
         $bHandleAsSent = $bSentFolder;
     // If this is a Sent message, display To address instead of From
-    if ($bHandleAsSent)
-    $msg['FROM'] = $msg['TO'];
+    if ($bHandleAsSent) {
+        $sFrom = $sTo;
+    }
     // Passing 1 below results in only 1 address being parsed, thus defeating the following code
-    $msg['FROM'] = parseAddress($msg['FROM']/*,1*/);
+    $sFrom = parseAddress($sFrom/*,1*/);
 
     /*
         * This is done in case you're looking into Sent folders,
         * because you can have multiple receivers.
         */
-    $senderNames = $msg['FROM'];
+    $senderNames = $sFrom;
     $senderName  = '';
     $senderAddress = '';
     if (sizeof($senderNames)){
@@ -143,14 +177,14 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
 
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
-    if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
+    if (isset($aFlags['\\flagged']) && ($aFlags['\\flagged'] == true)) {
         $flag = "<font color=\"$color[2]\">";
         $flag_end = '</font>';
     } else {
         $flag = '';
         $flag_end = '';
     }
-    if (!isset($msg['FLAG_SEEN']) || ($msg['FLAG_SEEN'] == false)) {
+    if (!isset($aFlags['\\seen']) || ($aFlags['\\seen'] == false)) {
         $bold = '<b>';
         $bold_end = '</b>';
     } else {
@@ -164,7 +198,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
         $italic = '';
         $italic_end = '';
     }
-    if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED']) {
+    if (isset($aFlags['\\deleted']) && $aFlags['\\deleted']) {
         $fontstr = "<font color=\"$color[9]\">";
         $fontstr_end = '</font>';
     } else {
@@ -179,8 +213,8 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
     }
 
     if (is_array($message_highlight_list) && count($message_highlight_list)) {
-        $msg['TO'] = parseAddress($msg['TO']);
-        $msg['CC'] = parseAddress($msg['CC']);
+        $sTo = parseAddress($sTo);
+        $sCc = parseAddress($sCc);
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
                 $high_val   = strtolower($message_highlight_list_part['value']);
@@ -222,14 +256,18 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
         $hlt_color = $color_string;
     }
     $col = 0;
-    $msg['SUBJECT'] = str_replace('&nbsp;', ' ', decodeHeader($msg['SUBJECT']));
-    $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
+    $sSubject = str_replace('&nbsp;', ' ', decodeHeader($sSubject));
+    if (isset($indent_array[$iId])) {
+        $subject = processSubject($sSubject, $indent_array[$iId]);
+    } else {
+        $subject = processSubject($sSubject, 0);
+    }
     if (sizeof($index_order)) {
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
             case 1: /* checkbox */
                 echo html_tag( 'td',
-                    addCheckBox("msg[$t]", $checkall, $msg['ID']),
+                    addCheckBox("msg[$t]", $checkall, $iId),
                             'center',
                             $hlt_color );
                 break;
@@ -247,12 +285,11 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                             $hlt_color, $title );
                 break;
             case 3: /* date */
-                $date_string = $msg['DATE_STRING'] . '';
-                if ($date_string == '') {
-                    $date_string = _("Unknown date");
+                if ($sDate == '') {
+                    $sDate = _("Unknown date");
                 }
                 echo html_tag( 'td',
-                            $bold . $flag . $fontstr . $date_string .
+                            $bold . $flag . $fontstr . $sDate .
                             $fontstr_end . $flag_end . $bold_end,
                             'center',
                             $hlt_color,
@@ -261,18 +298,18 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
             case 4: /* subject */
                 $td_str = $bold;
                 if ($thread_sort_messages == 1) {
-                    if (isset($indent_array[$msg['ID']])) {
-                        $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg['ID']]);
+                    if (isset($indent_array[$iId])) {
+                        $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$iId]);
                     }
                 }
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
                         .  '&amp;passed_id='. $msg["ID"]
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
                 $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
-                if ($subject != $msg['SUBJECT']) {
+                if ($subject != $sSubject) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
                     $title = array_flip($title);
-                    $title = strtr($msg['SUBJECT'], $title);
+                    $title = strtr($sSubject, $title);
                     $title = str_replace('"', "''", $title);
                     $td_str .= " title=\"$title\"";
                 }
@@ -285,28 +322,28 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                 //
                 if ($use_icons && $icon_theme != 'none') {
                     $td_str = "<b><small>";
-                    if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) {
+                    if (isset($aFlags['\\flagged']) && $aFlags['\\flagged'] == true) {
                         $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/flagged.png" border="0" height="10" width="10" /> ';
                     }
                     if ($default_use_priority) {
-                        if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
+                        if ( ($iPrio == 1) || ($iPrio == 2) ) {
                             $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_high.png" border="0" height="10" width="5" /> ';
                         }
-                        else if ($msg['PRIORITY'] == 5) {
+                        else if ($iPrio == 5) {
                             $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/prio_low.png" border="0" height="10" width="5" /> ';
                         }
                         else {
                             $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.png" border="0" width="5" /> ';
                         }
                     }
-                    if ($msg['TYPE0'] == 'multipart') {
+                    if ($sType1 == 'mixed') {
                         $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/attach.png" border="0" height="10" width="6" />';
                     } else {
                         $td_str .= '<img src="' . SM_PATH . 'images/themes/' . $icon_theme . '/transparent.png" border="0" width="6" />';
                     }
 
                     $msg_icon = '';
-                    if (!isset($msg['FLAG_SEEN']) || ($msg['FLAG_SEEN']) == false) {
+                    if (!isset($aFlags['\\seen']) || ($aFlags['\\seen']) == false) {
                         $msg_alt = '(' . _("New") . ')';
                         $msg_title = '(' . _("New") . ')';
                         $msg_icon .= SM_PATH . 'images/themes/' . $icon_theme . '/msg_new';
@@ -315,10 +352,10 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                         $msg_title = '(' . _("Read") . ')';
                         $msg_icon .= SM_PATH . 'images/themes/' . $icon_theme . '/msg_read';
                     }
-                    if (isset($msg['FLAG_DELETED']) && ($msg['FLAG_DELETED']) == true) {
+                    if (isset($aFlags['\\deleted']) && ($aFlags['\\deleted']) == true) {
                         $msg_icon .= '_deleted';
                     }
-                    if (isset($msg['FLAG_ANSWERED']) && ($msg['FLAG_ANSWERED']) == true) {
+                    if (isset($aFlags['\\answered']) && ($aFlags['\\answered']) == true) {
                         $msg_alt = '(' . _("Answered") . ')';
                         $msg_title = '(' . _("Answered") . ')';
                         $msg_icon .= '_reply';
@@ -338,25 +375,25 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                 else {
                     $stuff = false;
                     $td_str = "<b><small>";
-                    if (isset($msg['FLAG_ANSWERED']) && $msg['FLAG_ANSWERED'] == true) {
+                    if (isset($aFlags['\\answered']) && $aFlags['\\answered'] == true) {
                         $td_str .= _("A");
                         $stuff = true;
                     }
-                    if ($msg['TYPE0'] == 'multipart') {
+                    if ($sType1 == 'mixed') {
                         $td_str .= '+';
                         $stuff = true;
                     }
                     if ($default_use_priority) {
-                        if ( ($msg['PRIORITY'] == 1) || ($msg['PRIORITY'] == 2) ) {
+                        if ( ($iPrio == 1) || ($iPrio == 2) ) {
                             $td_str .= "<font color=\"$color[1]\">!</font>";
                             $stuff = true;
                         }
-                        if ($msg['PRIORITY'] == 5) {
+                        if ($iPrio == 5) {
                             $td_str .= "<font color=\"$color[8]\">?</font>";
                             $stuff = true;
                         }
                     }
-                    if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'] == true) {
+                    if (isset($aFlags['\\deleted']) && $aFlags['\\deleted'] == true) {
                         $td_str .= "<font color=\"$color[1]\">D</font>";
                         $stuff = true;
                     }
@@ -373,7 +410,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                 break;
             case 6: /* size */
                 echo html_tag( 'td',
-                            $bold . $fontstr . show_readable_size($msg['SIZE']) .
+                            $bold . $fontstr . show_readable_size($iSize) .
                             $fontstr_end . $bold_end,
                             'right',
                             $hlt_color );
@@ -391,118 +428,82 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
 }
 
 /**
-* FIXME: Undocumented function
+* Does the $sort $_GET var to field mapping
 *
-* @param mixed $imapConnection
-* @param mixed $start_msg
-* @param mixed $show_num
-* @param mixed $num_msgs
-* @param mixed $id
-* @return array
+* @param int $sort Field to sort on
+* @param bool $bServerSort Server sorting is true
+* @param mixed $key UNDOCUMENTED
+* @return string $sSortField Field tosort on
 */
-function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id) {
-    if ($id != 'no') {
-        $id = array_slice($id, ($start_msg-1), $show_num);
-        $end = $start_msg + $show_num - 1;
-        if ($num_msgs < $show_num) {
-            $end_loop = $num_msgs;
-        } else if ($end > $num_msgs) {
-            $end_loop = $num_msgs - $start_msg + 1;
-        } else {
-            $end_loop = $show_num;
+function getSortField($sort,$bServerSort) {
+    switch($sort) {
+        case SQSORT_NONE:
+            $sSortField = 'UID';
+            break;
+        case SQSORT_DATE_ASC:
+        case SQSORT_DATE_DEC:
+            $sSortField = 'DATE';
+            break;
+        case SQSORT_FROM_ASC:
+        case SQSORT_FROM_DEC:
+            $sSortField = 'FROM';
+            break;
+        case SQSORT_SUBJ_ASC:
+        case SQSORT_SUBJ_DEC:
+            $sSortField = 'SUBJECT';
+            break;
+        case SQSORT_SIZE_ASC:
+        case SQSORT_SIZE_DEC:
+            $sSortField = ($bServerSort) ? 'SIZE' : 'RFC822.SIZE';
+            break;
+        case SQSORT_TO_ASC:
+        case SQSORT_TO_DEC:
+            $sSortField = 'TO';
+            break;
+        case SQSORT_CC_ASC:
+        case SQSORT_CC_DEC:
+            $sSortField = 'CC';
+            break;
+        case SQSORT_INT_DATE_ASC:
+        case SQSORT_INT_DATE_DEC:
+            $sSortField = ($bServerSort) ? 'ARRIVAL' : 'INTERNALDATE';
+            break;
+        default: $sSortField = 'DATE';
+            break;
+    }
+    return $sSortField;
+}
+
+function get_sorted_msgs_list($imapConnection,$sort,$mode,&$error) {
+    $bDirection = ($sort % 2);
+    $error = false;
+    switch ($mode) {
+      case 'thread':
+        $id = get_thread_sort($imapConnection);
+        if ($id === false) {
+            $error = '<b><small><center><font color=red>' .
+                    _("Thread sorting is not supported by your IMAP server.") . '<br />' .
+                    _("Please report this to the system administrator.").
+                    '</center></small></b>';
         }
-        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
-    } else {
-        return false;
-    }
-}
-
-/**
-* FIXME: Undocumented function
-*
-* @param mixed $imapConnection
-* @param mixed $start_msg
-* @param mixed $show_num
-* @param mixed $num_msgs
-* @return array
-*/
-function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
-    $id = get_thread_sort($imapConnection);
-    return getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
-}
-
-/**
-* FIXME: Undocumented function
-*
-* @param mixed $imapConnection
-* @param mixed $start_msg
-* @param mixed $show_num
-* @param mixed $num_msgs
-* @param mixed $server_sort_order
-* @param mixed $mbxresponse
-* @return array
-*/
-function getServerSortMessages($imapConnection, $start_msg, $show_num,
-                            $num_msgs, $server_sort_order, $mbxresponse) {
-    if (isset($mbxresponse['SORT_ARRAY']) && is_array($mbxresponse['SORT_ARRAY'])) {
-        $id = $mbxresponse['SORT_ARRAY'];
-    } else {
-        $id = sqimap_get_sort_order($imapConnection, $server_sort_order,$mbxresponse);
-    }
-    return getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
-}
-
-/**
-* FIXME: Undocumented function
-*
-* @param mixed $imapConnection
-* @param mixed $start_msg
-* @param mixed $show_num
-* @param mixed $num_msgs
-* @param mixed $sort
-* @param mixed $mbxresponse
-* @return array
-*/
-function getSelfSortMessages($imapConnection, $start_msg, $show_num,
-                            $num_msgs, $sort, $mbxresponse) {
-    $msgs = array();
-    if ($num_msgs >= 1) {
-        $id = sqimap_get_php_sort_order ($imapConnection, $mbxresponse);
-        if ($sort < 6 ) {
-            $end = $num_msgs;
-            $end_loop = $end;
-        /* set shownum to 999999 to fool sqimap_get_small_header_list
-        and rebuild the msgs_str to 1:* */
-        $show_num = 999999;
-        } else {
-            /* if it's not sorted */
-            if ($start_msg + ($show_num - 1) < $num_msgs) {
-                $end_msg = $start_msg + ($show_num - 1);
-            } else {
-                $end_msg = $num_msgs;
-            }
-            if ($end_msg < $start_msg) {
-                $start_msg = $start_msg - $show_num;
-                if ($start_msg < 1) {
-                    $start_msg = 1;
-                }
-            }
-            $id = array_slice(array_reverse($id), ($start_msg-1), $show_num);
-            $end = $start_msg + $show_num - 1;
-            if ($num_msgs < $show_num) {
-                $end_loop = $num_msgs;
-            } else if ($end > $num_msgs) {
-                $end_loop = $num_msgs - $start_msg + 1;
-            } else {
-                $end_loop = $show_num;
-            }
+        break;
+      case 'server_sort':
+        $sSortField = getSortField($sort,true);
+        $id = sqimap_get_sort_order($imapConnection, $sSortField, $bDirection);
+        if ($id === false) {
+            $error =  '<b><small><center><font color=red>' .
+                _( "Server-side sorting is not supported by your IMAP server.") . '<br />' .
+                _("Please report this to the system administrator.").
+                '</center></small></b>';
         }
-        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
+        break;
+      default:
+        $sSortField = getSortField($sort,false);
+        $id = get_squirrel_sort($imapConnection, $sSortField, $bDirection);
+        break;
     }
-    return $msgs;
+    return $id;
 }
-
-
 
 /**
 * This function loops through a group of messages in the mailbox
@@ -521,7 +522,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
 function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                 $start_msg, $sort, $color, $show_num,
                                 $use_cache, $mode='',$mbxresponse) {
-    global $msgs, $msort, $auto_expunge, $thread_sort_messages,
+    global $msgs, $msort, $auto_expunge, $thread_sort_messages,$server_sort_array,
         $allow_server_sort, $server_sort_order;
     /* if there's no messages in this folder */
     if ($mbxresponse['EXISTS'] == 0) {
@@ -539,33 +540,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         echo '    </table>';
         return;
     }
-
-
-
-    /*
-    * For some reason, on PHP 4.3+, this being unset, and set in the session causes havoc
-    * so setting it to an empty array beforehand seems to clean up the issue, and stopping the
-    * "Your script possibly relies on a session side-effect which existed until PHP 4.2.3" error
-    */
-
-    if (!isset($msort)) {
-        $msort = array();
-    }
-
-    if (!isset($msgs)) {
-        $msgs = array();
-    }
-
-    //$start = microtime();
-    /* If autoexpunge is turned on, then do it now. */
-    //$mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
-    $srt = $sort;
-    /* If autoexpunge is turned on, then do it now. */
-    //if ($auto_expunge == true) {
-    //    $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
-    //    $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
-    //    $num_msgs = $mbxresponse['EXISTS'];
-    //}
 
     if ($mbxresponse['EXISTS'] > 0) {
         /* if $start_msg is lower than $num_msgs, we probably deleted all messages
@@ -587,59 +561,44 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
         if ($thread_sort_messages == 1) {
             $mode = 'thread';
-        } elseif ($allow_server_sort == 1) {
-            $mode = 'serversort';
+        } else if ($allow_server_sort == 1) {
+            $mode = 'server_sort';
         } else {
             $mode = '';
         }
 
-    if ($use_cache) {
-        sqgetGlobalVar('msgs', $msgs, SQ_SESSION);
-        sqgetGlobalVar('msort', $msort, SQ_SESSION);
-    } else {
-            sqsession_unregister('msort');
-            sqsession_unregister('msgs');	}
-        switch ($mode) {
-            case 'thread':
-                $msgs = getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs);
-                if ($msgs === false) {
-                    echo '<b><small><center><font color=red>' .
-                        _("Thread sorting is not supported by your IMAP server.") . '<br />' .
-            _("Please report this to the system administrator.").
-                        '</center></small></b>';
-                    $thread_sort_messages = 0;
-                    $msort = $msgs = array();
+        if (isset($mbxresponse['SORT_ARRAY']) && is_array($mbxresponse['SORT_ARRAY'])) {
+            $id = $mbxresponse['SORT_ARRAY'];
+            if (sqsession_is_registered('msgs')) {
+                sqsession_unregister('msgs');
+            }
+            $id_slice = array_slice($id,$start_msg-1, $show_num);
+            if (count($id_slice)) {
+                $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$show_num);
+            } else {
+                return false;
+            }
+            sqsession_register($msgs, 'msgs');
+        } else {
+            if (sqsession_is_registered('server_sort_array')) {
+                sqsession_unregister('server_sort_array');
+            }
+            $id = get_sorted_msgs_list($imapConnection,$sort,$mode,$error);
+            if ($id !== false) {
+                sqsession_register($id, 'server_sort_array');
+                $id_slice = array_slice($id,$start_msg-1, $show_num);
+                if (count($id_slice)) {
+                    $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$show_num);
                 } else {
-                    $sort = 6;
-                    $msort = calc_msort($msgs, $sort);
+                    return false;
                 }
-                break;
-            case 'serversort':
-                $msgs = getServerSortMessages($imapConnection, $start_msg, $show_num,
-                                            $num_msgs, $sort, $mbxresponse);
-                if ($msgs === false) {
-                    echo '<b><small><center><font color=red>' .
-                        _( "Server-side sorting is not supported by your IMAP server.") . '<br />' .
-            _("Please report this to the system administrator.").
-                        '</center></small></b>';
-                    $sort = $server_sort_order;
-                    $allow_server_sort = FALSE;
-                    $msort = $msgs = array();
-                    $id = array();
-                } else {
-                    $sort = 6;
-                    $msort = calc_msort($msgs, $sort);
-                }
-                break;
-            default:
-                $msgs = getSelfSortMessages($imapConnection, $start_msg, $show_num,
-                                            $num_msgs, $sort, $mbxresponse);
-                $msort = calc_msort($msgs, $sort);
-                break;
-        } // switch
-        sqsession_register($msort, 'msort');
-        sqsession_register($msgs,  'msgs');
+                sqsession_register($msgs, 'msgs');
+            } else {
+                echo $error;
+                return false;
+            }
 
+        }
     } /* if exists > 0 */
 
     $res = getEndMessage($start_msg, $show_num, $num_msgs);
@@ -670,9 +629,9 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
             <tr>
                 <td>
                 <?php
-                    printHeader($mailbox, $srt, $color, !$thread_sort_messages, $start_msg);
+                    printHeader($mailbox, $sort, $color, !$thread_sort_messages, $start_msg);
                     displayMessageArray($imapConnection, $num_msgs, $start_msg,
-                                        $msort, $mailbox, $sort, $color, $show_num,0,0);
+                                        $id, $msgs, $mailbox, $sort, $show_num,0,0);
                 ?>
                 </td>
             </tr>
@@ -689,62 +648,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 <?php
     //$t = elapsed($start);
     //echo("elapsed time = $t seconds\n");
-}
-
-/**
-* FIXME: Undocumented function
-*
-* @param array $messages
-* @param integer $sort sorting order
-* @return array
-*/
-function calc_msort($msgs, $sort) {
-    /*
-    * 0 = Date (up)
-    * 1 = Date (dn)
-    * 2 = Name (up)
-    * 3 = Name (dn)
-    * 4 = Subject (up)
-    * 5 = Subject (dn)
-    */
-
-    if (($sort == 0) || ($sort == 1)) {
-        foreach ($msgs as $item) {
-            $msort[$item['ID']] = $item['TIME_STAMP'];
-        }
-    } elseif (($sort == 2) || ($sort == 3)) {
-        foreach ($msgs as $item) {
-            $msort[$item['ID']] = $item['FROM-SORT'];
-        }
-    } elseif (($sort == 4) || ($sort == 5)) {
-        foreach ($msgs as $item) {
-            //echo $item['SUBJECT-SORT'] . "<br />";
-            $msort[$item['ID']] = $item['SUBJECT-SORT'];
-        }
-    } else {
-        return array_keys($msgs); //array_walk($msort, create_function('&$v,$k', '$v = $v["ID"];'));
-    }
-    if ($sort < 6) {
-        if ($sort % 2) {
-            asort($msort);
-        } else {
-            arsort($msort);
-        }
-        $msort = array_keys($msort);
-    }
-    return $msort;
-}
-
-/**
-* FIXME: Undocumented function
-*
-* @param mixed $imapConnection
-* @param mixed $id
-* @param mixed $count
-* @param bool $show_num
-*/
-function fillMessageArray($imapConnection, $id, $count, $show_num=false) {
-    return sqimap_get_small_header_list($imapConnection, $id, $show_num);
 }
 
 
@@ -768,29 +671,23 @@ function fillMessageArray($imapConnection, $id, $count, $show_num=false) {
 // remove thread stuff
 // remove $msgs global and add it as argument (i hate globals)
 function displayMessageArray($imapConnection, $num_msgs, $start_msg,
-                            $msort, $mailbox, $sort, $color,
+                            $id, $msgs, $mailbox, $sort,
                             $show_num, $where=0, $what=0) {
-    global $indent_array, $thread_sort_messages, $msgs;
-
-    /* get indent level for subject display */
-    // FIX ME this call is at the wrong  place
-    if ($thread_sort_messages == 1 && $num_msgs) {
-        $indent_array = get_parent_level($imapConnection);
-    }
 
     // if client side sorting and no sort we only fetch num_msgs so the start_msg in the $msgs
     // array must be corrected
-    $i = ($sort == 6) ? 0 : $start_msg -1;
+    $i = $start_msg -1;
 
     /*
     * Loop through and display the info for each message.
     * ($t is used for the checkbox number)
     */
+
     $iEnd = $i + $show_num;
     for ($j=$i,$t=0;$j<$iEnd;++$j) {
-        if (isset($msort[$j])) {
-            $msg = $msgs[$msort[$j]];
-            $last = (isset($msort[$j+1]) || $j == $iEnd) ? false : true;
+        if (isset($id[$j])) {
+            $last = (isset($id[$j+1]) || $j == $iEnd) ? false : true;
+            $msg = $msgs[$id[$j]];
             printMessageInfo($t, $last, $msg, $mailbox,
                                 $start_msg, $where, $what);
             ++$t;
@@ -1001,7 +898,7 @@ if ($num_msgs) {
 * @param mixed $start_msg
 */
 function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
-    global $index_order;
+    global $index_order, $internal_date_sort;
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
 
     /* calculate the width of the subject column based on the
@@ -1024,12 +921,15 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
             if (handleAsSent($mailbox)) {
                 echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
                     . '<b>' . _("To") . '</b>';
+                if ($showsort) {
+                    ShowSortButton($sort, $mailbox, SQSORT_TO_ASC, SQSORT_TO_DEC);
+                }
             } else {
                 echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
                     . '<b>' . _("From") . '</b>';
-            }
-            if ($showsort) {
-                ShowSortButton($sort, $mailbox, 2, 3);
+                if ($showsort) {
+                    ShowSortButton($sort, $mailbox, SQSORT_FROM_ASC, SQSORT_FROM_DEC);
+                }
             }
             echo "</td>\n";
             break;
@@ -1037,7 +937,11 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
             echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
                 . '<b>' . _("Date") . '</b>';
             if ($showsort) {
-                ShowSortButton($sort, $mailbox, 0, 1);
+                if ($internal_date_sort) {
+                    ShowSortButton($sort, $mailbox, SQSORT_INT_DATE_ASC, SQSORT_INT_DATE_DEC);
+                } else {
+                    ShowSortButton($sort, $mailbox, SQSORT_DATE_ASC, SQSORT_DATE_DEC);
+                }
             }
             echo "</td>\n";
             break;
@@ -1045,12 +949,17 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
             echo html_tag( 'td' ,'' , 'left', '', 'width="'.$subjectwidth.'%"' )
                 . '<b>' . _("Subject") . '</b>';
             if ($showsort) {
-                ShowSortButton($sort, $mailbox, 4, 5);
+                ShowSortButton($sort, $mailbox, SQSORT_SUBJ_ASC, SQSORT_SUBJ_DEC);
             }
             echo "</td>\n";
             break;
         case 6: /* size */
-            echo html_tag( 'td', '<b>' . _("Size") . '</b>', 'center', '', 'width="5%" nowrap' );
+            echo html_tag( 'td', '', 'center','','width="5%" nowrap')
+                . '<b>' . _("Size") . '</b>';
+            if ($showsort) {
+                ShowSortButton($sort, $mailbox, SQSORT_SIZE_ASC, SQSORT_SIZE_DEC);
+            }
+            echo "</td>\n";
             break;
         }
     }
@@ -1078,7 +987,7 @@ function ShowSortButton($sort, $mailbox, $Down, $Up ) {
         $which = $Down;
     } else {
         $img = 'down_pointer.png';
-        $which = 6;
+        $which = 0;
     }
 
     if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
