@@ -109,7 +109,7 @@ if (isset($draft)) {
             }
             else {
             Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
-                   "&startMessage=1&note=$draft_message");
+                   "&startMessage=1&note=".urlencode($draft_message));
             exit();
             }
         }
