@@ -110,9 +110,9 @@ if ($javascript_on) {
              '<input type=checkbox name="send_to_search[B' . $line . ']" value = "' .
              htmlspecialchars($email) . '">&nbsp;' . _("Bcc") . '&nbsp;' ,
         'center', '', 'width="5%" nowrap' ) .
-        html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . $row['email'] . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . $row['label'] . '&nbsp;', 'left', '', 'nowrap' );
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;', 'left', '', 'nowrap' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'nowrap' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'nowrap' );
 
          if ($includesource) {
              echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'nowrap' );

@@ -339,8 +339,8 @@ if ($showaddrlist) {
             else {
                 echo '<A HREF="compose.php?send_to=' . rawurlencode($email).'">';
             }
-            echo $row['email'] . '</A>&nbsp;</td>'."\n".
-            html_tag( 'td', '&nbsp;' . $row['label'] . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
+            echo htmlspecialchars($row['email']) . '</A>&nbsp;</td>'."\n".
+            html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
             "</tr>\n";
             $line++;
         }
