@@ -58,6 +58,7 @@
       }
       echo "</pre></td></tr></table>\n";
       echo "</body></html>";
+      sqimap_logout($imapConnection);
       exit;
    }
 
