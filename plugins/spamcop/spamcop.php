@@ -1,8 +1,13 @@
 <?php
 
     chdir('..');
-    include_once ('../src/validate.php');
-    include_once ('../functions/imap.php');
+    chdir('..');
+    define('SM_PATH','../');
+
+     /* SquirrelMail required files. */
+    require_once(SM_PATH . 'include/validate.php');
+
+    include_once(SM_PATH . 'functions/imap.php');
     
     displayPageHeader($color, $mailbox);
 
