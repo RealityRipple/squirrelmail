@@ -170,4 +170,20 @@
     $theme[7]["PATH"] = "../config/seaspray_theme.php";
     $theme[7]["NAME"] = "Sea Spray";
 
+
+//  LDAP server(s)
+//
+//    Array of arrays with LDAP server parameters. See
+//    functions/abook_ldap_server.php for a list of possible
+//    parameters
+
+    $ldap_server[0] = Array("host" => "memberdir.netscape.com",
+			    "name" => "Netcenter Member Directory",
+			    "base" => "ou=member_directory,o=netcenter.com");
+
+    $ldap_server[1] = Array("host" => "ldap.bigfoot.com",
+			    "name" => "Bigfoot Directory",
+			    "base" => "",
+			    "charset" => "iso8859-1");
+
 ?>
