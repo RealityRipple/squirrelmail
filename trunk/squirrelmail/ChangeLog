@@ -30,7 +30,7 @@ Version 1.4.0 RC 2
     issues some people have reported. (Closes #560524)
   - Obsolete sqm_topdir(), which caused login trouble with installs that
     have open_basedir restrictions. Thanks Jimmy Connor.
-  - Fix borked abook_take plugin.
+  - Fix broken abook_take plugin.
 	
 Version 1.4.0 RC 1
 ------------------
