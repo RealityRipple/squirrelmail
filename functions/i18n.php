@@ -160,6 +160,33 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'windows-1258') {
         include_once(SM_PATH . 'functions/decode/cp1258.php');
         $ret = charset_decode_cp1258 ($string);
+    } else if ($charset == 'x-mac-roman') {
+        include_once(SM_PATH . 'functions/decode/cp10000.php');
+        $ret = charset_decode_cp10000 ($string);
+    } else if ($charset == 'x-mac-greek') {
+        include_once(SM_PATH . 'functions/decode/cp10006.php');
+        $ret = charset_decode_cp10006 ($string);
+    } else if ($charset == 'x-mac-cyrillic') {
+        include_once(SM_PATH . 'functions/decode/cp10007.php');
+        $ret = charset_decode_cp10007 ($string);
+    } else if ($charset == 'x-mac-ukrainian') {
+        include_once(SM_PATH . 'functions/decode/cp10017.php');
+        $ret = charset_decode_cp10017 ($string);
+    } else if ($charset == 'x-mac-centraleurroman') {
+        include_once(SM_PATH . 'functions/decode/cp10029.php');
+        $ret = charset_decode_cp10029 ($string);
+    } else if ($charset == 'x-mac-icelandic') {
+        include_once(SM_PATH . 'functions/decode/cp10079.php');
+        $ret = charset_decode_cp10079 ($string);
+    } else if ($charset == 'x-mac-turkish') {
+        include_once(SM_PATH . 'functions/decode/cp10081.php');
+        $ret = charset_decode_cp10081 ($string);
+    } else if ($charset == 'ibm855') {
+        include_once(SM_PATH . 'functions/decode/cp855.php');
+        $ret = charset_decode_cp855 ($string);
+    } else if ($charset == 'ibm866') {
+        include_once(SM_PATH . 'functions/decode/cp866.php');
+        $ret = charset_decode_cp866 ($string);
     } else if ($charset == 'tis-620') {
         include_once(SM_PATH . 'functions/decode/tis620.php');
         $ret = charset_decode_tis620 ($string);
