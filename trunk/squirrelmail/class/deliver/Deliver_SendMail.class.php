@@ -16,9 +16,7 @@ class Deliver_SendMail extends Deliver {
 
     function preWriteToStream(&$s) {
        if ($s) {
-          if ($s{0} == '.')   $s = '.' . $s;
-    	  $s = str_replace("\n.","\n..",$s);
-          $s = str_replace("\r\n", "\n", $s);
+    	  $s = str_replace(".\n",".\r\n",str_replace("\r\n", "\n", $s));
        }
     }
     
