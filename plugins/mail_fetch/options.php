@@ -27,7 +27,15 @@ if(!sqgetGlobalVar('mf_cypher', $mf_cypher, SQ_POST)) {
     $mf_cypher = '';
 }
 if(! sqgetGlobalVar('mf_action', $mf_action, SQ_POST) ) {
-    $mf_action = 'config';
+    if (sqgetGlobalVar('mf_action_mod', $mf_action_mod, SQ_POST)) {
+        $mf_action = 'Modify';
+    }
+    elseif (sqgetGlobalVar('mf_action_del', $mf_action_del, SQ_POST)) {
+        $mf_action = 'Delete';
+    }
+    else {
+        $mf_action = 'config';
+    }
 }
 
 sqgetGlobalVar('mf_sn',            $mf_sn,            SQ_POST);
@@ -41,6 +49,7 @@ sqgetGlobalVar('mf_login',         $mf_login,         SQ_POST);
 sqgetGlobalVar('mf_fref',          $mf_fref,          SQ_POST);
 sqgetGlobalVar('mf_lmos',          $mf_lmos,          SQ_POST);
 sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
+
 
 /* end globals */
 
@@ -246,15 +255,15 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     htmlspecialchars( (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) . "</option>>";
             }
             echo '</select>'.
-                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action value="' . _("Modify") . '">'.
-                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action value="' . _("Delete") . '">'.
+                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action_mod value="' . _("Modify") . '">'.
+                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action_del value="' . _("Delete") . '">'.
                  '</form>';
         } else {
             echo _("No-one server in use. Try to add.");
         }
         echo '</td></tr></table>';
         break;
-    case _("Delete"):                                     //erase confirmation about a server
+    case 'Delete':                                     //erase confirmation about a server
         echo html_tag( 'table',
                     html_tag( 'tr',
                         html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
@@ -277,7 +286,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 ) ,
             'center', '', 'width="70%" cols="1" cellpadding="5" cellspacing="1"' );
         break;                                  //modify a server
-    case _("Modify"):
+    case 'Modify':
         echo html_tag( 'table',
                     html_tag( 'tr',
                         html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
