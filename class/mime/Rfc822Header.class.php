@@ -260,8 +260,9 @@ class Rfc822Header {
                 if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',substr($address,$pos),$reg)) {
                     $name .= $reg[1];
                     $pos += strlen($reg[1]);
+                } else {
+                    ++$pos;
                 }
-                ++$pos;
                 $addr_start = $pos;
                 $is_encoded = true;
                 break;
@@ -460,7 +461,11 @@ class Rfc822Header {
         } else if ($name == '') {
             $name = trim(substr($address, 0, $addr_start));
         }
-        if (!$name && $comment) $name = $comment;
+        if (!$name && $comment) {
+            $name = $comment;
+        } else if ($name && $comment) {
+            $name = $name .' ('.$comment.')';
+        }
         $at = strpos($addr, '@');
         $addr_structure = new AddressStructure();
         $addr_structure->group = $group;

@@ -25,7 +25,7 @@ class AddressStructure {
                                   : $this->mailbox);
             $personal = trim($this->personal);
             $is_encoded = false;
-            if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$personal,$reg)) {
+            if (preg_match('/(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',$personal,$reg)) {
                 $is_encoded = true;
             }
             if ($personal) {
