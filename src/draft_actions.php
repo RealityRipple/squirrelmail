@@ -13,9 +13,6 @@ require_once ('../src/validate.php');
       static $header, $headerlength;
 
       if ($header == '') {
-         $to = parseAddrs($t);
-         $cc = parseAddrs($c);
-         $bcc = parseAddrs($b);
          if (isset($identity) && ($identity != 'default')) {
             $reply_to = getPref($data_dir, $username, 'reply_to' . $identity);
             $from = getPref($data_dir, $username, 'full_name' . $identity);
@@ -29,10 +26,6 @@ require_once ('../src/validate.php');
          if ($from_addr == '') {
             $from_addr = $popuser.'@'.$domain;
          }
-
-         $to_list = getLineOfAddrs($to);
-         $cc_list = getLineOfAddrs($cc);
-         $bcc_list = getLineOfAddrs($bcc);
 
          /* Encoding 8-bit characters and making from line */
          $subject = encodeHeader($subject);
@@ -49,30 +42,12 @@ require_once ('../src/validate.php');
          $message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
          $message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
 
-         /* Make an RFC822 Received: line */
-         if (isset($REMOTE_HOST)) {
-            $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
-         } else {
-            $received_from = $REMOTE_ADDR;
-         }
-
-         if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
-            if ($HTTP_X_FORWARDED_FOR == '')
-               $HTTP_X_FORWARDED_FOR = 'unknown';
-            $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
-         }
-
-         $header  = "Received: from $received_from\r\n";
-         $header .= "        (SquirrelMail authenticated user $username)\r\n";
-         $header .= "        by $SERVER_NAME with HTTP;\r\n";
-         $header .= "        $date\r\n";
-
-         /* Insert the rest of the header fields */
-         $header .= "Message-ID: $message_id\r\n";
+         /* Insert header fields */
+         $header = "Message-ID: $message_id\r\n";
          $header .= "Date: $date\r\n";
          $header .= "Subject: $subject\r\n";
          $header .= "From: $from\r\n";
-         $header .= "To: $to_list\r\n";    // Who it's TO
+         $header .= "To: $t\r\n";    // Who it's TO
 
          /* Insert headers from the $more_headers array */
          if(is_array($more_headers)) {
@@ -82,23 +57,16 @@ require_once ('../src/validate.php');
             }
          }
 
-         if ($cc_list) {
-            $header .= "Cc: $cc_list\r\n"; // Who the CCs are
+         if ($c) {
+            $header .= "Cc: $c\r\n"; // Who the CCs are
          }
 
-         if ($bcc_list) {
-            $header .= "Bcc: $bcc_list\r\n"; // Who the BCCs are
+         if ($b) {
+            $header .= "Bcc: $b\r\n"; // Who the BCCs are
          }
 
          if ($reply_to != '')
             $header .= "Reply-To: $reply_to\r\n";
-
-         if ($useSendmail) {
-            if ($bcc_list) {
-               // BCCs is removed from header by sendmail
-               $header .= "Bcc: $bcc_list\r\n";
-            }
-         }
 
          $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; // Identify SquirrelMail
 
