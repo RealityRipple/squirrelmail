@@ -180,7 +180,7 @@
       fputs($imapConnection, "1 delete \"$folder\"\n");
       $data = imapReadData($imapConnection, "1", false, $response, $message);
       if ($response == "NO") {
-         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=FF0000><B>ERROR</B>:  Could not delete the folder $folder.</FONT>";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=FF0000><B>ERROR</B>:  Could not delete the folder $folder.</FONT><BR>";
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\">Probable causes:</FONT><BR>";
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\"><LI>This folder may contain subfolders.  Delete all subfolders first</LI></FONT>";
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\"><BR><BR>The actual message returned from the server was:<BR>$message</FONT>";
