@@ -197,6 +197,8 @@ Version 1.5.1 -- CVS
   - Added sq_strlen function for calculation of multi-byte string length.
   - Quoted "INBOX" in check for the status of INBOX in a LIST call.  Fixes an
     issue with a specific IMAP server.
+  - In sqgetGlobalVar(), reset $value if the var is not found in the
+    specified location.
 
 Version 1.5.0
 --------------------
