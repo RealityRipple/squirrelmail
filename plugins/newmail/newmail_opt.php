@@ -1,14 +1,13 @@
 <?php
-
 /**
- * newmails_opt.php
+ * newmails_opt.php - options page
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Displays all options relating to new mail sounds
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage newmail
  */
@@ -18,10 +17,8 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/page_header.php');
+/* sqm_baseuri function */
 require_once(SM_PATH . 'functions/display_messages.php');
-require_once(SM_PATH . 'functions/imap.php');
-require_once(SM_PATH . 'include/load_prefs.php');
 
 displayPageHeader($color, 'None');
 
@@ -152,7 +149,7 @@ if ($allowsound == "true") {
             "window.open('testsound.php?sound='+media_sel.options[media_sel.selectedIndex].value, 'TestSound'," .
             "'width=150,height=30,scrollbars=no');" .
             'return false;' .
-            ' /"></td></tr>' .
+            '" /></td></tr>' .
             html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'nowrap' ) .
                     html_tag( 'td', '<input type="hidden" value="' .
@@ -164,6 +161,7 @@ echo html_tag( 'tr', "\n" .
     html_tag( 'td', '&nbsp;' ) .
         html_tag( 'td',
             '<input type="hidden" name="optmode" value="submit" />' .
+            '<input type="hidden" name="optpage" value="newmail" />' .
             '<input type="submit" value="' . _("Submit") . '" name="submit_newmail" />',
         'left' )
      ) . "\n";
