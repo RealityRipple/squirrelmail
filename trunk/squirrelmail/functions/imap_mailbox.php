@@ -10,7 +10,8 @@
  *
  * $Id$
  */
-
+require_once('../functions/imap_utf7_encode_local.php');
+require_once('../functions/imap_utf7_decode_local.php');
 global $boxesnew;
 
 class mailboxes {
@@ -214,6 +215,7 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     if (strtolower($type) == 'noselect') {
         $mailbox .= $delimiter;
     }
+    $mailbox = imap_utf7_encode_local($mailbox);
     $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
@@ -343,10 +345,10 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
             else {
                 $boxesall[$g]['formatted'] = '';
             }
-            $boxesall[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
+            $boxesall[$g]['formatted'] .= imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
         }
         else {
-            $boxesall[$g]['formatted']  = $mailbox;
+            $boxesall[$g]['formatted']  = imap_utf7_decode_local($mailbox);
         }
 
         $boxesall[$g]['unformatted-dm'] = $mailbox;
@@ -635,10 +637,10 @@ function sqimap_mailbox_list_all($imap_stream) {
                 else {
                     $boxes[$g]['formatted'] = '';
                 }
-                $boxes[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
+                $boxes[$g]['formatted'] .= imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
             }
             else {
-                $boxes[$g]['formatted']  = $mailbox;
+                $boxes[$g]['formatted']  = imap_utf7_decode_local($mailbox);
             }
 
             $boxes[$g]['unformatted-dm'] = $mailbox;
