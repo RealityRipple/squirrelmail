@@ -16,6 +16,7 @@ require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/mime.php');
 require_once('../functions/date.php');
+require_once('../functions/html.php');
 
 header('Pragma: ');
 header('Cache-Control: cache');
@@ -26,24 +27,31 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapC
 
     displayPageHeader($color, 'None');
 
-    echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-         "<B><CENTER>".
-         _("Viewing a text attachment") . " - ";
     if ($where && $what) {
         // from a search
-        echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&where=".urlencode($where)."&what=".urlencode($what)."\">". _("View message") . "</a>";
+        $message_link_str = "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&where=".urlencode($where)."&what=".urlencode($what)."\">". _("View message") . "</a>";
     } else {
-        echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
+        $message_link_str = "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
     }
-
     $urlmailbox = urlencode($mailbox);
-    echo "</b></td><tr><tr><td><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">".
-         _("Download this as a file").
-         "</A></CENTER><BR>".
-         "</CENTER></B>".
-         "</TD></TR></TABLE>".
-         "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-         "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
+
+    echo '<br>' .
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', 
+                     '<b><center>' .
+                     _("Viewing a text attachment") . ' - ' . $message_link_str . '</b></center>',
+                '', 'left', $color[0] )
+            ) .
+            html_tag( 'tr',
+                html_tag( 'td', 
+                     '<center>' .
+                     "<A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">".
+                     _("Download this as a file").
+                     "</A></CENTER><BR>".
+                '', 'left' )
+            ),
+        '', 'center', '', 'width="100%" border="0" cellspacing="0" cellpadding="2"' );
 
     if ($type1 == 'html') {
         $msg  = sqimap_get_message($imapConnection, $id, $mailbox);    
@@ -53,8 +61,15 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapC
     }
 
     flush();
-    echo $body .
-         "</TT></TD></TR></TABLE>";
+
+         //"<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
+        //"<TR><TD BGCOLOR=\"$color[4]\"><TT>";
+
+        html_tag( 'table',
+            html_tag( 'tr',
+                html_tag( 'td', '<tt>' . $body . '</tt>', 'left', $color[4] )
+            ) ,
+        'center', '', 'width="98%" border="0" cellspacing="0" cellpadding="2"' );
 }
 
 function viewMessage($imapConnection, $id, $mailbox, $ent_id, $color, $wrap_at, $extracted) {
@@ -77,45 +92,59 @@ function viewMessage($imapConnection, $id, $mailbox, $ent_id, $color, $wrap_at, 
     $bodyheader = viewHeader($header, $color);
     displayPageHeader($color, 'None');
 
-    echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
+    echo '<br>' .
+        html_tag( 'table', '', 'center', '', 'width="100%" border="0" cellspacing="0" cellpadding="2"' );
+
     if ($extracted) {
-       echo '<TR><TD width="100%"><center><h1>Message succesfully extracted</h1></center></TD></TR>';
+       echo html_tag( 'tr',
+                   html_tag( 'td', '<center><h1>Message succesfully extracted</h1></center>', 'left', '', 'width="100%"' )
+               );
     }
-    echo "<TR><TD BGCOLOR=\"$color[0]\">".
-    	"<B><CENTER>". 	_("Viewing a message attachment") . " - ";
-    
-    echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a>";
-    
+
+    $td_str = "<b><center>". _("Viewing a message attachment") . " - ";
+    $td_str .= "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$id&startMessage=$startMessage&show_more=0\">". _("View message") . "</a></b></center>";
+    echo html_tag( 'tr',
+               html_tag( 'td', $td_str, 'left', $color[0] )
+           );
+
     $urlmailbox = urlencode($mailbox);
-    
-    echo "</b></td><tr><tr><td><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_id&mailbox=$urlmailbox\">".
+    $td_str = "<center><b><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_id&mailbox=$urlmailbox\">".
     	_("Download this as a file").
-    	"</A></CENTER><BR>".
-    	"</CENTER></B>".
-    	"</TD></TR></TABLE>";
-    echo "<TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-    	"<TR><TD BGCOLOR=\"$color[4]\">";
-    echo "$bodyheader </TD></TR></TABLE>";	     
-    	
-    echo "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-    	"<TR><TD BGCOLOR=\"$color[4]\"><TT><BR>";
-	echo "$body </TT></TD></TR><table><br>";	 
-    echo '<table width="100%"><tr>'.
-         "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
-           '<form action="download.php" method="post"><small>'.
-            "<input type=\"hidden\" name=\"passed_id\" value=\"$id\">".
-            "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
-            "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
-            "<input type=\"hidden\" name=\"passed_ent_id\" value=\"$ent_id\">".
-            "<input type=\"hidden\" name=\"extract_message\" value=\"1\">".
-            _("Save to:") .
-            ' <select name="targetMailbox">';
-    get_extract_to_target_list($imapConnection); 
+    	"</A><BR>".
+    	"</b></center>";
+    echo html_tag( 'tr',
+               html_tag( 'td', $td_str, 'left' )
+           ) .
+
+    	"</TABLE>\n" .
+    html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td', $bodyheader, 'left', $color[4] )
+                ) ,
+            'center', '', 'width="100%" border="0" cellspacing="0" cellpadding="2"' ) . "\n" .
+    html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td', '<tt><br>' . $body . '</tt>', 'left', $color[4] )
+                ) ,
+            'center', '', 'width="98%" border="0" cellspacing="0" cellpadding="2"' ) . "<br>\n";    	
+
+    echo html_tag( 'table', '', '', '', 'width="100%"' ) .
+                html_tag( 'tr' ) .
+                    html_tag( 'td', '', 'center', $color[9], 'width="100%"' ) .
+          '<form action="download.php" method="post"><small>'.
+          "<input type=\"hidden\" name=\"passed_id\" value=\"$id\">".
+          "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
+          "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
+          "<input type=\"hidden\" name=\"passed_ent_id\" value=\"$ent_id\">".
+          "<input type=\"hidden\" name=\"extract_message\" value=\"1\">".
+          _("Save to:") .
+          ' <select name="targetMailbox">';
+          get_extract_to_target_list($imapConnection); 
     echo    '</select> '.'&nbsp'.
             '<input type="submit" value="' . _("Extract") . '">'.
             '</small>'.
            '</form>'.
-         '</td></table>';
+         '</td></tr></table>';
 
 }
 
@@ -183,8 +212,10 @@ function viewHeader($header,$color) {
 }
 
 function makeTableEntry($str, $str_name, $color) {
-    $entry = '<tr><td bgcolor="'."$color[0]".'" align right valign top>'."$str_name".'</td><td bgcolor="'."$color[0]".
-	     '" valign top colspan=2><b>'."$str".'</b>&nbsp;</td></tr>'."\n";
+    $entry = html_tag( 'tr',
+                     html_tag( 'td', $str_name, 'right', $color[0], 'valign="top"' ) .
+                     html_tag( 'td', '<b>' . $str .'</b>&nbsp;', 'left', $color[0], 'valign="top" colspan="2"' )
+                 );
     return $entry;
 }
 
@@ -373,15 +404,18 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
                  "     " . _("To") . ": " . decodeHeader(getLineOfAddrs($top_header->to)) . "\n".
                  "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
         } elseif ($type1 == 'html' && isset($showHeaders)) {
-            echo '<table><tr><th align=right>' . _("Subject").
-                 ':</th><td>' . decodeHeader($top_header->subject).
-                 "</td></tr>\n<tr><th align=right>" . _("From").
-                 ':</th><td>' . decodeHeader($top_header->from).
-                 "</td></tr>\n<tr><th align=right>" . _("To").
-                 ':</th><td>' . decodeHeader(getLineOfAddrs($top_header->to)).
-                 "</td></tr>\n<tr><th align=right>" . _("Date").
-                 ':</th><td>' . getLongDateString($top_header->date).
-                 "</td></tr>\n</table>\n<hr>\n";
+            echo html_tag( 'table',
+                       html_tag( 'tr',
+                           html_tag( 'th', _("Subject") . ':', 'right' ) .
+                           html_tag( 'th', decodeHeader($top_header->subject), 'left' ) . "\n" .
+                           html_tag( 'th', _("From") . ':', 'right' ) .
+                           html_tag( 'th', decodeHeader($top_header->from), 'left' ) . "\n" .
+                           html_tag( 'th', _("To") . ':', 'right' ) .
+                           html_tag( 'th', decodeHeader(getLineOfAddrs($top_header->to)), 'left' ) . "\n" .
+                           html_tag( 'th', _("Date") . ':', 'right' ) .
+                           html_tag( 'th', getLongDateString($top_header->date), 'left' ) . "\n"
+                       )
+                    ) . "\n<hr>\n";
         } 
         echo $body;
         break;

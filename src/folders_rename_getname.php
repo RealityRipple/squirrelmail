@@ -16,6 +16,7 @@ global $delimiter;
 
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
+require_once('../functions/html.php');
 
 if ($old == '') {
     displayPageHeader($color, 'None');
@@ -43,11 +44,13 @@ if (strpos($old, $delimiter)) {
 }
 
 displayPageHeader($color, 'None');
-echo "<br><TABLE align=center border=0 WIDTH=\"95%\" COLS=1>".
-     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><B>".
-     _("Rename a folder").
-     "</B></TD></TR>".
-     "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+echo '<br>' .
+    html_tag( 'table', '', 'center', '', 'width="95%" cols="1" border="0"' ) .
+        html_tag( 'tr',
+            html_tag( 'td', '<b>' . _("Rename a folder") . '</b>', 'center', $color[0] )
+        ) .
+        html_tag( 'tr' ) .
+            html_tag( 'td', '', 'center', $color[4] ) .
      "<FORM ACTION=\"folders_rename_do.php\" METHOD=\"POST\">\n".
      _("New name:").
      "<br><B>$old_parent $delimiter </B><INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
@@ -57,8 +60,8 @@ if ( $isfolder ) {
 printf("<INPUT TYPE=HIDDEN NAME=orig VALUE=\"%s\">\n", $old);
 printf("<INPUT TYPE=HIDDEN NAME=old_name VALUE=\"%s\">\n", $old_name);
 echo "<INPUT TYPE=SUBMIT VALUE=\""._("Submit")."\">\n".
-     "</FORM><BR></TD></TR>".
-     "</TABLE>";
+     "</FORM><BR></td></tr>".
+     "</table>";
 
 /** Log out this session **/
 sqimap_logout($imapConnection);
