@@ -110,6 +110,7 @@
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $domain, $version, $useSendmail;
       global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
+      global $REMOTE_HOST;
 
       // Storing the header to make sure the header is the same
       // everytime the header is printed.
@@ -142,17 +143,23 @@
 
          /* Create a message-id */
          $message_id = "<" . $REMOTE_PORT . "." . $REMOTE_ADDR . ".";
-         $message_id .= time() . "@" . $SERVER_NAME .">";
+         $message_id .= time() . ".squirrel@" . $SERVER_NAME .">";
          
          /* Make an RFC822 Received: line */
-         $received_from = "$REMOTE_ADDR";
+         if (isset($REMOTE_HOST))
+            $received_from = "$REMOTE_HOST ($username@[$REMOTE_ADDR])";
+         else
+            $received_from = "$REMOTE_ADDR ($username@[$REMOTE_ADDR])";
+    
          if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
             if ($HTTP_X_FORWARDED_FOR == "")
                $HTTP_X_FORWARDED_FOR = "unknown";
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
          }            
-         $header = "Received: from $received_from by $SERVER_NAME with HTTP; ";
-         $header .= "$date\r\n";
+    
+         $header = "Received: from $received_from\r\n";
+         $header .= "  by $SERVER_NAME with HTTP;\r\n";
+         $header .= "  $date\r\n";
          
          /* Insert the rest of the header fields */
          $header .= "Message-ID: $message_id\r\n";
