@@ -197,7 +197,7 @@
 
     $show_xmailer_default = getPref($data_dir, $username, 'show_xmailer_default', SMPREF_OFF );
     $attachment_common_show_images = getPref($data_dir, $username, 'attachment_common_show_images', SMPREF_OFF );
-    $pf_subtle_link = getPref($data_dir, $username, 'pf_subtle_link', SMPREF_OFF);
+    $pf_subtle_link = getPref($data_dir, $username, 'pf_subtle_link', SMPREF_ON);
     $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', SMPREF_OFF);
 
     global $include_self_reply_all;
