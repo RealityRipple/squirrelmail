@@ -25,6 +25,153 @@
  * $Id$
  */
 
+function filters_SaveCache () {
+    global $data_dir, $SpamFilters_DNScache;
+
+    if (file_exists($data_dir . "/dnscache")) {
+        $fp = fopen($data_dir . "/dnscache", "r");
+    } else {
+        $fp = false;
+    }
+    if ($fp) {
+        flock($fp,LOCK_EX);
+    } else {
+       $fp = fopen($data_dir . "/dnscache", "w+");
+       fclose($fp);
+       $fp = fopen($data_dir . "/dnscache", "r");
+       flock($fp,LOCK_EX);
+    }
+    $fp1=fopen($data_dir . "/dnscache", "w+");
+
+    foreach ($SpamFilters_DNScache as $Key=> $Value) {
+       $tstr = $Key . ',' . $Value['L'] . ',' . $Value['T'] . "\n";
+       fputs ($fp1, $tstr);
+    }
+    fclose($fp1);
+    flock($fp,LOCK_UN);
+    fclose($fp);
+}
+
+
+function filters_LoadCache () {
+    global $data_dir, $SpamFilters_DNScache;
+
+    if (file_exists($data_dir . "/dnscache")) {
+        if ($fp = fopen ($data_dir . "/dnscache", "r")) {
+            flock($fp,LOCK_SH);
+            while ($data=fgetcsv($fp,1024)) {
+               if ($data[2] > time()) {
+                  $SpamFilters_DNScache[$data[0]]['L'] = $data[1];
+                  $SpamFilters_DNScache[$data[0]]['T'] = $data[2];
+               }
+            }
+
+            flock($fp,LOCK_UN);
+        }
+    }
+}
+
+function filters_bulkquery($filters_spam_scan, $filters, $read) {
+    global $SpamFilters_YourHop, $attachment_dir, $username,
+           $SpamFilters_DNScache, $SpamFilters_BulkQuery;
+
+    $IPs = array();
+    $i = 0;
+    while ($i < count($read)) {
+        // EIMS will give funky results
+        $Chunks = explode(' ', $read[$i]);
+        if ($Chunks[0] != '*') {
+            $i ++;
+            continue;
+        }
+        $MsgNum = $Chunks[1];
+
+        $i ++;
+        $Scan = 1;
+
+        // Check for normal IMAP servers
+        if ($filters_spam_scan == 'new') {
+            if (is_int(strpos($Chunks[4], '\Seen'))) {
+                $Scan = 0;
+            }
+        }
+
+        // Look through all of the Received headers for IP addresses
+        // Stop when I get ")" on a line
+        // Stop if I get "*" on a line (don't advance)
+        // and above all, stop if $i is bigger than the total # of lines
+        while (($i < count($read)) &&
+                ($read[$i][0] != ')' && $read[$i][0] != '*' &&
+                $read[$i][0] != "\n")) {
+            // Check to see if this line is the right "Received from" line
+            // to check
+            if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
+
+                // short-circuit and skip work if we don't scan this one
+                if ($Scan) {
+                    $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
+                    $elements = explode(' ', $read[$i]);
+                    foreach ($elements as $value) {
+                        if ($value != '' &&
+                            ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
+                                $value, $regs)) {
+                            $Chunks = explode('.', $value);
+                            $IP = $Chunks[3] . '.' . $Chunks[2] . '.' .
+                                  $Chunks[1] . '.' . $Chunks[0];
+                            foreach ($filters as $key => $value) {
+                                if ($filters[$key]['enabled'] &&
+                                          $filters[$key]['dns']) {
+                                    if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
+                                       $IPs[$IP] = true;
+                                       break;
+                                    }
+                                }
+                            }
+                            // If we've checked one IP and YourHop is
+                            // just a space
+                            if ($SpamFilters_YourHop == ' ') {
+                                break;  // don't check any more
+                            }
+                        }
+                    }
+                }
+            }
+            $i ++;
+        }
+    }
+
+    if (count($IPs) > 0) {
+        $rbls = array();
+        foreach ($filters as $key => $value) {
+            if ($filters[$key]['enabled']) {
+                if ($filters[$key]['dns']) {
+                    $rbls[$filters[$key]['dns']] = true;
+                }
+            }
+        }
+
+        $bqfil = $attachment_dir . $username . "-bq.in";
+        $fp = fopen($bqfil, "w");
+        foreach ($rbls as $key => $value) {
+            fputs ($fp, "." . $key . "\n");
+        }
+        fputs ($fp, "----------\n");
+        foreach ($IPs as $key => $value) {
+            fputs ($fp, $key . "\n");
+        }
+        fclose ($fp);
+        $bqout = array();
+        exec ($SpamFilters_BulkQuery . " < " . $bqfil, $bqout);
+        foreach ($bqout as $value) {
+            $Chunks = explode(',', $value);
+            $SpamFilters_DNScache[$Chunks[0]]['L'] = $Chunks[1];
+            $SpamFilters_DNScache[$Chunks[0]]['T'] = $Chunks[2] + time();
+        }
+        unlink($bqfil);
+    }
+}
+
+
 function filters_sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
     global $color, $squirrelmail_language, $imap_general_debug;
 
@@ -203,10 +350,16 @@ function spam_filters($imap_stream) {
     global $data_dir, $username;
     global $SpamFilters_YourHop;
     global $SpamFilters_DNScache;
+    global $SpamFilters_SharedCache;
+    global $SpamFilters_BulkQuery;
 
     $filters_spam_scan = getPref($data_dir, $username, 'filters_spam_scan');
     $filters_spam_folder = getPref($data_dir, $username, 'filters_spam_folder');
     $filters = load_spam_filters();
+
+    if ($SpamFilters_SharedCache) {
+       filters_LoadCache();
+    }
 
     $run = 0;
 
@@ -233,6 +386,10 @@ function spam_filters($imap_stream) {
 
     if ($response != 'OK') {
         return;
+    }
+
+    if (strlen($SpamFilters_BulkQuery) > 0) {
+       filters_bulkquery($filters_spam_scan, $filters, $read);
     }
 
     $i = 0;
@@ -309,24 +466,30 @@ function spam_filters($imap_stream) {
 
     sqimap_mailbox_expunge($imap_stream, 'INBOX');
 
-    session_register('SpamFilters_DNScache');
+    if ($SpamFilters_SharedCache) {
+       filters_SaveCache();
+    } else {
+       session_register('SpamFilters_DNScache');
+    }
 }
 
 
 // Does the loop through each enabled filter for the specified IP address.
 // IP format:  $a.$b.$c.$d
 function filters_spam_check_site($a, $b, $c, $d, &$filters) {
-    global $SpamFilters_DNScache;
+    global $SpamFilters_DNScache, $SpamFilters_CacheTTL;
     foreach ($filters as $key => $value) {
         if ($filters[$key]['enabled']) {
             if ($filters[$key]['dns']) {
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
                                 $filters[$key]['dns'];
-                if (strlen($SpamFilters_DNScache[$filter_revip]) == 0) {
-                    $SpamFilters_DNScache[$filter_revip] =
+                if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
+                    $SpamFilters_DNScache[$filter_revip]['L'] =
                                         gethostbyname($filter_revip);
+                    $SpamFilters_DNScache[$filter_revip]['T'] =
+                                           time() + $SpamFilters_CacheTTL;
                 }
-                if ($SpamFilters_DNScache[$filter_revip] ==
+                if ($SpamFilters_DNScache[$filter_revip]['L'] ==
                     $filters[$key]['result']) {
                     return 1;
                 }
@@ -693,8 +856,8 @@ function filter_swap($id1, $id2) {
    renaming or deleting folders */
 function update_for_folder ($args) {
     $old_folder = $args[0];
-	$new_folder = $args[2];
-	$action = $args[1];
+        $new_folder = $args[2];
+        $action = $args[1];
     global $plugins, $data_dir, $username;
     $filters = array();
     $filters = load_filters();
