@@ -144,7 +144,7 @@ if ($aLastSelectedMailbox) {
            if ($server_sort_array && is_array($server_sort_array)) {
                $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
                // check if oldsort can be used in case we changed the sort order of the same column
-               if (isset($newsort) ) {
+               if (isset($newsort) && $newsort) {
                     if ((($newsort % 2) && ($newsort + 1 == $oldsort)) ||
                         (!($newsort % 2) && ($newsort - 1 == $oldsort))) {
                         $server_sort_array = array_reverse($server_sort_array);
