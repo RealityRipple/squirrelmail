@@ -285,6 +285,8 @@ Version 1.5.1 -- CVS
     errors are displayed after address book initialization.
   - LDAP connections are opened during search and not during address book 
     initialization.
+  - Fixed wrapping of multibyte strings in message view and replies 
+    (#1043576).
   
 Version 1.5.0
 --------------------
