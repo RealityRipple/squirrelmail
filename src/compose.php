@@ -354,7 +354,7 @@
 
       showInputForm();
    } else {
-      is_logged_in();
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
       displayPageHeader($color, $mailbox);
 
       $newmail = true;
