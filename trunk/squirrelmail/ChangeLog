@@ -293,6 +293,8 @@ Version 1.5.1 -- CVS
   - Create a generic function to empty a folder tree, thanks to
     Randy Smith (#1145578).
   - Add robots noindex/nofollow meta tag to SquirrelMail generated pages.
+  - Fix incorrect folder hierarchy display (#1009654), thanks
+    Awais Ahmad for the patch (#1082558).
   
 Version 1.5.0
 --------------------
