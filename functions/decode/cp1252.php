@@ -35,9 +35,8 @@ function charset_decode_cp1252 ($string) {
     if (strtolower($default_charset) == 'windows-1252')
         return $string;
 
-    /* Only do the slow convert if there are 8-bit characters */
-    /* avoid using 0xA0 (\240) in ereg ranges. RH73 does not like that */
-    if (! ereg("[\200-\237]", $string) and ! ereg("[\241-\377]", $string) )
+    // don't do decoding when there are no 8bit symbols
+    if (! sq_is8bit($string,'windows-1252'))
         return $string;
 
     $cp1252 = array(

@@ -51,9 +51,8 @@ function charset_decode_iso_8859_11 ($string) {
     if (strtolower($default_charset) == 'iso-8859-11')
         return $string;
 
-    /* Only do the slow convert if there are 8-bit characters */
-    /* there is no 0x80-0x9F letters in ISO8859-* */
-    if ( ! ereg("[\241-\377]", $string) )
+    // don't do decoding when there are no 8bit symbols
+    if (! sq_is8bit($string,'iso-8859-11'))
         return $string;
 
     $iso8859_11 = array(

@@ -28,7 +28,8 @@ function charset_decode_us_ascii ($string) {
     if (strtolower($default_charset) == 'us-ascii')
         return $string;
 
-    if (! ereg("[\200-\237]", $string) and ! ereg("[\241-\377]", $string) )
+    // don't do decoding when there are no 8bit symbols
+    if (! sq_is8bit($string,'us-ascii'))
         return $string;
 
     $string = preg_replace("/([\201-\237])/e","'?'",$string);
