@@ -63,4 +63,6 @@
     }
     echo $body .
          "</TT></TD></TR></TABLE>";
+    
+    sqimap_logout($imapConnection);	 
 ?>
