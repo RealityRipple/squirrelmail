@@ -620,7 +620,7 @@
       global $default_charset;
 
       // Encode only if the string contains 8-bit characters or =?
-      if (ereg("([\200-\377])|=\\?", $string)) {
+      if (ereg("([\200-\377]|=\\?)", $string)) {
          $newstring = "=?$default_charset?Q?";
          
          // First the special characters
