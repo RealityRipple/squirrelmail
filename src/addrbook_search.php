@@ -108,7 +108,7 @@ function display_result($res, $includesource = true) {
     
     while (list($undef, $row) = each($res)) {
         $tr_bgcolor = '';
-        $email = addslashes(AddressBook::full_address($row));
+        $email = htmlspecialchars(addcslashes(AddressBook::full_address($row), "'"), ENT_QUOTES);
         if ($line % 2) { $tr_bgcolor = $color[0]; }
         echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
         html_tag( 'td',
@@ -119,12 +119,12 @@ function display_result($res, $includesource = true) {
              '<a href="javascript:bcc_address(' . 
                                  "'" . $email . "');\">Bcc</A></small>",
         'center', '', 'valign="top" width="5%" nowrap' ) .
-        html_tag( 'td', '&nbsp;' . $row['name'], 'left', '', 'valign="top" nowrap' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']), 'left', '', 'valign="top" nowrap' ) .
         html_tag( 'td', '&nbsp;' .
              '<a href="javascript:to_and_close(' .
-                 "'" . $email . "');\">" . $row['email'] . '</A>'
+                 "'" . $email . "');\">" . htmlspecialchars($row['email']) . '</A>'
         , 'left', '', 'valign="top"' ) .
-        html_tag( 'td', $row['label'], 'left', '', 'valign="top" nowrap' );
+        html_tag( 'td', htmlspecialchars($row['label']), 'left', '', 'valign="top" nowrap' );
         if ($includesource) {
             echo html_tag( 'td', '&nbsp;' . $row['source'], 'left', '', 'valign="top" nowrap' );
         }
