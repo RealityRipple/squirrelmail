@@ -1322,15 +1322,17 @@ function deliverMessage($composeMessage, $draft=false) {
     if (!$useSendmail && !$draft) {
 	require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
 	$deliver = new Deliver_SMTP();
-	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
-	if ($use_authenticated_smtp) {
-    	    global $key, $onetimepad;
-    	    $user = $username;
-    	    $pass = OneTimePadDecrypt($key, $onetimepad);
+	global $smtpServerAddress, $smtpPort, $pop_before_smtp, $smtp_auth_mech;
+
+	if ($smtp_auth_mech == 'none') {
+		$user = '';
+		$pass = '';
 	} else {
-    	    $user = '';
-    	    $pass = '';
+		global $key, $onetimepad;
+		$user = $username;
+		$pass = OneTimePadDecrypt($key, $onetimepad);
 	}
+
 	$authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
 	$stream = $deliver->initStream($composeMessage,$domain,0,
 	                  $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
