@@ -122,6 +122,8 @@
          $count_special_folders++;
       else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)                                                                  
          $count_special_folders++;
+      else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
+         $count_special_folders++;
    }   
 
    if ($count_special_folders < count($boxes)) {
@@ -232,7 +234,8 @@
 			{	
             $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
+            if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
+               echo "<OPTION VALUE=\"$box\">$box2\n";
          }
       }
       echo "</SELECT></TT>\n";
