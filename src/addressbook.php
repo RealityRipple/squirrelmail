@@ -32,90 +32,78 @@ require_once('../functions/array.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/addressbook.php');
 
-    // Sort array by the key "name"
-    function alistcmp($a,$b) {
-        if($a['backend'] > $b['backend'])
-            return 1;
-        else if($a['backend'] < $b['backend'])
+/* Sort array by the key "name" */
+function alistcmp($a,$b) {
+    if($a['backend'] > $b['backend']) {
+        return 1;
+    } else {
+        if($a['backend'] < $b['backend']) {
             return -1;
-
-        return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
+        }
     }
+    return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
+}
 
-    // Output form to add and modify address data
-    function address_form($name, $submittext, $values = array()) {
-        global $color;
-        echo "<TABLE BORDER=0 CELLPADDING=1 COLS=2 WIDTH=\"90%\" ALIGN=center>\n" .
-             "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>" .
-             _("Nickname") . ' : </TD>'.
-             "<TD BGCOLOR=\"$color[4]\" ALIGN=left>".
-             "<INPUT NAME=\"$name[nickname]\" SIZE=15 VALUE=\"";
-        if (isset($values['nickname']))
-            echo htmlspecialchars($values['nickname']);
-        echo '">'.
-            "&nbsp;<SMALL>" . _("Must be unique") . "</SMALL></TD></TR>\n";
-        printf("<TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-            _("E-mail address"));
-        printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-            "<INPUT NAME=\"%s[email]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-            $color[4], $name,
-            (isset($values["email"]))?
-                htmlspecialchars($values["email"]):"");
-        printf("<TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-            _("First name"));
-        printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-            "<INPUT NAME=\"%s[firstname]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-            $color[4], $name,
-            (isset($values["firstname"]))?
-                htmlspecialchars($values["firstname"]):"");
-        printf("<TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-            _("Last name"));
-        printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-            "<INPUT NAME=\"%s[lastname]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-            $color[4], $name,
-            (isset($values["lastname"]))?
-                htmlspecialchars($values["lastname"]):"");
-        printf("<TR><TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
-            _("Additional info"));
-        printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
-            "<INPUT NAME=\"%s[label]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-            $color[4], $name,
-            (isset($values["label"]))?
-                htmlspecialchars($values["label"]):"");
-
-        printf("<TR><TD COLSPAN=2 BGCOLOR=\"%s\" ALIGN=center>\n".
-            "<INPUT TYPE=submit NAME=\"%s[SUBMIT]\" VALUE=\"%s\"></TD></TR>\n",
-            $color[4], $name, $submittext);
-
-        print "</TABLE>\n";
+/* Make an input field */
+function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
+    global $color;
+    echo '<TR><TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+         $label . ':</TD>' .
+         '<TD BGCOLOR="' . $color[4] . '" ALIGN=left>' .
+         '<INPUT NAME="' . $name . '[' . $field . ']" SIZE="' . $size . '" VALUE="';
+    if (isset($values[$field])) {
+        echo htmlspecialchars($values[$field]);
     }
+    echo '">' . $add . '</TD></TR>' . "\n";
+}
+
+/* Output form to add and modify address data */
+function address_form($name, $submittext, $values = array()) {
+    global $color;
+
+    echo '<TABLE BORDER=0 CELLPADDING=1 COLS=2 WIDTH="90%" ALIGN=center>' ."\n";
+
+    adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+        '<SMALL>' . _("Must be unique") . '</SMALL>');
+    adressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '');
+    adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '');
+    adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '');
+    adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '');
+
+    echo '<TR><TD COLSPAN=2 BGCOLOR="' . $color[4] . '" ALIGN=center>' . "\n" .
+         '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
+         $submittext . '"></TD></TR>' .
+         "\n</TABLE>\n";
+}
 
 
-    // Open addressbook, with error messages on but without LDAP (the
-    // second "true"). Don't need LDAP here anyway
-    $abook = addressbook_init(true, true);
-    if($abook->localbackend == 0) {
-        plain_error_message(_("No personal address book is defined. Contact administrator."), $color);
-        exit();
-    }
+// Open addressbook, with error messages on but without LDAP (the
+// second "true"). Don't need LDAP here anyway
+$abook = addressbook_init(true, true);
+if($abook->localbackend == 0) {
+    plain_error_message(
+        _("No personal address book is defined. Contact administrator."),
+        $color);
+    exit();
+}
 
-    displayPageHeader($color, 'None');
-
-
-    $defdata   = array();
-    $formerror = '';
-    $abortform = false;
-    $showaddrlist = true;
-    $defselected  = array();
+displayPageHeader($color, 'None');
 
 
-    // Handle user's actions
-    if($REQUEST_METHOD == 'POST') {
+$defdata   = array();
+$formerror = '';
+$abortform = false;
+$showaddrlist = true;
+$defselected  = array();
 
-        // ***********************************************
-        // Add new address
-        // ***********************************************
-        if(!empty($addaddr['nickname'])) {
+
+// Handle user's actions
+if($REQUEST_METHOD == 'POST') {
+
+    // ***********************************************
+    // Add new address
+    // ***********************************************
+    if(!empty($addaddr['nickname'])) {
 
         $r = $abook->add($addaddr, $abook->localbackend);
 
@@ -130,190 +118,188 @@ require_once('../functions/addressbook.php');
             $defdata = $addaddr;
         }
 
-        }
-
+    } else {
 
         // ***********************************************
         // Delete address(es)
         // ***********************************************
-        else if((!empty($deladdr)) &&
-            sizeof($sel) > 0) {
-        $orig_sel = $sel;
-        sort($sel);
+        if((!empty($deladdr)) && sizeof($sel) > 0) {
+            $orig_sel = $sel;
+            sort($sel);
 
-        // The selected addresses are identidied by "backend:nickname".
-        // Sort the list and process one backend at the time
-        $prevback  = -1;
-        $subsel    = array();
-        $delfailed = false;
+            // The selected addresses are identidied by "backend:nickname".
+            // Sort the list and process one backend at the time
+            $prevback  = -1;
+            $subsel    = array();
+            $delfailed = false;
 
-        for($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
-            list($sbackend, $snick) = explode(':', $sel[$i]);
+            for($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
+                list($sbackend, $snick) = explode(':', $sel[$i]);
 
-            // When we get to a new backend, process addresses in
-            // previous one.
-            if($prevback != $sbackend && $prevback != -1) {
+                // When we get to a new backend, process addresses in
+                // previous one.
+                if($prevback != $sbackend && $prevback != -1) {
 
-            $r = $abook->remove($subsel, $prevback);
-            if(!$r) {
-            $formerror = $abook->error;
-            $i = sizeof($sel);
-            $delfailed = true;
-            break;
+                    $r = $abook->remove($subsel, $prevback);
+                    if(!$r) {
+                        $formerror = $abook->error;
+                        $i = sizeof($sel);
+                        $delfailed = true;
+                        break;
+                    }
+                    $subsel   = array();
+                }
+
+                // Queue for processing
+                array_push($subsel, $snick);
+                $prevback = $sbackend;
             }
-            $subsel   = array();
+
+            if(!$delfailed) {
+                $r = $abook->remove($subsel, $prevback);
+                if(!$r) { // Handle errors
+                    $formerror = $abook->error;
+                    $delfailed = true;
+                }
             }
 
-            // Queue for processing
-            array_push($subsel, $snick);
-            $prevback = $sbackend;
-        }
-
-        if(!$delfailed) {
-            $r = $abook->remove($subsel, $prevback);
-            if(!$r) { // Handle errors
-            $formerror = $abook->error;
-            $delfailed = true;
+            if($delfailed) {
+                $showaddrlist = true;
+                $defselected  = $orig_sel;
             }
-        }
 
-        if($delfailed) {
-            $showaddrlist = true;
-            $defselected  = $orig_sel;
-        }
-        }
+        } else {
 
+            // ***********************************************
+            // Update/modify address
+            // ***********************************************
+            if(!empty($editaddr)) {
 
-        // ***********************************************
-        // Update/modify address
-        // ***********************************************
-        else if(!empty($editaddr)) {
+                // Stage one: Copy data into form
+                if (isset($sel) && sizeof($sel) > 0) {
+                    if(sizeof($sel) > 1) {
+                        $formerror = _("You can only edit one address at the time");
+                        $showaddrlist = true;
+                        $defselected = $sel;
+                    } else {
+                        $abortform = true;
+                        list($ebackend, $enick) = explode(':', $sel[0]);
+                        $olddata = $abook->lookup($enick, $ebackend);
 
-        // Stage one: Copy data into form
-            if (isset($sel) && sizeof($sel) > 0) {
-            if(sizeof($sel) > 1) {
-            $formerror = _("You can only edit one address at the time");
-            $showaddrlist = true;
-            $defselected = $sel;
-            } else {
-            $abortform = true;
-            list($ebackend, $enick) = explode(':', $sel[0]);
-            $olddata = $abook->lookup($enick, $ebackend);
+                        // Display the "new address" form
+                        print "<FORM ACTION=\"$PHP_SELF\" METHOD=\"POST\">\n";
+                        print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
+                        print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
+                        print _("Update address");
+                        print "<STRONG>\n</TD></TR>\n";
+                        print "</TABLE>\n";
+                        address_form("editaddr", _("Update address"), $olddata);
+                        printf("<INPUT TYPE=hidden NAME=oldnick VALUE=\"%s\">\n",
+                            htmlspecialchars($olddata["nickname"]));
+                        printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
+                            htmlspecialchars($olddata["backend"]));
+                        print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
+                        print '</FORM>';
+                    }
+                } else {
 
-            // Display the "new address" form
-            print "<FORM ACTION=\"$PHP_SELF\" METHOD=\"POST\">\n";
-            print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-            print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
-            print _("Update address");
-            print "<STRONG>\n</TD></TR>\n";
-            print "</TABLE>\n";
-            address_form("editaddr", _("Update address"), $olddata);
-            printf("<INPUT TYPE=hidden NAME=oldnick VALUE=\"%s\">\n",
-                htmlspecialchars($olddata["nickname"]));
-            printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
-                htmlspecialchars($olddata["backend"]));
-            print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
-            print '</FORM>';
-            }
-        }
+                    // Stage two: Write new data
+                    if($doedit = 1) {
+                        $newdata = $editaddr;
+                        $r = $abook->modify($oldnick, $newdata, $backend);
 
-        // Stage two: Write new data
-        else if($doedit = 1) {
-            $newdata = $editaddr;
-            $r = $abook->modify($oldnick, $newdata, $backend);
+                        // Handle error messages
+                        if(!$r) {
+                            // Display error
+                            print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
+                            print "<TR><TD ALIGN=CENTER>\n<br><STRONG>";
+                            print "<FONT COLOR=\"$color[2]\">"._("ERROR").": ".
+                                $abook->error."</FONT>";
+                            print "<STRONG>\n</TD></TR>\n";
+                            print "</TABLE>\n";
 
-            // Handle error messages
-            if(!$r) {
-            // Display error
-            print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-            print "<TR><TD ALIGN=CENTER>\n<br><STRONG>";
-            print "<FONT COLOR=\"$color[2]\">"._("ERROR").": ".
-                $abook->error."</FONT>";
-            print "<STRONG>\n</TD></TR>\n";
-            print "</TABLE>\n";
+                            // Display the "new address" form again
+                            printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
+                            print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
+                            print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
+                            print _("Update address");
+                            print "<STRONG>\n</TD></TR>\n";
+                            print "</TABLE>\n";
+                            address_form("editaddr", _("Update address"), $newdata);
+                            printf("<INPUT TYPE=hidden NAME=oldnick VALUE=\"%s\">\n",
+                                htmlspecialchars($oldnick));
+                            printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
+                                htmlspecialchars($backend));
+                            print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
+                            print '</FORM>';
 
-            // Display the "new address" form again
-            printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
-            print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-            print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
-            print _("Update address");
-            print "<STRONG>\n</TD></TR>\n";
-            print "</TABLE>\n";
-            address_form("editaddr", _("Update address"), $newdata);
-            printf("<INPUT TYPE=hidden NAME=oldnick VALUE=\"%s\">\n",
-                htmlspecialchars($oldnick));
-            printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
-                htmlspecialchars($backend));
-            print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
-            print '</FORM>';
+                            $abortform = true;
+                        }
+                    } else {
 
-            $abortform = true;
-            }
-        }
+                        // Should not get here...
+                        plain_error_message(_("Unknown error"), $color);
+                        $abortform = true;
+                    }
+                }
+            } /* !empty($editaddr)                  - Update/modify address */
+        } /* (!empty($deladdr)) && sizeof($sel) > 0 - Delete address(es) */
+    } /* !empty($addaddr['nickname'])               - Add new address */
 
-        // Should not get here...
-        else {
-            plain_error_message(_("Unknown error"), $color);
-            $abortform = true;
-        }
-        } // End of edit address
-
-
-
-        // Some times we end output before forms are printed
-        if($abortform) {
-        print "</BODY></HTML>\n";
-        exit();
-        }
+    // Some times we end output before forms are printed
+    if($abortform) {
+       print "</BODY></HTML>\n";
+       exit();
     }
+}
 
 
-    // ===================================================================
-    // The following is only executed on a GET request, or on a POST when
-    // a user is added, or when "delete" or "modify" was successful.
-    // ===================================================================
+// ===================================================================
+// The following is only executed on a GET request, or on a POST when
+// a user is added, or when "delete" or "modify" was successful.
+// ===================================================================
 
-    // Display error messages
-    if(!empty($formerror)) {
-        print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-        print "<TR><TD ALIGN=CENTER>\n<br><STRONG>";
-        print "<FONT COLOR=\"$color[2]\">"._("ERROR").": $formerror</FONT>";
-        print "<STRONG>\n</TD></TR>\n";
-        print "</TABLE>\n";
-    }
+// Display error messages
+if(!empty($formerror)) {
+    print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
+    print "<TR><TD ALIGN=CENTER>\n<br><STRONG>";
+    print "<FONT COLOR=\"$color[2]\">"._("ERROR").": $formerror</FONT>";
+    print "<STRONG>\n</TD></TR>\n";
+    print "</TABLE>\n";
+}
 
 
-    // Display the address management part
-    if($showaddrlist) {
-        // Get and sort address list
-        $alist = $abook->list_addr();
-        if(!is_array($alist)) {
+// Display the address management part
+if($showaddrlist) {
+    // Get and sort address list
+    $alist = $abook->list_addr();
+    if(!is_array($alist)) {
         plain_error_message($abook->error, $color);
         exit;
-        }
+    }
 
-        usort($alist,'alistcmp');
-        $prevbackend = -1;
-        $headerprinted = false;
+    usort($alist,'alistcmp');
+    $prevbackend = -1;
+    $headerprinted = false;
 
-        echo "<p align=center><a href=\"#AddAddress\">" .
-            _("Add address") . "</a></p>\n";
+    echo "<p align=center><a href=\"#AddAddress\">" .
+         _("Add address") . "</a></p>\n";
 
-        // List addresses
-        printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
-        while(list($undef,$row) = each($alist)) {
+    // List addresses
+    printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
+    while(list($undef,$row) = each($alist)) {
 
-        // New table header for each backend
+    // New table header for each backend
         if($prevbackend != $row["backend"]) {
             if($prevbackend >= 0) {
-            print "<TR><TD COLSPAN=5 ALIGN=center>\n";
-            printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
-                _("Edit selected"));
-            printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
-                _("Delete selected"));
-            echo "</tr>\n";
-            print '<TR><TD COLSPAN="5" ALIGN=center>';
-            print "&nbsp;<BR></TD></TR></TABLE>\n";
+                print "<TR><TD COLSPAN=5 ALIGN=center>\n";
+                printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
+                    _("Edit selected"));
+                printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
+                    _("Delete selected"));
+                echo "</tr>\n";
+                print '<TR><TD COLSPAN="5" ALIGN=center>';
+                print "&nbsp;<BR></TD></TR></TABLE>\n";
             }
 
             print "<TABLE WIDTH=\"95%\" COLS=1 ALIGN=CENTER>\n";
@@ -338,10 +324,11 @@ require_once('../functions/addressbook.php');
         $prevbackend = $row['backend'];
 
         // Check if this user is selected
-        if(in_array($row['backend'].':'.$row['nickname'], $defselected))
+        if(in_array($row['backend'].':'.$row['nickname'], $defselected)) {
             $selected = 'CHECKED';
-        else
+        } else {
             $selected = '';
+        }
 
         // Print one row
         printf("<TR%s>",
@@ -359,33 +346,33 @@ require_once('../functions/addressbook.php');
             "%", $row["label"]);
         print "</TR>\n";
         $line++;
-        }
+    }
 
-        // End of list. Close table.
-        if($headerprinted) {
+    // End of list. Close table.
+    if($headerprinted) {
         print "<TR><TD COLSPAN=5 ALIGN=center>\n";
         printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
             _("Edit selected"));
         printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
             _("Delete selected"));
         print "</TR></TABLE></FORM>";
-        }
-    } // end of addresslist
+    }
+} // end of addresslist
 
 
-    // Display the "new address" form
-    echo "<a name=\"AddAddress\"></a>\n" .
-         "<FORM ACTION=\"$PHP_SELF\" NAME=f_add METHOD=\"POST\">\n".
-         "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n".
-         "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
-    printf(_("Add to %s"), $abook->localbackendname);
-    echo "<STRONG>\n</TD></TR>\n".
-         "</TABLE>\n";
-    address_form('addaddr', _("Add address"), $defdata);
-    echo '</FORM>';
+// Display the "new address" form
+echo "<a name=\"AddAddress\"></a>\n" .
+     "<FORM ACTION=\"$PHP_SELF\" NAME=f_add METHOD=\"POST\">\n".
+     "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n".
+     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
+printf(_("Add to %s"), $abook->localbackendname);
+echo "<STRONG>\n</TD></TR>\n".
+     "</TABLE>\n";
+address_form('addaddr', _("Add address"), $defdata);
+echo '</FORM>';
 
-    // Add hook for anything that wants on the bottom
-    do_hook('addressbook_bottom');
+// Add hook for anything that wants on the bottom
+do_hook('addressbook_bottom');
 ?>
 
 </BODY></HTML>
