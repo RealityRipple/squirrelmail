@@ -301,6 +301,9 @@ Version 1.5.1 -- CVS
   - src/delete_message.php script is disabled. It provided functions that
     could be implemented without playing with multiple redirects.
   - Remove lots of obsoleted code from left_main.php.
+  - Partial support of IMAP REFERRAL: do not fail on IMAP REFERRAL response
+    (RFC 2221) but log the user out with a hint. Patch by Ariel Arjona
+    (#1006242).
   
 Version 1.5.0 - 2 February 2004
 -------------------------------
