@@ -9,7 +9,7 @@
 //
 
     // don't change
-    $config_version = "x61";
+    $config_version = "x62";
 
 //  Organization's logo picture (blank if none)
     $org_logo = "../images/sm_logo.jpg";
@@ -167,6 +167,14 @@
 //  but you can set it to whatever you wish.
 
    $default_left_size = 200;
+
+//  Some IMAP servers allow a username (like "bob") to log in if they use
+//  uppercase in their name (like "Bob" or "BOB").  This creates extra
+//  preference files.  Toggling this option to true will transparently
+//  change all usernames to lowercase.
+
+   $force_username_lowercase = false;
+
 
 //  Themes
 //     You can define your own theme and put it in this directory.  You must
