@@ -91,24 +91,24 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
      html_tag( 'table', '', 'center', '', 'cellspacing="0" cellpadding="0" border="0"' ) .
      html_tag( 'tr',
          html_tag( 'td', _("From").'&nbsp;', 'left' ,'','valign="top"') .
-         html_tag( 'td', htmlentities($from), 'left' )
+         html_tag( 'td', htmlspecialchars($from), 'left' )
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("Subject").'&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', htmlentities($subject), 'left' )
+         html_tag( 'td', htmlspecialchars($subject), 'left' )
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("Date").'&nbsp;', 'left' ) .
-         html_tag( 'td', htmlentities($date), 'left' )
+         html_tag( 'td', htmlspecialchars($date), 'left' )
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("To").'&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', htmlentities($to), 'left' )
+         html_tag( 'td', htmlspecialchars($to), 'left' )
      ) . "\n";
     if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
          echo html_tag( 'tr',
              html_tag( 'td', _("CC").'&nbsp;', 'left','','valign="top"' ) .
-             html_tag( 'td', htmlentities($cc), 'left' )
+             html_tag( 'td', htmlspecialchars($cc), 'left' )
          );
      }
      /* body */

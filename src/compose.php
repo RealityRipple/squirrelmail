@@ -549,7 +549,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
               (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
               $subject = '[Fwd: ' . $subject . ']';
            }
-	   $body = getforwardHeader($orig_header) . $body;
+	   $body = getforwardHeader($orig_header) . charset_decode_japanese($body);
 	   sqUnWordWrap($body);
            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
 	   break;
@@ -573,7 +573,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
               $subject = 'Re: ' . $subject;
            }
            /* this corrects some wrapping/quoting problems on replies */	     
-           $rewrap_body = explode("\n", $body);
+           $rewrap_body = explode("\n", charset_decode_japanese($body));
 	   $body = getReplyCitation($orig_header->from->personal);
 	   $cnt = count($rewrap_body);
            for ($i=0;$i<$cnt;$i++) {
@@ -838,13 +838,21 @@ function showInputForm ($session, $values=false) {
     }
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($sig_first == '1') {
+            if ($charset == 'iso-2022-jp') {
+                echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
+            } else {
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
+            }
             echo "\n\n".htmlspecialchars($body);
         }
         else {
             echo "\n\n".htmlspecialchars($body);
+            if ($charset == 'iso-2022-jp') {
+                echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
+            }else{
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
         }
+    }
     }
     else {
        echo htmlspecialchars($body);

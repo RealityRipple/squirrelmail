@@ -154,7 +154,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     // Don't kill the connection if the browser is over a dialup
     // and it would take over 30 seconds to download it.
 
-    // don´t call set_time_limit in safe mode.
+    // donŽ´t call set_time_limit in safe mode.
     if (!ini_get("safe_mode")) {
         set_time_limit(0);
     }
@@ -348,6 +348,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         // If there are other types that shouldn't be formatted, add
         // them here
         if ($body_message->header->type1 == 'html') {
+            $body = charset_decode_japanese($body);
             if ( $show_html_default <> 1 ) {
                 $body = strip_tags( $body );
                 translateText($body, $wrap_at, 
@@ -490,6 +491,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
 /** this function decodes the body depending on the encoding type. **/
 function decodeBody($body, $encoding) {
+
   $body = str_replace("\r\n", "\n", $body);
   $encoding = strtolower($encoding);
 
@@ -516,9 +518,18 @@ function decodeBody($body, $encoding) {
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  */
 function decodeHeader ($string, $utfencode=true) {
+    global $squirrelmail_language;
     if (is_array($string)) {
         $string = implode("\n", $string);
     }
+
+    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_convert_encoding')) {
+        $string = str_replace("\t", "", $string);
+        if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $string))
+            $string = mb_decode_mimeheader($string);
+        return @mb_convert_encoding($string, 'EUC-JP', 'AUTO');
+    }
+
     $i = 0;
     while (preg_match('/^(.{' . $i . '})(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=/Ui', 
                       $string, $res)) {
@@ -552,7 +563,11 @@ function decodeHeader ($string, $utfencode=true) {
  * be encoded.
  */
 function encodeHeader ($string) {
-    global $default_charset;
+    global $default_charset, $squirrelmail_language;
+
+    if ($squirrelmail_language == 'ja_JP' && function_exists('mb_encode_mimeheader')) {
+        return mb_encode_mimeheader($string);
+    }
 
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen( $string  );

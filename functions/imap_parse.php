@@ -221,6 +221,13 @@ function sqimap_parse_RFC822Header ($read, $hdr) {
 	}
         $i++;
 	break;
+     case 'u':
+         /* User-Agent */
+         if (strtolower(substr($line,0,10)) == 'user-agent') {
+             $hdr->xmailer = trim(substr($line, 10));
+         }
+         $i++;
+         break;
       default:
         $i++;
         break;
