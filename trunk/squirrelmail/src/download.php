@@ -130,10 +130,17 @@
    } else {
       switch ($type0) {
          case "text":
-            $body = decodeBody($body, $header->encoding);
-            include("../functions/page_header.php");
-            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
-            break;
+				if ($type1 == "text" || $type1 == "html") {
+	            $body = decodeBody($body, $header->encoding);
+	            include("../functions/page_header.php");
+	            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
+            } else {
+            	$body = decodeBody($body, $header->encoding);
+            	header("Content-type: $type0/$type1; name=\"$filename\"");
+            	header("Content-Disposition: attachment; filename=\"$filename\"");
+            	echo $body;
+				}
+				break;
          case "message":
             $body = decodeBody($body, $header->encoding);
             include("../functions/page_header.php");
