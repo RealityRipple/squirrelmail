@@ -54,7 +54,7 @@
       echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 COLS=2 WIDTH=100% CELLSPACING=0 CELLPADDING=2><TR>";
       echo "      <TD ALIGN=left WIDTH=70%>";
       echo "         <A HREF=\"compose.php\">" . _("Compose") . "</A>&nbsp&nbsp";
-      echo "         ". _("Addresses") ."&nbsp&nbsp";
+      echo "         <A HREF=\"addressbook.php\">" . _("Addresses") . "</A>&nbsp&nbsp";
       echo "         <A HREF=\"folders.php\">" . _("Folders") . "</A>&nbsp&nbsp";
       echo "         <A HREF=\"options.php\">" . _("Options") . "</A>&nbsp&nbsp";
       echo "      </TD><TD ALIGN=right WIDTH=30%>";
