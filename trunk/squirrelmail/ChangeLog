@@ -154,6 +154,7 @@ Version 1.5.1 -- CVS
     supported by mbstring and use it. Fixes bug #1005353.
   - LDAP backend will use internal squirrelmail charset conversion functions
     instead of php xml extension. Fixes bug #655137.
+  - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
 
 Version 1.5.0
 --------------------
