@@ -338,9 +338,13 @@
       $envelopefrom = ereg_replace("[[:space:]]",'', $envelopefrom);
       $envelopefrom = ereg_replace("[[:cntrl:]]",'', $envelopefrom);
 
-      // open pipe to sendmail
-      $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), 'w');
-      
+      // open pipe to sendmail or qmail-inject (qmail-inject doesn't accept -t param)
+      if (strstr($sendmail_path, "qmail-inject")) {
+         $fp = popen (escapeshellcmd("$sendmail_path -f$envelopefrom"), "w");
+      } else {
+         $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
+      }
+
       $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($fp, $body);
 
