@@ -73,19 +73,19 @@
          } else {
             $body = "";
          }
-         
+	 
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
 
          sqUnWordWrap($body);   
          $body_ary = explode("\n", $body);
          $i = count($body_ary) - 1;
-         while (isset($body_ary[$i]) && ereg("^[>\\s]*$", $body_ary[$i])) {
+         while ($i >= 0 && ereg("^[>\\s]*$", $body_ary[$i])) {
             unset($body_ary[$i]);
             $i --;
          }
          $body = "";
-         for ($i=0; $i < count($body_ary); $i++) {
+         for ($i=0; isset($body_ary[$i]); $i++) {
             if (! $forward_id)
             {
                 if (ereg('^[\\s>]+', $body_ary[$i]))
