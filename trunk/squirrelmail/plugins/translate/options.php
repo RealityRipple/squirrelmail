@@ -44,14 +44,14 @@ displayPageHeader($color, 'None');
         '<input type="hidden" name="optmode" value="submit" />' .
         '<input type="hidden" name="optpage" value="translate" />' .
         '<table border="0" cellpadding="0" cellspacing="2">'.
-            '<tr><td align="right" nowrap="nowrap">' .
+            '<tr><td align="right" style="white-space: nowrap;">' .
              _("Select your translator:") .
              '</td>'.
             '<td><select name="translate_translate_server">';
    translate_showoption();
    echo '</select>' .
        '</td></tr>' .
-       '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap="nowrap"').
+       '<tr>'.html_tag('td',_("When reading:"),'right','','style="white-space: nowrap;"').
        '<td><input type="checkbox" name="translate_translate_show_read"';
    if ($translate_show_read)
        echo ' checked="checked"';
@@ -68,7 +68,7 @@ displayPageHeader($color, 'None');
        "</td></tr>\n";
 
 if (!$disable_compose_translate) {
-   echo '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
+   echo '<tr>'.html_tag('td',_("When composing:"),'right','','style="white-space: nowrap;"').
          '<td><input type="checkbox" name="translate_translate_show_send"';
    if ($translate_show_send)
       echo ' checked="checked"';

@@ -52,7 +52,7 @@ if (isset($Messages) && count($Messages) > 0) {
 }
 
 ?><tr><td>
-    <?php echo addForm($_SERVER['PHP_SELF'], 'POST'); ?>
+    <?php echo addForm($_SERVER['PHP_SELF'], 'post'); ?>
     <table>
       <tr>
         <th align="right"><?php echo _("Current Password:")?></th>

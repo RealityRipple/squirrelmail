@@ -300,7 +300,7 @@ if (!empty($_POST)) {
 
 function sti_input( $title, $hd, $data, $post, $bg ) {
     $return_val = html_tag( 'tr',
-                           html_tag( 'td', $title . ':', 'right', '', 'nowrap' ) .
+                           html_tag( 'td', $title . ':', 'right', '', 'style="white-space: nowrap;"' ) .
                            html_tag( 'td', '<input size="50" type="text" value="' . htmlspecialchars($data) . '" name="' . $hd . $post . '" />' , 'left' ) ,
                        '', $bg );
      return ($return_val);
@@ -308,7 +308,7 @@ function sti_input( $title, $hd, $data, $post, $bg ) {
 
 function sti_textarea( $title, $hd, $data, $post, $bg ) {
     $return_val = html_tag( 'tr',
-                           html_tag( 'td', $title . ':', 'right', '', 'nowrap' ) .
+                           html_tag( 'td', $title . ':', 'right', '', 'style="white-space: nowrap;"' ) .
                            html_tag( 'td', '<textarea cols="50" rows="5" name="' . $hd . $post . '">' . htmlspecialchars($data) . '</textarea>' , 'left' ) ,
                        '', $bg );
      return ($return_val);

@@ -35,7 +35,7 @@ sqGetGlobalVar('numnew', $numnew, SQ_GET);
                           '</font><br /></big><br />' . "\n" .
                           '<form name="nm">' . "\n".
                           '<input type="button" name="bt" value="' . _("Close Window") .
-                          '" onClick="javascript:window.close();" />'."\n".
+                          '" onclick="javascript:window.close();" />'."\n".
                           '</form>',
                           'center' )
                       ) ,

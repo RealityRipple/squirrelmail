@@ -99,7 +99,7 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
             ) .
             html_tag( 'tr' ) .
                 html_tag( 'td', '', 'center', $color[0] ) .
-     addForm('folders_create.php', 'POST', 'cf').
+     addForm('folders_create.php', 'post', 'cf').
      addInput('folder_name', '', 25).
      "<br />\n". _("as a subfolder of"). '<br />'.
      "<tt><select name=\"subfolder\">\n";

@@ -378,10 +378,10 @@ function ListBoxes ($boxes, $j=0 ) {
             $pre .= '<b>';
         }
         $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+        $end .= '</a>';
         if ($unseen > 0) {
             $end .= '</b>';
         }
-        $end .= '</a>';
         if ($boxes->total > 0) {
             if ($unseen > 0) {
                 $pre .= '<b>';
@@ -404,10 +404,10 @@ function ListBoxes ($boxes, $j=0 ) {
                 $pre .= '<b>';
             }
             $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+            $end .= '</a>';
             if ($unseen > 0) {
                 $end .= '</b>';
             }
-            $end .= '</a>';
         }
         /* Print unseen information. */
         if ($unseen_found) {
@@ -1008,7 +1008,7 @@ if ($date_format != 6) {
 }
 
 /* Next, display the refresh button. */
-echo '<div style="white-space:nowrap"><small>[<a href="../src/left_main.php" target="left">'.
+echo '<div style="white-space: nowrap;"><small>[<a href="../src/left_main.php" target="left">'.
      _("Check mail") . '</a>]</small></div></td></tr></table><br />';
 
 /* Lastly, display the folder list. */
@@ -1121,4 +1121,4 @@ sqimap_logout($imapConnection);
 
 ?>
 </td></tr></table>
-</div></body></html>
+</body></html>

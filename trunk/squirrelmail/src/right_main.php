@@ -177,7 +177,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         session_write_close();
         sqsession_is_active();
         $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&session='.$aMailbox['FORWARD_SESSION'];
+                    '&amp;session='.$aMailbox['FORWARD_SESSION'];
         displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri');", false);
     } else {
         // save mailboxstate
@@ -185,7 +185,7 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         session_write_close();
         // we have to redirect to the compose page
         $location = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
-                    '&session='.$aMailbox['FORWARD_SESSION'];
+                    '&amp;session='.$aMailbox['FORWARD_SESSION'];
         header("Location: $location");
         exit;
     }

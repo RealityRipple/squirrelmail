@@ -163,7 +163,7 @@ if ($mhl_count > 0) {
         echo html_tag( 'tr',
                     html_tag( 'td',
                         $links,
-                    'left', $color[4], 'width="20%" nowrap' ) .
+                    'left', $color[4], 'width="20%" style="white-space: nowrap;"' ) .
                     html_tag( 'td',
                         htmlspecialchars($message_highlight_list[$i]['name']) ,
                     'left' ) .
@@ -361,14 +361,14 @@ if ($action == 'edit' || $action == 'add') {
     else if ($selected_choose == '')
         $selected_input = TRUE;
 
-    echo addForm('options_highlight.php', 'POST', 'f').
+    echo addForm('options_highlight.php', 'post', 'f').
          addHidden('action', 'save');
     if($action == 'edit') {
         echo addHidden('theid', (isset($theid)?$theid:''));
     }
     echo html_tag( 'table', '', 'center', '', 'width="80%" cellpadding="3" cellspacing="0" border="0"' ) . "\n";
     echo html_tag( 'tr', '', '', $color[0] ) . "\n";
-    echo html_tag( 'td', '', 'right', '', 'nowrap' ) . "<b>\n";
+    echo html_tag( 'td', '', 'right', '', 'style="white-space: nowrap;"' ) . "<b>\n";
     echo _("Identifying name") . ":";
     echo '      </b></td>' . "\n";
     echo html_tag( 'td', '', 'left' ) . "\n";

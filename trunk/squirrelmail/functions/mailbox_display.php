@@ -316,7 +316,7 @@ function printMessageInfo($aMsg) {
             case 2: /* from */
                 if ($senderAddress != $senderName) {
                     $senderAddress = strtr($senderAddress, array_flip(get_html_translation_table(HTML_SPECIALCHARS)));
-                    $title = ' title="' . str_replace('"', "''", $senderAddress) . '"';
+                    $title = ' title="' . str_replace(array('"', '<', '>'), array("''", '&lt;', '&gt;'), $senderAddress) . '"';
                 } else {
                     $title = '';
                 }
@@ -335,7 +335,7 @@ function printMessageInfo($aMsg) {
                             $fontstr_end . $flag_end . $bold_end,
                             'center',
                             $hlt_color,
-                            'nowrap' );
+                            'style="white-space: nowrap;"' );
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -350,7 +350,7 @@ function printMessageInfo($aMsg) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
                     $title = array_flip($title);
                     $title = strtr($sSubject, $title);
-                    $title = str_replace('"', "''", $title);
+                    $title = str_replace(array('"', '<', '>'), array("''", '&lt;', '&gt;'), $title);
                     $td_str .= " title=\"$title\"";
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
@@ -406,7 +406,7 @@ function printMessageInfo($aMsg) {
                                 $td_str,
                                 'right',
                                 $hlt_color,
-                                'nowrap' );
+                                'style="white-space: nowrap;"' );
                 }
 
                 // plain text message markers
@@ -444,7 +444,7 @@ function printMessageInfo($aMsg) {
                                 $td_str,
                                 'center',
                                 $hlt_color,
-                                'nowrap' );
+                                'style="white-space: nowrap;"' );
                 }
                 break;
             case 6: /* size */
@@ -1040,14 +1040,9 @@ function showMessagesForMailbox($imapConnection, &$aMailbox) {
             . "}\n"
             . "</script>\n"
             . "<!-- end of compact paginator javascript -->\n";
-    } ?>
-
-<table border="0" width="100%" cellpadding="0" cellspacing="0">
-<tr>
-    <td>
-    <?php mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $paginator_str); ?>
-    </td>
-</tr>
+    }
+    mail_message_listing_beginning($imapConnection, $aMailbox, $msg_cnt_str, $paginator_str);
+?>
 <tr><td height="5" bgcolor="<?php echo $color[4]; ?>"></td></tr>
 <tr>
     <td>
@@ -1055,28 +1050,20 @@ function showMessagesForMailbox($imapConnection, &$aMailbox) {
         <tr>
         <td>
             <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="<?php echo $color[5]; ?>">
-            <tr>
-                <td>
                 <?php
                     printHeader($aMailbox);
                     displayMessageArray($imapConnection, $aMailbox);
                 ?>
-                </td>
-            </tr>
             </table>
         </td>
         </tr>
     </table>
     </td>
 </tr>
-<tr>
-    <td>
 <?php
     mail_message_listing_end($aMailbox, $paginator_str, $msg_cnt_str);
 ?>
-    </td>
-</tr>
-</table>
+</table></form>
 <?php
 
 }
@@ -1166,6 +1153,7 @@ function mail_message_listing_beginning ($imapConnection,
     } else {
         $source_url = $php_self;
     }
+    $php_self = str_replace('&', '&amp;', $php_self);
 
     if (!isset($msg)) {
         $msg = '';
@@ -1186,8 +1174,8 @@ function mail_message_listing_beginning ($imapConnection,
             $sort = $aMailbox['SORT'] + SQSORT_THREAD;
         }
         $thread_link_str = '<small>[<a href="' . $source_url . '?srt='
-            . $sort . '&start_messages=1'
-            . '&mailbox=' . urlencode($aMailbox['NAME']) . '">' . $thread_name
+            . $sort . '&amp;start_messages=1'
+            . '&amp;mailbox=' . urlencode($aMailbox['NAME']) . '">' . $thread_name
             . '</a>]</small>';
     } else {
         $thread_link_str ='';
@@ -1201,6 +1189,7 @@ function mail_message_listing_beginning ($imapConnection,
 
     echo '<form name="' . $form_name . '" method="post" action="'.$php_self.'">' ."\n"
         . $moveFields;
+    echo '<table border="0" width="100%" cellpadding="0" cellspacing="0"><tr><td>';
 
     $button_str = '';
     // display flag buttons only if supported
@@ -1233,13 +1222,13 @@ function mail_message_listing_beginning ($imapConnection,
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
                 <?php echo html_tag('td', '<small>' . $paginator . $thread_link_str . '</small>', 'left') . "\n"; ?>
-                <?php echo html_tag('td', '', 'center') . "\n"; ?>
+                <?php echo html_tag('td', '&nbsp;', 'center') . "\n"; ?>
                 <?php echo html_tag('td', '<small>' . $msg_cnt_str . '</small>', 'right') . "\n"; ?>
             </tr>
             </table>
         </td>
         </tr>
-        <tr width="100%" cellpadding="1"  cellspacing="0" border="0" bgcolor="<?php echo $color[0]; ?>">
+        <tr bgcolor="<?php echo $color[0]; ?>">
         <td>
             <table border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
@@ -1295,8 +1284,8 @@ function mail_message_listing_end($aMailbox, $paginator_str, $msg_cnt_str) {
         <td>
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
-                    <?php echo html_tag('td', '<small>' . $paginator_str . '</small>', 'left');  ?>
-                    <?php echo html_tag('td', '<small>' . $msg_cnt_str   . '</small>', 'right'); ?>
+                <?php echo html_tag('td', '<small>' . $paginator_str . '</small>', 'left');  ?>
+                <?php echo html_tag('td', '<small>' . $msg_cnt_str   . '</small>', 'right'); ?>
             </tr>
             </table>
         </td>
@@ -1309,7 +1298,6 @@ function mail_message_listing_end($aMailbox, $paginator_str, $msg_cnt_str) {
     /* End of message-list table */
 
     do_hook('mailbox_index_after');
-    echo "</form>\n";
 }
 
 /**
@@ -1342,7 +1330,7 @@ function printHeader($aMailbox) {
             echo html_tag( 'td',get_selectall_link($aMailbox) , '', '', 'width="1%"' );
             break;
         case 5: /* flags */
-            echo html_tag( 'td','' , '', '', 'width="1%"' );
+            echo html_tag( 'td','&nbsp;' , '', '', 'width="1%"' );
             break;
         case 2: /* from */
             if (handleAsSent($aMailbox['NAME'])) {
@@ -1361,7 +1349,7 @@ function printHeader($aMailbox) {
             echo "</td>\n";
             break;
         case 3: /* date */
-            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
+            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" style="white-space: nowrap;"' )
                 . '<b>' . _("Date") . '</b>';
             if ($showsort) {
                 if ($internal_date_sort) {
@@ -1381,7 +1369,7 @@ function printHeader($aMailbox) {
             echo "</td>\n";
             break;
         case 6: /* size */
-            echo html_tag( 'td', '', 'center','','width="5%" nowrap')
+            echo html_tag( 'td', '', 'center','','width="5%" style="white-space: nowrap;"')
                 . '<b>' . _("Size") . '</b>';
             if ($showsort) {
                 ShowSortButton($aMailbox, SQSORT_SIZE_ASC, SQSORT_SIZE_DEC);
@@ -1458,7 +1446,7 @@ function get_selectall_link($aMailbox) {
                 . "//-->\n"
                 . '</script>'
                 . '<input type="checkbox" name="toggleAll" title="'._("Toggle All").'" onclick="'.$func_name.'();" />';
-//                . <a href="javascript:void(0)" onClick="' . $func_name . '();">' . _("Toggle All")
+//                . <a href="javascript:void(0)" onclick="' . $func_name . '();">' . _("Toggle All")
 //                . "</a>\n";
     } else {
         $result .= "<a href=\"$PHP_SELF";
@@ -1768,7 +1756,7 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
                 $result .= $spc . '<select name="startMessage"';
                 if ($javascript_on) {
                     $result .= ' onchange="JavaScript:SubmitOnSelect'
-                        . '(this, \'' . $pg_url . '&startMessage=\')"';
+                        . '(this, \'' . $pg_url . '&amp;startMessage=\')"';
                 }
                 $result .='>';
 
@@ -1852,7 +1840,7 @@ function truncateWithEntities($subject, $trim_at)
         return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth', $subject, $trim_val);
     }
 
-    return substr_replace($subject, '...', $trim_val);
+    return substr_replace($subject, '...', $trim_val + 1);
 }
 
 /**
@@ -1906,7 +1894,7 @@ function getSmallStringCell($string, $align) {
                     '<small>' . $string . ':&nbsp; </small>',
                     $align,
                     '',
-                    'nowrap' );
+                    'style="white-space: nowrap;"' );
 }
 
 /**

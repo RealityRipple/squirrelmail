@@ -121,7 +121,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         '<center>'.
         html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
-                html_tag( 'th', _("What to Scan:"), 'right', '', 'nowrap' ) .
+                html_tag( 'th', _("What to Scan:"), 'right', '', 'style="white-space: nowrap;"' ) .
                 html_tag( 'td', '', 'left' ) .
             '<select name="filters_user_scan_set">'.
             '<option value=""';

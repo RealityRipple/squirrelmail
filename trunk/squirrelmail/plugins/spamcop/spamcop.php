@@ -149,7 +149,7 @@ echo "</p>";
 <td align="left" valign="top">
 <?php if (isset($js_web) && $js_web) {
   echo '<form method="post" action="javascript:return false">';
-  echo '<input type="button" value="' . _("Close Window") . "\" onClick=\"window.close(); return true;\" />\n";
+  echo '<input type="button" value="' . _("Close Window") . "\" onclick=\"window.close(); return true;\" />\n";
 } else {
    ?><form method="post" action="../../src/right_main.php">
   <input type="hidden" name="mailbox" value="<?php echo htmlspecialchars($mailbox) ?>" />

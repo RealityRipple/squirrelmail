@@ -73,7 +73,7 @@ function addr_display_result($res, $includesource = true) {
 
     if (sizeof($res) <= 0) return;
 
-    echo addForm($PHP_SELF, 'POST', 'addrbook').
+    echo addForm($PHP_SELF, 'post', 'addrbook').
          addHidden('html_addr_search_done', 'true');
     addr_insert_hidden();
     $line = 0;
@@ -92,11 +92,11 @@ if ($javascript_on) {
         "}\n" .
         "//-->\n" .
         "</script>\n";
-    $chk_all = '<a href="#" onClick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
+    $chk_all = '<a href="#" onclick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
             '&nbsp;&nbsp;'.
-            '<a href="#" onClick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("Cc").'</font>'.
+            '<a href="#" onclick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("Cc").'</font>'.
             '&nbsp;&nbsp;'.
-            '<a href="#" onClick="CheckAll(\'B\');">' . _("All") . '</a>';
+            '<a href="#" onclick="CheckAll(\'B\');">' . _("All") . '</a>';
     }
     echo html_tag( 'table', '', 'center', '', 'border="0" width="98%"' ) .
     html_tag( 'tr', '', '', $color[9] ) .
@@ -120,7 +120,7 @@ if ($javascript_on) {
         }
         if ($squirrelmail_language == 'ja_JP')
             {
-        echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
+        echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
         html_tag( 'td',
              '<input type="checkbox" name="send_to_search[T' . $line . ']" value = "' .
              htmlspecialchars($email) . '" />&nbsp;' . _("To") . '&nbsp;' .
@@ -128,12 +128,12 @@ if ($javascript_on) {
              htmlspecialchars($email) . '" />&nbsp;' . _("Cc") . '&nbsp;' .
              '<input type="checkbox" name="send_to_search[B' . $line . ']" value = "' .
              htmlspecialchars($email) . '" />&nbsp;' . _("Bcc") . '&nbsp;' ,
-        'center', '', 'width="5%" nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'nowrap' );
+        'center', '', 'width="5%" style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['lastname']) . ' ' . htmlspecialchars($row['firstname']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
             } else {
-        echo html_tag( 'tr', '', '', $tr_bgcolor, 'nowrap' ) .
+        echo html_tag( 'tr', '', '', $tr_bgcolor, 'style="white-space: nowrap;"' ) .
         html_tag( 'td',
             addCheckBox('send_to_search[T'.$line.']', FALSE, $email).
             '&nbsp;' . _("To") . '&nbsp;' .
@@ -141,14 +141,14 @@ if ($javascript_on) {
             '&nbsp;' . _("Cc") . '&nbsp;' .
             addCheckBox('send_to_search[B'.$line.']', FALSE, $email).
             '&nbsp;' . _("Bcc") . '&nbsp;' ,
-        'center', '', 'width="5%" nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'nowrap' ) .
-        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'nowrap' );
+        'center', '', 'width="5%" style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['name']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['email']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' ) .
+        html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
             }
 
          if ($includesource) {
-             echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'nowrap' );
+             echo html_tag( 'td', '&nbsp;' . $row['source'] . '&nbsp;', 'left', '', 'style="white-space: nowrap;"' );
          }
          echo "</tr>\n";
          $line ++;
@@ -189,7 +189,7 @@ html_tag( 'table',
 echo '<center>' .
     html_tag( 'table', '', 'center', '', 'border="0"' ) .
     html_tag( 'tr' ) .
-    html_tag( 'td', '', 'left', '', 'nowrap valign="middle"' ) . "\n" .
+    html_tag( 'td', '', 'left', '', 'style="white-space: nowrap;" valign="middle"' ) . "\n" .
     addForm($PHP_SELF.'?html_addr_search=true', 'post', 'f').
     "\n<center>\n" .
     '  <nobr><strong>' . _("Search for") . "</strong>\n";
@@ -293,7 +293,7 @@ else {
 if ($addrquery == '' || sizeof($res) == 0) {
     /* printf('<center><form method="post" name="k" action="compose.php">'."\n", $PHP_SELF); */
     echo '<center>'.
-        addForm('compose.php','POST','k');
+        addForm('compose.php','post','k');
     addr_insert_hidden();
     echo '<input type="submit" value="' . _("Return") . '" name="return" />' . "\n" .
          '</form></center></nobr>';

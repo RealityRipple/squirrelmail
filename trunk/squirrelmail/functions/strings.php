@@ -836,7 +836,7 @@ function makeComposeLink($url, $text = null, $target='')
     // build the compose in new window link...
 
 
-    // if javascript is on, use onClick event to handle it
+    // if javascript is on, use onclick event to handle it
     if($javascript_on) {
         sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
         return '<a href="javascript:void(0)" onclick="comp_in_new(\''.$base_uri.$url.'\')">'. $text.'</a>';
