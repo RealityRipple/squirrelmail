@@ -5,7 +5,7 @@
 Version 1.5.1 -- CVS
 --------------------
   - New reply citation to include date and author.
-  - Fix some possible XSS bugs.
+  - Securiy: Fix some possible XSS bugs.
   - Norwegian Bokmal translation uses nb_NO.
   - Integrated Msg_Flags plugin - turn on/off icons using configuration tool, menu
     number 11 (Tweaks), option number 3, after which users must select an icon
@@ -59,14 +59,14 @@ Version 1.5.1 -- CVS
   - Make used of cached ordered uid list in case of server_side_sorting.
   - Rewrite of internal mailbox sorting routines.
   - Added sort by message size.
-  - Fixed XSS vulnerability in content-type display in the attachment area
-    of read_body.php discovered by Roman Medina.
+  - Security: Fixed XSS vulnerability in content-type display in the attachment
+    area of read_body.php discovered by Roman Medina.
   - Get alternating row colors of addressbook in sync with mailbox list.
   - Give proper error when PEAR DB not found.
   - Remove inappropriate strip_tags() from add-to-addressbook (#968475).
   - Prefs caching didn't work properly with register_globals off (#995102).
   - Security: fix SQL injection vulnerability in addressbook
-    (CVE ID: CAN-2004-0521).
+    [CAN-2004-0521].
   - Removed html_top and html_bottom hooks.  No longer used/needed.
   - Added "trailing text" for options built by SquirrelMail (text placed
     after text and select list inputs on options pages)
@@ -132,7 +132,7 @@ Version 1.5.1 -- CVS
     8bit symbols. (provides fix for #934033).
   - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
     enabled.
-  - Fixed XSS exploit in decodeHeader function.
+  - Security: Fixed XSS exploit in decodeHeader function. [CAN-2004-1036]
   - Added site configuration and custom translation engine support to translate 
     plugin.
   - Fixed SquirrelSpell error output.  Patch courtesy David Boone.
@@ -331,7 +331,7 @@ Version 1.4.0 -- 3 April 2003
   - Update required PHP version in documentation to 4.0.6.
   - Fixed delete_move_next plugin to remember where it moved mail to.
   - Fixed compose to remember attachments.
-  - Fixed possible XSS in compose when replying to malicious sources.
+  - Security: Fixed possible XSS in compose when replying to malicious sources.
   - Add display of the maximum filesize for attachment uploads.
   - Do not add < and > if an identity doesn't contain a full name.
   - Fixed bug in parsing Content-Type properties part.
@@ -373,7 +373,7 @@ Version 1.4.0 RC 2a
   - Correctly fold encoded header lines.
   - Fix prefs caching not working correctly in PHP 4.3 caused by a stupid
     version checking mechanism.
-  - Fix XSS hole that allowed JavaScript execution by sending someone
+  - Security: Fix XSS hole that allowed JavaScript execution by sending someone
     an email with specially crafted headers. Thanks Jason Munro, and
     Masato Higashiyama.
 
@@ -487,13 +487,13 @@ Version 1.2.7 -- June 21 2002
 
 Version 1.2.6 -- April 29 2002
 ------------------------------
-  - A complete MagicHTML rewrite since the existing codebase was
+  - Security: A complete MagicHTML rewrite since the existing codebase was
     causing too many XSS problems. Hopefully now Nick Cleaton will
     leave us alone. :) Testing credits go to Nick.
-  - Fix for cross-site scripting vulnerability (bug #545933)
+  - Security: Fix for cross-site scripting vulnerability (bug #545933)
     Reported by Nick Cleaton.
   - Changing "emtpy" to "purge" for more clarity.
-  - Fix for cross-site scripting vulnerability (bug #544658)
+  - Security: Fix for cross-site scripting vulnerability (bug #544658)
     Reported by Nick Cleaton.
   - Fix for incorrect word wrap in Opera (bug #495073)
   - Workaround for older prefs: some of them contain "None" for
@@ -508,7 +508,7 @@ Version 1.2.6 -- April 29 2002
   - Added a server-side sorting global option
   - Compose in new window size can be set in Display prefs.
   - Logout error system unified.
-  - Fix for a "theme passed as cookie" exploit.
+  - Security: Fix for a "theme passed as cookie" exploit. [CVE-2002-0516]
   - PostgreSQL is now supported for database backed use
   - Added user option to sort messages by internal date
   - Changed attachment handling now attachments are adressed to
@@ -579,7 +579,7 @@ Version 1.2.5 -- 22 February 2002
 
 Version 1.2.4 -- 25 January 2002
 --------------------------------
-  - Fixes a nasty remote arbitrary command execution vulnerability
+  - Security: Fixes a nasty remote arbitrary command execution vulnerability
     in the spellchecker plugin.
 
 Version 1.2.3 -- 21 January 2002
@@ -750,6 +750,7 @@ Version 1.0.6 -- April 19, 2001
 Version 1.0.5 -- April 17, 2001
 -------------------------------
   - MAJOR security issues addressed.  Please upgrade as soon as possible.
+    [CAN-2001-1159]
   - Downloading attachments should work better due to a tip by Ray Black III.
   - Fixed bug with drop-down folder list not containing INBOX
   - Added Swedish help files Teemu Junnila <teejun@vallcom.com>
