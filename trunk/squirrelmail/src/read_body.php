@@ -485,9 +485,9 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
    if ($compose_new_win == '1') {
       $s .= '<a href="javascript:void(0)" '. 
-            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as attachment").'</a>';
+            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as Attachment").'</a>';
    } else {
-      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as attachment").'</a>';
+      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as Attachment").'</a>';
    }
    $s .= $topbar_delimiter;
 
