@@ -80,7 +80,7 @@ global $username, $data_dir;
 set_up_language(getPref($data_dir, $username, 'language'));
 
 $timeZone = getPref($data_dir, $username, 'timezone');
-if ( $timeZone != SMPREF_NONE ) {
+if ( $timeZone != SMPREF_NONE && !ini_get("safe_mode")) {
     putenv("TZ=".$timeZone);
 }
 ?>
