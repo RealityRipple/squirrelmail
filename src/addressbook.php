@@ -177,7 +177,7 @@
       else if(!empty($editaddr)) {
 
 	 // Stage one: Copy data into form
-         if(sizeof($sel) > 0) {
+         if (isset($sel) && sizeof($sel) > 0) {
 	    if(sizeof($sel) > 1) {
 	       $formerror = _("You can only edit one address at the time");
 	       $showaddrlist = true;
