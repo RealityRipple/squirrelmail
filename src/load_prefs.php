@@ -11,6 +11,8 @@
     **  $Id$
     **/
 
+   include('../src/validate.php');
+
    if (defined('load_prefs_php'))
        return;
    define('load_prefs_php', true);
