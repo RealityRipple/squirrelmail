@@ -93,6 +93,7 @@ Version 1.5.0 -- CVS
     (address separator).
   - Added SASL PLAIN to IMAP and SMTP. Thanks to avel for the prodding and
     code snippet.
+  - conf.pl will no longer offer to detect login methods if TLS is enabled.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***

@@ -1135,43 +1135,47 @@ sub command111 {
 # Now offers to detect supported mechs, assuming server & port are set correctly
 
 sub command112a {
-	print "If you have already set the hostname and port number, I can try to\n";
-	print "detect the mechanisms your IMAP server supports.\n";
-	print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
-	print "for \"login\" or \"plain\" without knowing a username and password.\n";
-	print "Auto-detecting is optional - you can safely say \"n\" here.\n";
-	print "\nTry to detect supported mechanisms? [y/N]: ";
-	$inval=<STDIN>;
-	chomp($inval);
-	if ($inval =~ /^y\b/i) {
-	  # Yes, let's try to detect.
-	  print "Trying to detect IMAP capabilities...\n";
-	  my $host = $imapServerAddress . ':'. $imapPort;
-	  print "CRAM-MD5:\t";
-	  my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
-	  if (defined($tmp)) {
-		  if ($tmp eq 'YES') {
-		  	print "$WHT SUPPORTED$NRM\n";
-		  } else {
-		    print "$WHT NOT SUPPORTED$NRM\n";
-		  }
-      } else {
-	    print $WHT . " ERROR DETECTING$NRM\n";
-	  }
+    if ($use_imap_tls =~ /^true\b/i) {
+        print "Auto-detection of login methods is unavailable when using TLS.\n";
+    } else {
+    	print "If you have already set the hostname and port number, I can try to\n";
+    	print "detect the mechanisms your IMAP server supports.\n";
+    	print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
+    	print "for \"login\" or \"plain\" without knowing a username and password.\n";
+    	print "Auto-detecting is optional - you can safely say \"n\" here.\n";
+    	print "\nTry to detect supported mechanisms? [y/N]: ";
+    	$inval=<STDIN>;
+    	chomp($inval);
+    	if ($inval =~ /^y\b/i) {
+    	  # Yes, let's try to detect.
+    	  print "Trying to detect IMAP capabilities...\n";
+    	  my $host = $imapServerAddress . ':'. $imapPort;
+    	  print "CRAM-MD5:\t";
+    	  my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
+    	  if (defined($tmp)) {
+    		  if ($tmp eq 'YES') {
+    		  	print "$WHT SUPPORTED$NRM\n";
+    		  } else {
+    		    print "$WHT NOT SUPPORTED$NRM\n";
+    		  }
+          } else {
+    	    print $WHT . " ERROR DETECTING$NRM\n";
+    	  }
 
-	  print "DIGEST-MD5:\t";
-	  $tmp = detect_auth_support('IMAP',$host,'DIGEST-MD5');
-	  if (defined($tmp)) {
-	  	if ($tmp eq 'YES') {
-			print "$WHT SUPPORTED$NRM\n";
-		} else {
-			print "$WHT NOT SUPPORTED$NRM\n";
-		}
-	  } else {
-	    print $WHT . " ERROR DETECTING$NRM\n";
-	  }
-	  
-	} 
+    	  print "DIGEST-MD5:\t";
+    	  $tmp = detect_auth_support('IMAP',$host,'DIGEST-MD5');
+    	  if (defined($tmp)) {
+	      	if ($tmp eq 'YES') {
+		    	print "$WHT SUPPORTED$NRM\n";
+    		} else {
+	    		print "$WHT NOT SUPPORTED$NRM\n";
+    		}
+    	  } else {
+    	    print $WHT . " ERROR DETECTING$NRM\n";
+    	  }
+    	  
+    	}
+    } 
 	  print "\nWhat authentication mechanism do you want to use for IMAP connections?\n\n";
 	  print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
       print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
@@ -1194,79 +1198,83 @@ sub command112a {
 # SMTP authentication type
 # Possible choices: none, plain, cram-md5, digest-md5
 sub command112b {
-    print "If you have already set the hostname and port number, I can try to\n";
-    print "automatically detect some of the mechanisms your SMTP server supports.\n";
-	print "Auto-detection is *optional* - you can safely say \"n\" here.\n";
-    print "\nTry to detect auth mechanisms? [y/N]: ";
-    $inval=<STDIN>;
-    chomp($inval);
-    if ($inval =~ /^y\b/i) {
-		# Yes, let's try to detect.
-		print "Trying to detect supported methods (SMTP)...\n";
+    if ($use_smtp_tls =~ /^true\b/i) {
+        print "Auto-detection of login methods is unavailable when using TLS.\n";
+    } else {
+        print "If you have already set the hostname and port number, I can try to\n";
+        print "automatically detect some of the mechanisms your SMTP server supports.\n";
+    	print "Auto-detection is *optional* - you can safely say \"n\" here.\n";
+        print "\nTry to detect auth mechanisms? [y/N]: ";
+        $inval=<STDIN>;
+        chomp($inval);
+        if ($inval =~ /^y\b/i) {
+    		# Yes, let's try to detect.
+    		print "Trying to detect supported methods (SMTP)...\n";
 		
-		# Special case!
-		# Check none by trying to relay to junk@microsoft.com
-		$host = $smtpServerAddress . ':' . $smtpPort;
-		use IO::Socket;
-		my $sock = IO::Socket::INET->new($host);
-		print "Testing none:\t\t$WHT";
-		if (!defined($sock)) {
-			print " ERROR TESTING\n";
-			close $sock;
-		} else {
-			print $sock "mail from: tester\@squirrelmail.org\n";
-			$got = <$sock>;  # Discard
-			print $sock "rcpt to: junk\@microsoft.com\n";
-			$got = <$sock>;  # This is the important line
-			if ($got =~ /^250\b/) {  # SMTP will relay without auth
-				print "SUPPORTED$NRM\n";
-	        } else {
-			  print "NOT SUPPORTED$NRM\n";
-        	}
-			print $sock "rset\n";
-			print $sock "quit\n";
-			close $sock;
-		}
-		# Try login (SquirrelMail default)
-		print "Testing login:\t\t";
-		$tmp=detect_auth_support('SMTP',$host,'LOGIN');
-		if (defined($tmp)) {
-        	if ($tmp eq 'YES') {
-            	print $WHT . "SUPPORTED$NRM\n";
-	        } else {
-    	        print $WHT . "NOT SUPPORTED$NRM\n";
-        	}
-	      } else {
-    		  print $WHT . "ERROR DETECTING$NRM\n";
-      	}
-
-		# Try CRAM-MD5
-        print "Testing CRAM-MD5:\t";
-        $tmp=detect_auth_support('SMTP',$host,'CRAM-MD5');
-        if (defined($tmp)) {
-            if ($tmp eq 'YES') {
-                print $WHT . "SUPPORTED$NRM\n";
-            } else {
-                print $WHT . "NOT SUPPORTED$NRM\n";
+    		# Special case!
+    		# Check none by trying to relay to junk@microsoft.com
+    		$host = $smtpServerAddress . ':' . $smtpPort;
+    		use IO::Socket;
+    		my $sock = IO::Socket::INET->new($host);
+    		print "Testing none:\t\t$WHT";
+    		if (!defined($sock)) {
+    			print " ERROR TESTING\n";
+    			close $sock;
+    		} else {
+    			print $sock "mail from: tester\@squirrelmail.org\n";
+    			$got = <$sock>;  # Discard
+    			print $sock "rcpt to: junk\@microsoft.com\n";
+    			$got = <$sock>;  # This is the important line
+    			if ($got =~ /^250\b/) {  # SMTP will relay without auth
+    				print "SUPPORTED$NRM\n";
+    	        } else {
+    			  print "NOT SUPPORTED$NRM\n";
+            	}
+    			print $sock "rset\n";
+    			print $sock "quit\n";
+    			close $sock;
+    		}
+    		# Try login (SquirrelMail default)
+    		print "Testing login:\t\t";
+    		$tmp=detect_auth_support('SMTP',$host,'LOGIN');
+    		if (defined($tmp)) {
+            	if ($tmp eq 'YES') {
+                	print $WHT . "SUPPORTED$NRM\n";
+    	        } else {
+        	        print $WHT . "NOT SUPPORTED$NRM\n";
+            	}
+    	      } else {
+        		  print $WHT . "ERROR DETECTING$NRM\n";
+          	}
+    
+    		# Try CRAM-MD5
+            print "Testing CRAM-MD5:\t";
+            $tmp=detect_auth_support('SMTP',$host,'CRAM-MD5');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
             }
-          } else {
-              print $WHT . "ERROR DETECTING$NRM\n";
-        }
+    
 
-
-        print "Testing DIGEST-MD5:\t";
-        $tmp=detect_auth_support('SMTP',$host,'DIGEST-MD5');
-        if (defined($tmp)) {
-            if ($tmp eq 'YES') {
-                print $WHT . "SUPPORTED$NRM\n";
-            } else {
-                print $WHT . "NOT SUPPORTED$NRM\n";
+            print "Testing DIGEST-MD5:\t";
+            $tmp=detect_auth_support('SMTP',$host,'DIGEST-MD5');
+            if (defined($tmp)) {
+                if ($tmp eq 'YES') {
+                    print $WHT . "SUPPORTED$NRM\n";
+                } else {
+                    print $WHT . "NOT SUPPORTED$NRM\n";
+                }
+              } else {
+                  print $WHT . "ERROR DETECTING$NRM\n";
             }
-          } else {
-              print $WHT . "ERROR DETECTING$NRM\n";
-        }
-    } 
-    print "\tWhat authentication mechanism do you want to use for SMTP connections?\n";
+        } 
+    }
+    print "\nWhat authentication mechanism do you want to use for SMTP connections?\n";
     print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
     print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
     print $WHT . "plain" . $NRM . " - SASL PLAIN.  You already know it if you need this.\n";
