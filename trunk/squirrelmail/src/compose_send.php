@@ -46,7 +46,7 @@
    }
 
    $passed_body = stripslashes($passed_body);
-   $passed_body = stripslashes($passed_body);
+   $passed_body = stripslashes($passed_body); // Apparently I have to remove them twice.. dunno why.
    $passed_to = stripslashes($passed_to);
    $passed_cc = stripslashes($passed_cc);
    $passed_bcc = stripslashes($passed_bcc);
