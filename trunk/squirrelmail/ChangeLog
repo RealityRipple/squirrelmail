@@ -45,6 +45,8 @@ Version 1.5.1 -- CVS
     still be performed on message delete, etc.
   - Allow single quotes to be used in theme name in conf.pl (#805309).
   - Fixed on the fly decoding of base64 encoded attachments.
+  - Fixed message rejects by the postfix sendmail wrapper when attachments were
+    involved.
 
 Version 1.5.0
 --------------------
