@@ -37,6 +37,7 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'include/load_prefs.php');
+require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'plugins/filters/filters.php');
 
 global $AllowSpamFilters;
@@ -207,7 +208,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
             '</tr>'.
             '</table>'.
             '<input type="submit" name="filter_submit" value="' . _("Submit") . "\" />\n".
-            '<input type="hidden" name="theid" value="' . $theid . "\" />\n".
+            addHidden('theid', $theid).
             '</form>'.
             '</div>';
 

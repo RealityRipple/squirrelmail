@@ -41,16 +41,18 @@ function fortune() {
 
     $fortune_location = '/usr/games/fortune';
     $exist = file_exists($fortune_location);
-    echo "<center><table cellpadding=0 cellspacing=0 border=0 bgcolor=$color[10]><tr><td><table width=100% cellpadding=2 cellspacing=1 border=0 bgcolor=\"$color[5]\"><tr><td align=center>";
-    echo '<TABLE><TR><TD>';
+    echo "<center><table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" bgcolor=\"$color[10]\">\n".
+         "<tr><td><table width=\"100%\" cellpadding=\"2\" cellspacing=\"1\" border=\"0\" bgcolor=\"$color[5]\">\n".
+	 "<tr><td align=\"center\">\n";
+    echo '<table><tr><td>';
     if (!$exist) {
         echo "$fortune_location" . _(" not found.");
     } else {
-        echo "<CENTER><FONT=3><EM>" . _("Today's Fortune") . "</EM><BR></FONT></CENTER><pre>";
-        system($fortune_location);
+        echo "<center><em>" . _("Today's Fortune") . "</em><br></font></center><pre>";
+        htmlspecialchars(system($fortune_location));
     } 
   
-    echo '</pre></TD></TR></TABLE></td></tr></table></td></tr></table></center>';
+    echo '</pre></td></tr></table></td></tr></table></td></tr></table></center>';
 }
 
 /**

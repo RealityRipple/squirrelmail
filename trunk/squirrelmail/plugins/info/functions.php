@@ -31,7 +31,7 @@ function get_caps($imap_stream) {
  */
 function imap_test($imap_stream, $string) {
     global $default_charset;
-    print "<TR><TD>".$string."</TD></TR>";
+    print "<tr><td>".htmlspecialchars($string)."</td></tr>";
     $response = sqimap_run_command_list($imap_stream, trim($string),false, $responses, $message,false);
     array_push($response, $responses . ' ' .$message);
     return $response;
@@ -46,9 +46,7 @@ function print_response($response) {
             print_response($value);
         }
         else {
-            $value = preg_replace("/</", "&lt;", $value);
-            $value = preg_replace("/>/", "&gt;", $value);
-            print $value."<BR>\n";
+            print htmlspecialchars($value)."<br />\n";
         }
     }
 }

@@ -37,7 +37,7 @@ if ( ! sqgetGlobalVar('sound', $sound, SQ_GET) ) {
 echo html_tag( 'table',
          html_tag( 'tr',
              html_tag( 'td',
-                    "<embed src=\"$sound\" hidden=true autostart=true>".
+                    '<embed src="'.htmlspecialchars($sound)."\" hidden=\"true\" autostart=\"true\">\n".
                     '<br>'.
                     '<b>' . _("Loading the sound...") . '</b><br>'.
                     '<form>'.

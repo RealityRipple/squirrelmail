@@ -22,6 +22,7 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/forms.php');
 require_once(SM_PATH . 'plugins/info/functions.php');
 
 global $username, $color, $folder_prefix, $default_charset;
@@ -65,23 +66,29 @@ print "<CENTER><TABLE WIDTH=\"95%\" BORDER=1 BGCOLOR=".$color[3].">\n";
 print "<TR><TD BGCOLOR=".$color[4]."><B>Server Capability response:</B><BR>\n";
 
 foreach($caps_array[0] as $value) {
-    print $value;
+    print htmlspecialchars($value);
 }
 
 print "</TD></TR><TR><TD>\n";
 
 if (!isset($submit) || $submit == 'default') {
-    print "<BR><SMALL><FONT COLOR=".$color[6].">Select the IMAP commands you would like to run. Most commands require a selected mailbox so the select command is already setup. You can clear all the commands and test your own IMAP command strings. The commands are executed in order. The default values are simple IMAP commands using your default_charset and folder_prefix from Squirrelmail when needed.<BR><BR><B><CENTER>NOTE: These commands are live, any changes made will effect your current email account.</B></CENTER></FONT></SMALL><BR>\n";
+    print "<br><small><font color=".$color[6].">Select the IMAP commands you would like to run.
+        Most commands require a selected mailbox so the select command is already setup.
+        You can clear all the commands and test your own IMAP command strings. The commands are
+        executed in order. The default values are simple IMAP commands using your default_charset
+        and folder_prefix from SquirrelMail when needed.<br><br>
+        <b><center>NOTE: These commands are live, any changes made will effect your current
+        email account.</b></center></font></small><br>\n";
     if (!isset($submit)) {
         $submit = '';
     }
 }
 else {
-    print "folder_prefix = $folder_prefix<BR>\n";
-    print "default_charset = $default_charset\n";
+    print 'folder_prefix = ' . htmlspecialchars($folder_prefix)."<br />\n" .
+          'default_charset = '.htmlspecialchars($default_charset)."\n";
 }
 
-print "<BR></TD></TR></TABLE></CENTER><BR>\n";
+print "<br /></td></tr></table></center><br />\n";
 
 
 if ($submit == 'submit') {
@@ -126,13 +133,15 @@ foreach($type as $index=>$value) {
         print " CHECKED";
     }
     print "></TD><TD WIDTH=\"30%\">$index</TD><TD WIDTH=\"60%\">\n";
-    print "<INPUT TYPE=TEXT NAME=$index VALUE='$value' SIZE=60>\n"; 
+    print addInput($index, $value, 60);
 }
 
-print "</TD></TR></TABLE></CENTER><BR>\n";
-print "<CENTER><INPUT TYPE=SUBMIT NAME=submit value=submit>\n";
-print "<INPUT TYPE=SUBMIT NAME=submit value=clear>\n";
-print "<INPUT TYPE=SUBMIT NAME=submit value=default></CENTER><BR>\n";
+print "</td></tr></table></center><br>\n";
+print "<center>".
+        addSubmit('submit','submit').
+        addSubmit('clear','submit').
+        addSubmit('default','submit').
+        "</center><br>\n";
 
 $tests = array();
 

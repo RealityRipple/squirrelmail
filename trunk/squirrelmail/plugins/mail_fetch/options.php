@@ -281,7 +281,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     html_tag( 'td',
                         "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
                         '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_delete">' .
-                        '<br>' . _("Selected Server:") . " <b>" . htmlentities($mailfetch_server_[$mf_sn]) . "</b><br>" .
+                        '<br>' . _("Selected Server:") . " <b>" . htmlspecialchars($mailfetch_server_[$mf_sn]) . "</b><br>" .
                         _("Confirm delete of selected server?") . '<br><br>' .
                         '<input type=submit name=submit_mailfetch value="' . _("Confirm Delete") . '">' .
                         '<br></form>' ,
@@ -308,23 +308,28 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             html_tag( 'table' ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_server" value="' . htmlentities($mailfetch_server_[$mf_sn]) . '" size="40">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_server" value="' .
+                        htmlspecialchars($mailfetch_server_[$mf_sn]) . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Port:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_port" value="' . $mailfetch_port_[$mf_sn] . '" size="40">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_port" value="' .
+                        htmlspecialchars($mailfetch_port_[$mf_sn]) . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_alias" value="' . htmlentities($mailfetch_alias_[$mf_sn]) . '" size="40">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_alias" value="' .
+                        htmlspecialchars($mailfetch_alias_[$mf_sn]) . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Username:"), 'right' ) .
-                    html_tag( 'td', '<input type="text" name="mf_user" value="' . $mailfetch_user_[$mf_sn] . '" size="20">', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_user" value="' . 
+                        htmlspecialchars($mailfetch_user_[$mf_sn]) . '" size="20">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Password:"), 'right' ) .
-                    html_tag( 'td', '<input type="password" name="mf_pass" value="' . $mailfetch_pass_[$mf_sn] . '" size="20">', 'left' )
+                    html_tag( 'td', '<input type="password" name="mf_pass" value="' .
+                        htmlspecialchars($mailfetch_pass_[$mf_sn]) . '" size="20">', 'left' )
                 ) .
                 html_tag( 'tr' ) .
                     html_tag( 'th', _("Store in Folder:"), 'right' ) .

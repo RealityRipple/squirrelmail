@@ -183,7 +183,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         Mail_Fetch_Status(_("Opening POP server"));
         $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
         if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
-            Mail_Fetch_Status(_("Login Failed:") . ' ' . $pop3->ERROR );
+            Mail_Fetch_Status(_("Login Failed:") . ' ' . htmlspecialchars($pop3->ERROR) );
             continue;
         }
 
@@ -290,7 +290,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                    if( $pop3->delete($i) ) {
                         Mail_Fetch_Status(_("Message ") . $i . _(" deleted from Remote Server!"));
                    } else {
-                        Mail_Fetch_Status(_("Delete failed:") . $pop3->ERROR );
+                        Mail_Fetch_Status(_("Delete failed:") . htmlspecialchars($pop3->ERROR) );
                    }
                 }
             } else {
