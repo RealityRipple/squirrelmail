@@ -117,7 +117,7 @@ function replyAllString($header) {
     * TO list) only if $include_self_reply_all is turned off
     */
    if (!$include_self_reply_all) {
-       $email_address = trim(getPref($data_dir, $username, 'email_address'));
+       $email_address = strtolower(trim(getPref($data_dir, $username, 'email_address')));
        $excl_ar[$email_address] = '';
        $idents = getPref($data_dir, $username, 'identities');
        if ($idents != '' && $idents > 1) {
@@ -125,7 +125,7 @@ function replyAllString($header) {
           for ($i = 1; $i < $idents; $i ++) {
              $cur_email_address = getPref($data_dir, $username, 
                                          'email_address' . $i);
-             $cur_email_address = strtolower($cur_email_address);
+             $cur_email_address = strtolower(trim($cur_email_address));
              $excl_ar[$cur_email_address] = '';
          }
        }
