@@ -246,7 +246,7 @@ if($REQUEST_METHOD == 'POST') {
 /* Display error messages */
 if (!empty($formerror)) {
     echo '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' . "\n" .
-         '<TR><TD ALIGN=CENTER>\n<br><STRONG>' .
+         '<TR><TD ALIGN=CENTER>' . "\n" . '<br><STRONG>' .
          '<FONT COLOR="' . $color[2]. '">' . _("ERROR") . ': ' . $formerror .
          '</FONT><STRONG>' . "\n</TD></TR>\n</TABLE>\n";
 }
