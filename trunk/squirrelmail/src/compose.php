@@ -396,10 +396,10 @@ exit();
 /* This function is used when not sending or adding attachments */
 function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority,
-           $use_signature, $composesession;
+           $use_signature, $composesession, $data_dir, $username;
 
-    $send_to = $send_to_cc = $send_to_bcc = $subject = $mailprio = $body = '';
-
+    $send_to = $send_to_cc = $send_to_bcc = $subject = $body = $identity = '';
+    $mailprio = 3;
     if ($passed_id) {
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
@@ -448,6 +448,30 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	  $mailprio = '';
 	}
         ClearAttachments($session);
+
+        $identity = '';
+        $idents = getPref($data_dir, $username, 'identities');
+        $from_o = $message->header->from;
+        if (is_object($from_o)) {
+            $orig_from = $from_o->getAddress();
+        } else {
+            $orig_from = '';
+        }    
+        if (!empty($idents) && $idents > 1) {
+           for ($i = 1; $i < $idents; $i++) {
+              $enc_from_name = '"'. 
+                              getPref($data_dir, 
+                                      $username, 
+                                      'full_name' . $i) .
+                 '" <' . getPref($data_dir, $username, 
+                                 'email_address' . $i) . '>';
+              if ($enc_from_name == $orig_from) {
+                  $identity = $i;
+                  break;
+              }
+           }
+        }
+	
 	switch ($action) {
 	  case ('draft'):
              $use_signature = FALSE;
@@ -475,12 +499,13 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	     $send_to_bcc = $orig_header->getAddr_s('bcc');
 	     $subject = $orig_header->subject;
 	     $mailprio = $orig_header->priority;
+	     $orig_from = '';
              getAttachments($message, $session, $passed_id, $entities, $imapConnection);
 	     sqUnWordWrap($body);
 	     break;
 	  case ('forward'):
 	     $send_to = '';
-	     $orig_from = $orig_header->from->getAddress();
+//	     $orig_from = $orig_header->from->getAddress();
              $subject = $orig_header->subject;
              if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
                 (substr(strtolower($subject), 0, 5) != '[fwd:') &&
@@ -498,7 +523,7 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	     } else {
 	        $send_to = $orig_header->from->getAddress();
 	     }
-	     $orig_from = $orig_header->from->getAddress();
+//	     $orig_from = $orig_header->from->getAddress();
 	     $subject = $orig_header->subject;
              $subject = str_replace('"', "'", $subject);
              $subject = trim($subject);
@@ -533,7 +558,8 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	    'send_to_bcc' => $send_to_bcc,	     
 	    'subject' => $subject,
 	    'mailprio' => $mailprio,
-	    'body' => $body
+	    'body' => $body,
+	    'identity' => $identity
 	    );
     
     return ($ret);
@@ -608,6 +634,7 @@ function showInputForm ($session, $values=false) {
        $subject = $values['subject'];       
        $mailprio = $values['mailprio'];
        $body = $values['body'];
+       $identity = $values['identity'];
     }
     
     if ($use_javascript_addr_book) {
