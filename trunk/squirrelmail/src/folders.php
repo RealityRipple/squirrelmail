@@ -138,6 +138,8 @@ echo html_tag( 'tr',
         ) ."\n";
 
 /** count special folders **/
+
+// FIX ME, why not check if the folders are defined IMHO move_to_sent, move_to_trash has nothing todo with it
 $count_special_folders = 0;
 $num_max = 1;
 if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
@@ -149,25 +151,36 @@ if ($move_to_sent) {
 if ($save_as_draft) {
     $num_max++;
 }
+
+// What if move_to_sent = false and $sent_folder is set? Should it still be skipped?
+
 for ($p = 0, $cnt = count($boxes); $p < $cnt && $count_special_folders < $num_max; $p++) {
-    if (strtolower($boxes[$p]['unformatted']) == 'inbox')
-        $count_special_folders++;
-    else if (strtolower($imap_server_type) == 'courier' &&
-            strtolower($boxes[$p]['unformatted']) == 'inbox.trash') {
-        $count_special_folders++;
-    }
-    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder) {
-        $count_special_folders++;
-        array_push($skip_folders, strtolower($trash_folder));
-    }
-    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder) {
-        $count_special_folders++;
-        array_push($skip_folders, strtolower($sent_folder));
-    }
-    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder) {
-        $count_special_folders++;
-        array_push($skip_folders, strtolower($draft_folder));
-    }
+    switch ($boxes[$p]['unformatted'])
+    {
+       case (strtoupper($boxes[$p]['unformatted']) == 'INBOX'):
+          ++$count_special_folders;
+	  $skip_folders[] = $boxes[$p]['unformatted'];
+	  break;
+       // FIX ME inbox.trash should be set in conf.pl
+       case 'inbox.trash':
+          if (strtolower($imap_server_type) == 'courier') {
+	      ++$count_special_folders;
+	  }
+	  break;
+       case $trash_folder:
+           ++$count_special_folders;
+           $skip_folders[] = $trash_folder;
+	   break;
+       case $sent_folder:
+           ++$count_special_folders;
+           $skip_folders[] = $sent_folder;
+	   break;
+       case $draft_folder:
+           ++$count_special_folders;
+           $skip_folders[] = $draft_folder;
+	   break;
+       default: break;
+    }	  
 }
 
 
