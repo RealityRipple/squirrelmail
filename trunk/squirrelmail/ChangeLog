@@ -105,6 +105,7 @@ Version 1.5.0 -- CVS
     separate packages and kept in different cvs module.
   - New function: imap_general.php:create_imap_stream()
   - Updated src/login.php to detect, handle, and warn on LOGINDISABLED from IMAP server.
+  - Fixed SquirrelMail to work under PHP5.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
