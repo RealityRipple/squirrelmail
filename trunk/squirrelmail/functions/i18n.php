@@ -23,7 +23,7 @@
    $languages["ru"]["CHARSET"] = "koi8-r";
    $languages["pl"]["NAME"]    = "Polish";
    $languages["pl"]["CHARSET"] = "iso-8859-2";
-   $languages["sv"]["NAME"]    = "Sweedish";
+   $languages["sv"]["NAME"]    = "Swedish";
    $languages["sv"]["CHARSET"] = "iso-8859-1";
    $languages["nl"]["NAME"]    = "Dutch";
    $languages["nl"]["CHARSET"] = "iso-8859-1";
