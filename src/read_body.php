@@ -652,9 +652,9 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $menu_row .= getButton('SUBMIT', 'smaction_reply_all', _("Reply All"), $on_click) ."\n";
     $menu_row .= getButton('SUBMIT', 'smaction_forward', _("Forward"), $on_click);
     if ($enable_forward_as_attachment)
-        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("As Attachment") ."\n";
+        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("As Attachment") .'&nbsp;&nbsp;'."\n";
 
-    $menu_row .= '</form>'.'&nbsp;&nbsp;'."\n";
+    $menu_row .= '</form>&nbsp;';
 
     // Form for deletion
     $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
@@ -676,7 +676,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     else
       $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
 
-    $menu_row .= '</form>' . "\n";
+    $menu_row .= '</form>';
 
 
     // Add top move link
