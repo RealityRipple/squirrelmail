@@ -433,6 +433,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
     $move_to_trash, $trash_folder, $collapse_folders;
 
+    if (!$boxes)
+    	return;
+
     /* use_folder_images only works if the images exist in ../images */
     $use_folder_images = true;
 
@@ -442,7 +445,6 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $unseen_found = false;
     $unseen = 0;
 
-    if ($boxes) {
     $mailbox = $boxes->mailboxname_full;
     $mailboxURL = urlencode($mailbox);
 
@@ -484,7 +486,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
     /* color special boxes */
     if ($boxes->is_special) {
-            $pre .= "<font color=\"$color[11]\">";
+        $pre .= "<font color=\"$color[11]\">";
         $end .= '</font>';
     }
 
@@ -497,21 +499,21 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     }
 
     if (($move_to_trash) && ($mailbox == $trash_folder)) {
-            if (! isset($numMessages)) {
+        if (! isset($numMessages)) {
             $numMessages = $boxes->total;
-            }
-            $pre .= "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">";
-            $end .= '</a>';
-            if ($numMessages > 0) {
+        }
+        $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
+        $end .= '</a>';
+        if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
             $end .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<a class=\"mbx_link\" href=\"empty_trash.php\">"._("purge")."</a>)" .
                     "</small>";
-            }
+        }
     } else {
         if (!$boxes->is_noselect) { /* \Noselect boxes can't be selected */
-        $pre .= "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">";
-        $end .= '</a>';
+            $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
+            $end .= '</a>';
         }
     }
 
@@ -559,19 +561,18 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         }
     }
 
-        $visible = ($collapse ? ' style="display:none"' : ' style="display:block"');
-        if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
-            echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0000 '. $visible ) . "\n";
+    $visible = ($collapse ? ' style="display:none"' : ' style="display:block"');
+    if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
+        echo html_tag( 'div', '', 'left', '', 'class="par_area" id='.$j.'.0000 '. $visible ) . "\n";
 
-        if ($j !='ID.0000')
-           $j = $j .'.0000';
-        for ($i = 0; $i <count($boxes->mbxs); $i++) {
-            $j++;
-            ListAdvancedBoxes($boxes->mbxs[$i],$mbx,$j);
-        }
-        if (isset($boxes->mbxs[0]) && !$boxes->is_root)
-            echo '</div>'."\n\n";
+    if ($j !='ID.0000')
+       $j = $j .'.0000';
+    for ($i = 0; $i <count($boxes->mbxs); $i++) {
+        $j++;
+        ListAdvancedBoxes($boxes->mbxs[$i],$mbx,$j);
     }
+    if (isset($boxes->mbxs[0]) && !$boxes->is_root)
+        echo '</div>'."\n\n";
 }
 
 
@@ -626,7 +627,7 @@ if (isset($left_refresh) && ($left_refresh != '') &&
  * to marc@its-projects.nl
  **/
 
-$advanced_tree = false;
+$advanced_tree = false;  /* set this to true if you want to see a nicer mailboxtree */
 $oldway = false;        /* default SM behaviour */
 
 if ($advanced_tree) {
@@ -1048,7 +1049,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         echo '<form name="collapse" action="left_main.php" method="post" ' .
              'enctype="multipart/form-data"'."\n";
         echo '<small>';
-      echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
+        echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';
         echo '<div id="mailboxes" class="mailboxes">'."\n\n";
         sqgetGlobalVar('mbx', $mbx, SQ_POST);
         if (!isset($mbx)) $mbx=NULL;
