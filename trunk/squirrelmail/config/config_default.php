@@ -378,9 +378,10 @@ global $ldap_server;
  *   addressbooks are stored.  See doc/db-backend.txt for more info.
  *   If it is not defined, the addressbooks are stored in files
  *   in the data dir.
+ *   The DSN is in the format: mysql://user:pass@hostname/dbname
  */
-#global $addrbook_dsn;
-#$addrbook_dsn = 'mysql://user:pass@hostname/dbname';
+global $addrbook_dsn;
+$addrbook_dsn = '';
 
 /**
  * Users may search their addressbook via either a plain HTML or Javascript

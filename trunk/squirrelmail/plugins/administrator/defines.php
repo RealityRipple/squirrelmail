@@ -188,13 +188,20 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                    'type' => SMOPT_TYPE_TEXTAREA,
                                    'size' => 40 ),
                  /* --------------------------------------------------------*/
-                 'Group6' => array( 'name' => _("Themes"),
+                 'Group6' => array( 'name' => _("Database"),
+                                    'type' => SMOPT_TYPE_TITLE ),
+                 '$addrbook_dsn' => array( 'name' => _("Address book DSN"),
+                                           'type' => SMOPT_TYPE_STRING,
+                                           'size' => 40 ), 
+                 /* --------------------------------------------------------*/
+                 'Group7' => array( 'name' => _("Themes"),
                                     'type' => SMOPT_TYPE_TITLE ),
                  '$theme_css' => array( 'name' => _("Style Sheet URL (css)"),
                                         'type' => SMOPT_TYPE_STRING,
                                         'size' => 40 ),
                  /* --------------------------------------------------------*/
                  '$config_use_color' => array( 'type' => SMOPT_TYPE_HIDDEN )
+                 /* --------------------------------------------------------*/
 
                );
 

@@ -41,7 +41,7 @@ if (isset($address_book_global_filename)) {
 }
 
 /* Only load database backend if database is configured */
-if(isset($addrbook_dsn)) {
+if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
   include_once('../functions/abook_database.php');
 }
 
