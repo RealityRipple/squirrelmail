@@ -35,6 +35,9 @@ function findNextMessage() {
             $result = $currentArrayIndex - 1;
         }
     } else {
+        if (!is_array($msort)) {
+            return -1;
+        }
         for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
             if ($currentArrayIndex == $msgs[$key]['ID']) {
                 next($msort);
@@ -70,6 +73,9 @@ function findPreviousMessage() {
             $result = $currentArrayIndex + 1;
         }
     } else {
+	if (!is_array($msort)) {
+            return -1;
+	}
         for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
             if ($currentArrayIndex == $msgs[$key]['ID']) {
                 prev($msort);
