@@ -9,7 +9,6 @@
     **  Copies specified messages to specified folder
     ******************************************************************************/
    function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
-      echo "a001 COPY $start:$end \"$mailbox\"\n<br>";
       fputs ($imap_stream, "a001 COPY $start:$end \"$mailbox\"\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
    }
@@ -26,8 +25,6 @@
       } else {
          sqimap_messages_flag ($imap_stream, $start, $end, "Deleted");
       }
-      if ($auto_expunge == true)
-         sqimap_mailbox_expunge ($imap_stream, $mailbox);
    }
 
    /******************************************************************************

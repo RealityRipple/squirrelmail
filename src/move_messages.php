@@ -52,12 +52,13 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
-               echo $msg[$i] . "<BR>";
                sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
                $j++;
             }
             $i++;
          }
+         if ($auto_expunge)
+            sqimap_mailbox_expunge($imapConnection, $mailbox);
          messages_deleted_message($mailbox, $sort, $startMessage, $color);
       } else {
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
@@ -73,7 +74,6 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
-               echo $msg[$i] . "<BR>";
                /** check if they would like to move it to the trash folder or not */
                sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
                sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
@@ -82,7 +82,7 @@
             $i++;
          }
          if ($auto_expunge == true)
-            sqimap_mailbox_expunge($imapConnection, $mailbox, $numMessages);
+            sqimap_mailbox_expunge($imapConnection, $mailbox);
 
          messages_moved_message($mailbox, $sort, $startMessage, $color);
       } else {
