@@ -1863,18 +1863,6 @@ sub command33a {
     } else {
         $new_data_dir =~ s/[\r|\n]//g;
     }
-    print "under the web server's root directory (ex: /home/httpd/html).\n";
-    print "For this reason, it is recommended to put the data directory\n";
-    print "in an alternate location of your choice. \n";
-    print "\n";
-
-    print "[$WHT$data_dir$NRM]: $WHT";
-    $new_data_dir = <STDIN>;
-    if ( $new_data_dir eq "\n" ) {
-        $new_data_dir = $data_dir;
-    } else {
-        $new_data_dir =~ s/[\r|\n]//g;
-    }
     if ( $new_data_dir =~ /^\s*$/ ) {
         $new_data_dir = "";
     } else {
