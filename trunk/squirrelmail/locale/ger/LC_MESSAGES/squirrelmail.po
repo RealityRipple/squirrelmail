@@ -1,0 +1,488 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2000-03-05 09:00-0500\n"
+"PO-Revision-Date: 2000-03-07 01:02+0100\n"
+"Last-Translator: Christophe Thil <cj@limburgerhof.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: src/compose.php:58 src/compose.php:94
+msgid "No Message"
+msgstr "Keine Nachricht"
+
+#: src/compose.php:64
+msgid "-------- Original Message ---------\n"
+msgstr "-------- Vorherige Nachricht ---------\n"
+
+#: src/compose.php:158 src/read_body.php:153
+msgid "To:"
+msgstr "An:"
+
+#: src/compose.php:168
+msgid "CC:"
+msgstr "CC:"
+
+#: src/compose.php:178
+msgid "BCC:"
+msgstr "BCC:"
+
+#: src/compose.php:188 src/read_body.php:129
+msgid "Subject:"
+msgstr "Betreff:"
+
+#: src/compose.php:209 src/compose.php:222
+msgid "Send"
+msgstr "Senden"
+
+#: src/compose.php:228
+msgid "Attach:"
+msgstr "Anhang:"
+
+#: src/compose.php:234
+msgid "Add"
+msgstr "Hinzuf|gen"
+
+#: src/compose.php:247
+msgid "Delete selected attachments"
+msgstr "Ausgewdhlten Anhang lvschen"
+
+#: src/compose.php:266
+msgid "You have not entered a message body."
+msgstr "Du hast noch keinen Nachrichtentext eingegeben."
+
+#: src/compose.php:270
+msgid "You have not filled in the \"To:\" field."
+msgstr "Du hast das \"An:\"-Feld noch nicht ausgef|llt."
+
+#: src/compose.php:273
+msgid "You have not entered a subject."
+msgstr "Du hast keinen Betreff eingegeben."
+
+#: src/compose.php:294
+msgid "Could not move/copy file. File not attached"
+msgstr "Kann Datei nicht verschieben/kopieren. Datei nicht angehdngt."
+
+#: src/download.php:23
+msgid "Viewing a plain text attachment"
+msgstr "Nur-Text anzeigen"
+
+#: functions/mime.php:160 src/download.php:28
+msgid "Download this as a file"
+msgstr "Datei herunterladen"
+
+#: functions/page_header.php:47 src/folders.php:21 src/left_main.php:87
+msgid "Folders"
+msgstr "Ordner"
+
+#: src/folders.php:31
+msgid "Delete Folder"
+msgstr "Ordner lvschen"
+
+#: functions/mailbox_display.php:226 src/folders.php:54 src/read_body.php:105
+msgid "Delete"
+msgstr "Lvschen"
+
+#: src/folders.php:60
+msgid "Create Folder"
+msgstr "Ordner erstellen"
+
+#: src/folders.php:65
+msgid "as a subfolder of"
+msgstr "als Unterordner von"
+
+#: src/folders.php:91
+msgid "Let this folder contain subfolders"
+msgstr "Dieser Ordner enthdlt Unterordner"
+
+#: src/folders.php:99
+msgid "Rename a Folder"
+msgstr "Ordner umbenennen"
+
+#: src/folders.php:121
+msgid "Rename"
+msgstr "Umbenennen"
+
+#: src/folders_create.php:21
+msgid ""
+"Illegal folder name.  Please select a different name.<BR><A "
+"HREF=\"../src/folders.php\">Click here to go back</A>."
+msgstr ""
+"Ordnername nicht mvglich. Bitte gehe<BR><A "
+"HREF=\"../src/folders.php\">zur|ck</A> und wdhle einen anderen."
+
+#: src/folders_create.php:41
+msgid "Folder Created!"
+msgstr "Ordner erstellt!"
+
+#: src/folders_create.php:43
+msgid "The folder has been successfully created."
+msgstr "Der Ordner wurde erfolgreich erstellt."
+
+#: src/folders_create.php:45 src/folders_delete.php:82
+#: src/options_submit.php:42
+msgid "Click here"
+msgstr "Hier klicken"
+
+#: src/folders_create.php:47 src/folders_delete.php:84
+#: src/options_submit.php:44
+msgid "to continue."
+msgstr "um weiterzumachen."
+
+#: src/folders_delete.php:78
+msgid "Folder Deleted!"
+msgstr "Ordner gelvscht!"
+
+#: src/folders_delete.php:80
+msgid "The folder has been successfully deleted."
+msgstr "Der Ordner wurde erfolgreich gelvscht."
+
+#: src/folders_rename_do.php:40
+msgid "Return"
+msgstr "Zur|ck"
+
+#: src/folders_rename_getname.php:29
+msgid "Rename a folder"
+msgstr "Ordner umbenennen"
+
+#: src/folders_rename_getname.php:33
+msgid "New name:"
+msgstr "Neuer Name:"
+
+#: src/folders_rename_getname.php:37 src/options.php:322
+msgid "Submit"
+msgstr "Senden"
+
+#: src/left_main.php:63
+msgid "purge"
+msgstr "lvschen"
+
+#: src/left_main.php:90
+msgid "refresh folder list"
+msgstr "Ordnerliste erneuern"
+
+#: src/load_prefs.php:17
+msgid "Theme: "
+msgstr "Theme:"
+
+#: src/load_prefs.php:19
+msgid " was not found."
+msgstr " wurde nicht gefunden."
+
+#: src/load_prefs.php:21
+msgid "Exiting abnormally"
+msgstr "Abnormale Beendigung"
+
+#: src/login.php:30
+msgid "SquirrelMail Login"
+msgstr "SquirrelMail Login"
+
+#: src/login.php:43
+msgid "SquirrelMail version $version<BR>By the SquirrelMail Development Team"
+msgstr "SquirrelMail Version $version<BR>SquirrelMail Development Team"
+
+#: src/login.php:55
+msgid "Name:"
+msgstr "Name:"
+
+#: src/login.php:61
+msgid "Password:"
+msgstr "Passwort:"
+
+#: src/login.php:70
+msgid "Login"
+msgstr "Login"
+
+#: src/move_messages.php:64 src/move_messages.php:89
+msgid "No messages were selected."
+msgstr "Keine Nachrichten ausgewdhlt."
+
+#: functions/page_header.php:48 src/options.php:35
+msgid "Options"
+msgstr "Optionen"
+
+#: src/options.php:44
+msgid "Full Name:"
+msgstr "Voller Name:"
+
+#: src/options.php:53
+msgid "E-mail address:"
+msgstr "E-Mail-Adresse:"
+
+#: src/options.php:62
+msgid "Reply-to:"
+msgstr "Antworten an:"
+
+#: src/options.php:71
+msgid "Theme:"
+msgstr "Theme:"
+
+#: src/options.php:88
+msgid "Language:"
+msgstr "Sprache:"
+
+#: src/options.php:110
+msgid "Move deleted messages to "
+msgstr "Verschiebe gelvschte Nachrichten nach "
+
+#: src/options.php:130
+msgid "Wrap incoming text at:"
+msgstr "Breche eingehenden Text um bei:"
+
+#: src/options.php:143
+msgid "Size of editor window (in characters):"
+msgstr "Grv_e des Editorfensters (in Buchstaben):"
+
+#: src/options.php:156
+msgid "Width of left folder list:"
+msgstr "Breite der Ordnerliste:"
+
+#: src/options.php:213
+msgid "Time between auto refresh of folder list:"
+msgstr "Intervall der automatischen Aktualisierung der Odnerliste:"
+
+#: src/options.php:308
+msgid "Use a signature?"
+msgstr "Signatur verwenden?"
+
+#: src/options_submit.php:38
+msgid "Options Saved!"
+msgstr "Optionen gespreicher!"
+
+#: src/options_submit.php:40
+msgid "Your options have been saved."
+msgstr "Deine Optionen wurden gespeichert."
+
+#: src/read_body.php:39
+msgid "more"
+msgstr "mehr"
+
+#: src/read_body.php:40
+msgid "less"
+msgstr "weniger"
+
+#: src/read_body.php:102
+msgid "Message List"
+msgstr "Nachrichtenliste"
+
+#: src/read_body.php:111
+msgid "Forward"
+msgstr "Weiterleiten"
+
+#: src/read_body.php:114
+msgid "Reply"
+msgstr "Antworten"
+
+#: src/read_body.php:117
+msgid "Reply All"
+msgstr "Antworten an alle"
+
+#: src/read_body.php:137
+msgid "From:"
+msgstr "Von:"
+
+#: src/read_body.php:145
+msgid "Date:"
+msgstr "Datum:"
+
+#: src/right_main.php:11
+msgid "You must "
+msgstr "Du mu_t dich zuerst "
+
+#: src/right_main.php:13
+msgid "login"
+msgstr "einloggen"
+
+#: src/right_main.php:15
+msgid " first."
+msgstr ""
+
+#: src/right_main.php:19 src/webmail.php:10
+msgid "You need a valid user and password to access this page!"
+msgstr "Du benvtigst eine g|ltige Benutzernamen- und Paswortkombination um Zugriff zu dieser Seite zu bekommen."
+
+#: functions/page_header.php:38 src/signout.php:34
+msgid "Sign Out"
+msgstr "die Sitzung zu beenden"
+
+#: src/signout.php:41
+msgid "You have been successfully signed out."
+msgstr "Du hast diese Sitzung erfolgreich beendet."
+
+#: src/signout.php:43
+msgid "Click here to "
+msgstr "Klicke hier um "
+
+#: src/signout.php:45
+msgid "log back in."
+msgstr "dich wieder einzuloggen."
+
+#: functions/display_messages.php:19 functions/imap_general.php:108
+msgid "Unknown user or password incorrect."
+msgstr "Ung|ltiger Benutzername oder Pa_wort nicht korrekt."
+
+#: functions/display_messages.php:19 functions/imap_general.php:109
+msgid "Click here to try again"
+msgstr "Klicke hier f|r einen weiteren Versuch"
+
+#: functions/display_messages.php:31
+msgid "Welcome to $org_name's WebMail system"
+msgstr "Willkommen im WebMail-System von $org_name"
+
+#: functions/display_messages.php:40
+msgid "Running SquirrelMail version $version (c) 1999-2000."
+msgstr "unter SquirrelMail Version $version (c) 1999-2000."
+
+#: functions/display_messages.php:58
+msgid "Messages Deleted"
+msgstr "Nachricht gelvscht"
+
+#: functions/display_messages.php:60
+msgid "The selected messages were deleted successfully."
+msgstr "Die gewdhlten Nachrichten wurden erfolgreich gelvscht."
+
+#: functions/display_messages.php:63 functions/display_messages.php:80
+#: functions/display_messages.php:97
+msgid "Click here to return to "
+msgstr "Klicke hier um zur|ckzukehren zu"
+
+#: functions/display_messages.php:75
+msgid "Messages Moved"
+msgstr "Nachricht verschoben"
+
+#: functions/display_messages.php:77
+msgid "The selected messages were moved successfully."
+msgstr "Die gewdhlten Nachrichten wurden erfolgreich verschoben."
+
+#: functions/display_messages.php:92 functions/display_messages.php:108
+#: functions/imap_general.php:99
+msgid "ERROR"
+msgstr "FEHLER"
+
+#: functions/imap_general.php:41
+msgid "ERROR : Could not complete request."
+msgstr "FEHLER: Konnte Anfrage nicht vollstdndig ausf|hren."
+
+#: functions/imap_general.php:43
+msgid "Reason Given: "
+msgstr "Grund:"
+
+#: functions/imap_general.php:48
+msgid "ERROR : Bad or malformed request."
+msgstr "FEHLER: Falsche Anfrage."
+
+#: functions/imap_general.php:50
+msgid "Server responded: "
+msgstr "Der Server antwortete: "
+
+#: functions/imap_messages.php:53 functions/imap_messages.php:223
+#: functions/imap_messages.php:252
+msgid "(no subject)"
+msgstr "(kein Betreff)"
+
+#: functions/imap_messages.php:255
+msgid "(unknown sender)"
+msgstr "(unbekannter Absender)"
+
+#: functions/mailbox_display.php:170
+msgid "Viewing messages "
+msgstr "Zeige Nachrichten "
+
+#: functions/mailbox_display.php:170
+msgid " to "
+msgstr " bis "
+
+#: functions/mailbox_display.php:174
+msgid "Viewing message "
+msgstr "Zeige Nachricht "
+
+#: functions/mailbox_display.php:174
+msgid "total"
+msgstr "Gesamt"
+
+#: functions/mailbox_display.php:180 functions/mailbox_display.php:184
+#: functions/mailbox_display.php:284 functions/mailbox_display.php:288
+msgid "Previous"
+msgstr "Vorherige"
+
+#: functions/mailbox_display.php:181 functions/mailbox_display.php:189
+#: functions/mailbox_display.php:285 functions/mailbox_display.php:289
+#: functions/mailbox_display.php:293
+msgid "Next"
+msgstr "Ndchste"
+
+#: functions/mailbox_display.php:200
+msgid "Move selected to:"
+msgstr "Verschiebe ausgewdhlte nach:"
+
+#: functions/mailbox_display.php:222
+msgid "Move"
+msgstr "Verschieben"
+
+#: functions/mailbox_display.php:226
+msgid "checked messages"
+msgstr "gewdhlte Nachrichten"
+
+#: functions/mailbox_display.php:238
+msgid "From"
+msgstr "Von"
+
+#: functions/mailbox_display.php:246
+msgid "Date"
+msgstr "Datum"
+
+#: functions/mailbox_display.php:254
+msgid "Subject"
+msgstr "Betreff"
+
+#: functions/mailbox_display.php:267
+msgid "THIS FOLDER IS EMPTY"
+msgstr "DIESER ORDNER IST LEER"
+
+#: functions/page_header.php:40
+msgid "Current Folder: "
+msgstr "Aktueller Ordner: "
+
+#: functions/page_header.php:45
+msgid "Compose"
+msgstr "Erstellen"
+
+#: functions/page_header.php:46
+msgid "Addresses"
+msgstr "Adressen"
+
+#: functions/prefs.php:14
+msgid "Preference file "
+msgstr "Einstellungsdatei "
+
+#: functions/prefs.php:14
+msgid " not found.  Exiting abnormally"
+msgstr " nicht gefunden. Beende"
+
+#: functions/prefs.php:37
+msgid "Preference file, "
+msgstr "Einstellungsdatei "
+
+#: functions/prefs.php:37
+msgid ""
+", does not exist.  Log out, and log back in to create a default preference "
+"file. "
+msgstr ""
+" wurde nicht gefunden.  Bitte logge Dich aus und nochmals ein um eine neue "
+"Einstellungsdatei zu erstellen."
+
+
+#: functions/prefs.php:80
+msgid "Error opening "
+msgstr "Fehler beim Vffnen von "
+
+#: functions/prefs.php:109
+msgid "Signature file not found."
+msgstr "Signaturdatei nicht gefunden."

@@ -128,7 +128,7 @@
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
-   $version = "0.3pre1";
+   $version = "0.3pre2";
 
 
    function find_mailbox_name ($mailbox) {
