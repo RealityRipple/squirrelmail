@@ -314,7 +314,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
   
    $header = $message->header;
    $env = array();
-   $env[_("Subject")] = getLongDateString($header->date);
+   $env[_("Subject")] = htmlspecialchars($header->subject);   
    $from_o = $header->from;
    if (is_object($from_o)) {
        $from_name = $from_o->getAddress();
@@ -322,7 +322,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
        $from_name = _("Unknown sender");
    }
    $env[_("From")] = htmlspecialchars($from_name);
-   $env[_("Date")] = htmlspecialchars($header->subject);
+   $env[_("Date")] = getLongDateString($header->date);
    $env[_("To")] = formatRecipientString($header->to, "to");
    $env[_("Cc")] = formatRecipientString($header->cc, "cc");
    $env[_("Bcc")] = formatRecipientString($header->bcc, "bcc");
