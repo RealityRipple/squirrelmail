@@ -311,8 +311,8 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $post)
   <tr<?PHP echo $OtherBG ?>>
     <td>&nbsp;</td><td>
       <input type=hidden name="form_for_<?PHP echo $post ?>" value="1">
-      <input type=submit name="update" value="<?PHP echo _("Save / Update") ?>">
-<?PHP 
+      <input type=submit name="update" value="<?PHP 
+   echo _("Save / Update") . '">';
    if (! $isEmptySection && $post != '') {
 ?>
       <input type=submit name="make_default_<?PHP echo $post ?>" value="<?PHP

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-10-03 10:27+0200\n"
+"POT-Creation-Date: 2001-10-07 00:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,7 +144,7 @@ msgstr ""
 
 #: /home/backup/squirrelmail/functions/display_messages.php:66
 #: /home/backup/squirrelmail/functions/display_messages.php:82
-#: /home/backup/squirrelmail/functions/imap_general.php:205
+#: /home/backup/squirrelmail/functions/imap_general.php:214
 #: /home/backup/squirrelmail/src/addressbook.php:214
 #: /home/backup/squirrelmail/src/addressbook.php:264
 msgid "ERROR"
@@ -208,12 +208,12 @@ msgid "To"
 msgstr ""
 
 #: /home/backup/squirrelmail/src/compose.php:231
-#: /home/backup/squirrelmail/src/read_body.php:388
+#: /home/backup/squirrelmail/src/read_body.php:387
 msgid "From:"
 msgstr ""
 
 #: /home/backup/squirrelmail/src/compose.php:256
-#: /home/backup/squirrelmail/src/read_body.php:404
+#: /home/backup/squirrelmail/src/read_body.php:403
 msgid "To:"
 msgstr ""
 
@@ -226,7 +226,7 @@ msgid "BCC:"
 msgstr ""
 
 #: /home/backup/squirrelmail/src/compose.php:280
-#: /home/backup/squirrelmail/src/read_body.php:371
+#: /home/backup/squirrelmail/src/read_body.php:370
 msgid "Subject:"
 msgstr ""
 
@@ -287,7 +287,7 @@ msgstr ""
 msgid "View message"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:560
+#: /home/backup/squirrelmail/functions/mime.php:559
 #: /home/backup/squirrelmail/src/download.php:42
 msgid "Download this as a file"
 msgstr ""
@@ -307,6 +307,7 @@ msgstr ""
 msgid "Click here to go back"
 msgstr ""
 
+#: /home/backup/squirrelmail/functions/imap_mailbox.php:40
 #: /home/backup/squirrelmail/src/folders.php:20
 #: /home/backup/squirrelmail/src/folders.php:124
 #: /home/backup/squirrelmail/src/folders.php:126
@@ -352,7 +353,7 @@ msgstr ""
 
 #: /home/backup/squirrelmail/functions/mailbox_display.php:530
 #: /home/backup/squirrelmail/src/folders.php:103
-#: /home/backup/squirrelmail/src/read_body.php:327
+#: /home/backup/squirrelmail/src/read_body.php:326
 msgid "Delete"
 msgstr ""
 
@@ -442,8 +443,8 @@ msgstr ""
 #: /home/backup/squirrelmail/functions/mailbox_display.php:395
 #: /home/backup/squirrelmail/src/help.php:163
 #: /home/backup/squirrelmail/src/help.php:164
-#: /home/backup/squirrelmail/src/read_body.php:340
-#: /home/backup/squirrelmail/src/read_body.php:342
+#: /home/backup/squirrelmail/src/read_body.php:339
+#: /home/backup/squirrelmail/src/read_body.php:341
 msgid "Previous"
 msgstr ""
 
@@ -452,8 +453,8 @@ msgstr ""
 #: /home/backup/squirrelmail/functions/mailbox_display.php:396
 #: /home/backup/squirrelmail/src/help.php:166
 #: /home/backup/squirrelmail/src/help.php:167
-#: /home/backup/squirrelmail/src/read_body.php:344
-#: /home/backup/squirrelmail/src/read_body.php:346
+#: /home/backup/squirrelmail/src/read_body.php:343
+#: /home/backup/squirrelmail/src/read_body.php:345
 msgid "Next"
 msgstr ""
 
@@ -713,6 +714,10 @@ msgstr ""
 msgid "Done"
 msgstr ""
 
+#: /home/backup/squirrelmail/src/options_highlight.php:61
+msgid "Edit"
+msgstr ""
+
 #: /home/backup/squirrelmail/src/options_highlight.php:75
 msgid "No highlighting is defined"
 msgstr ""
@@ -825,11 +830,15 @@ msgstr ""
 msgid "Reply To"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options_identities.php:319
+#: /home/backup/squirrelmail/src/options_identities.php:315
+msgid "Save / Update"
+msgstr ""
+
+#: /home/backup/squirrelmail/src/options_identities.php:321
 msgid "Make Default"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/options_identities.php:326
+#: /home/backup/squirrelmail/src/options_identities.php:328
 msgid "Move Up"
 msgstr ""
 
@@ -993,28 +1002,28 @@ msgstr ""
 msgid "less"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:320
+#: /home/backup/squirrelmail/src/read_body.php:319
 msgid "Message List"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:353
+#: /home/backup/squirrelmail/src/read_body.php:352
 msgid "Forward"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:356
+#: /home/backup/squirrelmail/src/read_body.php:355
 msgid "Reply"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:359
+#: /home/backup/squirrelmail/src/read_body.php:358
 msgid "Reply All"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:378
-#: /home/backup/squirrelmail/src/read_body.php:380
+#: /home/backup/squirrelmail/src/read_body.php:377
+#: /home/backup/squirrelmail/src/read_body.php:379
 msgid "View full header"
 msgstr ""
 
-#: /home/backup/squirrelmail/src/read_body.php:396
+#: /home/backup/squirrelmail/src/read_body.php:395
 msgid "Date:"
 msgstr ""
 
@@ -1179,95 +1188,95 @@ msgstr ""
 msgid "Nickname contain illegal characters"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:78
+#: /home/backup/squirrelmail/functions/date.php:85
 msgid "Sunday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:81
+#: /home/backup/squirrelmail/functions/date.php:88
 msgid "Monday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:84
+#: /home/backup/squirrelmail/functions/date.php:91
 msgid "Tuesday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:87
+#: /home/backup/squirrelmail/functions/date.php:94
 msgid "Wednesday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:90
+#: /home/backup/squirrelmail/functions/date.php:97
 msgid "Thursday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:93
+#: /home/backup/squirrelmail/functions/date.php:100
 msgid "Friday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:96
+#: /home/backup/squirrelmail/functions/date.php:103
 msgid "Saturday"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:107
+#: /home/backup/squirrelmail/functions/date.php:114
 msgid "January"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:110
+#: /home/backup/squirrelmail/functions/date.php:117
 msgid "February"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:113
+#: /home/backup/squirrelmail/functions/date.php:120
 msgid "March"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:116
+#: /home/backup/squirrelmail/functions/date.php:123
 msgid "April"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:119
+#: /home/backup/squirrelmail/functions/date.php:126
 msgid "May"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:122
+#: /home/backup/squirrelmail/functions/date.php:129
 msgid "June"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:125
+#: /home/backup/squirrelmail/functions/date.php:132
 msgid "July"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:128
+#: /home/backup/squirrelmail/functions/date.php:135
 msgid "August"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:131
+#: /home/backup/squirrelmail/functions/date.php:138
 msgid "September"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:134
+#: /home/backup/squirrelmail/functions/date.php:141
 msgid "October"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:137
+#: /home/backup/squirrelmail/functions/date.php:144
 msgid "November"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:140
+#: /home/backup/squirrelmail/functions/date.php:147
 msgid "December"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:163
+#: /home/backup/squirrelmail/functions/date.php:170
 msgid "D, F j, Y g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:180
+#: /home/backup/squirrelmail/functions/date.php:187
 msgid "g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:183
+#: /home/backup/squirrelmail/functions/date.php:190
 msgid "D, g:i a"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/date.php:186
+#: /home/backup/squirrelmail/functions/date.php:193
 msgid "M j, Y"
 msgstr ""
 
@@ -1279,12 +1288,12 @@ msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
 #: /home/backup/squirrelmail/functions/display_messages.php:22
-#: /home/backup/squirrelmail/functions/imap_general.php:213
+#: /home/backup/squirrelmail/functions/imap_general.php:222
 msgid "Unknown user or password incorrect."
 msgstr ""
 
 #: /home/backup/squirrelmail/functions/display_messages.php:22
-#: /home/backup/squirrelmail/functions/imap_general.php:214
+#: /home/backup/squirrelmail/functions/imap_general.php:223
 msgid "Click here to try again"
 msgstr ""
 
@@ -1303,7 +1312,7 @@ msgstr ""
 msgid "Click here to return to %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:112
+#: /home/backup/squirrelmail/functions/imap_general.php:121
 #: /home/backup/squirrelmail/functions/imap_messages.php:116
 #: /home/backup/squirrelmail/functions/imap_messages.php:125
 #: /home/backup/squirrelmail/functions/imap_messages.php:143
@@ -1312,34 +1321,34 @@ msgstr ""
 msgid "ERROR : Could not complete request."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:114
+#: /home/backup/squirrelmail/functions/imap_general.php:123
 msgid "Reason Given: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:121
+#: /home/backup/squirrelmail/functions/imap_general.php:130
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:123
+#: /home/backup/squirrelmail/functions/imap_general.php:132
 msgid "Server responded: "
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:153
+#: /home/backup/squirrelmail/functions/imap_general.php:162
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:170
+#: /home/backup/squirrelmail/functions/imap_general.php:179
 #, c-format
 msgid "Bad request: %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:172
+#: /home/backup/squirrelmail/functions/imap_general.php:181
 #, c-format
 msgid "Unknown error: %s"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/imap_general.php:174
+#: /home/backup/squirrelmail/functions/imap_general.php:183
 msgid "Read data:"
 msgstr ""
 
@@ -1438,11 +1447,11 @@ msgstr ""
 msgid "Select All"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:588
+#: /home/backup/squirrelmail/functions/mime.php:587
 msgid "Attachments"
 msgstr ""
 
-#: /home/backup/squirrelmail/functions/mime.php:626
+#: /home/backup/squirrelmail/functions/mime.php:625
 msgid "download"
 msgstr ""
 
