@@ -160,9 +160,11 @@
    /** translate the subject and mailbox into url-able text **/
    $url_subj = urlencode(trim($message->header->subject));
    $urlMailbox = urlencode($mailbox);
-   $url_replyto = urlencode($message->header->replyto);
+   $url_replyto = '';
+   if (isset($message->header->replyto))
+      $url_replyto = urlencode($message->header->replyto);
 
-   $url_replytoall   = urlencode($message->header->replyto);
+   $url_replytoall   = $url_replyto;
 
    // If we are replying to all, then find all other addresses and
    // add them to the list.  Remove duplicates.
@@ -183,7 +185,10 @@
       array_keys(array_flip($url_replytoall_extra_addrs));
    
    // 5) Remove the addresses we'll be sending the message 'to'
-   $url_replytoall_avoid_addrs = parseAddrs($message->header->replyto);
+   $url_replytoall_avoid_addrs = '';
+   if (isset($message->header->replyto))
+      $url_replytoall_avoid_addrs = $message->header->replyto;
+   $url_replytoall_avoid_addrs = parseAddrs($url_replytoall_avoid_addrs);
    foreach ($url_replytoall_avoid_addrs as $addr)
    {
        RemoveAddress($url_replytoall_extra_addrs, $addr);
