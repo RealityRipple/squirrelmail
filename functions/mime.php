@@ -408,7 +408,7 @@ be displayed as the actual message in the HTML. It contains
 everything needed, including HTML Tags, Attachments at the
 bottom, etc.
 */
-function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
+function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX') {
     // this if statement checks for the entity to show as the
     // primary message. To add more of them, just put them in the
     // order that is their priority.
@@ -417,10 +417,8 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
 
     $has_unsafe_images = 0;
 
-    $id = $message->id;
-
     if ($message->type0 == 'message' && $message->type1 == 'rfc822') {
-       $message = $message->entities[0];
+        $message = $message->entities[0];
     }
     $urlmailbox = urlencode($message->mailbox);
     $body_message = getEntity($message, $ent_num);
@@ -438,7 +436,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
                 $body = strip_tags( $body );
                 translateText($body, $wrap_at, $body_message->header->charset);
             } else {
-                $body = magicHTML( $body, $id, $message );
+                $body = magicHTML( $body, $id, $message, $mailbox );
             }
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
@@ -453,19 +451,13 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
         }
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
-	if ($message->type0 == 'message') {
-	    $id = $message->id;
-	    $mailbox = $message->mailbox;
-//	    $message->header->setVar('message_id',$id);
-//	    $message->header->setVar('mailbox',$mailbox);
-	}
         if (isset($message->entities[1])) {
 	    /* Header-type alternative means we choose the best one to display 
 	       so don't show the alternatives as attachment. Header-type related
 	       means that the attachments are already part of the related message.
 	    */   
 	    if ($message->header->type1 !='related' && $message->header->type1 !='alternative') {
-        	$body .= formatAttachments ($message, $ent_num, $message->mailbox, $id);
+        	$body .= formatAttachments ($message, $ent_num, $mailbox, $id);
 	    }
         }
     } else {
@@ -1239,7 +1231,8 @@ function sq_fixatts($tagname,
                     $bad_attvals,
                     $add_attr_to_tag,
                     $message,
-                    $id
+                    $id,
+		    $mailbox
                     ){
     $me = "sq_fixatts";
     while (list($attname, $attvalue) = each($attary)){
@@ -1290,7 +1283,7 @@ function sq_fixatts($tagname,
          * Turn cid: urls into http-friendly ones.
          */
         if (preg_match("/^[\'\"]\s*cid:/si", $attvalue)){
-            $attary{$attname} = sq_cid2http($message, $id, $attvalue);
+            $attary{$attname} = sq_cid2http($message, $id, $attvalue, $mailbox);
         }
     }
     /**
@@ -1370,7 +1363,7 @@ function sq_fixstyle($message, $id, $content){
  * @param  $cidurl   the cid: url.
  * @return           a string with a http-friendly url
  */
-function sq_cid2http($message, $id, $cidurl){
+function sq_cid2http($message, $id, $cidurl, $mailbox){
     /**
      * Get rid of quotes.
      */
@@ -1378,7 +1371,7 @@ function sq_cid2http($message, $id, $cidurl){
     $cidurl = str_replace($quotchar, "", $cidurl);
     $cidurl = substr(trim($cidurl), 4);
     $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
-        "passed_id=$id&amp;mailbox=" . urlencode($message->mailbox) .
+        "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
         "&amp;passed_ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
     return $httpurl;
 }
@@ -1447,7 +1440,8 @@ function sq_sanitize($body,
                      $bad_attvals,
                      $add_attr_to_tag,
                      $message,
-                     $id
+                     $id,
+		     $mailbox
                      ){
     $me = "sq_sanitize";
     /**
@@ -1556,7 +1550,8 @@ function sq_sanitize($body,
                                                      $bad_attvals,
                                                      $add_attr_to_tag,
                                                      $message,
-                                                     $id
+                                                     $id,
+						     $mailbox
                                                      );
                             }
                             /**
@@ -1599,7 +1594,7 @@ function sq_sanitize($body,
  * @param  $id    the id of the message
  * @return        a string with html safe to display in the browser.
  */
-function magicHTML($body, $id, $message){
+function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
     global $attachment_common_show_images, $view_unsafe_images,
         $has_unsafe_images;
     /**
@@ -1725,7 +1720,8 @@ function magicHTML($body, $id, $message){
                            $bad_attvals,
                            $add_attr_to_tag,
                            $message,
-                           $id
+                           $id,
+			   $mailbox
                            );
     if (preg_match("|$secremoveimg|si", $trusted)){
         $has_unsafe_images = true;
