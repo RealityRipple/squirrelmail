@@ -97,6 +97,8 @@
 
    /* Time offset for correct timezone */
    function timezone () {
+      global $invert_time;
+      
       $diff_second = date("Z");
       if ($invert_time)
           $diff_second = - $diff_second;
