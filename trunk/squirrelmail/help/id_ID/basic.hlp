@@ -23,7 +23,7 @@
    <description>
       <p>
 	Jika Anda punya pertanyaan singkat, Anda mungkin ingin melihat PSD 
-	( FAQ ) .
+	(FAQ) .
       </p>
       <p>
 	SquirrelMail terdiri dari dua bagian utama yang disebut frame. Frame 
@@ -42,14 +42,14 @@
          <ul>
             <li><b>Tulis Surat</b> - Digunakan untuk menulis surat. 
             <li><b>Alamat</b> - Di sini disimpan daftar alamat surat yang 
-					Anda simpan di buku alamat.
+				Anda simpan di buku alamat.
             <li><b>Laci</b> - Semua manipulasi laci ada di sini. Anda 
-					bisa menghapus, membuat, mengganti nama, 
-					memasukkan, membuang suatu laci. 
+			      bisa menghapus, membuat, mengganti nama, 
+			      memasukkan, membuang suatu laci. 
             <li><b>Pilihan</b> - Mengubah cara SquirrelMail tampil dan 
-					   konfigurasi lainnya. 
+				 konfigurasi lainnya. 
             <li><b>Cari</b> - Dengan ini, Anda dapat mencari sesuatu kata 
-					di kotak surat Anda dengan suatu kriteria tertentu. 
+			      di kotak surat Anda dengan suatu kriteria tertentu. 
             <li><b>Panduan</b> - Anda sedang berada di sini! 
          </ul>
       </p>

@@ -14,8 +14,8 @@
    </title>
    <description>
       <p>
-	Setelah Anda mengklik suatu laci, Anda akan menuju ke index pesan ( 
-	di bagian kanan ). Index ini menampilkan pesan dalam laci yang dipilih. 
+	Setelah Anda mengklik suatu laci, Anda akan menuju ke index pesan 
+	(di bagian kanan) . Index ini menampilkan pesan dalam laci yang dipilih. 
 	Di bawah pilihan menu ada baris yang memberitahukan Anda surate 
 	yang sedang Anda baca secara bernomor dan jumlah surate Anda seluruhnya.
       </p><p>
@@ -32,8 +32,8 @@
 	yang dipilih. Anda tinggal memilih pesan tak berguna lalau klik tombol 
 	ini untuk menghapusnya.
       </p><p>
-	Kemudian, baris ketiga berisi tiga kolom ( Dari, Tanggal, dan 
-	Subyek ). Tiga kop ini memisahkan tabel pesan ke dalam bagian-bagian 
+	Kemudian, baris ketiga berisi tiga kolom (Dari, Tanggal, dan 
+	Subyek). Tiga kop ini memisahkan tabel pesan ke dalam bagian-bagian 
 	logis. "Dari" memberitahukan Anda siapa yang telah mengirim pesan, atau 
 	setidaknya alamat surate asal pesan tersebut. "Tanggal" menampilkan 
 	tanggal pengiriman surate tersebut. "Subyek" menampilkan topik surate 
@@ -48,9 +48,17 @@
 	sedangkan yang sudah biasa saja hurufnya. Empat kolom terdapat dalam 
 	tabel ini. Di sebelah kiri adalah kotak pemilih. Apabila dipilih, pesan 
 	pada baris tersebut akan dikenai hal-hal yang sudah dibicarakan 
-	sebelumnya ( memindahkan dan menghapus ) . Di bawah kolom "Dari" 
+	sebelumnya (memindahkan dan menghapus) . Di bawah kolom "Dari" 
 	ditampilkan si pengirim pesan . Selanjutnya adalah tanggal dan terakhir 
 	adalah subyek.
       </p>
+      <p>
+        Jika kotak surat Anda berisi banyak pesan, daftar pesan akan 
+	dipecah menjadi beberapa halaman dan halaman pertama akan 
+	ditampilkan. Untuk melihat halaman lainnya, klik "Berikutnya" dan 
+	"Sebelumnya". Anda dapat berpindah ke suatu halaman dengan cepat 
+	bila mengklik sembarang nomor (tiap nomor mewakili satu halaman). 
+	Jika Anda mengklik "Tampilkan Semua", fungsi pemecah halaman ini 
+	akan dimatikan dan semua pesan akan ditampilkan sekaligus.
    </description>
 </section>
