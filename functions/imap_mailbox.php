@@ -11,9 +11,6 @@
       return;
    define ('imap_mailbox_php', true);
 
-   require_once('../src/load_prefs.php');
-   require_once('../functions/array.php');
-
    /******************************************************************************
     **  Expunges a mailbox 
     ******************************************************************************/
@@ -213,7 +210,8 @@
       $inbox_in_list = false;
       $inbox_subscribed = false;
 
-
+      require_once('../src/load_prefs.php');
+      require_once('../functions/array.php');
 
       $dm = sqimap_get_delimiter ($imap_stream);
 
@@ -359,6 +357,9 @@
     ******************************************************************************/
    function sqimap_mailbox_list_all ($imap_stream) {
       global $list_special_folders_first, $folder_prefix;
+      
+      if (!function_exists ("ary_sort"))
+         include_once('../functions/array.php');
       
       $dm = sqimap_get_delimiter ($imap_stream);
 
