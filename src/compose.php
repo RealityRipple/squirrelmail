@@ -152,8 +152,8 @@
          echo "// --></SCRIPT>\n\n";
       }
 
-      //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
-      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
+      //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }                 
@@ -346,6 +346,10 @@
       $localfilename = $localfilename;
       
       // Put the file in a better place
+      $tmp=explode('/',$attachfile);
+      $attachfile=$tmp[count($tmp)-1];
+      $attachfile=ereg_replace('\.{2,}','',$attachfile);
+
       error_reporting(0); // Rename will produce error output if it fails
       if (!rename($attachfile, $attachment_dir.$localfilename)) {
          if (!copy($attachfile, $attachment_dir.$localfilename)) {
