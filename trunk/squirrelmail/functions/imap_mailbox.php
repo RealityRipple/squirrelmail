@@ -297,7 +297,8 @@ function sqimap_mailbox_list ($imap_stream)
         }
         
         fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mbx\"\r\n");
-        $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+        $read = sqimap_read_data ($imap_stream, sqimap_session_id(),
+                                  true, $response, $message);
         /* Another workaround for EIMS */
         if (isset($read[1]) && 
             ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
@@ -449,7 +450,8 @@ function sqimap_mailbox_list_all ($imap_stream)
             $mailbox = find_mailbox_name($read_ary[$i]);
             $dm_count = countCharInString($mailbox, $delimiter);
             if (substr($mailbox, -1) == $delimiter) {
-                $dm_count--;  /* If name ends in delimiter - decrement count by one */
+                /* If name ends in delimiter - decrement count by one */
+                $dm_count--;  
             }
             
             /* Format folder name, but only if it's a INBOX.* or have */
@@ -476,12 +478,14 @@ function sqimap_mailbox_list_all ($imap_stream)
                 $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             }
             $boxes[$g]["unformatted"] = $mailbox;
-            $boxes[$g]["unformatted-disp"] = ereg_replace('^' . $folder_prefix, '', $mailbox);
+            $boxes[$g]["unformatted-disp"] =
+                ereg_replace('^' . $folder_prefix, '', $mailbox);
             $boxes[$g]["id"] = $g;
             
             /** Now lets get the flags for this mailbox **/
-            fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n"); 
-            $read_mlbx = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
+            fputs ($imap_stream, sqimap_session_id() . " LIST \"\" \"$mailbox\"\r\n");
+            $read_mlbx = sqimap_read_data ($imap_stream, sqimap_session_id(),
+                                           true, $response, $message);
             
             /* Another workaround for EIMS */
             if (isset($read_mlbx[1]) &&
