@@ -21,6 +21,8 @@
 
 
    // Erase any lingering attachments
+   if (! isset($attachments))
+       $attachments = array();
    foreach ($attachments as $info)
    {
        if (file_exists($attachment_dir . $info['localfilename']))
