@@ -157,18 +157,10 @@ class abook_ldap_server extends addressbook_backend {
             return false;
         }
   
-        /* Do the search. Use improved ldap_search() if PHP version is
-         * 4.0.2 or newer. */
-        if(sqCheckPHPVersion(4, 0, 2)) {
-            $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-                array('dn', 'o', 'ou', 'sn', 'givenname', 
-                'cn', 'mail', 'telephonenumber'),
-                0, $this->maxrows, $this->timeout);
-        } else {
-            $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-                array('dn', 'o', 'ou', 'sn', 'givenname', 
-                'cn', 'mail', 'telephonenumber'));
-        }
+        $sret = @ldap_search($this->linkid, $this->basedn, $expression,
+            array('dn', 'o', 'ou', 'sn', 'givenname', 
+            'cn', 'mail', 'telephonenumber'),
+            0, $this->maxrows, $this->timeout);
   
         /* Should get error from server using the ldap_error() function,
          * but it only exist in the PHP LDAP documentation. */
