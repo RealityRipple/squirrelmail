@@ -13,7 +13,7 @@
  */
 
 function error_username_password_incorrect() {
-    global $frame_top;
+    global $frame_top, $color;
 
     if (!isset($frame_top)) {
         $frame_top = '_top';
