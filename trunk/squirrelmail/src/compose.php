@@ -389,13 +389,13 @@
       }
     }
 
-   $mailbox = trim($mailbox);
-   $send_to = trim($send_to);
-   $send_to_cc = trim($send_to_cc);
-   $send_to_bcc = trim($send_to_bcc);
-   $subject = trim($subject);
-   $body = trim($body);
-   $attachfile = trim($attachfile);
+   if (isset($mailbox))     $mailbox = trim($mailbox);
+   if (isset($send_to))     $send_to = trim($send_to);
+   if (isset($send_to_cc))  $send_to_cc = trim($send_to_cc);
+   if (isset($send_to_bcc)) $send_to_bcc = trim($send_to_bcc);
+   if (isset($subject))     $subject = trim($subject);
+   if (isset($body))        $body = trim($body);
+   if (isset($attachfile))  $attachfile = trim($attachfile);
    
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
