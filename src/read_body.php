@@ -241,38 +241,39 @@
 
    /** FORMAT THE CC STRING **/
    $i = 0;
-   $cc_string = "";
-   $cc_ary = $message->header->cc;
-   while ($i < count(decodeHeader($cc_ary))) {
-      $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
-      if ($cc_string)
-         $cc_string = "$cc_string<BR>$cc_ary[$i]";
-      else
-         $cc_string = "$cc_ary[$i]";
-
-      $i++;
-      if (count($cc_ary) > 1) {
-         if ($show_more_cc == false) {
-            if ($i == 1) {
+   if (isset ($message->header->cc[0]) && trim($message->header->cc[0])){
+      $cc_string = "";
+      $cc_ary = $message->header->cc;
+      while ($i < count(decodeHeader($cc_ary))) {
+         $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
+         if ($cc_string)
+            $cc_string = "$cc_string<BR>$cc_ary[$i]";
+         else
+            $cc_string = "$cc_ary[$i]";
+   
+         $i++;
+         if (count($cc_ary) > 1) {
+            if ($show_more_cc == false) {
+               if ($i == 1) {
+                  if ($where && $what) {
+                     // from a search
+                     $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  } else {
+                     $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  }   
+                  $i = count($cc_ary);
+               }
+            } else if ($i == 1) {
                if ($where && $what) {
                   // from a search
-                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
                } else {
-                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
                }   
-               $i = count($cc_ary);
             }
-         } else if ($i == 1) {
-            if ($where && $what) {
-               // from a search
-               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
-            } else {
-               $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
-            }   
          }
       }
    }
-
    /** make sure everything will display in HTML format **/
    $from_name = decodeHeader(htmlspecialchars($message->header->from));
    $subject = decodeHeader(htmlspecialchars($message->header->subject));
@@ -378,7 +379,7 @@
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
-   if ($message->header->cc) {
+   if (isset($cc_string)) {
       echo "      <TR>\n";
       echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            Cc:\n";
