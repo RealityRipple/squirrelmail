@@ -65,7 +65,7 @@
 
    $type0 = $header->type0;
    $type1 = $header->type1;
-   $filename = $header->filename;
+   $filename = decodeHeader($header->filename);
 
    if (strlen($filename) < 1) {
       # set some standard suffixes to the filenames if the filename isn't known
