@@ -6,8 +6,8 @@
  * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This code provides various string manipulation functions that are
- * used by the rest of the SquirrelMail code.
+ * This file provides functions to walk trees of folders, for
+ * instance to delete a whole tree.
  *
  * @version $Id$
  * @package squirrelmail
@@ -81,14 +81,27 @@ function addChildNodeToTree($comparisonValue, $value, &$tree) {
  */
 function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
     global $trash_folder;
+    walkTreeInPreOrderEmptyFolder($index, $imap_stream, $tree, $trash_folder);
+}
+
+/**
+ * Recursively walk the tree of mailboxes in the given folder and delete all folders and messages
+ *
+ * @param int index the place in the tree to start, usually 0
+ * @param stream imap_stream the IMAP connection to send commands to
+ * @param array tree the tree to walk
+ * @param mailbox the name of the root folder to empty
+ * @return void
+ */
+function walkTreeInPreOrderEmptyFolder($index, $imap_stream, $tree, $mailbox) {
     if ($tree[$index]['doIHaveChildren']) {
         for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
             walkTreeInPreOrderEmptyTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree);
         }
-        if ($tree[$index]['value'] != $trash_folder) {
+        if ($tree[$index]['value'] != $mailbox) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
         } else {
-            $mbx_response = sqimap_mailbox_select($imap_stream, $trash_folder);
+            $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
             if ($mbx_response['EXISTS'] > 0) {
                sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
                // CLOSE === EXPUNGE and UNSELECT
@@ -96,10 +109,10 @@ function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
             }
         }
     } else {
-        if ($tree[$index]['value'] != $trash_folder) {
+        if ($tree[$index]['value'] != $mailbox) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
         } else {
-            $mbx_response = sqimap_mailbox_select($imap_stream, $trash_folder);
+            $mbx_response = sqimap_mailbox_select($imap_stream, $mailbox);
             if ($mbx_response['EXISTS'] > 0) {
                 sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
                 // CLOSE === EXPUNGE and UNSELECT
