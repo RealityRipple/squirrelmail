@@ -9,7 +9,7 @@ Version 1.4.0 CVS
   - Fixed the newmail plugin.
   - Added RECENT response to sqimap_get_status.
   - Fixed attachment filename resolving.
-  - Added check for X-Confirm-Reading-To to make MDN work messages send by Pine.
+  - Added check for X-Confirm-Reading-To to make MDN work for messages sent by Pine.
   - sqextractGlobalVar removed (use sqgetGlobalVar instead).
   - Subfolders of Sent and Drafts show To field instead of From
   - Updates in conf.pl to infamous delete_folder setting, including
@@ -35,6 +35,7 @@ Version 1.4.0 CVS
   - Allow encoded personal names in compose.php.
   - Improved address parsing from addresses coming from the compose form.
   - Fixed uninitialized indices when parsing attachments.
+  - Support text/directory MIME-type for vCards (RFC 2425).
 
 Version 1.4.0 RC 2a
 -------------------
