@@ -27,7 +27,7 @@ function cachePrefValues($data_dir, $username) {
         return;
     }
 
-    $filename = $data_dir . $username . '.pref';
+    $filename = getHashedFile($username, $data_dir, "$username.pref");
 
     if (!file_exists($filename)) {
         printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
@@ -88,7 +88,9 @@ function getPref($data_dir, $username, $string, $default = '') {
 function savePrefValues($data_dir, $username) {
     global $prefs_cache;
    
-    $file = fopen($data_dir . $username . '.pref', 'w');
+    $filename = getHashedFile($username, $data_dir, "$username.pref");
+
+    $file = fopen($filename, 'w');
     foreach ($prefs_cache as $Key => $Value) {
         if (isset($Value)) {
             fwrite($file, $Key . '=' . $Value . "\n");
@@ -136,7 +138,7 @@ function setPref($data_dir, $username, $string, $value) {
  * Check for a preferences file. If one can not be found, create it.
  */
 function checkForPrefs($data_dir, $username) {
-    $filename = $data_dir . $username . '.pref';
+    $filename = getHashedFile($username, $data_dir, "$username.pref");
     if (!file_exists($filename) ) {
         if (!copy($data_dir . 'default_pref', $filename)) {
             echo _("Error opening ") . $filename;
@@ -149,7 +151,8 @@ function checkForPrefs($data_dir, $username) {
  * Write the User Signature.
  */
 function setSig($data_dir, $username, $value) {
-    $file = fopen($data_dir . $username . '.sig', 'w');
+    $filename = getHashedFile($username, $data_dir, "$username.sig");
+    $file = fopen($filename, 'w');
     fwrite($file, $value);
     fclose($file);
 }
@@ -158,7 +161,8 @@ function setSig($data_dir, $username, $value) {
  * Get the signature.
  */
 function getSig($data_dir, $username) {
-    $filename = $data_dir . $username . '.sig';
+    #$filename = $data_dir . $username . '.sig';
+    $filename = getHashedFile($username, $data_dir, "$username.sig");
     $sig = '';
     if (file_exists($filename)) {
         $file = fopen($filename, 'r');
@@ -168,6 +172,74 @@ function getSig($data_dir, $username) {
         fclose($file);
     }
     return $sig;
+}
+
+function getHashedFile($username, $dir, $datafile, $hash_search = true) {
+    global $dir_hash_level;
+
+    /* Compute the hash for this user and extract the hash directories. */
+    $hash_dirs = computeHashDirs($username);
+
+    /* First, get and make sure the full hash directory exists. */
+    $real_hash_dir = getHashedDir($username, $dir, $hash_dirs);
+
+    /* Set the value of our real data file. */
+    $result = "$real_hash_dir/$datafile";
+
+    /* Check for this file in the real hash directory. */
+    if ($hash_search && !file_exists($result)) {
+        /* First check the base directory, the most common location. */
+        if (file_exists("$dir/$datafile")) {
+            rename("$dir/$datafile", $result);
+
+        /* Then check the full range of possible hash directories. */
+        } else {
+            $check_hash_dir = $dir;
+            for ($h = 0; $h < 4; ++$h) {
+                $check_hash_dir .= '/' . $hash_dirs[$h];
+                if (is_readable("$check_hash_dir/$datafile")) {
+                    rename("$check_hash_dir/$datafile", $result);
+                    break;
+                }
+            }
+        }
+    }
+     
+    /* Return the full hashed datafile path. */
+    return ($result);
+}
+
+function getHashedDir($username, $dir, $hash_dirs = '') {
+    global $dir_hash_level;
+
+    /* If necessary, populate the hash dir variable. */
+    if ($hash_dirs == '') {
+        $hash_dirs = computeHashDirs($username);
+    }
+
+    /* Make sure the full hash directory exists. */
+    $real_hash_dir = $dir;
+    for ($h = 0; $h < $dir_hash_level; ++$h) {
+        $real_hash_dir .= '/' . $hash_dirs[$h];
+        if (!is_dir($real_hash_dir)) {
+            mkdir($real_hash_dir, 0770);
+        }
+    }
+
+    /* And return that directory. */
+    return ($real_hash_dir);
+}
+
+function computeHashDirs($username) {
+    /* Compute the hash for this user and extract the hash directories. */
+    $hash = base_convert(crc32($username), 10, 16);
+    $hash_dirs = array();
+    for ($h = 0; $h < 4; ++ $h) {
+        $hash_dirs[] = substr($hash, $h, 1);
+    }
+
+    /* Return our array of hash directories. */
+    return ($hash_dirs);
 }
 
 ?>

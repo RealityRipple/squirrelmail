@@ -6,7 +6,7 @@
 #
 # $Id$
 ############################################################              
-$conf_pl_version = "x63";
+$conf_pl_version = "x64";
 
 ############################################################              
 # Some people try to run this as a CGI. That's wrong!
@@ -344,10 +344,11 @@ while (($command ne "q") && ($command ne "Q")) {
       print "1.  Default Charset        : $WHT$default_charset$NRM\n";
       print "2.  Data Directory         : $WHT$data_dir$NRM\n";
       print "3.  Attachment Directory   : $WHT$attachment_dir$NRM\n";
-      print "4.  Default Left Size      : $WHT$default_left_size$NRM\n";
-      print "5.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
-      print "6.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
-      print "7.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
+      print "4.  Directory Hash Level   : $WHT$dir_hash_level$NRM\n";
+      print "5.  Default Left Size      : $WHT$default_left_size$NRM\n";
+      print "6.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
+      print "7.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
+      print "8.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -501,12 +502,13 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 16) { $auto_create_special            = command214(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset          = command31 (); }
-         elsif ($command == 2) { $data_dir                 = command33 (); }
-         elsif ($command == 3) { $attachment_dir           = command34 (); }
-         elsif ($command == 4) { $default_left_size        = command35 (); }
-	 elsif ($command == 5) { $force_username_lowercase = command36 (); }
-	 elsif ($command == 6) { $default_use_priority     = command37 (); }
-         elsif ($command == 7) { $hide_sm_attributions     = command38 (); }
+         elsif ($command == 2) { $data_dir                 = command33a (); }
+         elsif ($command == 3) { $attachment_dir           = command33b (); }
+         elsif ($command == 4) { $dir_hash_level           = command33c (); }
+         elsif ($command == 5) { $default_left_size        = command35 (); }
+	 elsif ($command == 6) { $force_username_lowercase = command36 (); }
+	 elsif ($command == 7) { $default_use_priority     = command37 (); }
+         elsif ($command == 8) { $hide_sm_attributions     = command38 (); }
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1270,7 +1272,7 @@ sub command31 {
 }
 
 # Data directory
-sub command33 {
+sub command33a {
    print "It is a possible security hole to have a writable directory\n";
    print "under the web server's root directory (ex: /home/httpd/html).\n";
    print "For this reason, it is possible to put the data directory\n";
@@ -1298,7 +1300,7 @@ sub command33 {
 }
 
 # Attachment directory
-sub command34 {
+sub command33b {
    print "Path to directory used for storing attachments while a mail is\n";
    print "being sent.  There are a few security considerations regarding this\n";
    print "directory:\n";
@@ -1329,6 +1331,39 @@ sub command34 {
    return $new_attachment_dir;
 }
 
+sub command33c {
+   print "The directory hash level setting allows you to configure the level\n";
+   print "of hashing that Squirremail employs in your data and attachment\n";
+   print "directories. This value must be an integer ranging from 0 to 4.\n";
+   print "When this value is set to 0, Squirrelmail will simply store all\n";
+   print "files as normal in the data and attachment directories. However,\n";
+   print "when set to a value from 1 to 4, a simple hashing scheme will be\n";
+   print "used to organize the files in this directory. In short, the crc32\n";
+   print "value for a username will be computed. Then, up to the first 4\n";
+   print "digits of the hash, as set by this configuration value, will be\n";
+   print "used to directory hash the files for that user in the data and\n";
+   print "attachment directory. This allows for better performance on\n";
+   print "servers with larger numbers of users.\n";
+   print "\n";
+
+   print "[$WHT$dir_hash_level$NRM]: $WHT";
+   $new_dir_hash_level = <STDIN>;
+   if ($new_dir_hash_level eq "\n") {
+      $new_dir_hash_level = $dir_hash_level;
+   } else {
+      $new_dir_hash_level =~ s/[\r|\n]//g;
+   }
+   if (($new_dir_hash_level < 0) || ($new_dir_hash_level > 4)) {
+      print "Invalid Directory Hash Level.\n";
+      print "Value must be an integer ranging from 0 to 4\n";
+      print "Hit enter to continue.\n";
+      $enter_key = <STDIN>;
+
+      $new_dir_hash_level = $dir_hash_level;
+   }
+
+   return $new_dir_hash_level;
+}
 
 sub command35 {
    print "This is the default size (in pixels) of the left folder list.\n";
@@ -1794,12 +1829,14 @@ sub save_data {
    print FILE "\t\$auto_create_special              =  $auto_create_special;\n";
    print FILE "\n";
 
-   print FILE "\tglobal \$default_charset, \$data_dir, \$attachment_dir;\n";
+   print FILE "\tglobal \$default_charset;\n";
+   print FILE "\tglobal \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
    print FILE "\tglobal \$default_left_size, \$force_username_lowercase;\n";
    print FILE "\tglobal \$default_use_priority, \$hide_sm_attributions;\n";
    print FILE "\t\$default_charset          = \"$default_charset\";\n";
    print FILE "\t\$data_dir                 = \"$data_dir\";\n";
    print FILE "\t\$attachment_dir           = \"$attachment_dir\";\n";
+   print FILE "\t\$dir_hash_level           = $dir_hash_level;\n";
    print FILE "\t\$default_left_size        =  $default_left_size;\n";
    print FILE "\t\$force_username_lowercase = $force_username_lowercase;\n";
    print FILE "\t\$default_use_priority     = $default_use_priority;\n";

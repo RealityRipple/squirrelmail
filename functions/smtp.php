@@ -30,6 +30,7 @@
 
 require_once('../functions/addressbook.php');
 require_once('../functions/plugin.php');
+require_once('../functions/prefs.php');
 
 global $username, $popuser, $domain;
 
@@ -116,10 +117,11 @@ global $username, $popuser, $domain;
 
    // Attach the files that are due to be attached
    function attachFiles ($fp) {
-      global $attachments, $attachment_dir;
+      global $attachments, $attachment_dir, $username;
 
       $length = 0;
 
+      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
       if (isMultipart()) {
          foreach ($attachments as $info)
 	 {
@@ -136,7 +138,9 @@ global $username, $popuser, $domain;
             
 	    // Use 'rb' for NT systems -- read binary
 	    // Unix doesn't care -- everything's binary!  :-)
-            $file = fopen ($attachment_dir . $info['localfilename'], 'rb');
+             
+            $filename = $hashed_attachment_dir . '/' . $info['localfilename'];
+            $file = fopen ($filename, 'rb');
 	    if (substr($filetype, 0, 5) == 'text/' ||
  	        $filetype == 'message/rfc822') {
 	       $header .= "\r\n";
@@ -172,12 +176,14 @@ global $username, $popuser, $domain;
    function deleteAttachments() {
       global $attachments, $attachment_dir;
 
+      $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
       if (isMultipart()) {
          reset($attachments);
          while (list($localname, $remotename) = each($attachments)) {
             if (!ereg ("\\/", $localname)) {
-               unlink ($attachment_dir.$localname);
-               unlink ($attachment_dir.$localname.'.info');
+               $filename = $hashed_attachment_dir . '/' . $localname;
+               unlink ($filename);
+               unlink ("$filename.info");
             }
          }
       }
