@@ -194,7 +194,9 @@ Version 1.5.1 -- CVS
   - Removed numeric keys for plugin array in config.php.
   - Fixed translations of "On DATE, AUTHOR said" and "AUTHOR said" replies.
   - Added sq_str_pad function for padding of multi-byte strings.
-  - Added sq_strlen function for calculation of multi-byte string length. 
+  - Added sq_strlen function for calculation of multi-byte string length.
+  - Quoted "INBOX" in check for the status of INBOX in a LIST call.  Fixes an
+    issue with a specific IMAP server.
 
 Version 1.5.0
 --------------------

@@ -787,7 +787,7 @@ function sqimap_mailbox_tree($imap_stream) {
         if ($has_inbox == false) {
             // do a list request for inbox because we should always show
             // inbox even if the user isn't subscribed to it.
-            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" INBOX',
+            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" "INBOX"',
                                              true, $response, $message);
             $inbox_ary = compact_mailboxes_response($inbox_ary);
             if (count($inbox_ary)) {
