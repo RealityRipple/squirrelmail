@@ -62,14 +62,15 @@
    
    
    /** returns the value for $string **/
-   function getPref($data_dir, $username, $string) {
+   function getPref($data_dir, $username, $string, $default = '') {
       global $prefs_cache;
-      
+
       cachePrefValues($data_dir, $username);
-      
+
       if (isset($prefs_cache[$string]))
           return $prefs_cache[$string];
-      return '';
+      else
+        return $default;
    }
 
 

@@ -84,7 +84,7 @@
    if (isset($show_num))
       echo '         <tt><input type="text" size="5" name="shownum" value="'.$show_num.'"></tt><br>';
    else
-      echo '         <tt><input type="text" size="5" name="shownum" value="25"></tt><br>'; 
+      echo '         <tt><input type="text" size="5" name="shownum" value="25"></tt><br>';
 ?>
             </td>
          </tr>
@@ -235,7 +235,7 @@ echo _("Yes, show me the HTML version of a mail message, if it is available.");
             </td>
          </tr>
          <tr>
-            <td align=right>
+            <td align=right valign=middle>
                <?php echo _("Include Self"); ?>:
             </td>
             <td>
@@ -247,14 +247,16 @@ echo _("Yes, show me the HTML version of a mail message, if it is available.");
             </td>
          </tr>
          <tr>
-            <td align=right>
-               <?php echo _("Page Selector"); ?>:
-            </td>
-            <td>
-               <input type=checkbox name=pageselector <?php
-        if (getPref($data_dir, $username, 'page_selector') != '' )
-                echo " checked";
-        echo '> ' . _("Show page selector");
+            <td align=right valign=middle>
+               <?php
+    echo _("Page Selector") . ': </td><td>';
+    echo '<input type=checkbox name=pageselector';
+    if (!getPref($data_dir, $username, 'page_selector') )
+                echo ' checked';
+    echo '> ' . _("Show page selector") . ' ';
+    $psw = getPref($data_dir, $username, 'page_selector_max', 10 );
+    echo "<input name=pageselectormax size=3  value=\"$psw\">";
+    echo ' ' . _("pages max");
                  ?>
             </td>
          </tr>
@@ -265,6 +267,7 @@ echo _("Yes, show me the HTML version of a mail message, if it is available.");
                <input type="submit" value="<?php echo _("Submit"); ?>"name="submit_display">
             </td>
          </tr>
+
       </table>
    </form>
 
