@@ -185,7 +185,7 @@ function cpw_vmailmgrd_dochange($data)
     $vmgrd_response2 = cpw_vmailmgrd_passwd($vm_user,$vm_domain,$curpw,$newpw);
     if ($vmgrd_response2[0]!=0) {
         // TODO: add vmail.inc error message parser.
-        array_push($msgs, $vmgrd_response2[1]);
+        array_push($msgs, cpw_i18n_vmail_response($vmgrd_response2[1]));
     }
 
     return $msgs;
@@ -209,5 +209,89 @@ function cpw_vmailmgrd_passwd($user,$domain,$oldpass,$newpass) {
     include_once($vmail_inc_path);
 
     return vchpass($domain,$oldpass,$user,$newpass);
+}
+
+/**
+ * Function is used to translate messages returned by vmailmgr 
+ * php library and vmailmgr daemon.
+ * @param string $string vmailmrgd message.
+ * @return string translated string.
+ */
+function cpw_i18n_vmail_response($string) {
+    if ($string=='Empty domain') {
+        // block one: vchpass responses
+        $ret = _("Empty domain");
+    } elseif ($string=='Empty domain password') {
+        $ret = _("Empty domain password");
+    } elseif ($string=='Empty username') {
+        $ret = _("Empty username");
+    } elseif ($string=='Empty new password') {
+        $ret = _("Empty new password");
+/*
+ * block is disabled in order to reduce load on translators.
+ * these error messages should be very rare.
+    } elseif ($string=='Invalid or unknown base user or domain') {
+        // block two: vmailmgr daemon strings
+        $ret = _("Invalid or unknown base user or domain");
+    } elseif ($string=='Invalid or unknown virtual user') {
+        $ret = _("Invalid or unknown virtual user");
+    } elseif ($string=='Invalid or incorrect password') {
+        $ret = _("Invalid or incorrect password");
+    } elseif ($string=='Unknown operation to stat') {
+        $ret = _("Unknown operation to stat");
+    } elseif (preg_match("/^Incorrect number of parameters to command (.+)/",$string,$match)) {
+        $ret = sprintf(_("Incorrect number of parameters to command %s"),$match[1]);
+    } elseif (preg_match("/^Invalid or unknown domain name: (.+)/",$string,$match)) {
+        $ret = sprintf(_("Invalid or unknown domain name: %s"),$match[1]);
+    } elseif ($string=='Invalid operation') {
+        $ret = _("Invalid operation");
+    } elseif (preg_match("/^Invalid or unknown base user name: (.+)/",$string,$match)) {
+        $ret = sprintf(_("Invalid or unknown base user name: %s"),$match[1]);
+    } elseif ($string=='Invalid or incorrect password') {
+        $ret = _("Invalid or incorrect password");
+    } elseif ($string=='Base user has no virtual password table') {
+        $ret = _("Base user has no virtual password table");
+    } elseif ($string=='Failed while writing initial OK response') {
+        $ret = _("Failed while writing initial OK response");
+    } elseif ($string=='Failed while writing list entry') {
+        $ret = _("Failed while writing list entry");
+    } elseif ($string=='Internal error -- userpass && !mustexist') {
+        $ret = _("Internal error -- userpass && !mustexist");
+    } elseif ($string=='Invalid or unknown base user or domain') {
+        $ret = _("Invalid or unknown base user or domain");
+    } elseif ($string=='Incorrect password') {
+        $ret = CPW_INVALID_PW;
+    } elseif ($string=='User name does not refer to a virtual user') {
+        $ret = _("User name does not refer to a virtual user");
+    } elseif ($string=='Invalid or unknown virtual user') {
+        $ret = _("Invalid or unknown virtual user");
+    } elseif ($string=='Virtual user already exists') {
+        $ret = _("Virtual user already exists");
+    } elseif ($string=='Timed out waiting for remote') {
+        $ret = _("Timed out waiting for remote");
+    } elseif ($string=='Connection to client lost') {
+        $ret = _("Connection to client lost");
+    } elseif ($string=="Couldn't decode the command string") {
+        $ret = _("Couldn't decode the command string");
+    } elseif ($string=='Empty command string') {
+        $ret = _("Empty command string");
+    } elseif ($string=='Error decoding a command parameter') {
+        $ret = _("Error decoding a command parameter");
+    } elseif ($string=='read system call failed or was interrupted') {
+        $ret = _("read system call failed or was interrupted");
+    } elseif ($string=='Short read while reading protocol header') {
+        $ret = _("Short read while reading protocol header");
+    } elseif ($string=='Invalid protocol from client') {
+        $ret = _("Invalid protocol from client");
+    } elseif ($string=='Short read while reading message data') {
+        $ret = _("Short read while reading message data");
+    } elseif ($string=='Error writing response') {
+        $ret = _("Error writing response");
+*/
+    } else {
+        // return unknown strings
+        $ret = $string;
+    }
+    return $ret;
 }
 ?>
