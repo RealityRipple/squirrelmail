@@ -33,6 +33,14 @@
    if ($wrap_at == "")
       $wrap_at = 86;
 
+   $left_size = getPref($data_dir, $username, "left_size");
+   if ($left_size == "") {
+      if (isset($default_left_size))
+         $left_size = $default_left_size;
+      else  
+         $left_size = 200;
+   }      
+
    $editor_size = getPref($data_dir, $username, "editor_size");
    if ($editor_size == "")
       $editor_size = 76;

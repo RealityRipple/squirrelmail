@@ -155,4 +155,9 @@
 //    - It should probably be another directory than data_dir.
 
     $attachment_dir = $data_dir
+
+//  This is the default size of the left folder list.  Default is 200,
+//  but you can set it to whatever you wish.
+
+   $default_left_size = 200;
 ?>

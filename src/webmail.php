@@ -23,10 +23,13 @@
 <?
    include ("../config/config.php");
    include ("../functions/prefs.php");
+
+   include ("../src/load_prefs.php");
+   
    echo "<TITLE>";
    echo "$org_title";
    echo "</TITLE>";
-   echo "<FRAMESET COLS=\"200, *\" NORESIZE BORDER=0>";
+   echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
 
 /**
     There are three ways to call webmail.php

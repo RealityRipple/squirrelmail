@@ -25,6 +25,7 @@
    setPref($data_dir, $username, "use_signature", $usesignature);
    setPref($data_dir, $username, "left_refresh", $leftrefresh);
    setPref($data_dir, $username, "language", $language);
+   setPref($data_dir, $username, "left_size", $leftsize);
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 
