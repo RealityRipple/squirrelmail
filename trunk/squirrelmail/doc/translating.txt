@@ -61,8 +61,10 @@ b) Rung msgfmt again to create a new binary file.
 This script comes from Serek:
 
 #!/bin/bash
-xgettext --keyword=_ -keyword=N_ --default-domain=squirrelmail/po/squirrelmail\
--C squirrelmail/src/*.php
-xgettext --keyword=_ -keyword=N_ --default-domain=squirrelmail/po/squirrelmail\
--C -j squirrelmail/functions/*.php
+xgettext --keyword=_ -keyword=N_ \
+  --default-domain=squirrelmail/po/squirrelmail \
+  -C squirrelmail/src/*.php
+xgettext --keyword=_ -keyword=N_ \
+  --default-domain=squirrelmail/po/squirrelmail \
+  -C -j squirrelmail/functions/*.php
 
