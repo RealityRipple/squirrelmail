@@ -24,6 +24,11 @@
       }
    }
 
+   $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
+   if ($use_javascript_addr_book == "")
+      $use_javascript_addr_book = $default_use_javascript_addr_book;
+
+   
    /** Load the user's sent folder preferences **/
    $move_to_sent = getPref($data_dir, $username, "move_to_sent");
    if ($move_to_sent == "")

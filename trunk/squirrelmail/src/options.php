@@ -121,7 +121,6 @@
 
 
 	// TRASH FOLDER
-
 	echo "<tr><td align=right>";
 	echo _("Trash Folder:");
 	echo "</td><td>";
@@ -149,7 +148,6 @@
 	echo "</td></tr>";	
 
 	// SENT FOLDER
-
 	echo "<tr><td align=right>";
 	echo _("Sent Folder:");
 	echo "</td><td>";
@@ -179,6 +177,25 @@
 
    echo "</TABLE>";
 
+   echo "<table width=1% cols=2 align=center>\n";
+   echo "   <tr>\n";
+   echo "      <td nowrap align=center>\n";
+   echo "         " . _("Use javascript version of address book?") . "\n";
+   echo "      </td>\n";
+   echo "   </tr>\n";
+   echo "   <tr>\n";
+   echo "      <td align=left>\n";
+   if ($use_javascript_addr_book == true) {
+      echo "         <input type=radio name=javascript_abook value=1 checked> &nbsp;&nbsp;" . _("Yes") . "<br>";
+      echo "         <input type=radio name=javascript_abook value=0> &nbsp;&nbsp;" . _("No") . "<br>";
+   } else {
+      echo "         <input type=radio name=javascript_abook value=1> &nbsp;&nbsp;" . _("Yes") . "<br>";
+      echo "         <input type=radio name=javascript_abook value=0 checked> &nbsp;&nbsp;" . _("No") . "<br>";
+   }
+   echo "      </td>\n";
+   echo "   </tr>\n";
+   echo "</table>\n";
+   
    echo "<TABLE WIDTH=100% COLS=2 ALIGN=CENTER>\n";
 
    // SHOW_NUM

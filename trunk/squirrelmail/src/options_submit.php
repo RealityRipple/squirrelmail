@@ -29,6 +29,7 @@
    setPref($data_dir, $username, "language", $language);
    setPref($data_dir, $username, "left_size", $leftsize);
    setPref($data_dir, $username, "folder_prefix", $folderprefix);
+   setPref($data_dir, $username, "use_javascript_addr_book", $javascript_abook);
 
 	if ($trash != "none") {
    	setPref($data_dir, $username, "move_to_trash", true);
