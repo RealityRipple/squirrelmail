@@ -3,36 +3,34 @@
       Ordner
    </title>   
    <summary>
-      Nachrichten k&ouml;nnen in verschiedenen Ordnern gespeichert 
-      werden. Das ist sehr praktisch, wenn man sehr viele EMails
-      bekommt und diese irgendwie organisieren will. Mit der
-      Option Ordner kann man Ordner ver&auml;ndern und verschieben 
-      etc. 
+      Sie k&ouml;nnen Nachrichten in verschiedenen Ordnern ablegen.
+	Dies ist vorallem sehr n&uuml;tzlich, wenn Sie viele E-Mails 
+	auf Ihrem Konto haben und diese in einer gewissen Ordnung
+	ablegen wollen. Die Ordneroptionen sind dazu da um Ihre
+	Ordner nach Ihren W&uuml;nschen einzurichten.
    </summary>
 </chapter>
 
 <section>
    <title>
-      Abonnierte Ordner und der linke Frame
+      Angelegte Ordner und der linke Rahmen
    </title>
    <description>
       <p>
-      Abonierte Ordner werden im farbigen Bereich auf der linken 
-      Seite angezeigt. Dieser Bereich kann im Optionen-Men&uuml;
-      so eingestellt werden, dass er sich automatisch nach einiger
-      Zeit neu l&auml;dt, so dass man direkt sieht, wenn neue Mail eintrifft.
-      Oben in dem farbigen Bereich gibt es eine grosse und fette
-      &Uuml;berschrift. Wenn Ver&auml;nderungen bei den Ordneroptionen 
-      vorgenommen werden, kann man hier "Ordnerliste aktualisieren"
-      anklicken. 
+      Bereits erstellte Ordner werden im farbigen Bereich auf der
+	linken Seite angezeigt. Dieser Rahmen wird automatisch erneuert
+	auf der Option Seite.  Wenn Sie &auml;nderungen  an den erstellten
+	Ordner vorgenommen haben, k&ouml;nnen Sie die Ordnerlsite mit dem link
+	unterhalb des Titels neu wiedergeben. Dieser link heisst "refresh
+	folder list".
       </p><p>
-      Der erste Ordner enth&auml;lt die empfangene Mail. Rechts am 
-      ersten Ordner befindet sich eine eingeklammerte Zahl, die
-      die Anzahl der ungelesenen Mails angibt. Diese Nummer kann
-      relativ zur rechts angezeiten Ordner&uuml;bersicht leicht variieren.
-      Unter dem Hauptordner gibt es eine Reihe von Unterordnern, deren
-      Farbe variiert je nach dem man es im Optionenmen&uuml; eingestellt
-      hat.
+      Der erste Ordner in der Liste beinhaltet die erhaltnenen Mails.
+	Rechts jedes Ordners ist eine Nummer in Klammern "( )" welche
+	die Anzahl der <I>ungelesenen</I> emails anzeigt.
+      Dies Nummer differiert von der totalen Anzahl der E-Mails 
+      welche rechts in diesem Rahmen angezeigt wird.
+	Unter den Hauptordner gibt es Unterordner. Diese werden in andern
+	Farben angezeigt.
       </p>
    </description>
 </section>   
@@ -43,12 +41,12 @@
    </title>
    <description>
       <p>
-      Man kann einfach Ordner l&ouml;schen, die links in der Auswahlliste
-      neben der L&ouml;schen-Schaltfl&auml;che ausgew&auml;hlt werden k&ouml;nnen. Es ist gut 
-      m&ouml;glich, dass nicht alle angezeigten Ordner gel&ouml;scht werden 
-      k&ouml;nnen - so ist es aus guten Gr&uuml;nden nicht m&ouml;glich die Ordner
-      "trash" oder "sent" zu l&ouml;schen. Nat&uuml;rlich ist ein L&ouml;schen der "INBOX"
-      auch nicht m&ouml;glich.
+      Sie k&ouml;nnen mit bet&auml;tigen des Delete buttons die in der drop down list
+	box links angezeigten Ordner l&ouml;schen. Es ist zu erw&auml;hnen, dass diese
+	Liste wahrscheinlich <B>nicht</B> alle Ordner enth&auml;lt. Die speziellen
+	Ordner wie bespw. der "sent" Ordner oder der "Trash" Ordner k&ouml;nnen
+	nicht gel&ouml;scht werden. Und nat&uuml;rlich k&ouml;nnen Sie auch die INBOX nicht
+	l&ouml;schen.
       </p>
    </description>
 </section>
@@ -60,56 +58,29 @@
    </title>
    <description>
       <p>
-      Ordner k&ouml;nnen einfach erstellt werden, indem man den gew&uuml;nschten Namen
-      in das Textfeld eingibt und den Erstellen Knopf bet&auml;tigt. Soll der 
-      erstellte Ordner ein Unterordner sein, kann man dies mit der
-      Auswahlliste w&auml;hlen.
+      Ordner k&ouml;nnen erstellt werden, indem Sie den gew&uuml;nschten Namen in die text
+	box eingeben und den Create Knopf bet&auml;tigen. Falls Sie w&uuml;nschen, dass ein 
+	Ordner der Unterordner eines andern wird, k&ouml;nnen Sie dies entsprechend
+	im drop-down menu mit der Liste der Ordner so anw&auml;hlen.
       </p>
       <p>
-      Bei einigen Mailservern gibt es zwei unterschiedliche Sorten von Ordnern:
-      Die einen enthalten die Mails und die andern enthalten die Ordner. Unter
-      Umst&auml;nden gibt es dann eine Option "Dieser Ordner soll Unterordner
-      enthalten".  Sollte diese Option gew&auml;hlt sein, kann dieser Ordner auch nur 
-      Unterordner erhalten - ein Speichern von Mails ist dann nicht mehr m&ouml;glich.
-      Bei den Ordnern die Mails enthalten ist es dann auch nicht mehr m&ouml;glich 
-      Unterordner zu erstellen.
+	Eine option hat lautet "Dieser Ordner soll Unterordner enthalten."  Wenn Sie dies
+	anw&auml;hlen wird der Ordner nur Unterordner enthalten und keine Nachrichten.
+	Ansonsten werden Sie nur Nachrichten in diesem Ordner speichern k&ouml;nnen und keine
+	Unterordner.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Umbenennen
+	Umbenennen      
    </title>
    <description>
       <p>
-      Es ist kein Problem einen Ordner welcher in der Auswahlliste gezeigt 
-      wird umzubenennen. Nat&uuml;rlich gibt es auch hier wieder Einschr&auml;nkungen:
-      So k&ouml;nnen z.B. die Ordner "sent", "trash" und "INBOX" nicht umbenannt 
-      werden.
-      </p>
-   </description>
-</section>
-
-<section>
-   <title>
-      Abonieren und Abbestellen
-   </title>
-   <description>
-      Definitionen:<br>
-      <i>Abonieren</i>: Um einen Ordner, der auf dem Mailserver vorhanden 
-      			ist, mit Squirrelmail bearbeiten zu k&ouml;nnen, muss dieser
-			zun&auml;chst aboniert sein. Neu erstellte Ordner sind
-			z.B. normalerweise Aboniert.<br>
-      <i>Abbestellen</i>: Das Gegenteil zum Abonieren. Nach dem Abbestellen
-      			bleibt der Ordner prinzipiell auf dem Mailserver vorhanden,
-			wird aber in SquirrelMail nicht mehr dargestellt.<br>
-      <br><p>
-      Man kann zum Abonnieren oder Abbestellen beliebig viele Ordner
-      ausw&auml;hlen. Danach klickt man auf die Schaltfl&auml;che unter der Box, um die
-      Aktion zu best&auml;tigen. Hiernach werden die Ordner nat&uuml;rlich in der 
-      anderen Box dargestellt - Danach ist es m&ouml;glich die Ordner wieder 
-      abzubestellen oder auch wieder zu abonieren - ganz nach der vorherigen Auswahl.
+      Sie k&ouml;nnen Ordner umbenennen in dem Sie dies mit dem Rename Knopf best&auml;tigen.
+	Sie k&ouml;nnen aber den "sent" Ordenr, den "trash" Ordner und die INBOX nicht
+	umbenennen!
       </p>
    </description>
 </section>

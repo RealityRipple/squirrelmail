@@ -1,103 +1,91 @@
 <chapter>
    <title>
-      Suchen
+      Suche
    </title>
    <summary>
-      Durchsucht einen Ordner nach einem gegebenen Begriff.
+			Sucht in einem Ordner nach einem Stichwort.
    </summary>
    <description>
       <p>
-      Mit der Option Suchen ist es m&ouml;glich durch einen ausgew&auml;hlten 
-      Ordner zu suchen. Hierbei k&ouml;nnen sowohl die EMail-&Uuml;berschriften, als
-      auch die Nachrichten selber durchsucht werden. 
+			Mit diesem n&uuml;tzlichen Tool k&ouml;nnen Sie in einem spezifischen Ordner
+			nach einem bestimmten Kriterien in den Kopfzeilen suchen.
       </p>
    </description>
 </chapter>
 
 <section>
    <title>
-      Grunds&auml;tzliche Funktion
+      Gesamt&uuml;bersicht
    </title>
    <description>
       <p>
-      Man w&auml;hlt in der Auswahlliste einen Ordner aus, den man durchsuchen 
-      will und gibt einen Suchbegriff, also z.B. ein Wort oder einen Namen, 
-      ein. Danach muss noch ausgew&auml;hlt werden in welchem Teil der EMail
-      gesucht werden soll. Nachdem die Suche durch Klicken aktiviert wurde, 
-      erscheint eine Liste von EMails die den Begriff an der gesuchten Stelle
-      enthalten unter dem Sucheingabefeld. Hier kann dann einfach eine EMail
-      ausgew&auml;hlt werden und normal wie z.B. in der INBOX gelesen werden.
+			W&auml;hlen Sie einfach den Ordner, in dem Sie suchen m&ouml;chten, geben Sie
+			das Suchwort ein und w&auml;hlen den Part der Nachricht, in der Sie suchen
+			m&ouml;chten. W&auml;hrend Sie die Daten &uuml;bermitteln, erscheinen die gefundenen
+			Nachrichten unterhalb des Suchfeldes. Sie k&ouml;nnen die Nachricht dann
+			einfach wie gewohnt &ouml;ffnen und lesen.
       </p>
       <p>
-      Wenn man gerade Mail gelesen hat und auf Suchen klickt wird die 
-      Suche durch den gerade aktiven Ordner aktiviert. Dieser ist bei der
-      Suchoption dann voreingestellt.
-      Zum Beispiel wenn man gerade den "Freunde"-Ordner angeschaut hat und 
-      jetzt auf Suchen klickt, sieht man, dass der "Freunde" Ordner der 
-      Default-Ordner ist und man braucht quasi nur noch einen Suchbegriff
-      eingeben.
+			Beachten Sie, dass wenn Sie eine Nachricht lesen und anschliessend
+			ins Suchformular wechseln, dass der Ordner, in dem Sie sich vorher
+			befunden haben, der Standard Suchordner ist. Wenn Sie in einem anderen
+			Ordner suchen wollen, m&uuml;ssen Sie zuerst in den richtigen Ordner wechseln.
+			Wenn Sie zum Beispiel im Ordner "Friends" ein Mail gelesen haben und dann
+			auf "Search" klicken, wird der Ordner "Friends" automatisch ausgew&auml;hlt,
+			um darin zu suchen.
       </p>
    </description>
 </section>
 
 <section>
    <title>
-      Was man durchsuchen kann
+			Was durchsuchen?
    </title>
    <description>
       <p>
-      Links vom Eingabefeld f&uuml;r die Suche gibt es eine Auswahlliste, was denn
-      alles durchsucht werden kann. Grunds&auml;tzlich sind dies: Nachricht, &Uuml;berall, 
-      Betreff, Absender, Empf&auml;nger und CC. 
+			Links vom Eingabefeld sehen Sie eine Drop-Down Liste von Stellen,
+			welche Sie durchsuchen k&ouml;nnen. Dies beinhaltet: Titel, From, CC, To,
+			Body und Everywhere.
       </p>
       <p>
-      <b>Nachrichtentext</b> - Durchsucht nur den Nachrichteninhalt der EMail. 
-      Dies ist der Teil der EMail, welcher normalerweise den versandten 
-      Text beinhaltet. Der Inhalt ist hier sehr undtrukturiert und Worte
-      wie "der", "die" usw. werden kaum relevante Ergebnisse liefern.
+      <b>Body</b> - Durchsucht den Body-Part des E-Mails. Dies ist der
+			Hauptteil des E-Mails und somit der wichtigste Teil.
       </p>
       <p>
-      <b>&Uuml;berall</b> - Dies durchsucht nicht nur die Nachricht selber, 
-      sondern auch noch die Kopfzeilen, die allerlei technische Informationen
-      enthalten. Wenn man nich sicher ist, dass man diese Option wirklich
-      will, sollte man sie nicht ausw&auml;hlen - sonst erh&auml;lt man Ergebnisse,
-      die u.U. alles andere als erwartet sind.
+      <b>Everywhere</b> - Dies durchsucht alles. Inklusive der ganzen
+			Headerinformationen des E-Mails. Verwenden Sie dies also nur, wenn
+			Sie nicht sicher sind, nach was Sie suchen. Es k&ouml;nnten Mails gefunden
+			werden, von denen Sie nicht gedacht h&auml;tten, dass diese in dem Zusammenhang
+			gefunden werden.
       </p>
       <p>
-      <b>Betreff</b> - Durchsucht die Betreffzeile der EMail nach dem eingegebenen
-      Begriff.
+      <b>Subject</b> - Dies durchsucht die Mails im Subject (Titelzeile) des Mails.
       </p>
       <p>
-      <b>Von</b> - Von wem die Nachricht kommt. Dies kann umfangreicher
-      sein, als das, was man in der Nachrichten&uuml;bersicht angezeigt bekommt.
-      Normalerweise enth&auml;lt die Absenderzeile einer EMail den Namen und die
-      EMail-Adresse und SquirrelMail zeigt gew&ouml;hnlich nur den Namen an. Wenn
-      die Suchbegriffe mit der EMail-Adresse &uuml;bereinstimmen, wird die Nachricht
-      angezeigt, obwohl man die EMail-Adresse dann nicht sieht.
+      <b>From</b> - Durchsucht die Mails, von welcher Person sie kommen. Beachten
+			Sie, dass dies mehr Resultate zur&uuml;ck gibt, als Sie annehmen, da diese Funktion
+			den Namen und die E-Mailadresse durchsucht, Squirrel Mail jedoch nur den Namen
+			in der "From" Zeile anzeigt.
       </p>
       <p>
-      <b>An</b> - An wen die EMail geschickt wurde. Dies k&ouml;nnen nat&uuml;rlich
-      unterschiedliche EMail-Adressen sein, kommt ganz drauf an, wieviele 
-      EMail-Adressen man auf dem SquirrelMail-Account empf&auml;ngt.
+      <b>To</b> - Durchsucht das Feld, an welche Person oder Mailadresse das Mail
+			verschickt wurde. Dies k&ouml;nnen mehrere Adressen sein.
       </p>
       <p>
-      <b>Cc</b> - Dasselbe wie "An", nur dass hier das Feld mit "CC" durchsucht
-      wird. Also an wen die EMail auch noch als Durchschlag versandt wurde.
+      <b>Cc</b> - Das selbe wie "To" nur sucht dies im Feld "Cc" (Carbon Copy).
       </p>
    </description>
 </section>
 
 <section>
    <title>
-   Vergangene Suchen
+   Letzte Suchen
    </title>
    <description>
-   Wenn die Option aktiviert ist, werden auf der Suchseite noch die letzten 9 
-   Suchaktionen angezeigt. Diese kann man dann einfach ausw&auml;hlen und nochmal
-   eine Suche starten, die fr&uuml;her einmal eingegeben wurde. Mit der Schaltfl&auml;che
-   Speichern kann man eine Suchaktion zu den gespeicherten Suchen hinzuf&uuml;gen. Die
-   Suche bleibt solange gespeichert, bis irgendwann die suche mit der Schaltfl&auml;che
-   L&ouml;schen wieder gel&ouml;scht wird. Klicke Vergessen an, damit die alten Suchen 
-   aus der Liste der vergangenen Suchen entferntw wird. 
+	 Wenn diese Option aktiviert ist, sehen Sie die letzten 9 Suchbegriffe,
+	 welche Sie verwendet haben f&uuml;r einen schnellen Zugriff. Klicken Sie auf Search
+	 neben dem Begriff, um erneut eine Suche mit diesem Stichwort zu t&auml;tigen. Mit dem
+	 Save Link k&ouml;nnen Sie eine Suche zu den gespeicherten Suchen ziehen. Diese werden
+	 so lange gespeichert, bis Sie diese explizit von der Such-History l&ouml;schen.
    </description>
 </section>
