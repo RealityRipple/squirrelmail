@@ -30,10 +30,6 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
              $base_uri . "themes/css/$custom_css\">\n";
     }
     
-    if( $do_hook ) {
-        do_hook ("generic_header");
-    }
-    
     echo "<title>$title</title>$xtra</head>\n\n";
 }
 
@@ -47,10 +43,9 @@ function displayInternalLink($path, $text, $target='') {
     echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }
 
-function displayPageHeader($color, $mailbox) {
+function displayPageHeader($color, $mailbox, $xtra='') {
 
     global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win, $username, $datadir;
-
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if (!isset($frame_top)) {
@@ -87,6 +82,7 @@ function displayPageHeader($color, $mailbox) {
                 "if( pos >= 0 ) {\n".
                     "document.forms[i-1].elements[pos].focus();\n".
                 "}\n".
+		"$xtra\n".
             "}\n";
             if ($compose_new_win == '1') {
                 $width= getPref($username, $datadir, 'editor_size', 76);
@@ -104,7 +100,7 @@ function displayPageHeader($color, $mailbox) {
                      "}\n";
             }
         $js .= "// -->\n".
-               "</script>\n";
+        	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         displayHtmlHeader ('Squirrelmail', $js);
         break;   
@@ -207,7 +203,7 @@ function compose_Header($color, $mailbox) {
                 "}\n".
             "}\n";
         $js .= "// -->\n".
-               "</script>\n";
+        	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         displayHtmlHeader (_("Compose"), $js);
         break;   
