@@ -583,10 +583,44 @@ $dateString = getLongDateString($message->header->date);
 /**
  * What do we reply to -- text only, if possible
  */
-$ent_ar = findDisplayEntity($message);
-/* first step in displaying multiple entities */
-$ent_num = $ent_ar[0];
+ 
+$body = ''; 
 
+/* experimental */
+/*
+if ($message->header->type0 == 'multipart' && $message->header->type1 == 'digest') {
+  listEntities($message);
+  for ($i = 0; $i < count($message->entities); $i++) {
+
+       $msg = $message->entities[$i];
+       $body .= $msg->header->type0 .'/'.$msg->header->type1 .'<BR>';
+
+       $msg->header->type0 = 'message';
+       $msg->header->type1 = 'rfc822';
+       $ent_ar = findDisplayEntity($msg, false);
+       for ($i = 0; $i < count($ent_ar); $i++) {
+	    $body .= formatBody($imapConnection, $msg, $color, $wrap_at, $ent_ar[$i]);
+       }
+       $i++;
+   }
+} else {
+*/    
+    $ent_ar = findDisplayEntity($message, false);
+    $i = 0;
+    for ($i = 0; $i < count($ent_ar); $i++) {
+	$body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i]);
+    }
+/*
+}
+*/
+    
+/* first step in displaying multiple entities */
+$ent_ar = findDisplayEntity($message,true);
+
+$ent_num = $ent_num_ar[0];
+for ($i = 1 ; $i < count($ent_ar); $i++) {
+    $ent_num .= '_'.$ent_num_ar[$i];
+}
 /** TEXT STRINGS DEFINITIONS **/
 $echo_more = _("more");
 $echo_less = _("less");
@@ -1075,9 +1109,10 @@ echo '</TABLE>' .
 flush();
 echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
     "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
-    '<BR>'.
-    formatBody($imapConnection, $message, $color, $wrap_at, $ent_num).
-    '</TD></TR></TABLE>' .
+    '<BR>';
+echo $body;
+
+echo '</TD></TR></TABLE>' .
     '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
     "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
     '</TABLE>' . "\n";
