@@ -21,5 +21,5 @@
 function sqspell_init(flag){
   textToSpell = opener.document.compose.subject.value + "\n" + opener.document.compose.body.value;
   document.forms[0].sqspell_text.value = textToSpell;
-  if (flag) document.compose.submit();
+  if (flag) document.forms[0].submit();
 }
