@@ -45,15 +45,28 @@ function squirrelmail_plugin_init_translate() {
 /* Show the translation for a message you're reading */
 function translate_read_form() {
     global $color, $translate_server;
-    global $body, $translate_dir;
+    global $message, $translate_dir;
     global $translate_show_read;
+    global $imapConnection, $wrap_at, $passed_id, $mailbox;
 
     if (!$translate_show_read) {
         return;
     }
     
     $translate_dir = 'to';
-            
+
+$trans_ar = $message->findDisplayEntity(array(), array('text/plain'));
+$body = '';
+if ($trans_ar[0] != '') {
+  for ($i = 0; $i < count($trans_ar); $i++) {
+    $body .= formatBody($imapConnection, $message, $color, $wrap_at, $trans_ar[$i], $passed_id, $mailbox);
+  }
+    $hookResults = do_hook('message_body', $body);
+    $body = $hookResults[1];
+  } else {
+    $body = 'Message can\'t be translated';
+}
+
     $new_body = $body;
     $pos = strpos($new_body,
             '">'. _("Download this as a file") . '</A></CENTER><BR></SMALL>');
@@ -219,14 +232,18 @@ function translate_new_form($action) {
 }
 
 function translate_form_babelfish($message) {
-    translate_new_form('http://babelfish.altavista.com/translate.dyn');
+    translate_new_form('http://babelfish.altavista.com/babelfish/tr');
 ?>
     <input type="hidden" name="doit" value="done">
-    <input type="hidden" name="BabelFishFrontPage" value="yes">
-    <input type="hidden" name="bblType" value="urltext">
+    <input type="hidden" name="intl" value="1">
+    <input type="hidden" name="tt" value="urltext">
     <input type="hidden" name="urltext" value="<?php echo $message; ?>">
     <select name="lp"><?php
-        echo translate_lang_opt('en',  'fr',  'en_fr',
+        echo translate_lang_opt('en',  'zh',  'en_zh',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Chinese"))) .
+	     translate_lang_opt('en',  'fr',  'en_fr',
                                 sprintf( _("%s to %s"),
                                          _("English"),
                                          _("French"))) .
@@ -238,6 +255,14 @@ function translate_form_babelfish($message) {
                                 sprintf( _("%s to %s"),
                                          _("English"),
                                          _("Italian"))) .
+	     translate_lang_opt('en',  'ja',  'en_ja',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Japanese"))) .
+	     translate_lang_opt('en',  'ko',  'en_ko',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Korean"))) .
              translate_lang_opt('',    'pt*', 'en_pt',
                                 sprintf( _("%s to %s"),
                                          _("English"),
@@ -246,6 +271,10 @@ function translate_form_babelfish($message) {
                                 sprintf( _("%s to %s"),
                                          _("English"),
                                          _("Spanish"))) .
+             translate_lang_opt('zh',  'en',  'zh_en',
+                                sprintf( _("%s to %s"),
+                                         _("Chinese"),
+                                         _("English"))) .
              translate_lang_opt('fr',  'en',  'fr_en',
                                 sprintf( _("%s to %s"),
                                          _("French"),
@@ -257,6 +286,14 @@ function translate_form_babelfish($message) {
              translate_lang_opt('it',  '',    'it_en',
                                 sprintf( _("%s to %s"),
                                          _("Italian"),
+                                         _("English"))) .
+             translate_lang_opt('ja',  'en',  'ja_en',
+                                sprintf( _("%s to %s"),
+                                         _("Japanese"),
+                                         _("English"))) .
+             translate_lang_opt('ko',  'en',  'ko_en',
+                                sprintf( _("%s to %s"),
+                                         _("Korean"),
                                          _("English"))) .
              translate_lang_opt('pt*', '',    'pt_en',
                                 sprintf( _("%s to %s"),
@@ -411,10 +448,7 @@ function translate_form_intertran($message) {
 
 function translate_form_gpltrans($message) {
     translate_new_form('http://www.translator.cx/cgi-bin/gplTrans');
-    echo '<select name="toenglish">';
-    translate_lang_opt('en',  '!en', 'no',  'From English');
-    translate_lang_opt('!en', 'en',  'yes', 'To English');
-    echo '</select><select name="language">'.
+    echo '<select name="language">'.
         translate_lang_opt('nl', 'nl', 'dutch_dict',      _("Dutch")).
         translate_lang_opt('fr', 'fr', 'french_dict',     _("French")).
         translate_lang_opt('de', 'de', 'german_dict',     _("German")).
@@ -423,23 +457,28 @@ function translate_form_gpltrans($message) {
         translate_lang_opt('',   '',   'latin_dict',      _("Latin")).
         translate_lang_opt('pt', 'pt', 'portuguese_dict', _("Portuguese")).
         translate_lang_opt('es', 'es', 'spanish_dict',    _("Spanish")).
-        '</select>'.
-        "<input type=hidden name=text value=\"$message\">".
+        '</select>';
+    echo '<select name="toenglish">';
+    echo '<option value="yes" >'. _("to English") . '</option>';
+    echo '<option value="no" selected>' . _("from English") . '</option></select>';
+    echo "<input type=hidden name=text value=\"$message\">".
         'GPLTrans: <input type="submit" value="' . _("Translate") . '">';
 
     translate_table_end();
 }
 
 function translate_form_dictionary($message) {
-    translate_new_form('http://translate.dictionary.com:8800/systran/cgi');
-    echo '<INPUT TYPE=HIDDEN NAME=partner VALUE=LEXICO>'.
-         "<input type=hidden name=urltext value=\"$message\">".
+    translate_new_form('http://dictionary.reference.com/translate/text.html');
+    list($usec, $sec) = explode(" ",microtime());
+    $time = $sec . (float)$usec*100000000;
+    echo "<input type=hidden name=text value=\"$message\">".
+         "<input type=hidden name=r value=\"$time\">".
          '<SELECT NAME="lp">'.
          translate_lang_opt('en',  'fr', 'en_fr',
                             sprintf( _("%s to %s"),
                                      _("English"),
                                      _("French"))) .
-         translate_lang_opt('',    'de', 'en_de',
+         translate_lang_opt('',    'ge', 'en_ge',
                             sprintf( _("%s to %s"),
                                      _("English"),
                                      _("German"))) .
@@ -451,7 +490,7 @@ function translate_form_dictionary($message) {
                             sprintf( _("%s to %s"),
                                      _("English"),
                                      _("Portuguese"))) .
-         translate_lang_opt('',    'es', 'en_sp',
+         translate_lang_opt('',    'es', 'en_es',
                             sprintf( _("%s to %s"),
                                      _("English"),
                                      _("Spanish"))) .
@@ -467,7 +506,7 @@ function translate_form_dictionary($message) {
                             sprintf( _("%s to %s"),
                                      _("German"),
                                      _("French"))) .
-         translate_lang_opt('de',  '', 'de_en',
+         translate_lang_opt('de',  '', 'ge_en',
                             sprintf( _("%s to %s"),
                                      _("German"),
                                      _("English"))) .
@@ -479,7 +518,7 @@ function translate_form_dictionary($message) {
                             sprintf( _("%s to %s"),
                                      _("Portuguese"),
                                      _("English"))) .
-         translate_lang_opt('es',  '', 'sp_en',
+         translate_lang_opt('es',  '', 'es_en',
                             sprintf( _("%s to %s"),
                                      _("Spanish"),
                                      _("English"))) .
