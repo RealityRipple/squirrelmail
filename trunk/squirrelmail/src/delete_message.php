@@ -27,6 +27,10 @@ if (!isset($saved_draft)) {
     $saved_draft = '';
 }
 
+if (!isset($mail_sent)) {
+    $mail_sent = '';
+}
+
 $location = get_location();
 if (isset($where) && isset($what)) {
     header("Location: $location/search.php?where=" . urlencode($where) .
