@@ -44,7 +44,7 @@ class Rfc822Header {
             $hdr = implode('', $hdr);
         }
         /* First we unfold the header */
-        $hdr = trim(str_replace(array("\r\n\t", "\r\n "),array('', ''), $hdr));
+        $hdr = trim(str_replace(array("\r\n\t", "\r\n "),array(' ', ' '), $hdr));
 
         /* Now we can make a new header array with */
         /* each element representing a headerline  */
