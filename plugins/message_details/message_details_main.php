@@ -10,8 +10,8 @@
  */
 
 /* Path for SquirrelMail required files. */
-chdir('..');
-define('SM_PATH','../');
+#chdir('..');
+define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
