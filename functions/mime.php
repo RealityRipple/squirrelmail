@@ -2065,7 +2065,7 @@ function magicHTML($body, $id, $message){
     $bad_attvals = Array(
         "/.*/" =>
             Array(
-                "/^src|background|href|action/i" =>
+                "/^src|background/i" =>
                     Array(
                           Array(
                                 "|^([\'\"])\s*\.\./.*([\'\"])|si",
@@ -2080,6 +2080,21 @@ function magicHTML($body, $id, $message){
 				"\\1$secremoveimg\\2"
                                 )
                         ),
+                "/^href|action/i" =>
+                    Array(
+                          Array(
+                                "|^([\'\"])\s*\.\./.*([\'\"])|si",
+                                "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
+				"/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
+				"/^([\'\"])\s*about\s*:.*([\'\"])/si"
+                                ),
+                          Array(
+                                "\\1#\\2",
+                                "\\1#\\2",
+				"\\1#\\2",
+				"\\1#\\2"
+                                )
+                        ),
                 "/^style/si" =>
                     Array(
                           Array(
@@ -2087,14 +2102,18 @@ function magicHTML($body, $id, $message){
 				"/binding/si",
 				"/behaviou*r/si",
                                 "|url\(([\'\"])\s*\.\./.*([\'\"])\)|si",
-                                "/url\(([\'\"])\s*\S+script:.*([\'\"])\)/si"
+                                "/url\(([\'\"])\s*\S+script\s*:.*([\'\"])\)/si",
+				"/url\(([\'\"])\s*mocha\s*:.*([\'\"])\)/si",
+				"/url\(([\'\"])\s*about\s*:.*([\'\"])\)/si"
                                ),
                           Array(
                                 "idiocy",
 				"idiocy",
 				"idiocy",
-                                "url(\\1$secremoveimg\\2)",
-                                "url(\\1$secremoveimg\\2)"
+                                "url(\\1#\\2)",
+                                "url(\\1#\\2)",
+				"url(\\1#\\2)",
+				"url(\\1#\\2)"
                                )
                           )
                 )
@@ -2104,9 +2123,9 @@ function magicHTML($body, $id, $message){
          * Remove any references to http/https if view_unsafe_images set
          * to false.
          */
-         array_push($bad_attvals{'/.*/'}{'/^src|background|href|action/i'}[0],
+         array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
                     '/^([\'\"])\s*https*:.*([\'\"])/si');
-         array_push($bad_attvals{'/.*/'}{'/^src|background|href|action/i'}[1],
+         array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
                     "\\1$secremoveimg\\2");
          array_push($bad_attvals{'/.*/'}{'/^style/si'}[0],
                     '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
