@@ -368,9 +368,9 @@ do_hook('search_after_form');
 */
 
 $old_value = 0;
-if ($allow_thread_sort == true) {
+if ($allow_thread_sort == TRUE) {
     $old_value = $allow_thread_sort;
-    $allow_thread_sort = false;
+    $allow_thread_sort = FALSE;
 }
 
 if ($search_all == 'all') {

@@ -257,7 +257,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       }
   }
 
-  if ($allow_server_sort == 'true' && $thread_sort_messages != 1) {
+  if ($allow_server_sort == TRUE && $thread_sort_messages != 1) {
     $server_sort_order = $sort;
     $id = sqimap_get_sort_order($imapConnection, $server_sort_order);
   if ($id == 'no') {
@@ -265,7 +265,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
        'is not supported by your IMAP server.<br>Please report this'.
        ' to the system administrator.</center></small></b>';
     $sort = $server_sort_order;
-	  $allow_server_sort = false;
+	  $allow_server_sort = FALSE;
 	  $id = array();
 	}
 	else {
@@ -292,7 +292,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       if ($sort < 6 ) {
 	$id = range(1, $num_msgs);
       } 
-      elseif ($thread_sort_messages != 1 && $allow_server_sort != 'true' && $sort == 6) {
+      elseif ($thread_sort_messages != 1 && $allow_server_sort != TRUE && $sort == 6) {
 	/* if it's not sorted */
 	if ($start_msg + ($show_num - 1) < $num_msgs){
 	  $end_msg = $start_msg + ($show_num - 1);
@@ -456,7 +456,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       }
     }		
     session_register('msort');
-  } elseif ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
+  } elseif ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
     $msort = $msgs;
     session_unregister('msgs');
     session_register('msort');
@@ -673,7 +673,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     . "   </TR>\n";
 
   /* draws thread sorting links */
-  if ($allow_thread_sort == 'true') {
+  if ($allow_thread_sort == TRUE) {
     if ($thread_sort_messages == 1 ) {
       $set_thread = 2;
       $thread_name = 'Unthread View';
@@ -705,7 +705,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
    * instead. but here we reset sort for a bit
    * since its easy
    */
-  if ($allow_server_sort == 'true') {
+  if ($allow_server_sort == TRUE) {
     $sort = $server_sort_order;
   }
   /* Print the headers. */
@@ -721,21 +721,21 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
       } else {
 	echo '   <TD WIDTH="25%"><B>' . _("From") . '</B>';
       }
-      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
+      if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 2, 3);
       }
       echo "</TD>\n";
       break;
     case 3: /* date */
       echo '   <TD NOWRAP WIDTH="5%"><B>' . _("Date") . '</B>';
-      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
+      if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 0, 1);
       }
       echo "</TD>\n";
       break;
     case 4: /* subject */
       echo '   <TD><B>' . _("Subject") . '</B> ';
-      if ($allow_thread_sort != 'true' || $thread_sort_messages != 1) {
+      if ($allow_thread_sort != TRUE || $thread_sort_messages != 1) {
 	ShowSortButton($sort, $mailbox, 4, 5);
       }
       echo "</TD>\n";
@@ -748,7 +748,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   /* if using server-sorting,
    * send sort back to 6
    */
-  if ($allow_server_sort == 'true') {
+  if ($allow_server_sort == TRUE) {
     $sort = 6;
   }
   echo "</TR>\n";

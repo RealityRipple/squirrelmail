@@ -81,7 +81,7 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
 
 /* decide if we are thread sorting or not */
 global $allow_thread_sort;
-if ($allow_thread_sort == 'true') {
+if ($allow_thread_sort == TRUE) {
     if (isset($set_thread)) {
         if ($set_thread == 1) {
             setPref($data_dir, $username, "thread_$mailbox", 1);
