@@ -80,6 +80,8 @@ Version 1.5.1 -- CVS
   - Added size limit to signatures saved in file backend. Created error_option_save
     function, that allows sending error message to options page. Thanks to Martynas 
     Bieliauskas for spotting big signature "option".
+  - Make SquirrelSpell work with safe_mode enabled, if using PHP >=4.3.0.
+    Patch by Ray Ferguson.
 
 Version 1.5.0
 --------------------
@@ -284,7 +286,7 @@ Version 1.4.0 RC 2a
   - Correctly fold encoded header lines.
   - Fix prefs caching not working correctly in PHP 4.3 caused by a stupid
     version checking mechanism.
-  - Fix XXS hole that allowed JavaScript execution by sending someone
+  - Fix XSS hole that allowed JavaScript execution by sending someone
     an email with specially crafted headers. Thanks Jason Munro, and
     Masato Higashiyama.
 
