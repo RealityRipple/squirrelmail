@@ -15,6 +15,7 @@ initials = taken by that person
   -     Maybe a rewrite of mime.php (see Gustav before any work is done)
   -     Better handling emptying Trash folder.  Some servers don't allow deleting it (Courier)
   -     Make Location redirects absolute rather than relative (index.php)
+  -     Foreground themes
 (lme)   Configure script
 
 
