@@ -68,7 +68,7 @@
       echo '<input type=checkbox value="1" name=usesignature checked>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
    else
       echo '<input type=checkbox value="1" name=usesignature>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
-  if ( ! isset($prefix_sig) || $prefix_sig == true )
+  if ( ! isset($prefix_sig) && $prefix_sig == true )
     echo '<input type="checkbox" value="1" name="prefixsig" checked>&nbsp;&nbsp;' 
         . _( "Prefix signature with '--' ?" ) . '<BR>';
   else
