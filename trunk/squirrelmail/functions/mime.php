@@ -92,6 +92,7 @@ function mime_structure ($imap_stream, $header) {
  * to mime_get_elements()
  */
 function mime_parse_structure ($structure, $ent_id) {
+  global $mailbox;
   $properties = array();
   $msg = new message();
   if ($structure{0} == '(') {
@@ -101,38 +102,65 @@ function mime_parse_structure ($structure, $ent_id) {
      do {
         $start = $end+1;
         $end = mime_match_parenthesis ($start, $structure);
-        /* add "forgotten"  parent entities (alternative and relative) */
-	if (strpos($ent_id, '0')  || strpos($ent_id, '0') == 0) { 
-	    $str = substr($structure, $end+1 );
-	    $startprop = strrpos($str,'(');
-	    $endprop   = strrpos($str,')');
-	    $propstr = substr($str, $startprop + 1, ($endprop - $startprop)-1);
 
-	    $type1 = trim(substr($str,0, $startprop));
-	    $pos = strrpos($type1,' ');
-	    $type1 = strtolower(trim(substr($type1,$pos +1)));
-	    $cnt = strlen($type1);
-	    $type1 = substr($type1,0,$cnt-1);
-     
-            $properties = mime_get_props($properties, $propstr);
+	/* check if we are dealing with a new entity-level */
+	$i = strrpos($ent_id,'.');
+	if ($i>0) {
+	    $ent = substr($ent_id, $i+1);
+	} else {
+	    $ent = '';
+	}
+        /* add "forgotten"  parent entities (alternative and relative) */
+	if ($ent == '0') {
+	    /* new entity levels have information about the type (type1) and 
+	    *  the properties. This information is situated at the end of the 
+	    *  structure string like for example (example between the brackets) 
+	    *  [ "RELATED" ("BOUNDARY" "myboundary" "TYPE" "plain/html") ]
+	    */
+	    
+	    /* get the involved properties for parsing to mime_get_properties */
+	    $startprop = strrpos($structure,'(');
+	    $properties_str = substr($structure,$startprop);
+	    $endprop = mime_match_parenthesis ($startprop, $structure);
+	    $propstr = substr($structure, $startprop + 1, ($endprop - $startprop)-1);
+	    /* cut off the used properties */
+	    if ($startprop) { 
+		$structure_end = substr($structure, $endprop+2);
+		$structure = trim(substr($structure,0,$startprop));
+	    }
+	    
+	    /* get type1 */
+	    $pos = strrpos($structure,' ');
+	    $type1 = strtolower(substr($structure, $pos+2, (count($structure)-2)));
+
+	    /* cut off  type1 */
+	    if ($pos && $startprop) {
+		$structure = trim(substr($structure, 0, $pos));
+	    }
+
+	    /* process the found information */
+            $properties = mime_get_props($properties, $properties_str);
 	    if (count($properties)>0) {
 		$msg->header->entity_id = $old_ent_id;
 		$msg->header->type0 = 'multipart';
 		$msg->header->type1 = $type1;
+		for ($i=0; $i < count($properties); $i++) {
+    		    $msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
+		}
 	    }
-	    for ($i=0; $i < count($properties); $i++) {
-    		$msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
-		$name = $properties[$i]['name'];
-		$value = $properties[$i]['value'];
+	    $structure = $structure . ' ' . $structure_end;
+	} 
+    	$element = substr($structure, $start+1, ($end - $start)-1);
+    	$ent_id = mime_increment_id ($ent_id);
+    	$newmsg = mime_parse_structure ($element, $ent_id);
+	/* set mailbox in case of message/rfc822 entities */
+	if (isset($newmsg->header->type0) && isset($newmsg->header->type1)) {
+	    if ($newmsg->header->type0 == 'message' && $newmsg->header->type1 == 'rfc822') {
+		$newmsg->header->mailbox=$mailbox;
 	    }
 	}
+    	$msg->addEntity ($newmsg);
 
-        $element = substr($structure, $start+1, ($end - $start)-1);
-	
-        $ent_id = mime_increment_id ($ent_id);
-        $newmsg = mime_parse_structure ($element, $ent_id);
-        $msg->addEntity ($newmsg);
-	
      } while ($structure{$end+1} == '(');
   } else {
      // parse the elements
@@ -140,6 +168,7 @@ function mime_parse_structure ($structure, $ent_id) {
   }
   return $msg;
 }
+
 
 /* Increments the element ID.  An element id can look like any of
  * the following:  1, 1.2, 4.3.2.4.1, etc.  This function increments
@@ -733,7 +762,6 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     $id = $message->header->id;
 
     $urlmailbox = urlencode($message->header->mailbox);
-//    ListMyEntities($message); 
     // Get the right entity and redefine message to be this entity
     // Pass the 0 to mean that we want the 'best' viewable one
     $ent_num = findDisplayEntity ($message, 0);
@@ -767,7 +795,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         }
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
-        if (isset($message->entities[0])) {
+        if (isset($message->entities[1])) {
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
         }
     } else {
@@ -903,7 +931,6 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             $DefaultLink =
                 "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
             if ($where && $what) {
-                $DefaultLink .= '&amp;where=' . urlencode($where) . '&amp;what=' . urlencode($what);
             }
             $Links['download link']['text'] = _("download");
             $Links['download link']['href'] =
@@ -1067,17 +1094,17 @@ function encodeHeader ($string) {
 function find_ent_id( $id, $message ) {
     $ret = '';
     for ($i=0; $ret == '' && $i < count($message->entities); $i++) {
-	if ( $message->entities[$i]->header->entity_id == '' || $message->entities[$i]->header->type ) {
-            $ret = find_ent_id( $id, $message->entities[$i] );
+	if (( $message->entities[$i]->header->type1 == 'alternative') ||	 
+	    ( $message->entities[$i]->header->type1 == 'related') ||	 
+	    ( $message->entities[$i]->header->type1 == 'mixed')) { 	 
+    	    $ret = find_ent_id( $id, $message->entities[$i] );
         } else {
             if ( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 )
                 $ret = $message->entities[$i]->header->entity_id;
         }
 
     }
-
     return( $ret );
-
 }
 
 /**
@@ -1142,8 +1169,8 @@ function sq_skipspace($body, $offset){
     if (sizeof($matches{1})){
         $count = strlen($matches{1});
         $offset += $count;
-        if ($pos >= strlen($body)){
-        }
+        //if ($pos >= strlen($body)){
+        //}
     }
     return $offset;
 }
@@ -1343,18 +1370,19 @@ function sq_getnxtag($body, $offset){
          * the end of the tag.
          */
         $matches = Array();
-        preg_match("%^(\s*)(>|/>)%s", substr($body, $pos), $matches);
-        if ($matches{0}){
-            /**
-             * Yep. So we did.
-             */
-            $pos += strlen($matches{1});
-            if ($matches{2} == "/>"){
-                $tagtype = 3;
-                $pos++;
-            }
-            return Array($tagname, $attary, $tagtype, $lt, $pos);
-        }
+        if (preg_match("%^(\s*)(>|/>)%s", substr($body, $pos), $matches)) {
+           if ($matches{0}){
+               /**
+                * Yep. So we did.
+                */
+               $pos += strlen($matches{1});
+               if ($matches{2} == "/>"){
+                   $tagtype = 3;
+                   $pos++;
+               }
+               return Array($tagname, $attary, $tagtype, $lt, $pos);
+           }
+	}
 
         /**
          * There are several types of attributes, with optional
