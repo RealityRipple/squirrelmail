@@ -127,21 +127,21 @@
          if ($Value['enabled'])
             $run ++;
       }
-      
+
       // short-circuit
       if ($run == 0) {
           return;
       }
-      
+
       sqimap_mailbox_select($imap_stream, 'INBOX');
-      
-      // Ask for a big list of all "Received" headers in the inbox with 
+
+      // Ask for a big list of all "Received" headers in the inbox with
       // flags for each message.  Kinda big.
       fputs($imap_stream, 'A3999 FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
        "(RECEIVED)])\r\n");
-      
+
       $read = sqimap_read_data ($imap_stream, 'A3999', true, $response, $message);
-      
+
       if ($response != 'OK')
           return;
 
@@ -159,46 +159,46 @@
           $i ++;
           $IsSpam = 0;
           $Scan = 1;
-          
-	  // Check for normal IMAP servers
+
+          // Check for normal IMAP servers
           if ($filters_spam_scan == 'new') {
               if (is_int(strpos($Chunks[4], '\Seen'))) {
                   $Scan = 0;
               }
           }
-	  
-	  // Look through all of the Received headers for IP addresses
-	  // Stop when I get ")" on a line
-	  // Stop if I get "*" on a line (don't advance)
+
+          // Look through all of the Received headers for IP addresses
+          // Stop when I get ")" on a line
+          // Stop if I get "*" on a line (don't advance)
           // and above all, stop if $i is bigger than the total # of lines
           while (($i < count($read)) &&
                  ($read[$i][0] != ')' && $read[$i][0] != '*' &&
-	          $read[$i][0] != "\n") && (! $IsSpam))
-	  {
+                  $read[$i][0] != "\n") && (! $IsSpam))
+          {
               // Check to see if this line is the right "Received from" line
               // to check
               if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
 
-   	         // short-circuit and skip work if we don't scan this one
+                // short-circuit and skip work if we don't scan this one
                  if ($Scan) {
                      $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
                      $elements = explode(' ', $read[$i]);
                      foreach ($elements as $value) {
-   		      if ($value != '' &&
+                     if ($value != '' &&
                           ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
-   			     $value, $regs)) {
-		          $Chunks = explode('.', $value);
-                          if ("$SpamFilters_DNScache[$value]" == "") {
+                               $value, $regs)) {
+                        $Chunks = explode('.', $value);
+                        if ("$SpamFilters_DNScache[$value]" == "") {
                              $SpamFilters_DNScache[$value] =
                                 filters_spam_check_site($Chunks[0], $Chunks[1],
-		                      $Chunks[2], $Chunks[3], $filters);
-                         }
-                         if ($SpamFilters_DNScache[$value]) {
-		            $IsSpam ++;
+                             $Chunks[2], $Chunks[3], $filters);
+                        }
+                        if ($SpamFilters_DNScache[$value]) {
+                            $IsSpam ++;
                             break;  // no sense in checking more IPs
-                         }
+                        }
                       }
-                     }
+                    }
                  }
               }
               $i ++;
@@ -209,12 +209,12 @@
               if (sqimap_mailbox_exists ($imap_stream, $filters_spam_folder)) {
                   sqimap_messages_copy ($imap_stream, $MsgNum, $MsgNum,
                                         $filters_spam_folder);
-                  sqimap_messages_flag ($imap_stream, $MsgNum, $MsgNum, 
+                  sqimap_messages_flag ($imap_stream, $MsgNum, $MsgNum,
                                         'Deleted');
               }
           }
       }
-      
+
       sqimap_mailbox_expunge($imap_stream, 'INBOX');
    }   
 
