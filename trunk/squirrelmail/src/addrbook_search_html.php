@@ -40,17 +40,20 @@
    // Insert hidden data
    function addr_insert_hidden() {
       global $body, $subject, $send_to, $send_to_cc, $send_to_bcc;
-      printf("<input type=hidden value=\"%s\" name=body>\n", 
-             htmlspecialchars($body));
-      printf("<input type=hidden value=\"%s\" name=subject>\n", 
-             htmlspecialchars($subject));
-      printf("<input type=hidden value=\"%s\" name=send_to>\n", 
-             htmlspecialchars($send_to));
-      printf("<input type=hidden value=\"%s\" name=send_to_cc>\n", 
-             htmlspecialchars($send_to_cc));
-      printf("<input type=hidden value=\"%s\" name=send_to_bcc>\n", 
-             htmlspecialchars($send_to_bcc));     
-      printf("<input type=hidden value=\"true\" name=from_htmladdr_search>\n");
+      
+      echo "<input type=hidden value=\"";
+      if (substr($body, 0, 1) == "\r")
+          echo "\n";
+      echo htmlspecialchars($body) . "\" name=body>\n";
+      echo "<input type=hidden value=\"" . htmlspecialchars($subject)
+          . "\" name=subject>\n";
+      echo "<input type=hidden value=\"" . htmlspecialchars($send_to)
+          . "\" name=send_to>\n";
+      echo "<input type=hidden value=\"" . htmlspecialchars($send_to_cc)
+          . "\" name=send_to_cc>\n";
+      echo "<input type=hidden value=\"" . htmlspecialchars($send_to_bcc)
+          . "\" name=send_to_bcc>\n";
+      echo "<input type=hidden value=\"true\" name=from_htmladdr_search>\n";
    }
 
 

@@ -27,6 +27,7 @@
    include("../src/load_prefs.php");
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
+   do_hook("html_top");
    displayPageHeader($color, $mailbox);
 
    if ($view_hdr) {
@@ -337,12 +338,13 @@
    
    $body = formatBody($imapConnection, $message, $color, $wrap_at);
 
-   echo "$body";
-
+   echo $body;
+   
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
    do_hook("read_body_bottom");
+   do_hook("html_bottom");
    sqimap_logout($imapConnection);
 ?>

@@ -19,29 +19,9 @@
    if (!isset($plugin_php))
       include("../functions/plugin.php");
 
-   // let's check to see if they compiled with gettext support
-   if (!function_exists("_")) {
-      function _($string) {
-         return $string;
-      }
-   } else {
-      // $squirrelmail_language is set by a cookie when the user selects
-      // language and logs out
-
-      // Use HTTP content language negotiation if cookie not set
-      if (!isset($squirrelmail_language) && isset($HTTP_ACCEPT_LANGUAGE)) {
-         $squirrelmail_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
-      }
-
-      if (isset($squirrelmail_language)) {
-         if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-            putenv("LC_ALL=".$squirrelmail_language);
-            bindtextdomain("squirrelmail", "../locale/");
-            textdomain("squirrelmail");
-            header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
-         }
-      }
-   }
+   // $squirrelmail_language is set by a cookie when the user selects
+   // language and logs out
+   set_up_language($squirrelmail_language, true);
 
    // Need the base URI to set the cookies. (Same code as in webmail.php)
    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);

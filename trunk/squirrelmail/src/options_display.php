@@ -55,25 +55,25 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?php echo _("Language"); ?>:
+            <td valign=top align=right nowrap><?php echo _("Language"); ?>:
             </td><td>
 <?php
    echo "         <tt><select name=language>\n";
-   reset ($languages);
-   while (list($code, $name)=each($languages)) {
+   foreach ($languages as $code => $name) {
       if ($code==$chosen_language)
          echo "         <OPTION SELECTED VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
       else
          echo "         <OPTION VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
- 
-   } 
+   }
    echo "         </select></tt>";  
+   if (! $use_gettext)
+      echo "<br><small>This system doesn't support multiple languages</small>";
+      
 ?>
             </td>
          <tr>
             <td align=right nowrap>&nbsp;
-            </td><td>
-               <?php echo _("Use Javascript or HTML addressbook?") . "<br>"; 
+               <?php echo _("Use Javascript or HTML addressbook?") . "</td><td>"; 
                if ($use_javascript_addr_book == true) {
                   echo "         <input type=radio name=javascript_abook value=1 checked> " . _("JavaScript") . "&nbsp;&nbsp;&nbsp;&nbsp;";
                   echo "         <input type=radio name=javascript_abook value=0> " . _("HTML"); 
@@ -126,6 +126,21 @@
                 <option value="right"<?PHP
                     if ($location_of_bar == 'right') echo ' SELECTED';
                     ?>><?PHP echo _('Right'); ?></option>
+                </select>
+            </td>
+         </tr>
+         <tr>
+            <td align=right nowrap><?PHP echo _('Location of buttons when composing') ?>:</td>
+            <td><select name="button_new_location">
+                <option value="top"<?PHP
+                    if ($location_of_buttons == 'top') echo ' SELECTED';
+                    ?>><?PHP echo _('Before headers'); ?></option>
+                <option value="between"<?PHP
+                    if ($location_of_buttons == 'between') echo ' SELECTED';
+                    ?>><?PHP echo _('Between headers and message body'); ?></option>
+                <option value="bottom"<?PHP
+                    if ($location_of_buttons == 'bottom') echo ' SELECTED';
+                    ?>><?PHP echo _('After message body'); ?></option>
                 </select>
             </td>
          </tr>

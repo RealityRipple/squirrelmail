@@ -11,7 +11,7 @@
     **  the errors will be sent back through $response and $message
     ******************************************************************************/
    function sqimap_read_data ($imap_stream, $pre, $handle_errors, $response, $message) {
-      global $color;
+      global $color, $squirrelmail_language;
 
       //$imap_general_debug = true;
       $imap_general_debug = false;
@@ -19,42 +19,30 @@
       $read = fgets ($imap_stream, 1024);
 		if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
       $counter = 0;
-      while ((substr($read, 0, strlen("$pre OK")) != "$pre OK") &&
-             (substr($read, 0, strlen("$pre BAD")) != "$pre BAD") &&
-             (substr($read, 0, strlen("$pre NO")) != "$pre NO")) {
+      while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
          $data[$counter] = $read;
          $read = fgets ($imap_stream, 1024);
 			if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
          $counter++;
       }       
       if ($imap_general_debug) echo "--<br>";
-      if (substr($read, 0, strlen("$pre OK")) == "$pre OK") {
-         $response = "OK";
-         $message = trim(substr($read, strlen("$pre OK"), strlen($read)));
-      }
-      else if (substr($read, 0, strlen("$pre BAD")) == "$pre BAD") {
-         $response = "BAD";
-         $message = trim(substr($read, strlen("$pre BAD"), strlen($read)));
-      }
-      else {   
-         $response = "NO";
-         $message = trim(substr($read, strlen("$pre NO"), strlen($read)));
-      }
 
       if ($handle_errors == true) {
-         if ($response == "NO") {
+         if ($regs[1] == "NO") {
+            set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
             echo "</b><br>\n";
             echo _("Reason Given: ");
-            echo "$message</font><br>\n";
+            echo trim($regs[2]) . "</font><br>\n";
             exit;
-         } else if ($response == "BAD") {
+         } else if ($regs[1] == "BAD") {
+            set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Bad or malformed request.");
             echo "</b><br>\n";
             echo _("Server responded: ");
-            echo "$message</font><br>\n";
+            echo trim($regs[2]) . "</font><br>\n";
             exit;
          }
       }
@@ -78,17 +66,10 @@
       // Decrypt the password
       $password = OneTimePadDecrypt($password, $onetimepad);
 
-      // This function can sometimes be called before the check for
-      // gettext is done.
-      if (!function_exists("_")) {
-         function _($string) {
-            return $string;
-         }
-      }
-
       /** Do some error correction **/
       if (!$imap_stream) {
          if (!$hide) {
+            set_up_language($squirrelmail_language, true);
             printf (_("Error connecting to IMAP server: %s.")."<br>\r\n", $imap_server_address);
             echo "$error_number : $error_string<br>\r\n";
          }
@@ -102,6 +83,7 @@
       if (substr($read, 0, 7) != "a001 OK") {
          if (!$hide) {
             if (substr($read, 0, 8) == "a001 BAD") {
+               set_up_language($squirrelmail_language, true);
                printf (_("Bad request: %s")."<br>\r\n", $read);
                exit;
             } else if (substr($read, 0, 7) == "a001 NO") {
@@ -114,20 +96,7 @@
                // $squirrelmail_language is set by a cookie when
                // the user selects language and logs out
                
-               // Use HTTP content language negotiation if cookie
-               // not set
-               if (!isset($squirrelmail_language) && isset($HTTP_ACCEPT_LANGUAGE)) {
-                  $squirrelmail_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
-               }
-               
-               if (isset($squirrelmail_language) && function_exists("bindtextdomain")) {
-                  if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-                     putenv("LC_ALL=".$squirrelmail_language);
-                     bindtextdomain("squirrelmail", "../locale/");
-                     textdomain("squirrelmail");
-                     header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
-                  }
-               }
+               set_up_language($squirrelmail_language, true);
                
                ?>
                   <html>
@@ -160,6 +129,7 @@
                session_destroy();
                exit;
             } else {
+               set_up_language($squirrelmail_language, true);
                printf (_("Unknown error: %s")."<br>", $read);
                exit;
             }
@@ -187,12 +157,10 @@
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
    function sqimap_get_delimiter ($imap_stream) {
-      fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
-      $read = sqimap_read_data($imap_stream, ".", true, $a, $b);
-      $quote_position = strpos ($read[0], "\"");
-      $delim = substr ($read[0], $quote_position+1, 1);
-
-      return $delim;
+      fputs ($imap_stream, "a001 NAMESPACE\r\n");
+      $read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
+      eregi("\"\" \"(.)\"", $read[0], $regs);
+      return $regs[1];
    }
 
 
@@ -205,12 +173,11 @@
       fputs ($imap_stream, "a001 EXAMINE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
       for ($i = 0; $i < count($read_ary); $i++) {
-         if (substr(trim($read_ary[$i]), -6) == EXISTS) {
-            $array = explode (" ", $read_ary[$i]);
-            $num = $array[1];
+         if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
+	    return $regs[1];
          }
       }
-      return $num;
+      return "BUG!  Couldn't get number of messages in $mailbox!";
    }
 
    
@@ -223,9 +190,8 @@
        ** lehresma@css.tayloru.edu
        **/
 
-      if (strpos($string, "<") && strpos($string, ">")) {
-         $string = substr($string, strpos($string, "<")+1);
-         $string = substr($string, 0, strpos($string, ">"));
+      if (ereg("<([^>]+)>", $string, $regs)) {
+          $string = $regs[1];
       }
       return trim($string); 
    }
@@ -239,22 +205,10 @@
     **           becomes:   lkehresman@yahoo.com
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
-      $string = " ".trim($string);
-      $orig_string = $string;
-      if (strpos($string, "<") && strpos($string, ">")) {
-         if (strpos($string, "<") == 1) {
-            $string = sqimap_find_email($string);
-         } else {
-            $string = trim($string);
-            $string = substr($string, 0, strpos($string, "<"));
-            $string = ereg_replace ("\"", "", $string);   
-         }   
-
-         if (trim($string) == "") {
-            $string = sqimap_find_email($orig_string);
-         }
-      }
-      return $string; 
+      ereg("^\"?([^\"<]*)[\" <]*([^>]+)>?$", trim($string), $regs);
+      if ($regs[1] == '')
+          return $regs[2];
+      return $regs[1];
    }
 
 
@@ -265,10 +219,8 @@
       //fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\r\n");
       fputs ($imap_stream, "a001 STATUS \"$mailbox\" (UNSEEN)\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
-      $unseen = false;
-      
-		$read_ary[0] = trim($read_ary[0]);
-		return substr($read_ary[0], strrpos($read_ary[0], " ")+1, (strlen($read_ary[0]) - strrpos($read_ary[0], " ") - 2)); 
+      ereg("UNSEEN ([0-9]+)", $read_ary[0], $regs);
+      return $regs[1];
    }
  
   

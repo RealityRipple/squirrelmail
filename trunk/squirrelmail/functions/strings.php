@@ -160,6 +160,8 @@
          
          // We need to do it twice to catch times where there
          // are an odd number of spaces
+         if (ereg("^ (.*)$", $line, $regs))
+             $line = "&nbsp;" . $regs[1];
          $line = str_replace('  ', '&nbsp; ', $line);
          $line = str_replace('  ', '&nbsp; ', $line);
          $line = nl2br($line);

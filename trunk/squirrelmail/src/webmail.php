@@ -23,7 +23,11 @@
 
    session_register ("base_uri");
 
+   if (!isset($i18n_php))
+      include ("../functions/i18n.php");
+
    if(!isset($username)) {
+      set_up_language($squirrelmail_language);
       echo _("You need a valid user and password to access this page!");
       exit;
    }
@@ -67,6 +71,9 @@
    $user_is_logged_in = true;
 
    include ("../src/load_prefs.php");
+
+   // We'll need this to later have a noframes version
+   set_up_language(getPref($data_dir, $username, "language"));
 
    echo "<html><head>\n";
    echo "<TITLE>";
