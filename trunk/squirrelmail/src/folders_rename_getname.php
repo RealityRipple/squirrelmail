@@ -19,8 +19,6 @@ require_once('../functions/imap.php');
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
-echo $old;
-
 if (substr($old, strlen($old) - strlen($delimiter)) == $delimiter) {
     $isfolder = TRUE;
     $old = substr($old, 0, strlen($old) - 1);
