@@ -1,8 +1,9 @@
 <?php
+
    /**
     **  folders_rename_do.php
     **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Copyright (c) 1999-2001 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  Does the actual renaming of files on the IMAP server. 

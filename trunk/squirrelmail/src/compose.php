@@ -1,19 +1,20 @@
 <?php
+
    /**
-    * compose.php
-    *
-    * Copyright (c) 1999-2000 The SquirrelMail development team
-    * Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    * This code sends a mail.
-    *
-    * There are 4 modes of operation:
-    *    - Start new mail
-    *    - Add an attachment
-    *    - Send mail
-    *    - Save As Draft
-    *	
-    * $Id$
+    **  compose.php
+    **
+    **  Copyright (c) 1999-2001 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This code sends a mail.
+    **
+    **  There are 4 modes of operation:
+    **     - Start new mail
+    **     - Add an attachment
+    **     - Send mail
+    **     - Save As Draft
+    **
+    **  $Id$
     **/
 
    require_once('../src/validate.php');

@@ -1,8 +1,9 @@
 <?php
+
    /**
     **  folders_subscribe.php
     **
-    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Copyright (c) 1999-2001 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  Subscribe and unsubcribe form folders. 
@@ -18,7 +19,7 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
    $location = get_location();
-   if ($method == "sub") {
+   if ($method == 'sub') {
       for ($i=0; $i < count($mailbox); $i++) {
          $mailbox[$i] = trim($mailbox[$i]);
          sqimap_subscribe ($imapConnection, $mailbox[$i]);

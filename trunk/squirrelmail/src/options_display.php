@@ -1,15 +1,15 @@
 <?php
 
-/**
- * options_display.php
- *
- * Copyright (c) 1999-2001 The SquirrelMail Development Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * Displays all optinos about display preferences
- *
- * $Id$
- */
+   /**
+    **  options_display.php
+    **
+    **  Copyright (c) 1999-2001 The SquirrelMail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Displays all optinos about display preferences
+    **
+    **  $Id$
+    */
 
 /* Define the group constants for the display options page. */
 define('SMOPT_GRP_GENERAL', 0);

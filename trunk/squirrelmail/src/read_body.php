@@ -1,14 +1,15 @@
 <?php
+
    /**
-    * read_body.php
-    *
-    * Copyright (c) 1999-2001 The SquirrelMail Development Team
-    * Licensed under the GNU GPL. For full terms see the file COPYING.
-    *
-    * This file is used for reading the msgs array and displaying
-    * the resulting emails in the right frame.
-    *
-    * $Id$
+    **  read_body.php
+    **
+    **  Copyright (c) 1999-2001 The SquirrelMail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This file is used for reading the msgs array and displaying
+    **  the resulting emails in the right frame.
+    **
+    **  $Id$
     */
 
     require_once('../src/validate.php');

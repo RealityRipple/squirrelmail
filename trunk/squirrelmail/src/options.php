@@ -1,16 +1,16 @@
 <?php
 
-/**
- * options.php
- *
- * Copyright (c) 1999-2001 The SquirrelMail Development Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * Displays the options page. Pulls from proper user preference files
- * and config.php. Displays preferences as selected and other options.
- *
- * $Id$
- */
+   /**
+    **  options.php
+    **
+    **  Copyright (c) 1999-2001 The SquirrelMail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Displays the options page. Pulls from proper user preference files
+    **  and config.php. Displays preferences as selected and other options.
+    **
+    **  $Id$
+    */
 
 require_once('../src/validate.php');
 require_once('../functions/display_messages.php');
@@ -20,7 +20,7 @@ require_once('../functions/options.php');
 
 /* Set the base uri. */
 ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-$base_uri = $regs[1];   
+$base_uri = $regs[1];
 
 /* First and foremost, deal with language stuff. */
 if (isset($language)) {
