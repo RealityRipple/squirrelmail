@@ -113,11 +113,10 @@
    if (isset($absolute_dl) && $absolute_dl == "true") {
       switch($type0) {
          case "text":
+            set_up_language(getPref($data_dir, $username, "language"));
+	    DumpHeaders($type0, $type1, $filename, 1);
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            set_up_language(getPref($data_dir, $username, "language"));
-            header("Content-Disposition: inline; filename=\"$filename\"");
-            header("Content-Type: application/download; name=\"$filename\"");
             if ($type1 == "plain" && isset($showHeaders)) {
                echo _("Subject") . ": " . decodeHeader($top_header->subject) . "\n";
                echo "   " . _("From") . ": " . decodeHeader($top_header->from) . "\n";
@@ -135,11 +134,10 @@
 	       echo ':</th><td>' . getLongDateString($top_header->date);
 	       echo "</td></tr>\n</table>\n<hr>\n";
 	    }
-            echo trim($body);
+            echo $body;
             break;
          default:
-            header("Content-Disposition: inline; filename=\"$filename\"");
-            header("Content-Type: application/download; name=\"$filename\"");
+	    DumpHeaders($type0, $type1, $filename, 1);
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
@@ -152,10 +150,9 @@
                 include("../functions/page_header.php");
                 viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             } else {
+		DumpHeaders($type0, $type1, $filename, 0);
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
-                header("Content-Type: $type0/$type1; name=\"$filename\"");
-                header("Content-Disposition: inline; filename=\"$filename\"");
                 echo $body;
             }
             break;
@@ -166,12 +163,64 @@
             viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
             break;
          default:
-            header("Content-type: $type0/$type1; name=\"$filename\"");
-            header("Content-Disposition: inline; filename=\"$filename\"");
+	    DumpHeaders($type0, $type1, $filename, 0);
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
-   }    
-    
-   sqimap_logout($imapConnection);
+   }
+   
+   
+   function DumpHeaders($type0, $type1, $filename, $force)
+   {
+      global $HTTP_USER_AGENT;
+      
+      $isIE = 0;
+      if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false) {
+        $isIE = 1;
+      }
+      
+      $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
+      
+      // A Pox on Microsoft and it's Office!
+      if (! $force)
+      {
+          // Try to show in browser window
+          header("Content-Disposition: inline; filename=\"$filename\"");
+	  header("Content-Type: $type0/$type1; name=\"$filename\"");
+      }
+      else
+      {
+          // Try to pop up the "save as" box
+	  // IE makes this hard.  It pops up 2 save boxes, or none.
+	  // http://support.microsoft.com/support/kb/articles/Q238/5/88.ASP
+	  // But, accordint to Microsoft, it is "RFC compliant but doesn't
+	  // take into account some deviations that allowed within the
+	  // specification."  Doesn't that mean RFC non-compliant?
+	  // http://support.microsoft.com/support/kb/articles/Q258/4/52.ASP
+	  //
+	  // The best thing you can do for IE is to upgrade to the latest
+	  // version
+          if ($isIE) {
+	     // http://support.microsoft.com/support/kb/articles/Q182/3/15.asp
+	     // Do not have quotes around filename, but that applied to
+	     // "attachment"... does it apply to inline too?
+	     //
+	     // This combination seems to work mostly.  IE 5.5 SP 1 has
+	     // known issues (see the Microsoft Knowledge Base)
+             header("Content-Disposition: inline; filename=$filename");
+             
+	     // This works for most types, but doesn't work with Word files
+             header("Content-Type: application/download; name=\"$filename\"");
+
+             // These are spares, just in case.  :-)
+             //header("Content-Type: $type0/$type1; name=\"$filename\"");
+             //header("Content-Type: application/x-msdownload; name=\"$filename\"");
+             //header("Content-Type: application/octet-stream; name=\"$filename\"");
+	  } else {
+             header("Content-Disposition: attachment; filename=\"$filename\"");
+	     // application/octet-stream forces download for Netscape
+             header("Content-Type: application/octet-stream; name=\"$filename\"");
+	  }
+      }
+   }
 ?>
