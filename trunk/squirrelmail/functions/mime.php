@@ -332,12 +332,24 @@ function translateText(&$body, $wrap_at, $charset) {
 }
 
 /**
-* This returns a parsed string called $body. That string can then
-* be displayed as the actual message in the HTML. It contains
-* everything needed, including HTML Tags, Attachments at the
-* bottom, etc.
-* @param clean Do not output stuff that's irrelevant for the printable version.
-*/
+ * This returns a parsed string called $body. That string can then
+ * be displayed as the actual message in the HTML. It contains
+ * everything needed, including HTML Tags, Attachments at the
+ * bottom, etc.
+ * 
+ * Since 1.2.0 function uses message_body hook.
+ * Till 1.3.0 function included output of formatAttachments().
+ *
+ * @param resource $imap_stream imap connection resource
+ * @param object $message squirrelmail message object
+ * @param array $color squirrelmail color theme array
+ * @param integer $wrap_at number of characters per line
+ * @param string $ent_num (since 1.3.0) message part id
+ * @param integer $id (since 1.3.0) message id
+ * @param string $mailbox (since 1.3.0) imap folder name
+ * @param boolean $clean (since 1.5.1) Do not output stuff that's irrelevant for the printable version.
+ * @return string html formated message text
+ */
 function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
     /* This if statement checks for the entity to show as the
     * primary message. To add more of them, just put them in the
@@ -426,7 +438,22 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     return $body;
 }
 
-
+/**
+ * Displays attachment links and information
+ * FIXME: SM_PATH is used in URLs
+ *
+ * Since 1.3.0 function is not included in formatBody() call.
+ *
+ * Since 1.0.2 uses attachment $type0/$type1 hook.
+ * Since 1.2.5 uses attachment $type0/* hook.
+ * Since 1.5.0 uses attachments_bottom hook.
+ * 
+ * @param object $message SquirrelMail message object
+ * @param array $exclude_id message parts that are not attachments.
+ * @param string $mailbox mailbox name
+ * @param integer $id message id
+ * @return string html formated attachment information.
+ */
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
     global $where, $what, $startMessage, $color, $passed_ent_id;
 
