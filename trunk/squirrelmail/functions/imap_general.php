@@ -563,7 +563,7 @@ function sqimap_create_stream($server,$port,$tls=false) {
         }
     }
 
-    $imap_stream = fsockopen($server, $port, $error_number, $error_string, 15);
+    $imap_stream = @fsockopen($server, $port, $error_number, $error_string, 15);
 
     /* Do some error correction */
     if (!$imap_stream) {
