@@ -12,10 +12,13 @@ function adm_check_user() {
 
     GLOBAL $username, $PHP_SELF;
 
-    if ( substr( $PHP_SELF, -11 ) <> 'options.php' ) {
+    if ( strpos( 'options.php', $PHP_SELF ) ) {
         $auth = FALSE;
     } else if ( file_exists( '../plugins/administrator/admins' ) ) {
         $auths = file( '../plugins/administrator/admins' );
+        $auth = in_array( "$username\n", $auths );
+    } else if ( file_exists( '../config/admins' ) ) {
+        $auths = file( '../config/admins' );
         $auth = in_array( "$username\n", $auths );
     } else if ( $adm_id = fileowner('../config/config.php') ) {
         $adm = posix_getpwuid( $adm_id );
