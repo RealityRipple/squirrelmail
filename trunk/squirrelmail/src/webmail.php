@@ -33,18 +33,12 @@ $base_uri = sqm_baseuri();
 
 session_start();
 
-if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-}
-if (isset($_SESSION['delimiter'])) {
-    $delimiter = $_SESSION['delimiter'];
-}
-if (isset($_SESSION['onetimepad'])) {
-    $onetimepad = $_SESSION['onetimepad'];
-}
-if (isset($_GET['right_frame'])) {
-    $right_frame = $_GET['right_frame'];
-}
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
+
 if ( isset($_SESSION['session_expired_post']) ) {
     sqsession_unregister('session_expired_post');
 }

@@ -23,10 +23,10 @@ global $allow_thread_sort;
 
 /* get globals we may need */
 
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$delimiter = $_SESSION['delimiter'];
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 if (isset($_GET['mailbox'])) {
     $mailbox = strip_tags($_GET['mailbox']);
@@ -237,32 +237,6 @@ $saved_attributes = array ();
 $search_all = 'none';
 $perbox_count = array ();
 $recent_count = getPref($data_dir, $username, 'search_memory', 0);
-
-/* get globals we may need */
-
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$delimiter = $_SESSION['delimiter'];
-
-if (isset($_GET['mailbox'])) {
-    $mailbox = strip_tags($_GET['mailbox']);
-}
-if (isset($_GET['submit'])) {
-    $submit = strip_tags($_GET['submit']);
-}
-if (isset($_GET['what'])) {
-    $what = $_GET['what'];
-}
-if (isset($_GET['where'])) {
-    $where = strip_tags($_GET['where']);
-}
-if (isset($_GET['checkall'])) {
-    $checkall = strip_tags($_GET['checkall']);
-}
-if (isset($_GET['count'])) {
-    $count = strip_tags($_GET['count']);
-}
 
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

@@ -26,13 +26,12 @@ displayPageHeader($color, 'None');
 
 /* get globals we may need */
 
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-if (isset($_GET['success'])) {
-    $success = $_GET['success'];
-}
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+sqgetGlobalVar('success', $success, SQ_GET);
 
 /* end of get globals */
 
