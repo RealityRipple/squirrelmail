@@ -144,7 +144,10 @@
 	    (ereg("^".$folder_prefix, $mailbox)) ||
             ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
             $indent = $dm_count - (countCharInString($folder_prefix, $dm));
-            $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
+            if ($indent)
+                $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
+            else
+                $boxes[$g]["formatted"] = '';
             $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
          } else {
             $boxes[$g]["formatted"]  = $mailbox;
@@ -333,7 +336,10 @@
             if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
                (ereg("^".$folder_prefix, $mailbox)) ||
                ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
-               $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
+               if ($dm_count)
+                   $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
+               else
+                   $boxes[$g]["formatted"] = '';
                $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
             } else {
                $boxes[$g]["formatted"]  = $mailbox;
