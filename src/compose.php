@@ -562,7 +562,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $use_signature, $composesession, $data_dir, $username,
            $username, $key, $imapServerAddress, $imapPort, $compose_messages,
            $composeMessage;
-    global $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language, $default_charset;
 
     $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
@@ -619,6 +619,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $bodypart = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $bodypart);
                 }
             }
+	    
+	    $actual = $body_part_entity->header->parameters['charset'];
+	    if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
+		$bodypart = charset_decode($actual,$bodypart);
+	    }
+	    
             $body .= $bodypart;
         }
         if ($default_use_priority) {

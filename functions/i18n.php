@@ -852,4 +852,75 @@ endswitch;
 // return space instead of non-braking space. 
  return str_replace($nbsp,' ',$string);
 }
+
+function is_conversion_safe($input_charset) {
+  global $languages, $sm_notAlias, $default_charset;
+
+ // convert to lower case
+ $input_charset = strtolower($input_charset);
+
+ // Is user's locale Unicode based ?
+ if ( $default_charset == "utf-8" ) {
+   return true;
+ }
+
+ // Charsets that are similar
+switch ($default_charset):
+case "windows-1251":
+      if ( $input_charset == "iso-8859-5" || 
+	   $input_charset == "koi8-r" ||
+	   $input_charset == "koi8-u" ) {
+        return true;
+     } else {
+        return false;
+     }
+case "windows-1257":
+  if ( $input_charset == "iso-8859-13" || 
+	 $input_charset == "iso-8859-4" ) {
+    return true;
+  } else {
+    return false;
+  }
+case "iso-8859-4":
+  if ( $input_charset == "iso-8859-13" || 
+	 $input_charset == "windows-1257" ) {
+     return true;
+  } else {
+     return false;
+  }
+case "iso-8859-5":
+  if ( $input_charset == "windows-1251" || 
+	 $input_charset == "koi8-r" || 
+	 $input_charset == "koi8-u" ) {
+     return true;
+  } else {
+     return false;
+  }
+case "iso-8859-13":
+  if ( $input_charset == "iso-8859-4" ||
+       $input_charset == "windows-1257" ) {
+     return true;
+  } else {
+     return false;
+  }
+case "koi8-r":
+  if ( $input_charset == "windows-1251" ||
+	 $input_charset == "iso-8859-5" || 
+	 $input_charset == "koi8-u" ) {
+     return true;
+  } else {
+     return false;
+  }
+case "koi8-u":
+  if ( $input_charset == "windows-1251" ||
+	$input_charset == "iso-8859-5" ||
+	$input_charset == "koi8-r" ) {
+     return true;
+  } else {
+     return false;
+  }
+default:
+   return false;
+endswitch;
+}
 ?>
