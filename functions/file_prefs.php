@@ -144,7 +144,7 @@ function setPref($data_dir, $username, $string, $value) {
 function checkForPrefs($data_dir, $username, $filename = '') {
     /* First, make sure we have the filename. */
     if ($filename == '') {
-        $filename = getHashedFile($username, $data_dir, '$username.pref');
+        $filename = getHashedFile($username, $data_dir, "$username.pref");
     }
 
     /* Then, check if the file exists. */
