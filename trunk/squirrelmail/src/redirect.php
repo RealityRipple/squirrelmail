@@ -98,18 +98,11 @@ if (!sqsession_is_registered('user_is_logged_in')) {
     }
 
     $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
-    if (!$imapConnection) {
-        $errTitle = _("There was an error contacting the mail server.");
-        $errString = $errTitle . "<br>\n".
-                     _("Contact your administrator for help.");
-        include_once( '../functions/display_messages.php' );
-        logout_error( $errString, $errTitle );            
-        exit;
-    } else {
-        $sqimap_capabilities = sqimap_capability($imapConnection);
-	sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
-        $delimiter = sqimap_get_delimiter ($imapConnection);
-    }
+
+    $sqimap_capabilities = sqimap_capability($imapConnection);
+    sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
+    $delimiter = sqimap_get_delimiter ($imapConnection);
+
     sqimap_logout($imapConnection);
     sqsession_register($delimiter, 'delimiter');
 
