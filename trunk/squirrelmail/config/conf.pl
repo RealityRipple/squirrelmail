@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 # conf.pl
-# Written March 26, 2000
 # Luke Ehresman (luke@squirrelmail.org)
 #
 # A simple configure script to configure squirrelmail
@@ -36,7 +35,7 @@ while ($line = <FILE>) {
          @options = split(/\s*=\s*/, $var);
          $options[1] =~ s/[\n|\r]//g;
          $options[1] =~ s/^"//g;
-         $options[1] =~ s/;.*$//g;
+         $options[1] =~ s/;\s*$//g;
          $options[1] =~ s/"$//g;
 
          if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
@@ -273,7 +272,7 @@ while (($command ne "q") && ($command ne "Q")) {
          if    ($command == 1) { command61(); }
          elsif ($command == 2) { command62(); }
       } elsif ($menu == 7) {
-         if    ($command == 1) { $motd = command71 (); $motd =~ s/"/\\"/g;}
+         if    ($command == 1) { $motd = command71(); }
       }
    }   
 }
@@ -463,12 +462,17 @@ sub command71 {
    print "\nYou can now create the welcome message that is displayed\n";
    print "every time a user logs on.  You can use HTML or just plain\n";
    print "text.\n\n(Type @ on a blank line to exit)\n";
+   
    do {
       print "] ";
       $line = <STDIN>;
       $line =~ s/[\r|\n]//g;
-      $line =~ s/  /\&nbsp;\&nbsp;/g;
       if ($line ne "@") {
+         $line =~ s/  /\&nbsp;\&nbsp;/g;
+         $line =~ s/\t/\&nbsp;\&nbsp;\&nbsp;\&nbsp;/g;
+         $line =~ s/$/ /;
+         $line =~ s/"/\"/g;
+
          $new_motd = $new_motd . $line;
       }
    } while ($line ne "@");
@@ -1107,7 +1111,7 @@ sub command62 {
       $default_use_javascript_addr_book = "false";
       $default_value = "n";
    }
-   print "Use javascript version (y/n) [$WHT$default_value$NRM]: $WHT";
+   print "Use javascript version by default (y/n) [$WHT$default_value$NRM]: $WHT";
    $new_show = <STDIN>;
    if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
       $default_use_javascript_addr_book = "true";
@@ -1223,14 +1227,23 @@ sub set_defaults {
       $server = <STDIN>;
       $server =~ s/[\r|\n]//g;
 
-      if      ($server eq "cyrus") { 
-			$default_folder_prefix = "";
+      print "\n";
+      if ($server eq "cyrus") { 
+			$default_folder_prefix = "INBOX";
 			$trash_folder = "INBOX.Trash";
 			$sent_folder = "INBOX.Sent";
 			$show_prefix_option = false;
 			$default_sub_of_inbox = true;
 			$show_contain_subfolders_option = false;
 			$imap_server_type = "cyrus";
+
+         print "         default_folder_prefix = INBOX\n";
+         print "                  trash_folder = INBOX.Trash\n";
+         print "                   sent_folder = INBOX.Sent\n";
+         print "             show_prefix_optin = false\n";
+         print "          default_sub_of_inbox = true\n";
+         print "show_contain_subfolders_option = false\n";
+         print "              imap_server_type = cyrus\n";
 
          $continue = 1;
       } elsif ($server eq "uw") {
@@ -1241,6 +1254,14 @@ sub set_defaults {
 			$default_sub_of_inbox = false;
 			$show_contain_subfolders_option = true;
 			$imap_server_type = "uw";
+
+         print "         default_folder_prefix = mail/\n";
+         print "                  trash_folder = Trash\n";
+         print "                   sent_folder = Sent\n";
+         print "            show_prefix_option = true\n";
+         print "          default_sub_of_inbox = false\n";
+         print "show_contain_subfolders_option = true\n";
+         print "              imap_server_type = uw\n";
 			
          $continue = 1;
       } elsif ($server eq "exchange") {
@@ -1265,4 +1286,6 @@ sub set_defaults {
 			print "\n";
       }
    }   
+   print "\nPress any key to continue...";
+   $tmp = <STDIN>;
 }

@@ -3,14 +3,14 @@ by Luke Ehresman
 June 22, 2000 - Last updated: June 22, 2000
 
 Who should read this?
-
+---------------------
    The intended audience for this document are people who want to understand how
    the MIME code works.  This is a technical documentation of how mime.php 
    works and how it parses a MIME encoded message.
 
 
 Object Structure
-
+----------------
    There are two objects that are used: "message" and "msg_header".  here is a
    brief overview of what each object contains.
 
@@ -43,7 +43,7 @@ Object Structure
 
 
 Getting the Structure
-
+---------------------
    Previously (version 0.4 and below), SquirrelMail handled all the parsing of
    the email message.  It would read the entire message in, search for 
    boundaries, and created an array similar to the $message object discribed
@@ -80,7 +80,7 @@ Getting the Structure
           ftp://ftp.lysator.liu.se/mirror/unix/imapd/mime/torture-test.mbox
 
 Getting the Body
-
+----------------
    Once all of the structure of the message has been read into the $message
    object, we then need to display the body of one entity.  There are a number
    of ways we decide which entity to display at a certain time, and I won't go
@@ -98,7 +98,7 @@ Getting the Body
 
 
 Closing Notes  
-
+-------------
    That is basically how it works.  There is a variable in mime.php called
    $debug_mime that is defined at the top of that file.  If you set it to true,
    it will output all kinds of valuable information while it tries to decode
