@@ -284,7 +284,7 @@
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("Subject:");
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
-   echo "            <B>$subject</B>\n";
+   echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
    if ($where && $what) {
       // Got here from a search
@@ -298,7 +298,7 @@
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("From:");
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% colspan=2>\n";
-   echo "            <B>$from_name</B>\n";
+   echo "            <B>$from_name</B>&nbsp;\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** date **/
@@ -306,7 +306,7 @@
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo _("Date:");
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% colspan=2>\n";
-   echo "            <B>$dateString</B>\n";
+   echo "            <B>$dateString</B>&nbsp;\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** to **/
@@ -314,7 +314,7 @@
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
    echo _("To:");
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% VALIGN=TOP colspan=2>\n";
-   echo "            <B>$to_string</B>\n";
+   echo "            <B>$to_string</B>&nbsp;\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** cc **/
@@ -323,7 +323,7 @@
       echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
       echo "            Cc:\n";
       echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% VALIGN=TOP colspan=2>\n";
-      echo "            <B>$cc_string</B>\n";
+      echo "            <B>$cc_string</B>&nbsp;\n";
       echo "         </TD>\n";
       echo "      </TR>\n";
    }
