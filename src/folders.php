@@ -86,6 +86,8 @@ require_once('../functions/plugin.php');
                $num_max++;
        if ($move_to_sent)
                $num_max++;
+       if ($save_as_draft)
+               $num_max++;
 
    for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {                                                                                 
       if (strtolower($boxes[$p]["unformatted"]) == "inbox")
@@ -97,6 +99,8 @@ require_once('../functions/plugin.php');
          $count_special_folders++;
       else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
          $count_special_folders++;
+      else if ($boxes[$p]["unformatted"] == $draft_folder && $draft_folder)
+         $count_special_folder++;
    }   
 
    if ($count_special_folders < count($boxes)) {
@@ -107,6 +111,7 @@ require_once('../functions/plugin.php');
 	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
 	     ($boxes[$i]["unformatted"] != $trash_folder) && 
 	     ($boxes[$i]["unformatted"] != $sent_folder) &&
+             ($boxes[$i]["unformatted"] != $draft_folder) &&
 	     (strtolower($imap_server_type) != "courier" ||
 	      strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))
 	    {
@@ -182,7 +187,8 @@ require_once('../functions/plugin.php');
 
 	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
 	     ($boxes[$i]["unformatted"] != $trash_folder)  &&
-	     ($boxes[$i]["unformatted"] != $sent_folder)) 
+	     ($boxes[$i]["unformatted"] != $sent_folder) &&
+             ($boxes[$i]["unformatted"] != $draft_folder))
 	    {	
 	       $box = $boxes[$i]["unformatted-dm"];
 	       $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
@@ -215,7 +221,8 @@ require_once('../functions/plugin.php');
          $use_folder = true;
 	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
 	     ($boxes[$i]["unformatted"] != $trash_folder) &&
-	     ($boxes[$i]["unformatted"] != $sent_folder)) 
+	     ($boxes[$i]["unformatted"] != $sent_folder) &&
+             ($boxes[$i]["unformatted"] != $draft_folder))
 	    {	
 	       $box = $boxes[$i]["unformatted-dm"];
 	       $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
