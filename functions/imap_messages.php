@@ -181,9 +181,12 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
         $sort_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, $uid_support);
     }
     if (isset($sort_test[0])) {
-        if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
+      for ($i=0,$iCnt=count($sort_test);$i<$iCnt;++$i) {
+        if (preg_match("/^\* SORT (.+)$/", $sort_test[$i], $regs)) {
             $server_sort_array = preg_split("/ /", trim($regs[1]));
+	    break;
         }
+      }
     }
     if ($sort == 0 || $sort == 2 || $sort == 4) {
        $server_sort_array = array_reverse($server_sort_array);
