@@ -12,6 +12,7 @@ Version 1.0.3 -- DEVELOPMENT
 - Fixed problem where some attachment filenames would not be displayed
 - Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
 - Removed some regular expressions to help speed folder listings up
+- Updated Brazillian Portuguise translation
 
 Version 1.0.2 -- February 8, 2001 
 ---------------------------------
