@@ -110,7 +110,7 @@ $server_type = strtolower($imap_server_type);
 if ( $server_type == 'courier' ) {
   array_push($skip_folders, 'inbox.trash');
   if ( $default_folder_prefix == 'INBOX.' ) {
-    array_push($skip_folders, 'inbox');
+    array_push($skip_folders, 'INBOX');
   }
 }
 
