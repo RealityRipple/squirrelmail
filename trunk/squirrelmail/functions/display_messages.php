@@ -135,6 +135,7 @@ function error_box($string, $color) {
         $color[4]  = '#FFFFFF';  /* white         Normal Background      */
         $color[7]  = '#0000CC';  /* blue          Links                  */
         $color[8]  = '#000000';  /* black         Normal text            */
+        $color[9]  = '#ABABAB';  /* mid-gray      Darker version of #0   */
     }
 
     $err = _("ERROR");
@@ -168,4 +169,6 @@ function error_box($string, $color) {
    echo '       </table></td></tr>';
    echo '    </table>';
 }
+
+// vim: et ts=4
 ?>
