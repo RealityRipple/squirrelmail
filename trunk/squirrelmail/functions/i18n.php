@@ -286,7 +286,7 @@ function charset_decode_ns_4551_1 ($string) {
  * Function sets system locale environment (LC_ALL, LANG, LANGUAGE), 
  * gettext translation bindings and html header information.
  *
- * Function returns error codes, if there is some fatal errors.
+ * Function returns error codes, if there is some fatal error.
  *  0 = no error, 
  *  1 = mbstring support is not present, 
  *  2 = mbstring support is not present, user's translation reverted to en_US.
