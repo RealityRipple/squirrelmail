@@ -54,13 +54,13 @@
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Name:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <CENTER><INPUT TYPE=TEXT NAME=username></CENTER>\n";
+   echo "                  <INPUT TYPE=TEXT NAME=username>\n";
    echo "               </TD>\n";
    echo "            </TR><TR>\n";
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Password:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <CENTER><INPUT TYPE=PASSWORD NAME=key></CENTER>\n";
+   echo "                  <INPUT TYPE=PASSWORD NAME=key>\n";
    echo "               </TD>\n"; 
    echo "         </TABLE>\n";
    echo "      </TD>\n";
