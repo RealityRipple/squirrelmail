@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-24 19:36+0100\n"
+"POT-Creation-Date: 2001-11-24 20:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,60 +18,152 @@ msgstr ""
 msgid "Address Book"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:101 squirrelmail/src/vcard.php:91
+#: squirrelmail/src/addrbook_search.php:101
+#: squirrelmail/src/addrbook_search_html.php:68
+#: squirrelmail/src/addressbook.php:315 squirrelmail/src/vcard.php:91
 msgid "Name"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:101
+#: squirrelmail/src/addrbook_search_html.php:68
+#: squirrelmail/src/addressbook.php:316
 msgid "E-mail"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:101
+#: squirrelmail/src/addrbook_search_html.php:68
+#: squirrelmail/src/addressbook.php:317
 msgid "Info"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:104
+#: squirrelmail/src/addrbook_search_html.php:71
 msgid "Source"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:155
-#: squirrelmail/src/addrbook_search.php:236
-msgid "No persons matching your search was found"
+#: squirrelmail/src/addrbook_search_html.php:96
+msgid "Use Addresses"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:115
+msgid "Address Book Search"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:167
+#: squirrelmail/src/addrbook_search_html.php:125
 msgid "Search for"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:174
+#: squirrelmail/src/addrbook_search_html.php:136
 msgid "in"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:176
+#: squirrelmail/src/addrbook_search_html.php:139
 msgid "All address books"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:72
-#: squirrelmail/src/addrbook_search.php:186 squirrelmail/src/search.php:25
-#: squirrelmail/src/search.php:81
+#: squirrelmail/src/addrbook_search.php:186
+#: squirrelmail/src/addrbook_search_html.php:151
+#: squirrelmail/src/search.php:25 squirrelmail/src/search.php:81
 msgid "Search"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:188
+#: squirrelmail/src/addrbook_search_html.php:153
 msgid "List all"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search.php:207
+#: squirrelmail/src/addrbook_search_html.php:176
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search.php:229
+#: squirrelmail/src/addrbook_search_html.php:199
+msgid "Your search failed with the following error(s)"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search.php:155
+#: squirrelmail/src/addrbook_search.php:236
+#: squirrelmail/src/addrbook_search_html.php:203
+msgid "No persons matching your search was found"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:212
+msgid "Return"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:191
 msgid "Close window"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:207
-#, c-format
-msgid "Unable to list addresses from %s"
+#: squirrelmail/src/addressbook.php:34 squirrelmail/src/addressbook.php:314
+msgid "Nickname"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:229
-msgid "Your search failed with the following error(s)"
+#: squirrelmail/src/addressbook.php:40
+msgid "Must be unique"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:42
+msgid "E-mail address"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:49
+msgid "First name"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:56
+msgid "Last name"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:63
+msgid "Additional info"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:82
+msgid "No personal address book is defined. Contact administrator."
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:179
+msgid "You can only edit one address at the time"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:194
+#: squirrelmail/src/addressbook.php:223 squirrelmail/src/addressbook.php:226
+msgid "Update address"
+msgstr ""
+
+#: squirrelmail/functions/display_messages.php:71
+#: squirrelmail/functions/display_messages.php:87
+#: squirrelmail/functions/imap_general.php:225
+#: squirrelmail/src/addressbook.php:214 squirrelmail/src/addressbook.php:264
+msgid "ERROR"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:240
+msgid "Unknown error"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:284 squirrelmail/src/addressbook.php:368
+msgid "Add address"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:295 squirrelmail/src/addressbook.php:352
+msgid "Edit selected"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:297 squirrelmail/src/addressbook.php:354
+msgid "Delete selected"
+msgstr ""
+
+#: squirrelmail/src/addressbook.php:365
+#, c-format
+msgid "Add to %s"
 msgstr ""
 
 #: squirrelmail/src/compose.php:102
@@ -1382,12 +1474,6 @@ msgstr ""
 #: squirrelmail/functions/display_messages.php:51
 #, c-format
 msgid "Running SquirrelMail version %s (c) 1999-2000."
-msgstr ""
-
-#: squirrelmail/functions/display_messages.php:71
-#: squirrelmail/functions/display_messages.php:87
-#: squirrelmail/functions/imap_general.php:225
-msgid "ERROR"
 msgstr ""
 
 #: squirrelmail/functions/display_messages.php:76
