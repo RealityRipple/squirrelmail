@@ -1,6 +1,10 @@
 #!/bin/bash
 # $Id$ 
 
+# WARNING. In order to use it with squirrelmail, you should 
+# modify phpDocumentor.ini and add .mod extension 
+# to [_phpDocumentor_phpfile_exts] settings.
+
 #/**
 #  * makedoc - PHPDocumentor script to save your settings
 #  * 
