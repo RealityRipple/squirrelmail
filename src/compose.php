@@ -661,9 +661,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $send_to_cc = replyAllString($orig_header);
         case ('reply'):
             $send_to = $orig_header->reply_to;
-            if (is_object($send_to)) {
+            if (is_array($send_to) && count($send_to)) {
                 $send_to = decodeHeader($send_to->getAddr_s('reply_to'));
-            } else {
+            } else if (is_object($send_to)) { /* unnessecarry, just for falesafe purpose */
+		$send_to = decodeHeader($send_to->getAddr_s('reply_to'));
+	    } else {
                 $send_to = decodeHeader($orig_header->getAddr_s('from'));
             }
             $subject =  decodeHeader($orig_header->subject);
@@ -1348,7 +1350,7 @@ function deliverMessage($composeMessage, $draft=false) {
 	   $length = $imap_deliver->mail($composeMessage);
 	   sqimap_append ($imap_stream, $draft_folder, $length);	 
            $imap_deliver->mail($composeMessage, $imap_stream);
-    	   sqimap_append_done ($imap_stream);
+    	   sqimap_append_done ($imap_stream, $draft_folder);
 	   sqimap_logout($imap_stream);
 	   unset ($imap_deliver);
 	   return $length;
@@ -1375,7 +1377,7 @@ function deliverMessage($composeMessage, $draft=false) {
 	    require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
 	    $imap_deliver = new Deliver_IMAP();
 	    $imap_deliver->mail($composeMessage, $imap_stream);
-    	    sqimap_append_done ($imap_stream);
+    	    sqimap_append_done ($imap_stream, $sent_folder);
 	    unset ($imap_deliver);
 	}
 	global $passed_id, $mailbox, $action;
