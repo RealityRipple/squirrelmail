@@ -149,11 +149,11 @@ echo '</table>' .
         '<tr><td align=center>' .
 	addForm('../src/addressbook.php', 'POST', 'f_add') .
         '<table border=0 cellpadding=2 cellspacing=0 align=center>' .
-        '<tr><td align=right><b>Nickname:</b></td>' .
+        '<tr><td align=right><b>' . _("Nickname:") . '</b></td>' .
         '<td>'.
 	addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'], '20').
         '</td></tr>' .
-        '<tr><td align=right><b>Note Field Contains:</b></td><td>' ;
+        '<tr><td align=right><b>' . _("Note Field Contains:") . '</b></td><td>' ;
 
 $opts = array();
 if (isset($vcard_nice['url'])) {
