@@ -1,9 +1,10 @@
 <?
-   include("../config/config.php");
-
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($prefs_php))
       include("../functions/prefs.php");
-
+      
+   $load_prefs_php = true;
    checkForPrefs($data_dir, $username);
 
    $chosen_theme = getPref($data_dir, $username, "chosen_theme");
@@ -40,6 +41,10 @@
       else  
          $left_size = 200;
    }      
+
+   $folder_prefix = getPref($data_dir, $username, "folder_prefix");
+   if ($folder_prefix == "")
+      $folder_prefix = $default_folder_prefix;
 
    $editor_size = getPref($data_dir, $username, "editor_size");
    if ($editor_size == "")

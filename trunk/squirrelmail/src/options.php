@@ -65,6 +65,20 @@
    echo "         <INPUT TYPE=TEXT NAME=reply_to VALUE=\"$replyto\" SIZE=50><BR>";
    echo "      </TD>";
    echo "   </TR>";
+   // DEFAULT FOLDERS 
+	if ($show_prefix_option == true) {
+      echo "   <TR>";
+	   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
+	   echo           _("Folder path:");
+	   echo "      </TD>";
+	   echo "      <TD WIDTH=80% ALIGN=LEFT>";
+	   if (isset ($folder_prefix))
+	      echo "         <INPUT TYPE=TEXT NAME=folderprefix VALUE=\"$folder_prefix\" SIZE=50><BR>";
+	   else   
+	      echo "         <INPUT TYPE=TEXT NAME=folderprefix VALUE=\"$default_folder_prefix\" SIZE=50><BR>";
+	   echo "      </TD>";
+	   echo "   </TR>";
+   }   
    // THEME
    echo "   <TR>";
    echo "      <TD WIDTH=20% ALIGN=RIGHT>";

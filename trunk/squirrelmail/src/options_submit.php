@@ -26,6 +26,7 @@
    setPref($data_dir, $username, "left_refresh", $leftrefresh);
    setPref($data_dir, $username, "language", $language);
    setPref($data_dir, $username, "left_size", $leftsize);
+   setPref($data_dir, $username, "folder_prefix", $folderprefix);
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 
