@@ -596,7 +596,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $bodypart = decodeBody($unencoded_bodypart,
             $body_part_entity->header->encoding);
             if ($type1 == 'html') {
-                $bodypart = str_replace(array('&nbsp;','&gt','&lt'),array(' ','<','>'),$bodypart);
+                $bodypart = str_replace(array('&nbsp;','&gt;','&lt;'),array(' ','<','>'),$bodypart);
                 $bodypart = strip_tags($bodypart);
             }
             if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
