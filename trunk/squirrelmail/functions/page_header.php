@@ -14,6 +14,8 @@
       include ("../functions/prefs.php");
    if (!isset($i18n_php))
       include ("../functions/i18n.php");
+   if (!isset($plugin_php))
+      include ("../functions/plugin.php");
 
    // Check to see if gettext is installed
    if (function_exists("_")) {
@@ -48,6 +50,9 @@
                 $theme_css);
         echo "\n";
       }
+      
+      do_hook ("generic_header");
+
       echo "<TITLE>$title</TITLE>";
       echo "</HEAD>\n\n";
    }
@@ -80,6 +85,9 @@
       echo "         <A HREF=\"folders.php\">" . _("Folders") . "</A>&nbsp;&nbsp;\n";
       echo "         <A HREF=\"options.php\">" . _("Options") . "</A>&nbsp;&nbsp;\n";
       echo "         <A HREF=\"webmail.php?right_frame=help.php\" TARGET=\"Help Me!\">" . _("Help") . "</A>&nbsp&nbsp";
+
+      do_hook("menuline");
+
       echo "      </TD><TD ALIGN=right WIDTH=\"30%\">\n";
       echo "         <A HREF=\"http://squirrelmail.sourceforge.net/index.php3?from=1\" TARGET=\"_top\">SquirrelMail</A>\n";
       echo "      </TD>\n";
