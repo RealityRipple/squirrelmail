@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    include("../config/config.php");
    include("../functions/strings.php");
    include("../functions/page_header.php");

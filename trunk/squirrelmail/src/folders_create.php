@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -18,7 +20,7 @@
    if (strpos($folder_name, "\"") || strpos($folder_name, ".") ||
        strpos($folder_name, "/") || strpos($folder_name, "\\") ||
        strpos($folder_name, "'") || strpos($folder_name, "$dm")) {
-      plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
+      plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php?PHPSESSID=$PHPSESSID\">"._("Click here to go back")."</A>.", $color);
       exit;
    }
 
@@ -49,7 +51,7 @@
       echo _("Folder Created!");
       echo "</B><BR><BR>";
       echo _("The folder has been successfully created.");
-      echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
+      echo "<BR><A HREF=\"webmail.php?right_frame=folders.php?PHPSESSID=$PHPSESSID\" TARGET=_top>";
       echo _("Click here");
       echo "</A> ";
       echo _("to continue.");

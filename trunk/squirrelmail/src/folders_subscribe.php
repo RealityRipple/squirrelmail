@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -34,7 +36,7 @@
       echo "</B><BR><BR>";
       echo _("You have been successfully unsubscribed.");
    }
-   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
+   echo "<BR><A HREF=\"webmail.php?PHPSESSID=$PHPSESSID&right_frame=folders.php\" TARGET=_top>";
    echo _("Click here");
    echo "</A> ";
    echo _("to continue.");

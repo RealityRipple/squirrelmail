@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -39,7 +41,7 @@
    echo _("Options Saved!");
    echo "</B><BR><BR>";
    echo _("Your options have been saved.");
-   echo "<BR><A HREF=\"webmail.php\" TARGET=_top>";
+   echo "<BR><A HREF=\"webmail.php?PHPSESSID=$PHPSESSID\" TARGET=_top>";
    echo _("Click here");
    echo "</A> ";
    echo _("to continue.");

@@ -6,6 +6,8 @@
     **
     **/
 
+   session_start();
+
    if(!isset($logged_in)) {
       echo _("You must login first.");
       exit;
@@ -64,8 +66,8 @@
 
    // Create search form 
    if($show == "form") {
-      printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=GET>\n",
-	     $PHP_SELF);
+      printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
+	     $PHP_SELF . "?PHPSESSID=$PHPSESSID");
       printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
       printf("<TR><TD NOWRAP VALIGN=middle>\n");
       printf("  <STRONG>%s:</STRONG>\n</TD><TD VALIGN=middle>\n",

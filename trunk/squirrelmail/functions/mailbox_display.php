@@ -12,6 +12,7 @@
 
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       require ("../config/config.php");
+      global $PHPSESSID;
 
       $senderName = $from;
       $urlMailbox = urlencode($mailbox);
@@ -21,12 +22,12 @@
          echo "   <TD><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></TD>\n";
          echo "   <TD><B>$senderName</B></TD>\n";
          echo "   <TD NOWRAP><CENTER><B>$dateString</B></CENTER></TD>\n";
-         echo "   <TD><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></TD>\n";
+         echo "   <TD><B><A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></B></TD>\n";
       } else {
          echo "   <TD><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></TD>\n";
          echo "   <TD>$senderName</TD>\n";
          echo "   <TD NOWRAP><CENTER>$dateString</CENTER></TD>\n";
-         echo "   <TD><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></TD>\n";
+         echo "   <TD><A HREF=\"read_body.php?PHPSESSID=$PHPSESSID&mailbox=$urlMailbox&passed_id=$i&sort=$sort&startMessage=$startMessage&show_more=0\">$subject</A></TD>\n";
       }
       echo "</TR>\n";
    }
@@ -36,6 +37,7 @@
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color) {
       include ("../config/config.php");
+      global $PHPSESSID;
 
       if ($numMessages >= 1) {
          for ($q = 0; $q < $numMessages; $q++) {
@@ -177,23 +179,23 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
          echo "<FONT COLOR=\"$color[9]\">Next</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       echo "</TD></TR>\n";
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
-      echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
+      echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?PHPSESSID=$PHPSESSID&msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT>\n";
@@ -237,27 +239,27 @@
       /** FROM HEADER **/
       echo "   <TD WIDTH=25%><B>". _("From") ."</B>";
       if ($sort == 2)
-         echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 3)
-         echo "   <A HREF=\"right_main.php?sort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
-         echo "   <A HREF=\"right_main.php?sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** DATE HEADER **/
       echo "   <TD WIDTH=15%><B>". _("Date") ."</B>";
       if ($sort == 0)
-         echo "   <A HREF=\"right_main.php?sort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 1)
-         echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
-         echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** SUBJECT HEADER **/
       echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
       if ($sort == 4)
-        echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+        echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 5)
-         echo "   <A HREF=\"right_main.php?sort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
-         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       echo "</TR>";
 
       
@@ -281,16 +283,16 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
          echo "<FONT COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
-         echo "<A HREF=\"right_main.php?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
+         echo "<A HREF=\"right_main.php?PHPSESSID=$PHPSESSID&sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       echo "</TD></TR></TABLE>"; /** End of message-list table */
    }

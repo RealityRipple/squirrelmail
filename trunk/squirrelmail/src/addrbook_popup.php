@@ -6,6 +6,8 @@
     **
     **/
 
+   session_start();
+
    if(!isset($logged_in)) {
       echo _("You must login first.");
       exit;
@@ -33,8 +35,8 @@
 
 <FRAMESET ROWS="60,*" BORDER=0>
  <FRAME NAME="abookmain" MARGINWIDTH=0 SCROLLING=NO
-        SRC="addrbook_search.php?show=form" BORDER=0>
- <FRAME NAME="abookres" MARGINWIDTH=0 SRC="addrbook_search.php?show=blank"
+        SRC="addrbook_search.php?PHPSESSID=<? echo $PHPSESSID; ?>&show=form" BORDER=0>
+ <FRAME NAME="abookres" MARGINWIDTH=0 SRC="addrbook_search.php?PHPSESSID=<? echo $PHPSESSID; ?>&show=blank"
         BORDER=0>
 </FRAMESET>
 

@@ -1,4 +1,6 @@
 <?
+   session_start();
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -48,7 +50,7 @@
    echo _("Folder Renamed!");
    echo "</B><BR><BR>";
    echo _("The folder has been successfully renamed.");
-   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
+   echo "<BR><A HREF=\"webmail.php?PHPSESSID=$PHPSESSID&right_frame=folders.php\" TARGET=_top>";
    echo _("Click here");
    echo "</A> ";
    echo _("to continue.");
