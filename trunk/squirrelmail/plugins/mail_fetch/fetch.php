@@ -210,7 +210,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
             continue;
         } else {
             $newmsgcount = $Count - $i + 1;
-            Mail_Fetch_Status(sprintf(_("Login OK: Inbox contains %s messages"), $newmsgcount));
+            Mail_Fetch_Status(sprintf(ngettext("Login OK: Inbox contains %s message",
+	                "Login OK: Inbox contains %s messages",$newmsgcount), $newmsgcount));
         }
 
         Mail_Fetch_Status(_("Fetching UIDL..."));
