@@ -201,6 +201,17 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
             break;
         }
         $iRetrieved += $iBufferSize;
+        // if the returned lines are split, do not end with \n
+        // then we have a problem and need to adjust (happened with uw)
+        if ($bBufferSizeAdapted && substr($sRead,-1) !== "\n") {
+            // use fgets because it stops at \n.
+            // we can do it because it's for correction
+            $sRead .= fgets($imap_stream,$iBufferSize);
+            $iRetrieved += strlen($sRead);
+            if ($iRetrieved == $iSize) {
+                $bFinished = true;
+            }
+        }
         if ($filter) {
            // in case line-endings do not appear at position 78 we adapt the buffersize so we can base64 decode on the fly
            if (!$bBufferSizeAdapted) {
