@@ -40,7 +40,7 @@ sqgetGlobalVar('success', $success, SQ_GET);
 
 /* end of get globals */
 
-echo '<br>' .
+echo '<br />' .
     html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center' ) . '<b>' . _("Folders") . '</b>' .
@@ -74,7 +74,7 @@ if ( isset($success) && $success ) {
             break;
     }
 
-    $td_str .= '</b><br>';        
+    $td_str .= '</b><br />';
 
 
     echo html_tag( 'table',
@@ -87,7 +87,7 @@ if ( isset($success) && $success ) {
             'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
 }
 
-echo "\n<br>";
+echo "\n<br />";
 
 $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection,true);
@@ -101,8 +101,8 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
                 html_tag( 'td', '', 'center', $color[0] ) .
      addForm('folders_create.php', 'POST', 'cf').
      addInput('folder_name', '', 25).
-     "<BR>\n". _("as a subfolder of"). '<BR>'.
-     "<TT><SELECT NAME=subfolder>\n";
+     "<br />\n". _("as a subfolder of"). '<br />'.
+     "<tt><select name=\"subfolder\">\n";
 
 $show_selected = array();
 $skip_folders = array();
@@ -115,9 +115,9 @@ if ( $server_type == 'courier' ) {
 }
 
 if ( $default_sub_of_inbox == false ) {
-    echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
+    echo '<option selected="selected" value="">[ '._("None")." ]</option>\n";
 } else {
-    echo '<OPTION VALUE="">[ '._("None")." ]\n";
+    echo '<option value="">[ '._("None")." ]</option>\n";
     $show_selected = array('inbox');
 }
 
@@ -127,15 +127,15 @@ if ( $default_sub_of_inbox == false ) {
 // use the long format to show subfolders in an intelligible way if parent is missing (special folder)
 echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors', true);
 
-echo "</SELECT></TT>\n";
+echo "</select></tt>\n";
 if ($show_contain_subfolders_option) {
-    echo '<br>'.
+    echo '<br />'.
          addCheckBox('contain_subs', FALSE, '1') .' &nbsp;'
        . _("Let this folder contain subfolders")
-       . '<BR>';
+       . '<br />';
 }
-echo "<input type=SUBMIT VALUE=\""._("Create")."\">\n";
-echo "</FORM></td></tr>\n";
+echo "<input type=\"submit\" value=\""._("Create")."\" />\n";
+echo "</form></td></tr>\n";
 
 echo html_tag( 'tr',
             html_tag( 'td', '&nbsp;', 'left', $color[4] )
@@ -197,8 +197,8 @@ echo html_tag( 'tr',
 
 if ($count_special_folders < count($boxes)) {
     echo addForm('folders_rename_getname.php')
-       . "<TT><SELECT NAME=old>\n"
-       . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
+       . "<tt><select name=\"old\">\n"
+       . '         <option value="">[ ' . _("Select a folder") . " ]</option>\n";
 
     // use existing IMAP connection, we have no special values to show, 
     // but we do include values to skip. Use the pre-created $boxes to save an IMAP query.
@@ -206,13 +206,13 @@ if ($count_special_folders < count($boxes)) {
     // use long format to make sure folder names make sense when parents may be missing.
     echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
-    echo "</SELECT></TT>\n".
-         "<input type=SUBMIT VALUE=\"".
+    echo "</select></tt>\n".
+         '<input type="submit" value="'.
          _("Rename").
-         "\">\n".
-         "</FORM></td></tr>\n";
+         "\" />\n".
+         "</form></td></tr>\n";
 } else {
-    echo _("No folders found") . '<br><br></td></tr>';
+    echo _("No folders found") . '<br /><br /></td></tr>';
 }
 $boxes_sub = $boxes;
 
@@ -229,20 +229,20 @@ echo html_tag( 'tr',
 
 if ($count_special_folders < count($boxes)) {
     echo addForm('folders_delete.php')
-       . "<TT><SELECT NAME=mailbox>\n"
-       . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
+       . "<tt><select name=\"mailbox\">\n"
+       . '         <option value="">[ ' . _("Select a folder") . " ]</option>\n";
 
     // send NULL for the flag - ALL folders are eligible for delete (except what we've got in skiplist)
     // use long format to make sure folder names make sense when parents may be missing.
     echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
-    echo "</SELECT></TT>\n"
-       . '<input type=SUBMIT VALUE="'
+    echo "</select></tt>\n"
+       . '<input type="submit" value="'
        . _("Delete")
-       . "\">\n"
+       . "\" />\n"
        . "</form></td></tr>\n";
 } else {
-    echo _("No folders found") . "<br><br></td></tr>";
+    echo _("No folders found") . "<br /><br /></td></tr>";
 }
 
 echo html_tag( 'tr',
@@ -260,7 +260,7 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
 
 if ($count_special_folders < count($boxes)) {
     echo addForm('folders_subscribe.php?method=unsub')
-       . "<TT><SELECT NAME=\"mailbox[]\" multiple size=8>\n";
+       . "<tt><select name=\"mailbox[]\" multiple=\"multiple\" size=\"8\">\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
         if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
@@ -270,14 +270,14 @@ if ($count_special_folders < count($boxes)) {
             $box = htmlspecialchars($boxes[$i]["unformatted-dm"]);
             $box2 = str_replace(' ', '&nbsp;',
                                 htmlspecialchars(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
+            echo "         <option value=\"$box\">$box2</option>\n";
         }
     }
-    echo "</SELECT></TT><br><br>\n"
-       . '<input type=SUBMIT VALUE="'
+    echo "</select></tt><br /><br />\n"
+       . '<input type="submit" value="'
        . _("Unsubscribe")
-       . "\">\n"
-       . "</FORM></td>\n";
+       . "\" />\n"
+       . "</form></td>\n";
 } else {
     echo _("No folders were found to unsubscribe from!") . '</td>';
 }
@@ -308,24 +308,24 @@ if(!$no_list_for_subscribe) {
   }
   if ($box && $box2) {
     echo addForm('folders_subscribe.php?method=sub')
-       . '<tt><select name="mailbox[]" multiple size=8>';
+       . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
 
     for ($q = 0; $q < count($box); $q++) {      
-       echo "         <OPTION VALUE=\"$box[$q]\">".$box2[$q]."\n";
+       echo '         <option value="$box[$q]">'.$box2[$q]."</option>\n";
     }      
-    echo '</select></tt><br><br>'
-       . '<input type=SUBMIT VALUE="'. _("Subscribe") . "\">\n"
-       . "</FORM></td></tr></table><BR>\n";
+    echo '</select></tt><br /><br />'
+       . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
+       . "</form></td></tr></table><br />\n";
   } else {
     echo _("No folders were found to subscribe to!") . '</td></tr></table>';
   }
 } else {
   /* don't perform the list action -- this is much faster */
   echo addForm('folders_subscribe.php?method=sub')
-     . _("Subscribe to:") . '<br>'
-     . '<tt><input type="text" name="mailbox[]" size=35>'
-     . '<INPUT TYPE=SUBMIT VALUE="'. _("Subscribe") . "\">\n"
-     . "</FORM></TD></TR></TABLE><BR>\n";
+     . _("Subscribe to:") . '<br />'
+     . '<tt><input type="text" name="mailbox[]" size="35" />'
+     . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
+     . "</form></td></tr></table><br />\n";
 }
 
 do_hook('folders_bottom');

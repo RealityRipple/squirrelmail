@@ -542,9 +542,9 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                 }
             }
             if ($show_selected != 0 && in_array($lowerbox, $show_selected) ) {
-                $mbox_options .= '<OPTION VALUE="' . htmlspecialchars($box) .'" SELECTED>'.$box2.'</OPTION>' . "\n";
+                $mbox_options .= '<option value="' . htmlspecialchars($box) .'" selected="selected">'.$box2.'</option>' . "\n";
             } else {
-                $mbox_options .= '<OPTION VALUE="' . htmlspecialchars($box) .'">'.$box2.'</OPTION>' . "\n";
+                $mbox_options .= '<option value="' . htmlspecialchars($box) .'">'.$box2.'</option>' . "\n";
             }
         }
     }
