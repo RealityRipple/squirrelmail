@@ -184,7 +184,11 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
     $php_sort_array = array();
 
     if ($uid_support) {
-        $uidnext = $mbxresponse['UIDNEXT']-1;
+        if (isset($mbxresponse['UIDNEXT']) && $mbxresponse['UIDNEXT']) {
+    	    $uidnext = $mbxresponse['UIDNEXT']-1;
+	} else {
+	    $uidnext = '*';
+	}
         $uid_query = "$sid SEARCH UID 1:$uidnext\r\n";
         fputs($imap_stream, $uid_query);
         $uids = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
