@@ -19,6 +19,10 @@
    checkForPrefs($data_dir, $username);
 
    $chosen_theme = getPref($data_dir, $username, "chosen_theme");
+   if ((substr($chosen_theme, 0, 10) == "../config/")) {
+      $chosen_theme = substr($chosen_theme, 10);
+      $chosen_theme = "../themes/$chosen_theme";
+   }
 
    if ((isset($chosen_theme)) && (file_exists($chosen_theme))) {
       require("$chosen_theme");

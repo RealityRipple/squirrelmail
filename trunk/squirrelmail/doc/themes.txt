@@ -1,0 +1,53 @@
+Themes
+======
+
+To create a theme, it is very simple.  Just go into the themes/ directory
+and create a file called yourtheme_theme.php.  You then need to create an
+array with 12 elements (0-11).  Below is an example followed by a
+description of what the different entries are for.
+
+---<START>--- 
+<?php
+
+   #  My Theme
+   #  Author:  My Name
+   #  Date:  Today's Date
+   #
+   #  Optional description
+ 
+   $color[0]   = "#xxxxxx";
+   $color[1]   = "#xxxxxx";
+   $color[2]   = "#xxxxxx";
+   $color[3]   = "#xxxxxx";
+   $color[4]   = "#xxxxxx";
+   $color[5]   = "#xxxxxx";
+   $color[6]   = "#xxxxxx";
+   $color[7]   = "#xxxxxx";
+   $color[8]   = "#xxxxxx";
+   $color[9]   = "#xxxxxx";
+   $color[10]  = "#xxxxxx";
+   $color[11]  = "#xxxxxx";
+
+?>
+---<END>---
+
+And here is a description of what the different entries in the array
+are color of:
+
+  0: Title Bar at the top of the page header
+  1: <not currently used>
+  2: Error messages (usually red)
+  3: Left folder list background color
+  4: Normal background color
+  5: Header of the message index (From, Date, Subject)
+  6: Normal text on the left folder list
+  7: Links in the right frame
+  8: Normal text (usually black) 
+  9: Darker version of #0
+ 10: Darker version of #9
+ 11: Special folders color (Inbox, Trash, Sent)
+
+Next all you have to do is run conf.pl and add the theme to the list
+of themes available to you.  If you would like your theme to be 
+included in the distribution of SquirrelMail, just email it to
+<luke@squirrelmail.org> and I will review it.

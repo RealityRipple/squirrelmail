@@ -162,19 +162,24 @@
 
    for ($i = 0; $i < count($boxes); $i++) {
       if (count($boxes[$i]["flags"]) > 0) {
+         $noinf = false;
          for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-            if ($boxes[$i]["flags"][$j] != "noinferiors") {
-               if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
-                  $box = $boxes[$i]["unformatted"];
-                  $box2 = replace_spaces($boxes[$i]["formatted"]);
-                  echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
-               } else {
-                  $box = $boxes[$i]["unformatted"];
-                  $box2 = replace_spaces($boxes[$i]["formatted"]);
-                  echo "<OPTION VALUE=\"$box\">$box2\n";
-               }
-            }   
+            if ($boxes[$i]["flags"][$j] == "noinferiors") {
+               $noinf = true;
+               continue;
+            }
          }    
+         if ($noinf == false) {
+            if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
+               $box = $boxes[$i]["unformatted"];
+               $box2 = replace_spaces($boxes[$i]["formatted"]);
+               echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
+            } else {
+               $box = $boxes[$i]["unformatted"];
+               $box2 = replace_spaces($boxes[$i]["formatted"]);
+               echo "<OPTION VALUE=\"$box\">$box2\n";
+            }
+         }
       } else {
          if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
             $box = $boxes[$i]["unformatted"];

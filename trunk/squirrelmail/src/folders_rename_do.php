@@ -38,7 +38,7 @@
    $orig = stripslashes($orig);
    $newone = stripslashes($newone);
 
-   fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\n");
+   fputs ($imapConnection, ". RENAME \"$orig\" \"$newone\"\r\n");
    $data = sqimap_read_data($imapConnection, ".", true, $a, $b);
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
@@ -47,27 +47,22 @@
       $newone = $newone.$dm;
       $orig = $orig.$dm;
    }   
-
    sqimap_unsubscribe($imapConnection, $orig);
    sqimap_subscribe($imapConnection, $newone);
+
+   fputs ($imapConnection, "a001 LSUB \"\" \"$orig*\"\r\n");
+   $data = sqimap_read_data($imapConnection, "a001", true, $a, $b);
+   for ($i=0; $i < count($data); $i++) {
+      $name = find_mailbox_name($data[$i]);
+      sqimap_unsubscribe($imapConnection, $name);
+      $name = substr($name, strlen($orig));
+      $name = $newone . $name;
+      sqimap_subscribe($imapConnection, $name);
+   }
+
 
    /** Log out this session **/
    sqimap_logout($imapConnection);
    $location = get_location();
    header ("Location: $location/folders.php?success=rename");
-   sqimap_logout($imapConnection);
-   /*
-   displayPageHeader($color, "None");
-   echo "<BR><BR><BR><CENTER><B>";
-   echo _("Folder Renamed!");
-   echo "</B><BR><BR>";
-   echo _("The folder has been successfully renamed.");
-   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-   echo _("Click here");
-   echo "</A> ";
-   echo _("to continue.");
-   echo "</CENTER>";
-   
-   echo "</BODY></HTML>"; 
-   */
 ?>
