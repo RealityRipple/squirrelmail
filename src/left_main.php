@@ -42,22 +42,8 @@ function formatMailboxName($imapConnection, $box_array) {
         $mailbox = $regs[2];
     }
 
-    $unseen = 0;
-
-    if (($unseen_notify == 2 && $real_box == 'INBOX') ||
-        $unseen_notify == 3) {
-        $unseen = sqimap_unseen_messages($imapConnection, $real_box);
-        if ($unseen_type == 1 && $unseen > 0) {
-            $unseen_string = "($unseen)";
-            $unseen_found = TRUE;
-        } else if ($unseen_type == 2) {
-            $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
-            $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
-            $unseen_found = TRUE;
-        }
-    }
-
-    $special_color = ($use_special_folder_color && isSpecialMailbox( $real_box ) );
+    list($unseen_string, $unseen) = create_unseen_string($real_box, $box_array, $imapConnection);
+    $special_color = ($use_special_folder_color && isSpecialMailbox($real_box));
 
     /* Start off with a blank line. */
     $line = '';
@@ -85,7 +71,7 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($unseen > 0) { $line .= "</B>"; }
 
     /* Print unseen information. */
-    if (isset($unseen_found) && $unseen_found) {
+    if ($unseen_string != '') {
         $line .= "&nbsp;<SMALL>$unseen_string</SMALL>";
     }
 
@@ -169,43 +155,98 @@ function create_collapse_link($boxnum) {
     $link = '<a target="left" style="text-decoration:none" ' .
             'href="left_main.php?';
     if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
-
-    /* this code checks unseen_notify settings and displays
-     * a total next to a colapsed folder for the amount of 
-     * unread mail in its sunfolders
-     */
-        $box_count = count($boxes);
-        $cur_box = $boxes[$boxnum]['unformatted'];
-        $parent_unseen = 0;
-        $length = strlen($cur_box);
-        if (($unseen_notify == 2 && $cur_box == 'INBOX') || $unseen_notify == 3) {
-            for ($i=0;$i<$box_count;$i++) {
-                $this_unseen = 0;
-                if ($cur_box != $boxes[$i]['unformatted']) {
-                    if (substr($boxes[$i]['unformatted'], 0, $length) == $cur_box) {
-                        if (!in_array('noselect', $boxes[$i]['flags'])) {
-                            $this_unseen = sqimap_unseen_messages($imapConnection,
-                                            $boxes[$i]['unformatted']);
-                        }
-                    }
-                }
-                $parent_unseen += $this_unseen;
-            }
-        }
-        if ($parent_unseen > 0) {
-            $link .= "unfold=$mailbox\">+<font color=\"$color[11]\">($parent_unseen)</font>";
-        }
-        else {
-            $link .= "unfold=$mailbox\">+";
-        }
-    }
-    else {
+        $link .= "unfold=$mailbox\">+";
+    } else {
         $link .= "fold=$mailbox\">-";
     }
     $link .= '</a>';
 
     /* Return the finished product. */
     return ($link);
+}
+
+/**
+ * create_unseen_string:
+ *
+ * Create unseen and total message count for both this folder and
+ * it's subfolders.
+ *
+ * @param string $boxName name of the current mailbox
+ * @param array $boxArray array for the current mailbox
+ * @param $imapConnection current imap connection in use
+ * @return array[0] unseen message string (for display)
+ * @return array[1] unseen message count
+ */
+function create_unseen_string($boxName, $boxArray, $imapConnection) {
+    global $boxes, $unseen_type, $color;
+
+    /* Initialize the return value. */
+    $result = array();
+
+    /* Initialize the counts for this folder. */
+    $boxUnseenCount = 0;
+    $boxMessageCount = 0;
+    $totalUnseenCount = 0;
+    $totalMessageCount = 0;
+
+    /* Collect the counts for this box alone. */
+    $boxUnseenCount = sqimap_unseen_messages($imapConnection, $boxName);
+    if ($unseen_type == 2) {
+        $boxMessageCount = sqimap_get_num_messages($imapConnection, $boxName);
+    }
+
+    if ($boxArray['collapse'] == SM_BOX_COLLAPSED) {
+        /* Collect the counts for this boxes subfolders. */
+        $curBoxLength = strlen($boxName);
+        $boxCount = count($boxes);
+        for ($i = 0; $i < $boxCount; ++$i) {
+            /* Initialize the counts for this subfolder. */
+            $subUnseenCount = 0;
+            $subMessageCount = 0;
+
+            /* Collect the counts for this subfolder. */
+            if (($boxName != $boxes[$i]['unformatted'])
+                   && (substr($boxes[$i]['unformatted'], 0, $curBoxLength) == $boxName)
+                   && !in_array('noselect', $boxes[$i]['flags'])) {
+                $subUnseenCount = sqimap_unseen_messages($imapConnection, $boxes[$i]['unformatted']);
+                if ($unseen_type == 2) {
+                    $subMessageCount = sqimap_get_num_messages($imapConnection, $boxes[$i]['unformatted']);
+                }
+            }
+
+            /* Add the counts for this subfolder to the total. */
+            $totalUnseenCount += $subUnseenCount;
+            $totalMessageCount += $subMessageCount;
+        }
+    }
+
+    /* And create the magic unseen count string.     */
+    /* Really a lot more then just the unseen count. */
+    if (($unseen_type == 1) && ($boxUnseenCount > 0)) {
+        if ($totalUnseenCount == 0) {
+            $result[0] = "($boxUnseenCount)";
+        } else {
+            $result[0] = "($boxUnseenCount:$totalUnseenCount)";
+        }
+    } else if ($unseen_type == 2) {
+        if ($totalMessageCount == 0) {
+            $result[0] = "($boxUnseenCount/$boxMessageCount)";
+        } else {
+            $result[0] = "($boxUnseenCount/$boxMessageCount"
+                       . '&nbsp;:&nbsp;'
+                       . "$totalUnseenCount/$totalMessageCount)";
+        }
+        $result[0] = "<font color=\"$color[11]\">$result[0]</font>";
+    }
+
+    /* Decide on an unseen count to return to the outside world. */
+    $result[1] = $boxUnseenCount;
+    if ($boxArray['collapse'] == SM_BOX_COLLAPSED) {
+        $result[1] += $totalUnseenCount;
+    }
+
+    /* Return our happy result. */
+    return ($result);
 }
 
 /**
