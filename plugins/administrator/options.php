@@ -489,8 +489,7 @@ fwrite( $fp, "<?PHP\n".
             "/**\n".
             " * SquirrelMail Configuration File\n".
             " * Created using the Administrator Plugin\n".
-            " */\n".
-            "GLOBAL \$version;\n" );
+            " */\n" );
 
 /*
 fwrite( $fp, 'GLOBAL ' );
