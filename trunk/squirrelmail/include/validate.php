@@ -29,6 +29,14 @@
 
 session_write_close();
 
+/**
+ * Reset the $theme() array in case a value was passed via a cookie.
+ * This is until theming is rewritten.
+ */
+global $theme;
+unset($theme);
+$theme=array();
+
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'class/mime.class.php');
 require_once(SM_PATH . 'functions/strings.php');
@@ -70,24 +78,6 @@ if (isset($send)
         TrimArray($HTTP_GET_VARS);
     }
 }
-
-/**
-* Everyone needs stuff from config, and config needs stuff from
-* strings.php, so include them both here. Actually, strings is
-* included at the top now as the string array functions have
-* been moved into it.
-*
-* Include them down here instead of at the top so that all config
-* variables overwrite any passed in variables (for security).
-*/
-
-/**
- * Reset the $theme() array in case a value was passed via a cookie.
- * This is until theming is rewritten.
- */
-global $theme;
-unset($theme);
-$theme=array();
 
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/page_header.php');
