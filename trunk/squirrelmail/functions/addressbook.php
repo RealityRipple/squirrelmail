@@ -17,6 +17,7 @@
    include('../functions/abook_ldap_server.php');
 
    // Only load database backend if database is configured
+   global $addrbook_dsn;
    if(isset($addrbook_dsn))
       include('../functions/abook_database.php');
 
