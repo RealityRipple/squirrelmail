@@ -334,6 +334,47 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 } else {
     echo $IND."not using database functionality.<br />\n";
 }
+
+// LDAP DB tests
+echo "Checking LDAP functions...<br />\n";
+if( empty($ldap_server) ) {
+	echo $IND."not using LDAP functionality.<br />\n";
+} else {
+    if ( !function_exists(ldap_connect) ) {
+        do_err('Required LDAP support is not available.');
+    } else {
+		echo "$IND LDAP support present.<br />\n";
+        foreach ( $ldap_server as $param ) {
+
+            $linkid = ldap_connect($param['host'], (empty($param['port']) ? 389 : $param['port']) );
+
+            if ( $linkid ) {
+		        echo "$IND LDAP connect to ".$param['host']." successful: ".$linkid."<br />\n";
+                
+                if ( !empty($param['protocol']) &&
+                     !ldap_set_option($linkid, LDAP_OPT_PROTOCOL_VERSION, $param['protocol']) ) {
+                    do_err('Unable to set LDAP protocol');
+                }   
+
+                if ( empty($param['binddn']) ) {
+                    $bind = ldap_bind($linkid);    
+                } else {
+                    $bind = ldap_bind($param['binddn'], $param['bindpw']);
+                }
+
+                if ( $bind ) {
+                    echo "$IND LDAP Bind Successful <br />";
+                } else {
+                    do_err('Unable to Bind to LDAP Server');
+                }
+                
+                ldap_close($linkid);
+            } else {
+                do_err('Connection to LDAP failed');
+            }
+        }
+    }
+}
 ?>
 
 <p>Congratulations, your SquirrelMail setup looks fine to me!</p>
