@@ -417,4 +417,33 @@
        return $bytes . '<small>&nbsp;' . $type . '</small>';
    }
 
+   /* Generates a random string from the caracter set you pass in
+    *
+    * Flags:
+    *   1 = add lowercase a-z to $chars
+    *   2 = add uppercase A-Z to $chars
+    *   4 = add numbers 0-9 to $chars
+    */
+  
+   function GenerateRandomString($size, $chars, $flags = 0)
+   {
+      if ($flags & 0x1)
+          $chars .= 'abcdefghijklmnopqrstuvwxyz';
+      if ($flags & 0x2)
+          $chars .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      if ($flags & 0x4)
+          $chars .= '0123456789';
+          
+      if ($size < 1 || strlen($chars) < 1)
+          return "";
+          
+      sq_mt_randomize(); // Initialize the random number generator
+    
+      while (strlen($String) < $size) {
+         $String .= $chars[mt_rand(0, strlen($chars))];
+      }
+      
+      return $String;
+   }
+
 ?>

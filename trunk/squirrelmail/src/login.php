@@ -61,6 +61,11 @@
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
    echo "<FORM ACTION=\"webmail.php\" METHOD=\"POST\" NAME=f>\n";
+   
+   $username_form_name = 'username';
+   $password_form_name = 'secretkey';
+   do_hook('login_top');
+   
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><SMALL>";
    printf (_("SquirrelMail version %s"), $version);
@@ -81,13 +86,13 @@
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Name:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <INPUT TYPE=TEXT NAME=username>\n";
+   echo "                  <INPUT TYPE=TEXT NAME=\"$username_form_name\">\n";
    echo "               </TD>\n";
    echo "            </TR><TR>\n";
    echo "               <TD WIDTH=30% ALIGN=right>\n";
    echo _("Password:");
    echo "               </TD><TD WIDTH=* ALIGN=left>\n";
-   echo "                  <INPUT TYPE=PASSWORD NAME=secretkey>\n";
+   echo "                  <INPUT TYPE=PASSWORD NAME=\"$password_form_name\">\n";
    echo "               </TD>\n"; 
    echo "         </TABLE>\n";
    echo "      </TD>\n";
