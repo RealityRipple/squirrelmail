@@ -82,4 +82,16 @@
       }
    }
 
+   function deleteMessages($imapConnection, $a, $b, $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox) {
+      /** check if they would like to move it to the trash folder or not */
+      if ($move_to_trash == true) {
+         $success = copyMessages($imapConnection, $a, $b, $trash_folder);
+         if ($success == true)
+            setMessageFlag($imapConnection, $a, $b, "Deleted");
+      } else {
+         setMessageFlag($imapConnection, $a, $b, "Deleted");
+      }
+      if ($auto_expunge == true)
+         expungeBox($imapConnection, $mailbox, $numMessages);
+   }
 ?>

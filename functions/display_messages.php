@@ -56,9 +56,43 @@
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Deleted</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were deleted successfully.<BR>\n";
+      echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              Click here to return to $mailbox";
-      echo "              </A>.";
+      echo "              Click here to return to $mailbox</A>.";
+      echo "      </FONT></CENTER>";
+      echo "   </TD></TR>";
+      echo "</TABLE>";
+    }
+
+    function messages_moved_message($mailbox, $sort, $startMessage) {
+      $urlMailbox = urlencode($mailbox);
+      echo "<BR>";
+      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
+      echo "   <TR>";
+      echo "      <TD BGCOLOR=DCDCDC>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Moved</CENTER></B></FONT>";
+      echo "   </TD></TR><TR><TD>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were moved successfully.<BR>\n";
+      echo "      <BR>";
+      echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
+      echo "              Click here to return to $mailbox</A>.";
+      echo "      </FONT></CENTER>";
+      echo "   </TD></TR>";
+      echo "</TABLE>";
+    }
+
+    function error_message($message, $mailbox, $sort, $startMessage) {
+      $urlMailbox = urlencode($mailbox);
+      echo "<BR>";
+      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
+      echo "   <TR>";
+      echo "      <TD BGCOLOR=DCDCDC>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=CC0000><B><CENTER>ERROR</CENTER></B></FONT>";
+      echo "   </TD></TR><TR><TD>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>$message<BR>\n";
+      echo "      <BR>";
+      echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
+      echo "              Click here to return to $mailbox</A>.";
       echo "      </FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
