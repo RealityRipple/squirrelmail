@@ -32,8 +32,6 @@ sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
-sqimap_mailbox_list($imap_stream);
-
 $mailbox = $trash_folder;
 $boxes = sqimap_mailbox_list($imap_stream);
 
