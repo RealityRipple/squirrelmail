@@ -322,7 +322,7 @@ exit();
 function newMail () {
     global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
            $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size,
-           $draft_id, $use_signature, $composesession;
+           $draft_id, $use_signature, $composesession, $forward_cc;
 
     $send_to = decodeHeader($send_to, false);
     $send_to_cc = decodeHeader($send_to_cc, false);
@@ -397,6 +397,14 @@ function newMail () {
             if (count($orig_header->to) > 1) {
                 for ($x=1; $x < count($orig_header->to); $x++) {
                     $bodyTop .= '         ' . $orig_header->to[$x] . "\n";
+                }
+            }
+            if (isset($forward_cc) && $forward_cc) {
+                $bodyTop .= _("Cc") . ': ' . $orig_header->cc[0] . "\n";
+                if (count($orig_header->cc) > 1) {
+                    for ($x = 1; $x < count($orig_header->cc); $x++) {
+                        $bodyTop .= '         ' . $orig_header->cc[$x] . "\n";
+                    }
                 }
             }
             $bodyTop .= "\n";
