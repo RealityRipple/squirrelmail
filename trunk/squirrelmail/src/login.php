@@ -69,7 +69,7 @@ set_up_language($squirrelmail_language, TRUE);
 /**
  * Find out the base URI to set cookies.
  */
-$base_uri = dirname(dirname($PHP_SELF));
+$base_uri = dirname(dirname($PHP_SELF)) . "/";
 @session_destroy();
 
 /*
