@@ -38,7 +38,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      '</form>'.
      '</b>'.
      //'</td></tr></table>'.
-     '</body>'.
+     '</center></body>'.
      "</html>\n";
 
 ?>
