@@ -534,6 +534,9 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         unset($links);
         $attachments .= "</TD></TR>\n";
     }
+    $attachmentadd = do_hook_function('attachments_bottom',$attachments);
+    if ($attachmentadd != '')
+        $attachments = $attachmentadd;
     return $attachments;
 }
 
