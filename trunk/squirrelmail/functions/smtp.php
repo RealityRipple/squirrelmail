@@ -109,7 +109,7 @@
    function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $domain, $version, $useSendmail;
-      global $default_charset;
+      global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
 
       // Storing the header to make sure the header is the same
       // everytime the header is printed.
@@ -145,7 +145,13 @@
          $message_id .= time() . "@" . $SERVER_NAME .">";
          
          /* Make an RFC822 Received: line */
-         $header = "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ";
+         $received_from = "$REMOTE_ADDR";
+         if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
+            if ($HTTP_X_FORWARDED_FOR == "")
+               $HTTP_X_FORWARDED_FOR = "unknown";
+            $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
+         }            
+         $header = "Received: from $received_from by $SERVER_NAME with HTTP; ";
          $header .= "$date\r\n";
          
          /* Insert the rest of the header fields */
