@@ -75,7 +75,21 @@
    $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
    displayPageHeader($color, $mailbox);
 
-   showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color);
+   // Check to see if we can use cache or not.  Currently the only time when you wont use it is
+   //    when a link on the left hand frame is used.  Also check to make sure we actually have the
+   //    array in the registered session data.  :)
+//   if (!$use_mailbox_cache || !session_is_registered("msgs")) {
+//      echo "<br>not using cache<br>\n";
+//      if (session_is_registered("messages"))
+//         session_unregister("messages");
+
+      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color);
+//   } else {
+//      echo "<br>using cache<br>\n";
+//      $msgs = unserialize($messages);
+
+//      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color);
+//   }
 
    // close the connection
    sqimap_logout ($imapConnection);

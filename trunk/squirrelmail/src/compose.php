@@ -144,7 +144,7 @@
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
-         $attachments, $subject, $newmail, $PHPSESSID;
+         $attachments, $subject, $newmail;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -152,14 +152,14 @@
 
       echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
       echo "function open_abook() { \n";
-      echo "  var nwin = window.open(\"addrbook_popup.php?PHPSESSID=$PHPSESSID\",\"abookpopup\",";
+      echo "  var nwin = window.open(\"addrbook_popup.php\",\"abookpopup\",";
       echo "\"width=670,height=300,resizable=yes,scrollbars=yes\");\n";
       echo "  if((!nwin.opener) && (document.windows != null))\n";
       echo "    nwin.opener = document.windows;\n";
       echo "}\n";
       echo "// --></SCRIPT>\n\n";
 
-      echo "\n<FORM name=compose action=\"compose.php?PHPSESSID=$PHPSESSID\" METHOD=POST\n";
+      echo "\n<FORM name=compose action=\"compose.php?\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
@@ -272,10 +272,8 @@
    }
 
    function showSentForm () {
-      global $PHPSESSID;
-
       echo "<BR><BR><BR><CENTER><B>Message Sent!</B><BR><BR>";
-      echo "You will be automatically forwarded.<BR>If not, <A HREF=\"right_main.php?PHPSESSID=$PHPSESSID\">click here</A>";
+      echo "You will be automatically forwarded.<BR>If not, <A HREF=\"right_main.php\">click here</A>";
       echo "</CENTER>";
    }
 
@@ -305,7 +303,7 @@
    if(isset($send)) {
       if (checkInput(false)) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
-         header ("Location: right_main.php?PHPSESSID=$PHPSESSID");
+         header ("Location: right_main.php");
       } else {
          echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

@@ -41,7 +41,7 @@
    sqimap_subscribe($imapConnection, "INBOX");
    echo "<BR><BR><CENTER><b>";
    echo _("Mailboxes Created Successfully!");
-   echo "<BR><A HREF=\"webmail.php?PHPSESSID=$PHPSESSID&right_frame=folders.php\" TARGET=_top>";
+   echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
    echo _("Click here");
    echo "</A> ";
    echo _("to continue.");
@@ -60,7 +60,7 @@
        echo "</B></TD></TR>";
        echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
        echo _("In order for SquirrelMail to provide the full set of options you need to create the special folders listed below.  Just click the check box and hit the create button.");
-       echo "<FORM ACTION=\"folders.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
+       echo "<FORM ACTION=\"folders.php\" METHOD=\"POST\">\n";
            if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
               echo _("Create Sent") . "<INPUT TYPE=checkbox NAME=sent_create value=true><br>\n";
            }
@@ -88,7 +88,7 @@
    }
 
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=\"folders_delete.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
+      echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -120,7 +120,7 @@
    echo _("Create Folder");
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-   echo "<FORM ACTION=\"folders_create.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
+   echo "<FORM ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
    echo _("as a subfolder of");
    echo "<BR>";
@@ -172,7 +172,7 @@
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=\"folders_rename_getname.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
+      echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=old>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -205,7 +205,7 @@
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=\"folders_subscribe.php?PHPSESSID=$PHPSESSID&method=unsub\" METHOD=\"POST\">\n";
+      echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -239,7 +239,7 @@
       $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
       $boxes_all = sqimap_mailbox_list_all ($imap_stream);
       
-      echo "<FORM ACTION=\"folders_subscribe.php?PHPSESSID=$PHPSESSID&method=sub\" METHOD=\"POST\">\n";
+      echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
       echo "<tt><select name=mailbox>";
       for ($i = 0; $i < count($boxes_all); $i++) {
          $use_folder = true;

@@ -37,7 +37,7 @@
    echo _("Rename a folder");
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-   echo "<FORM ACTION=\"folders_rename_do.php?PHPSESSID=$PHPSESSID\" METHOD=\"POST\">\n";
+   echo "<FORM ACTION=\"folders_rename_do.php\" METHOD=\"POST\">\n";
    echo _("New name:");
    echo " &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
    if ($isfolder)
