@@ -996,28 +996,28 @@ function showInputForm ($session, $values=false) {
 
     echo '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
-                _("To:") . '</td>' . "\n" .
+                _("To") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4], 'width="90%"' ) .
                 addInput('send_to', $send_to, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("CC:") . '</td>' . "\n" .
+                _("Cc") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
       addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("BCC:") . '</td>' . "\n" .
+                _("Bcc") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
       addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
-                _("Subject:") . '</td>' . "\n" .
+                _("Subject") . ':</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) . "\n";
     echo '         '.addInput('subject', $subject, 60).
          '      </td>' . "\n" .

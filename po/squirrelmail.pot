@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-13 22:25+0200\n"
+"POT-Creation-Date: 2004-08-14 21:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,6 +27,15 @@ msgid "Info"
 msgstr ""
 
 msgid "Source"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "Cc"
+msgstr ""
+
+msgid "Bcc"
 msgstr ""
 
 msgid "No persons matching your search were found"
@@ -58,15 +67,6 @@ msgid "Your search failed with the following error(s)"
 msgstr ""
 
 msgid "All"
-msgstr ""
-
-msgid "To"
-msgstr ""
-
-msgid "Cc"
-msgstr ""
-
-msgid "Bcc"
 msgstr ""
 
 msgid "Use Addresses"
@@ -172,18 +172,6 @@ msgid "Your Message has been sent."
 msgstr ""
 
 msgid "From:"
-msgstr ""
-
-msgid "To:"
-msgstr ""
-
-msgid "CC:"
-msgstr ""
-
-msgid "BCC:"
-msgstr ""
-
-msgid "Subject:"
 msgstr ""
 
 msgid "Send"
@@ -625,9 +613,6 @@ msgstr ""
 msgid "Message not printable"
 msgstr ""
 
-msgid "CC"
-msgstr ""
-
 msgid "Printer Friendly"
 msgstr ""
 
@@ -643,7 +628,7 @@ msgstr ""
 msgid "Your message"
 msgstr ""
 
-msgid "Sent:"
+msgid "Sent"
 msgstr ""
 
 #, c-format
@@ -2615,9 +2600,6 @@ msgid "Closing Connection"
 msgstr ""
 
 msgid "Connecting to Password Server"
-msgstr ""
-
-msgid "ERROR:"
 msgstr ""
 
 msgid ""

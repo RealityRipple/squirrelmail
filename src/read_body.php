@@ -184,9 +184,9 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $now = getLongDateString( time() );
     set_my_charset();
     $body = _("Your message") . "\r\n\r\n" .
-            "\t" . _("To:") . ' ' . decodeHeader($to,false,false) . "\r\n" .
-            "\t" . _("Subject:") . ' ' . decodeHeader($header->subject,false,false) . "\r\n" .
-            "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
+            "\t" . _("To") . ': ' . decodeHeader($to,false,false) . "\r\n" .
+            "\t" . _("Subject") . ': ' . decodeHeader($header->subject,false,false) . "\r\n" .
+            "\t" . _("Sent") . ': ' . $senton . "\r\n" .
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
 

@@ -197,8 +197,8 @@ function printMessageInfo($aMsg) {
     }
     // If Sent, prefix with To: but only if not Sent folder
     if ($bHandleAsSent ^ $bSentFolder) {
-        $senderName = _("To:") . ' ' . $senderName;
-        $senderAddress = _("To:") . ' ' . $senderAddress;
+        $senderName = _("To") . ': ' . $senderName;
+        $senderAddress = _("To") . ': ' . $senderAddress;
     }
 
     // this is a column property which can apply to multiple columns. Do not use vars for one column
