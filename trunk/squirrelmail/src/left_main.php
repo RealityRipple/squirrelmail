@@ -1007,8 +1007,8 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<nobr><small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
-         ": $clk</small></nobr><br />";
+    echo '<small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
+         ":<br />$clk</small><br />";
 }
 
 /* Next, display the refresh button. */
