@@ -131,43 +131,38 @@ class html {
        echo ' '.$js;
     }
     if ($tag) echo '>';
-    if ($text) {
-       if ($style && !$usecss) { /* if use css then fallback to stylesheet for layout */
-          foreach ($style as $k => $v) {
-            echo '<'.$k.'>';
-	  }
-	  echo $text;
-          foreach ($style as $k => $v) { /* if value of key value = true close the tag */
-	    if ($v) {
-               echo '</'.$k.'>';
-	    }   
-	  }
-       } else {
-         echo $text;
+
+    $openstyles = '';
+    $closestyles = '';
+    if ($style && !$usecss) {
+       foreach ($style as $k => $v) {
+          $openstyles .= '<'.$k.'>';
+       }
+       foreach ($style as $k => $v) {
+          /* if value of key value = true close the tag */
+	  if ($v) {
+             $closestyles .= '</'.$k.'>';
+          }   
        }
     }
+    echo $openstyles;
+
+    if ($text) {
+       echo $text;
+    }
+
     $cnt = count($this->html_el);
     if ($cnt) {
-       if ($style && !$usecss) {
-          foreach ($style as $k => $v) {
-            echo '<'.$k.'>';
-	  }
-       }
        echo "\n";
        for($i = 0;$i<$cnt;$i++) {
           $el = $this->html_el[$i];
 	  $el->echoHtml($usecss,$indentmore);
        }
-       if ($style && !$usecss) {       
-          foreach ($style as $k => $v) { /* if value of key value = true close the tag */
-	    if ($v) {
-               echo '</'.$k.'>';
-	    }   
-	  }
-       }
+       echo $indent;
     }
+    echo $closestyles;
     if ($tag) {
-       echo $indent . '</'.$tag.'>'."\n";
+       echo '</'.$tag.'>'."\n";
     } else {
        echo "\n";
     }
