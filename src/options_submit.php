@@ -30,7 +30,7 @@
    echo _("Your options have been saved.");
    echo "<BR><A HREF=\"webmail.php\" TARGET=_top>";
    echo _("Click here");
-   echo "</A>";
+   echo " </A>";
    echo _("to continue.");
    echo "</CENTER></FONT>";
    echo "</BODY></HTML>";
