@@ -717,10 +717,13 @@ class message
 	   $msg = $msg->entities[0];
 	}
 
-	if (isset($msg->entities[($ent_a[$cnt-1])-1]))
+        if (isset($msg->entities[($ent_a[$cnt-1])-1]))
 	{
-	    $msg = $msg->entities[($ent_a[$cnt-1]-1)];
-        }
+	    if (is_object($msg->entities[($ent_a[$cnt-1])-1]))
+	    {
+		$msg = $msg->entities[($ent_a[$cnt-1]-1)];
+    	    }
+	}
 
         return $msg;
     }
