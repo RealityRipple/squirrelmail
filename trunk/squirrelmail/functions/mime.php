@@ -362,13 +362,31 @@
       if (!$ent_id) $ent_id = 1;
 
       fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
-      $topline = fgets ($imap_stream, 1024);
+      $data = sqimap_read_data ($imap_stream, 'a001', true, $response, $message);
+      $topline = array_shift($data);
+      while (! ereg('\* [0-9]+ FETCH ', $topline) && data)
+          $topline = array_shift($data);
+      while ($data)
+          $wholemessage .= array_shift($data);
+
       if (ereg('\{([^\}]*)\}', $topline, $regs)) {
-         return fread ($imap_stream, $regs[1]);
+         return substr($wholemessage, 0, $regs[1]);
       }
       else if (ereg('"([^"]*)"', $topline, $regs)) {
          return $regs[1];
       }
+      
+      $str = "Body retrival error.  Please report this bug!\n";
+      $str .= "Response:  $response\n";
+      $str .= "Message:  $message\n";
+      $str .= "FETCH line:  $topline";
+      $str .= "---------------\n$wholemessage";
+      foreach ($data as $d)
+      {
+          $str .= htmlspecialchars($d) . "\n";
+      }
+      return $str;
+      
       return "Body retrival error, please report this bug!\n\nTop line is \"$topline\"\n";
    }
 
