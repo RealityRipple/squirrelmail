@@ -22,9 +22,11 @@ Version 1.4.0 CVS
   - Added notes about PHP 4.3.x to documentation, and a gaudy warning message
     in src/login.php.  Warning can be disabled.
   - Fixed \Noselect mailbox detection.
-  - Fixed charset decode of base64 encoded strings
-  - Fixed encoding of email addresses in our composed messages
-  - Fixed folder creation for Courier using Autoconfig options
+  - Fixed charset decode of base64 encoded strings.
+  - Fixed encoding of email addresses in our composed messages.
+  - Fixed folder creation for Courier using Autoconfig options.
+  - Fixed encoded string handling inside MDN notifications
+  - Fixed unfold header routine in imap_messages (for mailbox_display)
   
 Version 1.4.0 RC 2a
 -------------------
