@@ -1,4 +1,4 @@
-<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">
+<HTML><BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <?
    include("../config/config.php");
    include("../functions/mailbox.php");
@@ -35,7 +35,9 @@
       displayPageHeader($mailbox);
       messages_deleted_message($mailbox, $sort, $startMessage);
    } else {
-      echo "Move";
+      if ($auto_expunge == true)
+         expungeBox($imapConnection, $mailbox, $numMessages);
+      displayPageHeader($mailbox);
    }
 
    // Log out this session
