@@ -412,7 +412,7 @@ EOS;
                 if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
                     $compose_height = '550';
                 }
-                $js .= "function comp_in_new(comp_uri) {\n".
+                $js .= "\nfunction comp_in_new(comp_uri) {\n".
                      "       if (!comp_uri) {\n".
                      '           comp_uri = "'.$compose_uri."\";\n".
                      '       }'. "\n".
