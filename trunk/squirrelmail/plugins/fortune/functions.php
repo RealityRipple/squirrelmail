@@ -53,7 +53,7 @@ function fortune_function() {
         "<tr><td align=\"center\">\n";
     echo '<table><tr><td>';
     if (!$exist) {
-        echo sprintf(_("%s is not found."),$fortune_location);
+        printf(_("%s is not found."),$fortune_location);
     } else {
         echo "<center><em>" . _("Today's Fortune") . "</em></center><pre>\n";
         htmlspecialchars(system($fortune_command));
