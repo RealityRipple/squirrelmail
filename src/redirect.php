@@ -33,6 +33,9 @@
    session_register ('base_uri');
 
    if(!isset($login_username)) {
+      if (! isset($squirrelmail_language)) 
+         $squirrelmail_language = '';
+      set_up_language($squirrelmail_language, true);
       echo "<html><body bgcolor=\"ffffff\">\n";
       echo "<br><br>";
       echo "<center>";

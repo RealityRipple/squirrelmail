@@ -12,10 +12,8 @@
     **/
 
    include('../src/validate.php');
-   include("../functions/page_header.php");
    include("../functions/imap.php");
    include("../functions/display_messages.php");
-   include("../src/load_prefs.php");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);

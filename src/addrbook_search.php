@@ -130,9 +130,7 @@ function bcc_address($addr) {
 
    include('../functions/array.php');
    include('../functions/strings.php');
-   include('../functions/page_header.php');
    include('../functions/addressbook.php');
-   include('../src/load_prefs.php');
 
    displayHtmlHeader();
 

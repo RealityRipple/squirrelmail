@@ -12,9 +12,7 @@
     **/
 
    include("../src/validate.php");
-   include("../functions/page_header.php");
    include("../functions/imap.php");
-   include("../src/load_prefs.php");
 
 
    if($old_name == $new_name) {
