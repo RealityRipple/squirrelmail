@@ -111,7 +111,7 @@ function start_filters() {
         $imap_general, $filters, $imap_stream, $imapConnection,
     $UseSeparateImapConnection, $AllowSpamFilters;
 
-    if ($mailbox == 'INBOX') {
+#    if ($mailbox == 'INBOX') {
         // Detect if we have already connected to IMAP or not.
         // Also check if we are forced to use a separate IMAP connection
         if ((!isset($imap_stream) && !isset($imapConnection)) ||
@@ -140,7 +140,7 @@ function start_filters() {
         if (!$previously_connected) {
             sqimap_logout($stream);
         }
-    }
+#    }
 }
 
 
