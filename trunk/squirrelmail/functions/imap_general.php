@@ -5,27 +5,24 @@
     **  This implements all functions that do general imap functions.
     **/
 
+   $imap_general_debug = false;
+   //$imap_general_debug = false;
+
    /******************************************************************************
     **  Reads the output from the IMAP stream.  If handle_errors is set to true,
     **  this will also handle all errors that are received.  If it is not set,
     **  the errors will be sent back through $response and $message
     ******************************************************************************/
    function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
-      global $color, $squirrelmail_language;
+      global $color, $squirrelmail_language, $imap_general_debug;
 
-      //$imap_general_debug = true;
-      $imap_general_debug = false;
-
-      $read = fgets ($imap_stream, 1024);
-		if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
       $counter = 0;
-      while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
-         $data[$counter] = $read;
-         $read = fgets ($imap_stream, 1024);
-			if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
-         $counter++;
-      }
-      
+	  do {
+          $data[$counter] = $read = fgets ($imap_stream, 4096);
+          if ($imap_general_debug) { echo "<small><tt><font color=cc0000>$read</font></tt></small><br>"; flush(); }
+          $counter++;
+	  } while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs));
+
       $response = $regs[1];
       $message = trim($regs[2]);
       
@@ -53,9 +50,6 @@
       
       return $data;
    }
-   
-
-
    
    /******************************************************************************
     **  Logs the user into the imap server.  If $hide is set, no error messages
@@ -161,35 +155,80 @@
       fputs ($imap_stream, "a001 LOGOUT\r\n");
    }
 
+function sqimap_capability($imap_stream, $capability) {
+	global $sqimap_capabilities;
+	global $imap_general_debug;
 
+	if (!is_array($sqimap_capabilities)) {
+		fputs ($imap_stream, "a001 CAPABILITY\r\n");
+		$read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
+
+		$c = explode(' ', $read[0]);
+		for ($i=2; $i < count($c); $i++) {
+			list($k, $v) = explode('=', $c[$i]);
+			$sqimap_capabilities[$k] = ($v)?$v:TRUE;
+		}
+	}
+	return $sqimap_capabilities[$capability];
+}
 
    /******************************************************************************
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
-   function sqimap_get_delimiter ($imap_stream = false) {
-		global $optional_delimiter;
-		if (!$optional_delimiter) $optional_delimiter = "detect";
+function sqimap_get_delimiter ($imap_stream = false) {
+	global $imap_general_debug;
+    global $sqimap_delimiter;
 
-		if (strtolower($optional_delimiter) == "detect") {
-      	fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
-      	$read = sqimap_read_data($imap_stream, ".", true, $a, $b);
-      	$quote_position = strpos ($read[0], "\"");
-      	$delim = substr ($read[0], $quote_position+1, 1);
-      	return $delim;
+	/* Do some caching here */
+    if (!$sqimap_delimiter) {
+		if (sqimap_capability($imap_stream, "NAMESPACE")) {
+			/* According to something that I can't find, this is supposed to work on all systems
+			   OS: This won't work in Courier IMAP.
+			   OS:  According to rfc2342 response from NAMESPACE command is:
+			   OS:  * NAMESPACE (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
+			   OS:  We want to lookup all personal NAMESPACES...
+			*/
+			fputs ($imap_stream, "a001 NAMESPACE\r\n");
+			$read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
+			if (eregi('\* NAMESPACE +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL) +(\( *\(.+\) *\)|NIL)', $read[0], $data)) {
+				if (eregi('^\( *\((.*)\) *\)', $data[1], $data2))
+					$pn = $data2[1];
+				$pna = explode(')(', $pn);
+				while (list($k, $v) = each($pna))
+				{
+					list($_, $n, $_, $d) = explode('"', $v);
+					$pn[$n] = $d;
+				}
+/* OS: We don't need this code right now, it is for other_users and shared folders
+				if (eregi('^\( *\((.*)\) *\)', $data[2], $data2))
+					$on = $data2[1];
+				if (eregi('^\( *\((.*)\) *\)', $data[3], $data2))
+					$sn = $data2[1];
+				unset($data);
+				$ona = explode(')(', $on);
+				while (list($k, $v) = each($ona))
+				{
+					list($_, $n, $_, $d) = explode('"', $v);
+					$on[$n] = $d;
+				}
+				$sna = explode(')(', $sn);
+				while (list($k, $v) = each($sna))
+				{
+					list($_, $n, $_, $d) = explode('"', $v);
+					$sn[$n] = $d;
+				}
+*/
+			}
+			$sqimap_delimiter = $pn[0];
 		} else {
-			return $optional_delimiter;
+			fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
+			$read = sqimap_read_data($imap_stream, ".", true, $a, $b);
+			$quote_position = strpos ($read[0], "\"");
+			$sqimap_delimiter = substr ($read[0], $quote_position+1, 1);
 		}
-   
-   /* According to something that I can't find, this is supposed to work on all systems
-   
-      fputs ($imap_stream, "a001 NAMESPACE\r\n");
-      $read = sqimap_read_data($imap_stream, "a001", true, $a, $b);
-      eregi("\"\" \"(.)\"", $read[0], $regs);
-      return $regs[1];
-   */
-   }
-
-
+	}
+	return $sqimap_delimiter;
+}
 
 
    /******************************************************************************
