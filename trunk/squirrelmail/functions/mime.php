@@ -1518,6 +1518,7 @@ function sq_body2div($attary, $mailbox, $message, $id){
     $divattary = Array('class' => "'bodyclass'");
     $bgcolor = '#ffffff';
     $text = '#000000';
+    $has_bgc_stl = $has_txt_stl = false;
     $styledef = '';
     if (is_array($attary) && sizeof($attary) > 0){
         foreach ($attary as $attname=>$attvalue){
@@ -1530,12 +1531,19 @@ function sq_body2div($attary, $mailbox, $message, $id){
                     $styledef .= "background-image: url('$attvalue'); ";
                     break;
                 case 'bgcolor':
+                    $has_bgc_stl = true;
                     $styledef .= "background-color: $attvalue; ";
                     break;
                 case 'text':
+                    $has_txt_stl = true;
                     $styledef .= "color: $attvalue; ";
                     break;
             }
+        }
+        // Outlook defines a white bgcolor and no text color. This can lead to
+        // white text on a white bg with certain themes.
+        if ($has_bgc_stl && !$has_txt_stl) {
+            $styledef .= "color: $text; ";
         }
         if (strlen($styledef) > 0){
             $divattary{"style"} = "\"$styledef\"";
