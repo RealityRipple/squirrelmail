@@ -18,7 +18,13 @@
 /** Load up some useful constants */
 require_once(SM_PATH . 'functions/constants.php');
 
-/** corrects a time stamp to be the local time */
+/**
+ * Corrects a time stamp to be the local time.
+ *
+ * @param int stamp the timestamp to adjust
+ * @param string tzc the timezone correction
+ * @return int the corrected timestamp
+ */
 function getGMTSeconds($stamp, $tzc) {
     /* date couldn't be parsed */
     if ($stamp == -1) {
@@ -92,12 +98,15 @@ function getGMTSeconds($stamp, $tzc) {
 }
 
 /**
-  Switch system has been intentionaly chosen for the
-  internationalization of month and day names. The reason
-  is to make sure that _("") strings will go into the
-  main po.
-**/
-
+ * Returns the (localized) string for a given day number.
+ * Switch system has been intentionaly chosen for the
+ * internationalization of month and day names. The reason
+ * is to make sure that _("") strings will go into the
+ * main po.
+ *
+ * @param int day_number the day number
+ * @return string the day in human readable form
+ */
 function getDayName( $day_number ) {
 
     switch( $day_number ) {
@@ -128,6 +137,11 @@ function getDayName( $day_number ) {
     return( $ret );
 }
 
+/**
+ * Like getDayName, but returns the short form
+ * @param int day_number the day number
+ * @return string the day in short human readable form
+ */
 function getDayAbrv( $day_number ) {
 
     switch( $day_number ) {
@@ -158,6 +172,13 @@ function getDayAbrv( $day_number ) {
     return( $ret );
 }
 
+
+/**
+ * Returns the (localized) string for a given month number.
+ *
+ * @param string month_number the month number (01..12) 
+ * @return string the month name in human readable form
+ */
 function getMonthName( $month_number ) {
     switch( $month_number ) {
      case '01':
@@ -202,6 +223,13 @@ function getMonthName( $month_number ) {
     return( $ret );
 }
 
+/**
+ * Returns the (localized) string for a given month number,
+ * short representation.
+ *
+ * @param string month_number the month number (01..12) 
+ * @return string the shortened month in human readable form
+ */
 function getMonthAbrv( $month_number ) {
     switch( $month_number ) {
      case '01':
@@ -246,19 +274,35 @@ function getMonthAbrv( $month_number ) {
     return( $ret );
 }
 
-
+/**
+ * Returns the localized representation of the date/time.
+ *
+ * @param string date_format The format for the date, like the input for the PHP date() function.
+ * @param int stamp the timestamp to convert
+ * @return string a full date representation
+ */
 function date_intl( $date_format, $stamp ) {
     $ret = str_replace( array('D','F','l','M'), array('$1','$2','$3','$4'), $date_format );
-    $ret = date('w#m#'. $ret, $stamp ); // to reduce the date calls we retrieve m and w in the same call
-    $aParts = explode('#',$ret);        // extract day and month in order to replace later by intl day and month
+    // to reduce the date calls we retrieve m and w in the same call
+    $ret = date('w#m#'. $ret, $stamp );
+    // extract day and month in order to replace later by intl day and month
+    $aParts = explode('#',$ret);        
     $ret = str_replace(array('$1','$4','$2','$3',), array(getDayAbrv($aParts[0]),
                                                           getMonthAbrv($aParts[1]),
                    				          getMonthName($aParts[1]),
 						          getDayName($aParts[0])),
 						          $aParts[2]);
- return( $ret );
+    return( $ret );
 }
 
+/**
+ * This returns a date of the format "Wed, Oct 29, 2003 9:52 am",
+ * or the same in 24H format (depending on the user's settings),
+ * and taking localization into accout.
+ *
+ * @param int stamp the timestamp
+ * @return string the long date string
+ */
 function getLongDateString( $stamp ) {
 
     global $hour_format;
@@ -277,6 +321,16 @@ function getLongDateString( $stamp ) {
 
 }
 
+/**
+ * Returns a short representation of the date,
+ * taking timezones and localization into account.
+ * Depending on user's settings, this string can be
+ * of the form: "14:23" or "Jun 14, 2003" depending
+ * on whether the stamp is "today" or not.
+ *
+ * @param int stamp the timestamp
+ * @return string the date string
+ */
 function getDateString( $stamp ) {
 
     global $invert_time, $hour_format, $show_full_date;
@@ -318,6 +372,12 @@ function getDateString( $stamp ) {
     return( date_intl( $date_format, $stamp ) );
 }
 
+/**
+ * Decodes a RFC 822 Date-header into a timestamp
+ *
+ * @param array dateParts the Date-header split by whitespace
+ * @return int the timestamp calculated from the header
+ */
 function getTimeStamp($dateParts) {
     /** $dateParts[0] == <day of week>   Mon, Tue, Wed
     ** $dateParts[1] == <day of month>  23

@@ -80,6 +80,10 @@ $_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
  * returns true if current php version is at mimimum a.b.c 
  * 
  * Called: check_php_version(4,1)
+ * @param int a major version number
+ * @param int b minor version number
+ * @param int c release number
+ * @return bool
  */
 function check_php_version ($a = '0', $b = '0', $c = '0')             
 {
@@ -97,6 +101,10 @@ function check_php_version ($a = '0', $b = '0', $c = '0')
  * constructed by us, as an array of 3 ints.
  *
  * Called: check_sm_version(1,3,3)
+ * @param int a major version number
+ * @param int b minor version number
+ * @param int c release number
+ * @return bool
  */
 function check_sm_version($a = 0, $b = 0, $c = 0)
 {
@@ -112,7 +120,11 @@ function check_sm_version($a = 0, $b = 0, $c = 0)
 }
 
 
-/* recursively strip slashes from the values of an array */
+/**
+ * Recursively strip slashes from the values of an array.
+ * @param array array the array to strip, passed by reference
+ * @return void
+ */
 function sqstripslashes(&$array) {
     if(count($array) > 0) {
         foreach ($array as $index=>$value) {
@@ -126,6 +138,12 @@ function sqstripslashes(&$array) {
     }
 }
 
+/**
+ * Add a variable to the session.
+ * @param mixed $var the variable to register
+ * @param string $name the name to refer to this variable
+ * @return void
+ */
 function sqsession_register ($var, $name) {
 
     sqsession_is_active();
@@ -140,6 +158,11 @@ function sqsession_register ($var, $name) {
     session_register("$name");
 }
 
+/**
+ * Delete a variable from the session.
+ * @param string $name the name of the var to delete
+ * @return void
+ */
 function sqsession_unregister ($name) {
 
     sqsession_is_active();
@@ -154,6 +177,12 @@ function sqsession_unregister ($name) {
     session_unregister("$name");
 }
 
+/**
+ * Checks to see if a variable has already been registered
+ * in the session.
+ * @param string $name the name of the var to check
+ * @return bool whether the var has been registered
+ */
 function sqsession_is_registered ($name) {
     $test_name = &$name;
     $result = false;
@@ -196,8 +225,10 @@ define('SQ_FORM',6);
  *    sqgetGlobalVar('username',$username,SQ_SESSION);
  *  -- no quotes around last param!
  *
- * Returns FALSE if variable is not found.
- * Returns TRUE if it is.
+ * @param string name the name of the var to search
+ * @param mixed value the variable to return
+ * @param int search constant defining where to look
+ * @return bool whether variable is found.
  */
 function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
 
@@ -260,6 +291,10 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
     return FALSE;
 }
 
+/**
+ * Deletes an existing session, more advanced than the standard PHP
+ * session_destroy(), it explicitly deletes the cookies and global vars.
+ */
 function sqsession_destroy() {
 
     /*
@@ -292,7 +327,7 @@ function sqsession_destroy() {
 
 }
 
-/*
+/**
  * Function to verify a session has been started.  If it hasn't
  * start a session up.  php.net doesn't tell you that $_SESSION
  * (even though autoglobal), is not created unless a session is
