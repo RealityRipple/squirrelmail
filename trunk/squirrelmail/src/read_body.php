@@ -339,7 +339,7 @@
    /** subject **/
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=10% ALIGN=RIGHT>\n";
    echo _("Subject:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=90%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=80%>\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
    echo '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
