@@ -1,5 +1,6 @@
  Developers:
  -----------
+   Paul Joseph Thompson <captbunzo@squirrelmail.org>
    Peter Hutnick <peter@hutnick.com>
    Luke Ehresman <luke@squirrelmail.org>     http://www.css.tayloru.edu/~lehresma
    Nathan Ehresman <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
@@ -14,7 +15,6 @@
    Tyler Akins
    Philippe Mingo <mingo@rotedic.com>        http://mailhost.rotedic.com/sm/
    Stefan Sels <sm@sels.com> http://stefan.sels.com
-   Paul Joseph Thompson <captbunzo@squirrelmail.org>
 
  Translations:
  -------------
@@ -66,4 +66,4 @@
 
 (We have tried to keep this up to date to give credit where it is due.
 If you feel that you have wrongfully been left off this list, contact
-peter@squirrelmail.org)
+<captbunzo@squirrelmail.org>)
