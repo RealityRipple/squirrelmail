@@ -572,12 +572,13 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            if (substr(strtolower($subject), 0, 3) != 're:') {
               $subject = 'Re: ' . $subject;
            }
-           /* this corrects some wrapping/quoting problems on replies */	     
+           /* this corrects some wrapping/quoting problems on replies */
            $rewrap_body = explode("\n", charset_decode_japanese($body));
-	   $body = getReplyCitation($orig_header->from->personal);
+
+           $body = getReplyCitation($orig_header->from->personal);	   
 	   $cnt = count($rewrap_body);
            for ($i=0;$i<$cnt;$i++) {
-              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
+//              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
               if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
                  $gt = $matches[1];
 		 $body .= '>' . str_replace("\n", "\n$gt ", $rewrap_body[$i]) ."\n";
