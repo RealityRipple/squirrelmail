@@ -147,9 +147,9 @@
          
          /* Make an RFC822 Received: line */
          if (isset($REMOTE_HOST))
-            $received_from = "$REMOTE_HOST ($username@[$REMOTE_ADDR])";
+            $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
          else
-            $received_from = "$REMOTE_ADDR ($username@[$REMOTE_ADDR])";
+            $received_from = $REMOTE_ADDR;
     
          if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
             if ($HTTP_X_FORWARDED_FOR == "")
@@ -157,9 +157,10 @@
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
          }            
     
-         $header = "Received: from $received_from\r\n";
-         $header .= "  by $SERVER_NAME with HTTP;\r\n";
-         $header .= "  $date\r\n";
+         $header  = "Received: from $received_from\r\n";
+         $header .= "        (SquirrelMail authenticated user $username)\r\n";
+         $header .= "        by $SERVER_NAME with HTTP;\r\n";
+         $header .= "        $date\r\n";
          
          /* Insert the rest of the header fields */
          $header .= "Message-ID: $message_id\r\n";
