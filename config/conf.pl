@@ -771,7 +771,7 @@ sub command2 {
     print "Your organization's logo is an image that will be displayed at\n";
     print "different times throughout SquirrelMail.  This is asking for the\n";
     print "literal (/usr/local/squirrelmail/images/logo.png) or relative\n";
-    print "(../images/logo.png) path to your logo.\n";
+    print "(../images/logo.png) path from the config directory to your logo.\n";
     print "Relative paths to files outside the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n";
     print "\n";
@@ -1825,16 +1825,17 @@ sub command31 {
 
 # Data directory
 sub command33a {
-    print "It is a possible security hole to have a writable directory\n";
-    print "under the web server's root directory (ex: /home/httpd/html).\n";
-    print "For this reason, it is possible to put the data directory\n";
-    print "anywhere you would like.  The path name can be absolute or\n";
-    print "relative (to the config directory).  It doesn't matter.  Here\n";
-    print "are two examples:\n";
-    print "  Absolute:    /usr/local/squirrelmail/data/\n";
-    print "  Relative:    ../data/\n";
+    print "Specify the location for your data directory.\n";
+    print "The path name can be absolute or relative (to the config directory).\n";
+    print "It doesn't matter.  Here are two examples:\n";
+    print "  Absolute:    /var/spool/data/\n";
+    print "  Relative:    ../data/\n";     
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
-    print "will be converted to their absolute path equivalents in config.php.\n";
+    print "will be converted to their absolute path equivalents in config.php.\n\n";
+    print "Note: There are potential security risks with having a writable directory\n";
+    print "under the web server's root directory (ex: /home/httpd/html).\n";
+    print "For this reason, it is recommended to put the data directory\n";
+    print "in an alternate location of your choice. \n";
     print "\n";
 
     print "[$WHT$data_dir$NRM]: $WHT";
@@ -1856,19 +1857,25 @@ sub command33a {
 # Attachment directory
 sub command33b {
     print "Path to directory used for storing attachments while a mail is\n";
-    print "being sent.  There are a few security considerations regarding this\n";
+    print "being sent. The path name can be absolute or relative (to the config directory).\n";
+    print "It doesn't matter.  Here are two examples:\n";
+    print "  Absolute:    /var/spool/attach/\n";
+    print "  Relative:    ../attach/\n";
+    print "Relative paths to directories outside of the SquirrelMail distribution\n";
+    print "will be converted to their absolute path equivalents in config.php.\n\n";
+    print "Note:  There are a few security considerations regarding this\n";
     print "directory:\n";
     print "  1.  It should have the permission 733 (rwx-wx-wx) to make it\n";
     print "      impossible for a random person with access to the webserver\n";
     print "      to list files in this directory.  Confidential data might\n";
     print "      be laying around in there.\n";
+    print "      Depending on your user:group assignments, 730 (rwx-wx---)\n";
+    print "      may be possible, and more secure (e.g. root:apache)\n";
     print "  2.  Since the webserver is not able to list the files in the\n";
     print "      content is also impossible for the webserver to delete files\n";
     print "      lying around there for too long.\n";
     print "  3.  It should probably be another directory than the data\n";
     print "      directory specified in option 3.\n";
-    print "Relative paths to directories outside of the SquirrelMail distribution\n";
-    print "will be converted to their absolute path equivalents in config.php.\n";
     print "\n";
 
     print "[$WHT$attachment_dir$NRM]: $WHT";
@@ -2964,13 +2971,15 @@ sub set_defaults {
     $tmp = <STDIN>;
 }
 
-############################################################
 # This subroutine corrects relative paths to ensure they
 # will work within the SM space. If the path falls within
 # the SM directory tree, the SM_PATH variable will be 
 # prepended to the path, if not, then the path will be
-# converted to an absolute path.
-############################################################
+# converted to an absolute path, e.g.
+#   '../images/logo.gif'     --> SM_PATH . 'images/logo.gif'
+#   'images/logo.gif'        --> SM_PATH . 'config/images/logo.gif'
+#   /absoulte/path/logo.gif' --> '/absolute/path/logo.gif'
+#   'http://whatever/'       --> 'http://whatever'
 sub change_to_SM_path() {
     my ($old_path) = @_;
     my $new_path = '';
@@ -3008,26 +3017,27 @@ sub change_to_SM_path() {
         $new_path .= '\'';
     } else {
         # Last, it's a relative path without any leading '.'
-        # Prepend SM_PATH  (no substitution required)
-        $new_path = "SM_PATH . \'" . $old_path . "\'";
+	# Prepend SM_PATH and config, since the paths are 
+	# relative to the config directory
+        $new_path = "SM_PATH . \'config/" . $old_path . "\'";
     }
 
   return $new_path;
 }
 
+
+# Change SM_PATH to admin-friendly version, e.g.:
+#  SM_PATH . 'images/logo.gif' --> '../images/logo.gif'
+#  SM_PATH . 'config/some.php' --> 'some.php'
+#  '/absolute/path/logo.gif'   --> '/absolute/path/logo.gif'
+#  'http://whatever/'          --> 'http://whatever'
 sub change_to_rel_path() {
     my ($old_path) = @_;
-    my $new_path = '';
-
-    return $old_path if ( $old_path eq '');
-    return $old_path if ( $old_path =~ /^\$/ );
-    return $old_path if ( $old_path =~ /^\// );
-    return $old_path if ( $old_path =~ /^http/ );
-    return $old_path if ( $old_path =~ /^\.\./ );
+    my $new_path = $old_path;
 
     if ( $old_path =~ /^SM_PATH/ ) {
-        $new_path = $old_path;
         $new_path =~ s/^SM_PATH . \'/\.\.\//;
+	$new_path =~ s/\.\.\/config\///;
     }
 
     return $new_path;
