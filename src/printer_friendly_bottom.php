@@ -113,7 +113,7 @@ $subject = decodeHeader($subject);
 /* --start browser output-- */
 displayHtmlHeader( _("Printer Friendly"), '', FALSE );
 
-echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
+echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alink="#000000">'."\n" .
      /* headers (we use table because translations are not all the same width) */
      html_tag( 'table', '', 'center', '', 'cellspacing="0" cellpadding="0" border="0" width="100%"' ) .
      html_tag( 'tr',
