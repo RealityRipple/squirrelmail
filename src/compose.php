@@ -583,6 +583,13 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $composeMessage;
     global $languages, $squirrelmail_language, $default_charset;
 
+    /*
+     * Set $default_charset to correspond with the user's selection
+     * of language interface. $default_charset global is not correct,
+     * if message is composed in new window.
+     */
+    set_my_charset();
+
     $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
 
@@ -649,7 +656,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         }
 
         if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
-        $bodypart = charset_decode($actual,$bodypart);
+          $bodypart = charset_convert($actual,$bodypart,$default_charset);
         }
 
             $body .= $bodypart;
@@ -986,11 +993,11 @@ function showInputForm ($session, $values=false) {
 
     /* display select list for identities */
     if (count($idents) > 1) {
-    	$ident_list = array();
-    	foreach($idents as $id => $data) {
-		$ident_list[$id] =
-			$data['full_name'].' <'.$data['email_address'].'>';
-	}
+      $ident_list = array();
+      foreach($idents as $id => $data) {
+        $ident_list[$id] =
+          $data['full_name'].' <'.$data['email_address'].'>';
+      }
         echo '   <tr>' . "\n" .
                     html_tag( 'td', '', 'right', $color[4], 'width="10%"' ) .
                     _("From:") . '</td>' . "\n" .
@@ -1013,14 +1020,14 @@ function showInputForm ($session, $values=false) {
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("CC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-		addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
+      addInput('send_to_cc', $send_to_cc, 60). '<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
                 html_tag( 'td', '', 'right', $color[4] ) .
                 _("BCC:") . '</td>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
-		addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
+      addInput('send_to_bcc', $send_to_bcc, 60).'<br />' . "\n" .
          '      </td>' . "\n" .
          '   </tr>' . "\n" .
          '   <tr>' . "\n" .
@@ -1141,8 +1148,8 @@ function showInputForm ($session, $values=false) {
 
                 $s_a[] = '<table bgcolor="'.$color[0].
                 '" border="0"><tr><td>'.
-		addCheckBox('delete[]', FALSE, $key).
-		    "</td><td>\n" . $attached_filename .
+                  addCheckBox('delete[]', FALSE, $key).
+                  "</td><td>\n" . $attached_filename .
                     '</td><td>-</td><td> ' . $type . '</td><td>('.
                     show_readable_size( filesize( $attached_file ) ) . ')</td></tr></table>'."\n";
            }
@@ -1169,18 +1176,18 @@ function showInputForm ($session, $values=false) {
     }
 
     echo '</TABLE>' . "\n" .
-         addHidden('username', $username).
-	 addHidden('smaction', $action).
-	 addHidden('mailbox', $mailbox);
+      addHidden('username', $username).
+      addHidden('smaction', $action).
+      addHidden('mailbox', $mailbox);
     /*
        store the complete ComposeMessages array in a hidden input value
        so we can restore them in case of a session timeout.
     */
     sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo addHidden('restoremessages', serialize($compose_messages)).
-         addHidden('composesession', $composesession).
-	 addHidden('querystring', $queryString).
-	 "</form>\n";
+      addHidden('composesession', $composesession).
+      addHidden('querystring', $queryString).
+      "</form>\n";
     if (!(bool) ini_get('file_uploads')) {
       /* File uploads are off, so we didn't show that part of the form.
          To avoid bogus bug reports, tell the user why. */
@@ -1208,16 +1215,16 @@ function showComposeButtonRow() {
         }
         echo '          ' . _("Priority") .
              addSelect('mailprio', array(
-	         '1' => _("High"),
-	         '3' => _("Normal"),
-	         '5' => _("Low") ), $mailprio, TRUE);
+                                         '1' => _("High"),
+                                         '3' => _("Normal"),
+                                         '5' => _("Low") ), $mailprio, TRUE);
     }
     $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
     if ($default_use_mdn) {
         if ($mdn_user_support) {
             echo '          ' . _("Receipt") .': '.
-	    addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
-	    addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
+              addCheckBox('request_mdn', $request_mdn == '1', '1'). _("On Read").
+              addCheckBox('request_dr',  $request_dr  == '1', '1'). _("On Delivery");
         }
     }
 
