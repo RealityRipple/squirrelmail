@@ -7,6 +7,18 @@
 
    $smtp_php = true;
 
+   // This should most probably go to some initialization...
+   if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
+      $popuser = $usernamedata[1];
+      $domain  = $usernamedata[2];
+	  unset($usernamedata);
+   } else {
+      $popuser = $username;
+   }
+   // We need domain for smtp
+   if (!$domain)
+      $domain = getenv("HOSTNAME");
+
    // Returns true only if this message is multipart
    function isMultipart () {
       global $attachments;
@@ -106,7 +118,7 @@
    /* Print all the needed RFC822 headers */
    function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
-      global $data_dir, $username, $domain, $version, $useSendmail;
+      global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
       global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
       global $REMOTE_HOST;
 
@@ -121,9 +133,9 @@
          $reply_to = getPref($data_dir, $username, "reply_to");
          $from = getPref($data_dir, $username, "full_name");
          $from_addr = getPref($data_dir, $username, "email_address");
-         
+
          if ($from_addr == "")
-            $from_addr = "$username@$domain";
+            $from_addr = $popuser."@".$domain;
          
          $to_list = getLineOfAddrs($to);
          $cc_list = getLineOfAddrs($cc);
@@ -250,12 +262,12 @@
 
    // Send mail using the sendmail command
    function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
-      global $sendmail_path, $username, $domain;
+      global $sendmail_path, $popuser, $username, $domain;
 
       // Build envelope sender address. Make sure it doesn't contain 
       // spaces or other "weird" chars that would allow a user to
       // exploit the shell/pipe it is used in.
-      $envelopefrom = "$username@$domain";
+      $envelopefrom = "$popuser@$domain";
       $envelopefrom = ereg_replace("[[:blank:]]","", $envelopefrom);
       $envelopefrom = ereg_replace("[[:space:]]","", $envelopefrom);
       $envelopefrom = ereg_replace("[[:cntrl:]]","", $envelopefrom);
@@ -283,7 +295,7 @@
    }
 
    function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
-      global $username, $domain, $version, $smtpServerAddress, $smtpPort,
+      global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
          $data_dir, $color;
 
       $to = parseAddrs($t);
@@ -291,35 +303,8 @@
       $bcc = parseAddrs($b);
       $from_addr = getPref($data_dir, $username, "email_address");
 
-
-      /*
-       *  A patch from Bill Thousand <billyt@claritytech.com>
-       *
-       *  "I don't know if anyone else needs this or not, but it totally makes squirrelmail usable for us.
-       *  This quick patch checks the username and from address for the domain information.  We use
-       *  a virtual domain patch for our imap server that allows multiple domains by using username@domain.com
-       *  as the login username."
-       */
-      if ($from_addr == "") {
-         if (strstr($username, "@")) {
-            $from_addr = $username;
-            $address_pieces = explode("@",$username);
-            $domain = $address_pieces[1];
-         } else {
-            $from_addr = "$username@$domain";
-         }
-      } else {
-         // If the From Address is specified, use the domain in the from
-         // address if it's there.
-         if (strstr($from_addr, "@")) {
-            $address_pieces = explode("@", $from_addr);
-            $domain = $address_pieces[1];
-         }
-      }
-      /*
-       *  End patch from Bill Thousand
-       */
-
+      if (!$from_addr)
+         $from_addr = "$popuser@$domain";
 
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
@@ -517,7 +502,7 @@
          sqimap_mailbox_close($imap_stream);
       }
       
-      if ($useSendmail==true) {  
+      if ($useSendmail) {  
          $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers);
       } else {
          $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
