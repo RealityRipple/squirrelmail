@@ -17,6 +17,8 @@ global $delimiter, $base_uri;
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 
+$new_name = trim($new_name);
+
 if ($old_name <> $new_name) {
 
     $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
