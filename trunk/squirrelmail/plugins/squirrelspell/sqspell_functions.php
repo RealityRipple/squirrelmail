@@ -28,7 +28,7 @@
 function sqspell_makePage($title, $scriptsrc, $body){
   global $color, $SQSPELL_VERSION;
 
-  if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+  if ( !check_php_version(4,1) ) {
       global $_GET;
   }
   if (isset($_GET['MOD'])) {

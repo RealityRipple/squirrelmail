@@ -15,7 +15,7 @@ require_once(SM_PATH . 'functions/prefs.php');
 /* Just for poor wretched souls with E_ALL. :) */
 global $data_dir;
 
-if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+if ( !check_php_version(4,1) ) {
     global $_SESSION;
 }
 

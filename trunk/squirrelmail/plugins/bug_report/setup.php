@@ -42,7 +42,7 @@ function bug_report_button() {
 function bug_report_save() {
     global $username,$data_dir;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_POST;
     }
  

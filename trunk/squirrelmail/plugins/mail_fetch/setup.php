@@ -39,7 +39,7 @@
         global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
         global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
         global $PHP_SELF;
-        if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+        if ( !check_php_version(4,1) ) {
             global $_SESSION;
         }
         $username = $_SESSION['username'];
@@ -70,7 +70,7 @@
         require_once (SM_PATH . 'plugins/mail_fetch/functions.php');
 
         global $data_dir, $imapServerAddress, $imapPort;
-        if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+        if ( !check_php_version(4,1) ) {
             global $_SESSION, $_COOKIE;
         }
         $username = $_SESSION['username'];

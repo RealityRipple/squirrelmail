@@ -111,7 +111,7 @@ function delete_move_next_action() {
 
     global $PHP_SELF;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_GET, $_POST;
     }
 
@@ -277,7 +277,7 @@ function delete_move_next_moveRightMainForm() {
 function delete_move_next_delete() {
     global $imapConnection, $auto_expunge;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_GET;
     }
 
@@ -294,7 +294,7 @@ function delete_move_next_delete() {
 function delete_move_next_move() {
     global $imapConnection, $mailbox;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_POST;
     }
 
@@ -349,7 +349,7 @@ function delete_move_next_display_save() {
 
     global $username,$data_dir;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_POST;
     }
 

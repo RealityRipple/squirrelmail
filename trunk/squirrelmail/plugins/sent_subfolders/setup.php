@@ -49,7 +49,7 @@ function squirrelmail_plugin_init_sent_subfolders() {
 function sent_subfolders_check_handleAsSent() {
     global $handleAsSent_result, $sent_subfolders_base,
            $use_sent_subfolders;
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_SESSION;
     }
     $sent_subfolders_base = 'INBOX.Sent';
@@ -88,7 +88,7 @@ function sent_subfolders_load_prefs() {
 function sent_subfolders_optpage_loadhook_folders() {
     global $optpage_data, $imapServerAddress, $imapPort;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_SESSION, $_COOKIE;
     }
     $username = $_SESSION['username'];
@@ -159,7 +159,7 @@ function sent_subfolders_update_sentfolder() {
     global $data_dir, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent, $imap_server_type;
 
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+    if ( !check_php_version(4,1) ) {
         global $_SESSION, $_COOKIE;
     }
     $username = $_SESSION['username'];
