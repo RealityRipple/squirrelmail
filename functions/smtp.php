@@ -60,6 +60,24 @@
       return $mimeBoundaryString;
    }
 
+   /* Time offset for correct timezone */
+   function timezone () {
+      $diff_second = date("Z");
+      if ($diff_second > 0)
+         $sign = "+";
+      else
+         $sign = "-";
+
+      $diff_second = abs($diff_second);
+
+      $diff_hour = floor ($diff_second / 3600);
+      $diff_minute = floor (($diff_second-3600*$diff_hour) / 60);
+
+      $zonename = "(".strftime("%Z").")";
+      $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute, $zonename);
+      return ($result);
+   }
+
    /* Print all the needed RFC822 headers */
    function write822Header ($fp, $t, $c, $b, $subject) {
       global $REMOTE_ADDR, $SERVER_NAME;
@@ -82,7 +100,7 @@
          $from = $from . " <$from_addr>";
 
       /* This creates an RFC 822 date showing GMT */
-      $date = date("D, j M Y H:i:s +0000", gmmktime());
+      $date = date("D, j M Y H:i:s ", mktime()) . timezone();
 
       /* Make an RFC822 Received: line */
       fputs ($fp, "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ");
