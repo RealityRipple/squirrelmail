@@ -20,6 +20,7 @@ require_once(SM_PATH . 'class/html.class.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /**
  * default value for page_selector_max
@@ -228,7 +229,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     if (!isset($hlt_color)) {
         $hlt_color = $color_string;
     }
-    $checked = ($checkall == 1) ? ' checked' : '';
     $col = 0;
     $msg['SUBJECT'] = str_replace('&nbsp;', ' ', decodeHeader($msg['SUBJECT']));
     $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
@@ -237,7 +237,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             switch ($index_order_part) {
             case 1: /* checkbox */
                 echo html_tag( 'td',
-                               "<input type=\"checkbox\" name=\"msg[$t]\" value=\"".$msg['ID']."\"$checked />",
+		               addCheckBox("msg[$t]", $checkall, $msg['ID']), 
                                'center',
                                $hlt_color );
                 break;
@@ -889,10 +889,10 @@ function mail_message_listing_beginning ($imapConnection,
         $location = $php_self;
     }
 
-    $moveFields = '<input type="hidden" name="msg" value="'.htmlspecialchars($msg).'" />' .
-        		  '<input type="hidden" name="mailbox" value="'.htmlspecialchars($mailbox).'" />' .
-		          '<input type="hidden" name="startMessage" value="'.htmlspecialchars($start_msg).'" />'.
-                  '<input type="hidden" name="location" value="'.$location.'" />';
+    $moveFields = addHidden('msg', $msg).
+                  addHidden('mailbox', $mailbox).
+		  addHidden('startMessage', $start_msg).
+		  addHidden('location', $location);
 
     /* build thread sorting links */
     if ($allow_thread_sort == TRUE) {
