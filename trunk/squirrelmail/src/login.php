@@ -125,11 +125,10 @@ if ($rcptaddress != '') {
     $rcptaddress_input = '<input type="hidden" name="rcptemail" value="htmlspecialchars(' . $rcptaddress . ')">';
 }
 
-echo
+echo "\n" . '<form action="redirect.php" method="post">' . "\n" .
 html_tag( 'table',
     html_tag( 'tr',
         html_tag( 'td',
-            "\n" . '<form action="redirect.php" method="post">' . "\n" .
             '<center>'.
             '<img src="' . $org_logo . '" alt="' . sprintf(_("%s Logo"), $org_name) .'"' .
             $width_and_height .'><br>' . "\n".
@@ -137,13 +136,12 @@ html_tag( 'table',
             '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br>' ."\n".
             '  ' . _("By the SquirrelMail Development Team") . '<br></small>' . "\n" ) .
             "<br>\n" .
-
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
                         '<b>' . sprintf (_("%s Login"), $org_name) . "</b>\n",
-                            'left', '#DCDCDC' )
-                    ) . "\n" .
+                    'center', '#DCDCDC' )
+                ) .
                 html_tag( 'tr',
                     html_tag( 'td',  "\n" .
                         html_tag( 'table',
@@ -166,19 +164,19 @@ html_tag( 'table',
                                     $rcptaddress_input . "\n" ,
                                 'left', '', 'width="*"' )
                             ) ,
-                        '', '', '', 'border="0" cols="2" width="100%"' ) ,
+                        'center', '#ffffff', 'border="0" cols="2" width="100%"' ) ,
                     'left', '#FFFFFF' )
-                ) . "\n" .
+                ) . 
                 html_tag( 'tr',
                     html_tag( 'td',
                         '<center><input type="submit" value="' . _("Login") . '"></center>',
                     'left' )
-                ) . "\n" ,
-            '', '', 'border="0" cols="1" width="350"' ) .
-            '</form>' . "\n",
-        'left' )
+                ),
+            '', '#ffffff', 'border="0" cols="1" width="350"' ),
+        'center' )
     ) ,
-'', '', 'border="0" cellspacing="0" cellpadding="0" width="100%"' );
+'', '#ffffff', 'border="0" cellspacing="0" cellpadding="0" width="100%"' ) .
+'</form>' . "\n";
 
 do_hook('login_form');
 
