@@ -40,6 +40,7 @@ define('SMOPT_MODE_LINK', 'link');
 define('SMOPT_PAGE_MAIN', 'main');
 define('SMOPT_PAGE_PERSONAL', 'personal');
 define('SMOPT_PAGE_DISPLAY', 'display');
+define('SMOPT_PAGE_COMPOSE', 'compose');
 define('SMOPT_PAGE_HIGHLIGHT', 'highlight');
 define('SMOPT_PAGE_FOLDER', 'folder');
 define('SMOPT_PAGE_ORDER', 'order');
@@ -165,6 +166,12 @@ switch ($optpage) {
         $optpage_file   = SM_PATH . 'include/options/display.php';
         $optpage_loader = 'load_optpage_data_display';
         $optpage_loadhook = 'optpage_loadhook_display';
+        break;
+    case SMOPT_PAGE_COMPOSE:
+        $optpage_name   = _("Compose Preferences");
+        $optpage_file   = SM_PATH . 'include/options/compose.php';
+        $optpage_loader = 'load_optpage_data_compose';
+        $optpage_loadhook = 'optpage_loadhook_compose';
         break;
     case SMOPT_PAGE_HIGHLIGHT:
         $optpage_name   = _("Message Highlighting");
@@ -355,6 +362,14 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         'name' => _("Index Order"),
         'url'  => 'options_order.php',
         'desc' => _("The order of the message index can be rearranged and changed to contain the headers in any order you want."),
+        'js'   => false
+    );
+    
+    /* Build a section for Compose Options. */
+    $optpage_blocks[] = array(
+        'name' => _("Compose Preferences"),
+        'url'  => 'options.php?optpage=' . SMOPT_PAGE_COMPOSE,
+        'desc' => _("Control the behaviour and layout of writing new mail messages, replying to and forwarding messages."),
         'js'   => false
     );
 

@@ -176,7 +176,7 @@ function load_optpage_data_display() {
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'show_num',
-        'caption' => _("Number of Messages to Index"),
+        'caption' => _("Number of Messages on one Page"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
@@ -269,10 +269,26 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
     );
+    
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'internal_date_sort',
+        'caption' => _("Sort by Received Date"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_ALL
+    );
+    if ($allow_thread_sort == TRUE) {
+        $optvals[SMOPT_GRP_MAILBOX][] = array(
+            'name'    => 'sort_by_ref',
+            'caption' => _("Enable Thread Sort by References Header"),
+            'type'    => SMOPT_TYPE_BOOLEAN,
+            'refresh' => SMOPT_REFRESH_ALL
+        );
+    }
+
 
 
     /*** Load the General Options into the array ***/
-    $optgrps[SMOPT_GRP_MESSAGE] = _("Message Display and Composition");
+    $optgrps[SMOPT_GRP_MESSAGE] = _("Message Display Options");
     $optvals[SMOPT_GRP_MESSAGE] = array();
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
@@ -281,42 +297,6 @@ function load_optpage_data_display() {
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_NONE,
         'size'    => SMOPT_SIZE_TINY
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'editor_size',
-        'caption' => _("Width of Editor Window"),
-        'type'    => SMOPT_TYPE_INTEGER,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'editor_height',
-        'caption' => _("Height of Editor Window"),
-        'type'    => SMOPT_TYPE_INTEGER,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'location_of_buttons',
-        'caption' => _("Location of Buttons when Composing"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array(SMPREF_LOC_TOP     => _("Before headers"),
-                           SMPREF_LOC_BETWEEN => _("Between headers and message body"),
-                           SMPREF_LOC_BOTTOM  => _("After message body"))
-    );
-
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'use_javascript_addr_book',
-        'caption' => _("Addressbook Display Format"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array('1' => _("Javascript"),
-                           '0' => _("HTML"))
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
@@ -329,20 +309,6 @@ function load_optpage_data_display() {
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'enable_forward_as_attachment',
         'caption' => _("Enable Forward as Attachment"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'forward_cc',
-        'caption' => _("Include CCs when Forwarding Messages"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'include_self_reply_all',
-        'caption' => _("Include Me in CC when I Reply All"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
@@ -371,83 +337,12 @@ function load_optpage_data_display() {
     }
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'compose_new_win',
-        'caption' => _("Compose Messages in New Window"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_ALL
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'compose_width',
-        'caption' => _("Width of Compose Window"),
-        'type'    => SMOPT_TYPE_INTEGER,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'size'    => SMOPT_SIZE_TINY
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'compose_height',
-        'caption' => _("Height of Compose Window"),
-        'type'    => SMOPT_TYPE_INTEGER,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'size'    => SMOPT_SIZE_TINY
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'sig_first',
-        'caption' => _("Append Signature before Reply/Forward Text"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'body_quote',
-        'caption' => _("Prefix for Original Message when Replying"),
-        'type'    => SMOPT_TYPE_STRING,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'size'    => SMOPT_SIZE_TINY,
-        'save'    => 'save_option_reply_prefix'
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'reply_focus',
-        'caption' => _("Cursor Position when Replying"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array('' => _("To: field"),
-                           'focus' => _("Focus in body"),
-                           'select' => _("Select body"),
-                           'none' => _("No focus"))
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'strip_sigs',
-        'caption' => _("Strip signature when replying"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
-        'name'    => 'internal_date_sort',
-        'caption' => _("Sort by Received Date"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_ALL
-    );
-    if ($allow_thread_sort == TRUE) {
-        $optvals[SMOPT_GRP_MESSAGE][] = array(
-            'name'    => 'sort_by_ref',
-            'caption' => _("Enable Thread Sort by References Header"),
-            'type'    => SMOPT_TYPE_BOOLEAN,
-            'refresh' => SMOPT_REFRESH_ALL
-        );
-    $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'delete_prev_next_display',
         'caption' => _("Show 'Delete & Prev/Next' Links"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_ALL
     );
 
-    }
     /* Assemble all this together and return it as our result. */
     $result = array(
         'grps' => $optgrps,

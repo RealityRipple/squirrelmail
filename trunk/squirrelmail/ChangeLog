@@ -183,6 +183,9 @@ Version 1.5.1 -- CVS
     file inclusions. [CAN-2005-0075] 
   - Remove Printer Friendly Clean Display config option, the cleaning
     is now always done.
+  - Create new Options section "Compose Preferences" and move some
+    options from Display Preferences there; also move some around within
+    Display Preferences.
 
 Version 1.5.0
 --------------------
