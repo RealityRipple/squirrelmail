@@ -7,14 +7,20 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This implements functions that manipulate messages
+ * NOTE: Quite a few functions in this file are obsolete
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* NOTE: quite some functions in this file are not used anymore. */
-
-/* Copies specified messages to specified folder */
-/* obsolete */
+/**
+ * Copies specified messages to specified folder
+ * @param int $imap_stream The resource ID for the IMAP connection
+ * @param string $start Beginning of range to copy
+ * @param string $end End of the range to copy
+ * @param string $mailbox Which box to copy to
+ * @deprecated This function is obsolete and should not be used
+ */
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "COPY $start:$end " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, $uid_support);
@@ -22,6 +28,10 @@ function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
 
 /**
 * copy a range of messages ($id) to another mailbox ($mailbox)
+* @param int $imap_stream The resource ID for the IMAP socket
+* @param string $id The list of messages to copy
+* @param string $mailbox The destination to copy to
+* @return void
 */
 function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
     global $uid_support;
@@ -31,6 +41,10 @@ function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
 
 /**
 * move a range of messages ($id) to another mailbox. Deletes the originals.
+* @param int $imap_stream The resource ID for the IMAP socket
+* @param string $id The list of messages to move
+* @param string $mailbox The destination to move to
+* @return void
 */
 function sqimap_msgs_list_move ($imap_stream, $id, $mailbox) {
     global $uid_support;
@@ -40,8 +54,15 @@ function sqimap_msgs_list_move ($imap_stream, $id, $mailbox) {
 }
 
 
-/* Deletes specified messages and moves them to trash if possible */
-/* obsolete */
+/**
+ * Deletes specified messages and moves them to trash if possible
+ * @deprecated This function is obsolete and should no longer be used
+ * @param int $imap_steam The resource ID for the IMAP connection
+ * @param string $start Start of range
+ * @param string $end End of range
+ * @param string $mailbox Mailbox messages are being deleted from
+ * @return void
+ */
 function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
     global $move_to_trash, $trash_folder, $auto_expunge, $uid_support;
 
@@ -61,7 +82,9 @@ function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id, $bypass_trash=fal
 }
 
 
-/* Sets the specified messages with specified flag */
+/**
+ * Sets the specified messages with specified flag
+ */
 function sqimap_messages_flag ($imap_stream, $start, $end, $flag, $handle_errors) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", $handle_errors, $response, $message, $uid_support);

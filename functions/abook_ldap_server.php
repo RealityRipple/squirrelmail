@@ -25,8 +25,13 @@
  *       "AddressBook" class instead.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * Undocumented class - fixme
+ * @package squirrelmail
+ */
 class abook_ldap_server extends addressbook_backend {
     var $btype = 'remote';
     var $bname = 'ldap_server';

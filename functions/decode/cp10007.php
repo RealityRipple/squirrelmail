@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp10007.php
  * $Id$
  *
@@ -19,9 +19,15 @@
  *   Date:          04/24/96
  *   Authors:       Lori Brownell <loribr@microsoft.com>
  *          K.D. Chang    <a-kchang@microsoft.com>
- *
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode cp10007 (MacCyrillic) string
+ * @param string $string MacCyrillic string to decode
+ * @return string $string Decoded string
+ */
 function charset_decode_cp10007 ($string) {
     global $default_charset;
 

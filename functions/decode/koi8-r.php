@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/koi8-r.php
  * $Id$
  *
@@ -35,8 +35,15 @@
  * internal or external distribution as long as this notice remains
  * attached.
  *
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode koi8r strings
+ * @param string $string Encoded string
+ * @return string Decoded string
+ */
 function charset_decode_koi8r ($string) {
     global $default_charset;
 

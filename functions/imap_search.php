@@ -9,8 +9,12 @@
  * IMAP search routines
  *
  * $Id$
+ * @package squirrelmail
+ * @deprecated This search interface has been largely replaced by asearch
  */
 
+/**
+ * Load up a bunch of SM functions */
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');

@@ -7,15 +7,17 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * IMAP asearch routines
- * Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
+ * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  * See README file for infos.
+ * @package squirrelmail
  *
  */
 
+/** This functionality requires the IMAP and date functions */
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
 
-/* Set to TRUE to dump the imap dialogue */
+/** Set to TRUE to dump the imap dialogue */
 $imap_asearch_debug_dump = FALSE;
 
 $imap_asearch_opcodes = array(

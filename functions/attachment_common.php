@@ -9,8 +9,12 @@
  * This file provides the handling of often-used attachment types.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * Needs documentation
+ */
 require_once(SM_PATH . 'functions/global.php');
 
 global $attachment_common_show_images_list;

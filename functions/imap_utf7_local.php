@@ -9,8 +9,16 @@
  * This implements all functions that do imap UTF7 conversions.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/**
+ * @param string $str
+ * @param string $to_encoding
+ * @param string $from_encoding
+ * @param string $default_charset
+ * @return string
+ */
 function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset)
 {
   // Allows mbstring functions only with iso-8859-*, utf-8 and 

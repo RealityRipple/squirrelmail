@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp1258.php
  * $Id$
  *
@@ -18,9 +18,15 @@
  *   Table format:  Format A
  *   Date:          04/15/98
  *   Contact:       cpxlate@microsoft.com
- *
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decde a cp1258-encoded string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
+ */
 function charset_decode_cp1258 ($string) {
     global $default_charset;
 

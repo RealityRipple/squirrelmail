@@ -12,11 +12,13 @@
  * (as specified in RFC 822) -- 'Tue' is optional
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Load up some useful constants */
 require_once(SM_PATH . 'functions/constants.php');
 
-/* corrects a time stamp to be the local time */
+/** corrects a time stamp to be the local time */
 function getGMTSeconds($stamp, $tzc) {
     /* date couldn't be parsed */
     if ($stamp == -1) {

@@ -1,6 +1,6 @@
 <?php
 
-/*
+/**
  * db_prefs.php
  *
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
@@ -26,10 +26,14 @@
  * by using conf.pl or the administrator plugin
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Unknown database */
 define('SMDB_UNKNOWN', 0);
+/** MySQL */
 define('SMDB_MYSQL', 1);
+/** PostgreSQL */
 define('SMDB_PGSQL', 2);
 
 require_once('DB.php');
@@ -67,6 +71,10 @@ function cachePrefValues($username) {
     sqsession_register($prefs_are_cached, 'prefs_are_cached');
 }
 
+/**
+ * Completely undocumented class - someone document it!
+ * @package squirrelmail
+ */
 class dbPrefs {
     var $table = 'userprefs';
     var $user_field = 'user';

@@ -10,8 +10,10 @@
  * table row that has sender, date, subject, etc...
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** The standard includes.. */
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/html.class.php');
@@ -19,11 +21,14 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/mime.php');
 
-/* Constants:
- *   PG_SEL_MAX:   default value for page_selector_max
+/**
+ * default value for page_selector_max
  */
 define('PG_SEL_MAX', 10);
 
+/**
+ * @param mixed $start UNDOCUMENTED
+ */
 function elapsed($start)
 {
    $end = microtime();

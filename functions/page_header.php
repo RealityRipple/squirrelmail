@@ -9,14 +9,18 @@
  * Prints the page header (duh)
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Include required files from SM */
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/global.php');
 
-/* Always set up the language before calling these functions */
+/**
+ * Always set up the language before calling these functions
+ */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
     global $squirrelmail_language;
 

@@ -13,11 +13,19 @@
  * encoded using Unicode entities according to HTML 4.0.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Everything uses global.php... */
 require_once(SM_PATH . 'functions/global.php');
 
-/* Decodes a string to the internal encoding from the given charset */
+/**
+ * Decodes a string to the internal encoding from the given charset
+ * 
+ * @param string $charset
+ * @param string $string Text to be decoded
+ * @return string Decoded text
+ */
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language, $default_charset;
     global $use_php_recode, $use_php_iconv, $agresive_decoding;

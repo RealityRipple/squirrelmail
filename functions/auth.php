@@ -9,9 +9,10 @@
  * Contains functions used to do authentication.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Put in a safety net here, in case a naughty admin didn't run conf.pl when they upgraded */
+/** Put in a safety net here, in case a naughty admin didn't run conf.pl when they upgraded */
 
 if (! isset($smtp_auth_mech)) {
   $smtp_auth_mech = 'none';

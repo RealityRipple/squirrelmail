@@ -28,10 +28,16 @@
  *        "AddressBook" class instead.
  *
  * $Id$
+ * @package squirrelmail
  */
-   
+
+/** Needs the DB functions */   
 require_once('DB.php');
-   
+
+/**
+ * Undocumented class - stores the addressbook in a sql database
+ * @package squirrelmail
+ */
 class abook_database extends addressbook_backend {
     var $btype = 'local';
     var $bname = 'database';

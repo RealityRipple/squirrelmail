@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp866.php
  * $Id$
  *
@@ -20,9 +20,15 @@
     Authors:       Lori Brownell <loribr@microsoft.com>
                    K.D. Chang    <a-kchang@microsoft.com>
     The entries are in cp866_DOSCyrillicRussian order
+ * @package squirrelmail
+ * @subpackage decode
 */
 
-
+/**
+ * Decode a cp866-encoded string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
+ */
 function charset_decode_cp866 ($string) {
     global $default_charset;
 

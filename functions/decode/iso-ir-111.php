@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/iso-ir-111.php
  * $Id$
  *
@@ -39,8 +39,16 @@
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode iso-ir-111 encoded strings
+ * @param string $string Encoded string
+ * @return string Decoded string
+ */
 function charset_decode_iso_ir_111 ($string) {
     global $default_charset;
 

@@ -9,9 +9,10 @@
  * Functions and classes for the addressbook system.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/*
+/**
    This is the path to the global site-wide addressbook.
    It looks and feels just like a user's .abook file
    If this is in the data directory, use "$data_dir/global.abook"
@@ -31,7 +32,7 @@
 
 global $addrbook_dsn;
 
-/*
+/**
    Create and initialize an addressbook object.
    Returns the created object
 */

@@ -10,6 +10,7 @@
  * used by the rest of the Squirrelmail code.
  *
  * $Id$
+ * @package squirrelmail
  */
 
 /**

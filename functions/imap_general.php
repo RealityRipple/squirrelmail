@@ -9,8 +9,10 @@
  * This implements all functions that do general imap functions.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** Includes.. */
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/auth.php');
 

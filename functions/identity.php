@@ -9,9 +9,10 @@
  * This contains utility functions for dealing with multiple identities
  *
  * $Id$
- *
+ * @package squirrelmail
  */
 
+/** Used to simplify includes */
 if (!defined('SM_PATH')) {
     define('SM_PATH','../');
 }
@@ -21,6 +22,7 @@ include_once(SM_PATH . 'include/load_prefs.php');
 /**
 * Returns an array of all the identities.
 * Array is keyed: full_name, reply_to, email_address, index, signature
+* @return array full_name,reply_to,email_address,index,signature
 */
 function get_identities() {
 

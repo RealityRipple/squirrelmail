@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * decode/cp855.php
  * $Id$
  *
@@ -18,8 +18,15 @@
  *   Date:          04/24/96
  *   Authors:       Lori Brownell <loribr@microsoft.com>
  *                  K.D. Chang    <a-kchang@microsoft.com>
+ * @package squirrelmail
+ * @subpackage decode
  */
 
+/**
+ * Decode a cp855-encoded string
+ * @param string $string Encoded string
+ * @return string $string Decoded string
+ */
 function charset_decode_cp855 ($string) {
     global $default_charset;
 

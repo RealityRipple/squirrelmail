@@ -9,6 +9,7 @@
  * Functions needed to display the options pages.
  *
  * $Id$
+ * @package squirrelmail
  */
 
 /**********************************************/

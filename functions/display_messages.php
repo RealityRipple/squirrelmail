@@ -10,6 +10,7 @@
  * about any other message you can think of.
  *
  * $Id$
+ * @package squirrelmail
  */
 
 /**
@@ -18,7 +19,7 @@
  * called "src", "functions", or "plugins", but people who do that need
  * to be beaten with a steel pipe anyway.
  *
- * @return  the base uri of squirrelmail installation.
+ * @return string the base uri of squirrelmail installation.
  */
 function sqm_baseuri(){
     global $base_uri, $PHP_SELF;
