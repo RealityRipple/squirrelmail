@@ -499,7 +499,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "14. Default Unseen Notify         : $WHT$default_unseen_notify$NRM\n";
         print "15. Default Unseen Type           : $WHT$default_unseen_type$NRM\n";
         print "16. Auto Create Special Folders   : $WHT$auto_create_special$NRM\n";
-        print "17. Don't move folders into Trash : $WHT$delete_folder$NRM\n";
+        print "17. Folder Delete Bypasses Trash  : $WHT$delete_folder$NRM\n";
         print "18. Enable /NoSelect folder fix   : $WHT$noselect_fix_enable$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
@@ -514,22 +514,22 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "7.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
         print "8.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
         print "9.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "10. Allow editing of identity   : $WHT$edit_identity$NRM\n";
+        print "10. Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
         print "11. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "12. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
-        if ( lc($edit_identity) eq "false" ) {
-            print "13. Allow editing of name     : $WHT$edit_name$NRM\n";
-        }
-        print "14. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-        print "15. Enable UID support          : $WHT$uid_support$NRM\n";
-		print "16. PHP session name            : $WHT$session_name$NRM\n";
+        print "13. Allow server charset search : $WHT$allow_charset_search$NRM\n";
+        print "14. Enable UID support          : $WHT$uid_support$NRM\n";
+		print "15. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
         print $WHT. "Themes\n" . $NRM;
         print "1.  Change Themes\n";
-        for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
-            print "    >  $theme_name[$count]\n";
+        for ( $count = 0 ; $count <= $#theme_name/2 ; $count++ ) {
+            $temp_name = $theme_name[$count*2];
+            printf "     %s%*s    %s\n", $temp_name, 
+                   40 - length($temp_name), " ",
+                   $theme_name[($count*2)+1];
         }
         print "2.  CSS File : $WHT$theme_css$NRM\n";
         print "\n";
@@ -716,10 +716,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 10 ) { $edit_identity            = command310(); }
             elsif ( $command == 11 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 12 ) { $allow_server_sort        = command313(); }
-            elsif ( $command == 13 ) { $edit_name                = command311(); }
-            elsif ( $command == 14 ) { $allow_charset_search     = command314(); }
-            elsif ( $command == 15 ) { $uid_support              = command315(); }
-			elsif ( $command == 16 ) { $session_name             = command316(); }
+            elsif ( $command == 13 ) { $allow_charset_search     = command314(); }
+            elsif ( $command == 14 ) { $uid_support              = command315(); }
+			elsif ( $command == 15 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -1763,24 +1762,39 @@ sub command214 {
     return $auto_create_special;
 }
 
-# Auto create special folders
+# Automatically delete folders 
 sub command215 {
-    print "Would you like to automatically completely delete any deleted\n";
-    print "folders? If not then they will be moved to the Trash folder\n";
-    print "and can be deleted from there\n";
-    print "\n";
+    print "Should folders selected for deletion bypass the Trash folder?\n\n";
 
-    if ( lc($delete_folder) eq "true" ) {
-        $default_value = "y";
-    } else {
-        $default_value = "n";
-    }
-    print "Auto delete folders? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $new_delete = <STDIN>;
-    if ( ( $new_delete =~ /^y\n/i ) || ( ( $new_delete =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+    if ( $imap_server_type == "courier" ) {
+        print "Courier(or Courier-IMAP) IMAP servers do not support ";
+        print "subfolders of Trash. \n";
+        print "Deleting folders will bypass the trash folder and ";
+        print "be immediately deleted.\n\n";
+        print "Press any key to continue...\n";
+        $new_delete = <STDIN>;
         $delete_folder = "true";
-    } else {
-        $delete_folder = "false";
+    } elsif ( $imap_server_type == "uw" ) {
+        print "UW IMAP servers will not allow folders containing";
+        print "mail to also contain folders.\n";
+        print "Deleting folders will bypass the trash folder and";
+        print "be immediately deleted\n\n";
+        print "Press any key to continue...\n";
+        $new_delete = <STDIN>;
+        $delete_folder = "true";
+    } else { 
+        if ( lc($delete_folder) eq "true" ) {
+            $default_value = "y";
+        } else {
+            $default_value = "n";
+        }
+        print "Auto delete folders? (y/n) [$WHT$default_value$NRM]: $WHT";
+        $new_delete = <STDIN>;
+        if ( ( $new_delete =~ /^y\n/i ) || ( ( $new_delete =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+            $delete_folder = "true";
+        } else {
+            $delete_folder = "false";
+        }
     }
     return $delete_folder;
 }
@@ -1837,6 +1851,18 @@ sub command33a {
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n\n";
     print "Note: There are potential security risks with having a writable directory\n";
+    print "under the web server's root directory (ex: /home/httpd/html).\n";
+    print "For this reason, it is recommended to put the data directory\n";
+    print "in an alternate location of your choice. \n";
+    print "\n";
+
+    print "[$WHT$data_dir$NRM]: $WHT";
+    $new_data_dir = <STDIN>;
+    if ( $new_data_dir eq "\n" ) {
+        $new_data_dir = $data_dir;
+    } else {
+        $new_data_dir =~ s/[\r|\n]//g;
+    }
     print "under the web server's root directory (ex: /home/httpd/html).\n";
     print "For this reason, it is recommended to put the data directory\n";
     print "in an alternate location of your choice. \n";
@@ -2024,8 +2050,8 @@ sub command39 {
 }
 
 sub command310 {
-    print "This allows you to prevent the editing of the users name and";
-    print "email address. This is mainly useful when used with the";
+    print "This allows you to prevent the editing of the user's name and ";
+    print "email address. This is mainly useful when used with the ";
     print "retrieveuserdata plugin\n";
     print "\n";
 
@@ -2034,19 +2060,22 @@ sub command310 {
     } else {
         $default_value = "n";
     }
-    print "Allow editing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Allow editing of user's identity? (y/n) [$WHT$default_value$NRM]: $WHT";
     $new_edit = <STDIN>;
     if ( ( $new_edit =~ /^y\n/i ) || ( ( $new_edit =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $edit_identity = "true";
+        $edit_name = "true";
     } else {
         $edit_identity = "false";
+        $edit_name = command311();
     }
     return $edit_identity;
 }
 
 sub command311 {
-    print "This option allows you to choose if the user can edit their full name";
-    print "even when you don't want them to change their username\n";
+    print "As a follow-up, this option allows you to choose if the user ";
+    print "can edit their full name even when you don't want them to ";
+    print "change their username\n";
     print "\n";
 
     if ( lc($edit_name) eq "true" ) {
@@ -2160,8 +2189,8 @@ sub command316 {
 
 
 sub command41 {
-    print "\nNow we will define the themes that you wish to use.  If you have added\n";
-    print "a theme of your own, just follow the instructions (?) about how to add\n";
+    print "\nDefine the themes that you wish to use.  If you have added ";
+    print "a theme of your own, just follow the instructions (?) about how to add ";
     print "them.  You can also change the default theme.\n";
     print "[theme] command (?=help) > ";
     $input = <STDIN>;
@@ -2175,8 +2204,11 @@ sub command41 {
                 } else {
                     print "  ";
                 }
+                if ( $count < 10 ) {
+                    print " ";
+                }
                 $name       = $theme_name[$count];
-                $num_spaces = 25 - length($name);
+                $num_spaces = 35 - length($name);
                 for ( $i = 0 ; $i < $num_spaces ; $i++ ) {
                     $name = $name . " ";
                 }
@@ -2915,7 +2947,8 @@ sub set_defaults {
             $show_contain_subfolders_option = true;
             $optional_delimiter             = "/";
             $disp_default_folder_prefix     = $default_folder_prefix;
-
+            $delete_folder                  = true;
+            
             $continue = 1;
         } elsif ( $server eq "exchange" ) {
             $imap_server_type               = "exchange";
@@ -2941,7 +2974,8 @@ sub set_defaults {
             $show_contain_subfolders_option = false;
             $optional_delimiter             = ".";
             $disp_default_folder_prefix     = $default_folder_prefix;
-
+            $delete_folder                  = true;
+            
             $continue = 1;
         } elsif ( $server eq "macosx" ) {
             $imap_server_type               = "macosx";
@@ -2974,6 +3008,7 @@ sub set_defaults {
         print "          default_sub_of_inbox = $default_sub_of_inbox\n";
         print "show_contain_subfolders_option = $show_contain_subfolders_option\n";
         print "            optional_delimiter = $optional_delimiter\n";
+        print "                 delete_folder = $delete_folder\n";
     }
     print "\nPress any key to continue...";
     $tmp = <STDIN>;
@@ -3011,18 +3046,6 @@ sub change_to_SM_path() {
 
     if ( $#rel_path > 1 ) {
         # more than two levels away. Make it absolute.
-        @abs_path = split(/\//, $dir);
-
-	# account for leading slash
-	shift @abs_path;
-
-        foreach $subdir (@rel_path) {
-            if ($subdir eq '') {
-                pop @abs_path;
-            } else {
-                push @abs_path, $subdir;
-            }
-        }
         $new_path = "\'" . join('/', @abs_path) . "\'";
     } elsif ( $#rel_path > 0 ) {
         # it's within the SM tree, prepend SM_PATH
