@@ -32,6 +32,8 @@
    if ($folder_prefix && (substr($subfolder, 0, strlen($folder_prefix)) != $folder_prefix)){
       $subfolder_orig = $subfolder;
       $subfolder = $folder_prefix . $subfolder;
+   } else {
+      $subfolder_orig = $subfolder;
    }
 
    if ((trim($subfolder_orig) == "[ None ]") || (trim(stripslashes($subfolder_orig)) == "[ None ]")) {

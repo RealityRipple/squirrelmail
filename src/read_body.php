@@ -160,7 +160,7 @@
    echo "            </TD><TD WIDTH=33% ALIGN=CENTER>";
    echo "               <SMALL>\n";
    if ($currentArrayIndex == -1) {
-      echo "Previous&nbsp;|&nbspNext";
+      echo "Previous&nbsp;|&nbsp;Next";
    } else {
       $prev = findPreviousMessage();
       $next = findNextMessage();
