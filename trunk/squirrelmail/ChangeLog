@@ -187,7 +187,8 @@ Version 1.5.1 -- CVS
     options from Display Preferences there; also move some around within
     Display Preferences.
   - Security: Fix possible file/offsite inclusion in src/webmail.php.
-  - Security: Fix possible XSS issues in src/webmail.php.
+    [CAN-2005-0103]
+  - Security: Fix possible XSS issues in src/webmail.php. [CAN-2005-0104]
   - Fix undefined variables in src/webmail.php.
 
 Version 1.5.0
