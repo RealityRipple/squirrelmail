@@ -171,9 +171,9 @@ function load_optpage_data_folder() {
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array( '1' => 'MM/DD/YY HH:MM',
                             '2' => 'DD/MM/YY HH:MM',
-                            '3' => 'DDD, HH:MM',
-                            '4' => 'HH:MM:SS',
-                            '5' => 'HH:MM',
+                            '3' => _("Show weekday and time"),
+                            '4' => _("Show time with seconds"),
+                            '5' => _("Show time"),
                             '6' => _("No Clock")),
     );
 
