@@ -12,9 +12,30 @@
       return; 
    define ('addressbook_php', true); 
 
+   // This is the path to the global site-wide addressbook.
+   // It looks and feels just like a user's .abook file
+   // If this is in the data directory, use "$data_dir/global.abook"
+   // If not, specify the path as though it was accessed from the
+   // src/ directory ("../global.abook" -> in main directory)
+   //
+   // If you don't want a global site-wide addressbook, comment these
+   // two lines out.  (They are disabled by default.)
+   //
+   // The global addressbook is unmodifiable by anyone.  You must actually
+   // use a shell script or whatnot to modify the contents.
+   //
+   //global $data_dir;
+   //$address_book_global_filename = "$data_dir/global.abook";
+
+
+
    // Include backends here.
    include('../functions/abook_local_file.php');
    include('../functions/abook_ldap_server.php');
+
+   // Use this if you wanna have a global address book
+   if (isset($address_book_global_filename))
+      include('../functions/abook_global_file.php');
 
    // Only load database backend if database is configured
    global $addrbook_dsn;
@@ -25,7 +46,7 @@
    // Create and initialize an addressbook object. 
    // Returns the created object
    function addressbook_init($showerr = true, $onlylocal = false) {
-      global $data_dir, $username, $ldap_server;
+      global $data_dir, $username, $ldap_server, $address_book_global_filename;
       global $addrbook_dsn;
       
       // Create a new addressbook object
@@ -52,6 +73,16 @@
 	    printf(_("Error opening file %s"), $filename);
 	    exit;
 	 }
+	 
+      }
+
+      // This would be for the global addressbook
+      if (isset($address_book_global_filename)) {
+         $r = $abook->add_backend('global_file');
+         if (!$r && $showerr) {
+             printf(_("Error initializing global addressbook."));
+	     exit;
+         }
       }
 
       if($onlylocal)
