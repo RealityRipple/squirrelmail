@@ -39,18 +39,18 @@ class msg_header {
      * example2: header->getAddr_s(array('to','cc','bcc'))
      */
     function getAddr_s($arr) {
+        $s = '';
         if (is_array($arr)) {
-            $s = '';
             foreach($arr as $arg ) {
                 $result = $this->getAddr_s($arg);
                 if ($result) {
                     $s .= ', ' . $result;
                 }
             }
-            if ($s) $s = substr($s,2);
-            return $s;
+            if ($s) {
+                $s = substr($s,2);
+            }
         } else {
-            $s = '';
             eval('$addr = $this->'.$arr.';') ;
             if (is_array($addr)) {
                 foreach ($addr as $addr_o) {
@@ -64,8 +64,8 @@ class msg_header {
                     $s .= $addr->getAddress();
                 }
             }
-            return $s;
         }
+        return $s;
     }
 
     function getAddr_a($arg, $excl_arr=array(), $arr = array()) {
@@ -134,7 +134,9 @@ class address_structure {
             } else {
                 return $best_dpl;
             }
-        } else return '';
+        } else {
+            return '';
+        }
     }
 }
 
@@ -177,8 +179,9 @@ class message {
         $ent_a = explode('.',$ent);
 
         $cnt = count($ent_a);
+        $cnt = $cnt - 1; /* this is how we use the count, so we'll save some time */
         $msg = $this;
-        for ($i=0;$i<$cnt -1;$i++) {
+        for ($i=0;$i<$cnt;$i++) {
             if (isset($cur_ent_a[$i]) && $cur_ent_a[$i] != $ent_a[$i]) {
                 $msg = $msg->parent;
                 $cur_ent_a = explode('.',$msg->entity_id);
@@ -200,8 +203,8 @@ class message {
            $msg = $msg->entities[0];
         }
 
-        if (isset($msg->entities[($ent_a[$cnt-1])-1])) {
-            $msg = $msg->entities[($ent_a[$cnt-1]-1)];
+        if (isset($msg->entities[($ent_a[$cnt])-1])) {
+            $msg = $msg->entities[($ent_a[$cnt]-1)];
         }
             return $msg;
     }
@@ -221,7 +224,7 @@ class message {
         $arg_no = 0;
         $arg_a = array();
         $cnt = strlen($read);
-        while ($i < $cnt) {
+        for (;$i < $cnt;$i++) {
             $char = strtoupper($read{$i});   
             switch ($char) {
                 case '(':
@@ -280,7 +283,7 @@ class message {
                                 if (isset($msg->type0) &&  $msg->type0 == 'multipart') {
                                     $i++;
                                     $arg_a[]= $msg->parseDisposition($read,&$i);
-                                } else { /* properties */
+                                } else {
                                     /* properties */
                                     $arg_a[] = $msg->parseProperties($read,&$i);
                                 }
@@ -338,7 +341,9 @@ class message {
                     $debug = substr($read,$i,20);
                     $arg_s = $msg->parseQuote($read,&$i);
                     $arg_no++;
-                    if ($arg_no < 3) $arg_s = strtolower($arg_s); /* type0 and type1 */
+                    if ($arg_no < 3) {
+                        $arg_s = strtolower($arg_s); /* type0 and type1 */
+                    }
                     $arg_a[] = $arg_s;
                     break;
                 case 'N':
@@ -356,10 +361,12 @@ class message {
                     break;
                 case (is_numeric($read{$i}) ):
                     /* process integers */
-                    if ($read{$i} == ' ') break;
+                    if ($read{$i} == ' ') {
+                        break;
+                    }
                     $arg_s = $read{$i};;
                     $i++;
-                    while (preg_match('/\d+/',$read{$i})) { /* != ' ') { */
+                    while (preg_match('/\d+/',$read{$i})) { /* != ' ') {*/
                         $arg_s .= $read{$i};
                         $i++;
                     }
@@ -451,8 +458,7 @@ class message {
                 default:
                     break;
             } /* switch */
-            $i++;
-        } /* while */
+        } /* for */
     } /* parsestructure */
 
     function parseProperties($read, $i) {
@@ -630,7 +636,9 @@ class message {
             $adr->adl = $arg_a[1];
             $adr->mailbox = $arg_a[2];
             $adr->host = $arg_a[3];
-        } else $adr = '';
+        } else {
+            $adr = '';
+        }
         return $adr;
     }
 
@@ -658,7 +666,9 @@ class message {
                 $disp->properties = $arg_a[1];
             }
         }
-        if (is_object($disp)) return $disp;
+        if (is_object($disp)) {
+            return $disp;
+        }
     }
 
     function parseLanguage($read,&$i) {
