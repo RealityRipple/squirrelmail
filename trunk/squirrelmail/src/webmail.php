@@ -31,7 +31,7 @@ if (!function_exists('sqm_baseuri')){
 }
 $base_uri = sqm_baseuri();
 
-session_start();
+sqsession_is_active();
 
 sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
