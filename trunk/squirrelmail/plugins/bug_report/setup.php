@@ -8,7 +8,7 @@
  *
  * This is a standard Squirrelmail-1.2 API for plugins.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage bug_report
  */
@@ -20,6 +20,7 @@
 /**
  * Initialize the bug report plugin
  * @return void
+ * @access private
  */
 function squirrelmail_plugin_init_bug_report() {
     global $squirrelmail_plugin_hooks;
@@ -31,7 +32,10 @@ function squirrelmail_plugin_init_bug_report() {
 }
 
 
-/* Show the button in the main bar */
+/**
+ * Show the button in the main bar
+ * @access private
+ */
 function bug_report_button() {
     global $color, $bug_report_visible;
 
@@ -39,11 +43,14 @@ function bug_report_button() {
         return;
     }
 
-    displayInternalLink('plugins/bug_report/bug_report.php', 'Bug', '');
+    displayInternalLink('plugins/bug_report/bug_report.php', _("Bug"), '');
     echo "&nbsp;&nbsp;\n";
 }
 
-
+/**
+ * Saves bug report options
+ * @access private
+ */
 function bug_report_save() {
     global $username,$data_dir;
 
@@ -54,7 +61,10 @@ function bug_report_save() {
     }
 }
 
-
+/**
+ * Loads bug report options
+ * @access private
+ */
 function bug_report_load() {
     global $username, $data_dir;
     global $bug_report_visible;
@@ -62,16 +72,19 @@ function bug_report_load() {
     $bug_report_visible = getPref($data_dir, $username, 'bug_report_visible');
 }
 
-
+/**
+ * Adds bug report options to display page
+ * @access private
+ */
 function bug_report_options() {
     global $bug_report_visible;
 
     echo '<tr>' . html_tag('td',_("Bug Reports:"),'right','','nowrap') . "\n" .
-         '<td><input name="bug_report_bug_report_visible" type=CHECKBOX';
+         '<td><input name="bug_report_bug_report_visible" type=checkbox';
     if ($bug_report_visible) {
-        echo ' CHECKED';
+        echo ' checked';
     }
-    echo '> ' . _("Show button in toolbar") . "</td></tr>\n";
+    echo ' /> ' . _("Show button in toolbar") . "</td></tr>\n";
 }
 
 ?>
