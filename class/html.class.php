@@ -10,7 +10,6 @@
  * $Id$
  */
 
-
 class html {
   var $tag, $text, $style, $class,  
       $id, $html_el = array(), $javascript, $xtr_prop;
