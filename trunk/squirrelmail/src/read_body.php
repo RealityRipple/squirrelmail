@@ -460,7 +460,7 @@ if ($where && $what) {
     }
     echo "search.php?where$pos=".urlencode($where)."&pos=$pos&what$pos=".urlencode($what)."&mailbox=$urlMailbox\">";
 } else {
-    echo "right_main.php?use_mailbox_cache=1&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
+    echo "right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
 }
 echo _("Message List") .
      '</A>&nbsp;|&nbsp;' .
@@ -509,17 +509,17 @@ echo '               </SMALL>' . "\n" .
     '            </TD><TD WIDTH="33%" ALIGN="RIGHT">' .
     '               <SMALL>' .
     '               <A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&forward_subj=$url_subj&".
-                    (isset($default_use_priority)?"mailprio=$priority_level&":"")
+                    ($default_use_priority?"mailprio=$priority_level&":"")
                     ."mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Forward") .
     '</A>&nbsp;|&nbsp;' .
     '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&reply_subj=$url_subj&".
-                    (isset($default_use_priority)?"mailprio=$priority_level&":"").
+                    ($default_use_priority?"mailprio=$priority_level&":"").
                     "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Reply") .
     '</A>&nbsp;|&nbsp;' .
     '               <A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&".
-                    (isset($default_use_priority)?"mailprio=$priority_level&":"").
+                    ($default_use_priority?"mailprio=$priority_level&":"").
                     "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
     _("Reply All") .
     '</A>&nbsp;&nbsp;' .
