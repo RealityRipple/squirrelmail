@@ -100,6 +100,10 @@ function formatMailboxName($imapConnection, $box_array) {
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
                     "</small>";
         }
+    } else {
+        $line .= concat_hook_function('left_main_after_each_folder',
+                                      array(isset($numMessages) ? $numMessages : '',
+                                            $real_box, $imapConnection));
     }
 
     /* Return the final product. */
