@@ -156,6 +156,8 @@ Version 1.5.1 -- CVS
     instead of php xml extension. Fixes bug #655137.
   - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
   - Fix two time zone calculation bugs, thanks to David White
+  - 'Priority' and 'Importance' headers are now also recognised, next to the
+    'X-Priority' header that we've supported since a long time.
 
 Version 1.5.0
 --------------------

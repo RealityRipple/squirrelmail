@@ -479,6 +479,19 @@ function elapsedTime($start) {
 }
 
 
+function parsePriority($value) {
+    $value = strtolower(array_shift(split('/\w/',trim($value))));
+    if ( is_numeric($value) ) {
+        return $value;
+    }
+    if ( $value == 'urgent' || $value == 'high' ) {
+        return 1;
+    } elseif ( $value == 'non-urgent' || $value == 'low' ) {
+        return 5;
+    }
+    return 3;
+}
+
 /**
  * Parses a string in an imap response. String starts with " or { which means it
  * can handle double quoted strings and literal strings
@@ -560,7 +573,7 @@ function parseArray($read,&$i) {
  * @return array   $aMessages associative array with messages. Key is the UID, value is an associative array
  */
 function sqimap_get_small_header_list($imap_stream, $msg_list,
-    $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type'),
+    $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Importance', 'Priority', 'Content-Type'),
     $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
     $aMessageList = array();
@@ -714,7 +727,10 @@ function parseFetch($aResponse,$aMessageList = array()) {
                             case 'date':
                                 $msg['DATE'] = str_replace('  ', ' ', $value);
                                 break;
-                            case 'x-priority': $msg['PRIORITY'] = $value; break;
+                            case 'x-priority':
+                            case 'importance':
+                            case 'priority':
+                                $msg['PRIORITY'] = parsePriority($value); break;
                             case 'subject': $msg['SUBJECT'] = $value; break;
                             case 'content-type':
                                 $type = $value;

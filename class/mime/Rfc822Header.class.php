@@ -186,7 +186,9 @@ class Rfc822Header {
                 $this->xmailer = $value;
                 break;
             case 'x-priority':
-                $this->priority = $value;
+            case 'importance':
+            case 'priority':
+                $this->priority = $this->parsePriority($value);
                 break;
             case 'list-post':
                 $value = $this->stripComments($value);
@@ -502,6 +504,31 @@ class Rfc822Header {
         } else {
             return $aProcessedAddress[0];
         }
+    }
+
+    /**
+     * Normalise the different Priority headers into a uniform value,
+     * namely that of the X-Priority header (1, 3, 5). Supports:
+     * Prioirty, X-Priority, Importance.
+     * X-MS-Mail-Priority is not parsed because it always coincides
+     * with one of the other headers.
+     *
+     * NOTE: this is actually a duplicate from the function in
+     * functions/imap_messages. I'm not sure if it's ok here to call
+     * that function?
+     */
+    function parsePriority($value) {
+        $value = strtolower(array_shift(split('/\w/',trim($value))));
+        if ( is_numeric($value) ) {
+            return $value;
+        }
+        if ( $value == 'urgent' || $value == 'high' ) {
+            return 1;
+        } elseif ( $value == 'non-urgent' || $value == 'low' ) {
+            return 5;
+        }
+        // default is normal priority
+        return 3;
     }
 
     function parseContentType($value) {
