@@ -97,7 +97,7 @@ if ($default_sub_of_inbox == false) {
     echo '<OPTION VALUE="">[ '._("None")." ]\n";
 }
 
-for ($i = 0; $i < count($boxes); $i++) {
+for ($i = 0, $cnt=count($boxes); $i < $cnt; $i++) {
     if (!in_array('noinferiors', $boxes[$i]['flags'])) {
         if ((strtolower($boxes[$i]['unformatted']) == 'inbox') &&
             $default_sub_of_inbox) {
@@ -141,7 +141,7 @@ if ($move_to_sent) {
 if ($save_as_draft) {
         $num_max++;
 }
-for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
+for ($p = 0, $cnt = count($boxes); $p < $cnt && $count_special_folders < $num_max; $p++) {
     if (strtolower($boxes[$p]['unformatted']) == 'inbox')
         $count_special_folders++;
     else if (strtolower($imap_server_type) == 'courier' &&
@@ -273,9 +273,7 @@ $boxes_sub = $boxes;
 /** SUBSCRIBE TO FOLDERS **/
 echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 if(!$no_list_for_subscribe) {
-  $imap_stream = sqimap_login ($username, $key, $imapServerAddress,
-                               $imapPort, 1);
-  $boxes_all = sqimap_mailbox_list_all ($imap_stream);
+  $boxes_all = sqimap_mailbox_list_all ($imapConnection);
 
   $box = "";
   $box2 = "";
@@ -295,8 +293,6 @@ if(!$no_list_for_subscribe) {
         $q++;
     }
   }
-  sqimap_logout($imap_stream);
-
   if ($box && $box2) {
     echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";
     echo "<tt><select name=\"mailbox[]\" multiple size=8>";
