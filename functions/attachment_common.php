@@ -93,14 +93,10 @@ function attachment_common_link_text(&$Args)
        $Args[1]['attachment_common']['href'] = Where it links to
       
        This sets the 'href' of this plugin for a new link. */
-    $Args[1]['attachment_common']['href'] = '../src/download.php?startMessage=' .
-        $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
-        '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=text&amp;override_type1=plain';
+       
+    global $QUERY_STRING;
+    $Args[1]['attachment_common']['href'] = '../src/view_text.php?'. $QUERY_STRING;
     
-    /* If we got here from a search, we should preserve these variables */
-    if ($Args[8] && $Args[9])
-        $Args[1]['attachment_common']['href'] .= '&amp;where=' . 
-        urlencode($Args[8]) . '&amp;what=' . urlencode($Args[9]);
   
     /* The link that we created needs a name.  "view" will be displayed for
        all text attachments handled by this plugin. */
