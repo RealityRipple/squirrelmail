@@ -10,7 +10,9 @@
 
    if (defined ('auth_php'))
       return; 
-   define ('auth_php', true); 
+   define ('auth_php', true);
+   
+   include '../functions/i18n.php';
 
    function is_logged_in () {
       if (session_is_registered('user_is_logged_in'))

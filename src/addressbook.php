@@ -11,8 +11,6 @@
     **/
 
    include('../src/validate.php');
-   include('../functions/strings.php');
-   include('../config/config.php');
    include('../functions/array.php');
    include('../functions/page_header.php');
    include('../functions/display_messages.php');

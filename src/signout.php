@@ -12,10 +12,7 @@
     **/
 
    include('../src/validate.php');
-   include('../functions/strings.php');
    include ('../src/load_prefs.php');
-   include('../config/config.php');
-   include('../functions/i18n.php');
    include ('../functions/prefs.php');
    include ('../functions/plugin.php');
 

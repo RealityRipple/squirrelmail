@@ -3,9 +3,6 @@
    /* $Id$ */
 
    include('../src/validate.php');
-   include('../functions/strings.php');
-   include('../functions/i18n.php');
-   include('../config/config.php');
    include('../functions/page_header.php');
    include('../functions/imap.php');
    include('../functions/imap_search.php');

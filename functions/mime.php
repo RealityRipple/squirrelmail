@@ -14,9 +14,7 @@
    global $debug_mime;
    $debug_mime = false;
    
-   include "../functions/i18n.php";
    include "../functions/imap.php";
-   include "../config/config.php";
 
    /** Setting up the objects that have the structure for the message **/
 

@@ -13,7 +13,6 @@
 
    include('../src/validate.php');
    include("../functions/prefs.php");
-   include("../functions/i18n.php");
    include("../functions/plugin.php");
 
    // Check to see if gettext is installed
