@@ -760,12 +760,12 @@ function showInputForm ($session) {
              '&nbsp;' .
              '</td><td align=left bgcolor="' . $color[0] . '">';
         foreach ($attachments as $key => $info) {
-	    if ($info['session'] == $session) { 
-        	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
-        	echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
-                    $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
-                    show_readable_size(filesize($attached_file)) . ")<br>\n";
-	    }
+    	    if ($info['session'] == $session) { 
+            	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
+            	echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
+                        $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
+                        show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
+    	    }
         }
 
         echo '<input type="submit" name="do_delete" value="' .
