@@ -35,7 +35,8 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      '<FORM name=rfc822 action="message_details_download.php?savemessage=1&passed_id='."$passed_id".'" METHOD=POST>' .     
      '<input type="button" value="' . _("Print") . '" onClick="printPopup()">&nbsp&nbsp '.
      '<input type="button" value="' . _("Close Window") . '" onClick="window.parent.close()">&nbsp&nbsp'.
-     '<input type="submit" value="' . _("Save Message") . '"> '.
+// disable for now because it doesn't work
+//     '<input type="submit" value="' . _("Save Message") . '"> '.
      '<input type="hidden" name="mailbox" value="'. "$mailbox" . '"> ' .
      '</form>'.
      '</b>'.
