@@ -284,7 +284,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
       }
     } elseif ($imap_auth_mech == 'login') {
           // Original IMAP login code
-      $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
+      $query = 'LOGIN "' . quoteimap($username) .  '" "' . quoteimap($password) . '"';
       $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
     } elseif ($imap_auth_mech == 'plain') {
                 /* Replace this with SASL PLAIN if it ever gets implemented */
