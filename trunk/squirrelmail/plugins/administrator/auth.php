@@ -1,12 +1,14 @@
 <?php
-
 /**
- *  This function tell other modules what users have access
- *  to the plugin.
- *  
- *  Philippe Mingo
- *  
+ * Administrator plugin - Authentication routines
+ *
+ * This function tell other modules what users have access
+ * to the plugin.
+ *
  * @version $Id$
+ * @author Philippe Mingo
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage administrator
  */
