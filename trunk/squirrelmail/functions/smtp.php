@@ -20,7 +20,7 @@
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
-      $body = $body;
+      $body = stripslashes($body);
       $from = "$username@$domain";
 
       echo "<FONT FACE=\"Arial,Helvetica\">";
