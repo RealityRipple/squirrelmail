@@ -94,8 +94,11 @@ if ($vcard_nice['version'] == '2.1') {
     }
 } else {
     echo '<tr><td align="center">' .
-         sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."),$vcard_nice['version']) .
+         sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."),
+                 htmlspecialchars($vcard_nice['version'])) .
          "</td></tr>\n";
+    $vcard_nice['firstname']='';
+    $vcard_nice['lastname']='';
 }
 
 foreach ($vcard_nice as $k => $v) {
