@@ -4,6 +4,7 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Logout error system unified.
   - Fix for a "theme passed as cookie" exploit.
   - PostgreSQL is now supported for database backed use
   - Added user option to sort messages by internal date
