@@ -1,0 +1,128 @@
+<chapter>
+   <title>
+      Adressen
+   </title>
+   <summary>
+      Adressb&uuml;cher k&ouml;nnen eine Menge an Zeit und Tipparbeit sparen. Es ist 
+      einfach m&ouml;glich Adressen von Menschen einzutragen, denen man h&auml;ufiger
+      schreibt und diese Adressen wieder und wieder zu benutzen.
+   </summary>
+   <description>
+      <p>
+      Adressb&uuml;cher sind super um Zeit zu sparen. H&auml;ufiger genutzte Adressen
+      k&ouml;nnen hier einfach gespeichert werden. LDAP Server (welche h&auml;ufig
+      in Universit&auml;ten oder gr&ouml;sseren Firmen benutzt werden, um Adressen 
+      einfach verf&uuml;gbar zu machen) sind auch noch unterst&uuml;tzt.
+      </p>
+      <p>
+      Wenn Dein Browser JavaScript unterst&uuml;tzt, ist es wahrscheinlich 
+      praktisch die JavaScript-Unterst&uuml;tzung im Optionen Men&uuml; einzuschalten.
+      Es ist ein wirklich praktisches Pop-Up Tool. Reine HTML Adresslisten sind 
+      auch unterst&uuml;tzt, so dass auch Browser ohne JavaScript-Unterst&uuml;tzung 
+      ohne Funktionseinbussen benutzt werden k&ouml;nnen.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      K&uuml;rzel
+   </title>
+   <description>
+      <p>
+      Gebe hier einen Kurznamen ein. Irgendetwas, was sich gut merken l&auml;sst.
+      Dieses K&uuml;rzel kannst Du hinterher benutzen wie die EMail-Adresse.
+      Dieser Name sollte nat&uuml;rlich eineindeutig sein, damit es keine
+      Verwechslungen gibt.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      EMail-Adresse
+   </title>
+   <description>
+      <p>
+      Hier muss die komplette EMail-Adresse der Person eingetragen werden, die 
+      Du im Adressbuch haben m&ouml;chtest. Einfach raten bringt hier nat&uuml;rlich 
+      garnichts. Grunds&auml;tzlich hat eine EMail-Adresse drei Teile: Der erste Teil
+      beschreibt den Nutzernamen des Empf&auml;ngers, zum Beispiel "rudie". Als n&auml;chstes
+      kommt der Domainname, wie z.B. "carell". Als letztes kommt die sog. 
+      Top-Level-Domain, von denen es einige Hundert gibt, de, us, com, net,
+      org sind nur einige. nl steht z.B. f&uuml;r die Niederlande. 
+      Alles zusammen ergibt dann eine Adresse wie "rudie@carell.nl". Wenn diese
+      Adresse nicht stimmt, kommt die Mail u.U. zur&uuml;ck oder wird nicht richtig 
+      zugestellt.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Info
+   </title>
+   <description>
+      <p>
+      Dies ist ein weiteres Feld, wo man etwas eintragen kann, sodass
+      man sich besser an die Person erinnert. Das kann etwas l&auml;nger sein
+      als der Spitzname. Z.B. wenn ein Gesch&auml;ftsfreund eingetragen wird kann
+      man schreiben: "Auf der Tomaten-Messe kennengelernt"
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Bearbeiten oder L&ouml;schen
+   </title>
+   <description>
+      <p>
+      Diese Zwei Schalter erlauben es eine einzelne EMail-Adresse zu selektieren
+      und dann die ganzen Felder zu editieren, die obenstehend beschrieben sind. 
+      Um die Adresse zu bearbeiten darf man allerdings nur eine Adresse ausw&auml;hlen.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Adresse hinzuf&uuml;gen
+   </title>
+   <description>
+      <p>
+      Einfach die vorgegebenen Felder ausf&uuml;llen (die ersten Drei, also 
+      K&uuml;rzel, EMail-Adresse und Vorname, m&uuml;ssen ausgef&uuml;llt sein) und dann
+      auf "Adresse hinzuf&uuml;gen" klicken + die Adresse wird ins Adressbuch
+      eingetragen. Die Felder Nachname und Zus&auml;tzliche Informationen sind 
+      optional.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      LDAP
+   </title>
+   <description>
+      <p>
+      LDAP ist ein Protokoll, mit dem man an einem zentralen Ort in einem 
+      einheitlichen Format Informationen speichern kann. So kann z.B. eine
+      grosse Universit&auml;t eine LDAP-Datenbank haben, wo alle Studenten,
+      Mitarbeiter und Fakult&auml;ts-EMail-Adressen aufgef&uuml;hrt sind.
+      Wenn alles richtig konfiguriert ist, ist es dann mit Squirrelmail 
+      m&ouml;glich auf eine solche Datenbank zuzugreifen und im Adressbuch zu nutzen.
+      Das sch&ouml;ne ist hierbei, dass Squirrelmail die beiden Adressb&uuml;cher (also
+      das pers&ouml;nliche und das vom LDAP-Server) <I>kombiniert</I> und es
+      so nutzbar ist, als w&auml;re es ein grosses Adressbuch.
+      </p><p>
+      Die LDAP Einstellungen m&uuml;ssen genau konfiguriert sein jeden LDAP-Server 
+      zu benutzen. Bitte sprich mit Deinem Systemadministrator wenn weitere Fragen
+      auftauchen.
+      </p><p>
+      Die LDAP Einstellungen beeinflussen das gesamte Squirrelmail System. Deshalb 
+      m&uuml;ssen sie von jemandem konfiguriert werden, der Administrationsrechte
+      auf dem System besitzt.
+      </p>
+   </description>
+</section>

@@ -1,0 +1,74 @@
+<chapter>
+   <title>
+      Nachrichtenliste
+   </title>
+   <summary>
+      Das klingt irgendwie kompliziert, ist aber einfach nur eine Liste 
+      von EMails, die in einem speziellen Ordner sind.
+   </summary>
+</chapter>
+
+<section>
+   <title>
+      Die Nachrichtenliste
+   </title>
+   <description>
+      <p>
+      Nachdem auf der linken Seite (im linken Frame) ein Ordner angeklickt 
+      wurde, wird im rechten Frame die Nachrichtenliste angezeigt. Dieser 
+      zeigt die EMails, die sich in dem ausgew&auml;hlten Ordner befinden. Unter
+      der Hauptmen&uuml;leiste gibt es noch eine Leiste, die Anzeigt, welche Mail
+      gerade angezeigt wird und wieviele Mails insgesamt sich insgesamt 
+      im Ordner befinden.
+      </p><p>
+      Zum Beispiel: Zeige Nachrichten <B>20</B> bis <B>30</B> (insgesamt 45).
+      </p><p>
+      Nat&uuml;rlich kann sich die Gesamtzahl EMails von der Anzahl ungelesener EMails,
+      welche rechts neben dem Ordner steht, unterscheiden.
+      </p><p>
+      Eine Men&uuml;zeile mit f&uuml;nf Schaltfl&auml;chen befindet sich gleich unter der EMail-
+      Anzahl. Auf der linken Seite gibt es eine Auswahlliste - Hier sieht man
+      die aktuell abonnierten Ordner. Jede 
+      ausgew&auml;hlte EMail wird zu dem hier angezeigten Ordner bewegt, wenn man den
+      "Verschieben"-Knopf bedient. Indem man mehrere EMails ausw&auml;hlt k&ouml;nnen auch
+      viele EMails gleichzeitig verschoben werden. Gleich daneben auf der linken Seite
+      kann man die ausgew&auml;hlten Mails auch weiterleiten. Ganz rechts gibt es hier
+      wieder die Option zum L&ouml;schen von Nachrichten. Einfach die Mails ausw&auml;hlen, 
+      die man nicht m&ouml;chte und der L&ouml;schen-Knopf kopiert sie in den "Trash"-Ordner.
+      Links vom L&ouml;schen-Knopf gibt es noch die beiden Schaltfl&auml;chen, mit denen man
+      eine Nachricht als gelesen, bzw. ungelesen markieren kann.
+      </p><p>
+	  Eine Zeile danach enth&auml;lt die Felder "Von", "Datum" und "Betreff". Dises
+	  drei Felder teilen die Nachrichtenliste in logische Teile: "Von" 
+	  listet den Absender (oder zumindest die EMail-Adresse) der EMail; das Datum
+	  zeigt den Tag an, wann die EMail verschickt wurde. Unter "Betreff" findet sich
+	  der Betreff der EMail, den der Absender eingegeben hat.<BR>
+	  <B>Anmerkung</B> - Zwischen Datum und Betreff gibt es noch einen kleinen Bereich
+	  der kein eigenes Label hat. Hier kann ein "+", "!" oder ein "A" erscheinen.
+	  <LI>"+" bedeutet, dass die EMail Dateianh&auml;nge besitzt.
+	  <LI>"!" heisst die EMail wurde als Dringend markiert.
+	  <LI>"A" heist, dass auf die EMail schon geantwortet wurde.
+      </p><p>
+      Was bleibt ist die aktuelle Nachrichtenliste. Ungelesene Nachrichten sind
+      <B>Fett</B> - hingegen sind gelesene Nachrichten einfach als normaler Text
+      dargestellt. Grunds&auml;tzlich gibt es auch hier wieder vier Bereiche: Ganz links
+      gibt es eine Auswahlbox, mit der man viele EMails auf einmal ausw&auml;hlen kann. 
+      Die ausgew&auml;hlten Mails kann man dann L&ouml;schen, in einen anderen Ordner verschieben 
+      oder auch als gelesen oder ungelesen markieren.
+      Der "Alle Auswahlen umschalten" Knopf unten auf der Seite erlaubt alle EMails 
+      aufeinmal auszuw&auml;hlen.<BR>
+      Unter der Absender&uuml;berschrift ist eine Liste von wem die EMail kommt. Als
+      n&auml;chstes kommt das Datum und dann das Betreff.
+      </p>
+      <p>
+      Wenn Dein EMail-Ordner sehr viele Nachrichten enth&auml;lt, wird die Anzeige auf mehrere
+      Seiten aufgeteilt. Normalerweise wird dann beim Ausw&auml;hlen eines Ordners die
+      erste Seite angezeigt. Um andere Seiten angezeigt zu bekommen, kann man die 
+      Links mit "N&auml;chste" oder "Vorherige" unter der Nachrichtenliste
+      anw&auml;hlen. Es ist auch m&ouml;glich direkt zu einer bestimmten Seite zu springen, indem 
+      man direkt auf die Seitenzahl klickt. Wenn "Alle Anzeigen" angeklickt wird, wird
+      das Aufteilen in Seiten ausgeschaltet und alle EMails werden auf einer (u.U. extrem
+      langen) Seite dargestellt.
+      </p>
+   </description>
+</section>
