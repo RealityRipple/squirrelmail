@@ -786,13 +786,12 @@ echo '</small></td>' .
     ' </tr>';
 
 /** from **/
-echo html_tag( 'tr', "\n" .
-            html_tag( 'td', _("From:"), 'right', $color[0], 'valign="top"' ) .
-            html_tag( 'td',
-                '<b>' . $from_name . '</b>&nbsp;' . "\n" ,
-            'left', $color[0] )
-       ) . "\n";
-       do_hook("read_body_after_from");
+echo html_tag( 'tr') . "\n" .
+    html_tag( 'td', _("From:"), 'right', $color[0], 'valign="top"' ) .
+    html_tag( 'td', '', 'left', $color[0] ) .
+        '<b>' . $from_name . '</b>&nbsp;&nbsp;';
+   do_hook("read_body_after_from");
+echo "&nbsp;\n" . '</td></tr>';
 /** date **/
 echo html_tag( 'tr', "\n" .
             html_tag( 'td', _("Date:"), 'right', $color[0], 'valign="top"' ) .
