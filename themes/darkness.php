@@ -6,7 +6,7 @@
        
    **/
 
-   $TargetDistance = 16384;
+   $TargetDistance = 32768;
 
 function IsUnique($Distance, $r, $g, $b, $usedArray)
 {
