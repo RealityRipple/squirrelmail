@@ -183,6 +183,7 @@ if ($count_special_folders < count($boxes)) {
             ($boxes[$i]['unformatted'] != $trash_folder) &&
             ($boxes[$i]['unformatted'] != $sent_folder) &&
             ($boxes[$i]['unformatted'] != $draft_folder) &&
+            (!in_array('noselect', $boxes[$i]['flags'])) &&
             ((strtolower($imap_server_type) != 'courier') ||
              (strtolower($boxes[$i]['unformatted']) != 'inbox.trash'))) {
             $box = $boxes[$i]['unformatted-dm'];
