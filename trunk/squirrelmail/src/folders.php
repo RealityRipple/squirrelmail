@@ -92,9 +92,9 @@
            if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)){
            echo _("Create Trash") . "<INPUT TYPE=checkbox NAME=trash_create value=true><br>\n";
            echo "<INPUT TYPE=submit VALUE=Create>";
-           echo "</FORM></TD></TR>\n";
            }
        }
+       echo "</FORM></TD></TR></TABLE>n";
    }
 
    /** DELETING FOLDERS **/
