@@ -27,49 +27,66 @@
    if (file_exists("../help/$user_language/basic.hlp")) {
 	include ("../help/$user_language/basic.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/basic.hlp");
    }
    if (file_exists("../help/$user_language/main_folder.hlp")) {
 	include ("../help/$user_language/main_folder.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/main_folder.hlp");
    }
    if (file_exists("../help/$user_language/read_mail.hlp")) {
 	include ("../help/$user_language/read_mail.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/read_mail.hlp");
    }
    if (file_exists("../help/$user_language/compose.hlp")) {
 	include ("../help/$user_language/compose.hlp");
    } else {
 	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/compose.hlp");
    }
    if (file_exists("../help/$user_language/addresses.hlp")) {
 	include ("../help/$user_language/addresses.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/addresses.hlp");
    }
    if (file_exists("../help/$user_language/folders.hlp")) {
 	include ("../help/$user_language/folders.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/folders.hlp");
    }
    if (file_exists("../help/$user_language/options.hlp")) {
 	include ("../help/$user_language/options.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/options.hlp");
    }
    if (file_exists("../help/$user_language/FAQ.hlp")) {
 	include ("../help/$user_language/FAQ.hlp");
    } else {
-	echo "<CENTER><B><FONT COLOR=$color[2]>Your preferred language is not yet translated. English will be substituted here.</FONT></B></CENTER><BR>";
+	echo "<CENTER><B><FONT COLOR=$color[2]>";
+	echo _("Your preferred language is not yet translated. English will be substituted here.");
+	echo "</FONT></B></CENTER><BR>";
 	include ("../help/en/FAQ.hlp");
    }
 
