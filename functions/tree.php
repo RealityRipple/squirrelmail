@@ -4,18 +4,24 @@
    if (!isset($imap_php))
       include("../functions/imap.php");
 
+   // Recursive function to find the correct parent for a new node
    function findParentForChild($value, $treeIndexToStart, $tree) {
+      // is $value in $tree[$treeIndexToStart]["value"]
       if ((isset($tree[$treeIndexToStart])) && (strstr($value, $tree[$treeIndexToStart]["value"]))) {
+         // do I have children, if not then must be a childnode of the current node
          if ($tree[$treeIndexToStart]["doIHaveChildren"]) {
+            // loop through each subNode checking to see if we are a subNode of one of them
             for ($i=0;$i< count($tree[$treeIndexToStart]["subNodes"]);$i++) {
                $result = findParentForChild($value, $tree[$treeIndexToStart]["subNodes"][$i], $tree);
                if ($result > -1)
                   return $result;
             }
+            // if we aren't a child of one of the subNodes, must be a child of current node
             return $treeIndexToStart;
          } else
             return $treeIndexToStart;
       } else {
+         // we aren't a child of this node at all
          return -1;
       }
    }  
