@@ -17,17 +17,15 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/auth.php');
 
 
-global $sqimap_session_id;
-$sqimap_session_id = 1;
-
 /**
  * Generates a new session ID by incrementing the last one used;
  * this ensures that each command has a unique ID.
  * @param bool unique_id
  * @return string IMAP session id of the form 'A000'.
  */
-function sqimap_session_id($unique_id = false) {
-    global $data_dir, $username, $sqimap_session_id;
+function sqimap_session_id($unique_id = FALSE) {
+    static $sqimap_session_id = 1;
+
     if (!$unique_id) {
         return( sprintf("A%03d", $sqimap_session_id++) );
     } else {
