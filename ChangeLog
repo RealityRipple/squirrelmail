@@ -2,7 +2,11 @@
 *** SquirrelMail Devel Series 1.5 ***
 *************************************
 
-Version 1.5.0 -- CVS
+Version 1.5.1 -- CVS
+--------------------
+
+
+Version 1.5.0
 --------------------
   - Added new preference that determines cursor focus when replying
   - Added support in conf.pl for MS cls command.
