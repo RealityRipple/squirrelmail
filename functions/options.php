@@ -87,9 +87,9 @@
 
     }
 
-    function OptionSubmit() {
+    function OptionSubmit( $name ) {
 
-        echo '<tr><td>&nbsp;</td><td><input type="submit" value="' . _("Submit") . '" name="submit_folder">' .
+        echo '<tr><td>&nbsp;</td><td><input type="submit" value="' . _("Submit") . '" name="$name">' .
              '</td></tr>';
 
     }

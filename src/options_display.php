@@ -94,7 +94,7 @@
 
    echo '<tr><td colspan=2><hr noshade></td></tr>';
    do_hook('options_display_inside');
-   OptionSubmit();
+   OptionSubmit( 'submit_display' );
 ?>
 
       </table>
