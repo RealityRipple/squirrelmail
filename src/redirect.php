@@ -27,15 +27,12 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/global.php');
 
 // Remove slashes if PHP added them
+$REQUEST_METHOD = $_SERVER['REQUEST_METHOD'];
 if (get_magic_quotes_gpc()) {
-    global $REQUEST_METHOD;
-
     if ($REQUEST_METHOD == 'POST') {
-        global $HTTP_POST_VARS;
-        RemoveSlashes($HTTP_POST_VARS);
+        RemoveSlashes($_POST);
     } else if ($REQUEST_METHOD == 'GET') {
-        global $HTTP_GET_VARS;
-        RemoveSlashes($HTTP_GET_VARS);
+        RemoveSlashes($_GET);
     }
 }
 
@@ -55,10 +52,25 @@ session_start();
 session_unregister ('user_is_logged_in');
 session_register ('base_uri');
 
-if (! isset($squirrelmail_language) ||
+/* get globals we me need */
+if (isset($_POST['login_username'])) {
+    $login_username = $_POST['login_username'];
+}
+if (!isset($_COOKIE['squirrelmail_language']) ||
     $squirrelmail_language == '' ) {
     $squirrelmail_language = $squirrelmail_default_language;
 }
+else {
+    $squirrelmail_language = $_COOKIE['squirrelmail_language'];
+}
+if (isset($_POST['secretkey'])) {
+    $secretkey = $_POST['secretkey'];
+}
+if (isset($_POST['js_autodetect_results'])) {
+    $js_autodetect_results = $_POST['js_autodetect_results'];
+}
+/* end of get globals */
+
 set_up_language($squirrelmail_language, true);
 /* Refresh the language cookie. */
 setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000, 
@@ -75,7 +87,7 @@ if (!session_is_registered('user_is_logged_in')) {
 
     $onetimepad = OneTimePadCreate(strlen($secretkey));
     $key = OneTimePadEncrypt($secretkey, $onetimepad);
-    session_register('onetimepad');
+    sqsession_register($onetimepad, 'onetimepad');
 
     /* remove redundant spaces */
     $login_username = trim($login_username);
@@ -99,10 +111,10 @@ if (!session_is_registered('user_is_logged_in')) {
         $delimiter = sqimap_get_delimiter ($imapConnection);
     }
     sqimap_logout($imapConnection);
-    session_register('delimiter');
-    global $username;    
+    sqsession_register($delimiter, 'delimiter');
+
     $username = $login_username;
-    session_register ('username');
+    session_register ($username, 'username');
     setcookie('key', $key, 0, $base_uri);
     do_hook ('login_verified');
 
@@ -113,23 +125,24 @@ $user_is_logged_in = true;
 $just_logged_in = true;
 
 /* And register with them with the session. */
-session_register ('user_is_logged_in');
-session_register ('just_logged_in');
+sqsession_register ($user_is_logged_in, 'user_is_logged_in');
+sqsession_register ($just_logged_in, 'just_logged_in');
 
 /* parse the accepted content-types of the client */
 $attachment_common_types = array();
 $attachment_common_types_parsed = array();
-session_register('attachment_common_types');
-session_register('attachment_common_types_parsed');
+sqsession_register($attachment_common_types, 'attachment_common_types');
+sqsession_register($attachment_common_types_parsed, 'attachment_common_types_parsed');
 
 $debug = false;
-if (isset($HTTP_SERVER_VARS['HTTP_ACCEPT']) &&
-    !isset($attachment_common_types_parsed[$HTTP_SERVER_VARS['HTTP_ACCEPT']])) {
-    attachment_common_parse($HTTP_SERVER_VARS['HTTP_ACCEPT'], $debug);
+
+if (isset($_SERVER['HTTP_ACCEPT']) &&
+    !isset($attachment_common_types_parsed[$_SERVER['HTTP_ACCEPT']])) {
+    attachment_common_parse($_SERVER['HTTP_ACCEPT'], $debug);
 }
-if (isset($HTTP_ACCEPT) &&
-    !isset($attachment_common_types_parsed[$HTTP_ACCEPT])) {
-    attachment_common_parse($HTTP_ACCEPT, $debug);
+if (isset($_SERVER['HTTP_ACCEPT']) &&
+    !isset($attachment_common_types_parsed[$_SERVER['HTTP_ACCEPT']])) {
+    attachment_common_parse($_SERVER['HTTP_ACCEPT'], $debug);
 }
 
 /* Complete autodetection of Javascript. */

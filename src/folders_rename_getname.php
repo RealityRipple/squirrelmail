@@ -12,8 +12,6 @@
  * $Id$
  */
 
-global $delimiter;
-
 /* Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
@@ -21,6 +19,17 @@ define('SM_PATH','../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/html.php');
+
+/* get globals we may need */
+
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$delimiter = $_SESSION['delimiter'];
+$onetimepad = $_SESSION['onetimepad'];
+
+$old = $_POST['old'];
+    
+/* end of get globals */
 
 if ($old == '') {
     displayPageHeader($color, 'None');

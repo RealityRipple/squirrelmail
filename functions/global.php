@@ -10,7 +10,7 @@
  * It also has two session register functions that work across various
  * php versions. 
  *
- * $Id$
+ * $Id $
  */
 
 
@@ -31,6 +31,34 @@ if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
   $_POST    =& $HTTP_POST_VARS;
   $_SERVER  =& $HTTP_SERVER_VARS;
   $_SESSION =& $HTTP_SESSION_VARS;
+}
+
+/* if running with register_globals = 0 and 
+   magic_quotes_gpc then strip the slashes
+   from POST and GET global arrays */
+
+if (get_magic_quotes_gpc()) {
+    if (ini_get('register_globals') == 0) {
+        sqstripslashes($_GET);
+        sqstripslashes($_POST);
+    }
+}
+
+/* strip any tags added to the url from PHP_SELF.
+   This fixes hand crafted url XXS expoits for any
+   page that uses PHP_SELF as the FORM action */
+
+strip_tags($_SERVER['PHP_SELF']);
+
+function sqstripslashes(&$array) {
+    foreach ($array as $index=>$value) {
+        if (is_array($array["$index"])) {
+            sqstripslashes($array["$index"]);
+        }
+        else {
+            $array["$index"] = stripslashes($value);
+        }
+    }
 }
 
 function sqsession_register ($var, $name) {
@@ -59,8 +87,10 @@ function sqsession_unregister ($name) {
  *  (in that order) and register it as a global var.
  */
 function sqextractGlobalVar ($name) {
-    global $_SESSION, $_GET, $_POST, $$name;
-
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+        global $_SESSION, $_GET, $_POST;
+    }
+    global  $$name;
     if( isset($_SESSION[$name]) ) {
         $$name = $_SESSION[$name];
     }

@@ -24,6 +24,7 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/i18n.php');
 require_once(SM_PATH . 'functions/auth.php');
+require_once(SM_PATH . 'functions/global.php');
 
 if (!function_exists('sqm_baseuri')){
     require_once(SM_PATH . 'functions/display_messages.php');
@@ -31,6 +32,20 @@ if (!function_exists('sqm_baseuri')){
 $base_uri = sqm_baseuri();
 
 session_start();
+
+if (isset($_SESSION['username'])) {
+    $username = $_SESSION['username'];
+}
+if (isset($_SESSION['delimiter'])) {
+    $delimiter = $_SESSION['delimiter'];
+}
+if (isset($_SESSION['onetimepad'])) {
+    $onetimepad = $_SESSION['onetimepad'];
+}
+if (isset($_GET['right_frame'])) {
+    $right_frame = $_GET['right_frame'];
+}
+
 is_logged_in();
 
 do_hook('webmail_top');

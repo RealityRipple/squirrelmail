@@ -20,6 +20,16 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
+/* globals */
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+
+$method = $_GET['method'];
+$mailbox = $_POST['mailbox'];
+
+/* end globals */
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
 $location = get_location();
