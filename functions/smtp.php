@@ -64,8 +64,9 @@
       if (isMultipart()) {
          foreach ($attachments as $info)
 	 {
-	    $filetype = $info['type'];
-            if ($filetype == '')
+	    if (isset($info['type']))
+ 	       $filetype = $info['type'];
+            else
                $filetype = 'application/octet-stream';
             
             $header = '--'.mimeBoundary()."\r\n";
