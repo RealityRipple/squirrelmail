@@ -19,7 +19,9 @@
    $url_subj = urlencode(trim($subject));
 
    $d[0] = ereg_replace("  ", " ", $d[0]);
-   $date = $d[0];
+   $dateParts = explode(" ", trim($d[0]));
+   $dateString = getLongDateString($dateParts);
+
    $from_name = getSenderName($f[0]);
    $urlMailbox = urlencode($mailbox);
 
@@ -101,7 +103,7 @@
    echo "         <TD BGCOLOR=FFFFFF WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">Date:</FONT>\n";
    echo "         </TD><TD BGCOLOR=FFFFFF WIDTH=85%>\n";
-   echo "            <FONT FACE=\"Arial,Helvetica\"><B>$date</B></FONT>\n";
+   echo "            <FONT FACE=\"Arial,Helvetica\"><B>$dateString</B></FONT>\n";
    echo "         </TD>\n";
    echo "      </TR>\n";
    /** to **/

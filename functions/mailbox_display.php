@@ -38,7 +38,6 @@
 
       $j = 0;
       while ($j < $numMessages) {
-//         echo "$numMessages -- $j -- $subject[$j]<BR>";
          $date[$j] = ereg_replace("  ", " ", $date[$j]);
          $tmpdate = explode(" ", trim($date[$j]));
 
