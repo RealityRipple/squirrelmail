@@ -19,7 +19,7 @@
    }
    // We need domain for smtp
    if (!$domain)
-      $domain = getenv("HOSTNAME");
+      $domain = getenv('HOSTNAME');
 
    // Returns true only if this message is multipart
    function isMultipart () {
@@ -42,23 +42,23 @@
          while (list($localname, $remotename) = each($attachments)) {
             // This is to make sure noone is giving a filename in another
             // directory
-            $localname = ereg_replace ("\\/", "", $localname);
+            $localname = ereg_replace ("\\/", '', $localname);
             
-            $fileinfo = fopen ($attachment_dir.$localname.".info", "r");
+            $fileinfo = fopen ($attachment_dir.$localname.'.info', 'r');
             $filetype = fgets ($fileinfo, 8192);
             fclose ($fileinfo);
             $filetype = trim ($filetype);
-            if ($filetype=="")
-               $filetype = "application/octet-stream";
+            if ($filetype=='')
+               $filetype = 'application/octet-stream';
             
-            $header = "--".mimeBoundary()."\r\n";
+            $header = '--'.mimeBoundary()."\r\n";
             $header .= "Content-Type: $filetype;name=\"$remotename\"\r\n";
             $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
             $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
             fputs ($fp, $header);
             $length += strlen($header);
             
-            $file = fopen ($attachment_dir.$localname, "r");
+            $file = fopen ($attachment_dir.$localname, 'r');
             while ($tmp = fread($file, 570)) {
                $encoded = chunk_split(base64_encode($tmp));
                $length += strlen($encoded);
@@ -80,7 +80,7 @@
          while (list($localname, $remotename) = each($attachments)) {
             if (!ereg ("\\/", $localname)) {
                unlink ($attachment_dir.$localname);
-               unlink ($attachment_dir.$localname.".info");
+               unlink ($attachment_dir.$localname.'.info');
             }
          }
       }
@@ -101,20 +101,20 @@
    function timezone () {
       global $invert_time;
       
-      $diff_second = date("Z");
+      $diff_second = date('Z');
       if ($invert_time)
           $diff_second = - $diff_second;
       if ($diff_second > 0)
-         $sign = "+";
+         $sign = '+';
       else
-         $sign = "-";
+         $sign = '-';
 
       $diff_second = abs($diff_second);
 
       $diff_hour = floor ($diff_second / 3600);
       $diff_minute = floor (($diff_second-3600*$diff_hour) / 60);
 
-      $zonename = "(".strftime("%Z").")";
+      $zonename = '('.strftime('%Z').')';
       $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute, $zonename);
       return ($result);
    }
@@ -130,16 +130,16 @@
       // everytime the header is printed.
       static $header, $headerlength;
 
-      if ($header == "") {
+      if ($header == '') {
          $to = parseAddrs($t);
          $cc = parseAddrs($c);
          $bcc = parseAddrs($b);
-         $reply_to = getPref($data_dir, $username, "reply_to");
-         $from = getPref($data_dir, $username, "full_name");
-         $from_addr = getPref($data_dir, $username, "email_address");
+         $reply_to = getPref($data_dir, $username, 'reply_to');
+         $from = getPref($data_dir, $username, 'full_name');
+         $from_addr = getPref($data_dir, $username, 'email_address');
 
-         if ($from_addr == "")
-            $from_addr = $popuser."@".$domain;
+         if ($from_addr == '')
+            $from_addr = $popuser.'@'.$domain;
          
          $to_list = getLineOfAddrs($to);
          $cc_list = getLineOfAddrs($cc);
@@ -147,17 +147,17 @@
 
          /* Encoding 8-bit characters and making from line */
          $subject = sqStripSlashes(encodeHeader($subject));
-         if ($from == "")
+         if ($from == '')
             $from = "<$from_addr>";
          else
-            $from = "\"" . encodeHeader($from) . "\" <$from_addr>";
+            $from = '"' . encodeHeader($from) . "\" <$from_addr>";
          
          /* This creates an RFC 822 date */
          $date = date("D, j M Y H:i:s ", mktime()) . timezone();
 
          /* Create a message-id */
-         $message_id = "<" . $REMOTE_PORT . "." . $REMOTE_ADDR . ".";
-         $message_id .= time() . ".squirrel@" . $SERVER_NAME .">";
+         $message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
+         $message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
          
          /* Make an RFC822 Received: line */
          if (isset($REMOTE_HOST))
@@ -166,8 +166,8 @@
             $received_from = $REMOTE_ADDR;
     
          if (isset($HTTP_VIA) || isset ($HTTP_X_FORWARDED_FOR)) {
-            if ($HTTP_X_FORWARDED_FOR == "")
-               $HTTP_X_FORWARDED_FOR = "unknown";
+            if ($HTTP_X_FORWARDED_FOR == '')
+               $HTTP_X_FORWARDED_FOR = 'unknown';
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
          }            
     
@@ -195,7 +195,7 @@
             $header .= "Cc: $cc_list\r\n"; // Who the CCs are
          }
          
-         if ($reply_to != "")
+         if ($reply_to != '')
             $header .= "Reply-To: $reply_to\r\n";
          
          if ($useSendmail) {
@@ -211,11 +211,11 @@
          $header .= "MIME-Version: 1.0\r\n";
          
          if (isMultipart()) {
-            $header .= "Content-Type: multipart/mixed; boundary=\"";
+            $header .= 'Content-Type: multipart/mixed; boundary="';
             $header .= mimeBoundary();
             $header .= "\"\r\n";
          } else {
-            if ($default_charset != "")
+            if ($default_charset != '')
                $header .= "Content-Type: text/plain; charset=$default_charset\r\n";
             else
                $header .= "Content-Type: text/plain;\r\n";
@@ -239,7 +239,7 @@
       $attachmentlength = 0;
       
       if (isMultipart()) {
-         $body = "--".mimeBoundary()."\r\n";
+         $body = '--'.mimeBoundary()."\r\n";
 
          if ($default_charset != "")
             $body .= "Content-Type: text/plain; charset=$default_charset\r\n";
@@ -272,12 +272,12 @@
       // spaces or other "weird" chars that would allow a user to
       // exploit the shell/pipe it is used in.
       $envelopefrom = "$popuser@$domain";
-      $envelopefrom = ereg_replace("[[:blank:]]","", $envelopefrom);
-      $envelopefrom = ereg_replace("[[:space:]]","", $envelopefrom);
-      $envelopefrom = ereg_replace("[[:cntrl:]]","", $envelopefrom);
+      $envelopefrom = ereg_replace("[[:blank:]]",'', $envelopefrom);
+      $envelopefrom = ereg_replace("[[:space:]]",'', $envelopefrom);
+      $envelopefrom = ereg_replace("[[:cntrl:]]",'', $envelopefrom);
 
       // open pipe to sendmail
-      $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
+      $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), 'w');
       
       $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($fp, $body);
@@ -291,7 +291,7 @@
       $read = fgets($smtpConnection, 1024);
       $counter = 0;
       while ($read) {
-         echo $read . "<BR>";
+         echo $read . '<BR>';
          $data[$counter] = $read;
          $read = fgets($smtpConnection, 1024);
          $counter++;
@@ -305,14 +305,14 @@
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
-      $from_addr = getPref($data_dir, $username, "email_address");
+      $from_addr = getPref($data_dir, $username, 'email_address');
 
       if (!$from_addr)
          $from_addr = "$popuser@$domain";
 
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
-         echo "Error connecting to SMTP Server.<br>";
+         echo 'Error connecting to SMTP Server.<br>';
          echo "$errorNumber : $errorString<br>";
          exit;
       }
@@ -378,7 +378,7 @@
       global $page_header_php;
       global $color;
       if (!isset($page_header_php)) {
-         include "../functions/page_header.php";
+         include '../functions/page_header.php';
       }
       
       // Read new lines on a multiline response
@@ -393,91 +393,91 @@
 
       $err_num = substr($line, 0, strpos($line, " "));
       switch ($err_num) {
-         case 500:   $message = "Syntax error; command not recognized";
+         case 500:   $message = 'Syntax error; command not recognized';
                      $status = 0;
                      break;
-         case 501:   $message = "Syntax error in parameters or arguments";
+         case 501:   $message = 'Syntax error in parameters or arguments';
                      $status = 0;
                      break;
-         case 502:   $message = "Command not implemented";
+         case 502:   $message = 'Command not implemented';
                      $status = 0;
                      break;
-         case 503:   $message = "Bad sequence of commands";
+         case 503:   $message = 'Bad sequence of commands';
                      $status = 0;
                      break;
-         case 504:   $message = "Command parameter not implemented";
-                     $status = 0;
-                     break;
-
-
-         case 211:   $message = "System status, or system help reply";
-                     $status = 5;
-                     break;
-         case 214:   $message = "Help message";
-                     $status = 5;
-                     break;
-
-
-         case 220:   $message = "Service ready";
-                     $status = 5;
-                     break;
-         case 221:   $message = "Service closing transmission channel";
-                     $status = 5;
-                     break;
-         case 421:   $message = "Service not available, closing chanel";
+         case 504:   $message = 'Command parameter not implemented';
                      $status = 0;
                      break;
 
 
-         case 250:   $message = "Requested mail action okay, completed";
+         case 211:   $message = 'System status, or system help reply';
                      $status = 5;
                      break;
-         case 251:   $message = "User not local; will forward";
+         case 214:   $message = 'Help message';
                      $status = 5;
                      break;
-         case 450:   $message = "Requested mail action not taken:  mailbox unavailable";
-                     $status = 0;
-                     break;
-         case 550:   $message = "Requested action not taken:  mailbox unavailable";
-                     $status = 0;
-                     break;
-         case 451:   $message = "Requested action aborted:  error in processing";
-                     $status = 0;
-                     break;
-         case 551:   $message = "User not local; please try forwarding";
-                     $status = 0;
-                     break;
-         case 452:   $message = "Requested action not taken:  insufficient system storage";
-                     $status = 0;
-                     break;
-         case 552:   $message = "Requested mail action aborted:  exceeding storage allocation";
-                     $status = 0;
-                     break;
-         case 553:   $message = "Requested action not taken: mailbox name not allowed";
-                     $status = 0;
-                     break;
-         case 354:   $message = "Start mail input; end with .";
+
+
+         case 220:   $message = 'Service ready';
                      $status = 5;
                      break;
-         case 554:   $message = "Transaction failed";
+         case 221:   $message = 'Service closing transmission channel';
+                     $status = 5;
+                     break;
+         case 421:   $message = 'Service not available, closing chanel';
                      $status = 0;
                      break;
-         default:    $message = "Unknown response: ". nl2br(htmlspecialchars($lines));
+
+
+         case 250:   $message = 'Requested mail action okay, completed';
+                     $status = 5;
+                     break;
+         case 251:   $message = 'User not local; will forward';
+                     $status = 5;
+                     break;
+         case 450:   $message = 'Requested mail action not taken:  mailbox unavailable';
                      $status = 0;
-                     $error_num = "001";
+                     break;
+         case 550:   $message = 'Requested action not taken:  mailbox unavailable';
+                     $status = 0;
+                     break;
+         case 451:   $message = 'Requested action aborted:  error in processing';
+                     $status = 0;
+                     break;
+         case 551:   $message = 'User not local; please try forwarding';
+                     $status = 0;
+                     break;
+         case 452:   $message = 'Requested action not taken:  insufficient system storage';
+                     $status = 0;
+                     break;
+         case 552:   $message = 'Requested mail action aborted:  exceeding storage allocation';
+                     $status = 0;
+                     break;
+         case 553:   $message = 'Requested action not taken: mailbox name not allowed';
+                     $status = 0;
+                     break;
+         case 354:   $message = 'Start mail input; end with .';
+                     $status = 5;
+                     break;
+         case 554:   $message = 'Transaction failed';
+                     $status = 0;
+                     break;
+         default:    $message = Unknown response: '. nl2br(htmlspecialchars($lines));
+                     $status = 0;
+                     $error_num = '001';
                      break;
       }
 
       if ($status == 0) {
-         displayPageHeader($color, "None");
-         echo "<TT>";
+         displayPageHeader($color, 'None');
+         echo '<TT>';
          echo "<br><b><font color=\"$color[1]\">ERROR</font></b><br><br>";
          echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Reason: </B>$message<BR>";
          $lines = nl2br(htmlspecialchars($lines));
          echo "<B>Server Response: </B>$lines<BR>";
-         echo "<BR>MAIL NOT SENT";
-         echo "</TT></BODY></HTML>";
+         echo '<BR>MAIL NOT SENT';
+         echo '</TT></BODY></HTML>';
          exit;
       }
       return $err_num;
@@ -492,7 +492,7 @@
 
       if ($reply_id) {
          sqimap_mailbox_select ($imap_stream, $mailbox);
-         sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, "Answered");
+         sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, 'Answered');
 
          // Insert In-Reply-To and References headers if the 
          // message-id of the message we reply to is set (longer than "<>")
@@ -500,8 +500,8 @@
          // with the message ID appended, but it can be only the message ID too.
          $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
          if(strlen($hdr->message_id) > 2) {
-            $more_headers["In-Reply-To"] = $hdr->message_id;
-            $more_headers["References"]  = $hdr->message_id;
+            $more_headers['In-Reply-To'] = $hdr->message_id;
+            $more_headers['References']  = $hdr->message_id;
          }
       }
 
