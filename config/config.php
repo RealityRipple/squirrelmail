@@ -27,18 +27,12 @@
     $motd = "  Welcome to OM's webmail system, SquirrelMail.  We are currently in beta, and have not yet released a full version of SquirrelMail.  Please feel free to look around, and please report any bugs to <A HREF=\"mailto:nathan@usa.om.org\">Nathan</A> or <A HREF=\"mailto:luke@usa.om.org\">Luke</A>.";
 
 //  Customizable colors
-    $color[0]   = "DCDCDC"; // Light Gray
-    $color[1]   = "800000"; // Red
-    $color[2]   = "CC0000"; // Light Red
-    $color[3]   = "A0B8C8"; // Left Background
-    $color[4]   = "FFFFFF"; // Background
-    $color[5]   = "FFFFCC"; // Light Yellow
-    $color[6]   = "000000"; // Left Text
-    $color[7]   = "0000CC"; // Link
-    $color[8]   = "000000"; // Text
-    $color[9]   = "ABABAB"; // Darker light gray
-    $color[10]  = "666666"; // Darker light gray
-    $color[11]  = "770000"; // Special folder color
+//     You can define your own theme and put it in this directory.  You must
+//     call it as the example below.  You can name the theme whatever you
+//     want.  For an example of a theme, see the ones included in the config
+//     directory.
+//   Example:   require("../config/default_theme.php");
+    require("../config/default_theme.php");
 
 //  Whether or not to use $color[11] for special folders.  If not, special
 //  folders will be the same color as the other folders
