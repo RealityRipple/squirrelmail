@@ -23,7 +23,7 @@ function squirrelmail_plugin_init_spamcop() {
    $squirrelmail_plugin_hooks['read_body_header_right']['spamcop'] =
       'spamcop_show_link';
 
-   sqextractGlobalVar('spamcop_is_composing');
+    sqgetGlobalVar('spamcop_is_composing' , $spamcop_is_composing);
       
    if (isset($spamcop_is_composing)) {
       $squirrelmail_plugin_hooks['compose_send']['spamcop'] =

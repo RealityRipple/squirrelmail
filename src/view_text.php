@@ -40,7 +40,7 @@ $key = $_COOKIE['key'];
 $delimiter = $_SESSION['delimiter'];
 $onetimepad = $_SESSION['onetimepad'];
 $QUERY_STRING = $_SERVER['QUERY_STRING'];
-sqextractGlobalVar('messages');
+sqgetGlobalVar('messages', $messages);
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);

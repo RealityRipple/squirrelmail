@@ -29,7 +29,7 @@ $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $base_uri = $_SESSION['base_uri'];
 
-sqextractGlobalVar('show');
+sqgetGlobalVar('show' , $show);
 if ( isset($_POST['query']) ) {
     $query = $_POST['query'];
 }

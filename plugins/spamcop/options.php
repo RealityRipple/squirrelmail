@@ -15,9 +15,9 @@ require_once(SM_PATH . 'include/validate.php');
 displayPageHeader($color, 'None');
    
 /* globals */
-sqextractGlobalVar('action');
-sqextractGlobalVar('meth');
-sqextractGlobalVar('ID');
+sqgetGlobalVar('action', $action);
+sqgetGlobalVar('meth', $meth);
+sqgetGlobalVar('ID' , $meth);
 extract($_SESSION);
 /* end of globals */
 
