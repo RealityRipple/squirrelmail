@@ -1,5 +1,6 @@
 Version 0.4pre2 -- DEVELOPMENT
 ------------------------------
+- HTML based search of address books (javascript an option)
 - Made folder listing look first at subscribed folders, making it
   faster, even if you don't have $folder_prefix set.
 - Fixed some bugs with default sent and trash folders
