@@ -3,7 +3,7 @@
 /**
  * This shows system specification details.
  *
- * Copyright (c) 1999-2005 The SquirrelMail development team
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This is a standard SquirrelMail 1.2 API for plugins.

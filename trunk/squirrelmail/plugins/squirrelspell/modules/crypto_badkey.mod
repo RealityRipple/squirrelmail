@@ -4,7 +4,7 @@
  * ------------------
  * Squirrelspell module
  *
- * Copyright (c) 1999-2005 The SquirrelMail development team
+ * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This module tries to decrypt the user dictionary with a newly provided
