@@ -33,7 +33,7 @@ sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
 sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
   $passed_id = (int) $temp;
-}  
+}
 
 /* end globals */
 
@@ -50,7 +50,7 @@ $subject = $message->rfc822_header->subject;
 if ($ent_id) {
     $message = &$message->getEntity($ent_id);
     $header = $message->header;
-    
+
     if ($message->rfc822_header) {
        $subject = $message->rfc822_header->subject;
     } else {
@@ -87,12 +87,12 @@ if (is_object($message->header->disposition)) {
     }
     if (!$filename) {
         $filename = $header->getParameter('name');
-    }    
+    }
 } else {
     $filename = $header->getParameter('name');
 }
 
-$filename = decodeHeader($filename, true, false);	//Don't want html output
+$filename = decodeHeader($filename, true, false);   //Don't want html output
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
@@ -133,79 +133,12 @@ if (strlen($filename) < 1) {
  *    content-type as application/octet-stream
  */
 if (isset($absolute_dl) && $absolute_dl) {
-    DumpHeaders($type0, $type1, $filename, 1);
+    SendDownloadHeaders($type0, $type1, $filename, 1);
 } else {
-    DumpHeaders($type0, $type1, $filename, 0);
+    SendDownloadHeaders($type0, $type1, $filename, 0);
 }
 /* be aware that any warning caused by download.php will corrupt the
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
 mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
 
-/*
- * This function is verified to work with Netscape and the *very latest*
- * version of IE.  I don't know if it works with Opera, but it should now.
- */
-function DumpHeaders($type0, $type1, $filename, $force) {
-    global $languages, $squirrelmail_language;
-    $isIE = $isIE6 = 0;
-
-    sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
-
-    if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
-        strstr($HTTP_USER_AGENT, 'Opera') === false) {
-        $isIE = 1;
-    }
-
-    if (strstr($HTTP_USER_AGENT, 'compatible; MSIE 6') !== false &&
-        strstr($HTTP_USER_AGENT, 'Opera') === false) {
-        $isIE6 = 1;
-    }
-
-    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        $filename = 
-            $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
-    } else {
-//     $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
-       $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', $filename);
-    }
-    // We don't need to care about " since they have been replaced by _
-    // A Pox on Microsoft and it's Office!
-    if (!$force) {
-        // Try to show in browser window
-        header("Content-Disposition: inline; filename=\"$filename\"");
-        header("Content-Type: $type0/$type1; name=\"$filename\"");
-    } else {
-        // Try to pop up the "save as" box
-        // IE makes this hard.  It pops up 2 save boxes, or none.
-        // http://support.microsoft.com/support/kb/articles/Q238/5/88.ASP
-        // But, accordint to Microsoft, it is "RFC compliant but doesn't
-        // take into account some deviations that allowed within the
-        // specification."  Doesn't that mean RFC non-compliant?
-        // http://support.microsoft.com/support/kb/articles/Q258/4/52.ASP
-        //
-        // The best thing you can do for IE is to upgrade to the latest
-        // version
-        if ($isIE && !$isIE6) {
-            // http://support.microsoft.com/support/kb/articles/Q182/3/15.asp
-            // Do not have quotes around filename, but that applied to
-            // "attachment"... does it apply to inline too?
-            //
-            // This combination seems to work mostly.  IE 5.5 SP 1 has
-            // known issues (see the Microsoft Knowledge Base)
-            header("Content-Disposition: inline; filename=$filename");
-            // This works for most types, but doesn't work with Word files
-            header("Content-Type: application/download; name=\"$filename\"");
-
-            // These are spares, just in case.  :-)
-            //header("Content-Type: $type0/$type1; name=\"$filename\"");
-            //header("Content-Type: application/x-msdownload; name=\"$filename\"");
-            //header("Content-Type: application/octet-stream; name=\"$filename\"");
-        } else {
-            header("Content-Disposition: attachment; filename=\"$filename\"");
-            // application/octet-stream forces download for Netscape
-            header("Content-Type: application/octet-stream; name=\"$filename\"");
-        }
-    }
-}
 ?>
