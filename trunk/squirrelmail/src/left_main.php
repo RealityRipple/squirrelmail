@@ -24,30 +24,13 @@ define('SM_BOX_COLLAPSED',   1);
 
 /* --------------------- FUNCTIONS ------------------------- */
 
-function isSpecialMailbox( $box ) {
-
-    global $trash_folder, $sent_folder, $draft_folder,
-           $move_to_trash, $move_to_sent, $save_as_draft;
-
-    $ret = ( (strtolower($box) == 'inbox') ||
-             (($box == $trash_folder) &&
-              ($move_to_trash)) ||
-             ((substr( $sent_folder, 0, strlen( $box ) ) == $box) &&
-              ($move_to_sent)) ||
-             (($box == $draft_folder) &&
-              ($save_as_draft)) );
-
-    return( $ret );
-
-}
-
 function formatMailboxName($imapConnection, $box_array) {
 
-    global $folder_prefix, $trash_folder, $sent_folder;
-    global $color, $move_to_sent, $move_to_trash;
-    global $unseen_notify, $unseen_type, $collapse_folders;
-    global $draft_folder, $save_as_draft;
-    global $use_special_folder_color;
+    global $folder_prefix, $trash_folder, $sent_folder,
+           $color, $move_to_sent, $move_to_trash,
+           $unseen_notify, $unseen_type, $collapse_folders,
+           $draft_folder, $save_as_draft,
+           $use_special_folder_color;
 
     $real_box = $box_array['unformatted'];
     $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
@@ -65,11 +48,11 @@ function formatMailboxName($imapConnection, $box_array) {
         $unseen = sqimap_unseen_messages($imapConnection, $real_box);
         if ($unseen_type == 1 && $unseen > 0) {
             $unseen_string = "($unseen)";
-            $unseen_found = true;
+            $unseen_found = TRUE;
         } else if ($unseen_type == 2) {
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
             $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
-            $unseen_found = true;
+            $unseen_found = TRUE;
         }
     }
 
@@ -87,7 +70,7 @@ function formatMailboxName($imapConnection, $box_array) {
         $line .= "<FONT COLOR=\"$color[11]\">";
     }
     $line .= str_replace(' ','&nbsp;',$mailbox);
-    if ($special_color == true)
+    if ($special_color == TRUE)
         $line .= "</FONT>";
     $line .= '</A>';
 
@@ -176,8 +159,8 @@ function create_collapse_link($boxnum) {
     $mailbox = urlencode($boxes[$boxnum]['unformatted']);
 
     /* Create the link for this collapse link. */
-    $link = '<a target="left" style="text-decoration:none" ';
-    $link .= 'href="left_main.php?';
+    $link = '<a target="left" style="text-decoration:none" ' .
+            'href="left_main.php?';
     if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
         $link .= "unfold=$mailbox\">+";
     } else {
@@ -238,7 +221,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
     }
 
     /* Let the world know that autocreation is complete! Hurrah! */
-    $auto_create_done = true;
+    $auto_create_done = TRUE;
     session_register('auto_create_done');
 }
 
@@ -304,10 +287,12 @@ $curbox = 0;
 $boxcount = count($boxes);
 
 /* Compute the collapsedness and visibility of each box. */
+
 while ($curbox < $boxcount) {
     $boxes[$curbox]['visible'] = TRUE;
     compute_folder_children($curbox, $boxcount);
 }
+
 
 for ($i = 0; $i < count($boxes); $i++) {
     if ( $boxes[$i]['visible'] ) {
@@ -328,6 +313,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         if (! isset($color[15])) {
             $color[15] = $color[6];
         }
+
         if (in_array('noselect', $boxes[$i]['flags'])) {
             if( isSpecialMailbox( $boxes[$i]['unformatted']) ) {
                 $line .= "<FONT COLOR=\"$color[11]\">";
