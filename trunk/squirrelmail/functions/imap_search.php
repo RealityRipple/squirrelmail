@@ -30,7 +30,12 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    fputs($imapConnection,$ss);
 
    # Read Data Back From IMAP
-   $readin = sqimap_read_data ($imapConnection, "a001", true, $result, $message);
+   $readin = sqimap_read_data ($imapConnection, "a001", false, $result, $message);
+   if (isset($languages[$squirrelmail_language]["CHARSET"]) && strtolower($result) == "no") { 
+      $ss = "a001 SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"\r\n";
+      fputs ($imapConnection, $ss);
+      $readin = sqimap_read_data ($imapConnection, "a001", true, $result, $message);
+   }
    unset($messagelist); $msgs=""; $c = 0;
 
    #Keep going till we find the SEARCH responce

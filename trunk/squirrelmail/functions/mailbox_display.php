@@ -38,7 +38,7 @@
          $flag = '';
          $flag_end = '';
       }
-      if (!isset($msg['FLAG_SEEN']) && $msg['FLAG_SEEN'] == false) 
+      if (!isset($msg['FLAG_SEEN']) || $msg['FLAG_SEEN'] == false) 
       { 
          $bold = '<b>'; 
          $bold_end = '</b>'; 
