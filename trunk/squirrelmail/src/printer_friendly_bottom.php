@@ -70,7 +70,7 @@ if ($show_html_default == 1) {
 $body = '';
 if ($ent_ar[0] != '') {
   for ($i = 0; $i < count($ent_ar); $i++) {
-     $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
+     $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox, TRUE);
      $body .= '<hr style="height: 1px;" />';
   }
   $hookResults = do_hook('message_body', $body);
@@ -116,24 +116,24 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
      /* headers (we use table because translations are not all the same width) */
      html_tag( 'table', '', 'center', '', 'cellspacing="0" cellpadding="0" border="0" width="100%"' ) .
      html_tag( 'tr',
-         html_tag( 'td', _("From").'&nbsp;', 'left' ,'','valign="top"') .
+         html_tag( 'td', '<b>'._("From").':</b>&nbsp;', 'left' ,'','valign="top"') .
          html_tag( 'td', $from, 'left' )
      ) . "\n" .
      html_tag( 'tr',
-         html_tag( 'td', _("Subject").'&nbsp;', 'left','','valign="top"' ) .
+         html_tag( 'td', '<b>'._("Subject").':</b>&nbsp;', 'left','','valign="top"' ) .
          html_tag( 'td', $subject, 'left' )
      ) . "\n" .
      html_tag( 'tr',
-         html_tag( 'td', _("Date").'&nbsp;', 'left' ) .
+         html_tag( 'td', '<b>'._("Date").':</b>&nbsp;', 'left' ) .
          html_tag( 'td', htmlspecialchars($date), 'left' )
      ) . "\n" .
      html_tag( 'tr',
-         html_tag( 'td', _("To").'&nbsp;', 'left','','valign="top"' ) .
+         html_tag( 'td', '<b>'._("To").':</b>&nbsp;', 'left','','valign="top"' ) .
          html_tag( 'td', $to, 'left' )
     ) . "\n";
     if ( strlen($cc) > 0 ) { /* only show Cc: if it's there... */
          echo html_tag( 'tr',
-             html_tag( 'td', _("Cc").'&nbsp;', 'left','','valign="top"' ) .
+             html_tag( 'td', '<b>'._("Cc").':</b>&nbsp;', 'left','','valign="top"' ) .
              html_tag( 'td', $cc, 'left' )
          );
      }
