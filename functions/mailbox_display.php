@@ -490,7 +490,7 @@ function mail_message_listing_beginning
        . "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n"
        . "   <TR>\n"
        . "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n"
-       . '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n"
+       . '         <SMALL>&nbsp;' . _("Move Selected To:") . "</SMALL>\n"
        . "      </TD>\n"
        . "      <TD ALIGN=RIGHT NOWRAP>\n"
        . '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n"
