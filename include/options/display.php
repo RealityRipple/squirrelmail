@@ -188,7 +188,6 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-echo "use icons? $use_icons<br>";
     if ($use_icons) {
         global $icon_themes, $icon_theme;
         $temp = array();
