@@ -30,6 +30,13 @@ if (! isset($use_smtp_tls)) {
   $use_smtp_tls = false;
 }
 
+/**
+ * Check if user has previously logged in to the Squirrelmail session.  If user
+ * has not logged in, execution will stop inside this function.
+ *
+ * @return int A positive value is returned if user has previously logged in
+ * successfully.
+ */
 function is_logged_in() {
 
     if ( sqsession_is_registered('user_is_logged_in') ) {
@@ -56,20 +63,39 @@ function is_logged_in() {
     }
 }
 
+/**
+ * Given the challenge from the server, supply the response using cram-md5 (See
+ * RFC 2195 for details)
+ *
+ * @param string $username User ID
+ * @param string $password User password supplied by User
+ * @param string $challenge The challenge supplied by the server
+ * @return string The response to be sent to the IMAP server
+ *
+ */
 function cram_md5_response ($username,$password,$challenge) {
-
-/* Given the challenge from the server, supply the response using
-   cram-md5 (See RFC 2195 for details)
-*/
-$challenge=base64_decode($challenge);
-$hash=bin2hex(hmac_md5($challenge,$password));
-$response=base64_encode($username . " " . $hash) . "\r\n";
-return $response;
+    $challenge=base64_decode($challenge);
+    $hash=bin2hex(hmac_md5($challenge,$password));
+    $response=base64_encode($username . " " . $hash) . "\r\n";
+    return $response;
 }
 
+/**
+ * Return Digest-MD5 response.
+ * Given the challenge from the server, calculate and return the
+ * response-string for digest-md5 authentication.  (See RFC 2831 for more
+ * details)
+ *
+ * @param string $username User ID
+ * @param string $password User password supplied by User
+ * @param string $challenge The challenge supplied by the server
+ * @param string $service The service name, usually 'imap'; it is used to
+ *   define the digest-uri.
+ * @param string $host The host name, usually the server's FQDN; it is used to
+ *   define the digest-uri.
+ * @return string The response to be sent to the IMAP server
+ */
 function digest_md5_response ($username,$password,$challenge,$service,$host) {
-/* Given the challenge from the server, calculate and return the response-string
-   for digest-md5 authentication.  (See RFC 2831 for more details) */
   $result=digest_md5_parse_challenge($challenge);
   
 // verify server supports qop=auth
@@ -115,10 +141,15 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
  
 }
 
+/**
+ * Parse Digest-MD5 challenge.
+ * This function parses the challenge sent during DIGEST-MD5 authentication and
+ * returns an array. See the RFC for details on what's in the challenge string.
+ *
+ * @param string $challenge Digest-MD5 Challenge
+ * @return array Digest-MD5 challenge decoded data
+ */
 function digest_md5_parse_challenge($challenge) {
-/* This function parses the challenge sent during DIGEST-MD5 authentication and
-   returns an array. See the RFC for details on what's in the challenge string.
-*/
   $challenge=base64_decode($challenge);
   while (isset($challenge)) {
     if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
@@ -154,10 +185,17 @@ function digest_md5_parse_challenge($challenge) {
   return $parsed;
 }
 
+/**
+ * Creates a HMAC digest that can be used for auth purposes
+ * See RFCs 2104, 2617, 2831
+ * Uses mhash() extension if available
+ *
+ * @param string $data Data to apply hash function to.
+ * @param string $key Optional key, which, if supplied, will be used to
+ * calculate data's HMAC.
+ * @return string HMAC Digest string
+ */
 function hmac_md5($data, $key='') {
-    // Creates a HMAC digest that can be used for auth purposes
-    // See RFCs 2104, 2617, 2831
-    // Uses mhash() extension if available
     if (extension_loaded('mhash')) {
       if ($key== '') {
         $mhash=mhash(MHASH_MD5,$data);
