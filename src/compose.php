@@ -663,6 +663,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
         $identity = '';
         $from_o = $orig_header->from;
+        if (is_array($from_o)) {
+            if (isset($from_o[0])) {
+                $from_o = $from_o[0];
+            }
+        }
         if (is_object($from_o)) {
             $orig_from = $from_o->getAddress();
         } else {
@@ -684,8 +689,6 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             if ($identity_match) {
                 $identity = $identity_match;
             }
-        // we need identiy here fore draft case #845290
-        // echo $identity."leer";
         }
 
         switch ($action) {
