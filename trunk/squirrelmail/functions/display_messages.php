@@ -14,7 +14,7 @@
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>ERROR</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>". _("Unknown user or password incorrect.") ."<BR><A HREF=\"login.php\" TARGET=_top>". _("Click here to try again") ."</A>.</FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
       echo "</BODY></HTML>";
@@ -26,7 +26,7 @@
       echo "<TABLE COLS=1 WIDTH=100% CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR=\"FFFFFF\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Welcome to $org_name's WebMail system</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>". _("Welcome to $org_name's WebMail system") ."</CENTER></B></FONT>";
       echo "   <TR><TD BGCOLOR=\"FFFFFF\">";
       echo "      <TABLE COLS=2 WIDTH=90% CELLSPACING=0 CELLPADDING=3 NOBORDER align=\"center\">";
       echo "         <TR>";
@@ -35,7 +35,7 @@
          echo "               <IMG SRC=\"$org_logo\">";
       else
          echo "               <B><FONT FACE=\"Arial,Helvetica\">$org_name</FONT></B>";
-      echo "         <BR><FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>Running SquirrelMail version $version (c) 1999-2000.</CENTER></FONT><BR>";
+      echo "         <BR><FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>". _("Running SquirrelMail version $version (c) 1999-2000.") ."</CENTER></FONT><BR>";
       echo "            </CENTER></TD></TR><TR>";
       echo "            <TD BGCOLOR=\"FFFFFF\">";
       echo "               <FONT FACE=\"Arial,Helvetica\">$motd</FONT>";
@@ -53,12 +53,12 @@
       echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Deleted</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>". _("Messages Deleted") ."</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were deleted successfully.<BR>\n";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>". _("The selected messages were deleted successfully.") ."<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              Click here to return to $mailbox</A>.";
+      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
       echo "      </FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
@@ -70,12 +70,12 @@
       echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Messages Moved</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>". _("Messages Moved") ."</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>The selected messages were moved successfully.<BR>\n";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>". _("The selected messages were moved successfully.") ."<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              Click here to return to $mailbox</A>.";
+      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
       echo "      </FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
@@ -87,12 +87,12 @@
       echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>ERROR</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>". _("ERROR") ."</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>$message<BR>\n";
       echo "      <BR>";
       echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      echo "              Click here to return to $mailbox</A>.";
+      echo "              ". _("Click here to return to ") ."$mailbox</A>.";
       echo "      </FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
@@ -103,7 +103,7 @@
       echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>ERROR</CENTER></B></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>. _("ERROR") .</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>$message";
       echo "      </FONT></CENTER>";
