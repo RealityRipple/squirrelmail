@@ -142,8 +142,7 @@ if (isset($send)) {
         /*
          * Rewrap $body so that no line is bigger than $editor_size
          * This should only really kick in the sqWordWrap function
-         * if the browser doesn't support "HARD" as the wrap type
-         * Or, in Opera's case, something goes wrong.
+         * if the browser doesn't support "VIRTUAL" as the wrap type.
          */
         $body = explode("\n", $body);
         $newBody = '';
