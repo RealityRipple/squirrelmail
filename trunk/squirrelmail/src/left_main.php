@@ -73,7 +73,7 @@
       }
       
       $special_color = false;
-      if (($real_box == "inbox") ||
+      if ((strtolower($real_box) == "inbox") ||
 	  (($real_box == $trash_folder) && ($move_to_trash)) ||
 	  (($real_box == $sent_folder) && ($move_to_sent)))
 	 $special_color = true;
