@@ -16,7 +16,11 @@
  * @version $Date$
  */
 
-global $use_langs, $lang_default, $SQSPELL_APP_DEFAULT;
+global $SQSPELL_APP_DEFAULT;
+
+$use_langs = $_POST['use_langs'];
+$lang_default = $_POST['lang_default'];
+
 $words = sqspell_getWords();
 if (!$words) {
   $words = sqspell_makeDummy();

@@ -19,8 +19,9 @@
 /**
  * Declaring globals for E_ALL
  */
-global $action, $SQSPELL_CRYPTO;
-switch ($action){
+global $SQSPELL_CRYPTO;
+
+switch ($_POST['action']){
   case 'encrypt':
     /**
      * Let's encrypt the file and save it in an encrypted format.

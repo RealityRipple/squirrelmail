@@ -15,7 +15,11 @@
  * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
  */
 
-global $words, $SQSPELL_VERSION, $SQSPELL_APP_DEFFAULT, $sqspell_use_app;
+global $SQSPELL_VERSION, $SQSPELL_APP_DEFFAULT;
+
+$words = $_POST['words'];
+$sqspell_use_app = $_POST['sqspell_use_app'];
+
 /**
  * Because of the nature of Javascript, there is no way to efficiently
  * pass an array. Hence, the words will arrive as a string separated by
