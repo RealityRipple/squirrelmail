@@ -4,6 +4,7 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Fix for entities in cc and bcc fields on message display (bug #522493)
   - Fixes for quoted values in the addressbook by David Rees (bug #538389)
   - Fixed src/src problem (bug #538803)
   - Fixed so non-ascii searches no longer fail both when searching
