@@ -392,7 +392,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
     $header = $message->rfc822_header;
     $env = array();
-    $env[_("Subject")] = decodeHeader($header->subject);
+    $env[_("Subject")] = str_replace("&nbsp;"," ",decodeHeader($header->subject));
     $from_name = $header->getAddr_s('from');
     if (!$from_name) {
         $from_name = $header->getAddr_s('sender');
