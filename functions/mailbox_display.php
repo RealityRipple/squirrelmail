@@ -73,6 +73,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     if (handleAsSent($mailbox)) {
        $msg['FROM'] = $msg['TO'];
     }
+    $msg['FROM'] = parseAddress($msg['FROM']);
+    
        /*
         * This is done in case you're looking into Sent folders,
         * because you can have multiple receivers.
@@ -95,7 +97,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 
     $msg['SUBJECT'] = decodeHeader($msg['SUBJECT']);
     $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
-
+    
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
@@ -137,6 +139,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     * Who wrote this?!
     */
     if (is_array($message_highlight_list) && count($message_highlight_list)) {
+	$msg['TO'] = parseAddress($msg['TO']);
+	$msg['CC'] = parseAddress($msg['CC']);
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
                 $high_val   = strtolower($message_highlight_list_part['value']);
