@@ -228,7 +228,9 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
         for (; $i <= $Count; $i++) {
             Mail_Fetch_Status(_("Fetching message ") . "$i" );
-            set_time_limit(20); // 20 seconds per message max
+
+            if (!ini_get('safe_mode'))
+                set_time_limit(20); // 20 seconds per message max
             $Message = '';
             $MessArray = $pop3->get($i);
 

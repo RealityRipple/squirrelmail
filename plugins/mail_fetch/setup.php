@@ -166,7 +166,8 @@
                     $outMsg .= _("Server does not support UIDL.");
 
                 for (; $i <= $Count; $i++) {
-                    set_time_limit(20); // 20 seconds per message max
+                    if (!ini_get('safe_mode'))
+                        set_time_limit(20); // 20 seconds per message max
                     $Message = "";
                     $MessArray = $pop3->get($i);
 
