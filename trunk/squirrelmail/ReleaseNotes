@@ -55,7 +55,7 @@ A note on plugins
 There have been major plugin architecture improvements. Lots of plugins
 have not yet been adapted to this. Plugins which are distributed with
 this release (eg. in the same .tar.gz file) should work. Plugin authors
-will need some time to adapt their plugins, so quite some plugins 
+will need some time to adapt their plugins, so quite a few plugins 
 might not work.
 
 So if you have ANY problem at all, first try turning off all plugins.
