@@ -12,7 +12,7 @@
 require_once ('../src/validate.php');
 
 /* Print all the needed RFC822 headers */
-function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {
+function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, $session) {
     global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
     global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
     global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -84,7 +84,7 @@ function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {
         /* Do the MIME-stuff */
         $header .= "MIME-Version: 1.0\r\n";
 
-        if (isMultipart()) {
+        if (isMultipart($session)) {
             $header .= 'Content-Type: multipart/mixed; boundary="';
             $header .= mimeBoundary();
             $header .= "\"\r\n";
@@ -107,12 +107,12 @@ function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {
 }
 
 /* Send the body */
-function writeBodyForDraft ($fp, $passedBody) {
+function writeBodyForDraft ($fp, $passedBody, $session) {
     global $default_charset;
 
     $attachmentlength = 0;
 
-    if (isMultipart()) {
+    if (isMultipart($session)) {
         $body = '--'.mimeBoundary()."\r\n";
 
         if ($default_charset != ""){
@@ -141,7 +141,7 @@ function writeBodyForDraft ($fp, $passedBody) {
 }
 
 
-function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
+function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $session) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
            $data_dir, $username, $domain, $key, $version, $sent_folder,
            $imapServerAddress, $imapPort, $draft_folder, $attachment_dir;
@@ -160,8 +160,8 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
     $fp = fopen($full_tmpDraftFile, 'w');
 
     $headerlength = write822HeaderForDraft
-        ($fp, $t, $c, $b, $subject, $more_headers, FALSE);
-    $bodylength = writeBodyForDraft ($fp, $body, FALSE);
+        ($fp, $t, $c, $b, $subject, $more_headers, FALSE, $session);
+    $bodylength = writeBodyForDraft ($fp, $body, FALSE, $session);
     fclose($fp);
 
     $length = ($headerlength + $bodylength);
@@ -169,13 +169,13 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id) {
     if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
         sqimap_append ($imap_stream, $draft_folder, $length);
         write822HeaderForDraft
-            ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE);
-        writeBodyForDraft ($imap_stream, $body, TRUE);
+            ($imap_stream, $t, $c, $b, $subject, $more_headers, TRUE, $session);
+        writeBodyForDraft ($imap_stream, $body, TRUE, $session);
         sqimap_append_done ($imap_stream);
     }
     sqimap_logout($imap_stream);
     if ($length){
-        ClearAttachments();
+        ClearAttachments($session);
     }
     if (file_exists($full_tmpDraftFile)){
         unlink ($full_tmpDraftFile);
