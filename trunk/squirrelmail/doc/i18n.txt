@@ -64,17 +64,44 @@ Valid language codes are:
 -------------------
 2. $languages array
 -------------------
-TODO: add explanation of $languages array keys
+$languages array is stored in functions/i18n.php and defines translations
+that are enabled in SquirrelMail.
+
+Format of array:
+    $languages['language_code']['key'] = 'value'
+
+Possible array key names:
+* NAME      - Translation name in English. Any 8bit symbols must be html encoded.
+* CHARSET   - Charset used by translation
+* ALIAS     - 'language_code' should contain short language name
+              (iso-639). 'value' should contain name of other 'language_code'
+              that defines translation with NAME and CHARSET keys.
+              Entry links short language form with long form (language+country).
+              See: http://www.loc.gov/standards/iso639-2/langhome.html and
+              http://www.iso.org/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
+* ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
+              Name is visible when $show_alternative_names is enabled.
+* LOCALE    - Full locale name (in xx_XX.charset format or other format required
+              by php gettext functions). From 1.4.4/1.5.1 'value' can contain
+              array. If php version is older than 4.3.0, system uses only first
+              locale name listed in array. First locale name must be compatible 
+              with FreeBSD system locale names.
+* DIR       - Text direction. Used to define Right-to-Left languages. Possible 
+              values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'.
+* XTRA_CODE - translation uses special functions. (see chapter 3. XTRA_CODE functions)
+
+Each 'language_code' definition requires NAME+CHARSET or ALIAS keys. Other keys are
+optional.
 
 ----------------------
 3. XTRA_CODE functions
 ----------------------
-XTRA_CODE functions provides way to change interface behaviour, when translation
-requires special handling of some squirrelmail functions. Functions are enabled
-by setting XTRA_CODE option in $languages array and providing appropriate
-functions. First part of function name is word listed in
-$languages['language_code']['XTRA_CODE'] setting. Second part is one of special
-keywords. Possible values:
+XTRA_CODE functions provide way to change interface behavior, when translation
+requires special handling of some SquirrelMail functions. Functions are enabled
+by setting XTRA_CODE option in $languages array and including appropriate
+functions in functions/i18n.php. First part of function name is word listed in
+$languages['language_code']['XTRA_CODE'] value. Second part is one of special
+keywords. Possible keywords:
 * _decode
 Used in src/compose.php, src/i18n.php, src/view_text.php, functions/mime.php
 Requires mbstring support
@@ -111,9 +138,28 @@ Used in functions/strings.php (sqWordWrap)
 --------------------------------
 4. Display of different charsets
 --------------------------------
-TODO: add explanation of decoding functions
+When SquirrelMail generates html pages, it uses charset set by translation
+selected by end user. Interface can display emails encoded in different
+charsets. In order to display characters that might be unsupported by user's
+charset, SquirrelMail uses decoding functions that convert non us-ascii symbols
+into html entities. All decoding functions are stored in functions/decode/
+directory.
+
+By default SquirrelMail includes decoding functions that support iso-8859-x,
+windows-125x, utf-8, us-ascii, koi8-r, koi8-u, tis-620, ns-4551_1, iso-ir-111,
+cp855 and cp866 charsets. Other decoding functions are distributed in separate
+packages. Separate packaging of decoding functions is supported from
+SquirrelMail 1.4.4 and 1.5.0.
+
+Some decoding functions might require php recode support. If your php
+installation does not support recode, you might be using slower and cpu/memory
+intensive functions.
 
 --------------------
 5. IMAP folder names
 --------------------
-TODO: add explanation about UTF7-IMAP and mbstring
+IMAP folder names use UTF7-IMAP charset. Folder names that are stored in
+conf.pl must be encoded in UTF7-IMAP charset. SquirrelMail uses internal
+functions that convert folder names from/to utf7-imap charset. By default those
+functions work with iso-8859-1 charset. Other iso-8859-x and utf-8 charsets are
+supported only when php installation contains mbstring support.
