@@ -19,18 +19,6 @@ require_once('../functions/array.php');
 require_once('../functions/options.php');
 require_once('../functions/strings.php');
 
-/* Set the base uri. */
-ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-$base_uri = $regs[1];
-
-/* First and foremost, deal with language stuff. */
-if (isset($language)) {
-    setcookie('squirrelmail_language', $language, time()+2592000, $base_uri);
-    $squirrelmail_language = $language;
-} else {
-    $language = getPref($data_dir, $username, 'language');
-}
-
 /*********************************/
 /*** Build the resultant page. ***/
 /*********************************/
@@ -75,6 +63,51 @@ function process_optionmode_link($optpage) {
    /* There will be something here, later. */
 }
 
+
+/**
+ * This function prints out an option page row.
+ */
+function print_optionpages_row($leftopt, $rightopt = false) {
+    global $color;
+
+    echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=5 BORDER=0>" .
+            '<TR><TD VALIGN="TOP">' .
+               '<TABLE WIDTH="100%" CELLPADDING="3" CELLSPACING="0" BORDER="0">' .
+                  '<TR>' .
+                     "<TD VALIGN=TOP BGCOLOR=\"$color[9]\" WIDTH=\"49%\">" .
+                        '<A HREF="' . $leftopt['url'] . '">' . $leftopt['name'] . '</A>'.
+                     '</TD>'.
+                     "<TD VALIGN=TOP BGCOLOR=\"$color[4]\" WIDTH=\"2%\">&nbsp;</TD>";
+    if ($rightopt) {
+        echo         "<TD VALIGN=top BGCOLOR=\"$color[9]\" WIDTH=\"49%\">" .
+                        '<A HREF="' . $rightopt['url'] . '">' . $rightopt['name'] . '</A>' .
+                     '</TD>';
+    } else {
+        echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"49%\">&nbsp;</TD>";
+    }
+
+    echo          '</TR>' .
+                  '<TR>' .
+                     "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"49%\">" .
+                        $leftopt['desc'] .
+                     '</TD>' .
+                     "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"\2%\">&nbsp;</TD>";
+    if ($rightopt) {
+        echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"49%\">" .
+                        $rightopt['desc'] .
+                     '</TD>';
+    } else {
+        echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"49%\">&nbsp;</TD>";
+    }
+    
+    echo          '</TR>' . 
+               '</TABLE>' .
+            '</TD></TR>' .
+         "</TABLE>\n";
+}
+
+/* ---------------------------- main ---------------------------- */
+
 /* Make sure we have an Option Page set. Default to main. */
 if (!isset($optpage)) {
     $optpage = 'main';
@@ -85,9 +118,9 @@ if (!isset($optmode)) {
     $optmode = SMOPT_MODE_DISPLAY;
 }
 
-/*************************************************************/
-/*** First, set the load information for each option page. ***/
-/*************************************************************/
+/*
+ * First, set the load information for each option page.   
+ */
 
 /* Initialize load information variables. */
 $optpage_name = '';
@@ -167,16 +200,12 @@ if (isset($optpage_name) && ($optpage_name != '')) {
     $optpage_title .= " - $optpage_name";
 }
 
-?>
-
-<BR>
-<TABLE BGCOLOR="<?php echo $color[0] ?>" WIDTH="95%" ALIGN="CENTER" CELLPADDING="2" CELLSPACING="0" BORDER="0">
-<TR><TD ALIGN="CENTER">
-    <B><?php echo $optpage_title; ?></B><BR>
-    <TABLE WIDTH="100%" BORDER="0" CELLPADDING="5" CELLSPACING="0">
-    <TR><TD BGCOLOR="<?php echo $color[4] ?>" ALIGN="CENTER">
-
-<?php
+echo '<BR>' .
+     "<TABLE BGCOLOR=\"$color[0]\" WIDTH=\"95%\" ALIGN=\"CENTER\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\">\n".
+    '<TR><TD ALIGN="CENTER">'.
+    "<B>$optpage_title</B><BR>\n".
+    '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="5" CELLSPACING="0">'.
+    "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=\"CENTER\">\n";
 
 /*******************************************************************/
 /* DO OLD SAVING OF SUBMITTED OPTIONS. THIS WILL BE REMOVED LATER. */
@@ -389,76 +418,10 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     }
 }
 
-?>
-    </TD></TR>
-    </TABLE>
-
-</TD></TR>
-</TABLE>
-
-</BODY></HTML>
-
-<?php
-
-    /*******************************************************************/
-    /* Please be warned. The code below this point sucks. This is just */
-    /* my first implementation to make the option rows work for both   */
-    /* Javascript and non-Javascript option chunks.                    */
-    /*                                                                 */
-    /* Please, someone make these better for me. All three functions   */
-    /* below REALLY do close to the same thing.                        */
-    /*                                                                 */
-    /* This code would be GREATLY improved by a templating system.     */
-    /* Don't try to implement that now, however. That will come later. */
-    /*******************************************************************/
-
-    /*******************************************************************/
-    /* Actually, now that I think about it, don't do anything with     */
-    /* this code yet. There is ACTUALLY supposed to be a difference    */
-    /* between the three functions that write the option rows. I just  */
-    /* have not yet gotten to integrating that yet.                    */
-    /*******************************************************************/
-
-    /**
-     * This function prints out an option page row.
-     */
-    function print_optionpages_row($leftopt, $rightopt = false) {
-        global $color;
-
-        echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=5 BORDER=0>" .
-                '<TR><TD VALIGN="TOP">' .
-                   '<TABLE WIDTH="100%" CELLPADDING="3" CELLSPACING="0" BORDER="0">' .
-                      '<TR>' .
-                         "<TD VALIGN=TOP BGCOLOR=\"$color[9]\" WIDTH=\"50%\">" .
-                            '<A HREF="' . $leftopt['url'] . '">' . $leftopt['name'] . '</A>'.
-                         '</TD>'.
-                         "<TD VALIGN=TOP BGCOLOR=\"$color[4]\">&nbsp;</TD>";
-        if ($rightopt) {
-            echo         "<TD VALIGN=top BGCOLOR=\"$color[9]\" WIDTH=\"50%\">" .
-                            '<A HREF="' . $rightopt['url'] . '">' . $rightopt['name'] . '</A>' .
-                         '</TD>';
-        } else {
-            echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
-        }
-
-        echo          '</TR>' . "\n" .
-                      '<TR>' .
-                         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"50%\">" .
-                            $leftopt['desc'] .
-                         '</TD>' .
-                         "<TD VALIGN=top BGCOLOR=\"$color[4]\">&nbsp;</TD>";
-        if ($rightopt) {
-            echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"50%\">" .
-                            $rightopt['desc'] .
-                         '</TD>';
-        } else {
-            echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
-        }
-        
-        echo          '</TR>' . "\n" .
-                   '</TABLE>' .
-                '</TD></TR>' .
-             "</TABLE>\n";
-    }
+echo        '</TD></TR>' .
+        '</TABLE>'.
+        '</TD></TR>'.
+     '</TABLE>' .
+     '</BODY></HTML>';
 
 ?>

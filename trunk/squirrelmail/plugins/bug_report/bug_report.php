@@ -28,7 +28,7 @@ require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/i18n.php');
 require_once('../src/load_prefs.php');
-displayPageHeader($color, "None");
+displayPageHeader($color, 'None');
 
 
 function Show_Array($array) {
