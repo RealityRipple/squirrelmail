@@ -69,6 +69,7 @@ Version 1.5.1 -- CVS
   - Prefs caching didn't work properly with register_globals off (#995102).
   - Security: fix SQL injection vulnerability in addressbook
     (CVE ID: CAN-2004-0521).
+  - Removed html_top and html_bottom hooks.  No longer used/needed.
 
 Version 1.5.0
 --------------------
