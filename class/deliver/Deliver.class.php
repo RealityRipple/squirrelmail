@@ -313,6 +313,9 @@ class Deliver {
     	    }
 	}
         $header[] = $contenttype . $rn;
+	if ($encoding = $rfc822_header->encoding) {
+            $header[] .= 'Content-Transfer-Encoding: ' . $encoding .  $rn;
+        }        
         if ($rfc822_header->dnt) {
 	    $dnt = $rfc822_header->getAddr_s('dnt'); 
     	    /* Pegasus Mail */
