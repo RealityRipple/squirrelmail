@@ -591,7 +591,7 @@ function translate_form_go($message) {
  * @access private
  */
 function translate_form_intertran($message) {
-    translate_new_form('http://www.tranexp.com:2000/InterTran');
+    translate_new_form('http://intertran.tranexp.com/Translate/result.shtml');
     echo '<input type="hidden" name="topframe" value="yes" />'.
          '<input type="hidden" name="type" value="text" />'.
          '<input type="hidden" name="keyb" value="non" />'.
@@ -773,7 +773,7 @@ function translate_form_dictionary($message) {
  * @access private
  */
 function translate_form_otenet($message) {
-    translate_new_form('http://systran.otenet.gr/cgi-bin/systran.cgi');
+    translate_new_form('http://trans.otenet.gr/systran/box');
 ?>
     <input type="hidden" name="doit" value="done" />
     <input type="hidden" name="partner" value="OTEnet-en" />
