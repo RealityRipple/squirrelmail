@@ -141,7 +141,7 @@
             (ereg("^".$folder_prefix, $mailbox)) ||
             ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
             $indent = $dm_count - (countCharInString($folder_prefix, $dm));
-            if ($indent)
+            if ($indent > 0)
                 $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
             else
                 $boxes[$g]["formatted"] = '';
