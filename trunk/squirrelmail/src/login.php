@@ -118,7 +118,7 @@ html_tag( 'table',
                                     '<input type=hidden name="just_logged_in" value=1>' . "\n",
                                 'left', '', 'width="*"' )
                             ) ,
-                        'center', '#ffffff', 'border="0" cols="2" width="100%"' ) ,
+                        'center', '#ffffff', 'border="0" width="100%"' ) ,
                     'left', '#FFFFFF' )
                 ) . 
                 html_tag( 'tr',
@@ -126,7 +126,7 @@ html_tag( 'table',
                         '<center><input type="submit" value="' . _("Login") . '"></center>',
                     'left' )
                 ),
-            '', '#ffffff', 'border="0" cols="1" width="350"' ),
+            '', '#ffffff', 'border="0" width="350"' ) . '</center>',
         'center' )
     ) ,
 '', '#ffffff', 'border="0" cellspacing="0" cellpadding="0" width="100%"' ) .
