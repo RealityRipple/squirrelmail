@@ -91,6 +91,8 @@
          setPref($data_dir, $username, 'move_to_sent', '0');
          setPref($data_dir, $username, 'sent_folder', 'none');
       } 
+      if (isset($folderprefix))
+         setPref($data_dir, $username, 'folder_prefix', $folderprefix);
       setPref($data_dir, $username, 'unseen_notify', $unseennotify);
       setPref($data_dir, $username, 'unseen_type', $unseentype);
       if (isset($collapsefolders))
