@@ -479,7 +479,7 @@
 
    // figures out what entity to display and returns the $message object
    // for that entity.
-   function findDisplayEntity ($message, $next = 'none')
+   function findDisplayEntity ($message, $textOnly = 1, $next = 'none')
    {
       global $show_html_default;
       
@@ -495,6 +495,7 @@
 	   // all be true.  Show it, if the user so desires.
 	   // HTML mails this way all have entity_id of 2.  1 = text/plain
 	   if ($next != 'none' &&
+	       $textOnly == 0 &&
 	       $next->header->type0 == "text" &&
 	       $next->header->type1 == "html" &&
 	       $next->header->entity_id == 2 &&
@@ -513,7 +514,8 @@
 		$next = 'none';
 		if (isset($message->entities[$i + 1]))
 		  $next = $message->entities[$i + 1];
-		$entity = findDisplayEntity($message->entities[$i], $next);
+		$entity = findDisplayEntity($message->entities[$i],
+                  $textOnly, $next);
 		if ($entity != 0)
 		  return $entity;
 	     }   
@@ -536,7 +538,8 @@
       $urlmailbox = urlencode($message->header->mailbox);
 
       // Get the right entity and redefine message to be this entity
-      $ent_num = findDisplayEntity ($message);
+      // Pass the 0 to mean that we want the 'best' viewable one
+      $ent_num = findDisplayEntity ($message, 0);
       $body_message = getEntity($message, $ent_num);
       if (($body_message->header->type0 == "text") || 
           ($body_message->header->type0 == "rfc822")) {
