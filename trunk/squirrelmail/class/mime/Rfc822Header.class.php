@@ -305,7 +305,11 @@ class Rfc822Header {
             $name = "$group";
             $addr_structure->personal = $name;
             $addr_ar[] = $addr_structure;
-            return (array($addr_ar, $pos+1));
+            return (array($addr_ar,$pos+1 ));
+	} elseif ($group) {
+            $addr_structure->personal = $name;
+            $addr_ar[] = $addr_structure;
+	    return (array($addr_ar,$pos+1 ));
         } else {
             $addr_structure->personal = $name;
             if ($name || $addr) {
