@@ -104,17 +104,10 @@ if (isset($action) && $action == 'spam') {
                 html_tag( 'td', '', 'left' ) .
                     '<select name="filters_spam_folder_set">';
 
-    for ($i = 0; $i < $numboxes; $i++) {
-        if (! in_array('noselect', $boxes[$i]['flags'])) {
-            $box = $boxes[$i]['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
-            if ($filters_spam_folder == $box) {
-                echo "<OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
-            } else {
-                echo "<OPTION VALUE=\"$box\">$box2</OPTION>\n";
-            }
-        }
-    }
+        $selected = 0;
+        if ( isset($filters_spam_folder) )
+          $selected = array(strtolower($filters_spam_folder));
+        echo sqimap_mailbox_option_list(0, $selected, 0, $boxes);
     echo    '</select>'.
         '</td>'.
         '</tr>'.

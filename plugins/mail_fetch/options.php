@@ -208,17 +208,11 @@ require_once(SM_PATH . 'include/load_prefs.php');
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
         echo '<select name="mf_subfolder">';
-        $boxes = sqimap_mailbox_list($imapConnection);
-        for ($i = 0; $i < count($boxes); $i++) {
-            if (!in_array('noselect', $boxes[$i]['flags'])) {
-                $box = $boxes[$i]['unformatted'];
-                $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                if ( strtolower( $box2 ) == 'inbox' ) {
-                    $box2 = _("INBOX");
-                }
-                echo "<option value=\"$box\">$box2</option>\n";
-            }
-        }        
+
+        $selected = 0;
+        if ( isset($mf_subfolder) )
+          $selected = array(strtolower($mf_subfolder));
+        echo sqimap_mailbox_option_list($imapConnection, $selected);
         echo '</select></td></tr>' .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
@@ -326,19 +320,10 @@ require_once(SM_PATH . 'include/load_prefs.php');
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
         echo '<select name="mf_subfolder">';
-        $boxes = sqimap_mailbox_list($imapConnection);
-        for ($i = 0; $i < count($boxes); $i++) {
-            if (!in_array('noselect', $boxes[$i]['flags'])) {
-                $box = $boxes[$i]['unformatted'];
-                $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                if ( strtolower( $box2 ) == 'inbox' ) {
-                    $box2 = _("INBOX");
-                }
-                echo '<option ' .
-                     (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?'selected':'') .
-                     " value=\"$box\">$box2</option>\n";
-            }
-        }                
+        $selected = 0;
+        if ( isset($mf_subfolder) )
+          $selected = array(strtolower($mf_subfolder));
+        echo sqimap_mailbox_option_list($imapConnection, $selected);
         echo '</select></td></tr>' .
 
                 html_tag( 'tr',
