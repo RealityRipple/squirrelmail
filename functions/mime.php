@@ -339,7 +339,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                 $body = strtr($body, $entity_conv);
                 $body = trim($body);
                 translateText($body, $wrap_at,
-                              $body_message->header->getParameter['charset']);
+                              $body_message->header->getParameter('charset'));
             } else {
                 $body = magicHTML( $body, $id, $message, $mailbox );
             }
