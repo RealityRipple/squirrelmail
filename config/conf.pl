@@ -904,7 +904,7 @@ sub command22 {
 sub command23a {
    print "You can now specify where the default trash folder is located.\n";
    print "On servers where you do not want this, you can set it to anything\n";
-   print "and set option 7 to false.\n";
+   print "and set option 6 to false.\n";
    print "\n";
    print "This is relative to where the rest of your email is kept.  You do\n";
    print "not need to worry about their mail directory.  If this folder\n";
