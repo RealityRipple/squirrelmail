@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-04-30 11:05+0200\n"
+"POT-Creation-Date: 2002-05-03 13:21+0200\n"
 "PO-Revision-Date: 2002-02-23 22:59GMT+1\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: Spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -41,7 +41,7 @@ msgstr "Información"
 msgid "Source"
 msgstr "Origen"
 
-#: squirrelmail/functions/mailbox_display.php:720
+#: squirrelmail/functions/mailbox_display.php:742
 #: squirrelmail/plugins/filters/options.php:120
 #: squirrelmail/src/addrbook_search_html.php:82
 #: squirrelmail/src/compose.php:436 squirrelmail/src/download.php:311
@@ -209,7 +209,7 @@ msgstr "No se puede mover/copiar el archivo. Archivo no adjuntado"
 msgid "Original Message"
 msgstr "Mensaje Original"
 
-#: squirrelmail/functions/mailbox_display.php:737
+#: squirrelmail/functions/mailbox_display.php:759
 #: squirrelmail/plugins/filters/options.php:129
 #: squirrelmail/src/compose.php:432 squirrelmail/src/download.php:309
 #: squirrelmail/src/download.php:314
@@ -220,7 +220,7 @@ msgstr "Mensaje Original"
 msgid "Subject"
 msgstr "Asunto"
 
-#: squirrelmail/functions/mailbox_display.php:722
+#: squirrelmail/functions/mailbox_display.php:744
 #: squirrelmail/plugins/filters/options.php:117
 #: squirrelmail/src/compose.php:433 squirrelmail/src/download.php:98
 #: squirrelmail/src/download.php:310 squirrelmail/src/download.php:316
@@ -231,7 +231,7 @@ msgstr "Asunto"
 msgid "From"
 msgstr "De"
 
-#: squirrelmail/functions/mailbox_display.php:730
+#: squirrelmail/functions/mailbox_display.php:752
 #: squirrelmail/src/compose.php:434 squirrelmail/src/download.php:312
 #: squirrelmail/src/download.php:320 squirrelmail/src/options_order.php:39
 #: squirrelmail/src/printer_friendly_bottom.php:100
@@ -477,7 +477,7 @@ msgstr "No se encontraron carpetas"
 msgid "Delete Folder"
 msgstr "Borrar Carpeta"
 
-#: squirrelmail/functions/mailbox_display.php:671
+#: squirrelmail/functions/mailbox_display.php:693
 #: squirrelmail/plugins/filters/options.php:189
 #: squirrelmail/plugins/mail_fetch/options.php:163
 #: squirrelmail/plugins/mail_fetch/options.php:170
@@ -548,9 +548,9 @@ msgstr "Algunos o todos los documentos de ayuda no fueron encontrados"
 msgid "Table of Contents"
 msgstr "Tabla de Contenidos"
 
-#: squirrelmail/functions/mailbox_display.php:902
-#: squirrelmail/functions/mailbox_display.php:905
-#: squirrelmail/functions/mailbox_display.php:908
+#: squirrelmail/functions/mailbox_display.php:924
+#: squirrelmail/functions/mailbox_display.php:927
+#: squirrelmail/functions/mailbox_display.php:930
 #: squirrelmail/plugins/delete_move_next/setup.php:166
 #: squirrelmail/plugins/delete_move_next/setup.php:168
 #: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
@@ -558,9 +558,9 @@ msgstr "Tabla de Contenidos"
 msgid "Previous"
 msgstr "Anterior"
 
-#: squirrelmail/functions/mailbox_display.php:903
-#: squirrelmail/functions/mailbox_display.php:906
-#: squirrelmail/functions/mailbox_display.php:909
+#: squirrelmail/functions/mailbox_display.php:925
+#: squirrelmail/functions/mailbox_display.php:928
+#: squirrelmail/functions/mailbox_display.php:931
 #: squirrelmail/plugins/delete_move_next/setup.php:171
 #: squirrelmail/plugins/delete_move_next/setup.php:173
 #: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
@@ -576,8 +576,8 @@ msgstr "Arriba"
 msgid "Viewing an image attachment"
 msgstr "Viendo una imagen adjunta"
 
-#: squirrelmail/functions/imap_search.php:191
-#: squirrelmail/functions/mailbox_display.php:653
+#: squirrelmail/functions/imap_search.php:202
+#: squirrelmail/functions/mailbox_display.php:675
 #: squirrelmail/functions/page_header.php:109
 #: squirrelmail/plugins/delete_move_next/setup.php:218
 #: squirrelmail/plugins/mail_fetch/options.php:137
@@ -1112,7 +1112,7 @@ msgstr "Checkbox"
 msgid "Flags"
 msgstr "Indicadores"
 
-#: squirrelmail/functions/mailbox_display.php:744
+#: squirrelmail/functions/mailbox_display.php:766
 #: squirrelmail/src/options_order.php:42
 msgid "Size"
 msgstr "Tamaño"
@@ -1344,7 +1344,7 @@ msgstr "Recuperar Borrador"
 msgid "Edit Message as New"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:660
+#: squirrelmail/functions/mailbox_display.php:682
 #: squirrelmail/src/read_body.php:748
 msgid "Forward"
 msgstr "Reenviar"
@@ -1819,11 +1819,9 @@ msgstr ""
 "siguiente error:"
 
 #: squirrelmail/functions/imap_general.php:163
-#: squirrelmail/functions/imap_messages.php:357
-#: squirrelmail/functions/imap_messages.php:364
-#: squirrelmail/functions/imap_messages.php:382
-#: squirrelmail/functions/imap_messages.php:391
-#: squirrelmail/functions/imap_messages.php:510
+#: squirrelmail/functions/imap_messages.php:366
+#: squirrelmail/functions/imap_messages.php:374
+#: squirrelmail/functions/imap_messages.php:567
 #: squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
 msgstr "ERROR: No se pudo completar el pedido."
@@ -1867,37 +1865,32 @@ msgstr "Error desconocido: %s"
 msgid "Read data:"
 msgstr "Leer datos:"
 
-#: squirrelmail/functions/imap_messages.php:359
-#: squirrelmail/functions/imap_messages.php:384
-#: squirrelmail/functions/imap_messages.php:512
+#: squirrelmail/functions/imap_messages.php:368
+#: squirrelmail/functions/imap_messages.php:569
 msgid "Unknown response from IMAP server: "
 msgstr "Contestación desconocida del servidor IMAP:"
 
-#: squirrelmail/functions/imap_messages.php:366
+#: squirrelmail/functions/imap_messages.php:376
 msgid "Unknown message number in reply from server: "
 msgstr "Número de mensaje desconocido en la contestación del servidor:"
 
-#: squirrelmail/functions/imap_messages.php:393
-msgid "Unknown messagenumber in reply from server: "
-msgstr "Número de mensaje desconocido en contestación del servidor: "
-
-#: squirrelmail/functions/imap_messages.php:402
-#: squirrelmail/functions/imap_messages.php:436
-#: squirrelmail/functions/imap_messages.php:693
-#: squirrelmail/functions/imap_messages.php:744
-#: squirrelmail/functions/mailbox_display.php:1065
+#: squirrelmail/functions/imap_messages.php:396
+#: squirrelmail/functions/imap_messages.php:492
+#: squirrelmail/functions/imap_messages.php:760
+#: squirrelmail/functions/imap_messages.php:824
+#: squirrelmail/functions/mailbox_display.php:1087
 msgid "(no subject)"
 msgstr "(sin asunto)"
 
-#: squirrelmail/functions/imap_messages.php:403
+#: squirrelmail/functions/imap_messages.php:397
 msgid "Unknown Sender"
 msgstr "Remitente Desconocido"
 
-#: squirrelmail/functions/imap_messages.php:466
+#: squirrelmail/functions/imap_messages.php:515
 msgid "No To Address"
 msgstr "Sin destinatario"
 
-#: squirrelmail/functions/imap_messages.php:747
+#: squirrelmail/functions/imap_messages.php:827
 msgid "(unknown sender)"
 msgstr "(remitente desconocido)"
 
@@ -1905,17 +1898,17 @@ msgstr "(remitente desconocido)"
 msgid "No Messages Found"
 msgstr "No se Encontraron Mensajes"
 
-#: squirrelmail/functions/imap_search.php:180
-#: squirrelmail/functions/imap_search.php:188
+#: squirrelmail/functions/imap_search.php:191
+#: squirrelmail/functions/imap_search.php:199
 msgid "Found"
 msgstr "Encontrado"
 
-#: squirrelmail/functions/imap_search.php:180
-#: squirrelmail/functions/imap_search.php:188
+#: squirrelmail/functions/imap_search.php:191
+#: squirrelmail/functions/imap_search.php:199
 msgid "messages"
 msgstr "mensajes"
 
-#: squirrelmail/functions/imap_search.php:195
+#: squirrelmail/functions/imap_search.php:206
 msgid "Folder:"
 msgstr "Carpeta:"
 
@@ -1923,71 +1916,75 @@ msgstr "Carpeta:"
 msgid "A"
 msgstr "C"
 
-#: squirrelmail/functions/mailbox_display.php:546
+#: squirrelmail/functions/mailbox_display.php:568
 msgid "THIS FOLDER IS EMPTY"
 msgstr "Esta Carpeta esta Vacía"
 
-#: squirrelmail/functions/mailbox_display.php:636
+#: squirrelmail/functions/mailbox_display.php:658
 msgid "Move Selected To:"
 msgstr "Mover seleccionados a:"
 
-#: squirrelmail/functions/mailbox_display.php:639
+#: squirrelmail/functions/mailbox_display.php:661
 msgid "Transform Selected Messages"
 msgstr "Marcar mensajes seleccionados como"
 
-#: squirrelmail/functions/mailbox_display.php:659
+#: squirrelmail/functions/mailbox_display.php:681
 #: squirrelmail/plugins/delete_move_next/setup.php:244
 #: squirrelmail/plugins/delete_move_next/setup.php:268
 msgid "Move"
 msgstr "Mover"
 
-#: squirrelmail/functions/mailbox_display.php:666
+#: squirrelmail/functions/mailbox_display.php:688
 msgid "Expunge"
 msgstr "Purgar"
 
-#: squirrelmail/functions/mailbox_display.php:667
+#: squirrelmail/functions/mailbox_display.php:689
 msgid "mailbox"
 msgstr "buzón"
 
-#: squirrelmail/functions/mailbox_display.php:669
+#: squirrelmail/functions/mailbox_display.php:691
 msgid "Read"
 msgstr "Leído"
 
-#: squirrelmail/functions/mailbox_display.php:670
+#: squirrelmail/functions/mailbox_display.php:692
 msgid "Unread"
 msgstr "No Leído"
 
-#: squirrelmail/functions/mailbox_display.php:687
-msgid "$thread_name"
-msgstr ""
+#: squirrelmail/functions/mailbox_display.php:701
+msgid "Unthread View"
+msgstr "Quitar Orden Temático"
 
-#: squirrelmail/functions/mailbox_display.php:798
+#: squirrelmail/functions/mailbox_display.php:705
+msgid "Thread View"
+msgstr "Orden Temático"
+
+#: squirrelmail/functions/mailbox_display.php:820
 msgid "Toggle All"
 msgstr "Cambia Todos"
 
-#: squirrelmail/functions/mailbox_display.php:822
+#: squirrelmail/functions/mailbox_display.php:844
 msgid "Unselect All"
 msgstr "De-seleccionar Todos"
 
-#: squirrelmail/functions/mailbox_display.php:824
+#: squirrelmail/functions/mailbox_display.php:846
 msgid "Select All"
 msgstr "Seleccionar Todos"
 
-#: squirrelmail/functions/mailbox_display.php:841
+#: squirrelmail/functions/mailbox_display.php:863
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Viendo Mensajes: del <B>%s</B> al <B>%s</B> (total %s)"
 
-#: squirrelmail/functions/mailbox_display.php:844
+#: squirrelmail/functions/mailbox_display.php:866
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Viendo Mensaje: <b>%s</b> (total 1)"
 
-#: squirrelmail/functions/mailbox_display.php:1028
+#: squirrelmail/functions/mailbox_display.php:1050
 msgid "Paginate"
 msgstr "Paginar"
 
-#: squirrelmail/functions/mailbox_display.php:1035
+#: squirrelmail/functions/mailbox_display.php:1057
 msgid "Show All"
 msgstr "Todos"
 
@@ -4503,6 +4500,9 @@ msgstr "Informe de error en entrega"
 #: squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
 msgstr "Cabecera de mensaje no entregado"
+
+#~ msgid "Unknown messagenumber in reply from server: "
+#~ msgstr "Número de mensaje desconocido en contestación del servidor: "
 
 #~ msgid "empty"
 #~ msgstr "vaciar"
