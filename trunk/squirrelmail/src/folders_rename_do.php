@@ -25,7 +25,7 @@
 
    // Renaming a folder doesn't renames the folder but leaves you unsubscribed
    //    at least on Cyrus IMAP servers.
-   fputs ($imapConnection, "sub SUBSCRIBE $newone\n");
+   fputs ($imapConnection, "sub SUBSCRIBE \"$newone\"\n");
    $data = imapReadData($imapConnection, "sub", true, $a, $b);
 
    /** Log out this session **/
