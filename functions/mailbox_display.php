@@ -385,8 +385,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
         $msg = '';
     }
 
-    mail_message_listing_beginning
-        ($imapConnection,
+    mail_message_listing_beginning( $imapConnection,
         "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$start_msg",
         $mailbox, $sort, $msg_cnt_str, $paginator_str, $start_msg);
 
