@@ -120,13 +120,13 @@ function attachSelectedMessages($msg, $imapConnection) {
     return $composesession;
 }
 
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-sqimap_mailbox_select($imapConnection, $mailbox);
+$mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);
 
 $location = set_url_var($location,'composenew');
 $location = set_url_var($location,'composesession');
 $location = set_url_var($location,'session');
-
 
 /* remember changes to mailbox setting */
 if (!isset($lastTargetMailbox)) {
@@ -139,11 +139,17 @@ if ($targetMailbox != $lastTargetMailbox) {
 
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
-    sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
+        if ($startMessage > $show_num) {
+	    $location = set_url_var($location,'startMessage',$startMessage-$show_num);
+	} else {
+	    $location = set_url_var($location,'startMessage',1);
+	}
+    }
     header("Location: $location");
 } elseif(isset($undeleteButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
-
     if (is_array($msg) == 1) {
         // Removes \Deleted flag from selected messages
         $j = 0;
@@ -186,8 +192,10 @@ if(isset($expungeButton)) {
             $i++;
         }
         if ($auto_expunge) {
-            sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-        }
+            $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+        } else {
+	    $cnt = 0;
+	}
         if (isset($attache)) {
 	    $composesession = attachSelectedMessages($msg, $imapConnection);
 	    if ($compose_new_win) {
@@ -198,6 +206,14 @@ if(isset($expungeButton)) {
 		header ("Location: $location&session=$composesession");
 	    }
 	} else {		
+	    if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
+    	       if ($startMessage > $show_num) {
+	           $location = set_url_var($location,'startMessage',$startMessage-$show_num);
+	       } else {
+	  	   $location = set_url_var($location,'startMessage',1);
+	       }
+	    }
+	    echo $location . ' ' .$show_num. ' '.$cnt;
             header ("Location: $location");
         } 
     } else {
@@ -211,7 +227,8 @@ if(isset($expungeButton)) {
         $i = 0;
         // If they have selected nothing msg is size one still, but will be an infinite
         //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
-        while ($j < count($msg)) {
+	$cnt = count($msg);
+        while ($j < $cnt) {
             if (isset($msg[$i])) {
                 /** check if they would like to move it to the trash folder or not */
                 sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
@@ -221,7 +238,17 @@ if(isset($expungeButton)) {
             $i++;
         }
         if ($auto_expunge) {
-            sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+            $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+	} else {
+	    $cnt = 0;
+	}
+	
+	if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
+    	    if ($startMessage > $show_num) {
+		$location = set_url_var($location,'startMessage',$startMessage-$show_num);
+	    } else {
+		$location = set_url_var($location,'startMessage',1);
+	    }
 	}
 	header ("Location: $location"); 
     } else {
