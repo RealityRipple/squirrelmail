@@ -1207,7 +1207,11 @@ strongly encouraged to make use of.  Using them also makes your job easier.
 
   4.  To remove a variable from the session:
 
+         global $favorite_color;
          sqsession_unregister('favorite_color');
+
+      Strictly speaking, globalizing the variable shouldn't be necessary,
+      but certain versions of PHP seem to behave more predictably if you do.
 
 
 Form Variables
