@@ -48,7 +48,7 @@ if ($delete_words=='ON'){
        . '</p> '
        . '<p align="center"><form>'
        . '<input type="button" value=" '
-       . _("Close this Window") . ' " onclick="self.close()">'
+       . _("Close this Window") . ' " onclick="self.close()" />'
        . '</form></p>';
     sqspell_makeWindow(null, _("Dictionary Erased"), null, $msg);
   }
@@ -75,13 +75,13 @@ if ($old_key){
     $msg = '<p>'
        . _("Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again." ) 
        . '</p>';
-    sqspell_makePage(_("Successful Re-encryption"), null, $msg);
+    sqspell_makePage(_("Successful re-encryption"), null, $msg);
   } else {
     $msg = '<p>'
        . _("Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over.") 
        . '</p><form><p align="center"><input type="button" value=" ' 
        . _("Close this Window") . ' "'
-       . 'onclick="self.close()"></p></form>';
+       . 'onclick="self.close()" /></p></form>';
     sqspell_makeWindow(null, _("Dictionary re-encrypted"), null, $msg);
   }
   exit;

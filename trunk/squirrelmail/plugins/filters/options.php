@@ -85,7 +85,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         $filter_what = str_replace('"', '&quot;', $filter_what);
 
         if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
-	    do_error(_("WARNING! Header filters should be of the format \"Header: value\""));
+	    do_error(_("WARNING! Header filters should be of the format &quot;Header: value&quot;"));
     	    $action = 'edit';
     	}
 	setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);

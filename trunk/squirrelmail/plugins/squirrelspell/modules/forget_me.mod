@@ -29,7 +29,7 @@ if (sizeof($words_ary)){
   $words=sqspell_getWords();
   $lang_words = sqspell_getLang($words, $sqspell_use_app);
   $msg = '<p>'
-     . sprintf(_("Deleting the following entries from <strong>%s</strong> dictionary:"), $sqspell_use_app)
+     . sprintf(_("Deleting the following entries from %s dictionary:"), '<strong>'.$sqspell_use_app.'</strong>')
      . '</p>'
      . "<ul>\n";
   for ($i=0; $i<sizeof($words_ary); $i++){

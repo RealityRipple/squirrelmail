@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-06 00:25+0200\n"
+"POT-Creation-Date: 2004-05-08 18:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2247,19 +2247,18 @@ msgid ""
 "for any common problems."
 msgstr ""
 
-msgid ""
-"Make sure that you are running the most recent copy of <a href=\"http://www."
-"squirrelmail.org/\">SquirrelMail</a>."
+#, c-format
+msgid "Make sure that you are running the most recent copy of %s."
 msgstr ""
 
 #, c-format
 msgid "You are currently using version %s."
 msgstr ""
 
+#, c-format
 msgid ""
-"Check to see if your bug is already listed in the <a href=\"http://"
-"sourceforge.net/bugs/?group_id=311\">Bug List</a> on SourceForge. If it is, "
-"we already know about it and are trying to fix it."
+"Check to see if your bug is already listed in the %sBug List%s on "
+"SourceForge. If it is, we already know about it and are trying to fix it."
 msgstr ""
 
 msgid ""
@@ -2268,9 +2267,10 @@ msgid ""
 "view a specific message, keep that message around so maybe we can see it."
 msgstr ""
 
+#, c-format
 msgid ""
 "If there were warnings displayed above, try to resolve them yourself. Read "
-"the guides in the <tt>doc/</tt> directory where SquirrelMail was installed."
+"the guides in the %s directory where SquirrelMail was installed."
 msgstr ""
 
 msgid ""
@@ -2307,6 +2307,9 @@ msgid "Bug Reports:"
 msgstr ""
 
 msgid "Show button in toolbar"
+msgstr ""
+
+msgid "Show system specs"
 msgstr ""
 
 msgid "TODAY"
@@ -2555,7 +2558,8 @@ msgstr ""
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
 msgstr ""
 
-msgid "WARNING! Header filters should be of the format \"Header: value\""
+msgid ""
+"WARNING! Header filters should be of the format &quot;Header: value&quot;"
 msgstr ""
 
 msgid "Saved Scan type"
@@ -2605,17 +2609,17 @@ msgid ""
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
-msgid "You must select spam folder."
+msgid "You must select a spam folder."
 msgstr ""
 
-msgid "You must select scan type."
+msgid "You must select a scan type."
 msgstr ""
 
 msgid "Spam Filtering"
 msgstr ""
 
 #, c-format
-msgid "WARNING! Tell your admin to set the %s variable"
+msgid "WARNING! Tell the adminstrator to set the %s variable."
 msgstr ""
 
 msgid "Move spam to:"
@@ -2629,26 +2633,27 @@ msgid ""
 "around."
 msgstr ""
 
+msgid "Unread messages only"
+msgstr ""
+
 msgid ""
-"The more messages you scan, the longer it takes. I would suggest that you "
-"scan only new messages. If you make a change to your filters, I would set it "
-"to scan all messages, then go view my INBOX, then come back and set it to "
-"scan only new messages. That way, your new spam filters will be applied and "
-"you'll scan even the spam you read with the new filters."
+"The more messages scanned, the longer it takes. It's recommended to scan "
+"unread messages only. If a change to the filters is made, it's recommended "
+"to set it to scan all messages, then go view the INBOX, then come back and "
+"set it to scan unread messages only. That way, the new spam filters will be "
+"applied and even the spam you didn't catch with the old filters will be "
+"scanned."
 msgstr ""
 
 #, c-format
-msgid "Spam is sent to %s"
+msgid "Spam is sent to %s."
 msgstr ""
 
 msgid "not set yet"
 msgstr ""
 
 #, c-format
-msgid "Spam scan is limited to <b>%s</b>"
-msgstr ""
-
-msgid "New Messages Only"
+msgid "Spam scan is limited to %s."
 msgstr ""
 
 msgid "All Messages"
@@ -3228,34 +3233,37 @@ msgstr ""
 msgid "Save ID"
 msgstr ""
 
+msgid "About SpamCop"
+msgstr ""
+
 msgid ""
 "SpamCop is a free service that greatly assists in finding the true source of "
 "the spam and helps in letting the proper people know about the abuse."
 msgstr ""
 
+#, c-format
 msgid ""
-"To use it, you must get a SpamCop authorization code. There is a free <a "
-"href=\"http://spamcop.net/anonsignup.shtml\">sign up page</a> so you can use "
-"SpamCop."
+"To use it, you must get a SpamCop authorization code. There is a free %ssign "
+"up page%s so you can use SpamCop."
 msgstr ""
 
+msgid "Before you sign up, be warned"
+msgstr ""
+
+#, c-format
 msgid ""
-"<b>Before you sign up, be warned:</b> Some users have reported that the "
-"email addresses used with SpamCop find their way onto spam lists. To be "
-"safe, you can just create an email forwarding account and have all SpamCop "
-"reports get sent to there. Also, if it gets flooded with spam, you can then "
-"just delete that account with no worries about losing your real email "
-"address. Just go create an email forwarder somewhere (<a href=\"http://www."
-"yahoo.com/\">Yahoo!</a> has a <a href=\"http://dir.yahoo.com/"
-"Business_and_Economy/Business_to_Business/Communications_and_Networking/"
-"Internet_and_World_Wide_Web/Email_Providers/Forwarding_Services/"
-"Free_Forwarding/\">list of places</a>) so that messages from system "
-"administrators and whatnot can be sent to you."
+"Some users have reported that the email addresses used with SpamCop find "
+"their way onto spam lists. To be safe, you can just create an email "
+"forwarding account and have all SpamCop reports get sent to there. Also, if "
+"it gets flooded with spam, you can then just delete that account with no "
+"worries about losing your real email address. Just go create an email "
+"forwarder somewhere (%s has a %slist of places%s) so that messages from "
+"system administrators and what not can be sent to you."
 msgstr ""
 
 msgid ""
 "Once you have signed up with SpamCop and have received your SpamCop "
-"authorization code, you need to enable this plugin -- just click the link "
+"authorization code, you need to enable this plugin by clicking the link "
 "above. Once enabled, you go about your normal life. If you encounter a spam "
 "message in your mailbox, just view it. On the right-hand side, near the top "
 "of where the message is displayed, you will see a link to report this "
@@ -3264,7 +3272,7 @@ msgid ""
 "different reporting methods."
 msgstr ""
 
-msgid "Email-based Reporting"
+msgid "Email-based reporting"
 msgstr ""
 
 msgid ""
@@ -3282,7 +3290,7 @@ msgid ""
 "Hopefully this will change soon."
 msgstr ""
 
-msgid "Web-based Reporting"
+msgid "Web-based reporting"
 msgstr ""
 
 msgid ""
@@ -3300,7 +3308,7 @@ msgid ""
 "folder to see messages and/or delete the spam."
 msgstr ""
 
-msgid "Spamcop Service Type"
+msgid "Spamcop service type"
 msgstr ""
 
 msgid ""
@@ -3309,10 +3317,13 @@ msgid ""
 "You can purchase these services, if you want to support SpamCop."
 msgstr ""
 
+msgid "More information"
+msgstr ""
+
+#, c-format
 msgid ""
-"<b>For more information</b> about SpamCop, it's services, spam in general, "
-"and many related topics, try reading through SpamCop's <a href=\"http://"
-"spamcop.net/help.shtml\">Help and Feedback</a> section."
+"For more information about SpamCop, it's services, spam in general, and many "
+"related topics, try reading through SpamCop's %sHelp and Feedback%s section."
 msgstr ""
 
 msgid "Report as Spam"
@@ -3514,7 +3525,7 @@ msgid ""
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
 
-msgid "Successful Re-encryption"
+msgid "Successful re-encryption"
 msgstr ""
 
 msgid ""
@@ -3598,7 +3609,7 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgid "Deleting the following entries from %s dictionary:"
 msgstr ""
 
 msgid "All done!"
@@ -3622,13 +3633,11 @@ msgid "SquirrelSpell Initiating"
 msgstr ""
 
 #, c-format
-msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
+msgid "Settings adjusted to: %s with %s as default dictionary."
 msgstr ""
 
 #, c-format
-msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgid "Using %s dictionary (system default) for spellcheck."
 msgstr ""
 
 msgid "International Dictionaries Preferences Updated"
