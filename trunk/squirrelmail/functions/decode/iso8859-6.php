@@ -102,7 +102,7 @@ function charset_decode_iso8859_6 ($string) {
 	"\xF2" => '&#1618;'
     );
 
-    $string = str_replace(array_keys(iso8859_6), array_values($iso8859_6), $string);
+    $string = str_replace(array_keys($iso8859_6), array_values($iso8859_6), $string);
 
     return $string;
 }
