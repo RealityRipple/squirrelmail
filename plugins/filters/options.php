@@ -1,10 +1,8 @@
 <?php
    /*
     *  Message and Spam Filter Plugin
-    *  By Luke Ehresman <luke@squirrelmail.org>
-    *     Tyler Akins
-    *     Brent Bice
-    *  (c) 2000 (GNU GPL - see ../../COPYING)
+    *  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    *  Licensed under the GNU GPL. For full terms see the file COPYING.
     *
     *  This plugin filters your inbox into different folders based upon given
     *  criteria.  It is most useful for people who are subscibed to mailing lists
@@ -22,7 +20,10 @@
     *
     *  Also view plugins/README.plugins for more information.
     *
+    *  $Id$
+    *
     */
+    
    chdir('..');
    require_once('../src/validate.php');
    require_once('../functions/page_header.php');
