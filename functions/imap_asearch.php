@@ -111,11 +111,18 @@ function s_debug_dump($var_name, $var_var, $compact = FALSE)
 		s_dump($var_name, $var_var, $compact);
 }
 
+/*
+4.3 String:
+	A quoted string is a sequence of zero or more 7-bit characters,
+	 excluding CR and LF, with double quote (<">) characters at each end.
+9. Formal Syntax:
+	quoted-specials = DQUOTE / "\"
+*/
 function sqimap_asearch_encode_string($what, $search_charset)
 {
 	if (strtoupper($search_charset) == 'ISO-2022-JP')
 		$what = mb_convert_encoding($what, 'JIS', 'auto');
-	if (strpos($what,'"') > -1)
+	if (ereg("[\"\\\r\n]", $what))
 		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
 	return '"' . $what . '"';	/* 4.3 quoted string form */
 }
@@ -123,16 +130,16 @@ function sqimap_asearch_encode_string($what, $search_charset)
 /*
  Parses a user date string into an rfc2060 date string (<day number>-<US month TLA>-<4 digit year>)
  Returns a preg_match-style array: [0]: fully formatted date, [1]: day, [2]: month, [3]: year
- Handles space, slash, dot and comma as separators (and dash of course ;=)
+ Handles space, slash, backslash, dot and comma as separators (and dash of course ;=)
 */
 function sqimap_asearch_parse_date($what)
 {
 	global $imap_asearch_months;
 
 	$what = trim($what);
-	$what = ereg_replace('[ :,:/:.]+', '-', $what);
+	$what = ereg_replace('[ /\\.,]+', '-', $what);
 	if ($what) {
-		preg_match('/^([0-9]+)-([^\-]+)-([0-9]+)$/', $what, $what_parts);
+		preg_match('/^([0-9]+)-+([^\-]+)-+([0-9]+)$/', $what, $what_parts);
 		if (count($what_parts) == 4) {
 			$what_month = strtolower(asearch_unhtmlentities($what_parts[2]));
 /*		if (!in_array($what_month, $imap_asearch_months)) {*/
@@ -159,6 +166,7 @@ function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
 {
 	global $imap_asearch_opcodes;
 
+	$criteria = '';
 	switch ($imap_asearch_opcodes[$opcode]) {
 		default:
 		case 'anum':
@@ -179,7 +187,7 @@ function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
 		break;
 		case 'adate':
 			$what_parts = sqimap_asearch_parse_date($what);
-			if ($what_parts[0] != '')
+			if (isset($what_parts[0]))
 				$criteria = $opcode . ' ' . $what_parts[0] . ' ';
 		break;
 		case 'akeyword':
