@@ -4,6 +4,7 @@
 
 Version 1.4.0 CVS
 -------------------
+  - Added Vietnamese translation.
   - Fixed the newmail plugin.
   - Added RECENT response to sqimap_get_status.
   - Fixed attachment filename resolving.
