@@ -169,6 +169,16 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $rfc822_header->to[] = $header->dnt;
     $rfc822_header->subject = _("Read:") . ' ' . encodeHeader($header->subject);
 
+    // Patch #793504 Return Receipt Failing with <@> from Tim Craig (burny_md)
+    // This merely comes from compose.php and only happens when there is no
+    // email_addr specified in user's identity (which is the startup config)
+    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
+       $popuser = $usernamedata[1];
+       $domain  = $usernamedata[2];
+       unset($usernamedata);
+    } else {
+       $popuser = $username;
+    }
 
     $reply_to = '';
     $ident = get_identities();
@@ -178,9 +188,9 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
     $reply_to  = $ident[$identity]['reply_to'];
 
-    if (!$from_addr) {
-       $from_addr = "$popuser@$domain";
-       $from_mail = $from_addr;
+    if (!$from_mail) {
+       $from_mail = "$popuser@$domain";
+       $from_addr = $from_mail;
     }
     $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     if ($reply_to) {
@@ -731,16 +741,11 @@ do_hook('html_top');
 
 if (isset($sendreceipt)) {
    if ( !$message->is_mdnsent ) {
-      if (isset($identity) ) {
-         $final_recipient = getPref($data_dir, $username, 'email_address' . '0', '' );
-      } else {
-         $final_recipient = getPref($data_dir, $username, 'email_address', '' );
-      }
-
-      $final_recipient = trim($final_recipient);
-      if ($final_recipient == '' ) {
-         $final_recipient = getPref($data_dir, $username, 'email_address', '' );
-      }
+      $final_recipient = '';
+      if ((isset($identity)) && ($identity != 0))	//Main identity
+         $final_recipient = trim(getPref($data_dir, $username, 'email_address' . $identity, '' ));
+      if ($final_recipient == '' )
+         $final_recipient = trim(getPref($data_dir, $username, 'email_address', '' ));
       $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
       if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message, $imapConnection ) > 0 && $supportMDN ) {
          ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id, $uid_support);
