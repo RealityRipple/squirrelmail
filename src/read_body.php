@@ -221,7 +221,7 @@ function SendMDN ( $recipient , $sender) {
     $MDN_to = trim($recipient);
     $reply_id = 0;
 
-    return (SendMessage($MDN_to,'','',"Read: $subject", $body,$reply_id, True, 3) );
+    return (SendMessage($MDN_to,'','', _("Read:") . ' ' . $subject, $body,$reply_id, True, 3) );
 }
 
 
