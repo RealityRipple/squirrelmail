@@ -51,10 +51,12 @@
 <?php
    echo '         <tt><select name="language">' . "\n";
    foreach ($languages as $code => $name) {
-      if ($code==$chosen_language)
-         echo '         <OPTION SELECTED VALUE="'.$code.'">'.$languages[$code]['NAME']."\n";
-      else
-         echo '         <OPTION VALUE="'.$code.'">'.$languages[$code]['NAME']."\n";
+      if (! isset($name['ALIAS'])) {
+         if ($code==$chosen_language)
+            echo '         <OPTION SELECTED VALUE="'.$code.'">'.$name['NAME']."\n";
+         else
+            echo '         <OPTION VALUE="'.$code.'">'.$name['NAME']."\n";
+      }
    }
    echo '         </select></tt>';  
    if (! $use_gettext)
