@@ -35,15 +35,15 @@ if (isset($passed_ent_id)) {
 
 /* --start display setup-- */
 
-
+$rfc822_header = $message->rfc822_header; 
 /* From and Date are usually fine as they are... */
-$from = decodeHeader($message->header->getAddr_s('from'));
-$date = getLongDateString($message->header->date);
-$subject = trim(decodeHeader($message->header->subject));
+$from = decodeHeader($rfc822_header->getAddr_s('from'));
+$date = getLongDateString($rfc822_header->date);
+$subject = trim(decodeHeader($rfc822_header->subject));
 
 /* we can clean these up if the list is too long... */
-$cc = decodeHeader($message->header->getAddr_s('cc'));
-$to = decodeHeader($message->header->getAddr_s('to'));
+$cc = decodeHeader($rfc822_header->getAddr_s('cc'));
+$to = decodeHeader($rfc822_header->getAddr_s('to'));
 
 $ent_ar = $message->findDisplayEntity();
 $body = '';
@@ -90,30 +90,29 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
      /* headers (we use table because translations are not all the same width) */
      html_tag( 'table', '', '', '', 'width="100%" cellspacing="0" cellpadding="0" border="0"' ) .
      html_tag( 'tr',
-         html_tag( 'td', _("From"), 'left' ) .
+         html_tag( 'td', _("From").'&nbsp;', 'left' ,'','valign="top"') .
          html_tag( 'td', htmlentities($from), 'left' )
      ) . "\n" .
      html_tag( 'tr',
-         html_tag( 'td', _("To"), 'left' ) .
+         html_tag( 'td', _("Subject").'&nbsp;', 'left','','valign="top"' ) .
+         html_tag( 'td', htmlentities($subject), 'left' )
+     ) . "\n" .
+     html_tag( 'tr',
+         html_tag( 'td', _("Date").'&nbsp;', 'left' ) .
+         html_tag( 'td', htmlentities($date), 'left' )
+     ) . "\n" .
+     html_tag( 'tr',
+         html_tag( 'td', _("To").'&nbsp;', 'left','','valign="top"' ) .
          html_tag( 'td', htmlentities($to), 'left' )
      ) . "\n";
     if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
          echo html_tag( 'tr',
-             html_tag( 'td', _("CC"), 'left' ) .
+             html_tag( 'td', _("CC").'&nbsp;', 'left','','valign="top"' ) .
              html_tag( 'td', htmlentities($cc), 'left' )
          );
      }
-     echo html_tag( 'tr',
-         html_tag( 'td', _("Date"), 'left' ) .
-         html_tag( 'td', htmlentities($date), 'left' )
-     ) . "\n" .
-     html_tag( 'tr',
-         html_tag( 'td', _("Subject"), 'left' ) .
-         html_tag( 'td', htmlentities($subject), 'left' )
-     ) . "\n" .
-
      /* body */
-     html_tag( 'tr',
+     echo html_tag( 'tr',
          html_tag( 'td', '<hr noshade size=1><br>' . "\n" . $body, 'left', '', 'colspan="2"' )
      ) . "\n" .
 
