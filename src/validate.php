@@ -70,4 +70,8 @@ require_once('../functions/prefs.php');
 global $username, $data_dir;
 set_up_language(getPref($data_dir, $username, 'language'));
 
+$timeZone = getPref($data_dir, $username, 'timezone');
+if ( $timeZone ) {
+    putenv("TZ=".$timeZone);
+}
 ?>

@@ -132,6 +132,9 @@ $editor_size = getPref($data_dir, $username, 'editor_size', 76 );
 $use_signature = getPref($data_dir, $username, 'use_signature', SMPREF_OFF );
 $prefix_sig = getPref($data_dir, $username, 'prefix_sig');
 
+/* Load timezone preferences */
+$timezone = getPref($data_dir, $username, 'timezone', SMPREF_NONE );
+
 /* Load preferences for reply citation style. */
 
 $reply_citation_style =
