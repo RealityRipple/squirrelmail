@@ -26,7 +26,8 @@ Version 1.4.0 CVS
   - Fixed encoding of email addresses in our composed messages.
   - Fixed folder creation for Courier using Autoconfig options.
   - Fixed encoded string handling inside MDN notifications
-  - Fixed unfold header routine in imap_messages (for mailbox_display)
+  - Fixed unfold header routine in imap_messages (for mailbox_display).
+  - Make listcommands work with PHP versions 4.0.4 & 4.0.5.
   
 Version 1.4.0 RC 2a
 -------------------

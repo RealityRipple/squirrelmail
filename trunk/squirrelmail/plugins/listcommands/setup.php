@@ -40,12 +40,8 @@ function plugin_listcommands_menu() {
     foreach ($message->rfc822_header->mlist as $cmd => $actions) {
 
 	/* I don't know this action... skip it */
-        /* grrr PHP keeps changing their syntax... */
-        if( function_exists('array_key_exists') ) {
-            if(!array_key_exists($cmd, $fieldsdescr)) {
-                continue;
-            }
-        } elseif ( !key_exists($cmd, $fieldsdescr) ) {
+        /* array_key_exists works only in >= 4.1 */
+        if ( !in_array($cmd, array_keys($fieldsdescr)) ) {
             continue;
         }
 
