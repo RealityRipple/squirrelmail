@@ -15,39 +15,43 @@
 class Deliver {
 
     function mail($message, $stream=false) {
-    
        $rfc822_header = $message->rfc822_header;
        if (count($message->entities)) {
           $boundary = $this->mimeBoundary();
-	  $rfc822_header->contenttype->properties['boundary']=$boundary;
+	  $rfc822_header->content_type->properties['boundary']='"'.$boundary.'"';
        } else {
           $boundary='';
        }
-       $header = $this->prepareRFC822_Header($rfc822_header);
+       $reply_rfc822_header = (isset($message->reply_rfc822_header) 
+        	             ? $message->reply_rfc822_header : '');
+       $header = $this->prepareRFC822_Header($rfc822_header, $reply_rfc822_header);
        $raw_length = strlen($header);
        if ($stream) {
             $this->preWriteToStream($header);
             $this->writeToStream($stream, $header);
        } else {
-       	        /* DEBUG */
-        	$out =  htmlspecialchars($header);
-		$out = str_replace("\r\n",'<BR>',$out);
-		echo $out;
+    	    /* DEBUG */
+    	    $out =  htmlspecialchars($header);
+	    $out = str_replace("\r\n",'<BR>',$out);
+	    echo $out;
        }
        $this->writeBody($message, $stream, $raw_length, $boundary);
-       exit;
        return $raw_length;
-       
     }
     
     function writeBody($message, $stream, &$length_raw, $boundary='') {
-        if ($boundary) {
+        if ($boundary && !$message->rfc822_header) {
 	    $s = '--'.$boundary."\r\n";
 	    $s .= $this->prepareMIME_Header($message, $boundary);
 	    $length_raw += strlen($s);
 	    if ($stream) {
                 $this->preWriteToStream($s);
 		$this->writeToStream($stream, $s);
+	    } else {
+       	        /* DEBUG */
+        	$out =  htmlspecialchars($s);
+		$out = str_replace("\r\n",'<BR>',$out);
+		echo $out;
 	    }
         }
 	$this->writeBodyPart($message, $stream, $length_raw);
@@ -55,21 +59,33 @@ class Deliver {
 	if ($boundary_depth) {
 	   $boundary .= '_part'.$boundary_depth;
 	}
+	$last = false;
 	for ($i=0, $entCount=count($message->entities);$i<$entCount;$i++) {
     	    $msg = $this->writeBody($message->entities[$i], $stream, $length_raw, $boundary);
+	    if ($i == $entCount-1) $last = true;
 	}
-        if ($boundary) {
-	    $s = '--'.$boundary."--\r\n";
+        if ($boundary && $last) {
+	    $s = "\r\n--".$boundary."--\r\n\r\n";
 	    $length_raw += strlen($s);
 	    if ($stream) {
                 $this->preWriteToStream($s);
 		$this->writeToStream($stream, $s);
+	    } else {
+       	        /* DEBUG */
+        	$out =  htmlspecialchars($s);
+		$out = str_replace("\r\n",'<BR>',$out);
+		echo $out;
 	    }
 	}
     }
 
     function writeBodyPart($message, $stream, &$length) {
-	switch ($message->type0) {
+        if ($message->mime_header) {
+	   $type0 = $message->mime_header->type0;
+	} else {
+	   $type0 = $message->rfc822_header->content_type->type0;
+	}
+	switch ($type0) {
 	case 'text':
 	case 'message':
 	    if ($message->body_part) {
@@ -78,12 +94,11 @@ class Deliver {
 	       if ($stream) {
                   $this->preWriteToStream($body_part);     
 	          $this->writeToStream($stream, $body_part);
-		   } else {
-		        /* DEBUG */
-		       	$out =  htmlspecialchars($tmp);
-			$out = str_replace("\r\n",'<BR>',$out);
-		        echo $out;
-
+	       } else {
+	          /* DEBUG */
+	    	  $out =  htmlspecialchars($tmp);
+		  $out = str_replace("\r\n",'<BR>',$out);
+		  echo $out;
 	       }
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
@@ -118,9 +133,9 @@ class Deliver {
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
 		$file = fopen ($filename, 'rb');
-		while ($tmp = fread($file, 1520)) {
+		while ($tmp = fread($file, 570)) {
 		   $encoded = chunk_split(base64_encode($tmp));
-		   $length += strlen($encoded);
+		   
 		   if ($stream) {
 		      $this->writeToStream($stream, $encoded);
 		   } else {
@@ -133,6 +148,17 @@ class Deliver {
 		fclose($file);
 	    }
 	    break;
+	}
+	$body_part_trailing = "\r\n";
+	$length += strlen($body_part_trailing);
+	if ($stream) {
+           $this->preWriteToStream($body_part_trailing);     
+	   $this->writeToStream($stream, $body_part_trailing);
+	} else {
+	  /* DEBUG */
+	  $out =  htmlspecialchars($body_part_trailing);
+	  $out = str_replace("\r\n",'<BR>',$out);
+	  echo $out;
 	}
     }
     
@@ -147,6 +173,7 @@ class Deliver {
     }
     
     function writeToStream($stream, $data) {
+       fputs($stream, $data);
     }
     
     function initStream($message, $length=0, $host='', $port='', $user='', $pass='') {
@@ -168,24 +195,39 @@ class Deliver {
 	    $contenttype .= ";\r\n " . 'boundary="'.$boundary.'"';
 	}		       
 	if (isset($mime_header->parameters['name'])) {
-    	    $contenttype .= ";\r\n " . 'name="'.
+    	    $contenttype .= '; name="'.
         	encodeHeader($mime_header->parameters['name']). '"';
 	}
+	if (isset($mime_header->parameters['charset'])) {
+	    $charset = $mime_header->parameters['charset'];
+    	    $contenttype .= '; charset="'.
+        	encodeHeader($charset). '"';
+	}
+
+
 	$header[] = $contenttype . $rn;
 	if ($mime_header->description) {
     	    $header[] .= 'Content-Description: ' . $mime_header->description . $rn;
 	}
 	if ($mime_header->encoding) {
+	    $encoding = $mime_header->encoding;
     	    $header[] .= 'Content-Transfer-Encoding: ' . $mime_header->encoding . $rn;
+	} else {
+	    if ($mime_header->type0 == 'text' || $mime_header->type0 == 'message') {
+		$header[] .= 'Content-Transfer-Encoding: 8bit' .  $rn;
+    	    } else {
+		$header[] .= 'Content-Transfer-Encoding: base64' .  $rn;
+	    }
 	}
 	if ($mime_header->id) {
     	    $header[] .= 'Content-ID: ' . $mime_header->id . $rn;
 	}
 	if ($mime_header->disposition) {
-    	    $contentdisp .= 'Content-Disposition: ' . $mime_header->disposition;
-    	    if (isset($mime_header->parameters['filename'])) {
-        	$contentdisp .= ";\r\n " . 'filename="'.
-        	    encodeHeader($mime_header->parameters['filename']). '"';
+	    $disposition = $mime_header->disposition;
+    	    $contentdisp = 'Content-Disposition: ' . $disposition->name;
+    	    if ($disposition->getProperty('filename')) {
+        	$contentdisp .= '; filename="'.
+        	    encodeHeader($disposition->getProperty('filename')). '"';
     	    }
     	    $header[] = $contentdisp . $rn;       
 	}
@@ -206,7 +248,7 @@ class Deliver {
 	return $header;
     }    
 
-    function prepareRFC822_Header($rfc822_header) {
+    function prepareRFC822_Header($rfc822_header, $reply_rfc822_header) {
 	global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
 	global $version, $useSendmail, $username;
 	global $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -217,7 +259,6 @@ class Deliver {
 	/* Create a message-id */
 	$message_id = '<' . $REMOTE_PORT . '.' . $REMOTE_ADDR . '.';
 	$message_id .= time() . '.squirrel@' . $SERVER_NAME .'>';
-	$old_message_id = $rfc822_header->message_id;
 	/* Make an RFC822 Received: line */
 	if (isset($REMOTE_HOST)) {
     	    $received_from = "$REMOTE_HOST ([$REMOTE_ADDR])";
@@ -237,11 +278,9 @@ class Deliver {
 	$header[] = "        $date" . $rn;
         /* Insert the rest of the header fields */
         $header[] = 'Message-ID: '. $message_id . $rn;
-        if ($old_message_id) {
-	    $header[] = 'In-Reply-To: '.$old_message_id . $rn;
-    	    $references = $this->calculate_references($rfc822_header->references,
-	               $old_message_id, $rfc822_header->in_reply_to);
-		       
+        if ($reply_rfc822_header->message_id) {
+	    $header[] = 'In-Reply-To: '.$reply_rfc822_header->message_id . $rn;
+    	    $references = $this->calculate_references($reply_rfc822_header);
 	    $header[] = 'References: '.$references . $rn;
 	}	
 	$header[] = "Date: $date" . $rn;
@@ -259,7 +298,7 @@ class Deliver {
 	    $header[] = 'Reply-To: '. encodeHeader($rfc822_header->getAddr_s('reply_to')) . $rn;
 	}
 	/* Sendmail should return true. Default = false */
-	$bcc = $this->getBcc($rfc822_header->bcc);
+	$bcc = $this->getBcc();
 	if ($bcc && count($rfc822_header->bcc)) {
 	    $header[] = 'Bcc: '. encodeHeader($rfc822_header->getAddr_s('bcc')) . $rn;
 	}
@@ -270,8 +309,10 @@ class Deliver {
 	$contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
                                          $rfc822_header->content_type->type1;
 	if (count($rfc822_header->content_type->properties)) {
-    	    foreach ($rfc822_header->contenttype->properties as $k => $v) {
-        	$contenttype .= ';'. "\r\n " .$k.'='.$v; /* FOLDING */
+    	    foreach ($rfc822_header->content_type->properties as $k => $v) {
+	        if ($k && $v) {
+        	    $contenttype .= ';' .$k.'='.$v; 
+		}
     	    }
 	}
         $header[] = $contenttype . $rn;
@@ -312,63 +353,41 @@ class Deliver {
     /*
     * function for cleanly folding of headerlines
     */
-    function foldLine($line, $length, $pre) {
-    $cnt = strlen($line);
-    $res = '';
-    if ($cnt > $length)
-    {
-        $fold_string = $pre.' '."\r\n";
-        for ($i=0;$i<($cnt-$length);$i++)
-	{
-            $fold_pos = 0;
-	    /* first try to fold at delimiters */
-            for ($j=($i+$length); $j>$i; $j--)
-            {
-                switch ($line{$j})
-	        {
-	        case (','):
-	        case (';'):
-                    $fold_pos = $j;
-		    break;
-	        default:
-	            break;
-	        }
-		if ($fold_pos)
-		{
-		    $j=$i;
+    function foldLine($line, $length, $pre='') {
+	$cnt = strlen($line);
+	$res = '';
+	if ($cnt > $length) {
+	    $fold_string = "\r\n " . $pre;
+	    $length -=strlen($fold_string);
+    	    for ($i=0;$i<($cnt-$length);$i++) {
+        	$fold_pos = 0;
+		/* first try to fold at delimiters */
+        	for ($j=($i+$length); $j>$i; --$j) {
+		    switch ($line{$j}) {
+	    	      case (','):
+	    	      case (';'): $fold_pos = $i = $j; break;
+	    	      default: break;
+	    	    }
 		}
-	    }
-	    if (!$fold_pos)
-	    {
-                /* not succeed yet so we try at spaces and = */
-                for ($j=($i+$length); $j>$i; $j--)
-                {
-                    switch ($line{$j})
-	            {
-	            case (' '):
-	            case ('='):
-                        $fold_pos = $j;
-		        break;
-	            default:
-	                break;
-	            }
-		    if ($fold_pos)
-		    {
-		        $j=$i;
-		    }
-	        }
-	    }
-	    if (!$fold_pos)
-	    {
-	       /* clean folding didn't work */
-	       $fold_pos = $i+$length;
-	    }
-	    $line = substr_replace($line,$line{$fold_pos}.$fold_string,$fold_pos,1);
-	    $cnt += strlen($fold_string);
-	    $i = $j + strlen($fold_string);
-        }	    
-    }
-    return $line;
+		if (!$fold_pos) { /* not succeed yet so we try at spaces & = */
+            	    for ($j=($i+$length); $j>$i; $j--) {
+                	switch ($line{$j}) {
+	        	  case (' '):
+	        	  case ('='): $fold_pos = $i = $j; break;
+	        	  default: break;
+	        	}
+	    	    }
+		}
+		if (!$fold_pos) { /* clean folding didn't work */
+	    	    $i = $j = $fold_pos = $i+$length;
+		}
+		$line = substr_replace($line,$line{$fold_pos}.$fold_string,
+		                       $fold_pos,1);
+		$cnt += strlen($fold_string);
+		$i = $j + strlen($fold_string);
+    	    }	    
+	}
+	return $line;
     }	   
 
 
@@ -405,14 +424,15 @@ class Deliver {
 	return ($result);
     }
 
-    function calculate_references($refer, $old_message_id, $old_in_reply_to) {
+    function calculate_references($hdr) {
+        $refer = $hdr->references;
 	if (strlen($refer) > 2) {
-    	    $refer .= ' ' . $old_message_id;
+    	    $refer .= ' ' . $hdr->message_id;
 	} else {
-    	    if ($old_in_reply_to) {
-        	$refer .= $old_in_reply_to . ' ' . $old_message_id;
+    	    if ($hdr->in_reply_to) {
+        	$refer .= $hdr->in_reply_to . ' ' . $hdr->message_id;
     	    } else {
-        	$refer .= $old_message_id;
+        	$refer .= $hdr->message_id;
     	    }                        
 	}
 	trim($refer);
