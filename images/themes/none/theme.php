@@ -1,3 +1,9 @@
 <?php
-    $icon_themes[] = array('NAME'=>'None','PATH'=> 'none');
+/**
+ * Theme description
+ *
+ * @package squirrelmail
+ * @subpackage themes
+ */
+    $icon_themes[] = array('NAME'=>_("None"),'PATH'=> 'none');
 ?>
