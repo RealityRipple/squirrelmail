@@ -204,7 +204,7 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
                  $sPersonal = (isset($addr[SQM_ADDR_PERSONAL]) && $addr[SQM_ADDR_PERSONAL]) ?
                    $addr[SQM_ADDR_PERSONAL] : "";
                  $sEmail = ($addr[SQM_ADDR_HOST]) ?
-                      $addr[SQM_ADDR_HOST] . "@".$addr[SQM_ADDR_HOST] :
+                      $addr[SQM_ADDR_MAILBOX] . "@".$addr[SQM_ADDR_HOST] :
                       $addr[SQM_ADDR_HOST];
                  $v[$f] = ($sPersonal) ? decodeHeader($sPersonal):$sEmail;'),$sSortField);
             $walk = true;

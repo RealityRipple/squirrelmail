@@ -195,7 +195,7 @@ Version 1.5.1 -- CVS
   - Fixed translations of "On DATE, AUTHOR said" and "AUTHOR said" replies.
   - Added sq_str_pad function for padding of multi-byte strings.
   - Added sq_strlen function for calculation of multi-byte string length.
-  - Quoted "INBOX" in check for the status of INBOX in a LIST call.  Fixes an
+  - Quoted "INBOX" in check for the status of INBOX in a LIST call. Fixes an
     issue with a specific IMAP server.
   - In sqgetGlobalVar(), reset $value if the var is not found in the
     specified location.
@@ -204,6 +204,7 @@ Version 1.5.1 -- CVS
     create an empty one.
   - Add trailing slash for data directory used by global file based address
     book (#1105760).
+  - Fixed sorting problem is get_squirrel_sort() function (#1115403).    
 
 Version 1.5.0
 --------------------
