@@ -16,14 +16,10 @@
    function displayHtmlHeader ($title="SquirrelMail") {
      global $theme_css;
 
-      echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
-      echo "\n\n";
-      echo "<HTML>\n";
-      echo "<HEAD>\n";
-      if ($theme_css != "") {
-        printf ('<LINK REL="stylesheet" TYPE="text/css" HREF="%s">', 
-                $theme_css);
-        echo "\n";
+      echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
+           "\n\n<HTML>\n<HEAD>\n";
+      if ($theme_css != '') {
+        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n"; 
       }
       
       do_hook ("generic_header");
@@ -32,10 +28,10 @@
       echo "</HEAD>\n\n";
    }
 
-   function displayInternalLink ($path, $text, $target="") {
+   function displayInternalLink ($path, $text, $target='') {
       global $base_uri;
 
-      if ($target != "")
+      if ($target != '')
          $target = " target=\"$target\"";
       
       echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
@@ -44,7 +40,7 @@
    function displayPageHeader($color, $mailbox) {
       displayHtmlHeader ();
 
-      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( document.forms[0].elements[0].type == \"text\" ) { document.forms[0].elements[0].focus(); }'>\n\n";
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( 0 in document.forms && document.forms[0].elements[0].type == \"text\" ) { document.forms[0].elements[0].focus(); }'>\n\n";
 
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
