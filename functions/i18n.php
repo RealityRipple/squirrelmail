@@ -886,7 +886,7 @@ $languages['sl']['NAME']    = 'Slovenian';
 $languages['sl']['CHARSET'] = 'iso-8859-2';
 
 $languages['bg']['NAME']    = 'Bulgarian';
-$languages['bg']['CHARSET'] = 'cp-1251';
+$languages['bg']['CHARSET'] = 'windows-1251';
 
 global $use_gettext;
 
