@@ -34,12 +34,26 @@
    displayPageHeader($color, "None");
    //<form method=post action="compose.php?html_addr_search=true">
 
+   
+   $body = stripslashes($body);
+   $send_to = stripslashes($send_to);
+   $send_to_cc = stripslashes($send_to_cc);
+   $send_to_bcc = stripslashes($send_to_bcc);
+   $subject = stripslashes($subject);
+
    echo "<center>";
-   echo "<form method=post action=\"addrbook_search_html.php\">";
+   echo "<form method=post action=\"compose.php?html_addr_search=true\">";
    echo "   <input type=text value=\"$query\"name=query>";
    echo "   <input type=submit value=Submit>";
+   echo "   <input type=hidden value=\"$body\" name=body>";
+   echo "   <input type=hidden value=\"$subject\" name=subject>";
+   echo "   <input type=hidden value=\"$send_to\" name=send_to>";
+   echo "   <input type=hidden value=\"$send_to_cc\" name=send_to_cc>";
+   echo "   <input type=hidden value=\"$send_to_bcc\" name=send_to_bcc>";
    echo "</form>";
    echo "</center>";
+
+   echo "<tt>".nl2br($body)."</tt>";
 
    if(!empty($query)) {
       $abook = addressbook_init();
@@ -67,12 +81,21 @@
              "&nbsp;%s</tr>\n",
              _("Name"), _("E-mail"), _("Info"), _("Source"));
 
+      ?> 
+         <form method=post action"compose.php?html_addr_search_done=true"> 
+      <?
+   echo "   <input type=hidden value=\"$body\" name=body>";
+   echo "   <input type=hidden value=\"$subject\" name=subject>";
+   echo "   <input type=hidden value=\"$send_to\" name=send_to>";
+   echo "   <input type=hidden value=\"$send_to_cc\" name=send_to_cc>";
+   echo "   <input type=hidden value=\"$send_to_bcc\" name=send_to_bcc>";
+      
       while(list($key, $row) = each($res)) {
          printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
-                "<a href=\"compose.php?send_to=%s\">To</A> | ".
-                "<a href=\"compose.php?send_to_cc=%s\">Cc</A>".
+                "<input type=checkbox name=send_to_search[] value=\"%s\">&nbsp;To".
+                "<input type=checkbox name=send_to_cc_search[] value=\"%s\">&nbsp;Cc&nbsp;".
                 "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
-                "<a href=\"compose.php?send_to=%s\">%s</A>&nbsp;".
+                "<a href=\"compose.php?send_to_search=%s\">%s</A>&nbsp;".
                 "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s</tr>\n",
                 ($line % 2) ? " bgcolor=\"$color[0]\"" : "", $row["email"],
                 $row["email"], $row["name"], $row["email"], $row["email"],
@@ -80,6 +103,9 @@
          $line++;
       }
       print "</TABLE>";
+      echo "<input type=hidden value=1 name=html_addr_search_done>";
+      echo "<center><input type=submit value=addr_search_done name=\"Use Addresses\"></center>";
+      echo "</form>";
    }
 
 ?>
