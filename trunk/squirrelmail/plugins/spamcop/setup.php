@@ -8,6 +8,9 @@
     **  $Id$                                                         
     **/
 
+require_once(SM_PATH . 'functions/global.php');
+
+
 /* Initialize the plugin */
 function squirrelmail_plugin_init_spamcop() {
    global $squirrelmail_plugin_hooks, $data_dir, $username,
