@@ -967,7 +967,10 @@ if ($advanced_tree) {
 echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
     html_tag( 'tr' ) .
     html_tag( 'td', '', 'left' ) .
-    '<center><font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
+    html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0"' ) .
+    html_tag( 'tr' ) .
+    html_tag( 'td', '', 'center' ) .
+    '<font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
 
 if ($date_format != 6) {
     /* First, display the clock. */
@@ -1003,13 +1006,13 @@ if ($date_format != 6) {
     }
     $clk = str_replace(' ','&nbsp;',$clk);
 
-    echo '<center><small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
-         ": $clk</small></center>";
+    echo '<nobr><small>' . str_replace(' ','&nbsp;',_("Last Refresh")) .
+         ": $clk</small></nobr><br />";
 }
 
 /* Next, display the refresh button. */
-echo '<small>(<a href="../src/left_main.php" target="left">'.
-     _("refresh folder list") . '</a>)</small></center><br />';
+echo '<nobr><small>(<a href="../src/left_main.php" target="left">'.
+     _("Check mail") . '</a>)</small></nobr></td></tr></table><br />';
 
 /* Lastly, display the folder list. */
 if ( $collapse_folders ) {
