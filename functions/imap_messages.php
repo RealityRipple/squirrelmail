@@ -33,33 +33,27 @@
    function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
       fputs ($imap_stream, "a001 STORE $start:$end +FLAGS (\\$flag)\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-      
    }
 
    /******************************************************************************
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
-   function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date, $sent) {
+   function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date) {
       //fputs ($imap_stream, "a001 FETCH $id BODY[HEADER.FIELDS (DATE FROM SUBJECT)]\r\n");
-      fputs ($imap_stream, "a001 FETCH $id RFC822.HEADER\r\n");
+      //fputs ($imap_stream, "a001 FETCH $id RFC822.HEADER\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date From Subject)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
       $from = _("Unknown Sender");
       for ($i = 0; $i < count($read); $i++) {
-			if ($sent == true) {
-	         if (strtolower(substr($read[$i], 0, 3)) == "to:")
-   	         $from = sqimap_find_displayable_name(substr($read[$i], 3));
-			} else {
-	         if (strtolower(substr($read[$i], 0, 5)) == "from:")
-   	         $from = sqimap_find_displayable_name(substr($read[$i], 5));
-			}
-
-			if (strtolower(substr($read[$i], 0, 5)) == "date:") {
+         if (eregi ("^from:", $read[$i])) {
+            $from = sqimap_find_displayable_name(substr($read[$i], 5));
+         } else if (eregi ("^date:", $read[$i])) {
             $date = substr($read[$i], 5);
-         } else if (strtolower(substr($read[$i], 0, 8)) == "subject:") {
-            $subject = htmlspecialchars(substr($read[$i], 8));
-            if (strlen(trim($subject)) == 0)
+         } else if (eregi ("^subject:", $read[$i])) {
+            $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
+            if (strlen($subject) == 0)
                $subject = _("(no subject)");
          }
       }
@@ -247,7 +241,7 @@
             $pos = 0;
             $header["CC"][$pos] = trim(substr($read[$i], 4));
             $i++;
-				while (((substr($read[$i], 0, 1) == "\t") || (substr($read[$i], 0, 1) == " ")) && (trim($read[$i]) != "")) {
+            while ((substr($read[$i], 0, 1) == " ") && (trim($read[$i]) != "")) {
                $pos++;
                $header["CC"][$pos] = trim($read[$i]);
                $i++;
@@ -258,7 +252,7 @@
             $pos = 0;
             $header["TO"][$pos] = trim(substr($read[$i], 4));
             $i++;
-				while (((substr($read[$i], 0, 1) == "\t") || (substr($read[$i], 0, 1) == " ")) && (trim($read[$i]) != "")) {
+            while ((substr($read[$i], 0, 1) == " ")  && (trim($read[$i]) != "")){
                $pos++;
                $header["TO"][$pos] = trim($read[$i]);
                $i++;
