@@ -50,6 +50,7 @@
             if ($mailfetch_server_number<1) $mailfetch_server_number=0;
             for ($i=0;$i<$mailfetch_server_number;$i++) {
                 $mailfetch_server_[$i] = getPref($data_dir, $username, "mailfetch_server_$i");
+                $mailfetch_port_[$i] = getPref($data_dir, $username, "mailfetch_port_$i");
                 $mailfetch_alias_[$i]  = getPref($data_dir, $username, "mailfetch_alias_$i");
                 $mailfetch_user_[$i]   = getPref($data_dir, $username, "mailfetch_user_$i");
                 $mailfetch_pass_[$i]   = getPref($data_dir, $username, "mailfetch_pass_$i");
@@ -97,6 +98,7 @@
                 ( ( $mailfetch_login_[$i_loop] == 'on' &&  $mailfetch_newlog == 'on' ) || $mailfetch_fref_[$i_loop] == 'on' ) ) {
 
                 $mailfetch_server_[$i_loop] = getPref($data_dir, $username, "mailfetch_server_$i_loop");
+                $mailfetch_port_[$i_loop] = getPref($data_dir, $username , "mailfetch_port_$i_loop");
                 $mailfetch_alias_[$i_loop] = getPref($data_dir, $username, "mailfetch_alias_$i_loop");
                 $mailfetch_user_[$i_loop] = getPref($data_dir, $username, "mailfetch_user_$i_loop");
                 $mailfetch_lmos_[$i_loop] = getPref($data_dir, $username, "mailfetch_lmos_$i_loop");
@@ -104,6 +106,7 @@
                 $mailfetch_subfolder_[$i_loop] = getPref($data_dir, $username, "mailfetch_subfolder_$i_loop");
 
                 $mailfetch_server=$mailfetch_server_[$i_loop];
+                $mailfetch_port=$mailfetch_port_[$i_loop];
                 $mailfetch_user=$mailfetch_user_[$i_loop];
                 $mailfetch_alias=$mailfetch_alias_[$i_loop];
                 $mailfetch_pass=$mailfetch_pass_[$i_loop];
@@ -118,7 +121,7 @@
 
                 $pop3 = new POP3($mailfetch_server, 60);
 
-                if (!$pop3->connect($mailfetch_server)) {
+                if (!$pop3->connect($mailfetch_server,$mailfetch_port)) {
                     $outMsg .= _("Warning, ") . $pop3->ERROR;
                     continue;
                 }
