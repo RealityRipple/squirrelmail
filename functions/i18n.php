@@ -12,8 +12,9 @@
  * Internally the output character set is used. Other characters are
  * encoded using Unicode entities according to HTML 4.0.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage i18n
  */
 
 /** Everything uses global.php... */
@@ -211,8 +212,20 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
 	// Set text direction/alignment variables
 	if (isset($languages[$sm_notAlias]['DIR']) && 
 		$languages[$sm_notAlias]['DIR'] == 'rtl') {
+	  /**
+	   * Text direction
+	   * @global string $text_direction
+	   */
 	    $text_direction='rtl';
+	  /**
+	   * Left alignment
+	   * @global string $left_align
+	   */
 	    $left_align='right';
+	  /**
+	   * Right alignment
+	   * @global string $right_align
+	   */
 	    $right_align='left';
 	} else {
 	    $text_direction='ltr';
@@ -307,7 +320,7 @@ if (! isset($squirrelmail_language)) {
  * Each 'language' definition requires NAME+CHARSET or ALIAS variables.
  *
  * @name $languages
- * @global $languages
+ * @global array $languages
  */
 $languages['bg_BG']['NAME']    = 'Bulgarian';
 $languages['bg_BG']['ALTNAME'] = '&#1041;&#1098;&#1083;&#1075;&#1072;&#1088;&#1089;&#1082;&#1080;';
@@ -613,7 +626,7 @@ elseif ($gettext_flags == 0) {
  * Default return value is defined by second argument.
  * Use of third argument depends on action.
  *
- * @param string action performed by this function. 
+ * @param string $action action performed by this function.
  *    possible values:
  * 	decode - convert returned string to euc-jp. third argument unused
  *	encode - convert returned string to jis. third argument unused
@@ -624,7 +637,7 @@ elseif ($gettext_flags == 0) {
  *	wordwrap - third argument=$wrap. wraps text at $wrap symbols
  *	utf7-imap_encode - returns string converted from euc-jp to utf7-imap. third argument unused
  *	utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
- * @param string default return value
+ * @param string $ret default return value
  */
 function japanese_charset_xtra() {
     $ret = func_get_arg(1);  /* default return value */
