@@ -57,6 +57,15 @@ global $SpamFilters_YourHop;
 $SpamFilters_YourHop = ' ';
 
 /*
+ * Some of the SPAM filters are COMMERCIAL and require a fee. If your users
+ * select them and you're not allowed to use them, it will make SPAM filtering
+ * very slow. If you don't want them to even be offered to the users, you
+ * set SpamFilters_ShowCommercial to false.
+ */
+global $SpamFilters_ShowCommercial;
+$SpamFilters_ShowCommercial = true;
+
+/*
  * A cache of IPs we've already checked or are known bad boys or good boys
  * ie. $SpamFilters_DNScache["210.54.220.18"] = true;
  * would tell filters to not even bother doing the DNS queries for that

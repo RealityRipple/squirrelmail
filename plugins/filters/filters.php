@@ -349,55 +349,57 @@ function load_filters() {
 }
 
 function load_spam_filters() {
-    global $data_dir, $username;
+    global $data_dir, $username, $SpamFilters_ShowCommercial;
 
-    $filters['MAPS RBL']['prefname'] = 'filters_spam_maps_rbl';
-    $filters['MAPS RBL']['name'] = 'MAPS Realtime Blackhole List';
-    $filters['MAPS RBL']['link'] = 'http://www.mail-abuse.org/rbl/';
-    $filters['MAPS RBL']['dns'] = 'blackholes.mail-abuse.org';
-    $filters['MAPS RBL']['result'] = '127.0.0.2';
-    $filters['MAPS RBL']['comment'] =
-        _("COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from.");
+    if ($SpamFilters_ShowCommercial) {
+        $filters['MAPS RBL']['prefname'] = 'filters_spam_maps_rbl';
+        $filters['MAPS RBL']['name'] = 'MAPS Realtime Blackhole List';
+        $filters['MAPS RBL']['link'] = 'http://www.mail-abuse.org/rbl/';
+        $filters['MAPS RBL']['dns'] = 'blackholes.mail-abuse.org';
+        $filters['MAPS RBL']['result'] = '127.0.0.2';
+        $filters['MAPS RBL']['comment'] =
+            _("COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from.");
 
-    $filters['MAPS RSS']['prefname'] = 'filters_spam_maps_rss';
-    $filters['MAPS RSS']['name'] = 'MAPS Relay Spam Stopper';
-    $filters['MAPS RSS']['link'] = 'http://www.mail-abuse.org/rss/';
-    $filters['MAPS RSS']['dns'] = 'relays.mail-abuse.org';
-    $filters['MAPS RSS']['result'] = '127.0.0.2';
-    $filters['MAPS RSS']['comment'] =
-        _("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use.");
+        $filters['MAPS RSS']['prefname'] = 'filters_spam_maps_rss';
+        $filters['MAPS RSS']['name'] = 'MAPS Relay Spam Stopper';
+        $filters['MAPS RSS']['link'] = 'http://www.mail-abuse.org/rss/';
+        $filters['MAPS RSS']['dns'] = 'relays.mail-abuse.org';
+        $filters['MAPS RSS']['result'] = '127.0.0.2';
+        $filters['MAPS RSS']['comment'] =
+            _("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use.");
 
-    $filters['MAPS DUL']['prefname'] = 'filters_spam_maps_dul';
-    $filters['MAPS DUL']['name'] = 'MAPS Dial-Up List';
-    $filters['MAPS DUL']['link'] = 'http://www.mail-abuse.org/dul/';
-    $filters['MAPS DUL']['dns'] = 'dialups.mail-abuse.org';
-    $filters['MAPS DUL']['result'] = '127.0.0.3';
-    $filters['MAPS DUL']['comment'] =
-        _("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
+        $filters['MAPS DUL']['prefname'] = 'filters_spam_maps_dul';
+        $filters['MAPS DUL']['name'] = 'MAPS Dial-Up List';
+        $filters['MAPS DUL']['link'] = 'http://www.mail-abuse.org/dul/';
+        $filters['MAPS DUL']['dns'] = 'dialups.mail-abuse.org';
+        $filters['MAPS DUL']['result'] = '127.0.0.3';
+        $filters['MAPS DUL']['comment'] =
+            _("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
 
-    $filters['MAPS RBLplus-RBL']['prefname'] = 'filters_spam_maps_rblplus_rbl';
-    $filters['MAPS RBLplus-RBL']['name'] = 'MAPS RBL+ RBL List';
-    $filters['MAPS RBLplus-RBL']['link'] = 'http://www.mail-abuse.org/';
-    $filters['MAPS RBLplus-RBL']['dns'] = 'rbl-plus.mail-abuse.org';
-    $filters['MAPS RBLplus-RBL']['result'] = '127.0.0.2';
-    $filters['MAPS RBLplus-RBL']['comment'] =
-        _("COMMERCIAL - RBL+ Blackhole entries.");
+        $filters['MAPS RBLplus-RBL']['prefname'] = 'filters_spam_maps_rblplus_rbl';
+        $filters['MAPS RBLplus-RBL']['name'] = 'MAPS RBL+ RBL List';
+        $filters['MAPS RBLplus-RBL']['link'] = 'http://www.mail-abuse.org/';
+        $filters['MAPS RBLplus-RBL']['dns'] = 'rbl-plus.mail-abuse.org';
+        $filters['MAPS RBLplus-RBL']['result'] = '127.0.0.2';
+        $filters['MAPS RBLplus-RBL']['comment'] =
+            _("COMMERCIAL - RBL+ Blackhole entries.");
 
-    $filters['MAPS RBLplus-RSS']['prefname'] = 'filters_spam_maps_rblplus_rss';
-    $filters['MAPS RBLplus-RSS']['name'] = 'MAPS RBL+ List RSS entries';
-    $filters['MAPS RBLplus-RSS']['link'] = 'http://www.mail-abuse.org/';
-    $filters['MAPS RBLplus-RSS']['dns'] = 'rbl-plus.mail-abuse.org';
-    $filters['MAPS RBLplus-RSS']['result'] = '127.0.0.2';
-    $filters['MAPS RBLplus-RSS']['comment'] =
-        _("COMMERCIAL - RBL+ OpenRelay entries.");
+        $filters['MAPS RBLplus-RSS']['prefname'] = 'filters_spam_maps_rblplus_rss';
+        $filters['MAPS RBLplus-RSS']['name'] = 'MAPS RBL+ List RSS entries';
+        $filters['MAPS RBLplus-RSS']['link'] = 'http://www.mail-abuse.org/';
+        $filters['MAPS RBLplus-RSS']['dns'] = 'rbl-plus.mail-abuse.org';
+        $filters['MAPS RBLplus-RSS']['result'] = '127.0.0.2';
+        $filters['MAPS RBLplus-RSS']['comment'] =
+            _("COMMERCIAL - RBL+ OpenRelay entries.");
 
-    $filters['MAPS RBLplus-DUL']['prefname'] = 'filters_spam_maps_rblplus_dul';
-    $filters['MAPS RBLplus-DUL']['name'] = 'MAPS RBL+ List DUL entries';
-    $filters['MAPS RBLplus-DUL']['link'] = 'http://www.mail-abuse.org/';
-    $filters['MAPS RBLplus-DUL']['dns'] = 'rbl-plus.mail-abuse.org';
-    $filters['MAPS RBLplus-DUL']['result'] = '127.0.0.3';
-    $filters['MAPS RBLplus-DUL']['comment'] =
-        _("COMMERCIAL - RBL+ Dial-up entries.");
+        $filters['MAPS RBLplus-DUL']['prefname'] = 'filters_spam_maps_rblplus_dul';
+        $filters['MAPS RBLplus-DUL']['name'] = 'MAPS RBL+ List DUL entries';
+        $filters['MAPS RBLplus-DUL']['link'] = 'http://www.mail-abuse.org/';
+        $filters['MAPS RBLplus-DUL']['dns'] = 'rbl-plus.mail-abuse.org';
+        $filters['MAPS RBLplus-DUL']['result'] = '127.0.0.3';
+        $filters['MAPS RBLplus-DUL']['comment'] =
+            _("COMMERCIAL - RBL+ Dial-up entries.");
+    }
 
     $filters['Osirusoft Relays']['prefname'] = 'filters_spam_maps_osirusoft_relay';
     $filters['Osirusoft Relays']['name'] = 'Osirusoft Relay List';
