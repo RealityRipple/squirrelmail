@@ -41,6 +41,8 @@ Version 1.5.1 -- CVS
   - Fixed RFC2298 incompliancy by setting envelop sender to null.
   - Fixed problem where setting all the messages on the last page of the
     message list would return one page higher.
+  - Remove call to perform expunge on mailbox select - auto-expunge will 
+    still be performed on message delete, etc.
 
 Version 1.5.0
 --------------------
