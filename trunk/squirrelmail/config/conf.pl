@@ -139,6 +139,9 @@ while ($line = <FILE>) {
             $sub = $options[0];
             $sub =~ s/\]\["PATH"\]//;
             $sub =~ s/.*\[//; 
+            if (-e "../themes") {
+               $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
+            }   
             $theme_path[$sub] = $options[1];
          } elsif ($options[0] =~ /^theme\[[0-9]+\]\["NAME"\]/) {
             $sub = $options[0];
