@@ -297,7 +297,7 @@ if ( !$allow_server_sort ) {
     $allow_server_sort = 'false';
 }
 if ( !$uid_support ) {
-    $uid_support = 'false';
+    $uid_support = 'true';
 }
 
 if ( !$allow_charset_search ) {
