@@ -27,9 +27,9 @@
       $reply_to = getPref($username, "reply_to");
       $from = getPref($username, "full_name");
       if ($from == "")
-         $from = "<$username@$domain>";
+         $from = "<$from_addr>";
       else
-         $from = $from . " <$username@$domain>";
+         $from = $from . " <$from_addr>";
 
 
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
@@ -50,7 +50,7 @@
       errorCheck($tmp);
 
       /** Ok, who is sending the message? */
-      fputs($smtpConnection, "MAIL FROM:$from_addr\n");
+      fputs($smtpConnection, "MAIL FROM:<$from_addr>\n");
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
