@@ -523,7 +523,7 @@ $body = '';
     $ent_ar = findDisplayEntity($message, false);
     $i = 0;
     for ($i = 0; $i < count($ent_ar); $i++) {
-	$body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i]);
+	$body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
     }
 
 
