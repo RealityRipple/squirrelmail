@@ -1,4 +1,4 @@
-<?PHP
+<?php
 
 
 /**
@@ -15,6 +15,7 @@
  */
 
 
+_("This image has been removed for security reasons")
 _("Delivery error report");
 _("Undelivered Message Headers");
 
