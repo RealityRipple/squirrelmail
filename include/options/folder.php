@@ -165,6 +165,14 @@ function load_optpage_data_folder() {
     );
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
+        'name'    => 'unseen_cum',
+        'caption' => _("Enable Cumulative Unread Message Notification"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST
+    );
+
+
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'date_format',
         'caption' => _("Show Clock on Folders Panel"),
         'type'    => SMOPT_TYPE_STRLIST,
