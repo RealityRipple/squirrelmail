@@ -129,7 +129,7 @@ function spamcop_options()
    $optpage_blocks[] = array(
       'name' => _("SpamCop - Spam Reporting"),
       'url' => '../plugins/spamcop/options.php',
-      'desc' => _("Help fight the battle against unsolicited email.  SpamCop reads the spam email and determines the correct addresses to send complaints to.  Quite fast, really smart, and easy to use."),
+      'desc' => _("Help fight the battle against unsolicited email. SpamCop reads the spam email and determines the correct addresses to send complaints to. Quite fast, really smart, and easy to use."),
       'js' => false
    );
 }

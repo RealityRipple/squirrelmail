@@ -162,7 +162,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
-                        _("You should be aware that the encryption used to store your password is not perfectly secure.  However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file." ) ,
+                        _("You should be aware that the encryption used to store your password is not perfectly secure. However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file." ) ,
                     'left' )
                 ) .
                 html_tag( 'tr',

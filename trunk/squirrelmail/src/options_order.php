@@ -96,7 +96,7 @@ displayPageHeader($color, 'None');
     echo html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
-                        _("The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs.")
+                        _("The index order is the order that the columns are arranged in the message index. You can add, remove, and move columns around to customize them to fit your needs.")
                     )
                 ) ,
             '', '', '', 'width="65%" border="0" cellpadding="0" cellspacing="0"' ) . "<br>\n";
