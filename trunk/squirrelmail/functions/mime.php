@@ -271,6 +271,7 @@ function translateText(&$body, $wrap_at, $charset) {
             sqWordWrap($line, $wrap_at);
         }
         $line = charset_decode($charset, $line);
+	$line = htmlspecialchars($line);
         $line = str_replace("\t", '        ', $line);
 
         parseUrl ($line);
