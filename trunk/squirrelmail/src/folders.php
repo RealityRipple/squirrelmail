@@ -13,22 +13,6 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
@@ -49,11 +33,11 @@ displayPageHeader($color, 'None');
 
 <?php
 
-if ((isset($success) && $success) || 
-    (isset($sent_create) && $sent_create == "true") || 
-    (isset($trash_create) && $trash_create == "true")) {
-    echo "<table width=\"100%\" align=center cellpadding=4 cellspacing=0 border=0>\n";
-    echo "   <tr><td align=center>\n";
+if ((isset($success) && $success) ||
+    (isset($sent_create) && $sent_create == 'true') ||
+    (isset($trash_create) && $trash_create == 'true')) {
+    echo "<table width=\"100%\" align=center cellpadding=4 cellspacing=0 border=0>\n" .
+         "   <tr><td align=center>\n";
     if ($success == "subscribe") {
         echo "<b>" . _("Subscribed successfully!") . "</b><br>";
     } else if ($success == "unsubscribe") {
@@ -66,9 +50,9 @@ if ((isset($success) && $success) ||
         echo "<b>" . _("Renamed successfully!") . "</b><br>";
     }
 
-    echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
-    echo "   </td></tr>\n";
-    echo "</table><br>\n";
+    echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>".
+         "   </td></tr>\n";
+         "</table><br>\n";
 } else {
     echo "<br>";
 }
@@ -76,17 +60,16 @@ $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 
 $boxes = sqimap_mailbox_list($imapConnection);
 
 /** CREATING FOLDERS **/
-echo "<TABLE WIDTH=\"70%\" COLS=1 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n";
-
-echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-echo _("Create Folder");
-echo "</B></TD></TR>";
-echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-echo "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
-echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
-echo _("as a subfolder of");
-echo "<BR>";
-echo "<TT><SELECT NAME=subfolder>\n";
+echo "<TABLE WIDTH=\"70%\" COLS=1 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n".
+     "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
+     _("Create Folder").
+     "</B></TD></TR>".
+     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>".
+     "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n".
+     "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n".
+     _("as a subfolder of").
+     "<BR>".
+     "<TT><SELECT NAME=subfolder>\n";
 if ($default_sub_of_inbox == false) {
     echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
 } else {
@@ -95,16 +78,17 @@ if ($default_sub_of_inbox == false) {
 
 for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noinferiors', $boxes[$i]['flags'])) {
-        if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
-            $box = $boxes[$i]["unformatted"];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
-            echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
+        if ((strtolower($boxes[$i]['unformatted']) == 'inbox') &&
+            $default_sub_of_inbox) {
+            $box = $boxes[$i]['unformatted'];
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            echo "<OPTION SELECTED VALUE=\"$box\">$box2</option>\n";
         } else {
-            $box = $boxes[$i]["unformatted"];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
-            if (strtolower($imap_server_type) != "courier" ||
+            $box = $boxes[$i]['unformatted'];
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            if (strtolower($imap_server_type) != 'courier' ||
                   strtolower($box) != "inbox.trash")
-                echo "<OPTION VALUE=\"$box\">$box2\n";
+                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
 }
@@ -113,38 +97,40 @@ if ($show_contain_subfolders_option) {
     echo "<br><INPUT TYPE=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
     echo _("Let this folder contain subfolders");
     echo "<BR>";
-}   
+}
 echo "<INPUT TYPE=SUBMIT VALUE=\""._("Create")."\">\n";
 echo "</FORM></TD></TR>\n";
 
 echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
 /** RENAMING FOLDERS **/
-echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-echo _("Rename a Folder");
-echo "</B></TD></TR>";
-echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>".
+     _("Rename a Folder").
+     "</B></TD></TR>".
+     "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n";
-    echo "<TT><SELECT NAME=old>\n";
+    echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n".
+         "<TT><SELECT NAME=old>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
 
-        if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
-            ($boxes[$i]["unformatted"] != $trash_folder)  &&
-            ($boxes[$i]["unformatted"] != $sent_folder) &&
-            ($boxes[$i]["unformatted"] != $draft_folder)) {	
-	    $box = $boxes[$i]["unformatted-dm"];
-	    $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
-	    if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
-                echo "<OPTION VALUE=\"$box\">$box2\n";
+        if ((strtolower($boxes[$i]['unformatted']) != 'inbox') &&
+            ($boxes[$i]['unformatted'] != $trash_folder)  &&
+            ($boxes[$i]['unformatted'] != $sent_folder) &&
+            ($boxes[$i]['unformatted'] != $draft_folder)) {
+            $box = $boxes[$i]['unformatted-dm'];
+
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            if (strtolower($imap_server_type) != 'courier' || strtolower($box) != 'inbox.trash') {
+                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
+            }
         }
     }
-    echo "</SELECT></TT>\n";
-    echo "<INPUT TYPE=SUBMIT VALUE=\"";
-    echo _("Rename");
-    echo "\">\n";
-    echo "</FORM></TD></TR>\n";
+    echo "</SELECT></TT>\n".
+         "<INPUT TYPE=SUBMIT VALUE=\"".
+         _("Rename").
+         "\">\n".
+         "</FORM></TD></TR>\n";
 } else {
     echo _("No folders found") . "<br><br></td></tr>";
 }
@@ -159,25 +145,27 @@ echo "</B></TD></TR>";
 echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
 $count_special_folders = 0;
-    $num_max = 1;
-    if (strtolower($imap_server_type) == "courier" || $move_to_trash)
-            $num_max++;
-    if ($move_to_sent)
-            $num_max++;
-    if ($save_as_draft)
-            $num_max++;
-
+$num_max = 1;
+if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
+        $num_max++;
+}
+if ($move_to_sent) {
+        $num_max++;
+}
+if ($save_as_draft) {
+        $num_max++;
+}
 for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
-    if (strtolower($boxes[$p]["unformatted"]) == "inbox")
+    if (strtolower($boxes[$p]['unformatted']) == 'inbox')
         $count_special_folders++;
-    else if (strtolower($imap_server_type) == "courier" &&
-            strtolower($boxes[$p]["unformatted"]) == "inbox.trash")
+    else if (strtolower($imap_server_type) == 'courier' &&
+            strtolower($boxes[$p]['unformatted']) == 'inbox.trash')
         $count_special_folders++;
-    else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
+    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder)
         $count_special_folders++;
-    else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
+    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder)
         $count_special_folders++;
-    else if ($boxes[$p]["unformatted"] == $draft_folder && $draft_folder)
+    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder)
         $count_special_folders++;
 }
 
@@ -186,15 +174,15 @@ if ($count_special_folders < count($boxes)) {
     echo "<TT><SELECT NAME=mailbox>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
-        if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-            ($boxes[$i]["unformatted"] != $trash_folder) && 
-            ($boxes[$i]["unformatted"] != $sent_folder) &&
-            ($boxes[$i]["unformatted"] != $draft_folder) &&
-            ((strtolower($imap_server_type) != "courier") ||
-             (strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))) {
-            $box = $boxes[$i]["unformatted-dm"];
-            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
+        if ((strtolower($boxes[$i]['unformatted']) != 'inbox') &&
+            ($boxes[$i]['unformatted'] != $trash_folder) &&
+            ($boxes[$i]['unformatted'] != $sent_folder) &&
+            ($boxes[$i]['unformatted'] != $draft_folder) &&
+            ((strtolower($imap_server_type) != 'courier') ||
+             (strtolower($boxes[$i]['unformatted']) != 'inbox.trash'))) {
+            $box = $boxes[$i]['unformatted-dm'];
+            $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
     echo "</SELECT></TT>\n";

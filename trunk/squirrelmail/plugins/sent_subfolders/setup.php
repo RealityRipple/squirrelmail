@@ -149,40 +149,51 @@ function sent_subfolders_update_sentfolder() {
     global $username, $data_dir, $key, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent;
 
-    if ($use_sent_subfolders && $move_to_sent) {
+    if ($use_sent_subfolders || $move_to_sent) {
         $year = date('Y');
         $month = date('m');
         $quarter = sent_subfolder_getQuarter($month);
 
+        /*
+            Regarding the structure we've got three main possibilities.
+            One sent holder. level 0.
+            Multiple year holders with messages in it. level 1.
+            Multiple year folders with holders in it. level 2.
+        */
         switch ($sent_subfolders_setting) {
-            case SMPREF_SENT_SUBFOLDERS_YEARLY:
-                $sent_subfolder = $sent_subfolders_base
-                                . $delimiter . $year;
-                $year_folder = $sent_subfolder;
-                break;
-            case SMPREF_SENT_SUBFOLDERS_QUARTERLY:
-                $sent_subfolder = $sent_subfolders_base
-                                . $delimiter . $year
-                                . $delimiter . $quarter;
-                $year_folder = $sent_subfolders_base
-                                . $delimiter . $year;
-                break;
-            case SMPREF_SENT_SUBFOLDERS_MONTHLY:
-                $sent_subfolder = $sent_subfolders_base
-                                . $delimiter . $year
-                                . $delimiter . $month;
-                $year_folder = $sent_subfolders_base
-                                . $delimiter . $year;
-                break;
-            case SMPREF_SENT_SUBFOLDERS_DISABLED:
-            default:
-                $sent_subfolder = $sent_folder;
-                $year_folder = $sent_folder;
+        case SMPREF_SENT_SUBFOLDERS_YEARLY:
+            $level = 1;
+            $sent_subfolder = $sent_subfolders_base
+                            . $year;
+            $year_folder = $sent_subfolder;
+            break;
+        case SMPREF_SENT_SUBFOLDERS_QUARTERLY:
+            $level = 2;
+            $sent_subfolder = $sent_subfolders_base
+                            . $year
+                            . $delimiter . $quarter;
+            $year_folder = $sent_subfolders_base
+                            . $delimiter . $year;
+            break;
+        case SMPREF_SENT_SUBFOLDERS_MONTHLY:
+            $level = 2;
+            $sent_subfolder = $sent_subfolders_base
+                            . $year
+                            . $delimiter . $month;
+            $year_folder = $sent_subfolders_base
+                            . $delimiter . $year;
+            break;
+        case SMPREF_SENT_SUBFOLDERS_DISABLED:
+        default:
+            $level = 0;
+            $sent_subfolder = $sent_folder;
+            $year_folder = $sent_folder;
         }
 
         /* If this folder is NOT the current sent folder, update stuff. */
         if ($sent_subfolder != $sent_folder) {
             /* First, update the sent folder. */
+
             setPref($data_dir, $username, 'sent_folder', $sent_subfolder);
             setPref($data_dir, $username, 'move_to_sent', SMPREF_ON);
             $sent_folder = $sent_subfolder;
@@ -196,7 +207,7 @@ function sent_subfolders_update_sentfolder() {
 
                 /* Auto-create the year folder, if it does not yet exist. */
                 if (!sqimap_mailbox_exists($ic, $year_folder)) {
-                    sqimap_mailbox_create($ic, $year_folder, '');
+                    sqimap_mailbox_create($ic, $year_folder, ($level==1)?'':'noselect');
                 } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
                     sqimap_subscribe($ic, $year_folder);
                 }
@@ -204,8 +215,8 @@ function sent_subfolders_update_sentfolder() {
                 /* Auto-create the subfolder, if it does not yet exist. */
                 if (!sqimap_mailbox_exists($ic, $sent_folder)) {
                     sqimap_mailbox_create($ic, $sent_folder, '');
-                } else if (!sqimap_mailbox_is_subscribed($ic, $sent_folder)) {
-                    sqimap_subscribe($ic, $sent_folder);
+                } else if (!sqimap_mailbox_is_subscribed($ic, $sent_subfolder)) {
+                    sqimap_subscribe($ic, $sent_subfolder);
                 }
 
                 /* Close the imap connection. */

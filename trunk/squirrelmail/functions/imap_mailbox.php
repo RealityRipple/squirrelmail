@@ -137,7 +137,49 @@ function sqimap_mailbox_is_subscribed($imap_stream, $folder)
     return false;
 }
 
+/*
+    Renames a mailbox
+*/
+function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
 
+    if ( $old_name <> $new_name ) {
+
+        global $delimiter;
+
+        if ( substr( $old_name, -1 ) == $delimiter  ) {
+            $old_name = substr( $old_name, 0, strlen( $old_name ) - 1 );
+            $new_name = substr( $new_name, 0, strlen( $new_name ) - 1 );
+            $postfix = $delimiter;
+            $boxes = sqimap_mailbox_list($imap_stream);
+        } else {
+            $postfix = '';
+            $boxes = FALSE;
+        }
+
+        $cmd = sqimap_session_id() . " RENAME \"" . quoteIMAP($old_name) . "\" \"" .
+               quoteIMAP($new_name) . "\"\r\n";
+        fputs($imap_stream, $cmd);
+        $data = sqimap_read_data($imap_stream, sqimap_session_id(),
+                                 TRUE, $response, $message);
+        sqimap_unsubscribe($imap_stream, $old_name.$postfix);
+        sqimap_subscribe($imap_stream, $new_name.$postfix);
+
+        if ( $boxes ) {
+            // Sub-unsub subfolders
+            $l = strlen( $old_name ) + 1;
+            $p = 'unformatted';
+            foreach ( $boxes as $box ) {
+                if ( substr( $box[$p], 0, $l ) == $old_name . $delimiter ) {
+                    sqimap_unsubscribe($imap_stream, $box[$p]);
+                    sqimap_subscribe($imap_stream,
+                                     $new_name . $delimiter . substr( $box[$p], $l ) );
+                }
+            }
+        }
+
+    }
+
+}
 
 /******************************************************************************
  **  Formats a mailbox into 4 parts for the $boxes array
@@ -481,14 +523,14 @@ function sqimap_mailbox_list_all ($imap_stream)
                  $read_ary[$i], $regs)) {
             $i ++;
             $read_ary[$i] = $regs[1] . '"' . 
-			    addslashes(trim($read_ary[$i])) .
-			    '"' . $regs[2];
+                            addslashes(trim($read_ary[$i])) .
+                            '"' . $regs[2];
         }
         if (substr ($read_ary[$i], 0, $lsid) != $ssid ) {
             
             /* Store the raw IMAP reply */
             $boxes[$g]["raw"] = $read_ary[$i];
-            
+
             /* Count number of delimiters ($delimiter) in folder name */
             $mailbox = find_mailbox_name($read_ary[$i]);
             $dm_count =  substr_count($mailbox, $delimiter);
@@ -534,9 +576,9 @@ function sqimap_mailbox_list_all ($imap_stream)
             if (isset($read_mlbx[1]) &&
                 ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
                      $read_mlbx[0], $regs)) {
-                $read_mlbx[0] = $regs[1] . '"' . 
-				    addslashes(trim($read_mlbx[1])) .
-				    '"' . $regs[2];
+                $read_mlbx[0] = $regs[1] . '"' .
+                                addslashes(trim($read_mlbx[1])) .
+                                '"' . $regs[2];
             }
             
             $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
@@ -544,7 +586,7 @@ function sqimap_mailbox_list_all ($imap_stream)
             $flags = str_replace('\\', '', $flags);
             $flags = trim(strtolower($flags));
             if ($flags) {
-                $boxes[$g]['flags'] = explode(" ", $flags);
+                $boxes[$g]['flags'] = explode(' ', $flags);
             }
             else {
                 $boxes[$g]['flags'] = array();
@@ -553,7 +595,7 @@ function sqimap_mailbox_list_all ($imap_stream)
         $g++;
     }
     if(is_array($boxes)) {
-        $boxes = ary_sort ($boxes, "unformatted", 1);
+        $boxes = ary_sort ($boxes, 'unformatted', 1);
     }
     
     return $boxes;

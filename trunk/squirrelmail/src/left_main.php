@@ -10,23 +10,7 @@
  * available, and has cookie information.
  *
  * $Id$
- /
-
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
+ */
 
 require_once('../src/validate.php');
 require_once('../functions/array.php');
@@ -40,7 +24,25 @@ define('SM_BOX_COLLAPSED',   1);
 
 /* --------------------- FUNCTIONS ------------------------- */
 
+function isSpecialMailbox( $box ) {
+
+    global $trash_folder, $sent_folder, $draft_folder,
+           $move_to_trash, $move_to_sent, $save_as_draft;
+
+    $ret = ( (strtolower($box) == 'inbox') ||
+             (($box == $trash_folder) &&
+              ($move_to_trash)) ||
+             ((substr( $sent_folder, 0, strlen( $box ) ) == $box) &&
+              ($move_to_sent)) ||
+             (($box == $draft_folder) &&
+              ($save_as_draft)) );
+
+    return( $ret );
+
+}
+
 function formatMailboxName($imapConnection, $box_array) {
+
     global $folder_prefix, $trash_folder, $sent_folder;
     global $color, $move_to_sent, $move_to_trash;
     global $unseen_notify, $unseen_type, $collapse_folders;
@@ -71,15 +73,7 @@ function formatMailboxName($imapConnection, $box_array) {
         }
     }
 
-    $special_color = false;
-    if ($use_special_folder_color) {
-        if ((strtolower($real_box) == 'inbox')
-                || (($real_box == $trash_folder) && ($move_to_trash))
-                || (($real_box == $sent_folder) && ($move_to_sent))
-                || (($real_box == $draft_folder) && ($save_as_draft))) {
-            $special_color = true;
-        }
-    }
+    $special_color = ($use_special_folder_color && isSpecialMailbox( $real_box ) );
 
     /* Start off with a blank line. */
     $line = '';
@@ -89,8 +83,9 @@ function formatMailboxName($imapConnection, $box_array) {
 
     /* Crate the link for this folder. */
     $line .= "<A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
-    if ($special_color == true)
+    if ($special_color) {
         $line .= "<FONT COLOR=\"$color[11]\">";
+    }
     $line .= str_replace(' ','&nbsp;',$mailbox);
     if ($special_color == true)
         $line .= "</FONT>";
@@ -104,7 +99,7 @@ function formatMailboxName($imapConnection, $box_array) {
         $line .= "&nbsp;<SMALL>$unseen_string</SMALL>";
     }
 
-    if (($move_to_trash == true) && ($real_box == $trash_folder)) {
+    if (($move_to_trash) && ($real_box == $trash_folder)) {
         if (! isset($numMessages)) {
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
         }
@@ -134,7 +129,7 @@ function compute_folder_children(&$parbox, $boxcount) {
     $parbox_name = $boxes[$parbox]['unformatted'];
 
     /* 'Initialize' this parent box to childless. */
-    $boxes[$parbox]['parent'] = false;
+    $boxes[$parbox]['parent'] = FALSE;
 
     /* Compute the collapse status for this box. */
     if( isset($collapse_folders) && $collapse_folders ) {
@@ -146,25 +141,22 @@ function compute_folder_children(&$parbox, $boxcount) {
     $boxes[$parbox]['collapse'] = $collapse;
 
     /* Otherwise, get the name of the next box. */
-    if (isset($boxes[$nextbox]['unformatted']))
+    if (isset($boxes[$nextbox]['unformatted'])) {
         $nextbox_name = $boxes[$nextbox]['unformatted'];
-    else
+    } else {
         $nextbox_name = '';
+    }
 
     /* Compute any children boxes for this box. */
     while (($nextbox < $boxcount) &&
            (is_parent_box($boxes[$nextbox]['unformatted'], $parbox_name))) {
 
         /* Note that this 'parent' box has at least one child. */
-        $boxes[$parbox]['parent'] = true;
+        $boxes[$parbox]['parent'] = TRUE;
 
         /* Compute the visiblity of this box. */
-        if ($boxes[$parbox]['visible'] &&
-            ($boxes[$parbox]['collapse'] != SM_BOX_COLLAPSED)) {
-            $boxes[$nextbox]['visible'] = true;
-        } else {
-            $boxes[$nextbox]['visible'] = false;
-        }
+        $boxes[$nextbox]['visible'] = ($boxes[$parbox]['visible'] &&
+                                       ($boxes[$parbox]['collapse'] != SM_BOX_COLLAPSED));
 
         /* Compute the visibility of any child boxes. */
         compute_folder_children($nextbox, $boxcount);
@@ -317,7 +309,7 @@ while ($curbox < $boxcount) {
     compute_folder_children($curbox, $boxcount);
 }
 
-for ($i = 0;$i < count($boxes); $i++) {
+for ($i = 0; $i < count($boxes); $i++) {
     if ( $boxes[$i]['visible'] ) {
         $mailbox = $boxes[$i]['formatted'];
         $mblevel = substr_count($boxes[$i]['unformatted'], $delimiter) + 1;
@@ -333,11 +325,15 @@ for ($i = 0;$i < count($boxes); $i++) {
         $line = "<NOBR><TT>$prefix</TT>";
 
         /* Add the folder name and link. */
-	if (! isset($color[15])) {
+        if (! isset($color[15])) {
             $color[15] = $color[6];
-	}
+        }
         if (in_array('noselect', $boxes[$i]['flags'])) {
-            $line .= "<FONT COLOR=\"$color[15]\">";
+            if( isSpecialMailbox( $boxes[$i]['unformatted']) ) {
+                $line .= "<FONT COLOR=\"$color[11]\">";
+            } else {
+                $line .= "<FONT COLOR=\"$color[15]\">";
+            }
             if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
                 $mailbox = str_replace('&nbsp;','',$mailbox);
                 $line .= str_replace(' ', '&nbsp;', $mailbox);
