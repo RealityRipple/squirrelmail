@@ -74,15 +74,17 @@ class SquirrelOption {
     var $value;
     var $new_value;
     var $possible_values;
+    var $htmlencoded=false;
 
     function SquirrelOption
-    ($name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '') {
+    ($name, $caption, $type, $refresh_level, $initial_value = '', $possible_values = '', $htmlencoded = false) {
         /* Set the basic stuff. */
         $this->name = $name;
         $this->caption = $caption;
         $this->type = $type;
         $this->refresh_level = $refresh_level;
         $this->possible_values = $possible_values;
+        $this->htmlencoded = $htmlencoded;
         $this->size = SMOPT_SIZE_MEDIUM;
         $this->trailing_text = '';
         $this->comment = '';
@@ -240,7 +242,7 @@ class SquirrelOption {
         foreach ($this->possible_values as $real_value => $disp_value) {
             /* Start the next new option string. */
             $new_option = '<option value="' .
-                htmlspecialchars($real_value) . '"';
+                ($this->htmlencoded ? $real_value : htmlspecialchars($real_value)) . '"';
 
             /* If this value is the current value, select it. */
             if ($real_value == $this->value) {
@@ -248,7 +250,7 @@ class SquirrelOption {
             }
 
             /* Add the display value to our option string. */
-            $new_option .= '>' . htmlspecialchars($disp_value) . "</option>\n";
+            $new_option .= '>' . ($this->htmlencoded ? $disp_value : htmlspecialchars($disp_value)) . "</option>\n";
 
             /* And add the new option string to our select tag. */
             $result .= $new_option;
@@ -428,26 +430,16 @@ function create_option_groups($optgrps, $optvals) {
      /* Create a new SquirrelOption for each set of option values. */
     foreach ($optvals as $grpkey => $grpopts) {
         foreach ($grpopts as $optset) {
-            if (isset($optset['posvals'])) {
-                /* Create a new option with all values given. */
-                $next_option = new SquirrelOption(
-                    $optset['name'],
-                    $optset['caption'],
-                    $optset['type'],
-                    (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
-                    (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
-                    $optset['posvals']
-                );
-            } else {
-                /* Create a new option with all but possible values given. */
-                $next_option = new SquirrelOption(
-                    $optset['name'],
-                    $optset['caption'],
-                    $optset['type'],
-                    (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
-                    (isset($optset['initial_value']) ? $optset['initial_value'] : '')
-                );
-            }
+            /* Create a new option with all values given. */
+            $next_option = new SquirrelOption(
+                 $optset['name'],
+                 $optset['caption'],
+                 $optset['type'],
+                 (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
+                 (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
+                 (isset($optset['posvals']) ? $optset['posvals'] : ''),
+                 (isset($optset['htmlencoded']) ? $optset['htmlencoded'] : false)
+            );
 
             /* If provided, set the size for this option. */
             if (isset($optset['size'])) {
