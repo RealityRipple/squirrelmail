@@ -207,11 +207,12 @@ function SendMDN ( $recipient , $sender) {
 function ToggleMDNflag ( $set ) {
     global $imapConnection, $passed_id, $mailbox;
     sqimap_mailbox_select($imapConnection, $mailbox);
-    if ( $set ) {
-        sqimap_messages_flag ($imapConnection,$passed_id,$passed_id,"\$MDNSent");    
-    } else {
-        sqimap_messages_remove_flag ($imapConnection,$passed_id,$passed_id,"\$MDNSent");    
-    }
+    
+    $sg =  $set?'+':'-';
+    $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
+    sqimap_mailbox_select($imapConnection, $mailbox);
+    $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
+                                $readmessage);
 }
 
 function ClearAttachments() {
