@@ -50,18 +50,26 @@ if (!is_object($message)) {
     $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);
 }
 $subject = $message->rfc822_header->subject;
-$message = &$message->getEntity($ent_id);
-$header = $message->header;
-if ($message->rfc822_header) {
-   $subject = $message->rfc822_header->subject;
-   $charset = $header->content_type->properties['charset'];
+if ($ent_id) {
+    $message = &$message->getEntity($ent_id);
+    $header = $message->header;
+    
+    if ($message->rfc822_header) {
+       $subject = $message->rfc822_header->subject;
+       $charset = $header->content_type->properties['charset'];
+    } else {
+       $header = $message->header;
+       $charset = $header->getParameter('charset');
+    }
+    $type0 = $header->type0;
+    $type1 = $header->type1;
+    $encoding = strtolower($header->encoding);
 } else {
-   $header = $message->header;
-   $charset = $header->getParameter('charset');
+    /* raw message */
+    $type0 = 'message';
+    $type1 = 'rfc822';
+    $encoding = "US-ASCII";
 }
-$type0 = $header->type0;
-$type1 = $header->type1;
-$encoding = strtolower($header->encoding);
 
 /*
  * lets redefine message as this particular entity that we wish to display.
@@ -81,6 +89,9 @@ if (is_object($message->header->disposition)) {
     if (!$filename) {
 	$filename = decodeHeader($header->disposition->getProperty('name'));
     }
+    if (!$filename) {
+        $filename = decodeHeader($header->getParameter('name'));
+    }    
 }
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
