@@ -53,7 +53,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
            $server_sort_order,    /* sort value when using server-sorting */
            $row_count,
            $allow_server_sort,    /* enable/disable server-side sorting */
-           $truncate_sender;      /* number of characters for From/To field (<= 0 for unchanged) */
+           $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
+           $email_address;
 
     $color_string = $color[4];
 
@@ -78,16 +79,24 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     }
     $urlMailbox = urlencode($mailbox);
 
-    if (handleAsSent($mailbox)) {
-       $msg['FROM'] = $msg['TO'];
+    $bSentFolder = handleAsSent($mailbox);
+    // If the From address is the same as $email_address, then handle as Sent
+    $from_array = parseAddress($msg['FROM'], 1);
+    if (!isset($email_address)) {
+        global $datadir, $username;
+        $email_address = getPref($datadir, $username, 'email_address');
     }
-    $msg['FROM'] = parseAddress($msg['FROM'],1);
+    $bHandleAsSent = ($bSentFolder) || ((isset($from_array[0][0])) && ($from_array[0][0] == $email_address));
+    // If this is a Sent message, display To address instead of From
+    if ($bHandleAsSent)	
+       $msg['FROM'] = $msg['TO'];
+    // Passing 1 below results in only 1 address being parsed, thus defeating the following code
+    $msg['FROM'] = parseAddress($msg['FROM']/*,1*/);
 
        /*
         * This is done in case you're looking into Sent folders,
         * because you can have multiple receivers.
         */
-
     $senderNames = $msg['FROM'];
     $senderName  = '';
     $senderAddress = '';
@@ -98,7 +107,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 $senderAddress .= ', ';
             }
             $sender_address_part = htmlspecialchars($senderNames_part[0]);
-            $sender_name_part = decodeHeader($senderNames_part[1]);
+            $sender_name_part = str_replace('&nbsp;',' ', decodeHeader($senderNames_part[1]));
             if ($sender_name_part) {
                 $senderName .= $sender_name_part;
                 $senderAddress .= $sender_name_part . ' <' . $sender_address_part . '>';
@@ -108,7 +117,11 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             }
         }
     }
-    $senderName = str_replace('&nbsp;',' ',$senderName);
+    // If Sent, prefix with To: but only if not Sent folder
+    if ($bHandleAsSent ^ $bSentFolder) {
+        $senderName = _("To:") . ' ' . $senderName;
+        $senderAddress = _("To:") . ' ' . $senderAddress;
+    }
 
     if ( $truncate_sender > 0 && strlen($senderName) > $truncate_sender ) {
        $senderName = substr_replace($senderName, '... ', $truncate_sender);
@@ -130,7 +143,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
         $bold = '';
         $bold_end = '';
     }
-    if (handleAsSent($mailbox)) {
+    if ($bHandleAsSent) {
         $italic = '<i>';
         $italic_end = '</i>';
     } else {
