@@ -56,11 +56,6 @@ function displayPageHeader($color, $mailbox, $xtra='') {
         Locate the first displayable form element
     */
     switch ( $module ) {
-    case 'src/search.php':
-        $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
-        $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
-        displayHtmlHeader ();
-        break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
