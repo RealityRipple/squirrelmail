@@ -221,7 +221,7 @@
       if (count($to_ary) > 1) {
          if ($show_more == false) {
             if ($i == 1) {
-               if ($where && $what) {
+               if (isset($where) && isset($what)) {
                   // from a search
                   $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&show_more=1&show_more_cc=$show_more_cc\">$echo_more</A>)";
                } else {
@@ -230,7 +230,7 @@
                $i = count($to_ary);
             }
          } else if ($i == 1) {
-            if ($where && $what) {
+            if (isset($where) && isset($what)) {
                // from a search
                $to_string = "$to_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&show_more=0&show_more_cc=$show_more_cc\">$echo_less</A>)";
             } else {
@@ -256,7 +256,7 @@
          if (count($cc_ary) > 1) {
             if ($show_more_cc == false) {
                if ($i == 1) {
-                  if ($where && $what) {
+                  if (isset($where) && isset($what)) {
                      // from a search
                      $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
                   } else {
@@ -265,7 +265,7 @@
                   $i = count($cc_ary);
                }
             } else if ($i == 1) {
-               if ($where && $what) {
+               if (isset($where) && isset($what)) {
                   // from a search
                   $cc_string = "$cc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
                } else {
