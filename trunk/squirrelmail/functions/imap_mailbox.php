@@ -823,6 +823,9 @@ function sqimap_mailbox_tree($imap_stream) {
                     // remove the result and request it again  with a list
                     // response at a later stage.
                     unset($lsub_ary[$i]);
+                    // re-index the array otherwise the addition of the LIST 
+                    // response will fail in PHP 4.1.2 and probably other older versions
+                    $lsub_ary = array_values($lsub_ary);
                 }
                 break;
             }
