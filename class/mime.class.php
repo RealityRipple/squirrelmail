@@ -67,24 +67,35 @@ class rfc822_header {
         $result = '';
 
         $cnt = strlen($value);
-        for ($i = 0; $i < $cnt; ++$i) {
+        for ($i = 0; $i < $cnt; $i++) {
             switch ($value{$i}) {
                 case '"':
                     $result .= '"';
-                    ++$i;
-                    while ($value{$i} != '"') {
+                    while ((++$i < $cnt) && ($value{$i} != '"')) {
                         if ($value{$i} == '\\') {
                             $result .= '\\';
-                            ++$i;
+                            $i++;
                         }
                         $result .= $value{$i};
-                        if (++$i > $cnt) { break; }
                     }
                     $result .= $value{$i};
                     break;
                 case '(':
-                    while ($value{$i} != ')') {
-                        $i += ($value{$i} == '\\' ? 2 : 1);
+                    $depth = 1;
+                    while (($depth > 0) && (++$i < $cnt)) {
+                        switch($value{$i}) {
+                            case '\\':
+                                $i++;
+                                break;
+                            case '(':
+                                $depth++;
+                                break;
+                            case ')':
+                                $depth--;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                     break;
                 default:
@@ -397,7 +408,6 @@ class rfc822_header {
                 }
             }
         }
-
         return $s;
     }
 
@@ -491,7 +501,7 @@ class address_structure {
         $result = '';
 
         if (is_object($this)) {
-            if (isset($this->host) &&( $this->host != '')) {
+            if (isset($this->host) && ($this->host != '')) {
                 $email = $this->mailbox.'@'.$this->host;
             } else {
                 $email = $this->mailbox;
@@ -509,7 +519,6 @@ class address_structure {
             }
             $result = ($full ? $addr : $best_dpl);
         }
-
         return $result;
     }
 }
@@ -552,11 +561,9 @@ class message {
                 $filename = $this->header->disposition->getproperty('name');
             }
         }
-
         if (!$filename) {
             $filename = 'untitled-'.$this->entity_id;
         }
-
         return $filename;
     }
 
@@ -569,7 +576,7 @@ class message {
     function getEntity($ent) {
         $cur_ent = $this->entity_id;
         $msg = $this;
-        if (($cur_ent == '') ||( $cur_ent == '0')) {
+        if (($cur_ent == '') || ($cur_ent == '0')) {
             $cur_ent_a = array();
         } else {
             $cur_ent_a = explode('.', $this->entity_id);
@@ -618,8 +625,8 @@ class message {
         $msg = $this;
         $msg->body_part = '';
 
-        for ($i = 0; isset($msg->entities[$i]); ++$i) {
-            $msg->entities[$i]->clean_up();
+        foreach ($msg->entities as $m) {
+            $m->clean_up();
         }
     }
 
@@ -643,7 +650,7 @@ class message {
             if ($par_ent == '0') {
                 $ent_no = count($this->entities) + 1;
                 if ($ent_no > 0) {
-                    $ent = substr($this->entity_id, 0,strrpos($this->entity_id, '.'));
+                    $ent = substr($this->entity_id, 0, strrpos($this->entity_id, '.'));
                     $ent = ($ent ? $ent . ".$ent_no" : $ent_no);
                     $msg->entity_id = $ent;
                 } else {
