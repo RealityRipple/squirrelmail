@@ -1,9 +1,12 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Improved HTML address book
+- Fixed bugs in parsing email addresses in smtp.php
 - Applied fixes for Courier IMAP server (by Andreas Dahl)
 - Fixed some buggy IMAP handling
 - Improved word wrapping
-- Made message highlighting not case sensative
+- Fixed bugs with adding and not adding backslashes
+- Made message highlighting case insensative
 - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
 
 

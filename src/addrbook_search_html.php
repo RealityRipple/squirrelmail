@@ -41,15 +41,16 @@
    function addr_insert_hidden() {
       global $body, $subject, $send_to, $send_to_cc, $send_to_bcc;
       printf("<input type=hidden value=\"%s\" name=body>\n", 
-	     htmlspecialchars($body));
+             htmlspecialchars($body));
       printf("<input type=hidden value=\"%s\" name=subject>\n", 
-	     htmlspecialchars($subject));
+             htmlspecialchars($subject));
       printf("<input type=hidden value=\"%s\" name=send_to>\n", 
-	     htmlspecialchars($send_to));
+             htmlspecialchars($send_to));
       printf("<input type=hidden value=\"%s\" name=send_to_cc>\n", 
-	     htmlspecialchars($send_to_cc));
+             htmlspecialchars($send_to_cc));
       printf("<input type=hidden value=\"%s\" name=send_to_bcc>\n", 
-	     htmlspecialchars($send_to_bcc));     
+             htmlspecialchars($send_to_bcc));     
+      printf("<input type=hidden value=\"true\" name=from_htmladdr_search>\n");
    }
 
 
@@ -60,18 +61,18 @@
       if(sizeof($res) <= 0) return;
 
       printf('<FORM METHOD=post ACTION="%s?html_addr_search_done=true">'."\n",
-	     $PHP_SELF);
+             $PHP_SELF);
       addr_insert_hidden();
       $line = 0;
 
       print "<TABLE BORDER=0 WIDTH=\"98%\" ALIGN=center>";
       printf("<TR BGCOLOR=\"$color[9]\"><TH ALIGN=left>&nbsp;".
-	     "<TH ALIGN=left>&nbsp;%s<TH ALIGN=left>&nbsp;%s".
-	     "<TH ALIGN=left>&nbsp;%s",
-	     _("Name"), _("E-mail"), _("Info"));
+             "<TH ALIGN=left>&nbsp;%s<TH ALIGN=left>&nbsp;%s".
+             "<TH ALIGN=left>&nbsp;%s",
+             _("Name"), _("E-mail"), _("Info"));
 
       if($includesource)
-	 printf("<TH ALIGN=left WIDTH=\"10%%\">&nbsp;%s", _("Source"));
+         printf("<TH ALIGN=left WIDTH=\"10%%\">&nbsp;%s", _("Source"));
 
       print "</TR>\n";
       
@@ -83,18 +84,18 @@
                 "%s".
                 "<td nowrap>&nbsp;%s&nbsp;",
                 ($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
-		htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), 
-		$row["name"], $row["email"], $row["label"]);
-	 if($includesource)
-	    printf("<td nowrap>&nbsp;%s", $row["source"]);
-	 
-	 print "</TR>\n";
+                htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), 
+                $row["name"], $row["email"], $row["label"]);
+         if($includesource)
+            printf("<td nowrap>&nbsp;%s", $row["source"]);
+         
+         print "</TR>\n";
          $line++;
       }
       printf('<TR><TD ALIGN=center COLSPAN=%d><INPUT TYPE=submit '.
-	     'NAME="addr_search_done" VALUE="%s"></TD></TR>',
-	     4 + ($includesource ? 1 : 0), 
-	     _("Use Addresses"));
+             'NAME="addr_search_done" VALUE="%s"></TD></TR>',
+             4 + ($includesource ? 1 : 0), 
+             _("Use Addresses"));
       print "</TABLE>";
       print '<INPUT TYPE=hidden VALUE=1 NAME="html_addr_search_done">';
       print "</FORM>";
@@ -113,47 +114,51 @@
    $send_to_bcc = sqStripSlashes($send_to_bcc);
    $subject = sqStripSlashes($subject);
 
+?>
 
-   // Header
-   print  "<TABLE BORDER=0 WIDTH=100% COLS=1 ALIGN=CENTER>\n";
-   printf('<TR><TD BGCOLOR="%s" ALIGN=CENTER><STRONG>%s</STRONG></TD></TR>', 
-	  $color[0], _("Address Book Search"));
-   print  "</TABLE>\n";
+<br>
+<table width=95% align=center cellpadding=2 cellspacing=2 border=0>
+<tr><td bgcolor="<?php echo $color[0] ?>">
+   <center><b><?php echo _("Address Book Search") ?></b></center>
+</td></tr></table>
 
+<?php
    // Search form
    print "<CENTER>\n";
-   printf('<FORM METHOD=post NAME=f ACTION="%s?html_addr_search=true">'."\n",
-	  $PHP_SELF);
    print "<TABLE BORDER=0>\n";
    printf("<TR><TD NOWRAP VALIGN=middle>\n");
-   printf("  <STRONG>%s</STRONG>\n", _("Search for"));
+   printf('<FORM METHOD=post NAME=f ACTION="%s?html_addr_search=true">'."\n", $PHP_SELF);
+   print "<CENTER>\n";
+   printf("  <nobr><STRONG>%s</STRONG>\n", _("Search for"));
+   addr_insert_hidden();
    printf("  <INPUT TYPE=text NAME=addrquery VALUE=\"%s\" SIZE=26>\n",
-	  htmlspecialchars($addrquery));
+          htmlspecialchars($addrquery));
 
    // List all backends to allow the user to choose where to search
    if($abook->numbackends > 1) {
       printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n", 
-	     _("in"));
+             _("in"));
       printf("<OPTION VALUE=-1 %s>%s\n", 
-	     ($backend == -1) ? "SELECTED" : "",
-	     _("All address books"));
+             ($backend == -1) ? "SELECTED" : "",
+             _("All address books"));
       $ret = $abook->get_backend_list();
       while(list($undef,$v) = each($ret)) 
-	 printf("<OPTION VALUE=%d %s>%s\n", 
-		$v->bnum, 
-		($backend == $v->bnum) ? "SELECTED" : "",
-		$v->sname);
+         printf("<OPTION VALUE=%d %s>%s\n", 
+                $v->bnum, 
+                ($backend == $v->bnum) ? "SELECTED" : "",
+                $v->sname);
       printf("</SELECT>\n");
    } else {
       printf("<INPUT TYPE=hidden NAME=backend VALUE=-1>\n");
    }
    printf("<INPUT TYPE=submit VALUE=\"%s\">",
-	  _("Search"));
+          _("Search"));
    printf("&nbsp;|&nbsp;<INPUT TYPE=submit VALUE=\"%s\" NAME=listall>\n",
-	  _("List all"));
+          _("List all"));
+   print "</FORM></center>";
+
    printf("</TD></TR></TABLE>\n");
    addr_insert_hidden();
-   print "</FORM>";
    print "</CENTER>";
    do_hook("addrbook_html_search_below");
    // End search form
@@ -162,24 +167,25 @@
    if(!isset($addrquery) || !empty($listall)) {
 
       if($backend != -1 || !isset($addrquery)) {
-	 if(!isset($addrquery)) 
-	    $backend = $abook->localbackend;
+         if(!isset($addrquery)) 
+            $backend = $abook->localbackend;
 
-	 //printf("<H3 ALIGN=center>%s</H3>\n", $abook->backends[$backend]->sname);
+         //printf("<H3 ALIGN=center>%s</H3>\n", $abook->backends[$backend]->sname);
 
-	 $res = $abook->list_addr($backend);
+         $res = $abook->list_addr($backend);
 
-	 if(is_array($res)) {
-	    addr_display_result($res, false);
-	 } else {
-	    printf("<P ALIGN=center><STRONG>"._("Unable to list addresses from %s").
-		   "</STRONG></P>\n", $abook->backends[$backend]->sname);
-	 }
+         if(is_array($res)) {
+            addr_display_result($res, false);
+         } else {
+            printf("<P ALIGN=center><STRONG>"._("Unable to list addresses from %s").
+                   "</STRONG></P>\n", $abook->backends[$backend]->sname);
+         }
 
       } else {
-	 $res = $abook->list_addr();
-	 addr_display_result($res, true);
+         $res = $abook->list_addr();
+         addr_display_result($res, true);
       }
+      exit;
 
    } else
 
@@ -187,26 +193,30 @@
    if(!empty($addrquery) && empty($listall)) {
 
       if($backend == -1) {
-	 $res = $abook->s_search($addrquery);
+         $res = $abook->s_search($addrquery);
       } else {
-	 $res = $abook->s_search($addrquery, $backend);
+         $res = $abook->s_search($addrquery, $backend);
       }
 
       if(!is_array($res)) {
-	 printf("<P ALIGN=center><B><BR>%s:<br>%s</B></P>\n</BODY></HTML>\n",
-		_("Your search failed with the following error(s)"),
-		$abook->error);
-	 exit;
+         printf("<P ALIGN=center><B><BR>%s:<br>%s</B></P>\n</BODY></HTML>\n",
+                _("Your search failed with the following error(s)"),
+                $abook->error);
+      } else if(sizeof($res) == 0) {
+         printf("<P ALIGN=center><BR><B>%s.</B></P>\n</BODY></HTML>\n",
+                _("No persons matching your search was found"));
+      } else {
+         addr_display_result($res);
       }
-
-      if(sizeof($res) == 0) {
-	 printf("<P ALIGN=center><BR><B>%s.</B></P>\n</BODY></HTML>\n",
-		_("No persons matching your search was found"));
-	 exit;
-      }
-
-      addr_display_result($res);
    }
+
+   if (!$addrquery || sizeof($res) == 0) {  
+      printf('<center><FORM METHOD=post NAME=k ACTION="compose.php">'."\n", $PHP_SELF);
+      addr_insert_hidden();
+      printf("<INPUT TYPE=submit VALUE=\"%s\" NAME=return>\n", _("Return"));
+      printf('</form>');
+      printf("</center></nobr>");
+   }   
 
 ?>
 </body></html>

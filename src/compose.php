@@ -45,6 +45,7 @@
 
       $send_to = sqStripSlashes(decodeHeader($send_to));
       $send_to_cc = sqStripSlashes(decodeHeader($send_to_cc));
+      $send_to_bcc = sqStripSlashes(decodeHeader($send_to_bcc));
 
       if ($forward_id)
          $id = $forward_id;
@@ -97,8 +98,6 @@
          return $body;   
       }
 
-      $send_to = sqStripSlashes($send_to);
-      
       if (!$send_to) {
          $send_to = sqimap_find_email($send_to);
       }
@@ -136,7 +135,7 @@
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
          $attachments, $subject, $newmail, $use_javascript_addr_book,
-         $send_to_bcc, $reply_id, $mailbox;
+         $send_to_bcc, $reply_id, $mailbox, $from_htmladdr_search;
 
       $subject = sqStripSlashes(decodeHeader($subject));
       $reply_subj = decodeHeader($reply_subj);
@@ -157,7 +156,7 @@
       //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
-      }		 
+      }                 
       printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
@@ -165,7 +164,7 @@
       echo _("To:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\">\n";
       printf("         <INPUT TYPE=text NAME=\"send_to\" VALUE=\"%s\" SIZE=60><BR>\n",
-	     htmlspecialchars($send_to));
+             htmlspecialchars($send_to));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
@@ -173,7 +172,7 @@
       echo _("CC:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       printf("         <INPUT TYPE=text NAME=\"send_to_cc\" SIZE=60 VALUE=\"%s\"><BR>\n",
-	     htmlspecialchars($send_to_cc));
+             htmlspecialchars($send_to_cc));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
@@ -181,7 +180,7 @@
       echo _("BCC:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       printf("         <INPUT TYPE=text NAME=\"send_to_bcc\" VALUE=\"%s\" SIZE=60><BR>\n",
-	     htmlspecialchars($send_to_bcc));
+             htmlspecialchars($send_to_bcc));
       echo "</TD></TR>\n";
 
       echo "   <TR>\n";
@@ -195,7 +194,7 @@
          if (substr(strtolower($reply_subj), 0, 3) != "re:")
             $reply_subj = "Re: $reply_subj";
          printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
-		htmlspecialchars($reply_subj));
+                htmlspecialchars($reply_subj));
       } else if ($forward_subj) {
          $forward_subj = str_replace("\"", "'", $forward_subj);
          $forward_subj = sqStripSlashes($forward_subj);
@@ -205,10 +204,10 @@
              (substr(strtolower($forward_subj), 0, 6) != "[ fwd:"))
             $forward_subj = "[Fwd: $forward_subj]";
          printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
-		htmlspecialchars($forward_subj));
+                htmlspecialchars($forward_subj));
       } else {
- 	 printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
-		htmlspecialchars($subject));
+          printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
+                htmlspecialchars($subject));
       }
       echo "</td></tr>\n\n";
 
@@ -233,10 +232,10 @@
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
-      if ($use_signature == true && $newmail == true) {
-	 echo sqStripSlashes(htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
+      if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
+         echo sqStripSlashes(htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
       } else {
-	 echo sqStripSlashes(htmlspecialchars($body));
+         echo sqStripSlashes(htmlspecialchars($body));
       }
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
@@ -318,11 +317,9 @@
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
-      $body = sqStripSlashes($body);
       $send_to = sqStripSlashes($send_to);
       $send_to_cc = sqStripSlashes($send_to_cc);
       $send_to_bcc = sqStripSlashes($send_to_bcc);
-      $subject = sqStripSlashes($subject);
       
       for ($i=0; $i < count($send_to_search); $i++) {
          if ($send_to)
