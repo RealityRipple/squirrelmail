@@ -806,11 +806,10 @@ echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
 
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
-   echo '  <tr><td>';
+   echo '  </table>';
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '     <tr><td>';
    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
- //  echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
    echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );              
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
@@ -819,7 +818,6 @@ if ($attachmentsdisplay) {
    echo              $attachmentsdisplay;
    echo '          </td></tr></table>';
    echo '       </td></tr></table>';
-   echo '    </td></tr></table>';
    echo '  </td></tr>';
    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
           $color[4].'"></TD></TR>';
