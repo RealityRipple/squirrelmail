@@ -20,6 +20,7 @@ define('SM_PATH','../../');
 include_once(SM_PATH . 'include/validate.php');
 
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <body>
 <pre>

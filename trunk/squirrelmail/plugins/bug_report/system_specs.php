@@ -40,6 +40,42 @@ function Show_Array($array) {
     return $str;
 }
 
+/**
+ * converts plugin's array to string and adds version numbers
+ * @return string preformated text with installed plugin's information
+ * @access private
+ */
+function br_show_plugins() {
+    global $plugins;
+    $str = '';
+    if (is_array($plugins) && $plugins!=array()) {
+        foreach ($plugins as $key => $value) {
+            if ($key != 0 || $value != '') {
+                $str .= "    * $key = $value";
+                // add plugin version
+                if (function_exists($value . '_version')) {
+                    $str.= ' ' . call_user_func($value . '_version');
+                }
+                $str.="\n";
+            }
+        }
+        // compatibility plugin can be used without need to enable it in sm config
+        if (file_exists(SM_PATH . 'plugins/compatibility/setup.php') 
+            && ! in_array('compatibility',$plugins)) {
+            $str.= '    * compatibility';
+            include_once(SM_PATH . 'plugins/compatibility/setup.php');
+            if (function_exists('compatibility_version')) {
+                $str.= ' ' . call_user_func('compatibility_version');
+            }
+            $str.="\n";
+        }
+    }
+    if ($str == '') {
+        return "    * Nothing listed\n";
+    }
+    return $str;
+}
+
 $browscap = ini_get('browscap');
 if(!empty($browscap)) {
     $browser = get_browser();
@@ -62,7 +98,7 @@ $body_top = "My browser information:\n" .
             "\nSquirrelMail-specific information:\n" .
             "  Version:  $version\n" .
             "  Plugins (List)\n" .
-            Show_Array($plugins);
+            br_show_plugins();
 if (isset($ldap_server) && $ldap_server[0] && ! extension_loaded('ldap')) {
     $warning = 1;
     $warnings['ldap'] = "LDAP server defined in SquirrelMail config, " .
