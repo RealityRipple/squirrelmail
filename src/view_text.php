@@ -35,7 +35,7 @@
          _("Viewing a text attachment") . " - ";
     echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
-    $dwnld_url = '../src/download.php?'. $QUERY_STRING.'&amp;absolute_dl=1';
+    $dwnld_url = '../src/download.php?'. $QUERY_STRING.'&amp;absolute_dl=true';
     echo '</b></td><tr><tr><td><CENTER><A HREF="'.$dwnld_url. '">'.
          _("Download this as a file").
          "</A></CENTER><BR>".
@@ -43,10 +43,9 @@
          "</TD></TR></TABLE>".
          "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
          "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
-
-    if ($type1 == 'html') {
+    if ($type1 == 'html' || $override_type1 == 'html') {
         $msg  = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-	$msg = $msg->getEntity($passed_ent_id);
+	$msg = $msg->getEntity($ent_id);
         $body = MagicHTML( $body, $passed_id, $msg );
     } else {
         translateText($body, $wrap_at, $charset);
