@@ -36,8 +36,8 @@
    $languages["fr"]["CHARSET"] = "iso-8859-1";
    $languages["it"]["NAME"]    = "Italian";
    $languages["it"]["CHARSET"] = "iso-8859-1";
-   $languages["cs"]["NAME"]    = "Czech";
-   $languages["cs"]["CHARSET"] = "iso-8859-2";
+   $languages["cs_CZ"]["NAME"]    = "Czech";
+   $languages["cs_CZ"]["CHARSET"] = "iso-8859-2";
    $languages["es"]["NAME"]    = "Spanish";
    $languages["es"]["CHARSET"] = "iso-8859-1";
    $languages["ko"]["NAME"]    = "Korean";
@@ -733,11 +733,12 @@
       if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
          $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
       }
-      
+
       if (isset($sm_language) && $use_gettext &&
          $squirrelmail_language != "" &&
          $languages[$sm_language]["CHARSET"]) {
          putenv("LC_ALL=".$sm_language);
+         setlocale("LC_ALL", $sm_language);
          bindtextdomain("squirrelmail", "../locale/");
          textdomain("squirrelmail");
          header ("Content-Type: text/html; charset=".$languages[$sm_language]["CHARSET"]);
