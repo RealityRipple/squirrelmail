@@ -951,13 +951,13 @@ sub save_data {
 
    print FILE "\n";
 
-   print FILE "\t\$domain               = $domain;\n";
-   print FILE "\t\$imapServerAddress    = $imapServerAddress;\n";
-   print FILE "\t\$imapPort             = $imapPort;\n";
-   print FILE "\t\$useSendmail          = $useSendmail;\n";
-   print FILE "\t\$smtpServerAddress    = $smtpServerAddress;\n";
-   print FILE "\t\$smtpPort             = $smtpPort;\n";
-   print FILE "\t\$sendmailPath         = $sendmailPath;\n";
+   print FILE "\t\$domain               = \"$domain\";\n";
+   print FILE "\t\$imapServerAddress    = \"$imapServerAddress\";\n";
+   print FILE "\t\$imapPort             =  $imapPort;\n";
+   print FILE "\t\$useSendmail          =  $useSendmail;\n";
+   print FILE "\t\$smtpServerAddress    = \"$smtpServerAddress\";\n";
+   print FILE "\t\$smtpPort             =  $smtpPort;\n";
+   print FILE "\t\$sendmailPath         = \"$sendmail_path\";\n";
    
    print FILE "\n";
 
@@ -970,7 +970,7 @@ sub save_data {
    print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
    print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
    print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
-   print FILE "\t\$show_contain_subfolders_option  = $show_contain_subfolders_option;\n";
+   print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";
    for ($count=0; $count <= $#special_folders; $count++) {
       print FILE "\t\$special_folders[$count]               = \"$special_folders[$count]\";\n";
    }

@@ -1,8 +1,23 @@
 Known BUGS to be fixed before 0.4pre1:
 
-  -    The icon for message sorting doesn't always stay.  It usually reverts back to the date.
-  -    If a new message comes in while still browsing cached message list, the space is allocated, but it is blank.
-(lme)  I'm not convinced that the cache gets deleted all the time.  I'll look into this one.  
+  -    LDAP preferences in conf.pl are not working.
+
+  -    Next/Previous while viewing a message should take into account 
+       the way that the mailbox is sorted.  Right now, it just does it 
+		 by the next message id.
+
+  -    The icon for message sorting doesn't always stay.  It usually 
+       reverts back to the date.
+
+  -    If a new message comes in while still browsing cached message 
+       list, the space is allocated, but it is blank.
+
+(lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
+       look into this one.  
+
   -    Special folders don't get listed at the top of folder list
+
   -    In UW, removing folders with a / at the end is broke
-  -    There is an infinate loop when moving messages to other folders, thus breaking the move, and delete buttons.
+
+  -    There is an infinate loop when moving messages to other folders, 
+       thus breaking the move, and delete buttons.
