@@ -9,9 +9,6 @@
     **  Also allows displaying of attachments when possible.
     **/
 
-    $download_php = true;
-    $onetimepad = $otp;
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -24,6 +21,10 @@
       include("../functions/date.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
+
+   session_start();
+   header("Pragma: ");
+   header("Cache-Control: cache");
 
    include("../src/load_prefs.php");
 

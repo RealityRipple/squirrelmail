@@ -56,7 +56,6 @@ include("../config/config.php");
       $onetimepad = OneTimePadCreate(strlen($secretkey));
       $key = OneTimePadEncrypt($secretkey, $onetimepad);
       session_register("onetimepad");
-      $onetimepad = OneTimePadEncrypt($onetimepad, $otp_pad);
       // verify that username and password are correct
       if ($force_username_lowercase)
           $login_username = strtolower($login_username);
