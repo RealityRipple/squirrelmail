@@ -1579,7 +1579,7 @@ sub save_data {
    print FILE "\t\$config_use_color = $config_use_color;\n"; 
    print FILE "\n";
 
-   print FILE "\tglobal \$org_name, \$org_logo, \$org_title;\n";
+   print FILE "\tglobal \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
    print FILE "\t\$org_title  = \"$org_title\";\n";
