@@ -292,6 +292,7 @@ global $ldap_server;
 //    If it is not defined, the addressbooks are stored in files
 //    in the data dir.
 //
+//      global $addrbook_dsn;
 //	$addrbook_dsn = 'mysql://user:pass@hostname/dbname';
 
 
