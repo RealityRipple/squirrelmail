@@ -522,7 +522,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $cnt = count($body_ary) ;
 	   $body = '';
            for ($i=0; $i < $cnt; $i++) {
-	      if (!ereg("^[>\\s]*$", $body_ary[$i])) {
+	      if (!ereg("^[>\\s]*$", $body_ary[$i])  || !$body_ary[$i]) {
                  sqWordWrap($body_ary[$i], $editor_size );
                  $body .= $body_ary[$i] . "\n";
 	      }
