@@ -143,7 +143,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 		 if (!isset ($msg)) { $msg = ""; }
          mail_message_listing_beginning($imapConnection, 
             "move_messages.php?msg=$msg&mailbox=$urlMailbox&where=".urlencode($search_where)."&what=".urlencode($search_what),
-             '', -1, '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',
+             $mailbox, -1, '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',
              '&nbsp;');
          
  
@@ -151,8 +151,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, "", 0, $search_where, $search_what);
             $j++;
          }
-         echo "</table>";
-         echo "</tr></td></table>";
+         echo '</table></tr></td></table>';
       }
    }
 

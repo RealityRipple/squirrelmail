@@ -89,7 +89,7 @@
       global $squirrelmail_language, $color;
 
       /* Get the small headers for each message in $msg_list */
-
+      $sid = sqimap_session_id();
       $maxmsg = sizeof($msg_list);
       $msgs_str = sqimap_message_list_squisher($msg_list);
       $results = array();
@@ -104,38 +104,37 @@
          $id2index[$msg_list[$i]] = $i;
       }
 
-
-      $query = sqimap_session_id() . " FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
+      $query = "$sid FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
       fputs ($imap_stream, $query);
-      $readin_list = sqimap_read_data_list($imap_stream, sqimap_session_id(), true, $response, $message);
+      $readin_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
 
 
       foreach ($readin_list as $r) {
          if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
             set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n";
-            echo _("ERROR : Could not complete request.");
-            echo "</b><br>\n";
-            echo _("Unknown response from IMAP server: ");
-            echo $r[0] . "</font><br>\n";
-            exit;
-         }
-         if (! isset($id2index[$regs[1]]) || !count($id2index[$regs[1]])) {
+            echo '<br><b><font color=$color[2]>' .
+                 _("ERROR : Could not complete request.") .
+                 '</b><br>' .
+                 _("Unknown response from IMAP server: ") . ' 1.' .
+                 $r[0] . "</font><br>\n";
+            // exit;
+         } else if (! isset($id2index[$regs[1]]) || !count($id2index[$regs[1]])) {
             set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n";
-            echo _("ERROR : Could not complete request.");
-            echo "</b><br>\n";
-            echo _("Unknown message number in reply from server: ");
-            echo $regs[1] . "</font><br>\n";
-            exit;
+            echo '<br><b><font color=$color[2]>' .
+                 _("ERROR : Could not complete request.") .
+                 '</b><br>' .
+                 _("Unknown message number in reply from server: ") .
+                 $regs[1] . "</font><br>\n";
+            // exit;
+         } else {
+            $read_list[$id2index[$regs[1]]] = $r;
          }
-         $read_list[$id2index[$regs[1]]] = $r;
       }
       arsort($read_list);
       
-      $query = sqimap_session_id() . " FETCH $msgs_str RFC822.SIZE\r\n";
+      $query = "$sid FETCH $msgs_str RFC822.SIZE\r\n";
       fputs ($imap_stream, $query);
-      $sizesin_list = sqimap_read_data_list($imap_stream, sqimap_session_id(), true, $response, $message);
+      $sizesin_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
       
       foreach ($sizesin_list as $r) {
          if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
@@ -143,7 +142,7 @@
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
             echo "</b><br>\n";
-            echo _("Unknown response from IMAP server: ");
+            echo _("Unknown response from IMAP server: ") . ' 2.';
             echo $r[0] . "</font><br>\n";
             exit;
          }
@@ -202,8 +201,8 @@
             
          }
          if (trim($date) == "") {
-            fputs($imap_stream, sqimap_session_id() . " FETCH $msg_list[$msgi] INTERNALDATE\r\n");
-            $readdate = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
+            fputs($imap_stream, "$sid FETCH $msg_list[$msgi] INTERNALDATE\r\n");
+            $readdate = sqimap_read_data($imap_stream, $sid, true, $response, $message);
             if (eregi(".*INTERNALDATE \"(.*)\".*", $readdate[0], $regs)) {
                $date_list = explode(" ", trim($regs[1]));
                $date_list[0] = str_replace("-", " ", $date_list[0]);
