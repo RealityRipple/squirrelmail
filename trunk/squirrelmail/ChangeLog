@@ -5,6 +5,7 @@
 Version 1.2.6 -- CVS
 --------------------
   - Fixed resume draft bug #513521, #514639
+  - Newmail plugin: admin can disablethe use of audio (patch #517698)
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
