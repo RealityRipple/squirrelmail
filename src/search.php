@@ -87,6 +87,8 @@ function forget_recent($forget_index, $username, $data_dir) {
 	setPref($data_dir, $username, "search_folder" . "$i", $folder_array[$n]);
 	$n++;
     }
+
+//		function to delete a saved search
 }
 function delete_saved($delete_index, $username, $data_dir) {
     $saved_what_array = get_saved("saved_what", $username, $data_dir); 
@@ -110,7 +112,9 @@ function delete_saved($delete_index, $username, $data_dir) {
     removePref($data_dir, $username, "saved_where" . "$last_element");
     removePref($data_dir, $username, "saved_folder" . "$last_element");
 }    
-   
+
+//		function to save a search from recent to saved
+
 function save_recent($save_index, $username, $data_dir) {
     $what_array = get_recent("search_what", $username, $data_dir);
     $where_array = get_recent("search_where", $username, $data_dir);
@@ -151,9 +155,8 @@ $boxes = sqimap_mailbox_list($imapConnection);
 if ($mailbox == 'None' || $mailbox == "" ) {
     $mailbox = $boxes[0]['unformatted'];
 }
-if ($mailbox == "all") {
+if ($mailbox == "All Folders") {
     $search_all = "all";
-    $mailbox = $boxes[0]['unformatted'];
 }
 
 //	page headers
@@ -270,8 +273,8 @@ for ($i = 0; $i < count($boxes); $i++) {
         }  
     }
 }
-        echo "<OPTION VALUE=\"all\"";
-        if ($mailbox == "all") {
+        echo "<OPTION VALUE=\"All Folders\"";
+        if ($mailbox == "All Folders") {
             echo "SELECTED";
         }
         echo ">All folders</OPTION>\n";
