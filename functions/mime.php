@@ -628,7 +628,7 @@ class msg_header {
       } else {
          $body = formatAttachments ($message, -1, $message->header->mailbox, $id);
       }
-      return( $body );
+      return ($body);
    }
 
    // A recursive function that returns a list of attachments with links
