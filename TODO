@@ -1,0 +1,15 @@
+TODO
+------------
+-  Don't view "deleted" messages
+-  Write JavaScript for left side bar to auto log out on unload
+-  Todo manager
+-  Bug tracker
+-  Moving messages to folders
+-  Deleting messages (send to trash)
+-  Expunge mailboxes
+
+
+DONE
+------------
+-  (nathan) Abstract header stuff so it can be used on all pages
+-  (luke)   Genericize login page
