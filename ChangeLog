@@ -13,6 +13,7 @@ Version 0.5pre2 -- DEVELOPMENT
 - Improved word wrapping
 - Fixed bugs with adding and not adding backslashes
 - Made message highlighting case insensative
+- Added Korean translation from Jong-II Kim <aporie@netian.com>
 - Added Italian translation from Aldo Moresco <moresco@idcm.it>
 - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
 
