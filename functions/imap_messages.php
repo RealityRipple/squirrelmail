@@ -46,7 +46,7 @@
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
 
-      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
@@ -74,7 +74,14 @@
             $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
             if (trim($subject) == "")
                $subject = _("(no subject)");
+         } else if (eregi ("^content-type:", $read[$i])) {
+            $type = substr($read[$i], 14);
+            $type = strtolower(trim($type));
+            if ($pos = strpos($type, ";"))
+               $type = substr($type, 0, $pos);
+            $type = explode("/", $type);
          }
+         
       }
 
       // If there isn't a date, it takes the internal date and uses
@@ -110,6 +117,8 @@
       $header->message_id = $messageid;
       $header->cc = $cc;
       $header->size = $size;
+      $header->type0 = $type[0];
+      $header->type1 = $type[1];
 
       return $header;
    }
