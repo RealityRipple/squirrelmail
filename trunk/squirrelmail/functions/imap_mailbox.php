@@ -419,9 +419,14 @@ function user_strcasecmp($a, $b) {
  *   $folder_skip - array of folders to keep out of option list (compared in lower)
  *   $boxes - list of already fetched boxes (for places like folder panel, where
  *            you know these options will be shown 3 times in a row.. (most often unset).
- *   $parent - used to indicate whether or not listed boxes can be parents
+ *   $flag - flag to check for in mailbox flags, used to filter out mailboxes.
+ *           'noselect' by default to remove unselectable mailboxes.
+ *           'noinferiors' used to filter out folders that can not contain subfolders.
+ *           NULL to avoid flag check entirely.
+ *   $use_long_format - override folder display preference and always show full folder name.
  */
-function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, $parent = false, $use_long_format = false ) {
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, 
+                                    $flag = 'noselect', $use_long_format = false ) {
     global $username, $data_dir;
     $mbox_options = '';
 
@@ -434,14 +439,9 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     if ($boxes == 0) {
         $boxes = sqimap_mailbox_list($imap_stream);
     }
-    if ($parent) {
-        $flag = 'noinferiors';
-    }
-    else {
-        $flag = 'noselect';
-    }
+
     foreach ($boxes as $boxes_part) {
-        if (!in_array($flag, $boxes_part['flags'])) {
+        if ($flag == NULL || !in_array($flag, $boxes_part['flags'])) {
             $box = $boxes_part['unformatted'];
             $lowerbox = strtolower($box);
 
