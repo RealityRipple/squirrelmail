@@ -588,9 +588,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "R   Return to Main Menu\n";
     }
     if ( $config_use_color == 1 ) {
-        print "C.  Turn color off\n";
+        print "C   Turn color off\n";
     } else {
-        print "C.  Turn color on\n";
+        print "C   Turn color on\n";
     }
     print "S   Save data\n";
     print "Q   Quit\n";
