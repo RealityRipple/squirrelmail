@@ -741,13 +741,9 @@ class msg_header {
          $body = quoted_printable_decode($body);
          
          
-         /*
-            Following code has been comented as I see no reason for it.
-            If there is any please tell me a mingo@rotedic.com
-            
          while (ereg("=\n", $body))
             $body = ereg_replace ("=\n", "", $body);
-        */
+	    
       } else if ($encoding == 'base64') {
          $body = base64_decode($body);
       }
