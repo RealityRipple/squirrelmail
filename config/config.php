@@ -7,6 +7,10 @@ $org_name = "Operation Mobilization";
 
 /* The server that your imap server is on */
 $imapServerAddress = "adam.usa.om.org";
+$imapPort = 143;
+
+$smtpServerAddress = "adam.usa.om.org";
+$smtpPort = 25;
 
 /* This is displayed right after they log in */
 $motd = "  Welcome to OM's webmail system, SquirrelMail.  We are currently in beta, and have not yet released a full version of SquirrelMail.  Please feel free to look around, and please report any bugs to <A HREF=\"mailto:nathan@usa.om.org\">Nathan</A> or <A HREF=\"mailto:luke@usa.om.org\">Luke</A>.";

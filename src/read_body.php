@@ -13,6 +13,7 @@
    displayPageHeader($mailbox);
    $body = fetchBody($imapConnection, $passed_id);
    getMessageHeaders($imapConnection, $passed_id, $passed_id, $f, $s, $d);
+//   setMessageFlag($imapConnection, $passed_id, $passed_id, "Seen");
 
    $subject = $s[0];
    $d[0] = ereg_replace("  ", " ", $d[0]);

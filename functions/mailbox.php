@@ -269,6 +269,7 @@
       $wrap_at = 80; // Make this configurable int the config file some time
       if (strlen($line) - 2 >= $wrap_at) // -2 because of the ^^ at the beginning
          $line = wordWrap($line, $wrap_at);
+
       $line = str_replace(" ", "&nbsp;", $line);
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
 
@@ -289,7 +290,8 @@
           "www" and "mailto" also.  That should probably be added later. **/
       if (strpos(strtolower($line), "http://") != false) {
          $start = strpos(strtolower($line), "http://");
-         $link = substr($line, $start, strlen($line));
+         $text = substr($line, $start, strlen($line));
+         $link = ereg_replace("<BR>", "", $text);
 
          if (strpos($link, "&"))
             $end = strpos($link, "&");
@@ -299,8 +301,7 @@
             $end = strlen($link);
 
          $link = substr($link, 0, $end);
-
-         $line = str_replace($link, "<A HREF=\"$link\" TARGET=_top>$link</A>", $line);
+         $line = str_replace($text, "<A HREF=\"$link\" TARGET=_top>$text</A>", $line);
       }
 
       return $line;
