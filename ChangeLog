@@ -84,6 +84,8 @@ Version 1.5.0 -- CVS
     button. (update: This needs work and will be changed, possibly removed)
   - Fixed a problem with delete_move_next and server thread-sorting.
   - New hook function: boolean_hook_function()  Used for true/false hooks.
+  - Calendar plugin: in month view, display events on the same day sorted by time,
+    and include the time of the event in its tooltip.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
