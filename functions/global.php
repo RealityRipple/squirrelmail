@@ -13,10 +13,11 @@
  * $Id$
  */
 
-# If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
-# Force magic_quotes_runtime off.
-# chilts@birdbrained.org - I put it here in the hopes that all SM code includes this.
-# If there's a better place, please let me know.
+/* If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+ * Force magic_quotes_runtime off.
+ * chilts@birdbrained.org - I put it here in the hopes that all SM code includes this.
+ * If there's a better place, please let me know.
+ */
 ini_set('magic_quotes_runtime','0');
 
 /* convert old-style superglobals to current method
@@ -50,7 +51,7 @@ if (get_magic_quotes_gpc()) {
    This fixes hand crafted url XXS expoits for any
    page that uses PHP_SELF as the FORM action */
 
-strip_tags($_SERVER['PHP_SELF']);
+$_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
 
 /* returns true if current php version is at mimimum a.b.c */
 function check_php_version ($a = '0', $b = '0', $c = '0')             
