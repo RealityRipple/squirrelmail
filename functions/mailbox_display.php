@@ -27,7 +27,7 @@
           }
           $GLOBALS["row_count"]++;
           if ($GLOBALS["row_count"] % 2) {
-          if (!isset($color[12])) $color[12] = "#EAEAEA";
+          if (!isset($color[12])) $color[12] = '#EAEAEA';
             $color_string = $color[12];
           }
       }
@@ -35,6 +35,13 @@
       $msg = $msgs[$key];
 
       $senderName = sqimap_find_displayable_name($msg['FROM']);
+      if( $mailbox == _("None") ) {
+         // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+         $boxes = sqimap_mailbox_list($imapConnection);
+         // sqimap_logout($imapConnection);
+         $mailbox = $boxes[0]['unformatted'];
+         unset( $boxes );
+      }      
       $urlMailbox = urlencode($mailbox);
       $subject = processSubject($msg['SUBJECT']);
 
