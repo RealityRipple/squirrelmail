@@ -385,7 +385,35 @@
          $attachments[$localfilename] = $HTTP_POST_FILES['attachfile']['name'];
       }
     }
-
+  
+   function SqConvertRussianCharsets(){
+    //
+    // This function is here because Russian Apache is a bastard when it comes to
+    // attachments. The solution is to turn off attachment recoding for multipart
+    // forms and do it manually.
+    // See graf@relhum.org for support.
+    //
+    global $CHARSET, $SOURCE_CHARSET, $send_to, $send_to_cc, $send_to_bcc, $subject, $body;
+    $charset_ary = array("koi8-r" => "k",
+   			 "windows-1251" => "w",
+			 "ibm866" => "a",
+			 "ISO-8859-5" => "i");
+    $body = convert_cyr_string($body, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
+    $send_to = convert_cyr_string($send_to, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
+    $send_to_cc = convert_cyr_string($send_to_cc, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
+    $send_to_bcc = convert_cyr_string($send_to_bcc, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
+    $subject = convert_cyr_string($subject, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
+   } // end SqConvertRussianCharsets()
+   
+   // Russian Apache sets $CHARSET. See if this is Russian Apache.
+   // If so, check if the source charset (koi8-r) is different from the 
+   // one submitted by the browser. If so, recode the parts of the form
+   // to the needed format so SM can proceed and not mangle the cyrillic
+   // input.
+   // See graf@relhum.org for support.
+   //
+   if ($CHARSET && $CHARSET != $SOURCE_CHARSET) SqConvertRussianCharsets();
+   
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
