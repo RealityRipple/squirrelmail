@@ -36,7 +36,7 @@ if (get_magic_quotes_gpc()) {
 
 /* Before starting the session, the base URI must be known. Assuming */
 /* that this file is in the src/ subdirectory (or something).        */
-$base_uri = dirname(dirname($PHP_SELF));
+$base_uri = dirname(dirname($PHP_SELF)) . "/";
 
 header('Pragma: no-cache');
 $location = get_location();

@@ -16,7 +16,7 @@
  */
 
 if (!isset($base_uri)) {
-    $base_uri = dirname(dirname($PHP_SELF));
+    $base_uri = dirname(dirname($PHP_SELF)) . "/";
 }
 
 function is_logged_in() {
