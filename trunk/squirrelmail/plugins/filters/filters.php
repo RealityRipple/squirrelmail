@@ -323,7 +323,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
         if ($response == 'OK' && count($ids)) {
             if (sqimap_mailbox_exists($imap_stream, $where_to)) {
                  $should_expunge = true;
-                 sqimap_msgs_list_move ($imap_stream, $ids, $where_to);
+                 sqimap_msgs_list_move ($imap_stream, $ids, $where_to, false);
             }
         }
     }

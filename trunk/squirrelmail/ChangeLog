@@ -273,6 +273,8 @@ Version 1.5.1 -- CVS
   - Strip position:absolute style from HTML mails.
   - Add ability to the Filters plugin to filter on Message Body, or both
     the Headers and the Message Body.
+  - Update the message copy and move functions to allow for error handling.
+  - Fix the filter plugin from halting the login process when copying errors occur
   
 Version 1.5.0
 --------------------
