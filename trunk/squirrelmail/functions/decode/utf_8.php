@@ -1,6 +1,6 @@
 <?php
 /**
- * decode/utf-8.php
+ * functions/decode/utf-8.php - utf-8 decoding functions
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -10,12 +10,33 @@
  *
  * Every decoded character consists of n bytes. First byte is octal
  * 300-375, other bytes - always octals 200-277.
+ *<pre>
+ * Ranges (first byte):
+ *                oct     dec    hex
+ * Two byte   - 300-337 192-223 C0-DF
+ * Three byte - 340-357 224-239 E0-EF
+ * Four byte  - 360-367 240-247 F0-F7
+ * Five byte  - 370-373 248-251 F8-FB
+ * Six byte   - 374-375 252-253 FC-FD
  *
- * \a\b characters are decoded to html code octdec(a-300)*64 + octdec(b-200)
- * \a\b\c characters are decoded to html code octdec(a-340)*64*64 + octdec(b-200)*64 + octdec(c-200)
+ * \a\b characters are decoded to html code calculated with formula:
+ *  octdec(a-300)*64 + octdec(b-200)
  *
- * decoding cycle is unfinished. please test and report problems to tokul@users.sourceforge.net
+ * \a\b\c characters are decoded to html code calculated with formula:
+ *  octdec(a-340)*64^2 + octdec(b-200)*64 + octdec(c-200)
  *
+ * \a\b\c\d characters are decoded to html code calculated with formula:
+ *  octdec(a-360)*64^3 + octdec(b-200)*64^2 + 
+ *  + octdec(c-200)*64 + octdec(d-200)
+ *
+ * \a\b\c\d\e characters are decoded to html code calculated with formula:
+ *  octdec(a-370)*64^4 + octdec(b-200)*64^3 + 
+ *  + octdec(c-200)*64^2 + octdec(d-200)*64 + octdec(e-200)
+ *
+ * \a\b\c\d\e\f characters are decoded to html code calculated with formula:
+ *  octdec(a-374)*64^5 + octdec(b-200)*64^4 + octdec(c-200)*64^3 + 
+ *  + octdec(d-200)*64^2 + octdec(e-200)*64 + octdec(f-200)
+ *</pre>
  * @version $Id$
  * @package squirrelmail
  * @subpackage decode
@@ -27,17 +48,34 @@
  * @return string Decoded string
  */
 function charset_decode_utf_8 ($string) {
-    global $squirrelmail_language, $default_charset;
+    global $squirrelmail_language;
 
-    if (strtolower($default_charset) == 'utf-8')
-        return $string;
-
+    // Japanese translation uses mbstring function to read utf-8
     if ($squirrelmail_language == 'ja_JP')
         return $string;
 
     // don't do decoding when there are no 8bit symbols
     if (! sq_is8bit($string,'utf-8'))
         return $string;
+
+    // decode six byte unicode characters 
+    /* (i think currently there is no such symbol)
+    $string = preg_replace("/([\374-\375])([\200-\277])([\200-\277])([\200-\277])([\200-\277])([\200-\277])/e",
+    "'&#'.((ord('\\1')-252)*1073741824+(ord('\\2')-200)*16777216+(ord('\\3')-200)*262144+(ord('\\4')-128)*4096+(ord('\\5')-128)*64+(ord('\\6')-128)).';'",
+    $string);
+    */
+
+    // decode five byte unicode characters 
+    /* (i think currently there is no such symbol)
+    $string = preg_replace("/([\370-\373])([\200-\277])([\200-\277])([\200-\277])([\200-\277])/e",
+    "'&#'.((ord('\\1')-248)*16777216+(ord('\\2')-200)*262144+(ord('\\3')-128)*4096+(ord('\\4')-128)*64+(ord('\\5')-128)).';'",
+    $string);
+    */
+
+    // decode four byte unicode characters
+    $string = preg_replace("/([\360-\367])([\200-\277])([\200-\277])([\200-\277])/e",
+    "'&#'.((ord('\\1')-240)*262144+(ord('\\2')-128)*4096+(ord('\\3')-128)*64+(ord('\\4')-128)).';'",
+    $string);
 
     // decode three byte unicode characters
     $string = preg_replace("/([\340-\357])([\200-\277])([\200-\277])/e",
@@ -48,6 +86,9 @@ function charset_decode_utf_8 ($string) {
     $string = preg_replace("/([\300-\337])([\200-\277])/e",
     "'&#'.((ord('\\1')-192)*64+(ord('\\2')-128)).';'",
     $string);
+
+    // remove broken unicode
+    $string = preg_replace("/[\200-\237]|\240|[\241-\377]/",'?',$string);
 
     return $string;
 }
