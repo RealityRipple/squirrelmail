@@ -64,11 +64,7 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
 }
 
 sqimap_mailbox_select($imapConnection, $mailbox);
-if( strtolower( $mailbox ) == 'inbox' ) {
-    displayPageHeader($color, _("INBOX"));
-} else {
-    displayPageHeader($color, $mailbox);
-}
+displayPageHeader($color, $mailbox);
 echo "<br>\n";
 
 do_hook('right_main_after_header');
