@@ -87,6 +87,10 @@ Version 1.5.0 -- CVS
   - Calendar plugin: in month view, display events on the same day sorted by time,
     and include the time of the event in its tooltip.
   - Added default settings for Mercury/32 to conf.pl.
+  - Fix to prevent mailboxes are deleted in selected stage which is against
+    RFC3501.
+  - Fix reply all address string in case the personal name contained a comma 
+    (address separator).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
