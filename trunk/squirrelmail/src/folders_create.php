@@ -17,7 +17,7 @@
    if (strpos($folder_name, "\"") || strpos($folder_name, ".") ||
        strpos($folder_name, "/") || strpos($folder_name, "\\") ||
        strpos($folder_name, "'") || strpos($folder_name, "$dm")) {
-      plain_error_message("Illegal folder name.  Please select a different name.<BR><A HREF=\"../src/folders.php\">Click here to go back</A>.", $color);
+      plain_error_message(_("Illegal folder name.  Please select a different name.<BR><A HREF=\"../src/folders.php\">Click here to go back</A>."), $color);
       exit;
    }
 
@@ -31,7 +31,9 @@
    }
    fputs($imapConnection, "1 logout\n");
 
-   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>Return</A>";
+   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
+   echo _("Return");
+   echo "</A>";
 ?>
 </BODY></HTML>
 
