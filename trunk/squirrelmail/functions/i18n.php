@@ -24,9 +24,13 @@
    $languages['ca']['CHARSET'] = 'iso-8859-1';
    $languages['ca_CA']['ALIAS'] = 'ca';
 
-   $languages['cs']['NAME']    = 'Czech';
-   $languages['cs']['CHARSET'] = 'iso-8859-2';
-   $languages['cs_CZ']['ALIAS'] = 'cs';
+   /* PLEASE DON'T TOUCH!!!
+    * Correct locale name, which should be set by setlocale and/or putenv('LC_ALL='...)
+	* is 'cs_CZ' and NOT 'cs', this applies to all locale names, look into docs, if you
+	* don't believe me.  Ondrej Sury, czech and slovak translator.
+	*/
+   $languages['cs_CZ']['NAME']    = 'Czech';
+   $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
