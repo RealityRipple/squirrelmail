@@ -58,12 +58,12 @@ function bcc_address($addr) {
   $addr = $addr.replace(/ {1,35}$/, "");
 
   if(pwintype != "undefined" ) {
-    if ( parent.opener.document.compose.bcc.value ) {
+    if ( parent.opener.document.compose.send_to_bcc.value ) {
       prefix = ", ";
-      parent.opener.document.compose.bcc.value = 
-        parent.opener.document.compose.bcc.value + ", " + $addr;      
+      parent.opener.document.compose.send_to_bcc.value = 
+        parent.opener.document.compose.send_to_bcc.value + ", " + $addr;      
     } else {
-      parent.opener.document.compose.bcc.value = $addr;
+      parent.opener.document.compose.send_to_bcc.value = $addr;
     }
   }
 }
