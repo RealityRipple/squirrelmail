@@ -52,15 +52,29 @@ sqgetGlobalVar('action', $action, SQ_GET);
 
 displayPageHeader($color, 'None');
 
-if (isset($_POST['spam_submit'])) {
+if (sqgetGlobalVar('spam_submit',$spam_submit,SQ_POST)) {
     $spam_filters = load_spam_filters();
-    setPref($data_dir, $username, 'filters_spam_folder', $_POST['filters_spam_folder_set']);
-    setPref($data_dir, $username, 'filters_spam_scan', $_POST['filters_spam_scan_set']);
+
+    // setting spam folder    
+    sqgetGlobalVar('filters_spam_folder_set',$filters_spam_folder_set,SQ_POST);
+    if (isset($filters_spam_folder_set)) {
+        setPref($data_dir, $username, 'filters_spam_folder', $filters_spam_folder_set);
+    } else {
+	echo _("You must select spam folder.");
+    }
+
+    // setting scan type
+    sqgetGlobalVar('filters_spam_scan_set',$filters_spam_scan_set,SQ_POST);
+    if (isset($filters_spam_scan_set)) {
+	setPref($data_dir, $username, 'filters_spam_scan', $filters_spam_scan_set);
+    } else {
+	echo _("You must select scan type.");
+    }
+
     foreach ($spam_filters as $Key => $Value) {
         $input = $spam_filters[$Key]['prefname'] . '_set';
-        if ( isset( $_POST[$input] ) ) {
-            setPref( $data_dir, $username, $spam_filters[$Key]['prefname'],
-                     $_POST[$input]);
+        if ( sqgetGlobalVar($input,$input_key,SQ_POST) ) {
+            setPref( $data_dir, $username, $spam_filters[$Key]['prefname'],$input_key);
         } else {
             removePref($data_dir, $username, $spam_filters[$Key]['prefname']);
         }
@@ -78,12 +92,12 @@ echo html_tag( 'table',
         'center', $color[0], 'width="95%" border="0" cellpadding="2" cellspacing="0"' );
 
 if ($SpamFilters_YourHop == ' ') {
-    echo '<br>' .
+    echo '<br />' .
         html_tag( 'div', '<b>' .
-            _("WARNING! Tell your admin to set the SpamFilters_YourHop variable") .
+            sprintf(_("WARNING! Tell your admin to set the %s variable"),'SpamFilters_YourHop') .
             '</b>' ,
         'center' ) .
-        '<br>';
+        '<br />';
 }
 
 
@@ -101,7 +115,7 @@ if (isset($action) && $action == 'spam') {
         }
     }
 
-    echo '<form method=post action="spamoptions.php">'.
+    echo '<form method="post" action="spamoptions.php">'.
         '<center>'.
         html_tag( 'table', '', '', '', 'width="85%" border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
@@ -128,12 +142,12 @@ if (isset($action) && $action == 'spam') {
             '<select name="filters_spam_scan_set">'.
             '<option value=""';
     if ($filters_spam_scan == '') {
-        echo ' SELECTED';
+        echo ' selected';
     }
     echo '>' . _("All messages") . '</option>'.
             '<option value="new"';
     if ($filters_spam_scan == 'new') {
-        echo ' SELECTED';
+        echo ' selected';
     }
     echo '>' . _("Only unread messages") . '</option>' .
             '</select>'.
@@ -142,7 +156,7 @@ if (isset($action) && $action == 'spam') {
     html_tag( 'tr',
           html_tag( 'td', '&nbsp;' ) .
           html_tag( 'td',
-              _("The more messages you scan, the longer it takes.  I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages.  That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.") ,
+              _("The more messages you scan, the longer it takes. I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages. That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.") ,
           'left' )
       );
 
@@ -152,13 +166,13 @@ if (isset($action) && $action == 'spam') {
         echo html_tag( 'tr' ) .
                    html_tag( 'th', $Key, 'right', '', 'nowrap' ) ."\n" .
                    html_tag( 'td' ) .
-            '<input type=checkbox name="' .
+            '<input type="checkbox" name="' .
             $spam_filters[$Key]['prefname'] .
             '_set"';
         if ($spam_filters[$Key]['enabled']) {
-            echo ' CHECKED';
+            echo ' checked';
         }
-        echo '> - ';
+        echo ' /> - ';
         if ($spam_filters[$Key]['link']) {
             echo '<a href="' .
                  $spam_filters[$Key]['link'] .
@@ -176,24 +190,21 @@ if (isset($action) && $action == 'spam') {
 
     }
     echo html_tag( 'tr',
-        html_tag( 'td', '<input type=submit name="spam_submit" value="' . _("Save") . '">', 'center', '', 'colspan="2"' )
+        html_tag( 'td', '<input type="submit" name="spam_submit" value="' . _("Save") . '" />', 'center', '', 'colspan="2"' )
     ) . "\n" .
         '</table>'.
         '</center>'.
         '</form>';
-    echo '</body></html>';
-}
-
-if (! isset($_GET['action']) || $_GET['action'] != 'spam') {
-
+} else {
+    // action is not set or action is not spam
     echo html_tag( 'p', '', 'center' ) .
          '[<a href="spamoptions.php?action=spam">' . _("Edit") . '</a>]' .
-         ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br><br>';
-    printf( _("Spam is sent to <b>%s</b>"), ($filters_spam_folder?$filters_spam_folder:_("[<i>not set yet</i>]") ) );
+         ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br /><br />';
+    printf( _("Spam is sent to %s"), ($filters_spam_folder?'<b>'.imap_utf7_decode_local($filters_spam_folder).'</b>':'[<i>'._("not set yet").'</i>]' ) );
     echo '<br>';
     printf( _("Spam scan is limited to <b>%s</b>"), (($filters_spam_scan == 'new')?_("New Messages Only"):_("All Messages") ) );
     echo '</p>'.
-        "<table border=0 cellpadding=3 cellspacing=0 align=center bgcolor=\"$color[0]\">";
+        '<table border="0" cellpadding="3" cellspacing="0" align="center" bgcolor="' . $color[0] . "\">\n";
 
     $spam_filters = load_spam_filters();
 
@@ -224,7 +235,6 @@ if (! isset($_GET['action']) || $_GET['action'] != 'spam') {
         echo "</td></tr>\n";
     }
     echo '</table>';
-    echo '</body></html>';
 }
-
 ?>
+</body></html>

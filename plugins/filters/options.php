@@ -1,7 +1,6 @@
 <?php
-
 /**
- * Message and Spam Filter Plugin
+ * Message and Spam Filter Plugin - Filtering Options
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -54,42 +53,56 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('theid', $theid);
 sqgetGlobalVar('action', $action, SQ_GET);
 
-// FIXME: use sqgetGlobalVar below.
+if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
-   if (isset($_POST['filter_submit'])) {
-      if(isset($_GET['theid'])) {
-          $theid = $_GET['theid'];
-      } elseif (isset($_POST['theid'])) {
-          $theid = $_POST['theid'];
-      } else {
-          $theid = 0;
-      }
-      $filter_what   = $_POST['filter_what'];
-      $filter_where  = $_POST['filter_where'];
-      $filter_folder = $_POST['filter_folder'];
+    if(! isset($theid) ) $theid = 0;
 
-      $filter_what = str_replace(',', ' ', $filter_what);
-      $filter_what = str_replace("\\\\", "\\", $filter_what);
-      $filter_what = str_replace("\\\"", '"', $filter_what);
-      $filter_what = str_replace('"', '&quot;', $filter_what);
+    $complete_post=true;
 
-      if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
-         print ('WARNING! Header filters should be of the format "Header: value"<BR>');
-	 $action = 'edit';
-      }
-      setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
-      $filters[$theid]['where'] = $filter_where;
-      $filters[$theid]['what'] = $filter_what;
-      $filters[$theid]['folder'] = $filter_folder;
+    // FIXME: write human readable error messages
+    sqgetGlobalVar('filter_what', $filter_what, SQ_POST);
+    if (!sqgetGlobalVar('filter_what', $filter_what, SQ_POST)) {
+	do_error("Post error");
+	$complete_post=false;
+    }
+
+    sqgetGlobalVar('filter_where', $filter_where, SQ_POST);
+    if (!sqgetGlobalVar('filter_where', $filter_where, SQ_POST)) {
+	do_error("Post error");
+	$complete_post=false;
+    }
+
+    sqgetGlobalVar('filter_folder', $filter_folder, SQ_POST);
+    if (!sqgetGlobalVar('filter_folder', $filter_folder, SQ_POST)) {
+	do_error("Post error");
+	$complete_post=false;
+    }
+
+    if ($complete_post) {
+	$filter_what = str_replace(',', ' ', $filter_what);
+        $filter_what = str_replace("\\\\", "\\", $filter_what);
+        $filter_what = str_replace("\\\"", '"', $filter_what);
+        $filter_what = str_replace('"', '&quot;', $filter_what);
+
+        if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
+	    do_error(_("WARNING! Header filters should be of the format \"Header: value\""));
+    	    $action = 'edit';
+    	}
+	setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
+	$filters[$theid]['where'] = $filter_where;
+	$filters[$theid]['what'] = $filter_what;
+	$filters[$theid]['folder'] = $filter_folder;
+    }
    } elseif (isset($action) && $action == 'delete') {
       remove_filter($theid);
    } elseif (isset($action) && $action == 'move_up') {
       filter_swap($theid, $theid - 1);
    } elseif (isset($action) && $action == 'move_down') {
       filter_swap($theid, $theid + 1);
-   } elseif (isset($_POST['user_submit'])) {
-       setPref($data_dir, $username, 'filters_user_scan', $_POST['filters_user_scan_set']);
-       echo '<br><center><b>'._("Saved Scan type")."</b></center>\n";
+   } elseif (sqgetGlobalVar('user_submit',$user_submit,SQ_POST)) {
+	sqgetGlobalVar('filters_user_scan_set',$filters_user_scan_set,SQ_POST);
+	setPref($data_dir, $username, 'filters_user_scan', $filters_user_scan_set);
+	echo '<br /><center><b>'._("Saved Scan type")."</b></center>\n";
    }
 
    $filters = load_filters();
@@ -103,7 +116,7 @@ sqgetGlobalVar('action', $action, SQ_GET);
             ) ,
          'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) .
 
-        '<br><form method=post action="options.php">'.
+        '<br /><form method="post" action="options.php">'.
         '<center>'.
         html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
@@ -122,14 +135,14 @@ sqgetGlobalVar('action', $action, SQ_GET);
     echo '>' . _("Only unread messages") . '</option>' .
             '</select>'.
         '</td>'.
-        html_tag( 'td', '<input type=submit name="user_submit" value="' . _("Save") . '">', 'left' ) .
+        html_tag( 'td', '<input type="submit" name="user_submit" value="' . _("Save") . '" />', 'left' ) .
         '</table>'.
         '</center>'.
         '</form>'.
 
         html_tag( 'div', '[<a href="options.php?action=add">' . _("New") .
             '</a>] - [<a href="'.SM_PATH.'src/options.php">' . _("Done") . '</a>]' ,
-        'center' ) . '<br>';
+        'center' ) . '<br />';
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
 
@@ -140,32 +153,32 @@ sqgetGlobalVar('action', $action, SQ_GET);
             $theid = count($filters);
         }
         echo html_tag( 'div', '', 'center' ) .
-             '<form action="options.php" method=post>'.
+             '<form action="options.php" method="post">'.
              html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
              html_tag( 'tr' ) .
                 html_tag( 'td', _("Match:"), 'left' ) .
                 html_tag( 'td', '', 'left' ) .
-                    '<select name=filter_where>';
+                    '<select name="filter_where">';
 
         $L = isset($filters[$theid]['where']);
 
         $sel = (($L && $filters[$theid]['where'] == 'From')?'selected':'');
-        echo "<option value=\"From\" $sel>" . _ ("From") . '</option>';
+        echo "<option value=\"From\" $sel>" . _("From") . '</option>';
 
         $sel = (($L && $filters[$theid]['where'] == 'To')?'selected':'');
-        echo "<option value=\"To\" $sel>" . _ ("To") . '</option>';
+        echo "<option value=\"To\" $sel>" . _("To") . '</option>';
 
         $sel = (($L && $filters[$theid]['where'] == 'Cc')?'selected':'');
-        echo "<option value=\"Cc\" $sel>" . _ ("Cc") . '</option>';
+        echo "<option value=\"Cc\" $sel>" . _("Cc") . '</option>';
 
         $sel = (($L && $filters[$theid]['where'] == 'To or Cc')?'selected':'');
-        echo "<option value=\"To or Cc\" $sel>" . _ ("To or Cc") . '</option>';
+        echo "<option value=\"To or Cc\" $sel>" . _("To or Cc") . '</option>';
 
         $sel = (($L && $filters[$theid]['where'] == 'Subject')?'selected':'');
-        echo "<option value=\"Subject\" $sel>" . _ ("Subject") . '</option>';
+        echo "<option value=\"Subject\" $sel>" . _("Subject") . '</option>';
 
         $sel = (($L && $filters[$theid]['where'] == 'Header')?'selected':'');
-        echo "<option value=\"Header\" $sel>" . _ ("Header") . '</option>';
+        echo "<option value=\"Header\" $sel>" . _("Header") . '</option>';
 
         echo         '</select>'.
                 '</td>'.
@@ -173,18 +186,18 @@ sqgetGlobalVar('action', $action, SQ_GET);
             html_tag( 'tr' ) .
                 html_tag( 'td', _("Contains:"), 'right' ) .
                 html_tag( 'td', '', 'left' ) .
-                    '<input type=text size=32 name=filter_what value="';
+                    '<input type="text" size="32" name="filter_what" value="';
         if (isset($filters[$theid]['what'])) {
-            echo $filters[$theid]["what"];
+            echo $filters[$theid]['what'];
         }
-        echo '">'.
+        echo '" />'.
                 '</td>'.
             '</tr>'.
             html_tag( 'tr' ) .
                 html_tag( 'td', _("Move to:"), 'left' ) .
                 html_tag( 'td', '', 'left' ) .
                     '<tt>'.
-                    '<select name=filter_folder>';
+                    '<select name="filter_folder">';
         $selected = 0;
         if ( isset($filters[$theid]['folder']) )
           $selected = array(strtolower($filters[$theid]['folder']));
@@ -194,8 +207,8 @@ sqgetGlobalVar('action', $action, SQ_GET);
                 '</td>'.
             '</tr>'.
             '</table>'.
-            '<input type=submit name=filter_submit value=' . _("Submit") . '>'.
-            "<input type=hidden name=theid value=$theid>".
+            '<input type="submit" name="filter_submit" value="' . _("Submit") . "\" />\n".
+            '<input type="hidden" name="theid" value="' . $theid . "\" />\n".
             '</form>'.
             '</div>';
 
@@ -210,29 +223,32 @@ sqgetGlobalVar('action', $action, SQ_GET);
         echo html_tag( 'tr', '', '', $clr ) .
                    html_tag( 'td',
                        '<small>' .
-                       "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
+                       "[<a href=\"options.php?theid=$i&amp;action=edit\">" . _("Edit") . '</a>]'.
                        '</small>' ,
                    'left' ) .
                    html_tag( 'td',
                        '<small>' .
-                       "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
+                       "[<a href=\"options.php?theid=$i&amp;action=delete\">" . _("Delete") . '</a>]'.
                        '</small>' ,
                    'left' ) .
                    html_tag( 'td', '', 'center' ) . '<small>[';
 
         if (isset($filters[$i + 1])) {
-            echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
+            echo "<a href=\"options.php?theid=$i&amp;action=move_down\">" . _("Down") . '</a>';
             if ($i > 0) {
                 echo '&nbsp;|&nbsp;';
             }
         }
         if ($i > 0) {
-            echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
+            echo "<a href=\"options.php?theid=$i&amp;action=move_up\">" . _("Up") . '</a>';
         }
         echo ']</small></td>'.
             html_tag( 'td', '-', 'left' ) .
             html_tag( 'td', '', 'left' );
-        printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), $filters[$i]['where'], $filters[$i]['what'], $fdr );
+        printf( _("If %s contains %s then move to %s"),
+	    '<b>'.$filters[$i]['where'].'</b>',
+	    '<b>'.$filters[$i]['what'].'</b>',
+	    '<b>'.imap_utf7_decode_local($fdr).'</b>');
         echo '</td></tr>';
 
     }
