@@ -2095,30 +2095,14 @@ function magicHTML($body, $id, $message){
          * Remove any references to http/https if view_unsafe_images set
          * to false.
          */
-        $addendum = Array(
-          "/.*/" =>
-            Array(
-                "/^src|background/i" =>
-                    Array(
-                          Array(
-                                "/^([\'\"])\s*https*:.*([\'\"])/si"
-                                ),
-                          Array(
-                                "\\1$secremoveimg\\2"
-                                )
-                        ),
-                "/^style/si" =>
-                    Array(
-                          Array(
-                                "/url\(([\'\"])\s*https*:.*([\'\"])\)/si"
-                               ),
-                          Array(
-                                "url(\\1$secremoveimg\\2)"
-                               )
-                          )
-                )
-          );
-        $bad_attvals = array_merge($bad_attvals, $addendum);
+         array_push($bad_attvals{'/.*/'}{'/^src|background|href|action/i'}[0],
+                    '/^([\'\"])\s*https*:.*([\'\"])/si');
+         array_push($bad_attvals{'/.*/'}{'/^src|background|href|action/i'}[1],
+                    "\\1$secremoveimg\\2");
+         array_push($bad_attvals{'/.*/'}{'/^style/si'}[0],
+                    '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
+         array_push($bad_attvals{'/.*/'}{'/^style/si'}[1],
+                    "url(\\1$secremoveimg\\2)");
     }
 
     $add_attr_to_tag = Array(
