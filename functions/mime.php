@@ -57,8 +57,8 @@ function mime_structure ($bodystructure, $flags=array()) {
 	       }
 	       break;
 	     case 'M':
-	       if (strtolower($flag) == '\$mdnsent') {
-	    	  $msg->is_mdn = true;
+	       if (strtolower($flag) == '$mdnsent') {
+	    	  $msg->is_mdnsent = true;
 	       }
 	       break;
 	     default:
@@ -209,6 +209,33 @@ function listEntities ($message) {
        }
     }
   } 
+}
+
+function getPriorityStr($priority) {
+   $priority_level = substr($priority,0,1);
+
+   switch($priority_level) {
+     /* check for a higher then normal priority. */
+     case '1':
+     case '2':
+        $priority_string = _("High");
+        break;
+
+      /* check for a lower then normal priority. */
+     case '4':
+     case '5':
+        $priority_string = _("Low");
+        break;
+
+     /* check for a normal priority. */
+     case '3':
+     default:
+        $priority_level = '3';
+        $priority_string = _("Normal");
+        break;
+
+   }
+   return $priority_string;
 }
 
 /* returns a $message object for a particular entity id */
