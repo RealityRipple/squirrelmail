@@ -144,8 +144,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
     }
 
     $checked = ($checkall == 1) ? ' checked' : '';
-    
-    
+        
     if (sizeof($index_order)){
         foreach ($index_order as $index_order_part) {
             switch ($index_order_part) {
