@@ -19,7 +19,7 @@ Version 1.5.0 -- CVS
     (#725443, #722823, #729225)
   - Fix for bad attachment view link (#697381, #729295)
   - Fix comp_in_new in search and addressbook not having right parameters (#731768).
-
+  - Fix max attachment filesize off by factor 10 when ini_var set in bytes (#730742).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***

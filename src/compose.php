@@ -1285,7 +1285,9 @@ function ClearAttachments($composeMessage) {
 /* parse values like 8M and 2k into bytes */
 function getByteSize($ini_size) {
 
-    if(!$ini_size) return FALSE;
+    if(!$ini_size) {
+        return FALSE;
+    }
 
     $ini_size = trim($ini_size);
 
@@ -1304,12 +1306,10 @@ function getByteSize($ini_size) {
                break;
         }
 
-        $bytesize *= (int)substr($ini_size, 0, -1);
+        return ($bytesize * (int)substr($ini_size, 0, -1));
     }
         
-
-
-    return $bytesize;
+    return $ini_size;
 }
 
 
