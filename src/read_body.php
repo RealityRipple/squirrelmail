@@ -841,7 +841,6 @@ if (isset($passed_ent_id) && $passed_ent_id) {
 }
 $header = $message->header;
 
-do_hook('html_top');
 
 /****************************************/
 /* Block for handling incoming url vars */
@@ -949,7 +948,6 @@ if (($attachment_common_show_images) &&
 formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, false, FALSE);
 
 do_hook('read_body_bottom');
-do_hook('html_bottom');
 sqimap_logout($imapConnection);
 /* sessions are written at the end of the script. it's better to register
    them at the end so we avoid double session_register calls */

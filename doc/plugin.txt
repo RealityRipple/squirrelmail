@@ -308,10 +308,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
   read_body_menu_top             src/read_body.php               hook_func
   read_body_menu_bottom          src/read_body.php               do_hook
   read_body_header_right         src/read_body.php               do_hook
-  html_top                       src/read_body.php               do_hook
   read_body_top                  src/read_body.php               do_hook
   read_body_bottom               src/read_body.php               do_hook
-  html_bottom                    src/read_body.php               do_hook
   login_before                   src/redirect.php                do_hook
   login_verified                 src/redirect.php                do_hook
   generic_header                 src/right_main.php              do_hook
