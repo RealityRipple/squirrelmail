@@ -76,7 +76,7 @@
          $send_to = sqimap_find_email($send_to);
       }
 
-      $send_to = ereg_replace("\"", "", $send_to);
+//      $send_to = ereg_replace("\"", "", $send_to);
       $send_to = stripslashes($send_to);
       
       /** This formats a CC string if they hit "reply all" **/
@@ -132,37 +132,30 @@
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }		 
-	  	echo "<input type=hidden name=mailbox value=$mailbox>\n";
+      printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));
       echo "<TABLE WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");
       echo "      </TD><TD colspan=2 WIDTH=\"100%\" BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
-      if ($send_to)
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to\" VALUE=\"$send_to\" SIZE=60><BR>\n";
-      else
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to\" SIZE=60><BR>\n";
+      printf("         <INPUT TYPE=text NAME=\"send_to\" VALUE=\"%s\" SIZE=60><BR>\n",
+	     htmlspecialchars($send_to));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("CC:");
       echo "      </TD><TD colspan=2 BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
-      if ($send_to_cc)
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_cc\" SIZE=60 VALUE=\"$send_to_cc\"><BR>\n";
-      else
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_cc\" SIZE=60><BR>\n";
+      printf("         <INPUT TYPE=text NAME=\"send_to_cc\" SIZE=60 VALUE=\"%s\"><BR>\n",
+	     htmlspecialchars($send_to_cc));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("BCC:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
-      if ($send_to_bcc)
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" VALUE=\"$send_to_bcc\" SIZE=60><BR>\n";
-      else
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" SIZE=60><BR>";
-      
+      printf("         <INPUT TYPE=text NAME=\"send_to_bcc\" VALUE=\"%s\" SIZE=60><BR>\n",
+	     htmlspecialchars($send_to_bcc));
       echo "</TD></TR>\n";
 
       echo "   <TR>\n";
@@ -175,7 +168,8 @@
          $reply_subj = trim($reply_subj);
          if (substr(strtolower($reply_subj), 0, 3) != "re:")
             $reply_subj = "Re: $reply_subj";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$reply_subj\">";
+         printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
+		htmlspecialchars($reply_subj));
       } else if ($forward_subj) {
          $forward_subj = str_replace("\"", "'", $forward_subj);
          $forward_subj = stripslashes($forward_subj);
@@ -184,9 +178,11 @@
              (substr(strtolower($forward_subj), 0, 5) != "[fwd:") &&
              (substr(strtolower($forward_subj), 0, 6) != "[ fwd:"))
             $forward_subj = "[Fwd: $forward_subj]";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$forward_subj\">";
+         printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
+		htmlspecialchars($forward_subj));
       } else {
-         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=60>";
+ 	 printf("         <INPUT TYPE=text NAME=subject SIZE=60 VALUE=\"%s\">",
+		htmlspecialchars($subject));
       }
       echo "</td></tr>\n\n";
 
@@ -207,10 +203,13 @@
 
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=3>\n";
-      if ($use_signature == true && $newmail == true)
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n-- \n".$signature."</TEXTAREA><BR>";
-      else
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>".$body."</TEXTAREA><BR>\n";
+      echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
+      if ($use_signature == true && $newmail == true) {
+	 echo htmlspecialchars($body) . "\n\n-- \n" . htmlspecialchars($signature);
+      } else {
+	 echo htmlspecialchars($body);
+      }
+      echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR><TD COLSPAN=3 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";

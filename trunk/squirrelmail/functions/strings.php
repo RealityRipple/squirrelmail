@@ -87,6 +87,7 @@
          return;
       }
       $text = str_replace(" ", "", $text);
+      $text = ereg_replace( '"[^"]*"', "", $text);
       $text = str_replace(",", ";", $text);
       $array = explode(";", $text);
 		for ($i = 0; $i < count ($array); $i++) {
