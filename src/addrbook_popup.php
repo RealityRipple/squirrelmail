@@ -8,21 +8,16 @@
 
    session_start();
 
-   if(!isset($logged_in)) {
-      echo _("You must login first.");
-      exit;
-   }
-   if(!isset($username) || !isset($key)) {
-      echo _("You need a valid user and password to access this page!");
-      exit;
-   }
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
+   if (!isset($auth_php))
+      include("../functions/auth.php");
    if (!isset($addressbook_php))
       include("../functions/addressbook.php");
+
+   is_logged_in();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
 

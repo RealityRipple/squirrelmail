@@ -136,20 +136,17 @@ function bcc_address($addr) {
       include("../config/config.php");
    if (!isset($array_php))
       include("../functions/array.php");
+   if (!isset($auth_php))
+      include("../functions/auth.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($addressbook_php))
       include("../functions/addressbook.php");
 
-   // Authenticate user and load prefs
-   $imapConnection = sqimap_login($username, $key, 
-				  $imapServerAddress, $imapPort, 10);
+   is_logged_in();
    include("../src/load_prefs.php");
-   sqimap_logout ($imapConnection);
 
    displayHtmlHeader();
 
