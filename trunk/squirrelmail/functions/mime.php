@@ -116,9 +116,9 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1) {
         /* There is some information in the content info header that could be important
          * in order to parse html messages. Let's get them here.
          */
-        if ($ret{0} == '<') {
-            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, $uid_support);
-        }
+//        if ($ret{0} == '<') {
+//            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, $uid_support);
+//        }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
     } else {
