@@ -91,9 +91,9 @@ if ($javascript_on) {
         "}\n" .
         "//-->\n" .
         "</script>\n";
-    $chk_all = '<a href="#" onClick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">To</font>'.
+    $chk_all = '<a href="#" onClick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("To").'</font>'.
             '&nbsp;&nbsp;'.
-            '<a href="#" onClick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">Cc</font>'.
+            '<a href="#" onClick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">'._("Cc").'</font>'.
             '&nbsp;&nbsp;'.
             '<a href="#" onClick="CheckAll(\'B\');">' . _("All") . '</a>';
     }
