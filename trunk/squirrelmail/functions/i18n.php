@@ -29,8 +29,8 @@
    $languages['hr']['NAME']    = 'Croatian';
    $languages['hr']['CHARSET'] = 'iso-8859-2';
 
-   $languages['cs_CZ']['NAME']    = 'Czech';
-   $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+   //$languages['cs_CZ']['NAME']    = 'Czech';
+   //$languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
@@ -737,24 +737,29 @@
    global $use_gettext;
    
    // Detect whether gettext is installed.
-   // If it is, set the flag so we can use it.
-   if (! function_exists('_') || 
-       ! function_exists('bindtextdomain') ||
-       ! function_exists('textdomain'))
-       $use_gettext = false;
-   else
-       $use_gettext = true;
-          
+   $gettext_flags = 0;
+   if (function_exists('_')) $gettext_flags += 1;
+   if (function_exists('bindtextdomain')) $gettext_flags += 2;
+   if (function_exists('textdomain')) $gettext_flags += 4;
 
-   // Avoid warnings/errors if gettext is not installed
-   if (! function_exists('_')) {
-      function _($str) { return $str; };
-   }
-   if (! function_exists('bindtextdomain')) {
-      function bindtextdomain() { return; }
-   }
-   if (! function_exists('textdomain')) {
-      function textdomain() { return; }
+   // If gettext is fully loaded, cool
+   if ($gettext_flags == 7)
+      $use_gettext = true;
+   // If we can fake gettext, try that
+   elseif ($gettext_flags == 0) {
+      $use_gettext = true;
+      include('../functions/gettext.php');
+   } else {
+      // Uh-ho.  A weird install
+      if (! $gettext_flags & 1) {
+         function _($str) { return $str; };
+      }
+      if (! $gettext_flags & 2) {
+         function bindtextdomain() { return; }
+      }
+      if (! $gettext_flags & 4) {
+         function textdomain() { return; }
+      }
    }
 
 
@@ -769,7 +774,7 @@
       
       if ($SetupAlready)
          return;
-	 
+
       $SetupAlready = 1;
       
       $charset_headers_sent=false;
@@ -779,8 +784,8 @@
       }
 
       if (isset($sm_language) && $use_gettext &&
-         $squirrelmail_language != '' &&
-	 isset($languages[$sm_language]['CHARSET'])) {
+          $squirrelmail_language != '' &&
+ 	  isset($languages[$sm_language]['CHARSET'])) {
          if ((ini_get('safe_mode') == FALSE) && (getenv('LC_ALL') != $sm_language)) {
            putenv('LC_ALL=' . $sm_language);
          }
