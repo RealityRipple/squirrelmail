@@ -11,19 +11,16 @@
  * $Id$
  */
 
-   chdir('../');
-   define('SM_PATH','../');
+define('SM_PATH','../../');
 
-   /* SquirrelMail required files. */
-   require_once(SM_PATH . 'include/validate.php');
-   require_once(SM_PATH . 'functions/html.php');
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/html.php');
 
-   if (!isset($sound)) {
-    $sound = "Click.wav";
-   }
-   $sound = str_replace('../plugins/newmail/', '', $sound);
-   $sound = str_replace('../', '', $sound);
-   $sound = str_replace("..\\", '', $sound);
+$sound = (!isset($sound) ? 'Click.wav' : $sound);
+$sound = str_replace('../plugins/newmail/', '', $sound);
+$sound = str_replace('../', '', $sound);
+$sound = str_replace("..\\", '', $sound);
 
    displayHtmlHeader( _("Test Sound"), '', FALSE );
 

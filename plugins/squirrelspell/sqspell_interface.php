@@ -2,7 +2,7 @@
 
 /**
  * sqspell_interface.php
- * ----------------------
+ *
  * Main wrapper for the pop-up.
  *
  * Copyright (c) 1999-2002 The SquirrelMail development team
@@ -22,21 +22,20 @@
  * defaults. Don't change these, * the setuppable stuff is in
  * sqspell_config.php
  */
-$SQSPELL_DIR='squirrelspell';
+$SQSPELL_DIR='plugins/squirrelspell/';
 $SQSPELL_CRYPTO=FALSE;
     
 /**
  * Load the stuff needed from squirrelmail
  */
 
-chdir('..');
-define('SM_PATH','../');
+define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'include/load_prefs.php');
-require_once("$SQSPELL_DIR/sqspell_config.php");
-require_once("$SQSPELL_DIR/sqspell_functions.php");
+require_once($SQSPELL_DIR . 'sqspell_config.php');
+require_once($SQSPELL_DIR . 'sqspell_functions.php');
     
 /**
  * $MOD is the name of the module to invoke.
@@ -44,13 +43,12 @@ require_once("$SQSPELL_DIR/sqspell_functions.php");
  * breaches.
  */
 if (!isset($MOD) || !$MOD){
-  $MOD='init';
+    $MOD='init';
 } else {
-  sqspell_ckMOD($MOD);
+    sqspell_ckMOD($MOD);
 }
 
-/**
- * Include the module.
- */
-require_once("$SQSPELL_DIR/modules/$MOD.mod");
+/* Include the module. */
+require_once($SQSPELL_DIR . "modules/$MOD.mod");
+
 ?>

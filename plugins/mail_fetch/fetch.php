@@ -1,28 +1,26 @@
 <?php
 
-   /**
-    **  mail_fetch/fetch.php
-    **
-    **  Copyright (c) 1999-2002 The SquirrelMail Project Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Fetch code.
-    **
-    **  $Id$
-    **/
+/**
+ * mail_fetch/fetch.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Fetch code.
+ *
+ * $Id$
+ */
 
-    chdir('..');
-    define('SM_PATH','../');
+define('SM_PATH','../../');
 
-    require_once(SM_PATH . 'include/validate.php');
-    require_once(SM_PATH . 'functions/page_header.php');
-    require_once(SM_PATH . 'functions/imap.php');
-    require_once(SM_PATH . 'include/load_prefs.php');
-    require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
-    require_once(SM_PATH . 'functions/i18n.php');
-    require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
-    require_once(SM_PATH . 'functions/html.php' );
-
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'include/load_prefs.php');
+require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
+require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
+require_once(SM_PATH . 'functions/html.php' );
 
     function Mail_Fetch_Status($msg) {
         echo html_tag( 'table',
