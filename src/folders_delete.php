@@ -43,7 +43,7 @@
    /** Log out this session **/
    fputs($imapConnection, "1 logout");
 
-   echo "<BR><BR><A HREF=\"folders.php\">Return</A>";
+   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>Return</A>";
 ?>
 
 
