@@ -134,7 +134,7 @@
       $oldStr = '';
       $newPercent = 0;
       foreach ($gettext_php_translateStrings as $k => $v) {
-         similar_text($str, $k, &$newPercent);
+         similar_text($str, $k, $newPercent);
          if ($newPercent > $oldPercent) {
             $oldStr = $v;
             $oldPercent = $newPercent;
