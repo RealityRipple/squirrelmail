@@ -18,7 +18,8 @@
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  */
 
-/** This functionality requires the IMAP and date functions */
+/** This functionality requires the IMAP and date functions
+ */
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
 
@@ -143,7 +144,7 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
 /**
  * This is a convenient way to avoid spreading if (isset(... all over the code
  * @param mixed $var any variable (reference)
- * @param mixed $def default value to return if unset (default is zls (''), pass 0 if required)
+ * @param mixed $def default value to return if unset (default is zls (''), pass 0 or array() when appropriate)
  * @return mixed $def if $var is unset, otherwise $var
  */
 function asearch_nz(&$var, $def = '')
@@ -172,7 +173,7 @@ function asearch_unhtmlentities($string) {
 
 /**
  * Provide an easy way to dump the imap dialogue if $imap_asearch_debug_dump is TRUE
- * @global imap_asearch_debug_dump
+ * @global bool imap_asearch_debug_dump
  * @param string $var_name
  * @param string $var_var
  */
@@ -215,7 +216,7 @@ function sqimap_asearch_encode_string($what, $charset)
 /**
  * Parses a user date string into an rfc 3501 date string
  * Handles space, slash, backslash, dot and comma as separators (and dash of course ;=)
- * @global imap_asearch_months
+ * @global array imap_asearch_months
  * @param string user date
  * @return array a preg_match-style array:
  *  - [0] = fully formatted rfc 3501 date string (<day number>-<US month TLA>-<4 digit year>)
@@ -342,6 +343,9 @@ function sqimap_array_merge_unique(&$to, $from)
  */
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
+	//For some reason, this seems to happen and forbids searching servers not allowing OPTIONAL [CHARSET]
+	if (strtoupper($search_charset) == 'US-ASCII')
+		$search_charset = '';
 	/* 6.4.4 try OPTIONAL [CHARSET] specification first */
 	if ($search_charset != '')
 		$query = 'SEARCH CHARSET "' . strtoupper($search_charset) . '" ALL ' . $search_string;
@@ -586,7 +590,7 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
  * @param array $boxes_unformatted selectable mailbox unformatted names array (reference)
  * @return array sub mailboxes unformatted names
  */
-function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
+function sqimap_asearch_get_sub_mailboxes($cur_mailbox, &$mboxes_array)
 {
 	$sub_mboxes_array = array();
 	$boxcount = count($mboxes_array);
@@ -600,14 +604,14 @@ function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
 /**
  * Performs the search, given all the criteria, merging results for every mailbox
  * @param resource $imapConnection
- * @param array $mailbox_array
- * @param array $biop_array
- * @param array $unop_array
- * @param array $where_array
- * @param array $what_array
- * @param array $exclude_array
- * @param array $sub_array
- * @param array $mboxes_array selectable unformatted mailboxes names
+ * @param array $mailbox_array (reference)
+ * @param array $biop_array (reference)
+ * @param array $unop_array (reference)
+ * @param array $where_array (reference)
+ * @param array $what_array (reference)
+ * @param array $exclude_array (reference)
+ * @param array $sub_array (reference)
+ * @param array $mboxes_array selectable unformatted mailboxes names (reference)
  * @global bool allow_server_sort comes from config.php
  * @global integer sort sm internal sort order
  * @global bool allow_thread_sort comes from config.php
@@ -615,9 +619,9 @@ function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
  * @global integer sort_by_ref thread by references
  * @global string data_dir
  * @global string username
- * @return array $mbox_msgs array(mailbox => array(UIDs))
+ * @return array array(mailbox => array(UIDs))
  */
-function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array)
+function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_array, &$where_array, &$what_array, &$exclude_array, &$sub_array, &$mboxes_array)
 {
 	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages, $sort_by_ref;
 	global $data_dir, $username;
