@@ -50,7 +50,7 @@ if (isset($draft)) {
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=" . urlencode($draft_folder) .
-                   "&amp;message=$delete_draft&amp;sort=$sort&amp;startMessage=1&amp;saved_draft=yes");
+                   "&message=$delete_draft&sort=$sort&startMessage=1&saved_draft=yes");
             exit();
         }
         else {
@@ -59,8 +59,8 @@ if (isset($draft)) {
             exit();
             }
             else {
-            Header("Location: right_main.php?mailbox=$draft_folder&amp;sort=$sort".
-                   "&amp;startMessage=1&amp;note=$draft_message");
+            Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
+                   "&startMessage=1&note=$draft_message");
             exit();
             }
         }
@@ -128,15 +128,15 @@ if (isset($send)) {
         }
         if ( isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                   "&amp;message=$delete_draft&amp;sort=$sort&amp;startMessage=1&amp;mail_sent=yes");
+                   "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
             exit();
         }
         if ($compose_new_win == '1') {
             Header("Location: compose.php?mail_sent=yes");
         }
         else {
-            Header("Location: right_main.php?mailbox=$urlMailbox&amp;sort=$sort".
-                   "&amp;startMessage=1");
+            Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
+                   "&startMessage=1");
         }
     } else {
         /*
