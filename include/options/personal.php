@@ -134,13 +134,13 @@ function load_optpage_data_personal() {
     if ( $tzChangeAllowed ) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
         $tzfile = SM_PATH . 'locale/timezones.cfg';
-		if ((!is_readable($tzfile)) or (!$fd = fopen($tzfile,'r'))) {
-        	$message = _("Error opening timezone config, contact administrator.");
-		}
-		if (isset($message)) {
-	            plain_error_message($message, $color);
-	            exit;
-    	}
+        if ((!is_readable($tzfile)) or (!$fd = fopen($tzfile,'r'))) {
+            $message = _("Error opening timezone config, contact administrator.");
+        }
+        if (isset($message)) {
+            plain_error_message($message, $color);
+            exit;
+        }
         while (!feof ($fd)) {
             $zone = fgets($fd, 1024);
             if( $zone ) {

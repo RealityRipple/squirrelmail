@@ -174,7 +174,7 @@ $reply_focus = getPref($data_dir, $username, 'reply_focus', '');
 $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
 $left_refresh = strtolower($left_refresh);
 
-/** Load up the Signature file **/
+/* Load up the Signature file */
 $signature_abs = $signature = getSig($data_dir, $username, 'g');
 
 /* Message Highlighting Rules */

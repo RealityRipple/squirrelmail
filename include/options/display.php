@@ -80,9 +80,9 @@ function load_optpage_data_display() {
     );
 
     $css_values = array( 'none' => _("Default" ) );
-
-    if (is_readable(SM_PATH . 'themes/css') && is_dir(SM_PATH . 'themes/css')) {
-        $handle=opendir(SM_PATH . 'themes/css');
+    $css_dir = SM_PATH . 'themes/css';
+    if (is_readable($css_dir) && is_dir($css_dir)) {
+        $handle=opendir($css_dir);
         while ($file = readdir($handle) ) {
             if ( substr( $file, -4 ) == '.css' ) {
                 $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
@@ -468,6 +468,7 @@ function save_option_header($option) {
  */
 function save_option_theme($option) {
     global $theme;
+
     /* Do checking to make sure $new_theme is in the array. */
     $theme_in_array = false;
     for ($i = 0; $i < count($theme); ++$i) {

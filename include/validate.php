@@ -104,4 +104,5 @@ if ( $timeZone != SMPREF_NONE && ($timeZone != "")
     && $tzChangeAllowed ) {
     putenv("TZ=".$timeZone);
 }
+
 ?>
