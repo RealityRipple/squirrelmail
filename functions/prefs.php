@@ -27,14 +27,14 @@ function cachePrefValues($data_dir, $username) {
         return;
     }
 
-    /* A call to checkForPrefs here should take eliminate the need for
-    /* this to be called throughout the rest of the SquirrelMail code. 
-    checkForPrefs($data_dir, $username);
-
     /* Calculate the filename for the user's preference file */
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
-    checkForPrefs($data_dir, $username);º
+    /* A call to checkForPrefs here should take eliminate the need for
+    /* this to be called throughout the rest of the SquirrelMail code. 
+    checkForPrefs($data_dir, $username, $filename);
+
+    /* Make sure that the preference file now DOES exist. */
     if (!file_exists($filename)) {
         printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
         exit;
@@ -143,8 +143,13 @@ function setPref($data_dir, $username, $string, $value) {
 /**
  * Check for a preferences file. If one can not be found, create it.
  */
-function checkForPrefs($data_dir, $username) {
-    $filename = getHashedFile($username, $data_dir, "$username.pref");
+function checkForPrefs($data_dir, $username, $filename = '') {
+    /* First, make sure we have the filename. */
+    if ($filename == '') {
+        $filename = getHashedFile($username, $data_dir, "$username.pref");
+    }
+    
+    /* Then, check if the file exists. */
     if (!file_exists($filename) ) {
         if (!copy($data_dir . 'default_pref', $filename)) {
             echo _("Error opening ") . $filename;
