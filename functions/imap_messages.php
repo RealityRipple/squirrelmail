@@ -20,11 +20,12 @@
  * @param int $imap_stream The resource ID for the IMAP socket
  * @param string $id The list of messages to copy
  * @param string $mailbox The destination to copy to
- * @return bool
+ * @param bool $handle_errors Show error messages in case of a NO, BAD or BYE response
+ * @return bool If the copy completed without errors  
  */
-function sqimap_msgs_list_copy($imap_stream, $id, $mailbox) {
+function sqimap_msgs_list_copy($imap_stream, $id, $mailbox, $handle_errors = true) {
     $msgs_id = sqimap_message_list_squisher($id);
-    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, TRUE);
+    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), $handle_errors, $response, $message, TRUE);
     if ($response == 'OK') {
         return true;
     } else {
@@ -38,11 +39,12 @@ function sqimap_msgs_list_copy($imap_stream, $id, $mailbox) {
  * @param int $imap_stream The resource ID for the IMAP socket
  * @param string $id The list of messages to move
  * @param string $mailbox The destination to move to
- * @return void
+ * @param bool $handle_errors Show error messages in case of a NO, BAD or BYE response
+ * @return bool If the move completed without errors
  */
-function sqimap_msgs_list_move($imap_stream, $id, $mailbox) {
+function sqimap_msgs_list_move($imap_stream, $id, $mailbox, $handle_errors = true) {
     $msgs_id = sqimap_message_list_squisher($id);
-    if (sqimap_msgs_list_copy ($imap_stream, $id, $mailbox)) {
+    if (sqimap_msgs_list_copy ($imap_stream, $id, $mailbox, $handle_errors)) {
         return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
     } else {
         return false;
