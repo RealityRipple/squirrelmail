@@ -451,23 +451,26 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
   $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
 
   do_hook('mailbox_index_before');
+  echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+  echo '<tr><td>';
 
   mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
                                   $msg_cnt_str, $paginator_str, $start_msg);
-
-  
-  echo '<table bgcolor="' . $color[0] . '" border="0" width="100%" cellpadding="1" cellspacing="0"><tr><td>';
+  echo '</td></tr>';
+  echo '<tr><td HEIGHT="3" BGCOLOR="'.$color[4].'"></td></tr>';  
+  echo '<tr><td>';
+  echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+  echo '     <tr><td>';
+  echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+  echo '<tr><td>';
   printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
   displayMessageArray($imapConnection, $num_msgs, $start_msg, 
 		      $msort, $mailbox, $sort, $color, $show_num,0,0);
+  echo '</td></tr></table></td></tr></table>';
 
   mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
   echo '</td></tr></table>';
-		      
-  /**
-   * TODO: Switch to using $_SESSION[] whenever we ditch the 4.0.x series.
-   */
 }
 
 function calc_msort($msgs, $sort) {
@@ -653,7 +656,6 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
       next($msort);
     } while ($i && $i < $endVar);
   }
-  echo '</table>';
 }
 
 /*
@@ -698,9 +700,8 @@ function mail_message_listing_beginning ($imapConnection,
    * This is the beginning of the message list table.
    * It wraps around all messages
    */
-
     echo "<FORM name=\"messageList\" method=post action=\"$moveURL\">\n"
-        . html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' ) .
+        . html_tag( 'table' ,
             html_tag( 'tr',
                 html_tag( 'td' ,
                     html_tag( 'table' ,
@@ -708,12 +709,18 @@ function mail_message_listing_beginning ($imapConnection,
                             html_tag( 'td', $paginator, 'left' ) .
                             html_tag( 'td', $msg_cnt_str, 'right' ) 
                         )
-                    , '', $color[4], 'border="0" width="100%" cellpadding="2"  cellspacing="0"' ) 
+                    , '', $color[4], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' ) 
                 , 'left', '', '' )
             , '', $color[0] )
-        . html_tag( 'tr' ) . "\n"
-        . html_tag( 'td' ,'' , 'left', $color[0], '' )
-        . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
+	    , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+        echo '<tr><td HEIGHT="3" BGCOLOR="'.$color[4].'"></td></tr>';
+        echo '<tr><td>';
+	    
+        echo html_tag( 'tr' ) . "\n"
+        . html_tag( 'td' ,'' , 'left', '', '' )
+         . html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
+	  . '<tr><td>'
+           . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
             . html_tag( 'tr',
 	        getSmallStringCell(_("Move Selected To"), 'left') .
 	        getSmallStringCell(_("Transform Selected Messages"), 'right')
@@ -764,15 +771,11 @@ function mail_message_listing_beginning ($imapConnection,
                  , '', '', '' );
   }
 
-  echo "</TABLE>\n";
-
-    echo "</table>\n";
+    echo "</TABLE></td></tr></table></td></tr>\n";
 
     do_hook('mailbox_form_before');
 
-    echo '</td></tr>'
-    .  html_tag( 'tr' )
-    . html_tag( 'td' ,'' , '', $color[0], '' );
+
 
     /* if using server sort we highjack the
     * the $sort var and use $server_sort_order
@@ -786,6 +789,8 @@ function mail_message_listing_beginning ($imapConnection,
 
 function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color) {
   if ($num_msgs) {
+    echo '<tr><td HEIGHT="3" BGCOLOR="'.$color[4].'" COLSPAN="1">';  
+    echo '</td></tr><tr><td>';
     echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
@@ -794,11 +799,11 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
                             html_tag( 'td', $paginator_str ) .
                             html_tag( 'td', $msg_cnt_str, 'right' )
                         )
-                    , '', $color[4], 'width="100%" cellpadding="1" cellspacing="1"' )
+                    , '', $color[4], 'width="100%" border="0" cellpadding="1" cellspacing="0"' )
                 )
-            , '', $color[4] )
-        , '', $color[9], 'width="100%" cellpadding="1"  cellspacing="1"' );
-
+            )
+        , '', $color[9], 'width="100%" border="0" cellpadding="1"  cellspacing="0"' );
+    echo '</td></tr>';
   }
   /* End of message-list table */
   
@@ -809,49 +814,57 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 
 function printHeader($mailbox, $sort, $color, $showsort=true) {
   global $index_order;
-    echo html_tag( 'table' ,'' , '', $color[4], 'border="0" width="100%" cellpadding="1" cellspacing="0"' );
-    echo html_tag( 'tr' ,'' , 'center', $color[5] );
+    $cols = 0;
+    $line = '';
+    $line .= html_tag( 'tr' ,'' , 'center', $color[5] );
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
         case 1: /* checkbox */
+//	    ++$cols;	    
         case 5: /* flags */
-            echo html_tag( 'td' ,'&nbsp;' , '', '', 'width="1%"' );
+            $line .= html_tag( 'td' ,'&nbsp;' , '', '', 'width="1%"' );
+	    ++$cols;	    
             break;
         case 2: /* from */
             if (handleAsSent($mailbox)) {
-                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                $line .=  html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
                 . '<b>' . _("To") . '</b>';
             } else {
-                echo html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
+                $line .=  html_tag( 'td' ,'' , 'left', '', 'width="25%"' )
                 . '<b>' . _("From") . '</b>';
             }
             if ($showsort) {
-                ShowSortButton($sort, $mailbox, 2, 3);
+                $line .= ShowSortButton($sort, $mailbox, 2, 3);
             }
-            echo "</td>\n";
+            $line .=  "</td>\n";
+	    ++$cols;	    
             break;
         case 3: /* date */
-            echo html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
+            $line .=  html_tag( 'td' ,'' , 'left', '', 'width="5%" nowrap' )
             . '<b>' . _("Date") . '</b>';
             if ($showsort) {
-                ShowSortButton($sort, $mailbox, 0, 1);
+                $line .= ShowSortButton($sort, $mailbox, 0, 1);
             }
-            echo "</td>\n";
+            $line .=  "</td>\n";
+	    ++$cols;	    
             break;
         case 4: /* subject */
-            echo html_tag( 'td' ,'' , 'left', '', '' )
+            $line .= html_tag( 'td' ,'' , 'left', '', '' )
             . '<b>' . _("Subject") . '</b>';
             if ($showsort) {
-                ShowSortButton($sort, $mailbox, 4, 5);
+                $line .= ShowSortButton($sort, $mailbox, 4, 5);
             }
-            echo "</td>\n";
+            $line .=  "</td>\n";
+	    ++$cols;	    
             break;
         case 6: /* size */
-            echo html_tag( 'td', '<b>' . _("Size") . '</b>', 'center', '', 'width="5%"' );
+            $line .=  html_tag( 'td', '<b>' . _("Size") . '</b>', 'center', '', 'width="5%"' );
+	    ++$cols;	    
             break;
         }
     }
-    echo "</tr>\n";
+    $line .= "</tr>\n";
+    echo $line;
 }
 
 
@@ -879,7 +892,7 @@ function ShowSortButton($sort, $mailbox, $Up, $Down ) {
   }
   
   /* Now that we have everything figured out, show the actual button. */
-  echo ' <a href="' . $source_url .'?newsort=' . $which
+  return ' <a href="' . $source_url .'?newsort=' . $which
     . '&amp;startMessage=1&amp;mailbox=' . urlencode($mailbox)
     . '"><IMG SRC="../images/' . $img
     . '" BORDER=0 WIDTH=12 HEIGHT=10 ALT="sort"></a>';
