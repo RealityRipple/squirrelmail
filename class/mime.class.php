@@ -22,23 +22,23 @@ class rfc822_header
 {
     var $date = '',
         $subject = '',
-	$from = array(),
-	$sender = '',
-	$reply_to = array(),
-	$to = array(),
-	$cc = array(),
-	$bcc = array(),
-	$in_reply_to = '',
-	$message_id = '',
-	$mime = false,
-	$content_type = '',
-	$disposition = '',
-	$xmailer = '',
-	$priority = 3,
-	$dnt = '',
-	$mlist = array(),
-	$more_headers = array(); /* only needed for constructing headers 
-	                            in smtp.php */
+    	$from = array(),
+    	$sender = '',
+    	$reply_to = array(),
+    	$to = array(),
+    	$cc = array(),
+    	$bcc = array(),
+    	$in_reply_to = '',
+    	$message_id = '',
+    	$mime = false,
+    	$content_type = '',
+    	$disposition = '',
+    	$xmailer = '',
+    	$priority = 3,
+    	$dnt = '',
+    	$mlist = array(),
+    	$more_headers = array(); /* only needed for constructing headers 
+    	                            in smtp.php */
 	
     function parseHeader($hdr)
     {
