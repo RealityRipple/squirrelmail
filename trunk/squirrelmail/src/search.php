@@ -574,7 +574,7 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
 		$text_array = array('<img src="' . SM_PATH . 'images/minus.png" border="0" height="7" width="7">',
 			'<img src="' . SM_PATH . 'images/plus.png" border="0" height="7" width="7">');
 	else
-		$text_array = array(_("-"), _("+"));
+		$text_array = array('-', '+');
 	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, $text_array, array(_("Fold"), _("Unfold")));
 	if (!$use_icons_flag)
 		$toggle_link = '<small>[' . $toggle_link . ']</small>';
