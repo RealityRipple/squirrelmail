@@ -11,7 +11,7 @@
  * $Id$
  */
 
-require_once( '../functions/constants.php' );
+require_once( SM_PATH . 'functions/constants.php' );
 
 /* Define constants for the various option types. */
 define('SMOPT_TYPE_UNDEFINED', -1);
