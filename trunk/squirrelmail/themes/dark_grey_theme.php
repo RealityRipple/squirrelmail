@@ -15,12 +15,12 @@
  */
 
 global $color;
-$color[0]   = '#B2B2B2'; // (gray)           TitleBar
+$color[0]   = '#b2b2b2'; // (gray)           TitleBar
 $color[1]   = '#800000'; // (red)
-$color[2]   = '#CC0000'; // (light red)      Warning/Error Messages
+$color[2]   = '#cc0000'; // (light red)      Warning/Error Messages
 $color[3]   = '#929292'; // (light gray)     Left Bar Background
-$color[4]   = '#FFFFFF'; // (white)          Normal Background
-$color[5]   = '#C0C0C0'; // (lighter grey)   Table Headers
+$color[4]   = '#ffffff'; // (white)          Normal Background
+$color[5]   = '#c0c0c0'; // (lighter grey)   Table Headers
 $color[6]   = '#000000'; // (black)          Text on left bar
 $color[7]   = '#303030'; // (dark gray)      Links
 $color[8]   = '#000000'; // (black)          Normal text

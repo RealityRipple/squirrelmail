@@ -15,7 +15,7 @@
  * @package squirrelmail
  * @subpackage themes
  */
-   
+
 /** seed the random number generator */
 sq_mt_randomize();
 
