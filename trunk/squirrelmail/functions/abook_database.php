@@ -173,7 +173,7 @@ class abook_database extends addressbook_backend {
             return false;
         }
          
-        $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND nickname='%s'",
+        $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND LOWER(nickname)='%s'",
                          $this->table, $this->owner, $this->dbh->quoteString($alias));
 
         $res = $this->dbh->query($query);
