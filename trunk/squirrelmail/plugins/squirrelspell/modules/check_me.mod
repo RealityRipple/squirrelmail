@@ -66,7 +66,7 @@ for ($i=0; $i<sizeof($sqspell_raw_lines); $i++){
   if(substr($sqspell_raw_lines[$i], 0, 1) != '>'){
     $sqspell_new_lines[$i] = ' ' . $sqspell_raw_lines[$i];
   } else {
-    $sqspell_new_lines[$i] = '';
+    $sqspell_new_lines[$i] = ' ';
   }
 }
 /**

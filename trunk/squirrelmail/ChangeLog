@@ -112,6 +112,8 @@ Version 1.5.1 -- CVS
   - Fixed left frame mailbox list when sorting by case.
   - Separated fortune plugin configuration variables from main plugin scripts.
     See plugins/fortune/INSTALL.
+  - Fix for #906217 when checking spelling of inline replies, the corrected
+    words would appear through original email.
 
 Version 1.5.0
 --------------------
