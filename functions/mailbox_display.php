@@ -1156,7 +1156,7 @@ function get_selectall_link($start_msg, $sort, $mailbox) {
                 . "function " . $func_name . "() {\n"
                 . "  for (var i = 0; i < document." . $form_name . ".elements.length; i++) {\n"
                 . "    if(document." . $form_name . ".elements[i].type == 'checkbox' && "
-                . "document." . $form_name . ".elements[i].name != 'bypass_trash'){\n"
+                . "       document." . $form_name . ".elements[i].name.substring(0,3) == 'msg'){\n"
                 . "      document." . $form_name . ".elements[i].checked = "
                 . "        !(document." . $form_name . ".elements[i].checked);\n"
                 . "    }\n"
