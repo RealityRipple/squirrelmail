@@ -486,8 +486,13 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
             case '<':  /* get email address */
                 $addr_start = $pos;
                 $addr_end = strpos($address,'>',$addr_start);
-                $addr = substr($address,$addr_start+1,$addr_end-$addr_start-1);
-                $pos = $addr_end+1;
+                if($addr_end === FALSE) {
+                    // in case the address doesn't end, prevent loop
+                    $pos++;
+                } else {
+                    $addr = substr($address,$addr_start+1,$addr_end-$addr_start-1);
+                    $pos = $addr_end+1;
+                }
                 break;
             case '(':  /* rip off comments */
                 $addr_start = $pos;
