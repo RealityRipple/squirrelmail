@@ -38,7 +38,7 @@
     we would like to use as little Javascript as possible.
 **/
 <?
-   checkForPrefs($username);
+   checkForPrefs($data_dir, $username);
 
    if ($right_frame == "right_main.php") {
       $urlMailbox = urlencode($mailbox);

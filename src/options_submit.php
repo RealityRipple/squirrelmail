@@ -13,9 +13,9 @@
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
 
-   setPref($username, "full_name", $full_name);
-   setPref($username, "reply_to", $reply_to);
-   setPref($username, "chosen_theme", $chosentheme);
+   setPref($data_dir, $username, "full_name", $full_name);
+   setPref($data_dir, $username, "reply_to", $reply_to);
+   setPref($data_dir, $username, "chosen_theme", $chosentheme);
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>Options Saved!</B><BR><BR>";

@@ -6,8 +6,8 @@
     **/
 
    /** returns the value for $string **/
-   function getPref($username, $string) {
-      $filename = "../data/$username.pref";
+   function getPref($data_dir, $username, $string) {
+      $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {
          echo "Preference file \"$filename\" not found.  Exiting abnormally";
          exit;
@@ -28,8 +28,8 @@
    }
 
    /** sets the pref, $string, to $set_to **/
-   function setPref($username, $string, $set_to) {
-      $filename = "../data/$username.pref";
+   function setPref($data_dir, $username, $string, $set_to) {
+      $filename = "$data_dir$username.pref";
       $found = false;
       if (!file_exists($filename)) {
          echo "Preference file, $filename, does not exist.  Log out, and log back in to create a default preference file.<BR>";
@@ -67,10 +67,10 @@
    }
 
    /** This checks if there is a pref file, if there isn't, it will create it. **/
-   function checkForPrefs($username) {
-      $filename = "../data/$username.pref";
+   function checkForPrefs($data_dir, $username) {
+      $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {
-         if (!copy("../data/default_pref", $filename)) {
+         if (!copy("$data_dirdefault_pref", $filename)) {
             echo "Error opening $filename";
             exit;
          }

@@ -104,4 +104,18 @@
 //  Whether or not to use META tags and automatically forward after an action has
 //  been completed.
     $auto_forward = true;
+
+//  Path to the data/ directory
+//    It is a possible security hole to have a writable directory under the web server's
+//    root directory (ex: /home/httpd/html).  For this reason, it is possible to put
+//    the data directory anywhere you would like.   The path name can be absolute or
+//    relative (to the config directory).  It doesn't matter.  Here are two examples:
+//
+//  Absolute:
+//    $data_dir = "/usr/local/squirrelmail/data/";
+//
+//  Relative (to the config directory):
+//    $data_dir = "../data/";
+
+    $data_dir = "../data/haha/";
 ?>

@@ -14,8 +14,8 @@
    displayPageHeader($color, "None");
 
    /** load up some of the values from the pref file **/
-   $fullname = getPref($username, "full_name");
-   $replyto  = getPref($username, "reply_to");
+   $fullname = getPref($data_dir, $username, "full_name");
+   $replyto  = getPref($data_dir, $username, "reply_to");
    if ($replyto == "")
       $replyto = "$username@$domain";
 
