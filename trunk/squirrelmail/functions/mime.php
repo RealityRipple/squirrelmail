@@ -1137,7 +1137,7 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                     $src = '../images/' . _("sec_remove_eng.png");
                 }
                 $ret .= 'src="' . $src . '" ';
-                $i = $k-1;
+                $i = $k - 3;
             } else {
                 $ret .= 'src';
                 $i = $i + 3;
