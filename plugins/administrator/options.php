@@ -137,6 +137,8 @@ require_once('../functions/imap.php');
 require_once('../src/load_prefs.php');
 require_once('../plugins/administrator/defines.php');
 
+GLOBAL $data_dir, $username;
+
 $auth = FALSE;
 if ( $adm_id = fileowner('../config/config.php') ) {
     $adm = posix_getpwuid( $adm_id );
@@ -162,10 +164,27 @@ $cfgfile = '../config/config.php';
 parseConfig( '../config/config_default.php' );
 parseConfig( $cfgfile );
 
+$colapse = array( 'Titles' => FALSE,
+                  'Group1' => getPref($data_dir, $username, 'adm_Group1', FALSE ),
+                  'Group2' => getPref($data_dir, $username, 'adm_Group2', TRUE ),
+                  'Group3' => getPref($data_dir, $username, 'adm_Group3', TRUE ),
+                  'Group4' => getPref($data_dir, $username, 'adm_Group4', TRUE ),
+                  'Group5' => getPref($data_dir, $username, 'adm_Group5', TRUE ),
+                  'Group6' => getPref($data_dir, $username, 'adm_Group6', TRUE ),
+                  'Group7' => getPref($data_dir, $username, 'adm_Group7', TRUE ) );
+
+if ( isset( $switch ) ) {
+    $colapse[$switch] = !$colapse[$switch];
+    setPref($data_dir, $username, "adm_$switch", $colapse[$switch] );
+}
+
 echo "<form action=$PHP_SELF method=post>" .
     "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
+
+$act_grp = 'Titles';  /* Active group */
+    
 foreach ( $newcfg as $k => $v ) {
     $l = strtolower( $v );
     $type = SMOPT_TYPE_UNDEFINED;
@@ -199,208 +218,230 @@ foreach ( $newcfg as $k => $v ) {
         $type = SMOPT_TYPE_LDAP;
     }
 
-    switch ( $type ) {
-    case SMOPT_TYPE_LDAP:
-    case SMOPT_TYPE_PLUGINS:
-    case SMOPT_TYPE_THEME:
-    case SMOPT_TYPE_HIDDEN:
-        break;
-    case SMOPT_TYPE_TITLE:
-        echo "<tr bgcolor=\"$color[0]\"><th colspan=2>$name</th></tr>";
-        break;
-    case SMOPT_TYPE_COMMENT:
-        $v = substr( $v, 1, strlen( $v ) - 2 );
-        echo "<tr><td>$name</td><td>".
-             "<b>$v</b>";
-        $newcfg[$k] = "'$v'";
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
-    case SMOPT_TYPE_INTEGER:
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = intval( $HTTP_POST_VARS[$e] );
-            $newcfg[$k] = $v;
-        }
-        echo "<tr><td>$name</td><td>".
-             "<input size=10 name=\"adm_$n\" value=\"$v\">";
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
-    case SMOPT_TYPE_NUMLIST:
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = $HTTP_POST_VARS[$e];
-            $newcfg[$k] = $v;
-        }
-        echo "<tr><td>$name</td><td>";
-        echo "<select name=\"adm_$n\">";
-        foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
-            echo "<option value=\"$kp\"";
-            if ( $kp == $v ) {
-                echo ' selected';
+    if( $type == SMOPT_TYPE_TITLE || !$colapse[$act_grp] ) {
+
+        switch ( $type ) {
+        case SMOPT_TYPE_LDAP:
+        case SMOPT_TYPE_PLUGINS:
+        case SMOPT_TYPE_THEME:
+        case SMOPT_TYPE_HIDDEN:
+            break;
+        case SMOPT_TYPE_TITLE:
+            if ( $colapse[$k] ) {
+                $sw = '(+)';
+            } else {
+                $sw = '(-)';
             }
-            echo ">$vp</option>";
-        }
-        echo '</select>';
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
-    case SMOPT_TYPE_STRLIST:
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = '"' . $HTTP_POST_VARS[$e] . '"';
-            $newcfg[$k] = $v;
-        }
-        echo "<tr><td>$name</td><td>".
-             "<select name=\"adm_$n\">";
-        foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
-            echo "<option value=\"$kp\"";
-            if ( $kp == substr( $v, 1, strlen( $v ) - 2 ) ) {
-                echo ' selected';
+            echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
+                 "<a href=options.php?switch=$k STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+                 "$name</th></tr>";
+            $act_grp = $k;
+            break;
+        case SMOPT_TYPE_COMMENT:
+            $v = substr( $v, 1, strlen( $v ) - 2 );
+            echo "<tr><td>$name</td><td>".
+                 "<b>$v</b>";
+            $newcfg[$k] = "'$v'";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
             }
-            echo ">$vp</option>";
+            echo "</td></tr>\n";
+            break;
+        case SMOPT_TYPE_INTEGER:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = intval( $HTTP_POST_VARS[$e] );
+                $newcfg[$k] = $v;
+            }
+            echo "<tr><td>$name</td><td>".
+                 "<input size=10 name=\"adm_$n\" value=\"$v\">";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+        case SMOPT_TYPE_NUMLIST:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = $HTTP_POST_VARS[$e];
+                $newcfg[$k] = $v;
+            }
+            echo "<tr><td>$name</td><td>";
+            echo "<select name=\"adm_$n\">";
+            foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
+                echo "<option value=\"$kp\"";
+                if ( $kp == $v ) {
+                    echo ' selected';
+                }
+                echo ">$vp</option>";
+            }
+            echo '</select>';
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+        case SMOPT_TYPE_STRLIST:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+                $newcfg[$k] = $v;
+            }
+            echo "<tr><td>$name</td><td>".
+                 "<select name=\"adm_$n\">";
+            foreach ( $defcfg[$k]['posvals'] as $kp => $vp ) {
+                echo "<option value=\"$kp\"";
+                if ( $kp == substr( $v, 1, strlen( $v ) - 2 ) ) {
+                    echo ' selected';
+                }
+                echo ">$vp</option>";
+            }
+            echo '</select>';
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+    
+        case SMOPT_TYPE_TEXTAREA:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+                $newcfg[$k] = str_replace( "\n", '', $v );
+            }
+            echo "<tr><td valign=top>$name</td><td>".
+                 "<textarea cols=\"$size\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+        case SMOPT_TYPE_STRING:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = '"' . $HTTP_POST_VARS[$e] . '"';
+                $newcfg[$k] = $v;
+            }
+            echo "<tr><td>$name</td><td>".
+                 "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+        case SMOPT_TYPE_BOOLEAN:
+            if ( isset( $HTTP_POST_VARS[$e] ) ) {
+                $v = $HTTP_POST_VARS[$e];
+                $newcfg[$k] = $v;
+            } else {
+                $v = strtoupper( $v );
+            }
+            if ( $v == 'TRUE' ) {
+                $ct = ' checked';
+                $cf = '';
+            } else {
+                $ct = '';
+                $cf = ' checked';
+            }
+            echo "<tr><td>$name</td><td>" .
+                 "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
+                 "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
+            break;
+        default:
+            echo "<tr><td>$name</td><td>" .
+                 "<b><i>$v</i></b>";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+            echo "</td></tr>\n";
         }
-        echo '</select>';
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
+    }
 
-    case SMOPT_TYPE_TEXTAREA:
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = '"' . $HTTP_POST_VARS[$e] . '"';
-            $newcfg[$k] = str_replace( "\n", '', $v );
+}
+
+if ( !($colapse['Group6']) ) {
+    $i = 0;
+    echo '<tr><th>' . _("Theme Name") .
+         '</th><th>' . _("Theme Path") .
+         '</th></tr>';
+    while ( isset( $newcfg["\$theme[$i]['NAME']"] ) ) {
+        $k1 = "\$theme[$i]['NAME']";
+        $e1 = "theme_name_$i";
+        if ( isset( $HTTP_POST_VARS[$e1] ) ) {
+            $v1 = '"' . $HTTP_POST_VARS[$e1] . '"';
+            $newcfg[$k1] = $v1;
+        } else {
+            $v1 = $newcfg[$k1];
         }
-        echo "<tr><td valign=top>$name</td><td>".
-             "<textarea cols=\"$size\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
+        $k2 = "\$theme[$i]['PATH']";
+        $e2 = "theme_path_$i";
+        if ( isset( $HTTP_POST_VARS[$e2] ) ) {
+            $v2 = '"' . $HTTP_POST_VARS[$e2] . '"';
+            $newcfg[$k2] = $v2;
+        } else {
+            $v2 = $newcfg[$k2];
         }
-        echo "</td></tr>\n";
-        break;
-    case SMOPT_TYPE_STRING:
+        $name = substr( $v1, 1, strlen( $v1 ) - 2 );
+        $path = substr( $v2, 1, strlen( $v2 ) - 2 );
+        echo '<tr>'.
+             "<td align=right>$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
+             "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
+             "</tr>\n";
+        $i++;
+    
+    }
+}
+
+if ( $colapse['Group7'] ) {
+    $sw = '(+)';
+} else {
+    $sw = '(-)';
+}
+echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
+     "<a href=options.php?switch=Group7 STYLE=\"text-decoration:none\"><b>$sw</b> </a>" .
+     _("Plugins") . '</th></tr>';
+
+if( !$colapse['Group7'] ) {
+
+    $fd = opendir( '../plugins/' );
+    $op_plugin = array();
+    while (false!==($file = readdir($fd))) {
+        if ($file != '.' && $file != '..' && $file != 'CVS' ) {
+            if ( filetype( $file ) == 'dir' ) {
+                $op_plugin[] = $file;
+            }
+        }
+    }
+    closedir($fd);
+    asort( $op_plugin );
+    
+    $i = 0;
+    while ( isset( $newcfg["\$plugins[$i]"] ) ) {
+        $k = "\$plugins[$i]";
+        $e = "plugin_$i";
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
             $newcfg[$k] = $v;
-        }
-        echo "<tr><td>$name</td><td>".
-             "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
-    case SMOPT_TYPE_BOOLEAN:
-        if ( isset( $HTTP_POST_VARS[$e] ) ) {
-            $v = $HTTP_POST_VARS[$e];
-            $newcfg[$k] = $v;
         } else {
-            $v = strtoupper( $v );
+            $v = $newcfg[$k];
         }
-        if ( $v == 'TRUE' ) {
-            $ct = ' checked';
-            $cf = '';
-        } else {
-            $ct = '';
-            $cf = ' checked';
+        $name = substr( $v, 1, strlen( $v ) - 2 );
+        echo '<tr>'.
+             "<td align=right>$i.</td>".
+             "<td><select name=\"$e\">";
+        foreach ( $op_plugin as $op ) {
+            if ( $op == $name ) {
+                $cs = ' selected';
+            } else {
+                $cs = '';
+            }
+            echo "<option$cs>$op</option>";
         }
-        echo "<tr><td>$name</td><td>" .
-             "<INPUT$ct type=radio NAME=\"adm_$n\" value=\"TRUE\">" . _("Yes") .
-             "<INPUT$cf type=radio NAME=\"adm_$n\" value=\"FALSE\">" . _("No");
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-        break;
-    default:
-        echo "<tr><td>$name</td><td>" .
-             "<b><i>$v</i></b>";
-        if ( isset( $defcfg[$k]['comment'] ) ) {
-            echo ' &nbsp; ' . $defcfg[$k]['comment'];
-        }
-        echo "</td></tr>\n";
-    }
-
-}
-
-$i = 0;
-echo '<tr><th>' . _("Theme Name") .
-     '</th><th>' . _("Theme Path") .
-     '</th></tr>';
-while ( isset( $newcfg["\$theme[$i]['NAME']"] ) ) {
-    $k1 = "\$theme[$i]['NAME']";
-    $e1 = "theme_name_$i";
-    if ( isset( $HTTP_POST_VARS[$e1] ) ) {
-        $v1 = '"' . $HTTP_POST_VARS[$e1] . '"';
-        $newcfg[$k1] = $v1;
-    } else {
-        $v1 = $newcfg[$k1];
-    }
-    $k2 = "\$theme[$i]['PATH']";
-    $e2 = "theme_path_$i";
-    if ( isset( $HTTP_POST_VARS[$e2] ) ) {
-        $v2 = '"' . $HTTP_POST_VARS[$e2] . '"';
-        $newcfg[$k2] = $v2;
-    } else {
-        $v2 = $newcfg[$k2];
-    }
-    $name = substr( $v1, 1, strlen( $v1 ) - 2 );
-    $path = substr( $v2, 1, strlen( $v2 ) - 2 );
-    echo '<tr>'.
-         "<td align=right>$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
-         "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
-         "</tr>\n";
-    $i++;
-
-}
-
-echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" . _("Plugins") .  '</th></tr>';
-
-$fd = opendir( '../plugins/' );
-$op_plugin = array();
-while (false!==($file = readdir($fd))) {
-    if ($file != '.' && $file != '..' && $file != 'CVS' ) {
-        if ( filetype( $file ) == 'dir' ) {
-            $op_plugin[] = $file;
-        }
+        echo "</select></td>".
+             '</tr>';
+        $i++;
+    
     }
 }
-closedir($fd);
-asort( $op_plugin );
-
-$i = 0;
-while ( isset( $newcfg["\$plugins[$i]"] ) ) {
-    $k = "\$plugins[$i]";
-    $e = "plugin_$i";
-    if ( isset( $HTTP_POST_VARS[$e] ) ) {
-        $v = '"' . $HTTP_POST_VARS[$e] . '"';
-        $newcfg[$k] = $v;
-    } else {
-        $v = $newcfg[$k];
-    }
-    $name = substr( $v, 1, strlen( $v ) - 2 );
-    echo '<tr>'.
-         "<td align=right>$i.</td>".
-         "<td><select name=\"$e\">";
-    foreach ( $op_plugin as $op ) {
-        if ( $op == $name ) {
-            $cs = ' selected';
-        } else {
-            $cs = '';
-        }
-        echo "<option$cs>$op</option>";
-    }
-    echo "</select></td>".
-         '</tr>';
-    $i++;
-
-}
-
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
      _("Change Settings") . "\" type=submit></th></tr>" ,
      '</table></td></tr></table></form>';
@@ -414,7 +455,7 @@ fwrite( $fp, "<?PHP\n".
             "/**\n".
             " * SquirrelMail Configuration File\n".
             " * Created using the Administrator Plugin\n".
-            " */\n\n" );
+            " */\n" );
 
 /*
 fwrite( $fp, 'GLOBAL ' );
