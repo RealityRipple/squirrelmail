@@ -367,10 +367,10 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
 /**
  * Subscribes to an existing folder.
  */
-function sqimap_subscribe ($imap_stream, $mailbox) {
+function sqimap_subscribe ($imap_stream, $mailbox,$debug=true) {
     $read_ary = sqimap_run_command($imap_stream, 'SUBSCRIBE ' .
                                    sqimap_encode_mailbox_name($mailbox),
-                                   true, $response, $message);
+                                   $debug, $response, $message);
 }
 
 /**
@@ -609,6 +609,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 function sqimap_mailbox_list($imap_stream) {
+    echo "TEST<BR>";
     global $default_folder_prefix;
 
     if (!isset($boxesnew)) {
