@@ -166,20 +166,21 @@ if ($submit == 'submit') {
         }
     }
     for ($i=0;$i<count($tests);$i++) {
-        $response = imap_test($imap_stream, $type[$tests[$i]]);
         echo '<center><table width="95%" border="0" bgcolor="'.$color[4]."\">\n".
              '<tr><td><b>'.$tests[$i]."</b></td></tr>\n".
              '<tr><td><small><b><font color="'.$color[7].'">'.
-             _("Request:")."</font></b></small></td></tr>\n".
-             '<tr><td><small><b><font color="'.$color[7].'">'.
+            _("Request:")."</font></b></small></td></tr>\n";
+        // imap_test function outputs imap command
+        $response = imap_test($imap_stream, $type[$tests[$i]]);
+        echo '<tr><td><small><b><font color="'.$color[7].'">'.
              _("Response:")."</font></b></small></td></tr>\n".
              '<tr><td>';
         print_response($response);
         echo "</td></tr></table></center><br />\n";
     }
 }
-    echo '</td></tr></table></center>';
-    sqimap_logout($imap_stream);
+echo '</td></tr></table></center>';
+sqimap_logout($imap_stream);
 
 /**
  * Optional hook in info plugin
