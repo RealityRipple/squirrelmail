@@ -254,7 +254,8 @@ $colapse = array( 'Titles' => 'off',
                   'Group7' => getPref($data_dir, $username, 'adm_Group7', 'on' ),
                   'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ),
                   'Group9' => getPref($data_dir, $username, 'adm_Group9', 'on' ),
-                  'Group10' => getPref($data_dir, $username, 'adm_Group10', 'on' ) );
+                  'Group10' => getPref($data_dir, $username, 'adm_Group10', 'on' ),
+                  'Group11' => getPref($data_dir, $username, 'adm_Group10', 'on' ) );
 
 /* look in $_GET array for 'switch' */
 if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
