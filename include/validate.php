@@ -90,8 +90,19 @@ global $username, $data_dir;
 set_up_language(getPref($data_dir, $username, 'language'));
 
 $timeZone = getPref($data_dir, $username, 'timezone');
+
+/* Check to see if we are allowed to set the TZ environment variable.
+ * We are able to do this if ... 
+ *   safe_mode is disabled OR
+ *   safe_mode_allowed_env_vars is empty (you are allowed to set any) OR
+ *   safe_mode_allowed_env_vars contains TZ 
+ */
+$tzChangeAllowed = (!ini_get('safe_mode')) ||
+                    !strcmp(ini_get('safe_mode_allowed_env_vars'),'') || 
+                    preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')); 
+
 if ( $timeZone != SMPREF_NONE && ($timeZone != "") 
-    && !ini_get("safe_mode")) {
+    && $tzChangeAllowed ) {
     putenv("TZ=".$timeZone);
 }
 ?>
