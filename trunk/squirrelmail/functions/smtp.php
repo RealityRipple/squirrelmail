@@ -143,7 +143,7 @@ function attachFiles ($fp) {
             $filename = $hashed_attachment_dir . '/' . $info['localfilename'];
             $file = fopen ($filename, 'rb');
             if (substr($filetype, 0, 5) == 'text/' ||
-                $filetype == 'message/rfc822' || $filetype == 'message/disposition-notification' )  {
+                substr($filetype, 0, 8) == 'message/' ) {
                 $header .= "\r\n";
                 fputs ($fp, $header);
                 $length += strlen($header);
@@ -231,12 +231,11 @@ function timezone () {
 }
 
 /* Print all the needed RFC822 headers */
-function write822Header ($fp, $t, $c, $b, $subject, $MDN, $more_headers) {
+function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
     global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
     global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
     global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
     global $REMOTE_HOST, $identity;
-    global $request_mdn;    
     
     /* Storing the header to make sure the header is the same
      * everytime the header is printed.
@@ -308,12 +307,26 @@ function write822Header ($fp, $t, $c, $b, $subject, $MDN, $more_headers) {
         $header .= "From: $from\r\n";
         $header .= "To: $to_list\r\n";    // Who it's TO
         
-        if (isset($request_mdn)) {
-            $more_headers["Disposition-Notification-To"] = "$from_addr";
+        if (isset($more_headers["Content-Type"])) {
+	  $contentType = $more_headers["Content-Type"];
+	  unset($more_headers["Content-Type"]);
+	}
+        else {
+	  if (isMultipart()) {
+	    $contentType = "multipart/mixed;";
+	  }
+	  else {
+	    if ($default_charset != '') {
+                $contentType = 'text/plain; charset='.$default_charset;
+            }
+            else {
+                $contentType = 'text/plain;';
+            } 
+	  }
         }
-        
-        /* Insert headers from the $more_headers array */
-        if(is_array($more_headers)) {
+            
+	/* Insert headers from the $more_headers array */
+	if(is_array($more_headers)) {
             reset($more_headers);
             while(list($h_name, $h_val) = each($more_headers)) {
                 $header .= sprintf("%s: %s\r\n", $h_name, $h_val);
@@ -341,25 +354,11 @@ function write822Header ($fp, $t, $c, $b, $subject, $MDN, $more_headers) {
         $header .= "MIME-Version: 1.0\r\n";
         
         if (isMultipart()) {
-            if ($MDN) {
-                $header .= "Content-Type: multipart/report;\r\n";
-                $header .= "        report-type=disposition-notification;\r\n";
-                $header .= '        boundary="';
-                $header .= mimeBoundary();
-                $header .= "\"\r\n";
-            }
-            else {
-                $header .= 'Content-Type: multipart/mixed; boundary="';
-                $header .= mimeBoundary();
-                $header .= "\"\r\n";
-            }
+            $header .= 'Content-Type: '.$contentType.' boundary="';
+            $header .= mimeBoundary();
+            $header .= "\"\r\n";
         } else {
-            if ($default_charset != '') {
-                $header .= "Content-Type: text/plain; charset=$default_charset\r\n";
-            }
-            else {
-                $header .= "Content-Type: text/plain;\r\n";
-            }
+	    $header .= 'Content-Type: '.$contentType."\r\n";
             $header .= "Content-Transfer-Encoding: 8bit\r\n";
         }
         $header .= "\r\n"; // One blank line to separate header and body
@@ -413,7 +412,7 @@ function writeBody ($fp, $passedBody) {
 
 /* Send mail using the sendmail command
  */
-function sendSendmail($t, $c, $b, $subject, $body, $MDN, $more_headers) {
+function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
     global $sendmail_path, $popuser, $username, $domain;
     
     /* Build envelope sender address. Make sure it doesn't contain 
@@ -432,7 +431,7 @@ function sendSendmail($t, $c, $b, $subject, $body, $MDN, $more_headers) {
         $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
     }
     
-    $headerlength = write822Header ($fp, $t, $c, $b, $subject, $MDN, $more_headers);
+    $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
     $bodylength = writeBody($fp, $body);
     
     pclose($fp);
@@ -451,7 +450,7 @@ function smtpReadData($smtpConnection) {
     }
 }
 
-function sendSMTP($t, $c, $b, $subject, $body, $MDN, $more_headers) {
+function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
     global $username, $popuser, $domain, $version, $smtpServerAddress, 
         $smtpPort, $data_dir, $color, $use_authenticated_smtp, $identity, 
         $key, $onetimepad;
@@ -549,7 +548,7 @@ function sendSMTP($t, $c, $b, $subject, $body, $MDN, $more_headers) {
     }
 
     /* Send the message */
-    $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $MDN, $more_headers);
+    $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers);
     $bodylength = writeBody($smtpConnection, $body);
     
     fputs($smtpConnection, ".\r\n"); /* end the DATA part */
@@ -677,10 +676,8 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
 
 function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
-           $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort,
-           $default_use_priority,
-           $more_headers,
-           $request_mdn;
+           $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, 
+           $imapPort, $default_use_priority, $more_headers, $request_mdn, $request_dr;
 
     $more_headers = Array();
     
@@ -707,6 +704,17 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
         $more_headers = array_merge($more_headers, createPriorityHeaders($prio));
     }
 
+    $requestRecipt = 0;
+    if (isset($request_dr)) {
+        $requestRecipt += 1;
+    }
+    if (isset($request_mdn)) {
+        $requestRecipt += 2;
+    }
+    if ( $requestRecipt > 0) {
+        $more_headers = array_merge($more_headers, createReceiptHeaders($requestRecipt));
+    }
+
     /* In order to remove the problem of users not able to create
      * messages with "." on a blank line, RFC821 has made provision
      * in section 4.5.2 (Transparency).
@@ -719,15 +727,20 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
      * into just \n inside the compose.php file.
      */
     $body = ereg_replace("\n", "\r\n", $body);
+    
+    if ($MDN) {
+        $more_headers["Content-Type"] = "multipart/report; ".
+            "report-type=disposition-notification;";
+    }
 
     if ($useSendmail) {
-        $length = sendSendmail($t, $c, $b, $subject, $body, $MDN, $more_headers);
+        $length = sendSendmail($t, $c, $b, $subject, $body,  $more_headers);
     } else {
-        $length = sendSMTP($t, $c, $b, $subject, $body, $MDN, $more_headers);
+        $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
     }
     if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
         sqimap_append ($imap_stream, $sent_folder, $length);
-        write822Header ($imap_stream, $t, $c, $b, $subject, $MDN, $more_headers);
+        write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers);
         writeBody ($imap_stream, $body);
         sqimap_append_done ($imap_stream);
     }
@@ -762,5 +775,35 @@ function createPriorityHeaders($prio) {
     }
     return  $prio_headers;
 }
+
+function createReceiptHeaders($receipt) {
+  
+  $receipt_headers = Array();
+  $from_addr = getPref($data_dir, $username, 'email_address');
+  $from = getPref($data_dir, $username, 'full_name');
+
+  if ($from == '') {
+    $from = "<$from_addr>";
+  }
+  else {
+    $from = '"' . encodeHeader($from) . "\" <$from_addr>";
+  }
+  
+  /* On Delivery */
+  if ( $receipt == 1 
+       || $receipt == 3 ) {
+    $receipt_headers["Return-Receipt-To"] = $from;
+  }
+  /* On Read */
+  if ($receipt == 2 
+      || $receipt == 3 ) {
+    /* Pegasus Mail */
+    $receipt_headers["X-Confirm-Reading-To"] = $from;
+    /* RFC 2298 */
+    $receipt_headers["Disposition-Notification-To"] = $from;
+  }
+  return $receipt_headers;
+}   
+
 
 ?>
