@@ -1,5 +1,6 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Fixed double folder problem on some servers
 - Using encryption for passwords
 - Added a patch from Bill Thousand to allow easier virtual domains
 - Security updates with attachments

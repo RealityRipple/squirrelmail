@@ -169,6 +169,13 @@
          if ($sorted_lsub_ary[$i] == "INBOX")
             $inbox_subscribed = true;
       }
+      $new_ary = array();
+      for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+         if (!in_array($sorted_lsub_ary[$i], $new_ary)) {
+            $new_ary[] = $sorted_lsub_ary[$i];
+         }
+      }
+      $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
          sort($sorted_lsub_ary);
       }   
