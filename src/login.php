@@ -38,17 +38,14 @@ if (!function_exists('sqm_baseuri')){
     require_once(SM_PATH . 'functions/display_messages.php');
 }
 $base_uri = sqm_baseuri();
-@session_destroy();
 
 /*
  * In case the last session was not terminated properly, make sure
  * we get a new one.
  */
-$cookie_params = session_get_cookie_params();
-setcookie(session_name(), '', 0, $cookie_params['path'], 
-          $cookie_params['domain']);
-setcookie('username', '', 0, $base_uri);
-setcookie('key', '', 0, $base_uri);
+ 
+sqsession_destroy();
+ 
 header('Pragma: no-cache');
 
 do_hook('login_cookie');

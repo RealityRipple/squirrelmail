@@ -235,8 +235,8 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 
                 set_up_language($squirrelmail_language, true);
                 include_once(SM_PATH . 'functions/display_messages.php' );
+		sqsession_destroy();
                 logout_error( _("Unknown user or password incorrect.") );
-                session_destroy();
                 exit;
             }
         } else {
@@ -420,6 +420,15 @@ function sqimap_append ($imap_stream, $sent_folder, $length) {
 function sqimap_append_done ($imap_stream) {
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
+    if (preg_match("/(.*)(BAD|NO)(.*)$/", $tmp, $regs)) {
+        set_up_language($squirrelmail_language);
+        echo "<br><b><font color=$color[2]>\n" .
+            _("ERROR : Bad or malformed request.") .
+            "</b><br>\n" .
+            _("Server responded: ") .
+            $message . "</font><br>\n";
+        exit;
+    }
 }
 
 function sqimap_get_user_server ($imap_server, $username) {
