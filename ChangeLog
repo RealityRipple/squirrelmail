@@ -63,6 +63,7 @@ Version 1.5.1 -- CVS
   - Added sort by message size.
   - Fixed XSS vulnerability in content-type display in the attachment area
     of read_body.php discovered by Roman Medina.
+  - Get alternating row colors of addressbook in sync with mailbox list.
 
 Version 1.5.0
 --------------------
