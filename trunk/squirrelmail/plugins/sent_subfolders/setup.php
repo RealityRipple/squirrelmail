@@ -173,15 +173,14 @@ function sent_subfolders_update_sentfolder() {
                             . $year
                             . $delimiter . $quarter;
             $year_folder = $sent_subfolders_base
-                            . $delimiter . $year;
+                            . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_MONTHLY:
             $level = 2;
             $sent_subfolder = $sent_subfolders_base
                             . $year
                             . $delimiter . $month;
-            $year_folder = $sent_subfolders_base
-                            . $delimiter . $year;
+            $year_folder = $sent_subfolders_base . $year;
             break;
         case SMPREF_SENT_SUBFOLDERS_DISABLED:
         default:
