@@ -115,3 +115,7 @@ database.
 Default preferences can be set by altering the $default array in
 db_prefs.php.
 
+NB It seems that currently database backed preferences won't work under
+PostgreSQL at least due to using a column name of user and REPLACE which
+doesn't exist under PostgreSQL. This will be worked on and fixed as soon
+as possible.
