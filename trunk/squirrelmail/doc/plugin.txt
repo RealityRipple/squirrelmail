@@ -303,7 +303,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   & options_identities_buttons   src/options_identities.php      concat_hook
   message_body                   src/printer_friendly_bottom.php do_hook
   read_body_header               src/read_body.php               do_hook
-  read_body_menu_top             src/read_body.php               do_hook
+  read_body_menu_top             src/read_body.php               hook_func
   read_body_menu_bottom          src/read_body.php               do_hook
   read_body_header_right         src/read_body.php               do_hook
   html_top                       src/read_body.php               do_hook
@@ -320,7 +320,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   search_bottom                  src/search.php                  do_hook
   logout                         src/signout.php                 do_hook
   webmail_top                    src/webmail.php                 do_hook
-  webmail_bottom                 src/webmail.php                 do_hook
+  webmail_bottom                 src/webmail.php                 concat_hook
   logout_above_text              src/signout.php                 concat_hook
    
 % = This hook is used in multiple places in the given file
