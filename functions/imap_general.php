@@ -237,7 +237,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     /* Decrypt the password */
     $password = OneTimePadDecrypt($password, $onetimepad);
 
-	if ((($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) AND (extension_loaded('mhash')))  {
+	if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
       // We're using some sort of authentication OTHER than plain
 	  $tag=sqimap_session_id(false);
 	  if ($imap_auth_mech == 'digest-md5') {

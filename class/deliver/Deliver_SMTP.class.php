@@ -51,8 +51,7 @@ class Deliver_SMTP extends Deliver {
 	}
     
 	/* Lets introduce ourselves */
-	if ((( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) and (extension_loaded('mhash')))
-	{
+	if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
 	  // Doing some form of non-plain auth
 	  fputs($stream, "EHLO $domain\r\n");
 	  $tmp = fgets($stream,1024);

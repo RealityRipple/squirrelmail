@@ -59,10 +59,9 @@ function cram_md5_response ($username,$password,$challenge) {
 
 /* Given the challenge from the server, supply the response using
    cram-md5 (See RFC 2195 for details)
-   NOTE: Requires mhash extension to PHP
 */
 $challenge=base64_decode($challenge);
-$hash=bin2hex(mhash(MHASH_MD5,$challenge,$password));
+$hash=bin2hex(hmac($challenge,$password));
 $response=base64_encode($username . " " . $hash) . "\r\n";
 return $response;
 }
@@ -78,7 +77,7 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
     // rfc2831: client MUST fail if no qop methods supported
    // return false;
   //}
-  $cnonce = base64_encode(bin2hex(mhash(MHASH_MD5, microtime())));
+  $cnonce = base64_encode(bin2hex(hmac(microtime())));
   $ncount = "00000001";
 
   /* This can be auth (authentication only), auth-int (integrity protection), or
@@ -93,18 +92,18 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
   $string_a1 = utf8_encode($username).":";
   $string_a1 .= utf8_encode($result['realm']).":";
   $string_a1 .= utf8_encode($password);
-  $string_a1 = mhash(MHASH_MD5, $string_a1);
+  $string_a1 = hmac($string_a1);
   $A1 = $string_a1 . ":" . $result['nonce'] . ":" . $cnonce;
-  $A1 = bin2hex(mhash(MHASH_MD5, $A1));
+  $A1 = bin2hex(hmac($A1));
   $A2 = "AUTHENTICATE:$digest_uri_value";
   // If qop is auth-int or auth-conf, A2 gets a little extra
   if ($qop_value != 'auth') {
     $A2 .= ':00000000000000000000000000000000';
   }
-  $A2 = bin2hex(mhash(MHASH_MD5, $A2));
+  $A2 = bin2hex(hmac($A2));
 
   $string_response = $result['nonce'] . ':' . $ncount . ':' . $cnonce . ':' . $qop_value;
-  $response_value = bin2hex(mhash(MHASH_MD5, $A1.":".$string_response.":".$A2));
+  $response_value = bin2hex(hmac($A1.":".$string_response.":".$A2));
 
   $reply = 'charset=utf-8,username="' . $username . '",realm="' . $result["realm"] . '",';
   $reply .= 'nonce="' . $result['nonce'] . '",nc=' . $ncount . ',cnonce="' . $cnonce . '",';
@@ -152,6 +151,32 @@ function digest_md5_parse_challenge($challenge) {
     $parsed["$key"]=$value;
   } // End of while loop
   return $parsed;
+}
+
+function hmac($data, $key='') {
+    // Creates a HMAC digest that can be used for auth purposes
+    // See RFCs 2104, 2617, 2831
+    // Uses mhash() extension if available
+    if (extension_loaded('mhash')) {
+      if ($key== '') {
+        $mhash=mhash(MHASH_MD5,$data);
+      } else {
+        $mhash=mhash(MHASH_MD5,$data,$key);
+      }
+      return $mhash;
+    }
+    if (!$key) {
+         return pack('H*',md5($data));
+    }
+    $key = str_pad($key,64,chr(0x00));
+    if (strlen($key) > 64) {
+        $key = pack("H*",md5($key));
+    }
+    $k_ipad =  $key ^ str_repeat(chr(0x36), 64) ;
+    $k_opad =  $key ^ str_repeat(chr(0x5c), 64) ;
+    /* Heh, let's get re-entrant. PHP is so kinky */
+    $hmac=hmac($k_opad . pack("H*",md5($k_ipad . $data)) );
+    return $hmac;
 }
 
 ?>
