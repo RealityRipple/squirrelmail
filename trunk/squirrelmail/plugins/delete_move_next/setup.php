@@ -158,9 +158,10 @@ function delete_move_next_read($currloc) {
 	/* Base is illegal within documents 
         * $location = get_location();
         * echo "<base href=\"$location/\">" . */
-        echo '<table cellspacing=0 width="100%" border=0 cellpadding=2>'.
-             '<tr>'.
-                 "<td bgcolor=\"$color[9]\" width=\"100%\" align=center><small>";
+        echo html_tag( 'table', '', '', '', 'cellspacing="0" width="100%" border="0" cellpadding="2"' ) .
+             html_tag( 'tr' ) .
+             html_tag( 'td', '', 'center', $color[9], 'width="100%"' ) .
+                 '<small>';
     
         if ($prev > 0) {
             echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
@@ -228,8 +229,8 @@ function delete_move_next_moveNextForm($next) {
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-    echo '<tr>'.
-         "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
+    echo html_tag( 'tr' ) .
+         html_tag( 'td', '', 'center', $color[9], 'width="100%"' ) .
            '<form action="read_body.php" method="post"><small>'.
             "<input type=\"hidden\" name=\"passed_id\" value=\"$next\">".
             "<input type=\"hidden\" name=\"mailbox\" value=\"".urldecode($urlMailbox)."\">".
@@ -254,8 +255,8 @@ function delete_move_next_moveRightMainForm() {
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-    echo '<tr>' .      
-            "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
+    echo html_tag( 'tr' ) .
+         html_tag( 'td', '', 'center', $color[9], 'width="100%"' ) .
             '<form action="right_main.php" method="post"><small>' .
             "<input type=\"hidden\" name=\"mailbox\" value=\"".urldecode($urlMailbox)."\">".
             "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
@@ -301,9 +302,10 @@ function delete_move_next_display_inside() {
         $delete_move_next_t, $delete_move_next_formATtop,
         $delete_move_next_b, $delete_move_next_formATbottom;
     
-    echo "<tr><td align=right valign=top>\n".
-         _("Delete/Move/Next Buttons:") . "</td>\n".
-         "<td><input type=checkbox name=delete_move_next_ti";
+    echo html_tag( 'tr' ) .
+         html_tag( 'td', _("Delete/Move/Next Buttons:"), 'right', '', 'valign="top"' ) . "\n" .
+         html_tag( 'td', '', 'left' ) .
+         '<input type=checkbox name=delete_move_next_ti';
          
     if ($delete_move_next_t == 'on') {
         echo " checked";
