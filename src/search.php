@@ -164,7 +164,7 @@ $boxes = sqimap_mailbox_list($imapConnection);
 
 /*  set current mailbox to INBOX if none was selected or if page
     was called to search all folders.  */
-if ($mailbox == 'None' || $mailbox == '' ) {
+if ( !isset($mailbox) || $mailbox == 'None' || $mailbox == '' ) {
     $mailbox = $boxes[0]['unformatted'];
 }
 if ($mailbox == 'All Folders') {

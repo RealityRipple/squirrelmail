@@ -476,7 +476,9 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
         exit;
     }
     $tmp = fgets($smtpConnection, 1024);
-    if (errorCheck($tmp, $smtpConnection)!=5) return(0);
+    if (errorCheck($tmp, $smtpConnection)!=5) {
+        return(0);
+    }
     
     $to_list = getLineOfAddrs($to);
     $cc_list = getLineOfAddrs($cc);
