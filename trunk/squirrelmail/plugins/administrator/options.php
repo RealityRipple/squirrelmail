@@ -11,6 +11,59 @@
  * $Id$
  */
 
+function parseConfig( $cfg_file ) {
+
+    global $newcfg;
+
+    $cfg = file( $cfg_file );
+    $cm = FALSE;
+    $j = count( $cfg );
+
+    for ( $i=0; $i < $j; $i++ ) {
+        $l = '';
+        $first_char = $cfg[$i]{0};
+        do {
+            // Remove comments
+            $c = trim( $cfg[$i] );
+            $c = preg_replace( '/\/\*.*\*\//', '', $c );
+            $c = preg_replace( '/#.*$/', '', $c );
+            $c = preg_replace( '/\/\/.*$/', '', $c );
+            $l .= $c;
+            $i++;
+        } while( $first_char == '$' && substr( $c, -1 ) <> ';' && $i < $j );
+        $i--;
+        if ( $l <> '' ) {
+            if ( $cm ) {
+                if( substr( $l, -2 ) == '*/' ) {
+                    $l = '';
+                    $cm = FALSE;
+                } else if( $k = strpos( $l, '*/' ) ) {
+                    $l = substr( $l, $k );
+                    $cm = FALSE;
+                } else {
+                    $l = '';
+                }
+            } else {
+                if( $l{0}.$l{1} == '/*' ) {
+                    $l = '';
+                    $cm = TRUE;
+                } else if ( $k = strpos( $l, '/*' ) ) {
+                    $l = substr( $l, 0, $k );
+                    $cm = TRUE;
+                }
+            }
+    
+            if ( $k = strpos( $l, '=' ) ) {
+                $key = trim( substr( $l, 0, $k - 1 ) );
+                $val = str_replace( ';', '', trim( substr( $l, $k + 1 ) ) );
+                $newcfg[$key] = $val;
+            }
+        }
+
+    }
+
+}
+/* ---------------------- main -------------------------- */
 chdir('..');
 require_once('../src/validate.php');
 require_once('../functions/page_header.php');
@@ -33,86 +86,15 @@ if ( !auth ) {
 
 displayPageHeader($color, 'None');
 
-$cfgfile = '../config/config.php';
-$cfg_defaultfile = '../config/config_default.php';
-$cfg = file( $cfg_defaultfile );
-$newcfg = $dfncfg = array( );
-$cm = FALSE;
+$newcfg = array( );
 
 foreach ( $defcfg as $key => $def ) {
     $newcfg[$key] = '';
 }
 
-foreach ( $cfg as $l ) {
-    // Remove inline /* */ Blocks
-    $l = preg_replace( '/\/\*.*\*\//', '', $l );
-    $l = preg_replace( '/#.*$/', '', $l );
-    $l = preg_replace( '/\/\/.*$/', '', $l );
-    $v = $s = trim( $l );
-    if ( $cm ) {
-        if( substr( $v, -2 ) == '*/' ) {
-            $v = '';
-            $cm = FALSE;
-        } else if( $i = strpos( $v, '*/' ) ) {
-            $v = substr( $v, $i );
-            $cm = FALSE;
-        } else {
-            $v = '';
-        }
-    } else {
-        if( $v{0}.$v{1} == '/*' ) {
-            $v = '';
-            $cm = TRUE;
-        } else if ( $i = strpos( $v, '/*' ) ) {
-            $v = substr( $v, 0, $i );
-            $cm = TRUE;
-        }
-    }
-
-    if ( $i = strpos( $v, '=' ) ) {
-        $key = trim( substr( $v, 0, $i - 1 ) );
-        $val = str_replace( ';', '', trim( substr( $v, $i + 1 ) ) );
-        $newcfg[$key] = $val;
-        $dfncfg[$key] = $val;
-    }
-
-}
-
-$cfg = file( $cfgfile );
-
-$cm = FALSE;
-foreach ( $cfg as $l ) {
-    $l = preg_replace( '/\/\*.*\*\//', '', $l );
-    $l = preg_replace( '/#.*$/', '', $l );
-    $l = preg_replace( '/\/\/.*$/', '', $l );
-    $v = $s = trim( $l );
-    if ( $cm ) {
-        if( substr( $v, -2 ) == '*/' ) {
-            $v = '';
-            $cm = FALSE;
-        } else if( $i = strpos( $v, '*/' ) ) {
-            $v = substr( $v, $i );
-            $cm = FALSE;
-        } else {
-            $v = '';
-        }
-    } else {
-        if( $v{0}.$v{1} == '/*' ) {
-            $v = '';
-            $cm = TRUE;
-        } else if ( $i = strpos( $v, '/*' ) ) {
-            $v = substr( $v, 0, $i );
-            $cm = TRUE;
-        }
-    }
-
-    if ( $i = strpos( $v, '=' ) ) {
-        $key = trim( substr( $v, 0, $i - 1 ) );
-        $val = str_replace( ';', '', trim( substr( $v, $i + 1 ) ) );
-        $newcfg[$key] = $val;
-    }
-
-}
+$cfgfile = '../config/config.php';
+parseConfig( '../config/config_default.php' );
+parseConfig( $cfgfile );
 
 echo "<form action=$PHP_SELF method=post>" .
     "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
