@@ -727,28 +727,40 @@
    // be encoded.
    function encodeHeader ($string) {
       global $default_charset;
-
-      // Encode only if the string contains 8-bit characters or =?
-      if (ereg("([\\200-\\377]|=\\?)", $string)) {
-         
-         // First the special characters
-         $string = str_replace("=", "=3D", $string);
-         $string = str_replace("?", "=3F", $string);
-         $string = str_replace("_", "=5F", $string);
-         $string = str_replace(" ", "_", $string);
-
-	 for ( $ch = 127 ; $ch <= 255 ; $ch++ ) {
-	    $replace = chr($ch);
-	    $insert = sprintf("=%02X", $ch);
-            $string = str_replace($replace, $insert, $string);
-         }
-
-         $newstring = "=?$default_charset?Q?".$string."?=";
-         
-         return $newstring;
-      }
-
-      return $string;
-   }
+  
+     // Encode only if the string contains 8-bit characters or =?
+     $j = strlen( $string  );
+     $l = FALSE;                             // Must be encoded ?
+     $ret = '';
+     for( $i=0; $i < $j; ++$i) {
+        switch( $string{$i} ) {
+           case '=':
+   	      $ret .= '=3D';
+	      break;
+	   case '?':
+	      $l = TRUE;
+	      $ret .= '=3F';
+	      break;
+	   case '_':
+	      $ret .= '=5F';
+	      break;
+	   case ' ':
+	      $ret .= '_';
+	      break;
+	  default:
+	      $k = ord( $string{$i} );
+	      if( $k > 126 && $k < 256 ) {
+	         $ret .= sprintf("=%02X", $k);
+	         $l = TRUE;
+	      } else 
+	         $ret .= $string{$i};
+        }
+     }
+  
+     if( $l )
+        $string = "=?$default_charset?Q?$ret?=";
+           
+     return( $string );
+ }
 
 ?>
