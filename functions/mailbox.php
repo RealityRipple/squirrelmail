@@ -116,6 +116,16 @@
       }
    }
 
+   function decodeEmailAddr($sender) {
+      $emailAddr = getEmailAddr($sender);
+      $emailStart = strpos($emailAddr, "EMAILSTART--");
+      $emailEnd = strpos($emailAddr, "--EMAILEND") - 10;
+
+      $emailAddr = ereg_replace("EMAILSTART--", "", $emailAddr);
+      $emailAddr = ereg_replace("--EMAILEND", "", $emailAddr);
+      return $emailAddr;
+   }
+
    function getEmailAddr($sender) {
       if (strpos($sender, "EMAILSTART--") == false)
          return "";
