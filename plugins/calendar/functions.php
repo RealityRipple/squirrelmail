@@ -37,7 +37,7 @@ function select_option_length($selected) {
     $eventlength = array(
         '0' => _("0 min."),
         '15' => _("15 min."),
-        '30' => _("35 min."),
+        '30' => _("30 min."),
         '45' => _("45 min."),
         '60' => _("1 hr."),
         '90' => _("1.5 hr."),
