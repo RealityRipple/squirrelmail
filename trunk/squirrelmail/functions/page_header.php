@@ -42,12 +42,12 @@
    if ($default_charset != "")
       header ("Content-Type: text/html; charset=$default_charset");
 
-   function displayHtmlHeader ($title="") {
+   function displayHtmlHeader ($title="SquirrelMail") {
       echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
       echo "\n\n";
       echo "<HTML>\n";
       echo "<HEAD>\n";
-      echo "<TITLE>SquirrelMail</TITLE>";
+      echo "<TITLE>$title</TITLE>";
       echo "</HEAD>\n\n";
    }
 
