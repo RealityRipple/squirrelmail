@@ -1,5 +1,13 @@
 SQUIRRELSPELL
 
+v0.3.7
+------
+- General formatting updates, javadoc-style comments, and cleanups.
+- Potential privacy vulnerability fixed (possible symlink attack)
+- Moving some strings from .js files into .mod or .php so they can be
+  translated.
+- Miscellaneous code moves and smallish rewrites.
+	
 v0.3.6
 ------
 - Remote arbirtary execution as apache user vulnerability fix.
