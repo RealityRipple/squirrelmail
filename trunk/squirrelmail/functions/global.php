@@ -184,36 +184,36 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
         /* we want the default case to be first here,  
 	   so that if a valid value isn't specified, 
 	   all three arrays will be searched. */
-        default:
-	case SQ_INORDER:
-	case SQ_SESSION:
+	default:
+	case 'SQ_INORDER':
+	case 'SQ_SESSION':
 	  if( isset($_SESSION[$name]) ) {
             $value = $_SESSION[$name];
 	    return TRUE;
           } elseif ( $search == SQ_SESSION ) {
 	    break;
 	  }
-	case SQ_POST:
+	case 'SQ_POST':
 	  if( isset($_POST[$name]) ) {
             $value = $_POST[$name];
 	    return TRUE;
 	  } elseif ( $search == SQ_POST ) {
 	    break;
 	  }
-       	case SQ_GET:
+       	case 'SQ_GET':
 	  if ( isset($_GET[$name]) ) {
             $value = $_GET[$name];
 	    return TRUE;
 	  } 
-	  /* NO IF HERE. FOR DEFAULT CASE, EXIT after GET */
+	  /* NO IF HERE. FOR SQ_INORDER CASE, EXIT after GET */
 	  break;
-        case SQ_COOKIE:
+        case 'SQ_COOKIE':
           if ( isset($_COOKIE[$name]) ) {
              $value = $_COOKIE[$name];
              return TRUE;
           }
 	  break;
-	case SQ_SERVER:
+	case 'SQ_SERVER':
           if ( isset($_SERVER[$name]) ) {
              $value = $_SERVER[$name];
              return TRUE;
