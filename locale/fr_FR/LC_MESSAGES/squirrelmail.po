@@ -639,7 +639,7 @@ msgstr "Visualisation d'une image attachée"
 # squirrelmail/src/left_main.php:115
 #: squirrelmail/src/left_main.php:115
 msgid "empty"
-msgstr "vide"
+msgstr "vider"
 
 # squirrelmail/src/left_main.php:292
 #: squirrelmail/src/left_main.php:292
