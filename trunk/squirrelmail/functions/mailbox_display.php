@@ -621,7 +621,6 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             next($msort);
         } while ($i && $i < $endVar);
     }
-    echo '</table>';
 }
 
 /*
@@ -679,9 +678,10 @@ function mail_message_listing_beginning ($imapConnection,
                 , 'left', '', '' )
             , '', $color[0] )
 	    , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+	/* line between header and button area */
         echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
-        echo '<tr><td>';
 
+        echo '<tr><td>';
         echo html_tag( 'tr' ) . "\n"
         . html_tag( 'td' ,'' , 'left', '', '' )
          . html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="0"' )
@@ -754,7 +754,9 @@ function mail_message_listing_beginning ($imapConnection,
 
 function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color) {
   if ($num_msgs) {
+    /* space between list and footer */
     echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'" COLSPAN="1">';  
+
     echo '</td></tr><tr><td>';
     echo html_tag( 'table',
             html_tag( 'tr',
