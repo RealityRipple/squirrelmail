@@ -138,7 +138,7 @@
         //   register_shutdown_function($pop3->quit());
         
         $msglist = $pop3->uidl();
-        
+
         $i = 1;
         for ($j = 1; $j < sizeof($msglist); $j++) {
            if ($msglist["$j"] == $mailfetch_uidl) {
@@ -180,10 +180,31 @@
             $Message = "";
             $MessArray = $pop3->get($i);
             
-            if ( (!$MessArray) or (gettype($MessArray) != "array")) {
-                  Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR);
-                  continue 2;
-            }
+            while ( (!$MessArray) or (gettype($MessArray) != "array")) {
+                 Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR);
+                 // re-connect pop3
+                 Mail_Fetch_Status(_("Server error...Disconnect"));
+	         $pop3->quit();
+                 Mail_Fetch_Status(_("Re-connect from dead connectoin"));
+                 if (!$pop3->connect($mailfetch_server)) {
+                     Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR );
+                     Mail_Fetch_Status(_("Saving UIDL"));
+                     setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $mailfetch_uidl[$i-1]);
+
+                     continue;
+                 }
+                 $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
+                 if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
+                     Mail_Fetch_Status(_("Login Failed:") . ' ' . $pop3->ERROR );
+                     Mail_Fetch_Status(_("Saving UIDL"));
+                     setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $mailfetch_uidl[$i-1]);
+
+                     continue;
+                 }
+                 Mail_Fetch_Status(_("Re-fetching message ") . "$i" );
+	         $MessArray = $pop3->get($i);
+
+            } // end while
             
             while (list($lineNum, $line) = each ($MessArray)) {
                  $Message .= $line;
@@ -198,7 +219,19 @@
             if (substr($Line, 0, 1) == '+') {
                 fputs($imap_stream, $Message);
                 sqimap_read_data($imap_stream, "A3$i", false, $response, $message);
-                Mail_Fetch_Status(_("Message appended to mailbox"));
+                if ( $response <> 'OK' ) {
+                    Mail_Fetch_Status(_("Error Appending Message!")." ".$message );
+                    Mail_Fetch_Status(_("Closing POP"));
+                    $pop3->quit();
+                    Mail_Fetch_Status(_("Logging out from IMAP"));
+                    sqimap_logout($imap_stream);
+
+                    Mail_Fetch_Status(_("Saving UIDL"));
+                    setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $mailfetch_uidl[$i-1]);
+	            exit;
+                } else {
+                    Mail_Fetch_Status(_("Message appended to mailbox"));
+                }
                 
                 if ($mailfetch_lmos != 'on') {
                    if( $pop3->delete($i) ) {
@@ -210,6 +243,15 @@
             } else {
                 echo "$Line";
                 Mail_Fetch_Status(_("Error Appending Message!"));
+                Mail_Fetch_Status(_("Closing POP"));
+                $pop3->quit();
+                Mail_Fetch_Status(_("Logging out from IMAP"));
+                sqimap_logout($imap_stream);
+
+                // not gurantee corect!
+                Mail_Fetch_Status(_("Saving UIDL"));
+                setPref($data_dir,$username,"mailfetch_uidl_$i_loop", $mailfetch_uidl[$i-1]);
+                exit;
             }
         }
         

@@ -66,15 +66,15 @@
             $mailfetch_server_number--;
             for ($i=$mf_sn;$i<$mailfetch_server_number;$i++) {
                 $tmp=$i+1;
-                setPref($data_dir,$username,"mailfetch_server_$mf_sn", getPref($data_dir, $username, "mailfetch_server_$tmp"));
-                setPref($data_dir,$username,"mailfetch_alias_$mf_sn", getPref($data_dir, $username, "mailfetch_alias_$tmp"));
-                setPref($data_dir,$username,"mailfetch_user_$mf_sn", getPref($data_dir, $username, "mailfetch_user_$tmp"));
-                setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass ) :""));
+                setPref($data_dir,$username,"mailfetch_server_$i", getPref($data_dir, $username, "mailfetch_server_$tmp"));
+                setPref($data_dir,$username,"mailfetch_alias_$i", getPref($data_dir, $username, "mailfetch_alias_$tmp"));
+                setPref($data_dir,$username,"mailfetch_user_$i", getPref($data_dir, $username, "mailfetch_user_$tmp"));
+                setPref($data_dir,$username,"mailfetch_pass_$i",(isset($mf_pass)?encrypt( $mf_pass ) :""));
                 // if( $mf_cypher <> 'on' ) setPref($data_dir,$username,"mailfetch_cypher", 'on');
-                setPref($data_dir,$username,"mailfetch_lmos_$mf_sn", getPref($data_dir, $username, "mailfetch_lmos_$tmp"));
-                setPref($data_dir,$username,"mailfetch_login_$mf_sn", getPref($data_dir, $username, "mailfetch_login_$tmp"));
-                setPref($data_dir,$username,"mailfetch_fref_$mf_sn", getPref($data_dir, $username, "mailfetch_fref_$tmp"));
-                setPref($data_dir,$username,"mailfetch_subfolder_$mf_sn", getPref($data_dir, $username, "mailfetch_subfolder_$tmp"));
+                setPref($data_dir,$username,"mailfetch_lmos_$i", getPref($data_dir, $username, "mailfetch_lmos_$tmp"));
+                setPref($data_dir,$username,"mailfetch_login_$i", getPref($data_dir, $username, "mailfetch_login_$tmp"));
+                setPref($data_dir,$username,"mailfetch_fref_$i", getPref($data_dir, $username, "mailfetch_fref_$tmp"));
+                setPref($data_dir,$username,"mailfetch_subfolder_$i", getPref($data_dir, $username, "mailfetch_subfolder_$tmp"));
             }
             setPref($data_dir,$username,"mailfetch_server_number", $mailfetch_server_number);
         }
