@@ -13,7 +13,7 @@
     $color[6]   = "#000000"; // (black)          Text on left bar
     $color[7]   = "#0000CC"; // (blue)           Links
     $color[8]   = "#000000"; // (black)          Normal text
-    $color[9]   = "#94ADC1"; // (mid-gray)       Darker version of #0
-    $color[10]  = "#8D97A0"; // (dark gray)      Darker version of #9
+    $color[9]   = "#92A5B4"; // (mid-gray)       Darker version of #0
+    $color[10]  = "#376589"; // (dark gray)      Darker version of #9
     $color[11]  = "#770000"; // (dark red)       Special Folders color
 ?>
