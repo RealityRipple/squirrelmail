@@ -440,35 +440,6 @@ if (isset($msgs)) {
 }
 $msgs[$passed_id]['FLAG_SEEN'] = true;
 
-
-/*
- * The following code sets necesarry stuff for the MDN thing
- */
-if($default_use_mdn &&
-   ($mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', 
-                                $default_use_mdn))) {
-    $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
-    $FirstTimeSee = !$message->is_seen;
-}
-
-/*
- * The following code shows the header of the message and then exit
- */
-if (isset($view_hdr)) {
-   $template_vars = array();
-   parse_viewheader($imapConnection,$passed_id,&$template_vars);
-   $template_vars['return_address'] = set_url_var($PHP_SELF, 'view_hdr');
-   view_header($template_vars, '', '</body></html>');
-   exit;
-}
-
-if (isset($msgs)) {
-    $currentArrayIndex = $passed_id;
-} else {
-    $currentArrayIndex = -1;
-}
-$msgs[$passed_id]['FLAG_SEEN'] = true;
-
 /** translate the subject and mailbox into url-able text **/
 $url_subj = urlencode(trim($header->subject));
 $urlMailbox = urlencode($mailbox);
