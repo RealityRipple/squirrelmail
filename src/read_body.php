@@ -851,7 +851,7 @@ if ($default_use_mdn) {
             // if no MDNsupport don't use the annoying popup messages
             else if (  !$FirstTimeSee ) {
                 $sendreceipt = 'send';
-                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
                 echo       '<TR>' .
                             "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
                                 _("Read receipt") . ': ' .
@@ -864,7 +864,7 @@ if ($default_use_mdn) {
             }
             else {
                 $sendreceipt = 'send';
-                $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
+                $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
                 if ($javascript_on) {
                 echo "<script language=\"javascript\" type=\"text/javascript\">  \n" .
                     '<!-- ' . "\n" .
