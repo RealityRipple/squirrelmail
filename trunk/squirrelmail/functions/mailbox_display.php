@@ -1247,16 +1247,15 @@ function getEndMessage($start_msg, $show_num, $num_msgs) {
 }
 
 function handleAsSent($mailbox) {
-    global $sent_folder, $draft_folder, $handleAsSent_result;
-
+    global $handleAsSent_result;
+ 
     /* First check if this is the sent or draft folder. */
-    $handleAsSent_result = (($mailbox == $sent_folder)
-                             || ($mailbox == $draft_folder));
+    $handleAsSent_result = isSentMailbox($mailbox) || isDraftMailbox($mailbox);
 
     /* Then check the result of the handleAsSent hook. */
     do_hook('check_handleAsSent_result', $mailbox);
 
     /* And return the result. */
-    return ($handleAsSent_result);
+    return $handleAsSent_result;
 }
 ?>
