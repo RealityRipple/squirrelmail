@@ -211,7 +211,6 @@ function listEntities ($message) {
   } 
 }
 
-
 /* returns a $message object for a particular entity id */
 function getEntity ($message, $ent_id) {
     return $message->getEntity($ent_id);
@@ -286,7 +285,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
     $has_unsafe_images= 0;
-    
+    $body = '';
     $urlmailbox = urlencode($mailbox);
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
@@ -1435,7 +1434,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                       "meta",
                       "html",
                       "head",
-                      "base"
+                      "base",
+                      "link"
                       );
 
     $rm_tags_with_content = Array(
