@@ -59,7 +59,7 @@
          $gettext_php_domain . '.po';
       
       $file = @fopen($filename, 'r');
-      if ($file === false) {
+      if ($file == false) {
          // Uh-ho -- we can't load the file.  Just fake it.  :-)
 	 // This is also for English, which doesn't use translations
          $gettext_php_loaded = true;
