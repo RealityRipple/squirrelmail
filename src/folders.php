@@ -238,7 +238,7 @@ echo html_tag( 'tr',
 
 
 /** UNSUBSCRIBE FOLDERS **/
-echo html_tag( 'table', '', 'center', '', 'width="70%" cols="2" cellpadding="4" cellspacing="0" border="0"' ) .
+echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspacing="0" border="0"' ) .
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Unsubscribe") . '/' . _("Subscribe") . '</b>', 'center', $color[9], 'colspan="2"' )
             ) .
