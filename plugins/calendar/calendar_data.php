@@ -41,10 +41,12 @@ function readcalendardata() {
             }
             fclose ($fp);
             // this is to sort the events within a day on starttime
-            foreach($calendardata as $day => $data) {
+            $new_calendardata = array();
+	    foreach($calendardata as $day => $data) {
                 ksort($data, SORT_NUMERIC);
-                $calendardata[$day] = $data;
+                $new_calendardata[$day] = $data;
             }
+	    $calendardata = $new_calendardata;
         }
     }
 }
