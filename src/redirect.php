@@ -1,32 +1,16 @@
 <?php
 
 /**
- * redirect.php
- * Derived from webmail.php by Ralf Kraudelt <kraude@wiwi.uni-rostock.de>
- *
- * Copyright (c) 1999-2002 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * Prevents users from reposting their form data after a successful logout.
- *
- * $Id$
- */
-
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
+* redirect.php
+* Derived from webmail.php by Ralf Kraudelt <kraude@wiwi.uni-rostock.de>
+*
+* Copyright (c) 1999-2002 The SquirrelMail Project Team
+* Licensed under the GNU GPL. For full terms see the file COPYING.
+*
+* Prevents users from reposting their form data after a successful logout.
+*
+* $Id$
+*/
 
 require_once('../functions/i18n.php');
 require_once('../functions/strings.php');
@@ -40,7 +24,7 @@ require_once('../functions/page_header.php');
 // Remove slashes if PHP added them
 if (get_magic_quotes_gpc()) {
     global $REQUEST_METHOD;
-    
+
     if ($REQUEST_METHOD == "POST") {
         global $HTTP_POST_VARS;
         RemoveSlashes($HTTP_POST_VARS);
@@ -49,25 +33,6 @@ if (get_magic_quotes_gpc()) {
         RemoveSlashes($HTTP_GET_VARS);
     }
 }
-
-
-function attachment_common_parse($str, $debug) {
-    global $attachment_common_types, $attachment_common_types_parsed;
-
-    $attachment_common_types_parsed[$str] = true;
-    $types = explode(', ', $str);
-
-    foreach ($types as $val) {
-        // Ignore the ";q=1.0" stuff
-        if (strpos($val, ';') !== false)
-            $val = substr($val, 0, strpos($val, ';'));
-
-        if (! isset($attachment_common_types[$val])) {
-            $attachment_common_types[$val] = true;
-        }
-    }
-}
-
 
 /* Before starting the session, the base URI must be known. Assuming */
 /* that this file is in the src/ subdirectory (or something).        */
@@ -191,5 +156,25 @@ if(isset($rcptemail)) {
 
 /* Send them off to the appropriate page. */
 header("Location: $redirect_url");
+
+/* --------------------- end main ----------------------- */
+
+function attachment_common_parse($str, $debug) {
+    global $attachment_common_types, $attachment_common_types_parsed;
+
+    $attachment_common_types_parsed[$str] = true;
+    $types = explode(', ', $str);
+
+    foreach ($types as $val) {
+        // Ignore the ";q=1.0" stuff
+        if (strpos($val, ';') !== false)
+            $val = substr($val, 0, strpos($val, ';'));
+
+        if (! isset($attachment_common_types[$val])) {
+            $attachment_common_types[$val] = true;
+        }
+    }
+}
+
 
 ?>
