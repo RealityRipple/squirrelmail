@@ -459,13 +459,17 @@ class Deliver {
             $header[] = 'Disposition-Notification-To: '.$dnt. $rn;
         }
         if ($rfc822_header->priority) {
-            $prio = $rfc822_header->priority;
-            $header[] = 'X-Priority: '. $prio. $rn;
-            switch($prio)
+            switch($rfc822_header->priority)
             {
-            case 1: $header[] = 'Importance: High'. $rn; break;
-            case 3: $header[] = 'Importance: Normal'. $rn; break;
-            case 5: $header[] = 'Importance: Low'. $rn; break;
+            case 1:
+	    	$header[] = 'X-Priority: 1 (Highest)'.$rn;
+	    	$header[] = 'Importance: High'. $rn; break;
+            case 3:
+	    	$header[] = 'X-Priority: 3 (Normal)'.$rn;
+	    	$header[] = 'Importance: Normal'. $rn; break;
+            case 5:
+	    	$header[] = 'X-Priority: 5 (Lowest)'.$rn;
+	    	$header[] = 'Importance: Low'. $rn; break;
             default: break;
             }
         }
