@@ -237,6 +237,9 @@ if (!$invert_time) {
 if (!$force_username_lowercase) {
 	$force_username_lowercase = "false";
 }
+if (!$optional_delimiter) {
+	$optional_delimiter = "detect";
+}
 
 #####################################################################################
 if ($config_use_color == 1) {
@@ -296,6 +299,7 @@ while (($command ne "q") && ($command ne "Q")) {
       }
       print "8.  Server               : $WHT$imap_server_type$NRM\n";
       print "9.  Invert Time          : $WHT$invert_time$NRM\n";
+      print "10. Delimiter            : $WHT$optional_delimiter$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
@@ -441,15 +445,16 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 2) { $org_logo   = command2 (); }
          elsif ($command == 3) { $org_title  = command3 (); }
       } elsif ($menu == 2) {
-         if    ($command == 1) { $domain             = command11 (); }
-         elsif ($command == 2) { $imapServerAddress  = command12 (); }
-         elsif ($command == 3) { $imapPort           = command13 (); }
-         elsif ($command == 4) { $useSendmail        = command14 (); }
-         elsif ($command == 5) { $sendmail_path      = command15 (); }
-         elsif ($command == 6) { $smtpServerAddress  = command16 (); }
-         elsif ($command == 7) { $smtpPort           = command17 (); }
-         elsif ($command == 8) { $imap_server_type   = command18 (); }
-         elsif ($command == 9) { $invert_time        = command19 (); }
+         if    ($command == 1)  { $domain             = command11 (); }
+         elsif ($command == 2)  { $imapServerAddress  = command12 (); }
+         elsif ($command == 3)  { $imapPort           = command13 (); }
+         elsif ($command == 4)  { $useSendmail        = command14 (); }
+         elsif ($command == 5)  { $sendmail_path      = command15 (); }
+         elsif ($command == 6)  { $smtpServerAddress  = command16 (); }
+         elsif ($command == 7)  { $smtpPort           = command17 (); }
+         elsif ($command == 8)  { $imap_server_type   = command18 (); }
+         elsif ($command == 9)  { $invert_time        = command19 (); }
+         elsif ($command == 10) { $optional_delimiter = command110 (); }
       } elsif ($menu == 3) {
          if    ($command == 1) { $default_folder_prefix          = command21 (); }
          elsif ($command == 2) { $show_prefix_option             = command22 (); }
@@ -688,6 +693,24 @@ sub command19 {
    return "false" if ($new_invert_time eq "n");
    return $invert_time;
 }   
+
+sub command110 {
+	print "This is the delimiter that your IMAP server uses to distinguish between\n";
+	print "folders.  For example, Cyrus uses '.' as the delimiter and a complete\n";
+	print "folder would look like 'INBOX.Friends.Bob', while UW uses '/' and would\n";
+	print "look like 'INBOX/Friends/Bob'.  Normally this should be left at 'detect'\n";
+	print "but if you are sure you konw what delimiter your server uses, you can\n";
+	print "specify it here.\n";
+	print "\nTo have it autodetect the delimiter, set it to 'detect'.\n\n";
+   print "[$WHT$optional_delimiter$NRM]: $WHT";
+   $new_optional_delimiter = <STDIN>;
+   if ($new_optional_delimiter eq "\n") {
+      $new_optional_delimiter = $optional_delimiter;
+   } else {
+      $new_optional_delimiter =~ s/[\r|\n]//g;
+   }
+   return $new_optional_delimiter;
+}
 
 # MOTD
 sub command71 {
@@ -1520,6 +1543,7 @@ sub save_data {
    print FILE "\t\$sendmail_path        = \"$sendmail_path\";\n";
    print FILE "\t\$imap_server_type     = \"$imap_server_type\";\n";
    print FILE "\t\$invert_time          = $invert_time;\n";
+	print FILE "\t\$optional_delimiter   = \"$optional_delimiter\";\n";
    
    print FILE "\n";
 
