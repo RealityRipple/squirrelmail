@@ -56,16 +56,44 @@
       filter_swap($theid, $theid - 1);
    } elseif (isset($action) && $action == 'move_down') {
       filter_swap($theid, $theid + 1);
+   } elseif (isset($user_submit)) {
+       echo "<br><center><b>"._("Saved Scan type")."</b></center>\n";
+       setPref($data_dir, $username, 'filters_user_scan', $filters_user_scan_set);
    }
 
    $filters = load_filters();
+   $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
    echo '<br>' .
         '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
         "<tr><td bgcolor=\"$color[0]\">".
         '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
         '</td></tr></table>'.
-        '<br><center>[<a href="options.php?action=add">' . _("New") .
+
+        '<br><form method=post action="options.php">'.
+        '<center>'.
+        '<table cellpadding=2 cellspacing=0 border=0>'.
+        '<tr>'.
+            '<th align=right nowrap>' . _("What to Scan:") . '</th>'.
+            '<td><select name="filters_user_scan_set">'.
+            '<option value=""';
+    if ($filters_user_scan == '') {
+        echo ' SELECTED';
+    }
+    echo '>' . _("All messages") . '</option>'.
+            '<option value="new"';
+    if ($filters_user_scan == 'new') {
+        echo ' SELECTED';
+    }
+    echo '>' . _("Only unread messages") . '</option>' .
+            '</select>'.
+        '</td>'.
+        '<td><input type=submit name="user_submit" value="' . _("Save") . '"></td></tr>'.
+        '</table>'.
+        '</center>'.
+        '</form>'.
+
+        '<center>[<a href="options.php?action=add">' . _("New") .
         '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>';
 
     if (isset($action) && ($action == 'add' || $action == 'edit')) {

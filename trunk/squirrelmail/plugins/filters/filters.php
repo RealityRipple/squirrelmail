@@ -89,14 +89,6 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
         $MsgNum = $Chunks[1];
 
         $i ++;
-        $Scan = 1;
-
-        // Check for normal IMAP servers
-        if ($filters_spam_scan == 'new') {
-            if (is_int(strpos($Chunks[4], '\Seen'))) {
-                $Scan = 0;
-            }
-        }
 
         // Look through all of the Received headers for IP addresses
         // Stop when I get ")" on a line
@@ -108,32 +100,28 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
             // Check to see if this line is the right "Received from" line
             // to check
             if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
-
-                // short-circuit and skip work if we don't scan this one
-                if ($Scan) {
-                    $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
-                    $elements = explode(' ', $read[$i]);
-                    foreach ($elements as $value) {
-                        if ($value != '' &&
-                            ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
-                                $value, $regs)) {
-                            $Chunks = explode('.', $value);
-                            $IP = $Chunks[3] . '.' . $Chunks[2] . '.' .
-                                  $Chunks[1] . '.' . $Chunks[0];
-                            foreach ($filters as $key => $value) {
-                                if ($filters[$key]['enabled'] &&
-                                          $filters[$key]['dns']) {
-                                    if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
-                                       $IPs[$IP] = true;
-                                       break;
-                                    }
+                $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
+                $elements = explode(' ', $read[$i]);
+                foreach ($elements as $value) {
+                    if ($value != '' &&
+                        ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
+                            $value, $regs)) {
+                        $Chunks = explode('.', $value);
+                        $IP = $Chunks[3] . '.' . $Chunks[2] . '.' .
+                              $Chunks[1] . '.' . $Chunks[0];
+                        foreach ($filters as $key => $value) {
+                            if ($filters[$key]['enabled'] &&
+                                      $filters[$key]['dns']) {
+                                if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
+                                   $IPs[$IP] = true;
+                                   break;
                                 }
                             }
-                            // If we've checked one IP and YourHop is
-                            // just a space
-                            if ($SpamFilters_YourHop == ' ') {
-                                break;  // don't check any more
-                            }
+                        }
+                        // If we've checked one IP and YourHop is
+                        // just a space
+                        if ($SpamFilters_YourHop == ' ') {
+                            break;  // don't check any more
                         }
                     }
                 }
@@ -295,8 +283,10 @@ function start_filters() {
 
 
 function user_filters($imap_stream) {
+    global $data_dir, $username;
     $filters = load_filters();
     if (! $filters) return;
+    $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
     sqimap_mailbox_select($imap_stream, 'INBOX');
 
@@ -309,16 +299,16 @@ function user_filters($imap_stream) {
             *  and the other for CC.
             */
             filter_search_and_delete($imap_stream, 'TO',
-            $filters[$i]['what'], $filters[$i]['folder']);
+            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
             filter_search_and_delete($imap_stream, 'CC',
-            $filters[$i]['what'], $filters[$i]['folder']);
+            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
         } else {
             /*
             *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
             *  normally.
             */
             filter_search_and_delete($imap_stream, $filters[$i]['where'],
-            $filters[$i]['what'], $filters[$i]['folder']);
+            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
         }
     }
     // Clean out the mailbox whether or not auto_expunge is on
@@ -326,15 +316,21 @@ function user_filters($imap_stream) {
     sqimap_mailbox_expunge($imap_stream, 'INBOX');
 }
 
-function filter_search_and_delete($imap, $where, $what, $where_to) {
+function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan) {
     global $languages, $squirrelmail_language;
+    if ($user_scan == 'new') {
+        $category = 'UNSEEN';
+    } else {
+        $category = 'ALL';
+    }
+
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
         $search_str = "SEARCH CHARSET "
             . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
-            . " ALL ";
+            . ' ' . $category . ' ';
     } else {
-        $search_str = "SEARCH CHARSET US-ASCII ALL ";
+        $search_str = 'SEARCH CHARSET US-ASCII ' . $category . ' ';
     }
     if ($where == "Header") {
        $what = explode(':', $what);
@@ -395,12 +391,38 @@ function spam_filters($imap_stream) {
 
     // Ask for a big list of all "Received" headers in the inbox with
     // flags for each message.  Kinda big.
-    fputs($imap_stream, 'A3999 FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-        "(RECEIVED)])\r\n");
-
-    $read = filters_sqimap_read_data ($imap_stream, 'A3999', true,
+    //fputs($imap_stream, 'A3999 FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
+    //    "(RECEIVED)])\r\n");
+    $sid = sqimap_session_id();
+    if ($filters_spam_scan != 'new') {
+        fputs($imap_stream, $sid.' FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
+            "(RECEIVED)])\r\n");
+    } else {
+        fputs ($imap_stream, $sid.' SEARCH UNSEEN' . "\r\n");
+        $read = filters_sqimap_read_data ($imap_stream, $sid, true,
+                                          $response, $message);
+        $sid = sqimap_session_id();
+        if ($response != 'OK' || trim($read[0]) == '* SEARCH') {
+            fputs($imap_stream,
+                  $sid.' FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
+                     "(RECEIVED)])\r\n");
+        } else {
+	    $read[0] = trim($read[0]);
+            $i = 0;
+            $imap_query = $sid.' FETCH ';
+            $Chunks = explode(' ', $read[0]);
+            for ($i=2; $i < (count($Chunks)-1) ; $i++) {
+                $imap_query .= $Chunks[$i].',';
+            }
+            $imap_query .= $Chunks[count($Chunks)-1];
+            $imap_query .= ' (FLAGS BODY.PEEK[HEADER.FIELDS ';
+            $imap_query .= "(RECEIVED)])\r\n";
+            fputs($imap_stream, $imap_query);
+        }
+    }
+    
+    $read = filters_sqimap_read_data ($imap_stream, $sid, true,
                                     $response, $message);
-
     if ($response != 'OK') {
         return;
     }
@@ -422,14 +444,6 @@ function spam_filters($imap_stream) {
         $IPs = array();
         $i ++;
         $IsSpam = 0;
-        $Scan = 1;
-
-        // Check for normal IMAP servers
-        if ($filters_spam_scan == 'new') {
-            if (is_int(strpos($Chunks[4], '\Seen'))) {
-                $Scan = 0;
-            }
-        }
 
         // Look through all of the Received headers for IP addresses
         // Stop when I get ")" on a line
@@ -443,25 +457,23 @@ function spam_filters($imap_stream) {
             if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
 
                 // short-circuit and skip work if we don't scan this one
-                if ($Scan) {
-                    $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
-                    $elements = explode(' ', $read[$i]);
-                    foreach ($elements as $value) {
-                        if ($value != '' &&
-                            ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
-                                $value, $regs)) {
-                            $Chunks = explode('.', $value);
-                            if (filters_spam_check_site($Chunks[0],
-                                    $Chunks[1], $Chunks[2], $Chunks[3],
-                                    $filters)) {
-                                $IsSpam ++;
-                                break;  // no sense in checking more IPs
-                            }
-                            // If we've checked one IP and YourHop is
-                            // just a space
-                            if ($SpamFilters_YourHop == ' ') {
-                                break;  // don't check any more
-                            }
+                $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
+                $elements = explode(' ', $read[$i]);
+                foreach ($elements as $value) {
+                    if ($value != '' &&
+                        ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
+                            $value, $regs)) {
+                        $Chunks = explode('.', $value);
+                        if (filters_spam_check_site($Chunks[0],
+                                $Chunks[1], $Chunks[2], $Chunks[3],
+                                $filters)) {
+                            $IsSpam ++;
+                            break;  // no sense in checking more IPs
+                        }
+                        // If we've checked one IP and YourHop is
+                        // just a space
+                        if ($SpamFilters_YourHop == ' ') {
+                            break;  // don't check any more
                         }
                     }
                 }
@@ -500,15 +512,17 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
             if ($filters[$key]['dns']) {
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
                                 $filters[$key]['dns'];
-                if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
-                    $SpamFilters_DNScache[$filter_revip]['L'] =
+                if (isset($SpamFilters_DNScache[$filter_revip])) {
+                    if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
+                        $SpamFilters_DNScache[$filter_revip]['L'] =
                                         gethostbyname($filter_revip);
-                    $SpamFilters_DNScache[$filter_revip]['T'] =
+                        $SpamFilters_DNScache[$filter_revip]['T'] =
                                            time() + $SpamFilters_CacheTTL;
-                }
-                if ($SpamFilters_DNScache[$filter_revip]['L'] ==
-                    $filters[$key]['result']) {
-                    return 1;
+                    }
+                    if ($SpamFilters_DNScache[$filter_revip]['L'] ==
+                        $filters[$key]['result']) {
+                        return 1;
+                    }
                 }
             }
         }
@@ -518,6 +532,7 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
 
 function load_filters() {
     global $data_dir, $username;
+
     $filters = array();
     for ($i=0; $fltr = getPref($data_dir, $username, 'filter' . $i); $i++) {
         $ary = explode(',', $fltr);
