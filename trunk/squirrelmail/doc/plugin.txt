@@ -113,6 +113,7 @@ List of hooks
   mailbox_index_before            functions/mailbox_display.php
   mailbox_index_after             functions/mailbox_display.php
   mailbox_form_before             functions/mailbox_display.php
+  subject_link                    functions/mailbox_display.php
   right_main_after_header         src/right_main.php
   right_main_bottom               src/right_main.php
   login_top                       src/login.php
