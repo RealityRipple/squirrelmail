@@ -544,11 +544,7 @@ function showInputForm () {
          '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
          $editor_size . '" WRAP=HARD>' . htmlspecialchars($body);
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
-        if ( $prefix_sig == true ) {
-            echo "\n\n-- \n" . htmlspecialchars($signature);
-        } else {
-            echo "\n\n" . htmlspecialchars($signature);
-        }
+        echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
     }
     echo '</TEXTAREA><BR>' . "\n" .
          '      </TD>' . "\n" .
