@@ -19,6 +19,9 @@ Version 1.2.2 -- ??
   - Fixed wrong behavior of non-javascript select all, bug #496681
   - Added "Show Pages" link to message list showing all messages
     (the resultant page of clicking "Show All")
+  - i18n Fix. Because of different configurations in the gettext system,
+    some installations could not manage correctly SM languages other than
+    English. This has been corrected.
   	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
