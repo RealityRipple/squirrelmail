@@ -33,9 +33,6 @@
    if (!isset($strings_php))
       include ("../functions/strings.php");
 
-   if ($force_username_lowercase)
-      $username = strtolower($username);
-
    include ("../src/load_prefs.php");
 
    // We'll need this to later have a noframes version
