@@ -76,7 +76,7 @@ function addInput($name, $value = '', $size = 0, $maxlength = 0) {
  * Function to create a selectlist from an array.
  * Usage:
  * name: html name attribute
- * values: array ( key => value )  ->     <option value="key">value
+ * values: array ( key => value )  ->     <option value="key">value</option>
  * default: the key that will be selected
  * usekeys: use the keys of the array as option value or not
  */
@@ -94,7 +94,7 @@ function addSelect($name, $values, $default = null, $usekeys = false)
         if(!$usekeys) $k = $v;
         $ret .= '<option value="' .
             htmlspecialchars( $k ) . '"' .
-            (($default == $k) ? ' selected="selected"':'') .
+            (($default == $k) ? ' selected="selected"' : '') .
             '>' . htmlspecialchars($v) ."</option>\n";
     }
     $ret .= "</select>\n";
