@@ -15,10 +15,10 @@
       // These should be $this->col and $this->dir in a class
       // Would beat using globals
       if(!is_array($col)){
-         $col = array("$col");
+         $col = array($col);
       }
-      $GLOBALS["col"] = $col;  // Column or Columns as an array
-      $GLOBALS["dir"] = $dir;  // Direction, a positive number for ascending a negative for descending
+      $GLOBALS['col'] = $col;  // Column or Columns as an array
+      $GLOBALS['dir'] = $dir;  // Direction, a positive number for ascending a negative for descending
 
       usort($ary,'comp2');
       return $ary;
@@ -28,13 +28,13 @@
          global $col;
          global $dir;
          $c = count($col) -1;
-         if ($a["$col[$i]"] == $b["$col[$i]"]){
+         if ($a[$col[$i]] == $b[$col[$i]]){
             $r = 0;
             while($i < $c && $r == 0){
                $i++;
                $r = comp2($a,$b,$i);
             }
-         } elseif($a["$col[$i]"] < $b["$col[$i]"]){
+         } elseif($a[$col[$i]] < $b[$col[$i]]){
             $r = -1 * $dir; // Im not sure why you must * dir here, but it wont work just before the return...
          } else {
             $r = 1 * $dir;
@@ -58,7 +58,7 @@
     $key=0;
     $array2 = array();
     while ($key < count($array1)) {
-        array_push($array2, $array1[$key]["$column"]);
+        array_push($array2, $array1[$key][$column]);
         $key++;
     }
 
