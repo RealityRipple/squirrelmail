@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Deliver.class.php
  *
@@ -10,10 +9,35 @@
  * a delivery backend.
  *
  * $Id$
+ *
+ * @author  Marc Groot Koerkamp
+ * @package squirrelmail
  */
 
+
+/**
+ * Deliver Class - called to actually deliver the message
+ *
+ * This class is called by compose.php and other code that needs
+ * to send messages.  All delivery functionality should be centralized
+ * in this class.
+ *
+ * Do not place UI code in this class, as UI code should be placed in templates
+ * going forward.
+ *
+ * @author  Marc Groot Koerkamp
+ * @package squirrelmail
+ */
 class Deliver {
 
+    /**
+     * function mail - send the message parts to the SMTP stream
+     *
+     * @param Message  $message  Message class to send
+     * @param resource $stream   file handle to the SMTP stream
+     *
+     * @returns integer $raw_length
+     */
     function mail($message, $stream=false) {
         $rfc822_header = $message->rfc822_header;
         if (count($message->entities)) {
@@ -23,7 +47,7 @@ class Deliver {
             $boundary='';
         }
         $raw_length = 0;
-        $reply_rfc822_header = (isset($message->reply_rfc822_header) 
+        $reply_rfc822_header = (isset($message->reply_rfc822_header)
                              ? $message->reply_rfc822_header : '');
         $header = $this->prepareRFC822_Header($rfc822_header, $reply_rfc822_header, $raw_length);
 
@@ -35,6 +59,20 @@ class Deliver {
         return $raw_length;
     }
 
+    /**
+     * function writeBody - generate and write the mime boundaries around each part to the stream
+     *
+     * Recursively formats and writes the MIME boundaries of the $message
+     * to the output stream.
+     *
+     * @param Message   $message      Message object to transform
+     * @param resource  $stream       SMTP output stream
+     * @param integer  &$length_raw   raw length of the message (part)
+     *                                as returned by mail fn
+     * @param string    $boundary     custom boundary to call, usually for subparts
+     *
+     * @returns void
+     */
     function writeBody($message, $stream, &$length_raw, $boundary='') {
         // calculate boundary in case of multidimensional mime structures
         if ($boundary && $message->entity_id && count($message->entities)) {
@@ -55,7 +93,7 @@ class Deliver {
             }
         }
         $this->writeBodyPart($message, $stream, $length_raw);
-        
+
         $last = false;
         for ($i=0, $entCount=count($message->entities);$i<$entCount;$i++) {
             $msg = $this->writeBody($message->entities[$i], $stream, $length_raw, $boundary_new);
@@ -71,6 +109,18 @@ class Deliver {
         }
     }
 
+    /**
+     * function writeBodyPart - write each individual mimepart
+     *
+     * Recursively called by WriteBody to write each mime part to the SMTP stream
+     *
+     * @param Message   $message      Message object to transform
+     * @param resource  $stream       SMTP output stream
+     * @param integer  &$length       length of the message part
+     *                                as returned by mail fn
+     *
+     * @returns void
+     */
     function writeBodyPart($message, $stream, &$length) {
         if ($message->mime_header) {
             $type0 = $message->mime_header->type0;
@@ -87,7 +137,7 @@ class Deliver {
                 $body_part = $message->body_part;
                 $length += $this->clean_crlf($body_part);
                 if ($stream) {
-                    $this->preWriteToStream($body_part);     
+                    $this->preWriteToStream($body_part);
                     $this->writeToStream($stream, $body_part);
                 }
                 $last = $body_part;
@@ -140,6 +190,16 @@ class Deliver {
         }
     }
 
+    /**
+     * function clean_crlf - change linefeeds and newlines to legal characters
+     *
+     * The SMTP format only allows CRLF as line terminators.
+     * This function replaces illegal teminators with the correct terminator.
+     *
+     * @param string &$s string to clean linefeeds on
+     *
+     * @returns void
+     */
     function clean_crlf(&$s) {
         $s = str_replace("\r\n", "\n", $s);
         $s = str_replace("\r", "\n", $s);
@@ -147,27 +207,84 @@ class Deliver {
         return strlen($s);
     }
 
+    /**
+     * function strip_crlf - strip linefeeds and newlines from a string
+     *
+     * The SMTP format only allows CRLF as line terminators.
+     * This function strips all line terminators from the string.
+     *
+     * @param string &$s string to clean linefeeds on
+     *
+     * @returns void
+     */
     function strip_crlf(&$s) {
         $s = str_replace("\r\n ", '', $s);
         $s = str_replace("\r", '', $s);
         $s = str_replace("\n", '', $s);
     }
 
+    /**
+     * function preWriteToStream - reserved for extended functionality
+     *
+     * This function is not yet implemented.
+     * Reserved for extended functionality.
+     *
+     * @param string &$s string to operate on
+     *
+     * @returns void
+     */
     function preWriteToStream(&$s) {
     }
 
+    /**
+     * function writeToStream - write data to the SMTP stream
+     *
+     * @param resource $stream  SMTP output stream
+     * @param string   $data    string with data to send to the SMTP stream
+     *
+     * @returns void
+     */
     function writeToStream($stream, $data) {
         fputs($stream, $data);
     }
 
+    /**
+     * function initStream - reserved for extended functionality
+     *
+     * This function is not yet implemented.
+     * Reserved for extended functionality.
+     *
+     * @param Message $message  Message object
+     * @param string  $host     host name or IP to connect to
+     * @param string  $user     username to log into the SMTP server with
+     * @param string  $pass     password to log into the SMTP server with
+     * @param integer $length
+     *
+     * @returns handle $stream file handle resource to SMTP stream
+     */
     function initStream($message, $length=0, $host='', $port='', $user='', $pass='') {
         return $stream;
     }
-    
-    function getBcc() {
+
+    /**
+     * function getBCC - reserved for extended functionality
+     *
+     * This function is not yet implemented.
+     * Reserved for extended functionality.
+     *
+     */
+    function getBCC() {
         return false;
     }
 
+    /**
+     * function prepareMIME_Header - creates the mime header
+     *
+     * @param Message $message  Message object to act on
+     * @param string  $boundary mime boundary from fn MimeBoundary
+     *
+     * @returns string $header properly formatted mime header
+     */
     function prepareMIME_Header($message, $boundary) {
         $mime_header = $message->mime_header;
         $rn="\r\n";
@@ -212,7 +329,7 @@ class Deliver {
                 $contentdisp .= '; filename="'.
                 encodeHeader($disposition->getProperty('filename')). '"';
             }
-            $header[] = $contentdisp . $rn;       
+            $header[] = $contentdisp . $rn;
         }
         if ($mime_header->md5) {
             $header[] .= 'Content-MD5: ' . $mime_header->md5 . $rn;
@@ -231,6 +348,19 @@ class Deliver {
         return $header;
     }
 
+    /**
+     * function prepareRFC822_Header - prepares the RFC822 header string from Rfc822Header object(s)
+     *
+     * This function takes the Rfc822Header object(s) and formats them
+     * into the RFC822Header string to send to the SMTP server as part
+     * of the SMTP message.
+     *
+     * @param Rfc822Header  $rfc822_header
+     * @param Rfc822Header  $reply_rfc822_header
+     * @param integer      &$raw_length length of the message
+     *
+     * @returns
+     */
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
         global $domain, $version, $username;
 
@@ -281,7 +411,7 @@ class Deliver {
         $header[] = "Date: $date" . $rn;
         $header[] = 'Subject: '.encodeHeader($rfc822_header->subject) . $rn;
         $header[] = 'From: '. $rfc822_header->getAddr_s('from',',',true) . $rn;
-        /* RFC2822 if from contains more then 1 address */    
+        /* RFC2822 if from contains more then 1 address */
         if (count($rfc822_header->from) > 1) {
             $header[] = 'Sender: '. $rfc822_header->getAddr_s('sender',',',true) . $rn;
         }
@@ -305,10 +435,10 @@ class Deliver {
                 $header[] = $s;
             }
         }
-        /* Identify SquirrelMail */    
+        /* Identify SquirrelMail */
         $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
         // Spamassassin complains about no X-Mailer in combination with X-Priority
-        $header[] = 'X-Mailer: SquirrelMail/' . $version . $rn; 
+        $header[] = 'X-Mailer: SquirrelMail/' . $version . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
@@ -316,16 +446,16 @@ class Deliver {
         if (count($rfc822_header->content_type->properties)) {
             foreach ($rfc822_header->content_type->properties as $k => $v) {
                 if ($k && $v) {
-                    $contenttype .= ';' .$k.'='.$v; 
+                    $contenttype .= ';' .$k.'='.$v;
                 }
             }
         }
         $header[] = $contenttype . $rn;
         if ($encoding = $rfc822_header->encoding) {
             $header[] .= 'Content-Transfer-Encoding: ' . $encoding .  $rn;
-        }        
+        }
         if ($rfc822_header->dnt) {
-            $dnt = $rfc822_header->getAddr_s('dnt'); 
+            $dnt = $rfc822_header->getAddr_s('dnt');
             /* Pegasus Mail */
             $header[] = 'X-Confirm-Reading-To: '.$dnt. $rn;
             /* RFC 2298 */
@@ -342,7 +472,7 @@ class Deliver {
             default: break;
             }
         }
-        /* Insert headers from the $more_headers array */    
+        /* Insert headers from the $more_headers array */
         if(count($rfc822_header->more_headers)) {
             reset($rfc822_header->more_headers);
             foreach ($rfc822_header->more_headers as $k => $v) {
@@ -383,9 +513,15 @@ class Deliver {
         return $header;
     }
 
-    /*
-    * function for cleanly folding of headerlines
-    */
+    /**
+     * function foldLine - for cleanly folding of headerlines
+     *
+     * @param   string  $line
+     * @param   integer $length length to fold the line at
+     * @param   string  $pre    prefix the line with...
+     *
+     * @returns string  $line folded line with trailing CRLF
+     */
     function foldLine($line, $length, $pre='') {
         $line = substr($line,0, -2);
         $length -= 2; /* do not fold between \r and \n */
@@ -422,7 +558,7 @@ class Deliver {
                             $fold_string = "\r\n ";
                             $aFoldLine[] = substr($line,0,$iLengthEnc);
                             $line = substr($line,$iLengthEnc);
-                        } 
+                        }
                     } else if ($iPosEnc < $length) { /* the encoded string fits into the foldlength */
                         /*remainder */
                         $sLineRem = substr($line,$iPosEncEnd,$length - $iPosEncEnd);
@@ -435,7 +571,7 @@ class Deliver {
                                 $bFirstFold = true;
                                 $length -= strlen($fold_string);
                             }
-                        } 
+                        }
                     }
                 }
                 if (!$fold) {
@@ -450,7 +586,7 @@ class Deliver {
                     case ($iFoldPos = strrpos($line_tmp,'=')): break;
                     default: break;
                     }
-                    
+
                     if (!$iFoldPos) { /* clean folding didn't work */
                         $iFoldPos = $length;
                     }
@@ -471,6 +607,14 @@ class Deliver {
         return $line."\r\n";
     }
 
+    /**
+     * function mimeBoundary - calculates the mime boundary to use
+     *
+     * This function will generate a random mime boundary base part
+     * for the message if the boundary has not already been set.
+     *
+     * @returns string $mimeBoundaryString random mime boundary string
+     */
     function mimeBoundary () {
         static $mimeBoundaryString;
 
@@ -482,7 +626,11 @@ class Deliver {
         return $mimeBoundaryString;
     }
 
-    /* Time offset for correct timezone */
+    /**
+     * function timezone - Time offset for correct timezone
+     *
+     * @returns string $result with timezone and offset
+     */
     function timezone () {
         global $invert_time;
 
@@ -499,11 +647,18 @@ class Deliver {
         $diff_hour = floor ($diff_second / 3600);
         $diff_minute = floor (($diff_second-3600*$diff_hour) / 60);
         $zonename = '('.strftime('%Z').')';
-        $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute, 
+        $result = sprintf ("%s%02d%02d %s", $sign, $diff_hour, $diff_minute,
                        $zonename);
         return ($result);
     }
 
+    /**
+     * function calculate_references - calculate correct Referer string
+     *
+     * @param   Rfc822Header $hdr    message header to calculate from
+     *
+     * @returns string       $refer  concatenated and trimmed Referer string
+     */
     function calculate_references($hdr) {
         $refer = $hdr->references;
         $message_id = $hdr->message_id;
