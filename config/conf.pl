@@ -1034,13 +1034,20 @@ sub command21 {
     if ( $new_default_folder_prefix eq "\n" ) {
         $new_default_folder_prefix = $default_folder_prefix;
     } else {
-        $new_default_folder_prefix =~ s/[\r|\n]//g;
+        $new_default_folder_prefix =~ s/[\r\n]//g;
     }
-    if ( ( $new_default_folder_prefix =~ /^\s*$/ ) || ( $new_default_folder_prefix =~ /none/i ) ) {
+    if ( ( $new_default_folder_prefix =~ /^\s*$/ ) || ( $new_default_folder_prefix =~ m/^none$/i ) ) {
         $new_default_folder_prefix = "";
     } else {
-        $new_default_folder_prefix =~ s/\/*$//g;
-        $new_default_folder_prefix =~ s/$/\//g;
+        # add the trailing delimiter only if we know what the server is.
+	if ($optional_delimiter and $optional_delimiter ne 'detect') {
+           $new_default_folder_prefix =~ s/${optional_delimiter}*$/$optional_delimiter/;
+	} elsif ($imap_server_type eq 'cyrus' or
+	         $imap_server_type eq 'courier') {
+           $new_default_folder_prefix =~ s/\.*$/\./;
+	} elsif ($imap_server_type eq 'uw') {
+           $new_default_folder_prefix =~ s/\/*$/\//;
+	}
     }
     return $new_default_folder_prefix;
 }
