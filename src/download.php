@@ -40,6 +40,9 @@ if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
     $passed_id = (int) $temp;
 }
 
+global $default_charset;
+set_my_charset();
+
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -105,11 +108,13 @@ if (is_object($message->header->disposition)) {
     $filename = $header->getParameter('name');
 }
 
-//$filename = decodeHeader($filename, false, false);	//Don't want html output nor utf8 because it will return html output
-$filename = decodeHeader($filename, true, false);   //Don't want html output
+$filename = decodeHeader($filename,true,true);
+$filename = charset_encode($filename,$default_charset,false);
+
+// If name is not set, use subject of email
 if (strlen($filename) < 1) {
-    //$filename = decodeHeader($subject, false, false);	//Don't want html output nor utf8 because it will return html output
-    $filename = decodeHeader($subject, true, false);   //Don't want html output
+    $filename = decodeHeader($subject, true, true);
+    $filename = charset_encode($filename,$default_charset,false);
     if ($type1 == 'plain' && $type0 == 'text')
         $suffix = 'txt';
     else if ($type1 == 'richtext' && $type0 == 'text')
