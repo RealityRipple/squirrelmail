@@ -29,6 +29,8 @@ function charset_decode ($charset, $string) {
 
     $charset = strtolower($charset);
 
+    set_my_charset() ;
+
     if (ereg('iso-8859-([[:digit:]]+)', $charset, $res)) {
         if ($res[1] == '1') {
             $ret = charset_decode_iso_8859_1 ($string);
@@ -36,6 +38,8 @@ function charset_decode ($charset, $string) {
             $ret = charset_decode_iso_8859_2 ($string);
         } else if ($res[1] == '4') {
             $ret = charset_decode_iso_8859_4 ($string);
+        } else if ($res[1] == '5') {
+            $ret = charset_decode_iso_8859_5 ($string);
         } else if ($res[1] == '7') {
             $ret = charset_decode_iso_8859_7 ($string);
         } else if ($res[1] == '9') {
@@ -422,11 +426,9 @@ function charset_decode_iso_8859_2 ($string) {
 */
 
 function charset_decode_iso_8859_4 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+    global $default_charset;
 
     if (strtolower($default_charset) == 'iso-8859-4')
-        return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'iso-8859-4')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -553,11 +555,9 @@ function charset_decode_iso_8859_7 ($string) {
  ISOIEC 8859-9:1999 Latin Alphabet No. 5
 */
 function charset_decode_iso_8859_9 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+    global $default_charset;
 
     if (strtolower($default_charset) == 'iso-8859-9')
-        return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'iso-8859-9')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -586,11 +586,9 @@ function charset_decode_iso_8859_9 ($string) {
  ISO/IEC 8859-13:1998 Latin Alphabet No. 7 (Baltic Rim) 
 */
 function charset_decode_iso_8859_13 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+    global $default_charset;
 
     if (strtolower($default_charset) == 'iso-8859-13')
-        return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'iso-8859-13')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -877,11 +875,9 @@ function charset_decode_koi8r ($string) {
  windows-1254 (Turks)
  */
 function charset_decode_windows_1254 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+    global $default_charset;
 
     if (strtolower($default_charset) == 'windows-1254')
-        return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'windows-1254')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -959,9 +955,9 @@ function charset_decode_windows_1254 ($string) {
  windows-1253 (Greek)
  */
 function charset_decode_windows_1253 ($string) {
-    global $languages, $sm_notAlias;
+    global $default_charset;
 
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'windows-1253')
+    if (strtolower($default_charset) == 'windows-1253')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -1006,11 +1002,9 @@ function charset_decode_windows_1253 ($string) {
  windows-1257 (BaltRim)
  */
 function charset_decode_windows_1257 ($string) {
-    global $default_charset, $languages, $sm_notAlias;
+    global $default_charset;
 
     if (strtolower($default_charset) == 'windows-1257')
-        return $string;
-    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'windows-1257')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -1175,11 +1169,11 @@ function set_my_charset(){
      * selection. This is "more right" (tm), than just stamping the
      * message blindly with the system-wide $default_charset.
      */
-    global $data_dir, $username, $default_charset, $languages;
+    global $data_dir, $username, $default_charset, $languages, $squirrelmail_default_language;
 
     $my_language = getPref($data_dir, $username, 'language');
     if (!$my_language) {
-        return;
+        $my_language = $squirrelmail_default_language ;
     }
     while (isset($languages[$my_language]['ALIAS'])) {
         $my_language = $languages[$my_language]['ALIAS'];
