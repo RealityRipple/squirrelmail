@@ -112,8 +112,10 @@ if (isset($vcard_safe['url'])) {
 
 foreach ($ShowValues as $k => $v) {
     if (isset($vcard_safe[$k]) && $vcard_safe[$k])     {
-        echo "<tr><td align=right><b>$v:</b></td><td>" . $vcard_safe[$k] .
-                "</td><tr>\n";
+        echo html_tag( 'tr',
+                   html_tag( 'td', '<b>' . $v . ':</b>', 'right' ) .
+                   html_tag( 'td', $vcard_safe[$k], 'left' )
+               ) . "\n";
     }
 }
 

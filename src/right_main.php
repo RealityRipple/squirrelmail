@@ -129,7 +129,7 @@ if ($just_logged_in == true) {
     if (strlen(trim($motd)) > 0) {
         echo html_tag( 'table',
                     html_tag( 'tr',
-                        html_tag( 'td', $motd ,
+                        html_tag( 'td', 
                             html_tag( 'table',
                                 html_tag( 'tr',
                                     html_tag( 'td', $motd, 'center' )

@@ -67,7 +67,7 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="4" 
                 html_tag( 'td', '', 'center', $color[0] ) .
 
      "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n".
-     "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n".
+     "<input type=TEXT SIZE=25 NAME=folder_name><BR>\n".
      _("as a subfolder of").
      "<BR>".
      "<TT><SELECT NAME=subfolder>\n";
@@ -98,12 +98,12 @@ for ($i = 0; $i < count($boxes); $i++) {
 }
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
-    echo "<br><INPUT TYPE=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
+    echo "<br><input type=CHECKBOX NAME=\"contain_subs\"> &nbsp;";
     echo _("Let this folder contain subfolders");
     echo "<BR>";
 }
-echo "<INPUT TYPE=SUBMIT VALUE=\""._("Create")."\">\n";
-echo "</FORM></TD></TR>\n";
+echo "<input type=SUBMIT VALUE=\""._("Create")."\">\n";
+echo "</FORM></td></tr>\n";
 
 echo html_tag( 'tr',
             html_tag( 'td', '&nbsp;', 'left', $color[4] )
@@ -164,7 +164,7 @@ if ($count_special_folders < count($boxes)) {
         }
     }
     echo "</SELECT></TT>\n".
-         "<INPUT TYPE=SUBMIT VALUE=\"".
+         "<input type=SUBMIT VALUE=\"".
          _("Rename").
          "\">\n".
          "</FORM></td></tr>\n";
@@ -204,12 +204,12 @@ if ($count_special_folders < count($boxes)) {
         }
     }
     echo "</SELECT></TT>\n";
-    echo "<INPUT TYPE=SUBMIT VALUE=\"";
+    echo "<input type=SUBMIT VALUE=\"";
     echo _("Delete");
     echo "\">\n";
-    echo "</FORM></TD></TR>\n";
+    echo "</form></td></tr>\n";
 } else {
-    echo _("No folders found") . "<br><br></td><tr>";
+    echo _("No folders found") . "<br><br></td></tr>";
 }
 
 echo html_tag( 'tr',
@@ -241,7 +241,7 @@ if ($count_special_folders < count($boxes)) {
         }
     }
     echo "</SELECT></TT><br><br>\n";
-    echo "<INPUT TYPE=SUBMIT VALUE=\"";
+    echo "<input type=SUBMIT VALUE=\"";
     echo _("Unsubscribe");
     echo "\">\n";
     echo "</FORM></td>\n";
@@ -283,7 +283,7 @@ if ($box && $box2) {
        echo "         <OPTION VALUE=\"$box[$q]\">".$box2[$q]."\n";
     }      
     echo "</select></tt><br><br>";
-    echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
+    echo "<input type=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
     echo "</FORM></td></tr></table><BR>\n";
 } else {
     echo _("No folders were found to subscribe to!") . "</td></tr></table>";

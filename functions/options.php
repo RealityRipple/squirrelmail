@@ -18,11 +18,11 @@
 /* Define constants for the various option types. */
 define('SMOPT_TYPE_STRING', 0);
 define('SMOPT_TYPE_STRLIST', 1);
-define('SMOPT_TYPE_TEXTAREA', 2);
+define('SMOPT_TYPE_textarea', 2);
 define('SMOPT_TYPE_INTEGER', 3);
 define('SMOPT_TYPE_FLOAT', 4);
 define('SMOPT_TYPE_BOOLEAN', 5);
-define('SMOPT_TYPE_HIDDEN', 6);
+define('SMOPT_TYPE_hidden', 6);
 define('SMOPT_TYPE_COMMENT', 7);
 
 /* Define constants for the options refresh levels. */
@@ -97,7 +97,7 @@ class SquirrelOption {
         }
 
         /* Set the default save function. */
-        if (($type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
+        if (($type != SMOPT_TYPE_hidden) && ($type != SMOPT_TYPE_COMMENT)) {
             $this->save_function = SMOPT_SAVE_DEFAULT;
         } else {
             $this->save_function = SMOPT_SAVE_NOOP;
@@ -145,7 +145,7 @@ class SquirrelOption {
             case SMOPT_TYPE_STRLIST:
                 $result = $this->createWidget_StrList();
                 break;
-            case SMOPT_TYPE_TEXTAREA:
+            case SMOPT_TYPE_textarea:
                 $result = $this->createWidget_TextArea();
                 break;
             case SMOPT_TYPE_INTEGER:
@@ -157,16 +157,16 @@ class SquirrelOption {
             case SMOPT_TYPE_BOOLEAN:
                 $result = $this->createWidget_Boolean();
                 break;
-            case SMOPT_TYPE_HIDDEN:
+            case SMOPT_TYPE_hidden:
                 $result = $this->createWidget_Hidden();
                 break;
             case SMOPT_TYPE_COMMENT:
                 $result = $this->createWidget_Comment();
                 break;
             default:
-               $result = '<FONT COLOR="' . $color[2] . '">'
+               $result = '<font color="' . $color[2] . '">'
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
-                       . '</FONT>';
+                       . '</font>';
         }
 
         /* Add the script for this option. */
@@ -195,33 +195,33 @@ class SquirrelOption {
                 $width = 25;
         }
 
-        $result = "<INPUT NAME=\"new_$this->name\" VALUE=\"$this->value\" SIZE=\"$width\">";
+        $result = "<input name=\"new_$this->name\" value=\"$this->value\" size=\"$width\">";
         return ($result);
     }
 
     function createWidget_StrList() {
         /* Begin the select tag. */
-        $result = "<SELECT NAME=\"new_$this->name\">";
+        $result = "<select name=\"new_$this->name\">";
 
         /* Add each possible value to the select list. */
         foreach ($this->possible_values as $real_value => $disp_value) {
             /* Start the next new option string. */
-            $new_option = "<OPTION VALUE=\"$real_value\"";
+            $new_option = "<option value=\"$real_value\"";
 
             /* If this value is the current value, select it. */
             if ($real_value == $this->value) {
-               $new_option .= ' SELECTED';
+               $new_option .= ' selected';
             }
 
             /* Add the display value to our option string. */
-            $new_option .= ">$disp_value</OPTION>";
+            $new_option .= ">$disp_value</option>";
 
             /* And add the new option string to our select tag. */
             $result .= $new_option;
         }
 
         /* Close the select tag and return our happy result. */
-        $result .= '</SELECT>';
+        $result .= '</select>';
         return ($result);
     }
 
@@ -234,8 +234,8 @@ class SquirrelOption {
             case SMOPT_SIZE_NORMAL:
             default: $rows = 5; $cols =  50;
         }
-        $result = "<TEXTAREA NAME=\"new_$this->name\" ROWS=\"$rows\" "
-                . "COLS=\"$cols\">$this->value</TEXTAREA>";
+        $result = "<textarea name=\"new_$this->name\" rows=\"$rows\" "
+                . "cols=\"$cols\">$this->value</textarea>";
         return ($result);
     }
 
@@ -250,21 +250,21 @@ class SquirrelOption {
     function createWidget_Boolean() {
         /* Do the whole current value thing. */
         if ($this->value != SMPREF_NO) {
-            $yes_chk = ' CHECKED';
+            $yes_chk = ' checked';
             $no_chk = '';
         } else {
             $yes_chk = '';
-            $no_chk = ' CHECKED';
+            $no_chk = ' checked';
         }
 
         /* Build the yes choice. */
-        $yes_option = '<INPUT TYPE="RADIO" NAME="new_' . $this->name
-                    . '" VALUE="' . SMPREF_YES . "\"$yes_chk>&nbsp;"
+        $yes_option = '<input type="radio" name="new_' . $this->name
+                    . '" value="' . SMPREF_YES . "\"$yes_chk>&nbsp;"
                     . _("Yes");
 
         /* Build the no choice. */
-        $no_option = '<INPUT TYPE="RADIO" NAME="new_' . $this->name
-                   . '" VALUE="' . SMPREF_NO . "\"$no_chk>&nbsp;"
+        $no_option = '<input type="radio" name="new_' . $this->name
+                   . '" value="' . SMPREF_NO . "\"$no_chk>&nbsp;"
                    . _("No");
 
         /* Build and return the combined "boolean widget". */
@@ -273,8 +273,8 @@ class SquirrelOption {
     }
 
     function createWidget_Hidden() {
-        $result = '<INPUT TYPE="HIDDEN" NAME="new_' . $this->name
-                . '" VALUE="' . $this->value . '">';
+        $result = '<input type="hidden" name="new_' . $this->name
+                . '" value="' . $this->value . '">';
         return ($result);
     }
 
@@ -314,9 +314,9 @@ function create_optmode_element($optmode) {
 }
 
 function create_hidden_element($name, $value) {
-    $result = '<INPUT TYPE="HIDDEN" '
-            . 'NAME="' . $name . '" '
-            . 'VALUE="' . $value . '">';
+    $result = '<input type="hidden" '
+            . 'name="' . $name . '" '
+            . 'value="' . $value . '">';
     return ($result);
 }
 
@@ -387,32 +387,37 @@ function print_option_groups($option_groups) {
     foreach ($option_groups as $next_optgrp) {
         /* If it is not blank, print the name for this option group. */
         if ($next_optgrp['name'] != '') {
-            echo '<TR><TD ALIGN=CENTER VALIGN=MIDDLE COLSPAN=2 NOWRAP><B>'
-               .   $next_optgrp['name']
-               . "</B></TD></TR>\n";
+            echo html_tag( 'tr', "\n".
+                        html_tag( 'td',
+                            '<b>' . $next_optgrp['name'] . '</b>' ,
+                        'center' ,'', 'valign="middle" colspan="2" nowrap' )
+                    ) ."\n";
         }
 
         /* Print each option in this option group. */
         foreach ($next_optgrp['options'] as $option) {
-            if ($option->type != SMOPT_TYPE_HIDDEN) {
-                echo "<TR>\n";
-                echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE">'
-                   . $option->caption . ":</TD>\n";
-                echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
-                echo "</TR>\n";
+            if ($option->type != SMOPT_TYPE_hidden) {
+                echo html_tag( 'tr', "\n".
+                           html_tag( 'td', $option->caption . ':', 'right' ,'', 'valign="middle"' ) .
+                           html_tag( 'td', $option->createHTMLWidget(), 'left' )
+                       ) ."\n";
             } else {
                 echo $option->createHTMLWidget();
             }
         }
 
         /* Print an empty row after this option group. */
-        echo "<TR><TD COLSPAN=\"2\">&nbsp;</TD></TR>\n";
+        echo html_tag( 'tr',
+                   html_tag( 'td', '&nbsp;', 'left', '', 'colspan="2"' )
+                ) . "\n";
     }
 }
 
 function OptionSubmit( $name ) {
-    echo '<tr><td>&nbsp;</td><td><input type="submit" value="' . _("Submit") . '" name="' . $name . '">' .
-         '</td></tr>';
+        echo html_tag( 'tr',
+                   html_tag( 'td', '&nbsp;', 'left', '', 'colspan="2"' ) .
+                   html_tag( 'td', '<input type="submit" value="' . _("Submit") . '" name="' . $name . '">', 'left', '', 'colspan="2"' )
+                ) . "\n";
 }
 
 ?>
