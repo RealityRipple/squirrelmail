@@ -1054,7 +1054,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
 function sqimap_status_messages ($imap_stream, $mailbox, 
                        $aStatusItems = array('MESSAGES','UNSEEN','RECENT')) {
 
-    $aStatusItems = implode(' ',$aStutusItems);
+    $aStatusItems = implode(' ',$aStatusItems);
     $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) .
                                     " ($aStatusItems)", false, $result, $message);
     $i = 0;
