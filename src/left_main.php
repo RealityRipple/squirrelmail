@@ -288,6 +288,7 @@ function listBoxes ($boxes, $j=0 ) {
     $collapse = false;
     $unseen_type = 1;
     $unseen_notify = 0;
+    $unseen = 0;
 
     /* Get unseen/total display prefs */
     $unseen_type = getPref( $data_dir , $username , 'unseen_type' );
@@ -298,26 +299,45 @@ function listBoxes ($boxes, $j=0 ) {
         $leader = '<tt>';
         $leader .= str_repeat('&nbsp;&nbsp;',$j);
         $mailboxURL = urlencode($mailbox);
+
         /* get unseen/total messages information */
-        if ($boxes->unseen !== false || $boxes->total !== false) {
-            $unseen = $boxes->unseen;
-            if ($unseen>0 || $boxes->total>0) {
-                $unseen_string = "($unseen)";
-                $unseen_found = TRUE;
-            }
-            $unseen_before = '<font color="' . $color[11] . '">';
-            $unseen_after = '</font>';
-            if ((($unseen_notify == 2) && (strtolower($mailbox) == 'inbox')) || ($unseen_notify == 3)) {
-                $unseen_string = '(' . $unseen;
+        /* Only need to display info when option is set */
+        if (isset($unseen_notify) && ($unseen_notify > 1)) {
+                    
+            if ($boxes->unseen !== false) {
+                $unseen = $boxes->unseen; 
+            } else {        
+                $unseen = 0;
+            }   
         
-                if ($unseen_type > 1) {
-                    $unseen_string .= '/' . $boxes->total;
+            /* 
+                Should only display unseen info if the folder is inbox
+                or you set the option for all folders
+            */
+
+            if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
+                $unseen_string = $unseen;
+                        
+
+                /* If users requests, display message count too */
+                if (isset($unseen_type) && ($unseen_type == 2)) {
+                    $numMessages = $boxes->total;
+                    $unseen_string .= '/' . $numMessages;
+                }       
+                
+                $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+            
+                /*
+                    Finally allow the script to display the values by setting a boolean.
+                    This can only occur if the unseen count is great than 0 (if you have
+                    unseen count only), or you have the message count too.
+                */
+                if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
+                    $unseen_found = true;
                 }
-                $unseen_string .= ')';
-                $unseen_string = $unseen_before . $unseen_string . $unseen_after;
-            }
-        } else {
-            $unseen = 0;
+        
+            }   
+        
         }
 
         if (isset($boxes->mbxs[0]) && $collapse_folders) {
@@ -375,7 +395,7 @@ function listBoxes ($boxes, $j=0 ) {
         }
 
         /* Print unseen information. */
-        if (isset($unseen_found) && $unseen_found && ($unseen > 0)) {
+        if (isset($unseen_found) && $unseen_found) {
             $end .= "&nbsp;<small>$unseen_string</small>";
         }
 
@@ -410,23 +430,51 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $pre = '';
     $end = '';
     $collapse = false;
+    $unseen_found = false;
+    $unseen = 0;
 
     if ($boxes) {
     $mailbox = $boxes->mailboxname_full;
     $mailboxURL = urlencode($mailbox);
 
-    /* get unseen/total messages information */
-    if ($boxes->unseen !== false) {
-        $unseen = $boxes->unseen;
-        if ($unseen>0) {
-            $unseen_found = TRUE;
-            $unseen_string = "($unseen)";
+    /* Only need to display info when option is set */
+    if (isset($unseen_notify) && ($unseen_notify > 1)) {
+
+        if ($boxes->unseen !== false) {
+            $unseen = $boxes->unseen;
+        } else {
+            $unseen = 0;
         }
-        if ($boxes->total) {
-            $numMessages = $boxes->total;
-            $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
-        }
-    } else $unseen = 0;
+
+        /* 
+            Should only display unseen info if the folder is inbox
+            or you set the option for all folders
+        */
+
+        if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
+            $unseen_string = $unseen;
+
+
+            /* If users requests, display message count too */
+            if (isset($unseen_type) && ($unseen_type == 2)) {
+                $numMessages = $boxes->total;
+                $unseen_string .= '/' . $numMessages;
+            }
+
+            $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+
+            /*
+                Finally allow the script to display the values by setting a boolean.
+                This can only occur if the unseen count is great than 0 (if you have
+                unseen count only), or you have the message count too.
+            */
+            if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
+                $unseen_found = true;
+            }
+        
+        }   
+        
+    }
 
     /* If there are unseen message, bold the line. */
     if ($unseen > 0) { $pre .= '<b>'; }
@@ -441,7 +489,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     if ($unseen > 0) { $end .= '</b>'; }
 
     /* Print unseen information. */
-    if (isset($unseen_found) && $unseen_found && ($unseen > 0)) {
+    if (isset($unseen_found) && $unseen_found) {
             $end .= "&nbsp;$unseen_string";
     }
 
