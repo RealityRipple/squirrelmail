@@ -525,9 +525,9 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
 
         foreach ($read as $read_part) {
             //unfold multi-line headers
-	    if ($prevline && strpos($read_part, "\t ") === true) {
-	        $read_part = substr($prevline, 0, -2) . preg_replace('/(\t\s+)/',' ',$read_part);
-	    }
+            if ($prevline && strpos($read_part, "\t ") === true) {
+                $read_part = substr($prevline, 0, -2) . preg_replace('/(\t\s+)/',' ',$read_part);
+            }
             $prevline = $read_part;
             if ($read_part{0} == '*') {
                 if ($internaldate) {
@@ -562,7 +562,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
                     $unique_id = $reg[1];
                 }
             } else {
-                $firstchar = $read_part{0};
+                $firstchar = strtoupper($read_part{0});
                 if ($firstchar == 'T') {
                     $regpattern = $patterns[0];
                     $id = 1;
