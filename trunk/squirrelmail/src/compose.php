@@ -357,20 +357,24 @@ if ($draft) {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
-            Header("Location: $location/delete_message.php?mailbox=" . urlencode($draft_folder) .
-                    "&message=$delete_draft&startMessage=1&saved_draft=yes");
-            exit();
+            $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
+            sqimap_mailbox_select($imap_stream, $draft_folder);
+            // force bypass_trash=true because message should be saved when deliverMessage() returns true.
+            // in current implementation of sqimap_msgs_list_flag() single message id can 
+            // be submitted as string. docs state that it should be array.
+            sqimap_msgs_list_delete($imap_stream, $draft_folder, $delete_draft, true);
+            if ($auto_expunge) {
+                sqimap_mailbox_expunge($imap_stream, $draft_folder, true);
+            }
+            sqimap_logout($imap_stream);
         }
-        else {
-            if ($compose_new_win == '1') {
-                Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
-                exit();
-            }
-            else {
-                Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
-                        "&startMessage=1&note=".urlencode($draft_message));
-                exit();
-            }
+        if ($compose_new_win == '1') {
+            Header("Location: $location/compose.php?saved_draft=yes&session=$composesession");
+            exit();
+        } else {
+            Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
+                   "&startMessage=1&note=".urlencode($draft_message));
+            exit();
         }
     }
 }
@@ -430,18 +434,24 @@ if ($send) {
             exit();
         }
         unset($compose_messages[$session]);
+        /* if it is resumed draft, delete draft message */
         if ( isset($delete_draft)) {
-            Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
-                    "&message=$delete_draft&startMessage=1&mail_sent=yes");
-            exit();
+            $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, false);
+            sqimap_mailbox_select($imap_stream, $draft_folder);
+            // bypass_trash=true because message should be saved when deliverMessage() returns true.
+            // in current implementation of sqimap_msgs_list_flag() single message id can 
+            // be submitted as string. docs state that it should be array.
+            sqimap_msgs_list_delete($imap_stream, $draft_folder, $delete_draft, true);
+            if ($auto_expunge) {
+                sqimap_mailbox_expunge($imap_stream, $draft_folder, true);
+            }
+            sqimap_logout($imap_stream);
         }
         if ($compose_new_win == '1') {
-
             Header("Location: $location/compose.php?mail_sent=yes");
-        }
-        else {
+        }else {
             Header("Location: $location/right_main.php?mailbox=$urlMailbox".
-                    "&startMessage=$startMessage&mail_sent=yes");
+                   "&startMessage=$startMessage&mail_sent=yes");
         }
     } else {
         if ($compose_new_win == '1') {
