@@ -97,7 +97,10 @@ function get_reference_header ($imap_stream, $message) {
  */
  
 function sqimap_get_sort_order ($imap_stream, $sort) {
-    global  $default_charset, $thread_sort_messages, $internal_date_sort, $server_sort_array;
+    global  $default_charset, $thread_sort_messages,
+            $internal_date_sort, $server_sort_array,
+            $sent_folder, $mailbox;
+            
     if (session_is_registered('server_sort_array')) {
         session_unregister('server_sort_array');
     }
@@ -118,6 +121,10 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
         $sort_on[0] = 'ARRIVAL';
         $sort_on[1] = 'ARRIVAL';
     }
+    if ($sent_folder == $mailbox) {
+        $sort_on[2] = 'TO';
+        $sort_on[3] = 'TO';
+    }
     if (!empty($sort_on[$sort])) {
         $sort_query = "$sid SORT ($sort_on[$sort]) ".strtoupper($default_charset)." ALL\r\n";
         fputs($imap_stream, $sort_query);
@@ -134,8 +141,8 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
 }
 	
 /* returns an indent array for printMessageinfo()
-   this represents the amount of indent needed
-   for this message number
+   this represents the amount of indent needed (value)
+   for this message number (key)
 */
 
 function get_parent_level ($imap_stream) {
