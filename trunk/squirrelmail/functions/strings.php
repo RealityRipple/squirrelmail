@@ -46,25 +46,34 @@
 
    // Wraps text at $wrap characters
    function sqWordWrap($passed, $wrap) {
-      $passed = str_replace("&gt;", ">", $passed);
       $passed = str_replace("&lt;", "<", $passed);
+      $passed = str_replace("&gt;", ">", $passed);
 
-      $words = explode(" ", trim($passed));
-      $i = 0;
-      $line_len = strlen($words[$i])+1;
+      preg_match("/^(\s|>)+/", $passed, $regs);
+      $beginning_spaces = $regs[0];
+
+      $words = explode(" ", $passed);
+      $i = -1;
+      $line_len = strlen($words[0])+1;
       $line = "";
       if (count($words) > 1) {   
-         while ($i < count($words)) {
+         while ($i++ < count($words)) {
             while ($line_len < $wrap) {
                $line = "$line$words[$i] ";
                $i++;
-               $line_len = $line_len + strlen($words[$i])+1;
+               $line_len = $line_len + strlen($words[$i]) + 1;
             }
             $line_len = strlen($words[$i])+1;
-            if ($line_len < $wrap) {
-               if ($i < count($words)) // don't <BR> the last line
-                  $line = "$line\n";
+            if ($line_len <= $wrap) {
+               if (strlen($beginning_spaces) +2 >= $wrap)
+                  $beginning_spaces = "";
+               if ($i < count($words)) { // don't <BR> the last line
+                  $line = "$line\n$beginning_spaces";
+               }   
+               $line = "$line$words[$i] ";
+               $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 1;
             } else {
+               /*
                $endline = $words[$i];
                while ($line_len >= $wrap) {
                   $bigline = substr($endline, 0, $wrap);
@@ -72,8 +81,12 @@
                   $line_len = strlen($endline);
                   $line = "$line$bigline<BR>";
                }
-               $line = "$line$endline<BR>";
-               $i++;
+               */
+               if (strlen($line) > $wrap)
+                  $line = "$line\n$words[$i]";
+               else
+                  $line = "$line$words[$i]";
+               $line_len = strlen($words[$i]);
             }
          }
       } else {
@@ -123,13 +136,13 @@
       for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
          $line = charset_decode($charset, $line);
+         $line = str_replace("\t", "        ", $line);
          
          if (strlen($line) - 2 >= $wrap_at) {
             $line = sqWordWrap($line, $wrap_at);  
          }
          
          $line = str_replace(" ", "&nbsp;", $line);
-         $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
          $line = nl2br($line);
 
          $line = parseEmail ($line);
@@ -211,4 +224,11 @@
       }
       return $location;
    }   
+
+   function sqStripSlashes($string) {
+      if (get_magic_quotes_gpc()) {
+         $string = stripslashes($string);
+      }
+      return $string;
+   }
 ?>

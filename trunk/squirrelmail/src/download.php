@@ -109,9 +109,9 @@
             header("Content-Disposition: attachment; filename=\"$filename\"");
             header("Content-type: application/octet-stream; name=\"$filename\"");
             if ($type1 == "plain") {
-               echo _("Subject") . ": " . decodeHeader(stripslashes($top_header->subject)) . "\n";
-               echo "   " . _("From") . ": " . decodeHeader(stripslashes($top_header->from)) . "\n";
-               echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($top_header->to))) . "\n";
+               echo _("Subject") . ": " . decodeHeader(sqStripSlashes($top_header->subject)) . "\n";
+               echo "   " . _("From") . ": " . decodeHeader(sqStripSlashes($top_header->from)) . "\n";
+               echo "     " . _("To") . ": " . decodeHeader(sqStripSlashes(getLineOfAddrs($top_header->to))) . "\n";
                echo "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
             }
             echo trim($body);

@@ -5,7 +5,7 @@
     **  This implements functions that manipulate messages 
     **/
 
-   if (!$mime_php) include "../functions/mime.php";
+   if (!isset($mime_php)) include "../functions/mime.php";
 
    /******************************************************************************
     **  Copies specified messages to specified folder
