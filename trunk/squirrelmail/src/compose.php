@@ -33,7 +33,8 @@
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
-             $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size;
+             $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size,
+             $draft_id, $use_signature;
 
       $send_to = decodeHeader($send_to);
       $send_to_cc = decodeHeader($send_to_cc);
@@ -44,6 +45,10 @@
       elseif ($reply_id)
          $id = $reply_id;
 
+      if ($draft_id){
+         $id = $draft_id;
+         $use_signature = FALSE;
+      }
 
       if (isset($id)) {
          sqimap_mailbox_select($imapConnection, $mailbox);
@@ -73,7 +78,7 @@
          }
          $body = "";
          for ($i=0; isset($body_ary[$i]); $i++) {
-            if (! $forward_id)
+            if ($reply_id)
             {
                 if (ereg('^[ >]+', $body_ary[$i]))
                 {
@@ -147,11 +152,16 @@
 
    function getAttachments($message) {
       global $mailbox, $attachments, $attachment_dir, $imapConnection,
-             $ent_num, $forward_id;
+             $ent_num, $forward_id, $draft_id;
+ 
+     if (isset($draft_id))
+         $id = $draft_id;
+      else
+         $id = $forward_id;
 
       if (!$message) {
            sqimap_mailbox_select($imapConnection, $mailbox);
-           $message = sqimap_get_message($imapConnection, $forward_id,
+           $message = sqimap_get_message($imapConnection, $id,
                $mailbox);
       }
 
@@ -175,7 +185,7 @@
               // Write Attachment to file
               $fp = fopen ($attachment_dir.$localfilename, 'w');
               fputs ($fp, decodeBody(mime_fetch_body($imapConnection,
-                  $forward_id, $message->header->entity_id),
+                  $id, $message->header->entity_id),
                   $message->header->encoding));
               fclose ($fp);
 
@@ -195,7 +205,7 @@
          $editor_size, $attachments, $subject, $newmail,
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
          $from_htmladdr_search, $location_of_buttons, $attachment_dir,
-         $username, $data_dir, $identity;
+         $username, $data_dir, $identity, $draft_id;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -215,6 +225,9 @@
       echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\"";
       do_hook("compose_form");
           echo ">\n";
+
+      if ( isset($draft_id))
+         echo "<input type=\"hidden\" name=\"delete_draft\" value=\"$draft_id\">\n";
 
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
 
@@ -355,7 +368,7 @@
    }
 
    function showComposeButtonRow() {
-      global $use_javascript_addr_book;
+      global $use_javascript_addr_book, $save_as_draft;
 
       echo "   <TR><td>\n   </td><td>\n";
       if ($use_javascript_addr_book) {
@@ -368,6 +381,10 @@
          echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
       }
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+
+      if ($save_as_draft == true)
+         echo "<input type=\"submit\" name =\"draft\" value=\"Save Draft\">\n";
+
 
       do_hook("compose_button_row");
 
@@ -419,6 +436,17 @@
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
+   if (isset($draft)) {
+      require_once ('../src/draft_actions.php');
+      if(! saveMessagetoDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $$reply_id)) {
+         showInputForm();
+         exit();
+      } else {
+         Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort&startMessage=1&note=Draft%20Email%20Saved");
+         exit();
+      }
+   }
+
    if (isset($send)) {
       if (isset($HTTP_POST_FILES['attachfile']) &&
           $HTTP_POST_FILES['attachfile']['tmp_name'] &&
@@ -461,6 +489,11 @@
             showInputForm();
             exit();
          }
+         if ( isset($delete_draft)) {
+            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1"$
+            exit();
+         }
+         
          Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -539,6 +572,9 @@
       ClearAttachments();
 
       if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num)
+          getAttachments(0);
+
+      if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num)
           getAttachments(0);
 
       newMail();
