@@ -102,8 +102,8 @@ function formatMailboxName($imapConnection, $box_array) {
         if (($numMessages > 0) or ($box_array['parent'] == 1)) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n" .
-                    "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
-                    "</small>";
+                    '&nbsp;&nbsp;[<a href="empty_trash.php" style="text-decoration:none">'._("purge").'</a>]' .
+                    '</small>';
         }
     }
 
@@ -398,8 +398,8 @@ function ListBoxes ($boxes, $j=0 ) {
                 $end .= "&nbsp;<small>$unseen_string</small>";
             }
             $end .= "\n<small>\n" .
-                    "&nbsp;&nbsp;(<a href=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</a>)" .
-                    "</small>";
+                    '&nbsp;&nbsp;[<a href="empty_trash.php" style="text-decoration:none">'._("purge").'</a>]'.
+                    '</small>';
         }
     } else {
         if (!$boxes->is_noselect) {
@@ -524,8 +524,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
             $end .= "\n<small>\n" .
-                    "&nbsp;&nbsp;(<a class=\"mbx_link\" href=\"empty_trash.php\">"._("purge")."</a>)" .
-                    "</small>";
+                    '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("purge").'</a>]'.
+                    '</small>';
         }
     } else {
         if (!$boxes->is_noselect) { /* \Noselect boxes can't be selected */
@@ -1011,8 +1011,8 @@ if ($date_format != 6) {
 }
 
 /* Next, display the refresh button. */
-echo '<nobr><small>(<a href="../src/left_main.php" target="left">'.
-     _("Check mail") . '</a>)</small></nobr></td></tr></table><br />';
+echo '<nobr><small>[<a href="../src/left_main.php" target="left">'.
+     _("Check mail") . '</a>]</small></nobr></td></tr></table><br />';
 
 /* Lastly, display the folder list. */
 if ( $collapse_folders ) {
