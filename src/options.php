@@ -91,7 +91,7 @@ function print_optionpages_row($leftopt, $rightopt = false) {
                      "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"49%\">" .
                         $leftopt['desc'] .
                      '</TD>' .
-                     "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"\2%\">&nbsp;</TD>";
+                     "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"2%\">&nbsp;</TD>";
     if ($rightopt) {
         echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\" WIDTH=\"49%\">" .
                         $rightopt['desc'] .
