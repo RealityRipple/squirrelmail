@@ -32,6 +32,12 @@
    if (!isset($plugin_php))
       include("../functions/plugin.php");
 
+   // open a connection on the imap port (143)
+   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
+
+   /** If it was a successful login, lets load their preferences **/
+   include("../src/load_prefs.php");
+
    displayHtmlHeader();
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $unseen) {
@@ -99,12 +105,6 @@
       $line .= "</NOBR>";
       return $line;
    }
-
-   // open a connection on the imap port (143)
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
-
-   /** If it was a successful login, lets load their preferences **/
-   include("../src/load_prefs.php");
 
    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
       echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
