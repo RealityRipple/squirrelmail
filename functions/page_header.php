@@ -23,7 +23,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
     }
-    global $theme_css, $custom_css;
+    global $theme_css, $custom_css, $pageheader_sent;
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' .
          "\n\n" . html_tag( 'html' ,'' , '', '', '' ) . "\n<head>\n";
@@ -64,6 +64,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
 ECHO;
 
     echo "\n</head>\n\n";
+
+    /* this is used to check elsewhere whether we should call this function */
+    $pageheader_sent = TRUE;
 }
 
 function makeInternalLink($path, $text, $target='') {
