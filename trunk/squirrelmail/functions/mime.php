@@ -161,6 +161,7 @@
       $elem_num = 1;
       $msg->header = new msg_header();
       $msg->header->entity_id = $ent_id;
+      $properties = array();
       
       while (strlen($structure) > 0) {
          $structure = trim($structure);
@@ -184,8 +185,6 @@
             // comment me
             $end = mime_match_parenthesis (0, $structure);
             $sub = substr($structure, 1, $end-1);
-	    if (! isset($properties))
-	        $properties = array();
             $properties = mime_get_props($properties, $sub);
             $structure = substr($structure, strlen($sub) + 2);
          } else {
@@ -352,6 +351,8 @@
       // ignore all extra characters
       // If inside of a string, skip string -- Boundary IDs and other
       // things can have ) in them.
+      if ($char != '(')
+          return strlen($structure);
       while ($pos < strlen($structure)) {
          $pos++;
          $char = substr($structure, $pos, 1); 
