@@ -1242,7 +1242,18 @@ function getMbxList($imapConnection) {
 }
 
 function getButton($type, $name, $value) {
-return '<INPUT TYPE="'.$type.'" NAME="'.$name.'" VALUE="'.$value . '">';
+global $color;
+$style = ' STYLE="background:'.$color[3].';font-size:xx-small;font-weight:bold;'.
+                  'color:'.$color[8].';margin:0.05em;border:0.2em outset '.
+		  $color[9].';"';
+$javascript = " onmouseover=\"this.style.borderColor='$color[8]'".
+                           ";this.style.borderStyle='inset'" .
+                           ";this.style.background='$color[0]';\";" .
+	      " onmouseout=\"this.style.borderColor='$color[9]'".
+                           ";this.style.borderStyle='outset'" . 
+                           ";this.style.background='$color[3]';\";";
+
+return '<INPUT TYPE="'.$type.'" NAME="'.$name.'" VALUE="'.$value . '"'.$style.$javascript.'>';
 }
 
 function getSmallStringCell($string, $align) {
