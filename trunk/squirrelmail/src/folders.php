@@ -42,7 +42,7 @@ require_once('../functions/plugin.php');
 <table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
 <tr><td align="center">
 
-      <b><?php echo _("Folders"); ?></b>
+    <b><?php echo _("Folders"); ?></b>
 
     <table width="100%" border="0" cellpadding="5" cellspacing="0">
     <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
@@ -52,7 +52,7 @@ require_once('../functions/plugin.php');
    if ((isset($success) && $success) || 
        (isset($sent_create) && $sent_create == "true") || 
        (isset($trash_create) && $trash_create == "true")) {
-      echo "<table width=100% align=center cellpadding=2 cellspacing=0 border=0>\n";
+      echo "<table width=100% align=center cellpadding=4 cellspacing=0 border=0>\n";
       echo "   <tr><td align=center>\n";
       if ($success == "subscribe") {
          echo "<b>" . _("Subscribed successfully!") . "</b><br>";
@@ -69,69 +69,15 @@ require_once('../functions/plugin.php');
       echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
       echo "   </td></tr>\n";
       echo "</table><br>\n";
+   } else {
+      echo "<br>";
    }
    $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection);
 
-   /** DELETING FOLDERS **/
-   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-   echo _("Delete Folder");
-   echo "</B></TD></TR>";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-
-   $count_special_folders = 0;
-       $num_max = 1;
-       if (strtolower($imap_server_type) == "courier" || $move_to_trash)
-               $num_max++;
-       if ($move_to_sent)
-               $num_max++;
-       if ($save_as_draft)
-               $num_max++;
-
-   for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {                                                                                 
-      if (strtolower($boxes[$p]["unformatted"]) == "inbox")
-         $count_special_folders++;
-      else if (strtolower($imap_server_type) == "courier" &&
-               strtolower($boxes[$p]["unformatted"]) == "inbox.trash")
-         $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
-         $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
-         $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $draft_folder && $draft_folder)
-         $count_special_folders++;
-   }   
-
-   if ($count_special_folders < count($boxes)) {
-      echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n";
-      echo "<TT><SELECT NAME=mailbox>\n";
-      for ($i = 0; $i < count($boxes); $i++) {
-         $use_folder = true;
-	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-	     ($boxes[$i]["unformatted"] != $trash_folder) && 
-	     ($boxes[$i]["unformatted"] != $sent_folder) &&
-             ($boxes[$i]["unformatted"] != $draft_folder) &&
-	     (strtolower($imap_server_type) != "courier" ||
-	      strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))
-	    {
-	       $box = $boxes[$i]["unformatted-dm"];
-	       $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
-	       echo "         <OPTION VALUE=\"$box\">$box2\n";
-	    }
-      }
-      echo "</SELECT></TT>\n";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"";
-      echo _("Delete");
-      echo "\">\n";
-      echo "</FORM></TD></TR>\n";
-   } else {
-      echo _("No folders found") . "<br><br></td><tr>";
-   }
-
-   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
-
    /** CREATING FOLDERS **/
+   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n";
+
    echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Create Folder");
    echo "</B></TD></TR>";
@@ -169,7 +115,7 @@ require_once('../functions/plugin.php');
       echo "<BR>";
    }   
    echo "<INPUT TYPE=SUBMIT VALUE=\""._("Create")."\">\n";
-   echo "</FORM></TD></TR>\n";
+   echo "</TD></FORM></TR>\n";
 
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
@@ -187,8 +133,7 @@ require_once('../functions/plugin.php');
 	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
 	     ($boxes[$i]["unformatted"] != $trash_folder)  &&
 	     ($boxes[$i]["unformatted"] != $sent_folder) &&
-             ($boxes[$i]["unformatted"] != $draft_folder))
-	    {	
+         ($boxes[$i]["unformatted"] != $draft_folder)) {	
 	       $box = $boxes[$i]["unformatted-dm"];
 	       $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
 	       if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
@@ -199,20 +144,75 @@ require_once('../functions/plugin.php');
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Rename");
       echo "\">\n";
-      echo "</FORM></TD></TR>\n";
+      echo "</TD></FORM></TR>\n";
    } else {
       echo _("No folders found") . "<br><br></td></tr>";
    }
    $boxes_sub = $boxes;
 
-   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr></table>\n";
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
    
+   /** DELETING FOLDERS **/
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
+   echo _("Delete Folder");
+   echo "</B></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
+
+   $count_special_folders = 0;
+       $num_max = 1;
+       if (strtolower($imap_server_type) == "courier" || $move_to_trash)
+               $num_max++;
+       if ($move_to_sent)
+               $num_max++;
+       if ($save_as_draft)
+               $num_max++;
+
+   for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
+      if (strtolower($boxes[$p]["unformatted"]) == "inbox")
+         $count_special_folders++;
+      else if (strtolower($imap_server_type) == "courier" &&
+               strtolower($boxes[$p]["unformatted"]) == "inbox.trash")
+         $count_special_folders++;
+      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
+         $count_special_folders++;
+      else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
+         $count_special_folders++;
+      else if ($boxes[$p]["unformatted"] == $draft_folder && $draft_folder)
+         $count_special_folders++;
+   }   
+
+   if ($count_special_folders < count($boxes)) {
+      echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n";
+      echo "<TT><SELECT NAME=mailbox>\n";
+      for ($i = 0; $i < count($boxes); $i++) {
+         $use_folder = true;
+	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
+	     ($boxes[$i]["unformatted"] != $trash_folder) && 
+	     ($boxes[$i]["unformatted"] != $sent_folder) &&
+         ($boxes[$i]["unformatted"] != $draft_folder) &&
+	     ((strtolower($imap_server_type) != "courier") ||
+	      (strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))) {
+	       $box = $boxes[$i]["unformatted-dm"];
+	       $box2 = str_replace(' ', '&nbsp;', $boxes[$i]["unformatted-disp"]);
+	       echo "         <OPTION VALUE=\"$box\">$box2\n";
+	    }
+      }
+      echo "</SELECT></TT>\n";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"";
+      echo _("Delete");
+      echo "\">\n";
+      echo "</TD></FORM></TR>\n";
+   } else {
+      echo _("No folders found") . "<br><br></td><tr>";
+   }
+   echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
+
    /** UNSUBSCRIBE FOLDERS **/
-   echo "<TABLE WIDTH=70% COLS=2 ALIGN=CENTER cellpadding=2 cellspacing=1 border=0>\n";
+   echo "<TABLE WIDTH=70% COLS=2 ALIGN=CENTER cellpadding=4 cellspacing=0 border=0>\n";
    echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=2><B>";
    echo _("Unsubscribe") . "/" . _("Subscribe");
    echo "</B></TD></TR>\n";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" width=50% ALIGN=CENTER>\n";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" width=\"50%\" ALIGN=CENTER>\n";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox[] multiple size=8>\n";
@@ -232,14 +232,14 @@ require_once('../functions/plugin.php');
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Unsubscribe");
       echo "\">\n";
-      echo "</FORM></TD>\n";
+      echo "</TD></FORM>\n";
    } else {
       echo _("No folders were found to unsubscribe from!") . "</td>";
    }
    $boxes_sub = $boxes;
 
    /** SUBSCRIBE TO FOLDERS **/
-   echo "<TD BGCOLOR=\"$color[0]\" width=50% ALIGN=CENTER>";
+   echo "<TD BGCOLOR=\"$color[0]\" width=\"50%\" ALIGN=CENTER>";
    $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
    $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 
@@ -272,7 +272,7 @@ require_once('../functions/plugin.php');
       }      
       echo "</select></tt><br>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
-      echo "</FORM></TD></TR></TABLE><BR>\n";
+      echo "</TD></FORM></TR></TABLE><BR>\n";
    } else {
       echo _("No folders were found to subscribe to!") . "</td></tr></table>";
    }
