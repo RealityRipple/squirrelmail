@@ -34,25 +34,6 @@ function sqm_baseuri(){
     return $base_uri;
 }
 
-function error_username_password_incorrect() {
-    global $frame_top, $color;
-    /* XXX: Should really not start the HTML before this, or close off more
-       cleanly. */
-
-    if (!isset($frame_top)) {
-        $frame_top = '_top';
-    }
-    $string = '<TR><TD ALIGN="center">'.
-                 _("Unknown user or password incorrect.") .
-              '</TD></TR><TR><TD ALIGN="center">'.
-	         '<A HREF="' . sqm_baseuri() . '"login.php" TARGET='.
-                    $frame_top.'>' . _("Click here to try again") .
-                    '</A>.'.
-              '</TD></TR>';
-   error_box($string,$color);
-echo  '</BODY></HTML>';
-}
-
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
 
@@ -154,7 +135,7 @@ function error_box($string, $color) {
    echo '     <tr><td>';
    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
    echo '        <tr><td ALIGN="center" bgcolor="'.$color[0].'">';
-   echo '           <font color="' . $color[2].'"><b>' . _("ERROR") . ':</b></font>';
+   echo '           <font color="' . $color[2].'"><b>' . $err . ':</b></font>';
    echo '        </td></tr>';
    echo '        <tr><td>';
    echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
