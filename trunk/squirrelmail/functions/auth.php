@@ -73,7 +73,7 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
   $result=digest_md5_parse_challenge($challenge);
   
 // verify server supports qop=auth
-  $qop = explode(",",$result['qop']);
+  // $qop = explode(",",$result['qop']);
   //if (!in_array("auth",$qop)) {
     // rfc2831: client MUST fail if no qop methods supported
    // return false;
@@ -120,7 +120,7 @@ function digest_md5_parse_challenge($challenge) {
    returns an array. See the RFC for details on what's in the challenge string.
 */
   $challenge=base64_decode($challenge);
-  while (strlen($challenge)) {
+  while (isset($challenge)) {
     if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
       $challenge=substr($challenge,1);
     }
@@ -142,7 +142,11 @@ function digest_md5_parse_challenge($challenge) {
     } else {
       // We're in a "simple" value - explode to next comma
       $val=explode(',',$challenge,2);
-      $challenge=$val[1];
+      if (isset($val[1])) {
+	  	$challenge=$val[1];
+	  } else {
+	    unset($challenge);
+	  }
       $value=$val[0];
     }
     $parsed["$key"]=$value;
