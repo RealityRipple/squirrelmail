@@ -119,10 +119,9 @@
       // ***********************************************
       // Add new address
       // ***********************************************
-      $add_data = $HTTP_POST_VARS["addaddr"];
-      if(!empty($add_data["nickname"])) {
+      if(!empty($addaddr["nickname"])) {
 	 
-	 $r = $abook->add($add_data, $abook->localbackend);
+	 $r = $abook->add($addaddr, $abook->localbackend);
 
 	 // Handle error messages
 	 if(!$r) {
@@ -132,7 +131,7 @@
 
 	    $formerror = $errstr;
 	    $showaddrlist = false;
-	    $defdata = $add_data;
+	    $defdata = $addaddr;
 	 }
    
       } 
@@ -141,10 +140,9 @@
       // ***********************************************
       // Delete address(es)
       // ***********************************************
-      else if((!empty($HTTP_POST_VARS["deladdr"])) &&
-         sizeof($HTTP_POST_VARS["sel"]) > 0) {
-
-	 $sel = $HTTP_POST_VARS["sel"];
+      else if((!empty($deladdr)) &&
+         sizeof($sel) > 0) {
+	 $orig_sel = $sel;
 	 sort($sel);
 
 	 // The selected addresses are identidied by "backend:nickname".
@@ -185,7 +183,7 @@
 
 	 if($delfailed) {
 	    $showaddrlist = true;
-	    $defselected = $HTTP_POST_VARS["sel"];
+	    $defselected  = $orig_sel;
 	 }
       }
 
@@ -193,17 +191,17 @@
       // ***********************************************
       // Update/modify address
       // ***********************************************
-      else if(!empty($HTTP_POST_VARS["editaddr"])) {
+      else if(!empty($editaddr)) {
 
 	 // Stage one: Copy data into form
-         if(sizeof($HTTP_POST_VARS["sel"]) > 0) {
-	    if(sizeof($HTTP_POST_VARS["sel"]) > 1) {
+         if(sizeof($sel) > 0) {
+	    if(sizeof($sel) > 1) {
 	       $formerror = _("You can only edit one address at the time");
 	       $showaddrlist = true;
-	       $defselected = $HTTP_POST_VARS["sel"];
+	       $defselected = $sel;
 	    } else {
 	       $abortform = true;
-	       list($ebackend, $enick) = split(":", $HTTP_POST_VARS["sel"][0]);
+	       list($ebackend, $enick) = split(":", $sel[0]);
 	       $olddata = $abook->lookup($enick, $ebackend);
 
 	       // Display the "new address" form
@@ -224,11 +222,9 @@
 	 }
 
 	 // Stage two: Write new data
-	 else if($HTTP_POST_VARS["doedit"] = 1) {
-	    $newdata = $HTTP_POST_VARS["editaddr"];
-	    $r = $abook->modify($HTTP_POST_VARS["oldnick"],
-				$newdata,
-				$HTTP_POST_VARS["backend"]);
+	 else if($doedit = 1) {
+	    $newdata = $editaddr;
+	    $r = $abook->modify($oldnick, $newdata, $backend);
 
 	    // Handle error messages
 	    if(!$r) {
