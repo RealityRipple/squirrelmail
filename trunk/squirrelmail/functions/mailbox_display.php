@@ -66,9 +66,22 @@
                echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
-               if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>\n";
-               elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>\n";
-               else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
+               $stuff = false;
+               echo "   <td bgcolor=$hlt_color width=1%><b><small>\n";
+               if ($msg["FLAG_ANSWERED"] == true) {
+                  echo "A\n";
+                  $stuff = true;
+               } 
+               if ($msg["TYPE0"] == "multipart") {
+                  echo "+\n";
+                  $stuff = true;
+               } 
+               if (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) {
+                  echo "<font color=$color[1]>!</font>\n";
+                  $stuff = true;
+               }
+               if (!$stuff) echo "&nbsp;\n";
+               echo "</small></b></td>\n";
                break;
             case 6: # size   
                echo "   <td bgcolor=$hlt_color width=1%>$bold".show_readable_size($msg['SIZE'])."$bold_end</td>\n";
@@ -109,6 +122,7 @@
                $priority[$q] = $hdr->priority;
                $cc[$q] = $hdr->cc;
                $size[$q] = $hdr->size;
+               $type[$q] = $hdr->type0;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
@@ -130,6 +144,7 @@
 				$messages[$j]["PRIORITY"] = $priority[$j];
             $messages[$j]["CC"] = $cc[$j];
             $messages[$j]["SIZE"] = $size[$j];
+            $messages[$j]["TYPE0"] = $type[$j];
 
             # fix SUBJECT-SORT to remove Re:
             if (substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "re:" ||

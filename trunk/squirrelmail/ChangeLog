@@ -1,5 +1,6 @@
 Version 0.6pre1 -- DEVELOPMENT
 ------------------------------
+- Attachments are shown in message index (shown as a "+")
 - Updated attachment plugin support and passing values to hooks (see plugins.txt)
 - Added file and message size in many locations
 - Made message index order customizable (from, subject, date) can be (date, from, subject)
