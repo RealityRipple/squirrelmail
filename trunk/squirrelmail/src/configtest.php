@@ -361,7 +361,7 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
             'mysqli' => 'mysqli_connect',
             'oci8' => 'ocilogon',
             'odbc' => 'odbc_connect',
-            'pgsql' => 'pgsql_connect',
+            'pgsql' => 'pg_connect',
             'sqlite' => 'sqlite_open',
             'sybase' => 'sybase_connect'
             );
