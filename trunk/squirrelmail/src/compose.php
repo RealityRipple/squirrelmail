@@ -33,6 +33,8 @@
       include("../functions/display_messages.php");
    if (!isset($auth_php))
       include ("../functions/auth.php");
+   if (!isset($plugin_php))
+      include ("../functions/plugin.php");
 
    include("../src/load_prefs.php");
 
@@ -219,6 +221,9 @@
          echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
       }   
       echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+      
+      do_hook("compose_button_row");
+
       echo "   </TD>\n";
       echo "   </TR>\n\n";
 
