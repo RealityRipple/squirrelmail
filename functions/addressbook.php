@@ -14,6 +14,9 @@
    include('../functions/abook_local_file.php');
    include('../functions/abook_ldap_server.php');
 
+   // Un-comment if you're using database backend
+   // include('../functions/abook_database.php');
+
 
    // Create and initialize an addressbook object. 
    // Returns the created object
@@ -24,13 +27,30 @@
       $abook = new AddressBook;
       
       // Always add a local backend
+
+      // Use *either* file-based *or* database addressbook. Remove
+      // and insert comments to enable the one you want.
+
+      // ------ BEGIN Initialize file-based personal addressbook ------
       $filename = sprintf('%s%s.abook', $data_dir, $username);
       $r = $abook->add_backend('local_file', Array('filename' => $filename,
 						   'create'   => true));
+
       if(!$r && $showerr) {
 	 printf(_("Error opening file %s"), $filename);
 	 exit;
       }
+      // ------ END Initialize file-based personal addressbook ------
+
+      // ------ BEGIN Initialize database-based personal addressbook ------
+      //      $r = $abook->add_backend('database', Array('dsn' => 'mysql://dbuser@host/dbname',
+      //						 'owner' => $username,
+      //						 'table' => 'address'));
+      //      if(!$r && $showerr) {
+      //	 printf(_("Error initializing addressbook: %s"), $filename);
+      //	 exit;
+      //      }
+      // ------ END Initialize database-based personal addressbook ------
 
       if($onlylocal)
 	return $abook;
@@ -260,7 +280,7 @@
 	    $userdata['nickname'] = $userdata['email'];
 	 }
 
-	 if(eregi('[\\: \\|\\#\"\\!]', $userdata['nickname'])) {
+	 if(eregi('[ \:\|\#\"\!]', $userdata['nickname'])) {
 	    $this->error = _("Nickname contain illegal characters");
 	    return false;
 	 }
