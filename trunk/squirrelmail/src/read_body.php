@@ -457,7 +457,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     }
     echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
          ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
-    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR><TR><TD align=center>'."\n";
+    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR><TR><TD 
+align=center>'."\n";
     echo $s;
     do_hook("read_body_header");
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
@@ -797,7 +798,7 @@ echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" bor
 echo '      <tr><td>';
 echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
 echo '          <tr bgcolor="'.$color[4].'"><td>';
-echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
+echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
 echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
                         . '</td>';
 echo '            </table>';
