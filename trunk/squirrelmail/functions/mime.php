@@ -474,10 +474,10 @@
    
                $urlMailbox = urlencode($mailbox);
                $ent = urlencode($message->header->entity_id);
-               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent&view=true\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
+               $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
                if ($message->header->description)
                   $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
-               $body .= "&nbsp;(<a href=\"../src/download.php?passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     
+               $body .= "&nbsp;(<a href=\"../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     
                $body .= "</TT><BR>";
                $num++;
             }

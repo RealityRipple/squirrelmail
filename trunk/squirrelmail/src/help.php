@@ -1,5 +1,4 @@
 <HTML>
-<FONT FACE="Arial,Helvetica">
 
 <?php
 
@@ -115,6 +114,5 @@
    }
 
 ?>
-</FONT>
 </BODY>
 </HTML>

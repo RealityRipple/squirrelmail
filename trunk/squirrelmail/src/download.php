@@ -52,6 +52,7 @@
    // $message contains all information about the message
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+   $top_header = $message->header;
 
    // lets redefine message as this particular entity that we wish to display.
    // it should hold only the header for this entity.  We need to fetch the body
@@ -98,10 +99,10 @@
             header("Content-type: application/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             if ($type1 == "plain") {
-               echo _("Subject") . ": " . decodeHeader(stripslashes($header->subject)) . "\n";
-               echo "   " . _("From") . ": " . decodeHeader(stripslashes($header->from)) . "\n";
-               echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($header->to))) . "\n";
-               echo "   " . _("Date") . ": " . getLongDateString($header->date) . "\n\n";
+               echo _("Subject") . ": " . decodeHeader(stripslashes($top_header->subject)) . "\n";
+               echo "   " . _("From") . ": " . decodeHeader(stripslashes($top_header->from)) . "\n";
+               echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($top_header->to))) . "\n";
+               echo "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
             }
             echo trim($body);
             break;
@@ -112,17 +113,11 @@
             echo $body;
             break;
       }
-   } else if ($view == "true") {
-      $body = decodeBody ($body, $header->encoding);
-      header("Content-type: $type0/$type1; name=\"$filename\"");
-      header("Content-disposition: attachment; filename=\"$filename\"");
-      if ($type0 == "text" && $type1 == "plain") {
-         echo _("Subject") . ": " . decodeHeader(stripslashes($header->subject)) . "\n";
-         echo "   " . _("From") . ": " . decodeHeader(stripslashes($header->from)) . "\n";
-         echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($header->to))) . "\n";
-         echo "   " . _("Date") . ": " . getLongDateString($header->date) . "\n\n";
-      }
-      echo $body;
+#   } else if ($view == "true") {
+#      $body = decodeBody ($body, $header->encoding);
+#      header("Content-type: $type0/$type1; name=\"$filename\"");
+#      header("Content-disposition: attachment; filename=\"$filename\"");
+#      echo $body;
    } else {
       switch ($type0) {
          case "text":
