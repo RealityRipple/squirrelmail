@@ -404,7 +404,25 @@ function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerCol
 } // end of the 'setPointer()' function
 EOS;
             $js = "\n".'<script language="JavaScript" type="text/javascript">' .
-                        "\n<!--\n" . $js . "// -->\n</script>\n";
+                        "\n<!--\n" . $js;
+            if ($compose_new_win == '1') {
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+                    $compose_width = '640';
+                }
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+                    $compose_height = '550';
+                }
+                $js .= "function comp_in_new(comp_uri) {\n".
+                     "       if (!comp_uri) {\n".
+                     '           comp_uri = "'.$compose_uri."\";\n".
+                     '       }'. "\n".
+                     '    var newwin = window.open(comp_uri' .
+                     ', "_blank",'.
+                     '"width='.$compose_width. ',height='.$compose_height.
+                     ',scrollbars=yes,resizable=yes,status=yes");'."\n".
+                     "}\n\n";
+            }
+            $js .= "// -->\n</script>\n";
             $onload = '';
             displayHtmlHeader ('SquirrelMail', $js);
             break;
