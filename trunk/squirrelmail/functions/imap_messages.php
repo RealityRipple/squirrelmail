@@ -605,7 +605,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         if ($uid_support) {
     	    $header->uid = $unique_id;
         } else {
-    	    $header->uid = $msgi +1;
+            $header->uid = $msg_list[$msgi];
 	}	
         $header->date = $date;
         $header->subject = $subject;
