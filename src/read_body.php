@@ -605,10 +605,10 @@ echo '<BR>' .
      '<A HREF="' . $base_uri . 'src/';
 
 if ($where && $what) {
-    if( $pos == '' ) {
-        $pos = 0;
+    if ($pos == '') {
+        $pos=0;
     }
-    echo "search.php?where$pos=".urlencode($where)."&amp;pos=$pos&amp;what$pos=".urlencode($what)."&amp;mailbox=$urlMailbox\">";
+    echo "search.php?where=".urlencode($where)."&amp;pos=$pos&amp;what=".urlencode($what)."&amp;mailbox=$urlMailbox\">";
 } else {
     echo "right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">";
 }
