@@ -308,11 +308,11 @@ if (count($content) > 0) {
 	echo '</td><td>';
 	if (isset($content[$i]['name'])) {
 	    echo $content[$i]['name'];
-	} else echo '&nbsp';
+	} else echo '&nbsp;';
 	echo '</td><td>';
 	if (isset($content[$i]['encoding'])) {
 	    echo $content[$i]['encoding'];
-	} else echo '&nbsp';
+	} else echo '&nbsp;';
 	echo '</td></tr>'."\n";
     }
     echo '</tbody></table><br>'."\n";

@@ -287,7 +287,7 @@ function listBoxes ($boxes, $j=0 ) {
 	$mailbox = $boxes->mailboxname_full;
 	$leader = '';
 	for ($k = 0; $k < $j; $k++) {
-	    $leader.= '&nbsp&nbsp&nbsp';
+	    $leader.= '&nbsp;&nbsp;&nbsp;';
 	}
 	$mailboxURL = urlencode($mailbox);
 
@@ -310,14 +310,14 @@ function listBoxes ($boxes, $j=0 ) {
 
 	    $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
 	    if ($collapse) {
-    		$link .= "unfold=$mailboxURL\">$leader +&nbsp";
+    		$link .= "unfold=$mailboxURL\">$leader +&nbsp;";
 	    } else {
-    		$link .= "fold=$mailboxURL\">$leader -&nbsp";
+    		$link .= "fold=$mailboxURL\">$leader -&nbsp;";
 	    }
 	    $link .= '</a>';
 	    $pre .= $link;
 	} else {
-	    $pre.= $leader . '&nbsp&nbsp&nbsp';
+	    $pre.= $leader . '&nbsp;&nbsp;&nbsp;';
 	}
 
 
