@@ -33,7 +33,7 @@ if ( !sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
 
 function attachSelectedMessages($msg, $imapConnection) {
     global $username, $attachment_dir, $startMessage,
-           $data_dir, $composesession, 
+           $data_dir, $composesession,
            $msgs, $show_num, $compose_messages;
 
     if (!isset($compose_messages)) {
@@ -91,8 +91,6 @@ function attachSelectedMessages($msg, $imapConnection) {
     return $composesession;
 }
 
-
-
 /* get globals */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 sqgetGlobalVar('username',  $username,      SQ_SESSION);
@@ -140,9 +138,9 @@ if ($targetMailbox != $lastTargetMailbox) {
     sqsession_register($lastTargetMailbox, 'lastTargetMailbox');
 }
 $exception = false;
+$change    = false;
 
 do_hook('move_before_move');
-
 
 /*
     Move msg list sorting up here, as it is used several times,
@@ -155,28 +153,22 @@ if (isset($msg) && is_array($msg)) {
         $id[] = $uid;
     }
 }
+$num_ids = count($id);
 
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
-    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-    if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
-        if ($startMessage > $show_num) {
-            $location = set_url_var($location,'startMessage',$startMessage-$show_num,false);
-        } else {
-            $location = set_url_var($location,'startMessage',1,false);
-        }
-    }
+    $num_ids = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    $change = true;
 } elseif(isset($undeleteButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
     // Removes \Deleted flag from selected messages
-    if (count($id)) {
+    if ($num_ids) {
         sqimap_toggle_flag($imapConnection, $id, '\\Deleted',false,true);
     } else {
         $exception = true;
     }
 } elseif (!isset($moveButton)) {
-    if (count($id)) {
-        $cnt = count($id);
+    if ($num_ids) {
         if (!isset($attache)) {
             if (isset($markRead)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',true,true);
@@ -186,16 +178,16 @@ if(isset($expungeButton)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Flagged', true, true);
             } else if (isset($markUnflagged)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Flagged', false, true);
-            } else  {
+            } else  { // Delete messages
                 if (!boolean_hook_function('move_messages_button_action', NULL, 1)) {
                     sqimap_msgs_list_delete($imapConnection, $mailbox, $id,$bypass_trash);
                     if ($auto_expunge) {
-                        $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+                        $num_ids = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
                     }
+                    $change = true;
                 }
             }
-        }
-        if (isset($attache)) {
+        } else {
             $composesession = attachSelectedMessages($id, $imapConnection);
             $location = set_url_var($location, 'session', $composesession, false);
             if ($compose_new_win) {
@@ -204,43 +196,33 @@ if(isset($expungeButton)) {
                 $location = str_replace('search.php','compose.php',$location);
                 $location = str_replace('right_main.php','compose.php',$location);
             }
-        } else {
-            if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
-                if ($startMessage > $show_num) {
-                    $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);
-                } else {
-                    $location = set_url_var($location,'startMessage',1, false);
-                }
-            }
         }
     } else {
         $exception = true;
     }
 } else {    // Move messages
-
-    $num_ids = count($id);
     if ( $num_ids > 0 ) {
-        if ( $is_dmn && count($id) == 1 ) {
+        if ( $is_dmn && $num_ids == 1 ) {
             sqimap_msgs_list_move($imapConnection,$id[0],$targetMailbox);
-            $cnt = sqimap_mailbox_expunge_dmn($id[0]);
+            $num_ids = sqimap_mailbox_expunge_dmn($id[0]);
         } else {
             sqimap_msgs_list_move($imapConnection,$id,$targetMailbox);
             if ($auto_expunge) {
-                $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
-            } else {
-                $cnt = 0;
+                $num_ids = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
             }
         }
-
-        if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
-            if ($startMessage > $show_num) {
-                $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);
-            } else {
-                $location = set_url_var($location,'startMessage',1, false);
-            }
-        }
+        $change = true;
     } else {
         $exception = true;
+    }
+}
+if($change) { // Change the startMessage number if the mailbox was changed
+    if (($startMessage+$num_ids-1) >= $mbx_response['EXISTS']) {
+        if ($startMessage > $show_num) {
+            $location = set_url_var($location,'startMessage',$startMessage-$show_num,false);
+        } else {
+            $location = set_url_var($location,'startMessage',1,false);
+        }
     }
 }
 // Log out this session
