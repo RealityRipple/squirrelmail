@@ -214,19 +214,19 @@
       echo "                  <OPTION VALUE=None>$none_str";
  
    if (($left_refresh == "10"))
-      echo "                  <OPTION VALUE=10 SELECTED>10 $seconds_strs";
+      echo "                  <OPTION VALUE=10 SELECTED>10 $seconds_str";
    else
-      echo "                  <OPTION VALUE=10>10 $seconds_strs";
+      echo "                  <OPTION VALUE=10>10 $seconds_str";
  
    if (($left_refresh == "20"))
-      echo "                  <OPTION VALUE=20 SELECTED>20 $seconds_strs";
+      echo "                  <OPTION VALUE=20 SELECTED>20 $seconds_str";
    else
-      echo "                  <OPTION VALUE=20>20 $seconds_strs";
+      echo "                  <OPTION VALUE=20>20 $seconds_str";
  
    if (($left_refresh == "30"))
-      echo "                  <OPTION VALUE=30 SELECTED>30 $seconds_strs";
+      echo "                  <OPTION VALUE=30 SELECTED>30 $seconds_str";
    else
-      echo "                  <OPTION VALUE=30>30 $seconds_strs";
+      echo "                  <OPTION VALUE=30>30 $seconds_str";
  
    if (($left_refresh == "60"))
       echo "                  <OPTION VALUE=60 SELECTED>1 $minute_str";

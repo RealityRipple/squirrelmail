@@ -15,7 +15,7 @@
 
    // This array specifies the available languages.
    $languages["en"]["NAME"]    = "English";
-	$languages["en"]["CHARSET"] = "iso-8859-1";
+   $languages["en"]["CHARSET"] = "iso-8859-1";
    $languages["no"]["NAME"]    = "Norwegian (Bokm&aring;l)";
    $languages["no"]["CHARSET"] = "iso-8859-1";
    $languages["no_NO_ny"]["NAME"] = "Norwegian (Nynorsk)";
@@ -44,10 +44,12 @@
    $languages["ko"]["CHARSET"] = "euc-KR";
    $languages["ca"]["NAME"]    = "Catalan";
    $languages["ca"]["CHARSET"] = "iso-8859-1";
-	$languages["sr"]["NAME"]	 = "Serbian";
-	$languages["sr"]["CHARSET"] = "iso-8859-2";
-	$languages["tw"]["NAME"]    = "Taiwan";
-	$languages["tw"]["CHARSET"] = "big5";
+   $languages["sr"]["NAME"]	 = "Serbian";
+   $languages["sr"]["CHARSET"] = "iso-8859-2";
+   $languages["tw"]["NAME"]    = "Taiwan";
+   $languages["tw"]["CHARSET"] = "big5";
+   $languages["da"]["NAME"]    = "Danish";
+   $languages["da"]["CHARSET"] = "iso-8859-1";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
