@@ -305,8 +305,8 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 				else
 					$search_mboxes = array($cur_mailbox);
 				foreach ($search_mboxes as $cur_mailbox) {
-					sqimap_mailbox_select($imapConnection, $cur_mailbox);
 					s_debug_dump('C:SELECT:', $cur_mailbox);
+					sqimap_mailbox_select($imapConnection, $cur_mailbox);
 					if (isset($mbox_msgs[$cur_mailbox])) {
 						if ($cur_biop == 'OR')	/* Merge with previous results */
 							$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset));
