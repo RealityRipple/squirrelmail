@@ -3008,6 +3008,7 @@ sub set_defaults {
 # prepended to the path, if not, then the path will be
 # converted to an absolute path, e.g.
 #   '../images/logo.gif'      --> SM_PATH . 'images/logo.gif'
+#   '../../someplace/data'    --> '/absolute/path/someplace/data'
 #   'images/logo.gif'         --> SM_PATH . 'config/images/logo.gif'
 #   '/absolute/path/logo.gif' --> '/absolute/path/logo.gif'
 #   'http://whatever/'        --> 'http://whatever'
@@ -3034,6 +3035,14 @@ sub change_to_SM_path() {
 
     if ( $#rel_path > 1 ) {
         # more than two levels away. Make it absolute.
+        @abs_path = split(/\//, $dir);
+        
+        # Lop off the relative pieces of the absolute path..
+        for ( $i = 0; $i <= $#rel_path; $i++ ) {
+            pop @abs_path;
+            shift @rel_path;
+        }
+        push @abs_path, @rel_path;
         $new_path = "\'" . join('/', @abs_path) . "\'";
     } elsif ( $#rel_path > 0 ) {
         # it's within the SM tree, prepend SM_PATH
