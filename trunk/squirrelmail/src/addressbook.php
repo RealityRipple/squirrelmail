@@ -202,7 +202,7 @@
 	       printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
 		      htmlspecialchars($olddata["backend"]));
 	       print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
-	       print "</FORM>";	       
+	       print "</FORM>";
 	    }
 	 }
 
@@ -230,9 +230,9 @@
 	       print "</TABLE>\n";
 	       address_form("editaddr", _("Update address"), $newdata);
 	       printf("<INPUT TYPE=hidden NAME=oldnick VALUE=\"%s\">\n",
-		      htmlspecialchars($newdata["nickname"]));
+		      htmlspecialchars($oldnick));
 	       printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
-		      htmlspecialchars($newdata["backend"]));
+		      htmlspecialchars($backend));
 	       print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
 	       print "</FORM>";	       
 
