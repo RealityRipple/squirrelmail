@@ -25,7 +25,6 @@
  * $Id$
  */
 
-
 function filters_SaveCache () {
     global $data_dir, $SpamFilters_DNScache;
 

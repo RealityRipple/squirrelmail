@@ -15,11 +15,11 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/mime.php');
-require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);

@@ -461,7 +461,7 @@ function sqimap_mailbox_list($imap_stream) {
         $inbox_in_list = false;
         $inbox_subscribed = false;
 
-        require_once(SM_PATH . 'src/load_prefs.php');
+        require_once(SM_PATH . 'include/load_prefs.php');
         require_once(SM_PATH . 'functions/array.php');
 
     if ($noselect_fix_enable) {
@@ -711,7 +711,7 @@ function sqimap_mailbox_tree($imap_stream) {
         $inbox_in_list = false;
         $inbox_subscribed = false;
 
-        require_once(SM_PATH . 'src/load_prefs.php');
+        require_once(SM_PATH . 'include/load_prefs.php');
         require_once(SM_PATH . 'functions/array.php');
 
         /* LSUB array */

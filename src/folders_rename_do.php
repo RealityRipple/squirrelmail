@@ -12,14 +12,14 @@
  * $Id$
  */
 
-global $delimiter, $base_uri;
-
 /* Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
+
+global $delimiter, $base_uri;
 
 $new_name = trim($new_name);
 
