@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-29 07:51+0100\n"
+"POT-Creation-Date: 2002-03-30 10:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,7 +169,8 @@ msgstr ""
 
 #: squirrelmail/functions/display_messages.php:27
 #: squirrelmail/functions/display_messages.php:79
-#: squirrelmail/functions/display_messages.php:95
+#: squirrelmail/functions/display_messages.php:94
+#: squirrelmail/functions/display_messages.php:159
 #: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
 msgid "ERROR"
 msgstr ""
@@ -595,16 +596,19 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
+#: squirrelmail/functions/display_messages.php:151
 #: squirrelmail/src/login.php:119
 #, c-format
 msgid "%s Logo"
 msgstr ""
 
+#: squirrelmail/functions/display_messages.php:154
 #: squirrelmail/src/login.php:122
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr ""
 
+#: squirrelmail/functions/display_messages.php:155
 #: squirrelmail/src/login.php:123
 msgid "By the SquirrelMail Development Team"
 msgstr ""
@@ -1359,20 +1363,16 @@ msgid ""
 "this message. Would you like to send a receipt?"
 msgstr ""
 
-#: squirrelmail/functions/auth.php:39 squirrelmail/functions/auth.php:43
-#: squirrelmail/src/redirect.php:60 squirrelmail/src/redirect.php:64
+#: squirrelmail/functions/auth.php:29 squirrelmail/src/redirect.php:61
+#: squirrelmail/src/redirect.php:83
 msgid "You must be logged in to access this page."
 msgstr ""
 
-#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:65
-msgid "Go to the login page"
-msgstr ""
-
-#: squirrelmail/src/redirect.php:85 squirrelmail/src/redirect.php:89
+#: squirrelmail/src/redirect.php:79
 msgid "There was an error contacting the mail server."
 msgstr ""
 
-#: squirrelmail/src/redirect.php:90
+#: squirrelmail/src/redirect.php:81
 msgid "Contact your administrator for help."
 msgstr ""
 
@@ -1731,7 +1731,7 @@ msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
 #: squirrelmail/functions/display_messages.php:30
-#: squirrelmail/functions/imap_general.php:253
+#: squirrelmail/functions/imap_general.php:252
 msgid "Unknown user or password incorrect."
 msgstr ""
 
@@ -1754,7 +1754,11 @@ msgstr ""
 msgid "Click here to return to %s"
 msgstr ""
 
-#: squirrelmail/functions/file_prefs.php:38
+#: squirrelmail/functions/display_messages.php:165
+msgid "Go to the login page"
+msgstr ""
+
+#: squirrelmail/functions/file_prefs.php:39
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
@@ -1762,34 +1766,35 @@ msgid ""
 msgstr ""
 
 #: squirrelmail/functions/file_prefs.php:162
-#: squirrelmail/functions/file_prefs.php:167
-msgid "Error opening "
+#, c-format
+msgid "Error opening %s"
 msgstr ""
 
-#: squirrelmail/functions/file_prefs.php:163
+#: squirrelmail/functions/file_prefs.php:165
 msgid "Default preference file not found!"
 msgstr ""
 
-#: squirrelmail/functions/file_prefs.php:164
-#: squirrelmail/functions/file_prefs.php:172
+#: squirrelmail/functions/file_prefs.php:166
+#: squirrelmail/functions/file_prefs.php:176
 #: squirrelmail/functions/prefs.php:93
 msgid "Please contact your system administrator and report this error."
 msgstr ""
 
-#: squirrelmail/functions/file_prefs.php:168
+#: squirrelmail/functions/file_prefs.php:174
 msgid "Could not create initial preference file!"
 msgstr ""
 
-#: squirrelmail/functions/file_prefs.php:171
-msgid "should be writable by user"
+#: squirrelmail/functions/file_prefs.php:175
+#, c-format
+msgid "%s should be writable by user %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:133
+#: squirrelmail/functions/imap_general.php:132
 msgid ""
 "Please contact your system administrator and report the following error:"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:164
+#: squirrelmail/functions/imap_general.php:163
 #: squirrelmail/functions/imap_messages.php:259
 #: squirrelmail/functions/imap_messages.php:266
 #: squirrelmail/functions/imap_messages.php:284
@@ -1799,42 +1804,42 @@ msgstr ""
 msgid "ERROR : Could not complete request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:166
-#: squirrelmail/functions/imap_general.php:177
+#: squirrelmail/functions/imap_general.php:165
+#: squirrelmail/functions/imap_general.php:176
 msgid "Query:"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:168
+#: squirrelmail/functions/imap_general.php:167
 #: squirrelmail/plugins/filters/filters.php:238
 msgid "Reason Given: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:175
+#: squirrelmail/functions/imap_general.php:174
 #: squirrelmail/plugins/filters/filters.php:245
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:179
+#: squirrelmail/functions/imap_general.php:178
 #: squirrelmail/plugins/filters/filters.php:247
 msgid "Server responded: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:212
+#: squirrelmail/functions/imap_general.php:211
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:228
+#: squirrelmail/functions/imap_general.php:227
 #, c-format
 msgid "Bad request: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:230
+#: squirrelmail/functions/imap_general.php:229
 #, c-format
 msgid "Unknown error: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:232
+#: squirrelmail/functions/imap_general.php:231
 msgid "Read data:"
 msgstr ""
 

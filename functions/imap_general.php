@@ -12,7 +12,6 @@
  */
 
 require_once('../functions/page_header.php');
-require_once('../functions/display_messages.php');
 
 global $sqimap_session_id;
 $sqimap_session_id = 1;
@@ -247,12 +246,10 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  * $squirrelmail_language is set by a cookie when
                  * the user selects language and logs out
                  */
-
+                
                 set_up_language($squirrelmail_language, true);
-
-                displayHtmlHeader( _("Unknown user or password incorrect.") );
-                echo "<body bgcolor=\"#ffffff\">\n";
-                error_username_password_incorrect();
+                include_once( '../functions/display_messages.php' );
+                logout_error( _("Unknown user or password incorrect.") );                
                 session_destroy();
                 exit;
             }

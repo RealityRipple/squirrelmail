@@ -11,39 +11,22 @@
  * $Id$
  */
 
-require_once( '../functions/page_header.php' );
-
 /* If a user opens a new session then comes back to this one,
  * $base_uri isn't set because it the session is invalid.
  */
 
 if (! isset($base_uri)) {
     ereg ('(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
-    $base_uri = $regs[1];
-    
+    $base_uri = $regs[1];    
 }
 
-function is_logged_in () {
-    global $squirrelmail_language, $frame_top, $base_uri;
+function is_logged_in() {
 
     if ( session_is_registered('user_is_logged_in') ) {
         return;
     } else {
-
-        if (!isset($frame_top) || $frame_top == '' ) {
-            $frame_top = '_top';
-        }
-        
-        set_up_language($squirrelmail_language, true);
-    
-        displayHtmlHeader( _("You must be logged in to access this page.") );
-    
-        echo "<body bgcolor=\"ffffff\">\n" .
-             '&nbsp;<p><center><b>' .
-             _("You must be logged in to access this page.").'</b><br><br>' .
-             '<a href="' . $base_uri . '" target="' . $frame_top . '">' . 
-             _("Go to the login page") . "</a>\n" .
-             "</center></body></html>\n";
+        include_once( '../functions/display_messages.php' );
+        logout_error( _("You must be logged in to access this page.") );
         exit;
     }
 }

@@ -35,7 +35,8 @@ function cachePrefValues($data_dir, $username) {
 
     /* Make sure that the preference file now DOES exist. */
     if (!file_exists($filename)) {
-        echo sprintf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename) . "<br>\n";
+        include_once( '../functions/display_messages.php' );
+        logout_error( sprintf( _("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename)  );
         exit;
     }
 
@@ -158,18 +159,23 @@ function checkForPrefs($data_dir, $username, $filename = '') {
         }
 
         /* Otherwise, report an error. */
+        $errTitle = sprintf( _("Error opening %s"), $default_pref );
         if (!file_exists($default_pref)) {
-            echo _("Error opening ") . $default_pref . "<br>\n";
-            echo _("Default preference file not found!") . "<br>\n";
-            echo _("Please contact your system administrator and report this error.") . "<br>\n";
+            $errString = $errTitle . "<br>\n" .
+                         _("Default preference file not found!") . "<br>\n" .
+                         _("Please contact your system administrator and report this error.") . "<br>\n";
+            include_once( '../functions/display_messages.php' );
+            logout_error( $errString, $errTitle );
             exit;
         } else if (!@copy($default_pref, $filename)) {
-            echo _("Error opening ") . $default_pref . '<br>';
-            echo _("Could not create initial preference file!") . "<br>\n";
             $user_data = posix_getpwuid(posix_getuid());
             $uid = $user_data['name'];
-            echo $data_dir . ' ' . _("should be writable by user") . ' ' . $uid . "<br>\n";
-            echo _("Please contact your system administrator and report this error.") . "<br>\n";
+            $errString = $errTitle . '<br>' .
+                       _("Could not create initial preference file!") . "<br>\n" .
+                       sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) .
+                       "<br>\n" . _("Please contact your system administrator and report this error.") . "<br>\n";
+            include_once( '../functions/display_messages.php' );
+            logout_error( $errString, $errTitle );
             exit;
         }
     }
