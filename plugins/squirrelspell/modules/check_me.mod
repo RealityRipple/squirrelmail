@@ -92,13 +92,18 @@ if( check_php_version ( 4, 3 ) ) {
        1 => array('pipe', 'w'),  // stdout is a pipe that the child will write to
        2 => array('pipe', 'w'), // stderr is a pipe that the child will write to
     );
-    $spell_proc=proc_open($sqspell_command, $descriptorspec, $pipes);
+    $spell_proc = @proc_open($sqspell_command, $descriptorspec, $pipes);
+    if ( ! is_resource ( $spell_proc ) ) {
+        error_box ( _("Could not run the spellchecker command (%s).",
+            htmlspecialchars($sqspell_command) ) , $color );
+    }
     fwrite($pipes[0], $sqspell_new_text);
     fclose($pipes[0]);
     $sqspell_output = array();
-    for($i=1; $i<=2; $i++){
-        while(!feof($pipes[$i]))
+    for($i=1; $i<=2; $i++) {
+        while(!feof($pipes[$i])) {
            array_push($sqspell_output, rtrim(fgetss($pipes[$i],999),"\n"));
+        }
         fclose($pipes[$i]);
     }
     $sqspell_exitcode=proc_close($spell_proc);
@@ -106,7 +111,11 @@ if( check_php_version ( 4, 3 ) ) {
     do {
       $floc = "$attachment_dir/" . md5($sqspell_new_text . microtime());
     } while (file_exists($floc));
-    $fp=fopen($floc, 'w');
+    $fp = @fopen($floc, 'w');
+    if ( ! is_resource ($fp) ) {
+        error_box ( _("Could not open temporary file '%s'.",
+            htmlspecialchars($floc) ) , $color );
+    }
     fwrite($fp, $sqspell_new_text);
     fclose($fp);
     exec("$sqspell_command < $floc 2>&1", $sqspell_output, $sqspell_exitcode);
