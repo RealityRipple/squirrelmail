@@ -11,9 +11,9 @@
       One of the great things about SquirrelMail is the degree to which it may be customized.
       Depending on the configuration, you may have several choices of themes, languages,
       folders, and other preferences.  All of these may be changed without affecting any other
-      users on the system.  There are <DEL>four</DEL><INS> at least five</INS> main parts to the Options:
-      Personal, Display, Message Highlighting, <DEL>and </DEL>Folders<INS> and Index Order.
-      More parts may be available depending on your SquirrelMail installation</INS>.
+      users on the system.  There are at least five main parts to the Options:
+      Personal, Display, Message Highlighting, Folders and Index Order.
+      More parts may be available depending on your SquirrelMail installation.
       </p>
    </description>
 </chapter>
@@ -42,7 +42,7 @@
       Yahoo account rather than your office address.
       <br><br>
       
-      <INS><b>Multiple Identities</b><BR>
+      <b>Multiple Identities</b><BR>
       Click this link to edit multiple identities. This is useful if you want to
       choose between different From-lines for different message (for example
       containing your work or your home emailaddress. On the page that appears,
@@ -68,7 +68,6 @@
       can type in the citation start and end. Between these the author name will be
       inserted.
       </UL><br><br>
-      </INS>
       
       <b>Signature</b><br>
       <i>Optional</i> - Signatures are attached at the bottom of all messages you send 
@@ -89,10 +88,10 @@
       choose between the many listed there if you so desire.
       <br><br>
 
-      <INS><b>Custom Stylesheet</b><br>
+      <b>Custom Stylesheet</b><br>
       Changing a theme only changes the colors, a stylesheet may change more, for
       example the font size used by SquirrelMail.
-      <br><br></INS>
+      <br><br>
 
       <b>Language</b><br>
       If English isn't your native tongue, you can easily change the language that
@@ -101,15 +100,14 @@
       that this doesn't translate incoming email messages or folder names.
       <br><br>
 
-      <b>Use Javascript<DEL> address book?</DEL></b><br>
+      <b>Use Javascript</b><br>
       One of our main goals in creating SquirrelMail was to have no Javascript in
       any of our pages.  However, some of our developers made a very good address
-      book searching utility that uses Javascript. <INS>Some other Javascript functions
-      were added aswell.</INS> Rather than remove it, we now
-      give you the option of using <DEL>the HTML address book or the Javascript one</DEL>
-      <INS>pure HTML or allow Javascript aswell</INS>.  If
-      you don't know what this means, you are safest to choose <DEL>the HTML address book,
-      but most likely Javascript will work for you</DEL><INS>Autodetect</INS>.
+      book searching utility that uses Javascript. Some other Javascript functions
+      were added aswell. Rather than remove it, we now
+      give you the option of using 
+      pure HTML or allow Javascript aswell.  If
+      you don't know what this means, you are safest to choose Autodetect.
       <br><br>
       
       <b>Number of Messages to Index</b><br>
@@ -119,13 +117,11 @@
       messages.
       <br><br>
       
-      <INS>
       <b>Enable Page Selector</b><br>
       Setting this to Yes shows page numbers above and below the message list to
       quickly jump to a specific page of messages. The number <B>Maximum pages to show</B>
       can limit how many page numbers will be displayed above and below the
       message list.<br><br>
-      </INS>      
       
       <b>Wrap incoming text at</b><br>
       How many characters should we allow before wrapping the text.  This prevents
@@ -138,7 +134,7 @@
       per line that you will be able to type before wrapping in the Compose section.
       <br><br>
       
-      <INS><b>Location of Buttons when Composing</b><br>
+      <b>Location of Buttons when Composing</b><br>
       Where are the buttons Addresses, Save Draft and Send located?<br><br>
       
       <b>Addressbook Display Format</B><br>
@@ -178,21 +174,8 @@
       <b>Other Options</b><br>
       Depending on the configuration of your SquirrelMail installation, some more
       options might be displayed here. They hopefully should be self-explanatory.
-      <br><br></INS>
-      
-      <DEL><b>Width of left folder list</b><br>
-      On the left side of your browser window, you will see the list of folders.  With
-      this option, you can select how wide that will be.  If you have very long folder
-      names or large fonts, it is good to set this pretty high.  Otherwise, you should
-      set it low so you don't waste screen space.
       <br><br>
       
-      <b>Auto refresh folder list</b><br>
-      SquirrelMail has the functionality to automatically refresh the folder listing
-      on the left side of your browser window.  This will also update the number of
-      unseen messages that are in each folder.  This is a good way to check for unseen
-      messages in the INBOX without having to click on it every time.
-      <br><br></DEL>
    </description>
 </section>
 
@@ -255,12 +238,12 @@
       these, just set it to "Don't use Sent".
       <br><br>
 
-      <INS><b>Draft Folder</b><br>
+      <b>Draft Folder</b><br>
       You can choose which folder the messages you save as draft will go to.
       If you don't want to use this, just set it to "Don't use Drafts".
-      <br><br></INS>
+      <br><br>
       
-      <INS><b>Location of folder list</b><br>
+      <b>Location of folder list</b><br>
       Determines wether you want the list of folders on the left or right of your
       window.
       <br><br>
@@ -276,9 +259,9 @@
       on the left side of your browser window.  This will also update the number of
       unseen messages that are in each folder.  This is a good way to check for unseen
       messages in the INBOX without having to click on it every time.
-      <br><br></INS>
+      <br><br>
 
-      <b><DEL>Unseen</DEL><INS>Enable Unread</INS> Message Notification</b><br>
+      <b>Enable Unread Message Notification</b><br>
       This option specifies how to display unseen messages in the folder listing on the
       right side of your browser window.  If you set this to No Notification, you will
       not be notified of unseen messages.  If you set it to INBOX, when you have new
@@ -290,12 +273,11 @@
       
       <b>Unseen message notification type</b><br>
       When new messages are in a folder, this option tells
-      <DEL>how to notify you of that</DEL>
-      <INS>either to only display the number of new messages or also display the
-      total number of messages in that folder</INS>.
+      either to only display the number of new messages or also display the
+      total number of messages in that folder.
       <br><br>
       
-      <INS><b>Enable Collapsable Folders</b><br>
+      <b>Enable Collapsable Folders</b><br>
       Collapsable Folders allow you to 'fold' or collapse a folder which contains
       subfolders so the subfolders will not be displayed. You can collapse a
       folder by clicking the "-" next to it and expand it again with the "+" sign.
@@ -312,21 +294,20 @@
       If you search a mailbox, the search will be saved for quick access later.
       This defines how many mailbox searches will be saved.
       <br><br>
-      </INS>
       
    </description>
 </section>
 
 <section>
    <title>
-      <INS>Index Order</INS>
+      Index Order
    </title>
    <description>
-      <INS>This section gives you control over the message list. You can choose how
+      This section gives you control over the message list. You can choose how
       much information you want in the message list and in what order it should
       be displayed.
       <br><br>
       Use the Up and Down links to move columns around, Del to remove a column
-      from the display and Add to add one.</INS>
+      from the display and Add to add one.
    </description>
 </section>

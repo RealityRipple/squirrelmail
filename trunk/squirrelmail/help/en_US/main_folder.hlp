@@ -24,13 +24,13 @@
       Notice that the total message count might be different from the unread 
       mail count which is to the right of the main mail folder.
       </p><p>
-      A bar containing <DEL>three</DEL><INS>four</INS> buttons is next.  On the left side is a drop down 
+      A bar containing four buttons is next.  On the left side is a drop down 
       list box.  This box lists your currently subscribed folders.  Any selected 
       message will be moved to the selected folder when the move button is pushed.
-      Multiple messages may be moved at once.  On the <INS>far</INS> right side of this bar is 
+      Multiple messages may be moved at once.  On the far right side of this bar is 
       a button used to delete selected messages.  Just select the junk mail and 
-      press the button. <INS>To the left of the Delete button are two buttons which
-      allow you to mark selected messages either as Read or as Unread.</INS>
+      press the button. To the left of the Delete button are two buttons which
+      allow you to mark selected messages either as Read or as Unread.
       </p><p>
 	  A bar containing three fields (From, Date, and Subject) is next.  These headings
 	  separate the message table into logical parts.  From tells you who sent
@@ -46,20 +46,20 @@
       messages are <B>bold</B> while viewed messages are in normal text.
       Four fields form this table.  On the far left is a select box.  When 
       selected, the message on the same line is subject to the actions previously 
-      discussed<DEL>,</DEL> (moving<INS>, marking (un)read</INS> and deletion).
-      <INS>The Toggle All link at the top of the list allows you to check all
-      select boxes at once.</INS><BR>
+      discussed (moving, marking (un)read and deletion).
+      The Toggle All link at the top of the list allows you to check all
+      select boxes at once.<BR>
       Under the From header is listed whom 
       the message is from.  Surprising, we know. But hey, you don't have to read 
       this.  The date is listed next, and finally the subject.
       </p>
       <p>
-      <INS>If your mailbox contains many messages, the list will by default be split into
+      If your mailbox contains many messages, the list will by default be split into
       multiple pages and the first page will be displayed. To view other pages, use the
       Previous and Next links at the top and bottom of the message list. You can also
       jump to a specific page directly by clicking one of the numbers (each represents
       a page). If you click Show All you will disable the so-called paginating and
-      all messages will be displayed on one big page.</INS>
+      all messages will be displayed on one big page.
       </p>
       
    </description>

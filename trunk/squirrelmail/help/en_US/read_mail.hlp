@@ -46,9 +46,9 @@
       All attachments of deleted mail are deleted as well.  You can prevent the 
       loss of attachments by Downloading them first (explained further in
       this chapter).<BR>
-      <INS>In this context, deleting means that the message will be moved to
+      In this context, deleting means that the message will be moved to
       the folder called Trash. If you wish to keep the message afterall, view
-      the Trash folder and move the message out.</INS>
+      the Trash folder and move the message out.
       </p>
    </description>
 </section>
@@ -62,22 +62,9 @@
       In the middle of the bar are navigation buttons.  Previous will be 
       an active link if it can be utilized and plain text otherwise.  Clicking 
       this link will display the previous message without the need to go back 
-      to the summary display of messages. <INS>The same goes for the Next link which
+      to the summary display of messages. The same goes for the Next link which
       will advance you to the mail immediately following the one
-      currently being viewed.</INS>
-      </p>
-   </description>
-</section>
-
-<section>
-   <title>
-      <DEL>Next</DEL>
-   </title>
-   <description>
-      <p>
-      <DEL>Click this link to advance to the mail immediately following the one
-      currently being viewed.  Next will be an active link if it can be 
-      utilized and plain text otherwise.</DEL>
+      currently being viewed.
       </p>
    </description>
 </section>
@@ -146,14 +133,14 @@
 
 <section>
    <title>
-      <INS>View Printable Version</INS>
+      View Printable Version
    </title>
    <description>
       <p>
-      <INS>If you want to print a message, you might want to click this link. It
+      If you want to print a message, you might want to click this link. It
       presents you with a new window containing the message but with all unneccessary
       information and menus removed, ready to print. Clicking the Print button in
-      this window will do so. Press Close to return to your message.</INS>
+      this window will do so. Press Close to return to your message.
       </p>
    </description>
 </section>
@@ -184,10 +171,9 @@
       on the file name will either display the attachment or present a 
       download dialog depending on the file type.  If you wish to download
       the file (rather than possibly viewing it), click on the "download" 
-      link on the right side.<INS><BR>
+      link on the right side.<BR>
       If your webbrowser supports viewing the attachment file type, another
       link, "view" will be displayed which displays the file in your browser.
-      </INS>
       </p>
    </description>
 </section>
