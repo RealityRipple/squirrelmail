@@ -20,6 +20,8 @@
    $languages[1]["CODE"] = "no";
    $languages[2]["NAME"] = "Deutcsh";
    $languages[2]["CODE"] = "de";
+   $languages[2]["NAME"] = "Russian KOI8-R";
+   $languages[2]["CODE"] = "ru";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
