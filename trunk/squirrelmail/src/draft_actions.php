@@ -187,4 +187,5 @@ function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $
     }
     return $length;
 }
+
 ?>
