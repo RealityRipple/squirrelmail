@@ -38,6 +38,12 @@ $Host_RegExp_Match = '(' . $IP_RegExp_Match .
 $Email_RegExp_Match = '[0-9a-z]([-_.+]?[0-9a-z])*(%' . $Host_RegExp_Match .
     ')?@' . $Host_RegExp_Match;
 
+/**
+ * Parses a body and converts all found email addresses to clickable links.
+ *
+ * @param string body the body to process, by ref
+ * @return int the number of unique addresses found
+ */
 function parseEmail (&$body) {
     global $color, $Email_RegExp_Match;
     $sbody     = $body;
@@ -77,6 +83,12 @@ $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n",
     ']', '[', '{', '}', "\240", ', ', '. ', ",\n", ",\r");
 
 
+/**
+ * Parses a body and converts all found URLs to clickable links.
+ *
+ * @param string body the body to process, by ref
+ * @return void
+ */
 function parseUrl (&$body) {
     global $url_parser_poss_ends, $url_parser_url_tokens;;
     $start      = 0;

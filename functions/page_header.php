@@ -19,7 +19,13 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/global.php');
 
 /**
- * Always set up the language before calling these functions
+ * Output a SquirrelMail page header, from <!doctype> to </head>
+ * Always set up the language before calling these functions.
+ *
+ * @param string title the page title, default SquirrelMail.
+ * @param string xtra extra HTML to insert into the header
+ * @param bool do_hook whether to execute hooks, default true
+ * @return void
  */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
     global $squirrelmail_language;
@@ -73,6 +79,13 @@ ECHO;
     $pageheader_sent = TRUE;
 }
 
+/**
+ * Given a path to a SquirrelMail file, return a HTML link to it
+ *
+ * @param string path the SquirrelMail file to link to
+ * @param string text the link text
+ * @param string target the target frame for this link
+ */
 function makeInternalLink($path, $text, $target='') {
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
     if ($target != '') {
@@ -84,10 +97,24 @@ function makeInternalLink($path, $text, $target='') {
     return '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }
 
+/**
+ * Same as makeInternalLink, but echoes it too
+ */
 function displayInternalLink($path, $text, $target='') {
     echo makeInternalLink($path, $text, $target);
 }
 
+/**
+ * Outputs a complete SquirrelMail page header, starting with <!doctype> and
+ * including the default menu bar. Uses displayHtmlHeader and takes
+ * JavaScript and locale settings into account.
+ *
+ * @param array color the array of theme colors
+ * @param string mailbox the current mailbox name to display
+ * @param string xtra extra html code to add
+ * @param bool session
+ * @return void
+ */
 function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
@@ -302,7 +329,14 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         "</table><br>\n\n";
 }
 
-/* blatently copied/truncated/modified from the above function */
+/**
+ * Blatantly copied/truncated/modified from displayPageHeader.
+ * Outputs a page header specifically for the compose_in_new popup window
+ *
+ * @param array color the array of theme colors
+ * @param string mailbox the current mailbox name to display
+ * @return void
+ */
 function compose_Header($color, $mailbox) {
 
     global $javascript_on;

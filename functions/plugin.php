@@ -60,7 +60,13 @@ function do_hook ($name) {
     return $data;
 }
 
-/* This function executes a hook. */
+/**
+ * This function executes a hook and allows for parameters to be passed.
+ *
+ * @param string name the name of the hook
+ * @param mixed param the parameters to pass to the hook function
+ * @return mixed the return value of the hook function
+ */
 function do_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks;
     $ret = '';
@@ -80,7 +86,14 @@ function do_hook_function($name,$parm=NULL) {
     return $ret;
 }
 
-/* This function executes a hook. */
+/**
+ * This function executes a hook, concatenating the results of each
+ * plugin that has the hook defined.
+ *
+ * @param string name the name of the hook
+ * @param mixed parm optional hook function parameters
+ * @return string a concatenation of the results of each plugin function
+ */
 function concat_hook_function($name,$parm=NULL) {
     global $squirrelmail_plugin_hooks;
     $ret = '';
@@ -105,7 +118,14 @@ function concat_hook_function($name,$parm=NULL) {
  * false. If $priority is > 0, any one or more trues will override
  * any falses. If $priority < 0, then one or more falses will
  * override any trues.
- * Priority 0 means majority rules.  Ties will be broken with $tie */
+ * Priority 0 means majority rules.  Ties will be broken with $tie
+ *
+ * @param string name the hook name
+ * @param mixed parm the parameters for the hook function
+ * @param int priority
+ * @param bool tie
+ * @return bool the result of the function
+ */
 function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
     global $squirrelmail_plugin_hooks;
     $yea = 0;
@@ -149,6 +169,9 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
  * This function checks whether the user's USER_AGENT is known to
  * be broken. If so, returns true and the plugin is invisible to the
  * offending browser.
+ * This function needs to have its name changed!
+ *
+ * @return bool whether this browser properly supports JavaScript
  */
 function soupNazi(){
 
