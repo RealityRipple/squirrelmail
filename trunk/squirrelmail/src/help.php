@@ -133,10 +133,10 @@ if (file_exists("../help/$squirrelmail_language")) {
     $user_language = 'en_US';
 } else {
     $help_exists = false;
-    echo "<br><center><font color=\"$color[2]\">";
-    echo _("Some or all of the help documents are not present!");
-    echo '</font></center>';
-    echo '</td></tr></table>';
+    echo "<br><center><font color=\"$color[2]\">" .
+         _("Some or all of the help documents are not present!").
+         '</font></center>'.
+         '</td></tr></table>';
     /* this is really silly, because there may be some
      * footers. What about them.
      * TODO: Fix this so it's not just "exit".
@@ -165,35 +165,33 @@ if ($help_exists == true) {
     }
 
     if (!isset($chapter)) {
-        echo '<table cellpadding="0" cellspacing="0" border="0" 
-              align="center"><tr><td>';
-        echo '<b><center>' . _("Table of Contents") . '</center></b><br>';
+        echo '<table cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>' .
+             '<b><center>' . _("Table of Contents") . '</center></b><br>';
         do_hook('help_chapter');
         echo '<ol>';
         for ($i=0; $i < count($helpdir); $i++) {
             $doc = file("../help/$user_language/$helpdir[$i]");
             $help_info = get_info($doc, 0);
-            echo '<li><a href="../src/help.php?chapter=' . ($i+1) 
+            echo '<li><a href="../src/help.php?chapter=' . ($i+1)
                  . '">' . $help_info[0] . '</a>';
                  echo '<ul>' . $help_info[2] . '</ul>';
         }
-        echo '</ol>';
-        echo '</td></tr></table>';
+        echo '</ol></td></tr></table>';
     } else {
         $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
         $help_info = get_info($doc, 0);
         echo '<small><center>';
         if ($chapter <= 1){
-            echo '<font color="' . $color[9] . '">' . _("Previous") 
+            echo '<font color="' . $color[9] . '">' . _("Previous")
                  . '</font> | ';
         } else {
-            echo '<a href="../src/help.php?chapter=' . ($chapter-1) 
+            echo '<a href="../src/help.php?chapter=' . ($chapter-1)
                  . '">' . _("Previous") . '</a> | ';
         }
         echo '<a href="../src/help.php">' . _("Table of Contents") . '</a>';
         if ($chapter >= count($helpdir)){
             echo ' | <font color="$color[9]">' . _("Next") . '</font>';
-        } else { 
+        } else {
             echo ' | <a href="../src/help.php?chapter=' . ($chapter+1)
                  . '">' . _("Next") . '</a>';
         }
