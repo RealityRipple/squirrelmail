@@ -336,7 +336,7 @@ for ($i = 0;$i < count($boxes); $i++) {
 
         /* Add the folder name and link. */
         if (in_array('noselect', $boxes[$i]['flags'])) {
-            $line .= "<FONT COLOR=\"$color[10]\">";
+            $line .= "<FONT COLOR=\"$color[7]\">";
             if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
                 $mailbox = str_replace('&nbsp;','',$mailbox);
                 $line .= str_replace(' ', '&nbsp;', $mailbox);
