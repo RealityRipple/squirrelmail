@@ -34,6 +34,7 @@
 	$cookie_params = session_get_cookie_params(); 
 	setcookie(session_name(),"",0,$cookie_params["domain"].$cookie_params["path"]); 
 
+   do_hook('login_cookie');
    echo "<HTML>";
    echo "<HEAD><TITLE>";
    echo $org_name . " - " . _("Login");
@@ -84,6 +85,7 @@
    echo "   </TR>\n";
    echo "</TABLE>\n";
    echo "<input type=hidden name=just_logged_in value=1>\n";
+   do_hook('login_form');
    echo "</FORM>\n";
    do_hook("login_bottom");
 ?>
