@@ -598,7 +598,7 @@ if (isset($passed_ent_id) && $passed_ent_id) {
 }
 $header = $message->header;
 
-//do_hook('html_top');
+do_hook('html_top');
 
 /* ============================================================================= 
  *   block for handling incoming url vars 
