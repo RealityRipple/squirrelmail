@@ -1,9 +1,10 @@
 Version 1.1.2 -- DEVELOPMENT
 ----------------------------
+- Added option (3 -> 14 in conf.pl) to auto create sent and trash folders.
+- Updated Czech translation
 - Support for multiple identities
-- Support for Russian Apache removed. It is now deemed easier to just
-  turn off Charset Recoding in the Russian Apache config. See 
-  doc/README.russian_apache
+- Support for Russian Apache removed. It is now deemed easier to just turn 
+  off Charset Recoding in the Russian Apache config. See doc/README.russian_apache
 
 Version 1.1.1 -- April 30, 2001
 -------------------------------

@@ -245,6 +245,9 @@ if (!$optional_delimiter) {
 if (!$use_authenticated_smtp) {
     $use_authenticated_smtp = "false";
 }
+if (!$auto_create_special) {
+	$auto_create_special = "false";
+}
 
 #####################################################################################
 if ($config_use_color == 1) {
@@ -325,6 +328,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "11. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
       print "12. Default Unseen Notify      : $WHT$default_unseen_notify$NRM\n";
       print "13. Default Unseen Type        : $WHT$default_unseen_type$NRM\n";
+	  print "14. Auto create Sent and Trash : $WHT$auto_create_special$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -480,6 +484,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 11){ $show_contain_subfolders_option = command211(); }
          elsif ($command == 12){ $default_unseen_notify          = command212(); }
          elsif ($command == 13){ $default_unseen_type            = command213(); }
+         elsif ($command == 14){ $auto_create_special            = command214(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset          = command31 (); }
          elsif ($command == 2) { $data_dir                 = command33 (); }
@@ -1141,6 +1146,28 @@ sub command213 {
    return $default_unseen_type;
 }
 
+# Auto create special folders
+sub command214 {
+   print "Would you like the Sent and Trash folders to be created automatically for\n";
+   print "you when a user loggs in?  If the user accidentally deletes their special\n";
+   print "folders, this option will automatically create it again for them.\n";
+   print "\n";
+   
+   if ($auto_create_special eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   print "Auto create special folders? (y/n) [$WHT$default_value$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+      $auto_create_special = "true";
+   } else {
+      $auto_create_special = "false";
+   }
+   return $auto_create_special;
+}
+
 
 ############# GENERAL OPTIONS #####################
 
@@ -1630,7 +1657,7 @@ sub save_data {
    print FILE "\tglobal \$show_prefix_option, \$list_special_folders_first;\n";
    print FILE "\tglobal \$use_special_folder_color, \$auto_expunge, \$default_sub_of_inbox;\n";
    print FILE "\tglobal \$show_contain_subfolders_option, \$default_unseen_notify;\n";
-   print FILE "\tglobal \$default_unseen_type;\n";
+   print FILE "\tglobal \$default_unseen_type, \$auto_create_special;\n";
    print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
    print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
    print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
@@ -1644,6 +1671,7 @@ sub save_data {
    print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";
    print FILE "\t\$default_unseen_notify            =  $default_unseen_notify;\n";
    print FILE "\t\$default_unseen_type              =  $default_unseen_type;\n";
+   print FILE "\t\$auto_create_special              =  $auto_create_special;\n";
    print FILE "\n";
 
    print FILE "\tglobal \$default_charset, \$data_dir, \$attachment_dir;\n";

@@ -17,8 +17,21 @@
 
    // open a connection on the imap port (143)
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
-
+   
    displayHtmlHeader();
+
+   if ($auto_create_special) {
+   	  if (isset ($sent_folder) && $sent_folder != "none") {
+	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
+		 	sqimap_mailbox_create ($imapConnection, $sent_folder, "");
+		 }
+	  }
+   	  if (isset ($trash_folder) && $trash_folder != "none") {
+	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
+		 	sqimap_mailbox_create ($imapConnection, $trash_folder, "");
+		 }
+	  }
+   }
 
    function formatMailboxName($imapConnection, $box_array, $delimeter) {
       global $folder_prefix, $trash_folder, $sent_folder;

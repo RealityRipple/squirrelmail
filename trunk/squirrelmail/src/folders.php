@@ -47,16 +47,6 @@
          echo "<b>" . _("Created folder successfully!") . "</b><br>";
       } else if ($success == "rename") {
          echo "<b>" . _("Renamed successfully!") . "</b><br>";
-      } else if (($sent_create == "true") || ($trash_create == "true")) {
-         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-         if ($sent_create == "true") {
-            sqimap_mailbox_create ($imapConnection, $sent_folder, "");  
-         }
-         if ($trash_create == "true") {
-            sqimap_mailbox_create ($imapConnection, $trash_folder, "");
-         }
-         sqimap_logout($imapConnection);
-         echo _("Folders created successfully!");
       }
 
       echo "   <a href=\"../src/left_main.php\" target=left>" . _("refresh folder list") . "</a>";
@@ -65,28 +55,6 @@
    }
    $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection);
-
-   //display form option for creating Sent and Trash folder
-   if ($imap_server_type == "cyrus" && ($sent_folder != "none" || $trash_folder != "none")) {
-      if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || 
-	  (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
-         echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-         echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
-         echo _("Special Folder Options");
-         echo "</B></TD></TR>";
-         echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
-         echo _("In order for SquirrelMail to provide the full set of options you need to create the special folders listed below.  Just click the check box and hit the create button.");
-         echo "<FORM ACTION=\"folders.php\" METHOD=\"POST\">\n";
-         if (!sqimap_mailbox_exists ($imapConnection, $sent_folder) && $sent_folder != "none") {
-            echo _("Create Sent") . "<INPUT TYPE=checkbox NAME=sent_create value=true><br>\n";
-         }
-         if (!sqimap_mailbox_exists ($imapConnection, $trash_folder) && $trash_folder != "none"){
-            echo _("Create Trash") . "<INPUT TYPE=checkbox NAME=trash_create value=true><br>\n";
-         }
-         echo "<INPUT TYPE=submit VALUE="._("Create").">";
-         echo "</FORM></TD></TR></TABLE><br>";
-      }
-   }
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
