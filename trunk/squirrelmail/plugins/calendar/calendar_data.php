@@ -35,8 +35,8 @@ function readcalendardata() {
             while ($fdata = fgetcsv ($fp, 4096, '|')) {
                 $calendardata[$fdata[0]][$fdata[1]] = array( 'length' => $fdata[2],
                                                             'priority' => $fdata[3],
-                                                            'title' => $fdata[4],
-                                                            'message' => $fdata[5],
+                                                            'title' => htmlentities($fdata[4],ENT_NOQUOTES),
+                                                            'message' => htmlentities($fdata[5],ENT_NOQUOTES),
                                                             'reminder' => $fdata[6] );
             }
             fclose ($fp);

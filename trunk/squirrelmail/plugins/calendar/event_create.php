@@ -186,11 +186,11 @@ if(!isset($event_text)){
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .
-                    html_tag( 'td', $event_title, 'left', $color[4] ) . "\n"
+                    html_tag( 'td', htmlentities($event_title,ENT_NOQUOTES), 'left', $color[4] ) . "\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Message:"), 'right', $color[4] ) . "\n" .
-                    html_tag( 'td', $event_text, 'left', $color[4] ) . "\n"
+                    html_tag( 'td', htmlentities($event_text,ENT_NOQUOTES), 'left', $color[4] ) . "\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
