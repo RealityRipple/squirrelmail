@@ -109,7 +109,6 @@
    if (isset($absolute_dl) && $absolute_dl == "true") {
       switch($type0) {
          case "text":
-            set_up_language(getPref($data_dir, $username, "language"));
 	    DumpHeaders($type0, $type1, $filename, 1);
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);

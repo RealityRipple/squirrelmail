@@ -13,6 +13,7 @@
    define ('validate_php', true); 
 
    session_start();
+   include ('../functions/i18n.php');
    include ('../functions/auth.php');
    
    is_logged_in();

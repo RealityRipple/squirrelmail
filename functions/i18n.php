@@ -793,9 +793,7 @@
          bindtextdomain('squirrelmail', '../locale/');
          textdomain('squirrelmail');
          header ('Content-Type: text/html; charset=' . $languages[$sm_language]['CHARSET']);
-         $charset_headers_sent=true;
       }
-      return $charset_headers_sent;
    }
 
    function set_my_charset(){
