@@ -14,7 +14,8 @@ REQUIREMENTS:
   1.5.0 and later versions).
 - ldap backend needs php ldap extension. It might need php
   mhash extension and system crypt libraries that support crypto
-  used on ldap server.
+  used on ldap server. It might need php ldap extension with ssl
+  support, if ldap server requires it.
 - mysql backend needs php mysql extension.
 - merak backend needs php curl extension.
 - poppass backend needs poppassd server that supports authentication
@@ -105,12 +106,13 @@ ABOUT LDAP BACKEND
     string blocks use of backend. Defaults to empty string.
 
   * 'connect_opts'
-    override controls LDAP_OPT_* settings that are set with 
-    ldap_set_option() function. If you want to set specific ldap option 
-    that is not listed as LDAP_OPT_* constant, define own LDAP_OPT_* 
-    constant in config. LDAP_OPT_ prefix must be omitted in 
-    $cpw_ldap['connect_opts'] overrides. No connection options are 
-    enabled by default.
+    controls LDAP_OPT_* settings that are set with ldap_set_option() 
+    function. See available options at http://www.php.net/ldap-set-option.
+    LDAP_OPT_ prefix must be omitted in $cpw_ldap['connect_opts'] 
+    overrides. No connection options are enabled by default.
+    
+    You can use this option only when your ldap extension supports 
+    ldap_set_option() function.
 
   * 'use_tls'
     enables or disables use of tls in ldap connection. Requires php 
@@ -151,16 +153,16 @@ ABOUT LDAP BACKEND
       Minimal php version 4.0.4.
     - md5 crypt - used name 'md5crypt'. Uses php crypt function. Depends on
       md5 support in system crypt libraries. Should work on linux glibc2 systems
-      and openbsd.
+      and bsd systems.
     - blowfish crypt - used name 'blowfish' Uses php crypt function. Depends on
-      blowfish support in system crypt libraries. Should work on openbsd. Is not
-      supported by glibc 2.3.2.
+      blowfish support in system crypt libraries. Should work on bsd systems. 
+      Is not supported by glibc 2.3.2.
     - extended des crypt - used name 'extcrypt'. Uses php crypt function. Depends on
-      extended des support in system crypt libraries. Should work on openbsd.
+      extended des support in system crypt libraries. Should work on bsd systems.
       Is not supported by glibc 2.3.2.
     - standard des crypt - used name 'crypt'. Uses php crypt function. Depends on
       standard des support in system crypt libraries. Should work on libc systems
-      and openbsd.
+      and bsd systems.
     - plain text passwords - used name 'plaintext'
 
     If you use admindn, plugin should support all encryption/hashing 
