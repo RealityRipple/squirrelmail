@@ -1021,7 +1021,8 @@ function getReplyCitation($orig_from)
         $end   = '">';
         break;
     case 'user-defined':
-        $start = $reply_citation_start . ' ';
+        $start = $reply_citation_start . 
+		 ($reply_citation_start == '' ? '' : ' ');
         $end   = $reply_citation_end;
         break;
     default:
