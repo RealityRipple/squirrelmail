@@ -102,10 +102,11 @@
              $bodyTop .= "\n";
              $body = $bodyTop . $body;
          } else if ($reply_id) {
-             $bodyTop = '<quote who="';
-             $bodyTop .= trim(substr($orig_header->from,0,strpos($orig_header->from,'<')));
-             $bodyTop .= "\">\n\n";
-             $body = $bodyTop . $body;
+             $orig_from = $orig_header->from;
+             $orig_from = trim(substr($orig_from,0,strpos($orig_from,'<')));
+             $orig_from = str_replace('"','',$orig_from);
+             $orig_from = str_replace("'",'',$orig_from);
+             $body = "<quote who=\"$orig_from\">\n\n$body";
          }
          
          return;
