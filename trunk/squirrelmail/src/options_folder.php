@@ -49,8 +49,20 @@
          </tr>
 <?php }          
 
+
     /* Build a simple array into which we will build options. */
+    $optgrps = array();
     $optvals = array();
+
+    /******************************************************/
+    /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
+    /******************************************************/
+    define('SMOPT_GRP_SPCFOLDER', 0);
+    define('SMOPT_GRP_FOLDERLIST', 1);
+
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_SPCFOLDER] = _("Special Folder Options");
+    $optvals[SMOPT_GRP_SPCFOLDER] = array();
 
     $special_folder_values = array();
     foreach ($boxes as $folder) {
@@ -63,7 +75,7 @@
 
     $trash_none = array(SMPREF_NONE => _("Do not use Trash"));
     $trash_folder_values = array_merge($trash_none, $special_folder_values);
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'trash_folder',
         'caption' => _("Trash Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -73,7 +85,7 @@
     
     $sent_none = array(SMPREF_NONE => _("Do not use Sent"));
     $sent_folder_values = array_merge($sent_none, $special_folder_values);
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'sent_folder',
         'caption' => _("Sent Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -83,7 +95,7 @@
     
     $drafts_none = array(SMPREF_NONE => _("Do not use Drafts"));
     $draft_folder_values = array_merge($draft_none, $special_folder_values);
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_SPCFOLDER][] = array(
         'name'    => 'draft_folder',
         'caption' => _("Draft Folder"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -91,7 +103,11 @@
         'posvals' => $draft_folder_values
     );
 
-    $optvals[] = array(
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_FOLDERLIST] = _("Folder List Options");
+    $optvals[SMOPT_GRP_FOLDERLIST] = array();
+
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'location_of_bar',
         'caption' => _("Location of Folder List"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -104,7 +120,7 @@
     for ($lsv = 100; $lsv <= 300; $lsv += 10) {
         $left_size_values[$lsv] = "$lsv " . _("pixels");
     }
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'left_size',
         'caption' => _("Width of Folder List"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -123,7 +139,7 @@
             $left_refresh_values[$lr_val] = ($lr_val/60) . " $minute_str";
         }
     }
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'left_refresh',
         'caption' => _("Auto Refresh Folder List"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -131,7 +147,7 @@
         'posvals' => $left_refresh_values
     );
 
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'unseen_notify',
         'caption' => _("Enable Unseen Message Notification"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -141,7 +157,7 @@
                            SMPREF_UNSEEN_ALL   => _("All Folders"))
     );
 
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'unseen_type',
         'caption' => _("Unseen Message Notification Type"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -150,14 +166,14 @@
                            SMPREF_UNSEEN_TOTAL => _("Unseen and Total")) 
     );
 
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'collapse_folders',
         'caption' => _("Enable Collapsable Folders"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_FOLDERLIST
     );
 
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'date_format',
         'caption' => _("Show Clock on Folders Panel"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -170,7 +186,7 @@
                             '6' => _("No Clock")),
     );
 
-    $optvals[] = array(
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'hour_format',
         'caption' => _("Hour Format"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -180,29 +196,13 @@
     );
 
 
-    /* Build all these values into an array of SquirrelOptions objects. */
-    $options = createOptionArray($optvals);
-
-    /* Print the row for each option. */
-    foreach ($options as $option) {
-        if ($option->type != SMOPT_TYPE_HIDDEN) {
-            echo "<TR>\n";
-            echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE" NOWRAP>'
-               . $option->caption . ":</TD>\n";
-            echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
-            echo "</TR>\n";
-        } else {
-            echo $option->createHTMLWidget();
-        }
-    }
-
-   // if( $unseen_notify == '' )
-   //   $unseen_notify = '2';
-
+    /* Build and output the option groups. */
+    $option_groups = createOptionGroups($optgrps, $optvals);
+    printOptionGroups($option_groups);
                  
-   echo '<tr><td colspan=2><hr noshade></td></tr>';
-   do_hook("options_folders_inside");
-   OptionSubmit( 'submit_folder' );
+    echo '<TR><TD ALIGN="CENTER" VALIGN="MIDDLE" COLSPAN="2" NOWRAP><B>'
+         . _("Plugin Options") . "</B></TD></TR>\n";
+    OptionSubmit( 'submit_folder' );
 ?>         
 
       </table>

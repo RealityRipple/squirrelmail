@@ -22,11 +22,19 @@ define('SMOPT_TYPE_INTEGER', 3);
 define('SMOPT_TYPE_FLOAT', 4);
 define('SMOPT_TYPE_BOOLEAN', 5);
 define('SMOPT_TYPE_HIDDEN', 6);
+define('SMOPT_TYPE_COMMENT', 7);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
 define('SMOPT_REFRESH_FOLDERLIST', 1);
 define('SMOPT_REFRESH_ALL', 2);
+
+/* Define constants for the options size. */
+define('SMOPT_SIZE_TINY', 0);
+define('SMOPT_SIZE_SMALL', 1);
+define('SMOPT_SIZE_MEDIUM', 2);
+define('SMOPT_SIZE_LARGE', 3);
+define('SMOPT_SIZE_HUGE', 4);
 
 /**
  * SquirrelOption: An option for Squirrelmail.
@@ -45,6 +53,8 @@ class SquirrelOption {
     var $caption;
     var $type;
     var $refresh_level;
+    var $size;
+    var $comment;
 
     /* The various 'values' for this options. */
     var $value;
@@ -64,6 +74,8 @@ class SquirrelOption {
         $this->type = $type;
         $this->refresh_level = $refresh_level;
         $this->possible_values = $possible_values;
+        $this->size = SMOPT_SIZE_MEDIUM;
+        $this->comment = '';
 
         /* Check for a current value. */
         if (isset($GLOBALS[$name])) {
@@ -80,6 +92,16 @@ class SquirrelOption {
             $this->new_value = '';
             $this->changed = false;
         }
+    }
+
+    /* Set the size for this option. */
+    function setSize($size) {
+        $this->size = $size;
+    }
+
+    /* Set the comment for this option. */
+    function setComment($comment) {
+        $this->comment = $comment;
     }
 
     function createHTMLWidget() {
@@ -105,6 +127,9 @@ class SquirrelOption {
             case SMOPT_TYPE_HIDDEN:
                 $result = $this->createWidget_Hidden();
                 break;
+            case SMOPT_TYPE_COMMENT:
+                $result = $this->createWidget_Comment();
+                break;
             default:
                $result = '<FONT COLOR=RED>'
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -116,7 +141,16 @@ class SquirrelOption {
     }
 
     function createWidget_String() {
-        $result = "<INPUT NAME=\"new_$this->name\" value=\"$this->value\" size=\"5\">";
+        switch ($this->size) {
+            case SMOPT_SIZE_TINY:  $width = 5; break;
+            case SMOPT_SIZE_SMALL: $width = 12; break;
+            case SMOPT_SIZE_LARGE: $width = 38; break;
+            case SMOPT_SIZE_HUGE:  $width = 50; break;
+            case SMOPT_SIZE_NORMAL:
+            default: $width = 25;
+        }
+
+        $result = "<INPUT NAME=\"new_$this->name\" VALUE=\"$this->value\" SIZE=\"$width\">";
         return ($result);
     }
 
@@ -147,6 +181,17 @@ class SquirrelOption {
     }
 
     function createWidget_TextArea() {
+        switch ($this->size) {
+            case SMOPT_SIZE_TINY:  $rows = 3; $cols =  10; break;
+            case SMOPT_SIZE_SMALL: $rows = 4; $cols =  30; break;
+            case SMOPT_SIZE_LARGE: $rows = 10; $cols =  60; break;
+            case SMOPT_SIZE_HUGE:  $rows = 20; $cols =  80; break;
+            case SMOPT_SIZE_NORMAL:
+            default: $rows = 5; $cols =  50;
+        }
+        $result = "<TEXTAREA NAME=\"new_$this->name\" ROWS=\"$rows\" "
+                . "COLS=\"$cols\">$this->value</TEXTAREA>";
+        return ($result);
     }
 
     function createWidget_Integer() {
@@ -188,39 +233,85 @@ class SquirrelOption {
         return ($result);
     }
 
+    function createWidget_Comment() {
+        $result = $this->comment;
+        return ($result);
+    }
+
     function hasChanged() {
         return ($this->changed);
     }
 }
 
-function createOptionArray($optvals) {
+function createOptionGroups($optgrps, $optvals) {
     /* Build a simple array with which to start. */
     $result = array();
 
+    /* Create option group for each option group name. */
+    foreach ($optgrps as $grpkey => $grpname) {
+        $result[$grpkey] = array();
+        $result[$grpkey]['name'] = $grpname;
+        $result[$grpkey]['options'] = array();
+    }
+
      /* Create a new SquirrelOption for each set of option values. */
-    foreach ($optvals as $optset) {
-        if (isset($optset['posvals'])) {
-            /* Create a new option with all values given. */
-            $result[] = new SquirrelOption(
-                $optset['name'],
-                $optset['caption'],
-                $optset['type'],
-                $optset['refresh'],
-                $optset['posvals']
-            );
-        } else {
-            /* Create a new option with all but possible values given. */
-            $result[] = new SquirrelOption(
-                $optset['name'],
-                $optset['caption'],
-                $optset['type'],
-                $optset['refresh']
-            );
+    foreach ($optvals as $grpkey => $grpopts) {
+        foreach ($grpopts as $optset) {
+            if (isset($optset['posvals'])) {
+                /* Create a new option with all values given. */
+                $next_option = new SquirrelOption(
+                    $optset['name'],
+                    $optset['caption'],
+                    $optset['type'],
+                    $optset['refresh'],
+                    $optset['posvals']
+                );
+            } else {
+                /* Create a new option with all but possible values given. */
+                $next_option = new SquirrelOption(
+                    $optset['name'],
+                    $optset['caption'],
+                    $optset['type'],
+                    $optset['refresh']
+                );
+            }
+
+            /* If provided, set the size for this option. */
+            if (isset($optset['size'])) {
+                $next_option->setSize($optset['size']);
+            }
+
+            /* If provided, set the comment for this option. */
+            if (isset($optset['comment'])) {
+                $next_option->setComment($optset['comment']);
+            }
+
+            /* Add this option to the option array. */
+            $result[$grpkey]['options'][] = $next_option;
         }
     }
 
     /* Return our resulting array. */
     return ($result);
+}
+
+function printOptionGroups($option_groups) {
+    foreach ($option_groups as $next_optgrp) {
+        echo '<TR><TD ALIGN="CENTER" VALIGN="MIDDLE" COLSPAN="2" NOWRAP><B>'
+           . $next_optgrp['name'] . "</B></TD></TR>\n";
+        foreach ($next_optgrp['options'] as $option) {
+            if ($option->type != SMOPT_TYPE_HIDDEN) {
+                echo "<TR>\n";
+                echo '  <TD ALIGN="RIGHT" VALIGN="MIDDLE">'
+                   . $option->caption . ":</TD>\n";
+                echo '  <TD>' . $option->createHTMLWidget() . "</TD>\n";
+                echo "</TR>\n";
+            } else {
+                echo $option->createHTMLWidget();
+            }
+        }
+        echo "<TR><TD COLSPAN=\"2\">&nbsp;</TD></TR>\n";
+    }
 }
 
 function OptionSelect( $title, $name, $data, $default, $show = '', $store = '' ) {

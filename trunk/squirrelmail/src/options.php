@@ -39,28 +39,15 @@
 <?php
     if (isset($submit_personal)) {
         /* Save personal information. */
-        if (isset($full_name)) {
-           setPref($data_dir, $username, 'full_name', $full_name);
-        }
-        if (isset($email_address)) {
-           setPref($data_dir, $username, 'email_address', $email_address);
-        }
-        if (isset($reply_to)) {
-           setPref($data_dir, $username, 'reply_to', $reply_to);
-        }
+        setPref($data_dir, $username, 'full_name', $new_full_name);
+        setPref($data_dir, $username, 'email_address', $new_email_address);
+        setPref($data_dir, $username, 'reply_to', $new_reply_to);
         setPref($data_dir, $username, 'reply_citation_style', $new_reply_citation_style);
         setPref($data_dir, $username, 'reply_citation_start', $new_reply_citation_start);
         setPref($data_dir, $username, 'reply_citation_end', $new_reply_citation_end);
-        if (! isset($usesignature))
-            $usesignature = 0;
-        setPref($data_dir, $username, 'use_signature', $usesignature);  
-        if (! isset($prefixsig)) {
-            $prefixsig = 0;
-        }
-        setPref($data_dir, $username, 'prefix_sig', $prefixsig);
-        if (isset($signature_edit)) {
-            setSig($data_dir, $username, $signature_edit);
-        }
+        setPref($data_dir, $username, 'use_signature', $new_use_signature);
+        setPref($data_dir, $username, 'prefix_sig', $new_prefix_sig);
+        setSig($data_dir, $username, $new_signature_abs);
       
         do_hook('options_personal_save');
       

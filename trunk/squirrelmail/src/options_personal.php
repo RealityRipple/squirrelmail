@@ -15,11 +15,12 @@
    require_once('../functions/imap.php');
    require_once('../functions/array.php');
    require_once('../functions/plugin.php');
+   require_once('../functions/options.php');
    
    displayPageHeader($color, 'None');
 
-   $fullname = getPref($data_dir, $username, 'full_name');
-   $replyto = getPref($data_dir, $username, 'reply_to');
+   $full_name = getPref($data_dir, $username, 'full_name');
+   $reply_to = getPref($data_dir, $username, 'reply_to');
    $email_address  = getPref($data_dir, $username, 'email_address'); 
 
 ?>
@@ -34,87 +35,122 @@
 
    <form name=f action="options.php" method=post><br>
       <table width=100% cellpadding=2 cellspacing=0 border=0>
-         <tr>
-            <td align=right nowrap><?php echo _("Full Name"); ?>:
-            </td><td>
-               <input size=50 type=text value="<?php echo $fullname ?>" name=full_name> 
-            </td>
-         </tr>
-         <tr>
-            <td align=right nowrap><?php echo _("E-Mail Address"); ?>:
-            </td><td>
-               <input size=50 type=text value="<?php echo $email_address ?>" name=email_address> 
-            </td>
-         </tr>
-         <tr>
-            <td align=right nowrap><?php echo _("Reply To"); ?>:
-            </td><td>
-               <input size=50 type=text value="<?php echo $replyto ?>" name=reply_to> 
-            </td>
-         </tr>
-         <tr>
-            <td align="right" nowrap><?PHP echo _("Reply Citation Style") ?>:</td>
-            <td><select name="new_reply_citation_style">
-                <option value="none"<?PHP
-                    if ($reply_citation_style == 'none') echo ' SELECTED';
-                    ?>>- <?PHP echo _("No Citation"); ?> -</option>
-                <option value="author_said"<?PHP
-                    if ($reply_citation_style == 'author_said') echo ' SELECTED';
-                    ?>><?PHP echo _("AUTHOR Said"); ?></option>
-                <option value="quote_who"<?PHP
-                    if ($reply_citation_style == 'quote_who') echo ' SELECTED';
-                    ?>><?PHP echo _("Quote Who XML"); ?></option>
-                <option value="user-defined"<?PHP
-                    if ($reply_citation_style == 'user-defined') echo ' SELECTED';
-                    ?>><?PHP echo _("User-Defined"); ?></option>
-                </select>
-            </td>
-         </tr>
-         <tr>
-            <td align="right" nowrap><?php echo _("User-Defined Reply Citation"); ?>:</td>
-            <td>
-               <tt><input type="text" size="20" name="new_reply_citation_start" value="<?php
-                  echo $reply_citation_start;
-               ?>"></tt> &lt;<?php
-                  echo _("Author's Name");
-               ?>&gt;
-               <tt><input type="text" size="20" name="new_reply_citation_end" value="<?php
-                  echo $reply_citation_end;
-               ?>"></tt>
-            </td>
-         </tr>
-	 <tr>
-	    <td align=right nowrap><?PHP echo _("Multiple Identities"); ?>:
-	    </td><td>
-	       <a href="options_identities.php"><?PHP 
-   echo _("Edit Advanced Identities") . '</a> ' . _("(discards changes made on this form so far)");
-	    ?></td>
-	 </tr>
-         <tr><td colspan=2><hr size=1 width=80%></td></tr>
-         <tr>
-            <td align=right nowrap valign=top><br><?php echo _("Signature"); ?>:
-            </td><td>
 <?php
-   echo '<input type=checkbox value="1" name=usesignature';
-   if ($use_signature)
-      echo ' checked';
-   echo '>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
-   echo '<input type="checkbox" value="1" name="prefixsig"';
-   if ( $prefix_sig )
-     echo ' checked';
-   echo '>&nbsp;&nbsp;' .
-        _( "Prefix signature with '-- ' ?" ) . '<BR>';
-   echo "\n<textarea name=\"signature_edit\" rows=\"5\" cols=\"50\">$signature_abs</textarea><br>";
+
+    /* Build a simple array into which we will build options. */
+    $optgrps = array();
+    $optvals = array();
+
+    /******************************************************/
+    /* LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY. */
+    /******************************************************/
+    define('SMOPT_GRP_CONTACT', 0);
+    define('SMOPT_GRP_SIGNATURE', 1);
+
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_CONTACT] = _("Name and Address Options");
+    $optvals[SMOPT_GRP_CONTACT] = array();
+
+    /* Build a simple array into which we will build options. */
+    $optvals = array();
+
+    $optvals[SMOPT_GRP_CONTACT][] = array(
+        'name'    => 'full_name',
+        'caption' => _("Full Name"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_HUGE
+    );
+
+    $optvals[SMOPT_GRP_CONTACT][] = array(
+        'name'    => 'email_address',
+        'caption' => _("Email Address"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_HUGE
+    );
+
+    $optvals[SMOPT_GRP_CONTACT][] = array(
+        'name'    => 'reply_to',
+        'caption' => _("Reply To"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_HUGE
+    );
+
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_REPLY] = _("Reply and Signature Options");
+    $optvals[SMOPT_GRP_REPLY] = array();
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'reply_citation_style',
+        'caption' => _("Reply Citation Style"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array(SMPREF_NONE    => _("No Citation"),
+                           'author_said'  => _("AUTHOR Said"),
+                           'quote_who'    => _("Quote Who XML"),
+                           'user-defined' => _("User-Defined"))
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'reply_citation_start',
+        'caption' => _("User-Defined Citation Start"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_MEDIUM
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'reply_citation_end',
+        'caption' => _("User-Defined Citation End"),
+        'type'    => SMOPT_TYPE_STRING,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_MEDIUM
+    );
+
+    $identities_link_value = '<A HREF="options_identities.php">'
+                           . _("Edit Advanced Identities")
+                           . '</A> '
+                           . _("(discards changes made on this form so far)");
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'identities_link',
+        'caption' => _("Multiple Identities"),
+        'type'    => SMOPT_TYPE_COMMENT,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'comment' =>  $identities_link_value
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'use_signature',
+        'caption' => _("Use Signature"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'prefix_sig',
+        'caption' => _("Prefix Signature with '-- ' Line"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'signature_abs',
+        'caption' => _("Signature"),
+        'type'    => SMOPT_TYPE_TEXTAREA,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'size'    => SMOPT_SIZE_MEDIUM
+    );
+
+    /* Build and output the option groups. */
+    $option_groups = createOptionGroups($optgrps, $optvals);
+    printOptionGroups($option_groups);
+
+    do_hook('options_personal_inside');
+    OptionSubmit( 'submit_personal' );
+
 ?>
-            </td>
-         </tr>
-         <?php do_hook("options_personal_inside"); ?>
-         <tr>
-            <td>&nbsp;
-            </td><td>
-               <input type="submit" value="<?php echo _("Submit"); ?>" name="submit_personal">
-            </td>
-         </tr>
       </table>   
 </form>
 
