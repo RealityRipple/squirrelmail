@@ -73,9 +73,6 @@
     /** Declare the global variables for the special folders. */
     global $move_to_sent, $move_to_trash, $save_as_draft;
 
-    /** Check the default value for save_to_draft. */
-    if (!isset($default_save_as_draft)) { $default_save_as_draft = true; }
-
     /** Load the user's special folder preferences **/
     $move_to_sent = getPref($data_dir, $username, 'move_to_sent', $default_move_to_sent);
     $move_to_trash = getPref($data_dir, $username, 'move_to_trash', $default_move_to_trash);
@@ -110,7 +107,6 @@
     }
 
     /** Load special folder - draft **/
-    if (!isset($draft_folder)) { $draft_folder = 'none'; }
     $new_draft_folder = getPref($data_dir, $username, 'draft_folder');
     if (($new_draft_folder == '') && ($save_as_draft)) {
         $draft_folder = $folder_prefix . $draft_folder;
