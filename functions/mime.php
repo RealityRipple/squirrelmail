@@ -441,7 +441,7 @@ function mime_match_parenthesis ($pos, $structure) {
     return( $pos );
 }
 
-function mime_fetch_body($imap_stream, $id, $ent_id ) {
+function mime_fetch_body($imap_stream, $id, $ent_id) {
 
     /*
      * do a bit of error correction.  If we couldn't find the entity id, just guess
@@ -450,10 +450,9 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
     if (!$ent_id) {
         $ent_id = 1;
     }
-
     $cmd = "FETCH $id BODY[$ent_id]";
-    $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
 
+    $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
     do {
         $topline = trim(array_shift( $data ));
     } while( $topline && $topline[0] == '*' && !preg_match( '/\* [0-9]+ FETCH.*/i', $topline )) ;
@@ -621,33 +620,44 @@ function getEntity ($message, $ent_id) {
 function findDisplayEntity ($msg, $textOnly = 1)   {
     global $show_html_default;
     
-    $entity = 0;
-    
+    $entity = array();
+    $found = false;    
     if ($msg) {
-        if ( $msg->header->type0 == 'multipart' &&
-             ( $msg->header->type1 == 'alternative' ||
-               $msg->header->type1 == 'mixed' ||	       
-               $msg->header->type1 == 'related' ) &&
-             $show_html_default && ! $textOnly ) {
-            $entity = findDisplayEntityHTML($msg);
-        }
-
-        // Show text/plain or text/html -- the first one we find.
-        if ( $entity == 0 &&
+        $type = $msg->header->type0.'/'.$msg->header->type1;
+        if ( $type == 'multipart/alternative') {
+	    $msg = findAlternativeEntity($msg);
+	    if (count($msg->entities) == 0) {
+        	$entity[] = $msg->header->entity_id;
+	    } else {
+		$found = true;
+	        $entity = findDisplayEntity($msg,$textOnly);
+	    }
+	} else 	if ( $type == 'multipart/related') {
+            $msg = findRelatedEntity($msg);
+	    if (count($msg->entities) == 0) {
+        	$entity[] = $msg->header->entity_id;
+	    } else {
+		$found = true;
+	        $entity = findDisplayEntity($msg,$textOnly);
+	    }
+	} else if ( count($entity) == 0 &&
              $msg->header->type0 == 'text' &&
              ( $msg->header->type1 == 'plain' ||
                $msg->header->type1 == 'html' ) &&
              isset($msg->header->entity_id) ) {
-            $entity = $msg->header->entity_id;
-        }
-    
-        $i = 0;
-        while ($entity == 0 && isset($msg->entities[$i]) ) {
-            $entity = findDisplayEntity($msg->entities[$i], $textOnly);
-            $i++;
-        }
+	     if (count($msg->entities) == 0) {
+        	$entity[] = $msg->header->entity_id;
+	     } 
+        } 
+    	$i = 0;
+    	while ( isset($msg->entities[$i]) && count($entity) == 0 && !$found )  {
+    	    $entity = findDisplayEntity($msg->entities[$i], $textOnly);
+    	    $i++;
+    	}
     }
-    
+    if ( !isset($entity[0]) ) {
+        $entity[]="";
+    }
     return( $entity );
 }
 
@@ -665,6 +675,7 @@ function findDisplayEntityHTML ($message) {
             isset($message->header->entity_id)) {
     	    return 0;
 	}
+	
         $entity = findDisplayEntityHTML($message->entities[$i]);
         if ($entity != 0) {
             return $entity;
@@ -673,6 +684,43 @@ function findDisplayEntityHTML ($message) {
 
     return 0;
 }
+
+function findAlternativeEntity ($message) {
+    global $show_html_default;
+    /* if we are dealing with alternative parts then we choose the best 
+     * viewable message supported by SM.
+     */
+    if ($show_html_default) {     
+	$alt_order = array ('text/plain','text/html');
+    } else {
+	$alt_order = array ('text/plain');
+    }
+    $best_view = 0;
+    $k = 0; 
+    for ($i = 0; $i < count($message->entities); $i ++) {
+        $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
+	if ($type == 'multipart/related') {
+	   $type = $message->entities[$i]->header->type;
+	}
+	for ($j = $k; $j < count($alt_order); $j++) {
+	    if ($alt_order[$j] == $type && $j > $best_view) {
+		$best_view = $j;
+		$k = $j;
+	    }
+	}
+    }
+    return $message->entities[$best_view];
+}
+
+function findRelatedEntity ($message) {
+    for ($i = 0; $i < count($message->entities); $i ++) {
+        $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
+        if ($message->header->type == $type) {
+	    return $message->entities[$i];
+	}
+    }
+    return $message->entities[0];
+}    
 
 /*
  * translateText
@@ -765,7 +813,7 @@ be displayed as the actual message in the HTML. It contains
 everything needed, including HTML Tags, Attachments at the
 bottom, etc.
 */
-function formatBody($imap_stream, $message, $color, $wrap_at) {
+function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
     // this if statement checks for the entity to show as the
     // primary message. To add more of them, just put them in the
     // order that is their priority.
@@ -777,13 +825,12 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     $id = $message->header->id;
 
     $urlmailbox = urlencode($message->header->mailbox);
-    // Get the right entity and redefine message to be this entity
-    // Pass the 0 to mean that we want the 'best' viewable one
-    $ent_num = findDisplayEntity ($message, 0);
+
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
-        $body = mime_fetch_body ($imap_stream, $id, $ent_num);
+	$body = mime_fetch_body ($imap_stream, $id, $ent_num);
+	
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
@@ -794,7 +841,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
                 $body = strip_tags( $body );
                 translateText($body, $wrap_at, $body_message->header->charset);
             } else {
-                $body = MagicHTML( $body, $id, $message );
+                $body = magicHTML( $body, $id, $message );
             }
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
