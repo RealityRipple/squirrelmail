@@ -431,6 +431,15 @@ $default_unseen_type   = 1;
 global $invert_time;
 $invert_time = false;
 
+/**
+ * By default SquirrelMail takes up the whole browser window,
+ * this allows you to embed it within sites using frames. Set
+ * this to the frame you want it to stay in.
+ */
+
+global $frame_top;
+$frame_top = '_top';
+
 global $plugins;
 /**
  * To install plugins, just add elements to this array that have

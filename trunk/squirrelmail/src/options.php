@@ -235,7 +235,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
             echo '<A HREF="../src/left_main.php" TARGET="left">' . _("Refresh Folder List") . '</A><BR>';
         } else if ($max_refresh) {
-            echo '<A HREF="../src/webmail.php?right_frame=options.php" TARGET="_top">' . _("Refresh Page") . '</A><BR>';
+            echo '<A HREF="../src/webmail.php?right_frame=options.php" TARGET="$frame_top">' . _("Refresh Page") . '</A><BR>';
         }
     }
     /******************************************/

@@ -13,6 +13,7 @@
  */
 
 function error_username_password_incorrect() {
+    global $frame_top;
 
     echo '<BR>'.
                 '<TABLE COLS=1 WIDTH="75%" NOBORDER BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
@@ -21,7 +22,7 @@ function error_username_password_incorrect() {
                 '</TR>' .
                 '<TR><TD>'.
                     '<CENTER><BR>' . _("Unknown user or password incorrect.") .
-                    '<BR><A HREF="login.php" TARGET=_top>' .
+                    '<BR><A HREF="login.php" TARGET='.$frame_top.'>' .
                     _("Click here to try again") .
                     '</A>.</CENTER>'.
                 '</TD></TR>'.

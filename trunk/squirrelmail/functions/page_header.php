@@ -49,7 +49,7 @@ function displayInternalLink($path, $text, $target='') {
 
 function displayPageHeader($color, $mailbox) {
 
-    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF;
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top;
 
     displayHtmlHeader ();
 
@@ -111,7 +111,7 @@ function checkForm() {
     }
     echo  "      </TD>\n"
         . "      <TD ALIGN=right><b>\n";
-    displayInternalLink ('src/signout.php', _("Sign Out"), '_top');
+    displayInternalLink ('src/signout.php', _("Sign Out"), $frame_top);
     echo "      </b></TD>\n"
         . "   </TR>\n"
         . "   <TR BGCOLOR=\"$color[4]\">\n"
