@@ -1961,9 +1961,10 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                     $aMailbox['EXISTS'] -= (int) $iExpungedMessages;
                 }
                 // Change the startMessage number if the mailbox was changed
-                if (($aMailbox['PAGEOFFSET']+$iExpungedMessages-1) >= $aMailbox['EXISTS']) {
+                if (($aMailbox['PAGEOFFSET']-1) >= $aMailbox['EXISTS']) {
                     $aMailbox['PAGEOFFSET'] = ($aMailbox['PAGEOFFSET'] > $aMailbox['LIMIT']) ?
                         $aMailbox['PAGEOFFSET'] - $aMailbox['LIMIT'] : 1;
+                    $aMailbox['OFFSET'] = $aMailbox['PAGEOFFSET'] - 1 ; 
                 }
             }
         }
