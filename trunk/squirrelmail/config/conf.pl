@@ -1945,14 +1945,12 @@ sub save_data {
         print CF " */\n";
         print CF "\n";
         
-        print CF "global \$config_version, \$config_use_color;\n";
         if ($print_config_version) {
            print CF "\$config_version = '$print_config_version';\n";
         }
         print CF "\$config_use_color = $config_use_color;\n"; 
         print CF "\n";
      
-        print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page, \$frame_top;\n";
         print CF "\$org_name      = \"$org_name\";\n";
         print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
@@ -1964,19 +1962,12 @@ sub save_data {
         }
         print CF "\n";
      
-        print CF "global \$motd;\n";
         print CF "\$motd = '$motd';\n";
         print CF "\n";
      
-        print CF "global \$squirrelmail_default_language;\n";
         print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
         print CF "\n";
      
-        print CF "global \$domain, \$imapServerAddress, \$imapPort;\n";
-        print CF "global \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
-        print CF "global \$sendmail_path, \$use_authenticated_smtp;\n";
-        print CF "global \$imap_server_type, \$invert_time;\n";
-        print CF "global \$optional_delimiter;\n";
         print CF "\$domain                 = '$domain';\n";
         print CF "\$imapServerAddress      = '$imapServerAddress';\n";
         print CF "\$imapPort               = $imapPort;\n";
@@ -1990,17 +1981,6 @@ sub save_data {
         print CF "\$optional_delimiter     = '$optional_delimiter';\n";
         print CF "\n";
      
-        print CF "global \$default_folder_prefix;\n";
-        print CF "global \$trash_folder, \$default_move_to_trash;\n";
-        print CF "global \$sent_folder, \$default_move_to_sent;\n";
-        print CF "global \$draft_folder, \$default_save_to_draft;\n";
-        print CF "global \$show_prefix_option, \$list_special_folders_first;\n";
-        print CF "global \$use_special_folder_color, \$auto_expunge;\n";
-        print CF "global \$default_sub_of_inbox;\n";
-        print CF "global \$show_contain_subfolders_option;\n";
-        print CF "global \$default_unseen_notify;\n";
-        print CF "global \$default_unseen_type, \$auto_create_special;\n";
-        print CF "global \$delete_folder;\n";
         print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
         print CF "\$trash_folder                   = '$trash_folder';\n";
         print CF "\$sent_folder                    = '$sent_folder';\n";
@@ -2020,10 +2000,6 @@ sub save_data {
         print CF "\$delete_folder                  = $delete_folder;\n";
         print CF "\n";
      
-        print CF "global \$default_charset;\n";
-        print CF "global \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
-        print CF "global \$default_left_size, \$force_username_lowercase;\n";
-        print CF "global \$default_use_priority, \$hide_sm_attributions;\n";
         print CF "\$default_charset          = '$default_charset';\n";
         print CF "\$data_dir                 = '$data_dir';\n";
         print CF "\$attachment_dir           = \"$attachment_dir\";\n";
@@ -2034,13 +2010,11 @@ sub save_data {
         print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
         print CF "\n";
      
-        print CF "global \$plugins;\n";
         for ($ct=0; $ct <= $#plugins; $ct++) {
            print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
         }
         print CF "\n";
      
-        print CF "global \$theme_css, \$theme;\n";
         print CF "\$theme_css = '$theme_css';\n";
         for ($count=0; $count <= $#theme_name; $count++) {
            print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
@@ -2051,7 +2025,6 @@ sub save_data {
         if ($default_use_javascript_addr_book ne "true") {
            $default_use_javascript_addr_book = "false";
         }   
-        print CF "global \$default_use_javascript_addr_book, \$ldap_server;\n";
         print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
         for ($count=0; $count <= $#ldap_host; $count++) {
            print CF "\$ldap_server[$count] = array(\n";
@@ -2078,10 +2051,8 @@ sub save_data {
            print CF "\n";
         }
 
-        print CF "\nglobal \$addrbook_dsn, \$addrbook_table;\n";
         print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
         print CF "\$addrbook_table = '$addrbook_table';\n\n";
-        print CF "\nglobal \$prefs_dsn, \$prefs_table;\n";
         print CF "\$prefs_dsn = '$prefs_dsn';\n";
         print CF "\$prefs_table = '$prefs_table';\n";
      
