@@ -76,25 +76,27 @@ function replyAllString($header) {
 }
 
 function getforwardHeader($orig_header) {
-   $bodyTop =  '-------- ' . _("Original Message") . " --------\n" .
-                _("Subject") . ': ' . $orig_header->subject . "\n" .
-                _("From")    . ': ' . $orig_header->from->getAddress() . "\n" .
-                _("Date")      . ': ' .
-                 getLongDateString( $orig_header->date ). "\n" .
-                _("To")      . ': ' . $orig_header->to[0]->getAddress()   . "\n";
-  if (count($orig_header->to) > 1) {
-     for ($x=1; $x < count($orig_header->to); $x++) {
-        $bodyTop .= '         ' . $orig_header->to[$x]->getAddress() . "\n";
-     }
-  }
+   $display = array(
+                     _("Subject") => strlen(_("Subject")),
+                     _("From")    => strlen(_("From")),		     
+                     _("Date")    => strlen(_("Date")),		     
+                     _("To")      => strlen(_("To")),		     
+                     _("Cc")      => strlen(_("Cc"))		     
+                    );
+   $maxsize = max($display);
+   $indent = str_pad('',$maxsize+2);
+   foreach($display as $key => $val) {
+      $display[$key] = $key .': '. str_pad('', $maxsize - $val);
+   }      
+   $bodyTop =  str_pad(' '._("Original Message").' ',78, '-',STR_PAD_BOTH);
+   $bodyTop .=  "\n". $display[_("Subject")] . $orig_header->subject . "\n" .
+        $display[_("From")] . $orig_header->getAddr_s('from',"\n$indent") . "\n" .
+        $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
+        $display[_("To")] . $orig_header->getAddr_s('to',"\n$indent") ."\n";
   if ($orig_header->cc != array() && $orig_header->cc !='') {
-     $bodyTop .= _("Cc") . ': ' . $orig_header->cc[0]->getAddress() . "\n";
-     if (count($orig_header->cc) > 1) {
-        for ($x = 1; $x < count($orig_header->cc); $x++) {
-            $bodyTop .= '         ' . $orig_header->cc[$x]->getAddress() . "\n";
-        }
-     }
+     $bodyTop .= $display[_("Cc")] . $orig_header->getAddr_s('cc',"\n$indent") . "\n";
   }
+  $bodyTop .= str_pad('',78, '-');
   $bodyTop .= "\n";
   return $bodyTop;
 }
@@ -447,7 +449,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
               $entities = $message->entities[0]->findDisplayEntity 
 	               (array(), $alt_order = array('text/plain','html/plain'));
            }
-	   $orig_header = $message->header; /* here is the envelope located */
+	   $orig_header = $message->rfc822_header; /* here is the envelope located */
 	   /* redefine the message for picking up the attachments */
 	   $message = $message->entities[0];
 	   
@@ -456,7 +458,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 	   if (!count($entities)) {
               $entities = $message->findDisplayEntity (array(), $alt_order = array('text/plain','html/plain'));
            }
-           $orig_header = $message->header;		   
+           $orig_header = $message->rfc822_header;		   
 	}
         $encoding = $message->header->encoding;
 	$type0 = $message->type0;
@@ -473,6 +475,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 	}
 	if ($default_use_priority) {
 	  $mailprio = substr($orig_header->priority,0,1);
+	  if (!$mailprio) {
+	     $mailprio = 3;
+	  }
 	} else {
 	  $mailprio = '';
 	}
@@ -480,7 +485,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
 
         $identity = '';
         $idents = getPref($data_dir, $username, 'identities');
-        $from_o = $message->header->from;
+        $from_o = $orig_header->from;
         if (is_object($from_o)) {
             $orig_from = $from_o->getAddress();
         } else {
@@ -502,81 +507,80 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         }
 	
 	switch ($action) {
-	  case ('draft'):
-             $use_signature = FALSE;
-	     $send_to = $orig_header->getAddr_s('to');	
-	     $send_to_cc = $orig_header->getAddr_s('cc');
-	     $send_to_bcc = $orig_header->getAddr_s('bcc');
-             $subject = $orig_header->subject;
+	case ('draft'):
+           $use_signature = FALSE;
+	   $send_to = $orig_header->getAddr_s('to');	
+	   $send_to_cc = $orig_header->getAddr_s('cc');
+	   $send_to_bcc = $orig_header->getAddr_s('bcc');
+           $subject = $orig_header->subject;
 
-             $body_ary = explode("\n", $body);
-             $cnt = count($body_ary) ;
-	     $body = '';
-             for ($i=0; $i < $cnt; $i++) {
-	        if (!ereg("^[>\\s]*$", $body_ary[$i])) {
-                   sqWordWrap($body_ary[$i], $editor_size );
-                   $body .= $body_ary[$i] . "\n";
-		}
-                unset($body_ary[$i]);
-             }
-	     sqUnWordWrap($body);
-             getAttachments($message, $session, $passed_id, $entities, $imapConnection);
-	     break;
-	  case ('edit_as_new'):
-	     $send_to = $orig_header->getAddr_s('to');	
-	     $send_to_cc = $orig_header->getAddr_s('cc');
-	     $send_to_bcc = $orig_header->getAddr_s('bcc');
-	     $subject = $orig_header->subject;
-	     $mailprio = $orig_header->priority;
-	     $orig_from = '';
-             getAttachments($message, $session, $passed_id, $entities, $imapConnection);
-	     sqUnWordWrap($body);
-	     break;
-	  case ('forward'):
-	     $send_to = '';
-             $subject = $orig_header->subject;
-             if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
-                (substr(strtolower($subject), 0, 5) != '[fwd:') &&
-                (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
-                $subject = '[Fwd: ' . $subject . ']';
-             }
-	     $body = getforwardHeader($orig_header) . $body;
-	     sqUnWordWrap($body);
-             getAttachments($message, $session, $passed_id, $entities, $imapConnection);	     
-	     break;
-	  case ('reply' || 'reply_all'):
-	     $send_to = $orig_header->reply_to;
-	     if ($send_to) {
-	        $send_to = $send_to->getAddress();
-	     } else {
-	        $send_to = $orig_header->from->getAddress();
-	     }
-	     $subject = $orig_header->subject;
-             $subject = str_replace('"', "'", $subject);
-             $subject = trim($subject);
-             if (substr(strtolower($subject), 0, 3) != 're:') {
-                $subject = 'Re: ' . $subject;
-             }
-	     if ($action == 'reply_all') {
-	        $send_to_cc = replyAllString($orig_header);
-	     }
-             /* this corrects some wrapping/quoting problems on replies */	     
-             $rewrap_body = explode("\n", $body);
-	     $body = getReplyCitation($orig_header->from->personal);
-	     $cnt = count($rewrap_body);
-             for ($i=0;$i<$cnt;$i++) {
-                sqWordWrap($rewrap_body[$i], ($editor_size - 2));
-                if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
-                    $gt = $matches[1];
-		    $body .= '>' . str_replace("\n", "\n$gt ", $rewrap_body[$i]) ."\n";
-                } else {
-                    $body .= '> ' . $rewrap_body[$i] . "\n";
-		}
-		unset($rewrap_body[$i]);
-             }
-	     break;
-	  default:
-	     break;
+           $body_ary = explode("\n", $body);
+           $cnt = count($body_ary) ;
+	   $body = '';
+           for ($i=0; $i < $cnt; $i++) {
+	      if (!ereg("^[>\\s]*$", $body_ary[$i])) {
+                 sqWordWrap($body_ary[$i], $editor_size );
+                 $body .= $body_ary[$i] . "\n";
+	      }
+              unset($body_ary[$i]);
+           }
+	   sqUnWordWrap($body);
+           getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+	   break;
+        case ('edit_as_new'):
+           $send_to = $orig_header->getAddr_s('to');	
+           $send_to_cc = $orig_header->getAddr_s('cc');
+           $send_to_bcc = $orig_header->getAddr_s('bcc');
+           $subject = $orig_header->subject;
+           $mailprio = $orig_header->priority;
+           $orig_from = '';
+           getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+	   sqUnWordWrap($body);
+	   break;
+	case ('forward'):
+	   $send_to = '';
+           $subject = $orig_header->subject;
+           if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
+              (substr(strtolower($subject), 0, 5) != '[fwd:') &&
+              (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
+              $subject = '[Fwd: ' . $subject . ']';
+           }
+	   $body = getforwardHeader($orig_header) . $body;
+	   sqUnWordWrap($body);
+           getAttachments($message, $session, $passed_id, $entities, $imapConnection);	     
+	   break;
+        case ('reply_all'):
+	   $send_to_cc = replyAllString($orig_header);
+	case ('reply'):
+           $send_to = $orig_header->reply_to;
+           if (is_object($send_to)) {
+              $send_to = $send_to->getAddr_s('reply_to');
+           } else {
+              $send_to = $orig_header->getAddr_s('from');
+           }
+	   $subject = $orig_header->subject;
+           $subject = str_replace('"', "'", $subject);
+           $subject = trim($subject);
+           if (substr(strtolower($subject), 0, 3) != 're:') {
+              $subject = 'Re: ' . $subject;
+           }
+           /* this corrects some wrapping/quoting problems on replies */	     
+           $rewrap_body = explode("\n", $body);
+	   $body = getReplyCitation($orig_header->from->personal);
+	   $cnt = count($rewrap_body);
+           for ($i=0;$i<$cnt;$i++) {
+              sqWordWrap($rewrap_body[$i], ($editor_size - 2));
+              if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
+                 $gt = $matches[1];
+		 $body .= '>' . str_replace("\n", "\n$gt ", $rewrap_body[$i]) ."\n";
+              } else {
+                 $body .= '> ' . $rewrap_body[$i] . "\n";
+	      }
+	      unset($rewrap_body[$i]);
+           }
+	   break;
+	default:
+	   break;
         }
 	sqimap_logout($imapConnection);
     }
@@ -602,7 +606,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
        ($message->type0 == 'message' && $message->type1 == 'rfc822')) {
         if ( !in_array($message->entity_id, $entities) && $message->entity_id) {
 	    if ($message->type0 == 'message' && $message->type1 == 'rfc822') {
-	       $filename = decodeHeader($message->header->subject.'.eml');
+	       $filename = decodeHeader($message->rfc822_header->subject.'.eml');
                if ($filename == "") {
                   $filename = "untitled-".$message->entity_id.'.eml';
                }
@@ -635,7 +639,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
             fclose ($fp);
 
             $attachments[] = $newAttachment;
-            setPref($data_dir, $username, 'javascript_on', $js_pref);
+            setPref($data_dir, $username, 'attachments', $attachments);
         }
     } else {
         for ($i = 0; $i < count($message->entities); $i++) {
