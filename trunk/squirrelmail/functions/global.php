@@ -13,6 +13,11 @@
  * $Id$
  */
 
+# If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
+# Force magic_quotes_runtime off.
+# chilts@birdbrained.org - I put it here in the hopes that all SM code includes this.
+# If there's a better place, please let me know.
+ini_set('magic_quotes_runtime','0');
 
 /* convert old-style superglobals to current method
  * this is executed if you are running PHP 4.0.x.
