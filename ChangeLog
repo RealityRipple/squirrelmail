@@ -1,3 +1,14 @@
+Version 0.4pre1 -- Development
+------------------------------
+- It doesn't bail out if PHP wasn't compiled with --with-gettext.  
+    It only uses english in this case.
+
+
+
+Version 0.3.1 -- March 13, 2000
+-------------------------------
+- Fixed a bug that didn't allow downloading of attachments
+
 Version 0.3 (final) -- March 10, 2000
 -------------------------------------
 - Fixed bug in smtp.php and made sending RFC complient

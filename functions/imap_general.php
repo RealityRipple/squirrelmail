@@ -71,20 +71,20 @@
       /** Do some error correction **/
       if (!$imap_stream) {
          if (!$hide) {
-            echo "Error connecting to IMAP server: $imap_server_address.<br>\n";
-            echo "$error_number : $error_string<br>\n";
+            echo "Error connecting to IMAP server: $imap_server_address.<br>\r\n";
+            echo "$error_number : $error_string<br>\r\n";
          }
          exit;
       }
 
-      fputs ($imap_stream, "a001 LOGIN \"$username\" \"$password\"\n");
+      fputs ($imap_stream, "a001 LOGIN \"$username\" \"$password\"\r\n");
       $read = fgets ($imap_stream, 1024);
 
       /** If the connection was not successful, lets see why **/
       if (substr($read, 0, 7) != "a001 OK") {
          if (!$hide) {
             if (substr($read, 0, 8) == "a001 BAD") {
-               echo "Bad request: $read<br>\n";
+               echo "Bad request: $read<br>\r\n";
                exit;
             } else if (substr($read, 0, 7) == "a001 NO") {
                ?>
@@ -135,7 +135,7 @@
     **  Simply logs out the imap session
     ******************************************************************************/
    function sqimap_logout ($imap_stream) {
-      fputs ($imap_stream, "a001 LOGOUT\n");
+      fputs ($imap_stream, "a001 LOGOUT\r\n");
    }
 
 
@@ -144,7 +144,7 @@
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
    function sqimap_get_delimiter ($imap_stream) {
-      fputs ($imap_stream, ". LIST \"\" *\n");
+      fputs ($imap_stream, ". LIST \"\" *\r\n");
       $read = sqimap_read_data($imap_stream, ".", true, $a, $b);
       $quote_position = strpos ($read[0], "\"");
       $delim = substr ($read[0], $quote_position+1, 1);
@@ -159,7 +159,7 @@
     **  Gets the number of messages in the current mailbox. 
     ******************************************************************************/
    function sqimap_get_num_messages ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 EXAMINE \"$mailbox\"\n");
+      fputs ($imap_stream, "a001 EXAMINE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
       for ($i = 0; $i < count($read_ary); $i++) {
          if (substr(trim($read_ary[$i]), -6) == EXISTS) {
@@ -213,7 +213,7 @@
     **  Returns the number of unseen messages in this folder 
     ******************************************************************************/
    function sqimap_unseen_messages ($imap_stream, &$num_unseen) {
-      fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\n");
+      fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
       $unseen = false;
       
@@ -228,4 +228,48 @@
 
       return $unseen;
    }
+ 
+  
+   /******************************************************************************
+    **  Saves a message to a given folder -- used for saving sent messages
+    ******************************************************************************/
+   function sqimap_append ($imap_stream, $mailbox, $body, $to, $cc, $bcc, $subject, $data_dir, $username, $domain, $version) {
+      global $sent_folder, $data_dir;
+
+      $from = getPref($data_dir, $username, "full_name");
+      $from_addr = getPref($data_dir, $username, "email_address");
+      if ($from_addr == "")
+         $from_addr = "$username@$domain";
+      $to_list = getLineOfAddrs($to);
+      $cc_list = getLineOfAddrs($cc);
+      $bcc_list = getLineOfAddrs($bcc);
+
+      if ($from == "")
+         $from = "<$from_addr>";
+      else
+         $from = $from . " <$from_addr>";
+
+      $message  = "Date: ".date("D, j M Y H:i:s ", mktime()) . timezone() . "\r\n";
+      $message .= "Subject: $subject\r\n";
+      $message .= "From: $from\r\n";
+      $message .= "To: $to_list\r\n";
+      if ($cc_list) {
+         $message .= "Cc: $cc_list\r\n"; // Who the CCs are
+      }
+      $message .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
+      $message .= "Content-Transfer-Encoding: 8bit\r\n";
+      $message .= "\r\n";
+      $message .= "$body\r\n";
+      $message .= "\r\n";
+      
+      $size = count_chars($message);
+      fputs ($imap_stream, "a001 APPEND $sent_folder (\\Seen) \{$size}\r\n");
+      fputs ($imap_stream, "$message");
+      echo "a001 APPEND $sent_folder (\\Seen) \{$size}<br>";
+
+      $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
+      for ($i = 0; $i < count($read_ary); $i++) {
+         echo $read_ary[$i] . "<BR>";
+      }
+   } 
 ?>
