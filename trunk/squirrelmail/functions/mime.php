@@ -30,7 +30,6 @@ function mime_structure ($bodystructure, $flags=array()) {
     $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));
     $msg = &new message();
     $read = trim(substr ($read, 0, -1));
-    echo $read;
     $msg = $msg->parseStructure($read,0);
     $msg->setEnt('0');
     if (count($flags)) {
@@ -67,6 +66,7 @@ function mime_structure ($bodystructure, $flags=array()) {
           }
        }
     }
+//    listEntities($msg);
     return( $msg );
 }
 
@@ -157,12 +157,20 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     if (!ini_get("safe_mode")) {
         set_time_limit(0);
     }
+    if ($uid_support) {
+       $sid_s = substr($sid,0,strpos($sid, ' '));
+    } else {
+       $sid_s = $sid;
+    }
 
     fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
     $cnt = 0;
     $continue = true;
-    $read = fgets ($imap_stream,4096);
-    if (preg_match('/.*\{(\d+)\}.*/',$read,$regs)) {
+    $read = fgets ($imap_stream,8192);
+
+
+//    if (preg_match('/.*\{(\d+)\}.*/',$read,$regs)) {
+/*
        $size = $regs[1];
        $size_div = (int) ($size / 4096);
        $size_mod = $size % 4096;
@@ -174,11 +182,12 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
        if ($size_mod > 0) {
           $read .= fread ($imap_stream, $size_mod);
        }
-       return decodeBody($read, $encoding);
+       echo decodeBody($read, $encoding);
     }
+*/
     // This could be bad -- if the section has sqimap_session_id() . ' OK'
     // or similar, it will kill the download.
-    while (!ereg("^".$sid." (OK|BAD|NO)(.*)$", $read, $regs)) {
+    while (!ereg("^".$sid_s." (OK|BAD|NO)(.*)$", $read, $regs)) {
       if (trim($read) == ')==') {
           $read1 = $read;
           $read = fgets ($imap_stream,4096);
@@ -193,6 +202,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
       }
       $read = fgets ($imap_stream,4096);
       $cnt++;
+//      break;
     }
 }
 
@@ -409,6 +419,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num) {
 
     $id = $message->id;
 
+    if ($message->type0 == 'message' && $message->type1 == 'rfc822') {
+       $message = $message->entities[0];
+    }
     $urlmailbox = urlencode($message->mailbox);
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
@@ -1365,7 +1378,7 @@ function sq_cid2http($message, $id, $cidurl){
     $cidurl = str_replace($quotchar, "", $cidurl);
     $cidurl = substr(trim($cidurl), 4);
     $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
-        "passed_id=$id&amp;mailbox=" . urlencode($message->header->mailbox) .
+        "passed_id=$id&amp;mailbox=" . urlencode($message->mailbox) .
         "&amp;passed_ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
     return $httpurl;
 }
