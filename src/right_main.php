@@ -77,13 +77,13 @@
    do_hook("right_main_after_header");
    
    if ($just_logged_in == 1 && strlen(trim($motd)) > 0) {
-      echo "<center><br>";
-      echo "<table width=70% cellpadding=0 cellspacing=0 border=0><tr><td bgcolor=\"$color[9]\">";
-      echo "<table width=100% cellpadding=5 cellspacing=1 border=0><tr><td bgcolor=\"$color[4]\">";
-      echo "$motd";
-      echo "</td></tr></table>";
-      echo "</td></tr></table>";
-      echo "</center><br>";
+      echo "<center><br>\n";
+      echo "<table width=70% cellpadding=0 cellspacing=0 border=0><tr><td bgcolor=\"$color[9]\">\n";
+      echo "<table width=100% cellpadding=5 cellspacing=1 border=0><tr><td bgcolor=\"$color[4]\">\n";
+      echo "$motd\n";
+      echo "</td></tr></table>\n";
+      echo "</td></tr></table>\n";
+      echo "</center><br>\n";
    }
 
 	if (isset($newsort)) {

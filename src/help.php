@@ -171,14 +171,14 @@
          else echo "<a href=\"../src/help.php?chapter=".($chapter-1)."\">Previous</a> | ";
          echo "<a href=\"../src/help.php\">Table of Contents</a>";
          if ($chapter >= count($helpdir)) echo " | <font color=\"$color[9]\">Next</font>";
-         else echo " | <a href=\"../src/help.php?chapter=".($chapter+1)."\">Next</a>";
+         else echo " | <a href=\"../src/help.php?chapter=".($chapter+1)."\">Next</a>\n";
          echo "</center></small><br>\n";
 
          echo "<font size=5><b>$chapter - $help_info[0]</b></font><br><br>\n";
          if ($help_info[1])
-            echo "$help_info[1]";
+            echo "$help_info[1]\n";
          else   
-            echo "<p>$help_info[2]</p>";
+            echo "<p>$help_info[2]</p>\n";
 
          for ($n = $help_info[3]; $n < count($doc); $n++) {
             $section++;
@@ -190,7 +190,7 @@
             $n = $help_info[3];
          }
 
-         echo "<br><center><a href=\"#pagetop\">" . _("Top") . "</a></center>";
+         echo "<br><center><a href=\"#pagetop\">" . _("Top") . "</a></center>\n";
       }
    }
    do_hook("help_bottom"); 

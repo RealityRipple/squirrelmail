@@ -35,9 +35,17 @@
    /******************************************************************************
     **  Selects a mailbox
     ******************************************************************************/
-   function sqimap_mailbox_select ($imap_stream, $mailbox, $hide=true) {
+   function sqimap_mailbox_select ($imap_stream, $mailbox, $hide=true, $recent=false) {
       fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
      	$read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      if ($recent) {
+         for ($i=0; $i<count($read); $i++) {
+            if (strpos(strtolower($read[$i]), "recent")) {
+               $r = explode(" ", $read[$i]);
+            }
+         }
+         return $r[1];
+      }
    }
 
    

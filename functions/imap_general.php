@@ -40,18 +40,18 @@
 
       if ($handle_errors == true) {
          if ($response == "NO") {
-            echo "<br><b><font color=$color[2]>";
+            echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
-            echo "</b><br>";
+            echo "</b><br>\n";
             echo _("Reason Given: ");
-            echo "$message</font><br>";
+            echo "$message</font><br>\n";
             exit;
          } else if ($response == "BAD") {
-            echo "<br><b><font color=$color[2]>";
+            echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Bad or malformed request.");
-            echo "</b><br>";
+            echo "</b><br>\n";
             echo _("Server responded: ");
-            echo "$message</font><br>";
+            echo "$message</font><br>\n";
             exit;
          }
       }
