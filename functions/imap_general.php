@@ -795,9 +795,18 @@ function sqimap_get_delimiter ($imap_stream = false) {
 }
 
 
+/* This is a straight copy of imap_mailbox.php:encode_mailbox_name() */
+function sqimap_encode_mailbox_name($what)
+{
+	if (ereg("[\"\\\r\n]", $what))
+		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
+	return '"' . $what . '"';	/* 4.3 quoted string form */
+}
+
+
 /* Gets the number of messages in the current mailbox. */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "EXAMINE \"$mailbox\"", false, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, 'EXAMINE ' . sqimap_encode_mailbox_name($mailbox), false, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
         if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
             return $regs[1];
@@ -982,7 +991,7 @@ function parseAddress($address, $max=0) {
  * Returns the number of unseen messages in this folder
  */
 function sqimap_unseen_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (UNSEEN)", false, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (UNSEEN)', false, $result, $message);
     $i = 0;
     $regs = array(false, false);
     while (isset($read_ary[$i])) {
@@ -998,7 +1007,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
  * Returns the number of unseen/total messages in this folder
  */
 function sqimap_status_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (MESSAGES UNSEEN RECENT)", false, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, 'STATUS ' . sqimap_encode_mailbox_name($mailbox) . ' (MESSAGES UNSEEN RECENT)', false, $result, $message);
     $i = 0;
     $messages = $unseen = $recent = false;
     $regs = array(false,false);
@@ -1022,7 +1031,7 @@ function sqimap_status_messages ($imap_stream, $mailbox) {
  *  Saves a message to a given folder -- used for saving sent messages
  */
 function sqimap_append ($imap_stream, $sent_folder, $length) {
-    fputs ($imap_stream, sqimap_session_id() . " APPEND \"$sent_folder\" (\\Seen) \{$length}\r\n");
+    fputs ($imap_stream, sqimap_session_id() . ' APPEND ' . sqimap_encode_mailbox_name($sent_folder) . " (\\Seen) \{$length}\r\n");
     $tmp = fgets ($imap_stream, 1024);
 }
 
