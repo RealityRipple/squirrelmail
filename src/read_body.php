@@ -520,6 +520,25 @@
         "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
         '</TABLE>' . "\n";
 
+   /* show attached images inline -- if pref'fed so */
+
+   if (($attachment_common_show_images) and
+        is_array($attachment_common_show_images_list)) {
+       foreach ($attachment_common_show_images_list as $img) {
+           echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>\n" .
+                "  <TR>\n" .
+                "    <TD>\n" .
+                '      <img src="../src/download.php' .
+                    '?passed_id='     . urlencode($img['passed_id']) .
+                    '&mailbox='       . urlencode($img['mailbox']) .
+                    '&passed_ent_id=' . urlencode($img['ent_id']) .
+                    '&absolute_dl=true">' . "\n" .
+                "    </TD>\n" .
+                "  </TR>\n" .
+                "</TABLE>\n";
+       }
+   }
+
    do_hook('read_body_bottom');
    do_hook('html_bottom');
    sqimap_logout($imapConnection);

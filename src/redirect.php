@@ -97,6 +97,20 @@
     session_register ('user_is_logged_in');
     session_register ('just_logged_in');
 
+    /* parse the accepted content-types of the client */
+    $attachment_common_types = array();
+    $attachment_common_types_parsed = array();
+    session_register('attachment_common_types');
+    session_register('attachment_common_types_parsed');
+  
+    if (isset($HTTP_SERVER_VARS['HTTP_ACCEPT']) &&
+        !isset($attachment_common_types_parsed[$HTTP_SERVER_VARS['HTTP_ACCEPT']]))
+        attachment_common_parse($HTTP_SERVER_VARS['HTTP_ACCEPT'], $debug);
+    if (isset($HTTP_ACCEPT) &&
+        !isset($attachment_common_types_parsed[$HTTP_ACCEPT]))
+        attachment_common_parse($HTTP_ACCEPT, $debug);
+
+
     /* Complete autodetection of Javascript. */
     checkForPrefs($data_dir, $username);
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
@@ -121,4 +135,25 @@
 
     /* Send them off to the appropriate page. */
     header("Location: $redirect_url");
+
+
+function attachment_common_parse($str, $debug)
+{
+   global $attachment_common_types, $attachment_common_types_parsed;
+   
+   $attachment_common_types_parsed[$str] = true;
+   $types = explode(', ', $str);
+
+   foreach ($types as $val)
+   {
+      // Ignore the ";q=1.0" stuff
+      if (strpos($val, ';') !== false)
+         $val = substr($val, 0, strpos($val, ';'));
+      
+      if (! isset($attachment_common_types[$val])) {
+	 $attachment_common_types[$val] = true;
+      }
+   }
+}
+
 ?>

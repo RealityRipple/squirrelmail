@@ -12,6 +12,7 @@
    define('mime_php', true);
 
    require_once('../functions/imap.php');
+   require_once('../functions/attachment_common.php');
 
    /** Setting up the objects that have the structure for the message **/
 

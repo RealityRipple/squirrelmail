@@ -188,6 +188,13 @@
         'refresh' => SMOPT_REFRESH_NONE
     );
 
+    $optvals[SMOPT_GRP_MESSAGE][] = array(
+        'name'    => 'attachment_common_show_images',
+        'caption' => _("Enable display of images with email, below attachment box"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     /* Build and output the option groups. */
     $option_groups = createOptionGroups($optgrps, $optvals);
     printOptionGroups($option_groups);
