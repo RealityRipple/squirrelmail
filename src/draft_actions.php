@@ -135,10 +135,6 @@ require_once ('../src/validate.php');
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
-      $body = ereg_replace("\n\\.", "\n..", $body);
-      $body = ereg_replace("^\\.", "..", $body);
-      $body = ereg_replace("\n", "\r\n", $body);
-
       $fp = fopen("/dev/null", a);
       $headerlength = write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody ($fp, $body);
