@@ -1,6 +1,6 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.4.0 Release Candidate 2         *
- * 23 January 2002                                               *
+ * Release Notes: SquirrelMail 1.4.0 Release Candidate 2a        *
+ * 24 January 2002                                               *
  *****************************************************************/
 
 In this edition of SquirrelMail Release Notes:
@@ -15,6 +15,10 @@ All about this Release!!!
 This is the second and hopefully last Release Candidate (RC) for the
 1.4.x stable series. Please note that this release is not yet labeled
 STABLE officially.
+
+It is labeled RC 2a because RC 2 was released but pulled back soon
+after because a serious bug was found that needed to be fixed. Thanks
+to Jason Munro for discovering this bug.
 
 However, we've been running this on a number of systems and a variety
 of configs and we think it's worthy of the "stable"-title. Before we
