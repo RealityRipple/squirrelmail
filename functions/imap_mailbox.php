@@ -111,7 +111,7 @@
     **    formatted      - nicely formatted folder name
     **    unformatted    - unformatted, but with delimiter at end removed
     **    unformatted-dm - folder name as it appears in raw response
-	**    unformatted-disp - unformatted without $folder_prefix
+    **    unformatted-disp - unformatted without $folder_prefix
     **
     ******************************************************************************/
    function sqimap_mailbox_parse ($line, $line_lsub, $dm) {
@@ -134,7 +134,7 @@
          $boxesbyname[$mailbox] = $g;
          $parentfolder = readMailboxParent($mailbox, $dm);
          if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
-	    (ereg("^".$folder_prefix, $mailbox)) ||
+            (ereg("^".$folder_prefix, $mailbox)) ||
             ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
             $indent = $dm_count - (countCharInString($folder_prefix, $dm));
             if ($indent)
@@ -198,8 +198,11 @@
       fputs ($imap_stream, "a001 LSUB \"\" \"*\"\r\n");
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
-	  /** OS: we don't want to parse last element of array, 'cause it is OK command, so we unset it **/
-	  unset($lsub_ary[count($lsub_ary)-1]);
+      /** OS: we don't want to parse last element of array, 'cause it is OK command, so we unset it **/
+      /** LUKE:  This introduced errors.. do a check first **/
+      if (substr($lsub_ary[count($lsub_ary)-1], 0, 4) == "* OK") {
+        unset($lsub_ary[count($lsub_ary)-1]);
+      }
 
       for ($i=0;$i < count($lsub_ary); $i++) {
          $sorted_lsub_ary[$i] = find_mailbox_name($lsub_ary[$i]);
@@ -265,14 +268,14 @@
          // Then list special folders and their subfolders
          for ($i = 0 ; $i < count($boxes) ; $i++) {
             if ($move_to_trash &&
-	        eregi("^" . quotemeta($trash_folder) . "(" .
-		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
+                eregi("^" . quotemeta($trash_folder) . "(" .
+                quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
             }
             elseif ($move_to_sent &&
-	        eregi("^" . quotemeta($sent_folder) . "(" .
-		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
+                eregi("^" . quotemeta($sent_folder) . "(" .
+                quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $used[$i] = true;
             }

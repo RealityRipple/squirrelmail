@@ -39,8 +39,10 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
       #Check to see if a SEARCH Responce was recived
       if (substr($readin[$c],0,9) == "* SEARCH ")
          $messagelist = explode(" ",substr($readin[$c],9));
-      else
+      else if (isset($errors))
          $errors = $errors.$readin[$c];
+      else
+         $errors = $readin[$c];
       $c++;
    }
 
