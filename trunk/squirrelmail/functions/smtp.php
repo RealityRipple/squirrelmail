@@ -345,7 +345,7 @@
       $cc_list = getLineOfAddrs($cc);
 
       /** Lets introduce ourselves */
-      if (! isset ($use_authenticated_smtp) && $use_authenticated_smtp == true) {
+      if (! isset ($use_authenticated_smtp) || $use_authenticated_smtp == false) {
          fputs($smtpConnection, "HELO $domain\r\n");
          $tmp = fgets($smtpConnection, 1024);
          errorCheck($tmp, $smtpConnection);
