@@ -99,6 +99,8 @@ Version 1.5.0 -- CVS
     global.php
   - HTML Filter bugfixes and further strengthening in response to some
     findings reported by stardust.
+  - Disabled Vietnamese and Ukrainian translations. They are done in different 
+    language.
 
 
 **************************************

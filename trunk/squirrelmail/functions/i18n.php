@@ -583,22 +583,26 @@ if ( file_exists( SM_PATH . 'locale/bg_BG') ) {
     $languages['bg_BG']['CHARSET'] = 'windows-1251';
     $languages['bg']['ALIAS'] = 'bg_BG';
 }
+/*
 if ( file_exists( SM_PATH . 'locale/uk_UA') ) {
     $languages['uk_UA']['NAME']    = 'Ukrainian';
     $languages['uk_UA']['CHARSET'] = 'koi8-u';
     $languages['uk']['ALIAS'] = 'uk_UA';
 }
+*/
 if ( file_exists( SM_PATH . 'locale/cy_GB') ) {
     $languages['cy_GB']['NAME']    = 'Welsh';
     $languages['cy_GB']['ALTNAME'] = 'Cymraeg';
     $languages['cy_GB']['CHARSET'] = 'iso-8859-1';
     $languages['cy']['ALIAS'] = 'cy_GB';
 }
+/*
 if ( file_exists( SM_PATH . 'locale/vi_VN') ) {
     $languages['vi_VN']['NAME']    = 'Vietnamese';
     $languages['vi_VN']['CHARSET'] = 'utf-8';
     $languages['vi']['ALIAS'] = 'vi_VN';
 }
+*/
 // Right to left languages
 if ( file_exists( SM_PATH . 'locale/ar') ) {
     $languages['ar']['NAME']    = 'Arabic';
