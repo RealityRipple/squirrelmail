@@ -12,7 +12,6 @@
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/imap_search.php');
-require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
 
@@ -181,8 +180,11 @@ if ($mailbox == 'All Folders') {
     $search_all = 'all';
 }
 
-displayPageHeader($color, $mailbox);
-
+if (isset($composenew) && $composenew) {
+    displayPageHeader($color, $mailbox, 'comp_in_new();');
+} else {
+    displayPageHeader($color, $mailbox);
+}
 /*  See how the page was called and fire off correct function  */
 if ((!isset($submit) || empty($submit)) && !empty($what)) {
     $submit = _("Search");
@@ -308,8 +310,7 @@ echo '<B>' . _("Current Search") . '</B>'
 for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noselect', $boxes[$i]['flags'])) {
         $box = $boxes[$i]['unformatted'];
-        $box2 = imap_utf7_decode_local(
-		  str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
+        $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
         if( $box2 == 'INBOX' ) {
             $box2 = _("INBOX");
         }
