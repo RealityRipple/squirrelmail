@@ -343,13 +343,13 @@ while (($command ne "q") && ($command ne "Q")) {
       print "2.  IMAP Server          : $WHT$imapServerAddress$NRM\n";
       print "3.  IMAP Port            : $WHT$imapPort$NRM\n";
       print "4.  Use Sendmail/SMTP    : $WHT";
-      if ($useSendmail eq "true") {
+      if (lc($useSendmail) eq "true") {
          print "Sendmail";
       } else {
          print "SMTP";
       }
       print "$NRM\n";
-      if ($useSendmail eq "true") {
+      if (lc($useSendmail) eq "true") {
          print "5.    Sendmail Path      : $WHT$sendmail_path$NRM\n";
       } else {
          print "6.    SMTP Server        : $WHT$smtpServerAddress$NRM\n";
@@ -737,7 +737,7 @@ sub command14 {
    print "You now need to choose the method that you will use for sending\n";
    print "messages in SquirrelMail.  You can either connect to an SMTP server\n";
    print "or use sendmail directly.\n";
-   if ($useSendmail eq "true") {
+   if (lc($useSendmail) eq "true") {
       $default_value = "1";
    } else {
       $default_value = "2";
@@ -804,7 +804,7 @@ sub command18 {
    print "it according to RFC 2554.\n";
    
    $YesNo = 'n';
-   $YesNo = 'y' if ($use_authenticated_smtp eq "true");
+   $YesNo = 'y' if (lc($use_authenticated_smtp) eq "true");
 
    print "Use authenticated SMTP server (y/n) [$WHT$YesNo$NRM]: $WHT";
 
@@ -850,7 +850,7 @@ sub command110 {
    print "    yes = Fix the time for this system\n";
    
    $YesNo = 'n';
-   $YesNo = 'y' if ($invert_time eq "true");
+   $YesNo = 'y' if (lc($invert_time) eq "true");
 
    print "Fix the time for this system (y/n) [$WHT$YesNo$NRM]: $WHT";
 
@@ -991,7 +991,7 @@ sub command22 {
    print "       specify anything different.\n";
    print "\n";
    
-   if ($show_prefix_option eq "true") {
+   if (lc($show_prefix_option) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1082,7 +1082,7 @@ sub command24a {
    print "Trash folder is currently: $trash_folder\n";
    print "\n";
    
-   if ($default_move_to_trash eq "true") {
+   if (lc($default_move_to_trash) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1106,7 +1106,7 @@ sub command24b {
    print "Trash folder is currently: $sent_folder\n";
    print "\n";
    
-   if ($default_move_to_sent eq "true") {
+   if (lc($default_move_to_sent) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1130,7 +1130,7 @@ sub command24c {
    print "Drafts folder is currently: $draft_folder\n";
    print "\n";
    
-   if ($default_move_to_draft eq "true") {
+   if (lc($default_move_to_draft) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1154,7 +1154,7 @@ sub command27 {
    print "listing.\n";
    print "\n";
    
-   if ($list_special_folders_first eq "true") {
+   if (lc($list_special_folders_first) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1179,7 +1179,7 @@ sub command28 {
    print "color than the other folders.\n";
    print "\n";
    
-   if ($use_special_folder_color eq "true") {
+   if (lc($use_special_folder_color) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1204,7 +1204,7 @@ sub command29 {
    print "messages too.\n";
    print "\n";
    
-   if ($auto_expunge eq "true") {
+   if (lc($auto_expunge) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1228,7 +1228,7 @@ sub command210 {
    print "to be subfolders of INBOX by default.\n";
    print "\n";
    
-   if ($default_sub_of_inbox eq "true") {
+   if (lc($default_sub_of_inbox) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1252,7 +1252,7 @@ sub command211 {
    print "creating contains subfolders or messages.\n";
    print "\n";
    
-   if ($show_contain_subfolders_option eq "true") {
+   if (lc($show_contain_subfolders_option) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1311,7 +1311,7 @@ sub command214 {
    print "automatically create it again for them.\n";
    print "\n";
    
-   if ($auto_create_special eq "true") {
+   if (lc($auto_create_special) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1333,7 +1333,7 @@ sub command215 {
    print "and can be deleted from there\n";
    print "\n";
 
-   if ($delete_folder eq "true") {
+   if (lc($delete_folder) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1489,7 +1489,7 @@ sub command36 {
    print "transparently changes all usernames to lowercase.";
    print "\n";
    
-   if ($force_username_lowercase eq "true") {
+   if (lc($force_username_lowercase) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1506,7 +1506,7 @@ sub command37 {
    print "";
    print "\n";
    
-   if ($default_use_priority eq "true") {
+   if (lc($default_use_priority) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1525,7 +1525,7 @@ sub command38 {
    print "";
    print "\n";
    
-   if ($default_hide_attribution eq "true") {
+   if (lc($default_hide_attribution) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1544,7 +1544,7 @@ sub command39 {
    print "";
    print "\n";
    
-   if ($default_use_mdn eq "true") {
+   if (lc($default_use_mdn) eq "true") {
       $default_value = "y";
    } else {
       $default_value = "n";
@@ -1863,7 +1863,7 @@ sub command62 {
    print "user can configure individually\n";
    print "\n";
    
-   if ($default_use_javascript_addr_book eq "true") {
+   if (lc($default_use_javascript_addr_book) eq "true") {
       $default_value = "y";
    } else {
       $default_use_javascript_addr_book = "false";
