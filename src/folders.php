@@ -120,9 +120,9 @@ if ( $default_sub_of_inbox == false ) {
 
 // Call sqimap_mailbox_option_list, using existing connection to IMAP server,
 // the arrays of folders to include or skip (assembled above), 
-// and indicate that folders listed should be parents (we're creating folders,
-// so we want to list the folders that can contain other folders), also force long form
-echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, true, true);
+// use 'noinferiors' as a mailbox filter to leave out folders that can not contain other folders.
+// use the long format to show subfolders in an intelligible way if parent is missing (special folder)
+echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors', true);
 
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
@@ -183,7 +183,11 @@ if ($count_special_folders < count($boxes)) {
        . "<TT><SELECT NAME=old>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, false, true);
+    // use existing IMAP connection, we have no special values to show, 
+    // but we do include values to skip. Use the pre-created $boxes to save an IMAP query.
+    // send NULL for the flag - ALL folders are eligible for rename!
+    // use long format to make sure folder names make sense when parents may be missing.
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
     echo "</SELECT></TT>\n".
          "<input type=SUBMIT VALUE=\"".
@@ -211,7 +215,9 @@ if ($count_special_folders < count($boxes)) {
        . "<TT><SELECT NAME=mailbox>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, false, true);
+    // send NULL for the flag - ALL folders are eligible for delete (except what we've got in skiplist)
+    // use long format to make sure folder names make sense when parents may be missing.
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, NULL, true);
 
     echo "</SELECT></TT>\n"
        . '<input type=SUBMIT VALUE="'
