@@ -252,7 +252,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
   if ($id == 'no') {
       echo '<b><small><center><font color=red>Thread sorting is not'.
              ' supported by your IMAP server.<br>Please report this'.
-             'to the system administrator.</center></small></b>';
+             ' to the system administrator.</center></small></b>';
      $thread_sort_messages = 0; 
     $id = array();
   }
@@ -272,8 +272,8 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     $server_sort_order = $sort;
     $id = sqimap_get_sort_order($imapConnection, $server_sort_order);
   if ($id == 'no') {
-    echo '<b><small><center><font color=red>Server-side sorting '.
-       'is not supported by your IMAP server.<br>Please report this'.
+    echo '<b><small><center><font color=red>Server-side sorting'.
+       ' is not supported by your IMAP server.<br>Please report this'.
        ' to the system administrator.</center></small></b>';
     $sort = $server_sort_order;
 	  $allow_server_sort = FALSE;
