@@ -483,48 +483,48 @@
 
    // figures out what entity to display and returns the $message object
    // for that entity.
-   function findDisplayEntity ($message, $textOnly = 1, $next = 'none')
+   function findDisplayEntity ($message, $textOnly = 1)
    {
       global $show_html_default;
       
       if (! $message)
 	return 0;
 
+      if ($message->header->type0 == "multipart" &&
+          $message->header->type1 == "alternative" &&
+	  $show_html_default && ! $textOnly) {
+	 $entity = findDisplayEntityHTML($message);
+	 if ($entity != 0)
+	    return $entity;
+      }
+	 
       // Show text/plain or text/html -- the first one we find.
       if ($message->header->type0 == 'text' && 
 	  ($message->header->type1 == 'plain' ||
-	   $message->header->type1 == 'html'))
-	{
-	   // If the next part is an HTML version, this will
-	   // all be true.  Show it, if the user so desires.
-	   // HTML mails this way all have entity_id of 2.  1 = text/plain
-	   if ($next != 'none' &&
-	       $textOnly == 0 &&
-	       $next->header->type0 == "text" &&
-	       $next->header->type1 == "html" &&
-	       ($next->header->entity_id == 2 || 
-	        $next->header->entity_id == 1.2) &&
-	       $message->header->type1 == "plain" &&
-	       isset($show_html_default) &&
-	       $show_html_default)
-	     $message = $next;
-	   
-	   if (isset($message->header->entity_id))
-	     return $message->header->entity_id;
-	} 
-      else 
-	{
-	   for ($i=0; isset($message->entities[$i]); $i++) 
-	     {
-		$next = 'none';
-		if (isset($message->entities[$i + 1]))
-		  $next = $message->entities[$i + 1];
-		$entity = findDisplayEntity($message->entities[$i],
-                  $textOnly, $next);
-		if ($entity != 0)
-		  return $entity;
-	     }   
-	}   
+	   $message->header->type1 == 'html') && 
+	  isset($message->header->entity_id))
+	 return $message->header->entity_id;
+
+      for ($i=0; isset($message->entities[$i]); $i++) {
+         $entity = findDisplayEntity($message->entities[$i], $textOnly);
+         if ($entity != 0)
+            return $entity;
+      }
+      
+      return 0;
+   }
+   
+   // Shows the HTML version
+   function findDisplayEntityHTML ($message) {
+      if ($message->header->type0 == 'text' && 
+          $message->header->type1 == 'html' &&
+	  isset($message->header->entity_id))
+	 return $message->header->entity_id;
+      for ($i = 0; isset($message->entities[$i]); $i ++) {
+         $entity = findDisplayEntityHTML($message->entities[$i]);
+	 if ($entity != 0)
+	    return $entity;
+      }
       return 0;
    }
 
