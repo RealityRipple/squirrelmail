@@ -5,7 +5,7 @@
 Version 1.5.1 -- CVS
 --------------------
   - New reply citation to include date and author.
-  - Fix quite some possible XSS-bugs.
+  - Fix some possible XSS bugs.
   - Norwegian Bokmal translation uses nb_NO.
   - Integrated Msg_Flags plugin - turn on/off icons using configuration tool, menu
     number 11 (Tweaks), option number 3, after which users must select an icon
@@ -13,16 +13,16 @@ Version 1.5.1 -- CVS
     as separate plugin.
   - Added Farsi and Tagalog translation support.
   - Enabled Ukrainian and Russian-Ukrainian support
-  - Fix that subfolders named "foo.inbox" didn't always work well.
+  - Subfolders named "foo.inbox" didn't always work well.  Fixed.
   - sqimap_create_stream() was not obeying passed params properly.
-  - Fix non selectable inbox.
+  - Fix non-selectable inbox.
   - Add src/configtest.php script which checks for common errors in the config.
   - Improve display of some unparsable/absent dates (#891354).
   - Add comment (Highest,Normal,Lowest) to X-Priority header.
     Some SpamAssassin rule triggers on the absence of such a comment.
   - Corrected moving of last message in a folder using Delete-Move-Next
     functionality added to core in 1.5.0.
-  - Fix test for LOGINDISABLED, should only test when the auth_mech actually
+  - Fix test for LOGINDISABLED, should only test when the auth mech actually
     is 'login'.
   - Update required PHP version to 4.1.0, and remove PHP 4.0.x legacy code.
   - Make writing of preferences, abook, calendars fail better when disk full
@@ -48,7 +48,7 @@ Version 1.5.1 -- CVS
   - Fixed message rejects by the postfix sendmail wrapper when attachments were
     involved.
   - Fixed date display bug for messages of today. Show short format in case
-    of long format. (only occures in the timeframe around 0:00 AM till
+    of long format. (only occurs in the timeframe around 0:00 AM till
     timezone).
   - Added address book sorting options. Ascending/descending sorting code
     written by Bryan Loniewski.
@@ -61,7 +61,7 @@ Version 1.5.1 -- CVS
   - Make used of cached ordered uid list in case of server_side_sorting.
   - Rewrite of internal mailbox sorting routines.
   - Added sort by message size.
-  - Fixed XSS vulnarability in content-type display in the attachment area
+  - Fixed XSS vulnerability in content-type display in the attachment area
     of read_body.php discovered by Roman Medina.
 
 Version 1.5.0
