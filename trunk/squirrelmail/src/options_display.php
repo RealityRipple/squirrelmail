@@ -47,7 +47,7 @@
             </td>
          </tr>
          <tr>
-            <td valign="top" align="right" nowrap><?php echo _("Language"); ?>:
+            <td align="right" nowrap><?php echo _("Language"); ?>:
             </td><td>
 <?php
    echo '         <tt><select name="language">' . "\n";
@@ -247,7 +247,24 @@
             </td>
          </tr>
          <tr>
-            <td valign=top align=right>
+            <td align="right">
+                <?php echo _("Use alternating row colors?") ?>
+            </td><td>
+<?php
+    if (isset($alt_index_colors) && $alt_index_colors == 1) {
+        $a = " checked";
+        $b = "";
+    } else {
+        $a = "";
+        $b = " checked";
+    }
+?>
+                <input type="radio" name="altIndexColors" value="1"<?php echo $a ?>> <?php echo _("Yes") ?> &nbsp;&nbsp; 
+                <input type="radio" name="altIndexColors" value="0"<?php echo $b ?>> <?php echo _("No") ?><br>
+            </td>
+         </tr>
+         <tr>
+            <td align=right>
                <?php echo _("Show HTML version by default"); ?>:
             </td>
             <td>

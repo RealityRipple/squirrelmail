@@ -204,6 +204,14 @@
       $index_order[5] = 4;
    }
    
+   global $alt_index_colors;
+   $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors');
+   if ($alt_index_colors === 0) {
+      $alt_index_colors = false;
+   } else {
+      $alt_index_colors = true;
+   }
+   
    
    global $location_of_bar, $location_of_buttons;
    $location_of_bar = getPref($data_dir, $username, 'location_of_bar');

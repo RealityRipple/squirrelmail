@@ -20,15 +20,16 @@
       global $message_highlight_list;
       global $index_order;
 
-      if (!isset($GLOBALS["row_count"])) {
-        $GLOBALS["row_count"] = 0;
-      }
-      $GLOBALS["row_count"]++;
-      if ($GLOBALS["row_count"] % 2) {
-        if (!isset($color[12])) $color[12] = "#EAEAEA";
-        $color_string = $color[12];
-      } else {
-        $color_string = $color[4];
+      $color_string = $color[4];
+      if ($GLOBALS['alt_index_colors']) {
+          if (!isset($GLOBALS["row_count"])) {
+            $GLOBALS["row_count"] = 0;
+          }
+          $GLOBALS["row_count"]++;
+          if ($GLOBALS["row_count"] % 2) {
+          if (!isset($color[12])) $color[12] = "#EAEAEA";
+            $color_string = $color[12];
+          }
       }
 
       $msg = $msgs[$key];
@@ -545,7 +546,13 @@
       echo '</TD></TR>';
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
+      if ($GLOBALS['alt_index_colors']) {
+        echo "0";
+      } else {
+        echo "1";
+      }
+      echo " BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       $urlMailbox=urlencode($mailbox);
