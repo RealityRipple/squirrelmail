@@ -22,6 +22,9 @@
       include("../functions/imap.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
+
 
    echo "<HTML>";
 
@@ -75,6 +78,7 @@
 
    /** If it was a successful login, lets load their preferences **/
    include("../src/load_prefs.php");
+
    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
       echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">";
       echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">"; 
