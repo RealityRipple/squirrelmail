@@ -3,7 +3,7 @@ Themes
 
 To create a theme, it is very simple.  Just go into the themes/ directory
 and create a file called yourtheme_theme.php.  You then need to create an
-array with 12 elements (0-11).  Below is an example followed by a
+array with 12 elements (0-13).  Below is an example followed by a
 description of what the different entries are for.
 
 ---<START>--- 
@@ -27,6 +27,7 @@ description of what the different entries are for.
    $color[9]   = "#xxxxxx";
    $color[10]  = "#xxxxxx";
    $color[11]  = "#xxxxxx";
+   $color[12]  = "#xxxxxx";
 
 ?>
 ---<END>---
@@ -46,6 +47,7 @@ are color of:
   9: Darker version of #0
  10: Darker version of #9
  11: Special folders color (Inbox, Trash, Sent)
+ 12: Alternate color for message list (alters between 4 and this one)
 
 Next all you have to do is run conf.pl and add the theme to the list
 of themes available to you.  If you would like your theme to be 
