@@ -119,16 +119,14 @@ function savePrefValues($data_dir, $username) {
     }
     foreach ($prefs_cache as $Key => $Value) {
         if (isset($Value)) {
-            $tmpwrite = @fwrite($file, $Key . '=' . $Value . "\n");
-            if ($tmpwrite == -1) {
+            if ( ! @fwrite($file, $Key . '=' . $Value . "\n") ) {
                logout_error( sprintf( _("Preference file, %s, could not be written. Contact your system administrator to resolve this issue.") , $filename . '.tmp') );
                exit;
             }
         }
     }
     fclose($file);
-    $tmpcopy = @copy($filename . '.tmp',$filename);
-    if ($tmpcopy == -1) {
+    if (! @copy($filename . '.tmp',$filename) ) {
         logout_error( sprintf( _("Preference file, %s, could not be copied from temporary file, %s. Contact your system administrator to resolve this issue."), $filename, $filename . '.tmp') );
         exit;
     }
@@ -224,13 +222,15 @@ function setSig($data_dir, $username, $number, $value) {
         logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename . '.tmp') );
         exit;
     }
-    $tmpwrite = @fwrite($file, $value);
-    if ($tmpwrite == -1) {
+    if (! @fwrite($file, $value) ) {
        logout_error( sprintf( _("Signature file, %s, could not be written. Contact your system administrator to resolve this issue.") , $filename . '.tmp'));
        exit;
     }
     fclose($file);
-    @copy($filename . '.tmp',$filename);
+    if (! @copy($filename . '.tmp',$filename) ) {
+       logout_error( sprintf( _("Signature file, %s, could not be copied from temporary file, %s. Contact your system administrator to resolve this issue."), $filename, $filename . '.tmp') );
+       exit;
+    }
     @unlink($filename . '.tmp');
     chmod($filename, 0600);
 
