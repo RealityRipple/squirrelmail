@@ -51,11 +51,10 @@ function load_optpage_data_display() {
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
-            $language_values[$lang_attributes['NAME']] = $lang_key;
+            $language_values[$lang_key] = $lang_attributes['NAME'];
         }
     }
     asort($language_values);
-    $language_values = array_flip($language_values);
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'language',
         'caption' => _("Language"),
