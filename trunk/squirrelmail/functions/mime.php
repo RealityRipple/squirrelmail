@@ -749,7 +749,7 @@
 	      break;
 	  default:
 	      $k = ord( $string{$i} );
-	      if( $k > 126 && $k < 256 ) {
+	      if( $k > 126 ) {
 	         $ret .= sprintf("=%02X", $k);
 	         $l = TRUE;
 	      } else 
