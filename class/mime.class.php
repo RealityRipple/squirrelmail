@@ -1,7 +1,7 @@
 <?php
 
 /**
- * mime.class
+ * mime.class.php
  *
  * Copyright (c) 2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
