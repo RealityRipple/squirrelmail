@@ -1138,7 +1138,7 @@ function mail_message_listing_beginning ($imapConnection,
                                          $paginator = '&nbsp;'
                                         ) {
     global $color, $show_flag_buttons, $PHP_SELF;
-    global $lastTargetMailbox;
+    global $lastTargetMailbox, $boxes;
 
     $php_self = $PHP_SELF;
 

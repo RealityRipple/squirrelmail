@@ -858,7 +858,7 @@ if (isset($sendreceipt)) {
       if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message, $imapConnection ) > 0 && $supportMDN ) {
          ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id);
          $message->is_mdnsent = true;
-         $messages[$uidvalidity][$passed_id]=$message;
+         $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
       }
       ClearAttachments();
    }
