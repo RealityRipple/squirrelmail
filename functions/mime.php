@@ -44,7 +44,6 @@ function mime_structure ($bodystructure, $flags=array()) {
         echo '</body></html>';
         exit;
     }
-    $msg->setEnt('0');
     if (count($flags)) {
         foreach ($flags as $flag) {
             $char = strtoupper($flag{1});
@@ -94,15 +93,16 @@ function mime_structure ($bodystructure, $flags=array()) {
  * to mime_get_elements()
  */
 
-function mime_fetch_body($imap_stream, $id, $ent_id) {
+function mime_fetch_body($imap_stream, $id, $ent_id=1) {
     global $uid_support; 
     /* Do a bit of error correction.  If we couldn't find the entity id, just guess
      * that it is the first one.  That is usually the case anyway.
      */
     if (!$ent_id) {
-        $ent_id = 1;
+	$cmd = "FETCH $id BODY[]";
+    } else {
+	$cmd = "FETCH $id BODY[$ent_id]";
     }
-    $cmd = "FETCH $id BODY[$ent_id]";
 
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, $uid_support);
     do {
@@ -152,14 +152,9 @@ function mime_fetch_body($imap_stream, $id, $ent_id) {
     return $ret;
 }
 
-function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
+function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
     global $uid_support;
-    /* Do a bit of error correction.  If we couldn't find the entity id, just guess
-     * that it is the first one.  That is usually the case anyway.
-     */
-    if (!$ent_id) {
-        $ent_id = 1;
-    }
+
     $sid = sqimap_session_id($uid_support);
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
@@ -429,10 +424,15 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                 if (trim($filename) == '') {
                     $name = decodeHeader($header->disposition->getProperty('name'));
                     if (trim($name) == '') {
-                        if (trim( $header->id ) == '') {
-                            $filename = 'untitled-[' . $ent . ']' ;
+                        $name = decodeHeader($header->getParameter('name'));
+                        if(trim($name) == '') {
+                            if (trim( $header->id ) == '') {
+                                $filename = 'untitled-[' . $ent . ']' ;
+                            } else {
+                                $filename = 'cid: ' . $header->id;
+			    }
                         } else {
-                            $filename = 'cid: ' . $header->id;
+			    $filename = $name;
                         }
                     } else {
                         $filename = $name;
