@@ -488,15 +488,6 @@
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
       $more_headers = Array();
 
-      // added as just a precaution (Luke: 1.0.1)
-      $t = trim($t);
-      $c = trim($c);
-      $b = trim($b);
-      $subject = trim($subject);
-      $body = trim($body);
-      $mailbox = trim($mailbox);
-      $sent_folder = trim($sent_folder);
-
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
       if ($reply_id) {
