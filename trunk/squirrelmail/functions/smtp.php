@@ -111,7 +111,7 @@ function expandRcptAddrs ($array) {
 /* Attach the files that are due to be attached
  */
 function attachFiles ($fp, $session, $rn="\r\n", $checkdot = false) {
-    global $attachments, $attachment_dir, $username;
+    global $attachments, $attachment_dir, $username, $languages, $squirrelmail_language;
 
     $length = 0;
 
@@ -129,10 +129,15 @@ function attachFiles ($fp, $session, $rn="\r\n", $checkdot = false) {
                 $header = '--' . mimeBoundary() . "$rn";
                 if ( isset($info['remotefilename']) 
                      && $info['remotefilename'] != '') {
+                    $remotefilename = $info['remotefilename'];
+                    if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+                        $remotefilename = 
+                            $languages[$squirrelmail_language]['XTRA_CODE']('encode', $remotefilename);
+                    }
                     $header .= "Content-Type: $filetype; name=\"" .
-                         encodeHeader(charset_encode_japanese($info['remotefilename'])) . "\"$rn";
+                        encodeHeader($remotefilename) . "\"$rn";
                     $header .= "Content-Disposition: attachment; filename=\""
-                         . encodeHeader(charset_encode_japanese($info['remotefilename'])) . "\"$rn";
+                        . encodeHeader($remotefilename) . "\"$rn";
                 } else {
                     $header .= "Content-Type: $filetype$rn";
                 }

@@ -157,7 +157,7 @@ function ServerMDNSupport( $read ) {
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message) {
     global $username, $attachment_dir, $SERVER_NAME,
-           $version, $attachments;
+           $version, $attachments, $squirrelmail_language;
 
     $header = $message->rfc822_header;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -186,7 +186,9 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message) {
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
 
-    $body = charset_encode_japanese($body);
+    if (function_exists($languages[$squrrelmail_language]['XTRA_CODE'])) {
+        $body = $languages[$squirrelmail_language]['XTRA_CODE']('encode', $body);
+    }
     
     // part2  (RFC2298)
     $original_recipient = $to;
