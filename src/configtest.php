@@ -1,11 +1,13 @@
 <?php
-/*
+/**
  * SquirrelMail configtest script
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * $Id$
+ * @version $Id$
+ * @package squirrelmail
+ * @subpackage config
  */
 
 /************************************************************
@@ -25,6 +27,7 @@ function do_err($str, $exit = TRUE) {
 $IND = str_repeat('&nbsp;',4);
 
 ob_implicit_flush();
+/** @ignore */
 define('SM_PATH', '../');
 
 /*

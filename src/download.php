@@ -9,11 +9,14 @@
  * Handles attachment downloads to the users computer.
  * Also allows displaying of attachments when possible.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files. 
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

@@ -8,15 +8,18 @@
  *
  * IMAP search page
  *
- * $Id$
+ * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
+ *
+ * @version $Id$
  * @package squirrelmail
  * @link http://www.ietf.org/rfc/rfc3501.txt
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
- *
- * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /** SquirrelMail required files. */

@@ -8,11 +8,14 @@
  *
  * This file shows an attched vcard
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 Define('SM_PATH','../');
 
 /* SquirrelMail required files. */

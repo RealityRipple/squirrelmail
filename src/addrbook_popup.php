@@ -8,11 +8,14 @@
  *
  * Frameset for the JavaScript version of the address book.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
-/** Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../');
 
 /** SquirrelMail required files. */
