@@ -85,7 +85,7 @@ global $SpamFilters_DNScache;
  * in the bulkquery directory for more information on using bulkquery.
  */
 global $SpamFilters_BulkQuery;
-$SpamFilters_BulkQuery = "";
+$SpamFilters_BulkQuery = '';
 
 /*
  * Do you want to use a shared file for the DNS cache or a session variable?

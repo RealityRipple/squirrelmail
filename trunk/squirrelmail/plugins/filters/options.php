@@ -65,19 +65,19 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
       $filter_where  = $_POST['filter_where'];
       $filter_folder = $_POST['filter_folder'];
 
-      $filter_what = ereg_replace(",", " ", $filter_what);
+      $filter_what = str_replace(',', ' ', $filter_what);
       $filter_what = str_replace("\\\\", "\\", $filter_what);
-      $filter_what = str_replace("\\\"", "\"", $filter_what);
-      $filter_what = str_replace("\"", "&quot;", $filter_what);
+      $filter_what = str_replace("\\\"", '"', $filter_what);
+      $filter_what = str_replace('"', '&quot;', $filter_what);
 
       if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
          print ('WARNING! Header filters should be of the format "Header: value"<BR>');
 	 $action = 'edit';
       }
-      setPref($data_dir, $username, "filter".$theid, $filter_where.",".$filter_what.",".$filter_folder);
-      $filters[$theid]["where"] = $filter_where;
-      $filters[$theid]["what"] = $filter_what;
-      $filters[$theid]["folder"] = $filter_folder;
+      setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
+      $filters[$theid]['where'] = $filter_where;
+      $filters[$theid]['what'] = $filter_what;
+      $filters[$theid]['folder'] = $filter_folder;
    } elseif (isset($action) && $action == 'delete') {
       remove_filter($theid);
    } elseif (isset($action) && $action == 'move_up') {
@@ -185,7 +185,7 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
                     '<tt>'.
                     '<select name=filter_folder>';
 
-        for ($i = 0; $i < count($boxes); $i++) {
+        for ($i = 0, $num = count($boxes); $i < $num; $i++) {
             if (! in_array('noselect', $boxes[$i]['flags'])) {
                 $box = $boxes[$i]['unformatted'];
                 $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
@@ -210,7 +210,7 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
 
 	echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' );
 
-    for ($i=0; $i < count($filters); $i++) {
+    for ($i=0, $num = count($filters); $i < $num; $i++) {
 
         $clr = (($i % 2)?$color[0]:$color[9]);
         $fdr = ($folder_prefix)?str_replace($folder_prefix, "", $filters[$i]["folder"]):$filters[$i]["folder"];

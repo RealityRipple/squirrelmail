@@ -86,7 +86,9 @@ if (isset($action) && $action == 'spam') {
     $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
     sqimap_logout($imapConnection);
-    for ($i = 0; $i < count($boxes) && $filters_spam_folder == ''; $i++) {
+    $numboxes = count($boxes);
+
+    for ($i = 0; $i < $numboxes && $filters_spam_folder == ''; $i++) {
         if ((isset($boxes[$i]['flags'][0]) && $boxes[$i]['flags'][0] != 'noselect') &&
             (isset($boxes[$i]['flags'][1]) && $boxes[$i]['flags'][1] != 'noselect') &&
             (isset($boxes[$i]['flags'][2]) && $boxes[$i]['flags'][2] != 'noselect')) {
@@ -102,7 +104,7 @@ if (isset($action) && $action == 'spam') {
                 html_tag( 'td', '', 'left' ) .
                     '<select name="filters_spam_folder_set">';
 
-    for ($i = 0; $i < count($boxes); $i++) {
+    for ($i = 0; $i < $numboxes; $i++) {
         if (! in_array('noselect', $boxes[$i]['flags'])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);

@@ -28,20 +28,20 @@
 function filters_SaveCache () {
     global $data_dir, $SpamFilters_DNScache;
 
-    if (file_exists($data_dir . "/dnscache")) {
-        $fp = fopen($data_dir . "/dnscache", "r");
+    if (file_exists($data_dir . '/dnscache')) {
+        $fp = fopen($data_dir . '/dnscache', 'r');
     } else {
         $fp = false;
     }
     if ($fp) {
         flock($fp,LOCK_EX);
     } else {
-       $fp = fopen($data_dir . "/dnscache", "w+");
+       $fp = fopen($data_dir . '/dnscache', 'w+');
        fclose($fp);
-       $fp = fopen($data_dir . "/dnscache", "r");
+       $fp = fopen($data_dir . '/dnscache', 'r');
        flock($fp,LOCK_EX);
     }
-    $fp1=fopen($data_dir . "/dnscache", "w+");
+    $fp1=fopen($data_dir . '/dnscache', 'w+');
 
     foreach ($SpamFilters_DNScache as $Key=> $Value) {
        $tstr = $Key . ',' . $Value['L'] . ',' . $Value['T'] . "\n";
@@ -55,9 +55,9 @@ function filters_SaveCache () {
 function filters_LoadCache () {
     global $data_dir, $SpamFilters_DNScache;
 
-    if (file_exists($data_dir . "/dnscache")) {
+    if (file_exists($data_dir . '/dnscache')) {
         $SpamFilters_DNScache = array();
-        if ($fp = fopen ($data_dir . "/dnscache", "r")) {
+        if ($fp = fopen ($data_dir . '/dnscache', 'r')) {
             flock($fp,LOCK_SH);
             while ($data=fgetcsv($fp,1024)) {
                if ($data[2] > time()) {
@@ -139,11 +139,11 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
             }
         }
 
-        $bqfil = $attachment_dir . $username . "-bq.in";
-        $fp = fopen($bqfil, "w");
+        $bqfil = $attachment_dir . $username . '-bq.in';
+        $fp = fopen($bqfil, 'w');
         fputs ($fp, $SpamFilters_CacheTTL . "\n");
         foreach ($rbls as $key => $value) {
-            fputs ($fp, "." . $key . "\n");
+            fputs ($fp, '.' . $key . "\n");
         }
         fputs ($fp, "----------\n");
         foreach ($IPs as $key => $value) {
@@ -151,7 +151,7 @@ function filters_bulkquery($filters_spam_scan, $filters, $read) {
         }
         fclose ($fp);
         $bqout = array();
-        exec ($SpamFilters_BulkQuery . " < " . $bqfil, $bqout);
+        exec ($SpamFilters_BulkQuery . ' < ' . $bqfil, $bqout);
         foreach ($bqout as $value) {
             $Chunks = explode(',', $value);
             $SpamFilters_DNScache[$Chunks[0]]['L'] = $Chunks[1];
@@ -210,7 +210,7 @@ function user_filters($imap_stream) {
     sqimap_mailbox_select($imap_stream, 'INBOX');
     $id = array();
     // For every rule
-    for ($i=0; $i < count($filters); $i++) {
+    for ($i=0, $num = count($filters); $i < $num; $i++) {
         // If it is the "combo" rule
         if ($filters[$i]['where'] == 'To or Cc') {
             /*
@@ -256,7 +256,7 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan,
     } else {
         $search_str = 'SEARCH CHARSET US-ASCII ' . $category;
     }
-    if ($where == "Header") {
+    if ($where == 'Header') {
         $what  = explode(':', $what);
         $where = trim($where . ' ' . $what[0]);
         $what  = addslashes(trim($what[1]));
@@ -274,12 +274,12 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan,
 
     // This may have problems with EIMS due to it being goofy
 
-    for ($r=0; $r < count($read) &&
+    for ($r=0, $num = count($read); $r < $num &&
                 substr($read[$r], 0, 8) != '* SEARCH'; $r++) {}
     if ($response == 'OK') {
         $ids = explode(' ', $read[$r]);
         if (sqimap_mailbox_exists($imap, $where_to)) {
-            for ($j=2; $j < count($ids); $j++) {
+            for ($j=2, $num = count($ids); $j < $num; $j++) {
                 $id = trim($ids[$j]);
                 $del_id[] = $id;
                 sqimap_messages_copy ($imap, $id, $id, $where_to);
@@ -435,6 +435,13 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
             if ($filters[$key]['dns']) {
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
                                 $filters[$key]['dns'];
+
+                if(!isset($SpamFilters_DNScache[$filter_revip]['L']))
+                        $SpamFilters_DNScache[$filter_revip]['L'] = '';
+
+                if(!isset($SpamFilters_DNScache[$filter_revip]['T']))
+                        $SpamFilters_DNScache[$filter_revip]['T'] = '';
+
                 if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
                     $SpamFilters_DNScache[$filter_revip]['L'] =
                                     gethostbyname($filter_revip);
