@@ -74,7 +74,6 @@
    /** Log out this session **/
    sqimap_logout($imap_stream);
 
-   echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>";
    echo _("Folder Deleted!");
    echo "</B><BR><BR>";
@@ -83,7 +82,7 @@
    echo _("Click here");
    echo "</A> ";
    echo _("to continue.");
-   echo "</CENTER></FONT>"; 
+   echo "</CENTER>"; 
    
    echo "</BODY></HTML>";
 ?>
