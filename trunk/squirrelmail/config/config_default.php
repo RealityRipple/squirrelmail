@@ -65,7 +65,7 @@
 
     $special_folders[0] = "INBOX";   // The first one has to be the inbox (whatever the name is)
     $special_folders[1] = $trash_folder;
-    $special_folders[2] = "INBOX.Sent";
+    $special_folders[2] = $sent_folder;
     $special_folders[3] = "INBOX.Drafts";
     $special_folders[4] = "INBOX.Templates";
 
