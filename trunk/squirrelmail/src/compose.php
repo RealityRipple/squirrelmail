@@ -27,6 +27,9 @@
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
          $reply_id, $send_to, $send_to_cc, $mailbox;
 
+      $send_to = rfc1522Decode($send_to);
+      $send_to_cc = rfc1522Decode($send_to_cc);
+
       if ($forward_id) {
          sqimap_mailbox_select($imapConnection, $mailbox);
          $msg = sqimap_get_message($imapConnection, $forward_id, $mailbox);
@@ -97,9 +100,8 @@
          }
       }
       
-      $send_to = sqimap_find_displayable_name($send_to);
+      $send_to = sqimap_find_email($send_to);
       
-      $send_to = strtolower($send_to);
       $send_to = ereg_replace("\"", "", $send_to);
       $send_to = stripslashes($send_to);
       
@@ -114,7 +116,7 @@
             if ($sendcc[$i] == "")
                continue;
             
-            $sendcc[$i] = sqimap_find_displayable_name($sendcc[$i]);
+            $sendcc[$i] = sqimap_find_email($sendcc[$i]);
             $whofrom = sqimap_find_displayable_name($msg["HEADER"]["FROM"]);
             $whoreplyto = sqimap_find_email($msg["HEADER"]["REPLYTO"]);
          
@@ -135,6 +137,10 @@
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
          $attachments, $subject, $newmail;
+
+      $subject = rfc1522Decode($subject);
+      $reply_subj = rfc1522Decode($reply_subj);
+      $forward_subj = rfc1522Decode($forward_subj);
 
       echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";
@@ -301,7 +307,7 @@
       showInputForm();
    } else if (isset($do_delete)) {
       while (list($key, $localname) = each($delete)) {
-         array_splice ($attachments, $localname, 1);
+         array_splice ($attachments, $key, 1);
          unlink ($attachment_dir.$localname);
          unlink ($attachment_dir.$localname.".info");
       }
