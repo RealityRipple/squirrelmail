@@ -19,13 +19,13 @@
     **  Checks whether or not the specified mailbox exists 
     ******************************************************************************/
    function sqimap_mailbox_exists ($imap_stream, $mailbox) {
-      $boxes = sqimap_mailbox_list ($imap_stream);
-      $found = false;
-      for ($i = 0; $i < count ($boxes); $i++) {
-         if ($boxes[$i]["unformatted"] == $mailbox)
-            $found = true;
+      fputs ($imap_stream, "a001 LIST \"\" \"$mailbox\"\r\n");
+      $mbx = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      if (ereg ("$mailbox", $mbx[0])) {
+         return true;
+      } else {
+         return false;
       }
-      return $found;
    }
 
 
