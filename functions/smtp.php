@@ -462,7 +462,7 @@
          case 554:   $message = 'Transaction failed';
                      $status = 0;
                      break;
-         default:    $message = Unknown response: '. nl2br(htmlspecialchars($lines));
+         default:    $message = 'Unknown response: '. nl2br(htmlspecialchars($lines));
                      $status = 0;
                      $error_num = '001';
                      break;
