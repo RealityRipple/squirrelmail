@@ -112,7 +112,7 @@
          setPref($data_dir, $username, 'move_to_sent', '0');
          setPref($data_dir, $username, 'sent_folder', 'none');
       }
-      if (isset($folder_prefix)) {
+      if (isset($folderprefix)) {
          setPref($data_dir, $username, 'folder_prefix', $folderprefix);
       } else {
          setPref($data_dir, $username, 'folder_prefix', '');
