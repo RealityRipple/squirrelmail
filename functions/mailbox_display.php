@@ -159,8 +159,8 @@ function printMessageInfo($aMsg) {
         // If the From address is the same as $email_address, then handle as Sent
         $from_array = parseAddress($sFrom, 1);
         if (!isset($email_address)) {
-            global $datadir, $username;
-            $email_address = getPref($datadir, $username, 'email_address');
+            global $data_dir, $username;
+            $email_address = getPref($data_dir, $username, 'email_address');
         }
         $bHandleAsSent = ((isset($from_array[0][0])) && ($from_array[0][0] == $email_address));
     } else {
@@ -1008,7 +1008,7 @@ function fetchMessageHeaders($imapConnection, &$aMailbox) {
  * @param array $aMailbox associative array with mailbox related vars
  */
 function showMessagesForMailbox($imapConnection, &$aMailbox) {
-    global $color;
+    global $color, $javascript_on, $compact_paginator;
 
     // to retrieve the internaldate pref: (I know this is not the right place to do that, move up in front
     // and use a properties array as function argument to provide user preferences
@@ -1023,12 +1023,25 @@ function showMessagesForMailbox($imapConnection, &$aMailbox) {
              $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $aMailbox['EXISTS'];
 
     $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
-                                    $aMailbox['EXISTS'], $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
+      $aMailbox['EXISTS'], $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
 
     $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$aMailbox['EXISTS']);
 
     do_hook('mailbox_index_before');
-?>
+
+    if ($javascript_on && $compact_paginator) {
+        // Insert compact paginator javascript
+        echo "\n<!-- start of compact paginator javascript -->\n"
+            . "<script language=\"JavaScript\">\n"
+            . "function SubmitOnSelect(select, URL)\n"
+            . "{\n"
+            . "   URL += select.options[select.selectedIndex].value;\n"
+            . "   window.location.href = URL;\n"
+            . "}\n"
+            . "</script>\n"
+            . "<!-- end of compact paginator javascript -->\n";
+    } ?>
+
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
 <tr>
     <td>
@@ -1054,9 +1067,13 @@ function showMessagesForMailbox($imapConnection, &$aMailbox) {
         </td>
         </tr>
     </table>
-    <?php
-        mail_message_listing_end($aMailbox['EXISTS'], $paginator_str, $msg_cnt_str);
-    ?>
+    </td>
+</tr>
+<tr>
+    <td>
+<?php
+    mail_message_listing_end($aMailbox, $paginator_str, $msg_cnt_str);
+?>
     </td>
 </tr>
 </table>
@@ -1259,14 +1276,16 @@ function mail_message_listing_beginning ($imapConnection,
  * Function to add the last row in a message list, it contains the paginator and info about
  * the number of messages.
  *
- * @param integer $num_msgs number of messages in a mailbox
+ * @param array   $aMailbox associative array with mailbox related information
  * @param string  $paginator_str Paginator string  [Prev | Next]  [ 1 2 3 ... 91 92 94 ]  [Show all]
  * @param string  $msg_cnt_str   Message count string Viewing Messages: 21 to 1861 (20 total)
  */
-function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str) {
-global $color;
-if ($num_msgs) {
-    /* space between list and footer */
+function mail_message_listing_end($aMailbox, $paginator_str, $msg_cnt_str) {
+    global $color;
+
+    if ($aMailbox['EXISTS']) {
+        /* space between list and footer */
+
 ?>
 <tr><td height="5" bgcolor="<?php echo $color[4]; ?>" colspan="1"></td></tr>
 <tr>
@@ -1485,7 +1504,7 @@ function get_selectall_link($aMailbox) {
             $result .= '&amp;where=' . urlencode($aMailbox['SEARCH'][0]);
             if (isset($aMailbox['SEARCH'][1]) && ! sqgetGlobalVar('what',$tmp,SQ_GET)) {
                 $result .= '&amp;what=' .  urlencode($aMailbox['SEARCH'][1]);
-		    }
+            }
         }
         $result .= "\">";
         $result .= _("All");
@@ -1547,7 +1566,9 @@ function get_paginator_link($box, $start_msg, $text) {
  * @return string $result   paginate string with links to pages
  */
 function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
-    global $username, $data_dir;
+    global $username, $data_dir, $javascript_on;
+    // page selector globals
+    global $page_selector, $page_selector_max, $compact_paginator;
     sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
@@ -1562,10 +1583,6 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
     $spc = '&nbsp;';     /* This will be used as a space. */
     $sep = '|';          /* This will be used as a seperator. */
 
-    /* Get some paginator preference values. */
-    $pg_sel = getPref($data_dir, $username, 'page_selector', SMPREF_ON);
-    $pg_max = getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX);
-
     /* Make sure that our start message number is not too big. */
     $iOffset = min($iOffset, $iTotal);
 
@@ -1575,130 +1592,147 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
 
     if (!$bShowAll) {
         /* Compute the basic previous and next strings. */
-        if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
-            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
-        } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
-            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
-            $nxt_str = _("Next");
-        } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
-            $prv_str = _("Previous");
-            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+        if ($compact_paginator) {
+            if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
+                $prv_str = get_paginator_link($box, $prev_grp, '<');
+                $nxt_str = get_paginator_link($box, $next_grp, '>');
+            } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
+                $prv_str = get_paginator_link($box, $prev_grp, '<');
+                $nxt_str = '>';
+            } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
+                $prv_str = '<';
+                $nxt_str = get_paginator_link($box, $next_grp, '>');
+            }
+        } else {
+            if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
+                $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
+                $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+            } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
+                $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
+                $nxt_str = _("Next");
+            } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
+                $prv_str = _("Previous");
+                $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+            }
         }
 
         /* Page selector block. Following code computes page links. */
-        if ($iLimit != 0 && $pg_sel && ($iTotal > $iLimit)) {
+        if ($iLimit != 0 && $page_selector && ($iTotal > $iLimit)) {
             /* Most importantly, what is the current page!!! */
             $cur_pg = intval($iOffset / $iLimit) + 1;
 
             /* Compute total # of pages and # of paginator page links. */
             $tot_pgs = ceil($iTotal / $iLimit);  /* Total number of Pages */
-            $vis_pgs = min($pg_max, $tot_pgs - 1);   /* Visible Pages    */
 
-            /* Compute the size of the four quarters of the page links. */
+            if (!$compact_paginator) {
+                $vis_pgs = min($page_selector_max, $tot_pgs - 1);   /* Visible Pages    */
 
-            /* If we can, just show all the pages. */
-            if (($tot_pgs - 1) <= $pg_max) {
-                $q1_pgs = $cur_pg - 1;
-                $q2_pgs = $q3_pgs = 0;
-                $q4_pgs = $tot_pgs - $cur_pg;
+                /* Compute the size of the four quarters of the page links. */
 
-            /* Otherwise, compute some magic to choose the four quarters. */
-            } else {
-                /*
-                * Compute the magic base values. Added together,
-                * these values will always equal to the $pag_pgs.
-                * NOTE: These are DEFAULT values and do not take
-                * the current page into account. That is below.
-                */
-                $q1_pgs = floor($vis_pgs/4);
-                $q2_pgs = round($vis_pgs/4, 0);
-                $q3_pgs = ceil($vis_pgs/4);
-                $q4_pgs = round(($vis_pgs - $q2_pgs)/3, 0);
-
-                /* Adjust if the first quarter contains the current page. */
-                if (($cur_pg - $q1_pgs) < 1) {
-                    $extra_pgs = ($q1_pgs - ($cur_pg - 1)) + $q2_pgs;
+                /* If we can, just show all the pages. */
+                if (($tot_pgs - 1) <= $page_selector_max) {
                     $q1_pgs = $cur_pg - 1;
-                    $q2_pgs = 0;
-                    $q3_pgs += ceil($extra_pgs / 2);
-                    $q4_pgs += floor($extra_pgs / 2);
-
-                /* Adjust if the first and second quarters intersect. */
-                } else if (($cur_pg - $q2_pgs - ceil($q2_pgs/3)) <= $q1_pgs) {
-                    $extra_pgs = $q2_pgs;
-                    $extra_pgs -= ceil(($cur_pg - $q1_pgs - 1) * 3/4);
-                    $q2_pgs = ceil(($cur_pg - $q1_pgs - 1) * 3/4);
-                    $q3_pgs += ceil($extra_pgs / 2);
-                    $q4_pgs += floor($extra_pgs / 2);
-
-                /* Adjust if the fourth quarter contains the current page. */
-                } else if (($cur_pg + $q4_pgs) >= $tot_pgs) {
-                    $extra_pgs = ($q4_pgs - ($tot_pgs - $cur_pg)) + $q3_pgs;
-                    $q3_pgs = 0;
+                    $q2_pgs = $q3_pgs = 0;
                     $q4_pgs = $tot_pgs - $cur_pg;
-                    $q1_pgs += floor($extra_pgs / 2);
-                    $q2_pgs += ceil($extra_pgs / 2);
 
-                /* Adjust if the third and fourth quarter intersect. */
-                } else if (($cur_pg + $q3_pgs + 1) >= ($tot_pgs - $q4_pgs + 1)) {
-                    $extra_pgs = $q3_pgs;
-                    $extra_pgs -= ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
-                    $q3_pgs = ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
-                    $q1_pgs += floor($extra_pgs / 2);
-                    $q2_pgs += ceil($extra_pgs / 2);
+                /* Otherwise, compute some magic to choose the four quarters. */
+                } else {
+                    /*
+                    * Compute the magic base values. Added together,
+                    * these values will always equal to the $pag_pgs.
+                    * NOTE: These are DEFAULT values and do not take
+                    * the current page into account. That is below.
+                    */
+                    $q1_pgs = floor($vis_pgs/4);
+                    $q2_pgs = round($vis_pgs/4, 0);
+                    $q3_pgs = ceil($vis_pgs/4);
+                    $q4_pgs = round(($vis_pgs - $q2_pgs)/3, 0);
+
+                    /* Adjust if the first quarter contains the current page. */
+                    if (($cur_pg - $q1_pgs) < 1) {
+                        $extra_pgs = ($q1_pgs - ($cur_pg - 1)) + $q2_pgs;
+                        $q1_pgs = $cur_pg - 1;
+                        $q2_pgs = 0;
+                        $q3_pgs += ceil($extra_pgs / 2);
+                        $q4_pgs += floor($extra_pgs / 2);
+
+                    /* Adjust if the first and second quarters intersect. */
+                    } else if (($cur_pg - $q2_pgs - ceil($q2_pgs/3)) <= $q1_pgs) {
+                        $extra_pgs = $q2_pgs;
+                        $extra_pgs -= ceil(($cur_pg - $q1_pgs - 1) * 3/4);
+                        $q2_pgs = ceil(($cur_pg - $q1_pgs - 1) * 3/4);
+                        $q3_pgs += ceil($extra_pgs / 2);
+                        $q4_pgs += floor($extra_pgs / 2);
+
+                    /* Adjust if the fourth quarter contains the current page. */
+                    } else if (($cur_pg + $q4_pgs) >= $tot_pgs) {
+                        $extra_pgs = ($q4_pgs - ($tot_pgs - $cur_pg)) + $q3_pgs;
+                        $q3_pgs = 0;
+                        $q4_pgs = $tot_pgs - $cur_pg;
+                        $q1_pgs += floor($extra_pgs / 2);
+                        $q2_pgs += ceil($extra_pgs / 2);
+
+                    /* Adjust if the third and fourth quarter intersect. */
+                    } else if (($cur_pg + $q3_pgs + 1) >= ($tot_pgs - $q4_pgs + 1)) {
+                        $extra_pgs = $q3_pgs;
+                        $extra_pgs -= ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
+                        $q3_pgs = ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
+                        $q1_pgs += floor($extra_pgs / 2);
+                        $q2_pgs += ceil($extra_pgs / 2);
+                    }
                 }
-            }
 
-            /*
-            * I am leaving this debug code here, commented out, because
-            * it is a really nice way to see what the above code is doing.
-            * echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "
-            *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br />';
-            */
+                /*
+                * I am leaving this debug code here, commented out, because
+                * it is a really nice way to see what the above code is doing.
+                * echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "
+                *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br />';
+                */
 
-            /* Print out the page links from the compute page quarters. */
+                /* Print out the page links from the compute page quarters. */
 
-            /* Start with the first quarter. */
-            if (($q1_pgs == 0) && ($cur_pg > 1)) {
-                $pg_str .= "...$spc";
-            } else {
-                for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
+                /* Start with the first quarter. */
+                if (($q1_pgs == 0) && ($cur_pg > 1)) {
+                    $pg_str .= "...$spc";
+                } else {
+                    for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
+                        $start = (($pg-1) * $iLimit) + 1;
+                        $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                    }
+                    if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
+                        $pg_str .= "...$spc";
+                    }
+                }
+
+                /* Continue with the second quarter. */
+                for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
                     $start = (($pg-1) * $iLimit) + 1;
                     $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
                 }
-                if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
-                    $pg_str .= "...$spc";
-                }
-            }
 
-            /* Continue with the second quarter. */
-            for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
-                $start = (($pg-1) * $iLimit) + 1;
-                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
-            }
+                /* Now print the current page. */
+                $pg_str .= $cur_pg . $spc;
 
-            /* Now print the current page. */
-            $pg_str .= $cur_pg . $spc;
-
-            /* Next comes the third quarter. */
-            for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
-                $start = (($pg-1) * $iLimit) + 1;
-                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
-            }
-
-            /* And last, print the forth quarter page links. */
-            if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
-                $pg_str .= "...$spc";
-            } else {
-                if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
-                    $pg_str .= "...$spc";
-                }
-                for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
+                /* Next comes the third quarter. */
+                for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
                     $start = (($pg-1) * $iLimit) + 1;
-                    $pg_str .= get_paginator_link($box, $start,$pg) . $spc;
+                    $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                }
+
+                /* And last, print the forth quarter page links. */
+                if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
+                    $pg_str .= "...$spc";
+                } else {
+                    if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
+                        $pg_str .= "...$spc";
+                    }
+                    for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
+                        $start = (($pg-1) * $iLimit) + 1;
+                        $pg_str .= get_paginator_link($box, $start,$pg) . $spc;
+                    }
                 }
             }
+        $last_grp = (($tot_pgs - 1) * $iLimit) + 1;
         }
     } else {
         $pg_str = "<a href=\"$php_self?showall=0"
@@ -1718,21 +1752,62 @@ function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
         $all_str = "<a href=\"$php_self?showall=1"
                 . "&amp;startMessage=1&amp;mailbox=$box\" "
                 . ">" . _("Show All") . '</a>';
-        $result .= '[';
-        $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
-        $result .= ($nxt_str != '' ? $nxt_str : '');
-        $result .= ']' . $spc ;
-
     }
 
-    $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
-    $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
+    if ($compact_paginator) {
+        if ( $prv_str || $nxt_str ) {
+            $result .= '[' . get_paginator_link($box, 1, '<<') . ']';
+            $result .= '[' . $prv_str . ']';
 
+            $pg_url = $php_self . '?mailbox=' . $box;
+
+            $result .= '[' . $nxt_str . ']';
+            $result .= '[' . get_paginator_link($box, $last_grp, '>>') . ']';
+
+            if ($page_selector) {
+                $result .= $spc . '<select name="startMessage"';
+                if ($javascript_on) {
+                    $result .= ' onchange="JavaScript:SubmitOnSelect'
+                        . '(this, \'' . $pg_url . '&startMessage=\')"';
+                }
+                $result .='>';
+
+                for ($p = 0; $p < $tot_pgs; $p++) {
+                    $result .= '<option ';
+                    if (($p+1) == $cur_pg) $result .= 'selected ';
+                        $result .= 'value="' . (($p*$iLimit)+1) . '">'
+                         . ($p+1) . "/$tot_pgs" . '</option>';
+                }
+
+                $result .= '</select>';
+
+                if ($javascript_on) {
+                    $result .= '<noscript language="JavaScript">'
+                    . addSubmit(_("Go"))
+                    . '</noscript>';
+                } else {
+                    $result .= addSubmit(_("Go"));
+                }
+            }
+        }
+
+        $result .= ($pg_str  != '' ? '['.$pg_str.']' .  $spc : '');
+        $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
+    } else {
+        if ( $prv_str || $nxt_str ) {
+            $result .= '[';
+            $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
+            $result .= ($nxt_str != '' ? $nxt_str : '');
+            $result .= ']' . $spc ;
+        }
+
+        $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
+        $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
+    }
     /* If the resulting string is blank, return a non-breaking space. */
     if ($result == '') {
         $result = '&nbsp;';
     }
-
     /* Return our final magical paginator string. */
     return ($result);
 }
