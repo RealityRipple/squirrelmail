@@ -100,8 +100,6 @@ displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000CC\" VLINK=\"#0000CC\" ALINK=\"#0000CC\" onLoad='squirrelmail_loginpage_onload();'>\n".
      "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
 
-$username_form_name = 'login_username';
-$password_form_name = 'secretkey';
 do_hook('login_top');
 
 $loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
@@ -122,13 +120,13 @@ echo "<CENTER>".
      "      <TR>\n".
      '         <TD WIDTH="30%" ALIGN=right>' . _("Name:") . "</TD>\n".
      "         <TD WIDTH=\"*\" ALIGN=left>\n".
-     "            <INPUT TYPE=TEXT NAME=\"$username_form_name\" VALUE=\"$loginname_value\">\n".
+     "            <INPUT TYPE=TEXT NAME=\"login_username\" VALUE=\"$loginname_value\">\n".
      "         </TD>\n".
      "      </TR>\n".
      "      <TR>\n".
      '         <TD WIDTH="30%" ALIGN=right>' . _("Password:") . "</TD>\n".
      "         <TD WIDTH=\"*\" ALIGN=left>\n".
-     "            <INPUT TYPE=PASSWORD NAME=\"$password_form_name\">\n".
+     "            <INPUT TYPE=PASSWORD NAME=\"secretkey\">\n".
      "            <INPUT TYPE=HIDDEN NAME=\"js_autodetect_results\" VALUE=\"" . SMPREF_JS_OFF . "\">\n".
      "            <INPUT TYPE=HIDDEN NAME=\"just_logged_in\" value=1>\n";
 if ($rcptaddress != '') {
