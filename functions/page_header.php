@@ -12,6 +12,8 @@
  */
 
 require_once('../functions/strings.php');
+require_once('../functions/imap_utf7_decode_local.php');
+
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
@@ -110,7 +112,8 @@ function displayPageHeader($color, $mailbox, $xtra='') {
 
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
-    $shortBoxName = readShortMailboxName($mailbox, $delimiter);
+    $shortBoxName = imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
+    
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
