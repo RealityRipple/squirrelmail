@@ -7,6 +7,8 @@
     **
     **/
 
+   $array_php = true;
+
    function ary_sort($ary,$col, $dir = 1){
       // The globals are used because USORT determines what is passed to comp2
       // These should be $this->col and $this->dir in a class

@@ -1,9 +1,12 @@
 <?
    /** mime.php
     **
-    ** This contains the functions necessary to detect and decode MIME messages.
+    ** This contains the functions necessary to detect and decode MIME
+    ** messages.
+    **
     **/
 
+   $mime_php = true;
 
    if (!isset($i18n_php))
       include "../functions/i18n.php";
@@ -21,13 +24,15 @@
                $p = 0;
 
                /** Lets find the header for this entity **/
-               /** If the first line after the boundary is blank, we use default values **/
+               /** If the first line after the boundary is blank, we
+                   use default values **/
                if (trim($body[$j]) == "") {
                   $ent_type0 = "text";
                   $ent_type1 = "plain";
                   $charset = "us-ascii";
                   $j++;
-               /** If the first line ISNT blank, read in the header for this entity **/
+               /** If the first line ISNT blank, read in the header
+                   for this entity **/
                } else {
                   while ((substr(trim($body[$j]), 0, strlen("--$bound")) != "--$bound") && (trim($body[$j]) != "")) {
                      $entity_header[$p] = $body[$j];
@@ -39,7 +44,8 @@
                }
 
 
-               /** OK, we have the header information, now lets decide what to do with it **/
+               /** OK, we have the header information, now lets decide
+                   what to do with it **/
                if ($ent_type0 == "multipart") {
                   $y = 0;
                   while (substr($body[$j], 0, strlen("--$bound--")) != "--$bound--") {
@@ -116,14 +122,16 @@
       return false;
    }
 
-   /** This returns a parsed string called $body.  That string can then be displayed
-       as the actual message in the HTML.   It contains everything needed, including
-       HTML Tags, Attachments at the bottom, etc.
+   /** This returns a parsed string called $body. That string can then
+       be displayed as the actual message in the HTML. It contains
+       everything needed, including HTML Tags, Attachments at the
+       bottom, etc.
     **/
    function formatBody($message, $color, $wrap_at) {
 
-      /** this if statement checks for the entity to show as the primary message.  To
-          add more of them, just put them in the order that is their priority.
+      /** this if statement checks for the entity to show as the
+          primary message. To add more of them, just put them in the
+          order that is their priority.
        **/
       $id = $message["INFO"]["ID"];
       $urlmailbox = urlencode($message["INFO"]["MAILBOX"]);
@@ -143,7 +151,8 @@
          }
       }
 
-      /** If there are other types that shouldn't be formatted, add them here **/
+      /** If there are other types that shouldn't be formatted, add
+          them here **/
       if ($message["ENTITIES"][$ent_num]["TYPE1"] != "html")
          $body = translateText($body, $wrap_at);
 

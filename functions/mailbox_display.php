@@ -8,6 +8,8 @@
     **
     **/
 
+   $mailbox_info = true;
+
    function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox, $sort, $startMessage) {
       require ("../config/config.php");
 

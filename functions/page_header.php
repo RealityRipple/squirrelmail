@@ -6,6 +6,8 @@
     **
     **/
 
+   $page_header_php = true;
+
    // This is done to ensure that the character set is correct when
    // receiving input from HTTP forms
    header ("Content-Type: text/html; charset=iso-8859-1");

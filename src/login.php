@@ -12,8 +12,10 @@
 ?>
 <HTML>
 <?
-   include("../config/config.php");
-   include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
 
    echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  

@@ -7,14 +7,22 @@
     **  - Send mail
     **/
 
-   include("../config/config.php");
-   include("../functions/strings.php");
-   include("../functions/page_header.php");
-   include("../functions/imap.php");
-   include("../functions/date.php");
-   include("../functions/mime.php");
-   include("../functions/smtp.php");
-   include("../functions/display_messages.php");
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+   if (!isset($imap_php))
+      include("../functions/imap.php");
+   if (!isset($date_php))
+      include("../functions/date.php");
+   if (!isset($mime_php))
+      include("../functions/mime.php");
+   if (!isset($smtp_php))
+      include("../functions/smtp.php");
+   if (!isset($display_messages_php))
+      include("../functions/display_messages.php");
 
    include("../src/load_prefs.php");
 
