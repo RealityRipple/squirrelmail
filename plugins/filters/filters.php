@@ -335,7 +335,7 @@ function filter_search_and_delete($imap, $where, $what, $where_to) {
     }
     $search_str .= $where . ' {' . strlen($what) . "}\r\n" . $what . "\r\n";
     
-    fputs ($imap, $search_str);
+    fputs ($imap, "a001 $search_str");
     $read = filters_sqimap_read_data ($imap, 'a001', true, $response, $message);
 
     // This may have problems with EIMS due to it being goofy
