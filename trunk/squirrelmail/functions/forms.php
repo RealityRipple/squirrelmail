@@ -21,7 +21,7 @@ function addInputField($type, $name = null, $value = null, $attributes = '') {
     return '<input type="'.$type.'"'.
         ($name  !== null ? ' name="'.htmlspecialchars($name).'"'   : '').
         ($value !== null ? ' value="'.htmlspecialchars($value).'"' : '').
-        $attributes . ">\n";
+        $attributes . " />\n";
 }
 
 /**
@@ -37,7 +37,7 @@ function addPwField($name , $value = null) {
  */
 function addCheckBox($name, $checked = false, $value='') {
     return addInputField('checkbox', $name, $value,
-        ($checked ? ' checked' : ''));
+        ($checked ? ' checked="checked"' : ''));
 }
 
 /**
@@ -45,7 +45,7 @@ function addCheckBox($name, $checked = false, $value='') {
  */
 function addRadioBox($name, $checked = false, $value='') {
     return addInputField('radio', $name, $value, 
-        ($checked ? ' checked' : ''));
+        ($checked ? ' checked="checked"' : ''));
 }
 
 /**
@@ -94,7 +94,7 @@ function addSelect($name, $values, $default = null, $usekeys = false)
         if(!$usekeys) $k = $v;
         $ret .= '<option value="' .
             htmlspecialchars( $k ) . '"' .
-            (($default == $k) ? ' selected':'') .
+            (($default == $k) ? ' selected="selected"':'') .
             '>' . htmlspecialchars($v) ."</option>\n";
     }
     $ret .= "</select>\n";
@@ -144,4 +144,4 @@ function addForm($action, $method = 'POST', $name = '', $enctype = '', $charset 
         $enctype . $name . $charset . "\">\n";
 }
 
-
+?>
