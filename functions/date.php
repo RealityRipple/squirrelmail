@@ -71,103 +71,103 @@
       return $stamp;
    }
 
-	/**
-		Switch system has been intentionaly choosed for the 
-		internationalization of month and day names. The reason
-		is to make sure that _("") strings will go into the
-		main po.
-	**/
+   /**
+      Switch system has been intentionaly choosed for the 
+      internationalization of month and day names. The reason
+      is to make sure that _("") strings will go into the
+      main po.
+   **/
 
    function getDayName( $day_number ) {
    
-		switch( $day_number ) {
-		case 0:
-			$ret = _("Sunday");
-			break;
-		case 1:
-			$ret = _("Monday");
-			break;
-		case 2:
-			$ret = _("Tuesday");
-			break;
-		case 3:
-			$ret = _("Wednesday");
-			break;
-		case 4:
-			$ret = _("Thursday");
-			break;
-		case 5:
-			$ret = _("Friday");
-			break;
-		case 6:
-			$ret = _("Saturday");
-			break;
-		default:
-			$ret = '';
-		}   
-		return( $ret );
+      switch( $day_number ) {
+      case 0:
+         $ret = _("Sunday");
+         break;
+      case 1:
+         $ret = _("Monday");
+         break;
+      case 2:
+         $ret = _("Tuesday");
+         break;
+      case 3:
+         $ret = _("Wednesday");
+         break;
+      case 4:
+         $ret = _("Thursday");
+         break;
+      case 5:
+         $ret = _("Friday");
+         break;
+      case 6:
+         $ret = _("Saturday");
+         break;
+      default:
+         $ret = '';
+      }   
+      return( $ret );
    }
 
-	function getMonthName( $week_number ) {
-		switch( $week_number ) {
-			case 1:
-				$ret = _("January");
-				break;
-			case 2:
-				$ret = _("February");
-				break;
-			case 3:
-				$ret = _("March");
-				break;
-			case 4:
-				$ret = _("April");
-				break;
-			case 5:
-				$ret = _("May");
-				break;
-			case 6:
-				$ret = _("June");
-				break;
-			case 7:
-				$ret = _("July");
-				break;
-			case 8:
-				$ret = _("August");
-				break;
-			case 9:
-				$ret = _("September");
-				break;
-			case 10:
-				$ret = _("October");
-				break;
-			case 11:
-				$ret = _("November");
-				break;
-			case 12:
-				$ret = _("December");
-				break;
-			default:
-				$ret = '';
-		}
-		return( $ret );
-	}  
+   function getMonthName( $month_number ) {
+      switch( $month_number ) {
+         case '01':
+            $ret = _("January");
+            break;
+         case '02':
+            $ret = _("February");
+            break;
+         case '03':
+            $ret = _("March");
+            break;
+         case '04':
+            $ret = _("April");
+            break;
+         case '05':
+            $ret = _("May");
+            break;
+         case '06':
+            $ret = _("June");
+            break;
+         case '07':
+            $ret = _("July");
+            break;
+         case '08':
+            $ret = _("August");
+            break;
+         case '09':
+            $ret = _("September");
+            break;
+         case '10':
+            $ret = _("October");
+            break;
+         case '11':
+            $ret = _("November");
+            break;
+         case '12':
+            $ret = _("December");
+            break;
+         default:
+            $ret = '';
+      }
+      return( $ret );
+   }  
 
-	function date_intl( $date_format ) {
+   function date_intl( $date_format, $stamp ) {
 
-   	$date_format = str_replace( 'D', '[D]', $date_format );
-   	$date_format = str_replace( 'F', '[F]', $date_format );
-   	$date_format = str_replace( '[D]', 
-   	                            ereg_replace( "([a-zA-Z])", "\\\\1", substr( getDayName( date( 'w', $stamp ) ), 0, 3 ) ), 
-   	                            $date_format );
-   	$date_format = str_replace( '[F]', 
-   	                            ereg_replace( "([a-zA-Z])", "\\\\1", getMonthName( date( 'n', $stamp ) ) ), 
-   	                            $date_format );
-		return( $date_format . ' ' );
-	}
+      $date_format = str_replace( 'D', '[D]', $date_format );
+      $date_format = str_replace( 'F', '[F]', $date_format );
+      $date_format = str_replace( '[D]', 
+                                  ereg_replace( "([a-zA-Z])", "\\\\1", substr( getDayName( date( 'w', $stamp ) ), 0, 3 ) ), 
+                                  $date_format );
+      $date_format = str_replace( '[F]', 
+                                  ereg_replace( "([a-zA-Z])", "\\\\1", getMonthName( date( 'm', $stamp ) ) ), 
+                                  $date_format );
+      return( $date_format . ' ' );
+   }
 
    function getLongDateString($stamp) {
    
-   	$date_format = date_intl( _("D, F j, Y g:i a") );
+      $date_format = date_intl( _("D, F j, Y g:i a"), $stamp );
       return date( $date_format, $stamp );
       
    }
@@ -193,7 +193,7 @@
          $date_format = _("M j, Y");
       }
       
-      return( date( date_intl( $date_format ), $stamp ) );
+      return( date( date_intl( $date_format, $stamp ), $stamp ) );
    }
 
    function getTimeStamp($dateParts) {
@@ -236,10 +236,10 @@
       }
       $string = $dateParts[0] . ' ' . $dateParts[1] . ' ' .
                 $dateParts[2] . ' ' . $dateParts[3] . ' ' . $dateParts[4];
-	  if (isset($dateParts[5]))
-      	return getGMTSeconds(strtotime($string), $dateParts[5]);
-	  else 
-	  	return getGMTSeconds(strtotime($string), '');
+     if (isset($dateParts[5]))
+         return getGMTSeconds(strtotime($string), $dateParts[5]);
+     else 
+      return getGMTSeconds(strtotime($string), '');
    }
 
    // I use this function for profiling. Should never be called in
