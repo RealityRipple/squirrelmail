@@ -569,16 +569,21 @@ function sqimap_create_stream($server,$port,$tls=false) {
  * will be displayed.  This function returns the imap connection handle.
  */
 function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
-    global $color, $squirrelmail_language, $onetimepad, $use_imap_tls, $imap_auth_mech;
+    global $color, $squirrelmail_language, $onetimepad, $use_imap_tls,
+           $imap_auth_mech, $sqimap_capabilities;
 
     if (!isset($onetimepad) || empty($onetimepad)) {
         sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
     }
+    if (!isset($sqimap_capabilities)) {
+        sqgetglobalvar('sqimap_capabilities' , $capability , SQ_SESSION );
+    }
+
     $host = $imap_server_address;
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
-    
+
     $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls);
- 
+
     /* Decrypt the password */
     $password = OneTimePadDecrypt($password, $onetimepad);
 
@@ -625,19 +630,38 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         $query = 'LOGIN "' . quoteimap($username) .  '" "' . quoteimap($password) . '"';
         $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
     } elseif ($imap_auth_mech == 'plain') {
-        /* SASL PLAIN */
+        /***
+         * SASL PLAIN
+         *
+         *  RFC 2595 Chapter 6
+         *
+         *  The mechanism consists of a single message from the client to the
+         *  server.  The client sends the authorization identity (identity to
+         *  login as), followed by a US-ASCII NUL character, followed by the
+         *  authentication identity (identity whose password will be used),
+         *  followed by a US-ASCII NUL character, followed by the clear-text
+         *  password.  The client may leave the authorization identity empty to
+         *  indicate that it is the same as the authentication identity.
+         *
+         **/
         $tag=sqimap_session_id(false);
+        $sasl = (isset($capability['SASL']) && $capability['SASL']) ? true : false;
         $auth = base64_encode("$username\0$username\0$password");
-                  
-        $query = $tag . " AUTHENTICATE PLAIN\r\n";
-        fputs($imap_stream, $query);
-        $read=sqimap_fgets($imap_stream);
-
-        if (substr($read,0,1) == '+') { // OK so far..
-            fputs($imap_stream, "$auth\r\n");
+        if ($sasl) {
+            // IMAP Extension for SASL Initial Client Response
+            // <draft-siemborski-imap-sasl-initial-response-00.txt>
+            $query = $tag . " AUTHENTICATE PLAIN $auth\r\n";
+            fputs($imap_stream, $query);
             $read = sqimap_fgets($imap_stream);
+        } else {
+            $query = $tag . " AUTHENTICATE PLAIN\r\n";
+            fputs($imap_stream, $query);
+            $read=sqimap_fgets($imap_stream);
+            if (substr($read,0,1) == '+') { // OK so far..
+                fputs($imap_stream, "$auth\r\n");
+                $read = sqimap_fgets($imap_stream);
+            }
         }
-                
         $results=explode(" ",$read,3);
         $response=$results[1];
         $message=$results[2];
@@ -645,7 +669,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         $response="BAD";
         $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
     }
-    
+
     /* If the connection was not successful, lets see why */
     if ($response != 'OK') {
         if (!$hide) {
@@ -678,7 +702,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                  * $squirrelmail_language is set by a cookie when
                  * the user selects language and logs out
                  */
-                
+
                 set_up_language($squirrelmail_language, true);
                 include_once(SM_PATH . 'functions/display_messages.php' );
                 sqsession_destroy();
