@@ -11,12 +11,39 @@
 
    // Returns true only if this message is multipart
    function isMultipart () {
-      return true;
+      global $attachments;
+      
+      if (count($attachments)>0)
+         return true;
+      else
+         return false;
    }
 
    // Attach the files that are due to be attached
-   function attachFile ($fp) {
-      return false;
+   function attachFiles ($fp) {
+      global $attachments;
+
+      while (list($localname, $remotename) = each($attachments)) {
+         $fileinfo = fopen ($localname.".info", "r");
+         $filetype = fgets ($fileinfo, 8192);
+         fclose ($fileinfo);
+         $filetype = trim ($filetype);
+         if ($filetype=="")
+            $filetype = "application/octet-stream";
+
+         fputs ($fp, "--".mimeBoundary()."\n");
+         fputs ($fp, "Content-Type: $filetype\n");
+         fputs ($fp, "Content-Disposition: attachment; filename=\"$remotename\"\n");
+         fputs ($fp, "Content-Transfer-Encoding: base64\n\n");
+
+         $file = fopen ($localname, "r");
+         while ($tmp = fread($file, 57))
+            fputs ($fp, chunk_split(base64_encode($tmp)));
+         fclose ($file);
+
+         unlink ($localname);
+         unlink ($localname.".info");
+      }
    }
 
    // Return a nice MIME-boundary
@@ -27,7 +54,7 @@
       if ($mimeBoundaryString == "") {
          $temp = "SquirrelMail".$version.$REMOTE_ADDR.$SERVER_NAME.
             $REMOTE_PORT;
-         $mimeBoundaryString = "=-=_=-SqMB.".substr(md5($temp),1,15);
+         $mimeBoundaryString = "=-_+".substr(md5($temp),1,20);
       }
 
       return $mimeBoundaryString;
@@ -103,6 +130,7 @@
         fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
         fputs ($fp, "Content-Transfer-Encoding: 8bit\n\n");
         fputs ($fp, "$body\n");
+        attachFiles($fp);
         fputs ($fp, "\n--".mimeBoundary()."--\n");
      } else {
        fputs ($fp, "$body\n");

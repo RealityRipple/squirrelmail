@@ -23,7 +23,7 @@
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
    displayPageHeader($color, "None");
 
-   // This function is used 
+   // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
          $reply_id, $send_to, $send_to_cc, $mailbox;
@@ -142,9 +142,11 @@
 
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
-         $passed_body, $color, $use_signature, $signature, $editor_size;
+         $passed_body, $color, $use_signature, $signature, $editor_size,
+         $attachments, $subject;
 
-      echo "\n<FORM action=\"compose.php\" METHOD=GET>\n";
+      echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
+      echo "ENCTYPE=\"multipart/form-data\">\n";
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=CENTER CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
@@ -160,7 +162,7 @@
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-      echo "         <FONT FACE=\"Arial,Helvetica\">CC:</FONT>\n";
+      echo "         <FONT FACE=\"Arial,Helvetica\">"._("CC").":</FONT>\n";
       echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_cc)
          echo "         <INPUT TYPE=TEXT NAME=send_to_cc SIZE=60 VALUE=\"$send_to_cc\"><BR>";
@@ -208,6 +210,33 @@
       echo "\"><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
+
+      // This code is for attachments
+      echo "   <tr>\n";
+      echo "     <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <FONT FACE=\"Arial,Helvetica\">";
+      echo "      "._("Attach:")."</FONT>\n";
+      echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
+      //      echo "      value=\"10000\">\n";
+      echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
+      echo "      &nbsp&nbsp<input type=\"submit\" name=\"attach\"\n";
+      echo "      value=\"" . _("Add") ."\">\n";
+      echo "      <br>";
+      if (isset($attachments) && count($attachments)>0) {
+         while (list($localname, $remotename) = each($attachments)) {
+            echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
+            echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
+         }
+         
+         echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
+
+      }
+      echo "     </td>\n";
+      echo "     </font>\n";
+      echo "   </tr>\n";
+      // End of attachment code
+
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       if ($use_signature == true)
@@ -234,29 +263,57 @@
       global $body, $send_to, $subject;
 
       if ($body == "") {
-         plain_error_message("You have not entered a message body.", $color);
+         plain_error_message(_("You have not entered a message body."), $color);
          return false;
       } else if ($send_to == "") {
          displayPageHeader($color, "None");
-         plain_error_message("You have not filled in the \"To:\" field.", $color);
+         plain_error_message(_("You have not filled in the \"To:\" field."), $color);
          return false;
       } else if ($subject == "") {
-         plain_error_message("You have not entered a subject.", $color);
+         plain_error_message(_("You have not entered a subject."), $color);
          return false;
       }
       return true;
    } // function checkInput()
 
-   if (!isset($send)) {
-      newMail();
-      showInputForm();
-   } else if(isset($send)) {
+   if(isset($send)) {
       if (checkInput()) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
          showSentForm();
       } else {
          showInputForm();
       }
-   }
+   } else if (isset($attach)) {
+      $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
+      $localfilename = $data_dir.$localfilename;
+      
+      // Put the file in a better place
+      error_reporting(0); // Rename will produce error output if it fails
+      if (!rename($attachfile, $localfilename)) {
+         if (!copy($attachfile, $localfilename)) {
+            plain_error_message(_("Could not move/copy file. File not attached"));
+         }
+      }
+      // If it still exists, PHP will remove the original file
 
+      // Write information about the file
+      $fp = fopen ($localfilename.".info", "w");
+      fputs ($fp, "$attachfile_type\n$attachfile_name\n");
+      fclose ($fp);
+
+      $attachments[$localfilename] = $attachfile_name;
+      
+      showInputForm();
+   } else if (isset($do_delete)) {
+      while (list($key, $localname) = each($delete)) {
+         array_splice ($attachments, $localname, 1);
+         unlink ($localname);
+         unlink ($localname.".info");
+      }
+
+      showInputForm();
+   } else {
+      Newmail();
+      showInputForm();
+   }
 ?>
