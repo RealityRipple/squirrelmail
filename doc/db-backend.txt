@@ -79,7 +79,9 @@ administration plugin. The DSN should look something like:
 From now on all users' personal addressbooks will be stored in a
 database.
 
-
+Global address book uses same table format as the one used for personal
+address book. You can even use same table, if you don't have user named
+'global'.
 
 Configuring preferences in database
 -----------------------------------
