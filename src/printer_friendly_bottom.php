@@ -27,38 +27,36 @@ $mailbox = urldecode($mailbox);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
 $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-
-/* --start display setup-- */
-
-/* From and Date are usually fine as they are... */
-$from = decodeHeader($message->header->getAddr_s('from'));
-$date = getLongDateString($message->header->date);
-
-/* we can clean these up if the list is too long... */
-$cc = decodeHeader($message->header->getAddr_s('cc'));
-$to = decodeHeader($message->header->getAddr_s('to'));
-//$cc = decodeHeader(getLineOfAddrs($message->header->cc));
-//$to = decodeHeader(getLineOfAddrs($message->header->to));
-
-/* and Body and Subject could easily stream off the page... */
 $id = $passed_id;
 if (isset($passed_ent_id)) {
    $message = $message->getEntity($passed_ent_id);
 }
+
+
+/* --start display setup-- */
+
+
+/* From and Date are usually fine as they are... */
+$from = decodeHeader($message->header->getAddr_s('from'));
+$date = getLongDateString($message->header->date);
+$subject = trim(decodeHeader($message->header->subject));
+
+/* we can clean these up if the list is too long... */
+$cc = decodeHeader($message->header->getAddr_s('cc'));
+$to = decodeHeader($message->header->getAddr_s('to'));
+
 $ent_ar = $message->findDisplayEntity();
-//$ent_num = $ent_ar[0];
 $body = '';
 if ($ent_ar[0] != '') {
   for ($i = 0; $i < count($ent_ar); $i++) {
      $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
+     $body .= '<hr noshade size=1>';
   }
   $hookResults = do_hook('message_body', $body);
   $body = $hookResults[1];
 } else {
   $body = _("Message not printable");
 }
-
-$subject = trim(decodeHeader($message->header->subject));
 
  /* now, if they choose to, we clean up the display a bit... */
  
@@ -71,7 +69,9 @@ if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
     $to = pf_clean_string(str_replace(',,', ',', $to), $num_leading_spaces);
 
      // the body should have no leading zeros
-    $body = pf_clean_string($body, 0);
+    // disabled because it destroys html mail
+
+//    $body = pf_clean_string($body, 0);
 
      // clean up everything else...
     $subject = pf_clean_string($subject, $num_leading_spaces);
