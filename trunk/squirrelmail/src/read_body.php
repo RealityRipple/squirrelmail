@@ -872,8 +872,9 @@ echo       '<TR>' .
              '<TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' .
     _("From:") .
              '</TD><TD BGCOLOR="' . $color[0] . '">' .
-                "<B>$from_name</B>&nbsp;\n" .
-             '</TD>' .
+                "<B>$from_name</B>&nbsp;\n";
+                do_hook("read_body_after_from");
+echo             '</TD>' .
           '</TR>';
 /** date **/
 echo       '<TR>' . "\n" .
