@@ -1,4 +1,20 @@
 Ideas to be implemented
 -----------------------
 
--  Saving sent mail into folder "Sent"
+initials = taken by that person
+
+(lme)   Saving sent mail into folder "Sent"
+  -     POP suport (maybe)
+  -     LDAP support for address books
+  -     Better email message body parsing
+  -     Use PHP4 Session management, get rid of cookies
+  -     Make it possible to save preferences in MySQL DB or on Filesystem
+  -     Session management -- do away with cookies
+  -     Importing of address books
+  -     Navigation between messages without going to folder list (next, prev)
+  -     Configurable headers shown on the message listing
+             like:  cc, to, etc
+  -     Advanced statuses on messages (Seen, Answered, etc)
+  -     Filters
+  -     Better inline HTML support including graphics (content-disposition)
+  -     Maybe a rewrite of mime.php (see Gustav before any work is done)
