@@ -421,11 +421,15 @@ function user_strcasecmp($a, $b) {
  *            you know these options will be shown 3 times in a row.. (most often unset).
  *   $parent - used to indicate whether or not listed boxes can be parents
  */
-function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, $parent = false) {
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, $parent = false, $use_long_format = false ) {
     global $username, $data_dir;
     $mbox_options = '';
 
-    $shorten_box_names = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_OFF);
+    if ( $use_long_format ) {
+        $shorten_box_names = 0;
+    } else {
+        $shorten_box_names = getPref($data_dir, $username, 'mailbox_select_style', SMPREF_OFF);
+    }
 
     if ($boxes == 0) {
         $boxes = sqimap_mailbox_list($imap_stream);
