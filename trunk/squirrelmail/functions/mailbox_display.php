@@ -1041,7 +1041,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     /* Initialize paginator string chunks. */
     $prv_str = '';
     $nxt_str = '';
-    $pg_str  = '&nbsp;';
+    $pg_str  = '';
     $all_str = '';
 
     $box = urlencode($box);
@@ -1200,13 +1200,6 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
                 . "TARGET=\"right\">" ._("Paginate") . '</A>';
     }
 
-    /* If necessary, compute the 'show all' string. */
-    if (($prv_str != '') || ($nxt_str != '')) {
-        $all_str = "<A HREF=\"right_main.php?PG_SHOWALL=1"
-                 . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
-                 . "TARGET=\"right\">" . _("Show All") . '</A>';
-    }
-
     /* Put all the pieces of the paginator string together. */
     /**
      * Hairy code... But let's leave it like it is since I am not certain
@@ -1219,8 +1212,14 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
       $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
       $result .= ($nxt_str != '' ? $nxt_str : '');
       $result .= ']' . $spc ;
+
+      /* Compute the 'show all' string. */
+      $all_str = "<A HREF=\"right_main.php?PG_SHOWALL=1"
+                 . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
+                 . "TARGET=\"right\">" . _("Show All") . '</A>'; 
     }
-    $result .= ($pg_str  != '' ? $spc . '['.$pg_str.']' .  $spc : '');
+
+    $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
     $result .= ($all_str != '' ? $spc . '['.$all_str.']' . $spc . $spc : '');
 
     /* If the resulting string is blank, return a non-breaking space. */
