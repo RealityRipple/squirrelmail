@@ -14,7 +14,7 @@
  */
 
 /**
- * Path for SquirrelMail required files. 
+ * Path for SquirrelMail required files.
  * @ignore
  */
 define('SM_PATH','../');
@@ -31,23 +31,34 @@ header('Cache-Control: cache');
 sqgetGlobalVar('key',        $key,          SQ_COOKIE);
 sqgetGlobalVar('username',   $username,     SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
+sqgetGlobalVar('mailbox_cache',$mailbox_cache,SQ_SESSION);
 sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
 sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
 sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
 sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
 if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
-  $passed_id = (int) $temp;
+    $passed_id = (int) $temp;
 }
 
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
+$aMailbox = sqm_api_mailbox_select($imapConnection, $mailbox,array(),array());
 
-$message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
-if (!is_object($message)) {
-    $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);
+if (isset($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) &&
+    is_object($aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT']) ) {
+    $message = $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'];
+} else {
+   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+   $aMailbox['MSG_HEADERS'][$passed_id]['MESSAGE_OBJECT'] = $message;
 }
+
+//$mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
+
+//$message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
+//if (!is_object($message)) {
+//    $message = sqimap_get_message($imapConnection,$passed_id, $mailbox);
+//}
 $subject = $message->rfc822_header->subject;
 if ($ent_id) {
     $message = &$message->getEntity($ent_id);
@@ -138,5 +149,6 @@ if (isset($absolute_dl) && $absolute_dl) {
 /* be aware that any warning caused by download.php will corrupt the
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
 mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
-
+$mailbox_cache[$aMailbox['NAME']] = $aMailbox;
+sqsession_register($mailbox_cache,'mailbox_cache');
 ?>

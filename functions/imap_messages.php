@@ -36,6 +36,11 @@ function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
 function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
     $msgs_id = sqimap_message_list_squisher($id);
     $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, TRUE);
+    if ($response == 'OK') {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 /**
@@ -47,8 +52,11 @@ function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
 */
 function sqimap_msgs_list_move ($imap_stream, $id, $mailbox) {
     $msgs_id = sqimap_message_list_squisher($id);
-    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($mailbox), true, $response, $message, TRUE);
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response,$message, TRUE);
+    if (sqimap_msgs_list_copy ($imap_stream, $id, $mailbox)) {
+        return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
+    } else {
+        return false;
+    }
 }
 
 
@@ -72,13 +80,19 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox, $bypass_t
 }
 
 function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id, $bypass_trash=false) {
+    // FIX ME, remove globals by introducing an associative array with properties
+    // as 4th argument as replacement for the bypass_trash var
     global $move_to_trash, $trash_folder;
-    $msgs_id = sqimap_message_list_squisher($id);
+    $bRes = true;
     if (($move_to_trash == true) && ($bypass_trash != true) &&
         (sqimap_mailbox_exists($imap_stream, $trash_folder) &&  ($mailbox != $trash_folder)) ) {
-        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id " . sqimap_encode_mailbox_name($trash_folder), true, $response, $message, TRUE);
+        $bRes = sqimap_msgs_list_copy ($imap_stream, $id, $trash_folder);
     }
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, TRUE);
+    if ($bRes) {
+        return sqimap_toggle_flag($imap_stream, $id, '\\Deleted', true, true);
+    } else {
+        return false;
+    }
 }
 
 
@@ -92,7 +106,9 @@ function sqimap_messages_flag ($imap_stream, $start, $end, $flag, $handle_errors
 function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     $msgs_id = sqimap_message_list_squisher($id);
     $set_string = ($set ? '+' : '-');
-    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, TRUE);
+    $aResponse = sqimap_run_command_list($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, TRUE);
+    // parse the fetch response
+    return parseFetch($aResponse);
 }
 
 /** @deprecated */
@@ -131,13 +147,13 @@ function sqimap_message_list_squisher($messages_array) {
 
 /**
 * Retrieves an array with a sorted uid list. Sorting is done on the imap server
-*
+* @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
 * @param resource $imap_stream IMAP socket connection
 * @param string $sSortField Field to sort on
 * @param bool $reverse Reverse order search
 * @return array $id sorted uid list
 */
-function sqimap_get_sort_order ($imap_stream, $sSortField,$reverse) {
+function sqimap_get_sort_order ($imap_stream, $sSortField, $reverse, $search='ALL') {
     global  $default_charset,
             $sent_folder;
 
@@ -149,22 +165,33 @@ function sqimap_get_sort_order ($imap_stream, $sSortField,$reverse) {
         if ($reverse) {
             $sSortField = 'REVERSE '.$sSortField;
         }
-        $query = "SORT ($sSortField) ".strtoupper($default_charset).' ALL';
-        $sort_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+        $query = "SORT ($sSortField) ".strtoupper($default_charset)." $search";
+        // FIX ME sqimap_run_command should return the parsed data accessible by $aDATA['SORT']
+        $aData = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
+        /* fallback to default charset */
+        if ($response == 'NO' && strpos($message,'[BADCHARSET]') !== false) {
+            $query = "SORT ($sSortField) US-ASCII $search";
+            $aData = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+        }
     }
-    if (isset($sort_test[0])) {
-        for ($i=0,$iCnt=count($sort_test);$i<$iCnt;++$i) {
-            if (preg_match("/^\* SORT (.+)$/", $sort_test[$i], $regs)) {
-                $id = preg_split("/ /", trim($regs[1]));
-            break;
+
+    if ($response == 'OK') {
+        return parseUidList($aData,'SORT');
+    } else {
+        return false;
+    }
+}
+
+function parseUidList($aData,$sCommand) {
+    $aUid = array();
+    if (isset($aData) && count($aData)) {
+        for ($i=0,$iCnt=count($aData);$i<$iCnt;++$i) {
+            if (preg_match("/^\* $sCommand (.+)$/", $aData[$i], $aMatch)) {
+                $aUid += preg_split("/ /", trim($aMatch[1]));
             }
         }
     }
-    if (!preg_match("/OK/", $response)) {
-        return false;
-    } else {
-        return $id;
-    }
+    return array_unique($aUid);
 }
 
 /**
@@ -175,12 +202,15 @@ function sqimap_get_sort_order ($imap_stream, $sSortField,$reverse) {
 * @param bool $reverse Reverse order search
 * @return array $aUid sorted uid list
 */
-function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
+function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false, $aUid = NULL) {
+    if ($aUID === NULL) {
+
+    }
     if ($sSortField != 'RFC822.SIZE' && $sSortField != 'INTERNALDATE') {
-        $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
+        $msgs = sqimap_get_small_header_list($imap_stream, $aUid,
                                       array($sSortField), array());
     } else {
-        $msgs = sqimap_get_small_header_list($imap_stream, false, '*',
+        $msgs = sqimap_get_small_header_list($imap_stream, $aUid,
                                       array(), array($sSortField));
     }
     $aUid = array();
@@ -213,7 +243,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
             $walk = true;
         }
         foreach ($msgs as $item) {
-            $aUid[$item['ID']] = $item[$sSortField];
+            $aUid[$item['UID']] = $item[$sSortField];
         }
         natcasesort($aUid);
         $aUid = array_keys($aUid);
@@ -239,7 +269,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
             $sSortField = 'SIZE';
         }
         foreach ($msgs as $item) {
-            $aUid[$item['ID']] = (isset($item[$sSortField])) ? $item[$sSortField] : 0;
+            $aUid[$item['UID']] = (isset($item[$sSortField])) ? $item[$sSortField] : 0;
         }
         if ($reverse) {
             arsort($aUid,SORT_NUMERIC);
@@ -380,26 +410,25 @@ function get_parent_level ($thread_new) {
 /**
 * Returns an array with each element as a string representing one
 * message-thread as returned by the IMAP server.
+* @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
 */
-function get_thread_sort ($imap_stream) {
+function get_thread_sort ($imap_stream, $search='ALL') {
     global $thread_new, $sort_by_ref, $default_charset, $server_sort_array, $indent_array;
-    if (sqsession_is_registered('thread_new')) {
-        sqsession_unregister('thread_new');
-    }
-    if (sqsession_is_registered('indent_array')) {
-        sqsession_unregister('indent_array');
-    }
-    if (sqsession_is_registered('server_sort_array')) {
-        sqsession_unregister('server_sort_array');
-    }
+
     $thread_temp = array ();
     if ($sort_by_ref == 1) {
         $sort_type = 'REFERENCES';
     } else {
         $sort_type = 'ORDEREDSUBJECT';
     }
-    $query = "THREAD $sort_type ".strtoupper($default_charset)." ALL";
-    $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+    $query = "THREAD $sort_type ".strtoupper($default_charset)." $search";
+
+    $thread_test = sqimap_run_command ($imap_stream, $query, false, $response, $message, TRUE);
+    /* fallback to default charset */
+    if ($response == 'NO' && strpos($message,'[BADCHARSET]') !== false) {
+        $query = "THREAD $sort_type US-ASCII $search";
+        $thread_test = sqimap_run_command ($imap_stream, $query, true, $response, $message, TRUE);
+    }
     if (isset($thread_test[0])) {
         for ($i=0,$iCnt=count($thread_test);$i<$iCnt;++$i) {
             if (preg_match("/^\* THREAD (.+)$/", $thread_test[$i], $regs)) {
@@ -452,7 +481,7 @@ function get_thread_sort ($imap_stream) {
             }
         }
     }
-    sqsession_register($thread_new, 'thread_new');
+
     $thread_new = array_reverse($thread_new);
     /* place the threads after each other in one string */
     $thread_list = implode(" ", $thread_new);
@@ -462,10 +491,7 @@ function get_thread_sort ($imap_stream) {
     $server_sort_array = $thread_list;
 
     $indent_array = get_parent_level ($thread_new);
-    sqsession_register($indent_array, 'indent_array');
-
-    sqsession_register($server_sort_array, 'server_sort_array');
-    return $thread_list;
+    return array($thread_list,$indent_array);
 }
 
 
@@ -532,17 +558,17 @@ function parseArray($read,&$i) {
     }
 }
 
-function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
+function sqimap_get_small_header_list ($imap_stream, $msg_list,
     $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type'),
     $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
-    $messages = array();
+    $aMessageList = array();
     $read_list = array();
 
     $bUidFetch = ! in_array('UID', $aFetchItems, true);
 
     /* Get the small headers for each message in $msg_list */
-    if ($show_num != '999999' && $show_num != '*' ) {
+    if ($msg_list !== NULL) {//$show_num != -1 && $show_num != '*' ) {
         $msgs_str = sqimap_message_list_squisher($msg_list);
         /*
         * We need to return the data in the same order as the caller supplied
@@ -551,14 +577,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         */
         if ($bUidFetch) {
             for ($i = 0; $i < sizeof($msg_list); $i++) {
-                $messages["$msg_list[$i]"] = array();
+                $aMessageList["$msg_list[$i]"] = array();
             }
         }
     } else {
         $msgs_str = '1:*';
+        $aId = array();
     }
-
-
 
     /*
      * Create the query
@@ -574,11 +599,14 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         $sFetchItems .= ' BODY.PEEK[HEADER.FIELDS ('.$sHeaderFields.')]';
     }
     $query .= trim($sFetchItems) . ')';
+    $aResponse = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, $bUidFetch);
+    $aMessages = parseFetch($aResponse,$aMessageList);
+    array_reverse($aMessages);
+    return $aMessages;
+}
 
-    $read_list = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, $bUidFetch);
-    $i = 0;
-
-    foreach ($read_list as $r) {
+function parseFetch($aResponse,$aMessageList = array()) {
+    foreach ($aResponse as $r) {
         $msg = array();
         // use unset because we do isset below
         $read = implode('',$r);
@@ -590,6 +618,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         /* extract the message id */
         $i_space = strpos($read,' ',2);
         $id = substr($read,2,$i_space-2);
+        $msg['ID'] = $id;
         $fetch = substr($read,$i_space+1,5);
         if (!is_numeric($id) && $fetch !== 'FETCH') {
             $msg['ERROR'] = $read; // htmlspecialchars should be done just before display. this is backend code
@@ -711,14 +740,14 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
             }
         }
         $msgi ="$unique_id";
-        $msg['ID'] = $unique_id;
+        $msg['UID'] = $unique_id;
 
-        $messages[$msgi] = $msg;
+        $aMessageList[$msgi] = $msg;
         ++$msgi;
     }
-    array_reverse($messages);
-    return $messages;
+    return $aMessageList;
 }
+
 
 function sqimap_parse_envelope($read, &$i, &$msg) {
     $arg_no = 0;

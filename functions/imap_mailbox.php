@@ -247,44 +247,6 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
     return $cnt;
 }
 
-
-/**
- * Expunge specified message
- *
- * We'll use this wrapper function to
- * remove the message with the matching UID .. the order
- * won't be changed - the array element for the message
- * will just be removed.
- */
-
-function sqimap_mailbox_expunge_dmn($imapConnection, &$aMailbox, $message_id) {
-    $cnt = 0;
-
-    if ($aMailbox['AUTO_EXPUNGE']) {
-         $cnt = sqimap_mailbox_expunge($imapConnection, $aMailbox['NAME'], true);
-    } else {
-         return $cnt;
-    }
-    $error = '';
-    $message_id = (int) $message_id; // we use strickt array_search
-    if (is_array($aMailbox['UIDSET'])) {
-        $key = array_search($message_id,$aMailbox['UIDSET'],true);
-        if ($key !== false && !is_null($key)) {
-            unset($aMailbox['UIDSET'][$key]);
-            $aMailbox['UIDSET'] = array_values($aMailbox['UIDSET']);
-            // adapt the exists count to avoid triggering of a new sort
-            $aMailbox['EXISTS'] -= 1;
-        } else {
-            $aMailbox['UIDSET'] = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
-        }
-    } else {
-        $aMailbox['UIDSET'] = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
-    }
-    sqsession_register($aMailbox,'aLastSelectedMailbox');
-    sqsession_register($aMailbox['UIDSET'],'server_sort_array'); //fix me, use aMailbox instead
-    return $cnt;
-}
-
 /**
  * Checks whether or not the specified mailbox exists
  */

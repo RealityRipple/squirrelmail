@@ -19,6 +19,7 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/html.class.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/imap_messages.php');
+require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/forms.php');
 
@@ -26,6 +27,11 @@ require_once(SM_PATH . 'functions/forms.php');
 * default value for page_selector_max
 */
 define('PG_SEL_MAX', 10);
+
+/**
+* The number of pages to cache msg headers
+*/
+define('SQM_MAX_PAGES_IN_CACHE',5);
 
 /**
 * Sort constants used for sorting of messages
@@ -45,7 +51,17 @@ define('SQSORT_CC_ASC',11);
 define('SQSORT_CC_DEC',12);
 define('SQSORT_INT_DATE_ASC',13);
 define('SQSORT_INT_DATE_DEC',14);
-define('SQSORT_THREAD',42);
+
+define('SQSORT_THREAD',32);
+
+
+define('MBX_PREF_SORT',0);
+define('MBX_PREF_LIMIT',1);
+define('MBX_PREF_AUTO_EXPUNGE',2);
+define('MBX_PREF_INTERNALDATE',3);
+define('SQM_MAX_MBX_IN_CACHE',3);
+// define('MBX_PREF_FUTURE',unique integer key);
+
 /**
 * @param mixed $start UNDOCUMENTED
 */
@@ -115,7 +131,7 @@ function printMessageInfo($aMsg) {
     } else {
        $sDate = (isset($msg['DATE'])) ? getDateString(getTimeStamp(explode(' ',$msg['DATE']))) : '';
     }
-    $iId      = (isset($msg['ID'])) ? $msg['ID'] : false;
+    $iId      = (isset($msg['UID'])) ? $msg['UID'] : false;
 
     if (!$iId) {
         return;
@@ -325,7 +341,7 @@ function printMessageInfo($aMsg) {
                     $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$iIndent);
                 }
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
-                        .  '&amp;passed_id='. $msg["ID"]
+                        .  '&amp;passed_id='. $iId
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
                 $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
                 if ($subject != $sSubject) {
@@ -449,13 +465,256 @@ function printMessageInfo($aMsg) {
     }
 }
 
+
+function setUserPref($username, $pref, $value) {
+    global $data_dir;
+    setPref($data_dir,$username,$pref,$value);
+}
+
 /**
-* Does the $sort $_GET var to field mapping
+ * Selects a mailbox for header retrieval.
+ * Cache control for message headers is embedded.
+ *
+ * @param resource $imapConnection imap socket handle
+ * @param string   $mailbox mailbox to select and retrieve message headers from
+ * @param array    $aConfig array with system config settings and incoming vars
+ * @param array    $aProps mailbox specific properties
+ * @return array   $aMailbox mailbox array with all relevant information
+ * @author Marc Groot Koerkamp
+ */
+function sqm_api_mailbox_select($imapConnection,$mailbox,$aConfig,$aProps) {
+    /**
+     * NB: retrieve this from the session before accessing this function
+     * and make sure you write it back at the end of the script after
+     * the aMailbox var is added so that the headers are added to the cache
+     */
+    global $mailbox_cache;
+    /**
+     * In case the properties arrays are empty set the defaults.
+     */
+    $aDefaultMbxPref = array ();
+//                          MBX_PREF_SORT => 0,
+//                          MBX_PREF_LIMIT => 15,
+//                          MBX_PREF_AUTO_EXPUNGE => 0,
+//                          MBX_PREF_INTERNALDATE => 0
+//                           );
+    /* array_merge doesn't work with integers as keys */
+//    foreach ($aDefaultMbxPref as $key => $value) {
+//        if (!isset($aProps[$key])) {
+//            $aProps[$key] = $value;
+//        }
+//    }
+    $aDefaultConfigProps = array(
+//                'allow_thread_sort' => 0,
+                'allow_server_sort' => sqimap_capability($imapConnection,'SORT'),
+//                'charset'           => 'US-ASCII',
+                'user'              => false, /* no pref storage if false */
+                'setindex'          => 0,
+//                'search'            => 'ALL',
+                'max_cache_size'    => SQM_MAX_MBX_IN_CACHE
+                );
+
+    $aConfig = array_merge($aDefaultConfigProps,$aConfig);
+    $iSetIndx = $aConfig['setindex'];
+
+    $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox);
+
+    if ($mailbox_cache) {
+        if (isset($mailbox_cache[$mailbox])) {
+            $aCachedMailbox = $mailbox_cache[$mailbox];
+        } else {
+            $aCachedMailbox = false;
+        }
+            /* cleanup cache */
+        if (count($mailbox_cache) > $aConfig['max_cache_size'] -1) {
+            $aTime = array();
+            foreach($mailbox_cache as $cachedmailbox => $aVal) {
+                $aTime[$aVal['TIMESTAMP']] = $cachedmailbox;
+            }
+            if (ksort($aTime,SORT_NUMERIC)) {
+                for ($i=0,$iCnt=count($mailbox_cache);$i<($iCnt-$aConfig['max_cache_size']);++$i) {
+                    $sOldestMbx = array_shift($aTime);
+                    /**
+                     * Remove only the UIDSET and MSG_HEADERS from cache because those can
+                     * contain large amounts of data.
+                     */
+                    if (isset($mailbox_cache[$sOldestMbx]['UIDSET'])) {
+                        $mailbox_cache[$sOldestMbx]['UIDSET']= false;
+                    }
+                    if (isset($mailbox_cache[$sOldestMbx]['MSG_HEADERS'])) {
+                        $mailbox_cache[$sOldestMbx]['MSG_HEADERS'] = false;
+                    }
+                }
+            }
+        }
+
+    } else {
+        $aCachedMailbox = false;
+    }
+
+    /**
+     * Deal with imap servers that do not return the required UIDNEXT or
+     * UIDVALIDITY response
+     * from a SELECT call (since rfc 3501 it's required).
+     */
+    if (!isset($aMbxResponse['UIDNEXT']) || !isset($aMbxResponse['UIDVALIDITY'])) {
+        $aStatus = sqimap_status_messages($imapConnection,$mailbox,
+                                        array('UIDNEXT','UIDVALIDITY'));
+        $aMbxResponse['UIDNEXT'] = $aStatus['UIDNEXT'];
+        $aMbxResponse['UIDVALIDTY'] = $aStatus['UIDVALIDITY'];
+    }
+
+    $aMailbox['UIDSET'][$iSetIndx] = false;
+    $aMailbox['ID'] = false;
+    $aMailbox['SETINDEX'] = $iSetIndx;
+
+    if ($aCachedMailbox) {
+        /**
+         * Validate integrity of cached data
+         */
+        if ($aCachedMailbox['EXISTS'] == $aMbxResponse['EXISTS'] &&
+            $aMbxResponse['EXISTS'] &&
+            $aCachedMailbox['UIDVALIDITY'] == $aMbxResponse['UIDVALIDITY'] &&
+            $aCachedMailbox['UIDNEXT']  == $aMbxResponse['UIDNEXT'] &&
+            isset($aCachedMailbox['SEARCH'][$iSetIndx]) &&
+            (!isset($aConfig['search']) || /* always set search from the searchpage */
+             $aCachedMailbox['SEARCH'][$iSetIndx] == $aConfig['search'])) {
+            if (isset($aCachedMailbox['MSG_HEADERS'])) {
+                $aMailbox['MSG_HEADERS'] = $aCachedMailbox['MSG_HEADERS'];
+            }
+            $aMailbox['ID'] =  $aCachedMailbox['ID'];
+            if (isset($aCachedMailbox['UIDSET'][$iSetIndx]) && $aCachedMailbox['UIDSET'][$iSetIndx]) {
+                if (isset($aProps[MBX_PREF_SORT]) &&  $aProps[MBX_PREF_SORT] != $aCachedMailbox['SORT'] ) {
+                    $newsort = $aProps[MBX_PREF_SORT];
+                    $oldsort = $aCachedMailbox['SORT'];
+                    /**
+                     * If it concerns a reverse sort we do not need to invalidate
+                     * the cached sorted UIDSET, a reverse is sufficient.
+                     */
+                    if ((($newsort % 2) && ($newsort + 1 == $oldsort)) ||
+                        (!($newsort % 2) && ($newsort - 1 == $oldsort))) {
+                        $aMailbox['UIDSET'][$iSetIndx] = array_reverse($aCachedMailbox['UIDSET'][$iSetIndx]);
+                    } else {
+                        $server_sort_array = false;
+                        $aMailbox['MSG_HEADERS'] = false;
+                        $aMailbox['ID'] = false;
+                    }
+                    // store the new sort value in the mailbox pref
+                    if ($aConfig['user']) {
+                        // FIXME, in ideal situation, we write back the
+                        // prefs at the end of the script
+                        setUserPref($aConfig['user'],"pref_$mailbox",serialize($aProps));
+                    }
+                } else {
+                    $aMailbox['UIDSET'][$iSetIndx] = $aCachedMailbox['UIDSET'][$iSetIndx];
+                }
+            }
+        }
+    }
+    /**
+     * Restore the offset in the paginator if no new offset is provided.
+     */
+    if (isset($aMailbox['UIDSET'][$iSetIndx]) && !isset($aConfig['offset']) && $aCachedMailbox['OFFSET']) {
+        $aMailbox['OFFSET'] =  $aCachedMailbox['OFFSET'];
+        $aMailbox['PAGEOFFSET'] =  $aCachedMailbox['PAGEOFFSET'];
+    } else {
+        $aMailbox['OFFSET'] = (isset($aConfig['offset']) && $aConfig['offset']) ? $aConfig['offset'] -1 : 0;
+        $aMailbox['PAGEOFFSET'] = (isset($aConfig['offset']) && $aConfig['offset']) ? $aConfig['offset'] : 1;
+    }
+
+    /**
+     * Restore the showall value no new showall value is provided.
+     */
+    if (isset($aMailbox['UIDSET'][$iSetIndx]) && !isset($aConfig['showall']) &&
+        isset($aCachedMailbox['SHOWALL'][$iSetIndx]) && $aCachedMailbox['SHOWALL'][$iSetIndx]) {
+        $aMailbox['SHOWALL'][$iSetIndx] =  $aCachedMailbox['SHOWALL'][$iSetIndx];
+    } else {
+        $aMailbox['SHOWALL'][$iSetIndx] = (isset($aConfig['showall']) && $aConfig['showall']) ? 1 : 0;
+    }
+
+    if (!isset($aProps[MBX_PREF_SORT]) && isset($aCachedMailbox['SORT'])) {
+        $aMailbox['SORT'] = $aCachedMailbox['SORT'];
+    } else {
+        $aMailbox['SORT'] =  (isset($aProps[MBX_PREF_SORT])) ? $aProps[MBX_PREF_SORT] : 0;
+    }
+
+    if (!isset($aProps[MBX_PREF_LIMIT]) && isset($aCachedMailbox['LIMIT'])) {
+        $aMailbox['LIMIT'] = $aCachedMailbox['LIMIT'];
+    } else {
+        $aMailbox['LIMIT'] =  (isset($aProps[MBX_PREF_LIMIT])) ? $aProps[MBX_PREF_LIMIT] : 15;
+    }
+
+    if (!isset($aProps[MBX_PREF_INTERNALDATE]) && isset($aCachedMailbox['INTERNALDATE'])) {
+        $aMailbox['INTERNALDATE'] = $aCachedMailbox['INTERNALDATE'];
+    } else {
+        $aMailbox['INTERNALDATE'] =  (isset($aProps[MBX_PREF_INTERNALDATE])) ? $aProps[MBX_PREF_INTERNALDATE] : false;
+    }
+
+    if (!isset($aProps[MBX_PREF_AUTO_EXPUNGE]) && isset($aCachedMailbox['AUTO_EXPUNGE'])) {
+        $aMailbox['AUTO_EXPUNGE'] = $aCachedMailbox['AUTO_EXPUNGE'];
+    } else {
+        $aMailbox['AUTO_EXPUNGE'] =  (isset($aProps[MBX_PREF_AUTO_EXPUNGE])) ? $aProps[MBX_PREF_AUTO_EXPUNGE] : false;
+    }
+
+    if (!isset($aConfig['allow_thread_sort']) && isset($aCachedMailbox['ALLOW_THREAD'])) {
+        $aMailbox['ALLOW_THREAD'] = $aCachedMailbox['ALLOW_THREAD'];
+    } else {
+        $aMailbox['ALLOW_THREAD'] =  (isset($aConfig['allow_thread_sort'])) ? $aConfig['allow_thread_sort'] : false;
+    }
+
+    if (!isset($aConfig['search']) && isset($aCachedMailbox['SEARCH'][$iSetIndx])) {
+        $aMailbox['SEARCH'][$iSetIndx] = $aCachedMailbox['SEARCH'][$iSetIndx];
+    } else {
+        $aMailbox['SEARCH'][$iSetIndx] =  (isset($aConfig['search'])) ? $aConfig['search'] : 'ALL';
+    }
+
+    if (!isset($aConfig['charset']) && isset($aCachedMailbox['CHARSET'][$iSetIndx])) {
+        $aMailbox['CHARSET'][$iSetIndx] = $aCachedMailbox['CHARSET'][$iSetIndx];
+    } else {
+        $aMailbox['CHARSET'][$iSetIndx] =  (isset($aConfig['charset'])) ? $aConfig['charset'] : 'US-ASCII';
+    }
+
+    $aMailbox['NAME'] = $mailbox;
+    $aMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
+    $aMailbox['SEEN'] = (isset($aMbxResponse['SEEN'])) ? $aMbxResponse['SEEN'] : $aMbxResponse['EXISTS'];
+    $aMailbox['RECENT'] = (isset($aMbxResponse['RECENT'])) ? $aMbxResponse['RECENT'] : 0;
+    $aMailbox['UIDVALIDITY'] = $aMbxResponse['UIDVALIDITY'];
+    $aMailbox['UIDNEXT'] = $aMbxResponse['UIDNEXT'];
+    $aMailbox['PERMANENTFLAGS'] = $aMbxResponse['PERMANENTFLAGS'];
+    $aMailbox['RIGHTS'] = $aMbxResponse['RIGHTS'];
+
+
+
+    /* decide if we are thread sorting or not */
+    if (!$aMailbox['ALLOW_THREAD']) {
+        if ($aMailbox['SORT'] & SQSORT_THREAD) {
+            $aMailbox['SORT'] -= SQSORT_THREAD;
+        }
+    }
+    if ($aMailbox['SORT'] & SQSORT_THREAD) {
+        $aMailbox['SORT_METHOD'] = 'THREAD';
+        $aMailbox['THREAD_INDENT'] = $aCachedMailbox['THREAD_INDENT'];
+    } else if (isset($aConfig['allow_server_sort']) && $aConfig['allow_server_sort']) {
+        $aMailbox['SORT_METHOD'] = 'SERVER';
+        $aMailbox['THREAD_INDENT'] = false;
+    } else {
+        $aMailbox['SORT_METHOD'] = 'SQUIRREL';
+        $aMailbox['THREAD_INDENT'] = false;
+    }
+
+    /* set a timestamp for cachecontrol */
+    $aMailbox['TIMESTAMP'] = time();
+    return $aMailbox;
+}
+
+
+
+/**
+* Does the $srt $_GET var to field mapping
 *
-* @param int $sort Field to sort on
+* @param int $srt Field to sort on
 * @param bool $bServerSort Server sorting is true
-* @param mixed $key UNDOCUMENTED
-* @return string $sSortField Field tosort on
+* @return string $sSortField Field to sort on
 */
 function getSortField($sort,$bServerSort) {
     switch($sort) {
@@ -499,35 +758,244 @@ function getSortField($sort,$bServerSort) {
     return $sSortField;
 }
 
-function get_sorted_msgs_list($imapConnection,$aMailbox,&$error) {
+function get_sorted_msgs_list($imapConnection,&$aMailbox,&$error) {
+    $iSetIndx = (isset($aMailbox['SETINDEX'])) ? $aMailbox['SETINDEX'] : 0;
     $bDirection = ($aMailbox['SORT'] % 2);
     $error = false;
+    if (!$aMailbox['SEARCH'][$iSetIndx]) {
+        $aMailbox['SEARCH'][$iSetIndx] = 'ALL';
+    }
     switch ($aMailbox['SORT_METHOD']) {
       case 'THREAD':
-        $id = get_thread_sort($imapConnection);
-        if ($id === false) {
+        $aRes = get_thread_sort($imapConnection,$aMailbox['SEARCH'][$iSetIndx]);
+        if ($aRes === false) {
             $error = '<b><small><center><font color=red>' .
                     _("Thread sorting is not supported by your IMAP server.") . '<br />' .
                     _("Please report this to the system administrator.").
                     '</center></small></b>';
+            $aMailbox['SORT'] -= SQSORT_THREAD;
+        } else {
+            $aMailbox['UIDSET'][$iSetIndx] = $aRes[0];
+            $aMailbox['THREAD_INDENT'][$iSetIndx] = $aRes[1];
         }
         break;
       case 'SERVER':
         $sSortField = getSortField($aMailbox['SORT'],true);
-        $id = sqimap_get_sort_order($imapConnection, $sSortField, $bDirection);
+        $id = sqimap_get_sort_order($imapConnection, $sSortField, $bDirection, $aMailbox['SEARCH'][$iSetIndx]);
         if ($id === false) {
             $error =  '<b><small><center><font color=red>' .
                 _( "Server-side sorting is not supported by your IMAP server.") . '<br />' .
                 _("Please report this to the system administrator.").
                 '</center></small></b>';
+        } else {
+            $aMailbox['UIDSET'][$iSetIndx] = $id;
         }
         break;
       default:
+        $id = NULL;
+        if ($aMailbox['SEARCH'][$iSetIndx] != 'ALL') {
+            $id = sqimap_run_search($imapConnection, $aMailbox['SEARCH'][$iSetIndx], $aMailbox['CHARSET'][$iSetIndx]);
+        }
         $sSortField = getSortField($aMailbox['SORT'],false);
-        $id = get_squirrel_sort($imapConnection, $sSortField, $bDirection);
+        $aMailbox['UIDSET'][$iSetIndx] = get_squirrel_sort($imapConnection, $sSortField, $bDirection, $id);
         break;
     }
-    return $id;
+    return $error;
+}
+
+
+
+
+function fetchMessageHeaders($imapConnection, &$aMailbox) {
+
+    /**
+     * Retrieve the UIDSET.
+     * Setindex is used to be able to store multiple uid sets. That will make it
+     * possible to display the mailbox multiple times in different sort order
+     * or to store serach results separate from normal mailbox view.
+     */
+    $iSetIndx =  (isset($aMailbox['SETINDEX'])) ? $aMailbox['SETINDEX'] : 0;
+
+    $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $aMailbox['EXISTS'] : $aMailbox['LIMIT'];
+    /**
+     * Adjust the start_msg
+     */
+    $start_msg = $aMailbox['PAGEOFFSET'];
+    if($aMailbox['PAGEOFFSET'] > $aMailbox['EXISTS']) {
+        $start_msg -= $aMailbox['LIMIT'];
+        if($start_msg < 1) {
+            $start_msg = 1;
+        }
+    }
+
+
+    if (is_array($aMailbox['UIDSET'])) {
+        $aUid =& $aMailbox['UIDSET'][$iSetIndx];
+    } else {
+        $aUid = false;
+    }
+
+    // initialize the fields we want to retrieve:
+    $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type');
+    $aFetchItems = array('FLAGS', 'RFC822.SIZE');
+
+    // Are we sorting on internaldate then retrieve the internaldate value as well
+    if ($aMailbox['INTERNALDATE']) {
+        $aFetchItems[] = 'INTERNALDATE';
+    }
+
+
+    /**
+     * A uidset with sorted uid's is available. We can use the cache
+     */
+    if (($aMailbox['SORT'] != SQSORT_NONE || $aMailbox['SEARCH'][$iSetIndx] != 'ALL') &&
+         isset($aUid) && $aUid ) {
+
+        // limit the cache to SQM_MAX_PAGES_IN_CACHE
+        if (!$aMailbox['SHOWALL'][$iSetIndx]) {
+            $iMaxMsgs = $iLimit * SQM_MAX_PAGES_IN_CACHE;
+            $iCacheSize = count($aMailbox['MSG_HEADERS']);
+            if ($iCacheSize > $iMaxMsgs) {
+                $iReduce = $iCacheSize - $iMaxMsgs;
+                foreach ($aMailbox['MSG_HEADERS'] as $iUid => $value) {
+                    if ($iReduce) {
+                        unset($aMailbox['MSG_HEADERS'][$iUid]);
+                    } else {
+                        break;
+                    }
+                    --$iReduce;
+                }
+            }
+        }
+
+        $id_slice = array_slice($aUid,$start_msg-1,$iLimit);
+        /* do some funky cache checks */
+        $aUidCached = array_keys($aMailbox['MSG_HEADERS']);
+        $aUidNotCached = array_values(array_diff($id_slice,$aUidCached));
+        /**
+         * $aUidNotCached contains an array with UID's which need to be fetched to
+         * complete the needed message headers.
+         */
+        if (count($aUidNotCached)) {
+            $aMsgs = sqimap_get_small_header_list($imapConnection,$aUidNotCached,
+                                                    $aHeaderFields,$aFetchItems);
+            // append the msgs to the existend headers
+            $aMailbox['MSG_HEADERS'] += $aMsgs;
+        }
+
+    } else {
+        /**
+         * Initialize the sorted UID list and fetch the visible message headers
+         */
+        if ($aMailbox['SORT'] != SQSORT_NONE || $aMailbox['SEARCH'][$iSetIndx] != 'ALL') {//  || $aMailbox['SORT_METHOD'] & SQSORT_THREAD 'THREAD') {
+
+            $error = false;
+            if ($aMailbox['SEARCH'][$iSetIndx] && $aMailbox['SORT'] == 0) {
+                $aUid = sqimap_run_search($imapConnection, $aMailbox['SEARCH'][$iSetIndx], $aMailbox['CHARSET'][$iSetIndx]);
+            } else {
+                $error = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
+                $aUid = $aMailbox['UIDSET'][$iSetIndx];
+            }
+            if ($error === false) {
+                $id_slice = array_slice($aUid,$aMailbox['OFFSET'], $iLimit);
+                if (count($id_slice)) {
+                    $aMailbox['MSG_HEADERS'] = sqimap_get_small_header_list($imapConnection,$id_slice,
+                        $aHeaderFields,$aFetchItems);
+                } else {
+                    return false;
+                }
+
+            } else {
+                // FIX ME, format message and fallback to squirrel sort
+                if ($error) {
+                    echo $error;
+                }
+            }
+        } else {
+            // limit the cache to SQM_MAX_PAGES_IN_CACHE
+            if (!$aMailbox['SHOWALL'][$iSetIndx] && isset($aMailbox['MSG_HEADERS']) && is_array($aMailbox['MSG_HEADERS'])) {
+                $iMaxMsgs = $iLimit * SQM_MAX_PAGES_IN_CACHE;
+                $iCacheSize = count($aMailbox['MSG_HEADERS']);
+                if ($iCacheSize > $iMaxMsgs) {
+                    $iReduce = $iCacheSize - $iMaxMsgs;
+                    foreach ($aMailbox['MSG_HEADERS'] as $iUid => $value) {
+                        if ($iReduce) {
+                            $iId = $aMailbox['MSG_HEADERS'][$iUid]['ID'];
+                            unset($aMailbox['MSG_HEADERS'][$iUid]);
+                            unset($aMailbox['ID'][$iId]);
+                        } else {
+                            break;
+                        }
+                        --$iReduce;
+                    }
+                }
+            }
+
+            /**
+            * retrieve messages by sequence id's and fetch the UID to retrieve
+            * the UID. for sorted lists this is not needed because a UID FETCH
+            * automaticly add the UID value in fetch results
+            **/
+            $aFetchItems[] = 'UID';
+
+            //create id range
+            $iRangeStart = $aMailbox['EXISTS'] - $aMailbox['OFFSET'];
+            $iRangeEnd   = ($iRangeStart > $iLimit) ?
+                            ($iRangeStart - $iLimit+1):1;
+
+            $id_slice = range($iRangeStart, $iRangeEnd);
+            /**
+             * Non sorted mailbox with cached message headers
+             */
+            if (isset($aMailbox['ID']) && is_array($aMailbox['ID'])) {
+                // the fetched id => uid relation
+                $aId = $aMailbox['ID'];
+                $aIdCached = array();
+                foreach ($aId as $iId => $iUid) {
+                    if (isset($aMailbox['MSG_HEADERS'][$iUid])) {
+                        if ($iId <= $iRangeStart && $iId >= $iRangeEnd) {
+                            $aIdCached[] = $iId;
+                        }
+                    }
+                }
+                $aIdNotCached = array_diff($id_slice,$aIdCached);
+            } else {
+                $aIdNotCached = $id_slice;
+            }
+
+            if (count($aIdNotCached)) {
+                $aMsgs = sqimap_get_small_header_list($imapConnection,$aIdNotCached,
+                    $aHeaderFields,$aFetchItems);
+                // append the msgs to the existend headers
+                if (isset($aMailbox['MSG_HEADERS']) && is_array($aMailbox['MSG_HEADERS'])) {
+                    $aMailbox['MSG_HEADERS'] += $aMsgs;
+                } else {
+                    $aMailbox['MSG_HEADERS'] = $aMsgs;
+                }
+                // update the ID array
+                foreach ($aMsgs as $iUid => $aMsg) {
+                    if (isset($aMsg['ID'])) {
+                        $aMailbox['ID'][$aMsg['ID']] = $iUid;
+                    }
+                }
+            }
+
+            /**
+             * In unsorted state we show newest messages first which means
+             * that the UIDSET which represents the order of the messages
+             * should contain a high to low ordered UID list
+             */
+            $aSortedUidList = array();
+            foreach ($id_slice as $iId) {
+                if (isset($aMailbox['ID'][$iId])) {
+                    $aSortedUidList[] = $aMailbox['ID'][$iId];
+                }
+            }
+            $aMailbox['UIDSET'][$iSetIndx] = $aSortedUidList;
+            $aMailbox['OFFSET'] = 0;
+        }
+    }
+    return true;
 }
 
 /**
@@ -537,131 +1005,23 @@ function get_sorted_msgs_list($imapConnection,$aMailbox,&$error) {
 * @param mixed $imapConnection
 * @param array $aMailbox associative array with mailbox related vars
 */
-function showMessagesForMailbox($imapConnection, $aMailbox) {
-    global $msgs, $server_sort_array, $indent_array, $color;
+function showMessagesForMailbox($imapConnection, &$aMailbox) {
+    global $color;
 
     // to retrieve the internaldate pref: (I know this is not the right place to do that, move up in front
     // and use a properties array as function argument to provide user preferences
     global $data_dir, $username;
 
-    /* if there's no messages in this folder */
-    if ($aMailbox['EXISTS'] == 0) {
-        $string = '<b>' . _("THIS FOLDER IS EMPTY") . '</b>';
-        echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-        echo '     <tr><td>';
-        echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-        echo '        <tr><td><br />';
-        echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
-        echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
-                            . '</tr>';
-        echo '            </table>';
-        echo '        <br /></td></tr>';
-        echo '       </table></td></tr>';
-        echo '    </table>';
-        return;
-    } else {
-        /*
-        * Adjust the start_msg
-        */
-        $start_msg = $aMailbox['PAGEOFFSET'];
-        if($aMailbox['PAGEOFFSET'] > $aMailbox['EXISTS']) {
-            $start_msg -= $aMailbox['LIMIT'];
-            if($start_msg < 1) {
-                $start_msg = 1;
-            }
-        }
-        $aMailbox['SEARCH']     = array(); // Alex maybe you can change this so that you can use it from a search
+    if (!fetchMessageHeaders($imapConnection, $aMailbox)) {
+        return false;
+    }
+    $iSetIndx = $aMailbox['SETINDEX'];
+    $iLimit = ($aMailbox['SHOWALL'][$iSetIndx]) ? $aMailbox['EXISTS'] : $aMailbox['LIMIT'];
+    $iEnd = ($aMailbox['PAGEOFFSET'] + ($iLimit - 1) < $aMailbox['EXISTS']) ?
+             $aMailbox['PAGEOFFSET'] + $iLimit - 1 : $aMailbox['EXISTS'];
 
-        // initialize the fields we want to retrieve:
-        $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type');
-        $aFetchItems = array('FLAGS', 'RFC822.SIZE');
-        // Are we sorting on internaldate then retrieve the internaldate value as well
-        $internaldate = getPref($data_dir, $username, 'internal_date_sort');
-        if ($internaldate) {
-            $aFetchItems[] = 'INTERNALDATE';
-        }
-
-        if ($aMailbox['SORT'] != SQSORT_NONE && isset($aMailbox['UIDSET']) &&
-                      $aMailbox['UIDSET'] ) {
-            $id = $aMailbox['UIDSET'];
-            if (sqsession_is_registered('msgs')) {
-                sqsession_unregister('msgs');
-            }
-            $id_slice = array_slice($id,$start_msg-1,$aMailbox['LIMIT']);
-            if (count($id_slice)) {
-                $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$aMailbox['LIMIT'],
-                                                     $aHeaderFields,$aFetchItems);
-
-            } else {
-                return false;
-            }
-            // FIX ME, move to msgs cache bound to a mailbox
-            sqsession_register($msgs, 'msgs');
-        } else {
-            if (sqsession_is_registered('server_sort_array')) {
-                sqsession_unregister('server_sort_array');
-            }
-
-            if ($aMailbox['SORT'] != SQSORT_NONE  || $aMailbox['SORT_METHOD'] == 'THREAD') {
-                $id = get_sorted_msgs_list($imapConnection,$aMailbox,$error);
-                if ($id !== false) {
-                    $id_slice = array_slice($id,$aMailbox['OFFSET'], $aMailbox['LIMIT']);
-                    if (count($id_slice)) {
-                        $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$aMailbox['LIMIT'],
-                              $aHeaderFields,$aFetchItems);
-                    } else {
-                        // FIX ME do error handling
-                        return false;
-                    }
-                } else {
-                    // FIX ME, format message and fallback to squirrel sort
-                    if ($error) {
-                        echo $error;
-                    }
-                }
-            } else {
-                /**
-                * retrieve messages by sequence id's and fetch the UID to retrieve
-                * the UID. for sorted lists this is not needed because a UID FETCH
-                * automaticly add the UID value in fetch results
-                **/
-                $aFetchItems[] = 'UID';
-
-                //create id range
-                $iRangeStart = $aMailbox['EXISTS'] - $aMailbox['OFFSET'];
-
-                $iRangeEnd   = ($iRangeStart > $aMailbox['LIMIT']) ?
-                               ($iRangeStart - $aMailbox['LIMIT']+1):1;
-
-                $id_slice = range($iRangeStart, $iRangeEnd);
-                $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$aMailbox['LIMIT'],
-                     $aHeaderFields,$aFetchItems);
-                $msgs = array_reverse($msgs,true /* preserve key */);
-                // generate id array
-                $id = array_keys($msgs);
-                $aMailbox['OFFSET'] = 0;
-            }
-            // FIX ME, use an id list bound to a mailbox
-            if ($id !== false) {
-                sqsession_register($id, 'server_sort_array');
-            }
-
-            sqsession_register($msgs, 'msgs');
-        }
-        $aMailbox['UIDSET'] =& $id;
-        $aMailbox['MSG_HEADERS'] =& $msgs;
-        if ($aMailbox['SORT_METHOD'] == 'THREAD') {
-            // retrieve indent array for thread sort
-            sqgetGlobalVar('indent_array',$indent_array,SQ_SESSION);
-            $aMailbox['THREAD_INDENT'] =& $indent_array;
-        }
-    } /* if exists > 0 */
-
-    $iEnd = ($aMailbox['PAGEOFFSET'] + ($aMailbox['LIMIT'] - 1) < $aMailbox['EXISTS']) ?
-             $aMailbox['PAGEOFFSET'] + $aMailbox['LIMIT'] - 1 : $aMailbox['EXISTS'];
-
-    $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'], $iEnd,
-                                    $aMailbox['EXISTS'], $aMailbox['LIMIT'], $aMailbox['SORT']);
+    $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
+                                    $aMailbox['EXISTS'], $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
 
     $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$aMailbox['EXISTS']);
 
@@ -699,8 +1059,7 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
 </tr>
 </table>
 <?php
-    //$t = elapsed($start);
-    //echo("elapsed time = $t seconds\n");
+
 }
 
 /**
@@ -714,16 +1073,18 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
 * @return void
 **/
 function displayMessageArray($imapConnection, $aMailbox) {
-
-    $aId         = $aMailbox['UIDSET'];
+    $iSetIndx    = $aMailbox['SETINDEX'];
+    $aId         = $aMailbox['UIDSET'][$iSetIndx];
     $aHeaders    = $aMailbox['MSG_HEADERS'];
     $iOffset     = $aMailbox['OFFSET'];
     $sort        = $aMailbox['SORT'];
     $iPageOffset = $aMailbox['PAGEOFFSET'];
     $sMailbox    = $aMailbox['NAME'];
-    $aSearch     = (isset($aMailbox['SEARCH'])) ? $aMailbox['SEARCH'] : false;
-    if ($aMailbox['SORT_METHOD'] == 'THREAD') {
-        $aIndentArray =& $aMailbox['THREAD_INDENT'];
+    $sSearch     = (isset($aMailbox['SEARCH'][$aMailbox['SETINDEX']])) ? $aMailbox['SEARCH'][$aMailbox['SETINDEX']] : false;
+    $aSearch     = ($sSearch) ? array('search.php',$aMailbox['SETINDEX']) : null;
+
+    if ($aMailbox['SORT'] & SQSORT_THREAD) {
+        $aIndentArray =& $aMailbox['THREAD_INDENT'][$aMailbox['SETINDEX']];
         $bThread = true;
     } else {
         $bThread = false;
@@ -732,7 +1093,7 @@ function displayMessageArray($imapConnection, $aMailbox) {
     * Loop through and display the info for each message.
     * ($t is used for the checkbox number)
     */
-    $iEnd = ($aMailbox['LIMIT']) ? $iOffset + $aMailbox['LIMIT']  : 99999999 /* no limit */;
+    $iEnd = ($aMailbox['SHOWALL'][$iSetIndx]) ? $aMailbox['EXISTS'] : $iOffset + $aMailbox['LIMIT'];
     for ($i=$iOffset,$t=0;$i<$iEnd;++$i) {
         if (isset($aId[$i])) {
             $bLast = ((isset($aId[$i+1]) && isset($aHeaders[$aId[$i+1]]))
@@ -753,7 +1114,7 @@ function displayMessageArray($imapConnection, $aMailbox) {
                       'INDENT'     => $indent,
                       'LAST'       => $bLast
                     );
-            printMessageInfo($aMsg);
+             printMessageInfo($aMsg);
             ++$t;
         } else {
             break;
@@ -776,15 +1137,11 @@ function mail_message_listing_beginning ($imapConnection,
                                          $msg_cnt_str = '',
                                          $paginator = '&nbsp;'
                                         ) {
-    global $color, $base_uri, $show_flag_buttons, $PHP_SELF;
-
-
+    global $color, $show_flag_buttons, $PHP_SELF;
+    global $lastTargetMailbox;
 
     $php_self = $PHP_SELF;
-    /* fix for incorrect $PHP_SELF */
-    if (strpos($php_self, 'move_messages.php')) {
-        $php_self = str_replace('move_messages.php', 'right_main.php', $php_self);
-    }
+
     $urlMailbox = urlencode($aMailbox['NAME']);
 
     if (preg_match('/^(.+)\?.+$/',$php_self,$regs)) {
@@ -797,29 +1154,22 @@ function mail_message_listing_beginning ($imapConnection,
         $msg = '';
     }
 
-    if (!strpos($php_self,'?')) {
-        $location = $php_self.'?mailbox=INBOX&amp;startMessage=1';
-    } else {
-        $location = $php_self;
-    }
-
     $moveFields = addHidden('msg', $msg).
                   addHidden('mailbox', $aMailbox['NAME']).
-                  addHidden('startMessage', $aMailbox['PAGEOFFSET']).
-                  addHidden('location', $location);
+                  addHidden('startMessage', $aMailbox['PAGEOFFSET']);
 
     /* build thread sorting links */
-
+    $sort = $aMailbox['SORT'];
     if ($aMailbox['ALLOW_THREAD']) {
-        if ($aMailbox['SORT_METHOD'] == 'THREAD') {
-            $set_thread = 2;
+        if ($aMailbox['SORT'] & SQSORT_THREAD) {
+            $sort -= SQSORT_THREAD;
             $thread_name = _("Unthread View");
         } else {
-            $set_thread = 1;
             $thread_name = _("Thread View");
+            $sort = $aMailbox['SORT'] + SQSORT_THREAD;
         }
-        $thread_link_str = '<small>[<a href="' . $source_url . '?sort='
-            . $aMailbox['SORT'] . '&start_messages=1&set_thread=' . $set_thread
+        $thread_link_str = '<small>[<a href="' . $source_url . '?srt='
+            . $sort . '&start_messages=1'
             . '&mailbox=' . urlencode($aMailbox['NAME']) . '">' . $thread_name
             . '</a>]</small>';
     } else {
@@ -832,8 +1182,10 @@ function mail_message_listing_beginning ($imapConnection,
     $safe_name = preg_replace("/[^0-9A-Za-z_]/", '_', $aMailbox['NAME']);
     $form_name = "FormMsgs" . $safe_name;
 
-    echo '<form name="' . $form_name . '" method="post" action="move_messages.php">' ."\n"
+    echo '<form name="' . $form_name . '" method="post" action="'.$php_self.'">' ."\n"
         . $moveFields;
+
+
 ?>
     <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>">
         <tr>
@@ -885,8 +1237,9 @@ function mail_message_listing_beginning ($imapConnection,
                 if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
                     echo '<td align="right">
                 <small>';
-                    //echo $thread_link_str;	//previous behaviour
-                    getMbxList($imapConnection);
+                    echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
+                    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes);
+                    echo '         </select></tt>&nbsp;';
                     echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n
                 </small>";
                 }
@@ -1051,7 +1404,7 @@ function ShowSortButton($aMailbox, $Down, $Up ) {
     }
 
     /* Now that we have everything figured out, show the actual button. */
-    echo ' <a href="' . $source_url .'?newsort=' . $which
+    echo ' <a href="' . $source_url .'?srt=' . $which
         . '&amp;startMessage=1&amp;mailbox=' . urlencode($aMailbox['NAME'])
         . '"><img src="../images/' . $img
         . '" border="0" width="12" height="10" alt="sort" title="'
@@ -1065,7 +1418,7 @@ function ShowSortButton($aMailbox, $Down, $Up ) {
 */
 function get_selectall_link($aMailbox) {
     global $checkall, $javascript_on;
-    global $PHP_SELF, $PG_SHOWNUM;
+    global $PHP_SELF;
 
     $result = '';
     if ($javascript_on) {
@@ -1091,10 +1444,10 @@ function get_selectall_link($aMailbox) {
     } else {
         if (strpos($PHP_SELF, "?")) {
             $result .= "<a href=\"$PHP_SELF&amp;mailbox=" . urlencode($aMailbox['NAME'])
-                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;sort=$aMailbox[SORT]&amp;checkall=";
+                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;srt=$aMailbox[SORT]&amp;checkall=";
         } else {
             $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
-                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;sort=$aMailbox[SORT]&amp;checkall=";
+                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;srt=$aMailbox[SORT]&amp;checkall=";
         }
         if (isset($checkall) && $checkall == '1') {
             $result .= '0';
@@ -1147,10 +1500,9 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
 * @param string $text text used for paginator link
 * @return string
 */
-function get_paginator_link($box, $start_msg, $use, $text) {
-
-    $result = "<a href=\"right_main.php?use_mailbox_cache=$use"
-            . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
+function get_paginator_link($box, $start_msg, $text) {
+    sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
+    $result = "<a href=\"$php_self?startMessage=$start_msg&amp;mailbox=$box\" "
             . ">$text</a>";
 
     return ($result);
@@ -1162,13 +1514,16 @@ function get_paginator_link($box, $start_msg, $use, $text) {
 * @param string $box
 * @param integer $start_msg
 * @param integer $end_msg
-* @param integer $num_msgs
-* @param integer $show_num
+* @param integer $num_msgs // total number of messages
+* @param integer $limit // number of messages to show on one page
 * @param integer $sort
 */
-function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
-                        $show_num, $sort) {
-    global $username, $data_dir, $use_mailbox_cache, $color, $PG_SHOWNUM;
+//function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
+//                        $show_num, $sort) {
+function get_paginator_str($box, $iOffset, $iTotal, $iLimit, $bShowAll) {
+
+    global $username, $data_dir, $color;
+    sqgetGlobalVar('PHP_SELF',$php_self,SQ_SERVER);
 
     /* Initialize paginator string chunks. */
     $prv_str = '';
@@ -1177,7 +1532,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     $all_str = '';
 
     $box = urlencode($box);
-    $use = 0;
+
     /* Create simple strings that will be creating the paginator. */
     $spc = '&nbsp;';     /* This will be used as a space. */
     $sep = '|';          /* This will be used as a seperator. */
@@ -1187,140 +1542,142 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     $pg_max = getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX);
 
     /* Make sure that our start message number is not too big. */
-    $start_msg = min($start_msg, $num_msgs);
+    $iOffset = min($iOffset, $iTotal);
 
     /* Compute the starting message of the previous and next page group. */
-    $next_grp = $start_msg + $show_num;
-    $prev_grp = $start_msg - $show_num;
+    $next_grp = $iOffset + $iLimit;
+    $prev_grp = $iOffset - $iLimit;
 
-    /* Compute the basic previous and next strings. */
-    if (($next_grp <= $num_msgs) && ($prev_grp >= 0)) {
-        $prv_str = get_paginator_link($box, $prev_grp, $use, _("Previous"));
-        $nxt_str = get_paginator_link($box, $next_grp, $use, _("Next"));
-    } else if (($next_grp > $num_msgs) && ($prev_grp >= 0)) {
-        $prv_str = get_paginator_link($box, $prev_grp, $use, _("Previous"));
-        $nxt_str = _("Next");
-    } else if (($next_grp <= $num_msgs) && ($prev_grp < 0)) {
-        $prv_str = _("Previous");
-        $nxt_str = get_paginator_link($box, $next_grp, $use, _("Next"));
-    }
+    if (!$bShowAll) {
+        /* Compute the basic previous and next strings. */
+        if (($next_grp <= $iTotal) && ($prev_grp >= 0)) {
+            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
+            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+        } else if (($next_grp > $iTotal) && ($prev_grp >= 0)) {
+            $prv_str = get_paginator_link($box, $prev_grp, _("Previous"));
+            $nxt_str = _("Next");
+        } else if (($next_grp <= $iTotal) && ($prev_grp < 0)) {
+            $prv_str = _("Previous");
+            $nxt_str = get_paginator_link($box, $next_grp, _("Next"));
+        }
 
-    /* Page selector block. Following code computes page links. */
-    if ($show_num != 0 && $pg_sel && ($num_msgs > $show_num)) {
-        /* Most importantly, what is the current page!!! */
-        $cur_pg = intval($start_msg / $show_num) + 1;
+        /* Page selector block. Following code computes page links. */
+        if ($iLimit != 0 && $pg_sel && ($iTotal > $iLimit)) {
+            /* Most importantly, what is the current page!!! */
+            $cur_pg = intval($iOffset / $iLimit) + 1;
 
-        /* Compute total # of pages and # of paginator page links. */
-        $tot_pgs = ceil($num_msgs / $show_num);  /* Total number of Pages */
-        $vis_pgs = min($pg_max, $tot_pgs - 1);   /* Visible Pages    */
+            /* Compute total # of pages and # of paginator page links. */
+            $tot_pgs = ceil($iTotal / $iLimit);  /* Total number of Pages */
+            $vis_pgs = min($pg_max, $tot_pgs - 1);   /* Visible Pages    */
 
-        /* Compute the size of the four quarters of the page links. */
+            /* Compute the size of the four quarters of the page links. */
 
-        /* If we can, just show all the pages. */
-        if (($tot_pgs - 1) <= $pg_max) {
-            $q1_pgs = $cur_pg - 1;
-            $q2_pgs = $q3_pgs = 0;
-            $q4_pgs = $tot_pgs - $cur_pg;
-
-        /* Otherwise, compute some magic to choose the four quarters. */
-        } else {
-            /*
-            * Compute the magic base values. Added together,
-            * these values will always equal to the $pag_pgs.
-            * NOTE: These are DEFAULT values and do not take
-            * the current page into account. That is below.
-            */
-            $q1_pgs = floor($vis_pgs/4);
-            $q2_pgs = round($vis_pgs/4, 0);
-            $q3_pgs = ceil($vis_pgs/4);
-            $q4_pgs = round(($vis_pgs - $q2_pgs)/3, 0);
-
-            /* Adjust if the first quarter contains the current page. */
-            if (($cur_pg - $q1_pgs) < 1) {
-                $extra_pgs = ($q1_pgs - ($cur_pg - 1)) + $q2_pgs;
+            /* If we can, just show all the pages. */
+            if (($tot_pgs - 1) <= $pg_max) {
                 $q1_pgs = $cur_pg - 1;
-                $q2_pgs = 0;
-                $q3_pgs += ceil($extra_pgs / 2);
-                $q4_pgs += floor($extra_pgs / 2);
-
-            /* Adjust if the first and second quarters intersect. */
-            } else if (($cur_pg - $q2_pgs - ceil($q2_pgs/3)) <= $q1_pgs) {
-                $extra_pgs = $q2_pgs;
-                $extra_pgs -= ceil(($cur_pg - $q1_pgs - 1) * 3/4);
-                $q2_pgs = ceil(($cur_pg - $q1_pgs - 1) * 3/4);
-                $q3_pgs += ceil($extra_pgs / 2);
-                $q4_pgs += floor($extra_pgs / 2);
-
-            /* Adjust if the fourth quarter contains the current page. */
-            } else if (($cur_pg + $q4_pgs) >= $tot_pgs) {
-                $extra_pgs = ($q4_pgs - ($tot_pgs - $cur_pg)) + $q3_pgs;
-                $q3_pgs = 0;
+                $q2_pgs = $q3_pgs = 0;
                 $q4_pgs = $tot_pgs - $cur_pg;
-                $q1_pgs += floor($extra_pgs / 2);
-                $q2_pgs += ceil($extra_pgs / 2);
 
-            /* Adjust if the third and fourth quarter intersect. */
-            } else if (($cur_pg + $q3_pgs + 1) >= ($tot_pgs - $q4_pgs + 1)) {
-                $extra_pgs = $q3_pgs;
-                $extra_pgs -= ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
-                $q3_pgs = ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
-                $q1_pgs += floor($extra_pgs / 2);
-                $q2_pgs += ceil($extra_pgs / 2);
+            /* Otherwise, compute some magic to choose the four quarters. */
+            } else {
+                /*
+                * Compute the magic base values. Added together,
+                * these values will always equal to the $pag_pgs.
+                * NOTE: These are DEFAULT values and do not take
+                * the current page into account. That is below.
+                */
+                $q1_pgs = floor($vis_pgs/4);
+                $q2_pgs = round($vis_pgs/4, 0);
+                $q3_pgs = ceil($vis_pgs/4);
+                $q4_pgs = round(($vis_pgs - $q2_pgs)/3, 0);
+
+                /* Adjust if the first quarter contains the current page. */
+                if (($cur_pg - $q1_pgs) < 1) {
+                    $extra_pgs = ($q1_pgs - ($cur_pg - 1)) + $q2_pgs;
+                    $q1_pgs = $cur_pg - 1;
+                    $q2_pgs = 0;
+                    $q3_pgs += ceil($extra_pgs / 2);
+                    $q4_pgs += floor($extra_pgs / 2);
+
+                /* Adjust if the first and second quarters intersect. */
+                } else if (($cur_pg - $q2_pgs - ceil($q2_pgs/3)) <= $q1_pgs) {
+                    $extra_pgs = $q2_pgs;
+                    $extra_pgs -= ceil(($cur_pg - $q1_pgs - 1) * 3/4);
+                    $q2_pgs = ceil(($cur_pg - $q1_pgs - 1) * 3/4);
+                    $q3_pgs += ceil($extra_pgs / 2);
+                    $q4_pgs += floor($extra_pgs / 2);
+
+                /* Adjust if the fourth quarter contains the current page. */
+                } else if (($cur_pg + $q4_pgs) >= $tot_pgs) {
+                    $extra_pgs = ($q4_pgs - ($tot_pgs - $cur_pg)) + $q3_pgs;
+                    $q3_pgs = 0;
+                    $q4_pgs = $tot_pgs - $cur_pg;
+                    $q1_pgs += floor($extra_pgs / 2);
+                    $q2_pgs += ceil($extra_pgs / 2);
+
+                /* Adjust if the third and fourth quarter intersect. */
+                } else if (($cur_pg + $q3_pgs + 1) >= ($tot_pgs - $q4_pgs + 1)) {
+                    $extra_pgs = $q3_pgs;
+                    $extra_pgs -= ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
+                    $q3_pgs = ceil(($tot_pgs - $cur_pg - $q4_pgs) * 3/4);
+                    $q1_pgs += floor($extra_pgs / 2);
+                    $q2_pgs += ceil($extra_pgs / 2);
+                }
             }
-        }
 
-        /*
-        * I am leaving this debug code here, commented out, because
-        * it is a really nice way to see what the above code is doing.
-        * echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "
-        *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br />';
-        */
+            /*
+            * I am leaving this debug code here, commented out, because
+            * it is a really nice way to see what the above code is doing.
+            * echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "
+            *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br />';
+            */
 
-        /* Print out the page links from the compute page quarters. */
+            /* Print out the page links from the compute page quarters. */
 
-        /* Start with the first quarter. */
-        if (($q1_pgs == 0) && ($cur_pg > 1)) {
-            $pg_str .= "...$spc";
-        } else {
-            for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
-                $start = (($pg-1) * $show_num) + 1;
-                $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
-            }
-            if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
+            /* Start with the first quarter. */
+            if (($q1_pgs == 0) && ($cur_pg > 1)) {
                 $pg_str .= "...$spc";
+            } else {
+                for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
+                    $start = (($pg-1) * $iLimit) + 1;
+                    $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+                }
+                if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
+                    $pg_str .= "...$spc";
+                }
             }
-        }
 
-        /* Continue with the second quarter. */
-        for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
-            $start = (($pg-1) * $show_num) + 1;
-            $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
-        }
+            /* Continue with the second quarter. */
+            for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
+                $start = (($pg-1) * $iLimit) + 1;
+                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+            }
 
-        /* Now print the current page. */
-        $pg_str .= $cur_pg . $spc;
+            /* Now print the current page. */
+            $pg_str .= $cur_pg . $spc;
 
-        /* Next comes the third quarter. */
-        for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
-            $start = (($pg-1) * $show_num) + 1;
-            $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
-        }
+            /* Next comes the third quarter. */
+            for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
+                $start = (($pg-1) * $iLimit) + 1;
+                $pg_str .= get_paginator_link($box, $start, $pg) . $spc;
+            }
 
-        /* And last, print the forth quarter page links. */
-        if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
-            $pg_str .= "...$spc";
-        } else {
-            if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
+            /* And last, print the forth quarter page links. */
+            if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
                 $pg_str .= "...$spc";
-            }
-            for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
-                $start = (($pg-1) * $show_num) + 1;
-                $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
+            } else {
+                if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
+                    $pg_str .= "...$spc";
+                }
+                for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
+                    $start = (($pg-1) * $iLimit) + 1;
+                    $pg_str .= get_paginator_link($box, $start,$pg) . $spc;
+                }
             }
         }
-    } else if ($PG_SHOWNUM == 999999) {
-        $pg_str = "<a href=\"right_main.php?PG_SHOWALL=0"
-                . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
+    } else {
+        $pg_str = "<a href=\"$php_self?showall=0"
+                . "&amp;startMessage=1&amp;mailbox=$box\" "
                 . ">" ._("Paginate") . '</a>';
     }
 
@@ -1330,17 +1687,17 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     * a different approach would be any easier to read. ;)
     */
     $result = '';
-    if ( $prv_str != '' || $nxt_str != '' )
-    {
-    $result .= '[';
-    $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
-    $result .= ($nxt_str != '' ? $nxt_str : '');
-    $result .= ']' . $spc ;
+    if ( $prv_str || $nxt_str ) {
 
-    /* Compute the 'show all' string. */
-    $all_str = "<a href=\"right_main.php?PG_SHOWALL=1"
-                . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
+        /* Compute the 'show all' string. */
+        $all_str = "<a href=\"$php_self?showall=1"
+                . "&amp;startMessage=1&amp;mailbox=$box\" "
                 . ">" . _("Show All") . '</a>';
+        $result .= '[';
+        $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
+        $result .= ($nxt_str != '' ? $nxt_str : '');
+        $result .= ']' . $spc ;
+
     }
 
     $result .= ($pg_str  != '' ? $spc . '['.$spc.$pg_str.']' .  $spc : '');
@@ -1417,18 +1774,6 @@ function processSubject($subject, $threadlevel = 0) {
     return truncateWithEntities($subject, $trim_at);
 }
 
-/**
-* FIXME: Undocumented function
-*
-* @param mixed $imapConnection
-* @param mixed $boxes
-*/
-function getMbxList($imapConnection, $boxes = 0) {
-    global $lastTargetMailbox;
-    echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
-    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes);
-    echo '         </select></tt>&nbsp;';
-}
 
 /**
 * Creates button
@@ -1479,6 +1824,221 @@ function handleAsSent($mailbox) {
 
     /* And return the result. */
     return $handleAsSent_result;
+}
+
+/**
+ * Process messages list form and handle the cache gracefully. If $sButton and
+ * $aUid are provided as argument then you can fake a message list submit and
+ * use it i.e. in read_body.php for del move next and update the cache
+ *
+ * @param  resource $imapConnection imap connection
+ * @param  array $aMailbox (reference) cached mailbox
+ * @param  string $sButton fake a submit button
+ * @param  array  $aUid    fake the $msg array
+ * @return string $sError error string in case of an error
+ * @author Marc Groot Koerkamp
+ */
+function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = array()) {
+
+    /* incoming formdata */
+    $sButton = (sqgetGlobalVar('moveButton',      $sTmp, SQ_POST)) ? 'move'         : $sButton;
+    $sButton = (sqgetGlobalVar('expungeButton',   $sTmp, SQ_POST)) ? 'expunge'      : $sButton;
+    $sButton = (sqgetGlobalVar('attache',         $sTmp, SQ_POST)) ? 'attache'      : $sButton;
+    $sButton = (sqgetGlobalVar('delete',          $sTmp, SQ_POST)) ? 'setDeleted'   : $sButton;
+    $sButton = (sqgetGlobalVar('undeleteButton',  $sTmp, SQ_POST)) ? 'setDeleted'   : $sButton;
+    $sButton = (sqgetGlobalVar('markRead',        $sTmp, SQ_POST)) ? 'setSeen'      : $sButton;
+    $sButton = (sqgetGlobalVar('markUnread',      $sTmp, SQ_POST)) ? 'unsetSeen'    : $sButton;
+    $sButton = (sqgetGlobalVar('markFlagged',     $sTmp, SQ_POST)) ? 'setFlagged'   : $sButton;
+    $sButton = (sqgetGlobalVar('markUnflagged',   $sTmp, SQ_POST)) ? 'unsetFlagged' : $sButton;
+    sqgetGlobalVar('targetMailbox', $targetMailbox,   SQ_POST);
+    sqgetGlobalVar('bypass_trash',  $bypass_trash,    SQ_POST);
+    sqgetGlobalVar('msg',           $msg,             SQ_POST);
+
+    $sError = '';
+    $mailbox = $aMailbox['NAME'];
+
+    /* retrieve the check boxes */
+    $aUid = (isset($msg) && is_array($msg)) ? array_values($msg) : $aUid;
+
+    if (count($aUid) && $sButton != 'expunge') {
+        $aUpdatedMsgs = false;
+        $bExpunge = false;
+        switch ($sButton) {
+          case 'setDeleted':
+            // check if id exists in case we come from read_body
+            if (count($aUid) == 1 && is_array($aMailbox['UIDSET'][$aMailbox['SETINDEX']]) &&
+                !in_array($aUid[0],$aMailbox['UIDSET'][$aMailbox['SETINDEX']])) {
+                break;
+            }
+            // What kind of hook is this, can it be removed? Disabled for now because it can invalidate the cache
+            //if (!boolean_hook_function('move_messages_button_action', NULL, 1)) {
+                $aUpdatedMsgs = sqimap_msgs_list_delete($imapConnection, $mailbox, $aUid,$bypass_trash);
+                $bExpunge = true;
+            //}
+            break;
+          case 'unsetDeleted':
+          case 'setSeen':
+          case 'unsetSeen':
+          case 'setFlagged':
+          case 'unsetFlagged':
+            // get flag
+            $sFlag = (substr($sButton,0,3) == 'set') ? '\\'.substr($sButton,3) : '\\'.substr($sButton,5);
+            $bSet  = (substr($sButton,0,3) == 'set') ? true : false;
+            $aUpdatedMsgs = sqimap_toggle_flag($imapConnection, $aUid, $sFlag, $bSet, true);
+            break;
+          case 'move':
+            $aUpdatedMsgs = sqimap_msgs_list_move($imapConnection,$aUid,$targetMailbox);
+            sqsession_register($targetMailbox,'lastTargetMailbox');
+            $bExpunge = true;
+            break;
+          case 'attache':
+            $aMsgHeaders = array();
+            foreach ($aUid as $iUid) {
+                $aMsgHeaders[$iUid] = $aMailbox['MSG_HEADERS'][$iUid];
+            }
+            if (count($aMsgHeaders)) {
+                $composesession = attachSelectedMessages($imapConnection,$aMsgHeaders);
+                // dirty hack, add info to $aMailbox
+                $aMailbox['FORWARD_SESSION'] = $composesession;
+            }
+            break;
+        }
+        /**
+         * Updates messages is an array containing the result of the untagged
+         * fetch responses send by the imap server due to a flag change. That
+         * response is parsed in a array with msg arrays by the parseFetch function
+         */
+        if ($aUpdatedMsgs) {
+            // Update the message headers cache
+            $aDeleted = array();
+            foreach ($aUpdatedMsgs as $iUid => $aMsg) {
+                if (isset($aMsg['FLAGS'])) {
+                    $aMailbox['MSG_HEADERS'][$iUid]['FLAGS'] = $aMsg['FLAGS'];
+                    /**
+                     * Count the messages with the \Delete flag set so we can determine
+                     * if the number of expunged messages equals the number of flagged
+                     * messages for deletion.
+                     */
+                    if (isset($aMsg['FLAGS']['\\deleted']) && $aMsg['FLAGS']['\\deleted']) {
+                        $aDeleted[] = $iUid;
+                    }
+                }
+            }
+            if ($bExpunge && $aMailbox['AUTO_EXPUNGE'] &&
+                $iExpungedMessages = sqimap_mailbox_expunge($imapConnection, $aMailbox['NAME'], true))
+                {
+                if (count($aDeleted) != $iExpungedMessages) {
+                    // there are more messages deleted permanently then we expected
+                    // invalidate the cache
+                    $aMailbox['UIDSET'][$aMailbox['SETINDEX']] = false;
+                    $aMailbox['MSG_HEADERS'] = false;
+                } else {
+                    // remove expunged messages from cache
+                    $aUidSet = $aMailbox['UIDSET'][$aMailbox['SETINDEX']];
+                    if (is_array($aUidSet)) {
+                        // create a UID => array index temp array
+                        $aUidSetDummy = array_flip($aUidSet);
+                        foreach ($aDeleted as $iUid) {
+                            // get the id as well in case of SQM_SORT_NONE
+                            if ($aMailbox['SORT'] == SQSORT_NONE) {
+                                $aMailbox['ID'] = false;
+                                //$iId = $aMailbox['MSG_HEADERS'][$iUid]['ID'];
+                                //unset($aMailbox['ID'][$iId]);
+                            }
+                            // unset the UID and message header
+                            unset($aUidSetDummy[$iUid]);
+                            unset($aMailbox['MSG_HEADERS'][$iUid]);
+                        }
+                        $aMailbox['UIDSET'][$aMailbox['SETINDEX']] = array_keys($aUidSetDummy);
+                        // update EXISTS info
+                        $aMailbox['EXISTS'] -= $iExpungedMessages;
+                    }
+                }
+                // Change the startMessage number if the mailbox was changed
+                if (($aMailbox['PAGEOFFSET']+$iExpungedMessages-1) >= $aMailbox['EXISTS']) {
+                    $aMailbox['PAGEOFFSET'] = ($aMailbox['PAGEOFFSET'] > $aMailbox['LIMIT']) ?
+                        $aMailbox['PAGEOFFSET'] - $aMailbox['LIMIT'] : 1;
+                }
+            }
+        }
+    } else {
+        if ($sButton == 'expunge') {
+            /**
+             * on expunge we do not know which messages will be deleted
+             * so it's useless to try to sync the cache
+
+             * Close the mailbox so we do not need to parse the untagged expunge
+             * responses which do not contain uid info.
+             * NB: Closing a mailbox is faster then expunge because the imap
+             * server does not need to generate the untagged expunge responses
+             */
+            sqimap_run_command($imapConnection,'CLOSE',false,$result,$message);
+            $aMbxResponse = sqimap_mailbox_select($imapConnection,$aMailbox['NAME']);
+            // update the $aMailbox array
+            $aMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
+            $aMailbox['UIDSET'] = false;
+        } else {
+            if ($sButton) {
+                $sError = _("No messages were selected.");
+            }
+        }
+    }
+    return $sError;
+}
+
+function attachSelectedMessages($imapConnection,$aMsgHeaders) {
+    global $username, $attachment_dir,
+           $data_dir, $composesession,
+           $compose_messages;
+
+    if (!isset($compose_messages)) {
+        $compose_messages = array();
+        sqsession_register($compose_messages,'compose_messages');
+    }
+
+    if (!$composesession) {
+        $composesession = 1;
+        sqsession_register($composesession,'composesession');
+    } else {
+        $composesession++;
+        sqsession_register($composesession,'composesession');
+    }
+
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+
+    $composeMessage = new Message();
+    $rfc822_header = new Rfc822Header();
+    $composeMessage->rfc822_header = $rfc822_header;
+    $composeMessage->reply_rfc822_header = '';
+
+    foreach($aMsgHeaders as $iUid => $aMsgHeader) {
+        /**
+         * Retrieve the full message
+         */
+        $body_a = sqimap_run_command($imapConnection, "FETCH $iUid RFC822", true, $response, $readmessage, TRUE);
+
+        if ($response == 'OK') {
+            $subject = (isset($aMsgHeader['SUBJECT'])) ? $aMsgHeader['SUBJECT'] : $iUid;
+
+            array_shift($body_a);
+            array_pop($body_a);
+            $body = implode('', $body_a);
+            $body .= "\r\n";
+
+            $localfilename = GenerateRandomString(32, 'FILE', 7);
+            $full_localfilename = "$hashed_attachment_dir/$localfilename";
+
+            $fp = fopen( $full_localfilename, 'wb');
+            fwrite ($fp, $body);
+            fclose($fp);
+            $composeMessage->initAttachment('message/rfc822',$subject.'.msg',
+                 $full_localfilename);
+        }
+    }
+
+    $compose_messages[$composesession] = $composeMessage;
+    sqsession_register($compose_messages,'compose_messages');
+    return $composesession;
 }
 
 ?>
