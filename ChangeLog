@@ -9,6 +9,8 @@ Version 1.1.0 -- DEVELOPMENT
 Version 1.0.3 -- DEVELOPMENT
 ----------------------------
 - Made folder drop-down list consistant in look to the other drop-downs
+- Fixed problem where some attachment filenames would not be displayed
+- Added Finnish help files by Teemu Junnila <teejun@vallcom.com>
 
 Version 1.0.2 -- February 8, 2001 
 ---------------------------------
