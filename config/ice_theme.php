@@ -1,4 +1,4 @@
-<?
+<?php
    /** Author:       Luke Ehresman
        Date:         January 7 2000
        Theme Name:   "Ice Theme"

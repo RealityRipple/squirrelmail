@@ -1,4 +1,4 @@
-<?
+<?php
 //  Organization's logo picture (blank if none)
     $org_logo = "../images/sm_logo.jpg";
 

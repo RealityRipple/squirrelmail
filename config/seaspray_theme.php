@@ -1,4 +1,4 @@
-<?
+<?php
    /** Author:       Luke Ehresman
        Date:         March 3, 2000 
        Theme Name:   "Sea Spray Theme"

@@ -1,4 +1,4 @@
-<?
+<?php
    $tree_php = true;
 
    if (!isset($imap_php))

@@ -1,4 +1,4 @@
-<?
+<?php
    /**
     **  page_header.php
     **

@@ -1,4 +1,4 @@
-<?
+<?php
    /* URL Passing code to allow links from with in emails */
 
    $url_parser_php = true;

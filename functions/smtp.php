@@ -1,4 +1,4 @@
-<?
+<?php
    /** smtp.php
     **
     ** This contains all the functions needed to send messages through

@@ -1,4 +1,4 @@
-<?
+<?php
    /** mime.php
     **
     ** This contains the functions necessary to detect and decode MIME

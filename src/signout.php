@@ -1,4 +1,4 @@
-<?
+<?php
    session_start();
 
 	/**
@@ -25,7 +25,7 @@
 #	setcookie("logged_in", 0, time(), "/");
 ?>
 <HTML>
-<?
+<?php
    echo "<BODY TEXT=000000 BGCOLOR=$color[4] LINK=$color[7] VLINK=$color[7] ALINK=$color[7]>\n";
    echo "<BR><BR><TABLE BGCOLOR=FFFFFF BORDER=0 COLS=1 WIDTH=50% CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>";
    echo "   <TR BGCOLOR=$color[0] WIDTH=100%>";
@@ -55,6 +55,6 @@
 ?>
 </BODY>
 </HTML>
-<?
+<?php
    session_destroy();
 ?>

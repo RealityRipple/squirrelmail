@@ -1,4 +1,4 @@
-<?
+<?php
    /** Author:       Luke Ehresman
        Date:         January 2, 2000
        Theme Name:   "Sand Storm"

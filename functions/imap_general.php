@@ -1,4 +1,4 @@
-<?
+<?php
    /**
     **  imap.php
     **
@@ -98,7 +98,7 @@
                               <td bgcolor=dcdcdc>
                                  <font color=cc0000>
                                  <center>
-                                 <? echo _("ERROR") ?>
+                                 <?php echo _("ERROR") ?>
                                  </center>
                                  </font>
                               </td>
@@ -106,8 +106,8 @@
                            <tr>
                               <td>
                                  <center>
-                                 <? echo _("Unknown user or password incorrect.") ?><br>
-                                 <a href="login.php"><? echo _("Click here to try again") ?></a>
+                                 <?php echo _("Unknown user or password incorrect.") ?><br>
+                                 <a href="login.php"><?php echo _("Click here to try again") ?></a>
                                  </center>
                               </td>
                            </tr>
@@ -115,7 +115,7 @@
                         </center>
                      </body>
                   </html>
-               <?
+               <?php
                session_destroy();
                exit;
             } else {
