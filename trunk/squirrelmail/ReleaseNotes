@@ -1,6 +1,6 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.4.0 Release Candidate 1         *
- * 31 December 2002                                              *
+ * Release Notes: SquirrelMail 1.4.0 Release Candidate 2         *
+ * 23 January 2002                                               *
  *****************************************************************/
 
 In this edition of SquirrelMail Release Notes:
@@ -12,16 +12,21 @@ In this edition of SquirrelMail Release Notes:
 All about this Release!!!
 =========================
 
-This is the first Release Candidate (RC) for the 1.4.x stable series.
-Please note that this release is not yet labeled STABLE officially.
+This is the second and hopefully last Release Candidate (RC) for the
+1.4.x stable series. Please note that this release is not yet labeled
+STABLE officially.
 
 However, we've been running this on a number of systems and a variety
 of configs and we think it's worthy of the "stable"-title. Before we
 can call it stable we want to test it on as many systems as possible
 to iron out the last issues. 
 
+In response to RC1, quite some issues were reported AND fixed! We now
+hope that SquirrelMail is really ready to be called STABLE. We need you
+to verify that this is true!
+
 So download it! Install it, and try to break it! We are hungry for any
-bug report you send. 
+bug report you send. Even the smallest issue deserves to be fixed.
 
 
 Major updates
@@ -37,7 +42,6 @@ The 1.4.0 series (as a result of 1.3 devel series) brings:
 * Optimizations to code and the number of IMAP calls.
 * Support for a wider range of authentication mechanisms.
 * Lots of bugfixes and a couple of UI-tweaks.
-
 
 
 A note on plugins
@@ -78,7 +82,7 @@ Reporting my favorite SquirrelMail 1.4 bug
 
 This RC is meant to catch the last bugs. So we need you to submit
 any bug you come across! Also, please mention that the bug is in
-this 1.4.0 RC1 release.
+this 1.4.0 RC2 release.
 
    http://www.squirrelmail.org/bugs
 
