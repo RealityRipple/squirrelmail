@@ -17,6 +17,7 @@ Version 1.5.0 -- CVS
   - Fixed incorrect folding inside message-id's
   - Fix for Folders being listed in create/remove/rename operations 
     (#725443, #722823, #729225)
+  - Fix for bad attachment view link (#697381, #729295)
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
