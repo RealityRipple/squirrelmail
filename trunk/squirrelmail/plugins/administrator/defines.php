@@ -42,14 +42,14 @@ define('SMOPT_SAVE_NOOP', 'save_option_noop');
 
 global $languages;
 
-$language_values = array();
+$language_values = array( );
 foreach ($languages as $lang_key => $lang_attributes) {
     if (isset($lang_attributes['NAME'])) {
         $language_values[$lang_key] = $lang_attributes['NAME'];
     }
 }
 asort( $language_values );
-
+$language_values = array_merge(array('' => _("Default")), $language_values);
 $left_size_values = array();
 for ($lsv = 100; $lsv <= 300; $lsv += 10) {
     $left_size_values[$lsv] = "$lsv " . _("pixels");
