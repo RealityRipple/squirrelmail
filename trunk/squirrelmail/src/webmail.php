@@ -100,8 +100,6 @@ if ($right_frame == 'right_main.php') {
     $right_frame_url = 'options.php';
 } elseif ($right_frame == 'folders.php') {
     $right_frame_url = 'folders.php';
-} elseif ($right_frame == 'compose.php') {
-    $right_frame_url = "compose.php?send_to=$rcptaddress";
 } else if ($right_frame == '') {
     $right_frame_url = 'right_main.php';
 } else {
