@@ -73,6 +73,7 @@
 
    function squirrelmail_plugin_optpage_register_block() {
       global $optpage_blocks;
+      global $AllowSpamFilters;
 
       $optpage_blocks[] = array(
          'name' => _("Message Filters"),
@@ -80,5 +81,14 @@
          'desc' => _("Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."),
          'js'   => false
       );
+
+      if ($AllowSpamFilters) {
+         $optpage_blocks[] = array(
+            'name' => _("SPAM Filters"),
+            'url'  => '../plugins/filters/spamoptions.php',
+            'desc' => _("SPAM filters allow you to select from various DNS based blacklists to detect junk email in your INBOX and move it to another folder (like Trash)."),
+            'js'   => false
+         );
+      }
    }
 ?>
