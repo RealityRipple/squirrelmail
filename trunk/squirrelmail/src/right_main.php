@@ -133,13 +133,16 @@ if ($use_mailbox_cache && session_is_registered('msgs')) {
 
     if (session_is_registered('msgs') && isset($msgs)) {
         session_register('msgs');
+        $_SESSION['msgs'] = $msgs;
     }
 
     if (session_is_registered('msort') && isset($msort)) {
         session_register('msort');
+        $_SESSION['msort'] = $msort;
     }
 
     session_register('numMessages');
+    $_SESSION['numMessages'] = $numMessages;
 }
 
 do_hook('right_main_bottom');
