@@ -138,20 +138,22 @@ if ($javascript_setting != SMPREF_JS_ON){
 setPref($data_dir, $username, 'javascript_on', $js_pref);
 
 /* Compute the URL to forward the user to. */
-$redirect_url = 'webmail.php';
+$redirect_url = $location . '/webmail.php';
 
 if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SESSION) ) {
     sqsession_unregister('session_expired_location');
     $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
     if ($compose_new_win) {
+        // do not prefix $location here because $session_expired_location is set to PHP_SELF
+        // of the last page
         $redirect_url = $session_expired_location;
     } elseif ( strpos($session_expired_location, 'webmail.php') === FALSE ) {
-        $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
+        $redirect_url = $location.'/webmail.php?right_frame='.urldecode($session_expired_location);
     }
     unset($session_expired_location);
 }
 if($mailto != '') {
-    $redirect_url  = 'webmail.php?right_frame=compose.php&mailto=';
+    $redirect_url  = $location . '/webmail.php?right_frame=compose.php&mailto=';
     $redirect_url .= $mailto;
 }
 
