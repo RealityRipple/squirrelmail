@@ -17,14 +17,18 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/imap.php');
-require_once('../functions/date.php');
-require_once('../functions/mime.php');
-//require_once('../functions/smtp.php');
-require_once('../functions/plugin.php');
-require_once('../functions/display_messages.php');
-require_once('../class/deliver/Deliver.class.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/mime.php');
+//require_once(SM_PATH . 'functions/smtp.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
 /* --------------------- Specific Functions ------------------------------ */
 
@@ -1206,7 +1210,7 @@ function sendMessage($composeMessage, $draft=false) {
     $composeMessage->rfc822_header = $rfc822_header;
 
     if (!$useSendmail && !$draft) {
-	require_once('../class/deliver/Deliver_SMTP.class.php');
+	require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
 	$deliver = new Deliver_SMTP();
 	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
 	if ($use_authenticated_smtp) {
@@ -1221,18 +1225,18 @@ function sendMessage($composeMessage, $draft=false) {
 	$stream = $deliver->initStream($composeMessage,$domain,0,
 	                  $smtpServerAddress, $smtpPort, $authPop);
     } elseif (!$draft) {
-       require_once('../class/deliver/Deliver_SendMail.class.php');
+       require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
        global $sendmail_path;
        $deliver = new Deliver_SendMail();
        $stream = $deliver->initStream($composeMessage,$sendmail_path);
     } elseif ($draft) {
        global $draft_folder;
-       require_once('../class/deliver/Deliver_IMAP.class.php');
+       require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
        $imap_deliver = new Deliver_IMAP();
        $imap_stream = sqimap_login($username, $key, $imapServerAddress,
                       $imapPort, 0);
        if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
-	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
 	    $imap_deliver = new Deliver_IMAP();
 	    $length = $imap_deliver->mail($composeMessage);
 	    sqimap_append ($imap_stream, $draft_folder, $length);	 
@@ -1258,7 +1262,7 @@ function sendMessage($composeMessage, $draft=false) {
         $imapPort, 0);
 	if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
     	    sqimap_append ($imap_stream, $sent_folder, $length);
-	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
 	    $imap_deliver = new Deliver_IMAP();
 	    $imap_deliver->mail($composeMessage, $imap_stream);
     	    sqimap_append_done ($imap_stream);

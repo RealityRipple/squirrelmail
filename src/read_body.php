@@ -12,12 +12,16 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/imap.php');
-require_once('../functions/mime.php');
-require_once('../functions/date.php');
-require_once('../functions/url_parser.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/url_parser.php');
+require_once(SM_PATH . 'functions/html.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -272,7 +276,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 
 
     if (!$useSendmail) {
-	require_once('../class/deliver/Deliver_SMTP.class.php');
+	require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
 	$deliver = new Deliver_SMTP();
 	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
 	if ($use_authenticated_smtp) {
@@ -287,7 +291,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 	$stream = $deliver->initStream($composeMessage,$domain,0,
 	                  $smtpServerAddress, $smtpPort, $authPop);
     } else {
-       require_once('../class/deliver/Deliver_SendMail.class.php');
+       require_once(SM_PATH . 'class/deliver/Deliver_SendMail.class.php');
        global $sendmail_path;
        $deliver = new Deliver_SendMail();
        $stream = $deliver->initStream($composeMessage,$sendmail_path);
@@ -299,13 +303,13 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
     if (!$succes) {
         $msg  = $deliver->dlv_msg . '<br>Server replied: '.$deliver->dlv_ret_nr;
-	require_once('../functions/display_messages.php');
+	require_once(SM_PATH . 'functions/display_messages.php');
         plain_error_message($msg, $color);
     } else {
         unset ($deliver);
 	if (sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
     	    sqimap_append ($imapConnection, $sent_folder, $length);
-	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    require_once(SM_PATH . 'class/deliver/Deliver_IMAP.class.php');
 	    $imap_deliver = new Deliver_IMAP();
 	    $imap_deliver->mail($composeMessage, $imapConnection);
     	    sqimap_append_done ($imapConnection);

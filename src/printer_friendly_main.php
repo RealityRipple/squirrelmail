@@ -9,8 +9,12 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/page_header.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/page_header.php');
 
 displayHtmlHeader( _("Printer Friendly"), '', FALSE );
 

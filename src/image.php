@@ -11,11 +11,15 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/date.php');
-require_once('../functions/page_header.php');
-require_once('../functions/html.php');
-require_once('../src/load_prefs.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'src/load_prefs.php');
 
 displayPageHeader($color, 'None');
 

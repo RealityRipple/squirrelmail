@@ -17,14 +17,18 @@
  * $Id$
  */
 
-require_once('../src/validate.php');
-require_once('../functions/date.php');
-require_once('../functions/smtp.php');
-require_once('../functions/display_messages.php');
-require_once('../functions/addressbook.php');
-require_once('../functions/plugin.php');
-require_once('../functions/strings.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/date.php');
+require_once(SM_PATH . 'functions/smtp.php');
+require_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'functions/addressbook.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'functions/html.php');
 
 /* Insert hidden data */
 function addr_insert_hidden() {

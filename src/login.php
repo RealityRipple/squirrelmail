@@ -12,13 +12,17 @@
  * $Id$
  */
 
-require_once('../functions/strings.php');
-require_once('../config/config.php');
-require_once('../functions/i18n.php');
-require_once('../functions/plugin.php');
-require_once('../functions/constants.php');
-require_once('../functions/page_header.php');
-require_once('../functions/html.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'functions/plugin.php');
+require_once(SM_PATH . 'functions/constants.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/html.php');
 
 /*
  * $squirrelmail_language is set by a cookie when the user selects
@@ -30,7 +34,7 @@ set_up_language($squirrelmail_language, TRUE);
  * Find out the base URI to set cookies.
  */
 if (!function_exists('sqm_baseuri')){
-    require_once('../functions/display_messages.php');
+    require_once(SM_PATH . 'functions/display_messages.php');
 }
 $base_uri = sqm_baseuri();
 @session_destroy();
