@@ -196,7 +196,8 @@ $attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
        $redirect_url = 'webmail.php';
     }
 
-/* Send them off to the appropriate page. */
+/* Write session data and send them off to the appropriate page. */
+session_write_close();
 header("Location: $redirect_url");
 
 /* --------------------- end main ----------------------- */
