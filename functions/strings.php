@@ -6,10 +6,11 @@
 
    //*************************************************************************
    // Count the number of occurances of $needle are in $haystack.
+   // $needle can be a character or string, and need not occur in $haystack
    //*************************************************************************
    function countCharInString($haystack, $needle) {
-      $haystack = ereg_replace("[^$needle]",'',$haystack);
-      return strlen($haystack);
+      if ($needle == '') return 0;
+      return count(explode($needle, $haystack));
    }
 
    //*************************************************************************
@@ -18,9 +19,13 @@
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
       if ($needle == '') return $haystack;
-      if ($needle == '.') $needle = '\\.';
-      ereg("([^$needle]+)$needle?$", $haystack, $regs);
-      return $regs[1];
+      $parts = explode($needle, $haystack);
+      $elem = array_pop($parts);
+      while ($elem == '' && count($parts))
+      {
+          $elem = array_pop($parts);
+      }
+      return $elem;
    }
 
    //*************************************************************************
@@ -28,9 +33,14 @@
    //    of the $haystack is reached.  $needle is a single character
    //*************************************************************************
    function readMailboxParent($haystack, $needle) {
-      if ($needle == '.') $needle = '\\.';
-      ereg("^(.+)$needle([^$needle]+)$needle?$", $haystack, $regs);
-      return $regs[1];
+      if ($needle == '') return '';
+      $parts = explode($needle, $haystack);
+      $elem = array_pop($parts);
+      while ($elem == '' && count($parts))
+      {
+          $elem = array_pop($parts);
+      }
+      return join($needle, $parts);
    }
 
    // Searches for the next position in a string minus white space
