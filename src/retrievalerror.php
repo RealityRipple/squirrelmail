@@ -20,8 +20,7 @@ require_once('../functions/smtp.php');
 require_once('../functions/page_header.php');
 require_once('../src/load_prefs.php');
 
-#$destination = 'retrievalerror@squirrelmail.org';
-$destination = 'sethr@missoulafcu.org';
+$destination = 'retrievalerror@squirrelmail.org';
 $attachments = array();
 
 function ClearAttachments() {
