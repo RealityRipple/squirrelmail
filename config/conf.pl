@@ -38,24 +38,21 @@ while ($line = <FILE>) {
          $options[1] =~ s/\";$//;
          $options[1] =~ s/;$//;
          $options[1] =~ s/^"//;
-#         if (/"$/) {
-#            $options[1] =~ s/"$//;
-#         }
 
          if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
             $sub = $options[0];
             $sub =~ s/\]\["PATH"\]//;
-            $sub = substr ($sub, @sub-1, 1);
+            $sub =~ s/.*\[//; 
             $theme_path[$sub] = $options[1];
          } elsif ($options[0] =~ /^theme\[[0-9]+\]\["NAME"\]/) {
             $sub = $options[0];
             $sub =~ s/\]\["NAME"\]//;
             $sub =~ s/.*\[//; 
-            #$sub = substr ($sub, @sub-1, 1);
             $theme_name[$sub] = $options[1];
          } elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
             $sub = $options[0];
-            $sub = substr ($sub, length($sub)-2, 1);
+            $sub =~ s/\]//; 
+            $sub =~ s/^ldap_server\[//;
             $continue = 0;
             while (($tmp = <FILE>) && ($continue != 1)) {
                if ($tmp =~ /\);\s*$/) {
