@@ -169,7 +169,7 @@ function sqimap_mailbox_parse ($line, $line_lsub)
         
         /* Count number of delimiters ($delimiter) in folder name */
         $mailbox = trim($line_lsub[$g]);
-        $dm_count = countCharInString($mailbox, $delimiter);
+        $dm_count =  substr_count($mailbox, $delimiter);
         if (substr($mailbox, -1) == $delimiter) {
             /* If name ends in delimiter - decrement count by one */
             $dm_count--;  
@@ -183,7 +183,7 @@ function sqimap_mailbox_parse ($line, $line_lsub)
              (substr($mailbox, 0, strlen($folder_prefix)) == $folder_prefix) ||
              ( isset($boxesbyname[$parentfolder]) &&
                (strlen($parentfolder) > 0) ) ) {
-            $indent = $dm_count - (countCharInString($folder_prefix, $delimiter));
+            $indent = $dm_count - ( substr_count($folder_prefix, $delimiter));
             if ($indent > 0) {
                 $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
             }
@@ -491,7 +491,7 @@ function sqimap_mailbox_list_all ($imap_stream)
             
             /* Count number of delimiters ($delimiter) in folder name */
             $mailbox = find_mailbox_name($read_ary[$i]);
-            $dm_count = countCharInString($mailbox, $delimiter);
+            $dm_count =  substr_count($mailbox, $delimiter);
             if (substr($mailbox, -1) == $delimiter) {
                 /* If name ends in delimiter - decrement count by one */
                 $dm_count--;  
