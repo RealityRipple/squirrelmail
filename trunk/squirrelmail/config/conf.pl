@@ -188,11 +188,15 @@ while ( $line = <FILE> ) {
             $sub =~ s/\]\[['"]NAME['"]\]//;
             $sub =~ s/.*\[//;
             $theme_name[$sub] = $options[1];
-        } elsif ( $options[0] =~ /^plugins\[[0-9]+\]/ ) {
+        } elsif ( $options[0] =~ /^plugins\[[0-9]*\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
             $sub =~ s/^plugins\[//;
-            $plugins[$sub] = $options[1];
+            if ($sub eq '') {
+               push @plugins, $options[1];
+            } else {
+               $plugins[$sub] = $options[1];
+            }
         } elsif ( $options[0] =~ /^ldap_server\[[0-9]+\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]//;
@@ -3219,7 +3223,7 @@ sub save_data {
 
     # all plugins are strings
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
-            print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
+            print CF "\$plugins[] = '$plugins[$ct]';\n";
         }
         print CF "\n";
 
