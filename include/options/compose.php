@@ -14,6 +14,7 @@
 
 /** Define the group constants for this options page. */
 define('SMOPT_GRP_GENERAL', 0);
+define('SMOPT_GRP_REPLY', 1);
 
 /**
  * This function builds an array with all the information about
@@ -39,7 +40,7 @@ function load_optpage_data_compose() {
     /******************************************************/
     
     /*** Load the General Options into the array ***/
-    $optgrps[SMOPT_GRP_GENERAL] = _("Message Composition");
+    $optgrps[SMOPT_GRP_GENERAL] = _("General Message Composition");
     $optvals[SMOPT_GRP_GENERAL] = array();
 
     $optvals[SMOPT_GRP_GENERAL][] = array(
@@ -78,19 +79,6 @@ function load_optpage_data_compose() {
                            '0' => _("HTML"))
     );
     
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'forward_cc',
-        'caption' => _("Include CCs when Forwarding Messages"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[SMOPT_GRP_GENERAL][] = array(
-        'name'    => 'include_self_reply_all',
-        'caption' => _("Include Me in CC when I Reply All"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
     
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'compose_new_win',
@@ -115,14 +103,33 @@ function load_optpage_data_compose() {
         'size'    => SMOPT_SIZE_TINY
     );
 
-    $optvals[SMOPT_GRP_GENERAL][] = array(
+    
+    /*** Load the General Options into the array ***/
+    $optgrps[SMOPT_GRP_REPLY] = _("Replying and Forwarding Messages");
+    $optvals[SMOPT_GRP_REPLY] = array();
+    
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'forward_cc',
+        'caption' => _("Include CCs when Forwarding Messages"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_REPLY][] = array(
+        'name'    => 'include_self_reply_all',
+        'caption' => _("Include Me in CC when I Reply All"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+    
+    $optvals[SMOPT_GRP_REPLY][] = array(
         'name'    => 'sig_first',
         'caption' => _("Append Signature before Reply/Forward Text"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
-    $optvals[SMOPT_GRP_GENERAL][] = array(
+    $optvals[SMOPT_GRP_REPLY][] = array(
         'name'    => 'body_quote',
         'caption' => _("Prefix for Original Message when Replying"),
         'type'    => SMOPT_TYPE_STRING,
@@ -131,7 +138,7 @@ function load_optpage_data_compose() {
         'save'    => 'save_option_reply_prefix'
     );
 
-    $optvals[SMOPT_GRP_GENERAL][] = array(
+    $optvals[SMOPT_GRP_REPLY][] = array(
         'name'    => 'reply_focus',
         'caption' => _("Cursor Position when Replying"),
         'type'    => SMOPT_TYPE_STRLIST,
@@ -142,7 +149,7 @@ function load_optpage_data_compose() {
                            'none' => _("No focus"))
     );
 
-    $optvals[SMOPT_GRP_GENERAL][] = array(
+    $optvals[SMOPT_GRP_REPLY][] = array(
         'name'    => 'strip_sigs',
         'caption' => _("Strip signature when replying"),
         'type'    => SMOPT_TYPE_BOOLEAN,

@@ -169,6 +169,15 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE
         //'post_script' => $js_autodetect_script,
     );
+    
+    $optvals[SMOPT_GRP_GENERAL][] = array(
+        'name'    => 'hour_format',
+        'caption' => _("Hour Format"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array(SMPREF_TIME_12HR => _("12-hour clock"),
+                           SMPREF_TIME_24HR => _("24-hour clock"))
+    );
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_MAILBOX] = _("Mailbox Display Options");
