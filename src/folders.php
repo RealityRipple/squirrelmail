@@ -249,82 +249,85 @@ echo html_tag( 'tr',
         ) ."</table>\n";
 
 
-/** UNSUBSCRIBE FOLDERS **/
-echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspacing="0" border="0"' ) .
-            html_tag( 'tr',
-                html_tag( 'td', '<b>' . _("Unsubscribe") . '/' . _("Subscribe") . '</b>', 'center', $color[9], 'colspan="2"' )
-            ) .
-            html_tag( 'tr' ) .
-                html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
+if ($show_only_subscribed_folders) {
 
-if ($count_special_folders < count($boxes)) {
-    echo addForm('folders_subscribe.php?method=unsub')
-       . "<tt><select name=\"mailbox[]\" multiple=\"multiple\" size=\"8\">\n";
-    for ($i = 0; $i < count($boxes); $i++) {
-        $use_folder = true;
-        if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-            ($boxes[$i]["unformatted"] != $trash_folder) &&
-            ($boxes[$i]["unformatted"] != $sent_folder) &&
-            ($boxes[$i]["unformatted"] != $draft_folder)) {
-            $box = htmlspecialchars($boxes[$i]["unformatted-dm"]);
-            $box2 = str_replace(' ', '&nbsp;',
-                                htmlspecialchars(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
-            echo "         <option value=\"$box\">$box2</option>\n";
+        /** UNSUBSCRIBE FOLDERS **/
+        echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspacing="0" border="0"' ) .
+                    html_tag( 'tr',
+                        html_tag( 'td', '<b>' . _("Unsubscribe") . '/' . _("Subscribe") . '</b>', 'center', $color[9], 'colspan="2"' )
+                    ) .
+                    html_tag( 'tr' ) .
+                        html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
+
+        if ($count_special_folders < count($boxes)) {
+            echo addForm('folders_subscribe.php?method=unsub')
+               . "<tt><select name=\"mailbox[]\" multiple=\"multiple\" size=\"8\">\n";
+            for ($i = 0; $i < count($boxes); $i++) {
+                $use_folder = true;
+                if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
+                    ($boxes[$i]["unformatted"] != $trash_folder) &&
+                    ($boxes[$i]["unformatted"] != $sent_folder) &&
+                    ($boxes[$i]["unformatted"] != $draft_folder)) {
+                    $box = htmlspecialchars($boxes[$i]["unformatted-dm"]);
+                    $box2 = str_replace(' ', '&nbsp;',
+                                        htmlspecialchars(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
+                    echo "         <option value=\"$box\">$box2</option>\n";
+                }
+            }
+            echo "</select></tt><br /><br />\n"
+               . '<input type="submit" value="'
+               . _("Unsubscribe")
+               . "\" />\n"
+               . "</form></td>\n";
+        } else {
+            echo _("No folders were found to unsubscribe from!") . '</td>';
         }
-    }
-    echo "</select></tt><br /><br />\n"
-       . '<input type="submit" value="'
-       . _("Unsubscribe")
-       . "\" />\n"
-       . "</form></td>\n";
-} else {
-    echo _("No folders were found to unsubscribe from!") . '</td>';
-}
-$boxes_sub = $boxes;
+        $boxes_sub = $boxes;
 
-/** SUBSCRIBE TO FOLDERS **/
-echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
-if(!$no_list_for_subscribe) {
-  $boxes_all = sqimap_mailbox_list_all ($imapConnection);
+        /** SUBSCRIBE TO FOLDERS **/
+        echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
+        if(!$no_list_for_subscribe) {
+          $boxes_all = sqimap_mailbox_list_all ($imapConnection);
 
-  $box = '';
-  $box2 = '';
-  for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
-    $use_folder = true;
-    for ($p = 0; $p < count ($boxes); $p++) {
-        if ($boxes_all[$i]['unformatted'] == $boxes[$p]['unformatted']) {
-            $use_folder = false;
-            continue;
-        } else if ($boxes_all[$i]['unformatted-dm'] == $folder_prefix) {
-            $use_folder = false;
+          $box = '';
+          $box2 = '';
+          for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
+            $use_folder = true;
+            for ($p = 0; $p < count ($boxes); $p++) {
+                if ($boxes_all[$i]['unformatted'] == $boxes[$p]['unformatted']) {
+                    $use_folder = false;
+                    continue;
+                } else if ($boxes_all[$i]['unformatted-dm'] == $folder_prefix) {
+                    $use_folder = false;
+                }
+            }
+            if ($use_folder == true) {
+                $box[$q] = htmlspecialchars($boxes_all[$i]['unformatted-dm']);
+                $box2[$q] = htmlspecialchars(imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']));
+                $q++;
+            }
+          }
+          if ($box && $box2) {
+            echo addForm('folders_subscribe.php?method=sub')
+               . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
+
+            for ($q = 0; $q < count($box); $q++) {
+               echo '         <option value="' . $box[$q] . '">'.$box2[$q]."</option>\n";
+            }
+            echo '</select></tt><br /><br />'
+               . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
+               . "</form></td></tr></table><br />\n";
+          } else {
+            echo _("No folders were found to subscribe to!") . '</td></tr></table>';
+          }
+        } else {
+          /* don't perform the list action -- this is much faster */
+          echo addForm('folders_subscribe.php?method=sub')
+             . _("Subscribe to:") . '<br />'
+             . '<tt><input type="text" name="mailbox[]" size="35" />'
+             . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
+             . "</form></td></tr></table><br />\n";
         }
-    }
-    if ($use_folder == true) {
-        $box[$q] = htmlspecialchars($boxes_all[$i]['unformatted-dm']);
-        $box2[$q] = htmlspecialchars(imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']));
-        $q++;
-    }
-  }
-  if ($box && $box2) {
-    echo addForm('folders_subscribe.php?method=sub')
-       . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
-
-    for ($q = 0; $q < count($box); $q++) {
-       echo '         <option value="' . $box[$q] . '">'.$box2[$q]."</option>\n";
-    }
-    echo '</select></tt><br /><br />'
-       . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
-       . "</form></td></tr></table><br />\n";
-  } else {
-    echo _("No folders were found to subscribe to!") . '</td></tr></table>';
-  }
-} else {
-  /* don't perform the list action -- this is much faster */
-  echo addForm('folders_subscribe.php?method=sub')
-     . _("Subscribe to:") . '<br />'
-     . '<tt><input type="text" name="mailbox[]" size="35" />'
-     . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
-     . "</form></td></tr></table><br />\n";
 }
 
 do_hook('folders_bottom');

@@ -204,7 +204,9 @@ Version 1.5.1 -- CVS
     create an empty one.
   - Add trailing slash for data directory used by global file based address
     book (#1105760).
-  - Fixed sorting problem is get_squirrel_sort() function (#1115403).    
+  - Fixed sorting problem is get_squirrel_sort() function (#1115403).
+  - Add "Show Only Subscribed Folders" option to allow users to show all
+    folders instead of only subscribed ones (#1105756, #1105250).
 
 Version 1.5.0
 --------------------

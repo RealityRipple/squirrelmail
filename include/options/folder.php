@@ -215,6 +215,12 @@ function load_optpage_data_folder() {
                             9 => '9')
     );
 
+    $optvals[SMOPT_GRP_FOLDERLIST][] = array(
+        'name'    => 'show_only_subscribed_folders',
+        'caption' => _("Show only subscribed folders"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST
+    );
 
     /*** Load the General Options into the array ***/
     $optgrps[SMOPT_GRP_FOLDERSELECT] = _("Folder Selection Options");

@@ -278,6 +278,9 @@ if ( checkForJavascript() )
 
 $search_memory = getPref($data_dir, $username, 'search_memory', 0);
 
+$show_only_subscribed_folders =
+    getPref($data_dir, $username, 'show_only_subscribed_folders', SMPREF_ON);
+
 $forward_cc = getPref($data_dir, $username, 'forward_cc', 0);
 
 $mailbox_select_style = getPref($data_dir, $username, 'mailbox_select_style', 0);
