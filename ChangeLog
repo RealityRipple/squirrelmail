@@ -175,6 +175,8 @@ Version 1.5.1 -- CVS
     links, and return to message page that originally called from.
   - Max upload file size now correctly handles a '-1' value, meaning
     unlimited (#1094569). 
+  - Security: Added hook for Preferences Backend to resolve potential
+    file inclusions
 
 Version 1.5.0
 --------------------

@@ -14,6 +14,7 @@
 
 /** Include global.php */
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'functions/plugin.php');
 
 sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
 sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
@@ -26,7 +27,8 @@ if ( !sqsession_is_registered('prefs_are_cached') ||
     $prefs_cache = array();
 }
 
-if (isset($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
+$prefs_backend = do_hook_function('prefs_backend');
+if (isset($prefs_backend) && !empty($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
     require_once(SM_PATH . $prefs_backend);
 } elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
     require_once(SM_PATH . 'functions/db_prefs.php');
