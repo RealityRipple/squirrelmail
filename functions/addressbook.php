@@ -202,6 +202,24 @@ class AddressBook {
 
 
     /*
+     * This function takes a $row array as returned by the addressbook 
+     * search and returns an e-mail address with the full name or
+     * nickname optionally prepended.
+     */
+
+    function full_address($row) {
+        global $addrsrch_fullname;
+
+        if ((isset($addrsrch_fullname)) && ($addrsrch_fullname)) {
+            $name = ($addrsrch_fullname === 'nickname') ? $row['nickname']
+                : $row['name'];
+            return $name . ' <' . trim($row['email']) . '>';
+        } else {
+            return trim($row['email']);
+        }
+    }
+
+    /*
         Return a list of addresses matching expression in
         all backends of a given type.
     */
