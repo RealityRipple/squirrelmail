@@ -234,6 +234,20 @@ echo _("Yes, show me the HTML version of a mail message, if it is available.");
                  ?>
             </td>
          </tr>
+         <tr>
+            <td align=right>
+               <?php echo _("Include Self"); ?>:
+            </td>
+            <td>
+               <input type=checkbox name=includeselfreplyall <?php 
+	       if (getPref($data_dir, $username, 'include_self_reply_all')
+	           != '')
+	       echo " checked"; ?>>
+	         <?php 
+echo _("Don't remove me from the CC addresses when I use \"Reply All\"");
+                 ?>
+            </td>
+         </tr>
          <?php do_hook('options_display_inside'); ?>
          <tr>
             <td>&nbsp;

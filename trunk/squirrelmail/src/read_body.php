@@ -190,18 +190,22 @@
    }
    
    // 6) Remove our identities from the CC list (they still can be in the
-   // TO list)
-   RemoveAddress($url_replytoall_extra_addrs, getPref($data_dir, $username,
-                                                      'email_address'));
-   $idents = getPref($data_dir, $username, 'identities');
-   if ($idents != '' && $idents > 1)
+   // TO list) only if $include_self_reply_all isn't set or it is ''.
+   if (getPref($data_dir, $username, 'include_self_reply_all') == '')
    {
-       for ($i = 1; $i < $idents; $i ++)
+       RemoveAddress($url_replytoall_extra_addrs, 
+                     getPref($data_dir, $username, 'email_address'));
+       $idents = getPref($data_dir, $username, 'identities');
+       if ($idents != '' && $idents > 1)
        {
-           RemoveAddress($url_replytoall_extra_addrs, 
-	                 getPref($data_dir, $username, 'email_address' . $i));
+           for ($i = 1; $i < $idents; $i ++)
+           {
+               RemoveAddress($url_replytoall_extra_addrs, 
+	                     getPref($data_dir, $username, 'email_address' .
+			             $i));
+           }
        }
-   }
+   } 
    
    // 7) Smoosh back into one nice line
    $url_replytoallcc = getLineOfAddrs($url_replytoall_extra_addrs);
