@@ -119,6 +119,9 @@
    $languages['tw']['CHARSET'] = 'big5';
    $languages['tw_TW']['ALIAS'] = 'tw';
    
+   $languages['sk']['NAME']     = 'Slovak';
+   $languages['sk']['CHARSET']  = 'iso-8859-2';
+   $languages['sk_SK']['ALIAS'] = 'sk';
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
