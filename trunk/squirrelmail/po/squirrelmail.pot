@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-08-27 16:28+0300\n"
+"POT-Creation-Date: 2004-08-27 21:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3209,6 +3209,21 @@ msgid ""
 msgstr ""
 
 msgid "Message Details"
+msgstr ""
+
+msgid "Bodystructure"
+msgstr ""
+
+msgid "Entity"
+msgstr ""
+
+msgid "Content-Type"
+msgstr ""
+
+msgid "Encoding"
+msgstr ""
+
+msgid "RFC822 Message body"
 msgstr ""
 
 msgid "Close Window"
