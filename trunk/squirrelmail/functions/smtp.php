@@ -38,7 +38,7 @@
                $filetype = "application/octet-stream";
             
             $header = "--".mimeBoundary()."\r\n";
-            $header .= "Content-Type: $filetype\n";
+            $header .= "Content-Type: $filetype\r\n";
             $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
             $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
             fputs ($fp, $header);
@@ -144,7 +144,7 @@
          
          /* Make an RFC822 Received: line */
          $header = "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ";
-         $header .= "$date\n";
+         $header .= "$date\r\n";
          
          /* Insert the rest of the header fields */
          $header .= "Message-ID: $message_id\r\n";
@@ -170,7 +170,7 @@
          $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; // Identify SquirrelMail
          
          // Do the MIME-stuff
-         $header .= "MIME-Version: 1.0\n";
+         $header .= "MIME-Version: 1.0\r\n";
          
          if (isMultipart()) {
             $header .= "Content-Type: multipart/mixed; boundary=\"";
@@ -438,6 +438,7 @@
       write822Header ($imap_stream, $t, $c, $b, $subject);
       writeBody ($imap_stream, $body); 
       sqimap_append_done ($imap_stream);
+
 
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
