@@ -147,7 +147,6 @@ function computeHashDirs($username) {
 
 /**
  * FIXME: Undocumented function
- * @access private
  */
 function checkForJavascript($reset = FALSE)
 {
