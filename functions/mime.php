@@ -453,7 +453,11 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     $sid = sqimap_session_id();
     // Don't kill the connection if the browser is over a dialup
     // and it would take over 30 seconds to download it.
-    set_time_limit(0);
+
+    // don´t call set_time_limit in safe mode.
+    if (!ini_get("safe_mode")) {
+        set_time_limit(0);
+    }
     
     fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
     $cnt = 0;
