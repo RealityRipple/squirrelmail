@@ -71,63 +71,10 @@ function filters_LoadCache () {
     }
 }
 
-function filters_bulkquery($filters_spam_scan, $filters, $read) {
+function filters_bulkquery($filters, $IPs) {
     global $SpamFilters_YourHop, $attachment_dir, $username,
            $SpamFilters_DNScache, $SpamFilters_BulkQuery,
            $SpamFilters_CacheTTL;
-
-    $IPs = array();
-    $i = 0;
-    while ($i < count($read)) {
-        // EIMS will give funky results
-        $Chunks = explode(' ', $read[$i]);
-        if ($Chunks[0] != '*') {
-            $i ++;
-            continue;
-        }
-        $MsgNum = $Chunks[1];
-
-        $i ++;
-
-        // Look through all of the Received headers for IP addresses
-        // Stop when I get ")" on a line
-        // Stop if I get "*" on a line (don't advance)
-        // and above all, stop if $i is bigger than the total # of lines
-        while (($i < count($read)) &&
-                ($read[$i][0] != ')' && $read[$i][0] != '*' &&
-                $read[$i][0] != "\n")) {
-            // Check to see if this line is the right "Received from" line
-            // to check
-            if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
-                $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
-                $elements = explode(' ', $read[$i]);
-                foreach ($elements as $value) {
-                    if ($value != '' &&
-                        ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
-                            $value, $regs)) {
-                        $Chunks = explode('.', $value);
-                        $IP = $Chunks[3] . '.' . $Chunks[2] . '.' .
-                              $Chunks[1] . '.' . $Chunks[0];
-                        foreach ($filters as $key => $value) {
-                            if ($filters[$key]['enabled'] &&
-                                      $filters[$key]['dns']) {
-                                if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
-                                   $IPs[$IP] = true;
-                                   break;
-                                }
-                            }
-                        }
-                        // If we've checked one IP and YourHop is
-                        // just a space
-                        if ($SpamFilters_YourHop == ' ') {
-                            break;  // don't check any more
-                        }
-                    }
-                }
-            }
-            $i ++;
-        }
-    }
 
     if (count($IPs) > 0) {
         $rbls = array();
@@ -208,7 +155,7 @@ function user_filters($imap_stream) {
     $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
     sqimap_mailbox_select($imap_stream, 'INBOX');
-    $id = array();
+    $expunge = false;
     // For every rule
     for ($i=0, $num = count($filters); $i < $num; $i++) {
         // If it is the "combo" rule
@@ -217,28 +164,28 @@ function user_filters($imap_stream) {
             *  If it's "TO OR CC", we have to do two searches, one for TO
             *  and the other for CC.
             */
-            $id = filter_search_and_delete($imap_stream, 'TO',
-                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
-            $id = filter_search_and_delete($imap_stream, 'CC',
-                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
+            $expunge = filter_search_and_delete($imap_stream, 'TO',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
+            $expunge = filter_search_and_delete($imap_stream, 'CC',
+                  $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
         } else {
             /*
             *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
             *  normally.
             */
-            $id = filter_search_and_delete($imap_stream, $filters[$i]['where'],
-                 $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $id);
+            $expunge = filter_search_and_delete($imap_stream, $filters[$i]['where'],
+                 $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan, $expunge);
         }
     }
     // Clean out the mailbox whether or not auto_expunge is on
     // That way it looks like it was redirected properly
-    if (count($id)) {
+    if ($expunge) {
         sqimap_mailbox_expunge($imap_stream, 'INBOX');
     }
 }
 
-function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, 
-                                  $del_id) {
+function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_scan, 
+                                  $should_expunge) {
     global $languages, $squirrelmail_language, $allow_charset_search, 
            $uid_support, $imap_server_type;
     if ($user_scan == 'new') {
@@ -270,7 +217,7 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan,
     }
 
     /* read data back from IMAP */
-    $read = sqimap_run_command($imap, $search_str, true, $response, $message, $uid_support);
+    $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, $uid_support);
 
     // This may have problems with EIMS due to it being goofy
 
@@ -278,16 +225,23 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan,
                 substr($read[$r], 0, 8) != '* SEARCH'; $r++) {}
     if ($response == 'OK') {
         $ids = explode(' ', $read[$r]);
-        if (sqimap_mailbox_exists($imap, $where_to)) {
+        
+        if (sqimap_mailbox_exists($imap_stream, $where_to)) {
+            $del_id = array();
             for ($j=2, $num = count($ids); $j < $num; $j++) {
                 $id = trim($ids[$j]);
-                $del_id[] = $id;
-                sqimap_messages_copy ($imap, $id, $id, $where_to);
-                sqimap_messages_flag ($imap, $id, $id, 'Deleted',false);
+                if (is_numeric($id)) {
+                    $del_id[] = $id;
+                }
+            }
+            if (count($del_id)) {
+                $should_expunge = true;
+                sqimap_msgs_list_move ($imap_stream, $del_id, $where_to);
+                // sqimap_mailbox_expunge($imap_stream, 'INBOX');
             }
         }
     }
-    return $del_id;
+    return $should_expunge;
 }
 
 // These are the spam filters
@@ -297,6 +251,7 @@ function spam_filters($imap_stream) {
     global $SpamFilters_DNScache;
     global $SpamFilters_SharedCache;
     global $SpamFilters_BulkQuery;
+    global $SpamFilters_CacheTTL;
 
     $filters_spam_scan = getPref($data_dir, $username, 'filters_spam_scan');
     $filters_spam_folder = getPref($data_dir, $username, 'filters_spam_folder');
@@ -306,16 +261,17 @@ function spam_filters($imap_stream) {
        filters_LoadCache();
     }
 
-    $run = 0;
+    $run = false;
 
-    foreach ($filters as $Key=> $Value) {
+    foreach ($filters as $Key => $Value) {
         if ($Value['enabled']) {
-            $run ++;
+            $run = true;
+            break;
         }
     }
 
     // short-circuit
-    if ($run == 0) {
+    if (!$run) {
         return;
     }
 
@@ -323,106 +279,92 @@ function spam_filters($imap_stream) {
 
     // Ask for a big list of all "Received" headers in the inbox with
     // flags for each message.  Kinda big.
+    
+    // MGK, removed FLAGS from query. It wasn't used.
     if ($filters_spam_scan != 'new') {
-        $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-            '(RECEIVED)])', true, $response, $message, $uid_support);
+        $query = 'FETCH 1:* (BODY.PEEK[HEADER.FIELDS (Received)])';
     } else {
         $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $response, $message, $uid_support);
         if ($response != 'OK' || trim($read[0]) == '* SEARCH') {
-    	    $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
-            '(RECEIVED)])', true, $response, $message, $uid_support);
+    	    $query = 'FETCH 1:* (BODY.PEEK[HEADER.FIELDS (RECEIVED)])';
         } else {
             if (isset($read[0])) {
                 if (preg_match("/^\* SEARCH (.+)$/", $read[0], $regs)) {
                     $search_array = preg_split("/ /", trim($regs[1]));
                 }
             }
-	    $msgs_str = sqimap_message_list_squisher($search_array);
-            $imap_query = 'FETCH '.$msgs_str;
-            $imap_query .= ' (FLAGS BODY.PEEK[HEADER.FIELDS ';
-            $imap_query .= '(RECEIVED)])';
-	    $read = sqimap_run_command($imap_stream,$imap_query, true, $response, $message, $uid_support);
-        }
+            $msgs_str = sqimap_message_list_squisher($search_array);
+            $query =  'FETCH ' . $msgs_str . ' (BODY.PEEK[HEADER.FIELDS (RECEIVED)])';
+	    }
     }
-    
-    if (isset($response) && $response != 'OK') {
+    $headers = filter_get_headers ($imap_stream, $query);    
+    if (!$headers) {
         return;
     }
-
-    if (strlen($SpamFilters_BulkQuery) > 0) {
-       filters_bulkquery($filters_spam_scan, $filters, $read);
-    }
-
-    $i = 0;
-    while ($i < count($read)) {
-        // EIMS will give funky results
-        $Chunks = explode(' ', $read[$i]);
-        if ($Chunks[0] != '*') {
-            $i ++;
-            continue;
+    
+    $bulkquery = (strlen($SpamFilters_BulkQuery) > 0 ? true : false);
+    $IPs = array();
+    $aSpamIds = array();
+    foreach ($headers as $id => $aValue) {
+        if (isset($aValue['UID'])) { 
+            $MsgNum = $aValue['UID'];
+        } else {
+            $MsgNum = $id;
         }
-        $MsgNum = $Chunks[1];
-
-        $IPs = array();
-        $i ++;
-        $IsSpam = 0;
-
         // Look through all of the Received headers for IP addresses
-        // Stop when I get ")" on a line
-        // Stop if I get "*" on a line (don't advance)
-        // and above all, stop if $i is bigger than the total # of lines
-        while (($i < count($read)) &&
-                ($read[$i][0] != ')' && $read[$i][0] != '*' &&
-                $read[$i][0] != "\n") && (! $IsSpam)) {
-            // Check to see if this line is the right "Received from" line
-            // to check
-            if (is_int(strpos($read[$i], $SpamFilters_YourHop))) {
-
-                // short-circuit and skip work if we don't scan this one
-                $read[$i] = ereg_replace('[^0-9\.]', ' ', $read[$i]);
-                $elements = explode(' ', $read[$i]);
-                foreach ($elements as $value) {
-                    if ($value != '' &&
-                        ereg('[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}',
-                            $value, $regs)) {
-                        $Chunks = explode('.', $value);
-                        if (filters_spam_check_site($Chunks[0],
-                                $Chunks[1], $Chunks[2], $Chunks[3],
-                                $filters)) {
-                            $IsSpam ++;
-                            break;  // no sense in checking more IPs
+        if (isset($aValue['HEADER']['Received'])) {
+            foreach ($aValue['HEADER']['Received'] as $received) {
+                // Check to see if this line is the right "Received from" line
+                // to check
+                
+                // $aValue['HEADER']['Received'] is an array with all the received lines.
+                // We should check them from bottom to top and only check the first 2.
+                // Currently we check only the header where $SpamFilters_YourHop in occures
+                
+                if (is_int(strpos($received, $SpamFilters_YourHop))) {
+                    if (preg_match('/([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})/',$received,$aMatch)) {
+                        $isspam = false;
+                        if (filters_spam_check_site($aMatch[1],$aMatch[2],$aMatch[3],$aMatch[4],$filters)) {
+                            $aSpamIds[] = $MsgNum;
+                            $isspam = true;
+                        }
+                        if ($bulkquery) {
+                            array_shift($aMatch);
+                            $IP = explode('.',$aMatch);
+                            foreach ($filters as $key => $value) {
+                                if ($filters[$key]['enabled'] && $filters[$key]['dns']) {
+                                    if (strlen($SpamFilters_DNScache[$IP.'.'.$filters[$key]['dns']]) == 0) {
+                                       $IPs[$IP] = true;
+                                       break;
+                                    }
+                                }
+                            }
                         }
                         // If we've checked one IP and YourHop is
                         // just a space
-                        if ($SpamFilters_YourHop == ' ') {
+                        if ($SpamFilters_YourHop == ' ' || $isspam) {
                             break;  // don't check any more
                         }
                     }
                 }
             }
-            $i ++;
-        }
-
-        // Lookie!  It's spam!  Yum!
-        if ($IsSpam) {
-            if (sqimap_mailbox_exists($imap_stream, $filters_spam_folder)) {
-                sqimap_messages_copy ($imap_stream, $MsgNum, $MsgNum,
-                                    $filters_spam_folder);
-                sqimap_messages_flag ($imap_stream, $MsgNum, $MsgNum,
-                                    'Deleted', false);
-            }
-        } else {
         }
     }
+    // Lookie!  It's spam!  Yum!
+    if (count($aSpamIds) && sqimap_mailbox_exists($imap_stream, $filters_spam_folder)) {
+        sqimap_msgs_list_move ($imap_stream, $aSpamIds, $filters_spam_folder);
+        sqimap_mailbox_expunge($imap_stream, 'INBOX');
+    }
 
-    sqimap_mailbox_expunge($imap_stream, 'INBOX');
+    if ($bulkquery && count($IPs)) {
+        filters_bulkquery($filters, $IPs);
+    }
 
     if ($SpamFilters_SharedCache) {
        filters_SaveCache();
     } else {
        sqsession_register($SpamFilters_DNScache, 'SpamFilters_DNScache');
     }
-
 }
 
 // Does the loop through each enabled filter for the specified IP address.
@@ -799,4 +741,125 @@ function update_for_folder ($args) {
         }
     }
 }
+/*
+ * Function extracted from sqimap_get_small_header_list.
+ * The unused FETCH arguments and HEADERS are disabled.
+ */
+function filter_get_headers ($imap_stream, $query) {
+    global $uid_support;
+    /* Get the small headers for each message in $msg_list */
+
+    $read_list = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, $uid_support);
+
+    if (isset($response) && $response != 'OK') {
+        return false;
+    }
+
+
+    foreach ($read_list as $r) {
+        $read = implode('',$r);
+        /* 
+            * #id<space>FETCH<space>(
+        */
+        /* extract the message id */
+        $i_space = strpos($read,' ',2);
+        $id = substr($read,2,$i_space-2);
+        $fetch = substr($read,$i_space+1,5);
+        if (!is_numeric($id) && $fetch !== 'FETCH') {
+            set_up_language($squirrelmail_language);
+            echo '<br><b><font color=$color[2]>' .
+                 _("ERROR : Could not complete request.") .
+                 '</b><br>' .
+                 _("Unknown response from IMAP server: ") . ' 1.' .
+                 htmlspecialchars($read) . "</font><br>\n";
+                 break;
+        }
+        $i = strpos($read,'(',$i_space+5);
+        $read = substr($read,$i+1);
+        $i_len = strlen($read);
+        $i = 0;
+        while ($i < $i_len && $i !== false) {
+            /* get argument */
+            $read = trim(substr($read,$i));
+            $i_len = strlen($read);
+            $i = strpos($read,' ');
+            $arg = substr($read,0,$i);
+            ++$i;
+            switch ($arg)
+            {
+            case 'UID':
+                $i_pos = strpos($read,' ',$i);
+                if (!$i_pos) {
+                    $i_pos = strpos($read,')',$i);
+                }
+                if ($i_pos) {
+                    $unique_id = substr($read,$i,$i_pos-$i);
+                    $i = $i_pos+1;
+                } else {
+                    break 3;
+                }
+                $msgs[$id]['UID'] = $unique_id;
+                break;
+            // case 'FLAGS':
+            //    $flags = parseArray($read,$i);
+            //    if (!$flags) break 3;
+            //    $msgs[$id]['FLAGS'] = $flags;
+            //    break;
+            // case 'RFC822.SIZE':
+            //    $i_pos = strpos($read,' ',$i);
+            //    if (!$i_pos) {
+            //        $i_pos = strpos($read,')',$i);
+            //    }
+            //    if ($i_pos) {
+            //        $size = substr($read,$i,$i_pos-$i);
+            //        $i = $i_pos+1;
+            //    } else {
+            //        break 3;
+            //    }
+            //    $msgs[$id]['SIZE'] = $size;
+            //    
+            //    break;
+            // case 'INTERNALDATE':
+            //    $msgs[$id]['INTERNALDATE'] = parseString($read,$i);
+            //    break;
+            case 'BODY.PEEK[HEADER.FIELDS':
+            case 'BODY[HEADER.FIELDS':
+                $i = strpos($read,'{',$i);
+                $header = parseString($read,$i);
+                if ($header === false) break 3;
+                /* First we unfold the header */
+                $hdr = trim(str_replace(array("\r\n\t", "\r\n "),array('', ''), $header));
+                /* Now we can make a new header array with */
+                /* each element representing a headerline  */
+                $hdr = explode("\r\n" , $hdr);
+                foreach ($hdr as $line) {
+                    $pos = strpos($line, ':');
+                    if ($pos > 0) {
+                        $field = strtolower(substr($line, 0, $pos));
+                        if (!strstr($field,' ')) { /* valid field */
+                            $value = trim(substr($line, $pos+1));
+                            switch($field) {
+                            case 'received':    $msgs[$id]['HEADER']['Received'][] =       $value; break;
+                            // case 'to':          $msgs[$id]['HEADER']['To']=             $value; break;
+                            // case 'cc':          $msgs[$id]['HEADER']['Cc'] =            $value; break;
+                            // case 'from':        $msgs[$id]['HEADER']['From'] =          $value; break;
+                            // case 'date':        $msgs[$id]['HEADER']['Date'] =          $value; break;
+                            // case 'x-priority':  $msgs[$id]['HEADER']['Prio'] =          $value; break;
+                            // case 'subject':     $msgs[$id]['HEADER']['Subject'] =       $value; break;
+                            // case 'content-type':$msgs[$id]['HEADER']['Content-Type'] =  $value; break;
+                            default: break;
+                            }
+                        }
+                    }
+                }
+                break;
+            default:
+                ++$i;
+                break;
+            }
+        }
+    }
+    return $msgs;
+}
+
 ?>
