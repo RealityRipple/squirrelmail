@@ -64,7 +64,7 @@
             if ($url != "") {
                $url_str = "<a href=\"$url\" target=\"_blank\">$url</a>";
                #    $body = str_replace($url,$url_str,$body); 
-               echo "$where, $end<br>";
+               # echo "$where, $end<br>";
                $body = replaceBlock($body,$url_str,$where,$end);
                $start = strpos($body,"</a>",$where);
             } else { 
