@@ -78,7 +78,7 @@
          echo "<nobr><small>[<a href=\"options_highlight.php?action=edit&theid=$i\">" . _("Edit") . "</a>]&nbsp;[<a href=\"options_highlight.php?action=delete&theid=$i\">"._("Delete")."</a>]</small></nobr>\n";
          echo '   </td>';
          echo '   <td bgcolor="' . $message_highlight_list[$i]['color'] . "\">\n";
-         echo '      ' . $message_highlight_list[$i]['name'] . '&nbsp';
+         echo '      ' . $message_highlight_list[$i]['name'] . '&nbsp;';
          echo "   </td>\n";
          echo '   <td bgcolor="' . $message_highlight_list[$i]['color'] . "\">\n";
          echo '      '.$message_highlight_list[$i]['match_type'].' = ' . $message_highlight_list[$i]['value'];
