@@ -92,7 +92,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     }
     $issent = ($mailbox == $sent_folder);
 
-    $msgs = fillMessageArray($imapConnection,$id,$issent,$cnt);
+    $msgs = fillMessageArray($imapConnection,$id,$cnt);
 
     return $msgs;
 }
