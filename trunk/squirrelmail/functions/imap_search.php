@@ -17,9 +17,12 @@ require_once('../functions/array.php');
 require_once('../functions/mailbox_display.php');
 require_once('../functions/mime.php');
 
-function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color) {
+function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color, $search_position = '') {
 
     global $msgs, $message_highlight_list, $squirrelmail_language, $languages, $index_order;
+    global $pos;
+
+    $pos = $search_position;
 
     $urlMailbox = urlencode($mailbox);
     $isid = sqimap_session_id();
@@ -141,10 +144,12 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     if (count($messagelist) > 0) {
         $j=0;
-        if (!isset ($msg)) { $msg = ""; }
+        if (!isset ($msg)) { 
+            $msg = ''; 
+        }
 
         mail_message_listing_beginning( $imapConnection,
-            "move_messages.php?msg=$msg&mailbox=$urlMailbox&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
+            "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
             $mailbox,
             -1,
             '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',

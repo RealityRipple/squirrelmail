@@ -123,7 +123,7 @@ $where = "where$pos";
 
 if (isset($$where) && $$where && isset($$what) && $$what) {
     sqimap_mailbox_select($imapConnection, $mailbox);
-    sqimap_search($imapConnection, $$where, $$what, $mailbox, $color);
+    sqimap_search($imapConnection, $$where, $$what, $mailbox, $color, $pos);
 }
 do_hook("search_bottom");
 sqimap_logout ($imapConnection);
