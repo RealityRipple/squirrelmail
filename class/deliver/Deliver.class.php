@@ -299,9 +299,9 @@ class Deliver {
 	    }
 	}
 	/* Identify SquirrelMail */	
-	$header[] = "X-Mailer: SquirrelMail (version $version)" . $rn; 
+	$header[] = 'User-Agent: SquirrelMail/' . $version . $rn; 
 	/* Do the MIME-stuff */
-	$header[] = "MIME-Version: 1.0" . $rn;
+	$header[] = 'MIME-Version: 1.0' . $rn;
 	$contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
                                          $rfc822_header->content_type->type1;
 	if (count($rfc822_header->content_type->properties)) {
