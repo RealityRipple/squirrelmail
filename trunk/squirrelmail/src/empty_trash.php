@@ -13,8 +13,8 @@
 
    session_start();
 
-   include("../config/config.php");
    include("../functions/strings.php");
+   include("../config/config.php");
    include("../functions/page_header.php");
    include("../functions/display_messages.php");
    include("../functions/imap.php");
@@ -28,7 +28,7 @@
 
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
-   sqimap_mailbox_list($imap_stream, $boxes);
+   sqimap_mailbox_list($imap_stream);
 
    $mailbox = $trash_folder;
    $boxes = sqimap_mailbox_list($imap_stream);
