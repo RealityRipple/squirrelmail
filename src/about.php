@@ -25,7 +25,6 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
 
 displayPageHeader($color, 'None' );
 
@@ -39,8 +38,8 @@ displayPageHeader($color, 'None' );
 <br />
 SquirrelMail is the name of the program that provides access to your email via the web.<br />
 <br />
-<strong>If you have questions about or problems with your mailaccount, passwords, abuse etc,
-please refer to your system administrator or provider <?php
+<strong>If you have questions about or problems with your mail account, passwords, abuse etc,
+please refer to your system administrator or provider<?php
 if ( $org_name != 'SquirrelMail' ) {
     echo '(' . $org_name . ')';
 }
@@ -75,9 +74,6 @@ if ( count ($plugins) > 0 ) {
 </small>
 <br /><br />
 </td></tr>
-<tr><td align="center">&copy; 1999 - 2005 The SquirrelMail Development Team</td></tr>
+<tr><td align="center">&copy; 1999 - 2005 The SquirrelMail Project Team</td></tr>
 </table></p>
-
-
-
 </body></html>
