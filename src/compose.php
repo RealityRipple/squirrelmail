@@ -43,6 +43,7 @@ if ( isset($_SESSION['composesession']) ) {
     $composesession = $_SESSION['composesession'];
 }
 sqextractGlobalVar('action');
+sqextractGlobalVar('send');
 sqextractGlobalVar('session');
 sqextractGlobalVar('mailbox');
 sqextractGlobalVar('identity');
