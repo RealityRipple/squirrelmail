@@ -27,6 +27,7 @@ $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',
                                  'txt'  => 'text/plain',
                                  'vcf'  => 'text/x-vcard');
 
+
 /* Register browser-supported image types */
 if (isset($attachment_common_types)) {
     /* Don't run this before being logged in. That may happen
@@ -93,8 +94,8 @@ function attachment_common_link_text(&$Args)
        $Args[1]['attachment_common']['href'] = Where it links to
       
        This sets the 'href' of this plugin for a new link. */
-       
-    global $QUERY_STRING;
+    $QUERY_STRING = $_SERVER['QUERY_STRING'];;   
+
     $Args[1]['attachment_common']['href'] = '../src/view_text.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'], 
@@ -128,9 +129,10 @@ function attachment_common_link_message(&$Args)
 }
 
 
-function attachment_common_link_html(&$Args)
+function attachment_common_link_html(&$Args) 
 {
-    global $QUERY_STRING;
+    $QUERY_STRING = $_SERVER['QUERY_STRING'];;   
+
     $Args[1]['attachment_common']['href'] = '../src/view_text.php?'. $QUERY_STRING.
        /* why use the overridetype? can this be removed */
        '&amp;override_type0=text&amp;override_type1=html';
@@ -145,7 +147,9 @@ function attachment_common_link_html(&$Args)
 
 function attachment_common_link_image(&$Args)
 {
+    $QUERY_STRING = $_SERVER['QUERY_STRING'];;   
     global $attachment_common_show_images, $attachment_common_show_images_list;
+
     
     $info['passed_id'] = $Args[3];
     $info['mailbox'] = $Args[4];
@@ -153,7 +157,6 @@ function attachment_common_link_image(&$Args)
     
     $attachment_common_show_images_list[] = $info;
     
-    global $QUERY_STRING;
     $Args[1]['attachment_common']['href'] = '../src/image.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'], 
@@ -168,7 +171,8 @@ function attachment_common_link_image(&$Args)
 
 function attachment_common_link_vcard(&$Args)
 {
-    global $QUERY_STRING;
+    $QUERY_STRING = $_SERVER['QUERY_STRING'];;   
+
     $Args[1]['attachment_common']['href'] = '../src/vcard.php?'. $QUERY_STRING;
     $Args[1]['attachment_common']['href'] =
           set_url_var($Args[1]['attachment_common']['href'], 
