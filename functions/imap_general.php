@@ -80,9 +80,13 @@ function sqimap_fgets($imap_stream) {
     $read = '';
     $buffer = 4096;
     $results = '';
-    while (strpos($read, "\n") === false) {
+    $offset = 0;
+    while (strpos($results, "\r\n", $offset) === false) {
         if (!($read = fgets($imap_stream, $buffer))) {
             break;
+        }
+        if ( $results != '' ) {
+            $offset = strlen($results) - 1;
         }
         $results .= $read;
     }
