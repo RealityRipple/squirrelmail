@@ -7,10 +7,10 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This includes code to update < 4.1.0 globals to the newer format 
- * It also has two session register functions that work across various
+ * It also has some session register functions that work across various
  * php versions. 
  *
- * $Id $
+ * $Id$
  */
 
 
@@ -115,27 +115,29 @@ function sqextractGlobalVar ($name) {
 }
 
 function sqsession_destroy() {
-	global $base_uri;
+    global $base_uri;
 
-	if ( (float)substr(PHP_VERSION , 0 , 3) < 4.1) {
-		global $HTTP_SESSION_VARS;
-		$HTTP_SESSION_VARS = array();
-	}
-	else {		
-		$_SESSION = array();
-	}
-	
-	/*
-	 * now reset cookies to 5 seconds ago to delete from browser
-	 */
-	
-	@session_destroy();
-	$cookie_params = session_get_cookie_params();	
-	setcookie(session_name(), '', time() - 5, $cookie_params['path'], 
-			  $cookie_params['domain']);
-	setcookie('username', '', time() - 5, $base_uri);
-	setcookie('key', '', time() - 5 , $base_uri);
-	
+    /* start session to be able to destroy it later */
+    session_start();	
+
+    if ( (float)substr(PHP_VERSION , 0 , 3) < 4.1) {
+        global $HTTP_SESSION_VARS;
+        $HTTP_SESSION_VARS = array();
+    }
+    else {		
+        $_SESSION = array();
+    }
+
+    /*
+     * now reset cookies to 5 seconds ago to delete from browser
+     */
+
+    @session_destroy();
+    $cookie_params = session_get_cookie_params();	
+    setcookie(session_name(), '', time() - 5, $cookie_params['path'], 
+        $cookie_params['domain']);
+    setcookie('username', '', time() - 5, $base_uri);
+    setcookie('key', '', time() - 5 , $base_uri);
 }
 
 ?>
