@@ -72,6 +72,7 @@ Version 1.5.1 -- CVS
   - Removed html_top and html_bottom hooks.  No longer used/needed.
   - Added "trailing text" for options built by SquirrelMail (text placed
     after text and select list inputs on options pages)
+  - Custom option page values now repopulate correctly
 
 Version 1.5.0
 --------------------

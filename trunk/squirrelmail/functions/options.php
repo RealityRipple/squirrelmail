@@ -154,6 +154,12 @@ class SquirrelOption {
     function createHTMLWidget() {
         global $javascript_on;
 
+        // Use new value if available 
+        if (!empty($this->new_value)) {
+            $tempValue = $this->value;
+            $this->value = $this->new_value;
+        }
+
         /* Get the widget for this option type. */
         switch ($this->type) {
             case SMOPT_TYPE_STRING:
@@ -192,6 +198,11 @@ class SquirrelOption {
         /* Add the "post script" for this option. */
         $result .= $this->post_script;
         
+        // put correct value back if need be
+        if (!empty($this->new_value)) {
+            $this->value = $tempValue;
+        }
+
         /* Now, return the created widget. */
         return ($result);
     }
