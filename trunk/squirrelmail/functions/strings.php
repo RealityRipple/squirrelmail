@@ -98,7 +98,6 @@
    function translateText($body, $wrap_at, $charset) {
       include ("../functions/url_parser.php");
       /** Add any parsing you want to in here */
-      $body = trim($body);
       $body_ary = explode("\n", $body);
 
       for ($i = 0; $i < count($body_ary); $i++) {
