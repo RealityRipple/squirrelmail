@@ -180,12 +180,14 @@ Version 1.5.1 -- CVS
   - Max upload file size now correctly handles a '-1' value, meaning
     unlimited. (#1094569).
   - Security: Added hook for Preferences Backend to resolve potential
-    file inclusions. [CAN-2005-0075] 
+    file inclusions. [CAN-2005-0075]
   - Remove Printer Friendly Clean Display config option, the cleaning
     is now always done.
   - Create new Options section "Compose Preferences" and move some
     options from Display Preferences there; also move some around within
     Display Preferences.
+  - Security: Fix possible file/offsite inclusion in src/webmail.php.
+    [CAN-2005-0075]
 
 Version 1.5.0
 --------------------
