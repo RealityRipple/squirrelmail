@@ -11,7 +11,6 @@
    $mailbox_info = true;
 
    function printMessageInfo($imapConnection, $t, $msg, $mailbox, $sort, $startMessage) {
-      //require ("../config/config.php");
       global $color;
 
       $senderName = $msg["FROM"];
@@ -34,122 +33,88 @@
    /**
     ** This function loops through a group of messages in the mailbox and shows them
     **/
-   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, &$msgs) {
+   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num, $use_cache) {
+      global $msgs, $msort;
       include ("../config/config.php");
 
-      if ($numMessages >= 1) {
-         for ($q = 0; $q < $numMessages; $q++) {
-            sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d);
-            $from[$q] = $f;
-            $date[$q] = $d;
-            $subject[$q] = $s;
-            $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
+      if (!$use_cache) {
+         if ($numMessages >= 1) {
+            for ($q = 0; $q < $numMessages; $q++) {
+               sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d);
+               $from[$q] = $f;
+               $date[$q] = $d;
+               $subject[$q] = $s;
+               $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
+            }
          }
-      }
-
-      $j = 0;
-      while ($j < $numMessages) {
-         $date[$j] = ereg_replace("  ", " ", $date[$j]);
-         $tmpdate = explode(" ", trim($date[$j]));
-
-         $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
-         $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
-         $messages[$j]["ID"] = $j+1;
-         $messages[$j]["FROM"] = decodeHeader($from[$j]);
-         $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
-
-         $num = 0;
-         while ($num < count($flags[$j])) {
-            if ($flags[$j][$num] == "Deleted") {
-               $messages[$j]["FLAG_DELETED"] = true;
+   
+         $j = 0;
+         while ($j < $numMessages) {
+            $date[$j] = ereg_replace("  ", " ", $date[$j]);
+            $tmpdate = explode(" ", trim($date[$j]));
+   
+            $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
+            $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
+            $messages[$j]["ID"] = $j+1;
+            $messages[$j]["FROM"] = decodeHeader($from[$j]);
+            $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
+   
+            $num = 0;
+            while ($num < count($flags[$j])) {
+               if ($flags[$j][$num] == "Deleted") {
+                  $messages[$j]["FLAG_DELETED"] = true;
+               }
+               else if ($flags[$j][$num] == "Answered") {
+                  $messages[$j]["FLAG_ANSWERED"] = true;
+               }
+               else if ($flags[$j][$num] == "Seen") {
+                  $messages[$j]["FLAG_SEEN"] = true;
+               }
+               else if ($flags[$j][$num] == "Flagged") {
+                  $messages[$j]["FLAG_FLAGGED"] = true;
+               }
+               $num++;
             }
-            else if ($flags[$j][$num] == "Answered") {
-               $messages[$j]["FLAG_ANSWERED"] = true;
-            }
-            else if ($flags[$j][$num] == "Seen") {
-               $messages[$j]["FLAG_SEEN"] = true;
-            }
-            else if ($flags[$j][$num] == "Flagged") {
-               $messages[$j]["FLAG_FLAGGED"] = true;
-            }
-            $num++;
-         }
-         $j++;
-      }
-
-      /** Find and remove the ones that are deleted */
-      $i = 0;
-      $j = 0;
-      while ($j < $numMessages) {
-         if ($messages[$j]["FLAG_DELETED"] == true) {
             $j++;
-            continue;
          }
-         $msgs[$i] = $messages[$j];
-
-         $i++;
-         $j++;
-      }
-
-      $numMessages = $i;
+      
+         /** Find and remove the ones that are deleted */
+         $i = 0;
+         $j = 0;
+         while ($j < $numMessages) {
+            if ($messages[$j]["FLAG_DELETED"] == true) {
+               $j++;
+               continue;
+            }
+            $msgs[$i] = $messages[$j];
+   
+            $i++;
+            $j++;
+         }
+         $numMessages = $i;
+      }         
 
       // There's gotta be messages in the array for it to sort them.
-      if ($numMessages > 0) {
+      if (($numMessages > 0) && (!$use_cache)) {
          /** 0 = Date (up)      4 = Subject (up)
           ** 1 = Date (dn)      5 = Subject (dn)
           ** 2 = Name (up)
           ** 3 = Name (dn)
           **/
 
-         if ($sort == 0)
-            $msgs = ary_sort($msgs, "TIME_STAMP", -1);
-         else if ($sort == 1)
-            $msgs = ary_sort($msgs, "TIME_STAMP", 1);
-         else {
-
-            $original = $msgs;
-            $i = 0;
-            while ($i < count($msgs)) {
-               $msgs[$i]["FROM"] = strtolower($msgs[$i]["FROM"]);
-               $msgs[$i]["SUBJECT"] = strtolower($msgs[$i]["SUBJECT"]);
-               $i++;
-            }
-
-            if ($sort == 2)
-               $msgs = ary_sort($msgs, "FROM", -1);
-            else if ($sort == 3)
-               $msgs = ary_sort($msgs, "FROM", 1);
-            else if ($sort == 4)
-               $msgs = ary_sort($msgs, "SUBJECT", -1);
-            else if ($sort == 5)
-               $msgs = ary_sort($msgs, "SUBJECT", 1);
-            else
-               $msgs = ary_sort($msgs, "TIME_STAMP", -1);
-
-            $i = 0;
-            while ($i < count($msgs)) {
-               $j = 0;
-               $loop = true;
-               while ($j < count($original)) {
-                  if ($msgs[$i]["ID"] == $original[$j]["ID"]) {
-                     $msgs[$i]["FROM"] = $original[$j]["FROM"];
-                     $msgs[$i]["SUBJECT"] = $original[$j]["SUBJECT"];
-
-                     // exit out of this loop if we find the thing.
-                     $j = count($original) + 1;
-                  }
-                  $j++;
-               }
-               $i++;
-            }
+         $msort = array_cleave ($msgs, "TIME_STAMP");
+         if(($sort % 2) == 1) {
+            asort($msort);
+         } else {
+            arsort($msort);
          }
+         session_register("msort");
       }
-
-      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
+      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $msort, $mailbox, $sort, $color,$show_num);
    }
 
    // generic function to convert the msgs array into an HTML table
-   function displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num) {
+   function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
       // do a check to see if the config stuff has already been included or not
       if (!isset($imapServerAddress))
          include("../config/config.php");
@@ -157,6 +122,8 @@
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
          session_register("msgs");
+      if (!session_is_registered("msort"))
+         session_register("msort");
 
       if ($startMessage + ($show_num - 1) < $numMessages) {
          $endMessage = $startMessage + ($show_num-1);
@@ -275,10 +242,21 @@
          $i = $startMessage - 1;
          printMessageInfo($imapConnection, $t, $msgs[$i], $mailbox, $sort, $startMessage);
       } else {
-         for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
-            printMessageInfo($imapConnection, $t, $msgs[$i], $mailbox, $sort, $startMessage);
+         $i = $startMessage;
+         reset($msort);
+         do {
+            $key = key($msort);
+            next($msort);
+            $k++;
+         } while (isset ($key) && ($k < $i));
+
+		   do {
+            printMessageInfo($imapConnection, $t, $msgs[$key], $mailbox, $sort, $startMessage);
+            $key = key($msort);
             $t++;
-         }
+            $i++;
+            next($msort);
+         } while ($i < ($endMessage+1));
       }
       echo "</FORM></TABLE>";
 
