@@ -9,7 +9,7 @@
  * This contains the functions necessary to detect and decode MIME
  * messages.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

@@ -9,6 +9,7 @@
  * code is taken from www.php.net manual comments
  * Author: ronen at greyzone dot com
  *
+ * @version $Id$
  * @package squirrelmail
  * @subpackage encode
  * @param $source string of unicode entities [STRING]

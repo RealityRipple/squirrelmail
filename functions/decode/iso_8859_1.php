@@ -1,13 +1,14 @@
 <?php
 /**
  * decode/iso8859-1.php
- * $Id$
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains iso-8859-1 decoding function that is needed to read
  * iso-8859-1 encoded mails in non-iso-8859-1 locale.
+ *
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

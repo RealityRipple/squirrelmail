@@ -8,7 +8,7 @@
  *
  * This file provides the handling of often-used attachment types.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

@@ -1,7 +1,6 @@
 <?php
 /**
  * decode/koi8-u.php
- * $Id$
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -39,6 +38,7 @@
  * HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
  * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
  *
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

@@ -8,7 +8,7 @@
  *
  * This contains functions for manipulating user preferences
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

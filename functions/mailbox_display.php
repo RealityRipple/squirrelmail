@@ -9,7 +9,7 @@
 * This contains functions that display mailbox information, such as the
 * table row that has sender, date, subject, etc...
 *
-* $Id$
+* @version $Id$
 * @package squirrelmail
 */
 

@@ -8,7 +8,7 @@
  *
  * Contains functions used to do authentication.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

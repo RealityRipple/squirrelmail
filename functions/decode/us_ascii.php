@@ -11,7 +11,7 @@
  *
  * Function replaces all 8bit symbols with '?' marks
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

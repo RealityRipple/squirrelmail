@@ -12,7 +12,7 @@
  * This is the same as ISO-646-NO and is used by some
  * Microsoft programs when sending Norwegian characters 
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

@@ -9,7 +9,7 @@
  * This contains all messages, including information, error, and just
  * about any other message you can think of.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

@@ -8,7 +8,7 @@
  *
  * This contains utility functions for dealing with multiple identities
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

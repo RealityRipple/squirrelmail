@@ -1,7 +1,6 @@
 <?php
 /**
  * decode/utf-8.php
- * $Id$
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -17,6 +16,7 @@
  *
  * decoding cycle is unfinished. please test and report problems to tokul@users.sourceforge.net
  * 
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */

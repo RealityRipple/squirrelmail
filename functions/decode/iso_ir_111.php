@@ -1,7 +1,6 @@
 <?php
 /**
  * decode/iso-ir-111.php
- * $Id$
  *
  * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -40,6 +39,7 @@
  * OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
  * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
+ * @version $Id$
  * @package squirrelmail
  * @subpackage decode
  */
