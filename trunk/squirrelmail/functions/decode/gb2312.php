@@ -3,7 +3,7 @@
  * decode/gb2312.php
  * $Id$
  *
- * Copyright (c) 2003 The SquirrelMail Project Team
+ * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains gb2312-euk decoding function that is needed to read
