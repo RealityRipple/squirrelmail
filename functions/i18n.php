@@ -24,8 +24,9 @@
    $languages['ca']['CHARSET'] = 'iso-8859-1';
    $languages['ca_CA']['ALIAS'] = 'ca';
 
-   $languages['cs_CZ']['NAME']    = 'Czech';
-   $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
+   $languages['cs']['NAME']    = 'Czech';
+   $languages['cs']['CHARSET'] = 'iso-8859-2';
+   $languages['cs_CZ']['ALIAS'] = 'cs';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
