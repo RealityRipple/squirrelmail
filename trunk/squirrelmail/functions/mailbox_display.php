@@ -330,15 +330,15 @@
          session_unregister("msgs");
          if (($sort == 0) || ($sort == 1))
             $msort = array_cleave ($msgs, 'TIME_STAMP');
-         if (($sort == 2) || ($sort == 3))
+         elseif (($sort == 2) || ($sort == 3))
             $msort = array_cleave ($msgs, 'FROM-SORT');
-         if (($sort == 4) || ($sort == 5))
+         elseif (($sort == 4) || ($sort == 5))
             $msort = array_cleave ($msgs, 'SUBJECT-SORT');
-         if ($sort == 6)
+         else // ($sort == 6)
             $msort = $msgs;
 
          if ($sort < 6) {
-            if($sort % 2) {
+            if ($sort % 2) {
                asort($msort);
             } else {
                arsort($msort);
@@ -556,6 +556,10 @@
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       $urlMailbox=urlencode($mailbox);
+      
+      $upPointer = '<IMG SRC="../images/up_pointer.gif" HEIGHT=10 WIDTH=12 BORDER=0>';
+      $downPointer = '<IMG SRC="../images/down_pointer.gif" HEIGHT=10 WIDTH=12 BORDER=0>';
+      $noPointer = '<IMG SRC="../images/sort_none" WIDTH=12 HEIGHT=10 BORDER=0>';
 
       // Print the headers
       for ($i=1; $i <= count($index_order); $i++) {
@@ -570,38 +574,20 @@
                   echo '   <TD WIDTH="25%"><B>'. _("To") .'</B>';
                else
                     echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
-         
-               if ($sort == 2)
-                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort == 3)
-                  echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort != -1)
-                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               echo "</TD>";
+	       ShowSortButton($sort, $urlMailbox, 2, 3);
+               echo "</TD>\n";
                break;
                
             case 3: # date
                echo '   <TD NOWRAP WIDTH="5%"><B>'. _("Date") .'</B>';
-               if ($sort == 0)
-                  echo " <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort == 1)
-                  echo " <A HREF=\"right_main.php?newsort=6&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort == 6)
-                  echo " <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort != -1)
-                  echo " <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               echo '</TD>';
+	       ShowSortButton($sort, $urlMailbox, 0, 1);
+               echo "</TD>\n";
                break;
                
             case 4: # subject
-               echo '   <TD><B>'. _("Subject") ."</B>\n";
-               if ($sort == 4)
-                 echo "    <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort == 5)
-                  echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort != -1)
-                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               echo "</TD>";
+               echo '   <TD><B>'. _("Subject") .'</B> ';
+	       ShowSortButton($sort, $urlMailbox, 4, 5);
+               echo "</TD>\n";
                break;
                
             case 6: # size 
@@ -610,6 +596,22 @@
          }
       }
       echo "</TR>\n";
+   }
+   
+   function ShowSortButton($sort, $mailbox, $Up, $Down) {
+      if ($sort != $Up && $sort != $Down) {
+         $img = 'sort_none.gif';
+         $which = $Up;
+      } elseif ($sort == $Up) {
+         $img = 'up_pointer.gif';
+	 $which = $Down;
+      } else {
+         $img = 'down_pointer.gif';
+	 $which = 6;
+      }
+      echo ' <a href="right_main.php?newsort=' . $which . 
+	 '&startMessage=1&mailbox=' . $mailbox . '"><IMG SRC="../images/' .
+	 $img . '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
    }
    
    function ShowSelectAllLink($startMessage, $sort)
