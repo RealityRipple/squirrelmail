@@ -255,7 +255,7 @@ if ($recent_count > 0) {
 			echo "BGCOLOR=\"$color[0]\"";
 		}
 		else { echo "BGCOLOR=\"$color[4]\""; }
-            echo "<TD WIDTH=35%>$folder_array[$i]</TD>\n".
+            echo "><TD WIDTH=35%>$folder_array[$i]</TD>\n".
 	         "<TD ALIGN=LEFT>$what_array[$i]</TD>\n".
 	         "<TD ALIGN=RIGHT>$where_array[$i]&nbsp;&nbsp;&nbsp;".
                  "<A HREF=search.php?".
