@@ -94,28 +94,61 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $aQuery[$tag] = $query;
 }
 
-function sqimap_run_pipelined_command ($imap_stream, $aQuery, $handle_errors, 
+function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors, 
                        &$aServerResponse, &$aServerMessage, $unique_id = false,
                        $filter=false,$outputstream=false,$no_return=false) {
+		       
     $aResponse = false;
-    foreach($aQuery as $tag => $query) {
-        fputs($imap_stream,$query);
-        $aResults[$tag] = false;
+    /* 
+       Do not fire all calls at once to the imap-server but split the calls up
+       in portions of $iChunkSize. If we do not do that I think we misbehave as 
+       IMAP client or should handle BYE calls if the IMAP-server drops the
+       connection because the number of queries is to large. This isn't tested
+       but a wild guess how it could work in the field.
+    */
+    $iQueryCount = count($aQueryList);
+    $iChunkSize = 32;
+    // array_chunk would also do the job but it's supported from php > 4.2
+    $aQueryChunks = array();
+    $iLoops = floor($iQueryCount / $iChunkSize);
+
+    if ($iLoops * $iChunkSize !== $iQueryCount) ++$iLoops;
+
+    if (!function_exists('array_chunk')) { // arraychunk replacement
+	reset($aQueryList);
+        for($i=0;$i<$iLoops;++$i) {
+	    for($j=0;$j<$iChunkSize;++$j) {
+		$key = key($aQueryList);
+	        $aTmp[$key] = $aQueryList[$key];
+	        if (next($aQueryList) === false) break;
+	    }
+	    $aQueryChunks[] = $aTmp;
+	} 
+    } else {
+        $aQueryChunks = array_chunk($aQueryList,$iChunkSize,true);
     }
+    
+    for ($i=0;$i<$iLoops;++$i) {
+        $aQuery = $aQueryChunks[$i];
+        foreach($aQuery as $tag => $query) {
+            fputs($imap_stream,$query);
+            $aResults[$tag] = false;
+        }
    
-    foreach($aQuery as $tag => $query) {
-        if (!$aResults[$tag]) {
-            $aReturnedResponse = sqimap_read_data_list ($imap_stream, $tag, 
+        foreach($aQuery as $tag => $query) {
+            if (!$aResults[$tag]) {
+                $aReturnedResponse = sqimap_read_data_list ($imap_stream, $tag, 
                                     $handle_errors, $response, $message, $query,
                                     $filter,$outputstream,$no_return);
-            foreach ($aReturnedResponse as $returned_tag => $aResponse) {
-	        if (!empty($aResponse)) {
-                    $aResults[$returned_tag] = $aResponse[0];
-	        } else {
-		    $aResults[$returned_tag] = $aResponse;
-	        }
-                $aServerResponse[$returned_tag] = $response[$returned_tag];
-                $aServerMessage[$returned_tag] = $message[$returned_tag];
+                foreach ($aReturnedResponse as $returned_tag => $aResponse) {
+	            if (!empty($aResponse)) {
+                        $aResults[$returned_tag] = $aResponse[0];
+	            } else {
+		        $aResults[$returned_tag] = $aResponse;
+	            }
+                    $aServerResponse[$returned_tag] = $response[$returned_tag];
+                    $aServerMessage[$returned_tag] = $message[$returned_tag];
+                }
             }
         }
     }
