@@ -9,10 +9,8 @@
          if ($tree[$treeIndexToStart]["doIHaveChildren"]) {
             for ($i=0;$i< count($tree[$treeIndexToStart]["subNodes"]);$i++) {
                $result = findParentForChild($value, $tree[$treeIndexToStart]["subNodes"][$i], $tree);
-               if ($result > -1) {
-                  echo "parent for $value is : " . $tree[$treeIndexToStart]["subNodes"][$i] . "<br>";
+               if ($result > -1)
                   return $result;
-               }
             }
             return $treeIndexToStart;
          } else
