@@ -292,7 +292,7 @@ function delete_move_next_delete() {
 }
 
 function delete_move_next_move() {
-    global $imapConnection, $mailbox;
+    global $imapConnection, $mailbox, $auto_expunge;
 
     if ( !check_php_version(4,1) ) {
         global $_POST;
