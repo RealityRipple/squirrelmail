@@ -498,7 +498,8 @@
 	       $textOnly == 0 &&
 	       $next->header->type0 == "text" &&
 	       $next->header->type1 == "html" &&
-	       $next->header->entity_id == 2 &&
+	       ($next->header->entity_id == 2 || 
+	        $next->header->entity_id == 1.2) &&
 	       $message->header->type1 == "plain" &&
 	       isset($show_html_default) &&
 	       $show_html_default)
@@ -553,7 +554,7 @@
             translateText($body, $wrap_at, $body_message->header->charset);
          }   
    
-         $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
+         $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox&showHeaders=1\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
    
          /** Display the ATTACHMENTS: message if there's more than one part **/
          $body .= "</TD></TR></TABLE>";
