@@ -69,7 +69,11 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($special_color) {
         $line .= "<FONT COLOR=\"$color[11]\">";
     }
-    $line .= str_replace(' ','&nbsp;',$mailbox);
+    if ( $mailbox == 'INBOX' ) {
+        $line .= _("INBOX");
+    } else {
+        $line .= str_replace(' ','&nbsp;',$mailbox);
+    }
     if ($special_color == TRUE)
         $line .= "</FONT>";
     $line .= '</A>';

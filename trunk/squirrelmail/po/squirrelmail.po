@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-30 11:58+0100\n"
+"POT-Creation-Date: 2002-01-30 12:29+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -336,7 +336,7 @@ msgid "Click here to go back"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:127 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:234
+#: squirrelmail/src/left_main.php:238
 msgid "Folders"
 msgstr ""
 
@@ -360,7 +360,7 @@ msgstr ""
 msgid "Renamed successfully!"
 msgstr ""
 
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:273
+#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
 msgid "refresh folder list"
 msgstr ""
 
@@ -493,11 +493,15 @@ msgstr ""
 msgid "Viewing an image attachment"
 msgstr ""
 
-#: squirrelmail/src/left_main.php:93
+#: squirrelmail/src/left_main.php:73
+msgid "INBOX"
+msgstr ""
+
+#: squirrelmail/src/left_main.php:97
 msgid "empty"
 msgstr ""
 
-#: squirrelmail/src/left_main.php:267
+#: squirrelmail/src/left_main.php:271
 msgid "Last Refresh"
 msgstr ""
 

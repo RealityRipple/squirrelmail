@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-30 11:58+0100\n"
+"POT-Creation-Date: 2002-01-30 12:29+0100\n"
 "PO-Revision-Date: 2002-01-19 12:19CET\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: Spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -336,7 +336,7 @@ msgid "Click here to go back"
 msgstr "Pulse aquí para volver"
 
 #: squirrelmail/functions/page_header.php:127 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:234
+#: squirrelmail/src/left_main.php:238
 msgid "Folders"
 msgstr "Carpetas"
 
@@ -360,7 +360,7 @@ msgstr "Carpeta creada con éxito!"
 msgid "Renamed successfully!"
 msgstr "Renombrada con éxito!"
 
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:273
+#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
 msgid "refresh folder list"
 msgstr "actualizar lista de carpetas"
 
@@ -495,11 +495,15 @@ msgstr "Arriba"
 msgid "Viewing an image attachment"
 msgstr "Viendo una imagen adjunta"
 
-#: squirrelmail/src/left_main.php:93
+#: squirrelmail/src/left_main.php:73
+msgid "INBOX"
+msgstr "ENTRADA"
+
+#: squirrelmail/src/left_main.php:97
 msgid "empty"
 msgstr "vaciar"
 
-#: squirrelmail/src/left_main.php:267
+#: squirrelmail/src/left_main.php:271
 msgid "Last Refresh"
 msgstr "Última Actualización"
 
@@ -3698,7 +3702,9 @@ msgstr "Administración"
 msgid ""
 "This module allows administrators to manage SquirrelMail main configuration "
 "remotely."
-msgstr "Este módulo permite configurar remotamente las opciones principales de Squirrelmail."
+msgstr ""
+"Este módulo permite configurar remotamente las opciones principales de "
+"Squirrelmail."
 
 #~ msgid "Your personal dictionary was erased."
 #~ msgstr "Se eliminó su diccionario personal."

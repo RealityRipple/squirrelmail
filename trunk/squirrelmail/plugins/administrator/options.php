@@ -352,7 +352,7 @@ while ( isset( $newcfg["\$theme[$i]['NAME']"] ) ) {
     $name = substr( $v1, 1, strlen( $v1 ) - 2 );
     $path = substr( $v2, 1, strlen( $v2 ) - 2 );
     echo '<tr>'.
-         "<td align=right><input name=\"$e1\" value=\"$name\" size=30></td>".
+         "<td align=right>$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
          "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
          "</tr>\n";
     $i++;
