@@ -4,6 +4,8 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Workaround for older prefs: some of them contain "None" for
+    left_refresh (bug #540108)
   - Fix for entities in cc and bcc fields on message display (bug #522493)
   - Fixes for quoted values in the addressbook by David Rees (bug #538389)
   - Fixed src/src problem (bug #538803)
