@@ -24,6 +24,7 @@ Version 1.2.5 -- CVS
   - Administrator plugin. A web based conf.pl replacement.
   - Removed GLOBALS from conf.pl
   - HTML messages optimization.
+  - Added support for requesting read receipts (MDN) and delivery receipts.  
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
