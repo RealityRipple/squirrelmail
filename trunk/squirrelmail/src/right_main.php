@@ -117,6 +117,7 @@
 
    do_hook("right_main_bottom");
    // close the connection
+   sqimap_mailbox_close($imapConnection);
    sqimap_logout ($imapConnection);
 ?>
 </FONT>

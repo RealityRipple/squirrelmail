@@ -1,5 +1,6 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Improved word wrapping
 - Made message highlighting not case sensative
 - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
 
