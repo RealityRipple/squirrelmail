@@ -1,21 +1,26 @@
 /**
-   DECRYPT_ERROR.JS
-   -----------------
-   Some client-side form-checks. Trivial stuff.
-   								**/
+ * decrypt_error.js
+ * -----------------
+ * Some client-side form-checks. Trivial stuff.
+ *
+ * $Id$
+ *
+ * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
+ * @version $Date$
+ */
 
 function AYS(){
   if (document.forms[0].delete_words.checked && document.forms[0].old_key.value){
-    alert ("You can either delete your dictionary or type in the old password. Not both.");
+    alert (ui_candel);
     return false;
   }
-
+  
   if (!document.forms[0].delete_words.checked && !document.forms[0].old_key.value){
-    alert("First make a choice.");
+    alert(ui_choice);
     return false;
   }
   if (document.forms[0].delete_words.checked)
-    return confirm("This will delete your personal dictionary file. Proceed?");
+    return confirm(ui_willdel);
   return true;
 }
 

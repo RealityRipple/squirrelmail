@@ -368,13 +368,21 @@ function sqspell_getWords(){
 	 . _("Proceed") . ' &gt;&gt;"></p>'
 	 . '</form>';
       /**
+       * Add some string vars so they can be i18n'd.
+       */
+      $msg .= "<script type='text/javascript'><!--\n"
+	 . "var ui_choice = \"" . _("You must make a choice") ."\";\n"
+	 . "var ui_candel = \"" . _("You can either delete your dictionary or type in the old password. Not both.") . "\";\n"
+	 . "var ui_willdel = \"" . _("This will delete your personal dictionary file. Proceed?") . "\";\n"
+	 . "//--></script>\n";
+      /**
        * See if this happened in the pop-up window or when accessing
        * the SpellChecker options page. 
        * This is a dirty solution, I agree. TODO: make this prettier.
        */
       global $SCRIPT_NAME;
       if (strstr($SCRIPT_NAME, "sqspell_options")){
-	sqspell_makePage( _("Error Decrypting Dictionary"), 
+	sqspell_makePage(_("Error Decrypting Dictionary"), 
 			  "decrypt_error.js", $msg);
       } else {
 	sqspell_makeWindow(null, _("Error Decrypting Dictionary"), 
