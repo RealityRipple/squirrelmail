@@ -27,18 +27,18 @@ msgstr "개인 주소록"
 
 #, c-format
 msgid "Database error: %s"
-msgstr "데이타베이스 에러: %s"
+msgstr "데이타베이스 오류: %s"
 
 msgid "Addressbook is read-only"
 msgstr "주소록은 읽기전용입니다."
 
 #, c-format
 msgid "User '%s' already exist"
-msgstr "사용자 '%s'는 이미 존재합니다."
+msgstr "사용자 '%s'(은)는 이미 존재합니다."
 
 #, c-format
 msgid "User '%s' does not exist"
-msgstr "사용자 '%s'는 존재하지 않습니다."
+msgstr "사용자 '%s'(은)는 존재하지 않습니다."
 
 msgid "Global address book"
 msgstr "전체 주소록"
@@ -50,18 +50,16 @@ msgid "Open failed"
 msgstr "열기 실패"
 
 msgid "Can not modify global address book"
-msgstr "전체 주소록을 갱신할 수 없습니다."
+msgstr "전체 주소록을 변경할 수 없습니다."
 
 msgid "Not a file name"
 msgstr "파일명이 아닙니다."
 
-#, fuzzy
 msgid "Write failed"
-msgstr "열기 실패"
+msgstr "쓰기 실패"
 
-#, fuzzy
 msgid "Unable to update"
-msgstr "저장 / 갱신"
+msgstr "갱신 오류"
 
 msgid "Could not lock datafile"
 msgstr "데이타파일 잠금 오류"
@@ -184,17 +182,17 @@ msgstr "Y M j"
 
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
-msgstr "설정파일 %s가 없습니다. 비정상적으로 종료합니다."
+msgstr "설정파일 %s이(가) 없습니다. 비정상적으로 종료합니다."
 
 msgid "Unknown user or password incorrect."
-msgstr "알수없는 사용자 또는 비밀번호 오류"
+msgstr "알 수 없는 사용자 또는 비밀번호 오류"
 
 msgid "Click here to try again"
 msgstr "다시 시도하려면 여기를 누르세요"
 
 #, c-format
 msgid "Click here to return to %s"
-msgstr "%s 로 되돌아가려면 여기를 누르세요 "
+msgstr "%s(으)로 되돌아가려면 여기를 누르세요 "
 
 #, c-format
 msgid "%s Logo"
@@ -208,7 +206,7 @@ msgid "By the SquirrelMail Development Team"
 msgstr "SquirrelMail 개발팀"
 
 msgid "ERROR"
-msgstr "에러"
+msgstr "오류"
 
 msgid "Go to the login page"
 msgstr "로그인 페이지로 이동"
@@ -218,28 +216,31 @@ msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
 msgstr ""
-"설정파일 %s가 없습니다. 먼저 로그아웃하시고, 기본 설정으로 만들기위해 다시 로"
-"그인 하세요"
+"설정파일 %s이(가) 없습니다. 먼저 로그아웃하시고, 기본 설정으로 만들기위해 다"
+"시 로그인 하세요"
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "이 오류에 대하여 관리자에게 도움을 요청하십시요."
+msgstr ""
+"설정 파일 %s를(을) 열 수 없습니다. 이 문제를 해결하기 위해 시스템 관리자에게 "
+"문의하시기 바랍니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr "이 오류에 대하여 관리자에게 도움을 요청하십시요."
+msgstr ""
+"설정 파일 %s를(을) 쓸 수 없습니다. 이 문제를 해결하기 위해 시스템 관리자에게 "
+"문의하시기 바랍니다."
 
 #, c-format
 msgid "Error opening %s"
 msgstr "%s 열기 오류"
 
-#, fuzzy
 msgid "Default preference file not found or not readable!"
-msgstr "기본 설정파일이 없습니다!"
+msgstr "기본 설정파일이 없거나 읽을 수 없습니다!"
 
 msgid "Please contact your system administrator and report this error."
 msgstr "이 오류에 대하여 관리자에게 도움을 요청하십시요."
@@ -249,30 +250,36 @@ msgstr "초기 환경설정 파일을 만들지 못했습니다!"
 
 #, c-format
 msgid "%s should be writable by user %s"
-msgstr "%s 는 사용자 %s가 쓰기권한을 갖고 있어야 합니다."
+msgstr "%s은(는) 사용자 %s이(가) 쓰기권한을 갖고 있어야 합니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "이 오류에 대하여 관리자에게 도움을 요청하십시요."
+msgstr ""
+"서명 파일 %s를(을) 열 수 없습니다. 이 문제를 해결하기 위해 시스템 관리자에게 "
+"문의하시기 바랍니다."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr "이 오류에 대하여 관리자에게 도움을 요청하십시요."
+msgstr ""
+"서명 파일 %s를(을) 쓸 수 없습니다. 이 문제를 해결하기 위해 시스템 관리자에게 "
+"문의하시기 바랍니다."
 
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --with-mbstring)."
 msgstr ""
+"멀티바이트 문자열 함수를 사용할 수 있도록 php4를 설치해야 합니다.(--with-"
+"mbstring  옵션을 추가해야 합니다.)"
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "오류 : imapstream이 없습니다."
 
 msgid "ERROR : Could not complete request."
-msgstr "에러 : 요청이 중단되었습니다."
+msgstr "오류 : 요청이 중단되었습니다."
 
 msgid "Query:"
 msgstr "질의:"
@@ -281,14 +288,14 @@ msgid "Reason Given: "
 msgstr "사유:"
 
 msgid "ERROR : Bad or malformed request."
-msgstr "에러 : 잘못된 응답."
+msgstr "오류 : 잘못된 응답."
 
 msgid "Server responded: "
 msgstr "서버 응답: "
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
-msgstr "IMAP 서버 연결 에러: %s."
+msgstr "IMAP 서버 연결 오류: %s."
 
 #, c-format
 msgid "Bad request: %s"
@@ -296,42 +303,39 @@ msgstr "잘못된 응답: %s"
 
 #, c-format
 msgid "Unknown error: %s"
-msgstr "알수없는 에러: %s"
+msgstr "알 수 없는 오류: %s"
 
 msgid "Read data:"
 msgstr "자료 읽기"
 
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "에러 : 요청이 중단되었습니다."
+msgstr "오류 : 메세지를 추가할 수 없습니다"
 
-#, fuzzy
 msgid "Solution: "
-msgstr "제안:"
+msgstr "해결:"
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
-msgstr ""
+msgstr "현재 메일함에서 불필요한 메세지를 삭제하며, 휴지통에서 시작합니다."
 
 msgid "INBOX"
 msgstr "받은 편지함"
 
 msgid "Unknown response from IMAP server: "
-msgstr "IMAP 서버로부터 알수없는 응답을 받았습니다:"
+msgstr "IMAP 서버로부터 알 수 없는 응답을 받았습니다:"
 
 msgid "Unknown message number in reply from server: "
-msgstr "알수없는 메세지 번호를 서버로부터 받았습니다:"
+msgstr "알 수 없는 메세지 번호를 서버로부터 받았습니다:"
 
 msgid "Unknown Sender"
-msgstr "알수없는 전송자"
+msgstr "알 수 없는 전송자"
 
 msgid "(unknown sender)"
-msgstr "(알수없는 전송자)"
+msgstr "(알 수 없는 전송자)"
 
-#, fuzzy
 msgid "Unknown date"
-msgstr "알수없는 전송자"
+msgstr "알 수 없는 일자"
 
 msgid "A"
 msgstr "A"
@@ -340,16 +344,19 @@ msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
+"쓰레드 정렬은 현재 IMAP 서버에서 지원되지 않습니다.<br>이 문제를 시스템 관리"
+"자에게 문의하시기 바랍니다."
 
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
 "this to the system administrator."
 msgstr ""
+"서버 정렬은 현재 IMAP 서버에서 지원되지 않습니다.<br>이 문제를 시스템 관리자"
+"에게 문의하시기 바랍니다."
 
 msgid "THIS FOLDER IS EMPTY"
 msgstr "이 편지함은 비어 있습니다."
 
-#, fuzzy
 msgid "Move Selected To"
 msgstr "선택한 메일 이동:"
 
@@ -428,19 +435,16 @@ msgid "Show All"
 msgstr "전체 보기"
 
 msgid "SquirrelMail could not decode the bodystructure of the message"
-msgstr ""
+msgstr "SquirrelMail이 메세지의 본문구조를 디코드할 수 없습니다."
 
 msgid "the provided bodystructure by your imap-server"
-msgstr ""
+msgstr "imap-server에서 제공된 본문구조"
 
-#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
-"본문 읽기 오류. 이것의 원인은 대부분 메세지 형식이 잘못되었기 때문입니다. 이 "
-"메세지를 개발자들에게 알려주시면 우리의 차기버전에서는 이 문제가 수정되도록 "
-"할 것입니다."
+"본문 읽기 오류. 이것의 원인은 대부분 메세지 형식이 잘못되었기 때문입니다."
 
 msgid "Command:"
 msgstr "명령어:"
@@ -472,16 +476,15 @@ msgstr "안전하지 않은 그림 보기"
 msgid "download"
 msgstr "다운로드"
 
-#, fuzzy
 msgid "Unknown sender"
-msgstr "알수없는 전송자"
+msgstr "알 수 없는 전송자"
 
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_ko_KR.png"
 
 #, c-format
 msgid "Option Type '%s' Not Found"
-msgstr "설정 형식 '%s'를 찾을 수 없습니다."
+msgstr "설정 형식 '%s'을(를) 찾을 수 없습니다."
 
 msgid "Yes"
 msgstr "예"
@@ -499,7 +502,7 @@ msgid "Sign Out"
 msgstr "웹메일 종료"
 
 msgid "Compose"
-msgstr "새 메일"
+msgstr "편지 쓰기"
 
 msgid "Addresses"
 msgstr "주소록"
@@ -521,7 +524,7 @@ msgid "Error creating directory %s."
 msgstr "%s 디렉토리 생성 오류"
 
 msgid "Could not create hashed directory structure!"
-msgstr "해시된 디렉토리 생성 오류!"
+msgstr "해시된 디렉토리 만들기 오류!"
 
 msgid "General Display Options"
 msgstr "일반적인 화면 설정"
@@ -596,12 +599,11 @@ msgid "HTML"
 msgstr "HTML"
 
 msgid "Show HTML Version by Default"
-msgstr "기본으로 HTML 로 보기"
+msgstr "기본으로 HTML로 보기"
 
 msgid "Enable Forward as Attachment"
-msgstr ""
+msgstr "첨부파일로 전달 사용"
 
-#, fuzzy
 msgid "Include CCs when Forwarding Messages"
 msgstr "메세지 전달시 참조 포함"
 
@@ -620,31 +622,26 @@ msgstr "미세한 프린터 설정"
 msgid "Enable Printer Friendly Clean Display"
 msgstr "인쇄용 화면 설정"
 
-#, fuzzy
 msgid "Enable Mail Delivery Notification"
-msgstr "읽지않은 메세지 알림"
+msgstr "메일 배달 알림 사용"
 
-#, fuzzy
 msgid "Compose Messages in New Window"
-msgstr "항상 새로운 창에서 새메일 작성"
+msgstr "새로운 창에서 편지 작성"
 
-#, fuzzy
 msgid "Width of Compose Window"
-msgstr "새편지 창의 폭"
+msgstr "편지쓰기 창의 폭"
 
-#, fuzzy
 msgid "Height of Compose Window"
-msgstr "새편지 창의 높이"
+msgstr "편지쓰기 창의 높이"
 
-#, fuzzy
 msgid "Append Signature before Reply/Forward Text"
-msgstr "회신/전달 하기전에 서명 추가"
+msgstr "회신/전달 텍스트에 서명 추가"
 
 msgid "Enable Sort by of Receive Date"
-msgstr ""
+msgstr "수신 일자별 정렬 사용"
 
 msgid "Enable Thread Sort by References Header"
-msgstr ""
+msgstr "참조 헤더별 쓰레드 정렬 사용"
 
 msgid "Special Folder Options"
 msgstr "특별한 편지함 설정"
@@ -724,9 +721,8 @@ msgstr "읽지않은 메세지와 전체메세지"
 msgid "Enable Collapsable Folders"
 msgstr "편지함을 트리구조로 사용"
 
-#, fuzzy
 msgid "Enable Cumulative Unread Message Notification"
-msgstr "읽지않은 메세지 알림"
+msgstr "읽지 않음 메일 묶음 통지 사용"
 
 msgid "Show Clock on Folders Panel"
 msgstr "편지함 패널의 시간 형식"
@@ -749,20 +745,18 @@ msgstr "메모리 찾기"
 msgid "Disabled"
 msgstr "사용하지 않음"
 
-#, fuzzy
 msgid "Folder Selection Options"
-msgstr "편지함 목록 설정"
+msgstr "편지함 선택 설정"
 
-#, fuzzy
 msgid "Selection List Style"
-msgstr "답글 인용문 형식"
+msgstr "선택 목록 형식"
 
 #, fuzzy
 msgid "Long: "
 msgstr "길이:"
 
 msgid "Indented: "
-msgstr ""
+msgstr "들여쓰기"
 
 msgid "Delimited: "
 msgstr ""
@@ -897,7 +891,7 @@ msgid "Courier IMAP server"
 msgstr "Courier IMAP 서버"
 
 msgid "Not one of the above servers"
-msgstr "서버 연결 없슴"
+msgstr "서버 연결 없음"
 
 msgid "IMAP Folder Delimiter"
 msgstr "IMAP 폴더 구분자"
@@ -1091,9 +1085,8 @@ msgstr "오늘"
 msgid "Go"
 msgstr "이동"
 
-#, fuzzy
 msgid "l, F j Y"
-msgstr "Y-F-j, D, G:i"
+msgstr "Y-F-j, I"
 
 msgid "ADD"
 msgstr "추가"
@@ -1300,7 +1293,7 @@ msgstr "무료 - Osirusoft 공개 프락시 서버 - 공개 프락시 서버 목록"
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
-msgstr "무료 - ORDB는 ORBS이후에 생겨났습니다. ORBS보다 에러가 적어보입니다."
+msgstr "무료 - ORDB는 ORBS이후에 생겨났습니다. ORBS보다 오류가 적어보입니다."
 
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "무료 - Five-Ten-sg.com - 스팸 소스 직접"
@@ -1592,9 +1585,8 @@ msgstr "리스트 목록"
 msgid "Contact Listowner"
 msgstr "리스트관리자 연락처"
 
-#, fuzzy
 msgid "Mailing List"
-msgstr "메일링 리스트:"
+msgstr "메일링 리스트"
 
 msgid "POP3 connect:"
 msgstr "POP3 연결:"
@@ -1609,7 +1601,7 @@ msgid "POP3 noop:"
 msgstr "POP3 noop:"
 
 msgid "No connection to server"
-msgstr "서버 연결 없슴"
+msgstr "서버 연결 없음"
 
 msgid "POP3 user:"
 msgstr "POP3 사용자:"
@@ -1633,7 +1625,7 @@ msgid "POP3 apop:"
 msgstr "POP3 apop:"
 
 msgid "No login ID submitted"
-msgstr "로그인ID 가 없습니다."
+msgstr "로그인 ID가 없습니다."
 
 msgid "No server banner"
 msgstr "차단된 서버가 없습니다."
@@ -1747,20 +1739,19 @@ msgid "Fetching message "
 msgstr "메세지 가져오기"
 
 msgid "Server error...Disconnect"
-msgstr ""
+msgstr "서버 오류...연결종료"
 
 msgid "Reconnect from dead connection"
-msgstr ""
+msgstr "끊어진 연결 다시 연결"
 
 msgid "Saving UIDL"
 msgstr "UIDL 보관"
 
-#, fuzzy
 msgid "Refetching message "
-msgstr "메세지 가져오기"
+msgstr "메세지 다시 가져오기"
 
 msgid "Error Appending Message!"
-msgstr "메세지 추가 에러"
+msgstr "메세지 추가 오류"
 
 msgid "Closing POP"
 msgstr "POP서버 닫기"
@@ -1789,13 +1780,13 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
-"비밀번호를 저장하는데 사용하는 암호화가 완벽하게 안전한 것이 아님에 유이하시"
-"기 바랍니다. 그러나, pop을 사용한다면, 암호화를 하지 않습니다. 더우기 서버에 "
-"저장하기 위해 사용하는 암호화는 해커가 파일에 접근하게 되는 경우 해독될 수 있"
-"습니다."
+"비밀번호를 저장하는데 사용하는 암호화는 완벽하게 안전한 것이 아님에 유의하시"
+"기 바랍니다. 또한, pop을 사용한다면, 암호화를 하지 않습니다. 더우기 서버에 저"
+"장하기 위해 사용하는 암호화는 해커가 파일에 접근하게 되는 경우 해독될 수 있습"
+"니다."
 
 msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr "비밀번호를 비워두면, 메일을 가져올때 비밀번호를 입력해야 합니다."
+msgstr "비밀번호를 비워두면, 메일을 가져올 때 비밀번호를 입력해야 합니다."
 
 msgid "Encrypt passwords (informative only)"
 msgstr "비밀번호 암호화"
@@ -1806,9 +1797,8 @@ msgstr "서버 추가"
 msgid "Server:"
 msgstr "서버:"
 
-#, fuzzy
 msgid "Port:"
-msgstr "우선순위:"
+msgstr "포트:"
 
 msgid "Alias:"
 msgstr "가명:"
@@ -1992,12 +1982,14 @@ msgid "Close Window"
 msgstr "창 닫기"
 
 msgid "NewMail Options"
-msgstr "새메일 설정"
+msgstr "NewMail 설정"
 
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
-msgstr "새로운 메일이 도착했을때 사운드 연주와(또는) 팝업 창을 설정합니다."
+msgstr ""
+"새로운 메일이 도착했을때 사운드연주할 것인지 또는 팝업 창을 보여줄 것이지를 "
+"설정합니다."
 
 msgid "New Mail Notification options saved"
 msgstr "새메일 알림 설정이 저장되었습니다"
@@ -2038,10 +2030,10 @@ msgid "Base Sent Folder"
 msgstr "보낸 편지함"
 
 msgid "Report as Spam"
-msgstr ""
+msgstr "스팸으로 보고하기"
 
 msgid "SpamCop - Spam Reporting"
-msgstr ""
+msgstr "SpamCop - 스팸 보고"
 
 msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
@@ -2114,9 +2106,8 @@ msgstr "인용"
 msgid "Translator"
 msgstr "번역기"
 
-#, fuzzy
 msgid "Saved Translation Options"
-msgstr "번역 설정"
+msgstr "번역 설정 저장"
 
 msgid "Your server options are as follows:"
 msgstr "현재 서버의 환경 설정은 아래와 같습니다:"
@@ -2130,7 +2121,7 @@ msgid ""
 msgstr "10개의 언어쌍 사용, 최대 25 kb 까지 번역. Systran 사용"
 
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr "12개의 언어쌍을 사용. 제한사항 없슴. Systran 번역기 사용"
+msgstr "12개의 언어쌍을 사용. 제한사항 없음. Systran 번역기 사용"
 
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
@@ -2190,7 +2181,7 @@ msgstr "다른 언어의 메세지를 수신했을때 어떤 번역기를 사용하시겠습니까?"
 
 #, c-format
 msgid "%s to %s"
-msgstr "%s 를 %s 로 "
+msgstr "%s을(를) %s(으)로 "
 
 msgid "English"
 msgstr "영어"
@@ -2320,10 +2311,10 @@ msgstr "전체 목록"
 
 #, c-format
 msgid "Unable to list addresses from %s"
-msgstr "%s 로부터 주소목록을 가져올수 없습니다."
+msgstr "%s(으)로부터 주소목록을 가져올 수 없습니다."
 
 msgid "Your search failed with the following error(s)"
-msgstr "다음과 같은 에러가 발생했습니다."
+msgstr "다음과 같은 오류가 발생했습니다."
 
 msgid "No persons matching your search was found"
 msgstr "당신이 찾고있는 사람이 없습니다."
@@ -2335,7 +2326,7 @@ msgid "Nickname"
 msgstr "별명"
 
 msgid "Must be unique"
-msgstr "중복된 이름은 사용할수 없습니다."
+msgstr "중복된 이름은 사용할 수 없습니다."
 
 msgid "E-mail address"
 msgstr "전자메일 주소"
@@ -2353,13 +2344,13 @@ msgid "No personal address book is defined. Contact administrator."
 msgstr "개인 주소록이 정의되지 않았습니다. 관리자에게 연락하세요"
 
 msgid "You can only edit one address at the time"
-msgstr "한번에 하나의 주소만 편집할수 있습니다."
+msgstr "한번에 하나의 주소만 편집할 수 있습니다."
 
 msgid "Update address"
 msgstr "주소 변경"
 
 msgid "Unknown error"
-msgstr "알수없는 에러"
+msgstr "알 수 없는 오류"
 
 msgid "Add address"
 msgstr "주소 추가"
@@ -2372,7 +2363,7 @@ msgstr "선택한 주소 삭제"
 
 #, c-format
 msgid "Add to %s"
-msgstr "%s 에 추가"
+msgstr "%s에 추가"
 
 msgid "Original Message"
 msgstr "원래 메세지"
@@ -2381,7 +2372,7 @@ msgid "Draft Email Saved"
 msgstr "이메일이 임시보관함에 저장되었습니다."
 
 msgid "Could not move/copy file. File not attached"
-msgstr "파일을 이동/복사할수 없습니다. 파일이 첨부되지 않았습니다. "
+msgstr "파일을 이동/복사할 수 없습니다. 파일이 첨부되지 않았습니다. "
 
 msgid "Draft Saved"
 msgstr "임시보관함에 저장되었습니다."
@@ -2419,12 +2410,11 @@ msgstr "우선순위"
 msgid "Receipt"
 msgstr "수신"
 
-#, fuzzy
 msgid "On Read"
-msgstr "읽는중"
+msgstr "읽을 때"
 
 msgid "On Delivery"
-msgstr "전송중"
+msgstr "배달시"
 
 msgid "Save Draft"
 msgstr "임시보관함에 저장"
@@ -2441,7 +2431,6 @@ msgstr "인용"
 msgid "who"
 msgstr "글쓴이"
 
-#, fuzzy
 msgid "Draft folder"
 msgstr "임시 보관함"
 
@@ -2457,9 +2446,9 @@ msgstr "삭제할 편지함을 선택하시기 바랍니다."
 msgid "Delete Folder"
 msgstr "편지함 삭제"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "이 일정을 삭제하시겠습니까?"
+msgstr "%s을(를) 삭제하시겠습니까?"
 
 msgid "Subscribed successfully!"
 msgstr "편지함으로 사용"
@@ -2477,7 +2466,7 @@ msgid "Renamed successfully!"
 msgstr "변경되었습니다."
 
 msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr ""
+msgstr "메일함 사용 실패 - 폴더가 존재하지 않습니다."
 
 msgid "refresh folder list"
 msgstr "편지함 목록 갱신"
@@ -2489,7 +2478,7 @@ msgid "as a subfolder of"
 msgstr "의 하위편지함으로"
 
 msgid "None"
-msgstr "없슴"
+msgstr "없음"
 
 msgid "Let this folder contain subfolders"
 msgstr "이 편지함은 하위편지함을 갖습니다."
@@ -2515,9 +2504,8 @@ msgstr "사용하지 않기 위한 편지함이 없습니다."
 msgid "No folders were found to subscribe to!"
 msgstr "사용하기 위한 편지함이 없습니다."
 
-#, fuzzy
 msgid "Subscribe to:"
-msgstr "사용함"
+msgstr "사용함:"
 
 msgid "You have not selected a folder to rename. Please do so."
 msgstr "이름을 변경할 편지함을 선택하시기 바랍니다."
@@ -2536,8 +2524,8 @@ msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
 msgstr ""
-"이 도움말은 %s 로 번역되지 않았습니다.번역되지 않은 메세지는  영어로 표시됩니"
-"다"
+"이 도움말은 %s으(로) 번역되지 않았습니다. 번역되지 않은 메세지는 영어로 표시"
+"됩니다"
 
 msgid "Some or all of the help documents are not present!"
 msgstr "도움말의 일부 또는 전체가 없습니다!"
@@ -2554,7 +2542,6 @@ msgstr "첨부된 문서 보기"
 msgid "View message"
 msgstr "메세지 보기"
 
-#, fuzzy
 msgid "Not available"
 msgstr "사용할 수 없습니다."
 
@@ -2565,7 +2552,7 @@ msgid "Last Refresh"
 msgstr "최종 갱신시간"
 
 msgid "Save folder tree"
-msgstr ""
+msgstr "메일함 트리 저장"
 
 msgid "Login"
 msgstr "로그인"
@@ -2583,7 +2570,6 @@ msgstr "메세지가 선택되지 않았습니다."
 msgid "Message Highlighting"
 msgstr "메세지 강조"
 
-#, fuzzy
 msgid "subject"
 msgstr "제목"
 
@@ -2591,7 +2577,7 @@ msgid "No highlighting is defined"
 msgstr "메세지 강조가 정의되지 않았습니다."
 
 msgid "Identifying name"
-msgstr "식별할수 있는 이름"
+msgstr "식별할 수 있는 이름"
 
 msgid "Color"
 msgstr "색상"
@@ -2722,25 +2708,25 @@ msgstr "페이지 갱신"
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr "이름, 전자메일 주소등 이곳은 당신의 개인정보를 저장합니다."
+msgstr "이름, 전자메일 주소등 개인정보를 저장합니다."
 
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
-msgstr "SquirrelMail의 모습을 변경할수 있습니다. 색상, 언어, 기타등등"
+msgstr "색상, 언어등 SquirrelMail의 겉모습을 변경합니다."
 
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
 msgstr ""
-"주어진 범주에 따라, 수신된 메세지는 메세지 목록의 색과 다르게 나타날 것입니"
-"다. 이것은 특히 메일링 리스트로부터 당신이 구분하고자 하는 메세지를 쉽게 나타"
-"내기 위한 것입니다."
+"주어진 범주에 따라, 수신된 메세지는 메세지 목록에서 서로 다른 배경색으로 설정"
+"할 수 있습니다. 메세지를 보낸 사람을 쉽게 구분할 수 있으며, 특히 메일링리스"
+"트 구분에 도움이 됩니다."
 
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
-msgstr "이 설정으로 편지함을 사용합니다."
+msgstr "이 설정은 메일함 표시방법과 조작방식을 변경합니다."
 
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
@@ -2775,7 +2761,7 @@ msgstr "전송:"
 
 #, c-format
 msgid "Was displayed on %s"
-msgstr "%s로 표시되었습니다."
+msgstr "%s으(로) 표시되었습니다."
 
 msgid "less"
 msgstr "숨김"
@@ -2799,13 +2785,12 @@ msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
 msgstr ""
-"메세지 전송자가 이 메세지에 대한 답신 메일을 요청하였습니다. 답장을 보내시겠"
+"메세지 전송자가 이 메세지에 대한 회신 메일을 요청하였습니다. 답장을 보내시겠"
 "습니까?"
 
 msgid "Send read receipt now"
 msgstr "지금 답장 보내기"
 
-#, fuzzy
 msgid "Search results"
 msgstr "검색 결과"
 
@@ -2818,13 +2803,11 @@ msgstr "이메일 임시보관함 보기"
 msgid "Edit Message as New"
 msgstr "새메일로 메세지 편집"
 
-#, fuzzy
 msgid "View Message"
 msgstr "메세지 보기"
 
-#, fuzzy
 msgid "Forward as Attachment"
-msgstr "첨부"
+msgstr "첨부파일로 전달"
 
 msgid "Reply"
 msgstr "회신"
@@ -2924,355 +2907,3 @@ msgstr "전체 헤더보기"
 
 msgid "Viewing a text attachment"
 msgstr "첨부된 문서 보기"
-
-#~ msgid "Viewing a message attachment"
-#~ msgstr "첨부된 문서 보기"
-
-#~ msgid "Cc:"
-#~ msgstr "참조:"
-
-#~ msgid "Bcc:"
-#~ msgstr "숨은 참조"
-
-#~ msgid "<No subject>"
-#~ msgstr "<제목 없음>"
-
-#~ msgid "Enable request/confirm reading"
-#~ msgstr "메일 회신 확인요청 사용"
-
-#~ msgid "Use receive date for sort"
-#~ msgstr "정렬시 수신 일자를 사용"
-
-#~ msgid "Use References header for thread sort"
-#~ msgstr "정렬시 참조 헤더를 사용"
-
-#~ msgid "There was an error contacting the mail server."
-#~ msgstr "메일 서버에 접속하는데 오류가 발생했습니다."
-
-#~ msgid "Contact your administrator for help."
-#~ msgstr "관리자에게 도움을 요청하십시요."
-
-#~ msgid "No Messages found"
-#~ msgstr "메세지가 없습니다."
-
-#~ msgid ""
-#~ "Please contact your system administrator and report the following error:"
-#~ msgstr "다음의 오류를 보고하고 시스템 관리자에게 도움을 요청하십시요:"
-
-#~ msgid "No To Address"
-#~ msgstr "주소록"
-
-#~ msgid "Found"
-#~ msgstr "찾음"
-
-#~ msgid "messages"
-#~ msgstr "메세지"
-
-#~ msgid "Error decoding mime structure.  Report this as a bug!"
-#~ msgstr "MIME 디코딩 오류. 이것을 버그로 보고해 주세요!"
-
-#~ msgid "Submit message"
-#~ msgstr "메세지 보내기"
-
-#~ msgid "Your personal dictionary was erased."
-#~ msgstr "개인 사전 갱신되었습니다."
-
-#~ msgid "Dictionary Erased"
-#~ msgstr "사전 삭제"
-
-#~ msgid ""
-#~ "Your personal dictionary was erased. Please close this window and click "
-#~ "\"Check Spelling\" button again to start your spellcheck over."
-#~ msgstr ""
-#~ "개인 사전이 삭제 되었습니다. 이 창을 닫은후 \"철자 검사\" 버튼을 누르면 철"
-#~ "자검사를 다시 시작할 수 있습니다."
-
-#~ msgid "Close this Window"
-#~ msgstr "창 닫기"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
-#~ "&quot;SpellChecker options&quot; menu and make your selection again."
-#~ msgstr ""
-#~ "개인 사전이 재암호화 되었습니다. 이제 &quot;철자검사 설정&quot; 메뉴로 이"
-#~ "동할 것입니다. 설정상태를 다시 확인하시기 바랍니다."
-
-#~ msgid "Successful Re-encryption"
-#~ msgstr "재암호화 완료"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Please close this "
-#~ "window and click \"Check Spelling\" button again to start your spellcheck "
-#~ "over."
-#~ msgstr ""
-#~ "개인 사전이 재암호화 되었습니다. 이 창을 닫은후 \"철자 검사\" 버튼을 누르"
-#~ "면 철자검사를 다시 시작할 수 있습니다."
-
-#~ msgid "Dictionary re-encrypted"
-#~ msgstr "사전 재암호화"
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
-#~ "stored in an <strong>encrypted format</strong>."
-#~ msgstr ""
-#~ "개인 사전이 <strong>암호화</strong>되었습니다.<strong>암호화된 형식</"
-#~ "strong>으로 저장될 것입니다."
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
-#~ "stored as <strong>clear text</strong>."
-#~ msgstr ""
-#~ "개인 사전이 <strong>암호해제</strong>되었습니다.<strong>일반 평문</strong>"
-#~ "으로 저장될 것입니다."
-
-#~ msgid "Personal Dictionary Crypto Settings"
-#~ msgstr "개인 사전 암호 설정"
-
-#~ msgid "I tried to execute '%s', but it returned:"
-#~ msgstr "'%s'를 실행 리턴 결과:"
-
-#~ msgid "SquirrelSpell is misconfigured."
-#~ msgstr "SquirrelSpell 설정 오류"
-
-#~ msgid "SquirrelSpell Results"
-#~ msgstr "철자검사 결과"
-
-#~ msgid "Spellcheck completed. Commit changes?"
-#~ msgstr "철자검사가 완료되었습니다. 변경사항을 적용하시겠습니까?"
-
-#~ msgid "No changes were made."
-#~ msgstr "변경사항이 없습니다."
-
-#~ msgid "Now saving your personal dictionary... Please wait."
-#~ msgstr "개인 사전을 저장합니다... 잠시 기다려 주세요."
-
-#~ msgid "Found %s errors"
-#~ msgstr "%s 오류가 발생했습니다."
-
-#~ msgid "Line with an error:"
-#~ msgstr "오류발생 라인:"
-
-#~ msgid "Error:"
-#~ msgstr "오류:"
-
-#~ msgid "Suggestions"
-#~ msgstr "제안"
-
-#~ msgid "Change to:"
-#~ msgstr "변경 :"
-
-#~ msgid "Occurs times:"
-#~ msgstr "발생 회수:"
-
-#~ msgid "Change this word"
-#~ msgstr "이단어 변경"
-
-#~ msgid "Change"
-#~ msgstr "변경"
-
-#~ msgid "Change ALL occurances of this word"
-#~ msgstr "이단어에 대해서 모두 변경"
-
-#~ msgid "Change All"
-#~ msgstr "모두 변경"
-
-#~ msgid "Ignore this word"
-#~ msgstr "이 단어 무시"
-
-#~ msgid "Ignore"
-#~ msgstr "무시"
-
-#~ msgid "Ignore ALL occurances this word"
-#~ msgstr "이단어를 모두 무시합니다."
-
-#~ msgid "Ignore All"
-#~ msgstr "모두 무시"
-
-#~ msgid "Add this word to your personal dictionary"
-#~ msgstr "이 단어를 당신의 개인사전에 추가합니다."
-
-#~ msgid "Add to Dic"
-#~ msgstr "사전에 추가"
-
-#~ msgid "Close and Commit"
-#~ msgstr "종료후 반영"
-
-#~ msgid "The spellcheck is not finished. Really close and commit changes?"
-#~ msgstr ""
-#~ "철자검사가 아직 완료되지 않았습니다. 정말로 종료후 변경사항을 반영하시겠습"
-#~ "니까?"
-
-#~ msgid "Close and Cancel"
-#~ msgstr "종료 및 취소"
-
-#~ msgid "The spellcheck is not finished. Really close and discard changes?"
-#~ msgstr ""
-#~ "철자검사가 아직 완료되지 않았습니다. 정말로 중지후 변경사항을 취소하시겠습"
-#~ "니까?"
-
-#~ msgid "No errors found"
-#~ msgstr "오류가 없습니다."
-
-#~ msgid "Personal Dictionary"
-#~ msgstr "개인 사전"
-
-#~ msgid "No words in your personal dictionary."
-#~ msgstr "개인 사전에 단어가 없습니다."
-
-#~ msgid "Please check any words you wish to delete from your dictionary."
-#~ msgstr "사전에서 삭제할 단어를 확인하시기 바랍니다."
-
-#~ msgid "%s dictionary"
-#~ msgstr "%s 사전"
-
-#~ msgid "Delete checked words"
-#~ msgstr "선택한 단어 삭제"
-
-#~ msgid "Edit your Personal Dictionary"
-#~ msgstr "개인 사전 편집"
-
-#~ msgid "Please make your selection first."
-#~ msgstr "먼저 선택하세요."
-
-#~ msgid ""
-#~ "This will encrypt your personal dictionary and store it in an encrypted "
-#~ "format. Proceed?"
-#~ msgstr ""
-#~ "개인 사전을 암호화하고 암호화된 형식으로 저장합니다. 계속하시겠습니까?"
-
-#~ msgid ""
-#~ "This will decrypt your personal dictionary and store it in a clear-text "
-#~ "format. Proceed?"
-#~ msgstr "개인사전을 복호화한후 평문으로 저장합니다. 계속하시겠습니까?"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-#~ "helps protect your privacy in case the web-mail system gets compromized "
-#~ "and your personal dictionary ends up stolen. It is currently encrypted "
-#~ "with the password you use to access your mailbox, making it hard for "
-#~ "anyone to see what is stored in your personal dictionary.</p> "
-#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
-#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
-#~ "prompt you for your old password in order to re-encrypt the dictionary "
-#~ "with a new key.</p>"
-#~ msgstr ""
-#~ "<p>개인 사전은 <strong>현재 암호화</strong>되어 있습니다. 이것은 개인 사전"
-#~ "이 도단당하거나 웹메일 시스템에서 접근하는 경우에 대하여 당신의 사생활을 "
-#~ "보호하는데 도움을 줍니다. 개인 사전에 저장된 내용을 다른 사람이 볼수 없도"
-#~ "록 하기 위해, 현재 당신의 편지함에 접근하기 위해 사용하는 비밀번호로 암호"
-#~ "화 되어 있습니다. </p> <p><strong>주의:</strong>만약 비밀번호를 잊어버린 "
-#~ "경우에는 사전을 복호화 할 수 없기 때문에 개인 사전에 접근할 수 없게 됩니"
-#~ "다. 편지함 비밀번호를 변경하게 되면 SquirrelSpell은 변경사항을 인식하고 사"
-#~ "전을 새로운 비밀번호로 재 암호화하기 위해 이전 비밀번호를 변경하도록 요청"
-#~ "할 것입니다."
-
-#~ msgid ""
-#~ "Please decrypt my personal dictionary and store it in a clear-text format."
-#~ msgstr "개인사전을 복호화한후 평문으로 저장하시기 바랍니다."
-
-#~ msgid "Change crypto settings"
-#~ msgstr "암호화 설정 변경"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
-#~ "You may wish to encrypt your personal dictionary to protect your privacy "
-#~ "in case the webmail system gets compromized and your personal dictionary "
-#~ "file gets stolen. When encrypted, the file's contents look garbled and "
-#~ "are hard to decrypt without knowing the correct key (which is your "
-#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
-#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
-#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
-#~ "password and the administrator changes it to a new value, your personal "
-#~ "dictionary will become useless and will have to be created anew. However, "
-#~ "if you or your system administrator change your mailbox password but you "
-#~ "still have the old password at hand, you will be able to enter the old "
-#~ "key to re-encrypt the dictionary with the new value.</p>"
-#~ msgstr ""
-#~ "<p>개인 사전이 현재 <strong>암호화 되어 있지 않습니다.</strong> 개인 사전"
-#~ "이 도단당하거나 웹메일 시스템에서 접근하는 경우에 대하여 당신의 사생활을 "
-#~ "보호하기 위해 개인사전을 암호화 할 수 있습니다. 암호화가 되면, 파일의 내용"
-#~ "은 알아볼 수 없으며, 정확한 비밀번호(편지함 비밀번호)없이 복호화하기 어렵"
-#~ "습니다. </p> <strong>주의:</strong> 만약 사전을 암호화한다면, 편지함의 비"
-#~ "밀번호로 &quot;해시&quot;값을 구한다는 사실을 기억해야 합니다. 만약 편지함"
-#~ "의 비밀번호를 잊어버린 경우에는 관리자에게 새로운 값으로 변경하도록 요청해"
-#~ "야 합니다. 그러나 이 경우에도 개인 사전은 사용할 수 없게 되며 새로 만들어"
-#~ "야 합니다. 그러나 편지함의 비밀번호를 변경하는 경우에도 이전의 비밀번호를 "
-#~ "알고 있다면 이전의 값으로 사전을 재 암호화 할 수 있습니다.</p>"
-
-#~ msgid ""
-#~ "Please encrypt my personal dictionary and store it in an encrypted format."
-#~ msgstr "개인 사전을 암호화하고 암호화된 형식으로 저장합니다."
-
-#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-#~ msgstr "<strong>%s</strong>사전에서 다음의 목록을 삭제합니다."
-
-#~ msgid "All done!"
-#~ msgstr "모두 완료!"
-
-#~ msgid "Personal Dictionary Updated"
-#~ msgstr "개인 사전 갱신되었습니다."
-
-#~ msgid "No changes requested."
-#~ msgstr "변경사항이 없습니다."
-
-#~ msgid "Please wait, communicating with the server..."
-#~ msgstr "잠시 기다려주세요, 서버와 접속중입니다...."
-
-#~ msgid ""
-#~ "Please choose which dictionary you would like to use to spellcheck this "
-#~ "message:"
-#~ msgstr "이메세지의 철자검사를 사용할 사전을 선택하세요:"
-
-#~ msgid "SquirrelSpell Initiating"
-#~ msgstr "철자검사 초기화"
-
-#~ msgid ""
-#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-#~ "default dictionary."
-#~ msgstr ""
-#~ "설정 변경 : <strong>%s</strong> 사용 (기본 사전으로 <strong>%s</strong>사"
-#~ "용)"
-
-#~ msgid ""
-#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-#~ msgstr ""
-#~ "철자검사를 위해 (시스템 기본) <strong>%s</strong> 사전을 사용합니다."
-
-#~ msgid "International Dictionaries Preferences Updated"
-#~ msgstr "국제 사전 환경이 갱신되었습니다."
-
-#~ msgid ""
-#~ "Please check any available international dictionaries which you would "
-#~ "like to use when spellchecking:"
-#~ msgstr "철자검사를 하기 위해 사용가능한 사전을 선택하세요:"
-
-#~ msgid "Make this dictionary my default selection:"
-#~ msgstr "이 사전을 기본으로 사용하기:"
-
-#~ msgid "Make these changes"
-#~ msgstr "변경사항 적용"
-
-#~ msgid "Add International Dictionaries"
-#~ msgstr "사전 추가"
-
-#~ msgid "Please choose which options you wish to set up:"
-#~ msgstr "설정에서 사용할 옵션을 선택하세요:"
-
-#~ msgid "Edit your personal dictionary"
-#~ msgstr "개인사전 편집."
-
-#~ msgid "Set up international dictionaries"
-#~ msgstr "사전 설정"
-
-#~ msgid "Encrypt or decrypt your personal dictionary"
-#~ msgstr "개인 사전 암호화 및 해제"
-
-#~ msgid "SquirrelSpell Options Menu"
-#~ msgstr "철자검사 설정 메뉴"
-
-#~ msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-#~ msgstr "POP3: 불안전한 NOOP OK, RFC 1939 호환 서버가 아닙니다."
-
-#~ msgid "NOOP failed. Server not RFC 1939 compliant"
-#~ msgstr "NOOP 오류. 서버가 RFC 1939 호환이 아닙니다."
