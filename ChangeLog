@@ -44,6 +44,8 @@ Version 1.2.6 -- CVS
   - Fixed small bug in handeling timezone (bug #536149)	
   - MDN message now RFC compatible (bug #537662)
   - Fixed html tables in printer_friendly_bottom.php (patch #542367)
+  - Fixed return address of MDN receipts when having multiple identities
+    (patch #530139)
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
