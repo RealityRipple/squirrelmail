@@ -48,8 +48,8 @@
       }
    }
 
-   function setMessageFlag($imapConnection, $i, $flag) {
-      fputs($imapConnection, "messageStore STORE $i:$i +FLAGS (\\$flag)\n");
+   function setMessageFlag($imapConnection, $i, $q, $flag) {
+      fputs($imapConnection, "messageStore STORE $i:$q +FLAGS (\\$flag)\n");
    }
 
    function getMessageFlags($imapConnection, $i, &$flags) {
@@ -145,5 +145,11 @@
 
       echo "UNKNOWN ERROR copying messages $from_id to $to_id to folder $folder.<BR>";
       return false;
+   }
+
+   /** expunges a mailbox **/
+   function expungeBox($imapConnection, $mailbox) {
+      selectMailbox($imapConnection, $mailbox, $num);
+      fputs($imapConnection, "1 EXPUNGE\n");
    }
 ?>

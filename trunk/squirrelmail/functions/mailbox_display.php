@@ -31,6 +31,8 @@
     ** This function loops through a group of messages in the mailbox and shows them
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
+      include("../config/config.php");
+
       $j = 1;
       while ($j <= $numMessages) {
          $q = 0;
@@ -128,7 +130,9 @@
       /** The "DELETE" button */
       echo "<TR><TD BGCOLOR=DCDCDC>";
       echo "<FORM name=messageList method=post action=\"move_messages.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete\"> selected messages";
+      echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Delete Selected\">";
+      if (($move_to_trash == true) && ($mailbox == $trash_folder))
+         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\">Empty Trash</A></NOBR>";
       echo "</TD></TR>";
 
       echo "<TR><TD BGCOLOR=DCDCDC>";
@@ -161,7 +165,9 @@
 
       /** The "DELETE" button */
       echo "<TR><TD BGCOLOR=DCDCDC>";
-      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete\"> selected messages";
+      echo "<INPUT TYPE=SUBMIT VALUE=\"Delete Selected\">";
+      if (($move_to_trash == true) && ($mailbox == $trash_folder))
+         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<A HREF=\"empty_trash.php\">Empty Trash</A></NOBR>";
       echo "</TD></TR>";
 
       echo "</FORM></TABLE>\n";
