@@ -156,7 +156,7 @@ $body = htmlspecialchars($body_top . $body);
    echo "</li>\n";
 
    echo "<li>";
-   echo _("Check to see if you bug is already listed in the <a href=\"http://sourceforge.net/bugs/?group_id=311\">Bug List</a> on SourceForge. If it is, we already know about it and are trying to fix it.");
+   echo _("Check to see if your bug is already listed in the <a href=\"http://sourceforge.net/bugs/?group_id=311\">Bug List</a> on SourceForge. If it is, we already know about it and are trying to fix it.");
    echo "</li>\n";
    
    echo "<li>";
