@@ -553,6 +553,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            $use_signature, $composesession, $data_dir, $username,
            $username, $key, $imapServerAddress, $imapPort, $compose_messages,
            $composeMessage;
+ 	global $languages, $squirrelmail_language;
 
     $send_to = $send_to_cc = $send_to_bcc = $subject = $identity = '';
     $mailprio = 3;
@@ -602,6 +603,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             if ($type1 == 'html') {
                 $bodypart = str_replace(array('&nbsp;','&gt','&lt'),array(' ','<','>'),$bodypart);
                 $bodypart = strip_tags($bodypart);
+            }
+            if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+                function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+                if (mb_detect_encoding($bodypart) != 'ASCII') {
+                    $bodypart = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $bodypart);
+                }
             }
             $body .= $bodypart;
         }

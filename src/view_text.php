@@ -79,6 +79,14 @@ echo '</b></td><tr><tr><td><CENTER><A HREF="'.$dwnld_url. '">'.
      "</TD></TR></TABLE>".
      "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
      "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
+
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        if (mb_detect_encoding($body) != 'ASCII') {
+            $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
+        }
+    }
+
 if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) {
     $body = MagicHTML( $body, $passed_id, $message, $mailbox);
 } else {

@@ -18,6 +18,7 @@ require_once(SM_PATH . 'functions/global.php');
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
+    global $squirrelmail_language;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
         global $base_uri;
@@ -34,6 +35,11 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     } else {
         echo '<link rel="stylesheet" type="text/css" href="' .
              $base_uri . 'themes/css/'.$custom_css.'" />';
+    }
+    
+    if ($squirrelmail_language == 'ja_JP') {
+        echo "<!-- \xfd\xfe -->\n";
+        echo '<meta http-equuiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
     
     if ($do_hook) {
@@ -315,4 +321,5 @@ function compose_Header($color, $mailbox) {
 
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
 }
+
 ?>

@@ -38,6 +38,16 @@ $SQM_INTERNAL_VERSION = array(1,4,0);
  * This should not add newlines to the end of lines.
  */
 function sqWordWrap(&$line, $wrap) {
+    global $languages, $squirrelmail_language;
+
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        if (mb_detect_encoding($line) != 'ASCII') {
+            $line = $languages[$squirrelmail_language]['XTRA_CODE']('wordwrap', $line, $wrap);
+            return;
+        }
+    }
+
     ereg("^([\t >]*)([^\t >].*)?$", $line, $regs);
     $beginning_spaces = $regs[1];
     if (isset($regs[2])) {
@@ -83,6 +93,12 @@ function sqWordWrap(&$line, $wrap) {
  * Does the opposite of sqWordWrap()
  */
 function sqUnWordWrap(&$body) {
+    global $squirrelmail_language;
+    
+    if ($squirrelmail_language == 'ja_JP') {
+        return;
+    }
+
     $lines = explode("\n", $body);
     $body = '';
     $PreviousSpaces = '';

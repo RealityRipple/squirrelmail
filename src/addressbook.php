@@ -56,8 +56,25 @@ function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
 
 /* Output form to add and modify address data */
 function address_form($name, $submittext, $values = array()) {
-    global $color;
+    global $color, $squirrelmail_language;
     
+    if ($squirrelmail_language == 'ja_JP')
+        {
+    echo html_tag( 'table',
+                       adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+                           ' <SMALL>' . _("Must be unique") . '</SMALL>') .
+                       adressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
+                       adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
+                       adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
+                       adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+                       html_tag( 'tr',
+                           html_tag( 'td',
+                                       '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
+                                       $submittext . '">',
+                                   'center', $color[4], 'colspan="2"')
+                       )
+    , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+        } else {
     echo html_tag( 'table',
                        adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
                            ' <SMALL>' . _("Must be unique") . '</SMALL>') .
@@ -72,6 +89,7 @@ function address_form($name, $submittext, $values = array()) {
                                    'center', $color[4], 'colspan="2"')
                        )
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+}
 }
 
 /* Open addressbook, with error messages on but without LDAP (the *
@@ -345,6 +363,18 @@ if ($showaddrlist) {
             /* Print one row */
             $tr_bgcolor = '';
             if ($line % 2) { $tr_bgcolor = $color[0]; }
+            if ($squirrelmail_language == 'ja_JP')
+                {
+            echo html_tag( 'tr', '') .
+                html_tag( 'td',
+                          '<SMALL>' .
+                          '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
+                          $row['backend'] . ':' . $row['nickname'] . '"></SMALL>' ,
+                          'center', '', 'valign="top" width="1%"' ) .
+                html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) . 
+                html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
+                html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
+                } else {
             echo html_tag( 'tr', '') .
             html_tag( 'td',
                 '<SMALL>' .
@@ -354,6 +384,7 @@ if ($showaddrlist) {
             html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
             html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
             html_tag( 'td', '', 'left', '', 'valign="top" width="1%" nowrap' ) . '&nbsp;';
+                }
             $email = $abook->full_address($row);
             if ($compose_new_win == '1') {
                 echo '<a href="javascript:void(0)" onclick=comp_in_new(false,"compose.php?send_to='.rawurlencode($email).'")>';
