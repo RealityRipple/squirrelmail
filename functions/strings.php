@@ -10,9 +10,6 @@
     * $Id$
     */
 
-    if (defined('strings_php')) { return; }
-    define('strings_php', true);
-
    /**
     * SquirrelMail version number -- DO NOT CHANGE
     */

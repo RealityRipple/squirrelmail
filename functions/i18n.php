@@ -12,10 +12,6 @@
  ** $Id$
  **/
 
-   if (defined ('i18n_php'))
-      return; 
-   define ('i18n_php', true);
-
    global $squirrelmail_language, $languages;
    if (! isset($squirrelmail_language)) { $squirrelmail_language = ''; }
 
@@ -26,9 +22,9 @@
 
    /* PLEASE DON'T TOUCH!!!
     * Correct locale name, which should be set by setlocale and/or putenv('LC_ALL='...)
-	* is 'cs_CZ' and NOT 'cs', this applies to all locale names, look into docs, if you
-	* don't believe me.  Ondrej Sury, czech and slovak translator.
-	*/
+    * is 'cs_CZ' and NOT 'cs', this applies to all locale names, look into docs, if you
+    * don't believe me.  Ondrej Sury, czech and slovak translator.
+    */
    $languages['cs_CZ']['NAME']    = 'Czech';
    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    $languages['cs']['ALIAS']      = 'cs_CZ';

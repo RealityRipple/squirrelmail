@@ -1,5 +1,16 @@
 <?php
-require_once ('../src/validate.php');
+
+   /**
+    **  draft_actions.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **
+    **  $Id$
+    **/
+
+    require_once ('../src/validate.php');
 
    /* Print all the needed RFC822 headers */
    function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers) {

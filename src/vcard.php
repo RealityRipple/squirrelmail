@@ -2,6 +2,9 @@
 /**
  ** vcard.php
  **
+ ** Copyright (c) 1999-2001 The SquirrelMail Development Team
+ ** Licensed under the GNU GPL. For full terms see the file COPYING.
+ **
  ** This file shows an attched vcard
  **
  ** $Id$

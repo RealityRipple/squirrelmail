@@ -9,10 +9,6 @@
     * Very special thanks to Konstantin Riabitsev for letting me use a
     * server that didn't already have gettext on it!
     */
-     
-   if (defined('gettext_php'))
-      return;
-   define('gettext_php', true);
    
    global $gettext_php_domain, $gettext_php_dir, $gettext_php_loaded,
       $gettext_php_translateStrings, $gettext_php_loaded_language,

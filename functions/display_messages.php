@@ -8,10 +8,6 @@
     ** $Id$
     **/
 
-    if (defined ('display_messages_php'))
-       return; 
-    define ('display_messages_php', true); 
-
     function error_username_password_incorrect($color) {
       echo '<BR>';
       echo " <TABLE COLS=1 WIDTH=75% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";

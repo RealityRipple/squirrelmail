@@ -453,7 +453,7 @@
       $attachments[] = $newAttachment;
     }
 
-   if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
+   if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None'))
       $mailbox = "INBOX";
 
    if (isset($draft)) {

@@ -17,7 +17,7 @@
    require_once('../functions/array.php');
    require_once('../functions/plugin.php');
 
-   displayPageHeader($color, _("None"));
+   displayPageHeader($color, 'None');
 
 ?>
 

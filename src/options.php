@@ -34,7 +34,7 @@ if (isset($language)) {
 /*** Build the resultant page. ***/
 /*********************************/
 
-displayPageHeader($color, _("None"));
+displayPageHeader($color, 'None');
 
 define('SMOPT_MODE_DISPLAY', 'display');
 define('SMOPT_MODE_SUBMIT', 'submit');

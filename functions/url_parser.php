@@ -1,10 +1,15 @@
 <?php
-   /* URL Passing code to allow links from with in emails */
-   /* $Id$ */
 
-   if (defined('url_parser_php'))
-      return;
-   define('url_parser_php', true);
+   /**
+    * url_parser.php
+    * Copyright (c) 1999-2001 The Squirrelmail Development Team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * This code provides various string manipulation functions that are
+    * used by the rest of the Squirrelmail code.
+    *
+    * $Id$
+    */
 
    function replaceBlock (&$in, $replace, $start, $end) {
       $begin = substr($in,0,$start);

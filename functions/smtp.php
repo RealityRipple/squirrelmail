@@ -7,10 +7,6 @@
     ** $Id$
     **/
 
-   if (defined('smtp_php'))
-      return;
-   define('smtp_php', true);
-
    require_once('../functions/addressbook.php');
    require_once('../functions/plugin.php');
 

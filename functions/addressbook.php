@@ -7,10 +7,7 @@
    **
    **  $Id$
    **/
-    
-   if (defined ('addressbook_php'))
-      return; 
-   define ('addressbook_php', true); 
+
 
    // This is the path to the global site-wide addressbook.
    // It looks and feels just like a user's .abook file

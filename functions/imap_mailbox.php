@@ -40,9 +40,9 @@
    function sqimap_mailbox_select ($imap_stream, $mailbox, $hide=true, $recent=false) {
       global $auto_expunge;
 
-      if( $mailbox == _("None") )
+      if( $mailbox == 'None' )
           return;
-      
+
       fputs ($imap_stream, sqimap_session_id() . " SELECT \"$mailbox\"\r\n");
              $read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
       if ($recent) {
@@ -66,7 +66,7 @@
     ******************************************************************************/
    function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
       global $delimiter;
-      if (strtolower($type) == "noselect") {
+      if (strtolower($type) == 'noselect') {
          $mailbox = $mailbox.$delimiter;
       }
       fputs ($imap_stream, sqimap_session_id() . " CREATE \"$mailbox\"\r\n");

@@ -7,10 +7,6 @@
     ** $Id$
     **/
 
-   if (defined('mime_php'))
-      return;
-   define('mime_php', true);
-
    require_once('../functions/imap.php');
    require_once('../functions/attachment_common.php');
 

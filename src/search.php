@@ -1,6 +1,15 @@
 <?php
 
-   /* $Id$ */
+
+    /**
+     * right_main.php
+     *
+     * Copyright (c) 1999-2001 The Squirrelmail Development Team
+     * Licensed under the GNU GPL. For full terms see the file COPYING.
+     *
+     * $Id$
+     */
+
 
    require_once('../src/validate.php');
    require_once('../functions/imap.php');

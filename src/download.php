@@ -25,7 +25,7 @@
       global $where, $what, $charset;
       global $startMessage;
       
-      displayPageHeader($color, "None");
+      displayPageHeader($color, 'None');
 
       echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<B><CENTER>";

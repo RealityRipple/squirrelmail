@@ -7,10 +7,6 @@
     **  $Id$
     **/
 
-   if (defined('page_header_php'))
-       return;
-   define('page_header_php', true);
-
    // Always set up the language before calling these functions
 
    function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {

@@ -37,7 +37,7 @@
    sqimap_logout($imapConnection);
 
    /*
-   displayPageHeader($color, "None");
+   displayPageHeader($color, 'None');
    echo "<BR><BR><BR><CENTER><B>";
    if ($method == "sub") {
       echo _("Subscribed Successfully!");

@@ -16,20 +16,20 @@
    require_once('../functions/array.php');
 
 
-   displayPageHeader($color, "None");
+   displayPageHeader($color, 'None' );
 
-	$helpdir[0] = "basic.hlp";
-	$helpdir[1] = "main_folder.hlp";
-	$helpdir[2] = "read_mail.hlp";
-	$helpdir[3] = "compose.hlp";
-	$helpdir[4] = "addresses.hlp";
-	$helpdir[5] = "folders.hlp";
-	$helpdir[6] = "options.hlp";
-	$helpdir[7] = "search.hlp";
-	$helpdir[8] = "FAQ.hlp";
+   $helpdir[0] = 'basic.hlp';
+   $helpdir[1] = 'main_folder.hlp';
+   $helpdir[2] = 'read_mail.hlp';
+   $helpdir[3] = 'compose.hlp';
+   $helpdir[4] = 'addresses.hlp';
+   $helpdir[5] = 'folders.hlp';
+   $helpdir[6] = 'options.hlp';
+   $helpdir[7] = 'search.hlp';
+   $helpdir[8] = 'FAQ.hlp';
 
    /****************[ HELP FUNCTIONS ]********************/
-   // parses through and gets the information from the different documents.  
+   // parses through and gets the information from the different documents.
    // this returns one section at a time.  You must keep track of the position
    // so that it knows where to start to look for the next section.
 
@@ -42,18 +42,18 @@
                   $ary[0] = trim($doc[$n]);
                }
                if (trim(strtolower($doc[$n])) == "<description>") {
-	          $ary[1] = "";
+                  $ary[1] = "";
                   for ($n++;$n < count($doc) && (trim(strtolower($doc[$n])) != "</description>"); $n++) {
                      $ary[1] .= $doc[$n];
                   }
                }
                if (trim(strtolower($doc[$n])) == "<summary>") {
-	          $ary[2] = "";
+                  $ary[2] = "";
                   for ($n++;$n < count($doc) && (trim(strtolower($doc[$n])) != "</summary>"); $n++) {
                      $ary[2] .= $doc[$n];
                   }
                }
-            }   
+            }
             if (isset($ary)) {
                $ary[3] = $n;
                return $ary;
@@ -62,14 +62,14 @@
                $ary[1] = "ERROR: Help files are not in the right format!";
                $ary[2] = "ERROR: Help files are not in the right format!";
                return $ary;
-            }   
+            }
          }
       }
       $ary[0] = "ERROR: Help files are not in the right format!";
       $ary[1] = "ERROR: Help files are not in the right format!";
       return $ary;
    }
-   
+
    /**************[ END HELP FUNCTIONS ]******************/
 
 ?>
@@ -87,21 +87,21 @@
    if ($HTTP_REFERER) {
       $ref = strtolower($HTTP_REFERER);
       if (strpos($ref, "src/compose"))
-         $context = "compose"; 
+         $context = "compose";
       else if (strpos($ref, "src/addr"))
-         $context = "address"; 
+         $context = "address";
       else if (strpos($ref, "src/folders"))
-         $context = "folders"; 
+         $context = "folders";
       else if (strpos($ref, "src/options"))
-         $context = "options"; 
+         $context = "options";
       else if (strpos($ref, "src/right_main"))
-         $context = "index"; 
+         $context = "index";
       else if (strpos($ref, "src/read_body"))
-         $context = "read"; 
+         $context = "read";
       else if (strpos($ref, "src/search"))
-         $context = "search"; 
+         $context = "search";
    }
-   
+
    if (!$squirrelmail_language)
       $squirrelmail_language = "en";
 
@@ -122,7 +122,7 @@
       echo "</td></tr></table>";
       exit;
    }
-   
+
    if ($help_exists) {
       if (! isset($context))
           $context = '';
@@ -170,7 +170,7 @@
          echo "<font size=5><b>$chapter - $help_info[0]</b></font><br><br>\n";
          if (isset($help_info[1]))
             echo "$help_info[1]\n";
-         else   
+         else
             echo "<p>$help_info[2]</p>\n";
 
          $section = 0;
@@ -187,7 +187,7 @@
          echo "<br><center><a href=\"#pagetop\">" . _("Top") . "</a></center>\n";
       }
    }
-   do_hook("help_bottom"); 
+   do_hook("help_bottom");
 ?>
 <tr><td bgcolor="<?php echo $color[0] ?>">&nbsp;</td></tr></table>
 <td></tr></table>

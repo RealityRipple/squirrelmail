@@ -11,10 +11,6 @@
     * $Id$
     */
 
-   if (defined('mailbox_display_php'))
-       return;
-   define('mailbox_display_php', true);
-
    define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start_msg, $where, $what) {
@@ -39,7 +35,7 @@
       $msg = $msgs[$key];
 
       $senderName = htmlspecialchars(sqimap_find_displayable_name($msg['FROM']));
-      if( $mailbox == _("None") ) {
+      if( $mailbox == 'None' ) {
          // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          $boxes = sqimap_mailbox_list($imapConnection);
          // sqimap_logout($imapConnection);
