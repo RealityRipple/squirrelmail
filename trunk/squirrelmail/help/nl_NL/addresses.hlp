@@ -1,24 +1,26 @@
 <chapter>
    <title>
-      Adressen
+      Adresboek
    </title>
    <summary>
-      Een adressenboek kan veel tijd en typwerk besparen. U kunt de
-      adressen van mensen waar u veel contact mee heeft toevoegen, en
+      Een adresboek kan veel tijd en invoerwerk besparen. U kunt de
+      e-mailadressen van mensen waar u veel contact mee heeft eenmalig toevoegen, en
       keer op keer gebruiken.
    </summary>
    <description>
       <p>
-      Een adressenboek kan veel tijd besparen. Regelmatig gebruikte adressen
-      kunt u hierin opslaan. Ook kent het ondersteuning voor LDAP servers,
-      dit zijn systemen die vaak binnen bedrijven en instellingen gebruikt worden
+      Een adresboek kan veel tijd besparen. Regelmatig gebruikte e-mailadressen
+      kunt u hierin opslaan. Het Webmail adresboek heeft tevens ondersteuning 
+      voor LDAP servers, dit zijn systemen die vaak binnen bedrijven en instellingen
+      gebruikt worden
       om alle adressen binnen die organisatie beschikbaar te maken.
       </p>
       <p>
-      Als uw browser ondersteuning heeft voor JavaScript dan kunt u de optie
-      die u in het Instellingen menu vindt inschakelen. U krijgt dan een
-      nog mooier adresboek. Deze optie is echter niet noodzakelijk zodat het
-      ook werkt op browsers zonder JavaScript-ondersteuning.
+      Als uw browser ondersteuning heeft voor JavaScript dan kunt u deze optie
+      in het instellingenmenu inschakelen. U krijgt dan een
+      nog beter overzichtelijk adresboek. Deze optie is echter niet noodzakelijk zodat het  
+      Webmail adresboek ook werkt op als u gebruikt maakt van een browsers zonder 
+      JavaScript-ondersteuning.
       </p>
    </description>
 </chapter>
@@ -41,8 +43,7 @@
    </title>
    <description>
       <p>
-      Hier moet u het volledige e-mailadres van de persoon invoeren. Het moet
-      exact kloppen, gokken werkt meestal niet. Een e-mailadres bestaat uit ten
+      Hier moet u het volledige e-mailadres van de persoon invoeren. Een e-mailadres bestaat uit ten
       minste een gedeelte voor het apenstaartje (de gebruikersnaam), het apenstaartje
       zelf en het gedeelte daarachter (de domeinnaam, geeft de organisatie weer).
       Bijvoorbeeld piet.klaassen@bedrijf.nl.
@@ -56,10 +57,10 @@
    </title>
    <description>
       <p>
-      Hier kunt u willekeurige informatie in opslaan over deze persoon.
-      De informatie wordt verder niet gebruikt bij het versturen van mail maar
-      kan u helpen herinneren wie iemand is, of bijvoorbeeld een telefoonnummer
-      van die persoon.
+      Hier kunt u willekeurige informatie, bijvoorbeeld het telefoonnummer, van de betreffende
+persoon in opslaan.
+      De informatie wordt verder niet gebruikt bij het versturen van e-mail maar
+      kan u helpen herinneren wie iemand is.
       </p>
    </description>
 </section>
@@ -71,7 +72,7 @@
    <description>
       <p>
       Deze twee knoppen geven u de mogelijkheid om een adres te selecteren
-      en dan een van de bovengenoemde velden te bewerken, of de hele persoon
+      en een van de bovengenoemde velden te bewerken, of de hele persoon
       uit uw adressenboek te verwijderen. Om te Bewerken kunt u maar &eacute;&eacute;n
       persoon tegelijk selecteren.
       </p>
@@ -80,38 +81,15 @@
 
 <section>
    <title>
-      Toevoegen aan persoonlijk adressenboek
+      Toevoegen aan persoonlijk adresboek
    </title>
    <description>
       <p>
       Vul de velden in met de informatie zoals hierboven beschreven.
-      De eerste drie moeten verplicht ingevuld worden. De laatste twee
+      De eerste drie velden moeten verplicht ingevuld worden. De laatste twee velden 
       zijn optioneel.
       </p>
    </description>
 </section>
 
-<section>
-   <title>
-      LDAP
-   </title>
-   <description>
-      <p>
-      LDAP is een protocol voor het centraal opslaan en toegankelijk maken
-      van informatie. Een universiteit bijvoorbeeld zou LDAP kunnen gebruiken
-      als een plaats waar alle e-mailadressen van studenten en staf zijn opgeslagen
-      en toegankelijk gemaakt. Als SquirrelMail is ingesteld om de LDAP server
-      van die universiteit te gebruiken, kan het SquirrelMail adresboek alle
-      studenten en medewerkers doorzoeken, samen met uw eigen persoonlijke
-      adresboek. De manier waarop SquirrelMail LDAP gebruikt is zeer krachtig
-      omdat het uw eigen adressen combineert met die uit de centrale server
-      zodat u om adressen te vinden maar op &eacute;&eacute;n plaats hoeft te zoeken.
-      </p><p>
-      De LDAP instelling kan ingesteld zijn om een bepaalde server te gebruiken, of
-      in zijn geheel uitgeschakeld zijn. Als u hier vragen over heeft, dient u
-      contact op te nemen met uw systeembeheerder. De instellingen van de
-      LDAP-functionaliteit zijn van invloed op het hele SquirrelMail systeem
-      en kunnen daarom alleen centraal worden veranderd door de systeembeheerder.
-      </p>
-   </description>
-</section>
+

@@ -7,9 +7,9 @@
    </summary>
    <description>
       <p>
-      De menu-optie <I>Nieuw bericht</I> brengt u naar een pagina waar u een
-      nieuw bericht kunt opstellen. Op deze pagina staan een aantal
-      velden en een stel knoppen. Afhankelijk van hoe u op de pagina
+      Via de menu-optie <I>Nieuw bericht</I> komt u op de pagina waar u een
+      nieuw e-mailbericht kunt opstellen. Op deze pagina vindt u een aantal
+      velden en knoppen die hieronder beschreven staan. Afhankelijk van hoe u op de pagina
       kwam, kan een aantal velden al ingevuld zijn.
       </p>
    </description>
@@ -22,9 +22,9 @@
    <description>
       <p>
 	Dit veld wordt uitsluitend weergegeven als u meerdere identiteiten heeft
-	ingesteld (via het Opties, Persoonlijke instellingen menu). Indien u dat
-	heeft gedaan, kunt u hier kiezen welke identiteit u wilt gebruiken, m.a.w.
-	welke naam en e-mailadres als afzender moeten staan.
+	ingesteld (via het Opties, Persoonlijke instellingen menu). U
+ kunt hier kiezen welke identiteit u wilt gebruiken, met andere woorden,
+	welke naam en e-mailadres er als afzender voor dit e-mailbericht gebruikt moeten worden.
       </p>
    </description>
 </section>
@@ -38,9 +38,9 @@
       Het eerste veld is het <B>Aan:</B>-veld. Hier moet u het e-mailadres
       invullen van degene(n) die u dit bericht wilt sturen. U kunt meerdere
       adressen invullen, gescheiden door komma's. Ook kunt u op de knop
-      'Adressen' klikken om dit veld te vullen vanuit het adresboek.
+      'Adressen' klikken om dit veld te vullen vanuit uw adresboek.
       Het kan voorkomen dat de rij met adressen te lang wordt om in het veld
-      in eens te worden weergegeven; dit is geen probleem: u kunt gewoon doortypen.
+      ineens te worden weergegeven; dit is geen probleem: u kunt gewoon doortypen.
       Ook al wordt niet alles weergegeven, het bericht zal wel naar alle adressen
       verstuurd worden.
       </p>
@@ -57,7 +57,7 @@
       Hier kunt u e-mailadressen invullen waarnaar hetzelfde bericht
       ook gestuurd wordt. Het verschil met het Aan:-veld is gevoelsmatig:
       in het Aan:-veld vult u in aan wie het bericht gericht is, en bij Cc
-      hen die een kopie ontvangen, ter informatie.
+      degene die een kopie van het bericht ter informatie dient te ontvangen.
       </p>
    </description>
 </section>
@@ -81,9 +81,7 @@
    </title>
    <description>
       <p>
-      Geef hier een relevante onderwerpregel op. Dit is belangrijk, omdat
-      berichten met goede onderwerpregels de effici&euml;ntie van het
-      verwerken van e-mail danig vergroten.
+       Hier kunt u het onderwerp van uw e-mailbericht invoeren.
       </p>
    </description>
 </section>
@@ -94,7 +92,7 @@
    </title>
    <description>
       <p>
-      Deze knop opent het adressenboek met daarin een zoekscherm. Hier moet u
+      Deze knop opent het zoekscherm van uw het adresboek. Hier moet u
       iets invullen om resultaten te krijgen. Als u alle adressen uit het adressenboek
       wilt zien kunt u op <EM>Alle weergeven</EM> drukken. Het adresboek
       heeft uitgebreide mogelijkheden die aan bod komen in een apart hoofdstuk in
@@ -112,7 +110,7 @@
       Als u een bericht heeft opgesteld maar om een bepaalde reden nog niet
       wilt versturen, kunt u op deze knop drukken om het op te slaan in de
       <EM>Drafts</EM>-map. Als u het later daadwerkelijk wilt versturen, gaat
-      u naar deze folder, opent het bericht en u komt weer in het Nieuw Bericht
+      u naar deze folder, opent het bericht en u komt weer in het 'Nieuw Bericht'
       scherm waar u verder kunt werken aan uw bericht.
       </p>
    </description>
@@ -124,10 +122,8 @@
    </title>
    <description>
       <p>
-      Als uw systeembeheerder deze mogelijkheid aan heeft gezet, kunt u rechts naast
-      de knoppen een prioriteit voor uw bericht selecteren. Een hoge-prioriteit bericht
-      zal anders worden weergegeven in het mailprogramma van de ontvanger. Pas op dat
-      overmatig gebruik van deze optie het effect zal devalueren.
+      Hier kunt u een prioriteit voor uw bericht selecteren. Een bericht met een hoge prioriteit
+      zal anders worden weergegeven in het mailprogramma van de ontvanger. 
       </p>
    </description>
 </section>
@@ -140,7 +136,7 @@
       <p>
       In het grote lege veld kunt u het eigenlijke bericht invoeren. Als
       u een handtekeningbestand (signature)
-      heeft opgegeven verschijnt deze ook hier.
+      heeft opgegeven verschijnt deze hier automatisch.
       </p>
    </description>
 </section>
@@ -151,11 +147,11 @@
    </title>
    <description>
       <p>
-      Onderaan de pagina is een gedeelte waar u bijlagen of
-      attachments kunt toevoegen. Het bestand dat u wilt toevoegen moet
+      Onderaan de pagina vindt u een gedeelte waar u bijlagen
+      (attachments) aan uw e-mailbericht kunt toevoegen. Het bestand dat u wilt toevoegen moet
       op de computer staan waarop u werkt. U kunt op de Browse-knop klikken
       om dit bestand te lokaliseren. Door op de <I>Voeg toe</I>-knop te klikken
-      wordt het bestand toegevoegd als bijlage aan uw bericht.
+      wordt het bestand toegevoegd als bijlage aan uw e-mailbericht.
       </p>
       <p>
       Zodra u minstens &eacute;&eacute;n bestand heeft toegevoegd is er nog

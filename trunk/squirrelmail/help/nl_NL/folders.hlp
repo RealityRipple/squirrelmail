@@ -4,7 +4,7 @@
    </title>   
    <summary>
       Berichten kunnen worden opgeslagen in verschillende mappen.
-      Dit is met name handig als u veel mail ontvangt en dit geordend
+      Dit is met name handig als u veel e-mailberichten ontvangt en dit geordend
       wilt houden. De optie Mappen stelt u in staat bewerkingen uit
       te voeren op uw mappen.
    </summary>
@@ -12,17 +12,17 @@
 
 <section>
    <title>
-      Aangemelde mappen en het linker frame
+      Aangemelde mappen en het linkerframe
    </title>
    <description>
       <p>
-      Mappen die u momenteel heeft aangemeld worden in het
-      gekleurde gedeelte aan de linkerkant weergeven. Dit
+      Mappen waarop u zich momenteel heeft aangemeld worden in het
+      in het linkerframe weergegeven. Dit
       frame kan automatisch ververst worden door dit in te
-      stellen via de Opties-pagina. Aan de bovenkant
-      van het frame is een grote en vette kop. Als u dingen
-      verandert met betrekking tot de mappen kunt u de linkerkant
-      verversen met de link die vlak onder deze kop staat.
+      stellen via de Opties-pagina. Bij wijzigingen 
+met betrekking tot de mappen kunt u het linkerframe handmatig
+verversen met de link die vlak onder de grote, dikgedrukte kop bovenin dit 
+frame staat.
       </p><p>
       De eerste map die weergegeven wordt bevat binnengekomen
       berichten. Erachter staat een nummer tussen haakjes dat
@@ -42,9 +42,9 @@
    </title>
    <description>
       <p>
-      U kunt een map verwijderen door hem te selecteren uit de selectielijst
-      en op de verwijder-knop te drukken. De lijst bevat niet alle mappen:
-      speciale map zoals Verzonden/Sent, Prullenbak/Trash en uiteraard INBOX kunnen
+      U kunt een map verwijderen door deze te selecteren uit de selectielijst
+      en vervolgens op de verwijderknop te drukken. De lijst bevat niet alle mappen:
+      speciale mappen zoals Verzonden/Sent, Prullenbak/Trash en uiteraard INBOX kunnen
       niet verwijderd worden.
       </p>
    </description>
@@ -60,17 +60,10 @@
       U kunt nieuwe mappen toevoegen door een naam voor de map
       in het tekstveld in te voeren en op de Aanmaken knop te klikken.
       Als u wilt dat deze map een submap wordt van een andere, kunt u
-      die selecteren in de selectielijst met mappen.
+      die selecteren in de selectielijst met mappen. 
+      Alle mappen dienen sowieso een submap van de map Inbox te zijn.
       </p>
-      <p>
-      Op sommige mailservers zijn er twee typen mappen. Een type dat berichten
-      kan bevatten en een ander type dat alleen andere mappen kan bevatten.
-      In dat geval is er een optie "Deze map kan submappen bevatten." Door
-      dat aan te kruisen kan de map die u aanmaakt alleen submappen bevatten
-      en geen berichten. Anders kunt u er alleen berichten in opslaan en geen
-      submappen.
-      </p>
-   </description>
+      </description>
 </section>
 
 <section>

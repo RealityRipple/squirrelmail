@@ -4,13 +4,13 @@
    </title>
    <summary>
       De mogelijkheid e-mailberichten te lezen is een van de basiselementen
-      van een e-mailprogramma. SquirrelMail heeft een aantal functies die u
+      van een e-mailprogramma. Webmail heeft een aantal functies die u
       kunnen helpen bij het lezen van u mail. Hier vindt u uitleg daarover.
    </summary>
    <description>
       <p>
-      Klik op het onderwerp van een e-mailbericht en de inhoud van dat bericht
-      wordt weergegeven. In dit bericht zijn web- en e-mailadressen omgezet in
+      Klik op het onderwerp van een e-mailbericht om de inhoud van dat bericht
+      weer te geven. In dit bericht zijn web- en e-mailadressen omgezet in
       links zodat u erop kunt klikken en de webpagina kunt bekijken of naar dat
       adres een mail kunt versturen.
       Verschillende berichtthreads worden weergegeven met verschillende kleuren.
@@ -59,7 +59,7 @@
    </title>
    <description>
       <p>
-      In het midden van de balk zijn navigatelinks. <I>Vorige</I> is een link als die
+      In het midden van de menubalk zijn navigatielinks. <I>Vorige</I> is een link als die
       gebruikt kan worden en gewone tekst anderszins. Door hier op te klikken gaat
       u direct naar het vorige bericht zonder terug te hoeven keren naar de berichtenlijst.
       Hetzelfde geldt voor de link <I>Volgende</I>.
