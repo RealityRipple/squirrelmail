@@ -97,4 +97,17 @@
       echo "   </TD></TR>";
       echo "</TABLE>";
     }
+
+    function plain_error_message($message) {
+      echo "<BR>";
+      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
+      echo "   <TR>";
+      echo "      <TD BGCOLOR=DCDCDC>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=CC0000><B><CENTER>ERROR</CENTER></B></FONT>";
+      echo "   </TD></TR><TR><TD>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>$message";
+      echo "      </FONT></CENTER>";
+      echo "   </TD></TR>";
+      echo "</TABLE>";
+    }
 ?>
