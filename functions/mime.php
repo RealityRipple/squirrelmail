@@ -526,7 +526,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                         '<A HREF="'.$defaultlink.'">'.decodeHeader($display_filename).'</A>&nbsp;</TD>' .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
-                        "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
+                        '<TD><SMALL>[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]&nbsp;</SMALL></TD>' .
                         '<TD><SMALL>';
         $attachments .= '<b>' . $description . '</b>';
         $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
@@ -558,7 +558,7 @@ function sqimap_base64_decode(&$string) {
     // remove the noise in order to check if the 4 bytes pairs are complete
     $string = str_replace(array("\r\n","\n", "\r", " "),array('','','',''),$string);
 
-    $sStringRem = '';    
+    $sStringRem = '';
     $iMod = strlen($string) % 4;
     if ($iMod) {
         $sStringRem = substr($string,-$iMod);
