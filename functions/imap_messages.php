@@ -171,7 +171,7 @@ function get_parent_level ($imap_stream) {
     } 
     $indent_array = array();
         if (!$thread_new) {
-                $thread_new = array();
+            $thread_new = array();
         }
     /* looping through the parts of one message thread */
     
@@ -190,7 +190,8 @@ function get_parent_level ($imap_stream) {
        to get the indent level
     */
         $level = 0;
-        $spaces = 0;
+        $spaces = array();
+        $spaces_total = 0;
         $indent = 0;
         $fake = FALSE;
         for ($k=1;$k<(count($thread_new[$i]))-1;$k++) {
@@ -200,7 +201,7 @@ function get_parent_level ($imap_stream) {
             }
             if (isset($chars['41'])) {      /* testing for ) */
                 $level = $level - $chars['41'];
-                $spaces = 0;
+                $spaces[$level] = 0;
                 /* if we were faking lets stop, this portion
                    of the thread is over
                 */
@@ -209,9 +210,17 @@ function get_parent_level ($imap_stream) {
                 }
             }
             if (isset($chars['32'])) {      /* testing for space */
-                $spaces = $spaces + $chars['32'];
+                if (!isset($spaces[$level])) {
+                    $spaces[$level] = 0;
+                }
+                $spaces[$level] = $spaces[$level] + $chars['32'];
             }
-            $indent = $level + $spaces;
+            for ($x=0;$x<=$level;$x++) {
+                if (isset($spaces[$x])) {
+                    $spaces_total = $spaces_total + $spaces[$x];
+                }
+            }
+            $indent = $level + $spaces_total;
             /* must have run into a message that broke the thread
                so we are adjusting for that portion
             */
@@ -233,6 +242,7 @@ function get_parent_level ($imap_stream) {
                errors would occur
             */
             $indent_array[$child] = abs($indent);
+            $spaces_total = 0;
         }    
     }
     return $indent_array;
@@ -275,7 +285,9 @@ function get_thread_sort ($imap_stream) {
 	   $server_sort_array = 'no';
 	   return $server_sort_array;
 	}
-    $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+    if (isset($thread_list)) {
+        $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+    }
     $char_count = count($thread_temp);
     $counter = 0;
     $thread_new = array();
