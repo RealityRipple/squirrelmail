@@ -195,12 +195,12 @@ function SendMDN ( $recipient , $sender) {
     $newAttachment = array();
     $newAttachment['localfilename'] = $localfilename;
     $newAttachment['type'] = "message/disposition-notification";
-
+    $newAttachment['session']=-1;
     $attachments[] = $newAttachment;
     $MDN_to = trim($recipient);
     $reply_id = 0;
 
-    return (SendMessage($MDN_to,'','', _("Read:") . ' ' . $subject, $body,$reply_id, True, 3) );
+    return (SendMessage($MDN_to,'','', _("Read:") . ' ' . $subject, $body,$reply_id, True, 3, -1) );
 }
 
 
@@ -219,18 +219,22 @@ function ClearAttachments() {
 
         $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
+	$rem_attachments = array();
         foreach ($attachments as $info) {
-            $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-            if (file_exists($attached_file)) {
-                unlink($attached_file);
-            }
-        }
-
-        $attachments = array();
+	    if ($info->session == -1) {
+        	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        	if (file_exists($attached_file)) {
+            	    unlink($attached_file);
+        	}
+    	    } else {
+		$rem_attachments[] = $info;
+	    }
+	}
+        $attachments = rem_attachments;
 }
 
 function formatRecipientString($recipients, $item ) {
-    global $base_uri, $passed_id, $urlMailbox, $startMessage, $show_more_cc, $echo_more, $echo_less, $show_more, $show_more_bcc;
+    global $base_uri, $passed_id, $urlMailbox, $startMessage, $show_more_cc, $echo_more, $echo_less, $show_more, $show_more_bcc, $sort;
 
     $i = 0;
     $url_string = '';
