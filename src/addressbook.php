@@ -98,13 +98,6 @@
       exit();
    }
 
-   print "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\n";
-   print "<HTML><HEAD><TITLE>\n";
-   printf("%s: %s\n", $org_title, _("Address Book")); 
-   print "</TITLE></HEAD>\n\n";
-
-   printf('<BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-	  $color[8], $color[4], $color[7], $color[7], $color[7]);
    displayPageHeader($color, "None");
 
 

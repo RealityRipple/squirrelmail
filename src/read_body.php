@@ -72,8 +72,6 @@
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
-   echo "<HTML>";
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, $mailbox);
 
    /** translate the subject and mailbox into url-able text **/

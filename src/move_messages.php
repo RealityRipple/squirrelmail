@@ -14,8 +14,6 @@
 
    include("../src/load_prefs.php");
 
-//   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-
    function putSelectedMessagesIntoString($msg) {
       $j = 0;
       $i = 0;
@@ -64,12 +62,10 @@
          if ($auto_forward) {   
             header ("Location: right_main.php");
          } else {
-            echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
             displayPageHeader($color, $mailbox);
             messages_deleted_message($mailbox, $sort, $startMessage, $color);
          }
       } else {
-         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
@@ -96,12 +92,10 @@
          if ($auto_forward) {   
             header ("Location: right_main.php");
          } else {
-            echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
             displayPageHeader($color, $mailbox);
             messages_moved_message($mailbox, $sort, $startMessage, $color);
          }
       } else {
-         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
          displayPageHeader($color, $mailbox);
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }

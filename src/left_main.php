@@ -28,7 +28,7 @@
       include("../functions/i18n.php");
 
 
-   echo "<HTML>";
+   displayHtmlHeader();
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $unseen) {
 		global $folder_prefix, $trash_folder, $sent_folder;

@@ -42,7 +42,21 @@
    if ($default_charset != "")
       header ("Content-Type: text/html; charset=$default_charset");
 
+   function displayHtmlHeader ($title="") {
+      echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
+      echo "\n\n";
+      echo "<HTML>\n";
+      echo "<HEAD>\n";
+      echo "<TITLE>SquirrelMail</TITLE>";
+      echo "</HEAD>\n\n";
+   }
+
    function displayPageHeader($color, $mailbox) {
+      displayHtmlHeader ($color);
+
+      printf('<BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
+             $color[8], $color[4], $color[7], $color[7], $color[7]);
+
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
       $shortBoxName = stripslashes($shortBoxName);
