@@ -215,8 +215,9 @@
          echo "// --></SCRIPT>\n\n";
       }
 
-      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
-      //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\"";
+      do_hook("compose_form");
+	  echo ">\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }                 
