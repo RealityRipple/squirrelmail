@@ -111,7 +111,7 @@ function parseUrl (&$body) {
         /* Find the first token to replace */
         foreach ($url_parser_url_tokens as $the_token) {
             $pos = strpos(strtolower($body), $the_token, $start);
-            if (is_int($pos) && $pos < $blength) {
+            if (is_int($pos) && $pos < $target_pos) {
                 $target_pos   = $pos;
                 $target_token = $the_token;
             }
