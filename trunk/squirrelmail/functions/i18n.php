@@ -1,9 +1,9 @@
 <?php
 
 /**
- * i18n.php
+ * functions/i18n.php
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains variuos functions that are needed to do
@@ -130,56 +130,6 @@ function fixcharset($charset) {
 }
 
 /**
- * 8bit cleanup functions.
- *
- * Replaces all 8 bit characters from ISO-8859 character sets with '?'
- * Legacy function used for unsupported ISO-8859 charsets
- * 
- * @param string $string string that has to be cleaned
- * @return string cleaned string
- */
-function charset_decode_iso_8859_default ($string) {
-    return (strtr($string, "\240\241\242\243\244\245\246\247".
-                    "\250\251\252\253\254\255\256\257".
-                    "\260\261\262\263\264\265\266\267".
-                    "\270\271\272\273\274\275\276\277".
-                    "\300\301\302\303\304\305\306\307".
-                    "\310\311\312\313\314\315\316\317".
-                    "\320\321\322\323\324\325\326\327".
-                    "\330\331\332\333\334\335\336\337".
-                    "\340\341\342\343\344\345\346\347".
-                    "\350\351\352\353\354\355\356\357".
-                    "\360\361\362\363\364\365\366\367".
-                    "\370\371\372\373\374\375\376\377",
-                    "????????????????????????????????????????".
-                    "????????????????????????????????????????".
-                    "????????????????????????????????????????".
-                    "????????"));
-
-}
-
-/**
- * ns_4551_1 decoding function
- *
- * This is the same as ISO-646-NO and is used by some
- * Microsoft programs when sending Norwegian characters
- * 
- * @param string $string
- * @return string 
- */
-function charset_decode_ns_4551_1 ($string) {
-    /*
-     * These characters are:
-     * Latin capital letter AE
-     * Latin capital letter O with stroke
-     * Latin capital letter A with ring above
-     * and the same as small letters
-     */
-    return strtr ($string, "[\\]{|}", "ÆØÅæøå");
-}
-
-
-/**
  * Set up the language to be output
  * if $do_search is true, then scan the browser information
  * for a possible language that we know
@@ -223,8 +173,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
  
     // Catching removed translation
     // System reverts to English translation if user prefs contain translation
-    // that is not available in $languages array (admin removed directory
-    // with that translation)
+    // that is not available in $languages array
     if (!isset($languages[$sm_notAlias])) {
       $sm_notAlias="en_US";
     }
