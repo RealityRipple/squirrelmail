@@ -40,3 +40,12 @@ huttinger@ipact.com
 Modifications by Tyler Akins to support changing the title bar and for the
 new 1.1.1 validate.php format.  Also uses the new sqimap_unseen_messages()
 function in 1.1.2
+
+-----------------------------------------
+
+Modification by Wouter Teepe from Seth Randall...
+to disallow the use of audio, change 
+    $allowsound = "true";
+to 
+    $allowsound = "false";
+on line 33 of newmail_opt.php
