@@ -90,7 +90,7 @@ class POP3 {
             return false;
         }
 
-        $fp = fsockopen("$server", $port, $errno, $errstr);
+        $fp = @fsockopen("$server", $port, $errno, $errstr);
 
         if(!$fp) {
             $this->ERROR = _("POP3 connect:") . ' ' . _("Error ") . "[$errno] [$errstr]";
