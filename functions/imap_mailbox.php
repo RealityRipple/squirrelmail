@@ -163,13 +163,7 @@
       return $boxes;
    }
 
-   /* patch from dave_michmerhuizen@yahoo.com
-    * allows case insensativity when sorting folders
-    */
-   function _icmp ($a, $b) {
-      return strcasecmp($a, $b);
-   }
-   
+
    /******************************************************************************
     **  Returns sorted mailbox lists in several different ways.
     **  See comment on sqimap_mailbox_parse() for info about the returned array.
@@ -210,7 +204,7 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-         usort($sorted_lsub_ary, "_icmp");
+         usort($sorted_lsub_ary, "strcasecmp");
          //sort($sorted_lsub_ary);
       }   
 
