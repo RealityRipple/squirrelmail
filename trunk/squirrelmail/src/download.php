@@ -146,9 +146,6 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
  * attachment in case of ERROR reporting = E_ALL and the output is the screen */
 mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
 
-$message = &$message->getEntity('');
-$messages[$mbx_response['UIDVALIDITY']]["$passed_id"] = &$message;
-
 /*
  * This function is verified to work with Netscape and the *very latest*
  * version of IE.  I don't know if it works with Opera, but it should now.
