@@ -11,11 +11,13 @@
     **  $Id$
     **    
     **/
-    
-   chdir ('../');
-   require_once('../src/validate.php');
-   require_once('../src/load_prefs.php');
-   require_once('../functions/page_header.php');
+   chdir('..');
+   define('SM_PATH','../');
+
+    /* SquirrelMail required files. */
+   require_once(SM_PATH . 'include/validate.php');
+   require_once(SM_PATH . 'src/load_prefs.php');
+   require_once(SM_PATH . 'functions/page_header.php');
 
    displayHtmlHeader( _("New Mail"), '', FALSE );
 
