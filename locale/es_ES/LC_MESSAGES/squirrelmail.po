@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-24 14:51+0100\n"
+"POT-Creation-Date: 2002-01-24 14:55+0100\n"
 "PO-Revision-Date: 2002-01-19 12:19CET\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: Spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -3760,6 +3760,10 @@ msgstr "Borrar y Atrás"
 msgid "Delete & Next"
 msgstr "Borrar y Adelante"
 
+#: squirrelmail/plugins/delete_move_next/setup.php:289
+msgid "delete_move_next:"
+msgstr "Borrar_mover_siguiente:"
+
 #: squirrelmail/plugins/delete_move_next/setup.php:295
 msgid "display at top"
 msgstr "mostrar arriba"
@@ -3767,7 +3771,7 @@ msgstr "mostrar arriba"
 #: squirrelmail/plugins/delete_move_next/setup.php:301
 #: squirrelmail/plugins/delete_move_next/setup.php:313
 msgid "with move option"
-msgstr "movel"
+msgstr "activar mover"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:307
 msgid "display at bottom"
