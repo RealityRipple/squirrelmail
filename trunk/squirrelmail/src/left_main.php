@@ -186,6 +186,8 @@
 		if ($boxes[$i]['parent'])
 		    $line .= FoldLink($boxes[$i]['unformatted'], 
 		        $boxes[$i]['parent']);
+		else
+		    $line .= '&nbsp;&nbsp;';
 		$line .= str_replace(' ', '&nbsp;', $regs[2]);
 	    }
             $line .= '</FONT>';
