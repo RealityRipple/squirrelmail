@@ -527,4 +527,33 @@ function translate_form_dictionary($message) {
 
   translate_table_end();
 }
+
+function translate_form_otenet($message) {
+    translate_new_form('http://systran.otenet.gr/cgi-bin/systran.cgi');
+?>
+    <input type="hidden" name="doit" value="done">
+    <INPUT NAME="partner" VALUE="OTEnet-en" type="hidden">
+    <input type="hidden" name="urltext" value="<?php echo $message; ?>">
+    <select name="lp" size="1"><?php
+        echo translate_lang_opt('en',  'el',  'en_el',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Greek"))) .
+             translate_lang_opt('el',  'en',  'el_en',
+                                sprintf( _("%s to %s"),
+                                         _("Greek"), 
+                                         _("English"))) .
+	     translate_lang_opt('fr',  'el',  'fr_el',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("Greek"))) .
+	     translate_lang_opt('el',  'fr',  'el_fr',
+                                sprintf( _("%s to %s"),
+                                         _("Greek"),
+                                         _("French"))) ;
+    echo '</select>'.
+         'OTEnet: <input type="Submit" value="' . _("Translate") . '">';
+    translate_table_end();
+
+}
 ?>
