@@ -557,11 +557,6 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
     $tmp = fgets($smtpConnection, 1024);
     $num = errorCheck($tmp, $smtpConnection, true);
     if ($num != 250) {
-        $tmp = nl2br(htmlspecialchars($tmp));
-        displayPageHeader($color, 'None');
-        include_once('../functions/display_messages.php');
-        $msg  = "Message not sent!<br>\nReason given: $tmp";
-        plain_error_message($msg, $color);
         return(0);
     }
     
@@ -574,7 +569,7 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
 
 
 function errorCheck($line, $smtpConnection, $verbose = false) {
-    global $color;
+    global $color, $compose_new_win;
     
     /* Read new lines on a multiline response */
     $lines = $line;
@@ -666,7 +661,12 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
     
     if ($status == 0) {
         include_once('../functions/page_header.php');
-        displayPageHeader($color, 'None');
+        if ($compose_new_win == '1') {
+            compose_Header($color, 'None');
+        }
+		else {
+            displayPageHeader($color, 'None');
+        }
         include_once('../functions/display_messages.php');
         $lines = nl2br(htmlspecialchars($lines));
         $msg  = $message . "<br>\nServer replied: $lines";
