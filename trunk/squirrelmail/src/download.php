@@ -92,7 +92,10 @@ if (is_object($message->header->disposition)) {
     if (!$filename) {
         $filename = decodeHeader($header->getParameter('name'));
     }    
+} else {
+    $filename = decodeHeader($header->getParameter('name'));
 }
+
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
