@@ -204,7 +204,7 @@
 
       /** LSUB array **/
       $inbox_subscribed = false;
-      fputs ($imap_stream, "a001 LSUB \"\" \"*%\"\r\n");
+      fputs ($imap_stream, "a001 LSUB \"$folder_prefix\" \"*%\"\r\n");
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       /** OS: we don't want to parse last element of array, 'cause it is OK command, so we unset it **/
