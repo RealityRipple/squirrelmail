@@ -409,6 +409,7 @@
        $mailbox = '', $sort = -1, $Message = '', $More = '')
    {
       global $color, $index_order, $auto_expunge, $move_to_trash;
+		$urlMailbox = urlencode($mailbox);
 
          /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
