@@ -132,6 +132,7 @@ function savePrefValues($data_dir, $username) {
     }
     @unlink($filename . '.tmp');
     chmod($filename, 0600);
+    sqsession_register($prefs_cache , 'prefs_cache');
 }
 
 /**
