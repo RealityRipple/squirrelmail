@@ -266,7 +266,9 @@
          $line = str_replace(">", "&gt;", $line);
       }
 
-//      $line = wordWrap($line);
+      $wrap_at = 80; // Make this configurable int the config file some time
+      if (strlen($line) - 2 >= $wrap_at) // -2 because of the ^^ at the beginning
+         $line = wordWrap($line, $wrap_at);
       $line = str_replace(" ", "&nbsp;", $line);
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
 
