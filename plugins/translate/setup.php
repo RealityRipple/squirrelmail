@@ -550,6 +550,71 @@ function translate_form_otenet($message) {
 	     translate_lang_opt('el',  'fr',  'el_fr',
                                 sprintf( _("%s to %s"),
                                          _("Greek"),
+                                         _("French"))) .
+	     translate_lang_opt('#',  '',  '', "----------------") .
+	     translate_lang_opt('en',  'fr',  'en_fr',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("French"))) .
+	     translate_lang_opt('fr',  'en',  'fr_en',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("English"))) .
+	     translate_lang_opt('en',  'de',  'en_de',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("German"))) .
+	     translate_lang_opt('de',  'en',  'de_en',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("English"))) .
+	     translate_lang_opt('en',  'es',  'en_es',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Spanish"))) .
+	     translate_lang_opt('es',  'en',  'es_en',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("English"))) .
+	     translate_lang_opt('en',  'it',  'en_it',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Italian"))) .
+	     translate_lang_opt('it',  'en',  'it_en',
+                                sprintf( _("%s to %s"),
+                                         _("Italian"),
+                                         _("English"))) .
+	     translate_lang_opt('en',  'pt',  'en_pt',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Portuguese"))) .
+	     translate_lang_opt('pt',  'en',  'pt_en',
+                                sprintf( _("%s to %s"),
+                                         _("Portuguese"),
+                                         _("English"))) .
+	     translate_lang_opt('fr',  'de',  'fr_de',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("German"))) .
+	     translate_lang_opt('de',  'fr',  'de_fr',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("French"))) .
+	     translate_lang_opt('fr',  'es',  'fr_es',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("Spanish"))) .
+	     translate_lang_opt('es',  'fr',  'es_fr',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("French"))) .
+	     translate_lang_opt('fr',  'nl',  'fr_nl',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("Dutch"))) .
+	     translate_lang_opt('nl',  'fr',  'nl_fr',
+                                sprintf( _("%s to %s"),
+                                         _("Dutch"),
                                          _("French"))) ;
     echo '</select>'.
          'OTEnet: <input type="Submit" value="' . _("Translate") . '">';
