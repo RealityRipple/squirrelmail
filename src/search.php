@@ -155,10 +155,10 @@ $boxes = sqimap_mailbox_list($imapConnection);
 //	set current mailbox to INBOX if none was selected or if page
 //	was called to search all folders.
 
-if ($mailbox == 'None' || $mailbox == "" ) {
+if ($mailbox == 'None' || $mailbox == '' ) {
     $mailbox = $boxes[0]['unformatted'];
 }
-if ($mailbox == "All Folders") {
+if ($mailbox == 'All Folders') {
     $search_all = "all";
 }
 
@@ -287,7 +287,7 @@ if ($recent_count > 0) {
 }
 
 /* Search Form */
-echo '<B>Current Search</B>'
+echo '<B>' . _("Current Search") . '</B>'
    . '<FORM ACTION="search.php" NAME=s>'
    . '   <TABLE WIDTH="95%" CELLPADDING=0 CELLSPACING=0>'
    . '     <TR>'
@@ -296,6 +296,9 @@ for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noselect', $boxes[$i]['flags'])) {
         $box = $boxes[$i]['unformatted'];
         $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+        if( $box2 == 'INBOX' ) {
+            $box2 = _("INBOX");
+        }        
         if ($mailbox == $box) {
             echo "         <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
         }

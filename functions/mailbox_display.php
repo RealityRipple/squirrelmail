@@ -522,9 +522,12 @@ function mail_message_listing_beginning
 
     $boxes = sqimap_mailbox_list($imapConnection);
     for ($i = 0; $i < count($boxes); $i++) {
-        if (!in_array("noselect", $boxes[$i]['flags'])) {
+        if (!in_array('noselect', $boxes[$i]['flags'])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+            if( $box2 == 'INBOX' ) {
+                $box2 = _("INBOX");
+            }
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
