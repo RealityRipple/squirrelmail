@@ -29,11 +29,14 @@
    Korean        Jong-II Kim <aporie@netian.com>
    Czech         Ondrej Sury <ondrej@sury.cz>
    Catalan       Josep Sanz <jsanz@fa.upc.es>
+   Serbian       Boris Manojlovic <steki@verat.net>
 
  Significant Contributions:
  --------------------------
    i18n support:        Sergiusz Pawlowicz 
    SquirrelMail logo:   Libor Kopecky <libor@globe.cz>
+   Web Site Admin/PR:   Paul Joseph Thompson <thomppj@okstate.edu>
+   FAQ Maintenance:     Peter Hutnick <peter@hutnick.com>
 
    Code contributions:  Konstantin Riabitsev <graf@relhum.org>
                         Alex Bleeker <beheer@hackers.nl>
@@ -42,3 +45,7 @@
                         Ondrej Sury <ondrej@globe.cz>
                         Damien Sandras <dsandras@acm.org>
                         Many others...
+
+(We have tried to keep this up to date to give credit where it is due.
+If you feel that you have wrongfully been left off this list, contact
+luke@squirrelmail.org)
