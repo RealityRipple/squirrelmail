@@ -25,6 +25,9 @@
    $urlMailbox = urlencode($mailbox);
    $url_replyto = urlencode($message["HEADER"]["REPLYTO"]);
 
+   $url_replytoall   = urlencode($message["HEADER"]["REPLYTO"]);
+   $url_replytoallcc = urlencode(getLineOfAddrs($message["HEADER"]["TO"]) . ", " . getLineOfAddrs($message["HEADER"]["CC"]));
+
    $dateString = getLongDateString($message["HEADER"]["DATE"]);
 
    /** FORMAT THE TO STRING **/
@@ -86,13 +89,14 @@
    echo "         <TR>";
    echo "            <TD ALIGN=LEFT WIDTH=50%>";
    echo "               <FONT FACE=\"Arial,Helvetica\" SIZE=2>";
-   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">Message List</A>&nbsp;&nbsp;";
+   echo "               <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">Message List</A>&nbsp;|&nbsp;";
    echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">Delete</A>&nbsp;&nbsp;";
    echo "               </FONT>";
    echo "            </TD><TD WIDTH=50% ALIGN=RIGHT>";
    echo "               <FONT FACE=\"Arial,Helvetica\" SIZE=2>";
-   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">Forward</A>&nbsp;&nbsp;";
-   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">Reply</A>&nbsp;&nbsp;";
+   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox\">Forward</A>&nbsp;|&nbsp;";
+   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">Reply</A>&nbsp;|&nbsp;";
+   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox\">Reply All</A>&nbsp;&nbsp;";
    echo "               </FONT>";
    echo "            </TD>";
    echo "         </TR>";
