@@ -1,11 +1,13 @@
 <?php
 
-
 /**
  * simple_green_theme.php
  *    Name:   Simple-Green
  *    Author: Paul Lesneiwski
  *    Date:   2004/09/20
+ * @version $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;

@@ -5,6 +5,9 @@
  *    Name:   Silver-Steel
  *    Author: Pavel Spatny
  *    Date:   2004/11/16
+ * @version $Id$
+ * @package squirrelmail
+ * @subpackage themes
  */
 
 global $color;
