@@ -831,15 +831,14 @@ function mail_message_listing_beginning ($imapConnection,
                     // display flag buttons only if supported
                     if ($show_flag_buttons && $mbxresponse != NULL && 
                         strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
+                        echo getButton('SUBMIT', 'markUnflagged',_("Un"));
                         echo getButton('SUBMIT', 'markFlagged',_("Flag"));
                         echo '&nbsp;';
-                        echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
-                        echo '&nbsp;';
                     }
+                    echo getButton('SUBMIT', 'markUnread',_("Un"));
                     echo getButton('SUBMIT', 'markRead',_("Read"));
                     echo '&nbsp;';
-                    echo getButton('SUBMIT', 'markUnread',_("Unread"));
-                    echo '&nbsp;';
+
                     echo getButton('SUBMIT', 'attache',_("Forward"));
                     echo '&nbsp;';
                     echo getButton('SUBMIT', 'delete',_("Delete"));
@@ -1054,12 +1053,7 @@ function get_selectall_link($start_msg, $sort, $mailbox) {
                     .  '&amp;what=' . urlencode($what);
         }
         $result .= "\">";
-
-        if (isset($checkall) && ($checkall == '1')) {
-            $result .= _("Unselect All");
-        } else {
-            $result .= _("Select All");
-        }
+        $result .= _("All");
         $result .= "</A>\n";
     }
 
@@ -1372,8 +1366,13 @@ function getMbxList($imapConnection, $boxes = 0) {
     echo '         </SELECT></TT>&nbsp;';
 }
 
-function getButton($type, $name, $value) {
-    return '<INPUT TYPE="'.$type.'" NAME="'.$name.'" VALUE="'.$value . '" style="padding: 0px; margin: 0px">';
+function getButton($type, $name, $value, $enabled = TRUE) {
+    $disabled = ( $enabled ? '' : 'disabled ' );
+    return '<INPUT '.$disabled.
+               'TYPE="'.$type.
+             '" NAME="'.$name.
+            '" VALUE="'.$value .
+            '" style="padding: 0px; margin: 0px">';
 }
 
 function getSmallStringCell($string, $align) {

@@ -25,32 +25,30 @@ sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
-sqgetGlobalVar('message', $message, SQ_GET);
+sqgetGlobalVar('message', $message, SQ_FORM);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
-sqgetGlobalVar('bypass_trash', $bypass_trash, SQ_GET);
+sqgetGlobalVar('bypass_trash', $bypass_trash, SQ_FORM);
 
 /* end globals */
 
-if (isset($_GET['saved_draft'])) {
-    $saved_draft = urlencode($_GET['saved_draft']);
+if (sqGetGlobalVar('saved_draft', $tmp, SQ_GET)) {
+    $saved_draft = urlencode($tmp);
 }
-if (isset($_GET['mail_sent'])) {
-    $mail_sent = urlencode($_GET['mail_sent']);
+if (sqGetGlobalVar('mail_sent', $tmp, SQ_GET)) {
+    $mail_sent = urlencode($tmp);
 }
-if (isset($_GET['sort'])) {
-	$sort = (int) $_GET['sort'];
+if (sqGetGlobalVar('where', $tmp, SQ_FORM)) {
+    $where = urlencode($tmp);
 }
-
-if (isset($_GET['startMessage'])) {
-	$startMessage = (int) $_GET['startMessage'];
+if (sqGetGlobalVar('what', $tmp, SQ_FORM)) {
+    $what = urlencode($tmp);
 }
-
-if(isset($_GET['where'])) {
-    $where = urlencode($_GET['where']);
+if (sqGetGlobalVar('sort', $tmp, SQ_FORM)) {
+	$sort = (int) $tmp;
 }
-if(isset($_GET['what'])) {
-    $what = urlencode($_GET['what']);
+if (sqGetGlobalVar('startMessage', $tmp, SQ_FORM)) {
+	$startMessage = (int) $tmp;
 }
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

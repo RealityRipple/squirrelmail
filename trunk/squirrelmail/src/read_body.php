@@ -495,12 +495,6 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
     $urlMailbox = urlencode($mailbox);
 
-    $comp_uri = 'src/compose.php' .
-                '?passed_id=' . $passed_id .
-                '&amp;mailbox=' . $urlMailbox .
-                '&amp;startMessage=' . $startMessage .
-                 (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
-
     $msgs_url = $base_uri . 'src/';
 
     // BEGIN NAV ROW - PREV/NEXT, DEL PREV/NEXT, LINKS TO INDEX, etc.
@@ -620,56 +614,57 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     // BEGIN MENU ROW - DELETE/REPLY/FORWARD/MOVE/etc.
     $menu_row = '<tr bgcolor="'.$color[9].'"><td><small>';
 
+    // Start form for reply/reply all/forward.. 
+    $comp_uri = $base_uri.'src/compose.php' .
+                '?passed_id=' . $passed_id .
+                '&amp;mailbox=' . $urlMailbox .
+                '&amp;startMessage=' . $startMessage .
+                 (isset($passed_ent_id) ? '&amp;passed_ent_id='.$passed_ent_id : '');
+    $menu_row .= '<form action="'.$comp_uri.'" method="post"><small>';
+
     // If Draft folder - create Resume link
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
-        $comp_alt_uri = $comp_uri . '&amp;smaction=draft';
+        $new_button = 'draft';
         $comp_alt_string = _("Resume Draft");
     } else if (handleAsSent($mailbox)) {
     // If in Sent folder, edit as new
-        $comp_alt_uri = $comp_uri . '&amp;smaction=edit_as_new';
+        $new_button = 'edit_as_new';
         $comp_alt_string = _("Edit Message as New");
     }
-
     // Show Alt URI for Draft/Sent
-    if (isset($comp_alt_uri)) {
-        $menu_row .= makeComposeLink($comp_alt_uri, $comp_alt_string);
-        $menu_row .= $topbar_delimiter . "\n";
-    }
+    if (isset($comp_alt_string))
+        $menu_row .= getButton('SUBMIT', $new_button, $comp_alt_string) . "\n";
 
-    $comp_action_uri = $comp_uri . '&amp;smaction=reply';
-    $menu_row .= makeComposeLink($comp_action_uri, _("Reply")) . "\n";
+    $menu_row .= getButton('SUBMIT', 'smaction_reply', _("Reply"));
+    $menu_row .= '&nbsp;'.getButton('SUBMIT', 'smaction_reply_all', _("Reply All"));
+    $menu_row .= '&nbsp;'.getButton('SUBMIT', 'smaction_forward', _("Forward"));
 
-    $comp_action_uri = $comp_uri . '&amp;smaction=reply_all';
-    $menu_row .= $topbar_delimiter;
-    $menu_row .= makeComposeLink($comp_action_uri, _("Reply All")) . "\n";
+    if ($enable_forward_as_attachment)
+        $menu_row .= '<input type="checkbox" name="smaction_attache">' . _("Attachment");
 
+    $menu_row .= '</form>'.'&nbsp;&nbsp;';
 
-    $comp_action_uri = $comp_uri . '&amp;smaction=forward';
-    $menu_row .= $topbar_delimiter;
-    $menu_row .= makeComposeLink($comp_action_uri, _("Forward")) . "\n";
+    // Form for deletion
+    $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
+    $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline"><small>';
 
-    if ($enable_forward_as_attachment) {
-        $comp_action_uri = $comp_uri . '&amp;smaction=forward_as_attachment';
-        $menu_row .= $topbar_delimiter;
-        $menu_row .= makeComposeLink($comp_action_uri, _("Forward as Attachment")) . "\n";
-    }
-
-    $delete_link = _("Delete");
     if (!(isset($passed_ent_id) && $passed_ent_id)) {
-        $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox .
-                  '&amp;message=' . $passed_id . '&amp;';
+        $menu_row .= '<input type="hidden" name="message" value="'.$passed_id.'" />';
 
         if ($where && $what) {
-            $delete_url .= 'where=' . urlencode($where) . '&amp;what=' . urlencode($what);
+            $menu_row .= '<input type="hidden" name="where" value="'.$where.'" />';
+            $menu_row .= '<input type="hidden" name="what" value="'.$what.'" />';
         } else {
-            $delete_url .= 'sort=' . $sort . '&amp;startMessage=' . $startMessage;
+            $menu_row .= '<input type="hidden" name="sort" value="'.$sort.'" />';
+            $menu_row .= '<input type="hidden" name="startMessage" value="'.$startMessage.'" />';
         }
-        $delete_link = '<a href="' . $delete_url . '">' . $delete_link . '</a>';
-        $delete_link .= '&nbsp;(<a href="' . $delete_url.'&amp;bypass_trash=1">'
-                        ._("Bypass Trash").'</a>)';
-        
+        $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
+        $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
     }
-    $menu_row .= $topbar_delimiter.$delete_link . "\n";
+    else
+      $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), FALSE) . "\n"; // delete button is disabled
+
+    $menu_row .= '</form>' . "\n";
 
 
     // Add top move link
