@@ -534,7 +534,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                 $start_msg, $sort, $color, $show_num,
                                 $use_cache, $mode='') {
     global $msgs, $msort, $auto_expunge, $thread_sort_messages,
-           $allow_server_sort, $server_sort_order;
+           $disable_server_sort, $server_sort_order;
 
     /*
      * For some reason, on PHP 4.3+, this being unset, and set in the session causes havoc
@@ -548,6 +548,10 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
     if (!isset($msgs)) {
         $msgs = array();
+    }
+
+    if (!isset(disable_server_sort)) {
+        $disable_server_sort = false;
     }
 
     //$start = microtime();
@@ -581,7 +585,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
         if ($thread_sort_messages == 1) {
             $mode = 'thread';
-        } elseif ($allow_server_sort == 1) {
+        } elseif (sqimap_capabilty($imapConnection,'SORT') && !$disable_server_sort == 1) {
             $mode = 'serversort';
         } else {
             $mode = '';
