@@ -16,8 +16,10 @@
    define('load_prefs_php', true);
 
    global $theme, $chosen_theme, $color;
-   $theme = array();
-   $color = array();
+   if (! isset($theme))
+      $theme = array();
+   if (! isset($color))
+      $color = array();
    include('../src/validate.php');
    include("../config/config.php");
    include("../functions/prefs.php");
@@ -42,7 +44,7 @@
    if (isset($chosen_theme) && $in_ary && (file_exists($chosen_theme))) {
       @include($chosen_theme);
    } else {
-      if (file_exists($theme[0]["PATH"])) {
+      if (file_exists(isset($theme) && isset($theme[0]) && $theme[0]["PATH"])) {
          @include($theme[0]["PATH"]);
       } else {
           #
