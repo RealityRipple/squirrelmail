@@ -53,6 +53,7 @@ Version 1.5.1 -- CVS
   - Added address book sorting options. Ascending/descending sorting code 
     written by Bryan Loniewski.
   - Use Special Folder Color config option works again (#931956).
+  - In POP3-class, be more liberal regarding RFC-incompliant POP3-servers.
 
 Version 1.5.0
 --------------------
