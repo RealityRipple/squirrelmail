@@ -25,6 +25,7 @@ function parseConfig( $cfg_file ) {
         do {
             // Remove comments
             $c = trim( $cfg[$i] );
+            // This is not correct. We should extract strings before removing comments.
             $c = preg_replace( '/\/\*.*\*\//', '', $c );
             $c = preg_replace( '/#.*$/', '', $c );
             $c = preg_replace( '/\/\/.*$/', '', $c );
