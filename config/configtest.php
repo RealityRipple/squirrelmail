@@ -216,7 +216,7 @@ echo "Checking IMAP service....<br />\n";
 $stream = fsockopen( ($use_imap_tls?'tls://':'').$imapServerAddress, $imapPort,
                        $errorNumber, $errorString);
 if(!$stream) {
-    do_err("Error connecting to SMTP server \"$smtpServerAddress:$smtpPort\".".
+    do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
         "Server error: ($errorNumber) $errorString");
 }
 
