@@ -24,6 +24,12 @@
  * $Id$
  */
 
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'plugins/filters/filters.php');
+
 /*
  * Set this to true if you have problems -- check the README file
  * Note:  This doesn't work all of the time (No idea why)
@@ -96,8 +102,6 @@ $SpamFilters_SharedCache = true;
  */
 global $SpamFilters_CacheTTL;
 $SpamFilters_CacheTTL = 7200;
-
-require_once ('../plugins/filters/filters.php');
 
 function squirrelmail_plugin_init_filters() {
     global $squirrelmail_plugin_hooks;

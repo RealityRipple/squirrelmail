@@ -1,25 +1,29 @@
 <?php
-  /**
-   **  take.php
-   **	
-   **	Adds a "taken" address to the address book.  Takes addresses from
-   **   incoming mail -- the body, To, From, Cc, or Reply-To.
-   **/
-   
-   chdir('..');
-   require_once('../src/validate.php');
-   require_once("../functions/strings.php");
-   require_once("../config/config.php");
-   require_once("../functions/i18n.php");
-   require_once("../functions/page_header.php");
-   require_once("../functions/addressbook.php");
-   require_once("../src/load_prefs.php");
-   require_once('../functions/html.php');
-   
-   displayPageHeader($color, "None");
-   
-   $abook_take_verify = getPref($data_dir, $username, 'abook_take_verify');
 
+  /**
+   * take.php
+   *
+   * Adds a "taken" address to the address book.  Takes addresses from
+   * incoming mail -- the body, To, From, Cc, or Reply-To.
+   */
+   
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/i18n.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/addressbook.php');
+require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'functions/html.php');
+   
+displayPageHeader($color, 'None');
+  
+$abook_take_verify = getPref($data_dir, $username, 'abook_take_verify');
 
 $abook = addressbook_init(false, true);
 $name = 'addaddr';

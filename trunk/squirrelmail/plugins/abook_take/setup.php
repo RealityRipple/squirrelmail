@@ -1,7 +1,10 @@
 <?php
 
-   require_once('../functions/url_parser.php');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../../');
 
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'functions/url_parser.php');
 
 /* Address Take -- steals addresses from incoming email messages.  Searches
    the To, Cc, From and Reply-To headers, also searches the body of the

@@ -13,9 +13,6 @@
  * messages with a session_register.
  */
  
-/* Path for SquirrelMail required files. */
-define('SM_PATH','../');
-
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'class/mime.class.php');
 
@@ -82,7 +79,7 @@ unset($theme);
 $theme=array();
 
 require_once(SM_PATH . 'config/config.php');
-require_once(SM_PATH . 'src/load_prefs.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/prefs.php');
 

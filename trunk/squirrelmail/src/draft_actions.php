@@ -13,7 +13,7 @@
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'src/validate.php');
+require_once(SM_PATH . 'include/validate.php');
 
 /* Print all the needed RFC822 headers */
 function write822HeaderForDraft ($fp, $t, $c, $b, $subject, $more_headers, $session) {
