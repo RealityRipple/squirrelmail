@@ -21,7 +21,9 @@ include_once(SM_PATH . 'functions/display_messages.php');
 function cachePrefValues($data_dir, $username) {
     global $prefs_are_cached, $prefs_cache;
 
+    sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
     if ( isset($prefs_are_cached) && $prefs_are_cached) {
+    	sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
         return;
     }
 
@@ -261,3 +263,5 @@ function getSig($data_dir, $username, $number) {
     }
     return $sig;
 }
+
+// vim: et ts=4

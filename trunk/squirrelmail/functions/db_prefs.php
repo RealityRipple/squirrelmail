@@ -56,7 +56,9 @@ global $prefs_are_cached, $prefs_cache;
 function cachePrefValues($username) {
     global $prefs_are_cached, $prefs_cache;
 
+    sqgetGlobalVar('prefs_are_cached', $prefs_are_cached, SQ_SESSION );
     if ($prefs_are_cached) {
+        sqgetGlobalVar('prefs_cache', $prefs_cache, SQ_SESSION );
         return;
     }
 
