@@ -11,69 +11,53 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
 require_once('../functions/prefs.php');
 require_once('../functions/plugin.php');
 require_once('../functions/strings.php');
 
-   // Erase any lingering attachments
-   if (! isset($attachments)) {
-       $attachments = array();
-   }
-   $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-   foreach ($attachments as $info) {
-       $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-       if (file_exists($attached_file)) {
-           unlink($attached_file);
-       }
-   }
+/* Erase any lingering attachments */
+if (! isset($attachments)) {
+    $attachments = array();
+}
+$hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+foreach ($attachments as $info) {
+    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+    if (file_exists($attached_file)) {
+        unlink($attached_file);
+    }
+}
 
-   if (!isset($frame_top)) {
-        $frame_top = '_top';
-   }
+if (!isset($frame_top)) {
+     $frame_top = '_top';
+}
 
-   // If a user hits reload on the last page, $base_uri isn't set
-   // because it was deleted with the session.
-   if (! isset($base_uri)) {
-       ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-       $base_uri = $regs[1];
-   }
+/* If a user hits reload on the last page, $base_uri isn't set
+ * because it was deleted with the session. */
+if (! isset($base_uri)) {
+    ereg ('(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
+    $base_uri = $regs[1];
+}
 
-   do_hook('logout');
-   setcookie('username', '', 0, $base_uri);
-   setcookie('key', '', 0, $base_uri);
-   session_destroy();
+do_hook('logout');
+setcookie('username', '', 0, $base_uri);
+setcookie('key', '', 0, $base_uri);
+session_destroy();
 
-   if ($signout_page) {
-       header("Status: 303 See Other");
-       header("Location: $signout_page");
-       exit; /* we send no content if we're redirecting. */
-   }
+if ($signout_page) {
+    header('Status: 303 See Other');
+    header("Location: $signout_page");
+    exit; /* we send no content if we're redirecting. */
+}
 ?>
 <HTML>
    <HEAD>
 <?php
-   if ($theme_css != '') {
+    if ($theme_css != '') {
 ?>
 <LINK REL="stylesheet" TYPE="text/css" HREF="<?php echo $theme_css ?>">
 <?php
-   }
+    }
 ?>
 <TITLE><?php echo $org_title ?> - Signout</TITLE>
 </HEAD>
