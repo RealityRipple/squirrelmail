@@ -30,7 +30,7 @@ if(! sqgetGlobalVar('mf_action', $mf_action, SQ_POST) ) {
     $mf_action = 'config';
 }
 
-sqgetGlobalVar('mf_sn',            $mf_an,            SQ_POST);
+sqgetGlobalVar('mf_sn',            $mf_sn,            SQ_POST);
 sqgetGlobalVar('mf_server',        $mf_server,        SQ_POST);
 sqgetGlobalVar('mf_port',          $mf_port,          SQ_POST);
 sqgetGlobalVar('mf_alias',         $mf_alias,         SQ_POST);
@@ -92,16 +92,26 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             $mailfetch_server_number--;
             for ($i=$mf_sn;$i<$mailfetch_server_number;$i++) {
                 $tmp=$i+1;
-                setPref($data_dir,$username,"mailfetch_server_$i", getPref($data_dir, $username, "mailfetch_server_$tmp"));
-                setPref($data_dir,$username,"mailfetch_port_$i", getPref($data_dir,$username, "mailfetch_port_$tmp"));
-                setPref($data_dir,$username,"mailfetch_alias_$i", getPref($data_dir, $username, "mailfetch_alias_$tmp"));
-                setPref($data_dir,$username,"mailfetch_user_$i", getPref($data_dir, $username, "mailfetch_user_$tmp"));
-                setPref($data_dir,$username,"mailfetch_pass_$i",(isset($mf_pass)?encrypt( $mf_pass ) :""));
-                // if( $mf_cypher <> 'on' ) setPref($data_dir,$username,"mailfetch_cypher", 'on');
-                setPref($data_dir,$username,"mailfetch_lmos_$i", getPref($data_dir, $username, "mailfetch_lmos_$tmp"));
-                setPref($data_dir,$username,"mailfetch_login_$i", getPref($data_dir, $username, "mailfetch_login_$tmp"));
-                setPref($data_dir,$username,"mailfetch_fref_$i", getPref($data_dir, $username, "mailfetch_fref_$tmp"));
-                setPref($data_dir,$username,"mailfetch_subfolder_$i", getPref($data_dir, $username, "mailfetch_subfolder_$tmp"));
+                setPref($data_dir,$username,'mailfetch_server_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_server_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_port_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_port_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_alias_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_alias_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_user_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_user_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_pass_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_pass_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_lmos_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_lmos_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_login_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_login_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_fref_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_fref_'.$tmp));
+                setPref($data_dir,$username,'mailfetch_subfolder_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_subfolder_'.$tmp));
+		setPref($data_dir,$username,'mailfetch_uidl_'.$i,
+                    getPref($data_dir,$username, 'mailfetch_uidl_'.$tmp));
             }
             setPref($data_dir,$username,"mailfetch_server_number", $mailfetch_server_number);
         }
