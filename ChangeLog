@@ -1,5 +1,7 @@
 Version 0.5 -- DEVELOPMENT
 --------------------------
+- Fixed some problems with downloading attachments in IE
+- If no date is set in header, we take internal date of the imap server
 - Fixed some lingering bugs in mime parsing 
 - Searching specifies CHARSET option
 - Security fixes
