@@ -515,19 +515,17 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
 
+      echo  "<table bgcolor=\"$color[4]\" cellpadding=2".
+           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>' .
+           "$More</td><td align=right>";
+      ShowSelectAllLink($startMessage, $sort);
+      echo "</td></tr></table>\n</td></tr>";
+
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
-
-
-      echo "<tr  bgcolor=\"$color[4]\"><td colspan=3>\n" .
-           "<table bgcolor=\"$color[4]\" cellpadding=2".
-           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>' .
-           "$More</td><td align=right>";
-      ShowSelectAllLink($startMessage, $sort);
-      echo "</td></tr></table>\n</td></tr>";
 
       echo "   <TR>\n" .
            "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
@@ -652,8 +650,8 @@ function CheckAll() {
     }
   }
 }
-window.document.write('<input type=button onClick="CheckAll();" value="<?php echo
- _("Toggle All") ?>">');
+window.document.write('<a href=# onClick="CheckAll();"><?php echo
+ _("Toggle All") ?></a>');
 //-->
 </script><noscript>
 <?PHP
