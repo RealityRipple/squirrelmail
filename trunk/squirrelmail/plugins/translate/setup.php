@@ -28,7 +28,6 @@ function squirrelmail_plugin_init_translate() {
 
   $squirrelmail_plugin_hooks['read_body_bottom']['translate'] = 'translate_read_form';
   $squirrelmail_plugin_hooks['optpage_register_block']['translate'] = 'translate_optpage_register_block';
-  $squirrelmail_plugin_hooks['options_save']['translate'] = 'translate_sav';
   $squirrelmail_plugin_hooks['loading_prefs']['translate'] = 'translate_pref';
   $squirrelmail_plugin_hooks['compose_button_row']['translate'] = 'translate_button';
 }
@@ -99,50 +98,6 @@ function translate_optpage_register_block() {
         'js'   => false
     );
 }
-
-function translate_sav() {
-    global $username,$data_dir;
-    global $submit_translate, $translate_translate_server;
-    global $translate_translate_location;
-    global $translate_translate_show_read;
-    global $translate_translate_show_send;
-    global $translate_translate_same_window;
-  
-    if ($submit_translate) {
-        if (isset($translate_translate_server)) {
-            setPref($data_dir, $username, 'translate_server', $translate_translate_server);
-        } else {
-            setPref($data_dir, $username, 'translate_server', 'babelfish');
-        }
-
-        if (isset($translate_translate_location)) {
-            setPref($data_dir, $username, 'translate_location', $translate_translate_location);
-        } else {
-            setPref($data_dir, $username, 'translate_location', 'center');
-        }
-
-        if (isset($translate_translate_show_read)) {
-            setPref($data_dir, $username, 'translate_show_read', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_show_read', '');
-        }
-
-        if (isset($translate_translate_show_send)) {
-            setPref($data_dir, $username, 'translate_show_send', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_show_send', '');
-        }
-
-        if (isset($translate_translate_same_window)) {
-           setPref($data_dir, $username, 'translate_same_window', '1');
-        } else {
-            setPref($data_dir, $username, 'translate_same_window', '');
-        }
-
-        echo '<center>Translation options saved.</center>';
-    }
-}
-
 
 function translate_pref() { 
     global $username, $data_dir;
