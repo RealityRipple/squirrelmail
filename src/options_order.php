@@ -16,6 +16,7 @@ require_once('../functions/display_messages.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/plugin.php');
+require_once('../functions/html.php');
 
 if (! isset($action)) { $action = ''; }
 if ($action == 'delete' && isset($theid)) {
@@ -23,16 +24,15 @@ if ($action == 'delete' && isset($theid)) {
 } elseif ($action == 'save') {
 } 
 displayPageHeader($color, 'None');
-?>
-   <br>
-<table width="95%" align=center border=0 cellpadding=2 cellspacing=0>
-<tr><td align="center" bgcolor="<?php echo $color[0] ?>">
 
-      <b><?php echo _("Options") . " - " . _("Index Order"); ?></b>
-
-    <table width="100%" border="0" cellpadding="1" cellspacing="1">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center"><br>
-<?php
+   echo '<br>' . 
+   html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . 
+   html_tag( 'tr' ) . 
+   html_tag( 'td', '', 'center', $color[0] ) .
+   '<b>' . _("Options") . ' - ' . _("Index Order") . '</b>' .
+   html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="1"' ) . 
+   html_tag( 'tr' ) . 
+   html_tag( 'td', '', 'center', $color[4] );
  
     $available[1] = _("Checkbox");
     $available[2] = _("From");
@@ -81,30 +81,36 @@ displayPageHeader($color, 'None');
            setPref($data_dir, $username, "order$i", $index_order[$i]);
         }
     }
-    echo '<table cellspacing="0" cellpadding="0" border="0" width="65%"><tr><td>' . "\n";
-    echo _("The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs.");
-    echo '</td></tr></table><br>';
+    echo html_tag( 'table',
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        _("The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs.")
+                    )
+                ) ,
+            '', '', '', 'width="65%" border="0" cellpadding="0" cellspacing="0"' ) . "<br>\n";
  
     if (count($index_order))
     {
-        echo '<table cellspacing="0" cellpadding="0" border="0">' . "\n";
+        echo html_tag( 'table', '', '', '', ' cellspacing="0" cellpadding="0" border="0"' ) . "\n";
         for ($i=1; $i <= count($index_order); $i++) {
             $tmp = $index_order[$i];
-            echo '<tr>';
-            echo "<td><small><a href=\"options_order.php?method=up&amp;num=$i\">". _("up") ."</a></small></td>\n";
-            echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
-            echo "<td><small><a href=\"options_order.php?method=down&amp;num=$i\">". _("down") . "</a></small></td>\n";
-            echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
-            echo '<td>';
+            echo html_tag( 'tr' );
+            echo html_tag( 'td', '<small><a href="options_order.php?method=up&amp;num=' . $i . '">'. _("up") .'</a></small>' );
+            echo html_tag( 'td', '<small>&nbsp;|&nbsp;</small>' );
+            echo html_tag( 'td', '<small><a href="options_order.php?method=down&amp;num=' . $i . '">'. _("down") .'</a></small>' );
+            echo html_tag( 'td', '<small>&nbsp;|&nbsp;</small>' );
+            echo html_tag( 'td' );
             /* Always show the subject */
             if ($tmp != 4)
-               echo "<small><a href=\"options_order.php?method=remove&amp;num=$i\">" . _("remove") . '</a></small>';
-            echo "</td>\n";
-            echo '<td><small>&nbsp;-&nbsp;</small></td>' . "\n";
-            echo '<td>' . $available[$tmp] . "</td>\n";
-            echo "</tr>\n";
+               echo '<small><a href="options_order.php?method=remove&amp;num=' . $i . '">' . _("remove") . '</a></small>';
+            else
+               echo '&nbsp;'; 
+            echo '</td>';
+            echo html_tag( 'td', '<small>&nbsp;-&nbsp;</small>' );
+            echo html_tag( 'td', $available[$tmp] );
+            echo '</tr>' . "\n";
         }
-        echo "</table>\n";
+        echo '</table>' . "\n";
     }
     
     if (count($index_order) != count($available)) {
@@ -127,7 +133,7 @@ displayPageHeader($color, 'None');
         echo '</form>';
     }
  
-    echo '<p><a href="../src/options.php">' . _("Return to options page") . '</a></p><br>';
+    echo html_tag( 'p', '<a href="../src/options.php">' . _("Return to options page") . '</a></p><br>' );
 
 ?>
     </td></tr>
