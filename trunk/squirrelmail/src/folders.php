@@ -23,6 +23,7 @@ define('SM_PATH','../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/folder_manip.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/forms.php');
@@ -36,7 +37,7 @@ sqgetGlobalVar('key', $key, SQ_COOKIE);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
-sqgetGlobalVar('success', $success, SQ_GET);
+sqgetGlobalVar('smaction', $action, SQ_POST);
 
 /* end of get globals */
 
@@ -48,38 +49,61 @@ echo '<br />' .
                     html_tag( 'tr' ) .
                         html_tag( 'td', '', 'center', $color[4] );
 
-if ( isset($success) && $success ) {
+$imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
 
-    $td_str = '<b>';
+/* switch to the right function based on what the user selected */
+if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
 
-    switch ($success)
+    switch ($action)
     {
-        case 'subscribe':
-            $td_str .=  _("Subscribed successfully!");
-            break;
-        case 'unsubscribe':
-            $td_str .=  _("Unsubscribed successfully!");
-            break;
-        case 'delete':
-            $td_str .=  _("Deleted folder successfully!");
-            break;
         case 'create':
-            $td_str .=  _("Created folder successfully!");
+            sqgetGlobalVar('folder_name',  $folder_name,  SQ_POST);
+            sqgetGlobalVar('subfolder',    $subfolder,    SQ_POST);
+            sqgetGlobalVar('contain_subs', $contain_subs, SQ_POST);
+            folders_create($imapConnection, $delimiter, $folder_name, $subfolder, $contain_subs);
+            $td_str =  _("Created folder successfully.");
             break;
         case 'rename':
-            $td_str .=  _("Renamed successfully!");
+            if ( sqgetGlobalVar('cancelbutton', $dummy, SQ_POST) ) {
+                break;
+            }
+            if ( ! sqgetGlobalVar('new_name', $new_name, SQ_POST) ) {
+                sqgetGlobalVar('old_name',    $old_name, SQ_POST);
+                folders_rename_getname($imapConnection, $delimiter, $old_name);
+            } else {
+                sqgetGlobalVar('orig',        $orig,     SQ_POST);
+                sqgetGlobalVar('old_name',    $old_name, SQ_POST);
+                folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_name);
+                $td_str =  _("Renamed successfully!");
+            }
             break;
-        case 'subscribe-doesnotexist':
-            $td_str .=  _("Subscription Unsuccessful - Folder does not exist.");
+        case 'delete':
+            if ( sqgetGlobalVar('cancelbutton', $dummy, SQ_POST) ) {
+                break;
+            }
+            sqgetGlobalVar('folder_name',  $folder_name,  SQ_POST);
+            if ( sqgetGlobalVar('confirmed', $dummy, SQ_POST) ) {
+                folders_delete_do($imapConnection, $delimiter, $folder_name);
+                $td_str =  _("Deleted folder successfully.");
+            } else {
+                folders_delete_ask($imapConnection, $folder_name);
+            }
             break;
-    }
-
-    $td_str .= '</b><br />';
-
+        case 'subscribe':
+            sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
+            folders_subscribe($imapConnection, $folder_names);
+            $td_str =  _("Subscribed successfully.");
+            break;
+        case 'unsubscribe':
+            sqgetGlobalVar('folder_names',  $folder_names,  SQ_POST);
+            folders_unsubscribe($imapConnection, $folder_names);
+            $td_str =  _("Unsubscribed successfully.");
+            break;
+    } 
 
     echo html_tag( 'table',
                 html_tag( 'tr',
-                     html_tag( 'td', $td_str .
+                     html_tag( 'td', '<b>' . $td_str . "</b><br />\n" .
                                '<a href="../src/left_main.php" target="left">' .
                                _("refresh folder list") . '</a>' ,
                      'center' )
@@ -89,7 +113,6 @@ if ( isset($success) && $success ) {
 
 echo "\n<br />";
 
-$imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection,true);
 
 /** CREATING FOLDERS **/
@@ -99,7 +122,8 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
             ) .
             html_tag( 'tr' ) .
                 html_tag( 'td', '', 'center', $color[0] ) .
-     addForm('folders_create.php', 'post', 'cf').
+     addForm('folders.php', 'post', 'cf').
+     addHidden('smaction','create').
      addInput('folder_name', '', 25).
      "<br />\n". _("as a subfolder of"). '<br />'.
      "<tt><select name=\"subfolder\">\n";
@@ -194,9 +218,11 @@ echo html_tag( 'tr',
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[0] );
 
+/* show only if we have folders to rename */
 if ($count_special_folders < count($boxes)) {
-    echo addForm('folders_rename_getname.php')
-       . "<tt><select name=\"old\">\n"
+    echo addForm('folders.php')
+       . addHidden('smaction', 'rename')
+       . "<tt><select name=\"old_name\">\n"
        . '         <option value="">[ ' . _("Select a folder") . " ]</option>\n";
 
     // use existing IMAP connection, we have no special values to show,
@@ -213,7 +239,6 @@ if ($count_special_folders < count($boxes)) {
 } else {
     echo _("No folders found") . '<br /><br /></td></tr>';
 }
-$boxes_sub = $boxes;
 
 echo html_tag( 'tr',
             html_tag( 'td', '&nbsp;', 'left', $color[4] )
@@ -226,9 +251,11 @@ echo html_tag( 'tr',
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[0] );
 
+/* show only if we have folders to delete */
 if ($count_special_folders < count($boxes)) {
-    echo addForm('folders_delete.php')
-       . "<tt><select name=\"mailbox\">\n"
+    echo addForm('folders.php')
+       . addHidden('smaction', 'delete')
+       . "<tt><select name=\"folder_name\">\n"
        . '         <option value="">[ ' . _("Select a folder") . " ]</option>\n";
 
     // send NULL for the flag - ALL folders are eligible for delete (except what we've got in skiplist)
@@ -260,18 +287,19 @@ if ($show_only_subscribed_folders) {
                         html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 
         if ($count_special_folders < count($boxes)) {
-            echo addForm('folders_subscribe.php?method=unsub')
-               . "<tt><select name=\"mailbox[]\" multiple=\"multiple\" size=\"8\">\n";
-            for ($i = 0; $i < count($boxes); $i++) {
+            echo addForm('folders.php')
+               . addHidden('smaction', 'unsubscribe')
+               . "<tt><select name=\"folder_names[]\" multiple=\"multiple\" size=\"8\">\n";
+	    foreach ( $boxes as $box ) {
                 $use_folder = true;
-                if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-                    ($boxes[$i]["unformatted"] != $trash_folder) &&
-                    ($boxes[$i]["unformatted"] != $sent_folder) &&
-                    ($boxes[$i]["unformatted"] != $draft_folder)) {
-                    $box = htmlspecialchars($boxes[$i]["unformatted-dm"]);
-                    $box2 = str_replace(' ', '&nbsp;',
-                                        htmlspecialchars(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
-                    echo "         <option value=\"$box\">$box2</option>\n";
+                if ((strtolower($box["unformatted"]) != "inbox") &&
+                    ($box['unformatted'] != $trash_folder) &&
+                    ($box['unformatted'] != $sent_folder) &&
+                    ($box['unformatted'] != $draft_folder)) {
+                    $box_enc  = htmlspecialchars($box['unformatted-dm']);
+                    $box_disp = str_replace(' ', '&nbsp;',
+                                        htmlspecialchars(imap_utf7_decode_local($box["unformatted-disp"])));
+                    echo "         <option value=\"$box_enc\">$box_disp</option>\n";
                 }
             }
             echo "</select></tt><br /><br />\n"
@@ -282,61 +310,63 @@ if ($show_only_subscribed_folders) {
         } else {
             echo _("No folders were found to unsubscribe from!") . '</td>';
         }
-        $boxes_sub = $boxes;
 
         /** SUBSCRIBE TO FOLDERS **/
         echo html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
         if(!$no_list_for_subscribe) {
-          $boxes_all = sqimap_mailbox_list_all ($imapConnection);
+            $boxes_all = sqimap_mailbox_list_all ($imapConnection);
 
-          $box = '';
-          $box2 = '';
-          for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
-            $use_folder = true;
-            for ($p = 0; $p < count ($boxes); $p++) {
-                if ($boxes_all[$i]['unformatted'] == $boxes[$p]['unformatted']) {
-                    $use_folder = false;
-                    continue;
-                } else if ($boxes_all[$i]['unformatted-dm'] == $folder_prefix) {
-                    $use_folder = false;
+            $subboxes = array();
+            // here we filter out all boxes we're already subscribed to,
+            // so we keep only the unsubscribed ones.
+            foreach ($boxes_all as $box_a) {
+            
+                $use_folder = true;
+                foreach ( $boxes as $box ) {
+                    if ($box_a['unformatted'] == $box['unformatted'] ||
+                        $box_a['unformatted-dm'] == $folder_prefix ) {
+                        $use_folder = false;
+                    }
+                }
+            
+                if ($use_folder == true) {
+	                $box_enc  = htmlspecialchars($box_a['unformatted-dm']);
+                    $box_disp = htmlspecialchars(imap_utf7_decode_local($box_a['unformatted-disp']));
+                    $subboxes[$box_enc] = $box_disp;
                 }
             }
-            if ($use_folder == true) {
-                $box[$q] = htmlspecialchars($boxes_all[$i]['unformatted-dm']);
-                $box2[$q] = htmlspecialchars(imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']));
-                $q++;
-            }
-          }
-          if ($box && $box2) {
-            echo addForm('folders_subscribe.php?method=sub')
-               . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
+            
+            if ( count($subboxes) > 0 ) {
+                echo addForm('folders.php')
+                 . addHidden('smaction', 'subscribe')
+                 . '<tt><select name="folder_names[]" multiple="multiple" size="8">';
 
-            for ($q = 0; $q < count($box); $q++) {
-               echo '         <option value="' . $box[$q] . '">'.$box2[$q]."</option>\n";
+                foreach($subboxes as $subbox_enc => $subbox_disp) {
+                    echo '         <option value="' . $subbox_enc . '">'.$subbox_disp."</option>\n";
+                }
+
+                echo '</select></tt><br /><br />'
+                 . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
+                 . "</form></td></tr></table><br />\n";
+            } else {
+                echo _("No folders were found to subscribe to.") . '</td></tr></table>';
             }
-            echo '</select></tt><br /><br />'
-               . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
-               . "</form></td></tr></table><br />\n";
-          } else {
-            echo _("No folders were found to subscribe to!") . '</td></tr></table>';
-          }
         } else {
-          /* don't perform the list action -- this is much faster */
-          echo addForm('folders_subscribe.php?method=sub')
+            /* don't perform the list action -- this is much faster */
+            echo addForm('folders.php')
+             . addHidden('smaction', 'subscribe')
              . _("Subscribe to:") . '<br />'
-             . '<tt><input type="text" name="mailbox[]" size="35" />'
+             . '<tt><input type="text" name="folder_names[]" size="35" />'
              . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
              . "</form></td></tr></table><br />\n";
         }
 }
 
 do_hook('folders_bottom');
+sqimap_logout($imapConnection);
 ?>
     </td></tr>
     </table>
 </td></tr>
 </table>
-<?php
-   sqimap_logout($imapConnection);
-?>
 </body></html>
