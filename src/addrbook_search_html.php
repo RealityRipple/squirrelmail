@@ -27,7 +27,7 @@
 
    // Insert hidden data
    function addr_insert_hidden() {
-      global $body, $subject, $send_to, $send_to_cc, $send_to_bcc;
+      global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox;
       
       echo '<input type=hidden value="';
       if (substr($body, 0, 1) == "\r")
@@ -41,6 +41,8 @@
           . '" name=send_to_cc>' . "\n";
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_bcc)
           . '" name=send_to_bcc>' . "\n";
+      echo "<input type=hidden name=mailbox value=\"" .
+          htmlspecialchars($mailbox) . "\">\n";
       echo "<input type=hidden value=\"true\" name=from_htmladdr_search>\n";
    }
 
@@ -97,7 +99,8 @@
 
    // --- End functions ---
 
-   displayPageHeader($color, 'None');
+   global $mailbox;
+   displayPageHeader($color, $mailbox);
    
    // Initialize addressbook
    $abook = addressbook_init();
