@@ -552,7 +552,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            getAttachments($message, $session, $passed_id, $entities, $imapConnection);
 	   break;
 	case ('forward_as_attachment'):
-           getMessage_RFC822_Attachment($message, $session, $passed_id, $imapConnection);
+           getMessage_RFC822_Attachment($message, $session, $passed_id, $passed_ent_id, $imapConnection);
 	   $body = '';
 	   break;
         case ('reply_all'):
@@ -660,10 +660,20 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
     return;
 }
 
-function getMessage_RFC822_Attachment($message, $session, $passed_id, $imapConnection) {
+function getMessage_RFC822_Attachment($message, $session, $passed_id, 
+                                      $passed_ent_id='', $imapConnection) {
     global $attachments, $attachment_dir, $username, $data_dir, $uid_support;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    $body_a = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, $uid_support);
+    if (!$passed_ent_id) {
+	$body_a = sqimap_run_command($imapConnection, 
+	          'FETCH '.$passed_id.' RFC822',
+		  true, $response, $readmessage, $uid_support);
+    } else {
+        $body_a = sqimap_run_command($imapConnection, 
+	          'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
+		  true, $response, $readmessage, $uid_support);
+	$message = $message->parent;
+    }
     if ($response = 'OK') {
 	$subject = encodeHeader($message->rfc822_header->subject);
     	array_shift($body_a);
