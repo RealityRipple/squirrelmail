@@ -13,10 +13,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -51,7 +51,7 @@
    echo "<FORM ACTION=\"folders_rename_do.php\" METHOD=\"POST\">\n";
    echo _("New name:");
    echo "<br><B>$old_parent . </B><INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
-   if ($isfolder)
+   if (isset($isfolder))
       echo "<INPUT TYPE=HIDDEN NAME=isfolder VALUE=\"true\">";
    printf("<INPUT TYPE=HIDDEN NAME=orig VALUE=\"%s\">\n", $old);
    printf("<INPUT TYPE=HIDDEN NAME=old_name VALUE=\"%s\">\n", $old_name);

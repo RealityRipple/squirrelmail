@@ -12,10 +12,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -57,17 +57,19 @@
                   $ary[0] = trim($doc[$n]);
                }
                if (trim(strtolower($doc[$n])) == "<description>") {
+	          $ary[1] = "";
                   for ($n++;$n < count($doc) && (trim(strtolower($doc[$n])) != "</description>"); $n++) {
                      $ary[1] .= $doc[$n];
                   }
                }
                if (trim(strtolower($doc[$n])) == "<summary>") {
+	          $ary[2] = "";
                   for ($n++;$n < count($doc) && (trim(strtolower($doc[$n])) != "</summary>"); $n++) {
                      $ary[2] .= $doc[$n];
                   }
                }
             }   
-            if ($ary) {
+            if (isset($ary)) {
                $ary[3] = $n;
                return $ary;
             } else {
@@ -137,6 +139,8 @@
    }
    
    if ($help_exists) {
+      if (! isset($context))
+          $context = '';
       if ($context == "compose")
          $chapter = 4;
       else if ($context == "address")
@@ -152,7 +156,7 @@
       else if ($context == "search")
          $chapter = 8;
 
-      if (!$chapter) {
+      if (!isset($chapter)) {
          echo "<table cellpadding=0 cellspacing=0 border=0 align=center><tr><td>\n";
          echo "<b><center>" . _("Table of Contents") . "</center></b><br>";
          do_hook("help_chapter");
@@ -179,11 +183,12 @@
          echo "</center></small><br>\n";
 
          echo "<font size=5><b>$chapter - $help_info[0]</b></font><br><br>\n";
-         if ($help_info[1])
+         if (isset($help_info[1]))
             echo "$help_info[1]\n";
          else   
             echo "<p>$help_info[2]</p>\n";
 
+         $section = 0;
          for ($n = $help_info[3]; $n < count($doc); $n++) {
             $section++;
             $help_info = get_info($doc, $n);

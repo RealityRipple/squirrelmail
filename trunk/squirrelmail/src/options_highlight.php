@@ -12,10 +12,10 @@
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -29,6 +29,10 @@
    if (!isset($plugin_php))
       include("../functions/plugin.php");
 
+   if (! isset($action))
+       $action = '';
+   if (! isset($message_highlight_list))
+       $message_highlight_list = array();
 
    if ($action == "delete" && isset($theid)) {
       removePref($data_dir, $username, "highlight$theid");
@@ -89,6 +93,7 @@
    }
    if ($action == "edit" || $action == "add") {
       if (!isset($theid)) $theid = count($message_highlight_list);
+          $message_highlight_list[$theid] = array();
  
       $color_list[0] = "4444aa";
       $color_list[1] = "44aa44";
@@ -104,16 +109,22 @@
       $color_list[11] = "bfbfbf";
       $color_list[12] = "dfdfdf";
       $color_list[13] = "ffffff";               
-      for ($i=0; $i < 14; $i++) {
-         if ($color_list[$i] == $message_highlight_list[$theid]["color"]) {
-            $selected_choose = " checked";
-            ${"selected".$i} = " selected";
-            continue;
-         }
+      
+      $selected_input = "";
+      
+      if (isset($message_highlight_list[$theid]["color"]))
+      {
+          for ($i=0; $i < 14; $i++) {
+             if ($color_list[$i] == $message_highlight_list[$theid]["color"]) {
+                $selected_choose = " checked";
+                ${"selected".$i} = " selected";
+                continue;
+             }
+	 }
       }
-      if (!$message_highlight_list[$theid]["color"])
+      if (!isset($message_highlight_list[$theid]["color"]))
          $selected_choose = " checked";
-      else if (!$selected_choose)
+      else if (!isset($selected_choose))
          $selected_input = " checked";
  
       echo "<form name=f action=\"options_highlight.php\">\n";
@@ -125,7 +136,10 @@
       echo _("Identifying name") . ":";
       echo "      </b></td>\n";
       echo "      <td width=75%>\n";
-      $disp = $message_highlight_list[$theid]["name"];
+      if (isset($message_highlight_list[$theid]["name"]))
+          $disp = $message_highlight_list[$theid]["name"];
+      else
+          $disp = "";
       $disp = str_replace("\\\\", "\\", $disp);
       $disp = str_replace("\\\"", "\"", $disp);
       $disp = str_replace("\"", "&quot;", $disp);
@@ -154,7 +168,7 @@
       echo "            <option value=\"$color_list[12]\"$selected12>" . _("Light Gray") . "\n";
       echo "            <option value=\"$color_list[13]\"$selected13>" . _("White") . "\n";
       echo "         </select><br>\n";
-      echo "         <input type=\"radio\" name=color_type value=2$selected_input> &nbsp;". _("Other:") ."<input type=\"text\" value=\"";                                 
+      echo "         <input type=\"radio\" name=color_type value=2$selected_input> &nbsp;". _("Other:") ."<input type=\"text\" value=\"";
       if ($selected_input) echo $message_highlight_list[$theid]["color"];
       echo "\" name=\"newcolor_input\" size=7> "._("Ex: 63aa7f")."<br>\n";
       echo "      </td>\n";
@@ -177,7 +191,10 @@
       if ($message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
-      $disp = $message_highlight_list[$theid]["value"];
+      if (isset($message_highlight_list[$theid]["value"]))
+          $disp = $message_highlight_list[$theid]["value"];
+      else
+          $disp = '';
       $disp = str_replace("\\\\", "\\", $disp);
       $disp = str_replace("\\\"", "\"", $disp);
       $disp = str_replace("\"", "&quot;", $disp);
