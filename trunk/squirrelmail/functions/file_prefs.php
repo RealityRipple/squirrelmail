@@ -79,19 +79,12 @@ function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
     $result = '';
 
-    $result = do_hook_function('get_pref_override', array($username, $string));
+    cachePrefValues($data_dir, $username);
 
-    if ($result == '') {
-        cachePrefValues($data_dir, $username);
-
-        if (isset($prefs_cache[$string])) {
-            $result = $prefs_cache[$string];
-        } else {
-            $result = do_hook_function('get_pref', array($username, $string));
-            if ($result == '') {
-                $result = $default;
-            }
-        }
+    if (isset($prefs_cache[$string])) {
+        $result = $prefs_cache[$string];
+    } else {
+        $result = $default;
     }
 
     return ($result);
@@ -106,21 +99,24 @@ function savePrefValues($data_dir, $username) {
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
     /* Open the file for writing, or else display an error to the user. */
-    if(!$file = @fopen($filename.'.tmp', 'w'))
+    if(!$file = @fopen($filename, 'w'))
     {
         include_once(SM_PATH . 'functions/display_messages.php');
-        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename.'.tmp') );
+        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
         exit;
     }
-
     foreach ($prefs_cache as $Key => $Value) {
         if (isset($Value)) {
-            fwrite($file, $Key . '=' . $Value . "\n");
+            $tmpwrite = @fwrite($file, $Key . '=' . $Value . "\n");
+            if ($tmpwrite == -1) {
+               logout_error( sprintf( _("Preference file, %s, could not be written. Contact your system administrator to resolve this issue.") , $filename . '.tmp') );
+               exit;
+            }
         }
     }
     fclose($file);
-    copy($filename.'.tmp', $filename);
-    unlink($filename.'.tmp');
+    @copy($filename . '.tmp',$filename);
+    @unlink($filename . '.tmp');
     chmod($filename, 0600);
 }
 
@@ -210,16 +206,22 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 function setSig($data_dir, $username, $number, $value) {
     $filename = getHashedFile($username, $data_dir, "$username.si$number");
     /* Open the file for writing, or else display an error to the user. */
-    if(!$file = @fopen($filename.'.tmp', 'w'))
-    {
-        include_once(SM_PATH . '/functions/display_messages.php' );
-        logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename.'.tmp') );
+    if(!$file = @fopen("$filename.tmp", 'w')) {
+        include_once( '../functions/display_messages.php' );
+        logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename . '.tmp') );
         exit;
     }
-    fwrite($file, $value);
+    $tmpwrite = @fwrite($file, $value);
+    if ($tmpwrite == -1) {
+       include_once( '../functions/display_messages.php' );
+       logout_error( sprintf( _("Signature file, %s, could not be written. Contact your system administrator to resolve this issue.") , $filename . '.tmp'));
+       exit;
+    }
     fclose($file);
-    copy($filename.'.tmp',$filename);
-    unlink($filename.'.tmp');
+    @copy($filename . '.tmp',$filename);
+    @unlink($filename . '.tmp');
+    chmod($filename, 0600);
+
 }
 
 /**

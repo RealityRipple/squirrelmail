@@ -135,25 +135,29 @@ class abook_local_file extends addressbook_backend {
      * NOTE! Previous locks are broken by this function */
     function overwrite(&$rows) {
         $this->unlock();
-        $newfh = @fopen($this->filename .'.tmp', 'w');
+        $newfh = @fopen($this->filename.'.tmp', 'w');
+
         if(!$newfh) {
-            return $this->set_error($this->filename .'.tmp: '. _("Open failed"));
+            return $this->set_error($this->filename. '.tmp:' . _("Open failed"));
         }
         
-        for($i = 0 ; $i < sizeof($rows) ; $i++) {
+        for($i = 0, $cnt=sizeof($rows) ; $i < $cnt ; $i++) {
             if(is_array($rows[$i])) {
-                for($j = 0 ; $j < count($rows[$i]) ; $j++) {
+                for($j = 0, $cnt_part=count($rows[$i]) ; $j < $cnt_part ; $j++) {
                     $rows[$i][$j] = $this->quotevalue($rows[$i][$j]);
                 }
-                fwrite($newfh, join('|', $rows[$i]) . "\n");
+                $tmpwrite = @fwrite($newfh, join('|', $rows[$i]) . "\n");
+                if ($tmpwrite == -1) {
+                    return $this->set_error($this->filename . '.tmp:' . _("Write failed"));
+                }
             }
         }       
 
         fclose($newfh);
         if (!@copy($this->filename . '.tmp' , $this->filename)) {
-            return $this->set_error($file->filename.':' . _("Unable to update"));
+          return $this->set_error($this->filename . ':' . _("Unable to update"));
         }
-        @unlink( $this->filename .'.tmp');
+        @unlink($this->filename . '.tmp');
         $this->unlock();
         $this->open(true);
         return true;
