@@ -203,19 +203,26 @@
       $dm = sqimap_get_delimiter ($imap_stream);
 
       /** LSUB array **/
-      $inbox_subscribed = false;
-      fputs ($imap_stream, "a001 LSUB \"$folder_prefix\" \"*%\"\r\n");
+      fputs ($imap_stream, "a001 LSUB \"$folder_prefix\" \"*\"\r\n");
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      
+      // Section about removing the last element was removed
+      // We don't return "* OK" anymore from sqimap_read_data
 
-      /** OS: we don't want to parse last element of array, 'cause it is OK command, so we unset it **/
-      /** LUKE:  This introduced errors.. do a check first **/
-      if (substr($lsub_ary[count($lsub_ary)-1], 0, 4) == "* OK") {
-        unset($lsub_ary[count($lsub_ary)-1]);
-      }
-
+      $sorted_lsub_ary = array();
       for ($i=0;$i < count($lsub_ary); $i++) {
-         $sorted_lsub_ary[$i] = find_mailbox_name($lsub_ary[$i]);
-         if ($sorted_lsub_ary[$i] == "INBOX")
+         // Workaround for EIMS
+         // Doesn't work if the mailbox name is multiple lines
+         if (isset($lsub_ary[$i + 1]) &&
+	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+	          $lsub_ary[$i], $regs)) {
+	    $i ++;
+	    $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) .
+	       '"' . $regs[2];
+	 }
+	 $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
+         $sorted_lsub_ary[] = $temp_mailbox_name;
+         if (strtoupper($temp_mailbox_name) == 'INBOX')
             $inbox_subscribed = true;
       }
       $new_ary = array();
@@ -226,11 +233,12 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-         usort($sorted_lsub_ary, "user_strcasecmp");
+         usort($sorted_lsub_ary, 'user_strcasecmp');
          //sort($sorted_lsub_ary);
       }   
 
       /** LIST array **/
+      $sorted_list_ary = array();
       for ($i=0; $i < count($sorted_lsub_ary); $i++) {
          if (substr($sorted_lsub_ary[$i], -1) == $dm)
             $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
@@ -239,26 +247,39 @@
 
          fputs ($imap_stream, "a001 LIST \"\" \"$mbx\"\r\n");
          $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+	 // Another workaround for EIMS
+         if (isset($read[1]) && 
+	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+	          $read[0], $regs)) {
+	    $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) .
+	       '"' . $regs[2];
+	 }
          if (isset($sorted_list_ary[$i]))
             $sorted_list_ary[$i] = "";
          if (isset($read[0]))
-         $sorted_list_ary[$i] = $read[0];
+            $sorted_list_ary[$i] = $read[0];
          else
-         $sorted_list_ary[$i] = "";
-         if (isset($sorted_list_ary[$i]) && find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
+            $sorted_list_ary[$i] = "";
+         if (isset($sorted_list_ary[$i]) && 
+	     strtoupper(find_mailbox_name($sorted_list_ary[$i])) == "INBOX")
             $inbox_in_list = true;
       }
                 
-      /** Just in case they're not subscribed to their inbox, we'll get it for them anyway **/
+      /** Just in case they're not subscribed to their inbox, we'll get it 
+          for them anyway **/
       if ($inbox_subscribed == false || $inbox_in_list == false) {
          fputs ($imap_stream, "a001 LIST \"\" \"INBOX\"\r\n");
          $inbox_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+	 // Another workaround for EIMS
+         if (isset($inbox_ary[1]) &&
+	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+	          $inbox_ary[0], $regs)) {
+	    $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
+	       '"' . $regs[2];
+	 }
 
-         $pos = count($sorted_list_ary);
-         $sorted_list_ary[$pos] = $inbox_ary[0];
-
-         $pos = count($sorted_lsub_ary);
-         $sorted_lsub_ary[$pos] = find_mailbox_name($inbox_ary[0]);
+         $sorted_list_ary[] = $inbox_ary[0];
+         $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
       }
 
       $boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary, $dm);
@@ -335,6 +356,15 @@
       $phase = "inbox"; 
 
       for ($i = 0; $i < count($read_ary); $i++) {
+         // Another workaround for EIMS
+	 if (isset($read_ary[$i + 1]) &&
+	     ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+	     $read_ary[$i], $regs)) {
+	    $i ++;
+	    $read_ary[$i] = $regs[1] . '"' . 
+	       addslashes(trim($read_ary[$i])) .
+	       '"' . $regs[2];
+	 }
          if (substr ($read_ary[$i], 0, 4) != "a001") {
 
             // Store the raw IMAP reply
@@ -372,6 +402,14 @@
             /** Now lets get the flags for this mailbox **/
             fputs ($imap_stream, "a002 LIST \"\" \"$mailbox\"\r\n"); 
             $read_mlbx = sqimap_read_data ($imap_stream, "a002", true, $response, $message);
+	    // Another workaround for EIMS
+	    if (isset($read_mlbx[1]) &&
+	        ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", 
+	        $read_mlbx[0], $regs)) {
+	       $read_mlbx[0] = $regs[1] . '"' . 
+	          addslashes(trim($read_mlbx[1])) .
+	          '"' . $regs[2];
+	    }
 
             $flags = substr($read_mlbx[0], strpos($read_mlbx[0], "(")+1);
             $flags = substr($flags, 0, strpos($flags, ")"));
