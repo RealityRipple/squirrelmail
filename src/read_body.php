@@ -623,14 +623,14 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     // Start form for reply/reply all/forward.. 
     $target = '';
     $on_click='';
-    $method='method="get" ';
+    $method='method="post" ';
     if ($compose_new_win == '1') {
         if ( $javascript_on ) {
           $on_click=' onclick="comp_in_new_form(\''.$comp_uri.'\', this, this.form)"';
           $comp_uri = 'javascript:void(0)';
+          $method='method="get" ';
         } else {
           $target = 'target="_blank"';
-          $method='method="post" ';
         }
     }
 
