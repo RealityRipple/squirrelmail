@@ -28,9 +28,13 @@ $SQSPELL_CRYPTO=FALSE;
 /**
  * Load the stuff needed from squirrelmail
  */
+
 chdir('..');
-require_once('../src/validate.php');
-require_once('../src/load_prefs.php');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'src/load_prefs.php');
 require_once("$SQSPELL_DIR/sqspell_config.php");
 require_once("$SQSPELL_DIR/sqspell_functions.php");
     
