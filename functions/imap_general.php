@@ -136,7 +136,7 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     elseif ($response == 'BAD') {
         set_up_language($squirrelmail_language);
 	require_once(SM_PATH . 'functions/display_messages.php');
-        $dtring = "<b><font color=$color[2]>\n" .
+        $string = "<b><font color=$color[2]>\n" .
             _("ERROR : Bad or malformed request.") .
             "</b><br>\n" .
             _("Query:") .
