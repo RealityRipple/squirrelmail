@@ -58,6 +58,8 @@
 
             if ($success == true)
                sqimap_mailbox_delete($imapConnection, $boxes[$i]["unformatted"]);
+            if ($auto_expunge)
+               sqimap_mailbox_expunge($imapConnection, $mailbox);
          }
       }
    } else { /** if they do NOT wish to move messages to the trash (or cannot)**/
@@ -70,6 +72,8 @@
                sqimap_mailbox_delete($imapConnection, $boxes[$i]["unformatted"], $dm);
             }
          }
+         if ($auto_expunge)
+            sqimap_mailbox_expunge($imapConnection, $mailbox);
          fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
          $data = sqimap_read_data($imapConnection , "1", false, $response, $message);
       }
