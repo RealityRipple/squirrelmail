@@ -184,7 +184,7 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox)
     $read_ary = sqimap_run_command($imap_stream, "DELETE \"$mailbox\"",
                                  TRUE, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
-	filter_check($mailbox, 'delete');
+    do_hook("rename_or_delete_folder");
 }
 
 /***********************************************************************
@@ -199,39 +199,6 @@ function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
         }
     }
     return false;
-}
-
-/* fix filters when renaming/deleting folders */
-
-function filter_check ($old_folder, $action, $new_folder = 'INBOX') {
-    global $plugins, $data_dir, $username;
-    $filters = array();
-    $count = count($plugins);
-    for ($i=0;$i<$count;$i++) {
-        if ($plugins[$i] == 'filters') {
-            require_once("../plugins/filters/filters.php");
-            $filters = load_filters();
-            break;
-        }
-    }
-    if (empty($filters)) {
-        return;
-    }
-    $filter_count = count($filters);
-    $p=0;
-    for ($i=0;$i<$filter_count;$i++) {
-        if ($old_folder == $filters[$i]['folder']) {
-            if ($action == 'rename') {
-                $filters[$i]['folder'] = $new_folder;
-                setPref($data_dir, $username, "filter".$i, $filters[$i]['where'].",".$filters[$i]['what'].",".$new_folder);
-            }
-            elseif ($action == 'delete') {
-                remove_filter($p);
-                $p = $p-1;
-            }
-        }
-    $p++;
-    }
 }
 
 
@@ -255,7 +222,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                                  TRUE, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
-        filter_check($old_name, 'rename', $new_name);
+        do_hook("rename_or_delete_folder");
         $l = strlen( $old_name ) + 1;
         $p = 'unformatted';
         foreach ( $boxesall as $box ) {
@@ -268,7 +235,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
                 }
                 sqimap_unsubscribe($imap_stream, $box[$p]);
                 sqimap_subscribe($imap_stream, $new_sub);
-                filter_check($box[$p], 'rename', $new_sub);
+                do_hook("rename_or_delete_folder");
             }
         }
     }
