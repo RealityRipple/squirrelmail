@@ -142,6 +142,13 @@
          setPref($data_dir, $username, 'move_to_sent', '0');
          setPref($data_dir, $username, 'sent_folder', 'none');
       }
+      if ($draft != 'none') {
+         setPref($data_dir, $username, 'save_as_draft', true);
+         setPref($data_dir, $username, 'draft_folder', $draft);
+      } else {
+         setPref($data_dir, $username, 'save_as_draft', '0');
+         setPref($data_dir, $username, 'draft_folder', 'none');
+      }
       if (isset($folderprefix)) {
          setPref($data_dir, $username, 'folder_prefix', $folderprefix);
       } else {

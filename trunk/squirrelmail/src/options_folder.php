@@ -102,6 +102,35 @@
       }
       echo "</SELECT></TT>\n";
    echo '</td></tr>';  
+
+   // Drafts Folder
+   echo '<tr><td nowrap align="right">';
+   echo _("Drafts Folder:");
+   echo '</td><td>';
+   echo '<TT><SELECT NAME="draft">';
+   if ($save_as_draft == true)
+      echo '<option value="none">' . _("Don't use drafts");
+   else
+      echo '<option value="none selected">' . _("Do not use Drafts");
+
+   for ($i = 0; $i < count($boxes); $i++) {
+      $use_folder = true;
+      if (strtolower($boxes[$i]['unformatted']) == 'inbox') {
+         $use_folder = false;
+      }
+      if ($use_folder == true) {
+         $box = $boxes[$i]['unformatted-dm'];
+         $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['formatted']);
+         $select_draft_value = rtrim($boxes[$i]['unformatted']);
+         if (($select_draft_value == $draft_folder) && ($save_as_draft == true)) {
+            echo "         <OPTION SELECTED VALUE=\"$box\">$box2\n";
+         } else {
+            echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+   }
+   echo "</SELECT></TT>\n";
+   echo '</td></tr>';
 ?>
          <tr>
             <td valign=top align=right>
