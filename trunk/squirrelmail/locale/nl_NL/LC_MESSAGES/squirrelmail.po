@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2002-09-05 11:00+0200\n"
+"PO-Revision-Date: 2003-01-02 23:00+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -99,14 +99,12 @@ msgstr "Geen bestandsnaam"
 # squirrelmail/functions/abook_global_file.php:69
 # squirrelmail/functions/abook_local_file.php:104
 # squirrelmail/functions/abook_local_file.php:140
-#, fuzzy
 msgid "Write failed"
-msgstr "Openen mislukt"
+msgstr "Schrijven mislukt"
 
 # squirrelmail/src/options_identities.php:336
-#, fuzzy
 msgid "Unable to update"
-msgstr "Bewaar / Verander"
+msgstr "Onmogelijk om te vernieuwen"
 
 # squirrelmail/functions/abook_local_file.php:272
 # squirrelmail/functions/abook_local_file.php:298
@@ -354,18 +352,18 @@ msgid ""
 "to resolve this issue."
 msgstr ""
 "Bestand met voorkeuren, %s, kan niet worden geopend. Neem contact op met uw "
-"systeembeheerder voor hulp."
+"systeembeheerder."
 
 # squirrelmail/functions/file_prefs.php:166
 # squirrelmail/functions/file_prefs.php:176
 # squirrelmail/functions/prefs.php:94
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"Bestand met voorkeuren, %s, kan niet worden geopend. Neem contact op met uw "
-"systeembeheerder voor hulp."
+"Bestand met voorkeuren, %s, kan niet worden geschreven. Neem contact op met "
+"uw systeembeheerder."
 
 # squirrelmail/functions/file_prefs.php:162
 #, c-format
@@ -373,15 +371,14 @@ msgid "Error opening %s"
 msgstr "Fout bij openen %s"
 
 # squirrelmail/functions/file_prefs.php:165
-#, fuzzy
 msgid "Default preference file not found or not readable!"
-msgstr "Standaard bestand met voorkeuren niet gevonden!"
+msgstr "Standaard bestand met voorkeuren niet gevonden of niet leesbaar!"
 
 # squirrelmail/functions/file_prefs.php:166
 # squirrelmail/functions/file_prefs.php:176
 # squirrelmail/functions/prefs.php:94
 msgid "Please contact your system administrator and report this error."
-msgstr "Neem contact op met uw systeembeheerder voor hulp."
+msgstr "Neem contact op met uw systeembeheerder."
 
 # squirrelmail/functions/file_prefs.php:174
 msgid "Could not create initial preference file!"
@@ -401,26 +398,28 @@ msgid ""
 "to resolve this issue."
 msgstr ""
 "Bestand met handtekeningen, %s, kan niet worden geopend. Neem contact op met "
-"uw systeembeheerder voor hulp."
+"uw systeembeheerder."
 
 # squirrelmail/functions/file_prefs.php:166
 # squirrelmail/functions/file_prefs.php:176
 # squirrelmail/functions/prefs.php:94
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"Bestand met handtekeningen, %s, kan niet worden geopend. Neem contact op met "
-"uw systeembeheerder voor hulp."
+"Bestand met handtekeningen, %s, kan niet worden geschreven. Neem contact op "
+"met uw systeembeheerder."
 
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --with-mbstring)."
 msgstr ""
+"U dient php4 te hebben geinstalleerd met de multibyte string functie enabled "
+"(gebruik configure met de optie --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "FOUT : Imapstream niet beschikbaar."
 
 # squirrelmail/functions/imap_general.php:163
 # squirrelmail/functions/imap_messages.php:366
@@ -428,7 +427,7 @@ msgstr ""
 # squirrelmail/functions/imap_messages.php:567
 # squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
-msgstr "FOUT: Kan opdracht niet verwerken."
+msgstr "FOUT : Kan opdracht niet verwerken."
 
 # squirrelmail/functions/imap_general.php:165
 # squirrelmail/functions/imap_general.php:176
@@ -474,19 +473,19 @@ msgstr "Lees data:"
 # squirrelmail/functions/imap_messages.php:374
 # squirrelmail/functions/imap_messages.php:567
 # squirrelmail/plugins/filters/filters.php:227
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "FOUT: Kan opdracht niet verwerken."
+msgstr "FOUT : Kan bericht niet toevoegen aan"
 
 # squirrelmail/plugins/squirrelspell/modules/check_me.mod:336
-#, fuzzy
 msgid "Solution: "
-msgstr "Suggesties:"
+msgstr "Oplossing: "
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
+"Verwijder onbelangrijke berichten uit uw map en start met uw Verwijderde "
+"Items map."
 
 # squirrelmail/functions/imap_search.php:202
 # squirrelmail/functions/mailbox_display.php:675
@@ -505,7 +504,7 @@ msgstr "Onbekend antwoord van IMAP server: "
 
 # squirrelmail/functions/imap_messages.php:376
 msgid "Unknown message number in reply from server: "
-msgstr "Onbekend berichtnummer in antwoord van server"
+msgstr "Onbekend berichtnummer in antwoord van server:"
 
 # squirrelmail/functions/imap_messages.php:397
 msgid "Unknown Sender"
@@ -516,9 +515,8 @@ msgid "(unknown sender)"
 msgstr "(onbekende afzender)"
 
 # squirrelmail/functions/imap_messages.php:397
-#, fuzzy
 msgid "Unknown date"
-msgstr "Onbekende afzender"
+msgstr "Onbekende datum"
 
 # squirrelmail/functions/mailbox_display.php:185
 msgid "A"
@@ -528,20 +526,23 @@ msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
+"Sorteren als boomstructuur wordt niet ondersteund door uw IMAP server."
+"<br>Neem contact op met uw systeembeheerder."
 
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
 "this to the system administrator."
 msgstr ""
+"Server-side sorteren wordt niet ondersteund door uw IMAP server.<br>Neem "
+"contact op met uw systeembeheerder."
 
 # squirrelmail/functions/mailbox_display.php:568
 msgid "THIS FOLDER IS EMPTY"
 msgstr "DEZE MAP IS LEEG"
 
 # squirrelmail/functions/mailbox_display.php:658
-#, fuzzy
 msgid "Move Selected To"
-msgstr "Verplaats geselecteerde naar:"
+msgstr "Verplaats geselecteerde naar"
 
 # squirrelmail/functions/mailbox_display.php:661
 msgid "Transform Selected Messages"
@@ -694,15 +695,12 @@ msgid "the provided bodystructure by your imap-server"
 msgstr ""
 
 # squirrelmail/functions/mime.php:499
-#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
 "Fout ophalen inhoud. De reden is waarschijnlijk dat het bericht "
-"programmacode bevat dat squirrelmail niet kan decoderen. Help ons a.u.b. om "
-"toekomstige versies van squirrelmail te verbeteren door dit bericht achter "
-"te laten in de developers knowledgebase!"
+"programmacode bevat dat squirrelmail niet kan decoderen."
 
 # squirrelmail/functions/mime.php:503
 msgid "Command:"
@@ -753,9 +751,8 @@ msgid "download"
 msgstr "download"
 
 # squirrelmail/functions/imap_messages.php:397
-#, fuzzy
 msgid "Unknown sender"
-msgstr "Onbekende afzender"
+msgstr "Onbekende zender"
 
 # squirrelmail/functions/mime.php:1662 squirrelmail/functions/mime.php:1969
 msgid "sec_remove_eng.png"
@@ -952,10 +949,9 @@ msgid "Show HTML Version by Default"
 msgstr "Toon HTML versie standaard"
 
 msgid "Enable Forward as Attachment"
-msgstr ""
+msgstr "Activeer doorsturen als bijlage"
 
 # squirrelmail/src/options_display.php:206
-#, fuzzy
 msgid "Include CCs when Forwarding Messages"
 msgstr "Voeg CCs toe bij forwarden berichten"
 
@@ -980,35 +976,30 @@ msgid "Enable Printer Friendly Clean Display"
 msgstr "Activeer printervriendelijk schoon scherm"
 
 # squirrelmail/src/options_folder.php:142
-#, fuzzy
 msgid "Enable Mail Delivery Notification"
-msgstr "Activeer Ongelezen bericht notificatie"
+msgstr "Activeer bericht afgeleverd notificatie"
 
 # squirrelmail/src/options_display.php:250
-#, fuzzy
 msgid "Compose Messages in New Window"
 msgstr "Altijd bericht opstellen in nieuw venster"
 
 # squirrelmail/src/options_display.php:257
-#, fuzzy
 msgid "Width of Compose Window"
 msgstr "Breedte van berichtvenster"
 
 # squirrelmail/src/options_display.php:265
-#, fuzzy
 msgid "Height of Compose Window"
 msgstr "Hoogte van berichtvenster"
 
 # squirrelmail/src/options_display.php:273
-#, fuzzy
 msgid "Append Signature before Reply/Forward Text"
-msgstr "Voeg handtekening toe _voor_ de beantwoorde/geforwarde tekst"
+msgstr "Voeg handtekening toe _voor_ de beantwoorde/doorgestuurde tekst"
 
 msgid "Enable Sort by of Receive Date"
-msgstr ""
+msgstr "Gebruik datum van ontvangst voor sorteren"
 
 msgid "Enable Thread Sort by References Header"
-msgstr ""
+msgstr "Gebruik referentie berichtkop voor sorteren in threads"
 
 # squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
@@ -1025,7 +1016,7 @@ msgstr "Gebruik Verwijderde Items niet"
 # squirrelmail/plugins/administrator/defines.php:135
 # squirrelmail/src/options_folder.php:67
 msgid "Trash Folder"
-msgstr "Verwijderde Items:"
+msgstr "Verwijderde Items"
 
 # squirrelmail/src/options_folder.php:74
 msgid "Do not use Sent"
@@ -1034,7 +1025,7 @@ msgstr "Gebruik Verzonden Items niet"
 # squirrelmail/plugins/administrator/defines.php:138
 # squirrelmail/src/options_folder.php:78
 msgid "Sent Folder"
-msgstr "Verzonden Items:"
+msgstr "Verzonden Items"
 
 # squirrelmail/src/options_folder.php:85
 msgid "Do not use Drafts"
@@ -1124,9 +1115,8 @@ msgid "Enable Collapsable Folders"
 msgstr "Maak uitklapbare mappen mogelijk"
 
 # squirrelmail/src/options_folder.php:142
-#, fuzzy
 msgid "Enable Cumulative Unread Message Notification"
-msgstr "Activeer Ongelezen bericht notificatie"
+msgstr "Activeer Herhaaldelijk Ongelezen bericht notificatie"
 
 # squirrelmail/src/options_folder.php:168
 msgid "Show Clock on Folders Panel"
@@ -1158,26 +1148,23 @@ msgid "Disabled"
 msgstr "Uitgeschakeld"
 
 # squirrelmail/src/options_folder.php:97
-#, fuzzy
 msgid "Folder Selection Options"
-msgstr "Speciale mapopties"
+msgstr "Map selectie opties"
 
 # squirrelmail/src/options_personal.php:148
-#, fuzzy
 msgid "Selection List Style"
-msgstr "Antwoordstijl citering"
+msgstr "Selectie mappenlijstweergave"
 
 # squirrelmail/plugins/calendar/event_create.php:41
 # squirrelmail/plugins/calendar/event_edit.php:59
-#, fuzzy
 msgid "Long: "
-msgstr "Duur:"
+msgstr "Lang: "
 
 msgid "Indented: "
-msgstr ""
+msgstr "Ingesprongen: "
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Gescheiden: "
 
 # squirrelmail/src/options_personal.php:43
 msgid "Name and Address Options"
@@ -1411,7 +1398,7 @@ msgstr "Toon map prefix optie"
 
 # squirrelmail/plugins/administrator/defines.php:144
 msgid "By default, move to trash"
-msgstr "Standaard verplaatsen naar verwijderde items"
+msgstr "Standaard verplaatsen naar Verwijderde Items"
 
 # squirrelmail/plugins/administrator/defines.php:146
 msgid "By default, move to sent"
@@ -2316,7 +2303,6 @@ msgid "Contact Listowner"
 msgstr "Neem contact op met lijsteigenaar"
 
 # squirrelmail/plugins/listcommands/setup.php:113
-#, fuzzy
 msgid "Mailing List"
 msgstr "Mailinglist"
 
@@ -2573,7 +2559,6 @@ msgstr "Ophalen bericht "
 msgid "Server error...Disconnect"
 msgstr "Server fout ... connectie verbroken"
 
-#, fuzzy
 msgid "Reconnect from dead connection"
 msgstr "Herstel verbroken connectie"
 
@@ -2582,7 +2567,6 @@ msgid "Saving UIDL"
 msgstr "UIDL opslaan"
 
 # squirrelmail/plugins/mail_fetch/fetch.php:178
-#, fuzzy
 msgid "Refetching message "
 msgstr "Opnieuw ophalen bericht "
 
@@ -2656,9 +2640,8 @@ msgstr "Server:"
 # squirrelmail/plugins/calendar/event_edit.php:65
 # squirrelmail/plugins/calendar/event_edit.php:97
 # squirrelmail/plugins/calendar/event_edit.php:110
-#, fuzzy
 msgid "Port:"
-msgstr "Prioriteit"
+msgstr "Poort:"
 
 # squirrelmail/plugins/mail_fetch/options.php:124
 # squirrelmail/plugins/mail_fetch/options.php:198
@@ -2679,7 +2662,7 @@ msgstr "Wachtwoord:"
 # squirrelmail/plugins/mail_fetch/options.php:127
 # squirrelmail/plugins/mail_fetch/options.php:204
 msgid "Store in Folder:"
-msgstr "Sla op in folder:"
+msgstr "Sla op in map:"
 
 # squirrelmail/plugins/mail_fetch/options.php:143
 # squirrelmail/plugins/mail_fetch/options.php:224
@@ -3538,7 +3521,7 @@ msgstr "Meer informatie"
 # squirrelmail/src/addressbook.php:58
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
-"Geen persoonlijk adresboek gedefinieerd. Neem contact op met de "
+"Geen persoonlijk adresboek gedefinieerd. Neem contact op met uw "
 "systeembeheerder."
 
 # squirrelmail/src/addressbook.php:154
@@ -3635,7 +3618,6 @@ msgid "Receipt"
 msgstr "Bevestiging"
 
 # squirrelmail/src/compose.php:798
-#, fuzzy
 msgid "On Read"
 msgstr "Bij lezen"
 
@@ -3665,7 +3647,6 @@ msgstr "van"
 
 # squirrelmail/plugins/administrator/defines.php:141
 # squirrelmail/src/options_folder.php:89
-#, fuzzy
 msgid "Draft folder"
 msgstr "Concept map"
 
@@ -3689,9 +3670,9 @@ msgid "Delete Folder"
 msgstr "Verwijder map"
 
 # squirrelmail/plugins/calendar/event_delete.php:31
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Wilt u deze afspraak echt verwijderen?"
+msgstr "Weet u zeker dat u %s wilt verwijderen?"
 
 # squirrelmail/src/folders.php:42
 msgid "Subscribed successfully!"
@@ -3766,13 +3747,12 @@ msgstr "Geen mappen gevonden om bij aan te melden!"
 
 # squirrelmail/plugins/listcommands/setup.php:33
 # squirrelmail/src/folders.php:207 squirrelmail/src/folders.php:267
-#, fuzzy
 msgid "Subscribe to:"
-msgstr "Aanmelden"
+msgstr "Aanmelden bij:"
 
 # squirrelmail/src/folders_rename_getname.php:23
 msgid "You have not selected a folder to rename. Please do so."
-msgstr ""
+msgstr "U heeft geen map geselecteerd om te hernoemen."
 
 # squirrelmail/src/folders_rename_getname.php:48
 msgid "Rename a folder"
@@ -3783,7 +3763,7 @@ msgid "New name:"
 msgstr "Nieuwe naam:"
 
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "FOUT: Help bestanden hebben niet de juiste indeling!"
 
 # squirrelmail/src/help.php:131
 #, c-format
@@ -3818,9 +3798,8 @@ msgid "View message"
 msgstr "Bekijk bericht"
 
 # squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
-#, fuzzy
 msgid "Not available"
-msgstr "niet beschikbaar"
+msgstr "Niet beschikbaar"
 
 # squirrelmail/src/left_main.php:97
 msgid "purge"
@@ -3831,7 +3810,7 @@ msgid "Last Refresh"
 msgstr "Laatste vernieuwing"
 
 msgid "Save folder tree"
-msgstr ""
+msgstr "Sla mapstructuur op"
 
 # squirrelmail/src/login.php:102 squirrelmail/src/login.php:156
 msgid "Login"
@@ -4160,7 +4139,6 @@ msgid "Send read receipt now"
 msgstr "Verzend leesbevestiging nu"
 
 # squirrelmail/src/search.php:380 squirrelmail/src/search.php:409
-#, fuzzy
 msgid "Search results"
 msgstr "Zoek resultaten:"
 
@@ -4180,14 +4158,12 @@ msgstr "Bewerk als nieuw bericht"
 # squirrelmail/src/download.php:72 squirrelmail/src/image.php:31
 # squirrelmail/src/image.php:35 squirrelmail/src/read_body.php:438
 # squirrelmail/src/vcard.php:35 squirrelmail/src/vcard.php:39
-#, fuzzy
 msgid "View Message"
 msgstr "Bekijk bericht"
 
 # squirrelmail/functions/mime.php:822
-#, fuzzy
 msgid "Forward as Attachment"
-msgstr "Bijlagen"
+msgstr "Doorsturen als bijlage"
 
 # squirrelmail/src/read_body.php:757
 msgid "Reply"

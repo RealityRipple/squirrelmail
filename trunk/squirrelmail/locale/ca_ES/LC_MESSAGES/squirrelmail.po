@@ -1,18 +1,20 @@
+# translation of squirrelmail.po to Catalan
 # Catalan Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Albert Cervera Areny <albertca@jazzfree.com>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
+"Project-Id-Version: squirrelmail\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2002-07-16 13:32GMT\n"
+"PO-Revision-Date: 2002-12-26 20:26GMT\n"
 "Last-Translator: Albert Cervera Areny <albertca@jazzfree.com>\n"
 "Language-Team: Catalan <ca@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"Exp $\n"
+"X-Generator: KBabel 1.0\n"
 
 msgid "Delivery error report"
 msgstr "Informe d'errors d'enviament"
@@ -1420,11 +1422,15 @@ msgid ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
 "other active RBLs."
 msgstr ""
+"LLIURE - Leadmon Open Relays - Single Stage Open Relays que no són llistats "
+"en altres RBLs actius."
 
 msgid ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
 "other active RBLs and that have sent SPAM to Leadmon.net."
 msgstr ""
+"LLIURE - Leadmon Multi stage - Multi-Stage Open Relays que no estan llistats "
+"en altres RBLs actius i que han enviat SPAM a Leadmon.net."
 
 msgid ""
 "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
