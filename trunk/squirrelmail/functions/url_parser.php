@@ -26,6 +26,10 @@ function replaceBlock (&$in, $replace, $start, $end) {
  * to be made to the pattern
  * Make sure that the expression is evaluated case insensitively
  *
+ * RFC2822 (and RFC822) defines the left side of an email address as (roughly):
+ *  1*atext *("." 1*atext)
+ * where atext is: a-zA-Z0-9!#$%&'*+-/=?^_`{|}~
+ *
  * Here's pretty sophisticated IP matching:
  * $IPMatch = '(2[0-5][0-9]|1?[0-9]{1,2})';
  * $IPMatch = '\[?' . $IPMatch . '(\.' . $IPMatch . '){3}\]?';
@@ -35,8 +39,10 @@ global $IP_RegExp_Match, $Host_RegExp_Match, $Email_RegExp_Match;
 $IP_RegExp_Match = '\\[?[0-9]{1,3}(\\.[0-9]{1,3}){3}\\]?';
 $Host_RegExp_Match = '(' . $IP_RegExp_Match .
     '|[0-9a-z]([-.]?[0-9a-z])*\\.[a-z][a-z]+)';
-$Email_RegExp_Match = '[0-9a-z]([-_.+]?[0-9a-z])*(%' . $Host_RegExp_Match .
-    ')?@' . $Host_RegExp_Match;
+$atext = '([a-z0-9!#$&%*+/=?^_`{|}~-]|&amp;)';
+$dot_atom = $atext . '+(\.' . $atext . '+)*';
+$Email_RegExp_Match = $dot_atom . '(%' . $Host_RegExp_Match . ')?@' .
+                      $Host_RegExp_Match;
 
 /**
  * Parses a body and converts all found email addresses to clickable links.
@@ -51,14 +57,14 @@ function parseEmail (&$body) {
 
     /* Find all the email addresses in the body */
     while(eregi($Email_RegExp_Match, $sbody, $regs)) {
-        $addresses[$regs[0]] = $regs[0];
+        $addresses[$regs[0]] = strtr($regs[0], array('&amp;' => '&'));
         $start = strpos($sbody, $regs[0]) + strlen($regs[0]);
         $sbody = substr($sbody, $start);
     }
     /* Replace each email address with a compose URL */
-    foreach ($addresses as $email) {
-        $comp_uri = makeComposeLink('src/compose.php?send_to='.urlencode($email), $email);
-        $body = str_replace($email, $comp_uri, $body);
+    foreach ($addresses as $text => $email) {
+        $comp_uri = makeComposeLink('src/compose.php?send_to='.urlencode($email), $text);
+        $body = str_replace($text, $comp_uri, $body);
     }
     /* Return number of unique addresses found */
     return count($addresses);
