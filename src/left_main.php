@@ -1123,5 +1123,5 @@ do_hook('left_main_after');
 sqimap_logout($imapConnection);
 
 ?>
-</td></tr></table>'
-</div></body></html>\
+</td></tr></table>
+</div></body></html>
