@@ -53,16 +53,41 @@ if (get_magic_quotes_gpc()) {
 
 $_SERVER['PHP_SELF'] = strip_tags($_SERVER['PHP_SELF']);
 
-/* returns true if current php version is at mimimum a.b.c */
+/** 
+ * returns true if current php version is at mimimum a.b.c 
+ * 
+ * Called: check_php_version(4,1)
+ */
 function check_php_version ($a = '0', $b = '0', $c = '0')             
 {
     global $SQ_PHP_VERSION;
-
+ 
     if(!isset($SQ_PHP_VERSION))
         $SQ_PHP_VERSION = substr( str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0'), 0, 3);
 
     return $SQ_PHP_VERSION >= ($a.$b.$c);
 }
+
+/**
+ * returns true if the current internal SM version is at minimum a.b.c 
+ * These are plain integer comparisons, as our internal version is 
+ * constructed by us, as an array of 3 ints.
+ *
+ * Called: check_sm_version(1,3,3)
+ */
+function check_sm_version($a = 0, $b = 0, $c = 0)
+{
+    global $SQM_INTERNAL_VERSION;
+    if ( !isset($SQM_INTERNAL_VERSION) ||
+         $SQM_INTERNAL_VERSION[0] < $a ||
+	 $SQM_INTERNAL_VERSION[1] < $b ||
+	 ( $SQM_INTERNAL_VERSION[1] == $b &&
+           $SQM_INTERNAL_VERSION[2] < $c ) ) {
+        return FALSE;
+    } 
+    return TRUE;  
+}
+
 
 /* recursively strip slashes from the values of an array */
 function sqstripslashes(&$array) {
