@@ -111,6 +111,12 @@ if ($useSendmail ne "true") {
 if (!$sendmail_path) {
    $sendmail_path = "/usr/sbin/sendmail";
 }
+if (!$default_unseen_notify) {
+   $default_unseen_notify = 2;
+}
+if (!$default_unseen_type) {
+   $default_unseen_type = 1;
+}
 
 #####################################################################################
 
@@ -168,6 +174,8 @@ while (($command ne "q") && ($command ne "Q")) {
       print "9.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
       print "10. Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
       print "11. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
+      print "12. Default Unseen Notify      : $WHT$default_unseen_notify$NRM\n";
+      print "13. Default Unseen Type        : $WHT$default_unseen_type$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -261,6 +269,8 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 9) { $auto_expunge                   = command29 (); }
          elsif ($command == 10){ $default_sub_of_inbox           = command210(); }
          elsif ($command == 11){ $show_contain_subfolders_option = command211(); }
+         elsif ($command == 12){ $default_unseen_notify          = command212(); }
+         elsif ($command == 13){ $default_unseen_type            = command213(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset    = command31 (); }
          elsif ($command == 2) { $data_dir           = command33 (); }
@@ -754,6 +764,43 @@ sub command211 {
    return $show_contain_subfolders_option;
 }
 
+# Default Unseen Notify 
+sub command212 {
+   print "This option specifies where the users will receive notification\n";
+   print "about unseen messages by default.  This is of course an option that\n";
+   print "can be changed on a user level.\n";
+   print "  1 = No notification\n";
+   print "  2 = Only on the INBOX\n";
+   print "  3 = On all folders\n";
+   print "\n";
+   
+   print "Which one should be default (1,2,3)? [$WHT$default_unseen_notify$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if ($new_show =~ /^[1|2|3]\n/i) {
+      $default_unseen_notify = $new_show;
+   }
+   $default_unseen_notify =~ s/[\r|\n]//g;
+   return $default_unseen_notify;
+}
+
+# Default Unseen Type 
+sub command213 {
+   print "Here you can define the default way that unseen messages will be displayed\n";
+   print "to the user in the folder listing on the left side.\n";
+   print "  1 = Only unseen messages   (4)\n";
+   print "  2 = Unseen and Total messages  (4/27)\n";
+   print "\n";
+   
+   print "Which one should be default (1,2)? [$WHT$default_unseen_type$NRM]: $WHT";
+   $new_show = <STDIN>;
+   if ($new_show =~ /^[1|2]\n/i) {
+      $default_unseen_type = $new_show;
+   }
+   $default_unseen_type =~ s/[\r|\n]//g;
+   return $default_unseen_type;
+}
+
+
 ############# GENERAL OPTIONS #####################
 
 # Default Charset
@@ -1132,6 +1179,8 @@ sub save_data {
    print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
    print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
    print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";
+   print FILE "\t\$default_unseen_notify            =  $default_unseen_notify;\n";
+   print FILE "\t\$default_unseen_type              =  $default_unseen_type;\n";
    print FILE "\n";
 
    print FILE "\t\$default_charset   = \"$default_charset\";\n";

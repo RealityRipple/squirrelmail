@@ -53,6 +53,19 @@
       $move_to_trash = $default_move_to_trash;
 
 
+   $unseen_type = getPref($data_dir, $username, "unseen_type");
+   if ($default_unseen_type == "")
+      $default_unseen_type = 1;
+   if ($unseen_type == "")
+      $unseen_type = $default_unseen_type;
+
+   $unseen_notify = getPref($data_dir, $username, "unseen_notify");
+   if ($default_unseen_notify == "")
+      $default_unseen_notify = 2;
+   if ($unseen_notify == "")
+      $unseen_notify = $default_unseen_notify;
+
+
    $folder_prefix = getPref($data_dir, $username, "folder_prefix");
    if ($folder_prefix == "")
       $folder_prefix = $default_folder_prefix;
