@@ -76,7 +76,9 @@ Version 1.5.0 -- CVS
   - sqimap_msgs_list_copy() no longer deletes messages copied.
   - Workaround for Mozilla bug #200412 in order to show multipart/related html mail.
   - Fix for disapearing '0' from decoded strings (bug #784193)
-  
+  - Replace all session_start() calls with sqsession_is_active() to be compatible
+    with upcoming PHP 4.3.3.
+
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***

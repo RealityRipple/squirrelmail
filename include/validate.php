@@ -50,7 +50,7 @@ if(isset($session_name) && $session_name) {
     ini_set('session.name' , 'SQMSESSID');
 }
 
-session_start();
+sqsession_is_active();
 
 require_once(SM_PATH . 'functions/i18n.php');
 require_once(SM_PATH . 'functions/auth.php');

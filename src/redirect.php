@@ -37,7 +37,7 @@ header('Pragma: no-cache');
 $location = get_location();
 
 session_set_cookie_params (0, $base_uri);
-session_start();
+sqsession_is_active();
 
 sqsession_unregister ('user_is_logged_in');
 sqsession_register ($base_uri, 'base_uri');
