@@ -9,7 +9,7 @@
    function getPref($data_dir, $username, $string) {
       $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {
-         echo "Preference file \"$filename\" not found.  Exiting abnormally";
+         echo _("Preference file ") "\"$filename\"" _(" not found.  Exiting abnormally");
          exit;
       }
 
@@ -32,7 +32,7 @@
       $filename = "$data_dir$username.pref";
       $found = false;
       if (!file_exists($filename)) {
-         echo "Preference file, $filename, does not exist.  Log out, and log back in to create a default preference file.<BR>";
+         echo _("Preference file, ") "\"$filename\"". _(", does not exist.  Log out, and log back in to create a default preference file. ") ."<BR>";
          exit;
       }
       $file = fopen($filename, "r");
@@ -74,7 +74,7 @@
       $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {
          if (!copy("$data_dir" . "default_pref", $filename)) {
-            echo "Error opening $filename";
+            echo _("Error opening ") ."$filename";
             exit;
          }
       }
@@ -103,7 +103,7 @@
          }
          fclose($file);
       } else {
-         echo "Signature file not found.";
+         echo _("Signature file not found.");
          exit;
       }
       return $sig;
