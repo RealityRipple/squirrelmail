@@ -18,7 +18,7 @@ require_once(SM_PATH . 'functions/prefs.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/constants.php');
 
-$username = ( !isset($username) ? '' : $username );
+$username = ( !isset($_SESSION['username']) ? '' : $_SESSION['username'] );
 
 $custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
 
