@@ -1345,6 +1345,10 @@ $languages['uk']['ALIAS'] = 'uk_UA';
 
 // Right to left languages
 
+$languages['ar']['NAME']    = 'Arabic';
+$languages['ar']['CHARSET'] = 'windows-1256';
+$languages['ar']['DIR']     = 'rtl';
+
 $languages['he_HE']['NAME']    = 'Hebrew';
 $languages['he_HE']['CHARSET'] = 'windows-1255';
 $languages['he_HE']['DIR']     = 'rtl';
