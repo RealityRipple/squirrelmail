@@ -97,8 +97,8 @@ $custom_css = 'none';
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 /* Set the title of this page. */
-echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000CC\" VLINK=\"#0000CC\" ALINK=\"#0000CC\" onLoad='squirrelmail_loginpage_onload();'>\n".
-     "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
+echo '<BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000CC" VLINK="#0000CC" ALINK="#0000CC" onLoad="squirrelmail_loginpage_onload();">'.
+     "\n<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
@@ -107,7 +107,7 @@ do_hook('login_top');
 $loginname_value = (isset($loginname) ? htmlspecialchars($loginname) : '');
 
 /* Display width and height like good little people */
-$width_and_height = "";
+$width_and_height = '';
 if (isset($org_logo_width) && is_int($org_logo_width) && $org_logo_width>0) {
     $width_and_height = " WIDTH=\"$org_logo_width\"";
 }
@@ -115,7 +115,7 @@ if (isset($org_logo_height) && is_int($org_logo_height) && $org_logo_height>0) {
     $width_and_height .= " HEIGHT=\"$org_logo_height\"";
 }
 
-echo "<CENTER>".
+echo '<CENTER>'.
      "  <IMG SRC=\"$org_logo\" ALT=\"" . sprintf(_("%s Logo"), $org_name) . 
         "\"$width_and_height><BR>\n".
      ( $hide_sm_attributions ? '' :
