@@ -27,15 +27,15 @@
     ** $Id$
     **/
    
-   require_once("DB.php");
+   require_once('DB.php');
    
    class abook_database extends addressbook_backend {
-      var $btype = "local";
-      var $bname = "database";
+      var $btype = 'local';
+      var $bname = 'database';
       
-      var $dsn       = "";
-      var $table     = "";
-      var $owner     = "";
+      var $dsn       = '';
+      var $table     = '';
+      var $owner     = '';
       var $dbh       = false;
       
       var $writeable = true;
@@ -207,7 +207,7 @@
          // See if user exist already
          $ret = $this->lookup($userdata['nickname']);
          if(!empty($ret))
-            return $this->set_error(sprintf(_((User \'%s\' already exist"),
+            return $this->set_error(sprintf(_("User '%s' already exist"),
                                             $ret['nickname']));
 
          // Create query
