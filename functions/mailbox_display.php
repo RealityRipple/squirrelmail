@@ -489,7 +489,7 @@
       }
 
       echo '</table>';
-      echo "<table width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table>";
+      echo "<table bgcolor=\"$color[4]\" width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table>";
       /** End of message-list table */
 
       do_hook('mailbox_index_after');
