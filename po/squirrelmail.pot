@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-04 15:36+0300\n"
+"POT-Creation-Date: 2004-05-05 23:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,9 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Address Book"
-msgstr ""
-
-msgid "All"
 msgstr ""
 
 msgid "Name"
@@ -32,19 +29,7 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
-msgid "To"
-msgstr ""
-
-msgid "Cc"
-msgstr ""
-
-msgid "Bcc"
-msgstr ""
-
-msgid "Use Addresses"
-msgstr ""
-
-msgid "Address Book Search"
+msgid "No persons matching your search were found"
 msgstr ""
 
 msgid "Search for"
@@ -62,6 +47,9 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
+msgid "Close"
+msgstr ""
+
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr ""
@@ -69,13 +57,25 @@ msgstr ""
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-msgid "No persons matching your search were found"
+msgid "All"
+msgstr ""
+
+msgid "To"
+msgstr ""
+
+msgid "Cc"
+msgstr ""
+
+msgid "Bcc"
+msgstr ""
+
+msgid "Use Addresses"
+msgstr ""
+
+msgid "Address Book Search"
 msgstr ""
 
 msgid "Return"
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "Nickname"
@@ -123,7 +123,16 @@ msgstr ""
 msgid "Delete selected"
 msgstr ""
 
-msgid "Click here to change the sorting of the address list"
+msgid "sort by nickname"
+msgstr ""
+
+msgid "sort by name"
+msgstr ""
+
+msgid "sort by email"
+msgstr ""
+
+msgid "sort by info"
 msgstr ""
 
 msgid "Add to address book"
@@ -229,28 +238,6 @@ msgstr ""
 msgid "Server replied: "
 msgstr ""
 
-msgid "Illegal folder name.  Please select a different name."
-msgstr ""
-
-msgid "Click here to go back"
-msgstr ""
-
-msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
-
-msgid "Delete Folder"
-msgstr ""
-
-#, c-format
-msgid "Are you sure you want to delete %s?"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
 msgid "Folders"
 msgstr ""
 
@@ -302,6 +289,9 @@ msgstr ""
 msgid "No folders found"
 msgstr ""
 
+msgid "Delete Folder"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -318,6 +308,25 @@ msgid "No folders were found to subscribe to!"
 msgstr ""
 
 msgid "Subscribe to:"
+msgstr ""
+
+msgid "Illegal folder name. Please select a different name."
+msgstr ""
+
+msgid "Click here to go back"
+msgstr ""
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr ""
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
 msgstr ""
 
 msgid "You have not selected a folder to rename. Please do so."
@@ -340,7 +349,7 @@ msgstr ""
 
 #, c-format
 msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
+"The help has not been translated to %s. It will be displayed in English "
 "instead."
 msgstr ""
 
@@ -407,10 +416,56 @@ msgstr ""
 msgid "No messages were selected."
 msgstr ""
 
-msgid "Options"
+msgid "Personal Information"
+msgstr ""
+
+msgid "Display Preferences"
 msgstr ""
 
 msgid "Message Highlighting"
+msgstr ""
+
+msgid "Folder Preferences"
+msgstr ""
+
+msgid "Index Order"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Successfully Saved Options"
+msgstr ""
+
+msgid "Refresh Folder List"
+msgstr ""
+
+msgid "Refresh Page"
+msgstr ""
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list. This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
 msgstr ""
 
 msgid "New"
@@ -525,9 +580,6 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-msgid "Index Order"
-msgstr ""
-
 msgid "Checkbox"
 msgstr ""
 
@@ -539,8 +591,8 @@ msgstr ""
 
 msgid ""
 "The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
+"index. You can add, remove, and move columns around to customize them to fit "
+"your needs."
 msgstr ""
 
 msgid "up"
@@ -553,49 +605,6 @@ msgid "remove"
 msgstr ""
 
 msgid "Return to options page"
-msgstr ""
-
-msgid "Personal Information"
-msgstr ""
-
-msgid "Display Preferences"
-msgstr ""
-
-msgid "Folder Preferences"
-msgstr ""
-
-msgid "Successfully Saved Options"
-msgstr ""
-
-msgid "Refresh Folder List"
-msgstr ""
-
-msgid "Refresh Page"
-msgstr ""
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr ""
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
 msgstr ""
 
 msgid "Message not printable"
@@ -736,6 +745,18 @@ msgstr ""
 msgid "(Spurious argument)"
 msgstr ""
 
+msgid "-"
+msgstr ""
+
+msgid "+"
+msgstr ""
+
+msgid "Hide"
+msgstr ""
+
+msgid "Show"
+msgstr ""
+
 msgid "edit"
 msgstr ""
 
@@ -779,6 +800,9 @@ msgid "Remove Excluded Criteria"
 msgstr ""
 
 msgid "Remove All Criteria"
+msgstr ""
+
+msgid "Not"
 msgstr ""
 
 msgid "Answered"
@@ -847,9 +871,6 @@ msgstr ""
 msgid "Sent To"
 msgstr ""
 
-msgid "Not"
-msgstr ""
-
 msgid "And In"
 msgstr ""
 
@@ -862,21 +883,6 @@ msgstr ""
 msgid "Or"
 msgstr ""
 
-msgid "No Messages Found"
-msgstr ""
-
-msgid "-"
-msgstr ""
-
-msgid "+"
-msgstr ""
-
-msgid "Hide"
-msgstr ""
-
-msgid "Show"
-msgstr ""
-
 msgid "Body"
 msgstr ""
 
@@ -887,6 +893,9 @@ msgid "Standard search"
 msgstr ""
 
 msgid "Advanced search"
+msgstr ""
+
+msgid "No Messages Found"
 msgstr ""
 
 msgid "Sign Out"
@@ -1018,6 +1027,9 @@ msgid "E-mail address is missing"
 msgstr ""
 
 msgid "Nickname contains illegal characters"
+msgstr ""
+
+msgid "Click here to change the sorting of the address list"
 msgstr ""
 
 msgid "view"
@@ -2297,14 +2309,14 @@ msgstr ""
 msgid "Show button in toolbar"
 msgstr ""
 
-#, c-format
-msgid "Could not write calendar file %s"
-msgstr ""
-
 msgid "TODAY"
 msgstr ""
 
 msgid "Go"
+msgstr ""
+
+#, c-format
+msgid "Could not write calendar file %s"
 msgstr ""
 
 msgid "l, F j Y"
@@ -2419,13 +2431,13 @@ msgstr ""
 
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
-"be relayed through their system will be banned with this.  Another good one "
+"be relayed through their system will be banned with this. Another good one "
 "to use."
 msgstr ""
 
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"their ISP's mail servers to send mail. Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
 
@@ -2619,8 +2631,8 @@ msgstr ""
 
 msgid ""
 "The more messages you scan, the longer it takes. I would suggest that you "
-"scan only new messages.  If you make a change to your filters, I would set "
-"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages. If you make a change to your filters, I would set it "
+"to scan all messages, then go view my INBOX, then come back and set it to "
 "scan only new messages. That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
 msgstr ""
@@ -2927,7 +2939,7 @@ msgstr ""
 
 msgid ""
 "You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
+"perfectly secure. However, if you are using pop, there is inherently no "
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
@@ -3027,6 +3039,23 @@ msgstr ""
 msgid "View Message details"
 msgstr ""
 
+msgid "New Mail"
+msgstr ""
+
+msgid "SquirrelMail Notice:"
+msgstr ""
+
+msgid "You have"
+msgstr ""
+
+#, c-format
+msgid "%s new message"
+msgstr ""
+
+#, c-format
+msgid "%s new messages"
+msgstr ""
+
 msgid "New Mail Notification"
 msgstr ""
 
@@ -3049,21 +3078,21 @@ msgstr ""
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"been \"viewed\" or checked yet. This can prevent being continuously annoyed "
 "by sounds or popups for unseen mail."
 msgstr ""
 
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers).  This will "
+"only works in IE but you won't see errors with other browsers). This will "
 "always tell you if you have new mail, even if you have <b>Check RECENT</b> "
 "enabled."
 msgstr ""
 
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
+"mail arrives. If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
 
 msgid "Enable Media Playing"
@@ -3094,23 +3123,6 @@ msgid "Try"
 msgstr ""
 
 msgid "Current File:"
-msgstr ""
-
-msgid "New Mail"
-msgstr ""
-
-msgid "SquirrelMail Notice:"
-msgstr ""
-
-msgid "You have"
-msgstr ""
-
-#, c-format
-msgid "%s new message"
-msgstr ""
-
-#, c-format
-msgid "%s new messages"
 msgstr ""
 
 msgid "NewMail Options"
@@ -3310,8 +3322,8 @@ msgid "SpamCop - Spam Reporting"
 msgstr ""
 
 msgid ""
-"Help fight the battle against unsolicited email.  SpamCop reads the spam "
-"email and determines the correct addresses to send complaints to.  Quite "
+"Help fight the battle against unsolicited email. SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to. Quite "
 "fast, really smart, and easy to use."
 msgstr ""
 
@@ -3321,7 +3333,7 @@ msgstr ""
 msgid ""
 "Sending this spam report will give you back a reply with URLs that you can "
 "click on to properly report this spam message to the proper authorities. "
-"This is a free service.  By pressing the \"Send Spam Report\" button, you "
+"This is a free service. By pressing the \"Send Spam Report\" button, you "
 "agree to follow SpamCop's rules/terms of service/etc."
 msgstr ""
 
@@ -3470,6 +3482,19 @@ msgstr ""
 msgid "No errors found"
 msgstr ""
 
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
 msgid "Your personal dictionary was erased."
 msgstr ""
 
@@ -3499,19 +3524,6 @@ msgid ""
 msgstr ""
 
 msgid "Dictionary re-encrypted"
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-
-msgid "Personal Dictionary Crypto Settings"
 msgstr ""
 
 msgid "Personal Dictionary"

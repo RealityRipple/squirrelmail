@@ -325,7 +325,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $optpage_blocks[] = array(
         'name' =>_("Message Highlighting"),
         'url'  => 'options_highlight.php',
-        'desc' =>_("Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists."),
+        'desc' =>_("Based upon given criteria, incoming messages can have different background colors in the message list. This helps to easily distinguish who the messages are from, especially for mailing lists."),
         'js'   => false
     );
 

@@ -469,7 +469,7 @@ function load_spam_filters() {
         $filters['MAPS RSS']['dns'] = 'relays.mail-abuse.org';
         $filters['MAPS RSS']['result'] = '127.0.0.2';
         $filters['MAPS RSS']['comment'] =
-            _("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use.");
+            _("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this. Another good one to use.");
 
         $filters['MAPS DUL']['prefname'] = 'filters_spam_maps_dul';
         $filters['MAPS DUL']['name'] = 'MAPS Dial-Up List';
@@ -477,7 +477,7 @@ function load_spam_filters() {
         $filters['MAPS DUL']['dns'] = 'dialups.mail-abuse.org';
         $filters['MAPS DUL']['result'] = '127.0.0.3';
         $filters['MAPS DUL']['comment'] =
-            _("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
+            _("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail. Spammers typically get a dial-up account and send spam directly from there.");
 
         $filters['MAPS RBLplus-RBL']['prefname'] = 'filters_spam_maps_rblplus_rbl';
         $filters['MAPS RBLplus-RBL']['name'] = 'MAPS RBL+ RBL List';

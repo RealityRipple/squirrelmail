@@ -155,7 +155,7 @@ if (isset($action) && $action == 'spam') {
     html_tag( 'tr',
           html_tag( 'td', '&nbsp;' ) .
           html_tag( 'td',
-              _("The more messages you scan, the longer it takes. I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages. That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.") ,
+              _("The more messages you scan, the longer it takes. I would suggest that you scan only new messages. If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages. That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters.") ,
           'left' )
       );
 
