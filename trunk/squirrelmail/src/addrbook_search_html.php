@@ -173,7 +173,7 @@
    // Show personal addressbook
    if(!isset($addrquery) || !empty($listall)) {
 
-      if((isset($backend) && $backend != -1) || !isset($addrquery)) {
+      if(! isset($backend) || $backend != -1 || !isset($addrquery)) {
          if(!isset($addrquery)) 
             $backend = $abook->localbackend;
 
