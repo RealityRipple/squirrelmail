@@ -19,6 +19,12 @@ require_once( '../functions/constants.php' );
 // corrects a time stamp to be the local time
 function getGMTSeconds($stamp, $gmt) {
     global $invert_time;
+
+    // date couldn't be parsed
+    if ($stamp == -1) {
+        return -1;
+    }
+
     if (($gmt == 'Pacific') || ($gmt == 'PST')) {
         $gmt = '-0800'; 
     } else if (($gmt == 'EDT')) {
@@ -179,6 +185,10 @@ function getLongDateString( $stamp ) {
 
     global $hour_format;
     
+    if ($stamp == -1) {
+        return '';
+    }
+
     if ( $hour_format == SMPREF_TIME_12HR ) {
         $date_format = _("D, F j, Y g:i a");
     } else {
