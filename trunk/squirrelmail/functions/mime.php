@@ -410,11 +410,11 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $type1 = strtolower($header->type1);
         $name = '';
         $links['download link']['text'] = _("download");
-        $links['download link']['href'] =
-                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
+        $links['download link']['href'] = SM_PATH .
+                "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
         $ImageURL = '';
         if ($type0 =='message' && $type1 == 'rfc822') {
-            $default_page = '../src/read_body.php';
+            $default_page = SM_PATH . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
             $filename = $rfc822_header->subject;
             if (trim( $filename ) == '') {
@@ -429,7 +429,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $from_name = decodeHeader(($from_name));
             $description = $from_name;
         } else {
-            $default_page = '../src/download.php';
+            $default_page = SM_PATH . 'src/download.php';
             if (is_object($header->disposition)) {
                 $filename = $header->disposition->getProperty('filename');
                 if (trim($filename) == '') {
@@ -474,7 +474,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         }
         $defaultlink = $default_page . "?startMessage=$startMessage"
                      . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
-                     . '&amp;ent_id='.$ent.$passed_ent_id_link.'&amp;absolute_dl=true';
+                     . '&amp;ent_id='.$ent.$passed_ent_id_link;
         if ($where && $what) {
            $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
@@ -1369,7 +1369,7 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
        unsave link image */
     $httpurl = '';
     if ($linkurl) {
-        $httpurl = $quotchar . '../src/download.php?absolute_dl=true&amp;' .
+        $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
                    "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
                    '&amp;ent_id=' . $linkurl . $quotchar;
     }
