@@ -69,6 +69,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         /* retrieve the response and the message */
         $response = $response[$tag];
         $message  = $message[$tag];
+	
         if (!empty($read[$tag])) {
             return $read[$tag][0];
         } else {
@@ -433,7 +434,7 @@ function sqimap_read_data_list ($imap_stream, $tag, $handle_errors,
         break;
     case 'NO': 
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
-        if (strstr($message, 'command resulted in') === false) {
+        if (strstr($message[$tag], 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
             require_once(SM_PATH . 'functions/display_messages.php');
             $string = "<b><font color=$color[2]>\n" .
