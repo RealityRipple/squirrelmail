@@ -1,28 +1,28 @@
 <?php
 
-   /**
-    **  options_highlight.php
-    **
-    **  Copyright (c) 1999-2001 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Displays message highlighting options
-    **
-    **  $Id$
-    **/
+/**
+ * options_highlight.php
+ *
+ * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Displays message highlighting options
+ *
+ * $Id$
+ */
 
-   require_once('../src/validate.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../functions/plugin.php');
+require_once('../src/validate.php');
+require_once('../functions/display_messages.php');
+require_once('../functions/imap.php');
+require_once('../functions/array.php');
+require_once('../functions/plugin.php');
 
-    function oh_opt( $val, $sel, $tit ) {
-        echo "            <option value=\"$val\"";
-        if ( $sel )
-            echo 'selected';
-        echo  ">$tit</option>\n";
-    }
+function oh_opt( $val, $sel, $tit ) {
+    echo "            <option value=\"$val\"";
+    if ( $sel )
+        echo 'selected';
+    echo  ">$tit</option>\n";
+}
 
    if (! isset($action))
        $action = '';
