@@ -1,13 +1,13 @@
 <?
 //  Organization's logo picture (blank if none)
-    $org_logo = "../images/om_webmail.gif";
+    $org_logo = "../images/logo.jpg";
 
 //  Organization's name
-    $org_name = "Operation Mobilization";
+    $org_name = "SquirrelMail";
 
 //  Webmail Title
 //  This is the title that goes at the top of the browser window
-    $org_title = "OM-USA WebMail";
+    $org_title = "SquirrelMail $version";
 
 //  The server that your imap server is on
     $imapServerAddress = "localhost";
@@ -24,7 +24,9 @@
     $smtpPort = 25;
 
 //  This is displayed right after they log in
-    $motd = "  Welcome to OM's webmail system, SquirrelMail.  We are currently in beta, and have not yet released a full version of SquirrelMail.  Please feel free to look around, and please report any bugs to <A HREF=\"mailto:nathan@usa.om.org\">Nathan</A> or <A HREF=\"mailto:luke@usa.om.org\">Luke</A>.";
+    $motd = "";
+    $motd .= "You are using SquirrelMail's web-based email client.  If you run into any bugs or have ";
+    $motd .= "suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
 
 //  Customizable colors
 //     You can define your own theme and put it in this directory.  You must

@@ -24,8 +24,7 @@
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"folders.php\">Folders</A></FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\">Options</FONT>&nbsp&nbsp";
       echo "      </TD><TD ALIGN=right WIDTH=30%>";
-      echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"http://adam.usa.om.org/~luke/main.php3\" TARGET=_top>Todos & Bugs</A></FONT>&nbsp&nbsp";
-      echo "         <FONT FACE=\"Arial,Helvetica\">Help!</FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"http://squirrelmail.sourceforge.net\" TARGET=_top>SquirrelMail</A></FONT>";
       echo "      </TD>";
       echo "</TABLE>";
   }
