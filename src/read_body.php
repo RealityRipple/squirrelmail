@@ -382,8 +382,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
           $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft;
 
    $topbar_delimiter = '&nbsp;|&nbsp;';
-   $urlMailbox = encodeHeader($mailbox);
-
+   $urlMailbox = urlencode($mailbox);
    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
          ' border="0" bgcolor="'.$color[9].'"><tr><td align="left" width="33%"><small>';
 
@@ -502,7 +501,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
    global $QUERY_STRING, $base_uri;
    
-   $urlMailbox = encodeHeader($mailbox);
+   $urlMailbox = urlencode($mailbox);
    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
          ' border="0" bgcolor="'.$color[9].'">'. "\n".
 	 '<tr align="right"><td valign="top" align="right"><small>';
@@ -651,6 +650,7 @@ if (($attachment_common_show_images) &&
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');
+$message->clean_up();
 sqimap_logout($imapConnection);
 ?>
 </body>
