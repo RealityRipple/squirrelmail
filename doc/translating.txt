@@ -46,7 +46,7 @@ a) There should always be an updated template containing all strings
 
 msgmerge squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po \
 squirrelmail/po/squirrelmail.po > \
-squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po
+squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po.new
 
    This should keep all strings that are unchanged and comment out all
    strings that are no longer in use. You might want to make a copy
