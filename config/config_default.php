@@ -86,10 +86,13 @@
 //         - If this is true, when a message is moved or copied, the
 //           source mailbox will get expunged, removing all messages
 //           marked "Deleted".
+//    $sent_folder
+//         - This is the path to where Sent messages will be stored.
 
     $default_move_to_trash = true;
     $trash_folder = "INBOX.Trash";
     $auto_expunge = true;
+    $sent_folder = "INBOX.Sent";
 
 //  Special Folders are folders that can't be manipulated like normal
 //  user created folders can. A couple of examples would be

@@ -1,5 +1,6 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Saving sent messages into $sent_folder
 - It doesn't bail out if PHP wasn't compiled with --with-gettext.  
     It only uses english in this case.
 
