@@ -1,5 +1,7 @@
 Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- Replaced error messages with better, formatted, and meaningful messages.
+- Fixed "reply all" so that it works intelligently now
 - Made deleted (but not expunged) messages easier to detect (only if $auto_expunge = false)
 - Fixed bug that didn't display size correctly in search results
 - Major memory management and speed improvements with downloading of attachments
