@@ -1956,7 +1956,7 @@ sub save_data {
 
         if (defined $addrbook_dsn) {
             print CF "global \$addrbook_dsn;\n";
-            print CF "\$addrbook_dsn = $addrbook_dsn;\n\n";
+            print CF "\$addrbook_dsn = '$addrbook_dsn';\n\n";
         }
      
         print CF "/**\n";
