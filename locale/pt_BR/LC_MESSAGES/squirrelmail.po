@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-18 10:47+0200\n"
-"PO-Revision-Date: 2003-01-19 20:10-0300\n"
+"POT-Creation-Date: 2003-01-25 09:07+0100\n"
+"PO-Revision-Date: 2003-01-31 00:12-0300\n"
 "Last-Translator: Marcos Tadeu <marcos@v2r.com.br>\n"
 "Language-Team: Portuguese (Brazilian) <squirrelmail-i18n@lists.sourceforge."
 "net>\n"
@@ -238,6 +238,7 @@ msgstr "Você não selecionou uma pasta para apagar. Por favor, faça-o."
 msgid "Delete Folder"
 msgstr "Apagar Pasta"
 
+#, c-format
 msgid "Are you sure you want to delete %s?"
 msgstr "Deseja realmente apagar %s?"
 
@@ -384,9 +385,11 @@ msgstr "Salvar a árvore de diretórios (pastas)"
 msgid "Login"
 msgstr "Login"
 
+#, c-format
 msgid "%s Logo"
 msgstr "Logotipo para %s"
 
+#, c-format
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail versão %s"
 
@@ -979,14 +982,19 @@ msgstr ""
 msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "Arquivo de preferências, %s, não pode ser aberto. Entre em contato com seu administrador para ajuda."
+msgstr ""
+"Arquivo de preferências, %s, não pode ser aberto. Entre em contato com seu "
+"administrador para ajuda."
 
 #, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr "Arquivo de preferências, %s, não pode ser escrito. Entre em contato com seu administrador para ajuda."
+msgstr ""
+"Arquivo de preferências, %s, não pode ser escrito. Entre em contato com seu "
+"administrador para ajuda."
 
+#, c-format
 msgid "Error opening %s"
 msgstr "Erro ao abrir %s"
 
@@ -1003,15 +1011,21 @@ msgstr "Não foi possível criar um arquivo de preferência inicial!"
 msgid "%s should be writable by user %s"
 msgstr "%s deve poder ser escrito por %s"
 
+#, c-format
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "Arquivo de assinatura %s não pôde ser aberto. Entre em contato com seu administrador para ajuda."
+msgstr ""
+"Arquivo de assinatura %s não pôde ser aberto. Entre em contato com seu "
+"administrador para ajuda."
 
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr "Arquivo de assinatura %s não pode ser escrito. Entre em contato com seu administrador para ajuda."
+msgstr ""
+"Arquivo de assinatura %s não pode ser escrito. Entre em contato com seu "
+"administrador para ajuda."
 
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
@@ -1046,6 +1060,7 @@ msgstr "Erro ao conectar com o servidor IMAP: %s."
 msgid "Bad request: %s"
 msgstr "Pedido ruim: %s"
 
+#, c-format
 msgid "Unknown error: %s"
 msgstr "Erro desconhecido: %s"
 
@@ -1062,7 +1077,8 @@ msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
-"Remova mensagens desnecessárias de sua pasta e inicie com sua pasta de lixeira."
+"Remova mensagens desnecessárias de sua pasta e inicie com sua pasta de "
+"lixeira."
 
 msgid "Unknown response from IMAP server: "
 msgstr "Resposta desconhecida do servidor IMAP: "
@@ -1089,8 +1105,8 @@ msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
-"O servidor IMAP em uso não faz ordenação agrupando por assunto.<BR>Favor avisar ao administrador "
-"deste serviço."
+"O servidor IMAP em uso não faz ordenação agrupando por assunto.<BR>Favor "
+"avisar ao administrador deste serviço."
 
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
@@ -1198,6 +1214,7 @@ msgstr "Pasta Corrente"
 msgid "Compose"
 msgstr "Escrever"
 
+#, c-format
 msgid "Error creating directory %s."
 msgstr "Erro ao criar o diretório %s."
 
@@ -1217,7 +1234,9 @@ msgid "Requested action aborted: error in processing"
 msgstr "Ação requisitada foi abortada: erro no processamento"
 
 msgid "Requested action not taken: insufficient system storage"
-msgstr "A ação requisotada não foi feita: falta espaço de armazenamento no sistema (disco?)"
+msgstr ""
+"A ação requisotada não foi feita: falta espaço de armazenamento no sistema "
+"(disco?)"
 
 msgid "Temporary authentication failure"
 msgstr "Falha temporária de autenticação"
@@ -1349,8 +1368,7 @@ msgid "Include CCs when Forwarding Messages"
 msgstr "Incluir endereços do campo CC quando reenviar mensagens"
 
 msgid "Include Me in CC when I Reply All"
-msgstr ""
-"Inclua meu email no CC quando &quot;Responder a Todos&quot;"
+msgstr "Inclua meu email no CC quando &quot;Responder a Todos&quot;"
 
 msgid "Enable Mailer Display"
 msgstr "Habilitar visualização do programa de email (&quot;Mailer&quot;)"
@@ -2127,6 +2145,7 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "FREE - SPAMhaus - Lista com fontes bem conhecidas de SPAM."
 
+#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2315,7 +2334,7 @@ msgstr ""
 
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
-msgstr "SPAM foi enviado para <b>%s</b>"
+msgstr "Spam é enviado para <b>%s</b>"
 
 msgid "[<i>not set yet</i>]"
 msgstr "[<i>ainda não escolhido</i>]"
@@ -2355,9 +2374,10 @@ msgid ""
 "Run some test IMAP commands, displaying both the command and the result. "
 "These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
 "configuration. Custom command strings can be used."
-msgstr "Rodar alguns testes de comandos IMAP, mostrando o comando e os resultados. "
-"Estes testes usam os comandos do IMAP do Squirrelmail e sua configuração atual. "
-"Comandos alterados localmente podem ser usados."
+msgstr ""
+"Rodar alguns testes de comandos IMAP, mostrando o comando e os resultados. "
+"Estes testes usam os comandos do IMAP do Squirrelmail e sua configuração "
+"atual. Comandos alterados localmente podem ser usados."
 
 msgid "Mailinglist"
 msgstr "Lista de E-mails"
@@ -2821,9 +2841,11 @@ msgstr ""
 msgid "New Mail Notification options saved"
 msgstr "Opções para notificação de email salvas"
 
+#, c-format
 msgid "%s New Messages"
 msgstr "%s mensagens novas"
 
+#, c-format
 msgid "%s New Message"
 msgstr "%s nova(s) mensagem(ens)"
 
@@ -3328,6 +3350,7 @@ msgstr ""
 "Qual o tradutor que deve ser utilizado quando você receber mensagens em "
 "línguas diferentes?"
 
+#, c-format
 msgid "%s to %s"
 msgstr "%s para %s"
 
