@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * options page for IMAP info plugin 
  * 
@@ -33,10 +33,10 @@ $mailbox = 'INBOX';
  * prevent use of plugin if it is not enabled
  */
 if (! is_plugin_enabled('info')) {
-  echo "<p align=\"center\"><big>";
-  echo _("Plugin is disabled.");
-  echo "</big></p></body></html>";
-  exit;
+    echo '<p align="center"><big>'.
+         _("Plugin is disabled.").
+         '</big></p></body></html>';
+    exit;
 }
 
 /* GLOBALS */
@@ -57,8 +57,7 @@ for($i = 0; $i <= 9; $i++){
 
 $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $caps_array = get_caps($imap_stream);
-$list = array (
-               'TEST_0',
+$list = array ('TEST_0',
                'TEST_1',
                'TEST_2',
                'TEST_3',
@@ -69,39 +68,37 @@ $list = array (
                'TEST_8',
                'TEST_9');
 
-print "<br /><center><b>";
-echo _("IMAP server information");
-print "</b></center><br />\n";
-print "<center><table bgcolor=\"".$color[3]."\" width=\"100%\" border=\"1\" cellpadding=\"2\">";
-print "<tr><td bgcolor=\"".$color[3]."\"><br />\n";
-print "<center><table width=\"95%\" border=\"1\" bgcolor=\"".$color[3]."\">\n";
-print "<tr><td bgcolor=\"".$color[4]."\"><b>";
-echo _("Server Capability response:");
-print "</b><br />\n";
+echo '<br /><center><b>'._("IMAP server information")."</b></center><br />\n".
+     '<center><table bgcolor="'.$color[3].'" width="100%" border="1" cellpadding="2">'.
+     '<tr><td bgcolor="'.$color[3]."\"><br />\n".
+     '<center><table width="95%" border="1" bgcolor="'.$color[3]."\">\n".
+     '<tr><td bgcolor="'.$color[4].'"><b>'.
+     _("Server Capability response:").
+     "</b><br />\n";
 
 foreach($caps_array[0] as $value) {
-    print htmlspecialchars($value);
+    echo htmlspecialchars($value);
 }
 
-print "</td></tr><tr><td>\n";
+echo "</td></tr><tr><td>\n";
 
 if (!isset($submit) || $submit == 'default') {
-    print "<br /><p><small><font color=\"".$color[6]."\">";
-    echo _("Select the IMAP commands you would like to run. Most commands require a selected mailbox so the select command is already setup. You can clear all the commands and test your own IMAP command strings. The commands are executed in order. The default values are simple IMAP commands using your default_charset and folder_prefix from SquirrelMail when needed.");
-    echo "</font></small></p>\n";
-    echo "<p align=\"center\"><small><b>";
-    echo _("NOTE: These commands are live, any changes made will effect your current email account.");
-    echo "</b></small></p><br />\n";
+    echo '<br /><p><small><font color="'.$color[6].'">'.
+         _("Select the IMAP commands you would like to run. Most commands require a selected mailbox so the select command is already setup. You can clear all the commands and test your own IMAP command strings. The commands are executed in order. The default values are simple IMAP commands using your default_charset and folder_prefix from SquirrelMail when needed.").
+         "</font></small></p>\n".
+         '<p align="center"><small><b>'.
+         _("NOTE: These commands are live, any changes made will effect your current email account.").
+         "</b></small></p><br />\n";
     if (!isset($submit)) {
         $submit = '';
     }
 }
 else {
-    print 'folder_prefix = ' . htmlspecialchars($folder_prefix)."<br />\n" .
-          'default_charset = '.htmlspecialchars($default_charset)."\n";
+    echo 'folder_prefix = ' . htmlspecialchars($folder_prefix)."<br />\n" .
+         'default_charset = '.htmlspecialchars($default_charset)."\n";
 }
 
-print "<br /></td></tr></table></center><br />\n";
+echo "<br /></td></tr></table></center><br />\n";
 
 
 if ($submit == 'submit') {
@@ -131,32 +128,32 @@ elseif (!$submit || $submit == 'default')  {
         'TEST_9' => "");
 }
 
-print "<form action=\"options.php\" method=\"post\">\n";
-print "<center><table border=\"1\">\n";
-echo "<tr><th>" .  _("Select") .
-     "</th><th>" . _("Test Name") .
-     "</th><th>" . _("IMAP command string") . "</th></tr>\n";
-print "<tr><td>";
+echo "<form action=\"options.php\" method=\"post\">\n".
+     "<center><table border=\"1\">\n".
+     '<tr><th>'. _("Select").
+     '</th><th>'._("Test Name").
+     '</th><th>'._("IMAP command string")."</th></tr>\n".
+     '<tr><td>';
 
 foreach($type as $index=>$value) {
-    print "</td></tr>\n<tr><td width=\"10%\">\n<input type=\"checkbox\" value=\"1\" name=\"CHECK_$index\"";
+    echo "</td></tr>\n<tr><td width=\"10%\">\n<input type=\"checkbox\" value=\"1\" name=\"CHECK_$index\"";
     if ($index == 'TEST_0' && ($submit == 'default' || $submit == '')) {
-        print " checked";
+        echo ' checked="checked"';
     }
     $check = "CHECK_".$index;
     if (isset($$check) && $submit != 'clear' && $submit != 'default') {
-        print " checked";
+        echo ' checked="checked"';
     }
-    print "></td><td width=\"30%\">$index</td><td width=\"60%\">\n";
-    print addInput($index, $value, 60);
+    echo " /></td><td width=\"30%\">$index</td><td width=\"60%\">\n".
+         addInput($index, $value, 60);
 }
 
-print "</td></tr></table></center><br>\n";
-print "<center>".
-        addSubmit('submit','submit').
-        addSubmit('clear','submit').
-        addSubmit('default','submit').
-        "</center><br></form>\n";
+echo "</td></tr></table></center><br>\n".
+     '<center>'.
+     addSubmit('submit','submit').
+     addSubmit('clear','submit').
+     addSubmit('default','submit').
+     "</center><br></form>\n";
 
 $tests = array();
 
@@ -169,19 +166,19 @@ if ($submit == 'submit') {
         }
     }
     for ($i=0;$i<count($tests);$i++) {
-        print "<center><table width=\"95%\" border=\"0\" bgcolor=\"".$color[4]."\">\n";
-        print "<tr><td><b>".$tests[$i]."</b></td></tr>\n";
-        print "<tr><td><small><b><font color=\"".$color[7]."\">";
-        echo _("Request:") . "</font></b></small></td></tr>\n";
         $response = imap_test($imap_stream, $type[$tests[$i]]);
-        print "<tr><td><small><b><font color=\"".$color[7]."\">";
-        echo _("Response:") . "</font></b></small></td></tr>\n";
-        print "<tr><td>";
+        echo '<center><table width="95%" border="0" bgcolor="'.$color[4]."\">\n".
+             '<tr><td><b>'.$tests[$i]."</b></td></tr>\n".
+             '<tr><td><small><b><font color="'.$color[7].'">'.
+             _("Request:")."</font></b></small></td></tr>\n".
+             '<tr><td><small><b><font color="'.$color[7].'">'.
+             _("Response:")."</font></b></small></td></tr>\n".
+             '<tr><td>';
         print_response($response);
-        print "</td></tr></table></center><br />\n";
+        echo "</td></tr></table></center><br />\n";
     }
 }
-    print "</td></tr></table></center>";
+    echo '</td></tr></table></center>';
     sqimap_logout($imap_stream);
 
 /**
