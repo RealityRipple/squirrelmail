@@ -26,5 +26,7 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/translate/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/newmail/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/mail_fetch/*.php --output-dir=squirrelmail/po/
 
 cd squirrelmail/po
