@@ -1,26 +1,795 @@
 # Indonesian Squirrelmail Translation
 # Copyright (C) SquirrelMail Development Project , 1999-2002
-# Arief S Fitrianto <arief@fisika.ui.ac.id>, 2001.
+# Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>, 2001-2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2003-01-09 20:04\n"
+"POT-Creation-Date: 2003-01-18 10:47+0200\n"
+"PO-Revision-Date: 2003-01-21 20:52\n"
 "Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
 "Language-Team: Indonesia <squirrelmail-i18n@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Delivery error report"
-msgstr "Laporan kesalahan pengiriman"
+msgid "Address Book"
+msgstr "Buku Alamat"
 
-msgid "Undelivered Message Headers"
-msgstr "Header Pesan tidak bisa dikirimkan"
+msgid "All"
+msgstr "Semua"
 
-msgid "(no subject)"
-msgstr "(tidak ada subyek)"
+msgid "Name"
+msgstr "Nama"
+
+msgid "E-mail"
+msgstr "Surat-E"
+
+msgid "Info"
+msgstr "Keterangan"
+
+msgid "Source"
+msgstr "Sumber"
+
+msgid "To"
+msgstr "Untuk"
+
+msgid "Cc"
+msgstr "Tembusan"
+
+msgid "Bcc"
+msgstr "Salinan"
+
+msgid "Use Addresses"
+msgstr "Gunakan alamat"
+
+msgid "Address Book Search"
+msgstr "Menelusuri Buku Alamat"
+
+msgid "Search for"
+msgstr "Cari untuk"
+
+msgid "in"
+msgstr "di"
+
+msgid "All address books"
+msgstr "Semua buku alamat"
+
+msgid "Search"
+msgstr "Cari"
+
+msgid "List all"
+msgstr "Tampilkan semua"
+
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Tidak dapat menampilkan alamat dari %s"
+
+msgid "Your search failed with the following error(s)"
+msgstr "Penelusuran Anda gagal dengan kesalahan berikut:"
+
+msgid "No persons matching your search was found"
+msgstr "Tidak ada orang yang sesuai dengan yang Anda cari"
+
+msgid "Return"
+msgstr "Kembali"
+
+msgid "Close"
+msgstr "Tutup"
+
+msgid "Nickname"
+msgstr "Nama singkat"
+
+msgid "Must be unique"
+msgstr "Harus tunggal ( unik )"
+
+msgid "E-mail address"
+msgstr "Alamat Surat-E"
+
+msgid "First name"
+msgstr "Nama Depan"
+
+msgid "Last name"
+msgstr "Nama Belakang"
+
+msgid "Additional info"
+msgstr "Keterangan tambahan"
+
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Tidak ada buku alamat yang didefinisikan. Hubungi administrator!"
+
+msgid "You can only edit one address at the time"
+msgstr "Anda hanya dapat mengubah satu alamat dalam satu waktu"
+
+msgid "Update address"
+msgstr "Perbaharui alamat"
+
+msgid "ERROR"
+msgstr "SALAH"
+
+msgid "Unknown error"
+msgstr "Kesalahan tidak diketahui"
+
+msgid "Add address"
+msgstr "Tambah alamat"
+
+msgid "Edit selected"
+msgstr "Ubah yang dipilih"
+
+msgid "Delete selected"
+msgstr "Hapus yang dipilih"
+
+#, c-format
+msgid "Add to %s"
+msgstr "Tambahkan ke %s"
+
+msgid "Subject"
+msgstr "Subyek"
+
+msgid "From"
+msgstr "Dari"
+
+msgid "Date"
+msgstr "Tanggal"
+
+msgid "Original Message"
+msgstr "Pesan Asli"
+
+msgid "Draft Email Saved"
+msgstr "Konsep Surat telah disimpan"
+
+msgid "Could not move/copy file. File not attached"
+msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
+
+msgid "Draft Saved"
+msgstr "Konsep Surat telah disimpan"
+
+msgid "Your Message has been sent"
+msgstr "Pesan Anda telah dikirimkan"
+
+msgid "From:"
+msgstr "Dari:"
+
+msgid "To:"
+msgstr "Untuk:"
+
+msgid "CC:"
+msgstr "Tembusan:"
+
+msgid "BCC:"
+msgstr "Salinan:"
+
+msgid "Subject:"
+msgstr "Subyek:"
+
+msgid "Send"
+msgstr "Kirim"
+
+msgid "Attach:"
+msgstr "Sisipan:"
+
+msgid "Add"
+msgstr "Tambah"
+
+msgid "Delete selected attachments"
+msgstr "Hapus sisipan yang dipilih"
+
+msgid "Priority"
+msgstr "Prioritas"
+
+msgid "High"
+msgstr "Segera"
+
+msgid "Normal"
+msgstr "Biasa"
+
+msgid "Low"
+msgstr "Tidak penting"
+
+msgid "Receipt"
+msgstr "Penerimaan"
+
+msgid "On Read"
+msgstr "Saat dibaca"
+
+msgid "On Delivery"
+msgstr "Saat dikirim"
+
+msgid "Signature"
+msgstr "Tanda tangan"
+
+msgid "Addresses"
+msgstr "Alamat"
+
+msgid "Save Draft"
+msgstr "Simpan Konsep"
+
+msgid "You have not filled in the \"To:\" field."
+msgstr "Anda belum mengisi kolom \"Untuk:\" "
+
+msgid "said"
+msgstr "berkata"
+
+msgid "quote"
+msgstr "kutipan"
+
+msgid "who"
+msgstr "dari"
+
+msgid "Draft folder"
+msgstr "Laci Konsep ( Draft )"
+
+msgid "Server replied: "
+msgstr "Tanggapan server: "
+
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Nama laci tidak sah. Silahkan pilih nama lain"
+
+msgid "Click here to go back"
+msgstr "Klik di sini untuk kembali"
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "Anda belum memilih laci yang akan dihapus. Silahkan memilih!"
+
+msgid "Delete Folder"
+msgstr "Hapus Laci"
+
+#, c-format
+msgid "Are you sure you want to delete %s?"
+msgstr "Apakah Anda sungguh-sungguh ingin menghapus %s?"
+
+msgid "Yes"
+msgstr "Ya"
+
+msgid "No"
+msgstr "Tidak"
+
+msgid "Folders"
+msgstr "Laci"
+
+msgid "Subscribed successfully!"
+msgstr "Berhasil mendaftarkan!"
+
+msgid "Unsubscribed successfully!"
+msgstr "Berhasil membuang!"
+
+msgid "Deleted folder successfully!"
+msgstr "Berhasil menghapus laci!"
+
+msgid "Created folder successfully!"
+msgstr "Berhasil membuat laci!"
+
+msgid "Renamed successfully!"
+msgstr "Berhasil mengganti nama!"
+
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr "Gagal mendaftarkan -- Laci tidak ada."
+
+msgid "refresh folder list"
+msgstr "Perbarui daftar laci"
+
+msgid "Create Folder"
+msgstr "Buat Laci"
+
+msgid "as a subfolder of"
+msgstr "sebagai laci-kecil dari"
+
+msgid "None"
+msgstr "Tidak Ada"
+
+msgid "Let this folder contain subfolders"
+msgstr "Laci ini boleh berisi laci-kecil"
+
+msgid "Create"
+msgstr "Buat"
+
+msgid "Rename a Folder"
+msgstr "Ganti nama Laci"
+
+msgid "Select a folder"
+msgstr "Pilih sebuah laci"
+
+msgid "Rename"
+msgstr "Ganti Nama"
+
+msgid "No folders found"
+msgstr "Tidak ditemukan suatu laci "
+
+msgid "Delete"
+msgstr "Hapus"
+
+msgid "Unsubscribe"
+msgstr "Buang"
+
+msgid "Subscribe"
+msgstr "Daftarkan"
+
+msgid "No folders were found to unsubscribe from!"
+msgstr "Tidak ada laci yang bisa dibuang!"
+
+msgid "No folders were found to subscribe to!"
+msgstr "Tidak ada laci yang bisa didaftarkan!"
+
+msgid "Subscribe to:"
+msgstr "Daftarkan ke:"
+
+msgid "You have not selected a folder to rename. Please do so."
+msgstr "Anda belum memilih laci untuk diubah namanya. Silahkan memilih!"
+
+msgid "Rename a folder"
+msgstr "Ganti nama laci"
+
+msgid "New name:"
+msgstr "Nama baru:"
+
+msgid "Submit"
+msgstr "Kirim"
+
+msgid "ERROR: Help files are not in the right format!"
+msgstr "SALAH: File panduan tidak dalam bentuk yang benar!"
+
+msgid "Help"
+msgstr "Panduan"
+
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr ""
+"Panduan ini belum diterjemahkan ke bahasa %s. Bahasa Inggris akan "
+"ditampilkan."
+
+msgid "Some or all of the help documents are not present!"
+msgstr "Beberapa atau semua dokumen panduan tidak ada!"
+
+msgid "Table of Contents"
+msgstr "Daftar Isi"
+
+msgid "Previous"
+msgstr "Sebelumnya"
+
+msgid "Next"
+msgstr "Berikutnya"
+
+msgid "Top"
+msgstr "Atas"
+
+msgid "Viewing an image attachment"
+msgstr "Menampilkan sisipan gambar"
+
+msgid "View message"
+msgstr "Lihat pesan"
+
+msgid "Download this as a file"
+msgstr "Simpan ke file"
+
+msgid "Not available"
+msgstr "Tidak tersedia"
+
+msgid "INBOX"
+msgstr "KOTAK POS"
+
+msgid "purge"
+msgstr "kosongkan"
+
+msgid "Last Refresh"
+msgstr "Peninjauan Terakhir"
+
+msgid "Save folder tree"
+msgstr "Simpan Struktur Laci"
+
+msgid "Login"
+msgstr "Masuk"
+
+#, c-format
+msgid "%s Logo"
+msgstr "Lambang %s"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail versi %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "Oleh Team Pengembangan SquirrelMail"
+
+#, c-format
+msgid "%s Login"
+msgstr "Masuk %s"
+
+msgid "Name:"
+msgstr "Nama:"
+
+msgid "Password:"
+msgstr "Sandi:"
+
+msgid "No messages were selected."
+msgstr "Tidak ada pesan yang dipilih."
+
+msgid "Options"
+msgstr "Pilihan"
+
+msgid "Message Highlighting"
+msgstr "Penyorotan Pesan"
+
+msgid "New"
+msgstr "Baru"
+
+msgid "Done"
+msgstr "Selesai"
+
+msgid "To or Cc"
+msgstr "Untuk atau Tembusan"
+
+msgid "subject"
+msgstr "subyek"
+
+msgid "Edit"
+msgstr "Ubah"
+
+msgid "No highlighting is defined"
+msgstr "Tidak ada penyorotan yang didefinisikan"
+
+msgid "Identifying name"
+msgstr "Nama identifikasi"
+
+msgid "Color"
+msgstr "Warna"
+
+msgid "Dark Blue"
+msgstr "Biru Gelap"
+
+msgid "Dark Green"
+msgstr "Hijau Gelap"
+
+msgid "Dark Yellow"
+msgstr "Kuning Gelap"
+
+msgid "Dark Cyan"
+msgstr "Hijau Telur Gelap"
+
+msgid "Dark Magenta"
+msgstr "Ungu Muda Gelap"
+
+msgid "Light Blue"
+msgstr "Biru Terang"
+
+msgid "Light Green"
+msgstr "Hijau Terang"
+
+msgid "Light Yellow"
+msgstr "Kuning Terang"
+
+msgid "Light Cyan"
+msgstr "Hijau Telur Terang"
+
+msgid "Light Magenta"
+msgstr "Ungu Muda Terang"
+
+msgid "Dark Gray"
+msgstr "Abu-abu Gelap"
+
+msgid "Medium Gray"
+msgstr "Abu-abu Sedang"
+
+msgid "Light Gray"
+msgstr "Abu-abu Terang"
+
+msgid "White"
+msgstr "Putih"
+
+msgid "Other:"
+msgstr "Lainnya:"
+
+msgid "Ex: 63aa7f"
+msgstr "Misal: 63aa7f"
+
+msgid "Matches"
+msgstr "Berisi"
+
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "Identitas Pilihan %d"
+
+msgid "Advanced Identities"
+msgstr "Identitas Tambahan"
+
+msgid "Default Identity"
+msgstr "Identitas Utama"
+
+msgid "Add a New Identity"
+msgstr "Tambahkan Identitas Baru"
+
+msgid "Full Name"
+msgstr "Nama Lengkap"
+
+msgid "E-Mail Address"
+msgstr "Alamat Surat-E"
+
+msgid "Reply To"
+msgstr "Balasan ke"
+
+msgid "Save / Update"
+msgstr "Simpan / Perbaharui"
+
+msgid "Make Default"
+msgstr "Jadikan Identitas Utama"
+
+msgid "Move Up"
+msgstr "Pindah ke atas"
+
+msgid "Index Order"
+msgstr "Urutan Indeks"
+
+msgid "Checkbox"
+msgstr "Kotak Periksa"
+
+msgid "Flags"
+msgstr "'Flag'"
+
+msgid "Size"
+msgstr "Ukuran"
+
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"Urutan index adalah urutan yang menyusun kolom dalam urutan pesan. Anda "
+"dapat menambah, menghapus, dan memindahkan kolom agar sesuai dengan "
+"keinginan Anda"
+
+msgid "up"
+msgstr "atas"
+
+msgid "down"
+msgstr "bawah"
+
+msgid "remove"
+msgstr "buang"
+
+msgid "Return to options page"
+msgstr "kembali ke halaman pilihan"
+
+msgid "Personal Information"
+msgstr "Data Pribadi"
+
+msgid "Display Preferences"
+msgstr "Acuan Tampilan"
+
+msgid "Folder Preferences"
+msgstr "Acuan Laci"
+
+msgid "Successfully Saved Options"
+msgstr "Berhasil menyimpan Pilihan"
+
+msgid "Refresh Folder List"
+msgstr "Perbarui daftar laci"
+
+msgid "Refresh Page"
+msgstr "Perbarui Halaman"
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Di sini berisi data tentang Anda seperti: Nama, alamat surate, dll."
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"Anda dapat mengubah cara SquirrelMail tampak dan menampilkan informasi untuk "
+"Anda, seperti: warna, bahasa, dan lain-lain."
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Dengan berdasarkan kriteria , pesan yang masuk dapat memiliki latar warna "
+"berbeda dalam daftar pesan. Pilihan ini memudahkan Anda membedakan asal "
+"suatu pesan, khususnya dari suatu milis."
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "Pilihan ini mengubah cara laci Anda ditampilkan dan dimanipulasi."
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+"Urutan pesan dapat diatur dan diubah sesuai keinginan dengan berdasarkan isi "
+"dari header pesan."
+
+msgid "Message not printable"
+msgstr "Pesan tidak dapat dicetak"
+
+msgid "Printer Friendly"
+msgstr "Layar Pencetakan"
+
+msgid "CC"
+msgstr "Tembusan"
+
+msgid "Print"
+msgstr "Cetak"
+
+msgid "View Printable Version"
+msgstr "Lihat Versi yang Bisa Dicetak"
+
+msgid "Read:"
+msgstr "Sudah dibaca:"
+
+msgid "Your message"
+msgstr "Pesan Anda"
+
+msgid "Sent:"
+msgstr "Telah dikirim:"
+
+#, c-format
+msgid "Was displayed on %s"
+msgstr "Telah ditampilkan di %s"
+
+msgid "less"
+msgstr "lebih sedikit"
+
+msgid "more"
+msgstr "lebih lengkap"
+
+msgid "Unknown sender"
+msgstr "Pengirim Misterius"
+
+msgid "Mailer"
+msgstr "Sarana"
+
+msgid "Read receipt"
+msgstr "Tanggapan membaca"
+
+msgid "send"
+msgstr "kirim"
+
+msgid "requested"
+msgstr "diminta"
+
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+"Pengirim pesan telah meminta tanggapan yang menyatakan bahwa Anda telah "
+"membaca pesan ini. Apakah Anda ingin mengirimkan tanggapan?"
+
+msgid "Send read receipt now"
+msgstr "Kirim tanggapan pesan telah dibaca sekarang"
+
+msgid "Search results"
+msgstr "Hasil Pencarian "
+
+msgid "Message List"
+msgstr "Daftar Pesan"
+
+msgid "Resume Draft"
+msgstr "Buka Konsep"
+
+msgid "Edit Message as New"
+msgstr "Ubah Pesan sebagai pesan baru"
+
+msgid "View Message"
+msgstr "Lihat Pesan"
+
+msgid "Up"
+msgstr "Atas"
+
+msgid "Forward"
+msgstr "Kirimkan ke"
+
+msgid "Forward as Attachment"
+msgstr "Kirimkan sebagai Sisipan"
+
+msgid "Reply"
+msgstr "Balas"
+
+msgid "Reply All"
+msgstr "Balas Semua"
+
+msgid "View Full Header"
+msgstr "Lihat 'header' lengkap"
+
+msgid "Attachments"
+msgstr "Sisipan"
+
+msgid "You must be logged in to access this page."
+msgstr "Anda harus masuk dulu sebelum mengakses halaman ini."
+
+msgid "Folder:"
+msgstr "Laci:"
+
+msgid "edit"
+msgstr "ubah"
+
+msgid "search"
+msgstr "Cari"
+
+msgid "delete"
+msgstr "Hapus "
+
+msgid "Recent Searches"
+msgstr "PencarianTerakhir"
+
+msgid "save"
+msgstr "Simpan "
+
+msgid "forget"
+msgstr "lupakan saja"
+
+msgid "Current Search"
+msgstr "Pencarian saat ini"
+
+msgid "All Folders"
+msgstr "Semua Laci"
+
+msgid "Body"
+msgstr "Badan pesan"
+
+msgid "Everywhere"
+msgstr "Di mana saja"
+
+msgid "Search Results"
+msgstr "Hasil Pencarian "
+
+msgid "No Messages Found"
+msgstr "Tidak ada pesan yang ditemukan"
+
+msgid "Sign Out"
+msgstr "Keluar"
+
+msgid "You have been successfully signed out."
+msgstr "Terima kasih telah menggunakan SquirrelMail."
+
+msgid "Click here to log back in."
+msgstr "Klik di sini untuk masuk lagi."
+
+msgid "Viewing a Business Card"
+msgstr "Menampilkan Kartu Bisnis"
+
+msgid "Title"
+msgstr "Judul"
+
+msgid "Email"
+msgstr "Surat-E"
+
+msgid "Web Page"
+msgstr "Halaman Web"
+
+msgid "Organization / Department"
+msgstr "Organisasi / Departemen"
+
+msgid "Address"
+msgstr "Alamat"
+
+msgid "Work Phone"
+msgstr "Telepon Kantor"
+
+msgid "Home Phone"
+msgstr "Telepon Rumah"
+
+msgid "Cellular Phone"
+msgstr "Telepon Genggam"
+
+msgid "Fax"
+msgstr "Faksimili"
+
+msgid "Note"
+msgstr "Catatan"
+
+msgid "Add to Addressbook"
+msgstr "Tambahkan ke Buku Alamat"
+
+msgid "Title & Org. / Dept."
+msgstr "Judul & Org. / Dept."
+
+msgid "Viewing Full Header"
+msgstr "Menampilkan 'header' lengkap"
+
+msgid "Viewing a text attachment"
+msgstr "Menampilkan sisipan naskah"
 
 msgid "Personal address book"
 msgstr "Buku alamat pribadi"
@@ -98,9 +867,6 @@ msgstr "Lihat"
 
 msgid "Business Card"
 msgstr "Kartu Bisnis"
-
-msgid "You must be logged in to access this page."
-msgstr "Anda harus masuk dulu sebelum mengakses halaman ini."
 
 msgid "Sunday"
 msgstr "Minggu"
@@ -194,20 +960,6 @@ msgstr "Klik di sini untuk coba lagi"
 msgid "Click here to return to %s"
 msgstr "Klik di sini untuk kembali ke %s"
 
-#, c-format
-msgid "%s Logo"
-msgstr "Lambang %s"
-
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail versi %s"
-
-msgid "By the SquirrelMail Development Team"
-msgstr "Oleh Team Pengembangan SquirrelMail"
-
-msgid "ERROR"
-msgstr "SALAH"
-
 msgid "Go to the login page"
 msgstr "Kembali ke halaman masuk"
 
@@ -257,7 +1009,7 @@ msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"File Tanda tangan , %s , tidak dapat dibuka. Hubungi administrator Anda\n"
+"File Tanda tangan , %s , tidak dapat dibuka. Hubungi administrator Anda "
 "untuk mengatasi hal ini."
 
 #, c-format
@@ -272,8 +1024,8 @@ msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --with-mbstring)."
 msgstr ""
-"Anda harus memasang PHP4 dengan fungsi string multibyte aktif \n"
-"( menggunakan pilihan konfigurasi --with-mbstring)."
+"Anda harus memasang PHP4 dengan fungsi string multibyte aktif (menggunakan "
+"pilihan konfigurasi --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
 msgstr "SALAH: Tidak ada imapstream yang tersedia"
@@ -321,14 +1073,14 @@ msgstr ""
 "Buanglah pesan yang tidak perlu dari laci Anda dan mulailah dengan laci "
 "Sampah (Trash)"
 
-msgid "INBOX"
-msgstr "KOTAK POS"
-
 msgid "Unknown response from IMAP server: "
 msgstr "Tanggapan misterius dari server IMAP: "
 
 msgid "Unknown message number in reply from server: "
 msgstr "Nomor pesan tidak dikenal dalam balasan dari server: "
+
+msgid "(no subject)"
+msgstr "(tidak ada subyek)"
 
 msgid "Unknown Sender"
 msgstr "Pengirim Misterius"
@@ -347,14 +1099,13 @@ msgid ""
 "to the system administrator."
 msgstr ""
 "Pengurutan terstruktur tidak didukung oleh server IMAP Anda.<br>Silahkan "
-"laporkan\n"
-" hal ini kepada administrator sistem Anda."
+"laporkan hal ini kepada administrator sistem Anda."
 
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
 "this to the system administrator."
 msgstr ""
-"Pengurutan pada-server tidak didukung oleh server IMAP Anda.<br>Silahkan\n"
+"Pengurutan pada-server tidak didukung oleh server IMAP Anda.<br>Silahkan "
 "laporkan hal ini kepada sistem administrator Anda."
 
 msgid "THIS FOLDER IS EMPTY"
@@ -369,9 +1120,6 @@ msgstr "Transformasikan Pesan Terpilih"
 msgid "Move"
 msgstr "Pindahkan"
 
-msgid "Forward"
-msgstr "Kirimkan ke"
-
 msgid "Expunge"
 msgstr "Kosongkan"
 
@@ -384,29 +1132,11 @@ msgstr "Sudah Dibaca"
 msgid "Unread"
 msgstr "Belum Dibaca"
 
-msgid "Delete"
-msgstr "Hapus"
-
 msgid "Unthread View"
 msgstr "Tampilan biasa"
 
 msgid "Thread View"
 msgstr "Tampilan terstruktur"
-
-msgid "To"
-msgstr "Untuk"
-
-msgid "From"
-msgstr "Dari"
-
-msgid "Date"
-msgstr "Tanggal"
-
-msgid "Subject"
-msgstr "Subyek"
-
-msgid "Size"
-msgstr "Ukuran"
 
 msgid "Toggle All"
 msgstr "Pilih semua"
@@ -424,12 +1154,6 @@ msgstr "Menampilkan Pesan: <B>%s</B> sampai <B>%s</B> ( seluruhnya %s )"
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Menampilkan Pesan <B>%s</B> ( hanya 1 (satu))"
-
-msgid "Previous"
-msgstr "Sebelumnya"
-
-msgid "Next"
-msgstr "Berikutnya"
 
 msgid "Paginate"
 msgstr "Per Halaman"
@@ -462,15 +1186,6 @@ msgstr "Pesan:"
 msgid "FETCH line:"
 msgstr "baris FETCH:"
 
-msgid "High"
-msgstr "Segera"
-
-msgid "Low"
-msgstr "Tidak penting"
-
-msgid "Normal"
-msgstr "Biasa"
-
 msgid "Hide Unsafe Images"
 msgstr "Sembunyikan Gambar Berbahaya"
 
@@ -480,9 +1195,6 @@ msgstr "Lihat Gambar Berbahaya"
 msgid "download"
 msgstr "simpan"
 
-msgid "Unknown sender"
-msgstr "Pengirim Misterius"
-
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_id_ID.png"
 
@@ -490,38 +1202,11 @@ msgstr "sec_remove_id_ID.png"
 msgid "Option Type '%s' Not Found"
 msgstr "Jenis Pilihan '%s' Tidak Ada"
 
-msgid "Yes"
-msgstr "Ya"
-
-msgid "No"
-msgstr "Tidak"
-
-msgid "Submit"
-msgstr "Kirim"
-
 msgid "Current Folder"
 msgstr "Laci saat ini"
 
-msgid "Sign Out"
-msgstr "Keluar"
-
 msgid "Compose"
 msgstr "Tulis surat"
-
-msgid "Addresses"
-msgstr "Alamat"
-
-msgid "Folders"
-msgstr "Laci"
-
-msgid "Options"
-msgstr "Pilihan"
-
-msgid "Search"
-msgstr "Cari"
-
-msgid "Help"
-msgstr "Panduan"
 
 # c-format
 #, c-format
@@ -530,6 +1215,69 @@ msgstr "Gagal membuat direktori %s ."
 
 msgid "Could not create hashed directory structure!"
 msgstr "Tidak dapat membuat struktur direktori bertingkat!"
+
+msgid "Service not available, closing channel"
+msgstr "Layanan tidak tersedia, sedang menutup kanal"
+
+msgid "A password transition is needed"
+msgstr "Sebuah transisi sandi diperlukan"
+
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "Aksi surat yang diminta tidak dilakukan: Kotak surat tidak tersedia"
+
+msgid "Requested action aborted: error in processing"
+msgstr "Aksi yang diminta dibatalkan: salah proses"
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr "Aksi yang diminta tidak dilakukan: sistem penyimpanan tidak memadai"
+
+msgid "Temporary authentication failure"
+msgstr "otentikasi sementara gagal"
+
+msgid "Syntax error; command not recognized"
+msgstr "Salah sintaks; perintah tidak dipahami"
+
+msgid "Syntax error in parameters or arguments"
+msgstr "Salah sintaks dalam parameter atau argumen"
+
+msgid "Command not implemented"
+msgstr "Perintah tak terimplementasi"
+
+msgid "Bad sequence of commands"
+msgstr "Urutan perintah tidak bagus"
+
+msgid "Command parameter not implemented"
+msgstr "Parameter perintah tak terimplementasi"
+
+msgid "Authentication required"
+msgstr "Otentikasi dibutuhkan"
+
+msgid "Authentication mechanism is too weak"
+msgstr "Mekanisme otentikasi terlalu lemah"
+
+msgid "Authentication failed"
+msgstr "Otentikasi gagal"
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr "enkripsi diperlukan untuk meminta mekanisme otentikasi"
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "Aksi yang diminta tidak dilakukan: Kotak surat tak tersedia"
+
+msgid "User not local; please try forwarding"
+msgstr "Pengguna bukan lokal; silahkan coba forwarding"
+
+msgid "Requested mail action aborted: exceeding storage allocation"
+msgstr "Aksi surat yang diminta telah dibatalkan: alokasi penyimpanan penuh"
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "Aksi yang diminta tak dilakukan: Nama kotak surat tidak diperbolehkan"
+
+msgid "Transaction failed"
+msgstr "Transaksi gagal"
+
+msgid "Unknown response"
+msgstr "Tanggapan tak diketahui"
 
 msgid "General Display Options"
 msgstr "Pilihan Tampilan Umum"
@@ -621,9 +1369,6 @@ msgstr "Tampilkan Sarana Pengirim "
 msgid "Display Attached Images with Message"
 msgstr "Tampilkan Gambar Sisipan dalam Pesan"
 
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "Aktifkan Link Layar Pencetakan"
-
 msgid "Enable Printer Friendly Clean Display"
 msgstr "Aktifkan Layar Pengosongan Layar Pencetakan"
 
@@ -711,9 +1456,6 @@ msgstr "Tidak ada pemberitahuan"
 msgid "Only INBOX"
 msgstr "Hanya KOTAK POS"
 
-msgid "All Folders"
-msgstr "Semua Laci"
-
 msgid "Unread Message Notification Type"
 msgstr "Jenis pemberitahuan pesan yang belum terbaca"
 
@@ -768,17 +1510,8 @@ msgstr "Dipisahkan: "
 msgid "Name and Address Options"
 msgstr "Pilihan Nama dan Alamat"
 
-msgid "Full Name"
-msgstr "Nama Lengkap"
-
 msgid "Email Address"
 msgstr "Alamat Surat-E"
-
-msgid "Reply To"
-msgstr "Balasan ke"
-
-msgid "Signature"
-msgstr "Tanda tangan"
 
 msgid "Edit Advanced Identities"
 msgstr "Ubah Identitas Tambahan"
@@ -791,6 +1524,9 @@ msgstr "Identitas Ganda"
 
 msgid "Same as server"
 msgstr "Sama dengan server"
+
+msgid "Error opening timezone config, contact administrator."
+msgstr "Salah membuka konfigurasi zona waktu, hubungi administrator"
 
 msgid "Timezone Options"
 msgstr "Pilihan Zona Waktu"
@@ -831,6 +1567,15 @@ msgstr "Pakai tanda tangan?"
 msgid "Prefix Signature with '-- ' Line"
 msgstr "Awali tanda tangan dengan Garis '--'"
 
+msgid "Take Address"
+msgstr "Catat Alamat"
+
+msgid "Address Book Take:"
+msgstr "Catat di Buku Alamat:"
+
+msgid "Try to verify addresses"
+msgstr "Coba memeriksa alamat"
+
 msgid "Config File Version"
 msgstr "Versi File Konfigurasi"
 
@@ -860,6 +1605,12 @@ msgstr "Nama Organisasi"
 
 msgid "Signout Page"
 msgstr "Halaman Keluar"
+
+msgid "Provider Link URI"
+msgstr "Link URI Penyedia (Provider)"
+
+msgid "Provider Name"
+msgstr "Nama Penyedia (Provider): "
 
 msgid "Default Language"
 msgstr "Bahasa Utama"
@@ -903,8 +1654,17 @@ msgstr "Pemisah Laci IMAP"
 msgid "Use \"detect\" to auto-detect."
 msgstr "Pakai \"deteksi\" untuk deteksi otomatis"
 
-msgid "Use Sendmail"
-msgstr "Gunakan Sendmail"
+msgid "Use TLS for IMAP Connections"
+msgstr "Gunakan TLS untuk koneksi IMAP"
+
+msgid "Requires PHP 4.3.x! Experimental."
+msgstr "Perlu PHP 4.3.x! Experimental."
+
+msgid "IMAP Authentication Type"
+msgstr "Jenis otentikasi IMAP"
+
+msgid "Use Sendmail Binary"
+msgstr "Gunakan Binary Sendmail"
 
 msgid "Sendmail Path"
 msgstr "Letak Sendmail"
@@ -915,8 +1675,14 @@ msgstr "Alamat server SMTP"
 msgid "SMTP Server Port"
 msgstr "Port server SMTP"
 
-msgid "Authenticated SMTP"
-msgstr "Otentikasi SMTP"
+msgid "Use TLS for SMTP Connections"
+msgstr "Gunakan TLS untuk koneksi SMTP"
+
+msgid "SMTP Authentication Type"
+msgstr "Jenis otentikasi SMTP"
+
+msgid "POP3 Before SMTP?"
+msgstr "POP3 Sebelum SMTP?"
 
 msgid "Invert Time"
 msgstr "Ganti waktu"
@@ -972,6 +1738,9 @@ msgstr "Buku alamat baku Javascript"
 msgid "Auto delete folders"
 msgstr "Hapus Laci Otomatis"
 
+msgid "Enable /NoSelect folder fix"
+msgstr "Bolehkan pembetulan laci /NoSelect "
+
 msgid "General Options"
 msgstr "Pilihan Umum"
 
@@ -1017,6 +1786,21 @@ msgstr "Izinkan pengubahan identitas"
 msgid "Allow editing of full name"
 msgstr "Izinkan pengubahan Nama Lengkap"
 
+msgid "Use server-side sorting"
+msgstr "Pakai pengurutan oleh-server"
+
+msgid "Use server-side thread sorting"
+msgstr "Pakai pengurutan terstruktur oleh-server"
+
+msgid "Allow server charset search"
+msgstr "Bolehkan pencarian set karakter oleh-server"
+
+msgid "UID support"
+msgstr "Dukungan UID"
+
+msgid "PHP session name"
+msgstr "Nama sessi PHP"
+
 msgid "Message of the Day"
 msgstr "Pesan hari ini"
 
@@ -1049,6 +1833,12 @@ msgstr "Tema"
 
 msgid "Style Sheet URL (css)"
 msgstr "URL StyleSheet (css)"
+
+msgid "Default theme"
+msgstr "Tema Baku (Default)"
+
+msgid "Use index number of theme"
+msgstr "Pakai nomor index untuk tema"
 
 msgid "Configuration Administrator"
 msgstr "Administrator Konfigurasi"
@@ -1347,7 +2137,6 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "BEBAS - SPAMhaus - Sebuah daftar sumber SPAM yang terkenal"
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -1459,20 +2248,8 @@ msgstr "Hanya pesan yang belum dibaca"
 msgid "Save"
 msgstr "Simpan"
 
-msgid "New"
-msgstr "Baru"
-
-msgid "Done"
-msgstr "Selesai"
-
 msgid "Match:"
 msgstr "Cocok:"
-
-msgid "Cc"
-msgstr "Tembusan"
-
-msgid "To or Cc"
-msgstr "Untuk atau Tembusan"
 
 msgid "Header"
 msgstr "'Header' "
@@ -1480,14 +2257,8 @@ msgstr "'Header' "
 msgid "Contains:"
 msgstr "Berisi:"
 
-msgid "Edit"
-msgstr "Ubah"
-
 msgid "Down"
 msgstr "Bawah"
-
-msgid "Up"
-msgstr "Atas"
 
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
@@ -1574,6 +2345,30 @@ msgstr "AKTIF"
 msgid "OFF"
 msgstr "TIDAK AKTIF"
 
+msgid " not found."
+msgstr "tidak ketemu"
+
+msgid "Today's Fortune"
+msgstr "Peruntungnan hari ini"
+
+msgid "Fortunes:"
+msgstr "Peruntungan:"
+
+msgid "Show fortunes at top of mailbox"
+msgstr "Tampilkan peruntungan di atas kotak surat"
+
+msgid "IMAP server information"
+msgstr "Keterangan Server IMAP"
+
+msgid ""
+"Run some test IMAP commands, displaying both the command and the result. "
+"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"configuration. Custom command strings can be used."
+msgstr ""
+"Jalankan beberapa perintah IMAP, tampilkan baik perintah maupun hasilnya. "
+"Uji ini memakai perintah IMAP Squirrelmail dan konfigurasi Squirrelmail "
+"Andasaat ini. Perintah yang dimodifikasi juga dapat dipakai"
+
 msgid "Mailinglist"
 msgstr "Milis"
 
@@ -1602,9 +2397,6 @@ msgstr ""
 "di milis ini. Milis tersebut akan mencoba untuk mencabut keanggotaan alamat "
 "di bawah ini."
 
-msgid "From:"
-msgstr "Dari:"
-
 msgid "Send Mail"
 msgstr "Kirim Surat"
 
@@ -1613,12 +2405,6 @@ msgstr "Kirim ke milis"
 
 msgid "Reply to List"
 msgstr "Balas ke milis "
-
-msgid "Subscribe"
-msgstr "Daftarkan"
-
-msgid "Unsubscribe"
-msgstr "Buang"
 
 msgid "List Archives"
 msgstr "Arsip Milis"
@@ -1727,9 +2513,6 @@ msgstr "Mengambil surat di server POP3 Remote"
 
 msgid "Select Server:"
 msgstr "Pilih sever:"
-
-msgid "All"
-msgstr "Semua"
 
 msgid "Password for"
 msgstr "Sandi untuk"
@@ -1850,9 +2633,6 @@ msgstr "Nama lain:"
 msgid "Username:"
 msgstr "Nama pengguna:"
 
-msgid "Password:"
-msgstr "Sandi:"
-
 msgid "Store in Folder:"
 msgstr "Simpan di Laci:"
 
@@ -1919,6 +2699,21 @@ msgid ""
 msgstr ""
 "Hal ini dipakai untuk seting pengambilan surate dari kotak surat pop3  ke "
 "dalam account Anda di server ini."
+
+msgid "Message Details"
+msgstr "Rincian Pesan"
+
+msgid "Message details"
+msgstr "Rincian pesan"
+
+msgid "Close Window"
+msgstr "Tutup jendela"
+
+msgid "Save Message"
+msgstr "Simpan Pesan"
+
+msgid "View Message details"
+msgstr "Lihat Rincian Pesan"
 
 msgid "New Mail Notification"
 msgstr "Pemberitahuan Surat Baru"
@@ -2023,9 +2818,6 @@ msgstr "Pesan dari SquirrelMail:"
 msgid "You have new mail!"
 msgstr "Anda mendapat surat baru!"
 
-msgid "Close Window"
-msgstr "Tutup jendela"
-
 msgid "NewMail Options"
 msgstr "Pilihan Surat Baru"
 
@@ -2052,9 +2844,6 @@ msgstr "Coba Suara"
 
 msgid "Loading the sound..."
 msgstr "Menyiapkan Suara ... "
-
-msgid "Close"
-msgstr "Tutup"
 
 msgid "Sent Subfolders Options"
 msgstr "Pilihan Laci-kecil Kirim"
@@ -2155,6 +2944,322 @@ msgstr "Gagal mendekripsi Kamus"
 msgid "Cute."
 msgstr "Bagus."
 
+#, c-format
+msgid "I tried to execute '%s', but it returned:"
+msgstr "Aku coba untuk menjalankan '%s', tetapi hasilnya:"
+
+msgid "SquirrelSpell is misconfigured."
+msgstr "Squirrelspell salah konfigurasi"
+
+msgid "SquirrelSpell Results"
+msgstr "Hasil dari SquirrelSpell"
+
+msgid "Spellcheck completed. Commit changes?"
+msgstr "PEmeriksaan Ejaan selesai. Terima Perbaikan?"
+
+msgid "No changes were made."
+msgstr "Tidak ada perubahan yang dibuat."
+
+msgid "Now saving your personal dictionary... Please wait."
+msgstr "Sekarang sedang menyimpan kamus pribadi Anda .... Silahkan menunggu."
+
+#, c-format
+msgid "Found %s errors"
+msgstr "Ditemukan %s kesalahan"
+
+msgid "Line with an error:"
+msgstr "Baris yang salah:"
+
+msgid "Error:"
+msgstr "Salah:"
+
+msgid "Suggestions:"
+msgstr "Saran:"
+
+msgid "Suggestions"
+msgstr "Saran"
+
+msgid "Change to:"
+msgstr "Ubah ke:"
+
+msgid "Occurs times:"
+msgstr "Jumlah penemuan:"
+
+msgid "Change this word"
+msgstr "Ubah kata ini"
+
+msgid "Change"
+msgstr "Ubah"
+
+msgid "Change ALL occurances of this word"
+msgstr "Ubah SEMUA kata ini"
+
+msgid "Change All"
+msgstr "Ubah Semua"
+
+msgid "Ignore this word"
+msgstr "Abaikan kata ini"
+
+msgid "Ignore"
+msgstr "Abaikan"
+
+msgid "Ignore ALL occurances this word"
+msgstr "Abaikan SEMUA kata ini"
+
+msgid "Ignore All"
+msgstr "Abaikan semua"
+
+msgid "Add this word to your personal dictionary"
+msgstr "Tambahkan kata ini ke dalam kamus pribadi Anda"
+
+msgid "Add to Dic"
+msgstr "Tambahkan ke Kamus"
+
+msgid "Close and Commit"
+msgstr "Terima dan Tutup"
+
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr ""
+"Pemeriksaan ejaan belum selesai. Anda sungguh ingin menutup dan menerima "
+"perbaikan?"
+
+msgid "Close and Cancel"
+msgstr "Tutup dan Batal"
+
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr ""
+"Pemeriksaan ejaan belum selesai. Anda sungguh ingin menutup dan membuang "
+"semua perbaikan?"
+
+msgid "No errors found"
+msgstr "Tidak ada kesalahan "
+
+msgid "Your personal dictionary was erased."
+msgstr "Kamus pribadi Anda telah dihapus"
+
+msgid "Dictionary Erased"
+msgstr "Kamus telah dihapus"
+
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+"Kamus pribadi Anda telah dihapus. Silahkan menutup jendela ini dan klik "
+"tombol \"Periksa Ejaan\" kembali untuk memulai pemeriksaan lagi."
+
+msgid "Close this Window"
+msgstr "Tutup jendela ini"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+"Kamus pribadi Anda telah berhasil dienkripsi ulang. Sekarang kembalilah ke "
+"menu &quot;Pilihan Pemeriksa Ejaan&quot; dan buat pilihan Anda kembali"
+
+msgid "Successful Re-encryption"
+msgstr "Berhasil mengenkripsi ulang"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"Kamus pribadi Anda telah berhasil dienkripsi ulang. Silahkan tutup jendela "
+"ini dan klik tombol \"Periksa Ejaan\" lagi untuk memulai memeriksa ejaan "
+"kembali"
+
+msgid "Dictionary re-encrypted"
+msgstr "Kamus telah dienkripsi"
+
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"Kamus pribadi Anda telah <strong>dienkripsi</strong> dan sekarang tersimpan "
+"dalam <strong>bentuk terenkripsi</strong>."
+
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"Kamus pribadi Anda telah <strong>didekripsi</strong> dan sekarang tersimpan "
+"dalam <strong>teks murni</strong>."
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Seting Kriptografi Kamus Pribadi"
+
+msgid "Personal Dictionary"
+msgstr "Kamus Pribadi"
+
+msgid "No words in your personal dictionary."
+msgstr "Kamus probadi Anda kosong"
+
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr ""
+"Silahkan periksa sembarang kata yang akan Anda hilangkan dari kamus Anda"
+
+#, c-format
+msgid "%s dictionary"
+msgstr "Kamus %s"
+
+msgid "Delete checked words"
+msgstr "Hapus kata yang dipilih"
+
+msgid "Edit your Personal Dictionary"
+msgstr "Ubah Kamus Pribadi Anda"
+
+msgid "Please make your selection first."
+msgstr "Mohon tentukan pilihan Anda dahulu"
+
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
+msgstr ""
+"Ini akan mengenkripsi kamus pribadi Anda dan menyimpannya dalam bentuk "
+"terenkripsi"
+
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
+msgstr ""
+"Ini akan mendekripsi kamus pribadi Anda dan akan menyimpannya dalam bentuk "
+"teks murni"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+"<p>Kamus pribadi Anda <strong>saat ini dienkripsi</strong>. Hal ini membantu "
+"melindungi privasi Anda dalam kasus sistem webmail ini dibobol dan kamus "
+"Anda dicuri. Kamus Anda saat ini dienkripsi dengan sandi yan gAnda gunakan "
+"untuk mengakses Kotak Surat Anda, yang membuat sulit bagi orang lain untuk "
+"melihat hal yang tersimpan dalam kamus pribadi Anda. </p> "
+"<p><strong>PERHATIAN:</stong> Jika Anda lupa sandi Anda, kamus pribadi anda "
+"tidak dapat diakses, karena tidak lagi dapat didekripsi. Jika Anda mengubah "
+"sandi Kotak surat Anda, SquirrelSpell akan mengenalinya dan memberitahukan "
+"Anda untuk memasukkan sandi lama untuk mendekripsi kamus dan mengenkripsi "
+"kembali dengan sandi baru.</p>"
+
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr "Mohon dekripsi kamus pribadiku dan simpan dalam bentuk teks murni."
+
+msgid "Change crypto settings"
+msgstr "Ubah Seting Kriptografi"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+"<p>Kamus pribadi Anda <strong>saat ini tidak dienkripsi</strong>. Anda dapat "
+"mengenkripsi kamus pribadi Anda untuk melindungi privasi Anda dalam kasus "
+"sistem webmail ini dibobol dan kamus Anda dicuri. Ketika dienkripsi, isi "
+"file tampak kacau dan sulit untuk mendekripsinya tanpa mengetahui kuncinya "
+"(yaitu sandi surat Anda).</p> <p><strong>PERHATIAN:</stong> Jika Anda "
+"memutuskan untuk mengenkripsi kamus pribadi Anda, Anda harus ingat bahwa "
+"kamus tersebut &quot;diacak&quot; dengan sandi surat Anda. Jika Anda lupa "
+"sandi surat Anda dan administrator menggantinya dengan sandi baru, kamus "
+"pribadiAnda menjadi tak berguna dan harus membuat yang baru. Akan tetapi, "
+"jika Anda atau administrator sistem mengubah sandi Anda dan Anda masih ingat "
+"yang lama, Anda dapat memasukkan sandi lama untuk mengenkripsi ulang kamus "
+"dengan sandi baru</p>"
+
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr "Mohon enkripsi kamus pribadiku dan simpan dalam bentuk terenkripsi."
+
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr "Sedang menghapus masukan berikut dari kamus <strong>%s</strong>:"
+
+msgid "All done!"
+msgstr "Semua Selesai!"
+
+msgid "Personal Dictionary Updated"
+msgstr "Kamus Pribadi telah diperbaharui"
+
+msgid "No changes requested."
+msgstr "Tidak ada perubahan yang diminta"
+
+msgid "Please wait, communicating with the server..."
+msgstr "Silahkan tunggu, sedang menghubungi server ...."
+
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr "Silahkan pilih kamus apa yang akan Anda pakai untuk memeriksa ejaan."
+
+msgid "SquirrelSpell Initiating"
+msgstr "Memulai SquirrelSpell"
+
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr ""
+"Seting disesuaikan ke: <strong>%s</strong> dengan <strong>%s</strong> "
+"sebagai kamus utama."
+
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr "Memakai kamus <strong>%s</strong> (dari sistem) untuk memeriksa ejaan."
+
+msgid "International Dictionaries Preferences Updated"
+msgstr "Acuan Kamus Internasional telah diperbaharui"
+
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr ""
+"Silahkan pilih sembarang kamus internasional yang tersedia yang ingin Anda "
+"gunakan saat memeriksa ejaan:"
+
+msgid "Make this dictionary my default selection:"
+msgstr "Jadikan kamus ini sebagai kamus utama:"
+
+msgid "Make these changes"
+msgstr "Buat perubahan ini"
+
+msgid "Add International Dictionaries"
+msgstr "Tambahkan kamus internasional"
+
+msgid "Please choose which options you wish to set up:"
+msgstr "Silahkan tentukan pilihan yang ingin Anda set:"
+
+msgid "Edit your personal dictionary"
+msgstr "Ubah Kamus pribadi Anda"
+
+msgid "Set up international dictionaries"
+msgstr "Menset kamus internasional"
+
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr "Enkripsi atau dekripsi kamus pribadi Anda"
+
+msgid "not available"
+msgstr "tidak tersedia"
+
+msgid "SquirrelSpell Options Menu"
+msgstr "Menu Pilihan SquirrelSpell"
+
 msgid "Translator"
 msgstr "Penerjemah"
 
@@ -2218,9 +3323,6 @@ msgstr "Saat menulis surat:"
 
 msgid "Not yet functional, currently does nothing"
 msgstr "Belum berfungsi, tidak bisa apa-apa"
-
-msgid "Download this as a file"
-msgstr "Simpan ke file"
 
 msgid "Translation Options"
 msgstr "Pilihan Penerjemahan"
@@ -2317,6 +3419,9 @@ msgstr "Slovenia"
 msgid "Swedish"
 msgstr "Swedia"
 
+msgid "Turkish"
+msgstr "Turki"
+
 msgid "Welsh"
 msgstr "Welsh"
 
@@ -2326,644 +3431,8 @@ msgstr "Bahasa Indonesia"
 msgid "Latin"
 msgstr "Latin"
 
-msgid "Address Book"
-msgstr "Buku Alamat"
-
-msgid "Name"
-msgstr "Nama"
-
-msgid "E-mail"
-msgstr "Surat-E"
-
-msgid "Info"
-msgstr "Keterangan"
-
-msgid "Source"
-msgstr "Sumber"
-
-msgid "Bcc"
-msgstr "Salinan"
-
-msgid "Use Addresses"
-msgstr "Gunakan alamat"
-
-msgid "Address Book Search"
-msgstr "Menelusuri Buku Alamat"
-
-msgid "Search for"
-msgstr "Cari untuk"
-
-msgid "in"
-msgstr "di"
-
-msgid "All address books"
-msgstr "Semua buku alamat"
-
-msgid "List all"
-msgstr "Tampilkan semua"
-
-#, c-format
-msgid "Unable to list addresses from %s"
-msgstr "Tidak dapat menampilkan alamat dari %s"
-
-msgid "Your search failed with the following error(s)"
-msgstr "Penelusuran Anda gagal dengan kesalahan berikut:"
-
-msgid "No persons matching your search was found"
-msgstr "Tidak ada orang yang sesuai dengan yang Anda cari"
-
-msgid "Return"
-msgstr "Kembali"
-
-msgid "Nickname"
-msgstr "Nama singkat"
-
-msgid "Must be unique"
-msgstr "Harus tunggal ( unik )"
-
-msgid "E-mail address"
-msgstr "Alamat Surat-E"
-
-msgid "First name"
-msgstr "Nama Depan"
-
-msgid "Last name"
-msgstr "Nama Belakang"
-
-msgid "Additional info"
-msgstr "Keterangan tambahan"
-
-msgid "No personal address book is defined. Contact administrator."
-msgstr "Tidak ada buku alamat yang didefinisikan. Hubungi administrator!"
-
-msgid "You can only edit one address at the time"
-msgstr "Anda hanya dapat mengubah satu alamat dalam satu waktu"
-
-msgid "Update address"
-msgstr "Perbaharui alamat"
-
-msgid "Unknown error"
-msgstr "Kesalahan tidak diketahui"
-
-msgid "Add address"
-msgstr "Tambah alamat"
-
-msgid "Edit selected"
-msgstr "Ubah yang dipilih"
-
-msgid "Delete selected"
-msgstr "Hapus yang dipilih"
-
-#, c-format
-msgid "Add to %s"
-msgstr "Tambahkan ke %s"
-
-msgid "Original Message"
-msgstr "Pesan Asli"
-
-msgid "Draft Email Saved"
-msgstr "Konsep Surat telah disimpan"
-
-msgid "Could not move/copy file. File not attached"
-msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
-
-msgid "Draft Saved"
-msgstr "Konsep Surat telah disimpan"
-
-msgid "Your Message has been sent"
-msgstr "Pesan Anda telah dikirimkan"
-
-msgid "To:"
-msgstr "Untuk:"
-
-msgid "CC:"
-msgstr "Tembusan:"
-
-msgid "BCC:"
-msgstr "Salinan:"
-
-msgid "Subject:"
-msgstr "Subyek:"
-
-msgid "Send"
-msgstr "Kirim"
-
-msgid "Attach:"
-msgstr "Sisipan:"
-
-msgid "Add"
-msgstr "Tambah"
-
-msgid "Delete selected attachments"
-msgstr "Hapus sisipan yang dipilih"
-
-msgid "Priority"
-msgstr "Prioritas"
-
-msgid "Receipt"
-msgstr "Penerimaan"
-
-msgid "On Read"
-msgstr "Saat dibaca"
-
-msgid "On Delivery"
-msgstr "Saat dikirim"
-
-msgid "Save Draft"
-msgstr "Simpan Konsep"
-
-msgid "You have not filled in the \"To:\" field."
-msgstr "Anda belum mengisi kolom \"Untuk:\" "
-
-msgid "said"
-msgstr "berkata"
-
-msgid "quote"
-msgstr "kutipan"
-
-msgid "who"
-msgstr "dari"
-
-msgid "Draft folder"
-msgstr "Laci Konsep ( Draft )"
-
-msgid "Illegal folder name.  Please select a different name."
-msgstr "Nama laci tidak sah. Silahkan pilih nama lain"
-
-msgid "Click here to go back"
-msgstr "Klik di sini untuk kembali"
-
-msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
-"Anda belum memilih laci yang akan dihapus.\n"
-"Silahkan memilih!"
-
-msgid "Delete Folder"
-msgstr "Hapus Laci"
-
-#, c-format
-msgid "Are you sure you want to delete %s?"
-msgstr "Apakah Anda sungguh-sungguh ingin menghapus %s?"
-
-msgid "Subscribed successfully!"
-msgstr "Berhasil mendaftarkan!"
-
-msgid "Unsubscribed successfully!"
-msgstr "Berhasil membuang!"
-
-msgid "Deleted folder successfully!"
-msgstr "Berhasil menghapus laci!"
-
-msgid "Created folder successfully!"
-msgstr "Berhasil membuat laci!"
-
-msgid "Renamed successfully!"
-msgstr "Berhasil mengganti nama!"
-
-msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr "Gagal mendaftarkan -- Laci tidak ada."
-
-msgid "refresh folder list"
-msgstr "Perbarui daftar laci"
-
-msgid "Create Folder"
-msgstr "Buat Laci"
-
-msgid "as a subfolder of"
-msgstr "sebagai laci-kecil dari"
-
-msgid "None"
-msgstr "Tidak Ada"
-
-msgid "Let this folder contain subfolders"
-msgstr "Laci ini boleh berisi laci-kecil"
-
-msgid "Create"
-msgstr "Buat"
-
-msgid "Rename a Folder"
-msgstr "Ganti nama Laci"
-
-msgid "Select a folder"
-msgstr "Pilih sebuah laci"
-
-msgid "Rename"
-msgstr "Ganti Nama"
-
-msgid "No folders found"
-msgstr "Tidak ditemukan suatu laci "
-
-msgid "No folders were found to unsubscribe from!"
-msgstr "Tidak ada laci yang bisa dibuang!"
-
-msgid "No folders were found to subscribe to!"
-msgstr "Tidak ada laci yang bisa didaftarkan!"
-
-msgid "Subscribe to:"
-msgstr "Daftarkan ke:"
-
-msgid "You have not selected a folder to rename. Please do so."
-msgstr ""
-"Anda belum memilih laci untuk diubah namanya.\n"
-"Silahkan memilih!"
-
-msgid "Rename a folder"
-msgstr "Ganti nama laci"
-
-msgid "New name:"
-msgstr "Nama baru:"
-
-msgid "ERROR: Help files are not in the right format!"
-msgstr "SALAH: File panduan tidak dalam bentuk yang benar!"
-
-#, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr ""
-"Panduan ini belum diterjemahkan ke bahasa %s. Bahasa Inggris akan "
-"ditampilkan."
-
-msgid "Some or all of the help documents are not present!"
-msgstr "Beberapa atau semua dokumen panduan tidak ada!"
-
-msgid "Table of Contents"
-msgstr "Daftar Isi"
-
-msgid "Top"
-msgstr "Atas"
-
-msgid "Viewing an image attachment"
-msgstr "Menampilkan sisipan gambar"
-
-msgid "View message"
-msgstr "Lihat pesan"
-
-msgid "Not available"
-msgstr "Tidak tersedia"
-
-msgid "purge"
-msgstr "kosongkan"
-
-msgid "Last Refresh"
-msgstr "Peninjauan Terakhir"
-
-msgid "Save folder tree"
-msgstr "Simpan Struktur Laci"
-
-msgid "Login"
-msgstr "Masuk"
-
-#, c-format
-msgid "%s Login"
-msgstr "Masuk %s"
-
-msgid "Name:"
-msgstr "Nama:"
-
-msgid "No messages were selected."
-msgstr "Tidak ada pesan yang dipilih."
-
-msgid "Message Highlighting"
-msgstr "Penyorotan Pesan"
-
-msgid "subject"
-msgstr "subyek"
-
-msgid "No highlighting is defined"
-msgstr "Tidak ada penyorotan yang didefinisikan"
-
-msgid "Identifying name"
-msgstr "Nama identifikasi"
-
-msgid "Color"
-msgstr "Warna"
-
-msgid "Dark Blue"
-msgstr "Biru Gelap"
-
-msgid "Dark Green"
-msgstr "Hijau Gelap"
-
-msgid "Dark Yellow"
-msgstr "Kuning Gelap"
-
-msgid "Dark Cyan"
-msgstr "Hijau Telur Gelap"
-
-msgid "Dark Magenta"
-msgstr "Ungu Muda Gelap"
-
-msgid "Light Blue"
-msgstr "Biru Terang"
-
-msgid "Light Green"
-msgstr "Hijau Terang"
-
-msgid "Light Yellow"
-msgstr "Kuning Terang"
-
-msgid "Light Cyan"
-msgstr "Hijau Telur Terang"
-
-msgid "Light Magenta"
-msgstr "Ungu Muda Terang"
-
-msgid "Dark Gray"
-msgstr "Abu-abu Gelap"
-
-msgid "Medium Gray"
-msgstr "Abu-abu Sedang"
-
-msgid "Light Gray"
-msgstr "Abu-abu Terang"
-
-msgid "White"
-msgstr "Putih"
-
-msgid "Other:"
-msgstr "Lainnya:"
-
-msgid "Ex: 63aa7f"
-msgstr "Misal: 63aa7f"
-
-msgid "Matches"
-msgstr "Berisi"
-
-#, c-format
-msgid "Alternate Identity %d"
-msgstr "Identitas Pilihan %d"
-
-msgid "Advanced Identities"
-msgstr "Identitas Tambahan"
-
-msgid "Default Identity"
-msgstr "Identitas Utama"
-
-msgid "Add a New Identity"
-msgstr "Tambahkan Identitas Baru"
-
-msgid "E-Mail Address"
-msgstr "Alamat Surat-E"
-
-msgid "Save / Update"
-msgstr "Simpan / Perbaharui"
-
-msgid "Make Default"
-msgstr "Jadikan Identitas Utama"
-
-msgid "Move Up"
-msgstr "Pindah ke atas"
-
-msgid "Index Order"
-msgstr "Urutan Indeks"
-
-msgid "Checkbox"
-msgstr "Kotak Periksa"
-
-msgid "Flags"
-msgstr "'Flag'"
-
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
-msgstr ""
-"Urutan index adalah urutan yang menyusun kolom dalam urutan pesan. Anda "
-"dapat menambah, menghapus, dan memindahkan kolom agar sesuai dengan "
-"keinginan Anda"
-
-msgid "up"
-msgstr "atas"
-
-msgid "down"
-msgstr "bawah"
-
-msgid "remove"
-msgstr "buang"
-
-msgid "Return to options page"
-msgstr "kembali ke halaman pilihan"
-
-msgid "Personal Information"
-msgstr "Data Pribadi"
-
-msgid "Display Preferences"
-msgstr "Acuan Tampilan"
-
-msgid "Folder Preferences"
-msgstr "Acuan Laci"
-
-msgid "Successfully Saved Options"
-msgstr "Berhasil menyimpan Pilihan"
-
-msgid "Refresh Folder List"
-msgstr "Perbarui daftar laci"
-
-msgid "Refresh Page"
-msgstr "Perbarui Halaman"
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "Di sini berisi data tentang Anda seperti: Nama, alamat surate, dll."
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-"Anda dapat mengubah cara SquirrelMail tampak dan menampilkan informasi untuk "
-"Anda, seperti: warna, bahasa, dan lain-lain."
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"Dengan berdasarkan kriteria , pesan yang masuk dapat memiliki latar warna "
-"berbeda dalam daftar pesan. Pilihan ini memudahkan Anda membedakan asal "
-"suatu pesan, khususnya dari suatu milis."
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr "Pilihan ini mengubah cara laci Anda ditampilkan dan dimanipulasi."
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-"Urutan pesan dapat diatur dan diubah sesuai keinginan dengan berdasarkan isi "
-"dari header pesan."
-
-msgid "Message not printable"
-msgstr "Pesan tidak dapat dicetak"
-
-msgid "Printer Friendly"
-msgstr "Layar Pencetakan"
-
-msgid "CC"
-msgstr "Tembusan"
-
-msgid "Print"
-msgstr "Cetak"
-
-msgid "View Printable Version"
-msgstr "Lihat Versi yang Bisa Dicetak"
-
-msgid "Read:"
-msgstr "Sudah dibaca:"
-
-msgid "Your message"
-msgstr "Pesan Anda"
-
-msgid "Sent:"
-msgstr "Telah dikirim:"
-
-#, c-format
-msgid "Was displayed on %s"
-msgstr "Telah ditampilkan di %s"
-
-msgid "less"
-msgstr "lebih sedikit"
-
-msgid "more"
-msgstr "lebih lengkap"
-
-msgid "Mailer"
-msgstr "Sarana"
-
-msgid "Read receipt"
-msgstr "Tanggapan membaca"
-
-msgid "send"
-msgstr "kirim"
-
-msgid "requested"
-msgstr "diminta"
-
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
-msgstr ""
-"Pengirim pesan telah meminta tanggapan yang menyatakan bahwa Anda telah "
-"membaca pesan ini. Apakah Anda ingin mengirimkan tanggapan?"
-
-msgid "Send read receipt now"
-msgstr "Kirim tanggapan pesan telah dibaca sekarang"
-
-msgid "Search results"
-msgstr "Hasil Pencarian "
-
-msgid "Message List"
-msgstr "Daftar Pesan"
-
-msgid "Resume Draft"
-msgstr "Buka Konsep"
-
-msgid "Edit Message as New"
-msgstr "Ubah Pesan sebagai pesan baru"
-
-msgid "View Message"
-msgstr "Lihat Pesan"
-
-msgid "Forward as Attachment"
-msgstr "Kirimkan sebagai Sisipan"
-
-msgid "Reply"
-msgstr "Balas"
-
-msgid "Reply All"
-msgstr "Balas Semua"
-
-msgid "View Full Header"
-msgstr "Lihat 'header' lengkap"
-
-msgid "Attachments"
-msgstr "Sisipan"
-
-msgid "Folder:"
-msgstr "Laci:"
-
-msgid "edit"
-msgstr "ubah"
-
-msgid "search"
-msgstr "Cari"
-
-msgid "delete"
-msgstr "Hapus "
-
-msgid "Recent Searches"
-msgstr "PencarianTerakhir"
-
-msgid "save"
-msgstr "Simpan "
-
-msgid "forget"
-msgstr "lupakan saja"
-
-msgid "Current Search"
-msgstr "Pencarian saat ini"
-
-msgid "Body"
-msgstr "Badan pesan"
-
-msgid "Everywhere"
-msgstr "Di mana saja"
-
-msgid "Search Results"
-msgstr "Hasil Pencarian "
-
-msgid "No Messages Found"
-msgstr "Tidak ada pesan yang ditemukan"
-
-msgid "You have been successfully signed out."
-msgstr "Terima kasih telah menggunakan SquirrelMail."
-
-msgid "Click here to log back in."
-msgstr "Klik di sini untuk masuk lagi."
-
-msgid "Viewing a Business Card"
-msgstr "Menampilkan Kartu Bisnis"
-
-msgid "Title"
-msgstr "Judul"
-
-msgid "Email"
-msgstr "Surat-E"
-
-msgid "Web Page"
-msgstr "Halaman Web"
-
-msgid "Organization / Department"
-msgstr "Organisasi / Departemen"
-
-msgid "Address"
-msgstr "Alamat"
-
-msgid "Work Phone"
-msgstr "Telepon Kantor"
-
-msgid "Home Phone"
-msgstr "Telepon Rumah"
-
-msgid "Cellular Phone"
-msgstr "Telepon Genggam"
-
-msgid "Fax"
-msgstr "Faksimili"
-
-msgid "Note"
-msgstr "Catatan"
-
-msgid "Add to Addressbook"
-msgstr "Tambahkan ke Buku Alamat"
-
-msgid "Title & Org. / Dept."
-msgstr "Judul & Org. / Dept."
-
-msgid "Viewing Full Header"
-msgstr "Menampilkan 'header' lengkap"
-
-msgid "Viewing a text attachment"
-msgstr "Menampilkan sisipan naskah"
+msgid "Delivery error report"
+msgstr "Laporan kesalahan pengiriman"
+
+msgid "Undelivered Message Headers"
+msgstr "Header Pesan tidak bisa dikirimkan"
