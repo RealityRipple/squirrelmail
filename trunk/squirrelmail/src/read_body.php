@@ -90,10 +90,9 @@ function findPreviousMessage($numMessages, $passed_id) {
     if ($thread_sort_messages || $allow_server_sort ) {
         foreach($server_sort_array as $key=>$value) {
             if ($passed_id == $value) {
-                if ($key == 0) {
-                    break;
+                if ($key != 0) {
+                    $result = $server_sort_array[$key - 1];
                 }
-                $result = $server_sort_array[$key - 1];
                 break;
             }
         }
