@@ -16,43 +16,42 @@
    include('../functions/abook_local_file.php');
    include('../functions/abook_ldap_server.php');
 
-   // Un-comment if you're using database backend
-   // include('../functions/abook_database.php');
+   // Only load database backend if database is configured
+   if(isset($addrbook_dsn))
+      include('../functions/abook_database.php');
 
 
    // Create and initialize an addressbook object. 
    // Returns the created object
    function addressbook_init($showerr = true, $onlylocal = false) {
       global $data_dir, $username, $ldap_server;
+      global $addrbook_dsn;
       
       // Create a new addressbook object
       $abook = new AddressBook;
       
-      // Always add a local backend
-
-      // Use *either* file-based *or* database addressbook. Remove
-      // and insert comments to enable the one you want.
-
-      // ------ BEGIN Initialize file-based personal addressbook ------
-      $filename = sprintf('%s%s.abook', $data_dir, $username);
-      $r = $abook->add_backend('local_file', Array('filename' => $filename,
-						   'create'   => true));
-
-      if(!$r && $showerr) {
-	 printf(_("Error opening file %s"), $filename);
-	 exit;
+      // Always add a local backend. We use *either* file-based *or* a
+      // database addressbook. If $addrbook_dsn is set, the database
+      // backend is used. If not, addressbooks are stores in files.
+      if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
+	 // Database
+	 $r = $abook->add_backend('database', Array('dsn' => $addrbook_dsn,
+						    'owner' => $username,
+						    'table' => 'address'));
+	 if(!$r && $showerr) {
+	    printf(_("Error initializing addressbook database."));
+	    exit;
+	 }
+      } else {
+	 // File
+	 $filename = sprintf('%s%s.abook', $data_dir, $username);
+	 $r = $abook->add_backend('local_file', Array('filename' => $filename,
+						      'create'   => true));
+	 if(!$r && $showerr) {
+	    printf(_("Error opening file %s"), $filename);
+	    exit;
+	 }
       }
-      // ------ END Initialize file-based personal addressbook ------
-
-      // ------ BEGIN Initialize database-based personal addressbook ------
-      //      $r = $abook->add_backend('database', Array('dsn' => 'mysql://dbuser@host/dbname',
-      //						 'owner' => $username,
-      //						 'table' => 'address'));
-      //      if(!$r && $showerr) {
-      //	 printf(_("Error initializing addressbook: %s"), $filename);
-      //	 exit;
-      //      }
-      // ------ END Initialize database-based personal addressbook ------
 
       if($onlylocal)
 	return $abook;
