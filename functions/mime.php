@@ -822,13 +822,23 @@
         $j = strlen( $body );   // Legnth of the HTML
         $ret = '';              // Returned string
         $bgcolor = '#ffffff';   // Background style color (defaults to white)
+	$textcolor = '#000000'; // Foreground style color (defaults to black)
         $leftmargin = '';       // Left margin style
         $title = '';            // HTML title if any
 
         $i = 0;
         while( $i < $j ) {
             if( $body{$i} == '<' ) {
-                $tag = $body{$i+1}.$body{$i+2}.$body{$i+3}.$body{$i+4};
+	        $pos = $i + 1;
+		$tag = '';
+		while ($body{$pos} == ' ' || $body{$pos} == "\t" ||
+		       $body{$pos} == "\n")
+	            $pos ++;
+		while (strlen($tag) < 4 && $body{$pos} != ' ' && 
+		       $body{$pos} != "\t" && $body{$pos} != "\n") {
+		    $tag .= $body{$pos};
+		    $pos ++;
+		}
                 switch( strtoupper( $tag ) ) {
                     // Strips the entire tag and contents
                     case 'APPL':
@@ -936,13 +946,14 @@
                         $i += 5;
 			if (! isset($base))
 			   $base = '';
-                        $ret .= stripEvent( $i, $j, $body, $id, $base );
-                        //if( $bgcolor <> '' )
-                            $ret .= " bgcolor=$bgcolor";
-                        $ret .= ' width=100%><tr>';
+		        $ret .= stripEvent( $i, $j, $body, $id, $base );
+                        $ret .= " bgcolor=$bgcolor width=100%><tr>";
                         if( $leftmargin <> '' )
                             $ret .= "<td width=$leftmargin>&nbsp;</td>";
                         $ret .= '<td>';
+			if (strtolower($bgcolor) == 'ffffff' || 
+			    strtolower($bgcolor) == '#ffffff')
+			   $ret .= '<font color=#000000>';
                         break;
                     case 'BASE':
                         $i += 5;
@@ -967,7 +978,7 @@
                         }
                         break;
                     case '/BOD':
-                        $ret .= '</td></tr></TABLE>';
+                        $ret .= '</font></td></tr></TABLE>';
                         $i += 6;
                         break;
                     default:
