@@ -39,7 +39,7 @@ function abook_take_read_string($str)
         $str = substr(strstr($str, $hits[0]), strlen($hits[0]));
         if (! isset($abook_found_email[$hits[0]]))
         {
-            echo addHidden('email[]', htmlspecialchars($hits[0]));
+            echo addHidden('email[]', $hits[0]);
             $abook_found_email[$hits[0]] = 1;
         }
     }
