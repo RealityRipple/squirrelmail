@@ -26,6 +26,8 @@ Version 1.4.0 RC 2
   - Move login_form hook to be actually in the login form.
   - Fix message_details plugin ability to save a raw message.
   - Try better to get the filename of an attachment.
+  - Deliver_SMTP class now uses HTTP_HOST in SMTP HELO.  Should fix DNS
+    issues some people have reported. (Closes #560524)
 	
 Version 1.4.0 RC 1
 ------------------

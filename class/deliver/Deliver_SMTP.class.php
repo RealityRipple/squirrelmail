@@ -49,11 +49,19 @@ class Deliver_SMTP extends Deliver {
 	if ($this->errorCheck($tmp, $stream)) {
     	    return(0);
 	}
-    
+
+	/* If $_SERVER['HTTP_HOST'] is set, use that in our HELO to the SMTP
+	   server.  This should fix the DNS issues some people have had */
+	if (sqgetGlobalVar('HTTP_HOST', $HTTP_HOST, SQ_SERVER)) { // HTTP_HOST is set
+		$helohost = $HTTP_HOST;
+	} else { // For some reason, HTTP_HOST is not set - revert to old behavior
+		$helohost = $domain;
+	}
+	
 	/* Lets introduce ourselves */
 	if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
 	  // Doing some form of non-plain auth
-	  fputs($stream, "EHLO $domain\r\n");
+	  fputs($stream, "EHLO $helohost\r\n");
 	  $tmp = fgets($stream,1024);
 	  if ($this->errorCheck($tmp,$stream)) {
 	    return(0);
@@ -99,14 +107,14 @@ class Deliver_SMTP extends Deliver {
     // CRAM-MD5 and DIGEST-MD5 code ends here
 	} elseif ($smtp_auth_mech == 'none') {
 	  // No auth at all, just send helo and then send the mail
-	  fputs($stream, "HELO $domain\r\n");
+	  fputs($stream, "HELO $helohost\r\n");
       $tmp = fgets($stream, 1024);
 	  if ($this->errorCheck($tmp, $stream)) {
         return(0);
 	  }
 	} elseif ($smtp_auth_mech == 'login') {
 	  // The LOGIN method
-      fputs($stream, "EHLO $domain\r\n");
+      fputs($stream, "EHLO $helohost\r\n");
       $tmp = fgets($stream, 1024);
 	  if ($this->errorCheck($tmp, $stream)) {
     	return(0);
