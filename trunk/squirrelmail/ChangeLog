@@ -6,7 +6,9 @@
 Version 1.3.0-DEVEL -- CVS
 --------------------
   - Speedimprovements in case we download mime-entities.
-
+  - Added possibility to extract message/rfc822 attachments and store them as
+    the original message in a folder. 
+  
 Version 1.2.7 -- CVS
 --------------------
   - Added possibility to use multiple compose windows without loss
