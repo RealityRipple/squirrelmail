@@ -26,6 +26,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /** lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
@@ -189,7 +190,7 @@ if ($show == 'form' && !isset($listall)) {
 /* Empty search */
 if (empty($query) && empty($show) && empty($listall)) {
     echo html_tag( 'p', '<br>' .
-                      _("No persons matching your search was found"),
+                      _("No persons matching your search were found"),
             'center' ) .
           "\n</BODY></HTML>\n",
     exit;
@@ -206,20 +207,20 @@ if ($show == 'form' && empty($listall)) {
          html_tag( 'tr' ) .
          html_tag( 'td', '  <strong>' . _("Search for") . "</strong>\n", 'left', '', 'nowrap valign="middle" width="10%"' ) .
          html_tag( 'td', '', 'left', '', '' ) .
-                 '<INPUT TYPE=text NAME=query VALUE="' . htmlspecialchars($query) .
-                 "\" SIZE=28>\n";
+	     addInput('query', $query, 28);
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
-        echo '<STRONG>' . _("in") . '</STRONG>&nbsp;<SELECT NAME=backend>'."\n".
-             '<OPTION VALUE=-1 SELECTED>' . _("All address books") . "\n";
+        echo '<STRONG>' . _("in") . '</STRONG>&nbsp;'."\n".
+	$selopts['-1'] = _("All address books");
+	
         $ret = $abook->get_backend_list();
         while (list($undef,$v) = each($ret)) {
-            echo '<OPTION VALUE=' . $v->bnum . '>' . $v->sname . "\n";
+            $selopts[$v->bnum] = $v->sname;
         }
-        echo "</SELECT>\n";
+	echo addSelect('backend', $selopts, '-1', TRUE);
     } else {
-        echo '<INPUT TYPE=hidden NAME=backend VALUE=-1>' . "\n";
+        echo addHidden('backend', '-1');
     }
         
     echo '</td></tr>' .

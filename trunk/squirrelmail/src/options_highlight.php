@@ -22,32 +22,17 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /* get globals */
-if (isset($_GET['action'])) {
-    $action = $_GET['action'];
-}
-if (isset($_GET['theid'])) {
-    $theid = $_GET['theid'];
-}
-if (isset($_GET['identname'])) {
-    $identname = $_GET['identname'];
-}
-if (isset($_GET['newcolor_choose'])) {
-    $newcolor_choose = $_GET['newcolor_choose'];
-}
-if (isset($_GET['newcolor_input'])) {
-    $newcolor_input = $_GET['newcolor_input'];
-}
-if (isset($_GET['color_type'])) {
-    $color_type = $_GET['color_type'];
-}
-if (isset($_GET['match_type'])) {
-    $match_type = $_GET['match_type'];
-}
-if (isset($_GET['value'])) {
-    $value = $_GET['value'];
-}
+sqGetGlobalVar('action', $action);
+sqGetGlobalVar('theid', $theid);
+sqGetGlobalVar('identname', $identname);
+sqGetGlobalVar('newcolor_choose', $newcolor_choose);
+sqGetGlobalVar('newcolor_input', $newcolor_input);
+sqGetGlobalVar('color_type', $color_type);
+sqGetGlobalVar('match_type', $match_type);
+sqGetGlobalVar('value', $value);
 
 /* end of get globals */
  
@@ -329,8 +314,10 @@ if ($action == 'edit' || $action == 'add') {
     $new_color_list["18,3"] = 'ff33ff';
     $new_color_list["18,4"] = 'ff00ff';
 
-    $selected_input = '';
-    $selected_choose = '';
+    $selected_input = FALSE;
+    $selected_i = null;
+    $selected_choose = FALSE;
+    $selected_predefined = FALSE;
 
     for ($i=0; $i < 14; $i++) {
         ${"selected".$i} = '';
@@ -338,8 +325,8 @@ if ($action == 'edit' || $action == 'add') {
     if ($action == 'edit' && isset($theid) && isset($message_highlight_list[$theid]['color'])) {
         for ($i=0; $i < 14; $i++) {
             if ($color_list[$i] == $message_highlight_list[$theid]['color']) {
-                $selected_choose = ' checked';
-                ${"selected".$i} = ' selected';
+                $selected_choose = TRUE;
+                $selected_i = $color_list[$i];
                 continue;
             }
         }
@@ -365,16 +352,17 @@ if ($action == 'edit' || $action == 'add') {
     }
 
     if (isset($theid) && !isset($message_highlight_list[$theid]['color']))
-        $selected_choose = ' checked';
+        $selected_choose = TRUE;
     else if ($pre_defined_color)
-        $selected_predefined = ' checked';
+        $selected_predefined = TRUE;
     else if ($selected_choose == '')
-        $selected_input = ' checked';
+        $selected_input = TRUE;
 
-    echo '<form name="f" action="options_highlight.php">' . "\n";
-    echo '<input type="hidden" value="save" name="action">' . "\n";
-    if($action == 'edit')
-        echo '<input type="hidden" value="'.(isset($theid)?$theid:'').'" name="theid">' . "\n";
+    echo addForm('options_highlight.php', 'POST', 'f').
+         addHidden('action', 'save');
+    if($action == 'edit') {
+        echo addHidden('theid', (isset($theid)?$theid:''));
+    }
     echo html_tag( 'table', '', 'center', '', 'width="80%" cellpadding="3" cellspacing="0" border="0"' ) . "\n";
     echo html_tag( 'tr', '', '', $color[0] ) . "\n";
     echo html_tag( 'td', '', 'right', '', 'nowrap' ) . "<b>\n";
@@ -385,33 +373,40 @@ if ($action == 'edit' || $action == 'add') {
         $disp = $message_highlight_list[$theid]['name'];
     else
         $disp = '';
-    $disp = htmlspecialchars($disp);
-    echo "         <input type=\"text\" value=\"".$disp."\" name=\"identname\">";
+    echo "         ".addInput('identname', $disp);
     echo "      </td>\n";
     echo "   </tr>\n";
     echo html_tag( 'tr', html_tag( 'td', '<small><small>&nbsp;</small></small>', 'left' ) ) ."\n";
     echo html_tag( 'tr', '', '', $color[0] ) . "\n";
     echo html_tag( 'td', '<b>'. _("Color") . ':</b>', 'right' );
     echo html_tag( 'td', '', 'left' );
-    echo "         <input type=\"radio\" name=color_type value=1$selected_choose> &nbsp;<select name=newcolor_choose>\n";
-    echo "            <option value=\"$color_list[0]\"$selected0>" . _("Dark Blue") . "\n";
-    echo "            <option value=\"$color_list[1]\"$selected1>" . _("Dark Green") . "\n";
-    echo "            <option value=\"$color_list[2]\"$selected2>" . _("Dark Yellow") . "\n";
-    echo "            <option value=\"$color_list[3]\"$selected3>" . _("Dark Cyan") . "\n";
-    echo "            <option value=\"$color_list[4]\"$selected4>" . _("Dark Magenta") . "\n";
-    echo "            <option value=\"$color_list[5]\"$selected5>" . _("Light Blue") . "\n";
-    echo "            <option value=\"$color_list[6]\"$selected6>" . _("Light Green") . "\n";
-    echo "            <option value=\"$color_list[7]\"$selected7>" . _("Light Yellow") . "\n";
-    echo "            <option value=\"$color_list[8]\"$selected8>" . _("Light Cyan") . "\n";
-    echo "            <option value=\"$color_list[9]\"$selected9>" . _("Light Magenta") . "\n";
-    echo "            <option value=\"$color_list[10]\"$selected10>" . _("Dark Gray") . "\n";
-    echo "            <option value=\"$color_list[11]\"$selected11>" . _("Medium Gray") . "\n";
-    echo "            <option value=\"$color_list[12]\"$selected12>" . _("Light Gray") . "\n";
-    echo "            <option value=\"$color_list[13]\"$selected13>" . _("White") . "\n";
-    echo "         </select><br>\n";
-    echo "         <input type=\"radio\" name=color_type value=2$selected_input> &nbsp;". _("Other:") ."<input type=\"text\" value=\"";
-    if ($selected_input && isset($theid)) echo $message_highlight_list[$theid]["color"];
-    echo '" name="newcolor_input" size="7"> '._("Ex: 63aa7f")."<br>\n";
+    echo '         '.addRadioBox('color_type', $selected_choose, '1');
+
+    $selops = array (
+    	$color_list[0] => _("Dark Blue"),
+	$color_list[1] => _("Dark Green"),
+	$color_list[2] => _("Dark Yellow"),
+	$color_list[3] => _("Dark Cyan"),
+	$color_list[4] => _("Dark Magenta"),
+	$color_list[5] => _("Light Blue"),
+	$color_list[6] => _("Light Green"),
+	$color_list[7] => _("Light Yellow"),
+	$color_list[8] => _("Light Cyan"),
+	$color_list[9] => _("Light Magenta"),
+	$color_list[10] => _("Dark Gray"),
+	$color_list[11] => _("Medium Gray"),
+	$color_list[12] => _("Light Gray"),
+	$color_list[13] => _("White") );
+	
+    echo addSelect('newcolor_choose', $selops, $selected_i, TRUE);
+    echo "<br>\n";
+
+    echo '         '.addRadioBox('color_type', $selected_input, 2).
+        ' &nbsp;'. _("Other:") .
+	addInput('newcolor_input',
+	    (($selected_input && isset($theid)) ? $message_highlight_list[$theid]['color'] : ''),
+	    '7');
+    echo _("Ex: 63aa7f")."<br>\n";
     echo "      </td>\n";
     echo "   </tr>\n";
 
@@ -425,8 +420,8 @@ if ($action == 'edit' || $action == 'add') {
         for($y = 0; $y < 19; $y++) {
         $gridindex = "$y,$x";
         $gridcolor = $new_color_list[$gridindex];
-        $selected = ($gridcolor == $current_color) ? ' checked' : '' ;
-        echo html_tag( 'td', '<input type="radio" name="color_type" value="#' . $gridcolor .'"' . $selected . '>', 'left', $gridcolor, 'colspan="2"' );
+        echo html_tag( 'td', addRadioBox('color_type', ($gridcolor == $current_color), '#'.$gridcolor),
+	    'left', $gridcolor, 'colspan="2"' );
         }
         echo "</tr>\n";
     }
@@ -458,9 +453,7 @@ if ($action == 'edit' || $action == 'add') {
         $disp = $message_highlight_list[$theid]['value'];
     else
         $disp = '';
-    $disp = htmlspecialchars($disp);
-    echo '         <input type="text" value="' . $disp .
-        '" name="value" size=40>';
+    echo '         '.addInput('value', $disp, 40);
     echo "        </td>\n";
     echo "   </tr>\n";
     echo "</table>\n";

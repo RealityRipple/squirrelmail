@@ -22,6 +22,7 @@ require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/display_messages.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /* get globals we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
@@ -65,16 +66,16 @@ echo '<br>' .
         ) .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center', $color[4] ) .
-            '<FORM ACTION="folders_rename_do.php" METHOD="POST">'.
+	    addForm('folders_rename_do.php').
      _("New name:").
      '<br><b>' . htmlspecialchars($old_parent) . ' ' . htmlspecialchars($delimiter) . '</b>' .
-     '<INPUT TYPE="TEXT" SIZE="25" NAME="new_name" VALUE="' . htmlspecialchars($old_name) . '"><BR>' . "\n";
+     addInput('new_name', $old_name, 25) . '<BR>' . "\n";
 if ( $isfolder ) {
-    echo '<INPUT TYPE=HIDDEN NAME="isfolder" VALUE="true">';
+    echo addHidden('isfolder', 'true');
 }
-printf("<INPUT TYPE=HIDDEN NAME=\"orig\" VALUE=\"%s\">\n", htmlspecialchars($old));
-printf("<INPUT TYPE=HIDDEN NAME=\"old_name\" VALUE=\"%s\">\n", htmlspecialchars($old_name));
-echo '<INPUT TYPE=SUBMIT VALUE="'._("Submit")."\">\n".
+echo addHidden('orig', $old).
+     addHidden('old_name', $old_name).
+     '<INPUT TYPE=SUBMIT VALUE="'._("Submit")."\">\n".
      '</FORM><BR></td></tr></table>';
 
 ?>

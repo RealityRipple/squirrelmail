@@ -23,6 +23,7 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/tree.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /*
  *  Incoming values:
@@ -62,9 +63,8 @@ if( !sqgetGlobalVar('confirmed', $tmp, SQ_POST) ) {
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[4] ) .
         sprintf(_("Are you sure you want to delete %s?"), imap_utf7_decode_local($mailbox)).
-        '<FORM ACTION="folders_delete.php" METHOD="POST"><p>'.
-
-        '<INPUT TYPE=HIDDEN NAME="mailbox" VALUE="' . htmlspecialchars($mailbox) . "\">\n" .
+	addForm('folders_delete.php', 'POST').
+	addHidden('mailbox', $mailbox).
         '<INPUT TYPE=SUBMIT NAME="confirmed" VALUE="'._("Yes")."\">\n".
         '<INPUT TYPE=SUBMIT NAME="backingout" VALUE="'._("No")."\">\n".
         '</p></FORM><BR></td></tr></table>';

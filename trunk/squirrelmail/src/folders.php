@@ -22,6 +22,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 displayPageHeader($color, 'None');
 
@@ -95,11 +96,9 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
             ) .
             html_tag( 'tr' ) .
                 html_tag( 'td', '', 'center', $color[0] ) .
-
-     "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n".
-     "<input type=TEXT SIZE=25 NAME=folder_name><BR>\n".
-     _("as a subfolder of").
-     '<BR>'.
+     addForm('folders_create.php', 'POST', 'cf').
+     addInput('folder_name', '', 25).
+     "<BR>\n". _("as a subfolder of"). '<BR>'.
      "<TT><SELECT NAME=subfolder>\n";
 
 $show_selected = array();
@@ -127,7 +126,8 @@ echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, 
 
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
-    echo '<br><input type=CHECKBOX NAME="contain_subs"> &nbsp;'
+    echo '<br>'.
+         addCheckBox('contain_subs', FALSE, '1') .' &nbsp;'
        . _("Let this folder contain subfolders")
        . '<BR>';
 }
@@ -193,7 +193,7 @@ echo html_tag( 'tr',
         html_tag( 'td', '', 'center', $color[0] );
 
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n"
+    echo addForm('folders_rename_getname.php')
        . "<TT><SELECT NAME=old>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
@@ -225,7 +225,7 @@ echo html_tag( 'tr',
         html_tag( 'td', '', 'center', $color[0] );
 
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n"
+    echo addForm('folders_delete.php')
        . "<TT><SELECT NAME=mailbox>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
@@ -256,7 +256,7 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
                 html_tag( 'td', '', 'center', $color[0], 'width="50%"' );
 
 if ($count_special_folders < count($boxes)) {
-    echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n"
+    echo addForm('folders_subscribe.php?method=unsub')
        . "<TT><SELECT NAME=\"mailbox[]\" multiple size=8>\n";
     for ($i = 0; $i < count($boxes); $i++) {
         $use_folder = true;
@@ -304,7 +304,7 @@ if(!$no_list_for_subscribe) {
     }
   }
   if ($box && $box2) {
-    echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n"
+    echo addForm('folders_subscribe.php?method=sub')
        . '<tt><select name="mailbox[]" multiple size=8>';
 
     for ($q = 0; $q < count($box); $q++) {      
@@ -318,7 +318,7 @@ if(!$no_list_for_subscribe) {
   }
 } else {
   /* don't perform the list action -- this is much faster */
-  echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n"
+  echo addForm('folders_subscribe.php?method=sub')
      . _("Subscribe to:") . '<br>'
      . '<tt><input type="text" name="mailbox[]" size=35>'
      . '<INPUT TYPE=SUBMIT VALUE="'. _("Subscribe") . "\">\n"

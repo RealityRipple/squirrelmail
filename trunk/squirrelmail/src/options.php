@@ -24,6 +24,7 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/options.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /*********************************/
 /*** Build the resultant page. ***/
@@ -390,7 +391,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /* If we are not looking at the main option page, display the page here. */
 /*************************************************************************/
 } else {
-    echo '<form name="f" action="options.php" method="post"><br>' . "\n"
+    echo addForm('options.php', 'POST', 'f')
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT)
        . html_tag( 'table', '', '', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n"
