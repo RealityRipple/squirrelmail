@@ -61,7 +61,6 @@ class FileReader {
         if (file_exists($filename)) {
 
             $this->_length=filesize($filename);
-            error_log($this->_length);
             $this->_pos = 0;
             $this->_fd = fopen($filename,'rb');
             if (!$this->_fd) {
