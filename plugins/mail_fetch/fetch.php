@@ -37,44 +37,36 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         flush();
     }
 
-    displayPageHeader($color, 'None');
-
-    $mailfetch_server_number = getPref($data_dir, $username, 'mailfetch_server_number');
-    if (!isset($mailfetch_server_number) || ($mailfetch_server_number < 1)) {
-        $mailfetch_server_number = 0;
+    function Mail_Fetch_Servers() {
+        $mailfetch['server_number'] = getPref($data_dir, $username, "mailfetch_server_number");
+        if (!isset($mailfetch['server_number']) || ($mailfetch['server_number'] < 1)) {
+            $mailfetch['server_number'] = 0;
+        }
+        $mailfetch['cypher'] = getPref($data_dir, $username, "mailfetch_cypher");
+        for ($i = 0; $i < $mailfetch['server_number']; $i++) {
+            $mailfetch[$i]['server'] = getPref($data_dir, $username, "mailfetch_server_$i");
+            $mailfetch[$i]['port']   = getPref($data_dir, $username, "mailfetch_port_$i");
+            $mailfetch[$i]['alias']  = getPref($data_dir, $username, "mailfetch_alias_$i");
+            $mailfetch[$i]['user']   = getPref($data_dir, $username, "mailfetch_user_$i");
+            $mailfetch[$i]['pass']   = getPref($data_dir, $username, "mailfetch_pass_$i");
+            if($mailfetch['cypher'] == 'on') {
+                $mailfetch[$i]['pass'] = decrypt($mailfetch[$i]['pass']);
+            }
+            if ($mailfetch[$i]['pass'] == '') {
+                sqgetGlobalVar("pass_$i", $mailfetch[$i]['pass'], SQ_POST);
+            }
+            $mailfetch[$i]['lmos']   = getPref($data_dir, $username, "mailfetch_lmos_$i");
+            $mailfetch[$i]['login']  = getPref($data_dir, $username, "mailfetch_login_$i");
+            $mailfetch[$i]['uidl']   = getPref($data_dir, $username, "mailfetch_uidl_$i");
+            $mailfetch[$i]['subfolder'] = getPref($data_dir, $username, "mailfetch_subfolder_$i");
+            if($mailfetch[$i]['alias'] == '') {
+                $mailfetch[$i]['alias'] == $mailfetch[$i]['server'];
+            }
+        }
+        return $mailfetch;
     }
-    $mailfetch_cypher = getPref($data_dir, $username, 'mailfetch_cypher');
-    for ($i = 0;$i < $mailfetch_server_number;$i++) {
-        $mailfetch_server_[$i] = getPref($data_dir, $username, "mailfetch_server_$i");
-        $mailfetch_port_[$i]   = getPref($data_dir, $username, "mailfetch_port_$i");
-        $mailfetch_alias_[$i]  = getPref($data_dir, $username, "mailfetch_alias_$i");
-        if($mailfetch_alias_[$i] == '') {
-            $mailfetch_alias_[$i] = $mailfetch_server_[$i];
-        }
-        $mailfetch_user_[$i]   = getPref($data_dir, $username, "mailfetch_user_$i");
-        $mailfetch_pass_[$i]   = getPref($data_dir, $username, "mailfetch_pass_$i");
-        $mailfetch_lmos_[$i]   = getPref($data_dir, $username, "mailfetch_lmos_$i");
-        $mailfetch_login_[$i]  = getPref($data_dir, $username, "mailfetch_login_$i");
-        $mailfetch_uidl_[$i]   = getPref($data_dir, $username, "mailfetch_uidl_$i");
-        $mailfetch_subfolder_[$i] = getPref($data_dir, $username, "mailfetch_subfolder_$i");
-        if($mailfetch_cypher == 'on') {
-            $mailfetch_pass_[$i] = decrypt( $mailfetch_pass_[$i] );
-        }
-        if ($mailfetch_pass_[$i] == '') {
-            sqgetGlobalVar("pass_$i", $mailfetch_pass_[$i], SQ_POST);
-        }
-    }
 
-    echo '<br><center>';
-
-    echo html_tag( 'table',
-               html_tag( 'tr',
-                   html_tag( 'td', '<b>' . _("Remote POP server Fetching Mail") . '</b>', 'center', $color[0] )
-               ) ,
-           'center', '', 'width="95%" cols="1"' );
-
-    if (!isset( $server_to_fetch ) ) {
-
+    function Mail_Fetch_Select_Server($mailfetch) {
         echo '<font size=-5><br></font>' .
              "<form action=\"$PHP_SELF\" method=\"post\" target=\"_self\">" .
              html_tag( 'table', '', 'center', '', 'width="70%" cols="2"' ) .
@@ -83,21 +75,21 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                      html_tag( 'td', '', 'left' ) .
                          '<select name="server_to_fetch" size="1">' .
                          '<option value="all" selected>..' . _("All") . "...\n";
-        for ($i = 0;$i < $mailfetch_server_number;$i++) {
+        for ($i = 0;$i < $mailfetch['server_number'];$i++) {
              echo "<option value=\"$i\">" .
-                 htmlspecialchars($mailfetch_alias_[$i]) .
+                 htmlspecialchars($mailfetch[$i]['alias']) .
                   '</option>' . "\n";
-        }
+        } 
         echo            '</select>' .
                     '</td>' .
                 '</tr>';
 
         //if password not set, ask for it
-        for ($i = 0;$i < $mailfetch_server_number;$i++) {
-             if ($mailfetch_pass_[$i] == '') {
+        for ($i = 0;$i < $mailfetch['server_number'];$i++) {
+             if ($mailfetch[$i]['pass'] == '') {
                   echo html_tag( 'tr',
                               html_tag( 'td', _("Password for") . ' <b>' .
-                                  htmlspecialchars($mailfetch_alias_[$i]) .
+                                  htmlspecialchars($mailfetch[$i]['alias']) .
                                   '</b>: &nbsp; &nbsp; ',
                               'right' ) .
                               html_tag( 'td', '<input type="password" name="pass_' . $i . '">', 'left' )
@@ -109,26 +101,41 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                    html_tag( 'td', '<input type=submit name=submit_mailfetch value="' . _("Fetch Mail"). '">', 'left' )
                ) .
              '</table></form>';
+    }
+
+    $mailfetch = Mail_Fetch_Servers();
+    displayPageHeader($color, 'None');
+
+    echo '<br><center>';
+
+    echo html_tag( 'table',
+               html_tag( 'tr',
+                   html_tag( 'td', '<b>' . _("Remote POP server Fetching Mail") . '</b>', 'center', $color[0] )
+               ) ,
+           'center', '', 'width="95%" cols="1"' );
+
+    if (!isset( $server_to_fetch ) ) {
+        Mail_Fetch_Select_Server($mailfetch);
         exit();
     }
 
     if ( $server_to_fetch == 'all' ) {
         $i_start = 0;
-        $i_stop  = $mailfetch_server_number;
+        $i_stop  = $mailfetch['server_number'];
     } else {
         $i_start = $server_to_fetch;
         $i_stop  = $i_start+1;
     }
 
     for ($i_loop=$i_start;$i_loop<$i_stop;$i_loop++) {
-        $mailfetch_server = $mailfetch_server_[$i_loop];
-        $mailfetch_port   = $mailfetch_port_[$i_loop];
-        $mailfetch_user   = $mailfetch_user_[$i_loop];
-        $mailfetch_pass   = $mailfetch_pass_[$i_loop];
-        $mailfetch_lmos   = $mailfetch_lmos_[$i_loop];
-        $mailfetch_login  = $mailfetch_login_[$i_loop];
-        $mailfetch_uidl   = $mailfetch_uidl_[$i_loop];
-        $mailfetch_subfolder = $mailfetch_subfolder_[$i_loop];
+        $mailfetch_server = $mailfetch[$i_loop]['server'];
+        $mailfetch_port   = $mailfetch[$i_loop]['port'];
+        $mailfetch_user   = $mailfetch[$i_loop]['user'];
+        $mailfetch_pass   = $mailfetch[$i_loop]['pass'];
+        $mailfetch_lmos   = $mailfetch[$i_loop]['lmos'];
+        $mailfetch_login  = $mailfetch[$i_loop]['login'];
+        $mailfetch_uidl   = $mailfetch[$i_loop]['uidl'];
+        $mailfetch_subfolder = $mailfetch[$i_loop]['subfolder'];
         if($mailfetch_subfolder == '') {
             $mailfetch_subfolder == 'INBOX';
         }
@@ -139,7 +146,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Fetching from ") . 
-                    htmlspecialchars($mailfetch_alias_[$i_loop]) . 
+                    htmlspecialchars($mailfetch[$i_loop]['alias']) . 
                     '</b>',
                 'center' ) ,
             '', $color[9] ) ,
@@ -168,7 +175,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
         $i = 1;
         for ($j = 1; $j < sizeof($msglist); $j++) {
-           if ($msglist["$j"] == $mailfetch_uidl) {
+           if ($msglist[$j] == $mailfetch_uidl) {
                 $i = $j+1;
                 break;
            }
