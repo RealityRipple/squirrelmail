@@ -210,6 +210,7 @@ Version 1.5.1 -- CVS
   - Add workaround for Mercury/32 servers that will subscribe again to
     an already subscribed folder (#1115409).
   - Added blank.png for missing image support.
+  - Use the proper attachment filenames in case of forwarding a message.
 
 
 Version 1.5.0
