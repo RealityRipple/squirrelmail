@@ -1351,6 +1351,10 @@ $languages['bg_BG']['NAME']    = 'Bulgarian';
 $languages['bg_BG']['CHARSET'] = 'windows-1251';
 $languages['bg']['ALIAS'] = 'bg_BG';
 
+$languages['uk_UA']['NAME']    = 'Ukrainian';
+$languages['uk_UA']['CHARSET'] = 'koi8-u';
+$languages['uk']['ALIAS'] = 'uk_UA';
+
 // Right to left languages
 
 $languages['he_HE']['NAME']    = 'Hebrew';
