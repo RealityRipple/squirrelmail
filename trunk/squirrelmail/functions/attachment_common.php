@@ -96,7 +96,9 @@ function attachment_common_link_text(&$Args)
        
     global $QUERY_STRING;
     $Args[1]['attachment_common']['href'] = '../src/view_text.php?'. $QUERY_STRING;
-    
+    $Args[1]['attachment_common']['href'] =
+          set_url_var($Args[1]['attachment_common']['href'], 
+	  'passed_ent_id',$Args[5]);
   
     /* The link that we created needs a name.  "view" will be displayed for
        all text attachments handled by this plugin. */
