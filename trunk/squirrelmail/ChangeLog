@@ -10,7 +10,7 @@ Version 0.3pre1 -- Development
 - Rewrote SMTP functions.  It now works and handles error correction.
 - Only folders that you're subscribed to will be listed
 - Fixed a bug in outbound messages that translated " into \"
-- Added themes in distrobution (7 total)
+- Added themes in distribution (7 total)
 - Increased speed of viewing folder by date about 25%, and viewing the folder by
     Subject or Sender by up to 100%.
 - Added internationalization
