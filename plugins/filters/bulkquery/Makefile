@@ -1,15 +1,16 @@
 
 DESTDIR=/usr/local/bin
+BINDROOT=/usr/local
 
 # Solaris
 #CC=gcc
-#CFLAGS=-I/usr/local/tools/bind920/bind/include -I/usr/local/tools/bind920/include
-#LDFLAGS=-L/usr/local/tools/bind920/lib -llwres -lsocket -lnsl -lpthread
+#CFLAGS=-I$(BINDROOT)/bind/include -I$(BINDROOT)/include
+#LDFLAGS=-L$(BINDROOT)/lib -llwres -lsocket -lnsl -lpthread
 
 # Linux
 CC=gcc
-CFLAGS=
-LDFLAGS= -lpthread -llwres
+CFLAGS=-I$(BINDROOT)/bind/include -I$(BINDROOT)/include
+LDFLAGS=-L$(BINDROOT)/lib -lpthread -llwres
 
 all: bulkquery
 
