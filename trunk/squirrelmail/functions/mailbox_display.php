@@ -37,10 +37,11 @@
             continue;
          }   
       }   
+      
       if (!$hlt_color)
          $hlt_color = $color[4];
       
-      echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
+      echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
       echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
       echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
 		if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>";
@@ -186,7 +187,7 @@
       $urlMailbox = urlencode($mailbox);
 
       /** This is the beginning of the message list table.  It wraps around all messages */
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
 
       if ($startMessage < $endMessage) {
          echo "<TR BGCOLOR=\"$color[4]\"><TD>";
@@ -217,7 +218,7 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage\">";
-      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0>\n";
+      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT>\n";
       echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
@@ -328,7 +329,6 @@
          echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
-      echo "</TD></TR></TABLE>"; /** End of message-list table */
-
+      echo "</TD></TR></table>"; /** End of message-list table */
    }
 ?>

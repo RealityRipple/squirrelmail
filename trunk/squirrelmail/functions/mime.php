@@ -494,6 +494,7 @@
 
    /** this function decodes the body depending on the encoding type. **/
    function decodeBody($body, $encoding) {
+      $body = str_replace("\r\n", "\n", $body);
       $encoding = strtolower($encoding);
 
       if ($encoding == "quoted-printable") {

@@ -95,15 +95,19 @@
       switch($type0) {
          case "text":
             $body = decodeBody($body, $header->encoding);
-            #header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-type: application/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
+            if ($type1 == "plain") {
+               echo _("Subject") . ": " . decodeHeader(stripslashes($header->subject)) . "\n";
+               echo "   " . _("From") . ": " . decodeHeader(stripslashes($header->from)) . "\n";
+               echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($header->to))) . "\n";
+               echo "   " . _("Date") . ": " . getLongDateString($header->date) . "\n\n";
+            }
             echo trim($body);
             break;
          default:
             $body = decodeBody($body, $header->encoding);
             header("Content-type: application/octet-stream; name=\"$filename\"");
-            #header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
@@ -112,6 +116,12 @@
       $body = decodeBody ($body, $header->encoding);
       header("Content-type: $type0/$type1; name=\"$filename\"");
       header("Content-disposition: attachment; filename=\"$filename\"");
+      if ($type0 == "text" && $type1 == "plain") {
+         echo _("Subject") . ": " . decodeHeader(stripslashes($header->subject)) . "\n";
+         echo "   " . _("From") . ": " . decodeHeader(stripslashes($header->from)) . "\n";
+         echo "     " . _("To") . ": " . decodeHeader(stripslashes(getLineOfAddrs($header->to))) . "\n";
+         echo "   " . _("Date") . ": " . getLongDateString($header->date) . "\n\n";
+      }
       echo $body;
    } else {
       switch ($type0) {
