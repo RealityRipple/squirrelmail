@@ -49,7 +49,7 @@ for ($lsv = 100; $lsv <= 300; $lsv += 10) {
 $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                              'type' => SMOPT_TYPE_COMMENT,
                                              'size' => 7 ),
-                 'SM_ver' => array( 'name' => _("Squirrelmail Version"),
+                 'SM_ver' => array( 'name' => _("SquirrelMail Version"),
                                     'type' => SMOPT_TYPE_EXTERNAL,
                                     'value' => "$version" ),
                  'PHP_ver' => array( 'name' => _("PHP Version"),
