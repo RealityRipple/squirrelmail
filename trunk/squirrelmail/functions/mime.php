@@ -1459,7 +1459,7 @@ function sq_fixatts($tagname,
          * not affect them working as should be, however it will stop
          * IE from being kicked off when src for img tags are not set
          */
-        if (($attname == 'src') && ($attvalue = '""')) {
+        if (($attname == 'src') && ($attvalue == '""')) {
             $attary{$attname} = '"' . SM_PATH . 'images/blank.png"';
         }
 
