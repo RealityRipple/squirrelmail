@@ -131,7 +131,7 @@ function sqimap_asearch_error_box($response, $query, $message)
 
 /**
  * This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc!
- * @param mixed $var any variable
+ * @param mixed $var any variable (reference)
  * @return mixed zls ('') if $var is not defined, otherwise $var
  */
 function asearch_nz(&$var)
@@ -292,11 +292,11 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 
 /**
  * Another way to do array_values(array_unique(array_merge($to, $from)));
- * @param array $to to array
+ * @param array $to to array (reference)
  * @param array $from from array
  * @return array uniquely merged array
  */
-function sqimap_array_merge_unique($to, $from)
+function sqimap_array_merge_unique(&$to, $from)
 {
 	if (empty($to))
 		return $from;
@@ -339,14 +339,12 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 		return array();
 	}
 
-	unset($messagelist);
-
 	// Keep going till we find the * SEARCH response
 	foreach ($readin as $readin_part) {
 		s_debug_dump('S:', $readin_part);
 		if (substr($readin_part, 0, 9) == '* SEARCH ') {
 			//EIMS returns multiple SEARCH responses, and this allowed according to Mark Crispin
-			$messagelist = sqimap_array_merge_unique($message_list, preg_split("/ /", substr($readin_part, 9)));
+			$messagelist = sqimap_array_merge_unique($messagelist, preg_split("/ /", substr($readin_part, 9)));
 		}
 	}
 
@@ -396,7 +394,7 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 		s_debug_dump('S:', $readin_part);
 		if (substr($readin_part, 0, 7) == '* SORT ') {
 			//SORT returns untagged responses
-			$messagelist = sqimap_array_merge_unique($message_list, preg_split("/ /", substr($readin_part, 7)));
+			$messagelist = sqimap_array_merge_unique($messagelist, preg_split("/ /", substr($readin_part, 7)));
 		}
 	}
 
@@ -535,14 +533,14 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
 {
 	global $internal_date_sort, $sent_folder;
 
-	$sort_opcodes = array ('DATE', 'FROM', 'SUBJECT');
+	$sort_opcodes = array ('DATE', 'FROM', 'SUBJECT', 'SIZE');
 	if ($internal_date_sort == true)
 		$sort_opcodes[0] = 'ARRIVAL';
 //	if (handleAsSent($mailbox))
 //	if (isSentFolder($mailbox))
 	if ($mailbox == $sent_folder)
 		$sort_opcodes[1] = 'TO';
-	return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[$sort_by >> 1];
+	return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[($sort_by >> 1) & 3];
 }
 
 /**
