@@ -55,7 +55,7 @@
                $success = true;
 
             if ($success == true)
-               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
+               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"], $dm);
          }
       }
    } else { /** if they do NOT wish to move messages to the trash (or cannot)**/
@@ -65,7 +65,7 @@
          for ($i = 0; $i < count($boxes); $i++) {
             if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
                 (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
+               removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"], $dm);
             }
          }
          fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
@@ -89,5 +89,3 @@
    
    echo "</BODY></HTML>";
 ?>
-
-

@@ -38,4 +38,15 @@
          }
          return $r;
       }
+
+   function removeElement($array, $element) {
+      $j = 0;
+      for ($i = 0;$i < count($array);$i++)
+         if ($i != $element) {
+            $newArray[$j] = $array[$i];
+            $j++;
+         }
+
+      return $newArray;
+   }
 ?>

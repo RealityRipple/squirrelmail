@@ -17,8 +17,8 @@
    fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
    $data = imapReadData($imapConnection , "1", false, $response, $message);
       
-   echo "DEBUG - data from IMAP \"LIST\" : " . $data[0] . "<BR>\n"; 
-
+   $dm = findMailboxDelimeter($imapConnection);
+   
    // According to RFC2060, a DELETE command should NOT remove inferiors (sub folders)
    //    so lets go through the list of subfolders and remove them before removing the
    //    parent.
@@ -26,16 +26,16 @@
    //       and work up.
    
 
-   for ($i = 0; $i < count($boxes); $i++) {
+//   for ($i = 0; $i < count($boxes); $i++) {
 //      if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
 //          (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-      if (($boxes[$i]["UNFORMATTED"] != $mailbox) && (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-         removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
-         echo "removing " . $boxes[$i]["UNFORMATTED"] . "<BR>";
-      }
-   }
-   // now lets remove the top level trash folder
-   removeFolder($imapConnection, $mailbox);
+//      if (($boxes[$i]["UNFORMATTED"] != $mailbox) && (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+//         removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"], $dm);
+//      }
+//   }
+
+   // lets remove the trash folder
+   removeFolder($imapConnection, $mailbox, $dm);
 
    createFolder($imapConnection, "$trash_folder", "");
 
