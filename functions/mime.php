@@ -436,29 +436,41 @@
       // Get the right entity and redefine message to be this entity
       $ent_num = findDisplayEntity ($message);
       $body_message = getEntity($message, $ent_num);
-
-      $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
-      $body = decodeBody($body, $body_message->header->encoding);
-
-      // If there are other types that shouldn't be formatted, add
-      // them here 
-      if ($message->header->type1 != "html") {   
-         $body = translateText($body, $wrap_at, $body_message->header->charset);
-      }   
-
-      $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
-
-      /** Display the ATTACHMENTS: message if there's more than one part **/
-      if ($message->entities) {
+      if (($body_message->header->type0 == "text") || 
+          ($body_message->header->type0 == "rfc822")) {
+   
+         $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
+         $body = decodeBody($body, $body_message->header->encoding);
+   
+         // If there are other types that shouldn't be formatted, add
+         // them here 
+         if ($message->header->type1 != "html") {   
+            $body = translateText($body, $wrap_at, $body_message->header->charset);
+         }   
+   
+         $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
+   
+         /** Display the ATTACHMENTS: message if there's more than one part **/
+         if ($message->entities) {
+            $body .= "</TD></TR></TABLE>";
+            $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
+            $body .= "<TT><B>ATTACHMENTS:</B></TT>";
+            $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
+            $num = 0;
+   
+            $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
+            $body .= "</TD></TR></TABLE>";
+         } else {
+            $body .= "</TD></TR></TABLE>";
+         }
+      } else {
          $body .= "</TD></TR></TABLE>";
          $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
          $body .= "<TT><B>ATTACHMENTS:</B></TT>";
          $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
          $num = 0;
 
-         $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
-         $body .= "</TD></TR></TABLE>";
-      } else {
+         $body .= formatAttachments ($message, 999999, $message->header->mailbox, $id);
          $body .= "</TD></TR></TABLE>";
       }
       return $body;
