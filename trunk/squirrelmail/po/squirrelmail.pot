@@ -1,14 +1,12 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-19 17:23+0200\n"
+"POT-Creation-Date: 2004-03-30 17:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -366,7 +364,6 @@ msgstr ""
 msgid "Download this as a file"
 msgstr ""
 
-#, c-format
 msgid "INBOX"
 msgstr ""
 
@@ -684,7 +681,7 @@ msgstr ""
 msgid "Forward"
 msgstr ""
 
-msgid "Forward as Attachment"
+msgid "Attachment"
 msgstr ""
 
 msgid "Bypass Trash"
@@ -1308,10 +1305,16 @@ msgstr ""
 msgid "THIS FOLDER IS EMPTY"
 msgstr ""
 
-msgid "Flag"
+msgid "Unthread View"
+msgstr ""
+
+msgid "Thread View"
 msgstr ""
 
 msgid "Unflag"
+msgstr ""
+
+msgid "Flag"
 msgstr ""
 
 msgid "Unread"
@@ -1323,22 +1326,10 @@ msgstr ""
 msgid "mailbox"
 msgstr ""
 
-msgid "Unthread View"
-msgstr ""
-
-msgid "Thread View"
-msgstr ""
-
 msgid "Click here to change the sorting of the message list"
 msgstr ""
 
 msgid "Toggle All"
-msgstr ""
-
-msgid "Unselect All"
-msgstr ""
-
-msgid "Select All"
 msgstr ""
 
 #, c-format
@@ -3093,6 +3084,9 @@ msgstr ""
 msgid "Web-based form"
 msgstr ""
 
+msgid "Save Method"
+msgstr ""
+
 msgid "Spam Service Type:"
 msgstr ""
 
@@ -3102,10 +3096,16 @@ msgstr ""
 msgid "Member services"
 msgstr ""
 
+msgid "Save Service Type"
+msgstr ""
+
 msgid "Your SpamCop authorization code:"
 msgstr ""
 
 msgid "see below"
+msgstr ""
+
+msgid "Save ID"
 msgstr ""
 
 msgid ""
@@ -3207,11 +3207,20 @@ msgid ""
 "fast, really smart, and easy to use."
 msgstr ""
 
+msgid "SpamCop reporting"
+msgstr ""
+
 msgid ""
 "Sending this spam report will give you back a reply with URLs that you can "
 "click on to properly report this spam message to the proper authorities. "
 "This is a free service.  By pressing the \"Send Spam Report\" button, you "
 "agree to follow SpamCop's rules/terms of service/etc."
+msgstr ""
+
+msgid "Cancel / Done"
+msgstr ""
+
+msgid "Send Spam Report"
 msgstr ""
 
 msgid "SpellChecker Options"
@@ -3616,43 +3625,33 @@ msgstr ""
 msgid "%s to %s"
 msgstr ""
 
-#, c-format
 msgid "English"
 msgstr ""
 
-#, c-format
 msgid "Chinese"
 msgstr ""
 
-#, c-format
 msgid "French"
 msgstr ""
 
-#, c-format
 msgid "German"
 msgstr ""
 
-#, c-format
 msgid "Italian"
 msgstr ""
 
-#, c-format
 msgid "Japanese"
 msgstr ""
 
-#, c-format
 msgid "Korean"
 msgstr ""
 
-#, c-format
 msgid "Portuguese"
 msgstr ""
 
-#, c-format
 msgid "Spanish"
 msgstr ""
 
-#, c-format
 msgid "Russian"
 msgstr ""
 
@@ -3674,7 +3673,6 @@ msgstr ""
 msgid "Danish"
 msgstr ""
 
-#, c-format
 msgid "Dutch"
 msgstr ""
 
@@ -3684,7 +3682,6 @@ msgstr ""
 msgid "Finnish"
 msgstr ""
 
-#, c-format
 msgid "Greek"
 msgstr ""
 
@@ -3733,11 +3730,9 @@ msgstr ""
 msgid "from English"
 msgstr ""
 
-#, c-format
 msgid "Simplified Chinese"
 msgstr ""
 
-#, c-format
 msgid "Traditional Chinese"
 msgstr ""
 
