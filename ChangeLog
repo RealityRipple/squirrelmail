@@ -1,5 +1,6 @@
 Version 1.1.0 -- DEVELOPMENT
 ----------------------------
+- Preferences are now cached instead of read in every page load.
 - Improved URL parser
 - Added ability to read HTML messages by default instead of plain text (Display Options)
 - Added authenticated SMTP server support (configure in conf.pl)

@@ -158,7 +158,6 @@
          if (substr($mailbox, -1) == $dm)
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
          $boxes[$g]['unformatted'] = $mailbox;
-         //$boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
          if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) { 
             $boxes[$g]['unformatted-disp'] = substr($mailbox, strlen($folder_prefix));
          } else if (strtolower($mailbox) == "inbox") {
@@ -171,9 +170,8 @@
          $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
          if ($flags) {
             $boxes[$g]['flags'] = explode(' ', $flags);
-         }
-	 else
-	     $boxes[$g]['flags'] = array();
+         } else
+            $boxes[$g]['flags'] = array();
       }
 
       return $boxes;
@@ -385,10 +383,10 @@
             if ($flags) {
                $boxes[$g]['flags'] = explode(" ", $flags);
             }
-	    else
-	    {
-	       $boxes[$g]['flags'] = array();
-	    }
+            else
+            {
+               $boxes[$g]['flags'] = array();
+            }
          }
          $g++;
       }

@@ -93,12 +93,12 @@
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
 
          if ($numMessages > 0)
-	 {
+         {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n";
             $line .= " &nbsp; (<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
             $line .= "\n</small>\n";
-	 }
+         }
       }
       $line .= "</NOBR>";
       return $line;
@@ -156,14 +156,12 @@
 
          if (in_array('noselect', $boxes[$i]['flags'])) {
             $line .= "<FONT COLOR=\"$color[10]\">";
-            if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
-                $line .= str_replace(' ', '&nbsp;', $regs[1]);
-                if (isset($boxes[$i]['parent']))
-                    $line .= FoldLink($boxes[$i]['unformatted'], 
-                        $boxes[$i]['parent']);
-                elseif ($collapse_folders)
-                    $line .= '<tt>&nbsp;</tt>&nbsp;';
-                $line .= str_replace(' ', '&nbsp;', $regs[2]);
+            if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
+                $line .= str_replace(' ', '&nbsp;', $mailbox);
+                //if (isset($boxes[$i]['parent']))
+                    $line .= FoldLink($boxes[$i]['unformatted'], $boxes[$i]['parent']);
+                //elseif ($collapse_folders)
+                //    $line .= '<tt>&nbsp;</tt>&nbsp;';
             }
             $line .= '</FONT>';
          } else {
