@@ -3015,6 +3015,7 @@ sub set_defaults {
 #   'images/logo.gif'         --> SM_PATH . 'config/images/logo.gif'
 #   '/absolute/path/logo.gif' --> '/absolute/path/logo.gif'
 #   'http://whatever/'        --> 'http://whatever'
+#   $some_var/path            --> "$some_var/path"
 sub change_to_SM_path() {
     my ($old_path) = @_;
     my $new_path = '';
@@ -3028,7 +3029,16 @@ sub change_to_SM_path() {
     return "\'" . $old_path . "\'"  if ( $old_path =~ /^\w:\// );
     return $old_path                if ( $old_path =~ /^\'(\/|http)/ );
     return $old_path                if ( $old_path =~ /^\'\w:\// );
-    return $old_path                if ( $old_path =~ /^(\$|SM_PATH)/);
+    return $old_path                if ( $old_path =~ /^SM_PATH/);
+   
+    if ( $old_path =~ /^\$/ ) {
+        # check if it's a single var, or a $var/path combination
+        # if it's $var/path, enclose in ""
+        if ( $old_path =~ /\// ) {
+            return '"'.$old_path.'"';
+        }
+        return $old_path;
+    }
     
     # Remove remaining '
     $old_path =~ s/\'//g;
@@ -3073,7 +3083,7 @@ sub change_to_rel_path() {
 
     if ( $old_path =~ /^SM_PATH/ ) {
         $new_path =~ s/^SM_PATH . \'/\.\.\//;
-	$new_path =~ s/\.\.\/config\///;
+        $new_path =~ s/\.\.\/config\///;
     }
 
     return $new_path;
