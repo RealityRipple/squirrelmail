@@ -86,6 +86,7 @@ Version 1.5.0 -- CVS
   - New hook function: boolean_hook_function()  Used for true/false hooks.
   - Calendar plugin: in month view, display events on the same day sorted by time,
     and include the time of the event in its tooltip.
+  - Added default settings for Mercury/32 to conf.pl.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
