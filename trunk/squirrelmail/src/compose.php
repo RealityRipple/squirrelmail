@@ -482,6 +482,7 @@ function showInputForm () {
             if ($em != '') {
                 echo htmlspecialchars(' <' . $em . '>') . "\n";
             }
+            echo '</option>';
         }
         echo '</select>' . "\n" .
              '      </TD>' . "\n" .
@@ -556,8 +557,16 @@ function showInputForm () {
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
     } else {
-        echo '   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT ' .
-             'NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
+        echo '   <TR><TD COLSPAN=2 ALIGN=LEFT>';
+
+        $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
+        if ($default_use_mdn) {
+            if ($mdn_user_support) {
+                echo _("Confirm reading:").
+                    "<input type=\"checkbox\" name=\"request_mdn\" value=1>";
+            }
+        }
+        echo ' &nbsp; <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
     }
 
     /* This code is for attachments */
@@ -571,6 +580,7 @@ function showInputForm () {
          ' value="' . _("Add") .'">' . "\n" .
          '     </TD>' . "\n" .
          '   </TR>' . "\n";
+
     if (count($attachments)) {
         $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
         echo '<tr><td bgcolor="' . $color[0] . '" align=right>' . "\n" .
@@ -596,7 +606,7 @@ function showInputForm () {
     echo '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
          "\">\n" .
          '</FORM>';
-    do_hook("compose_bottom");
+    do_hook('compose_bottom');
     echo '</BODY></HTML>' . "\n";
 }
 
@@ -634,14 +644,6 @@ function showComposeButtonRow()
              "<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
              "<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
              "</select>";
-    }
-
-    $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
-    if ($default_use_mdn) {
-        if ($mdn_user_support) {
-            echo _("Confirm reading:").
-                "<input type=\"checkbox\" name=\"request_mdn\" value=1>";
-        }
     }
 
     do_hook('compose_button_row');
