@@ -20,6 +20,9 @@ Version 1.2.5 -- CVS
     vulnerability (symlink attack), plus introduces formatting fixes 
     and javadoc-style comments.
   - Bugfix in mailfetch reported by Mateusz Mazur
+  - Administrator plugin. A web based conf.pl replacement.
+  - Removed GLOBALS from conf.pl
+  - HTML messages optimization.
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
