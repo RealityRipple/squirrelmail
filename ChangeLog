@@ -1,5 +1,6 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Using encryption for passwords
 - Added a patch from Bill Thousand to allow easier virtual domains
 - Security updates with attachments
 - Added more hooks for plugins, updated plugin.txt

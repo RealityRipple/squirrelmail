@@ -114,6 +114,9 @@
          $context = "search"; 
    }
    
+   if (!$squirrelmail_language)
+      $squirrelmail_language = "en";
+
    if (file_exists("../help/$squirrelmail_language")) {
       $help_exists = true;
       $user_language = $squirrelmail_language;
