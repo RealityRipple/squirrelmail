@@ -60,10 +60,10 @@ $SpamFilters_YourHop = ' ';
  * Some of the SPAM filters are COMMERCIAL and require a fee. If your users
  * select them and you're not allowed to use them, it will make SPAM filtering
  * very slow. If you don't want them to even be offered to the users, you
- * set SpamFilters_ShowCommercial to false.
+ * should set SpamFilters_ShowCommercial to false.
  */
 global $SpamFilters_ShowCommercial;
-$SpamFilters_ShowCommercial = true;
+$SpamFilters_ShowCommercial = false;
 
 /*
  * A cache of IPs we've already checked or are known bad boys or good boys
@@ -73,6 +73,29 @@ $SpamFilters_ShowCommercial = true;
  * email coming from it would NOT be SPAM
  */
 global $SpamFilters_DNScache;
+
+/*
+ * Absolute path to the bulkquery program. Leave blank if you don't have
+ * bulkquery compiled, installed, and lwresd running. See the README file
+ * in the bulkquery directory for more information on using bulkquery.
+ */
+global $SpamFilters_BulkQuery;
+$SpamFilters_BulkQuery = "";
+
+/*
+ * Do you want to use a shared file for the DNS cache or a session variable?
+ * Using a shared file means that every user can benefit from any queries
+ * made by other users. The shared file is named "dnscache" and is in the
+ * data directory.
+ */
+global $SpamFilters_SharedCache;
+$SpamFilters_SharedCache = true;
+
+/*
+ * How long should DNS query results be cached for by default (in seconds)?
+ */
+global $SpamFilters_CacheTTL;
+$SpamFilters_CacheTTL = 7200;
 
 require_once ('../plugins/filters/filters.php');
 
@@ -89,7 +112,7 @@ function squirrelmail_plugin_init_filters() {
     $squirrelmail_plugin_hooks['rename_or_delete_folder']['filters'] = 'update_for_folder';
     $squirrelmail_plugin_hooks['webmail_bottom']['filters'] = 'start_filters';
 }
-	
+
 function filters_special_mailbox( $mb ) {
     GLOBAL $data_dir, $username;
 
