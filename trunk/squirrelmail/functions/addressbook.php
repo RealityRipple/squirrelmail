@@ -15,7 +15,7 @@
 
    // Create and initialize an addressbook object. 
    // Returns the created object
-   function addressbook_init() {
+   function addressbook_init($showerr = true, $onlylocal = false) {
       global $data_dir, $username, $ldap_server;
       
       // Create a new addressbook object
@@ -25,18 +25,20 @@
       $filename = sprintf("%s%s.abook", $data_dir, $username);
       $r = $abook->add_backend("local_file", Array("filename" => $filename,
 						   "create"   => true));
-      if(!$r) {
+      if(!$r && $showerr) {
 	 printf(_("Error opening file %s"), $filename);
 	 exit;
       }
-     
+
+      if($onlylocal)
+	return $abook;
 
       // Load configured LDAP servers
       reset($ldap_server);
       while(list($key,$param) = each($ldap_server)) {
 	 if(is_array($param)) {
 	    $r = $abook->add_backend("ldap_server", $param);
-            if(!$r) {
+            if(!$r && $showerr) {
               printf("&nbsp;"._("Error initializing LDAP server %s:")."<BR>\n",
                      $param["host"]);
               printf("&nbsp;".$abook->error);
@@ -104,8 +106,10 @@
       // all backends of a given type.
       function search($expression, $btype = "") {
 	 $ret = array();
+	 $this->error = "";
 
 	 $sel = $this->get_backend_list($btype);
+	 $failed = 0;
 	 for($i = 0 ; $i < sizeof($sel) ; $i++) {
 	    $backend = &$sel[$i];
 	    $backend->error = "";
@@ -113,10 +117,14 @@
 	    if(is_array($res)) {
 	       $ret = array_merge($ret, $res);
 	    } else {
-	       $this->error = $backend->error;
-	       return false;
+	       $this->error = $this->error . "<br>\n". $backend->error;
+	       $failed++;
 	    }
 	 }
+
+	 // Only fail if all backends failed
+	 if($failed >= sizeof($sel))
+	    return false;
 
 	 return $ret;
       }
@@ -124,7 +132,10 @@
 
       // Return a sorted search
       function s_search($expression, $btype = "") {
+
 	 $ret = $this->search($expression, $btype);
+	 if(!is_array($ret))
+	    return $ret;
 
 	 // Inline function - Not nice, but still.. 
 	 function cmp($a,$b) {   
