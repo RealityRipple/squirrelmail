@@ -211,7 +211,14 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     return $server_sort_array;
 }
 
-
+/**
+ * Get sort order from server if server does not have the SORT extension
+ * and return it as array for mailbox_display.
+ *
+ * @param  resource $imap_stream
+ * @param  array    $mbxresponse response from a sqimap_mailbox_select
+ * @return array    $php_sort_array
+ */
 function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
     global $uid_support;
 
@@ -230,8 +237,12 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
         $query = "SEARCH UID 1:$uidnext";
         $uids = sqimap_run_command ($imap_stream, $query, true, $response, $message, true);
         if (isset($uids[0])) {
-            if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
-                $php_sort_array = preg_split("/ /", trim($regs[1]));
+            $php_sort_array = array();
+            // EIMS workaround. EIMS returns the result as multiple untagged SEARCH responses
+            foreach($uids as $line) {
+                if (preg_match("/^\* SEARCH (.+)$/", $line, $regs)) {
+                     $php_sort_array += preg_split("/ /", trim($regs[1]));
+                }
             }
         }
         if (!preg_match("/OK/", $response)) {
