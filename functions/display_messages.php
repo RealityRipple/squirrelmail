@@ -99,17 +99,9 @@ function logout_error( $errString, $errTitle = '' ) {
         $color[0]  = '#DCDCDC';  /* light gray    TitleBar               */
         $color[1]  = '#800000';  /* red                                  */
         $color[2]  = '#CC0000';  /* light red     Warning/Error Messages */
-        $color[3]  = '#A0B8C8';  /* green-blue    Left Bar Background    */
         $color[4]  = '#FFFFFF';  /* white         Normal Background      */
-        $color[5]  = '#FFFFCC';  /* light yellow  Table Headers          */
-        $color[6]  = '#000000';  /* black         Text on left bar       */
         $color[7]  = '#0000CC';  /* blue          Links                  */
         $color[8]  = '#000000';  /* black         Normal text            */
-        $color[9]  = '#ABABAB';  /* mid-gray      Darker version of #0   */
-        $color[10] = '#666666';  /* dark gray     Darker version of #9   */
-        $color[11] = '#770000';  /* dark red      Special Folders color  */
-        $color[12] = '#EDEDED';
-        $color[15] = '#002266';  /* (dark blue)      Unselectable folders */
     }
 
     if ( $errTitle == '' ) {
