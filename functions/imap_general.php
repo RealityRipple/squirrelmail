@@ -127,6 +127,15 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
                     $read = fgets ($imap_stream, $bufsize);
                     $data[] = $read;
                     $read = fgets ($imap_stream, $bufsize);
+                } else if (preg_match("/^\* BYE \[ALERT\](.*)/", $read, $regs)) {
+                    /*
+                        It seems that the IMAP server has coughed a lung up
+                        and hung up the connection.  Print any info we have
+                        and abort.
+                     */
+                    echo _("Please contact your system administrator and report the following error:") . "<br>\n";
+                    echo "$regs[1]";
+                    exit(0);
                 } else {
                     $data[] = $read;
                     $read = fgets ($imap_stream, $bufsize);
