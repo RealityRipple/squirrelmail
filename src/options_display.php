@@ -226,11 +226,11 @@ function RefreshOption(&$current, $val, $str = '') {
                <?php echo _("Show HTML version by default"); ?>:
             </td>
             <td>
-               <input type=checkbox name=showhtmldefault <?php 
-	       if (isset($show_html_default) && $show_html_default) 
+               <input type=checkbox name=showhtmldefault <?php
+	       if (isset($show_html_default) && $show_html_default)
 	       echo " checked"; ?>>
-	         <?php 
-echo _("Yes, show me the HTML version of a mail message, if it is available."); 
+	         <?php
+echo _("Yes, show me the HTML version of a mail message, if it is available.");
                  ?>
             </td>
          </tr>
@@ -239,12 +239,22 @@ echo _("Yes, show me the HTML version of a mail message, if it is available.");
                <?php echo _("Include Self"); ?>:
             </td>
             <td>
-               <input type=checkbox name=includeselfreplyall <?php 
-	       if (getPref($data_dir, $username, 'include_self_reply_all')
-	           != '')
-	       echo " checked"; ?>>
-	         <?php 
-echo _("Don't remove me from the CC addresses when I use \"Reply All\"");
+               <input type=checkbox name=includeselfreplyall <?php
+        if (getPref($data_dir, $username, 'include_self_reply_all') != '')
+                echo " checked";
+        echo '> ' . _("Don't remove me from the CC addresses when I use \"Reply All\"");
+                 ?>
+            </td>
+         </tr>
+         <tr>
+            <td align=right>
+               <?php echo _("Page Selector"); ?>:
+            </td>
+            <td>
+               <input type=checkbox name=pageselector <?php
+        if (getPref($data_dir, $username, 'page_selector') != '' )
+                echo " checked";
+        echo '> ' . _("Show page selector");
                  ?>
             </td>
          </tr>

@@ -6,8 +6,9 @@
 # ** Philipe Mingo <mingo@rotedic.com>
 # ** 
 # **  $Id$ 
-
+cd ../..
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail \
-    -C ../src/*.php
+    -C squirrelmail/src/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C ../functions/*.php
+    -C squirrelmail/functions/*.php --output-dir=squirrelmail/po/
+cd squirrelmail/po

@@ -106,7 +106,13 @@
       } else {
          removePref($data_dir, $username, 'include_self_reply_all');
       }
-    
+
+      if (isset($pageselector)) {
+         setPref($data_dir, $username, 'page_selector', 1);
+      } else {
+         removePref($data_dir, $username, 'page_selector');
+      }
+
       do_hook('options_display_save');
 
       echo '<br><b>'._("Successfully saved display preferences!").'</b><br>';

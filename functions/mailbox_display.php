@@ -71,7 +71,7 @@
          $italic_end = '';
       }
       if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'])
-      { 
+      {
          $fontstr = "<font color=\"$color[9]\">"; 
          $fontstr_end = '</font>'; 
       }
@@ -125,13 +125,13 @@
                do_hook("subject_link");
 
                if ($subject != $msg['SUBJECT']) {
- 	          $title = get_html_translation_table(HTML_SPECIALCHARS);
-	          $title = array_flip($title);
-	          $title = strtr($msg['SUBJECT'], $title);
-	          $title = str_replace('"', "''", $title);
+                  $title = get_html_translation_table(HTML_SPECIALCHARS);
+                  $title = array_flip($title);
+                  $title = strtr($msg['SUBJECT'], $title);
+                  $title = str_replace('"', "''", $title);
                   echo " title=\"$title\"";
-	       }
-	       echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
+               }
+               echo ">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
@@ -345,7 +345,7 @@
       global $folder_prefix, $sent_folder;
       global $imapServerAddress;
       global $index_order, $real_endMessage, $real_startMessage, $checkall;
-      
+
       // if cache isn't already set, do it now
       if (!session_is_registered('msgs'))
          session_register('msgs');
@@ -377,30 +377,55 @@
          $Message = _("Viewing message") ." <B>$startMessage</B> ($numMessages " . _("total") . ")\n";
       }
 
-      $More = '';
       if ($sort == 6) {
          $use = 0;
       } else {
          $use = 1;
       }
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         $More = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
-         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
+         $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       elseif (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         $More = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
-         $More .= "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
+         $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
+         $rMore = "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
       }
       elseif (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         $More = "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
-         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $lMore = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
+         $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+      }
+      $lMore .= ' | ';
+
+      // Page selector block. Following code computes page links.
+      $mMore = '';
+      if( getPref($data_dir, $username, 'page_selector') && $numMessages > $show_num ) {
+
+        $j = intval( $numMessages / $show_num );
+        if( $numMessages % $show_num <> 0 )
+                $j++;
+        $startMessage = min( $startMessage, $numMessages );
+        for( $i = 0; $i < $j; $i++ ) {
+
+                $start = ( ( $i * $show_num ) + 1 );
+
+                if( $startMessage >= $start &&
+                $startMessage < $start + $show_num ) {
+                $mMore .= '<b>' . ($i+1) . '</b> ';
+                } else {
+                $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
+                        "&mailbox=$mailbox\" TARGET=\"right\">" .
+                        ($i+1) .
+                        '</a> ';
+                }
+        }
+        $mMore .= ' | ';
       }
 
       if (! isset($msg))
-          $msg = "";
+          $msg = '';
       mail_message_listing_beginning($imapConnection,
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
-          $mailbox, $sort, $Message, $More, $startMessage);
+          $mailbox, $sort, $Message, $lMore . $mMore . $rMore, $startMessage);
 
       $groupNum = $startMessage % ($show_num - 1);
       $real_startMessage = $startMessage;
@@ -459,13 +484,11 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
-      echo "$More</td><td align=right>\n";
+      echo "$lMore$mMore$rMore</td><td align=right>\n";
       if (!$startMessage) $startMessage=1;
       ShowSelectAllLink($startMessage, $sort);
 
-      echo '</td></tr></table>';
-      echo '</td></tr>';
-      echo '</table>'; /** End of message-list table */
+      echo '</td></tr></table></td></tr></table>'; /** End of message-list table */
 
       do_hook('mailbox_index_after');
    }
@@ -497,13 +520,12 @@
       echo "$More</td><td align=right>\n";
       ShowSelectAllLink($startMessage, $sort);
 
-      echo '</td></tr></table>';
-      echo '</td></tr>';
+      echo '</td></tr></table></td></tr>';
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
-      echo "\n\n\n<FORM name=messageList method=post action=\"$moveURL\">\n";
+      echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
