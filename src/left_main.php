@@ -12,6 +12,7 @@
    session_start();
 
    if(!isset($username)) {
+      set_up_language($squirrelmail_language, true);
       echo "You need a valid user and password to access this page!";
       exit;
    }

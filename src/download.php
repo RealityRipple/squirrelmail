@@ -19,6 +19,8 @@
       include("../functions/mime.php");
    if (!isset($date_php))
       include("../functions/date.php");
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
 
    include("../src/load_prefs.php");
 
@@ -108,6 +110,7 @@
             $body = decodeBody($body, $header->encoding);
             header("Content-Disposition: attachment; filename=\"$filename\"");
             header("Content-type: application/octet-stream; name=\"$filename\"");
+            set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
                echo _("Subject") . ": " . decodeHeader(sqStripSlashes($top_header->subject)) . "\n";
                echo "   " . _("From") . ": " . decodeHeader(sqStripSlashes($top_header->from)) . "\n";

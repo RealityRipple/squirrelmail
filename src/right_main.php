@@ -10,14 +10,18 @@
     **
     **/
 
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
 
    session_start();
 
    if(!isset($logged_in)) {
+      set_up_language($squirrelmail_language, true);
       echo _("You must login first.");
       exit;
    }
    if(!isset($username) || !isset($key)) {
+      set_up_language($squirrelmail_language, true);
       echo _("You need a valid user and password to access this page!");
       exit;
    }

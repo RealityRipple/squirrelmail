@@ -23,28 +23,7 @@
    if (!isset($plugin_php))
       include ("../functions/plugin.php");
 
-   // Quick Fix for Gettext in LogOut Screen
-   if (!function_exists("_")) {
-      function _($string) {
-         return $string;
-      }
-   }
-
-   $squirrelmail_language = getPref ($data_dir, $username, "language");
-   if (isset($squirrelmail_language)) {
-      if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-         putenv("LC_ALL=".$squirrelmail_language);
-         bindtextdomain("squirrelmail", "../locale/");
-         textdomain("squirrelmail");
-         header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
-
-         // Setting cookie to use on the login screen the next time the
-         // same user logs in.
-         setcookie("squirrelmail_language", $squirrelmail_language, 
-                   time()+2592000);
-
-      }
-   }
+   set_up_language(getPref($data_dir, $username, "language"));
 
    do_hook("logout");
    setcookie("username", "", 0, $base_uri);

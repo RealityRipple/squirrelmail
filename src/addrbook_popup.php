@@ -11,6 +11,8 @@
 
    session_start();
 
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($page_header_php))
@@ -21,6 +23,11 @@
       include("../functions/addressbook.php");
 
    is_logged_in();
+
+   include("../src/load_prefs.php");
+   
+   set_up_language(getPref($data_dir, $username, "language"));
+   
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Frameset//EN">
 

@@ -56,27 +56,26 @@
 
       $g = 0;
       for ($i = 0; $i < count($read); $i++) {
-         if (eregi ("^to:", $read[$i])) {
+         if (eregi ("^to:(.*)$", $read[$i], $regs)) {
             //$to = sqimap_find_displayable_name(substr($read[$i], 3));
-            $to = substr($read[$i], 3);
-	      } else if (eregi ("^from:", $read[$i])) {
+            $to = $regs[1];
+	 } else if (eregi ("^from:(.*)$", $read[$i], $regs)) {
             //$from = sqimap_find_displayable_name(substr($read[$i], 5));
-            $from = substr($read[$i], 5);
-	      } else if (eregi ("^x-priority:", $read[$i])) {
-            $priority = trim(substr($read[$i], 11));
-         } else if (eregi ("^message-id:", $read[$i])) {
-            $messageid = trim(substr($read[$i], 11));
-         } else if (eregi ("^cc:", $read[$i])) {
-            $cc = substr($read[$i], 3);
-         } else if (eregi ("^date:", $read[$i])) {
-            $date = substr($read[$i], 5);
-         } else if (eregi ("^subject:", $read[$i])) {
-            $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
-            if (trim($subject) == "")
+            $from = $regs[1];
+	 } else if (eregi ("^x-priority:(.*)$", $read[$i], $regs)) {
+            $priority = trim($regs[1]);
+         } else if (eregi ("^message-id:(.*)$", $read[$i], $regs)) {
+            $messageid = trim($regs[1]);
+         } else if (eregi ("^cc:(.*)$", $read[$i], $regs)) {
+            $cc = $regs[1];
+         } else if (eregi ("^date:(.*)$", $read[$i], $regs)) {
+            $date = $regs[1];
+         } else if (eregi ("^subject:(.*)$", $read[$i], $regs)) {
+            $subject = htmlspecialchars(trim($regs[1]));
+            if ($subject == "")
                $subject = _("(no subject)");
-         } else if (eregi ("^content-type:", $read[$i])) {
-            $type = substr($read[$i], 14);
-            $type = strtolower(trim($type));
+         } else if (eregi ("^content-type:(.*)$", $read[$i], $regs)) {
+            $type = strtolower(trim($regs[1]));
             if ($pos = strpos($type, ";"))
                $type = substr($type, 0, $pos);
             $type = explode("/", $type);
@@ -106,7 +105,7 @@
       
       $header = new small_header;
       if ($sent == true)
-         $header->from = $to;
+         $header->from = (trim($to) != '')? $to : _('(only Cc/Bcc)');
       else   
          $header->from = $from;
 
@@ -129,17 +128,9 @@
    function sqimap_get_flags ($imap_stream, $i) {
       fputs ($imap_stream, "a001 FETCH $i:$i FLAGS\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-      if (strpos($read[0], "FLAGS")) {
-         $tmp = ereg_replace("\(", "", $read[0]);
-         $tmp = ereg_replace("\)", "", $tmp);
-         $tmp = str_replace("\\", "", $tmp);
-         $tmp = substr($tmp, strpos($tmp, "FLAGS")+6, strlen($tmp));
-         $tmp = trim($tmp);
-         $flags = explode(" ", $tmp);
-      } else {
-         $flags[0] = "None";
-      }
-      return $flags;
+      if (ereg("FLAGS(.*)", $read[0], $regs))
+          return explode(" ", trim(ereg_replace('[\(\)\\]', '', $regs[1])));
+      return Array('None');
    }
 
    /******************************************************************************

@@ -147,9 +147,12 @@
             $messages[$j]["TYPE0"] = $type[$j];
 
             # fix SUBJECT-SORT to remove Re:
-            if (substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "re:" ||
-                substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "aw:")
-               $messages[$j]["SUBJECT-SORT"] = trim(substr($messages[$j]["SUBJECT-SORT"], 3));    
+	    $re_abbr = # Add more here!
+	       "vedr|sv|" .    # Danish
+	       "re|aw";        # English
+	    if (eregi("^($re_abbr):[ ]*(.*)$",
+	       $messages[$j]['SUBJECT-SORT'], $regs))
+	       $messages[$j]['SUBJECT-SORT'] = $regs[2];
    
             $num = 0;
             while ($num < count($flags[$j])) {

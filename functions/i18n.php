@@ -690,4 +690,54 @@
       }
    }
 
+
+   global $use_gettext;
+   
+   // Detect whether gettext is installed.
+   // If it is, set the flag so we can use it.
+   if (! function_exists("_") || 
+       ! function_exists("bindtextdomain") ||
+       ! function_exists("textdomain"))
+       $use_gettext = false;
+   else
+       $use_gettext = true;
+          
+
+   // Avoid warnings/errors   
+   if (! function_exists("_")) {
+      function _($str) { return $str; };
+   }
+   if (! function_exists("bindtextdomain")) {
+      function bindtextdomain() { return; }
+   }
+   if (! function_exists("textdomain")) {
+      function textdomain() { return; }
+   }
+
+
+   // Set up the language to be output
+   // if $do_search is true, then scan the browser information
+   // for a possible language that we know
+   function set_up_language($sm_language, $do_search = false)
+   {
+      static $SetupAlready = 0;
+      global $HTTP_ACCEPT_LANGUAGE;
+      
+      if ($SetupAlready)
+         return;
+      $SetupAlready = 1;
+     
+      if ($do_search && ! $sm_language && isset($HTTP_ACCEPT_LANGUAGE)) {
+         $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
+      }
+      
+      if (isset($sm_language) && $use_gettext &&
+         $sm_language != "en" && $squirrelmail_language != "" &&
+         $languages[$sm_language]["CHARSET"]) {
+         putenv("LC_ALL=".$sm_language);
+         bindtextdomain("squirrelmail", "../locale/");
+         textdomain("squirrelmail");
+         header ("Content-Type: text/html; charset=".$languages[$sm_language]["CHARSET"]);
+      }
+   }
 ?>

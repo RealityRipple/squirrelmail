@@ -116,8 +116,10 @@ List of hooks
   right_main_bottom               src/right_main.php
   login_top                       src/login.php
   login_bottom                    src/login.php
+  html_top                        src/read_body.php
   read_body_top                   src/read_body.php
   read_body_bottom                src/read_body.php
+  html_bottom                     src/read_body.php
   search_before_form              src/search.php
   search_after_form               src/search.php
   search_bottom                   src/search.php

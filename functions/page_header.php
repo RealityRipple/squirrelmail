@@ -18,21 +18,7 @@
       include ("../functions/plugin.php");
 
    // Check to see if gettext is installed
-   if (function_exists("_")) {
-      // Setting the language to use for gettext if it is not English
-      // (the default language) or empty.
-      $squirrelmail_language = getPref ($data_dir, $username, "language");
-      if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-         putenv("LC_ALL=$squirrelmail_language");
-         bindtextdomain("squirrelmail", "../locale/");
-         textdomain("squirrelmail");
-         $default_charset = $languages[$squirrelmail_language]["CHARSET"];
-      }
-   } else {
-      function _($string) {
-         return $string;
-      }
-   }
+   set_up_language(getPref($data_dir, $username, "language"));
 
    // This is done to ensure that the character set is correct.
    if ($default_charset != "")

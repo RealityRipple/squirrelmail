@@ -66,6 +66,7 @@
       setPref($data_dir, $username, "left_refresh", $leftrefresh);
       setPref($data_dir, $username, "language", $language);
       setPref($data_dir, $username, 'location_of_bar', $folder_new_location);
+      setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
       setPref($data_dir, $username, "left_size", $leftsize);
       setPref($data_dir, $username, "use_javascript_addr_book", $javascript_abook);
     

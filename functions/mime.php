@@ -363,10 +363,13 @@
 
       fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
       $topline = fgets ($imap_stream, 1024);
-      $size = substr ($topline, strpos($topline, "{")+1); 
-      $size = substr ($size, 0, strpos($size, "}"));
-      $read = fread ($imap_stream, $size);
-      return $read;
+      if (ereg('\{([^\}]*)\}', $topline, $regs)) {
+         return fread ($imap_stream, $regs[1]);
+      }
+      else if (ereg('"([^"]*)"', $topline, $regs)) {
+         return $regs[1];
+      }
+      return "Body retrival error, please report this bug!\n\nTop line is \"$topline\"\n";
    }
 
    /* -[ END MIME DECODING ]----------------------------------------------------------- */

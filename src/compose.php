@@ -74,11 +74,14 @@
          
          sqUnWordWrap($body);   
          $body_ary = explode("\n", $body);
+         while (ereg("^[>\s]*$", $body_ary[count($body_ary) - 1])) {
+            unset($body_ary[count($body_ary) - 1]);
+         }
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
             if (! $forward_id)
             {
-                if (preg_match('/^[\s>]+/', $body_ary[$i]))
+                if (ereg('^[\s>]+', $body_ary[$i]))
                 {
                     $body_ary[$i] = '>' . $body_ary[$i];
                 }
@@ -105,6 +108,8 @@
              $bodyTop .= "\n";
              $body = $bodyTop . $body;
          }
+         
+         $body = ereg_replace('\\\\', '\\\\', $body);
 
          sqimap_mailbox_close($imapConnection);
          return;
@@ -147,7 +152,8 @@
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
          $attachments, $subject, $newmail, $use_javascript_addr_book,
-         $send_to_bcc, $reply_id, $mailbox, $from_htmladdr_search;
+         $send_to_bcc, $reply_id, $mailbox, $from_htmladdr_search,
+         $location_of_buttons;
 
       $subject = sqStripSlashes(decodeHeader($subject));
       $reply_subj = decodeHeader($reply_subj);
@@ -172,6 +178,9 @@
       }                 
       printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));
       echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
+
+      if ($location_of_buttons == 'top') showComposeButtonRow();
+
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");
@@ -224,36 +233,24 @@
       }
       echo "</td></tr>\n\n";
 
-      echo "   <TR><td>\n   </td><td>\n";
-      if ($use_javascript_addr_book) {
-         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
-         echo "         <input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
-         echo "         // --></SCRIPT><NOSCRIPT>\n";
-         echo "         <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-         echo "      </NOSCRIPT>\n";
-      } else {  
-         echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-      }   
-      echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
-      
-      do_hook("compose_button_row");
-
-      echo "   </TD>\n";
-      echo "   </TR>\n\n";
-
+      if ($location_of_buttons == 'between') showComposeButtonRow();
 
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
+      echo htmlspecialchars($body);
       if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
-         echo (htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
-      } else {
-         echo (htmlspecialchars($body));
+         echo "\n\n-- \n" . htmlspecialchars($signature);
       }
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT NAME=send VALUE=\""._("Send")."\"></TD></TR>\n";
+
+      if ($location_of_buttons == 'bottom') 
+         showComposeButtonRow();
+      else {
+         echo "   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT NAME=send VALUE=\""._("Send")."\"></TD></TR>\n";
+      }
       
       // This code is for attachments
       echo "   <tr>\n";
@@ -284,6 +281,25 @@
       echo "</TABLE>\n";
       echo "</FORM>";
       do_hook("compose_bottom");
+   }
+   
+   function showComposeButtonRow() {
+      echo "   <TR><td>\n   </td><td>\n";
+      if ($use_javascript_addr_book) {
+         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
+         echo "         <input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
+         echo "         // --></SCRIPT><NOSCRIPT>\n";
+         echo "         <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
+         echo "      </NOSCRIPT>\n";
+      } else {  
+         echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
+      }   
+      echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+      
+      do_hook("compose_button_row");
+
+      echo "   </TD>\n";
+      echo "   </TR>\n\n";
    }
 
    function showSentForm () {
