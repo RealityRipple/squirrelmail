@@ -33,13 +33,14 @@
    function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
       fputs ($imap_stream, "a001 STORE $start:$end +FLAGS (\\$flag)\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      
    }
 
    /******************************************************************************
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
    function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date) {
-      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER.FIELDS (From Subject Date)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id RFC822.HEADER.LINES (From Subject Date)\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       for ($i = 0; $i < count($read); $i++) {
@@ -58,22 +59,18 @@
    /******************************************************************************
     **  Returns the flags for the specified messages 
     ******************************************************************************/
-   function sqimap_get_flags ($imap_stream, $start, $end) {
-      fputs ($imap_stream, "a001 FETCH $start:$end FLAGS\r\n");
+   function sqimap_get_flags ($imap_stream, $i) {
+      fputs ($imap_stream, "a001 FETCH $i:$i FLAGS\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-      $i = 0;
-      while ($i < count($read)) {
-         if (strpos($read[$i], "FLAGS")) {
-            $tmp = ereg_replace("\(", "", $read[$i]);
-            $tmp = ereg_replace("\)", "", $tmp);
-            $tmp = str_replace("\\", "", $tmp);
-            $tmp = substr($tmp, strpos($tmp, "FLAGS")+6, strlen($tmp));
-            $tmp = trim($tmp);
-            $flags[$i] = explode(" ", $tmp);
-         } else {
-            $flags[$i][0] = "None";
-         }
-         $i++;
+      if (strpos($read[0], "FLAGS")) {
+         $tmp = ereg_replace("\(", "", $read[0]);
+         $tmp = ereg_replace("\)", "", $tmp);
+         $tmp = str_replace("\\", "", $tmp);
+         $tmp = substr($tmp, strpos($tmp, "FLAGS")+6, strlen($tmp));
+         $tmp = trim($tmp);
+         $flags = explode(" ", $tmp);
+      } else {
+         $flags[0] = "None";
       }
       return $flags;
    }
