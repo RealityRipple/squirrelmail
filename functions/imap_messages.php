@@ -607,6 +607,18 @@ function sqimap_get_header ($imap_stream, $read) {
             } else {
                 $hdr->charset = "us-ascii";
             }
+	    /* Detect type in case of multipart/related */
+	    if (strpos(strtolower(trim($line)), "type=")) {
+		$pos = strpos($line, "type=") + 6;
+		$type = trim($line);
+                if (strpos($line, ";", $pos) > 0) {
+                    $type = substr($type, $pos, strpos($line, ";", $pos)-$pos);
+                } else {
+                    $type = substr($charset, $pos);
+                }
+		$type = str_replace("\"",'',$type);
+		$hdr->type = $type;
+	    }
         }
         else if (strtolower(substr($read[$i], 0, 20)) == "content-disposition:") {
             /* Add better content-disposition support */
