@@ -389,11 +389,16 @@ function formatRecipientString($recipients, $item ) {
 function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
                          $color, $FirstTimeSee) {
     global $msn_user_support, $default_use_mdn, $default_use_priority,
-           $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on;
+           $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
+	   $squirrelmail_language;
 
     $header = $message->rfc822_header;
     $env = array();
-    $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));   
+    if ($squirrelmail_language == 'ja_JP') {
+        $env[_("Subject")] = htmlspecialchars(decodeHeader($header->subject));
+    } else {
+	$env[_("Subject")] = decodeHeader(htmlspecialchars($header->subject));
+    }   
     $from_name = $header->getAddr_s('from');
     if (!$from_name) {
         $from_name = $header->getAddr_s('sender');
