@@ -8,6 +8,10 @@ Version 1.4.0 CVS
   - Added RECENT response to sqimap_get_status.
   - Fixed attachment filename resolving.
   - Added check for X-Confirm-Reading-To to make MDN work messages send by Pine.
+  - sqextractGlobalVar removed (use sqgetGlobalVar instead).
+  - Subfolders of Sent and Drafts show To field instead of From
+  - Updates in conf.pl to infamous delete_folder setting, including
+    addition of appropriate default value for courier and UW.
   
 Version 1.4.0 RC 2a
 -------------------
