@@ -70,19 +70,21 @@ function walkTreeInPreOrderEmptyTrash($index, $imap_stream, $tree) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
         } else {
             $mbx_response = sqimap_mailbox_select($imap_stream, $trash_folder);
-	    if ($mbx_response['EXISTS'] > 0) {
+            if ($mbx_response['EXISTS'] > 0) {
                sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
-               sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
+               // CLOSE === EXPUNGE and UNSELECT
+               sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
             }
         }
     } else {
         if ($tree[$index]['value'] != $trash_folder) {
             sqimap_mailbox_delete($imap_stream, $tree[$index]['value']);
         } else {
-	    $mbx_response = sqimap_mailbox_select($imap_stream, $trash_folder);	    
-	    if ($mbx_response['EXISTS'] > 0) {
-        	sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
-        	sqimap_mailbox_expunge($imap_stream, $trash_folder, true);
+            $mbx_response = sqimap_mailbox_select($imap_stream, $trash_folder);
+            if ($mbx_response['EXISTS'] > 0) {
+                sqimap_messages_flag ($imap_stream, 1, '*', 'Deleted', true);
+                // CLOSE === EXPUNGE and UNSELECT
+                sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
             }
         }
     }
@@ -109,17 +111,23 @@ function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tre
     if ($tree[$index]['doIHaveChildren']) {
         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, "");
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);	    
-	$messageCount = $mbx_response['EXISTS'];
-        if ($messageCount > 0)
+        $messageCount = $mbx_response['EXISTS'];
+        if ($messageCount > 0) {
             sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
+        }
+        // after copy close the mailbox to get in unselected state
+        sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
         for ($j = 0;$j < count($tree[$index]['subNodes']); $j++)
             walkTreeInPostOrderCreatingFoldersUnderTrash($tree[$index]['subNodes'][$j], $imap_stream, $tree, $topFolderName);
     } else {
         sqimap_mailbox_create($imap_stream, $trash_folder . $delimiter . $subFolderName, '');
         $mbx_response = sqimap_mailbox_select($imap_stream, $tree[$index]['value']);
         $messageCount = $mbx_response['EXISTS'];
-        if ($messageCount > 0)
+        if ($messageCount > 0) {
             sqimap_messages_copy($imap_stream, 1, '*', $trash_folder . $delimiter . $subFolderName);
+        }
+        // after copy close the mailbox to get in unselected state
+        sqimap_run_command($imap_stream,'CLOSE',false,$response,$message);
     }
 }
 
