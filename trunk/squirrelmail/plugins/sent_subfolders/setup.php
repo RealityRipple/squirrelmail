@@ -160,12 +160,14 @@ function sent_subfolders_update_sentfolder() {
             Multiple year holders with messages in it. level 1.
             Multiple year folders with holders in it. level 2.
         */
-
+/*
         if( $imap_server_type == 'uw' ) {
             $cnd_delimiter = '';
         } else {
             $cnd_delimiter = $delimiter;
         }
+*/        
+        $cnd_delimiter = $delimiter;
                                         
         switch ($sent_subfolders_setting) {
         case SMPREF_SENT_SUBFOLDERS_YEARLY:

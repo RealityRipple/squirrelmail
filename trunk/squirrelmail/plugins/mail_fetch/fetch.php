@@ -73,11 +73,11 @@
         
         //if password not set, ask for it
         for ($i=0;$i<$mailfetch_server_number;$i++) {
-             if ($mailfetch_pass_[$i]=="") {
-                  echo "<tr>" .
+             if ($mailfetch_pass_[$i]=='') {
+                  echo '<tr>' .
                        '<TD ALIGN=RIGHT>' . _("Password for") . ' <B>' . (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) . '</B>: &nbsp; &nbsp; </TD>' .
                        "<TD><INPUT TYPE=PASSWORD NAME=pass_$i></TD>" .
-                       "</TR>";
+                       '</TR>';
              }
         }
         echo '<TR>' .
