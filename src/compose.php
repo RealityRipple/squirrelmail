@@ -182,17 +182,15 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
 }
 
 if (isset($draft)) {
-    include_once ('../src/draft_actions.php');
-    if (! isset($passed_id)) {
-         $passed_id = 0;
-    }
-    if (! isset($MDN)) {
-        $MDN = 'False';
-    }
-    if (! isset($mailprio)) {
-        $mailprio = '';
-    }
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $passed_id, $mailprio, $session)) {
+        /*
+         * Set $default_charset to correspond with the user's selection
+         * of language interface.
+         */
+        set_my_charset();
+        $composeMessage=$compose_messages[$session];
+	$Result = sendMessage($composeMessage, true);
+
+    if (! sendMessage($composeMessage, true)) {
         showInputForm($session);
         exit();
     } else {
@@ -233,7 +231,6 @@ if (isset($send)) {
          * of language interface.
          */
         set_my_charset();
-
         /*
          * This is to change all newlines to \n
          * We'll change them to \r\n later (in the sendMessage function)
@@ -1062,8 +1059,8 @@ function saveAttachedFiles($session) {
 }
 
 function ClearAttachments($composeMessage) {
-    if ($message->att_local_name) {
-        $attached_file = $message->att_local_name;
+    if ($composeMessage->att_local_name) {
+        $attached_file = $composeMessage->att_local_name;
         if (file_exists($attached_file)) {
             unlink($attached_file);
         }
@@ -1117,11 +1114,11 @@ function getReplyCitation($orig_from) {
    The message also should be constructed by the message class.
 */
 
-function sendMessage($composeMessage) {
+function sendMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
            $username, $popuser, $usernamedata, $identity, $data_dir,
 	   $request_mdn, $request_dr, $default_charset, $color, $useSendmail,
-	   $domain;
+	   $domain, $action;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
     $rfc822_header = $composeMessage->rfc822_header;
@@ -1208,7 +1205,7 @@ function sendMessage($composeMessage) {
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
 
-    if (!$useSendmail) {
+    if (!$useSendmail && !$draft) {
 	require_once('../class/deliver/Deliver_SMTP.class.php');
 	$deliver = new Deliver_SMTP();
 	global $smtpServerAddress, $smtpPort, $use_authenticated_smtp, $pop_before_smtp;
@@ -1220,14 +1217,32 @@ function sendMessage($composeMessage) {
     	    $user = '';
     	    $pass = '';
 	}
-	$authpop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+	$authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
 	$stream = $deliver->initStream($composeMessage,$domain,0,
 	                  $smtpServerAddress, $smtpPort, $authPop);
-    } else {
-      require_once('../class/deliver/Deliver_SentMail.class.php');
-      global $sendmail_path;
-      $deliver = new Deliver_SendMail();
-      $stream = $deliver->initStream($composeMessage,$sendmail_path);
+    } elseif (!$draft) {
+       require_once('../class/deliver/Deliver_SentMail.class.php');
+       global $sendmail_path;
+       $deliver = new Deliver_SendMail();
+       $stream = $deliver->initStream($composeMessage,$sendmail_path);
+    } elseif ($draft) {
+       global $draft_folder;
+       require_once('../class/deliver/Deliver_IMAP.class.php');
+       $imap_deliver = new Deliver_IMAP();
+       $imap_stream = sqimap_login($username, $key, $imapServerAddress,
+                      $imapPort, 0);
+       if (sqimap_mailbox_exists ($imap_stream, $draft_folder)) {
+	    require_once('../class/deliver/Deliver_IMAP.class.php');
+	    $imap_deliver = new Deliver_IMAP();
+	    $length = $imap_deliver->mail($composeMessage);
+	    sqimap_append ($imap_stream, $draft_folder, $length);	 
+	    $imap_deliver->mail($composeMessage, $imap_stream);
+    	    sqimap_append_done ($imap_stream);
+	    sqimap_logout($imap_stream);
+	    unset ($imap_deliver);
+	
+	}
+	return $length;
     }
     $succes = false;
     if ($stream) {
@@ -1247,10 +1262,15 @@ function sendMessage($composeMessage) {
 	    $imap_deliver = new Deliver_IMAP();
 	    $imap_deliver->mail($composeMessage, $imap_stream);
     	    sqimap_append_done ($imap_stream);
-	    sqimap_logout($imap_stream);
 	    unset ($imap_deliver);
 	}
+	global $passed_id, $mailbox, $action;
 	ClearAttachments($composeMessage);
+	if ($action == 'reply' || $action == 'reply_all') {
+	    sqimap_mailbox_select ($imap_stream, $mailbox);
+	    sqimap_messages_flag ($imap_stream, $passed_id, $passed_id, 'Answered', true);
+	}
+    	sqimap_logout($imap_stream);	
     }
     return $succes;
 }
