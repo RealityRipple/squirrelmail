@@ -548,11 +548,11 @@ function mail_message_listing_beginning
     echo '</TD></TR>'.
 
         "<TR><TD BGCOLOR=\"$color[0]\">".
-        "<TABLE WIDTH=\"100%\" BORDER=0 CELLPADDING=2 CELLSPACING=";
+        '<TABLE WIDTH="100%" BORDER=0 CELLPADDING=2 CELLSPACING=';
     if ($GLOBALS['alt_index_colors']) {
-        echo "0";
+        echo '0';
     } else {
-        echo "1";
+        echo '1';
     }
     echo " BGCOLOR=\"$color[0]\">".
         "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
