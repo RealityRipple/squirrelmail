@@ -40,6 +40,9 @@
 
    include("../src/load_prefs.php");
 
+   if (!isset($attachments))
+       $attachments = array();
+
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
@@ -299,8 +302,6 @@
       echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
       echo "      <SMALL><BR></SMALL>"._("Attach:");
       echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
-      //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
-      //      echo "      value=\"10000\">\n";
       echo "      <INPUT NAME=\"attachfile\" SIZE=48 TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
       echo " value=\"" . _("Add") ."\">\n";
@@ -399,6 +400,7 @@
           $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
       if (checkInput(false) && ! isset($AttachFailure)) {
+         $mailbox = ereg_replace("([\n|\r])", '', $mailbox);
          $urlMailbox = urlencode ($mailbox);
 	 if (! isset($reply_id))
 	     $reply_id = 0;
@@ -480,5 +482,3 @@
       sqimap_logout($imapConnection);
    }
 ?>
- 
-
