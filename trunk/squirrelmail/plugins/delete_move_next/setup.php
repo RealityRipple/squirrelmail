@@ -26,6 +26,22 @@ function squirrelmail_plugin_init_delete_move_next() {
 }
 
 
+/* fixes the sort_array for the prev_del/next_del links when 
+ * using server side sorting or thread sorting 
+ */
+
+function fix_sort_array () {
+    global $username, $data_dir, $allow_server_sort, $allow_thread_sort,
+    $mailbox, $imapConnection, $sort;
+    if ($allow_server_sort == true) {
+        $server_sort_array = sqimap_get_sort_order($imapConnection, $sort);
+    }
+    $thread_sort_messages = getPref($username, $data_dir, "thread_$mailbox");
+    if ($allow_thread_sort == true && $thread_sort_messages == 1) {
+        $server_sort_array = get_thread_sort($imapConnection);
+    }
+}
+
 /*
  * Warning: this function relies on the internal representation of
  * of the message cache for the current mailbox. As such, it is fragile
@@ -34,6 +50,7 @@ function squirrelmail_plugin_init_delete_move_next() {
  * perhaps even as inline code to sqimap_mailbox_expunge(). In the 
  * meantime, you have been warned. [alane@geeksrus.net 2001/05/06]
  */
+
 function delete_move_del_arr_elem($arr, $index) {
     $tmp = array();
     $lim = count($arr);
@@ -94,6 +111,7 @@ function delete_move_next_action() {
     } elseif ($move_id) {
         delete_move_next_move();
     }
+    fix_sort_array();
 
 }
 
@@ -120,16 +138,9 @@ function delete_move_next_read($currloc) {
     global $delete_move_next_formATtop, $delete_move_next_formATbottom,
            $color, $where, $what, $currentArrayIndex, $passed_id,
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
-           $imapConnection, $auto_expunge, $move_to_trash, $server_sort_array,
-           $allow_thread_sort, $allow_server_sort, $thread_sort_messages;
+           $imapConnection, $auto_expunge, $move_to_trash;
 
     if (!(($where && $what) || ($currentArrayIndex == -1))) {
-        if ($allow_server_sort == true) {
-            $server_sort_array = sqimap_get_sort_order($imapConnection, $sort);
-        }
-        if ($allow_thread_sort == true && $thread_sort_messages == 1) {
-            $server_sort_array = get_thread_sort($imapConnection);
-        }
         $next = findNextMessage();
         $prev = findPreviousMessage();
         $prev_if_del = $prev;
