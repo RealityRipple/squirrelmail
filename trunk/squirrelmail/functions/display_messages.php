@@ -22,23 +22,21 @@
 
     function general_info($motd, $org_logo, $version, $org_name, $color) {
       echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=80% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+      echo "<TABLE COLS=1 WIDTH=80% CELLSPACING=3 CELLPADDING=3 NOBORDER BGCOLOR=\"FFFFFF\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Welcome to $org_name's WebMail system</CENTER></B></FONT>";
-      echo "   </TD></TR><TR><TD>";
-      echo "   <TR><TD BGCOLOR=\"$color[4]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>Running SquirrelMail version $version (c) 1999-2000.</CENTER></FONT>";
-      echo "   </TD></TR><TR><TD>";
-      echo "      <TABLE COLS=2 WIDTH=90% NOBORDER align=\"center\">";
+      echo "   <TR><TD BGCOLOR=\"FFFFFF\">";
+      echo "      <TABLE COLS=2 WIDTH=90% CELLSPACING=0 CELLPADDING=3 NOBORDER align=\"center\">";
       echo "         <TR>";
-      echo "            <TD BGCOLOR=\"$color[4]\"><CENTER>";
+      echo "            <TD BGCOLOR=\"FFFFFF\"><CENTER>";
       if (strlen($org_logo) > 3)
          echo "               <IMG SRC=\"$org_logo\">";
       else
          echo "               <B><FONT FACE=\"Arial,Helvetica\">$org_name</FONT></B>";
+      echo "         <BR><FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>Running SquirrelMail version $version (c) 1999-2000.</CENTER></FONT><BR>";
       echo "            </CENTER></TD></TR><TR>";
-      echo "            <TD BGCOLOR=\"$color[4]\">";
+      echo "            <TD BGCOLOR=\"FFFFFF\">";
       echo "               <FONT FACE=\"Arial,Helvetica\">$motd</FONT>";
       echo "            </TD>";
       echo "         </TR>";
