@@ -13,30 +13,30 @@
    session_start();
 
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($array_php))
-      include("../functions/array.php");
+      include('../functions/array.php');
    if (!isset($auth_php))
-      include("../functions/auth.php");
+      include('../functions/auth.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
+      include('../functions/display_messages.php');
    if (!isset($addressbook_php))
-      include("../functions/addressbook.php");
+      include('../functions/addressbook.php');
 
    is_logged_in();
 
    // Sort array by the key "name"
    function alistcmp($a,$b) {   
-      if($a["backend"] > $b["backend"]) 
+      if($a['backend'] > $b['backend']) 
 	 return 1;
-      else if($a["backend"] < $b["backend"]) 
+      else if($a['backend'] < $b['backend']) 
 	 return -1;
       
-      return (strtolower($a["name"]) > strtolower($b["name"])) ? 1 : -1;
+      return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
    }
 
    // Output form to add and modify address data
@@ -49,8 +49,8 @@
 	     "<INPUT NAME=\"%s[nickname]\" SIZE=15 VALUE=\"%s\">".
 	     "&nbsp;<SMALL>%s</SMALL></TD></TR>\n",
 	     $color[4], $name, 
-	     (isset($values["nickname"]))?
-	         htmlspecialchars($values["nickname"]):"",
+	     (isset($values['nickname']))?
+	         htmlspecialchars($values['nickname']):"",
 	     _("Must be unique"));
       printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
 	     _("E-mail address"));
@@ -89,7 +89,7 @@
    }
 
 
-   include("../src/load_prefs.php");
+   include('../src/load_prefs.php');
 
    // Open addressbook, with error messages on but without LDAP (the
    // second "true"). Don't need LDAP here anyway
@@ -99,23 +99,23 @@
       exit();
    }
 
-   displayPageHeader($color, "None");
+   displayPageHeader($color, 'None');
 
 
    $defdata   = array();
-   $formerror = "";
+   $formerror = '';
    $abortform = false;
    $showaddrlist = true;
    $defselected  = array();
 
 
    // Handle user's actions
-   if($REQUEST_METHOD == "POST") {
+   if($REQUEST_METHOD == 'POST') {
 
       // ***********************************************
       // Add new address
       // ***********************************************
-      if(!empty($addaddr["nickname"])) {
+      if(!empty($addaddr['nickname'])) {
 	 
 	 $r = $abook->add($addaddr, $abook->localbackend);
 
@@ -123,7 +123,7 @@
 	 if(!$r) {
 	    // Remove backend name from error string
 	    $errstr = $abook->error;
-	    $errstr = ereg_replace("^\[.*\] *", "", $errstr);
+	    $errstr = ereg_replace('^\[.*\] *', '', $errstr);
 
 	    $formerror = $errstr;
 	    $showaddrlist = false;
@@ -148,7 +148,7 @@
 	 $delfailed = false;
 
 	 for($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
-	    list($sbackend, $snick) = split(":", $sel[$i]);
+	    list($sbackend, $snick) = split(':', $sel[$i]);
 
 	    // When we get to a new backend, process addresses in
 	    // previous one.
@@ -201,7 +201,7 @@
 	       $olddata = $abook->lookup($enick, $ebackend);
 
 	       // Display the "new address" form
-	       printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
+	       print "<FORM ACTION=\"$PHP_SELF\" METHOD=\"POST\">\n";
 	       print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
 	       print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
 	       print _("Update address");
@@ -213,7 +213,7 @@
 	       printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
 		      htmlspecialchars($olddata["backend"]));
 	       print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
-	       print "</FORM>";
+	       print '</FORM>';
 	    }
 	 }
 
@@ -245,7 +245,7 @@
 	       printf("<INPUT TYPE=hidden NAME=backend VALUE=\"%s\">\n",
 		      htmlspecialchars($backend));
 	       print "<INPUT TYPE=hidden NAME=doedit VALUE=1>\n";
-	       print "</FORM>";	       
+	       print '</FORM>';	       
 
 	       $abortform = true;
 	    }
@@ -303,7 +303,7 @@
 	 // New table header for each backend
 	 if($prevbackend != $row["backend"]) {
 	    if($prevbackend >= 0) {
-	       print "<TR><TD COLSPAN=5 ALIGN=center>";
+	       print '<TR><TD COLSPAN="5" ALIGN=center>';
 	       print "&nbsp;<BR></TD></TR></TABLE>\n";
 	    }
 
@@ -313,7 +313,7 @@
 	    print "<STRONG>\n</TD></TR>\n";
 	    print "</TABLE>\n";
 
-	    print '<TABLE COLS=5 BORDER=0 CELLPADDING=1 CELLSPACING=0 WIDTH="90%" ALIGN=center>';
+	    print '<TABLE COLS="5" BORDER="0" CELLPADDING="1" CELLSPACING="0" WIDTH="90%" ALIGN="center">';
 	    printf('<TR BGCOLOR="%s"><TH ALIGN=left WIDTH="%s">&nbsp;'.
 		   '<TH ALIGN=left WIDTH="%s">%s<TH ALIGN=left WIDTH="%s">%s'.
 		   '<TH ALIGN=left WIDTH="%s">%s<TH ALIGN=left WIDTH="%s">%s'.
@@ -326,13 +326,13 @@
 	    $headerprinted = true;
 	 } // End of header
 
-	 $prevbackend = $row["backend"];
+	 $prevbackend = $row['backend'];
 
 	 // Check if this user is selected
-	 if(in_array($row["backend"].":".$row["nickname"], $defselected)) 
-	    $selected = "CHECKED";
+	 if(in_array($row['backend'].':'.$row['nickname'], $defselected)) 
+	    $selected = 'CHECKED';
 	 else
-	    $selected = "";
+	    $selected = '';
       
 	 // Print one row
 	 printf("<TR%s>",
@@ -371,8 +371,8 @@
    printf(_("Add to %s"), $abook->localbackendname);
    print "<STRONG>\n</TD></TR>\n";
    print "</TABLE>\n";
-   address_form("addaddr", _("Add address"), $defdata);
-   print "</FORM>";
+   address_form('addaddr', _("Add address"), $defdata);
+   print '</FORM>';
 
    // Add hook for anything that wants on the bottom
    do_hook("addressbook_bottom");

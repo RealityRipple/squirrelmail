@@ -19,42 +19,42 @@
    session_start();
 
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($auth_php))
-      include("../functions/auth.php");
+      include('../functions/auth.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($date_php))
-      include("../functions/date.php");
+      include('../functions/date.php');
    if (!isset($smtp_php))
-      include("../functions/smtp.php");
+      include('../functions/smtp.php');
    if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
+      include('../functions/display_messages.php');
    if (!isset($addressbook_php))
-      include("../functions/addressbook.php");
+      include('../functions/addressbook.php');
    if (!isset($plugin_php))
-      include("../functions/plugin.php");
+      include('../functions/plugin.php');
 
-   include("../src/load_prefs.php");
+   include('../src/load_prefs.php');
 
    // Insert hidden data
    function addr_insert_hidden() {
       global $body, $subject, $send_to, $send_to_cc, $send_to_bcc;
       
-      echo "<input type=hidden value=\"";
+      echo '<input type=hidden value="';
       if (substr($body, 0, 1) == "\r")
           echo "\n";
-      echo htmlspecialchars($body) . "\" name=body>\n";
-      echo "<input type=hidden value=\"" . htmlspecialchars($subject)
-          . "\" name=subject>\n";
-      echo "<input type=hidden value=\"" . htmlspecialchars($send_to)
-          . "\" name=send_to>\n";
+      echo htmlspecialchars($body) . '" name=body>\n"';
+      echo '<input type=hidden value="' . htmlspecialchars($subject)
+          . '" name=subject>\n"';
+      echo '<input type=hidden value="' . htmlspecialchars($send_to)
+          . '" name=send_to>\n"';
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_cc)
-          . "\" name=send_to_cc>\n";
+          . '" name=send_to_cc>\n"';
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_bcc)
-          . "\" name=send_to_bcc>\n";
+          . '" name=send_to_bcc>\n"';
       echo "<input type=hidden value=\"true\" name=from_htmladdr_search>\n";
    }
 
@@ -101,14 +101,14 @@
              'NAME="addr_search_done" VALUE="%s"></TD></TR>',
              4 + ($includesource ? 1 : 0), 
              _("Use Addresses"));
-      print "</TABLE>";
+      print '</TABLE>';
       print '<INPUT TYPE=hidden VALUE=1 NAME="html_addr_search_done">';
-      print "</FORM>";
+      print '</FORM>';
    }
 
    // --- End functions ---
 
-   displayPageHeader($color, "None");
+   displayPageHeader($color, 'None');
 
    // Initialize addressbook
    $abook = addressbook_init();
@@ -131,7 +131,7 @@
    // Search form
    print "<CENTER>\n";
    print "<TABLE BORDER=0>\n";
-   printf("<TR><TD NOWRAP VALIGN=middle>\n");
+   print "<TR><TD NOWRAP VALIGN=middle>\n";
    printf('<FORM METHOD=post NAME=f ACTION="%s?html_addr_search=true">'."\n", $PHP_SELF);
    print "<CENTER>\n";
    printf("  <nobr><STRONG>%s</STRONG>\n", _("Search for"));
@@ -154,20 +154,20 @@
                 $v->bnum, 
                 ($backend == $v->bnum) ? "SELECTED" : "",
                 $v->sname);
-      printf("</SELECT>\n");
+      print "</SELECT>\n";
    } else {
-      printf("<INPUT TYPE=hidden NAME=backend VALUE=-1>\n");
+      print "<INPUT TYPE=hidden NAME=backend VALUE=-1>\n";
    }
    printf("<INPUT TYPE=submit VALUE=\"%s\">",
           _("Search"));
    printf("&nbsp;|&nbsp;<INPUT TYPE=submit VALUE=\"%s\" NAME=listall>\n",
           _("List all"));
-   print "</FORM></center>";
+   print '</FORM></center>';
 
-   printf("</TD></TR></TABLE>\n");
+   print "</TD></TR></TABLE>\n";
    addr_insert_hidden();
    print "</CENTER>";
-   do_hook("addrbook_html_search_below");
+   do_hook('addrbook_html_search_below');
    // End search form
 
    // Show personal addressbook
@@ -221,8 +221,8 @@
       printf('<center><FORM METHOD=post NAME=k ACTION="compose.php">'."\n", $PHP_SELF);
       addr_insert_hidden();
       printf("<INPUT TYPE=submit VALUE=\"%s\" NAME=return>\n", _("Return"));
-      printf('</form>');
-      printf("</center></nobr>");
+      print '</form>';
+      print '</center></nobr>';
    }   
 
 ?>
