@@ -14,30 +14,17 @@
     **
     ** $Id$
     **/
-    
-   session_start();
 
-   if (!isset($strings_php))
-      include("../functions/strings.php");
-   if (!isset($config_php))
-      include("../config/config.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
-   if (!isset($date_php))
-      include("../functions/date.php");
-   if (!isset($mime_php))
-      include("../functions/mime.php");
-   if (!isset($smtp_php))
-      include("../functions/smtp.php");
-   if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
-   if (!isset($auth_php))
-      include ("../functions/auth.php");
-   if (!isset($plugin_php))
-      include ("../functions/plugin.php");
-
+   include('../src/validate.php');
+   include("../functions/strings.php");
+   include("../config/config.php");
+   include("../functions/page_header.php");
+   include("../functions/imap.php");
+   include("../functions/date.php");
+   include("../functions/mime.php");
+   include("../functions/smtp.php");
+   include("../functions/display_messages.php");
+   include ("../functions/plugin.php");
    include("../src/load_prefs.php");
 
    if (!isset($attachments))
@@ -376,7 +363,6 @@
    function saveAttachedFiles() {
       global $HTTP_POST_FILES, $attachment_dir, $attachments;
       
-      is_logged_in();
       $localfilename = GenerateRandomString(32, '', 7);
       while (file_exists($attachment_dir . $localfilename))
           $localfilename = GenerateRandomString(32, '', 7);
@@ -453,7 +439,6 @@
          //sqimap_logout($imapConnection);
       }
    } else if (isset($html_addr_search_done)) {
-      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       if (isset($send_to_search) && is_array($send_to_search))
@@ -494,7 +479,6 @@
       displayPageHeader($color, $mailbox);
       showInputForm();
    } else if (isset($do_delete)) {
-      is_logged_in();
       displayPageHeader($color, $mailbox);
 
       if (isset($delete) && is_array($delete))

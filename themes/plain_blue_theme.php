@@ -4,6 +4,7 @@
        Theme Name:   "Plain Blue"
     **/
 
+    global $color;
     $color[0]   = "#A2BED4"; // TitleBar
     $color[1]   = "#800000"; // 
     $color[2]   = "#CC0000"; // Warning/Error Messages

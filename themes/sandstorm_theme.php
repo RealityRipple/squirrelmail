@@ -6,6 +6,7 @@
        This is a theme using Tan as its main color.
     **/
 
+    global $color;
     $color[0]   = "#CFB789"; // (darker tan)     TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

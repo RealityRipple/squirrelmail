@@ -6,6 +6,7 @@
        Deep Ocean is a theme that is very blue.
     **/
 
+    global $color;
     $color[0]   = "#6188A9"; // (light gray)     TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

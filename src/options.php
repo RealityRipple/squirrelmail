@@ -11,24 +11,14 @@
     **  $Id$
     **/
 
-   session_start();
-
-   if (!isset($strings_php))
-      include('../functions/strings.php');
-   if (!isset($config_php))
-      include('../config/config.php');
-   if (!isset($page_header_php))
-      include('../functions/page_header.php');
-   if (!isset($display_messages_php))
-      include('../functions/display_messages.php');
-   if (!isset($imap_php))
-      include('../functions/imap.php');
-   if (!isset($array_php))
-      include('../functions/array.php');
-   if (!isset($i18n_php))
-      include('../functions/i18n.php');
-   if (!isset($auth_php))
-      include ('../functions/auth.php'); 
+   include('../src/validate.php');
+   include('../functions/strings.php');
+   include('../config/config.php');
+   include('../functions/page_header.php');
+   include('../functions/display_messages.php');
+   include('../functions/imap.php');
+   include('../functions/array.php');
+   include('../functions/i18n.php');
 
    if (isset($language)) {
       setcookie('squirrelmail_language', $language, time()+2592000);
@@ -37,7 +27,7 @@
 
    include('../src/load_prefs.php');
    displayPageHeader($color, 'None');
-   is_logged_in(); 
+
 ?>
 
 <br>
@@ -52,14 +42,29 @@
       if (isset($full_name)) setPref($data_dir, $username, 'full_name', $full_name);
       if (isset($email_address)) setPref($data_dir, $username, 'email_address', $email_address);
       if (isset($reply_to)) setPref($data_dir, $username, 'reply_to', $reply_to);
-      if (isset($usesignature)) setPref($data_dir, $username, 'use_signature', $usesignature);  
-      if (isset($prefixsig)) setPref($data_dir, $username, 'prefix_sig', $prefixsig);
+      setPref($data_dir, $username, 'use_signature', $usesignature);  
+      if (! isset($prefixsig))
+         $prefixsig = 0;
+      setPref($data_dir, $username, 'prefix_sig', $prefixsig);
       if (isset($signature_edit)) setSig($data_dir, $username, $signature_edit);
       
       do_hook('options_personal_save');
       
       echo '<br><center><b>'._("Successfully saved personal information!").'</b></center><br>';
-   } else if (isset($submit_display)) {  
+   } else if (isset($submit_display)) {
+      // Do checking to make sure $chosentheme is in the array
+      $in_ary = false;
+      for ($i=0; $i < count($theme); $i++)
+      {
+          if ($theme[$i]['PATH'] == $chosentheme)
+	  {
+	      $in_ary = true;
+	      break;
+	  }
+      }
+      if (! $in_ary)
+          $chosentheme = '';
+   
       # Save display preferences
       setPref($data_dir, $username, 'chosen_theme', $chosentheme);
       setPref($data_dir, $username, 'show_num', $shownum);
@@ -96,8 +101,7 @@
          setPref($data_dir, $username, 'move_to_sent', '0');
          setPref($data_dir, $username, 'sent_folder', 'none');
       } 
-      if (isset($folderprefix))
-         setPref($data_dir, $username, 'folder_prefix', $folderprefix);
+      setPref($data_dir, $username, 'folder_prefix', $folderprefix);
       setPref($data_dir, $username, 'unseen_notify', $unseennotify);
       setPref($data_dir, $username, 'unseen_type', $unseentype);
       if (isset($collapsefolders))

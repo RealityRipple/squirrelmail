@@ -4,6 +4,7 @@
        Theme Name:   "Ice Theme"
     **/
 
+    global $color;
     $color[0]   = "#C0DAFF"; // TitleBar
     $color[1]   = "#800000"; // Error Message
     $color[2]   = "#CC0000"; // Warning/Error Messages

@@ -6,6 +6,7 @@
        This theme uses Forest-ish colors (mostly green)
     **/
 
+    global $color;
     $color[0]   = "#9EBFA7"; // (light purp)     TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

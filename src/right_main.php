@@ -11,41 +11,18 @@
     **  $Id$
     **/
 
-   if (!isset($i18n_php))
-      include('../functions/i18n.php');
+   include('../src/validate.php');
+   include('../functions/i18n.php');
+   include('../functions/strings.php');
+   include('../config/config.php');
+   include('../functions/imap.php');
+   include('../functions/date.php');
+   include('../functions/page_header.php');
+   include('../functions/array.php');
+   include('../functions/mime.php');
+   include('../functions/mailbox_display.php');
+   include('../functions/display_messages.php');
 
-   session_start();
-
-   if(!isset($logged_in) || !isset($username) || !isset($key)) {
-      include ('../themes/default_theme.php');
-      include ('../functions/display_messages.php');
-      printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-              $color[8], $color[4], $color[7], $color[7], $color[7]);
-      plain_error_message(_("You need a valid user and password to access this page!")
-                          . '<br><a href="../src/login.php">'
-                          . _("Click here to log back in.") . "</a>.", $color);
-      echo '</body></html>';
-      exit;
-   }
-
-   if (!isset($strings_php))
-      include('../functions/strings.php');
-   if (!isset($config_php))
-      include('../config/config.php');
-   if (!isset($imap_php))
-      include('../functions/imap.php');
-   if (!isset($date_php))
-      include('../functions/date.php');
-   if (!isset($page_header_php))
-      include('../functions/page_header.php');
-   if (!isset($array_php))
-      include('../functions/array.php');
-   if (!isset($mime_php))
-      include('../functions/mime.php');
-   if (!isset($mailbox_display_php))
-      include('../functions/mailbox_display.php');
-   if (!isset($display_messages_php))
-      include('../functions/display_messages.php');
 ?>
 <?php
    /////////////////////////////////////////////////////////////////////////////////

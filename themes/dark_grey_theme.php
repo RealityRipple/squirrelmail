@@ -4,6 +4,7 @@
        Theme Name:   "Dark Grey"
     **/
 
+    global $color;
     $color[0]   = "#B2B2B2"; // (gray)           TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

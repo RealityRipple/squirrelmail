@@ -14,6 +14,8 @@
     **  $Id$
     **/
 
+   include("../src/validate.php");
+
    // Function to include JavaScript code
    function insert_javascript() {
 ?>
@@ -126,38 +128,13 @@ function bcc_address($addr) {
 
    /* ================= End of functions ================= */
 
-   session_start();
-   
-   if (!isset($strings_php))
-      include("../functions/strings.php");
-   if (!isset($i18n_php))
-      include('../functions/i18n.php');
-
-   if(!isset($logged_in) || !isset($username) || !isset($key)) {
-      include ('../themes/default_theme.php');
-      include ('../functions/display_messages.php');
-      printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-              $color[8], $color[4], $color[7], $color[7], $color[7]);
-      plain_error_message(_("You need a valid user and password to access this page!")
-                          . '<br><a href="../src/login.php">'
-                          . _("Click here to log back in.") . "</a>.", $color);
-      echo '</body></html>';
-      exit;
-   }
-   if (!isset($config_php))
-      include('../config/config.php');
-   if (!isset($array_php))
-      include('../functions/array.php');
-   if (!isset($auth_php))
-      include('../functions/auth.php');
-   if (!isset($strings_php))
-      include('../functions/strings.php');
-   if (!isset($page_header_php))
-      include('../functions/page_header.php');
-   if (!isset($addressbook_php))
-      include('../functions/addressbook.php');
-
-   is_logged_in();
+   include("../functions/strings.php");
+   include('../functions/i18n.php');
+   include('../config/config.php');
+   include('../functions/array.php');
+   include('../functions/strings.php');
+   include('../functions/page_header.php');
+   include('../functions/addressbook.php');
    include('../src/load_prefs.php');
 
    displayHtmlHeader();

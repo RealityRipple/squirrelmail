@@ -10,41 +10,18 @@
     **  $Id$
     **/
 
-   session_start();
-
-   if (!isset($i18n_php))
-      include ("../functions/i18n.php");
-
-   if(!isset($username)) {
-      set_up_language($squirrelmail_language, true);
-          include ("../themes/default_theme.php");
-          printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-                          $color[8], $color[4], $color[7], $color[7], $color[7]);
-          echo "</body></html>";
-      exit;
-   }
-
-
-   if (!isset($strings_php))
-      include("../functions/strings.php");
-   if (!isset($config_php))
-      include("../config/config.php");
-   if (!isset($array_php))
-      include("../functions/array.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
-   if (!isset($i18n_php))
-      include("../functions/i18n.php");
-   if (!isset($plugin_php))
-      include("../functions/plugin.php");
+   include('../src/validate.php');
+   include ("../functions/i18n.php");
+   include("../functions/strings.php");
+   include("../config/config.php");
+   include("../functions/array.php");
+   include("../functions/imap.php");
+   include("../functions/page_header.php");
+   include("../functions/plugin.php");
+   include("../src/load_prefs.php");
 
    // open a connection on the imap port (143)
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
-
-   /** If it was a successful login, lets load their preferences **/
-   include("../src/load_prefs.php");
 
    displayHtmlHeader();
 
