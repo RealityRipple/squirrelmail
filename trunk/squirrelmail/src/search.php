@@ -83,3 +83,4 @@ sqimap_mailbox_select($imapConnection, $mailbox);
 }
 sqimap_logout ($imapConnection);
 ?>
+</body></html>
