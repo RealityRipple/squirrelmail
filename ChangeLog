@@ -116,6 +116,9 @@ Version 1.5.0 -- CVS
   - Added a sitewide override for authenticated SMTP - see authentication.txt.
   - Fixed sorting of sent_subfolders.
     Sent_subfolder plugin is hooked to special_mailbox hook.
+  - Integration of delete_move_next plugin into core.
+  - Compression of buttons/headers for message index and message body 
+  - New option to save replies in the same folder as the original message.
 
 
 **************************************
