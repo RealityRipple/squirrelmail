@@ -268,12 +268,11 @@ $force_username_lowercase = false;
  * To add a new theme to the options that users can choose from, just
  * add a new number to the array at the bottom, and follow the pattern.
  */
+
+$theme_default = 0;
+
 global $theme;
 
-/**
- * The first one HAS to be here, and is your system's default
- * theme. It can be any theme you want.
- */
 $theme[0]['PATH'] = '../themes/default_theme.php';
 $theme[0]['NAME'] = 'Default';
 

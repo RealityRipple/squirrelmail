@@ -37,8 +37,8 @@ $chosen_theme = (!$found_theme ? '' : $chosen_theme);
 if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
     @include_once($chosen_theme);
 } else {
-    if (isset($theme) && isset($theme[0]) && file_exists($theme[0]['PATH'])) {
-        @include_once($theme[0]['PATH']);
+    if (isset($theme) && isset($theme[$theme_default]) && file_exists($theme[$theme_default]['PATH'])) {
+        @include_once($theme[$theme_default]['PATH']);
     } else {
         /**
          * This theme as a failsafe if no themes were found. It makes

@@ -36,6 +36,8 @@ Version 1.3.0-DEVEL -- CVS
   - Enable people with file_uploads = off to still send mail. Patch from Seth
     E. Randall.
   - Moved the generic_header hook back to page_header.php. bug #554278
+  - Make default theme work. Bug #557313, thanks Tyler Bannister.
+
   
 Version 1.2.7 -- CVS
 --------------------
