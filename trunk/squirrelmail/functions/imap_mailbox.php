@@ -718,7 +718,7 @@ function sqimap_mailbox_tree($imap_stream) {
         $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
                                         true, $response, $message);
 
-
+        /* Check to see if we have an INBOX */
         $has_inbox = false;
 
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
@@ -807,6 +807,10 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
     $trail_del = false;
     $start = 0;
 
+/* JA - Seems to really screw up folder displays, courier and uw both lose their INBOX when you
+        have a default_folder_prefix set on this
+
+
     if (isset($folder_prefix) && $folder_prefix != '') {
         $start = substr_count($folder_prefix,$delimiter);
         if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
@@ -820,6 +824,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
     } else {
         $start = 0;
     }
+*/
 
     $cnt =  count($mbx_ary);
     for ($i=0; $i < $cnt; $i++) {
@@ -828,11 +833,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
             $mailbox = $mbx_ary[$i]['mbx'];
             switch ($mailbox) {
                 case 'INBOX':
-                    // $mailboxes IS the INBOX, change $mbx to refer to $mailboxes
-                    // for unread count, attribute setting, etc.
-                    unset($mbx);
-                    $mbx =& $mailboxes;
-
                     $mbx->is_inbox = true;
                     $mbx->is_special = true;
                     break;
@@ -867,9 +867,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
             }
             $mbx->mailboxname_full = $mbx_ary[$i]['mbx'];
 
-            // Don't add INBOX to itself
-            if ( $mailbox != 'INBOX' )
-                $mailboxes->addMbx($mbx, $delimiter, $start, $list_special_folders_first);
+            $mailboxes->addMbx($mbx, $delimiter, $start, $list_special_folders_first);
         }
     }
     return $mailboxes;
