@@ -55,10 +55,10 @@
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename or Move Folder</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
-   echo "<FORM ACTION=folders_rename.php METHOD=POST>\n";
-   echo "Old:&nbsp;&nbsp;<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
+   echo "<FORM ACTION=folders_rename_getname.php METHOD=POST>\n";
+   echo "<SELECT NAME=old><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
@@ -69,9 +69,8 @@
       if ($use_folder == true)
          echo "   <OPTION>$boxesUnformatted[$i]\n";
    }
-   echo "</SELECT><BR>\n";
-   echo "New:&nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new VALUE=\"INBOX.\"><BR>\n";
-   echo "<INPUT TYPE=SUBMIT VALUE=Rename>\n";
+   echo "</SELECT>\n";
+   echo "<INPUT TYPE=SUBMIT VALUE=\"Rename or Move\">\n";
    echo "</FORM></TD></TR></TABLE><BR>\n";
 
 ?>

@@ -34,41 +34,42 @@
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
       include("../config/config.php");
 
-      $j = 1;
-      while ($j <= $numMessages) {
-         $q = 0;
-         getMessageHeaders($imapConnection, $j, $from, $subject, $date);
-         getMessageFlags($imapConnection, $j, $flags);
+      if (1 <= $numMessages) {
+         getMessageHeaders($imapConnection, 1, $numMessages, $from, $subject, $date);
+      }
 
-         $messages[$j]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date)));
-         $messages[$j]["DATE_STRING"] = getDateString(explode(" ", trim($date)));
-         $messages[$j]["ID"] = $j;
-         $messages[$j]["FROM"] = $from;
-         $messages[$j]["SUBJECT"] = $subject;
+      $j = 0;
+      while ($j < $numMessages) {
+         $messages[$j]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date[$j])));
+         $messages[$j]["DATE_STRING"] = getDateString(explode(" ", trim($date[$j])));
+         $messages[$j]["ID"] = $j+1;
+         $messages[$j]["FROM"] = $from[$j];
+         $messages[$j]["SUBJECT"] = $subject[$j];
          $messages[$j]["FLAG_DELETED"] = false;
          $messages[$j]["FLAG_ANSWERED"] = false;
          $messages[$j]["FLAG_SEEN"] = false;
 
-         while ($q < count($flags)) {
-            if ($flags[$q] == "Deleted") {
+         $num = 0;
+         getMessageFlags($imapConnection, $j+1, $flags);
+         while ($num < count($flags)) {
+            if ($flags[$num] == "Deleted") {
                $messages[$j]["FLAG_DELETED"] = true;
             }
-            else if ($flags[$q] == "Answered") {
+            else if ($flags[$num] == "Answered") {
                $messages[$j]["FLAG_ANSWERED"] = true;
             }
-            else if ($flags[$q] == "Seen") {
+            else if ($flags[$num] == "Seen") {
                $messages[$j]["FLAG_SEEN"] = true;
             }
-            $q++;
+            $num++;
          }
-
          $j++;
       }
 
       /** Find and remove the ones that are deleted */
-      $i = 1;
-      $j = 1;
-      while ($j <= $numMessages) {
+      $i = 0;
+      $j = 0;
+      while ($j < $numMessages) {
          if ($messages[$j]["FLAG_DELETED"] == true) {
             $j++;
             continue;
@@ -85,8 +86,7 @@
          $j++;
       }
 
-      $numMessagesOld = $numMessages;
-      $numMessages = $i - 1;
+      $numMessages = $i;
 
       // There's gotta be messages in the array for it to sort them.
       if ($numMessages > 0) {
@@ -154,7 +154,7 @@
       if ($numMessages == 0) { // if there's no messages in this folder
          echo "<TR><TD BGCOLOR=FFFFFF COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
-         $i = $startMessage;
+         $i = $startMessage - 1;
          printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
       } else {
          for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
