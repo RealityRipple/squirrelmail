@@ -1116,7 +1116,7 @@ When you are developing your plugin, you should always have error reporting
 turned all the way up.  You can do this by changing two settings in your
 php.ini and restarting your web server:
 
-   display_errors = Off
+   display_errors = On
    error_reporting  =  E_ALL
 
 This way, you'll be sure to see all Notices, Warnings and Errors that your
