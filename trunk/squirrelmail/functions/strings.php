@@ -36,30 +36,6 @@ function readShortMailboxName($haystack, $needle) {
     return( $elem );
 }
 
-
-
-/**
- * Returns the index of the first chunk of string $haystack that
- * starts with non-white-space character, starting at position $pos.
- * If there is no such chunk, returns -1.
- */
-function next_pos_minus_white ($haystack, $pos) {
-    $len = strlen($haystack);
-    while ($pos < $len) {
-        /* Get the next character. */
-        $c = substr($haystack, $pos, 1);
-        
-        /* Check the next character. */
-        if (($c != ' ') && ($c != "\t") && ($c != "\n") && ($c != "\r")) {
-            return $pos;
-        }
-
-        /* Increment position in string. */
-        ++$pos;
-    }
-    return -1;
-}
-
 /**
  * Wraps text at $wrap characters
  *
