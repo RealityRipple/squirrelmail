@@ -154,23 +154,18 @@ if ($javascript_setting != SMPREF_JS_ON){
 setPref($data_dir, $username, 'javascript_on', $js_pref);
 
 /* Compute the URL to forward the user to. */
-    if (isset($_SESSION['session_expired_location'])) {
-	$session_expired_location= $_SESSION['session_expired_location'];
-    } else {
-	$session_expired_location=false;
+$redirect_url = 'webmail.php';
+
+if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SESSION) ) {
+    sqsession_unregister('session_expired_location');
+    $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
+    if ($compose_new_win) {
+        $redirect_url = $session_expired_location;
+    } elseif ( strpos($session_expired_location, 'webmail.php') === FALSE ) {
+        $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
     }
-    if (isset($session_expired_location) && $session_expired_location) {
-       $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
-       if ($compose_new_win) {
-          $redirect_url = $session_expired_location;
-       } else {
-          $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
-       }
-       sqsession_unregister('session_expired_location');
-       unset($session_expired_location);
-    } else {
-       $redirect_url = 'webmail.php';
-    }
+    unset($session_expired_location);
+}
 
 /* Write session data and send them off to the appropriate page. */
 session_write_close();
