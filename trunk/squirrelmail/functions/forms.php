@@ -18,8 +18,8 @@
  */
 function addInputField($type, $name = null, $value = null, $attributes = '') {
     return '<input type="'.$type.'"'.
-        ($name  !== null ? ' name="'.htmlentities($name).'"'   : '').
-        ($value !== null ? ' value="'.htmlentities($value).'"' : '').
+        ($name  !== null ? ' name="'.htmlspecialchars($name).'"'   : '').
+        ($value !== null ? ' value="'.htmlspecialchars($value).'"' : '').
         $attributes . ">\n";
 }
 
@@ -85,16 +85,16 @@ function addSelect($name, $values, $default = null, $usekeys = false)
     if(count($values) == 1) {
         $k = key($values); $v = array_pop($values);
         return addHidden($name, ($usekeys ? $k:$v)).
-            htmlentities($v) . "\n";
+            htmlspecialchars($v) . "\n";
     }
 
-    $ret = '<select name="'.htmlentities($name) . "\">\n";
+    $ret = '<select name="'.htmlspecialchars($name) . "\">\n";
     foreach ($values as $k => $v) {
         if(!$usekeys) $k = $v;
         $ret .= '<option value="' .
-            htmlentities( $k ) . '"' .
+            htmlspecialchars( $k ) . '"' .
             (($default == $k) ? ' selected':'') .
-            '>' . htmlentities($v) ."</option>\n";
+            '>' . htmlspecialchars($v) ."</option>\n";
     }
     $ret .= "</select>\n";
 
@@ -119,9 +119,9 @@ function addReset($value) {
  * Textarea form element.
  */
 function addTextArea($name, $text = '', $cols = 40, $rows = 10, $attr = '') {
-    return '<textarea name="'.htmlentities($name).'" '.
+    return '<textarea name="'.htmlspecialchars($name).'" '.
         'rows="'.(int)$rows .'" cols="'.(int)$cols.'"'.
-        $attr . '">'.htmlentities($text) ."</textarea>\n";
+        $attr . '">'.htmlspecialchars($text) ."</textarea>\n";
 }
 
 /**
