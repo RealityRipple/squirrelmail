@@ -23,7 +23,7 @@ class Deliver_SendMail extends Deliver {
     function initStream($message, $sendmail_path) {
         $rfc822_header = $message->rfc822_header;
 	$from = $rfc822_header->from[0];
-	$envelopefrom = $from->mailbox.'@'.$from->host;
+	$envelopefrom = trim($from->mailbox.'@'.$from->host);
 	if (strstr($sendmail_path, "qmail-inject")) {
     	    $stream = popen (escapeshellcmd("$sendmail_path -i -f$envelopefrom"), "w");
 	} else {
