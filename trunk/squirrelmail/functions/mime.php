@@ -192,6 +192,7 @@
             // loop through until we find a space or an end parenthesis
             $pos = 0;
             $char = substr($structure, $pos, 1);
+            $text = "";
             while ($char != " " && $char != ")" && $pos < strlen($structure)) {
                $text .= $char;
                $pos++;
