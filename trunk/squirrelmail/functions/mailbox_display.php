@@ -123,8 +123,13 @@
                    if (! isset($search_stuff)) { $search_stuff = ''; }
                echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
                do_hook("subject_link");
-               echo " title=\"" . urlencode($msg['SUBJECT']) . 
-	          "\">$flag$subject$flag_end</a>$bold_end</td>\n";
+	       
+	       $title = get_html_translation_table(HTML_SPECIALCHARS);
+	       $title = array_flip($title);
+	       $title = strtr($msg['SUBJECT'], $title);
+	       $title = str_replace('"', "''", $title);
+
+               echo " title=\"$title\">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
