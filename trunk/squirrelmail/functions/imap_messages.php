@@ -536,7 +536,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 	$header->inrepto = $inrepto;
         $result[] = $header;
     }
-    echo 'processtime (us): ' . elapsedtime($start) .'<BR>';
+//    echo 'processtime (us): ' . elapsedtime($start) .'<BR>';
     return $result;
 }
 
