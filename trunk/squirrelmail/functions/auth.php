@@ -221,7 +221,6 @@ function hmac_md5($data, $key='') {
 /** 
  * Fillin user and password based on SMTP auth settings.
  *
- * @global
  * @param string $user Reference to SMTP username
  * @param string $pass Reference to SMTP password (unencrypted)
  */
