@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-04-18 20:55+0300\n"
+"POT-Creation-Date: 2004-04-21 09:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,9 +76,6 @@ msgid "Return"
 msgstr ""
 
 msgid "Close"
-msgstr ""
-
-msgid "No persons matching your search was found"
 msgstr ""
 
 msgid "Nickname"
@@ -914,6 +911,9 @@ msgid "Add to Addressbook"
 msgstr ""
 
 msgid "Title & Org. / Dept."
+msgstr ""
+
+msgid "Add to Address Book"
 msgstr ""
 
 msgid "Viewing Full Header"
