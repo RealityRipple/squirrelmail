@@ -58,6 +58,7 @@ function is_logged_in() {
            sqsession_register($session_expired_location,'session_expired_location');
         }
         include_once( SM_PATH . 'functions/display_messages.php' );
+        set_up_language($squirrelmail_language, true);
         logout_error( _("You must be logged in to access this page.") );
         exit;
     }
