@@ -4,7 +4,6 @@ Ideas to be implemented
 initials = taken by that person
 
 (pl?)   Importing of address books
-(nre)   Use PHP4 Session management, get rid of cookies
   -     Make it possible to save preferences in MySQL DB or on Filesystem
   -     Configurable headers shown on the message listing, like:  cc, to, etc
   -     Filters
@@ -18,6 +17,7 @@ initials = taken by that person
 (mcp)   Spell checking
   -     Search mailbox(es) for given criteria
 (lme)   Background highlighting messages in list based on header criteria (like pine 4.2x)
+(lme)   Fix conf.pl script and add more error checking so it doesn't throw parse errors
 
 
 Finished:

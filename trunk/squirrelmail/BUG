@@ -4,6 +4,8 @@ Known BUGS to be fixed before 0.5pre1:
 
 
 -----------------------SQUASHED------------------------
+--Fixed for 0.5pre1--
+
 --Fixed for 0.4pre2--
 (lme)  Sent and Trash are not set to defaults.
 (lme)  Does not delete folders correctly in UW that end in /

@@ -21,10 +21,12 @@
    function sqimap_mailbox_exists ($imap_stream, $mailbox) {
       fputs ($imap_stream, "a001 LIST \"\" \"$mailbox\"\r\n");
       $mbx = sqimap_read_data($imap_stream, "a001", true, $response, $message);
-      if (ereg ("$mailbox", $mbx[0])) {
-         return true;
-      } else {
-         return false;
+      if ($mailbox) {
+         if (ereg ("$mailbox", $mbx[0])) {
+            return true;
+         } else {
+            return false;
+         }
       }
    }
 
