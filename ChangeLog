@@ -3,6 +3,7 @@ Version 1.0 -- DEVELOPMENT
 - Updated config_default.php to include attachment_common plugin (now in distribution)
 - A few minor speed improvements
 - Fixed problems in sqimap_read_body(), made it more reliable
+- Added French translation of help files by  gore K <gore_k@ymca-cepiere.org>
 - Added Finnish translation by Teemu Junnila <teejun@vallcom.com>
 - Updated Sweedish translation
 
