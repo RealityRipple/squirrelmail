@@ -430,8 +430,8 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
  * @param string $search_charset mandatory charset
  * @param string $thread_algorithm the threading algorithm "ORDEREDSUBJECT" or "REFERENCES"
  * @return array an IDs or UIDs array of matching messages or an empty array
- * @global array $thread_new will be used by thread view in mailbox_display
- * @global array $server_sort_array will be used by thread view in mailbox_display
+ * @global array thread_new will be used by thread view in mailbox_display
+ * @global array server_sort_array will be used by thread view in mailbox_display
  */
 function sqimap_run_thread($imapConnection, $search_string, $search_charset, $thread_algorithm)
 {
@@ -556,8 +556,8 @@ function sqimap_asearch_get_charset()
  * - reverse order by using REVERSE
  * @param string $mailbox mailbox name to sort
  * @param integer $sort_by sm sort criteria index
- * @global bool $internal_date_sort sort by arrival date instead of message date
- * @global string $sent_folder sent folder name
+ * @global bool internal_date_sort sort by arrival date instead of message date
+ * @global string sent_folder sent folder name
  * @return string imap sort criteria
  */
 function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
@@ -601,13 +601,13 @@ function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
  * @param array $exclude_array
  * @param array $sub_array
  * @param array $mboxes_array selectable unformatted mailboxes names
- * @global bool $allow_server_sort comes from config.php
- * @global integer $sort sm internal sort order
- * @global bool $allow_thread_sort comes from config.php
- * @global bool $thread_sort_messages does it really need to global?
- * @global integer $sort_by_ref thread by references
- * @global string $data_dir
- * @global string $username
+ * @global bool allow_server_sort comes from config.php
+ * @global integer sort sm internal sort order
+ * @global bool allow_thread_sort comes from config.php
+ * @global bool thread_sort_messages does it really need to global?
+ * @global integer sort_by_ref thread by references
+ * @global string data_dir
+ * @global string username
  * @return array $mbox_msgs array(mailbox => array(UIDs))
  */
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array)
