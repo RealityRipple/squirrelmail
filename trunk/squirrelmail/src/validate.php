@@ -1,12 +1,12 @@
 <?php
     /**
-     * validate.php
-     *
-     * Copyright (c) 1999-2000 The SquirrelMail Development Team
-     * Licensed under the GNU GPL. For full terms see the file COPYING.
-     *
-     * $Id$
-     */
+     ** validate.php
+     **
+     ** Copyright (c) 1999-2001 The SquirrelMail Development Team
+     ** Licensed under the GNU GPL. For full terms see the file COPYING.
+     **
+     ** $Id$
+     **/
 
     if (defined ('validate_php')) { return; }
     define ('validate_php', true);

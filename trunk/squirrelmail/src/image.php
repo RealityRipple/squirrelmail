@@ -1,11 +1,14 @@
 <?php
-/**
- ** image.php
- **
- ** This file shows an attached image
- **
- ** $Id$
- **/
+    /**
+    ** image.php
+    **
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    ** This file shows an attached image
+    **
+    ** $Id$
+    **/
 
    require_once('../src/validate.php');
    require_once('../functions/date.php');

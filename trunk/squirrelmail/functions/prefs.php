@@ -7,10 +7,6 @@
     **  $Id$
     **/
 
-   if (defined('prefs_php'))
-      return;
-   define('prefs_php', true);
-
    global $prefs_are_cached, $prefs_cache;
    if (!session_is_registered('prefs_are_cached')) {
       $prefs_are_cached = false;

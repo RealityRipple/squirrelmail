@@ -18,9 +18,9 @@
    // Sort array by the key "name"
    function alistcmp($a,$b) {   
       if($a['backend'] > $b['backend']) 
-	 return 1;
-      else if($a['backend'] < $b['backend']) 
-	 return -1;
+         return 1;
+      else if($a['backend'] < $b['backend'])
+         return -1;
       
       return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
    }

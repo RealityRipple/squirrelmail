@@ -10,10 +10,6 @@
     **  $Id$
     **/
 
-   if (defined ('imap_general_php'))
-      return;
-   define ('imap_general_php', true);
-
 global $imap_general_debug;
 $imap_general_debug = false;
 

@@ -7,10 +7,6 @@
     **  $Id$
     **/
 
-   if (defined ('imap_messages_php'))
-       return;
-   define ('imap_messages_php', true);
-
    /******************************************************************************
     **  Copies specified messages to specified folder
     ******************************************************************************/

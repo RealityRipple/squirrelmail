@@ -1,10 +1,15 @@
 <?php
 
-   /* $Id$ */
-
-   if (defined('tree_php'))
-       return;
-   define('tree_php', true);
+   /**
+    * tree.php
+    * Copyright (c) 1999-2001 The Squirrelmail Development Team
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
+    *
+    * This code provides various string manipulation functions that are
+    * used by the rest of the Squirrelmail code.
+    *
+    * $Id$
+    */
 
    require_once('../functions/imap.php');
 

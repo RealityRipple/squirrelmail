@@ -3,10 +3,6 @@
     ** IMAP SEARCH ROUTIES
     ** $Id$
     *****************************************************************/
-    
-   if (defined ('imap_search_php'))
-      return;
-   define ('imap_search_php', true);
    
    require_once('../functions/imap.php');
    require_once('../functions/date.php');
