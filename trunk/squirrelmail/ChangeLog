@@ -164,6 +164,7 @@ Version 1.5.1 -- CVS
   - Removed internal_link hook.
   - Added sq_setlocale function in order to use multiple locale names.
   - Added size attributes to new_mail sound tags. Fixes #818958.
+  - Removed extra ; in SquirrelMail added Received header per RFC 822. Fixes #1088548.
 
 Version 1.5.0
 --------------------
