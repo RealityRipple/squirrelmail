@@ -24,7 +24,7 @@ define('SMOPT_GRP_TZ', 3);
 /* Define the optpage load function for the personal options page. */
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
-           $full_name, $reply_to, $email_address, $signature;
+           $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
@@ -118,7 +118,7 @@ function load_optpage_data_personal() {
         );
     }
     
-    if (  !ini_get("safe_mode") ) {
+    if ( $tzChangeAllowed ) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
         $fd = fopen('../locale/timezones.cfg','r');
         while (!feof ($fd)) {
