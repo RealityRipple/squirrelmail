@@ -72,25 +72,15 @@ if ( isset($success) && $success ) {
 
     $td_str .= '</b><br>';        
 
-    if (isset($use_frames) && $use_frames) {
-        echo html_tag( 'table',
-                    html_tag( 'tr',
-                         html_tag( 'td', $td_str .
-                                   '<a href="' . SM_PATH . 'src/left_main.php" target=left>' .
-                                   _("refresh folder list") . '</a>' ,
-                         'center' )
-                    ) ,
-                'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
-    } else { 
-        echo html_tag( 'table',
-                    html_tag( 'tr',
-                         html_tag( 'td', $td_str .
-                                   '<a href="' . SM_PATH . 'src/folders.php">' .
-                                   _("refresh folder list") . '</a>' ,
-                         'center' )
-                    ) ,
-                'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
-    }
+
+    echo html_tag( 'table',
+                html_tag( 'tr',
+                     html_tag( 'td', $td_str .
+                               '<a href="../src/left_main.php" target=left>' .
+                               _("refresh folder list") . '</a>' ,
+                     'center' )
+                ) ,
+            'center', '', 'width="100%" cellpadding="4" cellspacing="0" border="0"' );
 }
 
 echo "\n<br>";
@@ -346,5 +336,6 @@ do_hook('folders_bottom');
 
 <?php
    sqimap_logout($imapConnection);
-   noframes_bottom();
 ?>
+
+</body></html>

@@ -37,30 +37,12 @@ sqsession_is_active();
 sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
-sqgetGlobalVar('use_frames', $use_frames, SQ_COOKIE);
+
 sqgetGlobalVar('right_frame', $right_frame, SQ_GET);
 
 if ( isset($_SESSION['session_expired_post']) ) {
     sqsession_unregister('session_expired_post');
 }
-global $plugins;
-
-switch ($allow_frames) {
-   case 4:    // if $use_frames unset, fall through to case 2
-      if (isset($use_frames))
-         break;
-   case 2:    // Do not use frames
-      $use_frames = 0;
-      break;
-   case 3:    // if $use_frames unset, fall through to case 1
-      if (isset($use_frames))
-         break;
-   default:   // default is also to use frames
-   case 1:    // use frames
-      $use_frames = 1;
-      break;
-}
-
 if(!sqgetGlobalVar('mailto', $mailto)) {
     $mailto = '';
 }
@@ -82,25 +64,6 @@ if ($my_language != $squirrelmail_language) {
 }
 
 set_up_language(getPref($data_dir, $username, 'language'));
-
-if (isset($use_frames) && !$use_frames) {
-    if (!isset($right_frame))
-        $right_frame = '';
-    if ($right_frame == 'right_main.php') {
-        $urlMailbox = urlencode($mailbox);
-        $right_frame_url = "right_main.php?mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage";
-    } elseif ($right_frame == 'options.php') {
-        $right_frame_url = 'options.php';
-    } elseif ($right_frame == 'folders.php') {
-        $right_frame_url = 'folders.php';
-    } else if ($right_frame == '') {
-        $right_frame_url = 'right_main.php';
-    } else {
-        $right_frame_url =  $right_frame;
-    }
-    header("Location: $right_frame_url");
-}
-
 
 echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
      "<html><head>\n" .

@@ -157,9 +157,7 @@ if ($submit == 'submit') {
         print "</TD><TR></TABLE></CENTER><BR>\n";
     }
 }
-    print "</TD></TR></TABLE></CENTER>";
-    noframes_bottom();
-
+    print "</TD></TR></TABLE></CENTER></BODY></HTML>";
     sqimap_logout($imap_stream);
     do_hook('info_bottom');
 ?>

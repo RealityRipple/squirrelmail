@@ -179,5 +179,4 @@ initialize_events();
 display_events();
 ?>
 </table></td></tr></table>
-<?php noframes_bottom(); ?>
-
+</body></html>

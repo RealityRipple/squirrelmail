@@ -606,6 +606,4 @@ if( $fp = @fopen( $cfgfile, 'w' ) ) {
          _("Config file can't be opened. Please check config.php.").
          '</font>';
 }
-noframes_bottom();
-
 ?>

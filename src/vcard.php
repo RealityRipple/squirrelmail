@@ -218,7 +218,7 @@ echo '</select>' .
 
         '<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>' .
         '<TR><TD BGCOLOR="' . $color[4] . '">' .
-        '</TD></TR></TABLE>';
-        noframes_bottom();
+        '</TD></TR></TABLE>' .
+        '</body></html>';
 
 ?>

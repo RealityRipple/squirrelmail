@@ -238,5 +238,5 @@ if ($exception) {
     header("Location: $location");
     exit;
 }
-noframes_bottom();
 ?>
+</BODY></HTML>

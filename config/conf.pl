@@ -354,9 +354,6 @@ if (!$session_name ) {
 if (!$show_alternative_names ) {
 	$show_alternative_names = 'false';
 }
-if ( !$allow_frames ) {
-    $allow_frames = 1;
-}
 
 if (!$available_languages ) {
 	$available_languages = 'all';
@@ -445,7 +442,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "8.  Provider name          : $WHT$provider_name$NRM\n";
 
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 2 ) {
         print $WHT. "Server Settings\n\n" . $NRM;
         print $WHT . "General" . $NRM . "\n";
@@ -509,7 +506,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         }
         
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 3 ) {
         print $WHT. "Folder Defaults\n" . $NRM;
         print "1.  Default Folder Prefix         : $WHT$default_folder_prefix$NRM\n";
@@ -531,7 +528,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "17. Folder Delete Bypasses Trash  : $WHT$delete_folder$NRM\n";
         print "18. Enable /NoSelect folder fix   : $WHT$noselect_fix_enable$NRM\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 4 ) {
         print $WHT. "General Options\n" . $NRM;
         print "1.  Data Directory              : $WHT$data_dir$NRM\n";
@@ -542,13 +539,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "6.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
         print "7.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
         print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "9.  Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
+        print "9. Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
         print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-        print "13. PHP session name            : $WHT$session_name$NRM\n";
+	print "13. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
         print $WHT. "Themes\n" . $NRM;
         print "1.  Change Themes\n";
@@ -560,7 +557,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         }
         print "2.  CSS File : $WHT$theme_css$NRM\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 6 ) {
         print $WHT. "Address Books (LDAP)\n" . $NRM;
         print "1.  Change Servers\n";
@@ -570,14 +567,14 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print
           "2.  Use Javascript Address Book Search  : $WHT$default_use_javascript_addr_book$NRM\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 7 ) {
         print $WHT. "Message of the Day (MOTD)\n" . $NRM;
         print "\n$motd\n";
         print "\n";
         print "1   Edit the MOTD\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 8 ) {
         print $WHT. "Plugins\n" . $NRM;
         print "  Installed Plugins\n";
@@ -613,7 +610,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         closedir DIR;
 
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 9 ) {
         print $WHT. "Database\n" . $NRM;
         print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
@@ -625,46 +622,34 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM\n";
         print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
         print "\n";
-        print "R.  Return to Main Menu\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 10 ) {
-        print $WHT. "Language settings\n" . $NRM;
-        print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
-        print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
-        print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
-        print "4.  Available languages             : $WHT$available_languages$NRM\n";
-        print "5.  Use agresive decoding           : $WHT$agresive_decoding$NRM\n";
-        print "\n";
-        print "R.  Return to Main Menu\n";
+	print $WHT. "Language settings\n" . $NRM;
+	print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
+	print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
+	print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
+	print "4.  Available languages             : $WHT$available_languages$NRM\n";
+	print "5.  Use agresive decoding           : $WHT$agresive_decoding$NRM\n";
+	print "\n";
+        print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
-        print $WHT. "Interface tweaks\n" . $NRM;
-        print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
-        print "2.  Oldway                   : $WHT$oldway$NRM\n";
-        print "3.  HTML Frame Settings      : $WHT";
-        if ( $allow_frames == 1) {
-           print "Force Frames Only";
-        } elsif ( $allow_frames == 2) {
-           print "Force No Frames Only";
-        } elsif ( $allow_frames == 3) {
-           print "User Select, Default to Frames";
-        } elsif ( $allow_frames == 4) {
-           print "User Select, Default to No Frames";
-        }
-        print "$NRM\n";
-
-        print "\n";
-        print $WHT. "PHP tweaks\n" . $NRM;
-        print "4.  Use php recode functions : $WHT$use_php_recode$NRM\n";
-        print "5.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
-        print "\n";
-        print "R.  Return to Main Menu\n";
+	print $WHT. "Interface tweaks\n" . $NRM;
+	print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
+	print "2.  Oldway                   : $WHT$oldway$NRM\n";
+	print "\n";
+	print $WHT. "PHP tweaks\n" . $NRM;
+	print "3.  Use php recode functions : $WHT$use_php_recode$NRM\n";
+	print "4.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
+	print "\n";
+        print "R   Return to Main Menu\n";
     }
     if ( $config_use_color == 1 ) {
         print "C.  Turn color off\n";
     } else {
         print "C.  Turn color on\n";
     }
-    print "S.  Save data\n";
-    print "Q.  Quit\n";
+    print "S   Save data\n";
+    print "Q   Quit\n";
 
     print "\n";
     print "Command >> " . $WHT;
@@ -773,7 +758,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
-            elsif ( $command == 13 ) { $session_name             = command316(); }
+			elsif ( $command == 13 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -795,15 +780,14 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         } elsif ( $menu == 10 ) {
             if    ( $command == 1 ) { $squirrelmail_default_language = commandA1(); }
             elsif ( $command == 2 ) { $default_charset  	     = commandA2(); }
-            elsif ( $command == 3 ) { $show_alternative_names    = commandA3(); }
+            elsif ( $command == 3 ) { $show_alternative_names        = commandA3(); }
             elsif ( $command == 4 ) { $available_languages	     = commandA4(); }
             elsif ( $command == 5 ) { $agresive_decoding	     = commandA5(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
             elsif ( $command == 2 ) { $oldway  	      = commandB2(); }
-            elsif ( $command == 3 ) { $allow_frames   = commandB5(); }
-            elsif ( $command == 4 ) { $use_php_recode = commandB3(); }
-            elsif ( $command == 5 ) { $use_php_iconv  = commandB4(); }
+            elsif ( $command == 3 ) { $use_php_recode = commandB3(); }
+            elsif ( $command == 4 ) { $use_php_iconv  = commandB4(); }
         }
     }
 }
@@ -1384,7 +1368,8 @@ sub command113 {
 sub command71 {
     print "\nYou can now create the welcome message that is displayed\n";
     print "every time a user logs on.  You can use HTML or just plain\n";
-    print "text.  If you do not wish to have one, just make it blank.\n\n(Type @ on a blank line to exit)\n";
+    print
+"text.  If you do not wish to have one, just make it blank.\n\n(Type @ on a blank line to exit)\n";
 
     $new_motd = "";
     do {
@@ -2223,28 +2208,7 @@ sub command316 {
     return $new_session_name;
 }
 
-sub commandB5 {
-    print "This option allows you to select whether to allow or disallow frames\n";
-    print "or no frames usage, and what to default to on the login screen.\n";
-    print "Note: When a user selects to use Frames or No Frames, it is stored\n";
-    print "      in a cookie, which will override the site default when they\n";
-    print "      next visit the login page.\n";
-     if ($allow_frames == 1) { print "--> "; }else{print "    ";}
-    print "1.  Force Frames Only\n";
-    if ($allow_frames == 2) { print "--> "; }else{print "    ";}
-    print "2.  Force No Frames Only\n";
-    if ($allow_frames == 3) { print "--> "; }else{print "    ";}
-    print "3.  User Select, Default to Frames\n";
-    if ($allow_frames == 4) { print "--> "; }else{print "    ";}
-    print "4.  User Select, Default to No Frames\n";
-    print "(1-4): ";
-    $new_allow_frames = <STDIN>;
-    $new_allow_frames =~ tr/1-4//cd;  # only want digits!
-    if ( $new_allow_frames < 1 || $new_allow_frames > 4 ) {
-       $new_allow_frames = $allow_frames;
-    }
-    return $new_allow_frames;
-}
+
 
 sub command41 {
     print "\nDefine the themes that you wish to use.  If you have added ";
@@ -3132,16 +3096,12 @@ sub save_data {
 		print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
 		print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
 	# boolean
-	print CF "\$use_imap_tls = $use_imap_tls;\n";
-	print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+	    print CF "\$use_imap_tls = $use_imap_tls;\n";
+		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
 
-	print CF "\$session_name = '$session_name';\n";
+		print CF "\$session_name = '$session_name';\n";
 
-	print CF "\n";
-
-	print CF "\$allow_frames = $allow_frames;\n";
-
-	print CF "\n";
+	    print CF "\n";
 
 	# boolean
 	print CF "\$advanced_tree = $advanced_tree;\n";
@@ -3453,7 +3413,7 @@ sub detect_auth_support {
 
 	# So at this point, we have a response, and it is (hopefully) valid.
 	if ($service eq 'SMTP') {
-		if ( $response =~ /^(535|502|504)/ ) {
+		if (($response =~ /^535/) or ($response =~/^502/)) {
 			# Not supported
 			close $sock;
 			return 'NO';

@@ -185,7 +185,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
         '<input type="submit" value="' . _("Submit") . '" name="submit_translate">'.
         '</td></tr>'.
    '</table>'.
-   '</form>';
-   noframes_bottom();
+   '</form>'.
+"</body></html>\n";
 
 ?>

@@ -94,28 +94,6 @@ if (!sqsession_is_registered('user_is_logged_in')) {
     $username = $login_username;
     sqsession_register ($username, 'username');
     setcookie('key', $key, 0, $base_uri);
-
-    switch ($allow_frames) {
-        case 4:    // if $use_frames unset, fall through to case 2
-            if (isset($_POST['set_use_frames'])) {
-                $use_frames = $_POST['set_use_frames'];
-                break;
-            }
-        case 2:    // Do not use frames
-            $use_frames = 0;
-            break;
-        case 3:    // if $use_frames unset, fall through to case 1
-            if (isset($_POST['set_use_frames'])) {
-                $use_frames = $_POST['set_use_frames'];
-                break;
-            }
-        default:   // default is also to use frames
-        case 1:    // use frames
-            $use_frames = 1;
-            break;
-    }
-
-    setcookie('use_frames', $use_frames, time()+2592000, $base_uri);
     do_hook ('login_verified');
 
 }
