@@ -365,12 +365,12 @@
          errorCheck($tmp, $smtpConnection);
       }
       for ($i = 0; $i < count($cc); $i++) {
-         fputs($smtpConnection, "RCPT TO: <$cc[$i]>\r\n");
+         fputs($smtpConnection, "RCPT TO: $cc[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
          errorCheck($tmp, $smtpConnection);
       }
       for ($i = 0; $i < count($bcc); $i++) {
-         fputs($smtpConnection, "RCPT TO: <$bcc[$i]>\r\n");
+         fputs($smtpConnection, "RCPT TO: $bcc[$i]\r\n");
          $tmp = fgets($smtpConnection, 1024);
          errorCheck($tmp, $smtpConnection);
       }
