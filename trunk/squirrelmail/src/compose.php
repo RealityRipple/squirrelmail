@@ -1359,18 +1359,6 @@ function deliverMessage($composeMessage, $draft=false) {
            $domain, $action, $default_move_to_sent, $move_to_sent;
     global $imapServerAddress, $imapPort, $sent_folder, $key;
 
-    /* some browsers replace <space> by nonbreaking spaces &nbsp;
-       by replacing them back to spaces addressparsing works */
-    /* FIXME: How to handle in case of other charsets where "\240"
-       is not a non breaking space ??? */
-    /* THEFIX: browsers don't replace space with nbsp. SM replaces
-       space with nbsp when decodes headers. If problem still happens,
-       use cleanup_nbsp() */
-
-//    $send_to = str_replace("\240",' ',$send_to);
-//    $send_to_cc = str_replace("\240",' ',$send_to_cc);
-//    $send_to_bcc = str_replace("\240",' ',$send_to_bcc);
-
     $rfc822_header = $composeMessage->rfc822_header;
 
     $abook = addressbook_init(false, true);
