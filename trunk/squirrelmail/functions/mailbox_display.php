@@ -334,7 +334,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
                 $end_loop = $show_num;
             }
         }
-        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $mailbox);
+        $msgs = fillMessageArray($imapConnection,$id,$end_loop);
     }
     return $msgs;
 }
