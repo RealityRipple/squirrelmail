@@ -36,7 +36,10 @@ if (get_magic_quotes_gpc()) {
 
 /* Before starting the session, the base URI must be known. Assuming */
 /* that this file is in the src/ subdirectory (or something).        */
-$base_uri = dirname(dirname($PHP_SELF)) . "/";
+if (!function_exists('sqm_baseuri')){
+    require_once('../functions/display_messages.php');
+}
+$base_uri = sqm_baseuri();
 
 header('Pragma: no-cache');
 $location = get_location();
