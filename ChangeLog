@@ -4,6 +4,11 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - Fixed folder list display when special folders have subfolders
+  - Added option to auto-append sig before reply/forward text (523853)
+  - Fixed subfolders being "orphaned" when renaming parents (498167)
+  - Filters are updated when renaming/deleting folders (512056)
+  - Filtering now happens on login (filters plugin)
   - Added option for WIDTH and HEIGHT tags to Org. Logo. (patch #412754)
   - Fixed resume draft bug #513521, #514639
   - Newmail plugin: admin can disable the use of audio (patch #517698)
