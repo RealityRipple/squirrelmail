@@ -71,12 +71,111 @@
       return $stamp;
    }
 
+	/**
+		Switch system has been intentionaly choosed for the 
+		internationalization of month and day names. The reason
+		is to make sure that _("") strings will go into the
+		main po.
+	**/
+
+   function getDayName( $day_number ) {
+   
+		switch( $day_number ) {
+		case 0:
+			$ret = _("Sunday");
+			break;
+		case 1:
+			$ret = _("Monday");
+			break;
+		case 2:
+			$ret = _("Tuesday");
+			break;
+		case 3:
+			$ret = _("Wednesday");
+			break;
+		case 4:
+			$ret = _("Thursday");
+			break;
+		case 5:
+			$ret = _("Friday");
+			break;
+		case 6:
+			$ret = _("Saturday");
+			break;
+		default:
+			$ret = '';
+		}   
+		return( $ret );
+   }
+
+	function getMonthName( $week_number ) {
+		switch( $week_number ) {
+			case 1:
+				$ret = _("January");
+				break;
+			case 2:
+				$ret = _("February");
+				break;
+			case 3:
+				$ret = _("March");
+				break;
+			case 4:
+				$ret = _("April");
+				break;
+			case 5:
+				$ret = _("May");
+				break;
+			case 6:
+				$ret = _("June");
+				break;
+			case 7:
+				$ret = _("July");
+				break;
+			case 8:
+				$ret = _("August");
+				break;
+			case 9:
+				$ret = _("September");
+				break;
+			case 10:
+				$ret = _("October");
+				break;
+			case 11:
+				$ret = _("November");
+				break;
+			case 12:
+				$ret = _("December");
+				break;
+			default:
+				$ret = '';
+		}
+		return( $ret );
+	}  
+
+	function date_intl( $date_format ) {
+
+   	$date_format = str_replace( 'D', '[D]', $date_format );
+   	$date_format = str_replace( 'F', '[F]', $date_format );
+   	$date_format = str_replace( '[D]', 
+   	                            ereg_replace( "([a-zA-Z])", "\\\\1", substr( getDayName( date( 'w', $stamp ) ), 0, 3 ) ), 
+   	                            $date_format );
+   	$date_format = str_replace( '[F]', 
+   	                            ereg_replace( "([a-zA-Z])", "\\\\1", getMonthName( date( 'n', $stamp ) ) ), 
+   	                            $date_format );
+		return( $date_format . ' ' );
+	}
+
    function getLongDateString($stamp) {
-      return date('D, F j, Y g:i a', $stamp);
+   
+   	$date_format = date_intl( _("D, F j, Y g:i a") );
+      return date( $date_format, $stamp );
+      
    }
 
    function getDateString($stamp) {
+   
       global $invert_time;
+      
       $now = time();
       $dateZ = date('Z', $now);
       if ($invert_time)
@@ -85,14 +184,16 @@
 
       if ($midnight < $stamp) {
          // Today
-         return date('g:i a', $stamp);
-      } else if ($midnight - (60 * 60 * 24 * 6) < $stamp) {
+         $date_format = _("g:i a");
+      } else if ($midnight - 518400 < $stamp) {
          // This week
-         return date('D, g:i a', $stamp);
+         $date_format = _("D, g:i a");
       } else {
          // before this week 
-         return date('M j, Y', $stamp);
+         $date_format = _("M j, Y");
       }
+      
+      return( date( date_intl( $date_format ), $stamp ) );
    }
 
    function getTimeStamp($dateParts) {
