@@ -1,6 +1,5 @@
 Known BUGS to be fixed before 0.4pre1:
 
-  -    LDAP preferences in conf.pl are not working.
   -    If a new message comes in while still browsing cached message 
        list, the space is allocated, but it is blank.
 (lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
@@ -12,6 +11,7 @@ Known BUGS to be fixed before 0.4pre1:
 
 
 --SQUASHED--
+(lme)  LDAP preferences in conf.pl are not working.
 (lme)  Next/Previous while viewing a message should take into account 
        the way that the mailbox is sorted.  Right now, it just does it 
 		 by the next message id.
