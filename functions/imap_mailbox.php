@@ -538,8 +538,8 @@ function sqimap_mailbox_list($imap_stream) {
                 $inbox_subscribed = true;
             }
         }
-        /* remove duplicates */
-        $sorted_lsub_ary = array_unique($sorted_lsub_ary);
+        /* remove duplicates and ensure array is contiguous, so we don't rely on sort()' side-effect that fails if count()==1 */
+        $sorted_lsub_ary = array_values(array_unique($sorted_lsub_ary));
 
         /* natural sort mailboxes */
         if (isset($sorted_lsub_ary)) {
@@ -718,6 +718,7 @@ function sqimap_mailbox_tree($imap_stream) {
 
         $inbox_in_list = false;
         $inbox_subscribed = false;
+        $noselect = false;
 
         require_once(SM_PATH . 'include/load_prefs.php');
 
