@@ -4,9 +4,9 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-04-30 11:05+0200\n"
-"PO-Revision-Date: 2002-05-02 15:43+0700\n"
+"Project-Id-Version: $Id $\n"
+"POT-Creation-Date: 2002-05-03 13:21+0200\n"
+"PO-Revision-Date: 2002-05-27 15:27+0700\n"
 "Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
 "Language-Team: Indonesian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -40,7 +40,7 @@ msgstr "Keterangan"
 msgid "Source"
 msgstr "Sumber"
 
-#: squirrelmail/functions/mailbox_display.php:720
+#: squirrelmail/functions/mailbox_display.php:742
 #: squirrelmail/plugins/filters/options.php:120
 #: squirrelmail/src/addrbook_search_html.php:82
 #: squirrelmail/src/compose.php:436 squirrelmail/src/download.php:311
@@ -208,7 +208,7 @@ msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
 msgid "Original Message"
 msgstr "Pesan Asli"
 
-#: squirrelmail/functions/mailbox_display.php:737
+#: squirrelmail/functions/mailbox_display.php:759
 #: squirrelmail/plugins/filters/options.php:129
 #: squirrelmail/src/compose.php:432 squirrelmail/src/download.php:309
 #: squirrelmail/src/download.php:314
@@ -219,7 +219,7 @@ msgstr "Pesan Asli"
 msgid "Subject"
 msgstr "Subyek"
 
-#: squirrelmail/functions/mailbox_display.php:722
+#: squirrelmail/functions/mailbox_display.php:744
 #: squirrelmail/plugins/filters/options.php:117
 #: squirrelmail/src/compose.php:433 squirrelmail/src/download.php:98
 #: squirrelmail/src/download.php:310 squirrelmail/src/download.php:316
@@ -230,7 +230,7 @@ msgstr "Subyek"
 msgid "From"
 msgstr "Dari"
 
-#: squirrelmail/functions/mailbox_display.php:730
+#: squirrelmail/functions/mailbox_display.php:752
 #: squirrelmail/src/compose.php:434 squirrelmail/src/download.php:312
 #: squirrelmail/src/download.php:320 squirrelmail/src/options_order.php:39
 #: squirrelmail/src/printer_friendly_bottom.php:100
@@ -478,7 +478,7 @@ msgstr "Tidak ditemukan suatu laci "
 msgid "Delete Folder"
 msgstr "Hapus Laci"
 
-#: squirrelmail/functions/mailbox_display.php:671
+#: squirrelmail/functions/mailbox_display.php:693
 #: squirrelmail/plugins/filters/options.php:189
 #: squirrelmail/plugins/mail_fetch/options.php:163
 #: squirrelmail/plugins/mail_fetch/options.php:170
@@ -551,9 +551,9 @@ msgstr "Beberapa atau semua dokumen panduan tidak ada!"
 msgid "Table of Contents"
 msgstr "Daftar Isi"
 
-#: squirrelmail/functions/mailbox_display.php:902
-#: squirrelmail/functions/mailbox_display.php:905
-#: squirrelmail/functions/mailbox_display.php:908
+#: squirrelmail/functions/mailbox_display.php:924
+#: squirrelmail/functions/mailbox_display.php:927
+#: squirrelmail/functions/mailbox_display.php:930
 #: squirrelmail/plugins/delete_move_next/setup.php:166
 #: squirrelmail/plugins/delete_move_next/setup.php:168
 #: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
@@ -561,9 +561,9 @@ msgstr "Daftar Isi"
 msgid "Previous"
 msgstr "Sebelumnya"
 
-#: squirrelmail/functions/mailbox_display.php:903
-#: squirrelmail/functions/mailbox_display.php:906
-#: squirrelmail/functions/mailbox_display.php:909
+#: squirrelmail/functions/mailbox_display.php:925
+#: squirrelmail/functions/mailbox_display.php:928
+#: squirrelmail/functions/mailbox_display.php:931
 #: squirrelmail/plugins/delete_move_next/setup.php:171
 #: squirrelmail/plugins/delete_move_next/setup.php:173
 #: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
@@ -579,8 +579,8 @@ msgstr "Atas"
 msgid "Viewing an image attachment"
 msgstr "Menampilkan sisipan gambar"
 
-#: squirrelmail/functions/imap_search.php:191
-#: squirrelmail/functions/mailbox_display.php:653
+#: squirrelmail/functions/imap_search.php:202
+#: squirrelmail/functions/mailbox_display.php:675
 #: squirrelmail/functions/page_header.php:109
 #: squirrelmail/plugins/delete_move_next/setup.php:218
 #: squirrelmail/plugins/mail_fetch/options.php:137
@@ -1115,7 +1115,7 @@ msgstr "Kotak Periksa"
 msgid "Flags"
 msgstr "'Flag'"
 
-#: squirrelmail/functions/mailbox_display.php:744
+#: squirrelmail/functions/mailbox_display.php:766
 #: squirrelmail/src/options_order.php:42
 msgid "Size"
 msgstr "Ukuran"
@@ -1342,7 +1342,7 @@ msgstr "Buka Konsep"
 msgid "Edit Message as New"
 msgstr "Ubah Pesan sebagai pesan baru"
 
-#: squirrelmail/functions/mailbox_display.php:660
+#: squirrelmail/functions/mailbox_display.php:682
 #: squirrelmail/src/read_body.php:748
 msgid "Forward"
 msgstr "Kirimkan ke"
@@ -1815,11 +1815,9 @@ msgid ""
 msgstr "Hubungi administrator Anda dan laporkan masalah berikut ini:"
 
 #: squirrelmail/functions/imap_general.php:163
-#: squirrelmail/functions/imap_messages.php:357
-#: squirrelmail/functions/imap_messages.php:364
-#: squirrelmail/functions/imap_messages.php:382
-#: squirrelmail/functions/imap_messages.php:391
-#: squirrelmail/functions/imap_messages.php:510
+#: squirrelmail/functions/imap_messages.php:366
+#: squirrelmail/functions/imap_messages.php:374
+#: squirrelmail/functions/imap_messages.php:567
 #: squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
 msgstr "SALAH: Tidak dapat melaksanakan perintah."
@@ -1863,37 +1861,32 @@ msgstr "Kesalahan tidak diketahui : %s"
 msgid "Read data:"
 msgstr "Membaca data:"
 
-#: squirrelmail/functions/imap_messages.php:359
-#: squirrelmail/functions/imap_messages.php:384
-#: squirrelmail/functions/imap_messages.php:512
+#: squirrelmail/functions/imap_messages.php:368
+#: squirrelmail/functions/imap_messages.php:569
 msgid "Unknown response from IMAP server: "
 msgstr "Tanggapan misterius dari server IMAP: "
 
-#: squirrelmail/functions/imap_messages.php:366
+#: squirrelmail/functions/imap_messages.php:376
 msgid "Unknown message number in reply from server: "
 msgstr "Nomor pesan tidak dikenal dalam balasan dari server: "
 
-#: squirrelmail/functions/imap_messages.php:393
-msgid "Unknown messagenumber in reply from server: "
-msgstr "Nomor pesan tidak dikenal dalam balasan dari server: "
-
-#: squirrelmail/functions/imap_messages.php:402
-#: squirrelmail/functions/imap_messages.php:436
-#: squirrelmail/functions/imap_messages.php:693
-#: squirrelmail/functions/imap_messages.php:744
-#: squirrelmail/functions/mailbox_display.php:1065
+#: squirrelmail/functions/imap_messages.php:396
+#: squirrelmail/functions/imap_messages.php:492
+#: squirrelmail/functions/imap_messages.php:760
+#: squirrelmail/functions/imap_messages.php:824
+#: squirrelmail/functions/mailbox_display.php:1087
 msgid "(no subject)"
 msgstr "( tidak ada subyek )"
 
-#: squirrelmail/functions/imap_messages.php:403
+#: squirrelmail/functions/imap_messages.php:397
 msgid "Unknown Sender"
 msgstr "Pengirim Misterius"
 
-#: squirrelmail/functions/imap_messages.php:466
+#: squirrelmail/functions/imap_messages.php:515
 msgid "No To Address"
 msgstr "Tidak ada Alamat 'Untuk:'"
 
-#: squirrelmail/functions/imap_messages.php:747
+#: squirrelmail/functions/imap_messages.php:827
 msgid "(unknown sender)"
 msgstr "( pengirim misterius )"
 
@@ -1901,17 +1894,17 @@ msgstr "( pengirim misterius )"
 msgid "No Messages Found"
 msgstr "Tidak ada pesan yang ditemukan"
 
-#: squirrelmail/functions/imap_search.php:180
-#: squirrelmail/functions/imap_search.php:188
+#: squirrelmail/functions/imap_search.php:191
+#: squirrelmail/functions/imap_search.php:199
 msgid "Found"
 msgstr "Ditemukan"
 
-#: squirrelmail/functions/imap_search.php:180
-#: squirrelmail/functions/imap_search.php:188
+#: squirrelmail/functions/imap_search.php:191
+#: squirrelmail/functions/imap_search.php:199
 msgid "messages"
 msgstr "pesan"
 
-#: squirrelmail/functions/imap_search.php:195
+#: squirrelmail/functions/imap_search.php:206
 msgid "Folder:"
 msgstr "Laci:"
 
@@ -1919,71 +1912,75 @@ msgstr "Laci:"
 msgid "A"
 msgstr "A"
 
-#: squirrelmail/functions/mailbox_display.php:546
+#: squirrelmail/functions/mailbox_display.php:568
 msgid "THIS FOLDER IS EMPTY"
 msgstr "LACI INI KOSONG"
 
-#: squirrelmail/functions/mailbox_display.php:636
+#: squirrelmail/functions/mailbox_display.php:658
 msgid "Move Selected To:"
 msgstr "Pindahkan ke:"
 
-#: squirrelmail/functions/mailbox_display.php:639
+#: squirrelmail/functions/mailbox_display.php:661
 msgid "Transform Selected Messages"
 msgstr "Transformasikan Pesan Terpilih"
 
-#: squirrelmail/functions/mailbox_display.php:659
+#: squirrelmail/functions/mailbox_display.php:681
 #: squirrelmail/plugins/delete_move_next/setup.php:244
 #: squirrelmail/plugins/delete_move_next/setup.php:268
 msgid "Move"
 msgstr "Pindahkan"
 
-#: squirrelmail/functions/mailbox_display.php:666
+#: squirrelmail/functions/mailbox_display.php:688
 msgid "Expunge"
 msgstr "Kosongkan"
 
-#: squirrelmail/functions/mailbox_display.php:667
+#: squirrelmail/functions/mailbox_display.php:689
 msgid "mailbox"
 msgstr "Kotak surat"
 
-#: squirrelmail/functions/mailbox_display.php:669
+#: squirrelmail/functions/mailbox_display.php:691
 msgid "Read"
 msgstr "Sudah Dibaca"
 
-#: squirrelmail/functions/mailbox_display.php:670
+#: squirrelmail/functions/mailbox_display.php:692
 msgid "Unread"
 msgstr "Belum Dibaca"
 
-#: squirrelmail/functions/mailbox_display.php:687
-msgid "$thread_name"
-msgstr "$nama_thread"
+#: squirrelmail/functions/mailbox_display.php:701
+msgid "Unthread View"
+msgstr "Pesan Tak Terstruktur"
 
-#: squirrelmail/functions/mailbox_display.php:798
+#: squirrelmail/functions/mailbox_display.php:705
+msgid "Thread View"
+msgstr "Pesan Terstruktur"
+
+#: squirrelmail/functions/mailbox_display.php:820
 msgid "Toggle All"
 msgstr "Pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:822
+#: squirrelmail/functions/mailbox_display.php:844
 msgid "Unselect All"
 msgstr "Batal pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:824
+#: squirrelmail/functions/mailbox_display.php:846
 msgid "Select All"
 msgstr "Pilih semua"
 
-#: squirrelmail/functions/mailbox_display.php:841
+#: squirrelmail/functions/mailbox_display.php:863
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "Menampilkan Pesan: <B>%s</B> sampai <B>%s</B> ( seluruhnya %s )"
 
-#: squirrelmail/functions/mailbox_display.php:844
+#: squirrelmail/functions/mailbox_display.php:866
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "Menampilkan Pesan <B>%s</B> ( hanya 1 (satu))"
 
-#: squirrelmail/functions/mailbox_display.php:1028
+#: squirrelmail/functions/mailbox_display.php:1050
 msgid "Paginate"
 msgstr "Per Halaman"
 
-#: squirrelmail/functions/mailbox_display.php:1035
+#: squirrelmail/functions/mailbox_display.php:1057
 msgid "Show All"
 msgstr "Tampilkan Semua"
 
