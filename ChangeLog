@@ -1,3 +1,16 @@
+Version 0.3pre1 -- Development
+------------------------------
+- Added user-specific preferences including:
+    Full Name (for outbound messages)
+    Reply-to address
+    Theme
+    Move messages to trash option (true/false)
+    Wrap incoming text at XX characters
+    Editor window size (in characters)
+- Rewrote SMTP functions.  It now works and handles error correction.
+
+
+
 Version 0.2.1 -- January 05, 2000
 ---------------------------------
 - Rewrote how MULTIPART messages were handled and made it recursive
@@ -11,6 +24,7 @@ Version 0.2 -- January 02, 2000
 -------------------------------
 - Attachment support (much better MIME support in general)
 - Themeable support replaced Custom Colors.  Themes are pluggable.
+
 
 
 Version 0.1.2  -- December 20, 1999
