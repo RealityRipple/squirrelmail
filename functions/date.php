@@ -17,84 +17,74 @@
 require_once(SM_PATH . 'functions/constants.php');
 
 /* corrects a time stamp to be the local time */
-function getGMTSeconds($stamp, $gmt) {
-    global $invert_time;
-
+function getGMTSeconds($stamp, $tzc) {
     /* date couldn't be parsed */
     if ($stamp == -1) {
         return -1;
     }
-
-    switch($gmt)
+    /* timezone correction, expressed as `shhmm' */
+    switch($tzc)
     {
         case 'Pacific':
         case 'PST':
-            $gmt = '-0800';
+            $tzc = '-0800';
             break;
         case 'Mountain':   
         case 'MST':   
         case 'PDT':   
-            $gmt = '-0700';     
+            $tzc = '-0700';     
             break;
         case 'Central':
         case 'CST':
         case 'MDT':   
-            $gmt = '-0600';     
+            $tzc = '-0600';     
             break;
         case 'Eastern':
         case 'EST':
         case 'CDT':   
-            $gmt = '-0500';     
+            $tzc = '-0500';     
             break;
         case 'EDT':
-            $gmt = '-0400';
+            $tzc = '-0400';
             break;
         case 'GMT':   
-            $gmt = '+0000';     
+            $tzc = '+0000';     
             break;
         case 'BST':
-        case 'MET':   
-            $gmt = '+0100';     
+        case 'MET':
+        case 'CET':
+            $tzc = '+0100';
+            break;
         case 'EET':
         case 'IST':   
         case 'MET DST':   
         case 'METDST':   
-            $gmt = '+0200';     
+            $tzc = '+0200';     
             break;
         case 'HKT':   
-            $gmt = '+0800';     
+            $tzc = '+0800';     
             break;
         case 'JST':   
         case 'KST':
-            $gmt = '+0900';     
+            $tzc = '+0900';     
             break;
     }
-    
-    if (substr($gmt, 0, 1) == '-') {
+    $neg = false;
+    if (substr($tzc, 0, 1) == '-') {
         $neg = true;
-        $gmt = substr($gmt, 1, strlen($gmt));
-    } else if (substr($gmt, 0, 1) == '+') {
-        $neg = false;
-        $gmt = substr($gmt, 1, strlen($gmt));
-    } else {
-        $neg = false;
+    } else if (substr($tzc, 0, 1) != '+') {
+        $tzc = '+'.$tzc;
     }
-     
-    $difference = substr($gmt, 2, 2);
-    $gmt = substr($gmt, 0, 2);
-    $gmt = ($gmt + ($difference / 60)) * 3600;
-    if ($neg) {
-        $gmt = "-$gmt";
-    } else {
-        $gmt = "+$gmt";
-    }
-    
+    $hh = substr($tzc,1,2);
+    $mm = substr($tzc,3,2);
+    $iTzc = ($hh * 60 + $mm) * 60;
+    if ($neg) $iTzc = -1 * (int) $iTzc; 
+    /* stamp in gmt */
+    $stamp -= $iTzc;
     /** now find what the server is at **/
     $current = date('Z', time());
-    if ($invert_time) {
-        $current = - $current;
-    }
-    $stamp = (int)$stamp - (int)$gmt + (int)$current;
+    /* stamp in local timezone */
+    $stamp += $current;
     
     return $stamp;
 }
@@ -265,30 +255,34 @@ function getTimeStamp($dateParts) {
     **        In that case, dateParts[0] would be the <day of month>
     **        and everything would be bumped up one.
     **/
-   
+
     /* 
      * Simply check to see if the first element in the dateParts
      * array is an integer or not.
      * Since the day of week is optional, this check is needed.
      */
 
-    /* validate zone before we uses strtotime */
-    if (isset($dateParts[6]) && $dateParts[6] && $dateParts[6]{0} != '(') {
-        $dateParts[6] = '('.$dateParts[6].')';
+    /* remove day of week */
+    if (!is_numeric(trim($dateParts[0]))) {
+        $dataParts = array_shift($dateParts);
     }
-    $string = implode (' ', $dateParts);
-
-    if (! isset($dateParts[4])) {
-        $dateParts[4] = '';
-    }
-    if (! isset($dateParts[5])) {
-        $dateParts[5] = '';
+    /* calculate timestamp separated from the zone and obs-zone */
+    $stamp = strtotime(implode (' ', array_splice ($dateParts,0,4)));
+    if (!isset($dateParts[0])) {
+        $dateParts[0] = '+0000';
     }
 
-    if (intval(trim($dateParts[0])) > 0) {
-        return getGMTSeconds(strtotime($string), $dateParts[4]);
+    if (!preg_match('/^[+-]{1}[0-9]{4}$/',$dateParts[0])) {
+        /* zone in obs-zone format */
+        if (preg_match('/\((.+)\)/',$dateParts[0],$regs)) {
+            $obs_zone = $regs[1];
+        } else {
+            $obs_zone = $dateParts[0];
+        }
+        return getGMTSeconds($stamp, $obs_zone);
+    } else {
+        return getGMTSeconds($stamp, $dateParts[0]);
     }
-    return getGMTSeconds(strtotime($string), $dateParts[5]);
 }
 
 /* I use this function for profiling. Should never be called in
