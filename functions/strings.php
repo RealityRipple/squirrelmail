@@ -286,7 +286,8 @@
 
    // These functions are used to encrypt the passowrd before it is
    // stored in a cookie.
-   function OneTimePadEncrypt ($string, $pad) {
+   function OneTimePadEncrypt ($string, $epad) {
+      $pad = base64_decode($epad);
       for ($i = 0; $i < strlen ($string); $i++) {
 	 $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
       }
@@ -294,7 +295,8 @@
       return base64_encode($encrypted);
    }
 
-   function OneTimePadDecrypt ($string, $pad) {
+   function OneTimePadDecrypt ($string, $epad) {
+      $pad = base64_decode($epad);
       $encrypted = base64_decode ($string);
       
       for ($i = 0; $i < strlen ($encrypted); $i++) {
@@ -388,7 +390,7 @@
 	 $pad .= chr(mt_rand(0,255));
       }
 
-      return $pad;
+      return base64_encode($pad);
    }
 
    // Check if we have a required PHP-version. Return TRUE if we do,
