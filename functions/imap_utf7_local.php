@@ -20,8 +20,7 @@ function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default
        stristr('utf-8',$default_charset) || 
        stristr('iso-2022-jp',$default_charset) ) {
     if (function_exists('mb_convert_encoding')) {
-      set_my_charset();
-      return mb_convert_encoding($s, $to_encoding, $from_encoding);
+      return mb_convert_encoding($str, $to_encoding, $from_encoding);
     }
   }
   return '';
@@ -39,6 +38,7 @@ function imap_utf7_encode_local($s) {
       return '';
 
     global $default_charset;
+    set_my_charset();
     if (strtolower($default_charset) != 'iso-8859-1') {
       $utf7_s = sqimap_mb_convert_encoding($s, 'UTF7-IMAP', $default_charset, $default_charset);
       if ($utf7_s != '')
@@ -91,6 +91,7 @@ function imap_utf7_decode_local($s) {
       return '';
 
     global $default_charset;
+    set_my_charset();
     if (strtolower($default_charset) != 'iso-8859-1') {
       $utf7_s = sqimap_mb_convert_encoding($s, $default_charset, 'UTF7-IMAP', $default_charset);
       if ($utf7_s != '')
