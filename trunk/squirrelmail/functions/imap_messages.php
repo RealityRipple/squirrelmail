@@ -11,6 +11,8 @@
  * $Id$
  */
 
+/* NOTE: quite some functions in this file are not used anymore. */
+
 /* Copies specified messages to specified folder */
 /* obsolete */
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
@@ -66,6 +68,7 @@ function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
     $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);
 }
 
+// obsolete?
 function sqimap_get_small_header ($imap_stream, $id, $sent) {
     $res = sqimap_get_small_header_list($imap_stream, $id, $sent);
     return $res[0];
@@ -407,6 +410,7 @@ function elapsedTime($start) {
  return $timepassed;
 }
 
+// only used in sqimap_get_small_header_list
 function parseString($read,&$i) {
     $char = $read{$i};
     $s = '';
@@ -449,19 +453,7 @@ function parseString($read,&$i) {
     return $s;
 }
 
-function parseInteger($read,&$i) {
-    $s = false;
-    $i_pos = strpos($read,' ',$i);
-    if (!$i_pos) {
-        $i_pos = strpos($read,')',$i);
-    }
-    if ($i_pos) {
-        $s = substr($read,$i,$i_pos-$i);
-        $i = $i_pos+1;
-    }
-    return $s;
-}
-
+// only used in sqimap_get_small_header_list
 function parseArray($read,&$i) {
     $i = strpos($read,'(',$i);
     $i_pos = strpos($read,')',$i);
@@ -702,6 +694,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
     return $new_messages;
 }
 
+// obsolete?
 function sqimap_get_headerfield($imap_stream, $field) {
     global $uid_support;
     $sid = sqimap_session_id(false);
@@ -785,6 +778,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
 }
 
 /* Wrapper function that reformats the header information. */
+// obsolete?
 function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);
@@ -795,6 +789,7 @@ function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
 }
 
 /* Wrapper function that reformats the entity header information. */
+// obsolete?
 function sqimap_get_ent_header ($imap_stream, $id, $mailbox, $ent) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent.HEADER]", true, $response, $message, $uid_support);
@@ -805,6 +800,7 @@ function sqimap_get_ent_header ($imap_stream, $id, $mailbox, $ent) {
 }
 
 /* function to get the mime headers */
+// obsolete?
 function sqimap_get_mime_ent_header ($imap_stream, $id, $mailbox, $ent) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.MIME]", true, $response, $message, $uid_support);
