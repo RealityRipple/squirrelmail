@@ -1,5 +1,7 @@
-Version 1.1.2 -- DEVELOPMENT
-----------------------------
+Version 1.1.2 -- May 21, 2001 
+-----------------------------
+- Many bugs squashed
+- Several UI tweaks and improvements
 - Added option (3 -> 14 in conf.pl) to auto create sent and trash folders.
 - Updated Czech translation
 - Support for multiple identities
