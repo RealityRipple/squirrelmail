@@ -39,16 +39,14 @@ if (isset($draft)) {
     if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
         showInputForm();
         exit();
-    }
-    else {
+    } else {
         $draft_message = _("Draft Email Saved");
         /* If this is a resumed draft, then delete the original */
         if(isset($delete_draft)) {
             Header("Location: delete_message.php?mailbox=$draft_folder".
                    "&message=$delete_draft&sort=$sort&startMessage=1");
             exit();
-        }
-        else {
+        } else {
             Header("Location: right_main.php?mailbox=$draft_folder&sort=$sort".
                    "&startMessage=1&note=$draft_message");
             exit();
@@ -94,8 +92,7 @@ if (isset($send)) {
             }
             if (strlen($line) <= $editor_size + 1) {
                 $newBody .= $line . "\n";
-            }
-            else {
+            } else {
                 sqWordWrap($line, $editor_size) . "\n";
                 $newBody .= $line;
             }
@@ -107,8 +104,7 @@ if (isset($send)) {
         if (! isset($mailprio)) {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
                                   $subject, $body, $reply_id);
-        }
-        else {
+        } else {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
                                   $subject, $body, $reply_id, $mailprio);
         }
@@ -124,8 +120,7 @@ if (isset($send)) {
 
         Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
                "&startMessage=1");
-    }
-    else {
+    } else {
         /*
          *$imapConnection = sqimap_login($username, $key, $imapServerAddress,
          *                               $imapPort, 0);
@@ -204,8 +199,7 @@ elseif (isset($do_delete)) {
     }
 
     showInputForm();
-}
-else {
+} else {
     /*
      * This handles the default case as well as the error case
      * (they had the same code) --> if (isset($smtpErrors)) 
@@ -276,8 +270,7 @@ function newMail () {
                     mime_fetch_body($imapConnection, $id, 1),
                     $message->header->encoding);
             }
-        }
-        else {
+        } else {
             $body = '';
         }
 
@@ -297,8 +290,7 @@ function newMail () {
             if ($reply_id) {
                 if (ereg('^[ >]+', $body_ary[$i])) {
                     $body_ary[$i] = '>' . $body_ary[$i];
-                }
-                else {
+                } else {
                     $body_ary[$i] = '> ' . $body_ary[$i];
                 }
             }
@@ -372,8 +364,7 @@ function getAttachments($message) {
 
     if (isset($draft_id)) {
         $id = $draft_id;
-    }
-    else {
+    } else {
         $id = $forward_id;
     }
 
@@ -413,8 +404,7 @@ function getAttachments($message) {
 
             $attachments[] = $newAttachment;
         }
-    }
-    else {
+    } else {
         for ($i = 0; $i < count($message->entities); $i++) {
             getAttachments($message->entities[$i]);
         }
@@ -539,8 +529,7 @@ function showInputForm () {
         }
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($forward_subj) . '">';
-    }
-    else {
+    } else {
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($subject) . '">';
     }
@@ -627,8 +616,7 @@ function showComposeButtonRow()
         echo "         <input type=submit name=\"html_addr_search\" value=\"".
                               _("Addresses")."\">";
         echo "      </NOSCRIPT>\n";
-    }
-    else {
+    } else {
         echo "      <input type=submit name=\"html_addr_search\" value=\"".
                               _("Addresses")."\">";
     }
@@ -734,8 +722,7 @@ function getReplyCitation($orig_from)
         $orig_from = trim(substr($orig_from, 0, strpos($orig_from, '<')));
         $orig_from = str_replace('"', '', $orig_from);
         $orig_from = str_replace("'", '', $orig_from);
-    }
-    else {
+    } else {
         $end_parpos = strrpos($orig_from, ')');
         $end_parpos -= ($end_parpos === false ? $end_parpos : $parpos + 1);
         $orig_from = trim(substr($orig_from, $parpos + 1, $end_parpos));
