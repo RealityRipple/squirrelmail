@@ -272,6 +272,10 @@ function getTimeStamp($dateParts) {
      * Since the day of week is optional, this check is needed.
      */
 
+    /* validate zone before we uses strtotime */
+    if (isset($dateParts[6]) && $dateParts[6]{0} != '(') {
+        $dateParts[6] = '('.$dateParts[6].')';
+    }
     $string = implode (' ', $dateParts);
 
     if (! isset($dateParts[4])) {
@@ -284,7 +288,6 @@ function getTimeStamp($dateParts) {
     if (intval(trim($dateParts[0])) > 0) {
         return getGMTSeconds(strtotime($string), $dateParts[4]);
     }
-
     return getGMTSeconds(strtotime($string), $dateParts[5]);
 }
 
