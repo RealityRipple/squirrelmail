@@ -167,46 +167,46 @@
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }		 
 	  	echo "<input type=hidden name=mailbox value=$mailbox>\n";
-      echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
+      echo "<TABLE WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");
-      echo "      </TD><TD colspan=2 WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD colspan=2 WIDTH=\"100%\" BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to)
-         echo "         <INPUT TYPE=TEXT NAME=send_to VALUE=\"$send_to\" SIZE=60><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to\" VALUE=\"$send_to\" SIZE=60><BR>\n";
       else
-         echo "         <INPUT TYPE=TEXT NAME=send_to SIZE=60><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to\" SIZE=60><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("CC:");
-      echo "      </TD><TD WIDTH=% colspan=2 BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD colspan=2 BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_cc)
-         echo "         <INPUT TYPE=TEXT NAME=send_to_cc SIZE=60 VALUE=\"$send_to_cc\"><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_cc\" SIZE=60 VALUE=\"$send_to_cc\"><BR>\n";
       else
-         echo "         <INPUT TYPE=TEXT NAME=send_to_cc SIZE=60><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_cc\" SIZE=60><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("BCC:");
-      echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_bcc)
-         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc VALUE=\"$send_to_bcc\" SIZE=55><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" VALUE=\"$send_to_bcc\" SIZE=55><BR>\n";
       else
-         echo "         <INPUT TYPE=TEXT NAME=send_to_bcc SIZE=55><BR>";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" SIZE=55><BR>";
       echo "      </TD>\n";
-      echo "<TD width=1% BGCOLOR=\"$color[4]\" ALIGN=Right>";
+      echo "<TD width=\"1%\" BGCOLOR=\"$color[4]\" ALIGN=Right>";
       
       if ($use_javascript_addr_book) {
          echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
          echo "<input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
          echo "// --></SCRIPT><NOSCRIPT>\n";
-         echo "<input type=submit name=html_addr_search value=\""._("Addresses")."\">";
+         echo "<input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
          echo "</NOSCRIPT>\n";
       } else {  
-         echo "<input type=submit name=html_addr_search value=\""._("Addresses")."\">";
+         echo "<input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
       }   
       
       echo "</TD></TR>\n";
@@ -214,7 +214,7 @@
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("Subject:");
-      echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($reply_subj) {
          $reply_subj = str_replace("\"", "'", $reply_subj);
          $reply_subj = stripslashes($reply_subj);
@@ -255,19 +255,18 @@
       echo "   <tr>\n";
       echo "     <TD WIDTH=50 BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
       echo "      <SMALL><BR></SMALL>"._("Attach:");
-      echo "      </td><td width=% colspan=2 ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      echo "      </td><td colspan=2 ALIGN=left BGCOLOR=\"$color[0]\">\n";
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
       echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"\n";
       echo "      value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
-      echo "     </font>\n";
       echo "   </tr>\n";
       if (isset($attachments) && count($attachments)>0) {
          echo "</tr><tr><td width=50 bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
-         echo "</td><td width=% align=left colspan=2 bgcolor=\"$color[0]\">";
+         echo "</td><td align=left colspan=2 bgcolor=\"$color[0]\">";
          while (list($localname, $remotename) = each($attachments)) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
             echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
