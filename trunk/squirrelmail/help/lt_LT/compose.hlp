@@ -1,0 +1,128 @@
+<chapter>
+   <title>
+      Raðyti
+   </title>
+   <summary>
+      Ðis punktas leidþia raðyti ir siøsti laiðkus naudojant SquirrelMail.
+   </summary>
+   <description>
+      <p>
+      Pasirinkæ "Raðyti" meniu punktà jûs atsidursite naujame puslapyje.
+      Èia jûs rasite kelis laukus ir mygtukus. Priklausomai nuo to, kaip
+      jûs patekote á ðá puslapá, dalis laukø jau gali bûti uþpildyti.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Kam
+   </title>
+   <description>
+      <p>
+      Pirmiausia <B>Kam:</B> laukas. Jame reikia raðyti asmens ar asmenø, 
+      kuriems siunèiate laiðkà adresà. Vedant kelis adresus, jie yra 
+      atskiriami kableliais. Galima pasinauti mygtuku "Adresai" ir uþpildyti 
+      laukus adresais ið adresø knygos. Laukas turi nustatytà ilgá ir 
+      suraðius daugiau adresø, jûs jø nebematysite. Adresus galima pamatyti
+      judant tame lauke su klaviatûros judëjimo klaviðais. Bet kuriuo atveju 
+      visi adresai, kuriuos ten suraðysite bus panaudoti siunèiant laiðkà.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Cc
+   </title>
+   <description>
+      <p>
+      Toliau eina <B>CC:</B> laukas.  CC yra angliðkø þodþiø <B>Carbon 
+      Copy</B> sutrumpinimas. Jei norite nusiøsti laiðko kopijà dar kam nors, 
+      jûs galite ávesti to asmens adresà ðiame lauke. Tai yra savotiðkas bûdas 
+      supaþindinti treèià asmená su vykstanèiu susiraðinëjimu. Laukelis savo 
+      talpa nesiskiria nuo <B>Kam:</B> ir <B>BCC:</B> laukø. <B>Kam:</B> lauke
+      raðomi asmenys, kuriems tas laiskas adresuotas. <B>CC:</B> ir <B>BCC:</B> 
+      laukai yra informacinio pobûdþio.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Bcc
+   </title>
+   <description>
+      <p>
+      BCC yra angliðkø þodþiø <B>Blind Carbon Copy</B> sutrumpinimas, reiðkiantis
+      slaptà kopijà. Laukas yra naudojamas nusiøsti kam nors laiðko kopijà taip, 
+      kad ið <B>Kam:</B> or <B>CC:</B> adresatø <I>neþinotø</I>, kad tokia kopija 
+      buvo nusiøsta.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Tema
+   </title>
+   <description>
+      <p>
+      Trumpas apraðymas apie tai, kà raðote laiðke. Atminkite, kad tikslus laiðko 
+      temos gali padëti gavëjui ávertinti laiðkà.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Mygtukas Adresai
+   </title>
+   <description>
+      <p>
+      Ðis mygtu atidaro adresø knygà ir leidþia pasirinkti adresus ið jos.
+      Norëdami apriboti iðvedamus adresus, turite kà nors ávesti á paieðkos
+      laukà ir paspausti mygtukà "Ieðkoti". Adresø knygà uþ savo funkcionalumà
+      uþsitarnavo atskirà pagalbos sistemos skyriø. Apie jà daugiau informacijos 
+      rasite skyriuje "Adresai". 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Þinutës tekstas
+   </title>
+   <description>
+      <p>
+      Didelis tusèias laukas yra skirtas suvesti jûsø laiðko tekstui. Jei 
+      yra nustatytas koks nors paraðas, jis irgi ten pasirodys. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Prikabinti
+   </title>
+   <description>
+      <p>
+      Èia jûs galite pridëti failà prie laiðko. Failas turëtø bûti kur nors 
+      jûsø kompiuteryje ar lokaliame tinkle. Browse mygtukas (jo pavadinimas
+      priklauso nuo jûsø naudojamos narðyklës) atidaro dialogo langà, 
+      leidþiantá surasti failà, kurá norite prikabinti. Taip pat jûs galite 
+      suvesti pilnà kelià iki failo prie mygtuko esanèiame lauke. Paspaudus 
+      mygtukà "Pridëti" failas turëtø pasirodyti sàraðe þemiau þinutës teksto.
+      </p>
+      <p>
+      Prikabinus bent vienà failà turëtø atsirasti dar vienas mygtukas. Jis
+      leidþia iðtrinti vienà ar kelis prikabintus failus.
+      </p>
+      <p>
+      Pats failø prikabinimo procesas gali uþtrukti priklausomai nuo prikabinamo
+      failo dydþio ir jûsø susijungimo greièio. Gali bûti, kad didesnio failo 
+      jums tiesiog nepavyks prikabinti arba serveris atsisakys priimti didesná 
+      laiðkà.
+      <p>
+   </description>
+</section>

@@ -1,0 +1,205 @@
+<chapter>
+   <title>
+      Nustatymai
+   </title>
+   <summary>
+      Jûs galite pakeisti bendrà SquirrelMail iðvaizdà ir dalá darbo parametrø
+      naudodami nustatymø meniu opcijas.
+   </summary>
+   <description>
+      <p>
+      Vienas ið SquirrelMail privalumø yra vartotojo galimybës priderinti interfeisà 
+      savo poreikiams. Priklausomai nuo konfiguracijos jûs galite turëti galimybæ 
+      nusistatyti sau patinkanèià puslapiø temà, kalbà, aplankø kontrolës ir kitas 
+      opcijas. Ir keisdami savo nustatymus jûs nepaveikiate kitø tos paèios sistemos 
+      vartotojø. Yra penkios standartinës nustatymø dalys: Asmeninë informacija, 
+      Þinuèiø þymëjimas, Rûðiavimo tvarka, Grafiniai nustatymai ir Aplankø nustatymai.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Asmeninë informacija
+   </title>
+   <description>
+      <b>Pilnas vardas</b><br>
+      Jûs èia turëtumte áraðyti savo pilnà vardà. Pavyzdþiui, "Petras Petraitis".  
+      Kai kiti þmonës gaus ið jûsø laiðkà, jie matys tai, kas bus ávesta ðiame lauke.
+      Jei nieko nebus ávesta, gavëjai matys tik jûsø paðto adresà, pvz. 
+      petrasp@pastas.lt.
+      <br><br>
+      
+      <b>E-paðto adresas</b><br>
+      <i>Nëra privalomas</i> - Jei adresas skiriasi nuo to, kuris priskiriamas 
+      automatiðkai. Jûs galite èia já ávesti.
+      <br><br>
+      
+      <b>Adresas, kuriuo reikia siøsti atsakymus</b><br>
+      <i>Nëra privalomas</i> - Tai yra adresas, kuriuo nukeliaus laiskai, kai 
+      gavëjai bandys atsakyti á jûsø laiðkus. Jûs turëtumete kà nors ávesti tik
+      tuo atveju, jei adresas kaip nors skirasi. Kartais tai gali bûti naudinga, 
+      jei jûs norite, kad atsakymai atsidurtø jûsø Yahoo paðte, o ne standartinëje 
+      paðto deþutëje.
+      <br><br>
+      
+      <b>Paraðas</b><br>
+      <i>Nëra privalomas</i> - Paraðai yra dedami kiekvieno iðeinanèio laiðko 
+      apaèioje. Jei norite naudoti paraðà, jûs turite uþdëti varnikæ kairëje nuo 
+      teksto "Ar naudosite paraðà?" ir ávesti tekstà á þemiau esantá laukà.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Grafiniai nustatymai
+   </title>
+   <description>
+      <b>Tema</b><br>
+      SquirrelMail leidþia nustatyti skirtingus puslapiø atvaizdavimo spalvinius 
+      variantus. Jûs galite pasirinkti sau patinkaèias spalvas.
+      <br><br>
+
+      <b>Kalba</b><br>
+      Jei anglø nëra jûsø gimtoji kalba arba jei jûs geriau mokate kità uþsienio 
+      kalbà, jûs galite pasirinkti vienà ið sàraðe pateikiamø kalbø ir visas (arba
+      beveik visas) Squirrelmail bus rodomas bûtent ta kalba. Taèiau aplankø vardai
+      ir atëjusios þinutës nebus iðverstos.
+      <br><br>
+
+      <b>Naudoti Javascript ar HTML adresø knygà?</b><br>
+      Vienas ið mûsø tikslø buvo sukurti Squirrelmail taip, kad jame nebûtø jokio
+      Javascript. Taèiau dalis mûsø programuotojø paraðë neblogà adresø paieðkos
+      priedà, kuris naudojà Javascript. Vietoj to, kad já iðmesti, mes leidþiame 
+      jums pasirinkti koká adresø knygutës variantà naudoti. HTML variantas turetø 
+      tikrai veikti jûsø narðyklëje, taèiau daþniausiai Javascript adresø knyga irgi
+      veiks.
+      <br><br>
+      
+      <b>Vienu metu rodomø þinuèiø skaièius</b><br>
+      Kokia dalis aplanke esanèiø þinuèiø bus rodoma vienu metu. Jei aplanke esanèiø
+      þinuèiø skaièius virðys èia esantá, jûs matysite tik pasirinktà þinuèiø skaièiø
+      ir nuorodas á ankstesná bei kità puslapá, kuriuose bus kita þinuèiø dalis.
+      <br><br>
+      
+      <b>Simboliø skaièius, iki kurio apriboti atëjusias þinutes</b><br>
+      Nustatoma kiek simboliø gali turëti viena atëjusio laiðko eilutë prieð 
+      programai jà priverstinai perkeliant á kità eilutæ. Tai neleidþia þinutems
+      perpildyti ekranà. 86 simboliai turëtø bûti pats tas. Taèiau jûs vis tiek 
+      galite tai pakeisti.
+      <br><br>
+      
+      <b>Redaktoriaus lango dydis</b><br>
+      Kokio ploèio bus jûsø þinuèiø kûrimo langas? Tai yra simboliø skaièius, kurá 
+      jums pavyks áraðyti raðant þinutæ prieð programai permetant jus á kita eilutæ.
+      <br><br>
+      
+      <b>Aplankø sàraðo plotis</b><br>
+      Èia jûs nustatote koks bus kairiosios sekcijos su aplankø sàraðu plotis. Esant 
+      ilgiems aplankø pavadinimams arba dideliems ðriftams, platesnë sekcija atrodo
+      geriau. Taèiau kitais atvejais, siauresnë sekcija padeda sutaupyti vietà 
+      kompiuterio ekrane.
+      <br><br>
+      
+      <b>Automatiðkai atnaujinti aplankø sàraðà</b><br>
+      SquirrelMail gali atomatiðkai atnaujinti kairëje esanèiø aplankø sàraðà. Tai 
+      kartu atnaujintø neperskaitytø þinuèiø skaièiø. Ðitaip jûs galite patikrinti, 
+      kiek dar liko neperskaitytø þinuèiø nespragsëdami kas kart ant aplanko vardo.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Þinuèiø þymëjimas
+   </title>
+   <description>
+      Ði idëja pasirodë, nes kai jûs esate uþsisakæ kelis skirtingus þinuèiø 
+      siuntinejimo saraðus, bûna sunku atskirti ið kur atëjo þinutë. Ði opcija
+      leidþia priskirti kiekvienam þinuèiø siuntinëjimo sàraðui atskirà spalvà
+      ir taip juos skirti.
+      <br><br>
+
+      Pakanka pasirinkti [Nauja] tam, kad sukurti naujà þymëjimo taisyklæ, arba su 
+      nuoroda [Taisyti] pataisyti jau sukurtà þymëjimo taisyklæ.<br><br>
+      
+      <b>Priskirtas vardas</b><br>
+      Tai yra pavadinimas nusakantis ateinantá paðtà. Pavyzdþiui, jei jûs kaip nors 
+      skiriate þinutes ateinanèias ið mamos, jûs galite priskirti vardà "Nuo mamos".
+      <br><br>
+      
+      <b>Spalva</b><br>
+      Tai yra spalva, kuria bus paþymëtos visos atitinkanèios þemiau nurodytà sàlygà 
+      þinutës. Galima pasirinkti vienà ið nustatytø spalvø arba ávesti spalvos HEX 
+      kodà (pvz. a6b492). Ávedus nuosavà spalvà, jûs kartu turite uþþymëti ir 
+      persijungiantá mygtukà.
+      <br><br>
+      
+      <b>Atitikmuo</b><br>
+      Èia jûs ávedate sàlygà, kurià turi atitikti iðskiriamos þinutës. Iððokanèiame 
+      menu jûs pasirenkate, kuri laiðko dalis (kam skirta, nuo ko, tema...) turi 
+      atitikti ðalia esanèiame laukelyje ávestà sàlygà, (mama@pastas.lt). 
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Aplankø nustatymai
+   </title>
+   <description>
+      <b>Kelias iki aplanko</b><br>
+      Dalyje sistemø jûs èia nieko nematysite. Ir tada jûs galite paprasèiausiai nekreipti
+      á tai, kas toliau apie tai raðoma. Taèiau kitose sistemose tai yra labai svarbus 
+      nustatymas. Jis nusako kurioje vietoje yra saugomi visi jûsø paðto aplankà. Jei jûs 
+      neásivaizduojate kà visa tai reiðkia, palikite viskà taip, kaip yra.
+      <br><br>
+
+      <b>Ðiukðliø aplankas</b><br>
+      Èia jûs pasirenkate, kur atsidurs visos þinutës, kurias jûs iðtrinsite. Jei nenorite 
+      saugoti trinamø þinuèiø - nustatykite punktà "Nenaudoti ðiukðliø aplanko".
+      <br><br>
+      
+      <b>Iðsiøstø laiðkø aplankas</b><br>
+      Èia jûs pasirenkate aplankà, kuriame bus iðsaugomos jûsø siunèiamø þinuèiø kopijos. 
+      Jei nenorite saugoti siunèiamø þinuèiø - pasirinkite punktà "Nenaudoti Iðsiøstø 
+      laiðkø aplanko".
+      <br><br>
+      
+      <b>Perspëjimai apie naujas þinutes</b><br>
+      Ði opcija leidþia pasirinkti kokio tipo informacijà apie neperskaitytas þinutes
+      jûs norite matyti. "Jokiø perspëjimø" atveju jûs nematysite jokios informacijos 
+      apie tai, kad kaþko dar neperskaitëte. "Tik INBOX" opcija rodys neperskaitytø 
+      þinuèiø skaièiø tik pagrindiniame aplanke. "Visuose aplankuose" opcija suskaièiuos
+      visus aplankus, taèiau tai gali smarkiai sulëtinti aplankø sàraðo atsiuntimà.
+      <br><br>
+      
+      <b>Perspëjimø apie naujas þinutes tipas</b><br>
+      Èia jûs pasirenkate, kokius skaièius norite matyti ðalia aplanko vardo. "Tik 
+      naujos þinutës" rodys vien neperskaitytø þinuèiø skaièiø. "Naujos þinutës ir 
+      bendras skaièius" be to rodys ir tai kiek iðviso aplanke yra þinuèiø.
+      <br><br>
+
+      <b>Iðsiskleidþiantys aplankai</b><br>
+      "Aktyvuoti iðsiskleidþianèius aplankus" punktas ájungia specialø Squirrelmail
+      reþimà, kuris leidþia paslëpti dalá aplankø taip tarsi jie bûtø átraukti á 
+      aukðèiau esantá aplankà.
+      <br><br>
+   </description>
+</section>
+
+<section>
+   <title>
+      Rûðiavimo tvarka
+   </title>
+   <description>
+      Ði nustatymø dalis leidþia jums valdyti kokius laiðko punktus norite matyti
+      pagrindiniame þinuèiø lange. Ir kokia tvarka tie laukai turi bûti iðdëstyti.
+      <br><br>
+
+      Jûs galite atsisakyti dalies laukø rodymo, arba pasakyti kad tam tikri laukai 
+      bûtø rodomi sàraðe kairiau ar deðiniau.
+      <br><br>
+   </description>
+</section>

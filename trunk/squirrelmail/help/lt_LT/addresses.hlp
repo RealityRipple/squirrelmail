@@ -1,0 +1,122 @@
+<chapter>
+   <title>
+      Adresai
+   </title>
+   <summary>
+      Adresø knygos gali sutaupyti daug laiko ir spausdinimo. Jûs galite
+      iðsaugoti adresus þmoniø, kuriems raðote daþniausiai ir vëliau juos
+      panaudoti.
+   </summary>
+   <description>
+      <p>
+      Adresø knygos yra geros priemonës taupyti laikà. Jose gali bûti 
+      saugomi daþniausiai naudojami adresai. LDAP serveriai (daþnai 
+      naudojami privaèiose kompanijose ir universitetuose, kad 
+      standartiniai organizacijø adresai bûtø lengvai pasiekiami) taip
+      pat yra palaikomi Squirrelmail.
+      </p>
+      <p>
+      Jei jûsø narðyklë palaiko Javascript, tada jums bûtø geriau ájungti
+      javascript naudojanèià adresø knygà savo paðto Nustatymø meniu. Ji 
+      veikia nedideliø iððokanèiø langø principu. Paprasti HTML adresø 
+      sàraðai yra palaikomi tam atvejui, kad Squirrelmail galëtø naudoti
+      ir paèios paprasèiausios Interneto narðyklës.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      Trumpas vardas
+   </title>
+   <description>
+      <p>
+      Èia áraðykite koká nors þinomà vardà. Kà nors kas jums primintø kam
+      priklauso ðis adresas.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      E-paðto adresas
+   </title>
+   <description>
+      <p>
+      Èia raðomas pilnas to asmens elektroninio paðto adresas. Spëlioti èia 
+      negalima. Elektroninio paðto adresà sudaro trys dalys. Pirmiausia raðomas
+      adresato identifikatorius, pvz. "petrasp". Toliau po @ simbolio eina
+      paðto serverio adresø srities apraðymas, pvz. "pastas". Galiausiai raðomi
+      virðutinio lygio srities simboliai, kurie gali bûti patys ávairiausi 
+      trumpiniai, tokie kaip lt, au, cc, us, com, org, net ar net edu. Ðie 
+      trumpiniai paprastai nustato kokiai bendrinei srièiai priklauso antroje 
+      dalyje apraðytas adresas. lt naudojamas lietuviðkø serveriø vardams, 
+      com - komercinëms organizacijoms, org - nekomercinëms organizacijoms,
+      net - interneto paslaugø tiekëjø tinklams. Pilnas elektroninio paðto 
+      adresas turetø atrodyti panaðiai á petrasp@pastas.lt. (be paskutinio 
+      taðko). Jei suklysite, paðtas turëtø gráþti su Mailer Daemon praneðimu
+      arba nukeliauti pas kità þmogø.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Papildoma informacija
+   </title>
+   <description>
+      <p>
+      Tai dar vienas laukas, kur jûs galite paraðyti kaþkà primenanèio apie 
+      asmená. Ir jame tilps daugiau nei "trumpo vardo" lauke. Pvz. jei tai
+      verslo kontaktas, galima paraðyti "Sutikau bulviø augintojø simpoziume"
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Taisyti arba trinti
+   </title>
+   <description>
+      <p>
+      Ðie mygtukai leidþia pataisyti vienà pasirinktà adresà arba iðtrinti 
+      kelis pasirinktus áraðus adresø knygoje
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Átraukti á adresø knygà
+   </title>
+   <description>
+      <p>
+      Reikia uþpildyti aukðèiau apraðytus laukus. Trys pirmus (trumpas vardas, 
+      E-paðto adresas, ir vardas) turi bûti bûtinai uþpildyti. Pavardë ir
+      papildoma informacija yra papildomi laukai.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      LDAP
+   </title>
+   <description>
+      <p>
+      LDAP yra specialus centralizuoto informacijos saugojimo ir jos paëmimo
+      protokolas. Pavyzdþiui, universitetas gali naudoti LDAP saugoti visiems
+      savo studentø, dëstytojø ir personalo adresams. Tinkamai sukonfiguruoti
+      LDAP nustatymai leistø SquirrelMail pateikti visus mokymo ástaigos 
+      el-paðto adresus. Squirrelmail LDAP galimybës yra pakankamai didelës ir
+      leidþia <I>vienoje vietoje</I> rodyti asmeninæ adresø knygà ir LDAP 
+      adresus.
+      </p><p>
+      LDAP gali bûti sukonfiguruotas naudoti koká nors LDAP serverá arba 
+      visiðkai atjungtas. Viskas priklauso nuo paðto administatoriaus.
+      </p><p>
+      Kadangi LDAP nustatymai galioja visai SquirrelMail paðto sistemai, juos
+      turëtø sutvarkyti administratorius, kuris árengë www paðto sistemà.
+      </p>
+   </description>
+</section>
