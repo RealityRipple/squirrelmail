@@ -7,9 +7,10 @@ Version 1.0pre1 -- DEVELOPMENT
 - Added file and message size in many locations
 - Made message index order customizable (from, subject, date) can be (date, from, subject)
 - Fixed some security problems with uploading attachments
-- Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
 - When reading, attachments look better and have a better plugin interface
 - Some functions now pass values by reference to save on memory
+- Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
+- Added Serbian translation from Boris Manojlovic <steki@verat.net>
 
 
 Version 0.5 -- September 25, 2000 
