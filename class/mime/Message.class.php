@@ -39,7 +39,6 @@ class Message {
     }
 
     function addEntity ($msg) {
-        $msg->parent = &$this;
         $this->entities[] = $msg;
     }
 
@@ -125,35 +124,6 @@ class Message {
         return $msg->mailbox;
     }
 
-    function calcEntity($msg) {
-        if (($this->type0 == 'message') && ($this->type1 == 'rfc822')) {
-            $msg->entity_id = $this->entity_id .'.0'; /* header of message/rfc822 */
-        } else if (isset($this->entity_id) && ($this->entity_id != '')) {
-            $entCount = count($this->entities) + 1;
-            $par_ent = substr($this->entity_id, -2);
-            if ($par_ent{0} == '.') {
-                $par_ent = $par_ent{1};
-            }
-            if ($par_ent == '0') {
-                if ($entCount > 0) {
-                    $ent = substr($this->entity_id, 0, strrpos($this->entity_id, '.'));
-                    $ent = ($ent ? $ent . '.' : '') . $entCount;
-                    $msg->entity_id = $ent;
-                } else {
-                    $msg->entity_id = $entCount;
-                }
-            } else {
-                $ent = $this->entity_id . '.' . $entCount;
-                $msg->entity_id = $ent;
-            }
-        } else {
-            $msg->entity_id = '0';
-        }
-
-        return $msg->entity_id;
-    }
-
-
     /*
      * Bodystructure parser, a recursive function for generating the
      * entity-tree with all the mime-parts.
@@ -167,6 +137,42 @@ class Message {
      *
      */
     function parseStructure($read, &$i, $sub_msg = '') {
+        $msg = Message::parseBodyStructure($read, $i, $sub_msg);
+        $msg->setEntIds($msg,false,0);
+        return $msg;
+    }
+    
+    function setEntIds(&$msg,$init=false,$i=0) {
+        $iCnt = count($msg->entities);
+	if ($init !==false) {
+	    $iEntSub = $i+1;
+	    if ($msg->parent->type0 == 'message' && 
+	        $msg->parent->type1 == 'rfc822' &&
+		$msg->type0 == 'multipart') {
+		$iEntSub = '0';
+	    }
+	    if ($init) {
+		$msg->entity_id = "$init.$iEntSub";
+	    } else {
+		$msg->entity_id = $iEntSub;
+	    }
+	} else if ($iCnt) {
+	    $msg->entity_id='0';
+	} else {
+	    $msg->entity_id='1';
+	}
+        for ($i=0;$i<$iCnt;++$i) {
+	    $msg->entities[$i]->parent =& $msg;	
+            if (strrchr($msg->entity_id, '.') != '.0') {	
+	        $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->entity_id,$i);
+	    } else {
+	        $msg->entities[$i]->setEntIds($msg->entities[$i],$msg->parent->entity_id,$i);
+	    }
+	    
+	}
+    }
+
+    function parseBodyStructure($read, &$i, $sub_msg = '') {
         $arg_no = 0;
         $arg_a  = array();
 	if ($sub_msg) {
@@ -187,12 +193,11 @@ class Message {
                                 $hdr->type0 = 'text';
                                 $hdr->type1 = 'plain';
                                 $hdr->encoding = 'us-ascii';
-                                $msg->entity_id = $message->calcEntity($msg);
                             } else {
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
-                                    $msg->addEntity($this->parseStructure($read, $i, $msg));
+                                    $msg->addEntity($this->parseBodyStructure($read, $i, $msg));
                                 }
                             }
                             break;
@@ -227,7 +232,7 @@ class Message {
                                 while (($i < $cnt) && ($read{$i} != '(')) {
                                     ++$i;
                                 }
-                                $msg->addEntity($this->parseStructure($read, $i,$msg));
+                                $msg->addEntity($this->parseBodyStructure($read, $i,$msg));
                             }
                             break;
                         case 8:
@@ -325,9 +330,6 @@ class Message {
                         $hdr->disposition = (isset($arg_a[8+$s]) ? $arg_a[8+$s] : $hdr->disposition);
                         $hdr->language = (isset($arg_a[9+$s]) ? $arg_a[9+$s] : $hdr->language);
                         $msg->header = $hdr;
-                        if ((strrchr($msg->entity_id, '.') == '.0') && ($msg->type0 !='multipart')) {
-                           $msg->entity_id = $message->entity_id . '.1';
-                        }
                     } else {
                         $hdr->type0 = 'multipart';
                         $hdr->type1 = $arg_a[0];
@@ -671,6 +673,7 @@ class Message {
             }
         } else { /* If not multipart, then just compare with each entry from $alt_order */
             $type = $this->type0.'/'.$this->type1;
+//	    $alt_order[] = "message/rfc822";
             foreach ($alt_order as $alt) {
                 if( ($alt == $type) && isset($this->entity_id) ) {
                     if ((count($this->entities) == 0) && 
@@ -689,6 +692,7 @@ class Message {
                     $found = true;
                 }
             }
+	    
         }
         if(!$strict && !$found) {
             if (($this->type0 == 'text') &&
@@ -701,7 +705,6 @@ class Message {
                 }
             }
         }
-
         return $entity;
     }
 
@@ -742,14 +745,16 @@ class Message {
     }
 
     function getAttachments($exclude_id=array(), $result = array()) {
-        if (($this->type0 == 'message') && ($this->type1 == 'rfc822')) {
+/*
+        if (($this->type0 == 'message') && 
+	    ($this->type1 == 'rfc822') &&
+	    ($this->entity_id) ) {
             $this = $this->entities[0];
         }
-
+*/
         if (count($this->entities)) {
             foreach ($this->entities as $entity) {
                 $exclude = false;
-
                 foreach ($exclude_id as $excl) {
                     if ($entity->entity_id === $excl) {
                         $exclude = true;
@@ -775,7 +780,6 @@ class Message {
                 $result[] = $this;
             }
         }
-
         return $result;
     }
     
