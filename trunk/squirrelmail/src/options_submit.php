@@ -20,6 +20,7 @@
    setPref($data_dir, $username, "wrap_at", $wrapat);
    setPref($data_dir, $username, "editor_size", $editorsize);
    setPref($data_dir, $username, "use_signature", $usesignature);
+   setPref($data_dir, $username, "left_refresh", $leftrefresh);
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 

@@ -39,6 +39,10 @@
    if ($use_signature == "")
       $use_signature = false;
 
+   $left_refresh = getPref($data_dir, $username, "left_refresh");
+   if ($left_refresh == "")
+      $left_refresh = false;
+   
    /** Load up the Signature file **/
    if ($use_signature == true) {
       $signature = getSig($data_dir, $username);

@@ -140,6 +140,102 @@
    echo "   </TR>";
    echo "</TABLE>";
 
+   // LEFT_REFRESH
+   echo "   <TR>";
+   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo _("         Time between auto refresh of folder list:");
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=40% ALIGN=LEFT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo "               <SELECT name=leftrefresh>";
+   if (($left_refresh == "None") || ($left_refresh == "")) 
+      echo "                  <OPTION VALUE=None SELECTED>None";
+   else   
+      echo "                  <OPTION VALUE=None>None";
+   
+   if (($left_refresh == "10")) 
+      echo "                  <OPTION VALUE=10 SELECTED>10 Seconds";
+   else   
+      echo "                  <OPTION VALUE=10>10 Seconds";
+   
+   if (($left_refresh == "20")) 
+      echo "                  <OPTION VALUE=20 SELECTED>20 Seconds";
+   else   
+      echo "                  <OPTION VALUE=20>20 Seconds";
+   
+   if (($left_refresh == "30")) 
+      echo "                  <OPTION VALUE=30 SELECTED>30 Seconds";
+   else   
+      echo "                  <OPTION VALUE=30>30 Seconds";
+   
+   if (($left_refresh == "60")) 
+      echo "                  <OPTION VALUE=60 SELECTED>1 Minute";
+   else   
+      echo "                  <OPTION VALUE=60>1 Minute";
+   
+   if (($left_refresh == "120")) 
+      echo "                  <OPTION VALUE=120 SELECTED>2 Minutes";
+   else   
+      echo "                  <OPTION VALUE=120>2 Minutes";
+   
+   if (($left_refresh == "180")) 
+      echo "                  <OPTION VALUE=180 SELECTED>3 Minutes";
+   else   
+      echo "                  <OPTION VALUE=180>3 Minutes";
+   
+   if (($left_refresh == "240")) 
+      echo "                  <OPTION VALUE=240 SELECTED>4 Minutes";
+   else   
+      echo "                  <OPTION VALUE=240>4 Minutes";
+   
+   if (($left_refresh == "300")) 
+      echo "                  <OPTION VALUE=300 SELECTED>5 Minutes";
+   else   
+      echo "                  <OPTION VALUE=300>5 Minutes";
+   
+   if (($left_refresh == "420")) 
+      echo "                  <OPTION VALUE=420 SELECTED>7 Minutes";
+   else   
+      echo "                  <OPTION VALUE=420>7 Minutes";
+   
+   if (($left_refresh == "600")) 
+      echo "                  <OPTION VALUE=600 SELECTED>10 Minutes";
+   else   
+      echo "                  <OPTION VALUE=600>10 Minutes";
+   
+   if (($left_refresh == "720")) 
+      echo "                  <OPTION VALUE=720 SELECTED>12 Minutes";
+   else   
+      echo "                  <OPTION VALUE=720>12 Minutes";
+   
+   if (($left_refresh == "900")) 
+      echo "                  <OPTION VALUE=900 SELECTED>15 Minutes";
+   else   
+      echo "                  <OPTION VALUE=900>15 Minutes";
+   
+   if (($left_refresh == "1200")) 
+      echo "                  <OPTION VALUE=1200 SELECTED>20 Minutes";
+   else   
+      echo "                  <OPTION VALUE=1200>20 Minutes";
+   
+   if (($left_refresh == "1500")) 
+      echo "                  <OPTION VALUE=1500 SELECTED>25 Minutes";
+   else   
+      echo "                  <OPTION VALUE=1500>25 Minutes";
+   
+   if (($left_refresh == "1800")) 
+      echo "                  <OPTION VALUE=1800 SELECTED>30 Minutes";
+   else   
+      echo "                  <OPTION VALUE=1800>30 Minutes";
+   
+      echo "               </SELECT>";
+      echo "         </FONT>";
+      echo "      </TD>";
+      echo "   </TR>";
+      echo "</TABLE>";
+
    // SIGNATURE
    echo "<CENTER>";
    if ($use_signature == true)
