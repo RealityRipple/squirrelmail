@@ -284,24 +284,7 @@ function sq_mt_seed($Val) {
     $Max = mt_getrandmax();
     
     if (! is_int($Val)) {
-        if (function_exists('crc32')) {
             $Val = crc32($Val);
-        } else {
-            $Str = $Val;
-            $Pos = 0;
-            $Val = 0;
-            $Mask = $Max / 2;
-            $HighBit = $Max ^ $Mask;
-            while ($Pos < strlen($Str)) {
-                if ($Val & $HighBit) {
-                    $Val = (($Val & $Mask) << 1) + 1;
-                } else {
-                    $Val = ($Val & $Mask) << 1;
-                }
-                $Val ^= $Str[$Pos];
-                $Pos ++;
-            }
-        }
     }
     
     if ($Val < 0) {
