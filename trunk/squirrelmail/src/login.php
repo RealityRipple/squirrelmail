@@ -140,7 +140,7 @@ echo html_tag( 'table',
               : '' ).
             ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
             '<small>' . _("SquirrelMail Webmail Application") . '<br />' ."\n".
-            '  ' . _("By the SquirrelMail Development Team") . '<br /></small>' . "\n" ) .
+            '  ' . _("By the SquirrelMail Project Team") . '<br /></small>' . "\n" ) .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
