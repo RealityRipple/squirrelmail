@@ -116,8 +116,6 @@
              $body = $bodyTop . $body;
          }
          
-         $body = ereg_replace('\\\\', '\\\\', $body);
-
          return;
       }
 
@@ -400,7 +398,6 @@
           $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
       if (checkInput(false) && ! isset($AttachFailure)) {
-         $mailbox = ereg_replace("([\n|\r])", '', $mailbox);
          $urlMailbox = urlencode ($mailbox);
 	 if (! isset($reply_id))
 	     $reply_id = 0;
