@@ -300,6 +300,7 @@ function printMessageInfo($aMsg) {
     if (!isset($hlt_color)) {
         $hlt_color = $color_string;
     }
+
     $col = 0;
     $sSubject = str_replace('&nbsp;', ' ', decodeHeader($sSubject));
     $subject = processSubject($sSubject, $iIndent);
@@ -328,15 +329,21 @@ function printMessageInfo($aMsg) {
     }
 
 
-    echo html_tag( 'tr','','','',$row_extra) . "\n";
+    if ($javascript_on && $fancy_index_highlite)
+        echo "<script language='javascript' type='text/javascript'>\n<!--\n"
+           . "orig_row_colors[" . $t . "] = '" . $hlt_color . "';\n//-->\n</script>";
+    echo html_tag( 'tr', '', '', '', $row_extra) . "\n";
 
 
     // this does the auto-checking of the checkbox no matter 
     // where on the row you click
     //
     $javascript_auto_click = '';
-    if ($javascript_on && $fancy_index_highlite)
+    $checkbox_javascript = '';
+    if ($javascript_on && $fancy_index_highlite) {
         $javascript_auto_click = ' onMouseDown="row_click(\'msg[' . $t . ']\')"';
+        $checkbox_javascript = ' onClick="this.checked = !this.checked;"';
+    }
 
 
     if (sizeof($index_order)) {
@@ -386,9 +393,9 @@ function printMessageInfo($aMsg) {
             switch ($index_order_part) {
             case 1: /* checkbox */
                 echo html_tag( 'td',
-                    addCheckBox("msg[$t]", $checkall, $iId),
+                    addCheckBox("msg[$t]", $checkall, $iId, $checkbox_javascript),
                             'center',
-                            $hlt_color );
+                            $hlt_color, $javascript_auto_click);
                 break;
             case 2: /* from */
                 if ($senderAddress != $senderName) {
@@ -1511,8 +1518,17 @@ function ShowSortButton($aMailbox, $Down, $Up ) {
  * @param array $aMailbox
  */
 function get_selectall_link($aMailbox) {
-    global $checkall, $javascript_on;
+    global $checkall, $javascript_on, $fancy_index_highlite, $color;
     global $PHP_SELF;
+
+    // set this to an empty string to turn off extra 
+    // highlighting of checked rows
+    //
+    //$clickedColor = '';
+    if (!empty($color[16]))
+       $clickedColor = $color[16];
+    else
+       $clickedColor = $color[2];
 
     $result = '';
     if ($javascript_on) {
@@ -1521,12 +1537,14 @@ function get_selectall_link($aMailbox) {
         $form_name = "FormMsgs" . $safe_name;
         $result = '<script language="JavaScript" type="text/javascript">'
                 . "\n<!-- \n"
+                . "var orig_row_colors = new Array();\n"
                 . "function " . $func_name . "() {\n"
                 . "  for (var i = 0; i < document." . $form_name . ".elements.length; i++) {\n"
                 . "    if(document." . $form_name . ".elements[i].type == 'checkbox' && "
                 . "       document." . $form_name . ".elements[i].name.substring(0,3) == 'msg'){\n"
                 . "      document." . $form_name . ".elements[i].checked = "
                 . "        !(document." . $form_name . ".elements[i].checked);\n"
+                . ($fancy_index_highlite ? "      setPointer(document." . $form_name . ".elements[i].parentNode.parentNode, document." . $form_name . ".elements[i].name.substring(4, document." . $form_name . ".elements[i].name.length - 1), 'click', orig_row_colors[document." . $form_name . ".elements[i].name.substring(4, document." . $form_name . ".elements[i].name.length - 1)], orig_row_colors[document." . $form_name . ".elements[i].name.substring(4, document." . $form_name . ".elements[i].name.length - 1)], '" . $clickedColor . "');\n" : '')
                 . "    }\n"
                 . "  }\n"
                 . "}\n"
