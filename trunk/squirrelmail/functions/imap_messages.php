@@ -619,6 +619,16 @@ function sqimap_get_entity_header ($imap_stream, &$read, &$type0, &$type1, &$bou
     $charset = $header["CHARSET"];
     $filename = $header["FILENAME"];
 }
+
+/* function to get the mime headers */
+function sqimap_get_mime_ent_header ($imap_stream, $id, $mailbox, $ent) {
+    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.MIME]", true, $response, $message);
+    $header = sqimap_get_header($imap_stream, $read); 
+    $header->id = $id;
+    $header->mailbox = $mailbox;
+    return $header;
+}
+
 */
 /* Queries the IMAP server and gets all header information. */
 function sqimap_get_header ($imap_stream, $read) {
