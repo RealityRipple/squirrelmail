@@ -204,7 +204,7 @@
          $passed_body, $color, $use_signature, $signature, $prefix_sig, 
          $editor_size, $attachments, $subject, $newmail, 
          $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox, 
-         $from_htmladdr_search, $location_of_buttons;
+         $from_htmladdr_search, $location_of_buttons, $attachment_dir;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -320,7 +320,9 @@
          echo "</td><td align=left bgcolor=\"$color[0]\">";
 	 foreach ($attachments as $key => $info) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$key\">\n";
-	    echo $info['remotefilename'] . "<br>\n";
+	    echo $info['remotefilename'] . " - " . $info['type'] . " (";
+	    echo show_readable_size(filesize($attachment_dir . 
+	        $info['localfilename'])) . ")<br>\n";
          }
          
          echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
