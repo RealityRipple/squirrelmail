@@ -15,6 +15,15 @@
    $imap_general_debug = false;
 
    /******************************************************************************
+    **  Sets an unique session id in order to avoid simultanous sessions crash.
+    ******************************************************************************/
+
+   function sqimap_session_id() {
+      return( substr( session_id(), -4 ) );
+   }
+
+
+   /******************************************************************************
     **  Reads the output from the IMAP stream.  If handle_errors is set to true,
     **  this will also handle all errors that are received.  If it is not set,
     **  the errors will be sent back through $response and $message
@@ -156,9 +165,9 @@
          exit;
       }
 
-      fputs ($imap_stream, "a001 LOGIN \"" . quoteIMAP($username) . 
+      fputs ($imap_stream, sqimap_session_id() . ' LOGIN "' . quoteIMAP($username) . 
          '" "' . quoteIMAP($password) . "\"\r\n");
-      $read = sqimap_read_data ($imap_stream, 'a001', false, $response, $message);
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), false, $response, $message);
 
       /** If the connection was not successful, lets see why **/
       if ($response != "OK") {
@@ -238,7 +247,7 @@
     **  Simply logs out the imap session
     ******************************************************************************/
    function sqimap_logout ($imap_stream) {
-      fputs ($imap_stream, "a001 LOGOUT\r\n");
+      fputs ($imap_stream, sqimap_session_id() . " LOGOUT\r\n");
    }
 
    function sqimap_capability($imap_stream, $capability) {
@@ -246,8 +255,8 @@
 	global $imap_general_debug;
 
 	if (!is_array($sqimap_capabilities)) {
-		fputs ($imap_stream, "a001 CAPABILITY\r\n");
-		$read = sqimap_read_data($imap_stream, 'a001', true, $a, $b);
+		fputs ($imap_stream, sqimap_session_id() . " CAPABILITY\r\n");
+		$read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $a, $b);
 
 		$c = explode(' ', $read[0]);
 		for ($i=2; $i < count($c); $i++) {
@@ -284,8 +293,8 @@
 			   OS:  * NAMESPACE (PERSONAL NAMESPACES) (OTHER_USERS NAMESPACE) (SHARED NAMESPACES)
 			   OS:  We want to lookup all personal NAMESPACES...
 			*/
-			fputs ($imap_stream, "a001 NAMESPACE\r\n");
-			$read = sqimap_read_data($imap_stream, 'a001', true, $a, $b);
+			fputs ($imap_stream, sqimap_session_id() . " NAMESPACE\r\n");
+			$read = sqimap_read_data($imap_stream, sqimap_session_id(), true, $a, $b);
 			if (eregi('\\* NAMESPACE +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL) +(\\( *\\(.+\\) *\\)|NIL)', $read[0], $data)) {
 				if (eregi('^\\( *\\((.*)\\) *\\)', $data[1], $data2))
 					$pn = $data2[1];
@@ -316,8 +325,8 @@
     **  Gets the number of messages in the current mailbox. 
     ******************************************************************************/
    function sqimap_get_num_messages ($imap_stream, $mailbox) {
-      fputs ($imap_stream, "a001 EXAMINE \"$mailbox\"\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, 'a001', true, $result, $message);
+      fputs ($imap_stream, sqimap_session_id() . " EXAMINE \"$mailbox\"\r\n");
+      $read_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $result, $message);
       for ($i = 0; $i < count($read_ary); $i++) {
          if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
 	    return $regs[1];
@@ -377,9 +386,9 @@
     **  Returns the number of unseen messages in this folder 
     ******************************************************************************/
    function sqimap_unseen_messages ($imap_stream, $mailbox) {
-      //fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\r\n");
-      fputs ($imap_stream, "a001 STATUS \"$mailbox\" (UNSEEN)\r\n");
-      $read_ary = sqimap_read_data ($imap_stream, 'a001', true, $result, $message);
+      //fputs ($imap_stream, sqimap_session_id() . " SEARCH UNSEEN NOT DELETED\r\n");
+      fputs ($imap_stream, sqimap_session_id() . " STATUS \"$mailbox\" (UNSEEN)\r\n");
+      $read_ary = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $result, $message);
       ereg("UNSEEN ([0-9]+)", $read_ary[0], $regs);
       return $regs[1];
    }
@@ -389,7 +398,7 @@
     **  Saves a message to a given folder -- used for saving sent messages
     ******************************************************************************/
    function sqimap_append ($imap_stream, $sent_folder, $length) {
-      fputs ($imap_stream, "a001 APPEND \"$sent_folder\" (\\Seen) \{$length}\r\n");
+      fputs ($imap_stream, sqimap_session_id() . " APPEND \"$sent_folder\" (\\Seen) \{$length}\r\n");
       $tmp = fgets ($imap_stream, 1024);
    } 
 

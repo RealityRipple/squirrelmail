@@ -20,20 +20,20 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    $urlMailbox = urlencode($mailbox);
    
    # Construct the Search QuERY
-   
+   $ss = sqimap_session_id();
    if (isset($languages[$squirrelmail_language]["CHARSET"]) && $languages[$squirrelmail_language]["CHARSET"]) {
-      $ss = "a001 SEARCH CHARSET ".$languages[$squirrelmail_language]["CHARSET"]." ALL $search_where \"$search_what\"\r\n";
+      $ss = " SEARCH CHARSET ".$languages[$squirrelmail_language]["CHARSET"]." ALL $search_where \"$search_what\"\r\n";
    } else {
-      $ss = "a001 SEARCH ALL $search_where \"$search_what\"\r\n";
+      $ss = " SEARCH ALL $search_where \"$search_what\"\r\n";
    }
    fputs($imapConnection,$ss);
 
    # Read Data Back From IMAP
-   $readin = sqimap_read_data ($imapConnection, "a001", false, $result, $message);
+   $readin = sqimap_read_data ($imapConnection, sqimap_session_id(), false, $result, $message);
    if (isset($languages[$squirrelmail_language]["CHARSET"]) && strtolower($result) == "no") { 
-      $ss = "a001 SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"\r\n";
+      $ss = sqimap_session_id() . " SEARCH CHARSET \"US-ASCII\" ALL $search_where \"$search_what\"\r\n";
       fputs ($imapConnection, $ss);
-      $readin = sqimap_read_data ($imapConnection, "a001", true, $result, $message);
+      $readin = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $result, $message);
    }
    unset($messagelist); $msgs=""; $c = 0;
 

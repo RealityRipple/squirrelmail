@@ -15,8 +15,8 @@
     **  Copies specified messages to specified folder
     ******************************************************************************/
    function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
-      fputs ($imap_stream, "a001 COPY $start:$end \"$mailbox\"\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " COPY $start:$end \"$mailbox\"\r\n");
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
    }
 
    /******************************************************************************
@@ -37,8 +37,8 @@
     **  Sets the specified messages with specified flag
     ******************************************************************************/
    function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
-      fputs ($imap_stream, "a001 STORE $start:$end +FLAGS (\\$flag)\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " STORE $start:$end +FLAGS (\\$flag)\r\n");
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
    }
 
 
@@ -46,8 +46,8 @@
     **  Remove specified flag from specified messages
     ******************************************************************************/
    function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag) {
-      fputs ($imap_stream, "a001 STORE $start:$end -FLAGS (\\$flag)\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " STORE $start:$end -FLAGS (\\$flag)\r\n");
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
    }
 
 
@@ -104,9 +104,9 @@
       }
 
 
-      $query = "a001 FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
+      $query = sqimap_session_id() . " FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
       fputs ($imap_stream, $query);
-      $readin_list = sqimap_read_data_list($imap_stream, "a001", true, $response, $message);
+      $readin_list = sqimap_read_data_list($imap_stream, sqimap_session_id(), true, $response, $message);
 
 
       foreach ($readin_list as $r) {
@@ -132,9 +132,9 @@
       }
       arsort($read_list);
       
-      $query = "a002 FETCH $msgs_str RFC822.SIZE\r\n";
+      $query = sqimap_session_id() . " FETCH $msgs_str RFC822.SIZE\r\n";
       fputs ($imap_stream, $query);
-      $sizesin_list = sqimap_read_data_list($imap_stream, "a002", true, $response, $message);
+      $sizesin_list = sqimap_read_data_list($imap_stream, sqimap_session_id(), true, $response, $message);
       
       foreach ($sizesin_list as $r) {
          if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
@@ -201,8 +201,8 @@
             
          }
          if (trim($date) == "") {
-            fputs($imap_stream, "a002 FETCH $msg_list[$msgi] INTERNALDATE\r\n");
-            $readdate = sqimap_read_data($imap_stream, "a002", true, $response, $message);
+            fputs($imap_stream, sqimap_session_id() . " FETCH $msg_list[$msgi] INTERNALDATE\r\n");
+            $readdate = sqimap_read_data($imap_stream, sqimap_session_id(), true, $response, $message);
             if (eregi(".*INTERNALDATE \"(.*)\".*", $readdate[0], $regs)) {
                $date_list = explode(" ", trim($regs[1]));
                $date_list[0] = str_replace("-", " ", $date_list[0]);
@@ -237,8 +237,8 @@
     **  Returns the flags for the specified messages 
     ******************************************************************************/
    function sqimap_get_flags ($imap_stream, $i) {
-      fputs ($imap_stream, "a001 FETCH $i:$i FLAGS\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $i:$i FLAGS\r\n");
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
       if (ereg("FLAGS(.*)", $read[0], $regs))
           return explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
       return Array('None');
@@ -249,8 +249,8 @@
       for ($i = 0; $i < sizeof($msg_list); $i++) {
          $id2index[$msg_list[$i]] = $i;
       }
-      fputs ($imap_stream, "a001 FETCH $msgs_str FLAGS\r\n");
-      $result_list = sqimap_read_data_list ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $msgs_str FLAGS\r\n");
+      $result_list = sqimap_read_data_list ($imap_stream, sqimap_session_id(), true, $response, $message);
       $result_flags = array();
 
       for ($i = 0; $i < sizeof($result_list); $i++) {
@@ -284,8 +284,8 @@
     **  Wrapper function that reformats the header information.
     ******************************************************************************/
    function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
-      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER]\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $id:$id BODY[HEADER]\r\n");
+      $read = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
      
       $header = sqimap_get_header($imap_stream, $read); 
       $header->id = $id;

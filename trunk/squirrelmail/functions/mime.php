@@ -57,17 +57,17 @@
       sqimap_messages_flag ($imap_stream, $header->id, $header->id, "Seen");
       
       $id = $header->id;
-      fputs ($imap_stream, "a001 FETCH $id BODYSTRUCTURE\r\n");
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $id BODYSTRUCTURE\r\n");
       //
       // This should use sqimap_read_data instead of reading it itself
       //
+      $sid = sqimap_session_id();
+      $lsid = strlen( $sid );
       $read = fgets ($imap_stream, 10000);
-      $response = substr($read, 0, 4);
       $bodystructure = "";
-      while ($response != 'a001' ) && !feof( $imap_stream ) {
+      while( substr($read, 0, $lsid) <> $sid && !feof( $imap_stream ) ) {
          $bodystructure .= $read;
          $read = fgets ($imap_stream, 10000);
-         $response = substr($read, 0, 4);
       }
       $read = $bodystructure;
 
@@ -379,8 +379,8 @@
       // that it is the first one.  That is usually the case anyway.
       if (!$ent_id) $ent_id = 1;
 
-      fputs ($imap_stream, "a010 FETCH $id BODY[$ent_id]\r\n");
-      $data = sqimap_read_data ($imap_stream, 'a010', true, $response, $message);
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $id BODY[$ent_id]\r\n");
+      $data = sqimap_read_data ($imap_stream, sqimap_session_id(), true, $response, $message);
       $topline = array_shift($data);
       while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
           $topline = array_shift($data);
@@ -393,13 +393,12 @@
          return $regs[1];
       }
       
-      $str = "Body retrieval error.  Please report this bug!\n";
-      $str .= "Response:  $response\n";
-      $str .= "Message:  $message\n";
-      $str .= "FETCH line:  $topline";
-      $str .= "---------------\n$wholemessage";
-      foreach ($data as $d)
-      {
+      $str = "Body retrieval error.  Please report this bug!\n" .
+             "Response:  $response\n" .
+             "Message:  $message\n" .
+             "FETCH line:  $topline" .
+             "---------------\n$wholemessage";
+      foreach ($data as $d) {
           $str .= htmlspecialchars($d) . "\n";
       }
       return $str;
@@ -414,21 +413,21 @@
       // and it would take over 30 seconds to download it.
       set_time_limit(0);
       
-      fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
+      fputs ($imap_stream, sqimap_session_id() . " FETCH $id BODY[$ent_id]\r\n");
 	  $cnt = 0;
 	  $continue = true;
 	  	$read = fgets ($imap_stream,4096);
-		// This could be bad -- if the section has 'a001 OK'
+		// This could be bad -- if the section has sqimap_session_id() . ' OK'
 		// or similar, it will kill the download.
-		while (!ereg("^a001 (OK|BAD|NO)(.*)$", $read, $regs)) {
+		while (!ereg("^" . sqimap_session_id() . " (OK|BAD|NO)(.*)$", $read, $regs)) {
 			if (trim($read) == ")==") {
 				$read1 = $read;
 	  			$read = fgets ($imap_stream,4096);
-				if (ereg("^a001 (OK|BAD|NO)(.*)$", $read, $regs)) {
+				if (ereg("^" . sqimap_session_id() . " (OK|BAD|NO)(.*)$", $read, $regs)) {
 					return;
 				} else {
-					echo decodeBody($read1, $encoding);
-					echo decodeBody($read, $encoding);
+					echo decodeBody($read1, $encoding) . 
+					     decodeBody($read, $encoding);
 				}
 			} else if ($cnt) {
 				echo decodeBody($read, $encoding);
