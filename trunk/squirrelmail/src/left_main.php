@@ -292,17 +292,15 @@ function listBoxes ($boxes, $j=0 ) {
 
     if (isset($boxes) && !empty($boxes)) {
         $mailbox = $boxes->mailboxname_full;
-        $leader = '';
-        for ($k = 0; $k < $j; $k++) {
-            $leader.= '&nbsp;&nbsp;&nbsp;';
-        }
+        $leader = '<tt>';
+        $leader .= str_repeat('&nbsp;&nbsp;&nbsp;',$j);
         $mailboxURL = urlencode($mailbox);
 
         /* get unseen/total messages information */
-        if ($boxes->unseen) {
+        if ($boxes->unseen||$boxes->total) {
             $unseen = $boxes->unseen;
             $unseen_string = "($unseen)";
-            if ($unseen>0) {
+            if ($unseen>0||$boxes->total>0) {
                 $unseen_found = TRUE;
             }
 
@@ -320,7 +318,6 @@ function listBoxes ($boxes, $j=0 ) {
 
                 $unseen_string = $unseen_before . $unseen_string . $unseen_after;
             }
-
         } else {
             $unseen = 0;
         }
@@ -331,14 +328,14 @@ function listBoxes ($boxes, $j=0 ) {
 
             $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
             if ($collapse) {
-                $link .= "unfold=$mailboxURL\">$leader +&nbsp;";
+                $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
             } else {
-                $link .= "fold=$mailboxURL\">$leader -&nbsp;";
+                $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
             }
             $link .= '</a>';
             $pre .= $link;
         } else {
-            $pre.= $leader . '&nbsp;&nbsp;&nbsp;';
+            $pre.= $leader . '&nbsp;&nbsp;</tt>';
         }
 
         /* If there are unseen message, bold the line. */
