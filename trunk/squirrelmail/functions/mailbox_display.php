@@ -194,13 +194,12 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
  * This function loops through a group of messages in the mailbox
  * and shows them to the user.
  */
-function showMessagesForMailbox
-($imapConnection, $mailbox, $num_msgs, $start_msg, $sort,
- $color, $show_num, $use_cache) {
-    global $msgs, $msort;
-    global $sent_folder, $draft_folder;
-    global $message_highlight_list;
-    global $auto_expunge;
+function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg, $sort,
+                                $color, $show_num, $use_cache) {
+    global $msgs, $msort,
+           $sent_folder, $draft_folder,
+           $message_highlight_list,
+           $auto_expunge;
 
     /* If autoexpunge is turned on, then do it now. */
     if ($auto_expunge == true) {
@@ -347,21 +346,22 @@ function showMessagesForMailbox
         ** 2 = Name (up)
         ** 3 = Name (dn)
         **/
-        session_unregister("msgs");
-        if (($sort == 0) || ($sort == 1))
+        session_unregister('msgs');
+        if (($sort == 0) || ($sort == 1)) {
             $msort = array_cleave ($msgs, 'TIME_STAMP');
-        elseif (($sort == 2) || ($sort == 3))
+        } elseif (($sort == 2) || ($sort == 3)) {
             $msort = array_cleave ($msgs, 'FROM-SORT');
-        elseif (($sort == 4) || ($sort == 5))
+        } elseif (($sort == 4) || ($sort == 5)) {
             $msort = array_cleave ($msgs, 'SUBJECT-SORT');
-        else // ($sort == 6)
+        } else // ($sort == 6) {
             $msort = $msgs;
+        }
 
         if ($sort < 6) {
             if ($sort % 2) {
-            asort($msort);
+                asort($msort);
             } else {
-            arsort($msort);
+                arsort($msort);
             }
         }
         session_register('msort');
