@@ -411,9 +411,9 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	  $messages[$j]['FLAG_FLAGGED'] = true;
 	}
 	$num++;
-*/
       }
       $j++;
+*/
     }
 
     /*
