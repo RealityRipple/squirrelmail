@@ -77,14 +77,7 @@
       static $mimeBoundaryString;
 
       if ($mimeBoundaryString == "") {
-         sq_mt_randomize(); // Initialize the random number generator
-         // Use all allowed chars besides space.
-         $Chrs = '\'()+,-./0123456789:=?ABCDEFGHIJKLMNOP' .
-             'QRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
-         // Create a LONG boundary to ensure no duplicates
-         while (strlen($mimeBoundaryString) < 70) {
-            $mimeBoundaryString .= $Chrs[mt_rand(0, strlen($Chrs))];
-         }
+         $mimeBoundaryString = GenerateRandomString(70, '\'()+,-./:=?_', 7);
       }
 
       return $mimeBoundaryString;
@@ -540,4 +533,5 @@
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
    }
+   
 ?>
