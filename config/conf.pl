@@ -2921,11 +2921,11 @@ sub save_data {
 	# string
         print CF "\$default_charset          = '$default_charset';\n";
 	# boolean
-        print CF "\$show_alternative_names   = '$show_alternative_names';\n";
+        print CF "\$show_alternative_names   = $show_alternative_names;\n";
 	# string
         print CF "\$available_languages   = '$available_languages';\n";
 	# boolean
-        print CF "\$agresive_decoding   = '$agresive_decoding';\n";
+        print CF "\$agresive_decoding   = $agresive_decoding;\n";
         print CF "\n";
 
 	# string
@@ -3104,16 +3104,16 @@ sub save_data {
 	    print CF "\n";
 
 	# boolean
-	print CF "\$advanced_tree = '$advanced_tree';\n";
+	print CF "\$advanced_tree = $advanced_tree;\n";
 	print CF "\n";
 	# boolean
-	print CF "\$oldway = '$oldway';\n";
+	print CF "\$oldway = $oldway;\n";
 	print CF "\n";
 	# boolean
-	print CF "\$use_php_recode = '$use_php_recode';\n";
+	print CF "\$use_php_recode = $use_php_recode;\n";
 	print CF "\n";
 	# boolean
-	print CF "\$use_php_iconv = '$use_php_iconv';\n";
+	print CF "\$use_php_iconv = $use_php_iconv;\n";
 	print CF "\n";
 
 		print CF "\@include SM_PATH . 'config/config_local.php';\n";
