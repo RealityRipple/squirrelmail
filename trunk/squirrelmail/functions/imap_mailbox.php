@@ -94,7 +94,7 @@
     **  The array returned looks like this:
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
-      global $special_folders, $list_special_folders_first;
+      global $special_folders, $list_special_folders_first, $folder_prefix;
       
       if (!function_exists ("ary_sort"))
          include ("../functions/array.php");
@@ -140,7 +140,10 @@
 
          if (!$read_ary[$i+1]) {
             if ($phase == "inbox") {
-               fputs ($imap_stream, "a001 LSUB \"\" *\r\n");
+               if ($folder_prefix && (substr($folder_prefix, -1) != $dm))
+                  $folder_prefix = $folder_prefix . $dm;
+                           
+               fputs ($imap_stream, "a001 LSUB \"$folder_prefix\" *\r\n");
                $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
                $phase = "lsub";
                $i--;
