@@ -289,6 +289,7 @@ $allow_thread_sort = 'false'            if ( !$allow_thread_sort );
 $allow_server_sort = 'false'            if ( !$allow_server_sort );
 $no_list_for_subscribe = 'false'        if ( !$no_list_for_subscribe );
 $allow_charset_search = 'true'          if ( !$allow_charset_search );
+$allow_advanced_search = '0'            if ( !$allow_advanced_search) ;
 $prefs_user_field = 'user'              if ( !$prefs_user_field );
 $prefs_key_field = 'prefkey'            if ( !$prefs_key_field );
 $prefs_val_field = 'prefval'            if ( !$prefs_val_field );
@@ -476,7 +477,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
         print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-    print "13. PHP session name            : $WHT$session_name$NRM\n";
+        print "13. Allow advanced search       : $WHT$allow_advanced_search$NRM\n";
+    print "14. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -698,7 +700,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
-            elsif ( $command == 13 ) { $session_name             = command316(); }
+            elsif ( $command == 13 ) { $allow_advanced_search    = command316(); }
+            elsif ( $command == 14 ) { $session_name             = command317(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2141,7 +2144,23 @@ sub command314 {
 
 # command315 (UID support) obsoleted.
 
+# advanced search option
+
 sub command316 {
+    print "This option allows you to change the advanced search form.\n";
+    print "Set to 0 to disable the advanced search, 1 to have advanced\n";
+    print "and search only or 2 for both forms.\n";
+    print "[$WHT$allow_advanced_search$NRM]: $WHT";
+    $allows_advanced_search = <STDIN>;
+    chomp($allows_advanced_search);
+    if ( $allows_advanced_search eq "" ) {
+        $allows_advanced_searchn=0;
+    }
+    return $allows_advanced_search;
+}
+
+
+sub command317 {
     print "This option allows you to change the name of the PHP session used\n";
     print "by SquirrelMail.  Unless you know what you are doing, you probably\n";
     print "don't need or want to change this from the default of SQMSESSID.\n";
@@ -3227,6 +3246,8 @@ sub save_data {
         print CF "\$use_smtp_tls = $use_smtp_tls;\n";
     # string
         print CF "\$session_name = '$session_name';\n";
+    # string
+        print CF "\$allow_advanced_search = '$allow_advanced_search';\n";
 
     print CF "\n";
 
