@@ -619,7 +619,7 @@ function decodeBody($body, $encoding) {
  * @return string decoded header string
  */
 function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
-    global $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language,$default_charset;
     if (is_array($string)) {
         $string = implode("\n", $string);
     }
@@ -660,28 +660,42 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             $j = $i;
             $ret .= $res[1];
             $encoding = ucfirst($res[3]);
+
+            /* decide about valid decoding */
+            if ($decide && is_conversion_safe($res[2])) {
+              $utfencode=true;
+              $can_be_encoded=true;
+            } else {
+              $can_be_encoded=false;
+            }
             switch ($encoding)
             {
             case 'B':
                 $replace = base64_decode($res[4]);
-                $ret .= charset_decode($res[2],$replace);
+                if ($can_be_encoded) {
+                  /* convert string to different charset,
+                   * if functions asks for it (usually in compose)
+                   */
+                  $ret .= charset_convert($res[2],$replace,$default_charset);
+                } else {
+                  // convert string to html codes in order to display it
+                  $ret .= charset_decode($res[2],$replace);
+                }
                 break;
             case 'Q':
                 $replace = str_replace('_', ' ', $res[4]);
                 $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))',
                                     $replace);
-        /* decide about valid decoding */
-        if ($decide && is_conversion_safe($res[2])) {
-          $utfencode=true;
-          $can_be_decoded=true;
-        } else {
-          $can_be_decoded=false;
-        }
-                /* Only encode into entities by default. Some places
-                 * don't need the encoding, like the compose form.
-                 */
                 if ($utfencode) {
+                  if ($can_be_encoded) {
+                    /* convert string to different charset,
+                     * if functions asks for it (usually in compose)
+                     */
+                    $replace = charset_convert($res[2], $replace,$default_charset);
+                  } else {
+                    // convert string to html codes in order to display it
                     $replace = charset_decode($res[2], $replace);
+                  }
                 } else {
                     if ($htmlsave) {
                         $replace = htmlspecialchars($replace);
@@ -739,10 +753,6 @@ function encodeHeader ($string) {
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return  $languages[$squirrelmail_language]['XTRA_CODE']('encodeheader', $string);
     }
-    // instead of removing nbsp here, we don't add it in decodeHeader
-    //    if (strtolower($default_charset) == 'iso-8859-1') {
-    //    $string = str_replace("\240",' ',$string);
-    //}
 
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen($string);
