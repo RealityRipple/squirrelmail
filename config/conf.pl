@@ -246,7 +246,7 @@ while ( $line = <FILE> ) {
     }
 }
 close FILE;
-if ( $useSendmail ne "true" ) {
+if ( lc($useSendmail) ne "true" ) {
     $useSendmail = "false";
 }
 if ( !$sendmail_path ) {
