@@ -1,5 +1,8 @@
 Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- Made deleted (but not expunged) messages easier to detect (only if $auto_expunge = false)
+- Fixed bug that didn't display size correctly in search results
+- Major memory management and speed improvements with downloading of attachments
 - Made $auto_expunge variable actually do something
 - Fixed bug that didn't display login failure message
 - Fixed minor bug in sqimap_mailbox_list
