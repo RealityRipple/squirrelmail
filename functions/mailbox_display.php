@@ -78,7 +78,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 
     $subject = processSubject($msg['SUBJECT']);
 
-    echo html_tag( 'tr' ) . "\n";
+    echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
     if (isset($msg['FLAG_FLAGGED']) && ($msg['FLAG_FLAGGED'] == true)) {
         $flag = "<font color=\"$color[2]\">";
