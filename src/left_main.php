@@ -29,7 +29,8 @@
       include("../functions/page_header.php");
    if (!isset($i18n_php))
       include("../functions/i18n.php");
-
+   if (!isset($plugin_php))
+      include("../functions/plugin.php");
 
    displayHtmlHeader();
 
@@ -112,6 +113,8 @@
    }
    
    echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n\n";
+
+   do_hook("left_main_before");
 
    $boxes = sqimap_mailbox_list($imapConnection);
 
