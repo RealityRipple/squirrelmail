@@ -1,11 +1,7 @@
-# Icelandic Squirrelmail Translation
-# Copyright (c) 1999-2002 The Squirrelmail Development Team
-# Karl Heiðar <karlh@macho.is>, 2000
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-24 15:07+0100\n"
+"POT-Creation-Date: 2002-07-04 12:53+0300\n"
 "PO-Revision-Date: 2002-01-29 12:06GMT\n"
 "Last-Translator: Elías Halldór Ágústsson <elias@skyrr.is>\n"
 "Language-Team: Íslenska <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -14,929 +10,1019 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.9.5\n"
 
-# squirrelmail/src/addrbook_popup.php:37
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
 msgstr "Netfangaskrá"
 
-# squirrelmail/src/addrbook_search.php:96
-# squirrelmail/src/addrbook_search_html.php:75
-# squirrelmail/src/addressbook.php:311
-#: squirrelmail/src/addrbook_search.php:98
-#: squirrelmail/src/addrbook_search_html.php:66
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
+#: squirrelmail/src/addrbook_search.php:100
+#: squirrelmail/src/addrbook_search_html.php:90
+#: squirrelmail/src/addressbook.php:305 squirrelmail/src/vcard.php:89
 msgid "Name"
 msgstr "Nafn"
 
-# squirrelmail/src/addrbook_search.php:96
-# squirrelmail/src/addrbook_search_html.php:75
-# squirrelmail/src/addressbook.php:312
-#: squirrelmail/src/addrbook_search.php:99
-#: squirrelmail/src/addrbook_search_html.php:67
-#: squirrelmail/src/addressbook.php:286
+#: squirrelmail/src/addrbook_search.php:101
+#: squirrelmail/src/addrbook_search_html.php:91
+#: squirrelmail/src/addressbook.php:306
 msgid "E-mail"
 msgstr "Netfang"
 
-# squirrelmail/src/addrbook_search.php:96
-# squirrelmail/src/addrbook_search_html.php:75
-# squirrelmail/src/addressbook.php:313
-#: squirrelmail/src/addrbook_search.php:100
-#: squirrelmail/src/addrbook_search_html.php:68
-#: squirrelmail/src/addressbook.php:287
+#: squirrelmail/src/addrbook_search.php:102
+#: squirrelmail/src/addrbook_search_html.php:92
+#: squirrelmail/src/addressbook.php:307
 msgid "Info"
 msgstr "Upplýsingar"
 
-# squirrelmail/src/addrbook_search.php:99
-# squirrelmail/src/addrbook_search_html.php:78
-#: squirrelmail/src/addrbook_search.php:103
-#: squirrelmail/src/addrbook_search_html.php:71
+#: squirrelmail/src/addrbook_search.php:105
+#: squirrelmail/src/addrbook_search_html.php:95
 msgid "Source"
 msgstr "Frumkóði"
 
-# squirrelmail/src/addrbook_search_html.php:101
-#: squirrelmail/src/addrbook_search_html.php:98
-msgid "Use Addresses"
-msgstr "Nota netföng"
+#: squirrelmail/src/addrbook_search.php:165
+#: squirrelmail/src/addrbook_search.php:261
+#: squirrelmail/src/addrbook_search_html.php:253
+msgid "No persons matching your search was found"
+msgstr "Leitin skilaði auðu"
 
-# squirrelmail/src/addrbook_search_html.php:125
-#: squirrelmail/src/addrbook_search_html.php:117
-msgid "Address Book Search"
-msgstr "Leit í Netfangaskrá"
-
-# squirrelmail/src/addrbook_search.php:187
-# squirrelmail/src/addrbook_search_html.php:135
-#: squirrelmail/src/addrbook_search.php:173
-#: squirrelmail/src/addrbook_search_html.php:126
+#: squirrelmail/src/addrbook_search.php:180
+#: squirrelmail/src/addrbook_search_html.php:162
 msgid "Search for"
 msgstr "Leita að"
 
-# squirrelmail/src/addrbook_search.php:194
-# squirrelmail/src/addrbook_search_html.php:143
-#: squirrelmail/src/addrbook_search.php:179
-#: squirrelmail/src/addrbook_search_html.php:136
+#: squirrelmail/src/addrbook_search.php:187
+#: squirrelmail/src/addrbook_search_html.php:172
 msgid "in"
 msgstr "í"
 
-# squirrelmail/src/addrbook_search.php:196
-# squirrelmail/src/addrbook_search_html.php:146
-#: squirrelmail/src/addrbook_search.php:180
-#: squirrelmail/src/addrbook_search_html.php:139
+#: squirrelmail/src/addrbook_search.php:188
+#: squirrelmail/src/addrbook_search_html.php:175
 msgid "All address books"
 msgstr "Allar netfangaskrár"
 
-# squirrelmail/functions/page_header.php:87
-# squirrelmail/src/addrbook_search.php:206
-# squirrelmail/src/addrbook_search_html.php:158
-# squirrelmail/src/search.php:45 squirrelmail/src/search.php:99
-#: squirrelmail/functions/page_header.php:128
-#: squirrelmail/src/addrbook_search.php:190
-#: squirrelmail/src/addrbook_search_html.php:150
-#: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
+#: squirrelmail/functions/page_header.php:224
+#: squirrelmail/src/addrbook_search.php:202
+#: squirrelmail/src/addrbook_search_html.php:190
+#: squirrelmail/src/search.php:194 squirrelmail/src/search.php:198
+#: squirrelmail/src/search.php:218 squirrelmail/src/search.php:366
+#: squirrelmail/src/search.php:396 squirrelmail/src/search.php:417
+#: squirrelmail/src/search.php:426
 msgid "Search"
 msgstr "Leita"
 
-# squirrelmail/src/addrbook_search.php:208
-# squirrelmail/src/addrbook_search_html.php:160
-#: squirrelmail/src/addrbook_search.php:191
-#: squirrelmail/src/addrbook_search_html.php:151
+#: squirrelmail/src/addrbook_search.php:203
+#: squirrelmail/src/addrbook_search_html.php:191
 msgid "List all"
 msgstr "Birta allt"
 
-# squirrelmail/src/addrbook_search.php:229
-# squirrelmail/src/addrbook_search_html.php:183
-#: squirrelmail/src/addrbook_search.php:213
-#: squirrelmail/src/addrbook_search_html.php:176
+#: squirrelmail/plugins/newmail/testsound.php:36
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:119
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:427
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
+#: squirrelmail/src/addrbook_search.php:205 squirrelmail/src/compose.php:639
+msgid "Close"
+msgstr "Skrifa skeyti"
+
+#: squirrelmail/src/addrbook_search.php:226
+#: squirrelmail/src/addrbook_search_html.php:221
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr "Gat ekki birt netföng frá %s"
 
-# squirrelmail/src/addrbook_search.php:251
-# squirrelmail/src/addrbook_search_html.php:206
-#: squirrelmail/src/addrbook_search.php:236
-#: squirrelmail/src/addrbook_search_html.php:201
+#: squirrelmail/src/addrbook_search.php:252
+#: squirrelmail/src/addrbook_search_html.php:246
 msgid "Your search failed with the following error(s)"
-msgstr "Leit þín mistókst með eftirfarandi villum"
+msgstr "Leit þín mistókst með eftirfarandi villu(m)"
 
-# squirrelmail/src/addrbook_search.php:174
-# squirrelmail/src/addrbook_search.php:258
-# squirrelmail/src/addrbook_search_html.php:210
-#: squirrelmail/src/addrbook_search.php:159
-#: squirrelmail/src/addrbook_search.php:243
-#: squirrelmail/src/addrbook_search_html.php:206
-msgid "No persons matching your search was found"
-msgstr "Enginn fannst við leit"
+#: squirrelmail/plugins/mail_fetch/fetch.php:71
+#: squirrelmail/src/addrbook_search_html.php:81
+#: squirrelmail/src/addrbook_search_html.php:83
+#: squirrelmail/src/addrbook_search_html.php:85
+msgid "All"
+msgstr ""
 
-# squirrelmail/src/addrbook_search_html.php:219
-#: squirrelmail/src/addrbook_search_html.php:219
+#: squirrelmail/functions/mailbox_display.php:793
+#: squirrelmail/plugins/filters/options.php:125
+#: squirrelmail/src/addrbook_search_html.php:106
+#: squirrelmail/src/compose.php:464 squirrelmail/src/download.php:401
+#: squirrelmail/src/download.php:410 squirrelmail/src/options_highlight.php:83
+#: squirrelmail/src/options_highlight.php:372
+#: squirrelmail/src/printer_friendly_bottom.php:103
+#: squirrelmail/src/search.php:363
+msgid "To"
+msgstr "Til"
+
+#: squirrelmail/plugins/filters/options.php:128
+#: squirrelmail/src/addrbook_search_html.php:108
+#: squirrelmail/src/compose.php:471 squirrelmail/src/options_highlight.php:86
+#: squirrelmail/src/options_highlight.php:375 squirrelmail/src/search.php:362
+msgid "Cc"
+msgstr "Afrit"
+
+#: squirrelmail/src/addrbook_search_html.php:110
+msgid "Bcc"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:126
+msgid "Use Addresses"
+msgstr "Nota netföng"
+
+#: squirrelmail/src/addrbook_search_html.php:150
+msgid "Address Book Search"
+msgstr "Leita í netfangaskrá"
+
+#: squirrelmail/src/addrbook_search_html.php:267
 msgid "Return"
 msgstr "Næst"
 
-# squirrelmail/src/addrbook_search.php:211
-#: squirrelmail/src/addrbook_search.php:194
-msgid "Close window"
-msgstr "Loka glugga"
-
-# squirrelmail/src/addressbook.php:46 squirrelmail/src/addressbook.php:310
-#: squirrelmail/src/addressbook.php:39 squirrelmail/src/addressbook.php:285
+#: squirrelmail/plugins/abook_take/take.php:35
+#: squirrelmail/src/addressbook.php:40 squirrelmail/src/addressbook.php:304
 msgid "Nickname"
 msgstr "Gælunafn"
 
-# squirrelmail/src/addressbook.php:51
-#: squirrelmail/src/addressbook.php:40
-msgid "Must be unique"
-msgstr "Verður að vera einstakt"
-
-# squirrelmail/src/addressbook.php:53
+#: squirrelmail/plugins/abook_take/take.php:37
 #: squirrelmail/src/addressbook.php:41
+msgid "Must be unique"
+msgstr "Verður að vera einkvæmt"
+
+#: squirrelmail/plugins/abook_take/take.php:41
+#: squirrelmail/src/addressbook.php:42
 msgid "E-mail address"
 msgstr "Netfang"
 
-# squirrelmail/src/addressbook.php:58
-#: squirrelmail/src/addressbook.php:42
+#: squirrelmail/plugins/abook_take/take.php:60
+#: squirrelmail/src/addressbook.php:43
 msgid "First name"
 msgstr "Fornafn"
 
-# squirrelmail/src/addressbook.php:63
-#: squirrelmail/src/addressbook.php:43
+#: squirrelmail/plugins/abook_take/take.php:64
+#: squirrelmail/src/addressbook.php:44
 msgid "Last name"
 msgstr "Eftirnafn"
 
-# squirrelmail/src/addressbook.php:68
-#: squirrelmail/src/addressbook.php:44
+#: squirrelmail/plugins/abook_take/take.php:68
+#: squirrelmail/src/addressbook.php:45
 msgid "Additional info"
 msgstr "Aðrar upplýsingar"
 
-# squirrelmail/src/addressbook.php:87
-#: squirrelmail/src/addressbook.php:58
+#: squirrelmail/src/addressbook.php:61
 msgid "No personal address book is defined. Contact administrator."
 msgstr ""
-"Engin netfangaskrá hefur verið skilgreind. Hafðu samband við kerfisstjóra."
+"Engin persónuleg netfangaskrá hefur verið skilgreind. Hafðu samband við "
+"kerfisstjóra."
 
-# squirrelmail/src/addressbook.php:184
-#: squirrelmail/src/addressbook.php:154
+#: squirrelmail/src/addressbook.php:157
 msgid "You can only edit one address at the time"
 msgstr "Þú getur aðeins breytt einu netfangi í einu"
 
-# squirrelmail/src/addressbook.php:196 squirrelmail/src/addressbook.php:199
-# squirrelmail/src/addressbook.php:228 squirrelmail/src/addressbook.php:231
-#: squirrelmail/src/addressbook.php:168 squirrelmail/src/addressbook.php:170
-#: squirrelmail/src/addressbook.php:200 squirrelmail/src/addressbook.php:202
+#: squirrelmail/src/addressbook.php:171 squirrelmail/src/addressbook.php:175
+#: squirrelmail/src/addressbook.php:208 squirrelmail/src/addressbook.php:212
 msgid "Update address"
 msgstr "Uppfæra netfang"
 
-# squirrelmail/functions/display_messages.php:63
-# squirrelmail/functions/display_messages.php:79
-# squirrelmail/functions/imap_general.php:158
-# squirrelmail/src/addressbook.php:219 squirrelmail/src/addressbook.php:269
-#: squirrelmail/functions/display_messages.php:20
-#: squirrelmail/functions/display_messages.php:71
-#: squirrelmail/functions/display_messages.php:87
-#: squirrelmail/src/addressbook.php:191 squirrelmail/src/addressbook.php:239
+#: squirrelmail/functions/display_messages.php:70
+#: squirrelmail/functions/display_messages.php:89
+#: squirrelmail/functions/display_messages.php:106
+#: squirrelmail/functions/display_messages.php:172
+#: squirrelmail/src/addressbook.php:197 squirrelmail/src/addressbook.php:251
 msgid "ERROR"
 msgstr "VILLA"
 
-# squirrelmail/src/addressbook.php:245
-#: squirrelmail/src/addressbook.php:214
+#: squirrelmail/src/addressbook.php:224
 msgid "Unknown error"
 msgstr "Óþekkt Villa"
 
-# squirrelmail/src/addressbook.php:363
-#: squirrelmail/src/addressbook.php:258 squirrelmail/src/addressbook.php:341
+#: squirrelmail/plugins/abook_take/take.php:73
+#: squirrelmail/src/addressbook.php:271 squirrelmail/src/addressbook.php:373
 msgid "Add address"
 msgstr "Bæta við netfangi"
 
-# squirrelmail/src/addressbook.php:348
-#: squirrelmail/src/addressbook.php:270 squirrelmail/src/addressbook.php:323
+#: squirrelmail/src/addressbook.php:285 squirrelmail/src/addressbook.php:351
 msgid "Edit selected"
 msgstr "Breyta völdu"
 
-# squirrelmail/src/addressbook.php:350
-#: squirrelmail/src/addressbook.php:272 squirrelmail/src/addressbook.php:325
+#: squirrelmail/src/addressbook.php:287 squirrelmail/src/addressbook.php:353
 msgid "Delete selected"
-msgstr "Eyða völdu"
+msgstr "Eyða merktu"
 
-# squirrelmail/src/addressbook.php:360
-#: squirrelmail/src/addressbook.php:338
+#: squirrelmail/plugins/abook_take/take.php:29
+#: squirrelmail/src/addressbook.php:368
 #, c-format
 msgid "Add to %s"
 msgstr "Bæta við %s"
 
-#: squirrelmail/src/compose.php:43
+#: squirrelmail/src/compose.php:98
 msgid "Draft Email Saved"
-msgstr "Uppkast af skeyti vistað"
+msgstr "Uppkast að skeyti vistað"
 
-# squirrelmail/src/compose.php:412 squirrelmail/src/compose.php:446
-#: squirrelmail/src/compose.php:131 squirrelmail/src/compose.php:172
-#: squirrelmail/src/compose.php:183
+#: squirrelmail/src/compose.php:201 squirrelmail/src/compose.php:245
+#: squirrelmail/src/compose.php:255
 msgid "Could not move/copy file. File not attached"
 msgstr "Gat ekki fært/afritað skrá. Viðhengi ekki hengt við."
 
-# squirrelmail/src/compose.php:101
-#: squirrelmail/src/compose.php:304
+#: squirrelmail/src/compose.php:459
 msgid "Original Message"
 msgstr "Upprunalegt Skeyti"
 
-# squirrelmail/functions/mailbox_display.php:528
-# squirrelmail/src/compose.php:102 squirrelmail/src/download.php:120
-# squirrelmail/src/options_order.php:50 squirrelmail/src/search.php:84
-# squirrelmail/src/search.php:85
-#: squirrelmail/functions/mailbox_display.php:581
-#: squirrelmail/plugins/filters/options.php:97
-#: squirrelmail/src/compose.php:305 squirrelmail/src/download.php:130
-#: squirrelmail/src/download.php:135
-#: squirrelmail/src/options_highlight.php:334
-#: squirrelmail/src/options_order.php:57
-#: squirrelmail/src/printer_friendly_bottom.php:118
-#: squirrelmail/src/search.php:116
+#: squirrelmail/functions/mailbox_display.php:813
+#: squirrelmail/plugins/filters/options.php:134
+#: squirrelmail/src/compose.php:460 squirrelmail/src/download.php:399
+#: squirrelmail/src/download.php:406
+#: squirrelmail/src/options_highlight.php:381
+#: squirrelmail/src/options_order.php:40
+#: squirrelmail/src/printer_friendly_bottom.php:117
+#: squirrelmail/src/search.php:360
 msgid "Subject"
 msgstr "Titill"
 
-# squirrelmail/functions/mailbox_display.php:503
-# squirrelmail/src/compose.php:103 squirrelmail/src/download.php:121
-# squirrelmail/src/options_order.php:48 squirrelmail/src/search.php:87
-# squirrelmail/src/search.php:88
-#: squirrelmail/functions/mailbox_display.php:567
-#: squirrelmail/plugins/filters/options.php:85
-#: squirrelmail/src/compose.php:306 squirrelmail/src/download.php:131
-#: squirrelmail/src/download.php:137
-#: squirrelmail/src/options_highlight.php:322
-#: squirrelmail/src/options_order.php:55
-#: squirrelmail/src/printer_friendly_bottom.php:112
-#: squirrelmail/src/search.php:117
+#: squirrelmail/functions/mailbox_display.php:796
+#: squirrelmail/plugins/filters/options.php:122
+#: squirrelmail/src/compose.php:461 squirrelmail/src/download.php:171
+#: squirrelmail/src/download.php:400 squirrelmail/src/download.php:408
+#: squirrelmail/src/options_highlight.php:80
+#: squirrelmail/src/options_highlight.php:369
+#: squirrelmail/src/options_order.php:38
+#: squirrelmail/src/printer_friendly_bottom.php:99
+#: squirrelmail/src/search.php:361
 msgid "From"
 msgstr "Frá"
 
-# squirrelmail/functions/mailbox_display.php:515
-# squirrelmail/src/download.php:123 squirrelmail/src/options_order.php:49
-#: squirrelmail/functions/mailbox_display.php:575
-#: squirrelmail/src/compose.php:307 squirrelmail/src/download.php:133
-#: squirrelmail/src/download.php:141 squirrelmail/src/options_order.php:56
-#: squirrelmail/src/printer_friendly_bottom.php:117
+#: squirrelmail/functions/mailbox_display.php:805
+#: squirrelmail/src/compose.php:462 squirrelmail/src/download.php:402
+#: squirrelmail/src/download.php:412 squirrelmail/src/options_order.php:39
+#: squirrelmail/src/printer_friendly_bottom.php:113
 msgid "Date"
 msgstr "Dagsetning"
 
-# squirrelmail/functions/mailbox_display.php:501
-# squirrelmail/src/compose.php:104 squirrelmail/src/download.php:122
-# squirrelmail/src/search.php:93 squirrelmail/src/search.php:94
-#: squirrelmail/functions/mailbox_display.php:565
-#: squirrelmail/plugins/filters/options.php:88
-#: squirrelmail/src/compose.php:309 squirrelmail/src/download.php:132
-#: squirrelmail/src/download.php:139
-#: squirrelmail/src/options_highlight.php:325
-#: squirrelmail/src/printer_friendly_bottom.php:113
-#: squirrelmail/src/search.php:119
-msgid "To"
-msgstr "Til"
+#: squirrelmail/src/compose.php:628
+#, fuzzy
+msgid "Draft Saved"
+msgstr "Uppkast að skeyti vistað"
 
-# squirrelmail/src/read_body.php:353
-#: squirrelmail/plugins/listcommands/mailout.php:50
-#: squirrelmail/src/compose.php:462 squirrelmail/src/read_body.php:566
+#: squirrelmail/src/compose.php:631
+#, fuzzy
+msgid "Your Message has been sent"
+msgstr "Engin skilaboð voru valin."
+
+#: squirrelmail/plugins/listcommands/mailout.php:54
+#: squirrelmail/src/compose.php:650 squirrelmail/src/read_body.php:872
 msgid "From:"
 msgstr "Frá:"
 
-# squirrelmail/src/compose.php:231 squirrelmail/src/read_body.php:369
-#: squirrelmail/src/compose.php:489 squirrelmail/src/read_body.php:583
+#: squirrelmail/src/compose.php:677 squirrelmail/src/download.php:183
+#: squirrelmail/src/read_body.php:220 squirrelmail/src/read_body.php:887
 msgid "To:"
 msgstr "Til:"
 
-# squirrelmail/src/compose.php:239
-#: squirrelmail/src/compose.php:497
+#: squirrelmail/src/compose.php:684
 msgid "CC:"
 msgstr "Afrit:"
 
-# squirrelmail/src/compose.php:247
-#: squirrelmail/src/compose.php:505
+#: squirrelmail/src/compose.php:691
 msgid "BCC:"
 msgstr "Falið Afrit:"
 
-# squirrelmail/src/compose.php:255 squirrelmail/src/read_body.php:339
-#: squirrelmail/src/compose.php:512 squirrelmail/src/read_body.php:537
+#: squirrelmail/src/compose.php:719 squirrelmail/src/download.php:176
+#: squirrelmail/src/read_body.php:221 squirrelmail/src/read_body.php:847
 msgid "Subject:"
 msgstr "Titill:"
 
-# squirrelmail/src/compose.php:297 squirrelmail/src/compose.php:343
-#: squirrelmail/src/compose.php:557 squirrelmail/src/compose.php:619
+#: squirrelmail/src/compose.php:762 squirrelmail/src/compose.php:858
 msgid "Send"
 msgstr "Senda"
 
-# squirrelmail/src/compose.php:303
-#: squirrelmail/src/compose.php:563
+#: squirrelmail/src/compose.php:769
 msgid "Attach:"
 msgstr "Hengja við:"
 
-# squirrelmail/src/compose.php:309 squirrelmail/src/options_order.php:133
-#: squirrelmail/src/compose.php:568 squirrelmail/src/options_order.php:143
+#: squirrelmail/src/compose.php:772 squirrelmail/src/options_order.php:132
 msgid "Add"
 msgstr "Bæta við"
 
-# squirrelmail/src/compose.php:321
-#: squirrelmail/src/compose.php:584
+#: squirrelmail/src/compose.php:791
 msgid "Delete selected attachments"
 msgstr "Eyða merktum viðhengjum"
 
-# squirrelmail/functions/page_header.php:81 squirrelmail/src/compose.php:336
-# squirrelmail/src/compose.php:338 squirrelmail/src/compose.php:341
-#: squirrelmail/functions/page_header.php:122 squirrelmail/src/compose.php:609
-#: squirrelmail/src/compose.php:613 squirrelmail/src/compose.php:617
-msgid "Addresses"
-msgstr "Netföng"
-
-#: squirrelmail/src/compose.php:622
-msgid "Save Draft"
-msgstr "Vista uppkast"
-
-#: squirrelmail/src/compose.php:628 squirrelmail/src/read_body.php:613
+#: squirrelmail/src/compose.php:824 squirrelmail/src/read_body.php:913
 msgid "Priority"
 msgstr "Forgangur"
 
-# squirrelmail/src/options_display.php:128
-#: squirrelmail/plugins/calendar/functions.php:98
-#: squirrelmail/src/compose.php:629 squirrelmail/src/read_body.php:424
+#: squirrelmail/plugins/administrator/defines.php:201
+#: squirrelmail/plugins/calendar/functions.php:99
+#: squirrelmail/src/compose.php:825 squirrelmail/src/read_body.php:622
 msgid "High"
 msgstr "Hár"
 
-#: squirrelmail/plugins/calendar/functions.php:97
-#: squirrelmail/src/compose.php:630 squirrelmail/src/read_body.php:437
+#: squirrelmail/plugins/calendar/functions.php:98
+#: squirrelmail/src/compose.php:826 squirrelmail/src/read_body.php:635
 msgid "Normal"
 msgstr "Venjulegur"
 
-#: squirrelmail/src/compose.php:631 squirrelmail/src/read_body.php:430
+#: squirrelmail/plugins/administrator/defines.php:198
+#: squirrelmail/src/compose.php:827 squirrelmail/src/read_body.php:628
 msgid "Low"
 msgstr "Lágur"
 
-# squirrelmail/src/compose.php:366
-#: squirrelmail/src/compose.php:653
-msgid "You have not filled in the \"To:\" field."
-msgstr "Það er enginn viðtakandi í \"Til:\""
+#: squirrelmail/src/compose.php:833
+msgid "Receipt"
+msgstr ""
 
-#: squirrelmail/src/compose.php:736
+#: squirrelmail/src/compose.php:835
+#, fuzzy
+msgid "On read"
+msgstr "Ólesið"
+
+#: squirrelmail/src/compose.php:837
+msgid "On Delivery"
+msgstr ""
+
+#: squirrelmail/src/compose.php:845
+#: squirrelmail/src/options_identities.php:314
+#: squirrelmail/src/options_personal.php:99
+msgid "Signature"
+msgstr "Undirskrift"
+
+#: squirrelmail/functions/page_header.php:218 squirrelmail/src/compose.php:848
+#: squirrelmail/src/compose.php:852 squirrelmail/src/compose.php:856
+msgid "Addresses"
+msgstr "Netföng"
+
+#: squirrelmail/src/compose.php:861
+msgid "Save Draft"
+msgstr "Vista uppkast"
+
+#: squirrelmail/src/compose.php:880
+msgid "You have not filled in the \"To:\" field."
+msgstr "Þú hefur ekki fyllt í \"Til:\" svæðið."
+
+#: squirrelmail/src/compose.php:972
 msgid "said"
 msgstr "sagði"
 
-#: squirrelmail/src/compose.php:739
+#: squirrelmail/src/compose.php:975
 msgid "quote"
 msgstr "tilvitnun"
 
-#: squirrelmail/src/compose.php:739
+#: squirrelmail/src/compose.php:975
 msgid "who"
 msgstr "hver"
 
-# squirrelmail/src/download.php:39
-#: squirrelmail/src/download.php:31
-msgid "Viewing a text attachment"
-msgstr "Skoða textaviðhengi"
-
-# squirrelmail/src/download.php:42 squirrelmail/src/download.php:44
-# squirrelmail/src/read_body.php:48
-#: squirrelmail/src/download.php:34 squirrelmail/src/download.php:36
-#: squirrelmail/src/image.php:31 squirrelmail/src/image.php:35
-#: squirrelmail/src/read_body.php:162 squirrelmail/src/vcard.php:35
-#: squirrelmail/src/vcard.php:39
+#: squirrelmail/src/download.php:32 squirrelmail/src/download.php:34
+#: squirrelmail/src/download.php:102 squirrelmail/src/image.php:26
+#: squirrelmail/src/image.php:30 squirrelmail/src/read_body.php:437
+#: squirrelmail/src/vcard.php:36 squirrelmail/src/vcard.php:40
 msgid "View message"
 msgstr "Skoða Skeyti"
 
-# squirrelmail/functions/mime.php:506 squirrelmail/src/download.php:49
-#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:41
-#: squirrelmail/src/image.php:44 squirrelmail/src/vcard.php:196
+#: squirrelmail/src/download.php:43
+msgid "Viewing a text attachment"
+msgstr "Skoða textaviðhengi"
+
+#: squirrelmail/functions/mime.php:863
+#: squirrelmail/plugins/abook_take/setup.php:91
+#: squirrelmail/src/download.php:50 squirrelmail/src/download.php:109
+#: squirrelmail/src/image.php:49 squirrelmail/src/vcard.php:213
 msgid "Download this as a file"
 msgstr "Sækja sem skrá"
 
-# squirrelmail/src/folders_create.php:33
-#: squirrelmail/src/folders_create.php:25
-msgid "Illegal folder name.  Please select a different name."
-msgstr "Ólöglegt heiti á möppu. Veldu annað nafn."
+#: squirrelmail/src/download.php:101
+#, fuzzy
+msgid "Viewing a message attachment"
+msgstr "Skoða myndviðhengi"
 
-# squirrelmail/src/folders_create.php:33
-#: squirrelmail/src/folders_create.php:25
-msgid "Click here to go back"
-msgstr "Smelltu hér til að bakka."
+#: squirrelmail/src/download.php:137
+#, fuzzy
+msgid "Save to:"
+msgstr "Færa í:"
 
-# squirrelmail/functions/page_header.php:83 squirrelmail/src/folders.php:35
-# squirrelmail/src/left_main.php:129
-#: squirrelmail/functions/page_header.php:124 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:234
+#: squirrelmail/src/download.php:141
+msgid "Extract"
+msgstr ""
+
+#: squirrelmail/functions/imap_search.php:217
+#: squirrelmail/functions/mailbox_display.php:717
+#: squirrelmail/functions/page_header.php:192
+#: squirrelmail/plugins/delete_move_next/setup.php:219
+#: squirrelmail/plugins/mail_fetch/options.php:172
+#: squirrelmail/plugins/mail_fetch/options.php:290
+#: squirrelmail/src/download.php:156 squirrelmail/src/left_main.php:74
+#: squirrelmail/src/search.php:329
+#, fuzzy
+msgid "INBOX"
+msgstr "Einungis aðalpósthólf"
+
+#: squirrelmail/plugins/calendar/event_create.php:125
+#: squirrelmail/plugins/calendar/event_delete.php:35
+#: squirrelmail/plugins/calendar/event_edit.php:37
+#: squirrelmail/plugins/calendar/event_edit.php:103
+#: squirrelmail/plugins/calendar/event_edit.php:127
+#: squirrelmail/src/download.php:189 squirrelmail/src/read_body.php:880
+msgid "Date:"
+msgstr "Dagsetning:"
+
+#: squirrelmail/src/download.php:197 squirrelmail/src/read_body.php:895
+#, fuzzy
+msgid "Cc:"
+msgstr "Afrit"
+
+#: squirrelmail/src/download.php:205 squirrelmail/src/read_body.php:905
+msgid "Bcc:"
+msgstr ""
+
+#: squirrelmail/src/download.php:224 squirrelmail/src/read_body.php:586
+msgid "more"
+msgstr "meira"
+
+#: squirrelmail/src/download.php:225 squirrelmail/src/read_body.php:587
+msgid "less"
+msgstr "minna"
+
+#: squirrelmail/functions/page_header.php:220 squirrelmail/src/folders.php:28
+#: squirrelmail/src/left_main.php:754
 msgid "Folders"
 msgstr "Möppur"
 
-# squirrelmail/src/folders.php:43
-#: squirrelmail/src/folders.php:42
+#: squirrelmail/src/folders.php:37
 msgid "Subscribed successfully!"
 msgstr "Skráning Tókst!"
 
-# squirrelmail/src/folders.php:45
-#: squirrelmail/src/folders.php:44
+#: squirrelmail/src/folders.php:39
 msgid "Unsubscribed successfully!"
-msgstr "Afskráning tókst!"
+msgstr "Áskrift sagt upp!"
 
-# squirrelmail/src/folders.php:47
-#: squirrelmail/src/folders.php:46
+#: squirrelmail/src/folders.php:41
 msgid "Deleted folder successfully!"
 msgstr "Eyðing möppu tókst!"
 
-# squirrelmail/src/folders.php:49
-#: squirrelmail/src/folders.php:48
+#: squirrelmail/src/folders.php:43
 msgid "Created folder successfully!"
 msgstr "Tókst að búa til möppu!"
 
-# squirrelmail/src/folders.php:51
-#: squirrelmail/src/folders.php:50
+#: squirrelmail/src/folders.php:45
 msgid "Renamed successfully!"
 msgstr "Endurnefning tókst!"
 
-# squirrelmail/src/folders.php:64 squirrelmail/src/left_main.php:132
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:273
+#: squirrelmail/src/folders.php:51 squirrelmail/src/left_main.php:793
 msgid "refresh folder list"
 msgstr "endurnýja möppulista"
 
-# squirrelmail/src/folders.php:148
-#: squirrelmail/src/folders.php:65
+#: squirrelmail/src/folders.php:64
 msgid "Create Folder"
 msgstr "Búa til möppu"
 
-# squirrelmail/src/folders.php:153
-#: squirrelmail/src/folders.php:70
+#: squirrelmail/src/folders.php:71
 msgid "as a subfolder of"
 msgstr "sem undirmappa af"
 
-# squirrelmail/src/options_display.php:206
-#: squirrelmail/src/folders.php:74 squirrelmail/src/folders.php:76
+#: squirrelmail/src/folders.php:75 squirrelmail/src/folders.php:77
 msgid "None"
 msgstr "Ekkert"
 
-# squirrelmail/src/folders.php:202
-#: squirrelmail/src/folders.php:98
+#: squirrelmail/src/folders.php:102
 msgid "Let this folder contain subfolders"
 msgstr "Láta þessa möppu vera með undirmöppur"
 
-# squirrelmail/src/folders.php:88 squirrelmail/src/folders.php:205
-#: squirrelmail/src/folders.php:101
+#: squirrelmail/src/folders.php:105
 msgid "Create"
 msgstr "Búa Til"
 
-# squirrelmail/src/folders.php:212
-#: squirrelmail/src/folders.php:108
+#: squirrelmail/src/folders.php:141
 msgid "Rename a Folder"
 msgstr "Endurnefna möppu"
 
-# squirrelmail/src/folders.php:233
-#: squirrelmail/src/folders.php:131
+#: squirrelmail/src/folders.php:149 squirrelmail/src/folders.php:190
+#, fuzzy
+msgid "Select a folder"
+msgstr "Endurnefna möppu"
+
+#: squirrelmail/src/folders.php:168
 msgid "Rename"
 msgstr "Endurnefna"
 
-# squirrelmail/src/folders.php:141 squirrelmail/src/folders.php:237
-#: squirrelmail/src/folders.php:135 squirrelmail/src/folders.php:194
+#: squirrelmail/src/folders.php:172 squirrelmail/src/folders.php:212
 msgid "No folders found"
 msgstr "Engar möppur fundust"
 
-# squirrelmail/src/folders.php:96
-#: squirrelmail/src/folders.php:143
+#: squirrelmail/src/folders.php:182
 msgid "Delete Folder"
 msgstr "Eyða möppu"
 
-# squirrelmail/functions/mailbox_display.php:477
-# squirrelmail/src/folders.php:137 squirrelmail/src/options_highlight.php:73
-# squirrelmail/src/read_body.php:295
-#: squirrelmail/functions/mailbox_display.php:538
-#: squirrelmail/plugins/filters/options.php:154
-#: squirrelmail/plugins/mail_fetch/options.php:168
-#: squirrelmail/plugins/mail_fetch/options.php:175
-#: squirrelmail/src/folders.php:190 squirrelmail/src/options_highlight.php:76
-#: squirrelmail/src/options_identities.php:320
-#: squirrelmail/src/read_body.php:473
+#: squirrelmail/functions/mailbox_display.php:739
+#: squirrelmail/plugins/filters/options.php:196
+#: squirrelmail/plugins/mail_fetch/options.php:214
+#: squirrelmail/plugins/mail_fetch/options.php:221
+#: squirrelmail/src/folders.php:208 squirrelmail/src/options_highlight.php:101
+#: squirrelmail/src/options_identities.php:328
+#: squirrelmail/src/read_body.php:729
 msgid "Delete"
 msgstr "Eyða"
 
-# squirrelmail/src/folders.php:246 squirrelmail/src/folders.php:265
-#: squirrelmail/plugins/listcommands/setup.php:33
-#: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
+#: squirrelmail/plugins/listcommands/setup.php:36
+#: squirrelmail/src/folders.php:223 squirrelmail/src/folders.php:245
 msgid "Unsubscribe"
-msgstr "Afskrá af"
+msgstr "Segja upp áskrift"
 
-# squirrelmail/src/folders.php:246 squirrelmail/src/folders.php:308
-#: squirrelmail/plugins/listcommands/setup.php:34
-#: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
+#: squirrelmail/plugins/listcommands/setup.php:35
+#: squirrelmail/src/folders.php:223 squirrelmail/src/folders.php:286
 msgid "Subscribe"
 msgstr "Setja í áskrift"
 
-# squirrelmail/src/folders.php:269
-#: squirrelmail/src/folders.php:224
+#: squirrelmail/src/folders.php:249
 msgid "No folders were found to unsubscribe from!"
 msgstr "Engin mappa fannst til að fjarlægja úr áskrift!"
 
-# squirrelmail/src/folders.php:311
-#: squirrelmail/src/folders.php:264
+#: squirrelmail/src/folders.php:289
 msgid "No folders were found to subscribe to!"
 msgstr "Engar möppur fundust til að setja í áskrift!"
 
-# squirrelmail/src/folders_rename_getname.php:46
-#: squirrelmail/src/folders_rename_getname.php:42
+#: squirrelmail/src/folders_create.php:29
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Ólöglegt heiti á möppu. Veldu annað nafn."
+
+#: squirrelmail/src/folders_create.php:29
+#: squirrelmail/src/folders_delete.php:29
+#: squirrelmail/src/folders_rename_getname.php:24
+msgid "Click here to go back"
+msgstr "Smelltu hér til að fara til baka."
+
+#: squirrelmail/src/folders_delete.php:29
+msgid "You have not selected a folder to delete. Please do so."
+msgstr ""
+
+#: squirrelmail/src/folders_rename_getname.php:24
+msgid "You have not selected a folder to rename. Please do so."
+msgstr ""
+
+#: squirrelmail/src/folders_rename_getname.php:50
 msgid "Rename a folder"
 msgstr "Endurnefna möppu"
 
-# squirrelmail/src/folders_rename_getname.php:50
-#: squirrelmail/src/folders_rename_getname.php:46
+#: squirrelmail/src/folders_rename_getname.php:55
 msgid "New name:"
 msgstr "Nýtt heiti:"
 
-# squirrelmail/src/folders_rename_getname.php:56
-# squirrelmail/src/options_highlight.php:187
-#: squirrelmail/functions/options.php:404
-#: squirrelmail/plugins/filters/options.php:138
-#: squirrelmail/plugins/newmail/newmail_opt.php:133
-#: squirrelmail/plugins/translate/options.php:163
-#: squirrelmail/src/folders_rename_getname.php:53
-#: squirrelmail/src/options_highlight.php:347
+#: squirrelmail/functions/options.php:419
+#: squirrelmail/plugins/filters/options.php:174
+#: squirrelmail/plugins/newmail/newmail_opt.php:155
+#: squirrelmail/plugins/translate/options.php:160
+#: squirrelmail/src/folders_rename_getname.php:62
+#: squirrelmail/src/options_highlight.php:394
 msgid "Submit"
 msgstr "Skrá"
 
-# squirrelmail/functions/page_header.php:89 squirrelmail/src/help.php:92
-#: squirrelmail/functions/page_header.php:130
-#: squirrelmail/plugins/listcommands/setup.php:32 squirrelmail/src/help.php:91
+#: squirrelmail/functions/page_header.php:226
+#: squirrelmail/plugins/listcommands/setup.php:39 squirrelmail/src/help.php:90
 msgid "Help"
 msgstr "Hjálp"
 
-# squirrelmail/src/help.php:126
-#: squirrelmail/src/help.php:131
+#: squirrelmail/src/help.php:129
 #, c-format
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
 msgstr "Hjálpin hefur ekki verið þýdd í %s. Það verður birt á Ensku í staðinn"
 
-# squirrelmail/src/help.php:132
-#: squirrelmail/src/help.php:137
+#: squirrelmail/src/help.php:135
 msgid "Some or all of the help documents are not present!"
-msgstr "Eitthvað eða allt af hjálparskjölum eru ekki til!"
+msgstr "Eitthvert eða öll hjálparskjalanna vantar!"
 
-# squirrelmail/src/help.php:156 squirrelmail/src/help.php:175
-#: squirrelmail/src/help.php:170 squirrelmail/src/help.php:193
+#: squirrelmail/src/help.php:169 squirrelmail/src/help.php:191
 msgid "Table of Contents"
 msgstr "Efnisyfirlit"
 
-# squirrelmail/functions/mailbox_display.php:329
-# squirrelmail/functions/mailbox_display.php:333
-# squirrelmail/functions/mailbox_display.php:337
-# squirrelmail/src/help.php:173 squirrelmail/src/help.php:174
-# squirrelmail/src/read_body.php:308 squirrelmail/src/read_body.php:310
-#: squirrelmail/functions/mailbox_display.php:735
-#: squirrelmail/functions/mailbox_display.php:738
-#: squirrelmail/functions/mailbox_display.php:741
-#: squirrelmail/plugins/delete_move_next/setup.php:149
-#: squirrelmail/plugins/delete_move_next/setup.php:151
-#: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
-#: squirrelmail/src/read_body.php:495 squirrelmail/src/read_body.php:497
+#: squirrelmail/functions/mailbox_display.php:978
+#: squirrelmail/functions/mailbox_display.php:981
+#: squirrelmail/functions/mailbox_display.php:984
+#: squirrelmail/plugins/delete_move_next/setup.php:167
+#: squirrelmail/plugins/delete_move_next/setup.php:169
+#: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
+#: squirrelmail/src/read_body.php:775 squirrelmail/src/read_body.php:777
 msgid "Previous"
 msgstr "Fyrra"
 
-# squirrelmail/functions/mailbox_display.php:330
-# squirrelmail/functions/mailbox_display.php:334
-# squirrelmail/functions/mailbox_display.php:338
-# squirrelmail/src/help.php:176 squirrelmail/src/help.php:177
-# squirrelmail/src/read_body.php:312 squirrelmail/src/read_body.php:314
-#: squirrelmail/functions/mailbox_display.php:736
-#: squirrelmail/functions/mailbox_display.php:739
-#: squirrelmail/functions/mailbox_display.php:742
-#: squirrelmail/plugins/delete_move_next/setup.php:154
-#: squirrelmail/plugins/delete_move_next/setup.php:156
-#: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
-#: squirrelmail/src/read_body.php:501 squirrelmail/src/read_body.php:503
+#: squirrelmail/functions/mailbox_display.php:979
+#: squirrelmail/functions/mailbox_display.php:982
+#: squirrelmail/functions/mailbox_display.php:985
+#: squirrelmail/plugins/delete_move_next/setup.php:172
+#: squirrelmail/plugins/delete_move_next/setup.php:174
+#: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
+#: squirrelmail/src/read_body.php:781 squirrelmail/src/read_body.php:783
 msgid "Next"
 msgstr "Næsta"
 
-# squirrelmail/src/help.php:196
-#: squirrelmail/src/help.php:221
+#: squirrelmail/src/help.php:217
 msgid "Top"
 msgstr "Upp"
 
-# squirrelmail/src/download.php:39
-#: squirrelmail/src/image.php:26
+#: squirrelmail/src/image.php:42
 msgid "Viewing an image attachment"
 msgstr "Skoða myndviðhengi"
 
-# squirrelmail/src/read_body.php:324
-#: squirrelmail/src/left_main.php:93
-msgid "empty"
-msgstr "tómt"
+#: squirrelmail/src/left_main.php:98 squirrelmail/src/left_main.php:251
+#: squirrelmail/src/left_main.php:326
+#, fuzzy
+msgid "purge"
+msgstr "Þurrka út"
 
-#: squirrelmail/src/left_main.php:267
+#: squirrelmail/src/left_main.php:787
 msgid "Last Refresh"
 msgstr "Síðast uppfært"
 
-# squirrelmail/src/login.php:41 squirrelmail/src/login.php:83
-#: squirrelmail/src/login.php:97 squirrelmail/src/login.php:141
+#: squirrelmail/src/left_main.php:867
+msgid "Save folder tree"
+msgstr ""
+
+#: squirrelmail/src/login.php:103 squirrelmail/src/login.php:171
 msgid "Login"
 msgstr "Innskrá"
 
-# squirrelmail/src/login.php:52
-#: squirrelmail/src/login.php:112
+#: squirrelmail/functions/display_messages.php:164
+#: squirrelmail/src/login.php:133
+#, fuzzy, c-format
+msgid "%s Logo"
+msgstr "Vefpóstur %s"
+
+#: squirrelmail/functions/display_messages.php:167
+#: squirrelmail/src/login.php:136
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr "SquirrelMail útgáfa %s"
 
-# squirrelmail/src/login.php:54
-#: squirrelmail/src/login.php:113
+#: squirrelmail/functions/display_messages.php:168
+#: squirrelmail/src/login.php:137
 msgid "By the SquirrelMail Development Team"
 msgstr "Eftir SquirrelMail þróunarhópinn"
 
-# squirrelmail/src/login.php:60
-#: squirrelmail/src/login.php:119
+#: squirrelmail/src/login.php:141
 #, c-format
 msgid "%s Login"
 msgstr "Vefpóstur %s"
 
-# squirrelmail/src/login.php:68
-#: squirrelmail/src/login.php:123
+#: squirrelmail/src/login.php:149
 msgid "Name:"
 msgstr "Notandanafn:"
 
-# squirrelmail/src/login.php:74
-#: squirrelmail/plugins/mail_fetch/options.php:126
-#: squirrelmail/plugins/mail_fetch/options.php:207
-#: squirrelmail/src/login.php:129
+#: squirrelmail/plugins/mail_fetch/options.php:157
+#: squirrelmail/plugins/mail_fetch/options.php:274
+#: squirrelmail/src/login.php:157
 msgid "Password:"
 msgstr "Lykilorð:"
 
-# squirrelmail/src/move_messages.php:85
-# squirrelmail/src/move_messages.php:114
-# squirrelmail/src/move_messages.php:143
-#: squirrelmail/src/move_messages.php:79
-#: squirrelmail/src/move_messages.php:114
-#: squirrelmail/src/move_messages.php:143
+#: squirrelmail/src/move_messages.php:94
+#, fuzzy
+msgid "<No subject>"
+msgstr "(enginn titill)"
+
+#: squirrelmail/src/move_messages.php:172
+#: squirrelmail/src/move_messages.php:225
+#: squirrelmail/src/move_messages.php:254
 msgid "No messages were selected."
 msgstr "Engin skilaboð voru valin."
 
-#: squirrelmail/src/options_display.php:32
+#: squirrelmail/src/options.php:136 squirrelmail/src/options.php:285
+msgid "Personal Information"
+msgstr "Persónulegar upplýsingar"
+
+#: squirrelmail/src/options.php:142 squirrelmail/src/options.php:293
+msgid "Display Preferences"
+msgstr "Útlitsstillingar"
+
+#: squirrelmail/src/options.php:148 squirrelmail/src/options.php:301
+#: squirrelmail/src/options_highlight.php:64
+msgid "Message Highlighting"
+msgstr "Litmerking skilaboða"
+
+#: squirrelmail/src/options.php:154 squirrelmail/src/options.php:309
+msgid "Folder Preferences"
+msgstr "Stillingar á möppu"
+
+#: squirrelmail/src/options.php:160 squirrelmail/src/options.php:317
+#: squirrelmail/src/options_order.php:32
+msgid "Index Order"
+msgstr "Röðun skeyta"
+
+#: squirrelmail/functions/page_header.php:222
+#: squirrelmail/plugins/filters/options.php:71
+#: squirrelmail/plugins/newmail/newmail_opt.php:38
+#: squirrelmail/plugins/translate/options.php:94
+#: squirrelmail/src/options.php:200 squirrelmail/src/options_highlight.php:64
+#: squirrelmail/src/options_identities.php:57
+#: squirrelmail/src/options_order.php:32
+msgid "Options"
+msgstr "Valmöguleikar"
+
+#: squirrelmail/src/options.php:268
+msgid "Successfully Saved Options"
+msgstr "Vistun valkosta tókst!"
+
+#: squirrelmail/src/options.php:273
+msgid "Refresh Folder List"
+msgstr "Endurhlaða möppulista"
+
+#: squirrelmail/src/options.php:275
+msgid "Refresh Page"
+msgstr "Endurhlaða síðu"
+
+#: squirrelmail/src/options.php:287
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+"Hér eru geymdar persónulegar upplýsingar um þig, slíkt og nafn, netfang og "
+"fleira."
+
+#: squirrelmail/src/options.php:295
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+"Þú getur breytt því hvernig SquirrelMail lítur út og hvernig það birtir "
+"upplýsingarnar til þín, sem dæmi litum, tungumáli og öðrum stillingum."
+
+#: squirrelmail/src/options.php:303
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Hægt er að láta skilaboð vera með mismunandi bakgrunnsliti í "
+"yfirlitslistanum eftir því frá hverjum þau eru. "
+
+#: squirrelmail/src/options.php:311
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+"Þessar stillingar breyta hvernig möppurnar eru birtar og hvernig farið er "
+"með þær"
+
+#: squirrelmail/src/options.php:319
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+
+#: squirrelmail/src/options_display.php:33
 msgid "General Display Options"
 msgstr "Almennar útlitsbreytur"
 
-# squirrelmail/src/options_display.php:43
-#: squirrelmail/src/options_display.php:44
+#: squirrelmail/src/options_display.php:45
 msgid "Theme"
 msgstr "Þema"
 
-# squirrelmail/functions/mailbox_display.php:477
-# squirrelmail/src/folders.php:137 squirrelmail/src/options_highlight.php:73
-# squirrelmail/src/read_body.php:295
-#: squirrelmail/src/options_display.php:51
-#: squirrelmail/src/options_display.php:80
+#: squirrelmail/plugins/administrator/defines.php:42
+#: squirrelmail/src/options_display.php:52
+#: squirrelmail/src/options_display.php:81
 #, fuzzy
 msgid "Default"
 msgstr "Eyða"
 
-#: squirrelmail/src/options_display.php:64
+#: squirrelmail/src/options_display.php:65
 msgid "Custom Stylesheet"
 msgstr ""
 
-# squirrelmail/src/options_display.php:58
-#: squirrelmail/src/options_display.php:83
+#: squirrelmail/src/options_display.php:85
 msgid "Language"
 msgstr "Tungumál"
 
-# squirrelmail/src/options_display.php:78
-# squirrelmail/src/options_display.php:81
-#: squirrelmail/src/options_display.php:92
+#: squirrelmail/src/options_display.php:94
 msgid "Use Javascript"
 msgstr "Nota Javascript"
 
-#: squirrelmail/src/options_display.php:95
+#: squirrelmail/src/options_display.php:97
 msgid "Autodetect"
-msgstr "Þegar við á"
+msgstr "Skynja sjálfkrafa"
 
-#: squirrelmail/src/options_display.php:96
+#: squirrelmail/src/options_display.php:98
 msgid "Always"
 msgstr "Alltaf"
 
-#: squirrelmail/src/options_display.php:97
+#: squirrelmail/src/options_display.php:99
 #: squirrelmail/src/options_folder.php:122
 msgid "Never"
 msgstr "Aldrei"
 
-#: squirrelmail/src/options_display.php:115
+#: squirrelmail/src/options_display.php:117
 msgid "Mailbox Display Options"
 msgstr "Útlitsbreytur pósthólfs"
 
-# squirrelmail/src/options_display.php:88
-#: squirrelmail/src/options_display.php:120
+#: squirrelmail/src/options_display.php:122
 msgid "Number of Messages to Index"
-msgstr "Fjöldi bréfa til að birta"
+msgstr "Fjöldi skeyta til að birta"
 
-#: squirrelmail/src/options_display.php:128
+#: squirrelmail/src/options_display.php:130
 msgid "Enable Alternating Row Colors"
-msgstr "Láta aðra hverja röð vera í öðrum lit"
+msgstr "Láta raðirnar skiptast á litum"
 
-#: squirrelmail/src/options_display.php:135
+#: squirrelmail/src/options_display.php:137
 msgid "Enable Page Selector"
 msgstr "Virkja síðuval"
 
-# squirrelmail/src/options_display.php:88
-#: squirrelmail/src/options_display.php:142
+#: squirrelmail/src/options_display.php:144
 msgid "Maximum Number of Pages to Show"
 msgstr "Fjöldi bréfa til að birta"
 
-#: squirrelmail/src/options_display.php:149
+#: squirrelmail/src/options_display.php:151
 msgid "Message Display and Composition"
 msgstr "Sýna og rita skeyti"
 
-# squirrelmail/src/options_display.php:99
-#: squirrelmail/src/options_display.php:154
+#: squirrelmail/src/options_display.php:156
 msgid "Wrap Incoming Text At"
 msgstr "Skipta á milli lína við"
 
-# squirrelmail/src/options_display.php:110
-#: squirrelmail/src/options_display.php:162
+#: squirrelmail/src/options_display.php:164
 msgid "Size of Editor Window"
 msgstr "Gluggastærð ritils"
 
-# squirrelmail/src/options_display.php:133
-#: squirrelmail/src/options_display.php:170
+#: squirrelmail/src/options_display.php:172
 msgid "Location of Buttons when Composing"
 msgstr "Staðsetning á tökkum meðan verið er að skrifa bréf"
 
-# squirrelmail/src/options_display.php:137
-#: squirrelmail/src/options_display.php:173
+#: squirrelmail/src/options_display.php:175
 msgid "Before headers"
 msgstr "Á undan haus"
 
-# squirrelmail/src/options_display.php:140
-#: squirrelmail/src/options_display.php:174
+#: squirrelmail/src/options_display.php:176
 msgid "Between headers and message body"
-msgstr "Á milli hauss og skilaboðs"
+msgstr "Á milli hauss og meginmáls"
 
-# squirrelmail/src/options_display.php:143
-#: squirrelmail/src/options_display.php:175
+#: squirrelmail/src/options_display.php:177
 msgid "After message body"
-msgstr "Á eftir skilaboðum"
+msgstr "Á eftir meginmáli"
 
-# squirrelmail/functions/abook_database.php:200
-# squirrelmail/functions/abook_database.php:234
-# squirrelmail/functions/abook_database.php:263
-# squirrelmail/functions/abook_local_file.php:226
-# squirrelmail/functions/abook_local_file.php:246
-# squirrelmail/functions/abook_local_file.php:269
-# squirrelmail/functions/abook_local_file.php:299
-# squirrelmail/functions/addressbook.php:269
-# squirrelmail/functions/addressbook.php:300
-# squirrelmail/functions/addressbook.php:351
-#: squirrelmail/src/options_display.php:180
-msgid "Addressbook Display Format"
-msgstr "Ekki er hægt að skrifa í netfangaskrá"
-
-# squirrelmail/src/options_display.php:78
-# squirrelmail/src/options_display.php:81
 #: squirrelmail/src/options_display.php:183
+msgid "Addressbook Display Format"
+msgstr "Snið netfangaskráar"
+
+#: squirrelmail/src/options_display.php:186
 msgid "Javascript"
 msgstr "Javascript"
 
-# squirrelmail/src/options_display.php:79
-# squirrelmail/src/options_display.php:82
-#: squirrelmail/src/options_display.php:184
+#: squirrelmail/src/options_display.php:187
 msgid "HTML"
 msgstr "HTML"
 
-#: squirrelmail/src/options_display.php:189
+#: squirrelmail/src/options_display.php:192
 msgid "Show HTML Version by Default"
 msgstr "Sýna HTML útgáfu sjálfgefið"
 
-#: squirrelmail/src/options_display.php:196
+#: squirrelmail/src/options_display.php:199
 msgid "Include Me in CC when I Reply All"
 msgstr "Senda afrit til sjálfs þegar svarað er til allra"
 
-#: squirrelmail/src/options_display.php:203
+#: squirrelmail/src/options_display.php:206
+msgid "Include CCs when forwarding messages"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:213
 msgid "Enable Mailer Display"
 msgstr ""
 
-#: squirrelmail/src/options_display.php:210
+#: squirrelmail/src/options_display.php:220
 msgid "Display Attached Images with Message"
 msgstr "Sýna myndir í viðhengi með skeyti"
 
-#: squirrelmail/src/options_display.php:217
+#: squirrelmail/src/options_display.php:227
+#, fuzzy
 msgid "Enable Subtle Printer Friendly Link"
-msgstr ""
+msgstr "Prentvænt"
 
-#: squirrelmail/src/options_display.php:224
+#: squirrelmail/src/options_display.php:234
+#, fuzzy
 msgid "Enable Printer Friendly Clean Display"
+msgstr "Prentvænt"
+
+#: squirrelmail/src/options_display.php:242
+msgid "Enable request/confirm reading"
 msgstr ""
 
-# squirrelmail/src/folders.php:77
+#: squirrelmail/src/options_display.php:250
+msgid "Always compose in a new window"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:257
+#, fuzzy
+msgid "Width of compose window"
+msgstr "Breidd möppulista"
+
+#: squirrelmail/src/options_display.php:265
+msgid "Height of compose window"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:273
+msgid "Append signature before reply/forward text"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:280
+msgid "Use receive date for sort"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:287
+msgid "Use References header for thread sort"
+msgstr ""
+
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
-msgstr "Sérstakir möguleikar möppu"
+msgstr "Sérstakir eiginleikar möppu"
 
-# squirrelmail/src/options_folder.php:48
 #: squirrelmail/src/options_folder.php:47
 msgid "Folder Path"
 msgstr "Slóði á möppu"
 
-# squirrelmail/src/options_folder.php:67
 #: squirrelmail/src/options_folder.php:63
 msgid "Do not use Trash"
-msgstr "Ekki nota ruslið"
+msgstr "Ekki nota ruslafötuna"
 
-# squirrelmail/src/options_folder.php:61
+#: squirrelmail/plugins/administrator/defines.php:135
 #: squirrelmail/src/options_folder.php:67
 msgid "Trash Folder"
 msgstr "Ruslafata"
 
-# squirrelmail/src/options_folder.php:95
 #: squirrelmail/src/options_folder.php:74
 msgid "Do not use Sent"
-msgstr "Ekki nota send bréf"
+msgstr "Ekki nota möppuna send bréf"
 
-# squirrelmail/src/options_folder.php:89
+#: squirrelmail/plugins/administrator/defines.php:138
 #: squirrelmail/src/options_folder.php:78
 msgid "Sent Folder"
 msgstr "Send bréf"
 
-# squirrelmail/src/options_folder.php:67
 #: squirrelmail/src/options_folder.php:85
 msgid "Do not use Drafts"
 msgstr "Ekki nota sérstaka möppu fyrir uppköst"
 
-# squirrelmail/src/folders.php:148
+#: squirrelmail/plugins/administrator/defines.php:141
 #: squirrelmail/src/options_folder.php:89
 msgid "Draft Folder"
 msgstr "Mappa fyrir uppköst"
 
-# squirrelmail/src/folders.php:77
 #: squirrelmail/src/options_folder.php:97
 msgid "Folder List Options"
 msgstr "Birtimöguleikar möppulista"
 
-# squirrelmail/src/options_display.php:121
 #: squirrelmail/src/options_folder.php:102
 msgid "Location of Folder List"
 msgstr "Staðsetning möppulista"
 
-# squirrelmail/src/options_display.php:125
 #: squirrelmail/src/options_folder.php:105
 msgid "Left"
 msgstr "Vinstri"
 
-# squirrelmail/src/options_display.php:128
 #: squirrelmail/src/options_folder.php:106
 msgid "Right"
 msgstr "Hægri"
 
+#: squirrelmail/plugins/administrator/defines.php:45
 #: squirrelmail/src/options_folder.php:111
 msgid "pixels"
 msgstr "myndeiningar"
 
-# squirrelmail/src/options_display.php:148
 #: squirrelmail/src/options_folder.php:115
 msgid "Width of Folder List"
 msgstr "Breidd möppulista"
 
-# squirrelmail/src/options_display.php:208
 #: squirrelmail/src/options_folder.php:121
 msgid "Minutes"
 msgstr "Mínútur"
 
-# squirrelmail/src/options_display.php:205
 #: squirrelmail/src/options_folder.php:125
 msgid "Seconds"
 msgstr "Sekúndur"
 
-# squirrelmail/src/options_display.php:207
 #: squirrelmail/src/options_folder.php:127
 msgid "Minute"
 msgstr "Mínúta"
 
-# squirrelmail/src/options.php:98
 #: squirrelmail/src/options_folder.php:134
 msgid "Auto Refresh Folder List"
 msgstr "Endurhlaða möppulista sjálfkrafa"
 
-# squirrelmail/src/options_folder.php:117
 #: squirrelmail/src/options_folder.php:142
 msgid "Enable Unread Message Notification"
 msgstr "Virkja tilkynningar fyrir óséð skilaboð"
 
-# squirrelmail/src/options_folder.php:120
+#: squirrelmail/plugins/administrator/defines.php:162
 #: squirrelmail/src/options_folder.php:145
 msgid "No Notification"
 msgstr "Engin tilkynning"
 
-# squirrelmail/src/options_folder.php:121
+#: squirrelmail/plugins/administrator/defines.php:163
 #: squirrelmail/src/options_folder.php:146
 msgid "Only INBOX"
 msgstr "Einungis aðalpósthólf"
 
-# squirrelmail/src/options_folder.php:122
+#: squirrelmail/plugins/administrator/defines.php:164
 #: squirrelmail/src/options_folder.php:147
 msgid "All Folders"
 msgstr "Allar möppur"
 
-# squirrelmail/src/options_folder.php:129
 #: squirrelmail/src/options_folder.php:152
 msgid "Unread Message Notification Type"
 msgstr "Hvernig skal tilkynna ólesin skilaboð"
 
-# squirrelmail/src/options_folder.php:132
+#: squirrelmail/plugins/administrator/defines.php:167
 #: squirrelmail/src/options_folder.php:155
 msgid "Only Unseen"
 msgstr "Einungis óséð"
 
-# squirrelmail/src/options_folder.php:133
+#: squirrelmail/plugins/administrator/defines.php:168
 #: squirrelmail/src/options_folder.php:156
 msgid "Unseen and Total"
 msgstr "Óséð og samtals"
@@ -959,16 +1045,12 @@ msgstr "Tímasnið"
 
 #: squirrelmail/src/options_folder.php:184
 msgid "12-hour clock"
-msgstr "12 stunda"
+msgstr "12 stunda klukka"
 
 #: squirrelmail/src/options_folder.php:185
 msgid "24-hour clock"
-msgstr "24 stunda"
+msgstr "24 stunda klukka"
 
-# squirrelmail/functions/page_header.php:87
-# squirrelmail/src/addrbook_search.php:206
-# squirrelmail/src/addrbook_search_html.php:158
-# squirrelmail/src/search.php:45 squirrelmail/src/search.php:99
 #: squirrelmail/src/options_folder.php:190
 #, fuzzy
 msgid "Memory Search"
@@ -979,232 +1061,174 @@ msgstr "Leita"
 msgid "Disabled"
 msgstr ""
 
-# squirrelmail/functions/page_header.php:85 squirrelmail/src/options.php:45
-# squirrelmail/src/options_display.php:37
-# squirrelmail/src/options_folder.php:40
-# squirrelmail/src/options_highlight.php:62
-# squirrelmail/src/options_order.php:41
-# squirrelmail/src/options_personal.php:41
-#: squirrelmail/functions/page_header.php:126
-#: squirrelmail/plugins/filters/options.php:62
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
-#: squirrelmail/plugins/translate/options.php:97
-#: squirrelmail/src/options.php:165 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/src/options_identities.php:58
-#: squirrelmail/src/options_order.php:48
-msgid "Options"
-msgstr "Valmöguleikar"
-
-# squirrelmail/src/options.php:124 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/src/options.php:113 squirrelmail/src/options.php:264
-#: squirrelmail/src/options_highlight.php:62
-msgid "Message Highlighting"
-msgstr "Upplita skilaboð"
-
-# squirrelmail/src/options_highlight.php:66
-#: squirrelmail/plugins/filters/options.php:64
-#: squirrelmail/src/options_highlight.php:66
+#: squirrelmail/plugins/filters/options.php:100
+#: squirrelmail/src/options_highlight.php:72
 msgid "New"
 msgstr "Nýtt"
 
-# squirrelmail/src/options_highlight.php:67
-#: squirrelmail/plugins/filters/options.php:65
-#: squirrelmail/plugins/filters/spamoptions.php:149
-#: squirrelmail/plugins/mail_fetch/fetch.php:225
-#: squirrelmail/src/options_highlight.php:67
+#: squirrelmail/plugins/filters/options.php:101
+#: squirrelmail/plugins/filters/spamoptions.php:180
+#: squirrelmail/plugins/mail_fetch/fetch.php:283
+#: squirrelmail/src/options_highlight.php:73
 msgid "Done"
 msgstr "Búið"
 
-# squirrelmail/src/options_highlight.php:73
-#: squirrelmail/plugins/filters/options.php:152
-#: squirrelmail/plugins/filters/spamoptions.php:148
-#: squirrelmail/src/options_highlight.php:74
-msgid "Edit"
-msgstr "Breyta "
-
-# squirrelmail/src/options_highlight.php:86
-#: squirrelmail/src/options_highlight.php:87
-msgid "No highlighting is defined"
-msgstr "Engin upplitun skilgreint"
-
-# squirrelmail/src/options_highlight.php:124
-#: squirrelmail/src/options_highlight.php:259
-msgid "Identifying name"
-msgstr "Kenniheiti"
-
-# squirrelmail/src/options_highlight.php:137
-#: squirrelmail/src/options_highlight.php:273
-msgid "Color"
-msgstr "Litur"
-
-# squirrelmail/src/options_highlight.php:141
-#: squirrelmail/src/options_highlight.php:277
-msgid "Dark Blue"
-msgstr "Dökkblár"
-
-# squirrelmail/src/options_highlight.php:142
-#: squirrelmail/src/options_highlight.php:278
-msgid "Dark Green"
-msgstr "Dökkgrænn"
-
-# squirrelmail/src/options_highlight.php:143
-#: squirrelmail/src/options_highlight.php:279
-msgid "Dark Yellow"
-msgstr "Dökkgulur"
-
-# squirrelmail/src/options_highlight.php:144
-#: squirrelmail/src/options_highlight.php:280
-msgid "Dark Cyan"
-msgstr "Dökkblágrænn"
-
-# squirrelmail/src/options_highlight.php:145
-#: squirrelmail/src/options_highlight.php:281
-msgid "Dark Magenta"
-msgstr "Dökkfjólublár"
-
-# squirrelmail/src/options_highlight.php:146
-#: squirrelmail/src/options_highlight.php:282
-msgid "Light Blue"
-msgstr "Ljósblár"
-
-# squirrelmail/src/options_highlight.php:147
-#: squirrelmail/src/options_highlight.php:283
-msgid "Light Green"
-msgstr "Ljósgrænn"
-
-# squirrelmail/src/options_highlight.php:148
-#: squirrelmail/src/options_highlight.php:284
-msgid "Light Yellow"
-msgstr "Ljósgulur"
-
-# squirrelmail/src/options_highlight.php:149
-#: squirrelmail/src/options_highlight.php:285
-msgid "Light Cyan"
-msgstr "ljósblágrænn"
-
-# squirrelmail/src/options_highlight.php:150
-#: squirrelmail/src/options_highlight.php:286
-msgid "Light Magenta"
-msgstr "Ljósblár"
-
-# squirrelmail/src/options_highlight.php:151
-#: squirrelmail/src/options_highlight.php:287
-msgid "Dark Gray"
-msgstr "Dömmgrár"
-
-# squirrelmail/src/options_highlight.php:152
-#: squirrelmail/src/options_highlight.php:288
-msgid "Medium Gray"
-msgstr "Grár"
-
-# squirrelmail/src/options_highlight.php:153
-#: squirrelmail/src/options_highlight.php:289
-msgid "Light Gray"
-msgstr "Ljósgrátt"
-
-# squirrelmail/src/options_highlight.php:154
-#: squirrelmail/src/options_highlight.php:290
-msgid "White"
-msgstr "Hvítt"
-
-# squirrelmail/src/options_highlight.php:156
-#: squirrelmail/src/options_highlight.php:292
-msgid "Other:"
-msgstr "Annað"
-
-# squirrelmail/src/options_highlight.php:158
-#: squirrelmail/src/options_highlight.php:294
-msgid "Ex: 63aa7f"
-msgstr "T.d: 63aa7f"
-
-# squirrelmail/src/search.php:90 squirrelmail/src/search.php:91
-#: squirrelmail/plugins/filters/options.php:91
-#: squirrelmail/src/options_highlight.php:328 squirrelmail/src/search.php:118
-msgid "Cc"
-msgstr "Afrit"
-
-#: squirrelmail/plugins/filters/options.php:94
-#: squirrelmail/src/options_highlight.php:331
+#: squirrelmail/plugins/filters/options.php:131
+#: squirrelmail/src/options_highlight.php:89
+#: squirrelmail/src/options_highlight.php:378
 msgid "To or Cc"
 msgstr "Til eða Afrit"
 
-# squirrelmail/src/options_highlight.php:164
+#: squirrelmail/src/options_highlight.php:92
+#, fuzzy
+msgid "subject"
+msgstr "Titill"
+
+#: squirrelmail/plugins/filters/options.php:191
+#: squirrelmail/plugins/filters/spamoptions.php:179
+#: squirrelmail/src/options_highlight.php:99
+msgid "Edit"
+msgstr "Breyta "
+
+#: squirrelmail/src/options_highlight.php:115
+msgid "No highlighting is defined"
+msgstr "Engin litmerking skilgreint"
+
+#: squirrelmail/src/options_highlight.php:308
+msgid "Identifying name"
+msgstr "Kenniheiti"
+
+#: squirrelmail/src/options_highlight.php:321
+msgid "Color"
+msgstr "Litur"
+
+#: squirrelmail/src/options_highlight.php:324
+msgid "Dark Blue"
+msgstr "Dökkblár"
+
+#: squirrelmail/src/options_highlight.php:325
+msgid "Dark Green"
+msgstr "Dökkgrænn"
+
+#: squirrelmail/src/options_highlight.php:326
+msgid "Dark Yellow"
+msgstr "Dökkgulur"
+
+#: squirrelmail/src/options_highlight.php:327
+msgid "Dark Cyan"
+msgstr "Dökkblágrænn"
+
+#: squirrelmail/src/options_highlight.php:328
+msgid "Dark Magenta"
+msgstr "Dökkfjólublár"
+
+#: squirrelmail/src/options_highlight.php:329
+msgid "Light Blue"
+msgstr "Ljósblár"
+
+#: squirrelmail/src/options_highlight.php:330
+msgid "Light Green"
+msgstr "Ljósgrænn"
+
+#: squirrelmail/src/options_highlight.php:331
+msgid "Light Yellow"
+msgstr "Ljósgulur"
+
+#: squirrelmail/src/options_highlight.php:332
+msgid "Light Cyan"
+msgstr "Ljósblágrænn"
+
+#: squirrelmail/src/options_highlight.php:333
+msgid "Light Magenta"
+msgstr "Ljósblár"
+
+#: squirrelmail/src/options_highlight.php:334
+msgid "Dark Gray"
+msgstr "Dökkgrár"
+
+#: squirrelmail/src/options_highlight.php:335
+msgid "Medium Gray"
+msgstr "Grár"
+
 #: squirrelmail/src/options_highlight.php:336
+msgid "Light Gray"
+msgstr "Ljósgrátt"
+
+#: squirrelmail/src/options_highlight.php:337
+msgid "White"
+msgstr "Hvítt"
+
+#: squirrelmail/src/options_highlight.php:339
+msgid "Other:"
+msgstr "Annað"
+
+#: squirrelmail/src/options_highlight.php:341
+msgid "Ex: 63aa7f"
+msgstr "T.d: 63aa7f"
+
+#: squirrelmail/src/options_highlight.php:383
 msgid "Matches"
 msgstr "Passar við"
 
-#: squirrelmail/src/options_identities.php:58
-msgid "Advanced Identities"
-msgstr ""
-
-#: squirrelmail/src/options_identities.php:69
-msgid "Default Identity"
-msgstr ""
-
-#: squirrelmail/src/options_identities.php:80
+#: squirrelmail/src/options_identities.php:47
 #, c-format
 msgid "Alternate Identity %d"
 msgstr ""
 
-#: squirrelmail/src/options_identities.php:90
+#: squirrelmail/src/options_identities.php:57
+msgid "Advanced Identities"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:63
+msgid "Default Identity"
+msgstr ""
+
+#: squirrelmail/src/options_identities.php:67
 msgid "Add a New Identity"
 msgstr ""
 
-# squirrelmail/src/options_personal.php:47
-#: squirrelmail/src/options_identities.php:306
-#: squirrelmail/src/options_personal.php:49
+#: squirrelmail/src/options_identities.php:311
+#: squirrelmail/src/options_personal.php:56
+#: squirrelmail/src/options_personal.php:64
 msgid "Full Name"
 msgstr "Fullt Nafn"
 
-# squirrelmail/src/options_personal.php:53
-#: squirrelmail/src/options_identities.php:307
+#: squirrelmail/src/options_identities.php:312
 msgid "E-Mail Address"
 msgstr "Netfang"
 
-# squirrelmail/src/options_personal.php:59
-#: squirrelmail/src/options_identities.php:308
-#: squirrelmail/src/options_personal.php:65
+#: squirrelmail/src/options_identities.php:313
+#: squirrelmail/src/options_personal.php:91
 msgid "Reply To"
 msgstr "Svara til"
 
-#: squirrelmail/src/options_identities.php:315
+#: squirrelmail/src/options_identities.php:321
+#, fuzzy
 msgid "Save / Update"
-msgstr ""
+msgstr "Vista uppkast"
 
-#: squirrelmail/src/options_identities.php:318
+#: squirrelmail/src/options_identities.php:326
 msgid "Make Default"
 msgstr ""
 
-# squirrelmail/functions/mailbox_display.php:471
-#: squirrelmail/src/options_identities.php:324
+#: squirrelmail/src/options_identities.php:332
 msgid "Move Up"
 msgstr "Færa"
 
-# squirrelmail/src/options.php:136 squirrelmail/src/options_order.php:41
-#: squirrelmail/src/options.php:125 squirrelmail/src/options.php:280
-#: squirrelmail/src/options_order.php:48
-msgid "Index Order"
-msgstr "Skilaboða röðun"
-
-# squirrelmail/src/options_order.php:47
-#: squirrelmail/src/options_order.php:54
+#: squirrelmail/src/options_order.php:37
 msgid "Checkbox"
-msgstr "Valhólf"
+msgstr "Valreitur"
 
-# squirrelmail/src/options_order.php:51
-#: squirrelmail/src/options_order.php:58
+#: squirrelmail/src/options_order.php:41
 msgid "Flags"
-msgstr "Flögg"
+msgstr "Rofar"
 
-# squirrelmail/functions/mailbox_display.php:539
-# squirrelmail/src/options_order.php:52
-#: squirrelmail/functions/mailbox_display.php:587
-#: squirrelmail/src/options_order.php:59
+#: squirrelmail/functions/mailbox_display.php:820
+#: squirrelmail/src/options_order.php:42
 msgid "Size"
 msgstr "Stærð"
 
-# squirrelmail/src/options_order.php:90
-#: squirrelmail/src/options_order.php:102
+#: squirrelmail/src/options_order.php:87
 msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index.  You can add, remove, and move columns around to customize them to "
@@ -1213,387 +1237,348 @@ msgstr ""
 "Flokkunarröð er röðin sem dálkunum er raðað í í yfirliti skeyta. Þú getur "
 "bætt við, eytt og fært dálka til að sérsníða að þínum þörfum."
 
-# squirrelmail/src/options_order.php:100
-#: squirrelmail/src/options_order.php:111
+#: squirrelmail/src/options_order.php:98
 msgid "up"
 msgstr "upp"
 
-# squirrelmail/src/options_order.php:102
-#: squirrelmail/src/options_order.php:113
+#: squirrelmail/src/options_order.php:100
 msgid "down"
 msgstr "niður"
 
-# squirrelmail/src/options_order.php:107
-#: squirrelmail/src/options_order.php:118
+#: squirrelmail/src/options_order.php:105
 msgid "remove"
 msgstr "eyða"
 
-# squirrelmail/src/options_order.php:137
-#: squirrelmail/src/options_order.php:147
+#: squirrelmail/src/options_order.php:136
 msgid "Return to options page"
 msgstr "Fara til baka á stillingar síðu"
 
-#: squirrelmail/src/options_personal.php:41
+#: squirrelmail/src/options_personal.php:43
 msgid "Name and Address Options"
-msgstr "Nafn og netfang"
+msgstr "Valkostir nafna og netfanga"
 
-# squirrelmail/src/options_personal.php:53
-#: squirrelmail/src/options_personal.php:57
+#: squirrelmail/src/options_personal.php:74
+#: squirrelmail/src/options_personal.php:82
 msgid "Email Address"
 msgstr "Netfang"
 
-#: squirrelmail/src/options_personal.php:72
+#: squirrelmail/src/options_personal.php:108
 msgid "Edit Advanced Identities"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:74
+#: squirrelmail/src/options_personal.php:110
 msgid "(discards changes made on this form so far)"
-msgstr "(eyðir öllum breytingum hér)"
+msgstr "(hættir við allar breytingar á þessarri síðu)"
 
-#: squirrelmail/src/options_personal.php:77
+#: squirrelmail/src/options_personal.php:113
 msgid "Multiple Identities"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:84
+#: squirrelmail/src/options_personal.php:121
+msgid "Same as server"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:132
+#, fuzzy
+msgid "Timezone Options"
+msgstr "Valkostir undirskrift"
+
+#: squirrelmail/src/options_personal.php:137
+msgid "Your current timezone"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:145
 msgid "Reply Citation Options"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:89
+#: squirrelmail/src/options_personal.php:150
 msgid "Reply Citation Style"
 msgstr ""
 
-# squirrelmail/src/options_folder.php:120
-#: squirrelmail/src/options_personal.php:92
+#: squirrelmail/src/options_personal.php:153
 msgid "No Citation"
 msgstr "Engin tilkynning"
 
-#: squirrelmail/src/options_personal.php:93
+#: squirrelmail/src/options_personal.php:154
 msgid "AUTHOR Said"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:94
+#: squirrelmail/src/options_personal.php:155
 msgid "Quote Who XML"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:95
+#: squirrelmail/src/options_personal.php:156
 msgid "User-Defined"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:100
+#: squirrelmail/src/options_personal.php:161
 msgid "User-Defined Citation Start"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:108
+#: squirrelmail/src/options_personal.php:169
 msgid "User-Defined Citation End"
 msgstr ""
 
-# squirrelmail/src/options_personal.php:65
-#: squirrelmail/src/options_personal.php:115
+#: squirrelmail/src/options_personal.php:176
 msgid "Signature Options"
-msgstr "Undirskrift"
+msgstr "Valkostir undirskrift"
 
-# squirrelmail/src/options_personal.php:69
-#: squirrelmail/src/options_personal.php:120
+#: squirrelmail/src/options_personal.php:181
 msgid "Use Signature"
 msgstr "Nota undirskrift"
 
-#: squirrelmail/src/options_personal.php:127
+#: squirrelmail/src/options_personal.php:188
 msgid "Prefix Signature with '-- ' Line"
 msgstr ""
-"Best er að láta undirskriftina byrja með einni línu sem inniheldur einungis "
-"'-- '"
+"Láttu undirskriftina byrja með einni línu sem inniheldur einungis '-- '"
 
-# squirrelmail/src/options_personal.php:65
-#: squirrelmail/src/options_personal.php:134
-msgid "Signature"
-msgstr "Undirskrift"
-
-# squirrelmail/src/options.php:112 squirrelmail/src/options_personal.php:41
-#: squirrelmail/src/options.php:101 squirrelmail/src/options.php:248
-msgid "Personal Information"
-msgstr "Persónulegar upplýsingar"
-
-# squirrelmail/src/options.php:150 squirrelmail/src/options_display.php:37
-#: squirrelmail/src/options.php:107 squirrelmail/src/options.php:256
-msgid "Display Preferences"
-msgstr "Útlitsstillingar"
-
-# squirrelmail/src/options.php:162 squirrelmail/src/options_folder.php:40
-#: squirrelmail/src/options.php:119 squirrelmail/src/options.php:272
-msgid "Folder Preferences"
-msgstr "Stillingar á möppu"
-
-# squirrelmail/src/options.php:59
-#: squirrelmail/src/options.php:232
-msgid "Successfully Saved Options"
-msgstr "Vistun persónuupplýsinga tókst!"
-
-# squirrelmail/src/options.php:98
-#: squirrelmail/src/options.php:236
-msgid "Refresh Folder List"
-msgstr "Endurhlaða möppulista"
-
-# squirrelmail/src/options.php:76
-#: squirrelmail/src/options.php:238
-msgid "Refresh Page"
-msgstr "Endurhlaða síðu"
-
-# squirrelmail/src/options.php:117
-#: squirrelmail/src/options.php:250
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr ""
-"Hér eru geymdar persónulegar upplýsingar um þig, slíkt og nafn, netfang og "
-"fleira."
-
-# squirrelmail/src/options.php:155
-#: squirrelmail/src/options.php:258
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-"Þú getur breytt því hvernig SquirrelMail lítur út og hvernig það birtir "
-"upplýsingarnar til þín, sem dæmi litum, tungumáli og öðrum stillingum."
-
-# squirrelmail/src/options.php:129
-#: squirrelmail/src/options.php:266
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"Hægt er að láta mismunandi skilaboð hafa mismunandi bakgrunnsliti í "
-"yfirlitslistanum eftir því frá hverjum þau eru. "
-
-# squirrelmail/src/options.php:167
-#: squirrelmail/src/options.php:274
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-"Þessar stillingar breyta hvernig möppurnar eru birtar og hvernig farið er "
-"með þær"
-
-# squirrelmail/src/options.php:141
-#: squirrelmail/src/options.php:282
-#, fuzzy
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr "Röðun skilaboða er hægt að breyta og hafa eins og þú óskar."
-
-# squirrelmail/src/options.php:124 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/src/printer_friendly_bottom.php:78
+#: squirrelmail/src/printer_friendly_bottom.php:64
 #, fuzzy
 msgid "Message not printable"
-msgstr "Upplita skilaboð"
+msgstr "Síun skeyta"
 
-#: squirrelmail/src/printer_friendly_bottom.php:107
+#: squirrelmail/src/printer_friendly_bottom.php:93
 #: squirrelmail/src/printer_friendly_main.php:15
-#: squirrelmail/src/printer_friendly_top.php:21
+#: squirrelmail/src/printer_friendly_top.php:22
 msgid "Printer Friendly"
-msgstr "Prentaravinsamlegt"
+msgstr "Prentvænt"
 
-# squirrelmail/src/compose.php:239
-#: squirrelmail/src/printer_friendly_bottom.php:115
+#: squirrelmail/src/printer_friendly_bottom.php:108
 msgid "CC"
-msgstr "Afrit:"
+msgstr "Afrit"
 
-#: squirrelmail/src/printer_friendly_top.php:36
+#: squirrelmail/src/printer_friendly_top.php:38
 msgid "Print"
 msgstr "Prenta"
 
-# squirrelmail/src/addrbook_search.php:211
-#: squirrelmail/src/printer_friendly_top.php:37
+#: squirrelmail/plugins/newmail/newmail.php:33
+#: squirrelmail/src/printer_friendly_top.php:39
 msgid "Close Window"
 msgstr "Loka glugga"
 
-#: squirrelmail/src/read_body.php:102
+#: squirrelmail/src/read_body.php:156
 msgid "View Printable Version"
 msgstr "Skoða prenthæfa útgáfu"
 
-# squirrelmail/src/read_body.php:41
-#: squirrelmail/src/read_body.php:154
+#: squirrelmail/src/read_body.php:219
+#, fuzzy
+msgid "Your message"
+msgstr "] skilaboð"
+
+#: squirrelmail/src/read_body.php:222
+#, fuzzy
+msgid "Sent:"
+msgstr "Senda"
+
+#: squirrelmail/src/read_body.php:224
+#, c-format
+msgid "Was displayed on %s"
+msgstr ""
+
+#: squirrelmail/src/read_body.php:256
+#, fuzzy
+msgid "Read:"
+msgstr "Lesa"
+
+#: squirrelmail/src/read_body.php:426
 msgid "Viewing Full Header"
 msgstr "Að skoða allan haus"
 
-# squirrelmail/src/read_body.php:198
-#: squirrelmail/src/read_body.php:290
-msgid "more"
-msgstr "meira"
-
-# squirrelmail/src/read_body.php:199
-#: squirrelmail/src/read_body.php:291
-msgid "less"
-msgstr "minna"
-
-# squirrelmail/src/read_body.php:288
-#: squirrelmail/src/read_body.php:465
+#: squirrelmail/src/read_body.php:721
 msgid "Message List"
 msgstr "Skilaboða listi"
 
-#: squirrelmail/src/read_body.php:477
+#: squirrelmail/src/read_body.php:743
 msgid "Resume Draft"
 msgstr "Halda áfram með uppkast"
 
-# squirrelmail/src/read_body.php:321
-#: squirrelmail/src/read_body.php:514
+#: squirrelmail/src/read_body.php:758
+msgid "Edit Message as New"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:728
+#: squirrelmail/src/read_body.php:804
 msgid "Forward"
 msgstr "Áframsenda"
 
-# squirrelmail/src/read_body.php:324
-#: squirrelmail/src/read_body.php:519
+#: squirrelmail/src/read_body.php:819
 msgid "Reply"
 msgstr "Svara"
 
-# squirrelmail/src/read_body.php:327
-#: squirrelmail/src/read_body.php:524
+#: squirrelmail/src/read_body.php:834
 msgid "Reply All"
 msgstr "Svara öllum"
 
-# squirrelmail/src/read_body.php:345 squirrelmail/src/read_body.php:347
-#: squirrelmail/src/read_body.php:548 squirrelmail/src/read_body.php:551
+#: squirrelmail/src/read_body.php:855 squirrelmail/src/read_body.php:858
 msgid "View Full Header"
 msgstr "Skoða allan haus"
 
-# squirrelmail/src/read_body.php:361
-#: squirrelmail/plugins/calendar/event_create.php:107
-#: squirrelmail/plugins/calendar/event_delete.php:32
-#: squirrelmail/plugins/calendar/event_edit.php:35
-#: squirrelmail/plugins/calendar/event_edit.php:93
-#: squirrelmail/plugins/calendar/event_edit.php:106
-#: squirrelmail/src/read_body.php:574
-msgid "Date:"
-msgstr "Dagsetning:"
-
-#: squirrelmail/src/read_body.php:628
+#: squirrelmail/src/read_body.php:926
 msgid "Mailer"
 msgstr "Póstforrit"
 
-# squirrelmail/src/addrbook_search.php:137 squirrelmail/src/right_main.php:23
-# squirrelmail/src/search.php:14 squirrelmail/src/webmail.php:26
-#: squirrelmail/functions/auth.php:29 squirrelmail/src/redirect.php:60
-#: squirrelmail/src/redirect.php:64
+#: squirrelmail/src/read_body.php:971 squirrelmail/src/read_body.php:983
+#: squirrelmail/src/read_body.php:994 squirrelmail/src/read_body.php:1016
+#: squirrelmail/src/read_body.php:1058 squirrelmail/src/read_body.php:1073
+msgid "Read receipt"
+msgstr ""
+
+#: squirrelmail/src/read_body.php:973 squirrelmail/src/read_body.php:1060
+#, fuzzy
+msgid "send"
+msgstr "Senda"
+
+#: squirrelmail/src/read_body.php:985 squirrelmail/src/read_body.php:996
+#: squirrelmail/src/read_body.php:1018 squirrelmail/src/read_body.php:1075
+#, fuzzy
+msgid "requested"
+msgstr "Ekki beðið um neinar breytingar."
+
+#: squirrelmail/src/read_body.php:996 squirrelmail/src/read_body.php:1018
+#: squirrelmail/src/read_body.php:1075
+msgid "Send read receipt now"
+msgstr ""
+
+#: squirrelmail/src/read_body.php:1008
+msgid ""
+"The message sender has requested a response to indicate that you have read "
+"this message. Would you like to send a receipt?"
+msgstr ""
+
+#: squirrelmail/functions/auth.php:20 squirrelmail/src/redirect.php:64
+#: squirrelmail/src/redirect.php:86
 msgid "You must be logged in to access this page."
-msgstr "Þú þarft gilt notendanafn og lykilorð til að komast inn á þessa síðu!"
+msgstr "Þú þarft að vera skráð(ur) inn til að komast á þessa síðu!"
 
-#: squirrelmail/functions/auth.php:30 squirrelmail/src/redirect.php:65
-msgid "Go to the login page"
-msgstr "Farðu á innskráningarsíðu"
-
-#: squirrelmail/src/redirect.php:85 squirrelmail/src/redirect.php:89
+#: squirrelmail/src/redirect.php:82
 msgid "There was an error contacting the mail server."
 msgstr "Upp kom villa við tengingu við póstþjón"
 
-#: squirrelmail/src/redirect.php:90
+#: squirrelmail/src/redirect.php:84
 msgid "Contact your administrator for help."
 msgstr "Hafðu samband við kerfisstjóra"
 
-# squirrelmail/src/search.php:78 squirrelmail/src/search.php:79
-#: squirrelmail/src/search.php:114
+#: squirrelmail/src/search.php:252
+#, fuzzy
+msgid "edit"
+msgstr "Breyta "
+
+#: squirrelmail/src/search.php:259 squirrelmail/src/search.php:305
+#, fuzzy
+msgid "search"
+msgstr "Leita"
+
+#: squirrelmail/src/search.php:262
+#, fuzzy
+msgid "delete"
+msgstr "Eyða"
+
+#: squirrelmail/src/search.php:274
+msgid "Recent Searches"
+msgstr ""
+
+#: squirrelmail/src/search.php:297
+msgid "save"
+msgstr ""
+
+#: squirrelmail/src/search.php:308
+#, fuzzy
+msgid "forget"
+msgstr "meira"
+
+#: squirrelmail/src/search.php:317
+#, fuzzy
+msgid "Current Search"
+msgstr "Núverandi mappa"
+
+#: squirrelmail/src/search.php:358
 msgid "Body"
 msgstr "Meginmál"
 
-# squirrelmail/src/search.php:81 squirrelmail/src/search.php:82
-#: squirrelmail/src/search.php:115
+#: squirrelmail/src/search.php:359
 msgid "Everywhere"
 msgstr "Alls staðar"
 
-# squirrelmail/functions/page_header.php:69 squirrelmail/src/signout.php:48
-#: squirrelmail/functions/page_header.php:114 squirrelmail/src/signout.php:84
+#: squirrelmail/src/search.php:390 squirrelmail/src/search.php:419
+#, fuzzy
+msgid "Search Results"
+msgstr "Leita"
+
+#: squirrelmail/src/search.php:410
+#, fuzzy
+msgid "No Messages found"
+msgstr "Engin skeyti fundust"
+
+#: squirrelmail/functions/page_header.php:205 squirrelmail/src/signout.php:76
 msgid "Sign Out"
 msgstr "Skrá út"
 
-# squirrelmail/src/signout.php:55
-#: squirrelmail/src/signout.php:90
+#: squirrelmail/src/signout.php:79
 msgid "You have been successfully signed out."
 msgstr "Útskráning tókst."
 
-# squirrelmail/src/addrbook_search.php:139 squirrelmail/src/right_main.php:25
-# squirrelmail/src/search.php:16 squirrelmail/src/signout.php:58
-# squirrelmail/src/webmail.php:28
-#: squirrelmail/src/signout.php:92
+#: squirrelmail/src/signout.php:81
 msgid "Click here to log back in."
 msgstr "Smelltu hér til að skrá þig inn."
 
-# squirrelmail/functions/mailbox_display.php:319
-#: squirrelmail/src/vcard.php:30
+#: squirrelmail/src/vcard.php:31
 msgid "Viewing a Business Card"
 msgstr "Að skoða nafnspjald"
 
-# squirrelmail/src/options_highlight.php:154
-#: squirrelmail/src/vcard.php:86 squirrelmail/src/vcard.php:146
+#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:160
 msgid "Title"
 msgstr "Titill"
 
-# squirrelmail/src/addrbook_search.php:96
-# squirrelmail/src/addrbook_search_html.php:75
-# squirrelmail/src/addressbook.php:312
-#: squirrelmail/src/vcard.php:87
+#: squirrelmail/src/vcard.php:91
 msgid "Email"
 msgstr "Netfang"
 
-# squirrelmail/src/options.php:76
-#: squirrelmail/src/vcard.php:88 squirrelmail/src/vcard.php:138
+#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:152
 msgid "Web Page"
 msgstr "Vefsíða"
 
-#: squirrelmail/src/vcard.php:89 squirrelmail/src/vcard.php:150
+#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:164
 msgid "Organization / Department"
 msgstr "Stofnun / Deild"
 
-# squirrelmail/functions/page_header.php:81 squirrelmail/src/compose.php:336
-# squirrelmail/src/compose.php:338 squirrelmail/src/compose.php:341
-#: squirrelmail/src/vcard.php:90 squirrelmail/src/vcard.php:142
+#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:156
 msgid "Address"
 msgstr "Netfang"
 
-#: squirrelmail/src/vcard.php:91 squirrelmail/src/vcard.php:159
+#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:173
 msgid "Work Phone"
 msgstr "Vinnusími"
 
-#: squirrelmail/src/vcard.php:92 squirrelmail/src/vcard.php:163
+#: squirrelmail/src/vcard.php:96 squirrelmail/src/vcard.php:177
 msgid "Home Phone"
 msgstr "Heimasími"
 
-#: squirrelmail/src/vcard.php:93 squirrelmail/src/vcard.php:167
+#: squirrelmail/src/vcard.php:97 squirrelmail/src/vcard.php:181
 msgid "Cellular Phone"
-msgstr "GSM"
+msgstr "Farsími"
 
-#: squirrelmail/src/vcard.php:94 squirrelmail/src/vcard.php:171
+#: squirrelmail/src/vcard.php:98 squirrelmail/src/vcard.php:185
 msgid "Fax"
 msgstr "Fax"
 
-# squirrelmail/src/options_display.php:206
-#: squirrelmail/src/vcard.php:95 squirrelmail/src/vcard.php:175
+#: squirrelmail/src/vcard.php:99 squirrelmail/src/vcard.php:189
 msgid "Note"
 msgstr "Athugasemd"
 
-# squirrelmail/src/addressbook.php:363
-#: squirrelmail/src/vcard.php:124
+#: squirrelmail/src/vcard.php:129
 msgid "Add to Addressbook"
-msgstr "Bæta við netfangi"
+msgstr "Bæta netfangi við netfangaskrá"
 
-#: squirrelmail/src/vcard.php:155
+#: squirrelmail/src/vcard.php:169
 msgid "Title & Org. / Dept."
 msgstr "Titill og Stofnun / Deild"
 
-# squirrelmail/functions/abook_database.php:45
-# squirrelmail/functions/abook_local_file.php:32
-# squirrelmail/functions/addressbook.php:84
 #: squirrelmail/functions/abook_database.php:50
-#: squirrelmail/functions/abook_local_file.php:53
-#: squirrelmail/functions/addressbook.php:152
+#: squirrelmail/functions/abook_local_file.php:37
+#: squirrelmail/functions/addressbook.php:155
 msgid "Personal address book"
 msgstr "Persónuleg netfangaskrá"
 
-# squirrelmail/functions/abook_database.php:84
-# squirrelmail/functions/abook_database.php:120
-# squirrelmail/functions/abook_database.php:152
-# squirrelmail/functions/abook_database.php:181
-# squirrelmail/functions/abook_database.php:227
-# squirrelmail/functions/abook_database.php:256
-# squirrelmail/functions/abook_database.php:292
 #: squirrelmail/functions/abook_database.php:96
 #: squirrelmail/functions/abook_database.php:136
 #: squirrelmail/functions/abook_database.php:171
@@ -1605,596 +1590,254 @@ msgstr "Persónuleg netfangaskrá"
 msgid "Database error: %s"
 msgstr "Gagnagrunnsvilla: %s"
 
-# squirrelmail/functions/abook_database.php:200
-# squirrelmail/functions/abook_database.php:234
-# squirrelmail/functions/abook_database.php:263
-# squirrelmail/functions/abook_local_file.php:226
-# squirrelmail/functions/abook_local_file.php:246
-# squirrelmail/functions/abook_local_file.php:269
-# squirrelmail/functions/abook_local_file.php:299
-# squirrelmail/functions/addressbook.php:269
-# squirrelmail/functions/addressbook.php:300
-# squirrelmail/functions/addressbook.php:351
 #: squirrelmail/functions/abook_database.php:221
 #: squirrelmail/functions/abook_database.php:260
 #: squirrelmail/functions/abook_database.php:293
-#: squirrelmail/functions/abook_local_file.php:247
+#: squirrelmail/functions/abook_local_file.php:243
 #: squirrelmail/functions/abook_local_file.php:267
-#: squirrelmail/functions/abook_local_file.php:290
-#: squirrelmail/functions/abook_local_file.php:319
-#: squirrelmail/functions/addressbook.php:348
-#: squirrelmail/functions/addressbook.php:383
-#: squirrelmail/functions/addressbook.php:436
+#: squirrelmail/functions/abook_local_file.php:292
+#: squirrelmail/functions/abook_local_file.php:324
+#: squirrelmail/functions/addressbook.php:351
+#: squirrelmail/functions/addressbook.php:386
+#: squirrelmail/functions/addressbook.php:439
 msgid "Addressbook is read-only"
-msgstr "Ekki er hægt að skrifa í netfangaskrá"
+msgstr "Aðeins er hægt að lesa netfangaaskrá, ekki skrifa í hana."
 
-# squirrelmail/functions/abook_database.php:208
-# squirrelmail/functions/abook_local_file.php:231
 #: squirrelmail/functions/abook_database.php:231
-#: squirrelmail/functions/abook_local_file.php:252
+#: squirrelmail/functions/abook_local_file.php:248
 #, c-format
 msgid "User '%s' already exist"
 msgstr "Notandi '%s' er þegar til"
 
-# squirrelmail/functions/abook_database.php:271
-# squirrelmail/functions/abook_local_file.php:304
 #: squirrelmail/functions/abook_database.php:303
-#: squirrelmail/functions/abook_local_file.php:324
+#: squirrelmail/functions/abook_local_file.php:330
 #, c-format
 msgid "User '%s' does not exist"
 msgstr "Notandi '%s' er ekki til"
 
-# squirrelmail/src/addrbook_search.php:196
-# squirrelmail/src/addrbook_search_html.php:146
-#: squirrelmail/functions/abook_global_file.php:51
+#: squirrelmail/functions/abook_global_file.php:35
 msgid "Global address book"
 msgstr "Allar nafnaskrár"
 
-# squirrelmail/functions/abook_local_file.php:74
-#: squirrelmail/functions/abook_global_file.php:71
-#: squirrelmail/functions/abook_local_file.php:94
+#: squirrelmail/functions/abook_global_file.php:56
+#: squirrelmail/functions/abook_local_file.php:83
 msgid "No such file or directory"
 msgstr "Engin slík skrá eða mappa"
 
-# squirrelmail/functions/abook_local_file.php:94
-# squirrelmail/functions/abook_local_file.php:130
-#: squirrelmail/functions/abook_global_file.php:81
-#: squirrelmail/functions/abook_local_file.php:114
-#: squirrelmail/functions/abook_local_file.php:150
+#: squirrelmail/functions/abook_global_file.php:69
+#: squirrelmail/functions/abook_local_file.php:104
+#: squirrelmail/functions/abook_local_file.php:140
 msgid "Open failed"
 msgstr "Mistókst að opna"
 
-#: squirrelmail/functions/abook_global_file.php:178
-#: squirrelmail/functions/abook_global_file.php:184
-#: squirrelmail/functions/abook_global_file.php:190
+#: squirrelmail/functions/abook_global_file.php:171
+#: squirrelmail/functions/abook_global_file.php:177
+#: squirrelmail/functions/abook_global_file.php:183
 msgid "Can not modify global address book"
-msgstr "Get ekki breytt netfangaskrá allra"
+msgstr "Get ekki breytt sameiginlegri netfangaskrá"
 
-# squirrelmail/functions/abook_local_file.php:40
-#: squirrelmail/functions/abook_local_file.php:61
+#: squirrelmail/functions/abook_local_file.php:46
 msgid "Not a file name"
 msgstr "Ekki skráar nafn"
 
-# squirrelmail/functions/abook_local_file.php:250
-# squirrelmail/functions/abook_local_file.php:274
-# squirrelmail/functions/abook_local_file.php:310
-#: squirrelmail/functions/abook_local_file.php:271
-#: squirrelmail/functions/abook_local_file.php:295
-#: squirrelmail/functions/abook_local_file.php:330
+#: squirrelmail/functions/abook_local_file.php:272
+#: squirrelmail/functions/abook_local_file.php:298
+#: squirrelmail/functions/abook_local_file.php:337
 msgid "Could not lock datafile"
 msgstr "Ekki tókst að læsa gagnaskrá"
 
-# squirrelmail/functions/abook_local_file.php:262
-#: squirrelmail/functions/abook_local_file.php:283
+#: squirrelmail/functions/abook_local_file.php:285
 msgid "Write to addressbook failed"
 msgstr "Færsla í netfangabók mistókst"
 
-# squirrelmail/functions/addressbook.php:44
-#: squirrelmail/functions/addressbook.php:70
+#: squirrelmail/functions/addressbook.php:73
 msgid "Error initializing addressbook database."
 msgstr "Villa í frumstillingu netfangagagnagrunns."
 
-# squirrelmail/functions/addressbook.php:30
-#: squirrelmail/functions/addressbook.php:79
+#: squirrelmail/functions/addressbook.php:82
 #, c-format
 msgid "Error opening file %s"
 msgstr "Villa við að opna skrá %s"
 
-# squirrelmail/functions/addressbook.php:44
-#: squirrelmail/functions/addressbook.php:89
+#: squirrelmail/functions/addressbook.php:92
 msgid "Error initializing global addressbook."
 msgstr "Villa við frumstillingu netfangaskrár."
 
-# squirrelmail/functions/addressbook.php:44
-#: squirrelmail/functions/addressbook.php:105
+#: squirrelmail/functions/addressbook.php:108
 #, c-format
 msgid "Error initializing LDAP server %s:"
 msgstr "Villa við ræsingu LDAP þjóns %s:"
 
-# squirrelmail/functions/addressbook.php:246
-# squirrelmail/functions/addressbook.php:327
-#: squirrelmail/functions/addressbook.php:326
-#: squirrelmail/functions/addressbook.php:413
+#: squirrelmail/functions/addressbook.php:329
+#: squirrelmail/functions/addressbook.php:416
 msgid "Invalid input data"
 msgstr "Ógild inntaks gögn"
 
-# squirrelmail/functions/addressbook.php:251
-# squirrelmail/functions/addressbook.php:332
-#: squirrelmail/functions/addressbook.php:330
-#: squirrelmail/functions/addressbook.php:417
+#: squirrelmail/functions/addressbook.php:333
+#: squirrelmail/functions/addressbook.php:420
 msgid "Name is missing"
 msgstr "Nafn vantar"
 
-# squirrelmail/functions/addressbook.php:255
-# squirrelmail/functions/addressbook.php:336
-#: squirrelmail/functions/addressbook.php:334
-#: squirrelmail/functions/addressbook.php:421
+#: squirrelmail/functions/addressbook.php:337
+#: squirrelmail/functions/addressbook.php:424
 msgid "E-mail address is missing"
 msgstr "Netfang vantar"
 
-# squirrelmail/functions/addressbook.php:263
-# squirrelmail/functions/addressbook.php:341
-#: squirrelmail/functions/addressbook.php:342
-#: squirrelmail/functions/addressbook.php:426
+#: squirrelmail/functions/addressbook.php:345
+#: squirrelmail/functions/addressbook.php:429
 msgid "Nickname contains illegal characters"
-msgstr "Kenni inniheldur óleyfileg tákn"
+msgstr "Gælunafn inniheldur óleyfileg tákn"
 
-#: squirrelmail/functions/attachment_common.php:116
-#: squirrelmail/functions/attachment_common.php:141
-#: squirrelmail/functions/attachment_common.php:166
+#: squirrelmail/functions/attachment_common.php:107
+#: squirrelmail/functions/attachment_common.php:128
+#: squirrelmail/functions/attachment_common.php:143
+#: squirrelmail/functions/attachment_common.php:168
 msgid "view"
 msgstr "skoða"
 
-#: squirrelmail/functions/attachment_common.php:183
+#: squirrelmail/functions/attachment_common.php:185
 msgid "Business Card"
 msgstr "Nafnspjald"
 
-# squirrelmail/src/compose.php:297 squirrelmail/src/compose.php:343
-#: squirrelmail/functions/date.php:91
-#: squirrelmail/plugins/calendar/calendar.php:48
+#: squirrelmail/functions/date.php:92
+#: squirrelmail/plugins/calendar/calendar.php:59
 msgid "Sunday"
 msgstr "sunnudagur"
 
-# squirrelmail/src/search.php:78 squirrelmail/src/search.php:79
-#: squirrelmail/functions/date.php:94
-#: squirrelmail/plugins/calendar/calendar.php:49
+#: squirrelmail/functions/date.php:95
+#: squirrelmail/plugins/calendar/calendar.php:60
 msgid "Monday"
 msgstr "mánudagur"
 
-#: squirrelmail/functions/date.php:97
-#: squirrelmail/plugins/calendar/calendar.php:50
+#: squirrelmail/functions/date.php:98
+#: squirrelmail/plugins/calendar/calendar.php:61
 msgid "Tuesday"
 msgstr "þriðjudagur"
 
-#: squirrelmail/functions/date.php:100
-#: squirrelmail/plugins/calendar/calendar.php:51
+#: squirrelmail/functions/date.php:101
+#: squirrelmail/plugins/calendar/calendar.php:62
 msgid "Wednesday"
 msgstr "miðvikudagur"
 
-#: squirrelmail/functions/date.php:103
-#: squirrelmail/plugins/calendar/calendar.php:52
+#: squirrelmail/functions/date.php:104
+#: squirrelmail/plugins/calendar/calendar.php:63
 msgid "Thursday"
 msgstr "fimmtudagur"
 
-#: squirrelmail/functions/date.php:106
-#: squirrelmail/plugins/calendar/calendar.php:53
+#: squirrelmail/functions/date.php:107
+#: squirrelmail/plugins/calendar/calendar.php:64
 msgid "Friday"
 msgstr "föstudagur"
 
-#: squirrelmail/functions/date.php:109
-#: squirrelmail/plugins/calendar/calendar.php:54
+#: squirrelmail/functions/date.php:110
+#: squirrelmail/plugins/calendar/calendar.php:65
 msgid "Saturday"
 msgstr "laugardagur"
 
-#: squirrelmail/functions/date.php:120
+#: squirrelmail/functions/date.php:121
 msgid "January"
 msgstr "janúar"
 
-#: squirrelmail/functions/date.php:123
+#: squirrelmail/functions/date.php:124
 msgid "February"
 msgstr "febrúar"
 
-# squirrelmail/src/options_highlight.php:164
-#: squirrelmail/functions/date.php:126
+#: squirrelmail/functions/date.php:127
 msgid "March"
 msgstr "mars"
 
-#: squirrelmail/functions/date.php:129
+#: squirrelmail/functions/date.php:130
 msgid "April"
 msgstr "apríl"
 
-#: squirrelmail/functions/date.php:132
+#: squirrelmail/functions/date.php:133
 msgid "May"
 msgstr "maí"
 
-#: squirrelmail/functions/date.php:135
+#: squirrelmail/functions/date.php:136
 msgid "June"
 msgstr "júní"
 
-#: squirrelmail/functions/date.php:138
+#: squirrelmail/functions/date.php:139
 msgid "July"
 msgstr "júlí"
 
-#: squirrelmail/functions/date.php:141
+#: squirrelmail/functions/date.php:142
 msgid "August"
 msgstr "ágúst"
 
-#: squirrelmail/functions/date.php:144
+#: squirrelmail/functions/date.php:145
 msgid "September"
 msgstr "september"
 
-# squirrelmail/src/options_highlight.php:156
-#: squirrelmail/functions/date.php:147
+#: squirrelmail/functions/date.php:148
 msgid "October"
 msgstr "október"
 
-#: squirrelmail/functions/date.php:150
+#: squirrelmail/functions/date.php:151
 msgid "November"
 msgstr "nóvember"
 
-#: squirrelmail/functions/date.php:153
+#: squirrelmail/functions/date.php:154
 msgid "December"
 msgstr "desember"
 
-#: squirrelmail/functions/date.php:180
+#: squirrelmail/functions/date.php:183
 msgid "D, F j, Y g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:182
+#: squirrelmail/functions/date.php:185
 msgid "D, F j, Y G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:204
+#: squirrelmail/functions/date.php:207
 msgid "g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:206
+#: squirrelmail/functions/date.php:209
 msgid "G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:211
+#: squirrelmail/functions/date.php:214
 msgid "D, g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:213
+#: squirrelmail/functions/date.php:216
 msgid "D, G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:217
+#: squirrelmail/functions/date.php:220
 msgid "M j, Y"
 msgstr ""
 
-# squirrelmail/functions/prefs.php:14
+#: squirrelmail/functions/db_prefs.php:52
 #: squirrelmail/functions/db_prefs.php:59
-#: squirrelmail/functions/db_prefs.php:66
-#: squirrelmail/functions/db_prefs.php:104
-#: squirrelmail/functions/db_prefs.php:107
-#: squirrelmail/functions/db_prefs.php:241
+#: squirrelmail/functions/db_prefs.php:122
+#: squirrelmail/functions/db_prefs.php:125
+#: squirrelmail/functions/db_prefs.php:340
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Stillingaskrá %s fannst ekki. Hætt með óeðlilegum hætti"
 
-# squirrelmail/functions/addressbook.php:30
-#: squirrelmail/functions/db_prefs.php:377
-#: squirrelmail/functions/prefs.php:268
-#, fuzzy, c-format
-msgid "Error creating directory %s."
-msgstr "Villa við að opna skrá %s"
-
-#: squirrelmail/functions/db_prefs.php:378
-#: squirrelmail/functions/prefs.php:269
-msgid "Could not create hashed directory structure!"
-msgstr ""
-
-#: squirrelmail/functions/db_prefs.php:379
-#: squirrelmail/functions/prefs.php:171 squirrelmail/functions/prefs.php:176
-#: squirrelmail/functions/prefs.php:270
-#, fuzzy
-msgid "Please contact your system administrator and report this error."
-msgstr "Hafðu samband við kerfisstjóra"
-
-# squirrelmail/functions/display_messages.php:19
-# squirrelmail/functions/imap_general.php:166
-#: squirrelmail/functions/display_messages.php:23
-#: squirrelmail/functions/imap_general.php:224
+#: squirrelmail/functions/display_messages.php:73
+#: squirrelmail/functions/imap_general.php:252
 msgid "Unknown user or password incorrect."
 msgstr "Óþekktur notandi eða lykilorð rangt."
 
-# squirrelmail/functions/display_messages.php:19
-# squirrelmail/functions/imap_general.php:167
-#: squirrelmail/functions/display_messages.php:25
+#: squirrelmail/functions/display_messages.php:75
 msgid "Click here to try again"
 msgstr "Smelltu hér til að reyna aftur"
 
-# squirrelmail/functions/display_messages.php:32
-#: squirrelmail/functions/display_messages.php:39
-#, c-format
-msgid "Welcome to %s's WebMail system"
-msgstr "Vertu velkomin(n) á Vefpóst %s"
-
-# squirrelmail/functions/display_messages.php:43
-#: squirrelmail/functions/display_messages.php:51
-#, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "SquirrelMail útgáfa %s (c) 1999-2001"
-
-# squirrelmail/functions/display_messages.php:68
-#: squirrelmail/functions/display_messages.php:76
+#: squirrelmail/functions/display_messages.php:96
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Smelltu hér til að fara aftur í %s"
 
-# squirrelmail/functions/imap_general.php:69
-#: squirrelmail/functions/imap_general.php:136
-#: squirrelmail/functions/imap_messages.php:119
-#: squirrelmail/functions/imap_messages.php:127
-#: squirrelmail/functions/imap_messages.php:146
-#: squirrelmail/functions/imap_messages.php:155
-#: squirrelmail/functions/imap_messages.php:268
-#: squirrelmail/plugins/filters/filters.php:89
-msgid "ERROR : Could not complete request."
-msgstr "VILLA: Gat ekki klárað fyrirspurn."
+#: squirrelmail/functions/display_messages.php:179
+msgid "Go to the login page"
+msgstr "Farðu á innskráningarsíðu"
 
-# squirrelmail/functions/imap_general.php:71
-#: squirrelmail/functions/imap_general.php:138
-#: squirrelmail/plugins/filters/filters.php:91
-msgid "Reason Given: "
-msgstr "Gefin ástæða: "
-
-# squirrelmail/functions/imap_general.php:78
-#: squirrelmail/functions/imap_general.php:145
-#: squirrelmail/plugins/filters/filters.php:98
-msgid "ERROR : Bad or malformed request."
-msgstr "VILLA: Skemmd eða gölluð fyrirspurn"
-
-# squirrelmail/functions/imap_general.php:80
-#: squirrelmail/functions/imap_general.php:147
-#: squirrelmail/plugins/filters/filters.php:100
-msgid "Server responded: "
-msgstr "Þjónn svaraði: "
-
-# squirrelmail/functions/imap_general.php:106
-#: squirrelmail/functions/imap_general.php:183
-#, c-format
-msgid "Error connecting to IMAP server: %s."
-msgstr "Villa við að tengjast IMAP þjóni: %s"
-
-# squirrelmail/functions/imap_general.php:123
-#: squirrelmail/functions/imap_general.php:199
-#, c-format
-msgid "Bad request: %s"
-msgstr "Röng fyrirspurn: %s"
-
-# squirrelmail/functions/imap_general.php:125
-#: squirrelmail/functions/imap_general.php:201
-#, c-format
-msgid "Unknown error: %s"
-msgstr "Óþekkt villa: %s"
-
-# squirrelmail/functions/imap_general.php:127
-#: squirrelmail/functions/imap_general.php:203
-msgid "Read data:"
-msgstr "Lesa gögn:"
-
-#: squirrelmail/functions/imap_messages.php:121
-#: squirrelmail/functions/imap_messages.php:148
-#: squirrelmail/functions/imap_messages.php:270
-msgid "Unknown response from IMAP server: "
-msgstr "Óþekkt svar frá IMAP póstþjóni: "
-
-#: squirrelmail/functions/imap_messages.php:129
-msgid "Unknown message number in reply from server: "
-msgstr "Óþekkt skeytisnúmer í svari póstþjóns: "
-
-#: squirrelmail/functions/imap_messages.php:157
-msgid "Unknown messagenumber in reply from server: "
-msgstr "Óþekkt skeytisnúmer í svari póstþjóns: "
-
-# squirrelmail/functions/imap_messages.php:62
-# squirrelmail/functions/imap_messages.php:86
-# squirrelmail/functions/imap_messages.php:311
-# squirrelmail/functions/imap_messages.php:350
-# squirrelmail/functions/mailbox_display.php:26
-#: squirrelmail/functions/imap_messages.php:166
-#: squirrelmail/functions/imap_messages.php:195
-#: squirrelmail/functions/imap_messages.php:440
-#: squirrelmail/functions/imap_messages.php:495
-#: squirrelmail/functions/mailbox_display.php:894
-msgid "(no subject)"
-msgstr "(enginn titill)"
-
-# squirrelmail/functions/imap_messages.php:63
-#: squirrelmail/functions/imap_messages.php:167
-msgid "Unknown Sender"
-msgstr "Óþekktur Sendandi"
-
-# squirrelmail/functions/page_header.php:81 squirrelmail/src/compose.php:336
-# squirrelmail/src/compose.php:338 squirrelmail/src/compose.php:341
-#: squirrelmail/functions/imap_messages.php:222
-msgid "No To Address"
-msgstr "Enginn viðtakandi"
-
-# squirrelmail/functions/imap_messages.php:353
-#: squirrelmail/functions/imap_messages.php:498
-msgid "(unknown sender)"
-msgstr "(óþekktur sendandi)"
-
-# squirrelmail/src/options_display.php:88
-#: squirrelmail/functions/imap_search.php:61
-msgid "No Messages Found"
-msgstr "Engin skeyti fundust"
-
-# squirrelmail/functions/imap_search.php:136
-#: squirrelmail/functions/imap_search.php:151
-msgid "Found"
-msgstr "Fann"
-
-# squirrelmail/functions/imap_search.php:136
-#: squirrelmail/functions/imap_search.php:151
-msgid "messages"
-msgstr "skeyti"
-
-# squirrelmail/functions/mailbox_display.php:363
-#: squirrelmail/functions/mailbox_display.php:427
-msgid "THIS FOLDER IS EMPTY"
-msgstr "ÞESSI MAPPA ER TÓM"
-
-# squirrelmail/functions/mailbox_display.php:457
-#: squirrelmail/functions/mailbox_display.php:511
-#, fuzzy
-msgid "Move Selected To:"
-msgstr "Færa valin skeyti í"
-
-#: squirrelmail/functions/mailbox_display.php:514
-msgid "Transform Selected Messages"
-msgstr "Breyta völdum skeytum"
-
-# squirrelmail/functions/mailbox_display.php:471
-#: squirrelmail/functions/mailbox_display.php:530
-msgid "Move"
-msgstr "Færa"
-
-# squirrelmail/functions/mailbox_display.php:475
-#: squirrelmail/functions/mailbox_display.php:534
-msgid "Expunge"
-msgstr "Þurrka út"
-
-# squirrelmail/functions/mailbox_display.php:475
-#: squirrelmail/functions/mailbox_display.php:534
-msgid "mailbox"
-msgstr "pósthólf"
-
-# squirrelmail/src/folders.php:233
-#: squirrelmail/functions/mailbox_display.php:536
-msgid "Read"
-msgstr "Lesa"
-
-#: squirrelmail/functions/mailbox_display.php:537
-msgid "Unread"
-msgstr "Ólesið"
-
-# squirrelmail/functions/mailbox_display.php:405
-# squirrelmail/functions/mailbox_display.php:443
-#: squirrelmail/functions/mailbox_display.php:633
-msgid "Toggle All"
-msgstr "Velja allt"
-
-# squirrelmail/functions/mailbox_display.php:403
-# squirrelmail/functions/mailbox_display.php:441
-#: squirrelmail/functions/mailbox_display.php:655
-msgid "Unselect All"
-msgstr "Afvelja allt"
-
-# squirrelmail/functions/mailbox_display.php:405
-# squirrelmail/functions/mailbox_display.php:443
-#: squirrelmail/functions/mailbox_display.php:657
-msgid "Select All"
-msgstr "Velja allt"
-
-#: squirrelmail/functions/mailbox_display.php:674
-#, c-format
-msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr "Sýni skeyti: <B>%s</B> til <B>%s</B> (%s alls)"
-
-#: squirrelmail/functions/mailbox_display.php:676
-#, c-format
-msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr "Sýni skeyti: <B>%s</B> (1 alls)"
-
-#: squirrelmail/functions/mailbox_display.php:861
-#, fuzzy
-msgid "Paginate"
-msgstr "Prenta"
-
-#: squirrelmail/functions/mailbox_display.php:868
-msgid "Show All"
-msgstr "Sýna öll"
-
-#: squirrelmail/functions/mime.php:370
-msgid "Error decoding mime structure.  Report this as a bug!"
-msgstr ""
-
-#: squirrelmail/functions/mime.php:431
-msgid ""
-"Body retrieval error. The reason for this is most probably that the message "
-"is malformed. Please help us making future versions better by submitting "
-"this message to the developers knowledgebase!"
-msgstr ""
-
-# squirrelmail/functions/imap_general.php:71
-#: squirrelmail/functions/mime.php:433
-#, fuzzy
-msgid "Response:"
-msgstr "Gefin ástæða: "
-
-# squirrelmail/src/read_body.php:288
-#: squirrelmail/functions/mime.php:434
-#: squirrelmail/plugins/calendar/event_create.php:113
-#: squirrelmail/plugins/calendar/event_delete.php:38
-#: squirrelmail/plugins/calendar/event_edit.php:101
-#: squirrelmail/plugins/calendar/event_edit.php:114
-#, fuzzy
-msgid "Message:"
-msgstr "Skeyti "
-
-#: squirrelmail/functions/mime.php:435
-msgid "FETCH line:"
-msgstr ""
-
-# squirrelmail/src/compose.php:303
-#: squirrelmail/functions/mime.php:649
-msgid "Attachments"
-msgstr "Viðhengi"
-
-# squirrelmail/src/options_order.php:102
-#: squirrelmail/functions/mime.php:688
-msgid "download"
-msgstr "hlaða inn"
-
-#: squirrelmail/functions/mime.php:967
-#: squirrelmail/plugins/calendar/event_create.php:53
-#: squirrelmail/plugins/calendar/event_create.php:111
-#: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:71
-#: squirrelmail/plugins/calendar/event_edit.php:99
-#: squirrelmail/plugins/calendar/event_edit.php:112
-msgid "Title:"
-msgstr "Titill:"
-
-#: squirrelmail/functions/mime.php:1137
-msgid "sec_remove_eng.png"
-msgstr ""
-
-#: squirrelmail/functions/options.php:167
-#, c-format
-msgid "Option Type '%s' Not Found"
-msgstr "Valmöguleiki af tegund '%s' ekki til"
-
-#: squirrelmail/functions/options.php:253
-#: squirrelmail/plugins/calendar/event_delete.php:51
-#: squirrelmail/plugins/calendar/event_edit.php:134
-msgid "Yes"
-msgstr "Já"
-
-# squirrelmail/src/options_display.php:206
-#: squirrelmail/functions/options.php:258
-#: squirrelmail/plugins/calendar/event_delete.php:58
-#: squirrelmail/plugins/calendar/event_edit.php:141
-msgid "No"
-msgstr "Nei"
-
-# squirrelmail/functions/page_header.php:71
-#: squirrelmail/functions/page_header.php:108
-msgid "Current Folder"
-msgstr "Núverandi mappa"
-
-# squirrelmail/functions/page_header.php:79
-#: squirrelmail/functions/page_header.php:120
-msgid "Compose"
-msgstr "Skrifa bréf"
-
-# squirrelmail/functions/prefs.php:36 squirrelmail/functions/prefs.php:75
-#: squirrelmail/functions/prefs.php:46
+#: squirrelmail/functions/file_prefs.php:39
 #, c-format
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
@@ -2203,236 +1846,629 @@ msgstr ""
 "Stillingaskráin %s er ekki til. Skráðu þig út og aftur inn til að búa til "
 "sjálfgefna stillingaskrá"
 
-# squirrelmail/functions/prefs.php:119
-#: squirrelmail/functions/prefs.php:169 squirrelmail/functions/prefs.php:174
-msgid "Error opening "
+#: squirrelmail/functions/file_prefs.php:162
+#, fuzzy, c-format
+msgid "Error opening %s"
 msgstr "Villa við að opna "
 
-#: squirrelmail/functions/prefs.php:170
+#: squirrelmail/functions/file_prefs.php:165
 msgid "Default preference file not found!"
 msgstr ""
 
-#: squirrelmail/functions/prefs.php:175
+#: squirrelmail/functions/file_prefs.php:166
+#: squirrelmail/functions/file_prefs.php:179
+#: squirrelmail/functions/prefs.php:94
+#, fuzzy
+msgid "Please contact your system administrator and report this error."
+msgstr "Hafðu samband við kerfisstjóra"
+
+#: squirrelmail/functions/file_prefs.php:177
 msgid "Could not create initial preference file!"
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:360
+#: squirrelmail/functions/file_prefs.php:178
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr ""
+
+#: squirrelmail/functions/imap_general.php:132
+msgid ""
+"Please contact your system administrator and report the following error:"
+msgstr ""
+
+#: squirrelmail/functions/imap_general.php:163
+#: squirrelmail/functions/imap_messages.php:366
+#: squirrelmail/functions/imap_messages.php:374
+#: squirrelmail/functions/imap_messages.php:572
+#: squirrelmail/plugins/filters/filters.php:227
+msgid "ERROR : Could not complete request."
+msgstr "VILLA: Gat ekki klárað fyrirspurn."
+
+#: squirrelmail/functions/imap_general.php:165
+#: squirrelmail/functions/imap_general.php:176
+msgid "Query:"
+msgstr ""
+
+#: squirrelmail/functions/imap_general.php:167
+#: squirrelmail/plugins/filters/filters.php:229
+msgid "Reason Given: "
+msgstr "Gefin ástæða: "
+
+#: squirrelmail/functions/imap_general.php:174
+#: squirrelmail/plugins/filters/filters.php:236
+msgid "ERROR : Bad or malformed request."
+msgstr "VILLA: Skemmd eða gölluð fyrirspurn"
+
+#: squirrelmail/functions/imap_general.php:178
+#: squirrelmail/plugins/filters/filters.php:238
+msgid "Server responded: "
+msgstr "Þjónn svaraði: "
+
+#: squirrelmail/functions/imap_general.php:211
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "Villa við að tengjast IMAP þjóni: %s"
+
+#: squirrelmail/functions/imap_general.php:227
+#, c-format
+msgid "Bad request: %s"
+msgstr "Röng fyrirspurn: %s"
+
+#: squirrelmail/functions/imap_general.php:229
+#, c-format
+msgid "Unknown error: %s"
+msgstr "Óþekkt villa: %s"
+
+#: squirrelmail/functions/imap_general.php:231
+msgid "Read data:"
+msgstr "Lesa gögn:"
+
+#: squirrelmail/functions/imap_messages.php:368
+#: squirrelmail/functions/imap_messages.php:574
+msgid "Unknown response from IMAP server: "
+msgstr "Óþekkt svar frá IMAP póstþjóni: "
+
+#: squirrelmail/functions/imap_messages.php:376
+msgid "Unknown message number in reply from server: "
+msgstr "Óþekkt skeytisnúmer í svari póstþjóns: "
+
+#: squirrelmail/functions/imap_messages.php:396
+#: squirrelmail/functions/imap_messages.php:497
+#: squirrelmail/functions/imap_messages.php:775
+#: squirrelmail/functions/imap_messages.php:839
+#: squirrelmail/functions/imap_parse.php:183
+#: squirrelmail/functions/imap_parse.php:205
+#: squirrelmail/functions/mailbox_display.php:1141
+msgid "(no subject)"
+msgstr "(enginn titill)"
+
+#: squirrelmail/functions/imap_messages.php:397
+msgid "Unknown Sender"
+msgstr "Óþekktur Sendandi"
+
+#: squirrelmail/functions/imap_messages.php:520
+msgid "No To Address"
+msgstr "Enginn viðtakandi"
+
+#: squirrelmail/functions/imap_messages.php:842
+#: squirrelmail/functions/imap_parse.php:208
+msgid "(unknown sender)"
+msgstr "(óþekktur sendandi)"
+
+#: squirrelmail/functions/imap_search.php:98
+msgid "No Messages Found"
+msgstr "Engin skeyti fundust"
+
+#: squirrelmail/functions/imap_search.php:206
+#: squirrelmail/functions/imap_search.php:214
+msgid "Found"
+msgstr "Fann"
+
+#: squirrelmail/functions/imap_search.php:206
+#: squirrelmail/functions/imap_search.php:214
+msgid "messages"
+msgstr "skeyti"
+
+#: squirrelmail/functions/imap_search.php:221
+#, fuzzy
+msgid "Folder:"
+msgstr "Möppur"
+
+#: squirrelmail/functions/mailbox_display.php:196
+msgid "A"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:274
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:296
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:590
+msgid "THIS FOLDER IS EMPTY"
+msgstr "ÞESSI MAPPA ER TÓM"
+
+#: squirrelmail/functions/mailbox_display.php:697
+#, fuzzy
+msgid "Move Selected To:"
+msgstr "Færa í:"
+
+#: squirrelmail/functions/mailbox_display.php:702
+msgid "Transform Selected Messages"
+msgstr "Umbreyta völdum skeytum"
+
+#: squirrelmail/functions/mailbox_display.php:727
+#: squirrelmail/plugins/delete_move_next/setup.php:245
+#: squirrelmail/plugins/delete_move_next/setup.php:269
+msgid "Move"
+msgstr "Færa"
+
+#: squirrelmail/functions/mailbox_display.php:734
+msgid "Expunge"
+msgstr "Þurrka út"
+
+#: squirrelmail/functions/mailbox_display.php:735
+msgid "mailbox"
+msgstr "pósthólf"
+
+#: squirrelmail/functions/mailbox_display.php:737
+msgid "Read"
+msgstr "Lesa"
+
+#: squirrelmail/functions/mailbox_display.php:738
+msgid "Unread"
+msgstr "Ólesið"
+
+#: squirrelmail/functions/mailbox_display.php:747
+#, fuzzy
+msgid "Unthread View"
+msgstr "Ólesið"
+
+#: squirrelmail/functions/mailbox_display.php:751
+msgid "Thread View"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:874
+msgid "Toggle All"
+msgstr "Velja allt"
+
+#: squirrelmail/functions/mailbox_display.php:898
+msgid "Unselect All"
+msgstr "Afvelja allt"
+
+#: squirrelmail/functions/mailbox_display.php:900
+msgid "Select All"
+msgstr "Velja allt"
+
+#: squirrelmail/functions/mailbox_display.php:917
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr "Sýni skeyti: <B>%s</B> til <B>%s</B> (%s alls)"
+
+#: squirrelmail/functions/mailbox_display.php:920
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr "Sýni skeyti: <B>%s</B> (1 alls)"
+
+#: squirrelmail/functions/mailbox_display.php:1104
+#, fuzzy
+msgid "Paginate"
+msgstr "Prenta"
+
+#: squirrelmail/functions/mailbox_display.php:1111
+msgid "Show All"
+msgstr "Sýna öll"
+
+#: squirrelmail/functions/mime.php:449
+msgid "Error decoding mime structure.  Report this as a bug!"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:522
+msgid ""
+"Body retrieval error. The reason for this is most probably that the message "
+"is malformed. Please help us making future versions better by submitting "
+"this message to the developers knowledgebase!"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:524
+#, fuzzy
+msgid "Submit message"
+msgstr "Skoða Skeyti"
+
+#: squirrelmail/functions/mime.php:526
+#, fuzzy
+msgid "Command:"
+msgstr "Skipun brást"
+
+#: squirrelmail/functions/mime.php:527
+#, fuzzy
+msgid "Response:"
+msgstr "Gefin ástæða: "
+
+#: squirrelmail/functions/mime.php:528
+#: squirrelmail/plugins/calendar/event_create.php:137
+#: squirrelmail/plugins/calendar/event_delete.php:47
+#: squirrelmail/plugins/calendar/event_edit.php:119
+#: squirrelmail/plugins/calendar/event_edit.php:143
+#, fuzzy
+msgid "Message:"
+msgstr "Skeyti "
+
+#: squirrelmail/functions/mime.php:529
+msgid "FETCH line:"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:866
+msgid "Hide Unsafe Images"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:868
+#, fuzzy
+msgid "View Unsafe Images"
+msgstr "Skoða Skeyti"
+
+#: squirrelmail/functions/mime.php:903
+msgid "Attachments"
+msgstr "Viðhengi"
+
+#: squirrelmail/functions/mime.php:939 squirrelmail/functions/mime.php:1017
+msgid "download"
+msgstr "sækja"
+
+#: squirrelmail/functions/mime.php:1746 squirrelmail/functions/mime.php:2064
+msgid "sec_remove_eng.png"
+msgstr ""
+
+#: squirrelmail/functions/options.php:168
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr "Valmöguleiki af tegund '%s' ekki til"
+
+#: squirrelmail/functions/options.php:263
+#: squirrelmail/plugins/administrator/options.php:357
+#: squirrelmail/plugins/calendar/event_delete.php:62
+#: squirrelmail/plugins/calendar/event_edit.php:165
+msgid "Yes"
+msgstr "Já"
+
+#: squirrelmail/functions/options.php:268
+#: squirrelmail/plugins/administrator/options.php:358
+#: squirrelmail/plugins/calendar/event_delete.php:70
+#: squirrelmail/plugins/calendar/event_edit.php:173
+msgid "No"
+msgstr "Nei"
+
+#: squirrelmail/functions/page_header.php:199
+msgid "Current Folder"
+msgstr "Núverandi mappa"
+
+#: squirrelmail/functions/page_header.php:212
+#: squirrelmail/functions/page_header.php:215
+#: squirrelmail/functions/page_header.php:258
+#: squirrelmail/functions/page_header.php:285
+msgid "Compose"
+msgstr "Skrifa skeyti"
+
+#: squirrelmail/functions/prefs.php:92
+#, fuzzy, c-format
+msgid "Error creating directory %s."
+msgstr "Villa við að opna skrá %s"
+
+#: squirrelmail/functions/prefs.php:93
+msgid "Could not create hashed directory structure!"
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:554
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:368
+#: squirrelmail/plugins/filters/filters.php:562
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:376
+#: squirrelmail/plugins/filters/filters.php:570
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:384
+#: squirrelmail/plugins/filters/filters.php:578
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:392
+#: squirrelmail/plugins/filters/filters.php:586
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:400
+#: squirrelmail/plugins/filters/filters.php:594
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:408
+#: squirrelmail/plugins/filters/filters.php:603
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:416
+#: squirrelmail/plugins/filters/filters.php:611
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:424
+#: squirrelmail/plugins/filters/filters.php:619
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
 "to catch abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:432
+#: squirrelmail/plugins/filters/filters.php:627
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:440
+#: squirrelmail/plugins/filters/filters.php:635
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:448
+#: squirrelmail/plugins/filters/filters.php:643
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:456
+#: squirrelmail/plugins/filters/filters.php:651
 msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
-"formmail.cgi scripts. (planned)."
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:464
+#: squirrelmail/plugins/filters/filters.php:659
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:472
+#: squirrelmail/plugins/filters/filters.php:667
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:480
-msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:488
-msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:496
+#: squirrelmail/plugins/filters/filters.php:675
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:504
+#: squirrelmail/plugins/filters/filters.php:683
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:512
+#: squirrelmail/plugins/filters/filters.php:691
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:520
+#: squirrelmail/plugins/filters/filters.php:699
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:528
+#: squirrelmail/plugins/filters/filters.php:707
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:536
+#: squirrelmail/plugins/filters/filters.php:715
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:544
+#: squirrelmail/plugins/filters/filters.php:723
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:552
+#: squirrelmail/plugins/filters/filters.php:731
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:560
-msgid "FREE - orbz.gst-group.co.uk - Inputs only."
+#: squirrelmail/plugins/filters/filters.php:739
+msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:568
-msgid "FREE - orbz.gst-group.co.uk - Outputs only."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:576
-msgid ""
-"FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
-"addressed to postmaster@<theirdomain>."
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:584
+#: squirrelmail/plugins/filters/filters.php:747
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
 
-# squirrelmail/src/options.php:124 squirrelmail/src/options_highlight.php:62
-#: squirrelmail/plugins/filters/options.php:62
-msgid "Message Filtering"
-msgstr "Upplita skilaboð"
+#: squirrelmail/plugins/filters/filters.php:755
+msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
+msgstr ""
 
-# squirrelmail/src/options_highlight.php:164
-#: squirrelmail/plugins/filters/options.php:78
+#: squirrelmail/plugins/filters/filters.php:763
+msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:771
+msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:779
+msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:787
+msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:795
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:803
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:811
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:819
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:827
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:835
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:843
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:851
+msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:859
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:867
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:875
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:60
+msgid "Saved Scan type"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:71
+msgid "Message Filtering"
+msgstr "Síun skeyta"
+
+#: squirrelmail/plugins/filters/options.php:80
+#: squirrelmail/plugins/filters/spamoptions.php:115
+msgid "What to Scan:"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:87
+#: squirrelmail/plugins/filters/spamoptions.php:122
+msgid "All messages"
+msgstr "Öll skeyti"
+
+#: squirrelmail/plugins/filters/options.php:92
+#: squirrelmail/plugins/filters/spamoptions.php:127
+msgid "Only unread messages"
+msgstr "athuguð skilaboð"
+
+#: squirrelmail/plugins/filters/options.php:95
+#: squirrelmail/plugins/filters/spamoptions.php:168
+msgid "Save"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:115
 msgid "Match:"
 msgstr "Samsvarar:"
 
-#: squirrelmail/plugins/filters/options.php:104
+#: squirrelmail/plugins/filters/options.php:137
+#, fuzzy
+msgid "Header"
+msgstr "Lesa"
+
+#: squirrelmail/plugins/filters/options.php:143
 msgid "Contains:"
 msgstr "Inniheldur:"
 
-# squirrelmail/functions/mailbox_display.php:471
-#: squirrelmail/plugins/filters/options.php:116
+#: squirrelmail/plugins/delete_move_next/setup.php:241
+#: squirrelmail/plugins/delete_move_next/setup.php:265
+#: squirrelmail/plugins/filters/options.php:153
 msgid "Move to:"
 msgstr "Færa í:"
 
-# squirrelmail/src/options_highlight.php:67
-#: squirrelmail/plugins/filters/options.php:158
+#: squirrelmail/plugins/filters/options.php:202
 msgid "Down"
 msgstr "Niður"
 
-#: squirrelmail/plugins/filters/options.php:164
+#: squirrelmail/plugins/filters/options.php:208
 msgid "Up"
 msgstr "Upp"
 
-#: squirrelmail/plugins/filters/options.php:167
+#: squirrelmail/plugins/filters/options.php:213
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Ef <b>%s</b> inniheldur <b>%s</b> þá flytja í <b>%s</b>"
 
-# squirrelmail/src/read_body.php:288
-#: squirrelmail/plugins/filters/setup.php:78
+#: squirrelmail/plugins/filters/setup.php:128
 msgid "Message Filters"
 msgstr "Skeytasíur"
 
-#: squirrelmail/plugins/filters/setup.php:80
+#: squirrelmail/plugins/filters/setup.php:130
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr ""
 
-# squirrelmail/src/options_folder.php:122
-#: squirrelmail/plugins/filters/setup.php:86
+#: squirrelmail/plugins/filters/setup.php:136
 msgid "SPAM Filters"
-msgstr "Allar möppur"
+msgstr "Ruslpóstsíur"
 
-#: squirrelmail/plugins/filters/setup.php:88
+#: squirrelmail/plugins/filters/setup.php:138
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:53
+#: squirrelmail/plugins/filters/spamoptions.php:59
+#, fuzzy
 msgid "Spam Filtering"
-msgstr ""
+msgstr "Síun skeyta"
 
-#: squirrelmail/plugins/filters/spamoptions.php:57
+#: squirrelmail/plugins/filters/spamoptions.php:66
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
 msgstr ""
 
-# squirrelmail/functions/mailbox_display.php:457
-#: squirrelmail/plugins/filters/spamoptions.php:77
+#: squirrelmail/plugins/filters/spamoptions.php:90
 msgid "Move spam to:"
-msgstr "Færa valdar skrár í"
+msgstr "Færa ruslpóst í"
 
-#: squirrelmail/plugins/filters/spamoptions.php:94
+#: squirrelmail/plugins/filters/spamoptions.php:111
 msgid ""
 "Moving spam directly to the trash may not be a good idea at first, since "
 "messages from friends and mailing lists might accidentally be marked as "
@@ -2441,21 +2477,7 @@ msgid ""
 "around."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:97
-msgid "What to Scan:"
-msgstr ""
-
-# squirrelmail/functions/imap_search.php:136
-#: squirrelmail/plugins/filters/spamoptions.php:102
-msgid "All messages"
-msgstr "skilaboð"
-
-# squirrelmail/functions/mailbox_display.php:477
-#: squirrelmail/plugins/filters/spamoptions.php:106
-msgid "Only unread messages"
-msgstr "athuguð skilaboð"
-
-#: squirrelmail/plugins/filters/spamoptions.php:112
+#: squirrelmail/plugins/filters/spamoptions.php:134
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
 "scan only new messages.  If you make a change to your filters, I would set "
@@ -2464,67 +2486,60 @@ msgid ""
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:138
-msgid "Save"
-msgstr ""
-
-#: squirrelmail/plugins/filters/spamoptions.php:150
+#: squirrelmail/plugins/filters/spamoptions.php:181
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:150
+#: squirrelmail/plugins/filters/spamoptions.php:181
 msgid "[<i>not set yet</i>]"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:152
+#: squirrelmail/plugins/filters/spamoptions.php:183
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
 msgstr ""
 
-# squirrelmail/src/download.php:42 squirrelmail/src/download.php:44
-# squirrelmail/src/read_body.php:48
-#: squirrelmail/plugins/filters/spamoptions.php:152
+#: squirrelmail/plugins/filters/spamoptions.php:183
 msgid "New Messages Only"
 msgstr "Skoða Skeyti"
 
-# squirrelmail/functions/imap_search.php:136
-#: squirrelmail/plugins/filters/spamoptions.php:152
+#: squirrelmail/plugins/filters/spamoptions.php:183
 msgid "All Messages"
-msgstr "skilaboð"
+msgstr "Öll skeyti"
 
-#: squirrelmail/plugins/filters/spamoptions.php:162
+#: squirrelmail/plugins/filters/spamoptions.php:194
 msgid "ON"
 msgstr ""
 
-#: squirrelmail/plugins/filters/spamoptions.php:164
+#: squirrelmail/plugins/filters/spamoptions.php:196
 msgid "OFF"
 msgstr ""
 
-# squirrelmail/src/folders.php:77
-#: squirrelmail/plugins/squirrelspell/setup.php:31
+#: squirrelmail/plugins/squirrelspell/setup.php:49
 msgid "SpellChecker Options"
-msgstr "Sérstakir möguleikar möppu"
+msgstr "Valkostir stafsetningarforrits"
 
-#: squirrelmail/plugins/squirrelspell/setup.php:33
+#: squirrelmail/plugins/squirrelspell/setup.php:51
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/setup.php:49
+#: squirrelmail/plugins/squirrelspell/setup.php:77
 msgid "Check Spelling"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:35
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:58
+#, fuzzy
 msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr ""
+msgstr "Valkostir stafsetningarforrits"
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:210
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:361
 msgid "ATTENTION:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:211
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:362
 msgid ""
 "SquirrelSpell was unable to decrypt your personal dictionary. This is most "
 "likely due to the fact that you have changed your mailbox password. In order "
@@ -2536,438 +2551,491 @@ msgid ""
 "it, the encrypted data is no longer accessible."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:217
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:369
 msgid "Delete my dictionary and start a new one"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:218
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:370
 msgid "Decrypt my dictionary with my old password:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:221
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:376
 msgid "Proceed"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:227
-#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:229
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:383
+msgid "You must make a choice"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:384
+msgid ""
+"You can either delete your dictionary or type in the old password. Not both."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
+msgid "This will delete your personal dictionary file. Proceed?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:394
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:397
+#, fuzzy
 msgid "Error Decrypting Dictionary"
+msgstr "Persónulegar upplýsingar"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:515
+#, fuzzy
+msgid "Cute."
+msgstr "tilvitnun"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:115
+#, c-format
+msgid "I tried to execute '%s', but it returned:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
-#: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
-msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:121
+msgid "SquirrelSpell is misconfigured."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:24
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:211
+msgid "SquirrelSpell Results"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:271
+msgid "Spellcheck completed. Commit changes?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:273
+#, fuzzy
+msgid "No changes were made."
+msgstr "Ekki beðið um neinar breytingar."
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:275
+msgid "Now saving your personal dictionary... Please wait."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:296
+#, c-format
+msgid "Found %s errors"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:317
+msgid "Line with an error:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:327
+#, fuzzy
+msgid "Error:"
+msgstr "Villa "
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:336
+msgid "Suggestions:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:343
+msgid "Suggestions"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:351
+msgid "Change to:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:360
+msgid "Occurs times:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:377
+msgid "Change this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:378
+msgid "Change"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:380
+msgid "Change ALL occurances of this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:381
+#, fuzzy
+msgid "Change All"
+msgstr "Velja allt"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:383
+msgid "Ignore this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:384
+msgid "Ignore"
+msgstr "Leiða hjá sér"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:386
+msgid "Ignore ALL occurances this word"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:387
+#, fuzzy
+msgid "Ignore All"
+msgstr "Leiða hjá sér"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:389
+msgid "Add this word to your personal dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:390
+msgid "Add to Dic"
+msgstr "Bæta við orðabók"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:403
+msgid "Close and Commit"
+msgstr "Loka glugga"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:405
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:408
+#, fuzzy
+msgid "Close and Cancel"
+msgstr "Loka glugga"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:410
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:429
+msgid "No errors found"
+msgstr "Engar villur greindust"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
+#, fuzzy
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Persónulegar upplýsingar"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
+#, fuzzy
 msgid "Your personal dictionary was erased."
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:25
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:32
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:34
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:47
 msgid "Dictionary Erased"
 msgstr ""
 
-# squirrelmail/src/addrbook_search.php:211
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:30
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:57
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:77
 msgid "Close this Window"
 msgstr "Loka glugga"
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:48
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:70
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
+#, fuzzy
 msgid "Successful Re-encryption"
-msgstr ""
+msgstr "Vistun valkosta tókst!"
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:54
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:75
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Please close this "
 "window and click \"Check Spelling\" button again to start your spellcheck "
 "over."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
 msgid "Dictionary re-encrypted"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
-msgid "Personal Dictionary Crypto Settings"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:121
-msgid "SquirrelSpell Results"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:170
-#, c-format
-msgid "Found %s errors"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:183
-msgid "Line with an error:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:192
-msgid "Error:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:200
-msgid "Suggestions:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:206
-msgid "Suggestions"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:214
-msgid "Change to:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:223
-msgid "Occurs times:"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:239
-msgid "Change this word"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:240
-msgid "Change"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:242
-msgid "Change ALL occurances of this word"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:243
-msgid "Change All"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:245
-msgid "Ignore this word"
-msgstr ""
-
-# squirrelmail/src/read_body.php:198
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:246
-msgid "Ignore"
-msgstr "meira"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:248
-msgid "Ignore ALL occurances this word"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:249
-msgid "Ignore All"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:251
-msgid "Add this word to your personal dictionary"
-msgstr ""
-
-# squirrelmail/src/addressbook.php:360
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:252
-msgid "Add to Dic"
-msgstr "Bæta við %s"
-
-# squirrelmail/src/addrbook_search.php:211
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:264
-msgid "Close and Commit"
-msgstr "Loka glugga"
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
-msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
-msgid "Close and Cancel"
-msgstr ""
-
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
-msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr ""
-
-# squirrelmail/functions/page_header.php:79
-#: squirrelmail/plugins/newmail/testsound.php:33
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
-msgid "Close"
-msgstr "Skrifa bréf"
-
-# squirrelmail/src/folders.php:141 squirrelmail/src/folders.php:237
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:286
-msgid "No errors found"
-msgstr "Engar möppur fundust"
-
-# squirrelmail/src/options.php:112 squirrelmail/src/options_personal.php:41
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
 msgid "Personal Dictionary"
 msgstr "Persónulegar upplýsingar"
 
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:61
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:29
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:99
+#, fuzzy
 msgid "No words in your personal dictionary."
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:24
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:36
 msgid "Please check any words you wish to delete from your dictionary."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:35
-#, c-format
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:58
+#, fuzzy, c-format
 msgid "%s dictionary"
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-# squirrelmail/src/addressbook.php:350
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:54
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:89
 msgid "Delete checked words"
-msgstr "Eyða völdu"
+msgstr "Eyða merktum orðum"
 
-#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:65
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:103
+#, fuzzy
 msgid "Edit your Personal Dictionary"
+msgstr "Persónulegar upplýsingar"
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:25
+msgid "Please make your selection first."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:22
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:27
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:30
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
 msgid ""
 "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
 "helps protect your privacy in case the web-mail system gets compromized and "
 "your personal dictionary ends up stolen. It is currently encrypted with the "
 "password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> "
-"<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-"dictionary will become unaccessible, since it can no longer be decrypted. If "
-"you change your mailbox password, SquirrelSpell will recognize it and prompt "
-"you for your old password in order to re-encrypt the dictionary with a new "
-"key.</p>"
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:52
 msgid ""
 "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
 msgid "Change crypto settings"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:65
 msgid ""
 "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
 "may wish to encrypt your personal dictionary to protect your privacy in case "
 "the webmail system gets compromized and your personal dictionary file gets "
 "stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox "
-"password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your "
-"personal dictionary, you must remember that it gets &quot;hashed&quot; with "
-"your mailbox password. If you forget your mailbox password and the "
-"administrator changes it to a new value, your personal dictionary will "
-"become useless and will have to be created anew. However, if you or your "
-"system administrator change your mailbox password but you still have the old "
-"password at hand, you will be able to enter the old key to re-encrypt the "
-"dictionary with the new value.</p>"
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:70
 msgid ""
 "Please encrypt my personal dictionary and store it in an encrypted format."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:22
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:28
 #, c-format
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
 msgstr ""
 
-# squirrelmail/src/options_folder.php:122
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:52
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:71
 msgid "All done!"
 msgstr "Allar möppur"
 
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:53
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:51
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:72
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:71
+#, fuzzy
 msgid "Personal Dictionary Updated"
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-# squirrelmail/src/move_messages.php:85
-# squirrelmail/src/move_messages.php:114
-# squirrelmail/src/move_messages.php:143
-#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:78
 msgid "No changes requested."
-msgstr "Engin skilaboð voru valin."
+msgstr "Ekki beðið um neinar breytingar."
 
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:25
+#: squirrelmail/plugins/squirrelspell/modules/init.mod:33
 msgid "Please wait, communicating with the server..."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:32
+#: squirrelmail/plugins/squirrelspell/modules/init.mod:42
 msgid ""
 "Please choose which dictionary you would like to use to spellcheck this "
 "message:"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/calendar.php:112
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
+#: squirrelmail/plugins/calendar/calendar.php:125
+#: squirrelmail/plugins/squirrelspell/modules/init.mod:53
 msgid "Go"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:48
+#: squirrelmail/plugins/squirrelspell/modules/init.mod:57
 msgid "SquirrelSpell Initiating"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:56
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:72
 #, c-format
 msgid ""
 "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
 "default dictionary."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:79
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod:90
 msgid "International Dictionaries Preferences Updated"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:19
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:22
 msgid ""
 "Please check any available international dictionaries which you would like "
 "to use when spellchecking:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:32
 msgid "Make this dictionary my default selection:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:41
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:49
 msgid "Make these changes"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:42
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod:50
+#, fuzzy
 msgid "Add International Dictionaries"
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:18
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:19
 msgid "Please choose which options you wish to set up:"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:22
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:23
+#, fuzzy
 msgid "Edit your personal dictionary"
-msgstr ""
+msgstr "Persónulegar upplýsingar"
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:27
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:30
 msgid "Set up international dictionaries"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:35
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:40
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:44
 msgid "Encrypt or decrypt your personal dictionary"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
 msgid "not available"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:43
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod:48
 msgid "SquirrelSpell Options Menu"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:97
+#: squirrelmail/plugins/translate/options.php:94
+#, fuzzy
 msgid "Translator"
-msgstr ""
+msgstr "Þýða"
 
-#: squirrelmail/plugins/translate/options.php:100
+#: squirrelmail/plugins/translate/options.php:97
 msgid "Your server options are as follows:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:105
+#: squirrelmail/plugins/translate/options.php:102
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:108
+#: squirrelmail/plugins/translate/options.php:105
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:111
+#: squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:114
+#: squirrelmail/plugins/translate/options.php:111
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:117
+#: squirrelmail/plugins/translate/options.php:114
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:123
+#: squirrelmail/plugins/translate/options.php:120
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:127
+#: squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:139
+#: squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:144
+#: squirrelmail/plugins/translate/options.php:141
 msgid "Show translation box"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:146
+#: squirrelmail/plugins/translate/options.php:143
 msgid "to the left"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:147
+#: squirrelmail/plugins/translate/options.php:144
 msgid "in the center"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:148
+#: squirrelmail/plugins/translate/options.php:145
 msgid "to the right"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:153
+#: squirrelmail/plugins/translate/options.php:150
 msgid "Translate inside the SquirrelMail frames"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:156
+#: squirrelmail/plugins/translate/options.php:153
 msgid "When composing:"
 msgstr ""
 
-#: squirrelmail/plugins/translate/options.php:160
+#: squirrelmail/plugins/translate/options.php:157
 msgid "Not yet functional, currently does nothing"
 msgstr ""
 
 #: squirrelmail/plugins/translate/setup.php:104
+#, fuzzy
 msgid "Translation Options"
-msgstr ""
+msgstr "Almennar útlitsbreytur"
 
 #: squirrelmail/plugins/translate/setup.php:106
 msgid ""
@@ -2975,7 +3043,6 @@ msgid ""
 "language?"
 msgstr ""
 
-# squirrelmail/src/addressbook.php:360
 #: squirrelmail/plugins/translate/setup.php:230
 #: squirrelmail/plugins/translate/setup.php:234
 #: squirrelmail/plugins/translate/setup.php:238
@@ -3159,7 +3226,6 @@ msgstr "Tékkneska"
 msgid "Danish"
 msgstr "Danska"
 
-# squirrelmail/src/options_highlight.php:164
 #: squirrelmail/plugins/translate/setup.php:351
 #: squirrelmail/plugins/translate/setup.php:381
 #: squirrelmail/plugins/translate/setup.php:416
@@ -3240,36 +3306,47 @@ msgstr "Velska"
 msgid "Indonesian"
 msgstr "Indónesíska"
 
-# squirrelmail/src/login.php:41 squirrelmail/src/login.php:83
 #: squirrelmail/plugins/translate/setup.php:421
 msgid "Latin"
 msgstr "Latína"
 
-# squirrelmail/src/options_folder.php:120
-#: squirrelmail/plugins/newmail/newmail_opt.php:34
+#: squirrelmail/plugins/newmail/newmail.php:20
+#, fuzzy
+msgid "New Mail"
+msgstr "Sækja póst"
+
+#: squirrelmail/plugins/newmail/newmail.php:26
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail útgáfa %s"
+
+#: squirrelmail/plugins/newmail/newmail.php:31
+msgid "You have new mail!"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:38
 msgid "New Mail Notification"
 msgstr "Tilkynning um nýjan póst"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:37
+#: squirrelmail/plugins/newmail/newmail_opt.php:44
 msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:39
+#: squirrelmail/plugins/newmail/newmail_opt.php:48
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:41
+#: squirrelmail/plugins/newmail/newmail_opt.php:51
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:43
+#: squirrelmail/plugins/newmail/newmail_opt.php:54
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
@@ -3277,7 +3354,7 @@ msgid ""
 "by sounds or popups for unseen mail."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:45
+#: squirrelmail/plugins/newmail/newmail_opt.php:57
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
@@ -3286,7 +3363,7 @@ msgid ""
 "enabled."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:47
+#: squirrelmail/plugins/newmail/newmail_opt.php:61
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
@@ -3294,71 +3371,52 @@ msgid ""
 "is specified, the system will use a default from the server."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:57
+#: squirrelmail/plugins/newmail/newmail_opt.php:74
 msgid "Enable Media Playing"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:65
+#: squirrelmail/plugins/newmail/newmail_opt.php:84
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:73
+#: squirrelmail/plugins/newmail/newmail_opt.php:93
 msgid "Count only messages that are RECENT"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
+#: squirrelmail/plugins/newmail/newmail_opt.php:102
 msgid "Change title on supported browsers."
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:81
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
+#: squirrelmail/plugins/newmail/newmail_opt.php:102
+#: squirrelmail/plugins/newmail/newmail_opt.php:111
 msgid "requires JavaScript to work"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:89
+#: squirrelmail/plugins/newmail/newmail_opt.php:111
 msgid "Show popup window on new mail"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:92
+#: squirrelmail/plugins/newmail/newmail_opt.php:115
+#, fuzzy
 msgid "Select server file:"
-msgstr ""
+msgstr "Valinn póstþjónn:"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:94
+#: squirrelmail/plugins/newmail/newmail_opt.php:118
 msgid "(local media)"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:111
+#: squirrelmail/plugins/newmail/newmail_opt.php:135
 msgid "Try"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:119
+#: squirrelmail/plugins/newmail/newmail_opt.php:143
 msgid "Local Media File:"
 msgstr ""
 
-# squirrelmail/functions/page_header.php:71
-#: squirrelmail/plugins/newmail/newmail_opt.php:125
+#: squirrelmail/plugins/newmail/newmail_opt.php:147
 msgid "Current File:"
 msgstr "Núverandi mappa"
 
-#: squirrelmail/plugins/newmail/newmail.php:20
-msgid "New Mail"
-msgstr ""
-
-# squirrelmail/src/login.php:52
-#: squirrelmail/plugins/newmail/newmail.php:27
-msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail útgáfa %s"
-
-#: squirrelmail/plugins/newmail/newmail.php:31
-msgid "You have new mail!"
-msgstr ""
-
-# squirrelmail/functions/page_header.php:85 squirrelmail/src/options.php:45
-# squirrelmail/src/options_display.php:37
-# squirrelmail/src/options_folder.php:40
-# squirrelmail/src/options_highlight.php:62
-# squirrelmail/src/options_order.php:41
-# squirrelmail/src/options_personal.php:41
 #: squirrelmail/plugins/newmail/setup.php:78
 msgid "NewMail Options"
 msgstr "Valmöguleikar"
@@ -3370,28 +3428,25 @@ msgid ""
 msgstr ""
 
 #: squirrelmail/plugins/newmail/setup.php:129
+#, fuzzy
 msgid "New Mail Notification options saved"
-msgstr ""
+msgstr "Tilkynning um nýjan póst"
 
-# squirrelmail/src/download.php:42 squirrelmail/src/download.php:44
-# squirrelmail/src/read_body.php:48
 #: squirrelmail/plugins/newmail/setup.php:202
 #, c-format
 msgid "%s New Messages"
 msgstr "%s ný skeyti"
 
-# squirrelmail/src/download.php:42 squirrelmail/src/download.php:44
-# squirrelmail/src/read_body.php:48
 #: squirrelmail/plugins/newmail/setup.php:206
 #, c-format
 msgid "%s New Message"
 msgstr "%s nýtt skeyti"
 
-#: squirrelmail/plugins/newmail/testsound.php:24
+#: squirrelmail/plugins/newmail/testsound.php:25
 msgid "Test Sound"
 msgstr ""
 
-#: squirrelmail/plugins/newmail/testsound.php:30
+#: squirrelmail/plugins/newmail/testsound.php:33
 msgid "Loading the sound..."
 msgstr ""
 
@@ -3405,7 +3460,6 @@ msgstr ""
 msgid "No server specified"
 msgstr ""
 
-# squirrelmail/functions/prefs.php:119
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:90
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:102
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:141
@@ -3428,7 +3482,6 @@ msgstr ""
 msgid "POP3 noop:"
 msgstr ""
 
-# squirrelmail/functions/imap_general.php:106
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:120
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:186
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:235
@@ -3455,8 +3508,9 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:136
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:156
+#, fuzzy
 msgid "connection not established"
-msgstr ""
+msgstr "tenging er ekki til"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:153
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:156
@@ -3553,8 +3607,6 @@ msgstr ""
 msgid "POP3 quit:"
 msgstr ""
 
-# squirrelmail/functions/abook_database.php:271
-# squirrelmail/functions/abook_local_file.php:304
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:505
 msgid "connection does not exist"
 msgstr "tenging er ekki til"
@@ -3575,135 +3627,151 @@ msgstr ""
 msgid "No msg number submitted"
 msgstr ""
 
-# squirrelmail/functions/abook_local_file.php:94
-# squirrelmail/functions/abook_local_file.php:130
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:621
 msgid "Command failed "
 msgstr "Skipun brást"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:54
+#: squirrelmail/plugins/mail_fetch/fetch.php:58
 msgid "Remote POP server Fetching Mail"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:63
+#: squirrelmail/plugins/mail_fetch/fetch.php:68
+#, fuzzy
 msgid "Select Server:"
-msgstr ""
+msgstr "Valinn póstþjónn:"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:65
-msgid "All"
-msgstr ""
-
-# squirrelmail/src/login.php:74
-#: squirrelmail/plugins/mail_fetch/fetch.php:78
+#: squirrelmail/plugins/mail_fetch/fetch.php:85
 msgid "Password for"
 msgstr "Lykilorð fyrir"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:85
+#: squirrelmail/plugins/mail_fetch/fetch.php:95
 msgid "Fetch Mail"
 msgstr "Sækja póst"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:117
+#: squirrelmail/plugins/mail_fetch/fetch.php:130
 msgid "Fetching from "
 msgstr "Sæki frá "
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:124
-#: squirrelmail/plugins/mail_fetch/fetch.php:184
+#: squirrelmail/plugins/mail_fetch/fetch.php:140
+#: squirrelmail/plugins/mail_fetch/fetch.php:200
+#: squirrelmail/plugins/mail_fetch/fetch.php:206
 msgid "Oops, "
 msgstr "úps, "
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:128
+#: squirrelmail/plugins/mail_fetch/fetch.php:144
 msgid "Opening IMAP server"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:131
+#: squirrelmail/plugins/mail_fetch/fetch.php:147
 msgid "Opening POP server"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:134
+#: squirrelmail/plugins/mail_fetch/fetch.php:150
+#: squirrelmail/plugins/mail_fetch/fetch.php:214
 #: squirrelmail/plugins/mail_fetch/setup.php:123
 msgid "Login Failed:"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:151
+#: squirrelmail/plugins/mail_fetch/fetch.php:167
+#, fuzzy
 msgid "Login OK: No new messages"
-msgstr ""
+msgstr "%s ný skeyti"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:156
+#: squirrelmail/plugins/mail_fetch/fetch.php:172
 msgid "Login OK: Inbox EMPTY"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
+#: squirrelmail/plugins/mail_fetch/fetch.php:177
 msgid "Login OK: Inbox contains ["
 msgstr ""
 
-# squirrelmail/functions/imap_search.php:136
-#: squirrelmail/plugins/mail_fetch/fetch.php:161
+#: squirrelmail/plugins/mail_fetch/fetch.php:177
 msgid "] messages"
 msgstr "] skilaboð"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:164
+#: squirrelmail/plugins/mail_fetch/fetch.php:180
+#, fuzzy
 msgid "Fetching UIDL..."
-msgstr ""
+msgstr "Sæki frá "
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:169
+#: squirrelmail/plugins/mail_fetch/fetch.php:185
 #: squirrelmail/plugins/mail_fetch/setup.php:154
 msgid "Server does not support UIDL."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:172
+#: squirrelmail/plugins/mail_fetch/fetch.php:188
+#, fuzzy
 msgid "Leaving Mail on Server..."
-msgstr ""
+msgstr "Skilja póst eftir á póstþjóni"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:174
+#: squirrelmail/plugins/mail_fetch/fetch.php:190
 msgid "Deleting messages from server..."
 msgstr ""
 
-# squirrelmail/functions/mailbox_display.php:319
-#: squirrelmail/plugins/mail_fetch/fetch.php:178
+#: squirrelmail/plugins/mail_fetch/fetch.php:194
 msgid "Fetching message "
 msgstr "Er að sækja skeyti "
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:201
-msgid "Message appended to mailbox"
-msgstr "Skeyti bætt við pósthólf"
+#: squirrelmail/plugins/mail_fetch/fetch.php:202
+msgid "Server error...Disconnect"
+msgstr ""
 
-# squirrelmail/src/read_body.php:288
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid "Message "
-msgstr "Skeyti "
+#: squirrelmail/plugins/mail_fetch/fetch.php:204
+msgid "Re-connect from dead connectoin"
+msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:205
-msgid " deleted from Remote Server!"
-msgstr " eytt af póstþjón!"
-
-# squirrelmail/src/addressbook.php:350
 #: squirrelmail/plugins/mail_fetch/fetch.php:207
-msgid "Delete failed:"
-msgstr "Eyðing mistókst:"
+#: squirrelmail/plugins/mail_fetch/fetch.php:215
+#: squirrelmail/plugins/mail_fetch/fetch.php:245
+#: squirrelmail/plugins/mail_fetch/fetch.php:268
+#: squirrelmail/plugins/mail_fetch/fetch.php:279
+msgid "Saving UIDL"
+msgstr ""
 
-# squirrelmail/functions/prefs.php:119
-#: squirrelmail/plugins/mail_fetch/fetch.php:212
+#: squirrelmail/plugins/mail_fetch/fetch.php:220
+#, fuzzy
+msgid "Re-fetching message "
+msgstr "Er að sækja skeyti "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:239
+#: squirrelmail/plugins/mail_fetch/fetch.php:261
 #: squirrelmail/plugins/mail_fetch/setup.php:185
 msgid "Error Appending Message!"
 msgstr "Villa við að bæta skeyti við!"
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:216
+#: squirrelmail/plugins/mail_fetch/fetch.php:240
+#: squirrelmail/plugins/mail_fetch/fetch.php:262
+#: squirrelmail/plugins/mail_fetch/fetch.php:274
 msgid "Closing POP"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:218
+#: squirrelmail/plugins/mail_fetch/fetch.php:242
+#: squirrelmail/plugins/mail_fetch/fetch.php:264
+#: squirrelmail/plugins/mail_fetch/fetch.php:276
 msgid "Logging out from IMAP"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/fetch.php:221
-msgid "Saving UIDL"
-msgstr ""
+#: squirrelmail/plugins/mail_fetch/fetch.php:249
+msgid "Message appended to mailbox"
+msgstr "Skeyti bætt við pósthólf"
 
-#: squirrelmail/plugins/mail_fetch/options.php:105
+#: squirrelmail/plugins/mail_fetch/fetch.php:254
+msgid "Message "
+msgstr "Skeyti "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:254
+msgid " deleted from Remote Server!"
+msgstr " eytt af póstþjóni!"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:256
+msgid "Delete failed:"
+msgstr "Eyðing mistókst:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:108
 msgid "Remote POP server settings"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:107
+#: squirrelmail/plugins/mail_fetch/options.php:115
 msgid ""
 "You should be aware that the encryption used to store your password is not "
 "perfectly secure.  However, if you are using pop, there is inherently no "
@@ -3711,114 +3779,109 @@ msgid ""
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:109
+#: squirrelmail/plugins/mail_fetch/options.php:120
 msgid "If you leave password empty, it will be required when you fetch mail."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:113
+#: squirrelmail/plugins/mail_fetch/options.php:127
 msgid "Encrypt passwords (informative only)"
-msgstr "Dulkóða lykilorð"
+msgstr "Dulkóða lykilorði (aðeins til upplýsingar)"
 
-#: squirrelmail/plugins/mail_fetch/options.php:119
-#: squirrelmail/plugins/mail_fetch/options.php:151
+#: squirrelmail/plugins/mail_fetch/options.php:136
+#: squirrelmail/plugins/mail_fetch/options.php:192
 msgid "Add Server"
 msgstr "Bæta við póstþjóni"
 
-#: squirrelmail/plugins/mail_fetch/options.php:123
-#: squirrelmail/plugins/mail_fetch/options.php:201
+#: squirrelmail/plugins/mail_fetch/options.php:145
+#: squirrelmail/plugins/mail_fetch/options.php:262
 msgid "Server:"
 msgstr "Póstþjónn:"
 
-#: squirrelmail/plugins/mail_fetch/options.php:124
-#: squirrelmail/plugins/mail_fetch/options.php:203
+#: squirrelmail/plugins/mail_fetch/options.php:149
+#: squirrelmail/plugins/mail_fetch/options.php:266
 msgid "Alias:"
-msgstr "Auknefni:"
+msgstr "Viðurnefni:"
 
-# squirrelmail/src/folders_rename_getname.php:50
-#: squirrelmail/plugins/mail_fetch/options.php:125
-#: squirrelmail/plugins/mail_fetch/options.php:205
+#: squirrelmail/plugins/mail_fetch/options.php:153
+#: squirrelmail/plugins/mail_fetch/options.php:270
 msgid "Username:"
 msgstr "Notandanafn:"
 
-# squirrelmail/src/options_folder.php:89
-#: squirrelmail/plugins/mail_fetch/options.php:127
-#: squirrelmail/plugins/mail_fetch/options.php:209
+#: squirrelmail/plugins/mail_fetch/options.php:161
+#: squirrelmail/plugins/mail_fetch/options.php:278
 msgid "Store in Folder:"
 msgstr "Geyma í möppunni:"
 
-#: squirrelmail/plugins/mail_fetch/options.php:148
-#: squirrelmail/plugins/mail_fetch/options.php:233
+#: squirrelmail/plugins/mail_fetch/options.php:180
+#: squirrelmail/plugins/mail_fetch/options.php:303
 msgid "Leave Mail on Server"
 msgstr "Skilja póst eftir á póstþjóni"
 
-#: squirrelmail/plugins/mail_fetch/options.php:149
-#: squirrelmail/plugins/mail_fetch/options.php:235
+#: squirrelmail/plugins/mail_fetch/options.php:184
+#: squirrelmail/plugins/mail_fetch/options.php:310
 msgid "Check mail during login"
 msgstr "Athuga póst við innskráningu"
 
-#: squirrelmail/plugins/mail_fetch/options.php:150
-#: squirrelmail/plugins/mail_fetch/options.php:237
+#: squirrelmail/plugins/mail_fetch/options.php:188
+#: squirrelmail/plugins/mail_fetch/options.php:317
 msgid "Check mail during folder refresh"
 msgstr "Ná í póst þegar mappa er endurhlaðin"
 
-#: squirrelmail/plugins/mail_fetch/options.php:157
-#: squirrelmail/plugins/mail_fetch/options.php:238
+#: squirrelmail/plugins/mail_fetch/options.php:201
+#: squirrelmail/plugins/mail_fetch/options.php:322
 msgid "Modify Server"
 msgstr "Breyta póstþjóni"
 
-# squirrelmail/functions/imap_general.php:80
-#: squirrelmail/plugins/mail_fetch/options.php:161
+#: squirrelmail/plugins/mail_fetch/options.php:207
 msgid "Server Name:"
 msgstr "Heiti póstþjóns:"
 
-# squirrelmail/src/search.php:78 squirrelmail/src/search.php:79
-#: squirrelmail/plugins/mail_fetch/options.php:167
-#: squirrelmail/plugins/mail_fetch/options.php:190
+#: squirrelmail/plugins/mail_fetch/options.php:213
+#: squirrelmail/plugins/mail_fetch/options.php:244
 msgid "Modify"
 msgstr "Breyta"
 
-#: squirrelmail/plugins/mail_fetch/options.php:171
+#: squirrelmail/plugins/mail_fetch/options.php:217
 msgid "No-one server in use. Try to add."
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:177
-#: squirrelmail/plugins/mail_fetch/options.php:192
-#: squirrelmail/plugins/mail_fetch/options.php:243
+#: squirrelmail/plugins/mail_fetch/options.php:224
+#: squirrelmail/plugins/mail_fetch/options.php:247
+#: squirrelmail/plugins/mail_fetch/options.php:332
+#, fuzzy
 msgid "Fetching Servers"
-msgstr ""
+msgstr "Er að sækja skeyti "
 
-#: squirrelmail/plugins/mail_fetch/options.php:181
+#: squirrelmail/plugins/mail_fetch/options.php:230
+#, fuzzy
 msgid "Confirm Deletion of a Server"
-msgstr ""
+msgstr "Staðfesta eyðingu"
 
-#: squirrelmail/plugins/mail_fetch/options.php:185
+#: squirrelmail/plugins/mail_fetch/options.php:236
 msgid "Selected Server:"
 msgstr "Valinn póstþjónn:"
 
-#: squirrelmail/plugins/mail_fetch/options.php:186
+#: squirrelmail/plugins/mail_fetch/options.php:237
+#, fuzzy
 msgid "Confirm delete of selected server?"
-msgstr ""
+msgstr " eytt af póstþjóni!"
 
-# squirrelmail/functions/mailbox_display.php:477
-# squirrelmail/src/folders.php:137 squirrelmail/src/options_highlight.php:73
-# squirrelmail/src/read_body.php:295
-#: squirrelmail/plugins/mail_fetch/options.php:187
+#: squirrelmail/plugins/mail_fetch/options.php:238
 msgid "Confirm Delete"
 msgstr "Staðfesta eyðingu"
 
-#: squirrelmail/plugins/mail_fetch/options.php:196
+#: squirrelmail/plugins/mail_fetch/options.php:253
 msgid "Mofify a Server"
-msgstr "Breyta póstþóni"
+msgstr "Breyta tilteknum póstþjóni"
 
-#: squirrelmail/plugins/mail_fetch/options.php:246
+#: squirrelmail/plugins/mail_fetch/options.php:338
 msgid "Undefined Function"
 msgstr ""
 
-#: squirrelmail/plugins/mail_fetch/options.php:248
+#: squirrelmail/plugins/mail_fetch/options.php:339
 msgid "Hey! Wath do You are looking for?"
 msgstr "Hey! Að hverju ert þú að leita?"
 
-# squirrelmail/src/options_highlight.php:164
 #: squirrelmail/plugins/mail_fetch/setup.php:30
 msgid "Fetch"
 msgstr "Sækja"
@@ -3833,8 +3896,9 @@ msgid "Mail Fetch Result:"
 msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/setup.php:223
+#, fuzzy
 msgid "Simple POP3 Fetch Mail"
-msgstr ""
+msgstr "Sækja póst"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:225
 msgid ""
@@ -3852,19 +3916,16 @@ msgstr ""
 msgid "Show button in toolbar"
 msgstr ""
 
-# squirrelmail/src/folders.php:77
 #: squirrelmail/plugins/sent_subfolders/setup.php:94
 #, fuzzy
 msgid "Sent Subfolders Options"
-msgstr "Sérstakir möguleikar möppu"
+msgstr "Sérstakir eiginleikar möppu"
 
-# squirrelmail/src/options_folder.php:89
 #: squirrelmail/plugins/sent_subfolders/setup.php:99
 #, fuzzy
 msgid "Use Sent Subfolders"
 msgstr "Send bréf"
 
-# squirrelmail/src/search.php:78 squirrelmail/src/search.php:79
 #: squirrelmail/plugins/sent_subfolders/setup.php:103
 #, fuzzy
 msgid "Monthly"
@@ -3878,156 +3939,161 @@ msgstr ""
 msgid "Yearly"
 msgstr ""
 
-# squirrelmail/src/options_folder.php:89
 #: squirrelmail/plugins/sent_subfolders/setup.php:120
 #, fuzzy
 msgid "Base Sent Folder"
 msgstr "Send bréf"
 
-#: squirrelmail/plugins/calendar/calendar.php:74
+#: squirrelmail/plugins/calendar/calendar.php:86
 msgid "TODAY"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/day.php:79
+#: squirrelmail/plugins/calendar/day.php:89
 msgid "ADD"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/day.php:93
+#: squirrelmail/plugins/calendar/day.php:108
 msgid "EDIT"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/day.php:95
+#: squirrelmail/plugins/calendar/day.php:110
 msgid "DEL"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_create.php:31
+#: squirrelmail/plugins/calendar/event_create.php:33
 msgid "Start time:"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_create.php:41
-#: squirrelmail/plugins/calendar/event_edit.php:59
+#: squirrelmail/plugins/calendar/event_create.php:44
+#: squirrelmail/plugins/calendar/event_edit.php:63
 msgid "Length:"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_create.php:47
-#: squirrelmail/plugins/calendar/event_edit.php:65
-#: squirrelmail/plugins/calendar/event_edit.php:97
-#: squirrelmail/plugins/calendar/event_edit.php:110
+#: squirrelmail/plugins/calendar/event_create.php:51
+#: squirrelmail/plugins/calendar/event_edit.php:70
+#: squirrelmail/plugins/calendar/event_edit.php:111
+#: squirrelmail/plugins/calendar/event_edit.php:135
 #, fuzzy
 msgid "Priority:"
 msgstr "Forgangur"
 
-#: squirrelmail/plugins/calendar/event_create.php:61
+#: squirrelmail/plugins/calendar/event_create.php:58
+#: squirrelmail/plugins/calendar/event_create.php:133
+#: squirrelmail/plugins/calendar/event_delete.php:43
+#: squirrelmail/plugins/calendar/event_edit.php:77
+#: squirrelmail/plugins/calendar/event_edit.php:115
+#: squirrelmail/plugins/calendar/event_edit.php:139
+msgid "Title:"
+msgstr "Titill:"
+
+#: squirrelmail/plugins/calendar/event_create.php:70
 msgid "Set Event"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_create.php:106
+#: squirrelmail/plugins/calendar/event_create.php:122
 msgid "Event Has been added!"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_create.php:109
-#: squirrelmail/plugins/calendar/event_delete.php:34
-#: squirrelmail/plugins/calendar/event_edit.php:49
-#: squirrelmail/plugins/calendar/event_edit.php:95
+#: squirrelmail/plugins/calendar/event_create.php:129
+#: squirrelmail/plugins/calendar/event_delete.php:39
+#: squirrelmail/plugins/calendar/event_edit.php:52
+#: squirrelmail/plugins/calendar/event_edit.php:107
+#: squirrelmail/plugins/calendar/event_edit.php:131
 #, fuzzy
 msgid "Time:"
 msgstr "Titill:"
 
-#: squirrelmail/plugins/calendar/event_create.php:116
-#: squirrelmail/plugins/calendar/event_delete.php:91
-#: squirrelmail/plugins/calendar/event_edit.php:189
-#: squirrelmail/plugins/calendar/functions.php:23
+#: squirrelmail/plugins/calendar/event_create.php:142
+#: squirrelmail/plugins/calendar/event_delete.php:104
+#: squirrelmail/plugins/calendar/event_edit.php:227
+#: squirrelmail/plugins/calendar/functions.php:24
 msgid "Day View"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_delete.php:31
+#: squirrelmail/plugins/calendar/event_delete.php:32
 msgid "Do you really want to delete this event?"
 msgstr ""
 
-# squirrelmail/src/addressbook.php:348
-#: squirrelmail/plugins/calendar/event_delete.php:89
+#: squirrelmail/plugins/calendar/event_delete.php:102
 #, fuzzy
 msgid "Event deleted!"
 msgstr "Breyta völdu"
 
-#: squirrelmail/plugins/calendar/event_delete.php:97
+#: squirrelmail/plugins/calendar/event_delete.php:110
 msgid "Nothing to delete!"
 msgstr ""
 
-# squirrelmail/src/addressbook.php:196 squirrelmail/src/addressbook.php:199
-# squirrelmail/src/addressbook.php:228 squirrelmail/src/addressbook.php:231
-#: squirrelmail/plugins/calendar/event_edit.php:79
+#: squirrelmail/plugins/calendar/event_edit.php:87
 #, fuzzy
 msgid "Update Event"
 msgstr "Uppfæra netfang"
 
-#: squirrelmail/plugins/calendar/event_edit.php:91
+#: squirrelmail/plugins/calendar/event_edit.php:100
 msgid "Do you really want to change this event from:"
 msgstr ""
 
-# squirrelmail/src/compose.php:231 squirrelmail/src/read_body.php:369
-#: squirrelmail/plugins/calendar/event_edit.php:104
+#: squirrelmail/plugins/calendar/event_edit.php:123
 #, fuzzy
 msgid "to:"
 msgstr "Til:"
 
-#: squirrelmail/plugins/calendar/event_edit.php:187
+#: squirrelmail/plugins/calendar/event_edit.php:222
 msgid "Event updated!"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:21
+#: squirrelmail/plugins/calendar/functions.php:22
 msgid "Month View"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:34
+#: squirrelmail/plugins/calendar/functions.php:35
 msgid "0 min."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:35
+#: squirrelmail/plugins/calendar/functions.php:36
 msgid "15 min."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:36
+#: squirrelmail/plugins/calendar/functions.php:37
 msgid "35 min."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:37
+#: squirrelmail/plugins/calendar/functions.php:38
 msgid "45 min."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:38
+#: squirrelmail/plugins/calendar/functions.php:39
 msgid "1 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:39
+#: squirrelmail/plugins/calendar/functions.php:40
 msgid "1.5 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:40
+#: squirrelmail/plugins/calendar/functions.php:41
 msgid "2 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:41
+#: squirrelmail/plugins/calendar/functions.php:42
 msgid "2.5 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:42
+#: squirrelmail/plugins/calendar/functions.php:43
 msgid "3 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:43
+#: squirrelmail/plugins/calendar/functions.php:44
 msgid "3.5 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:44
+#: squirrelmail/plugins/calendar/functions.php:45
 msgid "4 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:45
+#: squirrelmail/plugins/calendar/functions.php:46
 msgid "5 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/functions.php:46
+#: squirrelmail/plugins/calendar/functions.php:47
 msgid "6 hr."
 msgstr ""
 
@@ -4035,93 +4101,504 @@ msgstr ""
 msgid "Calendar"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:19
+#: squirrelmail/plugins/listcommands/mailout.php:22
 msgid "Mailinglist"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:25
+#: squirrelmail/plugins/listcommands/mailout.php:29
 #, c-format
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:28
+#: squirrelmail/plugins/listcommands/mailout.php:32
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:31
+#: squirrelmail/plugins/listcommands/mailout.php:35
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:79
+#: squirrelmail/plugins/listcommands/mailout.php:83
 #, fuzzy
 msgid "Send Mail"
 msgstr "Sækja póst"
 
-#: squirrelmail/plugins/listcommands/setup.php:35
+#: squirrelmail/plugins/listcommands/setup.php:33
 #, fuzzy
-msgid "Post to the list"
-msgstr "Farðu á innskráningarsíðu"
+msgid "Post to List"
+msgstr "%s til %s"
 
-#: squirrelmail/plugins/listcommands/setup.php:36
+#: squirrelmail/plugins/listcommands/setup.php:34
+#, fuzzy
+msgid "Reply to List"
+msgstr "Svara til"
+
+#: squirrelmail/plugins/listcommands/setup.php:37
 msgid "List Archives"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:37
+#: squirrelmail/plugins/listcommands/setup.php:38
 msgid "Contact Listowner"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:39
-msgid "Reply to the list"
-msgstr ""
-
-# squirrelmail/functions/page_header.php:85 squirrelmail/src/options.php:45
-# squirrelmail/src/options_display.php:37
-# squirrelmail/src/options_folder.php:40
-# squirrelmail/src/options_highlight.php:62
-# squirrelmail/src/options_order.php:41
-# squirrelmail/src/options_personal.php:41
-#: squirrelmail/plugins/listcommands/setup.php:90
+#: squirrelmail/plugins/listcommands/setup.php:115
 #, fuzzy
-msgid "Mailinglist options:"
-msgstr "Valmöguleikar"
+msgid "Mailing List:"
+msgstr "Skilaboða listi"
 
-# squirrelmail/functions/mailbox_display.php:477
-# squirrelmail/src/folders.php:137 squirrelmail/src/options_highlight.php:73
-# squirrelmail/src/read_body.php:295
-#: squirrelmail/plugins/delete_move_next/setup.php:159
-#: squirrelmail/plugins/delete_move_next/setup.php:162
+#: squirrelmail/plugins/delete_move_next/setup.php:177
+#: squirrelmail/plugins/delete_move_next/setup.php:180
 #, fuzzy
 msgid "Delete & Prev"
 msgstr "Eyða"
 
-# squirrelmail/src/addressbook.php:350
-#: squirrelmail/plugins/delete_move_next/setup.php:165
-#: squirrelmail/plugins/delete_move_next/setup.php:167
+#: squirrelmail/plugins/delete_move_next/setup.php:183
+#: squirrelmail/plugins/delete_move_next/setup.php:185
 #, fuzzy
 msgid "Delete & Next"
-msgstr "Eyða völdu"
+msgstr "Eyða merktu"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:290
-msgid "delete_move_next:"
+#: squirrelmail/plugins/delete_move_next/setup.php:306
+msgid "Delete/Move/Next Buttons:"
 msgstr ""
 
-#: squirrelmail/plugins/delete_move_next/setup.php:296
-msgid "display at top"
+#: squirrelmail/plugins/delete_move_next/setup.php:313
+msgid "Display at top"
 msgstr ""
 
-#: squirrelmail/plugins/delete_move_next/setup.php:302
-#: squirrelmail/plugins/delete_move_next/setup.php:314
+#: squirrelmail/plugins/delete_move_next/setup.php:319
+#: squirrelmail/plugins/delete_move_next/setup.php:331
 msgid "with move option"
 msgstr ""
 
-#: squirrelmail/plugins/delete_move_next/setup.php:308
-msgid "display at bottom"
+#: squirrelmail/plugins/delete_move_next/setup.php:325
+msgid "Display at bottom"
 msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:48
+#, fuzzy
+msgid "Config File Version"
+msgstr "Skoða prenthæfa útgáfu"
+
+#: squirrelmail/plugins/administrator/defines.php:51
+#, fuzzy
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail útgáfa %s"
+
+#: squirrelmail/plugins/administrator/defines.php:54
+msgid "PHP Version"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:58
+#, fuzzy
+msgid "Organization Preferences"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:60
+#, fuzzy
+msgid "Organization Name"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:63
+#, fuzzy
+msgid "Organization Logo"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:66
+#, fuzzy
+msgid "Organization Logo Width"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:70
+#, fuzzy
+msgid "Organization Logo Height"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:74
+#, fuzzy
+msgid "Organization Title"
+msgstr "Stofnun / Deild"
+
+#: squirrelmail/plugins/administrator/defines.php:77
+#, fuzzy
+msgid "Signout Page"
+msgstr "Skrá út"
+
+#: squirrelmail/plugins/administrator/defines.php:80
+#, fuzzy
+msgid "Default Language"
+msgstr "Tungumál"
+
+#: squirrelmail/plugins/administrator/defines.php:84
+msgid "Top Frame"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:89
+msgid "Server Settings"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:91
+msgid "Mail Domain"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:94
+msgid "IMAP Server Address"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:97
+#, fuzzy
+msgid "IMAP Server Port"
+msgstr "Bæta við póstþjóni"
+
+#: squirrelmail/plugins/administrator/defines.php:99
+#, fuzzy
+msgid "IMAP Server Type"
+msgstr "Bæta við póstþjóni"
+
+#: squirrelmail/plugins/administrator/defines.php:101
+msgid "Cyrus IMAP server"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:102
+msgid "University of Washington's IMAP server"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:103
+msgid "Microsoft Exchange IMAP server"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:104
+msgid "Courier IMAP server"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:105
+#, fuzzy
+msgid "Not one of the above servers"
+msgstr "Engin tenging við póstþjón"
+
+#: squirrelmail/plugins/administrator/defines.php:106
+msgid "IMAP Folder Delimiter"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:108
+msgid "Use \"detect\" to auto-detect."
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:111
+msgid "Use Sendmail"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:113
+msgid "Sendmail Path"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:116
+msgid "SMTP Server Address"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:119
+msgid "SMTP Server Port"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:121
+msgid "Authenticated SMTP"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:123
+msgid "Invert Time"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:125
+msgid "Use Confirmation Flags"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:128
+#, fuzzy
+msgid "Folders Defaults"
+msgstr "Slóði á möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:130
+#, fuzzy
+msgid "Default Folder Prefix"
+msgstr "Eyða möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:133
+#, fuzzy
+msgid "Show Folder Prefix Option"
+msgstr "Birtimöguleikar möppulista"
+
+#: squirrelmail/plugins/administrator/defines.php:144
+msgid "By default, move to trash"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:146
+msgid "By default, move to sent"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:148
+msgid "By default, save as draft"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:150
+#, fuzzy
+msgid "List Special Folders First"
+msgstr "Sérstakir eiginleikar möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:152
+#, fuzzy
+msgid "Show Special Folders Color"
+msgstr "Sérstakir eiginleikar möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:154
+#, fuzzy
+msgid "Auto Expunge"
+msgstr "Þurrka út"
+
+#: squirrelmail/plugins/administrator/defines.php:156
+msgid "Default Sub. of INBOX"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:158
+msgid "Show 'Contain Sub.' Option"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:160
+msgid "Default Unseen Notify"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:165
+msgid "Default Unseen Type"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:169
+#, fuzzy
+msgid "Auto Create Special Folders"
+msgstr "Búa til möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:171
+msgid "Default Javascript Adrressbook"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:173
+#, fuzzy
+msgid "Auto delete folders"
+msgstr "Eyða möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:176
+#, fuzzy
+msgid "General Options"
+msgstr "Almennar útlitsbreytur"
+
+#: squirrelmail/plugins/administrator/defines.php:178
+msgid "Default Charset"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:189
+msgid "Data Directory"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:192
+msgid "Temp Directory"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:195
+msgid "Hash Level"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:197
+msgid "Hash Disabled"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:199
+#, fuzzy
+msgid "Moderate"
+msgstr "Slóði á möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:200
+#, fuzzy
+msgid "Medium"
+msgstr "Grár"
+
+#: squirrelmail/plugins/administrator/defines.php:202
+msgid "Default Left Size"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:205
+msgid "Usernames in Lowercase"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:207
+msgid "Allow use of priority"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:209
+msgid "Hide SM attributions"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:211
+msgid "Enable use of delivery receipts"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:213
+msgid "Allow editing of identities"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:215
+msgid "Allow editing of full name"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:218
+#: squirrelmail/plugins/administrator/defines.php:220
+#, fuzzy
+msgid "Message of the Day"
+msgstr "Skeyti "
+
+#: squirrelmail/plugins/administrator/defines.php:224
+#, fuzzy
+msgid "Database"
+msgstr "Dagsetning"
+
+#: squirrelmail/plugins/administrator/defines.php:226
+#, fuzzy
+msgid "Address book DSN"
+msgstr "Netfangaskrá"
+
+#: squirrelmail/plugins/administrator/defines.php:229
+#, fuzzy
+msgid "Address book table"
+msgstr "Netfangaskrá"
+
+#: squirrelmail/plugins/administrator/defines.php:233
+#, fuzzy
+msgid "Preferences DSN"
+msgstr "Stillingar á möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:236
+#, fuzzy
+msgid "Preferences table"
+msgstr "Stillingar á möppu"
+
+#: squirrelmail/plugins/administrator/defines.php:240
+msgid "Preferences username field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:244
+msgid "Preferences key field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:248
+msgid "Preferences value field"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:253
+#, fuzzy
+msgid "Themes"
+msgstr "Þema"
+
+#: squirrelmail/plugins/administrator/defines.php:255
+msgid "Style Sheet URL (css)"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/options.php:186
+#, fuzzy
+msgid "Configuration Administrator"
+msgstr "Hafðu samband við kerfisstjóra"
+
+#: squirrelmail/plugins/administrator/options.php:379
+#, fuzzy
+msgid "Theme Name"
+msgstr "Þema"
+
+#: squirrelmail/plugins/administrator/options.php:380
+#, fuzzy
+msgid "Theme Path"
+msgstr "Þema"
+
+#: squirrelmail/plugins/administrator/options.php:420
+#, fuzzy
+msgid "Plugins"
+msgstr "Pólska"
+
+#: squirrelmail/plugins/administrator/options.php:482
+msgid "Change Settings"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/options.php:510
+msgid "Config file can't be opened. Please check config.php."
+msgstr ""
+
+#: squirrelmail/plugins/administrator/setup.php:30
+msgid "Administration"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/setup.php:32
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr ""
+
+#: squirrelmail/plugins/abook_take/setup.php:109
+#, fuzzy
+msgid "Take Address"
+msgstr "Netfang"
+
+#: squirrelmail/plugins/abook_take/setup.php:140
+#, fuzzy
+msgid "Address Book Take"
+msgstr "Netfangaskrá"
+
+#: squirrelmail/plugins/abook_take/setup.php:146
+msgid "Left aligned"
+msgstr ""
+
+#: squirrelmail/plugins/abook_take/setup.php:150
+msgid "Centered"
+msgstr ""
+
+#: squirrelmail/plugins/abook_take/setup.php:154
+#, fuzzy
+msgid "Right aligned"
+msgstr "Ljósblár"
+
+#: squirrelmail/plugins/abook_take/setup.php:155
+msgid "on the Read screen"
+msgstr ""
+
+#: squirrelmail/plugins/abook_take/setup.php:159
+msgid "Hide the box"
+msgstr ""
+
+#: squirrelmail/plugins/abook_take/setup.php:163
+msgid "Try to verify addresses"
+msgstr ""
+
+#: squirrelmail/po/independent_strings.txt:18
+msgid "Delivery error report"
+msgstr ""
+
+#: squirrelmail/po/independent_strings.txt:19
+msgid "Undelivered Message Headers"
+msgstr ""
+
+#~ msgid "Close window"
+#~ msgstr "Loka glugga"
+
+#~ msgid "Running SquirrelMail version %s (c) 1999-2001."
+#~ msgstr "SquirrelMail útgáfa %s (c) 1999-2001"
+
+#~ msgid "Unknown messagenumber in reply from server: "
+#~ msgstr "Óþekkt skeytisnúmer í svari póstþjóns: "
+
+#~ msgid "Welcome to %s's WebMail system"
+#~ msgstr "Vertu velkomin(n) á Vefpóst %s"
+
+#~ msgid "empty"
+#~ msgstr "tómt"
