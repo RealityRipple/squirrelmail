@@ -353,7 +353,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs, $start_msg
             $msort = array_cleave ($msgs, 'FROM-SORT');
         } elseif (($sort == 4) || ($sort == 5)) {
             $msort = array_cleave ($msgs, 'SUBJECT-SORT');
-        } else // ($sort == 6) {
+        } else { // ($sort == 6) 
             $msort = $msgs;
         }
 
