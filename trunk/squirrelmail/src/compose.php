@@ -150,6 +150,46 @@
       }
    } // function newMail()
 
+   function getAttachments($message) {
+      global $mailbox, $attachments, $attachment_dir, $imapConnection,
+             $ent_num, $forward_id;
+      
+      if (!$message) {
+           sqimap_mailbox_select($imapConnection, $mailbox);
+           $message = sqimap_get_message($imapConnection, $forward_id, $mailbox); }
+      
+      if (!$message->entities) {
+      if ($message->header->entity_id != $ent_num) {
+      $filename = decodeHeader($message->header->filename);
+      
+      if ($filename == "")
+              $filename = "untitled-".$message->header->entity_id;
+      
+      $localfilename = md5($filename.", $REMOTE_IP, REMOTE_PORT, $UNIQUE_ID, extra-stuff here");
+      
+        // Write File Info
+        $fp = fopen ($attachment_dir.$localfilename.".info", "w");
+        fputs ($fp, strtolower($message->header->type0)."/".strtolower($message->header->type1)."\n".$filename."\n");
+        fclose ($fp);
+
+        // Write Attachment to file
+        $fp = fopen ($attachment_dir.$localfilename, "w");
+      fputs ($fp, decodeBody(mime_fetch_body($imapConnection, $forward_id, $message->header->entity_id), $message->header->encoding));
+        fgets($imapConnection, 256);
+        fgets($imapConnection, 256);
+      fclose ($fp);
+
+      $attachments[$localfilename] = $filename;
+      
+      }
+      } else {
+              for ($i = 0; $i < count($message->entities); $i++) {
+              getAttachments($message->entities[$i]);
+              }       
+      }
+      return;
+      }       
+
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
          $passed_body, $color, $use_signature, $signature, $editor_size,
@@ -418,8 +458,12 @@
       displayPageHeader($color, $mailbox);
 
       $newmail = true;
+      if ($forward_id && $ent_num)  getAttachments(0);
+              
       newMail();
       showInputForm();
       sqimap_logout($imapConnection);
    }
 ?>
+ 
+
