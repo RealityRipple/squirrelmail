@@ -1,4 +1,4 @@
-<?php
+<?Php
 
 /**
  * array.php
@@ -12,77 +12,67 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the first line of the function definition below.     ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
+function ary_sort($ary,$col, $dir = 1)
+{
+    /* The globals are used because USORT determines what is passed to comp2 */
+    /* These should be $this->col and $this->dir in a class */
+    /* Would beat using globals */
+    if (!is_array($col)) {
+        $col = array($col);
+    }
+    $GLOBALS['col'] = $col;  /* Column or Columns as an array */
+    if ($dir > 0) {
+        $dir = 1;
+    }
+    else {
+        $dir = -1;
+    }
+    /* Direction, a positive number for ascending a negative for descending */
+    $GLOBALS['dir'] = $dir;
 
-function ary_sort($ary,$col, $dir = 1){
-      // The globals are used because USORT determines what is passed to comp2
-      // These should be $this->col and $this->dir in a class
-      // Would beat using globals
-      if(!is_array($col)){
-         $col = array($col);
-      }
-      $GLOBALS['col'] = $col;  // Column or Columns as an array
-      if ($dir > 0)
-          $dir = 1;
-      else
-          $dir = -1;
-      $GLOBALS['dir'] = $dir;  // Direction, a positive number for ascending a negative for descending
+    usort($ary,'array_comp2');
+    return $ary;
+}
 
-      usort($ary,'array_comp2');
-      return $ary;
-  }
+function array_comp2($a,$b,$i = 0)
+{
+    global $col;
+    global $dir;
+    $c = count($col) -1;
+    if ($a[$col[$i]] == $b[$col[$i]]) {
+        $r = 0;
+        while ($i < $c && $r == 0) {
+            $i++;
+            $r = comp2($a,$b,$i);
+        }
+    }
+    elseif ($a[$col[$i]] < $b[$col[$i]]) {
+        return (- $dir);
+    } 
+    return $dir;
+}
 
-  function array_comp2($a,$b,$i = 0) {
-         global $col;
-         global $dir;
-         $c = count($col) -1;
-         if ($a[$col[$i]] == $b[$col[$i]]){
-            $r = 0;
-            while($i < $c && $r == 0){
-               $i++;
-               $r = comp2($a,$b,$i);
-            }
-         } elseif($a[$col[$i]] < $b[$col[$i]]){
-            return (- $dir);
-         } 
-	 return $dir;
-      }
-
-   function removeElement($array, $element) {
-      $j = 0;
-      for ($i = 0;$i < count($array);$i++)
-         if ($i != $element) {
+function removeElement($array, $element)
+{
+    $j = 0;
+    for ($i = 0;$i < count($array);$i++) {
+        if ($i != $element) {
             $newArray[$j] = $array[$i];
             $j++;
-         }
+        }
+    }
+    return $newArray;
+}
 
-      return $newArray;
-   }
-
-  function array_cleave($array1, $column)
-  {
+function array_cleave($array1, $column)
+{
     $key=0;
     $array2 = array();
     while ($key < count($array1)) {
         array_push($array2, $array1[$key][$column]);
         $key++;
     }
-
     return ($array2);
-  }
+}
 
 ?>
