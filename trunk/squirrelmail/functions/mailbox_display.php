@@ -56,10 +56,10 @@ function elapsed($start)
  * @param mixed $where UNDOCUMENTED
  * @param mixed $what UNDOCUMENTED
  */
-function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
+function printMessageInfo($imapConnection, $t, $last=false, $msg, $mailbox,
                           $start_msg, $where, $what) {
     global $checkall,
-           $color, $msgs, $msort, $td_str, $msg,
+           $color, $msgs, $msort, $td_str,
            $default_use_priority,
            $message_highlight_list,
            $index_order,
@@ -89,7 +89,6 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             $color_string = $color[12];
         }
     }
-    $msg = $msgs[$key];
 
     if($mailbox == 'None') {
         $boxes   = sqimap_mailbox_list($imapConnection);
@@ -398,11 +397,11 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             ++$col;
         }
     }
-    if ($not_last) {
+    if ($last) {
+        echo '</tr>'."\n";
+    } else {
         echo '</tr>' . "\n" . '<tr><td colspan="' . $col . '" bgcolor="' .
              $color[0] . '" height="1"></td></tr>' . "\n";
-    } else {
-        echo '</tr>'."\n";
     }
 }
 
@@ -539,6 +538,24 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                 $use_cache, $mode='',$mbxresponse) {
     global $msgs, $msort, $auto_expunge, $thread_sort_messages,
            $allow_server_sort, $server_sort_order;
+    /* if there's no messages in this folder */
+    if ($mbxresponse['EXISTS'] == 0) {
+        $string = '<b>' . _("THIS FOLDER IS EMPTY") . '</b>';
+        echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+        echo '     <tr><td>';
+        echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
+        echo '        <tr><td><br />';
+        echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
+        echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
+                            . '</tr>';
+        echo '            </table>';
+        echo '        <br /></td></tr>';
+        echo '       </table></td></tr>';
+        echo '    </table>';
+        return;
+    }
+
+
 
     /*
      * For some reason, on PHP 4.3+, this being unset, and set in the session causes havoc
@@ -608,8 +625,8 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                     $thread_sort_messages = 0;
                     $msort = $msgs = array();
                 } else {
-                    $msort= $msgs;
                     $sort = 6;
+                    $msort = calc_msort($msgs, $sort);
                 }
                 break;
             case 'serversort':
@@ -625,16 +642,14 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                     $msort = $msgs = array();
                     $id = array();
                 } else {
-                    $msort = $msgs;
                     $sort = 6;
+                    $msort = calc_msort($msgs, $sort);
                 }
                 break;
             default:
-                if (!$use_cache) {
-                    $msgs = getSelfSortMessages($imapConnection, $start_msg, $show_num,
-                                                $num_msgs, $sort, $mbxresponse);
-                    $msort = calc_msort($msgs, $sort);
-                } /* !use cache */
+                $msgs = getSelfSortMessages($imapConnection, $start_msg, $show_num,
+                                             $num_msgs, $sort, $mbxresponse);
+                $msort = calc_msort($msgs, $sort);
                 break;
         } // switch
         sqsession_register($msort, 'msort');
@@ -699,7 +714,6 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
  * @return array
  */
 function calc_msort($msgs, $sort) {
-
     /*
      * 0 = Date (up)
      * 1 = Date (dn)
@@ -711,18 +725,19 @@ function calc_msort($msgs, $sort) {
 
     if (($sort == 0) || ($sort == 1)) {
         foreach ($msgs as $item) {
-            $msort[] = $item['TIME_STAMP'];
+            $msort[$item['ID']] = $item['TIME_STAMP'];
         }
     } elseif (($sort == 2) || ($sort == 3)) {
         foreach ($msgs as $item) {
-            $msort[] = $item['FROM-SORT'];
+            $msort[$item['ID']] = $item['FROM-SORT'];
         }
     } elseif (($sort == 4) || ($sort == 5)) {
         foreach ($msgs as $item) {
-            $msort[] = $item['SUBJECT-SORT'];
+            //echo $item['SUBJECT-SORT'] . "<br />";
+            $msort[$item['ID']] = $item['SUBJECT-SORT'];
         }
     } else {
-        $msort = $msgs;
+        return array_keys($msgs); //array_walk($msort, create_function('&$v,$k', '$v = $v["ID"];'));
     }
     if ($sort < 6) {
         if ($sort % 2) {
@@ -730,6 +745,7 @@ function calc_msort($msgs, $sort) {
         } else {
             arsort($msort);
         }
+        $msort = array_keys($msort);
     }
     return $msort;
 }
@@ -750,14 +766,14 @@ function fillMessageArray($imapConnection, $id, $count, $show_num=false) {
 /**
  * Generic function to convert the msgs array into an HTML table.
  *
- * @param mixed $imapConnection
- * @param mixed $num_msgs
- * @param mixed $start_msg
- * @param mixed $msort
+ * @param resource $imapConnection
+ * @param int $num_msgs total number of messages in the mailbox
+ * @param int $start_msg offset in messages to sisplay
+ * @param array $msort sorted array which is used to map the index to the unsorted $msgs index
  * @param string $mailbox mail folder name
- * @param mixed $sort
- * @param mixed $color
- * @param mixed $show_num
+ * @param int $sort     sort order. 6 means no sorting or server side / thread sort
+ * @param array $color
+ * @param int $show_num number of messages to show
  * @param mixed $where
  * @param mixed $what
  */
@@ -766,84 +782,43 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
                              $show_num, $where=0, $what=0) {
     global $imapServerAddress, $use_mailbox_cache, $index_order,
            $indent_array, $thread_sort_messages, $allow_server_sort,
-           $server_sort_order, $PHP_SELF;
+           $server_sort_order, $PHP_SELF, $msgs;
 
-    $res = getEndMessage($start_msg, $show_num, $num_msgs);
-    $start_msg = $res[0];
-    $end_msg   = $res[1];
 
     $urlMailbox = urlencode($mailbox);
 
     /* get indent level for subject display */
+
+    // FIX ME this call is at the wrong  place
     if ($thread_sort_messages == 1 && $num_msgs) {
         $indent_array = get_parent_level($imapConnection);
     }
 
-    $real_startMessage = $start_msg;
+    /* messages display */
+
+    // if client side sorting and no sort we only fetch num_msgs so the start_msg in the $msgs
+    // array must be corrected
     if ($sort == 6) {
-        if ($end_msg - $start_msg < $show_num - 1) {
-            $end_msg = $end_msg - $start_msg + 1;
-            $start_msg = 1;
-        } else if ($start_msg > $show_num) {
-            $end_msg = $show_num;
-            $start_msg = 1;
-        }
+        $i = 0;
+    } else {
+        $i = $start_msg -1;
     }
-    $endVar = $end_msg + 1;
 
     /*
      * Loop through and display the info for each message.
      * ($t is used for the checkbox number)
      */
-    $t = 0;
-
-    /* messages display */
-
-    if (!$num_msgs) {
-    /* if there's no messages in this folder */
-        echo html_tag( 'tr',
-                html_tag( 'td',
-                          "<br /><b>" . _("THIS FOLDER IS EMPTY") . "</b><br />&nbsp;",
-                          'center',
-                          $color[4],
-                          'colspan="' . count($index_order) . '"'
-                )
-        );
-    } elseif ($start_msg == $end_msg) {
-    /* if there's only one message in the box, handle it differently. */
-        if ($sort != 6) {
-            $i = $start_msg;
-        } else {
-            $i = 1;
-        }
-        reset($msort);
-        $k = 0;
-        do {
-            $key = key($msort);
-            next($msort);
-            $k++;
-        } while (isset ($key) && ($k < $i));
-        printMessageInfo($imapConnection, $t, true, $key, $mailbox,
-                         $real_startMessage, $where, $what);
-    } else {
-        $i = $start_msg;
-        reset($msort);
-        $k = 0;
-        do {
-            $key = key($msort);
-            next($msort);
-            $k++;
-        } while (isset ($key) && ($k < $i));
-        $not_last = true;
-        do {
-            if (!$i || $i == $endVar-1) $not_last = false;
-                printMessageInfo($imapConnection, $t, $not_last, $key, $mailbox,
-                                 $real_startMessage, $where, $what);
-            $key = key($msort);
+    $iEnd = $i +$show_num;
+    for ($j=$i,$t=0;$j<$iEnd;++$j) {
+        if (isset($msort[$j])) {
+            $msg = $msgs[$msort[$j]];
+            $last = (isset($msort[$j+1]) || $j == $iEnd) ? false : true;
+            printMessageInfo($imapConnection, $t, $last, $msg, $mailbox,
+                                $start_msg, $where, $what);
             $t++;
-            $i++;
-            next($msort);
-        } while ($i && $i < $endVar);
+        } else {
+            break;
+        }
     }
 }
 
