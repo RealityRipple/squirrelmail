@@ -157,8 +157,8 @@ foreach ( $defcfg as $key => $def ) {
     $newcfg[$key] = '';
 }
 
-$cfgfile = '../config/config.php';
-parseConfig( '../config/config_default.php' );
+$cfgfile = SM_PATH . 'config/config.php';
+parseConfig( SM_PATH . 'config/config_default.php' );
 parseConfig( $cfgfile );
 
 $colapse = array( 'Titles' => 'off',
