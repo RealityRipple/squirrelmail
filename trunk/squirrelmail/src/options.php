@@ -442,6 +442,11 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             $bottom_hook_name = 'options_display_bottom';
             $submit_name = 'submit_display';
             break;
+        case SMOPT_PAGE_COMPOSE:
+            $inside_hook_name = 'options_compose_inside';
+            $bottom_hook_name = 'options_compose_bottom';
+            $submit_name = 'submit_compose';
+            break;
         case SMOPT_PAGE_HIGHLIGHT:
             $inside_hook_name = 'options_highlight_inside';
             $bottom_hook_name = 'options_highlight_bottom';
