@@ -29,6 +29,8 @@ if(isset($session_name) && $session_name) {
  */
 ini_set('magic_quotes_runtime','0');
 
+sqsession_is_active();
+
 /* convert old-style superglobals to current method
  * this is executed if you are running PHP 4.0.x.
  * it is run via a require_once directive in validate.php 
