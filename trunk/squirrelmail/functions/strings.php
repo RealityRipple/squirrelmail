@@ -57,4 +57,24 @@
       }
       return $line;
    }
+
+   /** Returns an array of email addresses **/
+   function parseAddrs($text) {
+      $text = str_replace(" ", "", $text);
+      $text = str_replace(",", ";", $text);
+      $array = explode(";", $text);
+      return $array;
+   }
+
+   /** Returns a line of comma separated email addresses from an array **/
+   function getLineOfAddrs($array) {
+      $to_line = "";
+      for ($i = 0; $i < count($array); $i++) {
+         if ($to_line)
+            $to_line = "$to_line, $array[$i]";
+         else
+            $to_line = "$array[$i]";
+      }
+      return $to_line;
+   }
 ?>
