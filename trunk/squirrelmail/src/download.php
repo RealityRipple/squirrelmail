@@ -62,9 +62,6 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapC
 
     flush();
 
-         //"<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-        //"<TR><TD BGCOLOR=\"$color[4]\"><TT>";
-
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<tt>' . $body . '</tt>', 'left', $color[4] )

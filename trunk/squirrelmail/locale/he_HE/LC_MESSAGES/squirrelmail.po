@@ -1438,7 +1438,7 @@ msgstr "התנתק"
 
 #: squirrelmail/src/signout.php:80
 msgid "You have been successfully signed out."
-msgstr "התנתק מהמערכת בהצלחה."
+msgstr "התנתקת מהמערכת בהצלחה."
 
 #: squirrelmail/src/signout.php:82
 msgid "Click here to log back in."
