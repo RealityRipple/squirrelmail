@@ -21,7 +21,7 @@
     require_once(SM_PATH . 'functions/display_messages.php');
     require_once(SM_PATH . 'functions/imap.php');
     require_once(SM_PATH . 'functions/array.php');
-    require_once(SM_PATH . 'src/load_prefs.php');
+    require_once(SM_PATH . 'include/load_prefs.php');
 
     displayPageHeader($color, 'None');
 

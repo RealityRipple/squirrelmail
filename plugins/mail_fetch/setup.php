@@ -11,7 +11,8 @@
     **  $Id$
     **/
 
-    require_once( '../plugins/mail_fetch/functions.php' );
+    define('SM_PATH','../');
+    require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 
     function squirrelmail_plugin_init_mail_fetch() {
         global $squirrelmail_plugin_hooks;
@@ -205,9 +206,7 @@
     function mail_fetch_setnew()    {
 
         global $data_dir,$username;
-        // require_once ('../src/load_prefs.php');
-        // require_once ('../src/validate.php');
-        require_once('../functions/prefs.php');
+        require_once(SM_PATH . 'functions/prefs.php');
 
         if( $username <> '' ) {
             // Creates the pref file if it does not exist.

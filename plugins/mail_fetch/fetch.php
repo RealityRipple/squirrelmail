@@ -12,14 +12,16 @@
     **/
 
     chdir('..');
-    require_once('../src/validate.php');
-    require_once('../functions/page_header.php');
-    require_once('../functions/imap.php');
-    require_once('../src/load_prefs.php');
-    require_once('../plugins/mail_fetch/class.POP3.php');
-    require_once('../functions/i18n.php');
-    require_once( '../plugins/mail_fetch/functions.php' );
-    require_once( '../functions/html.php' );
+    define('SM_PATH','../');
+
+    require_once(SM_PATH . 'include/validate.php');
+    require_once(SM_PATH . 'functions/page_header.php');
+    require_once(SM_PATH . 'functions/imap.php');
+    require_once(SM_PATH . 'include/load_prefs.php');
+    require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
+    require_once(SM_PATH . 'functions/i18n.php');
+    require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
+    require_once(SM_PATH . 'functions/html.php' );
 
 
     function Mail_Fetch_Status($msg) {

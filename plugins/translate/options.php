@@ -10,15 +10,19 @@
     * $Id$
     */
 
+   /* Path for SquirrelMail required files. */
    chdir('..');
-   require_once('../src/validate.php');
-   require_once('../functions/strings.php');
-   require_once('../functions/page_header.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../functions/i18n.php');
-   require_once('../src/load_prefs.php');
+   define('SM_PATH','../');
+
+   /* SquirrelMail required files. */
+   require_once(SM_PATH . 'include/validate.php');
+   require_once(SM_PATH . 'functions/strings.php');
+   require_once(SM_PATH . 'functions/page_header.php');
+   require_once(SM_PATH . 'functions/display_messages.php');
+   require_once(SM_PATH . 'functions/imap.php');
+   require_once(SM_PATH . 'functions/array.php');
+   require_once(SM_PATH . 'functions/i18n.php');
+   require_once(SM_PATH . 'include/load_prefs.php');
    displayPageHeader($color, 'None');
 
     if (isset($submit_translate) && $submit_translate ) {

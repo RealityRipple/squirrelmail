@@ -17,7 +17,6 @@
    /* SquirrelMail required files. */
    require_once(SM_PATH . 'include/validate.php');
    require_once(SM_PATH . 'functions/html.php');
-   require_once(SM_PATH . 'src/load_prefs.php');
 
    if (!isset($sound)) {
     $sound = "Click.wav";
