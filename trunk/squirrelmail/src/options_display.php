@@ -111,35 +111,6 @@
             </td>
          </tr>
          <tr>
-            <td align="right" nowrap><?PHP echo _("Reply Citation Style") ?>:</td>
-            <td><select name="new_reply_citation_style">
-                <option value="none"<?PHP
-                    if ($reply_citation_style == 'none') echo ' SELECTED';
-                    ?>>- <?PHP echo _("No Citation"); ?> -</option>
-                <option value="author_said"<?PHP
-                    if ($reply_citation_style == 'author_said') echo ' SELECTED';
-                    ?>><?PHP echo _("AUTHOR Said"); ?></option>
-                <option value="quote_who"<?PHP
-                    if ($reply_citation_style == 'quote_who') echo ' SELECTED';
-                    ?>><?PHP echo _("Quote Who XML"); ?></option>
-                <option value="user-defined"<?PHP
-                    if ($reply_citation_style == 'user-defined') echo ' SELECTED';
-                    ?>><?PHP echo _("User-Defined"); ?></option>
-                </select>
-            </td>
-         </tr>
-         <tr>
-            <td align="right" nowrap><?php echo _("User-Defined Reply Citation"); ?>:</td>
-            <td>
-               <tt><input type="text" size="15" name="new_reply_citation_start" value="<?php
-                  echo $reply_citation_start;
-               ?>"></tt> &lt;<?PHP echo _("Author's Name"); ?>&gt;
-               <tt><input type="text" size="15" name="new_reply_citation_end" value="<?php
-                  echo $reply_citation_end;
-               ?>"></tt>
-            </td>
-         </tr>
-         <tr>
             <td align="right" nowrap><?PHP echo _("Location of buttons when composing") ?>:</td>
             <td><select name="button_new_location">
                 <option value="top"<?PHP

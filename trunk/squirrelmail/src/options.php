@@ -37,19 +37,28 @@
 <?php
    if (isset($submit_personal)) {
       # Save personal information
-      if (isset($full_name)) 
+      if (isset($full_name)) {
          setPref($data_dir, $username, 'full_name', $full_name);
-      if (isset($email_address)) 
+      }
+      if (isset($email_address)) {
          setPref($data_dir, $username, 'email_address', $email_address);
-      if (isset($reply_to)) 
+      }
+      if (isset($reply_to)) {
          setPref($data_dir, $username, 'reply_to', $reply_to);
+      }
+      setPref($data_dir, $username, 'reply_citation_style', $new_reply_citation_style);
+      setPref($data_dir, $username, 'reply_citation_start', $new_reply_citation_start);
+      setPref($data_dir, $username, 'reply_citation_end', $new_reply_citation_end);
       if (! isset($usesignature))
          $usesignature = 0;
       setPref($data_dir, $username, 'use_signature', $usesignature);  
-      if (! isset($prefixsig))
+      if (! isset($prefixsig)) {
          $prefixsig = 0;
+      }
       setPref($data_dir, $username, 'prefix_sig', $prefixsig);
-      if (isset($signature_edit)) setSig($data_dir, $username, $signature_edit);
+      if (isset($signature_edit)) {
+         setSig($data_dir, $username, $signature_edit);
+      }
       
       do_hook('options_personal_save');
       
@@ -75,9 +84,6 @@
       setPref($data_dir, $username, 'show_num', $shownum);
       setPref($data_dir, $username, 'wrap_at', $wrapat);
       setPref($data_dir, $username, 'editor_size', $editorsize);
-      setPref($data_dir, $username, 'reply_citation_style', $new_reply_citation_style);
-      setPref($data_dir, $username, 'reply_citation_start', $new_reply_citation_start);
-      setPref($data_dir, $username, 'reply_citation_end', $new_reply_citation_end);
       setPref($data_dir, $username, 'left_refresh', $leftrefresh);
       setPref($data_dir, $username, 'location_of_bar', $folder_new_location);
       setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
