@@ -35,7 +35,6 @@ function formatMailboxName($imapConnection, $box_array) {
            $unseen_notify, $unseen_type, $collapse_folders,
            $draft_folder, $save_as_draft,
            $use_special_folder_color;
-
     $real_box = $box_array['unformatted'];
     $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
     $mailboxURL = urlencode($real_box);
@@ -98,7 +97,7 @@ function formatMailboxName($imapConnection, $box_array) {
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
         }
 
-        if (($numMessages > 0) or (sqimap_mailbox_has_children($trash_folder))) {
+        if (($numMessages > 0) or ($box_array['parent'] == 1)) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
