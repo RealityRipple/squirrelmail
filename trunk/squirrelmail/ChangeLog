@@ -133,6 +133,8 @@ Version 1.5.1 -- CVS
   - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
     enabled.
   - Fixed XSS exploit in decodeHeader function.
+  - Added site configuration and custom translation engine support to translate 
+    plugin.
 
 Version 1.5.0
 --------------------
