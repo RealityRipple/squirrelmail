@@ -1,5 +1,11 @@
 Version 1.0.2 -- DEVELOPMENT
 ----------------------------
+- Select All works through the search
+- Better escaped string handling from POST variables
+- Fixed bug that set all wrong.
+- Many more code cleanups and optomizations
+- Updated Sweedish translation
+- Updated Finnish translation
 
 Version 1.0.1 -- February 1, 2001 
 ---------------------------------
