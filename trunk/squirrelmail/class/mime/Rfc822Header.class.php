@@ -568,7 +568,7 @@ class Rfc822Header {
             if ($pos > 0)  {
                 $key = trim(substr($prop, 0, $pos));
                 $val = trim(substr($prop, $pos+1));
-                if ($val{0} == '"') {
+                if (strlen($val) > 0 && $val{0} == '"') {
                     $val = substr($val, 1, -1);
                 }
                 $propResultArray[$key] = $val;
