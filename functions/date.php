@@ -66,7 +66,11 @@
          $gmt = "+0100";
       else if ($gmt == "MET DST" || $gmt == "METDST")
          $gmt = "+0200";
+      
+      if ($gmt = "")
+         $gmt = "+0000";
 
+      /*
       if (substr($gmt, 0, 1) == "-") {
          $neg = true;
          $gmt = substr($gmt, 1, strlen($gmt));
@@ -82,10 +86,10 @@
          $gmt = "-$gmt";
       else
          $gmt = "+$gmt";
+      */
 
       /** now find what the server is at **/
       $current = date("Z", time());
-
       $stamp = (int)$stamp - (int)$gmt + (int)$current;
 
       return $stamp;
