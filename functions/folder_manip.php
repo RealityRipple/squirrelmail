@@ -132,7 +132,7 @@ function folders_rename_getname ($imapConnection, $delimiter, $old) {
              '<input type="submit" value="'._("Rename")."\" />\n".
              '<input type="submit" name="cancelbutton" value="'._("Cancel")."\" />\n".
              '</form><br /></td></tr></table>';
-    echo "\n\n</body></html>";
+    echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
     
     sqimap_logout($imapConnection);    
     exit;
@@ -212,7 +212,7 @@ function folders_delete_ask ($imapConnection, $folder_name)
         addSubmit(_("No"), 'cancelbutton').
         '</p></form><br /></td></tr></table>';
 
-    echo "\n\n</body></html>";
+    echo "\n</td></tr></table>\n</td></tr></table>\n\n</body></html>";
 
     sqimap_logout($imapConnection);    
     exit;

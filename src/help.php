@@ -154,7 +154,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
     echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' ) .
          html_tag( 'tr' ) .
          html_tag( 'td' ) .
-         '<b><center>' . _("Table of Contents") . '</center></b><br />';
+         '<center><b>' . _("Table of Contents") . '</b></center><br />';
     echo html_tag( 'ol' );
     for ($i=0, $cnt = count($helpdir); $i < $cnt; $i++) {
         $doc = file("../help/$user_language/$helpdir[$i]");
@@ -168,7 +168,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
 } else {
     $doc = file("../help/$user_language/" . $helpdir[$chapter-1]);
     $help_info = get_info($doc, 0);
-    echo '<small><center>';
+    echo '<center><small>';
     if ($chapter <= 1){
         echo '<font color="' . $color[9] . '">' . _("Previous")
              . '</font> | ';
@@ -183,7 +183,7 @@ if ( $chapter == 0 || !isset( $helpdir[$chapter-1] ) ) {
         echo ' | <a href="../src/help.php?chapter=' . ($chapter+1)
              . '">' . _("Next") . '</a>';
     }
-    echo '</center></small><br />';
+    echo '</small></center><br />';
 
     echo '<font size="5"><b>' . $chapter . ' - ' . $help_info[0]
          . '</b></font><br /><br />';

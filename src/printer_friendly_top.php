@@ -34,12 +34,10 @@ displayHtmlHeader( _("Printer Friendly"),
 
 echo '<body text="'.$color[8].'" bgcolor="'.$color[3].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n" .
      html_tag( 'div',
-         '<b>'.
          '<form>'.
          '<input type="button" value="' . _("Print") . '" onclick="printPopup()" /> '.
          '<input type="button" value="' . _("Close") . '" onclick="window.parent.close()" />'.
-         '</form>'.
-         '</b>',
+         '</form>',
      'right' );
 ?>
 </body></html>

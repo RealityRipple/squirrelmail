@@ -315,7 +315,7 @@ for ($i=1; $i < $count; $i++) {
 //$returnValue .= returnTime($start).'<br />';
 $xtra = <<<ECHO
 
-<style>
+<style type="text/css">
 
 <!--
 .ent_body {

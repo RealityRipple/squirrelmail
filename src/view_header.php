@@ -93,15 +93,15 @@ function view_header($header, $mailbox, $color) {
          _("Viewing Full Header") . '</b> - '.
          '<a href="';
     echo_template_var($ret_addr);
-    echo '">' ._("View message") . "</a></b></td></tr></table>\n";
+    echo '">' ._("View message") . "</a></td></tr></table>\n";
 
     echo_template_var($header,
         array(
             '<table width="99%" cellpadding="2" cellspacing="0" border="0" '.
                 "align=center>\n".'<tr><td>',
-            '<nobr><tt><b>',
+            '<tt style="white-space: nowrap;"><b>',
             '</b>',
-            '</tt></nobr>',
+            '</tt>',
             '</td></tr></table>'."\n"
          )
     );

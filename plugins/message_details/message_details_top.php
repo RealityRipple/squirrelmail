@@ -21,7 +21,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/forms.php');
 
 displayHtmlHeader( _("Message Details"),
-             "<script language=\"javascript\">\n".
+             "<script language=\"javascript\" type=\"text/javascript\">\n".
              "<!--\n".
              "function printPopup() {\n".
                 "parent.frames[1].focus();\n".
@@ -34,7 +34,7 @@ sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
 echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n" .
-     '<center><b>' .
+     '<center>' .
      addForm(SM_PATH . 'src/download.php', 'GET').
      addHidden('mailbox', $mailbox).
      addHidden('passed_id', $passed_id).
@@ -43,8 +43,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[3]\" link=\"$color[7]\" vlink=\"
      '<input type="button" value="' . _("Print") . '" onclick="printPopup()" />&nbsp;&nbsp;'.
      '<input type="button" value="' . _("Close Window") . '" onclick="window.parent.close()" />&nbsp;&nbsp;'.
      addSubmit(_("Save Message")).
-     '</form>'.
-     '</b>'.
+     '</form></center>'.
      '</body>'.
      "</html>\n";
 ?>
