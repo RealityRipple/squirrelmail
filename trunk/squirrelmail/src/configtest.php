@@ -180,31 +180,33 @@ if($useSendmail) {
                         $errorNumber, $errorString);
     if(!$stream) {
         do_err("Error connecting to SMTP server \"$smtpServerAddress:$smtpPort\".".
-            "Server error: ($errorNumber) $errorString");
+            "Server error: ($errorNumber) ".htmlspecialchars($errorString));
     }
 
     // check for SMTP code; should be 2xx to allow us access
     $smtpline = fgets($stream, 1024);
     if(((int) $smtpline{0}) > 3) {
-        do_err("Error connecting to SMTP server. Server error: ".$smtpline);
+        do_err("Error connecting to SMTP server. Server error: ".
+	    htmlspecialchars($smtpline));
     }
 
     fputs($stream, 'QUIT');
     fclose($stream);
-    echo $IND . 'SMTP server OK (<tt><small>'.trim($smtpline)."</small></tt>)<br />\n";
+    echo $IND . 'SMTP server OK (<tt><small>'.
+        trim(htmlspecialchars($smtpline))."</small></tt>)<br />\n";
 
     /* POP before SMTP */
     if($pop_before_smtp) {
         $stream = fsockopen($smtpServerAddress, 110, $err_no, $err_str);
         if (!$stream) {
-            do_err("Error connecting to POP Server ($smtpServerAddress:110)"
-                  . " $err_no : $err_str");
+            do_err("Error connecting to POP Server ($smtpServerAddress:110) "
+                  . $err_no . ' : ' . htmlspecialchars($err_str));
         }
 
         $tmp = fgets($stream, 1024);
         if (substr($tmp, 0, 3) != '+OK') {
             do_err("Error connecting to POP Server ($smtpServerAddress:110)"
-                  . ' '.$tmp);
+                  . ' '.htmlspecialchars($tmp));
         }
         fputs($stream, 'QUIT');
         fclose($stream);
@@ -218,18 +220,21 @@ $stream = fsockopen( ($use_imap_tls?'tls://':'').$imapServerAddress, $imapPort,
                        $errorNumber, $errorString);
 if(!$stream) {
     do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
-        "Server error: ($errorNumber) $errorString");
+        "Server error: ($errorNumber) ".
+	htmlspecialchars($errorString));
 }
 
 $imapline = fgets($stream, 1024);
 if(substr($imapline, 0,4) != '* OK') {
-   do_err('Error connecting to IMAP server. Server error: '.$imapline);
+   do_err('Error connecting to IMAP server. Server error: '.
+       htmlspecialchars($imapline));
 }
 
 fputs($stream, '001 LOGOUT');
 fclose($stream);
 
-echo $IND . 'IMAP server OK (<tt><small>'.trim($imapline)."</small></tt>)<br />\n";
+echo $IND . 'IMAP server OK (<tt><small>'.
+    htmlspecialchars(trim($imapline))."</small></tt>)<br />\n";
 
 echo "Checking internationalization (i18n) settings:<br />\n";
 echo "$IND gettext - ";
@@ -309,7 +314,8 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 
 		    $dbh = DB::connect($dsn, true);
                     if (DB::isError($dbh)) {
-                        do_err('Database error: '. DB::errorMessage($dbh) . ' in ' .$type .' DSN.');
+                        do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
+			    ' in ' .$type .' DSN.');
                     }
 		    $dbh->disconnect();
 		    echo "$IND$type database connect successful.<br />\n";
