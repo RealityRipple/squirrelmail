@@ -274,15 +274,19 @@
 
    // Display the address management part
    if($showaddrlist) {
-      printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
-
       // Get and sort address list
       $alist = $abook->list_addr();
+      if(!is_array($alist)) {
+	plain_error_message($abook->error, $color);
+	exit;
+      }
+
       usort($alist,'alistcmp');
       $prevbackend = -1;
       $headerprinted = false;
 
       // List addresses
+      printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
       while(list($undef,$row) = each($alist)) {
 
 	 // New table header for each backend
