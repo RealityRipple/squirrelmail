@@ -1,0 +1,130 @@
+<chapter>
+   <title>
+      Compose
+   </title>
+   <summary>
+      With this feature, you can send messages to different people
+      from within SquirrelMail.
+   </summary>
+   <description>
+      <p>
+      The Compose menu choice will take you to a new Compose page.
+      Here you will find several fields and a couple of buttons.
+      Depending on how you got to the compose view, some of these 
+      fields may already be filled in.
+      </p>
+   </description>
+</chapter>
+
+<section>
+   <title>
+      To
+   </title>
+   <description>
+      <p>
+      First among these is the <B>To:</B> field.  In this field you should 
+      enter the email address of the person or persons you are sending a 
+      message to.  You may enter as many addresses as you like, separating 
+      them with a coma.  One may also press the "Addresses" button to fill 
+      in the field.  Don't worry if the entire address is not displayed.
+      The field is a fixed length but everything you put in it will be used,
+      even though it might scroll to the right or left.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Cc
+   </title>
+   <description>
+      <p>
+      Next is the <B>CC:</B> field.  CC is an abbreviation for <B>C</B>arbon 
+      <B>C</B>opy.  If you wish to send someone else a copy of the message 
+      here is where you would do that.  Think of this in the same way a memo 
+      is laid out.  You can have as many people as you like in the <B>To:</B>, 
+      <B>CC:</B>, and <B>BCC:</B> fields.  Only the people to whom the message 
+      has direct impact would be in the <B>To:</B> field while recipients to 
+      whom this is possibly only informative would be in the <B>CC:</B> and 
+      <B>BCC:</B> fields.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Bcc
+   </title>
+   <description>
+      <p>
+      BCC is an abbreviation for <B>B</B>lind <B>C</B>arbon <B>C</B>opy.
+      Use this to send someone a copy of the email <I>without</I> the 
+      recipients in the <B>To:</B> or <B>CC:</B> fields knowing about it.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Subject
+   </title>
+   <description>
+      <p>
+      Type in a relevant heading here.  Remember, email can be a great time 
+      saver and an accurate subject line is one big reason.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Addresses Button
+   </title>
+   <description>
+      <p>
+      This button will open the address book after a search box is presented.
+      Something must be entered in the search box to retrieve a result.
+      If all addresses in the address book are required enter a space here 
+      and click the submit button.  The address book has enough functionality 
+      that it deserves it's own section. More detailed information is 
+      available in the "Addresses" chapter. 
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Message Body
+   </title>
+   <description>
+      <p>
+      The large empty box is for whatever you want to put there.  If a 
+      signature file has been saved it will appear here as well.  This is
+      where you type the body of your message.
+      </p>
+   </description>
+</section>
+
+<section>
+   <title>
+      Attach
+   </title>
+   <description>
+      <p>
+      Located at the bottom of the Compose page, this feature allows you to 
+      include a file with your email.  The file must be located on your 
+      <I>local</I> machine or network to be attached.  A browse button is 
+      present so you may search through your directory structure and click 
+      on the file to include.  Alternatively you may type directly into the 
+      attach field if you know the full path and exact file name.  Simply 
+      press the Add button to list the selected file as an attachment and it 
+      will appear below.
+      </p>
+      <p>
+      Once at least one file is presented for attachment another button is 
+      revealed.  Deletion of one or more attached files is accomplished by 
+      selecting the offending file or files and pressing the delete selected 
+      attachments button.
+      <p>
+   </description>
+</section>
