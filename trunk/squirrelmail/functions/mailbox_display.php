@@ -150,9 +150,15 @@
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";
 
-      echo "<TR BGCOLOR=FFFFFF><TD>";
-      echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing messages <B>$startMessage</B> to <B>$endMessage</B> ($numMessages total)</FONT></CENTER>\n";
-      echo "</TD></TR>\n";
+      if ($startMessage < $endMessage) {
+         echo "<TR BGCOLOR=FFFFFF><TD>";
+         echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing messages <B>$startMessage</B> to <B>$endMessage</B> ($numMessages total)</FONT></CENTER>\n";
+         echo "</TD></TR>\n";
+      } else if ($startMessage == $endMessage) {
+         echo "<TR BGCOLOR=FFFFFF><TD>";
+         echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing message <B>$startMessage</B> ($numMessages total)</FONT></CENTER>\n";
+         echo "</TD></TR>\n";
+      }
 
       echo "<TR BGCOLOR=FFFFFF><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
