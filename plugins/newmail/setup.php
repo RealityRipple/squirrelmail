@@ -61,7 +61,6 @@
 
         $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
         $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
-        // $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
         $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
         $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';
     }
@@ -82,51 +81,51 @@
         }
     }
 
-function newmail_sav() {
+    function newmail_sav() {
 
-  global $username,$data_dir;
-  global $submit_newmail,$media_file,$media_reset,$media_enable,$media_popup;
-  global $media_recent,$media_sel;
-  global $media_allbox, $media_changetitle;
+        global $username,$data_dir;
+        global $submit_newmail,$media_file,$media_reset,$media_enable,$media_popup;
+        global $media_recent,$media_sel;
+        global $media_allbox, $media_changetitle;
 
-  if ($submit_newmail) {
-   if(isset($media_enable)) {
-     setPref($data_dir,$username,"newmail_enable",$media_enable);
-   } else {
-     setPref($data_dir,$username,"newmail_enable","");
-   }
-   if(isset($media_popup)) {
-     setPref($data_dir,$username,"newmail_popup",$media_popup);
-   } else {
-     setPref($data_dir,$username,"newmail_popup","");
-   }
-   if(isset($media_allbox)) {
-     setPref($data_dir,$username,"newmail_allbox",$media_allbox);
-   } else {
-     setPref($data_dir,$username,"newmail_allbox","");
-   }
-   if(isset($media_recent)) {
-     setPref($data_dir,$username,"newmail_recent",$media_recent);
-   } else {
-     setPref($data_dir,$username,"newmail_recent","");
-   }
-   if(isset($media_changetitle)) {
-     setPref($data_dir,$username,"newmail_changetitle",$media_changetitle);
-   } else {
-     setPref($data_dir,$username,"newmail_changetitle","");
-   }
-   if(isset($media_sel)) {
-     if($media_sel == "(local media)") { 
-  	  setPref($data_dir,$username,"newmail_media",StripSlashes($media_file));
-     } else {
-        setPref($data_dir,$username,"newmail_media",$media_sel);
-     }
-   } else {
-     setPref($data_dir,$username,"newmail_media","");
-   }
-   echo '<center> ' . _("New Mail Notification options saved") . '</center>';
-  }
-}
+        if ($submit_newmail) {
+            if(isset($media_enable)) {
+                setPref($data_dir,$username,'newmail_enable',$media_enable);
+            } else {
+                setPref($data_dir,$username,'newmail_enable','');
+            }
+            if(isset($media_popup)) {
+                setPref($data_dir,$username,'newmail_popup',$media_popup);
+            } else {
+                setPref($data_dir,$username,'newmail_popup','');
+            }
+            if(isset($media_allbox)) {
+                setPref($data_dir,$username,'newmail_allbox',$media_allbox);
+            } else {
+                setPref($data_dir,$username,'newmail_allbox','');
+            }
+            if(isset($media_recent)) {
+                setPref($data_dir,$username,'newmail_recent',$media_recent);
+            } else {
+                setPref($data_dir,$username,'newmail_recent','');
+            }
+            if(isset($media_changetitle)) {
+                setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
+            } else {
+                setPref($data_dir,$username,'newmail_changetitle','');
+            }
+            if(isset($media_sel)) {
+                if($media_sel == '(local media)') {
+                    setPref($data_dir,$username,'newmail_media',StripSlashes($media_file));
+                } else {
+                    setPref($data_dir,$username,'newmail_media',$media_sel);
+                }
+            } else {
+                setPref($data_dir,$username,'newmail_media','');
+            }
+            echo '<center> ' . _("New Mail Notification options saved") . '</center>';
+        }
+    }
 
     function newmail_pref() {
       
@@ -140,102 +139,103 @@ function newmail_sav() {
         $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
         $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
         $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
-        
+
         if ($newmail_media == '') {
             $newmail_media = '../plugins/newmail/sounds/Notify.wav';
         }
-    
+
     }
 
-function newmail_plugin() {
+    function newmail_plugin() {
 
- global $username,$key,$imapServerAddress,$imapPort;
- global $newmail_media,$newmail_enable,$newmail_popup,$newmail_recent;
- global $newmail_changetitle;
- global $imapConnection;
+        global $username,$key,$imapServerAddress,$imapPort;
+        global $newmail_media,$newmail_enable,$newmail_popup,$newmail_recent;
+        global $newmail_changetitle;
+        global $imapConnection;
 
- if ($newmail_enable == 'on' || $newmail_popup == 'on' || $newmail_changetitle) {
+        if ($newmail_enable == 'on' ||
+            $newmail_popup == 'on' ||
+            $newmail_changetitle) {
 
-   // open a connection on the imap port (143)
+            // open a connection on the imap port (143)
 
-   // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
+            $boxes = sqimap_mailbox_list($imapConnection);
+            $delimeter = sqimap_get_delimiter($imapConnection);
 
-   $boxes = sqimap_mailbox_list($imapConnection);
-   $delimeter = sqimap_get_delimiter($imapConnection);
+            $status = 0;
+            $totalNew = 0;
 
-   $status = 0;
-   $totalNew = 0;
+            for ($i = 0;$i < count($boxes); $i++) {
 
-   for ($i = 0;$i < count($boxes); $i++) {
+                $line = '';
+                $mailbox = $boxes[$i]['formatted'];
 
-      $line = '';
-      $mailbox = $boxes[$i]['formatted'];
+                if (! isset($boxes[$i]['unseen']))
+                    $boxes[$i]['unseen'] = '';
+                if ($boxes[$i]['flags']) {
+                    $noselect = false;
+                    for ($h = 0; $h < count($boxes[$i]['flags']); $h++) {
+                        if (strtolower($boxes[$i]["flags"][$h]) == 'noselect')
+                            $noselect = TRUE;
+                    }
+                    if (! $noselect) {
+                        $status = $status + CheckNewMailboxSound($imapConnection, $mailbox,
+                        $boxes[$i]['unformatted'], $delimeter, $boxes[$i]['unseen'],
+                        $totalNew);
+                    }
+                } else {
+                    $status = $status + CheckNewMailboxSound($imapConnection, $mailbox, $boxes[$i]['unformatted'],
+                        $delimeter, $boxes[$i]['unseen'], $totalNew);
+                }
 
-      if (! isset($boxes[$i]['unseen']))
-         $boxes[$i]['unseen'] = '';
-      if ($boxes[$i]['flags']) {
-         $noselect = false;
-         for ($h = 0; $h < count($boxes[$i]['flags']); $h++) {
-            if (strtolower($boxes[$i]["flags"][$h]) == 'noselect')
-               $noselect = true;
-         }
-         if (! $noselect) {
-            $status = $status + CheckNewMailboxSound($imapConnection, $mailbox,
-			$boxes[$i]['unformatted'], $delimeter, $boxes[$i]['unseen'],
-			$totalNew);
-         }
-      } else {
-         $status = $status + CheckNewMailboxSound($imapConnection, $mailbox, $boxes[$i]['unformatted'],
-			$delimeter, $boxes[$i]['unseen'], $totalNew);
-      }
-   
-   }
-   
-   // sqimap_logout($imapConnection);
+            }
 
-   // If we found unseen messages, then we
-   // will play the sound as follows:
+            // sqimap_logout($imapConnection);
 
-    if ($newmail_changetitle) {
-        echo "<script language=\"javascript\">\n" .
-             "function ChangeTitleLoad() {\n";
-        if( $totalNew > 1 ) {
-            echo    'window.parent.document.title = "' . sprintf(_("%s New Messages"), $totalNew ) . "\";\n";
-        }else {
-            echo    'window.parent.document.title = "' . sprintf(_("%s New Message"), $totalNew ) . "\";\n";
+            // If we found unseen messages, then we
+            // will play the sound as follows:
+
+            if ($newmail_changetitle) {
+                echo "<script language=\"javascript\">\n" .
+                    "function ChangeTitleLoad() {\n";
+                if( $totalNew > 1 ) {
+                    echo 'window.parent.document.title = "' .
+                        sprintf(_("%s New Messages"), $totalNew ) .
+                        "\";\n";
+                } else {
+                    echo 'window.parent.document.title = "' .
+                        sprintf(_("%s New Message"), $totalNew ) .
+                        "\";\n";
+                }
+                echo    "if (BeforeChangeTitle != null)\n".
+                            "BeforeChangeTitle();\n".
+                    "}\n".
+                    "BeforeChangeTitle = window.onload;\n".
+                    "window.onload = ChangeTitleLoad;\n".
+                    "</script>\n";
+            }
+
+            if ($status > 0 && $newmail_enable == 'on') {
+                echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>";
+            }
+            if ($status >0 && $newmail_popup == 'on') {
+                echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".
+                    "<!--\n".
+                    "function PopupScriptLoad() {\n".
+                    'window.open("../plugins/newmail/newmail.php", "SMPopup",'.
+                                "\"width=200,height=130,scrollbars=no\");\n".
+                    "if (BeforePopupScript != null)\n".
+                    "BeforePopupScript();\n".
+                    "}\n".
+                    "BeforePopupScript = window.onload;\n".
+                    "window.onload = PopupScriptLoad;\n".
+                    // Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
+                    // Web URL:  http://fineline.xs.mw
+                    // More code from Tyler Akins
+                    "// End -->\n".
+                    "</script>\n";
+
+            }
         }
-        echo    "if (BeforeChangeTitle != null)\n".
-                    "BeforeChangeTitle();\n".
-             "}\n".
-             "BeforeChangeTitle = window.onload;\n".
-             "window.onload = ChangeTitleLoad;\n".
-             "</script>\n";
     }
-
-    if ($status > 0 && $newmail_enable == 'on') {
-        echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>";
-    }
-    if ($status >0 && $newmail_popup == 'on') {
-?>
-<SCRIPT LANGUAGE="JavaScript">
-<!--
-function PopupScriptLoad() {
-   window.open("../plugins/newmail/newmail.php", "SMPopup",
-      "width=200,height=130,scrollbars=no");
-   if (BeforePopupScript != null)
-      BeforePopupScript();
-}
-BeforePopupScript = window.onload;
-window.onload = PopupScriptLoad;
-
-// Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
-// Web URL:  http://fineline.xs.mw
-// More code from Tyler Akins
-// End -->
-</script>
-<?php
-
-   }
- }
-}
 ?>
