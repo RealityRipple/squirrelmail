@@ -361,12 +361,18 @@
             $pos ++;
             while (substr($structure, $pos, 1) != '"' && 
                $pos < strlen($structure)) {
+	       if (substr($structure, $pos, 2) == '\\"')
+	           $pos ++;
+	       elseif (substr($structure, $pos, 2) == '\\\\')
+	           $pos ++;
                $pos ++;
             }
          } else if ($char == "(") {
             $pos = mime_match_parenthesis ($pos, $structure);
          }
       }
+      echo "Error decoding mime structure.  Report this as a bug!<br>\n";
+      return $pos;
    }
 
    function mime_fetch_body ($imap_stream, $id, $ent_id) {
