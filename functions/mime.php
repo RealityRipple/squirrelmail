@@ -626,9 +626,9 @@ function find_ent_id($id, $message) {
             $ret = find_ent_id($id, $message->entities[$i]);
         } else {
             if (strcasecmp($message->entities[$i]->header->id, $id) == 0) {
-                if (sq_check_save_extension($message->entities[$i])) {
+//                if (sq_check_save_extension($message->entities[$i])) {
                     return $message->entities[$i]->entity_id;
-                } 
+//                } 
             }
         }
     }
