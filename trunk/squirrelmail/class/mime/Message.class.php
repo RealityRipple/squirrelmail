@@ -48,15 +48,41 @@ class Message {
     }
 
     function getFilename() {
-        $filename = $this->header->getParameter('filename');
-        if (!$filename) {
-            $filename = $this->header->getParameter('name');
-        }
-
-        if (!$filename) {
-            $filename = 'untitled-'.$this->entity_id;
-        }
-        return $filename;
+         $filename = '';
+         $header = $this->header;
+         if (is_object($header->disposition)) {
+              $filename = $header->disposition->getProperty('filename');
+              if (trim($filename) == '') {
+                  $name = decodeHeader($header->disposition->getProperty('name'));
+                  if (!trim($name)) {
+                      $name = $header->getParameter('name');
+                      if(!trim($name)) {
+                          if (!trim( $header->id )) {
+                              $filename = 'untitled-[' . $this->entity_id . ']' ;
+                          } else {
+                              $filename = 'cid: ' . $header->id;
+                          }
+                      } else {
+                          $filename = $name;
+                      }
+                  } else {
+                      $filename = $name;
+                  }
+              }
+         } else {
+              $filename = $header->getParameter('filename');
+              if (!trim($filename)) {
+                  $filename = $header->getParameter('name');
+                  if (!trim($filename)) {
+                      if (!trim( $header->id )) {
+                          $filename = 'untitled-[' . $this->entity_id . ']' ;
+                      } else {
+                          $filename = 'cid: ' . $header->id;
+                      }
+                  }
+              }
+         }
+         return $filename;
     }
 
 
