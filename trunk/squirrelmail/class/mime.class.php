@@ -763,23 +763,24 @@ class message {
 		}
 		$found = true;		
 	    }
+	    $found = true;		
 	} else if ( $this->type0 == 'text' &&
              ( $this->type1 == 'plain' ||
                $this->type1 == 'html' ||
 	       $this->type1 == 'message') &&
              isset($this->entity_id) ) {
 	     if (count($this->entities) == 0) {
-	        if (!$this->header->disposition->name == 'attachment') {
+	        if ($this->header->disposition->name != 'attachment') {
         	   $entity[] = $this->entity_id;
 		}
 	     }
         } 
     	$i = 0;
     	while ( isset($this->entities[$i]) &&  !$found &&
-	        !($this->entities[$i]->header->disposition->name 
-	        == 'attachment') &&
-	        !($this->entities[$i]->type0 == 'message' && 
-		  $this->entities[$i]->type1 == 'rfc822' )
+	        ($this->entities[$i]->header->disposition->name 
+	        != 'attachment') &&
+	        ($this->entities[$i]->type0 != 'message' && 
+		  $this->entities[$i]->type1 != 'rfc822' )
 		)
 	        {
     	    $this->entities[$i]->findDisplayEntity(&$entity, $alt_order);
