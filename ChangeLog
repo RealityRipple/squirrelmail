@@ -14,6 +14,7 @@ Version 1.3.2 -- cvs
   - Make the SquirrelMail link on the right top configurable so a provider can point
     to their own FAQ for example.
   - Enable TZ in safe_mode if safe_mode_allowed_env_vars permits this bug #612148.
+  - Fix some bugs in folder management (create, delete,...) and add enhancements.
 
 Version 1.3.1
 -------------
