@@ -23,21 +23,21 @@
    displayPageHeader($color, $mailbox);
 
    if (isset($view_hdr)) {
-      fputs ($imapConnection, "a003 FETCH $passed_id BODY[HEADER]\r\n");
-      $read = sqimap_read_data ($imapConnection, "a003", true, $a, $b); 
+      fputs ($imapConnection, sqimap_session_id() . " FETCH $passed_id BODY[HEADER]\r\n");
+      $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b); 
       
-      echo '<br>';
-      echo '<table width="100%" cellpadding="2" cellspacing="0" border="0" align="center">' . "\n";
-      echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . '</b> - ';
+      echo '<br>' .
+           '<table width="100%" cellpadding="2" cellspacing="0" border="0" align="center">' . "\n" .
+           "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><center><b>" . _("Viewing full header") . '</b> - ';
       if (isset($where) && isset($what)) {
          // Got here from a search
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what).'">';
       } else {
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
       }
-      echo ''._("View message") . "</a></b></center></td></tr></table>\n";
-      echo "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n";
-      echo '<tr><td>';
+      echo ''._("View message") . "</a></b></center></td></tr></table>\n" .
+           "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n" .
+           '<tr><td>';
 
       $cnum = 0;
       for ($i=1; $i < count($read); $i++) {
@@ -304,14 +304,13 @@
    $subject = decodeHeader(htmlspecialchars($message->header->subject));
 
    do_hook('read_body_top');
-   echo '<BR>';
-
-   echo '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
-   echo '   <TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">';
-   echo '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">';
-   echo '         <TR>';
-   echo '            <TD ALIGN="LEFT" WIDTH="33%">';
-   echo '               <SMALL>';
+   echo '<BR>' .
+        '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
+        '   <TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">' .
+        '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">' .
+        '         <TR>' .
+        '            <TD ALIGN="LEFT" WIDTH="33%">' .
+        '               <SMALL>';
    if ($where && $what) {
       echo "               <A HREF=\"search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=$urlMailbox\">";
    } else {
@@ -324,11 +323,11 @@
    } else {
       echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=$startMessage\">";
    }
-   echo _("Delete");
-   echo '</A>&nbsp;&nbsp;';
-   echo '               </SMALL>';
-   echo '            </TD><TD WIDTH="33%" ALIGN="CENTER">';
-   echo '               <SMALL>' . "\n";
+   echo _("Delete") .
+        '</A>&nbsp;&nbsp;' .
+        '               </SMALL>' .
+        '            </TD><TD WIDTH="33%" ALIGN="CENTER">' .
+        '               <SMALL>' . "\n";
    if ($where && $what) {
    } else {
       if ($currentArrayIndex == -1) {
@@ -346,33 +345,33 @@
             echo _("Next");
       }
    }   
-   echo '               </SMALL>' . "\n";
-   echo '            </TD><TD WIDTH="33%" ALIGN="RIGHT">';
-   echo '               <SMALL>';
-   echo "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox&ent_num=$ent_num\">";
-   echo _("Forward");
-   echo '</A>&nbsp;|&nbsp;';
-   echo "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">";
-   echo _("Reply");
-   echo '</A>&nbsp;|&nbsp;';
-   echo "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">";
-   echo _("Reply All");
-   echo '</A>&nbsp;&nbsp;';
-   echo '               </SMALL>';
-   echo '            </TD>';
-   echo '         </TR>';
-   echo '      </TABLE>';
-   echo '   </TD></TR>';
-   echo '   <TR><TD CELLSPACING="0" WIDTH="100%">';
-   echo '   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
-   echo '      <TR>' . "\n";
+   echo '               </SMALL>' . "\n" .
+        '            </TD><TD WIDTH="33%" ALIGN="RIGHT">' .
+        '               <SMALL>' .
+        "               <A HREF=\"compose.php?forward_id=$passed_id&forward_subj=$url_subj&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+        _("Forward") .
+        '</A>&nbsp;|&nbsp;' .
+        "               <A HREF=\"compose.php?send_to=$url_replyto&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+        _("Reply") .
+        '</A>&nbsp;|&nbsp;' .
+        "               <A HREF=\"compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+        _("Reply All") .
+        '</A>&nbsp;&nbsp;' .
+        '               </SMALL>' .
+        '            </TD>' .
+        '         </TR>' .
+        '      </TABLE>' .
+        '   </TD></TR>' .
+        '   <TR><TD CELLSPACING="0" WIDTH="100%">' .
+        '   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n" .
+        '      <TR>' . "\n" .
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=\"10%\" ALIGN=\"right\" VALIGN=\"top\">\n";
-   echo _("Subject:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=\"80%\" VALIGN=\"top\">\n";
-   echo "            <B>$subject</B>&nbsp;\n";
-   echo "         </TD>\n";
-   echo '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
+        "         <TD BGCOLOR=\"$color[0]\" WIDTH=\"10%\" ALIGN=\"right\" VALIGN=\"top\">\n" .
+        _("Subject:") .
+        "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=\"80%\" VALIGN=\"top\">\n" .
+        "            <B>$subject</B>&nbsp;\n" .
+        "         </TD>\n" .
+        '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
@@ -380,59 +379,57 @@
       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a>\n";
    }
       do_hook("read_body_header_right");
-   echo '</small></TD>' . "\n";
-   echo ' </TR>' ."\n";
+   echo '</small></TD>' . "\n" .
+        ' </TR>' ."\n" .
    /** from **/
-   echo '      <TR>' . "\n";
-   echo '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n";
-   echo _("From:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '">' . "\n";
-   echo "            <B>$from_name</B>&nbsp;\n";
-   echo '         </TD>' . "\n";
-   echo '      </TR>' . "\n";
+        '      <TR>' . "\n" .
+        '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n" .
+        _("From:") .
+        '         </TD><TD BGCOLOR="' . $color[0] . '">' . "\n" .
+        "            <B>$from_name</B>&nbsp;\n" .
+        '         </TD>' . "\n" .
+        '      </TR>' . "\n" .
    /** date **/
-   echo '      <TR>' . "\n";
-   echo '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n";
-   echo _("Date:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\">\n";
-   echo "            <B>$dateString</B>&nbsp;\n";
-   echo '         </TD>' . "\n";
-   echo '      </TR>' . "\n";
+        '      <TR>' . "\n" .
+        '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n" .
+        _("Date:") .
+        "         </TD><TD BGCOLOR=\"$color[0]\">\n" .
+        "            <B>$dateString</B>&nbsp;\n" .
+        '         </TD>' . "\n" .
+        '      </TR>' . "\n" .
    /** to **/
-   echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n";
-   echo _("To:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '" VALIGN="TOP">' . "\n";
-   echo "            <B>$to_string</B>&nbsp;\n";
-   echo '         </TD>' . "\n";
-   echo '      </TR>' . "\n";
+        "      <TR>\n" .
+        "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
+        _("To:") .
+        '         </TD><TD BGCOLOR="' . $color[0] . '" VALIGN="TOP">' . "\n" .
+        "            <B>$to_string</B>&nbsp;\n" .
+        '         </TD>' . "\n" .
+        '      </TR>' . "\n";
    /** cc **/
    if (isset($cc_string)) {
-      echo "      <TR>\n";
-      echo "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n";
-      echo '            Cc:' . "\n";
-      echo "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n";
-      echo "            <B>$cc_string</B>&nbsp;\n";
-      echo '         </TD>' . "\n";
-      echo '      </TR>' . "\n";
+      echo "      <TR>\n" .
+           "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
+           '            Cc:' . "\n" .
+           "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n" .
+           "            <B>$cc_string</B>&nbsp;\n" .
+           '         </TD>' . "\n" .
+           '      </TR>' . "\n";
    }
    do_hook("read_body_header");
-   echo '</TABLE>';
-   echo '   </TD></TR>';
-   echo '</table>';
-   echo "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
-
-   echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
-   echo '<BR>';
+   echo '</TABLE>' .
+        '   </TD></TR>' .
+        '</table>' .
+        "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
+        "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n" .
+        '<BR>';
    
    $body = formatBody($imapConnection, $message, $color, $wrap_at);
 
-   echo $body;
-   
-   echo '</TABLE>';
-   echo '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
-   echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
-   echo '</TABLE>' . "\n";
+   echo $body .
+        '</TABLE>' .
+        '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
+        "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
+        '</TABLE>' . "\n";
 
    do_hook('read_body_bottom');
    do_hook('html_bottom');
