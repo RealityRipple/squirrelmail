@@ -21,13 +21,11 @@ require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 
 /* globals */
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-
-$method = $_GET['method'];
-$mailbox = $_POST['mailbox'];
-
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('method',    $method,        SQ_GET);
+sqgetGlobalVar('mailbox',   $mailbox,       SQ_POST);
 /* end globals */
 
 $location = get_location();

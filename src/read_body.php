@@ -643,12 +643,12 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 /* get the globals we may need */
 
-/** SESSION VARS */
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 sqgetGlobalVar('username',  $username,      SQ_SESSION);
 sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
-sqgetGlobalVar('msgs',      $msgs,          SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
+
 sqgetGlobalVar('msgs',      $msgs,          SQ_SESSION);
 sqgetGlobalVar('msort',     $msort,         SQ_SESSION);
 sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
@@ -656,9 +656,6 @@ sqgetGlobalVar('server_sort_array', $server_sort_array, SQ_SESSION);
 if (!sqgetGlobalVar('messages', $messages, SQ_SESSION) ) {
     $messages = array();
 }
-
-/** COOKIE VARS */
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
 /** GET VARS */
 sqgetGlobalVar('sendreceipt',   $sendreceipt,   SQ_GET);

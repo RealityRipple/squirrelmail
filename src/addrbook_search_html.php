@@ -20,6 +20,7 @@ if (! defined('SM_PATH') ) {
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
@@ -27,17 +28,11 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
-$session = $_POST['session'];
-$mailbox = $_POST['mailbox'];
-if ( isset($_POST['addrquery']) ) {
-    $addrquery = $_POST['addrquery'];
-}
-if ( isset($_POST['listall']) ) {
-    $listall = $_POST['listall'];
-}
-if ( isset($_POST['backend'] ) ) {
-    $backend = $_POST['backend'];
-}
+sqgetGlobalVar('session',   $session,   SQ_POST);
+sqgetGlobalVar('mailbox',   $mailbox,   SQ_POST);
+sqgetGlobalVar('addrquery', $addrquery, SQ_POST);
+sqgetGlobalVar('listall',   $listall,   SQ_POST);
+sqgetGlobalVar('backend',   $backend,   SQ_POST);
 
 /* Insert hidden data */
 function addr_insert_hidden() {

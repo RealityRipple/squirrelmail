@@ -24,18 +24,16 @@ header('Pragma: ');
 header('Cache-Control: cache');
 
 /* globals */
-
-$key = $_COOKIE['key'];
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$mailbox = $_GET['mailbox'];
-$passed_id = (int) $_GET['passed_id'];
-$ent_id = $_GET['ent_id'];
-$messages = $_SESSION['messages'];
-
-if (isset($_GET['absolute_dl'])) {
-   $absolute_dl = $_GET['absolute_dl'];
-}
+sqgetGlobalVar('key',        $key,          SQ_COOKIE);
+sqgetGlobalVar('username',   $username,     SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
+sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
+sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
+sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
+sqgetGlobalVar('absolute_dl',$absolute_dl,  SQ_GET);
+if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
+  $passed_id = (int) $temp;
+}  
 
 /* end globals */
 $mailbox = urldecode($mailbox);
@@ -149,10 +147,10 @@ mime_print_body_lines ($imapConnection, $passed_id, $ent_id, $encoding);
  * version of IE.  I don't know if it works with Opera, but it should now.
  */
 function DumpHeaders($type0, $type1, $filename, $force) {
-    global $_SERVER, $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language;
     $isIE = $isIE6 = 0;
 
-    $HTTP_USER_AGENT = $_SERVER['HTTP_USER_AGENT'];
+    sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
 
     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
         strstr($HTTP_USER_AGENT, 'Opera') === false) {

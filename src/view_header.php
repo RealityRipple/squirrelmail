@@ -76,7 +76,8 @@ function parse_viewheader($imapConnection,$id, $passed_ent_id) {
 }
 
 function view_header($header, $mailbox, $color) {
-    $ret_addr = SM_PATH . 'src/read_body.php?'.$_SERVER['QUERY_STRING'];
+    sqgetGlobalVar('QUERY_STRING', $queryStr, SQ_SERVER);
+    $ret_addr = SM_PATH . 'src/read_body.php?'.$queryStr;
 
     displayPageHeader($color, $mailbox);
 
@@ -102,19 +103,19 @@ function view_header($header, $mailbox, $color) {
 }
 
 /* get global vars */
-$passed_id = $_GET['passed_id'];
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-
-if (!isset($_GET['passed_ent_id'])) {
-  $passed_ent_id = '';
-} else {
-    $passed_ent_id = $_GET['passed_ent_id'];
+if ( sqgetGlobalVar('passed_id', $temp, SQ_GET) ) {
+  $passed_id = (int) $temp;
 }
-
-$mailbox = urldecode($_GET['mailbox']);
+if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
+  $mailbox = urldecode($temp);
+}
+if ( !sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
+  $passed_ent_id = '';
+} 
+sqgetGlobalVar('key',        $key,          SQ_COOKIE);
+sqgetGlobalVar('username',   $username,     SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
+sqgetGlobalVar('delimiter',  $delimiter,    SQ_SESSION);
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, 
                                $imapPort, 0);

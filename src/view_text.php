@@ -18,29 +18,30 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/html.php');
-   
-$mailbox = urldecode($_GET['mailbox']);
-if (!isset($_GET['passed_ent_id'])) {
-    $passed_ent_id = '';
-} else {
-    $passed_ent_id = $_GET['passed_ent_id'];
-}
-$passed_id = $_GET['passed_id'];
-if (isset($_GET['ent_id'])) {
-	$ent_id = $_GET['ent_id'];
-} else {
-	$ent_id = '';
-}
 
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-$QUERY_STRING = $_SERVER['QUERY_STRING'];
+sqgetGlobalVar('key',        $key,          SQ_COOKIE);
+sqgetGlobalVar('username',   $username,     SQ_SESSION);
+sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
+sqgetGlobalVar('delimiter',  $delimiter,    SQ_SESSION);
+sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
 sqgetGlobalVar('messages', $messages);
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+
+if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
+  $mailbox = urldecode($temp);
+}
+if ( !sqgetGlobalVar('ent_id', $ent_id, SQ_GET) ) {
+  $ent_id = '';
+}
+if ( !sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
+  $passed_ent_id = '';
+} 
+
+
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);

@@ -28,13 +28,11 @@ require_once(SM_PATH . 'functions/html.php');
  */
 
 /* globals */
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$delimiter = $_SESSION['delimiter'];
-$onetimepad = $_SESSION['onetimepad'];
-
-$mailbox = $_POST['mailbox'];
-
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('mailbox',   $mailbox,       SQ_POST);
 /* end globals */
 
 if ($mailbox == '') {
@@ -45,13 +43,13 @@ if ($mailbox == '') {
     exit;
 }
 
-if (isset($_POST['backingout'])) {
+if ( sqgetGlobalVar('backingout', $tmp, SQ_POST) ) {
     $location = get_location();
     header ("Location: $location/folders.php");
     exit;
 }
 
-if(!isset($_POST['confirmed'])) {
+if( !sqgetGlobalVar('confirmed', $tmp, SQ_POST) ) {
     displayPageHeader($color, 'None');
 
     echo '<br>' .

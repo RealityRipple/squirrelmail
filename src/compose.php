@@ -22,6 +22,7 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
@@ -31,17 +32,19 @@ require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 
 /* --------------------- Get globals ------------------------------------- */
-$username = $_SESSION['username'];
-$onetimepad = $_SESSION['onetimepad'];
-$base_uri = $_SESSION['base_uri'];
-$delimiter = $_SESSION['delimiter'];
+/** COOKIE VARS */
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
-if (isset($_POST['return'])) {
-    $html_addr_search_done = 'Use Addresses';
-}
-if ( isset($_SESSION['composesession']) ) {
-    $composesession = $_SESSION['composesession'];
-}
+/** SESSION VARS */
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+
+sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
+sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
+
+/** SESSION/POST/GET VARS */
 sqgetGlobalVar('action',$action);
 sqgetGlobalVar('session',$session);
 sqgetGlobalVar('mailbox',$mailbox);
@@ -60,46 +63,28 @@ sqgetGlobalVar('passed_id',$passed_id);
 sqgetGlobalVar('passed_ent_id',$passed_ent_id);
 sqgetGlobalVar('send',$send);
 
-if ( isset($_POST['sigappend']) ) {
-    $sigappend = $_POST['sigappend'];
-}
-/* From addressbook search */
-if ( isset($_POST['from_htmladdr_search']) ) {
-    $from_htmladdr_search = $_POST['from_htmladdr_search'];
-}
-if ( isset($_POST['addr_search_done']) ) {
-    $html_addr_search_done = $_POST['addr_search_done'];
-}
-if ( isset($_POST['send_to_search']) ) {
-    $send_to_search = &$_POST['send_to_search'];
-}
-
-/* Attachments */
 sqgetGlobalVar('attach',$attach);
-if ( isset($_POST['do_delete']) ) {
-    $do_delete = $_POST['do_delete'];
-}
-if ( isset($_POST['delete']) ) {
-    $delete = &$_POST['delete'];
-}
-if ( isset($_SESSION['compose_messages']) ) {
-    $compose_messages = &$_SESSION['compose_messages'];
-}
 
-
-/* Forward message as attachment */
-if ( isset($_GET['attachedmessages']) ) {
-    $attachedmessages = $_GET['attachedmessages'];
-}
-
-/* Drafts */
 sqgetGlobalVar('draft',$draft);
 sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
 sqgetGlobalVar('delete_draft',$delete_draft);
 
-$key = $_COOKIE['key'];
+
+/** POST VARS */
+sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
+sqgetGlobalVar('from_htmladdr_search',  $from_htmladdr_search,  SQ_POST);
+sqgetGlobalVar('addr_search_done',      $html_addr_search_done, SQ_POST);
+sqgetGlobalVar('send_to_search',        $send_to_search,        SQ_POST);
+sqgetGlobalVar('do_delete',             $do_delete,             SQ_POST);
+sqgetGlobalVar('delete',                $delete,                SQ_POST);
+if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
+  $html_addr_search_done = 'Use Addresses';
+}
+
+/** GET VARS */
+sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
 
 /* --------------------- Specific Functions ------------------------------ */
 
@@ -192,7 +177,7 @@ function getforwardHeader($orig_header) {
  * vars.
  */
 if (sqsession_is_registered('session_expired_post')) {
-    $session_expired_post = $_SESSION['session_expired_post'];
+    sqgetGlobalVar('session_expired_post', $session_expired_post, SQ_SESSION);
     /* 
      * extra check for username so we don't display previous post data from
      * another user during this session.
@@ -1065,9 +1050,10 @@ function showInputForm ($session, $values=false) {
        store the complete ComposeMessages array in a hidden input value 
        so we can restore them in case of a session timeout.
     */
+    sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo '<input type=hidden name=restoremessages value="' . urlencode(serialize($compose_messages)) . "\">\n";
     echo '<input type=hidden name=composesession value="' . $composesession . "\">\n";
-    echo '<input type=hidden name=querystring value="' . $_SERVER['QUERY_STRING'] . "\">\n";
+    echo '<input type=hidden name=querystring value="' . $queryString . "\">\n";
     echo '</FORM>';
     if (!(bool) ini_get('file_uploads')) {
       /* File uploads are off, so we didn't show that part of the form.
