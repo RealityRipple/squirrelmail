@@ -27,7 +27,8 @@
 
    // Insert hidden data
    function addr_insert_hidden() {
-      global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox;
+      global $body, $subject, $send_to, $send_to_cc, $send_to_bcc, $mailbox,
+         $identity;
       
       echo '<input type=hidden value="';
       if (substr($body, 0, 1) == "\r")
