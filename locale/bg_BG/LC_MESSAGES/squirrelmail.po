@@ -10,7 +10,7 @@ msgstr ""
 "Last-Translator: Stanislav Yordanov \n"
 "Language-Team: Bulgarian \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=cp-1251\n"
+"Content-Type: text/plain; charset=cp1251\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: StanProg PO-Editor 1.0\n"
 
@@ -1296,7 +1296,6 @@ msgstr "БЕЗПЛАТЕН - Dorkslayers включват само наистина лоши отворените връзки из
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "БЕЗПЛАТЕН - SPAMhaus - Списък на добре познатите СПАМ източници."
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
