@@ -161,7 +161,7 @@ global $sqspell_text, $SQSPELL_APP, $sqspell_use_app, $attachment_dir,
     // Why isn't there a booger fairy?
     echo "//-->\n".
          "</script>\n".
-         "<script src=\"js/check_me.php\" type=\"text/javascript\"></script>\n".
+         "<script src=\"js/check_me.js\" type=\"text/javascript\"></script>\n".
          "</head>\n";
 
     echo "<body bgcolor=\"$color[4]\" text=\"$color[8]\" link=\"$color[7]\" alink=\"$color[7]\" vlink=\"$color[7]\" onload=\"populateSqspellForm()\">\n".
