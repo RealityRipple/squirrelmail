@@ -368,13 +368,17 @@
       
       // getrusage
       if (function_exists('getrusage')) {
-         $dat = getrusage();
-          $Str = '';
-          foreach ($dat as $k => $v)
-          {
-              $Str .= $k . $v;
-          }
-          sq_mt_seed(md5($Str));
+         // Avoid warnings with Win32
+         $dat = @getrusage();
+	 if (isset($dat) && is_array($dat))
+	 {
+            $Str = '';
+            foreach ($dat as $k => $v)
+            {
+               $Str .= $k . $v;
+            }
+            sq_mt_seed(md5($Str));
+	 }
       }
       
       // Apache-specific
