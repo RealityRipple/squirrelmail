@@ -3,6 +3,7 @@ Version 0.6pre1 -- DEVELOPMENT
 - Made message index order customizable (from, subject, date) can be (date, from, subject)
 - Fixed some security problems with uploading attachments
 - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
+- When reading, attachments look better and have a better plugin interface
 
 
 Version 0.5 -- September 25, 2000 
