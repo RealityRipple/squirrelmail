@@ -22,6 +22,13 @@
 
    include("../src/load_prefs.php");
 
+
+   if($old_name == $new_name) {
+      $location = get_location();
+      header ("Location: $location/folders.php");
+      exit;
+   }
+
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
 
@@ -56,7 +63,7 @@
    {
       $name = find_mailbox_name($data[$i]);
 
-      if ($name != $newone) # don't try to resubscribe when renaming ab to abc
+      if ($name != $newone) // don't try to resubscribe when renaming ab to abc
       {
         sqimap_unsubscribe($imapConnection, $name);
         $name = substr($name, strlen($orig));

@@ -45,14 +45,14 @@
    displayHtmlHeader();
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $unseen) {
-		global $folder_prefix, $trash_folder, $sent_folder;
-		global $color, $move_to_sent, $move_to_trash;
+      global $folder_prefix, $trash_folder, $sent_folder;
+      global $color, $move_to_sent, $move_to_trash;
       global $unseen_notify, $unseen_type;
-
+      
       $mailboxURL = urlencode($real_box);
-
+      
       if ($unseen_notify == 2 && $real_box == "INBOX") {
-	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+	 $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
          if ($unseen_type == 1 && $unseen > 0) {
             $unseen_string = "($unseen)";
             $unseen_found = true;
@@ -62,7 +62,7 @@
             $unseen_found = true;
          }
       } else if ($unseen_notify == 3) {
-	      $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+	 $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
          if ($unseen_type == 1 && $unseen > 0) {
             $unseen_string = "($unseen)";
             $unseen_found = true;
@@ -72,17 +72,17 @@
             $unseen_found = true;
          }
       }
-
+      
       $line .= "<NOBR>";
       if ($unseen > 0)
          $line .= "<B>";
 
       $special_color = false;
-		if ((strtolower($real_box) == "inbox") ||
-		    (($real_box == $trash_folder) && ($move_to_trash)) ||
-			 (($real_box == $sent_folder) && ($move_to_sent)))
-			$special_color = true;
-
+      if ((strtolower($real_box) == "inbox") ||
+	  (($real_box == $trash_folder) && ($move_to_trash)) ||
+	  (($real_box == $sent_folder) && ($move_to_sent)))
+	 $special_color = true;
+      
       if ($special_color == true) {
          $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT COLOR=\"$color[11]\">";
          $line .= replace_spaces($mailbox);
@@ -95,7 +95,7 @@
 
       if ($unseen > 0)
          $line .= "</B>";
-
+      
       if ($unseen_found) {
          $line .= "&nbsp;<small>$unseen_string</small>";
       }
@@ -133,7 +133,7 @@
    for ($i = 0;$i < count($boxes); $i++) {
       $line = "";
       $mailbox = $boxes[$i]["formatted"];
-
+      
       if ($boxes[$i]["flags"]) {
          $noselect = false;
          for ($h = 0; $h < count($boxes[$i]["flags"]); $h++) {
@@ -142,7 +142,7 @@
          }
          if ($noselect == true) {
             $line .= "<FONT COLOR=\"$color[10]\">";
-            $line .= replace_spaces(readShortMailboxName($mailbox, $delimeter));
+            $line .= replace_spaces($mailbox);
             $line .= "</FONT>";
          } else {
             $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"]);

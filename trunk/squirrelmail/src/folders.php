@@ -70,7 +70,8 @@
 
    //display form option for creating Sent and Trash folder
    if ($imap_server_type == "cyrus" && ($sent_folder != "none" || $trash_folder != "none")) {
-      if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
+      if ((!sqimap_mailbox_exists ($imapConnection, $sent_folder)) || 
+	  (!sqimap_mailbox_exists ($imapConnection, $trash_folder))) {
          echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
          echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
          echo _("Special Folder Options");
@@ -107,9 +108,9 @@
       if (strtolower($boxes[$p]["unformatted"]) == "inbox")
          $count_special_folders++;
       else if (strtolower($imap_server_type) == "courier" &&
-               strtolower($boxes[$p]["unformatted"]) == "inbox.trash")                                                               
+               strtolower($boxes[$p]["unformatted"]) == "inbox.trash")
          $count_special_folders++;
-      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)                                                                  
+      else if ($boxes[$p]["unformatted"] == $trash_folder && $trash_folder)
          $count_special_folders++;
       else if ($boxes[$p]["unformatted"] == $sent_folder && $sent_folder)
          $count_special_folders++;
@@ -120,16 +121,16 @@
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-        if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&                                                                             
-            ($boxes[$i]["unformatted"] != $trash_folder) && 
-            ($boxes[$i]["unformatted"] != $sent_folder) &&
-            (strtolower($imap_server_type) != "courier" ||
-             strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))                                                              
-          {
-            $box = $boxes[$i]["unformatted-dm"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
+	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
+	     ($boxes[$i]["unformatted"] != $trash_folder) && 
+	     ($boxes[$i]["unformatted"] != $sent_folder) &&
+	     (strtolower($imap_server_type) != "courier" ||
+	      strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))
+	    {
+	       $box = $boxes[$i]["unformatted-dm"];
+	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       echo "         <OPTION VALUE=\"$box\">$box2\n";
+	    }
       }
       echo "</SELECT></TT>\n";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
@@ -217,15 +218,15 @@
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
 
-			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
-			    ($boxes[$i]["unformatted"] != $trash_folder)  &&
-			    ($boxes[$i]["unformatted"] != $sent_folder)) 
-			{	
-            $box = $boxes[$i]["unformatted-dm"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
-            if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
-               echo "<OPTION VALUE=\"$box\">$box2\n";
-         }
+	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
+	     ($boxes[$i]["unformatted"] != $trash_folder)  &&
+	     ($boxes[$i]["unformatted"] != $sent_folder)) 
+	    {	
+	       $box = $boxes[$i]["unformatted-dm"];
+	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
+		  echo "<OPTION VALUE=\"$box\">$box2\n";
+	    }
       }
       echo "</SELECT></TT>\n";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
@@ -250,14 +251,14 @@
       echo "<TT><SELECT NAME=mailbox[] multiple size=8>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-			    ($boxes[$i]["unformatted"] != $trash_folder) &&
-			    ($boxes[$i]["unformatted"] != $sent_folder)) 
-			{	
-            $box = $boxes[$i]["unformatted-dm"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
-         }
+	 if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
+	     ($boxes[$i]["unformatted"] != $trash_folder) &&
+	     ($boxes[$i]["unformatted"] != $sent_folder)) 
+	    {	
+	       $box = $boxes[$i]["unformatted-dm"];
+	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       echo "         <OPTION VALUE=\"$box\">$box2\n";
+	    }
       }
       echo "</SELECT></TT><br>\n";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
@@ -276,25 +277,25 @@
    $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
    $boxes_all = sqimap_mailbox_list_all ($imap_stream);
 
-      $box = "";
-      $box2 = "";
-      for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
-         $use_folder = true;
-			for ($p = 0; $p < count ($boxes); $p++) {
-				if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
-					$use_folder = false;
-					continue;
-				} else if ($boxes_all[$i]["unformatted-dm"] == $folder_prefix) {
-					$use_folder = false;
-				}
-			}
-			if ($use_folder == true) {	
-            $box[$q] = $boxes_all[$i]["unformatted-dm"];
-            $box2[$q] = $boxes_all[$i]["formatted"];
-            $q++;
-         }
+   $box = "";
+   $box2 = "";
+   for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
+      $use_folder = true;
+      for ($p = 0; $p < count ($boxes); $p++) {
+	 if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
+	    $use_folder = false;
+	    continue;
+	 } else if ($boxes_all[$i]["unformatted-dm"] == $folder_prefix) {
+	    $use_folder = false;
+	 }
       }
-      sqimap_logout($imap_stream);
+      if ($use_folder == true) {	
+	 $box[$q] = $boxes_all[$i]["unformatted-dm"];
+	 $box2[$q] = $boxes_all[$i]["unformatted"];
+	 $q++;
+      }
+   }
+   sqimap_logout($imap_stream);
 
    if ($box && $box2) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=sub\" METHOD=\"POST\">\n";

@@ -48,13 +48,12 @@
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=\"folders_rename_do.php\" METHOD=\"POST\">\n";
    echo _("New name:");
-   echo " &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
+   echo "<br><B>$old_parent . </B><INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
    if ($isfolder)
       echo "<INPUT TYPE=HIDDEN NAME=isfolder VALUE=\"true\">";
-   echo "<INPUT TYPE=HIDDEN NAME=orig VALUE=\"$old\">";
-   echo "<INPUT TYPE=SUBMIT VALUE=\"";
-   echo _("Submit");
-   echo "\">\n";
+   printf("<INPUT TYPE=HIDDEN NAME=orig VALUE=\"%s\">\n", $old);
+   printf("<INPUT TYPE=HIDDEN NAME=old_name VALUE=\"%s\">\n", $old_name);
+   echo "<INPUT TYPE=SUBMIT VALUE=\""._("Submit")."\">\n";
    echo "</FORM><BR></TD></TR>";
    echo "</TABLE>";
 
