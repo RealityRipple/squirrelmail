@@ -15,7 +15,7 @@
     global $username, $data_dir;
 
 
-    $SQSPELL_APP = array( 'English' => 'ispell -a' );
+    $SQSPELL_APP = array( 'English' => 'ispell -d spanish -a' );
     $SQSPELL_APP_DEFAULT = 'English';
     $SQSPELL_WORDS_FILE = "$data_dir/$username.words";
     $SQSPELL_EREG = 'ereg';

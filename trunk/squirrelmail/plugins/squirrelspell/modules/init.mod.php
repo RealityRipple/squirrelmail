@@ -16,29 +16,27 @@
   // only one dictionary defined by the users. Submit the form
   // automatically.
   $onload="sqspell_init(true)";
-  $msg .= "Please wait, communicating with the server...</p>
-     <input type=\"hidden\" name=\"sqspell_use_app\" value=\"$langs[0]\">
-  ";
+  $msg .= _("Please wait, communicating with the server...") .
+          '</p>'.
+          "<input type=\"hidden\" name=\"sqspell_use_app\" value=\"$langs[0]\">";
  } else {
   // more than one dictionary. Let the user choose the dictionary first
   // then manually submit the form.
   $onload="sqspell_init(false)";
-  $msg .= "Please choose which dictionary you would like to use to spellcheck this
-     message:</p>
-     <p align=\"center\">
-      <select name=\"sqspell_use_app\">
-  ";
+  $msg .= _("Please choose which dictionary you would like to use to spellcheck this message:").
+         '</p><p align="center">' .
+         '<select name="sqspell_use_app">';
   for ($i=0; $i<sizeof($langs); $i++){
    $msg .= "<option";
    if (!$i) $msg .= " selected";
    $msg .= ">$langs[$i]</option>\n";
   }
-   
+
   $msg .= " </select>
       <input type=\"submit\" value=\"Go\">
      </p>
   ";
  }
  $msg .="</form>\n";
- sqspell_makeWindow($onload, "SquirrelSpell Initiating", "init.js", $msg);
-?> 
+ sqspell_makeWindow($onload, _("SquirrelSpell Initiating"), "init.js", $msg);
+?>
