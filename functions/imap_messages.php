@@ -299,6 +299,18 @@ function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
 }
 
 /****************************************************************************
+ **  Wrapper function that reformats the entity header information.
+ ****************************************************************************/
+function sqimap_get_ent_header ($imap_stream, $id, $mailbox, $ent) {
+    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.HEADER]", true, $response, $message);
+    $header = sqimap_get_header($imap_stream, $read); 
+    $header->id = $id;
+    $header->mailbox = $mailbox;
+    return $header;
+}
+
+
+/****************************************************************************
  **  Wrapper function that returns entity headers for use by decodeMime
  ****************************************************************************/
 /*
