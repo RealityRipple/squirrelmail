@@ -493,6 +493,7 @@
                if ($message->header->description)
                   $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
                $body .= "&nbsp;(<a href=\"../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     
+               do_hook("attachment $type0/$type1");
                $body .= "</TT><BR>";
                $num++;
             }
