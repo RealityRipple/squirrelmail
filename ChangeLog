@@ -4,6 +4,7 @@
 
 Version 1.2.6 -- CVS
 --------------------
+  - PostgreSQL is now supported for database backed use
   - Added user option to sort messages by internal date
   - Changed attachment handling now attachments are adressed to 
     unique compose session.
