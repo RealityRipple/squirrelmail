@@ -192,10 +192,10 @@
 
    function showInputForm () {
       global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
-         $passed_body, $color, $use_signature, $signature, $editor_size,
-         $attachments, $subject, $newmail, $use_javascript_addr_book,
-         $send_to_bcc, $reply_id, $mailbox, $from_htmladdr_search,
-         $location_of_buttons;
+         $passed_body, $color, $use_signature, $signature, $prefix_sig, 
+         $editor_size, $attachments, $subject, $newmail, 
+         $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox, 
+         $from_htmladdr_search, $location_of_buttons;
 
       $subject = decodeHeader($subject);
       $reply_subj = decodeHeader($reply_subj);
@@ -280,7 +280,10 @@
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
       echo htmlspecialchars($body);
       if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
-         echo "\n\n-- \n" . htmlspecialchars($signature);
+        if ( $prefix_sig == true )
+          echo "\n\n-- \n" . htmlspecialchars($signature);
+        else
+          echo "\n\n" . htmlspecialchars($signature);
       }
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";

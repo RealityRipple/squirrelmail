@@ -67,12 +67,15 @@
             </td><td>
 <?php
    if ($use_signature == true)
-      echo '<input type=checkbox value="1" name=usesignature checked>&nbsp;&nbsp;' . _("Use a signature") . "?<BR>";
-   else {
-      echo '<input type=checkbox value="1" name=usesignature>&nbsp;&nbsp;';
-      echo _("Use a signature?");
-      echo '<BR>';
-   } 
+      echo '<input type=checkbox value="1" name=usesignature checked>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
+   else
+      echo '<input type=checkbox value="1" name=usesignature>&nbsp;&nbsp;' . _("Use a signature?") . '&nbsp;&nbsp;';
+  if ( $prefix_sig == true )
+    echo '<input type="checkbox" value="1" name="prefixsig" checked>&nbsp;&nbsp;
+' . _( "Prefix signature with '--' ?" ) . '<BR>';
+  else
+    echo '<input type="checkbox" value="1" name="prefixsig">&nbsp;&nbsp;' . _( "
+Prefix signature with '--' ?" ) . '<BR>';
    echo "\n<textarea name=\"signature_edit\" rows=\"5\" cols=\"50\">$signature_abs</textarea><br>";
 ?>
             </td>
