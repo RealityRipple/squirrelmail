@@ -76,7 +76,7 @@ $translate_same_window = getPref($data_dir, $username, 'translate_same_window');
    </td></tr></table>
 
     <?php if (sqgetGlobalVar('submit_translate',$tmp,SQ_POST)) {
-        print "<center><h4>"._("Saved Translation Options")."</h4></center>\n";
+        print '<center><h4>'._("Saved Translation Options")."</h4></center>\n";
     }?>
 
    <p><?php echo _("Your server options are as follows:"); ?></p>
@@ -91,7 +91,7 @@ $translate_same_window = getPref($data_dir, $username, 'translate_same_window');
    echo _("You also decide if you want the translation box displayed, and where it will be located.") .
         '<form action="'.$PHP_SELF.'" method="post">'.
         '<table border="0" cellpadding="0" cellspacing="2">'.
-            '<tr><td align="right" nowrap>' .
+            '<tr><td align="right" nowrap="nowrap">' .
              _("Select your translator:") .
              '</td>'.
             '<td><select name="translate_translate_server">';

@@ -37,8 +37,8 @@ function squirrelmail_plugin_init_translate() {
 //  $squirrelmail_plugin_hooks['compose_button_row']['translate'] = 'translate_button';
 }
 
-/** 
- * Shows translation box in message display window 
+/**
+ * Shows translation box in message display window
  * @access private
  */
 function translate_read_form() {
