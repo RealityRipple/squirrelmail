@@ -157,13 +157,13 @@
         if (isset($filters[$i + 1])) {
             echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
             if ($i > 0) {
-                echo ' | ';
+                echo '&nbsp;|&nbsp;';
             }
         }
         if ($i > 0) {
             echo "<a href=\"options.php?theid=$i&action=move_up\">" . _("Up") . '</a>';
         }
-        echo ']</small></td><td> - ';
+        echo ']</small></td><td>-</td><td>';
         printf( _("If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"), _($filters[$i]['where']), $filters[$i]['what'], $fdr );
         echo '</td></tr>';
 
