@@ -43,8 +43,8 @@
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
          $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc;
 
-      $send_to = decodeHeader($send_to);
-      $send_to_cc = decodeHeader($send_to_cc);
+      $send_to = stripslashes(decodeHeader($send_to));
+      $send_to_cc = stripslashes(decodeHeader($send_to_cc));
 
       if ($forward_id)
          $id = $forward_id;
@@ -75,7 +75,7 @@
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
             if ($i==0 && $forward_id) {
-               $tmp = _("-------- Original Message ---------\n");
+               $tmp = "-------- " . _("Original Message") . " --------";
                $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
                $tmp .= "   " . _("From") . ": " . $orig_header->from . "\n"; 
                $tmp .= "     " . _("To") . ": " . $orig_header->to[0] . "\n"; 
@@ -96,13 +96,12 @@
          return $body;   
       }
 
+      $send_to = stripslashes($send_to);
+      
       if (!$send_to) {
          $send_to = sqimap_find_email($send_to);
       }
 
-//      $send_to = ereg_replace("\"", "", $send_to);
-      $send_to = stripslashes($send_to);
-      
       /** This formats a CC string if they hit "reply all" **/
       if ($send_to_cc != "") {
          $send_to_cc = ereg_replace(";", ",", $send_to_cc);
@@ -152,7 +151,7 @@
          echo "// --></SCRIPT>\n\n";
       }
 
-      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }		 
@@ -251,8 +250,8 @@
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
       echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
-      echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"\n";
-      echo "      value=\"" . _("Add") ."\">\n";
+      echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
+      echo " value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
       echo "   </tr>\n";
       if (isset($attachments) && count($attachments)>0) {
