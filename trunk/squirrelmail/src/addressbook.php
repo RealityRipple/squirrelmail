@@ -309,12 +309,14 @@ if ($showaddrlist) {
                  '&nbsp;</TD>' .
                  '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' . $row['name'] .
                  '&nbsp;</TD>',
-                 '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;' .
-                 '<A HREF="compose.php?send_to=' . rawurlencode($row['email']);
+                 '<TD VALIGN=top NOWRAP WIDTH="1%">&nbsp;'; 
                 if ($compose_new_win == '1') {
-                     echo '" TARGET="compose_window" onClick="comp_in_new()"';
+                    echo '<a href="javascript:void(0)" onclick=comp_in_new(false,"compose.php?send_to='.rawurlencode($row['email']).'")>';
                 }
-                echo '">' . $row['email'] . '</A>&nbsp;</TD>'."\n",
+                else {
+                 echo '<A HREF="compose.php?send_to=' . rawurlencode($row['email']).'">';
+                }
+                echo $row['email'] . '</A>&nbsp;</TD>'."\n",
                  '<TD VALIGN=top WIDTH="1%">&nbsp;' . $row['label'] . '&nbsp;</TD>' .
                  "</TR>\n";
             $line++;
