@@ -193,21 +193,9 @@
       echo _("BCC:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($send_to_bcc)
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" VALUE=\"$send_to_bcc\" SIZE=55><BR>\n";
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" VALUE=\"$send_to_bcc\" SIZE=60><BR>\n";
       else
-         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" SIZE=55><BR>";
-      echo "      </TD>\n";
-      echo "<TD width=\"1%\" BGCOLOR=\"$color[4]\" ALIGN=Right>";
-      
-      if ($use_javascript_addr_book) {
-         echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
-         echo "<input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
-         echo "// --></SCRIPT><NOSCRIPT>\n";
-         echo "<input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-         echo "</NOSCRIPT>\n";
-      } else {  
-         echo "<input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-      }   
+         echo "         <INPUT TYPE=TEXT NAME=\"send_to_bcc\" SIZE=60><BR>";
       
       echo "</TD></TR>\n";
 
@@ -221,7 +209,7 @@
          $reply_subj = trim($reply_subj);
          if (substr(strtolower($reply_subj), 0, 3) != "re:")
             $reply_subj = "Re: $reply_subj";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=55 VALUE=\"$reply_subj\">";
+         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$reply_subj\">";
       } else if ($forward_subj) {
          $forward_subj = str_replace("\"", "'", $forward_subj);
          $forward_subj = stripslashes($forward_subj);
@@ -230,14 +218,26 @@
              (substr(strtolower($forward_subj), 0, 5) != "[fwd:") &&
              (substr(strtolower($forward_subj), 0, 6) != "[ fwd:"))
             $forward_subj = "[Fwd: $forward_subj]";
-         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=55 VALUE=\"$forward_subj\">";
+         echo "         <INPUT TYPE=TEXT NAME=subject SIZE=60 VALUE=\"$forward_subj\">";
       } else {
-         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=55>";
+         echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=60>";
       }
-      echo "</td><td align=right>";
-      echo "<INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">";
-      echo "      </TD>\n";
-      echo "   </TR>\n";
+      echo "</td></tr>\n\n";
+
+      echo "   <TR><td>\n   </td><td>\n";
+      if ($use_javascript_addr_book) {
+         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
+         echo "         <input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
+         echo "         // --></SCRIPT><NOSCRIPT>\n";
+         echo "         <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
+         echo "      </NOSCRIPT>\n";
+      } else {  
+         echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
+      }   
+      echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
+      echo "   </TD>\n";
+      echo "   </TR>\n\n";
+
 
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=3>\n";

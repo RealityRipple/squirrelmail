@@ -146,6 +146,7 @@
       $inbox_subscribed = false;
       fputs ($imap_stream, "a001 LSUB \"\" \"*\"\r\n");
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+   
       for ($i=0;$i < count($lsub_ary); $i++) {
          $sorted_lsub_ary[$i] = find_mailbox_name($lsub_ary[$i]);
          if ($sorted_lsub_ary[$i] == "INBOX")
