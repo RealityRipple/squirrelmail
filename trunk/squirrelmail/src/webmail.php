@@ -103,7 +103,7 @@ else {
     echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">'.
          "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
 }
-
+do_hook('webmail_bottom');
 ?>
 </FRAMESET>
 </HEAD></HTML>
