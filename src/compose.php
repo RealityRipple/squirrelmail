@@ -372,6 +372,9 @@ if ($send) {
          * Rewrap $body so that no line is bigger than $editor_size
          * This should only really kick in the sqWordWrap function
          * if the browser doesn't support "VIRTUAL" as the wrap type.
+         *
+         * (braverock:) It is unclear if this code should be replaced
+         * with sqBodyWrap or removed entirely.
          */
         $body = explode("\n", $body);
         $newBody = '';
@@ -386,7 +389,6 @@ if ($send) {
                 $newBody .= $line . "\n";
 
             }
-
         }
         $body = $newBody;
 
@@ -790,14 +792,12 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             /* this corrects some wrapping/quoting problems on replies */
             $rewrap_body = explode("\n", $body);
             $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
-            sqUnWordWrap($body);    // unwrap and then reset it?!
             $body = '';
             $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
             foreach ($rewrap_body as $line) {
                 if ($strip_sigs && substr($line,0,3) == '-- ') {
             break;
                 }
-                sqWordWrap($line, ($editor_size));
                 if (preg_match("/^(>+)/", $line, $matches)) {
                     $gt = $matches[1];
                     $body .= $body_quote . str_replace("\n", "\n$body_quote$gt ", rtrim($line)) ."\n";
@@ -805,6 +805,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $body .= $body_quote . (!empty($body_quote) ? ' ' : '') . str_replace("\n", "\n$body_quote" . (!empty($body_quote) ? ' ' : ''), rtrim($line)) . "\n";
                 }
             }
+
+            //rewrap the body to clean up quotations and line lengths
+            $body = sqBodyWrap ($body, $editor_size);
+
             $body = getReplyCitation($from , $orig_header->date) . $body;
             $composeMessage->reply_rfc822_header = $orig_header;
 
