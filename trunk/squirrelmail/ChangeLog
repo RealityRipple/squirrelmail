@@ -70,6 +70,8 @@ Version 1.5.1 -- CVS
   - Security: fix SQL injection vulnerability in addressbook
     (CVE ID: CAN-2004-0521).
   - Removed html_top and html_bottom hooks.  No longer used/needed.
+  - Added "trailing text" for options built by SquirrelMail (text placed
+    after text and select list inputs on options pages)
 
 Version 1.5.0
 --------------------

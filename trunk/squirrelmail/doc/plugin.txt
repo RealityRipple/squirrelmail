@@ -598,6 +598,9 @@ for you.  This is the preferred method of building options lists going forward.
                         setting in the user's preferences
          caption        The text that prefaces this setting on the preferences
                         page
+         trailing_text  Text that follows a text input or select list input on
+                        the preferences page (useful for indicating units,
+                        meanings of special values, etc.)
          type           The type of INPUT element, which should be one of:
                            SMOPT_TYPE_STRING     String/text input
                            SMOPT_TYPE_STRLIST    Select list input

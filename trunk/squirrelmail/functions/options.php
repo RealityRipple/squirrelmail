@@ -62,6 +62,7 @@ class SquirrelOption {
     var $type;
     var $refresh_level;
     var $size;
+    var $trailing_text;
     var $comment;
     var $script;
     var $post_script;
@@ -83,6 +84,7 @@ class SquirrelOption {
         $this->refresh_level = $refresh_level;
         $this->possible_values = $possible_values;
         $this->size = SMOPT_SIZE_MEDIUM;
+        $this->trailing_text = '';
         $this->comment = '';
         $this->script = '';
         $this->post_script = '';
@@ -122,6 +124,11 @@ class SquirrelOption {
     /* Set the size for this option. */
     function setSize($size) {
         $this->size = $size;
+    }
+
+    /* Set the trailing_text for this option. */
+    function setTrailingText($trailing_text) {
+        $this->trailing_text = $trailing_text;
     }
 
     /* Set the comment for this option. */
@@ -210,7 +217,7 @@ class SquirrelOption {
 
         $result = "<input type=\"text\" name=\"new_$this->name\" value=\"" .
             htmlspecialchars($this->value) . 
-            "\" size=\"$width\" $this->script />\n";
+            "\" size=\"$width\" $this->script />$this->trailing_text\n";
         return ($result);
     }
 
@@ -237,7 +244,7 @@ class SquirrelOption {
         }
 
         /* Close the select tag and return our happy result. */
-        $result .= "</select>\n";
+        $result .= "</select>$this->trailing_text\n";
         return ($result);
     }
 
@@ -434,6 +441,11 @@ function create_option_groups($optgrps, $optvals) {
             /* If provided, set the size for this option. */
             if (isset($optset['size'])) {
                 $next_option->setSize($optset['size']);
+            }
+
+            /* If provided, set the trailing_text for this option. */
+            if (isset($optset['trailing_text'])) {
+                $next_option->setTrailingText($optset['trailing_text']);
             }
 
             /* If provided, set the comment for this option. */
