@@ -72,12 +72,8 @@
     
       do_hook("options_display_save");
 
-      echo "<center><table width=90% cellpadding=2 cellspacing=0 border=0 bgcolor=\"$color[2]\"><tr><td>";
-      ecHO "<table width=100% cellpadding=5 cellspacing=0 border=0 bgcolor=\"$color[4]\"><tr><td>";
       echo "<br><center><b>"._("Successfully saved display preferences!")."</b><br>";
-      echo "<a href=\"webmail.php?right_frame=options.php\" target=_top>"._("Refresh Page")."</a></center><br>";
-      echo "</td></tr></table>";
-      echo "</td></tr></table></center>";
+      echo "<a href=\"../src/webmail.php\" target=_top>" . _("Refresh Page") . "</a></center><br>";
    } else if ($submit_folder) { 
       # Save folder preferences
       if ($trash != "none") {
@@ -98,12 +94,8 @@
       setPref($data_dir, $username, "unseen_notify", $unseennotify);
       setPref($data_dir, $username, "unseen_type", $unseentype);
       do_hook("options_folders_save");
-      echo "<center><table width=90% cellpadding=2 cellspacing=0 border=0 bgcolor=\"$color[2]\"><tr><td>";
-      ecHO "<table width=100% cellpadding=5 cellspacing=0 border=0 bgcolor=\"$color[4]\"><tr><td>";
       echo "<br><center><b>"._("Successfully saved folder preferences!")."</b><br>";
-      echo "<a href=\"left_main.php\" target=left>"._("Refresh Folders")."</a></center><br>";
-      echo "</td></tr></table>";
-      echo "</td></tr></table></center>";
+      echo "<a href=\"../src/left_main.php\" target=left>" . _("Refresh Folder List") . "</a></center><br>";
    } else {
       do_hook("options_save");
    }

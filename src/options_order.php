@@ -85,31 +85,37 @@
          setPref($data_dir, $username, "order$i", $index_order[$i]);
       }
    }
+   echo "<center>";
+   echo "<table cellspacing=0 cellpadding=0 border=0 width=65%><tr><td>\n";
+   echo _("The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs.");
+   echo "</td></tr></table></center><br>";
 
    if (count($index_order))
    {
+      echo "<center>";
       echo "<table cellspacing=0 cellpadding=0 border=0>\n";
       for ($i=1; $i <= count($index_order); $i++) {
          $tmp = $index_order[$i];
          echo "<tr>";
-         echo "<td><small><a href=\"options_order.php?method=up&num=$i\">up</a></small></td>\n";
+         echo "<td><small><a href=\"options_order.php?method=up&num=$i\">". _("up") ."</a></small></td>\n";
          echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
-         echo "<td><small><a href=\"options_order.php?method=down&num=$i\">down</a></small></td>\n";
+         echo "<td><small><a href=\"options_order.php?method=down&num=$i\">". _("down") . "</a></small></td>\n";
          echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
          echo "<td>";
          // Always show the subject
          if ($tmp != 4)
-            echo "<small><a href=\"options_order.php?method=remove&num=$i\">remove</a></small>";
+            echo "<small><a href=\"options_order.php?method=remove&num=$i\">" . _("remove") . "</a></small>";
          echo "</td>\n";
          echo "<td><small>&nbsp;-&nbsp;</small></td>\n";
          echo "<td>" . $available[$tmp] . "</td>\n";
          echo "</tr>\n";
       }
       echo "</table>\n";
+      echo "</center>";
    }
    
    if (count($index_order) != count($available)) {
-   echo "<form name=f method=post action=options_order.php>";
+   echo "<center><form name=f method=post action=options_order.php>";
    echo "<select name=add>";
    for ($i=1; $i <= count($available); $i++) {
       $found = false;
@@ -125,8 +131,10 @@
    echo "</select>";
    echo "<input type=hidden value=add name=method>";
    echo "<input type=submit value=\""._("Add")."\" name=submit>";
-   echo "</form>";
+   echo "</form></center>";
    }
+
+   echo "<br><center><a href=\"../src/options.php\">" . _("Return to options page") . "</a></center>";
 
 ?>
    </td></tr></table>
