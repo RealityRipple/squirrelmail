@@ -289,78 +289,84 @@ function ListBoxes ($boxes, $j=0 ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
            $move_to_trash, $trash_folder, $collapse_folders, $imapConnection;
 
+    if (!isset($boxes) || empty($boxes))
+        return;
+
     $pre = '<nobr>';
     $end = '';
     $collapse = false;
+    $unseen_found = false;
     $unseen = 0;
 
-    if (isset($boxes) && !empty($boxes)) {
-        $mailbox = $boxes->mailboxname_full;
-        $leader = '<tt>';
-        $leader .= str_repeat('&nbsp;&nbsp;',$j);
-        $mailboxURL = urlencode($mailbox);
+    $mailbox = $boxes->mailboxname_full;
+    $leader = '<tt>';
+    $leader .= str_repeat('&nbsp;&nbsp;',$j);
+    $mailboxURL = urlencode($mailbox);
 
-        /* get unseen/total messages information */
-        /* Only need to display info when option is set */
-        if (isset($unseen_notify) && ($unseen_notify > 1)) {
-                    
-            if ($boxes->unseen !== false) {
-                $unseen = $boxes->unseen; 
-            } else {        
-                $unseen = 0;
-            }   
-        
-            /* 
-                Should only display unseen info if the folder is inbox
-                or you set the option for all folders
+    /* get unseen/total messages information */
+    /* Only need to display info when option is set */
+    if (isset($unseen_notify) && ($unseen_notify > 1) &&
+        (($boxes->unseen !== false) || ($boxes->total !== false))) {
+
+        if ($boxes->unseen !== false)
+            $unseen = $boxes->unseen;
+
+        /*
+            Should only display unseen info if the folder is inbox
+            or you set the option for all folders
+        */
+
+        if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
+            $unseen_string = $unseen;
+
+            /* If users requests, display message count too */
+            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
+                $unseen_string .= '/' . $boxes->total;
+            }
+
+            $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
+
+            /*
+                Finally allow the script to display the values by setting a boolean.
+                This can only occur if the unseen count is great than 0 (if you have
+                unseen count only), or you have the message count too.
             */
-
-            if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
-                $unseen_string = $unseen;
-                        
-
-                /* If users requests, display message count too */
-                if (isset($unseen_type) && ($unseen_type == 2)) {
-                    $numMessages = $boxes->total;
-                    $unseen_string .= '/' . $numMessages;
-                }       
-                
-                $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
-            
-                /*
-                    Finally allow the script to display the values by setting a boolean.
-                    This can only occur if the unseen count is great than 0 (if you have
-                    unseen count only), or you have the message count too.
-                */
-                if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
-                    $unseen_found = true;
-                }
-        
-            }   
-        
-        }
-
-        if (isset($boxes->mbxs[0]) && $collapse_folders) {
-            $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
-            $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
-
-            $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
-            if ($collapse) {
-                $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
-            } else {
-                $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
+            if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
+                $unseen_found = true;
             }
-            $link .= '</a>';
-            $pre .= $link;
+        }
+    }
+
+    if (isset($boxes->mbxs[0]) && $collapse_folders) {
+        $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
+        $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
+
+        $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
+        if ($collapse) {
+            $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
         } else {
-            $pre.= $leader . '&nbsp;&nbsp;</tt>';
+            $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
         }
+        $link .= '</a>';
+        $pre .= $link;
+    } else {
+        $pre.= $leader . '&nbsp;&nbsp;</tt>';
+    }
 
-        /* If there are unseen message, bold the line. */
-        if (($move_to_trash) && ($mailbox == $trash_folder)) {
-            if (! isset($boxes->total)) {
-                $boxes->total = sqimap_status_messages($imapConnection, $mailbox);
-            }
+    /* If there are unseen message, bold the line. */
+    if (($move_to_trash) && ($mailbox == $trash_folder)) {
+        if (! isset($boxes->total)) {
+            $boxes->total = sqimap_status_messages($imapConnection, $mailbox);
+        }
+        if ($unseen > 0) {
+            $pre .= '<b>';
+        }
+        $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+        if ($unseen > 0) {
+            $end .= '</b>';
+        }
+        $end .= '</a>';
+        if ($boxes->total > 0) {
             if ($unseen > 0) {
                 $pre .= '<b>';
             }
@@ -368,58 +374,48 @@ function ListBoxes ($boxes, $j=0 ) {
             if ($unseen > 0) {
                 $end .= '</b>';
             }
-            $end .= '</a>';
-            if ($boxes->total > 0) {
-                if ($unseen > 0) {
-                    $pre .= '<b>';
-                }
-                $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-                if ($unseen > 0) {
-                    $end .= '</b>';
-                }
-                /* Print unseen information. */
-                if (isset($unseen_found) && $unseen_found) {
-                    $end .= "&nbsp;<small>$unseen_string</small>";
-                }
-                $end .= "\n<small>\n" .
-                        "&nbsp;&nbsp;(<a href=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</a>)" .
-                        "</small>";
-            }
-        } else {
-            if (!$boxes->is_noselect) {
-                if ($unseen > 0) {
-                    $pre .= '<b>';
-                }
-                $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
-                if ($unseen > 0) {
-                    $end .= '</b>';
-                }
-                $end .= '</a>';
-            }
             /* Print unseen information. */
-            if (isset($unseen_found) && $unseen_found) {
+            if ($unseen_found) {
                 $end .= "&nbsp;<small>$unseen_string</small>";
             }
-
+            $end .= "\n<small>\n" .
+                    "&nbsp;&nbsp;(<a href=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</a>)" .
+                    "</small>";
         }
-
-        $font = '';
-        $fontend = '';
-        if ($boxes->is_special) {
-            $font = "<font color=\"$color[11]\">";
-            $fontend = "</font>";
-        }
-        $end .= '</nobr>';
-
-        if (!$boxes->is_root) {
-            echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
-            $j++;
-        }
-
-        if (!$collapse || $boxes->is_root) {
-            for ($i = 0; $i <count($boxes->mbxs); $i++) {
-                listBoxes($boxes->mbxs[$i],$j);
+    } else {
+        if (!$boxes->is_noselect) {
+            if ($unseen > 0) {
+                $pre .= '<b>';
             }
+            $pre .= "<a href=\"right_main.php?PG_SHOWALL=0&amp;sort=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+            if ($unseen > 0) {
+                $end .= '</b>';
+            }
+            $end .= '</a>';
+        }
+        /* Print unseen information. */
+        if ($unseen_found) {
+            $end .= "&nbsp;<small>$unseen_string</small>";
+        }
+
+    }
+
+    $font = '';
+    $fontend = '';
+    if ($boxes->is_special) {
+        $font = "<font color=\"$color[11]\">";
+        $fontend = "</font>";
+    }
+    $end .= '</nobr>';
+
+    if (!$boxes->is_root) {
+        echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
+        $j++;
+    }
+
+    if (!$collapse || $boxes->is_root) {
+        for ($i = 0; $i <count($boxes->mbxs); $i++) {
+            listBoxes($boxes->mbxs[$i],$j);
         }
     }
 }
@@ -428,8 +424,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
            $move_to_trash, $trash_folder, $collapse_folders;
 
-    if (!$boxes)
-    	return;
+    if (!isset($boxes) || empty($boxes))
+        return;
 
     /* use_folder_images only works if the images exist in ../images */
     $use_folder_images = true;
@@ -443,13 +439,15 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $mailbox = $boxes->mailboxname_full;
     $mailboxURL = urlencode($mailbox);
 
+    /* get unseen/total messages information */
     /* Only need to display info when option is set */
-    if (isset($unseen_notify) && ($unseen_notify > 1) && (($boxes->unseen !== false) || ($boxes->total !== false))) {
+    if (isset($unseen_notify) && ($unseen_notify > 1) &&
+        (($boxes->unseen !== false) || ($boxes->total !== false))) {
 
         if ($boxes->unseen !== false)
             $unseen = $boxes->unseen;
 
-        /* 
+        /*
             Should only display unseen info if the folder is inbox
             or you set the option for all folders
         */
@@ -458,8 +456,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             $unseen_string = $unseen;
 
             /* If users requests, display message count too */
-            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false))
+            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false)) {
                 $unseen_string .= '/' . $boxes->total;
+            }
 
             $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
 
@@ -471,9 +470,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
             if (($unseen > 0) || (isset($unseen_type) && ($unseen_type ==2))) {
                 $unseen_found = true;
             }
-        
-        }   
-        
+        }
     }
 
     /* If there are unseen message, bold the line. */
@@ -489,8 +486,8 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     if ($unseen > 0) { $end .= '</b>'; }
 
     /* Print unseen information. */
-    if (isset($unseen_found) && $unseen_found) {
-            $end .= "&nbsp;$unseen_string";
+    if ($unseen_found) {
+        $end .= "&nbsp;$unseen_string";
     }
 
     if (($move_to_trash) && ($mailbox == $trash_folder)) {
@@ -514,45 +511,47 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
     if (!$boxes->is_root) {
         if ($use_folder_images) {
-          if ($boxes->is_inbox) {
-        $folder_img = '../images/inbox.png';
-          } else if ($boxes->is_sent) {
-        $folder_img = '../images/senti.png';
-          } else if ($boxes->is_trash) {
-        $folder_img = '../images/delitem.png';
-          } else if ($boxes->is_draft) {
-        $folder_img = '../images/draft.png';
-          } else if ($boxes->is_noinferiors) {
-        $folder_img = '../images/folder_noinf.png';
-          } else $folder_img = '../images/folder.png';
-          $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center" />&nbsp;';
-        } else $folder_img = '';
+            if ($boxes->is_inbox) {
+                $folder_img = '../images/inbox.png';
+            } else if ($boxes->is_sent) {
+                $folder_img = '../images/senti.png';
+            } else if ($boxes->is_trash) {
+                $folder_img = '../images/delitem.png';
+            } else if ($boxes->is_draft) {
+                $folder_img = '../images/draft.png';
+            } else if ($boxes->is_noinferiors) {
+                $folder_img = '../images/folder_noinf.png';
+            } else {
+                $folder_img = '../images/folder.png';
+            }
+            $folder_img = '&nbsp;<img src="'.$folder_img.'" height="15" valign="center" />&nbsp;';
+        } else {
+            $folder_img = '';
+        }
         if (!isset($boxes->mbxs[0])) {
             echo '   ' . html_tag( 'div',
                             '<tt>'. $pre . $folder_img . '</tt>'. $boxes->mailboxname_sub . $end,
                             'left', '', 'class="mbx_sub" id="' .$j. '"' ) . "\n";
-        }
-        else {
+        } else {
             /* get collapse information */
             if ($collapse_folders) {
                 $form_entry = $j.'F';
                 if (isset($mbx) && isset($mbx[$form_entry])) {
                     $collapse = $mbx[$form_entry];
                     setPref($data_dir, $username, 'collapse_folder_'.$boxes->mailboxname_full , $collapse ? SM_BOX_COLLAPSED : SM_BOX_UNCOLLAPSED);
-                }
-                else {
+                } else {
                     $collapse = getPref($data_dir, $username, 'collapse_folder_' . $mailbox);
                     $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
                 }
                 $img_src = ($collapse ? '../images/plus.png' : '../images/minus.png');
                 $collapse_link = '<a href="javascript:void(0)">'." <img src=\"$img_src\" border=\"1\" id=$j onclick=\"hidechilds(this)\" style=\"cursor:hand\" /></a>";
-             }
-             else
+            } else {
                  $collapse_link='';
-             echo '   ' . html_tag( 'div',
+            }
+            echo '   ' . html_tag( 'div',
                             $collapse_link . $pre . $folder_img . '&nbsp;'. $boxes->mailboxname_sub . $end ,
                             'left', '', 'class="mbx_par" id="' .$j. 'P"' ) . "\n";
-             echo '   <input type="hidden" name="mbx['.$j. 'F]" value="'.$collapse.'" id="mbx['.$j.'F]" />'."\n";
+            echo '   <input type="hidden" name="mbx['.$j. 'F]" value="'.$collapse.'" id="mbx['.$j.'F]" />'."\n";
         }
     }
 
@@ -624,10 +623,12 @@ if (isset($left_refresh) && ($left_refresh != '') &&
 
 /* set this to true if you want to see a nicer mailboxtree */
 if (! isset($advanced_tree) || $advanced_tree=="" ) {
-         $advanced_tree=false; }
+    $advanced_tree=false;
+}
 /* default SM behaviour */
 if (! isset($oldway) || $oldway=="" ) {
-         $oldway=false; }
+    $oldway=false;
+}
 
 if ($advanced_tree) {
 $xtra .= <<<ECHO
@@ -890,9 +891,6 @@ $xtra .= <<<ECHO
 ECHO;
 
 }
-
-
-
 
 displayHtmlHeader( 'SquirrelMail', $xtra );
 
