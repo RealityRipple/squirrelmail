@@ -78,11 +78,14 @@
    $use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
 
    /** Load the user's sent folder preferences **/
-   global $move_to_sent, $move_to_trash;
+   global $move_to_sent, $move_to_trash, $save_as_draft;
    $move_to_sent = getPref($data_dir, $username, 'move_to_sent', $default_move_to_sent);
 
    /** Load the user's trash folder preferences **/
    $move_to_trash = getPref($data_dir, $username, 'move_to_trash', $default_move_to_trash);
+
+   /** Load the user's draft folder preferences **/
+   $save_as_draft = getPref($data_dir, $username, 'save_as_draft', TRUE);
 
    global $unseen_type, $unseen_notify;
    if ($default_unseen_type == '')
@@ -96,7 +99,7 @@
    $folder_prefix = getPref($data_dir, $username, 'folder_prefix', $default_folder_prefix);
 
    /** Load special folders **/
-   global $trash_folder, $sent_folder;
+   global $trash_folder, $sent_folder, $draft_folder;
    $new_trash_folder = getPref($data_dir, $username, 'trash_folder');
    if ( ( $new_trash_folder == '' ) && ( $move_to_trash ) ) {
       $trash_folder = $folder_prefix . $trash_folder;
@@ -110,6 +113,14 @@
       $sent_folder = $folder_prefix . $sent_folder;
    } else {
       $sent_folder = $new_sent_folder;
+   }
+
+  /** Load special folders **/
+   $new_drafts_folder = getPref($data_dir, $username, 'draft_folder');
+   if ( ($new_drafts_folder == '') && ($save_as_draft ) ) {
+      $draft_folder = $folder_prefix . $draft_folder;
+   } else {
+      $draft_folder = $new_drafts_folder;
    }
 
    global $show_num, $wrap_at, $left_size;
