@@ -29,10 +29,6 @@
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
 
-   include("../src/load_prefs.php");
-
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   echo "<FONT FACE=\"Arial,Helvetica\">";
    /////////////////////////////////////////////////////////////////////////////////
    //
    // incoming variables from URL:
@@ -50,6 +46,12 @@
 
    // open a connection on the imap port (143)
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
+
+   /** If it was a successful login, lets load their preferences **/
+   include("../src/load_prefs.php");
+   checkForPrefs($data_dir, $username);
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
 
    // If the page has been loaded without a specific mailbox,
    //    just show a page of general info.
