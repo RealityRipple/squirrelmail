@@ -139,7 +139,7 @@ function load_optpage_data_folder() {
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'unseen_notify',
-        'caption' => _("Enable Unseen Message Notification"),
+        'caption' => _("Enable Unread Message Notification"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array(SMPREF_UNSEEN_NONE  => _("No Notification"),
@@ -149,7 +149,7 @@ function load_optpage_data_folder() {
 
     $optvals[SMOPT_GRP_FOLDERLIST][] = array(
         'name'    => 'unseen_type',
-        'caption' => _("Unseen Message Notification Type"),
+        'caption' => _("Unread Message Notification Type"),
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array(SMPREF_UNSEEN_ONLY  => _("Only Unseen"),
