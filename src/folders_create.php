@@ -4,17 +4,7 @@
    include("../functions/page_header.php");
    include("../functions/imap.php");
 
-   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
-   if (!$imapConnection) {
-      echo "Error connecting to IMAP Server.<br>";
-      echo "$errorNumber : $errorString<br>";
-      exit;
-   }
-   $serverInfo = fgets($imapConnection, 256);
-
-   fputs($imapConnection, "1 login $username $key\n");
-   $read = fgets($imapConnection, 1024);
-   echo $read;
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    if ($subfolder == "INBOX")
       fputs($imapConnection, "1 create \"user.$username.$folder_name\"\n");

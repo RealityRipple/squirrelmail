@@ -47,21 +47,7 @@
 
 
    // open a connection on the imap port (143)
-   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
-   if (!$imapConnection) {
-      echo "Error connecting to IMAP Server.<br>";
-      echo "$errorNumber : $errorString<br>";
-      exit;
-   }
-   $serverInfo = fgets($imapConnection, 256);
-
-   // login
-   fputs($imapConnection, "1 login $username $key\n");
-   $read = fgets($imapConnection, 1024);
-   if (strpos($read, "NO")) {
-      error_username_password_incorrect();
-      exit;
-   }
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    // If the page has been loaded without a specific mailbox,
    //    just show a page of general info.

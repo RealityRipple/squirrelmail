@@ -39,16 +39,7 @@
    include("../functions/imap.php");
 
    // open a connection on the imap port (143)
-   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
-   if (!$imapConnection) {
-      echo "Error connecting to IMAP Server.<br>";
-      echo "$errorNumber : $errorString<br>";
-      exit;
-   }
-   $serverInfo = fgets($imapConnection, 256);
-
-   fputs($imapConnection, "1 login $username $key\n");
-   $read = fgets($imapConnection, 1024);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    fputs($imapConnection, "1 list \"\" *\n");
    $str = imapReadData($imapConnection);

@@ -31,6 +31,28 @@
       return strrev($temp);
    }
 
+   // handles logging onto an imap server.
+   function loginToImapServer($username, $key, $imapServerAddress) {
+      $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
+      if (!$imapConnection) {
+         echo "Error connecting to IMAP Server.<br>";
+         echo "$errorNumber : $errorString<br>";
+         exit;
+      }
+      $serverInfo = fgets($imapConnection, 256);
+ 
+      // login
+      fputs($imapConnection, "1 login $username $key\n");
+      $read = fgets($imapConnection, 1024);
+ 
+      if (strpos($read, "NO")) {
+         error_username_password_incorrect();
+         exit;
+      }
+      
+      return $imapConnection;
+   }
+
    /** must be sent in the form:  user.<USER>.<FOLDER> **/
    function createFolder($imapConnection, $folder) {
       fputs($imapConnection, "1 create \"$folder\"\n");

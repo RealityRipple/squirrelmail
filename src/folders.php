@@ -13,16 +13,7 @@
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
-   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
-   if (!$imapConnection) {
-      echo "Error connecting to IMAP Server.<br>";
-      echo "$errorNumber : $errorString<br>";
-      exit;
-   }
-   $serverInfo = fgets($imapConnection, 256);
-
-   fputs($imapConnection, "1 login $username $key\n");
-   $read = fgets($imapConnection, 1024);
+   $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    fputs($imapConnection, "1 list \"\" *\n");
    $str = imapReadData($imapConnection);
