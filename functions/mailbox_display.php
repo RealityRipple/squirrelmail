@@ -687,7 +687,7 @@
 
         /* Page selector block. Following code computes page links. */
         $mMore = '';
-        if (!getPref($data_dir, $username, 'page_selector')
+        if (getPref($data_dir, $username, 'page_selector')
                && ($num_msgs > $show_num)) {
             $j = intval( $num_msgs / $show_num );  // Max pages
             $k = max( 1, $j / getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX ) );
