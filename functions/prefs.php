@@ -145,6 +145,10 @@ function computeHashDirs($username) {
     return ($hash_dirs);
 }
 
+/**
+ * FIXME: Undocumented function
+ * @access private
+ */
 function checkForJavascript($reset = FALSE)
 {
   global $data_dir, $username, $javascript_on, $javascript_setting;
