@@ -108,16 +108,15 @@
                break;
             case 4: # subject
                echo "   <td bgcolor=$hlt_color>$bold";
-	       if (! isset($search_stuff))
-	           $search_stuff = '';
-	       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
-	       do_hook("subject_link");
-	       echo ">$flag";
-	       if (strlen($subject) > 55)
-	           echo substr($subject, 0, 50) . '...';
-	       else
-   	           echo $subject;
-	       echo "$flag_end</a>$bold_end</td>\n";
+	           if (! isset($search_stuff)) { $search_stuff = ''; }
+               echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
+               do_hook("subject_link");
+               echo ">$flag";
+               if (strlen($subject) > 55)
+                   echo substr($subject, 0, 50) . '...';
+               else
+                      echo $subject;
+               echo "$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;

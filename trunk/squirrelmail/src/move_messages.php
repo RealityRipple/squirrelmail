@@ -97,7 +97,7 @@
          // If they have selected nothing msg is size one still, but will be an infinite
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
-            if ($msg[$i]) {
+            if (isset($msg[$i])) {
                sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
                $j++;
             }
@@ -107,7 +107,7 @@
             sqimap_mailbox_expunge($imapConnection, $mailbox, true);
          }
          $location = get_location();
-         if ($where && $what)
+         if (isset($where) && isset($what))
             header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
          else   
             header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
@@ -124,7 +124,7 @@
          // If they have selected nothing msg is size one still, but will be an infinite
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
-            if ($msg[$i]) {
+            if (isset($msg[$i])) {
                /** check if they would like to move it to the trash folder or not */
                sqimap_messages_copy($imapConnection, $msg[$i], $msg[$i], $targetMailbox);
                sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Deleted");
@@ -136,7 +136,7 @@
             sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 
          $location = get_location();
-         if ($where && $what)
+         if (isset($where) && isset($what))
             header ("Location: $location/search.php?mailbox=".urlencode($mailbox)."&what=".urlencode($what)."&where=".urlencode($where));
          else   
             header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
