@@ -6,12 +6,13 @@ It can be used if user can't run conf.pl and changes options manually.
 Settings can be different if IMAP server uses shared folders.
 
 Possible server values are:
- cyrus      = Cyrus IMAP server
- uw         = University of Washington's IMAP server
- exchange   = Microsoft Exchange IMAP server
- courier    = Courier IMAP server
- macosx     = Mac OS X Mailserver
- mercury32  = Mercury/32
+ cyrus       = Cyrus IMAP server
+ uw          = University of Washington's IMAP server
+ exchange    = Microsoft Exchange IMAP server
+ courier     = Courier IMAP server
+ macosx      = Mac OS X Mailserver
+ hmailserver = hMailServer
+ mercury32   = Mercury/32
 
 -----------------
 default settings:
@@ -103,6 +104,11 @@ show_contain_subfolders_option = false
             optional_delimiter = detect
                  delete_folder = true
       force_username_lowercase = false
+
+------------------
+'hmailserver' settings:
+------------------
+              imap_server_type = hmailserver   (used in imap_search.php)
 
 -------------------
 'mercury' settings:
