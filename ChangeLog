@@ -16,6 +16,9 @@ Version 1.2.5 -- CVS
   - Attachment hooks now also allow specification of generic rules like
     text/* which will be used when no specific rule is available.
   - conf.pl can now configure database backed address books.
+  - Version 0.3.7 of SquirrelSpell. Fixes a potential privacy
+    vulnerability (symlink attack), plus introduces formatting fixes 
+    and javadoc-style comments.
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
