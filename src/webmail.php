@@ -45,6 +45,9 @@ if (isset($_SESSION['onetimepad'])) {
 if (isset($_GET['right_frame'])) {
     $right_frame = $_GET['right_frame'];
 }
+if ( isset($_SESSION['session_expired_post']) ) {
+    sqsession_unregister('session_expired_post');
+}
 
 is_logged_in();
 
