@@ -1,0 +1,119 @@
+SquirrelMail internationalization
+
+This document should explain how SquirrelMail internationalization works and
+provide information about some aspects of implementation.
+
+1. Supported languages
+2. $languages array
+3. XTRA_CODE functions
+4. Display of different charsets
+5. IMAP folder names
+
+-------------------------------
+1. Supported languages
+-------------------------------
+Valid language codes are:
+* ar    - Arabic, windows-1256 charset
+* bg_BG - Bulgarian, windows-1251 charset
+* ca_ES - Catalan, iso-8859-1 charset
+* cs_CZ - Czech, iso-8859-2 charset
+* cy_GB - Welsh, iso-8859-1 charset
+* da_DK - Danish, iso-8859-1 charset
+* de_DE - German, iso-8859-1 charset
+* el_GR - Greek, iso-8859-7 charset
+* en_GB - British, iso-8859-15 charset
+* en_US - English, charset depends on $default_charset
+* es_ES - Spanish, iso-8859-1 charset
+* et_EE - Estonian, iso-8859-15 charset
+* eu_ES - Basque, iso-8859-1 charset
+* fa_IR - Farsi, utf-8 charset
+* fi_FI - Finnish, iso-8859-1 charset
+* fo_FO - Faroese, iso-8859-1 charset
+* fr_FR - French, iso-8859-1 charset
+* he_IL - Hebrew, windows-1255 charset
+* hr_HR - Croatian, iso-8859-2 charset
+* hu_HU - Hungarian, iso-8859-2 charset
+* id_ID - Indonesian, iso-8859-1 charset
+* is_IS - Icelandic, iso-8859-1 charset
+* it_IT - Italian, iso-8859-1 charset
+* ja_JP - Japanese, euc-jp charset (emails are created in iso-2022-jp)
+* ko_KR - Korean, euc-kr charset
+* lt_LT - Lithuanian, utf-8 charset
+* ms_MY - Malay, iso-8859-1 charset
+* nb_NO - Norwegian (Bokmal), iso-8859-1 charset
+* nl_NL - Dutch, iso-8859-1 charset
+* nn_NO - Norwegian (Nynorsk), iso-8859-1 charset
+* pl_PL - Polish, iso-8859-2 charset
+* pt_BR - Portuguese (Brazil), iso-8859-1 charset
+* pt_PT - Portuguese (Portugal), iso-8859-1 charset
+* ro_RO - Romanian, iso-8859-2 charset
+* ru_UA - Ukrainian Russian, koi8-r charset
+* ru_RU - Russian, utf-8 charset
+* sk_SK - Slovak, iso-8859-2 charset
+* sl_SI - Slovenian, iso-8859-2 charset
+* sr_YU - Serbian, iso-8859-2 charset
+* sv_SE - Swedish, iso-8859-1 charset
+* ug    - Uighur, utf-8 charset (some systems don't support Uighur system locale)
+* th_TH - Thai, tis-620 charset
+* tl_PH - Tagalog, iso-8859-1 charset (main translation is missing, only some plugins are translated)
+* tr_TR - Turkish, iso-8859-9 charset
+* uk_UA - Ukrainian, koi8-u charset
+* zh_CN - Chinese Simplified, gb2312 charset
+* zh_TW - Chinese Traditional, big5 charset
+
+-------------------
+2. $languages array
+-------------------
+TODO: add explanation of $languages array keys
+
+----------------------
+3. XTRA_CODE functions
+----------------------
+XTRA_CODE functions provides way to change interface behaviour, when translation
+requires special handling of some squirrelmail functions. Functions are enabled
+by setting XTRA_CODE option in $languages array and providing appropriate
+functions. First part of function name is word listed in
+$languages['language_code']['XTRA_CODE'] setting. Second part is one of special
+keywords. Possible values:
+* _decode
+Used in src/compose.php, src/i18n.php, src/view_text.php, functions/mime.php
+Requires mbstring support
+
+* _encode
+Used in src/compose.php, src/read_body.php
+
+* _encodeheader
+Used in functions/mime.php
+Returning function
+
+* _decodeheader
+Used in functions/mime.php
+Returning function
+
+* _downloadfilename
+Used in functions/mime.php
+
+* _utf7_imap_encode
+Used in functions/imap_utf7_local.php
+Returning function
+
+* _utf7_imap_decode
+Used in functions/imap_utf7_local.php
+Returning function
+
+* _strimwidth
+Used in functions/mailbox_display.php
+Returning function
+
+* _wordwrap
+Used in functions/strings.php (sqWordWrap)
+
+--------------------------------
+4. Display of different charsets
+--------------------------------
+TODO: add explanation of decoding functions
+
+--------------------
+5. IMAP folder names
+--------------------
+TODO: add explanation about UTF7-IMAP and mbstring
