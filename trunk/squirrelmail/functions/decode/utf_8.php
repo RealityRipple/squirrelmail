@@ -27,9 +27,9 @@
  * @return string Decoded string
  */
 function charset_decode_utf_8 ($string) {
-  global $default_charset;
+  global $default_charset,$squirrelmail_language;
 
-    if (strtolower($default_charset) == 'utf-8')
+    if ($squirrelmail_language == 'ja_JP')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */

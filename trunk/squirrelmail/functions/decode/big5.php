@@ -44,10 +44,9 @@
  * @return string $string decoded string
  */
 function charset_decode_big5 ($string) {
-    global $default_charset;
+    global $default_charset,$agresive_decoding;
 
-    if (strtolower($default_charset) == 'big5')
-        return $string;
+    if (!$agresive_decoding) return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
     if (! ereg("[\200-\377]", $string))
