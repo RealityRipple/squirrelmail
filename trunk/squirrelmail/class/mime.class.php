@@ -265,7 +265,7 @@ class rfc822_header
 	      {
 	         $addr = substr($address,0,$pos);
 	      } elseif ($name == '') {
-	         $name = substr($address,0,$addr_start);
+	         $name = trim(substr($address,0,$addr_start));
 	      }
 	      
 	      $at = strpos($addr, '@');
@@ -317,7 +317,7 @@ class rfc822_header
            $addr = substr($address,0,$pos);
         } elseif ($name == '')
 	{
-           $name = substr($address,0,$addr_start);
+           $name = trim(substr($address,0,$addr_start));
         }
         $at = strpos($addr, '@');
         $addr_structure = new address_structure();
