@@ -12,6 +12,7 @@
  */
 
 require_once('../functions/strings.php');
+require_once('../functions/imap_utf7_decode_local.php');
 
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
@@ -49,6 +50,9 @@ function displayPageHeader($color, $mailbox, $xtra='') {
     $compose_new_win, $username, $datadir, $compose_width, $compose_height;
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
+    if ($qmark = strpos($module, '?')) {
+        $module = substr($module, 0, $qmark);
+    }
     if (!isset($frame_top)) {
         $frame_top = '_top';
     }
@@ -57,6 +61,29 @@ function displayPageHeader($color, $mailbox, $xtra='') {
         Locate the first displayable form element
     */
     switch ( $module ) {
+    case 'src/read_body.php':
+            if ($compose_new_win == '1') {
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+                    $compose_width = '640';
+                }
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+                    $compose_height = '550';
+                }
+                $js = "\n".'<script language="JavaScript" type="text/javascript">' .
+                    "\n<!--\n";
+                $js .= "function comp_in_new() {\n".
+                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
+                     ", \"compose_window\",
+                \"width=".$compose_width.",height=$compose_height".
+                     ",scrollbars=yes,resizable=yes\");\n".
+                     "}\n";
+        $js .= "// -->\n".
+        	 "</script>\n";
+        displayHtmlHeader ('Squirrelmail', $js);
+            }
+        displayHtmlHeader();
+        $onload = '';
+        break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
@@ -80,6 +107,12 @@ function displayPageHeader($color, $mailbox, $xtra='') {
                 "}\n".
 		"$xtra\n".
             "}\n";
+            if (isset($attachemessages) && isset($session)) {
+		$compose_uri = 'compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
+            } else {
+	        $compose_uri = 'src/compose.php';
+	    }
+	    
             if ($compose_new_win == '1') {
                 if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
                     $compose_width = '640';
@@ -88,9 +121,9 @@ function displayPageHeader($color, $mailbox, $xtra='') {
                     $compose_height = '550';
                 }
                 $js .= "function comp_in_new() {\n".
-                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
-                     ", \"compose_window\",
-                \"width=".$compose_width.",height=$compose_height".
+                     '    var newwin = window.open("'.$base_uri.$compose_uri . '"' .
+                     ', "compose_window",
+                "width='.$compose_width.",height=$compose_height".
                      ",scrollbars=yes,resizable=yes\");\n".
                      "}\n";
             }
@@ -104,7 +137,8 @@ function displayPageHeader($color, $mailbox, $xtra='') {
 
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
-    $shortBoxName = readShortMailboxName($mailbox, $delimiter);
+    $shortBoxName = imap_utf7_decode_local(
+		      readShortMailboxName($mailbox, $delimiter));
     if ( $shortBoxName == 'INBOX' ) {
         $shortBoxName = _("INBOX");
     }
