@@ -156,13 +156,12 @@ function printer_friendly_link() {
 
     if (!$pf_subtle_link) {
         /* The link is large, on the bottom of the header panel. */
-        $result = '<tr bgcolor="' . $color[0] . '">' .
-            '<td class="medText" align="right" valign="top">' .
-            '&nbsp;' .
-            '</td><td class="medText" valign="top" colspan="2">'."\n";
+        $result = html_tag( 'tr', '', '', $color[0] ) .
+            html_tag( 'td', '&nbsp;', 'right', '', 'class="medText" valign="top"' ) .
+            html_tag( 'td', '', 'left', '', 'class="medText" valign="top" colspan="2"' ) . "\n";
     } else {
         /* The link is subtle, below "view full header". */
-        $result = "<BR>\n";
+        $result = "<br>\n";
     }
 
     /* Output the link. */
@@ -175,10 +174,10 @@ function printer_friendly_link() {
                 "  }\n" .
                 "// -->\n" .
                 "</script>\n" .
-                "<A HREF=\"javascript:printFormat();\">$print_text</A>\n";
+                "<a href=\"javascript:printFormat();\">$print_text</a>\n";
     } else {
-        $result .= '<A TARGET="_blank" HREF="../src/printer_friendly_bottom.php' .
-                "$params\">$print_text</A>\n";
+        $result .= '<A target="_blank" HREF="../src/printer_friendly_bottom.php' .
+                "$params\">$print_text</a>\n";
     }
 
     if (!$pf_subtle_link) {
@@ -336,31 +335,31 @@ function formatRecipientString($recipients, $item ) {
                 if ($show_more == false) {
             	    if ($i == 1) {
                         /* From a search... */
-                        $string .= '&nbsp;(<A HREF="' . $base_uri .
+                        $string .= '&nbsp;(<a href="' . $base_uri .
                             "src/read_body.php?mailbox=$urlMailbox&amp;".
                             "passed_id=$passed_id&amp;";
                         if (isset($where) && isset($what)) {
                     	    $string .= 'what=' . urlencode($what).
                                 "&amp;where=".urlencode($where).
-                                "$show\">$echo_more</A>)";
+                                "$show\">$echo_more</a>)";
                         } else {
                     	    $string .= "sort=$sort&amp;startMessage=".
-                                "$startMessage"."$show\">$echo_more</A>)";
+                                "$startMessage"."$show\">$echo_more</a>)";
                         }
                         $i = count($ary);
             	    }
                 } else if ($i == 1) {
             	    /* From a search... */
-            	    $string .= '&nbsp;(<A HREF="' . $base_uri .
+            	    $string .= '&nbsp;(<a href="' . $base_uri .
                         "src/read_body.php?mailbox=$urlMailbox&amp;".
                         "passed_id=$passed_id&amp;";
             	    if (isset($where) && isset($what)) {
                         $string .= 'what=' . urlencode($what).
                             "&amp;where=".urlencode($where).
-                            "$show_n\">$echo_less</A>)";
+                            "$show_n\">$echo_less</a>)";
             	    } else {
                         $string .= "sort=$sort&amp;startMessage=$startMessage".
-                            "$show_n\">$echo_less</A>)";
+                            "$show_n\">$echo_less</a>)";
             	    }
                 }
     	    }
@@ -419,11 +418,11 @@ if (isset($view_hdr)) {
     $read=sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[HEADER]", 
                               true, $a, $b);
     
-    echo '<BR>' .
-        '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0"'.
-        ' ALIGN="CENTER">' . "\n" .
-        "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>".
-        _("Viewing Full Header") . '</B> - '.
+    echo '<br>' .
+        html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="2" cellspacing="0" border="0"' ) . "\n" .
+        html_tag( 'tr' ) .
+        html_tag( 'td', '', 'center', $color[9], 'width="100%"' ) .
+        '<b>' . _("Viewing Full Header") . '</b> - '.
         '<a href="' . $base_uri . 'src/read_body.php?mailbox='.
         urlencode($mailbox);
     if (isset($where) && isset($what)) {
@@ -435,9 +434,9 @@ if (isset($view_hdr)) {
             "&amp;show_more=$show_more\">";
     }
     echo _("View message") . "</a></b></td></tr></table>\n".
-        "<table width='99%' cellpadding='2' cellspacing='0' border='0'".
-        "align=center>\n".
-        '<tr><td>';
+        html_tag( 'table', '', 'center', '', 'width="99%" cellpadding="2" cellspacing="0" border="0"' ) . "\n" .
+        html_tag( 'tr' ) .
+        html_tag( 'td' ) .
     
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
@@ -700,14 +699,15 @@ $ent_num = $ent_ar[0];
 for ($i = 1 ; $i < count($ent_ar); $i++) {
     $ent_num .= '_'.$ent_ar[$i];
 }
-echo '<BR>' .
-     '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' .
-        '<TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">' .
-           '<TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">' .
-              '<TR>' .
-                 '<TD ALIGN="LEFT" WIDTH="33%">' .
-                    '<SMALL>' .
-     '<A HREF="' . $base_uri . 'src/';
+echo '<br>' .
+     html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="0" cellspacing="0" border="0"' ) . "\n" .
+     html_tag( 'tr' ) .
+     html_tag( 'td', '', 'left', $color[9], 'width="100%"' ) .
+     html_tag( 'table', '', '', '', 'width="100%" cellpadding="3" cellspacing="0" border="0"' ) . "\n" .
+     html_tag( 'tr' ) .
+     html_tag( 'td', '', 'left', '', 'width="33%"' ) .
+     '<small>' .
+     '<a href="' . $base_uri . 'src/';
 
 if ($where && $what) {
     if ($pos == '') {
@@ -718,14 +718,14 @@ if ($where && $what) {
     echo "right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">";
 }
 echo _("Message List") .
-     '</A>&nbsp;|&nbsp;' .
-     '<A HREF="' . $base_uri . "src/delete_message.php?mailbox=$urlMailbox&amp;message=$passed_id&amp;";
+     '</a>&nbsp;|&nbsp;' .
+     '<a href="' . $base_uri . "src/delete_message.php?mailbox=$urlMailbox&amp;message=$passed_id&amp;";
 if ($where && $what) {
     echo 'where=' . urlencode($where) . '&amp;what=' . urlencode($what) . '">';
 } else {
     echo "sort=$sort&amp;startMessage=$startMessage\">";
 }
-echo _("Delete") . '</A>&nbsp;';
+echo _("Delete") . '</a>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     $comp_uri = $base_uri . "src/compose.php?mailbox=$mailbox&amp;".
                 "identity=$identity&amp;send_to=$url_to_string&amp;".
@@ -736,7 +736,7 @@ if (($mailbox == $draft_folder) && ($save_as_draft)) {
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
     } else {
-        echo '|&nbsp;<A HREF="' . $comp_uri .'"';
+        echo '|&nbsp;<a href="' . $comp_uri .'"';
     }
     echo '>'.
          _("Resume Draft") . '</a>';
@@ -751,17 +751,17 @@ if ($mailbox == $sent_folder) {
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
     } else {
-        echo '|&nbsp;<A HREF="' . $comp_uri .'"';
+        echo '|&nbsp;<a href="' . $comp_uri .'"';
     }
     echo '>'.
           _("Edit Message as New") . '</a>';
 }
 
 echo '&nbsp;&nbsp;' .
-                   '</SMALL>' .
-                '</TD>' .
-                '<TD WIDTH="33%" ALIGN="CENTER">' .
-                   '<SMALL>';
+                   '</small>' .
+                '</td>' .
+                html_tag( 'td', '', 'center', '', 'width="33%"' ) .
+                   '<small>';
 
 if ( !($where && $what) ) {
     if ($currentArrayIndex == -1) {
@@ -771,23 +771,23 @@ if ( !($where && $what) ) {
         $next = findNextMessage();
 
         if ($prev != -1) {
-            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</a>&nbsp;|&nbsp;";
         } else {
             echo _("Previous") . '&nbsp;|&nbsp;';
         }
 
         if ($next != -1) {
-            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>";
+            echo '<a href="' . $base_uri . "src/read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</a>";
         } else {
             echo _("Next");
         }
     }
 }
 
-echo                '</SMALL>' .
-                '</TD><TD WIDTH="33%" ALIGN="RIGHT">' .
-                   '<SMALL>' ;
-
+echo                '</small>' .
+                '</td>' .
+                html_tag( 'td', '', 'right', '', 'width="33%"' ) .
+                   '<small>' ;
 $comp_uri = $base_uri . "src/compose.php?forward_id=$passed_id&amp;".
             "forward_subj=$url_subj&amp;".
             ($default_use_priority?"mailprio=$priority_level&amp;":'').
@@ -796,12 +796,12 @@ $comp_uri = $base_uri . "src/compose.php?forward_id=$passed_id&amp;".
 if ($compose_new_win == '1') {
     echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
 } else {
-    echo '|&nbsp;<A HREF="' . $comp_uri .'"';
+    echo '|&nbsp;<a href="' . $comp_uri .'"';
 }
 
     echo '>'.
     _("Forward") .
-    '</A>&nbsp;|&nbsp;';
+    '</a>&nbsp;|&nbsp;';
 
 $comp_uri = $base_uri . "src/compose.php?send_to=$url_replyto&amp;".
             "reply_subj=$url_subj&amp;".
@@ -811,12 +811,12 @@ $comp_uri = $base_uri . "src/compose.php?send_to=$url_replyto&amp;".
 if ($compose_new_win == '1') {
     echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
 } else {
-    echo '|&nbsp;<A HREF="' . $comp_uri .'"';
+    echo '|&nbsp;<a href="' . $comp_uri .'"';
 }
 
     echo '>'.
     _("Reply") .
-    '</A>&nbsp;|&nbsp;';
+    '</a>&nbsp;|&nbsp;';
 
 $comp_uri = $base_uri . "src/compose.php?send_to=$url_replytoall&amp;".
             "send_to_cc=$url_replytoallcc&amp;reply_subj=$url_subj&amp;".
@@ -826,38 +826,35 @@ $comp_uri = $base_uri . "src/compose.php?send_to=$url_replytoall&amp;".
 if ($compose_new_win == '1') {
     echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
 } else {
-    echo '|&nbsp;<A HREF="' . $comp_uri .'"';
+    echo '|&nbsp;<a href="' . $comp_uri .'"';
 }
 
     echo '>'.
     _("Reply All") .
-    '</A>&nbsp;&nbsp;' .
-                   '</SMALL>' .
-                '</TD>' .
-             '</TR>' .
-          '</TABLE>' .
-       '</TD></TR>' .
-       '<TR><TD WIDTH="100%">' .
-       '<TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n" .
-          '<TR>' . "\n";
+    '</a>&nbsp;&nbsp;' .
+                   '</small>' .
+                '</td>' .
+             '</tr>' .
+          '</table>' .
+       '</td></tr>' .
+       html_tag( 'tr' ) .
+       html_tag( 'td', '', 'left', '', 'width="100%"' ) .
+       html_tag( 'table', '', '', '', 'width="100%" border="0" cellspacing="0" cellpadding="3"' ) .
+       html_tag( 'tr' ) . "\n";
 
 /** subject **/
-echo          "<TD BGCOLOR=\"$color[0]\" WIDTH=\"10%\" ALIGN=\"right\" VALIGN=\"top\">\n" .
-    _("Subject:") .
-             "</TD><TD BGCOLOR=\"$color[0]\" WIDTH=\"80%\" VALIGN=\"top\">\n" .
-                "<B>$subject</B>&nbsp;\n" .
-             "</TD>\n" .
-             '<TD ROWSPAN="4" width="10%" BGCOLOR="' . $color[0] .
-    '" ALIGN=right VALIGN=top NOWRAP><small>'.
-    '<A HREF="' . $base_uri . "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
+echo html_tag( 'td', _("Subject:"), 'right', $color[0], 'width="10%" valign="top"' ) .
+        html_tag( 'td', '<b>' . $subject . '</b>&nbsp;' . "\n", 'left', $color[0], 'width="80%" valign="top"' ) .
+        html_tag( 'td', '', 'right', $color[0], 'rowspan="4" width="10%" valign="top" nowrap' ) .
+             '<a href="' . $base_uri . "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
 
 /* From a search... */
 if ($where && $what) {
     echo 'where=' . urlencode($where) . '&amp;what=' . urlencode($what) .
-         "&amp;view_hdr=1\">" . _("View Full Header") . "</A>\n";
+         "&amp;view_hdr=1\">" . _("View Full Header") . "</a>\n";
 } else {
     echo "startMessage=$startMessage&amp;show_more=$show_more&amp;view_hdr=1\">" .
-         _("View Full Header") . "</A>\n";
+         _("View Full Header") . "</a>\n";
 }
 
 /* Output the printer friendly link if we are in subtle mode. */
@@ -866,64 +863,57 @@ if ($pf_subtle_link) {
 }
 
 do_hook("read_body_header_right");
-echo '</small></TD>' .
-    ' </TR>';
+echo '</small></td>' .
+    ' </tr>';
 
 /** from **/
-echo       '<TR>' .
-             '<TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' .
-    _("From:") .
-             '</TD><TD BGCOLOR="' . $color[0] . '">' .
-                "<B>$from_name</B>&nbsp;\n";
-                do_hook("read_body_after_from");
-echo             '</TD>' .
-          '</TR>';
+echo html_tag( 'tr', "\n" .
+            html_tag( 'td', _("From:"), 'right', $color[0], 'valign="top"' ) .
+            html_tag( 'td',
+                '<b>' . $from_name . '</b>&nbsp;' . "\n" ,
+            'left', $color[0] )
+       ) . "\n";
+       do_hook("read_body_after_from");
 /** date **/
-echo       '<TR>' . "\n" .
-             '<TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n" .
-    _("Date:") .
-             "</TD><TD BGCOLOR=\"$color[0]\">\n" .
-                "<B>$dateString</B>&nbsp;\n" .
-             '</TD>' . "\n" .
-          '</TR>' . "\n";
-
+echo html_tag( 'tr', "\n" .
+            html_tag( 'td', _("Date:"), 'right', $color[0], 'valign="top"' ) .
+            html_tag( 'td',
+                '<b>' . $dateString . '</b>&nbsp;' . "\n" ,
+            'left', $color[0] )
+       ) . "\n";
 /** to **/
-echo       "<TR>\n" .
-             "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
-    _("To:") .
-             '</TD><TD BGCOLOR="' . $color[0] . '" VALIGN="TOP">' . "\n" .
-                "<B>$to_string</B>&nbsp;\n" .
-             '</TD>' . "\n" .
-          '</TR>' . "\n";
+echo html_tag( 'tr', "\n" .
+            html_tag( 'td', _("To:"), 'right', $color[0], 'valign="top"' ) .
+            html_tag( 'td',
+                '<b>' . $to_string . '</b>&nbsp;' . "\n" ,
+            'left', $color[0] )
+       ) . "\n";
 /** cc **/
 if (isset($cc_string) && $cc_string <> '') {
-    echo       '<TR>' .
-                 "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
-                    'Cc:' .
-                 "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
-                    "<B>$cc_string</B>&nbsp;" .
-                 '</TD>' .
-              '</TR>' . "\n";
+    echo html_tag( 'tr', "\n" .
+                html_tag( 'td', _("Cc:"), 'right', $color[0], 'valign="top"' ) .
+                html_tag( 'td',
+                    '<b>' . $cc_string . '</b>&nbsp;' . "\n" ,
+                'left', $color[0], 'colspan="2" valign="top"' )
+           ) . "\n";
 }
 
 /** bcc **/
 if (isset($bcc_string) && $bcc_string <> '') {
-    echo       '<TR>'.
-                 "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
-                    'Bcc:' .
-                 "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
-                    "<B>$bcc_string</B>&nbsp;" .
-                 '</TD>' .
-              '</TR>' . "\n";
+    echo html_tag( 'tr', "\n" .
+                html_tag( 'td', _("Bcc:"), 'right', $color[0], 'valign="top"' ) .
+                html_tag( 'td',
+                    '<b>' . $bcc_string . '</b>&nbsp;' . "\n" ,
+                'left', $color[0], 'colspan="2" valign="top"' )
+           ) . "\n";
 }
 if ($default_use_priority && isset($priority_string) && $priority_string <> '' ) {
-    echo       '<TR>' .
-                 "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
-                       _("Priority") . ': '.
-                 "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
-                    "<B>$priority_string</B>&nbsp;" .
-                 '</TD>' .
-              "</TR>" . "\n";
+    echo html_tag( 'tr', "\n" .
+                html_tag( 'td', _("Priority") . ':', 'right', $color[0], 'valign="top"' ) .
+                html_tag( 'td',
+                    '<b>' . $priority_string . '</b>&nbsp;' . "\n" ,
+                'left', $color[0], 'colspan="2" valign="top"' )
+           ) . "\n";
 }
 
 if ($show_xmailer_default) {
@@ -931,13 +921,12 @@ if ($show_xmailer_default) {
                             $response, $readmessage);
     $mailer = substr($read[1], strpos($read[1], " "));
     if (trim($mailer)) {
-        echo       '<TR>' .
-                     "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
-                           _("Mailer") . ': '.
-                     "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
-                        "<B>$mailer</B>&nbsp;" .
-                     '</TD>' .
-                  "</TR>" . "\n";
+       echo html_tag( 'tr', "\n" .
+                   html_tag( 'td', _("Mailer") . ':', 'right', $color[0], 'valign="top"' ) .
+                   html_tag( 'td',
+                       '<b>' . $mailer . '</b>&nbsp;' ,
+                   'left', $color[0], 'colspan="2" valign="top"' )
+              ) . "\n";
     }
 }
 
@@ -969,50 +958,43 @@ if ($default_use_mdn) {
                 $sendreceipt='';
                 /*
                 if ($MDNDebug ) {
-                    echo       '<TR>' .
-                                 "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                       _("Read receipt") . ': ' .
-                                 "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                    '<B>' .
-                                    _("send") .
-                                    "</B> <a href=$url>[" . _("Remove MDN flag") . ']  </a>'  .
-                                 '</TD>' .
-                             '</TR>' . "\n";
+                    echo html_tag( 'tr', "\n" .
+                                html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                                html_tag( 'td',
+                                    '<b>' . _("send") . '</b>&nbsp;<a href="' . $url . '">[' . _("Remove MDN flag") . ']  </a>&nbsp;' ,
+                                'left', $color[9], 'colspan="2" valign="top"' )
+                            ) . "\n";
                 } else {
                 */
-                echo       '<TR>' .
-                             "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                   _("Read receipt") . ': ' .
-                             "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                '<B>'._("send").'</B>'.
-                             '</TD>' .
-                         '</TR>' . "\n";
+                echo html_tag( 'tr', "\n" .
+                            html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                                html_tag( 'td',
+                                    '<b>' . _("send") . '</b>&nbsp;' ,
+                                'left', $color[9], 'colspan="2" valign="top"' )
+                            ) . "\n";
                 /*
                 }
                 */
 
             } // when deleted or draft flag is set don't offer to send a MDN response
             else if ( ereg('\\Draft',$read[0] || ereg('\\Deleted',$read[0])) ) {
-                echo       '<TR>' .
-                            "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                _("Read receipt") . ': '.
-                            "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                '<B>' . _("requested") . "</B>" .
-                            '</TD>' .
-                        '</TR>' . "\n";
+                echo html_tag( 'tr', "\n" .
+                            html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                                html_tag( 'td',
+                                    '<b>' . _("requested") . '</b>&nbsp;' ,
+                                'left', $color[9], 'colspan="2" valign="top"' )
+                            ) . "\n";
             }
             // if no MDNsupport don't use the annoying popup messages
             else if (  !$FirstTimeSee ) {
                 $sendreceipt = 'send';
                 $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
-                echo       '<TR>' .
-                            "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                _("Read receipt") . ': ' .
-                            "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                '<B>' . _("requested") .
-                                "</B> &nbsp; <a href=$url>[" . _("Send read receipt now") . "]</a>" .
-                            '</TD>' .
-                        '</TR>' . "\n";
+                echo html_tag( 'tr', "\n" .
+                            html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                                html_tag( 'td',
+                                    '<b>' . _("requested") . '</b> &nbsp; <a href="' . $url . '">[' . _("Send read receipt now") . ']</a>',
+                                'left', $color[9], 'colspan="2" valign="top"' )
+                            ) . "\n";
                 $sendreceipt='';
             }
             else {
@@ -1029,14 +1011,12 @@ if ($default_use_mdn) {
                     '// -->' . "\n" .
                     '</script>' . "\n";
                 }
-                echo       '<TR>' .
-                            "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                    _("Read receipt") . ': ' .
-                            "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                '<B>' . _("requested") . "&nbsp&nbsp</B><a href=$url>" . '[' .
-                                _("Send read receipt now") . ']  </a>' ." \n" .
-                            '</TD>' .
-                            '</TR>' . "\n";
+                echo html_tag( 'tr', "\n" .
+                            html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                                html_tag( 'td',
+                                    '<b>' . _("requested") . '</b>&nbsp&nbsp<a href="' . $url . '">[' . _("Send read receipt now") . ']</a>',
+                                'left', $color[9], 'colspan="2" valign="top"' )
+                            ) . "\n";
                 $sendreceipt = '';
             }
         }
@@ -1065,22 +1045,20 @@ if ($default_use_mdn) {
             $sendreceipt='';
             /*
             if ($MDNDebug && $supportMDN) {
-            echo "      <TR>\n" .
-                    "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .
-                    "            "._("Read receipt").": \n".
-                    "         </TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>\n" .
-                    '            <B>'._("send").'</B>'." <a href=$url>" . '[' . _("Remove MDN flag") . ']  </a>'  . "\n" .
-                    '         </TD>' . "\n" .
-                    '     </TR>' . "\n";
+            echo html_tag( 'tr', "\n" .
+                       html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                           html_tag( 'td',
+                               '<b>' . _("send") . '</b>&nbsp&nbsp<a href="' . $url . '">[' . _("Remove MDN flag") . ']</a>',
+                           'left', $color[9], 'colspan="2" valign="top"' )
+                       ) . "\n";
             } else {
             */
-            echo "      <TR>\n" .
-                    "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .
-                    "            "._("Read receipt").": \n".
-                    "         </TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>\n" .
-                    '            <B>'._("send").'</B>'. "\n" .
-                    '         </TD>' . "\n" .
-                    '     </TR>' . "\n";
+            echo html_tag( 'tr', "\n" .
+                       html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                           html_tag( 'td',
+                               '<b>' . _("send") . '</b>&nbsp',
+                           'left', $color[9], 'colspan="2" valign="top"' )
+                       ) . "\n";
             /*
             }
             */
@@ -1090,14 +1068,12 @@ if ($default_use_mdn) {
 
             $sendreceipt = 'send';
                 $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
-                echo       '<TR>'.
-                              "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                    _("Read receipt") . ': ' .
-                              "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                 '<B>' . _("requested") .
-                                 "</B> &nbsp; <a href=$url>[" . _("Send read receipt now") . "]</a>" .
-                              '</TD>' .
-                            '</TR>' . "\n";
+                echo html_tag( 'tr', "\n" .
+                           html_tag( 'td', _("Read receipt") . ':', 'right', $color[9], 'valign="top"' ) .
+                           html_tag( 'td',
+                               '<b>' . _("requested") . '</b> &nbsp; <a href="' . $url . '">[' . _("Send read receipt now") . ']</a>',
+                           'left', $color[9], 'colspan="2" valign="top"' )
+                       ) . "\n";
             $sendreceipt = '';
 
         }
@@ -1106,19 +1082,23 @@ if ($default_use_mdn) {
 
 do_hook('read_body_header');
 
-echo '</TABLE>' .
-    '   </TD></TR>' .
-    '</TABLE>';
+echo '</table>' .
+    '   </td></tr>' .
+    '</table>';
 flush();
-echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
-    "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
-    '<BR>';
-echo $body;
+echo html_tag( 'table', "\n" .
+            html_tag( 'tr', "\n" .
+                html_tag( 'td', '<br>' . "\n" . $body . "\n", 'left', $color[4]
+                )
+            ) ,
+        'center', '', 'cellspacing=0 width="97%" border="0" cellpadding="0"') .
 
-echo '</TD></TR></TABLE>' .
-    '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
-    "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
-    '</TABLE>' . "\n";
+        html_tag( 'table', "\n" .
+	            html_tag( 'tr', "\n" .
+	                html_tag( 'td', '&nbsp;', 'left', $color[9]
+	                )
+	            ) ,
+        'center', '', 'cellspacing=0 width="100%" border="0" cellpadding="0"');
 
 /* show attached images inline -- if pref'fed so */
 if (($attachment_common_show_images) &&
@@ -1132,14 +1112,12 @@ if (($attachment_common_show_images) &&
                 '&amp;passed_ent_id=' . urlencode($img['ent_id']) .
                 '&amp;absolute_dl=true';
 
-        echo "<TABLE BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER>\n" .
-              '<TR>' .
-                '<TD>' .
-                  "<img src=\"$imgurl\">\n" .
-                "</TD>\n" .
-              "</TR>\n" .
-            "</TABLE>\n";
-
+        echo html_tag( 'table', "\n" .
+	            html_tag( 'tr', "\n" .
+	                html_tag( 'td', '<img src="' . $imgurl . '">' ."\n", 'left'
+	                )
+	            ) ,
+        'center', '', 'cellspacing=0 border="0" cellpadding="2"');
     }
 }
 
