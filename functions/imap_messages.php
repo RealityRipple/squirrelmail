@@ -77,6 +77,21 @@
          }
       }
 
+      // If there isn't a date, it takes the internal date and uses
+      // that as the normal date.
+      if (trim($date) == "") {
+         fputs ($imap_stream, "a002 FETCH $id INTERNALDATE\r\n");
+         $internal_read = sqimap_read_data ($imap_stream, "a002", true, $r, $m);
+
+         // * 22 FETCH (INTERNALDATE " 8-Sep-2000 13:17:07 -0500")
+         $date = $internal_read[0];
+         $date = eregi_replace(".*internaldate \"", "", $date);
+         $date = eregi_replace("\".*", "", $date);
+         $date_ary = explode(" ", trim($date));
+         $date_ary[0] = str_replace("-", " ", $date_ary[0]);
+         $date = implode (" ", $date_ary);
+      }
+
       $header = new small_header;
       if ($sent == true)
          $header->from = $to;
