@@ -1,4 +1,5 @@
 <?php
+
 /**
  * printer_friendly top frame
  *
