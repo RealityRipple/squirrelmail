@@ -41,7 +41,10 @@ function Show_Array($array) {
     return $str;
 }
 
-$browser = get_browser();
+$browscap = ini_get('browscap');
+if(!empty($browscap)) {
+    $browser = get_browser();
+}
 $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
                 "  [ ]  True - No need to CC me when replying\n" .
                 "  [ ]  False - Please CC me when replying\n" .
@@ -57,10 +60,12 @@ $body_top = "I subscribe to the squirrelmail-users mailing list.\n" .
                 "(Optional) I got really bored and here's a fix:\n\n\n" .
                 "----------------------------------------------\n" .
             "\nMy browser information:\n" .
-            '  '.$_SERVER['HTTP_USER_AGENT'] . "\n" .
-            "  get_browser() information (List)\n" .
-            Show_Array((array) $browser) .
-            "\nMy web server information:\n" .
+            '  '.$_SERVER['HTTP_USER_AGENT'] . "\n" ;
+	    if(isset($browser)) {
+                $body_top .= "  get_browser() information (List)\n" .
+                Show_Array((array) $browser);
+            }
+            $body_top .= "\nMy web server information:\n" .
             "  PHP Version " . phpversion() . "\n" .
             "  PHP Extensions (List)\n" .
             Show_Array(get_loaded_extensions()) .
