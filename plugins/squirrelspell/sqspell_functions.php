@@ -95,35 +95,23 @@ function sqspell_makePage($title, $scriptsrc, $body){
  * @return            void
  */
 function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
-  global $color, $SQSPELL_VERSION, $theme_css;
-  echo "<html>\n"
-    . "<head>\n"
-    . "<title>$title</title>\n";
-  /**
-   * Check if we have a defined css theme to use.
-   */
-  if ($theme_css != "") {
-    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />\n";
-  }
-  /**
-   * Link in the .js file if needed
-   */         
-  if ($scriptsrc){
-    echo "<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n";
-  }
-  echo "</head>\n"
-    . "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" "
-    . "vlink=\"$color[7]\" alink=\"$color[7]\"";
+  global $color, $SQSPELL_VERSION;
+
+  displayHtmlHeader($title,
+      ($scriptsrc ? "\n<script type=\"text/javascript\" src=\"js/$scriptsrc\"></script>\n" : ''));
+
+  echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" "
+      . "vlink=\"$color[7]\" alink=\"$color[7]\"";
   /**
    * Provide an onload="jsfunction()" if asked to.
    */
   if ($onload) {
-    echo " onload=\"$onload\"";
+      echo " onload=\"$onload\"";
   }
   /**
    * Draw the rest of the page.
    */
-  echo '>'
+  echo ">\n"
     . html_tag( 'table', "\n" .
           html_tag( 'tr', "\n" .
               html_tag( 'td', '<strong>' . $title . '</strong>', 'center', $color[9] )
