@@ -52,7 +52,7 @@
    $passed_bcc = stripslashes($passed_bcc);
    $passed_subject = stripslashes($passed_subject);
 
-   sendMessage($passed_to, $passed_cc, $passed_bcc, $passed_subject, $passed_body, $version);
+   sendMessage($passed_to, $passed_cc, $passed_bcc, $passed_subject, $passed_body);
 
    if ($auto_forward == true)
       echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"0;URL=right_main.php\">";
