@@ -490,7 +490,7 @@
             exit();
          }
          if ( isset($delete_draft)) {
-            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1"$
+            Header("Location: delete_message.php?mailbox=$draft_folder&message=$delete_draft&sort=$sort&startMessage=1");
             exit();
          }
          
