@@ -41,8 +41,10 @@
    include("../src/load_prefs.php");
 
    if (!isset($attachments))
+   {
        $attachments = array();
-
+   }
+   
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
@@ -300,20 +302,19 @@
       }
       
       // This code is for attachments
-      echo "   <tr>\n";
-      echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
-      echo "      <SMALL><BR></SMALL>"._("Attach:");
-      echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      echo "   <tr bgcolor=\"$color[0]\">\n";
+      echo "     <TD VALIGN=TOP ALIGN=RIGHT>"._("Attach:");
+      echo "      </td><td ALIGN=left>\n";
       echo "      <INPUT NAME=\"attachfile\" SIZE=48 TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
       echo " value=\"" . _("Add") ."\">\n";
       echo "     </td>\n";
       echo "   </tr>\n";
       if (count($attachments) > 0) {
-         echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
+         echo "<tr bgcolor=\"$color[0]\"><td align=right>\n";
          echo "&nbsp;";
-         echo "</td><td align=left bgcolor=\"$color[0]\">";
-         while (list($localname, $remotename) = each($attachments)) {
+         echo "</td><td align=left>";
+	 foreach ($attachments as $localname => $remotename) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
             echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
          }
@@ -376,6 +377,8 @@
       
       is_logged_in();
       $localfilename = GenerateRandomString(32, '', 7);
+      while (isset($attachments[$localfilename]))
+          $localfilename = GenerateRandomString(32, '', 7);
       
       if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
          if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
