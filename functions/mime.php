@@ -1085,12 +1085,16 @@ function MagicHTML( $body, $id ) {
             $pos = $i + 1;
             $tag = '';
             while ($body{$pos} == ' ' || $body{$pos} == "\t" ||
-                   $body{$pos} == "\n" ) {
+                   $body{$pos} == "\n") {
                 $pos ++;
             }
             while (strlen($tag) < 4 && $body{$pos} != ' ' &&
                    $body{$pos} != "\t" && $body{$pos} != "\n" &&
                    $pos < $j ) {
+                if ($body{$pos} == "<"){
+                    $tag = '';
+                    $pos++;
+                }
                 $tag .= $body{$pos};
                 $pos ++;
             }
