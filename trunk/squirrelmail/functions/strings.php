@@ -256,7 +256,25 @@
    }
 
    function OneTimePadCreate ($length=100) {
-      srand ((double) microtime() * 1000000);
+      global $REMOTE_PORT, $REMOTE_IP, $UNIQUE_ID;
+
+      // Entropy gathering
+      if (function_exists("crc32")) {
+	 $seed1 = (double) microtime() * 1000000;
+	 $seed2 = md5($REMOTE_PORT . $REMOTE_IP . $UNIQUE_ID);
+	 if (function_exists("getrusage")) {
+	    $dat = getrusage();
+	    $seed3 = md5($dat["ru_nswap"].$dat["ru_majflt"].$dat["ru_utime.tv_sec"].$dat["ru_utime.tv_usec"].getmypid());
+	 } else {
+	    $seed3 = getmypid();
+	 }
+
+	 $seed = crc32($seed1)*1000000 + crc32($seed2)*10000 + crc32($seed3);
+      } else {
+	 $seed = (double) microtime() * 1000000;
+      }
+
+      srand ($seed);
       
       for ($i = 0; $i < $length; $i++) {
 	 $pad .= chr(rand(0,255));
