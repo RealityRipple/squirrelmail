@@ -37,6 +37,8 @@ define('SMPREF_LOC_RIGHT', 'right');
 define('SMPREF_UNSEEN_NONE', 1);
 define('SMPREF_UNSEEN_INBOX', 2);
 define('SMPREF_UNSEEN_ALL', 3);
+define('SMPREF_UNSEEN_SPECIAL', 4); // Only special folders
+define('SMPREF_UNSEEN_NORMAL', 5);  // Only normal folders
 define('SMPREF_UNSEEN_ONLY', 1);
 define('SMPREF_UNSEEN_TOTAL', 2);
 
