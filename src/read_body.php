@@ -342,12 +342,12 @@
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
-   echo '         <TD WIDTH=1% ROWSPAN=4 BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
+   echo '         <TD ROWSPAN=4 BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
-      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a><br>\n";
+      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
    } else {
-      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a><br>\n";
+      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a>\n";
    }
       do_hook("read_body_header_right");
    echo '         </small>&nbsp;&nbsp;</TD>' . "\n";
