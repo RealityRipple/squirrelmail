@@ -18,8 +18,6 @@ define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/strings.php');
-require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/forms.php');
 
 displayHtmlHeader( _("Message Details"),
