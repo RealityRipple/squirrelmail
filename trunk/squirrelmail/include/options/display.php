@@ -100,7 +100,7 @@ function load_optpage_data_display() {
     );
 
     $js_autodetect_script =
-        "<SCRIPT LANGUAGE=\"JavaScript\"><!--\n".
+        "<SCRIPT LANGUAGE=\"JavaScript\" TYPE=\"text/javascript\"><!--\n".
            "document.forms[0].new_js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
         "// --></SCRIPT>\n";
     $js_autodetect_results = SMPREF_JS_OFF;

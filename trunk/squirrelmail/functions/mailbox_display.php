@@ -762,12 +762,6 @@ function mail_message_listing_beginning ($imapConnection,
     echo '</td></tr>'
     .  html_tag( 'tr' )
     . html_tag( 'td' ,'' , '', $color[0], '' );
-    if ($GLOBALS['alt_index_colors']){
-        $cellspacing =  '0';
-    } else {
-        $cellspacing = '1';
-    }
-    echo html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="2"  cellspacing="'. $cellspacing .'"' );
 
     /* if using server sort we highjack the
     * the $sort var and use $server_sort_order
