@@ -13,6 +13,8 @@ Version 0.3pre1 -- Development
 - Added themes in distrobution (7 total)
 - Increased speed of viewing folder by date about 25%, and viewing the folder by
     Subject or Sender by up to 100%.
+- Added internationalization
+- Added sending of attachments
 
 
 

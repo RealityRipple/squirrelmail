@@ -205,9 +205,6 @@
       } else {
          echo "         <INPUT TYPE=TEXT NAME=subject VALUE=\"$subject\" SIZE=60>";
       }
-      echo "      &nbsp;&nbsp;<INPUT TYPE=SUBMIT NAME=send VALUE=\"";
-      echo _("Send");
-      echo "\"><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
 
@@ -237,6 +234,10 @@
       echo "   </tr>\n";
       // End of attachment code
 
+      echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
+      echo _("Send");
+      echo "\"></TD></TR>\n";
+
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       if ($use_signature == true)
@@ -245,10 +246,10 @@
          echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>$body</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "</TABLE>\n";
-      echo "<CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
+      echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
       echo _("Send");
-      echo "\"></CENTER>";
+      echo "\"></TD></TR>\n";
+      echo "</TABLE>\n";
       echo "</FORM>";
    }
 
