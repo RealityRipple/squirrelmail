@@ -1,12 +1,20 @@
 <?php
 /**
-* takes a string of unicode entities and converts it to a utf-8 encoded string
-* each unicode entitiy has the form &#nnn(nn); n={0..9} and can be displayed by utf-8 supporting
-* browsers.  Ascii will not be modified.
-* @param $source string of unicode entities [STRING]
-* @return a utf-8 encoded string [STRING]
-* @access public
-*/
+ * utf-8 encoding function
+ *
+ * takes a string of unicode entities and converts it to a utf-8 encoded string
+ * each unicode entitiy has the form &#nnn(nn); n={0..9} and can be displayed by utf-8 supporting
+ * browsers.  Ascii will not be modified.
+ *
+ * code is taken from www.php.net manual comments
+ * Author: ronen at greyzone dot com
+ *
+ * @package squirrelmail
+ * @subpackage encode
+ * @param $source string of unicode entities [STRING]
+ * @return a utf-8 encoded string [STRING]
+ * @access public
+ */
 function charset_encode_utf_8 ($source) {
    $utf8Str = '';
    $entityArray = explode ("&#", $source);
