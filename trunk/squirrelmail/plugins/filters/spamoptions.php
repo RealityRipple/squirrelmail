@@ -53,7 +53,7 @@
        '</table>';
 
     if ($SpamFilters_YourHop == ' ') {
-       echo '<BR><center><b>WARNING! Tell your admin to set the SpamFilters_YourHop variable</b></center><BR>';
+       echo '<BR><center><b>' . _("WARNING! Tell your admin to set the SpamFilters_YourHop variable") . '</b></center><BR>';
     }
 
 
