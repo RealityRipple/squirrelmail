@@ -199,7 +199,8 @@ function load_optpage_data_folder() {
                             6 => '6',
                             7 => '7',
                             8 => '8',
-                            9 => '9') 
+                            9 => '9')
+    );
 
     /* Assemble all this together and return it as our result. */
     $result = array(
