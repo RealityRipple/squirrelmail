@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-01-22 10:12+0100\n"
+"POT-Creation-Date: 2002-01-23 09:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,25 +18,25 @@ msgstr ""
 msgid "Address Book"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:97
+#: squirrelmail/src/addrbook_search.php:98
 #: squirrelmail/src/addrbook_search_html.php:66
 #: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:107
 msgid "Name"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:98
+#: squirrelmail/src/addrbook_search.php:99
 #: squirrelmail/src/addrbook_search_html.php:67
 #: squirrelmail/src/addressbook.php:286
 msgid "E-mail"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:99
+#: squirrelmail/src/addrbook_search.php:100
 #: squirrelmail/src/addrbook_search_html.php:68
 #: squirrelmail/src/addressbook.php:287
 msgid "Info"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:102
+#: squirrelmail/src/addrbook_search.php:103
 #: squirrelmail/src/addrbook_search_html.php:71
 msgid "Source"
 msgstr ""
@@ -49,46 +49,46 @@ msgstr ""
 msgid "Address Book Search"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:172
+#: squirrelmail/src/addrbook_search.php:173
 #: squirrelmail/src/addrbook_search_html.php:126
 msgid "Search for"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:178
+#: squirrelmail/src/addrbook_search.php:179
 #: squirrelmail/src/addrbook_search_html.php:136
 msgid "in"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:179
+#: squirrelmail/src/addrbook_search.php:180
 #: squirrelmail/src/addrbook_search_html.php:139
 msgid "All address books"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:124
-#: squirrelmail/src/addrbook_search.php:189
+#: squirrelmail/src/addrbook_search.php:190
 #: squirrelmail/src/addrbook_search_html.php:150
 #: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
 msgid "Search"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:190
+#: squirrelmail/src/addrbook_search.php:191
 #: squirrelmail/src/addrbook_search_html.php:151
 msgid "List all"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:212
+#: squirrelmail/src/addrbook_search.php:213
 #: squirrelmail/src/addrbook_search_html.php:176
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:235
+#: squirrelmail/src/addrbook_search.php:236
 #: squirrelmail/src/addrbook_search_html.php:201
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:158
-#: squirrelmail/src/addrbook_search.php:242
+#: squirrelmail/src/addrbook_search.php:159
+#: squirrelmail/src/addrbook_search.php:243
 #: squirrelmail/src/addrbook_search_html.php:206
 msgid "No persons matching your search was found"
 msgstr ""
@@ -97,7 +97,7 @@ msgstr ""
 msgid "Return"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:193
+#: squirrelmail/src/addrbook_search.php:194
 msgid "Close window"
 msgstr ""
 
@@ -218,7 +218,7 @@ msgstr ""
 msgid "To"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:47
+#: squirrelmail/plugins/listcommands/mailout.php:50
 #: squirrelmail/src/compose.php:462 squirrelmail/src/read_body.php:566
 msgid "From:"
 msgstr ""
@@ -397,12 +397,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:31
+#: squirrelmail/plugins/listcommands/setup.php:33
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
 msgid "Unsubscribe"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:32
+#: squirrelmail/plugins/listcommands/setup.php:34
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
 msgid "Subscribe"
 msgstr ""
@@ -433,7 +433,7 @@ msgid "Submit"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:126
-#: squirrelmail/plugins/listcommands/setup.php:30 squirrelmail/src/help.php:91
+#: squirrelmail/plugins/listcommands/setup.php:32 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr ""
 
@@ -1166,9 +1166,9 @@ msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:107
 #: squirrelmail/plugins/calendar/event_delete.php:32
-#: squirrelmail/plugins/calendar/event_edit.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:94
-#: squirrelmail/plugins/calendar/event_edit.php:107
+#: squirrelmail/plugins/calendar/event_edit.php:35
+#: squirrelmail/plugins/calendar/event_edit.php:93
+#: squirrelmail/plugins/calendar/event_edit.php:106
 #: squirrelmail/src/read_body.php:574
 msgid "Date:"
 msgstr ""
@@ -1722,8 +1722,8 @@ msgstr ""
 #: squirrelmail/functions/mime.php:434
 #: squirrelmail/plugins/calendar/event_create.php:113
 #: squirrelmail/plugins/calendar/event_delete.php:38
-#: squirrelmail/plugins/calendar/event_edit.php:102
-#: squirrelmail/plugins/calendar/event_edit.php:115
+#: squirrelmail/plugins/calendar/event_edit.php:101
+#: squirrelmail/plugins/calendar/event_edit.php:114
 msgid "Message:"
 msgstr ""
 
@@ -1743,9 +1743,9 @@ msgstr ""
 #: squirrelmail/plugins/calendar/event_create.php:53
 #: squirrelmail/plugins/calendar/event_create.php:111
 #: squirrelmail/plugins/calendar/event_delete.php:36
-#: squirrelmail/plugins/calendar/event_edit.php:72
-#: squirrelmail/plugins/calendar/event_edit.php:100
-#: squirrelmail/plugins/calendar/event_edit.php:113
+#: squirrelmail/plugins/calendar/event_edit.php:71
+#: squirrelmail/plugins/calendar/event_edit.php:99
+#: squirrelmail/plugins/calendar/event_edit.php:112
 msgid "Title:"
 msgstr ""
 
@@ -1759,12 +1759,14 @@ msgid "Option Type '%s' Not Found"
 msgstr ""
 
 #: squirrelmail/functions/options.php:253
-#: squirrelmail/plugins/calendar/event_edit.php:135
+#: squirrelmail/plugins/calendar/event_delete.php:51
+#: squirrelmail/plugins/calendar/event_edit.php:134
 msgid "Yes"
 msgstr ""
 
 #: squirrelmail/functions/options.php:258
-#: squirrelmail/plugins/calendar/event_edit.php:142
+#: squirrelmail/plugins/calendar/event_delete.php:58
+#: squirrelmail/plugins/calendar/event_edit.php:141
 msgid "No"
 msgstr ""
 
@@ -1865,74 +1867,78 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:456
 msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:464
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr ""
+
+#: squirrelmail/plugins/filters/filters.php:472
+msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:464
+#: squirrelmail/plugins/filters/filters.php:480
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:472
+#: squirrelmail/plugins/filters/filters.php:488
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:480
+#: squirrelmail/plugins/filters/filters.php:496
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:488
+#: squirrelmail/plugins/filters/filters.php:504
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:496
+#: squirrelmail/plugins/filters/filters.php:512
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:504
+#: squirrelmail/plugins/filters/filters.php:520
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:512
+#: squirrelmail/plugins/filters/filters.php:528
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:520
+#: squirrelmail/plugins/filters/filters.php:536
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:528
+#: squirrelmail/plugins/filters/filters.php:544
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:536
+#: squirrelmail/plugins/filters/filters.php:552
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:544
-msgid ""
-"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-"SLOOOOOOW!"
-msgstr ""
-
-#: squirrelmail/plugins/filters/filters.php:552
+#: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:560
+#: squirrelmail/plugins/filters/filters.php:568
 msgid "FREE - orbz.gst-group.co.uk - Outputs only."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:568
+#: squirrelmail/plugins/filters/filters.php:576
 msgid ""
 "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 "addressed to postmaster@<theirdomain>."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:576
+#: squirrelmail/plugins/filters/filters.php:584
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
@@ -3408,14 +3414,14 @@ msgid "Start time:"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:41
-#: squirrelmail/plugins/calendar/event_edit.php:60
+#: squirrelmail/plugins/calendar/event_edit.php:59
 msgid "Length:"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:47
-#: squirrelmail/plugins/calendar/event_edit.php:66
-#: squirrelmail/plugins/calendar/event_edit.php:98
-#: squirrelmail/plugins/calendar/event_edit.php:111
+#: squirrelmail/plugins/calendar/event_edit.php:65
+#: squirrelmail/plugins/calendar/event_edit.php:97
+#: squirrelmail/plugins/calendar/event_edit.php:110
 msgid "Priority:"
 msgstr ""
 
@@ -3429,12 +3435,14 @@ msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:109
 #: squirrelmail/plugins/calendar/event_delete.php:34
-#: squirrelmail/plugins/calendar/event_edit.php:50
-#: squirrelmail/plugins/calendar/event_edit.php:96
+#: squirrelmail/plugins/calendar/event_edit.php:49
+#: squirrelmail/plugins/calendar/event_edit.php:95
 msgid "Time:"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/event_create.php:116
+#: squirrelmail/plugins/calendar/event_delete.php:91
+#: squirrelmail/plugins/calendar/event_edit.php:189
 #: squirrelmail/plugins/calendar/functions.php:23
 msgid "Day View"
 msgstr ""
@@ -3447,20 +3455,24 @@ msgstr ""
 msgid "Event deleted!"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_delete.php:96
+#: squirrelmail/plugins/calendar/event_delete.php:97
 msgid "Nothing to delete!"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_edit.php:80
+#: squirrelmail/plugins/calendar/event_edit.php:79
 msgid "Update Event"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_edit.php:92
+#: squirrelmail/plugins/calendar/event_edit.php:91
 msgid "Do you really want to change this event from:"
 msgstr ""
 
-#: squirrelmail/plugins/calendar/event_edit.php:105
+#: squirrelmail/plugins/calendar/event_edit.php:104
 msgid "to:"
+msgstr ""
+
+#: squirrelmail/plugins/calendar/event_edit.php:187
+msgid "Event updated!"
 msgstr ""
 
 #: squirrelmail/plugins/calendar/functions.php:21
@@ -3519,55 +3531,55 @@ msgstr ""
 msgid "6 hr."
 msgstr ""
 
-#: squirrelmail/plugins/calendar/setup.php:20
+#: squirrelmail/plugins/calendar/setup.php:21
 msgid "Calendar"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:16
+#: squirrelmail/plugins/listcommands/mailout.php:19
 msgid "Mailinglist"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:22
+#: squirrelmail/plugins/listcommands/mailout.php:25
 #, c-format
 msgid ""
 "This will send a message to %s requesting help for this list. You will "
 "receive an emailed response at the address below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:25
+#: squirrelmail/plugins/listcommands/mailout.php:28
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:28
+#: squirrelmail/plugins/listcommands/mailout.php:31
 #, c-format
 msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/mailout.php:76
+#: squirrelmail/plugins/listcommands/mailout.php:79
 msgid "Send Mail"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:33
+#: squirrelmail/plugins/listcommands/setup.php:35
 msgid "Post to the list"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:34
+#: squirrelmail/plugins/listcommands/setup.php:36
 msgid "List Archives"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:35
+#: squirrelmail/plugins/listcommands/setup.php:37
 msgid "Contact Listowner"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:37
+#: squirrelmail/plugins/listcommands/setup.php:39
 msgid "Reply to the list"
 msgstr ""
 
-#: squirrelmail/plugins/listcommands/setup.php:88
+#: squirrelmail/plugins/listcommands/setup.php:90
 msgid "Mailinglist options:"
 msgstr ""
