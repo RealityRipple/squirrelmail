@@ -21,7 +21,6 @@
    setPref($data_dir, $username, "email_address", stripslashes($email_address));
    setPref($data_dir, $username, "reply_to", stripslashes($reply_to));
    setPref($data_dir, $username, "chosen_theme", $chosentheme);
-   setPref($data_dir, $username, "move_to_trash", $movetotrash);
    setPref($data_dir, $username, "show_num", $shownum);
    setPref($data_dir, $username, "wrap_at", $wrapat);
    setPref($data_dir, $username, "editor_size", $editorsize);
@@ -30,6 +29,22 @@
    setPref($data_dir, $username, "language", $language);
    setPref($data_dir, $username, "left_size", $leftsize);
    setPref($data_dir, $username, "folder_prefix", $folderprefix);
+
+	if ($trash != "none") {
+   	setPref($data_dir, $username, "move_to_trash", true);
+		setPref($data_dir, $username, "trash_folder", $trash);
+	} else {
+   	setPref($data_dir, $username, "move_to_trash", false);
+		setPref($data_dir, $username, "trash_folder", "");
+	}
+   
+	if ($sent != "none") {
+   	setPref($data_dir, $username, "move_to_sent", true);
+		setPref($data_dir, $username, "sent_folder", $sent);
+	} else {
+   	setPref($data_dir, $username, "move_to_sent", false);
+		setPref($data_dir, $username, "sent_folder", "");
+	}
    
    setSig($data_dir, $username, stripslashes($signature_edit));
 

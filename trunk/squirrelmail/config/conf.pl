@@ -12,11 +12,16 @@ $NRM = "\x1B[0m";
 # First, lets read in the data already in there...
 ############################################################              
 if ( -e "config.php") {
-   print "The file \"config.php\" exists.  Using it for defaults.\n\n";
+	$config = 1;
    open (FILE, "config.php");
-} else {
-   print "No config file found.  Reading from config_defaults.php.\n\n";
+} elsif (-e "config_default.php") {
+	$config = 2;
    open (FILE, "config_default.php");
+} else {
+	print "No configuration file found.  Please get config_default.php or\n";
+	print "config.php before running this again.  This program needs a\n";
+	print "default config file to get default values.\n";
+	exit;
 }
 
 #  Reads and parses the current configuration file (either
@@ -34,15 +39,7 @@ while ($line = <FILE>) {
          $options[1] =~ s/;.*$//g;
          $options[1] =~ s/"$//g;
 
-         if ($options[0] =~ /^special_folders/) {
-            if ($options[0] =~ /\[.*\]$/) {
-               $sub = $options[0];
-               $sub =~ s/\]$//;
-               $sub = substr ($sub, @sub-1, 1);
-
-               $special_folders[$sub] = $options[1];
-            }   
-         } elsif ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
+         if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
             $sub = $options[0];
             $sub =~ s/\]\["PATH"\]//;
             $sub = substr ($sub, @sub-1, 1);
@@ -52,6 +49,54 @@ while ($line = <FILE>) {
             $sub =~ s/\]\["NAME"\]//;
             $sub = substr ($sub, @sub-1, 1);
             $theme_name[$sub] = $options[1];
+			} elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
+            $sub = $options[0];
+            $sub = substr ($sub, length($sub)-2, 1);
+				$continue = 0;
+				while (($tmp = <FILE>) && ($continue != 1)) {
+					if ($tmp =~ /\);\s*$/) {
+						$continue = 1;
+					}
+					
+					if ($tmp =~ /^\s*"host"/i) {
+						$tmp =~ s/^\s*"host"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						$host = $tmp;
+					} elsif ($tmp =~ /^\s*"base"/i) {
+						$tmp =~ s/^\s*"base"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						print $tmp."\n";
+						$base = $tmp;
+					} elsif ($tmp =~ /^\s*"charset"/i) {
+						$tmp =~ s/^\s*"charset"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						$charset = $tmp;
+					} elsif ($tmp =~ /^\s*"port"/i) {
+						$tmp =~ s/^\s*"port"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						$port = $tmp;
+					} elsif ($tmp =~ /^\s*"maxrows"/i) {
+						$tmp =~ s/^\s*"maxrows"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						$maxrows = $tmp;
+					} elsif ($tmp =~ /^\s*"name"/i) {
+						$tmp =~ s/^\s*"name"\s*=>\s*"//i;
+						$tmp =~ s/",\s*$//;
+						$tmp =~ s/"\);\s*$//;
+						$name = $tmp;
+					}
+				}
+            $ldap_host[$sub] = $host;
+				$ldap_base[$sub] = $base;
+				$ldap_name[$sub] = $name;
+				$ldap_port[$sub] = $port;
+				$ldap_maxrows[$sub] = $maxrows;
+				$ldap_charset[$sub] = $charset;
          } else {
             ${$options[0]} = $options[1];
          }   
@@ -65,13 +110,16 @@ if (!$sendmail_path) {
    $sendmail_path = "/usr/sbin/sendmail";
 }
 
-
 #####################################################################################
 
 while (($command ne "q") && ($command ne "Q")) {
    system "clear";
    if ($menu == 0) {
-      print $WHT."SquirrelMail Configuration Utility\n".$NRM;
+      print $WHT."SquirrelMail Configuration : ".$NRM;
+		if ($config == 1) { print "Read: config.php"; }
+		elsif ($config == 2) { print "Read: config_default.php"; }
+		print "\n";
+
       print $WHT."Main Menu --\n".$NRM;
       print "1.  Organization Preferences\n";
       print "2.  Server Settings\n";
@@ -114,10 +162,6 @@ while (($command ne "q") && ($command ne "Q")) {
       print "8.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
       print "9.  Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
       print "10. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
-      print "11. Special Folders            > $WHT$special_folders[0]$NRM\n";
-      for ($count = 1; $count <= $#special_folders; $count++) {
-         print "                               > $WHT$special_folders[$count]$NRM\n";
-      }
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 4) {
@@ -139,6 +183,10 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 6) {
       print $WHT."Address Books (LDAP)\n".$NRM;
+      print "1.  Change Servers\n";
+      for ($count = 0; $count <= $#ldap_host; $count++) {
+         print "    >  $ldap_host[$count]\n";
+      }
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 7) {
@@ -203,7 +251,6 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 8) { $auto_expunge                   = command28 (); }
          elsif ($command == 9) { $default_sub_of_inbox           = command29 (); }
          elsif ($command == 10){ $show_contain_subfolders_option = command210(); }
-         elsif ($command == 11){ $special_folders                = command211(); }
       } elsif ($menu == 4) {
          if    ($command == 1) { $default_charset    = command31 (); }
          elsif ($command == 2) { $auto_forward       = command32 (); }
@@ -215,6 +262,7 @@ while (($command ne "q") && ($command ne "Q")) {
             command41 (); 
          }
       } elsif ($menu == 6) {
+			if ($command == 1) { command61(); }
       } elsif ($menu == 7) {
          if    ($command == 1) { $motd = command71 (); $motd =~ s/"/\\"/g;}
       }
@@ -645,87 +693,6 @@ sub command210 {
    return $show_contain_subfolders_option;
 }
 
-# special folders
-sub command211 {
-   print "\nSpecial folders are folders that can't be manipulated like normal\n";
-   print "user-created folders.  A couple of examples of these would be the\n";
-   print "trash folder, the sent folder, etc.\n";
-   print "Special Folders:\n";
-   $count = 0;
-   print "\n";
-   while ($count < @special_folders) {
-      print "   $count) $WHT" . $special_folders[$count] . "$NRM\n";
-      $count++;
-   }
-   print "\n[folders] command (?=help) > ";
-   $input = <STDIN>;
-   $input =~ s/[\r|\n]//g;
-   while ($input !~ /^d$/i) {
-      ## ADD
-      if ($input =~ /^\s*\+\s*.*/) {
-         $input =~ s/^\s*\+\s*//;
-         $special_folders[$#special_folders+1] = $input;
-      }
-   
-      elsif ($input =~ /^\s*-\s*[0-9]?/i) {
-         if ($input =~ /[0-9]+\s*$/) {
-            $rem_num = $input;
-            $rem_num =~ s/^\s*-\s*//g;
-            $rem_num =~ s/\s*$//;
-         } else {
-            $rem_num = $#special_folders;
-         }
-   
-         if ($rem_num == 0) {
-            print "You cannot remove INBOX.  It is a very special folder.\n";
-         } else {
-            $count = 0;
-            @new_special_folders = ();
-            $removed = 0;
-            while ($count <= $#special_folders) {
-               if ($count != $rem_num) {
-                  @new_special_folders = (@new_special_folders, $special_folders[$count]);     
-               }
-               if ($count == $rem_num) {
-                  print "Removed: $special_folders[$rem_num]\n";
-                  $removed = 1;
-               }
-               $count++;
-            }
-            if ($removed != 1) {
-               print "Error: Can't delete an entry that's not there!\n";
-            }
-            @special_folders = @new_special_folders;
-         }
-      }
-   
-      elsif ($input =~ /^\s*l\s*/i) {
-         $count = 0;
-         print "\n";
-         while ($count < @special_folders) {
-            print "   $count) $WHT" . $special_folders[$count] . "$NRM\n";
-            $count++;
-         }
-      } elsif ($input =~ /^\s*\?\s*/) {
-         print ".-------------------------.\n";
-         print "| + Folder   (add folder) |\n";
-         print "| - N     (remove folder) |\n";
-         print "| l        (list folders) |\n";
-         print "| d                (done) |\n";
-         print "`-------------------------'\n";
-      }
-   
-      else {
-         print "Unrecognized command.\n";
-      }
-   
-      print "\n[folders] command (?=help) > ";
-      $input = <STDIN>;
-      $input =~ s/[\r|\n]//g;
-   }
-   return @special_folders;
-}
-
 ############# GENERAL OPTIONS #####################
 
 # Default Charset
@@ -938,6 +905,137 @@ sub command41 {
 }   
 
 
+sub command61 {
+	print "You can now define different LDAP servers.\n";
+   print "[ldap] command (?=help) > ";
+   $input = <STDIN>;
+   $input =~ s/[\r|\n]//g;
+   while ($input ne "d") {
+      if ($input =~ /^\s*l\s*/i) {
+         $count = 0;
+         while ($count <= $#ldap_host) {
+				print "$count. $ldap_host[$count]\n";
+				print "        base: $ldap_base[$count]\n";
+				if ($ldap_charset[$count]) {
+					print "     charset: $ldap_charset[$count]\n";
+				}
+				if ($ldap_port[$count]) {
+					print "        port: $ldap_port[$count]\n";
+				}
+				if ($ldap_name[$count]) {
+					print "        name: $ldap_name[$count]\n";
+				}
+				if ($ldap_maxrows[$count]) {
+					print "     maxrows: $ldap_maxrows[$count]\n";
+				}
+				print "\n";
+            $count++;
+         }
+      } elsif ($input =~ /^\s*\+/) {
+			$sub = $#ldap_host + 1;
+         
+			print "First, we need to have the hostname or the IP address where\n";
+			print "this LDAP server resides.  Example: ldap.bigfoot.com\n";
+			print "hostname: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_host[$sub] = $name;
+			
+			print "\n";
+
+			print "Next, we need the server root (base dn).  For this, an empty\n";
+			print "string is allowed.\n";
+			print "Example: ou=member_directory,o=netcenter.com\n";
+			print "base: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_base[$sub] = $name;
+
+			print "\n";
+
+			print "This is the TCP/IP port number for the LDAP server.  Default\n";
+			print "port is 389.  This is optional.  Press ENTER for default.\n";
+			print "port: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_port[$sub] = $name;
+
+			print "\n";
+
+			print "This is the charset for the server.  Default is utf-8.  This\n";
+			print "is also optional.  Press ENTER for default.\n";
+			print "charset: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_charset[$sub] = $name;
+
+			print "\n";
+
+			print "This is the name for the server, used to tag the results of\n";
+			print "the search.  Default it \"LDAP: hostname\".  Press ENTER for default\n";
+			print "name: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_name[$sub] = $name;
+
+			print "\n";
+
+			print "You can specify the maximum number of rows in the search result.\n";
+			print "Default is unlimited.  Press ENTER for default.\n";
+			print "maxrows: ";
+         $name = <STDIN>;
+         $name =~ s/[\r|\n]//g;
+         $ldap_maxrows[$sub] = $name;
+
+			print "\n";
+
+      } elsif ($input =~ /^\s*-\s*[0-9]?/) {
+         if ($input =~ /[0-9]+\s*$/) {
+            $rem_num = $input;
+            $rem_num =~ s/^\s*-\s*//g;
+            $rem_num =~ s/\s*$//;
+         } else {
+            $rem_num = $#ldap_host;
+         }
+         $count = 0;
+         @new_ldap_host = ();
+         @new_ldap_base = ();
+         @new_ldap_port = ();
+         @new_ldap_name = ();
+         @new_ldap_charset = ();
+         @new_ldap_maxrows = ();
+         while ($count <= $#ldap_host) {
+            if ($count != $rem_num) {
+               @new_ldap_host = (@new_ldap_host, $ldap_host[$count]);
+               @new_ldap_base = (@new_ldap_base, $ldap_base[$count]);
+               @new_ldap_port = (@new_ldap_port, $ldap_port[$count]);
+               @new_ldap_name = (@new_ldap_name, $ldap_name[$count]);
+               @new_ldap_charset = (@new_ldap_charset, $ldap_charset[$count]);
+               @new_ldap_maxrows = (@new_ldap_maxrows, $ldap_maxrows[$count]);
+            }
+            $count++;
+         }
+         @ldap_host = @new_ldap_host;
+         @ldap_base = @new_ldap_base;
+         @ldap_port = @new_ldap_port;
+         @ldap_name = @new_ldap_name;
+         @ldap_charset = @new_ldap_charset;
+         @ldap_maxrows = @new_ldap_maxrows;
+      } elsif ($input =~ /^\s*\?\s*/) {
+         print ".-------------------------.\n";
+         print "| +            (add host) |\n";
+         print "| - N       (remove host) |\n";
+         print "| l          (list hosts) |\n";
+         print "| d                (done) |\n";
+         print "`-------------------------'\n";
+      }
+      print "[ldap] command (?=help) > ";
+      $input = <STDIN>;
+      $input =~ s/[\r|\n]//g;
+   }
+}   
+
+
 
 sub save_data {
    open (FILE, ">config.php");
@@ -971,9 +1069,6 @@ sub save_data {
    print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
    print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
    print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";
-   for ($count=0; $count <= $#special_folders; $count++) {
-      print FILE "\t\$special_folders[$count]               = \"$special_folders[$count]\";\n";
-   }
    print FILE "\n";
 
    print FILE "\t\$default_charset   = \"$default_charset\";\n";
@@ -990,6 +1085,25 @@ sub save_data {
    }
    
    print FILE "\n";
+
+   for ($count=0; $count <= $#ldap_host; $count++) {
+		print FILE "\t\$ldap_server[$count] = Array(\n";
+		print FILE "\t\t\t\"host\" => \"$ldap_host[$count]\",\n";
+		print FILE "\t\t\t\"base\" => \"$ldap_base[$count]\"";
+		if ($ldap_name[$count]) {
+			print FILE ",\n\t\t\t\"name\" => \"$ldap_name[$count]\"";
+		}
+		if ($ldap_port[$count]) {
+			print FILE ",\n\t\t\t\"port\" => \"$ldap_port[$count]\"";
+		}
+		if ($ldap_charset[$count]) {
+			print FILE ",\n\t\t\t\"charset\" => \"$ldap_charset[$count]\"";
+		}
+		if ($ldap_maxrows[$count]) {
+			print FILE ",\n\t\t\t\"maxrows\" => \"$ldap_maxrows[$count]\"";
+		}
+   	print FILE ");\n\n";
+   }
 
    print FILE "\t\$motd = \"$motd\";\n";
 

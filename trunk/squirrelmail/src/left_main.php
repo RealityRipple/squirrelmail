@@ -30,9 +30,9 @@
 
    echo "<HTML>";
 
-   function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
-		global $folder_prefix;
-      require ("../config/config.php");
+   function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color) {
+		global $folder_prefix, $trash_folder, $sent_folder;
+		global $color, $move_to_sent, $move_to_trash;
 
       $mailboxURL = urlencode($real_box);
       sqimap_mailbox_select ($imapConnection, $real_box);
@@ -43,10 +43,10 @@
          $line .= "<B>";
 
       $special_color = false;
-      for ($i = 0; $i < count($special_folders); $i++) {
-         if (((substr($real_box, strlen($folder_prefix), strlen($special_folders[$i])) == $special_folders[$i]) || ($real_box == $special_folders[0])) && ($use_special_folder_color == true))
-            $special_color = true;
-      }
+		if ((strtolower($real_box) == "inbox") ||
+		    (($real_box == $trash_folder) && ($move_to_trash)) ||
+			 (($real_box == $sent_folder) && ($move_to_sent)))
+			$special_color = true;
 
       if ($special_color == true) {
          $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT COLOR=\"$color[11]\">";
@@ -65,7 +65,7 @@
          $line .= "&nbsp;<small>($numUnseen)</small>";
       }
 
-      if (($move_to_trash == true) && (substr($real_box, strlen($folder_prefix), strlen($trash_folder)) == $trash_folder)) {
+      if (($move_to_trash == true) && ($real_box == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
          $line .= "<small>";
          $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
@@ -115,10 +115,10 @@
             $line .= replace_spaces(readShortMailboxName($mailbox, $delimeter));
             $line .= "</FONT>";
          } else {
-            $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $color, $move_to_trash);
+            $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $color);
          }
       } else {
-         $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $color, $move_to_trash);
+         $line .= formatMailboxName($imapConnection, $mailbox, $boxes[$i]["unformatted"], $delimeter, $color);
       }
       echo "$line<BR>";
    }

@@ -24,6 +24,28 @@
       }
    }
 
+   $folder_prefix = getPref($data_dir, $username, "folder_prefix");
+   if ($folder_prefix == "")
+      $folder_prefix = $default_folder_prefix;
+
+	/** Load special folders **/
+	$new_trash_folder = getPref($data_dir, $username, "trash_folder");
+	if (($new_trash_folder == "") && ($move_to_trash == true))
+		$trash_folder = $folder_prefix . $trash_folder;
+	else
+		$trash_folder = $new_trash_folder;
+
+	/** Load special folders **/
+	$new_sent_folder = getPref($data_dir, $username, "sent_folder");
+	if (($new_sent_folder == "") && ($move_to_sent == true))
+		$sent_folder = $folder_prefix . $sent_folder;
+	else
+		$sent_folder = $new_sent_folder;
+	
+   /** Load the user's sent folder preferences **/
+   $move_to_sent = getPref($data_dir, $username, "move_to_sent");
+   if ($move_to_sent == "")
+      $move_to_sent = $default_move_to_sent;
 
    /** Load the user's trash folder preferences **/
    $move_to_trash = getPref($data_dir, $username, "move_to_trash");
@@ -45,10 +67,6 @@
       else  
          $left_size = 200;
    }      
-
-   $folder_prefix = getPref($data_dir, $username, "folder_prefix");
-   if ($folder_prefix == "")
-      $folder_prefix = $default_folder_prefix;
 
    $editor_size = getPref($data_dir, $username, "editor_size");
    if ($editor_size == "")

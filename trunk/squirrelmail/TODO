@@ -6,19 +6,16 @@ initials = taken by that person
 (pl?)   Importing of address books
 (nre)   Use PHP4 Session management, get rid of cookies
   -     Make it possible to save preferences in MySQL DB or on Filesystem
-  -     Navigation between messages without going to folder list (next, prev)
   -     Configurable headers shown on the message listing, like:  cc, to, etc
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
-  -     Maybe a rewrite of mime.php (see Gustav before any work is done)
+  -     Rewrite of mime.php (see Gustav before any work is done)
   -     Make Location redirects absolute rather than relative (index.php)
   -     Foreground themes
   -     When deleting or moving messages (empty trash too), go back to the 
             list for the mail box you were looking at without having to click
             a link
 (mcp)   Spell checking
-  -     Cache the sorted messages in mailbox and use that for navigation inside
-            of mailbox (next 25, prev 25, etc.)
   -     Search mailbox(es) for given criteria
 
 
@@ -33,4 +30,7 @@ Finished:
 (lme) (9.4.00)   Better email message body parsing
 (lme) (10.4.00)  Advanced statuses on messages (Seen, Answered, etc)
 (glp) (12.4.00)  Customize how many messages are shown at once while reading a mailbox
+(nre) (16.4.00)  Navigation between messages without going to folder list (next, prev)
+(nre) (16.4.00)  Cache the sorted messages in mailbox and use that for navigation inside
+                 of mailbox (next 25, prev 25, etc.)
 (lme) (21.4.00)  Configure script

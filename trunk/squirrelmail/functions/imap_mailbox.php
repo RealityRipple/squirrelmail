@@ -134,7 +134,8 @@
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
       global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username, $list_special_folders_first;
-		global $special_folders;
+		global $trash_folder, $sent_folder;
+		global $move_to_trash, $move_to_sent;
 
       $inbox_in_list = false;
       $inbox_subscribed = false;
@@ -209,7 +210,7 @@
 		
 		/** Now, lets sort for special folders **/
       for ($i = 0; $i < count($boxes); $i++) {
-         if ($boxes[$i]["unformatted"] == $special_folders[0]) {
+         if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
             $boxesnew[0] = $boxes[$i];
             $boxes[$i]["used"] = true;
          }
@@ -217,18 +218,21 @@
 
       if ($list_special_folders_first == true) {
          for ($i = 0; $i < count($boxes); $i++) {
-            for ($j = 1; $j < count($special_folders); $j++) {
-               if (substr($boxes[$i]["unformatted"], strlen($folder_prefix), strlen($special_folders[$j])) == $special_folders[$j]) {
-                  $pos = count($boxesnew);
-                  $boxesnew[$pos] = $boxes[$i];
-                  $boxes[$i]["used"] = true;
-               }
+				if (($boxes[$i]["unformatted"] == $trash_folder) && ($move_to_trash)) {	
+               $pos = count($boxesnew);
+               $boxesnew[$pos] = $boxes[$i];
+               $boxes[$i]["used"] = true;
+            }
+				else if (($boxes[$i]["unformatted"] == $sent_folder) && ($move_to_sent)) {	
+               $pos = count($boxesnew);
+               $boxesnew[$pos] = $boxes[$i];
+               $boxes[$i]["used"] = true;
             }
          }
       }
 		
       for ($i = 0; $i < count($boxes); $i++) {
-         if (($boxes[$i]["unformatted"] != $special_folders[0]) &&
+         if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
              ($boxes[$i]["used"] == false))  {
             $pos = count($boxesnew);
             $boxesnew[$pos] = $boxes[$i];
@@ -243,7 +247,7 @@
     **  Returns a list of all folders, subscribed or not
     ******************************************************************************/
    function sqimap_mailbox_list_all ($imap_stream) {
-      global $special_folders, $list_special_folders_first, $folder_prefix;
+      global $list_special_folders_first, $folder_prefix;
       
       if (!function_exists ("ary_sort"))
          include ("../functions/array.php");

@@ -75,28 +75,26 @@
    echo _("Delete Folder");
    echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+
    $count_special_folders = 0;
-   for ($i = 0; $i < count($special_folders); $i++) {
-      for ($p = 0; $p < count($special_folders); $p++) {
-         if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-            $count_special_folders++;
-         }
-      }   
-   }
+   for ($p = 0; $p < count($boxes); $p++) {
+      if (strtolower($boxes[$i]["unformatted"]) == "inbox")
+         $count_special_folders++;
+      else if ($boxes[$i]["unformatted"] == $trash_folder)
+         $count_special_folders++;
+      else if ($boxes[$i]["unformatted"] == $sent_folder)
+         $count_special_folders++;
+   }   
 
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_delete.php\" METHOD=\"POST\">\n";
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-         for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-               $use_folder = false;
-            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
-               $use_folder = false;
-            }
-         }
-         if ($use_folder == true) {
+			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
+			    ($boxes[$i]["unformatted"] != $trash_folder) && 
+			    ($boxes[$i]["unformatted"] != $sent_folder)) 
+			{	
             $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
@@ -131,7 +129,7 @@
       if (count($boxes[$i]["flags"]) > 0) {
          for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
             if ($boxes[$i]["flags"][$j] != "noinferiors") {
-               if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
+               if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
                   $box = $boxes[$i]["unformatted"];
                   $box2 = replace_spaces($boxes[$i]["formatted"]);
                   echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
@@ -143,7 +141,7 @@
             }   
          }    
       } else {
-         if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
+         if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
             $box = $boxes[$i]["unformatted"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
@@ -173,14 +171,11 @@
       echo "<TT><SELECT NAME=old>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-         for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-               $use_folder = false;
-            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
-               $use_folder = false;
-            }
-         }
-         if ($use_folder == true) {
+
+			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") && 
+			    ($boxes[$i]["unformatted"] != $trash_folder)  &&
+			    ($boxes[$i]["unformatted"] != $sent_folder)) 
+			{	
             $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
@@ -206,14 +201,10 @@
       echo "<TT><SELECT NAME=mailbox>\n";
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-         for ($p = 0; $p < count($special_folders); $p++) {
-            if ($boxes[$i]["unformatted"] == $special_folders[$p]) {
-               $use_folder = false;
-            } else if (($trash_folder) && (substr($boxes[$i]["unformatted"], 0, strlen($trash_folder)) == $trash_folder)) {
-               $use_folder = false;
-            }
-         }
-         if ($use_folder == true) {
+			if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
+			    ($boxes[$i]["unformatted"] != $trash_folder) &&
+			    ($boxes[$i]["unformatted"] != $sent_folder)) 
+			{	
             $box = $boxes[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
@@ -240,13 +231,15 @@
       echo "<tt><select name=mailbox>";
       for ($i = 0; $i < count($boxes_all); $i++) {
          $use_folder = true;
-         for ($p = 0; $p < count ($boxes); $p++) {
-            if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
-               $use_folder = false;
-               continue;
-            }
-         }
-         if ($use_folder == true) {
+			for ($p = 0; $p < count ($boxes); $p++) {
+				if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
+					$use_folder = false;
+					continue;
+				} else if ($boxes_all[$i]["unformatted-dm"] == $folder_prefix) {
+					$use_folder = false;
+				}
+			}
+			if ($use_folder == true) {	
             $box = $boxes_all[$i]["unformatted-dm"];
             $box2 = replace_spaces($boxes_all[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2\n";
