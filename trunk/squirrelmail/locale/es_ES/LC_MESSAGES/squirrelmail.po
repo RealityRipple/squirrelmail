@@ -3674,7 +3674,7 @@ msgstr "6 hr."
 
 #: squirrelmail/plugins/calendar/setup.php:20
 msgid "Calendar"
-msgstr ""
+msgstr "Calendario"
 
 #: squirrelmail/plugins/listcommands/mailout.php:16
 msgid "Mailinglist"
