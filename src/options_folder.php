@@ -33,7 +33,7 @@
    displayPageHeader($color, "None");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   $boxes = sqimap_mailbox_list($imapConnection, $boxes="");
+   $boxes = sqimap_mailbox_list($imapConnection);
    sqimap_logout($imapConnection);
 ?>
    <br>
