@@ -90,7 +90,6 @@ if ($right_frame == 'right_main.php') {
 } elseif ($right_frame == 'folders.php') {
     $right_frame_url = 'folders.php';
 } elseif ($right_frame == 'compose.php') {
-    $rcptaddress = urlencode($rcptaddress);
     $right_frame_url = "compose.php?send_to=$rcptaddress";
 } else {
     $right_frame_url = 'right_main.php';
