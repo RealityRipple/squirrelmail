@@ -50,21 +50,24 @@ strip_tags($_SERVER['PHP_SELF']);
 /* returns true if current php version is at mimimum a.b.c */
 function check_php_version ($a = '0', $b = '0', $c = '0')             
 {
-    global $SQ_PHP_VERSION;       
+    global $SQ_PHP_VERSION;
 
-    if(!isset($SQ_PHP_VERSION))         
-        $SQ_PHP_VERSION = str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0');             
+    if(!isset($SQ_PHP_VERSION))
+        $SQ_PHP_VERSION = str_pad( preg_replace('/\D/','', PHP_VERSION), 3, '0');
 
-    return $SQ_PHP_VERSION >= ($a.$b.$c);       
+    return $SQ_PHP_VERSION >= ($a.$b.$c);
 }
 
+/* recursively strip slashes from the values of an array */
 function sqstripslashes(&$array) {
-    foreach ($array as $index=>$value) {
-        if (is_array($array[$index])) {
-            sqstripslashes($array[$index]);
-        }
-        else {
-            $array[$index] = stripslashes($value);
+    if(count($array) > 0) {
+        foreach ($array as $index=>$value) {
+            if (is_array($array[$index])) {
+                sqstripslashes($array[$index]);
+            }
+            else {
+                $array[$index] = stripslashes($value);
+            }
         }
     }
 }
@@ -78,6 +81,7 @@ function sqsession_register ($var, $name) {
         $_SESSION["$name"] = $var; 
     }
 }
+
 function sqsession_unregister ($name) {
     if ( !check_php_version(4,1) ) {
         global $HTTP_SESSION_VARS;
@@ -87,6 +91,7 @@ function sqsession_unregister ($name) {
         unset($_SESSION[$name]);
     }
 }
+
 function sqsession_is_registered ($name) {
     $test_name = &$name;
     $result = false;
