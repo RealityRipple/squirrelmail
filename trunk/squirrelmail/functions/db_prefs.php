@@ -21,7 +21,7 @@
  *    prefkey    char  /  key
  *    prefval    blob
  *
- *   CREATE TABLE userprefs (user CHAR(32) NOT NULL DEFAULT '',
+ *   CREATE TABLE userprefs (user CHAR(128) NOT NULL DEFAULT '',
  *                           prefkey CHAR(64) NOT NULL DEFAULT '',
  *                           prefval BLOB NOT NULL DEFAULT '',
  *                           primary key (user,prefkey));
@@ -265,7 +265,7 @@ function removePref($data_dir, $username, $string) {
 function setPref($data_dir, $username, $string, $set_to) {
     global $prefs_cache;
 
-    if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $value)) {
+    if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $set_to)) {
         return;
     }
 
