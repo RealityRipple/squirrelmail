@@ -258,15 +258,15 @@
 
          // Then list special folders and their subfolders
          for ($i = 0 ; $i <= count($boxes) ; $i++) {
-            if (! (strcasecmp($trash_folder, $boxes[$i]["unformatted"]) &&
-                strcasecmp($trash_folder . $dm, $boxes[$i]["unformatted"] ))
-		&& $move_to_trash) {
+            if ($move_to_trash &&
+	        eregi("^" . quotemeta($trash_folder) . "(" .
+		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }
-            elseif (! (strcasecmp($sent_folder, $boxes[$i]["unformatted"]) &&
-                strcasecmp($sent_folder . $dm, $boxes[$i]["unformatted"] ))
-		&& $move_to_sent) {        
+            elseif ($move_to_sent &&
+	        eregi("^" . quotemeta($sent_folder) . "(" .
+		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }
