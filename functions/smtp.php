@@ -74,14 +74,17 @@
 
    // Return a nice MIME-boundary
    function mimeBoundary () {
-      global $version, $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
-
       static $mimeBoundaryString;
 
       if ($mimeBoundaryString == "") {
-         $temp = "SquirrelMail".$version.$REMOTE_ADDR.$SERVER_NAME.
-            $REMOTE_PORT;
-         $mimeBoundaryString = "=-_+".substr(md5($temp),1,20);
+         sq_mt_randomize(); // Initialize the random number generator
+         // Use all allowed chars besides space.
+         $Chrs = '\'()+,-./0123456789:=?ABCDEFGHIJKLMNOP' .
+             'QRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz';
+         // Create a LONG boundary to ensure no duplicates
+         while (strlen($mimeBoundaryString) < 70) {
+            $mimeBoundaryString .= $Chrs[mt_rand(0, strlen($Chrs))];
+         }
       }
 
       return $mimeBoundaryString;
