@@ -611,7 +611,7 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
                   $filename = "untitled-".$message->entity_id.'.eml';
                }
 	    } else {
-               $filename = decodeHeader($message->header->filename);
+               $filename = decodeHeader($message->header->getParameter('filename'));
                if ($filename == "") {
                   $filename = "untitled-".$message->entity_id;
                }
