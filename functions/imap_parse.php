@@ -288,7 +288,7 @@ function sqimap_parse_address($address, $ar, $addr_ar = array(), $group = '') {
 	    $name = substr($address,0,$addr_start);
 	}
 	$at = strpos($addr, '@');
-	$addr_structure = new address_structure();
+	$addr_structure = new AddressStructure();
 	$addr_structure->personal = $name;
 	$addr_structure->group = $group;
 
@@ -327,7 +327,7 @@ function sqimap_parse_address($address, $ar, $addr_ar = array(), $group = '') {
      $name = substr($address,0,$addr_start);
   }
   $at = strpos($addr, '@');
-  $addr_structure = new address_structure();
+  $addr_structure = new AddressStructure();
   $addr_structure->group = $group;
   if ($at) {
      $addr_structure->mailbox = trim(substr($addr,0,$at));

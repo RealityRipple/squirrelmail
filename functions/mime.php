@@ -28,7 +28,7 @@ function mime_structure ($bodystructure, $flags=array()) {
 
     // isolate the body structure and remove beginning and end parenthesis
     $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));
-    $msg = &new message();
+    $msg =& new Message();
     $read = trim(substr ($read, 0, -1));
     $res = $msg->parseStructure($read);
     $msg = $res[0];

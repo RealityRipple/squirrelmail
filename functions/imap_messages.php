@@ -701,7 +701,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
     $bodystructure = implode('',$read);
     $msg =  mime_structure($bodystructure,$flags);
     $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);
-    $rfc822_header = new rfc822_header();
+    $rfc822_header = new Rfc822Header();
     $rfc822_header->parseHeader($read);
     $msg->rfc822_header = $rfc822_header;
     return $msg;
