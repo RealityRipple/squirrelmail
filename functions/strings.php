@@ -582,12 +582,16 @@ function sq_fwrite($fp, $string) {
  * Returns the translation table used by sq_htmlentities()
  *
  * @param integer $table html translation table. Possible values (without quotes):
- *                HTML_ENTITIES - full html entities table defined by charset
- *                HTML_SPECIALCHARS - html special characters table
+ *             <ul>
+ *                <li>HTML_ENTITIES - full html entities table defined by charset</li>
+ *                <li>HTML_SPECIALCHARS - html special characters table</li>
+ *             </ul>
  * @param integer $quote_style quote encoding style. Possible values (without quotes):
- *                ENT_COMPAT - (default) encode double quotes
- *                ENT_NOQUOTES -  don't encode double or single quotes
- *                ENT_QUOTES - encode double and single quotes
+ *		<ul>
+ *                <li>ENT_COMPAT - (default) encode double quotes</li>
+ *                <li>ENT_NOQUOTES -  don't encode double or single quotes</li>
+ *                <li>ENT_QUOTES - encode double and single quotes</li>
+ *		</ul>
  * @param string $charset charset used for encoding. default to us-ascii, 'auto' uses $default_charset global value.
  * @return array html translation array
  */
@@ -643,9 +647,11 @@ function sq_get_html_translation_table($table,$quote_style=ENT_COMPAT,$charset='
  *
  * @param string $string string that has to be sanitized
  * @param integer $quote_style quote encoding style. Possible values (without quotes):
- *                ENT_COMPAT - (default) encode double quotes
- *                ENT_NOQUOTES - don't encode double or single quotes
- *                ENT_QUOTES - encode double and single quotes
+ *		<ul>
+ *                <li>ENT_COMPAT - (default) encode double quotes</li>
+ *                <li>ENT_NOQUOTES - don't encode double or single quotes</li>
+ *                <li>ENT_QUOTES - encode double and single quotes</li>
+ *		</ul>
  * @param string $charset charset used for encoding. defaults to 'us-ascii', 'auto' uses $default_charset global value.
  * @return string sanitized string
  */

@@ -7,8 +7,10 @@
  * sq_get_html_translation_table() and sq_htmlentities(). They are 
  * included in functions/strings.php
  *
+ * <pre>
  * sq_htmlentities uses same syntax as functions available in php 4.1.0
  * sq_get_html_translation_table adds third option that sets charset.
+ * </pre>
  *
  * string sq_htmlentities ( string string [, int quote_style [, string charset]])
  * array sq_get_html_translation_table ( int table [, int quote_style [, string charset]])
@@ -21,10 +23,11 @@
  * Why own functions are used instead of htmlspecialchars() and 
  * htmlentities() provided by php.
  *
- * a) removes dependency on options available only in php v.4.1+
- * b) default behavior of htmlentities() is disastrous in non iso-8859-1 environment.
- * c) provides better control of transformations.
- *
+ * <li>a) removes dependency on options available only in php v.4.1+
+ * <li>b) default behavior of htmlentities() is disastrous in non iso-8859-1 environment.
+ * <li>c) provides better control of transformations.
+ * 
+ * <pre>
  * --- Full list of entities (w3.org html4.01 recommendations)
  * 1. regural symbols
  * U+0022 - &quot;
@@ -307,6 +310,7 @@
  * U+2663 - &clubs;    -- black club suit = shamrock
  * U+2665 - &hearts;   -- black heart suit = valentine
  * U+2666 - &diams;    -- black diamond suit
+ * </pre>
  *
  * @copyright (c) 2004 The SquirrelMail development team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
