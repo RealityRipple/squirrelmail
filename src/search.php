@@ -15,7 +15,6 @@ require_once('../functions/imap_search.php');
 require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
-require_once('../functions/html.php');
 
 global $allow_thread_sort;
 
@@ -169,9 +168,16 @@ $search_all = 'none';
 $perbox_count = array ();
 $recent_count = getPref($data_dir, $username, 'search_memory', 0);
 
+
 /*  get mailbox names  */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $boxes = sqimap_mailbox_list($imapConnection);
+
+if (isset($newsort)) {
+    printSearchMessages('',$mailbox, '', $imapConnection, true, $newsort);
+}
+
+
 
 /*  set current mailbox to INBOX if none was selected or if page
     was called to search all folders.  */
@@ -212,12 +218,12 @@ elseif ($submit == 'delete') {
 
 do_hook('search_before_form');
 
-echo "<br>\n".
-     html_tag( 'table',
-         html_tag( 'tr', "\n" .
-             html_tag( 'td', '<b>' . _("Search") . '</b>', 'center', $color[0] )
-         ) ,
-     '', '', 'width="100%"') . "\n";
+echo "<BR>\n".
+     "<table width=\"100%\">\n".
+        "<TR><td bgcolor=\"$color[0]\">\n".
+            "<CENTER><B>" . _("Search") . "</B></CENTER>\n".
+        "</TD></TR>\n".
+     "</TABLE>\n";
 
 /*  update the recent and saved searches from the pref files  */
 $attributes = get_recent($username, $data_dir);
@@ -227,46 +233,41 @@ $count_all = 0;
 
 /* Saved Search Table */
 if ($saved_count > 0) {
-    echo "<br>\n"
-    . html_tag( 'table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"' )
-    . html_tag( 'tr',
-          html_tag( 'td', '<b>Saved Searches</b>', 'center' )
-      )
-    . html_tag( 'tr' )
-    . html_tag( 'td' )
-    . html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' );
+    echo "<BR>\n"
+    . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
+    . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
+    . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
     for ($i=0; $i < $saved_count; ++$i) {
         if ($i % 2) {
-            echo html_tag( 'tr', '', '', $color[0] );
+            echo "<TR BGCOLOR=\"$color[0]\">";
         } else {
-            echo html_tag( 'tr', '', '', $color[4] );
+            echo "<TR BGCOLOR=\"$color[4]\">";
         }
-        echo html_tag( 'td', $saved_attributes['saved_folder'][$i], 'left', '', 'width="35%"' )
-        . html_tag( 'td', $saved_attributes['saved_what'][$i], 'left' )
-        . html_tag( 'td', $saved_attributes['saved_where'][$i], 'center' )
-        . html_tag( 'td', '', 'right' )
-        .   '<a href=search.php'
+        echo "<TD WIDTH=\"35%\">".$saved_attributes['saved_folder'][$i]."</TD>"
+        . "<TD ALIGN=LEFT>".$saved_attributes['saved_what'][$i]."</TD>"
+        . "<TD ALIGN=CENTER>".$saved_attributes['saved_where'][$i]."</TD>"
+        . '<TD ALIGN=RIGHT>'
+        .   '<A HREF=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
-        .   '>' . _("edit") . '</a>'
+        .   '>' . _("edit") . '</A>'
         .   '&nbsp;|&nbsp;'
-        .   '<a href=search.php'
+        .   '<A HREF=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
         .     '&amp;submit=Search_no_update'
-        .   '>' . _("search") . '</a>'
+        .   '>' . _("search") . '</A>'
         .   '&nbsp;|&nbsp;'
-        .   "<a href=search.php?count=$i&amp;submit=delete>"
+        .   "<A HREF=search.php?count=$i&amp;submit=delete>"
         .     _("delete")
-        .   '</a>'
-        . '</td></tr>';
+        .   '</A>'
+        . '</TD></TR>';
     }
-    echo "</table></td></tr></table>\n";
+    echo "</TABLE></TD></TR></TABLE>\n";
 }
 
-/* Recent Search Table */
 if ($recent_count > 0) {
     echo "<br>\n"
        . html_tag( 'table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"' )
@@ -312,6 +313,61 @@ if ($recent_count > 0) {
         }
     echo '</table></td></tr></table><br>';
 }
+
+function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $usecache = false, $newsort = false) {
+    global $sort, $color;
+
+    if (!$usecache) {
+       if (!isset($search_msgs) || !session_is_registered('search_msgs')) {
+          $search_msgs = array();
+          $search_msgs[$mailbox] = $msgs;    
+          session_register('search_msgs');
+       } else {
+          $old_search_msgs = $search_msgs;
+          session_unregister('search_msgs');
+          $old_search_msgs[$mailbox] = $msgs;
+          $search_msgs = $old_search_msgs;
+          session_register('search_msgs');
+       }
+    } else {
+//       if (session_is_registered('search_msgs')) {
+//          global $search_msgs;
+          $msgs = $search_msgs[$mailbox];
+//       } else {
+//          $msgs = $search_msgs[$mailbox];
+//       }
+    }
+    if ($newsort) {
+      $cnt = count($msgs);
+      $sort = $newsort;
+    }
+    $msort = calc_msort($msgs, $sort, $cnt, true);
+    displayMessageArray($imapConnection, $cnt, 1, 
+			     $msgs, $msort, $mailbox, $sort, $color, 
+			     $cnt, true);
+}			      
+
+if (isset($newsort)) {
+    $sort = $newsort;
+    session_register('sort');
+}
+
+/*********************************************************************
+ * Check to see if we can use cache or not. Currently the only time  *
+ * when you will not use it is when a link on the left hand frame is *
+ * used. Also check to make sure we actually have the array in the   *
+ * registered session data.  :)                                      *
+ *********************************************************************/
+if (! isset($use_mailbox_cache)) {
+    $use_mailbox_cache = 0;
+}
+
+/* There is a problem with registered vars in 4.1 */
+/*
+if( substr( phpversion(), 0, 3 ) == '4.1'  ) {
+    $use_mailbox_cache = FALSE;
+}
+*/
 
 /* Search Form */
 echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
@@ -386,17 +442,19 @@ if ($allow_thread_sort == TRUE) {
 if ($search_all == 'all') {
     $mailbox == '';
     $boxcount = count($boxes);
-    echo '<br><center><b>' .
+    echo '<BR><CENTER><B>' .
          _("Search Results") .
-         "</b><center><br>\n";
+         "</B><CENTER><BR>\n";
     for ($x=0;$x<$boxcount;$x++) {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
             $mailbox = $boxes[$x]['unformatted'];
         }
         if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
             sqimap_mailbox_select($imapConnection, $mailbox);
-            $count_all = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
-        array_push($perbox_count, $count_all);
+            $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+	    $count_all = count($msgs);
+            printSearchMessages($msgs, $mailbox, $count_all, $imapConnection);
+            array_push($perbox_count, $count_all);
         }
     }
     for ($i=0;$i<count($perbox_count);$i++) {
@@ -415,20 +473,22 @@ if ($search_all == 'all') {
 /*  search one folder option  */
 else {
     if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
-        echo '<br>'
-        . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
+        echo '<BR><CENTER><B>' .
+             _("Search Results") .
+             "</B></CENTER>\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
-        sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+        $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+        printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection);
     }
 }
 
 /*  must have search terms to search  */
 if ($submit == _("Search") && empty($what)) {
-        echo '<br>'
-        . html_tag( 'div', '<b>Please enter something to search for</b>', 'center' ) . "\n";
+    echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
 }
 
 $allow_thread_sort = $old_value;
+
 
 do_hook('search_bottom');
 sqimap_logout ($imapConnection);
