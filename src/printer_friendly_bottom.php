@@ -39,7 +39,9 @@ $to = decodeHeader(getLineOfAddrs($message->header->to));
 
 /* and Body and Subject could easily stream off the page... */
 $id = $message->header->id;
-$ent_num = findDisplayEntity ($message, 0);  
+$ent_ar = findDisplayEntity ($message, 0);
+$ent_num = $ent_ar[0];
+  
 $body_message = getEntity($message, $ent_num);
 if (($body_message->header->type0 == 'text') ||
     ($body_message->header->type0 == 'rfc822')) {    
@@ -52,7 +54,7 @@ if (($body_message->header->type0 == 'text') ||
         $body = strip_tags( $body );
         translateText($body, $wrap_at, $body_message->header->charset);
     } else {
-        $body = MagicHTML( $body, $id );
+        $body = MagicHTML( $body, $id, $message );
     }
     } else {
         translateText($body, $wrap_at, $body_message->header->charset);
