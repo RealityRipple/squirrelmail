@@ -17,7 +17,7 @@ require_once('../functions/array.php');
 require_once('../functions/mailbox_display.php');
 require_once('../functions/mime.php');
 
-function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color, $search_position = '') {
+function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color, $search_position = '', $search_all, $count_all) {
 
     global $msgs, $message_highlight_list, $squirrelmail_language, $languages, $index_order;
     global $pos;
@@ -79,9 +79,18 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
     /* If nothing is found * SEARCH should be the first error else echo errors */
     if (isset($errors) && strstr($errors,"* SEARCH")) {
+		if ($search_all != "all") {
         echo '<br><CENTER>' . _("No Messages Found") . '</CENTER>';
         return;
-    } else if (isset($errors)) {
+		}
+		else {
+        return;
+		}
+    }
+//	else if ($search_all == 'all') {
+//		return;
+//	}
+	else if (isset($errors)) {
         echo "<!-- ".$errors." -->";
     }
 
@@ -164,22 +173,24 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
         if (!isset ($msg)) { 
             $msg = ''; 
         }
-
         mail_message_listing_beginning( $imapConnection,
             "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
             $mailbox,
             -1,
-            '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',
-            get_selectall_link($start_msg, $sort) );
+            '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>');
+            #get_selectall_link($start_msg, $sort) );
 
-
+#		echo '<table width=100%>';
+		echo "<b><big><center>$mailbox</center></big></b>";
         while ($j < count($msgs)) {
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, '', 0, $search_where, $search_what);
             $j++;
+			echo '</td></tr>';
         }
         echo '</table></td></tr></table></form>';
-
+		$count_all += count($msgs);
     }
+		return $count_all;
 }
 
 ?>
