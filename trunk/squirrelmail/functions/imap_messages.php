@@ -556,13 +556,16 @@ function parseArray($read,&$i) {
 
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
     $aHeaderFields = array('Date', 'To', 'Cc', 'From', 'Subject', 'X-Priority', 'Content-Type'),
-    $aFetchItems = array('FLAGS', 'UID', 'RFC822.SIZE', 'INTERNALDATE')) {
-
-    global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
-    global $allow_server_sort;
+    $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
     $messages = array();
     $read_list = array();
+
+    if (array_search('UID',$aFetchItems,true) !== false) {
+        $bUidFetch = false;
+    } else {
+        $bUidFetch = true;
+    }
 
     /* Get the small headers for each message in $msg_list */
     if ($show_num != '999999' && $show_num != '*' ) {
@@ -572,8 +575,10 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         * in $msg_list, but IMAP servers are free to return responses in
         * whatever order they wish... So we need to re-sort manually
         */
-        for ($i = 0; $i < sizeof($msg_list); $i++) {
-            $messages["$msg_list[$i]"] = array();
+        if ($bUidFetch) {
+            for ($i = 0; $i < sizeof($msg_list); $i++) {
+                $messages["$msg_list[$i]"] = array();
+            }
         }
     } else {
         $msgs_str = '1:*';
@@ -585,10 +590,6 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
      * Create the query
      */
 
-    $internaldate = getPref($data_dir, $username, 'internal_date_sort');
-    if (($i = array_search('INTERNALDATE',$aFetchItems,true)) !== false && $internaldate == false) {
-        unset($aFetchItems[$i]);
-    }
     $sFetchItems = '';
     $query = "FETCH $msgs_str (";
     if (count($aFetchItems)) {
@@ -599,7 +600,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         $sFetchItems .= ' BODY.PEEK[HEADER.FIELDS ('.$sHeaderFields.')]';
     }
     $query .= trim($sFetchItems) . ')';
-    $read_list = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, TRUE);
+
+    $read_list = sqimap_run_command_list ($imap_stream, $query, true, $response, $message, $bUidFetch);
     $i = 0;
 
     foreach ($read_list as $r) {
@@ -615,13 +617,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
         $id = substr($read,2,$i_space-2);
         $fetch = substr($read,$i_space+1,5);
         if (!is_numeric($id) && $fetch !== 'FETCH') {
-            set_up_language($squirrelmail_language);
-            echo '<br><b><font color=$color[2]>' .
-                _("ERROR : Could not complete request.") .
-                '</b><br>' .
-                _("Unknown response from IMAP server: ") . ' 1.' .
-                htmlspecialchars($read) . "</font><br>\n";
-                break;
+            $msg['ERROR'] = $read; // htmlspecialchars should be done just before display. this is backend code
+            break;
         }
         $i = strpos($read,'(',$i_space+5);
         $read = substr($read,$i+1);
@@ -670,6 +667,12 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
                     break 3;
                 }
 
+                break;
+            case 'ENVELOPE':
+                break; // to be implemented, moving imap code out of the nessages class
+                sqimap_parse_address($read,$i,$msg);
+                break; // to be implemented, moving imap code out of the nessages class
+            case 'BODYSTRUCTURE':
                 break;
             case 'INTERNALDATE':
                 $msg['INTERNALDATE'] = str_replace('  ', ' ',parseString($read,$i));
@@ -730,6 +733,113 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
     }
     array_reverse($messages);
     return $messages;
+}
+
+function sqimap_parse_envelope($read, &$i, &$msg) {
+    $arg_no = 0;
+    $arg_a = array();
+    ++$i;
+    for ($cnt = strlen($read); ($i < $cnt) && ($read{$i} != ')'); ++$i) {
+        $char = strtoupper($read{$i});
+        switch ($char) {
+            case '{':
+            case '"':
+                $arg_a[] = parseString($read,$i);
+                ++$arg_no;
+                break;
+            case 'N':
+                /* probably NIL argument */
+                if (strtoupper(substr($read, $i, 3)) == 'NIL') {
+                    $arg_a[] = '';
+                    ++$arg_no;
+                    $i += 2;
+                }
+                break;
+            case '(':
+                /* Address structure (with group support)
+                * Note: Group support is useless on SMTP connections
+                *       because the protocol doesn't support it
+                */
+                $addr_a = array();
+                $group = '';
+                $a=0;
+                for (; $i < $cnt && $read{$i} != ')'; ++$i) {
+                    if ($read{$i} == '(') {
+                        $addr = sqimap_parse_address($read, $i);
+                        if (($addr[3] == '') && ($addr[2] != '')) {
+                            /* start of group */
+                            $group = $addr[2];
+                            $group_addr = $addr;
+                            $j = $a;
+                        } else if ($group && ($addr[3] == '') && ($addr[2] == '')) {
+                        /* end group */
+                            if ($a == ($j+1)) { /* no group members */
+                                $group_addr[4] = $group;
+                                $group_addr[2] = '';
+                                $group_addr[0] = "$group: Undisclosed recipients;";
+                                $addr_a[] = $group_addr;
+                                $group ='';
+                            }
+                        } else {
+                            $addr[4] = $group;
+                            $addr_a[] = $addr;
+                        }
+                        ++$a;
+                    }
+                }
+                $arg_a[] = $addr_a;
+                break;
+            default: break;
+        }
+    }
+
+    if (count($arg_a) > 9) {
+        $d = strtr($arg_a[0], array('  ' => ' '));
+        $d = explode(' ', $d);
+        if (!$arg_a[1]) $arg_1[1] = '';
+        $msg['DATE'] = $d; /* argument 1: date */
+        $msg['SUBJECT'] = $arg_a[1];     /* argument 2: subject */
+        $msg['FROM'] = is_array($arg_a[2]) ? $arg_a[2][0] : '';     /* argument 3: from        */
+        $msg['SENDER'] = is_array($arg_a[3]) ? $arg_a[3][0] : '';   /* argument 4: sender      */
+        $msg['REPLY-TO'] = is_array($arg_a[4]) ? $arg_a[4][0] : '';  /* argument 5: reply-to    */
+        $msg['TO'] = $arg_a[5];          /* argument 6: to          */
+        $msg['CC'] = $arg_a[6];          /* argument 7: cc          */
+        $msg['BCC'] = $arg_a[7];         /* argument 8: bcc         */
+        $msg['IN-REPLY-TO'] = $arg_a[8];   /* argument 9: in-reply-to */
+        $msg['MESSAGE-ID'] = $arg_a[9];  /* argument 10: message-id */
+    }
+}
+
+function sqimap_parse_address($read, &$i) {
+    $arg_a = array();
+    for (; $read{$i} != ')'; ++$i) {
+        $char = strtoupper($read{$i});
+        switch ($char) {
+            case '{':
+            case '"': $arg_a[] =  parseString($read,$i); break;
+            case 'n':
+            case 'N':
+                if (strtoupper(substr($read, $i, 3)) == 'NIL') {
+                    $arg_a[] = '';
+                    $i += 2;
+                }
+                break;
+            default: break;
+        }
+    }
+
+    if (count($arg_a) == 4) {
+        return $arg_a;
+
+//        $adr = new AddressStructure();
+//        $adr->personal = $arg_a[0];
+//        $adr->adl = $arg_a[1];
+//        $adr->mailbox = $arg_a[2];
+//        $adr->host = $arg_a[3];
+    } else {
+        $adr = '';
+    }
+    return $adr;
 }
 
 /**
