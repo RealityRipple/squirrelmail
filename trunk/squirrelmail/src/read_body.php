@@ -261,7 +261,6 @@ function SendMDN ( $recipient , $sender) {
 function ToggleMDNflag ( $set ) {
     global $imapConnection, $passed_id, $mailbox;
     sqimap_mailbox_select($imapConnection, $mailbox);
-    
     $sg =  $set?'+':'-';
     $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
     $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
@@ -920,7 +919,6 @@ if ($default_use_mdn) {
 
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id FLAGS", true,
                                 $response, $readmessage);
-
         $MDN_flag_present = preg_match( '/.*\$MDNSent/i', $read[0]);
 
         if (trim($MDN_to) &&
@@ -987,8 +985,7 @@ if ($default_use_mdn) {
                     "               if (window.confirm(\"" .
                     _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
                     "\")) {  \n" .
-                    "                       window.location=($url); \n" .
-                    '                       window.location.reload()' . "\n" .
+                    '                       window.open('.$url.',"_self")' . "\n" .
                     '               }' . "\n" .
                     '// -->' . "\n" .
                     '</script>' . "\n";
