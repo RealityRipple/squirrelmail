@@ -691,11 +691,18 @@ function showInputForm ($session) {
     if ($location_of_buttons == 'between') {
         showComposeButtonRow();
     }
-
-    echo '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
-         '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
-         $editor_size . '" WRAP="VIRTUAL">';
+    if ($compose_new_win == '1') {
+        echo '   <TR>' . "\n" .
+             '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
+             '         <TEXTAREA NAME=body ROWS=20 COLS="' .
+             $editor_size . '" WRAP="VIRTUAL">';
+    }
+    else {
+        echo '   <TR>' . "\n" .
+            '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
+            '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
+            $editor_size . '" WRAP="VIRTUAL">';
+    }
     if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
         if ($sig_first == '1') {
             echo "\n\n".($prefix_sig==true? "-- \n":'').htmlspecialchars($signature);
