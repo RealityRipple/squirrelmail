@@ -161,11 +161,11 @@ if($REQUEST_METHOD == 'POST') {
                         /* Display the "new address" form */
                         echo '<FORM ACTION="' . $PHP_SELF . '" METHOD="POST">' .
                              "\n" .
-                             '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' . "\n" .
+                             '<TABLE WIDTH="100%" COLS=1 ALIGN=CENTER>' . "\n" .
                              '<TR><TD BGCOLOR="' . $color[0] .
                              '" ALIGN=CENTER>' . "\n" . '<STRONG>' .
                              _("Update address") .
-                             "<STRONG>\n</TD></TR>\n</TABLE>\n";
+                             "</STRONG>\n</TD></TR>\n</TABLE>\n";
                         address_form("editaddr", _("Update address"), $olddata);
                         echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' . 
                              htmlspecialchars($olddata["nickname"]) . "\">\n" .
@@ -184,20 +184,20 @@ if($REQUEST_METHOD == 'POST') {
                         /* Handle error messages */
                         if (!$r) {
                             /* Display error */
-                            echo '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' .
+                            echo '<TABLE WIDTH="100%" COLS=1 ALIGN=CENTER>' .
                                  "\n" . '<TR><TD ALIGN=CENTER>' . "\n" .
                                  '<br><STRONG><FONT COLOR="' . $color[2] .
                                  '">' . _("ERROR") . ": " . $abook->error .
-                                 '</FONT><STRONG>' . "\n</TD></TR>\n</TABLE>\n";
+                                 '</FONT></STRONG>' . "\n</TD></TR>\n</TABLE>\n";
 
                             /* Display the "new address" form again */
                             echo '<FORM ACTION="' . $PHP_SELF .
                                  '" METHOD="POST">' . "\n" .
-                                 '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' .
+                                 '<TABLE WIDTH="100%" COLS=1 ALIGN=CENTER>' .
                                  "\n" . '<TR><TD BGCOLOR="' . $color[0] .
                                  '" ALIGN=CENTER>' . "\n" . '<STRONG>' .
                                  _("Update address") .
-                                 "<STRONG>\n</TD></TR>\n</TABLE>\n";
+                                 "</STRONG>\n</TD></TR>\n</TABLE>\n";
                             address_form("editaddr", _("Update address"), $newdata);
                             echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' .
                                  htmlspecialchars($oldnick) . "\">\n" .
@@ -233,10 +233,10 @@ if($REQUEST_METHOD == 'POST') {
 
 /* Display error messages */
 if (!empty($formerror)) {
-    echo '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' . "\n" .
+    echo '<TABLE WIDTH="100%" COLS=1 ALIGN=CENTER>' . "\n" .
          '<TR><TD ALIGN=CENTER>' . "\n" . '<br><STRONG>' .
          '<FONT COLOR="' . $color[2]. '">' . _("ERROR") . ': ' . $formerror .
-         '</FONT><STRONG>' . "\n</TD></TR>\n</TABLE>\n";
+         '</FONT></STRONG>' . "\n</TD></TR>\n</TABLE>\n";
 }
 
 
@@ -275,7 +275,7 @@ if ($showaddrlist) {
             echo '<TABLE WIDTH="95%" COLS=1 ALIGN=CENTER>' . "\n" .
                  '<TR><TD BGCOLOR="' . $color[0] . '" ALIGN=CENTER>' . "\n" .
                  '<STRONG>' . $row['source'] .
-                 "<STRONG>\n</TD></TR>\n</TABLE>\n" .
+                 "</STRONG>\n</TD></TR>\n</TABLE>\n" .
                  '<TABLE COLS="5" BORDER="0" CELLPADDING="1" CELLSPACING="0"' .
                  ' WIDTH="90%" ALIGN="center">' .
                  '<TR BGCOLOR="' . $color[9] .
@@ -321,18 +321,19 @@ if ($showaddrlist) {
              '<INPUT TYPE=submit NAME=editaddr VALUE="' . _("Edit selected") .
              "\">\n" .
              '<INPUT TYPE=submit NAME=deladdr VALUE="' . _("Delete selected") .
-             "\">\n" . '</TR></TABLE></FORM>';
+             "\">\n" . '</TR></TABLE>';
     }
+    echo '</FORM>'
 } /* end of addresslist */
 
 
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n" .
      '<FORM ACTION="' . $PHP_SELF . '" NAME=f_add METHOD="POST">' . "\n" .
-     '<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>' . "\n" .
+     '<TABLE WIDTH="100%" COLS=1 ALIGN=CENTER>' . "\n" .
      '<TR><TD BGCOLOR="' . $color[0] . '" ALIGN=CENTER>' . "\n" . '<STRONG>',
      sprintf(_("Add to %s"), $abook->localbackendname) .
-     "<STRONG>\n</TD></TR>\n" .
+     "</STRONG>\n</TD></TR>\n" .
      "</TABLE>\n";
 address_form('addaddr', _("Add address"), $defdata);
 echo '</FORM>';

@@ -176,7 +176,7 @@ require_once('../functions/url_parser.php');
             echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
         }
         echo ''._("View message") . "</a></b></center></td></tr></table>\n" .
-             "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n" .
+             "<table width=\"99%\" cellpadding=2 cellspacing=0 border=0 align=center>\n" .
              '<tr><td>';
 
         $cnum = 0;
@@ -519,7 +519,7 @@ require_once('../functions/url_parser.php');
          "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=\"80%\" VALIGN=\"top\">\n" .
          "            <B>$subject</B>&nbsp;\n" .
          "         </TD>\n" .
-         '         <TD ROWSPAN="4" width=10% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
+         '         <TD ROWSPAN="4" width="10%" BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
 
     /* From a search... */
     if ($where && $what) {
@@ -622,7 +622,7 @@ require_once('../functions/url_parser.php');
          '   </TD></TR>' .
          '</TABLE>';
     flush();        
-    echo "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
+    echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
          "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
          '<BR>';
 

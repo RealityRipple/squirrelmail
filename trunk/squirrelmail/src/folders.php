@@ -275,10 +275,9 @@ if ($box && $box2) {
 } else {
     echo _("No folders were found to subscribe to!") . "</td></tr></table>";
 }
+
+do_hook("folders_bottom");
 ?>
-
-
-  <?php do_hook("folders_bottom"); ?>
 
 
     </td></tr>

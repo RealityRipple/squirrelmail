@@ -642,7 +642,7 @@ class msg_header {
       if ($ShownHTML == 0) {
             $ShownHTML = 1;
 
-            $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
+            $body .= "<TABLE WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
                      "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n" .
                      _("Attachments") . ':' .
                      "</B></TH></TR><TR><TD>\n" .

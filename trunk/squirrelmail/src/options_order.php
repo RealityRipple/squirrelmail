@@ -42,15 +42,13 @@ require_once('../functions/plugin.php');
    displayPageHeader($color, 'None');
 ?>
    <br>
-<table width=95% align=center border=0 cellpadding=2 cellspacing=0>
+<table width="95%" align=center border=0 cellpadding=2 cellspacing=0>
 <tr><td align="center" bgcolor="<?php echo $color[0] ?>">
 
       <b><?php echo _("Options") . " - " . _("Index Order"); ?></b>
 
     <table width="100%" border="0" cellpadding="1" cellspacing="1">
     <tr><td bgcolor="<?php echo $color[4] ?>" align="center"><br>
-
-      <table width=100% cellpadding=2 cellspacing=0 border=0>
 <?php
 
    $available[1] = _("Checkbox");
@@ -149,9 +147,6 @@ require_once('../functions/plugin.php');
    echo '<p><a href="../src/options.php">' . _("Return to options page") . '</a></p><br>';
 
 ?>
-   </td></tr>
-   </table>
-
     </td></tr>
     </table>
 
