@@ -56,30 +56,17 @@
       return $box;
    }
 
-   /** Finds the delimeter between mailboxes **/
+   /** 
+      Finds the delimeter between mailboxes.  This should now be more compliant across
+         different server types that vary in their RFC2060 compliance.
+   **/
    function findMailboxDelimeter($imapConnection) {
-      fputs($imapConnection, ". list \"\" \"\"\n");
-      $read = fgets($imapConnection, 1024);
+      fputs($imapConnection, ". list \"\" *\n");
+      $read = imapReadData($imapConnection, ".", true, $a, $b);
+      $quotePosition = strpos($read[0], "\"");
+      $delim = substr($read[0], $quotePosition+1, 1);
 
-      if (strrpos($read, "\"") == strlen($read)) {
-         $pos = strrpos($read, "\"");
-         $read = substr($read, 0, $pos);
-
-         $pos = strrpos($read, "\"");
-         $read = substr($read, 0, $pos);
-      } else {
-         $pos = strrpos($read, " ");
-         $read = substr($read, 0, $pos);
-      }
-   
-      $pos = strrpos($read, "\"");
-      $read = substr($read, 0, $pos);
-
-      $pos = strrpos($read, "\"");
-      $read = substr($read, $pos+1, strlen($read));
-
-      $tmp = fgets($imapConnection, 1024);
-      return $read;
+      return $delim;
    }
 
    function getMailboxFlags($imapConnection, $mailbox) {
@@ -173,10 +160,25 @@
       $data = imapReadData($imapConnection, "1", true, $response, $message);
    }
 
-   function removeFolder($imapConnection, $folder) {
+   /**
+      This is a recursive function that checks to see if the folder has any subfolders, 
+         and if so, it calls removeFolder on the subfolders first, then removes the parent
+         folder.
+   **/
+   function removeFolder($imapConnection, $folder, $delimiter) {
+      global $boxes;
+      
+      // bug if there are 2 subfolders of a folder, it won't get to the second one
+      for ($i = 0; $i < count($boxes); $i++) {
+         if (strstr($boxes[$i]["UNFORMATTED"], $folder . $delimiter)) {
+            $newDelete = $boxes[$i]["UNFORMATTED"];
+            $boxes = removeElement($boxes, $i);
+            removeFolder($imapConnection, $newDelete, $boxes, $delimiter);
+         }
+      }
+      
       fputs ($imapConnection, "1 unsubscribe \"$folder\"\n");
       $data = imapReadData($imapConnection, "1", true, $response, $message);
-      echo $data[0] . "<BR>";
       fputs($imapConnection, "1 delete \"$folder\"\n");
       $data = imapReadData($imapConnection, "1", false, $response, $message);
       if ($response == "NO") {
