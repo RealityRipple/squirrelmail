@@ -254,7 +254,9 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     echo "</b></td>\n"
         . "   </tr>\n"
         . html_tag( 'tr', '', '', $color[4] ) ."\n"
-        . html_tag( 'td', '', 'left' ) ."\n";
+        . ($hide_sm_attributions ? html_tag( 'td', '', 'left', '', 'colspan="2"' )
+                                 : html_tag( 'td', '', 'left' ) )
+        . "\n";
     $urlMailbox = urlencode($mailbox);
     echo makeComposeLink('src/compose.php?mailbox='.$urlMailbox);
     echo "&nbsp;&nbsp;\n";
@@ -271,14 +273,17 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     do_hook('menuline');
 
-    echo "      </td>\n"
-        . html_tag( 'td', '', 'right' ) ."\n";
-    if (!isset($provider_uri)) $provider_uri= 'http://www.squirrelmail.org/';
-    if (!isset($provider_name)) $provider_name= 'SquirrelMail';
-    echo ($hide_sm_attributions ? '&nbsp;' :
-            '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>');
-    echo "</td>\n".
-        "   </tr>\n".
+    echo "      </td>\n";
+
+    if (!$hide_sm_attributions)
+    {
+        echo html_tag( 'td', '', 'right' ) ."\n";
+        if (!isset($provider_uri)) $provider_uri= 'http://www.squirrelmail.org/';
+        if (!isset($provider_name)) $provider_name= 'SquirrelMail';
+        echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
+        echo "</td>\n";
+    }
+    echo "   </tr>\n".
         "</table><br>\n\n";
 }
 
