@@ -373,7 +373,7 @@ if ($send) {
             showInputForm($session);
             exit();
         }
-       unset($compose_messages[$session]);
+        unset($compose_messages[$session]);
         if ( isset($delete_draft)) {
             Header("Location: $location/delete_message.php?mailbox=" . urlencode( $draft_folder ).
                    "&message=$delete_draft&sort=$sort&startMessage=1&mail_sent=yes");
@@ -722,18 +722,20 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             /* this corrects some wrapping/quoting problems on replies */
             $rewrap_body = explode("\n", $body);
             $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
-            sqUnWordWrap($body);
+            sqUnWordWrap($body);	// unwrap and then reset it?!
             $body = '';
-            $cnt = count($rewrap_body);
-            for ($i=0;$i<$cnt;$i++) {
-              sqWordWrap($rewrap_body[$i], ($editor_size));
-                if (preg_match("/^(>+)/", $rewrap_body[$i], $matches)) {
-                    $gt = $matches[1];
-                    $body .= '>' . str_replace("\n", "\n>$gt ", rtrim($rewrap_body[$i])) ."\n";
-                } else {
-                    $body .= '> ' . str_replace("\n", "\n> ", rtrim($rewrap_body[$i])) . "\n";
+            $strip_sigs = getPref($data_dir, $username, 'strip_sigs');
+            foreach ($rewrap_body as $line) {
+                if ($strip_sigs && substr($line,0,3) == '-- ') {
+			break;
                 }
-                unset($rewrap_body[$i]);
+                sqWordWrap($line, ($editor_size));
+                if (preg_match("/^(>+)/", $line, $matches)) {
+                    $gt = $matches[1];
+                    $body .= '>' . str_replace("\n", "\n>$gt ", rtrim($line)) ."\n";
+                } else {
+                    $body .= '> ' . str_replace("\n", "\n> ", rtrim($line)) . "\n";
+                }
             }
             $body = getReplyCitation($from) . $body;
             $composeMessage->reply_rfc822_header = $orig_header;
