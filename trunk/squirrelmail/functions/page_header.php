@@ -38,12 +38,13 @@
    }
 
    function displayPageHeader($color, $mailbox) {
+      global $delimiter;
       displayHtmlHeader ();
 
       echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( ( document.forms.length > 0 ) && ( document.forms[0].elements[0].type == \"text\" ) ) { document.forms[0].elements[0].focus(); }'>\n\n";
 
       /** Here is the header and wrapping table **/
-      $shortBoxName = readShortMailboxName($mailbox, ".");
+      $shortBoxName = readShortMailboxName($mailbox, $delimiter);
       echo "<A NAME=pagetop></A>\n";
       echo "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[9]\" width=100%><tr><td>";
       echo "<TABLE BGCOLOR=\"$color[9]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";

@@ -35,6 +35,7 @@
    do_hook('logout');
    setcookie('username', '', 0, $base_uri);
    setcookie('key', '', 0, $base_uri);
+   setcookie('delimiter', '', 0, $base_uri);
    session_destroy();
 
    if ($signout_page) {
