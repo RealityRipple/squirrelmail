@@ -606,7 +606,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
         } while ($i && $i < $endVar);
     }
     
-    echo '</table>' .
+    echo '</table>';
+    $html->flush(
          $html->tag( 'table',
             $html->tag( 'tr',
                 $html->tag( 'td',
@@ -624,7 +625,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
          , array( 'bgcolor' => $color[9],
                   'width' => '100%',
                   'cellpadding' => 1,
-                  'cellspacing' => 1 ) );
+                  'cellspacing' => 1 ) )
+    );
          
     /* End of message-list table */
     
