@@ -93,7 +93,7 @@ echo html_tag( 'table',
 if ($SpamFilters_YourHop == ' ') {
     echo '<br />' .
         html_tag( 'div', '<b>' .
-            sprintf(_("WARNING! Tell the adminstrator to set the %s variable."), '&quot;SpamFilters_YourHop&quot;') .
+            sprintf(_("WARNING! Tell the administrator to set the %s variable."), '&quot;SpamFilters_YourHop&quot;') .
             '</b>' ,
         'center' ) .
         '<br />';
