@@ -1,5 +1,6 @@
  Developers:
  -----------
+   Peter Hutnick <peter@hutnick.com>
    Luke Ehresman <luke@squirrelmail.org>     http://www.css.tayloru.edu/~lehresma
    Nathan Ehresman <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
    Gustav Foseid <gustavf@squirrelmail.org>  http://www.initio.no
@@ -43,7 +44,6 @@
    i18n support:        Sergiusz Pawlowicz 
    SquirrelMail logo:   Libor Kopecky <libor@globe.cz>
    Web Site Admin/PR:   Paul Joseph Thompson <thomppj@okstate.edu>
-   FAQ Maintenance:     Peter Hutnick <peter@hutnick.com>
 
    Code contributions:  Konstantin Riabitsev <graf@relhum.org>
                         Alex Bleeker <beheer@hackers.nl>
@@ -53,8 +53,8 @@
                         Damien Sandras <dsandras@acm.org>
                         Martin Jespersen <mbj@mbj.dk>
                         David Whittington <dwhittin@css.tayloru.edu>
-                        Many others...
+                        Many, many others...
 
 (We have tried to keep this up to date to give credit where it is due.
 If you feel that you have wrongfully been left off this list, contact
-luke@squirrelmail.org)
+peter@squirrelmail.org)

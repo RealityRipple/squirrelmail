@@ -1,4 +1,7 @@
-Version 1.1.3 -- DEVELOPMENT
+Version 1.2.0 -- DEVELOPMENT
+----------------------------
+
+Version 1.1.3 -- (never really released)
 ----------------------------
 - Added major speed improvements to IMAP functions by our friends at XS4ALL
 - Fixed MOTD
