@@ -126,9 +126,6 @@ require_once('../functions/plugin.php');
              $body = $bodyTop . $body;
          } else if ($reply_id) {
              $orig_from = decodeHeader($orig_header->from);
-             $orig_from = trim(substr($orig_from,0,strpos($orig_from,'<')));
-             $orig_from = str_replace('"','',$orig_from);
-             $orig_from = str_replace("'",'',$orig_from);
              $body = getReplyCitation($orig_from) . $body;
          }
 
@@ -659,6 +656,23 @@ require_once('../functions/plugin.php');
       /* First, return an empty string when no citation style selected. */
       if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
          return ('');
+      }
+
+      /* Decode the users name. */
+      $parpos = strpos($orig_from, '(');
+      if ($parpos === false) {
+          $orig_from = trim(substr($orig_from, 0, strpos($orig_from, '<')));
+          $orig_from = str_replace('"', '', $orig_from);
+          $orig_from = str_replace("'", '', $orig_from);
+      } else {
+          $end_parpos = strrpos($orig_from, ')');
+          $end_parpos -= ($end_parpos === false ? $end_parpos : $parpos + 1);
+          $orig_from = trim(substr($orig_from, $parpos + 1, $end_parpos));
+      }
+
+      /* Make sure our final value isn't an empty string. */
+      if ($orig_from == '') {
+          return ('');
       }
 
       /* Otherwise, try to select the desired citation style. */
