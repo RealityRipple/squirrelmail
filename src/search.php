@@ -602,8 +602,8 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 
 /* Exclude criteria */
 	echo html_tag('td',
-		_("Exclude Criteria:") . 
-		addCheckBox('exclude['.$row_num.']', $checked), 'center', '') . "\n";
+		_("Exclude Criteria:") . sm_print_r($exclude) . 
+		addCheckBox('exclude['.$row_num.']', $exclude), 'center', '') . "\n";
 
 	echo "</tr>\n";
 }
