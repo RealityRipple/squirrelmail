@@ -22,7 +22,7 @@
       $done=False;
       while (!$done) {
          #Look for when a URL starts
-         $where = strpos($body,"http:",$start);
+         $where = strpos(strtolower($body),"http://",$start);
          if ($where) {
             # Find the end of that URL
             reset($poss_ends); $end=0; 
