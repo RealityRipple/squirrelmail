@@ -25,6 +25,7 @@ require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/identity.php');
+require_once(SM_PATH . 'functions/mailbox_display.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -394,13 +395,12 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
     $env = array();
     $env[_("Subject")] = str_replace("&nbsp;"," ",decodeHeader($header->subject));
     $from_name = $header->getAddr_s('from');
-    if (!$from_name) {
+    if (!$from_name)
         $from_name = $header->getAddr_s('sender');
-        if (!$from_name) {
-            $from_name = _("Unknown sender");
-        }
-    }
-    $env[_("From")] = decodeHeader($from_name);
+    if (!$from_name)
+        $env[_("From")] = _("Unknown sender");
+    else
+        $env[_("From")] = decodeHeader($from_name);
     $env[_("Date")] = getLongDateString($header->date);
     $env[_("To")] = formatRecipientString($header->to, "to");
     $env[_("Cc")] = formatRecipientString($header->cc, "cc");
