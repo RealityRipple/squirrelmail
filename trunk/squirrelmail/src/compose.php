@@ -53,21 +53,11 @@ sqgetGlobalVar('mailbox',$mailbox);
 if(!sqgetGlobalVar('identity',$identity)) {
     $identity=0;
 }
-if (sqgetGlobalVar('send_to',$send_to)) {
-    $send_to = decodeHeader($send_to);
-}
-if (sqgetGlobalVar('send_to_cc',$send_to_cc)) {
-    $send_to_cc = decodeHeader($send_to_cc);
-}
-if (sqgetGlobalVar('send_to_bcc',$send_to_bcc)) {
-    $send_to_bcc = decodeHeader($send_to_bcc);
-}
-if (sqgetGlobalVar('subject',$subject)) {
-    $subject = decodeHeader($subject);
-}
-if (sqgetGlobalVar('body',$body)) {
-    $body = decodeHeader($body);
-}
+sqgetGlobalVar('send_to',$send_to);
+sqgetGlobalVar('send_to_cc',$send_to_cc);
+sqgetGlobalVar('send_to_bcc',$send_to_bcc);
+sqgetGlobalVar('subject',$subject);
+sqgetGlobalVar('body',$body);
 sqgetGlobalVar('mailprio',$mailprio);
 sqgetGlobalVar('request_mdn',$request_mdn);
 sqgetGlobalVar('request_dr',$request_dr);
