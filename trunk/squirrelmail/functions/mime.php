@@ -145,7 +145,7 @@
          $body = translateText($body, $wrap_at);
 
 
-      $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">Download this as a file</A></CENTER><BR></SMALL>";
+      $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
 
       /** Display the ATTACHMENTS: message if there's more than one part **/
       if (count($message["ENTITIES"]) > 1) {
