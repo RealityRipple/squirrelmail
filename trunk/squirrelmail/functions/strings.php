@@ -32,7 +32,7 @@
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.2.1';
+$version = '1.2.2 [cvs]';
 
    /**
     * Count the number of occurances of $needle are in $haystack.
