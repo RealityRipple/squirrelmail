@@ -444,8 +444,6 @@
 	 }
 	 $body = $newBody;
 	 
-	 var_dump($body);
-	 
          do_hook("compose_send");
 
          if (! sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
