@@ -26,6 +26,18 @@ require_once(SM_PATH . 'functions/html.php');
 
 displayPageHeader($color, 'None');
 
+/* get globals we may need */
+
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$delimiter = $_SESSION['delimiter'];
+$onetimepad = $_SESSION['onetimepad'];
+if (isset($_GET['success'])) {
+    $success = $_GET['success'];
+}
+
+/* end of get globals */
+
 echo '<br>' .
     html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) .
         html_tag( 'tr' ) .

@@ -39,11 +39,13 @@ if (!isset($frame_top)) {
 
 /* If a user hits reload on the last page, $base_uri isn't set
  * because it was deleted with the session. */
-if (!isset($base_uri)) {
+if (!isset($_SESSION['base_uri'])) {
     if (!function_exists('sqm_baseuri')){
         require_once(SM_PATH . 'functions/display_messages.php');
     }
     $base_uri = sqm_baseuri();
+} else {
+    $base_uri = $_SESSION['base_uri'];
 }
 
 do_hook('logout');

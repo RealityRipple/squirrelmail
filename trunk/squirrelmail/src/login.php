@@ -23,6 +23,7 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/constants.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/global.php');
 
 /*
  * $squirrelmail_language is set by a cookie when the user selects

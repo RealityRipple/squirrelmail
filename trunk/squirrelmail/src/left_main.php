@@ -489,7 +489,17 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
 
 /* -------------------- MAIN ------------------------ */
 
-global $delimiter, $default_folder_prefix, $left_size;
+$key = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+$username = $_SESSION['username'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['fold'])) {
+    $fold = $_GET['fold'];
+}
+if (isset($_GET['unfold'])) {
+    $unfold = $_GET['unfold'];
+}
 
 // open a connection on the imap port (143)
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
@@ -784,7 +794,7 @@ if ($auto_create_special && !isset($auto_create_done)) {
 
     /* Let the world know that autocreation is complete! Hurrah! */
     $auto_create_done = TRUE;
-    session_register('auto_create_done');
+    sqsession_register($auto_create_done, 'auto_create_done');
 }
 
 echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
