@@ -65,6 +65,7 @@ Version 1.5.1 -- CVS
     of read_body.php discovered by Roman Medina.
   - Get alternating row colors of addressbook in sync with mailbox list.
   - Give proper error when PEAR DB not found.
+  - Remove inappropriate strip_tags() from add-to-addressbook (#968475).
 
 Version 1.5.0
 --------------------
