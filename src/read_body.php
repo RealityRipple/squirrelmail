@@ -455,8 +455,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
             $s .= '</TR>';
         }
     }
-    echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
-         ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
+    //echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
+    //     ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
     echo $s;
     do_hook("read_body_header");
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
