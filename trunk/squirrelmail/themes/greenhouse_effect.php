@@ -17,7 +17,7 @@
 /** seed the random number generator **/
 sq_mt_randomize();
 
-for ($i = 0; $i <= 14; $i++) {
+for ($i = 0; $i <= 15; $i++) {
     /* background/foreground toggle **/
     if (($i == 0) || ($i == 3) || ($i == 4) || ($i == 5)
          || ($i == 9) || ($i == 10) || ($i == 12)) {
@@ -38,6 +38,7 @@ for ($i = 0; $i <= 14; $i++) {
 
     /** set array element as hex string with hashmark (for HTML output) **/
     $color[$i] = sprintf("#%02X%02X%02X",$r,$g,$b);
+}
 
 
 

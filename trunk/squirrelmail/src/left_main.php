@@ -333,8 +333,17 @@ for ($i = 0;$i < count($boxes); $i++) {
         $line = "<NOBR><TT>$prefix</TT>";
 
         /* Add the folder name and link. */
+	if (! isset($color[15])) {
+	    if (isset($color[14])) {
+	        $color[15] = $color[14];
+	    } elseif (isset($color[13])) {
+	        $color[15] = $color[13];
+	    } else {
+  	        $color[15] = $color[6];
+	    }
+	}
         if (in_array('noselect', $boxes[$i]['flags'])) {
-            $line .= "<FONT COLOR=\"$color[7]\">";
+            $line .= "<FONT COLOR=\"$color[15]\">";
             if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
                 $mailbox = str_replace('&nbsp;','',$mailbox);
                 $line .= str_replace(' ', '&nbsp;', $mailbox);

@@ -327,8 +327,8 @@ $theme[15]['NAME'] = 'BluesNews';
 $theme[16]['PATH'] = '../themes/deepocean2_theme.php';
 $theme[16]['NAME'] = 'Deep Ocean 2';
 
-$theme[17]['PATH'] = '../themes/blue_gray_theme.php';
-$theme[17]['NAME'] = 'Blue Gray';
+$theme[17]['PATH'] = '../themes/blue_grey_theme.php';
+$theme[17]['NAME'] = 'Blue Grey';
 
 $theme[18]['PATH'] = '../themes/dompie_theme.php';
 $theme[18]['NAME'] = 'Dompie';

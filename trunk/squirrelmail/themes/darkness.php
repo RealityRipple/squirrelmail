@@ -100,7 +100,7 @@ $squirrelmail_plugin_hooks['generic_header']['theme_darkness'] =
       $used[] = array($r, $g, $b);
    }
       
-   $Left = array(1, 7, 11, 13, 14);
+   $Left = array(1, 7, 11, 13, 14, 15);
    $targetDistance = $TargetDistance;
    while (count($Left) > 0) {
       // Text colors -- Try to keep the colors distinct
