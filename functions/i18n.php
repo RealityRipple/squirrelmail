@@ -1244,6 +1244,10 @@ $languages['et_EE']['NAME']    = 'Estonian';
 $languages['et_EE']['CHARSET'] = 'iso-8859-15';
 $languages['et']['ALIAS'] = 'et_EE';
 
+$languages['fo_FO']['NAME']    = 'Faroese';
+$languages['fo_FO']['CHARSET'] = 'iso-8859-1';
+$languages['fo']['ALIAS'] = 'fo_FO';
+
 $languages['fi_FI']['NAME']    = 'Finnish';
 $languages['fi_FI']['CHARSET'] = 'iso-8859-1';
 $languages['fi']['ALIAS'] = 'fi_FI';
