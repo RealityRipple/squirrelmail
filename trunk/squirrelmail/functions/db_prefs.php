@@ -119,7 +119,11 @@ class dbPrefs {
         if (isset($prefs_cache[$key])) {
             return $prefs_cache[$key];
         } else {
-            return $default;
+            if (isset($this->default[$key])) {
+                return $this->default[$key];
+            } else {
+                return $default;
+            }
         }
     }
 
