@@ -90,7 +90,7 @@
    // If the delete button was pressed, the moveButton variable will not be set.
    elseif (!isset($moveButton)) {
       if (is_array($msg) == 1) {
-         // Marks the selected messages ad 'Deleted'
+         // Marks the selected messages as 'Deleted'
          $j = 0;
          $i = 0;
       
