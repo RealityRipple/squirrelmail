@@ -2657,29 +2657,37 @@ sub save_data {
 	# string
         print CF "\$prefs_val_field = '$prefs_val_field';\n";
 	# boolean
-	print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
+		print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
 	# string
-	print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
-	print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
+		print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
+		print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
 	# boolean
-    print CF "\$use_imap_tls = $use_imap_tls;\n";
-	print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+	    print CF "\$use_imap_tls = $use_imap_tls;\n";
+		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
 
-        print CF "\n";
+	    print CF "\n";
 
-        print CF "/**\n";
-        print CF " * Make sure there are no characters after the PHP closing\n";
-        print CF " * tag below (including newline characters and whitespace).\n";
-        print CF " * Otherwise, that character will cause the headers to be\n";
-        print CF " * sent and regular output to begin, which will majorly screw\n";
-        print CF " * things up when we try to send more headers later.\n";
-        print CF " */\n";
-        print CF "?>";
+		if ( open(LOCAL,"config_local.php") ) {
+		  # A config_local.php file exists - add it to the bottom of config.php
+		  while ( $line = <LOCAL> ) {
+		    print CF $line;
+		  }
+		  close LOCAL;
+		}
+    
+		print CF "\n/**\n";
+	    print CF " * Make sure there are no characters after the PHP closing\n";
+	    print CF " * tag below (including newline characters and whitespace).\n";
+	    print CF " * Otherwise, that character will cause the headers to be\n";
+	    print CF " * sent and regular output to begin, which will majorly screw\n";
+	    print CF " * things up when we try to send more headers later.\n";
+	    print CF " */\n";
+	    print CF "?>";
+        
+		close CF;
 
-        close CF;
-
-        print "Data saved in config.php\n";
+	    print "Data saved in config.php\n";
     } else {
         print "Error saving config.php: $!\n";
     }
