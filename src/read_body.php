@@ -552,7 +552,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         }
 
         $nav_row .= $prev_link . $up_link . $topbar_delimiter . $next_link;
-        $nav_row .= $double_delimiter . '<a href="'.$url.'">'._("View Message").'</a>';
+        $nav_row .= $double_delimiter . '[<a href="'.$url.'">'._("View Message").'</a>]';
 
     // Prev/Next links for regular messages
     } else if ( !(isset($where) && isset($what)) ) {
@@ -587,7 +587,6 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                        '&amp;delete_id='.$passed_id;
                 $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';       
             }
-            $del_prev_link .= $topbar_delimiter;
 
             $del_next_link = _("Delete & Next");
             if ($next >= 0) {
@@ -597,15 +596,11 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                        '&amp;delete_id='.$passed_id;
                 $del_next_link = '<a href="'.$uri.'">'.$del_next_link.'</a>';
             }
-            $del_next_link .= $topbar_delimiter;
-        } else {
-            $del_prev_link = '';
-            $del_next_link = '';
         }
 
-        $nav_row .= $prev_link.$topbar_delimiter 
-                    .$del_prev_link.$del_next_link 
-                    .$next_link;
+        $nav_row .= '['.$prev_link.$topbar_delimiter.$next_link.']';
+        if ( isset($del_prev_link) && isset($del_next_link) )
+            $nav_row .= $double_delimiter.'['.$del_prev_link.$topbar_delimiter.$del_next_link.']';
     }
 
     // Start with Search Results or Message List link.
@@ -619,7 +614,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $msgs_str  = _("Message List");
     }
     $nav_row .= $double_delimiter .
-                '<a href="' . $msgs_url . '">' . $msgs_str . '</a>';
+                '[<a href="' . $msgs_url . '">' . $msgs_str . '</a>]';
 
     $nav_row .= '</small></td></tr>';
 
@@ -644,22 +639,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $menu_row .= $topbar_delimiter;
     }
 
-    $delete_link = _("Delete");
-    if (!(isset($passed_ent_id) && $passed_ent_id)) {
-        $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox .
-                  '&amp;message=' . $passed_id . '&amp;';
-
-        if ($where && $what) {
-            $delete_url .= 'where=' . urlencode($where) . '&amp;what=' . urlencode($what);
-        } else {
-            $delete_url .= 'sort=' . $sort . '&amp;startMessage=' . $startMessage;
-        }
-        $delete_link = '<a href="' . $delete_url . '">' . $delete_link . '</a>';
-    }
-    $menu_row .= $delete_link;
-
     $comp_action_uri = $comp_uri . '&amp;smaction=reply';
-    $menu_row .= $topbar_delimiter;
     $menu_row .= makeComposeLink($comp_action_uri, _("Reply"));
 
     $comp_action_uri = $comp_uri . '&amp;smaction=reply_all';
@@ -676,6 +656,24 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $menu_row .= $topbar_delimiter;
         $menu_row .= makeComposeLink($comp_action_uri, _("Forward as Attachment"));
     }
+
+    $delete_link = _("Delete");
+    if (!(isset($passed_ent_id) && $passed_ent_id)) {
+        $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox .
+                  '&amp;message=' . $passed_id . '&amp;';
+
+        if ($where && $what) {
+            $delete_url .= 'where=' . urlencode($where) . '&amp;what=' . urlencode($what);
+        } else {
+            $delete_url .= 'sort=' . $sort . '&amp;startMessage=' . $startMessage;
+        }
+        $delete_link = '<a href="' . $delete_url . '">' . $delete_link . '</a>';
+        $delete_link .= '&nbsp;(<a href="' . $delete_url.'&amp;bypass_trash=1">'
+                        ._("Bypass Trash").'</a>)';
+        
+    }
+    $menu_row .= $topbar_delimiter.$delete_link;
+
 
     // Add top move link
     $menu_row .= '</small></td><td align="right">';
