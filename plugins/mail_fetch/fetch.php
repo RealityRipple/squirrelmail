@@ -18,7 +18,6 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'plugins/mail_fetch/class.POP3.php');
-require_once(SM_PATH . 'functions/i18n.php');
 require_once(SM_PATH . 'plugins/mail_fetch/functions.php' );
 require_once(SM_PATH . 'functions/html.php' );
 

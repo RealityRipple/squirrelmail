@@ -68,7 +68,6 @@
         require_once (SM_PATH . 'functions/imap.php');
         require_once (SM_PATH . 'plugins/mail_fetch/class.POP3.php');
         require_once (SM_PATH . 'plugins/mail_fetch/functions.php');
-        require_once (SM_PATH . 'functions/i18n.php');
 
         global $data_dir, $imapServerAddress, $imapPort;
         if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
