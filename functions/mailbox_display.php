@@ -400,9 +400,9 @@
       echo "$More</td><td align=right>\n";
       if (!$startMessage) $startMessage=1;
       if ( $checkall == "1")
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$real_startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$real_startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
 
       echo "</td></tr></table>";
       echo "</td></tr>";
@@ -438,9 +438,9 @@
       echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
       echo "$More</td><td align=right>\n";
       if ( $checkall == "1")
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
-         echo "\n<A HREF=\"right_main.php?mailbox=$mailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
+         echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
 
       echo "</td></tr></table>";
       echo "</td></tr>";
