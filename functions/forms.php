@@ -141,7 +141,7 @@ function addForm($action, $method = 'POST', $name = '', $enctype = '', $charset 
     }
 
     return '<form action="'. $action .'" method="'. $method .'"'.
-        $enctype . $name . $charset . "\">\n";
+        $enctype . $name . $charset . ">\n";
 }
 
 ?>
