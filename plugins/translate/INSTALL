@@ -17,4 +17,4 @@ if the plugin was made correctly.  :)
 
 Some plugin settings might be adjusted by creating config/translate_config.php or
 plugins/translate/config.php configuration file. See plugins/translate/config_default.php 
-and plugins/translate/config-sample.php
+and plugins/translate/config_sample.php
