@@ -12,6 +12,8 @@
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage) {
       global $color, $msgs, $msort;
+		global $sent_folder;
+
 		$msg = $msgs[$key];
 
       $senderName = $msg["FROM"];
@@ -22,9 +24,10 @@
       if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
       if ($msg["FLAG_ANSWERED"] == true) { $ans = "&nbsp;[A]"; }
+		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
       echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
-      echo "   <td width=30%>$bold$flag$senderName$flag_end$bold_end</td>\n";
+      echo "   <td width=30%>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
       echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
       echo "   <td width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
 
@@ -36,12 +39,16 @@
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num, $use_cache) {
       global $msgs, $msort;
-      include ("../config/config.php");
+		global $sent_folder;
 
       if (!$use_cache) {
          if ($numMessages >= 1) {
             for ($q = 0; $q < $numMessages; $q++) {
-               sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d);
+					if ($mailbox == $sent_folder)
+               	sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d, true);
+					else
+               	sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d, false);
+						
                $from[$q] = $f;
                $date[$q] = $d;
                $subject[$q] = $s;
@@ -122,11 +129,12 @@
 
    // generic function to convert the msgs array into an HTML table
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
-      global $folder_prefix;
+      global $folder_prefix, $sent_folder;
+		global $imapServerAddress;
 
       // do a check to see if the config stuff has already been included or not
-      if (!isset($imapServerAddress))
-         include("../config/config.php");
+//      if (!isset($imapServerAddress))
+//         include("../config/config.php");
 
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
@@ -205,7 +213,11 @@
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
       echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
       /** FROM HEADER **/
-      echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+		if ($mailbox == $sent_folder)
+      	echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
+		else
+      	echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+
       if ($sort == 2)
          echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 3)
