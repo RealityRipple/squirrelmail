@@ -968,7 +968,7 @@ if ($advanced_tree) {
 echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) .
     html_tag( 'tr' ) .
     html_tag( 'td', '', 'left' ) .
-    html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0"' ) .
+    html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0" width="98%"' ) .
     html_tag( 'tr' ) .
     html_tag( 'td', '', 'center' ) .
     '<font size="4"><b>'. _("Folders") . "</b><br /></font>\n\n";
@@ -1012,8 +1012,8 @@ if ($date_format != 6) {
 }
 
 /* Next, display the refresh button. */
-echo '<nobr><small>[<a href="../src/left_main.php" target="left">'.
-     _("Check mail") . '</a>]</small></nobr></td></tr></table><br />';
+echo '<div style="white-space:nowrap"><small>[<a href="../src/left_main.php" target="left">'.
+     _("Check mail") . '</a>]</small></div></td></tr></table><br />';
 
 /* Lastly, display the folder list. */
 if ( $collapse_folders ) {
