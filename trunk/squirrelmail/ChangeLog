@@ -155,11 +155,12 @@ Version 1.5.1 -- CVS
   - LDAP backend will use internal squirrelmail charset conversion functions
     instead of php xml extension. Fixes bug #655137.
   - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
-  - Fix two time zone calculation bugs, thanks to David White
+  - Fix two time zone calculation bugs, thanks to David White. Fixes #1063879.
   - 'Priority' and 'Importance' headers are now also recognised, next to the
-    'X-Priority' header that we've supported since a long time.
+    'X-Priority' header that we've supported since a long time. Fixes #1039935.
   - Handle a reload of the signout page gracefully: do not present an error
-    about having to be logged in to be able to sign out.
+    about having to be logged in to be able to sign out. Fixes #1070069.
+  - Prevent & being eaten in set_url_var, thanks Marcin Orlowski. Fixes #1053725.
 
 Version 1.5.0
 --------------------

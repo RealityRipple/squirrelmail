@@ -137,6 +137,9 @@ function html_tag( $tag,                // Tag to output
             } else {
                 $rpl = '';
             }
+            if( substr($v,-1)=='&' ) {
+                $rpl .= '&';
+            }
             $pat = "/$k=$v/";
             $url = preg_replace($pat,$rpl,$url);
         }
