@@ -61,7 +61,7 @@
       $read = fgets ($imap_stream, 10000);
       $response = substr($read, 0, 4);
       while ($response != "a001") {
-         $bodystructure = $read;
+         $bodystructure .= $read;
          $read = fgets ($imap_stream, 10000);
          $response = substr($read, 0, 4);
       }
