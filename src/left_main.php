@@ -10,15 +10,19 @@
     **  $Id$
     **/
 
-   require_once('../src/validate.php');
-   require_once('../functions/array.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/plugin.php');
+    require_once('../src/validate.php');
+    require_once('../functions/array.php');
+    require_once('../functions/imap.php');
+    require_once('../functions/plugin.php');
 
-   // open a connection on the imap port (143)
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
+    /* These constants are used for folder stuff. */
+    define('SM_BOX_UNCOLLAPSED', 0);
+    define('SM_BOX_COLLAPSED',   1);
+
+    // open a connection on the imap port (143)
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
    
-   displayHtmlHeader();
+    displayHtmlHeader();
 
    if ($auto_create_special && ! isset($auto_create_done)) {
    	  if (isset ($sent_folder) && $sent_folder != "none") {
@@ -45,8 +49,13 @@
       global $unseen_notify, $unseen_type, $collapse_folders;
 
       $real_box = $box_array['unformatted'];
-      $mailbox = str_replace('&nbsp;',' ',$box_array['formatted']);
+      $mailbox = str_replace('&nbsp;','',$box_array['formatted']);
       $mailboxURL = urlencode($real_box);
+
+      /* Strip down the mailbox name. */
+      if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
+          $mailbox = $regs[2];
+      }
       
       $unseen = 0;
 
@@ -69,135 +78,205 @@
           (($real_box == $sent_folder) && ($move_to_sent)))
          $special_color = true;
          
-      $spaces = '';
-      $line = "<NOBR>";
-      if (ereg("^( *)([^ ]*)$", $mailbox, $regs)) {
-          $spaces = $regs[1];
-          $mailbox = $regs[2];
-      }
-      
-      if ($unseen > 0)
-          $line .= '&nbsp;<B>';
-      $line .= str_replace(' ', '&nbsp;', $spaces);
-      
-      if ($collapse_folders) {
-         if (isset($box_array['parent']))
-            $line .= FoldLink($box_array['unformatted'], $box_array['parent']);
-         else
-            $line .= '<tt>&nbsp;</tt>&nbsp;&nbsp;';
-      }
-      
-      $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
+      /* Start off with a blank line. */
+      $line = '';
+
+      /* If there are unseen message, bold the line. */      
+      if ($unseen > 0) { $line .= '<B>'; }
+
+      /* Crate the link for this folder. */
+      $line .= "<A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" TARGET=RIGHT STYLE=\"text-decoration:none\">";
       if ($special_color == true)
          $line .= "<FONT COLOR=\"$color[11]\">";
       $line .= str_replace(' ','&nbsp;',$mailbox);
       if ($special_color == true)
-         $line .= "</font>";
-      $line .= '</a>';
+         $line .= "</FONT>";
+      $line .= '</A>';
 
-      if ($unseen > 0)
-         $line .= "</B>";
+      /* If there are unseen message, close bolding. */
+      if ($unseen > 0) { $line .= "</B>"; }
 
+      /* Print unseen information. */
       if (isset($unseen_found) && $unseen_found) {
-         $line .= "&nbsp;<small>$unseen_string</small>";
+         $line .= "&nbsp;<SMALL>$unseen_string</SMALL>";
       }
 
       if (($move_to_trash == true) && ($real_box == $trash_folder)) {
-         if (! isset($numMessages))
+         if (! isset($numMessages)) {
             $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
+         }
 
-         if ($numMessages > 0)
-         {
+         if ($numMessages > 0) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n";
             $line .= " &nbsp; (<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
             $line .= "\n</small>\n";
          }
       }
-      $line .= "</NOBR>";
-      return $line;
+
+      /* Return the final product. */
+      return ($line);
    }
 
-   if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
-      echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
-      echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n"; 
-      echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
-   }
+    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
+        echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
+        echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n"; 
+        echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
+    }
    
-   echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
+    echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
 
-   do_hook("left_main_before");
+    do_hook("left_main_before");
 
-   $boxes = sqimap_mailbox_list($imapConnection);
+    $boxes = sqimap_mailbox_list($imapConnection);
 
-   echo "<CENTER><FONT SIZE=4><B>";
-   echo _("Folders") . "</B><BR></FONT>\n\n";
+    echo "<CENTER><FONT SIZE=4><B>";
+    echo _("Folders") . "</B><BR></FONT>\n\n";
 
-   echo "<small>(<A HREF=\"../src/left_main.php\" TARGET=\"left\">";
-   echo _("refresh folder list");
-   echo "</A>)</small></CENTER><BR>";
-   $delimeter = sqimap_get_delimiter($imapConnection);
+    echo "<SMALL>(<A HREF=\"../src/left_main.php\" TARGET=\"left\">";
+    echo _("refresh folder list");
+    echo "</A>)</SMALL></CENTER><BR>";
+    $delimeter = sqimap_get_delimiter($imapConnection);
 
-   if (isset($collapse_folders) && $collapse_folders) {
-      if (isset($fold))
-         setPref($data_dir, $username, 'collapse_folder_' . $fold, 1);
-      if (isset($unfold))
-         setPref($data_dir, $username, 'collapse_folder_' . $unfold, 0);
-      $IAmAParent = array();
-      for ($i = 0; $i < count($boxes); $i ++) {
-          $parts = explode($delimeter, $boxes[$i]['unformatted']);
-          $box_name = array_pop($parts);
-          $box_parent = implode($delimeter, $parts);
-          $hidden = 0;
-          if (isset($box_parent)) {
-              $hidden = getPref($data_dir, $username, 
-                  'collapse_folder_' . $box_parent);
-              $IAmAParent[$box_parent] = $hidden;
-          }
-          $boxes[$i]['folded'] = $hidden;
-      }
-   }
+    if (isset($collapse_folders) && $collapse_folders) {
+        /* If directed, collapse or uncollapse a folder. */
+        if (isset($fold)) {
+            setPref($data_dir, $username, 'collapse_folder_' . $fold, SM_BOX_COLLAPSED);
+        } else if (isset($unfold)) {
+            setPref($data_dir, $username, 'collapse_folder_' . $unfold, $SM_BOX_UNCOLLAPSED);
+        }
+    }
 
-   for ($i = 0;$i < count($boxes); $i++) {
-      if (! isset($boxes[$i]['folded']) || ! $boxes[$i]['folded'])
-      {
-         $line = "";
-         $mailbox = $boxes[$i]["formatted"];
+    /* Prepare do do out collapsedness and visibility computation. */
+    $curbox = 0;
+    $boxcount = count($boxes);
 
-         if (isset($collapse_folders) && $collapse_folders && isset($IAmAParent[$boxes[$i]['unformatted']])) {
-            $boxes[$i]['parent'] = $IAmAParent[$boxes[$i]['unformatted']];
-         }
+    /* Compute the collapsedness and visibility of each box. */
+    while ($curbox < $boxcount) {
+        $boxes[$curbox]['visible'] = true;
+        compute_folder_children($curbox, $boxcount);
+    }
+  
+    for ($i = 0;$i < count($boxes); $i++) {
+        if ($boxes[$i]['visible'] == true) {
+            $mailbox = $boxes[$i]['formatted'];
+            $mblevel = substr_count($boxes[$i]['unformatted'], $delimeter) + 1;
 
-         if (in_array('noselect', $boxes[$i]['flags'])) {
-            $line .= "<FONT COLOR=\"$color[10]\">";
-            if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
-                $line .= str_replace(' ', '&nbsp;', $mailbox);
-                if (isset($boxes[$i]['parent']))
-                    $line .= FoldLink($boxes[$i]['unformatted'], $boxes[$i]['parent']);
-                elseif ($collapse_folders)
-                    $line .= '<tt>&nbsp;</tt>&nbsp;';
+            /* Create the prefix for the folder name and link. */
+            $prefix = str_repeat('  ',$mblevel);
+            if (isset($collapse_folders) && $collapse_folders && $boxes[$i]['parent']) {
+                $prefix = str_replace(' ','&nbsp;',substr($prefix,0,strlen($prefix)-2));
+                $prefix .= create_collapse_link($i) . '&nbsp;';
+            } else {
+                $prefix = str_replace(' ','&nbsp;',$prefix);
             }
-            $line .= '</FONT>';
-         } else {
-            $line .= formatMailboxName($imapConnection, $boxes[$i], $delimeter);
-         }
-         echo "$line<BR>\n";
-      }
-   }
-   sqimap_logout($imapConnection);
-   do_hook("left_main_after");
+            $line = "<NOBR><TT>$prefix</TT>";
 
-   function FoldLink($mailbox, $folded) {
-       $mailbox = urlencode($mailbox);
-       $link = '&nbsp;<tt><a target="left" style="text-decoration:none" ';
-       $link .= 'href="left_main.php?';
-       if ($folded)
-           $link .= "unfold=$mailbox\">+";
-       else
-           $link .= "fold=$mailbox\">-";
-       $link .= '</a></tt>&nbsp;';
-       return ($link);
-   }
+            /* Add the folder name and link. */
+            if (in_array('noselect', $boxes[$i]['flags'])) {
+                $line .= "<FONT COLOR=\"$color[10]\">";
+                if (ereg("^( *)([^ ]*)", $mailbox, $regs)) {
+                    $line .= str_replace(' ', '&nbsp;', $mailbox);
+                }
+                $line .= '</FONT>';
+            } else {
+                $line .= formatMailboxName($imapConnection, $boxes[$i], $delimeter);
+            }
+
+            /* Put the final touches on our folder line. */
+            $line .= "</NOBR><BR>\n";
+
+            /* Output the line for this folder. */
+            echo $line;
+        }
+    }
+    sqimap_logout($imapConnection);
+    do_hook("left_main_after");
+
+    /**
+     * Create the link for a parent folder that will allow that
+     * parent folder to either be collapsed or expaned, as is
+     * currently appropriate.
+     */
+    function create_collapse_link($boxnum) {
+        global $boxes;
+        $mailbox = urlencode($boxes[$boxnum]['unformatted']);
+
+        /* Create the link for this collapse link. */
+        $link = '<a target="left" style="text-decoration:none" ';
+        $link .= 'href="left_main.php?';
+        if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
+            $link .= "unfold=$mailbox\">+";
+        } else {
+            $link .= "fold=$mailbox\">-";
+        }
+        $link .= '</a>';
+
+        /* Return the finished product. */
+        return ($link);
+    }
    
+    /**
+     * This simple function checks if a box is another box's parent.
+     */
+    function is_parent_box($curbox_name, $parbox_name) {
+        global $delimeter;
+
+        /* Extract the name of the parent of the current box. */
+        $curparts = explode($delimeter, $curbox_name);
+        $curname = array_pop($curparts);
+        $actual_parname = implode($delimeter, $curparts);
+        $actual_parname = substr($actual_parname,0,strlen($parbox_name));
+
+        /* Compare the actual with the given parent name. */
+        return ($parbox_name == $actual_parname);
+    }
+
+    /**
+     * Recursive function that computes the collapsed status and parent
+     * (or not parent) status of this box, and the visiblity and collapsed
+     * status and parent (or not parent) status for all children boxes.
+     */
+    function compute_folder_children(&$parbox, $boxcount) {
+        global $boxes;
+        $nextbox = $parbox + 1;
+
+        /* Retreive the name for the parent box. */
+        $parbox_name = $boxes[$parbox]['unformatted'];
+
+        /* 'Initialize' this parent box to childless. */
+        $boxes[$parbox]['parent'] = false;
+
+        /* Compute the collapse status for this box. */
+        $collapse = 0;
+        $collapse = getPref($data_dir, $username, 'collapse_folder_' . $parbox_name);
+        $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
+        $boxes[$parbox]['collapse'] = $collapse;
+
+        /* Otherwise, get the name of the next box. */
+        $nextbox_name = $boxes[$nextbox]['unformatted'];
+
+        /* Compute any children boxes for this box. */
+        while (($nextbox < $boxcount) &&
+               (is_parent_box($boxes[$nextbox]['unformatted'], $parbox_name))) {
+
+            /* Note that this 'parent' box has at least one child. */
+            $boxes[$parbox]['parent'] = true;
+
+            /* Compute the visiblity of this box. */
+            if ($boxes[$parbox]['visible'] &&
+                ($boxes[$parbox]['collapse'] != SM_BOX_COLLAPSED)) {
+                $boxes[$nextbox]['visible'] = true;
+            } else {
+                $boxes[$nextbox]['visible'] = false;
+            }
+
+            /* Compute the visibility of any child boxes. */
+            compute_folder_children($nextbox, $boxcount);
+        }
+
+        /* Set the parent box to the current next box. */
+        $parbox = $nextbox;
+    }
 ?>
 </BODY></HTML>
