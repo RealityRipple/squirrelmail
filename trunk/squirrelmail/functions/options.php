@@ -158,6 +158,28 @@ class SquirrelOption {
     }
 
     function createWidget_Boolean() {
+        /* Do the whole current value thing. */
+        if ($this->value != SMPREF_NO) {
+            $yes_chk = ' CHECKED';
+            $no_chk = '';
+        } else {
+            $yes_chk = '';
+            $no_chk = ' CHECKED';
+        }
+
+        /* Build the yes choice. */
+        $yes_option = '<INPUT TYPE="RADIO" NAME="new_' . $this->name
+                    . '" VALUE="' . SMPREF_YES . "\"$yes_chk>&nbsp;"
+                    . _("Yes");
+
+        /* Build the no choice. */
+        $no_option = '<INPUT TYPE="RADIO" NAME="new_' . $this->name
+                   . '" VALUE="' . SMPREF_NO . "\"$no_chk>&nbsp;"
+                   . _("No");
+
+        /* Build and return the combined "boolean widget". */
+        $result = "$yes_option&nbsp;&nbsp;&nbsp;&nbsp;$no_option";
+        return ($result);
     }
 
     function createWidget_Hidden() {

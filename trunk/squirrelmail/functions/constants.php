@@ -17,9 +17,9 @@
     /**************************************************************/
 
     /* Define constants for javascript settings. */
+    define('SMPREF_JS_OFF', 0);
     define('SMPREF_JS_ON', 1);
-    define('SMPREF_JS_OFF', 2);
-    define('SMPREF_JS_AUTODETECT', 3);
+    define('SMPREF_JS_AUTODETECT', 2);
 
     define('SMPREF_LOC_TOP', 'top');
     define('SMPREF_LOC_BETWEEN', 'between');
@@ -27,6 +27,8 @@
     define('SMPREF_LOC_LEFT', '');
     define('SMPREF_LOC_RIGHT', 'right');
 
+    define('SMPREF_NO', 0);
+    define('SMPREF_YES', 1);
     define('SMPREF_NONE', 'none');
 
     do_hook("loading_constants");

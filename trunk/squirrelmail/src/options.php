@@ -90,32 +90,11 @@
         setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
         setPref($data_dir, $username, 'left_size', $new_left_size);
         setPref($data_dir, $username, 'left_refresh', $new_left_refresh);
-
-        if (isset($altIndexColors) && $altIndexColors == 1) {
-            setPref($data_dir, $username, 'alt_index_colors', 1);
-        } else {
-            setPref($data_dir, $username, 'alt_index_colors', 0);
-        }
-
-        setPref($data_dir, $username, 'show_html_default', ($showhtmldefault?1:0) );
-
-        if (isset($includeselfreplyall)) {
-            setPref($data_dir, $username, 'include_self_reply_all', 1);
-        } else {
-            removePref($data_dir, $username, 'include_self_reply_all');
-        }
-
-        if (isset($pageselectormax)) {
-            setPref($data_dir, $username, 'page_selector_max', $pageselectormax);
-        } else {
-            removePref($data_dir, $username, 'page_selector_max', 0 );
-        }
-
-        if (isset($pageselector)) {
-            removePref($data_dir, $username, 'page_selector');
-        } else {
-            setPref($data_dir, $username, 'page_selector', 1);
-        }
+        setPref($data_dir, $username, 'alt_index_colors', $new_alt_index_colors);
+        setPref($data_dir, $username, 'show_html_default', $new_show_html_default);
+        setPref($data_dir, $username, 'include_self_reply_all', $new_include_self_reply_all);
+        setPref($data_dir, $username, 'page_selector', $new_page_selector);
+        setPref($data_dir, $username, 'page_selector_max', $new_page_selector_max);
 
         $js_autodetect_results = (isset($new_js_autodetect_results) ? $new_js_autodetect_results : SMPREF_JS_OFF);
         if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
