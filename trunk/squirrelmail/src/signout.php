@@ -70,6 +70,7 @@ set_up_language($squirrelmail_language, true, true);
 <?php
     }
 ?>
+   <meta name="robots" content="noindex,nofollow">
    <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
 </head>
 <body text="<?php echo $color[8]; ?>" bgcolor="<?php echo $color[4]; ?>"
