@@ -337,8 +337,6 @@
 
    echo "$body";
 
-   echo "   </TD></TR>\n";
-   echo "</table>";
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
