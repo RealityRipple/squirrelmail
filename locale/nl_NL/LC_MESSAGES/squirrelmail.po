@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-25 09:07+0100\n"
-"PO-Revision-Date: 2003-03-27 21:00+0200\n"
+"POT-Creation-Date: 2003-05-31 14:56+0300\n"
+"PO-Revision-Date: 2003-07-21 00:00+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -145,13 +145,13 @@ msgstr "Moet uniek zijn"
 msgid "E-mail address"
 msgstr "E-mailadres"
 
-# squirrelmail/src/addressbook.php:42
-msgid "First name"
-msgstr "Voornaam"
-
 # squirrelmail/src/addressbook.php:43
 msgid "Last name"
 msgstr "Achternaam"
+
+# squirrelmail/src/addressbook.php:42
+msgid "First name"
+msgstr "Voornaam"
 
 # squirrelmail/src/addressbook.php:44
 msgid "Additional info"
@@ -200,6 +200,18 @@ msgstr "Verwijder geselecteerd adres"
 #, c-format
 msgid "Add to %s"
 msgstr "Voeg toe aan %s"
+
+# squirrelmail/src/compose.php:932
+msgid "said"
+msgstr "zei"
+
+# squirrelmail/src/compose.php:935
+msgid "quote"
+msgstr "citaat"
+
+# squirrelmail/src/compose.php:935
+msgid "who"
+msgstr "van"
 
 # squirrelmail/functions/mailbox_display.php:759
 # squirrelmail/plugins/filters/options.php:129
@@ -340,18 +352,6 @@ msgstr "Bewaar concept"
 # squirrelmail/src/compose.php:840
 msgid "You have not filled in the \"To:\" field."
 msgstr "U heeft het \"Aan:\" veld niet ingevuld."
-
-# squirrelmail/src/compose.php:932
-msgid "said"
-msgstr "zei"
-
-# squirrelmail/src/compose.php:935
-msgid "quote"
-msgstr "citaat"
-
-# squirrelmail/src/compose.php:935
-msgid "who"
-msgstr "van"
 
 # squirrelmail/plugins/administrator/defines.php:141
 # squirrelmail/src/options_folder.php:89
@@ -589,10 +589,6 @@ msgstr "Bekijk bericht"
 msgid "Download this as a file"
 msgstr "Download dit als een bestand"
 
-# squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
-msgid "Not available"
-msgstr "Niet beschikbaar"
-
 # squirrelmail/functions/imap_search.php:202
 # squirrelmail/functions/mailbox_display.php:675
 # squirrelmail/functions/page_header.php:109
@@ -704,6 +700,14 @@ msgstr "onderwerp"
 # squirrelmail/src/options_highlight.php:74
 msgid "Edit"
 msgstr "Wijzig"
+
+# squirrelmail/plugins/filters/options.php:199
+msgid "Up"
+msgstr "Omhoog"
+
+# squirrelmail/plugins/filters/options.php:193
+msgid "Down"
+msgstr "Omlaag"
 
 # squirrelmail/src/options_highlight.php:87
 msgid "No highlighting is defined"
@@ -945,7 +949,7 @@ msgstr "Printer vriendelijk"
 
 # squirrelmail/src/printer_friendly_bottom.php:98
 msgid "CC"
-msgstr "CC:"
+msgstr "CC"
 
 # squirrelmail/src/printer_friendly_top.php:36
 msgid "Print"
@@ -1038,10 +1042,6 @@ msgstr "Bewerk als nieuw bericht"
 # squirrelmail/src/vcard.php:35 squirrelmail/src/vcard.php:39
 msgid "View Message"
 msgstr "Bekijk bericht"
-
-# squirrelmail/plugins/filters/options.php:199
-msgid "Up"
-msgstr "Omhoog"
 
 # squirrelmail/functions/mailbox_display.php:682
 # squirrelmail/src/read_body.php:748
@@ -1370,6 +1370,35 @@ msgstr "Vrijdag"
 msgid "Saturday"
 msgstr "Zaterdag"
 
+# squirrelmail/functions/date.php:91
+# squirrelmail/plugins/calendar/calendar.php:49
+msgid "Sun"
+msgstr "Zo"
+
+# squirrelmail/functions/date.php:94
+# squirrelmail/plugins/calendar/calendar.php:50
+msgid "Mon"
+msgstr "Ma"
+
+# squirrelmail/functions/date.php:97
+# squirrelmail/plugins/calendar/calendar.php:51
+msgid "Tue"
+msgstr "Di"
+
+msgid "Wed"
+msgstr "Wo"
+
+msgid "Thu"
+msgstr "Do"
+
+# squirrelmail/functions/date.php:106
+# squirrelmail/plugins/calendar/calendar.php:54
+msgid "Fri"
+msgstr "Vr"
+
+msgid "Sat"
+msgstr "Za"
+
 # squirrelmail/functions/date.php:120
 msgid "January"
 msgstr "januari"
@@ -1417,6 +1446,53 @@ msgstr "november"
 # squirrelmail/functions/date.php:153
 msgid "December"
 msgstr "december"
+
+# squirrelmail/functions/date.php:120
+msgid "Jan"
+msgstr "jan"
+
+msgid "Feb"
+msgstr "feb"
+
+# squirrelmail/functions/date.php:126
+msgid "Mar"
+msgstr "mrt"
+
+# squirrelmail/functions/date.php:129
+msgid "Apr"
+msgstr "apr"
+
+msgid "Ma&#121;"
+msgstr "mei"
+
+# squirrelmail/functions/date.php:135
+msgid "Jun"
+msgstr "jun"
+
+# squirrelmail/functions/date.php:138
+msgid "Jul"
+msgstr "jul"
+
+# squirrelmail/functions/date.php:141
+msgid "Aug"
+msgstr "aug"
+
+msgid "Sep"
+msgstr "sept"
+
+# squirrelmail/functions/date.php:147
+msgid "Oct"
+msgstr "okt"
+
+# squirrelmail/functions/options.php:268
+# squirrelmail/plugins/administrator/options.php:358
+# squirrelmail/plugins/calendar/event_delete.php:58
+# squirrelmail/plugins/calendar/event_edit.php:141
+msgid "Nov"
+msgstr "nov"
+
+msgid "Dec"
+msgstr "dec"
 
 # squirrelmail/functions/date.php:182
 msgid "D, F j, Y g:i a"
@@ -1504,6 +1580,17 @@ msgstr ""
 "Bestand met voorkeuren, %s, kan niet worden geschreven. Neem contact op met "
 "uw systeembeheerder."
 
+# squirrelmail/functions/file_prefs.php:166
+# squirrelmail/functions/file_prefs.php:176
+# squirrelmail/functions/prefs.php:94
+#, c-format
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Bestand met voorkeuren, %s, kan niet worden gekopieerd van het tijdelijke bestand, %s. "
+"Neem contact op met uw systeembeheerder."
+
 # squirrelmail/functions/file_prefs.php:162
 #, c-format
 msgid "Error opening %s"
@@ -1550,9 +1637,20 @@ msgstr ""
 "Bestand met handtekeningen, %s, kan niet worden geschreven. Neem contact op "
 "met uw systeembeheerder."
 
+# squirrelmail/functions/file_prefs.php:166
+# squirrelmail/functions/file_prefs.php:176
+# squirrelmail/functions/prefs.php:94
+#, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Bestand met handtekeningen, %s, kan niet worden gekopieerd van het tijdelijke bestand, %s. "
+"Neem contact op met uw systeembeheerder."
+
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"(using configure option --enable-mbstring)."
 msgstr ""
 "U dient php4 te hebben geinstalleerd met de multibyte string functie enabled "
 "(gebruik configure met de optie --with-mbstring)."
@@ -1626,15 +1724,6 @@ msgstr ""
 "Verwijder onbelangrijke berichten uit uw map en start met uw Verwijderde "
 "Items map."
 
-# squirrelmail/functions/imap_messages.php:368
-# squirrelmail/functions/imap_messages.php:569
-msgid "Unknown response from IMAP server: "
-msgstr "Onbekend antwoord van IMAP server: "
-
-# squirrelmail/functions/imap_messages.php:376
-msgid "Unknown message number in reply from server: "
-msgstr "Onbekend berichtnummer in antwoord van server: "
-
 # squirrelmail/functions/imap_messages.php:396
 # squirrelmail/functions/imap_messages.php:492
 # squirrelmail/functions/imap_messages.php:760
@@ -1647,9 +1736,10 @@ msgstr "(geen onderwerp)"
 msgid "Unknown Sender"
 msgstr "Onbekende afzender"
 
-# squirrelmail/functions/imap_messages.php:827
-msgid "(unknown sender)"
-msgstr "(onbekende afzender)"
+# squirrelmail/functions/imap_messages.php:368
+# squirrelmail/functions/imap_messages.php:569
+msgid "Unknown response from IMAP server: "
+msgstr "Onbekend antwoord van IMAP server: "
 
 # squirrelmail/functions/imap_messages.php:397
 msgid "Unknown date"
@@ -1663,8 +1753,8 @@ msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
-"Sorteren als boomstructuur wordt niet ondersteund door uw IMAP "
-"server.<br>Neem contact op met uw systeembeheerder."
+"Sorteren als boomstructuur wordt niet ondersteund door uw IMAP server."
+"<br>Neem contact op met uw systeembeheerder."
 
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
@@ -2230,8 +2320,8 @@ msgstr "Zelfde als server"
 
 msgid "Error opening timezone config, contact administrator."
 msgstr ""
-"Fout bij openen tijdzone configuratie, "
-"neem contact op met uw systeembeheerder"
+"Fout bij openen tijdzone configuratie, neem contact op met uw "
+"systeembeheerder"
 
 # squirrelmail/src/options_personal.php:131
 msgid "Timezone Options"
@@ -2805,9 +2895,9 @@ msgstr "0 min."
 msgid "15 min."
 msgstr "15 min."
 
-# squirrelmail/plugins/calendar/functions.php:36
-msgid "35 min."
-msgstr "35 min."
+# squirrelmail/plugins/calendar/functions.php:34
+msgid "30 min."
+msgstr "30 min."
 
 # squirrelmail/plugins/calendar/functions.php:37
 msgid "45 min."
@@ -2976,8 +3066,8 @@ msgstr ""
 
 # squirrelmail/plugins/filters/filters.php:651
 msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
-"formmail.cgi scripts. (planned)."
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
 msgstr ""
 "FREE - Osirusoft onveilige formmail.cgi scripts - Lijst van onveilige "
 "formmail.cgi scripts. (geplanned)."
@@ -3039,7 +3129,6 @@ msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "FREE - SPAMhaus - Een lijst van bekende SPAM bronnen."
 
 # squirrelmail/plugins/filters/filters.php:747
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -3086,8 +3175,8 @@ msgstr ""
 
 # squirrelmail/plugins/filters/filters.php:811
 msgid ""
-"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed "
-"opt-in or that have allowed known spammers to become clients and abuse their "
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
 "services."
 msgstr ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers die geen geverifieerde opt-in "
@@ -3182,10 +3271,6 @@ msgstr "Berichtkop"
 # squirrelmail/plugins/filters/options.php:139
 msgid "Contains:"
 msgstr "Bevat:"
-
-# squirrelmail/plugins/filters/options.php:193
-msgid "Down"
-msgstr "Omlaag"
 
 # squirrelmail/plugins/filters/options.php:202
 #, c-format
@@ -3404,24 +3489,6 @@ msgstr "Geen server gespecificeerd"
 msgid "Error "
 msgstr "Fout "
 
-# squirrelmail/plugins/mail_fetch/class.POP3.php:120
-msgid "POP3 noop:"
-msgstr "POP3 noop:"
-
-# squirrelmail/plugins/mail_fetch/class.POP3.php:120
-# squirrelmail/plugins/mail_fetch/class.POP3.php:186
-# squirrelmail/plugins/mail_fetch/class.POP3.php:235
-# squirrelmail/plugins/mail_fetch/class.POP3.php:260
-# squirrelmail/plugins/mail_fetch/class.POP3.php:302
-# squirrelmail/plugins/mail_fetch/class.POP3.php:376
-# squirrelmail/plugins/mail_fetch/class.POP3.php:415
-# squirrelmail/plugins/mail_fetch/class.POP3.php:445
-# squirrelmail/plugins/mail_fetch/class.POP3.php:479
-# squirrelmail/plugins/mail_fetch/class.POP3.php:542
-# squirrelmail/plugins/mail_fetch/class.POP3.php:610
-msgid "No connection to server"
-msgstr "Geen verbinding met server"
-
 # squirrelmail/plugins/mail_fetch/class.POP3.php:133
 # squirrelmail/plugins/mail_fetch/class.POP3.php:136
 # squirrelmail/plugins/mail_fetch/class.POP3.php:141
@@ -3461,6 +3528,20 @@ msgstr "authorisatie mislukt "
 # squirrelmail/plugins/mail_fetch/class.POP3.php:219
 msgid "POP3 apop:"
 msgstr "POP3 apop:"
+
+# squirrelmail/plugins/mail_fetch/class.POP3.php:120
+# squirrelmail/plugins/mail_fetch/class.POP3.php:186
+# squirrelmail/plugins/mail_fetch/class.POP3.php:235
+# squirrelmail/plugins/mail_fetch/class.POP3.php:260
+# squirrelmail/plugins/mail_fetch/class.POP3.php:302
+# squirrelmail/plugins/mail_fetch/class.POP3.php:376
+# squirrelmail/plugins/mail_fetch/class.POP3.php:415
+# squirrelmail/plugins/mail_fetch/class.POP3.php:445
+# squirrelmail/plugins/mail_fetch/class.POP3.php:479
+# squirrelmail/plugins/mail_fetch/class.POP3.php:542
+# squirrelmail/plugins/mail_fetch/class.POP3.php:610
+msgid "No connection to server"
+msgstr "Geen verbinding met server"
 
 # squirrelmail/plugins/mail_fetch/class.POP3.php:192
 msgid "No login ID submitted"
@@ -3824,10 +3905,6 @@ msgstr ""
 msgid "Message Details"
 msgstr "Berichtdetails"
 
-# squirrelmail/src/read_body.php:683
-msgid "Message details"
-msgstr "Berichtdetails"
-
 # squirrelmail/src/printer_friendly_top.php:37
 msgid "Close Window"
 msgstr "Sluit venster"
@@ -3908,15 +3985,11 @@ msgstr ""
 # squirrelmail/plugins/newmail/newmail_opt.php:55
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
-"Selecteer de geluiden die u wilt afspelen bij een nieuw bericht van de lijst "
-"met <b>server bestanden</b>. De optie <b>Gebruik lokale geluiden</b> zal de "
-"het bestand afspelen dat in het veld <b>Lokaal geluidsbestand</b> is "
-"aangegeven. Indien er geen geluid wordt gespecificeerd zal het systeem het "
-"standaardgeluid gebruiken van de server."
+"Selecteer het geluid dat u wilt afspelen bij een nieuw bericht van de lijst "
+"met <b>server bestanden</b>. Indien er geen bestand wordt gespecificeerd, "
+"\"(geen)\" zal geen geluid worden gebruikt."
 
 # squirrelmail/plugins/newmail/newmail_opt.php:67
 msgid "Enable Media Playing"
@@ -3947,17 +4020,16 @@ msgstr "Toon popupvenster bij nieuw bericht"
 msgid "Select server file:"
 msgstr "Selecteer bestand van server:"
 
-# squirrelmail/plugins/newmail/newmail_opt.php:106
-msgid "(local media)"
-msgstr "(lokaal geluid)"
+# squirrelmail/plugins/filters/options.php:97
+# squirrelmail/plugins/filters/spamoptions.php:159
+# squirrelmail/plugins/mail_fetch/fetch.php:225
+# squirrelmail/src/options_highlight.php:67
+msgid "(none)"
+msgstr "(geen)"
 
 # squirrelmail/plugins/newmail/newmail_opt.php:123
 msgid "Try"
 msgstr "Test"
-
-# squirrelmail/plugins/newmail/newmail_opt.php:131
-msgid "Local Media File:"
-msgstr "Lokaal geluidsbestand:"
 
 # squirrelmail/plugins/newmail/newmail_opt.php:137
 msgid "Current File:"
@@ -4004,6 +4076,10 @@ msgstr "%s Nieuwe berichten"
 # squirrelmail/plugins/newmail/testsound.php:24
 msgid "Test Sound"
 msgstr "Test geluid"
+
+# squirrelmail/plugins/mail_fetch/class.POP3.php:82
+msgid "No sound specified"
+msgstr "Geen geluid gespecificeerd"
 
 # squirrelmail/plugins/newmail/testsound.php:30
 msgid "Loading the sound..."
@@ -4272,8 +4348,8 @@ msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
-"Uw persoonlijk woordenboek is succesvol beveiligd. Ga terug naar het "
-"&quot;Spellingscontrole opties&quot; menu en selecteer opnieuw."
+"Uw persoonlijk woordenboek is succesvol beveiligd. Ga terug naar het &quot;"
+"Spellingscontrole opties&quot; menu en selecteer opnieuw."
 
 # squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:72
 msgid "Successful Re-encryption"
@@ -4365,12 +4441,11 @@ msgid ""
 "helps protect your privacy in case the web-mail system gets compromized and "
 "your personal dictionary ends up stolen. It is currently encrypted with the "
 "password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> "
-"<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-"dictionary will become unaccessible, since it can no longer be decrypted. If "
-"you change your mailbox password, SquirrelSpell will recognize it and prompt "
-"you for your old password in order to re-encrypt the dictionary with a new "
-"key.</p>"
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
 "<p>Uw persoonlijk woordenboek is <strong>momenteel beveiligd</strong>. Dit "
 "zorgt voor bescherming van uw privacy in het geval dat het webmail systeem "
@@ -4399,15 +4474,15 @@ msgid ""
 "may wish to encrypt your personal dictionary to protect your privacy in case "
 "the webmail system gets compromized and your personal dictionary file gets "
 "stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox "
-"password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your "
-"personal dictionary, you must remember that it gets &quot;hashed&quot; with "
-"your mailbox password. If you forget your mailbox password and the "
-"administrator changes it to a new value, your personal dictionary will "
-"become useless and will have to be created anew. However, if you or your "
-"system administrator change your mailbox password but you still have the old "
-"password at hand, you will be able to enter the old key to re-encrypt the "
-"dictionary with the new value.</p>"
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
 msgstr ""
 "<p>Uw persoonlijk woordenboek is <strong>momenteel niet beveiligd</strong>. "
 "U kan uw persoonlijk woordenboek beveiligen om uw privacy te beschermen in "
@@ -4541,31 +4616,30 @@ msgstr "Uw server opties zijn:"
 
 # squirrelmail/plugins/translate/options.php:102
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 talen paren, maximum van 1000 tekens vertaald, powered by Systran "
-
-# squirrelmail/plugins/translate/options.php:105
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 talen paren, maximum van 25 kilobytes vertaald, powered by Systran "
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "19 talen paren, maximum van 1000 tekens vertaald, powered by Systran"
 
 # squirrelmail/plugins/translate/options.php:108
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr "12 talen paren, geen limieten bekend, powered by Systran "
+msgstr "12 talen paren, geen limieten bekend, powered by Systran"
 
 # squirrelmail/plugins/translate/options.php:111
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 talen paren, geen limieten bekend, powered by Translation Experts's "
-"InterTran "
+"784 talen paren, geen limieten bekend, powered by Translation Experts's "
+"InterTran"
 
 # squirrelmail/plugins/translate/options.php:114
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 "8 talen paren, geen limieten bekend, powered by GPLTrans (free, open source) "
+
+# squirrelmail/plugins/translate/options.php:108
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr "4 talen paren voor Hellenic, geen limieten bekend, powered by Systran"
 
 # squirrelmail/plugins/translate/options.php:120
 msgid ""
@@ -4575,7 +4649,7 @@ msgstr "Waar en wanneer wilt u het vertaalkader weergegeven hebben?"
 
 # squirrelmail/plugins/translate/options.php:124
 msgid "Select your translator:"
-msgstr "Selecteer uw vertaler"
+msgstr "Selecteer uw vertaler:"
 
 # squirrelmail/plugins/translate/options.php:136
 msgid "When reading:"
@@ -4697,6 +4771,10 @@ msgstr "%s in %s"
 msgid "English"
 msgstr "Engels"
 
+# squirrelmail/plugins/squirrelspell/modules/check_me.mod:378
+msgid "Chinese"
+msgstr "Chinees"
+
 # squirrelmail/plugins/translate/setup.php:232
 # squirrelmail/plugins/translate/setup.php:251
 # squirrelmail/plugins/translate/setup.php:272
@@ -4740,6 +4818,16 @@ msgstr "Duits"
 # squirrelmail/plugins/translate/setup.php:474
 msgid "Italian"
 msgstr "Italiaans"
+
+# squirrelmail/plugins/translate/setup.php:361
+# squirrelmail/plugins/translate/setup.php:391
+msgid "Japanese"
+msgstr "Japans"
+
+# squirrelmail/plugins/translate/setup.php:363
+# squirrelmail/plugins/translate/setup.php:393
+msgid "Korean"
+msgstr "Koreaans"
 
 # squirrelmail/plugins/translate/setup.php:244
 # squirrelmail/plugins/translate/setup.php:263
@@ -4835,11 +4923,6 @@ msgstr "Hongaars"
 msgid "Icelandic"
 msgstr "IJslands"
 
-# squirrelmail/plugins/translate/setup.php:361
-# squirrelmail/plugins/translate/setup.php:391
-msgid "Japanese"
-msgstr "Japans"
-
 # squirrelmail/plugins/translate/setup.php:362
 # squirrelmail/plugins/translate/setup.php:392
 msgid "Latin American Spanish"
@@ -4891,6 +4974,78 @@ msgstr "Indonesisch"
 msgid "Latin"
 msgstr "Latijns"
 
+# squirrelmail/plugins/translate/setup.php:231
+# squirrelmail/plugins/translate/setup.php:235
+# squirrelmail/plugins/translate/setup.php:239
+# squirrelmail/plugins/translate/setup.php:243
+# squirrelmail/plugins/translate/setup.php:247
+# squirrelmail/plugins/translate/setup.php:252
+# squirrelmail/plugins/translate/setup.php:256
+# squirrelmail/plugins/translate/setup.php:260
+# squirrelmail/plugins/translate/setup.php:264
+# squirrelmail/plugins/translate/setup.php:268
+# squirrelmail/plugins/translate/setup.php:280
+# squirrelmail/plugins/translate/setup.php:294
+# squirrelmail/plugins/translate/setup.php:298
+# squirrelmail/plugins/translate/setup.php:302
+# squirrelmail/plugins/translate/setup.php:306
+# squirrelmail/plugins/translate/setup.php:310
+# squirrelmail/plugins/translate/setup.php:315
+# squirrelmail/plugins/translate/setup.php:319
+# squirrelmail/plugins/translate/setup.php:323
+# squirrelmail/plugins/translate/setup.php:327
+# squirrelmail/plugins/translate/setup.php:331
+# squirrelmail/plugins/translate/setup.php:352
+# squirrelmail/plugins/translate/setup.php:382
+# squirrelmail/plugins/translate/setup.php:438
+# squirrelmail/plugins/translate/setup.php:442
+# squirrelmail/plugins/translate/setup.php:446
+# squirrelmail/plugins/translate/setup.php:450
+# squirrelmail/plugins/translate/setup.php:454
+# squirrelmail/plugins/translate/setup.php:459
+# squirrelmail/plugins/translate/setup.php:471
+# squirrelmail/plugins/translate/setup.php:475
+# squirrelmail/plugins/translate/setup.php:479
+# squirrelmail/plugins/translate/setup.php:483
+msgid "to English"
+msgstr "naar Engels"
+
+# squirrelmail/plugins/translate/setup.php:231
+# squirrelmail/plugins/translate/setup.php:235
+# squirrelmail/plugins/translate/setup.php:239
+# squirrelmail/plugins/translate/setup.php:243
+# squirrelmail/plugins/translate/setup.php:247
+# squirrelmail/plugins/translate/setup.php:252
+# squirrelmail/plugins/translate/setup.php:256
+# squirrelmail/plugins/translate/setup.php:260
+# squirrelmail/plugins/translate/setup.php:264
+# squirrelmail/plugins/translate/setup.php:268
+# squirrelmail/plugins/translate/setup.php:280
+# squirrelmail/plugins/translate/setup.php:294
+# squirrelmail/plugins/translate/setup.php:298
+# squirrelmail/plugins/translate/setup.php:302
+# squirrelmail/plugins/translate/setup.php:306
+# squirrelmail/plugins/translate/setup.php:310
+# squirrelmail/plugins/translate/setup.php:315
+# squirrelmail/plugins/translate/setup.php:319
+# squirrelmail/plugins/translate/setup.php:323
+# squirrelmail/plugins/translate/setup.php:327
+# squirrelmail/plugins/translate/setup.php:331
+# squirrelmail/plugins/translate/setup.php:352
+# squirrelmail/plugins/translate/setup.php:382
+# squirrelmail/plugins/translate/setup.php:438
+# squirrelmail/plugins/translate/setup.php:442
+# squirrelmail/plugins/translate/setup.php:446
+# squirrelmail/plugins/translate/setup.php:450
+# squirrelmail/plugins/translate/setup.php:454
+# squirrelmail/plugins/translate/setup.php:459
+# squirrelmail/plugins/translate/setup.php:471
+# squirrelmail/plugins/translate/setup.php:475
+# squirrelmail/plugins/translate/setup.php:479
+# squirrelmail/plugins/translate/setup.php:483
+msgid "from English"
+msgstr "van Engels"
+
 # squirrelmail/po/independent_strings.txt:18
 msgid "Delivery error report"
 msgstr "Bezorgingsfout rapportage"
@@ -4898,6 +5053,44 @@ msgstr "Bezorgingsfout rapportage"
 # squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
 msgstr "Berichtkoppen onbestelbaar bericht"
+
+# squirrelmail/plugins/squirrelspell/modules/options_main.mod:45
+#~ msgid "Not available"
+#~ msgstr "Niet beschikbaar"
+
+# squirrelmail/functions/imap_messages.php:376
+#~ msgid "Unknown message number in reply from server: "
+#~ msgstr "Onbekend berichtnummer in antwoord van server: "
+
+# squirrelmail/functions/imap_messages.php:827
+#~ msgid "(unknown sender)"
+#~ msgstr "(onbekende afzender)"
+
+# squirrelmail/plugins/calendar/functions.php:36
+#~ msgid "35 min."
+#~ msgstr "35 min."
+
+# squirrelmail/plugins/mail_fetch/class.POP3.php:120
+#~ msgid "POP3 noop:"
+#~ msgstr "POP3 noop:"
+
+# squirrelmail/src/read_body.php:683
+#~ msgid "Message details"
+#~ msgstr "Berichtdetails"
+
+# squirrelmail/plugins/newmail/newmail_opt.php:106
+#~ msgid "(local media)"
+#~ msgstr "(lokaal geluid)"
+
+# squirrelmail/plugins/newmail/newmail_opt.php:131
+#~ msgid "Local Media File:"
+#~ msgstr "Lokaal geluidsbestand:"
+
+# squirrelmail/plugins/translate/options.php:105
+#~ msgid ""
+#~ "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+#~ msgstr ""
+#~ "10 talen paren, maximum van 25 kilobytes vertaald, powered by Systran "
 
 # squirrelmail/src/options_display.php:227
 #~ msgid "Enable Subtle Printer Friendly Link"
@@ -4984,10 +5177,6 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 
 #~ msgid "l, F d Y"
 #~ msgstr "l, d F Y"
-
-# squirrelmail/plugins/calendar/functions.php:34
-#~ msgid "30 min."
-#~ msgstr "30 min."
 
 # squirrelmail/src/compose.php:97
 #~ msgid "Don't Email Me"
@@ -5104,8 +5293,8 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 #~ "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
 #~ "SLOOOOOOW!"
 #~ msgstr ""
-#~ "FREE - ORBL is nog een andere ORBS, gevormd nadat ORBS stopte. Kan TRAAAAAG "
-#~ "zijn!"
+#~ "FREE - ORBL is nog een andere ORBS, gevormd nadat ORBS stopte. Kan "
+#~ "TRAAAAAG zijn!"
 
 #~ msgid "requires IE and JavaScript to work"
 #~ msgstr "IE (Internet Explorer) en Javascript nodig"
@@ -5114,11 +5303,11 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 #~ msgstr "COMMERCIAL - RBL+ is een combinatie van RSS, DUL, en RBL."
 
 #~ msgid ""
-#~ "FREE - Osirusoft - Very thorough, but also rejects replies from many ISP's "
-#~ "abuse@domain.name email messages for some reason."
+#~ "FREE - Osirusoft - Very thorough, but also rejects replies from many "
+#~ "ISP's abuse@domain.name email messages for some reason."
 #~ msgstr ""
-#~ "FREE - Osirusoft - Erg grondig, maar weigert antwoorden van veel ISP e-mail "
-#~ "berichten verzonden van abuse@domain.name."
+#~ "FREE - Osirusoft - Erg grondig, maar weigert antwoorden van veel ISP e-"
+#~ "mail berichten verzonden van abuse@domain.name."
 
 #~ msgid "Enable display of images with email, below attachment box"
 #~ msgstr "Activeer weergave van afbeeldingen in e-mail, onder bijlage-kader"
@@ -5138,7 +5327,8 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 
 #~ msgid "Don't remove me from the CC addresses when I use \"Reply All\""
 #~ msgstr ""
-#~ "Verwijder mij niet uit de CC adressen als ik \"Allen beantwoorden\" gebruik"
+#~ "Verwijder mij niet uit de CC adressen als ik \"Allen beantwoorden\" "
+#~ "gebruik"
 
 #~ msgid "Show page selector"
 #~ msgstr "Toon pagina selectie"
@@ -5169,8 +5359,8 @@ msgstr "Berichtkoppen onbestelbaar bericht"
 
 #~ msgid ""
 #~ "In order for SquirrelMail to provide the full set of options you need to "
-#~ "create the special folders listed below.  Just click the check box and hit "
-#~ "the create button."
+#~ "create the special folders listed below.  Just click the check box and "
+#~ "hit the create button."
 #~ msgstr ""
 #~ "Om SquirrelMail volledig te laten werken moet u speciale mappen aanmaken. "
 #~ "Klik op [Aanmaken] om verder te gaan."
