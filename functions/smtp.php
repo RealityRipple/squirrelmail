@@ -294,52 +294,53 @@
          echo "$errorNumber : $errorString<br>";
          exit;
       }
-      $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-      errorCheck($tmp);
+      $tmp = fgets($smtpConnection, 1024);
+      errorCheck($tmp, $smtpConnection);
 
       $to_list = getLineOfAddrs($to);
       $cc_list = getLineOfAddrs($cc);
 
       /** Lets introduce ourselves */
       fputs($smtpConnection, "HELO $domain\r\n");
-      $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-      errorCheck($tmp);
+      $tmp = fgets($smtpConnection, 1024);
+      errorCheck($tmp, $smtpConnection);
 
       /** Ok, who is sending the message? */
       fputs($smtpConnection, "MAIL FROM:<$from_addr>\r\n");
-      $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-      errorCheck($tmp);
+      $tmp = fgets($smtpConnection, 1024);
+      errorCheck($tmp, $smtpConnection);
 
       /** send who the recipients are */
       for ($i = 0; $i < count($to); $i++) {
          fputs($smtpConnection, "RCPT TO:<$to[$i]>\r\n");
-         $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-         errorCheck($tmp);
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
       }
       for ($i = 0; $i < count($cc); $i++) {
          fputs($smtpConnection, "RCPT TO:<$cc[$i]>\r\n");
-         $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-         errorCheck($tmp);
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
       }
       for ($i = 0; $i < count($bcc); $i++) {
          fputs($smtpConnection, "RCPT TO:<$bcc[$i]>\r\n");
-         $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-         errorCheck($tmp);
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
       }
 
       /** Lets start sending the actual message */
       fputs($smtpConnection, "DATA\r\n");
-      $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-      errorCheck($tmp);
+      $tmp = fgets($smtpConnection, 1024);
+      errorCheck($tmp, $smtpConnection);
 
       // Send the message
       $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($smtpConnection, $body);
 
       fputs($smtpConnection, ".\r\n"); // end the DATA part
-      $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
-      $num = errorCheck($tmp);
+      $tmp = fgets($smtpConnection, 1024);
+      $num = errorCheck($tmp, $smtpConnection);
       if ($num != 250) {
+	 $tmp = nl2br(htmlspecialchars($tmp));
          echo "ERROR<BR>Message not sent!<BR>Reason given: $tmp<BR></BODY></HTML>";
       }
 
@@ -351,13 +352,20 @@
    }
 
 
-   function errorCheck($line) {
+   function errorCheck($line, $smtpConnection) {
       global $page_header_php;
       global $color;
       if (!isset($page_header_php)) {
          include "../functions/page_header.php";
       }
       
+      // Read new lines on a multiline response
+      $lines = $line;
+      while(ereg("^[0-9]+-", $line)) {
+	 $line = fgets($smtpConnection, 1024);
+	 $lines .= $line;
+      }
+
       // Status:  0 = fatal
       //          5 = ok
 
@@ -432,7 +440,7 @@
          case 554:   $message = "Transaction failed";
                      $status = 0;
                      break;
-         default:    $message = "Unknown response: $line";
+         default:    $message = "Unknown response: ". nl2br(htmlspecialchars($lines));
                      $status = 0;
                      $error_num = "001";
                      break;
@@ -444,7 +452,8 @@
          echo "<br><b><font color=\"$color[1]\">ERROR</font></b><br><br>";
          echo "&nbsp;&nbsp;&nbsp;<B>Error Number: </B>$err_num<BR>";
          echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<B>Reason: </B>$message<BR>";
-         echo "<B>Server Response: </B>$line<BR>";
+         $lines = nl2br(htmlspecialchars($lines));
+         echo "<B>Server Response: </B>$lines<BR>";
          echo "<BR>MAIL NOT SENT";
          echo "</TT></BODY></HTML>";
          exit;
