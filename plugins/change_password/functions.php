@@ -1,10 +1,22 @@
 <?php
 
 /**
+ * functions.php - Change Password plugin
+ *
+ * Copyright (c) 2003-2004 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
+ * @package plugins
+ * @subpackage change_password
+ */
+
+/**
  * Will verify the input against a set of criteria:
  * is every field supplied, does verify password match,
  * does current password validate, ..
- * These criteria are for now backend-independant.
+ * These criteria are (for now) backend-independant.
+ *
  * @return array Array with zero or more error messages.
  */
 function cpw_check_input()
@@ -41,9 +53,9 @@ function cpw_check_input()
     }
 
     // do we need to do checks that are backend-specific and should
-    // be handled by a hook? I know of none now, but if there's a need
-    // for it we can add a hook for that here.
-    // those checks can also be done in the backend dochange() function.
+    // be handled by a hook? I know of none now, bnd those checks can
+    // also be done in the backend dochange() function. If there turns
+    // out to be a need for it we can add a hook for that here.
 
     return $msg;
 }
@@ -61,8 +73,8 @@ define('CPW_INVALID_PW', _("Your new password contains invalid characters."));
 function cpw_do_change()
 {
     global $cpw_backend;
-    sqgetGlobalVar('cpw_current', $curpw,      SQ_POST);
-    sqgetGlobalVar('cpw_new',     $newpw,      SQ_POST);
+    sqgetGlobalVar('cpw_curpass', $curpw,      SQ_POST);
+    sqgetGlobalVar('cpw_newpass', $newpw,      SQ_POST);
     sqgetGlobalVar('base_uri',    $base_uri,   SQ_SESSION);
     sqgetGlobalVar('onetimepad',  $onetimepad, SQ_SESSION);
     sqgetGlobalVar('key',         $key,        SQ_COOKIE);

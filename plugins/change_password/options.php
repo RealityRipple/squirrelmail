@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * options.php - Change Password HTML page
+ *
+ * Copyright (c) 2004 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
+ * @package plugins
+ * @subpackage change_password
+ */
+
 define('SM_PATH','../../');
 
 include_once (SM_PATH . 'include/validate.php');
@@ -9,8 +20,10 @@ include_once (SM_PATH . 'plugins/change_password/config.php');
 
 /* the form was submitted, go for it */
 if(sqgetGlobalVar('cpw_go', $cpw_go, SQ_POST)) {
+
     /* perform basic checks */
     $Messages = cpw_check_input();
+    
     /* if no errors, go ahead with the actual change */
     if(count($Messages) == 0) {
         $Messages = cpw_do_change();
