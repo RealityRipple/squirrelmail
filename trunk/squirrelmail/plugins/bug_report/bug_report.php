@@ -54,38 +54,39 @@ $body = htmlspecialchars($body_top) . $body;
 ?>
    <br />
    <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0"><tr>
-      <?php echo html_tag('td',"<b>"._("Submit a Bug Report")."</b>",'center',$color[0]); ?>
+      <?php echo html_tag('td','<b>'._("Submit a Bug Report").'</b>','center',$color[0]); ?>
    </tr></table>
 
-   <?PHP echo $warning_html; 
+<?php
+   echo $warning_html; 
 
    echo '<p><big>';
    echo _("Before you send your bug report, please make sure to check this checklist for any common problems.");
    echo "</big></p>\n";
 
-   echo "<ul>";
-   echo "<li>";
+   echo '<ul>';
+   echo '<li>';
    printf(_("Make sure that you are running the most recent copy of %s. You are currently using version %s."), '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>', $version);
    echo "</li>\n";
 
-   echo "<li>";
+   echo '<li>';
    printf(_("Check to see if your bug is already listed in the %sBug List%s on SourceForge. If it is, we already know about it and are trying to fix it."), '<a href="http://sourceforge.net/bugs/?group_id=311" target="_blank">', '</a>');
    echo "</li>\n";
    
-   echo "<li>";
+   echo '<li>';
    echo _("Try to make sure that you can repeat it. If the bug happens sporatically, try to document what you did when it happened. If it always occurs when you view a specific message, keep that message around so maybe we can see it.");
    echo "</li>\n";
 
-   echo "<li>";
+   echo '<li>';
    printf(_("If there were warnings displayed above, try to resolve them yourself. Read the guides in the %s directory where SquirrelMail was installed."), '<tt>doc/</tt>');
    echo "</li>\n";
    echo "</ul>\n";
 
-   echo "<p>";
+   echo '<p>';
    echo _("Pressing the button below will start a mail message to the developers of SquirrelMail that will contain a lot of information about your system, your browser, how SquirrelMail is set up, and your IMAP server. It will also prompt you for information. Just fill out the sections at the top. If you like, you can scroll down in the message to see what else is being sent.");
    echo "</p>\n";
 
-   echo "<p>";
+   echo '<p>';
    echo _("Please make sure to fill out as much information as you possibly can to give everyone a good chance of finding and removing the bug. Submitting your bug like this will not have it automatically added to the bug list on SourceForge, but someone who gets your message may add it for you.");
    echo "</p>\n";
 ?>
