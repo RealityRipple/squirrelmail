@@ -62,7 +62,7 @@
             $date = substr($read[$i], 5);
          } else if (eregi ("^subject:", $read[$i])) {
             $subject = htmlspecialchars(eregi_replace ("^subject: ", "", $read[$i]));
-            if (strlen(Chop($subject)) == 0)
+            if (trim($subject) == "")
                $subject = _("(no subject)");
          }
 		}	
