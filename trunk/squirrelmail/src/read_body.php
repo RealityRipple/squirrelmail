@@ -389,16 +389,15 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
    $msgs_url = $base_uri . 'src/';
    if (isset($where) && isset($what)) {
-      if ($pos == '') {
-          $pos=0;
-      }
-      $msgs_url .= 'search.php?where='.urlencode($where).'&amp;pos='.$pos.
+      $msgs_url .= 'search.php?where='.urlencode($where).
                    '&amp;what='.urlencode($what).'&amp;mailbox='.$urlMailbox;
+      $msgs_str = _("Search results");		   
    } else {
       $msgs_url .= 'right_main.php?sort='.$sort.'&amp;startMessage='.
                   $startMessage.'&amp;mailbox='.$urlMailbox;
+      $msgs_str = _("Message List");
    }
-   $s .= '<a href="'. $msgs_url.'">'._("Message List").'</a>';
+   $s .= '<a href="'. $msgs_url.'">'.$msgs_str.'</a>';
    $s .= $topbar_delimiter;
    
    $delete_url = $base_uri . 'src/delete_message.php?mailbox='.$urlMailbox.
