@@ -77,6 +77,9 @@ if (!defined('download_php')) {
     sqsession_register($theme_css, 'theme_css'); 
 }
 
+// user's icon theme, if using icons
+$icon_theme = getPref($data_dir, $username, 'icon_theme', 'none' );
+
 $use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
 
 /* Load the user's special folder preferences */

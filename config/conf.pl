@@ -398,6 +398,10 @@ if (!$oldway ) {
 	$oldway = 'false';
 }
 
+if (!$use_icons ) {
+	$use_icons = 'false';
+}
+
 if (!$use_php_recode ) {
 	$use_php_recode = 'false';
 }
@@ -668,10 +672,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
 	print $WHT. "Interface tweaks\n" . $NRM;
 	print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
 	print "2.  Oldway                   : $WHT$oldway$NRM\n";
+	print "3.  Use Icons                : $WHT$use_icons$NRM\n";
 	print "\n";
 	print $WHT. "PHP tweaks\n" . $NRM;
-	print "3.  Use php recode functions : $WHT$use_php_recode$NRM\n";
-	print "4.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
+	print "4.  Use php recode functions : $WHT$use_php_recode$NRM\n";
+	print "5.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
 	print "\n";
         print "R   Return to Main Menu\n";
     }
@@ -790,7 +795,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
-			elsif ( $command == 13 ) { $session_name             = command316(); }
+            elsif ( $command == 13 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -822,8 +827,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
             elsif ( $command == 2 ) { $oldway  	      = commandB2(); }
-            elsif ( $command == 3 ) { $use_php_recode = commandB3(); }
-            elsif ( $command == 4 ) { $use_php_iconv  = commandB4(); }
+            elsif ( $command == 3 ) { $use_icons      = commandB3(); }
+            elsif ( $command == 4 ) { $use_php_recode = commandB4(); }
+            elsif ( $command == 5 ) { $use_php_iconv  = commandB5(); }
         }
     }
 }
@@ -2984,8 +2990,33 @@ sub commandB2 {
     }
     return $oldway;
 }
-# php recode
+# use icons
 sub commandB3 {
+    print "Enabling this option will cause icons to be used instead of text\n";
+    print "markers next to each message in mailbox lists that represent\n";
+    print "new, read, flagged, and deleted messages, as well as those that\n";
+    print "have been replied to and forwarded. Icons are also used next to\n";
+    print "(un)expanded folders in the folder list (Oldway = false).  These\n";
+    print "icons are quite small, but will obviously be more of a resource\n";
+    print "drain than text markers.\n";
+    print "\n";
+
+    if ( lc($use_icons) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use icons? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $use_icons = <STDIN>;
+    if ( ( $use_icons =~ /^y\n/i ) || ( ( $use_icons =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $use_icons = "true";
+    } else {
+        $use_icons = "false";
+    }
+    return $use_icons;
+}
+# php recode
+sub commandB4 {
     print "Enable this option if you want to use php recode functions to read\n";
     print "emails written in charset that differs from the one that is set in\n";
     print "translation selected by user. Code is experimental, it might cause\n";
@@ -3008,7 +3039,7 @@ sub commandB3 {
     return $use_php_recode;
 }
 # php iconv
-sub commandB4 {
+sub commandB5 {
     print "Enable this option if you want to use php iconv functions to read\n";
     print "emails written in charset that differs from the one that is set in\n";
     print "translation selected by user. Code is experimental, it works only\n";
@@ -3278,24 +3309,29 @@ sub save_data {
 	# boolean
         print CF "\$addrbook_global_listing = $addrbook_global_listing;\n\n";
 	# boolean
-		print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
+        print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 
 	# string
-		print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
-		print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
+        print CF "\$smtp_auth_mech = '$smtp_auth_mech';\n";
+	# string
+        print CF "\$imap_auth_mech = '$imap_auth_mech';\n";
 	# boolean
-	    print CF "\$use_imap_tls = $use_imap_tls;\n";
-		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+        print CF "\$use_imap_tls = $use_imap_tls;\n";
+	# boolean
+        print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+	# string
+        print CF "\$session_name = '$session_name';\n";
 
-		print CF "\$session_name = '$session_name';\n";
-
-	    print CF "\n";
+	print CF "\n";
 
 	# boolean
 	print CF "\$advanced_tree = $advanced_tree;\n";
 	print CF "\n";
 	# boolean
 	print CF "\$oldway = $oldway;\n";
+	print CF "\n";
+	# boolean
+	print CF "\$use_icons = $use_icons;\n";
 	print CF "\n";
 	# boolean
 	print CF "\$use_php_recode = $use_php_recode;\n";

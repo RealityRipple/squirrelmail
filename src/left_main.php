@@ -170,22 +170,26 @@ function compute_folder_children(&$parbox, $boxcount) {
  * currently appropriate.
  */
 function create_collapse_link($boxnum) {
-    global $boxes, $imapConnection, $unseen_notify, $color;
+    global $boxes, $imapConnection, $unseen_notify, $color, $use_icons, $icon_theme;
     $mailbox = urlencode($boxes[$boxnum]['unformatted']);
 
     /* Create the link for this collapse link. */
     $link = '<a target="left" style="text-decoration:none" ' .
             'href="left_main.php?';
     if ($boxes[$boxnum]['collapse'] == SM_BOX_COLLAPSED) {
-        $link .= "unfold=$mailbox\">+";
+        if ($use_icons && $icon_theme != 'none') {
+            $link .= "unfold=$mailbox\"><IMG src=\"" . SM_PATH . "images/plus.png\" border=\"0\" height=\"7\" width=\"7\">";
+        } else {
+            $link .= "unfold=$mailbox\">+";
+        }
     } else {
-        $link .= "fold=$mailbox\">-";
+        if ($use_icons && $icon_theme != 'none') {
+            $link .= "fold=$mailbox\"><IMG src=\"" . SM_PATH . "images/minus.png\" border=\"0\" height=\"7\" width=\"7\">";
+        } else {
+            $link .= "fold=$mailbox\">-";
+        }
     }
     $link .= '</a>';
-
-    $hooklink = do_hook_function('create_collapse_link',$link);
-    if ($hooklink != '')
-        $link = $hooklink;
 
     /* Return the finished product. */
     return ($link);
@@ -290,7 +294,8 @@ function is_parent_box($curbox_name, $parbox_name) {
 
 function ListBoxes ($boxes, $j=0 ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection;
+           $move_to_trash, $trash_folder, $collapse_folders, $imapConnection, 
+           $use_icons, $icon_theme;
 
     if (!isset($boxes) || empty($boxes))
         return;
@@ -346,9 +351,17 @@ function ListBoxes ($boxes, $j=0 ) {
 
         $link = '<a target="left" style="text-decoration:none" ' .'href="left_main.php?';
         if ($collapse) {
-            $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
+            if ($use_icons && $icon_theme != 'none') {
+                $link .= "unfold=$mailboxURL\">$leader<IMG src=\"" . SM_PATH . "images/plus.png\" border=\"0\" height=\"7\" width=\"7\">&nbsp;</tt>";
+            } else {
+                $link .= "unfold=$mailboxURL\">$leader+&nbsp;</tt>";
+            }
         } else {
-            $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
+            if ($use_icons && $icon_theme != 'none') {
+                $link .= "fold=$mailboxURL\">$leader<IMG src=\"" . SM_PATH . "images/minus.png\" border=\"0\" height=\"7\" width=\"7\">&nbsp;</tt>";
+            } else {
+                $link .= "fold=$mailboxURL\">$leader-&nbsp;</tt>";
+            }
         }
         $link .= '</a>';
         $pre .= $link;

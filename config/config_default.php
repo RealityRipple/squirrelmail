@@ -649,6 +649,10 @@ $advanced_tree = false;
  */
 $oldway = false;
 /**
+ * Use icons for message and folder markers
+ */
+$use_icons = false;
+/**
  * Use experimental code with php recode functions when reading messages with
  * different encoding. This code is faster that original SM functions,
  * but it require php with recode support.
