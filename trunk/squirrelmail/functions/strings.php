@@ -72,11 +72,17 @@ function readMailboxParent($haystack, $needle) {
  */
 function next_pos_minus_white ($haystack, $pos) {
     $len = strlen($haystack);
-    for ( ; $pos < $len; $pos++ ) {
-        $char = substr($haystack, $pos, 1);
-        if ( $char != ' ' && $char != "\t" && $char != "\n" && $char != "\r" ) {
+    while ($pos < $len) {
+        /* Get the next character. */
+        $c = substr($haystack, $pos, 1);
+        
+        /* Check the next character. */
+        if (($c != ' ') && ($c != "\t") && ($c != "\n") && ($c != "\r")) {
             return $pos;
         }
+
+        /* Increment position in string. */
+        ++$pos;
     }
     return -1;
 }
