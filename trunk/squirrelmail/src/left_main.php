@@ -143,7 +143,7 @@
    /* END OF FUNCTION - BACK TO MAIN */
    /**********************************/
 
-    if (isset($left_refresh) && ($left_refresh != 'None') && ($left_refresh != '')) {
+    if (isset($left_refresh) && ($left_refresh != 'none') && ($left_refresh != '')) {
         echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
         echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n"; 
         echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
