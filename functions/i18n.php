@@ -49,7 +49,7 @@ function charset_decode ($charset, $string) {
 
     // Variables that allow to use functions without function_exist() calls
     if (! isset($use_php_recode) || $use_php_recode=="" ) {
-	     $use_php_recode=false; }
+      $use_php_recode=false; }
     if (! isset($use_php_iconv) || $use_php_iconv=="" ) {
          $use_php_iconv=false; }
 
@@ -68,15 +68,15 @@ function charset_decode ($charset, $string) {
      */
     if ( $use_php_recode ) {
       if ( $default_charset == "utf-8" ) {
-	// other charsets can be converted to utf-8 without loss.
-	// and output string is smaller
-	$string = recode_string($charset . "..utf-8",$string);
-	return htmlspecialchars($string);
+        // other charsets can be converted to utf-8 without loss.
+        // and output string is smaller
+        $string = recode_string($charset . "..utf-8",$string);
+        return htmlspecialchars($string);
       } else {
-	$string = recode_string($charset . "..html",$string);
-	// recode does not convert single quote, htmlspecialchars does.
-	$string = str_replace("'", '&#039;', $string);
-	return $string;
+        $string = recode_string($charset . "..html",$string);
+        // recode does not convert single quote, htmlspecialchars does.
+        $string = str_replace("'", '&#039;', $string);
+        return $string;
       }
     }
 
@@ -99,14 +99,14 @@ function charset_decode ($charset, $string) {
     $decode=fixcharset($charset);
     $decodefile=SM_PATH . 'functions/decode/' . $decode . '.php';
     if (file_exists($decodefile)) {
-	include_once($decodefile);
-	$ret = call_user_func('charset_decode_'.$decode, $string);
+      include_once($decodefile);
+      $ret = call_user_func('charset_decode_'.$decode, $string);
     } else {
-	$ret = $string;
+      $ret = $string;
     }
     return( $ret );
 }
-		                                                                                                                           
+
 /**
  * Makes charset name suitable for decoding cycles
  *
@@ -189,63 +189,63 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
          isset($languages[$sm_notAlias]['CHARSET']) ) {
         bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
         textdomain( 'squirrelmail' );
-	if (function_exists('bind_textdomain_codeset')) {
-            if ($sm_notAlias == 'ja_JP') {
-        	bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
+        if (function_exists('bind_textdomain_codeset')) {
+          if ($sm_notAlias == 'ja_JP') {
+            bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
             } else {
-	        bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
-	    }
-	}
-	if (isset($languages[$sm_notAlias]['LOCALE'])){
-	  $longlocale=$languages[$sm_notAlias]['LOCALE'];
-	} else {
-	  $longlocale=$sm_notAlias;
-	}
+              bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+            }
+        }
+        if (isset($languages[$sm_notAlias]['LOCALE'])){
+          $longlocale=$languages[$sm_notAlias]['LOCALE'];
+        } else {
+          $longlocale=$sm_notAlias;
+        }
         if ( !ini_get('safe_mode') &&
              getenv( 'LC_ALL' ) != $longlocale ) {
             putenv( "LC_ALL=$longlocale" );
             putenv( "LANG=$longlocale" );
             putenv( "LANGUAGE=$longlocale" );
         }
-	setlocale(LC_ALL, $longlocale);
+        setlocale(LC_ALL, $longlocale);
 
-	// Set text direction/alignment variables
-	if (isset($languages[$sm_notAlias]['DIR']) && 
-		$languages[$sm_notAlias]['DIR'] == 'rtl') {
-	  /**
-	   * Text direction
-	   * @global string $text_direction
-	   */
-	    $text_direction='rtl';
-	  /**
-	   * Left alignment
-	   * @global string $left_align
-	   */
-	    $left_align='right';
-	  /**
-	   * Right alignment
-	   * @global string $right_align
-	   */
-	    $right_align='left';
-	} else {
-	    $text_direction='ltr';
-	    $left_align='left';
-	    $right_align='right';
-	}
+        // Set text direction/alignment variables
+        if (isset($languages[$sm_notAlias]['DIR']) && 
+            $languages[$sm_notAlias]['DIR'] == 'rtl') {
+          /**
+           * Text direction
+           * @global string $text_direction
+           */
+          $text_direction='rtl';
+          /**
+           * Left alignment
+           * @global string $left_align
+           */
+          $left_align='right';
+          /**
+           * Right alignment
+           * @global string $right_align
+           */
+          $right_align='left';
+        } else {
+          $text_direction='ltr';
+          $left_align='left';
+          $right_align='right';
+        }
 
-	$squirrelmail_language = $sm_notAlias;
+        $squirrelmail_language = $sm_notAlias;
         if ($squirrelmail_language == 'ja_JP') {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
-		// Error messages can't be displayed here
-		$error = 1;
-		// Revert to English if possible.
-		if (function_exists('setPref')  && $username!='' && $data_dir!="") {
-		    setPref($data_dir, $username, 'language', "en_US");
-    		    $error = 2;		
-		}
-		// stop further execution in order not to get php errors on mb_internal_encoding().
-		return $error;
+              // Error messages can't be displayed here
+              $error = 1;
+              // Revert to English if possible.
+              if (function_exists('setPref')  && $username!='' && $data_dir!="") {
+                setPref($data_dir, $username, 'language', "en_US");
+                $error = 2;
+              }
+              // stop further execution in order not to get php errors on mb_internal_encoding().
+              return $error;
             }
             if (function_exists('mb_language')) {
                 mb_language('Japanese');
@@ -602,28 +602,28 @@ elseif ($gettext_flags == 0) {
 } else {
     /* Uh-ho.  A weird install */
     if (! $gettext_flags & 1) {
-	/**
-	 * Function is used as replacement in broken installs
-	 * @ignore
-	 */
+      /**
+       * Function is used as replacement in broken installs
+       * @ignore
+       */
         function _($str) {
             return $str;
         }
     }
     if (! $gettext_flags & 2) {
-	/**
-	 * Function is used as replacement in broken installs
-	 * @ignore
-	 */
+      /**
+       * Function is used as replacement in broken installs
+       * @ignore
+       */
         function bindtextdomain() {
             return;
         }
     }
     if (! $gettext_flags & 4) {
-	/**
-	 * Function is used as replacemet in broken installs
-	 * @ignore
-	 */
+      /**
+       * Function is used as replacemet in broken installs
+       * @ignore
+       */
         function textdomain() {
             return;
         }
@@ -640,15 +640,15 @@ elseif ($gettext_flags == 0) {
  *
  * @param string $action action performed by this function.
  *    possible values:
- * 	decode - convert returned string to euc-jp. third argument unused
- *	encode - convert returned string to jis. third argument unused
- *	strimwidth - third argument=$width. trims string to $width symbols.
- *	encodeheader - create base64 encoded header in iso-2022-jp. third argument unused
- *	decodeheader - return human readable string from mime header. string is returned in euc-jp. third argument unused
- *	downloadfilename - third argument $useragent. Arguments provide browser info. Returns shift-jis or euc-jp encoded file name
- *	wordwrap - third argument=$wrap. wraps text at $wrap symbols
- *	utf7-imap_encode - returns string converted from euc-jp to utf7-imap. third argument unused
- *	utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
+ *  decode - convert returned string to euc-jp. third argument unused
+ *  encode - convert returned string to jis. third argument unused
+ *  strimwidth - third argument=$width. trims string to $width symbols.
+ *  encodeheader - create base64 encoded header in iso-2022-jp. third argument unused
+ *  decodeheader - return human readable string from mime header. string is returned in euc-jp. third argument unused
+ *  downloadfilename - third argument $useragent. Arguments provide browser info. Returns shift-jis or euc-jp encoded file name
+ *  wordwrap - third argument=$wrap. wraps text at $wrap symbols
+ *  utf7-imap_encode - returns string converted from euc-jp to utf7-imap. third argument unused
+ *  utf7-imap_decode - returns string converted from utf7-imap to euc-jp. third argument unused
  * @param string $ret default return value
  */
 function japanese_charset_xtra() {
@@ -786,7 +786,7 @@ function japanese_charset_xtra() {
  *
  * @param string action performed by this function. 
  *    possible values:
- *	downloadfilename - Hangul(Korean Character) Attached File Name Fix.
+ * downloadfilename - Hangul(Korean Character) Attached File Name Fix.
  * @param string default return value
  */
 function korean_charset_xtra() {
@@ -884,30 +884,30 @@ function is_conversion_safe($input_charset) {
 switch ($default_charset):
 case "windows-1251":
       if ( $input_charset == "iso-8859-5" || 
-	   $input_charset == "koi8-r" ||
-	   $input_charset == "koi8-u" ) {
+           $input_charset == "koi8-r" ||
+           $input_charset == "koi8-u" ) {
         return true;
      } else {
         return false;
      }
 case "windows-1257":
   if ( $input_charset == "iso-8859-13" || 
-	 $input_charset == "iso-8859-4" ) {
+       $input_charset == "iso-8859-4" ) {
     return true;
   } else {
     return false;
   }
 case "iso-8859-4":
   if ( $input_charset == "iso-8859-13" || 
-	 $input_charset == "windows-1257" ) {
+       $input_charset == "windows-1257" ) {
      return true;
   } else {
      return false;
   }
 case "iso-8859-5":
   if ( $input_charset == "windows-1251" || 
-	 $input_charset == "koi8-r" || 
-	 $input_charset == "koi8-u" ) {
+       $input_charset == "koi8-r" || 
+       $input_charset == "koi8-u" ) {
      return true;
   } else {
      return false;
@@ -921,16 +921,16 @@ case "iso-8859-13":
   }
 case "koi8-r":
   if ( $input_charset == "windows-1251" ||
-	 $input_charset == "iso-8859-5" || 
-	 $input_charset == "koi8-u" ) {
+       $input_charset == "iso-8859-5" || 
+       $input_charset == "koi8-u" ) {
      return true;
   } else {
      return false;
   }
 case "koi8-u":
   if ( $input_charset == "windows-1251" ||
-	$input_charset == "iso-8859-5" ||
-	$input_charset == "koi8-r" ) {
+       $input_charset == "iso-8859-5" ||
+       $input_charset == "koi8-r" ) {
      return true;
   } else {
      return false;
