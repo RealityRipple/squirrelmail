@@ -341,28 +341,19 @@ function sqimap_find_email ($string) {
 *           becomes:   lkehresman@yahoo.com
 */
 function sqimap_find_displayable_name ($string) {
-    $string = ' '.trim($string);
-    $orig_string = $string;
-    if (($angle1 = strpos($string, '<')) && strpos($string, '>')) {
-        if ($angle1 == 1) {
-            $string = sqimap_find_email($string);
-        } else {
-            $string = trim($string);
-            $string = substr($string, 0, $angle1-1);
-            $string = ereg_replace ('"', '', $string);
-        }
-        
-        if (trim($string) == '') {
-            $string = sqimap_find_email($orig_string);
-        }
-    } else if ( ($paren1 = strpos($string, '('))
-                && ($paren2 = strpos($string, ')'))) {
-        $string = substr($string, $paren1 + 1, $paren2 - $paren1 - 1);
+    if ( ereg('^(.+)<.*>', $string, $regs) ) {
+        $string = ereg_replace ('"', '', $regs[1] );
     }
-    return $string;
+    elseif ( ereg('\((.*)\)', $string, $regs) ) {
+        $string = $regs[1];
+    }
+    else {
+        $string = sqimap_find_email($string);
+    }
+
+    return trim($string);
 }
-
-
+    
 /*
 *  Returns the number of unseen messages in this folder
 */
