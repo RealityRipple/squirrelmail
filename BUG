@@ -1,5 +1,10 @@
 Known BUGS to be fixed before 0.4pre1:
 
+  -    Reply which sets the address line to something like the following:
+       "Luke Ehresman <lehresma@css.tayloru.edu>" (without quotes)
+       translates to the SMTP server as:
+       <lehresma@css.tayloru.edu>>
+
   -    LDAP preferences in conf.pl are not working.
 
   -    Next/Previous while viewing a message should take into account 
