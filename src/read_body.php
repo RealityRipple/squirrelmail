@@ -471,8 +471,8 @@ if (isset($view_hdr)) {
             $j++;
         }
         if(strtolower($f) != 'message-id:') {
-		parseEmail($s);		/* Find and linkify emailaddresses except msgid */
-	}
+            parseEmail($s);     /* Find and linkify emailaddresses except msgid */
+        }
         if (isset($f)) {
             echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
         }
@@ -582,47 +582,6 @@ $url_replytoallcc = urlencode($url_replytoallcc);
 
 $dateString = getLongDateString($message->header->date);
 
-/**
- * What do we reply to -- text only, if possible
- */
- 
-$body = ''; 
-
-/* experimental */
-/*
-if ($message->header->type0 == 'multipart' && $message->header->type1 == 'digest') {
-  listEntities($message);
-  for ($i = 0; $i < count($message->entities); $i++) {
-
-       $msg = $message->entities[$i];
-       $body .= $msg->header->type0 .'/'.$msg->header->type1 .'<BR>';
-
-       $msg->header->type0 = 'message';
-       $msg->header->type1 = 'rfc822';
-       $ent_ar = findDisplayEntity($msg, false);
-       for ($i = 0; $i < count($ent_ar); $i++) {
-	    $body .= formatBody($imapConnection, $msg, $color, $wrap_at, $ent_ar[$i]);
-       }
-       $i++;
-   }
-} else {
-*/    
-    $ent_ar = findDisplayEntity($message, false);
-    $i = 0;
-    for ($i = 0; $i < count($ent_ar); $i++) {
-	$body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i]);
-    }
-/*
-}
-*/
-    
-/* first step in displaying multiple entities */
-$ent_ar = findDisplayEntity($message,true);
-
-$ent_num = $ent_ar[0];
-for ($i = 1 ; $i < count($ent_ar); $i++) {
-    $ent_num .= '_'.$ent_ar[$i];
-}
 /** TEXT STRINGS DEFINITIONS **/
 $echo_more = _("more");
 $echo_less = _("less");
@@ -700,6 +659,47 @@ if (!empty($idents) && $idents > 1) {
 }
 
 do_hook('read_body_top');
+/**
+ * What do we reply to -- text only, if possible
+ */
+
+$body = ''; 
+
+/* experimental */
+/*
+if ($message->header->type0 == 'multipart' && $message->header->type1 == 'digest') {
+  listEntities($message);
+  for ($i = 0; $i < count($message->entities); $i++) {
+
+       $msg = $message->entities[$i];
+       $body .= $msg->header->type0 .'/'.$msg->header->type1 .'<BR>';
+
+       $msg->header->type0 = 'message';
+       $msg->header->type1 = 'rfc822';
+       $ent_ar = findDisplayEntity($msg, false);
+       for ($i = 0; $i < count($ent_ar); $i++) {
+	    $body .= formatBody($imapConnection, $msg, $color, $wrap_at, $ent_ar[$i]);
+       }
+       $i++;
+   }
+} else {
+*/    
+    $ent_ar = findDisplayEntity($message, false);
+    $i = 0;
+    for ($i = 0; $i < count($ent_ar); $i++) {
+        $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i]);
+    }
+/*
+}
+*/
+
+/* first step in displaying multiple entities */
+$ent_ar = findDisplayEntity($message,true);
+
+$ent_num = $ent_ar[0];
+for ($i = 1 ; $i < count($ent_ar); $i++) {
+    $ent_num .= '_'.$ent_ar[$i];
+}
 echo '<BR>' .
      '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' .
         '<TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">' .
@@ -729,10 +729,10 @@ echo _("Delete") . '</A>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     $comp_uri = $base_uri . "src/compose.php?mailbox=$mailbox&amp;".
                 "identity=$identity&amp;send_to=$url_to_string&amp;".
-		"send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;".
-		"subject=$url_subj&amp;mailprio=$priority_level&amp;".
-		"draft_id=$passed_id&amp;ent_num=$ent_num";
-    
+                "send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;".
+                "subject=$url_subj&amp;mailprio=$priority_level&amp;".
+                "draft_id=$passed_id&amp;ent_num=$ent_num";
+
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
     } else {
@@ -744,9 +744,9 @@ if (($mailbox == $draft_folder) && ($save_as_draft)) {
 if ($mailbox == $sent_folder) {
     $comp_uri = $base_uri . "src/compose.php?mailbox=$mailbox&amp;".
                 "identity=$identity&amp;send_to=$url_to_string&amp;".
-		"send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;".
-		"subject=$url_subj&amp;mailprio=$priority_level&amp;".
-		"ent_num=$ent_num&amp;passed_id=$passed_id&amp;edit_as_new=1";
+                "send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;".
+                "subject=$url_subj&amp;mailprio=$priority_level&amp;".
+                "ent_num=$ent_num&amp;passed_id=$passed_id&amp;edit_as_new=1";
 
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
@@ -790,9 +790,9 @@ echo                '</SMALL>' .
 
 $comp_uri = $base_uri . "src/compose.php?forward_id=$passed_id&amp;".
             "forward_subj=$url_subj&amp;".
-	    ($default_use_priority?"mailprio=$priority_level&amp;":'').
+            ($default_use_priority?"mailprio=$priority_level&amp;":'').
             "mailbox=$urlMailbox&amp;ent_num=$ent_num";
-	     		   
+
 if ($compose_new_win == '1') {
     echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
 } else {
@@ -807,7 +807,7 @@ $comp_uri = $base_uri . "src/compose.php?send_to=$url_replyto&amp;".
             "reply_subj=$url_subj&amp;".
             ($default_use_priority?"mailprio=$priority_level&amp;":'').
             "reply_id=$passed_id&amp;mailbox=$urlMailbox&amp;ent_num=$ent_num";
-	        
+
 if ($compose_new_win == '1') {
     echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
 } else {
@@ -1058,7 +1058,7 @@ if ($default_use_mdn) {
                 if ( SendMDN( $MDN_to, $final_recipient ) > 0 && $supportMDN ) {
                     ToggleMDNflag( true);
                 }
-	        ClearAttachments();
+                ClearAttachments();
             }
             $sendreceipt = 'removeMDN';
             $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
