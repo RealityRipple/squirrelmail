@@ -77,12 +77,15 @@
          echo "</center>";
          echo "</body></html>\n";
          exit;
+      } else {
+         $delimiter = sqimap_get_delimiter ($imapConnection);
       }
       sqimap_logout($imapConnection);
 
       $username = $login_username;
       session_register ('username');
       setcookie('key', $key, 0, $base_uri);
+      setcookie('delimiter', $delimiter, 0, $base_uri);
       do_hook ('login_verified');
    }
 
