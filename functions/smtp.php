@@ -106,7 +106,7 @@
    }
 
    /* Print all the needed RFC822 headers */
-   function write822Header ($fp, $t, $c, $b, $subject) {
+   function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $domain, $version, $useSendmail;
       global $default_charset;
@@ -156,7 +156,15 @@
          $header .= "Subject: $subject\r\n";
          $header .= "From: $from\r\n";
          $header .= "To: $to_list \r\n";    // Who it's TO
-         
+
+	 /* Insert headers from the $more_headers array */
+	 if(is_array($more_headers)) {
+	    reset($more_headers);
+	    while(list($h_name, $h_val) = each($more_headers)) {
+	       $header .= sprintf("%s: %s\r\n", $h_name, $h_val);
+	    }
+	 }
+
          if ($cc_list) {
             $header .= "Cc: $cc_list\r\n"; // Who the CCs are
          }
@@ -231,13 +239,13 @@
    }
 
    // Send mail using the sendmail command
-   function sendSendmail($t, $c, $b, $subject, $body) {
+   function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
       global $sendmail_path, $username, $domain;
 
       // open pipe to sendmail
       $fp = popen (escapeshellcmd("$sendmail_path -t -f$username@$domain"), "w");
       
-      $headerlength = write822Header ($fp, $t, $c, $b, $subject);
+      $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($fp, $body);
 
       pclose($fp);
@@ -256,7 +264,7 @@
       }
    }
 
-   function sendSMTP($t, $c, $b, $subject, $body) {
+   function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
       global $username, $domain, $version, $smtpServerAddress, $smtpPort,
          $data_dir, $color;
 
@@ -313,7 +321,7 @@
       errorCheck($tmp);
 
       // Send the message
-      $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject);
+      $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers);
       $bodylength = writeBody($smtpConnection, $body);
 
       fputs($smtpConnection, ".\r\n"); // end the DATA part
@@ -430,22 +438,34 @@
    function sendMessage($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
+      $more_headers = Array();
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
+
       if ($reply_id) {
          sqimap_mailbox_select ($imap_stream, $mailbox);
          sqimap_messages_flag ($imap_stream, $reply_id, $reply_id, "Answered");
+
+	 // Insert In-Reply-To and References headers if the 
+	 // message-id of the message we reply to is set (longer than "<>")
+	 // The References header should really be the old Referenced header
+	 // with the message ID appended, but it can be only the message ID too.
+	 $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
+	 if(strlen($hdr->message_id) > 2) {
+	    $more_headers["In-Reply-To"] = $hdr->message_id;
+	    $more_headers["References"]  = $hdr->message_id;
+	 }
       }
       
       if ($useSendmail==true) {  
-         $length = sendSendmail($t, $c, $b, $subject, $body);
+         $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers);
       } else {
-         $length = sendSMTP($t, $c, $b, $subject, $body);
+         $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
       }
 
       if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
          sqimap_append ($imap_stream, $sent_folder, $length);
-         write822Header ($imap_stream, $t, $c, $b, $subject);
+         write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers);
          writeBody ($imap_stream, $body); 
          sqimap_append_done ($imap_stream);
       }   
