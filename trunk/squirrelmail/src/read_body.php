@@ -299,6 +299,41 @@
          }
       }
    }
+   /** FORMAT THE BCC STRING **/
+   $i = 0;
+   if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
+      $bcc_string = "";
+      $bcc_ary = $message->header->bcc;
+      while ($i < count(decodeHeader($bcc_ary))) {
+         $bcc_ary[$i] = htmlspecialchars($bcc_ary[$i]);
+         if ($bcc_string)
+            $bcc_string = "$bcc_string<BR>$bcc_ary[$i]";
+         else
+            $bcc_string = "$bcc_ary[$i]";
+   
+         $i++;
+         if (count($bcc_ary) > 1) {
+            if ($show_more_cc == false) {
+               if ($i == 1) {
+                  if (isset($where) && isset($what)) {
+                     // from a search
+                     $bcc_string = "$bcc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  } else {
+                     $bcc_string = "$bcc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=1&show_more=$show_more\">$echo_more</A>)";
+                  }   
+                  $i = count($bcc_ary);
+               }
+            } else if ($i == 1) {
+               if (isset($where) && isset($what)) {
+                  // from a search
+                  $bcc_string = "$bcc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&what=".urlencode($what)."&where=".urlencode($where)."&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+               } else {
+                  $bcc_string = "$bcc_string&nbsp;(<A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&sort=$sort&startMessage=$startMessage&show_more_cc=0&show_more=$show_more\">$echo_less</A>)";
+               }   
+            }
+         }
+      }
+   }
    /** make sure everything will display in HTML format **/
    $from_name = decodeHeader(htmlspecialchars($message->header->from));
    $subject = decodeHeader(htmlspecialchars($message->header->subject));
@@ -418,6 +453,16 @@
            '            Cc:' . "\n" .
            "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n" .
            "            <B>$cc_string</B>&nbsp;\n" .
+           '         </TD>' . "\n" .
+           '      </TR>' . "\n";
+   }
+   /** bcc **/
+   if (isset($bcc_string)) {
+      echo "      <TR>\n" .
+           "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
+           '            Bcc:' . "\n" .
+           "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n" .
+           "            <B>$bcc_string</B>&nbsp;\n" .
            '         </TD>' . "\n" .
            '      </TR>' . "\n";
    }
