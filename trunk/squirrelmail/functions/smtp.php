@@ -21,10 +21,10 @@
 
    // Attach the files that are due to be attached
    function attachFiles ($fp) {
-      global $attachments;
+      global $attachments, $attachment_dir;
 
       while (list($localname, $remotename) = each($attachments)) {
-         $fileinfo = fopen ($localname.".info", "r");
+         $fileinfo = fopen ($attachment_dir.$localname.".info", "r");
          $filetype = fgets ($fileinfo, 8192);
          fclose ($fileinfo);
          $filetype = trim ($filetype);
@@ -36,13 +36,13 @@
          fputs ($fp, "Content-Disposition: attachment; filename=\"$remotename\"\n");
          fputs ($fp, "Content-Transfer-Encoding: base64\n\n");
 
-         $file = fopen ($localname, "r");
+         $file = fopen ($attachment_dir.$localname, "r");
          while ($tmp = fread($file, 57))
             fputs ($fp, chunk_split(base64_encode($tmp)));
          fclose ($file);
 
-         unlink ($localname);
-         unlink ($localname.".info");
+         unlink ($attachment_dir.$localname);
+         unlink ($attachment_dir.$localname.".info");
       }
    }
 
