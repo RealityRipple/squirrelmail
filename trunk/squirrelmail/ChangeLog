@@ -16,6 +16,8 @@ Version 1.5.1 -- CVS
   - Fix that subfolders named "foo.inbox" didn't always work well.
   - sqimap_create_stream() was not obeying passed params properly.  Fixed.
   - Fix non selectable inbox.
+  - Add src/configtest.php script which checks for common errors in the config.
+  
 
 Version 1.5.0
 --------------------

@@ -180,7 +180,7 @@ c. Setting up SquirrelMail
   and edit that manually.
 
   After you've created a configuration, you can use your webbrowser to
-  browse to http://your-squirrelmail-location/config/configtest.php.
+  browse to http://your-squirrelmail-location/src/configtest.php.
   This will perform some basic checks on your config to make sure
   everything works like it should.
 

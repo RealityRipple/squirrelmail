@@ -239,7 +239,7 @@ echo $IND . 'IMAP server OK (<tt><small>'.trim($imapline)."</small></tt>)<br />\
 
 <p>Congratulations, your SquirrelMail setup looks fine to me!</p>
 
-<p><a href="<?php echo SM_PATH; ?>src/login.php">Login now</a></p>
+<p><a href="login.php">Login now</a></p>
 
 </body>
 </html>
