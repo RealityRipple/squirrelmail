@@ -1,11 +1,11 @@
 Known BUGS to be fixed before 0.4pre2:
 -------------------------------------------------------
-  -    In "Sent" folder, "from" is "Unknown Sender"
-  -    Does not delete folders correctly in UW that end in /
 
 
 -----------------------SQUASHED------------------------
 --Fixed for 0.4pre2--
+(lme)  Does not delete folders correctly in UW that end in /
+(lme)  In "Sent" folder, "from" is "Unknown Sender"
 
 
 --Fixed for 0.4pre1--

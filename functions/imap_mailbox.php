@@ -73,18 +73,6 @@
    function sqimap_unsubscribe ($imap_stream, $mailbox) {
 		global $imap_server_type;
 
-		/** This is a hack for UW server
-		 **    Sometimes a folder will have a / at the end.  If that's the case,
-		 **    the unsubscribe doesn't work for a box named "mailbox/".  We have
-		 **    to strip off the / at the end.  There may be a better way of doing
-		 **    this, but this is the best I've found so far.  (lme - April 26, 2000)
-		 **/
-		if ($imap_server_type == "uw") {
-			if (substr($mailbox, -1) == "/") {
-				$mailbox = substr($mailbox, 0, strlen($mailbox)-1);
-			}
-		}	
-
       fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
@@ -105,12 +93,12 @@
    /******************************************************************************
     **  Formats a mailbox into 4 parts for the $boxes array
     ******************************************************************************/
-   function sqimap_mailbox_parse ($line, $dm) {
+   function sqimap_mailbox_parse ($line, $line_lsub, $dm) {
 		global $folder_prefix;
       for ($g=0; $g < count($line); $g++) {
          $boxes[$g]["raw"] = $line[$g];
             
-         $mailbox = find_mailbox_name($line[$g]);
+         $mailbox = $line_lsub[$g];
          $dm_count = countCharInString($mailbox, $dm);
          if (substr($mailbox, -1) == $dm)
             $dm_count--;
@@ -132,14 +120,6 @@
          if ($flags) {
             $boxes[$g]["flags"] = explode(" ", $flags);
          }
-			/****  I'm not sure why this was even in here to begin with..  (lme)
-			for ($i=0; $i < count($boxes[$g]["flags"]); $i++) {
-				if ($boxes[$g]["flags"][$i] == "noselect") {
-					$boxes[$g]["unformatted-dm"] = $boxes[$g]["unformatted-dm"].$dm;
-//					echo $boxes[$g]["unformatted-dm"]." - debug<br>";
-				}
-			}
-			****/
       }
       return $boxes;
    }
@@ -168,8 +148,6 @@
       $lsub_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       for ($i=0;$i < count($lsub_ary); $i++) {
          $sorted_lsub_ary[$i] = find_mailbox_name($lsub_ary[$i]);
-         if (substr($sorted_lsub_ary[$i], -1) == $dm)
-            $sorted_lsub_ary[$i] = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
          if ($sorted_lsub_ary[$i] == "INBOX")
             $inbox_subscribed = true;
       }
@@ -198,7 +176,7 @@
          $sorted_list_ary[count($sorted_list_ary)] = $inbox_ary[0];
       }
 
-		$boxes = sqimap_mailbox_parse ($sorted_list_ary, $dm);
+		$boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary, $dm);
 		
 		/** Now, lets sort for special folders **/
       for ($i = 0; $i < count($boxes); $i++) {

@@ -43,9 +43,7 @@
 	}
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
-      //fputs ($imap_stream, "a001 FETCH $id BODY[HEADER.FIELDS (DATE FROM SUBJECT)]\r\n");
-      //fputs ($imap_stream, "a001 FETCH $start:$end RFC822.HEADER\r\n");
-      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date From Subject)]\r\n");
+      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Subject)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
