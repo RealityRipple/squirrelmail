@@ -65,14 +65,16 @@
    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
    $base_uri = $regs[1];
 
-   setcookie("username", '', 0, $base_uri);
-   setcookie("key", '', 0, $base_uri);
-   header ("Pragma: no-cache");
-
-   // In case the last session was not terminated properly, make sure
-   // we get a new one.
-	$cookie_params = session_get_cookie_params(); 
-	setcookie(session_name(),"",0,$cookie_params["domain"].$cookie_params["path"]); 
+   if ( session_id() <> '' ) {
+       session_destroy();
+       // In case the last session was not terminated properly, make sure
+       // we get a new one.
+       $cookie_params = session_get_cookie_params(); 
+       setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']); 
+   }
+   setcookie('username', '', 0, $base_uri);
+   setcookie('key', '', 0, $base_uri);
+   header ('Pragma: no-cache');
 
    do_hook('login_cookie');
 
@@ -84,8 +86,8 @@
    if ($theme_css != "")
        echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
 	 
-   echo "<TITLE>";
-   echo $org_name . " - " . _("Login");
+   echo '<TITLE>';
+   echo $org_name . ' - ' . _("Login");
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
    echo "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
@@ -133,7 +135,7 @@
    echo "      </TD>\n";
    echo "   </TR><TR>\n";
    echo "      <TD>\n";
-   echo "         <CENTER><INPUT TYPE=SUBMIT VALUE=\"";
+   echo '         <CENTER><INPUT TYPE=SUBMIT VALUE="';
    echo _("Login");
    echo "\"></CENTER>\n";
    echo "      </TD>\n";
@@ -142,7 +144,7 @@
    echo "<input type=hidden name=just_logged_in value=1>\n";
    do_hook('login_form');
    echo "</FORM>\n";
-   do_hook("login_bottom");
+   do_hook('login_bottom');
 ?>
 </BODY>
 </HTML>
