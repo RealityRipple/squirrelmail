@@ -618,9 +618,8 @@ function sqimap_get_header ($imap_stream, $read) {
                 if (strpos($line, ";", $pos) > 0) {
                     $type = substr($type, $pos, strpos($line, ";", $pos)-$pos);
                 } else {
-                    $type = substr($charset, $pos);
+                    $type = substr($type, $pos);
                 }
-		$type = str_replace("\"",'',$type);
 		$hdr->type = $type;
 	    }
         }
