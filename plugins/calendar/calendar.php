@@ -27,6 +27,22 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* get globals */
+
+if (isset($_GET['month'])) {
+    $month = $_GET['month'];
+}
+if (isset($_GET['year'])) {
+    $year = $_GET['year'];
+}
+if (isset($_POST['year'])) {
+    $year = $_POST['year'];
+}
+if (isset($_POST['month'])) {
+    $month = $_POST['month'];
+}
+/* got 'em */
+
 //display upper part of month calendar view
 function startcalendar() {
     global $year, $month, $day, $color;

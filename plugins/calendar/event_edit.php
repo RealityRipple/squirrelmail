@@ -27,6 +27,77 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/html.php');
 
+
+/* get globals */
+
+if (isset($_POST['updated'])) {
+    $updated = $_POST['updated'];
+}
+if (isset($_POST['event_year'])) {
+    $event_year = $_POST['event_year'];
+}
+if (isset($_POST['event_month'])) {
+    $event_month = $_POST['event_month'];
+}
+if (isset($_POST['event_day'])) {
+    $event_day = $_POST['event_day'];
+}
+if (isset($_POST['event_hour'])) {
+    $event_hour = $_POST['event_hour'];
+}
+if (isset($_POST['event_minute'])) {
+    $event_minute = $_POST['event_minute'];
+}
+if (isset($_POST['event_length'])) {
+    $event_length = $_POST['event_length'];
+}
+if (isset($_POST['event_title'])) {
+    $event_title = $_POST['event_title'];
+}
+if (isset($_POST['event_text'])) {
+    $event_text = $_POST['event_text'];
+}
+if (isset($_POST['send'])) {
+    $send = $_POST['send'];
+}
+if (isset($_POST['event_priority'])) {
+    $event_priority = $_POST['event_priority'];
+}
+if (isset($_POST['confirmed'])) {
+    $confirmed = $_POST['confirmed'];
+}
+if (isset($_POST['year'])) {
+    $year = $_POST['year'];
+}
+elseif (isset($_GET['year'])) {
+    $year = $_GET['year'];
+}
+if (isset($_POST['month'])) {
+    $month = $_POST['month'];
+}
+elseif (isset($_GET['month'])) {
+    $month = $_GET['month'];
+}
+if (isset($_POST['day'])) {
+    $day = $_POST['day'];
+}
+elseif (isset($_GET['day'])) {
+    $day = $_GET['day'];
+}
+if (isset($_POST['hour'])) {
+    $hour = $_POST['hour'];
+}
+elseif (isset($_GET['hour'])) {
+    $hour = $_GET['hour'];
+}
+if (isset($_POST['minute'])) {
+    $minute = $_POST['minute'];
+}
+elseif (isset($_GET['minute'])) {
+    $minute = $_GET['minute'];
+}
+/* got 'em */
+
 // update event info
 function show_event_form() {
     global $color, $editor_size, $year, $day, $month, $hour, $minute, $calendardata;
