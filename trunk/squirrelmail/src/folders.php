@@ -29,7 +29,7 @@
 
    include("../src/load_prefs.php");
 
-   displayPageHeader($color, "None");
+   displayPageHeader($color, _("None"));
 
    echo "<br>";
    echo "<TABLE WIDTH=95% COLS=1 ALIGN=CENTER>\n";
@@ -159,9 +159,9 @@
    echo "<TT><SELECT NAME=subfolder>\n";
    if (strtolower($imap_server_type) != "courier"){
      if ($default_sub_of_inbox == false)
-       echo "<OPTION SELECTED>[ None ]\n";
+       echo '<OPTION SELECTED>[ '._("None")." ]\n";
      else
-       echo "<OPTION>[ None ]\n";
+       echo '<OPTION>[ '._("None")." ]\n";
    }
 
    for ($i = 0; $i < count($boxes); $i++) {
