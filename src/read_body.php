@@ -350,6 +350,7 @@
       echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a><br>\n";
    }
       do_hook("read_body_header_right");
+   echo '         </small>&nbsp;&nbsp;</TD>' . "\n";
    echo ' </TR>' ."\n";
    /** from **/
    echo '      <TR>' . "\n";
