@@ -337,11 +337,19 @@
       $char = substr($structure, $pos, 1); 
 
       // ignore all extra characters
+      // If inside of a string, skip string -- Boundary IDs and other
+      // things can have ) in them.
       while ($pos < strlen($structure)) {
          $pos++;
          $char = substr($structure, $pos, 1); 
          if ($char == ")") {
             return $pos;
+         } else if ($char == '"') {
+            $pos ++;
+            while (substr($structure, $pos, 1) != '"' && 
+               $pos < strlen($structure)) {
+               $pos ++;
+            }
          } else if ($char == "(") {
             $pos = mime_match_parenthesis ($pos, $structure);
          }
