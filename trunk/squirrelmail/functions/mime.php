@@ -632,7 +632,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
         }
-        
+
         $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox&showHeaders=1\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
@@ -827,7 +827,7 @@ return ($string);
  */
 function encodeHeader ($string) {
     global $default_charset;
-    
+
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen( $string  );
     $l = strstr($string, '=?');         // Must be encoded ?
@@ -855,7 +855,7 @@ function encodeHeader ($string) {
              $ret .= $string{$i};
         }
     }
-    
+
     if ( $l ) {
         $string = "=?$default_charset?Q?$ret?=";
     }
@@ -868,7 +868,7 @@ function encodeHeader ($string) {
 */
 function MagicHTML( $body, $id ) {
 
-    global $message, $HTTP_SERVER_VARS, 
+    global $message, $HTTP_SERVER_VARS,
            $attachment_common_show_images;
 
     $attachment_common_show_images =
@@ -886,11 +886,12 @@ function MagicHTML( $body, $id ) {
             $pos = $i + 1;
             $tag = '';
             while ($body{$pos} == ' ' || $body{$pos} == "\t" ||
-                   $body{$pos} == "\n") {
+                   $body{$pos} == "\n" ) {
                 $pos ++;
             }
             while (strlen($tag) < 4 && $body{$pos} != ' ' &&
-                   $body{$pos} != "\t" && $body{$pos} != "\n") {
+                   $body{$pos} != "\t" && $body{$pos} != "\n" &&
+                   $pos < $j ) {
                 $tag .= $body{$pos};
                 $pos ++;
             }

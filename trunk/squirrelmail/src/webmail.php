@@ -78,7 +78,7 @@ else {
  * we would like to use as little Javascript as possible.
  */
 if (!isset($right_frame)) {
-    $right_frame = "";
+    $right_frame = '';
 }
 
 if ($right_frame == 'right_main.php') {
@@ -96,12 +96,12 @@ if ($right_frame == 'right_main.php') {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
-    echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
+    echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">" .
+         '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
 }
 else {
-    echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
-    echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
+    echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">'.
+         "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
 }
 
 ?>
