@@ -29,12 +29,13 @@ Version 1.5.1 -- CVS
     (#915527).
   - Remove code related to non-UID-supporting IMAP servers.
   - Fix quoteimap() regex escaping problem (#921291).
-  - Added option to suppress Received: line in outbound SM headers (#847107)
-  - Changed read_body header from links to buttons (looks like message index)
+  - Added option to suppress Received: line in outbound SM headers (#847107).
+  - Changed read_body header from links to buttons (looks like message index).
   - Add functions for building HTML forms (functions/forms.php).
   - Moved javascript_on to session (from prefs). Centralized javascript detection
     in prefs.php method checkForJavascript.
-  - Added abook_init and abook_add_class hooks
+  - Added abook_init and abook_add_class hooks.
+  - Fixed "Resume Draft" to continue using selected identities (#845290).
 
 Version 1.5.0
 --------------------
