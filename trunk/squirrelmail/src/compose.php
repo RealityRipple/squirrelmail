@@ -128,6 +128,11 @@ function replyAllString($header) {
    $url_replytoallcc = '';
    foreach( $url_replytoall_ar as $email => $personal) {
       if ($personal) {
+         // if personal name contains address separator then surround
+         // the personal name with double quotes.
+         if (strpos($personal,',') !== false) {
+             $personal = '"'.$personal.'"';
+         }
          $url_replytoallcc .= ", $personal <$email>";
       } else {
          $url_replytoallcc .= ', '. $email;
