@@ -89,6 +89,9 @@ if (isset($_GET['session'])) {
     $session = $_GET['session'];
 }
 
+if (isset($_GET['note'])) {
+	$note = $_GET['note'];
+}
 
 /* end of get globals */
 
