@@ -155,8 +155,8 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
          echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
          echo "      </TD>";
          echo "   </TR>\n";
-   
-         echo "</TABLE>\n\n\n";
+         echo "</TABLE>\n";
+         do_hook("mailbox_form_before");
          echo "</TD></TR>";
          echo "<TR><TD BGCOLOR=\"$color[0]\">";
          echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";

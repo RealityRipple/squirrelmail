@@ -274,7 +274,6 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage\">";
-      do_hook("mailbox_form_before");
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
       echo "   <TR>\n";
       echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
@@ -298,7 +297,8 @@
       echo "      </TD>";
       echo "   </TR>\n";
 
-      echo "</TABLE>\n\n\n";
+      echo "</TABLE>\n";
+      do_hook("mailbox_form_before");
       echo "</TD></TR>";
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
@@ -383,7 +383,7 @@
             next($msort);
          } while ($i < ($endMessage+1));
       }
-      echo "</FORM></TABLE>";
+      echo "</TABLE>";
 
       echo "</TABLE>\n";
       echo "</TD></TR>\n";
@@ -401,6 +401,7 @@
          echo "<FONT COLOR=\"$color[9]\">" . _("Previous"). "</FONT> | \n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
+      echo "</form>";
       echo "</TD></TR></table>"; /** End of message-list table */
 
       do_hook("mailbox_index_after");
