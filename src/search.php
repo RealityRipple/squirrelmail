@@ -611,7 +611,7 @@ global $allow_thread_sort;
 /* get globals we may need */
 sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('key', $key, SQ_COOKIE);
-/*sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);*/	/* do we really need this? */
+sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);	/* we really need this? */
 /*sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);*/	/* do we really need this? */
 
 $recent_prefkeys = array('asearch_recent_where', 'asearch_recent_mailbox', 'asearch_recent_what', 'asearch_recent_biop', 'asearch_recent_unop', 'asearch_recent_exclude');
