@@ -63,12 +63,24 @@ if ($my_language != $squirrelmail_language) {
     setcookie('squirrelmail_language', $my_language, time()+2592000, $base_uri);
 }
 
-set_up_language(getPref($data_dir, $username, 'language'));
+$err=set_up_language(getPref($data_dir, $username, 'language'));
 
 echo "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
      "<html><head>\n" .
      "<title>$org_title</title>\n".
      "</head>";
+
+// Japanese translation used without mbstring support
+if ($err==2) {
+    echo "<body>\n".
+	 "<p>You need to have php4 installed with the multibyte string function \n".
+	 "enabled (using configure option --enable-mbstring).</p>\n".
+	 "<p>System assumed that you accidently switched to Japanese translation \n".
+         "and reverted your language preference to English.</p>\n".
+	 "<p>Please refresh this page in order to use webmail.</p>\n".
+	 "</body></html>";
+    return;
+}
 
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
