@@ -173,6 +173,8 @@ Version 1.5.1 -- CVS
     Fixes #983614.
   - Fix listcommands plugin to behave like normal reply/compose
     links, and return to message page that originally called from.
+  - Max upload file size now correctly handles a '-1' value, meaning
+    unlimited (#1094569). 
 
 Version 1.5.0
 --------------------
