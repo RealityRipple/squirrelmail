@@ -85,7 +85,7 @@
    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
       echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">";
       echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">"; 
-      echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">";
+      echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php?PHPSESSID=$PHPSESSID\">";
    }
    
    echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
