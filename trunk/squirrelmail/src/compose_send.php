@@ -32,6 +32,7 @@
       displayPageHeader("None");
       plain_error_message("You have not entered a subject.");
       echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
+      echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_to\" NAME=passed_to><BR>";
       echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_cc\" NAME=passed_cc><BR>";
       echo "<INPUT TYPE=HIDDEN VALUE=\"$passed_bcc\" NAME=passed_bcc><BR>";
       echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Subject: </FONT><INPUT TYPE=TEXT NAME=passed_subject SIZE=60 VALUE=\"(no subject)\"><BR>";
