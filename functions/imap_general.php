@@ -208,8 +208,8 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                     } while ($s === "}\r\n");
                     $s = substr($read,-3);
                 } while ($read{0} !== '*' &&
-                substr($read,0,strlen($tag)) !== $tag);
-                $resultlist[] = $fetch_data;
+                         substr($read,0,strlen($tag)) !== $tag);
+                         $resultlist[] = $fetch_data;
                 /* release not neaded data */
                 unset ($fetch_data);
             } else {
@@ -230,7 +230,11 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                         $data[] = $read;
                     }
                     $read = sqimap_fgets($imap_stream);
-                    if ($read && $read{0} == '*') break;
+		    if ($read === false) {
+		        break 3; /* while switch while */
+	            } else if ($read{0} == '*') {
+                        break;
+                    }
                     $s = substr($read,-3);
                 } while ($s === "}\r\n");
                 break 1;
