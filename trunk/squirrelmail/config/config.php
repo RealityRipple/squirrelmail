@@ -23,6 +23,11 @@
     $smtpServerAddress = "localhost";
     $smtpPort = 25;
 
+//  Uncomment this if you want to deliver locally using sendmail instead
+//  of connecting to a SMTP-server
+//    $useSendmail = true;
+//    $sendmail_path = "/usr/sbin/sendmail";
+
 //  This is displayed right after they log in
     $motd = "You are using SquirrelMail's web-based email client.  If you run into any bugs or have suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
 

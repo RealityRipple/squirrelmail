@@ -5,6 +5,62 @@
     ** an smtp server.
     **/
 
+   function sendMessage($username, $domain, $t, $c, $b, $subject, $body, $version) {
+      include("../config/config.php");
+
+      if ($useSendmail==true) {  
+	 sendSendmail($username, $domain, $t, $c, $b, $subject, $body, $version);
+      } else {
+	 sendSMTP($username, $domain, $t, $c, $b, $subject, $body, $version);
+      }
+    
+   }
+
+   // Send mail using the sendmail command
+   function sendSendmail($username, $domain, $t, $c, $b, $subject, $body, $version) {
+      include("../config/config.php");
+
+      // This is pretty much equal to the code in sendSMTP
+      $to = parseAddrs($t);
+      $cc = parseAddrs($c);
+      $bcc = parseAddrs($b);
+      $from_addr = "$username@$domain";
+      $reply_to = getPref($data_dir, $username, "reply_to");
+      $from = getPref($data_dir, $username, "full_name");
+
+      $to_list = getLineOfAddrs($to);
+      $cc_list = getLineOfAddrs($cc);
+      $bcc_list = getLineOfAddrs($bcc);
+
+      if ($from == "")
+         $from = "<$from_addr>";
+      else
+         $from = $from . " <$from_addr>";
+
+      // open pipe to sendmail
+      $fp = popen ("$sendmail_path -t -f$from_addr", "w");
+      
+      fputs($fp, "Subject: $subject\n"); // Subject
+      fputs($fp, "From: $from\n"); // Subject
+      fputs($fp, "To: $to_list\n");    // Who it's TO
+
+      if ($cc_list) {
+         fputs($fp, "Cc: $cc_list\n"); // Who the CCs are
+      }
+      if ($bcc_list) {
+         fputs($fp, "Bcc: $bcc_list\n"); // BCCs is removed from header by sendmail
+      }
+      fputs($fp, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
+      fputs($fp, "MIME-Version: 1.0\n");
+      fputs($fp, "Content-Type: text/plain\n");
+      if ($reply_to != "")
+         fputs($fp, "Reply-To: $reply_to\n");
+
+      fputs($fp, "\n$body\n"); // send the body of the message
+
+      pclose($fp);
+   }
+
    function smtpReadData($smtpConnection) {
       $read = fgets($smtpConnection, 1024);
       $counter = 0;
@@ -16,7 +72,7 @@
       }
    }
 
-   function sendMessage($smtpServerAddress, $smtpPort, $username, $domain, $t, $c, $b, $subject, $body, $version) {
+   function sendSMTP($username, $domain, $t, $c, $b, $subject, $body, $version) {
       include("../config/config.php");
 
       $to = parseAddrs($t);
