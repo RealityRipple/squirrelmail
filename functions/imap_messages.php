@@ -90,7 +90,7 @@ function get_reference_header ($imap_stream, $message) {
     $responses = sqimap_read_data_list($imap_stream, $sid, true, $responses, $message);
     if (!eregi("^\\* ([0-9]+) FETCH", $responses[0][0], $regs)) {
         $responses = array ();
-    }
+    } 
     return $responses;
 }
 
@@ -121,7 +121,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
             $uidnext = $mbxresponse['UIDNEXT']-1;
             $uid_query = "$sid SEARCH UID 1:$uidnext\r\n";
             fputs($imap_stream, $uid_query);
-            $uids = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
+            $uids = sqimap_read_data($imap_stream, $sid, true ,$response, $message);
             if (isset($uids[0])) {
                 if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
                     $server_sort_array = preg_split("/ /", trim($regs[1]));
@@ -155,7 +155,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     if (!empty($sort_on[$sort])) {
         $sort_query = "$sid SORT ($sort_on[$sort]) ".strtoupper($default_charset)." ALL\r\n";
         fputs($imap_stream, $sort_query);
-        $sort_test = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
+        $sort_test = sqimap_read_data($imap_stream, $sid, true ,$response, $message);
     }
     if (isset($sort_test[0])) {
         if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
@@ -191,7 +191,7 @@ function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
 	}
         $uid_query = "$sid SEARCH UID 1:$uidnext\r\n";
         fputs($imap_stream, $uid_query);
-        $uids = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
+        $uids = sqimap_read_data($imap_stream, $sid, true ,$response, $message);
         if (isset($uids[0])) {
             if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
                 $php_sort_array = preg_split("/ /", trim($regs[1]));
