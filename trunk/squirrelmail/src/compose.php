@@ -100,6 +100,44 @@ function getforwardHeader($orig_header) {
 }
 /* ----------------------------------------------------------------------- */
 
+/*
+ * If the session is expired during a post this restores the compose session 
+ * vars.
+ */
+//$session_expired = false; 
+if (session_is_registered('session_expired_post')) {
+   global $session_expired_post, $session_expired;
+   /* 
+    * extra check for username so we don't display previous post data from
+    * another user during this session.
+    */
+   if ($session_expired_post['username'] != $username) {
+      session_unregister('session_expired_post');
+      session_unregister('session_expired');      
+   } else {
+      foreach ($session_expired_post as $postvar => $val) {
+         if (isset($val)) {
+            $$postvar = $val;
+         } else {
+            $$postvar = '';
+         }
+      }
+      if (isset($send)) {
+         unset($send);
+      }
+      $session_expired = true;
+   }
+   session_unregister('session_expired_post');
+   session_unregister('session_expired');
+   if ($compose_new_win == '1') {
+      compose_Header($color, $mailbox);
+   } else {
+      displayPageHeader($color, $mailbox);
+   }
+   showInputForm($session, false);
+   exit();
+}
+
 if (!isset($attachments)) {
     $attachments = array();
     session_register('attachments');
@@ -342,14 +380,11 @@ elseif (isset($sigappend)) {
     /*
      * This handles the case if we attache message 
      */
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-                                   $imapPort, 0);
-        if ($compose_new_win == '1') {
-            compose_Header($color, $mailbox);
-        }
-        else {
-            displayPageHeader($color, $mailbox);
-        }
+    if ($compose_new_win == '1') {
+        compose_Header($color, $mailbox);
+    } else {
+        displayPageHeader($color, $mailbox);
+    }
 
     $newmail = true;
 
@@ -358,7 +393,7 @@ elseif (isset($sigappend)) {
     if (!isset($mailbox)) $mailbox = '';
     if (!isset($action)) $action = '';
 
-    $values = newMail($imapConnection,$mailbox,$passed_id,$passed_ent_id, $action, $session);
+    $values = newMail($mailbox,$passed_id,$passed_ent_id, $action, $session);
     /* in case the origin is not read_body.php */
     if (isset($send_to)) {
        $values['send_to'] = $send_to;
@@ -371,21 +406,17 @@ elseif (isset($sigappend)) {
     }
     
     showInputForm($session, $values);
-    sqimap_logout($imapConnection);
-
 } else {
     /*
      * This handles the default case as well as the error case
      * (they had the same code) --> if (isset($smtpErrors)) 
      */
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
-                                   $imapPort, 0);
-        if ($compose_new_win == '1') {
-            compose_Header($color, $mailbox);
-        }
-        else {
-            displayPageHeader($color, $mailbox);
-        }
+
+    if ($compose_new_win == '1') {
+       compose_Header($color, $mailbox);
+    } else {
+       displayPageHeader($color, $mailbox);
+    }
 
     $newmail = true;
 
@@ -394,20 +425,19 @@ elseif (isset($sigappend)) {
     if (!isset($mailbox)) $mailbox = '';
     if (!isset($action)) $action = '';
     
-    $values = newMail($imapConnection,$mailbox,$passed_id,$passed_ent_id, $action, $session);
+    $values = newMail($mailbox,$passed_id,$passed_ent_id, $action, $session);
 
     /* in case the origin is not read_body.php */
     if (isset($send_to)) {
        $values['send_to'] = $send_to;
     }
     if (isset($send_to_cc)) {
-       $values['send_to_cc'] = $send_cc;
+       $values['send_to_cc'] = $send_to_cc;
     }
     if (isset($send_to_bcc)) {
-       $values['send_to_bcc'] = $send_bcc;
+       $values['send_to_bcc'] = $send_to_bcc;
     }
     showInputForm($session, $values);
-    sqimap_logout($imapConnection);
 }
 
 exit();
@@ -416,13 +446,18 @@ exit();
 
 
 /* This function is used when not sending or adding attachments */
-function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
+function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $session='') {
     global $editor_size, $default_use_priority,
-           $use_signature, $composesession, $data_dir, $username;
+           $use_signature, $composesession, $data_dir, $username,
+	   $username, $key, $imapServerAddress, $imapPort;
 
     $send_to = $send_to_cc = $send_to_bcc = $subject = $body = $identity = '';
     $mailprio = 3;
+
     if ($passed_id) {
+        $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+                          $imapPort, 0);
+    
         sqimap_mailbox_select($imapConnection, $mailbox);
         $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 	$body = '';	
@@ -527,7 +562,6 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	     break;
 	  case ('forward'):
 	     $send_to = '';
-//	     $orig_from = $orig_header->from->getAddress();
              $subject = $orig_header->subject;
              if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
                 (substr(strtolower($subject), 0, 5) != '[fwd:') &&
@@ -545,7 +579,6 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	     } else {
 	        $send_to = $orig_header->from->getAddress();
 	     }
-//	     $orig_from = $orig_header->from->getAddress();
 	     $subject = $orig_header->subject;
              $subject = str_replace('"', "'", $subject);
              $subject = trim($subject);
@@ -573,6 +606,7 @@ function newMail ($imapConnection, $mailbox='', $passed_id='', $passed_ent_id=''
 	  default:
 	     break;
         }
+	sqimap_logout($imapConnection);
     }
     $ret = array(
             'send_to' => $send_to, 
@@ -646,7 +680,8 @@ function showInputForm ($session, $values=false) {
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
-           $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action;
+           $saved_draft, $mail_sent, $sig_first, $edit_as_new, $action, 
+	   $username;
 
     $subject = decodeHeader($subject, false);
     if ($values) {
@@ -684,8 +719,9 @@ function showInputForm ($session, $values=false) {
         echo '<input type="hidden" name="delete_draft" value="' . $delete_draft. "\">\n";
     }
     if (isset($session)) {
-        echo '<input type="hidden" name="session" value="' . "$session" . "\">\n";
+        echo '<input type="hidden" name="session" value="' . $session . "\">\n";
     }
+
 
     if ($saved_draft == 'yes') {
         echo '<BR><CENTER><B>'. _("Draft Saved").'</CENTER></B>';
@@ -838,9 +874,9 @@ function showInputForm ($session, $values=false) {
         echo '</TABLE>'."\n";
     }
     echo '</TABLE>' . "\n";
-    if ($action = 'reply' || $action = 'reply_all') {
-        echo '<input type=hidden name=reply_id value=' . $passed_id . ">\n";
-    }
+
+    echo '<input type="hidden" name="username" value="'. $username . "\">\n";    
+    echo '<input type=hidden name=action value=' . $action . ">\n";
     echo '<INPUT TYPE=hidden NAME=mailbox VALUE="' . htmlspecialchars($mailbox) .
          "\">\n" .
          '</FORM>';
@@ -946,9 +982,6 @@ function saveAttachedFiles($session) {
 	}
 
     }
-
-
-
     $newAttachment['localfilename'] = $localfilename;
     $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
     $newAttachment['type'] = strtolower($HTTP_POST_FILES['attachfile']['type']);
