@@ -8,6 +8,8 @@
 //  to configure.
 //
 
+    // don't change
+    $config_version = "x51";
 
 //  Organization's logo picture (blank if none)
     $org_logo = "../images/sm_logo.jpg";
