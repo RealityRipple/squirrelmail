@@ -195,7 +195,13 @@
     $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
 
     /* show_html_default is a int value. */
-    $show_html_default = intval(getPref($data_dir, $username, 'show_html_default'), 1 );
+    $show_html_default = intval(getPref($data_dir, $username, 'show_html_default', 1 ) );
+
+    /* SqClock into the core */
+    global $date_format, $hour_format, $username, $data_dir;
+    
+    $date_format = getPref($data_dir, $username, 'date_format', 3);
+    $hour_format = getPref($data_dir, $username, 'hour_format', 2);
 
     do_hook("loading_prefs");
 ?>

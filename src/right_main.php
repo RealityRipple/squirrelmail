@@ -58,34 +58,29 @@
    displayPageHeader($color, $mailbox);
 
    do_hook('right_main_after_header');
-   
+
    if (isset($note))
       echo "<CENTER><B>$note</B></CENTER><BR>\n";
 
    if ($just_logged_in == true) {
       $just_logged_in = false;
-      
+
       if (strlen(trim($motd)) > 0) {
-?><br>
-<table align=center width=70% cellpadding=0 cellspacing=3 border=0
-bgcolor="<?PHP echo $color[9] ?>">
-<tr><td>
-  <table width=100% cellpadding=5 cellspacing=1 border=0 bgcolor="<?PHP
-    echo $color[4] ?>">
-    <tr><td align=center><?PHP 
-       echo $motd;
-       do_hook('motd');
-    ?></td></tr>
-  </table>
-</td></tr></table>
-<?PHP
+         echo "<br><table align=center width=70% cellpadding=0 cellspacing=3 border=0 bgcolor=\"$color[9]\">" .
+              '<tr><td>' .
+              "<table width=100% cellpadding=5 cellspacing=1 border=0 bgcolor=\"$color[4]\">" .
+              "<tr><td align=center>$motd";
+         do_hook('motd');
+         echo '</td></tr>' .
+              '</table>' .
+              '</td></tr></table>';
       }
    }
 
-	if (isset($newsort)) {
-		$sort = $newsort;
-		session_register('sort');
-	}	
+    if (isset($newsort)) {
+        $sort = $newsort;
+        session_register('sort');
+    }
 
    // Check to see if we can use cache or not.  Currently the only time when you wont use it is
    //    when a link on the left hand frame is used.  Also check to make sure we actually have the
@@ -99,13 +94,13 @@ bgcolor="<?PHP echo $color[9] ?>">
          unset($msgs);
       if (session_is_registered('msort'))
          unset($msort);
-		if (session_is_registered('numMessages'))
-			unset($numMessages);
+        if (session_is_registered('numMessages'))
+            unset($numMessages);
 
-   	$numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
+    $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
 
       showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
-      
+
       if (session_is_registered('msgs') && isset($msgs))
          session_register('msgs');
       if (session_is_registered('msort') && isset($msort))

@@ -98,11 +98,7 @@
          setPref($data_dir, $username, 'alt_index_colors', 0);
       }
 
-      if (isset($showhtmldefault)) {
-         setPref($data_dir, $username, 'show_html_default', 1);
-      } else {
-         removePref($data_dir, $username, 'show_html_default');
-      }
+      setPref($data_dir, $username, 'show_html_default', ($showhtmldefault?1:0) );
 
       if (isset($includeselfreplyall)) {
          setPref($data_dir, $username, 'include_self_reply_all', 1);
@@ -160,6 +156,8 @@
           setPref($data_dir, $username, 'collapse_folders', $collapsefolders);
       else
           removePref($data_dir, $username, 'collapse_folders');
+      setPref($data_dir, $username, 'date_format', $dateformat);
+      setPref($data_dir, $username, 'hour_format', $hourformat);
       do_hook('options_folders_save');
       echo '<br><b>'._("Successfully saved folder preferences!").'</b><br>';
       echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a><br>';
