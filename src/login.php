@@ -26,6 +26,7 @@ require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap_general.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /**
  * $squirrelmail_language is set by a cookie when the user selects
@@ -120,7 +121,7 @@ if (isset($org_logo) && $org_logo) {
 }
 
 if(sqgetGlobalVar('mailto', $mailto)) {
-    $rcptaddress = '<input type="hidden" name="mailto" value="' . urlencode($mailto) . '" />' . "\n";
+    $rcptaddress = addHidden('mailto', $mailto);
 } else {
     $rcptaddress = '';
 }
@@ -150,7 +151,7 @@ echo html_tag( 'table',
                                     _("Name:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-                                    '<input type="text" name="' . $username_form_name .'" value="' . $loginname_value .'" />' ,
+				    addInput($username_form_name, $loginname_value),
                                 'left', '', 'width="*"' )
                                 ) . "\n" .
                             html_tag( 'tr',
@@ -158,10 +159,10 @@ echo html_tag( 'table',
                                     _("Password:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-                                    '<input type="password" name="' . $password_form_name . '" />' . "\n" .
-                                    '<input type="hidden" name="js_autodetect_results" value="'.SMPREF_JS_OFF.'" />' . "\n" .
+				    addPwField($password_form_name).
+				    addHidden('js_autodetect_results', SMPREF_JS_OFF).
                                     $rcptaddress .
-                                    '<input type="hidden" name="just_logged_in" value="1" />' . "\n",
+				    addHidden('just_logged_in', '1'),
                                 'left', '', 'width="*"' )
                             ) ,
                         'center', $color[4], 'border="0" width="100%"' ) ,
@@ -169,7 +170,7 @@ echo html_tag( 'table',
                 ) . 
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<center><input type="submit" value="' . _("Login") . '" /></center>',
+                        '<center>'. addSubmit(_("Login")) .'</center>',
                     'left' )
                 ),
             '', $color[4], 'border="0" width="350"' ) . '</center>',
