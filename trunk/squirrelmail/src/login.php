@@ -14,12 +14,21 @@
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
 
-?>
-<HTML>
-<?
+   // $squirrelmail_language is set by a cookie when the user selects
+   // language
+   if (isset($squirrelmail_language)) {
+      if ($squirrelmail_language != "en") {
+         putenv("LANG=".$squirrelmail_language);
+         bindtextdomain("squirrelmail", "../locale/");
+         textdomain("squirrelmail");
+      }
+   }
+
+   echo "<HTML>";
+   echo "<HEAD><TITLE>";
+   echo _("SquirrelMail Login");
+   echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  
    // let's check to see if they compiled with gettext support
