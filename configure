@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Redirects to the config directory and runs conf.pl
+
+cd config
+./conf.pl
+cd ..

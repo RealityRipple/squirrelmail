@@ -125,7 +125,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
          echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&where=".urlencode($search_where)."&what=".urlencode($search_what)."\">";
          echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0>\n";
          echo "   <TR>\n";
-         echo "      <TD WIDTH=60% ALIGN=LEFT>\n";
+         echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
          echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
          echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
    
@@ -149,7 +149,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
          echo "</TABLE>\n\n\n";
          echo "</TD></TR>";
          echo "<TR><TD BGCOLOR=\"$color[0]\">";
-         echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[4]\">";
+         echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
          echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
          echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
          /** FROM HEADER **/
