@@ -1,2265 +1,23 @@
 # Czech Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Lucie Fischerová <lucka@globe.cz>, 2000.
-#
+# v1.4.1 translation modified by Tomas Zvala
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2001-05-09 18:45:00+0200\n"
-"Last-Translator: Ondøej Surý <ondrej@sury.cz>\n"
+"POT-Creation-Date: 2003-07-06 14:37+0300\n"
+"PO-Revision-Date: 2003-08-20 17:30:00+0100\n"
+"Last-Translator: Tomá¹ Zvala <fox@murder.cz>\n"
 "Language-Team: Czech <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "Delivery error report"
-msgstr ""
-
-msgid "Undelivered Message Headers"
-msgstr ""
-
-msgid "(no subject)"
-msgstr "(¾ádný pøedmìt)"
-
-msgid "Personal address book"
-msgstr "Osobní adresáø"
-
-#, c-format
-msgid "Database error: %s"
-msgstr "Chyba databáze: %s"
-
-msgid "Addressbook is read-only"
-msgstr "Adresáø pouze ke ètení"
-
-#, c-format
-msgid "User '%s' already exist"
-msgstr "U¾ivatel %s ji¾ existuje"
-
-#, c-format
-msgid "User '%s' does not exist"
-msgstr "U¾ivatel %s neexistuje"
-
-msgid "Global address book"
-msgstr "Centrální adresáø kontaktù"
-
-msgid "No such file or directory"
-msgstr "Nebyl nalezen ¾ádný soubor ani adresáø"
-
-msgid "Open failed"
-msgstr "Otevírání probìhlo neúspì¹nì"
-
-msgid "Can not modify global address book"
-msgstr "Nemù¾u modifikovat globální adresáø kontaktù"
-
-msgid "Not a file name"
-msgstr "Není název souboru"
-
-#, fuzzy
-msgid "Write failed"
-msgstr "Otevírání probìhlo neúspì¹nì"
-
-#, fuzzy
-msgid "Unable to update"
-msgstr "Ulo¾/Aktualizuj"
-
-msgid "Could not lock datafile"
-msgstr "Nelze uzamknout soubor s daty"
-
-msgid "Write to addressbook failed"
-msgstr "Zápis do adresáøe probehl neúspì¹nì"
-
-msgid "Error initializing addressbook database."
-msgstr "Chyba pøi inicializaci databáze kontaktù."
-
-#, c-format
-msgid "Error opening file %s"
-msgstr "Chyba pøi otevírání souboru %s"
-
-msgid "Error initializing global addressbook."
-msgstr "Chyba pøi inicializaci centrální databáze kontaktù."
-
-#, c-format
-msgid "Error initializing LDAP server %s:"
-msgstr "Chyba pøi spou¹tení LDAP serveru %s"
-
-msgid "Invalid input data"
-msgstr "Neplatné vstupní informace"
-
-msgid "Name is missing"
-msgstr "Chybí jméno"
-
-msgid "E-mail address is missing"
-msgstr "Chybí e-mailová adresa"
-
-msgid "Nickname contains illegal characters"
-msgstr "Pøezdívka obsahuje nedovolené znaky"
-
-msgid "view"
-msgstr "zobrazit"
-
-msgid "Business Card"
-msgstr "visitka"
-
-msgid "You must be logged in to access this page."
-msgstr "Pro pøístup k této stránce musíte být pøihlá¹en."
-
-msgid "Sunday"
-msgstr "Nedìle"
-
-msgid "Monday"
-msgstr "Pondìlí"
-
-msgid "Tuesday"
-msgstr "Úterý"
-
-msgid "Wednesday"
-msgstr "Støeda"
-
-msgid "Thursday"
-msgstr "Ètvrtek"
-
-msgid "Friday"
-msgstr "Pátek"
-
-msgid "Saturday"
-msgstr "Sobota"
-
-msgid "January"
-msgstr "Leden"
-
-msgid "February"
-msgstr "Únor"
-
-msgid "March"
-msgstr "Bøezen"
-
-msgid "April"
-msgstr "Duben"
-
-msgid "May"
-msgstr "Kvìten"
-
-msgid "June"
-msgstr "Èerven"
-
-msgid "July"
-msgstr "Èervenec"
-
-msgid "August"
-msgstr "Srpen"
-
-msgid "September"
-msgstr "Záøí"
-
-msgid "October"
-msgstr "Øíjen"
-
-msgid "November"
-msgstr "Listopad"
-
-msgid "December"
-msgstr "Prosinec"
-
-msgid "D, F j, Y g:i a"
-msgstr "j F Y, G:i"
-
-msgid "D, F j, Y G:i"
-msgstr "j F Y, G:i"
-
-msgid "g:i a"
-msgstr "G:i"
-
-msgid "G:i"
-msgstr "G:i"
-
-msgid "D, g:i a"
-msgstr "D, G:i"
-
-msgid "D, G:i"
-msgstr "D, G:i"
-
-msgid "M j, Y"
-msgstr "j M, Y"
-
-#, c-format
-msgid "Preference database error (%s). Exiting abnormally"
-msgstr "Soubor s nastavením %s nebyl nalezen. Abnormální ukonèení."
-
-msgid "Unknown user or password incorrect."
-msgstr "Neznámý u¾ivatel nebo neplatné heslo"
-
-msgid "Click here to try again"
-msgstr "Pro dal¹í pokus kliknìte zde"
-
-#, c-format
-msgid "Click here to return to %s"
-msgstr "Pro návrat do %s klinìte zde"
-
-#, c-format
-msgid "%s Logo"
-msgstr "%s Logo"
-
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr "SquirrelMail verze %s"
-
-msgid "By the SquirrelMail Development Team"
-msgstr "Vytvoøeno týmem SquirrelMail"
-
-msgid "ERROR"
-msgstr "Chyba"
-
-msgid "Go to the login page"
-msgstr "Jdi na pøihla¹ovací stránku"
-
-#, c-format
-msgid ""
-"Preference file, %s, does not exist. Log out, and log back in to create a "
-"default preference file."
-msgstr ""
-"Soubor s nastavením, %s, neexistuje. Odhla¹te se a pøihlaste se zpìt, abyste "
-"vytvoøili výchozí soubor s nastavením."
-
-#, fuzzy, c-format
-msgid ""
-"Preference file, %s, could not be opened. Contact your system administrator "
-"to resolve this issue."
-msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
-
-#, fuzzy, c-format
-msgid ""
-"Preference file, %s, could not be written. Contact your system administrator "
-"to resolve this issue."
-msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
-
-#, fuzzy, c-format
-msgid "Error opening %s"
-msgstr "Chyba pøi otevírání"
-
-#, fuzzy
-msgid "Default preference file not found or not readable!"
-msgstr "Soubor s implicitním nastavením nenalezen"
-
-msgid "Please contact your system administrator and report this error."
-msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
-
-msgid "Could not create initial preference file!"
-msgstr "Nemohu vytvoøit poèáteèní soubor s preferencemi!"
-
-#, c-format
-msgid "%s should be writable by user %s"
-msgstr ""
-
-#, fuzzy, c-format
-msgid ""
-"Signature file, %s, could not be opened. Contact your system administrator "
-"to resolve this issue."
-msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
-
-#, fuzzy, c-format
-msgid ""
-"Signature file, %s, could not be written. Contact your system administrator "
-"to resolve this issue."
-msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
-
-msgid ""
-"You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
-msgstr ""
-
-msgid "ERROR : No available imapstream."
-msgstr ""
-
-msgid "ERROR : Could not complete request."
-msgstr "Chyba: nelze dokonèit po¾adovaný úkol"
-
-msgid "Query:"
-msgstr "Dotaz:"
-
-msgid "Reason Given: "
-msgstr "Odùvodnìní: "
-
-msgid "ERROR : Bad or malformed request."
-msgstr "Chyba: ¹patnì zadaný po¾adovaný úkol"
-
-msgid "Server responded: "
-msgstr "Odpovìï serveru: "
-
-#, c-format
-msgid "Error connecting to IMAP server: %s."
-msgstr "Chyba v pøipojování k serveru IMAP: %s "
-
-#, c-format
-msgid "Bad request: %s"
-msgstr "©patnì zadaný po¾adovaný úkol: %s"
-
-#, c-format
-msgid "Unknown error: %s"
-msgstr "Neznámá chyba: %s"
-
-msgid "Read data:"
-msgstr "Naètení dat:"
-
-#, fuzzy
-msgid "ERROR : Could not append message to"
-msgstr "Chyba: nelze dokonèit po¾adovaný úkol"
-
-#, fuzzy
-msgid "Solution: "
-msgstr "Návrhy:"
-
-msgid ""
-"Remove unneccessary messages from your folder and start with your Trash "
-"folder."
-msgstr ""
-
-msgid "INBOX"
-msgstr "Doruèená po¹ta"
-
-msgid "Unknown response from IMAP server: "
-msgstr "Neznámá odpovìï IMAP serveru:"
-
-msgid "Unknown message number in reply from server: "
-msgstr "©patné èíslo zprávy v odpovìdi serveru: "
-
-msgid "Unknown Sender"
-msgstr "Neznámý Odesílatel"
-
-msgid "(unknown sender)"
-msgstr "(neznámý odesílatel)"
-
-#, fuzzy
-msgid "Unknown date"
-msgstr "Neznámý Odesílatel"
-
-msgid "A"
-msgstr "O"
-
-msgid ""
-"Thread sorting is not supported by your IMAP server.<br>Please report this "
-"to the system administrator."
-msgstr ""
-
-msgid ""
-"Server-side sorting is not supported by your IMAP server.<br>Please report "
-"this to the system administrator."
-msgstr ""
-
-msgid "THIS FOLDER IS EMPTY"
-msgstr "TATO SLO®KA JE PRÁZDNÁ"
-
-#, fuzzy
-msgid "Move Selected To"
-msgstr "Pøesunout vybrané polo¾ky do"
-
-msgid "Transform Selected Messages"
-msgstr "Operace s oznaèenými zprávami"
-
-msgid "Move"
-msgstr "Pøesunout"
-
-msgid "Forward"
-msgstr "Pøedat dál"
-
-msgid "Expunge"
-msgstr "Vysypat"
-
-msgid "mailbox"
-msgstr "schránka"
-
-msgid "Read"
-msgstr "Pøeètené"
-
-msgid "Unread"
-msgstr "Nepøeètené"
-
-msgid "Delete"
-msgstr "Odstranit"
-
-#, fuzzy
-msgid "Unthread View"
-msgstr "Náhled na mìsíc"
-
-#, fuzzy
-msgid "Thread View"
-msgstr "Náhled na den"
-
-msgid "To"
-msgstr "Komu"
-
-msgid "From"
-msgstr "Od"
-
-msgid "Date"
-msgstr "Datum"
-
-msgid "Subject"
-msgstr "Pøedmìt"
-
-msgid "Size"
-msgstr "Velikost"
-
-msgid "Toggle All"
-msgstr "Zmìnit oznaèení v¹ech"
-
-msgid "Unselect All"
-msgstr "Odznaèit v¹e"
-
-msgid "Select All"
-msgstr "Oznaèit v¹e"
-
-#, c-format
-msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr "Zobrazení zpráv: <b>%s</b> a¾ <b>%s</b> (%s celkem)"
-
-#, c-format
-msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr "Zobrazení zprávy: <b>%s</b> (1 celkem)"
-
-msgid "Previous"
-msgstr "Pøedchozí"
-
-msgid "Next"
-msgstr "Dal¹í"
-
-msgid "Paginate"
-msgstr "Odstránkování"
-
-msgid "Show All"
-msgstr "Zobraz v¹e"
-
-msgid "SquirrelMail could not decode the bodystructure of the message"
-msgstr ""
-
-msgid "the provided bodystructure by your imap-server"
-msgstr ""
-
-#, fuzzy
-msgid ""
-"Body retrieval error. The reason for this is most probably that the message "
-"is malformed."
-msgstr ""
-"Body retrieval error. The reason for this is most probably that the message "
-"is malformed. Please help us making future versions better by submitting "
-"this message to the developers knowledgebase!"
-
-msgid "Command:"
-msgstr "Pøíkaz:"
-
-msgid "Response:"
-msgstr "Odpovìï:"
-
-msgid "Message:"
-msgstr "Zpráva:"
-
-msgid "FETCH line:"
-msgstr "FETCH øádek:"
-
-msgid "High"
-msgstr "Vysoká"
-
-msgid "Low"
-msgstr "Nízká"
-
-msgid "Normal"
-msgstr "Normální"
-
-msgid "Hide Unsafe Images"
-msgstr "Schovat nebezpeèné obrázky"
-
-msgid "View Unsafe Images"
-msgstr "Zobrazit nebezpeèné obrázky"
-
-msgid "download"
-msgstr "stáhnout"
-
-#, fuzzy
-msgid "Unknown sender"
-msgstr "Neznámý Odesílatel"
-
-msgid "sec_remove_eng.png"
-msgstr "sec_remove_eng.png"
-
-#, c-format
-msgid "Option Type '%s' Not Found"
-msgstr "Volba typu '%s' nenalezena"
-
-msgid "Yes"
-msgstr "Ano"
-
-msgid "No"
-msgstr "Ne"
-
-msgid "Submit"
-msgstr "Odeslat"
-
-msgid "Current Folder"
-msgstr "Aktuální slo¾ka"
-
-msgid "Sign Out"
-msgstr "Odhlásit se"
-
-msgid "Compose"
-msgstr "Nová zpráva"
-
-msgid "Addresses"
-msgstr "Adresáø"
-
-msgid "Folders"
-msgstr "Slo¾ky"
-
-msgid "Options"
-msgstr "Mo¾nosti"
-
-msgid "Search"
-msgstr "Hledat"
-
-msgid "Help"
-msgstr "Nápovìda"
-
-#, c-format
-msgid "Error creating directory %s."
-msgstr "Chyba pøi otevírání souboru %s"
-
-msgid "Could not create hashed directory structure!"
-msgstr "Nemohu vytvoøit hashovanou strukturu adresáøù"
-
-msgid "General Display Options"
-msgstr "Obecné volby zobrazení"
-
-msgid "Theme"
-msgstr "Schéma"
-
-msgid "Default"
-msgstr "Implicitní"
-
-msgid "Custom Stylesheet"
-msgstr "Vlastní CSS styl"
-
-msgid "Language"
-msgstr "Jazyk"
-
-msgid "Use Javascript"
-msgstr "Pou¾ívat Javascript"
-
-msgid "Autodetect"
-msgstr "Autodetekce"
-
-msgid "Always"
-msgstr "V¾dy"
-
-msgid "Never"
-msgstr "Nikdy"
-
-msgid "Mailbox Display Options"
-msgstr "Volby zobrazení slo¾ky"
-
-msgid "Number of Messages to Index"
-msgstr "Poèet zpráv zobrazených ve slo¾ce"
-
-msgid "Enable Alternating Row Colors"
-msgstr "Pou¾ít støídající se barvy øádkù"
-
-msgid "Enable Page Selector"
-msgstr "Zapnout Stránkovaè"
-
-msgid "Maximum Number of Pages to Show"
-msgstr "Maximální zobrazený poèet stránek"
-
-msgid "Message Display and Composition"
-msgstr "Zobrazení a psaní zpráv"
-
-msgid "Wrap Incoming Text At"
-msgstr "Zalomit pøíchozí zprávu na"
-
-msgid "Size of Editor Window"
-msgstr "Velikost editaèního okna"
-
-msgid "Location of Buttons when Composing"
-msgstr "Umístìní tlaèítek pøi psaní nové zprávy"
-
-msgid "Before headers"
-msgstr "Pøed hlavièkou zprávy"
-
-msgid "Between headers and message body"
-msgstr "Mezi hlavièkou a tìlem zprávy"
-
-msgid "After message body"
-msgstr "Za tìlem zprávy"
-
-msgid "Addressbook Display Format"
-msgstr "Formát zobrazení adresáøe"
-
-msgid "Javascript"
-msgstr "Javascript"
-
-msgid "HTML"
-msgstr "HTML"
-
-msgid "Show HTML Version by Default"
-msgstr "Zobrazovat v¾dy HTML verzi"
-
-msgid "Enable Forward as Attachment"
-msgstr ""
-
-msgid "Include CCs when Forwarding Messages"
-msgstr ""
-
-msgid "Include Me in CC when I Reply All"
-msgstr "Zahrò mou adresu do CC kdy¾ dám 'Odpovìdìt v¹em'"
-
-msgid "Enable Mailer Display"
-msgstr "Zobrazovat emailového klienta pøíchozích zpráv"
-
-msgid "Display Attached Images with Message"
-msgstr "Zobrazovat pøilo¾ené obrázky ve zprávì"
-
-msgid "Enable Subtle Printer Friendly Link"
-msgstr "Zapnout odkaz na 'Vytisknout'"
-
-msgid "Enable Printer Friendly Clean Display"
-msgstr "Zapnout zobrazení pro tisk"
-
-#, fuzzy
-msgid "Enable Mail Delivery Notification"
-msgstr "Zapnout oznamování o nepøeètených zprávách"
-
-#, fuzzy
-msgid "Compose Messages in New Window"
-msgstr "V¾dy psát zprávu v novém oknì"
-
-#, fuzzy
-msgid "Width of Compose Window"
-msgstr "Zavøít okno"
-
-#, fuzzy
-msgid "Height of Compose Window"
-msgstr "Zavøít okno"
-
-#, fuzzy
-msgid "Append Signature before Reply/Forward Text"
-msgstr "Pøipojit podpis pøed text"
-
-msgid "Enable Sort by of Receive Date"
-msgstr ""
-
-msgid "Enable Thread Sort by References Header"
-msgstr ""
-
-msgid "Special Folder Options"
-msgstr "Speciální nastavení slo¾ek"
-
-msgid "Folder Path"
-msgstr "Cesta slo¾ky"
-
-msgid "Do not use Trash"
-msgstr "Nepou¾ívat Ko¹"
-
-msgid "Trash Folder"
-msgstr "Slo¾ka Ko¹"
-
-msgid "Do not use Sent"
-msgstr "Nepou¾ívat slo¾ku Odeslaná po¹ta"
-
-msgid "Sent Folder"
-msgstr "Slo¾ka Odeslaná po¹ta"
-
-msgid "Do not use Drafts"
-msgstr "Nepou¾ívat Koncepty"
-
-msgid "Draft Folder"
-msgstr "Slo¾ka Konceptù"
-
-msgid "Folder List Options"
-msgstr "Mo¾nosti - Výpis slo¾ek"
-
-msgid "Location of Folder List"
-msgstr "Umístìní seznamu slo¾ek"
-
-msgid "Left"
-msgstr "Vlevo"
-
-msgid "Right"
-msgstr "Vpravo"
-
-msgid "pixels"
-msgstr "bodù"
-
-msgid "Width of Folder List"
-msgstr "©íøka seznamu slo¾ek"
-
-msgid "Minutes"
-msgstr "Minuty"
-
-msgid "Seconds"
-msgstr "Sekund"
-
-msgid "Minute"
-msgstr "Minuta"
-
-msgid "Auto Refresh Folder List"
-msgstr "Automatické obnovování seznam slo¾ek"
-
-msgid "Enable Unread Message Notification"
-msgstr "Zapnout oznamování o nepøeètených zprávách"
-
-msgid "No Notification"
-msgstr "Bez oznámení"
-
-msgid "Only INBOX"
-msgstr "Pouze slo¾ka Doruèená po¹ta"
-
-msgid "All Folders"
-msgstr "V¹echny slo¾ky"
-
-msgid "Unread Message Notification Type"
-msgstr "Typ oznámení o nepøeètených zprávách"
-
-msgid "Only Unseen"
-msgstr "Pouze nepøeètené"
-
-msgid "Unseen and Total"
-msgstr "Nepøeètené a Celkem"
-
-msgid "Enable Collapsable Folders"
-msgstr "Zpøístupni rozbalovatelné slo¾ky"
-
-#, fuzzy
-msgid "Enable Cumulative Unread Message Notification"
-msgstr "Zapnout oznamování o nepøeètených zprávách"
-
-msgid "Show Clock on Folders Panel"
-msgstr "Zobraz èas na panelu Slo¾ek"
-
-msgid "No Clock"
-msgstr "®ádný èas"
-
-msgid "Hour Format"
-msgstr "Formát hodin"
-
-msgid "12-hour clock"
-msgstr "12ti hodinový èas"
-
-msgid "24-hour clock"
-msgstr "24ti hodinový èas"
-
-msgid "Memory Search"
-msgstr "Hledat v pamìti"
-
-msgid "Disabled"
-msgstr "Vypnuto"
-
-#, fuzzy
-msgid "Folder Selection Options"
-msgstr "Mo¾nosti - Výpis slo¾ek"
-
-#, fuzzy
-msgid "Selection List Style"
-msgstr "Odpovìz ve stylu citace"
-
-#, fuzzy
-msgid "Long: "
-msgstr "Délka:"
-
-msgid "Indented: "
-msgstr ""
-
-msgid "Delimited: "
-msgstr ""
-
-msgid "Name and Address Options"
-msgstr "Mo¾nosti - Jméno a emailová adresa"
-
-msgid "Full Name"
-msgstr "Celé jméno"
-
-msgid "Email Address"
-msgstr "E-mailová adresa"
-
-msgid "Reply To"
-msgstr "Odpovìdìt na adresu"
-
-msgid "Signature"
-msgstr "Podpis"
-
-msgid "Edit Advanced Identities"
-msgstr "Edituj roz¹íøené identity"
-
-msgid "(discards changes made on this form so far)"
-msgstr "(sma¾e doposud uèinìné zmìny v tomto formuláøi)"
-
-msgid "Multiple Identities"
-msgstr "Vícenásobné identity"
-
-msgid "Same as server"
-msgstr "Stejnì jako server"
-
-msgid "Timezone Options"
-msgstr "Èasové pásmo"
-
-msgid "Your current timezone"
-msgstr "Aktuální èasová zóna"
-
-msgid "Reply Citation Options"
-msgstr "Mo¾nosti - Citace v odpovìdi"
-
-msgid "Reply Citation Style"
-msgstr "Odpovìz ve stylu citace"
-
-msgid "No Citation"
-msgstr "Bez citace"
-
-msgid "AUTHOR Said"
-msgstr "Autor napsal"
-
-msgid "Quote Who XML"
-msgstr "Cituj Kdo XML"
-
-msgid "User-Defined"
-msgstr "Definováno u¾ivatelem"
-
-msgid "User-Defined Citation Start"
-msgstr "Zaèátek u¾ivatelem definované citace odpovìdi"
-
-msgid "User-Defined Citation End"
-msgstr "Konec u¾ivatelem definované citace odpovìdi"
-
-msgid "Signature Options"
-msgstr "Mo¾nosti - Podpis"
-
-msgid "Use Signature"
-msgstr "Pou¾ívat podpis?"
-
-msgid "Prefix Signature with '-- ' Line"
-msgstr "Vlo¾it pøed podpis '-- ' ?"
-
-#, fuzzy
-msgid "Config File Version"
-msgstr "Zobrazit verzi pro tisk"
-
-#, fuzzy
-msgid "Squirrelmail Version"
-msgstr "SquirrelMail verze %s"
-
-msgid "PHP Version"
-msgstr ""
-
-#, fuzzy
-msgid "Organization Preferences"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Organization Name"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Organization Logo"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Organization Logo Width"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Organization Logo Height"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Organization Title"
-msgstr "Organizace / Oddìlení"
-
-#, fuzzy
-msgid "Signout Page"
-msgstr "Odhlásit se"
-
-#, fuzzy
-msgid "Default Language"
-msgstr "Jazyk"
-
-msgid "Top Frame"
-msgstr ""
-
-msgid "Server Settings"
-msgstr ""
-
-msgid "Mail Domain"
-msgstr ""
-
-msgid "IMAP Server Address"
-msgstr ""
-
-msgid "IMAP Server Port"
-msgstr ""
-
-msgid "IMAP Server Type"
-msgstr ""
-
-msgid "Cyrus IMAP server"
-msgstr ""
-
-msgid "University of Washington's IMAP server"
-msgstr ""
-
-msgid "Microsoft Exchange IMAP server"
-msgstr ""
-
-msgid "Courier IMAP server"
-msgstr ""
-
-#, fuzzy
-msgid "Not one of the above servers"
-msgstr "Chyba v pøipojování k serveru IMAP: %s "
-
-msgid "IMAP Folder Delimiter"
-msgstr ""
-
-msgid "Use \"detect\" to auto-detect."
-msgstr ""
-
-msgid "Use Sendmail"
-msgstr ""
-
-msgid "Sendmail Path"
-msgstr ""
-
-msgid "SMTP Server Address"
-msgstr ""
-
-msgid "SMTP Server Port"
-msgstr ""
-
-msgid "Authenticated SMTP"
-msgstr ""
-
-msgid "Invert Time"
-msgstr ""
-
-msgid "Use Confirmation Flags"
-msgstr ""
-
-#, fuzzy
-msgid "Folders Defaults"
-msgstr "Cesta slo¾ky"
-
-#, fuzzy
-msgid "Default Folder Prefix"
-msgstr "Odstranit slo¾ku"
-
-#, fuzzy
-msgid "Show Folder Prefix Option"
-msgstr "Mo¾nosti - Výpis slo¾ek"
-
-msgid "By default, move to trash"
-msgstr ""
-
-msgid "By default, move to sent"
-msgstr ""
-
-msgid "By default, save as draft"
-msgstr ""
-
-#, fuzzy
-msgid "List Special Folders First"
-msgstr "Speciální nastavení slo¾ek"
-
-#, fuzzy
-msgid "Show Special Folders Color"
-msgstr "Speciální nastavení slo¾ek"
-
-#, fuzzy
-msgid "Auto Expunge"
-msgstr "Vysypat"
-
-msgid "Default Sub. of INBOX"
-msgstr ""
-
-msgid "Show 'Contain Sub.' Option"
-msgstr ""
-
-#, fuzzy
-msgid "Default Unseen Notify"
-msgstr "Základní/nastavená identita"
-
-#, fuzzy
-msgid "Default Unseen Type"
-msgstr "Základní/nastavená identita"
-
-#, fuzzy
-msgid "Auto Create Special Folders"
-msgstr "Vytvoøit slo¾ku"
-
-msgid "Default Javascript Adrressbook"
-msgstr ""
-
-#, fuzzy
-msgid "Auto delete folders"
-msgstr "Odstranit slo¾ku"
-
-#, fuzzy
-msgid "General Options"
-msgstr "Obecné volby zobrazení"
-
-#, fuzzy
-msgid "Default Charset"
-msgstr "Základní/nastavená identita"
-
-msgid "Data Directory"
-msgstr ""
-
-msgid "Temp Directory"
-msgstr ""
-
-msgid "Hash Level"
-msgstr ""
-
-#, fuzzy
-msgid "Hash Disabled"
-msgstr "Vypnuto"
-
-#, fuzzy
-msgid "Moderate"
-msgstr "Cesta slo¾ky"
-
-#, fuzzy
-msgid "Medium"
-msgstr "Støednì¹edá"
-
-#, fuzzy
-msgid "Default Left Size"
-msgstr "Základní/nastavená identita"
-
-msgid "Usernames in Lowercase"
-msgstr ""
-
-msgid "Allow use of priority"
-msgstr ""
-
-msgid "Hide SM attributions"
-msgstr ""
-
-msgid "Enable use of delivery receipts"
-msgstr ""
-
-msgid "Allow editing of identities"
-msgstr ""
-
-msgid "Allow editing of full name"
-msgstr ""
-
-#, fuzzy
-msgid "Message of the Day"
-msgstr "Zprávu nelze tisknout"
-
-#, fuzzy
-msgid "Database"
-msgstr "Datum"
-
-#, fuzzy
-msgid "Address book DSN"
-msgstr "Adresáø"
-
-#, fuzzy
-msgid "Address book table"
-msgstr "Adresáø"
-
-#, fuzzy
-msgid "Preferences DSN"
-msgstr "Slo¾ky - mo¾nosti"
-
-#, fuzzy
-msgid "Preferences table"
-msgstr "Slo¾ky - mo¾nosti"
-
-msgid "Preferences username field"
-msgstr ""
-
-msgid "Preferences key field"
-msgstr ""
-
-msgid "Preferences value field"
-msgstr ""
-
-msgid "Themes"
-msgstr "Schémata"
-
-msgid "Style Sheet URL (css)"
-msgstr "URL souborù se styly (css)"
-
-msgid "Configuration Administrator"
-msgstr "Administrátor konfigurace"
-
-msgid "Theme Name"
-msgstr "Název schéma"
-
-msgid "Theme Path"
-msgstr "Cesta ke schématùm"
-
-msgid "Plugins"
-msgstr "Zásuvné moduly"
-
-msgid "Change Settings"
-msgstr "Zmìnit nastavení"
-
-msgid "Config file can't be opened. Please check config.php."
-msgstr ""
-
-msgid "Administration"
-msgstr "Administrace"
-
-msgid ""
-"This module allows administrators to manage SquirrelMail main configuration "
-"remotely."
-msgstr ""
-
-msgid "Bug Reports:"
-msgstr "Hlá¹ení chyb:"
-
-msgid "Show button in toolbar"
-msgstr "Zobrazit tlaèítko na li¹tì"
-
-msgid "TODAY"
-msgstr "DNES"
-
-msgid "Go"
-msgstr "Pøejít"
-
-#, fuzzy
-msgid "l, F j Y"
-msgstr "j F Y, G:i"
-
-msgid "ADD"
-msgstr "PØIDEJ"
-
-msgid "EDIT"
-msgstr "ZMÌÒ"
-
-msgid "DEL"
-msgstr "SMA®"
-
-msgid "Start time:"
-msgstr "Poèáteèní èas:"
-
-msgid "Length:"
-msgstr "Délka:"
-
-msgid "Priority:"
-msgstr "Priorita:"
-
-msgid "Title:"
-msgstr "Název"
-
-msgid "Set Event"
-msgstr "Nastav událost"
-
-msgid "Event Has been added!"
-msgstr "Událost byla pøidána!"
-
-msgid "Date:"
-msgstr "Datum:"
-
-msgid "Time:"
-msgstr "Èas:"
-
-msgid "Day View"
-msgstr "Náhled na den"
-
-msgid "Do you really want to delete this event?"
-msgstr "Opravdu chcete smazat tuto událost?"
-
-msgid "Event deleted!"
-msgstr "Událost smazána!"
-
-msgid "Nothing to delete!"
-msgstr "Nic ke smazání!"
-
-msgid "Update Event"
-msgstr "Aktualizovat událost"
-
-msgid "Do you really want to change this event from:"
-msgstr "Opravdu chcete tuto událost zmìnit z:"
-
-msgid "to:"
-msgstr "do:"
-
-msgid "Event updated!"
-msgstr "Událost aktualizována!"
-
-msgid "Month View"
-msgstr "Náhled na mìsíc"
-
-msgid "0 min."
-msgstr "0 min."
-
-msgid "15 min."
-msgstr "15 min."
-
-msgid "35 min."
-msgstr "35 min."
-
-msgid "45 min."
-msgstr "45 min."
-
-msgid "1 hr."
-msgstr "1 hod."
-
-msgid "1.5 hr."
-msgstr "1.5 hod."
-
-msgid "2 hr."
-msgstr "2 hod."
-
-msgid "2.5 hr."
-msgstr "2.5 hod."
-
-msgid "3 hr."
-msgstr "3 hod."
-
-msgid "3.5 hr."
-msgstr "3.5 hod."
-
-msgid "4 hr."
-msgstr "4 hod."
-
-msgid "5 hr."
-msgstr "5 hod."
-
-msgid "6 hr."
-msgstr "6 hod."
-
-msgid "Calendar"
-msgstr "Kalendáø"
-
-#, fuzzy
-msgid "Delete & Prev"
-msgstr "Odstranit"
-
-#, fuzzy
-msgid "Delete & Next"
-msgstr "Odstranit vybrané polo¾ky"
-
-msgid "Move to:"
-msgstr "Pøesunout do:"
-
-msgid "Delete/Move/Next Buttons:"
-msgstr ""
-
-msgid "Display at top"
-msgstr ""
-
-msgid "with move option"
-msgstr ""
-
-msgid "Display at bottom"
-msgstr ""
-
-msgid ""
-"COMMERCIAL - This list contains servers that are verified spam senders. It "
-"is a pretty reliable list to scan spam from."
-msgstr ""
-
-msgid ""
-"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
-"be relayed through their system will be banned with this.  Another good one "
-"to use."
-msgstr ""
-
-msgid ""
-"COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
-"account and send spam directly from there."
-msgstr ""
-
-msgid "COMMERCIAL - RBL+ Blackhole entries."
-msgstr ""
-
-msgid "COMMERCIAL - RBL+ OpenRelay entries."
-msgstr ""
-
-msgid "COMMERCIAL - RBL+ Dial-up entries."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
-msgstr ""
-
-msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
-msgstr ""
-
-msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
-"cgi scripts. (planned)."
-msgstr ""
-
-msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
-msgstr ""
-
-msgid ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Other misc. servers."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Single Stage servers."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
-msgstr ""
-
-msgid "FREE - Five-Ten-sg.com - Web Form IPs."
-msgstr ""
-
-msgid ""
-"FREE - Dorkslayers appears to include only really bad open relays outside "
-"the US to avoid being sued. Interestingly enough, their website recommends "
-"you NOT use their service."
-msgstr ""
-
-msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
-msgstr ""
-
-#, c-format
-msgid ""
-"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
-"have a very high spam to legit email ratio (85% or more)."
-msgstr ""
-
-msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
-msgstr ""
-
-msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
-msgstr ""
-
-msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
-msgstr ""
-
-msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
-msgstr ""
-
-msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
-"assigned IPs."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
-"directly from."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
-"in or that have allowed known spammers to become clients and abuse their "
-"services."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
-"other active RBLs."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
-"other active RBLs and that have sent SPAM to Leadmon.net."
-msgstr ""
-
-msgid ""
-"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
-"direct SPAM from IPs in netblocks where the entire block has no DNS "
-"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
-"Leadmon.net."
-msgstr ""
-
-msgid ""
-"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
-"SPAM Sources."
-msgstr ""
-
-msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
-msgstr ""
-
-msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
-msgstr ""
-
-msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
-msgstr ""
-
-msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
-msgstr ""
-
-msgid "Saved Scan type"
-msgstr ""
-
-msgid "Message Filtering"
-msgstr "Filtrování zpráv"
-
-msgid "What to Scan:"
-msgstr "Co mám prohlí¾et:"
-
-msgid "All messages"
-msgstr "V¹echny zprávy"
-
-msgid "Only unread messages"
-msgstr "Jen nepøeètené"
-
-msgid "Save"
-msgstr "Ulo¾it"
-
-msgid "New"
-msgstr "Nová"
-
-msgid "Done"
-msgstr "Hotovo"
-
-msgid "Match:"
-msgstr "Odpovídá:"
-
-msgid "Cc"
-msgstr "Kopie"
-
-msgid "To or Cc"
-msgstr "Komu nebo Kopie"
-
-#, fuzzy
-msgid "Header"
-msgstr "Pøeètené"
-
-msgid "Contains:"
-msgstr "Obsahuje:"
-
-msgid "Edit"
-msgstr "Editovat"
-
-msgid "Down"
-msgstr "Dolù"
-
-msgid "Up"
-msgstr "Nahoru"
-
-#, c-format
-msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
-msgstr "Pokud <b>%s</b> obsahuje <b>%s</b> pak zprávu pøesuò do <b>%s</b>"
-
-msgid "Message Filters"
-msgstr "Filtrování zpráv"
-
-msgid ""
-"Filtering enables messages with different criteria to be automatically "
-"filtered into different folders for easier organization."
-msgstr ""
-"Filtrování zpráv umo¾òuje automaticky pøesunovat zprávy podle rùzných "
-"kriterií do podslo¾ek."
-
-msgid "SPAM Filters"
-msgstr "Filtrování nevy¾ádané po¹ty"
-
-msgid ""
-"SPAM filters allow you to select from various DNS based blacklists to detect "
-"junk email in your INBOX and move it to another folder (like Trash)."
-msgstr ""
-
-msgid "Spam Filtering"
-msgstr "Fitrování nevy¾ádané po¹ty"
-
-msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
-msgstr ""
-
-msgid "Move spam to:"
-msgstr "Pøesunout nevy¾ádanou po¹tu do:"
-
-msgid ""
-"Moving spam directly to the trash may not be a good idea at first, since "
-"messages from friends and mailing lists might accidentally be marked as "
-"spam. Whatever folder you set this to, make sure that it gets cleaned out "
-"periodically, so that you don't have an excessively large mailbox hanging "
-"around."
-msgstr ""
-
-msgid ""
-"The more messages you scan, the longer it takes.  I would suggest that you "
-"scan only new messages.  If you make a change to your filters, I would set "
-"it to scan all messages, then go view my INBOX, then come back and set it to "
-"scan only new messages.  That way, your new spam filters will be applied and "
-"you'll scan even the spam you read with the new filters."
-msgstr ""
-
-#, c-format
-msgid "Spam is sent to <b>%s</b>"
-msgstr ""
-
-msgid "[<i>not set yet</i>]"
-msgstr ""
-
-#, c-format
-msgid "Spam scan is limited to <b>%s</b>"
-msgstr ""
-
-msgid "New Messages Only"
-msgstr "Zobrazit pouze nové zprávy"
-
-msgid "All Messages"
-msgstr "V¹echny zprávy"
-
-msgid "ON"
-msgstr "ZAP"
-
-msgid "OFF"
-msgstr "VYP"
-
-msgid "Mailinglist"
-msgstr ""
-
-#, c-format
-msgid ""
-"This will send a message to %s requesting help for this list. You will "
-"receive an emailed response at the address below."
-msgstr ""
-
-#, c-format
-msgid ""
-"This will send a message to %s requesting that you will be subscribed to "
-"this list. You will be subscribed with the address below."
-msgstr ""
-
-#, c-format
-msgid ""
-"This will send a message to %s requesting that you will be unsubscribed from "
-"this list. It will try to unsubscribe the adress below."
-msgstr ""
-
-msgid "From:"
-msgstr "Od:"
-
-#, fuzzy
-msgid "Send Mail"
-msgstr "Odeslat"
-
-#, fuzzy
-msgid "Post to List"
-msgstr "z %s do %s"
-
-#, fuzzy
-msgid "Reply to List"
-msgstr "Odpovìdìt na adresu"
-
-msgid "Subscribe"
-msgstr "Pøihlásit"
-
-msgid "Unsubscribe"
-msgstr "Odhlásit"
-
-msgid "List Archives"
-msgstr ""
-
-msgid "Contact Listowner"
-msgstr ""
-
-#, fuzzy
-msgid "Mailing List"
-msgstr "Seznam zpráv"
-
-msgid "POP3 connect:"
-msgstr ""
-
-msgid "No server specified"
-msgstr ""
-
-#, fuzzy
-msgid "Error "
-msgstr "Chyba pøi otevírání"
-
-msgid "POP3 noop:"
-msgstr ""
-
-#, fuzzy
-msgid "No connection to server"
-msgstr "Chyba v pøipojování k serveru IMAP: %s "
-
-msgid "POP3 user:"
-msgstr ""
-
-msgid "no login ID submitted"
-msgstr ""
-
-msgid "connection not established"
-msgstr ""
-
-msgid "POP3 pass:"
-msgstr ""
-
-msgid "No password submitted"
-msgstr ""
-
-msgid "authentication failed "
-msgstr ""
-
-msgid "POP3 apop:"
-msgstr ""
-
-msgid "No login ID submitted"
-msgstr ""
-
-msgid "No server banner"
-msgstr ""
-
-msgid "abort"
-msgstr ""
-
-msgid "apop authentication failed"
-msgstr ""
-
-msgid "POP3 login:"
-msgstr ""
-
-msgid "POP3 top:"
-msgstr ""
-
-msgid "POP3 pop_list:"
-msgstr ""
-
-msgid "Premature end of list"
-msgstr ""
-
-msgid "POP3 get:"
-msgstr ""
-
-msgid "POP3 last:"
-msgstr ""
-
-msgid "POP3 reset:"
-msgstr ""
-
-msgid "POP3 send_cmd:"
-msgstr ""
-
-msgid "Empty command string"
-msgstr ""
-
-msgid "POP3 quit:"
-msgstr ""
-
-#, fuzzy
-msgid "connection does not exist"
-msgstr "U¾ivatel %s neexistuje"
-
-msgid "POP3 uidl:"
-msgstr ""
-
-msgid "POP3 delete:"
-msgstr ""
-
-msgid "No msg number submitted"
-msgstr ""
-
-#, fuzzy
-msgid "Command failed "
-msgstr "Otevírání probìhlo neúspì¹nì"
-
-msgid "Remote POP server Fetching Mail"
-msgstr ""
-
-msgid "Select Server:"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-#, fuzzy
-msgid "Password for"
-msgstr "Heslo:"
-
-msgid "Fetch Mail"
-msgstr ""
-
-msgid "Fetching from "
-msgstr ""
-
-msgid "Oops, "
-msgstr ""
-
-msgid "Opening IMAP server"
-msgstr ""
-
-msgid "Opening POP server"
-msgstr ""
-
-msgid "Login Failed:"
-msgstr ""
-
-msgid "Login OK: No new messages"
-msgstr ""
-
-msgid "Login OK: Inbox EMPTY"
-msgstr ""
-
-msgid "Login OK: Inbox contains ["
-msgstr ""
-
-#, fuzzy
-msgid "] messages"
-msgstr "zprávy"
-
-msgid "Fetching UIDL..."
-msgstr ""
-
-msgid "Server does not support UIDL."
-msgstr ""
-
-msgid "Leaving Mail on Server..."
-msgstr ""
-
-msgid "Deleting messages from server..."
-msgstr ""
-
-#, fuzzy
-msgid "Fetching message "
-msgstr "Zobrazit zprávu"
-
-msgid "Server error...Disconnect"
-msgstr ""
-
-msgid "Reconnect from dead connection"
-msgstr ""
-
-msgid "Saving UIDL"
-msgstr ""
-
-#, fuzzy
-msgid "Refetching message "
-msgstr "Zobrazit zprávu"
-
-#, fuzzy
-msgid "Error Appending Message!"
-msgstr "Chyba pøi otevírání"
-
-msgid "Closing POP"
-msgstr ""
-
-msgid "Logging out from IMAP"
-msgstr ""
-
-msgid "Message appended to mailbox"
-msgstr ""
-
-#, fuzzy
-msgid "Message "
-msgstr "Seznam zpráv"
-
-msgid " deleted from Remote Server!"
-msgstr ""
-
-#, fuzzy
-msgid "Delete failed:"
-msgstr "Odstranit vybrané polo¾ky"
-
-msgid "Remote POP server settings"
-msgstr ""
-
-msgid ""
-"You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
-"encryption anyway. Additionally, the encryption that we do to save it on the "
-"server can be undone by a hacker reading the source to this file."
-msgstr ""
-
-msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr ""
-
-msgid "Encrypt passwords (informative only)"
-msgstr ""
-
-msgid "Add Server"
-msgstr ""
-
-#, fuzzy
-msgid "Server:"
-msgstr "Nikdy"
-
-#, fuzzy
-msgid "Port:"
-msgstr "Priorita:"
-
-msgid "Alias:"
-msgstr ""
-
-#, fuzzy
-msgid "Username:"
-msgstr "Nový název:"
-
-msgid "Password:"
-msgstr "Heslo:"
-
-#, fuzzy
-msgid "Store in Folder:"
-msgstr "Slo¾ka Odeslaná po¹ta"
-
-msgid "Leave Mail on Server"
-msgstr ""
-
-msgid "Check mail during login"
-msgstr ""
-
-msgid "Check mail during folder refresh"
-msgstr ""
-
-msgid "Modify Server"
-msgstr ""
-
-#, fuzzy
-msgid "Server Name:"
-msgstr "Odpovìï serveru: "
-
-#, fuzzy
-msgid "Modify"
-msgstr "Pondìlí"
-
-msgid "No-one server in use. Try to add."
-msgstr ""
-
-msgid "Fetching Servers"
-msgstr ""
-
-msgid "Confirm Deletion of a Server"
-msgstr ""
-
-msgid "Selected Server:"
-msgstr ""
-
-msgid "Confirm delete of selected server?"
-msgstr ""
-
-#, fuzzy
-msgid "Confirm Delete"
-msgstr "Odstranit"
-
-msgid "Mofify a Server"
-msgstr ""
-
-msgid "Undefined Function"
-msgstr ""
-
-msgid "Hey! Wath do You are looking for?"
-msgstr ""
-
-msgid "Fetch"
-msgstr ""
-
-msgid "Warning, "
-msgstr ""
-
-msgid "Mail Fetch Result:"
-msgstr ""
-
-msgid "Simple POP3 Fetch Mail"
-msgstr ""
-
-msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
-"account on this server."
-msgstr ""
-
-msgid "New Mail Notification"
-msgstr "Oznáméní o nových emailech"
-
-msgid ""
-"Select <b>Enable Media Playing</b> to turn on playing a media file when "
-"unseen mail is in your folders. When enabled, you can specify the media file "
-"to play in the provided file box."
-msgstr ""
-
-msgid ""
-"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
-"folders for unseen mail, not just the inbox for notification."
-msgstr ""
-
-msgid ""
-"Selecting the <b>Show popup</b> option will enable the showing of a popup "
-"window when unseen mail is in your folders (requires JavaScript)."
-msgstr ""
-
-msgid ""
-"Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
-msgstr ""
-
-msgid ""
-"Selecting the <b>Change title</b> option will change the title in some "
-"browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers).  This will "
-"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
-"enabled."
-msgstr ""
-
-msgid ""
-"Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
-msgstr ""
-
-msgid "Enable Media Playing"
-msgstr ""
-
-msgid "Check all boxes, not just INBOX"
-msgstr ""
-
-msgid "Count only messages that are RECENT"
-msgstr ""
-
-msgid "Change title on supported browsers."
-msgstr ""
-
-msgid "requires JavaScript to work"
-msgstr ""
-
-msgid "Show popup window on new mail"
-msgstr ""
-
-msgid "Select server file:"
-msgstr ""
-
-msgid "(local media)"
-msgstr ""
-
-msgid "Try"
-msgstr ""
-
-msgid "Local Media File:"
-msgstr ""
-
-msgid "Current File:"
-msgstr "Aktuální soubor:"
-
-msgid "New Mail"
-msgstr "Nová po¹ta"
-
-msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail poznámka:"
-
-msgid "You have new mail!"
-msgstr "Máte novou zprávu!"
-
-msgid "Close Window"
-msgstr "Zavøít okno"
-
-msgid "NewMail Options"
-msgstr "Mo¾nosti oznámení o nových emailech"
-
-msgid ""
-"This configures settings for playing sounds and/or showing popup windows "
-"when new mail arrives."
-msgstr ""
-
-msgid "New Mail Notification options saved"
-msgstr ""
-
-#, c-format
-msgid "%s New Messages"
-msgstr "%s nových zpráv"
-
-#, c-format
-msgid "%s New Message"
-msgstr "%s nová zpráva"
-
-msgid "Test Sound"
-msgstr ""
-
-msgid "Loading the sound..."
-msgstr ""
-
-msgid "Close"
-msgstr "Zavøít"
-
-msgid "Sent Subfolders Options"
-msgstr "Mo¾nosti - Podslo¾ky Odeslané po¹ty"
-
-msgid "Use Sent Subfolders"
-msgstr "Pou¾ívat podslo¾ky Odeslané po¹ty"
-
-msgid "Monthly"
-msgstr "Mìsíènì"
-
-msgid "Quarterly"
-msgstr "Kvartálnì"
-
-msgid "Yearly"
-msgstr "Roènì"
-
-msgid "Base Sent Folder"
-msgstr "Základní slo¾ka Odeslané po¹ta"
-
-msgid "Report as Spam"
-msgstr ""
-
-msgid "SpamCop - Spam Reporting"
-msgstr ""
-
-msgid ""
-"Help fight the battle against unsolicited email.  SpamCop reads the spam "
-"email and determines the correct addresses to send complaints to.  Quite "
-"fast, really smart, and easy to use."
-msgstr ""
-
-msgid "SpellChecker Options"
-msgstr "Mo¾nosti kontroly pravopisu"
-
-msgid ""
-"Here you may set up how your personal dictionary is stored, edit it, or "
-"choose which languages should be available to you when spell-checking."
-msgstr ""
-
-msgid "Check Spelling"
-msgstr "Kontrola pravopisu"
-
-msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr "Zpìt na stránku &quot;Mo¾nosti kontroly pravopisu&quot;"
-
-msgid "ATTENTION:"
-msgstr "VAROVÁNÍ:"
-
-msgid ""
-"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
-"likely due to the fact that you have changed your mailbox password. In order "
-"to proceed, you will have to supply your old password so that SquirrelSpell "
-"can decrypt your personal dictionary. It will be re-encrypted with your new "
-"password after this.<br>If you haven't encrypted your dictionary, then it "
-"got mangled and is no longer valid. You will have to delete it and start "
-"anew. This is also true if you don't remember your old password -- without "
-"it, the encrypted data is no longer accessible."
-msgstr ""
-
-msgid "Delete my dictionary and start a new one"
-msgstr ""
-
-msgid "Decrypt my dictionary with my old password:"
-msgstr ""
-
-msgid "Proceed"
-msgstr "Pokraèovat"
-
-msgid "You must make a choice"
-msgstr "Musíte si vybrat"
-
-msgid ""
-"You can either delete your dictionary or type in the old password. Not both."
-msgstr ""
-
-msgid "This will delete your personal dictionary file. Proceed?"
-msgstr ""
-
-msgid "Error Decrypting Dictionary"
-msgstr ""
-
-msgid "Cute."
-msgstr "Bezva."
-
-msgid "Translator"
-msgstr ""
-
-#, fuzzy
-msgid "Saved Translation Options"
-msgstr "Mo¾nosti - Citace v odpovìdi"
-
-msgid "Your server options are as follows:"
-msgstr ""
-
-msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr ""
-
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
-
-msgid "12 language pairs, no known limits, powered by Systran"
-msgstr ""
-
-msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
-"InterTran"
-msgstr ""
-
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr ""
-
-msgid ""
-"You also decide if you want the translation box displayed, and where it will "
-"be located."
-msgstr ""
-
-msgid "Select your translator:"
-msgstr ""
-
-msgid "When reading:"
-msgstr ""
-
-msgid "Show translation box"
-msgstr ""
-
-msgid "to the left"
-msgstr ""
-
-msgid "in the center"
-msgstr ""
-
-msgid "to the right"
-msgstr ""
-
-msgid "Translate inside the SquirrelMail frames"
-msgstr ""
-
-msgid "When composing:"
-msgstr ""
-
-msgid "Not yet functional, currently does nothing"
-msgstr ""
-
-msgid "Download this as a file"
-msgstr "Ulo¾it jako soubor"
-
-msgid "Translation Options"
-msgstr ""
-
-msgid ""
-"Which translator should be used when you get messages in a different "
-"language?"
-msgstr ""
-
-#, c-format
-msgid "%s to %s"
-msgstr "z %s do %s"
-
-msgid "English"
-msgstr "Angliètina"
-
-msgid "French"
-msgstr "Francouz¹tina"
-
-msgid "German"
-msgstr "Nìmèina"
-
-msgid "Italian"
-msgstr "Ital¹tina"
-
-msgid "Portuguese"
-msgstr "Portugal¹tina"
-
-msgid "Spanish"
-msgstr "©panìl¹tina"
-
-msgid "Russian"
-msgstr "Ru¹tina"
-
-msgid "Translate"
-msgstr "Pøelo¾it"
-
-msgid "Brazilian Portuguese"
-msgstr "Brazilská portugal¹tina"
-
-msgid "Bulgarian"
-msgstr "Bulhar¹tina"
-
-msgid "Croatian"
-msgstr "Chorvat¹tina"
-
-msgid "Czech"
-msgstr "Èe¹tina"
-
-msgid "Danish"
-msgstr "Dán¹tina"
-
-msgid "Dutch"
-msgstr "Holand¹tina"
-
-msgid "European Spanish"
-msgstr "Evropská ¹panìl¹tina"
-
-msgid "Finnish"
-msgstr "Fin¹tina"
-
-msgid "Greek"
-msgstr "Øeètina"
-
-msgid "Hungarian"
-msgstr "Maïar¹tina"
-
-msgid "Icelandic"
-msgstr "Island¹tina"
-
-msgid "Japanese"
-msgstr "Japon¹tina"
-
-msgid "Latin American Spanish"
-msgstr "Latinsko-americká ¹panìl¹tina"
-
-msgid "Norwegian"
-msgstr "Nór¹tina"
-
-msgid "Polish"
-msgstr "Pol¹tina"
-
-msgid "Romanian"
-msgstr "Rumun¹tina"
-
-msgid "Serbian"
-msgstr "Srb¹tina"
-
-msgid "Slovenian"
-msgstr "Sloven¹tina"
-
-msgid "Swedish"
-msgstr "©véd¹tina"
-
-msgid "Welsh"
-msgstr "Vel¹tina"
-
-msgid "Indonesian"
-msgstr "Indonéz¹tina"
-
-msgid "Latin"
-msgstr "Latina"
-
 msgid "Address Book"
 msgstr "Adresáø"
+
+msgid "All"
+msgstr "V¹echny"
 
 msgid "Name"
 msgstr "Jméno"
@@ -2273,6 +31,12 @@ msgstr "Informace"
 msgid "Source"
 msgstr "Zdroj"
 
+msgid "To"
+msgstr "Komu"
+
+msgid "Cc"
+msgstr "Kopie"
+
 msgid "Bcc"
 msgstr "Neviditelná kopie"
 
@@ -2283,13 +47,16 @@ msgid "Address Book Search"
 msgstr "Hledat v adresáøi"
 
 msgid "Search for"
-msgstr "Odeslat"
+msgstr "Hledat"
 
 msgid "in"
 msgstr "v"
 
 msgid "All address books"
 msgstr "V¹echny adresáøe"
+
+msgid "Search"
+msgstr "Hledat"
 
 msgid "List all"
 msgstr "Zobrazit v¹e"
@@ -2307,6 +74,9 @@ msgstr "Nebyla nalezena po¾adovaná osoba"
 msgid "Return"
 msgstr "Zpìt"
 
+msgid "Close"
+msgstr "Zavøít"
+
 msgid "Nickname"
 msgstr "Pøezdívka"
 
@@ -2316,23 +86,26 @@ msgstr "Musí být jedineèná"
 msgid "E-mail address"
 msgstr "E-mailová adresa"
 
-msgid "First name"
-msgstr "Jméno"
-
 msgid "Last name"
 msgstr "Pøíjmení"
+
+msgid "First name"
+msgstr "Jméno"
 
 msgid "Additional info"
 msgstr "Dal¹í informace"
 
 msgid "No personal address book is defined. Contact administrator."
-msgstr "Není definován ¾ádný osobní adresáø. Kontaktujte správce"
+msgstr "Není definován ¾ádný osobní adresáø. Kontaktujte správce."
 
 msgid "You can only edit one address at the time"
 msgstr "Nelze upravovat více adres najednou"
 
 msgid "Update address"
 msgstr "Aktualizovat adresu"
+
+msgid "ERROR"
+msgstr "Chyba"
 
 msgid "Unknown error"
 msgstr "Neznámá chyba"
@@ -2348,7 +121,26 @@ msgstr "Odstranit vybrané polo¾ky"
 
 #, c-format
 msgid "Add to %s"
-msgstr "Pøidat polo¾ku"
+msgstr "Pøidat do %s"
+
+# squirrelmail/src/compose.php:572?
+msgid "said"
+msgstr "napsal(a)"
+
+msgid "quote"
+msgstr "cituji"
+
+msgid "who"
+msgstr "kdo"
+
+msgid "Subject"
+msgstr "Pøedmìt"
+
+msgid "From"
+msgstr "Od"
+
+msgid "Date"
+msgstr "Datum"
 
 msgid "Original Message"
 msgstr "Pùvodní zpráva"
@@ -2365,14 +157,17 @@ msgstr "Email ulo¾en do Konceptù"
 msgid "Your Message has been sent"
 msgstr "Zpráva byla odeslána"
 
+msgid "From:"
+msgstr "Od:"
+
 msgid "To:"
 msgstr "Komu:"
 
 msgid "CC:"
-msgstr "Kopie"
+msgstr "Kopie:"
 
 msgid "BCC:"
-msgstr "Skrytá kopie"
+msgstr "Skrytá kopie:"
 
 msgid "Subject:"
 msgstr "Pøedmìt:"
@@ -2381,7 +176,7 @@ msgid "Send"
 msgstr "Odeslat"
 
 msgid "Attach:"
-msgstr "Pøilo¾it soubor"
+msgstr "Pøilo¾it soubor:"
 
 msgid "Add"
 msgstr "Pøilo¾it"
@@ -2392,15 +187,29 @@ msgstr "Odstranit vybrané pøilo¾ené soubory"
 msgid "Priority"
 msgstr "Priorita"
 
+msgid "High"
+msgstr "Vysoká"
+
+msgid "Normal"
+msgstr "Normální"
+
+msgid "Low"
+msgstr "Nízká"
+
 msgid "Receipt"
 msgstr "Doruèenka"
 
-#, fuzzy
 msgid "On Read"
 msgstr "Pøi pøeètení"
 
 msgid "On Delivery"
 msgstr "Pøi doruèení"
+
+msgid "Signature"
+msgstr "Podpis"
+
+msgid "Addresses"
+msgstr "Adresáø"
 
 msgid "Save Draft"
 msgstr "Ulo¾it Koncept"
@@ -2408,19 +217,11 @@ msgstr "Ulo¾it Koncept"
 msgid "You have not filled in the \"To:\" field."
 msgstr "Nezadali jste adresáta"
 
-# squirrelmail/src/compose.php:572?
-msgid "said"
-msgstr "napsal(a)"
-
-msgid "quote"
-msgstr "citováno"
-
-msgid "who"
-msgstr "kdo"
-
-#, fuzzy
 msgid "Draft folder"
 msgstr "Slo¾ka Konceptù"
+
+msgid "Server replied: "
+msgstr "Odpovìï serveru: "
 
 msgid "Illegal folder name.  Please select a different name."
 msgstr "Neplatný název slo¾ky. Vyberte prosím jiný název."
@@ -2434,15 +235,23 @@ msgstr "Neoznaèil jste slo¾ku ke smazání."
 msgid "Delete Folder"
 msgstr "Odstranit slo¾ku"
 
-#, fuzzy, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Opravdu chcete smazat tuto událost?"
+msgstr "Opravdu chcete smazat %s?"
+
+msgid "Yes"
+msgstr "Ano"
+
+msgid "No"
+msgstr "Ne"
+
+msgid "Folders"
+msgstr "Slo¾ky"
 
 msgid "Subscribed successfully!"
 msgstr "Pøihlá¹ení probìhlo úspì¹nì"
 
 msgid "Unsubscribed successfully!"
-msgstr "Pøihlá¹ení probìhlo neúspì¹nì"
+msgstr "Odhlá¹ení probìhlo úspì¹nì"
 
 msgid "Deleted folder successfully!"
 msgstr "Slo¾ka byla úspì¹nì smazána"
@@ -2454,7 +263,7 @@ msgid "Renamed successfully!"
 msgstr "Úspì¹nì pøejmenováno"
 
 msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr ""
+msgstr "Pøihlá¹ení neúspì¹né - Slo¾ka neexistuje."
 
 msgid "refresh folder list"
 msgstr "aktualizovat seznam slo¾ek"
@@ -2486,15 +295,23 @@ msgstr "Pøejmenovat"
 msgid "No folders found"
 msgstr "Nebyla nalezena ¾ádná slo¾ka"
 
+msgid "Delete"
+msgstr "Odstranit"
+
+msgid "Unsubscribe"
+msgstr "Odhlásit"
+
+msgid "Subscribe"
+msgstr "Pøihlásit"
+
 msgid "No folders were found to unsubscribe from!"
 msgstr "Nebyly nalezeny ¾ádné slo¾ky, ze kterých se lze odhlásit!"
 
 msgid "No folders were found to subscribe to!"
 msgstr "Nebyly nalezeny ¾ádné slo¾ky k pøihlá¹ení"
 
-#, fuzzy
 msgid "Subscribe to:"
-msgstr "Pøihlásit"
+msgstr "Pøihlásit:"
 
 msgid "You have not selected a folder to rename. Please do so."
 msgstr "Neoznaèil jste slo¾ku k pøejmenování."
@@ -2505,8 +322,14 @@ msgstr "Pøejmenovat slo¾ku"
 msgid "New name:"
 msgstr "Nový název:"
 
+msgid "Submit"
+msgstr "Odeslat"
+
 msgid "ERROR: Help files are not in the right format!"
-msgstr ""
+msgstr "CHYBA: ©patný formát souborù nápovìdy"
+
+msgid "Help"
+msgstr "Nápovìda"
 
 #, c-format
 msgid ""
@@ -2520,6 +343,12 @@ msgstr "Nìkteré texty nápovìdy nejsou dostupné!"
 msgid "Table of Contents"
 msgstr "Obsah"
 
+msgid "Previous"
+msgstr "Pøedchozí"
+
+msgid "Next"
+msgstr "Dal¹í"
+
 msgid "Top"
 msgstr "Nahoru"
 
@@ -2529,22 +358,34 @@ msgstr "Náhled pøilo¾eného obrázku"
 msgid "View message"
 msgstr "Zobrazit zprávu"
 
-#, fuzzy
-msgid "Not available"
-msgstr "Není název souboru"
+msgid "Download this as a file"
+msgstr "Ulo¾it jako soubor"
 
-#, fuzzy
+msgid "INBOX"
+msgstr "Doruèená po¹ta"
+
 msgid "purge"
-msgstr "Vysypat"
+msgstr "vysypat"
 
 msgid "Last Refresh"
 msgstr "Poslední zobrazení"
 
 msgid "Save folder tree"
-msgstr ""
+msgstr "Ulo¾it strom slo¾ek"
 
 msgid "Login"
 msgstr "Pøihlásit"
+
+#, c-format
+msgid "%s Logo"
+msgstr "%s Logo"
+
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr "SquirrelMail verze %s"
+
+msgid "By the SquirrelMail Development Team"
+msgstr "Vytvoøeno týmem SquirrelMail"
 
 #, c-format
 msgid "%s Login"
@@ -2553,15 +394,38 @@ msgstr "%s Pøihlásit"
 msgid "Name:"
 msgstr "Jméno:"
 
+msgid "Password:"
+msgstr "Heslo:"
+
 msgid "No messages were selected."
 msgstr "Nebyly vybrány ¾ádné zprávy"
+
+msgid "Options"
+msgstr "Mo¾nosti"
 
 msgid "Message Highlighting"
 msgstr "Zvýrazòování zpráv"
 
-#, fuzzy
+msgid "New"
+msgstr "Nová"
+
+msgid "Done"
+msgstr "Hotovo"
+
+msgid "To or Cc"
+msgstr "Komu nebo Kopie"
+
 msgid "subject"
-msgstr "Pøedmìt"
+msgstr "pøedmìt"
+
+msgid "Edit"
+msgstr "Editovat"
+
+msgid "Up"
+msgstr "Nahoru"
+
+msgid "Down"
+msgstr "Dolù"
 
 msgid "No highlighting is defined"
 msgstr "Není nadefinováno ¾ádné zvýraznìní"
@@ -2625,7 +489,7 @@ msgstr "Odpovídá"
 
 #, c-format
 msgid "Alternate Identity %d"
-msgstr "Alternativní identita"
+msgstr "Alternativní identita %d"
 
 msgid "Advanced Identities"
 msgstr "Roz¹íøené identity"
@@ -2636,8 +500,14 @@ msgstr "Základní/nastavená identita"
 msgid "Add a New Identity"
 msgstr "Pøidej novou identitu"
 
+msgid "Full Name"
+msgstr "Celé jméno"
+
 msgid "E-Mail Address"
 msgstr "E-mailová adresa"
+
+msgid "Reply To"
+msgstr "Odpovídat na adresu"
 
 msgid "Save / Update"
 msgstr "Ulo¾/Aktualizuj"
@@ -2656,6 +526,9 @@ msgstr "Za¹krtávací pole"
 
 msgid "Flags"
 msgstr "Pøíznaky zprávy"
+
+msgid "Size"
+msgstr "Velikost"
 
 msgid ""
 "The index order is the order that the columns are arranged in the message "
@@ -2687,7 +560,7 @@ msgid "Folder Preferences"
 msgstr "Slo¾ky - mo¾nosti"
 
 msgid "Successfully Saved Options"
-msgstr "Osobní informace byly úspì¹nì ulo¾eny"
+msgstr "Nastavení bylo úspì¹nì ulo¾eno"
 
 msgid "Refresh Folder List"
 msgstr "Obnovit seznam slo¾ek"
@@ -2762,6 +635,9 @@ msgstr "ménì"
 msgid "more"
 msgstr "více"
 
+msgid "Unknown sender"
+msgstr "Neznámý Odesílatel"
+
 msgid "Mailer"
 msgstr "Emailový klient"
 
@@ -2784,7 +660,6 @@ msgstr ""
 msgid "Send read receipt now"
 msgstr "Odeslat potvrzení pøeètení nyní"
 
-#, fuzzy
 msgid "Search results"
 msgstr "Výsledky hledání"
 
@@ -2795,15 +670,16 @@ msgid "Resume Draft"
 msgstr "Pokraèovat v psaní zprávy"
 
 msgid "Edit Message as New"
-msgstr ""
+msgstr "Pou¾ít jako pøedlohu pro novou zprávu"
 
-#, fuzzy
 msgid "View Message"
 msgstr "Zobrazit zprávu"
 
-#, fuzzy
+msgid "Forward"
+msgstr "Pøedat dál"
+
 msgid "Forward as Attachment"
-msgstr "Pøílohy"
+msgstr "Pøeposlat jako pøílohu"
 
 msgid "Reply"
 msgstr "Odpovìdìt"
@@ -2816,6 +692,9 @@ msgstr "Zobrazit celou hlavièku"
 
 msgid "Attachments"
 msgstr "Pøílohy"
+
+msgid "You must be logged in to access this page."
+msgstr "Pro pøístup k této stránce musíte být pøihlá¹en."
 
 msgid "Folder:"
 msgstr "Slo¾ka:"
@@ -2839,10 +718,13 @@ msgid "forget"
 msgstr "zapomenout"
 
 msgid "Current Search"
-msgstr "Aktuální slo¾ka"
+msgstr "Aktuální Hledání"
+
+msgid "All Folders"
+msgstr "V¹echny slo¾ky"
 
 msgid "Body"
-msgstr "Text zprávy"
+msgstr "Tìlo zprávy"
 
 msgid "Everywhere"
 msgstr "V¹ude"
@@ -2852,6 +734,9 @@ msgstr "Výsledky hledání"
 
 msgid "No Messages Found"
 msgstr "Nebyly nalezeny ¾ádné zprávy"
+
+msgid "Sign Out"
+msgstr "Odhlásit se"
 
 msgid "You have been successfully signed out."
 msgstr "Odhlá¹ení probìhlo úspì¹nì"
@@ -2899,10 +784,2710 @@ msgid "Title & Org. / Dept."
 msgstr "Funkce & Firma / Oddìlení"
 
 msgid "Viewing Full Header"
-msgstr "Zobrazit celou hlavièku"
+msgstr "Zobrazení celé hlavièky"
 
 msgid "Viewing a text attachment"
 msgstr "Náhled pøilo¾eného souboru"
+
+msgid "Personal address book"
+msgstr "Osobní adresáø"
+
+#, c-format
+msgid "Database error: %s"
+msgstr "Chyba databáze: %s"
+
+msgid "Addressbook is read-only"
+msgstr "Adresáø pouze ke ètení"
+
+#, c-format
+msgid "User '%s' already exist"
+msgstr "U¾ivatel %s ji¾ existuje"
+
+#, c-format
+msgid "User '%s' does not exist"
+msgstr "U¾ivatel %s neexistuje"
+
+msgid "Global address book"
+msgstr "Centrální adresáø kontaktù"
+
+msgid "No such file or directory"
+msgstr "Nebyl nalezen ¾ádný soubor ani adresáø"
+
+msgid "Open failed"
+msgstr "Otevírání probìhlo neúspì¹nì"
+
+msgid "Can not modify global address book"
+msgstr "Nemù¾u modifikovat globální adresáø kontaktù"
+
+msgid "Not a file name"
+msgstr "Není název souboru"
+
+msgid "Write failed"
+msgstr "Zápis probìhl neúspì¹nì"
+
+msgid "Unable to update"
+msgstr "Aktualizace nebyla mo¾ná"
+
+msgid "Could not lock datafile"
+msgstr "Nelze uzamknout soubor s daty"
+
+msgid "Write to addressbook failed"
+msgstr "Zápis do adresáøe probìhl neúspì¹nì"
+
+msgid "Error initializing addressbook database."
+msgstr "Chyba pøi inicializaci databáze kontaktù."
+
+#, c-format
+msgid "Error opening file %s"
+msgstr "Chyba pøi otevírání souboru %s"
+
+msgid "Error initializing global addressbook."
+msgstr "Chyba pøi inicializaci centrální databáze kontaktù."
+
+#, c-format
+msgid "Error initializing LDAP server %s:"
+msgstr "Chyba pøi inicializaci LDAP serveru %s"
+
+msgid "Invalid input data"
+msgstr "Neplatná vstupní data"
+
+msgid "Name is missing"
+msgstr "Chybí jméno"
+
+msgid "E-mail address is missing"
+msgstr "Chybí e-mailová adresa"
+
+msgid "Nickname contains illegal characters"
+msgstr "Pøezdívka obsahuje nedovolené znaky"
+
+msgid "view"
+msgstr "zobrazit"
+
+msgid "Business Card"
+msgstr "Visitka"
+
+msgid "Sunday"
+msgstr "Nedìle"
+
+msgid "Monday"
+msgstr "Pondìlí"
+
+msgid "Tuesday"
+msgstr "Úterý"
+
+msgid "Wednesday"
+msgstr "Støeda"
+
+msgid "Thursday"
+msgstr "Ètvrtek"
+
+msgid "Friday"
+msgstr "Pátek"
+
+msgid "Saturday"
+msgstr "Sobota"
+
+msgid "Sun"
+msgstr "Ne"
+
+msgid "Mon"
+msgstr "Pondìlí"
+
+msgid "Tue"
+msgstr "Út"
+
+msgid "Wed"
+msgstr "St"
+
+msgid "Thu"
+msgstr "Èt"
+
+msgid "Fri"
+msgstr "Pá"
+
+msgid "Sat"
+msgstr "So"
+
+msgid "January"
+msgstr "Leden"
+
+msgid "February"
+msgstr "Únor"
+
+msgid "March"
+msgstr "Bøezen"
+
+msgid "April"
+msgstr "Duben"
+
+msgid "May"
+msgstr "Kvìten"
+
+msgid "June"
+msgstr "Èerven"
+
+msgid "July"
+msgstr "Èervenec"
+
+msgid "August"
+msgstr "Srpen"
+
+msgid "September"
+msgstr "Záøí"
+
+msgid "October"
+msgstr "Øíjen"
+
+msgid "November"
+msgstr "Listopad"
+
+msgid "December"
+msgstr "Prosinec"
+
+msgid "Jan"
+msgstr "Led"
+
+msgid "Feb"
+msgstr "Úno"
+
+msgid "Mar"
+msgstr "Bøe"
+
+msgid "Apr"
+msgstr "Dub"
+
+#msgid "May"
+#msgstr "Kvì"
+
+msgid "Jun"
+msgstr "Èvn"
+
+msgid "Jul"
+msgstr "Èvc"
+
+msgid "Aug"
+msgstr "Srp"
+
+msgid "Sep"
+msgstr "Záø"
+
+msgid "Oct"
+msgstr "Øíj"
+
+msgid "Nov"
+msgstr "Lis"
+
+msgid "Dec"
+msgstr "Pro"
+
+msgid "D, F j, Y g:i a"
+msgstr "j F Y, G:i"
+
+msgid "D, F j, Y G:i"
+msgstr "j F Y, G:i"
+
+msgid "g:i a"
+msgstr "G:i"
+
+msgid "G:i"
+msgstr "G:i"
+
+msgid "D, g:i a"
+msgstr "D, G:i"
+
+msgid "D, G:i"
+msgstr "D, G:i"
+
+msgid "M j, Y"
+msgstr "j M, Y"
+
+#, c-format
+msgid "Preference database error (%s). Exiting abnormally"
+msgstr "Chyba databáze nastavení (%s). Abnormální ukonèení."
+
+msgid "Unknown user or password incorrect."
+msgstr "Neznámý u¾ivatel nebo neplatné heslo"
+
+msgid "Click here to try again"
+msgstr "Pro dal¹í pokus kliknìte zde"
+
+#, c-format
+msgid "Click here to return to %s"
+msgstr "Pro návrat do %s klinìte zde"
+
+msgid "Go to the login page"
+msgstr "Jdi na pøihla¹ovací stránku"
+
+#, c-format
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
+msgstr ""
+"Soubor s nastavením, %s, neexistuje. Odhla¹te se a pøihlaste se zpìt, abyste "
+"vytvoøili výchozí soubor s nastavením."
+
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "Soubor s nastavením, %s, nemohl být otevøen. Kontaktujte správce webmailu."
+
+msgid ""
+"Preference file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr "Soubor s nastavením, %s, nemohl být otevøen. Kontaktujte správce webmailu."
+
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr "Soubor s nastavením, %s, nemohl být otevøen. Kontaktujte sprá."
+
+#, c-format
+msgid "Error opening %s"
+msgstr "Chyba pøi otevírání %s"
+
+msgid "Default preference file not found or not readable!"
+msgstr "Soubor s implicitním nastavením nenalezen"
+
+msgid "Please contact your system administrator and report this error."
+msgstr "Prosím nahla¹te tuto chybu správci systému."
+
+msgid "Could not create initial preference file!"
+msgstr "Nemohu vytvoøit poèáteèní soubor s preferencemi!"
+
+#, c-format
+msgid "%s should be writable by user %s"
+msgstr "Soubor %s by mìl být zapsatelný u¾ivatelem %s"
+
+#, c-format
+msgid ""
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr ""
+"Soubor s podpisy, %s, nemohl být otevøen. Oznamte tuto chybu "
+"administrátorovi systému."
+
+#, c-format
+msgid ""
+"Signature file, %s, could not be written. Contact your system administrator "
+"to resolve this issue."
+msgstr ""
+"Soubor s podpisy, %s, nemohl být otevøen. Oznamte tuto chybu "
+"administrátorovi systému."
+
+#, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Soubor s podpisy, %s, nemohl být zkopírován z doèasného souboru %s. Oznamte tuto chybu "
+"administrátorovi systému."
+
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --enable-mbstring)."
+msgstr "Je nutne míti php4 nainstalováno s parametrem --with-mbstring"
+
+msgid "ERROR : No available imapstream."
+msgstr "Chyba : Není k dispozici ¾ádné pøipojeni k serveru imap."
+
+msgid "ERROR : Connection dropped by imap-server."
+msgstr "Chyba : Spojení s IMAP serverem bylo pøeru¹eno"
+
+msgid "Query:"
+msgstr "Dotaz:"
+
+msgid "ERROR : Could not complete request."
+msgstr "Chyba : Nelze dokonèit po¾adovaný úkol."
+
+msgid "Reason Given: "
+msgstr "Odùvodnìní: "
+
+msgid "ERROR : Bad or malformed request."
+msgstr "Chyba : ©patnì zadaný po¾adovaný úkol."
+
+msgid "Server responded: "
+msgstr "Odpovìï serveru: "
+
+msgid "ERROR : Imap server closed the connection."
+msgstr "Chyba : Server IMAP ukonèil spojení."
+
+msgid "ERROR : Unknown imap response."
+msgstr "Chyba: neznámá odpovìï serveru IMAP"
+
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "Chyba v pøipojování k serveru IMAP: %s "
+
+#, c-format
+msgid "Bad request: %s"
+msgstr "©patnì zadaný po¾adovaný úkol: %s"
+
+#, c-format
+msgid "Unknown error: %s"
+msgstr "Neznámá chyba: %s"
+
+msgid "Read data:"
+msgstr "Naètení dat:"
+
+msgid "ERROR : Could not append message to"
+msgstr "Chyba : Zprávu nelze pøipojit k"
+
+msgid "Solution: "
+msgstr "Návrh øe¹ení: "
+
+msgid ""
+"Remove unneccessary messages from your folder and start with your Trash "
+"folder."
+msgstr ""
+"Sma¾te nepotøebné soubory z va¹í schránky. Mù¾ete zaèít se slo¾kou Trash "
+"(Ko¹) "
+
+msgid "(no subject)"
+msgstr "(¾ádný pøedmìt)"
+
+msgid "Unknown Sender"
+msgstr "Neznámý Odesílatel"
+
+msgid "Unknown response from IMAP server: "
+msgstr "Neznámá odpovìï IMAP serveru:"
+
+msgid "The server couldn't find the message you requested."
+msgstr "Server nemohl najít po¾adovanou zprávu."
+
+msgid ""
+"Most probably your message list was out of date and the message has been "
+"moved away or deleted (perhaps by another program accessing the same "
+"mailbox)."
+msgstr ""
+"Pravdìpodobnì jste mìl starý seznam zpráv a zpráva byla mezitím smazána."
+
+msgid "Unknown date"
+msgstr "Neznámé datum"
+
+msgid "A"
+msgstr "O"
+
+msgid ""
+"Thread sorting is not supported by your IMAP server.<br>Please report this "
+"to the system administrator."
+msgstr ""
+"Øazení zpráv podle konverzace na serveru IMAP je nedostupné.<br> Nahla¹te "
+"tuto chybu správci systému."
+
+msgid ""
+"Server-side sorting is not supported by your IMAP server.<br>Please report "
+"this to the system administrator."
+msgstr ""
+"Øazení zpráv serveru IMAP je nedostupné. <br>Nahla¹te tuto chybu správci "
+"systému."
+
+msgid "THIS FOLDER IS EMPTY"
+msgstr "TATO SLO®KA JE PRÁZDNÁ"
+
+msgid "Move Selected To"
+msgstr "Pøesunout vybrané polo¾ky do"
+
+msgid "Transform Selected Messages"
+msgstr "Operace s oznaèenými zprávami"
+
+msgid "Move"
+msgstr "Pøesunout"
+
+msgid "Expunge"
+msgstr "Vysypat"
+
+msgid "mailbox"
+msgstr "schránka"
+
+msgid "Read"
+msgstr "Pøeètené"
+
+msgid "Unread"
+msgstr "Nepøeètené"
+
+msgid "Unthread View"
+msgstr "Vypnout øazení podle konverzace"
+
+msgid "Thread View"
+msgstr "Øazení podle konverzace"
+
+msgid "Toggle All"
+msgstr "Zmìnit oznaèení v¹ech"
+
+msgid "Unselect All"
+msgstr "Odznaèit v¹e"
+
+msgid "Select All"
+msgstr "Oznaèit v¹e"
+
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr "Zobrazení zpráv: <b>%s</b> a¾ <b>%s</b> (%s celkem)"
+
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr "Zobrazení zprávy: <b>%s</b> (1 celkem)"
+
+msgid "Paginate"
+msgstr "Po stránkách"
+
+msgid "Show All"
+msgstr "Zobraz v¹e"
+
+msgid "SquirrelMail could not decode the bodystructure of the message"
+msgstr "Formát zprávy nebyl rozpoznán"
+
+msgid "the provided bodystructure by your imap-server"
+msgstr "formát zprávy od serveru IMAP"
+
+msgid ""
+"Body retrieval error. The reason for this is most probably that the message "
+"is malformed."
+msgstr "Chyba pøi otevíraní tìla zprávy. Zpráva je pravdìpodobnì po¹kozena"
+
+msgid "Command:"
+msgstr "Pøíkaz:"
+
+msgid "Response:"
+msgstr "Odpovìï:"
+
+msgid "Message:"
+msgstr "Zpráva:"
+
+msgid "FETCH line:"
+msgstr "FETCH øádek:"
+
+msgid "Hide Unsafe Images"
+msgstr "Schovat nebezpeèné obrázky"
+
+msgid "View Unsafe Images"
+msgstr "Zobrazit nebezpeèné obrázky"
+
+msgid "download"
+msgstr "stáhnout"
+
+msgid "sec_remove_eng.png"
+msgstr "sec_remove_cz.png"
+
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr "Volba typu '%s' nenalezena"
+
+msgid "Current Folder"
+msgstr "Aktuální slo¾ka"
+
+msgid "Compose"
+msgstr "Nová zpráva"
+
+#, c-format
+msgid "Error creating directory %s."
+msgstr "Chyba pøi otevírání souboru %s"
+
+msgid "Could not create hashed directory structure!"
+msgstr "Nemohu vytvoøit strukturu adresáøù s hashem!"
+
+msgid "Service not available, closing channel"
+msgstr "Slu¾ba nedostupná, zavírám kanál"
+
+msgid "A password transition is needed"
+msgstr "Pøemìna hesla je nutná"
+
+msgid "Requested mail action not taken: mailbox unavailable"
+msgstr "Po¾adovaná operace nebyla provedena: schránka nedostupná"
+
+msgid "Requested action aborted: error in processing"
+msgstr "Po¾adovaná akce byla pøeru¹ena: chyba pøi provádìní"
+
+msgid "Requested action not taken: insufficient system storage"
+msgstr "Po¾adovaná akce nebyla provedena: nedostatek místa"
+
+msgid "Temporary authentication failure"
+msgstr "Doèasna chyba autentifikace selhala"
+
+msgid "Syntax error; command not recognized"
+msgstr "Chyba syntaxe; neznámý pøíkaz"
+
+msgid "Syntax error in parameters or arguments"
+msgstr "Chyba syntaxe v parametrech nebo argumentech"
+
+msgid "Command not implemented"
+msgstr "Pøíkaz nebyl implementován"
+
+msgid "Bad sequence of commands"
+msgstr "©patná posloupnost pøíkazù"
+
+msgid "Command parameter not implemented"
+msgstr "Parametr pøíkazu nebyl implementován"
+
+msgid "Authentication required"
+msgstr "autentifikace je nutná"
+
+msgid "Authentication mechanism is too weak"
+msgstr "Pøíli¹ nedokonalá metoda autentifikace"
+
+msgid "Authentication failed"
+msgstr "autentifikace se nezdaøíla"
+
+msgid "Encryption required for requested authentication mechanism"
+msgstr "Pro pou¾ití této autentifikaèní metody je nutné pou¾ít ¹ifrování"
+
+msgid "Requested action not taken: mailbox unavailable"
+msgstr "Nebylo mo¾né provést po¾adovanou operaci: schránka je nedostupná"
+
+msgid "User not local; please try forwarding"
+msgstr "U¾ivatel není místní; prosím zkuste pøeposlání"
+
+msgid "Requested mail action aborted: exceeding storage allocation"
+msgstr "Po¾adovaná akce byla pøeru¹ena: limit velikosti schránky pøekroèen"
+
+msgid "Requested action not taken: mailbox name not allowed"
+msgstr "Po¾adovaná akce nebyla provedena: nepovolené jméno schránky"
+
+msgid "Transaction failed"
+msgstr "Transakce se nezdaøíla"
+
+msgid "Unknown response"
+msgstr "Neznámá odpovìï"
+
+msgid "General Display Options"
+msgstr "Obecné volby zobrazení"
+
+msgid "Theme"
+msgstr "Schéma"
+
+msgid "Default"
+msgstr "Implicitní"
+
+msgid "Custom Stylesheet"
+msgstr "Vlastní CSS styl"
+
+msgid "Language"
+msgstr "Jazyk"
+
+msgid "Use Javascript"
+msgstr "Pou¾ívat Javascript"
+
+msgid "Autodetect"
+msgstr "Autodetekce"
+
+msgid "Always"
+msgstr "V¾dy"
+
+msgid "Never"
+msgstr "Nikdy"
+
+msgid "Mailbox Display Options"
+msgstr "Volby zobrazení slo¾ky"
+
+msgid "Number of Messages to Index"
+msgstr "Poèet zpráv zobrazených ve slo¾ce"
+
+msgid "Enable Alternating Row Colors"
+msgstr "Pou¾ít støídající se barvy øádkù"
+
+msgid "Enable Page Selector"
+msgstr "Zapnout Stránkovaè"
+
+msgid "Maximum Number of Pages to Show"
+msgstr "Maximální zobrazený poèet stránek"
+
+msgid "Message Display and Composition"
+msgstr "Zobrazení a psaní zpráv"
+
+msgid "Wrap Incoming Text At"
+msgstr "Zalomit pøíchozí zprávu na"
+
+msgid "Size of Editor Window"
+msgstr "Velikost editaèního okna"
+
+msgid "Location of Buttons when Composing"
+msgstr "Umístìní tlaèítek pøi psaní nové zprávy"
+
+msgid "Before headers"
+msgstr "Pøed hlavièkou zprávy"
+
+msgid "Between headers and message body"
+msgstr "Mezi hlavièkou a tìlem zprávy"
+
+msgid "After message body"
+msgstr "Za tìlem zprávy"
+
+msgid "Addressbook Display Format"
+msgstr "Formát zobrazení adresáøe"
+
+msgid "Javascript"
+msgstr "Javascript"
+
+msgid "HTML"
+msgstr "HTML"
+
+msgid "Show HTML Version by Default"
+msgstr "Implicitnì zobrazovat HTML verzi"
+
+msgid "Enable Forward as Attachment"
+msgstr "Povolit funkci \"Pøedat dál jako pøílohu\""
+
+msgid "Include CCs when Forwarding Messages"
+msgstr "Pøi pøedávání dál zahrnout i adresy v polo¾ce kopie"
+
+msgid "Include Me in CC when I Reply All"
+msgstr "Zahrò mou adresu do polo¾ky kopie kdy¾ dám 'Odpovìdìt v¹em'"
+
+msgid "Enable Mailer Display"
+msgstr "Zobrazovat emailového klienta pøíchozích zpráv"
+
+msgid "Display Attached Images with Message"
+msgstr "Zobrazovat pøilo¾ené obrázky ve zprávì"
+
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Zapnout zobrazení pro tisk"
+
+msgid "Enable Mail Delivery Notification"
+msgstr "Zapnout oznamování o doruèení zpráv"
+
+msgid "Compose Messages in New Window"
+msgstr "V¾dy psát zprávu v novém oknì"
+
+msgid "Width of Compose Window"
+msgstr "©íøka editaèního okna"
+
+msgid "Height of Compose Window"
+msgstr "Vý¹ka editaèního okna"
+
+msgid "Append Signature before Reply/Forward Text"
+msgstr "Pøipojit podpis pøed text u odpovìdí a pøedávaných zpráv"
+
+msgid "Enable Sort by of Receive Date"
+msgstr "Povolit tøízení podle data pøíjmu"
+
+msgid "Enable Thread Sort by References Header"
+msgstr "Povolit tøízení podle konverzace s pou¾itím udajù v hlavièèce"
+
+msgid "Special Folder Options"
+msgstr "Nastavení speciálních slo¾ek"
+
+msgid "Folder Path"
+msgstr "Cesta slo¾ky"
+
+msgid "Do not use Trash"
+msgstr "Nepou¾ívat Ko¹"
+
+msgid "Trash Folder"
+msgstr "Slo¾ka Ko¹"
+
+msgid "Do not use Sent"
+msgstr "Nepou¾ívat slo¾ku Odeslaná po¹ta"
+
+msgid "Sent Folder"
+msgstr "Slo¾ka Odeslaná po¹ta"
+
+msgid "Do not use Drafts"
+msgstr "Nepou¾ívat Koncepty"
+
+msgid "Draft Folder"
+msgstr "Slo¾ka Konceptù"
+
+msgid "Folder List Options"
+msgstr "Nastavení výpisu slo¾ek"
+
+msgid "Location of Folder List"
+msgstr "Umístìní seznamu slo¾ek"
+
+msgid "Left"
+msgstr "Vlevo"
+
+msgid "Right"
+msgstr "Vpravo"
+
+msgid "pixels"
+msgstr "bodù"
+
+msgid "Width of Folder List"
+msgstr "©íøka seznamu slo¾ek"
+
+msgid "Minutes"
+msgstr "Minuty"
+
+msgid "Seconds"
+msgstr "Sekund"
+
+msgid "Minute"
+msgstr "Minuta"
+
+msgid "Auto Refresh Folder List"
+msgstr "Automatické obnovování seznamu slo¾ek"
+
+msgid "Enable Unread Message Notification"
+msgstr "Zapnout oznamování o nepøeètených zprávách"
+
+msgid "No Notification"
+msgstr "Bez oznámení"
+
+msgid "Only INBOX"
+msgstr "Pouze slo¾ka Doruèená po¹ta"
+
+msgid "Unread Message Notification Type"
+msgstr "Typ oznámení o nepøeètených zprávách"
+
+msgid "Only Unseen"
+msgstr "Pouze nepøeètené"
+
+msgid "Unseen and Total"
+msgstr "Nepøeètené a Celkem"
+
+msgid "Enable Collapsible Folders"
+msgstr "Zapnout rozbalovatelné slo¾ky"
+
+msgid "Enable Cumulative Unread Message Notification"
+msgstr "Zapnout oznamování o nepøeètených zprávách"
+
+msgid "Show Clock on Folders Panel"
+msgstr "Zobraz èas na panelu Slo¾ek"
+
+msgid "No Clock"
+msgstr "®ádný èas"
+
+msgid "Hour Format"
+msgstr "Formát hodin"
+
+msgid "12-hour clock"
+msgstr "12ti hodinový èas"
+
+msgid "24-hour clock"
+msgstr "24ti hodinový èas"
+
+msgid "Memory Search"
+msgstr "Pamì» hledání"
+
+msgid "Disabled"
+msgstr "Vypnuto"
+
+msgid "Folder Selection Options"
+msgstr "Mo¾nosti - Výbìr slo¾ek"
+
+msgid "Selection List Style"
+msgstr "Výbìr stylu"
+
+msgid "Long: "
+msgstr "Délka:"
+
+msgid "Indented: "
+msgstr "Odsazení: "
+
+msgid "Delimited: "
+msgstr "Oddìlovaè: "
+
+msgid "Name and Address Options"
+msgstr "Mo¾nosti - Jméno a emailová adresa"
+
+msgid "Email Address"
+msgstr "E-mailová adresa"
+
+msgid "Edit Advanced Identities"
+msgstr "Edituj roz¹íøené identity"
+
+msgid "(discards changes made on this form so far)"
+msgstr "(sma¾e doposud uèinìné zmìny v tomto formuláøi)"
+
+msgid "Multiple Identities"
+msgstr "Vícenásobné identity"
+
+msgid "Same as server"
+msgstr "Stejné jako server"
+
+msgid "Error opening timezone config, contact administrator."
+msgstr "Nelze otevøít soubor s nastavením èasových zón, kontaktujte správce webmailu."
+
+msgid "Timezone Options"
+msgstr "Èasové pásmo"
+
+msgid "Your current timezone"
+msgstr "Aktuální èasová zóna"
+
+msgid "Reply Citation Options"
+msgstr "Nastavení citace v odpovìdi"
+
+msgid "Reply Citation Style"
+msgstr "Styl citace"
+
+msgid "No Citation"
+msgstr "Bez citace"
+
+msgid "AUTHOR Said"
+msgstr "Autor napsal"
+
+msgid "Quote Who XML"
+msgstr "XML Citace"
+
+msgid "User-Defined"
+msgstr "Vlastní"
+
+msgid "User-Defined Citation Start"
+msgstr "Zaèátek vlastní citace"
+
+msgid "User-Defined Citation End"
+msgstr "Konec vlastní citace"
+
+msgid "Signature Options"
+msgstr "Mo¾nosti podpisu"
+
+msgid "Use Signature"
+msgstr "Pou¾ívat podpis?"
+
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Vlo¾it pøed podpis '-- ' ?"
+
+msgid "Take Address"
+msgstr "Vzít Adresu"
+
+msgid "Address Book Take:"
+msgstr "Automatické pøidávání adresátù do adresáøe:"
+
+msgid "Try to verify addresses"
+msgstr "Sna¾it se ovìøit adresy"
+
+msgid "Config File Version"
+msgstr "Verze konfiguraèního souboru"
+
+msgid "Squirrelmail Version"
+msgstr "SquirrelMail Verze"
+
+msgid "PHP Version"
+msgstr "PHP Verze"
+
+msgid "Organization Preferences"
+msgstr "Nastavení organizace"
+
+msgid "Organization Name"
+msgstr "Název organizace"
+
+msgid "Organization Logo"
+msgstr "Logo organizace"
+
+msgid "Organization Logo Width"
+msgstr "©íøka loga"
+
+msgid "Organization Logo Height"
+msgstr "Vý¹ka organizace"
+
+msgid "Organization Title"
+msgstr "Hlavièka organizace"
+
+msgid "Signout Page"
+msgstr "Stránka po odhlá¹ení"
+
+msgid "Provider Link URI"
+msgstr "URI Poskytovatele"
+
+msgid "Provider Name"
+msgstr "Název poskytovatele: "
+
+msgid "Default Language"
+msgstr "Implicitní jazyk"
+
+msgid "Top Frame"
+msgstr "Horní rám"
+
+msgid "Server Settings"
+msgstr "Nastavení serveru"
+
+msgid "Mail Domain"
+msgstr "Po¹tovní doména"
+
+msgid "IMAP Server Address"
+msgstr "Adresa IMAP serveru"
+
+msgid "IMAP Server Port"
+msgstr "Port IMAP serveru"
+
+msgid "IMAP Server Type"
+msgstr "Typ IMAP serveru"
+
+msgid "Cyrus IMAP server"
+msgstr "Cyrus IMAP server"
+
+msgid "University of Washington's IMAP server"
+msgstr "UW IMAP server"
+
+msgid "Microsoft Exchange IMAP server"
+msgstr "MS Exchange IMAP server"
+
+msgid "Courier IMAP server"
+msgstr "Courier IMAP server"
+
+msgid "Not one of the above servers"
+msgstr "®ádný z pøedcházejících"
+
+msgid "IMAP Folder Delimiter"
+msgstr "Oddìlovaè slo¾ek"
+
+msgid "Use \"detect\" to auto-detect."
+msgstr "Pou¾ijte \"detect\" pro autodetekci."
+
+msgid "Use TLS for IMAP Connections"
+msgstr "Pou¾ívat TLS pro IMAP konekce"
+
+msgid "Requires PHP 4.3.x! Experimental."
+msgstr "Vy¾aduje PHP 4.3.x! Experimentalní verze."
+
+msgid "IMAP Authentication Type"
+msgstr "autentifikace se nezdaøíla"
+
+msgid "Use Sendmail Binary"
+msgstr "Pou¾ívat Sendmail"
+
+msgid "Sendmail Path"
+msgstr "Cesta k Sendmailu"
+
+msgid "SMTP Server Address"
+msgstr "Adresa SMTP Serveru"
+
+msgid "SMTP Server Port"
+msgstr "Port SMTP Serveru"
+
+msgid "Use TLS for SMTP Connections"
+msgstr "Pou¾ívat TLS v pøístupu na SMTP server"
+
+msgid "SMTP Authentication Type"
+msgstr "Typ SMTP autentifikace"
+
+msgid "POP3 Before SMTP?"
+msgstr "POP3 Pøed SMTP?"
+
+msgid "Invert Time"
+msgstr "Pøehodit èas"
+
+msgid "Use Confirmation Flags"
+msgstr "Pou¾ívat pøíznak ovìøení"
+
+msgid "Folders Defaults"
+msgstr "Implicitní nastavení slo¾ky"
+
+msgid "Default Folder Prefix"
+msgstr "Implicitní pøedpona slo¾ky"
+
+msgid "Show Folder Prefix Option"
+msgstr "Zobrazit nastavení pøedpony slo¾ky"
+
+msgid "By default, move to trash"
+msgstr "Implicitnì odstraòovat do ko¹e"
+
+msgid "By default, move to sent"
+msgstr "Implicitnì ukládat odeslanou po¹tu"
+
+msgid "By default, save as draft"
+msgstr "Implicitnì ukládat koncepty"
+
+msgid "List Special Folders First"
+msgstr "Zobrazovat napøed speciální slo¾ky"
+
+msgid "Show Special Folders Color"
+msgstr "Odli¹it speciální slo¾ky barevnì"
+
+msgid "Auto Expunge"
+msgstr "Automaticky vysypávat ko¹"
+
+msgid "Default Sub. of INBOX"
+msgstr "Implicitní podsloøka Doruèené po¹ty"
+
+msgid "Show 'Contain Sub.' Option"
+msgstr "Zobrazit mo¾nost 'Obsahjue podslo¾ky'"
+
+msgid "Default Unseen Notify"
+msgstr "Implicitní zobrazení nepøeètených zpráv"
+
+msgid "Default Unseen Type"
+msgstr "Implicitní nastavení zobrazení nepøeètených zpráv"
+
+msgid "Auto Create Special Folders"
+msgstr "Automaticky vytváøet Speciální slo¾ky"
+
+msgid "Default Javascript Adrressbook"
+msgstr "Implicitnì Javascriptový adresáø"
+
+msgid "Auto delete folders"
+msgstr "Automaticky odstraòovat slo¾ky"
+
+msgid "Enable /NoSelect folder fix"
+msgstr "Zapnout opravu chyby s /NoSelect"
+
+msgid "General Options"
+msgstr "Obecné nastavení"
+
+msgid "Default Charset"
+msgstr "Implicitní znaková sada"
+
+msgid "Data Directory"
+msgstr "Adresáø s daty"
+
+msgid "Temp Directory"
+msgstr "Adresáø s doèasnými soubory"
+
+msgid "Hash Level"
+msgstr "Úroveò hashe"
+
+msgid "Hash Disabled"
+msgstr "Nepou¾ívat hash"
+
+msgid "Moderate"
+msgstr "Ni¾¹í"
+
+msgid "Medium"
+msgstr "Støední"
+
+msgid "Default Left Size"
+msgstr "Implicitní velikost levého rámu"
+
+msgid "Usernames in Lowercase"
+msgstr "U¾ivatelská jména malými písmeny"
+
+msgid "Allow use of priority"
+msgstr "Povolit pou¾ívaní priority"
+
+msgid "Hide SM attributions"
+msgstr "Schovat zvlá¹tní pøíznaky SM"
+
+msgid "Enable use of delivery receipts"
+msgstr "Povolit pou¾ívaní oznámení o doruèení"
+
+msgid "Allow editing of identities"
+msgstr "Povolit zmìny v identitách"
+
+msgid "Allow editing of full name"
+msgstr "Povolit zmìnu \"Celého jména\""
+
+msgid "Use server-side sorting"
+msgstr "Pou¾ívat tøízení na serveru"
+
+msgid "Use server-side thread sorting"
+msgstr "Pou¾ívat tøízení podle konference na serveru"
+
+msgid "Allow server charset search"
+msgstr "Povolit hledání s pou¾itím znakové sady"
+
+msgid "UID support"
+msgstr "Podpora UID"
+
+msgid "PHP session name"
+msgstr "Nazev PHP session"
+
+msgid "Message of the Day"
+msgstr "Zpráva dne"
+
+msgid "Database"
+msgstr "Databáze"
+
+msgid "Address book DSN"
+msgstr "DSN Adresáøe"
+
+msgid "Address book table"
+msgstr "Tabulka adresáøe"
+
+msgid "Preferences DSN"
+msgstr "Nastavení DSN"
+
+msgid "Preferences table"
+msgstr "Tabulka Nastavení"
+
+msgid "Preferences username field"
+msgstr "Políèko s u¾ivatelským jménem v tabulce nastavení"
+
+msgid "Preferences key field"
+msgstr "Políèko s názvem v tabulce nastavení"
+
+msgid "Preferences value field"
+msgstr "Políèko s hodnotou v tabulce nastavení"
+
+msgid "Themes"
+msgstr "Schémata"
+
+msgid "Style Sheet URL (css)"
+msgstr "URL souborù se styly (css)"
+
+msgid "Default theme"
+msgstr "Implicitní barevné schéma"
+
+msgid "Use index number of theme"
+msgstr "Pou¾ívat èíslo indexu u barevných témat"
+
+msgid "Configuration Administrator"
+msgstr "Administrátor konfigurace"
+
+msgid "Theme Name"
+msgstr "Název schéma"
+
+msgid "Theme Path"
+msgstr "Cesta ke schématùm"
+
+msgid "Plugins"
+msgstr "Pluginy"
+
+msgid "Change Settings"
+msgstr "Zmìnit nastavení"
+
+msgid "Config file can't be opened. Please check config.php."
+msgstr "Nelze otevøít konfiguraèní soubor. Zkontrolujte config.php."
+
+msgid "Administration"
+msgstr "Administrace"
+
+msgid ""
+"This module allows administrators to manage SquirrelMail main configuration "
+"remotely."
+msgstr "Tento modul umo¾òuje administrátorùm nastavovat SM vzdálenì."
+
+msgid "Bug Reports:"
+msgstr "Hlá¹ení chyb:"
+
+msgid "Show button in toolbar"
+msgstr "Zobrazit tlaèítko na li¹tì"
+
+msgid "TODAY"
+msgstr "DNES"
+
+msgid "Go"
+msgstr "Pøejít"
+
+msgid "l, F j Y"
+msgstr "l, j F Y"
+
+msgid "ADD"
+msgstr "PØIDEJ"
+
+msgid "EDIT"
+msgstr "ZMÌÒ"
+
+msgid "DEL"
+msgstr "SMA®"
+
+msgid "Start time:"
+msgstr "Poèáteèní èas:"
+
+msgid "Length:"
+msgstr "Délka:"
+
+msgid "Priority:"
+msgstr "Priorita:"
+
+msgid "Title:"
+msgstr "Název:"
+
+msgid "Set Event"
+msgstr "Nastav událost"
+
+msgid "Event Has been added!"
+msgstr "Událost byla pøidána!"
+
+msgid "Date:"
+msgstr "Datum:"
+
+msgid "Time:"
+msgstr "Èas:"
+
+msgid "Day View"
+msgstr "Náhled na den"
+
+msgid "Do you really want to delete this event?"
+msgstr "Opravdu chcete smazat tuto událost?"
+
+msgid "Event deleted!"
+msgstr "Událost smazána!"
+
+msgid "Nothing to delete!"
+msgstr "Nic ke smazání!"
+
+msgid "Update Event"
+msgstr "Aktualizovat událost"
+
+msgid "Do you really want to change this event from:"
+msgstr "Opravdu chcete tuto událost zmìnit z:"
+
+msgid "to:"
+msgstr "na:"
+
+msgid "Event updated!"
+msgstr "Událost aktualizována!"
+
+msgid "Month View"
+msgstr "Náhled na mìsíc"
+
+msgid "0 min."
+msgstr "0 min."
+
+msgid "15 min."
+msgstr "15 min."
+
+msgid "30 min."
+msgstr "30 min."
+
+msgid "45 min."
+msgstr "45 min."
+
+msgid "1 hr."
+msgstr "1 hod."
+
+msgid "1.5 hr."
+msgstr "1.5 hod."
+
+msgid "2 hr."
+msgstr "2 hod."
+
+msgid "2.5 hr."
+msgstr "2.5 hod."
+
+msgid "3 hr."
+msgstr "3 hod."
+
+msgid "3.5 hr."
+msgstr "3.5 hod."
+
+msgid "4 hr."
+msgstr "4 hod."
+
+msgid "5 hr."
+msgstr "5 hod."
+
+msgid "6 hr."
+msgstr "6 hod."
+
+msgid "Calendar"
+msgstr "Kalendáø"
+
+msgid "Delete & Prev"
+msgstr "Odstranit a pøedcházející"
+
+msgid "Delete & Next"
+msgstr "Odstranit a následující"
+
+msgid "Move to:"
+msgstr "Pøesunout do:"
+
+msgid "Delete/Move/Next Buttons:"
+msgstr "Tlaèítka Smazat/Pøesunout/Dal¹í:"
+
+msgid "Display at top"
+msgstr "Zobraz nahoøe"
+
+msgid "with move option"
+msgstr "s mo¾ností pøesouvání"
+
+msgid "Display at bottom"
+msgstr "Zobraz dole"
+
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+"KOMERÈNÍ - Tento seznam obsahuje servery, u kterých bylo ovìøeno ¾e "
+"rozesílají spam.Je to velmi spolehlivý seznam proti kterému lze kontrolovat "
+"zprávy."
+
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+"KOMERÈNÍ - Servery které nevhodnou konfigurací dovolují rozesílání spamu."
+"Dal¹í dobrý seznam."
+
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+"KOMERÈNÍ - U¾ivatelé vytáèených pøipojení jsou velmi èasto filtrováni "
+"proto¾e by mìli pou¾ívat mail server svého poskytovatele. Spammeøi velmi "
+"èasto vyu¾ívají vytáèená pøipojení k rozesílání nevy¾ádané po¹ty."
+
+msgid "COMMERCIAL - RBL+ Blackhole entries."
+msgstr "KOMERÈNÍ - RBL a Blackhole záznamy."
+
+msgid "COMMERCIAL - RBL+ OpenRelay entries."
+msgstr "KOMERÈNÍ - RBL a OpenRelay záznamy."
+
+msgid "COMMERCIAL - RBL+ Dial-up entries."
+msgstr "KOMERÈNÍ - RBL a Dial-up záznamy"
+
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+msgstr ""
+"ZDARMA - Osirusoft Relays - Obsahuje seznam ovìøených open relay serverù."
+
+msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+msgstr "ZDARMA - Osirusoft Dialups - Seznam vytáèených pøipojení"
+
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+msgstr ""
+"ZDARMA - Osirusoft Ovìøené zdroje spamu - Servery a sítì které vytrvale "
+"rozesílají spam a byly ruènì pøidány po nìkolika upozornìní. Pozor! Mù¾e "
+"odchytit zprávy o zneu¾ívaní sí»e od nìkterých poskytovatelù."
+
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+msgstr ""
+"ZDARMA - Osirusoft Smart Host - Seznam serverù, které jsou bezpeèné ale jiné "
+"servery, ktere je pou¾ívají, bezpeèné nejsou."
+
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+msgstr ""
+"ZDARMA - Osirusoft Spamware Developers - Seznam IP u kterých je dùvodne "
+"podezøení, ¾e je vyu¾ívají spoleènosti, které vyvýjejí software pro "
+"rozesílání spamu. Pozor! Mù¾e odchytit zprávy o zneu¾ívání sí»e od nìkterých "
+"poskytovatelù. "
+
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+msgstr ""
+"ZDARMA - Osirusoft Unconfirmed OptIn Servers - Seznam diskusních skupin, "
+"které umo¾òují pøidávání u¾ivatelù bez ovìøení identity."
+
+msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
+msgstr ""
+"ZDARMA - Osirusoft Insecure formmail.cgi scripts - Seznam nezabezpeèených "
+"CGI scriptù.(pøipravuje se)."
+
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr ""
+"ZDARMA - Osirusoft Open Proxy Servers - Seznam nezabezpeèených proxy serverù"
+
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+"ZDARMA - ORDB vzniklo v dobì zániku ORBS. Zdá se ¾e pracuje pøesnìji ne¾li "
+"ORBS."
+
+msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
+msgstr "ZDARMA - Five-Ten-sg.com - Pøímé zdroje SPAMu"
+
+msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+msgstr ""
+"ZDARMA - Five-Ten-sg.com - Seznam vytáèených pøipojení. Obsahuje nìkterá DSL "
+"pøipojení."
+
+msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+"ZDARMA - Five-Ten-sg.com - Diskusní skupiny, etc. které nepo¾aduí potvrzení "
+"identity pro zaøazení adresy."
+
+msgid "FREE - Five-Ten-sg.com - Other misc. servers."
+msgstr "ZDARMA - Five-Ten-sg.com - Ostatní servery."
+
+msgid "FREE - Five-Ten-sg.com - Single Stage servers."
+msgstr ""
+"ZDARMA - Five-Ten-sg.com - Nevhodnì nakonfigurované servery umo¾òující "
+"rozesílání spamu tøetím stranám."
+
+msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
+msgstr "ZDARMA - Five-Ten-sg.com - Servery podporující SPAMování"
+
+msgid "FREE - Five-Ten-sg.com - Web Form IPs."
+msgstr ""
+"ZDARMA - Five-Ten-sg.com - IP adresy nezabezpeèených webových formuláøù."
+
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+"ZDARMA - Dorkslayers. Seznam obsahující pouze hodnì zneu¾ívane servery mimo "
+"USA.Stránka Dorkslayers nedoporuèuje vyu¾ívat jejich slu¾by."
+
+msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
+msgstr "ZDARMA - SPAMhaus - Seznam dobøe známých zdrojù SPAMu."
+
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+msgstr ""
+"ZDARMA, prozatím - SPAMCOP - Zajímavì øe¹ený seznam SPAM serverù, které mají "
+"vysoký pomìr SPAMu k normálním mailùm (85% a více)."
+
+msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
+msgstr "ZDARMA - dev.null.dk - Prozatím nejsou k dispozici bli¾¹í informace."
+
+msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
+msgstr ""
+"ZDARMA - visi.com - Velmi konzervativní seznam obsahující ¹patnì "
+"nakonfigurované servery."
+
+msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
+msgstr ""
+"ZDARMA - 2mbit.com Open Relays - Dal¹í seznam nevhodnì nakonfigurovaných "
+"serverù."
+
+msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
+msgstr "ZDARMA - 2mbit.com SPAM Source - Seznam zdrojù spamu."
+
+msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
+msgstr ""
+"ZDARMA - 2mbit.com SPAM ISPs - Seznam poskytovatelù kteøí podporují spammery."
+
+msgid ""
+"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
+"assigned IPs."
+msgstr ""
+"ZDARMA - Leadmon DUL - Dal¹í seznam Vytáèených pøipojení a dynamicky "
+"pøidìlovaných adres."
+
+msgid ""
+"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
+"directly from."
+msgstr ""
+"ZDARMA - Leadmon SPAM Source - Seznam IP adres ze kterých Leadmon.net pøímo "
+"pøijal spam."
+
+msgid ""
+"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
+"in or that have allowed known spammers to become clients and abuse their "
+"services."
+msgstr ""
+"ZDARMA - Leadmon Bulk Mailers - Seznam diskusních skupin které nevy¾adují "
+"ovìøení identity pro zaøazení."
+
+msgid ""
+"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
+"other active RBLs."
+msgstr ""
+"ZDARMA - Leadmon Open Relays - Seznam nevhodnì nakonfigurovaných serverù, "
+"které nejsou v jiných seznamech."
+
+msgid ""
+"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
+"other active RBLs and that have sent SPAM to Leadmon.net."
+msgstr ""
+"ZDARMA - Leadmon Multi-stage - Seznam správnì nakonfigurovaných serverù, "
+"které v¹ak rozesílají spam z nevhodnì nakonfigurovaných serverù."
+
+msgid ""
+"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
+"direct SPAM from IPs in netblocks where the entire block has no DNS "
+"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
+"Leadmon.net."
+msgstr ""
+"ZDARMA - Leadmon SpamBlock - Zdroje spamu, kde celý blok IP adres nemá DNS "
+"záznamy."
+
+msgid ""
+"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
+"SPAM Sources."
+msgstr ""
+"ZDARMA, prozatím - Not Just Another Blacklist - Seznam nevhodnì "
+"nakonfigurovaných serverù a pøímých zdrojù spamu. "
+
+msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
+msgstr "ZDARMA, prozatím - Not Just Another Blacklist - Vytáèená pøipojení."
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
+msgstr ""
+"ZDARMA - Distributed Sender Boycott List - Ovìøené nevhodnì nakonfigurované "
+"servery"
+
+msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
+msgstr ""
+"ZDARMA - Distributed Sender Boycott List - Ovìøeneé servery rozesílající "
+"spamy pro nevhodnì nakonfigurované servery"
+
+msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
+msgstr ""
+"ZDARMA - Distributed Sender Boycott List - Neovìøené nevhodnì "
+"nakonfigurované servery"
+
+msgid "Saved Scan type"
+msgstr "Výbìr ulo¾en"
+
+msgid "Message Filtering"
+msgstr "Filtrování zpráv"
+
+msgid "What to Scan:"
+msgstr "Filtrovat: "
+
+msgid "All messages"
+msgstr "V¹echny zprávy"
+
+msgid "Only unread messages"
+msgstr "Jen nepøeètené"
+
+msgid "Save"
+msgstr "Ulo¾it"
+
+msgid "Match:"
+msgstr "Odpovídá:"
+
+msgid "Header"
+msgstr "Hlavièka"
+
+msgid "Contains:"
+msgstr "Obsahuje:"
+
+#, c-format
+msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgstr "Pokud <b>%s</b> obsahuje <b>%s</b> pak zprávu pøesuò do <b>%s</b>"
+
+msgid "Message Filters"
+msgstr "Filtrování zpráv"
+
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
+msgstr ""
+"Filtrování zpráv umo¾òuje automaticky pøesunovat zprávy podle rùzných "
+"kriterií do podslo¾ek."
+
+msgid "SPAM Filters"
+msgstr "Filtrování nevy¾ádané po¹ty"
+
+msgid ""
+"SPAM filters allow you to select from various DNS based blacklists to detect "
+"junk email in your INBOX and move it to another folder (like Trash)."
+msgstr ""
+"Filtrování nevy¾ádané po¹ty vám umo¾òují filtrovat nevy¾ádanou po¹tu ze "
+"slo¾ky doruèená po¹ta a pøesouvat jí do jiné slo¾ky (napøíklad ko¹)."
+
+msgid "Spam Filtering"
+msgstr "Fitrování nevy¾ádané po¹ty"
+
+msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
+msgstr ""
+"VAROVÁNÍ! Kontaktujte správce va¹eho systému s po¾adavkem na nastaveni "
+"promìnné SpamFilters_YourHop"
+
+msgid "Move spam to:"
+msgstr "Pøesunout nevy¾ádanou po¹tu do:"
+
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
+msgstr ""
+"Pøesouvání nevy¾ádané po¹ty pøímo do ko¹e nemusí být v¾dy to nejlep¹í "
+"øe¹ení. Nìkteré zprávy mohou býti nedopatøením vyhodnoceny jako nevy¾ádaná "
+"po¹ta. A» zde nastavíte cokoliv, dbejte na vymázávání nevy¾ádané po¹ty, aby "
+"se nestalo, ¾e va¹e mailová schránka pøeteèe. "
+
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
+msgstr ""
+"Èím více zpráv kontrolujete, tím delé kontrola trvá. Doporuèujeme vám proto, "
+"kontrolu pouze nových zpráv. Pokud zmìníte nastavení filtrù, je dobré "
+"nastavit je na v¹echny zprávy, otevøít slo¾ku doruèená po¹ta a poté v¹e "
+"nastavit zpìt na filtrování pouze nových zpráv."
+
+#, c-format
+msgid "Spam is sent to <b>%s</b>"
+msgstr "Nevy¾ádaná po¹ta bude pøesouvána do slo¾ky <b>%s</b>"
+
+msgid "[<i>not set yet</i>]"
+msgstr "[<i>je¹tì nebylo nastaveno </i>]"
+
+#, c-format
+msgid "Spam scan is limited to <b>%s</b>"
+msgstr "Filtrování nevy¾ádané po¹ty je omezeno na <b>%s</b>"
+
+msgid "New Messages Only"
+msgstr "Pouze nové zprávy"
+
+msgid "All Messages"
+msgstr "V¹echny zprávy"
+
+msgid "ON"
+msgstr "ZAP"
+
+msgid "OFF"
+msgstr "VYP"
+
+msgid " not found."
+msgstr " nenalezen."
+
+msgid "Today's Fortune"
+msgstr "©tìstíèko"
+
+msgid "Fortunes:"
+msgstr "©tìstíèka:"
+
+msgid "Show fortunes at top of mailbox"
+msgstr "Zobrazovat ¹tìstíèka nad doruèenou po¹tou"
+
+msgid "IMAP server information"
+msgstr "Informace o IMAP serveru"
+
+msgid ""
+"Run some test IMAP commands, displaying both the command and the result. "
+"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"configuration. Custom command strings can be used."
+msgstr ""
+"Provede nìkteré zku¹ební pøíkazy IMAPu, zobrazujíc pøíkaz i výsledek."
+
+msgid "Mailinglist"
+msgstr "Diskusní skupina"
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr ""
+"Tímto ode¹lete zprávu na %s s po¾adavkem na pomoc s tímto seznamem. Odpovìï "
+"dostanete na adresu uvedenou ní¾e."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr ""
+"Tímto ode¹lete zprávu na %s s po¾adavkem na pøihlá¹en k odbìru tohoto "
+"seznamu Bude zaøazena adresa uvedená ní¾e."
+
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr ""
+"Tímto ode¹lete zprávu na %s s po¾adavkem na odhla¹ení z tohoto seznamu. "
+"Odhlá¹ení bude provedeno s pou¾itím ní¾e uvedené adresy."
+
+msgid "Send Mail"
+msgstr "Odeslat"
+
+msgid "Post to List"
+msgstr "Odeslat do skupiny"
+
+msgid "Reply to List"
+msgstr "Odpovìdìt do skupiny"
+
+msgid "List Archives"
+msgstr "Seznam archívù"
+
+msgid "Contact Listowner"
+msgstr "Kontaktovat majitele skupiny"
+
+msgid "Mailing List"
+msgstr "Diskusní skupina"
+
+msgid "POP3 connect:"
+msgstr "Pøipojení POP3"
+
+msgid "No server specified"
+msgstr "Nebyl specifikován ¾ádný server"
+
+msgid "Error "
+msgstr "Chyba "
+
+msgid "POP3 noop:"
+msgstr ""
+
+msgid "No connection to server"
+msgstr "Nejste pøipojeni k serveru"
+
+msgid "POP3 user:"
+msgstr "U¾ivatel na POP3 serveru:"
+
+msgid "no login ID submitted"
+msgstr "nezadali jste ¾ádné u¾ivatelské jméno"
+
+msgid "connection not established"
+msgstr "pøipojení nemohlo být navázáno"
+
+msgid "POP3 pass:"
+msgstr "Heslo na POP3 serveru:"
+
+msgid "No password submitted"
+msgstr "Nezadali jste ¾ádné heslo"
+
+msgid "authentication failed "
+msgstr "autentifikace se nezdaøíla"
+
+msgid "POP3 apop:"
+msgstr ""
+
+msgid "No login ID submitted"
+msgstr "nezadali jste ¾ádné u¾ivatelské jméno"
+
+msgid "No server banner"
+msgstr "Chybí uvítání na serveru"
+
+msgid "abort"
+msgstr "zru¹it"
+
+msgid "apop authentication failed"
+msgstr "apop autentifikace selhala"
+
+msgid "POP3 login:"
+msgstr "U¾ivatelské jméno na POP3 serveru"
+
+msgid "POP3 top:"
+msgstr ""
+
+msgid "POP3 pop_list:"
+msgstr ""
+
+msgid "Premature end of list"
+msgstr "Neoèekávaný konec seznamu"
+
+msgid "POP3 get:"
+msgstr ""
+
+msgid "POP3 last:"
+msgstr ""
+
+msgid "POP3 reset:"
+msgstr ""
+
+msgid "POP3 send_cmd:"
+msgstr ""
+
+msgid "Empty command string"
+msgstr "Prázdný pøíkaz"
+
+msgid "POP3 quit:"
+msgstr ""
+
+msgid "connection does not exist"
+msgstr "pøipojení neexistuje"
+
+msgid "POP3 uidl:"
+msgstr ""
+
+msgid "POP3 delete:"
+msgstr ""
+
+msgid "No msg number submitted"
+msgstr "Nebylo odesláno èíslo zprávy"
+
+msgid "Command failed "
+msgstr "Pøíkaz neúspì¹ný "
+
+msgid "Remote POP server Fetching Mail"
+msgstr "Stahuji mail z POP3 serveru"
+
+msgid "Select Server:"
+msgstr "Vyberte Server:"
+
+msgid "Password for"
+msgstr "Heslo pro"
+
+msgid "Fetch Mail"
+msgstr "Stáhnout po¹tu"
+
+msgid "Fetching from "
+msgstr "Stahují po¹tu"
+
+msgid "Oops, "
+msgstr "Úps, "
+
+msgid "Opening IMAP server"
+msgstr "Navazuji spojení s IMAP serverem"
+
+msgid "Opening POP server"
+msgstr "Navazuji spojení s POP3 serverem"
+
+msgid "Login Failed:"
+msgstr "Pøihlá¹ení se nezdaøilo:"
+
+msgid "Login OK: No new messages"
+msgstr "Pøihlá¹ení se zdaøilo. Nemáte v¹ak ¾ádné nové zprávy"
+
+msgid "Login OK: Inbox EMPTY"
+msgstr "Pøihlá¹ení se zdaøilo. Slo¾ka doruèené po¹ty je v¹ak prázdná"
+
+msgid "Login OK: Inbox contains ["
+msgstr "Pøihlá¹eni se zdaøilo. Slo¾ka doruèené po¹ty obsahuje ["
+
+msgid "] messages"
+msgstr "zpráv"
+
+msgid "Fetching UIDL..."
+msgstr "Získávám UIDL..."
+
+msgid "Server does not support UIDL."
+msgstr "Server nepodporuje UIDL."
+
+msgid "Leaving Mail on Server..."
+msgstr "Nechávám zprávy na serveru..."
+
+msgid "Deleting messages from server..."
+msgstr "Ma¾u zprávy ze serveru..."
+
+msgid "Fetching message "
+msgstr "Stahuji zprávu"
+
+msgid "Server error...Disconnect"
+msgstr "Chyba serveru... Odopojeno"
+
+msgid "Reconnect from dead connection"
+msgstr "Znovu otevírám nefunkèní pøipojení"
+
+msgid "Saving UIDL"
+msgstr "Ukládám UIDL"
+
+msgid "Refetching message "
+msgstr "Znovu stahuji zprávu"
+
+msgid "Error Appending Message!"
+msgstr "Chyba pøi pøidávání zprávy"
+
+msgid "Closing POP"
+msgstr "Zavírám spojení s POP3 serverem"
+
+msgid "Logging out from IMAP"
+msgstr "Odhla¹uji se z IMAP serveru"
+
+msgid "Message appended to mailbox"
+msgstr "Zpráva pøidána do schránky"
+
+msgid "Message "
+msgstr "Zpráva "
+
+msgid " deleted from Remote Server!"
+msgstr " smazána ze vzdáleného serveru!"
+
+msgid "Delete failed:"
+msgstr "Mazání selhalo:"
+
+msgid "Remote POP server settings"
+msgstr "Nastavení vzdáleného POP3 serveru"
+
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+"Mìl byste si být vìdom, ¾e ¹ifra pou¾itá pro ulo¾ení hesla není v ¾ádném "
+"pøípadì perfektní. Navíc pokud pou¾íváte POP3 není ¾ádné ¹ifrování k "
+"dispozici."
+
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr ""
+"Pokud necháte heslo prázdne, budete ho muset zadat pøi ka¾dém stahování "
+"po¹ty."
+
+msgid "Encrypt passwords (informative only)"
+msgstr "©ifrovat hesla (pouze informaènì)"
+
+msgid "Add Server"
+msgstr "Pøidat server"
+
+msgid "Server:"
+msgstr "Server:"
+
+msgid "Port:"
+msgstr "Port:"
+
+msgid "Alias:"
+msgstr "Alias:"
+
+msgid "Username:"
+msgstr "U¾ivatelské jméno:"
+
+msgid "Store in Folder:"
+msgstr "Ukládat do slo¾ky: "
+
+msgid "Leave Mail on Server"
+msgstr "Nechávat po¹tu na serveru"
+
+msgid "Check mail during login"
+msgstr "Kontrolovat novou po¹tu pøi pøihlá¹ení"
+
+msgid "Check mail during folder refresh"
+msgstr "Kontrolovat novou po¹tu pøi obnovení slo¾ky"
+
+msgid "Modify Server"
+msgstr "Zmìnit nastavení serveru"
+
+msgid "Server Name:"
+msgstr "Název serveru: "
+
+msgid "Modify"
+msgstr "Zmìnit"
+
+msgid "No-one server in use. Try to add."
+msgstr "Nepou¾íváte ¾ádný server. Zkuste nìjaký pøidat."
+
+msgid "Fetching Servers"
+msgstr "Stahuji servery"
+
+msgid "Confirm Deletion of a Server"
+msgstr "Potvrïte smazání serveru"
+
+msgid "Selected Server:"
+msgstr "Vybraný server:"
+
+msgid "Confirm delete of selected server?"
+msgstr "Potvrdit vymazání vybraného serveru?"
+
+msgid "Confirm Delete"
+msgstr "Potvrdit Smazání"
+
+msgid "Undefined Function"
+msgstr "Nedefinovaná funkce"
+
+msgid "Hey! Wath do You are looking for?"
+msgstr "Co tu hleá¹?"
+
+msgid "Fetch"
+msgstr "Stáhnout"
+
+msgid "Warning, "
+msgstr "Varování, "
+
+msgid "Mail Fetch Result:"
+msgstr "Výsledek stahování po¹ty:"
+
+msgid "Simple POP3 Fetch Mail"
+msgstr "Jednoduchý stahovaè POP3"
+
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+"Zde mù¾ete nastavit stahování po¹ty z va¹í POP3 schránky do schránky na "
+"tomto serveru"
+
+msgid "Message Details"
+msgstr "Detaily zprávy"
+
+msgid "Close Window"
+msgstr "Zavøít okno"
+
+msgid "Save Message"
+msgstr "Ulo¾it zprávu"
+
+msgid "View Message details"
+msgstr "Zobrazit detaily zprávy"
+
+msgid "New Mail Notification"
+msgstr "Oznáméní o nových emailech"
+
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+"V pøípadì ¾e si zapnete <b>Pøehrávání zvuku</b>, mù¾ete si vybrat jaký zvuk "
+"má být pøehrán v pøípadì ¾e se ve va¹í schránce objeví nová po¹ta."
+
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+"Mo¾nost <B>Kontrolovat v¹echny slo¾ky</b> zapne kontrolu V©ECH va¹ich slo¾ek "
+"na nepøeètenou po¹tu. "
+
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+"Mo¾nost <b>Zobrazit okno s oznámením</b> zapne zobrazování okna, které vás "
+"upozorní na to ¾e máte novou zprávu. (Vy¾aduje prohlí¾eè se zapnutou "
+"podporou JavaScriptu)"
+
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+"Mo¾nost <b>Pouze nové</b> upraví chovaní kontroly tak aby se upozornìní "
+"zobrazovalo pouze u zpráv, které jste je¹tì nevidìl."
+
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+"Mo¾nost <b>Zmìnit popisek okna</b> zmìní popisek okna tak aby zobrazoval "
+"poèet nových zpráv ve va¹í schránce. (Vy¾aduje JavaScript a funguje jen v "
+"nìkterých prohlí¾eèích) Popisek vám bude v¾dy zobrazovat poèet nových zpráv "
+"i kdy¾ máte vybránu mo¾nost <b>Pouze nové</b>"
+
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
+msgstr ""
+"Ze <b>seznamu zvukù na serveru</b> si mù¾ete vybrat, který zvuk bude pøehrán "
+"kdy¾ pøíjde nová zpráva."
+
+msgid "Enable Media Playing"
+msgstr "Pøehrávání zvuku"
+
+msgid "Check all boxes, not just INBOX"
+msgstr "Kontrolovat v¹echny slo¾ky"
+
+msgid "Count only messages that are RECENT"
+msgstr "Pouze nové"
+
+msgid "Change title on supported browsers."
+msgstr "Zmìnit popisek okna"
+
+msgid "requires JavaScript to work"
+msgstr "(Vy¾aduje JavaScript)"
+
+msgid "Show popup window on new mail"
+msgstr "Zobrazit okno s oznámením"
+
+msgid "Select server file:"
+msgstr "Seznam zvukù na serveru"
+
+msgid "(none)"
+msgstr "(nic)"
+
+msgid "Try"
+msgstr "Vyzkou¹et"
+
+msgid "Current File:"
+msgstr "Aktuální soubor:"
+
+msgid "New Mail"
+msgstr "Nová po¹ta"
+
+msgid "SquirrelMail Notice:"
+msgstr "Poznámka:"
+
+msgid "You have new mail!"
+msgstr "Máte novou zprávu!"
+
+msgid "NewMail Options"
+msgstr "Mo¾nosti oznámení o nových zprávách"
+
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr "Zde si mù¾ete nakonfigurovat oznámení o nových zprávách."
+
+msgid "New Mail Notification options saved"
+msgstr "Nové nastavení bylo ulo¾eno"
+
+#, c-format
+msgid "%s New Messages"
+msgstr "%s nových zpráv"
+
+#, c-format
+msgid "%s New Message"
+msgstr "%s nová zpráva"
+
+msgid "Test Sound"
+msgstr "Vyzkou¹et zvuk"
+
+msgid "No sound specified"
+msgstr "Nebyl specifikován ¾ádný zvuk"
+
+msgid "Loading the sound..."
+msgstr "Nahrávám zvuk"
+
+msgid "Sent Subfolders Options"
+msgstr "Mo¾nosti - Podslo¾ky Odeslané po¹ty"
+
+msgid "Use Sent Subfolders"
+msgstr "Pou¾ívat podslo¾ky Odeslané po¹ty"
+
+msgid "Monthly"
+msgstr "Mìsíènì"
+
+msgid "Quarterly"
+msgstr "Ètvrtletnì"
+
+msgid "Yearly"
+msgstr "Roènì"
+
+msgid "Base Sent Folder"
+msgstr "Základní slo¾ka Odeslané po¹ty"
+
+msgid "Report as Spam"
+msgstr "Nahlásit jako nevy¾ádanou po¹tu"
+
+msgid "SpamCop - Spam Reporting"
+msgstr "SpamCop - Hlá¹ení nevy¾ádané po¹ty"
+
+msgid ""
+"Help fight the battle against unsolicited email.  SpamCop reads the spam "
+"email and determines the correct addresses to send complaints to.  Quite "
+"fast, really smart, and easy to use."
+msgstr ""
+"Umo¾òuje bojovat proti nevy¾ádané po¹tì. SpamCop ète zprávy a vyhodnocuje "
+"správné adresy, kam je nutne posílat stí¾nosti. Rychlé, chytré a jednodu¹e "
+"ovladatelné. Bohu¾el jen anglicky."
+
+msgid "SpellChecker Options"
+msgstr "Mo¾nosti kontroly pravopisu"
+
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+"Zde si mù¾ete nastavit jak bude ulo¾en vá¹ osobní slovník, upravovat ho, "
+"nebo si vybrat, které jazyky chcete pou¾ívat."
+
+msgid "Check Spelling"
+msgstr "Kontrola pravopisu"
+
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr "Zpìt na stránku &quot;Mo¾nosti kontroly pravopisu&quot;"
+
+msgid "ATTENTION:"
+msgstr "POZOR:"
+
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+"SquirrelSpell nemohl roz¹ifrovat vá¹ osobní slovník. Nejpravdìpodobnìj¹í "
+"pøíèinou mù¾e být zmìna va¹eho hesla. Pokud jste si zmìnili heslo, zadejte "
+"prosím va¹e staré heslo a slovník bude znovu za¹ifrován s va¹ím novým "
+"heslem. Pokud vá¹ slovník nebyl za¹ifrovaný, do¹lo pravdìpodobnì ke korupci "
+"dat a budete muset zaèít znovu. Sma¾te svùj starý slovník a vytvoøte si "
+"prosím nový."
+
+msgid "Delete my dictionary and start a new one"
+msgstr "Sma¾ mùj slovník a vytvoø nový"
+
+msgid "Decrypt my dictionary with my old password:"
+msgstr "Roz¹ifruj mùj slovník mým starým heslem:"
+
+msgid "Proceed"
+msgstr "Pokraèovat"
+
+msgid "You must make a choice"
+msgstr "Musíte si vybrat"
+
+msgid ""
+"You can either delete your dictionary or type in the old password. Not both."
+msgstr "Mù¾ete buï smazat svùj slovník nebo vlo¾it staré heslo. Ne obojí!"
+
+msgid "This will delete your personal dictionary file. Proceed?"
+msgstr "Tímto sma¾ete svùj osobní slovník. Pokraèovat?"
+
+msgid "Error Decrypting Dictionary"
+msgstr "Chyba pøi roz¹ifrovávání slovníku"
+
+msgid "Cute."
+msgstr "Bezva."
+
+#, c-format
+msgid "I tried to execute '%s', but it returned:"
+msgstr "Pokusil jsem se pustit '%s', ale on mi vrátil:"
+
+msgid "SquirrelSpell is misconfigured."
+msgstr "SquirrelSpell je ¹patnì nakonfigurován."
+
+msgid "SquirrelSpell Results"
+msgstr "SquirrelSpell Výsledky"
+
+msgid "Spellcheck completed. Commit changes?"
+msgstr "Kontrola pravopisu dokonèena. Provést zmìny?"
+
+msgid "No changes were made."
+msgstr "Nebyly provedeny ¾ádné zmìny."
+
+msgid "Now saving your personal dictionary... Please wait."
+msgstr "Nyní ukládám vá¹ osobní slovník...  Prosím èekejte."
+
+#, c-format
+msgid "Found %s errors"
+msgstr "Nalezeno %s chyb"
+
+msgid "Line with an error:"
+msgstr "Øádka s chybou:"
+
+msgid "Error:"
+msgstr "Chyba:"
+
+msgid "Suggestions:"
+msgstr "Návrhy:"
+
+msgid "Suggestions"
+msgstr "Návrhy"
+
+msgid "Change to:"
+msgstr "Zmìnit na:"
+
+msgid "Occurs times:"
+msgstr "Poèet výskytù:"
+
+msgid "Change this word"
+msgstr "Zmìnit toto slovo"
+
+msgid "Change"
+msgstr "Zmìnit"
+
+msgid "Change ALL occurances of this word"
+msgstr "Zmìnit V©ECHNY výskyty tohoto slova"
+
+msgid "Change All"
+msgstr "Zmìnit v¹e"
+
+msgid "Ignore this word"
+msgstr "Ignorovat toto slovo"
+
+msgid "Ignore"
+msgstr "Ignorovat"
+
+msgid "Ignore ALL occurances this word"
+msgstr "Ignorovat v¹echny výskyty tohoto slova"
+
+msgid "Ignore All"
+msgstr "Ignorovat V©E"
+
+msgid "Add this word to your personal dictionary"
+msgstr "Pøidat toto slovo do osobního slovníku"
+
+msgid "Add to Dic"
+msgstr "Pøidat polo¾ku do slovníku"
+
+msgid "Close and Commit"
+msgstr "Zavøít a potvrdit"
+
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr "Kontrola pravopisu nebyla dokonèena. Opravdu provést zmìny a zavøít?"
+
+msgid "Close and Cancel"
+msgstr "Zavøít a zru¹it"
+
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr "Kontrola pravopisu nebyla dokonèena. Opravdu zavøít a zahodit zmìny?"
+
+msgid "No errors found"
+msgstr "Nebyla nalezena ¾ádná chyba"
+
+msgid "Your personal dictionary was erased."
+msgstr "Vá¹ osobní slovník byl smazán"
+
+msgid "Dictionary Erased"
+msgstr "Slovník smazán"
+
+msgid ""
+"Your personal dictionary was erased. Please close this window and click "
+"\"Check Spelling\" button again to start your spellcheck over."
+msgstr ""
+"Osobní slovník byl smazán."
+
+msgid "Close this Window"
+msgstr "Zavøít okno"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+"Vá¹ slovník byl znovu za¹ifrován."
+
+msgid "Successful Re-encryption"
+msgstr "Znovuza¹ifrování úspì¹né"
+
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"Vá¹ slovník byl znovu za¹ifrován."
+
+msgid "Dictionary re-encrypted"
+msgstr "Slovník byl znovu za¹ifrován"
+
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"Vá¹ osobní slovník byl za¹ifrován"
+
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"Vá¹ osobní slovník byl roz¹ifrován."
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Nastavení ¹ifrování osobního slovníku"
+
+msgid "Personal Dictionary"
+msgstr "Osobní slovník"
+
+msgid "No words in your personal dictionary."
+msgstr "V osobním slovníku nejsou ¾ádná slova"
+
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr "Prosím oznaète slova, které chcete odstranit z osobního slovníku."
+
+#, c-format
+msgid "%s dictionary"
+msgstr "%s slovník"
+
+msgid "Delete checked words"
+msgstr "Odstranit vybrané slova"
+
+msgid "Edit your Personal Dictionary"
+msgstr "Editovat osobní slovník"
+
+msgid "Please make your selection first."
+msgstr "Prosím nejprve proveïte volbu"
+
+msgid ""
+"This will encrypt your personal dictionary and store it in an encrypted "
+"format. Proceed?"
+msgstr "Tímto za¹ifrujete svùj slovník. Pokraèovat?"
+
+msgid ""
+"This will decrypt your personal dictionary and store it in a clear-text "
+"format. Proceed?"
+msgstr "Tímto roz¹ifrujete svùj slovník, ten pak bude ulo¾en neza¹ifrovaný. Pokraèovat?"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+"<p>Vá¹ osobní slovník je nyní za¹ifrován. <strong>POZOR:</strong> Pokud "
+"zapomenete va¹e heslo, nebude mo¾né slovník ¾ádným zpùsobem roz¹ifrovat "
+"a tak se stane nepou¾itelným. Pokud si zmìníte heslo do va¹í schránky "
+"SquirrelMail to pozná a umo¾ní vám slovník znovu za¹ifrovat heslem novým "
+
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr ""
+"Prosím roz¹ifruj mùj osobní slovník a ulo¾ ho v neza¹ifrované podobì."
+
+msgid "Change crypto settings"
+msgstr "Zmìnit nastavení ¹ifrování"
+
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+"Vá¹ osobní slovník nyní není za¹ifrován."
+
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr ""
+"Prosím za¹ifruj mùj osobní slovník a ulo¾ ho za¹ifrovaný."
+
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr "Mazání následujících polo¾ek z <strong>%s</strong> slovníku:"
+
+msgid "All done!"
+msgstr "V¹e hotovo!"
+
+msgid "Personal Dictionary Updated"
+msgstr "Osobní slovník aktualizován"
+
+msgid "No changes requested."
+msgstr "Nebyly po¾adovány ¾ádné zmìny."
+
+msgid "Please wait, communicating with the server..."
+msgstr "Prosím èekejte, komunikuji se serverem..."
+
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr ""
+"Prosím vyberte slovník ke kontrole této zprávy."
+
+msgid "SquirrelSpell Initiating"
+msgstr "SquirrelSpell se inicializuje"
+
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr ""
+"Nastavení zmìnìno na: <strong>%s</strong> s <strong>%s</strong> jako "
+"implicitní slovník."
+
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr "Pou¾ívám <strong>%s</strong> slovník (implicitní) pro kontrolu pravopisu."
+
+msgid "International Dictionaries Preferences Updated"
+msgstr "Nastavení mezinárodních slovníkù aktualizováno"
+
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr ""
+"Prosím vyberte si z dostupných slovníkù ty, které chcete pou¾ívat pøi kontrole pravopisu:"
+
+msgid "Make this dictionary my default selection:"
+msgstr "Nastavit tento slovník jako implicitní:"
+
+msgid "Make these changes"
+msgstr "Provést zmìny"
+
+msgid "Add International Dictionaries"
+msgstr "Pøidat mezinárodní slovník"
+
+msgid "Please choose which options you wish to set up:"
+msgstr "Prosím vyberte jaké nastavení chcete mìnit:"
+
+msgid "Edit your personal dictionary"
+msgstr "Editovat osobní slovník"
+
+msgid "Set up international dictionaries"
+msgstr "Nastavení mezinárodních slovníkù"
+
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr "Za¹ifrovat/roz¹ifrovat osobní slovník"
+
+msgid "not available"
+msgstr "Není k dispozici"
+
+msgid "SquirrelSpell Options Menu"
+msgstr "SquirrelSpell - Nastavení"
+
+msgid "Translator"
+msgstr "Pøekladaè"
+
+msgid "Saved Translation Options"
+msgstr "Nastavení pøekladaèe bylo ulo¾eno"
+
+msgid "Your server options are as follows:"
+msgstr "Mo¾nosti va¹eho serveru jsou tyto:"
+
+msgid ""
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr ""
+"19 jazykových párù, maximálnì 1000 znakù k pøekladu, vyu¾vá slu¾by Systran"
+
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr "12 jazykových páru, bez nám známých omezení, vyu¾ívá slu¾by Systran"
+
+msgid ""
+"784 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+"784 Jazykových párù, bez známých omezení, vyu¾ívá slu¾by Translation "
+"Experts' InterTran"
+
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr "8 jazykových páru, bez známých omezení, vyu¾ívá slu¾by GPLTrans"
+
+msgid "12 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr "12 jazykových páru, bez nám známých omezení, vyu¾ívá slu¾by Systran"
+
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr "Musíte se rozhodnout, jestli a kde má být pøekladový rám zobrazen."
+
+msgid "Select your translator:"
+msgstr "Vyberte si pøekladovou slu¾bu:"
+
+msgid "When reading:"
+msgstr "Pøi ètení:"
+
+msgid "Show translation box"
+msgstr "Zobrazit pøekladový rám"
+
+msgid "to the left"
+msgstr "vlevo"
+
+msgid "in the center"
+msgstr "veprostøed"
+
+msgid "to the right"
+msgstr "vpravo"
+
+msgid "Translate inside the SquirrelMail frames"
+msgstr "Pøekládat v hlavním oknì SquirrelMailu"
+
+msgid "When composing:"
+msgstr "Pøi psaní"
+
+msgid "Not yet functional, currently does nothing"
+msgstr "Je¹tì nebylo implementováno, zatím nic nedìlá"
+
+msgid "Translation Options"
+msgstr "Mo¾nosti pøekladu"
+
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+"Který pøekladaè mám pou¾ít v pøípadì ¾e dostanete zprávu v cizím jazyce? "
+
+#, c-format
+msgid "%s to %s"
+msgstr "z %s do %s"
+
+msgid "English"
+msgstr "Angliètina"
+
+msgid "Chinese"
+msgstr "Èín¹tina"
+
+msgid "French"
+msgstr "Francouz¹tina"
+
+msgid "German"
+msgstr "Nìmèina"
+
+msgid "Italian"
+msgstr "Ital¹tina"
+
+msgid "Japanese"
+msgstr "Japon¹tina"
+
+msgid "Korean"
+msgstr "Korej¹tina"
+
+msgid "Portuguese"
+msgstr "Portugal¹tina"
+
+msgid "Spanish"
+msgstr "©panìl¹tina"
+
+msgid "Russian"
+msgstr "Ru¹tina"
+
+msgid "Translate"
+msgstr "Pøelo¾it"
+
+msgid "Brazilian Portuguese"
+msgstr "Brazilská portugal¹tina"
+
+msgid "Bulgarian"
+msgstr "Bulhar¹tina"
+
+msgid "Croatian"
+msgstr "Chorvat¹tina"
+
+msgid "Czech"
+msgstr "Èe¹tina"
+
+msgid "Danish"
+msgstr "Dán¹tina"
+
+msgid "Dutch"
+msgstr "Holand¹tina"
+
+msgid "European Spanish"
+msgstr "Evropská ¹panìl¹tina"
+
+msgid "Finnish"
+msgstr "Fin¹tina"
+
+msgid "Greek"
+msgstr "Øeètina"
+
+msgid "Hungarian"
+msgstr "Maïar¹tina"
+
+msgid "Icelandic"
+msgstr "Island¹tina"
+
+msgid "Latin American Spanish"
+msgstr "Latinsko-americká ¹panìl¹tina"
+
+msgid "Norwegian"
+msgstr "Nor¹tina"
+
+msgid "Polish"
+msgstr "Pol¹tina"
+
+msgid "Romanian"
+msgstr "Rumun¹tina"
+
+msgid "Serbian"
+msgstr "Srb¹tina"
+
+msgid "Slovenian"
+msgstr "Sloven¹tina"
+
+msgid "Swedish"
+msgstr "©véd¹tina"
+
+msgid "Turkish"
+msgstr "Tureètina"
+
+msgid "Welsh"
+msgstr "Vel¹tina"
+
+msgid "Indonesian"
+msgstr "Indonéz¹tina"
+
+msgid "Latin"
+msgstr "Latina"
+
+msgid "to English"
+msgstr "do Angliètiny"
+
+msgid "from English"
+msgstr "z Angliètiny"
+
+msgid "Delivery error report"
+msgstr "Zpráva o chybì"
+
+msgid "Undelivered Message Headers"
+msgstr "Hlavièky nedoruèených zpráv"
+
+#~ msgid "Unknown message number in reply from server: "
+#~ msgstr "©patné èíslo zprávy v odpovìdi serveru: "
+
+#~ msgid "(unknown sender)"
+#~ msgstr "(neznámý odesílatel)"
+
+#~ msgid "Enable Subtle Printer Friendly Link"
+#~ msgstr "Zapnout odkaz na 'Vytisknout'"
+
+#~ msgid "Authenticated SMTP"
+#~ msgstr "SMTP s authentifikací"
+
+#~ msgid "35 min."
+#~ msgstr "35 min."
+
+#~ msgid "Mofify a Server"
+#~ msgstr "Zmìnit nastavení serveru"
+
+#~ msgid "(local media)"
+#~ msgstr "(soubor na va¹em poèítaèi)"
+
+#~ msgid "Local Media File:"
+#~ msgstr "Soubor na va¹em poèítaèi:"
+
+#~ msgid ""
+#~ "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+#~ msgstr ""
+#~ "10 jazykových párù, maximálnì 25KB k pøekladu, vyu¾ívá slu¾by Systran"
 
 #~ msgid "Viewing a message attachment"
 #~ msgstr "Náhled pøilo¾eného souboru"
@@ -2914,7 +3499,7 @@ msgstr "Náhled pøilo¾eného souboru"
 #~ msgstr "Neviditelná kopie:"
 
 #~ msgid "empty"
-#~ msgstr "vyprázdnit"
+#~ msgstr "prázdné"
 
 #~ msgid "<No subject>"
 #~ msgstr "<¾ádný pøedmìt>"
@@ -2929,7 +3514,7 @@ msgstr "Náhled pøilo¾eného souboru"
 #~ msgstr "Pøi navazování spojení se serverem do¹lo k chybì"
 
 #~ msgid "Contact your administrator for help."
-#~ msgstr "O pomoc kontaktujte va¹eho administrátora "
+#~ msgstr "Po¾ádejte o pomoc správce systému."
 
 #~ msgid "No Messages found"
 #~ msgstr "Nebyly nalezeny ¾ádné zprávy"
@@ -2942,7 +3527,7 @@ msgstr "Náhled pøilo¾eného souboru"
 
 #~ msgid ""
 #~ "Please contact your system administrator and report the following error:"
-#~ msgstr "Kontaktujte nás na adrese info@servery.cz a nahla¹te tuto chybu"
+#~ msgstr "Kontaktujte správce systému a nahla¹te tuto chybu"
 
 #~ msgid "Unknown messagenumber in reply from server: "
 #~ msgstr "©patné èíslo zprávy v odpovìdi serveru: "
@@ -2954,121 +3539,10 @@ msgstr "Náhled pøilo¾eného souboru"
 #~ msgstr "Nalezeno"
 
 #~ msgid "messages"
-#~ msgstr "zprávy"
+#~ msgstr "zpráv"
 
 #~ msgid "Error decoding mime structure.  Report this as a bug!"
-#~ msgstr "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "Chyba pøi otevírání mime. Prosím nahla¹te tuto chybu!"
 
 #~ msgid "Submit message"
 #~ msgstr "Odeslat zprávu"
-
-#~ msgid "I tried to execute '%s', but it returned:"
-#~ msgstr "Pokusil jsem se pustit '%s', ale on mi vrátil:"
-
-#~ msgid "SquirrelSpell is misconfigured."
-#~ msgstr "SquirrelSpell je ¹patnì nakonfigurován."
-
-#~ msgid "No changes were made."
-#~ msgstr "Nebyly provedeny ¾ádné zmìny."
-
-#~ msgid "Now saving your personal dictionary... Please wait."
-#~ msgstr "Nyní ukládám vá¹ osobní slovník...  Prosím èekejte."
-
-#~ msgid "Found %s errors"
-#~ msgstr "Nalezeno %s chyb"
-
-#~ msgid "Line with an error:"
-#~ msgstr "Øádka s chybou:"
-
-#~ msgid "Error:"
-#~ msgstr "Chyba:"
-
-#~ msgid "Suggestions"
-#~ msgstr "Návrhy"
-
-#~ msgid "Change to:"
-#~ msgstr "Zmìnit na:"
-
-#~ msgid "Occurs times:"
-#~ msgstr "Poèet výskytù:"
-
-#~ msgid "Change this word"
-#~ msgstr "Zmìnit toto slovo"
-
-#~ msgid "Change"
-#~ msgstr "Zmìnit"
-
-#~ msgid "Change ALL occurances of this word"
-#~ msgstr "Zmìnit V©ECHNY výskyty tohoto slova"
-
-#~ msgid "Change All"
-#~ msgstr "Zmìnit v¹e"
-
-#~ msgid "Ignore this word"
-#~ msgstr "Ignorovat toto slovo"
-
-#~ msgid "Ignore"
-#~ msgstr "Ignorovat"
-
-#~ msgid "Ignore ALL occurances this word"
-#~ msgstr "Ignorovat v¹echny výskyty tohoto slova"
-
-#~ msgid "Ignore All"
-#~ msgstr "Ignorovat V©E"
-
-#~ msgid "Add this word to your personal dictionary"
-#~ msgstr "Pøidat toto slovo do osobního slovníku"
-
-#~ msgid "Add to Dic"
-#~ msgstr "Pøidat polo¾ku do slovníku"
-
-#~ msgid "Close and Commit"
-#~ msgstr "Zavøít a potvrdit"
-
-#~ msgid "Close and Cancel"
-#~ msgstr "Zavøít a zru¹it"
-
-#~ msgid "No errors found"
-#~ msgstr "Nebyla nalezena ¾ádná chyba"
-
-#~ msgid "Dictionary Erased"
-#~ msgstr "Slovník smazán"
-
-#~ msgid "Close this Window"
-#~ msgstr "Zavøít okno"
-
-#~ msgid "Personal Dictionary"
-#~ msgstr "Osobní slovník"
-
-#~ msgid "No words in your personal dictionary."
-#~ msgstr "V osobním slovníku nejsou ¾ádná slova"
-
-#~ msgid "Please check any words you wish to delete from your dictionary."
-#~ msgstr "Prosím oznaète slova, které chcete odstranit z osobního slovníku."
-
-#~ msgid "%s dictionary"
-#~ msgstr "%s slovník"
-
-#~ msgid "Delete checked words"
-#~ msgstr "Odstranit vybrané slova"
-
-#~ msgid "Edit your Personal Dictionary"
-#~ msgstr "Editovat osobní slovník"
-
-#~ msgid "Please make your selection first."
-#~ msgstr "Prosím nejprve proveïte volbu"
-
-#~ msgid "All done!"
-#~ msgstr "V¹e hotovo!"
-
-#~ msgid "Personal Dictionary Updated"
-#~ msgstr "Osobní slovník aktualizován"
-
-#~ msgid "No changes requested."
-#~ msgstr "Nebyly po¾adovány ¾ádné zmìny."
-
-#~ msgid "Please wait, communicating with the server..."
-#~ msgstr "Prosím èekejte, komunikuji se serverem..."
-
-#~ msgid "SquirrelSpell Initiating"
-#~ msgstr "SquirrelSpell se inicializuje"
