@@ -1,25 +1,33 @@
 <?php
-   /*
-    *  Mail Fetch
-    *
-    */
 
-   chdir('..');
-   require_once('../src/validate.php');
-   require_once('../functions/page_header.php');
-   require_once('../functions/imap.php');
-   require_once('../src/load_prefs.php');
-   require_once('../plugins/mail_fetch/class.POP3.php');
-   require_once('../functions/i18n.php');
-   require_once( '../plugins/mail_fetch/functions.php' );
+   /**
+    **  mail_fetch/fetch.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Fetch code.
+    **
+    **  $Id$
+    **/
 
-    
-function Mail_Fetch_Status($msg) {
-    echo '<table width=90%><tr><td>' . 
-         htmlspecialchars( $msg ) . 
-         '</td></tr></table>';
-    flush();
-}
+    chdir('..');
+    require_once('../src/validate.php');
+    require_once('../functions/page_header.php');
+    require_once('../functions/imap.php');
+    require_once('../src/load_prefs.php');
+    require_once('../plugins/mail_fetch/class.POP3.php');
+    require_once('../functions/i18n.php');
+    require_once( '../plugins/mail_fetch/functions.php' );
+
+
+    function Mail_Fetch_Status($msg) {
+        echo '<table width=90%><tr><td>' .
+            htmlspecialchars( $msg ) .
+            '</td></tr></table>';
+        flush();
+    }
+
     displayPageHeader($color, 'None');
 
     $mailfetch_server_number = getPref($data_dir, $username, "mailfetch_server_number");
@@ -119,11 +127,11 @@ function Mail_Fetch_Status($msg) {
         
         Mail_Fetch_Status(_("Opening IMAP server"));
         $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10);
-        
+        echo $mailfetch_user . ' ' . $mailfetch_pass . ' ';
         Mail_Fetch_Status(_("Opening POP server"));
         $Count = $pop3->login($mailfetch_user, $mailfetch_pass);
         if (($Count == false || $Count == -1) && $pop3->ERROR != '') {
-            Mail_Fetch_Status(_("Login Failed:") . $pop3->ERROR );
+            Mail_Fetch_Status(_("Login Failed:") . ' ' . $pop3->ERROR );
             continue;
         }
         

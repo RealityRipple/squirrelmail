@@ -1,13 +1,19 @@
 <?php
 
-/*
- *
- * Original code from LexZEUS <lexzeus@mifinca.com>
- * and josh@superfork.com (extracted from php manual)
- * Adapted for MailFetch by Philippe Mingo <mingo@rotedic.com>
- *
- */
-
+   /**
+    **  mail_fetch/functions.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Functions for the mailfetch plugin.
+    **
+    **  Original code from LexZEUS <lexzeus@mifinca.com>
+    **  and josh@superfork.com (extracted from php manual)
+    **  Adapted for MailFetch by Philippe Mingo <mingo@rotedic.com>
+    **
+    **  $Id$
+    **/
 
     function hex2bin( $data ) {
 
