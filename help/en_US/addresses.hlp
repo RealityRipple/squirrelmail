@@ -43,7 +43,7 @@
    </title>
    <description>
       <p>
-      This must be the persons' fully qualified email address.  Guessing here 
+      This must be the person's fully qualified email address.  Guessing here 
       just won't cut it.  There are three parts to an email address.  First is 
       the recipients identifier, such as "johnq". Next is the domain name 
       section, which could take the form "tayloru".  Last comes the top level 

@@ -77,7 +77,7 @@
       <p>
       On the right, the forward link, when pressed, opens the Compose page 
       with the previously viewed email in the text box below a tag of 
-      "--Original Message--".  "Fwd:" is appended to the original subject 
+      "--Original Message--".  "Fwd:" is prepended to the original subject 
       line and placed in the correct field.  The various fields for sending 
       to an address await your completion.  You may position the cursor in 
       the text box in order to add comments to the already existing text.
@@ -93,7 +93,7 @@
    <description>
       <p>
       Click this link to return a new message to the originator of the 
-      previously viewed message.  "Re:" is appended to the original subject 
+      previously viewed message.  "Re:" is prepended to the original subject 
       line and placed in the subject field.  Again, the text of the original 
       message is quoted in the text box.  This time the ">" symbol is placed
       in front of the original text.  You may note that some of the original
