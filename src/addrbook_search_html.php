@@ -85,11 +85,12 @@
          printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
                 "<input type=checkbox name=\"send_to_search[]\" value=\"%s\">&nbsp;To".
                 "<input type=checkbox name=\"send_to_cc_search[]\" value=\"%s\">&nbsp;Cc&nbsp;".
+                "<input type=checkbox name=\"send_to_bcc_search[]\" value=\"%s\">&nbsp;Bcc&nbsp;".
                 "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
                 "%s".
                 "<td nowrap>&nbsp;%s&nbsp;",
                 ($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
-                htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), 
+                htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), 
                 $row["name"], $row["email"], $row["label"]);
          if($includesource)
             printf("<td nowrap>&nbsp;%s", $row["source"]);
