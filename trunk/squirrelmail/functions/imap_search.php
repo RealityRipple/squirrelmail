@@ -98,7 +98,8 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     }
     $issent = ($mailbox == $sent_folder);
     $hdr_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
-    $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
+//    $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
+
     foreach ($hdr_list as $hdr) {
         $from[] = $hdr->from;
         $date[] = $hdr->date;
@@ -108,6 +109,10 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
         $cc[] = $hdr->cc;
         $size[] = $hdr->size;
         $type[] = $hdr->type0;
+	$flag_deleted[] = $hdr->flag_deleted;
+	$flag_answered[] = $hdr->flag_answered;
+	$flag_seen[] = $hdr->flag_seen;
+	$flag_flagged[] = $hdr->flag_flagged;
     }
 
     $j = 0;
@@ -127,7 +132,11 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
             $messages[$j]["CC"] = $cc[$j];
             $messages[$j]["SIZE"] = $size[$j];
             $messages[$j]["TYPE0"] = $type[$j];
-
+    	    $messages[$j]['FLAG_DELETED'] = $flag_deleted[$j];
+            $messages[$j]['FLAG_ANSWERED'] = $flag_answered[$j];
+            $messages[$j]['FLAG_SEEN'] = $flag_seen[$j];
+            $messages[$j]['FLAG_FLAGGED'] = $flag_flagged[$j];
+/*
             $num = 0;
             while ($num < count($flags[$j])) {
                 if ($flags[$j][$num] == 'Deleted') {
@@ -141,7 +150,9 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                 }
                 $num++;
             }
+*/	    
             $j++;
+
     }
 
     /* Find and remove the ones that are deleted */
