@@ -74,7 +74,7 @@ if ($signout_page) {
 link="<?php echo $color[7] ?>" vlink="<?php echo $color[7] ?>"
 alink="<?php echo $color[7] ?>">
 <br><br>
-<?
+<?php
 do_hook('logout_above_text');
 echo
 html_tag( 'table',
