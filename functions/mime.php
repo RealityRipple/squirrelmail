@@ -34,7 +34,7 @@ function mime_structure ($bodystructure, $flags=array()) {
     if (!is_object($msg)) {
         include_once(SM_PATH . 'functions/display_messages.php');
         global $color, $mailbox;
-        displayPageHeader( $color, urldecode($mailbox) );
+        displayPageHeader( $color, $mailbox );
         echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
          '<CENTER>';
         $errormessage  = _("SquirrelMail could not decode the bodystructure of the message");

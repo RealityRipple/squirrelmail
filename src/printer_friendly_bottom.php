@@ -42,7 +42,6 @@ if (!isset($_GET['passed_ent_id'])) {
 /* end globals */
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
-$mailbox = urldecode($mailbox);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
