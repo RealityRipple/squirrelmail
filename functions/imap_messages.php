@@ -105,7 +105,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
             $internal_date_sort, $server_sort_array,
             $sent_folder, $mailbox, $uid_support;
 
-    if (session_is_registered('server_sort_array')) {
+    if (sqsession_is_registered('server_sort_array')) {
         sqsession_unregister('server_sort_array');
     }
 
@@ -180,7 +180,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
 function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
     global $uid_support;
 
-    if (session_is_registered('php_sort_array')) {
+    if (sqsession_is_registered('php_sort_array')) {
         sqsession_unregister('php_sort_array');
     }
 
@@ -319,10 +319,10 @@ function get_parent_level ($imap_stream) {
 
 function get_thread_sort ($imap_stream) {
     global $thread_new, $sort_by_ref, $default_charset, $server_sort_array, $uid_support;
-    if (session_is_registered('thread_new')) {
+    if (sqsession_is_registered('thread_new')) {
         sqsession_unregister('thread_new');
     }
-    if (session_is_registered('server_sort_array')) {
+    if (sqsession_is_registered('server_sort_array')) {
         sqsession_unregister('server_sort_array');
     }
     $sid = sqimap_session_id($uid_support);

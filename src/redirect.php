@@ -82,7 +82,7 @@ if (!isset($login_username)) {
     exit;
 }
 
-if (!session_is_registered('user_is_logged_in')) {
+if (!sqsession_is_registered('user_is_logged_in')) {
     do_hook ('login_before');
 
     $onetimepad = OneTimePadCreate(strlen($secretkey));

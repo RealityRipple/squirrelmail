@@ -13,7 +13,7 @@
 
 function is_logged_in() {
 
-    if ( session_is_registered('user_is_logged_in') ) {
+    if ( sqsession_is_registered('user_is_logged_in') ) {
         return;
     } else {
         global $HTTP_POST_VARS, $PHP_SELF, $session_expired_post, 
@@ -24,10 +24,10 @@ function is_logged_in() {
          */
 	$session_expired_post = $HTTP_POST_VARS;
         $session_expired_location = $PHP_SELF;
-        if (!session_is_registered('session_expired_post')) {    
+        if (!sqsession_is_registered('session_expired_post')) {    
            session_register('session_expired_post');
         }
-        if (!session_is_registered('session_expired_location')) {
+        if (!sqsession_is_registered('session_expired_location')) {
            session_register('session_expired_location');
         }
         include_once( '../functions/display_messages.php' );

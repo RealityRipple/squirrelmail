@@ -62,25 +62,40 @@ function sqstripslashes(&$array) {
 }
 
 function sqsession_register ($var, $name) {
-    $rg = ini_get('register_globals');
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 && empty($rg)) {
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
         global $HTTP_SESSION_VARS;
         $HTTP_SESSION_VARS["$name"] = $var;
     }
     else {
-        session_register("$name");
+        $_SESSION["$name"] = $var; 
     }
 }
 function sqsession_unregister ($name) {
-    $rg = ini_get('register_globals');
-    if ( (float)substr(PHP_VERSION,0,3) < 4.1 && empty($rg)) {
-    global $HTTP_SESSION_VARS;
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+        global $HTTP_SESSION_VARS;
         unset($HTTP_SESSION_VARS["$name"]);
     }
     else {
-        session_unregister("$name");
+        unset($_SESSION["$name"]);
     }
 }
+function sqsession_is_registered ($name) {
+    $test_name = &$name;
+    $result = false;
+    if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
+        global $HTTP_SESSION_VARS;
+        if (isset($HTTP_SESSION_VARS[$test_name])) {
+            $result = true;
+        }
+    }
+    else {
+        if (isset($_SESSION[$test_name])) {
+            $result = true;
+        }
+    }
+    return $result;
+}
+
 
 /**
  *  Search for the var $name in $_SESSION, $_POST, $_GET

@@ -19,7 +19,7 @@ require_once(SM_PATH . 'functions/global.php');
    
 global $theme, $random_theme_good_themes;
    
-if (!session_is_registered('random_theme_good_theme')) {
+if (!sqsession_is_registered('random_theme_good_theme')) {
     $good_themes = array();
     foreach ($theme as $data) {
         if (substr($data['PATH'], -18) != '/themes/random.php') {
