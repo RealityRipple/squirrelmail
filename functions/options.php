@@ -409,7 +409,7 @@ function create_option_groups($optgrps, $optvals) {
                     $optset['name'],
                     $optset['caption'],
                     $optset['type'],
-                    $optset['refresh'],
+                    (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
                     (isset($optset['initial_value']) ? $optset['initial_value'] : ''),
                     $optset['posvals']
                 );
@@ -419,7 +419,7 @@ function create_option_groups($optgrps, $optvals) {
                     $optset['name'],
                     $optset['caption'],
                     $optset['type'],
-                    $optset['refresh'],
+                    (isset($optset['refresh']) ? $optset['refresh'] : SMOPT_REFRESH_NONE),
                     (isset($optset['initial_value']) ? $optset['initial_value'] : '')
                 );
             }
