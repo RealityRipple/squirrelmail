@@ -15,7 +15,6 @@
    include("../functions/imap.php");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   sqimap_mailbox_select($imapConnection, $mailbox);
 
    sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
    if ($auto_expunge)
