@@ -1512,60 +1512,72 @@ class message
 
     function findDisplayEntity ($entity = array(), $alt_order = array('text/plain','text/html'))
     {
-       $found = false;    
-       $type = $this->type0.'/'.$this->type1;
-       if ( $type == 'multipart/alternative')
-       {
-	    $msg = $this->findAlternativeEntity($alt_order);
-	    if (count($msg->entities) == 0)
-	    {
-        	$entity[] = $msg->entity_id;
-	    } else 
-	    {
-	        $entity = $msg->findDisplayEntity($entity, $alt_order);
-	    }
-	    $found = true;	    
-       } else if ( $type == 'multipart/related') 
-       {
+        $found = false;
+        $type = $this->type0.'/'.$this->type1;
+        if ( $type == 'multipart/alternative')
+        {
+            $msg = $this->findAlternativeEntity($alt_order);
+            if (count($msg->entities) == 0) 
+            {
+                $entity[] = $msg->entity_id;
+            } else 
+            {
+                $entity = $msg->findDisplayEntity($entity, $alt_order);
+            }
+            $found = true;
+        } else if ( $type == 'multipart/related') 
+        {
             $msgs = $this->findRelatedEntity();
-	    for ($i = 0; $i < count($msgs); $i++)
-	    {
-	        $msg = $msgs[$i];
-		if (count($msg->entities) == 0)
-		{
-        	    $entity[] = $msg->entity_id;
-		} else
-		{
-	    	    $entity = $msg->findDisplayEntity($entity,$alt_order);
-		}
-		$found = true;		
-	    }
-       } else if ( $this->type0 == 'text' &&
-             ( $this->type1 == 'plain' ||
-               $this->type1 == 'html' ||
-	       $this->type1 == 'message') &&
-               isset($this->entity_id) ) 
-       {
-	  if (count($this->entities) == 0) 
-          {
-	    if (strtolower($this->header->disposition->name) != 'attachment') 
-	    {
-                $entity[] = $this->entity_id;
-	    }
-	  }
-       } 
-       $i = 0;
-       while ( isset($this->entities[$i]) &&  !$found &&
-	      (strtolower($this->entities[$i]->header->disposition->name) 
-	        != 'attachment') &&
-	      ($this->entities[$i]->type0 != 'message' && 
-	      $this->entities[$i]->type1 != 'rfc822' )
-	     )
-       {
-    	    $entity = $this->entities[$i]->findDisplayEntity($entity, $alt_order);
-    	    $i++;
-       }
-       return( $entity );
+            foreach ($msgs as $msg)
+            {
+                if (count($msg->entities) == 0) 
+                {
+                    $entity[] = $msg->entity_id;
+                } else 
+                {
+                    $entity = $msg->findDisplayEntity($entity,$alt_order);
+                }
+            }
+            if (count($msgs) > 0) {
+                $found = true;
+            }
+        } else if ($this->type0 == 'text' &&
+                   ($this->type1 == 'plain' ||
+                    $this->type1 == 'html'  ||
+                    $this->type1 == 'message') &&
+                   isset($this->entity_id) ) 
+        {
+            if (count($this->entities) == 0) 
+            {
+                if (strtolower($this->header->disposition->name) != 'attachment') 
+                {
+                    $entity[] = $this->entity_id;
+                }
+            }
+        }
+        $i = 0;
+        if(!$found) {
+            foreach ($this->entities as $ent) {
+                if(strtolower($ent->header->disposition->name) != 'attachment' &&
+                   ($ent->type0 != 'message' && $ent->type1 != 'rfc822'))
+                {
+                    $entity = $ent->findDisplayEntity($entity, $alt_order);
+                }
+            }
+        }
+        /*
+        while ( isset($this->entities[$i]) && !$found &&
+                (strtolower($this->entities[$i]->header->disposition->name)
+                 != 'attachment') &&
+                ($this->entities[$i]->type0 != 'message' &&
+                 $this->entities[$i]->type1 != 'rfc822' )
+              )
+        {
+            $entity = $this->entities[$i]->findDisplayEntity($entity, $alt_order);
+            $i++;
+        }
+        */
+        return( $entity );
     }
 
     function findAlternativeEntity ($alt_order)
@@ -1574,38 +1586,38 @@ class message
         * viewable message supported by SM.
         */
         $best_view = 0;
-        $ent_id = 0;
-        $k = 0; 
-        for ($i = 0; $i < count($this->entities); $i ++)
-	{
-            $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
-	    if ($type == 'multipart/related')
-	    {
-	       $type = $this->entities[$i]->header->getParameter('type');
-	    }
-	    for ($j = $k; $j < count($alt_order); $j++)
-	    {
-	        if ($alt_order[$j] == $type && $j > $best_view)
-		{
-		    $best_view = $j;
-		    $ent_id = $i;
-		    $k = $j;
-	        }
-	    }
+        $entity = array();
+        $altcount = count($alt_order);
+        foreach($this->entities as $ent)
+        {
+            $type = $ent->header->type0.'/'.$ent->header->type1;
+            if ($type == 'multipart/related')
+            {
+                $type = $ent->header->getParameter('type');
+            }
+            for ($j = $best_view; $j < $altcount; $j++)
+            {
+                if ($alt_order[$j] == $type && $j >= $best_view)
+                {
+                    $best_view = $j;
+                    $entity = $ent;
+                }
+            }
         }
-        return $this->entities[$ent_id];
+        return $entity;
     }
     
     function findRelatedEntity ()
     {
         $msgs = array(); 
-        for ($i = 0; $i < count($this->entities); $i ++)
-	{
+        $entcount = count($this->entities);
+        for ($i = 0; $i < $entcount; $i++)
+        {
             $type = $this->entities[$i]->header->type0.'/'.$this->entities[$i]->header->type1;
             if ($this->header->getParameter('type') == $type)
-	    {
-	        $msgs[] = $this->entities[$i];
-	    }
+            {
+                $msgs[] = $this->entities[$i];
+            }
         }
         return $msgs;
     }
