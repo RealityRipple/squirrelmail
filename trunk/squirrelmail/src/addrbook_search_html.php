@@ -94,7 +94,7 @@ function addr_display_result($res, $includesource = true) {
          $line ++;
     }
     echo '<TR><TD ALIGN=center COLSPAN=';
-    if ($includesource) { echo '4'; } else { echo '5'; }
+    if ($includesource) { echo '5'; } else { echo '4'; }
     echo '><INPUT TYPE=submit NAME="addr_search_done" VALUE="' .
          _("Use Addresses") . '"></TD></TR>' .
          '</TABLE>' .
