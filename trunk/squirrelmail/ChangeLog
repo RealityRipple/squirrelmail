@@ -1,5 +1,11 @@
-Version 1.0 -- DEVELOPMENT
---------------------------
+Version 1.0.1 -- DEVELOPMENT
+----------------------------
+- If no plugin array set in config.php, now handled correctly
+- If subject is > 55 chars, trims it and puts "..." in message list
+- Hundreds of minor changes to remove all verbose PHP warning messages
+
+Version 1.0 -- January 30, 2001 
+-------------------------------
 - Updated config_default.php to include attachment_common plugin (now in distribution)
 - A few minor speed improvements
 - Fixed problems in sqimap_read_body(), made it more reliable
