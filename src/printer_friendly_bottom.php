@@ -58,13 +58,13 @@ if ($passed_ent_id) {
 
 $rfc822_header = $message->rfc822_header; 
 /* From and Date are usually fine as they are... */
-$from = decodeHeader($rfc822_header->getAddr_s('from'));
+$from = $rfc822_header->getAddr_s('from');
 $date = getLongDateString($rfc822_header->date);
-$subject = trim(decodeHeader($rfc822_header->subject));
+$subject = trim($rfc822_header->subject);
 
 /* we can clean these up if the list is too long... */
-$cc = decodeHeader($rfc822_header->getAddr_s('cc'));
-$to = decodeHeader($rfc822_header->getAddr_s('to'));
+$cc = $rfc822_header->getAddr_s('cc');
+$to = $rfc822_header->getAddr_s('to');
 
 if ($show_html_default == 1) {
     $ent_ar = $message->findDisplayEntity(array());
@@ -105,6 +105,11 @@ if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
 
 } // end cleanup
 
+$to = decodeHeader($to);
+$cc = decodeHeader($cc);
+$from = decodeHeader($from);
+$subject = decodeHeader($subject);
+
 // --end display setup--
 
 
@@ -116,11 +121,11 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
      html_tag( 'table', '', 'center', '', 'cellspacing="0" cellpadding="0" border="0" width="100%"' ) .
      html_tag( 'tr',
          html_tag( 'td', _("From").'&nbsp;', 'left' ,'','valign="top"') .
-         html_tag( 'td', htmlspecialchars($from), 'left' )
+         html_tag( 'td', $from, 'left' )
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("Subject").'&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', htmlspecialchars($subject), 'left' )
+         html_tag( 'td', $subject, 'left' )
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("Date").'&nbsp;', 'left' ) .
@@ -128,12 +133,12 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
      ) . "\n" .
      html_tag( 'tr',
          html_tag( 'td', _("To").'&nbsp;', 'left','','valign="top"' ) .
-         html_tag( 'td', htmlspecialchars($to), 'left' )
-     ) . "\n";
+         html_tag( 'td', $to, 'left' )
+    ) . "\n";
     if ( strlen($cc) > 0 ) { /* only show CC: if it's there... */
          echo html_tag( 'tr',
              html_tag( 'td', _("CC").'&nbsp;', 'left','','valign="top"' ) .
-             html_tag( 'td', htmlspecialchars($cc), 'left' )
+             html_tag( 'td', $cc, 'left' )
          );
      }
      /* body */
@@ -152,7 +157,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
 /* $string = pf_clean_string($string, 9); */
 function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
     global $data_dir, $username;
-
+    $unclean_string = str_replace('&nbsp;',' ',$unclean_string);
     $wrap_at = getPref($data_dir, $username, 'wrap_at', 86);
     $wrap_at = $wrap_at - $num_leading_spaces; /* header stuff */
 
@@ -172,12 +177,12 @@ function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
         }
         else
         {
-            $clean_string .= substr( $this_line, 0, strrpos( $this_line, ' ' ));
-            $clean_string .= "\n" . $leading_spaces;
-            $unclean_string = substr($unclean_string, (1+strrpos( $this_line, ' ' )));
-        }
+	    $i = strrpos( $this_line, ' ');
+    	    $clean_string .= substr( $this_line, 0, $i);
+    	    $clean_string .= "\n" . $leading_spaces;
+    	    $unclean_string = substr($unclean_string, 1+$i);
+	}
     }
-
     $clean_string .= $unclean_string;
 
     return $clean_string;

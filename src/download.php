@@ -38,7 +38,7 @@ if (isset($_GET['absolute_dl'])) {
 }
 
 /* end globals */
-$mailbox = decodeHeader($mailbox);
+$mailbox = urldecode($mailbox);
 
 global $uid_support;
 
@@ -85,17 +85,17 @@ if (isset($override_type1)) {
 }
 $filename = '';
 if (is_object($message->header->disposition)) {
-    $filename = decodeHeader($header->disposition->getProperty('filename'));
+    $filename = $header->disposition->getProperty('filename');
     if (!$filename) {
-	$filename = decodeHeader($header->disposition->getProperty('name'));
+	$filename = $header->disposition->getProperty('name');
     }
     if (!$filename) {
-        $filename = decodeHeader($header->getParameter('name'));
+        $filename = $header->getParameter('name');
     }    
 } else {
-    $filename = decodeHeader($header->getParameter('name'));
+    $filename = $header->getParameter('name');
 }
-
+$filename = decodeHeader($filename);
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
