@@ -148,7 +148,7 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                 if (substr($filetype, 0, 5) == 'text/' ||
                     substr($filetype, 0, 8) == 'message/' ) {
                     $header .= "$rn";
-                    fputs ($fp, $header);
+					if ($fp) fputs ($fp, $header);
                     $length += strlen($header);
                     while ($tmp = fgets($file, 4096)) {
                         $tmp = str_replace("\r\n", "\n", $tmp);
@@ -163,18 +163,18 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                         if (feof($fp) && !strstr($tmp, "$rn")){
                             $tmp .= "$rn";
                         }
-                        fputs($fp, $tmp);
+                        if ($fp) fputs($fp, $tmp);
                         $length += strlen($tmp);
                     }
                 } else {
                     $header .= "Content-Transfer-Encoding: base64" 
                         . "$rn" . "$rn";
-                    fputs ($fp, $header);
+                    if ($fp) fputs ($fp, $header);
                     $length += strlen($header);
                     while ($tmp = fread($file, 570)) {
                         $encoded = chunk_split(base64_encode($tmp));
                         $length += strlen($encoded);
-                        fputs ($fp, $encoded);
+                        if ($fp) fputs ($fp, $encoded);
                     }
                 }
                 fclose ($file);
@@ -254,9 +254,10 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn
     /* Storing the header to make sure the header is the same
      * everytime the header is printed.
      */
-    static $header, $headerlength;
+    static $header, $headerlength, $headerrn;
     
     if ($header == '') {
+		$headerrn = $rn;
         $to = expandAddrs(parseAddrs($t));
         $cc = expandAddrs(parseAddrs($c));
         $bcc = expandAddrs(parseAddrs($b));
@@ -379,9 +380,15 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn
         
         $headerlength = strlen($header);
     }     
+
+	if ($headerrn != $rn) {
+		$header = str_replace($headerrn, $rn, $header);
+        $headerlength = strlen($header);
+		$headerrn = $rn;
+	}
     
     /* Write the header */
-    fputs ($fp, $header);
+    if ($fp) fputs ($fp, $header);
     
     return $headerlength;
 }
@@ -405,7 +412,7 @@ function writeBody ($fp, $passedBody, $session, $rn="\r\n") {
         
         $body .= "Content-Transfer-Encoding: 8bit" . $rn . $rn;
         $body .= $passedBody . $rn . $rn;
-        fputs ($fp, $body);
+        if ($fp) fputs ($fp, $body);
         
         $attachmentlength = attachFiles($fp, $session, $rn);
         
@@ -413,12 +420,12 @@ function writeBody ($fp, $passedBody, $session, $rn="\r\n") {
             $postbody = ""; 
         }
         $postbody .= $rn . "--" . mimeBoundary() . "--" . $rn . $rn;
-        fputs ($fp, $postbody);
+        if ($fp) fputs ($fp, $postbody);
     } else {
         $body = $passedBody . $rn;
-        fputs ($fp, $body);
+        if ($fp) fputs ($fp, $body);
         $postbody = $rn;
-        fputs ($fp, $postbody);
+        if ($fp) fputs ($fp, $postbody);
     }
 
     return (strlen($body) + strlen($postbody) + $attachmentlength);
@@ -848,13 +855,17 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
     if ($useSendmail) {
         $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers, 
                                $session);
+        $body = ereg_replace("\n", "\r\n", $body);
     } else {
         $body = ereg_replace("\n", "\r\n", $body);
         $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers, 
                            $session);
     }
     if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
-        if ($useSendmail) $body = ereg_replace("\n", "\r\n", $body);
+		$headerlength = write822Header (FALSE, $t, $c, $b, $subject, $more_headers, $session, "\r\n");
+		$bodylength = writeBody(FALSE, $body, $session, "\r\n");
+		$length = $headerlength + $bodylength;
+
         sqimap_append ($imap_stream, $sent_folder, $length);
         write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers, 
                         $session);
