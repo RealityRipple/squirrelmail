@@ -536,7 +536,7 @@ function asearch_print_recent($data_dir, $username)
 /** Build an <option> statement */
 function asearch_opt($val, $sel, $tit)
 {
-    return '<option value="' . $val . '"' . ($sel == $val ? ' selected' : '') . '>' . $tit . '</option>' . "\n";
+	return '<option value="' . $val . '"' . ($sel == $val ? ' selected' : '') . '>' . $tit . '</option>' . "\n";
 }
 
 /** Build a <select> statement from an array */
@@ -665,7 +665,7 @@ function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sor
 		$mailbox_display = asearch_get_mailbox_display($mailbox);
 
 		$msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
-		$paginator_str = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '</big></b>';
+		$paginator_str = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '&nbsp;</big></b>';
 
 		echo '<br><table border="0" width="100%" cellpadding="0" cellspacing="0">';
 
