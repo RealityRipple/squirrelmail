@@ -55,33 +55,29 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 }
 
 
-    /* GLOBALS */
-    $username = $_SESSION['username'];
-    $key  = $_COOKIE['key'];
-    $onetimepad = $_SESSION['onetimepad'];
-    $mailbox = $_GET['mailbox'];
-    $passed_id = $_GET['passed_id'];
-    if (isset($_GET['startMessage'])) {
-	$startMessage = $_GET['startMessage'];
-    } else {
-	$startMessage = 1;
-    }
-    if (isset($_GET['passed_ent_id'])) {
-	$passed_ent_id = $_GET['passed_ent_id'];
-    } else {
-	$passed_ent_id = '';
-    }
-    if ( isset($_SESSION['compose_messages']) ) {
-        $compose_messages = &$_SESSION['compose_messages'];
-    }
+/* GLOBALS */
 
-    if ( isset($_SESSION['composesession']) ) {
-        $composesession = $_SESSION['composesession'];
-    } else {
-        $composesession = 0;
-        sqsession_register($composesession, 'composesession');
-    }
-    /* END GLOBALS */
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key',      $key,      SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
+
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+
+if (! sqgetGlobalVar('startMessage', $startMessage, SQ_GET) ) {
+    $startMessage = 1;
+}
+if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
+    $passed_ent_id = '';
+}
+
+sqgetGlobalVar('compose_messages', $compose_messages, SQ_SESSION);
+
+if(! sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
+    $composesession = 0;
+    sqsession_register($composesession, 'composesession');
+}
+/* END GLOBALS */
 
     
     displayPageHeader($color, $mailbox);
@@ -133,26 +129,26 @@ can click on to properly report this spam message to the proper authorities.
 This is a free service.  By pressing the "Send Spam Report" button, you
 agree to follow SpamCop's rules/terms of service/etc.</p>
 
-<table align=center width="75%" border=0 cellpadding=0 cellspacing=0>
+<table align="center" width="75%" border="0" cellpadding="0" cellspacing="0">
 <tr>
-<td align=left valign=top>
+<td align="left" valign="top">
 <?PHP if (isset($js_web) && $js_web) {
-   ?><form method=post action="javascript:return false">
-  <input type=button value="Close Window" 
+   ?><form method="post" action="javascript:return false">
+  <input type="button" value="Close Window" 
   onClick="window.close(); return true;">
    <?PHP
 } else {
-   ?><form method=post action="../../src/right_main.php">
-  <input type=hidden name="mailbox" value="<?PHP echo
+   ?><form method="post" action="../../src/right_main.php">
+  <input type="hidden" name="mailbox" value="<?PHP echo
      htmlspecialchars($mailbox) ?>">
-  <input type=hidden name="startMessage" value="<?PHP echo
+  <input type="hidden" name="startMessage" value="<?PHP echo
      htmlspecialchars($startMessage) ?>">
-  <input type=submit value="Cancel / Done">
+  <input type="submit" value="Cancel / Done">
    <?PHP
 }
   ?></form>
 </td>
-<td align=right valign=top>
+<td align="right" valign="top">
 <?PHP if ($spamcop_method == 'thorough_email' ||
           $spamcop_method == 'quick_email') {
    if ($spamcop_method == 'thorough_email')
@@ -160,18 +156,16 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
    else
       $report_email = 'quick.' . $spamcop_id . '@spam.spamcop.net';
    $form_action = SM_PATH . 'src/compose.php';
-?>  <form method=post action="<?PHP echo $form_action?>">
-  <input type=hidden name="mailbox" value="<?PHP echo
+?>  <form method="post" action="<?PHP echo $form_action?>">
+  <input type="hidden" name="mailbox" value="<?PHP echo
      htmlspecialchars($mailbox) ?>">
-  <input type=hidden name="spamcop_is_composing" value="<?PHP echo
+  <input type="hidden" name="spamcop_is_composing" value="<?PHP echo
      htmlspecialchars($passed_id) ?>">
-  <input type=hidden name="send_to" value="<?PHP echo $report_email?>">
-  <input type=hidden name="send_to_cc" value="">
-  <input type=hidden name="send_to_bcc" value="">
-  <input type=hidden name="subject" value="reply anyway">
-  <input type=hidden name="identity" value="default">
-  <input type=hidden name="session" value="<?PHP echo $session?>">
-  <input type=submit name="send" value="Send Spam Report">
+  <input type="hidden" name="send_to" value="<?PHP echo $report_email?>">
+  <input type="hidden" name="subject" value="reply anyway">
+  <input type="hidden" name="identity" value="default">
+  <input type="hidden" name="session" value="<?PHP echo $session?>">
+  <input type="submit" name="send" value="Send Spam Report">
 <?PHP } else {
    $sid = sqimap_session_id($uid_support);
    fputs($imap_stream, $sid.' FETCH ' . $passed_id . ' RFC822' . "\r\n");
@@ -185,19 +179,19 @@ agree to follow SpamCop's rules/terms of service/etc.</p>
       $Message = substr($Message, 0, 50000 - strlen($Warning)) . $Warning;
    }
    if (isset($js_web) && $js_web) {
-?>  <form method=post action="http://spamcop.net/sc" name="submitspam"
+?>  <form method="post" action="http://spamcop.net/sc" name="submitspam"
     enctype="multipart/form-data"><?PHP
    } else {
-?>  <form method=post action="http://spamcop.net/sc" name="submitspam"
+?>  <form method="post" action="http://spamcop.net/sc" name="submitspam"
     enctype="multipart/form-data" target="_blank"><?PHP
    } ?>
-  <input type=hidden name=action value=submit>
-  <input type=hidden name=oldverbose value=1>
-  <input type=hidden name=code value="<?PHP echo $spamcop_id ?>">
-  <input type=hidden name=spam value="<?PHP
+  <input type="hidden" name="action" value="submit">
+  <input type="hidden" name="oldverbose" value="1">
+  <input type="hidden" name="code" value="<?PHP echo $spamcop_id ?>">
+  <input type="hidden" name="spam" value="<?PHP
           echo htmlspecialchars($Message);
   ?>">
-  <input type=submit name="x1" value="Send Spam Report">
+  <input type="submit" name="x1" value="Send Spam Report">
 <?PHP }
 ?>  </form>
 </td>
