@@ -8,6 +8,8 @@
     **/
 
    $smtp_php = true;
+   if (!isset($addressbook_php))
+      include('../functions/addressbook.php');
 
    // This should most probably go to some initialization...
    if (ereg("^([^@%/]+)[@%/](.+)$", $username, $usernamedata)) {
@@ -29,6 +31,24 @@
          return true;
       else
          return false;
+   }
+
+   // looks up aliases in the addressbook and expands them to
+   // the full address.
+   function expandAddrs ($array) {
+      $abook = addressbook_init();
+      for ($i=0; $i < count($array); $i++) {
+         $result = $abook->lookup($array[$i]);
+         $ret = "";
+         if (isset($result['email'])) {
+            if (isset($result['name'])) {
+               $ret = '"'.$result['name'].'" ';
+            }
+            $ret .= '<'.$result['email'].'>';
+            $array[$i] = $ret;
+         }
+      }
+      return $array;
    }
 
    // Attach the files that are due to be attached
@@ -131,9 +151,9 @@
       static $header, $headerlength;
 
       if ($header == '') {
-         $to = parseAddrs($t);
-         $cc = parseAddrs($c);
-         $bcc = parseAddrs($b);
+         $to = expandAddrs(parseAddrs($t));
+         $cc = expandAddrs(parseAddrs($c));
+         $bcc = expandAddrs(parseAddrs($b));
          $reply_to = getPref($data_dir, $username, 'reply_to');
          $from = getPref($data_dir, $username, 'full_name');
          $from_addr = getPref($data_dir, $username, 'email_address');
@@ -303,9 +323,9 @@
       global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
          $data_dir, $color;
 
-      $to = parseAddrs($t);
-      $cc = parseAddrs($c);
-      $bcc = parseAddrs($b);
+      $to = expandAddrs(parseAddrs($t));
+      $cc = expandAddrs(parseAddrs($c));
+      $bcc = expandAddrs(parseAddrs($b));
       $from_addr = getPref($data_dir, $username, 'email_address');
 
       if (!$from_addr)

@@ -1,5 +1,7 @@
 Version 1.1.0 -- DEVELOPMENT
 ----------------------------
+- If aliases are typed in To, Cc, or Bcc, they are automatically lookedup in
+  in the addressbook and converted to the associated addresses.
 - Added collapseable folder listing (an option that can be turned on)
 - Added alternating row colors to improve interface
 - Added Croatian translation by Albert Novak <anovak@pu.carnet.hr>
