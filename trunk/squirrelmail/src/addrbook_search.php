@@ -205,8 +205,9 @@ if (empty($query) && empty($show) && empty($listall)) {
     exit;
 }
 
-/* Initialize addressbook */
-$abook = addressbook_init();
+/* Initialize addressbook, show init errors only in bottom frame */
+$showerr=($show=='form' ? false : true);
+$abook = addressbook_init($showerr);
 
 /* Create search form */
 if ($show == 'form' && empty($listall)) {
