@@ -17,10 +17,14 @@ a database is included as a part of the distribution.
 Configuring PEAR DB
 -------------------
 
-To work you must install the PEAR classes that is a part of PHP. Make
-sure the directory where the PEAR files are located is a part of your
-include path. See the PHP documentation for info on how to do that.
-
+For this to work you must have the PEAR classes installed, these are
+part of PHP. Once these are installed you must have sure the directory
+containg them is a part of your PHP include path. See the PHP
+documentation for information on how to do that.
+Under Mandrake Linux the PEAR classes are installed as part of the
+php-devel package and under FreeBSD they are installed as part of
+the mod_php4 or php4 port/package. I'm afraid I have no information on
+other systems at the present time.
 
 
 Configuring addressbooks in database
