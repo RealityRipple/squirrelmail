@@ -471,7 +471,7 @@
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
       echo "      </TD>\n";
       echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
-      if (! $move_to_trash && ! $auto_expunge) {
+      if (! $auto_expunge) {
          echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT NAME=\"expungeButton\" VALUE=\"". _("Expunge") ."\">&nbsp;". _("mailbox") ."</SMALL></NOBR>&nbsp;&nbsp;\n";
       }
       echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
