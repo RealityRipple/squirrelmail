@@ -50,8 +50,7 @@
       $subfolder_orig = $subfolder;
    }
 
-   if (trim($subfolder_orig) == '[ ' . _('None') . ' ]' ||
-       trim($subfolder_orig) == '') {
+   if (trim($subfolder_orig) == '') {
       sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, "");
    } else {
       sqimap_mailbox_create ($imapConnection, $subfolder.$dm.$folder_name, "");
