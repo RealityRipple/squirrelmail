@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-28 22:05+0200\n"
+"POT-Creation-Date: 2004-03-19 17:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -366,6 +366,7 @@ msgstr ""
 msgid "Download this as a file"
 msgstr ""
 
+#, c-format
 msgid "INBOX"
 msgstr ""
 
@@ -684,6 +685,9 @@ msgid "Forward"
 msgstr ""
 
 msgid "Forward as Attachment"
+msgstr ""
+
+msgid "Bypass Trash"
 msgstr ""
 
 msgid "Move to:"
@@ -1285,6 +1289,9 @@ msgstr ""
 msgid "Unknown date"
 msgstr ""
 
+msgid "Read"
+msgstr ""
+
 msgid "A"
 msgstr ""
 
@@ -1301,10 +1308,13 @@ msgstr ""
 msgid "THIS FOLDER IS EMPTY"
 msgstr ""
 
-msgid "Move Selected To"
+msgid "Flag"
 msgstr ""
 
-msgid "Transform Selected Messages"
+msgid "Unflag"
+msgstr ""
+
+msgid "Unread"
 msgstr ""
 
 msgid "Expunge"
@@ -1313,19 +1323,10 @@ msgstr ""
 msgid "mailbox"
 msgstr ""
 
-msgid "Read"
-msgstr ""
-
-msgid "Unread"
-msgstr ""
-
 msgid "Unthread View"
 msgstr ""
 
 msgid "Thread View"
-msgstr ""
-
-msgid "Bypass Trash"
 msgstr ""
 
 msgid "Click here to change the sorting of the message list"
@@ -1508,6 +1509,12 @@ msgstr ""
 msgid "Enable Alternating Row Colors"
 msgstr ""
 
+msgid "Message Flags Icon Theme"
+msgstr ""
+
+msgid "Show Flag / Unflag Buttons"
+msgstr ""
+
 msgid "Enable Page Selector"
 msgstr ""
 
@@ -1532,7 +1539,10 @@ msgstr ""
 msgid "Wrap Incoming Text At"
 msgstr ""
 
-msgid "Size of Editor Window"
+msgid "Width of Editor Window"
+msgstr ""
+
+msgid "Height of Editor Window"
 msgstr ""
 
 msgid "Location of Buttons when Composing"
@@ -1628,16 +1638,19 @@ msgstr ""
 msgid "Trash Folder"
 msgstr ""
 
+msgid "Do not use Drafts"
+msgstr ""
+
+msgid "Draft Folder"
+msgstr ""
+
 msgid "Do not use Sent"
 msgstr ""
 
 msgid "Sent Folder"
 msgstr ""
 
-msgid "Do not use Drafts"
-msgstr ""
-
-msgid "Draft Folder"
+msgid "Save Replies with Original Message"
 msgstr ""
 
 msgid "Folder List Options"
@@ -1784,6 +1797,9 @@ msgstr ""
 msgid "AUTHOR Said"
 msgstr ""
 
+msgid "On DATE, AUTHOR Said"
+msgstr ""
+
 msgid "Quote Who XML"
 msgstr ""
 
@@ -1924,9 +1940,6 @@ msgid "POP3 Before SMTP?"
 msgstr ""
 
 msgid "Invert Time"
-msgstr ""
-
-msgid "Use Confirmation Flags"
 msgstr ""
 
 msgid "Folders Defaults"
@@ -2100,6 +2113,9 @@ msgstr ""
 msgid "Use old folder listing functions"
 msgstr ""
 
+msgid "Use icons"
+msgstr ""
+
 msgid "Use php recode functions"
 msgstr ""
 
@@ -2143,6 +2159,9 @@ msgid "Plugins"
 msgstr ""
 
 msgid "Change Settings"
+msgstr ""
+
+msgid "Test Configuration"
 msgstr ""
 
 msgid "Config file can't be opened. Please check config.php."
@@ -2218,6 +2237,10 @@ msgid "Bug Reports:"
 msgstr ""
 
 msgid "Show button in toolbar"
+msgstr ""
+
+#, c-format
+msgid "Could not write calendar file %s"
 msgstr ""
 
 msgid "TODAY"
@@ -2885,11 +2908,11 @@ msgstr ""
 msgid "Mail Fetch Result:"
 msgstr ""
 
-msgid "Simple POP3 Fetch Mail"
+msgid "POP3 Fetch Mail"
 msgstr ""
 
 msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
+"This configures settings for downloading email from a POP3 mailbox to your "
 "account on this server."
 msgstr ""
 
@@ -3593,33 +3616,43 @@ msgstr ""
 msgid "%s to %s"
 msgstr ""
 
+#, c-format
 msgid "English"
 msgstr ""
 
+#, c-format
 msgid "Chinese"
 msgstr ""
 
+#, c-format
 msgid "French"
 msgstr ""
 
+#, c-format
 msgid "German"
 msgstr ""
 
+#, c-format
 msgid "Italian"
 msgstr ""
 
+#, c-format
 msgid "Japanese"
 msgstr ""
 
+#, c-format
 msgid "Korean"
 msgstr ""
 
+#, c-format
 msgid "Portuguese"
 msgstr ""
 
+#, c-format
 msgid "Spanish"
 msgstr ""
 
+#, c-format
 msgid "Russian"
 msgstr ""
 
@@ -3641,6 +3674,7 @@ msgstr ""
 msgid "Danish"
 msgstr ""
 
+#, c-format
 msgid "Dutch"
 msgstr ""
 
@@ -3650,6 +3684,7 @@ msgstr ""
 msgid "Finnish"
 msgstr ""
 
+#, c-format
 msgid "Greek"
 msgstr ""
 
@@ -3698,9 +3733,11 @@ msgstr ""
 msgid "from English"
 msgstr ""
 
+#, c-format
 msgid "Simplified Chinese"
 msgstr ""
 
+#, c-format
 msgid "Traditional Chinese"
 msgstr ""
 
