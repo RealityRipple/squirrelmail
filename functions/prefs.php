@@ -30,7 +30,7 @@
            exit;
        }
 
-       $file = fopen($filename, "r");
+       $file = fopen($filename, 'r');
 
        /** read in all the preferences **/
        $highlight_num = 0;
@@ -76,7 +76,7 @@
    function savePrefValues($data_dir, $username) {
       global $prefs_cache;
       
-      $file = fopen($data_dir . $username . '.pref', "w");
+      $file = fopen($data_dir . $username . '.pref', 'w');
       foreach ($prefs_cache as $Key => $Value) {
           if (isset($Value)) {
               fwrite($file, $Key . '=' . $Value . "\n");
@@ -111,10 +111,10 @@
    /** This checks if there is a pref file, if there isn't, it will
        create it. **/
    function checkForPrefs($data_dir, $username) {
-      $filename = "$data_dir$username.pref";
+      $filename = $data_dir . $username . '.pref';
       if (!file_exists($filename)) {
-         if (!copy("$data_dir" . "default_pref", $filename)) {
-            echo _("Error opening ") ."$filename";
+         if (!copy($data_dir . 'default_pref', $filename)) {
+            echo _("Error opening ") . $filename;
             exit;
          }
       }
@@ -123,8 +123,7 @@
 
    /** Writes the Signature **/
    function setSig($data_dir, $username, $string) {
-      $filename = "$data_dir$username.sig";
-      $file = fopen($filename, "w");
+      $file = fopen($data_dir . $username . '.sig', 'w');
       fwrite($file, $string);
       fclose($file);
    }
@@ -133,10 +132,10 @@
 
    /** Gets the signature **/
    function getSig($data_dir, $username) {
-      $filename = "$data_dir$username.sig";
-      $sig = "";
+      $filename = $data_dir . $username . '.sig';
+      $sig = '';
       if (file_exists($filename)) {
-         $file = fopen($filename, "r");
+         $file = fopen($filename, 'r');
          while (!feof($file)) {
             $sig .= fgets($file, 1024);
          }
