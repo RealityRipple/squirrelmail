@@ -8,7 +8,7 @@
     **
     **/
 
-   $mailbox_info = true;
+   $mailbox_display_php = true;
 
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage) {
       global $color, $msgs, $msort;
@@ -39,6 +39,7 @@
       echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
       echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
 		if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>";
+		elseif ($msg["PRIORITY"] == 1) echo "   <td bgcolor=$hlt_color width=1%><b><small>!</small></b></td>";
 		else	echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>";
       echo "   <td bgcolor=$hlt_color width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
@@ -65,6 +66,7 @@
 					$date[$q] = $hdr->date;
 					$subject[$q] = $hdr->subject;
                $to[$q] = $hdr->to;
+               $priority[$q] = $hdr->priority;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
@@ -81,6 +83,7 @@
             $messages[$j]["FROM"] = decodeHeader($from[$j]);
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
             $messages[$j]["TO"] = decodeHeader($to[$j]);
+				$messages[$j]["PRIORITY"] = $priority[$j];
    
             $num = 0;
             while ($num < count($flags[$j])) {
@@ -275,6 +278,7 @@
             next($msort);
             $k++;
          } while (isset ($key) && ($k < $i));
+	echo $key;
          printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
       } else {
          $i = $startMessage;
