@@ -410,18 +410,26 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 	    $description = $from_name;
         } else {
             $default_page = '../src/download.php';
-            $filename = decodeHeader($header->disposition->getProperty('filename'));
-            if (trim($filename) == '') {
-                $name = decodeHeader($header->disposition->getProperty('name'));
-                if (trim($name) == '') {
-                    if ( trim( $header->id ) == '' )
+	    if (is_object($header->disposition)) {
+               $filename = decodeHeader($header->disposition->getProperty('filename'));
+               if (trim($filename) == '') {
+                  $name = decodeHeader($header->disposition->getProperty('name'));
+                  if (trim($name) == '') {
+                     if ( trim( $header->id ) == '' )
                         $filename = 'untitled-[' . $ent . ']' ;
-                    else
+                     else
                         $filename = 'cid: ' . $header->id;
-                } else {
-                    $filename = $name;
-                }
-            }
+                  } else {
+                     $filename = $name;
+                  }
+               }
+	    } else {
+	       if ( trim( $header->id ) == '' )
+                  $filename = 'untitled-[' . $ent . ']' ;
+               else
+                  $filename = 'cid: ' . $header->id;
+	    }
+
             if ($header->description) {
                 $description = htmlspecialchars($header->description);
             } else {
