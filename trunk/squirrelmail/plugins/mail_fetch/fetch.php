@@ -108,8 +108,7 @@ require_once(SM_PATH . 'functions/html.php' );
         echo html_tag( 'tr',
                    html_tag( 'td', '&nbsp;' ) .
                    html_tag( 'td', '<input type=submit name=submit_mailfetch value="' . _("Fetch Mail"). '">', 'left' )
-               );
-
+               ) .
              '</table></form>';
         exit();
     }
