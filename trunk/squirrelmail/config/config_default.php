@@ -301,6 +301,30 @@
     $theme[19]["PATH"] = "../themes/methodical_theme.php";
     $theme[19]["NAME"] = "Methodical";
 
+    $theme[20]["PATH"] = "../themes/greenhouse_effect.php";
+    $theme[20]["NAME"] = "Greenhouse Effect (Changes)";
+    
+    $theme[21]["PATH"] = "../themes/in_the_pink.php";
+    $theme[21]["NAME"] = "In The Pink (Changes)";
+    
+    $theme[22]["PATH"] = "../themes/kind_of_blue.php";
+    $theme[22]["NAME"] = "Kind of Blue (Changes)";
+    
+    $theme[23]["PATH"] = "../themes/monostochastic.php";
+    $theme[23]["NAME"] = "Monostochastic (Changes)";
+    
+    $theme[24]["PATH"] = "../themes/shades_of_grey.php";
+    $theme[24]["NAME"] = "Shades of Grey (Changes)";
+    
+    $theme[25]["PATH"] = "../themes/spice_of_life.php";
+    $theme[25]["NAME"] = "Spice of Life (Changes)";
+
+    $theme[26]["PATH"] = "../themes/spice_of_life_lite.php";
+    $theme[26]["NAME"] = "Spice of Life - Lite (Changes)";
+
+    $theme[27]["PATH"] = "../themes/spice_of_life_dark.php";
+    $theme[27]["NAME"] = "Spice of Life - Dark (Changes)";
+
 //  LDAP server(s)
 //
 //    Array of arrays with LDAP server parameters. See
