@@ -505,7 +505,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $msgs_url = $base_uri . 'src/';
 
     // BEGIN NAV ROW - PREV/NEXT, DEL PREV/NEXT, LINKS TO INDEX, etc.
-    $nav_row = '<tr><td align="left" colspan="2"><small>';
+    $nav_row = '<tr><td align="left" colspan="2" style="border: 1px solid '.$color[9].';"><small>';
 
     // Create Prev & Next links
     // Handle nested entities first (i.e. Mime Attach parts)
@@ -575,31 +575,36 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
             $next_link = '<a href="'.$uri.'">'.$next_link.'</a>';
         }
 
-        $nav_row .= $prev_link . $topbar_delimiter . $next_link;
-
         // Only bother with Delete & Prev and Delete & Next IF
         // we have UID support, and top display is enabled.
-        
         if ( $uid_support && $delete_move_next_t == 'on' ) {
-            $prev_link = _("Delete & Prev");
+            $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        '&amp;delete_id='.$passed_id;
-                $prev_link = '<a href="'.$uri.'">'.$prev_link.'</a>';       
+                $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';       
             }
+            $del_prev_link .= $topbar_delimiter;
 
-            $next_link = _("Delete & Next");
+            $del_next_link = _("Delete & Next");
             if ($next >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        '&amp;delete_id='.$passed_id;
-                $next_link = '<a href="'.$uri.'">'.$next_link.'</a>';
+                $del_next_link = '<a href="'.$uri.'">'.$del_next_link.'</a>';
             }
-            $nav_row .= $double_delimiter . $prev_link . $topbar_delimiter . $next_link;
+            $del_next_link .= $topbar_delimiter;
+        } else {
+            $del_prev_link = '';
+            $del_next_link = '';
         }
+
+        $nav_row .= $prev_link.$topbar_delimiter 
+                    .$del_prev_link.$del_next_link 
+                    .$next_link;
     }
 
     // Start with Search Results or Message List link.
