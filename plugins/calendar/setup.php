@@ -7,6 +7,7 @@
  *
  *  init plugin into squirrelmail
  *
+ * $Id$ 
  */
 
 

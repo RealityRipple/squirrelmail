@@ -1,4 +1,3 @@
-<?php /* Modified at 1 places by ri_once */ ?>
 <?php
 /*
  *  event_edit.php
@@ -8,7 +7,7 @@
  *
  *  Functions to edit an event.
  *
- *  18 Jan 2002 Adapted to official SM rules philippe@squirrelmail.org.
+ * $Id$
  */
 
 require_once('calendar_data.php');
@@ -168,8 +167,8 @@ calendar_header();
 echo "<TR BGCOLOR=\"$color[0]\"><TD>" .
      "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">" .
      '<tr><td COLSPAN=2>' .
-     date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year));
-?></td></tr><?php /* 'php' Added by ri_once */
+     date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year)) .
+     '</td></tr>';
 if (!isset($updated)){
     //get changes to event
     readcalendardata();
@@ -186,8 +185,9 @@ if (!isset($updated)){
     } else {
         update_event("$month$day$year", "$hour$minute");
         echo "<tr><td>Event updated!</td></tr>\n";
-        echo "<tr><td><A HREF=\"day.php?year=$year&month=$month&day=$day\">Day View</A></td></tr>\n";
-        $fixdate = date( "mdY", mktime(0, 0, 0, $event_month, $event_day, $event_year));
+        echo "<tr><td><A HREF=\"day.php?year=$year&month=$month&day=$day\">" . 
+        _("Day View") ."</A></td></tr>\n";
+        $fixdate = date( 'mdY', mktime(0, 0, 0, $event_month, $event_day, $event_year));
         //if event has been moved to different year then act accordingly
         if ($year==$event_year){
             $calendardata["$fixdate"]["$event_hour$event_minute"] = array("length"=>"$event_length","priority"=>"$event_priority","title"=>"$event_title","message"=>"$event_text");
@@ -206,4 +206,3 @@ if (!isset($updated)){
 ?>
 </table></td></tr></table>
 </body></html>
-

@@ -7,7 +7,7 @@
  *
  *  miscelenous functions.
  *
- *  18 Jan 2002 Adapted to official SM rules philippe@squirrelmail.org.
+ * $Id$
  */
 
 

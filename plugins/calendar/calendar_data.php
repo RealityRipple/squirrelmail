@@ -1,5 +1,4 @@
-<?php /* Modified at 1 places by ri_once */ ?>
-<?php /* 'php' Added by ri_once */
+<?php
 /*
  *  calendar_data.php
  *
@@ -8,7 +7,7 @@
  *
  *  functions to operate on calendar data files.
  *
- *  18 Jan 2002 Adapted to official SM rules philippe@squirrelmail.org.
+ * $Id$
  */
 
 // this is array that contains all events

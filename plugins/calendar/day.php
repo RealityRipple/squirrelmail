@@ -7,7 +7,7 @@
  *
  *  Displays the day page (day view).
  *
- *  18 Jan 2002 Adapted to official SM rules philippe@squirrelmail.org.
+ * $Id$
  */
 
 require_once('calendar_data.php');
@@ -130,8 +130,6 @@ readcalendardata();
 day_header();
 initialize_events();
 display_events();
-
-
 ?>
 </table></td></tr></table>
 </body></html>

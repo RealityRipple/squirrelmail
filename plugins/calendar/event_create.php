@@ -7,7 +7,7 @@
  *
  *  functions to create a event for calendar.
  *
- *  18 Jan 2002 Adapted to official SM rules philippe@squirrelmail.org.
+ * $Id$
  */
 
 require_once('calendar_data.php');
