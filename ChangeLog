@@ -1,6 +1,14 @@
-Version 0.1.2  -- 
-----------------------------------
+Version 0.2 -- January 02, 2000
+-------------------------------
+- Attachment support (better MIME support in general)
+
+
+Version 0.1.2  -- December 20, 1999
+-----------------------------------
 - Date translation to local time
+- Rewrote folder fetching code universally
+- Added attachment detection (no downloads yet)
+- Fixed many minor bugs that were reported
 
 Version 0.1.1  -- December 16, 1999
 -----------------------------------
