@@ -1,5 +1,9 @@
 Version 0.4pre2 -- DEVELOPMENT
 ------------------------------
+- Made folder listing look first at subscribed folders, making it
+  faster, even if you don't have $folder_prefix set.
+- Fixed some bugs with default sent and trash folders
+- Fixed some bugs with folder manipulating
 
 
 Version 0.4pre1 -- April 29, 2000

@@ -197,6 +197,9 @@
     $theme[7]["PATH"] = "../config/seaspray_theme.php";
     $theme[7]["NAME"] = "Sea Spray";
 
+    $theme[8]["PATH"] = "../config/plain_blue_theme.php";
+    $theme[8]["NAME"] = "Plain Blue";
+
 
 //  LDAP server(s)
 //
