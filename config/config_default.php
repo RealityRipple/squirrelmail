@@ -363,6 +363,12 @@ $theme[27]['NAME'] = 'Spice of Life - Dark (Changes)';
 $theme[28]['PATH'] = '../themes/christmas.php';
 $theme[28]['NAME'] = 'Holiday - Christmas';
 
+$theme[29]['PATH'] = '../themes/darkness.php';
+$theme[29]['NAME'] = 'Darkness (Changes)';
+
+$theme[30]['PATH'] = '../themes/random.php';
+$theme[30]['PATH'] = 'Random (Changes every login)';
+
 /**
  * LDAP server(s)
  *   Array of arrays with LDAP server parameters. See
