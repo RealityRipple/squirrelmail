@@ -32,6 +32,9 @@
    } else if ($action == "save") {
       if (!$theid) $theid = 0;
       $identname = ereg_replace(",", " ", $identname);
+      $identname = str_replace("\\\\", "\\", $identname);
+      $identname = str_replace("\\\"", "\"", $identname);
+      $identname = str_replace("\"", "&quot;", $identname);
       if ($color_type == 1) $newcolor = $newcolor_choose;
       else $newcolor = $newcolor_input;
  
@@ -39,6 +42,10 @@
       $newcolor = ereg_replace("#", "", $newcolor);
       $newcolor = "$newcolor";
       $value = ereg_replace(",", " ", $value);
+      $value = str_replace("\\\\", "\\", $value);
+      $value = str_replace("\\\"", "\"", $value);
+      $value = str_replace("\"", "&quot;", $value);
+
       setPref($data_dir, $username, "highlight$theid", $identname.",".$newcolor.",".$value.",".$match_type);
       $message_highlight_list[$theid]["name"] = $identname;
       $message_highlight_list[$theid]["color"] = $newcolor;
@@ -115,7 +122,11 @@
       echo _("Identifying name") . ":";
       echo "      </b></td>\n";
       echo "      <td width=75%>\n";
-      echo "         <input type=\"text\" value=\"".$message_highlight_list[$theid]["name"]."\" name=\"identname\">";
+      $disp = $message_highlight_list[$theid]["name"];
+      $disp = str_replace("\\\\", "\\", $disp);
+      $disp = str_replace("\\\"", "\"", $disp);
+      $disp = str_replace("\"", "&quot;", $disp);
+      echo "         <input type=\"text\" value=\"".$disp."\" name=\"identname\">";
       echo "      </td>\n";
       echo "   </tr>\n";
       echo "   <tr><td><small><small>&nbsp;</small></small></td></tr>\n";
@@ -163,7 +174,11 @@
       if ($message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
-      echo "         <nobr><input type=\"text\" value=\"".$message_highlight_list[$theid]["value"]."\" name=\"value\">";
+      $disp = $message_highlight_list[$theid]["value"];
+      $disp = str_replace("\\\\", "\\", $disp);
+      $disp = str_replace("\\\"", "\"", $disp);
+      $disp = str_replace("\"", "&quot;", $disp);
+      echo "         <nobr><input type=\"text\" value=\"".$disp."\" name=\"value\">";
       echo "        <nobr></td>\n";
       echo "   </tr>\n";
       echo "</table>\n";

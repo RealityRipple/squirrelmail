@@ -55,7 +55,11 @@
    echo "         </SELECT></SMALL></TT>";
    echo "       </TD>\n";
    echo "        <TD ALIGN=\"CENTER\" WIDTH=33%>\n";
-   echo "          <INPUT TYPE=\"TEXT\" SIZE=\"20\" NAME=\"what\" VALUE=\"$what\">\n";
+   $what_disp = ereg_replace(",", " ", $what);
+   $what_disp = str_replace("\\\\", "\\", $what_disp);
+   $what_disp = str_replace("\\\"", "\"", $what_disp);
+   $what_disp = str_replace("\"", "&quot;", $what_disp);
+   echo "          <INPUT TYPE=\"TEXT\" SIZE=\"20\" NAME=\"what\" VALUE=\"$what_disp\">\n";
    echo "        </TD>";
    echo "       <TD ALIGN=\"RIGHT\" WIDTH=33%>\n";
    echo "         <SELECT NAME=\"where\">";
