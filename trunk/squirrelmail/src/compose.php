@@ -343,8 +343,8 @@
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
-      $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
-      $localfilename = $localfilename;
+      $localfilename = md5($HTTP_POST_FILES['attachfile']['tmp_name'].", ".$HTTP_POST_FILES['attachfile']['name'].", $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
+//      $localfilename = $localfilename; // ??
       
       // Put the file in a better place
       // This shouldn't be here... Ondrej Sury <ondrej@sury.cz>
@@ -355,8 +355,8 @@
       //error_reporting(0); // Rename will produce error output if it fails
       //if (!rename($attachfile, $attachment_dir.$localfilename)) {
       //   if (!copy($attachfile, $attachment_dir.$localfilename)) {
-      if (!@rename($attachfile, $attachment_dir.$localfilename)) {
-         if (!@copy($attachfile, $attachment_dir.$localfilename)) {
+      if (!@rename($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
+         if (!@copy($HTTP_POST_FILES['attachfile']['tmp_name'], $attachment_dir.$localfilename)) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
             $failed = true;
          }
@@ -366,10 +366,10 @@
       if (!$failed) {
          // Write information about the file
          $fp = fopen ($attachment_dir.$localfilename.".info", "w");
-         fputs ($fp, "$attachfile_type\n$attachfile_name\n");
+         fputs ($fp, $HTTP_POST_FILES['attachfile']['type']."\n".$HTTP_POST_FILES['attachfile']['name']."\n");
          fclose ($fp);
 
-         $attachments[$localfilename] = $attachfile_name;
+         $attachments[$localfilename] = $HTTP_POST_FILES['attachfile']['name'];
       }
       
       showInputForm();
