@@ -163,31 +163,43 @@
    $minutes_str = _("Minutes");
 
    echo '               <SELECT name="leftrefresh">';
-   if (($left_refresh == 'None') || ($left_refresh == ''))
-      echo '                  <OPTION VALUE="None" SELECTED>'.$none_str;
-   else
-      echo '                  <OPTION VALUE="None">'.$none_str;
- 
-   if (($left_refresh <= 300))
-      echo '                  <OPTION VALUE="300" SELECTED>5 '.$minutes_str;
-   else
-      echo '                  <OPTION VALUE="300">5 '.$minutes_str;
- 
-   if (($left_refresh == 720))
-      echo '                  <OPTION VALUE="720" SELECTED>12 '.$minutes_str;
-   else
-      echo '                  <OPTION VALUE="720">12 '.$minutes_str;
- 
-   if (($left_refresh == 1200))
-      echo '                  <OPTION VALUE="1200" SELECTED>20 '.$minutes_str;
-   else
-      echo '                  <OPTION VALUE="1200">20 '.$minutes_str;
- 
-   if (($left_refresh == 3600))
-      echo '                  <OPTION VALUE="3600" SELECTED>60 '.$minutes_str;
-   else
-      echo '                  <OPTION VALUE="3600">60 '.$minutes_str;
- 
+   
+   if ($left_refresh == '')
+      $left_refresh = 'None';
+   if ($left_refresh > 600)
+      $left_refresh = 600;
+   RefreshOption($left_refresh, '', 'None', _("None"));
+   RefreshOption($left_refresh, 30);
+   RefreshOption($left_refresh, 60);
+   RefreshOption($left_refresh, 120);
+   RefreshOption($left_refresh, 180);
+   RefreshOption($left_refresh, 300);
+   RefreshOption($left_refresh, 600);
+   // Refreshes after the session auto-timeout (default 15 min) is pointless
+
+function RefreshOption(&$current, $val, $str = '') {
+   static $lastVal = 0;
+   
+   if (is_int($val) && is_int($current)) {
+      if ($current > $lastVal && $current <= $val)
+         $current = $val;
+   }
+   
+   if ($str == '') {
+      if ($val > 60) {
+         $str = ($val / 60) . ' ' . _("Minutes");
+      } elseif ($val == 60) {
+         $str = '1 ' . _("Minute");
+      } else {
+         $str = $val . ' ' . _("Seconds");
+      }
+   }
+   
+   echo '<option value="' . $val . '"';
+   if ($val == $current)
+      echo ' SELECTED';
+   echo '>' . $str . "\n";
+}
       echo '               </SELECT>'; 
 ?>
             </td>
