@@ -125,6 +125,9 @@
                $body[$q] = "$body[$q]\n"; // maybe should be \n.. dunno
             }
          }
+         for ($q=0;$q < count($body);$q++) {
+            $body[$q] = ereg_replace("=3D", "=", $body[$q]);
+         }
          $newbody = $body;
       } else {
          $newbody = $body;
