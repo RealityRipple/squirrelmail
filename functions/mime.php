@@ -134,14 +134,12 @@ function mime_fetch_body($imap_stream, $id, $ent_id) {
         echo   '<tt><br>' .
                '<table width="80%"><tr>' .
                '<tr><td colspan=2>' .
-               _("Body retrieval error. The reason for this is most probably that the message is malformed. Please help us making future versions better by submitting this message to the developers knowledgebase!") .
-               " <A HREF=\"../src/retrievalerror.php?$par\"><br>" .
-               _("Submit message") . '</A><BR>&nbsp;' .
+               _("Body retrieval error. The reason for this is most probably that the message is malformed.") .
                '</td></tr>' .
-               '<td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
-               '<td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
-               '<td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
-               '<td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
+               '<tr><td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
+               '<tr><td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
+               '<tr><td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
+               '<tr><td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
                "</table><BR></tt></font><hr>";
 
         $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message, $uid_support);
