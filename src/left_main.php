@@ -99,6 +99,9 @@ function formatMailboxName($imapConnection, $box_array) {
             $line .= "\n<small>\n" .
                     "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A>)" .
                     "</small>";
+        } else {
+	   $line .= concat_hook_function('left_main_after_each_folder',
+	          array(isset($numMessages) ? $numMessages : '',$real_box,$imapConnection));
         }
     }
 
@@ -293,7 +296,7 @@ function listBoxes ($boxes, $j=0 ) {
     if (isset($boxes) && !empty($boxes)) {
         $mailbox = $boxes->mailboxname_full;
         $leader = '<tt>';
-        $leader .= str_repeat('&nbsp;&nbsp;&nbsp;',$j);
+        $leader .= str_repeat('&nbsp;&nbsp;',$j);
         $mailboxURL = urlencode($mailbox);
         /* get unseen/total messages information */
         if ($boxes->unseen !== false || $boxes->total !== false) {
