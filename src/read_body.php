@@ -38,7 +38,7 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
  * @return the index of the next valid message from the array
  */
 function findNextMessage($passed_id) {
-    global $msort, $msgs, $sort, 
+    global $msort, $msgs, $sort,
            $thread_sort_messages, $allow_server_sort,
            $server_sort_array;
     if (!is_array($server_sort_array)) {
@@ -54,7 +54,7 @@ function findNextMessage($passed_id) {
                     break;
                 }
                 $result = $server_sort_array[$key + 1];
-                break; 
+                break;
             }
         }
     } else {
@@ -120,7 +120,7 @@ function findPreviousMessage($numMessages, $passed_id) {
  * Displays a link to a page where the message is displayed more
  * "printer friendly".
  * @param string $mailbox Name of current mailbox
- * @param int $passed_id 
+ * @param int $passed_id
  */
 function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     global $javascript_on, $color;
@@ -150,14 +150,16 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     return $result;
 }
 
-function ServerMDNSupport($read) {
-    /* escaping $ doesn't work -> \x36 */    
-    $ret = preg_match('/(\x36MDNSent|\\\\\*)/i', $read);
-    return $ret;
+function ServerMDNSupport($aFlags) {
+    /* escaping $ doesn't work -> \x36 */
+    return (array_search('$mdnsent',$aFlags,true) !== false ||
+            array_search('\\*',$aFlags,true) !== false) ? true : false;
+    //$ret = preg_match('/(\x36MDNSent|\\\\\*)/i', $read);
+    //return $ret;
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir, 
+    global $username, $attachment_dir,
            $version, $attachments, $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder,
            $popuser, $data_dir, $username;
@@ -224,7 +226,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
             sprintf( _("Was displayed on %s"), $now );
 
     $special_encoding = '';
-    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) && 
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $body = $languages[$squirrelmail_language]['XTRA_CODE']('encode', $body);
         if (strtolower($default_charset) == 'iso-2022-jp') {
@@ -320,7 +322,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id) {
     $sg   =  $set?'+':'-';
     $cmd  = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
-    $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
+    $read = sqimap_run_command ($imapConnection, $cmd, true, $response,
                                 $readmessage, TRUE);
 }
 
@@ -398,7 +400,7 @@ function formatRecipientString($recipients, $item ) {
     return $string;
 }
 
-function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
+function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
     global $msn_user_support, $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
@@ -431,8 +433,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
                 if ($message->is_mdnsent) {
                     $env[_("Read receipt")] = _("sent");
                 } else {
-                    $env[_("Read receipt")] = _("requested"); 
-                    if (!(handleAsSent($mailbox) || 
+                    $env[_("Read receipt")] = _("requested");
+                    if (!(handleAsSent($mailbox) ||
                           $message->is_deleted ||
                           $passed_ent_id)) {
                         $mdn_url = $PHP_SELF . '&sendreceipt=1';
@@ -479,8 +481,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 }
 
 /**
- * Format message toolbar 
- * 
+ * Format message toolbar
+ *
  * @param string $mailbox Name of current mailbox
  * @param int $passed_id UID of current message
  * @param int $passed_ent_id Id of entity within message
@@ -489,7 +491,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
  */
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, $nav_on_top = TRUE) {
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
-           $startMessage, $PHP_SELF, $save_as_draft, 
+           $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $data_dir, $username, $delete_prev_next_display,
            $compose_new_win, $javascript_on;
@@ -573,14 +575,15 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
         // Only bother with Delete & Prev and Delete & Next IF
         // top display is enabled.
-        if ( $delete_prev_next_display == 1 ) {
+        if ( $delete_prev_next_display == 1 &&
+               array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
             $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
                        '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                        '&amp;startMessage='.$startMessage.'&amp;show_more=0'.
                        '&amp;delete_id='.$passed_id;
-                $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';       
+                $del_prev_link = '<a href="'.$uri.'">'.$del_prev_link.'</a>';
             }
 
             $del_next_link = _("Delete & Next");
@@ -621,8 +624,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                 '&amp;mailbox=' . $urlMailbox .
                 '&amp;startMessage=' . $startMessage .
                  (isset($passed_ent_id) ? '&amp;passed_ent_id='.$passed_ent_id : '');
- 
-    // Start form for reply/reply all/forward.. 
+
+    // Start form for reply/reply all/forward..
     $target = '';
     $on_click='';
     $method='method="post" ';
@@ -659,33 +662,35 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     $menu_row .= '</form>&nbsp;';
 
+    if (array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
     // Form for deletion
-    $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
-    $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
+        $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
+        $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
 
-    if (!(isset($passed_ent_id) && $passed_ent_id)) {
-        $menu_row .= addHidden('message', $passed_id);
+        if (!(isset($passed_ent_id) && $passed_ent_id)) {
+            $menu_row .= addHidden('message', $passed_id);
 
-        if ($where && $what) {
-	    $menu_row .= addHidden('where', $where);
-	    $menu_row .= addHidden('what',  $what);
-        } else {
-	    $menu_row .= addHidden('sort',  $sort);
-	    $menu_row .= addHidden('startMessage', $startMessage);
+            if ($where && $what) {
+            $menu_row .= addHidden('where', $where);
+            $menu_row .= addHidden('what',  $what);
+            } else {
+            $menu_row .= addHidden('sort',  $sort);
+            $menu_row .= addHidden('startMessage', $startMessage);
+            }
+            $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
+            $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
         }
-        $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
-        $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
+        else
+        $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
+
+        $menu_row .= '</form>';
     }
-    else
-      $menu_row .= getButton('SUBMIT', 'delete', _("Delete"), '', FALSE) . "\n"; // delete button is disabled
-
-    $menu_row .= '</form>';
-
 
     // Add top move link
     $menu_row .= '</small></td><td align="right">';
-    if ( !(isset($passed_ent_id) && $passed_ent_id) ) {
-        
+    if ( !(isset($passed_ent_id) && $passed_ent_id) &&
+        array_search('\\deleted', $mbx_response['PERMANENTFLAGS'],true) !== false) {
+
         $current_box = 'mailbox='.$mailbox.'&sort='.$sort.'&startMessage='.$startMessage;
 
         // Set subsequent location based on whether or not there is a 'next' message.
@@ -734,13 +739,13 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri, $where, $what;
- 
+
     $urlMailbox = urlencode($mailbox);
     $urlPassed_id = urlencode($passed_id);
     $urlPassed_ent_id = urlencode($passed_ent_id);
- 
+
     $query_string = 'mailbox=' . $urlMailbox . '&amp;passed_id=' . $urlPassed_id . '&amp;passed_ent_id=' . $urlPassed_ent_id;
- 
+
     if (!empty($where)) {
         $query_string .= '&amp;where=' . urlencode($where);
     }
@@ -925,7 +930,7 @@ echo html_tag( 'table' ,'' , 'left', '', 'cellpadding="1" cellspacing="5" border
 echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
                         . '</tr>';
 echo '            </table>';
-echo '          </td></tr>';      
+echo '          </td></tr>';
 echo '        </table></td></tr>';
 echo '    </table>';
 echo '  </td></tr>';
@@ -939,7 +944,7 @@ if ($attachmentsdisplay) {
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '     <tr><td>';
    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );              
+   echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
    echo '        <tr><td>';
@@ -978,7 +983,7 @@ formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, FAL
 do_hook('read_body_bottom');
 do_hook('html_bottom');
 sqimap_logout($imapConnection);
-/* sessions are written at the end of the script. it's better to register 
+/* sessions are written at the end of the script. it's better to register
    them at the end so we avoid double session_register calls */
 sqsession_register($messages,'messages');
 

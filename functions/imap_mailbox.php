@@ -1,5 +1,4 @@
 <?php
-
 /**
  * imap_mailbox.php
  *
@@ -20,12 +19,12 @@ global $boxesnew;
 
 /**
  * Mailboxes class
- * 
- * FIXME. This class should be extracted and placed in a separate file that 
+ *
+ * FIXME. This class should be extracted and placed in a separate file that
  * can be included before we start the session. That makes caching of the tree
- * possible. On a refresh mailboxes from left_main.php the only function that 
- * should be called is the sqimap_get_status_mbx_tree. In case of subscribe 
- * / rename / delete / new we have to create methods for adding/changing the 
+ * possible. On a refresh mailboxes from left_main.php the only function that
+ * should be called is the sqimap_get_status_mbx_tree. In case of subscribe
+ * / rename / delete / new we have to create methods for adding/changing the
  * mailbox in the mbx_tree without the need for a refresh.
  * @package squirrelmail
 */
@@ -33,7 +32,7 @@ global $boxesnew;
 class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, $is_noinferiors = false,
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
-        $is_trash = false, $is_draft = false,  $mbxs = array(), 
+        $is_trash = false, $is_draft = false,  $mbxs = array(),
         $unseen = false, $total = false;
 
     function addMbx($mbx, $delimiter, $start, $specialfirst) {
@@ -86,14 +85,14 @@ function sortSpecialMbx($a, $b) {
     } else {
         $bcmp = '2' . $b->mailboxname_full;
     }
-    return strnatcasecmp($acmp, $bcmp);	
+    return strnatcasecmp($acmp, $bcmp);
 }
 
 function compact_mailboxes_response($ary)
 {
     /*
      * Workaround for mailboxes returned as literal
-     * FIXME : Doesn't work if the mailbox name is multiple lines 
+     * FIXME : Doesn't work if the mailbox name is multiple lines
      * (larger then fgets buffer)
      */
     for ($i = 0, $iCnt=count($ary); $i < $iCnt; $i++) {
@@ -157,13 +156,13 @@ function readMailboxParent($haystack, $needle) {
     return( $ret );
 }
 
-/** 
+/**
  * Check if $subbox is below the specified $parentbox
  */
 function isBoxBelow( $subbox, $parentbox ) {
     global $delimiter;
-    /* 
-     * Eliminate the obvious mismatch, where the 
+    /*
+     * Eliminate the obvious mismatch, where the
      * subfolder path is shorter than that of the potential parent
      */
     if ( strlen($subbox) < strlen($parentbox) ) {
@@ -250,17 +249,17 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 
 /**
  * Expunge specified message, updated $msgs and $msort
- * 
- * Until Marc and I come up with a better way to maintain 
- * these stupid arrays, we'll use this wrapper function to 
+ *
+ * Until Marc and I come up with a better way to maintain
+ * these stupid arrays, we'll use this wrapper function to
  * remove the message with the matching UID .. the order
  * won't be changed - the array element for the message
  * will just be removed.
  */
 function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_array)
 {
-    global $msgs, $msort, $sort, $imapConnection, 
-           $mailbox, $auto_expunge, 
+    global $msgs, $msort, $sort, $imapConnection,
+           $mailbox, $auto_expunge,
            $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
            $username, $data_dir;
     $cnt = 0;
@@ -270,15 +269,15 @@ function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_ar
     }
     // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
     if ($allow_thread_sort) {
-        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0); 
+        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0);
     }
 
     for ($i = 0; $i < count($msort); $i++) {
         if ($msgs[$i]['ID'] == $message_id) {
-            break;   
+            break;
         }
     }
-    
+
     if ( isset($msgs) ) {
         unset($msgs[$i]);
         $msgs = array_values($msgs);
@@ -303,7 +302,7 @@ function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_ar
     if ( $allow_thread_sort && $thread_sort_messages ) {
         $server_sort_array = get_thread_sort($imapConnection);
     } elseif ( $allow_server_sort ) {
-        if (is_array($server_sort_array)) { 
+        if (is_array($server_sort_array)) {
             $key = array_search($message_id,$server_sort_array,true);
             if ($key !== false) {
                 unset($server_sort_array[$key]);
@@ -353,15 +352,18 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
         } else {
             if (preg_match("/PERMANENTFLAGS(.*)/i",$read[$i], $regs)) {
                 $regs[1]=trim(preg_replace (  array ("/\(/","/\)/","/\]/") ,'', $regs[1])) ;
-                $result['PERMANENTFLAGS'] = $regs[1];
+                $result['PERMANENTFLAGS'] = explode(' ',strtolower($regs[1]));
             } else if (preg_match("/FLAGS(.*)/i",$read[$i], $regs)) {
                 $regs[1]=trim(preg_replace (  array ("/\(/","/\)/") ,'', $regs[1])) ;
-                $result['FLAGS'] = $regs[1];
+                $result['FLAGS'] = explode(' ',strtolower($regs[1]));
             }
         }
     }
+    if (!isset($result['PERMANENTFLAGS'])) {
+        $result['PERMANENTFLAGS'] = $result['FLAGS'];
+    }
     if (preg_match('/^\[(.+)\]/',$message, $regs)) {
-        $result['RIGHTS']=$regs[1];
+        $result['RIGHTS']=strtoupper($regs[1]);
     }
 
     return $result;
@@ -541,7 +543,7 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
         $boxesall[$g]['flags'] = array();
         if (isset($line[$g])) {
             ereg("\(([^)]*)\)",$line[$g],$regs);
-            // FIXME Flags do contain the \ character. \NoSelect \NoInferiors 
+            // FIXME Flags do contain the \ character. \NoSelect \NoInferiors
             // and $MDNSent <= last one doesn't have the \
             // It's better to follow RFC3501 instead of using our own naming.
             $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
@@ -571,7 +573,7 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
  *                 \NoSelect and \NoInferiors
  *   $use_long_format - override folder display preference and always show full folder name.
  */
-function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, 
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0,
                                     $flag = 'noselect', $use_long_format = false ) {
     global $username, $data_dir;
     $mbox_options = '';
@@ -592,13 +594,13 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
             if ($folder_skip != 0 && in_array($box, $folder_skip) ) {
                 continue;
             }
-            $lowerbox = strtolower($box); 
+            $lowerbox = strtolower($box);
             // mailboxes are casesensitive => inbox.sent != inbox.Sent
             // nevermind, to many dependencies this should be fixed!
-         
+
             if (strtolower($box) == 'inbox') { // inbox is special and not casesensitive
                 $box2 = _("INBOX");
-            } else { 
+            } else {
                 switch ($shorten_box_names)
                 {
                   case 2:   /* delimited, style = 2 */
@@ -623,7 +625,7 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
 }
 
 /**
- * Returns sorted mailbox lists in several different ways. 
+ * Returns sorted mailbox lists in several different ways.
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 
@@ -647,10 +649,10 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
             $lsub = 'LIST (SUBSCRIBED)';
         } else {
             $lsub = 'LSUB';
-        } 
-        
+        }
+
         if ($noselect_fix_enable) {
-            
+
             $lsub_args = "$lsub \"$folder_prefix\" \"*%\"";
         } else {
             $lsub_args = "$lsub \"$folder_prefix\" \"*\"";
@@ -658,7 +660,7 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
                                         true, $response, $message);
-        $lsub_ary = compact_mailboxes_response($lsub_ary);       
+        $lsub_ary = compact_mailboxes_response($lsub_ary);
 
         $sorted_lsub_ary = array();
         for ($i = 0, $cnt = count($lsub_ary);$i < $cnt; $i++) {
@@ -693,9 +695,9 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
 
             $read = sqimap_run_command ($imap_stream, 'LIST "" ' . sqimap_encode_mailbox_name($mbx),
                                         true, $response, $message);
- 
+
             $read = compact_mailboxes_response($read);
- 
+
             if (isset($read[0])) {
                 $sorted_list_ary[$i] = $read[0];
             } else {
@@ -846,7 +848,7 @@ function sqimap_mailbox_tree($imap_stream) {
             if (preg_match("/^\*\s+LSUB.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
 	        $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
                 // in case of an unsubscribed inbox an imap server can
-                // return the inbox in the lsub results with a \NoSelect 
+                // return the inbox in the lsub results with a \NoSelect
                 // flag.
                 if (!preg_match("/\*\s+LSUB\s+\(.*\\\\NoSelect.*\).*/i",$lsub_ary[$i])) {
                     $has_inbox = true;
@@ -854,7 +856,7 @@ function sqimap_mailbox_tree($imap_stream) {
                     // remove the result and request it again  with a list
                     // response at a later stage.
                     unset($lsub_ary[$i]);
-                    // re-index the array otherwise the addition of the LIST 
+                    // re-index the array otherwise the addition of the LIST
                     // response will fail in PHP 4.1.2 and probably other older versions
                     $lsub_ary = array_values($lsub_ary);
                 }
@@ -874,7 +876,7 @@ function sqimap_mailbox_tree($imap_stream) {
         }
 
         /*
-         * Section about removing the last element was removed 
+         * Section about removing the last element was removed
          * We don't return "* OK" anymore from sqimap_read_data
          */
 
@@ -884,14 +886,14 @@ function sqimap_mailbox_tree($imap_stream) {
             $mbx = find_mailbox_name($lsub_ary[$i]);
 
             // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
-            if ($imap_server_type != "uw") {                
+            if ($imap_server_type != "uw") {
                 $noselect = check_is_noselect($lsub_ary[$i]);
                 $noinferiors = check_is_noinferiors($lsub_ary[$i]);
             }
             if (substr($mbx, -1) == $delimiter) {
                 $mbx = substr($mbx, 0, strlen($mbx) - 1);
             }
-            $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors); 
+            $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect, 'noinferiors' => $noinferiors);
         }
         // FIX ME this requires a config setting inside conf.pl instead of checking on server type
         if ($imap_server_type == "uw") {
@@ -902,7 +904,7 @@ function sqimap_mailbox_tree($imap_stream) {
                $mbx = stripslashes($aMbx['mbx']);
                sqimap_prepare_pipelined_query('LIST "" ' . sqimap_encode_mailbox_name($mbx), $tag, $aQuery, false);
                $aTag[$tag] = $mbx;
-           } 
+           }
            $sorted_lsub_ary = array();
            // execute all the queries at once
            $aResponse = sqimap_run_pipelined_command ($imap_stream, $aQuery, false, $aServerResponse, $aServerMessage);
@@ -958,7 +960,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             $mbx = new mailboxes();
             $mailbox = $mbx_ary[$i]['mbx'];
 
-            /* 
+            /*
                 sent subfolders messes up using existing code as subfolders
                 were marked, but the parents were ordered somewhere else in
                 the list, despite having "special folders at top" option set.
@@ -1001,7 +1003,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             $mbx->is_special |= ($mbx->is_draft = isDraftMailbox($mailbox));
             if (!$mbx->is_special)
                 $mbx->is_special = boolean_hook_function('special_mailbox', $mailbox, 1);
-            
+
             if (isset($mbx_ary[$i]['unseen'])) {
                 $mbx->unseen = $mbx_ary[$i]['unseen'];
             }
@@ -1051,7 +1053,7 @@ function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
          sqimap_tree_to_ref_array($mbx_tree->mbxs[$i],$aMbxs);
       }
    }
-} 
+}
 
 function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
     global $unseen_notify, $unseen_type, $trash_folder,$move_to_trash;
@@ -1103,7 +1105,7 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
             $oMbx =& $aMbxs[$i];
             if (strtoupper($oMbx->mailboxname_full) == 'INBOX' ||
                ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
-                 if ($unseen_type == 2 || 
+                 if ($unseen_type == 2 ||
                    ($oMbx->mailboxname_full == $trash_folder && $move_to_trash)) {
                     $aStatus = sqimap_status_messages($imap_stream,$oMbx->mailboxname_full);
                     $oMbx->unseen = $aStatus['UNSEEN'];
@@ -1122,7 +1124,7 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                 }
             }
         }
-    }       
-} 
+    }
+}
 
 ?>
