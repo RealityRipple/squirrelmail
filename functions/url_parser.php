@@ -18,7 +18,7 @@
    function parseUrl ($body) {
       #Possible ways a URL could finish.
 
-      $poss_ends=array(" ", "\n", "\r", "<", ">", ".\r", ".\n", ".&nbsp", "&nbsp", ")", "(");
+      $poss_ends=array(" ", "\n", "\r", "<", ">", ".\r", ".\n", ".&nbsp", "&nbsp", ")", "(","&quot");
       $done=False;
       while (!$done) {
          #Look for when a URL starts
