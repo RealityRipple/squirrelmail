@@ -117,9 +117,9 @@
                 $mailfetch_uidl=$mailfetch_uidl_[$i_loop];
                 $mailfetch_subfolder=$mailfetch_subfolder_[$i_loop];
 
-                // $outMsg .= "$mailfetch_alias checked<br>";
+                // $outMsg .= "$mailfetch_alias checked<br />";
 
-                // $outMsg .= "$mailfetch_alias_[$i_loop]<br>";
+                // $outMsg .= "$mailfetch_alias_[$i_loop]<br />";
 
                 $pop3 = new POP3($mailfetch_server, 60);
 
@@ -208,7 +208,7 @@
         }
 
         if( trim( $outMsg ) <> '' ) {
-            echo '<br><font size="1">' . _("Mail Fetch Result:") . "<br>$outMsg</font>";
+            echo '<br /><font size="1">' . _("Mail Fetch Result:") . "<br />$outMsg</font>";
         }
         if( $mailfetch_newlog == 'on' ) {
             setPref($data_dir, $username, 'mailfetch_newlog', 'off');

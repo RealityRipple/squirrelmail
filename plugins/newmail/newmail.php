@@ -25,7 +25,7 @@ sqGetGlobalVar('numnew', $numnew, SQ_GET);
 
    displayHtmlHeader( _("New Mail"), '', FALSE );
 
-   echo "<body bgcolor=\"$color[4]\" topmargin=0 leftmargin=0 rightmargin=0 marginwidth=0 marginheight=0>\n".
+   echo '<body bgcolor="'.$color[4].'" topmargin="0" leftmargin="0" rightmargin="0" marginwidth="0" marginheight="0">'."\n".
         '<center>'. "\n" .
         html_tag( 'table', "\n" .
             html_tag( 'tr', "\n" .
@@ -33,14 +33,14 @@ sqGetGlobalVar('numnew', $numnew, SQ_GET);
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',
-                    '<br><big><font color="' . $color[2] . '">' . _("You have").' '.
+                    '<br /><big><font color="' . $color[2] . '">' . _("You have").' '.
 		    sprintf( ( $numnew == 1 ?
 		        _("%s new message") :
 			_("%s new messages") ), $numnew ) .
-                    '</font><br></big><br>' . "\n" .
+                    '</font><br /></big><br />' . "\n" .
                     '<form name="nm">' . "\n".
-                    '<input type=button name=bt value="' . _("Close Window") .
-                    '" onClick="javascript:window.close();">'."\n".
+                    '<input type="button" name="bt" value="' . _("Close Window") .
+                    '" onClick="javascript:window.close();" />'."\n".
                     '</form>',
                 'center' )
             ) ,

@@ -301,7 +301,7 @@ if (!empty($_POST)) {
 function sti_input( $title, $hd, $data, $post, $bg ) {
     $return_val = html_tag( 'tr',
                            html_tag( 'td', $title . ':', 'right', '', 'nowrap' ) .
-                           html_tag( 'td', '<input size="50" type="text" value="' . htmlspecialchars($data) . '" name="' . $hd . $post . '">' , 'left' ) ,
+                           html_tag( 'td', '<input size="50" type="text" value="' . htmlspecialchars($data) . '" name="' . $hd . $post . '" />' , 'left' ) ,
                        '', $bg );
      return ($return_val);
 }
@@ -336,19 +336,19 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post)
     $return_val .= html_tag( 'tr', '', '', $OtherBG);
     $return_val .= html_tag( 'td', '&nbsp;', 'left' );
     $return_val .= html_tag( 'td', '', 'left' );
-    $return_val .= '<input type="hidden" name="form_for_'. $post .'" value="1">';
-    $return_val .= '<input type="submit" name="update" value="' . _("Save / Update") . '">';
+    $return_val .= '<input type="hidden" name="form_for_'. $post .'" value="1" />';
+    $return_val .= '<input type="submit" name="update" value="' . _("Save / Update") . '" />';
 
 
     if (! $isEmptySection && $post != '') {
         $return_val .= '<input type="submit" name="make_default_' . $post . '" value="'.
-             _("Make Default") . '">'.
+             _("Make Default") . '" />'.
              '<input type="submit" name="delete_' . $post . '" value="'.
-             _("Delete") . '">';
+             _("Delete") . '" />';
     }
     if (! $isEmptySection && $post != '' && $post > 1) {
-        $return_val .= '<input type=submit name="promote_' . $post . '" value="'.
-             _("Move Up") . '">';
+        $return_val .= '<input type="submit" name="promote_' . $post . '" value="'.
+             _("Move Up") . '" />';
     }
     $return_val .= concat_hook_function('options_identities_buttons', array($isEmptySection, $post));
     $return_val .=  '</td></tr>'.

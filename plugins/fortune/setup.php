@@ -48,7 +48,7 @@ function fortune() {
     if (!$exist) {
         echo "$fortune_location" . _(" not found.");
     } else {
-        echo "<center><em>" . _("Today's Fortune") . "</em><br></font></center><pre>";
+        echo "<center><em>" . _("Today's Fortune") . "</em><br /></font></center><pre>";
         htmlspecialchars(system($fortune_location));
     } 
   

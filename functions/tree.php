@@ -175,9 +175,9 @@ function simpleWalkTreePre($index, $tree) {
         for ($j = 0; $j < count($tree[$index]['subNodes']); $j++) {
             simpleWalkTreePre($tree[$index]['subNodes'][$j], $tree);
         }
-        echo $tree[$index]['value'] . '<br>';
+        echo $tree[$index]['value'] . '<br />';
     } else {
-        echo $tree[$index]['value'] . '<br>';
+        echo $tree[$index]['value'] . '<br />';
     }
 }
 ?>

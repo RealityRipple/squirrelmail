@@ -115,9 +115,9 @@ function getHashedDir($username, $dir, $hash_dirs = '') {
         $real_hash_dir .= '/' . $hash_dirs[$h];
         if (!@is_dir($real_hash_dir)) {
             if (!@mkdir($real_hash_dir, 0770)) {
-                echo sprintf(_("Error creating directory %s."), $real_hash_dir) . '<br>' .
-                     _("Could not create hashed directory structure!") . "<br>\n" .
-                     _("Please contact your system administrator and report this error.") . "<br>\n";
+                echo sprintf(_("Error creating directory %s."), $real_hash_dir) . '<br />' .
+                     _("Could not create hashed directory structure!") . "<br />\n" .
+                     _("Please contact your system administrator and report this error.") . "<br />\n";
                 exit;
             }
         }

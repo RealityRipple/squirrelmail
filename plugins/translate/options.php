@@ -84,7 +84,7 @@ function ShowOption($Var, $value, $Desc) {
 
    echo '<option value="' . $value . '"';
    if ($$Var == $value) {
-       echo ' selected';
+       echo ' selected="selected"';
    }
    echo '>' . $Desc . "</option>\n";
 }
@@ -102,7 +102,7 @@ function ShowTrad( $tit, $com, $url ) {
 }
 
 ?>
-   <table width="95%" align="center" border=0 cellpadding=1 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+   <table width="95%" align="center" border="0" cellpadding="1" cellspacing="0"><tr><td bgcolor="<?php echo $color[0]; ?>">
       <center><b><?php echo _("Options") . ' - '. _("Translator"); ?></b></center>
    </td></tr></table>
 
@@ -150,8 +150,8 @@ function ShowTrad( $tit, $com, $url ) {
    <p>
 <?php
    echo _("You also decide if you want the translation box displayed, and where it will be located.") .
-        "<form action=\"$PHP_SELF\" method=post>".
-        '<table border=0 cellpadding=0 cellspacing=2>'.
+        '<form action="'.$PHP_SELF.'" method="post">'.
+        '<table border="0" cellpadding="0" cellspacing="2">'.
             '<tr><td align="right" nowrap>' .
              _("Select your translator:") .
              '</td>'.
@@ -170,7 +170,7 @@ function ShowTrad( $tit, $com, $url ) {
          '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap').
          '<td><input type="checkbox" name="translate_translate_show_read"';
     if ($translate_show_read)
-        echo " checked";
+        echo ' checked="checked"';
     echo ' /> - ' . _("Show translation box") .
          ' <select name="translate_translate_location">';
     ShowOption('location', 'left', _("to the left"));
@@ -179,24 +179,23 @@ function ShowTrad( $tit, $com, $url ) {
     echo '</select><br />'.
          '<input type="checkbox" name="translate_translate_same_window"';
     if ($translate_same_window)
-        echo " checked";
+        echo ' checked="checked"';
     echo ' /> - ' . _("Translate inside the SquirrelMail frames").
     "</td></tr>\n";
 
 $disable_compose_translate=true;
 if (!$disable_compose_translate) {
    echo '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
-         '<td><input type=checkbox name="translate_translate_show_send"';
+         '<td><input type="checkbox" name="translate_translate_show_send"';
    if ($translate_show_send)
-      echo " checked";
+      echo ' checked="checked"';
    echo ' /> - ' . _("Not yet functional, currently does nothing") .
       "</td></tr>\n";
 }
-   echo '<tr><td></td><td>'.
-        '<input type="submit" value="' . _("Submit") . '" name="submit_translate">'.
-        '</td></tr>'.
-   '</table>'.
-   '</form>'.
-"</body></html>\n";
-
 ?>
+<tr><td></td><td>
+<input type="submit" value="<?php echo _("Submit"); ?>" name="submit_translate" />
+</td></tr>
+</table>
+</form>
+</body></html>

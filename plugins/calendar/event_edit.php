@@ -107,67 +107,67 @@ function update_event_form() {
     global $color, $editor_size, $year, $day, $month, $hour, $minute, $calendardata;
 
     $tmparray = $calendardata["$month$day$year"]["$hour$minute"];
-    echo "\n<FORM name=eventupdate action=\"event_edit.php\" METHOD=POST >\n".
-         "      <INPUT TYPE=hidden NAME=\"year\" VALUE=\"$year\">\n".
-         "      <INPUT TYPE=hidden NAME=\"month\" VALUE=\"$month\">\n".
-         "      <INPUT TYPE=hidden NAME=\"day\" VALUE=\"$day\">\n".
-         "      <INPUT TYPE=hidden NAME=\"hour\" VALUE=\"$hour\">\n".
-         "      <INPUT TYPE=hidden NAME=\"minute\" VALUE=\"$minute\">\n".
-         "      <INPUT TYPE=hidden NAME=\"updated\" VALUE=\"yes\">\n".
+    echo "\n<form name=\"eventupdate\" action=\"event_edit.php\" method=\"post\">\n".
+         "      <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+         "      <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+         "      <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
+         "      <input type=\"hidden\" name=\"hour\" value=\"$hour\" />\n".
+         "      <input type=\"hidden\" name=\"minute\" value=\"$minute\" />\n".
+         "      <input type=\"hidden\" name=\"updated\" value=\"yes\" />\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Date:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
-         "      <SELECT NAME=\"event_year\">\n";
+         "      <select name=\"event_year\">\n";
     select_option_year($year);
-    echo "      </SELECT>\n" .
+    echo "      </select>\n" .
          "      &nbsp;&nbsp;\n" .
-         "      <SELECT NAME=\"event_month\">\n";
+         "      <select name=\"event_month\">\n";
     select_option_month($month);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      &nbsp;&nbsp;\n".
-         "      <SELECT NAME=\"event_day\">\n";
+         "      <select name=\"event_day\">\n";
     select_option_day($day);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Time:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
-         "      <SELECT NAME=\"event_hour\">\n";
+         "      <select name=\"event_hour\">\n";
     select_option_hour($hour);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      &nbsp;:&nbsp;\n".
-         "      <SELECT NAME=\"event_minute\">\n";
+         "      <select name=\"event_minute\">\n";
     select_option_minute($minute);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Length:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
-         "      <SELECT NAME=\"event_length\">\n";
+         "      <select name=\"event_length\">\n";
     select_option_length($tmparray['length']);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Priority:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
-         "      <SELECT NAME=\"event_priority\">\n";
+         "      <select name=\"event_priority\">\n";
     select_option_priority($tmparray['priority']);
-    echo "      </SELECT>\n".
+    echo "      </select>\n".
          "      </td></tr>\n".
          html_tag( 'tr' ) .
          html_tag( 'td', _("Title:"), 'right', $color[4] ) . "\n" .
          html_tag( 'td', '', 'left', $color[4] ) .
-         "      <INPUT TYPE=text NAME=\"event_title\" VALUE=\"$tmparray[title]\" SIZE=30 MAXLENGTH=50><BR>\n".
+         "      <input type=\"text\" name=\"event_title\" value=\"$tmparray[title]\" size=\"30\" maxlenght=\"50\" /><br />\n".
          "      </td></tr>\n".
          html_tag( 'td',
-             "      <TEXTAREA NAME=\"event_text\" ROWS=5 COLS=\"$editor_size\" WRAP=HARD>$tmparray[message]</TEXTAREA>\n" ,
+             "      <textarea name=\"event_text\" rows=\"5\" cols=\"$editor_size\" wrap=\"hard\">$tmparray[message]</textarea>\n" ,
          'left', $color[4], 'colspan="2"' ) .
          '</tr>' . html_tag( 'tr' ) .
          html_tag( 'td',
-             "<INPUT TYPE=SUBMIT NAME=send VALUE=\"" .
-             _("Update Event") . "\">\n" ,
+             '<input type="submit" name="send" value="' .
+             _("Update Event") . "\" />\n" ,
          'left', $color[4], 'colspan="2"' ) .
-         "</tr></FORM>\n";
+         "</tr></form>\n";
 }
 
 // self explenatory
@@ -178,7 +178,7 @@ function confirm_update() {
 
     echo html_tag( 'table',
                 html_tag( 'tr',
-                    html_tag( 'th', _("Do you really want to change this event from:") . "<br>\n", '', $color[4], 'colspan="2"' ) ."\n"
+                    html_tag( 'th', _("Do you really want to change this event from:") . "<br />\n", '', $color[4], 'colspan="2"' ) ."\n"
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td', _("Date:") , 'right', $color[4] ) ."\n" .
@@ -201,7 +201,7 @@ function confirm_update() {
                     html_tag( 'td', $tmparray['message'] , 'left', $color[4] ) ."\n"
                 ) .
                 html_tag( 'tr',
-                    html_tag( 'th', _("to:") . "<br>\n", '', $color[4], 'colspan="2"' ) ."\n"
+                    html_tag( 'th', _("to:") . "<br />\n", '', $color[4], 'colspan="2"' ) ."\n"
                 ) .
 
                 html_tag( 'tr',
@@ -226,33 +226,33 @@ function confirm_update() {
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        "    <FORM NAME=\"updateevent\" METHOD=POST ACTION=\"$calself\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"hour\" VALUE=\"$hour\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"minute\" VALUE=\"$minute\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_year\" VALUE=\"$event_year\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_month\" VALUE=\"$event_month\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_day\" VALUE=\"$event_day\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_hour\" VALUE=\"$event_hour\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_minute\" VALUE=\"$event_minute\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_priority\" VALUE=\"$event_priority\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_length\" VALUE=\"$event_length\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_title\" VALUE=\"$event_title\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"event_text\" VALUE=\"$event_text\">\n".
-                        "       <INPUT TYPE=hidden NAME=\"updated\" VALUE=\"yes\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"confirmed\" VALUE=\"yes\">\n".
-                        '       <INPUT TYPE=SUBMIT VALUE="' . _("Yes") . "\">\n".
-                        "    </FORM>\n" ,
+                        "    <form name=\"updateevent\" method=\"post\" action=\"$calself\">\n".
+                        "       <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+                        "       <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+                        "       <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
+                        "       <input type=\"hidden\" name=\"hour\" value=\"$hour\" />\n".
+                        "       <input type=\"hidden\" name=\"minute\" value=\"$minute\" />\n".
+                        "       <input type=\"hidden\" name=\"event_year\" value=\"$event_year\" />\n".
+                        "       <input type=\"hidden\" name=\"event_month\" value=\"$event_month\" />\n".
+                        "       <input type=\"hidden\" name=\"event_day\" value=\"$event_day\" />\n".
+                        "       <input type=\"hidden\" name=\"event_hour\" value=\"$event_hour\" />\n".
+                        "       <input type=\"hidden\" name=\"event_minute\" value=\"$event_minute\" />\n".
+                        "       <input type=\"hidden\" name=\"event_priority\" value=\"$event_priority\" />\n".
+                        "       <input type=\"hidden\" name=\"event_length\" value=\"$event_length\" />\n".
+                        "       <input type=\"hidden\" name=\"event_title\" value=\"$event_title\" />\n".
+                        "       <input type=\"hidden\" name=\"event_text\" value=\"$event_text\" />\n".
+                        "       <input type=\"hidden\" name=\"updated\" value=\"yes\" />\n".
+                        "       <input type=\"hidden\" name=\"confirmed\" value=\"yes\" />\n".
+                        '       <input type="submit" value="' . _("Yes") . "\" />\n".
+                        "    </form>\n" ,
                     'right', $color[4] ) ."\n" .
                     html_tag( 'td',
-                        "    <FORM NAME=\"nodelevent\" METHOD=POST ACTION=\"day.php\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"year\" VALUE=\"$year\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"month\" VALUE=\"$month\">\n".
-                        "       <INPUT TYPE=HIDDEN NAME=\"day\" VALUE=\"$day\">\n".
-                        '       <INPUT TYPE=SUBMIT VALUE="' . _("No") . "\">\n".
-                        "    </FORM>\n" ,
+                        "    <form name=\"nodelevent\" method=\"post\" action=\"day.php\">\n".
+                        "       <input type=\"hidden\" name=\"year\" value=\"$year\" />\n".
+                        "       <input type=\"hidden\" name=\"month\" value=\"$month\" />\n".
+                        "       <input type=\"hidden\" name=\"day\" value=\"$day\" />\n".
+                        '       <input type="submit" value="' . _("No") . "\" />\n".
+                        "    </form>\n" ,
                     'left', $color[4] ) ."\n"
                 ) ,
             '', $color[0], 'border="0" cellpadding="2" cellspacing="1"' );

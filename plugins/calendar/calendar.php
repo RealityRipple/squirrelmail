@@ -109,7 +109,7 @@ function drawmonthview() {
             if ( $aday <= $days_in_month && $aday > 0){
                 echo html_tag( 'td', '', 'left', $color[4], 'height="50" valign="top"' ) ."\n".
                      html_tag( 'div', '', 'right' );
-                echo(($cdate==$todayis) ? "<font size=-1 color=$color[1]>[ " . _("TODAY") . " ] " : "<font size=-1>");
+                echo(($cdate==$todayis) ? '<font size="-1" color="'.$color[1].'">[ ' . _("TODAY") . " ] " : '<font size="-1">');
                 echo "<a href=day.php?year=$year&amp;month=$month&amp;day=";
                 echo(($aday<10) ? "0" : "");
                 echo "$aday>$aday</a></font></div>";
@@ -122,7 +122,7 @@ function drawmonthview() {
                 while ($calfoo = each($calendardata[$cdate])) {
                     $calbar = $calendardata[$cdate][$calfoo['key']];
                     $title = '['. $calfoo['key']. '] ' .$calbar['message'];
-                    echo ($calbar['priority']==1) ? "<a href=\"#\" style=\"text-decoration:none; color: $color[1]\" title=\"$title\">$calbar[title]</a><br>\n" : "<a href=\"#\" style=\"text-decoration:none; color: $color[6]\" title=\"$title\">$calbar[title]</a><br>\n";
+                    echo ($calbar['priority']==1) ? "<a href=\"#\" style=\"text-decoration:none; color: $color[1]\" title=\"$title\">$calbar[title]</a><br />\n" : "<a href=\"#\" style=\"text-decoration:none; color: $color[6]\" title=\"$title\">$calbar[title]</a><br />\n";
                     $i=$i+1;
                     if($i==2){
                         break;
@@ -142,17 +142,17 @@ function endcalendar() {
 
     echo html_tag( 'tr' ) ."\n" .
            html_tag( 'td', '', 'left', '', 'colspan="7"' ) ."\n" .
-         "          <FORM NAME=caljump ACTION=\"calendar.php\" METHOD=POST>\n".
-         "          <SELECT NAME=\"year\">\n";
+         "          <form name=\"caljump\" action=\"calendar.php\" method=\"post\">\n".
+         "          <select name=\"year\">\n";
     select_option_year($year);
-    echo "          </SELECT>\n".
-         "          <SELECT NAME=\"month\">\n";
+    echo "          </select>\n".
+         "          <select name=\"month\">\n";
     select_option_month($month);
-    echo "          </SELECT>\n".
-         '         <INPUT TYPE=SUBMIT VALUE="' . _("Go") . "\">\n".
-         "          </FORM>\n".
-         "          </TD></TR>\n".
-         "</TABLE></TD></TR></TABLE>\n";
+    echo "          </select>\n".
+         '          <input type="submit" value="' . _("Go") . "\" />\n".
+         "          </form>\n".
+         "          </td></tr>\n".
+         "</table></td></tr></table>\n";
 }
 
 

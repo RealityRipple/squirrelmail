@@ -198,9 +198,9 @@ function checkForPrefs($data_dir, $username, $filename = '') {
         /* Otherwise, report an error. */
         $errTitle = sprintf( _("Error opening %s"), $default_pref );
         if (!is_readable($default_pref)) {
-            $errString = $errTitle . "<br>\n" .
-                         _("Default preference file not found or not readable!") . "<br>\n" .
-                         _("Please contact your system administrator and report this error.") . "<br>\n";
+            $errString = $errTitle . "<br />\n" .
+                         _("Default preference file not found or not readable!") . "<br />\n" .
+                         _("Please contact your system administrator and report this error.") . "<br />\n";
             logout_error( $errString, $errTitle );
             exit;
         } else if (!@copy($default_pref, $filename)) {
@@ -209,10 +209,10 @@ function checkForPrefs($data_dir, $username, $filename = '') {
                 $user_data = posix_getpwuid(posix_getuid());
                 $uid = $user_data['name'];
             }
-            $errString = $errTitle . '<br>' .
-                       _("Could not create initial preference file!") . "<br>\n" .
+            $errString = $errTitle . '<br />' .
+                       _("Could not create initial preference file!") . "<br />\n" .
                        sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) .
-                       "<br>\n" . _("Please contact your system administrator and report this error.") . "<br>\n";
+                       "<br />\n" . _("Please contact your system administrator and report this error.") . "<br />\n";
             logout_error( $errString, $errTitle );
             exit;
         }
@@ -270,3 +270,4 @@ function getSig($data_dir, $username, $number) {
 }
 
 // vim: et ts=4
+?>

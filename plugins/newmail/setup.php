@@ -215,11 +215,11 @@
             }
 
             if ($totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
-                echo '<EMBED SRC="'.htmlspecialchars($newmail_media) .
-                    "\" HIDDEN=\"TRUE\" AUTOSTART=\"TRUE\">\n";
+                echo '<embed src="'.htmlspecialchars($newmail_media) .
+                    "\" hidden=\"true\" autostart=\"true\">\n";
             }
             if ($totalNew > 0 && $newmail_popup == 'on') {
-                echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".
+                echo "<script language=\"JavaScript\">\n".
                     "<!--\n".
                     "function PopupScriptLoad() {\n".
                         'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php?numnew='.$totalNew.

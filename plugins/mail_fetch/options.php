@@ -151,7 +151,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
     }
 
 
-    echo '<br><form method="post" action="'.$PHP_SELF.'">' .
+    echo '<br /><form method="post" action="'.$PHP_SELF.'">' .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
@@ -162,7 +162,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
-                        _("You should be aware that the encryption used to store your password is not perfectly secure. However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file." ) ,
+                        _("You should be aware that the encryption used to store your password is not perfectly secure. However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file.") ,
                     'left' )
                 ) .
                 html_tag( 'tr',
@@ -172,8 +172,8 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<input type=checkbox name=mf_cypher ' .
-                        (($mailfetch_cypher=='on')?'checked>':'>') .
+                        '<input type="checkbox" name="mf_cypher" ' .
+                        (($mailfetch_cypher=='on')?'checked="checked" />':' />') .
                         _("Encrypt passwords (informative only)") ,
                     'right' )
                 ) ,
@@ -188,28 +188,28 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     html_tag( 'tr' ) .
                         html_tag( 'td', '', 'center', $color[0] ) .
 
-            "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mailfetch_server_number\">" .
-            '<INPUT TYPE="hidden" NAME="mf_action" VALUE="add">' .
+            "<input type=\"hidden\" name=\"mf_sn\" value=\"$mailfetch_server_number\" />" .
+            '<input type="hidden" name="mf_action" value="add" />' .
             html_tag( 'table' ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
-                    html_tag( 'td', '<input type=text name=mf_server value="" size=40>', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_server" value="" size="40" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Port:"), 'right') .
-                    html_tag( 'td', '<input type=text name=mf_port value="110" size=20>', 'left')
+                    html_tag( 'td', '<input type="text" name="mf_port" value="110" size="20" />', 'left')
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
-                    html_tag( 'td', '<input type=text name=mf_alias value="" size=20>', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_alias" value="" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Username:"), 'right' ) .
-                    html_tag( 'td', '<input type=text name=mf_user value="" size=20>', 'left' )
+                    html_tag( 'td', '<input type="text" name="mf_user" value="" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Password:"), 'right' ) .
-                    html_tag( 'td', '<input type=password name=mf_pass value="" size=20>', 'left' )
+                    html_tag( 'td', '<input type="password" name="mf_pass" value="" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr' ) .
                     html_tag( 'th', _("Store in Folder:"), 'right' ) .
@@ -225,25 +225,25 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
         echo '</select></td></tr>' .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
-                    html_tag( 'td', '<input type="checkbox" name="mf_lmos" checked>' . _("Leave Mail on Server"), 'left' )
+                    html_tag( 'td', '<input type="checkbox" name="mf_lmos" checked="checked" />' . _("Leave Mail on Server"), 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
-                    html_tag( 'td', '<input type="checkbox" name="mf_login">' . _("Check mail during login"), 'left' )
+                    html_tag( 'td', '<input type="checkbox" name="mf_login" />' . _("Check mail during login"), 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
-                    html_tag( 'td', '<input type="checkbox" name="mf_fref">' . _("Check mail during folder refresh"), 'left' )
+                    html_tag( 'td', '<input type="checkbox" name="mf_fref" />' . _("Check mail during folder refresh"), 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<input type=submit name="submit_mailfetch" value="' . _("Add Server") . '">',
+                        '<input type="submit" name="submit_mailfetch" value="' . _("Add Server") . '" />',
                     'center', '', 'colspan="2"' )
                 ) .
             '</table></td></tr></table></form>';
 
         // Modify Server
-        echo '<font size=-5><BR></font>' .
+        echo '<font size="-5"><br /></font>' .
             html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="5" cellspacing="1"' ) .
                 html_tag( 'tr',
                     html_tag( 'td', '<b>' . _("Modify Server") . '</b>', 'center', $color[9] )
@@ -258,8 +258,8 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     htmlspecialchars( (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) . "</option>";
             }
             echo '</select>'.
-                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action_mod value="' . _("Modify") . '">'.
-                 '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action_del value="' . _("Delete") . '">'.
+                 '&nbsp;&nbsp;<input type="submit" name="mf_action_mod" value="' . _("Modify") . '" />'.
+                 '&nbsp;&nbsp;<input type="submit" name="mf_action_del" value="' . _("Delete") . '" />'.
                  '</form>';
         } else {
             echo _("No-one server in use. Try to add.");
@@ -272,19 +272,19 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                         html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
                     ) ,
                 'center', '', 'width="95%" cellpadding="5" cellspacing="1"' ) .
-            '<br>' .
+            '<br />' .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td', '<b>' . _("Confirm Deletion of a Server") . '</b>', 'center', $color[9] )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
-                        '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_delete">' .
-                        '<br>' . _("Selected Server:") . " <b>" . htmlspecialchars($mailfetch_server_[$mf_sn]) . "</b><br>" .
-                        _("Confirm delete of selected server?") . '<br><br>' .
-                        '<input type=submit name=submit_mailfetch value="' . _("Confirm Delete") . '">' .
-                        '<br></form>' ,
+                        "<input type=\"hidden\" name=\"mf_sn\" value=\"$mf_sn\" />" .
+                        '<input type="hidden" name="mf_action" value="confirm_delete" />' .
+                        '<br />' . _("Selected Server:") . " <b>" . htmlspecialchars($mailfetch_server_[$mf_sn]) . "</b><br />" .
+                        _("Confirm delete of selected server?") . '<br /><br />' .
+                        '<input type="submit" name="submit_mailfetch" value="' . _("Confirm Delete") . '" />' .
+                        '<br /></form>' ,
                     'center', $color[9] )
                 ) ,
             'center', '', 'width="70%" cellpadding="5" cellspacing="1"' );
@@ -295,7 +295,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                         html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
                     ) ,
                 'center', '', 'width="95%" cellpadding="5" cellspacing="1"' ) .
-            '<br>' .
+            '<br />' .
             html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="5" cellspacing="1"' ) .
                 html_tag( 'tr',
                     html_tag( 'td', '<b>' . _("Modify Server") . '</b>', 'center', $color[9] )
@@ -303,33 +303,33 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 html_tag( 'tr' ) .
                     html_tag( 'td', '', 'center', $color[0] ) .
 
-            "<INPUT TYPE=\"hidden\" NAME=\"mf_sn\" VALUE=\"$mf_sn\">" .
-            '<INPUT TYPE="hidden" NAME="mf_action" VALUE="confirm_modify">' .
+            "<input type=\"hidden\" name=\"mf_sn\" value=\"$mf_sn\" />" .
+            '<input type="hidden" name="mf_action" value="confirm_modify" />' .
             html_tag( 'table' ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
                     html_tag( 'td', '<input type="text" name="mf_server" value="' .
-                        htmlspecialchars($mailfetch_server_[$mf_sn]) . '" size="40">', 'left' )
+                        htmlspecialchars($mailfetch_server_[$mf_sn]) . '" size="40" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Port:"), 'right' ) .
                     html_tag( 'td', '<input type="text" name="mf_port" value="' .
-                        htmlspecialchars($mailfetch_port_[$mf_sn]) . '" size="40">', 'left' )
+                        htmlspecialchars($mailfetch_port_[$mf_sn]) . '" size="40" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
                     html_tag( 'td', '<input type="text" name="mf_alias" value="' .
-                        htmlspecialchars($mailfetch_alias_[$mf_sn]) . '" size="40">', 'left' )
+                        htmlspecialchars($mailfetch_alias_[$mf_sn]) . '" size="40" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Username:"), 'right' ) .
                     html_tag( 'td', '<input type="text" name="mf_user" value="' . 
-                        htmlspecialchars($mailfetch_user_[$mf_sn]) . '" size="20">', 'left' )
+                        htmlspecialchars($mailfetch_user_[$mf_sn]) . '" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Password:"), 'right' ) .
                     html_tag( 'td', '<input type="password" name="mf_pass" value="' .
-                        htmlspecialchars($mailfetch_pass_[$mf_sn]) . '" size="20">', 'left' )
+                        htmlspecialchars($mailfetch_pass_[$mf_sn]) . '" size="20" />', 'left' )
                 ) .
                 html_tag( 'tr' ) .
                     html_tag( 'th', _("Store in Folder:"), 'right' ) .
@@ -348,27 +348,27 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
                     html_tag( 'td',
-                        '<input type=checkbox name=mf_lmos ' . (($mailfetch_lmos_[$mf_sn] == 'on')?'checked':'') .
-                        '>' . _("Leave Mail on Server") ,
+                        '<input type="checkbox" name="mf_lmos" ' . (($mailfetch_lmos_[$mf_sn] == 'on')?'checked="checked"':'') .
+                        ' />' . _("Leave Mail on Server") ,
                     'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
                     html_tag( 'td',
-                        '<input type=checkbox name=mf_login ' . ( ($mailfetch_login_[$mf_sn] == 'on')?'checked':'') .
-                        '>' . _("Check mail during login"),
+                        '<input type="checkbox" name="mf_login" ' . ( ($mailfetch_login_[$mf_sn] == 'on')?'checked="checked"':'') .
+                        ' />' . _("Check mail during login"),
                     'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
                     html_tag( 'td',
-                        '<input type=checkbox name=mf_fref ' . ( ($mailfetch_fref_[$mf_sn] == 'on')?'checked':'') .
-                        '>' . _("Check mail during folder refresh") ,
+                        '<input type="checkbox" name="mf_fref" ' . ( ($mailfetch_fref_[$mf_sn] == 'on')?'checked="checked"':'') .
+                        ' />' . _("Check mail during folder refresh") ,
                     'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<input type=submit name="submit_mailfetch" value="' . _("Modify Server") . '">',
+                        '<input type="submit" name="submit_mailfetch" value="' . _("Modify Server") . '" />',
                     'center', '', 'colspan="2"' )
                 ) .
 
@@ -381,7 +381,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 html_tag( 'td', '<b>' . _("Fetching Servers") . '</b>', 'center', $color[0] )
             ) ,
         'center', '', 'width="95%"' ) .
-        '<br>' .
+        '<br />' .
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Undefined Function") . '</b>', 'center', $color[9] ) .

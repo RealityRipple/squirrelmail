@@ -484,7 +484,7 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
 /**
  * Returns list of options (to be echoed into select statement
  * based on available mailboxes and separators
- * Caller should surround options with <SELECT..> </SELECT> and
+ * Caller should surround options with <select ...> </select> and
  * any formatting.
  *   $imap_stream - $imapConnection to query for mailboxes
  *   $show_selected - array containing list of mailboxes to pre-select (0 if none)
