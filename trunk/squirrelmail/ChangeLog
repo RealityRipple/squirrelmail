@@ -1,5 +1,6 @@
 Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- For security, login verification happens, then we're redirected to webmail.php
 - Folder sorting now case insensative
 - added config option to set IMAP folder delimiter rather than always detecting it
 - Made session cookie parameter use PHP's settings rather than making assumptions
