@@ -968,7 +968,7 @@ if (($attachment_common_show_images) &&
     }
 }
 
-formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, FALSE);
+formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_response, FALSE);
 
 do_hook('read_body_bottom');
 do_hook('html_bottom');
