@@ -19,7 +19,7 @@
 
       $read = fgets($imap_stream, 9096);
 
-      if (ereg("^\* [0-9]+ FETCH.*{([0-9]+)}", $read, $regs)) {
+      if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
          $size = $regs[1];
       } else {
          $size = 0;
