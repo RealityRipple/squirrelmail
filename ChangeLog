@@ -1,5 +1,6 @@
 Version 0.5pre1 -- DEVELOPMENT
 ------------------------------
+- In-Reply-To and References headers are inserted when replying to a message.
 - Changed how attachments are displayed and handled
 - Rewrote MIME support from scratch, optomizing it an unbelievable amount
 - Added support for message highlighting
