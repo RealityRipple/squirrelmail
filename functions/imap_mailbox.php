@@ -13,6 +13,27 @@
 
 global $boxesnew;
 
+/**
+ * If $haystack is a full mailbox name, and $needle is the mailbox
+ * separator character, returns the second last part of the full
+ * mailbox name (i.e. the mailbox's parent mailbox)
+ */
+function readMailboxParent($haystack, $needle) {
+
+    if ($needle == '') {
+        $ret = '';
+    } else {
+        $parts = explode($needle, $haystack);
+        $elem = array_pop($parts);
+        while ($elem == '' && count($parts)) {
+            $elem = array_pop($parts);
+        }
+        $ret = join($needle, $parts);
+    }
+    return( $ret );
+}
+
+
 function isBoxBelow( $box2, $box1 ) {
     global $delimiter, $folder_prefix, $imap_server_type;
 

@@ -107,7 +107,6 @@ function displayPageHeader($color, $mailbox, $xtra='') {
 
     }
 
-
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
     $shortBoxName = readShortMailboxName($mailbox, $delimiter);

@@ -23,31 +23,20 @@ $version = '1.2.6 [cvs]';
  * separator character, returns the last part of the mailbox name.
  */
 function readShortMailboxName($haystack, $needle) {
+
     if ($needle == '') {
-        return $haystack;
+        $elem = $haystack;
+    } else {
+	    $parts = explode($needle, $haystack);
+	    $elem = array_pop($parts);
+	    while ($elem == '' && count($parts)) {
+	        $elem = array_pop($parts);
+	    }
     }
-    $parts = explode($needle, $haystack);
-    $elem = array_pop($parts);
-    while ($elem == '' && count($parts)) {
-        $elem = array_pop($parts);
-    }
-    return $elem;
+    return( $elem );
 }
 
-/**
- * If $haystack is a full mailbox name, and $needle is the mailbox
- * separator character, returns the second last part of the full
- * mailbox name (i.e. the mailbox's parent mailbox)
- */
-function readMailboxParent($haystack, $needle) {
-    if ($needle == '') return '';
-    $parts = explode($needle, $haystack);
-    $elem = array_pop($parts);
-    while ($elem == '' && count($parts)) {
-        $elem = array_pop($parts);
-    }
-    return join($needle, $parts);
-}
+
 
 /**
  * Returns the index of the first chunk of string $haystack that
