@@ -278,9 +278,9 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
         }            
         
-        $header  = "Received: from $received_from\r\n";
-        $header .= "        (SquirrelMail authenticated user $username)\r\n";
-        $header .= "        by $SERVER_NAME with HTTP;\r\n";
+        $header  = "Received: from $received_from\n";
+        $header .= "        (SquirrelMail authenticated user $username)\n";
+        $header .= "        by $SERVER_NAME with HTTP;\n";
         $header .= "        $date\r\n";
         
         /* Insert the rest of the header fields */
