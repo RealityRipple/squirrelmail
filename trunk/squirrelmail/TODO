@@ -15,7 +15,7 @@ initials = taken by that person
             list for the mail box you were looking at without having to click
             a link
 (mcp)   Spell checking
-  -     Search mailbox(es) for given criteria
+(ssg)   Search mailbox(es) for given criteria
 (lme)   Background highlighting messages in list based on header criteria (like pine 4.2x)
 (lme)   Fix conf.pl script and add more error checking so it doesn't throw parse errors
 
