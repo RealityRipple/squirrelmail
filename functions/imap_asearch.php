@@ -133,9 +133,9 @@ function s_debug_dump($var_name, $var_var)
 9. Formal Syntax:
 	quoted-specials = DQUOTE / "\"
 */
-function sqimap_asearch_encode_string($what, $search_charset)
+function sqimap_asearch_encode_string($what, $charset)
 {
-	if (strtoupper($search_charset) == 'ISO-2022-JP')
+	if (strtoupper($charset) == 'ISO-2022-JP')	// This should be now handled in imap_utf7_local?
 		$what = mb_convert_encoding($what, 'JIS', 'auto');
 //if (ereg("[\"\\\r\n\x80-\xff]", $what))
 	if (preg_match('/["\\\\\r\n\x80-\xff]/', $what))
@@ -178,7 +178,7 @@ function sqimap_asearch_parse_date($what)
 	return $what_parts;
 }
 
-function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
+function sqimap_asearch_build_criteria($opcode, $what, $charset)
 {
 	global $imap_asearch_opcodes;
 
@@ -198,8 +198,8 @@ function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
 			preg_match('/^([^:]+):(.*)$/', $what, $what_parts);
 			if (count($what_parts) == 3)
 				$criteria = $opcode . ' ' . 
-					sqimap_asearch_encode_string($what_parts[1], $search_charset) . ' ' .
-					sqimap_asearch_encode_string($what_parts[2], $search_charset) . ' ';
+					sqimap_asearch_encode_string($what_parts[1], $charset) . ' ' .
+					sqimap_asearch_encode_string($what_parts[2], $charset) . ' ';
 		break;
 		case 'adate':
 			$what_parts = sqimap_asearch_parse_date($what);
@@ -208,7 +208,7 @@ function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
 		break;
 		case 'akeyword':
 		case 'astring':
-			$criteria = $opcode . ' ' . sqimap_asearch_encode_string($what, $search_charset) . ' ';
+			$criteria = $opcode . ' ' . sqimap_asearch_encode_string($what, $charset) . ' ';
 		break;
 		case 'asequence':
 			$what = ereg_replace('[^0-9:\(\)]+', '', $what);
@@ -221,23 +221,21 @@ function sqimap_asearch_build_criteria($opcode, $what, $search_charset)
 
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
-	global $allow_charset_search, $uid_support;
+	global $uid_support;
 
 	/* 6.4.4 try OPTIONAL [CHARSET] specification first */
-	if ($allow_charset_search && (!empty($search_charset)))
-		$query = 'SEARCH CHARSET ' . strtoupper($search_charset) . ' ALL ' . $search_string;
+	if ($search_charset != '')
+		$query = 'SEARCH CHARSET "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	else
 		$query = 'SEARCH ALL ' . $search_string;
 	s_debug_dump('C:', $query);
-
-	/* read data back from IMAP */
 	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
 
-	/* 6.4.4 try US-ASCII charset if we receive a tagged NO response */
-	if ((!empty($charset))  && (strtoupper($response) == 'NO')) {
-		$query = 'SEARCH CHARSET "US-ASCII" ALL ' . $search_string;
+	/* 6.4.4 try US-ASCII charset if we tried an OPTIONAL [CHARSET] and received a tagged NO response (SHOULD be [BADCHARSET]) */
+	if (($search_charset != '')  && (strtoupper($response) == 'NO')) {
+		$query = 'SEARCH CHARSET US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
-		$readin = sqimap_run_command ($imapConnection, $query, false, $response, $message, $uid_support);	/* added $uid_support */
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
 	}
 	if (strtoupper($response) != 'OK') {
 		sqimap_asearch_error_box($response, $query, $message);
@@ -278,6 +276,15 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 	return $id;
 }
 
+function sqimap_asearch_get_charset()
+{
+	global $allow_charset_search, $languages, $squirrelmail_language;
+
+	if ($allow_charset_search)
+		return $languages[$squirrelmail_language]['CHARSET'];
+	return '';
+}
+
 /* replaces $mbox_msgs[$search_mailbox] = array_values(array_unique(array_merge($mbox_msgs[$search_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset))));*/
 function sqimap_array_merge_unique($to, $from)
 {
@@ -292,13 +299,8 @@ function sqimap_array_merge_unique($to, $from)
 
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $mboxes_array)
 {
-	global $languages, $squirrelmail_language;
-
-/* ??? what are those for ?? */
-/*	$pos = $search_position;*/
-
+	$search_charset = sqimap_asearch_get_charset();
 	$mbox_msgs = array();
-	$search_charset = $languages[$squirrelmail_language]['CHARSET'];
 	$search_string = '';
 	$cur_mailbox = $mailbox_array[0];
 	$cur_biop = '';	/* Start with ALL */
