@@ -293,6 +293,9 @@ if ( !$allow_thread_sort ) {
 if ( !$allow_server_sort ) {
     $allow_server_sort = 'false';
 }
+if ( !$allow_charset_search ) {
+    $allow_charset_search = 'true';
+}
 if ( !$prefs_user_field ) {
     $prefs_user_field = 'user';
 }
