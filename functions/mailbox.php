@@ -60,7 +60,7 @@
          } else {
             $rel_end = $end;
          }
-         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date)\n");
+         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end BODY[HEADER.FIELDS (From Subject Date)]\n");
          $read = fgets($imapConnection, 1024);
 
          while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
