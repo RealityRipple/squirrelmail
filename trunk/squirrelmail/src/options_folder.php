@@ -169,7 +169,7 @@
                  
    echo '<tr><td colspan=2><hr noshade></td></tr>';
    do_hook("options_folders_inside");
-   OptionSubmit();
+   OptionSubmit( 'submit_folder' );
 ?>         
 
       </table>
