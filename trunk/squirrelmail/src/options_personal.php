@@ -18,6 +18,7 @@ require_once('../functions/array.php');
 define('SMOPT_GRP_CONTACT', 0);
 define('SMOPT_GRP_REPLY', 1);
 define('SMOPT_GRP_SIG', 2);
+define('SMOPT_GRP_TZ', 3);
 
 /* Define the optpage load function for the personal options page. */
 function load_optpage_data_personal() {
