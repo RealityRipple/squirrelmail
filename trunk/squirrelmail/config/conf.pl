@@ -2667,14 +2667,7 @@ sub save_data {
 		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
 
 	    print CF "\n";
-
-		if ( open(LOCAL,"config_local.php") ) {
-		  # A config_local.php file exists - add it to the bottom of config.php
-		  while ( $line = <LOCAL> ) {
-		    print CF $line;
-		  }
-		  close LOCAL;
-		}
+		print CF "\@include SM_PATH . 'config/config_local.php';\n";
     
 		print CF "\n/**\n";
 	    print CF " * Make sure there are no characters after the PHP closing\n";
