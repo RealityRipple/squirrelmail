@@ -320,15 +320,17 @@ function ClearAttachments() {
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     $rem_attachments = array();
-    foreach ($attachments as $info) {
-        if ($info['session'] == -1) {
-            $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-            if (file_exists($attached_file)) {
-                unlink($attached_file);
-            }
-        } else {
-            $rem_attachments[] = $info;
-        }
+    if (isset($attachments)) {
+	foreach ($attachments as $info) {
+    	    if ($info['session'] == -1) {
+        	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        	if (file_exists($attached_file)) {
+            	    unlink($attached_file);
+        	}
+    	    } else {
+        	$rem_attachments[] = $info;
+    	    }
+	}
     }
     $attachments = $rem_attachments;
 }
