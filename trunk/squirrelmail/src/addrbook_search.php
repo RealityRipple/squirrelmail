@@ -197,7 +197,7 @@ if ($show == 'form') {
 } else {
 
     /* Show personal addressbook */
-    if ($show == 'blank' || !empty($listall)) {
+    if ($show == 'blank' && empty($listall)) {
 
         if($backend != -1 || $show == 'blank') {
             if ($show == 'blank') {
@@ -221,9 +221,12 @@ if ($show == 'form') {
         }
 
     } else {
+        if( !empty( $listall ) ){
+          $query = '*';
+        }
 
         /* Do the search */
-        if (!empty($query) && empty($listall)) {
+        if (!empty($query)) {
     
             if($backend == -1) {
                 $res = $abook->s_search($query);
