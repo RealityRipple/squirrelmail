@@ -91,4 +91,14 @@
       $signature = getSig($data_dir, $username);
    } else {
    }
+
+   /** Load up the Language preference **/
+   $user_language = getPref($data_dir, $username, "language");
+   if ($user_language == "") {
+      if (isset($default_charset))
+         $user_language = $default_charset;
+     else  
+         $user_language = en;
+   }      
+
 ?>
