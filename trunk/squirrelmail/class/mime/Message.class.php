@@ -70,9 +70,8 @@ class Message {
             $cur_ent_a = explode('.', $this->entity_id);
         }
         $ent_a = explode('.', $ent);
-
-        $entCount = count($ent_a) - 1;
-        for ($i = 0; $i < $entCount; ++$i) {
+        
+        for ($i = 0,$entCount = count($ent_a) - 1; $i < $entCount; ++$i) {
             if (isset($cur_ent_a[$i]) && ($cur_ent_a[$i] != $ent_a[$i])) {
                 $msg = $msg->parent;
                 $cur_ent_a = explode('.', $msg->entity_id);
@@ -95,9 +94,9 @@ class Message {
             $msg = $msg->entities[0];
         }
 
-        if (isset($msg->entities[($ent_a[$cnt])-1])) {
-            if (is_object($msg->entities[($ent_a[$cnt])-1])) {
-                $msg = $msg->entities[($ent_a[$cnt]-1)];
+        if (isset($msg->entities[($ent_a[$entCount])-1])) {
+            if (is_object($msg->entities[($ent_a[$entCount])-1])) {
+                $msg = $msg->entities[($ent_a[$entCount]-1)];
             }
         }
 
