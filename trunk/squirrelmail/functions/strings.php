@@ -32,7 +32,7 @@
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.2.2';
+$version = '1.2.3 [cvs]';
 
 /**
  * If $haystack is a full mailbox name and $needle is the mailbox
