@@ -17,7 +17,7 @@ require_once('../functions/display_messages.php');
 require_once('../functions/imap.php');
 require_once('../functions/array.php');
 require_once('../functions/options.php');
-include_once('../functions/strings.php');
+require_once('../functions/strings.php');
 
 /* Set the base uri. */
 ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);

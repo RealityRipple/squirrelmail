@@ -30,7 +30,7 @@
 require_once('../src/validate.php');
 require_once('../functions/prefs.php');
 require_once('../functions/plugin.php');
-include_once('../functions/strings.php');
+require_once('../functions/strings.php');
 
    // Erase any lingering attachments
    if (! isset($attachments)) {

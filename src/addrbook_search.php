@@ -16,6 +16,7 @@
  */
 
 require_once('../src/validate.php');
+require_once('../functions/strings.php');
 
 /* Function to include JavaScript code */
 function insert_javascript() {
