@@ -308,12 +308,15 @@
 	    print "<STRONG>\n</TD></TR>\n";
 	    print "</TABLE>\n";
 
-	    print "<TABLE COLS=5 BORDER=0 CELLPADDING=1 CELLSPACING=0 ".
-	          "WIDTH=\"90%\" ALIGN=center>";
-	    printf("<tr bgcolor=\"$color[9]\"><TH align=left width=\"1%%\">".
-		   "&nbsp;<TH align=left width=\"1%%\">%s<TH align=left width=\"1%%\">%s".
-		   "<TH align=left width=\"1%%\">%s<TH align=left width=\"%%\">%s</TR>\n",
-		   _("Nickname"), _("Name"), _("E-mail"), _("Info"));
+	    print '<TABLE COLS=5 BORDER=0 CELLPADDING=1 CELLSPACING=0 WIDTH="90%" ALIGN=center>';
+	    printf('<TR BGCOLOR="%s"><TH ALIGN=left WIDTH="%s">&nbsp;'.
+		   '<TH ALIGN=left WIDTH="%s">%s<TH ALIGN=left WIDTH="%s">%s'.
+		   '<TH ALIGN=left WIDTH="%s">%s<TH ALIGN=left WIDTH="%s">%s'.
+		   "</TR>\n", $color[9], "1%", 
+		   "1%", _("Nickname"), 
+		   "1%", _("Name"), 
+		   "1%", _("E-mail"), 
+		   "%",  _("Info"));
 	    $line = 0;
 	    $headerprinted = true;
 	 } // End of header
@@ -327,13 +330,20 @@
 	    $selected = "";
       
 	 // Print one row
-    echo "<tr" . (($line % 2) ? " bgcolor=\"$color[0]\"" : "") . ">\n";
-    echo "  <td valign=top align=center width=1%><small><input type=checkbox $selected name=\"sel[]\" value=\"".$row["backend"].":".$row["nickname"]."\"></small></td>\n";
-    echo "  <td valign=top nowrap width=1%>&nbsp;".$row["nickname"]."&nbsp;</td>\n";
-    echo "  <td valign=top nowrap width=1%>&nbsp;".$row["name"]."&nbsp;</td>\n";
-    echo "  <td valign=top nowrap width=1%>&nbsp;<a href=\"compose.php?send_to=".rawurlencode($row["email"])."\">".$row["email"]."</a>&nbsp;</td>\n";
-    echo "  <td valign=top width=%>&nbsp;".$row["label"]."&nbsp;</td>\n";
-    echo "</tr>\n";
+	 printf("<TR%s>",
+		(($line % 2) ? " bgcolor=\"$color[0]\"" : ""));
+	 print  '<TD VALIGN=top ALIGN=center WIDTH="1%"><SMALL>';
+	 printf('<INPUT TYPE=checkbox %s NAME="sel[]" VALUE="%s:%s"></SMALL></TD>', 
+		$selected, $row["backend"], $row["nickname"]);
+	 printf('<TD VALIGN=top NOWRAP WIDTH="%s">&nbsp;%s&nbsp;</TD>'.
+		'<TD VALIGN=top NOWRAP WIDTH="%s">&nbsp;%s&nbsp;</TD>',
+		"1%", $row["nickname"],
+		"1%", $row["name"]);
+	 printf('<TD VALIGN=top NOWRAP WIDTH="%s">&nbsp;<A HREF="compose.php?send_to=%s">%s</A>&nbsp;</TD>'."\n", 
+		"1%", rawurlencode($row["email"]), $row["email"]);
+	 printf('<TD VALIGN=top WIDTH="%s">&nbsp;%s&nbsp;</TD>', 
+		"%", $row["label"]);
+	 print "</TR>\n";
 	 $line++;
       } 
 
