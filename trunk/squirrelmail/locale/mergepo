@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# **
+# ** This script merges global PO to locale PO files.
+# ** It creates a squirrelmail.po.new that have to
+# ** be renamed to squirrelmail.po once before to
+# ** compile the file.
+# **
+# ** Usage:   mergepo <locale id>
+# ** Example: mergepo es
+# **
+# ** Philipe Mingo <mingo@rotedic.com>
+# **
+# **  $Id$
+
+msgmerge $1/LC_MESSAGES/squirrelmail.po ../po/squirrelmail.po > $1/LC_MESSAGES/squirrelmail.po.new
+echo "Once you've got the strings tranlated rename "
+echo "manualy po file to squirrelmail.po"
