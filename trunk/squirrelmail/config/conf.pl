@@ -426,6 +426,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         if ( lc($edit_identity) eq "false" ) {
             print "13. Allow editing of name     : $WHT$edit_name$NRM\n";
         }
+        print "14. Allow server charset search : $WHT$allow_charset_search$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -606,6 +607,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 11 ) { $allow_thread_sort        = command312(); }
             elsif ( $command == 12 ) { $allow_server_sort        = command313(); }
             elsif ( $command == 13 ) { $edit_name                = command311(); }
+            elsif ( $command == 14 ) { $allow_charset_search     = command314(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -1744,6 +1746,27 @@ sub command313 {
     return $allow_server_sort;
 }
 
+sub command314 {
+    print "This option allows you to choose if SM uses charset search\n";
+    print "Your IMAP server must support the SEARCH CHARSET command for this to work\n";
+    print "\n";
+
+    if ( lc($allow_charset_search) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow charset searching? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $allow_charset_search = <STDIN>;
+    if ( ( $allow_charset_search =~ /^y\n/i ) || ( ( $allow_charset_search =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $allow_charset_search = "true";
+    } else {
+        $allow_charset_search = "false";
+    }
+    return $allow_charset_search;
+}
+
+
 sub command41 {
     print "\nNow we will define the themes that you wish to use.  If you have added\n";
     print "a theme of your own, just follow the instructions (?) about how to add\n";
@@ -2321,6 +2344,8 @@ sub save_data {
         print CF "\$allow_thread_sort        = $allow_thread_sort;\n";
 	# boolean
         print CF "\$allow_server_sort        = $allow_server_sort;\n";
+        # boolean
+        print CF "\$allow_charset_search        = $allow_charset_search;\n";
         print CF "\n";
 	
 	# all plugins are strings
