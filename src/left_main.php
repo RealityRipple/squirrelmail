@@ -443,13 +443,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     $mailboxURL = urlencode($mailbox);
 
     /* Only need to display info when option is set */
-    if (isset($unseen_notify) && ($unseen_notify > 1)) {
+    if (isset($unseen_notify) && ($unseen_notify > 1) && (($boxes->unseen !== false) || ($boxes->total !== false))) {
 
-        if ($boxes->unseen !== false) {
+        if ($boxes->unseen !== false)
             $unseen = $boxes->unseen;
-        } else {
-            $unseen = 0;
-        }
 
         /* 
             Should only display unseen info if the folder is inbox
@@ -459,12 +456,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         if ((strtolower($mailbox) == 'inbox') || ($unseen_notify == 3)) {
             $unseen_string = $unseen;
 
-
             /* If users requests, display message count too */
-            if (isset($unseen_type) && ($unseen_type == 2)) {
-                $numMessages = $boxes->total;
-                $unseen_string .= '/' . $numMessages;
-            }
+            if (isset($unseen_type) && ($unseen_type == 2) && ($boxes->total !== false))
+                $unseen_string .= '/' . $boxes->total;
 
             $unseen_string = "<font color=\"$color[11]\">($unseen_string)</font>";
 
@@ -644,51 +638,52 @@ $xtra .= <<<ECHO
 
 <!--
 
+    function preload() {
+      if (document.images) {
+        var treeImages = new Array;
+        var arguments = preload.arguments;
+        for (var i = 0; i<arguments.length; i++) {
+          treeImages[i] = new Image();
+          treeImages[i].src = arguments[i];
+        }
+      }
+    }
+
     function hidechilds(el) {
-        id = el.id+".0000";
-        form_id = "mbx[" + el.id +"F]";
-    if (document.all) {
+      id = el.id+".0000";
+      form_id = "mbx[" + el.id +"F]";
+      if (document.all) {
         ele = document.all[id];
         if (ele) {
-           if(ele.style.display == "none") {
-                  ele.style.display = "block";
-              ele.style.visibility = "visible"
-                  el.src="../images/minus.png";
-                  document.all[form_id].value=0;
-               } else {
-                  ele.style.display = "none";
-              ele.style.visibility = "hidden"
-              el.src="../images/plus.png";
+           if (ele.style.display == "none") {
+              el.src = "../images/minus.png";
+              for (i = 0; i < 200000; i++);
+              ele.style.display = "block";
+              document.all[form_id].value=0;
+           } else {
+              el.src = "../images/plus.png";
+              for (i = 0; i < 200000; i++);
+              ele.style.display = "none";
               document.all[form_id].value=1;
            }
         }
-    } else if (document.getElementById) {
-            ele = document.getElementById(id);
+      } else if (document.getElementById) {
+        ele = document.getElementById(id);
         if (ele) {
            if(ele.style.display == "none") {
               ele.style.display = "block";
-              ele.style.visibility = "visible"
+//              ele.style.visibility = "visible";
               el.src="../images/minus.png";
-                  document.getElementById(form_id).value=0;
+              document.getElementById(form_id).value=0;
            } else {
               ele.style.display = "none";
-              ele.style.visibility = "hidden"
+//              ele.style.visibility = "hidden";
               el.src="../images/plus.png";
-                  document.getElementById(form_id).value=1;
+              document.getElementById(form_id).value=1;
            }
         }
+      }
     }
-   }
-
-   function preload() {
-     if (!document.images) return;
-     var ar = new Array();
-     var arguments = preload.arguments;
-     for (var i = 0; i<arguments.length; i++) {
-        ar[i] = new Image();
-    ar[i].src = arguments[i];
-     }
-   }
 
    function buttonover(el,on) {
       if (!on) {
@@ -849,10 +844,10 @@ $xtra .= <<<ECHO
      padding-bottom:5px;
      border-left: solid;
      border-left-width:0.1em;
-     border-left-color:blue;
+     border-left-color:$color[9];
      border-bottom: solid;
      border-bottom-width:0.1em;
-     border-bottom-color:blue;
+     border-bottom-color:$color[9];
      display: block;
   }
 
@@ -899,7 +894,12 @@ if ($auto_create_special && !isset($auto_create_done)) {
     sqsession_register($auto_create_done, 'auto_create_done');
 }
 
-echo "\n<body bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+if ($advanced_tree)
+  echo "\n<body" .
+	' onload="preload(\'../images/minus.png\',\'../images/plus.png\')"' .
+  " bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+else
+  echo "\n<body bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
 
 do_hook('left_main_before');
 if ($advanced_tree) {
@@ -1028,7 +1028,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         echo '<form name="collapse" action="left_main.php" method="post" ' .
              'enctype="multipart/form-data"'."\n";
         echo '<small>';
-/*        echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';*/
+/*      echo '<button type="submit" class="button" onmouseover="buttonover(this,true)" onmouseout="buttonover(this,false)" onmousedown="buttonclick(this,true)" onmouseup="buttonclick(this,false)">'. _("Save folder tree") .'</button><br /><br />';*/
         echo '<div id="mailboxes" class="mailboxes">'."\n\n";
         if (!isset($mbx)) $mbx=NULL;
         ListAdvancedBoxes($boxes, $mbx);
