@@ -87,9 +87,12 @@
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
-      $from_addr = "$username@$domain";
       $reply_to = getPref($data_dir, $username, "reply_to");
       $from = getPref($data_dir, $username, "full_name");
+      $from_addr = getPref($data_dir, $username, "email_address");
+
+      if ($from_addr == "")
+         $from_addr = "$username@$domain";
 
       $to_list = getLineOfAddrs($to);
       $cc_list = getLineOfAddrs($cc);
@@ -181,12 +184,16 @@
    }
 
    function sendSMTP($t, $c, $b, $subject, $body) {
-      global $username, $domain, $version, $smtpServerAddress, $smtpPort;
+      global $username, $domain, $version, $smtpServerAddress, $smtpPort,
+         $data_dir;
 
       $to = parseAddrs($t);
       $cc = parseAddrs($c);
       $bcc = parseAddrs($b);
-      $from_addr = "$username@$domain";
+      $from_addr = getPref($data_dir, $username, "email_address");
+
+      if ($from_addr == "")
+         $from_addr = "$username@$domain";
 
       $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
