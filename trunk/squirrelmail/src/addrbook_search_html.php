@@ -113,12 +113,6 @@
    // Initialize addressbook
    $abook = addressbook_init();
 
-   $body = sqStripSlashes($body);
-   $send_to = sqStripSlashes($send_to);
-   $send_to_cc = sqStripSlashes($send_to_cc);
-   $send_to_bcc = sqStripSlashes($send_to_bcc);
-   $subject = sqStripSlashes($subject);
-
 ?>
 
 <br>

@@ -156,9 +156,9 @@
    // $message contains all information about the message
    // including header and body
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-
+   
    /** translate the subject and mailbox into url-able text **/
-   $url_subj = urlencode(trim(sqStripSlashes($message->header->subject)));
+   $url_subj = urlencode(trim($message->header->subject));
    $urlMailbox = urlencode($mailbox);
    $url_replyto = urlencode($message->header->replyto);
 

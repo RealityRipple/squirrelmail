@@ -509,7 +509,7 @@
       if (($body_message->header->type0 == "text") || 
           ($body_message->header->type0 == "rfc822")) {
    
-         $body = mime_fetch_body ($imap_stream, $id, $ent_num); 
+         $body = mime_fetch_body ($imap_stream, $id, $ent_num);
          $body = decodeBody($body, $body_message->header->encoding);
    
          // If there are other types that shouldn't be formatted, add
