@@ -3,7 +3,3 @@ Ideas to be implemented
 
 -  Saving sent mail into folder "Sent"
 -  Delete folders made robust
--  Go through each php file and assign it a constant
-      value.  Then when doing an include, check to see
-      if that value is already defined or not before
-      including.
