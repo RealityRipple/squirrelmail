@@ -491,7 +491,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
             while ($prevline && strspn($read_part, "\t ") > 0) {
                $read_part = substr($prevline, 0, -2) . ' ' . ltrim($read_part);
             }
-            $prev_line = $read_part;
+            $prevline = $read_part;
             if ($read_part{0} == '*') {
                 if ($internaldate) {
                     if (preg_match ("/^.+INTERNALDATE\s+\"(.+)\".+/iUA",$read_part, $reg)) {
