@@ -16,17 +16,26 @@
    $mailbox = $trash_folder;
    fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
    $data = imapReadData($imapConnection , "1", false, $response, $message);
-   while (substr($data[0], strpos($data[0], " ")+1, 4) == "LIST") {
-      echo "DEBUG - data from IMAP \"LIST\" : " . $data[0] . "<BR>\n"; 
-      for ($i = 0; $i < count($boxes); $i++) {
-         if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
-             (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-            removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
-         }
+      
+   echo "DEBUG - data from IMAP \"LIST\" : " . $data[0] . "<BR>\n"; 
+
+   // According to RFC2060, a DELETE command should NOT remove inferiors (sub folders)
+   //    so lets go through the list of subfolders and remove them before removing the
+   //    parent.
+   //    BUG??? - what if a subfolder has a subfolder??  need to start at lowest level
+   //       and work up.
+   
+
+   for ($i = 0; $i < count($boxes); $i++) {
+//      if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
+//          (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+      if (($boxes[$i]["UNFORMATTED"] != $mailbox) && (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+         removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
+         echo "removing " . $boxes[$i]["UNFORMATTED"] . "<BR>";
       }
-      fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
-      $data = imapReadData($imapConnection , "1", false, $response, $message);
    }
+   // now lets remove the top level trash folder
+   removeFolder($imapConnection, $mailbox);
 
    createFolder($imapConnection, "$trash_folder", "");
 
