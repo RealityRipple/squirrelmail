@@ -1,7 +1,7 @@
 <?php
 
 /**
- * globals.php
+ * global.php
  *
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -24,10 +24,17 @@ if(isset($session_name) && $session_name) {
 
 /* If magic_quotes_runtime is on, SquirrelMail breaks in new and creative ways.
  * Force magic_quotes_runtime off.
- * chilts@birdbrained.org - I put it here in the hopes that all SM code includes this.
+ * tassium@squirrelmail.org - I put it here in the hopes that all SM code includes this.
  * If there's a better place, please let me know.
  */
 ini_set('magic_quotes_runtime','0');
+
+/* Since we decided all IMAP servers must implement the UID command as defined in
+ * the IMAP RFC, we force $uid_support to be on.
+ */
+
+global $uid_support;
+$uid_support = true;
 
 sqsession_is_active();
 
