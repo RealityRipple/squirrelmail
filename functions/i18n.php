@@ -50,6 +50,8 @@
    $languages["tw"]["CHARSET"] = "big5";
    $languages["da"]["NAME"]    = "Danish";
    $languages["da"]["CHARSET"] = "iso-8859-1";
+   $languages["fi"]["NAME"] = "Finnish";
+   $languages["fi"]["CHARSET"] = "iso-8859-1";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
