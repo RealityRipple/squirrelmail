@@ -27,8 +27,6 @@
 
 ?>
 
-<div align="center">
-
 <br>
 <table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
 <tr><td align="center">
@@ -206,6 +204,4 @@
 </td></tr>
 </table>
 
-
-</div>
 </body></html>
