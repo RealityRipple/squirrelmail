@@ -98,7 +98,7 @@
       global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
 
       $imap_stream = fsockopen ($imap_server_address, $imap_port,
-         &$error_number, &$error_string, 15);
+         $error_number, $error_string, 15);
       $server_info = fgets ($imap_stream, 1024);
       
       // Decrypt the password

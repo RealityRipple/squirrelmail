@@ -119,7 +119,7 @@
       } else {
          // parse the elements
          if ($debug_mime) echo "<br><font color=0000aa><tt>$structure</tt></font><br>";
-         $msg = mime_get_element (&$structure, $msg, $ent_id);
+         $msg = mime_get_element ($structure, $msg, $ent_id);
          if ($debug_mime) echo "<br>";
       }
       return $msg;
@@ -435,7 +435,7 @@
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
-   function decodeMime ($imap_stream, $header) {
+   function decodeMime ($imap_stream, &$header) {
       global $username, $key, $imapServerAddress, $imapPort;
       return mime_structure ($imap_stream, $header);
    }
