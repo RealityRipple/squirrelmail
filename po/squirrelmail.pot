@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-08 18:31+0200\n"
+"POT-Creation-Date: 2004-05-09 13:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1882,7 +1882,7 @@ msgstr ""
 msgid "Config File Version"
 msgstr ""
 
-msgid "Squirrelmail Version"
+msgid "SquirrelMail Version"
 msgstr ""
 
 msgid "PHP Version"
@@ -2713,7 +2713,7 @@ msgstr ""
 
 msgid ""
 "Run some test IMAP commands, displaying both the command and the result. "
-"These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
+"These tests use the SquirrelMail IMAP commands and your current SquirrelMail "
 "configuration. Custom command strings can be used."
 msgstr ""
 
@@ -2885,10 +2885,8 @@ msgstr ""
 msgid "Login OK: Inbox EMPTY"
 msgstr ""
 
-msgid "Login OK: Inbox contains ["
-msgstr ""
-
-msgid "] messages"
+#, c-format
+msgid "Login OK: Inbox contains %s messages"
 msgstr ""
 
 msgid "Fetching UIDL..."
@@ -3308,11 +3306,11 @@ msgid ""
 "folder to see messages and/or delete the spam."
 msgstr ""
 
-msgid "Spamcop service type"
+msgid "SpamCop service type"
 msgstr ""
 
 msgid ""
-"Service type option allows selecting which spamcop services you are using. "
+"Service type option allows selecting which SpamCop services you are using. "
 "Member services use different web reporting forms and does not display nags. "
 "You can purchase these services, if you want to support SpamCop."
 msgstr ""
