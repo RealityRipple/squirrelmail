@@ -15,19 +15,19 @@
 /** Put in a safety net here, in case a naughty admin didn't run conf.pl when they upgraded */
 
 if (! isset($smtp_auth_mech)) {
-  $smtp_auth_mech = 'none';
+    $smtp_auth_mech = 'none';
 }
 
 if (! isset($imap_auth_mech)) {
-  $imap_auth_mech = 'login';
+    $imap_auth_mech = 'login';
 }
 
 if (! isset($use_imap_tls)) {
-  $use_imap_tls = false;
+    $use_imap_tls = false;
 }
 
 if (! isset($use_smtp_tls)) {
-  $use_smtp_tls = false;
+    $use_smtp_tls = false;
 }
 
 /**
@@ -52,10 +52,10 @@ function is_logged_in() {
         $session_expired_post = $_POST;
         $session_expired_location = $PHP_SELF;
         if (!sqsession_is_registered('session_expired_post')) {
-           sqsession_register($session_expired_post,'session_expired_post');
+            sqsession_register($session_expired_post,'session_expired_post');
         }
         if (!sqsession_is_registered('session_expired_location')) {
-           sqsession_register($session_expired_location,'session_expired_location');
+            sqsession_register($session_expired_location,'session_expired_location');
         }
         include_once( SM_PATH . 'functions/display_messages.php' );
         set_up_language($squirrelmail_language, true);
@@ -97,48 +97,48 @@ function cram_md5_response ($username,$password,$challenge) {
  * @return string The response to be sent to the IMAP server
  */
 function digest_md5_response ($username,$password,$challenge,$service,$host) {
-  $result=digest_md5_parse_challenge($challenge);
+    $result=digest_md5_parse_challenge($challenge);
 
-// verify server supports qop=auth
-  // $qop = explode(",",$result['qop']);
-  //if (!in_array("auth",$qop)) {
+    // verify server supports qop=auth
+    // $qop = explode(",",$result['qop']);
+    //if (!in_array("auth",$qop)) {
     // rfc2831: client MUST fail if no qop methods supported
-   // return false;
-  //}
-  $cnonce = base64_encode(bin2hex(hmac_md5(microtime())));
-  $ncount = "00000001";
+    // return false;
+    //}
+    $cnonce = base64_encode(bin2hex(hmac_md5(microtime())));
+    $ncount = "00000001";
 
-  /* This can be auth (authentication only), auth-int (integrity protection), or
-     auth-conf (confidentiality protection).  Right now only auth is supported.
-     DO NOT CHANGE THIS VALUE */
-  $qop_value = "auth";
+    /* This can be auth (authentication only), auth-int (integrity protection), or
+       auth-conf (confidentiality protection).  Right now only auth is supported.
+       DO NOT CHANGE THIS VALUE */
+    $qop_value = "auth";
 
-  $digest_uri_value = $service . '/' . $host;
+    $digest_uri_value = $service . '/' . $host;
 
-  // build the $response_value
-  //FIXME This will probably break badly if a server sends more than one realm
-  $string_a1 = utf8_encode($username).":";
-  $string_a1 .= utf8_encode($result['realm']).":";
-  $string_a1 .= utf8_encode($password);
-  $string_a1 = hmac_md5($string_a1);
-  $A1 = $string_a1 . ":" . $result['nonce'] . ":" . $cnonce;
-  $A1 = bin2hex(hmac_md5($A1));
-  $A2 = "AUTHENTICATE:$digest_uri_value";
-  // If qop is auth-int or auth-conf, A2 gets a little extra
-  if ($qop_value != 'auth') {
-    $A2 .= ':00000000000000000000000000000000';
-  }
-  $A2 = bin2hex(hmac_md5($A2));
+    // build the $response_value
+    //FIXME This will probably break badly if a server sends more than one realm
+    $string_a1 = utf8_encode($username).":";
+    $string_a1 .= utf8_encode($result['realm']).":";
+    $string_a1 .= utf8_encode($password);
+    $string_a1 = hmac_md5($string_a1);
+    $A1 = $string_a1 . ":" . $result['nonce'] . ":" . $cnonce;
+    $A1 = bin2hex(hmac_md5($A1));
+    $A2 = "AUTHENTICATE:$digest_uri_value";
+    // If qop is auth-int or auth-conf, A2 gets a little extra
+    if ($qop_value != 'auth') {
+        $A2 .= ':00000000000000000000000000000000';
+    }
+    $A2 = bin2hex(hmac_md5($A2));
 
-  $string_response = $result['nonce'] . ':' . $ncount . ':' . $cnonce . ':' . $qop_value;
-  $response_value = bin2hex(hmac_md5($A1.":".$string_response.":".$A2));
+    $string_response = $result['nonce'] . ':' . $ncount . ':' . $cnonce . ':' . $qop_value;
+    $response_value = bin2hex(hmac_md5($A1.":".$string_response.":".$A2));
 
-  $reply = 'charset=utf-8,username="' . $username . '",realm="' . $result["realm"] . '",';
-  $reply .= 'nonce="' . $result['nonce'] . '",nc=' . $ncount . ',cnonce="' . $cnonce . '",';
-  $reply .= "digest-uri=\"$digest_uri_value\",response=$response_value";
-  $reply .= ',qop=' . $qop_value;
-  $reply = base64_encode($reply);
-  return $reply . "\r\n";
+    $reply = 'charset=utf-8,username="' . $username . '",realm="' . $result["realm"] . '",';
+    $reply .= 'nonce="' . $result['nonce'] . '",nc=' . $ncount . ',cnonce="' . $cnonce . '",';
+    $reply .= "digest-uri=\"$digest_uri_value\",response=$response_value";
+    $reply .= ',qop=' . $qop_value;
+    $reply = base64_encode($reply);
+    return $reply . "\r\n";
 
 }
 
@@ -151,39 +151,39 @@ function digest_md5_response ($username,$password,$challenge,$service,$host) {
  * @return array Digest-MD5 challenge decoded data
  */
 function digest_md5_parse_challenge($challenge) {
-  $challenge=base64_decode($challenge);
-  while (isset($challenge)) {
-    if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
-      $challenge=substr($challenge,1);
-    }
-    $key=explode('=',$challenge,2);
-    $challenge=$key[1];
-    $key=$key[0];
-    if ($challenge{0} == '"') {
-      // We're in a quoted value
-      // Drop the first quote, since we don't care about it
-      $challenge=substr($challenge,1);
-      // Now explode() to the next quote, which is the end of our value
-      $val=explode('"',$challenge,2);
-      $challenge=$val[1]; // The rest of the challenge, work on it in next iteration of loop
-      $value=explode(',',$val[0]);
-      // Now, for those quoted values that are only 1 piece..
-      if (sizeof($value) == 1) {
-        $value=$value[0];  // Convert to non-array
-      }
-    } else {
-      // We're in a "simple" value - explode to next comma
-      $val=explode(',',$challenge,2);
-      if (isset($val[1])) {
-          $challenge=$val[1];
-      } else {
-          unset($challenge);
-      }
-      $value=$val[0];
-    }
-    $parsed["$key"]=$value;
-  } // End of while loop
-  return $parsed;
+    $challenge=base64_decode($challenge);
+    while (isset($challenge)) {
+        if ($challenge{0} == ',') { // First char is a comma, must not be 1st time through loop
+            $challenge=substr($challenge,1);
+        }
+        $key=explode('=',$challenge,2);
+        $challenge=$key[1];
+        $key=$key[0];
+        if ($challenge{0} == '"') {
+            // We're in a quoted value
+            // Drop the first quote, since we don't care about it
+            $challenge=substr($challenge,1);
+            // Now explode() to the next quote, which is the end of our value
+            $val=explode('"',$challenge,2);
+            $challenge=$val[1]; // The rest of the challenge, work on it in next iteration of loop
+            $value=explode(',',$val[0]);
+            // Now, for those quoted values that are only 1 piece..
+            if (sizeof($value) == 1) {
+                $value=$value[0];  // Convert to non-array
+            }
+        } else {
+            // We're in a "simple" value - explode to next comma
+            $val=explode(',',$challenge,2);
+            if (isset($val[1])) {
+                $challenge=$val[1];
+            } else {
+                unset($challenge);
+            }
+            $value=$val[0];
+        }
+        $parsed["$key"]=$value;
+    } // End of while loop
+    return $parsed;
 }
 
 /**
@@ -198,15 +198,15 @@ function digest_md5_parse_challenge($challenge) {
  */
 function hmac_md5($data, $key='') {
     if (extension_loaded('mhash')) {
-      if ($key== '') {
-        $mhash=mhash(MHASH_MD5,$data);
-      } else {
-        $mhash=mhash(MHASH_MD5,$data,$key);
-      }
-      return $mhash;
+        if ($key== '') {
+            $mhash=mhash(MHASH_MD5,$data);
+        } else {
+            $mhash=mhash(MHASH_MD5,$data,$key);
+        }
+        return $mhash;
     }
     if (!$key) {
-         return pack('H*',md5($data));
+        return pack('H*',md5($data));
     }
     $key = str_pad($key,64,chr(0x00));
     if (strlen($key) > 64) {
