@@ -6,7 +6,7 @@
 #
 # $Id$
 ############################################################              
-$conf_pl_version = "x62";
+$conf_pl_version = "x63";
 
 ############################################################              
 # Some people try to run this as a CGI. That's wrong!
@@ -283,6 +283,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "2.  Organization Logo    : $WHT$org_logo$NRM\n";
       print "3.  Organization Title   : $WHT$org_title$NRM\n";
       print "4.  Signout Page         : $WHT$signout_page$NRM\n";
+      print "5.  Default Language     : $WHT$squirrelmail_default_language$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 2) {
@@ -452,6 +453,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 2) { $org_logo   = command2 (); }
          elsif ($command == 3) { $org_title  = command3 (); }
          elsif ($command == 4) { $signout_page  = command4 (); }
+	 elsif ($command == 5) { $squirrelmail_default_language = command5(); }
       } elsif ($menu == 2) {
          if    ($command == 1)  { $domain             = command11 (); }
          elsif ($command == 2)  { $imapServerAddress  = command12 (); }
@@ -561,6 +563,23 @@ sub command4 {
    $new_signout_page = <STDIN>;
    if ($new_signout_page eq "\n") {
       $new_signout_page = $signout_page;
+   } else {
+      $new_signout_page =~ s/[\r|\n]//g;
+      $new_signout_page =~ s/^\s+$//g;
+   }
+   return $new_signout_page;
+}
+
+# Default language
+sub command5 {
+   print "SquirrelMail attempts to set the language in many ways.  If it\n";
+   print "can not figure it out in another way, it will default to this\n";
+   print "language.  Please use the two-letter code for the desired language.\n";
+   print "\n";
+   print "[$WHT$squirrelmail_default_language$NRM]: $WHT";
+   $new_signout_page = <STDIN>;
+   if ($new_signout_page eq "\n") {
+      $new_signout_page = $squirrelmail_default_language;
    } else {
       $new_signout_page =~ s/[\r|\n]//g;
       $new_signout_page =~ s/^\s+$//g;
