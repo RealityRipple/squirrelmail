@@ -189,7 +189,7 @@ function asearch_forget_recent($data_dir, $username, $forget_index)
 	asearch_write_recent($data_dir, $username, $recent_array);
 }
 
-function asearch_recent_exists($recent_array, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array)
+function asearch_find_recent($recent_array, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array)
 {
 	global $recent_prefkeys;
 
@@ -210,10 +210,10 @@ function asearch_recent_exists($recent_array, $mailbox_array, $biop_array, $unop
 					$what_string == $recent_array['asearch_recent_what'][$recent_num] &&
 					$exclude_string == $recent_array['asearch_recent_exclude'][$recent_num]
 					)
-				return TRUE;
+				return $recent_num;
 		}
 	}
-	return FALSE;
+	return -1;
 }
 
 /* push a recent search */
@@ -224,15 +224,19 @@ function asearch_push_recent($data_dir, $username, $mailbox_array, $biop_array, 
 	$recent_max = getPref($data_dir, $username, 'search_memory', 0);
 	if ($recent_max > 0) {
 		$recent_array = asearch_read_recent($data_dir, $username);
-		if (!asearch_recent_exists($recent_array, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array)) {
-			$input = array($where_array, $mailbox_array, $what_array, $biop_array, $unop_array, $exclude_array);
-			$i = 0;
+		$recent_found = asearch_find_recent($recent_array, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array);
+		if ($recent_found >= 0) {	// Remove identical recent
 			foreach ($recent_prefkeys as $key) {
-				array_unshift($recent_array[$key], asearch_serialize($input[$i]));
-				$i++;
+				array_splice($recent_array[$key], $recent_found, 1);
 			}
-			asearch_write_recent($data_dir, $username, $recent_array);
-		}	
+		}
+		$input = array($where_array, $mailbox_array, $what_array, $biop_array, $unop_array, $exclude_array);
+		$i = 0;
+		foreach ($recent_prefkeys as $key) {
+			array_unshift($recent_array[$key], asearch_serialize($input[$i]));
+			$i++;
+		}
+		asearch_write_recent($data_dir, $username, $recent_array);
 	}
 }
 
@@ -571,22 +575,36 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 
 /* print the $msgs messages from $mailbox mailbox */
 /* this is almost the original code */
-function asearch_print_mailbox_msgs($msgs, $mailbox, $cnt, $imapConnection, $where, $what, $usecache = false, $newsort = false)
+function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sort, $color, $where, $what)
 {
-	global $sort, $color;
-    
 	if ($cnt > 0) {
-		$msort = calc_msort($msgs, $sort);
-		$showbox = asearch_get_mailbox_display($mailbox);
-		echo html_tag('div', '<b><big>' . _("Folder:") . ' '. $showbox.'</big></b>','center') . "\n";
+		global $allow_server_sort, $allow_thread_sort, $thread_sort_messages;
+
+		$thread_sort_messages = 0;
+		if ($allow_thread_sort) {
+			global $data_dir, $username;
+			$thread_sort_messages = getPref($data_dir, $username, 'thread_' . $mailbox);
+			$msort = $msgs;
+			$real_sort = 6;
+		}
+		elseif ($allow_server_sort) {
+			$msort = $msgs;
+			$real_sort = 6;
+		}
+		else {
+			$msort = calc_msort($msgs, $sort);
+			$real_sort = $sort;
+		}
+		$mailbox_display = asearch_get_mailbox_display($mailbox);
+		echo html_tag('div', '<b><big>' . _("Folder:") . ' '. $mailbox_display . '</big></b>','center') . "\n";
 
 		$msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
-		$toggle_all = get_selectall_link(1, $sort);
+		$toggle_all = get_selectall_link(1, $real_sort);
 
 		echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
 
 		echo '<tr><td>';
-		mail_message_listing_beginning($imapConnection, $mailbox, $sort, $msg_cnt_str, $toggle_all, 1);
+		mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $toggle_all, 1);
 		echo '</td></tr>';
 
 		echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
@@ -597,8 +615,8 @@ function asearch_print_mailbox_msgs($msgs, $mailbox, $cnt, $imapConnection, $whe
 
 		echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
 		echo '        <tr><td>';
-		printHeader($mailbox, 6, $color, false);
-		displayMessageArray($imapConnection, $cnt, 1, $msort, $mailbox, $sort, $color, $cnt, $where, $what);
+		printHeader($mailbox, $sort, $color, !$thread_sort_messages);
+		displayMessageArray($imapConnection, $cnt, 1, $msort, $mailbox, $real_sort, $color, $cnt, $where, $what);
 		echo '        </td></tr>';
 		echo '       </table>';
 		echo '     </td></tr>';
@@ -611,8 +629,6 @@ function asearch_print_mailbox_msgs($msgs, $mailbox, $cnt, $imapConnection, $whe
 }			      
 
 /* ------------------------ main ------------------------ */
-global $allow_thread_sort;
-
 /* get globals we may need */
 sqgetGlobalVar('username', $username, SQ_SESSION);
 sqgetGlobalVar('key', $key, SQ_COOKIE);
@@ -753,8 +769,21 @@ else
 	$exclude_array = array();
 
 /* Used by recent and saved stuff */
-if (isset($_GET['rownum'])) {
+if (isset($_GET['rownum']))
     $submit_rownum = strip_tags($_GET['rownum']);
+
+/* Change global sort */
+if (sqgetGlobalVar('newsort', $newsort, SQ_GET)) {
+	setPref($data_dir, $username, 'sort', $newsort);
+	$sort = $newsort;
+	sqsession_register($sort, 'sort');
+	asearch_edit_last($data_dir, $username);
+}
+
+/* Change mailbox threading */
+if (sqgetGlobalVar('set_thread', $set_thread, SQ_GET)) {
+	setPref($data_dir, $username, 'thread_' . $mailbox_array[0], ($set_thread == 1) ? 1 : 0 );
+	asearch_edit_last($data_dir, $username);
 }
 
 /* end of get globals */
@@ -810,7 +839,9 @@ else {
 		break;
 		case 'search_recent':
 			$submit = $search_button_text;
-		/*nobreak;*/
+			asearch_edit_recent($data_dir, $username, $submit_rownum);
+			asearch_push_recent($data_dir, $username, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array);
+		break;
 		case 'edit_recent':	/* no link to do this, yet */
 			asearch_edit_recent($data_dir, $username, $submit_rownum);
 		break;
@@ -819,7 +850,9 @@ else {
 		break;
 		case 'search_saved':
 			$submit = $search_button_text;
-		/*nobreak;*/
+			asearch_edit_saved($data_dir, $username, $submit_rownum);
+			asearch_push_recent($data_dir, $username, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array);
+		break;
 		case 'edit_saved':
 			asearch_edit_saved($data_dir, $username, $submit_rownum);
 		break;
@@ -876,12 +909,6 @@ if (!$search_silent) {
 	asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array);
 }
 
-/* This deserves a comment, at least. What is it for exactly? */
-if (isset($newsort)) {
-    $sort = $newsort;
-    sqsession_register($sort, 'sort');
-}
-
 /*********************************************************************
  * Check to see if we can use cache or not. Currently the only time  *
  * when you will not use it is when a link on the left hand frame is *
@@ -903,12 +930,11 @@ if ($submit == $search_button_text) {
 	if ($query_error != '')
 		echo '<br>' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
 	else {
-		// Temporarily unset thread sort because it is meaningless in search results
-		$old_allow_thread_sort = FALSE;
-		if ($allow_thread_sort == TRUE) {
-			$old_allow_thread_sort = $allow_thread_sort;
-			$allow_thread_sort = FALSE;
-		}
+
+		// Disable thread sort for now if there is more than one mailbox
+		global $allow_thread_sort;
+		$old_allow_thread_sort = $allow_thread_sort;
+		$allow_thread_sort = (count(array_unique($mailbox_array)) <= 1);
 
 		$boxcount = count($boxes);
 		for ($boxnum=0; $boxnum<$boxcount; $boxnum++) {
@@ -928,11 +954,11 @@ if ($submit == $search_button_text) {
 					$what = asearch_serialize($what_array);*/
 					$where = $where_array[0];
 					$what = $what_array[0];
-					asearch_print_mailbox_msgs($msgs, $mailbox, count($msgs), $imapConnection, urlencode($where), urlencode($what), false, false);
+					asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, count($msgs), $sort, $color, urlencode($where), urlencode($what));
 			}
 		}
 
-		$allow_thread_sort = $old_allow_thread_sort;
+		$allow_thread_sort = $old_allow_thread_sort;	// Restore thread sort
 	}
 }
 
