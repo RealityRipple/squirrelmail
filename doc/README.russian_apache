@@ -1,6 +1,9 @@
 HOW TO CONFIGURE SQUIRREL-MAIL WITH RUSSIAN APACHE
 --------------------------------------------------
 
+This text is available in Russian at 
+http://www.mricon.com/SM/russian_apache.html
+
 This howto is for people who are using Russian Apache and
 who use charsets other than koi8-r for their source documents.
 If you _do_ use KOI8-R as default encoding for all your source
