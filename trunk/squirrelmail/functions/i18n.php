@@ -160,6 +160,9 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'windows-1258') {
         include_once(SM_PATH . 'functions/decode/cp1258.php');
         $ret = charset_decode_cp1258 ($string);
+    } else if ($charset == 'tis-620') {
+        include_once(SM_PATH . 'functions/decode/tis620.php');
+        $ret = charset_decode_tis620 ($string);
     } else if ($charset == 'big5' and $agresive_decoding ) {
         include_once(SM_PATH . 'functions/decode/big5.php');
         $ret = charset_decode_big5 ($string);
