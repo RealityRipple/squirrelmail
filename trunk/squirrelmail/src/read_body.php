@@ -381,6 +381,7 @@
       echo "         </TD>\n";
       echo "      </TR>\n";
    }
+   do_hook("read_body_header");
    echo "</TABLE>";
    echo "   </TD></TR>";
    echo "</table>";
