@@ -114,7 +114,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                ) ,
            'center', '', 'width="95%" cols="1"' );
 
-    if (!isset( $server_to_fetch ) ) {
+    // get $server_to_fetch from globals, if not set display a choice to the user
+    if (! sqgetGlobalVar('server_to_fetch', $server_to_fetch, SQ_POST) ) {
         Mail_Fetch_Select_Server($mailfetch);
         exit();
     }
