@@ -26,6 +26,13 @@ require_once(SM_PATH . 'functions/mime.php');
 
 sqgetGlobalVar('get_message_details', $md_action, SQ_GET);
 
+/**
+ * Controls display of 8bit symbols in message source
+ * @global boolean $msgd_8bit_in_hex;
+ */
+global $msgd_8bit_in_hex;
+$msgd_8bit_in_hex=false;
+
 if (!empty($md_action))
 {
     sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
@@ -36,6 +43,19 @@ if (!empty($md_action))
 
 // ---------- function definitions ----------
 
+/**
+ * Converts 8bit string to hex
+ *
+ * Replaces 8bit symbols with their hex strings, 
+ * encloses them in curly brackets and uses different color.
+ * @param string $string text
+ * @return string
+ * @since 1.5.1
+ */
+function msgd_convert_to_hex($string) {
+     global $color;
+     return preg_replace("/([\200-\377])/e","'<font color=\"$color[2]\">{'.dechex(ord('\\1')).'}</font>'",$string);
+}
 
 /**
  * Calculates id of MIME entity
@@ -103,7 +123,7 @@ function returnTime($start) {
  */
 function get_message_details($mailbox, $passed_id, $stripHTML=FALSE) {
 
-global $imapServerAddress, $imapPort, $color;
+global $imapServerAddress, $imapPort, $color,$msgd_8bit_in_hex;
 
 $returnValue = '';
 
@@ -287,9 +307,11 @@ for ($i=1; $i < $count; $i++) {
         $message_body .= $line . "\r\n";
     } else {
         $line = htmlspecialchars($line);
+        if ($msgd_8bit_in_hex) $line = msgd_convert_to_hex($line);
         $message_body .= "$pre"."$line"."$end".'<br />'."\r\n";
     }
 }
+
 //$returnValue .= returnTime($start).'<br />';
 $xtra = <<<ECHO
 
