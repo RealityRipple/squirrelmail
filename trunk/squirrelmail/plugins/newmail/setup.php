@@ -61,7 +61,7 @@
 
         $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
         $squirrelmail_plugin_hooks['optpage_register_block']['newmail'] = 'newmail_optpage_register_block';
-        $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
+        // $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
         $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
         $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';
     }
