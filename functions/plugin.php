@@ -7,7 +7,7 @@
  **
  ** Plugins will eventually be a way to provide added functionality
  ** without having to patch the SquirrelMail source code. Have some
- ** patients, though, as the these funtions might change in the near
+ ** patience, though, as the these funtions might change in the near
  ** future.
  **
  ** Documentation on how to write plugins might show up some time.
@@ -39,8 +39,8 @@
    }
 
    // On startup, register all plugins configured for use
-  if (is_array($plugins))
-     while (list ($id, $name) = each ($plugins))
-        use_plugin($name);
+   if (is_array($plugins))
+      while (list ($id, $name) = each ($plugins))
+         use_plugin($name);
 
 ?>
