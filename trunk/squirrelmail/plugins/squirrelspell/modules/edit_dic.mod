@@ -51,7 +51,7 @@ if (!$words){
        * language we're processing, prepend the output with the
        * "header" message.
        */
-      if (!$msg) {
+      if (!isset($msg) || !$msg) {
 	$msg = $pre_msg;
       }
       $msg .= "<tr bgcolor=\"$color[0]\" align=\"center\"><th>"
