@@ -1867,11 +1867,8 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                 !in_array($aUid[0],$aMailbox['UIDSET'][$aMailbox['SETINDEX']])) {
                 break;
             }
-            // What kind of hook is this, can it be removed? Disabled for now because it can invalidate the cache
-            //if (!boolean_hook_function('move_messages_button_action', NULL, 1)) {
-                $aUpdatedMsgs = sqimap_msgs_list_delete($imapConnection, $mailbox, $aUid,$bypass_trash);
-                $bExpunge = true;
-            //}
+            $aUpdatedMsgs = sqimap_msgs_list_delete($imapConnection, $mailbox, $aUid,$bypass_trash);
+            $bExpunge = true;
             break;
           case 'unsetDeleted':
           case 'setSeen':
@@ -1898,6 +1895,10 @@ function handleMessageListForm($imapConnection,&$aMailbox,$sButton='',$aUid = ar
                 // dirty hack, add info to $aMailbox
                 $aMailbox['FORWARD_SESSION'] = $composesession;
             }
+            break;
+          default:
+            // Hook for plugin buttons
+            do_hook_function('mailbox_display_button_action', $aUid);
             break;
         }
         /**
