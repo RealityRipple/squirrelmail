@@ -18,6 +18,8 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'include/load_prefs.php');
 require_once(SM_PATH . 'functions/page_header.php');
 
+sqGetGlobalVar('numnew', $numnew, SQ_GET);
+
    displayHtmlHeader( _("New Mail"), '', FALSE );
 
    echo "<body bgcolor=\"$color[4]\" topmargin=0 leftmargin=0 rightmargin=0 marginwidth=0 marginheight=0>\n".
@@ -28,10 +30,14 @@ require_once(SM_PATH . 'functions/page_header.php');
             ) .
             html_tag( 'tr', "\n" .
                 html_tag( 'td',
-                    '<br><big><font color="' . $color[2] . '">' .
-                    _("You have new mail!") . '</font><br></big><br>' . "\n" .
+                    '<br><big><font color="' . $color[2] . '">' . _("You have").' '.
+		    sprintf( ( $numnew == 1 ?
+		        _("%s new message") :
+			_("%s new messages") ), $numnew ) .
+                    '</font><br></big><br>' . "\n" .
                     '<form name="nm">' . "\n".
-                    '<input type=button name=bt value="' . _("Close Window") .'" onClick="javascript:window.close();">'."\n".
+                    '<input type=button name=bt value="' . _("Close Window") .
+                    '" onClick="javascript:window.close();">'."\n".
                     '</form>',
                 'center' )
             ) ,
