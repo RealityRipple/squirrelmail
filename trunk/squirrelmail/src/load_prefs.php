@@ -23,7 +23,7 @@ global $theme, $chosen_theme, $color;
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 
-$chosen_theme = getPref($data_dir, $username, "chosen_theme");
+$chosen_theme = getPref($data_dir, $username, 'chosen_theme');
 $found_theme = false;
 for ($i = 0; $i < count($theme); ++$i){
     if ($theme[$i]['PATH'] == $chosen_theme) {
@@ -56,6 +56,8 @@ if (isset($chosen_theme) && $found_theme && (file_exists($chosen_theme))) {
          $color[9]  = '#ABABAB';  /* mid-gray      Darker version of #0   */
          $color[10] = '#666666';  /* dark gray     Darker version of #9   */
          $color[11] = '#770000';  /* dark red      Special Folders color  */
+         $color[12] = '#EDEDED';
+         $color[15] = '#002266';  /* (dark blue)      Unselectable folders */         
     }
 }
 
