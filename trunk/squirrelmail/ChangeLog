@@ -27,6 +27,7 @@ Version 1.2.6 -- CVS
     impossible to try to delete \Noselect nodes. (patch #452178)
   - SquirrelSpell version 0.3.8 -- pretty configuration error reporting
     added by popular demand.
+  - Improved the handling of IMAP [PARSE] messages to reduce retrieval error.
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
