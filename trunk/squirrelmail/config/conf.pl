@@ -41,13 +41,13 @@ if ( -e "config.php") {
       print "  but be warned that many preferences change between versions.  It is\n";
       print "  recommended that you start with a clean config.php for each upgrade that\n";
       print "  you do.  To do this, just move config/config.php out of the way.\n\n";
-      print "Continue loading with the old config.php [y/n]? ";
+      print "Continue loading with the old config.php [y/N]? ";
       $ctu = <STDIN>;
-      if (($ctu =~ /^n\n/i) || ($ctu =~ /^\n/)) {
+      if (($ctu !~ /^y\n/i) || ($ctu =~ /^\n/)) {
          exit;
       }
 
-      print "\nDo you want me to stop warning you [y/n]? ";
+      print "\nDo you want me to stop warning you [y/N]? ";
       $ctu = <STDIN>;
       if ($ctu =~ /^y\n/i) {
          $print_config_version = $conf_pl_version;
@@ -92,13 +92,13 @@ if ( -e "config.php") {
       print "  \"config_default.php\" that matches the version of SquirrelMail that you\n";
       print "  are running.  You can get this from the SquirrelMail web page by going\n";
       print "  to:  http://www.squirrelmail.org.\n\n";
-      print "Continue loading with the old config_default.php (not a good idea) [y/n]? ";
+      print "Continue loading with the old config_default.php (not a good idea) [y/N]? ";
       $ctu = <STDIN>;
-      if (($ctu =~ /^n\n/i) || ($ctu =~ /^\n/)) {
+      if (($ctu !~ /^y\n/i) || ($ctu =~ /^\n/)) {
          exit;
       }
 
-      print "\nDo you want me to stop warning you [y/n]? ";
+      print "\nDo you want me to stop warning you [y/N]? ";
       $ctu = <STDIN>;
       if ($ctu =~ /^y\n/i) {
          $print_config_version = $conf_pl_version;
@@ -131,7 +131,7 @@ while ($line = <FILE>) {
          $options[1] =~ s/[\n|\r]//g;
          $options[1] =~ s/\";\s*$//;
          $options[1] =~ s/;$//;
-         $options[1] =~ s/^"//;
+         $options[1] =~ s/^\"//;
 
          if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
             $sub = $options[0];
@@ -161,35 +161,35 @@ while ($line = <FILE>) {
                   $continue = 1;
                }
                
-               if ($tmp =~ /^\s*"host"/i) {
-                  $tmp =~ s/^\s*"host"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               if ($tmp =~ /^\s*\"host\"/i) {
+                  $tmp =~ s/^\s*\"host\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $host = $tmp;
-               } elsif ($tmp =~ /^\s*"base"/i) {
-                  $tmp =~ s/^\s*"base"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               } elsif ($tmp =~ /^\s*\"base\"/i) {
+                  $tmp =~ s/^\s*\"base\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $base = $tmp;
-               } elsif ($tmp =~ /^\s*"charset"/i) {
-                  $tmp =~ s/^\s*"charset"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               } elsif ($tmp =~ /^\s*\"charset\"/i) {
+                  $tmp =~ s/^\s*\"charset\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $charset = $tmp;
-               } elsif ($tmp =~ /^\s*"port"/i) {
-                  $tmp =~ s/^\s*"port"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               } elsif ($tmp =~ /^\s*\"port\"/i) {
+                  $tmp =~ s/^\s*\"port\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $port = $tmp;
-               } elsif ($tmp =~ /^\s*"maxrows"/i) {
-                  $tmp =~ s/^\s*"maxrows"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               } elsif ($tmp =~ /^\s*\"maxrows\"/i) {
+                  $tmp =~ s/^\s*\"maxrows\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $maxrows = $tmp;
-               } elsif ($tmp =~ /^\s*"name"/i) {
-                  $tmp =~ s/^\s*"name"\s*=>\s*"//i;
-                  $tmp =~ s/",\s*$//;
-                  $tmp =~ s/"\);\s*$//;
+               } elsif ($tmp =~ /^\s*\"name\"/i) {
+                  $tmp =~ s/^\s*\"name\"\s*=>\s*\"//i;
+                  $tmp =~ s/\",\s*$//;
+                  $tmp =~ s/\"\);\s*$//;
                   $name = $tmp;
                }
             }
@@ -349,7 +349,7 @@ while (($command ne "q") && ($command ne "Q")) {
       $pos=0;
       @unused_plugins = ();
       for ($i=0; $i <= $#files; $i++) {
-         if ( -d "../plugins/" . $files[$i]" && 
+         if ( -d "../plugins/" . $files[$i] && 
 	     $files[$i] !~ /^\./ && $files[$i] ne "CVS") {
             $match = 0;
             for ($k=0; $k<=$#plugins; $k++) {
@@ -384,26 +384,27 @@ while (($command ne "q") && ($command ne "Q")) {
    print "\n";
    print "Command >> ".$WHT;
    $command = <STDIN>;
-   $command =~ s/[\n|\r]//g; 
+   $command =~ s/[\n|\r]//g;
+   $command =~ tr/A-Z/a-z/;
    print "$NRM\n";
 
    # Read the commands they entered.
-   if (($command eq "R") || ($command eq "r")) {
+   if ($command eq "r") {
       $menu = 0;
-   } elsif (($command eq "s") || ($command eq "S")) {
+   } elsif ($command eq "s") {
       save_data ();
       print "Data saved in config.php\n";
-      print "Press any key to continue...";
+      print "Press enter to continue...";
       $tmp = <STDIN>;
       $saved = 1;
-   } elsif ((($command eq "q") || ($command eq "Q")) && ($saved == 0)) {
+   } elsif (($command eq "q") && ($saved == 0)) {
       print "You have not saved your data.\n";
-      print "Save?  (y/n) [".$WHT."y".$NRM."]: ";
+      print "Save?  [".$WHT."Y".$NRM."/n]: ";
       $save = <STDIN>;
       if (($save =~ /^y/i) || ($save =~ /^\s*$/)) {
          save_data ();
        }
-   } elsif (($command eq "c") || ($command eq "C")) {
+   } elsif ($command eq "c") {
       if ($config_use_color == 1) {
          $config_use_color = 2;
          $WHT = "";
@@ -413,7 +414,7 @@ while (($command ne "q") && ($command ne "Q")) {
          $WHT = "\x1B[37;1m";
          $NRM = "\x1B[0m";
       }
-   } elsif ((($command eq "d") || ($command eq "D")) && $menu == 0) {
+   } elsif ($command eq "d" && $menu == 0) {
       set_defaults ();
    } else {
       $saved = 0;
