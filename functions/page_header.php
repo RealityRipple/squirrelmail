@@ -167,7 +167,7 @@ function compose_Header($color, $mailbox) {
 
     global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win;
 
-    displayHtmlHeader ('Compose');
+    displayHtmlHeader (_("Compose"));
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if (!isset($frame_top)) {
