@@ -24,6 +24,7 @@ require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'functions/identity.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -169,20 +170,13 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
 
 
     $reply_to = '';
-    if (isset($identity) && $identity != 'default') {
-        $from_mail = getPref($data_dir, $username, 
-                             'email_address' . $identity);
-        $full_name = getPref($data_dir, $username, 
-                             'full_name' . $identity);
-        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
-        $reply_to  = getPref($data_dir, $username, 
-                             'reply_to' . $identity);
-    } else {
-        $from_mail = getPref($data_dir, $username, 'email_address');
-        $full_name = getPref($data_dir, $username, 'full_name');
-        $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
-        $reply_to  = getPref($data_dir, $username,'reply_to');
-    }
+    $ident = get_identities();
+    if(!isset($identity)) $identity = 0;
+    $full_name = $ident[$identity]['full_name'];
+    $from_mail = $ident[$identity]['email_address'];
+    $from_addr = '"'.$full_name.'" <'.$from_mail.'>';
+    $reply_to  = $ident[$identity]['reply_to'];
+
     if (!$from_addr) {
        $from_addr = "$popuser@$domain";
        $from_mail = $from_addr;

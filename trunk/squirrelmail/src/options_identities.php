@@ -23,6 +23,7 @@ require_once(SM_PATH . 'functions/html.php');
 /* POST data var names are dynamic because 
    of the possible multiple idents so lets get
    them all
+   FIXME! This circumvents the benefits of rg=0
 */
 if (!empty($_POST)) {
     extract($_POST);
