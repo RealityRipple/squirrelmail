@@ -25,6 +25,7 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /* get globals */
 sqgetGlobalVar('num',       $num,       SQ_GET);  
@@ -125,8 +126,8 @@ displayPageHeader($color, 'None');
     }
     
     if (count($index_order) != count($available)) {
-        echo '<form name="f" method="post" action="options_order.php">';
-        echo '<select name="add">';
+
+	$opts = array();
         for ($i=1; $i <= count($available); $i++) {
             $found = false;
             for ($j=1; $j <= count($index_order); $j++) {
@@ -135,12 +136,14 @@ displayPageHeader($color, 'None');
                 }
             }
             if (!$found) {
-                echo "<option value=\"$i\">$available[$i]</option>";
+	        $opts[$i] = $available[$i];
             }
         }
-        echo '</select>';
-        echo '<input type="hidden" value="add" name="method">';
-        echo '<input type="submit" value="'._("Add").'" name="submit">';
+	
+        echo addForm('options_order.php', 'post', 'f');
+	echo addSelect('add', $opts, '', TRUE);
+        echo addHidden('method', 'add');
+	echo addSubmit(_("Add"), 'submit');
         echo '</form>';
     }
  

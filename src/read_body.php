@@ -664,14 +664,14 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
 
     if (!(isset($passed_ent_id) && $passed_ent_id)) {
-        $menu_row .= '<input type="hidden" name="message" value="'.$passed_id.'" />';
+        $menu_row .= addHidden('message', $passed_id);
 
         if ($where && $what) {
-            $menu_row .= '<input type="hidden" name="where" value="'.$where.'" />';
-            $menu_row .= '<input type="hidden" name="what" value="'.$what.'" />';
+	    $menu_row .= addHidden('where', $where);
+	    $menu_row .= addHidden('what',  $what);
         } else {
-            $menu_row .= '<input type="hidden" name="sort" value="'.$sort.'" />';
-            $menu_row .= '<input type="hidden" name="startMessage" value="'.$startMessage.'" />';
+	    $menu_row .= addHidden('sort',  $sort);
+	    $menu_row .= addHidden('startMessage', $startMessage);
         }
         $menu_row .= getButton('SUBMIT', 'delete', _("Delete"));
         $menu_row .= '<input type="checkbox" name="bypass_trash">' . _("Bypass Trash");
@@ -698,10 +698,11 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         }
 
         $menu_row .= '<form action="'.$base_uri.'src/move_messages.php?'.$current_box.'" method="post" style="display: inline">'.
-              '<small><input type="hidden" name="show_more" value="0" />'.
-              '<input type="hidden" name="dmn" value="1" />'.
-              '<input type="hidden" name="location" value="'.$location.$current_box.'" />'.
-              '<input type="hidden" name="msg[0]" value="'.$passed_id.'" />'._("Move to:") .
+              '<small>'.
+	      addHidden('show_more', '0' ).
+	      addHidden('dmn', '1').
+	      addHidden('location', $location.$current_box).
+	      addHidden('msg[0]', $passed_id) . _("Move to:") .
               '<select name="targetMailbox" style="padding: 0px; margin: 0px">';
 
         if (isset($lastTargetMailbox) && !empty($lastTargetMailbox)) {

@@ -588,7 +588,8 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 	echo '</select>' . "\n";
 
 /* Include Subfolders */
-	echo _("and&nbsp;subfolders:") . '<input type=checkbox name="sub[' . $row_num .']"' . ($sub ? ' CHECKED' : '') . '></td>' . "\n";
+	echo _("and&nbsp;subfolders:") . 
+	    addCheckBox('sub[' . $row_num .']', $sub) . '</td>' . "\n";
 
 /* Unary operator and Search location */
 	echo html_tag('td',
@@ -597,12 +598,12 @@ function asearch_print_form_row($imapConnection, $boxes, $mailbox, $biop, $unop,
 		'center');
 
 /* Text input */
-	$what_disp = htmlspecialchars($what);
-	echo html_tag('td', '<input type="text" size="35" name="what[' . $row_num . ']" value="' . $what_disp . '">', 'center') . "\n";
+	echo html_tag('td', addInput('what['.$row_num.']', $what, '35'), 'center') . "\n";
 
 /* Exclude criteria */
 	echo html_tag('td',
-		_("Exclude Criteria:") . '<input type=checkbox name="exclude[' . $row_num .']"' . ($exclude ? ' CHECKED' : '') . '>', 'center', '') . "\n";
+		_("Exclude Criteria:") . 
+		addCheckBox('exclude['.$row_num.']', $checked), 'center', '') . "\n";
 
 	echo "</tr>\n";
 }
