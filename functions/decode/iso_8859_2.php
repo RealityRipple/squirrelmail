@@ -1,24 +1,23 @@
 <?php
 /**
- * decode/iso8859-15.php
+ * decode/iso8859-2.php
  * $Id$
  *
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This file contains iso-8859-15 decoding function that is needed to read
- * iso-8859-15 encoded mails in non-iso-8859-15 locale.
+ * This file contains iso-8859-2 decoding function that is needed to read
+ * iso-8859-2 encoded mails in non-iso-8859-2 locale.
  * 
  * Original data taken from:
- *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-15.TXT
+ *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-2.TXT
  *
- *   Name:             ISO/IEC 8859-15:1999 to Unicode
+ *   Name:             ISO 8859-2:1999 to Unicode
  *   Unicode version:  3.0
  *   Table version:    1.0
  *   Table format:     Format A
  *   Date:             1999 July 27
- *   Authors:          Markus Kuhn <mkuhn@acm.org>
- *		       Ken Whistler <kenw@sybase.com>
+ *   Authors:          Ken Whistler <kenw@sybase.com>
  *
  * Original copyright:
  *	Copyright (c) 1999 Unicode, Inc.  All Rights reserved.
@@ -41,14 +40,14 @@
  */
 
 /**
- * Decode iso8859-15 encoded string
+ * Decode iso8859-2 encoded string
  * @param string $string Encoded string
  * @return string $string Decoded string
  */
-function charset_decode_iso8859_15 ($string) {
+function charset_decode_iso_8859_2 ($string) {
     global $default_charset;
 
-    if (strtolower($default_charset) == 'iso-8859-15')
+    if (strtolower($default_charset) == 'iso-8859-2')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -56,106 +55,106 @@ function charset_decode_iso8859_15 ($string) {
     if ( ! ereg("[\241-\377]", $string) )
         return $string;
 
-    $iso8859_15 = array(
+    $iso8859_2 = array(
 	"\xA0" => '&#160;',
-	"\xA1" => '&#161;',
-	"\xA2" => '&#162;',
-	"\xA3" => '&#163;',
-	"\xA4" => '&#8364;',
-	"\xA5" => '&#165;',
-	"\xA6" => '&#352;',
+	"\xA1" => '&#260;',
+	"\xA2" => '&#728;',
+	"\xA3" => '&#321;',
+	"\xA4" => '&#164;',
+	"\xA5" => '&#317;',
+	"\xA6" => '&#346;',
 	"\xA7" => '&#167;',
-	"\xA8" => '&#353;',
-	"\xA9" => '&#169;',
-	"\xAA" => '&#170;',
-	"\xAB" => '&#171;',
-	"\xAC" => '&#172;',
+	"\xA8" => '&#168;',
+	"\xA9" => '&#352;',
+	"\xAA" => '&#350;',
+	"\xAB" => '&#356;',
+	"\xAC" => '&#377;',
 	"\xAD" => '&#173;',
-	"\xAE" => '&#174;',
-	"\xAF" => '&#175;',
+	"\xAE" => '&#381;',
+	"\xAF" => '&#379;',
 	"\xB0" => '&#176;',
-	"\xB1" => '&#177;',
-	"\xB2" => '&#178;',
-	"\xB3" => '&#179;',
-	"\xB4" => '&#381;',
-	"\xB5" => '&#181;',
-	"\xB6" => '&#182;',
-	"\xB7" => '&#183;',
-	"\xB8" => '&#382;',
-	"\xB9" => '&#185;',
-	"\xBA" => '&#186;',
-	"\xBB" => '&#187;',
-	"\xBC" => '&#338;',
-	"\xBD" => '&#339;',
-	"\xBE" => '&#376;',
-	"\xBF" => '&#191;',
-	"\xC0" => '&#192;',
+	"\xB1" => '&#261;',
+	"\xB2" => '&#731;',
+	"\xB3" => '&#322;',
+	"\xB4" => '&#180;',
+	"\xB5" => '&#318;',
+	"\xB6" => '&#347;',
+	"\xB7" => '&#711;',
+	"\xB8" => '&#184;',
+	"\xB9" => '&#353;',
+	"\xBA" => '&#351;',
+	"\xBB" => '&#357;',
+	"\xBC" => '&#378;',
+	"\xBD" => '&#733;',
+	"\xBE" => '&#382;',
+	"\xBF" => '&#380;',
+	"\xC0" => '&#340;',
 	"\xC1" => '&#193;',
 	"\xC2" => '&#194;',
-	"\xC3" => '&#195;',
+	"\xC3" => '&#258;',
 	"\xC4" => '&#196;',
-	"\xC5" => '&#197;',
-	"\xC6" => '&#198;',
+	"\xC5" => '&#313;',
+	"\xC6" => '&#262;',
 	"\xC7" => '&#199;',
-	"\xC8" => '&#200;',
+	"\xC8" => '&#268;',
 	"\xC9" => '&#201;',
-	"\xCA" => '&#202;',
+	"\xCA" => '&#280;',
 	"\xCB" => '&#203;',
-	"\xCC" => '&#204;',
+	"\xCC" => '&#282;',
 	"\xCD" => '&#205;',
 	"\xCE" => '&#206;',
-	"\xCF" => '&#207;',
-	"\xD0" => '&#208;',
-	"\xD1" => '&#209;',
-	"\xD2" => '&#210;',
+	"\xCF" => '&#270;',
+	"\xD0" => '&#272;',
+	"\xD1" => '&#323;',
+	"\xD2" => '&#327;',
 	"\xD3" => '&#211;',
 	"\xD4" => '&#212;',
-	"\xD5" => '&#213;',
+	"\xD5" => '&#336;',
 	"\xD6" => '&#214;',
 	"\xD7" => '&#215;',
-	"\xD8" => '&#216;',
-	"\xD9" => '&#217;',
+	"\xD8" => '&#344;',
+	"\xD9" => '&#366;',
 	"\xDA" => '&#218;',
-	"\xDB" => '&#219;',
+	"\xDB" => '&#368;',
 	"\xDC" => '&#220;',
 	"\xDD" => '&#221;',
-	"\xDE" => '&#222;',
+	"\xDE" => '&#354;',
 	"\xDF" => '&#223;',
-	"\xE0" => '&#224;',
+	"\xE0" => '&#341;',
 	"\xE1" => '&#225;',
 	"\xE2" => '&#226;',
-	"\xE3" => '&#227;',
+	"\xE3" => '&#259;',
 	"\xE4" => '&#228;',
-	"\xE5" => '&#229;',
-	"\xE6" => '&#230;',
+	"\xE5" => '&#314;',
+	"\xE6" => '&#263;',
 	"\xE7" => '&#231;',
-	"\xE8" => '&#232;',
+	"\xE8" => '&#269;',
 	"\xE9" => '&#233;',
-	"\xEA" => '&#234;',
+	"\xEA" => '&#281;',
 	"\xEB" => '&#235;',
-	"\xEC" => '&#236;',
+	"\xEC" => '&#283;',
 	"\xED" => '&#237;',
 	"\xEE" => '&#238;',
-	"\xEF" => '&#239;',
-	"\xF0" => '&#240;',
-	"\xF1" => '&#241;',
-	"\xF2" => '&#242;',
+	"\xEF" => '&#271;',
+	"\xF0" => '&#273;',
+	"\xF1" => '&#324;',
+	"\xF2" => '&#328;',
 	"\xF3" => '&#243;',
 	"\xF4" => '&#244;',
-	"\xF5" => '&#245;',
+	"\xF5" => '&#337;',
 	"\xF6" => '&#246;',
 	"\xF7" => '&#247;',
-	"\xF8" => '&#248;',
-	"\xF9" => '&#249;',
+	"\xF8" => '&#345;',
+	"\xF9" => '&#367;',
 	"\xFA" => '&#250;',
-	"\xFB" => '&#251;',
+	"\xFB" => '&#369;',
 	"\xFC" => '&#252;',
 	"\xFD" => '&#253;',
-	"\xFE" => '&#254;',
-	"\xFF" => '&#255;'
+	"\xFE" => '&#355;',
+	"\xFF" => '&#729;'
     );
 
-    $string = str_replace(array_keys($iso8859_15), array_values($iso8859_15), $string);
+    $string = str_replace(array_keys($iso8859_2), array_values($iso8859_2), $string);
 
     return $string;
 }

@@ -1,23 +1,23 @@
 <?php
 /**
- * decode/iso8859-16.php
+ * decode/iso8859-3.php
  * $Id$
  *
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This file contains iso-8859-16 decoding function that is needed to read
- * iso-8859-16 encoded mails in non-iso-8859-16 locale.
+ * This file contains iso-8859-3 decoding function that is needed to read
+ * iso-8859-3 encoded mails in non-iso-8859-3 locale.
  * 
  * Original data taken from:
- *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-16.TXT
+ *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-3.TXT
  *
- *   Name:             ISO/IEC 8859-16:2001 to Unicode
+ *   Name:             ISO/IEC 8859-3:1999 to Unicode
  *   Unicode version:  3.0
  *   Table version:    1.0
  *   Table format:     Format A
- *   Date:             2001 July 26
- *   Authors:          Markus Kuhn <mkuhn@acm.org>
+ *   Date:             1999 July 27
+ *   Authors:          Ken Whistler <kenw@sybase.com>
  *
  * Original copyright:
  *	Copyright (c) 1999 Unicode, Inc.  All Rights reserved.
@@ -40,14 +40,14 @@
  */
 
 /**
- * Decode iso8859-16 string
+ * Decode iso8859-3 encoded string
  * @param string $string Encoded string
  * @return string $string Decoded string
  */
-function charset_decode_iso8859_16 ($string) {
+function charset_decode_iso_8859_3 ($string) {
     global $default_charset;
 
-    if (strtolower($default_charset) == 'iso-8859-16')
+    if (strtolower($default_charset) == 'iso-8859-3')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -55,46 +55,42 @@ function charset_decode_iso8859_16 ($string) {
     if ( ! ereg("[\241-\377]", $string) )
         return $string;
 
-    $iso8869_16 = array(
+    $iso8859_3 = array(
 	"\xA0" => '&#160;',
-	"\xA1" => '&#260;',
-	"\xA2" => '&#261;',
-	"\xA3" => '&#321;',
-	"\xA4" => '&#8364;',
-	"\xA5" => '&#8222;',
-	"\xA6" => '&#352;',
+	"\xA1" => '&#294;',
+	"\xA2" => '&#728;',
+	"\xA3" => '&#163;',
+	"\xA4" => '&#164;',
+	"\xA6" => '&#292;',
 	"\xA7" => '&#167;',
-	"\xA8" => '&#353;',
-	"\xA9" => '&#169;',
-	"\xAA" => '&#536;',
-	"\xAB" => '&#171;',
-	"\xAC" => '&#377;',
+	"\xA8" => '&#168;',
+	"\xA9" => '&#304;',
+	"\xAA" => '&#350;',
+	"\xAB" => '&#286;',
+	"\xAC" => '&#308;',
 	"\xAD" => '&#173;',
-	"\xAE" => '&#378;',
 	"\xAF" => '&#379;',
 	"\xB0" => '&#176;',
-	"\xB1" => '&#177;',
-	"\xB2" => '&#268;',
-	"\xB3" => '&#322;',
-	"\xB4" => '&#381;',
-	"\xB5" => '&#8221;',
-	"\xB6" => '&#182;',
+	"\xB1" => '&#295;',
+	"\xB2" => '&#178;',
+	"\xB3" => '&#179;',
+	"\xB4" => '&#180;',
+	"\xB5" => '&#181;',
+	"\xB6" => '&#293;',
 	"\xB7" => '&#183;',
-	"\xB8" => '&#382;',
-	"\xB9" => '&#269;',
-	"\xBA" => '&#537;',
-	"\xBB" => '&#187;',
-	"\xBC" => '&#338;',
-	"\xBD" => '&#339;',
-	"\xBE" => '&#376;',
+	"\xB8" => '&#184;',
+	"\xB9" => '&#305;',
+	"\xBA" => '&#351;',
+	"\xBB" => '&#287;',
+	"\xBC" => '&#309;',
+	"\xBD" => '&#189;',
 	"\xBF" => '&#380;',
 	"\xC0" => '&#192;',
 	"\xC1" => '&#193;',
 	"\xC2" => '&#194;',
-	"\xC3" => '&#258;',
 	"\xC4" => '&#196;',
-	"\xC5" => '&#262;',
-	"\xC6" => '&#198;',
+	"\xC5" => '&#266;',
+	"\xC6" => '&#264;',
 	"\xC7" => '&#199;',
 	"\xC8" => '&#200;',
 	"\xC9" => '&#201;',
@@ -104,29 +100,27 @@ function charset_decode_iso8859_16 ($string) {
 	"\xCD" => '&#205;',
 	"\xCE" => '&#206;',
 	"\xCF" => '&#207;',
-	"\xD0" => '&#272;',
-	"\xD1" => '&#323;',
+	"\xD1" => '&#209;',
 	"\xD2" => '&#210;',
 	"\xD3" => '&#211;',
 	"\xD4" => '&#212;',
-	"\xD5" => '&#336;',
+	"\xD5" => '&#288;',
 	"\xD6" => '&#214;',
-	"\xD7" => '&#346;',
-	"\xD8" => '&#368;',
+	"\xD7" => '&#215;',
+	"\xD8" => '&#284;',
 	"\xD9" => '&#217;',
 	"\xDA" => '&#218;',
 	"\xDB" => '&#219;',
 	"\xDC" => '&#220;',
-	"\xDD" => '&#280;',
-	"\xDE" => '&#538;',
+	"\xDD" => '&#364;',
+	"\xDE" => '&#348;',
 	"\xDF" => '&#223;',
 	"\xE0" => '&#224;',
 	"\xE1" => '&#225;',
 	"\xE2" => '&#226;',
-	"\xE3" => '&#259;',
 	"\xE4" => '&#228;',
-	"\xE5" => '&#263;',
-	"\xE6" => '&#230;',
+	"\xE5" => '&#267;',
+	"\xE6" => '&#265;',
 	"\xE7" => '&#231;',
 	"\xE8" => '&#232;',
 	"\xE9" => '&#233;',
@@ -136,25 +130,24 @@ function charset_decode_iso8859_16 ($string) {
 	"\xED" => '&#237;',
 	"\xEE" => '&#238;',
 	"\xEF" => '&#239;',
-	"\xF0" => '&#273;',
-	"\xF1" => '&#324;',
+	"\xF1" => '&#241;',
 	"\xF2" => '&#242;',
 	"\xF3" => '&#243;',
 	"\xF4" => '&#244;',
-	"\xF5" => '&#337;',
+	"\xF5" => '&#289;',
 	"\xF6" => '&#246;',
-	"\xF7" => '&#347;',
-	"\xF8" => '&#369;',
+	"\xF7" => '&#247;',
+	"\xF8" => '&#285;',
 	"\xF9" => '&#249;',
 	"\xFA" => '&#250;',
 	"\xFB" => '&#251;',
 	"\xFC" => '&#252;',
-	"\xFD" => '&#281;',
-	"\xFE" => '&#539;',
-	"\xFF" => '&#255;'
+	"\xFD" => '&#365;',
+	"\xFE" => '&#349;',
+	"\xFF" => '&#729;'
     );
 
-    $string = str_replace(array_keys($iso8859_16), array_values($iso8859_16), $string);
+    $string = str_replace(array_keys($iso8859_3), array_values($iso8859_3), $string);
 
     return $string;
 }
