@@ -18,7 +18,7 @@
    include('../functions/imap.php');
    include('../functions/array.php');
    include('../functions/i18n.php');
-   include('../functins/plugin.php');
+   include('../functions/plugin.php');
    include('../src/load_prefs.php');
    
    displayPageHeader($color, 'None');
@@ -141,51 +141,13 @@
             </td><td>
 <?php
    echo '         <select name="leftsize">' . "\n";
-   if ($left_size == 100)
-      echo '<option value="100" selected>100 pixels' . "\n";
-   else
-      echo '<option value="100">100 pixels' . "\n";
- 
-   if ($left_size == 125)
-      echo '<option value="125" selected>125 pixels' . "\n";
-   else
-      echo '<option value="125">125 pixels' . "\n";
- 
-   if ($left_size == 150)
-      echo '<option value="150" selected>150 pixels' . "\n";
-   else
-      echo '<option value="150">150 pixels' . "\n";
- 
-   if ($left_size == 175)
-      echo '<option value="175" selected>175 pixels' . "\n";
-   else
-      echo '<option value="175">175 pixels' . "\n";
- 
-   if (($left_size == 200) || ($left_size == ""))
-      echo '<option value="200" selected>200 pixels' . "\n";
-   else
-      echo '<option value="200">200 pixels' . "\n";
- 
-   if (($left_size == 225))
-      echo '<option value="225" selected>225 pixels' . "\n";
-   else
-      echo '<option value="225">225 pixels' . "\n";
- 
-   if (($left_size == 250))
-      echo '<option value="250" selected>250 pixels' . "\n";
-   else
-      echo '<option value="250">250 pixels' . "\n";
- 
-   if ($left_size == 275)
-      echo '<option value="275" selected>275 pixels' . "\n";
-   else
-      echo '<option value="275">275 pixels' . "\n";
- 
-   if (($left_size == 300))
-      echo '<option value="300" selected>300 pixels' . "\n";
-   else
-      echo '<option value="300">300 pixels' . "\n";
- 
+   for ($i = 100; $i <= 300; $i += 10)
+   {
+       if ($left_size >= $i && $left_size < $i + 10)
+          echo "<option value=\"$i\" selected>$i pixels\n";
+       else
+          echo "<option value=\"$i\">$i pixels\n";
+   }
    echo '         </select>';  
 ?>
             </td>
