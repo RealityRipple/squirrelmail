@@ -586,15 +586,13 @@ $show_num) {
     if ($num_msgs == 0) {
         /* if there's no messages in this folder */
         echo html_tag( 'tr',
-        html_tag( 'td',
-        "<BR><B>" .
-        _("THIS FOLDER IS EMPTY") .
-        "</B><BR>&nbsp;",
-        'center',
-        $color[4],
-        'COLSPAN="' . count($index_order) . '"'
-        )
-        );
+                html_tag( 'td',
+                          "<BR><B>" . _("THIS FOLDER IS EMPTY") . "</B><BR>&nbsp;",
+                          'center',
+                          $color[4],
+                          'COLSPAN="' . count($index_order) . '"'
+                )
+            );
 
     } elseif ($start_msg == $end_msg) {
         /* if there's only one message in the box, handle it differently. */

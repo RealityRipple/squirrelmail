@@ -14,19 +14,19 @@
  */
 
     function html_tag( $tag,                // Tag to output
-                       $val = '',           // Value between tags (if empty only start tag is output)
+                       $val = '',           // Value between tags (if empty only start tag is issued)
                        $align = '',         // Alignment
                        $bgcolor = '',       // Back color
                        $xtra = '' ) {       // Extra options
 			 
-    	GLOBAL $languages, $language;
+    	GLOBAL $languages, $squirrelmail_language;
     	
     	$align = strtolower( $align );
     	$dir   = strtolower( $dir );
     	$tag = strtoupper( $tag );
     	
-    	if ( isset( $languages[$language]['DIR']) ) {
-    	    $dir = $languages[$language]['DIR'];
+    	if ( isset( $languages[$squirrelmail_language]['DIR']) ) {
+    	    $dir = $languages[$squirrelmail_language]['DIR'];
     	} else {
     	    $dir = 'ltr';
     	}
@@ -56,22 +56,22 @@
     	    $alg = " ALIGN=\"$align\"";
     	}
 	
-	    $ret = "<$tag";
+	$ret = "<$tag";
 	    
-	    if ( $dir <> 'ltr' ) {
-	        $ret .= " DIR=\"$dir\"";
-	    }
+	if ( $dir <> 'ltr' ) {
+	    $ret .= " DIR=\"$dir\"";
+	}
 	    
-	    $ret .= "$bgc$alg";
+	$ret .= "$bgc$alg";
 	    
-	    if ( $xtra <> '' ) {
-	        $ret .= " $xtra";
-	    }
-	    $ret .= '>';
+	if ( $xtra <> '' ) {
+	    $ret .= " $xtra";
+	}
+	$ret .= '>';
 	    
-	    if ( $val <> '' ) {
-	        $ret .= "$val</$tag>";
-	    }
+	if ( $val <> '' ) {
+	    $ret .= "$val</$tag>";
+	}
 	
         return( $ret );
     }
