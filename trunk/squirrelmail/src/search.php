@@ -57,7 +57,7 @@
 
    $boxes = sqimap_mailbox_list($imapConnection);
    for ($i = 0; $i < count($boxes); $i++) {
-      if ($boxes[$i]["flags"][0] != "noselect" && $boxes[$i]["flags"][1] != "noselect" && $boxes[$i]["flags"][2] != "noselect") {
+	  if (!in_array("noselect", $boxes[$i]["flags"])) {
          $box = $boxes[$i]["unformatted"];
          $box2 = replace_spaces($boxes[$i]["formatted"]);
          if ($mailbox == $box)
@@ -80,22 +80,22 @@
    echo "       <TD ALIGN=\"RIGHT\" WIDTH=33%>\n";
    echo "         <SELECT NAME=\"where\">";
    
-   if ($where == "BODY") echo "           <OPTION VALUE=\"BODY\" SELECTED>"._("Body")."\n";
+   if (isset($where) && $where == "BODY") echo "           <OPTION VALUE=\"BODY\" SELECTED>"._("Body")."\n";
    else echo "           <OPTION VALUE=\"BODY\">"._("Body")."\n";
    
-   if ($where == "TEXT") echo "           <OPTION VALUE=\"TEXT\" SELECTED>"._("Everywhere")."\n";
+   if (isset($where) && $where == "TEXT") echo "           <OPTION VALUE=\"TEXT\" SELECTED>"._("Everywhere")."\n";
    else echo "           <OPTION VALUE=\"TEXT\">"._("Everywhere")."\n";
    
-   if ($where == "SUBJECT") echo "           <OPTION VALUE=\"SUBJECT\" SELECTED>"._("Subject")."\n";
+   if (isset($where) && $where == "SUBJECT") echo "           <OPTION VALUE=\"SUBJECT\" SELECTED>"._("Subject")."\n";
    else echo "           <OPTION VALUE=\"SUBJECT\">"._("Subject")."\n";
    
-   if ($where == "FROM") echo "           <OPTION VALUE=\"FROM\" SELECTED>"._("From")."\n";
+   if (isset($where) && $where == "FROM") echo "           <OPTION VALUE=\"FROM\" SELECTED>"._("From")."\n";
    else echo "           <OPTION VALUE=\"FROM\">"._("From")."\n";
    
-   if ($where == "CC") echo "           <OPTION VALUE=\"Cc\" SELECTED>"._("Cc")."\n";
+   if (isset($where) && $where == "CC") echo "           <OPTION VALUE=\"Cc\" SELECTED>"._("Cc")."\n";
    else echo "           <OPTION VALUE=\"CC\">"._("Cc")."\n";
    
-   if ($where == "TO") echo "           <OPTION VALUE=\"TO\" SELECTED>"._("To")."\n";
+   if (isset($where) && $where == "TO") echo "           <OPTION VALUE=\"TO\" SELECTED>"._("To")."\n";
    else echo "           <OPTION VALUE=\"TO\">"._("To")."\n";
    
    echo "         </SELECT>\n";

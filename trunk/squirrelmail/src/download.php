@@ -11,10 +11,10 @@
     **  $Id$
     **/
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
    if (!isset($mime_php))
@@ -110,7 +110,7 @@
 
    header("Pragma: ");
    header("Content-Description: SquirrelMail Attachment");
-   if ($absolute_dl == "true") {
+   if (isset($absolute_dl) && $absolute_dl == "true") {
       switch($type0) {
          case "text":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
