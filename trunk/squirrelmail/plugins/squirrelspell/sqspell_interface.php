@@ -36,7 +36,7 @@
     /*
     ** see if someone is attempting to be nasty by trying to get out of the
     ** modules directory, although it probably wouldn't do them any good,
-    ** since every module has to end with .mod.php. Still, they deserve
+    ** since every module has to end with .mod. Still, they deserve
     ** to be warned. ;)
     */
     if (strstr($MOD, '.') || strstr($MOD, '/') || strstr($MOD, '%')){ 
@@ -44,5 +44,5 @@
         exit;
     }
     /* fetch the module now. */
-    require_once("$SQSPELL_DIR/modules/$MOD.mod.php");
+    require_once("$SQSPELL_DIR/modules/$MOD.mod");
 ?>
