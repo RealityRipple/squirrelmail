@@ -14,118 +14,94 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
-require_once("../functions/imap.php");
-require_once("../functions/smtp.php");
-require_once("../functions/page_header.php");
-require_once("../src/load_prefs.php");
+require_once('../functions/imap.php');
+require_once('../functions/smtp.php');
+require_once('../functions/page_header.php');
+require_once('../src/load_prefs.php');
 
-   $destination = "retrievalerror@squirrelmail.org";
+$destination = 'retrievalerror@squirrelmail.org';
 
-   $attachments = array();
+$attachments = array();
 
+function ClearAttachments() {
+    global $attachments, $attachment_dir, $username;
 
-   function ClearAttachments() {
-       global $attachments, $attachment_dir, $username;
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    foreach ($attachments as $info) {
+        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        if (file_exists($attached_file)) {
+            unlink($attached_file);
+        }
+    }
 
-       $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-       foreach ($attachments as $info) {
-           $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-           if (file_exists($attached_file)) {
-               unlink($attached_file);
-           }
-       }
+    $attachments = array();
+}
 
-       $attachments = array();
-   }
+$imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+sqimap_mailbox_select($imap_stream, $mailbox);
+$sid = sqimap_session_id();
+fputs ($imap_stream, "$sid FETCH $passed_id BODY[]\r\n");
+$data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
+sqimap_logout($imap_stream);
+$topline2 = array_shift($data);
+$thebastard = implode('', $data);
 
-   $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   sqimap_mailbox_select($imap_stream, $mailbox);
-   $sid = sqimap_session_id();
-   fputs ($imap_stream, "$sid FETCH $passed_id BODY[]\r\n");
-   $data = sqimap_read_data ($imap_stream, $sid, true, $response, $message);
-   sqimap_logout($imap_stream);
-   $topline2 = array_shift($data);
-   $thebastard = implode('', $data);
+$hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+$localfilename = GenerateRandomString(32, '', 7);
+$full_localfilename = "$hashed_attachment_dir/$localfilename";
+while (file_exists($full_localfilename)) {
+    $localfilename = GenerateRandomString(32, '', 7);
+    $full_localfilename = "$hashed_attachment_dir/$localfilename";
+}
 
+/* Write Attachment to file */
+$fp = fopen ($full_localfilename, 'w');
+fputs ($fp, $thebastard);
+fclose ($fp);
 
-   $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-   $localfilename = GenerateRandomString(32, '', 7);
-   $full_localfilename = "$hashed_attachment_dir/$localfilename";
-   while (file_exists($full_localfilename)) {
-       $localfilename = GenerateRandomString(32, '', 7);
-       $full_localfilename = "$hashed_attachment_dir/$localfilename";
-   }
+$newAttachment = array();
+$newAttachment['localfilename'] = $localfilename;
+$newAttachment['remotefilename'] = 'message.duh';
+$newAttachment['type'] = 'application/octet-stream';
+$attachments[] = $newAttachment;
 
-   // Write Attachment to file
-   $fp = fopen ($full_localfilename, 'w');
-   fputs ($fp, $thebastard);
-   fclose ($fp);
+$body = "Response: $response\n" .
+        "Message: $message\n" .
+        "FETCH line: $topline\n" .
+        "Server Type: $imap_server_type\n";
 
-   $newAttachment = array();
-   $newAttachment['localfilename'] = $localfilename;
-   $newAttachment['remotefilename'] = 'message.duh';
-   $newAttachment['type'] = 'application/octet-stream';
-   $attachments[] = $newAttachment;
+$imap_stream = fsockopen ($imapServerAddress, $imapPort, &$error_number, &$error_string);
+$server_info = fgets ($imap_stream, 1024);
+if ($imap_stream) {
+    $body .=  "  Server info:  $server_info";
+    fputs ($imap_stream, "a001 CAPABILITY\r\n");
+    $read = fgets($imap_stream, 1024);
+    $list = explode(' ', $read);
+    array_shift($list);
+    array_shift($list);
+    $read = implode(' ', $list);
+    $body .= "  Capabilities:  $read";
+    fputs ($imap_stream, "a002 LOGOUT\r\n");
+    fclose($imap_stream);
+}
 
+$body .= "\nFETCH line for gathering the whole message: $topline2\n";
 
-   $body = "Response: $response\n" .
-           "Message: $message\n" .
-           "FETCH line: $topline\n" .
-           "Server Type: $imap_server_type\n";
+sendMessage($destination, '', '', 'submitted message', $body, 0);
 
-   $imap_stream = fsockopen ($imapServerAddress, $imapPort, &$error_number, &$error_string);
-   $server_info = fgets ($imap_stream, 1024);
-   if ($imap_stream)
-   {
-       $body .=  "  Server info:  $server_info";
-       fputs ($imap_stream, "a001 CAPABILITY\r\n");
-       $read = fgets($imap_stream, 1024);
-       $list = explode(' ', $read);
-       array_shift($list);
-       array_shift($list);
-       $read = implode(' ', $list);
-       $body .= "  Capabilities:  $read";
-       fputs ($imap_stream, "a002 LOGOUT\r\n");
-       fclose($imap_stream);
-   }
+displayPageHeader($color, $mailbox);
 
-   $body .= "\nFETCH line for gathering the whole message: $topline2\n";
+$par = 'mailbox='.urlencode($mailbox)."&passed_id=$passed_id";
+if (isset($where) && isset($what)) {
+    $par .= '&where='.urlencode($where).'&what='.urlencode($what);
+} else {
+    $par .= "&startMessage=$startMessage&show_more=0";
+}
 
-
-   sendMessage($destination, "", "", "submitted message", $body, 0);
-
-
-
-
-   displayPageHeader($color, $mailbox);
-
-   $par = "mailbox=".urlencode($mailbox)."&passed_id=$passed_id";
-   if (isset($where) && isset($what)) {
-       $par .= "&where=".urlencode($where)."&what=".urlencode($what);
-   } else {
-       $par .= "&startMessage=$startMessage&show_more=0";
-   }
-
-   echo '<BR>The message has been submitted to the developers knowledgebase!<BR>' .
-        'Thank you very much<BR>' .
-        'Please submit every message only once<BR>' .
-        "<A HREF=\"../src/read_body.php?$par\">View the message</A><BR>";
+echo '<BR>The message has been submitted to the developers knowledgebase!<BR>' .
+     'Thank you very much<BR>' .
+     'Please submit every message only once<BR>' .
+     "<A HREF=\"../src/read_body.php?$par\">View the message</A><BR>";
 
 ?>

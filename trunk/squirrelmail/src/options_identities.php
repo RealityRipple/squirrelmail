@@ -11,44 +11,30 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
 require_once('../functions/display_messages.php');
 
-   if (isset($return)) {
-      SaveUpdateFunction();
-      header('Location: options_personal.php');
-      exit();
-   }
-   
-   displayPageHeader($color, 'None');
-
-   $Info = do_hook('options_identities_process', 0);
-   if ($Info[1])
-      SaveUpdateFunction();
-
-   if (CheckAndDoDefault() || CheckAndDoPromote()) {
-      SaveUpdateFunction();
-   }
-   if (isset($update) || CheckForDelete())
-      SaveUpdateFunction();
-
-   LoadInfo($full_name, $email_address, $reply_to, '');
+    if (isset($return)) {
+       SaveUpdateFunction();
+       header('Location: options_personal.php');
+       exit();
+    }
+    
+    displayPageHeader($color, 'None');
+ 
+    $Info = do_hook('options_identities_process', 0);
+    if ($Info[1]) {
+        SaveUpdateFunction();
+    }
+    
+    if (CheckAndDoDefault() || CheckAndDoPromote()) {
+       SaveUpdateFunction();
+    }
+    if (isset($update) || CheckForDelete())
+        SaveUpdateFunction();
+    }
+ 
+    LoadInfo($full_name, $email_address, $reply_to, '');
 
 ?>
 <br>
@@ -60,38 +46,37 @@ require_once('../functions/display_messages.php');
     <table width="100%" border="0" cellpadding="1" cellspacing="1">
     <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
 
-<form name=f action="options_identities.php" method=post><br>
+<form name="f" action="options_identities.php" method="post"><br>
 
-<?PHP do_hook('options_identities_top'); ?>
+<?php do_hook('options_identities_top'); ?>
 
 <table width="80%" cellpadding=2 cellspacing=0 border=0>
-  <tr bgcolor="<?PHP echo $color[9] ?>">
-    <th colspan=2 align=center><?PHP echo _("Default Identity") ?></th>
+  <tr bgcolor="<?php echo $color[9] ?>">
+    <th colspan=2 align=center><?php echo _("Default Identity") ?></th>
   </tr>
 <?PHP
 
-   ShowTableInfo($full_name, $email_address, $reply_to, '');
+    ShowTableInfo($full_name, $email_address, $reply_to, '');
   
-   $num = 1;
-   while (LoadInfo($full_name, $email_address, $reply_to, $num))
-   {
+    $num = 1;
+    while (LoadInfo($full_name, $email_address, $reply_to, $num))
+    {
 ?>
   <tr bgcolor="<?PHP echo $color[9] ?>">
     <th colspan=2 align=center><?PHP printf (_("Alternate Identity %d"),
     $num) ?></th>
   </tr>
 <?PHP
-       ShowTableInfo($full_name, $email_address, $reply_to, $num);
-       $num ++;
-   }
+        ShowTableInfo($full_name, $email_address, $reply_to, $num);
+        $num ++;
+    }
    
 ?>
-  <tr bgcolor="<?PHP echo $color[9] ?>">
+  <tr bgcolor="<?php echo $color[9] ?>">
     <th colspan=2 align=center><?PHP echo _("Add a New Identity") ?></th>
   </tr>
-<?
-
-   ShowTableInfo('', '', '', $num);
+<?php
+    ShowTableInfo('', '', '', $num);
 ?>
 </table>
 </form>
@@ -240,28 +225,28 @@ require_once('../functions/display_messages.php');
             if (isset($$name) && $i > 1) {
                 do_hook('options_identities_renumber', $i, $i - 1);
 
-            $nameA = 'full_name' . $i;
-            $nameB = 'full_name' . ($i - 1);
-            global $$nameA, $$nameB;
-            $temp = $$nameA;
-            $$nameA = $$nameB;
-            $$nameB = $temp;
+                $nameA = 'full_name' . $i;
+                $nameB = 'full_name' . ($i - 1);
+                global $$nameA, $$nameB;
+                $temp = $$nameA;
+                $$nameA = $$nameB;
+                $$nameB = $temp;
+    
+                $nameA = 'email_address' . $i;
+                $nameB = 'email_address' . ($i - 1);
+                global $$nameA, $$nameB;
+                $temp = $$nameA;
+                $$nameA = $$nameB;
+                $$nameB = $temp;
+    
+                $nameA = 'reply_to' . $i;
+                $nameB = 'reply_to' . ($i - 1);
+                global $$nameA, $$nameB;
+                $temp = $$nameA;
+                $$nameA = $$nameB;
+                $$nameB = $temp;
 
-            $nameA = 'email_address' . $i;
-            $nameB = 'email_address' . ($i - 1);
-            global $$nameA, $$nameB;
-            $temp = $$nameA;
-            $$nameA = $$nameB;
-            $$nameB = $temp;
-
-            $nameA = 'reply_to' . $i;
-            $nameB = 'reply_to' . ($i - 1);
-            global $$nameA, $$nameB;
-            $temp = $$nameA;
-            $$nameA = $$nameB;
-            $$nameB = $temp;
-
-            return true;
+                return true;
             }
 
             $i ++;
