@@ -419,8 +419,9 @@ function user_strcasecmp($a, $b) {
  *   $folder_skip - array of folders to keep out of option list (compared in lower)
  *   $boxes - list of already fetched boxes (for places like folder panel, where
  *            you know these options will be shown 3 times in a row.. (most often unset).
+ *   $parent - used to indicate whether or not listed boxes can be parents
  */
-function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0 ) {
+function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_skip = 0, $boxes = 0, $parent = false) {
     global $username, $data_dir;
     $mbox_options = '';
 
@@ -429,8 +430,14 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
     if ($boxes == 0) {
         $boxes = sqimap_mailbox_list($imap_stream);
     }
+    if ($parent) {
+        $flag = 'noinferiors';
+    }
+    else {
+        $flag = 'noselect';
+    }
     foreach ($boxes as $boxes_part) {
-        if (!in_array('noselect', $boxes_part['flags'])) {
+        if (!in_array($flag, $boxes_part['flags'])) {
             $box = $boxes_part['unformatted'];
             $lowerbox = strtolower($box);
 
