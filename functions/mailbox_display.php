@@ -325,7 +325,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	$id = array_reverse(range($real_endMessage, $real_startMessage));
       }
       $msgs_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
-      $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
+//      $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
       if (sizeof($msgs_list)){
 	foreach ($msgs_list as $hdr) {
 	  $from[] = $hdr->from;
@@ -336,6 +336,10 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	  $cc[] = $hdr->cc;
 	  $size[] = $hdr->size;
 	  $type[] = $hdr->type0;
+	  $flag_deleted[] = $hdr->flag_deleted;
+	  $flag_answered[] = $hdr->flag_answered;
+	  $flag_seen[] = $hdr->flag_seen;
+	  $flag_flagged[] = $hdr->flag_flagged;
 	}
       }
     }
@@ -375,6 +379,11 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       $messages[$j]['CC'] = $cc[$j];
       $messages[$j]['SIZE'] = $size[$j];
       $messages[$j]['TYPE0'] = $type[$j];
+      $messages[$j]['FLAG_DELETED'] = $flag_deleted[$j];
+      $messages[$j]['FLAG_ANSWERED'] = $flag_answered[$j];
+      $messages[$j]['FLAG_SEEN'] = $flag_seen[$j];
+      $messages[$j]['FLAG_FLAGGED'] = $flag_flagged[$j];
+
       
       /*
        * fix SUBJECT-SORT to remove Re:
@@ -389,7 +398,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 		     $messages[$j]['SUBJECT-SORT'], $matches)){
 	$messages[$j]['SUBJECT-SORT'] = $matches[2];
       }
-      
+/*      
       $num = 0;
       while ($num < count($flags[$j])) {
 	if ($flags[$j][$num] == 'Deleted') {
@@ -402,6 +411,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	  $messages[$j]['FLAG_FLAGGED'] = true;
 	}
 	$num++;
+*/
       }
       $j++;
     }
