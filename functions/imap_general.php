@@ -261,28 +261,13 @@ function sqimap_get_delimiter ($imap_stream = false) {
 				$pna = explode(')(', $pn);
 				while (list($k, $v) = each($pna))
 				{
-					list($_, $n, $_, $d) = explode('"', $v);
-					$pn[$n] = $d;
+                    $lst = explode('"', $v);
+                    if (isset($lst[3])) {
+                        $pn[$lst[1]] = $lst[3];
+                    } else {
+                        $pn[$lst[1]] = "";
+                    }
 				}
-/* OS: We don't need this code right now, it is for other_users and shared folders
-				if (eregi('^\( *\((.*)\) *\)', $data[2], $data2))
-					$on = $data2[1];
-				if (eregi('^\( *\((.*)\) *\)', $data[3], $data2))
-					$sn = $data2[1];
-				unset($data);
-				$ona = explode(')(', $on);
-				while (list($k, $v) = each($ona))
-				{
-					list($_, $n, $_, $d) = explode('"', $v);
-					$on[$n] = $d;
-				}
-				$sna = explode(')(', $sn);
-				while (list($k, $v) = each($sna))
-				{
-					list($_, $n, $_, $d) = explode('"', $v);
-					$sn[$n] = $d;
-				}
-*/
 			}
 			$sqimap_delimiter = $pn[0];
 		} else {
