@@ -677,14 +677,21 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
             {
             case 'B':
                 $replace = base64_decode($res[4]);
-                if ($can_be_encoded) {
-                  /* convert string to different charset,
-                   * if functions asks for it (usually in compose)
-                   */
-                  $ret .= charset_convert($res[2],$replace,$default_charset);
+                if ($utfencode) {
+                    if ($can_be_encoded) {
+                        /* convert string to different charset,
+                         * if functions asks for it (usually in compose)
+                         */
+                        $ret .= charset_convert($res[2],$replace,$default_charset);
+                    } else {
+                        // convert string to html codes in order to display it
+                        $ret .= charset_decode($res[2],$replace);
+                    }
                 } else {
-                  // convert string to html codes in order to display it
-                  $ret .= charset_decode($res[2],$replace);
+                    if ($htmlsave) {
+                        $replace = htmlspecialchars($replace);
+                    }
+                    $ret.= $replace;
                 }
                 break;
             case 'Q':
