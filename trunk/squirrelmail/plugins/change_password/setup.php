@@ -9,17 +9,23 @@
  * This plugin aims to provide a general framework for all password
  * changing methods that currently have their own plugins.
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage change_password
  */
 
+/**
+ * Plugin init function
+ */
 function squirrelmail_plugin_init_change_password() {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['optpage_register_block']['change_password'] = 'change_password_optpage';
 }
 
+/**
+ * Add plugin option block
+ */
 function change_password_optpage() {
     global $optpage_blocks;
 
@@ -31,6 +37,11 @@ function change_password_optpage() {
     );
 }
 
+/**
+ * Return version information
+ * @return string version number
+ */
 function change_password_version() {
     return '0.2';
 }
+?>
