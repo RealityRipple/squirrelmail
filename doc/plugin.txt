@@ -1,0 +1,74 @@
+A FEW NOTES ON THE PLUGIN ARCHITECTURE
+======================================
+
+The plugin architecture of SquirrelMail is designed to make it
+possible to add new features without having to patch SquirrelMail
+itself. At the moment the plugin part of SquirrelMail should be
+considered "alpha" or "beta" quality code.
+
+Until the functionality and code is more stable, be prepared for
+plugins to suddenly stop working.
+
+Functionality like password changing, displaying ads and calendars
+should be possible to add as plugins.
+
+
+The idea
+--------
+
+The idea is to be able to run random code at given places in the
+SquirrelMail code. This random code should then be able to do whatever
+needed to enhance the functionality of SquirrelMail. The places where
+code can be executed are called "hooks".
+
+There are some limitations in what these hooks can do. It is difficult
+to use them to change the layout and to change functionality that
+already is in SquirrelMail.
+
+Some way for the plugins to interact with the help subsystem and
+translations will be provided.
+
+
+The implementation
+------------------
+
+In the main SquirrelMail files the file functions/plugin.php. In
+places where hooks are made available they are executed by calling the
+function do_hook("hookname").
+
+The do_hook traverses the array $squirrelmail_plugin_hooks["hookname"]
+and executes all the functions that are named in that array.
+
+A plugin must reside in a subdirectory in the plugins/ directory. The
+name of the subdirectory is considered the name of the plugin.
+
+To start using a plugin, its name must be added to the $plugins array
+in config.php like this:
+
+  $plugins[0] = "plugin_name";
+
+When a plugin is registered the file plugins/plugin_name/setup.php is
+included and the function squirrelmail_plugin_init_plugin_name is
+called with no parameters.
+
+
+Writing plugins
+---------------
+
+A plugin must consist of at least a file called setup.php. All other
+files the plugin consist of should also be in the plugin directory.
+
+The function squirrelmail_plugin_init_plugin_name is called to
+initalize a plugin. This function could look something like this:
+
+function squirrelmail_plugin_init_demo () {
+  global $squirrelmail_plugin_hooks;
+
+  $squirrelmail_plugin_hooks["generic_header"]["demo"] = "plugin_demo_header";
+  $squirrelmail_plugin_hooks["menuline"]["demo"] = "plugin_demo_menuline";
+}
+
+Note that the SquirrelMail files assume that all other SquirrelMail
+files are available as ../directory/file. This means that if some file
+in the plugin directory is requested, it must do a chdir("..") before
+including any of the standard SquirrelMail files.
