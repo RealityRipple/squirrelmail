@@ -260,7 +260,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
             echo '<b>' . _("Server Name:") . '</b> <select name="mf_sn">';
             for ($i=0;$i<$mailfetch_server_number;$i++) {
                 echo "<option value=\"$i\">" .
-                    (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i]) . "</option>>";
+                    htmlspecialchars( (($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) . "</option>>";
             }
             echo '</select>'.
                  '&nbsp;&nbsp;<INPUT TYPE=submit name=mf_action value="' . _("Modify") . '">'.
