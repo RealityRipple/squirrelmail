@@ -11,10 +11,7 @@
     */
 
    chdir('..');
-
-   session_start();
-   
-   require_once('../config/config.php');
+   require_once('../src/validate.php');
    require_once('../functions/strings.php');
    require_once('../functions/page_header.php');
    require_once('../functions/display_messages.php');
