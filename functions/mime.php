@@ -34,40 +34,40 @@ function mime_structure ($bodystructure, $flags=array()) {
     $msg = $res[0];
     $msg->setEnt('0');
     if (count($flags)) {
-       foreach ($flags as $flag) {
-          $char = strtoupper($flag{1});
-	  switch ($char) {
-	     case 'S':
-	       if (strtolower($flag) == '\\seen') {
-	    	  $msg->is_seen = true;
-	       }
-	       break;
-	     case 'A':
-	       if (strtolower($flag) == '\\answered') {
-	    	  $msg->is_answered = true;
-	       }
-	       break;
-	     case 'D':
-	       if (strtolower($flag) == '\\deleted') {
-	    	  $msg->is_deleted = true;
-	       }
-	       break;
-	     case 'F':
-	       if (strtolower($flag) == '\\flagged') {
-	    	  $msg->is_flagged = true;
-	       }
-	       break;
-	     case 'M':
-	       if (strtolower($flag) == '$mdnsent') {
-	    	  $msg->is_mdnsent = true;
-	       }
-	       break;
-	     default:
-	       break;
-          }
-       }
+        foreach ($flags as $flag) {
+            $char = strtoupper($flag{1});
+            switch ($char) {
+            case 'S':
+                if (strtolower($flag) == '\\seen') {
+                    $msg->is_seen = true;
+                }
+                break;
+            case 'A':
+                if (strtolower($flag) == '\\answered') {
+                    $msg->is_answered = true;
+                }
+                break;
+            case 'D':
+                if (strtolower($flag) == '\\deleted') {
+                    $msg->is_deleted = true;
+                }
+                break;
+            case 'F':
+                if (strtolower($flag) == '\\flagged') {
+                    $msg->is_flagged = true;
+                }
+                break;
+            case 'M':
+                if (strtolower($flag) == '$mdnsent') {
+                    $msg->is_mdnsent = true;
+                }
+                break;
+            default:
+                break;
+            }
+        }
     }
-//    listEntities($msg);
+    //    listEntities($msg);
     return( $msg );
 }
 
