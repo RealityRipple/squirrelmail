@@ -1,0 +1,106 @@
+<?php
+/**
+ * html.class
+ *
+ * Copyright (c) 2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ *
+ * This contains functions needed to generate html output.
+ *
+ * $Id$
+ */
+
+
+class html {
+  var $tag, $text, $style, $class,  
+      $id, $html_el = array(), $javascript, $xtr_prop;
+
+  function html($tag='', $text='', $style ='', $class='', $id='',
+                  $xtr_prop = '', $javascript = '') {
+     $this->tag = $tag;
+     $this->text = $text;
+     $this->style = $style;
+     $this->class = $class;
+     $this->id = $id;
+     $this->xtr_prop = $xtr_prop;
+     $this->javascript = $javascript;
+  }
+  
+  function htmlAdd($el) {
+     $this->html_el[] = $el;
+  }
+  
+  
+  function echoHtml( $usecss=false, $indent='') {
+    $tag = $this->tag;
+    $text = $this->text;
+    $class = $this->class;
+    $id = $this->id;
+    $style = $this->style;
+    $javascript = $this->javascript;
+    $xtr_prop = $this->xtr_prop;
+    if ($xtr_prop) {
+       $prop = '';
+       foreach ($xtr_prop as $k => $v) {
+          if (is_string($k)) {
+             $prop.=' '.$k.'="'.$v.'"';
+	  } else {
+	     $prop.=' '.$v;
+	  }
+       }
+    }   
+    if ($javascript) {
+       $js = '';
+       foreach ($javascript as $k => $v) { /* here we put the onclick, onmouseover etc entries */
+          $js.=' '.$k.'="'.$v.'";';
+       }
+    }
+       	  
+    echo $indent . '<' . $tag;
+    if ($class) {
+       echo ' class="'.$class.'"';
+    }  
+    if ($id) {
+       echo ' id="'.$id.'"';
+    }
+    if ($xtr_prop) {
+       echo ' '.$prop;
+    }
+    if ($style && !$usecss) {
+       echo ' style="'.$style.'"';  
+    }
+    if ($javascript) {
+       echo ' '.$js;
+    }
+    echo '>';
+    if ($text) {
+       if ($style && !$usecss) { /* if use css then fallback to stylesheet for layout */
+          foreach ($style as $k => $v) {
+            echo '<'.$k.'>';
+	  }
+	  echo $text;
+          foreach ($style as $k => $v) { /* if value of key value = true close the tag */
+	    if ($v) {
+               echo '</'.$v.'>';
+	    }   
+	  }
+       } else {
+         echo $text;
+       }
+    }
+    $cnt = count($this->html_el);
+    if ($cnt) {
+       echo "\n";
+       $indent.='  ';
+       for($i = 0;$i<$cnt;$i++) {
+          $el = $this->html_el[$i];
+	  $el->echoHtml($usecss,$indent);
+       }
+    }
+    echo '</'.$tag.'>'."\n";
+  }
+}
+ 
+
+?>
