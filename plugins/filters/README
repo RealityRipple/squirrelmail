@@ -1,4 +1,4 @@
-Filters 0.8.3
+Filters Plugin
 
 IMPORTANT: I've noticed at least one version of PHP that has bugs in the
 checkdnsrr() function that the SPAM filtering code RELIES ON.  In my case,
