@@ -14,9 +14,9 @@ $conf_pl_version = "1.2.0";
 # Perl since at least 5.003_7, and nobody sane runs anything
 # before that, but just in case.
 ############################################################
-
+my $dir;
 if ( eval q{require "File/Basename.pm"} ) {
-    my $dir = File::Basename::dirname($0);
+    $dir = File::Basename::dirname($0);
     chdir($dir);
 }
 
@@ -30,6 +30,14 @@ if ( defined( $ENV{'PATH_INFO'} )
     print "You must run this script from the command line.";
     exit;
     }
+
+############################################################
+# If we got here, use Cwd to get the full directory path
+# (the Basename stuff above will sometimes return '.' as
+# the base directory, which is not helpful here). 
+############################################################
+use Cwd;
+$dir = cwd();
 
 ############################################################              
 # First, lets read in the data already in there...
@@ -149,7 +157,7 @@ if ( -e "config.php" ) {
 # Read and parse the current configuration file
 # (either config.php or config_default.php).
 while ( $line = <FILE> ) {
-    $line =~ s/^\s+//;
+    $line =~ s/^\s+//; 
     $line =~ s/^\$//;
     $var = $line;
 
@@ -168,7 +176,7 @@ while ( $line = <FILE> ) {
             if ( -e "../themes" ) {
                 $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
             }
-            $theme_path[$sub] = $options[1];
+            $theme_path[$sub] = &change_to_rel_path($options[1]);
         } elsif ( $options[0] =~ /^theme\[[0-9]+\]\[['|"]NAME['|"]\]/ ) {
             $sub = $options[0];
             $sub =~ s/\]\[['|"]NAME['|"]\]//;
@@ -227,6 +235,8 @@ while ( $line = <FILE> ) {
             $ldap_port[$sub]    = $port;
             $ldap_maxrows[$sub] = $maxrows;
             $ldap_charset[$sub] = $charset;
+        } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
+            ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
             ${ $options[0] } = $options[1];
         }
@@ -670,6 +680,8 @@ sub command2 {
     print "different times throughout SquirrelMail.  This is asking for the\n";
     print "literal (/usr/local/squirrelmail/images/logo.png) or relative\n";
     print "(../images/logo.png) path to your logo.\n";
+    print "Relative paths to files outside the SquirrelMail distribution\n";
+    print "will be converted to their absolute path equivalents in config.php.\n";
     print "\n";
     print "[$WHT$org_logo$NRM]: $WHT";
     $new_org_logo = <STDIN>;
@@ -1526,6 +1538,8 @@ sub command33a {
     print "are two examples:\n";
     print "  Absolute:    /usr/local/squirrelmail/data/\n";
     print "  Relative:    ../data/\n";
+    print "Relative paths to directories outside of the SquirrelMail distribution\n";
+    print "will be converted to their absolute path equivalents in config.php.\n";
     print "\n";
 
     print "[$WHT$data_dir$NRM]: $WHT";
@@ -1558,6 +1572,8 @@ sub command33b {
     print "      lying around there for too long.\n";
     print "  3.  It should probably be another directory than the data\n";
     print "      directory specified in option 3.\n";
+    print "Relative paths to directories outside of the SquirrelMail distribution\n";
+    print "will be converted to their absolute path equivalents in config.php.\n";
     print "\n";
 
     print "[$WHT$attachment_dir$NRM]: $WHT";
@@ -1973,6 +1989,9 @@ sub command42 {
     print "\n";
     print "To clear out an existing value, just type a space for the input.\n";
     print "\n";
+    print "Relative links to files outside the SquirrelMail distribution\n";
+    print "will be converted to their absolute path equivalents in config.php.\n";
+    print "\n";
     print "[$WHT$theme_css$NRM]: $WHT";
     $new_theme_css = <STDIN>;
 
@@ -2289,7 +2308,7 @@ sub save_data {
 	# string
         print CF "\$org_name      = \"$org_name\";\n";
         # string
-	print CF "\$org_logo      = '$org_logo';\n";
+	print CF "\$org_logo      = " . &change_to_SM_path($org_logo) . ";\n";
         $org_logo_width |= 0;
         $org_logo_height |= 0;
 	# string
@@ -2299,7 +2318,7 @@ sub save_data {
 	# string that can contain variables.
         print CF "\$org_title     = \"$org_title\";\n";
 	# string
-        print CF "\$signout_page  = '$signout_page';\n";
+        print CF "\$signout_page  = " . &change_to_SM_path($signout_page) . ";\n";
 	# string
         print CF "\$frame_top     = '$frame_top';\n";
         print CF "\n";
@@ -2380,9 +2399,9 @@ sub save_data {
 	# string
         print CF "\$default_charset          = '$default_charset';\n";
 	# string
-        print CF "\$data_dir                 = '$data_dir';\n";
+        print CF "\$data_dir                 = " . &change_to_SM_path($data_dir) . ";\n";
 	# string that can contain a variable
-        print CF "\$attachment_dir           = \"$attachment_dir\";\n";
+        print CF "\$attachment_dir           = " . &change_to_SM_path($attachment_dir) . ";\n";
 	# integer
         print CF "\$dir_hash_level           = $dir_hash_level;\n";
 	# string
@@ -2416,12 +2435,12 @@ sub save_data {
         print CF "\n";
 
 	# strings
-        print CF "\$theme_css = '$theme_css';\n";
+        print CF "\$theme_css = " . &change_to_SM_path($theme_css) . ";\n";
 	if ( $theme_default eq '' ) { $theme_default = '0'; }
         print CF "\$theme_default = $theme_default;\n";
 
         for ( $count = 0 ; $count <= $#theme_name ; $count++ ) {
-            print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
+            print CF "\$theme[$count]['PATH'] = " . &change_to_SM_path($theme_path[$count]) . ";\n";
             print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
         }
         print CF "\n";
@@ -2616,4 +2635,69 @@ sub set_defaults {
     }
     print "\nPress any key to continue...";
     $tmp = <STDIN>;
+}
+
+############################################################
+# This subroutine corrects relative paths to ensure they
+# will work within the SM space. If the path falls within
+# the SM directory tree, the SM_PATH variable will be 
+# prepended to the path, if not, then the path will be
+# converted to an absolute path.
+############################################################
+sub change_to_SM_path() {
+    my ($old_path) = @_;
+    my $new_path = '';
+    my @rel_path;
+    my @abs_path;
+    my $subdir;
+
+    # If the path is absolute, don't bother.
+    return "\'" . $old_path . "\'"  if ( $old_path eq '');
+    return "\'" . $old_path . "\'"  if ( $old_path =~ /^\// );
+    return $old_path                if ( $old_path =~ /^SM_PATH/ );
+
+    # For relative paths, split on '../'
+    @rel_path = split(/\.\.\//, $old_path);
+
+    if ( $#rel_path > 1 ) {
+        # more than two levels away. Make it absolute.
+        @abs_path = split(/\//, $dir);
+        foreach $subdir (@rel_path) {
+            if ($subdir eq '') {
+                pop @abs_path;
+            } else {
+                push @abs_path, $subdir;
+            }
+        }
+        foreach $subdir (@abs_path) {
+            $new_path .= $subdir . '/';
+        }
+    } elsif ( $#rel_path > 0 ) {
+        # it's within the SM tree, prepend SM_PATH
+        $new_path = $old_path;
+        $new_path =~ s/^\.\.\//SM_PATH . \'/;
+        $new_path .= '\'';
+    } else {
+        # Last, it's a relative path without any leading '.'
+        # Prepend SM_PATH  (no substitution required)
+        $new_path = "SM_PATH . \'" . $old_path . "\'";
+    }
+
+  return $new_path;
+}
+
+sub change_to_rel_path() {
+    my ($old_path) = @_;
+    my $new_path = '';
+
+    return $old_path if ( $old_path eq '');
+    return $old_path if ( $old_path =~ /^\// );
+    return $old_path if ( $old_path =~ /^\.\./ );
+
+    if ( $old_path =~ /^SM_PATH/ ) {
+        $new_path = $old_path;
+        $new_path =~ s/^SM_PATH . \'/\.\.\//;
+    }
+
+    return $new_path;
 }
