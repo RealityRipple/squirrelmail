@@ -268,6 +268,27 @@ if(!$hide_sm_attributions) {
     $hide_sm_attributions = "false";
 }
 
+if ($ARGV[0] eq '--install-plugin') {
+    print "Activating plugin " . $ARGV[1]
+    . "\n";
+    push @plugins, $ARGV[1];
+    save_data();
+    exit(0);
+}
+elsif ($ARGV[0] eq '--remove-plugin') {
+    print "Removing plugin " . $ARGV[1]
+    . "\n";
+    foreach $plugin (@plugins) {
+        if ($plugin ne $ARGV[1]) {
+           push @newplugins, $plugin;
+        }
+    }
+    @plugins = @newplugins;
+    save_data();
+    exit(0);
+}
+
+
 #####################################################################################
 if ($config_use_color == 1) {
    $WHT = "\x1B[37;1m";
@@ -449,7 +470,6 @@ while (($command ne "q") && ($command ne "Q")) {
       $menu = 0;
    } elsif ($command eq "s") {
       save_data ();
-      print "Data saved in config.php\n";
       print "Press enter to continue...";
       $tmp = <STDIN>;
       $saved = 1;
@@ -1776,154 +1796,159 @@ sub command62 {
 
 
 sub save_data {
-   $tab = "    ";
-   open (CF, ">config.php");
+    $tab = "    ";
+    if(open (CF, ">config.php"))
+    {
+        print CF "<?php\n";
+        print CF "\n";
+     
+        print CF "/**\n";
+        print CF " * SquirrelMail Configuration File\n";
+        print CF " * Created using the configure script, conf.pl\n";
+        print CF " */\n";
+        print CF "\n";
+        
+        print CF "global \$config_version, \$config_use_color;\n";
+        if ($print_config_version) {
+           print CF "\$config_version = '$print_config_version';\n";
+        }
+        print CF "\$config_use_color = $config_use_color;\n"; 
+        print CF "\n";
+     
+        print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
+        print CF "\$org_name      = \"$org_name\";\n";
+        print CF "\$org_logo      = '$org_logo';\n";
+        print CF "\$org_title     = \"$org_title\";\n";
+        print CF "\$signout_page  = '$signout_page';\n";
+        print CF "\n";
+     
+        print CF "global \$motd;\n";
+        print CF "\$motd = '$motd';\n";
+        print CF "\n";
+     
+        print CF "global \$squirrelmail_default_language;\n";
+        print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
+        print CF "\n";
+     
+        print CF "global \$domain, \$imapServerAddress, \$imapPort;\n";
+        print CF "global \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
+        print CF "global \$sendmail_path, \$use_authenticated_smtp;\n";
+        print CF "global \$imap_server_type, \$invert_time;\n";
+        print CF "global \$optional_delimiter;\n";
+        print CF "\$domain                 = '$domain';\n";
+        print CF "\$imapServerAddress      = '$imapServerAddress';\n";
+        print CF "\$imapPort               = $imapPort;\n";
+        print CF "\$useSendmail            = $useSendmail;\n";
+        print CF "\$smtpServerAddress      = '$smtpServerAddress';\n";
+        print CF "\$smtpPort               = $smtpPort;\n";
+        print CF "\$sendmail_path          = '$sendmail_path';\n";
+        print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
+        print CF "\$imap_server_type       = '$imap_server_type';\n";
+        print CF "\$invert_time            = $invert_time;\n";
+        print CF "\$optional_delimiter     = '$optional_delimiter';\n";
+        print CF "\n";
+     
+        print CF "global \$default_folder_prefix;\n";
+        print CF "global \$trash_folder, \$default_move_to_trash;\n";
+        print CF "global \$sent_folder, \$default_move_to_sent;\n";
+        print CF "global \$draft_folder, \$default_save_to_draft;\n";
+        print CF "global \$show_prefix_option, \$list_special_folders_first;\n";
+        print CF "global \$use_special_folder_color, \$auto_expunge;\n";
+        print CF "global \$default_sub_of_inbox;\n";
+        print CF "global \$show_contain_subfolders_option;\n";
+        print CF "global \$default_unseen_notify;\n";
+        print CF "global \$default_unseen_type, \$auto_create_special;\n";
+        print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
+        print CF "\$trash_folder                   = '$trash_folder';\n";
+        print CF "\$sent_folder                    = '$sent_folder';\n";
+        print CF "\$draft_folder                   = '$draft_folder';\n";
+        print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
+        print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
+        print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
+        print CF "\$show_prefix_option             = $show_prefix_option;\n";
+        print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
+        print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
+        print CF "\$auto_expunge                   = $auto_expunge;\n";
+        print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
+        print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
+        print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
+        print CF "\$default_unseen_type            = $default_unseen_type;\n";
+        print CF "\$auto_create_special            = $auto_create_special;\n";
+        print CF "\n";
+     
+        print CF "global \$default_charset;\n";
+        print CF "global \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
+        print CF "global \$default_left_size, \$force_username_lowercase;\n";
+        print CF "global \$default_use_priority, \$hide_sm_attributions;\n";
+        print CF "\$default_charset          = '$default_charset';\n";
+        print CF "\$data_dir                 = '$data_dir';\n";
+        print CF "\$attachment_dir           = \"$attachment_dir\";\n";
+        print CF "\$dir_hash_level           = $dir_hash_level;\n";
+        print CF "\$default_left_size        = $default_left_size;\n";
+        print CF "\$force_username_lowercase = $force_username_lowercase;\n";
+        print CF "\$default_use_priority     = $default_use_priority;\n";
+        print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
+        print CF "\n";
+     
+        print CF "global \$plugins;\n";
+        for ($ct=0; $ct <= $#plugins; $ct++) {
+           print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
+        }
+        print CF "\n";
+     
+        print CF "global \$theme_css, \$theme;\n";
+        print CF "\$theme_css = '$theme_css';\n";
+        for ($count=0; $count <= $#theme_name; $count++) {
+           print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
+           print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
+        }
+        print CF "\n";
+     
+        if ($default_use_javascript_addr_book ne "true") {
+           $default_use_javascript_addr_book = "false";
+        }   
+        print CF "global \$default_use_javascript_addr_book, \$ldap_server;\n";
+        print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
+        for ($count=0; $count <= $#ldap_host; $count++) {
+           print CF "\$ldap_server[$count] = array(\n";
+           print CF "    'host' => '$ldap_host[$count]',\n";
+           print CF "    'base' => '$ldap_base[$count]'";
+           if ($ldap_name[$count]) {
+              print CF ",\n";
+              print CF "    'name' => '$ldap_name[$count]'";
+           }
+           if ($ldap_port[$count]) {
+              print CF ",\n";
+              print CF "    'port' => '$ldap_port[$count]'";
+           }
+           if ($ldap_charset[$count]) {
+              print CF ",\n";
+              print CF "    'charset' => '$ldap_charset[$count]'";
+           }
+           if ($ldap_maxrows[$count]) {
+              print CF ",\n";
+              print CF "    'maxrows' => '$ldap_maxrows[$count]'";
+           }
+           print CF "\n";
+           print CF ");\n";
+           print CF "\n";
+        }
+     
+        print CF "/**\n";
+        print CF " * Make sure there are no characters after the PHP closing\n";
+        print CF " * tag below (including newline characters and whitespace).\n";
+        print CF " * Otherwise, that character will cause the headers to be\n";
+        print CF " * sent and regular output to begin, which will majorly screw\n";
+        print CF " * things up when we try to send more headers later.\n";
+        print CF " */\n";
+        print CF "?>";
+     
+        close CF;
 
-   print CF "<?php\n";
-   print CF "\n";
-
-   print CF "/**\n";
-   print CF " * SquirrelMail Configuration File\n";
-   print CF " * Created using the configure script, conf.pl\n";
-   print CF " */\n";
-   print CF "\n";
-   
-   print CF "global \$config_version, \$config_use_color;\n";
-   if ($print_config_version) {
-      print CF "\$config_version = '$print_config_version';\n";
-   }
-   print CF "\$config_use_color = $config_use_color;\n"; 
-   print CF "\n";
-
-   print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
-   print CF "\$org_name      = \"$org_name\";\n";
-   print CF "\$org_logo      = '$org_logo';\n";
-   print CF "\$org_title     = \"$org_title\";\n";
-   print CF "\$signout_page  = '$signout_page';\n";
-   print CF "\n";
-
-   print CF "global \$motd;\n";
-   print CF "\$motd = '$motd';\n";
-   print CF "\n";
-
-   print CF "global \$squirrelmail_default_language;\n";
-   print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
-   print CF "\n";
-
-   print CF "global \$domain, \$imapServerAddress, \$imapPort;\n";
-   print CF "global \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
-   print CF "global \$sendmail_path, \$use_authenticated_smtp;\n";
-   print CF "global \$imap_server_type, \$invert_time;\n";
-   print CF "global \$optional_delimiter;\n";
-   print CF "\$domain                 = '$domain';\n";
-   print CF "\$imapServerAddress      = '$imapServerAddress';\n";
-   print CF "\$imapPort               = $imapPort;\n";
-   print CF "\$useSendmail            = $useSendmail;\n";
-   print CF "\$smtpServerAddress      = '$smtpServerAddress';\n";
-   print CF "\$smtpPort               = $smtpPort;\n";
-   print CF "\$sendmail_path          = '$sendmail_path';\n";
-   print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
-   print CF "\$imap_server_type       = '$imap_server_type';\n";
-   print CF "\$invert_time            = $invert_time;\n";
-   print CF "\$optional_delimiter     = '$optional_delimiter';\n";
-   print CF "\n";
-
-   print CF "global \$default_folder_prefix;\n";
-   print CF "global \$trash_folder, \$default_move_to_trash;\n";
-   print CF "global \$sent_folder, \$default_move_to_sent;\n";
-   print CF "global \$draft_folder, \$default_save_to_draft;\n";
-   print CF "global \$show_prefix_option, \$list_special_folders_first;\n";
-   print CF "global \$use_special_folder_color, \$auto_expunge;\n";
-   print CF "global \$default_sub_of_inbox;\n";
-   print CF "global \$show_contain_subfolders_option;\n";
-   print CF "global \$default_unseen_notify;\n";
-   print CF "global \$default_unseen_type, \$auto_create_special;\n";
-   print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
-   print CF "\$trash_folder                   = '$trash_folder';\n";
-   print CF "\$sent_folder                    = '$sent_folder';\n";
-   print CF "\$draft_folder                   = '$draft_folder';\n";
-   print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
-   print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
-   print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
-   print CF "\$show_prefix_option             = $show_prefix_option;\n";
-   print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
-   print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
-   print CF "\$auto_expunge                   = $auto_expunge;\n";
-   print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
-   print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
-   print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
-   print CF "\$default_unseen_type            = $default_unseen_type;\n";
-   print CF "\$auto_create_special            = $auto_create_special;\n";
-   print CF "\n";
-
-   print CF "global \$default_charset;\n";
-   print CF "global \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
-   print CF "global \$default_left_size, \$force_username_lowercase;\n";
-   print CF "global \$default_use_priority, \$hide_sm_attributions;\n";
-   print CF "\$default_charset          = '$default_charset';\n";
-   print CF "\$data_dir                 = '$data_dir';\n";
-   print CF "\$attachment_dir           = \"$attachment_dir\";\n";
-   print CF "\$dir_hash_level           = $dir_hash_level;\n";
-   print CF "\$default_left_size        = $default_left_size;\n";
-   print CF "\$force_username_lowercase = $force_username_lowercase;\n";
-   print CF "\$default_use_priority     = $default_use_priority;\n";
-   print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
-   print CF "\n";
-
-   print CF "global \$plugins;\n";
-   for ($ct=0; $ct <= $#plugins; $ct++) {
-      print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
-   }
-   print CF "\n";
-
-   print CF "global \$theme_css, \$theme;\n";
-   print CF "\$theme_css = '$theme_css';\n";
-   for ($count=0; $count <= $#theme_name; $count++) {
-      print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
-      print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
-   }
-   print CF "\n";
-
-   if ($default_use_javascript_addr_book ne "true") {
-      $default_use_javascript_addr_book = "false";
-   }   
-   print CF "global \$default_use_javascript_addr_book, \$ldap_server;\n";
-   print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
-   for ($count=0; $count <= $#ldap_host; $count++) {
-      print CF "\$ldap_server[$count] = array(\n";
-      print CF "    'host' => '$ldap_host[$count]',\n";
-      print CF "    'base' => '$ldap_base[$count]'";
-      if ($ldap_name[$count]) {
-         print CF ",\n";
-         print CF "    'name' => '$ldap_name[$count]'";
-      }
-      if ($ldap_port[$count]) {
-         print CF ",\n";
-         print CF "    'port' => '$ldap_port[$count]'";
-      }
-      if ($ldap_charset[$count]) {
-         print CF ",\n";
-         print CF "    'charset' => '$ldap_charset[$count]'";
-      }
-      if ($ldap_maxrows[$count]) {
-         print CF ",\n";
-         print CF "    'maxrows' => '$ldap_maxrows[$count]'";
-      }
-      print CF "\n";
-      print CF ");\n";
-      print CF "\n";
-   }
-
-   print CF "/**\n";
-   print CF " * Make sure there are no characters after the PHP closing\n";
-   print CF " * tag below (including newline characters and whitespace).\n";
-   print CF " * Otherwise, that character will cause the headers to be\n";
-   print CF " * sent and regular output to begin, which will majorly screw\n";
-   print CF " * things up when we try to send more headers later.\n";
-   print CF " */\n";
-   print CF "?>";
-
-   close CF;
+        print "Data saved in config.php\n";
+    } else {
+        print "Error saving config.php: $!\n";
+    }
 }
 
 sub set_defaults {
