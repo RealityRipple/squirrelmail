@@ -19,7 +19,9 @@ Version 1.2.3 -- cvs
     allow users to change the font family and size of SM. Making possible to
     make it bigger or smaller depending on their screen size. Sysops may add
     or remove these system-defined css located in themes/css/
-  
+  - Fixed a bug appearing on some apache virtual hosts
+  - Fixed javascript error (#505255)
+	
 Version 1.2.2 -- 1 January 2002
 -------------------------------
 
