@@ -1,5 +1,5 @@
 <?php
-   
+
    /* $Id$ */
 
    if (defined('strings_php'))
@@ -55,8 +55,8 @@
          if ($pos >= strlen($haystack))
             return -1;
          $pos++;
-      }        
-      return $pos;        
+      }
+      return $pos;
    }
 
    // Wraps text at $wrap characters
@@ -75,7 +75,7 @@
 
       $i = 0;
       $line = $beginning_spaces;
-      
+
       while ($i < count($words)) {
          // Force one word to be on a line (minimum)
          $line .= $words[$i];
@@ -83,7 +83,7 @@
           if (isset($words[$i + 1]))
               $line_len += strlen($words[$i + 1]);
          $i ++;
-            
+
          // Add more words (as long as they fit)
          while ($line_len < $wrap && $i < count($words)) {
             $line .= ' ' . $words[$i];
@@ -93,20 +93,20 @@
              else
                  $line_len += 1;
          }
-            
+
          // Skip spaces if they are the first thing on a continued line
          while (!isset($words[$i]) && $i < count($words)) {
             $i ++;
          }
 
-         // Go to the next line if we have more to process            
+         // Go to the next line if we have more to process
          if ($i < count($words)) {
             $line .= "\n" . $beginning_spaces;
          }
       }
    }
-   
-   
+
+
    // Does the opposite of sqWordWrap()
    function sqUnWordWrap(&$body)
    {
@@ -138,7 +138,7 @@
        }
        $body .= "\n";
    }
-   
+
 
    /** Returns an array of email addresses **/
    /* Be cautious of "user@host.com" */
@@ -165,7 +165,11 @@
       } else {
         $to_line = '';
       }
-      return $to_line;
+
+      if( substr( $to_line, -1 ) == ',' )
+         $to_line = substr( $to_line, 0, strlen( $to_line ) - 1 );
+
+      return( $to_line );
    }
 
    function translateText(&$body, $wrap_at, $charset) {
@@ -173,19 +177,19 @@
       global $color; // color theme
 
       require_once('../functions/url_parser.php');
-      
+
       $body_ary = explode("\n", $body);
       $PriorQuotes = 0;
       for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
          if (strlen($line) - 2 >= $wrap_at) {
-            sqWordWrap($line, $wrap_at);  
+            sqWordWrap($line, $wrap_at);
          }
          $line = charset_decode($charset, $line);
          $line = str_replace("\t", '        ', $line);
-         
+
          parseUrl ($line);
-         
+
          $Quotes = 0;
          $pos = 0;
          while (1)
@@ -204,7 +208,7 @@
                  break;
              }
          }
-         
+
          if ($Quotes > 1) {
 	    if (! isset($color[14]))
 	       $color[14] = '#FF0000';
@@ -236,19 +240,19 @@
    function get_location () {
       # This determines the location to forward to relative
       # to your server.  If this doesnt work correctly for
-      # you (although it should), you can remove all this 
+      # you (although it should), you can remove all this
       # code except the last two lines, and change the header()
       # function to look something like this, customized to
       # the location of SquirrelMail on your server:
       #
       #   http://www.myhost.com/squirrelmail/src/login.php
-   
+
       global $PHP_SELF, $SERVER_NAME, $HTTP_HOST, $SERVER_PORT,
          $HTTP_SERVER_VARS;
 
       // Get the path
       $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
-   
+
       // Check if this is a HTTPS or regular HTTP request
       $proto = 'http://';
       // If you have 'SSLOptions +StdEnvVars' in your apache config
@@ -261,7 +265,7 @@
 	   $HTTP_SERVER_VARS['SERVER_PORT'] == 443)) {
         $proto = 'https://';
       }
-   
+
       // Get the hostname from the Host header or server config.
       $host = '';
       if (isset($HTTP_HOST) && !empty($HTTP_HOST))
@@ -272,7 +276,7 @@
       {
           $host = $SERVER_NAME;
       }
-      
+
       $port = '';
       if (! strstr($host, ':'))
       {
@@ -283,14 +287,14 @@
               }
           }
       }
-      
+
       if ($host)
           return $proto . $host . $port . $path;
 
       // Fallback is to omit the server name and use a relative URI,
       // although this is not RFC 2616 compliant.
-      return $path;    
-   }   
+      return $path;
+   }
 
 
    // These functions are used to encrypt the passowrd before it is
@@ -326,7 +330,7 @@
        // if mt_getrandmax() does not return a 2^n - 1 number,
        // this might not work well.  This uses $Max as a bitmask.
        $Max = mt_getrandmax();
-       
+
        if (! is_int($Val))
        {
            if (function_exists('crc32'))
@@ -363,8 +367,8 @@
 
        mt_srand(($Val ^ mt_rand(0, $Max)) & $Max);
    }
-   
-   
+
+
    // This function initializes the random number generator fairly well.
    // It also only initializes it once, so you don't accidentally get
    // the same 'random' numbers twice in one session.
@@ -372,14 +376,14 @@
    {
       global $REMOTE_PORT, $REMOTE_ADDR, $UNIQUE_ID;
       static $randomized;
-      
+
       if ($randomized)
          return;
-      
-      // Global   
+
+      // Global
       sq_mt_seed((int)((double) microtime() * 1000000));
       sq_mt_seed(md5($REMOTE_PORT . $REMOTE_ADDR . getmypid()));
-      
+
       // getrusage
       if (function_exists('getrusage')) {
          // Avoid warnings with Win32
@@ -394,13 +398,13 @@
             sq_mt_seed(md5($Str));
 	 }
       }
-      
+
       // Apache-specific
       sq_mt_seed(md5($UNIQUE_ID));
-      
+
       $randomized = 1;
    }
-   
+
    function OneTimePadCreate ($length=100) {
       sq_mt_randomize();
 
@@ -426,13 +430,13 @@
       $vmajor  = strval($regs[1]);
       $vminor  = strval($regs[2]);
       $vrel    = $regs[3];
-      if($vrel[0] == ".") 
+      if($vrel[0] == ".")
           $vrel = strval(substr($vrel, 1));
-      if($vrel[0] == 'b' || $vrel[0] == 'B') 
+      if($vrel[0] == 'b' || $vrel[0] == 'B')
           $vrel = - strval(substr($vrel, 1));
-      if($vrel[0] == 'r' || $vrel[0] == 'R') 
+      if($vrel[0] == 'r' || $vrel[0] == 'R')
           $vrel = - strval(substr($vrel, 2))/10;
-      
+
       // Compare major version
       if($vmajor < $major) return false;
       if($vmajor > $major) return true;
@@ -440,7 +444,7 @@
       // Major is the same. Compare minor
       if($vminor < $minor) return false;
       if($vminor > $minor) return true;
-      
+
       // Major and minor is the same as the required one.
       // Compare release
       if($vrel >= 0 && $release >= 0) {       // Neither are beta
@@ -452,22 +456,22 @@
       } else {                                // Both are beta
           if($vrel > $release) return false;
       }
-      
+
       return true;
    }
-   
+
    /* Returns a string showing the size of the message/attachment */
    function show_readable_size($bytes)
    {
        $bytes /= 1024;
        $type = 'k';
-       
+
        if ($bytes / 1024 > 1)
        {
            $bytes /= 1024;
            $type = 'm';
        }
-       
+
        if ($bytes < 10)
        {
            $bytes *= 10;
@@ -476,7 +480,7 @@
        }
        else
            settype($bytes, 'integer');
-       
+
        return $bytes . '<small>&nbsp;' . $type . '</small>';
    }
 
@@ -487,7 +491,7 @@
     *   2 = add uppercase A-Z to $chars
     *   4 = add numbers 0-9 to $chars
     */
-  
+
    function GenerateRandomString($size, $chars, $flags = 0)
    {
       if ($flags & 0x1)
@@ -496,20 +500,20 @@
           $chars .= 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
       if ($flags & 0x4)
           $chars .= '0123456789';
-          
+
       if ($size < 1 || strlen($chars) < 1)
           return '';
-          
+
       sq_mt_randomize(); // Initialize the random number generator
-    
+
       $String = "";
       while (strlen($String) < $size) {
          $String .= $chars[mt_rand(0, strlen($chars))];
       }
-      
+
       return $String;
    }
-   
+
    function quoteIMAP($str)
    {
        return ereg_replace('(["\\])', '\\\\1', $str);
