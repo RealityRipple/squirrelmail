@@ -825,7 +825,7 @@ function showComposeButtonRow() {
         }
     }
 
-    echo "   <TR><td>\n   </td><td>\n";
+    echo "   </td></tr>\n   <TR><td>\n   </td><td>\n";
     echo "\n    <INPUT TYPE=SUBMIT NAME=\"sigappend\" VALUE=\"". _("Signature") . "\">\n";
     if ($use_javascript_addr_book) {
         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"".
