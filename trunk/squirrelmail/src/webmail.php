@@ -1,8 +1,9 @@
 <?php
+
    /**
     **  webmail.php -- Displays the main frameset
     **
-    **  Copyright (c) 2000 The SquirrelMail development team
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  This file generates the main frameset. The files that are
@@ -44,7 +45,7 @@
    if (!isset($auth_php))
       include ("../functions/auth.php");
 
-   if (!session_is_registered("user_is_logged_in")) {
+   if (!session_is_registered("user_is_logged_in") || $logged_in != 1) {
       do_hook ("login_before");
       // verify that username and password are correct
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

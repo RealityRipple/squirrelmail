@@ -1,14 +1,14 @@
 <?php
    /**
-    **  login.php
+    **  login.php -- simple login screen
+    ** 
+    **  Copyright (c) 1999-2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
-    **  Very simple login screen that clears the cookie every time it's loaded
+    **  This a simple login screen. Some housekeeping is done to clean
+    **  cookies and find language.
     **
     **/
-
-   setcookie("username", "", time(), "/");
-   setcookie("key", "", time(), "/");
-   setcookie("logged_in", 0, time(), "/");
 
    if (!isset($config_php))
       include("../config/config.php");
@@ -40,6 +40,18 @@
          }
       }
    }
+
+   // Need the base URI to set the cookies. (Same code as in webmail.php)
+   ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+   $base_uri = $regs[1];
+
+   setcookie("username", "", 0, $base_uri);
+   setcookie("key", "", 0, $base_uri);
+   setcookie("logged_in", 0, 0, $base_uri);
+
+   // In case the last session was not terminated properly, make sure
+   // we get a new one.
+   setcookie("PHPSESSID", "", 0, $base_uri);
 
    echo "<HTML>";
    echo "<HEAD><TITLE>";
