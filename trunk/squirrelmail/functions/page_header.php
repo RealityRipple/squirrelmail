@@ -45,7 +45,8 @@ function displayInternalLink($path, $text, $target='') {
 
 function displayPageHeader($color, $mailbox, $xtra='') {
 
-    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win, $username, $datadir;
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top,
+    $compose_new_win, $username, $datadir, $compose_width, $compose_height;
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if (!isset($frame_top)) {
@@ -80,17 +81,16 @@ function displayPageHeader($color, $mailbox, $xtra='') {
 		"$xtra\n".
             "}\n";
             if ($compose_new_win == '1') {
-                $width= getPref($username, $datadir, 'editor_size', 76);
-                if ($width < 65) {
-                    $pix_width = 560;
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+                    $compose_width = '640';
                 }
-                else {
-                    $width = (.9*$width);
-                    $pix_width = intval($width).'0';
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+                    $compose_height = '550';
                 }
                 $js .= "function comp_in_new() {\n".
                      "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
-                     ", \"compose_window\", \"width=".$pix_width.",height=650".
+                     ", \"compose_window\",
+                \"width=".$compose_width.",height=$compose_height".
                      ",scrollbars=yes,resizable=yes\");\n".
                      "}\n";
             }
