@@ -668,8 +668,8 @@ sub command1 {
 sub command2 {
     print "Your organization's logo is an image that will be displayed at\n";
     print "different times throughout SquirrelMail.  This is asking for the\n";
-    print "literal (/usr/local/squirrelmail/images/logo.jpg) or relative\n";
-    print "(../images/logo.jpg) path to your logo.\n";
+    print "literal (/usr/local/squirrelmail/images/logo.png) or relative\n";
+    print "(../images/logo.png) path to your logo.\n";
     print "\n";
     print "[$WHT$org_logo$NRM]: $WHT";
     $new_org_logo = <STDIN>;
