@@ -4,7 +4,8 @@
 
 Version 1.2.6 -- CVS
 --------------------
-
+  - Fixed resume draft bug #513521, #514639
+	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
   - Multiple mailbox list calls cached.
