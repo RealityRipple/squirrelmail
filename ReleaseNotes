@@ -1,74 +1,37 @@
 /*****************************************************************
- * Release Notes: SquirrelMail 1.4.0                             *
- * The "Long Time Coming" Release                                *
- * 3 April 2003                                                  *
+ * Release Notes: SquirrelMail 1.5.0                             *
+ * The "Breeze Before the Storm" Release                         *
+ * 1 Feb 2004                                                    *
  *****************************************************************/
 
 In this edition of SquirrelMail Release Notes:
    * All about this Release!
-   * A note on PHP 4.3.x
    * Major updates
    * A note on plugins
-   * Reporting my favorite SquirrelMail 1.4 bug
+   * Reporting my favorite SquirrelMail 1.5 bug
 
 All about this Release!
 =======================
 
-This is the first release of our new 1.4.x-series which is officially
-labeled STABLE! We've been through a long development trajectory
-which has resulted in this version. The big plusses of 1.4 over the
-previous 1.2.x series are enhanced stability, better compatibility
-with a wide range of mail/websystems, more features and less bugs.
+This is the first release of our new 1.5.x-series, which is a 
+DEVELOPMENT release. 
+
 See the Major Updates section of this file for more.
-
-
-A note on PHP 4.3.x
-===================
-
-While the developers realize that PHP 4.3.x is the "latest and greatest"
-version of PHP to be available, SquirrelMail has not been extensively
-tested with it. We currently believe that SquirrelMail should work on
-PHP 4.3.x but we lack the experience with this new version to be
-absolutely sure. If you want to be safe, or experience problems, you may
-want to downgrade to PHP 4.2.x.
 
 
 Major updates
 ==============
 
-The 1.4.0 series (as a result of 1.3 developent series) brings:
-
-* A complete rewrite of the way we send mail (Deliver-class),
-  and of the way we parse mail (MIME-bodystructure parsing).
-  This makes SquirrelMail more reliable and more efficient
-  at the same time!
-* Support for IMAP UID which makes SquirrelMail more reliable.
-* Optimizations to code and the number of IMAP calls; SquirrelMail
-  is now a very scalable webmail solution.
-* Support for a wider range of authentication mechanisms.
-* Lots of bugfixes, some new features and a couple of UI-tweaks.
-
-
-A note on plugins
-=================
-
-There have been major plugin architecture improvements. Lots of plugins
-have not yet been adapted to this. Plugins which are distributed with
-this release (eg. in the same .tar.gz file) should work. Plugin authors
-will need some time to adapt their plugins, so quite a few plugins 
-might not work.
-
-So if you have ANY problem at all, first try turning off all plugins.
-If one plugin seems to be the culprit, contact the author to see if
-a 1.4.x version is underway.
-
+1.5.0 includes the integration of the delete_move_next plugin, 
+as well as a new "save replies to the same folder as the original"
+option. 
 
 Reporting my favorite SquirrelMail 1.4 bug
 ==========================================
 
 We constantly aim to make SquirrelMail even better. So we need you to
 submit any bug you come across! Also, please mention that the bug is
-in this 1.4.0 release, and list your IMAP server and webserver details.
+in this 1.5.0 release, and list your IMAP server and webserver details.
 
    http://www.squirrelmail.org/bugs
 
@@ -90,9 +53,9 @@ things to share with the developers, join the development mailinglist:
 About Our Release Alias
 =======================
 
-This release is labeled the "Long Time Coming" Release.
-I think you can figure out the meaning behind this yourself.
-
+This release is labeled the "Breeze Before the Storm" Release.
+Major UI changes are coming in the next few releases, hold
+onto your hats!
 
                   Happy SquirrelMailing!
                     - The SquirrelMail Project Team
