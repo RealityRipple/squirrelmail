@@ -41,17 +41,17 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapC
                 html_tag( 'td', 
                      '<b><center>' .
                      _("Viewing a text attachment") . ' - ' . $message_link_str . '</b></center>',
-                '', 'left', $color[0] )
+                'left', $color[0] )
             ) .
             html_tag( 'tr',
                 html_tag( 'td', 
                      '<center>' .
                      "<A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$entid&mailbox=$urlmailbox\">".
                      _("Download this as a file").
-                     "</A></CENTER><BR>".
-                '', 'left' )
+                     "</A></CENTER><BR>",
+                'left' )
             ),
-        '', 'center', '', 'width="100%" border="0" cellspacing="0" cellpadding="2"' );
+        'center', '', 'width="100%" border="0" cellspacing="0" cellpadding="2"' );
 
     if ($type1 == 'html') {
         $msg  = sqimap_get_message($imapConnection, $id, $mailbox);    
