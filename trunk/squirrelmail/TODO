@@ -12,7 +12,7 @@ initials = taken by that person
   -     Rewrite of mime.php (see Gustav before any work is done)
   -     Make Location redirects absolute rather than relative (index.php)
   -     Foreground themes
-  -     When deleting or moving messages (empty trash too), go back to the 
+(glp)   When deleting or moving messages (empty trash too), go back to the 
             list for the mail box you were looking at without having to click
             a link
 (mcp)   Spell checking
