@@ -1,9 +1,6 @@
 <?php
 /**
- * Message and Spam Filter Plugin
- *
- * Copyright (c) 1999-2004 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Message and Spam Filter Plugin - Setup script
  *
  * This plugin filters your inbox into different folders based upon given
  * criteria.  It is most useful for people who are subscibed to mailing lists
@@ -22,6 +19,8 @@
  * Also view plugins/README.plugins for more information.
  *
  * @version $Id$
+ * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @package plugins
  * @subpackage filters
  */
