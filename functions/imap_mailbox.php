@@ -749,7 +749,7 @@ function sqimap_mailbox_list_all($imap_stream) {
 }
 
 function sqimap_mailbox_tree($imap_stream) {
-    global $boxesnew, $default_folder_prefix, $unseen_notify, $unseen_type;
+    global $default_folder_prefix, $unseen_notify, $unseen_type;
     if (true) {
 
         global $data_dir, $username, $list_special_folders_first,
@@ -848,8 +848,8 @@ function sqimap_mailbox_tree($imap_stream) {
        }
        $sorted_lsub_ary = array_values($sorted_lsub_ary);
        array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
-       $boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
-       return $boxesnew;
+       $boxestree = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
+       return $boxestree;
     }
 }
 
