@@ -112,6 +112,7 @@
    
    if (file_exists("../help/$squirrelmail_language")) {
       $help_exists = true;
+      $user_language = $squirrelmail_language;
    } else if (file_exists("../help/en")) {
       $help_exists = true;
       echo "<center><font color=\"$color[2]\">";
@@ -123,6 +124,8 @@
       echo "<br><center><font color=\"$color[2]\">";
       echo _("Some or all of the help documents are not present!");
       echo "</font></center>";
+      echo "</td></tr></table>";
+      exit;
    }
    
    if ($help_exists) {
