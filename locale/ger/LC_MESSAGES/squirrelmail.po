@@ -48,11 +48,11 @@ msgstr "Anhang:"
 
 #: src/compose.php:234
 msgid "Add"
-msgstr "Hinzuf|gen"
+msgstr "Hinzufügen"
 
 #: src/compose.php:247
 msgid "Delete selected attachments"
-msgstr "Ausgewdhlten Anhang lvschen"
+msgstr "Ausgewählten Anhang löschen"
 
 #: src/compose.php:266
 msgid "You have not entered a message body."
@@ -60,7 +60,7 @@ msgstr "Du hast noch keinen Nachrichtentext eingegeben."
 
 #: src/compose.php:270
 msgid "You have not filled in the \"To:\" field."
-msgstr "Du hast das \"An:\"-Feld noch nicht ausgef|llt."
+msgstr "Du hast das \"An:\"-Feld noch nicht ausgefüllt."
 
 #: src/compose.php:273
 msgid "You have not entered a subject."
@@ -68,7 +68,7 @@ msgstr "Du hast keinen Betreff eingegeben."
 
 #: src/compose.php:294
 msgid "Could not move/copy file. File not attached"
-msgstr "Kann Datei nicht verschieben/kopieren. Datei nicht angehdngt."
+msgstr "Kann Datei nicht verschieben/kopieren. Datei nicht angehängt."
 
 #: src/download.php:23
 msgid "Viewing a plain text attachment"
@@ -84,11 +84,11 @@ msgstr "Ordner"
 
 #: src/folders.php:31
 msgid "Delete Folder"
-msgstr "Ordner lvschen"
+msgstr "Ordner löschen"
 
 #: functions/mailbox_display.php:226 src/folders.php:54 src/read_body.php:105
 msgid "Delete"
-msgstr "Lvschen"
+msgstr "Löschen"
 
 #: src/folders.php:60
 msgid "Create Folder"
@@ -100,7 +100,7 @@ msgstr "als Unterordner von"
 
 #: src/folders.php:91
 msgid "Let this folder contain subfolders"
-msgstr "Dieser Ordner enthdlt Unterordner"
+msgstr "Dieser Ordner enthält Unterordner"
 
 #: src/folders.php:99
 msgid "Rename a Folder"
@@ -115,8 +115,8 @@ msgid ""
 "Illegal folder name.  Please select a different name.<BR><A "
 "HREF=\"../src/folders.php\">Click here to go back</A>."
 msgstr ""
-"Ordnername nicht mvglich. Bitte gehe<BR><A "
-"HREF=\"../src/folders.php\">zur|ck</A> und wdhle einen anderen."
+"Ordnername nicht möglich. Bitte gehe<BR><A "
+"HREF=\"../src/folders.php\">zurück</A> und wähle einen anderen."
 
 #: src/folders_create.php:41
 msgid "Folder Created!"
@@ -138,15 +138,15 @@ msgstr "um weiterzumachen."
 
 #: src/folders_delete.php:78
 msgid "Folder Deleted!"
-msgstr "Ordner gelvscht!"
+msgstr "Ordner gelöscht!"
 
 #: src/folders_delete.php:80
 msgid "The folder has been successfully deleted."
-msgstr "Der Ordner wurde erfolgreich gelvscht."
+msgstr "Der Ordner wurde erfolgreich gelöscht."
 
 #: src/folders_rename_do.php:40
 msgid "Return"
-msgstr "Zur|ck"
+msgstr "Zurück"
 
 #: src/folders_rename_getname.php:29
 msgid "Rename a folder"
@@ -162,7 +162,7 @@ msgstr "Senden"
 
 #: src/left_main.php:63
 msgid "purge"
-msgstr "lvschen"
+msgstr "löschen"
 
 #: src/left_main.php:90
 msgid "refresh folder list"
@@ -202,7 +202,7 @@ msgstr "Login"
 
 #: src/move_messages.php:64 src/move_messages.php:89
 msgid "No messages were selected."
-msgstr "Keine Nachrichten ausgewdhlt."
+msgstr "Keine Nachrichten ausgewählt."
 
 #: functions/page_header.php:48 src/options.php:35
 msgid "Options"
@@ -230,7 +230,7 @@ msgstr "Sprache:"
 
 #: src/options.php:110
 msgid "Move deleted messages to "
-msgstr "Verschiebe gelvschte Nachrichten nach "
+msgstr "Verschiebe gelöschte Nachrichten nach "
 
 #: src/options.php:130
 msgid "Wrap incoming text at:"
@@ -238,7 +238,7 @@ msgstr "Breche eingehenden Text um bei:"
 
 #: src/options.php:143
 msgid "Size of editor window (in characters):"
-msgstr "Grv_e des Editorfensters (in Buchstaben):"
+msgstr "Größe des Editorfensters (in Buchstaben):"
 
 #: src/options.php:156
 msgid "Width of left folder list:"
@@ -246,7 +246,7 @@ msgstr "Breite der Ordnerliste:"
 
 #: src/options.php:213
 msgid "Time between auto refresh of folder list:"
-msgstr "Intervall der automatischen Aktualisierung der Odnerliste:"
+msgstr "Intervall der automatischen Aktualisierung der Ordnerliste:"
 
 #: src/options.php:308
 msgid "Use a signature?"
@@ -294,7 +294,7 @@ msgstr "Datum:"
 
 #: src/right_main.php:11
 msgid "You must "
-msgstr "Du mu_t dich zuerst "
+msgstr "Du mußt dich zuerst "
 
 #: src/right_main.php:13
 msgid "login"
@@ -306,7 +306,7 @@ msgstr ""
 
 #: src/right_main.php:19 src/webmail.php:10
 msgid "You need a valid user and password to access this page!"
-msgstr "Du benvtigst eine g|ltige Benutzernamen- und Paswortkombination um Zugriff zu dieser Seite zu bekommen."
+msgstr "Du benötigst eine gültige Benutzernamen- und Paswortkombination um Zugriff zu dieser Seite zu bekommen."
 
 #: functions/page_header.php:38 src/signout.php:34
 msgid "Sign Out"
@@ -326,11 +326,11 @@ msgstr "dich wieder einzuloggen."
 
 #: functions/display_messages.php:19 functions/imap_general.php:108
 msgid "Unknown user or password incorrect."
-msgstr "Ung|ltiger Benutzername oder Pa_wort nicht korrekt."
+msgstr "Ungültiger Benutzername oder Paßwort nicht korrekt."
 
 #: functions/display_messages.php:19 functions/imap_general.php:109
 msgid "Click here to try again"
-msgstr "Klicke hier f|r einen weiteren Versuch"
+msgstr "Klicke hier für einen weiteren Versuch"
 
 #: functions/display_messages.php:31
 msgid "Welcome to $org_name's WebMail system"
@@ -342,16 +342,16 @@ msgstr "unter SquirrelMail Version $version (c) 1999-2000."
 
 #: functions/display_messages.php:58
 msgid "Messages Deleted"
-msgstr "Nachricht gelvscht"
+msgstr "Nachricht gelöscht"
 
 #: functions/display_messages.php:60
 msgid "The selected messages were deleted successfully."
-msgstr "Die gewdhlten Nachrichten wurden erfolgreich gelvscht."
+msgstr "Die gewählten Nachrichten wurden erfolgreich gelöscht."
 
 #: functions/display_messages.php:63 functions/display_messages.php:80
 #: functions/display_messages.php:97
 msgid "Click here to return to "
-msgstr "Klicke hier um zur|ckzukehren zu"
+msgstr "Klicke hier um zurückzukehren zu"
 
 #: functions/display_messages.php:75
 msgid "Messages Moved"
@@ -359,7 +359,7 @@ msgstr "Nachricht verschoben"
 
 #: functions/display_messages.php:77
 msgid "The selected messages were moved successfully."
-msgstr "Die gewdhlten Nachrichten wurden erfolgreich verschoben."
+msgstr "Die gewählten Nachrichten wurden erfolgreich verschoben."
 
 #: functions/display_messages.php:92 functions/display_messages.php:108
 #: functions/imap_general.php:99
@@ -368,7 +368,7 @@ msgstr "FEHLER"
 
 #: functions/imap_general.php:41
 msgid "ERROR : Could not complete request."
-msgstr "FEHLER: Konnte Anfrage nicht vollstdndig ausf|hren."
+msgstr "FEHLER: Konnte Anfrage nicht vollstdndig ausführen."
 
 #: functions/imap_general.php:43
 msgid "Reason Given: "
@@ -416,11 +416,11 @@ msgstr "Vorherige"
 #: functions/mailbox_display.php:285 functions/mailbox_display.php:289
 #: functions/mailbox_display.php:293
 msgid "Next"
-msgstr "Ndchste"
+msgstr "Nächste"
 
 #: functions/mailbox_display.php:200
 msgid "Move selected to:"
-msgstr "Verschiebe ausgewdhlte nach:"
+msgstr "Verschiebe ausgewählte nach:"
 
 #: functions/mailbox_display.php:222
 msgid "Move"
@@ -428,7 +428,7 @@ msgstr "Verschieben"
 
 #: functions/mailbox_display.php:226
 msgid "checked messages"
-msgstr "gewdhlte Nachrichten"
+msgstr "gewählte Nachrichten"
 
 #: functions/mailbox_display.php:238
 msgid "From"
@@ -481,7 +481,7 @@ msgstr ""
 
 #: functions/prefs.php:80
 msgid "Error opening "
-msgstr "Fehler beim Vffnen von "
+msgstr "Fehler beim öffnen von "
 
 #: functions/prefs.php:109
 msgid "Signature file not found."
