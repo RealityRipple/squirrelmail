@@ -327,6 +327,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "3.  Organization Title   : $WHT$org_title$NRM\n";
       print "4.  Signout Page         : $WHT$signout_page$NRM\n";
       print "5.  Default Language     : $WHT$squirrelmail_default_language$NRM\n";
+      print "6.  Top Frame            : $WHT$frame_top$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 2) {
@@ -503,7 +504,8 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 2) { $org_logo   = command2 (); }
          elsif ($command == 3) { $org_title  = command3 (); }
          elsif ($command == 4) { $signout_page  = command4 (); }
-	 elsif ($command == 5) { $squirrelmail_default_language = command5(); }
+         elsif ($command == 5) { $squirrelmail_default_language = command5(); }
+         elsif ($command == 6) { $frame_top = command6(); }
       } elsif ($menu == 2) {
          if    ($command == 1)  { $domain                 = command11 (); }
          elsif ($command == 2)  { $imapServerAddress      = command12 (); }
@@ -642,6 +644,23 @@ sub command5 {
       $new_signout_page =~ s/^\s+$//g;
    }
    return $new_signout_page;
+}
+
+# Default top frame
+sub command6 {
+    print "SquirrelMail defaults to using the whole of the browser window.\n";
+    print "This allows you to keep it within a specified frame. The default\n";
+    print "is '_top'\n";
+    print "\n";
+    print "[$WHT$frame_top$NRM]: $WHT";
+    $new_frame_top = <STDIN>;
+    if ($new_frame_top eq "\n") {
+        $new_frame_top = '_top';
+    } else {
+        $new_frame_top =~ s/[\r|\n]//g;
+        $new_frame_top =~ s/^\s+$//g;
+    }
+    return $new_frame_top;
 }
 
 ####################################################################################
@@ -1815,11 +1834,12 @@ sub save_data {
         print CF "\$config_use_color = $config_use_color;\n"; 
         print CF "\n";
      
-        print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
+        print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page, \$frame_top;\n";
         print CF "\$org_name      = \"$org_name\";\n";
         print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
         print CF "\$signout_page  = '$signout_page';\n";
+        print CF "\$frame_top     = '$frame_top';\n";
         print CF "\n";
      
         print CF "global \$motd;\n";
