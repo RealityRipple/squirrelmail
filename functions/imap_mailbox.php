@@ -245,7 +245,7 @@
       for ($i = 0; $i < count($boxes); $i++) {
          if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
             $boxesnew[] = $boxes[$i];
-            $boxes[$i]["used"] = true;
+            $used[$i] = true;
             $i = count($boxes);
          }
       }
@@ -258,22 +258,22 @@
 	        eregi("^" . quotemeta($trash_folder) . "(" .
 		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
-               $boxes[$i]["used"] = true;
+               $used[$i] = true;
             }
             elseif ($move_to_sent &&
 	        eregi("^" . quotemeta($sent_folder) . "(" .
 		quotemeta($dm) . ".*)?$", $boxes[$i]["unformatted"])) {
                $boxesnew[] = $boxes[$i];
-               $boxes[$i]["used"] = true;
+               $used[$i] = true;
             }
          }
 
          // Put INBOX.* folders ahead of the rest
          for ($i = 0; $i < count($boxes); $i++) {
             if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
-                (!isset($boxes[$i]["used"]) || $boxes[$i]["used"] == false)) {
+                (!isset($used[$i]) || $used[$i] == false)) {
                $boxesnew[] = $boxes[$i];
-               $boxes[$i]["used"] = true;
+               $used[$i] = true;
             }
          }
 
@@ -282,9 +282,9 @@
       // Rest of the folders
       for ($i = 0; $i < count($boxes); $i++) {
          if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
-             ($boxes[$i]["used"] == false))  {
+             (!isset($used[$i]) || $used[$i] == false))  {
             $boxesnew[] = $boxes[$i];
-            $boxes[$i]["used"] = true;
+            $used[$i] = true;
          }
       }
 
