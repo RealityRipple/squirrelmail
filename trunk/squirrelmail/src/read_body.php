@@ -415,7 +415,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         if ($mdn_user_support) {
             if ($header->dnt) {
                 if ($message->is_mdnsent) {
-                    $env[_("Read receipt")] = _("send");
+                    $env[_("Read receipt")] = _("sent");
                 } else {
                     $env[_("Read receipt")] = _("requested"); 
                     if (!(handleAsSent($mailbox) || 
