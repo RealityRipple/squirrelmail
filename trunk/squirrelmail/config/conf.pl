@@ -788,7 +788,7 @@ sub command2 {
     print "    to use the default logo, use ../images/sm_logo.png\n";
     print "  - To specify a logo defined outside the SquirrelMail source tree\n";
     print "    use the absolute URL the webserver would use to include the file\n";
-    print "    e.g. http://some.host.com/images/mylogo.gif or /images/mylogo.jpg\n";
+    print "    e.g. http://www.example.com/images/mylogo.gif or /images/mylogo.jpg\n";
     print "\n";
     print "[$WHT$org_logo$NRM]: $WHT";
     $new_org_logo = <STDIN>;
@@ -919,8 +919,8 @@ sub command8 {
 # domain
 sub command11 {
     print "The domain name is the suffix at the end of all email addresses.  If\n";
-    print "for example, your email address is jdoe\@myorg.com, then your domain\n";
-    print "would be myorg.com.\n";
+    print "for example, your email address is jdoe\@example.com, then your domain\n";
+    print "would be example.com.\n";
     print "\n";
     print "[$WHT$domain$NRM]: $WHT";
     $new_domain = <STDIN>;
@@ -1218,17 +1218,19 @@ sub command112b {
                 print " ERROR TESTING\n";
                 close $sock;
             } else {
-                print $sock "mail from: tester\@squirrelmail.org\n";
+                print $sock "HELO $domain\r\n";
                 $got = <$sock>;  # Discard
-                print $sock "rcpt to: junk\@microsoft.com\n";
+                print $sock "MAIL FROM:<tester\@squirrelmail.org>\r\n";
+                $got = <$sock>;  # Discard
+                print $sock "RCPT TO:<junk\@microsoft.com\r\n";
                 $got = <$sock>;  # This is the important line
                 if ($got =~ /^250\b/) {  # SMTP will relay without auth
                     print "SUPPORTED$NRM\n";
                 } else {
                   print "NOT SUPPORTED$NRM\n";
                 }
-                print $sock "rset\n";
-                print $sock "quit\n";
+                print $sock "RSET\r\n";
+                print $sock "QUIT\r\n";
                 close $sock;
             }
             # Try login (SquirrelMail default)
@@ -3555,8 +3557,8 @@ sub detect_auth_support {
     }
     
     if ($service eq 'SMTP') {
-        $cmd = "AUTH $mech\n";
-        $logout = "QUIT\n";
+        $cmd = "AUTH $mech\r\n";
+        $logout = "QUIT\r\n";
     } elsif ($service eq 'IMAP') {
         $cmd = "A01 AUTHENTICATE $mech\n";
         $logout = "C01 LOGOUT\n";
@@ -3575,7 +3577,7 @@ sub detect_auth_support {
 
     if ($service eq 'SMTP') {
         # Say hello first..
-        print $sock "helo $domain\n";
+        print $sock "HELO $domain\r\n";
         $discard = <$sock>; # Yeah yeah, you're happy to see me..
     }
     print $sock $cmd;
@@ -3590,6 +3592,7 @@ sub detect_auth_support {
     if ($service eq 'SMTP') {
         if (($response =~ /^535/) or ($response =~/^502/)) {
             # Not supported
+            print $sock $logout;
             close $sock;
             return 'NO';
         } elsif ($response =~ /^503/) {
@@ -3599,6 +3602,7 @@ sub detect_auth_support {
     } elsif ($service eq 'IMAP') {
         if ($response =~ /^A01/) {
             # Not supported
+            print $sock $logout;
             close $sock;
             return 'NO';
         }
