@@ -25,13 +25,13 @@ html_tag( 'table', '', 'center', $color[0], 'border="0" width="75%"' ) . "\n" .
     html_tag( 'td', '', 'left' );
 
 switch ( $action ) {
-case 'Help':
+case 'help':
     $out_string = _("This will send a message to %s requesting help for this list. You will receive an emailed response at the address below.");
     break;
-case 'Subscribe':
+case 'subscribe':
     $out_string = _("This will send a message to %s requesting that you will be subscribed to this list. You will be subscribed with the address below.");
     break;
-case 'Unsubscribe':
+case 'unsubscribe':
     $out_string = _("This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below.");
 }
 
