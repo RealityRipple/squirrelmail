@@ -168,6 +168,7 @@ if ($addrquery == '' || !empty($listall)) {
         $res = $abook->list_addr($backend);
 
         if (is_array($res)) {
+            usort($res,'alistcmp');
             addr_display_result($res, false);
         } else {
             echo '<P ALIGN=center><STRONG>' .
@@ -178,6 +179,7 @@ if ($addrquery == '' || !empty($listall)) {
 
     } else {
         $res = $abook->list_addr();
+        usort($res,'alistcmp');
         addr_display_result($res, true);
     }
     exit;
