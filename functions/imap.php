@@ -46,13 +46,13 @@
    /** Parse the incoming mailbox name and return a string that is the FOLDER.MAILBOX **/
    function findMailboxName($mailbox) {
       $mailbox = trim($mailbox);
-      if (substr($mailbox,  strlen($mailbox)-1, strlen($mailbox)) == "\"") {
-         $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
-         $pos = strrpos($mailbox, "\"") + 1;
-         $box = substr($mailbox, $pos, strlen($mailbox));
-      } else {
+//      if (substr($mailbox,  strlen($mailbox)-1, strlen($mailbox)) == "\"") {
+//         $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
+//         $pos = strrpos($mailbox, "\"") + 1;
+//         $box = substr($mailbox, $pos, strlen($mailbox));
+//      } else {
          $box = substr($mailbox, strrpos($mailbox, " ")+1, strlen($mailbox));
-      }
+//      }
       return $box;
    }
 
@@ -82,7 +82,11 @@
       return $read;
    }
 
-   function getMailboxFlags($mailbox) {
+   function getMailboxFlags($imapConnection, $mailbox) {
+      $name = findMailboxName($mailbox);
+      fputs ($imapConnection, "1 LIST \"$name\" *\n");
+      $data = imapReadData($imapConnection, "1", true, $response, $message);
+      $mailbox = $data[0];
       $mailbox = trim($mailbox);
       $mailbox = substr($mailbox, strpos($mailbox, "(")+1, strlen($mailbox));
       $mailbox = substr($mailbox, 0, strpos($mailbox, ")"));
@@ -170,6 +174,9 @@
    }
 
    function removeFolder($imapConnection, $folder) {
+      fputs ($imapConnection, "1 unsubscribe \"$folder\"\n");
+      $data = imapReadData($imapConnection, "1", true, $response, $message);
+      echo $data[0] . "<BR>";
       fputs($imapConnection, "1 delete \"$folder\"\n");
       $data = imapReadData($imapConnection, "1", false, $response, $message);
       if ($response == "NO") {
@@ -201,6 +208,8 @@
 
             $mailbox = findMailboxName($mailbox);
             $periodCount = countCharInString($mailbox, $dm);
+            if (substr($mailbox, -1) == $dm)
+               $periodCount--;
 
             // indent the correct number of spaces.
             for ($j = 0;$j < $periodCount;$j++)
@@ -222,8 +231,11 @@
          if (substr(findMailboxName($mailbox), 0, 1) != ".") {
             $boxes[$g]["RAW"] = $mailbox;
 
+            // Get the mailbox name and format it.  If there is a $dm at the end of it, remove it.
             $mailbox = findMailboxName($mailbox);
             $periodCount = countCharInString($mailbox, $dm);
+            if (substr($mailbox, -1) == $dm)
+               $periodCount = $periodCount - 1;
 
             // indent the correct number of spaces.
             for ($j = 0;$j < $periodCount;$j++)

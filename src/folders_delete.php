@@ -9,6 +9,8 @@
    include("../src/load_prefs.php");
 
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   displayPageHeader($color, "None");  
+   
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
    getFolderList($imapConnection, $boxes);
 
@@ -19,7 +21,7 @@
          $tmp_trash_folder = $boxes[$i]["RAW"];
    }
 
-   $tmpflags = getMailboxFlags($tmp_trash_folder);
+   $tmpflags = getMailboxFlags($imapConnection, $tmp_trash_folder);
    $can_move_to_trash = true;
    for ($i = 0; $i < count($tmpflags); $i++) {
       if (strtolower($tmpflags[$i]) == "noinferiors")
@@ -33,7 +35,7 @@
          if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
              (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
             $folderWithoutINBOX = getFolderNameMinusINBOX($boxes[$i]["UNFORMATTED"], $dm);
-            $flags = getMailboxFlags($boxes[$i]["RAW"]);
+            $flags = getMailboxFlags($imapConnection, $boxes[$i]["RAW"]);
             for ($b = 0; $b < count($flags); $b++) {
                $type = $flags[$b];
             }
@@ -73,9 +75,11 @@
    /** Log out this session **/
    fputs($imapConnection, "1 logout");
 
-   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-   echo _("Return");
-   echo "</A>";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
+   echo "<BR><BR><CENTER><B>" . _("Folder Deleted!") . "</B><BR><BR>";
+   echo _("You will be automatically forwarded.") . "<BR>" . _("If not,") . " <A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>" . _("click here") . "</A>";
+   echo "</CENTER></FONT>"; 
+   
    echo "</BODY></HTML>";
 ?>
 

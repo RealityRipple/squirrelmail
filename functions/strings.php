@@ -17,6 +17,9 @@
    //    of the $haystack is reached.
    //*************************************************************************
    function readShortMailboxName($haystack, $needle) {
+      if (substr($haystack, -1) == $needle)
+         $haystack = substr($haystack, 0, strlen($haystack) - 1);
+
       if (strpos($haystack, $needle)) {
          $pos = strrpos($haystack, $needle) + 1;
          $data = substr($haystack, $pos, strlen($haystack));

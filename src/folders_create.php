@@ -27,13 +27,15 @@
    if (trim($subfolder) == "[ None ]") {
       createFolder($imapConnection, "$folder_name");
    } else {
-      createFolder($imapConnection, "$subfolder$dm$folder_name");
+      createFolder($imapConnection, "$subfolder$folder_name");
    }
    fputs($imapConnection, "1 logout\n");
 
-   echo "<BR><BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-   echo _("Return");
-   echo "</A>";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
+   echo "<BR><BR><CENTER><B>" . _("Folder Created!") . "</B><BR><BR>";
+   echo _("You will be automatically forwarded.") . "<BR>" . _("If not,") . " <A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>" . _("click here") . "</a>.";   
+   echo "</CENTER></FONT>"; 
+         
 ?>
 </BODY></HTML>
 
