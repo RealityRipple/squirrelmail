@@ -147,6 +147,11 @@
     $special_folders[3] = "INBOX.Drafts";
     $special_folders[4] = "INBOX.Templates";
 
+//  Should I create the Sent and Trash folders automatically for a new
+//  user that doesn't already have them created?
+    global $auto_create_special;
+    $auto_create_special = true;
+
 //  Whether or not to list the special folders first  (true/false)
     global $list_special_folders_first;
     $list_special_folders_first = true;
