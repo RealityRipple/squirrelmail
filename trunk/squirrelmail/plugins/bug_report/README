@@ -1,4 +1,4 @@
-Bug Reporter -- Version 1.0
+Bug Reporter
 
 Need to submit a bug?  Need to know valuable system information?  Need
 to be accurate?  This should do it for you.
@@ -35,17 +35,11 @@ Future Work
 Installation
 ============
 
-As with other plugins, just uncompress the archive in the plugins
-directory, go back to the main directory, run configure and add the plugin.
-
-Questions/comments/flames/etc can be sent to
-    Tyler Akins <fidian@tiny.net>
+Go back to the main directory, run configure and add the plugin.
 
 
-Changes
+Credits
 =======
-1.0 -> 1.1
- * Added a bit more data to the report
- * Cleaned up some HTML
- * Altered link in menu bar to look good with other plugins
- * User-selectable list for where message gets sent to
+
+This plugin has been originally developed by Tyler Akins and is now
+maintained by the SquirrelMail Project Team.

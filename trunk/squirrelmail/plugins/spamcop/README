@@ -1,4 +1,4 @@
-SpamCop Reporting -- Version 1.5
+SpamCop Reporting
 
 Helps you identify spam and send a proper message to the correct address to
 SpamCop.  (See http://spamcop.net/ for more information)
@@ -30,33 +30,9 @@ This plugin is also an example of how to use the identity hooks.  Just open
 up setup.php and read the comments.
 
 
-Future Work
-===========
-
-* Dunno
-
-
 Installation
 ============
 
-As with other plugins, just uncompress the archive in the plugins
-directory, go back to the main directory, run configure and add the plugin.
-
-Questions/comments/flames/etc can be sent to the SquirrelMail Plugins list.
+Go back to the main directory, run configure and add the plugin.
 
 
-Changes
-=======
-1.5 - Reworked system to match up with SpamCop changes.  Modified code to
-      keep it up-to-date with current SquirrelMail changes.
-
-1.4 - Added forms-based reporting, thanks to Stefan Sels
-
-1.3 - Fixed table rendition -- added &nbsp;
-
-1.2 - Added support for the multiple identities in SquirrelMail 1.1.2
-      (not required to use the plugin)
-      
-1.1 - Fixed a stupid bug
-
-1.0 - Initial version

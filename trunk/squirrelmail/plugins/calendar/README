@@ -1,6 +1,4 @@
 SQCalendar  $Id$
-GPL (C) 2001  Michal Szczotka <michal@tuxy.org>
-http://www.tuxy.org/index.php?path=/projects/sqcalendar/index.php
 
 ********** DESCRIPTION ************
 
@@ -22,3 +20,9 @@ SEE INSTALL
 - single entry of repetitve events (ex. birthday repeats every year)
 - reminder email/javascript/etc
 - weekly view
+
+
+************ CREDITS **************
+
+This plugin has been originally created by  Michal Szczotka, and is now
+maintained by the SquirrelMail Project Team.

@@ -1,8 +1,7 @@
 SquirrelSpell plugin
 --------------------
 
-Untar SquirrelSpell into your squirrelmail/plugins directory. Modify the
-sqspell_config.php file making sure you have ispell or aspell
+Modify the sqspell_config.php file making sure you have ispell or aspell
 available on your system and located in PHP's path. The squirrelspell
 doesn't check for that and if it is not available, you're just going to
 get a "No errors found" message every time. :) Quite pleasing, but not
