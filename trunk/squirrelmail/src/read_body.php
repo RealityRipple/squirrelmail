@@ -419,16 +419,25 @@ if ($default_use_priority) {
     $priority_level = substr($message->header->priority,0,1);
 
     switch($priority_level) {
-        /* First, check for a higher then normal priority. */
-        case "1":
-        case "2": $priority_string = _("High"); break;
+        /* check for a higher then normal priority. */
+        case '1':
+        case '2': 
+            $priority_string = _("High"); 
+            break;
 
-        /* Second, check for a normal priority. */
-        case "3": $priority_string = _("Normal"); break;
-
-        /* Last, check for a lower then normal priority. */
-        case "4":
-        case "5": $priority_string = _("Low"); break;
+        /* check for a lower then normal priority. */
+        case '4':
+        case '5': 
+            $priority_string = _("Low"); 
+            break;
+            
+        /* check for a normal priority. */
+        case '3': 
+        default:
+            $priority_level = '3';
+            $priority_string = _("Normal"); 
+            break;
+            
     }
 }
 
