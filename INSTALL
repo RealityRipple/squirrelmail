@@ -1,14 +1,16 @@
 Sorry for the incomplete documentation at this time.  Here is a quick
 overview of how to install SquirrelMail.
 
-1.  Make Apache (or whatever web server) happy with PHP4.
+1.  Configure PHP4 --with-gettext for internationalization.
 
-2.  Unarchive SquirrelMail in a subdirectory that is accessable by the
+2.  Make Apache (or whatever web server) happy with PHP4.
+
+3.  Unarchive SquirrelMail in a subdirectory that is accessable by the
     web server.  EX: /home/httpd/html/squirrelmail-0.1
 
-3.  Edit the config file, config/config.php
+4.  Edit the config file, config/config.php
 
-4.  Change the permissons for the "data/" directory so it's writable to
+5.  Change the permissons for the "data/" directory so it's writable to
     the web server.  Under Red Hat Linux 6.0, this is done by:
 
     chown -R nobody data
@@ -17,5 +19,5 @@ overview of how to install SquirrelMail.
     "nobody" is the user and group for the apache server for this
     example.
 
-5.  Point your browser to the location you specified in step 2.
+6.  Point your browser to the location you specified in step 2.
     In this example, it's:  http://YOURHOST/squirrelmail-0.1/index.html
