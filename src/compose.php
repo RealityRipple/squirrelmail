@@ -104,6 +104,7 @@
 
       /** This formats a CC string if they hit "reply all" **/
       if ($send_to_cc != "") {
+         $send_to_cc = ereg_replace( '"[^"]*"', "", $send_to_cc);
          $send_to_cc = ereg_replace(";", ",", $send_to_cc);
          $sendcc = explode(",", $send_to_cc);
          $send_to_cc = "";
