@@ -32,7 +32,8 @@
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 
-   setcookie("squirrelmail_language", $language, time()+2592000);
+   #setcookie("squirrelmail_language", $language, time()+2592000);
+   $squirrelmail_language = $language;
 
    echo "<HTML>";
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";

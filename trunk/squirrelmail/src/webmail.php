@@ -17,10 +17,10 @@
 #   setcookie("key", $key, 0, "/");
 #   setcookie("logged_in", 1, 0, "/");
    
+   $logged_in = 1;
    session_register("username");
    session_register("key");
    session_register("logged_in");
-   $logged_in = 1;
 
    $PHPSESSID = session_id();
    
