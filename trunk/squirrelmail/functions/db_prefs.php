@@ -298,10 +298,10 @@ function setPref($data_dir, $username, $string, $set_to) {
     global $prefs_cache;
 
     if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $set_to)) {
-        return;
+	return;
     }
 
-    if ($set_to == '') {
+    if ($set_to === '') {
         removePref($data_dir, $username, $string);
         return;
     }
