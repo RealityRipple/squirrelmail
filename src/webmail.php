@@ -61,10 +61,10 @@ if ($left_size == "") {
 }
 
 if ($location_of_bar == 'right') {
-    echo "<FRAMESET COLS=\"*, $left_size\" BORDER=0>";
+    echo "<FRAMESET COLS=\"*, $left_size\" BORDER=0 ID=fs1>";
 }
 else {
-    echo "<FRAMESET COLS=\"$left_size, *\" BORDER=0>";
+    echo "<FRAMESET COLS=\"$left_size, *\" BORDER=0 ID=fs1>";
 }
 
 /*
