@@ -2475,7 +2475,7 @@ sub save_data {
 	# string
         print CF "\$prefs_val_field = '$prefs_val_field';\n";
 	# boolean
-	print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
+	print CF "\$no_list_for_subscribe = '$no_list_for_subscribe';\n";
         print CF "\n";
 
         print CF "/**\n";
