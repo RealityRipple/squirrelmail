@@ -1087,7 +1087,7 @@ sub command24a {
 sub command24b {
    print "By default, should messages get moved to the sent folder?  You\n";
    print "can specify the default sent folder in option 4.  If this is set\n";
-   print "to false, messages will get sent an no copy will be made.\n";
+   print "to false, messages will get sent and no copy will be made.\n";
    print "\n";
    print "Trash folder is currently: $sent_folder\n";
    print "\n";
