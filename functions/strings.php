@@ -191,9 +191,9 @@
          }
          
          if ($Quotes > 1)
-            $line = '<FONT COLOR="FF0000">$line</FONT>';
+            $line = '<FONT COLOR="FF0000">'.$line.'</FONT>';
          elseif ($Quotes)
-            $line = '<FONT COLOR="800000">$line</FONT>';
+            $line = '<FONT COLOR="800000">'.$line.'</FONT>';
 
          $body_ary[$i] = $line;
       }
@@ -496,6 +496,7 @@
           
       sq_mt_randomize(); // Initialize the random number generator
     
+	  $String = "";
       while (strlen($String) < $size) {
          $String .= $chars[mt_rand(0, strlen($chars))];
       }
