@@ -349,6 +349,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
   if ($auto_expunge == true) {
      $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
      $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
+     $num_msgs = $mbxresponse['EXISTS'];
   }
 
   if ($mbxresponse['EXISTS']>0) {
@@ -957,6 +958,11 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
 function get_paginator_link($box, $start_msg, $use, $text) {
   global $PHP_SELF;
 
+  $result = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
+    . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
+    . "TARGET=\"right\">$text</A>";
+  return ($result);
+/*
   if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
      $source_url = $regs[1];
   } else {
@@ -967,6 +973,7 @@ function get_paginator_link($box, $start_msg, $use, $text) {
     . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
     . "TARGET=\"right\">$text</A>";
   return ($result);
+*/  
 }
 
 /*
