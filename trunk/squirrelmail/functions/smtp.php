@@ -322,7 +322,7 @@
 
    function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
       global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
-         $data_dir, $color;
+         $data_dir, $color, $use_authenticating_smtp;
 
       $to = expandAddrs(parseAddrs($t));
       $cc = expandAddrs(parseAddrs($c));
@@ -345,9 +345,27 @@
       $cc_list = getLineOfAddrs($cc);
 
       /** Lets introduce ourselves */
-      fputs($smtpConnection, "HELO $domain\r\n");
-      $tmp = fgets($smtpConnection, 1024);
-      errorCheck($tmp, $smtpConnection);
+      if (! isset ($use_authenticating_smtp)) {
+         fputs($smtpConnection, "HELO $domain\r\n");
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
+      } else {
+         fputs($smtpConnection, "EHLO $domain\r\n");
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
+
+         fputs($smtpConnection, "AUTH LOGIN\r\n");
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
+
+         fputs($smtpConnection, base64_encode ($username) . "\r\n");
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
+
+         fputs($smtpConnection, base64_encode ($OneTimePadDecrypt($key, $onetimepad)) . "\r\n");
+         $tmp = fgets($smtpConnection, 1024);
+         errorCheck($tmp, $smtpConnection);
+      }
 
       /** Ok, who is sending the message? */
       fputs($smtpConnection, "MAIL FROM: <$from_addr>\r\n");
@@ -450,13 +468,14 @@
                      $status = 0;
                      break;
 
-
+         case 235:   return; break;
          case 250:   $message = 'Requested mail action okay, completed';
                      $status = 5;
                      break;
          case 251:   $message = 'User not local; will forward';
                      $status = 5;
                      break;
+         case 334:   return; break;
          case 450:   $message = 'Requested mail action not taken:  mailbox unavailable';
                      $status = 0;
                      break;
@@ -506,7 +525,7 @@
    }
 
    function sendMessage($t, $c, $b, $subject, $body, $reply_id) {
-      global $useSendmail, $msg_id, $is_reply, $mailbox;
+      global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
       $more_headers = Array();
 

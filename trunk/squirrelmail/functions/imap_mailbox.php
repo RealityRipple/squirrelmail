@@ -157,6 +157,8 @@
          //$boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
          if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) { 
             $boxes[$g]['unformatted-disp'] = substr($mailbox, strlen($folder_prefix));
+         } else if (strtolower($mailbox) == "inbox") {
+            $boxes[$g]['unformatted-disp'] = $mailbox;
          }
          $boxes[$g]['id'] = $g;
 
