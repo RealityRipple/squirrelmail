@@ -1,21 +1,18 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-26 07:38+0200\n"
+"POT-Creation-Date: 2004-12-28 13:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Address Book"
 msgstr ""
@@ -350,7 +347,6 @@ msgstr ""
 msgid "Download this as a file"
 msgstr ""
 
-#, c-format
 msgid "INBOX"
 msgstr ""
 
@@ -988,19 +984,13 @@ msgstr ""
 msgid "User '%s' does not exist"
 msgstr ""
 
-msgid "Global address book"
+msgid "Not a file name"
 msgstr ""
 
 msgid "No such file or directory"
 msgstr ""
 
 msgid "Open failed"
-msgstr ""
-
-msgid "Can not modify global address book"
-msgstr ""
-
-msgid "Not a file name"
 msgstr ""
 
 msgid "Write failed"
@@ -1020,6 +1010,9 @@ msgstr ""
 
 #, c-format
 msgid "Error opening file %s"
+msgstr ""
+
+msgid "Global address book"
 msgstr ""
 
 msgid "Error initializing global addressbook."
@@ -1408,6 +1401,9 @@ msgstr ""
 msgid "Show All"
 msgstr ""
 
+msgid "Go"
+msgstr ""
+
 msgid "No messages were selected."
 msgstr ""
 
@@ -1572,6 +1568,9 @@ msgid "Show Flag / Unflag Buttons"
 msgstr ""
 
 msgid "Enable Page Selector"
+msgstr ""
+
+msgid "Use Compact Page Selector"
 msgstr ""
 
 msgid "Maximum Number of Pages to Show"
@@ -1970,6 +1969,12 @@ msgstr ""
 msgid "Courier IMAP server"
 msgstr ""
 
+msgid "Mac OS X Mailserver"
+msgstr ""
+
+msgid "hMailServer IMAP server"
+msgstr ""
+
 msgid "Not one of the above servers"
 msgstr ""
 
@@ -2067,9 +2072,6 @@ msgid "Default Unseen Type"
 msgstr ""
 
 msgid "Auto Create Special Folders"
-msgstr ""
-
-msgid "Default Javascript Addressbook"
 msgstr ""
 
 msgid "Auto delete folders"
@@ -2220,6 +2222,18 @@ msgid "Use php recode functions"
 msgstr ""
 
 msgid "Use php iconv functions"
+msgstr ""
+
+msgid "Address Books"
+msgstr ""
+
+msgid "Default Javascript Addressbook"
+msgstr ""
+
+msgid "Global address book file"
+msgstr ""
+
+msgid "Allow writing into global address book file"
 msgstr ""
 
 msgid "Themes"
@@ -2429,9 +2443,6 @@ msgid "Show system specs"
 msgstr ""
 
 msgid "TODAY"
-msgstr ""
-
-msgid "Go"
 msgstr ""
 
 #, c-format
@@ -3261,7 +3272,6 @@ msgid ""
 "inbox for notification."
 msgstr ""
 
-#, c-format
 msgid "Check all boxes, not just INBOX"
 msgstr ""
 
@@ -3271,7 +3281,6 @@ msgid ""
 "unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-#, c-format
 msgid "Show popup window on new mail"
 msgstr ""
 
@@ -3283,7 +3292,6 @@ msgid ""
 "sounds or popups for unseen mail."
 msgstr ""
 
-#, c-format
 msgid "Count only messages that are RECENT"
 msgstr ""
 
@@ -3295,7 +3303,6 @@ msgid ""
 "have new mail, even if you have %s enabled."
 msgstr ""
 
-#, c-format
 msgid "Change title on supported browsers"
 msgstr ""
 
@@ -3306,7 +3313,6 @@ msgid ""
 "provided file box."
 msgstr ""
 
-#, c-format
 msgid "Enable Media Playing"
 msgstr ""
 
@@ -3316,7 +3322,6 @@ msgid ""
 "no file is specified, %s, no sound will be used."
 msgstr ""
 
-#, c-format
 msgid "Select server file"
 msgstr ""
 
@@ -3338,9 +3343,6 @@ msgstr ""
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
-msgstr ""
-
-msgid "New Mail Notification options saved"
 msgstr ""
 
 #, c-format
@@ -3938,55 +3940,42 @@ msgstr ""
 msgid "%s to %s"
 msgstr ""
 
-#, c-format
 msgid "Chinese, Simplified"
 msgstr ""
 
-#, c-format
 msgid "English"
 msgstr ""
 
-#, c-format
 msgid "Chinese, Traditional"
 msgstr ""
 
-#, c-format
 msgid "Dutch"
 msgstr ""
 
-#, c-format
 msgid "French"
 msgstr ""
 
-#, c-format
 msgid "German"
 msgstr ""
 
-#, c-format
 msgid "Greek"
 msgstr ""
 
-#, c-format
 msgid "Italian"
 msgstr ""
 
-#, c-format
 msgid "Japanese"
 msgstr ""
 
-#, c-format
 msgid "Korean"
 msgstr ""
 
-#, c-format
 msgid "Portuguese"
 msgstr ""
 
-#, c-format
 msgid "Russian"
 msgstr ""
 
-#, c-format
 msgid "Spanish"
 msgstr ""
 
