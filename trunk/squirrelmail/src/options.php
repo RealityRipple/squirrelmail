@@ -138,7 +138,6 @@
    echo "         </FONT>";
    echo "      </TD>";
    echo "   </TR>";
-   echo "</TABLE>";
 
    // LEFT_REFRESH
    echo "   <TR>";
