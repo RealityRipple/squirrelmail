@@ -22,27 +22,32 @@
       if (file_exists('../plugins/'.$name.'/setup.php')) {
          include ('../plugins/'.$name.'/setup.php');
          $function = 'squirrelmail_plugin_init_'.$name;
-         $function();
+         if (function_exists($function))
+            $function();
       }
    }
 
    // This function executes a hook
    function do_hook ($name) {
       global $squirrelmail_plugin_hooks;
+      $Data = func_get_args();
       if (is_array($squirrelmail_plugin_hooks[$name])) {
-         reset($squirrelmail_plugin_hooks[$name]);
-         
-         while (list ($id, $function) = 
-                each ($squirrelmail_plugin_hooks[$name])) {
+         foreach ($squirrelmail_plugin_hooks[$name] as $id => $function) {
             // Add something to set correct gettext domain for plugin
-            $function();
+            if (function_exists($function)) {
+                $function(&$Data);
+            }
          }
       }
-   }
+      
+      // Variable-length argument lists have a slight problem when
+      // passing values by reference.  Pity.  This is a workaround.
+      return $Data;
+  }
 
    // On startup, register all plugins configured for use
    if (is_array($plugins))
-      while (list ($id, $name) = each ($plugins))
+      foreach ($plugins as $id => $name)
          use_plugin($name);
 
 ?>

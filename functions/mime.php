@@ -459,27 +459,12 @@
          $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
    
          /** Display the ATTACHMENTS: message if there's more than one part **/
+         $body .= "</TD></TR></TABLE>";
          if ($message->entities) {
-            $body .= "</TD></TR></TABLE>";
-            $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
-            $body .= "<TT><B>ATTACHMENTS:</B></TT>";
-            $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
-            $num = 0;
-   
             $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
-            $body .= "</TD></TR></TABLE>";
-         } else {
-            $body .= "</TD></TR></TABLE>";
          }
       } else {
-         $body .= "</TD></TR></TABLE>";
-         $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=4 BORDER=0><TR><TD BGCOLOR=\"$color[0]\">";
-         $body .= "<TT><B>ATTACHMENTS:</B></TT>";
-         $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
-         $num = 0;
-
-         $body .= formatAttachments ($message, 999999, $message->header->mailbox, $id);
-         $body .= "</TD></TR></TABLE>";
+         $body .= formatAttachments ($message, -1, $message->header->mailbox, $id);
       }
       return $body;
    }
@@ -488,7 +473,27 @@
    // to where to download these attachments
    function formatAttachments ($message, $ent_id, $mailbox, $id) {
       global $where, $what;
-      global $startMessage;
+      global $startMessage, $color;
+      static $ShownHTML;
+      
+      if ($ShownHTML == 0)
+      {
+            $ShownHTML = 1;
+            
+            $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n";
+            $body .= "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n";
+            $body .= _('Attachments') . ':';
+            $body .= "</B></TH></TR><TR><TD>\n";
+            
+            $body .= "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n";
+            
+            $body .= formatAttachments ($message, $ent_id, $mailbox, $id);
+            
+            $body .= "</TABLE></TD></TR></TABLE>";
+            
+            return $body;
+      }
+      
       if ($message) {
          if (!$message->entities) {
             $type0 = strtolower($message->header->type0);
@@ -504,18 +509,50 @@
    
                $urlMailbox = urlencode($mailbox);
                $ent = urlencode($message->header->entity_id);
-               if ($where && $what) {   
-                  // from a search
-                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?startMessage=$startMessage&where=".urlencode($where)."&what=".urlencode($what)."&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
-               } else {   
-                  $body .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">" . $display_filename . "</A>&nbsp;&nbsp;(TYPE: $type0/$type1)";
-               }
+               
+               $DefaultLink = 
+                  "../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+               if ($where && $what)
+                  $DefaultLink .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
+               $Links['download link']['text'] = _('download');
+               $Links['download link']['href'] = 
+                   "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+               $ImageURL = '';
+               
+               $HookResults = do_hook("attachment $type0/$type1", $Links,
+                   $startMessage, $id, $urlMailbox, $ent, $DefaultLink, 
+                   $where, $what);
+
+               $Links = $HookResults[1];
+               $DefaultLink = $HookResults[6];
+
+               $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD><FONT SIZE="-1">';
+               $body .= "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</FONT></TD>";
+               $body .= "<TD><FONT SIZE=\"-1\">($type0/$type1)&nbsp;</FONT></TD>";
+               $body .= '<TD><FONT SIZE="-1">';
                if ($message->header->description)
-                  $body .= "&nbsp;&nbsp;<b>" . htmlspecialchars($message->header->description)."</b>";
-               $body .= "&nbsp;(<a href=\"../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent\">"._("download")."</a>)\n";     
-               do_hook("attachment $type0/$type1");
-               $body .= "</TT><BR>";
-               $num++;
+                  $body .= '<b>' . htmlspecialchars($message->header->description) . '</b>';
+               $body .= '</FONT></TD><TD><FONT SIZE="-1">&nbsp;';
+               
+               
+               $SkipSpaces = 1;
+               foreach ($Links as $Val)
+               {
+                  if ($SkipSpaces)
+                  {
+                     $SkipSpaces = 0;
+                  }
+                  else
+                  {
+                     $body .= '&nbsp;&nbsp;';
+                  }
+                  $body .= '(<a href="' . $Val['href'] . '">' . 
+                     $Val['text'] . '</a>)';
+               }
+               
+               unset($Links);
+               
+               $body .= "</FONT></TD></TR>\n";
             }
             return $body;
          } else {
