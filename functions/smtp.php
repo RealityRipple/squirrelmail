@@ -16,9 +16,13 @@
       }
    }
 
-   function sendMessage($to, $subject, $body) {
+   function sendMessage($smtpServerAddress, $smtpPort, $to, $subject, $body) {
+      $to = addslashes($to);
+      $body = addslashes($body);
+      $from = "$username@$domain";
+
       echo "<FONT FACE=\"Arial,Helvetica\">";
-      $smtpConnection = fsockopen("10.4.1.1", 25, $errorNumber, $errorString);
+      $smtpConnection = fsockopen($smtpServerAddress, $smtpPort, $errorNumber, $errorString);
       if (!$smtpConnection) {
          echo "Error connecting to SMTP Server.<br>";
          echo "$errorNumber : $errorString<br>";
@@ -26,7 +30,7 @@
       }
       echo htmlspecialchars(fgets($smtpConnection, 1024)) . "<BR>";
 
-      fputs($smtpConnection, "MAIL FROM:<luke@usa.om.org>\n");
+      fputs($smtpConnection, "MAIL FROM:<$from>\n");
       echo htmlspecialchars(fgets($smtpConnection, 1024)) . "<BR>";
 
       fputs($smtpConnection, "RCPT TO:<$to>\n");
@@ -36,6 +40,9 @@
       echo htmlspecialchars(fgets($smtpConnection, 1024)) . "<BR>";
 
       fputs($smtpConnection, "Subject: $subject\n");
+      fputs($smtpConnection, "Date: " . date() . "\n");
+      fputs($smtpConnection, "To: <$to>\n");
+      fputs($smtpConnection, "From: <$from>\n");
       fputs($smtpConnection, "$body\n");
       fputs($smtpConnection, ".\n");
       echo htmlspecialchars(fgets($smtpConnection, 1024)) . "<BR>";
