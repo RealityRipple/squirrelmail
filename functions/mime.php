@@ -1395,6 +1395,12 @@ function sq_fixatts($tagname,
         $attvalue = sq_unspace($attvalue);
 
         /**
+         * Remove \r \n \t \0 " " "\\"
+         */
+        $attvalue = str_replace(Array("\r", "\n", "\t", "\0", " ", "\\"), 
+                        Array('', '','','','',''), $attvalue);
+
+        /**
          * Now let's run checks on the attvalues.
          * I don't expect anyone to comprehend this. If you do,
          * get in touch with me so I can drive to where you live and
@@ -1857,7 +1863,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "/include-source/i",
                                 "/url\s*\(\s*([\'\"])\s*\S+script\s*:.*([\'\"])\s*\)/si",
                                 "/url\s*\(\s*([\'\"])\s*mocha\s*:.*([\'\"])\s*\)/si",
-                                "/url\s*\(\s*([\'\"])\s*about\s*:.*([\'\"])\s*\)/si"
+                                "/url\s*\(\s*([\'\"])\s*about\s*:.*([\'\"])\s*\)/si",
+                                "/(.*)\s*:\s*url\s*\(\s*([\'\"]*)\s*\S+script\s*:.*([\'\"]*)\s*\)/si"
                                ),
                           Array(
                                 "idiocy",
@@ -1867,7 +1874,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "url(\\1#\\1)",
                                 "url(\\1#\\1)",
                                 "url(\\1#\\1)",
-                                "url(\\1#\\1)"
+                                "url(\\1#\\1)",
+                                "\\1:url(\\2#\\3)"
                                )
                           )
                 )
