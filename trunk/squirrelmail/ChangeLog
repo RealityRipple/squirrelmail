@@ -34,6 +34,7 @@ Version 1.5.1 -- CVS
   - Add functions for building HTML forms (functions/forms.php).
   - Moved javascript_on to session (from prefs). Centralized javascript detection
     in prefs.php method checkForJavascript.
+  - Added abook_init and abook_add_class hooks
 
 Version 1.5.0
 --------------------

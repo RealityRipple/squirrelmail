@@ -233,6 +233,8 @@ but may be out of date soon thereafter.  You never know.  ;-)
 
   Hook Name                      Found In                        Called With(#)
   ---------                      --------                        --------------
+  abook_init                     functions/addressbook.php       do_hook
+  abook_add_class                functions/addressbook.php       do_hook
   loading_constants              functions/constants.php         do_hook
   logout_error                   functions/display_messages.php  do_hook
   error_box                      functions/display_messages.php  concat_hook
@@ -1092,10 +1094,10 @@ files.
 
          # Copyright (c) 1999-2003 The Squirrelmail Development Team
          # Roland Bauerschmidt <rb@debian.org>, 1999.
+         # $Id$
          msgid ""
          msgstr ""
-         "Project-Id-Version: $Id: squirrelmail.po,v 1.10 2003/06/04 15:01:59
-         philippe_mingo Exp $\n"
+         "Project-Id-Version: plugin-name version\n"
          "POT-Creation-Date: 2003-01-21 19:21+0100\n"
          "PO-Revision-Date: 2003-01-21 21:01+0100\n"
          "Last-Translator: Juergen Edner <juergen.edner@epost.de>\n"
