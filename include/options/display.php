@@ -415,7 +415,8 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE,
         'posvals' => array('' => _("To: field"),
                            'focus' => _("Focus in body"),
-                           'select' => _("Select body"))
+                           'select' => _("Select body"),
+                           'none' => _("No focus"))
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
