@@ -1,4 +1,4 @@
-<?
+<?php
    /** Author:       Luke Ehresman
        Date:         January 3, 2000
        Theme Name:   "Slashdot Theme"

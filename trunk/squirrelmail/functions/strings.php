@@ -1,4 +1,4 @@
-<?
+<?php
 
    $strings_php = true;
 

@@ -1,4 +1,4 @@
-<?
+<?php
    /**
     **  display_messages.php
     **

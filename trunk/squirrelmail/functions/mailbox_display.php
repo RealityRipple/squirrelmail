@@ -1,4 +1,4 @@
-<?
+<?php
 
    /**
     **  mailbox_display.php

@@ -1,4 +1,4 @@
-<?
+<?php
    /** This code sends a mail.
     **
     ** There are 3 modes of operation:

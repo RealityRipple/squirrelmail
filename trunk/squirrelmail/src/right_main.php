@@ -1,4 +1,4 @@
-<?
+<?php
    /**
     **  right_main.php
     **
@@ -39,7 +39,7 @@
 ?>
 <HTML>
 <FONT FACE="Arial,Helvetica">
-<?
+<?php
    /////////////////////////////////////////////////////////////////////////////////
    //
    // incoming variables from URL:

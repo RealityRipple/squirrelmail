@@ -1,4 +1,4 @@
-<?
+<?php
    /**
     **  webmail.php
     **
@@ -31,7 +31,7 @@
    }
 ?>
 <HTML><HEAD>
-<?
+<?php
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");
