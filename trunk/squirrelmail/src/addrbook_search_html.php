@@ -34,7 +34,6 @@
    displayPageHeader($color, "None");
    //<form method=post action="compose.php?html_addr_search=true">
 
-   
    $body = stripslashes($body);
    $send_to = stripslashes($send_to);
    $send_to_cc = stripslashes($send_to_cc);

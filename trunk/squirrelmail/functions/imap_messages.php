@@ -259,7 +259,7 @@
             $pos = 0;
             $header["CC"][$pos] = trim(substr($read[$i], 4));
             $i++;
-            while ((substr($read[$i], 0, 1) == " ") && (trim($read[$i]) != "")) {
+            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
                $pos++;
                $header["CC"][$pos] = trim($read[$i]);
                $i++;
@@ -270,7 +270,7 @@
             $pos = 0;
             $header["TO"][$pos] = trim(substr($read[$i], 4));
             $i++;
-            while ((substr($read[$i], 0, 1) == " ")  && (trim($read[$i]) != "")){
+            while (((substr($read[$i], 0, 1) == " ") || (substr($read[$i], 0, 1) == "\t"))  && (trim($read[$i]) != "")){
                $pos++;
                $header["TO"][$pos] = trim($read[$i]);
                $i++;
