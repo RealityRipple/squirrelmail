@@ -221,8 +221,9 @@ This is a breakdown of the data passed in the array to the hook that is called:
   [4] = Mailbox name, urlencode()'d (urlMailbox)
   [5] = Entity ID inside mail message (ent)
   [6] = Default URL to go to when filename is clicked on (Alterable)
-  [7] = Sent if message was found from a search (where)
-  [8] = Sent if message was found from a search (what)
+  [7] = Filename that is displayed for the attachment
+  [8] = Sent if message was found from a search (where)
+  [9] = Sent if message was found from a search (what)
   
 To set up links for actions, you assign them like this:
   
