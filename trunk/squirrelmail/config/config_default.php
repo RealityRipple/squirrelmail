@@ -16,7 +16,7 @@
 
     // don't change
     global $config_version;
-    $config_version = "x63";
+    $config_version = "x64";
 
 //  Organization's logo picture (blank if none)
     global $org_logo;
