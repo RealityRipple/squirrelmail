@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-01-20 22:02+0100\n"
-"PO-Revision-Date: 2002-01-21 17:21+0000\n"
+"POT-Creation-Date: 2002-01-24 15:07+0100\n"
+"PO-Revision-Date: 2002-01-25 18:07+0000\n"
 "Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
 "Language-Team: Lithuanian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -17,25 +17,25 @@ msgstr ""
 msgid "Address Book"
 msgstr "Adresø knyga"
 
-#: squirrelmail/src/addrbook_search.php:97
+#: squirrelmail/src/addrbook_search.php:98
 #: squirrelmail/src/addrbook_search_html.php:66
 #: squirrelmail/src/addressbook.php:285 squirrelmail/src/vcard.php:85
 msgid "Name"
 msgstr "Vardas"
 
-#: squirrelmail/src/addrbook_search.php:98
+#: squirrelmail/src/addrbook_search.php:99
 #: squirrelmail/src/addrbook_search_html.php:67
 #: squirrelmail/src/addressbook.php:286
 msgid "E-mail"
 msgstr "E-paðtas"
 
-#: squirrelmail/src/addrbook_search.php:99
+#: squirrelmail/src/addrbook_search.php:100
 #: squirrelmail/src/addrbook_search_html.php:68
 #: squirrelmail/src/addressbook.php:287
 msgid "Info"
 msgstr "Info"
 
-#: squirrelmail/src/addrbook_search.php:102
+#: squirrelmail/src/addrbook_search.php:103
 #: squirrelmail/src/addrbook_search_html.php:71
 msgid "Source"
 msgstr "Ðaltinis"
@@ -48,46 +48,46 @@ msgstr "Naudoti adresus"
 msgid "Address Book Search"
 msgstr "Paieðka adresø knygoje"
 
-#: squirrelmail/src/addrbook_search.php:172
+#: squirrelmail/src/addrbook_search.php:173
 #: squirrelmail/src/addrbook_search_html.php:126
 msgid "Search for"
 msgstr "Ieðkoti"
 
-#: squirrelmail/src/addrbook_search.php:178
+#: squirrelmail/src/addrbook_search.php:179
 #: squirrelmail/src/addrbook_search_html.php:136
 msgid "in"
 msgstr " "
 
-#: squirrelmail/src/addrbook_search.php:179
+#: squirrelmail/src/addrbook_search.php:180
 #: squirrelmail/src/addrbook_search_html.php:139
 msgid "All address books"
 msgstr "Visose adresø knygose"
 
-#: squirrelmail/functions/page_header.php:124
-#: squirrelmail/src/addrbook_search.php:189
+#: squirrelmail/functions/page_header.php:128
+#: squirrelmail/src/addrbook_search.php:190
 #: squirrelmail/src/addrbook_search_html.php:150
 #: squirrelmail/src/search.php:45 squirrelmail/src/search.php:124
 msgid "Search"
 msgstr "Ieðkoti"
 
-#: squirrelmail/src/addrbook_search.php:190
+#: squirrelmail/src/addrbook_search.php:191
 #: squirrelmail/src/addrbook_search_html.php:151
 msgid "List all"
 msgstr "Rodyti visus"
 
-#: squirrelmail/src/addrbook_search.php:212
+#: squirrelmail/src/addrbook_search.php:213
 #: squirrelmail/src/addrbook_search_html.php:176
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr "Nepavyko gauti adresø ið %s"
 
-#: squirrelmail/src/addrbook_search.php:235
+#: squirrelmail/src/addrbook_search.php:236
 #: squirrelmail/src/addrbook_search_html.php:201
 msgid "Your search failed with the following error(s)"
 msgstr "Paieðka nutrûko dël þemiau nurodytø(os) klaidø(os)"
 
-#: squirrelmail/src/addrbook_search.php:158
-#: squirrelmail/src/addrbook_search.php:242
+#: squirrelmail/src/addrbook_search.php:159
+#: squirrelmail/src/addrbook_search.php:243
 #: squirrelmail/src/addrbook_search_html.php:206
 msgid "No persons matching your search was found"
 msgstr "Nerastas nei vienas asmuo, atitinkantis paieðkos kriterijus"
@@ -96,7 +96,7 @@ msgstr "Nerastas nei vienas asmuo, atitinkantis paieðkos kriterijus"
 msgid "Return"
 msgstr "Gráþti"
 
-#: squirrelmail/src/addrbook_search.php:193
+#: squirrelmail/src/addrbook_search.php:194
 msgid "Close window"
 msgstr "Uþdaryti langà"
 
@@ -217,6 +217,7 @@ msgstr "Data"
 msgid "To"
 msgstr "Kam"
 
+#: squirrelmail/plugins/listcommands/mailout.php:50
 #: squirrelmail/src/compose.php:462 squirrelmail/src/read_body.php:566
 msgid "From:"
 msgstr "Nuo:"
@@ -253,7 +254,7 @@ msgstr "Pridëti"
 msgid "Delete selected attachments"
 msgstr "Iðtrinti pasirinktus failus"
 
-#: squirrelmail/functions/page_header.php:118 squirrelmail/src/compose.php:609
+#: squirrelmail/functions/page_header.php:122 squirrelmail/src/compose.php:609
 #: squirrelmail/src/compose.php:613 squirrelmail/src/compose.php:617
 msgid "Addresses"
 msgstr "Adresai"
@@ -320,8 +321,8 @@ msgstr "Neteisingas aplanko vardas. Pasirinkite kità vardà."
 msgid "Click here to go back"
 msgstr "Spragtelëkite èia, kad gráþti atgal"
 
-#: squirrelmail/functions/page_header.php:120 squirrelmail/src/folders.php:29
-#: squirrelmail/src/left_main.php:238
+#: squirrelmail/functions/page_header.php:124 squirrelmail/src/folders.php:29
+#: squirrelmail/src/left_main.php:234
 msgid "Folders"
 msgstr "Aplankai"
 
@@ -345,7 +346,7 @@ msgstr "Aplankas sukurtas!"
 msgid "Renamed successfully!"
 msgstr "Pervadinta!"
 
-#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:277
+#: squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:273
 msgid "refresh folder list"
 msgstr "atnaujinti aplankø sàraðà"
 
@@ -395,10 +396,12 @@ msgstr "Iðtrinti aplankà"
 msgid "Delete"
 msgstr "Iðtrinti"
 
+#: squirrelmail/plugins/listcommands/setup.php:33
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:220
 msgid "Unsubscribe"
 msgstr "Atðaukti prenumeratà"
 
+#: squirrelmail/plugins/listcommands/setup.php:34
 #: squirrelmail/src/folders.php:201 squirrelmail/src/folders.php:261
 msgid "Subscribe"
 msgstr "Uþsiprenumeruoti"
@@ -428,7 +431,8 @@ msgstr "Naujas vardas:"
 msgid "Submit"
 msgstr "Vykdyti"
 
-#: squirrelmail/functions/page_header.php:126 squirrelmail/src/help.php:91
+#: squirrelmail/functions/page_header.php:130
+#: squirrelmail/plugins/listcommands/setup.php:32 squirrelmail/src/help.php:91
 msgid "Help"
 msgstr "Pagalba"
 
@@ -450,6 +454,8 @@ msgstr "Turinys"
 #: squirrelmail/functions/mailbox_display.php:735
 #: squirrelmail/functions/mailbox_display.php:738
 #: squirrelmail/functions/mailbox_display.php:741
+#: squirrelmail/plugins/delete_move_next/setup.php:149
+#: squirrelmail/plugins/delete_move_next/setup.php:151
 #: squirrelmail/src/help.php:187 squirrelmail/src/help.php:191
 #: squirrelmail/src/read_body.php:495 squirrelmail/src/read_body.php:497
 msgid "Previous"
@@ -458,6 +464,8 @@ msgstr "Ankstesnis"
 #: squirrelmail/functions/mailbox_display.php:736
 #: squirrelmail/functions/mailbox_display.php:739
 #: squirrelmail/functions/mailbox_display.php:742
+#: squirrelmail/plugins/delete_move_next/setup.php:154
+#: squirrelmail/plugins/delete_move_next/setup.php:156
 #: squirrelmail/src/help.php:195 squirrelmail/src/help.php:198
 #: squirrelmail/src/read_body.php:501 squirrelmail/src/read_body.php:503
 msgid "Next"
@@ -471,11 +479,11 @@ msgstr "Virðus"
 msgid "Viewing an image attachment"
 msgstr "Perþiûrëti prikabintà pieðiná"
 
-#: squirrelmail/src/left_main.php:98
+#: squirrelmail/src/left_main.php:93
 msgid "empty"
 msgstr "iðvalyti"
 
-#: squirrelmail/src/left_main.php:271
+#: squirrelmail/src/left_main.php:267
 msgid "Last Refresh"
 msgstr "Paskutinis atnaujinimas"
 
@@ -495,7 +503,7 @@ msgstr "sukurta SquirrelMail programuotojø"
 #: squirrelmail/src/login.php:119
 #, c-format
 msgid "%s Login"
-msgstr "Prisijungimas prie %s"
+msgstr "%s paðtas"
 
 #: squirrelmail/src/login.php:123
 msgid "Name:"
@@ -768,7 +776,7 @@ msgstr "Paieðka atmintyje"
 msgid "Disabled"
 msgstr "Nenaudojami"
 
-#: squirrelmail/functions/page_header.php:122
+#: squirrelmail/functions/page_header.php:126
 #: squirrelmail/plugins/filters/options.php:62
 #: squirrelmail/plugins/newmail/newmail_opt.php:34
 #: squirrelmail/plugins/translate/options.php:97
@@ -992,7 +1000,7 @@ msgstr "Taisyti specialius ID"
 
 #: squirrelmail/src/options_personal.php:74
 msgid "(discards changes made on this form so far)"
-msgstr "(ðiuo metu visi pakeitimai padaryti ðioje formoje nëra iðsaugomi)"
+msgstr " "
 
 #: squirrelmail/src/options_personal.php:77
 msgid "Multiple Identities"
@@ -1208,16 +1216,15 @@ msgstr "Tekstas"
 msgid "Everywhere"
 msgstr "Bet kur"
 
-#: squirrelmail/functions/page_header.php:110 squirrelmail/src/signout.php:57
-#: squirrelmail/src/signout.php:65
+#: squirrelmail/functions/page_header.php:114 squirrelmail/src/signout.php:84
 msgid "Sign Out"
 msgstr "Atsijungti"
 
-#: squirrelmail/src/signout.php:71
+#: squirrelmail/src/signout.php:90
 msgid "You have been successfully signed out."
 msgstr "Jûs sëkmingai atsijungëte."
 
-#: squirrelmail/src/signout.php:74
+#: squirrelmail/src/signout.php:92
 msgid "Click here to log back in."
 msgstr "Spragtelëkite ant nuorodos norëdami vël prisijungti"
 
@@ -1771,20 +1778,22 @@ msgid "Option Type '%s' Not Found"
 msgstr "Nustatymo tipas '%s' nerastas"
 
 #: squirrelmail/functions/options.php:253
+#: squirrelmail/plugins/calendar/event_delete.php:51
 #: squirrelmail/plugins/calendar/event_edit.php:134
 msgid "Yes"
 msgstr "Taip"
 
 #: squirrelmail/functions/options.php:258
+#: squirrelmail/plugins/calendar/event_delete.php:58
 #: squirrelmail/plugins/calendar/event_edit.php:141
 msgid "No"
 msgstr "Ne"
 
-#: squirrelmail/functions/page_header.php:107
+#: squirrelmail/functions/page_header.php:108
 msgid "Current Folder"
 msgstr "Dabartinis aplankas"
 
-#: squirrelmail/functions/page_header.php:116
+#: squirrelmail/functions/page_header.php:120
 msgid "Compose"
 msgstr "Raðyti"
 
@@ -1901,54 +1910,64 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:456
 msgid ""
+"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
+"cgi scripts. (planned)."
+msgstr "NEMOKAMAS - Osirusoft paþeidþiami formmail.cgi skriptai - Nesaugiø frommail.cgi skriptø sàraðai. (Planuojamas)"
+
+#: squirrelmail/plugins/filters/filters.php:464
+msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+msgstr "NEMOKAMAS - Osirusoft atviri proxy serveriai - Atvirø proxy serveriø sàraðai."
+
+#: squirrelmail/plugins/filters/filters.php:472
+msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
 "NEMOKAMAS - ORDB pasirodë pasitraukus ORBS filtrams. Atrodo, kad yra ðiek "
 "tiek tikslesnis uþ ORBS."
 
-#: squirrelmail/plugins/filters/filters.php:464
+#: squirrelmail/plugins/filters/filters.php:480
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr ""
 "NEMOKAMAS - Dar vienas ORBS pakaitalas (naudojama tik INPUTS duomenø bazë)."
 
-#: squirrelmail/plugins/filters/filters.php:472
+#: squirrelmail/plugins/filters/filters.php:488
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
 msgstr ""
 "NEMOKAMAS - Dar vienas ORBS pakaitalas (naudojama tik OUTPUTS duomenø bazë)."
 
-#: squirrelmail/plugins/filters/filters.php:480
+#: squirrelmail/plugins/filters/filters.php:496
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "NEMOKAMAS - Five-Ten-sg.com - Tiesioginiø spameriø sàraðai."
 
-#: squirrelmail/plugins/filters/filters.php:488
+#: squirrelmail/plugins/filters/filters.php:504
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 "NEMOKAMAS - Five-Ten-sg.com - Dial-up sàraðai - saugo dalá DSL tinklø adresø."
 
-#: squirrelmail/plugins/filters/filters.php:496
+#: squirrelmail/plugins/filters/filters.php:512
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 "NEMOKAMAS - Five-Ten-sg.com - Grupiniai þinuèiø siuntinëjimo serveriai, "
 "nereikalaujantys patvirtinimo ið adresato."
 
-#: squirrelmail/plugins/filters/filters.php:504
+#: squirrelmail/plugins/filters/filters.php:520
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "NEMOKAMAS - Five-Ten-sg.com - Kiti spameriø sàraðai."
 
-#: squirrelmail/plugins/filters/filters.php:512
+#: squirrelmail/plugins/filters/filters.php:528
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "NEMOKAMAS - Five-Ten-sg.com - Single Stage serveriø sàraðai."
 
-#: squirrelmail/plugins/filters/filters.php:520
+#: squirrelmail/plugins/filters/filters.php:536
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "NEMOKAMAS - Five-Ten-sg.com - Spamà palaikinèiø serveriø sàraðai."
 
-#: squirrelmail/plugins/filters/filters.php:528
+#: squirrelmail/plugins/filters/filters.php:544
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "NEMOKAMAS - Five-Ten-sg.com - WWW formø sàraðai."
 
-#: squirrelmail/plugins/filters/filters.php:536
+#: squirrelmail/plugins/filters/filters.php:552
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -1958,23 +1977,15 @@ msgstr ""
 "ribø (kad nepaduotø á teismà). Ádomiausia, kad jø paèiø puslapiai "
 "rekomenduoja nesinaudoti jø paslaugomis."
 
-#: squirrelmail/plugins/filters/filters.php:544
-msgid ""
-"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
-"SLOOOOOOW!"
-msgstr ""
-"NEMOKAMAS - ORBL yra dar vienas ORBS pakaitalas, atsiradæs uþdarius ORBS. "
-"Gali bûti labai lëëëtas!"
-
-#: squirrelmail/plugins/filters/filters.php:552
+#: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
 msgstr "FREE - orbz.gst-group.co.uk - Tik INPUTS."
 
-#: squirrelmail/plugins/filters/filters.php:560
+#: squirrelmail/plugins/filters/filters.php:568
 msgid "FREE - orbz.gst-group.co.uk - Outputs only."
 msgstr "FREE - orbz.gst-group.co.uk - Tik OUTPUTS"
 
-#: squirrelmail/plugins/filters/filters.php:568
+#: squirrelmail/plugins/filters/filters.php:576
 msgid ""
 "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 "addressed to postmaster@<theirdomain>."
@@ -1982,7 +1993,7 @@ msgstr ""
 "NEMOKAMAS - orbz.gst-group.co.uk - paðto serveriai, kurie atsisako priimti "
 "standartinius postmaster@<domenas> laiðkus."
 
-#: squirrelmail/plugins/filters/filters.php:576
+#: squirrelmail/plugins/filters/filters.php:584
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
@@ -3539,142 +3550,218 @@ msgstr "Pagrindinis iðsiøstø laiðkø aplankas"
 
 #: squirrelmail/plugins/calendar/calendar.php:74
 msgid "TODAY"
-msgstr ""
+msgstr "ÐIANDIEN"
 
 #: squirrelmail/plugins/calendar/day.php:79
 msgid "ADD"
-msgstr ""
+msgstr "PRIDËTI"
 
 #: squirrelmail/plugins/calendar/day.php:93
 msgid "EDIT"
-msgstr ""
+msgstr "TAISYTI"
 
 #: squirrelmail/plugins/calendar/day.php:95
 msgid "DEL"
-msgstr ""
+msgstr "TRINTI"
+
+#: squirrelmail/plugins/calendar/event_create.php:31
+msgid "Start time:"
+msgstr "Pradþia:"
 
 #: squirrelmail/plugins/calendar/event_create.php:41
 #: squirrelmail/plugins/calendar/event_edit.php:59
 msgid "Length:"
-msgstr ""
+msgstr "Trukmë:"
 
 #: squirrelmail/plugins/calendar/event_create.php:47
 #: squirrelmail/plugins/calendar/event_edit.php:65
 #: squirrelmail/plugins/calendar/event_edit.php:97
 #: squirrelmail/plugins/calendar/event_edit.php:110
-#, fuzzy
 msgid "Priority:"
-msgstr "Prioritetas"
+msgstr "Prioritetas:"
 
 #: squirrelmail/plugins/calendar/event_create.php:61
 msgid "Set Event"
-msgstr ""
+msgstr "Ávesti ávyká"
 
 #: squirrelmail/plugins/calendar/event_create.php:106
 msgid "Event Has been added!"
-msgstr ""
+msgstr "Ávykis buvo átrauktas!"
 
 #: squirrelmail/plugins/calendar/event_create.php:109
 #: squirrelmail/plugins/calendar/event_delete.php:34
 #: squirrelmail/plugins/calendar/event_edit.php:49
 #: squirrelmail/plugins/calendar/event_edit.php:95
-#, fuzzy
 msgid "Time:"
-msgstr "Antraðtë:"
+msgstr "Laikas:"
 
 #: squirrelmail/plugins/calendar/event_create.php:116
+#: squirrelmail/plugins/calendar/event_delete.php:91
 #: squirrelmail/plugins/calendar/event_edit.php:189
 #: squirrelmail/plugins/calendar/functions.php:23
 msgid "Day View"
-msgstr ""
+msgstr "Dienos perþiûra"
 
 #: squirrelmail/plugins/calendar/event_delete.php:31
 msgid "Do you really want to delete this event?"
-msgstr ""
+msgstr "Ar tikrai norite iðtrinti ðá ávyká?"
 
 #: squirrelmail/plugins/calendar/event_delete.php:89
-#, fuzzy
 msgid "Event deleted!"
-msgstr "Redaguoti pasirinktà"
+msgstr "Ávykis iðtrintas!"
 
-#: squirrelmail/plugins/calendar/event_delete.php:96
+#: squirrelmail/plugins/calendar/event_delete.php:97
 msgid "Nothing to delete!"
-msgstr ""
+msgstr "Nëra ko trinti!"
 
 #: squirrelmail/plugins/calendar/event_edit.php:79
-#, fuzzy
 msgid "Update Event"
-msgstr "Atnaujinti adresà"
+msgstr "Atnaujinti áraðà"
 
 #: squirrelmail/plugins/calendar/event_edit.php:91
 msgid "Do you really want to change this event from:"
-msgstr ""
+msgstr "Ar tikrai jûs norite pakeisti ávyká ið"
 
 #: squirrelmail/plugins/calendar/event_edit.php:104
-#, fuzzy
 msgid "to:"
-msgstr "Kam:"
+msgstr "á"
 
 #: squirrelmail/plugins/calendar/event_edit.php:187
 msgid "Event updated!"
-msgstr ""
+msgstr "Áraðas atnaujintas!"
 
 #: squirrelmail/plugins/calendar/functions.php:21
 msgid "Month View"
-msgstr ""
+msgstr "Mënesio perþiûra"
 
 #: squirrelmail/plugins/calendar/functions.php:34
 msgid "0 min."
-msgstr ""
+msgstr "0 min."
 
 #: squirrelmail/plugins/calendar/functions.php:35
 msgid "15 min."
-msgstr ""
+msgstr "15 min."
 
 #: squirrelmail/plugins/calendar/functions.php:36
 msgid "35 min."
-msgstr ""
+msgstr "35 min."
 
 #: squirrelmail/plugins/calendar/functions.php:37
 msgid "45 min."
-msgstr ""
+msgstr "45 min."
 
 #: squirrelmail/plugins/calendar/functions.php:38
 msgid "1 hr."
-msgstr ""
+msgstr "1 val."
 
 #: squirrelmail/plugins/calendar/functions.php:39
 msgid "1.5 hr."
-msgstr ""
+msgstr "1,5 val."
 
 #: squirrelmail/plugins/calendar/functions.php:40
 msgid "2 hr."
-msgstr ""
+msgstr "2 val."
 
 #: squirrelmail/plugins/calendar/functions.php:41
 msgid "2.5 hr."
-msgstr ""
+msgstr "2,5 val."
 
 #: squirrelmail/plugins/calendar/functions.php:42
 msgid "3 hr."
-msgstr ""
+msgstr "3 val."
 
 #: squirrelmail/plugins/calendar/functions.php:43
 msgid "3.5 hr."
-msgstr ""
+msgstr "3,5 val."
 
 #: squirrelmail/plugins/calendar/functions.php:44
 msgid "4 hr."
-msgstr ""
+msgstr "4 val."
 
 #: squirrelmail/plugins/calendar/functions.php:45
 msgid "5 hr."
-msgstr ""
+msgstr "5 val."
 
 #: squirrelmail/plugins/calendar/functions.php:46
 msgid "6 hr."
-msgstr ""
+msgstr "6 val."
 
-#: squirrelmail/plugins/calendar/setup.php:20
+#: squirrelmail/plugins/calendar/setup.php:21
 msgid "Calendar"
-msgstr ""
+msgstr "Kalendorius"
+
+#: squirrelmail/plugins/listcommands/mailout.php:19
+msgid "Mailinglist"
+msgstr "Susiraðinëjimo sàraðas"
+
+#: squirrelmail/plugins/listcommands/mailout.php:25
+#, c-format
+msgid ""
+"This will send a message to %s requesting help for this list. You will "
+"receive an emailed response at the address below."
+msgstr "Ði komanda nusiøs þinutæ á %s, praðydama pagalbos. Atsakymai turëtø gráþti á þemiau esantá adresà"
+
+#: squirrelmail/plugins/listcommands/mailout.php:28
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be subscribed to "
+"this list. You will be subscribed with the address below."
+msgstr "Ði komanda nusiøs þinutæ á %s, praðydama jus átraukti á ðá susiraðinëjimo sàraðà. Bandoma bus átraukti þemiau esantá adresà."
+
+#: squirrelmail/plugins/listcommands/mailout.php:31
+#, c-format
+msgid ""
+"This will send a message to %s requesting that you will be unsubscribed from "
+"this list. It will try to unsubscribe the adress below."
+msgstr "Ði komanda nusiøs þinutæ á %s, praðydama jus paðalinti ið ðio susiraðinëjimo sàraðo. Bandoma bus nuraðyti þemiau esantá adresà."
+
+#: squirrelmail/plugins/listcommands/mailout.php:79
+msgid "Send Mail"
+msgstr "Iðsiøsti þinutæ"
+
+#: squirrelmail/plugins/listcommands/setup.php:35
+msgid "Post to the list"
+msgstr "Iðsiøsti þinutæ sàraðan"
+
+#: squirrelmail/plugins/listcommands/setup.php:36
+msgid "List Archives"
+msgstr "Susiraðinëjimo archyvai"
+
+#: squirrelmail/plugins/listcommands/setup.php:37
+msgid "Contact Listowner"
+msgstr "Susisiekti su sàraðo priþiûrëtoju"
+
+#: squirrelmail/plugins/listcommands/setup.php:39
+msgid "Reply to the list"
+msgstr "Atsakyti á sàraðà"
+
+#: squirrelmail/plugins/listcommands/setup.php:90
+msgid "Mailinglist options:"
+msgstr "Susiraðinëjimo sàraðø nustatymai"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:159
+#: squirrelmail/plugins/delete_move_next/setup.php:162
+msgid "Delete & Prev"
+msgstr "Trinti ir gráþti"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:165
+#: squirrelmail/plugins/delete_move_next/setup.php:167
+msgid "Delete & Next"
+msgstr "Trinti ir eiti toliau"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:290
+msgid "delete_move_next:"
+msgstr "Trinti ir eiti prie kito:"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:296
+msgid "display at top"
+msgstr "Rodyti virðuje"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:302
+#: squirrelmail/plugins/delete_move_next/setup.php:314
+msgid "with move option"
+msgstr "rodyti ir permetimo opcijà"
+
+#: squirrelmail/plugins/delete_move_next/setup.php:308
+msgid "display at bottom"
+msgstr "rodyti apachioje"
