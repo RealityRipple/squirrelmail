@@ -64,26 +64,24 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
    global $sent_folder;
    for ($q = 0; $q < count($messagelist); $q++) {
-      $messagelist[$q] = trim($messagelist[$q]);
-      if ($mailbox == $sent_folder)
-         $hdr = sqimap_get_small_header ($imapConnection, $messagelist[$q], true);
-      else
-         $hdr = sqimap_get_small_header ($imapConnection, $messagelist[$q], false);
-						
-         $from[$q] = $hdr->from;
-         $date[$q] = $hdr->date;
-         $subject[$q] = $hdr->subject;
-         $to[$q] = $hdr->to;
-         $priority[$q] = $hdr->priority;
-         $cc[$q] = $hdr->cc;
-		 $size[$q] = $hdr->size;
-		 $type[$q] = $hdr->type0;
-         $id[$q] = $messagelist[$q];
-         $flags[$q] = sqimap_get_flags ($imapConnection, $messagelist[$q]);
-      }
+      $id[$q] = trim($messagelist[$q]);
+   }
+   $issent = ($mailbox == $sent_folder);
+   $hdr_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
+   $flags = sqimap_get_flags_list($imapConnection, $id, $issnet);
+   foreach ($hdr_list as $hdr) {
+      $from[] = $hdr->from;
+      $date[] = $hdr->date;
+      $subject[] = $hdr->subject;
+      $to[] = $hdr->to;
+      $priority[] = $hdr->priority;
+      $cc[] = $hdr->cc;
+      $size[] = $hdr->size;
+      $type[] = $hdr->type0;
+   }   
 
-      $j = 0;
-      while ($j < count($messagelist)) {
+   $j = 0;
+   while ($j < count($messagelist)) {
          $date[$j] = ereg_replace('  ', ' ', $date[$j]);
          $tmpdate = explode(" ", trim($date[$j]));
 
@@ -117,7 +115,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             $num++;
          }
          $j++;
-      }
+   }
 
       /** Find and remove the ones that are deleted */
       $i = 0;

@@ -60,88 +60,154 @@
    }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
+      $res = sqimap_get_small_header_list($imap_stream, array($id), $sent);
+      return $res[0];
+   }
 
-      fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n");
-      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+   function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 
-      $subject = _("(no subject)");
-      $from = _("Unknown Sender");
-      $priority = "0";
-      $messageid = "<>";
-      $cc = "";
-      $to = "";
-      $date = "";
-      $type[0] = "";
-      $type[1] = "";
+      /* Get the small headers for each message in $msg_list */
 
-      $g = 0;
-      for ($i = 0; $i < count($read); $i++) {
-         if (eregi ("^to:(.*)$", $read[$i], $regs)) {
-            //$to = sqimap_find_displayable_name(substr($read[$i], 3));
-            $to = $regs[1];
-	 } else if (eregi ("^from:(.*)$", $read[$i], $regs)) {
-            //$from = sqimap_find_displayable_name(substr($read[$i], 5));
-            $from = $regs[1];
-	 } else if (eregi ("^x-priority:(.*)$", $read[$i], $regs)) {
-            $priority = trim($regs[1]);
-         } else if (eregi ("^message-id:(.*)$", $read[$i], $regs)) {
-            $messageid = trim($regs[1]);
-         } else if (eregi ("^cc:(.*)$", $read[$i], $regs)) {
-            $cc = $regs[1];
-         } else if (eregi ("^date:(.*)$", $read[$i], $regs)) {
-            $date = $regs[1];
-         } else if (eregi ("^subject:(.*)$", $read[$i], $regs)) {
-            $subject = htmlspecialchars(trim($regs[1]));
-            if ($subject == "")
-               $subject = _("(no subject)");
-         } else if (eregi ("^content-type:(.*)$", $read[$i], $regs)) {
-            $type = strtolower(trim($regs[1]));
-            if ($pos = strpos($type, ";"))
-               $type = substr($type, 0, $pos);
-            $type = explode("/", $type);
-	    if (! isset($type[1]))
-	        $type[1] = '';
+      $maxmsg = sizeof($msg_list);
+      $msgs_str = implode(",", $msg_list);
+      $results = array();
+      $read_list = array();
+      $sizes_list = array();
+
+      /* We need to return the data in the same order as the caller supplied
+         in $msg_list, but IMAP servers are free to return responses in
+         whatever order they wish... So we need to re-sort manually */
+
+      for ($i = 0; $i < sizeof($msg_list); $i++) {
+         $id2index[$msg_list[$i]] = $i;
+      }
+
+      $query = "a001 FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type)]\r\n";
+      fputs ($imap_stream, $query);
+      $readin_list = sqimap_read_data_list($imap_stream, "a001", true, $response, $message);
+
+      foreach ($readin_list as $r) {
+         if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n";
+            echo _("ERROR : Could not complete request.");
+            echo "</b><br>\n";
+            echo _("Unknown response from IMAP server: ");
+            echo $r[0] . "</font><br>\n";
+            exit;
          }
+         if (!count($id2index[$regs[1]])) {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n";
+            echo _("ERROR : Could not complete request.");
+            echo "</b><br>\n";
+            echo _("Unknown messagenumber in reply from server: ");
+            echo $regs[1] . "</font><br>\n";
+            exit;
+         }
+         $read_list[$id2index[$regs[1]]] = $r;
+      }
+      arsort($read_list);
+      
+      $query = "a002 FETCH $msgs_str RFC822.SIZE\r\n";
+      fputs ($imap_stream, $query);
+      $sizesin_list = sqimap_read_data_list($imap_stream, "a002", true, $response, $message);
+      
+      foreach ($sizesin_list as $r) {
+         if (!eregi("^\\* ([0-9]+) FETCH", $r[0], $regs)) {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n";
+            echo _("ERROR : Could not complete request.");
+            echo "</b><br>\n";
+            echo _("Unknown response from IMAP server: ");
+            echo $r[0] . "</font><br>\n";
+            exit;
+         }
+         if (!count($id2index[$regs[1]])) {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n";
+            echo _("ERROR : Could not complete request.");
+            echo "</b><br>\n";
+            echo _("Unknown messagenumber in reply from server: ");
+            echo $regs[1] . "</font><br>\n";
+            exit;
+         }
+         $sizes_list[$id2index[$regs[1]]] = $r;
+      }
+      arsort($sizes_list);
+      
+      for ($msgi = 0; $msgi < $maxmsg; $msgi++) {
+         $subject = _("(no subject)");
+         $from = _("Unknown Sender");
+         $priority = 0;
+         $messageid = "<>";
+         $cc = "";
+         $to = "";
+         $date = "";
+         $type[0] = "";
+         $type[1] = "";
+         $read = $read_list[$msgi];
+
+         for ($i = 0; $i < count($read); $i++) {
+            if (eregi ("^to:(.*)$", $read[$i], $regs)) {
+               //$to = sqimap_find_displayable_name(substr($read[$i], 3));
+               $to = $regs[1];
+            } else if (eregi ("^from:(.*)$", $read[$i], $regs)) {
+               //$from = sqimap_find_displayable_name(substr($read[$i], 5));
+               $from = $regs[1];
+            } else if (eregi ("^x-priority:(.*)$", $read[$i], $regs)) {
+               $priority = trim($regs[1]);
+            } else if (eregi ("^message-id:(.*)$", $read[$i], $regs)) {
+               $messageid = trim($regs[1]);
+            } else if (eregi ("^cc:(.*)$", $read[$i], $regs)) {
+               $cc = $regs[1];
+            } else if (eregi ("^date:(.*)$", $read[$i], $regs)) {
+               $date = $regs[1];
+            } else if (eregi ("^subject:(.*)$", $read[$i], $regs)) {
+               $subject = htmlspecialchars(trim($regs[1]));
+               if ($subject == "")
+                  $subject = _("(no subject)");
+            } else if (eregi ("^content-type:(.*)$", $read[$i], $regs)) {
+               $type = strtolower(trim($regs[1]));
+               if ($pos = strpos($type, ";"))
+                  $type = substr($type, 0, $pos);
+               $type = explode("/", $type);
+               if (! isset($type[1]))
+                   $type[1] = '';
+            }
+            
+         }
+         if (trim($date) == "") {
+            fputs($imap_stream, "a002 FETCH $msg_list[$msgi] INTERNALDATE\r\n");
+            $readdate = sqimap_read_data($imap_stream, "a002", true, $response, $message);
+            if (eregi(".*INTERNALDATE \"(.*)\".*", $readdate[0], $regs)) {
+               $date_list = explode(" ", trim($regs[1]));
+               $date_list[0] = str_replace("-", " ", $date_list[0]);
+               $date = implode(" ", $date_list);
+            }
+         }
+         eregi("([0-9]+)[^0-9]*$", $sizes_list[$msgi][0], $regs);
+         $size = $regs[1];
          
+         $header = new small_header;
+         if ($issent == true)
+            $header->from = (trim($to) != '')? $to : _("(only Cc/Bcc)");
+         else   
+            $header->from = $from;
+
+         $header->date = $date;
+         $header->subject = $subject;
+         $header->to = $to;
+         $header->priority = $priority;
+         $header->message_id = $messageid;
+         $header->cc = $cc;
+         $header->size = $size;
+         $header->type0 = $type[0];
+         $header->type1 = $type[1];
+
+         $result[] = $header;
       }
-
-      // If there isn't a date, it takes the internal date and uses
-      // that as the normal date.
-      if (trim($date) == "") {
-         fputs ($imap_stream, "a002 FETCH $id INTERNALDATE\r\n");
-         $internal_read = sqimap_read_data ($imap_stream, "a002", true, $r, $m);
-
-         // * 22 FETCH (INTERNALDATE " 8-Sep-2000 13:17:07 -0500")
-         $date = $internal_read[0];
-         $date = eregi_replace(".*internaldate \"", "", $date);
-         $date = eregi_replace("\".*", "", $date);
-         $date_ary = explode(" ", trim($date));
-         $date_ary[0] = str_replace("-", " ", $date_ary[0]);
-         $date = implode (" ", $date_ary);
-      }
-
-      fputs ($imap_stream, "a003 FETCH $id RFC822.SIZE\r\n");
-      $read = sqimap_read_data($imap_stream, "a003", true, $r, $m);
-      eregi("([0-9]+)[^0-9]*$", $read[0], $regs);
-      $size = $regs[1];
-      
-      $header = new small_header;
-      if ($sent == true)
-         $header->from = (trim($to) != '')? $to : _("(only Cc/Bcc)");
-      else   
-         $header->from = $from;
-
-      $header->date = $date;
-      $header->subject = $subject;
-      $header->to = $to;
-      $header->priority = $priority;
-      $header->message_id = $messageid;
-      $header->cc = $cc;
-      $header->size = $size;
-      $header->type0 = $type[0];
-      $header->type1 = $type[1];
-      
-      return $header;
+      return $result;
    }
 
    /******************************************************************************
@@ -153,6 +219,34 @@
       if (ereg("FLAGS(.*)", $read[0], $regs))
           return explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
       return Array('None');
+   }
+
+   function sqimap_get_flags_list ($imap_stream, $msg_list) {
+
+      $msgs_str = implode(",", $msg_list);
+      for ($i = 0; $i < sizeof($msg_list); $i++) {
+         $id2index[$msg_list[$i]] = $i;
+      }
+      fputs ($imap_stream, "a001 FETCH $msgs_str FLAGS\r\n");
+      $result_list = sqimap_read_data_list ($imap_stream, "a001", true, $response, $message);
+      $result_flags = array();
+
+      for ($i = 0; $i < sizeof($result_list); $i++) {
+         if (eregi("^\\* ([0-9]+).*FETCH.*FLAGS(.*)", $result_list[$i][0], $regs)
+             && count($id2index[$regs[1]])) {
+            $result_flags[$id2index[$regs[1]]] = explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[2])));
+         } else {
+            set_up_language($squirrelmail_language);
+            echo "<br><b><font color=$color[2]>\n";
+            echo _("ERROR : Could not complete request.");
+            echo "</b><br>\n";
+            echo _("Unknown response from IMAP server: ");
+            echo $result_list[$i][0] . "</font><br>\n";
+            exit;
+         }
+      }
+      arsort($result_flags);
+      return $result_flags;
    }
 
    /******************************************************************************
