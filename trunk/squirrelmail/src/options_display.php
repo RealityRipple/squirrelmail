@@ -13,74 +13,74 @@
    session_start();
 
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
+      include('../functions/display_messages.php');
    if (!isset($imap_php))
-      include("../functions/imap.php");
+      include('../functions/imap.php');
    if (!isset($array_php))
-      include("../functions/array.php");
+      include('../functions/array.php');
    if (!isset($i18n_php))
-      include("../functions/i18n.php");
+      include('../functions/i18n.php');
    if (!isset($plugin_php))
-      include("../functins/plugin.php");
+      include('../functins/plugin.php');
 
-   include("../src/load_prefs.php");
-   displayPageHeader($color, "None");
-   $chosen_language = getPref($data_dir, $username, "language");  
+   include('../src/load_prefs.php');
+   displayPageHeader($color, 'None');
+   $chosen_language = getPref($data_dir, $username, 'language');  
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
-      <center><b><?php echo _("Options") . " - " . _("Display Preferences"); ?></b></center>
+   <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0"><tr><td bgcolor="<?php echo $color[0] ?>">
+      <center><b><?php echo _("Options") . ' - ' . _("Display Preferences"); ?></b></center>
    </td></tr></table>
 
-   <form name=f action="options.php" method=post>
-      <table width=100% cellpadding=0 cellspacing=2 border=0>
+   <form name="f" action="options.php" method="post">
+      <table width="100%" cellpadding="0" cellspacing="2" border="0">
          <tr>
-            <td align=right nowrap><?php echo _("Theme"); ?>:
+            <td align="right" nowrap><?php echo _("Theme"); ?>:
             </td><td>
 <?php
-   echo "         <tt><select name=chosentheme>\n";
+   echo '         <tt><select name="chosentheme">' . "\n";
    for ($i = 0; $i < count($theme); $i++) {
-      if ($theme[$i]["PATH"] == $chosen_theme)
-         echo "         <option selected value=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
+      if ($theme[$i]['PATH'] == $chosen_theme)
+         echo '         <option selected value="'.$theme[$i]['PATH'].'">'.$theme[$i]['NAME']."\n";
       else
-         echo "         <option value=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
+         echo '         <option value="'.$theme[$i]['PATH'].'">'.$theme[$i]['NAME']."\n";
    }
-   echo "         </select></tt>";  
+   echo '         </select></tt>';  
 ?>
             </td>
          </tr>
          <tr>
-            <td valign=top align=right nowrap><?php echo _("Language"); ?>:
+            <td valign="top" align="right" nowrap><?php echo _("Language"); ?>:
             </td><td>
 <?php
-   echo "         <tt><select name=language>\n";
+   echo '         <tt><select name="language">' . "\n";
    foreach ($languages as $code => $name) {
       if ($code==$chosen_language)
-         echo "         <OPTION SELECTED VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
+         echo '         <OPTION SELECTED VALUE="'.$code.'">'.$languages[$code]['NAME']."\n";
       else
-         echo "         <OPTION VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
+         echo '         <OPTION VALUE=\"".$code.'">'.$languages[$code]['NAME']."\n";
    }
-   echo "         </select></tt>";  
+   echo '         </select></tt>';  
    if (! $use_gettext)
-      echo "<br><small>This system doesn't support multiple languages</small>";
+      echo '<br><small>This system doesn't support multiple languages</small>';
       
 ?>
             </td>
          <tr>
             <td align=right nowrap>&nbsp;
-               <?php echo _("Use Javascript or HTML addressbook?") . "</td><td>"; 
+               <?php echo _("Use Javascript or HTML addressbook?") . '</td><td>'; 
                if ($use_javascript_addr_book == true) {
-                  echo "         <input type=radio name=javascript_abook value=1 checked> " . _("JavaScript") . "&nbsp;&nbsp;&nbsp;&nbsp;";
-                  echo "         <input type=radio name=javascript_abook value=0> " . _("HTML"); 
+                  echo '         <input type="radio" name="javascript_abook" value="1" checked> ' . _("JavaScript") . '&nbsp;&nbsp;&nbsp;&nbsp;';
+                  echo '         <input type="radio" name="javascript_abook" value="0"> ' . _("HTML"); 
                } else {
-                  echo "         <input type=radio name=javascript_abook value=1> " . _("JavaScript") . "&nbsp;&nbsp;&nbsp;&nbsp;";
-                  echo "         <input type=radio name=javascript_abook value=0 checked> " . _("HTML"); 
+                  echo '         <input type="radio" name="javascript_abook" value="1"> ' . _("JavaScript") . '&nbsp;&nbsp;&nbsp;&nbsp;';
+                  echo '         <input type="radio" name="javascript_abook" value="0" checked> ' . _("HTML"); 
                }  
                ?>
             </td>
@@ -90,36 +90,36 @@
             </td><td>
 <?php
    if (isset($show_num))
-      echo "         <tt><input type=text size=5 name=shownum value=\"$show_num\"></tt><br>";
+      echo '         <tt><input type="text" size="5" name="shownum" value="'.$show_num.'"></tt><br>';
    else
-      echo "         <tt><input type=text size=5 name=shownum value=\"25\"></tt><br>"; 
+      echo '         <tt><input type="text" size="5" name="shownum" value="25"></tt><br>'; 
 ?>
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?php echo _("Wrap incoming text at"); ?>:
+            <td align="right" nowrap><?php echo _("Wrap incoming text at"); ?>:
             </td><td>
 <?php
    if (isset($wrap_at))
-      echo "         <tt><input type=text size=5 name=wrapat value=\"$wrap_at\"></tt><br>";
+      echo '         <tt><input type="text" size="5" name="wrapat" value="'.$wrap_at.'"></tt><br>';
    else
-      echo "         <tt><input type=text size=5 name=wrapat value=\"86\"></tt><br>"; 
+      echo '         <tt><input type="tex" size="5" name="wrapat" value="86"></tt><br>'; 
 ?>
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?php echo _("Size of editor window"); ?>:
+            <td align="right" nowrap><?php echo _("Size of editor window"); ?>:
             </td><td>
 <?php
    if ($editor_size >= 10 && $editor_size <= 255)
-      echo "         <tt><input type=text size=5 name=editorsize value=\"$editor_size\"></tt><br>";
+      echo '         <tt><input type="text" size="5" name="editorsize" value="'.$editor_size.'"></tt><br>';
    else
-      echo "         <tt><input type=text size=5 name=editorsize value=\"76\"></tt><br>"; 
+      echo '         <tt><input type="text" size="5" name="editorsize" value="76"></tt><br>'; 
 ?>
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?PHP echo _("Location of folder list") ?>:</td>
+            <td align="right" nowrap><?PHP echo _("Location of folder list") ?>:</td>
             <td><select name="folder_new_location">
                 <option value="left"<?PHP
                     if ($location_of_bar != 'right') echo ' SELECTED';
@@ -131,7 +131,7 @@
             </td>
          </tr>
          <tr>
-            <td align=right nowrap><?PHP echo _("Location of buttons when composing") ?>:</td>
+            <td align="right" nowrap><?PHP echo _("Location of buttons when composing") ?>:</td>
             <td><select name="button_new_location">
                 <option value="top"<?PHP
                     if ($location_of_buttons == 'top') echo ' SELECTED';
@@ -149,7 +149,7 @@
             <td align=right nowrap><?php echo _("Width of folder list"); ?>:
             </td><td>
 <?php
-   echo "         <select name=leftsize>\n";
+   echo '         <select name="leftsize">' . "\n";
    if ($left_size == 100)
       echo "<option value=100 selected>100 pixels\n";
    else
@@ -289,11 +289,11 @@
    else
       echo "                  <OPTION VALUE=1800>30 $minutes_str";
  
-      echo "               </SELECT>"; 
+      echo '               </SELECT>'; 
 ?>
             </td>
          </tr>
-         <?php do_hook("options_display_inside"); ?>
+         <?php do_hook('options_display_inside'); ?>
          <tr>
             <td>&nbsp;
             </td><td>
@@ -302,5 +302,5 @@
          </tr>
       </table>   
    </form>
-   <?php do_hook("options_display_bottom"); ?>
+   <?php do_hook('options_display_bottom'); ?>
 </body></html>
