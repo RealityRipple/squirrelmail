@@ -116,7 +116,8 @@ function drawmonthview() {
                 $i=0;
                 while ($calfoo = each($calendardata[$cdate])) {
                     $calbar = $calendardata[$cdate][$calfoo['key']];
-                    echo ($calbar['priority']==1) ? "<a href=\"#\" style=\"text-decoration:none; color: $color[1]\" title=\"$calbar[message]\">$calbar[title]</a><br>\n" : "<a href=\"#\" style=\"text-decoration:none; color: $color[6]\" title=\"$calbar[message]\">$calbar[title]</a><br>\n";
+                    $title = '['. $calfoo['key']. '] ' .$calbar['message'];
+                    echo ($calbar['priority']==1) ? "<a href=\"#\" style=\"text-decoration:none; color: $color[1]\" title=\"$title\">$calbar[title]</a><br>\n" : "<a href=\"#\" style=\"text-decoration:none; color: $color[6]\" title=\"$title\">$calbar[title]</a><br>\n";
                     $i=$i+1;
                     if($i==2){
                         break;
