@@ -85,7 +85,16 @@ class Deliver_SMTP extends Deliver {
         fputs($stream, "EHLO $helohost\r\n");
         $tmp = fgets($stream,1024);
         if ($this->errorCheck($tmp,$stream)) {
-            return(0);
+            // fall back to HELO if EHLO is not supported
+            if ($this->dlv_ret_no == '500') {
+                fputs($stream, "HELO $helohost\r\n");
+                $tmp = fgets($stream,1024);
+                if ($this->errorCheck($tmp,$stream)) {
+                    return(0);
+                }
+            } else {
+                return(0);
+            }
         }
     
         if (( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) {
