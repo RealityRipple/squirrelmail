@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-09-24 10:18+0200\n"
+"POT-Creation-Date: 2001-09-24 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,20 +236,20 @@ msgstr ""
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: squirrelmail/src/compose.php:469 squirrelmail/src/compose.php:506
-#: squirrelmail/src/compose.php:513
+#: squirrelmail/src/compose.php:470 squirrelmail/src/compose.php:507
+#: squirrelmail/src/compose.php:514
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-#: squirrelmail/src/compose.php:572
+#: squirrelmail/src/compose.php:573
 msgid "said"
 msgstr ""
 
-#: squirrelmail/src/compose.php:575
+#: squirrelmail/src/compose.php:576
 msgid "quote"
 msgstr ""
 
-#: squirrelmail/src/compose.php:575
+#: squirrelmail/src/compose.php:576
 msgid "who"
 msgstr ""
 
@@ -466,7 +466,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: squirrelmail/src/options.php:194 squirrelmail/src/options_display.php:26
+#: squirrelmail/src/options.php:188 squirrelmail/src/options_display.php:26
 msgid "Display Preferences"
 msgstr ""
 
@@ -587,7 +587,7 @@ msgstr ""
 msgid "Don't remove me from the CC addresses when I use \"Reply All\""
 msgstr ""
 
-#: squirrelmail/src/options.php:206 squirrelmail/src/options_folder.php:29
+#: squirrelmail/src/options.php:200 squirrelmail/src/options_folder.php:29
 msgid "Folder Preferences"
 msgstr ""
 
@@ -655,7 +655,7 @@ msgstr ""
 msgid "Enable Collapseable Folders"
 msgstr ""
 
-#: squirrelmail/src/options.php:168 squirrelmail/src/options_highlight.php:49
+#: squirrelmail/src/options.php:162 squirrelmail/src/options_highlight.php:49
 msgid "Message Highlighting"
 msgstr ""
 
@@ -787,7 +787,7 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-#: squirrelmail/src/options.php:180 squirrelmail/src/options_order.php:31
+#: squirrelmail/src/options.php:174 squirrelmail/src/options_order.php:31
 msgid "Index Order"
 msgstr ""
 
@@ -827,7 +827,7 @@ msgstr ""
 msgid "Return to options page"
 msgstr ""
 
-#: squirrelmail/src/options.php:156 squirrelmail/src/options_personal.php:30
+#: squirrelmail/src/options.php:150 squirrelmail/src/options_personal.php:30
 msgid "Personal Information"
 msgstr ""
 
@@ -863,66 +863,72 @@ msgstr ""
 msgid "Multiple Identities"
 msgstr ""
 
+#: squirrelmail/src/options_personal.php:90
+msgid "Edit Advanced Identities"
+msgstr ""
+
+#: squirrelmail/src/options_personal.php:90
+msgid "(discards changes made on this form so far)"
+msgstr ""
+
 #: squirrelmail/src/options_personal.php:95
 msgid "Signature"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:99
 #: squirrelmail/src/options_personal.php:101
 msgid "Use a signature?"
 msgstr ""
 
-#: squirrelmail/src/options_personal.php:104
-#: squirrelmail/src/options_personal.php:107
-msgid "Prefix signature with '--' ?"
+#: squirrelmail/src/options_personal.php:106
+msgid "Prefix signature with '-- ' ?"
 msgstr ""
 
-#: squirrelmail/src/options.php:65
+#: squirrelmail/src/options.php:56
 msgid "Successfully saved personal information!"
 msgstr ""
 
-#: squirrelmail/src/options.php:112
+#: squirrelmail/src/options.php:106
 msgid "Successfully saved display preferences!"
 msgstr ""
 
-#: squirrelmail/src/options.php:113
+#: squirrelmail/src/options.php:107
 msgid "Refresh Page"
 msgstr ""
 
-#: squirrelmail/src/options.php:142
+#: squirrelmail/src/options.php:136
 msgid "Successfully saved folder preferences!"
 msgstr ""
 
-#: squirrelmail/src/options.php:143
+#: squirrelmail/src/options.php:137
 msgid "Refresh Folder List"
 msgstr ""
 
-#: squirrelmail/src/options.php:161
+#: squirrelmail/src/options.php:155
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
 
-#: squirrelmail/src/options.php:173
+#: squirrelmail/src/options.php:167
 msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
 msgstr ""
 
-#: squirrelmail/src/options.php:185
+#: squirrelmail/src/options.php:179
 msgid ""
 "The order of the message index can be rearanged and changed to contain the "
 "headers in any order you want."
 msgstr ""
 
-#: squirrelmail/src/options.php:199
+#: squirrelmail/src/options.php:193
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
 msgstr ""
 
-#: squirrelmail/src/options.php:211
+#: squirrelmail/src/options.php:205
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
 msgstr ""
