@@ -185,7 +185,7 @@
       $clk = date("D, ".$hr, time()); 
     }
 
-    echo "<center><table bgcolor=$color[5]><tr><td><table bgcolor=$color[4]><tr><td><small>$clk</small></td></tr></table></td></tr></table></center>";
+    echo "<center><small>$clk</small></center>";
     echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
     echo _("refresh folder list");
     echo '</A>)</SMALL></CENTER><BR>';
