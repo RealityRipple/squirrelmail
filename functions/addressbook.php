@@ -61,8 +61,13 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         && trim($abook_global_file)!=''){
         // Detect place of address book
         if (! preg_match("/[\/\\\]/",$abook_global_file)) {
-            // no path chars
-            $abook_global_filename=$data_dir . $abook_global_file;
+            /* no path chars, address book stored in data directory
+             * make sure that there is a slash between data directory 
+             * and address book file name
+             */
+            $abook_global_filename=$data_dir
+                . ((substr($data_dir, -1) != '/') ? '/' : '')
+                . $abook_global_file;
         } elseif (preg_match("/^\/|\w:/",$abook_global_file)) {
             // full path is set in options (starts with slash or x:)
             $abook_global_filename=$abook_global_file;
@@ -98,6 +103,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
      * hook allows to include different address book backends.
      * plugins should extract $abook and $r from arguments
      * and use same add_backend commands as above functions.
+     * @since 1.5.1
      */
     $hookReturn = do_hook('abook_init', $abook, $r);
     $abook = $hookReturn[1];
@@ -896,6 +902,7 @@ if((isset($addrbook_dsn) && !empty($addrbook_dsn)) ||
  * class must follow address book class coding standards.
  *
  * see addressbook_backend class and functions/abook_*.php files.
+ * @since 1.5.1
  */
 do_hook('abook_add_class');
 
