@@ -84,6 +84,7 @@ Version 1.5.1 -- CVS
     Patch by Ray Ferguson.
   - Make IP-address in Message-ID RFC822 compliant.
   - Uneditable address book entries no longer have checkboxes on addresses page
+  - Alignment of title text above folder list fixed
 
 Version 1.5.0
 --------------------
