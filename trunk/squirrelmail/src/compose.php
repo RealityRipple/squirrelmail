@@ -614,8 +614,13 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
                }
 	    } else {
                $filename = decodeHeader($message->header->getParameter('filename'));
-               if ($filename == "") {
-                  $filename = "untitled-".$message->entity_id;
+               if ($filename == '') {
+	          $name = decodeHeader($message->header->getParameter('name'));
+		  if ($name == '') {
+                     $filename = "untitled-".$message->entity_id;
+		  } else {
+		     $filename = $name;
+		  }
                }
             }
             $localfilename = GenerateRandomString(32, '', 7);
