@@ -102,6 +102,17 @@ $smtpServerAddress = 'localhost';
 $smtpPort = 25;
 
 /**
+ * Option can be used to disable Received: headers added by squirrelmail.
+ * This can increase user's privacy and solve problems with spam filters
+ * that increase spam marks for dynamic dialup addresses.
+ *
+ * If admin enables this setting, system should have some logging facility 
+ * or other tools to control users. SquirrelMail's Received: header provides 
+ * information, that can't be forged by webmail user.
+ */
+$skip_SM_header = false;
+
+/**
  * Program that should be used when sending email. SquirrelMail expects that
  * this program will follow options used by original sendmail 
  * (http://www.sendmail.org).
