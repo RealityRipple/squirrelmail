@@ -210,13 +210,6 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
 
     $imap_stream = fsockopen ( $imap_server_address, $imap_port, $error_number, $error_string, 15);
-    if ( !$imap_stream ) {
-        return false;
-    }
-    $server_info = fgets ($imap_stream, 1024);
-
-    /* Decrypt the password */
-    $password = OneTimePadDecrypt($password, $onetimepad);
 
     /* Do some error correction */
     if (!$imap_stream) {
@@ -226,10 +219,15 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
 	    $string = sprintf (_("Error connecting to IMAP server: %s.") .
 	                      "<br>\r\n", $imap_server_address) .
                       "$error_number : $error_string<br>\r\n";
-	    error_box($string,$color);
+	    logout_error($string,$color);
         }
         exit;
     }
+
+    $server_info = fgets ($imap_stream, 1024);
+
+    /* Decrypt the password */
+    $password = OneTimePadDecrypt($password, $onetimepad);
 
     $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
     $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
