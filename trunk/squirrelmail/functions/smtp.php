@@ -245,7 +245,7 @@
             $body .= "Content-Type: text/plain\r\n";
 
          $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
-         $body .= sqStripSlashes($passedBody) . "\r\n";
+         $body .= sqStripSlashes($passedBody) . "\r\n\r\n";
          fputs ($fp, $body);
 
          $attachmentlength = attachFiles($fp);
