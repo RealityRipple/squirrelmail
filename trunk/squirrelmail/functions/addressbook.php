@@ -12,6 +12,17 @@
  * @subpackage addressbook
  */
 
+/**
+ * If SM_PATH isn't defined, define it.  Required to include files.
+ * @ignore
+ */
+if (!defined('SM_PATH'))  {
+    define('SM_PATH','../');
+}
+
+/* make sure that display_messages.php is loaded */
+include_once(SM_PATH . 'functions/display_messages.php');
+
 global $addrbook_dsn, $addrbook_global_dsn;
 
 /**
@@ -19,13 +30,16 @@ global $addrbook_dsn, $addrbook_global_dsn;
    Returns the created object
 */
 function addressbook_init($showerr = true, $onlylocal = false) {
-    global $data_dir, $username, $ldap_server, $address_book_global_filename;
+    global $data_dir, $username, $color, $ldap_server, $address_book_global_filename;
     global $addrbook_dsn, $addrbook_table;
     global $abook_global_file, $abook_global_file_writeable;
     global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
 
     /* Create a new addressbook object */
     $abook = new AddressBook;
+
+    /* Create empty error message */
+    $abook_init_error='';
 
     /*
         Always add a local backend. We use *either* file-based *or* a
@@ -78,9 +92,10 @@ function addressbook_init($showerr = true, $onlylocal = false) {
                                                     'name' => _("Global address book"),
                                                     'detect_writeable' => false,
                                                     'writeable'=> $abook_global_file_writeable));
+
+        /* global abook init error is not fatal. add error message and continue */
         if (!$r && $showerr) {
-            echo _("Error initializing global addressbook.");
-            exit;
+            $abook_init_error.=_("Error initializing global addressbook.") . "<br />" . $abook->error;
         }
     }
 
@@ -110,6 +125,10 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     $r = $hookReturn[2];
 
     if ($onlylocal) {
+        /* display error message, if present */
+        if ($abook_init_error!='' && $showerr) {
+            error_box($abook_init_error,$color);
+        }
         return $abook;
     }
 
@@ -129,6 +148,12 @@ function addressbook_init($showerr = true, $onlylocal = false) {
         }
     }
 
+    /**
+     * display address book init errors.
+     */
+    if ($abook_init_error!='' && $showerr) {
+        error_box($abook_init_error,$color);
+    }
     /* Return the initialized object */
     return $abook;
 }
