@@ -177,7 +177,7 @@
    // 4) Make them unique -- weed out duplicates
    // (Coded for PHP 4.0.0)
    $url_replytoall_extra_addrs =
-      array_keys(array_flip($url_replytoall_extra_addrs);
+      array_keys(array_flip($url_replytoall_extra_addrs));
    
    // 5) Remove the addresses we'll be sending the message 'to'
    $url_replytoall_avoid_addrs = parseAddrs($message->header->replyto);
