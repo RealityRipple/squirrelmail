@@ -123,25 +123,13 @@ function delete_move_next_action() {
 
     global $PHP_SELF;
 
-    if ( !check_php_version(4,1) ) {
-        global $_GET, $_POST;
-    }
-
-    if (isset($_GET['delete_id'])) {
-        $delete_id = $_GET['delete_id'];
-    }
-    if (isset($_POST['move_id'])) {
-        $move_id = $_POST['move_id'];
-    }       
-
-    if (isset($delete_id)) {
+    if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
         delete_move_next_delete();
         fix_sort_array();
-    } elseif (isset($move_id)) {
+    } elseif ( sqgetGlobalVar('move_id', $move_id, SQ_POST) ) {
         delete_move_next_move();
         fix_sort_array();
     }
-
 }
 
 function delete_move_next_read_t() {
@@ -287,12 +275,8 @@ function delete_move_next_moveRightMainForm() {
 function delete_move_next_delete() {
     global $imapConnection, $auto_expunge;
 
-    if ( !check_php_version(4,1) ) {
-        global $_GET;
-    }
-
-    $delete_id = $_GET['delete_id'];
-    $mailbox = $_GET['mailbox'];
+    sqgetGlobalVar('delete_id', $delete_id, SQ_GET);
+    sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
     sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
     if ($auto_expunge) {
@@ -304,13 +288,9 @@ function delete_move_next_delete() {
 function delete_move_next_move() {
     global $imapConnection, $mailbox, $auto_expunge, $lastTargetMailbox;
 
-    if ( !check_php_version(4,1) ) {
-        global $_POST;
-    }
-
-    $move_id = $_POST['move_id'];
+    sqgetGlobalVar('move_id', $move_id, SQ_POST);
     sqgetGlobalVar('mailbox', $mailbox, SQ_FORM);
-    $targetMailbox = $_POST['targetMailbox'];
+    sqgetGlobalVar('targetMailbox', $targetMailbox, SQ_POST);
 
     // Move message
     sqimap_messages_copy($imapConnection, $move_id, $move_id, $targetMailbox);
@@ -364,48 +344,30 @@ function delete_move_next_display_save() {
 
     global $username,$data_dir;
 
-    if ( !check_php_version(4,1) ) {
-        global $_POST;
-    }
-
-    if (isset($_POST['delete_move_next_ti'])) {
-        $delete_move_next_ti = $_POST['delete_move_next_ti'];
-    }
-    if (isset($_POST['delete_move_next_bi'])) {
-        $delete_move_next_bi = $_POST['delete_move_next_bi'];
-    }
-    if (isset($_POST['delete_move_next_formATtopi'])) {
-        $delete_move_next_formATtopi = $_POST['delete_move_next_formATtopi'];
-    }
-    if (isset($_POST['delete_move_next_formATbottomi'])) {
-        $delete_move_next_formATbottomi = $_POST['delete_move_next_formATbottomi'];
-    }
-
-    if (isset($delete_move_next_ti)) {
+    if ( sqgetGlobalVar('delete_move_next_ti', $delete_move_next_ti, SQ_POST) ) {
         setPref($data_dir, $username, 'delete_move_next_t', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_t', "off");
     }
 
-    if (isset($delete_move_next_formATtopi)) {
+    if ( sqgetGlobalVar('delete_move_next_formATtopi', $delete_move_next_formATtopi, SQ_POST) ) {
         setPref($data_dir, $username, 'delete_move_next_formATtop', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_formATtop', "off");
     }
 
 
-    if (isset($delete_move_next_bi)) {
+    if ( sqgetGlobalVar('delete_move_next_bi', $delete_move_next_bi, SQ_POST) ) {
         setPref($data_dir, $username, 'delete_move_next_b', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_b', "off");
     }
 
-    if (isset($delete_move_next_formATbottomi)) {
+    if ( sqgetGlobalVar('delete_move_next_formATbottomi', $delete_move_next_formATbottomi, SQ_POST) ) {
         setPref($data_dir, $username, 'delete_move_next_formATbottom', 'on');
     } else {
         setPref($data_dir, $username, 'delete_move_next_formATbottom', "off");
     }
-
 }
 
 
