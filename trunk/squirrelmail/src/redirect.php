@@ -175,12 +175,13 @@ $attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
        } else {
           $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
        }
-       session_unregister('session_expired_location');
+       sqsession_unregister('session_expired_location');
        unset($session_expired_location);
-       if (is_array($attachments)) {
-          session_register('attachments');
+       if (is_array($compose_messages)) {
+          sqsession_register('compose_messages');
        }
     } else {
+/* need to be adapted to compose_messages.
        if (is_array($attachments)) {
           $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
           foreach ($attachments as $attachment) {
@@ -191,6 +192,7 @@ $attachments = unserialize(getPref($data_dir, $username, 'attachments', 0));
           }
           removePref($data_dir, $username, 'attachments');
        }
+*/       
        $redirect_url = 'webmail.php';
     }
 
@@ -214,6 +216,7 @@ function attachment_common_parse($str, $debug) {
             $attachment_common_types[$val] = true;
         }
     }
+    $_SESSION['attachment_common_types'] = $attachment_common_types;
 }
 
 
