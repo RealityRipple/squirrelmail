@@ -814,13 +814,29 @@ function sqimap_mailbox_tree($imap_stream) {
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
             if (preg_match("/^\*\s+LSUB.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
 	        $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
-                $has_inbox = true;
+                // in case of an unsubscribed inbox an imap server can
+                // return the inbox in the lsub results with a \NoSelect 
+                // flag.
+                if (!preg_match("/\*\s+LSUB\s+\(.*\\\\NoSelect.*\).*/i",$lsub_ary[$i])) {
+                    $has_inbox = true;
+                } else {
+                    // remove the result and request it again  with a list
+                    // response at a later stage.
+                    unset($lsub_ary[$i]);
+                }
                 break;
             }
         }
 
         if ($has_inbox == false) {
-            $lsub_ary[] = '* LSUB () NIL INBOX';
+            // do a list request for inbox because we should always show
+            // inbox even if the user isn't subscribed to it.
+            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" INBOX',
+                                             true, $response, $message);
+            $inbox_ary = compact_mailboxes_response($inbox_ary);
+            if (count($inbox_ary)) {
+                $lsub_ary[] = $inbox_ary[0];
+            }
         }
 
         /*
