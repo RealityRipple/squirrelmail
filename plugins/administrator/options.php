@@ -507,23 +507,23 @@ echo "<tr bgcolor=\"$color[0]\"><th colspan=2>" .
 
 if( $colapse['Group8'] == 'off' ) {
 
-    $fd = opendir( '../plugins/' );
-    $op_plugin = array();
-    $p_count = 0;
-    while (false!==($file = readdir($fd))) {
-        if ($file != '.' && $file != '..' && $file != 'CVS' ) {
-            if ( filetype( $file ) == 'dir' ) {
-                $op_plugin[] = $file;
-                $p_count++;
-            }
+  $plugpath = SM_PATH . 'plugins/';
+  if ( file_exists($plugpath) ) {
+      $fd = opendir( $plugpath );
+      $op_plugin = array();
+      $p_count = 0;
+      while (false !== ($file = readdir($fd))) {
+        if ($file != '.' && $file != '..' && $file != 'CVS' && is_dir($plugpath . $file) ) {
+            $op_plugin[] = $file;
+            $p_count++;
         }
-    }
-    closedir($fd);
-    asort( $op_plugin );
+      }
+      closedir($fd);
+      asort( $op_plugin );
 
-    /* Lets get the plugins that are active */
-    $plugins = array();
-    if ( isset( $HTTP_POST_VARS['plg'] ) ) {
+      /* Lets get the plugins that are active */
+      $plugins = array();
+      if ( isset( $HTTP_POST_VARS['plg'] ) ) {
         foreach ( $op_plugin as $plg ) {
             if ( isset( $HTTP_POST_VARS["plgs_$plg"] ) &&
                  $HTTP_POST_VARS["plgs_$plg"] == 'on' ) {
@@ -541,7 +541,7 @@ if( $colapse['Group8'] == 'off' ) {
             $newcfg[$k] = '';
             $i++;
         }
-    } else {
+      } else {
         $i = 0;
         while ( isset( $newcfg["\$plugins[$i]"] ) ) {
             $k = "\$plugins[$i]";
@@ -549,9 +549,9 @@ if( $colapse['Group8'] == 'off' ) {
             $plugins[] = substr( $v, 1, strlen( $v ) - 2 );
             $i++;
         }
-    }
-    echo "<tr><td colspan=2><input type=hidden name=plg value=on><center><table><tr><td>";
-    foreach ( $op_plugin as $plg ) {
+      }
+      echo "<tr><td colspan=2><input type=hidden name=plg value=on><center><table><tr><td>";
+      foreach ( $op_plugin as $plg ) {
         if ( in_array( $plg, $plugins ) ) {
             $sw = ' checked';
         } else {
@@ -560,9 +560,11 @@ if( $colapse['Group8'] == 'off' ) {
         echo '<tr>' .
              "<td>$plg</td><td><input$sw type=checkbox name=plgs_$plg></td>".
              "</tr>\n";
-    }
-    echo '</td></tr></table>';
-
+      }
+      echo '</td></tr></table></td></tr>';
+  } else {
+      echo '<tr><td colspan=2 align="center">Plugin directory could not be found: ' . $plugpath . "</td></tr>\n";
+  }
 }
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
      _("Change Settings") . "\" type=submit></th></tr>" ,
