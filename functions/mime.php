@@ -376,7 +376,7 @@ function mime_fetch_body ($imap_stream, $id, $ent_id ) {
     // that it is the first one.  That is usually the case anyway.
     if (!$ent_id)
         $ent_id = 1;
-    $data = sqimap_run_command ($imap_stream, " FETCH $id BODY[$ent_id]", true, $response, $message);
+    $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id]", true, $response, $message);
     $topline = array_shift($data);
     while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data)
         $topline = array_shift($data);
