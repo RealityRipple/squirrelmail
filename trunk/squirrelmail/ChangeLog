@@ -54,6 +54,7 @@ Version 1.5.0 -- CVS
     of just partial date/time based on time of email, and current date.
   - Fixed bug that would cause e-mails dated in the future to be displayed with only
     the time.
+  - Fixed unseen/total notifications to return behaviour back to 1.2.x style.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
