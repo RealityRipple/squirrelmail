@@ -287,7 +287,7 @@ if ($show == 'form' && empty($listall)) {
         
             if (sizeof($res) == 0) {
                 echo html_tag( 'p', '<br><b>' .
-                                 _("No persons matching your search was found") . "</b>\n" ,
+                                 _("No persons matching your search were found") . "</b>\n" ,
                        'center' ) .
                 "\n</BODY></HTML>\n";
                 exit;
