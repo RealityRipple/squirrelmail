@@ -34,9 +34,8 @@ if (!isset($frame_top)) {
 
 /* If a user hits reload on the last page, $base_uri isn't set
  * because it was deleted with the session. */
-if (! isset($base_uri)) {
-    ereg ('(^.*/)[^/]+/[^/]+$', $PHP_SELF, $regs);
-    $base_uri = $regs[1];
+if (!isset($base_uri)) {
+    $base_uri = dirname(dirname($PHP_SELF));
 }
 
 do_hook('logout');
@@ -76,7 +75,8 @@ CELLPADDING="2" ALIGN="CENTER">
     <TD ALIGN="CENTER">
       <?php do_hook('logout_above_text'); ?>
       <?php echo _("You have been successfully signed out.") ?><BR>
-      <A HREF="login.php" TARGET="<?php echo $frame_top ?>">
+      <A HREF="<?php echo "$base_uri/login.php" ?>" 
+           TARGET="<?php echo $frame_top ?>">
       <?php echo _("Click here to log back in.") ?>
       </A><BR><BR>
     </TD>

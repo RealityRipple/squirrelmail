@@ -66,9 +66,10 @@ require_once('../functions/page_header.php');
  */
 set_up_language($squirrelmail_language, TRUE);
 
-/* Need the base URI to set the cookies. (Same code as in webmail.php). */
-ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
-$base_uri = $regs[1];
+/**
+ * Find out the base URI to set cookies.
+ */
+$base_uri = dirname(dirname($PHP_SELF));
 @session_destroy();
 
 /*
@@ -76,7 +77,8 @@ $base_uri = $regs[1];
  * we get a new one.
  */
 $cookie_params = session_get_cookie_params();
-setcookie(session_name(),'',0,$cookie_params['path'].$cookie_params['domain']);
+setcookie(session_name(), '', 0, $cookie_params['path'], 
+          $cookie_params['domain']);
 setcookie('username', '', 0, $base_uri);
 setcookie('key', '', 0, $base_uri);
 header('Pragma: no-cache');
