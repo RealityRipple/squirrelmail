@@ -924,7 +924,7 @@ ECHO;
 }
 
 displayHtmlHeader( 'SquirrelMail', $xtra );
-
+sqgetGlobalVar('auto_create_done',$auto_create_done,SQ_SESSION);
 /* If requested and not yet complete, attempt to autocreate folders. */
 if ($auto_create_special && !isset($auto_create_done)) {
     $autocreate = array($sent_folder, $trash_folder, $draft_folder);
@@ -932,8 +932,11 @@ if ($auto_create_special && !isset($auto_create_done)) {
         if (($folder != '') && ($folder != 'none')) {
             if ( !sqimap_mailbox_exists($imapConnection, $folder)) {
                 sqimap_mailbox_create($imapConnection, $folder, '');
-            } else if (!sqimap_mailbox_is_subscribed($imapConnection, $folder)) {
-                sqimap_subscribe($imapConnection, $folder);
+            } else {
+                //if (!sqimap_mailbox_is_subscribed($imapConnection, $folder)) {
+                // check for subscription is useless and expensive  just 
+                // surpress the NO response
+                sqimap_subscribe($imapConnection, $folder, false);
             }
         }
     }
