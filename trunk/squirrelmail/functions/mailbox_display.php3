@@ -104,15 +104,17 @@
       echo "NextGroup: $nextGroup -- ";
       echo "PrevGroup: $prevGroup<BR>";
 
+      $urlMailbox = urlencode($mailbox);
+
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$mailbox\" TARGET=\"right\">Next</A>\n";
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$mailbox\" TARGET=\"right\">Previous</A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">Next</A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">Previous</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$mailbox\" TARGET=\"right\">Previous</A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">Previous</A>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$mailbox\" TARGET=\"right\">Next</A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">Next</A>\n";
       }
 
       /** This is the beginning of the message list table.  It wraps around all messages */
@@ -124,9 +126,9 @@
       echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>From</B></FONT></TD>";
       echo "   <TD WIDTH=15%><FONT FACE=\"Arial,Helvetica\"><B>Date</B></FONT>";
       if ($sort == 0)
-         echo "   <A HREF=\"right_main.php3?sort=1&startMessage=1&mailbox=$mailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php3?sort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else
-         echo "   <A HREF=\"right_main.php3?sort=0&startMessage=1&mailbox=$mailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+         echo "   <A HREF=\"right_main.php3?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       echo "   <TD WIDTH=*><FONT FACE=\"Arial,Helvetica\"><B>Subject</B></FONT></TD>\n";
       echo "</TR>";
 
