@@ -534,11 +534,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
     $messages = array();
     $read_list = array();
 
-    if (array_search('UID',$aFetchItems,true) !== false) {
-        $bUidFetch = false;
-    } else {
-        $bUidFetch = true;
-    }
+    $bUidFetch = ! in_array('UID', $aFetchItems, true);
 
     /* Get the small headers for each message in $msg_list */
     if ($show_num != '999999' && $show_num != '*' ) {

@@ -269,7 +269,7 @@ function sqimap_mailbox_expunge_dmn($imapConnection, &$aMailbox, $message_id) {
     $message_id = (int) $message_id; // we use strickt array_search
     if (is_array($aMailbox['UIDSET'])) {
         $key = array_search($message_id,$aMailbox['UIDSET'],true);
-        if ($key !== false) {
+        if ($key !== false && !is_null($key)) {
             unset($aMailbox['UIDSET'][$key]);
             $aMailbox['UIDSET'] = array_values($aMailbox['UIDSET']);
             // adapt the exists count to avoid triggering of a new sort
