@@ -553,7 +553,7 @@
    
          // If there are other types that shouldn't be formatted, add
          // them here 
-         if ($body_message->header->type1 != "html" && $show_html_default) {
+         if ($body_message->header->type1 != "html" || ! $show_html_default) {
             translateText($body, $wrap_at, $body_message->header->charset);
          }   
    
