@@ -10,8 +10,8 @@
  *
  * $Id$
  */
-require_once(SM_PATH . 'functions/imap_utf7_encode_local.php');
-require_once(SM_PATH . 'functions/imap_utf7_decode_local.php');
+require_once(SM_PATH . 'functions/imap_utf7_local.php');
+
 global $boxesnew;
 
 class mailboxes {

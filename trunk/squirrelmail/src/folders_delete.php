@@ -61,7 +61,7 @@ if(!isset($_POST['confirmed'])) {
         ) .
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[4] ) .
-        sprintf(_("Are you sure you want to delete %s?"), $mailbox).
+        sprintf(_("Are you sure you want to delete %s?"), imap_utf7_decode_local($mailbox)).
         '<FORM ACTION="folders_delete.php" METHOD="POST"><p>'.
 
         '<INPUT TYPE=HIDDEN NAME="mailbox" VALUE="'.$mailbox."\">\n" .
