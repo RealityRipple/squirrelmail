@@ -309,13 +309,14 @@ $session_name = 'SQMSESSID'             if ( !$session_name );
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 $available_languages = 'all'            if ( !$available_languages );
 $aggressive_decoding = 'false'          if ( !$aggressive_decoding );
-$lossy_encoding = 'false'        if ( !$lossy_encoding );
+$lossy_encoding = 'false'               if ( !$lossy_encoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $oldway = 'false'                       if ( !$oldway );
 $use_icons = 'false'                    if ( !$use_icons );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
 $skip_SM_header = 'false'               if ( !$skip_SM_header ); 
+$default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
 
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
@@ -3235,11 +3236,8 @@ sub save_data {
         }
         print CF "\n";
 
-        if ( $default_use_javascript_addr_book ne 'true' ) {
-            $default_use_javascript_addr_book = 'false';
-        }
-
-    # boolean
+        ## Address books
+        # boolean
         print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
         for ( $count = 0 ; $count <= $#ldap_host ; $count++ ) {
             print CF "\$ldap_server[$count] = array(\n";
