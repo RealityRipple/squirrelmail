@@ -196,7 +196,7 @@ if (empty($query) && empty($show) && empty($listall)) {
     echo html_tag( 'p', '<br />' .
                       _("No persons matching your search were found"),
             'center' ) .
-          "\n</body></html>\n",
+          "\n</body></html>\n";
     exit;
 }
 
