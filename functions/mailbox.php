@@ -60,7 +60,7 @@
          } else {
             $rel_end = $end;
          }
-         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date To Cc)\n");
+         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date)\n");
          $read = fgets($imapConnection, 1024);
 
          while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
@@ -272,8 +272,13 @@
             $cont = strtolower(trim(substr($read, 13)));
             if (strpos($cont, ";"))
                $cont = substr($cont, 0, strpos($cont, ";"));
-            $header["TYPE0"] = substr($cont, 0, strpos($cont, "/"));
-            $header["TYPE1"] = substr($cont, strpos($cont, "/")+1);
+
+            if (strpos($cont, "/")) {
+               $header["TYPE0"] = substr($cont, 0, strpos($cont, "/"));
+               $header["TYPE1"] = substr($cont, strpos($cont, "/")+1);
+            } else {
+               $header["TYPE0"] = $cont;
+            }
 
             $line = $read;
             $read = fgets($imapConnection, 1024);
@@ -315,20 +320,20 @@
          }
 
          /** REPLY-TO **/
-         else if (substr($read, 0, 9) == "Reply-To:") {
+         else if (strtolower(substr($read, 0, 9)) == "reply-to:") {
             $header["REPLYTO"] = trim(substr($read, 9, strlen($read)));
             $read = fgets($imapConnection, 1024);
          }
 
          /** FROM **/
-         else if (substr($read, 0, 5) == "From:") {
+         else if (strtolower(substr($read, 0, 5)) == "from:") {
             $header["FROM"] = trim(substr($read, 5, strlen($read) - 6));
             if ($header["REPLYTO"] == "")
                $header["REPLYTO"] = $header["FROM"];
             $read = fgets($imapConnection, 1024);
          }
          /** DATE **/
-         else if (substr($read, 0, 5) == "Date:") {
+         else if (strtolower(substr($read, 0, 5)) == "date:") {
             $d = substr($read, 5, strlen($read) - 6);
             $d = trim($d);
             $d = ereg_replace("  ", " ", $d);
@@ -337,14 +342,14 @@
             $read = fgets($imapConnection, 1024);
          }
          /** SUBJECT **/
-         else if (substr($read, 0, 8) == "Subject:") {
+         else if (strtolower(substr($read, 0, 8)) == "subject:") {
             $header["SUBJECT"] = trim(substr($read, 8, strlen($read) - 9));
             if (strlen(Chop($header["SUBJECT"])) == 0)
                $header["SUBJECT"] = "(no subject)";
             $read = fgets($imapConnection, 1024);
          }
          /** CC **/
-         else if (substr($read, 0, 3) == "CC:") {
+         else if (strtolower(substr($read, 0, 3)) == "cc:") {
             $pos = 0;
             $header["CC"][$pos] = trim(substr($read, 4));
             $read = fgets($imapConnection, 1024);
@@ -355,7 +360,7 @@
             }
          }
          /** TO **/
-         else if (substr($read, 0, 3) == "To:") {
+         else if (strtolower(substr($read, 0, 3)) == "to:") {
             $pos = 0;
             $header["TO"][$pos] = trim(substr($read, 4));
             $read = fgets($imapConnection, 1024);
@@ -429,8 +434,13 @@
             $cont = strtolower(trim(substr($read[$i], 13)));
             if (strpos($cont, ";"))
                $cont = substr($cont, 0, strpos($cont, ";"));
-            $type0 = substr($cont, 0, strpos($cont, "/"));
-            $type1 = substr($cont, strpos($cont, "/")+1);
+
+            if (strpos($cont, "/")) {
+               $type0 = substr($cont, 0, strpos($cont, "/"));
+               $type1 = substr($cont, strpos($cont, "/")+1);
+            } else {
+               $type0 = $cont;
+            }
 
             $line = $read[$i];
             while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
@@ -498,6 +508,7 @@
 
       $line = str_replace(" ", "&nbsp;", $line);
       $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
+      $line = str_replace("\n", "", $line);
 
       /** if >> or > are found at the beginning of a line, I'll assume that was
           replied text, so make it different colors **/
