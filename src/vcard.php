@@ -29,7 +29,7 @@ $mailbox = decodeHeader($_GET['mailbox']);
 $passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $passed_ent_id = $_GET['passed_ent_id'];
-$QUERY_STRING = $_SERVER['QUERY_STRING'];
+$startMessage = (int) $_GET['startMessage'];
 /* end globals */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -43,8 +43,12 @@ echo '<br><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
         '<tr><td bgcolor="' . $color[0] . '">' .
         '<b><center>' .
         _("Viewing a Business Card") . " - ";
-$msg_url = 'read_body.php?' . urlencode(strip_tags(urldecode($QUERY_STRING)));
+$msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
+    '&amp;startMessage='.$startMessage.
+    '&amp;passed_id='.$passed_id;
+
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
+
 echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
 echo '</center></b></td></tr>';
