@@ -41,7 +41,6 @@ class Rfc822Header {
         if (is_array($hdr)) {
             $hdr = implode('', $hdr);
         }
-
         /* First we unfold the header */
         $hdr = trim(str_replace(array("\r\n\t", "\r\n "),array('', ''), $hdr));
 
@@ -268,6 +267,7 @@ class Rfc822Header {
                 $is_encoded = true;
                 break;
             case '"': /* get the personal name */
+                //$name .= parseString($address,$pos);
                 $start_encoded = $pos;
                 ++$pos;
                 if ($address{$pos} == '"') {
@@ -304,17 +304,27 @@ class Rfc822Header {
                 }
                 break;
             case '(':  /* rip off comments */
-                $addr_start = $pos;
+                $comment_start = $pos;
                 $pos = strpos($address,')');
                 if ($pos !== false) {
-                    $comment = substr($address, $addr_start+1,($pos-$addr_start-1));
-                    $address_start = substr($address, 0, $addr_start);
+                    $comment = substr($address, $comment_start+1,($pos-$comment_start-1));
+                    $address_start = substr($address, 0, $comment_start);
                     $address_end   = substr($address, $pos + 1);
                     $address       = $address_start . $address_end;
                 }
                 $j = strlen($address);
-                $pos = $addr_start + 1;
+                if ($comment_start) {
+                    $pos = $comment_start-1;
+                } else {
+                    $pos = 0;
+                }
                 break;
+            case ';':
+                if ($group) {
+                    $address = substr($address, 0, $pos - 1);
+                    ++$pos;
+                    break;
+                }
             case ',':  /* we reached a delimiter */
                 if (!$name && !$addr) {
                     $addr = substr($address, 0, $pos);
@@ -384,12 +394,6 @@ class Rfc822Header {
                 $j = strlen($address);
                 $group = '';
                 break;
-            case ';':
-                if ($group) {
-                    $address = substr($address, 0, $pos - 1);
-                }
-                ++$pos;
-                break;
             case ' ':
                 ++$pos;
                 break;
@@ -429,6 +433,9 @@ class Rfc822Header {
                                 if ($i_del) {
                                     $addr = substr($address,$pos,$i_del-$pos);
                                     $pos = $i_del;
+                                } else if ($i_space) {
+                                    $addr = substr($address,$pos,$i_space-$pos);
+                                    $pos = $i_space+1;
                                 } else {
                                     $addr = substr($address,$pos);
                                     $pos = $j;
@@ -436,7 +443,7 @@ class Rfc822Header {
                             }
                         } else {
                             if ($i_space) {
-                                $name .= substr($address,$pos,$i_space-$pos) .  ' ';
+                                $name .= substr($address,$pos,$i_space-$pos) . ' ';
                                 $addr_start = $i_space+1;
                                 $pos = $i_space+1;
                             } else {
