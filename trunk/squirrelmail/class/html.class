@@ -118,7 +118,8 @@ class html {
     if ($xtr_prop) {
        echo ' '.$prop;
     }
-    if ($style && !$usecss) {
+    if ($style && !$usecss && !is_array($style)) {
+       /* last premisse is to prevent 'style="Array"' in the output */
        echo ' style="'.$style.'"';  
     }
     if ($javascript) {
@@ -133,7 +134,7 @@ class html {
 	  echo $text;
           foreach ($style as $k => $v) { /* if value of key value = true close the tag */
 	    if ($v) {
-               echo '</'.$v.'>';
+               echo '</'.$k.'>';
 	    }   
 	  }
        } else {
@@ -148,15 +149,15 @@ class html {
 	  }
        }
        echo "\n";
-       $indent.='  ';
+       $indentmore = $indent . '  ';
        for($i = 0;$i<$cnt;$i++) {
           $el = $this->html_el[$i];
-	  $el->echoHtml($usecss,$indent);
+	  $el->echoHtml($usecss,$indentmore);
        }
        if ($style && !$usecss) {       
           foreach ($style as $k => $v) { /* if value of key value = true close the tag */
 	    if ($v) {
-               echo '</'.$v.'>';
+               echo '</'.$k.'>';
 	    }   
 	  }
        }
