@@ -98,7 +98,8 @@ function printMessageInfo($aMsg) {
         $email_address,
         $show_recipient_instead,    /* show recipient name instead of default identity */
         $use_icons,                 /* indicates to use icons or text markers */
-        $icon_theme;                /* icons theming */
+        $icon_theme,                /* icons theming */
+        $javascript_on;
 
     $color_string = $color[4];
 
@@ -302,7 +303,28 @@ function printMessageInfo($aMsg) {
     $sSubject = str_replace('&nbsp;', ' ', decodeHeader($sSubject));
     $subject = processSubject($sSubject, $iIndent);
 
-    echo html_tag( 'tr','','','','valign="top"') . "\n";
+
+    $row_extra = 'valign="top"';
+
+
+    // this stuff does the auto row highlighting on mouseover
+    //
+    if ($javascript_on) {
+        $mouseoverColor = $color[5];
+        $clickedColor = $color[2];
+        $row_extra .= ' onmouseover="setPointer(this, ' . $t . ', \'over\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmouseout="setPointer(this, ' . $t . ', \'out\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmousedown="setPointer(this, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
+    }
+
+
+    echo html_tag( 'tr','','','',$row_extra) . "\n";
+
+
+    // this does the auto-checking of the checkbox no matter 
+    // where on the row you click
+    //
+    if ($javascript_on)
+        $javascript_auto_click = ' onMouseDown="if (document.getElementById(msg[' . $t . '])) { document.getElementById(msg[' . $t . ']).checked = (document.getElementById(msg[' . $t . ']).checked ? false : true); }"';
+
 
     if (sizeof($index_order)) {
 
@@ -311,24 +333,30 @@ function printMessageInfo($aMsg) {
         // except the subject column, since it is the link that opens
         // the message view
         //
-        $get_next_two = 0;
-        $last_order_part = 0;
-        $last_last_order_part = 0;
+        // if $javascript_on is set, then the highlighting code takes 
+        // care of this; just skip it
+        //
         $show_label_columns = array();
-        foreach ($index_order as $index_order_part) {
-            if ($index_order_part == 1) {
-                $get_next_two = 1;
-                if ($last_last_order_part != 4)
-                   $show_label_columns[] = $last_last_order_part;
-                if ($last_order_part != 4)
-                   $show_label_columns[] = $last_order_part;
-
-            } else if ($get_next_two > 0 && $get_next_two < 3 && $index_order_part != 4) {
-                $show_label_columns[] = $index_order_part;
-                $get_next_two++;
+        if (!$javascript_on) {
+            $get_next_two = 0;
+            $last_order_part = 0;
+            $last_last_order_part = 0;
+            foreach ($index_order as $index_order_part) {
+    
+                if ($index_order_part == 1) {
+                    $get_next_two = 1;
+                    if ($last_last_order_part != 4)
+                       $show_label_columns[] = $last_last_order_part;
+                    if ($last_order_part != 4)
+                       $show_label_columns[] = $last_order_part;
+    
+                } else if ($get_next_two > 0 && $get_next_two < 3 && $index_order_part != 4) {
+                    $show_label_columns[] = $index_order_part;
+                    $get_next_two++;
+                }
+                $last_last_order_part = $last_order_part;
+                $last_order_part = $index_order_part;
             }
-            $last_last_order_part = $last_order_part;
-            $last_order_part = $index_order_part;
         }
 
 
@@ -360,7 +388,7 @@ function printMessageInfo($aMsg) {
                             $label_start . $italic . $bold . $flag . $fontstr . $senderName .
                             $fontstr_end . $flag_end . $bold_end . $italic_end . $label_end,
                             'left',
-                            $hlt_color, $title );
+                            $hlt_color, $title . $javascript_auto_click);
                 break;
             case 3: /* date */
                 if ($sDate == '') {
@@ -371,7 +399,7 @@ function printMessageInfo($aMsg) {
                             $fontstr_end . $flag_end . $bold_end . $label_end,
                             'center',
                             $hlt_color,
-                            'style="white-space: nowrap;"' );
+                            'style="white-space: nowrap;"' . $javascript_auto_click );
                 break;
             case 4: /* subject */
                 $td_str = $bold;
@@ -390,7 +418,7 @@ function printMessageInfo($aMsg) {
                     $td_str .= " title=\"$title\"";
                 }
                 $td_str .= ">$flag$subject$flag_end</a>$bold_end";
-                echo html_tag( 'td', $td_str, 'left', $hlt_color );
+                echo html_tag( 'td', $td_str, 'left', $hlt_color, $javascript_auto_click );
                 break;
             case 5: /* flags */
 
@@ -442,7 +470,7 @@ function printMessageInfo($aMsg) {
                                 $label_start . $td_str . $label_end,
                                 'right',
                                 $hlt_color,
-                                'style="white-space: nowrap;"' );
+                                'style="white-space: nowrap;"' . $javascript_auto_click );
                 }
 
                 // plain text message markers
@@ -480,7 +508,7 @@ function printMessageInfo($aMsg) {
                                 $label_start . $td_str . $label_end,
                                 'center',
                                 $hlt_color,
-                                'style="white-space: nowrap;"' );
+                                'style="white-space: nowrap;"' . $javascript_auto_click );
                 }
                 break;
             case 6: /* size */
@@ -488,7 +516,7 @@ function printMessageInfo($aMsg) {
                             $label_start . $bold . $fontstr . show_readable_size($iSize) .
                             $fontstr_end . $bold_end . $label_end,
                             'right',
-                            $hlt_color );
+                            $hlt_color, $javascript_auto_click );
                 break;
             }
             ++$col;
