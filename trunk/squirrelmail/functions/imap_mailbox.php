@@ -11,39 +11,44 @@
  * $Id$
  */
 
+function isBoxBelow( $box2, $box1 ) {
+
+    global $delimiter, $folder_prefix, $imap_server_type;
+
+    if ( $imap_server_type == 'uw' ) {
+        $boxs = $box2;
+        $i = strpos( $box1, $delimiter, strlen( $folder_prefix ) );
+        if ( $i === FALSE ) {
+            $i = strlen( $box2 );
+        }
+    } else {
+        $boxs = $box2 . $delimiter;
+        // Skip next second delimiter
+        $i = strpos( $box1, $delimiter );
+        $i = strpos( $box1, $delimiter, $i + 1  );
+        if ( $i === FALSE ) {
+            $i = strlen( $box2 );
+        } else {
+            $i++;
+        }
+    }
+
+    return( substr( $box1, 0, $i ) == substr( $boxs, 0, $i ) );
+
+}
+
 /*
     Defines Special Mail Boxes
 */
-
 function isSpecialMailbox( $box ) {
 
     global $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
            $delimiter, $folder_prefix, $imap_server_type;
 
-    if ( $imap_server_type == 'uw' ) {
-        $boxs = $box;
-        $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
-        if ( $i === FALSE ) {
-            $i = strlen( $box );
-        }
-    } else {
-        $boxs = $box . $delimiter;
-        // Skip next second delimiter
-        $i = strpos( $sent_folder, $delimiter );
-        $i = strpos( $sent_folder, $delimiter, $i + 1  );
-        if ( $i === FALSE ) {
-            $i = strlen( $box );
-        } else {
-            $i++;
-        }
-    }
-
     $ret = ( (strtolower($box) == 'inbox') ||
-             ( substr( $trash_folder, 0, $i ) == substr( $boxs, 0, $i ) &&
-              $move_to_trash) ||
-             ( substr( $sent_folder, 0, $i ) == substr( $boxs, 0, $i ) &&
-              $move_to_sent) ||
+             ( $move_to_trash && isBoxBelow( $box, $trash_folder ) ) ||
+             ( $move_to_sent && isBoxBelow( $box, $sent_folder )) ||
              ($box == $draft_folder &&
               $save_as_draft) );
 
