@@ -128,7 +128,7 @@
 	      strtolower($boxes[$i]["unformatted"]) != "inbox.trash"))
 	    {
 	       $box = $boxes[$i]["unformatted-dm"];
-	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
 	       echo "         <OPTION VALUE=\"$box\">$box2\n";
 	    }
       }
@@ -172,11 +172,11 @@
          if ($noinf == false) {
             if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
                $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["formatted"]);
+               $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
                echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
             } else {
                $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["formatted"]);
+               $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
                if (strtolower($imap_server_type) != "courier" ||
                   strtolower($box) != "inbox.trash")
                 echo "<OPTION VALUE=\"$box\">$box2\n";
@@ -185,11 +185,11 @@
       } else {
          if ((strtolower($boxes[$i]["unformatted"]) == "inbox") && ($default_sub_of_inbox == true)) {
             $box = $boxes[$i]["unformatted"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
             echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
          } else {
             $box = $boxes[$i]["unformatted"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
            if (strtolower($imap_server_type) != "courier" ||
                strtolower($box) != "inbox.trash")
              echo "<OPTION VALUE=\"$box\">$box2\n";
@@ -223,7 +223,7 @@
 	     ($boxes[$i]["unformatted"] != $sent_folder)) 
 	    {	
 	       $box = $boxes[$i]["unformatted-dm"];
-	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
 	       if (strtolower($imap_server_type) != "courier" || strtolower($box) != "inbox.trash")
 		  echo "<OPTION VALUE=\"$box\">$box2\n";
 	    }
@@ -256,7 +256,7 @@
 	     ($boxes[$i]["unformatted"] != $sent_folder)) 
 	    {	
 	       $box = $boxes[$i]["unformatted-dm"];
-	       $box2 = replace_spaces($boxes[$i]["formatted"]);
+	       $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
 	       echo "         <OPTION VALUE=\"$box\">$box2\n";
 	    }
       }
@@ -291,7 +291,7 @@
       }
       if ($use_folder == true) {	
 	 $box[$q] = $boxes_all[$i]["unformatted-dm"];
-	 $box2[$q] = $boxes_all[$i]["unformatted"];
+	 $box2[$q] = $boxes_all[$i]["unformatted-disp"];
 	 $q++;
       }
    }

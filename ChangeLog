@@ -1,5 +1,6 @@
 Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- Folder displays have been changed to be more readable in drop-down lists
 - For security, login verification happens, then we're redirected to webmail.php
 - Folder sorting now case insensative
 - added config option to set IMAP folder delimiter rather than always detecting it
