@@ -1,7 +1,7 @@
 Sorry for the incomplete documentation at this time.  Here is a quick
 overview of how to install SquirrelMail.
 
-1.  Compile Apache (or whatever web server) with PHP4 capabilities.
+1.  Make Apache (or whatever web server) happy with PHP4.
 
 2.  Unarchive SquirrelMail in a subdirectory that is accessable by the
     web server.  EX: /home/httpd/html/squirrelmail-0.1
