@@ -779,10 +779,16 @@ function korean_charset_xtra() {
     return $ret;
 }
 
-/* 
+/**
+ * Replaces non-braking spaces inserted by some browsers with regular space
+ * 
  * This function can be used to replace non-braking space symbols 
  * that are inserted in forms by some browsers instead of normal 
  * space symbol.
+ *
+ * @param string $string Text that needs to be cleaned
+ * @param string $charset Charset used in text
+ * @return string Cleaned text
  */
 function cleanup_nbsp($string,$charset) {
 
@@ -822,6 +828,15 @@ endswitch;
  return str_replace($nbsp,' ',$string);
 }
 
+/**
+ * Function informs if it is safe to convert given charset to the one that is used by user.
+ *
+ * It is safe to use conversion only if user uses utf-8 encoding and when 
+ * converted charset is similar to the one that is used by user.
+ *
+ * @param string $input_charset Charset of text that needs to be converted
+ * @return bool is it possible to convert to user's charset
+ */
 function is_conversion_safe($input_charset) {
   global $languages, $sm_notAlias, $default_charset;
 
