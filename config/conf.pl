@@ -663,11 +663,13 @@ sub command2a {
     if ( $new_org_logo_width eq '' ) {
         $new_org_logo_width = $org_logo_width;
     }
-    print "Height: [$WHT$org_logo_height$NRM]: $WHT";
-    $new_org_logo_height = <STDIN>;
-    $new_org_logo_height =~ tr/0-9//cd;  # only want digits!
-    unless ( $new_org_logo_height > 0 ) {
+    if ( $new_org_logo_height > 0 ) {
+    	print "Height: [$WHT$org_logo_height$NRM]: $WHT";
+    	$new_org_logo_height = <STDIN>;
+    	$new_org_logo_height =~ tr/0-9//cd;  # only want digits!
         $new_org_logo_height = $org_logo_height;
+    } else {
+	$new_org_logo_height = 0;
     }
     return ($new_org_logo_width, $new_org_logo_height);
 }
