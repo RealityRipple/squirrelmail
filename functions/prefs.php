@@ -11,7 +11,7 @@
    function getPref($data_dir, $username, $string) {
       $filename = "$data_dir$username.pref";
       if (!file_exists($filename)) {
-         echo _("Preference file ") . "\"$filename\"" . _(" not found.  Exiting abnormally");
+	 printf (_("Preference file %s not found. Exiting abnormally"), $filename);
          exit;
       }
 
@@ -33,7 +33,8 @@
       $filename = "$data_dir$username.pref";
       $found = false;
       if (!file_exists($filename)) {
-         echo _("Preference file, ") . "\"$filename\"" . _(", does not exist.  Log out, and log back in to create a default preference file. ") ."<BR>";
+	 printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
+	 echo "<br>\n";
          exit;
       }
       $file = fopen($filename, "r");
@@ -71,7 +72,8 @@
       $filename = "$data_dir$username.pref";
       $found = false;
       if (!file_exists($filename)) {
-         echo _("Preference file, ") . "\"$filename\"" . _(", does not exist.  Log out, and log back in to create a default preference file. ") ."<BR>";
+	 printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
+	 echo "\n<br>\n";
          exit;
       }
       $file = fopen($filename, "r");
