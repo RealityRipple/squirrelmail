@@ -154,7 +154,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     // Don't kill the connection if the browser is over a dialup
     // and it would take over 30 seconds to download it.
 
-    // donŽ´t call set_time_limit in safe mode.
+    // don´t call set_time_limit in safe mode.
     if (!ini_get("safe_mode")) {
         set_time_limit(0);
     }
@@ -349,9 +349,14 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         // them here
         if ($body_message->header->type1 == 'html') {
             if ( $show_html_default <> 1 ) {
+                $entity_conv = array('&nbsp;' => ' ',
+                                     '&gt;'   => '>',
+                                     '&lt;'   => '<');
                 $body = strip_tags( $body );
-                translateText($body, $wrap_at, 
-		  $body_message->header->getParameter['charset']);
+                $body = strtr($body, $entity_conv);
+                $body = trim($body);
+                translateText($body, $wrap_at,
+                              $body_message->header->getParameter['charset']);
             } else {
                 $body = magicHTML( $body, $id, $message, $mailbox );
             }
