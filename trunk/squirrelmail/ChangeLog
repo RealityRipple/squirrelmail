@@ -57,6 +57,9 @@ Version 1.5.1 -- CVS
   - Disabled Korean extra functions, because they don't provide all required 
     options and message composition is broken.
   - Added Basque translation support.
+  - Remove flag buttons / links from display if mailbox doesn't allow it.
+  - Make used of cached ordered uid list in case of server_side_sorting.
+
 
 Version 1.5.0
 --------------------
