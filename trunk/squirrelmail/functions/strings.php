@@ -114,44 +114,39 @@
    }
 
    function translateText($body, $wrap_at, $charset) {
-      include ("../functions/url_parser.php");
-      /** Add any parsing you want to in here */
+      if (!isset($url_parser_php)) {
+         include "../functions/url_parser.php";
+      }
+      
       $body_ary = explode("\n", $body);
-
-      for ($i = 0; $i < count($body_ary); $i++) {
+      for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
-         $line = "^^$line";
-
-         //$line = str_replace(">", "&gt;", $line);
-         //$line = str_replace("<", "&lt;", $line);
-         //$line = htmlspecialchars($line);
-
-         if (strlen($line) >= $wrap_at) // -2 because of the ^^ at the beginning
-            $line = wordWrap($line, $wrap_at);
-
          $line = charset_decode($charset, $line);
-
+         
          $line = str_replace(" ", "&nbsp;", $line);
          $line = str_replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;", $line);
          $line = nl2br($line);
 
-         if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;&gt;") == 2) {
-            $line = substr($line, 2, strlen($line));
-            $line = "<TT><FONT COLOR=FF0000>$line</FONT></TT><BR>\n";
-         } else if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;") == 2) {
-            $line = substr($line, 2, strlen($line));
-            $line = "<TT><FONT COLOR=800000>$line</FONT></TT><BR>\n";
-         } else {
-            $line = substr($line, 2, strlen($line));
-            $line = "<TT><FONT COLOR=000000>$line</FONT></TT><BR>\n";
-         }
-
          $line = parseEmail ($line);
          $line = parseUrl ($line);
-         $new_body[$i] = "$line";
+
+         $line = "^^$line"; // gotta do this because if not, strpos() returns 0 
+                            // which in PHP is the same as false.  Now it returns 2
+         if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;&gt;") == 2) {
+            $line = substr($line, 2);
+            $line = "<FONT COLOR=FF0000>$line</FONT>\n";
+         } else if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;") == 2) {
+            $line = substr($line, 2);
+            $line = "<FONT COLOR=800000>$line</FONT>\n";
+         } else {
+            $line = substr($line, 2);
+         } 
+         
+         $body_ary[$i] = "<tt>$line</tt><br>";
       }
-      $bdy = implode("\n", $new_body);
-      return $bdy;
+      $body = implode("\n", $body_ary);
+      
+      return $body;
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */

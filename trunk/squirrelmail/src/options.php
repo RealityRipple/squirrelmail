@@ -152,7 +152,7 @@
    </td>
 </tr>
 </table>
-   <?
+   <?php
       do_hook("options_link_and_description")
    ?>
 </body></html>

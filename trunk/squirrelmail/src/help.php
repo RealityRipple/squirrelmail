@@ -87,8 +87,8 @@
 
 <br>
 <table width=95% align=center cellpadding=2 cellspacing=2 border=0>
-<tr><td bgcolor="<? echo $color[0] ?>">
-   <center><b><? echo _("Help") ?></b></center>
+<tr><td bgcolor="<?php echo $color[0] ?>">
+   <center><b><?php echo _("Help") ?></b></center>
 </td></tr></table>
 
 
@@ -184,6 +184,6 @@
       }
    }
 ?>
-<tr><td bgcolor="<? echo $color[0] ?>">&nbsp;</td></tr></table>
+<tr><td bgcolor="<?php echo $color[0] ?>">&nbsp;</td></tr></table>
 <td></tr></table>
 </body></html>
