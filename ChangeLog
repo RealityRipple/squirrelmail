@@ -1,6 +1,7 @@
 Version 1.0 -- DEVELOPMENT
 --------------------------
 - Fixed problems in sqimap_read_body(), made it more reliable
+- Updated Sweedish translation
 
 Version 1.0pre3 -- January 22, 2001 
 -----------------------------------
