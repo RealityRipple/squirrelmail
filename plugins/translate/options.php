@@ -9,9 +9,14 @@
  * Pick your translator to translate the body of incoming mail messages
  *
  * $Id$
+ * @package plugins
+ * @subpackage translate
  */
 
-/* Path for SquirrelMail required files. */
+/**
+ * Path for SquirrelMail required files.
+ * @ignore
+ */
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */

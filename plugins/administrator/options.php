@@ -9,8 +9,13 @@
  * Philippe Mingo
  *
  * $Id$
+ * @package plugins
+ * @subpackage administrator
  */
 
+/**
+ * parse the config file
+ */
 function parseConfig( $cfg_file ) {
 
     global $newcfg;
@@ -195,6 +200,7 @@ function change_to_sm_path($old_path) {
 
 /* ---------------------- main -------------------------- */
 
+/** @ignore */
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */

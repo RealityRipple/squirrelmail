@@ -12,8 +12,13 @@
  * fortune above the message listing.
  *
  * $Id$
+ * @package plugins
+ * @subpackage fortune
  */
 
+/**
+*
+*/
 function squirrelmail_plugin_init_fortune() {
   global $squirrelmail_plugin_hooks;
   

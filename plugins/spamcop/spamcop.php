@@ -5,9 +5,12 @@
     **  Copyright (c) 1999-2003 The SquirrelMail development team
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **  
-    **  $Id$                                                         
+    **  $Id$
+    * @package plugins
+    * @subpackage spamcop
     **/
 
+/** @ignore */
 define('SM_PATH','../../');
 
  /* SquirrelMail required files. */

@@ -1,6 +1,7 @@
 <?PHP
 
-/* functions for info plugin
+/**
+ * functions for info plugin
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
@@ -12,13 +13,22 @@
  * by: Jason Munro jason@stdbev.com
  *
  * $Id$ 
- *
+ * @package plugins
+ * @subpackage info
  */
 
+/**
+ * Get the IMAP capabilities
+ * @return array
+ */
 function get_caps($imap_stream) {
     return sqimap_run_command_list($imap_stream, 'CAPABILITY',false, $responses, $message,false);
 }
 
+/**
+ * Run an IMAP test and return the results
+ * @return array Response from the IMAP server
+ */
 function imap_test($imap_stream, $string) {
     global $default_charset;
     print "<TR><TD>".$string."</TD></TR>";
@@ -27,6 +37,9 @@ function imap_test($imap_stream, $string) {
     return $response;
 }
 
+/**
+ * Print the IMAP response to options.php
+ */
 function print_response($response) {
     foreach($response as $index=>$value) {
         if (is_array($value)) {

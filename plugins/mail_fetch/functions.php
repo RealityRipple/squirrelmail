@@ -13,8 +13,13 @@
     **  Adapted for MailFetch by Philippe Mingo <mingo@rotedic.com>
     **
     **  $Id$
+    * @package plugins
+    * @subpackage mail_fetch
     **/
 
+    /**
+     * hex2bin - document me
+     */
     function hex2bin( $data ) {
 
         /* Original code by josh@superfork.com */

@@ -7,9 +7,13 @@
 * Licensed under the GNU GPL. For full terms see the file COPYING.
 * 
 * $Id$
+* @package plugins
+* @subpackage message_details
 **/
 
-
+/**
+ * Initialize the plugin
+ */
 function squirrelmail_plugin_init_message_details()
 {
   global $squirrelmail_plugin_hooks;

@@ -9,13 +9,18 @@
  * This is a standard Squirrelmail-1.2 API for plugins.
  *
  * $Id$
+ * @package plugins
+ * @subpackage bug_report
  */
 
 /* This button fills out a form with your setup information already
    gathered -- all you have to do is type. */
 
 
-/* Initialize the bug report plugin */
+/**
+ * Initialize the bug report plugin
+ * @return void
+ */
 function squirrelmail_plugin_init_bug_report() {
     global $squirrelmail_plugin_hooks;
 

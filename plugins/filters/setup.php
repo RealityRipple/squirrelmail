@@ -22,9 +22,11 @@
  * Also view plugins/README.plugins for more information.
  *
  * $Id$
+ * @package plugins
+ * @subpackage filters
  */
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'plugins/filters/filters.php');
 
 /*

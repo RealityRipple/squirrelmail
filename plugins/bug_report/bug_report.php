@@ -14,8 +14,13 @@
  * This is a standard Squirrelmail-1.2 API for plugins.
  *
  * $Id$
+ * @package plugins
+ * @subpackage bug_report
  */
 
+/**
+ * @ignore
+ */
 define('SM_PATH','../../');
 
 require_once(SM_PATH . 'include/validate.php');

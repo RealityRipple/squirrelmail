@@ -9,8 +9,13 @@
  * This is a standard Squirrelmail-1.2 API for plugins.
  *
  * $Id$
+ * @package plugins
+ * @subpackage sent_subfolders
  */
 
+/** 
+ * 
+ */
 define('SMPREF_SENT_SUBFOLDERS_DISABLED',  0);
 define('SMPREF_SENT_SUBFOLDERS_YEARLY',    1);
 define('SMPREF_SENT_SUBFOLDERS_QUARTERLY', 2);

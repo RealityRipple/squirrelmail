@@ -11,7 +11,12 @@
  * Displays the main calendar page (month view).
  *
  * $Id$
+ * @package plugins
+ * @subpackage calendar
  */
+
+/**
+*/
 define('SM_PATH','../../');
 
 /* Calender plugin required files. */

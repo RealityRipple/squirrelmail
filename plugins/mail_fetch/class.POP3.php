@@ -14,8 +14,13 @@
     * pop3 class
     *
     * $Id$
+    * @package plugins
+    * @subpackage mail_fetch
     */
 
+/**
+ * This is the pop3 class - DOCUMENT ME
+ */
 class POP3 {
     var $ERROR      = '';       //  Error string.
 

@@ -23,9 +23,11 @@
  * Also view plugins/README.plugins for more information.
  *
  * $Id$
+ * @package plugins
+ * @subpackage filters
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */

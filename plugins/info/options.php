@@ -1,6 +1,7 @@
 <?PHP
 
-/* options page for IMAP info plugin 
+/**
+ * options page for IMAP info plugin 
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *   
@@ -10,9 +11,11 @@
  * jason@stdbev.com
  * 
  * $Id$
- * 
+ * @package plugins
+ * @subpackage info
  */
 
+/** @ignore */
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */

@@ -11,8 +11,14 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$
+ * @package plugins
+ * @subpackage delete_move_next
  */
 
+/**
+ * Initialize the plugin
+ * @return void
+ */
 function squirrelmail_plugin_init_delete_move_next() {
     global $squirrelmail_plugin_hooks;
 

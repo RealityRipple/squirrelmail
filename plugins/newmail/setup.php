@@ -23,6 +23,11 @@
     * too (with a plugin).
     *
     * $Id$
+    * @package plugins
+    * @subpackage newmail
+    */
+
+    /**
     */
     include_once(SM_PATH . 'functions/display_messages.php');
 

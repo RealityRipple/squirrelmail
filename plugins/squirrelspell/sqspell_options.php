@@ -11,6 +11,8 @@
  *
  * @author Konstantin Riabitsev <icon@duke.edu> ($Author$)
  * @version $Date$
+ * @package plugins
+ * @subpackage squirrelspell
  */
 
 /**
@@ -22,6 +24,7 @@ $SQSPELL_CRYPTO=FALSE;
 
 /**
  * Load some necessary stuff from squirrelmail. 
+ * @ignore
  */
 define('SM_PATH','../../');
 

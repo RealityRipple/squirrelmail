@@ -9,8 +9,11 @@
  * Philippe Mingo
  *
  * $Id$
+ * @package plugins
+ * @subpackage administrator
  */
 
+/** */
 require_once( SM_PATH . 'functions/constants.php' );
 
 /* Define constants for the various option types. */

@@ -23,8 +23,13 @@
  * Also view plugins/README.plugins for more information.
  *
  * $Id$
+ * @package plugins
+ * @subpackage filters
  */
 
+/**
+*
+*/
 function filters_SaveCache () {
     global $data_dir, $SpamFilters_DNScache;
 

@@ -12,8 +12,13 @@
  * commands such as (un)subscribe, help and list archives.
  *
  * $Id$
+ * @package plugins
+ * @subpackage listcommands
  */
 
+/**
+ * Initialize the listcommands plugin
+ */
 function squirrelmail_plugin_init_listcommands () {
     global $squirrelmail_plugin_hooks;
 
