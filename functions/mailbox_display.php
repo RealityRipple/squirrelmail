@@ -76,7 +76,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
        $senderName = sqimap_find_displayable_name($msg['FROM']);
     }
 
-    $subject = processSubject($msg['SUBJECT']);
+    $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
 
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
@@ -175,7 +175,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
             case 4: /* subject */
                 $td_str = $bold;
                 if ($thread_sort_messages == 1) {
-                    if (isset($indent_array[$msg["ID"]])) {
+                    if (isset($indent_array[$msg['ID']])) {
                         $td_str .= str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;",$indent_array[$msg['ID']]);
                     }
                 }
@@ -1168,18 +1168,24 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     return ($result);
 }
 
-function processSubject($subject) {
+function processSubject($subject, $threadlevel = 0) {
     global $languages, $squirrelmail_language;
     /* Shouldn't ever happen -- caught too many times in the IMAP functions */
     if ($subject == '')
         return _("(no subject)");
 
-    if (strlen($subject) <= 55)
+    $trim_at = 55;
+
+    /* if this is threaded, substract two chars per indentlevel */
+    if($threadlevel > 0 && $threadlevel <= 10)
+        $trim_at -= (2*$threadlevel);
+
+    if (strlen($subject) <= $trim_at)
         return $subject;
 
     $ent_strlen = strlen($subject);
-    $trim_val=50;
-    $ent_offset=0;
+    $trim_val = $trim_at - 5;
+    $ent_offset = 0;
     /*
      * see if this is entities-encoded string
      * If so, Iterate through the whole string, find out
@@ -1193,7 +1199,7 @@ function processSubject($subject) {
         $ent_offset  = $ent_loc_end+1;
     }
 
-    if ($ent_strlen <= 55){
+    if ($ent_strlen <= $trim_at){
         return $subject;
     }
 
