@@ -780,7 +780,7 @@ if ($default_use_mdn) {
     if ($mdn_user_support) {
 
         // debug gives you the capability to remove mdn-flags
-        $MDNDebug = true;
+        $MDNDebug = false;
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY.PEEK[HEADER.FIELDS (Disposition-Notification-To)]", true,
                                 $response, $readmessage);
         $MDN_to = substr($read[1], strpos($read[1], ' '));
