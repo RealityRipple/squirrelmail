@@ -866,6 +866,10 @@ $languages['zh_TW']['NAME']    = 'Taiwan';
 $languages['zh_TW']['CHARSET'] = 'big5';
 $languages['tw']['ALIAS'] = 'zh_TW';
 
+$languages['zh_TW']['NAME']    = 'Chinese';
+$languages['zh_TW']['CHARSET'] = 'gb2312';
+$languages['tw']['ALIAS'] = 'zh_CN';
+
 $languages['sk_SK']['NAME']     = 'Slovak';
 $languages['sk_SK']['CHARSET']  = 'iso-8859-2';
 $languages['sk']['ALIAS']       = 'sk_SK';
