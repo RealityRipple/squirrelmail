@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-12-29 09:22+0100\n"
+"POT-Creation-Date: 2001-12-29 09:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1642,7 +1642,7 @@ msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:843
-msgid "Show Pages"
+msgid "Paginate"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:850

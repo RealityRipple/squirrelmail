@@ -840,7 +840,7 @@ function get_paginator_str
     } else if ($PG_SHOWNUM == 999999) {
         $pg_str = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
                 . "&startMessage=1&mailbox=$box\" TARGET=\"right\">"
-                . _("Show Pages") . '</A>' . $spc;
+                . _("Paginate") . '</A>' . $spc;
     }
 
     /* If necessary, compute the 'show all' string. */
