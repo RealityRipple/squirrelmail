@@ -482,67 +482,7 @@ function calc_msort($msgs, $sort) {
 }
 
 function fillMessageArray($imapConnection, $id, $count) {
-    $msgs_list = sqimap_get_small_header_list($imapConnection, $id);
-    $messages = array();
-    if (sizeof($msgs_list)) {
-        foreach ($msgs_list as $hdr) {
-            $unique_id[] = $hdr->uid;
-            $from[] = $hdr->from;
-            $date[] = $hdr->date;
-            $subject[] = $hdr->subject;
-            $to[] = $hdr->to;
-            $priority[] = $hdr->priority;
-            $cc[] = $hdr->cc;
-            $size[] = $hdr->size;
-            $type[] = $hdr->type0;
-            $flag_deleted[] = $hdr->flag_deleted;
-            $flag_answered[] = $hdr->flag_answered;
-            $flag_seen[] = $hdr->flag_seen;
-            $flag_flagged[] = $hdr->flag_flagged;
-        }
-    }
-
-    for($j = 0; $j < $count; ++$j) {
-        if (isset($date[$j])) {
-            $date[$j] = str_replace('  ', ' ', $date[$j]);
-            $tmpdate  = explode(' ', trim($date[$j]));
-        } else {
-            $tmpdate = $date = array('', '', '', '', '', '');
-        }
-        $messages[$j]['TIME_STAMP'] = getTimeStamp($tmpdate);
-        $messages[$j]['DATE_STRING'] =
-        getDateString($messages[$j]['TIME_STAMP']);
-        $messages[$j]['ID'] = $unique_id[$j];
-        $messages[$j]['FROM'] = decodeHeader($from[$j]);
-        $messages[$j]['FROM-SORT'] =
-        strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
-        $messages[$j]['SUBJECT'] = decodeHeader($subject[$j]);
-        $messages[$j]['SUBJECT-SORT'] = strtolower(decodeHeader($subject[$j]));
-        $messages[$j]['TO'] = decodeHeader($to[$j]);
-        $messages[$j]['PRIORITY'] = $priority[$j];
-        $messages[$j]['CC'] = $cc[$j];
-        $messages[$j]['SIZE'] = $size[$j];
-        $messages[$j]['TYPE0'] = $type[$j];
-        $messages[$j]['FLAG_DELETED'] = $flag_deleted[$j];
-        $messages[$j]['FLAG_ANSWERED'] = $flag_answered[$j];
-        $messages[$j]['FLAG_SEEN'] = $flag_seen[$j];
-        $messages[$j]['FLAG_FLAGGED'] = $flag_flagged[$j];
-
-        /*
-         * fix SUBJECT-SORT to remove Re:
-         *     vedr|sv  (Danish)
-         *     re|aw (English)
-         *
-         * TODO: i18n should be incorporated here. E.g. we catch the ones
-         * we know about, but also define in i18n what the localized
-         * "Re: " is for this or that locale.
-         */
-        if (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si",
-            $messages[$j]['SUBJECT-SORT'], $matches)){
-            $messages[$j]['SUBJECT-SORT'] = $matches[2];
-        }
-    }
-    return $messages;
+    return sqimap_get_small_header_list($imapConnection, $id);
 }
 
 

@@ -425,14 +425,14 @@ function elapsedTime($start) {
 
 function sqimap_get_small_header_list ($imap_stream, $msg_list) {
     global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
-    global $uid_support;
+    global $uid_support, $allow_server_sort;
 
     /* Get the small headers for each message in $msg_list */
     $sid = sqimap_session_id($uid_support);
 
     $maxmsg = sizeof($msg_list);
     $msgs_str = sqimap_message_list_squisher($msg_list);
-    $results = array();
+    $messages = array();
     $read_list = array();
     /*
      * We need to return the data in the same order as the caller supplied
@@ -510,16 +510,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
         $from = _("Unknown Sender");
         $priority = 0;
         $messageid = '<>';
-        $cc = '';
-        $to = '';
-        $date = '';
-        $type[0] = '';
-        $type[1] = '';
-        $inrepto = '';
-        $flag_seen = false;
-        $flag_answered = false;
-        $flag_deleted = false;
-        $flag_flagged = false;
+        $cc = $to = $date = $type[0] = $type[1] = $inrepto = '';
+        $flag_seen = $flag_answered = $flag_deleted = $flag_flagged = false;
         $read = $read_list[$msgi];
         $prevline = false;
 
@@ -618,6 +610,9 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
                                     $type = substr($type, 0, $pos);
                                 }
                                 $type = explode("/", $type);
+                                if(!is_array($type)) {
+                                    $type[0] = 'text';
+                                }
                                 if (!isset($type[1])) {
                                     $type[1] = '';
                                 }
@@ -630,32 +625,46 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
             }
 
         }
-
-        $header = new small_header;
-
-        if ($uid_support) {
-            $header->uid = $unique_id;
+            
+        if (isset($date)) {
+            $date = str_replace('  ', ' ', $date);
+            $tmpdate  = explode(' ', trim($date));
         } else {
-            $header->uid = $msg_list[$msgi];
+            $tmpdate = $date = array('', '', '', '', '', '');
         }
-        $header->date = $date;
-        $header->subject = $subject;
-        $header->to = $to;
-        $header->from = $from;	
-        $header->priority = $priority;
-        $header->message_id = $messageid;
-        $header->cc = $cc;
-        $header->size = $size;
-        $header->type0 = $type[0];
-        $header->type1 = $type[1];
-        $header->flag_seen = $flag_seen;
-        $header->flag_answered = $flag_answered;
-        $header->flag_deleted = $flag_deleted;
-        $header->flag_flagged = $flag_flagged;
-        $header->inrepto = $inrepto;
-        $result[] = $header;
+        if ($uid_support) {
+            $messages[$msgi]['ID'] = $unique_id;
+        } else {
+            $messages[$msgi]['ID'] = $msg_list[$msgi];
+        }
+        
+        $messages[$msgi]['TIME_STAMP'] = getTimeStamp($tmpdate);
+        $messages[$msgi]['DATE_STRING'] = getDateString($messages[$msgi]['TIME_STAMP']);
+        $messages[$msgi]['FROM'] = decodeHeader($from);
+        $messages[$msgi]['SUBJECT'] = decodeHeader($subject);
+        $messages[$msgi]['TO'] = decodeHeader($to);
+        $messages[$msgi]['PRIORITY'] = $priority;
+        $messages[$msgi]['CC'] = $cc;
+        $messages[$msgi]['SIZE'] = $size;
+        $messages[$msgi]['TYPE0'] = $type[0];
+        $messages[$msgi]['FLAG_DELETED'] = $flag_deleted;
+        $messages[$msgi]['FLAG_ANSWERED'] = $flag_answered;
+        $messages[$msgi]['FLAG_SEEN'] = $flag_seen;
+        $messages[$msgi]['FLAG_FLAGGED'] = $flag_flagged;
+
+        /* non server sort stuff */
+        if (!$allow_server_sort) {
+            $messages[$msgi]['FROM-SORT'] = strtolower(sqimap_find_displayable_name(decodeHeader($from)));
+            $subject_sort = strtolower(decodeHeader($subject));
+            if (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si", $subject_sort, $matches)){
+                $messages[$msgi]['SUBJECT-SORT'] = $matches[2];
+            } else {
+                $messages[$msgi]['SUBJECT-SORT'] = $subject_sort;
+            }
+        }
+        
     }
-    return $result;
+    return $messages;
 }
 
 function sqimap_get_headerfield($imap_stream, $field) {
