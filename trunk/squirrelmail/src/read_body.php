@@ -88,8 +88,8 @@
    }
 
    /** make sure everything will display in HTML format **/
-   $from_name = htmlspecialchars(decodeHeader($message["HEADER"]["FROM"]));
-   $subject = htmlspecialchars(decodeHeader(stripslashes($message["HEADER"]["SUBJECT"])));
+   $from_name = decodeHeader(htmlspecialchars($message["HEADER"]["FROM"]));
+   $subject = decodeHeader(htmlspecialchars(stripslashes($message["HEADER"]["SUBJECT"])));
 
    echo "<BR>";
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=98% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
