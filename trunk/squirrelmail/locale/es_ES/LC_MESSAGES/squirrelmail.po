@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-20 12:38+0200\n"
+"POT-Creation-Date: 2003-09-20 12:22+0300\n"
 "PO-Revision-Date: 2003-04-01 19:57+0100\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -1285,9 +1285,6 @@ msgstr "Elimine todos los mensajes innecesarios y empiece por la papelera"
 msgid "(no subject)"
 msgstr "(sin asunto)"
 
-msgid "Unknown Sender"
-msgstr "Remitente Desconocido"
-
 msgid "Unknown response from IMAP server: "
 msgstr "Contestación desconocida del servidor IMAP:"
 
@@ -1299,8 +1296,8 @@ msgid ""
 "moved away or deleted (perhaps by another program accessing the same "
 "mailbox)."
 msgstr ""
-"Seguramente su lista de mensajes estaba desfasada y su mensaje ha sido "
-"movio o eliminado (Quizás por otra conexión simultánea)."
+"Seguramente su lista de mensajes estaba desfasada y su mensaje ha sido movio "
+"o eliminado (Quizás por otra conexión simultánea)."
 
 msgid "Unknown date"
 msgstr "Fecha desconocida"
@@ -1351,6 +1348,9 @@ msgstr "Quitar Orden Temático"
 
 msgid "Thread View"
 msgstr "Orden Temático"
+
+msgid "Bypass Trash"
+msgstr ""
 
 msgid "Click here to change the sorting of the message list"
 msgstr ""
@@ -1540,6 +1540,15 @@ msgstr "Número Máximo de Páginas a Mostrar"
 msgid "Always Show Full Date"
 msgstr "Mostrar siempre fecha completa"
 
+msgid "Length of From/To Field (0 for full)"
+msgstr "Longitud de la columna de/para (0 completa)"
+
+msgid "Length of Subject Field (0 for full)"
+msgstr "Longitud de la columna del asunto (0 completa)"
+
+msgid "Show recipient name if the message is from your default identity"
+msgstr "Mostrar destinatario si el mensaje es de la identidad por omisión"
+
 msgid "Message Display and Composition"
 msgstr "Visualización y Composición de Mensajes"
 
@@ -1607,7 +1616,7 @@ msgid "Append Signature before Reply/Forward Text"
 msgstr "Agregar Firma Antes del Bloque de Referencia"
 
 msgid "Strip signature when replying"
-msgstr ""
+msgstr "Eliminar firma de las contestaciones"
 
 msgid "Enable Sort by of Receive Date"
 msgstr "Activar la Ordenación por Fecha de Recepción"
@@ -1722,6 +1731,14 @@ msgstr "Estilo de lista de selección"
 
 msgid "Long: "
 msgstr "Largo:"
+
+#, fuzzy
+msgid "Folder"
+msgstr "Carpetas"
+
+#, fuzzy
+msgid "Subfolder"
+msgstr "Emplear Carpetas Subordinadas de Mensajes Enviados"
 
 msgid "Indented: "
 msgstr "Indentado:"
@@ -2266,58 +2283,6 @@ msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "COMERCIAL - RBL+ conexiones RTC."
 
 msgid ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
-msgstr ""
-"GRATUITO - Enlaces Osirusoft - Lista \"Osirusoft\" de enlaces abiertos. "
-"Parece que también incluye servidores empleados por las respuestas "
-"automáticas de abuse@uunet.net"
-
-msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-msgstr ""
-"GRATUITO - RTC de \"Osirusoft\" - Lista SPAM de \"Osirusoft\" de conexiones "
-"RTC."
-
-msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
-msgstr ""
-"GRATUITO - Lista Osirusoft de Emisores SPAM Confirmados - Sitios que mandan "
-"SPAM continuamente y que han sido añadidos manualmente después de múltiples "
-"nominaciones. A usar con precaución ya que parece emplear respuestas "
-"automáticas de algunos ISPs."
-
-msgid ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
-msgstr ""
-"GRATUITO - \"Osirusoft Smart Hosts\" - Lista de servidores seguros que sin "
-"embargo permiten el paso a terceros que no lo son."
-
-msgid ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
-msgstr ""
-"GRATUITO - Lista de Osirusoft de Desarrolladores de Programas SPAM - Se "
-"piensa que estas IPs pertenecen a desarrolladores de programas SPAM. Parece "
-"que intercepta abusos en las respuestas de algunos ISPs."
-
-msgid ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
-msgstr "GRATUITO - Lista Osirusoft de Servidores \"Opt-In\" sin confirmar."
-
-msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
-"cgi scripts. (planned)."
-msgstr "GRATUITO - Formularios inseguros de Osirusoft."
-
-msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
-msgstr "GRATUITO - Lista de servidores Proxy abiertos de Osirusoft."
-
-msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
 msgstr ""
@@ -2361,7 +2326,6 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "GRATUITO - Lista de conocidos SPAMERS de SPAMHaus."
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -3657,6 +3621,61 @@ msgstr "Informe de error en entrega"
 
 msgid "Undelivered Message Headers"
 msgstr "Cabecera de mensaje no entregado"
+
+#~ msgid "Unknown Sender"
+#~ msgstr "Remitente Desconocido"
+
+#~ msgid ""
+#~ "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems "
+#~ "to include servers used by abuse@uunet.net auto-replies too."
+#~ msgstr ""
+#~ "GRATUITO - Enlaces Osirusoft - Lista \"Osirusoft\" de enlaces abiertos. "
+#~ "Parece que también incluye servidores empleados por las respuestas "
+#~ "automáticas de abuse@uunet.net"
+
+#~ msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+#~ msgstr ""
+#~ "GRATUITO - RTC de \"Osirusoft\" - Lista SPAM de \"Osirusoft\" de "
+#~ "conexiones RTC."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+#~ "have been manually added after multiple nominations. Use with caution. "
+#~ "Seems to catch abuse auto-replies from some ISPs."
+#~ msgstr ""
+#~ "GRATUITO - Lista Osirusoft de Emisores SPAM Confirmados - Sitios que "
+#~ "mandan SPAM continuamente y que han sido añadidos manualmente después de "
+#~ "múltiples nominaciones. A usar con precaución ya que parece emplear "
+#~ "respuestas automáticas de algunos ISPs."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay "
+#~ "for other mail servers that are not secure."
+#~ msgstr ""
+#~ "GRATUITO - \"Osirusoft Smart Hosts\" - Lista de servidores seguros que "
+#~ "sin embargo permiten el paso a terceros que no lo son."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+#~ "ranges of companies that are known to produce spam software. Seems to "
+#~ "catch abuse auto-replies from some ISPs."
+#~ msgstr ""
+#~ "GRATUITO - Lista de Osirusoft de Desarrolladores de Programas SPAM - Se "
+#~ "piensa que estas IPs pertenecen a desarrolladores de programas SPAM. "
+#~ "Parece que intercepta abusos en las respuestas de algunos ISPs."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+#~ "users in without confirmation."
+#~ msgstr "GRATUITO - Lista Osirusoft de Servidores \"Opt-In\" sin confirmar."
+
+#~ msgid ""
+#~ "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure "
+#~ "formmail.cgi scripts. (planned)."
+#~ msgstr "GRATUITO - Formularios inseguros de Osirusoft."
+
+#~ msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
+#~ msgstr "GRATUITO - Lista de servidores Proxy abiertos de Osirusoft."
 
 #~ msgid "Click here to try again"
 #~ msgstr "Pulse aquí para intentarlo de nuevo"
