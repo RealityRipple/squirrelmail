@@ -72,3 +72,66 @@ Note that the SquirrelMail files assume that all other SquirrelMail
 files are available as ../directory/file. This means that if some file
 in the plugin directory is requested, it must do a chdir("..") before
 including any of the standard SquirrelMail files.
+
+
+List of hooks
+-------------
+  generic_header                 functions/page_header.php
+  menuline                       functions/page_header.php
+  compose_button_row             src/compose.php
+  left_main_before               src/left_main.php
+  left_main_after                src/left_main.php
+  options_save                   src/options.php  (see note on options)
+  options_link_and_description   src/options.php  (see note on options)
+  logout                         src/signout.php
+  login_before                   src/webmail.php
+  login_verified                 src/webmail.php
+  loading_prefs                  src/load_prefs.php
+  mailbox_index_before           functions/mailbox_display.php
+  mailbox_index_after            functions/mailbox_display.php
+
+
+Options
+-------
+
+It is possible to create your own options sections with plugins.  There are
+three hooks you will need to use.
+
+1.  options_link_and_description
+    This creates the link and has a description that are shown on the options
+    page.  This should output HTML that looks like this:
+
+    -----cut here-----  
+      function my_function() {
+         global $color
+         ?>
+         <table width=50% cellpadding=3 cellspacing=0 border=0 align=center>
+            <tr>
+               <td bgcolor="<? echo $color[9] ?>">
+                  <a href="../plugins/YOUR_PLUGIN/YOUR_OPTIONS.php">YOUR OPTIONS NAME</a>
+               </td>
+            </tr>
+            <tr>
+               <td bgcolor="<? echo $color[0] ?>">
+                  YOUR DESCRIPTION
+               </td>
+            </tr>
+         </table>
+         <?php
+      }
+    -----cut here-----  
+
+2.  options_save
+    Here is the code that you need to do to save your options in the 
+    preference files or manipulate whatever data you are trying to change
+    through the options section.  You can look at options.php for details 
+    on how this is to be done.
+
+3.  loading_prefs (optional)
+    If you are wanting to save preferences to the preference files, then
+    you need to do this step as well.  Otherwise if you are manipulating
+    other data, ignore this step.
+
+    You should put the code in here that loads your preferences back
+    into usable variables.  Examples of this can be found in the file
+    src/load_prefs.php

@@ -38,11 +38,11 @@ if ( -e "config.php") {
    if ($config_version ne $conf_pl_version) {
       system "clear";
       print $WHT."WARNING:\n".$NRM;
-      print "  The file \"config.php\" was found, but it is for an older version of\n";
+      print "  The file \"config/config.php\" was found, but it is for an older version of\n";
       print "  SquirrelMail.  It is possible to still read the defaults from this file\n";
       print "  but be warned that many preferences change between versions.  It is\n";
       print "  recommended that you start with a clean config.php for each upgrade that\n";
-      print "  you do.  To do this, just move config.php out of the way.\n\n";
+      print "  you do.  To do this, just move config/config.php out of the way.\n\n";
       print "Continue loading with the old config.php [y/n]? ";
       $ctu = <STDIN>;
       if (($ctu =~ /^n\n/i) || ($ctu =~ /^\n/)) {
@@ -1335,9 +1335,10 @@ sub save_data {
    print FILE "<?php\n\t/** SquirrelMail configuration\n";
    print FILE "\t ** Created using the configure script, conf.pl\n\t **/\n\n";
 
-   print FILE "\t\$config_version = \"$print_config_version\";\n";
-
-   print FILE "\n";
+   if ($print_config_version) {
+      print FILE "\t\$config_version = \"$print_config_version\";\n";
+      print FILE "\n";
+   }
    
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
