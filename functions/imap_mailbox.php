@@ -898,7 +898,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
             $mbx->is_special |= ($mbx->is_sent = isSentMailbox($mailbox));
             $mbx->is_special |= ($mbx->is_draft = isDraftMailbox($mailbox));
             if (!$mbx->is_special)
-                $mbx->is_special = do_hook_function('special_mailbox', $mailbox);
+                $mbx->is_special = boolean_hook_function('special_mailbox', $mailbox, 1);
             
             if (isset($mbx_ary[$i]['unseen'])) {
                 $mbx->unseen = $mbx_ary[$i]['unseen'];
