@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-01-31 16:19+0200\n"
+"POT-Creation-Date: 2005-02-15 13:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -598,10 +598,10 @@ msgstr ""
 msgid "Folder Preferences"
 msgstr ""
 
-msgid "Error(s) happened while saving your options"
+msgid "Error(s) occurred while saving your options"
 msgstr ""
 
-msgid "Some of your preference changes are not applied."
+msgid "Some of your preference changes were not applied."
 msgstr ""
 
 #. Display a message indicating a successful save.
@@ -1283,14 +1283,6 @@ msgid ""
 "your system administrator to resolve this issue."
 msgstr ""
 
-#. Otherwise, report an error.
-#, php-format
-msgid "Error opening %s"
-msgstr ""
-
-msgid "Default preference file not found or not readable!"
-msgstr ""
-
 msgid "Could not create initial preference file!"
 msgstr ""
 
@@ -1591,8 +1583,8 @@ msgstr ""
 #. ****************************************************
 #. LOAD EACH GROUP OF OPTIONS INTO THE OPTIONS ARRAY.
 #. ****************************************************
-#. ** Load the General Options into the array **
-msgid "Message Composition"
+#. ** Load the General Compose Options into the array **
+msgid "General Message Composition"
 msgstr ""
 
 msgid "Width of Editor Window"
@@ -1622,12 +1614,6 @@ msgstr ""
 msgid "HTML"
 msgstr ""
 
-msgid "Include CCs when Forwarding Messages"
-msgstr ""
-
-msgid "Include Me in CC when I Reply All"
-msgstr ""
-
 msgid "Compose Messages in New Window"
 msgstr ""
 
@@ -1635,6 +1621,16 @@ msgid "Width of Compose Window"
 msgstr ""
 
 msgid "Height of Compose Window"
+msgstr ""
+
+#. ** Load the General Options into the array **
+msgid "Replying and Forwarding Messages"
+msgstr ""
+
+msgid "Include CCs when Forwarding Messages"
+msgstr ""
+
+msgid "Include Me in CC when I Reply All"
 msgstr ""
 
 msgid "Append Signature before Reply/Forward Text"
@@ -1696,6 +1692,15 @@ msgid "Always"
 msgstr ""
 
 msgid "Never"
+msgstr ""
+
+msgid "Hour Format"
+msgstr ""
+
+msgid "12-hour clock"
+msgstr ""
+
+msgid "24-hour clock"
 msgstr ""
 
 #. ** Load the General Options into the array **
@@ -1876,19 +1881,13 @@ msgstr ""
 msgid "No Clock"
 msgstr ""
 
-msgid "Hour Format"
-msgstr ""
-
-msgid "12-hour clock"
-msgstr ""
-
-msgid "24-hour clock"
-msgstr ""
-
 msgid "Memory Search"
 msgstr ""
 
 msgid "Disabled"
+msgstr ""
+
+msgid "Show only subscribed folders"
 msgstr ""
 
 #. ** Load the General Options into the array **
@@ -2729,6 +2728,18 @@ msgid "Closing Connection"
 msgstr ""
 
 msgid "Connecting to Password Server"
+msgstr ""
+
+#. $vmail_inc_path is not set or file does not exist
+msgid "Incorrent path to vmail.inc file."
+msgstr ""
+
+#. included vmail.inc does not have required functions.
+msgid "Invalid or corrupted vmail.inc file."
+msgstr ""
+
+#. username does not match vmailmgr syntax
+msgid "Invalid user."
 msgstr ""
 
 msgid ""
