@@ -309,10 +309,9 @@ function spam_filters($imap_stream) {
         }
     }
     if ($filters_spam_scan == 'new' && count($search_array)) {
-        $headers = sqimap_get_small_header_list ($imap_stream, $search_array, $show_num=false,
-            array('Received'),array());
+        $headers = sqimap_get_small_header_list ($imap_stream, $search_array, array('Received'),array());
     } else if ($filters_spam_scan != 'new') {
-        $headers = sqimap_get_small_header_list ($imap_stream,false, '*', array('Received'),array());
+        $headers = sqimap_get_small_header_list ($imap_stream, null , array('Received'),array());
     } else {
         return;
     }
