@@ -1,10 +1,11 @@
 # French Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
+# Antoine Hulin <antoine@origan.fdn.org>
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-28 21:35+0200\n"
+"POT-Creation-Date: 2003-08-29 15:40+0200\n"
 "PO-Revision-Date: 2001-12-27 15:58GMT+1\n"
 "Last-Translator: Alex Lemaresquier <alex@brainstorm.fr>\n"
 "Language-Team: French <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -123,7 +124,7 @@ msgid "Add to %s"
 msgstr "Ajouter &#224;&#160;: %s"
 
 msgid "said"
-msgstr "a dit&#160;"
+msgstr "a dit "
 
 msgid "quote"
 msgstr "citation"
@@ -184,7 +185,7 @@ msgid "Delete selected attachments"
 msgstr "Supprimer les pi&#232;ces jointes s&#233;lectionn&#233;es"
 
 msgid "Priority"
-msgstr "Priorit&#233;"
+msgstr "Priorit&#233;&#160;"
 
 # FIXME Dommage, au masculin dans defines.php au feminin
 # dans mime.php
@@ -198,7 +199,7 @@ msgid "Low"
 msgstr "Basse"
 
 msgid "Receipt"
-msgstr "Accus&#233; de r&#233;ception"
+msgstr "Accus&#233; de r&#233;ception&#160;"
 
 msgid "On Read"
 msgstr "&#224; la lecture"
@@ -510,13 +511,13 @@ msgid "Add a New Identity"
 msgstr "Ajouter une nouvelle identit&#233;"
 
 msgid "Full Name"
-msgstr "Nom complet"
+msgstr "Nom complet&#160;"
 
 msgid "E-Mail Address"
-msgstr "Adresse &#233;lectronique"
+msgstr "Adresse &#233;lectronique&#160;"
 
 msgid "Reply To"
-msgstr "Adresse de r&#233;ponse"
+msgstr "Adresse de r&#233;ponse&#160;"
 
 msgid "Save / Update"
 msgstr "Enregistrer / mettre &#224; jour"
@@ -569,6 +570,7 @@ msgstr "Pr&#233;f&#233;rences d'affichage"
 msgid "Folder Preferences"
 msgstr "Pr&#233;f&#233;rences des dossiers"
 
+# Espace insecable a la fin car suivi d'un &#171;&#160;:&#160;&#187; dans le code.
 # un %s serait le bienvenu.
 msgid "Successfully Saved Options"
 msgstr "Options sauvegard&#233;es&#160;"
@@ -607,7 +609,7 @@ msgid ""
 "These settings change the way your folders are displayed and manipulated."
 msgstr ""
 "Ces param&#232;tres modifient la fa&#231;on dont vos dossiers sont "
-"affich&#233;s et manipul&#233;s."
+"affich&#233;s et utilis&#233;s."
 
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
@@ -682,7 +684,7 @@ msgid "Message List"
 msgstr "Liste des messages"
 
 msgid "Resume Draft"
-msgstr "R&#233;cup&#233;rer un brouillon"
+msgstr "&#201;diter ce brouillon"
 
 msgid "Edit Message as New"
 msgstr "&#201;diter comme un nouveau message"
@@ -706,7 +708,7 @@ msgid "View Full Header"
 msgstr "Afficher l'en-t&#234;te complet"
 
 msgid "Attachments"
-msgstr "Pi&#232;ces jointes"
+msgstr "Pi&#232;ces jointes&#160;"
 
 msgid "You must be logged in to access this page."
 msgstr "Il faut &#234;tre connect&#233; pour acc&#233;der &#224; cette page"
@@ -751,7 +753,7 @@ msgid "delete"
 msgstr "Supprimer"
 
 msgid "Saved Searches"
-msgstr "Recherches Enregistr&#233;es"
+msgstr "Recherches enregistr&#233;es"
 
 msgid "save"
 msgstr "Enregistrer"
@@ -760,13 +762,13 @@ msgid "forget"
 msgstr "Oublier"
 
 msgid "Recent Searches"
-msgstr "Derni&#232;res Recherches"
+msgstr "Derni&#232;res recherches"
 
 msgid "Missing"
 msgstr "Disparu"
 
 msgid "Exclude Criteria:"
-msgstr "Exclure ce Crit&#232;re:"
+msgstr "Exclure ce Crit&#232;re&#160;:"
 
 msgid "Search Criteria"
 msgstr "Crit&#232;res de Recherche"
@@ -1209,7 +1211,7 @@ msgstr "Impossible de cr&#233;er le fichier de pr&#233;f&#233;rences&#160;!"
 
 #, c-format
 msgid "%s should be writable by user %s"
-msgstr "%2$s devrait avoir acc&#232;s en &#233;criture &#224; %1$s."
+msgstr "%s devrait avoir acc&#232;s en &#233;criture &#224; %s."
 
 #, c-format
 msgid ""
@@ -1240,8 +1242,8 @@ msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --enable-mbstring)."
 msgstr ""
-"Vous devez avoir install&#233; un php4 g&#233;rant les caract&#232;res multi-"
-"octets (option de configuration --with-mbstring)."
+"Vous devez avoir install&#233; php4 avec la gestion des caract&#232;res "
+"multi-octets (option de configuration --with-mbstring)."
 
 msgid "ERROR : Could not complete request."
 msgstr "ERREUR&#160;: Impossible d'achever la requ&#234;te."
@@ -1262,13 +1264,13 @@ msgid "Query:"
 msgstr "Requ&#234;te&#160;:"
 
 msgid "ERROR : No available imapstream."
-msgstr "ERREUR&#160;: Pas de flux imap."
+msgstr "ERREUR&#160;: Pas de flux IMAP."
 
 msgid "ERROR : Bad function call."
-msgstr "ERREUR&#160;: Mauvais appel de fonction."
+msgstr "ERREUR&#160;: Appel de fonction erron&#233;."
 
 msgid "Reason:"
-msgstr "Raison&#160;:"
+msgstr "Cause&#160;:"
 
 msgid "ERROR : Connection dropped by imap-server."
 msgstr "ERREUR&#160;: Connexion interrompue par le serveur IMAP."
@@ -1325,21 +1327,22 @@ msgid ""
 "mailbox)."
 msgstr ""
 "La cause probable est que votre liste de messages n'est pas &#224; jour et "
-"le message a &#233;t&#233; d&#233;plac&#233; ou supprim&#233; (peut-&#234;"
-"tre par un autre programme acc&#233;dant &#224; la m&#234;me bo&#238;te aux "
+"le message a &#233;t&#233; d&#233;plac&#233; ou supprim&#233; (&#233;"
+"ventuellement par un autre programme qui utilise la m&#234;me bo&#238;te aux "
 "lettres)."
 
 msgid "Unknown date"
 msgstr "Date inconnue"
 
+# 'A'nswered/'R'epondu
 msgid "A"
-msgstr "&#192;"
+msgstr "R"
 
 msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
 msgstr ""
-"Votre serveur IMAP ne g&#232;re pas le tri par file de discussion.<br>Merci "
+"Votre serveur IMAP ne g&#232;re pas le tri par sujet de discussion.<br>Merci "
 "de l'indiquer &#224; votre administrateur."
 
 msgid ""
@@ -1356,13 +1359,13 @@ msgid "Move Selected To"
 msgstr "D&#233;placer la s&#233;lection vers"
 
 msgid "Transform Selected Messages"
-msgstr "Modifier les messages s&#233;lectionn&#233;s"
+msgstr "Modifier les messages s&#233;lectionn&#233;s&#160;"
 
 msgid "Move"
 msgstr "D&#233;placer"
 
 msgid "Expunge"
-msgstr "Purger"
+msgstr "Purger&#160;"
 
 msgid "mailbox"
 msgstr "Bo&#238;te &#224; lettres"
@@ -1383,7 +1386,7 @@ msgid "Bypass Trash"
 msgstr "Sans mettre à la Corbeille"
 
 msgid "Click here to change the sorting of the message list"
-msgstr "Cliquer ici pour changer le tri de la liste des messages"
+msgstr "Cliquer ici pour changer le classement des messages"
 
 msgid "Toggle All"
 msgstr "Inverser la s&#233;lection"
@@ -1573,7 +1576,9 @@ msgid "Always Show Full Date"
 msgstr "Afficher la date compl&#233;te du message&#160;"
 
 msgid "Length of From/To Field (0 for full)"
-msgstr "Longueur du champ De/&#192; (0 = complet)&#160;"
+msgstr ""
+"Longueur du champ &#171;&#160;De&#160;&#187; / &#171;&#160;&#192;&#160;"
+"&#187; (0 = complet)&#160;"
 
 msgid "Message Display and Composition"
 msgstr "Affichage et composition de messages"
@@ -1646,10 +1651,12 @@ msgid "Strip signature when replying"
 msgstr "Supprimer la signature du message cit&#233; en r&#233;ponse&#160;"
 
 msgid "Enable Sort by of Receive Date"
-msgstr "Tri par date de r&#233;ception&#160;"
+msgstr "Classement des messages par date de r&#233;ception&#160;"
 
 msgid "Enable Thread Sort by References Header"
-msgstr "Tri par files de discussion (en-t&#234;te <i>References</i>)&#160;"
+msgstr ""
+"Classement des messages par sujet de discussion (en-t&#234;te <i>References</"
+"i>)&#160;"
 
 msgid "Special Folder Options"
 msgstr "Options des dossiers sp&#233;ciaux"
@@ -1918,7 +1925,7 @@ msgid "Not one of the above servers"
 msgstr "Aucun des serveurs pr&#233;c&#233;dents"
 
 msgid "IMAP Folder Delimiter"
-msgstr "D&#233;limiteur de dossier IMAP"
+msgstr "S&#233;parateur d'arborescence IMAP"
 
 msgid "Use \"detect\" to auto-detect."
 msgstr ""
@@ -1988,10 +1995,13 @@ msgid "Auto Expunge"
 msgstr "Effacement automatique"
 
 msgid "Default Sub. of INBOX"
-msgstr "Tous les dossiers dans la bo&#238;te de r&#233;ception"
+msgstr ""
+"Tous les dossiers comme sous-dossiers de la Bo&#238;te de r&#233;ception"
 
 msgid "Show 'Contain Sub.' Option"
-msgstr "Afficher l'option &#171;&#160;Contient des sous-dossiers&#160;&#187;"
+msgstr ""
+"Afficher l'option &#171;&#160;Ce dossier pourra contenir des sous-dossiers."
+"&#160;&#187;"
 
 msgid "Default Unseen Notify"
 msgstr "Notification des messages non lus"
@@ -2060,7 +2070,7 @@ msgid "Use server-side sorting"
 msgstr "Utiliser le tri des messages du serveur"
 
 msgid "Use server-side thread sorting"
-msgstr "Utiliser le tri par discussion du serveur"
+msgstr "Utiliser le tri par sujet de discussion du serveur"
 
 msgid "Allow server charset search"
 msgstr "Utiliser l'encodage local pour la recherche"
@@ -2710,7 +2720,7 @@ msgid "List Archives"
 msgstr "Archives de la liste"
 
 msgid "Contact Listowner"
-msgstr "Contact le responsable de la liste"
+msgstr "Contacter le responsable de la liste"
 
 msgid "Mailing List"
 msgstr "Liste de discussion"
@@ -2814,11 +2824,12 @@ msgstr "Mot de passe pour"
 msgid "Fetch Mail"
 msgstr "R&#233;cup&#233;rer"
 
+# A verifier
 msgid "Remote POP server Fetching Mail"
 msgstr "R&#233;cup&#233;ration de courrier sur serveur POP"
 
 msgid "No POP3 servers configured yet."
-msgstr "Pas de serveur POP3 configur&#233;."
+msgstr "Aucun serveur POP3 configur&#233;."
 
 msgid "Click here to go to the options page."
 msgstr "Cliquez ici pour atteindre la page d'options."
@@ -3049,7 +3060,7 @@ msgstr ""
 "Utilisez l'option <b>V&#233;rifier uniquement les messages r&#233;cents</b> "
 "pour ne v&#233;rifier que les messages r&#233;cents, c'est-&#224;-dire ceux "
 "qui n'ont pas encore &#233;t&#233; vus ni identifi&#233;s. Cette option "
-"&#233;vite d'&#234;tre emb&#234;t&#233; par les alertes sonores ou les "
+"&#233;vite d'&#234;tre importun&#233; par les alertes sonores ou les "
 "fen&#234;tres d'alerte pour des courriers non lus."
 
 msgid ""
@@ -3096,7 +3107,7 @@ msgid "Select server file:"
 msgstr "S&#233;lectionner une s&#233;quence sonore du serveur&#160;:"
 
 msgid "(none)"
-msgstr "(aucun)"
+msgstr "(aucune)"
 
 msgid "Try"
 msgstr "Essayer"
@@ -3138,7 +3149,7 @@ msgid "Test Sound"
 msgstr "Tester le son"
 
 msgid "No sound specified"
-msgstr "Aucun son sp&#233;cifi&#233;"
+msgstr "Aucune s&#233;quence choisie"
 
 msgid "Loading the sound..."
 msgstr "Chargement du son..."
@@ -3593,7 +3604,7 @@ msgstr ""
 
 #, c-format
 msgid "Number of supported language pairs: %s"
-msgstr "Nombre de paires de langues: %s"
+msgstr "Nombre de paires de langues&#160;: %s"
 
 msgid "No known limits, powered by Systran"
 msgstr "Pas de limitation connue, service fourni par Systran"
@@ -3604,7 +3615,7 @@ msgstr ""
 
 #, c-format
 msgid "Number of supported languages: %s"
-msgstr "Nombre de langues support&#233;es: %s"
+msgstr "Nombre de langues support&#233;es&#160;: %s"
 
 msgid "No known limits, powered by GPLTrans (free, open source)"
 msgstr ""
@@ -3765,10 +3776,10 @@ msgid "Latin"
 msgstr "latin"
 
 msgid "to English"
-msgstr "en anglais"
+msgstr "vers l'anglais"
 
 msgid "from English"
-msgstr "depuis l'anglais"
+msgstr "de l'anglais"
 
 msgid "Interface language"
 msgstr "Langue de l'interface"
