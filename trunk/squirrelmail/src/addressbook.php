@@ -45,6 +45,9 @@ sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
 
+/* Create page header before addressbook_init in order to  display error messages correctly. */
+displayPageHeader($color, 'None');
+
 /* Open addressbook with error messages on.
  remote backends (LDAP) are enabled because they can be used. (list_addr function)
 */
@@ -56,7 +59,6 @@ if($abook->localbackend == 0) {
     exit();
 }
 
-displayPageHeader($color, 'None');
 
 $defdata   = array();
 $formerror = '';
