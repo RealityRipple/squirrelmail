@@ -24,8 +24,8 @@
       $bcc = parseAddrs($b);
       $body = stripslashes($body);
       $from_addr = "$username@$domain";
-      $reply_to = getPref($username, "reply_to");
-      $from = getPref($username, "full_name");
+      $reply_to = getPref($data_dir, $username, "reply_to");
+      $from = getPref($data_dir, $username, "full_name");
       if ($from == "")
          $from = "<$from_addr>";
       else
