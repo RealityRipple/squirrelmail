@@ -112,7 +112,8 @@ function attachSelectedMessages($msg, $imapConnection) {
 	$i++;	
     }
     $compose_messages[$composesession] = $composeMessage;
-    sqsession_register($compose_messages,'compose_messages'); 
+    sqsession_register($compose_messages,'compose_messages');
+    session_write_close();
     return $composesession;
 }
 
@@ -183,9 +184,9 @@ if (isset($_SESSION['composesession'])) {
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);
 
-$location = set_url_var($location,'composenew');
-$location = set_url_var($location,'composesession');
-$location = set_url_var($location,'session');
+$location = set_url_var($location,'composenew',0,false);
+$location = set_url_var($location,'composesession',0,false);
+$location = set_url_var($location,'session',0,false);
 
 /* remember changes to mailbox setting */
 if (!isset($lastTargetMailbox)) {
@@ -195,19 +196,17 @@ if ($targetMailbox != $lastTargetMailbox) {
     $lastTargetMailbox = $targetMailbox;
     sqsession_register($lastTargetMailbox, 'lastTargetMailbox');
 }
-
+$exception = false;
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
     $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
     if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
         if ($startMessage > $show_num) {
-	    $location = set_url_var($location,'startMessage',$startMessage-$show_num);
+	    $location = set_url_var($location,'startMessage',$startMessage-$show_num,false);
 	} else {
-	    $location = set_url_var($location,'startMessage',1);
+	    $location = set_url_var($location,'startMessage',1,false);
 	}
     }
-    header("Location: $location");
-    exit;
 } elseif(isset($undeleteButton)) {
     // undelete messages if user isn't using move_to_trash or auto_expunge
     if (is_array($msg) == 1) {
@@ -223,11 +222,8 @@ if(isset($expungeButton)) {
             }
             $i++;
         }
-	header ("Location: $location"); 
-	exit;
     } else {
-        displayPageHeader($color, $mailbox);
-        error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
+	$exception = true;
     }
 } elseif (!isset($moveButton)) {
     // If the delete button was pressed, the moveButton variable will not be set.
@@ -259,29 +255,24 @@ if(isset($expungeButton)) {
 	}
         if (isset($attache)) {
 	    $composesession = attachSelectedMessages($msg, $imapConnection);
+	    $location = set_url_var($location, 'session', $composesession, false);
 	    if ($compose_new_win) {
-        	header ("Location: $location&composenew=1&session=$composesession");
-		exit;
+	        $location = set_url_var($location, 'composenew', 1, false);
 	    } else {
 		$location = str_replace('search.php','compose.php',$location);
 		$location = str_replace('right_main.php','compose.php',$location);
-		header ("Location: $location&session=$composesession");
-		exit;
 	    }
 	} else {		
 	    if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
     	       if ($startMessage > $show_num) {
-	           $location = set_url_var($location,'startMessage',$startMessage-$show_num);
+	           $location = set_url_var($location,'startMessage',$startMessage-$show_num, false);
 	       } else {
-	  	   $location = set_url_var($location,'startMessage',1);
+	  	   $location = set_url_var($location,'startMessage',1, false);
 	       }
 	    }
-            header ("Location: $location");
-	    exit;
         } 
     } else {
-        displayPageHeader($color, $mailbox);
-        error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
+    	$exception = true;
     }
 } else {    // Move messages
     // lets check to see if they selected any messages
@@ -308,19 +299,23 @@ if(isset($expungeButton)) {
 	
 	if (($startMessage+$cnt-1) >= $mbx_response['EXISTS']) {
     	    if ($startMessage > $show_num) {
-		$location = set_url_var($location,'startMessage',$startMessage-$show_num);
+		$location = set_url_var($location,'startMessage',$startMessage-$show_num, false);
 	    } else {
-		$location = set_url_var($location,'startMessage',1);
+		$location = set_url_var($location,'startMessage',1, false);
 	    }
 	}
-	header ("Location: $location");
-	exit;
     } else {
-        displayPageHeader($color, $mailbox);
-        error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
+	$exception = true;
     }
 }
 // Log out this session
 sqimap_logout($imapConnection);
+if ($exception) {
+    displayPageHeader($color, $mailbox);
+    error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
+} else {
+    header("Location: $location");
+    exit;
+}
 ?>
 </BODY></HTML>
