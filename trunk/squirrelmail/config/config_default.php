@@ -215,8 +215,8 @@
     $theme[11]["PATH"] = "../themes/high_contrast_theme.php";
     $theme[11]["NAME"] = "High Contrast";
 
-    $theme[11]["PATH"] = "../themes/black_bean_burrito_theme.php";
-    $theme[11]["NAME"] = "Black Bean Burrito";
+    $theme[12]["PATH"] = "../themes/black_bean_burrito_theme.php";
+    $theme[12]["NAME"] = "Black Bean Burrito";
 
 //  LDAP server(s)
 //
