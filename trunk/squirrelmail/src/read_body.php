@@ -985,7 +985,7 @@ if ($default_use_mdn) {
                     "               if (window.confirm(\"" .
                     _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
                     "\")) {  \n" .
-                    '                       window.open('.$url.',"_self")' . "\n" .
+                    '                       window.open('.$url.',"right");' . "\n" .
                     '               }' . "\n" .
                     '// -->' . "\n" .
                     '</script>' . "\n";
@@ -1019,7 +1019,7 @@ if ($default_use_mdn) {
                 if ( SendMDN( $MDN_to, $final_recipient ) > 0 && $supportMDN ) {
                     ToggleMDNflag( true);
                 }
-	        ClearAttachements();
+	        ClearAttachments();
             }
             $sendreceipt = 'removeMDN';
             $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
