@@ -41,7 +41,7 @@
 
         global $data_dir;
         global $mailfetch_server_number;
-        global $mailfetch_cypher;
+        global $mailfetch_cypher, $mailfetch_port_;
         global $mailfetch_server_,$mailfetch_alias_,$mailfetch_user_,$mailfetch_pass_;
         global $mailfetch_lmos_, $mailfetch_uidl_, $mailfetch_login_, $mailfetch_fref_;
         global $PHP_SELF;
