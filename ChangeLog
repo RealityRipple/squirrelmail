@@ -83,6 +83,7 @@ Version 1.5.1 -- CVS
   - Make SquirrelSpell work with safe_mode enabled, if using PHP >=4.3.0.
     Patch by Ray Ferguson.
   - Make IP-address in Message-ID RFC822 compliant.
+  - Uneditable address book entries no longer have checkboxes on addresses page
 
 Version 1.5.0
 --------------------
