@@ -170,14 +170,11 @@ function isBoxBelow( $subbox, $parentbox ) {
       return false;
     }
     /* check for delimiter */
-        if (!substr($parentbox,-1) == $delimiter) {
-            $parentbox.=$delimiter;
-        }
-        if (substr($subbox,0,strlen($parentbox)) == $parentbox) {
-            return true;
-        } else {
-            return false;
-        }
+    if (substr($parentbox,-1) != $delimiter) {
+        $parentbox .= $delimiter;
+    }
+
+    return (substr($subbox,0,strlen($parentbox)) == $parentbox);
 }
 
 /**
@@ -680,7 +677,17 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
                 }
             }
         }
-       /* Rest of the folders */
+
+        /* Find INBOX's children */
+        for($k = 0; $k < $cnt; ++$k) {
+            if (isBoxBelow(strtolower($boxesall[$k]['unformatted']), 'inbox') && 
+            strtolower($boxesall[$k]['unformatted']) <> 'inbox') {
+                $boxesnew[] = $boxesall[$k];
+                $used[$k] = true;
+            }   
+        }
+        
+        /* Rest of the folders */
         for($k = 0; $k < $cnt; $k++) {
             if (!$used[$k]) {
                 $boxesnew[] = $boxesall[$k];
