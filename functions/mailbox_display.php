@@ -809,7 +809,7 @@ function mail_message_listing_beginning ($imapConnection,
         $set_thread = 1;
         $thread_name = _("Thread View");
       }
-      $thread_link_str = '&nbsp;&nbsp;<small>[<a href="' . $source_url . '?sort='
+      $thread_link_str = '<small>[<a href="' . $source_url . '?sort='
            . $sort . '&start_messages=1&set_thread=' . $set_thread
            . '&mailbox=' . urlencode($mailbox) . '">' . $thread_name
            . '</a>]</small>';
@@ -832,8 +832,8 @@ function mail_message_listing_beginning ($imapConnection,
           <td>
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
               <tr>
-                <td align="left"><small><?php echo $paginator; ?></small></td>
-                <td align="center"><small><?php echo $thread_link_str; ?></small></td>
+                <td align="left"><small><?php echo $paginator; ?><?php echo $thread_link_str; ?></small></td>
+                <td align="center"></td>
                 <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
               </tr>
             </table>
