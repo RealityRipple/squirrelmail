@@ -28,7 +28,7 @@ if (isset($emailaddress)) {
             $name = urldecode($a[0]);
             $val = urldecode($a[1]);
             global $$name;
-            $$naame = $val;
+            $$name = $val;
         }
     }
     
