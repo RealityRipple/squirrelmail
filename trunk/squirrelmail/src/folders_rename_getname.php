@@ -17,6 +17,14 @@ global $delimiter;
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 
+if ($old == '') {
+    displayPageHeader($color, 'None');
+    echo "<html><body bgcolor=$color[4]>";
+    plain_error_message(_("You have not selected a folder to rename. Please do so.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
+    exit;
+}
+
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
 if (substr($old, strlen($old) - strlen($delimiter)) == $delimiter) {

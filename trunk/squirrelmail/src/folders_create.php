@@ -22,7 +22,9 @@ global $delimiter;
 $folder_name = trim($folder_name);
 
 if (strpos($folder_name, "\"") || strpos($folder_name, "\\") ||
-    strpos($folder_name, "'") || strpos($folder_name, "$delimiter")) {
+    strpos($folder_name, "'") || strpos($folder_name, "$delimiter") ||
+    ($folder_name == '')) {
+    displayPageHeader($color, 'None');
     echo "<html><body bgcolor=$color[4]>";
     plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
     sqimap_logout($imapConnection);
