@@ -460,7 +460,7 @@ class Message {
         for ($j = 0; $j < $lit_cnt; ++$j) {
             $s .= $read{++$i};
         }
-        return (array($s, $i));
+        return $s;
     }
 
     function parseQuote($read, &$i) {
