@@ -1,9 +1,12 @@
 <?php
 
 /**
- * $id$
  * Poppassd change password backend
- * Author: Seth Randall <sethr@missoulafcu.org>
+ *
+ * @author Seth Randall <sethr@missoulafcu.org>
+ * @version $Id$
+ * @package plugins
+ * @subpackage change_password
  */
 
 /**
