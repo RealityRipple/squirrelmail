@@ -673,7 +673,13 @@ function translate_form_intertran($message) {
  * @access private
  */
 function translate_form_gpltrans($message) {
-    translate_new_form('http://www.translator.cx/cgi-bin/gplTrans');
+    global $translate_gpltrans_url;
+
+    // make sure that it is not empty
+    if ($translate_gpltrans_url=='')
+        $translate_gpltrans_url='http://www.translator.cx/cgi-bin/gplTrans';
+
+    translate_new_form($translate_gpltrans_url);
     echo '<select name="language">'.
         translate_lang_opt('', 'nl_NL', 'dutch_dict',      _("Dutch")).
         translate_lang_opt('', 'fr_FR', 'french_dict',     _("French")).
