@@ -76,6 +76,8 @@ function sortSpecialMbx($a, $b) {
 }     	
 
 function find_mailbox_name ($mailbox) {
+    if (preg_match('/\*.+\"([^\r\n\"]*)\"[\s\r\n]*$/', $mailbox, $regs)) 
+        return $regs[1];
     if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
         return $regs[1];
     ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
@@ -402,6 +404,8 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
 function user_strcasecmp($a, $b) {
     global $delimiter;
 
+    return  strnatcasecmp($a, $b);
+
     /* Calculate the length of some strings. */
     $a_length = strlen($a);
     $b_length = strlen($b);
@@ -409,8 +413,7 @@ function user_strcasecmp($a, $b) {
     $delimiter_length = strlen($delimiter);
 
     /* Set the initial result value. */
-    $result = 0;
-
+    $result = 0;    
     /* Check the strings... */
     for ($c = 0; $c < $min_length; ++$c) {
         $a_del = substr($a, $c, $delimiter_length);
@@ -508,10 +511,11 @@ function sqimap_mailbox_list($imap_stream) {
         if (isset($sorted_lsub_ary)) {
             usort($sorted_lsub_ary, 'user_strcasecmp');
         }
-
+	$sorted_list_ary = $sorted_lsub_ary;
         /* LIST array */
-        $sorted_list_ary = array();
-        for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+//        $sorted_list_ary = array();
+//        for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+        if (false) {
             if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
                 $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
             }
@@ -544,12 +548,12 @@ function sqimap_mailbox_list($imap_stream) {
                 $inbox_in_list = true;
             }
         }
-
+//        $inbox_in_list = true;
         /*
          * Just in case they're not subscribed to their inbox,
          * we'll get it for them anyway
          */
-        if (!$inbox_subscribed || !$inbox_in_list) {
+        if (!$inbox_subscribed) {// || !$inbox_in_list) {
             $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
                                              true, $response, $message);
             /* Another workaround for EIMS */
