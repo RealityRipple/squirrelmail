@@ -292,7 +292,7 @@ class Deliver {
         $contenttype = 'Content-Type: '. $mime_header->type0 .'/'.
                         $mime_header->type1;
         if (count($message->entities)) {
-            $contenttype .= ";\r\n " . 'boundary="'.$boundary.'"';
+            $contenttype .= ';' . 'boundary="'.$boundary.'"';
         }
         if (isset($mime_header->parameters['name'])) {
             $contenttype .= '; name="'.
