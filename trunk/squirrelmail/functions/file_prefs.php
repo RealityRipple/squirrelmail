@@ -179,9 +179,9 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 
         /* Otherwise, report an error. */
         $errTitle = sprintf( _("Error opening %s"), $default_pref );
-        if (!file_exists($default_pref)) {
+        if (!is_readable($default_pref)) {
             $errString = $errTitle . "<br>\n" .
-                         _("Default preference file not found!") . "<br>\n" .
+                         _("Default preference file not found or not readable!") . "<br>\n" .
                          _("Please contact your system administrator and report this error.") . "<br>\n";
             include_once(SM_PATH . 'functions/display_messages.php' );
             logout_error( $errString, $errTitle );
