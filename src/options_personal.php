@@ -46,6 +46,10 @@ function load_optpage_data_personal() {
     /* Build a simple array into which we will build options. */
     $optvals = array();
 
+    if (!isset($edit_identity)) {
+        $edit_identity = TRUE;
+    }
+
     if ($edit_identity || $edit_name) {
         $optvals[SMOPT_GRP_CONTACT][] = array(
             'name'    => 'full_name',
