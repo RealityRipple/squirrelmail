@@ -156,7 +156,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                         $olddata = $abook->lookup($enick, $ebackend);
 
                         /* Display the "new address" form */
-			abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
+                        abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$olddata);
                         echo addHidden('oldnick', $olddata['nickname']).
                             addHidden('backend', $olddata['backend']).
                             addHidden('doedit', '1').
@@ -182,7 +182,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                     'center', '', 'width="100%"' );
 
                             /* Display the "new address" form again */
-			    abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
+                            abook_create_form($form_url,'editaddr',_("Update address"),_("Update address"),$newdata);
                             echo addHidden('oldnick', $oldnick).
                                 addHidden('backend', $backend).
                                 addHidden('doedit',  '1').
