@@ -510,9 +510,9 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
  * Returns the number of unseen/total messages in this folder
  */
 function sqimap_status_messages ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (MESSAGES UNSEEN)", false, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, "STATUS \"$mailbox\" (MESSAGES UNSEEN RECENT)", false, $result, $message);
     $i = 0;
-    $messages = $unseen = false;
+    $messages = $unseen = $recent = false;
     $regs = array(false,false);
     while (isset($read_ary[$i])) {
         if (preg_match('/UNSEEN\s+([0-9]+)/i', $read_ary[$i], $regs)) {
@@ -521,9 +521,12 @@ function sqimap_status_messages ($imap_stream, $mailbox) {
         if (preg_match('/MESSAGES\s+([0-9]+)/i', $read_ary[$i], $regs)) {
 	    $messages = $regs[1];
 	}
+        if (preg_match('/RECENT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
+	    $recent = $regs[1];
+	}        
         $i++;
     }
-    return array('MESSAGES' => $messages, 'UNSEEN'=>$unseen);
+    return array('MESSAGES' => $messages, 'UNSEEN'=>$unseen, 'RECENT' => $recent);
 }
 
 
