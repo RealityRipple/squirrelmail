@@ -85,7 +85,7 @@
       if ($unseen > 0) { $line .= '<B>'; }
 
       /* Crate the link for this folder. */
-      $line .= "<A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" TARGET=RIGHT STYLE=\"text-decoration:none\">";
+      $line .= "<A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" TARGET=\"right\" STYLE=\"text-decoration:none\">";
       if ($special_color == true)
          $line .= "<FONT COLOR=\"$color[11]\">";
       $line .= str_replace(' ','&nbsp;',$mailbox);
