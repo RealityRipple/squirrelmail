@@ -87,26 +87,33 @@ class Deliver_SMTP extends Deliver {
 	/* send who the recipients are */
 	for ($i = 0, $cnt = count($to); $i < $cnt; $i++) {
 	    if (!$to[$i]->host) $to[$i]->host = $domain;
-    	    fputs($stream, 'RCPT TO: <'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
+	    if ($to[$i]->mailbox) {
+    		fputs($stream, 'RCPT TO: <'.$to[$i]->mailbox.'@'.$to[$i]->host.">\r\n");
+    		$tmp = fgets($stream, 1024);
+		if ($this->errorCheck($tmp, $stream)) {
+    		    return(0);
+		}
 	    }
 	}
+	
 	for ($i = 0, $cnt = count($cc); $i < $cnt; $i++) {	
-	    if (!$cc[$i]->host) $cc[$i]->host = $domain;	
-    	    fputs($stream, 'RCPT TO: <'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
+	    if (!$cc[$i]->host) $cc[$i]->host = $domain;
+	    if ($cc[$i]->mailbox) {
+    		fputs($stream, 'RCPT TO: <'.$cc[$i]->mailbox.'@'.$cc[$i]->host.">\r\n");
+    		$tmp = fgets($stream, 1024);
+		if ($this->errorCheck($tmp, $stream)) {
+    		    return(0);
+		}
 	    }
 	}
 	for ($i = 0, $cnt = count($bcc); $i < $cnt; $i++) {
-	    if (!$bcc[$i]->host) $bcc[$i]->host = $domain;	
-    	    fputs($stream, 'RCPT TO: <'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
+	    if (!$bcc[$i]->host) $bcc[$i]->host = $domain;
+	    if ($bcc[$i]->mailbox) {
+    		fputs($stream, 'RCPT TO: <'.$bcc[$i]->mailbox.'@'.$bcc[$i]->host.">\r\n");
+    		$tmp = fgets($stream, 1024);
+		if ($this->errorCheck($tmp, $stream)) {
+    		    return(0);
+		}
 	    }
         }
 	/* Lets start sending the actual message */
