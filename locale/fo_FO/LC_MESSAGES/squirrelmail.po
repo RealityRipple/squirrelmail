@@ -2,14 +2,13 @@
 # Copyright (C) 2003 Free Software Foundation, Inc.
 # Dánial Olsen <danial@com-data> & David Sundskarð <david@com-data.fo>, 2003.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-01-18 10:47+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: $Id$\n"
+"POT-Creation-Date: 2003-05-31 14:56+0300\n"
+"PO-Revision-Date: 2003-06-14 10:00+0200\n"
 "Last-Translator: Danial Olsen <danial@com-data.fo>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: Faroese <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,11 +86,11 @@ msgstr "Má vera einstakt"
 msgid "E-mail address"
 msgstr "E-post adressa"
 
-msgid "First name"
-msgstr "Fornavn"
-
 msgid "Last name"
 msgstr "Eftirnavn"
+
+msgid "First name"
+msgstr "Fornavn"
 
 msgid "Additional info"
 msgstr "Fleiri upplýsingar"
@@ -123,6 +122,15 @@ msgstr "Strika valda"
 #, c-format
 msgid "Add to %s"
 msgstr "Legg afturat %s"
+
+msgid "said"
+msgstr "sagt"
+
+msgid "quote"
+msgstr "sitat"
+
+msgid "who"
+msgstr "hvør"
 
 msgid "Subject"
 msgstr "Evni"
@@ -207,15 +215,6 @@ msgstr "Goym Kladdu"
 
 msgid "You have not filled in the \"To:\" field."
 msgstr "Tú hevur ikki útfylt \"Til:\" teigin."
-
-msgid "said"
-msgstr "sagt"
-
-msgid "quote"
-msgstr "sitat"
-
-msgid "who"
-msgstr "hvør"
 
 msgid "Draft folder"
 msgstr "Kladdu mappa"
@@ -362,9 +361,6 @@ msgstr "Vís boð"
 msgid "Download this as a file"
 msgstr "Taka niður sum fílu"
 
-msgid "Not available"
-msgstr "Ikki tøkt"
-
 msgid "INBOX"
 msgstr "INBOX"
 
@@ -424,6 +420,12 @@ msgstr "evni"
 
 msgid "Edit"
 msgstr "Broyt"
+
+msgid "Up"
+msgstr "Upp"
+
+msgid "Down"
+msgstr "Niður"
 
 msgid "No highlighting is defined"
 msgstr "Ongin merking er vald"
@@ -532,7 +534,8 @@ msgid ""
 "The index order is the order that the columns are arranged in the message "
 "index.  You can add, remove, and move columns around to customize them to "
 "fit your needs."
-msgstr "Raðfylgjan á skránni er raðfylgjan, sum teigarnir eru skipaðir í "
+msgstr ""
+"Raðfylgjan á skránni er raðfylgjan, sum teigarnir eru skipaðir í "
 "boðskránni.  Tú kanst leggja afturat, strika og flyta teigar, fyri at broyta "
 "teir eftir tínum tørvi."
 
@@ -570,8 +573,8 @@ msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
-"Hetta inniheldur tínir persónligu upplýsingar, so sum títt navn, tína "
-"e-post adressu osv."
+"Hetta inniheldur tínir persónligu upplýsingar, so sum títt navn, tína e-post "
+"adressu osv."
 
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
@@ -591,8 +594,7 @@ msgstr ""
 
 msgid ""
 "These settings change the way your folders are displayed and manipulated."
-msgstr ""
-"Hesar uppsetingarnar broyta mátan, tínar mappur verða vístar."
+msgstr "Hesar uppsetingarnar broyta mátan, tínar mappur verða vístar."
 
 msgid ""
 "The order of the message index can be rearranged and changed to contain the "
@@ -674,9 +676,6 @@ msgstr "Les boð sum nýtt"
 
 msgid "View Message"
 msgstr "Vís boð"
-
-msgid "Up"
-msgstr "Upp"
 
 msgid "Forward"
 msgstr "Send víðari"
@@ -890,6 +889,31 @@ msgstr "Fríggjadagur"
 msgid "Saturday"
 msgstr "Leygardagur"
 
+#, fuzzy
+msgid "Sun"
+msgstr "Sunnudagur"
+
+#, fuzzy
+msgid "Mon"
+msgstr "Mánadagur"
+
+#, fuzzy
+msgid "Tue"
+msgstr "Týsdagur"
+
+msgid "Wed"
+msgstr ""
+
+msgid "Thu"
+msgstr ""
+
+#, fuzzy
+msgid "Fri"
+msgstr "Fríggjadagur"
+
+msgid "Sat"
+msgstr ""
+
 msgid "January"
 msgstr "Januar"
 
@@ -925,6 +949,50 @@ msgstr "November"
 
 msgid "December"
 msgstr "Desember"
+
+#, fuzzy
+msgid "Jan"
+msgstr "Januar"
+
+msgid "Feb"
+msgstr ""
+
+#, fuzzy
+msgid "Mar"
+msgstr "Mars"
+
+#, fuzzy
+msgid "Apr"
+msgstr "Apríl"
+
+msgid "Ma&#121;"
+msgstr ""
+
+#, fuzzy
+msgid "Jun"
+msgstr "Juni"
+
+#, fuzzy
+msgid "Jul"
+msgstr "Juli"
+
+#, fuzzy
+msgid "Aug"
+msgstr "August"
+
+msgid "Sep"
+msgstr ""
+
+#, fuzzy
+msgid "Oct"
+msgstr "Oktober"
+
+#, fuzzy
+msgid "Nov"
+msgstr "Nei"
+
+msgid "Dec"
+msgstr ""
 
 msgid "D, F j, Y g:i a"
 msgstr "D, F j, Y g:i a"
@@ -976,15 +1044,19 @@ msgstr ""
 msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr ""
-"Forvald fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
+msgstr "Forvald fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
 
 #, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
-msgstr ""
-"Forvald fíla, %s, kundi ikki goymast. Set teg í samband við umsitaran."
+msgstr "Forvald fíla, %s, kundi ikki goymast. Set teg í samband við umsitaran."
+
+#, fuzzy, c-format
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr "Forvald fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
 
 #, c-format
 msgid "Error opening %s"
@@ -994,8 +1066,8 @@ msgid "Default preference file not found or not readable!"
 msgstr "Sjálvvald forvald fíla varð ikki funnin ella kann ikki lesast!"
 
 msgid "Please contact your system administrator and report this error."
-msgstr "Vinarliga set teg í samband við umsitaran og greið frá um hendan "
-"feilin."
+msgstr ""
+"Vinarliga set teg í samband við umsitaran og greið frá um hendan feilin."
 
 msgid "Could not create initial preference file!"
 msgstr "Kundi ikki stovna uppruna forvalda fílu!"
@@ -1018,9 +1090,17 @@ msgid ""
 msgstr ""
 "Undirskrifta fíla, %s, kundi ikki goymast. Set teg í samband við umsitaran."
 
+#, fuzzy, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"Undirskrifta fíla, %s, kundi ikki opnast. Set teg í samband við umsitaran."
+
+#, fuzzy
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"(using configure option --enable-mbstring)."
 msgstr ""
 "You need to have php4 installed with the multibyte string function enabled "
 "(using configure option --with-mbstring)."
@@ -1067,14 +1147,7 @@ msgstr "Loysn: "
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
-msgstr ""
-"Strika óneyðug boð frá tíni mappu og byrja við tíni Trash mappu."
-
-msgid "Unknown response from IMAP server: "
-msgstr "Ókent svar frá IMAP servara: "
-
-msgid "Unknown message number in reply from server: "
-msgstr "Ókent boðnummar í svari frá servara: "
+msgstr "Strika óneyðug boð frá tíni mappu og byrja við tíni Trash mappu."
 
 msgid "(no subject)"
 msgstr "(onki evni)"
@@ -1082,8 +1155,8 @@ msgstr "(onki evni)"
 msgid "Unknown Sender"
 msgstr "Ókendur sendari"
 
-msgid "(unknown sender)"
-msgstr "(ókendur sendari)"
+msgid "Unknown response from IMAP server: "
+msgstr "Ókent svar frá IMAP servara: "
 
 msgid "Unknown date"
 msgstr "Ókend dagfesting"
@@ -1168,8 +1241,8 @@ msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
-"Kundi ikki heinta innihald. Orsøkin til hetta er óivað hon, at boðini eru"
-"avskapaði"
+"Kundi ikki heinta innihald. Orsøkin til hetta er óivað hon, at boðini "
+"eruavskapaði"
 
 msgid "Command:"
 msgstr "Kommando:"
@@ -1234,8 +1307,9 @@ msgid "Syntax error; command not recognized"
 msgstr "Feilur í setningsbygnaði; ókend kommando"
 
 msgid "Syntax error in parameters or arguments"
-msgstr "Setningsbygnaðarfeilur í bundnaðartølum ella ávirkjum"
-"(Syntax error in parameters or arguments)"
+msgstr ""
+"Setningsbygnaðarfeilur í bundnaðartølum ella ávirkjum(Syntax error in "
+"parameters or arguments)"
 
 msgid "Command not implemented"
 msgstr "Kommando ikki til"
@@ -1946,8 +2020,9 @@ msgstr "0 min."
 msgid "15 min."
 msgstr "15 min."
 
-msgid "35 min."
-msgstr "35 min."
+#, fuzzy
+msgid "30 min."
+msgstr "0 min."
 
 msgid "45 min."
 msgstr "45 min."
@@ -2025,8 +2100,8 @@ msgid ""
 "account and send spam directly from there."
 msgstr ""
 "HANDIL - Uppringdir brúkarar eru ofta sílaðir út, tí teir skulu brúka e-post "
-"servararnar hjá sínum alnótarveitara at senda mail við.  Spammarar fáa "
-"sum oftast eina konto til uppringt samband og senda spam beinleiðis harífrá."
+"servararnar hjá sínum alnótarveitara at senda mail við.  Spammarar fáa sum "
+"oftast eina konto til uppringt samband og senda spam beinleiðis harífrá."
 
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr "HANDIL - RBL+ Blackhole entries"
@@ -2103,7 +2178,8 @@ msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-msgstr "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+"FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "FREE - Five-Ten-sg.com - Other misc. servers."
@@ -2245,9 +2321,6 @@ msgstr "Høvd"
 msgid "Contains:"
 msgstr "Inniheldur:"
 
-msgid "Down"
-msgstr "Niður"
-
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Um <b>%s</b> inniheldur <b>%s</b> flyt síðan til <b>%s</b>"
@@ -2259,8 +2332,8 @@ msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
 msgstr ""
-"Filtrering loyvir boðum við ymiskum eyðkennum at verða filtreraði í "
-"ymiskar mappur av sær sjálvum, fyri lættari umsiting."
+"Filtrering loyvir boðum við ymiskum eyðkennum at verða filtreraði í ymiskar "
+"mappur av sær sjálvum, fyri lættari umsiting."
 
 msgid "SPAM Filters"
 msgstr "SPAM Filtur"
@@ -2290,9 +2363,9 @@ msgid ""
 "around."
 msgstr ""
 "Flyting av spam beinleiðis til trash er nokk ikki eitt gott hugskot í "
-"fyrstani, tí boð frá vinum og mailing-listum kunnu av óvart, verða merkt "
-"sum spam. Verð varugur við, at mappan ið tú setir hesa til, má helst verða "
-"tømd av og á, so tú ikki endar við einari yvirstórari mappu."
+"fyrstani, tí boð frá vinum og mailing-listum kunnu av óvart, verða merkt sum "
+"spam. Verð varugur við, at mappan ið tú setir hesa til, má helst verða tømd "
+"av og á, so tú ikki endar við einari yvirstórari mappu."
 
 msgid ""
 "The more messages you scan, the longer it takes.  I would suggest that you "
@@ -2302,7 +2375,7 @@ msgid ""
 "you'll scan even the spam you read with the new filters."
 msgstr ""
 "Fleiri boð tú kannar, longri tekur tað. Eg vildi rátt tær til bert at kanna "
-"nýggj boð.  Um tú gert eina broyting í tínum filtrum, eg vildi sett tað til " 
+"nýggj boð.  Um tú gert eina broyting í tínum filtrum, eg vildi sett tað til "
 "at kanna øll boð, hygg síðani eftir INBOX, kom síðani aftur og set tað til "
 "bert at kanna nýggj boð.  Á tann hátt verða tíni nýggju spam filtur sett í "
 "gildi, og tú kannar sjálvt spammið tú lesur við tínum nýggju filtrum."
@@ -2370,7 +2443,7 @@ msgid ""
 "This will send a message to %s requesting that you will be subscribed to "
 "this list. You will be subscribed with the address below."
 msgstr ""
-"Hetta sendir eini boð til %s við umbøn um tekning av haldi fyri hendan " 
+"Hetta sendir eini boð til %s við umbøn um tekning av haldi fyri hendan "
 "listan. Hald verður teknað við adressuni niðanfyri."
 
 #, c-format
@@ -2378,7 +2451,7 @@ msgid ""
 "This will send a message to %s requesting that you will be unsubscribed from "
 "this list. It will try to unsubscribe the adress below."
 msgstr ""
-"Hetta sendir eini boð til %s við umbøn um frátekning av haldi fyri hendan " 
+"Hetta sendir eini boð til %s við umbøn um frátekning av haldi fyri hendan "
 "listan. Hald verður fráteknað við adressuni niðanfyri."
 
 msgid "Send Mail"
@@ -2408,12 +2481,6 @@ msgstr "Ongin servari valdur"
 msgid "Error "
 msgstr "Feilur "
 
-msgid "POP3 noop:"
-msgstr "POP3 noop:"
-
-msgid "No connection to server"
-msgstr "Onki samband við servaran"
-
 msgid "POP3 user:"
 msgstr "POP3 brúkari:"
 
@@ -2434,6 +2501,9 @@ msgstr "feilur í heimildarkanning"
 
 msgid "POP3 apop:"
 msgstr "POP3 apop:"
+
+msgid "No connection to server"
+msgstr "Onki samband við servaran"
 
 msgid "No login ID submitted"
 msgstr "Onki login ID sent"
@@ -2588,8 +2658,8 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
-"Tú skalt verða varugur við, at krypteringin sum er nýtt til at goyma "
-"tíni loyniorð, ikki er heilt trygg.  Men tá tú nýtir pop, er onki krypterað "
+"Tú skalt verða varugur við, at krypteringin sum er nýtt til at goyma tíni "
+"loyniorð, ikki er heilt trygg.  Men tá tú nýtir pop, er onki krypterað "
 "allíkavæl, so tað ger onki."
 
 msgid "If you leave password empty, it will be required when you fetch mail."
@@ -2683,9 +2753,6 @@ msgstr ""
 msgid "Message Details"
 msgstr "Boð Útgreinað"
 
-msgid "Message details"
-msgstr "Boð útgreinað"
-
 msgid "Close Window"
 msgstr "Lat vindeygað aftur"
 
@@ -2703,16 +2770,16 @@ msgid ""
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
-"1. Vel <b>Ger tað møguligt at spæla media</b>, fyri at gera tað møguligt "
-"at avspæla media, tá nýggjur postur kemur. Tá tað er sligið til, kanst tú "
-"velja hvørja fílu tú vilt spæla í veitta fílu teiginum."
+"1. Vel <b>Ger tað møguligt at spæla media</b>, fyri at gera tað møguligt at "
+"avspæla media, tá nýggjur postur kemur. Tá tað er sligið til, kanst tú velja "
+"hvørja fílu tú vilt spæla í veitta fílu teiginum."
 
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
-"2. <b>Kanna allar mappur, ikki bert INBOX</b> ger tað, at allar mappur "
-"verða kannaðar fyri nýggjan post. Ikki bert INBOX."
+"2. <b>Kanna allar mappur, ikki bert INBOX</b> ger tað, at allar mappur verða "
+"kannaðar fyri nýggjan post. Ikki bert INBOX."
 
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
@@ -2738,21 +2805,20 @@ msgid ""
 "enabled."
 msgstr ""
 "5. Við at velja <b>Broyt heiti</b>, broytist heiti á summum browsarum fyri "
-"at siga tær frá, at nýggjur postur er komin. (Hetta krevur JavaScript "
-"og virkar bert við IE; men tú sært ongan feil við øðrum browsarum). Hetta "
-"vil altíð siga tær frá, tá tú hevur nýggjan post, sjálvt um tú hevur "
-"<b>Kanna NÝLIGA</b> gildað."
+"at siga tær frá, at nýggjur postur er komin. (Hetta krevur JavaScript og "
+"virkar bert við IE; men tú sært ongan feil við øðrum browsarum). Hetta vil "
+"altíð siga tær frá, tá tú hevur nýggjan post, sjálvt um tú hevur <b>Kanna "
+"NÝLIGA</b> gildað."
 
+#, fuzzy
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
 "6. Vel úr listanum av <b>servara fílum</b>, hvørjar fílur skulu spælast tá "
 "nýggjur postur kemur.  Velur tú <b>lokal media</b>, velur tú hvørja fílu í "
-"<b>Lokal Media Fíla</b> tú spælir frá lokalu telduni.  Er ongin fíla er vald, "
-"verður ein sjálvvald frá servaranum spæld."
+"<b>Lokal Media Fíla</b> tú spælir frá lokalu telduni.  Er ongin fíla er "
+"vald, verður ein sjálvvald frá servaranum spæld."
 
 msgid "Enable Media Playing"
 msgstr "Ger tað møguligt at spæla media"
@@ -2775,14 +2841,12 @@ msgstr "Vís popup vindeygað, tá nýggjur mailur kemur"
 msgid "Select server file:"
 msgstr "Vel servara fílu:"
 
-msgid "(local media)"
-msgstr "(lokal media)"
+#, fuzzy
+msgid "(none)"
+msgstr "Enda"
 
 msgid "Try"
 msgstr "Royn"
-
-msgid "Local Media File:"
-msgstr "Lokal Media fíla"
 
 msgid "Current File:"
 msgstr "Núverandi fíla:"
@@ -2803,8 +2867,8 @@ msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
 msgstr ""
-"Hetta er uppsetingin til at spæla ljóð, og/ella at vísa popup vindeygu, "
-"tá nýggjur postur kemur."
+"Hetta er uppsetingin til at spæla ljóð, og/ella at vísa popup vindeygu, tá "
+"nýggjur postur kemur."
 
 msgid "New Mail Notification options saved"
 msgstr "\"Nýggjur Postur\" fráboðan goymd"
@@ -2819,6 +2883,10 @@ msgstr "%s Nýtt Boð"
 
 msgid "Test Sound"
 msgstr "Royn Ljóð"
+
+#, fuzzy
+msgid "No sound specified"
+msgstr "Ongin servari valdur"
 
 msgid "Loading the sound..."
 msgstr "Innlesi ljóðið..."
@@ -2852,8 +2920,8 @@ msgid ""
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
 msgstr ""
-"Hjálp til í stríðnum móti e-posti, sum ikki er umbiðin. SpamCop lesur "
-"spam e-post og vísur røttu adressuna at senda klagur til. Rættiliga skjótur, "
+"Hjálp til í stríðnum móti e-posti, sum ikki er umbiðin. SpamCop lesur spam e-"
+"post og vísur røttu adressuna at senda klagur til. Rættiliga skjótur, "
 "veruliga snildur og lættur at nýta."
 
 msgid "SpellChecker Options"
@@ -2889,9 +2957,9 @@ msgstr ""
 "ivaleyst tí, at tú hevur broytt títt postkassa loyniorð. Fyri at halda fram "
 "verður tú noyddur at uppgeva títt gamla loyniorð, so SquirrelSpell kann "
 "dekryptera tína persónligur orðabók. Hon verður endurkrypterað við tínum "
-"nýggja loyniorði aftaná hetta. <br>Hevur tú ikki krypterað tína orðabók, "
-"er hon blivin bronglað og kann ikki brúkast. Tú mást strika hana og byrja "
-"av nýggjum. Hetta geldur eisini, um tú hevur gloymt títt gamla loyniorð -- "
+"nýggja loyniorði aftaná hetta. <br>Hevur tú ikki krypterað tína orðabók, er "
+"hon blivin bronglað og kann ikki brúkast. Tú mást strika hana og byrja av "
+"nýggjum. Hetta geldur eisini, um tú hevur gloymt títt gamla loyniorð -- "
 "uttan tað, eru tey krypteraðu dátaini ikki atkomilig longur."
 
 msgid "Delete my dictionary and start a new one"
@@ -3001,7 +3069,8 @@ msgid "Close and Cancel"
 msgstr "Lat aftur og ógilda"
 
 msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr "Rættstavarin er ikki liðugur. Skal eg sløkkja uttan at goyma broytingar?"
+msgstr ""
+"Rættstavarin er ikki liðugur. Skal eg sløkkja uttan at goyma broytingar?"
 
 msgid "No errors found"
 msgstr "Fann ongan feil"
@@ -3016,8 +3085,8 @@ msgid ""
 "Your personal dictionary was erased. Please close this window and click "
 "\"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
-"Tín persónliga orðabók er strikað. Lat hetta vindeygað aftur og vel "
-"\"Kanna stavseting\" knøttin aftur fyri at endurbyrja rættstaving."
+"Tín persónliga orðabók er strikað. Lat hetta vindeygað aftur og vel \"Kanna "
+"stavseting\" knøttin aftur fyri at endurbyrja rættstaving."
 
 msgid "Close this Window"
 msgstr "Lat hetta vindeygað aftur"
@@ -3026,8 +3095,8 @@ msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
-"Tín persónliga orðabók er nú endurkrypterað. Far nú aftur til "
-"&quot;Rættstavara valmøguleikar&quot; skermmynd og vel umaftur."
+"Tín persónliga orðabók er nú endurkrypterað. Far nú aftur til &quot;"
+"Rættstavara valmøguleikar&quot; skermmynd og vel umaftur."
 
 msgid "Successful Re-encryption"
 msgstr "Orðabók er nú endurkrypterað"
@@ -3048,15 +3117,15 @@ msgid ""
 "Your personal dictionary has been <strong>encrypted</strong> and is now "
 "stored in an <strong>encrypted format</strong>."
 msgstr ""
-"Tín persónliga orðabók er nú <strong>krypterað</strong> og er nú "
-"goymd sum <strong>krypterað snið</strong>"
+"Tín persónliga orðabók er nú <strong>krypterað</strong> og er nú goymd sum "
+"<strong>krypterað snið</strong>"
 
 msgid ""
 "Your personal dictionary has been <strong>decrypted</strong> and is now "
 "stored as <strong>clear text</strong>."
 msgstr ""
-"Tín persónliga orðabók er nú <strong>dekrypterað</strong> og er nú "
-"goymd sum <strong>clear-text</strong>"
+"Tín persónliga orðabók er nú <strong>dekrypterað</strong> og er nú goymd sum "
+"<strong>clear-text</strong>"
 
 msgid "Personal Dictionary Crypto Settings"
 msgstr "Persónlig orðabók - Krypteringsuppsetingar"
@@ -3087,16 +3156,15 @@ msgid ""
 "This will encrypt your personal dictionary and store it in an encrypted "
 "format. Proceed?"
 msgstr ""
-"Hetta krypterar tína persónligu orðabók og goymir hana í krypteraðum "
-"sniði. Vilt tú halda áfram?"
-
+"Hetta krypterar tína persónligu orðabók og goymir hana í krypteraðum sniði. "
+"Vilt tú halda áfram?"
 
 msgid ""
 "This will decrypt your personal dictionary and store it in a clear-text "
 "format. Proceed?"
 msgstr ""
-"Hetta dekrypterar tína persónligu orðabók og goymir hana í clear-text "
-"sniði. Vilt tú halda áfram?"
+"Hetta dekrypterar tína persónligu orðabók og goymir hana í clear-text sniði. "
+"Vilt tú halda áfram?"
 
 msgid ""
 "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
@@ -3109,20 +3177,19 @@ msgid ""
 "mailbox password, SquirrelSpell will recognize it and prompt you for your "
 "old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
-"<p>Tín persónliga orðabók er <strong>krypterað</strong>. Hetta hjálpir "
-"at halda hesa privata, um nú postskipanin fellur í skeivar hendur, og tín "
+"<p>Tín persónliga orðabók er <strong>krypterað</strong>. Hetta hjálpir at "
+"halda hesa privata, um nú postskipanin fellur í skeivar hendur, og tín "
 "persónliga orðabókafíla verður stolin. Hon er krypterað við tínum postkassa "
 "loyniorði, ið ger tað torført hjá øðrum at síggja, hvat tín orðabók "
 "inniheldur.</p> <strong>LEGG TIL MERKIS:</strong> Gloymir tú loyniorðið, "
 "verður orðabókin ónýtilig, tí hon ikki kann dekrypterast longur. Broytir tú "
-"títt loyniorð, vil SquirrelSpell leggja hetta til merkis og spyrja teg um " 
-"títt gamla loyniorð, fyri at endurkryptera orðabókina við tínum nýggja "
-"lykli.</p>"
+"títt loyniorð, vil SquirrelSpell leggja hetta til merkis og spyrja teg um "
+"títt gamla loyniorð, fyri at endurkryptera orðabókina við tínum nýggja lykli."
+"</p>"
 
 msgid ""
 "Please decrypt my personal dictionary and store it in a clear-text format."
-msgstr ""
-"Dekryptera mína persónligu orðabók og goym hana í clear-text sniði."
+msgstr "Dekryptera mína persónligu orðabók og goym hana í clear-text sniði."
 
 msgid "Change crypto settings"
 msgstr "Broyt krypterings uppsetingar"
@@ -3143,11 +3210,11 @@ msgid ""
 "new value.</p>"
 msgstr ""
 "<p>Tín persónliga orðabók er <strong>ikki krypterað</strong>. Tú vilt "
-"møguliga kryptera tína persónligu orðabók fyri at halda hesa privata, um "
-"nú postskipanin fellur í skeivar hendur, og tín persónliga orðabókafíla "
-"verður stolin. Tá hon er krypterað, er innihaldið bronglað, og trupult er "
-"at avbrongla uttan at vita rætta lykilin (ið er títt postkassa loyniorð).</"
-"p> <strong>LEGG TIL MERKIS:</strong> Velur tú at kryptera tína persónligu "
+"møguliga kryptera tína persónligu orðabók fyri at halda hesa privata, um nú "
+"postskipanin fellur í skeivar hendur, og tín persónliga orðabókafíla verður "
+"stolin. Tá hon er krypterað, er innihaldið bronglað, og trupult er at "
+"avbrongla uttan at vita rætta lykilin (ið er títt postkassa loyniorð).</p> "
+"<strong>LEGG TIL MERKIS:</strong> Velur tú at kryptera tína persónligu "
 "orðabók, mást tú minnast til, at hon gerst &quot;bronglað&quot; við tínum "
 "postkassa loyniorði. Gloymir tú loyniorðið, og umsitarin broytir hetta, "
 "gerst orðabókin ónýtilig, og tú fært stovnað eina nýggja. Men; broytir tú "
@@ -3156,8 +3223,7 @@ msgstr ""
 
 msgid ""
 "Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr ""
-"Kryptera mína persónligu orðabók og goym hana krypteraða."
+msgstr "Kryptera mína persónligu orðabók og goym hana krypteraða."
 
 #, c-format
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
@@ -3178,8 +3244,7 @@ msgstr "Vinarliga bíða, samskifti við servaran..."
 msgid ""
 "Please choose which dictionary you would like to use to spellcheck this "
 "message:"
-msgstr ""
-"Vel hvørja orðabók tú ætlar at nýta til at rættstava hesi boðini: "
+msgstr "Vel hvørja orðabók tú ætlar at nýta til at rættstava hesi boðini: "
 
 msgid "SquirrelSpell Initiating"
 msgstr "SquirrelSpell Byrjar"
@@ -3194,8 +3259,8 @@ msgstr ""
 
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr "Brúki <strong>%s</strong> orðabók (sjálvvalt av skipan) til "
-"rættstaving."
+msgstr ""
+"Brúki <strong>%s</strong> orðabók (sjálvvalt av skipan) til rættstaving."
 
 msgid "International Dictionaries Preferences Updated"
 msgstr "Altjóða Orðabøkur - Uppseting Broytt"
@@ -3203,8 +3268,7 @@ msgstr "Altjóða Orðabøkur - Uppseting Broytt"
 msgid ""
 "Please check any available international dictionaries which you would like "
 "to use when spellchecking:"
-msgstr ""
-"Vel hvørjar tøkar altjóða orðabøkur, tú vilt nýta til rættstaving:"
+msgstr "Vel hvørjar tøkar altjóða orðabøkur, tú vilt nýta til rættstaving:"
 
 msgid "Make this dictionary my default selection:"
 msgstr "Ger hesa orðabókina til mítt sjálvsetta val:"
@@ -3242,37 +3306,35 @@ msgstr "Goymdar Umsetingaruppsetingar"
 msgid "Your server options are as follows:"
 msgstr "Tín servarauppseting er hendan:"
 
+#, fuzzy
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr ""
-"13 málpør, í mesta lagi 1000 stavir umsettir, rikin av Systran"
-
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
-"10 málpør, í mesta lagi 25 kilobyte umsett, rikin av Systran"
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "13 málpør, í mesta lagi 1000 stavir umsettir, rikin av Systran"
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 málpør, ongar kendar avmarkingar, rikin av Systran"
 
+#, fuzzy
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 málpør, ongar kendar avmarkingar, rikin av Translation Expert's "
-"InterTran"
+"767 málpør, ongar kendar avmarkingar, rikin av Translation Expert's InterTran"
 
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 "8 málpør, ongar kendar avmarkingar, rikin av GPLTrans (ókeypis, open source)"
 
+#, fuzzy
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr "12 málpør, ongar kendar avmarkingar, rikin av Systran"
+
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr ""
-"Tú avger eisini, um umsetingarkassin verður vístur, og hvar hann skal "
-"standa."
+"Tú avger eisini, um umsetingarkassin verður vístur, og hvar hann skal standa."
 
 msgid "Select your translator:"
 msgstr "Vel umsetara:"
@@ -3316,6 +3378,10 @@ msgstr "%s til %s"
 msgid "English"
 msgstr "Enskt"
 
+#, fuzzy
+msgid "Chinese"
+msgstr "Broyt"
+
 msgid "French"
 msgstr "Franskt"
 
@@ -3324,6 +3390,13 @@ msgstr "Týskt"
 
 msgid "Italian"
 msgstr "Italskt"
+
+msgid "Japanese"
+msgstr "Japanskt"
+
+#, fuzzy
+msgid "Korean"
+msgstr "Norskt"
 
 msgid "Portuguese"
 msgstr "Portugisiskt"
@@ -3370,9 +3443,6 @@ msgstr "Ungarskt"
 msgid "Icelandic"
 msgstr "Íslendskt"
 
-msgid "Japanese"
-msgstr "Japanskt"
-
 msgid "Latin American Spanish"
 msgstr "Latínamerikanskt Spanskt"
 
@@ -3406,8 +3476,44 @@ msgstr "Indonesiskt"
 msgid "Latin"
 msgstr "Latín"
 
+#, fuzzy
+msgid "to English"
+msgstr "Enskt"
+
+#, fuzzy
+msgid "from English"
+msgstr "Enskt"
+
 msgid "Delivery error report"
 msgstr "Frágreiðing um feil levering"
 
 msgid "Undelivered Message Headers"
 msgstr "Óleverað Boðhøvd"
+
+#~ msgid "Not available"
+#~ msgstr "Ikki tøkt"
+
+#~ msgid "Unknown message number in reply from server: "
+#~ msgstr "Ókent boðnummar í svari frá servara: "
+
+#~ msgid "(unknown sender)"
+#~ msgstr "(ókendur sendari)"
+
+#~ msgid "35 min."
+#~ msgstr "35 min."
+
+#~ msgid "POP3 noop:"
+#~ msgstr "POP3 noop:"
+
+#~ msgid "Message details"
+#~ msgstr "Boð útgreinað"
+
+#~ msgid "(local media)"
+#~ msgstr "(lokal media)"
+
+#~ msgid "Local Media File:"
+#~ msgstr "Lokal Media fíla"
+
+#~ msgid ""
+#~ "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+#~ msgstr "10 málpør, í mesta lagi 25 kilobyte umsett, rikin av Systran"
