@@ -453,7 +453,8 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 9) {
       print $WHT."Database\n".$NRM;
-      print "1.  DSN for Address Book : $WHT$addrbook_dsn$NRM\n";
+      print "1.  DSN for Address Book   : $WHT$addrbook_dsn$NRM\n";
+      print "2.  Table for Address Book : $WHT$addrbook_table$NRM\n";
       print "\n";
       print "S   Save data\n";
       print "R   Return to Main Menu\n";
@@ -563,7 +564,8 @@ while (($command ne "q") && ($command ne "Q")) {
          if    ($command =~ /^[0-9]+/) { @plugins = command81(); }
          elsif ($command eq "a") { command8s(); }
       } elsif ($menu == 9) {
-         if    ($command == 1) { $addrbook_dsn = command91(); }
+         if    ($command == 1) { $addrbook_dsn   = command91(); }
+         elsif ($command == 2) { $addrbook_table = command92(); }
       }
    }   
 }
@@ -1848,6 +1850,20 @@ sub command91 {
    return $new_dsn;
 }
 
+sub command92 {
+   print "This is the name of the table you want to store the address book\n";
+   print "data in, it defaults to 'address'\n";
+   print "\n";
+   print "[$WHT$addrbook_table$NRM]: $WHT";
+   $new_table = <STDIN>;
+   if ($new_table eq "\n") {
+      $new_table = $addrbook_table;
+   } else {
+      $new_table =~ s/[\r|\n]//g;
+   }
+   return $new_table;
+}
+
 sub save_data {
     $tab = "    ";
     if(open (CF, ">config.php"))
@@ -1988,8 +2004,9 @@ sub save_data {
            print CF "\n";
         }
 
-        print CF "global \$addrbook_dsn;\n";
-        print CF "\$addrbook_dsn = '$addrbook_dsn';\n\n";
+        print CF "\nglobal \$addrbook_dsn, \$addrbook_table;\n";
+        print CF "\$addrbook_dsn = '$addrbook_dsn';\n";
+        print CF "\$addrbook_table = '$addrbook_table';\n\n";
      
         print CF "/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";

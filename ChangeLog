@@ -14,8 +14,7 @@ Version 1.2.5 -- CVS
     distributed in packages. Conf.pl now also reports when saving fails.
   - Attachment hooks now also allow specification of generic rules like
     text/* which will be used when no specific rule is available.
-  - Fixed conf.pl to preserve any value $addrbook_dsn may have when it
-    rewrites the config.php
+  - conf.pl can now configure database backed address books.
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------

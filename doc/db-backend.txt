@@ -52,8 +52,9 @@ The table structure should be similar to this (for MySQL):
    );
 
 
-Next, edit config/config.php and add a DSN (Data Source Name) for the
-database. It should look something like:
+Next, edit your configuration so that the address book DSN (Data Source
+Name) is specified, this can be done using either conf.pl or via the
+administration plugin. The DSN should look something like:
 
  $addrbook_dsn = 'mysql://squirreluser:sqpassword@localhost/squirrelmail';
 
