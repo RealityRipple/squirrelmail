@@ -21,6 +21,8 @@
    $languages["de"]["CHARSET"] = "iso-8859-1";
    $languages["ru"]["NAME"]    = "Russian KOI8-R";
    $languages["ru"]["CHARSET"] = "koi8-r";
+   $languages["pl"]["NAME"]    = "Polish";
+   $languages["pl"]["CHARSET"] = "iso-8859-2";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
