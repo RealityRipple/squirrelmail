@@ -49,6 +49,9 @@ function displayPageHeader($color, $mailbox, $xtra='') {
     $compose_new_win, $username, $datadir, $compose_width, $compose_height;
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
+    if ($qmark = strpos($module, '?')) {
+        $module = substr($module, 0, $qmark);
+    }
     if (!isset($frame_top)) {
         $frame_top = '_top';
     }
@@ -173,6 +176,9 @@ function compose_Header($color, $mailbox) {
         $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
         $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
         displayHtmlHeader (_("Compose"));
+        break;
+    case 'src/read_body.php':
+        displayHtmlHeader();
         break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
