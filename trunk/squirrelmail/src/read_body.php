@@ -206,6 +206,8 @@ function SendMDN ( $recipient , $sender) {
     $subject = $header->subject;
     $now = getLongDateString( time() );
 
+    set_my_charset();
+
     $body = _("Your message") . "\r\n\r\n" .
             "\t" . _("To:") . ' ' . $to . "\r\n" .
             "\t" . _("Subject:") . ' ' . $subject . "\r\n" .
