@@ -1193,21 +1193,7 @@ function processSubject($subject) {
 function getMbxList($imapConnection) {
     global $lastTargetMailbox;
     echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
-    $boxes = sqimap_mailbox_list($imapConnection);
-    foreach ($boxes as $boxes_part) {
-        if (!in_array('noselect', $boxes_part['flags'])) {
-            $box = $boxes_part['unformatted'];
-            $box2 = str_replace(' ', '&nbsp;', imap_utf7_decode_local($boxes_part['unformatted-disp']));
-            if($box2 == 'INBOX') {
-                $box2 = _("INBOX");
-            }
-            if ($lastTargetMailbox == $box) {
-                echo "       <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
-            } else {
-                echo "         <OPTION VALUE=\"$box\">$box2</OPTION>\n";
-            }
-        }
-    }
+    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)) ); 
     echo '         </SELECT></TT>&nbsp;';
 }
 

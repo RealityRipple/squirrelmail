@@ -24,6 +24,7 @@ define('SMOPT_TYPE_FLOAT', 4);
 define('SMOPT_TYPE_BOOLEAN', 5);
 define('SMOPT_TYPE_HIDDEN', 6);
 define('SMOPT_TYPE_COMMENT', 7);
+define('SMOPT_TYPE_FLDRLIST', 8);
 
 /* Define constants for the options refresh levels. */
 define('SMOPT_REFRESH_NONE', 0);
@@ -163,6 +164,9 @@ class SquirrelOption {
             case SMOPT_TYPE_COMMENT:
                 $result = $this->createWidget_Comment();
                 break;
+            case SMOPT_TYPE_FLDRLIST:
+                $result = $this->createWidget_FolderList();
+                break;
             default:
                $result = '<font color="' . $color[2] . '">'
                        . sprintf(_("Option Type '%s' Not Found"), $this->type)
@@ -224,6 +228,38 @@ class SquirrelOption {
         $result .= '</select>';
         return ($result);
     }
+
+    function createWidget_FolderList() {
+        $selected = array(strtolower($this->value));
+
+        /* Begin the select tag. */
+        $result = "<select name=\"new_$this->name\">";
+
+        /* Add each possible value to the select list. */
+        foreach ($this->possible_values as $real_value => $disp_value) {
+            if ( is_array($disp_value) ) { 
+              /* For folder list, we passed in the array of boxes.. */
+              $new_option = sqimap_mailbox_option_list(0, $selected, 0, $disp_value);
+            } else {
+              /* Start the next new option string. */
+              $new_option = "<option value=\"$real_value\"";
+  
+              /* If this value is the current value, select it. */
+              if ($real_value == $this->value) {
+                 $new_option .= ' selected';
+              }
+  
+              /* Add the display value to our option string. */
+              $new_option .= ">$disp_value</option>";
+            }
+            /* And add the new option string to our select tag. */
+            $result .= $new_option;
+        }        
+        /* Close the select tag and return our happy result. */
+        $result .= '</select>';
+        return ($result);
+    }
+
 
     function createWidget_TextArea() {
         switch ($this->size) {
