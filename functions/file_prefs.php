@@ -18,7 +18,7 @@ function cachePrefValues($data_dir, $username) {
     global $prefs_are_cached, $prefs_cache;
        
     if ( isset($prefs_are_cached) && $prefs_are_cached) {
-        return;
+        return $prefs_cache;
     }
     
     sqsession_unregister('prefs_cache');
@@ -79,6 +79,7 @@ function cachePrefValues($data_dir, $username) {
 
     sqsession_register($prefs_cache, 'prefs_cache');
     sqsession_register($prefs_are_cached, 'prefs_are_cached');
+    return $prefs_cache;
 }
    
 /**
@@ -89,7 +90,7 @@ function getPref($data_dir, $username, $string, $default = '') {
 
     $result = do_hook_function('get_pref_override',array($username,$string));
     if (!$result) {
-	cachePrefValues($data_dir, $username);
+	$prefs_cache = cachePrefValues($data_dir, $username);
 	if (isset($prefs_cache[$string])) {
     	    $result = $prefs_cache[$string];
 	} else {
@@ -105,10 +106,15 @@ function getPref($data_dir, $username, $string, $default = '') {
 /**
  * Save the preferences for this user.
  */
-function savePrefValues($data_dir, $username) {
-    global $prefs_cache;
+function savePrefValues($data_dir, $username, $prefs_cache) {
    
     $filename = getHashedFile($username, $data_dir, "$username.pref");
+
+    if (!is_array($prefs_cache) || count($prefs_cache) == 0) {
+        include_once(SM_PATH . 'functions/display_messages.php');
+        logout_error( _("Houston we have a problem, the preference cache is lost!!!."));
+        exit;
+    }
 
     /* Open the file for writing, or else display an error to the user. */
     if(!$file = @fopen($filename.'.tmp', 'w'))
@@ -138,13 +144,11 @@ function savePrefValues($data_dir, $username) {
 function removePref($data_dir, $username, $string) {
     global $prefs_cache;
 
-    cachePrefValues($data_dir, $username);
- 
     if (isset($prefs_cache[$string])) {
         unset($prefs_cache[$string]);
     }
  
-    savePrefValues($data_dir, $username);
+    savePrefValues($data_dir, $username,$prefs_cache);
 }
 
 /**
@@ -153,18 +157,16 @@ function removePref($data_dir, $username, $string) {
 function setPref($data_dir, $username, $string, $value) {
     global $prefs_cache;
 
-    cachePrefValues($data_dir, $username);
     if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $value)) {
         return;
     }
 
     if ($value === '') {
-        removePref($data_dir, $username, $string);
-        return;
+        unset($prefs_cache[$string]);
+    } else {
+        $prefs_cache[$string] = $value;
     }
-
-    $prefs_cache[$string] = $value;
-    savePrefValues($data_dir, $username);
+    savePrefValues($data_dir, $username, $prefs_cache);
 }
 
 /**
