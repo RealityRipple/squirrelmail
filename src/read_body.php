@@ -162,9 +162,7 @@ function SendMDN ( $recipient , $sender) {
     global $imapConnection, $mailbox, $username, $attachment_dir, $SERVER_NAME,
            $version, $attachments, $identity, $data_dir, $passed_id;
 
-    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-    $header = $message->header;
-
+    $header = sqimap_get_message_header($imapConnection, $passed_id, $mailbox);
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     // part 1 (RFC2298)
