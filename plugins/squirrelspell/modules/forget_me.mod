@@ -16,7 +16,11 @@
  * @version $Date$
  */
 
-global $words_ary, $sqspell_use_app, $SQSPELL_VERSION;
+global $SQSPELL_VERSION;
+
+$words_ary = $_POST['words_ary'];
+$sqspell_use_app = $_POST['sqspell_use_app'];
+
 /**
  * If something needs to be deleted, then $words_ary will be
  * non-zero length.

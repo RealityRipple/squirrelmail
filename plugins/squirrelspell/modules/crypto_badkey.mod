@@ -16,7 +16,13 @@
  * @version $Date$
  */
 
-global $delete_words, $SCRIPT_NAME, $old_key;
+global $SCRIPT_NAME;
+
+$delete_words = $_POST['delete_words'];
+if(isset($_POST['old_key'])) {
+    $old_key = $_POST['old_key'];
+}
+
 if ($delete_words=='ON'){
   /**
    * $delete_words is passed via the query_string. If it's set, then

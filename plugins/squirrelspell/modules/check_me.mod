@@ -36,8 +36,10 @@ function SpellLink($jscode, $title, $link) {
 /**
  * Declaring globals for users with E_ALL set.
  */
-global $sqspell_text, $SQSPELL_APP, $sqspell_use_app, $attachment_dir,
-  $username, $SQSPELL_EREG, $color;
+global $SQSPELL_APP, $attachment_dir, $SQSPELL_EREG, $color;
+
+$sqspell_text = $_POST['sqspell_text'];
+$sqspell_use_app = $_POST['sqspell_use_app'];
 
 /**
  * Now we explode the lines for three reasons:
