@@ -32,6 +32,9 @@ require_once(SM_PATH . 'include/load_prefs.php');
     if(isset($_POST['mf_server'])) {
         $mf_server = $_POST['mf_server'];
     }
+    if(isset($_POST['mf_port'])) {
+        $mf_port = $_POST['mf_port'];
+    }
     if(isset($_POST['mf_alias'])) {
         $mf_alias = $_POST['mf_alias'];
     }
@@ -72,6 +75,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
         if ($mf_sn<1) $mf_sn=0;
         if (!isset($mf_server)) return;
         setPref($data_dir,$username,"mailfetch_server_$mf_sn", (isset($mf_server)?$mf_server:""));
+		setPref($data_dir,$username,"mailfetch_port_$mf_sn"), (isset($mf_port)?$mf_port:'110');
         setPref($data_dir,$username,"mailfetch_alias_$mf_sn", (isset($mf_alias)?$mf_alias:""));
         setPref($data_dir,$username,"mailfetch_user_$mf_sn",(isset($mf_user)?$mf_user:""));
         setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass )    :""));
@@ -88,6 +92,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
         //modify    a server
         if (!isset($mf_server)) return;
         setPref($data_dir,$username,"mailfetch_server_$mf_sn", (isset($mf_server)?$mf_server:""));
+		setPref($data_dir,$username,"mailfetch_port_$mf_sn"), (isset($mf_port)?$mf_port:'110');
         setPref($data_dir,$username,"mailfetch_alias_$mf_sn", (isset($mf_alias)?$mf_alias:""));
         setPref($data_dir,$username,"mailfetch_user_$mf_sn",(isset($mf_user)?$mf_user:""));
         setPref($data_dir,$username,"mailfetch_pass_$mf_sn",(isset($mf_pass)?encrypt( $mf_pass )    :""));
@@ -112,6 +117,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
             for ($i=$mf_sn;$i<$mailfetch_server_number;$i++) {
                 $tmp=$i+1;
                 setPref($data_dir,$username,"mailfetch_server_$i", getPref($data_dir, $username, "mailfetch_server_$tmp"));
+                setPref($data_dir,$username,"mailfetch_port_$i"), getPref($data_dir,$username, "mailfetch_port_$tmp"));
                 setPref($data_dir,$username,"mailfetch_alias_$i", getPref($data_dir, $username, "mailfetch_alias_$tmp"));
                 setPref($data_dir,$username,"mailfetch_user_$i", getPref($data_dir, $username, "mailfetch_user_$tmp"));
                 setPref($data_dir,$username,"mailfetch_pass_$i",(isset($mf_pass)?encrypt( $mf_pass ) :""));
@@ -134,6 +140,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     }
     for ($i=0;$i<$mailfetch_server_number;$i++) {
         $mailfetch_server_[$i] = getPref($data_dir, $username, "mailfetch_server_$i");
+        $mailfetch_port_[$i] = getPref($data_dir, $username, "mailfetch_port_$i");
         $mailfetch_alias_[$i] = getPref($data_dir, $username, "mailfetch_alias_$i");
         $mailfetch_user_[$i] = getPref($data_dir, $username, "mailfetch_user_$i");
         $mailfetch_pass_[$i] = getPref($data_dir, $username, "mailfetch_pass_$i");
@@ -189,6 +196,10 @@ require_once(SM_PATH . 'include/load_prefs.php');
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
                     html_tag( 'td', '<input type=text name=mf_server value="" size=40>', 'left' )
+                ) .
+                html_tar( 'tr',
+                    html_tag( 'th', _("Port:"), 'right') .
+                    html_tag( 'td', '<input type=text name=mf_port value="" size=20', 'left')
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
@@ -300,6 +311,10 @@ require_once(SM_PATH . 'include/load_prefs.php');
                 html_tag( 'tr',
                     html_tag( 'th', _("Server:"), 'right' ) .
                     html_tag( 'td', '<input type="text" name="mf_server" value="' . $mailfetch_server_[$mf_sn] . '" size="40">', 'left' )
+                ) .
+                html_tag( 'tr',
+                    html_tag( 'th', _("Port:"), 'right' ) .
+                    html_tag( 'td', '<input type="text" name="mf_port" value="' . $mailfetch_port_[$mf_sn] . '" size="40">', 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', _("Alias:"), 'right' ) .
