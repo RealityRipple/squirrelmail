@@ -1,5 +1,6 @@
 Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- Now replacing all \n with \r\n before sending the message.
 - Added sorting option for NO sorting.. 10000 times faster!
 - Using <pre> tags for viewing message body instead of <tt> and &nbsp;
 - Added redirection from subdirectories to login page

@@ -63,7 +63,7 @@
                echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
                break;
             case 4: # subject
-               echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
+               echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$true_startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
                break;
             case 5: # flags
                $stuff = false;
@@ -71,11 +71,11 @@
                if ($msg["FLAG_ANSWERED"] == true) {
                   echo "A\n";
                   $stuff = true;
-               } 
+               }
                if ($msg["TYPE0"] == "multipart") {
                   echo "+\n";
                   $stuff = true;
-               } 
+               }
                if (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) {
                   echo "<font color=$color[1]>!</font>\n";
                   $stuff = true;
@@ -84,11 +84,11 @@
                   echo "<font color=\"$color[1]\">D</font>\n";
                   $stuff = true;
                }
-               
+
                if (!$stuff) echo "&nbsp;\n";
                echo "</small></b></td>\n";
                break;
-            case 6: # size   
+            case 6: # size
                echo "   <td bgcolor=$hlt_color width=1%>$bold".show_readable_size($msg['SIZE'])."$bold_end</td>\n";
                break;
          }
@@ -336,7 +336,7 @@
          "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
           $mailbox, $sort, $Message, $More);
 
-      // $groupNum = $startMessage % ($show_num - 1);
+      $groupNum = $startMessage % ($show_num - 1);
       if ($sort == 6) {
          if ($endMessage - $startMessage < $show_num - 1) {
             $endMessage = $endMessage - $startMessage + 1;
@@ -405,19 +405,19 @@
     * $Message is a message that is centered on top of the list
     * $More is a second line that is left aligned
     */
-   function mail_message_listing_beginning($imapConnection, $moveURL, 
+   function mail_message_listing_beginning($imapConnection, $moveURL,
        $mailbox = '', $sort = -1, $Message = '', $More = '')
    {
       global $color, $index_order, $auto_expunge, $move_to_trash;
-       
+
          /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
-      
+
       if ($Message)
       {
          echo "<TR BGCOLOR=\"$color[4]\"><TD align=center>$Message</td></tr>\n";
       }
-      
+
       if ($More)
       {
          echo "<TR BGCOLOR=\"$color[4]\"><TD>$More</td></tr>\n";
@@ -435,8 +435,8 @@
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         if ($boxes[$i]["flags"][0] != "noselect" && 
-            $boxes[$i]["flags"][1] != "noselect" && 
+         if ($boxes[$i]["flags"][0] != "noselect" &&
+            $boxes[$i]["flags"][1] != "noselect" &&
             $boxes[$i]["flags"][2] != "noselect") {
             $box = $boxes[$i]["unformatted"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
@@ -463,7 +463,7 @@
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       $urlMailbox=urlencode($mailbox);
-      
+
       // Print the headers
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
@@ -492,7 +492,7 @@
                   echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 1)
                   echo "   <A HREF=\"right_main.php?newsort=6&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               elseif ($sort == 6)   
+               elseif ($sort == 6)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";

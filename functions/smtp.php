@@ -142,7 +142,7 @@
          $to_list = getLineOfAddrs($to);
          $cc_list = getLineOfAddrs($cc);
          $bcc_list = getLineOfAddrs($bcc);
-         
+
          /* Encoding 8-bit characters and making from line */
          $subject = sqStripSlashes(encodeHeader($subject));
          if ($from == "")
@@ -503,8 +503,13 @@
          }
          sqimap_mailbox_close($imap_stream);
       }
-      
-      if ($useSendmail) {  
+
+      // this is to catch all plain \n instances and
+      // replace them with \r\n.  
+      $body = ereg_replace("\r\n", "\n", $body);
+      $body = ereg_replace("\n", "\r\n", $body);
+
+      if ($useSendmail) {
          $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers);
       } else {
          $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
@@ -513,12 +518,12 @@
       if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
          sqimap_append ($imap_stream, $sent_folder, $length);
          write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers);
-         writeBody ($imap_stream, $body); 
+         writeBody ($imap_stream, $body);
          sqimap_append_done ($imap_stream);
-      }   
-      sqimap_logout($imap_stream); 
+      }
+      sqimap_logout($imap_stream);
       // Delete the files uploaded for attaching (if any).
       deleteAttachments();
    }
-   
+
 ?>

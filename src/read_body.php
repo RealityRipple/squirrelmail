@@ -40,7 +40,7 @@
       if ($where && $what) {
          // Got here from a search
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."\">";
-      } else {  
+      } else {
          echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
       }
       echo ""._("View message") . "</a></b></center></td></tr></table>\n";
@@ -96,7 +96,7 @@
    }
 
    if (isset($msgs)) {
-		$currentArrayIndex = $passed_id;
+	   $currentArrayIndex = $passed_id;
 		/*
       for ($i=0; $i < count($msgs); $i++) {
          if ($msgs[$i]["ID"] == $passed_id) {
@@ -221,6 +221,11 @@
 
    do_hook("read_body_top");
    echo "<BR>";
+
+
+   echo "START: $startMessage<br>";
+
+
    echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% CELLSPACING=0 BORDER=0 COLS=2 CELLPADDING=3>";
