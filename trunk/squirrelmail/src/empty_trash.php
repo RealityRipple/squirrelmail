@@ -5,19 +5,20 @@
    include("../functions/page_header.php");
    include("../functions/display_messages.php");
    include("../functions/imap.php");
+   include("../functions/array.php");
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
-   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
+   getFolderList($imapConnection, $boxes);
 
    $mailbox = $trash_folder;
    fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
    $data = imapReadData($imapConnection , "1", false, $response, $message);
    while (substr($data[0], strpos($data[0], " ")+1, 4) == "LIST") {
-      for ($i = 0; $i < count($boxesUnformatted); $i++) {
-         if (($boxesUnformatted[$i] == $mailbox) ||
-             (substr($boxesUnformatted[$i], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-            removeFolder($imapConnection, "$boxesUnformatted[$i]");
+      for ($i = 0; $i < count($boxes); $i++) {
+         if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
+             (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
+            removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
          }
       }
       fputs($imapConnection, "1 LIST \"$mailbox\" *\n");

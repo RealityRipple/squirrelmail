@@ -13,6 +13,7 @@
 <HTML>
 <?
    include("../config/config.php");
+   include("../functions/strings.php");
 
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";

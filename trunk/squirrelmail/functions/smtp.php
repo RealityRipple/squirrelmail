@@ -58,6 +58,9 @@
          fputs($smtpConnection, "Cc: <$cc_list>\n"); // Who the CCs are
       }
       fputs($smtpConnection, "X-Mailer: SquirrelMail (version $version)\n"); // Identify SquirrelMail
+      fputs($smtpConnection, "Reply-To: $from\n");
+      fputs($smtpConnection, "MIME-Version: 1.0\n");
+      fputs($smtpConnection, "Content-Type: text/plain; charset=us-ascii\n");
 
       fputs($smtpConnection, "$body\n"); // send the body of the message
       fputs($smtpConnection, ".\n"); // end the DATA part

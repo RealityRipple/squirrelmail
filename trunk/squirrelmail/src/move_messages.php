@@ -47,7 +47,6 @@
          //    loop because we never increment j.  so check to see if msg[0] is set or not to fix this.
          while ($j < count($msg)) {
             if ($msg[$i]) {
-               echo "MSG: $msg[$i]<BR>";
                deleteMessages($imapConnection, $msg[$i], $msg[$i], $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox);
                $j++;
             }
@@ -55,7 +54,7 @@
          }
          messages_deleted_message($mailbox, $sort, $startMessage, $color);
       } else {
-         echo "<BR><BR><CENTER>No messages selected.</CENTER>";
+         error_message("No messages were selected.", $mailbox, $sort, $startMessage, $color);
       }
    } else {    // Move messages
       displayPageHeader($color, $mailbox);

@@ -16,8 +16,12 @@
       }
       $GLOBALS["col"] = $col;  // Column or Columns as an array
       $GLOBALS["dir"] = $dir;  // Direction, a positive number for ascending a negative for descending
-  
-      function comp2($a,$b,$i = 0) {
+
+      usort($ary,comp2);
+      return $ary;
+  }
+
+  function comp2($a,$b,$i = 0) {
          global $col;
          global $dir;
          $c = count($col) -1;
@@ -34,8 +38,4 @@
          }
          return $r;
       }
-  
-      usort($ary,comp2);
-      return $ary;
-   }
 ?>

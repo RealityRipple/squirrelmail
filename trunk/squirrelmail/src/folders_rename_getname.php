@@ -7,7 +7,6 @@
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    selectMailbox($imapConnection, $old, $numMessages);
-   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
 
    $dm = findMailboxDelimeter($imapConnection);
    if (strpos($old, $dm)) {

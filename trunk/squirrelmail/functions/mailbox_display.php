@@ -33,7 +33,7 @@
     ** This function loops through a group of messages in the mailbox and shows them
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
-      require ("../config/config.php");
+      include ("../config/config.php");
 
       if (1 <= $numMessages) {
          getMessageHeaders($imapConnection, 1, $numMessages, $from, $subject, $date);
@@ -139,15 +139,6 @@
          }
       }
 
-//      $j = 0;
-//      while ($j < $numMessages) {
-//         $sub = $msgs[$j]["SUBJECT"];
-//         $id = $msgs[$j]["ID"];
-//         echo "$id -- $sub<BR>";
-//         $j++;
-//      }
-//exit;
-
       if ($startMessage + 24 < $numMessages) {
          $endMessage = $startMessage + 24;
       } else {
@@ -191,30 +182,36 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
 
       echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
-      echo "<TABLE BGCOLOR=\"$color[0]\">\n";
+      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0>\n";
       echo "   <TR>\n";
-      echo "      <TD WIDTH=30% ALIGN=LEFT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move to:\">\n";
-      echo "         <SELECT NAME=\"targetMailbox\">\n";
-      getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted, $boxesRaw);
-      for ($i = 0; $i < count($boxesUnformatted); $i++) {
+      echo "      <TD WIDTH=60% ALIGN=LEFT>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><SMALL>Move selected to: </SMALL></FONT>";
+      echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
+
+      getFolderList($imapConnection, $boxes);
+      for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
          for ($p = 0; $p < count($special_folders); $p++) {
-            // don't allow moving messages to any special folder EXCEPT for INBOX.
-            if (($boxesUnformatted[$i] == $special_folders[$p]) && ($boxesUnformatted[$i] != "INBOX")) {
+            if ($boxes[$i]["UNFORMATTED"] == $special_folders[0]) {
+               $use_folder = true;
+            } else if ($boxes[$i]["UNFORMATTED"] == $special_folders[$p]) {
                $use_folder = false;
-            } else if (substr($boxesUnformatted[$i], 0, strlen($trash_folder)) == $trash_folder) {
+            } else if (substr($boxes[$i]["UNFORMATTED"], 0, strlen($trash_folder)) == $trash_folder) {
                $use_folder = false;
             }
          }
-         if ($use_folder == true)
-            echo "         <OPTION VALUE=\"$boxesUnformatted[$i]\">$boxesUnformatted[$i]\n";
+         if ($use_folder == true) {
+            $box = $boxes[$i]["UNFORMATTED"];
+            $box2 = $boxes[$i]["FORMATTED"];
+            echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
       }
-      echo "         </SELECT></NOBR></FONT>\n";
+      echo "         </SELECT></SMALL></TT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"Move\"></SMALL></FONT></NOBR>\n";
 
       echo "      </TD>\n";
-      echo "      <TD WIDTH=70% ALIGN=RIGHT>\n";
-      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\" SIZE=2><INPUT TYPE=SUBMIT VALUE=\"Delete\">&nbsp;checked messages</FONT></NOBR>\n";
+      echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
+      echo "         <NOBR><FONT FACE=\"Arial,Helvetica\"><SMALL><INPUT TYPE=SUBMIT VALUE=\"Delete\">&nbsp;checked messages</SMALL></FONT></NOBR>\n";
       echo "      </TD>";
       echo "   </TR>\n";
 
@@ -224,7 +221,7 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[4]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-      echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>Num</B></FONT></TD>";
+      echo "   <TD WIDTH=5%><FONT FACE=\"Arial,Helvetica\"><B>&nbsp;</B></FONT></TD>";
       /** FROM HEADER **/
       echo "   <TD WIDTH=25%><FONT FACE=\"Arial,Helvetica\"><B>From</B></FONT>";
       if ($sort == 2)
@@ -244,7 +241,7 @@
       /** SUBJECT HEADER **/
       echo "   <TD WIDTH=*><FONT FACE=\"Arial,Helvetica\"><B>Subject</B></FONT>\n";
       if ($sort == 4)
-         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+        echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 5)
          echo "   <A HREF=\"right_main.php?sort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
