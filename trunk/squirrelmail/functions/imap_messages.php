@@ -179,7 +179,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         foreach ($read as $read_part) {
             //unfold multi-line headers
             while ($prevline && strspn($read_part, "\t ") > 0) {
-               $read_part = substr($prevline, 0, -2) . $read_part;
+               $read_part = substr($prevline, 0, -2) . ' ' . ltrim($read_part);
             }
             $prevline = $read_part;
             if (eregi ("^to:(.*)$", $read_part, $regs)) {
@@ -337,7 +337,7 @@ function sqimap_get_header ($imap_stream, $read) {
     while ($i < count($read)) {
         //unfold multi-line headers
         while ($i + 1 < count($read) && strspn($read[$i + 1], "\t ") > 0) {
-            $read[$i + 1] = substr($read[$i], 0, -2) . $read[$i + 1];
+            $read[$i + 1] = substr($read[$i], 0, -2) . ' ' . ltrim($read[$i + 1]);
             array_splice($read, $i, 1);
         }
 
