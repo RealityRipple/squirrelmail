@@ -121,17 +121,16 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
     if (sizeof($message_highlight_list)){
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
-                if ($message_highlight_list_part['match_type'] == 'to_cc') {
-                    if (strstr('^^' . strtolower($msg['TO']),
-                               strtolower($message_highlight_list_part['value']))
-                        || strstr('^^'.strtolower($msg['CC']),
-                                  strtolower($message_highlight_list_part['value']))) {
+                $high_val   = strtolower($message_highlight_list_part['value']);
+                $match_type = strtoupper($message_highlight_list_part['match_type']);
+                if ($match_type == 'TO_CC') {
+                    if (strstr('^^' . strtolower($msg['TO']), $high_val) ||
+                        strstr('^^' . strtolower($msg['CC']), $high_val)) {
                         $hlt_color = $message_highlight_list_part['color'];
                         continue;
                     }
                 } else {
-                    if (strstr('^^' . strtolower($msg[strtoupper($message_highlight_list_part['match_type'])]),
-                               strtolower($message_highlight_list_part['value']))) {
+                    if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
                         $hlt_color = $message_highlight_list_part['color'];
                         continue;
                     }
@@ -623,7 +622,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
             $k++;
         } while (isset ($key) && ($k < $i));
         printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
-            $real_startMessage, $where, $what);
+                         $real_startMessage, $where, $what);
     } else {
         $i = $start_msg;
         reset($msort);
