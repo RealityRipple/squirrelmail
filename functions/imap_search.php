@@ -42,12 +42,13 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             $search_string = '';
     $count = count($multi_search);
             for ($x=0;$x<$count;$x++) {
-                $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '" ';
+			trim($multi_search[$x]);
+                $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '"';
             }
     }
     $search_string = trim($search_string);
 
-    /* now use $search_string in the imap search */
+/* now use $search_string in the imap search */
 
     if (isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
@@ -55,7 +56,6 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
     } else {
         $ss .= "SEARCH ALL $search_string\"";
     }
-
     /* Read Data Back From IMAP */
     $readin = sqimap_run_command ($imapConnection, $ss, true, $result, $message);
     if (isset($languages[$squirrelmail_language]['CHARSET']) && strtolower($result) == 'no') {
