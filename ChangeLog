@@ -4,7 +4,7 @@
 
 Version 1.4.0 CVS
 -------------------
-  - Fixed Mailfetch plugin. Now folder edition defaults to actual value.
+  - Fixed mail_fetch plugin. Now folder edition defaults to actual value.
   - Added Vietnamese translation.
   - Fixed the newmail plugin.
   - Added RECENT response to sqimap_get_status.
@@ -41,6 +41,7 @@ Version 1.4.0 CVS
   - Fixed delete_move_next plugin to remember where it moved mail to.
   - Fixed compose to remember attachments.
   - Fixed possible XSS in compose when replying to malicious sources.
+  - Add display of the maximum filesize for attachment uploads.
 
 Version 1.4.0 RC 2a
 -------------------
