@@ -158,7 +158,8 @@
    $url_replyto = urlencode($message->header->replyto);
 
    $url_replytoall   = urlencode($message->header->replyto);
-   $url_replytoallcc = getLineOfAddrs($message->header->to);
+   $url_replytoallcc = $message->header->from . ", ";
+   $url_replytoallcc .= getLineOfAddrs($message->header->to);
    $url_replytoallcc_cc = getLineOfAddrs($message->header->cc);
    if ($url_replytoallcc) {
       if ($url_replytoallcc_cc) {
