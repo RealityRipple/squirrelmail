@@ -163,7 +163,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message) {
     global $username, $attachment_dir, $SERVER_NAME,
            $version, $attachments;
 
-    $header = $message->header;
+    $header = $message->rfc822_header;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     
     $recipient_o = $header->dnt;
@@ -311,15 +311,16 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
   global $msn_user_support, $default_use_mdn, $draft_folder, $sent_folder,
          $default_use_priority, $show_xmailer_default, 
 	 $mdn_user_support, $PHP_SELF, $javascript_on;
-  
-   $header = $message->header;
+
+   $header = $message->rfc822_header;
    $env = array();
    $env[_("Subject")] = htmlspecialchars($header->subject);   
-   $from_o = $header->from;
-   if (is_object($from_o)) {
-       $from_name = $from_o->getAddress();
-   } else {
-       $from_name = _("Unknown sender");
+   $from_name = $header->getAddr_s('from');
+   if (!$from_name) {
+     $from_name = $header->getAddr_s('sender');
+     if (!$from_name) {
+         $from_name = _("Unknown sender");
+     }
    }
    $env[_("From")] = htmlspecialchars($from_name);
    $env[_("Date")] = getLongDateString($header->date);
@@ -557,8 +558,8 @@ if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $messages[$uidvalidity][$passed_id] = $message;
 } else {
-//   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-   $message = $messages[$uidvalidity][$passed_id];
+   $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+//   $message = $messages[$uidvalidity][$passed_id];
 }
 $FirstTimeSee = !$message->is_seen;
 $message->is_seen = true;

@@ -46,7 +46,7 @@ $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
 $message = &$message->getEntity($passed_ent_id);
 
 $header = $message->header;
-$charset = $header->charset;
+$charset = $header->getParameter('charset');
 $type0 = $header->type0;
 $type1 = $header->type1;
 $encoding = strtolower($header->encoding);
@@ -86,10 +86,10 @@ if (isset($override_type1)) {
     $type1 = $override_type1;
 }
 
-$filename = decodeHeader($message->header->filename);
+$filename = decodeHeader($message->header->getParameter('filename'));
 
 if (!$filename) {
-    $filename = decodeHeader($message->header->name);
+    $filename = decodeHeader($message->header->getParameter('name'));
 }
 
 if (strlen($filename) < 1) {
@@ -136,6 +136,8 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
 } else {
     DumpHeaders($type0, $type1, $filename, 0);
 }
+/* be aware that any warning caused by download.php will corrupt the
+ * attachment in case of ERROR reporting = E_ALL and the output is the screen */
 mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $encoding);
 
 $message = &$message->getEntity('');
