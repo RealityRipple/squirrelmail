@@ -1,6 +1,11 @@
 Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- Fixed bug that didn't display login failure message
+- Fixed minor bug in sqimap_mailbox_list
+- Added sqimap_capability function to check capabilities of server.
+- Rewrote sqimap_get_delim to use NAMESPACE capability (if available) to get delimiter.
 - Added Catalan translation of Help documents by Josep Sanz <jsanz@fa.upc.es>
+- Added Taiwan translation by "ching" <ching@kiwa.com.tw>
 
 Version 1.0pre1 -- December 14, 2000 
 ------------------------------------

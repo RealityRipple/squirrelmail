@@ -58,7 +58,7 @@
    function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
       global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE, $onetimepad;
 
-      $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string);
+      $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string, 0);
       $server_info = fgets ($imap_stream, 1024);
       
       // Decrypt the password
