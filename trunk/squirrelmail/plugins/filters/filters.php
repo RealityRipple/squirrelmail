@@ -551,29 +551,13 @@
         $filters['Dorkslayers']['comment'] =
             _("FREE - Dorkslayers appears to include only really bad open relays outside the US to avoid being sued. Interestingly enough, their website recommends you NOT use their service.");
 
-        $filters['ORBZ-UK Inputs']['prefname'] = 'filters_spam_orbzuk_in';
-        $filters['ORBZ-UK Inputs']['name'] = 'ORBZ-UK Inputs Lists';
-        $filters['ORBZ-UK Inputs']['link'] = 'http://orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Inputs']['dns'] = 'orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Inputs']['result'] = '127.0.0.3';
-        $filters['ORBZ-UK Inputs']['comment'] =
-            _("FREE - orbz.gst-group.co.uk - Inputs only.");
-
-        $filters['ORBZ-UK Outputs']['prefname'] = 'filters_spam_orbzuk_out';
-        $filters['ORBZ-UK Outputs']['name'] = 'ORBZ-UK Outputs Lists';
-        $filters['ORBZ-UK Outputs']['link'] = 'http://orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Outputs']['dns'] = 'orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Outputs']['result'] = '127.0.0.2';
-        $filters['ORBZ-UK Outputs']['comment'] =
-            _("FREE - orbz.gst-group.co.uk - Outputs only.");
-
-        $filters['ORBZ-UK Postmaster']['prefname'] = 'filters_spam_orbzuk_pst';
-        $filters['ORBZ-UK Postmaster']['name'] = 'ORBZ-UK Postmaster Bouncer Lists';
-        $filters['ORBZ-UK Postmaster']['link'] = 'http://orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Postmaster']['dns'] = 'orbz.gst-group.co.uk';
-        $filters['ORBZ-UK Postmaster']['result'] = '127.0.0.9';
-        $filters['ORBZ-UK Postmaster']['comment'] =
-            _("FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email addressed to postmaster@<theirdomain>.");
+        $filters['SPAMhaus']['prefname'] = 'filters_spam_spamhaus';
+        $filters['SPAMhaus']['name'] = 'SPAMhaus Lists';
+        $filters['SPAMhaus']['link'] = 'http://www.spamhaus.org';
+        $filters['SPAMhaus']['dns'] = 'sbl.spamhaus.org';
+        $filters['SPAMhaus']['result'] = '127.0.0.6';
+        $filters['SPAMhaus']['comment'] =
+            _("FREE - SPAMhaus - A list of well-known SPAM sources.");
 
         $filters['SPAMcop']['prefname'] = 'filters_spam_spamcop';
         $filters['SPAMcop']['name'] = 'SPAM Cop Lists';
