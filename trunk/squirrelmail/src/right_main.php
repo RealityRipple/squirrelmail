@@ -108,7 +108,7 @@ if( isset($do_hook) && $do_hook ) {
 sqimap_mailbox_select($imapConnection, $mailbox);
 
 if (isset($composenew)) {
-    $width= getPref($username, $data_dir, 'editor_size', 76);
+    $width= getPref($data_dir, $username, 'editor_size', 76);
     if ($width < 65) {
         $pix_width = 560;
     } else {
