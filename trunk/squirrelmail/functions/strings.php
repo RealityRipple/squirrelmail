@@ -78,10 +78,8 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
  * Checks for spaces in strings - only used if PHP doesn't have native ctype support
  *
  * @author Tomas Kuliavas
- * According to Tomas:
- * You might be able to rewrite the function by adding short evaluation form
- * or using preg_match instead of ereg. It is possible that you must use
- * preg_match for binary safe comparison.
+ *
+ * You might be able to rewrite the function by adding short evaluation form.
  *
  * possible problems:
  *  - iso-2022-xx charsets  - hex 20 might be part of other symbol. I might
@@ -95,14 +93,14 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
  * I don't see any charset/nbsp options in php ctype either.
  *
  * @param string $string tested string
- * @return bool true when space symbols are present in test string
+ * @return bool true when only whitespace symbols are present in test string
  */
 function sm_ctype_space($string) {
-   if ( ereg("[\11-\15]", $string) || ereg("[\40]", $string) ) {
-      return true;
-   } else {
-      return false;
-   }
+  if ( preg_match('/^[\x09-\x0D]|^\x20/', $string) || $string=='') {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /**
