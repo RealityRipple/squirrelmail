@@ -127,23 +127,18 @@
             '<tr><th align=right>' . _("Store in Folder:") . '</th><td>';
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
-        echo '<SELECT NAME=mf_subfolder><OPTION SELECTED VALUE="">INBOX';
+        echo '<SELECT NAME=mf_subfolder>';
+        $boxes = sqimap_mailbox_list($imapConnection);
         for ($i = 0; $i < count($boxes); $i++) {
-            if (in_array('noinferiors', $boxes[$i]['flags'])) {
-                if ((strtolower($boxes[$i]["unformatted"]) == 'inbox') &&
-                    ($default_sub_of_inbox == true)) {
-                        $box = $boxes[$i]['unformatted'];
-                        $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                        echo "<OPTION VALUE=\"$box\">$box2";
-                } else {
-                        $box = $boxes[$i]['unformatted'];
-                        $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                        if (strtolower($imap_server_type) != 'courier' ||
-                            strtolower($box) != 'inbox.trash')
-                            echo "<OPTION VALUE=\"$box\">$box2";
+            if (!in_array('noselect', $boxes[$i]['flags'])) {
+                $box = $boxes[$i]['unformatted'];
+                $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+                if ( strtolower( $box2 ) == 'inbox' ) {
+                    $box2 = _("INBOX");
                 }
+                echo "<OPTION VALUE=\"$box\">$box2</option>\n";
             }
-        }
+        }        
         echo '</SELECT></td></tr>' .
             '<tr><th align=right>&nbsp;</th><td><input type=checkbox name=mf_lmos checked>' . _("Leave Mail on Server") . '</td></tr>' .
             '<tr><th align=right>&nbsp;</th><td><input type=checkbox name=mf_login>' . _("Check mail during login") . '</td></tr>' .
@@ -210,23 +205,19 @@
         $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
         echo "<SELECT NAME=mf_subfolder>";
-        echo "<OPTION " . ($mailfetch_subfolder_[$mf_sn]==""?"SELECTED":"") . ' VALUE="">INBOX';
+        $boxes = sqimap_mailbox_list($imapConnection);
         for ($i = 0; $i < count($boxes); $i++) {
-            if (in_array('noinferiors', $boxes[$i]['flags'])) {
-                if ((strtolower($boxes[$i]['unformatted']) == 'inbox') &&
-                    $default_sub_of_inbox) {
-                        $box = $boxes[$i]['unformatted'];
-                        $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                        echo "<OPTION " . (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?"SELECTED":"") . " VALUE=\"$box\">$box2";
-                } else {
-                        $box = $boxes[$i]['unformatted'];
-                        $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-                        if (strtolower($imap_server_type) != 'courier' ||
-                            strtolower($box) != 'inbox.trash')
-                            echo "<OPTION " . (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?"SELECTED":"") . " VALUE=\"$box\">$box2";
+            if (!in_array('noselect', $boxes[$i]['flags'])) {
+                $box = $boxes[$i]['unformatted'];
+                $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+                if ( strtolower( $box2 ) == 'inbox' ) {
+                    $box2 = _("INBOX");
                 }
+                echo '<OPTION ' .
+                     (strcmp($mailfetch_subfolder_[$mf_sn],$box)==0?'SELECTED':'') .
+                     " VALUE=\"$box\">$box2</option>\n";
             }
-        }
+        }                
         echo '</SELECT></td></tr>' .
             '<tr><th align=right>&nbsp;</th>' .
             '<td><input type=checkbox name=mf_lmos ' . (($mailfetch_lmos_[$mf_sn] == 'on')?'checked':'') .
