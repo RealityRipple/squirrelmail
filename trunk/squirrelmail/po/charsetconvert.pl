@@ -21,8 +21,8 @@ while (<>) {
     $unicode = oct $unicode_text;
 	
     if ($orig >= $min) {
-      print "      # $name\n";
-      printf ('      $string = str_replace("\%o", "&#%d"), $string);'."\n",
+      print "            // $name\n";
+      printf ('            $string = str_replace("\%o", "&#%d", $string);'."\n",
 	      $orig, $unicode);
     }
   } 
