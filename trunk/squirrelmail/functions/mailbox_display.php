@@ -667,7 +667,7 @@
      */
     function get_paginator_str
     ($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
-        global $username, $data_dir, $use_mailbox_cache;
+        global $username, $data_dir, $use_mailbox_cache, $color;
 
         $nextGroup = $start_msg + $show_num;
         $prevGroup = $start_msg - $show_num;
@@ -702,7 +702,7 @@
             if ($num_msgs % $show_num <> 0 ) {
                 $j++;
             }
-            $start_msgs = min( $start_msgs, $num_msgs );
+            $start_msg = min( $start_msg, $num_msgs );
             $p = intval( $start_msg / $show_num ) + 1;
             $i = 1;
             while( $i < $p ) {
