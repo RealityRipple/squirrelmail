@@ -1,15 +1,15 @@
 <?php
 
-   /**
-    **  testsound.php
-    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
-    **
-    **  Displays all options relating to new mail sounds
-    **
-    **  $Id$
-    **    
-    **/
+/**
+ * testsound.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.        
+ *
+ * Displays all options relating to new mail sounds
+ *
+ * $Id$
+ */
 
    chdir ("../");
    require_once('../src/validate.php');

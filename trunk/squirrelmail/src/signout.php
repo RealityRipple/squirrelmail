@@ -3,7 +3,7 @@
 /**
  * signout.php -- cleans up session and logs the user out
  *
- * Copyright (c) 1999-2001 The SquirrelMail Development Team
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  *  Cleans up after the user. Resets cookies and terminates session.

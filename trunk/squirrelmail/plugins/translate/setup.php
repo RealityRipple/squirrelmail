@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * setup.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * $Id$
+ */
+
 /* Easy plugin that sends the body of the message to a new browser
 window using the specified translator.  It can also translate your
 outgoing message if you send it to someone in a different country. 

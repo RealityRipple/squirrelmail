@@ -1,14 +1,14 @@
 <?php
 
 /**
- *   imap.php
+ * imap.php
  *
- *   Copyright (c) 1999-2001 The SquirrelMail Development Team
- *   Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- *   This implements all functions that do general imap functions.
+ * This implements all functions that do general imap functions.
  *
- *   $Id$
+ * $Id$
  */
 
 require_once('../functions/page_header.php');

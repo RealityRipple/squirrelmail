@@ -1,26 +1,28 @@
 <?php
 
    /**
-    *  newmail.php
-    *  (c)2000 by Michael Huttinger
+    * newmail.php
     *
-    *  Quite a hack -- but my first attempt at a plugin.  We were
-    *  looking for a way to play a sound when there was unseen
-    *  messages to look at.  Nice for users who keep the squirrel
-    *  mail window up for long periods of time and want to know
-    *  when mail arrives.
+    * Copyright (c) 1999-2002 The SquirrelMail Project Team
+    * Copyright (c) 2000 by Michael Huttinger
+    * Licensed under the GNU GPL. For full terms see the file COPYING.
     *
-    *  Basically, I hacked much of left_main.php into a plugin that
-    *  goes through each mail folder and increments a flag if
-    *  there are unseen messages.  If the final count of unseen
-    *  folders is > 0, then we play a sound (using the HTML at the
-    *  far end of this script).
+    * Quite a hack -- but my first attempt at a plugin.  We were
+    * looking for a way to play a sound when there was unseen
+    * messages to look at.  Nice for users who keep the squirrel
+    * mail window up for long periods of time and want to know
+    * when mail arrives.
     *
-    *  This was tested with IE5.0 - but I hear Netscape works well,
-    *  too (with a plugin).
+    * Basically, I hacked much of left_main.php into a plugin that
+    * goes through each mail folder and increments a flag if
+    * there are unseen messages.  If the final count of unseen
+    * folders is > 0, then we play a sound (using the HTML at the
+    * far end of this script).
     *
-    *  $Id$
+    * This was tested with IE5.0 - but I hear Netscape works well,
+    * too (with a plugin).
     *
+    * $Id$
     */
 
     function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
