@@ -101,12 +101,11 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
      '<BR>'.
      "<TT><SELECT NAME=subfolder>\n";
 
-$show_selected=0;
-$skip_folders=0;
+$show_selected = array();
+$skip_folders = array();
 $server_type = strtolower($imap_server_type);
 if ( $server_type == 'courier' ) {
-  $show_selected = array('inbox');
-  $skip_folders = array('inbox.trash');
+  array_push($skip_folders, 'inbox.trash');
   if ( $default_folder_prefix == 'INBOX.' ) {
     array_push($skip_folders, 'inbox');
   }
@@ -122,8 +121,8 @@ if ( $default_sub_of_inbox == false ) {
 // Call sqimap_mailbox_option_list, using existing connection to IMAP server,
 // the arrays of folders to include or skip (assembled above), 
 // and indicate that folders listed should be parents (we're creating folders,
-// so we want to list the folders that can contain other folders)
-echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, true);
+// so we want to list the folders that can contain other folders), also force long form
+echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, true, true);
 
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
@@ -142,26 +141,33 @@ echo html_tag( 'tr',
 $count_special_folders = 0;
 $num_max = 1;
 if (strtolower($imap_server_type) == "courier" || $move_to_trash) {
-        $num_max++;
+    $num_max++;
 }
 if ($move_to_sent) {
-        $num_max++;
+    $num_max++;
 }
 if ($save_as_draft) {
-        $num_max++;
+    $num_max++;
 }
 for ($p = 0, $cnt = count($boxes); $p < $cnt && $count_special_folders < $num_max; $p++) {
     if (strtolower($boxes[$p]['unformatted']) == 'inbox')
         $count_special_folders++;
     else if (strtolower($imap_server_type) == 'courier' &&
-            strtolower($boxes[$p]['unformatted']) == 'inbox.trash')
+            strtolower($boxes[$p]['unformatted']) == 'inbox.trash') {
         $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder)
+    }
+    else if ($boxes[$p]['unformatted'] == $trash_folder && $trash_folder) {
         $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder)
+        array_push($skip_folders, strtolower($trash_folder));
+    }
+    else if ($boxes[$p]['unformatted'] == $sent_folder && $sent_folder) {
         $count_special_folders++;
-    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder)
+        array_push($skip_folders, strtolower($sent_folder));
+    }
+    else if ($boxes[$p]['unformatted'] == $draft_folder && $draft_folder) {
         $count_special_folders++;
+        array_push($skip_folders, strtolower($draft_folder));
+    }
 }
 
 
@@ -177,7 +183,7 @@ if ($count_special_folders < count($boxes)) {
        . "<TT><SELECT NAME=old>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes);
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, false, true);
 
     echo "</SELECT></TT>\n".
          "<input type=SUBMIT VALUE=\"".
@@ -205,7 +211,7 @@ if ($count_special_folders < count($boxes)) {
        . "<TT><SELECT NAME=mailbox>\n"
        . '         <OPTION VALUE="">[ ' . _("Select a folder") . " ]</OPTION>\n";
 
-    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes);
+    echo sqimap_mailbox_option_list($imapConnection, 0, $skip_folders, $boxes, false, true);
 
     echo "</SELECT></TT>\n"
        . '<input type=SUBMIT VALUE="'
