@@ -291,7 +291,7 @@ function translateText(&$body, $wrap_at, $charset) {
             }
         }
 
-        if ($quotes > 1) {
+        if ($quotes % 2) {
             if (!isset($color[14])) {
                 $color[14] = '#FF0000';
             }
