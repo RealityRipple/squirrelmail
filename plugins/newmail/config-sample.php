@@ -5,7 +5,7 @@
  * Sample configuration file
  * @version $Id$
  * @package plugins
- * @subpackage new_mail
+ * @subpackage newmail
  */
 
 // Set $allowsound to false if you don't want sound files available
