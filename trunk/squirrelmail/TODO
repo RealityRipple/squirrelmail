@@ -9,6 +9,7 @@ initials = taken by that person
   -     Filters
   -     Better inline HTML support including graphics (content-disposition)
   -     Foreground themes
+  -     Configurable so that after login, you go directly to INBOX
 (glp)   When deleting or moving messages (empty trash too), go back to the 
             list for the mail box you were looking at without having to click
             a link
@@ -16,6 +17,8 @@ initials = taken by that person
 (ssg)   Search mailbox(es) for given criteria
   -     Remove subject and body requirements in Compose
   -     Select multiple Unsubscribe/Subscribe folders at one time
+  -     decodeHeader on to_ary, cc_ary, and filename
+  -     Decode folder names for non-standard characters
 
 
 Finished:
