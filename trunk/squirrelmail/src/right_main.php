@@ -152,6 +152,27 @@ else {
 do_hook ('generic_header');
 
 $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox);
+$aMbxResponse['SORT_ARRAY'] = false;
+
+sqgetGlobalVar('aLastSelectedMailbox',$aLastSelectedMailbox,SQ_SESSION);
+
+if ($aLastSelectedMailbox && !isset($newsort)) {
+  // check if we deal with the same mailbox
+  if ($aLastSelectedMailbox['NAME'] == $mailbox) {
+     if ($aLastSelectedMailbox['EXISTS'] == $aMbxResponse['EXISTS'] &&
+         $aLastSelectedMailbox['UIDVALIDITY'] == $aMbxResponse['UIDVALIDITY'] &&
+         $aLastSelectedMailbox['UIDNEXT'] == $aMbxResponse['UIDNEXT']) {
+         // sort is still valid
+         sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
+         $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
+     }
+  } 
+}
+ 
+$aLastSelectedMailbox['NAME'] = $mailbox;
+$aLastSelectedMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
+$aLastSelectedMailbox['UIDVALIDITY'] = $aMbxResponse['UIDVALIDITY'];
+$aLastSelectedMailbox['UIDNEXT'] = $aMbxResponse['UIDNEXT'];
 
 if ($composenew) {
     $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
@@ -219,7 +240,7 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
         unset($numMessages);
     }
 
-    $numMessages = sqimap_get_num_messages ($imapConnection, $mailbox);
+    $numMessages = $aMbxResponse['EXISTS'];
 
     showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
                            $startMessage, $sort, $color, $show_num,
@@ -237,7 +258,8 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 }
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
-
 echo '</body></html>';
+
+sqsession_register($aLastSelectedMailbox,'aLastSelectedMailbox');
 
 ?>
