@@ -96,7 +96,7 @@ function startcalendar() {
 
 //main logic for month view of calendar
 function drawmonthview() {
-    global $year, $month, $day, $color, $calendardata, $todayis;
+    global $year, $month, $color, $calendardata, $todayis;
 
     $aday = 1 - date('w', mktime(0, 0, 0, $month, 1, $year));
     $days_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));

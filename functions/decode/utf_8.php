@@ -27,7 +27,7 @@
  * @return string Decoded string
  */
 function charset_decode_utf_8 ($string) {
-  global $default_charset,$squirrelmail_language;
+  global $squirrelmail_language;
 
     if ($squirrelmail_language == 'ja_JP')
         return $string;

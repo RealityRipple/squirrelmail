@@ -93,7 +93,6 @@ function html_tag( $tag,                // Tag to output
     /* especially usefull when $url = $PHP_SELF */
     function set_url_var($url, $var, $val=0, $link=true) {
         $k = '';
-        $ret = '';
         $pat_a = array (
                        '/.+(\\&'.$var.')=(.*)\\&/AU',   /* in the middle */
                        '/.+\\?('.$var.')=(.*\\&).+/AU', /* at front, more follow */

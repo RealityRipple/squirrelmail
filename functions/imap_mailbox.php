@@ -559,14 +559,11 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
 
 
 function sqimap_mailbox_list($imap_stream, $force=false) {
-    global $default_folder_prefix;
-
     if (!sqgetGlobalVar('boxesnew',$boxesnew,SQ_SESSION) || $force) {
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
                $move_to_trash, $move_to_sent, $save_as_draft,
                $delimiter, $noselect_fix_enable, $imap_server_type;
-        $inbox_in_list = false;
         $inbox_subscribed = false;
         $listsubscribed = sqimap_capability($imap_stream,'LIST-SUBSCRIBED');
 
@@ -689,7 +686,6 @@ function sqimap_mailbox_list_all($imap_stream) {
     $read_ary = compact_mailboxes_response($read_ary);
 
     $g = 0;
-    $phase = 'inbox';
     $fld_pre_length = strlen($folder_prefix);
     for ($i = 0, $cnt = count($read_ary); $i < $cnt; $i++) {
         /* Store the raw IMAP reply */
@@ -755,9 +751,6 @@ function sqimap_mailbox_tree($imap_stream) {
                $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
                $imap_server_type;
 
-
-        $inbox_in_list = false;
-        $inbox_subscribed = false;
         $noselect = false;
         $noinferiors = false;
 
@@ -862,7 +855,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
            $move_to_trash, $move_to_sent, $save_as_draft,
            $delimiter, $imap_server_type;
 
-    $special_folders = array ('INBOX', $sent_folder, $draft_folder, $trash_folder);
+    // $special_folders = array ('INBOX', $sent_folder, $draft_folder, $trash_folder);
 
     /* create virtual root node */
     $mailboxes= new mailboxes();
@@ -874,7 +867,6 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     if (isset($folder_prefix) && ($folder_prefix != '')) {
         $start = substr_count($folder_prefix,$delimiter);
         if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
-            $trail_del = true;
             $mailboxes->mailboxname_full = substr($folder_prefix,0, (strlen($folder_prefix)-1));
         } else {
             $mailboxes->mailboxname_full = $folder_prefix;
@@ -988,7 +980,7 @@ function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
 
 function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
     global $unseen_notify, $unseen_type, $trash_folder,$move_to_trash;
-    $aMbxs = $aQuery = $aTag = array();
+    $aMbxs = $aQuery = array();
     sqimap_tree_to_ref_array($mbx_tree,$aMbxs);
     // remove the root node
     array_shift($aMbxs);

@@ -439,7 +439,6 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $links['download link']['text'] = _("Download");
         $links['download link']['href'] = SM_PATH .
                 "src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;ent_id=$ent";
-        $ImageURL = '';
         if ($type0 =='message' && $type1 == 'rfc822') {
             $default_page = SM_PATH . 'src/read_body.php';
             $rfc822_header = $att->rfc822_header;
@@ -1125,7 +1124,6 @@ function sq_getnxtag($body, $offset){
             break;
     }
 
-    $tag_start = $pos;
     $tagname = '';
     /**
      * Look for next [\W-_], which will indicate the end of the tag name.
@@ -1185,7 +1183,6 @@ function sq_getnxtag($body, $offset){
      * At this point we loop in order to find all attributes.
      */
     $attname = '';
-    $atttype = false;
     $attary = Array();
 
     while ($pos <= strlen($body)){
@@ -1594,7 +1591,6 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
 function sq_body2div($attary, $mailbox, $message, $id){
     $me = 'sq_body2div';
     $divattary = Array('class' => "'bodyclass'");
-    $bgcolor = '#ffffff';
     $text = '#000000';
     $has_bgc_stl = $has_txt_stl = false;
     $styledef = '';

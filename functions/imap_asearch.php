@@ -446,7 +446,6 @@ function sqimap_asearch($imapConnection, &$mailbox_array, &$biop_array, &$unop_a
 {
 
     $search_charset = sqimap_asearch_get_charset();
-    $mbox_msgs = array();
     $mbox_search = array();
     $search_string = '';
     $cur_mailbox = $mailbox_array[0];

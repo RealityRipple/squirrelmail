@@ -519,7 +519,6 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
         $end .= '</a>';
         if ($numMessages > 0) {
-            $urlMailbox = urlencode($mailbox);
             $end .= "\n<small>\n" .
                     '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("Purge").'</a>]'.
                     '</small>';

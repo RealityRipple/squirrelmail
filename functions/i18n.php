@@ -305,6 +305,7 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         if ($sm_notAlias=='tr_TR') setlocale(LC_CTYPE,'C');
 
         // Set text direction/alignment variables
+        // These don't appear to be used... are they safe to remove?
         if (isset($languages[$sm_notAlias]['DIR']) &&
             $languages[$sm_notAlias]['DIR'] == 'rtl') {
             /**
@@ -542,6 +543,7 @@ function japanese_xtra_wordwrap($ret,$wrap) {
             "\xc3\xa5\xe3\xa5\xe5\xa5\xe7\xa5\xee\xa5\xf5\xa5\xf6\xa1\xa6\xa1\xbc" .
             "\xa1\xb3\xa1\xb4\xa1\xaa\xa1\xf3\xa1\xcb\xa1\xa4\xa1\xa5\xa1\xa7\xa1" .
             "\xa8\xa1\xa9\xa1\xcf\xa1\xd1";
+        // This don't appear to be used... is it safe to remove?
         $no_end = "\x5c\x24\x28\x5b\x7b\xa1\xf2\x5c\xa1\xc6\xa1\xc8\xa1\xd2\xa1" .
             "\xd4\xa1\xd6\xa1\xd8\xa1\xda\xa1\xcc\xa1\xf0\xa1\xca\xa1\xce\xa1\xd0\xa1\xef";
 

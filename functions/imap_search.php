@@ -29,8 +29,6 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
 
     $pos = $search_position;
 
-    $urlMailbox = urlencode($mailbox);
-
     /* construct the search query, taking multiple search terms into account */
     $multi_search = array();
     $search_what  = trim($search_what);
@@ -116,7 +114,6 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     for ($q = 0; $q < $cnt; $q++) {
         $id[$q] = trim($messagelist[$q]);
     }
-    $issent = ($mailbox == $sent_folder);
 
     $msgs = fillMessageArray($imapConnection,$id,$cnt);
 

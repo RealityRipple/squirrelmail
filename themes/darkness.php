@@ -37,7 +37,7 @@ function IsUnique($Distance, $r, $g, $b, $usedArray)
 // Always tremble background
 // This might make people go insane.  Yes!  *Victory dance!*
 function Darkness_HeaderPlugin() {
-   global $PHP_SELF, $Darkness_Transition;
+   global $PHP_SELF;
 
    if (substr($PHP_SELF, -18) == '/src/left_main.php') {
       echo '<meta http-equiv="Page-Enter" content="' .

@@ -44,7 +44,6 @@ function use_plugin ($name) {
 function do_hook ($name) {
     global $squirrelmail_plugin_hooks, $currentHookName;
     $data = func_get_args();
-    $ret = '';
     $currentHookName = $name;
 
     if (isset($squirrelmail_plugin_hooks[$name])

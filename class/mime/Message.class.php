@@ -48,7 +48,6 @@ class Message {
     }
 
     function getFilename() {
-        $filename = '';
         $filename = $this->header->getParameter('filename');
         if (!$filename) {
             $filename = $this->header->getParameter('name');

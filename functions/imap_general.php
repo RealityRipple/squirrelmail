@@ -320,7 +320,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     $resultlist = array();
     $data = array();
     $read = sqimap_fgets($imap_stream);
-    $i = $k = 0;
+    $i = 0;
     while ($read) {
         $char = $read{0};
         switch ($char)

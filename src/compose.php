@@ -118,7 +118,6 @@ function replyAllString($header) {
     /**
      * 1) Remove the addresses we'll be sending the message 'to'
      */
-    $url_replytoall_avoid_addrs = '';
     if (isset($header->replyto)) {
         $excl_ar = $header->getAddr_a('replyto');
     }
@@ -623,7 +622,6 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $orig_header = $message->rfc822_header;
         }
 
-        $encoding = $message->header->encoding;
         $type0 = $message->type0;
         $type1 = $message->type1;
         foreach ($entities as $ent) {
@@ -915,7 +913,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
 function showInputForm ($session, $values=false) {
     global $send_to, $send_to_cc, $body, $startMessage, $action,
         $color, $use_signature, $signature, $prefix_sig,
-        $editor_size, $editor_height, $attachments, $subject, $newmail,
+        $editor_size, $editor_height, $subject, $newmail,
         $use_javascript_addr_book, $send_to_bcc, $passed_id, $mailbox,
         $from_htmladdr_search, $location_of_buttons, $attachment_dir,
         $username, $data_dir, $identity, $idents, $delete_draft,

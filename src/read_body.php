@@ -125,14 +125,13 @@ function ServerMDNSupport($aFlags) {
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir, $popuser, $username,
+    global $username, $attachment_dir, $popuser, $username, $color,
            $version, $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder;
 
     sqgetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER);
 
     $header = $message->rfc822_header;
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
     $rfc822_header = new Rfc822Header();
     $content_type  = new ContentType('multipart/report');

@@ -242,7 +242,6 @@ function &sqBodyWrap (&$body, $wrap) {
                    while (($mypos < $length) && ($body{$mypos} == '>')) {
                        $mypos++;
                        // skip over any spaces interleaved among the cite markers
-                       $oldpos = $mypos;
                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
                            $mypos++;
                        }

@@ -44,7 +44,7 @@ function parseRFC822Address($sAddress,$aProps) {
     $iLimit   = $aProps['limit'];
 
     $aTokens = _getAddressTokens($sAddress);
-    $sPersonal = $sEmail = $sComment = $sGroup = '';
+    $sEmail = $sGroup = '';
     $aStack = $aComment = $aAddress = array();
     foreach ($aTokens as $sToken) {
         if ($iLimit && $iLimit == count($aAddress)) {
@@ -302,7 +302,6 @@ function _createAddressElement(&$aStack,&$aComment,&$sEmail) {
 
 function _getAddressTokens($address) {
     $aTokens = array();
-    $aAddress = array();
     $aSpecials = array('(' ,'<' ,',' ,';' ,':');
     $aReplace =  array(' (',' <',' ,',' ;',' :');
     $address = str_replace($aSpecials,$aReplace,$address);
