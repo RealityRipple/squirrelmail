@@ -106,6 +106,8 @@ Version 1.5.0 -- CVS
   - New function: imap_general.php:create_imap_stream()
   - Updated src/login.php to detect, handle, and warn on LOGINDISABLED from IMAP server.
   - Fixed SquirrelMail to work under PHP5.
+  - Reintroduce alternating row colors in addressbook, something that has
+    accidentally disappeared in the past.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
