@@ -13,6 +13,9 @@
  * @package squirrelmail
  */
 
+require_once(SM_PATH . 'functions/plugin.php');
+
+
 /**
  * Find out where squirrelmail lives and try to be smart about it.
  * The only problem would be when squirrelmail lives in directories
