@@ -38,7 +38,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
         $tag_uid_a = explode(' ',trim($sid));
         $tag = $tag_uid_a[0];
-        $read = sqimap_read_data_list ($imap_stream, $tag, $handle_errors, $response, $message, $query );
+        $read = sqimap_retrieve_imap_response ($imap_stream, $tag, $handle_errors, $response, $message, $query );
         /* get the response and the message */
         $message = $message[$tag];
         $response = $response[$tag]; 
@@ -137,7 +137,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
    
         foreach($aQuery as $tag => $query) {
             if (!$aResults[$tag]) {
-                $aReturnedResponse = sqimap_read_data_list ($imap_stream, $tag, 
+                $aReturnedResponse = sqimap_retrieve_imap_response ($imap_stream, $tag, 
                                     $handle_errors, $response, $message, $query,
                                     $filter,$outputstream,$no_return);
                 foreach ($aReturnedResponse as $returned_tag => $aResponse) {
@@ -271,8 +271,26 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     }
     return $results;       
 }        
-
-
+/* obsolete function, inform plugins that use it */
+function sqimap_read_data_list($imap_stream, $tag, $handle_errors, 
+          &$response, &$message, $query = '') {
+    global $color, $squirrelmail_language;
+    set_up_language($squirrelmail_language);
+    require_once(SM_PATH . 'functions/display_messages.php');
+    $string = "<b><font color=$color[2]>\n" .
+        _("ERROR : Bad function call.") .
+        "</b><br>\n" .
+        _("Reason:") . ' '.
+          'There is a plugin installed which make use of the  <br>' .
+          'SquirrelMail internal function sqimap_read_data_list.<br>'.
+	  'Please adapt the installed plugin and let it use<br>'.
+	  'sqimap_run_command or sqimap_run_command_list instead<br><br>'.
+	  'The following query was issued:<br>'.
+           htmlspecialchars($query) . '<br>' . "</font><br>\n";
+    error_box($string,$color);
+    echo '</body></html>';        
+    exit; 
+}
 
 /*
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
@@ -280,7 +298,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
  * the errors will be sent back through $response and $message
  */
 
-function sqimap_read_data_list ($imap_stream, $tag, $handle_errors, 
+function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors, 
           &$response, &$message, $query = '',
            $filter = false, $outputstream = false, $no_return = false) {
     global $color, $squirrelmail_language;
@@ -538,10 +556,10 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
     $tag_uid_a = explode(' ',trim($tag_uid));
     $tag = $tag_uid_a[0];
 
-    $res = sqimap_read_data_list($imap_stream, $tag, $handle_errors, 
+    $res = sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors, 
               $response, $message, $query,$filter,$outputstream,$no_return); 
     /* sqimap_read_data should be called for one response
-       but since it just calls sqimap_read_data_list which 
+       but since it just calls sqimap_retrieve_imap_response which 
        handles multiple responses we need to check for that
        and merge the $res array IF they are seperated and 
        IF it was a FETCH response. */
