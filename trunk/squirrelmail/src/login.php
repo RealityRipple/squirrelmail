@@ -9,14 +9,17 @@
    setcookie("username", "", time(), "/");
    setcookie("key", "", time(), "/");
    setcookie("logged_in", 0, time(), "/");
-?>
-<HTML>
-<?
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
 
+?>
+<HTML>
+<?
    echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  
    // let's check to see if they compiled with gettext support

@@ -11,6 +11,8 @@
       include("../functions/imap.php");
    if (!isset($array_php))
       include("../functions/array.php");
+   if (!isset($i18n_php))
+      include("../functions/i18n.php");
 
    include("../src/load_prefs.php");
 
@@ -26,6 +28,7 @@
    $fullname = getPref($data_dir, $username, "full_name");
    $replyto = getPref($data_dir, $username, "reply_to");
    $email_address  = getPref($data_dir, $username, "email_address");
+   $chosen_language = getPref($data_dir, $username, "language");
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
@@ -91,6 +94,25 @@
          echo "         <OPTION SELECTED VALUE=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
       else
          echo "         <OPTION VALUE=\"".$theme[$i]["PATH"]."\">".$theme[$i]["NAME"]."\n";
+   }
+   echo "         </SELECT></TT>";
+   echo "      </TD>";
+   echo "   </TR>";
+   // LANGUAGE
+   echo "   <TR>";
+   echo "      <TD WIDTH=20% ALIGN=RIGHT>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo           _("Language:");
+   echo "         </FONT>";
+   echo "      </TD>";
+   echo "      <TD WIDTH=80% ALIGN=LEFT>";
+
+   echo "         <TT><SELECT NAME=language>\n";
+   for ($i = 0; $i < count($languages); $i++) {
+      if ($languages[$i]["CODE"] == $chosen_language)
+         echo "         <OPTION SELECTED VALUE=\"".$languages[$i]["CODE"]."\">".$languages[$i]["NAME"]."\n";
+      else
+         echo "         <OPTION VALUE=\"".$languages[$i]["CODE"]."\">".$languages[$i]["NAME"]."\n";
    }
    echo "         </SELECT></TT>";
    echo "      </TD>";
