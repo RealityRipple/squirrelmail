@@ -81,6 +81,8 @@
         setPref($data_dir, $username, 'page_selector_max', $new_page_selector_max);
         setPref($data_dir, $username, 'show_xmailer_default', $new_show_xmailer_default);
         setPref($data_dir, $username, 'attachment_common_show_images', $new_attachment_common_show_images);
+        setPref($data_dir, $username, 'pf_subtle_link', $new_pf_subtle_link);
+        setPref($data_dir, $username, 'pf_cleandisplay', $new_pf_cleandisplay);
 
         $js_autodetect_results = (isset($new_js_autodetect_results) ? $new_js_autodetect_results : SMPREF_JS_OFF);
         if ($new_javascript_setting == SMPREF_JS_AUTODETECT) {
@@ -91,7 +93,7 @@
             }
         } else {
             setPref($data_dir, $username, 'javascript_on', $new_javascript_setting);
-        }  
+        }
 
         do_hook('options_display_save');
 
