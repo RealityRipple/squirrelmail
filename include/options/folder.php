@@ -29,7 +29,6 @@ function load_optpage_data_folder() {
     $imapConnection =
         sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
     $boxes = sqimap_mailbox_list($imapConnection);
-    sqimap_logout($imapConnection);
 
     /* Build a simple array into which we will build options. */
     $optgrps = array();
@@ -209,7 +208,7 @@ function load_optpage_data_folder() {
     $optgrps[SMOPT_GRP_FOLDERSELECT] = _("Folder Selection Options");
     $optvals[SMOPT_GRP_FOLDERSELECT] = array();
 
-    $delim = sqimap_get_delimiter();
+    $delim = sqimap_get_delimiter($imapConnection);
     $optvals[SMOPT_GRP_FOLDERSELECT][] = array(
         'name'    => 'mailbox_select_style',
         'caption' => _("Selection List Style"),
@@ -225,6 +224,7 @@ function load_optpage_data_folder() {
         'grps' => $optgrps,
         'vals' => $optvals
     );
+    sqimap_logout($imapConnection);
     return ($result);
 }
 
