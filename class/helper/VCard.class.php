@@ -10,7 +10,7 @@
  *
  * http://www.imc.org/pdi/vcard-21.txt
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

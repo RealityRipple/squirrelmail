@@ -7,7 +7,7 @@
  *
  * Delivery backend for the Deliver class.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

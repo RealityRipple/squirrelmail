@@ -8,8 +8,7 @@
  * This contains all the functions needed to send messages through
  * a delivery backend.
  *
- * $Id$
- *
+ * @version $Id$
  * @author  Marc Groot Koerkamp
  * @package squirrelmail
  */

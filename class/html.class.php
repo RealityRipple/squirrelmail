@@ -7,7 +7,7 @@
  *
  * This contains functions needed to generate html output.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
