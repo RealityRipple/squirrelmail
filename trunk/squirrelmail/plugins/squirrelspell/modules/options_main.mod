@@ -52,5 +52,6 @@ sqspell_makePage( _("SquirrelSpell Options Menu"), null, $msg);
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */
 ?>

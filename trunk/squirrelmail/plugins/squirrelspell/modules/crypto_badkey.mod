@@ -92,5 +92,6 @@ if ($old_key){
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */    
 ?>

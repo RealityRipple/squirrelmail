@@ -81,6 +81,7 @@ sqspell_makePage(_("Personal Dictionary Crypto Settings"),
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */ 
 
 ?>

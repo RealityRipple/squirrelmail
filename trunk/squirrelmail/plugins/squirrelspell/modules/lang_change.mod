@@ -99,5 +99,6 @@ sqspell_makePage(_("International Dictionaries Preferences Updated"),
  * Local variables:
  * mode: php
  * End:
+ * vim: syntax=php
  */
 ?>
