@@ -191,6 +191,12 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
         $sel = (($L && $filters[$theid]['where'] == 'Subject')?' selected="selected"':'');
         echo "<option value=\"Subject\"$sel>" . _("Subject") . '</option>';
 
+        $sel = (($L && $filters[$theid]['where'] == 'Message Body')?' selected="selected"':'');
+        echo "<option value=\"Message Body\"$sel>" . _("Message Body") . '</option>';
+
+        $sel = (($L && $filters[$theid]['where'] == 'Header and Body')?' selected="selected"':'');
+        echo "<option value=\"Header and Body\"$sel>" . _("Header and Body") . '</option>';
+
         $sel = (($L && $filters[$theid]['where'] == 'Header')?' selected="selected"':'');
         echo "<option value=\"Header\"$sel>" . _("Header") . '</option>';
 
