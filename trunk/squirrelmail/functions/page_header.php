@@ -44,10 +44,11 @@ function displayInternalLink($path, $text, $target='') {
     echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }
 
-function displayPageHeader($color, $mailbox, $xtra='') {
+function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top,
-    $compose_new_win, $username, $datadir, $compose_width, $compose_height;
+           $compose_new_win, $username, $datadir, $compose_width, $compose_height,
+           $attachemessages, $session;
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if ($qmark = strpos($module, '?')) {
@@ -60,6 +61,13 @@ function displayPageHeader($color, $mailbox, $xtra='') {
     /*
         Locate the first displayable form element
     */
+
+    if ($session !== false) {
+	$compose_uri = 'src/compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
+    } else {
+        $compose_uri = 'src/compose.php';
+    }
+
     switch ( $module ) {
     case 'src/read_body.php':
             if ($compose_new_win == '1') {
@@ -72,7 +80,7 @@ function displayPageHeader($color, $mailbox, $xtra='') {
                 $js = "\n".'<script language="JavaScript" type="text/javascript">' .
                     "\n<!--\n";
                 $js .= "function comp_in_new() {\n".
-                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
+                     "    var newwin = window.open(\"".$base_uri.$compose_uri. '"'.
                      ", \"compose_window\",
                 \"width=".$compose_width.",height=$compose_height".
                      ",scrollbars=yes,resizable=yes\");\n".
@@ -82,7 +90,7 @@ function displayPageHeader($color, $mailbox, $xtra='') {
         displayHtmlHeader ('Squirrelmail', $js);
             }
         displayHtmlHeader();
-        $onload = '';
+        $onload = $xtra;
         break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
@@ -107,11 +115,6 @@ function displayPageHeader($color, $mailbox, $xtra='') {
                 "}\n".
 		"$xtra\n".
             "}\n";
-            if (isset($attachemessages) && isset($session)) {
-		$compose_uri = 'compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
-            } else {
-	        $compose_uri = 'src/compose.php';
-	    }
 	    
             if ($compose_new_win == '1') {
                 if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
