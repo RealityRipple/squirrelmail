@@ -5,7 +5,8 @@
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 
-  - Fixed the bug that made the folders page appear only half
+  - Fixed the bug that made the folders page appear only half (#496604)
+  - Fixed the motd bug not allowing ' (#496616)
 
 Version 1.2.0 -- 25 December 2001
 ---------------------------------
