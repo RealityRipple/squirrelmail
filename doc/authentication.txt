@@ -81,4 +81,26 @@ To get the challenge with SMTP:
 	QUIT
 	[server says bye, closes connection]
 
+
+OPTIONAL SMTP AUTH CONFIGURATION
+--------------------------------
+
+If you need all users to send mail via an upstream SMTP provider
+(your ISP, for example), and that ISP requires authentication,
+there are two variables that can be added to config_local.php
+that will specify a sitewide SMTP username and password.
+
+Set up SMTP authentication to the remote server according to the 
+instructions above, then add the following to config_local.php, 
+replacing <smtp_user> and <smtp_pass> with the username and password
+you'd like to use for the entire site:
+
+  $smtp_sitewide_user = '<smtp_user>';
+  $smtp_sitewide_pass = '<smtp_pass>';
+
+These values will be used to connect to the SMTP server as long
+as the authentication mechanism is something besides 'none', i.e.
+'login','plain','cram-md5', or 'digest-md5'.
+
+
 [End]

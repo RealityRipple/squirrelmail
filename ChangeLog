@@ -113,6 +113,7 @@ Version 1.5.0 -- CVS
   - Fix again for Internet Explorer's stupidity of decoding characters, then
     executing it blindly. See http://www.securityfocus.com/archive/1/340118.
   - Replaced obsolate 2mbit.com RBL with ahbl.org RBL. Bug.No.829887
+  - Added a sitewide override for authenticated SMTP - see authentication.txt.
   - Fixed sorting of sent_subfolders.
     Sent_subfolder plugin is hooked to special_mailbox hook.
 
