@@ -102,7 +102,7 @@ function cpw_poppassd_go($username, $old_pw, $new_pw, $debug = 0) {
     }
     $pop_socket = fsockopen($poppassd_server, 106, $errno, $errstr);
     if (!$pop_socket) {
-        $messages[] = _("ERROR:") .  "$errstr ($errno)";
+        $messages[] = _("ERROR") . ': ' . "$errstr ($errno)";
         return $messages;
     }
 
