@@ -97,7 +97,10 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
     }
 
     if ($where && $what) {
-        $search_stuff = '&where='.urlencode($where).'&what='.urlencode($what);
+        if( !isset( $pos ) || $pos == '' ) {
+            $pos = '0';
+        }
+        $search_stuff = "&pos=" . urlencode( $pos ) . "&where=".urlencode($where).'&what='.urlencode($what);
     }
 
     $checked = ($checkall == 1 ?' checked' : '');
