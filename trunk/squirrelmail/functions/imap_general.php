@@ -1,7 +1,7 @@
 <?php
 
 /**
- * imap.php
+ * imap_general.php
  *
  * Copyright (c) 1999-2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
