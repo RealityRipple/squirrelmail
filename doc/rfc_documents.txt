@@ -10,7 +10,6 @@ For instance, if you want RFC 822, you can jump directly to it at
 
 NUMBER     DESCRIPTION
 -----------------------------------------------------------
-RFC 822    Format of an email message (sendmail)
 RFC 1730   IMAP version 4
 RFC 2060   IMAP version 4rev1
 RFC 2183   Content-Disposition MIME header
@@ -18,3 +17,4 @@ RFC 2298   Details return receipts
 RFC 2342   The IMAP4 NAMESPACE command
 RFC 2616   HTTP/1.1
 RFC 2683   IMAP4 Implementation Recommendations
+RFC 2822   Format of an email message (sendmail)
