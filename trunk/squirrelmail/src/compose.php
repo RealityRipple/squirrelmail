@@ -75,7 +75,7 @@
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
             if ($i==0 && $forward_id) {
-               $tmp = "-------- " . _("Original Message") . " --------";
+               $tmp = "-------- " . _("Original Message") . " --------\n";
                $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
                $tmp .= "   " . _("From") . ": " . $orig_header->from . "\n"; 
                $tmp .= "     " . _("To") . ": " . $orig_header->to[0] . "\n"; 
@@ -151,7 +151,7 @@
          echo "// --></SCRIPT>\n\n";
       }
 
-      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }		 

@@ -181,7 +181,19 @@
    }
 
    function getDateString($stamp) {
-      return date("M j, Y", $stamp);
+      $now = time();
+      $midnight = $now - ($now % 86400) + 14400;
+
+      if ($midnight < $stamp) {
+         // Today
+         return date("g:i a", $stamp);
+      } else if ($midnight - 604800 < $stamp) {
+         // This week
+         return date("D, g:i a", $stamp);
+      } else {
+         // before this week 
+         return date("M j, Y", $stamp);
+      }
    }
 
    function getTimeStamp($dateParts) {

@@ -179,7 +179,7 @@
    $subject = decodeHeader(htmlspecialchars(stripslashes($message->header->subject)));
 
    echo "<BR>";
-   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=98% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
+   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%>";
    echo "      <TABLE WIDTH=100% CELLSPACING=0 BORDER=0 COLS=2 CELLPADDING=3>";
    echo "         <TR>";
@@ -200,11 +200,11 @@
       $prev = findPreviousMessage();
       $next = findNextMessage();
       if ($prev != -1)
-         echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$mailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
+         echo "<a href=\"read_body.php?passed_id=$prev&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;";
       else
          echo _("Previous") . "&nbsp;|&nbsp;";
       if ($next != -1)
-         echo "<a href=\"read_body.php?passed_id=$next&mailbox=$mailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
+         echo "<a href=\"read_body.php?passed_id=$next&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage&show_more=0\">" . _("Next") . "</A>";
       else
          echo _("Next");
    }
@@ -272,6 +272,8 @@
    }
    echo "</TABLE>";
    echo "   </TD></TR>";
+   echo "</table>";
+   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
    $body = formatBody($imapConnection, $message, $color, $wrap_at);
@@ -280,6 +282,8 @@
    echo "$body";
 
    echo "   </TD></TR>\n";
+   echo "</table>";
+   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
