@@ -309,14 +309,14 @@ if ($saved_count > 0) {
         } else {
             echo html_tag( 'tr', '', '', $color[4] );
         }
-        echo html_tag( 'td', $saved_attributes['saved_folder'][$i], 'left', '', 'width="35%"' )
+        echo html_tag( 'td', imap_utf7_decode_local($saved_attributes['saved_folder'][$i]), 'left', '', 'width="35%"' )
         . html_tag( 'td', $saved_attributes['saved_what'][$i], 'left' )
         . html_tag( 'td', $saved_attributes['saved_where'][$i], 'center' )
         . html_tag( 'td', '', 'right' )
         .   '<a href=search.php'
-        .     '?mailbox=' . htmlentities($saved_attributes['saved_folder'][$i])
-        .     '&amp;what=' . htmlentities($saved_attributes['saved_what'][$i])
-        .     '&amp;where=' . htmlentities($saved_attributes['saved_where'][$i])
+        .     '?mailbox=' . htmlspecialchars($saved_attributes['saved_folder'][$i])
+        .     '&amp;what=' . htmlspecialchars($saved_attributes['saved_what'][$i])
+        .     '&amp;where=' . htmlspecialchars($saved_attributes['saved_where'][$i])
         .   '>' . _("edit") . '</a>'
         .   '&nbsp;|&nbsp;'
         .   '<a href=search.php'
@@ -356,8 +356,8 @@ if ($recent_count > 0) {
             }
             if (isset($attributes['search_what'][$i]) &&
                 !empty($attributes['search_what'][$i])) {
-            echo html_tag( 'td', $attributes['search_folder'][$i], 'left', '', 'width="35%"' )
-               . html_tag( 'td', htmlentities($attributes['search_what'][$i]), 'left' )
+            echo html_tag( 'td', imap_utf7_decode_local($attributes['search_folder'][$i]), 'left', '', 'width="35%"' )
+               . html_tag( 'td', htmlspecialchars($attributes['search_what'][$i]), 'left' )
                . html_tag( 'td', $attributes['search_where'][$i], 'center' )
                . html_tag( 'td', '', 'right' )
                .   "<a href=search.php?count=$i&amp;submit=save>"

@@ -12,6 +12,13 @@
  */
 
 function imap_utf7_encode_local($s) {
+    global $languages, $squirrelmail_language;
+    
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_encode', $s);
+    }
+    
 	$b64_s = '';	// buffer for substring to be base64-encoded
 	$utf7_s = '';	// imap-utf7-encoded string
 	for ($i = 0; $i < strlen($s); $i++) {
@@ -45,6 +52,13 @@ function imap_utf7_encode_local($s) {
 }
 
 function imap_utf7_decode_local($s) {
+    global $languages, $squirrelmail_language;
+    
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+        return $languages[$squirrelmail_language]['XTRA_CODE']('utf7-imap_decode', $s);
+    }
+    
 	$b64_s = '';
 	$iso_8859_1_s = '';
 	for ($i = 0, $len = strlen($s); $i < $len; $i++) {

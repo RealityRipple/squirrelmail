@@ -65,6 +65,28 @@ echo '<form action="../../src/addressbook.php" name="f_add" method="post">' ."\n
 	      '">FAIL - ' . htmlspecialchars($Val) . "</option>\n";
         }
     }
+    if ($squirrelmail_language == 'ja_JP') {
+        echo '</select></td></tr>' . "\n" . 
+            
+            html_tag( 'tr', "\n" .
+                      html_tag( 'td', _("Last name") . ':', 'right', $color[4], 'width="50"' ) .
+                      html_tag( 'td', '<input name="' . $name . '[lastname]" size="45" value="">', 'left', $color[4] )
+                      ) . "\n" .
+            html_tag( 'tr', "\n" .
+                      html_tag( 'td', _("First name") . ':', 'right', $color[4], 'width="50"' ) .
+                      html_tag( 'td', '<input name="' . $name . '[firstname]" size="45" value="">', 'left', $color[4] )
+                      ) . "\n" .
+            html_tag( 'tr', "\n" .
+                      html_tag( 'td', _("Additional info") . ':', 'right', $color[4], 'width="50"' ) .
+                      html_tag( 'td', '<input name="' . $name . '[label]" size="45" value="">', 'left', $color[4] )
+                      ) . "\n" .
+            html_tag( 'tr', "\n" .
+                      html_tag( 'td',
+                                '<input type="submit" name="' . $name . '[SUBMIT]" size="45" value="'. _("Add address") .'">' ,
+                                'center', $color[4], 'colspan="2"' )
+                      ) . "\n" .
+            '</table>';
+    } else {
     echo '</select></td></tr>' . "\n" . 
 
     html_tag( 'tr', "\n" .
@@ -85,6 +107,7 @@ echo '<form action="../../src/addressbook.php" name="f_add" method="post">' ."\n
         'center', $color[4], 'colspan="2"' )
     ) . "\n" .
     '</table>';
+    }
 ?>
 </form></body>
 </html>

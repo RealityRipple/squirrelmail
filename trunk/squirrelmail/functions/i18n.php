@@ -1153,7 +1153,10 @@ function set_up_language($sm_language, $do_search = false) {
         if ($squirrelmail_language == 'ja_JP' && function_exists('mb_detect_encoding') ) {
             header ('Content-Type: text/html; charset=EUC-JP');
             if (!function_exists('mb_internal_encoding')) {
-                echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --with-mbstring).");
+                echo _("You need to have php4 installed with the multibyte string function enabled (using configure option --enable-mbstring).");
+            }
+            if (function_exists('mb_language')) {
+                mb_language('Japanese');
             }
             mb_internal_encoding('EUC-JP');
             mb_http_output('pass');
@@ -1445,21 +1448,23 @@ function japanese_charset_xtra() {
     if (function_exists('mb_detect_encoding')) {
         switch (func_get_arg(0)) { /* action */
         case 'decode':
-            $detect_encoding = mb_detect_encoding($ret);
+            $detect_encoding = @mb_detect_encoding($ret);
             if ($detect_encoding == 'JIS' ||
                 $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS') {
+                $detect_encoding == 'SJIS' ||
+                $detect_encoding == 'UTF-8') {
                 
-                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+                $ret = mb_convert_kana(mb_convert_encoding($ret, 'EUC-JP', 'AUTO'), "KV");
             }
             break;
         case 'encode':
-            $detect_encoding = mb_detect_encoding($ret);
+            $detect_encoding = @mb_detect_encoding($ret);
             if ($detect_encoding == 'JIS' ||
                 $detect_encoding == 'EUC-JP' ||
-                $detect_encoding == 'SJIS') {
+                $detect_encoding == 'SJIS' ||
+                $detect_encoding == 'UTF-8') {
                 
-                $ret = mb_convert_encoding($ret, 'JIS', 'AUTO');
+                $ret = mb_convert_encoding(mb_convert_kana($ret, "KV"), 'JIS', 'AUTO');
             }
             break;
         case 'strimwidth':
@@ -1479,7 +1484,8 @@ function japanese_charset_xtra() {
                         if ($prevcsize == 1) {
                             $result .= $tmpstr;
                         } else {
-                            $result .= mb_encode_mimeheader($tmpstr);
+                            $result .= str_replace(' ', '', 
+                                                   mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
                         }
                         $tmpstr = $tmp;
                         $prevcsize = strlen($tmp);
@@ -1489,17 +1495,17 @@ function japanese_charset_xtra() {
                     if (strlen(mb_substr($tmpstr, 0, 1)) == 1)
                         $result .= $tmpstr;
                     else
-                        $result .= mb_encode_mimeheader($tmpstr);
+                        $result .= str_replace(' ', '',
+                                               mb_encode_mimeheader($tmpstr,'iso-2022-jp','B',''));
                 }
             }
             $ret = $result;
-            //$ret = mb_encode_mimeheader($ret);
             break;
         case 'decodeheader':
             $ret = str_replace("\t", "", $ret);
             if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=', $ret))
-                $ret = mb_decode_mimeheader($ret);
-            $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+                $ret = @mb_decode_mimeheader($ret);
+            $ret = @mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
             break;
         case 'downloadfilename':
             $useragent = func_get_arg(2);
@@ -1509,6 +1515,54 @@ function japanese_charset_xtra() {
             } else {
                 $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
 }
+            break;
+        case 'wordwrap':
+            $no_begin = "\x21\x25\x29\x2c\x2e\x3a\x3b\x3f\x5d\x7d\xa1\xf1\xa1\xeb\xa1" .
+                "\xc7\xa1\xc9\xa2\xf3\xa1\xec\xa1\xed\xa1\xee\xa1\xa2\xa1\xa3\xa1\xb9" .
+                "\xa1\xd3\xa1\xd5\xa1\xd7\xa1\xd9\xa1\xdb\xa1\xcd\xa4\xa1\xa4\xa3\xa4" .
+                "\xa5\xa4\xa7\xa4\xa9\xa4\xc3\xa4\xe3\xa4\xe5\xa4\xe7\xa4\xee\xa1\xab" .
+                "\xa1\xac\xa1\xb5\xa1\xb6\xa5\xa1\xa5\xa3\xa5\xa5\xa5\xa7\xa5\xa9\xa5" .
+                "\xc3\xa5\xe3\xa5\xe5\xa5\xe7\xa5\xee\xa5\xf5\xa5\xf6\xa1\xa6\xa1\xbc" .
+                "\xa1\xb3\xa1\xb4\xa1\xaa\xa1\xf3\xa1\xcb\xa1\xa4\xa1\xa5\xa1\xa7\xa1" .
+                "\xa8\xa1\xa9\xa1\xcf\xa1\xd1";
+            $no_end = "\x5c\x24\x28\x5b\x7b\xa1\xf2\x5c\xa1\xc6\xa1\xc8\xa1\xd2\xa1" .
+                "\xd4\xa1\xd6\xa1\xd8\xa1\xda\xa1\xcc\xa1\xf0\xa1\xca\xa1\xce\xa1\xd0\xa1\xef";
+            $wrap = func_get_arg(2);
+            
+            if (strlen($ret) >= $wrap && 
+                substr($ret, 0, 1) != '>' &&
+                strpos($ret, 'http://') === FALSE &&
+                strpos($ret, 'https://') === FALSE &&
+                strpos($ret, 'ftp://') === FALSE) {
+                
+                $ret = mb_convert_kana($ret, "KV");
+
+                $line_new = '';
+                $ptr = 0;
+                
+                while ($ptr < strlen($ret) - 1) {
+                    $l = mb_strcut($ret, $ptr, $wrap);
+                    $ptr += strlen($l);
+                    $tmp = $l;
+                    
+                    $l = mb_strcut($ret, $ptr, 2);
+                    while (strlen($l) != 0 && mb_strpos($no_begin, $l) !== FALSE ) {
+                        $tmp .= $l;
+                        $ptr += strlen($l);
+                        $l = mb_strcut($ret, $ptr, 1);
+                    }
+                    $line_new .= $tmp;
+                    if ($ptr < strlen($ret) - 1)
+                        $line_new .= "\n";
+                }
+                $ret = $line_new;
+            }
+            break;
+        case 'utf7-imap_encode':
+            $ret = mb_convert_encoding($ret, 'UTF7-IMAP', 'EUC-JP');
+            break;
+        case 'utf7-imap_decode':
+            $ret = mb_convert_encoding($ret, 'EUC-JP', 'UTF7-IMAP');
             break;
         }
     }

@@ -820,7 +820,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true) {
             echo "</td>\n";
             break;
         case 6: /* size */
-            echo html_tag( 'td', '<b>' . _("Size") . '</b>', 'center', '', 'width="5%"' );
+            echo html_tag( 'td', '<b>' . _("Size") . '</b>', 'center', '', 'width="5%" nowrap' );
             break;
         }
     }
@@ -1248,4 +1248,5 @@ function handleAsSent($mailbox) {
     /* And return the result. */
     return $handleAsSent_result;
 }
+
 ?>

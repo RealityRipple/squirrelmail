@@ -320,6 +320,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
      */
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
            $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
+ 	global $languages, $squirrelmail_language;
 
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
@@ -332,6 +333,13 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         ($body_message->header->type0 == 'rfc822')) {
         $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
+
+        if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+            function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+            if (mb_detect_encoding($body) != 'ASCII') {
+                $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
+            }
+        }
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
 
@@ -512,7 +520,6 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
 /* This function decodes the body depending on the encoding type. */
 function decodeBody($body, $encoding) {
-    global $languages, $squirrelmail_language;
     global $show_html_default;
 
     $body = str_replace("\r\n", "\n", $body);
@@ -528,11 +535,6 @@ function decodeBody($body, $encoding) {
 
     } else if ($encoding == 'base64') {
         $body = base64_decode($body);
-    }
-
-    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
     }
 
     // All other encodings are returned raw.
