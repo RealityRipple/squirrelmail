@@ -49,7 +49,7 @@
    function getMessageHeaders($imapConnection, $start, $end, &$from, &$subject, &$date) {
       $rel_start = $start;
       if (($start > $end) || ($start < 1)) {
-         echo "Error in message header fetching.  Start message: $start, End message: $end<BR>";
+         echo _("Error in message header fetching.  Start message: "). $start, _("End message: "). "$end<BR>";
          exit;
       }
 
