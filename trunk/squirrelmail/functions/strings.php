@@ -539,14 +539,15 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     if (($size < 1) || (strlen($chars) < 1)) {
         return '';
     }
-    
+
     sq_mt_randomize(); /* Initialize the random number generator */
-    
+
     $String = '';
+    $j = strlen( $chars ) - 1;
     while (strlen($String) < $size) {
-        $String .= $chars[mt_rand(0, strlen($chars))];
+        $String .= $chars{mt_rand(0, $j)};
     }
-    
+
     return $String;
 }
 
