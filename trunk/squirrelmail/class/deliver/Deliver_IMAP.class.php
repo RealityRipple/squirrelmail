@@ -1,4 +1,15 @@
 <?php
+/**
+ * Deliver_IMAP.class.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Delivery backend for the Deliver class.
+ *
+ * $Id$
+ */
+
 
 require_once('Deliver.class.php');
 
