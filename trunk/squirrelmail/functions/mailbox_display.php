@@ -34,7 +34,7 @@
    /**
     ** This function loops through a group of messages in the mailbox and shows them
     **/
-   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num) {
+   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, &$msgs) {
       include ("../config/config.php");
 
       if ($numMessages >= 1) {
@@ -145,9 +145,6 @@
          }
       }
 
-//      session_register("messages");
-//      $messages = serialize($msgs);
-
       displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
    }
 
@@ -158,8 +155,9 @@
          include("../config/config.php");
 
       // if cache isn't already set, do it now
-//      if (!session_is_registered("messages"))
-//         session_register("messages");
+      if (!session_is_registered("msgs"))
+         session_register("msgs");
+
       if ($startMessage + ($show_num - 1) < $numMessages) {
          $endMessage = $startMessage + ($show_num-1);
       } else {

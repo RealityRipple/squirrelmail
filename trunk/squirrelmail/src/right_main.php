@@ -78,18 +78,20 @@
    // Check to see if we can use cache or not.  Currently the only time when you wont use it is
    //    when a link on the left hand frame is used.  Also check to make sure we actually have the
    //    array in the registered session data.  :)
-//   if (!$use_mailbox_cache || !session_is_registered("msgs")) {
-//      echo "<br>not using cache<br>\n";
-//      if (session_is_registered("messages"))
-//         session_unregister("messages");
+   if ($use_mailbox_cache && session_is_registered("msgs")) {
+      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
+   } else {
+      if (session_is_registered("msgs"))
+         unset($msgs);
 
-      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num);
-//   } else {
-//      echo "<br>using cache<br>\n";
-//      $msgs = unserialize($messages);
-
-//      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
-//   }
+      // i have found that only global variables can be registered successfully with a session.  therefore
+      //    i am passing in a simple empty variable (msgs) which will be returned with an array and can be
+      //    then registered here as a global variable.  whew.
+      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $msgs);
+      
+      if (session_is_registered("msgs") && isset($msgs))
+         session_register("msgs");
+   }
 
    // close the connection
    sqimap_logout ($imapConnection);
