@@ -12,7 +12,7 @@ Version 1.2.2 -- ??
   - Fixed a problem saving prefs when using PHP 4.1
   - Russian, Thai, Swedish, Dutch and French update.
   - Changed configure invocation from bash to sh. (Bug #496752)
-  - Changed conf.pl invocation from '#/usr/bin/perl' to
+  - Changed conf.pl invocation from '#!/usr/bin/perl' to
     '#!/usr/bin/env perl' to help people who have perl somewhere
     else. (Bug #496753)
   - Fixed sorting of folder list, bug #497181
@@ -23,7 +23,11 @@ Version 1.2.2 -- ??
     some installations could not manage correctly SM languages other than
     English. This has been corrected.
   - Miscellaneous rewrites and improvements.
-  	
+  - Moved locale files into the ISO-conformant directories.
+  - Moved help files into the ISO-conformant directories.
+  - Moved compilepo and mergepo files from locale/ into po/
+  - Slight i18n fixes and rewrites to accommodate for moved files.
+
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 
