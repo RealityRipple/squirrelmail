@@ -51,11 +51,14 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
     
 }
 
-function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
+function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, 
+                            &$message, $unique_id = false,$filter=false,
+                             $outputstream=false,$no_return=false) {
     if ($imap_stream) {
         $sid = sqimap_session_id($unique_id);
         fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-        $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
+        $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response,
+                                  $message, $query,$filter,$outputstream,$no_return);
         return $read;
     } else {
         global $squirrelmail_language, $color;
@@ -96,13 +99,69 @@ function sqimap_fgets($imap_stream) {
     return $results;
 }
 
+function sqimap_fread($imap_stream,$iSize,$filter=false,
+                      $outputstream=false, $no_return=false) {
+    if (!$filter || !$outputstream) {
+        $iBufferSize = $iSize;
+    } else {
+        $iBufferSize = 32768;
+    }
+    $iRet = $iSize - $iBufferSize;
+    $i = 0;
+    $results = '';
+    while (($i * $iBufferSize) < $iRet) {
+        $sRead = fread($imap_stream,$iBufferSize);
+        if (!$sRead) {
+            $results = false;
+            break;
+        }
+        ++$i;
+        if ($filter) {
+           $filter($sRead);
+        }
+        if ($outputstream) {
+           if (is_resource($outputstream)) {
+               fwrite($outputstream,$sRead);
+           } else if ($outputstream == 'php://stdout') {
+               echo $sRead;
+           }
+        }
+        if ($no_return) {
+            $sRead = '';
+        }    
+        $results .= $sRead;
+    }
+    if ($results !== false) {
+        $sRead = fread($imap_stream,($iSize - ($i * $iBufferSize)));  
+        if ($filter) {
+           $filter($sRead);
+        }
+        if ($outputstream) {
+           if (is_resource($outputstream)) {      
+               fwrite($outputstream,$sRead);
+           } else if ($outputstream == 'php://stdout') { // FIXME
+               echo $sRead;
+           }
+        }
+        if ($no_return) {
+            $sRead = '';
+        }    
+        $results .= $sRead;
+    }
+    return $results;       
+}        
+
+
+
 /*
  * Reads the output from the IMAP stream.  If handle_errors is set to true,
  * this will also handle all errors that are received.  If it is not set,
  * the errors will be sent back through $response and $message
  */
 
-function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$response, &$message, $query = '') {
+function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, 
+          &$response, &$message, $query = '',
+           $filter = false, $outputstream = false, $no_return = false) {
     global $color, $squirrelmail_language;
     $read = '';
     $tag_uid_a = explode(' ',trim($tag_uid));
@@ -171,7 +230,7 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
                             $j = strrpos($read,'{');
                             $iLit = substr($read,$j+1,-3);
                             $fetch_data[] = $read;
-                            $sLiteral = fread($imap_stream,$iLit);
+                            $sLiteral = sqimap_fread($imap_stream,$iLit,$filter,$outputstream,$no_return);
                             if ($sLiteral === false) { /* error */
                                 break 4; /* while while switch while */
                             }
@@ -335,9 +394,11 @@ function sqimap_read_data_list ($imap_stream, $tag_uid, $handle_errors, &$respon
     }
 }
 
-function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors, &$response, &$message, $query = '') {
-    $res = sqimap_read_data_list($imap_stream, $tag_uid, $handle_errors, $response, $message, $query);
- 
+function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors, 
+                           &$response, &$message, $query = '',
+                           $filter=false,$outputstream=false,$no_return=false) {
+    $res = sqimap_read_data_list($imap_stream, $tag_uid, $handle_errors, 
+              $response, $message, $query,$filter,$outputstream,$no_return); 
     /* sqimap_read_data should be called for one response
        but since it just calls sqimap_read_data_list which 
        handles multiple responses we need to check for that

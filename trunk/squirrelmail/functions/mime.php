@@ -15,9 +15,9 @@
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/attachment_common.php');
 
-/* --------------------------------------------------------------------------------- */
-/* MIME DECODING                                                                     */
-/* --------------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+/* MIME DECODING                                                              */
+/* -------------------------------------------------------------------------- */
 
 /* This function gets the structure of a message and stores it in the "message" class.
  * It will return this object for use with all relevant header information and
@@ -99,6 +99,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1) {
     /* Do a bit of error correction.  If we couldn't find the entity id, just guess
      * that it is the first one.  That is usually the case anyway.
      */
+
     if (!$ent_id) {
         $cmd = "FETCH $id BODY[]";
     } else {
@@ -156,7 +157,6 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1) {
 function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
     global $uid_support;
 
-    $sid = sqimap_session_id($uid_support);
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
      * Don´t call set_time_limit in safe mode.
@@ -165,14 +165,35 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
     if (!ini_get('safe_mode')) {
         set_time_limit(0);
     }
-    if ($uid_support) {
-       $sid_s = substr($sid,0,strpos($sid, ' '));
+    /* in case of base64 encoded attachments, do not buffer them.
+       Instead, echo the decoded attachment directly to screen */
+    if (strtolower($encoding) == 'base64') {
+        if (!$ent_id) {
+           $query = "FETCH $id BODY[]";
+        } else {
+           $query = "FETCH $id BODY[$ent_id]";
+        }
+        sqimap_run_command($imap_stream,$query,true,$response,$message,$uid_support,'sqimap_base64_decode','php://stdout',true);
     } else {
-       $sid_s = $sid;
+       $body = mime_fetch_body ($imap_stream, $id, $ent_id);
+       echo decodeBody($body, $encoding);
     }
 
-    $body = mime_fetch_body ($imap_stream, $id, $ent_id);
-    echo decodeBody($body, $encoding);
+    /* 
+       TODO, use the same method for quoted printable.
+       However, I assume that quoted printable attachments aren't that large
+       so the performancegain / memory usage drop will be minimal.
+       If we decide to add that then we need to adapt sqimap_fread because
+       we need to split te result on \n and fread doesn't stop at \n. That 
+       means we also should provide $results from sqimap_fread (by ref) to
+       te function and set $no_return to false. The $filter function for
+       quoted printable should handle unsetting of $results. 
+    */
+    /* 
+       TODO 2: find out how we write to the output stream php://stdout. fwrite
+       doesn't work because 'php://stdout isn't a stream.
+    */
+
     return;
 /*
     fputs ($imap_stream, "$sid FETCH $id BODY[$ent_id]\r\n");
@@ -516,6 +537,10 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $attachments .= "</TD></TR>\n";
     }
     return $attachments;
+}
+
+function sqimap_base64_decode(&$string) {
+    $string = base64_decode($string);
 }
 
 /* This function decodes the body depending on the encoding type. */
