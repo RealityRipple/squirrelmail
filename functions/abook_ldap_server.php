@@ -207,19 +207,16 @@ class abook_ldap_server extends addressbook_backend {
      * @return string encoded string
      */
     function charset_encode($str) {
-        if($this->charset == 'utf-8') {
-            if(function_exists('utf8_encode')) {
-                return utf8_encode($str);
-            } else {
-                return $str;
-            }
+        global $default_charset;
+        if($this->charset != $default_charset) {
+            return charset_convert($default_charset,$str,$this->charset,false);
         } else {
             return $str;
         }
     }
 
     /**
-     * Decode from charset used by this LDAP server to html entities
+     * Decode from charset used by this LDAP server to charset used by translation
      *
      * Uses squirrelmail charset_decode functions
      * @param string string that has to be decoded
@@ -228,7 +225,7 @@ class abook_ldap_server extends addressbook_backend {
     function charset_decode($str) {
         global $default_charset;
         if ($this->charset != $default_charset) {
-            return charset_decode($this->charset,$str);
+            return charset_convert($this->charset,$str,$default_charset,false);
         } else {
             return $str;
         }
