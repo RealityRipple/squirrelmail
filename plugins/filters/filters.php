@@ -512,17 +512,15 @@ function filters_spam_check_site($a, $b, $c, $d, &$filters) {
             if ($filters[$key]['dns']) {
                 $filter_revip = $d . '.' . $c . '.' . $b . '.' . $a . '.' .
                                 $filters[$key]['dns'];
-                if (isset($SpamFilters_DNScache[$filter_revip])) {
-                    if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
-                        $SpamFilters_DNScache[$filter_revip]['L'] =
-                                        gethostbyname($filter_revip);
-                        $SpamFilters_DNScache[$filter_revip]['T'] =
-                                           time() + $SpamFilters_CacheTTL;
-                    }
-                    if ($SpamFilters_DNScache[$filter_revip]['L'] ==
-                        $filters[$key]['result']) {
-                        return 1;
-                    }
+                if (strlen($SpamFilters_DNScache[$filter_revip]['L']) == 0) {
+                    $SpamFilters_DNScache[$filter_revip]['L'] =
+                                    gethostbyname($filter_revip);
+                    $SpamFilters_DNScache[$filter_revip]['T'] =
+                                       time() + $SpamFilters_CacheTTL;
+                }
+                if ($SpamFilters_DNScache[$filter_revip]['L'] ==
+                    $filters[$key]['result']) {
+                    return 1;
                 }
             }
         }
