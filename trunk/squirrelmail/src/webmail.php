@@ -54,9 +54,9 @@
    
    if ($location_of_bar == 'right')
    {
-      echo "<FRAMESET COLS=\"*, $left_size\" NORESIZE=yes BORDER=0>";
+      echo "<FRAMESET COLS=\"*, $left_size\" BORDER=0>";
    } else {
-      echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
+      echo "<FRAMESET COLS=\"$left_size, *\" BORDER=0>";
    }
 
 /**
@@ -87,13 +87,13 @@
 
    if ($location_of_bar == 'right')
    {
-      echo "<FRAME SRC=\"$right_frame_url\" NAME=\"right\">";
-      echo '<FRAME SRC="left_main.php" NAME="left">';
+      echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
+      echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
    }
    else
    {
-      echo '<FRAME SRC="left_main.php" NAME="left">';
-      echo "<FRAME SRC=\"$right_frame_url\" NAME=\"right\">";
+      echo '<FRAME SRC="left_main.php" NORESIZE NAME="left">';
+      echo "<FRAME SRC=\"$right_frame_url\" NORESIZE NAME=\"right\">";
    }
 
 ?>
