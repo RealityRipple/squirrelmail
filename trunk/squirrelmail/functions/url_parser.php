@@ -77,7 +77,7 @@
    global $url_parser_poss_ends;
    $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", 
        '.&nbsp;', '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', 
-       ']', '[', '{', '}', "\240");
+       ']', '[', '{', '}', "\240", ', ', '. ', ",\n", ",\r");
 
 
    function parseUrl (&$body)
@@ -125,6 +125,12 @@
           // Extract URL
           $url = substr($body, $target_pos, $end-$target_pos);
           
+          // Needed since lines are not passed with \n or \r
+          while ( ereg("[,\.]$", $url) ) {
+            $url = substr( $url, 0, -1 );
+            $end--;
+          }
+
           // Replace URL with HyperLinked Url, requires 1 char in link
           if ($url != '' && $url != $target_token) 
           {
