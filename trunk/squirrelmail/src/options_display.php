@@ -177,7 +177,7 @@
 
     $optvals[] = array(
         'name'    => 'include_self_reply_all',
-        'caption' => _("Include Self in Reply All"),
+        'caption' => _("Remove Me from CC when I Reply All"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
