@@ -93,6 +93,7 @@ $header = "<SCRIPT LANGUAGE=\"JavaScript\">\n" .
           "  }\n".
           "// -->\n".
           "</script>\n";
+$custom_css = 'none';          
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
 /* Set the title of this page. */

@@ -19,7 +19,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
          "\n\n<HTML>\n<HEAD>\n";
     
-    if ( $custom_css == 'none' ) {
+    if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
             echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
         }
