@@ -371,8 +371,8 @@
       is_logged_in();
       displayPageHeader($color, $mailbox);
 
-      while (list($key, $localname) = each($delete)) {
-         array_splice ($attachments, $key, 1);
+      while (list($lkey, $localname) = each($delete)) {
+         array_splice ($attachments, $lkey, 1);
          unlink ($attachment_dir.$localname);
          unlink ($attachment_dir.$localname.".info");
       }

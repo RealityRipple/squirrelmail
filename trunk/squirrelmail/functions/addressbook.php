@@ -36,7 +36,7 @@
       // Load configured LDAP servers
       if(is_array($ldap_server)) {
 	 reset($ldap_server);
-	 while(list($key,$param) = each($ldap_server)) {
+	 while(list($undef,$param) = each($ldap_server)) {
 	    if(is_array($param)) {
 	       $r = $abook->add_backend("ldap_server", $param);
 	       if(!$r && $showerr) {
