@@ -1,16 +1,16 @@
 # Indonesian Squirrelmail Translation
 # Copyright (C) SquirrelMail Development Project , 1999-2002
 # Arief S Fitrianto <arief@fisika.ui.ac.id>, 2001.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2003-01-01 18:33+0100\n"
-"PO-Revision-Date: 2002-10-15 16:29+0700\n"
+"PO-Revision-Date: 2003-01-09 20:04\n"
 "Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
-"Language-Team: Indonesian <squirrelmail-i18n@lists.sourceforge.net>\n"
+"Language-Team: Indonesia <squirrelmail-i18n@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Delivery error report"
@@ -20,7 +20,7 @@ msgid "Undelivered Message Headers"
 msgstr "Header Pesan tidak bisa dikirimkan"
 
 msgid "(no subject)"
-msgstr "( tidak ada subyek )"
+msgstr "(tidak ada subyek)"
 
 msgid "Personal address book"
 msgstr "Buku alamat pribadi"
@@ -55,13 +55,11 @@ msgstr "Tidak dapat mengubah Buku Alamat Umum"
 msgid "Not a file name"
 msgstr "Bukan nama file"
 
-#, fuzzy
 msgid "Write failed"
-msgstr "Gagal membuka"
+msgstr "Gagal menulis"
 
-#, fuzzy
 msgid "Unable to update"
-msgstr "Simpan / Perbaharui"
+msgstr "Tidak dapat memperbaharui"
 
 msgid "Could not lock datafile"
 msgstr "Tidak dapat mengunci file data"
@@ -226,24 +224,23 @@ msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"File Acuan , %s , tidak dapat dibuka. Hubungi administrator Anda\n"
-"untuk mengatasi hal ini."
+"File Acuan , %s , tidak dapat dibuka. Hubungi administrator Anda untuk "
+"mengatasi hal ini."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"File Acuan , %s , tidak dapat dibuka. Hubungi administrator Anda\n"
+"File Acuan, %s, tidak dapat ditulisi. Hubungi administrator sistem Anda "
 "untuk mengatasi hal ini."
 
 #, c-format
 msgid "Error opening %s"
 msgstr "Gagal membuka %s"
 
-#, fuzzy
 msgid "Default preference file not found or not readable!"
-msgstr "File acuan utama tidak ada!"
+msgstr "File acuan baku tidak ditemukan atau tidak dapat dibaca!"
 
 msgid "Please contact your system administrator and report this error."
 msgstr "Hubungi administrator Anda dan laporkan hal ini."
@@ -263,13 +260,13 @@ msgstr ""
 "File Tanda tangan , %s , tidak dapat dibuka. Hubungi administrator Anda\n"
 "untuk mengatasi hal ini."
 
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be written. Contact your system administrator "
 "to resolve this issue."
 msgstr ""
-"File Tanda tangan , %s , tidak dapat dibuka. Hubungi administrator Anda\n"
-"untuk mengatasi hal ini."
+"File Tanda tangan, %s, tidak dapat ditulisi. Hubungi administrator sistem "
+"Anda untuk mengatasi hal ini."
 
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
@@ -279,7 +276,7 @@ msgstr ""
 "( menggunakan pilihan konfigurasi --with-mbstring)."
 
 msgid "ERROR : No available imapstream."
-msgstr ""
+msgstr "SALAH: Tidak ada imapstream yang tersedia"
 
 msgid "ERROR : Could not complete request."
 msgstr "SALAH: Tidak dapat melaksanakan perintah."
@@ -311,18 +308,18 @@ msgstr "Kesalahan tidak diketahui : %s"
 msgid "Read data:"
 msgstr "Membaca data:"
 
-#, fuzzy
 msgid "ERROR : Could not append message to"
-msgstr "SALAH: Tidak dapat melaksanakan perintah."
+msgstr "SALAH: Tidak dapat menambahkan pesan ke"
 
-#, fuzzy
 msgid "Solution: "
-msgstr "Anjuran:"
+msgstr "Pemecahan:"
 
 msgid ""
 "Remove unneccessary messages from your folder and start with your Trash "
 "folder."
 msgstr ""
+"Buanglah pesan yang tidak perlu dari laci Anda dan mulailah dengan laci "
+"Sampah (Trash)"
 
 msgid "INBOX"
 msgstr "KOTAK POS"
@@ -339,9 +336,8 @@ msgstr "Pengirim Misterius"
 msgid "(unknown sender)"
 msgstr "( pengirim misterius )"
 
-#, fuzzy
 msgid "Unknown date"
-msgstr "Pengirim Misterius"
+msgstr "Tanggal tak diketahui"
 
 msgid "A"
 msgstr "A"
@@ -441,21 +437,18 @@ msgstr "Per Halaman"
 msgid "Show All"
 msgstr "Lihat Semua"
 
-#, fuzzy
 msgid "SquirrelMail could not decode the bodystructure of the message"
-msgstr "Squirrelmail tidak dapat mendekode struktur-dalam pesan"
+msgstr "Squirrelmail tidak dapat mendekode struktur-badan pesan"
 
 msgid "the provided bodystructure by your imap-server"
 msgstr "Struktur-dalam pesan yang diberikan oleh server imap"
 
-#, fuzzy
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed."
 msgstr ""
 "Gagal membuka pesan. Alasan yang mungkin adalah karena pesan ini salah "
-"format. Mohon bantuan Anda untuk membuat versi selanjutnya lebih baik dengan "
-"cara mengirimkan pesan ini kepada pengembang software ini!"
+"format."
 
 msgid "Command:"
 msgstr "Perintah:"
@@ -545,7 +538,7 @@ msgid "Theme"
 msgstr "Tema"
 
 msgid "Default"
-msgstr "Utama ( default )"
+msgstr "Utama(default)"
 
 msgid "Custom Stylesheet"
 msgstr "Stylesheet Pribadi"
@@ -614,9 +607,7 @@ msgid "Show HTML Version by Default"
 msgstr "Tampilkan versi HTML secara otomatis"
 
 msgid "Enable Forward as Attachment"
-msgstr ""
-"Izinkan meneruskan pesan ( Forward )\n"
-"sebagai Sisipan"
+msgstr "Izinkan meneruskan pesan(Forward) sebagai Sisipan"
 
 msgid "Include CCs when Forwarding Messages"
 msgstr "Masukkan Tembusan bila meneruskan pesan"
@@ -735,9 +726,8 @@ msgstr "Yang belum dibaca dan semaunya"
 msgid "Enable Collapsable Folders"
 msgstr "Izinkan Laci yang bisa mengembang"
 
-#, fuzzy
 msgid "Enable Cumulative Unread Message Notification"
-msgstr "Aktifkan pemberitahuan pesan yang belum terbaca"
+msgstr "Beritahukan secara kumulatif pesan yang belum terbaca"
 
 msgid "Show Clock on Folders Panel"
 msgstr "Tunjukkan Waktu pada Panel Laci"
@@ -760,23 +750,20 @@ msgstr "Cari Memori"
 msgid "Disabled"
 msgstr "Tidak perlu"
 
-#, fuzzy
 msgid "Folder Selection Options"
-msgstr "Pilihan Daftar Laci"
+msgstr "Pilihan Seleksi Laci"
 
-#, fuzzy
 msgid "Selection List Style"
-msgstr "Gaya Kata-Pembuka Surat Balasan"
+msgstr "Gaya Penampilan Seleksi"
 
-#, fuzzy
 msgid "Long: "
-msgstr "Selama:"
+msgstr "Panjang(lengkap):"
 
 msgid "Indented: "
-msgstr ""
+msgstr "Dimasukkan: "
 
 msgid "Delimited: "
-msgstr ""
+msgstr "Dipisahkan: "
 
 msgid "Name and Address Options"
 msgstr "Pilihan Nama dan Alamat"
@@ -797,7 +784,7 @@ msgid "Edit Advanced Identities"
 msgstr "Ubah Identitas Tambahan"
 
 msgid "(discards changes made on this form so far)"
-msgstr "( Abaikan semua keterangan yang  ada di sini )"
+msgstr "(Abaikan semua keterangan yang ada di sini)"
 
 msgid "Multiple Identities"
 msgstr "Identitas Ganda"
@@ -1061,7 +1048,7 @@ msgid "Themes"
 msgstr "Tema"
 
 msgid "Style Sheet URL (css)"
-msgstr "URL StyleSheet ( css )"
+msgstr "URL StyleSheet (css)"
 
 msgid "Configuration Administrator"
 msgstr "Administrator Konfigurasi"
@@ -1854,9 +1841,8 @@ msgstr "Tambah Server"
 msgid "Server:"
 msgstr "Server:"
 
-#, fuzzy
 msgid "Port:"
-msgstr "Prioritas:"
+msgstr "Port:"
 
 msgid "Alias:"
 msgstr "Nama lain:"
@@ -2089,16 +2075,19 @@ msgid "Base Sent Folder"
 msgstr "Laci Kirim Utama"
 
 msgid "Report as Spam"
-msgstr ""
+msgstr "Laporkan sebagai Spam"
 
 msgid "SpamCop - Spam Reporting"
-msgstr ""
+msgstr "SpamCop - Pelaporan Spam"
 
 msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
 msgstr ""
+"Bantulah perang melawan surate tak perlu/sampah/mailbomb.  SpamCop membaca "
+"surat spam dan menentukan alamat yang benar untuk mengirimkan protes.  Cukup "
+"cepat, sungguh pintar, dan mudah digunakan."
 
 msgid "SpellChecker Options"
 msgstr "Pilihan Pemeriksa Ejaan"
@@ -2512,9 +2501,9 @@ msgstr ""
 msgid "Delete Folder"
 msgstr "Hapus Laci"
 
-#, fuzzy, c-format
+#, c-format
 msgid "Are you sure you want to delete %s?"
-msgstr "Apakah Anda sungguh-sungguh ingin menghapus acara ini?"
+msgstr "Apakah Anda sungguh-sungguh ingin menghapus %s?"
 
 msgid "Subscribed successfully!"
 msgstr "Berhasil mendaftarkan!"
@@ -2610,7 +2599,6 @@ msgstr "Menampilkan sisipan gambar"
 msgid "View message"
 msgstr "Lihat pesan"
 
-#, fuzzy
 msgid "Not available"
 msgstr "Tidak tersedia"
 
@@ -2979,394 +2967,3 @@ msgstr "Menampilkan 'header' lengkap"
 
 msgid "Viewing a text attachment"
 msgstr "Menampilkan sisipan naskah"
-
-#~ msgid "There was an error contacting the mail server."
-#~ msgstr "Ada kesalahan saat menghubungi server."
-
-#~ msgid "Contact your administrator for help."
-#~ msgstr "Hubungi administrator Anda untuk minta bantuan."
-
-#~ msgid "Submit message"
-#~ msgstr "Kirim pesan"
-
-#~ msgid "I tried to execute '%s', but it returned:"
-#~ msgstr "Aku coba menjalankan '%s', tetapi muncul tanggapan:"
-
-#~ msgid "SquirrelSpell is misconfigured."
-#~ msgstr "SquirrelSpell salah konfigurasi"
-
-#~ msgid "SquirrelSpell Results"
-#~ msgstr "Hasil Pemeriksaan SquirrelSpell"
-
-#~ msgid "Spellcheck completed. Commit changes?"
-#~ msgstr "Pemeriksaan ejaan selesai. Terima perbaikan?"
-
-#~ msgid "No changes were made."
-#~ msgstr "Tidak ada perubahan yang diminta."
-
-#~ msgid "Now saving your personal dictionary... Please wait."
-#~ msgstr "Kamus Pribadi Anda sedang disimpan.... silahkan tunggu."
-
-#~ msgid "Found %s errors"
-#~ msgstr "Ditemukan %s kesalahan"
-
-#~ msgid "Line with an error:"
-#~ msgstr "Baris yang berisi kesalahan"
-
-#~ msgid "Error:"
-#~ msgstr "Kesalahan:"
-
-#~ msgid "Suggestions"
-#~ msgstr "Anjuran"
-
-#~ msgid "Change to:"
-#~ msgstr "Ubah ke:"
-
-#~ msgid "Occurs times:"
-#~ msgstr "Jumlah Penemuan:"
-
-#~ msgid "Change this word"
-#~ msgstr "Ubah kata ini"
-
-#~ msgid "Change"
-#~ msgstr "Ubah"
-
-#~ msgid "Change ALL occurances of this word"
-#~ msgstr "Ubah SEMUA kata ini "
-
-#~ msgid "Change All"
-#~ msgstr "Ubah semua"
-
-#~ msgid "Ignore this word"
-#~ msgstr "Abaikan kata ini"
-
-#~ msgid "Ignore"
-#~ msgstr "Abaikan"
-
-#~ msgid "Ignore ALL occurances this word"
-#~ msgstr "Abaikan SEMUA kata ini"
-
-#~ msgid "Ignore All"
-#~ msgstr "Abaikan semua"
-
-#~ msgid "Add this word to your personal dictionary"
-#~ msgstr "Tambahkan kata ini ke kamus pribadi Anda"
-
-#~ msgid "Add to Dic"
-#~ msgstr "Tambahkan ke Kamus"
-
-#~ msgid "Close and Commit"
-#~ msgstr "Tutup dan Aktifkan"
-
-#~ msgid "The spellcheck is not finished. Really close and commit changes?"
-#~ msgstr "Pemeriksaan ejaan belum selesai. Hentikan dan aktifkan perubahan?"
-
-#~ msgid "Close and Cancel"
-#~ msgstr "Tutup dan Batal"
-
-#~ msgid "The spellcheck is not finished. Really close and discard changes?"
-#~ msgstr "Pemeriksaan ejaan belum selesai. Hentikan dan abaikan perubahan?"
-
-#~ msgid "No errors found"
-#~ msgstr "Kesalahan tidak ditemukan"
-
-#~ msgid "Your personal dictionary was erased."
-#~ msgstr "Kamus Pribadi Pribadi Anda telah dihapus."
-
-#~ msgid "Dictionary Erased"
-#~ msgstr "Kamus telah dihapus"
-
-#~ msgid ""
-#~ "Your personal dictionary was erased. Please close this window and click "
-#~ "\"Check Spelling\" button again to start your spellcheck over."
-#~ msgstr ""
-#~ "Kamus Pribadi Anda Telah dihapus. Silahkan tutup jendela ini dan klik "
-#~ "kembali tombol \"Periksa Ejaan\" untuk memulai kembali memeriksa ejaan."
-
-#~ msgid "Close this Window"
-#~ msgstr "Tutup jendela ini"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Now return to the "
-#~ "&quot;SpellChecker options&quot; menu and make your selection again."
-#~ msgstr ""
-#~ "Kamus Pribadi Anda berhasil dienkripsi ulang. Sekarang kembali ke-menu "
-#~ "&quot;Pilihan Pemeriksa Ejaan&quot;dan buat pilihan Anda kembali."
-
-#~ msgid "Successful Re-encryption"
-#~ msgstr "Berhasil mengenkripsi ulang"
-
-#~ msgid ""
-#~ "Your personal dictionary was re-encrypted successfully. Please close this "
-#~ "window and click \"Check Spelling\" button again to start your spellcheck "
-#~ "over."
-#~ msgstr ""
-#~ "Kamus Pribadi Anda berhasil dienkripsi ulang. SIlahkan tutup jendela ini "
-#~ "dan klik kembali tombol \"Periksa Ejaan\" untuk memulai kembali memeriksa "
-#~ "ejaan."
-
-#~ msgid "Dictionary re-encrypted"
-#~ msgstr "Kamus telah dienkripsi ulang"
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>encrypted</strong> and is now "
-#~ "stored in an <strong>encrypted format</strong>."
-#~ msgstr ""
-#~ "Kamus Pribadi Anda telah <strong>dienkripsi</strong> dan sekarang "
-#~ "disimpan dalam <strong>bentuk terenkripsi</strong>."
-
-#~ msgid ""
-#~ "Your personal dictionary has been <strong>decrypted</strong> and is now "
-#~ "stored as <strong>clear text</strong>."
-#~ msgstr ""
-#~ "Kamus pribadi Anda telah <strong>didekripsi</strong> dan sekarang "
-#~ "disimpan dalam bentuk <strong>teks murni</strong>."
-
-#~ msgid "Personal Dictionary Crypto Settings"
-#~ msgstr "Seting Enkripsi Kamus Pribadi"
-
-#~ msgid "Personal Dictionary"
-#~ msgstr "Kamus Pribadi"
-
-#~ msgid "No words in your personal dictionary."
-#~ msgstr "Kamus Pribadi Anda tidak berisi satu kata pun."
-
-#~ msgid "Please check any words you wish to delete from your dictionary."
-#~ msgstr "Mohon periksa semua kata yang ingin Anda hapus dari kamus."
-
-#~ msgid "%s dictionary"
-#~ msgstr "kamus %s"
-
-#~ msgid "Delete checked words"
-#~ msgstr "Hapus kata yang dipilih"
-
-#~ msgid "Edit your Personal Dictionary"
-#~ msgstr "Ubah kamus pribadi Anda"
-
-#~ msgid "Please make your selection first."
-#~ msgstr "Mohon tentukan pilihan Anda terlebih dahulu."
-
-#~ msgid ""
-#~ "This will encrypt your personal dictionary and store it in an encrypted "
-#~ "format. Proceed?"
-#~ msgstr ""
-#~ "Hal ini akan mengenkripsi kamus pribadi Anda dan menyimpan dalam bentuk "
-#~ "terenkripsi. Lanjut?"
-
-#~ msgid ""
-#~ "This will decrypt your personal dictionary and store it in a clear-text "
-#~ "format. Proceed?"
-#~ msgstr ""
-#~ "Hal ini akan mendekripsi kamus pribadi saya dan menyimpannya dalam bentuk "
-#~ "teks murni. Lanjut?"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-#~ "helps protect your privacy in case the web-mail system gets compromized "
-#~ "and your personal dictionary ends up stolen. It is currently encrypted "
-#~ "with the password you use to access your mailbox, making it hard for "
-#~ "anyone to see what is stored in your personal dictionary.</p> "
-#~ "<p><strong>ATTENTION:</strong> If you forget your password, your personal "
-#~ "dictionary will become unaccessible, since it can no longer be decrypted. "
-#~ "If you change your mailbox password, SquirrelSpell will recognize it and "
-#~ "prompt you for your old password in order to re-encrypt the dictionary "
-#~ "with a new key.</p>"
-#~ msgstr ""
-#~ "<p>Kamus pribadi Anda <strong>saat ini dienkripsi</strong>. Hal ini untuk "
-#~ "menjaga rahasia Anda ketika sistem webmail dibobol dan kamus pribadi Anda "
-#~ "dicuri. Kamus tersebut saat ini dienkripsi dengan sandi yang Anda gunakan "
-#~ "untuk mengakses surat Anda; membuatnya sulit bagi seseorang untuk melihat "
-#~ "apa yang tersimpan dalam kamus pribadi Anda.</p><p><strong>PERHATIAN: </"
-#~ "strong> Jika Anda lupa sandi Anda, kamus pribadi Anda menjadi tidak bisa "
-#~ "diakses, karena tidak lagi bisa didekripsi. Jika Anda mengubah sandi "
-#~ "Anda, SquirrelSpell akan mengetahuinya dan meminta sandi lama Anda untuk "
-#~ "mengekripsi ulang kamus Anda dengan sandi baru.</p>"
-
-#~ msgid ""
-#~ "Please decrypt my personal dictionary and store it in a clear-text format."
-#~ msgstr ""
-#~ "Mohon dekripsi kamus pribadi saya dan simpan dalam bentuk teks murni."
-
-#~ msgid "Change crypto settings"
-#~ msgstr "Ubah seting enkripsi"
-
-#~ msgid ""
-#~ "<p>Your personal dictionary is <strong>currently not encrypted</strong>. "
-#~ "You may wish to encrypt your personal dictionary to protect your privacy "
-#~ "in case the webmail system gets compromized and your personal dictionary "
-#~ "file gets stolen. When encrypted, the file's contents look garbled and "
-#~ "are hard to decrypt without knowing the correct key (which is your "
-#~ "mailbox password).</p> <strong>ATTENTION:</strong> If you decide to "
-#~ "encrypt your personal dictionary, you must remember that it gets &quot;"
-#~ "hashed&quot; with your mailbox password. If you forget your mailbox "
-#~ "password and the administrator changes it to a new value, your personal "
-#~ "dictionary will become useless and will have to be created anew. However, "
-#~ "if you or your system administrator change your mailbox password but you "
-#~ "still have the old password at hand, you will be able to enter the old "
-#~ "key to re-encrypt the dictionary with the new value.</p>"
-#~ msgstr ""
-#~ "<p>Kamus pribadi Anda <strong>saat ini tidak dienkripsi</strong>. Anda "
-#~ "mungkin ingin mengekripsinya untuk melindungi rahasia Anda ketika sistem "
-#~ "webmail dibobol dan file kamus Anda dicuri orang. Ketika dienkripsi, isi "
-#~ "file tampak seperti kacau balau dan sulit untuk didekripsi tampa sandi "
-#~ "yang benar ( yaitu sandi surat Anda )</p><p><strong>PERHATIAN</strong> "
-#~ "Jika Anda memutuskan untuk mengekripsi kamus pribadi Anda, Anda harus "
-#~ "ingat bahwa kamus tersebut telah &quot;dienkripsi&quot; dengan sandi "
-#~ "surat Anda. Jika Anda lupa sandi Anda dan administrator mengubahnya, "
-#~ "kamus pribadi Anda menjadi percuma dan akan dibuatkan yang baru. Akan "
-#~ "tetapi, jika Anda atau administrator mengubah sandi Anda namun Anda masih "
-#~ "ingat yang lama, Anda dapat memasukkan sandi lama untuk mengenkripsi "
-#~ "ulang kamus Anda dengan sandi baru.</p>"
-
-#~ msgid ""
-#~ "Please encrypt my personal dictionary and store it in an encrypted format."
-#~ msgstr ""
-#~ "Mohon enkripsi kamus pribadi saya dan simpan dalam bentuk terenkripsi."
-
-#~ msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-#~ msgstr "Menghapus masukan berikut ini dari kamus <strong>%s</strong> :"
-
-#~ msgid "All done!"
-#~ msgstr "Semua Selesai!"
-
-#~ msgid "Personal Dictionary Updated"
-#~ msgstr "Kamus Pribadi Diperbaharui"
-
-#~ msgid "No changes requested."
-#~ msgstr "Tidak ada perubahan yang diminta"
-
-#~ msgid "Please wait, communicating with the server..."
-#~ msgstr "Silahkan tunggu, sedang berkomunikasi dengan server ...."
-
-#~ msgid ""
-#~ "Please choose which dictionary you would like to use to spellcheck this "
-#~ "message:"
-#~ msgstr ""
-#~ "Silahkan pilih kamus yang akan digunakan untuk memeriksa ejaan dalam "
-#~ "pesan ini:"
-
-#~ msgid "SquirrelSpell Initiating"
-#~ msgstr "Memulai SquirrelSpell"
-
-#~ msgid ""
-#~ "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-#~ "default dictionary."
-#~ msgstr ""
-#~ "Seting disesuaikan ke : <strong>%s</strong> dengan <strong>%s</strong> "
-#~ "sebagai kamus utama."
-
-#~ msgid ""
-#~ "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-#~ msgstr ""
-#~ "Menggunakan kamus <strong>%s</strong> ( dari sistem ) untuk memeriksa "
-#~ "ejaan."
-
-#~ msgid "International Dictionaries Preferences Updated"
-#~ msgstr "Acuan Kamus Internasional Diperbaharui"
-
-#~ msgid ""
-#~ "Please check any available international dictionaries which you would "
-#~ "like to use when spellchecking:"
-#~ msgstr ""
-#~ "Silahkan pilih kamus internasional yang ada sesuka Anda saat memeriksa "
-#~ "ejaan."
-
-#~ msgid "Make this dictionary my default selection:"
-#~ msgstr "Jadikan kamus ini sebagai kamus utama saya."
-
-#~ msgid "Make these changes"
-#~ msgstr "Buat perubahan ini"
-
-#~ msgid "Add International Dictionaries"
-#~ msgstr "Tambahkan Kamus Internasional"
-
-#~ msgid "Please choose which options you wish to set up:"
-#~ msgstr "Silahkan tentukan pilihan yang Anda inginkan"
-
-#~ msgid "Edit your personal dictionary"
-#~ msgstr "Ubah kamus pribadi Anda"
-
-#~ msgid "Set up international dictionaries"
-#~ msgstr "Siapkan kamus internasional"
-
-#~ msgid "Encrypt or decrypt your personal dictionary"
-#~ msgstr "Enkripsi atau dekripsi kamus pribadi Anda"
-
-#~ msgid "SquirrelSpell Options Menu"
-#~ msgstr "Menu Pilihan SquirrelSpell"
-
-#~ msgid "Take Address"
-#~ msgstr "Catat Alamat"
-
-#~ msgid "Address Book Take"
-#~ msgstr "Pencatat Buku Alamat"
-
-#~ msgid "Left aligned"
-#~ msgstr "Rata kiri"
-
-#~ msgid "Centered"
-#~ msgstr "di tengah"
-
-#~ msgid "Right aligned"
-#~ msgstr "Rata kanan"
-
-#~ msgid "on the Read screen"
-#~ msgstr "di layar baca"
-
-#~ msgid "Hide the box"
-#~ msgstr "sembunyikan kotaknya"
-
-#~ msgid "Try to verify addresses"
-#~ msgstr "Coba memastikan alamatnya"
-
-#~ msgid "Viewing a message attachment"
-#~ msgstr "Menampilkan pesan sisipan"
-
-#~ msgid "Cc:"
-#~ msgstr "Tembusan:"
-
-#~ msgid "Bcc:"
-#~ msgstr "Salinan:"
-
-#~ msgid "<No subject>"
-#~ msgstr "< tidak ada subyek >"
-
-#~ msgid "Enable request/confirm reading"
-#~ msgstr "Aktifkan konfirmasi/permintaan pembacaan"
-
-#~ msgid "Use receive date for sort"
-#~ msgstr "Gunakan tanggal terima untuk mengurutkan"
-
-#~ msgid "Use References header for thread sort"
-#~ msgstr "Gunakan header acuan untuk mengurutkan "
-
-#~ msgid "No Messages found"
-#~ msgstr "Tidak ada pesan yang ditemukan "
-
-#~ msgid ""
-#~ "Please contact your system administrator and report the following error:"
-#~ msgstr "Hubungi administrator Anda dan laporkan masalah berikut ini:"
-
-#~ msgid "Unknown messagenumber in reply from server: "
-#~ msgstr "Nomor pesan tidak dikenal dalam balasan dari server: "
-
-#~ msgid "No To Address"
-#~ msgstr "Tidak ada Alamat 'Untuk:'"
-
-#~ msgid "Found"
-#~ msgstr "Ditemukan"
-
-#~ msgid "messages"
-#~ msgstr "pesan"
-
-#~ msgid "$thread_name"
-#~ msgstr "$nama_thread"
-
-#~ msgid "Error decoding mime structure.  Report this as a bug!"
-#~ msgstr "Ada kesalahan saat mengurai struktur mime.  Laporkan masalah ini !"
-
-#~ msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-#~ msgstr "POP3: NOOP OK prematur, BUKAN server yang mengacu RFC 1939"
-
-#~ msgid "NOOP failed. Server not RFC 1939 compliant"
-#~ msgstr "NOOP gagal. Server tidak mengacu pada RFC 1939"
