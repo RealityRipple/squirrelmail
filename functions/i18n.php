@@ -1090,7 +1090,33 @@ function japanese_charset_xtra() {
             $ret = mb_strimwidth($ret, 0, $width, '...'); 
             break;
         case 'encodeheader':
-            $ret = mb_encode_mimeheader($ret);
+            $result = '';
+            if (strlen($ret) > 0) {
+                $tmpstr = mb_substr($ret, 0, 1);
+                $prevcsize = strlen($tmpstr);
+                for ($i = 1; $i < mb_strlen($ret); $i++) {
+                    $tmp = mb_substr($ret, $i, 1);
+                    if (strlen($tmp) == $prevcsize) {
+                        $tmpstr .= $tmp;
+                    } else {
+                        if ($prevcsize == 1) {
+                            $result .= $tmpstr;
+                        } else {
+                            $result .= mb_encode_mimeheader($tmpstr);
+                        }
+                        $tmpstr = $tmp;
+                        $prevcsize = strlen($tmp);
+                    }
+                }
+                if (strlen($tmpstr)) {
+                    if (strlen(mb_substr($tmpstr, 0, 1)) == 1)
+                        $result .= $tmpstr;
+                    else
+                        $result .= mb_encode_mimeheader($tmpstr);
+                }
+            }
+            $ret = $result;
+            //$ret = mb_encode_mimeheader($ret);
             break;
         case 'decodeheader':
             $ret = str_replace("\t", "", $ret);
