@@ -12,8 +12,11 @@
       if (file_exists($theme[0]["PATH"])) {
          require($theme[0]["PATH"]);
       } else {
-         echo "Theme: " . $theme[0]["PATH"] . " was not found.<BR>";
-         echo "Exiting abnormally";
+         echo _("Theme: ");
+	 echo . $theme[0]["PATH"] .;
+	 echo _(" was not found.");
+	 echo "<BR>";
+         echo _("Exiting abnormally");
          exit;
       }
    }
