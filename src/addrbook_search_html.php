@@ -53,23 +53,45 @@ function addr_insert_hidden() {
 
 /* List search results */
 function addr_display_result($res, $includesource = true) {
-    global $color, $PHP_SELF;
+    global $color, $javascript_on, $PHP_SELF;
 
     if (sizeof($res) <= 0) return;
 
-    echo '<form method=post action="' . $PHP_SELF . "\">\n" .
+    echo '<form method=post action="' . $PHP_SELF . '" name="addrbook">'."\n" .
          '<input type=hidden name="html_addr_search_done" value="true">' . "\n";
     addr_insert_hidden();
     $line = 0;
 
-    echo '<TABLE BORDER=0 WIDTH="98%" ALIGN=center>' .
-         '<TR BGCOLOR="' . $color[9] . '"><TH ALIGN=left>&nbsp;' .
-         '<TH ALIGN=left>&nbsp;' . _("Name") .
-         '<TH ALIGN=left>&nbsp;' . _("E-mail") .
-         '<TH ALIGN=left>&nbsp;' . _("Info");
+if ($javascript_on) {
+    print
+        '<script language="JavaScript" type="text/javascript">' .
+        "\n<!-- \n" .
+        "function CheckAll(ch) {\n" .
+        "   for (var i = 0; i < document.addrbook.elements.length; i++) {\n" .
+        "       if( document.addrbook.elements[i].type == 'checkbox' &&\n" .
+        "           document.addrbook.elements[i].name.substr(0,16) == 'send_to_search['+ch ) {\n" .
+        "           document.addrbook.elements[i].checked = !(document.addrbook.elements[i].checked);\n".
+        "       }\n" .
+        "   }\n" .
+        "}\n" .
+        "//-->\n" .
+        "</script>\n";
+    $chk_all = '<a href="#" onClick="CheckAll(\'T\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">To</font>'.
+            '&nbsp;&nbsp;'.
+            '<a href="#" onClick="CheckAll(\'C\');">' . _("All") . '</a>&nbsp;<font color="'.$color[9].'">Cc</font>'.
+            '&nbsp;&nbsp;'.
+            '<a href="#" onClick="CheckAll(\'B\');">' . _("All") . '</a>';
+    }
+    echo '<TABLE BORDER="0" WIDTH="98%" ALIGN="center">' .
+           '<TR BGCOLOR="' . $color[9] . '"><TH ALIGN="left">&nbsp;' . $chk_all . '</TH>' .
+          '<TH ALIGN="left">&nbsp;' . _("Name") . '</TH>' .
+          '<TH ALIGN="left">&nbsp;' . _("E-mail") . '</TH>' .
+          '<TH ALIGN="left">&nbsp;' . _("Info") . '</TH>';
+
+
 
     if ($includesource) {
-        echo '<TH ALIGN=left WIDTH="10%">&nbsp;' . _("Source");
+        echo '<TH ALIGN=left WIDTH="10%">&nbsp;' . _("Source"). '</TH>';
     }
 
     echo "</TR>\n";
