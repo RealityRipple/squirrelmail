@@ -27,8 +27,12 @@
  */
 
 /**
+ * sqm_baseuri function for setups that don't load it by default
  */
 include_once(SM_PATH . 'functions/display_messages.php');
+
+/** Load plugin functions */
+include_once(SM_PATH . 'plugins/newmail/functions.php');
 
 /**
  * Checks if mailbox contains new messages.
@@ -105,7 +109,7 @@ function newmail_optpage_register_block() {
  * Save newmail plugin settings
  */
 function newmail_sav() {
-    global $data_dir, $username;
+    global $data_dir, $username, $_FILES;
 
     if ( sqgetGlobalVar('submit_newmail', $submit, SQ_POST) ) {
         $media_enable = '';
@@ -128,10 +132,40 @@ function newmail_sav() {
         setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
 
         if( sqgetGlobalVar('media_sel', $media_sel, SQ_POST) &&
-            ($media_sel == '(none)' || $media_sel == '(local media)') ) {
+            $media_sel == '(none)' ) {
             removePref($data_dir,$username,'newmail_media');
         } else {
             setPref($data_dir,$username,'newmail_media',$media_sel);
+        }
+
+        // process uploaded file
+        if (isset($_FILES['media_file']['tmp_name']) && $_FILES['media_file']['tmp_name']!='') {
+            // set temp file and get media file name
+            $newmail_tempmedia=getHashedDir($username, $data_dir) . "/$username.tempsound";
+            $newmail_mediafile=getHashedFile($username, $data_dir, $username . '.sound');
+            if (move_uploaded_file($_FILES['media_file']['tmp_name'], $newmail_tempmedia)) {
+                // new media file is in $newmail_tempmedia
+                if (file_exists($newmail_mediafile)) unlink($newmail_mediafile);
+                if (! rename($newmail_tempmedia,$newmail_mediafile)) {
+                    // remove (userfile), if file rename fails
+                    removePref($data_dir,$username,'newmail_media');
+                } else {
+                    // store media type
+                    if (isset($_FILES['media_file']['type']) && isset($_FILES['media_file']['name'])) {
+                        setPref($data_dir,$username,'newmail_userfile_type',
+			    newmail_get_mediatype($_FILES['media_file']['type'],$_FILES['media_file']['name']));
+                    } else {
+                        removePref($data_dir,$username,'newmail_userfile_type');
+                    }
+                    // store file name
+                    if (isset($_FILES['media_file']['name'])) {
+                        setPref($data_dir,$username,'newmail_userfile_name',basename($_FILES['media_file']['name']));
+                    } else {
+                        setPref($data_dir,$username,'newmail_userfile_name','mediafile.unknown');
+                    }
+
+                }
+            }
         }
     }
 }
@@ -143,6 +177,7 @@ function newmail_pref() {
     global $username,$data_dir;
     global $newmail_media,$newmail_enable,$newmail_popup,$newmail_allbox;
     global $newmail_recent, $newmail_changetitle;
+    global $newmail_userfile_type;
 
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
     $newmail_enable = getPref($data_dir,$username,'newmail_enable');
@@ -150,6 +185,8 @@ function newmail_pref() {
     $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
     $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
     $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
+
+    $newmail_userfile_type = getPref($data_dir, $username, 'newmail_userfile_type');
 }
 
 /**
@@ -170,6 +207,8 @@ function newmail_set_loadinfo() {
 function newmail_plugin() {
     global $username, $newmail_media, $newmail_enable, $newmail_popup,
         $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
+    global $newmail_mmedia;
+    global $newmail_userfile_type;
 
     if ($newmail_enable == 'on' ||
         $newmail_popup == 'on' ||
@@ -234,14 +273,11 @@ function newmail_plugin() {
                 "</script>\n";
         }
 
+        // create media output if there are new email messages
         if ($totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
-            /**
-             * docs about embed
-             * Apple: http://www.apple.com/quicktime/authoring/embed.html
-             */
-            echo '<embed src="'.htmlspecialchars($newmail_media) .
-                "\" hidden=\"true\" autostart=\"true\" width=\"2\" height=\"2\">\n";
+            echo newmail_create_media_tags($newmail_media);
         }
+
         if ($totalNew > 0 && $newmail_popup == 'on') {
             echo "<script language=\"JavaScript\">\n".
                 "<!--\n".
