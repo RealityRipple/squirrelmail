@@ -1257,6 +1257,7 @@ function mail_message_listing_beginning ($imapConnection,
         </td>
         </tr>
     </table>
+</td></tr>
 <?php
     do_hook('mailbox_form_before');
 }
