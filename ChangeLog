@@ -27,7 +27,9 @@ Version 1.2.2 -- ??
   - Moved help files into the ISO-conformant directories.
   - Moved compilepo and mergepo files from locale/ into po/
   - Slight i18n fixes and rewrites to accommodate for moved files.
-
+  - Fixes for entities in the subject when replying.
+  - Fixes for entites in the To: header. (Bug #489365)
+  
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 
