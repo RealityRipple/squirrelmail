@@ -106,18 +106,6 @@ class POP3 {
         return true;
     }
 
-    function noop () {
-    
-        if(!isset($this->FP)) {
-            $this->ERROR = _("POP3 noop:") . ' ' . _("No connection to server");
-            return false;
-        } else {
-            $cmd = "NOOP";
-            $reply = $this->send_cmd( $cmd );
-            return( $this->is_ok( $reply ) );
-        }
-    }
-
     function user ($user = "") {
         // Sends the USER command, returns true or false
 
