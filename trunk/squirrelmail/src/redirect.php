@@ -49,8 +49,8 @@ $location = get_location();
 session_set_cookie_params (0, $base_uri);
 session_start();
 
-session_unregister ('user_is_logged_in');
-session_register ('base_uri');
+sqsession_unregister ('user_is_logged_in');
+sqsession_register ($base_uri, 'base_uri');
 
 /* get globals we me need */
 if (isset($_POST['login_username'])) {
@@ -107,14 +107,14 @@ if (!session_is_registered('user_is_logged_in')) {
         exit;
     } else {
         $sqimap_capabilities = sqimap_capability($imapConnection);
-	session_register('sqimap_capabilities');
+	sqsession_register($sqimap_capabilities, 'sqimap_capabilities');
         $delimiter = sqimap_get_delimiter ($imapConnection);
     }
     sqimap_logout($imapConnection);
     sqsession_register($delimiter, 'delimiter');
 
     $username = $login_username;
-    session_register ($username, 'username');
+    sqsession_register ($username, 'username');
     setcookie('key', $key, 0, $base_uri);
     do_hook ('login_verified');
 
