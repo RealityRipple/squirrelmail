@@ -79,7 +79,7 @@ Version 1.5.0 -- CVS
   - Replace all session_start() calls with sqsession_is_active() to be compatible
     with upcoming PHP 4.3.3.
   - Encoding of Russian translation changed to utf-8. Lithuanian translation changed
-    to iso-8859-4. Fix allows to use national letters in folder names correctly.
+    to utf-8. Fix allows to use national letters in folder names correctly.
   - Added "Bypass Trash" checkbox to folder index, used with the Delete
     button. (update: This needs work and will be changed, possibly removed)
   - Fixed a problem with delete_move_next and server thread-sorting.
