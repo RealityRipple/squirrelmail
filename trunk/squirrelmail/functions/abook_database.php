@@ -33,7 +33,13 @@
  */
 
 /** Needs the DB functions */   
-require_once('DB.php');
+if (!include_once('DB.php')) {
+    // same error also in db_prefs.php
+    require_once(SM_PATH . 'functions/display_messages.php');
+    $error  = _("Could not include PEAR database functions required for the database backend.") . "<br />\n";
+    $error .= _("Please contact your system administrator and report this error.");
+    error_box($error, $color);
+}
 
 /**
  * Undocumented class - stores the addressbook in a sql database
@@ -345,4 +351,6 @@ class abook_database extends addressbook_backend {
     }
 } /* End of class abook_database */
 
+
+// vim: et ts=4
 ?>
