@@ -210,7 +210,6 @@ function ToggleMDNflag ( $set ) {
     
     $sg =  $set?'+':'-';
     $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
-    sqimap_mailbox_select($imapConnection, $mailbox);
     $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
                                 $readmessage);
 }
@@ -242,7 +241,7 @@ function ClearAttachments() {
 */
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$read = sqimap_mailbox_select($imapConnection, $mailbox, false, true);
+$read = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
 do_hook('html_top');
 
@@ -254,7 +253,7 @@ if( $default_use_mdn &&
 
     $supportMDN = ServerMDNSupport($read["PERMANENTFLAGS"]);
     $flags = sqimap_get_flags ($imapConnection, $passed_id);
-    $FirstTimeSee = !(in_array( '\\Seen', $flags ));
+    $FirstTimeSee = !(in_array( 'Seen', $flags ));
 }
 
 displayPageHeader($color, $mailbox);
@@ -781,7 +780,7 @@ if ($default_use_mdn) {
     if ($mdn_user_support) {
 
         // debug gives you the capability to remove mdn-flags
-        $debug = false;
+        $MDNDebug = true;
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY.PEEK[HEADER.FIELDS (Disposition-Notification-To)]", true,
                                 $response, $readmessage);
         $MDN_to = substr($read[1], strpos($read[1], ' '));
@@ -799,7 +798,7 @@ if ($default_use_mdn) {
                 $sendreceipt = 'removeMDN';
                 $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
                 $sendreceipt="";
-                if ($debug ) {
+                if ($MDNDebug ) {
                     echo       '<TR>' .
                                  "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
                                        _("Read receipt") . ': ' .
@@ -892,7 +891,7 @@ if ($default_use_mdn) {
             $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
             $sendreceipt="";
 
-            if ($debug && $supportMDN) {
+            if ($MDNDebug && $supportMDN) {
             echo "      <TR>\n" .
                     "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .
                     "            "._("Read receipt").": \n".
