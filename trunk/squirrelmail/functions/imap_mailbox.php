@@ -979,7 +979,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
 }
 
 function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
-   if (strtoupper($mbx_tree->mailboxname_sub) == 'INBOX')
+   if (strtoupper($mbx_tree->mailboxname_full) == 'INBOX')
        $mbx_tree->mailboxname_sub = _("INBOX");
    else
        $mbx_tree->mailboxname_sub = imap_utf7_decode_local($mbx_tree->mailboxname_sub);

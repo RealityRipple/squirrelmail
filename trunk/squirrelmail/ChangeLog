@@ -13,6 +13,7 @@ Version 1.5.1 -- CVS
     as separate plugin.
   - Added Farsi and Tagalog translation support.
   - Enabled Ukrainian and Russian-Ukrainian support
+  - Fix that subfolders named "foo.inbox" didn't always work well.
 
 
 Version 1.5.0
