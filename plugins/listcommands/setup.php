@@ -84,7 +84,7 @@ function plugin_listcommands_menu() {
                 $url .= '&amp;' . $purl['query'];
             }
             if ($compose_new_win == '1') {
-                $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr[$cmd] . '</A>';
+                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$url')\">" . $fieldsdescr[$cmd] . '</A>';
             }
             else {
                 $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
@@ -95,7 +95,7 @@ function plugin_listcommands_menu() {
                       . '&amp;ent_num=' . $ent_num
                       . '&amp;mailprio=' . $priority_level;
                 if ($compose_new_win == '1') {
-                    $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr['Reply'] . '</A>';
+                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new(false,'$url')\">" . $fieldsdescr['Reply'] . '</A>';
                 }
                 else {
                     $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
