@@ -106,6 +106,7 @@
          echo "SERVER SAYS: $read<BR>";
       }
 
+      /** If the login attempt was UNsuccessful, lets see why **/
       if (substr($read, 0, 7) != "a001 OK") {
          if (!$hide) {
             if (substr($read, 0, 8) == "a001 BAD") {
@@ -113,7 +114,7 @@
                exit;
             }
             else if (substr($read, 0, 7) == "a001 NO") {
-               echo "<BR>";
+               echo "<HTML><BODY BGCOLOR=FFFFFF><BR>";
                echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
                echo "   <TR>";
                echo "      <TD BGCOLOR=\"DCDCDC\">";

@@ -36,8 +36,6 @@
     This was done to create a pure HTML way of refreshing the folder list since
     we would like to use as little Javascript as possible.
 **/
-   checkForPrefs($data_dir, $username);
-
    if ($right_frame == "right_main.php") {
       $urlMailbox = urlencode($mailbox);
       echo "<FRAME SRC=\"left_main.php\" NAME=\"left\">";

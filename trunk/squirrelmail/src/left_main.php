@@ -20,8 +20,6 @@
    include("../functions/imap.php");
    include("../functions/mailbox.php");
 
-   include("../src/load_prefs.php");
-
    function formatMailboxName($imapConnection, $mailbox, $delimeter, $color) {
       require ("../config/config.php");
 
@@ -67,10 +65,14 @@
       return $line;
    }
 
-   echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
-   echo "<FONT FACE=\"Arial,Helvetica\">";
    // open a connection on the imap port (143)
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 10); // the 10 is to hide the output
+
+   /** If it was a successful login, lets load their preferences **/
+   include("../src/load_prefs.php");
+   checkForPrefs($data_dir, $username);
+   echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
 
    getFolderList($imapConnection, $boxes);
 
