@@ -45,10 +45,9 @@ function is_logged_in() {
         global $PHP_SELF, $session_expired_post,
                $session_expired_location, $squirrelmail_language;
 
-        /*  First we store some information in the new session to prevent
-         *  information-loss.
-         */
-
+        //  First we store some information in the new session to prevent
+        //  information-loss.
+        //
         $session_expired_post = $_POST;
         $session_expired_location = $PHP_SELF;
         if (!sqsession_is_registered('session_expired_post')) {
@@ -57,6 +56,14 @@ function is_logged_in() {
         if (!sqsession_is_registered('session_expired_location')) {
             sqsession_register($session_expired_location,'session_expired_location');
         }
+
+        // signout page will deal with users who aren't logged
+        // in on its own; don't show error here
+        //
+        if (strpos($PHP_SELF, 'signout.php') !== FALSE) {
+           return;
+        }
+
         include_once( SM_PATH . 'functions/display_messages.php' );
         set_up_language($squirrelmail_language, true);
         logout_error( _("You must be logged in to access this page.") );
