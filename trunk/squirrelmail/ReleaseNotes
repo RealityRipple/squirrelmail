@@ -1,0 +1,91 @@
+/*****************************************************************
+ * SquirrelMail 1.2.0                                            *
+ * The "And I Still Have Not Wrapped My Wife's Presents" Release *
+ * December 25, 2001                                             *
+ *****************************************************************/
+
+The past year has been anything but uneventful for SquirrelMail. 
+This year has seen two leadership changes, the release of the 1.0
+series, the 1.1 development series, and finally the much awaited
+1.2.0 release.
+
+Being one of the most popular webmail clients, the developers of
+SquirrelMail feel a huge desire to continue pusing the envelope and
+making their product better and better.  You won't be disappointed
+with this release, as it is by far the most feature rich, and yet it
+is still the same sleak and unbloated app that we have all grown to
+love.  Here is an uncomplete list of new features since the last
+stable release.
+
+  * The Paginator! - This enables quick access to any page in the
+          message list by simply choosing the page number to view
+          rather than tediously clicking "next" 50 times.
+  * Hundreds of UI tweaks - The user interface has been given a
+          facelift. The HTML has been largely overhauled, and while
+          it still has the same general feel, it has been made more
+          intuative.
+  * Drafts - It is now possible to compose a message and save it to
+          be sent at a later date with the drafts option.
+  * Collapsable Folders - The folder list can be collapsed at any
+          parent folder. This makes folder lists with large
+          heirarchital structures much easier to manage and navigate.
+  * New Options Page - The options page has been completely
+          rewritten for several reasons, the main of which was to
+          allow seamless integration of plugin options and to
+          provide uniformity throughout the entire section.
+  * Multiple Identities - It is now possible to create different
+          identities (home, work, school) that can be chosen upon
+          sending.  Each identity can have its own email address,
+          full name, and signature.
+  * Reply Citations - Different types of citations are now possible
+          when replying to messages.
+  * Better Attachment Handling - The plugin, attachment_common, has
+          been fully integrated into the core of SquirrelMail.  This
+          allows inline viewing of several different types of
+          attachments.
+  * Integration of Several Plugins - The following plugins have been
+          put directly into the core.  As a result, be sure not to
+          install these as plugins, as the result may be
+          unpredictable: attachment_common, paginator,
+          printer_friendly, xmailer, sqclock, priority.
+  * Improved support for newer versions of PHP.  Note that you may
+          have trouble if you are running PHP version 4.0.100
+          (commonly distributed with Debian 3.0).
+  * Ablity to mark messages as read and unread from the message listing.
+  * Alternating Colors - The message list now alternates row colors
+          by default.  This presents a much cleaner and easier to
+          read interface to the user.
+
+Aside from these obvious front end features, there are hundreds of
+bugs that have been fixed, and much of the code has been optomized
+and/or rewritten.  This stable release is far superior in all
+aspects to all previous versions of SquirrelMail.
+
+   Home Page:    http://www.squirrelmail.org/
+   Download:     http://www.squirrelmail.org/download.php
+   ScreenShots:  http://www.squirrelmail.org/screenshots.php
+
+Where are we going from here? Good progress is already being made on
+the Great SquirrelMail Rewrite, also known as the 1.3 branch which
+will eventually be called 2.0. Paul has put a lot of effort into
+reorganizing the development team into different teams that have
+different roles. The purpose in doing this is to keep developers on
+track and have to provide some semblance of order.  This project has
+grown so large in the past two years that an orderly structure is
+necessary if anything is to get done.  The teams are as follows:
+
+   Stable Series Team:      Maintains the stable series
+   Development Series Team: Works on the development series
+   i18n Team:               Handles i18n work
+   Plugin Team:             Manages the mass of plugins
+   User Support Team:       Helps users with their problems
+   Documentation Team:      Manages the documentation
+   Evangelism Team:         Spreads the good news of SquirrelMail
+
+For the next few weeks, the developers will be working on bugfixing
+and making the 1.2 series rock solid.  After that, about mid
+January, they will start focusing solely on the rewrite.
+
+                  Have a Merry Christmas!
+                  Happy SquirrelMailing!
+                    - The SquirrelMail Project Team
