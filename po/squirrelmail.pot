@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-13 18:16+0100\n"
+"POT-Creation-Date: 2000-01-13 18:57+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,4 +32,48 @@ msgstr ""
 
 #: compose.php:184 compose.php:198
 msgid "Send"
+msgstr ""
+
+#: compose_send.php:15
+msgid "You have not entered a message body."
+msgstr ""
+
+#: compose_send.php:20
+msgid "You have not filled in the \"To:\" field."
+msgstr ""
+
+#: compose_send.php:27
+msgid "To:"
+msgstr ""
+
+#: compose_send.php:31
+msgid "Send"
+msgstr ""
+
+#: compose_send.php:39
+msgid "You have not entered a subject."
+msgstr ""
+
+#: compose_send.php:45
+msgid "Subject:"
+msgstr ""
+
+#: compose_send.php:47
+msgid "(no subject)"
+msgstr ""
+
+#: compose_send.php:72
+msgid "Message Sent!"
+msgstr ""
+
+#: compose_send.php:74
+msgid "You will be automatically forwarded."
+msgstr ""
+
+#: compose_send.php:76
+msgid "If not,"
+msgstr ""
+
+#: compose_send.php:78
+msgid "click here"
 msgstr ""
