@@ -89,7 +89,7 @@
             if (isset($msg[$i])) {
                if (isset($markRead)) {
                   sqimap_messages_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
-               } else if (isset($markRead)) {
+               } else if (isset($markUnread)) {
                    sqimap_messages_remove_flag($imapConnection, $msg[$i], $msg[$i], "Seen");
                } else {
                   sqimap_messages_delete($imapConnection, $msg[$i], $msg[$i], $mailbox);
