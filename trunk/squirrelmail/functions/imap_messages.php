@@ -97,7 +97,10 @@ function get_reference_header ($imap_stream, $message) {
  */
  
 function sqimap_get_sort_order ($imap_stream, $sort) {
-    global  $default_charset, $thread_sort_messages, $internal_date_sort;
+    global  $default_charset, $thread_sort_messages, $internal_date_sort, $server_sort_array;
+    if (session_is_registered('server_sort_array')) {
+        session_unregister('server_sort_array');
+    }
     $sid = sqimap_session_id();
     $sort_on = array();
     $reverse = 0;
@@ -126,6 +129,7 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     if ($sort == 0 || $sort == 2 || $sort == 4) {
        $server_sort_array = array_reverse($server_sort_array);
     }
+    session_register('server_sort_array');
     return $server_sort_array;
 }
 	
@@ -207,10 +211,13 @@ function get_parent_level ($imap_stream) {
 */
 
 function get_thread_sort ($imap_stream) {
-    global $thread_new, $sort_by_ref, $default_charset;
+    global $thread_new, $sort_by_ref, $default_charset, $server_sort_array;
 
-    if (session_register('thread_new')) {
+    if (session_is_registered('thread_new')) {
         session_unregister('thread_new');
+    }
+    if (session_is_registered('server_sort_array')) {
+        session_unregister('server_srot_array');
     }
     $sid = sqimap_session_id();
     $thread_temp = array ();
@@ -262,6 +269,8 @@ function get_thread_sort ($imap_stream) {
     $thread_list = str_replace("(", " ", $thread_list);
     $thread_list = str_replace(")", " ", $thread_list);
     $thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
+    $server_sort_array = $thread_list;
+    session_register('server_sort_array');
     return $thread_list;
 }
 
