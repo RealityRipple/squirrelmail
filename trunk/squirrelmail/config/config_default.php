@@ -50,7 +50,7 @@ $org_logo_height = '111';
  * This is the web page title that appears at the top of the browser window.
  * @global string $org_title
  */
-$org_title = "SquirrelMail $version";
+$org_title = "SquirrelMail";
 
 /**
  * Signout page
@@ -90,12 +90,12 @@ $provider_name = 'SquirrelMail';
  * Provider URI
  *
  * Here you can set URL of the link displayed on the right side of main page.
- *
+ * When empty, this refers to the SquirrelMail About page.
  * Link will be displayed only if you have $hide_sm_attributions
  * option set to true.
  * @global string $provider_uri
  */
-$provider_uri = 'http://www.squirrelmail.org/';
+$provider_uri = '';
 
 /*** Server Settings ***/
 /**

@@ -349,7 +349,7 @@ if ( $config_use_color == 1 ) {
     $config_use_color = 2;
 }
 
-while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
+while ( ( $command ne "q" ) && ( $command ne "Q" ) && ( $command ne ":q" ) ) {
     clear_screen();
     print $WHT. "SquirrelMail Configuration : " . $NRM;
     if    ( $config == 1 ) { print "Read: config.php"; }
@@ -774,8 +774,6 @@ sub command1 {
     print "If your Organization Name includes a '\$', please precede it with a \\. \n";
     print "Other '\$' will be considered the beginning of a variable that\n";
     print "must be defined before the \$org_name is printed.\n";
-    print "\$version, for example, is included by default, and will print the\n";
-    print "string representing the current SquirrelMail version.\n";
     print "\n";
     print "[$WHT$org_name$NRM]: $WHT";
     $new_org_name = <STDIN>;
@@ -844,7 +842,7 @@ sub command3 {
     print "If your Organization Title includes a '\$', please precede it with a \\. \n";
     print "Other '\$' will be considered the beginning of a variable that\n";
     print "must be defined before the \$org_title is printed.\n";
-    print "\$version, for example, is included by default, and will print the\n";
+    print "\$version, for example can be used, and will print the\n";
     print "string representing the current SquirrelMail version.\n";
     print "\n";
     print "[$WHT$org_title$NRM]: $WHT";
@@ -896,12 +894,12 @@ sub command6 {
 # Default link to provider
 sub command7 {
     print "Here you can set the link on the right of the page.\n";
-    print "The default is 'http://www.squirrelmail.org/'\n";
+    print "If empty, it will link to the SquirrelMail About page.\n";
     print "\n";
     print "[$WHT$provider_uri$NRM]: $WHT";
     $new_provider_uri = <STDIN>;
     if ( $new_provider_uri eq "\n" ) {
-        $new_provider_uri = 'http://www.squirrelmail.org/';
+        $new_provider_uri = '';
     } else {
         $new_provider_uri =~ s/[\r\n]//g;
         $new_provider_uri =~ s/^\s+$//g;
