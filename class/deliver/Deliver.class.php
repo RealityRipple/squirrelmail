@@ -394,7 +394,7 @@ class Deliver {
         if ( !isset($skip_SM_header) || !$skip_SM_header )
         {
           $header[] = "Received: from $received_from" . $rn;
-          $header[] = "        (SquirrelMail authenticated user $username);" . $rn;
+          $header[] = "        (SquirrelMail authenticated user $username)" . $rn;
           $header[] = "        by $SERVER_NAME with HTTP;" . $rn;
           $header[] = "        $date" . $rn;
         }
