@@ -670,7 +670,7 @@ function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sor
 		echo '<br><table border="0" width="100%" cellpadding="0" cellspacing="0">';
 
 		echo '<tr><td>';
-		mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $paginator_str, 1);
+		mail_message_listing_beginning($imapConnection, NULL, $mailbox, $real_sort, $msg_cnt_str, $paginator_str, 1, 1);
 		echo '</td></tr>';
 
 		echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
