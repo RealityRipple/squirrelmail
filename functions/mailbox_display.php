@@ -286,7 +286,7 @@
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
       global $folder_prefix, $sent_folder;
       global $imapServerAddress;
-      global $index_order, $real_endMessage, $real_startMessage;
+      global $index_order, $real_endMessage, $real_startMessage, $checkall;
       
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
