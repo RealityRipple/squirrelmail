@@ -184,13 +184,8 @@ if (isset($aMailbox['FORWARD_SESSION'])) {
         sqsession_register($aMailbox,'aLastSelectedMailbox');
         session_write_close();
         // we have to redirect to the compose page
-        global $PHP_SELF;
-        if (!strpos($PHP_SELF,'?')) {
-            $location = $PHP_SELF.'?mailbox=INBOX&amp;startMessage=1';
-        } else {
-            $location = $PHP_SELF;
-        }
-        $location = set_url_var($location, 'session',$aMailbox['FORWARD_SESSION'], false);
+        $location = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
+                    '&session='.$aMailbox['FORWARD_SESSION'];
         header("Location: $location");
         exit;
     }
