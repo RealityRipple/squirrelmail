@@ -93,6 +93,18 @@ if (isset($org_logo) && $org_logo) {
         $width_and_height .= " height=\"$org_logo_height\"";
     }
 }
+global $shootMyFootOff;
+if (check_php_version(4,3) and !isset($shootMyFootOff)) {
+    echo '<center><hr width="75%">' . "\n";
+    echo '<h2>PHP 4.3.x has been detected</h2>' . "\n";
+    echo '</center><p>The SquirrelMail team does not recommend the use of PHP 4.3.x with';
+    echo ' this software.  Please see the <a href="http://www.squirrelmail.org">SquirrelMail';
+    echo ' website</a>, or the documentation that came with SquirrelMail for more information.</p>';
+    echo '<p>This warning can be disabled by either downgrading PHP, or inserting';
+    echo '"$shootMyFootOff = true;" in config/config_local.php.</p>' . "\n";
+    echo '<center><hr width="75%"></center>' . "\n";
+    echo "\n";
+}
 
 echo "\n" . '<form action="redirect.php" method="post">' . "\n" .
 html_tag( 'table',
