@@ -132,7 +132,7 @@ Version 1.5.1 -- CVS
     8bit symbols. (provides fix for #934033).
   - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
     enabled.
-
+  - Fixed XSS exploit in decodeHeader function.
 
 Version 1.5.0
 --------------------
