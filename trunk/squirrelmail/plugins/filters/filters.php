@@ -332,16 +332,15 @@ function spam_filters($imap_stream) {
     	    $read = sqimap_run_command($imap_stream, 'FETCH 1:* (FLAGS BODY.PEEK[HEADER.FIELDS ' .
             '(RECEIVED)])', true, $response, $message, $uid_support);
         } else {
-	    $read[0] = trim($read[0]);
-            $i = 0;
-            $imap_query = $sid.' FETCH ';
-            $Chunks = explode(' ', $read[0]);
-            for ($i=2; $i < (count($Chunks)-1) ; $i++) {
-                $imap_query .= $Chunks[$i].',';
+            if (isset($read[0])) {
+                if (preg_match("/^\* SEARCH (.+)$/", $read[0], $regs)) {
+                    $search_array = preg_split("/ /", trim($regs[1]));
+                }
             }
-            $imap_query .= $Chunks[count($Chunks)-1];
+	    $msgs_str = sqimap_message_list_squisher($search_array);
+            $imap_query = 'FETCH '.$msgs_str;
             $imap_query .= ' (FLAGS BODY.PEEK[HEADER.FIELDS ';
-            $imap_query .= '(RECEIVED)])';//\r\n";
+            $imap_query .= '(RECEIVED)])';
 	    $read = sqimap_run_command($imap_stream,$imap_query, true, $response, $message, $uid_support);
         }
     }
