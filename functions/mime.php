@@ -592,9 +592,9 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     $aString = explode(' ',$string);
     $ret = '';
     foreach ($aString as $chunk) {
-        if ($encoded && $chunk === ' ') {
+        if ($encoded && $chunk === '') {
             continue;
-        } elseif ($chunk === ' ') {
+        } elseif ($chunk === '') {
             $ret .= ' ';
             continue;
         }
