@@ -219,6 +219,8 @@ Version 1.5.1 -- CVS
 	with Internet Explorer.
   - Replace <img src="outbind://"> links with clean images to stop
     issues with Internet Explorer not being able to track down the image.
+  - Empty src attribute on img tags causes logouts (IE only), replacing
+    string with blank.png.
 
 
 Version 1.5.0

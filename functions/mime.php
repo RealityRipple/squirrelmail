@@ -1451,6 +1451,18 @@ function sq_fixatts($tagname,
                 }
             }
         }
+
+
+        /**
+         * Replace empty src tags with the blank image.  src is only used
+         * for frames, images, and image inputs.  Doing a replace should
+         * not affect them working as should be, however it will stop
+         * IE from being kicked off when src for img tags are not set
+         */
+        if (($attname == 'src') && ($attvalue = '""')) {
+            $attary{$attname} = '"' . SM_PATH . 'images/blank.png"';
+        }
+
         /**
         * Turn cid: urls into http-friendly ones.
         */
