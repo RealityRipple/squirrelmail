@@ -46,15 +46,15 @@
       echo '<input type=hidden value="';
       if (substr($body, 0, 1) == "\r")
           echo "\n";
-      echo htmlspecialchars($body) . '" name=body>\n"';
+      echo htmlspecialchars($body) . '" name=body>' . "\n";
       echo '<input type=hidden value="' . htmlspecialchars($subject)
-          . '" name=subject>\n"';
+          . '" name=subject>' . "\n";
       echo '<input type=hidden value="' . htmlspecialchars($send_to)
-          . '" name=send_to>\n"';
+          . '" name=send_to>' . "\n";
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_cc)
-          . '" name=send_to_cc>\n"';
+          . '" name=send_to_cc>' . "\n";
       echo "<input type=hidden value=\"" . htmlspecialchars($send_to_bcc)
-          . '" name=send_to_bcc>\n"';
+          . '" name=send_to_bcc>' . "\n";
       echo "<input type=hidden value=\"true\" name=from_htmladdr_search>\n";
    }
 
