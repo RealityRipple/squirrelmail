@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-08-27 17:10+0200\n"
+"POT-Creation-Date: 2003-08-28 21:35+0200\n"
 "PO-Revision-Date: 2001-12-27 15:58GMT+1\n"
 "Last-Translator: Alex Lemaresquier <alex@brainstorm.fr>\n"
 "Language-Team: French <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -1379,6 +1379,9 @@ msgstr "Sans file de discussion"
 msgid "Thread View"
 msgstr "File de discussion"
 
+msgid "Bypass Trash"
+msgstr "Sans mettre à la Corbeille"
+
 msgid "Click here to change the sorting of the message list"
 msgstr "Cliquer ici pour changer le tri de la liste des messages"
 
@@ -1675,6 +1678,9 @@ msgstr "Dossier Brouillons&#160;"
 msgid "Folder List Options"
 msgstr "Options de la liste des dossiers"
 
+msgid "Folder List Display Format"
+msgstr "Affichage de la liste des dossiers&#160;"
+
 msgid "Location of Folder List"
 msgstr "Emplacement de la liste des dossiers&#160;"
 
@@ -1761,9 +1767,6 @@ msgstr "Dossier"
 
 msgid "Subfolder"
 msgstr "Sous-dossier"
-
-msgid "Use Sent Subfolders"
-msgstr "Activer les sous-dossiers de Courrier envoy&#233;"
 
 msgid "Indented: "
 msgstr "Indent&#233;&#160;: "
@@ -3142,6 +3145,9 @@ msgstr "Chargement du son..."
 
 msgid "Sent Subfolders Options"
 msgstr "Options des sous-dossiers de Courrier envoy&#233;"
+
+msgid "Use Sent Subfolders"
+msgstr "Activer les sous-dossiers de Courrier envoy&#233;"
 
 msgid "Monthly"
 msgstr "Mensuellement"
