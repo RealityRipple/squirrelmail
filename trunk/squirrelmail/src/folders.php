@@ -18,12 +18,17 @@
    getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
 
    /** DELETING FOLDERS **/
+   echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
+   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Delete Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
    echo "<FORM ACTION=folders_delete.php METHOD=POST>\n";
    echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
          if ($boxesUnformatted[$i] == $special_folders[$p]) {
+            $use_folder = false;
+         } else if (substr($boxesUnformatted[$i], 0, strlen($trash_folder)) == $trash_folder) {
             $use_folder = false;
          }
       }
@@ -33,36 +38,41 @@
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Delete>\n";
-   echo "</FORM><BR>\n";
+   echo "</FORM><BR></TD></TR><BR>\n";
 
    /** CREATING FOLDERS **/
+   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Create Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
    echo "<FORM ACTION=folders_create.php METHOD=POST>\n";
-   echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name>\n";
-   echo "&nbsp;&nbsp;as a subfolder of&nbsp;&nbsp;";
+   echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
+   echo "&nbsp;&nbsp;as a subfolder of<BR>";
    echo "<SELECT NAME=subfolder><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0;$i < count($boxesUnformatted); $i++) {
       echo "<OPTION>$boxesUnformatted[$i]\n";
    }
-   echo "</SELECT>\n";
+   echo "</SELECT><BR>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Create>\n";
-   echo "</FORM><BR>\n";
+   echo "</FORM><BR></TD></TR><BR>\n";
 
    /** RENAMING FOLDERS **/
+   echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename.php METHOD=POST>\n";
-   echo "<SELECT NAME=folder_list><FONT FACE=\"Arial,Helvetica\">\n";
+   echo "Old:&nbsp;&nbsp;<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
-         if ($special_folders[$p] == $long_name_boxes[$i])
+         if ($boxesUnformatted[$i] == $special_folders[$p]) {
             $use_folder = false;
+         }
       }
       if ($use_folder == true)
          echo "   <OPTION>$boxesUnformatted[$i]\n";
    }
-   echo "</SELECT>\n";
-   echo "<INPUT TYPE=TEXT SIZE=25 NAME=new_folder_name>\n";
+   echo "</SELECT><BR>\n";
+   echo "New:&nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new VALUE=\"INBOX.\"><BR>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Rename>\n";
-   echo "</FORM><BR>\n";
+   echo "</FORM></TD></TR></TABLE><BR>\n";
 
 ?>
 </BODY></HTML>
