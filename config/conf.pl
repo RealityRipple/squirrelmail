@@ -347,6 +347,10 @@ if ( !$imap_auth_mech ) {
     $imap_auth_mech = 'plain';
 }
 
+if (!$session_name ) {
+	$session_name = 'SQMSESSID';
+}
+
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
     push @plugins, $ARGV[1];
@@ -498,23 +502,24 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 4 ) {
         print $WHT. "General Options\n" . $NRM;
-        print "1.  Default Charset           : $WHT$default_charset$NRM\n";
-        print "2.  Data Directory            : $WHT$data_dir$NRM\n";
-        print "3.  Attachment Directory      : $WHT$attachment_dir$NRM\n";
-        print "4.  Directory Hash Level      : $WHT$dir_hash_level$NRM\n";
-        print "5.  Default Left Size         : $WHT$default_left_size$NRM\n";
-        print "6.  Usernames in Lowercase    : $WHT$force_username_lowercase$NRM\n";
-        print "7.  Allow use of priority     : $WHT$default_use_priority$NRM\n";
-        print "8.  Hide SM attributions      : $WHT$hide_sm_attributions$NRM\n";
-        print "9.  Allow use of receipts     : $WHT$default_use_mdn$NRM\n";
-        print "10. Allow editing of identity : $WHT$edit_identity$NRM\n";
-        print "11. Allow server thread sort  : $WHT$allow_thread_sort$NRM\n";
-        print "12. Allow server-side sorting : $WHT$allow_server_sort$NRM\n";
+        print "1.  Default Charset             : $WHT$default_charset$NRM\n";
+        print "2.  Data Directory              : $WHT$data_dir$NRM\n";
+        print "3.  Attachment Directory        : $WHT$attachment_dir$NRM\n";
+        print "4.  Directory Hash Level        : $WHT$dir_hash_level$NRM\n";
+        print "5.  Default Left Size           : $WHT$default_left_size$NRM\n";
+        print "6.  Usernames in Lowercase      : $WHT$force_username_lowercase$NRM\n";
+        print "7.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
+        print "8.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
+        print "9.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
+        print "10. Allow editing of identity   : $WHT$edit_identity$NRM\n";
+        print "11. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
+        print "12. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
         if ( lc($edit_identity) eq "false" ) {
             print "13. Allow editing of name     : $WHT$edit_name$NRM\n";
         }
         print "14. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-        print "15. Enable UID support : $WHT$uid_support$NRM\n";
+        print "15. Enable UID support          : $WHT$uid_support$NRM\n";
+		print "16. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -711,6 +716,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 13 ) { $edit_name                = command311(); }
             elsif ( $command == 14 ) { $allow_charset_search     = command314(); }
             elsif ( $command == 15 ) { $uid_support              = command315(); }
+			elsif ( $command == 16 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -2113,6 +2119,20 @@ sub command315 {
     return $uid_support;
 }
 
+sub command316 {
+	print "This option allows you to change the name of the PHP session used\n";
+	print "by SquirrelMail.  Unless you know what you are doing, you probably\n";
+	print "don't need or want to change this from the default of SQMSESSID.\n";
+    print "[$WHT$session_name$NRM]: $WHT";
+    $new_session_name = <STDIN>;
+	chomp($new_session_name);
+    if ( $new_session_name eq "\n" ) {
+        $new_session_name = $session_name;
+    }
+    return $new_session_name;
+}
+
+
 
 sub command41 {
     print "\nNow we will define the themes that you wish to use.  If you have added\n";
@@ -2786,6 +2806,8 @@ sub save_data {
 	# boolean
 	    print CF "\$use_imap_tls = $use_imap_tls;\n";
 		print CF "\$use_smtp_tls = $use_smtp_tls;\n";
+
+		print CF "\$session_name = '$session_name';\n";
 
 	    print CF "\n";
 		print CF "\@include SM_PATH . 'config/config_local.php';\n";
