@@ -224,7 +224,7 @@
    
    global $alt_index_colors;
    $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors');
-   if ($alt_index_colors === 0) {
+   if ($alt_index_colors == 0) {
       $alt_index_colors = false;
    } else {
       $alt_index_colors = true;
