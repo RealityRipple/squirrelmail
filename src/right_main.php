@@ -7,6 +7,7 @@
     **
     **/
 
+
    session_start();
 
    if(!isset($logged_in)) {
@@ -79,18 +80,19 @@
    //    when a link on the left hand frame is used.  Also check to make sure we actually have the
    //    array in the registered session data.  :)
    if ($use_mailbox_cache && session_is_registered("msgs")) {
-      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
+      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
    } else {
       if (session_is_registered("msgs"))
          unset($msgs);
+      if (session_is_registered("msort"))
+         unset($msort);
 
-      // i have found that only global variables can be registered successfully with a session.  therefore
-      //    i am passing in a simple empty variable (msgs) which will be returned with an array and can be
-      //    then registered here as a global variable.  whew.
-      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $msgs);
+      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
       
       if (session_is_registered("msgs") && isset($msgs))
          session_register("msgs");
+      if (session_is_registered("msort") && isset($msort))
+         session_register("msort");
    }
 
    // close the connection
