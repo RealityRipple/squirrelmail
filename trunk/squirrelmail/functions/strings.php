@@ -1,6 +1,6 @@
 <?php
 
-/** 
+/**
  * strings.php
  *
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
@@ -12,20 +12,18 @@
  * $Id$
  */
 
-
 /**
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
 $version = '1.5.0 [CVS]';
 
-/** 
+/**
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
 global $SQM_INTERNAL_VERSION;
 $SQM_INTERNAL_VERSION = array(1,5,0);
-
 
 /**
  * There can be a circular issue with includes, where the $version string is
@@ -61,10 +59,10 @@ function sqWordWrap(&$line, $wrap) {
     } else {
         $words = '';
     }
-    
+
     $i = 0;
     $line = $beginning_spaces;
-    
+
     while ($i < count($words)) {
         /* Force one word to be on a line (minimum) */
         $line .= $words[$i];
@@ -72,7 +70,7 @@ function sqWordWrap(&$line, $wrap) {
         if (isset($words[$i + 1]))
             $line_len += strlen($words[$i + 1]);
         $i ++;
-        
+
         /* Add more words (as long as they fit) */
         while ($line_len < $wrap && $i < count($words)) {
             $line .= ' ' . $words[$i];
@@ -82,12 +80,12 @@ function sqWordWrap(&$line, $wrap) {
             else
                 $line_len += 1;
         }
-        
+
         /* Skip spaces if they are the first thing on a continued line */
         while (!isset($words[$i]) && $i < count($words)) {
             $i ++;
         }
-        
+
         /* Go to the next line if we have more to process */
         if ($i < count($words)) {
             $line .= "\n";
@@ -100,7 +98,7 @@ function sqWordWrap(&$line, $wrap) {
  */
 function sqUnWordWrap(&$body) {
     global $squirrelmail_language;
-    
+
     if ($squirrelmail_language == 'ja_JP') {
         return;
     }
@@ -115,9 +113,9 @@ function sqUnWordWrap(&$body) {
         if (isset($regs[2])) {
             $CurrentRest = $regs[2];
         } else {
-	    $CurrentRest = '';
-	}
-        
+            $CurrentRest = '';
+        }
+
         if ($i == 0) {
             $PreviousSpaces = $CurrentSpaces;
             $body = $lines[$i];
@@ -142,11 +140,11 @@ function readShortMailboxName($haystack, $needle) {
     if ($needle == '') {
         $elem = $haystack;
     } else {
-	    $parts = explode($needle, $haystack);
-	    $elem = array_pop($parts);
-	    while ($elem == '' && count($parts)) {
-	        $elem = array_pop($parts);
-	    }
+        $parts = explode($needle, $haystack);
+        $elem = array_pop($parts);
+        while ($elem == '' && count($parts)) {
+            $elem = array_pop($parts);
+        }
     }
     return( $elem );
 }
@@ -155,11 +153,11 @@ function php_self () {
     if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
       return $req_uri;
     }
-    
+
     if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
       return $php_self;
-    }  
- 
+    }
+
     return '';
 }
 
@@ -174,19 +172,23 @@ function php_self () {
  *   http://www.myhost.com/squirrelmail/src/login.php
  */
 function get_location () {
-    
+
     global $imap_server_type;
 
     /* Get the path, handle virtual directories */
-    $path = substr(php_self(), 0, strrpos(php_self(), '/'));
-
+    if(strpos(php_self(), '?')) {
+        $path = substr(php_self(), 0, strpos(php_self(), '?'));
+    } else {
+        $path = php_self();
+    }
+    $path = substr($path, 0, strrpos($path, '/'));
     if ( sqgetGlobalVar('sq_base_url', $full_url, SQ_SESSION) ) {
       return $full_url . $path;
     }
 
     /* Check if this is a HTTPS or regular HTTP request. */
     $proto = 'http://';
-    
+
     /*
      * If you have 'SSLOptions +StdEnvVars' in your apache config
      *     OR if you have HTTPS=on in your HTTP_SERVER_VARS
@@ -198,32 +200,32 @@ function get_location () {
         (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER) &&  $server_port == 443)) {
         $proto = 'https://';
     }
-    
+
     /* Get the hostname from the Host header or server config. */
     if ( !sqgetGlobalVar('HTTP_HOST', $host, SQ_SERVER) || empty($host) ) {
       if ( !sqgetGlobalVar('SERVER_NAME', $host, SQ_SERVER) || empty($host) ) {
         $host = '';
       }
     }
-    
+
     $port = '';
     if (! strstr($host, ':')) {
         if (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER)) {
-            if (($server_port != 80 && $proto == 'http://') || 
+            if (($server_port != 80 && $proto == 'http://') ||
                 ($server_port != 443 && $proto == 'https://')) {
                 $port = sprintf(':%d', $server_port);
             }
         }
     }
-    
+
    /* this is a workaround for the weird macosx caching that
       causes Apache to return 16080 as the port number, which causes
       SM to bail */
-      
+
    if ($imap_server_type == 'macosx' && $port == ':16080') {
         $port = '';
    }
-   
+
    /* Fallback is to omit the server name and use a relative */
    /* URI, although this is not RFC 2616 compliant.          */
    $full_url = ($host ? $proto . $host . $port : '');
@@ -242,7 +244,7 @@ function OneTimePadEncrypt ($string, $epad) {
     for ($i = 0; $i < strlen ($string); $i++) {
         $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
     }
-    
+
     return base64_encode($encrypted);
 }
 
@@ -253,7 +255,7 @@ function OneTimePadDecrypt ($string, $epad) {
     for ($i = 0; $i < strlen ($encrypted); $i++) {
         $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
     }
-    
+
     return $decrypted;
 }
 
@@ -267,19 +269,19 @@ function sq_mt_seed($Val) {
     /* if mt_getrandmax() does not return a 2^n - 1 number,
        this might not work well.  This uses $Max as a bitmask. */
     $Max = mt_getrandmax();
-    
+
     if (! is_int($Val)) {
             $Val = crc32($Val);
     }
-    
+
     if ($Val < 0) {
         $Val *= -1;
     }
-    
+
     if ($Val = 0) {
         return;
     }
-    
+
     mt_srand(($Val ^ mt_rand(0, $Max)) & $Max);
 }
 
@@ -291,17 +293,17 @@ function sq_mt_seed($Val) {
  */
 function sq_mt_randomize() {
     static $randomized;
-    
+
     if ($randomized) {
         return;
     }
-    
+
     /* Global. */
     sqgetGlobalVar('REMOTE_PORT', $remote_port, SQ_SERVER);
     sqgetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER);
     sq_mt_seed((int)((double) microtime() * 1000000));
     sq_mt_seed(md5($remote_port . $remote_addr . getmypid()));
-    
+
     /* getrusage */
     if (function_exists('getrusage')) {
         /* Avoid warnings with Win32 */
@@ -315,22 +317,22 @@ function sq_mt_randomize() {
             sq_mt_seed(md5($Str));
         }
     }
-    
+
     if(sqgetGlobalVar('UNIQUE_ID', $unique_id, SQ_SERVER)) {
         sq_mt_seed(md5($unique_id));
     }
-    
+
     $randomized = 1;
 }
 
 function OneTimePadCreate ($length=100) {
     sq_mt_randomize();
-    
+
     $pad = '';
     for ($i = 0; $i < $length; $i++) {
         $pad .= chr(mt_rand(0,255));
     }
-    
+
     return base64_encode($pad);
 }
 
@@ -340,12 +342,12 @@ function OneTimePadCreate ($length=100) {
 function show_readable_size($bytes) {
     $bytes /= 1024;
     $type = 'k';
-    
+
     if ($bytes / 1024 > 1) {
         $bytes /= 1024;
         $type = 'M';
     }
-    
+
     if ($bytes < 10) {
         $bytes *= 10;
         settype($bytes, 'integer');
@@ -353,7 +355,7 @@ function show_readable_size($bytes) {
     } else {
         settype($bytes, 'integer');
     }
-    
+
     return $bytes . '<small>&nbsp;' . $type . '</small>';
 }
 
@@ -376,7 +378,7 @@ function GenerateRandomString($size, $chars, $flags = 0) {
     if ($flags & 0x4) {
         $chars .= '0123456789';
     }
-    
+
     if (($size < 1) || (strlen($chars) < 1)) {
         return '';
     }
@@ -409,11 +411,11 @@ function TrimArray(&$array) {
         } else {
             $$k = substr($v, 1);
         }
-        
+
         /* Re-assign back to array. */
         $array[$k] = $$k;
     }
-}   
+}
 
 /* returns a link to the compose-page, taking in consideration
  * the compose_in_new and javascript settings. */
@@ -438,7 +440,7 @@ function makeComposeLink($url, $text = null)
     return makeInternalLink($url, $text, '_blank');
 }
 
-/** 
+/**
 * sm_print_r($some_variable, [$some_other_variable [, ...]]);
 * Debugging function - does the same as print_r, but makes sure special
 * characters are converted to htmlentities first.  This will allow
@@ -453,11 +455,10 @@ function sm_print_r() {
     }
     $buffer = ob_get_contents(); // Grab the print_r output
     ob_end_clean();  // Silently discard the output & stop buffering
-    print "<pre>";
+    print '<pre>';
     print htmlentities($buffer);
-    print "</pre>";
+    print '</pre>';
 }
 
 $PHP_SELF = php_self();
-
 ?>
