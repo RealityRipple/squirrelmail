@@ -280,7 +280,7 @@
 	    $userdata['nickname'] = $userdata['email'];
 	 }
 
-	 if(eregi('[ \:\|\#\"\!]', $userdata['nickname'])) {
+	 if(eregi('[ \\:\\|\\#\\"\\!]', $userdata['nickname'])) {
 	    $this->error = _("Nickname contain illegal characters");
 	    return false;
 	 }
