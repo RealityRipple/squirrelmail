@@ -10,14 +10,15 @@
 * $Id$
 **/
 
-
-//require_once('./message_viewentity.php');
 chdir('..');
-require_once('../functions/imap.php');
-require_once('../functions/mime.php');
-require_once('../config/config.php');
-require_once('../src/validate.php');
-require_once('../src/load_prefs.php');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'config/config.php');
+require_once(SM_PATH . 'functions/prefs.php');
 
 global $color, $uid_support;
 

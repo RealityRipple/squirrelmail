@@ -9,10 +9,13 @@
 * $Id$
 **/
 
-    chdir('..');
-    require_once ('../src/validate.php');
-    require_once ('../functions/strings.php');
-    require_once ('../config/config.php');
+chdir('..');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/strings.php');
+require_once(SM_PATH . 'config/config.php');
 
 
 displayHtmlHeader( _("Message details"),
