@@ -1098,19 +1098,21 @@ function showInputForm ($session, $values=false) {
         /* php.ini vars which influence the max for uploads */
         $configvars = array('post_max_size', 'memory_limit', 'upload_max_filesize');
         foreach($configvars as $var) {
-            /* skip 0 or empty values */
+            /* skip 0 or empty values, and -1 which means 'unlimited' */
             if( $size = getByteSize(ini_get($var)) ) {
-                $sizes[] = $size;
+                if ( $size != '-1' ) {
+                    $sizes[] = $size;
+                }
             }
         }
 
         if(count($sizes) > 0) {
             $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')';
+            echo addHidden('MAX_FILE_SIZE', min( $sizes ));
         } else {
             $maxsize = '';
         }
-        echo addHidden('MAX_FILE_SIZE', min( $sizes )).
-            '   <tr>' . "\n" .
+        echo '   <tr>' . "\n" .
             '      <td colspan="2">' . "\n" .
             '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
             ' border="0" bgcolor="'.$color[9].'">' . "\n" .
