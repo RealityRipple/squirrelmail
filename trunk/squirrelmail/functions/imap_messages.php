@@ -382,13 +382,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     arsort($read_list);
 
     $patterns = array (
-			"/^To:(.*)\$/AU",
-			"/^From:(.*)\$/AU",
-			"/^X-Priority:(.*)\$/AU",
-			"/^Cc:(.*)\$/AU",
-			"/^Date:(.*)\$/AU",
-			"/^Subject:(.*)\$/AU",
-			"/^Content-Type:(.*)\$/AU"
+			"/^To:(.*)\$/AUi",
+			"/^From:(.*)\$/AUi",
+			"/^X-Priority:(.*)\$/AUi",
+			"/^Cc:(.*)\$/AUi",
+			"/^Date:(.*)\$/AUi",
+			"/^Subject:(.*)\$/AUi",
+			"/^Content-Type:(.*)\$/AUi"
 		);
     $regpattern = '';		
 
