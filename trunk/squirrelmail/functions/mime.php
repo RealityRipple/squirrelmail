@@ -925,42 +925,37 @@ function decodeBody($body, $encoding) {
 /*
  * This functions decode strings that is encoded according to
  * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
+ * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  */
 function decodeHeader ($string, $utfencode=true) {
-
-if ( is_array( $string ) ) {
-    $string = implode("\n", $string );
-}
-
-if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
-            $string, $res)) {
-    if (ucfirst($res[2]) == 'B') {
-        $replace = base64_decode($res[3]);
-    } else {
-        $replace = str_replace('_', ' ', $res[3]);
-        // Convert lowercase Quoted Printable to uppercase for
-        // quoted_printable_decode to understand it.
-        while (ereg("(=(([0-9][abcdef])|([abcdef][0-9])|([abcdef][abcdef])))",
-               $replace, $res)) {
-            $replace = str_replace($res[1], strtoupper($res[1]), $replace);
+    if (is_array($string)) {
+        $string = implode("\n", $string);
+    }
+    $i = 0;
+    while (preg_match('/^(.{' . $i . '})(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=/Ui', 
+                      $string, $res)) {
+        $prefix = $res[1];
+        // Ignore white-space between consecutive encoded-words
+        if (strspn($res[2], " \t") != strlen($res[2])) {
+            $prefix .= $res[2];
         }
-        $replace = quoted_printable_decode($replace);
+
+        if (ucfirst($res[4]) == 'B') {
+            $replace = base64_decode($res[5]);
+        } else {
+            $replace = str_replace('_', ' ', $res[5]);
+            $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))', 
+                                    $replace);
+            /* Only encode into entities by default. Some places
+               don't need the encoding, like the compose form. */
+            if ($utfencode) {
+                $replace = charset_decode($res[3], $replace);
+            }
+        }
+        $string = $prefix . $replace . substr($string, strlen($res[0]));
+        $i = strlen($prefix) + strlen($replace);
     }
-    /* Only encode into entities by default. Some places
-        don't need the encoding, like the compose form. */
-    if ($utfencode){
-        $replace = charset_decode ($res[1], $replace);
-    }
-
-    // Remove the name of the character set.
-    $string = eregi_replace ('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
-              $replace, $string);
-
-    // In case there should be more encoding in the string: recurse
-    $string = decodeHeader($string);
-}
-
-return ($string);
+    return( $string );
 }
 
 /*

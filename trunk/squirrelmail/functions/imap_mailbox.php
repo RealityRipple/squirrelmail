@@ -13,6 +13,14 @@
 
 global $boxesnew;
 
+function find_mailbox_name ($mailbox) {
+    if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
+        return $regs[1];
+    ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
+    return $regs[1];
+    
+}
+
 /**
  * If $haystack is a full mailbox name, and $needle is the mailbox
  * separator character, returns the second last part of the full
