@@ -235,6 +235,7 @@ Version 1.5.1 -- CVS
     additional values (cc, body, subject etc).
   - Fixed bug #801060.  Removed option for INBOX in filters plugin as source
     is always INBOX.
+  - Always show Purge link next to Trash, even when empty.
 
 Version 1.5.0
 --------------------

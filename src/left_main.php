@@ -90,18 +90,12 @@ function formatMailboxName($imapConnection, $box_array) {
         $line .= "&nbsp;<small>$unseen_string</small>";
     }
 
-    /* If it's the trash folder, show a purge link when needed */
+    /* If it's the trash folder, show a purge link */
     if (($move_to_trash) && ($real_box == $trash_folder)) {
-        if (! isset($numMessages)) {
-            $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
-        }
-
-        if (($numMessages > 0) or ($box_array['parent'] == 1)) {
-            $urlMailbox = urlencode($real_box);
-            $line .= "\n<small>\n" .
-                    '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]' .
-                    '</small>';
-        }
+        $urlMailbox = urlencode($real_box);
+        $line .= "\n<small>\n" .
+            '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]' .
+            '</small>';
     }
 
 
@@ -394,10 +388,10 @@ function ListBoxes ($boxes, $j=0 ) {
             if ($unseen_found) {
                 $end .= "&nbsp;<small>$unseen_string</small>";
             }
-            $end .= "\n<small>\n" .
-                    '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
-                    '</small>';
         }
+        $end .= "\n<small>\n" .
+                '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
+                '</small>';
     } else {
         if (!$boxes->is_noselect) {
             if ($unseen > 0) {
@@ -513,16 +507,11 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     }
 
     if (($move_to_trash) && ($mailbox == $trash_folder)) {
-        if (! isset($numMessages)) {
-            $numMessages = $boxes->total;
-        }
         $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
         $end .= '</a>';
-        if ($numMessages > 0) {
-            $end .= "\n<small>\n" .
-                    '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("Purge").'</a>]'.
-                    '</small>';
-        }
+        $end .= "\n<small>\n" .
+                '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("Purge").'</a>]'.
+                '</small>';
     } else {
         if (!$boxes->is_noselect) { /* \Noselect boxes can't be selected */
             $pre = "<a class=\"mbx_link\" href=\"right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox=$mailboxURL\" target=\"right\">" . $pre;
