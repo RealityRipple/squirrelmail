@@ -103,6 +103,12 @@
       global $prefs_cache;
       
       cachePrefValues($data_dir, $username);
+      if ($prefs_cache[$string] == $set_to)
+         return;
+      if ($set_to == '') {
+         removePref($data_dir, $username, $string);
+	 return;
+      }
       $prefs_cache[$string] = $set_to;
       savePrefValues($data_dir, $username);
    }
