@@ -36,7 +36,9 @@ Version 1.4.0 RC 2a
   - Fix prefs caching not working correctly in PHP 4.3 caused by a stupid
     version checking mechanism.
   - Fix XXS hole that allowed JavaScript execution by sending someone
-    an email with specially crafted headers. Thanks Jason Munro.
+    an email with specially crafted headers. Thanks Jason Munro, and
+    Masato Higashiyama.
+
 
 Version 1.4.0 RC 1
 ------------------
