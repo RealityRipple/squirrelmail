@@ -47,7 +47,24 @@ function load_optpage_data_display() {
         'posvals' => $theme_values,
         'save'    => 'save_option_theme'
     );
-
+ 
+    $css_values = array( 'none' => _("Default" ) );
+	$handle=opendir('../themes/css/');
+	while ($file = readdir($handle) ) {
+	    if ( substr( $file, -4 ) == '.css' ) {
+	        $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
+        }
+	}	
+	closedir($handle);
+    
+    $optvals[SMOPT_GRP_GENERAL][] = array(
+        'name'    => 'custom_css',
+        'caption' => _("Custom Stylesheet"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => $css_values
+    );
+    
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
