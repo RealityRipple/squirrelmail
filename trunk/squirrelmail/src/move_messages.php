@@ -119,17 +119,20 @@ $onetimepad = $_SESSION['onetimepad'];
 $base_uri = $_SESSION['base_uri'];
 $delimiter = $_SESSION['delimiter'];
 
-if (isset($_POST['mailbox'])) {
-    $mailbox = $_POST['mailbox'];
+if (isset($_GET['mailbox'])) {
+    $mailbox = $_GET['mailbox'];
 }
-if (isset($_POST['startMessage'])) {
-    $startMessage = $_POST['startMessage'];
+if (isset($_GET['startMessage'])) {
+    $startMessage = $_GET['startMessage'];
 }
 if (isset($_POST['moveButton'])) {
     $moveButton = $_POST['moveButton'];
 }
 if (isset($_POST['msg'])) {
     $msg = $_POST['msg'];
+}
+elseif (isset($_GET['msg'])) {
+    $msg = $_GET['msg'];
 }
 if (isset($_POST['expungeButton'])) {
     $expungeButton = $_POST['expungeButton'];
