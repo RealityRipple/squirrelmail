@@ -118,7 +118,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     * AAAAH! Make my eyes stop bleeding!
     * Who wrote this?!
     */
-    if (sizeof($message_highlight_list)){
+    if (is_array($message_highlight_list) && count($message_highlight_list)){
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
                 $high_val   = strtolower($message_highlight_list_part['value']);
