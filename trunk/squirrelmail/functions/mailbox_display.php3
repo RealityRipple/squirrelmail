@@ -7,10 +7,7 @@
     **
     **/
 
-   function printMessageInfo($imapConnection, $i, $from, $subject, $date, $answered, $seen) {
-//      getMessageHeaders($imapConnection, $i, $from, $subject, $date);
-      $dateParts = explode(" ", trim($date));
-      $dateString = getDateString($dateParts);  // this will reformat the date string into a good format for us.
+   function printMessageInfo($imapConnection, $i, $from, $subject, $dateString, $answered, $seen) {
       $senderName = getSenderName($from);
       if (strlen(Chop($subject)) == 0)
          $subject = "(no subject)";
@@ -34,18 +31,17 @@
     ** This function loops through a group of messages in the mailbox and shows them
     **/
    function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort) {
-      $i = 1;
+      $i = 0;
       $j = 1;
       while ($j <= $numMessages) {
          getMessageHeaders($imapConnection, $j, $from, $subject, $date);
          getMessageFlags($imapConnection, $j, $flags);
 
-         echo "$date --";
-         $messages[$i]["DATE"] = getTimeStamp(explode(" ", trim($date)));
+         $messages[$i]["TIME_STAMP"] = getTimeStamp(explode(" ", trim($date)));
+         $messages[$i]["DATE_STRING"] = getDateString(explode(" ", trim($date)));
          $messages[$i]["ID"] = $j;
          $messages[$i]["FROM"] = $from;
          $messages[$i]["SUBJECT"] = $subject;
-//         echo "$messages[$i][\"DATE\"]<BR>";
 
          $messages[$i]["FLAG_DELETED"] = false;
          $messages[$i]["FLAG_ANSWERED"] = false;
@@ -71,10 +67,9 @@
       $numMessages = $i;
 
       if ($sort == 0)
-         $msgs = ary_sort($messages, "DATE", -1);
+         $msgs = ary_sort($messages, "TIME_STAMP", -1);
       else
-         $msgs = ary_sort($messages, "DATE", 1);
-
+         $msgs = ary_sort($messages, "TIME_STAMP", 1);
 
       if ($startMessage + 24 < $numMessages) {
          $nextGroup = $startMessage + 24 + 1; // +1 to go to beginning of next group
@@ -118,8 +113,8 @@
       echo "</TR>";
 
       // loop through and display the info for each message.
-      for ($i = $startMessage;$i <= $endMessage; $i++) {
-         printMessageInfo($imapConnection, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
+      for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
+         printMessageInfo($imapConnection, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
       }
 
       echo "</TABLE>\n";

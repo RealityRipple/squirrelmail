@@ -58,10 +58,10 @@
             $read = substr($read, strpos($read, "FLAGS")+6, strlen($read));
             $read = trim($read);
             $flags = explode(" ", $read);;
-            $i = 0;
-            while ($i < count($flags)) {
-               $flags[$i] = substr($flags[$i], 1, strlen($flags[$i]));
-               $i++;
+            $s = 0;
+            while ($s < count($flags)) {
+               $flags[$s] = substr($flags[$s], 1, strlen($flags[$s]));
+               $s++;
             }
          } else {
             $flags[0] = "None";

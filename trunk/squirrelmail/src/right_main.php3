@@ -74,7 +74,7 @@
 
    // switch to the mailbox, and get the number of messages in it.
    selectMailbox($imapConnection, $mailbox, $numMessages);
-   $numMessages = $numMessages - 1;  // I did this so it's 0 based like the message array
+//   $numMessages = $numMessages - 1;  // I did this so it's 0 based like the message array
 
    // make a URL safe $mailbox for use in the links
    $urlMailbox = urlencode($mailbox);
