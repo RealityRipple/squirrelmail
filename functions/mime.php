@@ -5,6 +5,9 @@
     **/
 
 
+   if (!isset($i18n_php))
+      include "../functions/i18n.php";
+
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
@@ -202,77 +205,20 @@
    // This functions decode strings that is encoded according to 
    // RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
    function decodeHeader ($string) {
-      // Recognizing only US-ASCII and ISO-8859. Other charsets should
-      // probably be recognized as well.
-      if (eregi('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=', 
+      if (eregi('=\?([^?]+)\?(q|b)\?([^?]+)\?=', 
                 $string, $res)) {
-         if (ucfirst($res[3]) == "B") {
-            $replace = base64_decode($res[4]);
+         if (ucfirst($res[2]) == "B") {
+            $replace = base64_decode($res[3]);
          } else {
-            $replace = ereg_replace("_", " ", $res[4]);
+            $replace = ereg_replace("_", " ", $res[3]);
             $replace = quoted_printable_decode($replace);
          }
 
-         // All HTML characters are in the 7-bit ASCII range and can
-         // be replaced before doing anything with the 8-bi
-         // characters.
-         $replace = htmlspecialchars($replace);
-
-         if ($res[2] == 1) {
-            // This if clause is debug code. -- gustavf
-            // Latin small letter o with stroke
-            while (ereg("\370", $replace))
-               $replace = ereg_replace ("\370", "&#248;", $replace);
-         } else if ($res[2] == "15") {
-            // Euro sign
-            while (ereg("\244", $replace))
-               $replace = ereg_replace ("\244", "&#8364;", $replace);
-            // Latin capital letter S with caron
-            while (ereg("\246", $replace))
-               $replace = ereg_replace ("\244", "&#352;", $replace);
-            // Latin small letter s with caron
-            while (ereg("\250", $replace))
-               $replace = ereg_replace ("\250", "&#353;", $replace);
-            // Latin capital letter Z with caron
-            while (ereg("\264", $replace))
-               $replace = ereg_replace ("\264", "&#381;", $replace);
-            // Latin small letter z with caron
-            while (ereg("\270", $replace))
-               $replace = ereg_replace ("\270", "&#382;", $replace);
-            // Latin capital ligature OE
-            while (ereg("\274", $replace))
-               $replace = ereg_replace ("\274", "&#338;", $replace);
-            // Latin small ligature oe
-            while (ereg("\275", $replace))
-               $replace = ereg_replace ("\275", "&#339;", $replace);
-            // Latin capital letter Y with diaeresis
-            while (ereg("\276", $replace))
-               $replace = ereg_replace ("\276", "&#376;", $replace);
-         } else if ($res[2] != "") {
-            // This gets rid of all characters over 0x9F for other
-            // iso-8859 charsets.
-            $replace = strtr($replace, "\240\241\242\243\244\245\246\247".
-                             "\250\251\252\253\254\255\256\257".
-                             "\260\261\262\263\264\265\266\267".
-                             "\270\271\272\273\274\275\276\277".
-                             "\300\301\302\303\304\305\306\307".
-                             "\310\311\312\313\314\315\316\317".
-                             "\320\321\322\323\324\325\326\327".
-                             "\330\331\332\333\334\335\336\337".
-                             "\340\341\342\343\344\345\346\347".
-                             "\350\351\352\353\354\355\356\357".
-                             "\360\361\362\363\364\365\366\367".
-                             "\370\371\372\373\374\375\376\377", 
-                             "????????????????????????????????????????".
-                             "????????????????????????????????????????".
-                             "????????????????????????????????????????".
-                             "????????");
-         }
+         $replace = charset_decode ($res[1], $replace);
 
          $string = eregi_replace
-            ('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=',
+            ('=\?([^?]+)\?(q|b)\?([^?]+)\?=',
              $replace, $string);
-
          // In case there should be more encoding in the string: recurse
          return (decodeHeader($string));
       } else         
