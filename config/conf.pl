@@ -2912,6 +2912,7 @@ sub set_defaults {
         print "    exchange   = Microsoft Exchange IMAP server\n";
         print "    courier    = Courier IMAP server\n";
         print "    macosx     = Mac OS X Mailserver\n";
+        print "    mercury32  = Mercury/32\n";
         print "    quit       = Do not change anything\n";
         print "Command >> ";
         $server = <STDIN>;
@@ -2988,6 +2989,20 @@ sub set_defaults {
             $optional_delimiter             = "detect";
             $allow_charset_search           = false;
             $disp_default_folder_prefix     = $default_folder_prefix;
+
+            $continue = 1;
+        } elsif ( $server eq "mercury32" ) {
+            $imap_server_type               = "mercury32";
+            $default_folder_prefix          = "";
+            $trash_folder                   = "INBOX.Trash";
+            $sent_folder                    = "INBOX.Sent";
+            $draft_folder                   = "INBOX.Drafts";
+            $show_prefix_option             = false;
+            $default_sub_of_inbox           = true;
+            $show_contain_subfolders_option = true;
+            $optional_delimiter             = "detect";
+            $delete_folder                  = true;
+            $force_username_lowercase       = true;
 
             $continue = 1;
         } elsif ( $server eq "quit" ) {
