@@ -193,6 +193,8 @@ $attachment_common_show_images = getPref($data_dir, $username, 'attachment_commo
 $pf_subtle_link = getPref($data_dir, $username, 'pf_subtle_link', SMPREF_ON);
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', SMPREF_OFF);
 
+$mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', SMPREF_ON);
+
 $include_self_reply_all =
     getPref($data_dir, $username, 'include_self_reply_all', SMPREF_ON);
 

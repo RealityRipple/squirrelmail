@@ -36,7 +36,7 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
 
 if (isset($draft)) {
     include_once ('../src/draft_actions.php');
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN)) {
         showInputForm();
         exit();
     } else {
@@ -100,13 +100,14 @@ if (isset($send)) {
         $body = $newBody;
 
         do_hook("compose_send");
-
+  
+        $MDN = False;  // we are not sending a mdn response
         if (! isset($mailprio)) {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id);
+                                  $subject, $body, $reply_id, $MDN);
         } else {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $mailprio);
+                                  $subject, $body, $reply_id, $MDN, $mailprio);
         }
         if (! $Result) {
             showInputForm();
@@ -419,7 +420,7 @@ function showInputForm () {
            $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
-           $mailprio;
+           $mailprio, $default_use_mdn, $mdn_user_support;
 
     $subject = decodeHeader($subject, false);
     $reply_subj = decodeHeader($reply_subj, false);
@@ -439,6 +440,8 @@ function showInputForm () {
     echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
          'ENCTYPE="multipart/form-data"';
     do_hook("compose_form");
+  
+    
     echo ">\n";
 
     if (isset($draft_id)) {
@@ -601,7 +604,7 @@ function showInputForm () {
 function showComposeButtonRow()
 {
     global $use_javascript_addr_book, $save_as_draft,
-        $default_use_priority, $mailprio;
+           $default_use_priority, $mailprio, $default_use_mdn;
 
     echo "   <TR><td>\n   </td><td>\n";
     if ($use_javascript_addr_book) {
@@ -630,6 +633,14 @@ function showComposeButtonRow()
             "\n\t\t<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
             "\n\t\t<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
             "\n\t</select>";
+    }
+
+    $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
+    if ($default_use_mdn) {
+        if ($mdn_user_support) {    
+            echo _("Confirm reading:").
+                "<input type=\"checkbox\" name=\"request_mdn\" value=1>";
+        }
     }
 
     do_hook('compose_button_row');
@@ -686,6 +697,8 @@ function saveAttachedFiles() {
 
     $attachments[] = $newAttachment;
 }
+
+
 
 
 function ClearAttachments()
