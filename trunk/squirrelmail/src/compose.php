@@ -157,10 +157,22 @@ function replyAllString($header) {
     return $url_replytoallcc;
 }
 
+/**
+ * creates top line in reply citations
+ *
+ * Line style depends on user preferences.
+ * $orig_date argument is available only from 1.4.3 and 1.5.1 version.
+ * @param object $orig_from From: header object.
+ * @param integer $orig_date email's timestamp
+ * @return string reply citation
+ */
 function getReplyCitation($orig_from, $orig_date) {
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
+
+    // FIXME: why object is rewritten with string.
     $orig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
 //    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
+
     /* First, return an empty string when no citation style selected. */
     if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
         return '';
@@ -173,39 +185,60 @@ function getReplyCitation($orig_from, $orig_date) {
 
     /* Otherwise, try to select the desired citation style. */
     switch ($reply_citation_style) {
-        case 'author_said':
-            $start = '';
-            $end   = ' ' . _("said") . ':';
-            break;
-        case 'quote_who':
-            $start = '<' . _("quote") . ' ' . _("who") . '="';
-            $end   = '">';
-            break;
-        case 'date_time_author':
-            $start = 'On ' . getLongDateString($orig_date) . ', ';
-            $end = ' ' . _("said") . ':';
-            break;
-        case 'user-defined':
-            $start = $reply_citation_start .
-                ($reply_citation_start == '' ? '' : ' ');
-            $end   = $reply_citation_end;
-            break;
-        default:
-            return '';
+    case 'author_said':
+        /**
+         * To translators: %s is for author's name
+         */
+        $full_reply_citation = sprintf(_("%s said:"),$orig_from);
+        break;
+    case 'quote_who':
+        // FIXME: do we have to translate xml formating?
+        $start = '<' . _("quote") . ' ' . _("who") . '="';
+        $end   = '">';
+        $full_reply_citation = $start . $orig_from . $end;
+        break;
+    case 'date_time_author':
+        /**
+         * To translators:
+         *  first %s is for date string, second %s is for author's name. Date uses 
+         *  formating from "D, F j, Y g:i a" and "D, F j, Y H:i" translations.
+         * Example string:
+         *  "On Sat, December 24, 2004 23:59, Santa said:"
+         * If you have to put author's name in front of date string, check comments about
+         * argument swapping at http://www.php.net/sprintf
+         */
+        $full_reply_citation = sprintf(_("On %s, %s said:"), getLongDateString($orig_date), $orig_from);
+        break;
+    case 'user-defined':
+        $start = $reply_citation_start .
+            ($reply_citation_start == '' ? '' : ' ');
+        $end   = $reply_citation_end;
+        $full_reply_citation = $start . $orig_from . $end;
+        break;
+    default:
+        return '';
     }
 
-    /* Build and return the citation string. */
-    return ($start . $orig_from . $end . "\n");
+    /* Add line feed and return the citation string. */
+    return ($full_reply_citation . "\n");
 }
 
+/**
+ * Creates header fields in forwarded email body
+ *
+ * $default_charset global must be set correctly before you call this function. 
+ * @param object $orig_header
+ * @return $string 
+ */
 function getforwardHeader($orig_header) {
-    global $editor_size;
+    global $editor_size, $default_charset;
 
-    $display = array( _("Subject") => strlen(_("Subject")),
-            _("From")    => strlen(_("From")),
-            _("Date")    => strlen(_("Date")),
-            _("To")      => strlen(_("To")),
-            _("Cc")      => strlen(_("Cc")) );
+    // using own strlen function in order to detect correct string length
+    $display = array( _("Subject") => sq_strlen(_("Subject"),$default_charset),
+            _("From")    => sq_strlen(_("From"),$default_charset),
+            _("Date")    => sq_strlen(_("Date"),$default_charset),
+            _("To")      => sq_strlen(_("To"),$default_charset),
+            _("Cc")      => sq_strlen(_("Cc"),$default_charset) );
     $maxsize = max($display);
     $indent = str_pad('',$maxsize+2);
     foreach($display as $key => $val) {
@@ -217,7 +250,9 @@ function getforwardHeader($orig_header) {
     $to = str_replace('&nbsp;',' ',$to);
     $subject = decodeHeader($orig_header->subject,false,false,true);
     $subject = str_replace('&nbsp;',' ',$subject);
-    $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH) .
+
+    // using own str_pad function in order to create correct string pad
+    $bodyTop =  sq_str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH,$default_charset) .
         "\n". $display[_("Subject")] . $subject . "\n" .
         $display[_("From")] . $from . "\n" .
         $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
@@ -821,6 +856,16 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
     return ($ret);
 } /* function newMail() */
 
+/**
+ * downloads attachments from original message, stores them in attachment directory and adds
+ * them to composed message.
+ * @param object $message
+ * @param object $composeMessage
+ * @param integer $passed_id
+ * @param mixed $entities
+ * @param mixed $imapConnection
+ * @return object  
+ */
 function getAttachments($message, &$composeMessage, $passed_id, $entities, $imapConnection) {
     global $attachment_dir, $username, $data_dir, $squirrelmail_language, $languages;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -1054,6 +1099,12 @@ function showInputForm ($session, $values=false) {
         $signature = $idents[$identity]['signature'];
 
         if ($sig_first == '1') {
+            /*
+             * FIXME: test is specific to ja_JP translation implementation.
+             * This test might apply incorrect conversion to other translations, but
+             * use of 7bit iso-2022-jp charset in other translations might have other 
+             * issues too.
+             */
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             } else {
@@ -1063,6 +1114,7 @@ function showInputForm ($session, $values=false) {
         }
         else {
             echo "\n\n".htmlspecialchars(decodeHeader($body,false,false));
+            // FIXME: test is specific to ja_JP translation implementation. See above comments.
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
@@ -1185,8 +1237,9 @@ function showInputForm ($session, $values=false) {
     if (!(bool) ini_get('file_uploads')) {
         /* File uploads are off, so we didn't show that part of the form.
            To avoid bogus bug reports, tell the user why. */
-        echo 'Because PHP file uploads are turned off, you can not attach files ';
-        echo "to this message.  Please see your system administrator for details.\r\n";
+        echo '<p style="text-align:center">'
+            . _("Because PHP file uploads are turned off, you can not attach files to this message. Please see your system administrator for details.")
+            . "</p>\r\n";
     }
 
     do_hook('compose_bottom');
@@ -1290,7 +1343,7 @@ function saveAttachedFiles($session) {
     }
 
     // FIXME: we SHOULD prefer move_uploaded_file over rename because
-    // m_u_f works better with restricted PHP installes (safe_mode, open_basedir)
+    // m_u_f works better with restricted PHP installs (safe_mode, open_basedir)
     if (!@rename($_FILES['attachfile']['tmp_name'], $full_localfilename)) {
         if (!@move_uploaded_file($_FILES['attachfile']['tmp_name'],$full_localfilename)) {
             return true;
@@ -1347,12 +1400,12 @@ function getByteSize($ini_size) {
 }
 
 
-/* temporary function to make use of the deliver class.
-   In the future the responsable backend should be automaticly loaded
-   and conf.pl should show a list of available backends.
-   The message also should be constructed by the message class.
+/**
+ * temporary function to make use of the deliver class.
+ * In the future the responsable backend should be automaticly loaded
+ * and conf.pl should show a list of available backends.
+ * The message also should be constructed by the message class.
  */
-
 function deliverMessage($composeMessage, $draft=false) {
     global $send_to, $send_to_cc, $send_to_bcc, $mailprio, $subject, $body,
         $username, $popuser, $usernamedata, $identity, $idents, $data_dir,
