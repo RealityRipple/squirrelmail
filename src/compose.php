@@ -1462,16 +1462,8 @@ function deliverMessage($composeMessage, $draft=false) {
         $deliver = new Deliver_SMTP();
         global $smtpServerAddress, $smtpPort, $pop_before_smtp, $smtp_auth_mech;
 
-        if ($smtp_auth_mech == 'none') {
-                $user = '';
-                $pass = '';
-        } else {
-                global $key, $onetimepad;
-                $user = $username;
-                $pass = OneTimePadDecrypt($key, $onetimepad);
-        }
-
         $authPop = (isset($pop_before_smtp) && $pop_before_smtp) ? true : false;
+        get_smtp_user($user, $pass);
         $stream = $deliver->initStream($composeMessage,$domain,0,
                           $smtpServerAddress, $smtpPort, $user, $pass, $authPop);
     } elseif (!$draft) {
