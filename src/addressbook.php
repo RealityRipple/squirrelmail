@@ -10,6 +10,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage addressbook
  */
 
 /**
@@ -44,9 +45,10 @@ sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
 /* Get sorting order */
 $abook_sort_order = get_abook_sort();
 
-/* Open addressbook, with error messages on but without LDAP (the *
- * second "true"). Don't need LDAP here anyway                    */
-$abook = addressbook_init(true, true);
+/* Open addressbook with error messages on.
+ remote backends (LDAP) are enabled because they can be used. (list_addr function)
+*/
+$abook = addressbook_init(true, false);
 if($abook->localbackend == 0) {
     plain_error_message(
             _("No personal address book is defined. Contact administrator."),
@@ -62,7 +64,6 @@ $abortform = false;
 $showaddrlist = true;
 $defselected  = array();
 $form_url = 'addressbook.php';
-
 
 /* Handle user's actions */
 if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'POST') {
