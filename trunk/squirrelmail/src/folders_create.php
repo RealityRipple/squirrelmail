@@ -19,6 +19,8 @@ require_once('../functions/display_messages.php');
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 global $delimiter;
 
+$folder_name = trim($folder_name);
+
 if (strpos($folder_name, "\"") || strpos($folder_name, "\\") ||
     strpos($folder_name, "'") || strpos($folder_name, "$delimiter")) {
     echo "<html><body bgcolor=$color[4]>";
