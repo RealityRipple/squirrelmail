@@ -45,7 +45,7 @@
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
       echo "<A NAME=pagetop></A>\n";
-      echo "<table BGCOLOR=\"$color[9]\" width=100%><tr><td>";
+      echo "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[9]\" width=100%><tr><td>";
       echo "<TABLE BGCOLOR=\"$color[9]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
       echo "   <TR>\n";
       echo "      <TD ALIGN=left><b>\n";
