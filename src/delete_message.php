@@ -35,13 +35,13 @@ $location = get_location();
 
 if (isset($where) && isset($what)) {
     header("Location: $location/search.php?where=" . urlencode($where) .
-           '&amp;what=' . urlencode($what) . '&amp;mailbox=' . urlencode($mailbox));
+           '&what=' . urlencode($what) . '&mailbox=' . urlencode($mailbox));
 } else {
     if (!empty($saved_draft) || !empty($mail_sent)) {
-          header("Location: $location/compose.php?mail_sent=$mail_sent&amp;saved_draft=$saved_draft");
+          header("Location: $location/compose.php?mail_sent=$mail_sent&saved_draft=$saved_draft");
     }
     else {
-        header("Location: $location/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=" .
+        header("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=" .
                urlencode($mailbox));
     }
 }
