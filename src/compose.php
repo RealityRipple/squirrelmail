@@ -119,14 +119,14 @@ function replyAllString($header) {
    if (!$include_self_reply_all) {
        $email_address = trim(getPref($data_dir, $username, 'email_address'));
        $excl_ar[$email_address] = '';
-    
        $idents = getPref($data_dir, $username, 'identities');
        if ($idents != '' && $idents > 1) {
+    	  $first_id = false;
           for ($i = 1; $i < $idents; $i ++) {
              $cur_email_address = getPref($data_dir, $username, 
                                          'email_address' . $i);
              $cur_email_address = strtolower($cur_email_address);
-         $excl_ar[$cur_email_address] = '';
+             $excl_ar[$cur_email_address] = '';
          }
        }
    }
@@ -142,9 +142,9 @@ function replyAllString($header) {
    $url_replytoallcc = '';
    foreach( $url_replytoall_ar as $email => $personal) {
       if ($personal) {
-     $url_replytoallcc .= ", \"$personal\" <$email>";
+         $url_replytoallcc .= ", \"$personal\" <$email>";
       } else {
-     $url_replytoallcc .= ', '. $email;    
+         $url_replytoallcc .= ', '. $email;    
       }
    }
    $url_replytoallcc = substr($url_replytoallcc,2);
@@ -464,7 +464,6 @@ elseif (isset($sigappend)) {
 	$composeMessage->entities = $new_entities;
 	$compose_messages[$session] = $composeMessage;
 	sqsession_register($compose_messages, 'compose_messages');
-//        setPref($data_dir, $username, 'attachments', serialize($attachments));
     }
     showInputForm($session);
 } else {
@@ -589,19 +588,25 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         } else {
             $orig_from = '';
         }
+	$identities = array();
         if (!empty($idents) && $idents > 1) {
-            for ($i = 1; $i < $idents; $i++) {
-                $enc_from_name = '"'.
-                getPref($data_dir,
-                $username,
-                'full_name' . $i) .
-                '" <' . getPref($data_dir, $username,
-                'email_address' . $i) . '>';
-                if ($enc_from_name == $orig_from) {
+            $identities[]  = '"'. getPref($data_dir, $username, 'full_name') 
+	      . '" <' .  getPref($data_dir, $username, 'email_address') . '>';
+	    for ($i = 1; $i < $idents; $i++) {
+                $enc_from_name = '"'. 
+		    getPref($data_dir, $username, 'full_name' . $i) .
+            	    '" <' . 
+		    getPref($data_dir, $username, 'email_address' . $i) . '>';
+                if ($enc_from_name == $orig_from && $i) {
                     $identity = $i;
                     break;
                 }
+		$identities[] = $enc_from_name;
             }
+	    $identity_match = $orig_header->findAddress($identities);
+	    if ($identity_match) {
+		$identity = $identity_match;
+	    }
         }
 
         switch ($action) {
