@@ -14,7 +14,7 @@
  * @package squirrelmail
  * @subpackage imap
  * @see search.php
- * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
+ * @link http://www.ietf.org/rfc/rfc3501.txt
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  */
 
@@ -31,7 +31,7 @@ $imap_asearch_debug_dump = FALSE;
  * @global array $imap_asearch_opcodes
  */
 $imap_asearch_opcodes = array(
-/* <message set> => 'asequence', */
+/* <sequence-set> => 'asequence', */	// Special handling, @see sqimap_asearch_build_criteria()
 /*'ALL' is binary operator */
 	'ANSWERED' => '',
 	'BCC' => 'astring',
@@ -42,7 +42,7 @@ $imap_asearch_opcodes = array(
 	'DRAFT' => '',
 	'FLAGGED' => '',
 	'FROM' => 'astring',
-	'HEADER' => 'afield',	/* Special syntax for this one, see below */
+	'HEADER' => 'afield',	// Special syntax for this one, @see sqimap_asearch_build_criteria()
 	'KEYWORD' => 'akeyword',
 	'LARGER' => 'anum',
 	'NEW' => '',
@@ -141,15 +141,16 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
 }
 
 /**
- * This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc!
+ * This is a convenient way to avoid spreading if (isset(... all over the code
  * @param mixed $var any variable (reference)
- * @return mixed zls ('') if $var is not defined, otherwise $var
+ * @param mixed $def default value to return if unset (default is zls (''), pass 0 if required)
+ * @return mixed $def if $var is unset, otherwise $var
  */
-function asearch_nz(&$var)
+function asearch_nz(&$var, $def = '')
 {
 	if (isset($var))
 		return $var;
-	return '';
+	return $def;
 }
 
 /**
@@ -268,10 +269,22 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 	switch ($imap_asearch_opcodes[$opcode]) {
 		default:
 		case 'anum':
-//			$what = str_replace(' ', '', $what);
-			$what = ereg_replace('[^0-9]+', '', $what);
-			if ($what != '')
+			$what = str_replace(' ', '', $what);
+			$what = ereg_replace('[^0-9]+[^KMG]$', '', strtoupper($what));
+			if ($what != '') {
+				switch (substr($what, -1)) {
+					case 'G':
+						$what <<= 10;
+					//nobreak;
+					case 'M':
+						$what <<= 10;
+					//nobreak;
+					case 'K':
+						$what <<= 10;
+					break;
+				}
 				$criteria = $opcode . ' ' . $what . ' ';
+			}
 		break;
 		case '':	//aflag
 			$criteria = $opcode . ' ';
@@ -321,7 +334,7 @@ function sqimap_array_merge_unique(&$to, $from)
 
 /**
  * Run the imap SEARCH command as defined in rfc 3501
- * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
+ * @link http://www.ietf.org/rfc/rfc3501.txt
  * @param resource $imapConnection the current imap stream
  * @param string $search_string the full search expression eg "ALL RECENT"
  * @param string $search_charset charset to use or zls ('')
