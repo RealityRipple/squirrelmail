@@ -484,7 +484,7 @@
       global $show_html_default;
       
       if (! $message)
-	return;
+	return 0;
 
       // Show text/plain or text/html -- the first one we find.
       if ($message->header->type0 == 'text' && 
