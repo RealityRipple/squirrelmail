@@ -62,7 +62,7 @@
          } else {
             $rel_end = $end;
          }
-         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date)\n");
+         fputs($imapConnection, "messageFetch FETCH $rel_start:$rel_end RFC822.HEADER.LINES (From Subject Date To Cc)\n");
          $read = fgets($imapConnection, 1024);
 
          while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
@@ -235,60 +235,173 @@
       return $box;
    }
 
-   /** This function will fetch the body of a given message and format
-       it into our standard format. **/
-   function fetchBody($imapConnection, $id) {
+   /** This function gets all the information about a message.  Including Header and body **/
+   function fetchMessage($imapConnection, $id) {
+      $message["HEADER"] = fetchHeader($imapConnection, $id);
+      $message["ENTITIES"] = fetchBody($imapConnection, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE"][0], $message["HEADER"]["TYPE"][1]);
+
+      return $message;
+   }
+
+   function fetchHeader($imapConnection, $id) {
+      fputs($imapConnection, "messageFetch FETCH $id:$id RFC822.HEADER.LINES (From Subject Date To Cc Content-Type MIME-Version)\n");
+      $read = fgets($imapConnection, 1024);
+
+      /** defaults... if the don't get overwritten, it will display text **/
+      $header["TYPE"][0] = "text";
+      $header["TYPE"][1] = "plain";
+      while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
+         /** MIME-VERSION **/
+         if (substr($read, 0, 17) == "MIME-Version: 1.0") {
+            $header["MIME"] = true;
+            $read = fgets($imapConnection, 1024);
+         }
+         /** CONTENT-TYPE **/
+         else if (substr($read, 0, 13) == "Content-Type:") {
+            $cont = trim(substr($read, 13));
+            $cont = substr($cont, 0, strpos($cont, ";"));
+            $header["TYPE"][0] = substr($cont, 0, strpos($cont, "/"));
+            $header["TYPE"][1] = substr($cont, strpos($cont, "/")+1);
+
+            $read = fgets($imapConnection, 1024);
+            if (substr(strtolower(trim($read)), 0, 9) == "boundary=") {
+               $bound = trim($read);
+               $bound = substr($bound, 9);
+               $bound = str_replace("\"", "", $bound);
+               $header["BOUNDARY"] = $bound;
+               $read = fgets($imapConnection, 1024);
+            }
+         }
+         /** FROM **/
+         else if (substr($read, 0, 5) == "From:") {
+            $header["FROM"] = trim(substr($read, 5, strlen($read) - 6));
+            $read = fgets($imapConnection, 1024);
+         }
+         /** DATE **/
+         else if (substr($read, 0, 5) == "Date:") {
+            $d = substr($read, 5, strlen($read) - 6);
+            $d = trim($d);
+            $d = ereg_replace("  ", " ", $d);
+            $d = explode(" ", $d);
+            $header["DATE"] = getTimeStamp($d);
+            $read = fgets($imapConnection, 1024);
+         }
+         /** SUBJECT **/
+         else if (substr($read, 0, 8) == "Subject:") {
+            $header["SUBJECT"] = trim(substr($read, 8, strlen($read) - 9));
+            if (strlen(Chop($header["SUBJECT"])) == 0)
+               $header["SUBJECT"] = "(no subject)";
+            $read = fgets($imapConnection, 1024);
+         }
+         /** CC **/
+         else if (substr($read, 0, 3) == "CC:") {
+            $pos = 0;
+            $header["CC"][$pos] = trim(substr($read, 4));
+            $read = fgets($imapConnection, 1024);
+            while ((substr($read, 0, 1) == " ") && (trim($read) != "")) {
+               $pos++;
+               $header["CC"][$pos] = trim($read);
+               $read = fgets($imapConnection, 1024);
+            }
+         }
+         /** TO **/
+         else if (substr($read, 0, 3) == "To:") {
+            $pos = 0;
+            $header["TO"][$pos] = trim(substr($read, 4));
+            $read = fgets($imapConnection, 1024);
+            while ((substr($read, 0, 1) == " ")  && (trim($read) != "")){
+               $pos++;
+               $header["TO"][$pos] = trim($read);
+               $read = fgets($imapConnection, 1024);
+            }
+         }
+
+         /** ERROR CORRECTION **/
+         else if (substr($read, 0, 1) == ")") {
+            if ($header["SUBJECT"] == "")
+                $header["SUBJECT"] = "(no subject)";
+
+            if ($header["FROM"] == "")
+                $header["FROM"] = "(unknown sender)";
+
+            if ($header["DATE"] == "")
+                $header["DATE"] = time();
+            $read = fgets($imapConnection, 1024);
+         }
+         else {
+            $read = fgets($imapConnection, 1024);
+         }
+      }
+      return $header;
+   }
+
+   function fetchBody($imapConnection, $bound, $id, $type0, $type1) {
+      /** This first part reads in the full body of the message **/
       fputs($imapConnection, "messageFetch FETCH $id:$id BODY[TEXT]\n");
+      $read = fgets($imapConnection, 1024);
+
       $count = 0;
-      $read[$count] = fgets($imapConnection, 1024);
-      while ((substr($read[$count], 0, 15) != "messageFetch OK") && (substr($read[$count], 0, 16) != "messageFetch BAD")) {
+      while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
+         $body[$count] = $read;
          $count++;
-         $read[$count] = fgets($imapConnection, 1024);
+
+         $read = fgets($imapConnection, 1024);
       }
 
-      /** this loop removes the first line, and the last two which
-          are IMAP information that we don't need. **/
+      /** this deletes the first line, and the last two (imap stuff we ignore) **/
       $i = 0;
       $j = 0;
-      while ($i < count($read)) {
-         if (($i != 0) && ($i != count($read) - 1) && ($i != count($read) - 2)){
-            $readtmp[$j] = $read[$i];
+      while ($i < count($body)) {
+         if ( ($i != 0) && ($i != count($body) - 1) && ($i != count($body)) ) {
+            $bodytmp[$j] = $body[$i];
             $j++;
          }
          $i++;
       }
-      $read = $readtmp;
+      $body = $bodytmp;
 
-      /** This loop formats the text, creating links out of linkable stuff too **/
-      $count = 0;
-      $useHTML= false;
-      while ($count < count($read)) {
-         $read[$count] = "^^$read[$count]";
+      /** Now, lets work out the MIME stuff **/
+      /** (needs mime.php included)         **/
+      return decodeMime($body, $bound, $type0, $type1);
+   }
 
-         if (strpos(strtolower($read[$count]), "<html") == true) {
-            $useHTML = true;
-         } else if (strpos(strtolower($read[$count]), "</html>") == true) {
-            $useHTML = false;
+   function fetchEntityHeader($imapConnection, &$read, &$type0, &$type1, &$bound) {
+      /** defaults... if the don't get overwritten, it will display text **/
+      $type0 = "text";
+      $type1 = "plain";
+      $i = 0;
+      while (trim($read[$i]) != "") {
+         if (substr($read[$i], 0, 13) == "Content-Type:") {
+            $cont = trim(substr($read[$i], 13));
+            $cont = substr($cont, 0, strpos($cont, ";"));
+            $type0 = substr($cont, 0, strpos($cont, "/"));
+            $type1 = substr($cont, strpos($cont, "/")+1);
+
+            if (substr(strtolower(trim($read[$i])), 0, 9) == "boundary=") {
+               $bound = trim($read[$i]);
+               $bound = substr($bound, 9);
+               $bound = str_replace("\"", "", $bound);
+            }
          }
-
-         $read[$count] = substr($read[$count], 2, strlen($read[$count]));
-
-         if ($useHTML == false) {
-            $read[$count] = parsePlainBodyText($read[$count]);
-         } else {
-            $read[$count] = parseHTMLBodyText($read[$count]);
-         }
-
-         $count++;
+         $i++;
       }
-      return $read;
+
+      /** remove the header from the entity **/
+      $i = 0;
+      while (trim($read[$i]) != "") {
+         $i++;
+      }
+      $i++;
+
+      for ($p = 0; $i < count($read); $p++) {
+         $entity[$p] = $read[$i];
+         $i++;
+      }
+
+      $read = $entity;
    }
 
-   function parseHTMLBodyText($line) {
-      return $line;
-   }
-
-   function parsePlainBodyText($line) {
+   function parsePlainTextMessage($line) {
       $line = "^^$line";
 
       if ((strpos(strtolower($line), "<!") == false) &&
@@ -362,64 +475,4 @@
 
       return $line;
    }
-
-   function getMessageHeadersTo($imapConnection, $i, &$to) {
-      $pos = 0;
-      fputs($imapConnection, "messageFetch FETCH $i:$i RFC822.HEADER.LINES (To)\n");
-      $read = fgets($imapConnection, 1024);
-
-      $firstline = true;
-      while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
-         if ($firstline == true) {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else if (strlen(trim($read)) <= 1) {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else if ($read == ")") {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else {
-            $firstline = false;
-            $read = ereg_replace("<", "&lt;", $read);
-            $read = ereg_replace(">", "&gt;", $read);
-            if (strlen(trim($read)) != 0)
-               $to[$pos] = substr($read, 3, strlen($read));
-
-            $pos++;
-            $read = fgets($imapConnection, 1024);
-         }
-      }
-   }
-
-   function getMessageHeadersCc($imapConnection, $i, &$cc) {
-      $pos = 0;
-      fputs($imapConnection, "messageFetch FETCH $i:$i RFC822.HEADER.LINES (Cc)\n");
-      $read = fgets($imapConnection, 1024);
-
-      $firstline = true;
-      while ((strlen(trim($read)) > 0) && (substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
-         if ($firstline == true) {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else if (strlen(trim($read)) <= 1) {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else if ($read == ")") {
-            $firstline = false;
-            $read = fgets($imapConnection, 1024);
-         } else {
-            $read = ereg_replace("<", "&lt;", $read);
-            $read = ereg_replace(">", "&gt;", $read);
-            if (strlen(trim($read)) != 0)
-               $cc[$pos] = substr($read, 3, strlen($read));
-
-            $pos++;
-            $read = fgets($imapConnection, 1024);
-         }
-      }
-      $read = fgets($imapConnection, 1024); // get rid of the last line
-   }
-
-
 ?>
