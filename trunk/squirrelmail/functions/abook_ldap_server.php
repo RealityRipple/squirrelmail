@@ -7,6 +7,11 @@
  *
  * Address book backend for LDAP server
  *
+ * LDAP filtering code by Tim Bell
+ *   <bhat at users.sourceforge.net> (#539534)
+ * ADS limit_scope code by Michael Brown 
+ *   <mcb30 at users.sourceforge.net> (#1035454)
+ *
  * @version $Id$
  * @package squirrelmail
  * @subpackage addressbook
@@ -25,11 +30,13 @@
  *  ? name      => Name for LDAP server (default "LDAP: hostname")
  *                 Used to tag the result data
  *  ? maxrows   => Maximum # of rows in search result
+ *  ? filter    => Filter expression to limit ldap searches
  *  ? timeout   => Timeout for LDAP operations (in seconds, default: 30)
  *                 Might not work for all LDAP libraries or servers.
  *  ? binddn    => LDAP Bind DN.
  *  ? bindpw    => LDAP Bind Password.
  *  ? protocol  => LDAP Bind protocol.
+ *  ? limit_scope => Limits scope to base DN.
  * </pre>
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.
@@ -80,6 +87,11 @@ class abook_ldap_server extends addressbook_backend {
      */
     var $maxrows = 250;
     /**
+     * @var string ldap filter
+     * @since 1.5.1
+     */
+    var $filter = '';
+    /**
      * @var integer timeout of LDAP operations (in seconds)
      */
     var $timeout = 30;
@@ -98,6 +110,11 @@ class abook_ldap_server extends addressbook_backend {
      * @since 1.5.0 and 1.4.3
      */
     var $protocol = '';
+    /**
+     * @var boolean limits scope to base dn
+     * @since 1.5.1
+     */
+    var $limit_scope = false;
 
     /**
      * Constructor. Connects to database
@@ -105,41 +122,52 @@ class abook_ldap_server extends addressbook_backend {
      */
     function abook_ldap_server($param) {
         if(!function_exists('ldap_connect')) {
-            $this->set_error('LDAP support missing from PHP');
+            $this->set_error(_("PHP install does not have LDAP support."));
             return;
         }
         if(is_array($param)) {
             $this->server = $param['host'];
             $this->basedn = $param['base'];
-            if(!empty($param['port'])) {
+
+            if(!empty($param['port']))
                 $this->port = $param['port'];
-            }
-            if(!empty($param['charset'])) {
+
+            if(!empty($param['charset']))
                 $this->charset = strtolower($param['charset']);
-            }
-            if(isset($param['maxrows'])) {
+
+            if(isset($param['maxrows']))
                 $this->maxrows = $param['maxrows'];
-            }
-            if(isset($param['timeout'])) {
+
+            if(isset($param['timeout']))
                 $this->timeout = $param['timeout'];
-            }
-            if(isset($param['binddn'])) {
+
+            if(isset($param['binddn']))
                 $this->binddn = $param['binddn'];
-            }
-            if(isset($param['bindpw'])) {
+
+            if(isset($param['bindpw']))
                 $this->bindpw = $param['bindpw'];
-            }
-            if(isset($param['protocol'])) {
+
+            if(isset($param['protocol']))
                 $this->protocol = $param['protocol'];
-            }
+
+            if(isset($param['filter']))
+                $this->filter = trim($param['filter']);
+
+            if(isset($param['limit_scope']))
+                $this->limit_scope = $param['limit_scope'];
+
             if(empty($param['name'])) {
                 $this->sname = 'LDAP: ' . $param['host'];
-            }
-            else {
+            } else {
                 $this->sname = $param['name'];
             }
 
-            $this->open(true);
+            /*
+             * don't open LDAP server on addressbook_init(),
+             * open ldap connection only on search. Speeds up
+             * addressbook_init() call.
+             */
+            // $this->open(true);
         } else {
             $this->set_error('Invalid argument to constructor');
         }
@@ -161,7 +189,7 @@ class abook_ldap_server extends addressbook_backend {
 
         $this->linkid = @ldap_connect($this->server, $this->port);
         if(!$this->linkid) {
-            if(function_exists('ldap_error') && is_object($this->linkid)) {
+            if(function_exists('ldap_error') && is_resource($this->linkid)) {
                 return $this->set_error(ldap_error($this->linkid));
             } else {
                 return $this->set_error('ldap_connect failed');
@@ -174,6 +202,21 @@ class abook_ldap_server extends addressbook_backend {
                     return $this->set_error(ldap_error($this->linkid));
                 } else {
                     return $this->set_error('ldap_set_option failed');
+                }
+            }
+        }
+
+        if(!empty($this->limit_scope) && $this->limit_scope) {
+            if(empty($this->protocol) || intval($this->protocol) < 3) {
+                return $this->set_error('limit_scope requires protocol >= 3');
+            }
+            // See http://msdn.microsoft.com/library/en-us/ldap/ldap/ldap_server_domain_scope_oid.asp
+            $ctrl = array ( "oid" => "1.2.840.113556.1.4.1339", "iscritical" => TRUE );
+            if(!@ldap_set_option($this->linkid, LDAP_OPT_SERVER_CONTROLS, array($ctrl))) {
+                if(function_exists('ldap_error')) {
+                    return $this->set_error(ldap_error($this->linkid));
+                } else {
+                    return $this->set_error('limit domain scope failed');
                 }
             }
         }
@@ -235,7 +278,7 @@ class abook_ldap_server extends addressbook_backend {
      * Sanitizes ldap search strings.
      * See rfc2254
      * @link http://www.faqs.org/rfcs/rfc2254.html
-     * @since 1.5.1
+     * @since 1.5.1 and 1.4.5
      * @param string $string
      * @return string sanitized string
      */
@@ -270,7 +313,10 @@ class abook_ldap_server extends addressbook_backend {
         if($expr!='*') {
             $expr = '*' . $this->ldapspecialchars($expr) . '*';
         }
-        $expression = "cn=$expr";
+        $expression = "(cn=$expr)";
+
+        if ($this->filter!='')
+            $expression = '(&' . $this->filter . $expression . ')';
 
         /* Make sure connection is there */
         if(!$this->open()) {
