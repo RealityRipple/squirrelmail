@@ -276,7 +276,6 @@
 	 return $this->set_error(_("Could not lock datafile"));
 
        // Read file into memory, ignoring nicknames to delete
-       $this->open();
        @rewind($this->filehandle);
        $i = 0;
        $rows = array();
@@ -313,7 +312,7 @@
 
        // Read file into memory, modifying the data for the 
        // user identifyed by $alias
-       $this->open();
+       $this->open(true);
        @rewind($this->filehandle);
        $i = 0;
        $rows = array();
