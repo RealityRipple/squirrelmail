@@ -1,5 +1,6 @@
 Version 1.0pre2 -- DEVELOPMENT
 ------------------------------
+- Made $auto_expunge variable actually do something
 - Fixed bug that didn't display login failure message
 - Fixed minor bug in sqimap_mailbox_list
 - Added sqimap_capability function to check capabilities of server.

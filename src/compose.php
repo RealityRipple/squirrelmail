@@ -113,7 +113,6 @@
          
          $body = ereg_replace('\\\\', '\\\\', $body);
 
-         sqimap_mailbox_close($imapConnection);
          return;
       }
 

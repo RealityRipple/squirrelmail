@@ -100,7 +100,6 @@
    if ($where && $what) {   
       sqimap_mailbox_select($imapConnection, $mailbox);
       sqimap_search($imapConnection, $where, $what, $mailbox, $color);
-      sqimap_mailbox_close($imapConnection);
    }
    do_hook("search_bottom");
    sqimap_logout ($imapConnection);
