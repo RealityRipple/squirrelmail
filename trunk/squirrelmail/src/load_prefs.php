@@ -61,7 +61,9 @@
           $color[11]  = "#770000"; // (dark red)       Special Folders color
       }
    }
-    if (!isset($loaded)) echo "loading configured theme $chosen_theme failed";
+    if (!isset($loaded)) 
+      echo _("Unable to load chosen theme file:") . ' "' .
+	$chosen_theme . '"';
     if (!isset($download_php)) session_register("theme_css");
 
    $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
