@@ -114,8 +114,16 @@ function asearch_unhtmlentities($string) {
 function s_debug_dump($var_name, $var_var)
 {
 	global $imap_asearch_debug_dump;
-	if ($imap_asearch_debug_dump)
-		sm_print_r($var_name, $var_var);
+	if ($imap_asearch_debug_dump) {
+		if (function_exists('sm_print_r'))
+			sm_print_r($var_name, $var_var);	//Better be the 'varargs' version ;)
+		else {
+			echo '<pre>';
+			echo htmlentities($var_name);
+			print_r($var_var);
+			echo '</pre>';
+		}
+	}
 }
 
 /*
