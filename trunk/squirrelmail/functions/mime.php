@@ -389,6 +389,33 @@
       return "Body retrival error, please report this bug!\n\nTop line is \"$topline\"\n";
    }
 
+   function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
+      // do a bit of error correction.  If we couldn't find the entity id, just guess
+      // that it is the first one.  That is usually the case anyway.
+      if (!$ent_id) $ent_id = 1;
+
+      fputs ($imap_stream, "a001 FETCH $id BODY[$ent_id]\r\n");
+	  $cnt = 0;
+	  $continue = true;
+	  	$read = fgets ($imap_stream,4096);
+		while (!ereg("^a001 (OK|BAD|NO)(.*)$", $read, $regs)) {
+			if (trim($read) == ")==") {
+				$read1 = $read;
+	  			$read = fgets ($imap_stream,4096);
+				if (ereg("^a001 (OK|BAD|NO)(.*)$", $read, $regs)) {
+					return;
+				} else {
+					echo decodeBody($read1, $encoding);
+					echo decodeBody($read, $encoding);
+				}
+			} else if ($cnt) {
+				echo decodeBody($read, $encoding);
+			}
+	  		$read = fgets ($imap_stream,4096);
+			$cnt++;
+		}
+   }
+
    /* -[ END MIME DECODING ]----------------------------------------------------------- */
 
 
