@@ -254,6 +254,7 @@ Version 1.5.1 -- CVS
   - Added mouseover row highlighting on message index
   - Added <label> for checkboxes on message index (when highlighting is off)
   - Fixed mailto: parsing in functions/url_parser.php
+  - Fixed broken signout page (plugins work here again)
 
 Version 1.5.0
 --------------------
