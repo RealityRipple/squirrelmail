@@ -512,6 +512,24 @@ global $no_list_for_subscribe;
 $no_list_for_subscribe = false;
 
 /**
+ * Advanced authentication options
+ * CRAM-MD5, DIGEST-MD5, Plain, and TLS
+ * Set reasonable defaults - you'd never know this was there unless you ask for it
+ */
+global $use_imap_tls;
+global $use_smtp_tls;
+$use_imap_tls = false;
+$use_smtp_tls = false;
+
+/* auth_mech can be either 'plain', 'cram-md5', or 'digest-md5'
+   SMTP can also be 'none'
+*/
+global $smtp_auth_mech;
+global $imap_auth_mech;
+$smtp_auth_mech = 'none';
+$imap_auth_mech = 'plain';
+
+/**
  * Make sure there are no characters after the PHP closing
  * tag below (including newline characters and whitespace).
  * Otherwise, that character will cause the headers to be

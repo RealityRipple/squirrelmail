@@ -22,18 +22,24 @@ class Deliver_SMTP extends Deliver {
     }
     
     function initStream($message, $domain, $length=0, $host='', $port='', $user='', $pass='', $authpop=false) {
-
-        if ($authpop) {
-	   $this->authPop($host, '', $user, $pass);
+	global $use_smtp_tls,$smtp_auth_mech,$username,$key,$onetimepad;
+    
+	if ($authpop) {
+	   $this->authPop($host, '', $username, $pass);
 	}
-
-        $rfc822_header = $message->rfc822_header;      
+	
+    $rfc822_header = $message->rfc822_header;      
 	$from = $rfc822_header->from[0];  
 	$to =   $rfc822_header->to;
 	$cc =   $rfc822_header->cc;
-	$bcc =   $rfc822_header->bcc;
+	$bcc =  $rfc822_header->bcc;
 
-	$stream = fsockopen($host, $port, $errorNumber, $errorString);
+    if (($use_smtp_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
+	  $stream = fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
+	} else {
+	  $stream = fsockopen($host, $port, $errorNumber, $errorString);
+	}
+
 	if (!$stream) {
 	    $this->dlv_msg = $errorString;
 	    $this->dlv_ret_nr = $errorNumber;
@@ -45,36 +51,84 @@ class Deliver_SMTP extends Deliver {
 	}
     
 	/* Lets introduce ourselves */
-	if (! isset ($use_authenticated_smtp) 
-    	    || $use_authenticated_smtp == false) {
-    	    fputs($stream, "HELO $domain\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
-	    }
-        } else {
-    	    fputs($stream, "EHLO $domain\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
-	    }
-    	    fputs($stream, "AUTH LOGIN\r\n");
-    	    $tmp = fgets($stream, 1024);
+	if ((( $smtp_auth_mech == 'cram-md5') or ( $smtp_auth_mech == 'digest-md5' )) and (extension_loaded('mhash')))
+	{
+	  // Doing some form of non-plain auth
+	  fputs($stream, "EHLO $domain\r\n");
+	  $tmp = fgets($stream,1024);
+	  if ($this->errorCheck($tmp,$stream)) {
+	    return(0);
+	  }
+	  if ($smtp_auth_mech == 'cram-md5') {
+	    fputs($stream, "AUTH CRAM-MD5\r\n");
+	  } elseif ($smtp_auth_mech == 'digest-md5') {
+	    fputs($stream, "AUTH DIGEST-MD5\r\n");
+	  }
+	  $tmp = fgets($stream,1024);
+	   
+	  if ($this->errorCheck($tmp,$stream)) {
+	    return(0);
+	  }
+	  
+      // At this point, $tmp should hold "334 <challenge string>"
+	  $chall = substr($tmp,4);
+	  // Depending on mechanism, generate response string 
+	  if ($smtp_auth_mech == 'cram-md5') {
+	    $response = cram_md5_response($username,$pass,$chall);
+	  } elseif ($smtp_auth_mech == 'digest-md5') {
+	    $response = digest_md5_response($username,$pass,$chall,'smtp',$host);
+	  }
+	  fputs($stream, $response);
+	  
+	  // Let's see what the server had to say about that
+	  $tmp = fgets($stream,1024);
+	  if ($this->errorCheck($tmp,$stream)) {
+	    return(0);
+	  }
+       
+	  // CRAM-MD5 is done at this point.  If DIGEST-MD5, there's a bit more to go
+	  if ($smtp_auth_mech == 'digest-md5')
+	  {
+	    // $tmp contains rspauth, but I don't store that yet. (No need yet)
+		fputs($stream,"\r\n");
+		$tmp = fgets($stream,1024);
+		 
+		if ($this->errorCheck($tmp,$stream)) {
+		  return(0);
+		}
+	  }
+    // CRAM-MD5 and DIGEST-MD5 code ends here
+	} elseif ($smtp_auth_mech == 'none') {
+	  // No auth at all, just send helo and then send the mail
+	  fputs($stream, "HELO $domain\r\n");
+      $tmp = fgets($stream, 1024);
+	  if ($this->errorCheck($tmp, $stream)) {
+        return(0);
+	  }
+	} elseif ($smtp_auth_mech == 'plain') {
+	  // The plain LOGIN method
+      fputs($stream, "EHLO $domain\r\n");
+      $tmp = fgets($stream, 1024);
+	  if ($this->errorCheck($tmp, $stream)) {
+    	return(0);
+	  }
+      fputs($stream, "AUTH LOGIN\r\n");
+      $tmp = fgets($stream, 1024);
 
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
-	    }
-    	    fputs($stream, base64_encode ($user) . "\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
-	    }
+	  if ($this->errorCheck($tmp, $stream)) {
+    	return(0);
+	  }
+      fputs($stream, base64_encode ($username) . "\r\n");
+      $tmp = fgets($stream, 1024);
+	  if ($this->errorCheck($tmp, $stream)) {
+    	return(0);
+	  }
 
-    	    fputs($stream, base64_encode($pass) . "\r\n");
-    	    $tmp = fgets($stream, 1024);
-	    if ($this->errorCheck($tmp, $stream)) {
-    		return(0);
-	    }
+      fputs($stream, base64_encode($pass) . "\r\n");
+      $tmp = fgets($stream, 1024);
+	  if ($this->errorCheck($tmp, $stream)) {
+    	return(0);
+	  }
 	}
     
 	/* Ok, who is sending the message? */
@@ -139,7 +193,7 @@ class Deliver_SMTP extends Deliver {
     
     function errorCheck($line, $smtpConnection) {
 	global $color, $compose_new_win;
-    
+	
 	/* Read new lines on a multiline response */
 	$lines = $line;
 	while(ereg("^[0-9]+-", $line)) {
@@ -178,18 +232,21 @@ class Deliver_SMTP extends Deliver {
 	case 221:   $message = 'Service closing transmission channel';
     	    $status = 5;
     	    break;
-	case 421:   $message = 'Service not available, closing chanel';
+	case 421:   $message = 'Service not available, closing channel';
     	    $status = 0;
     	    break;
-	case 235:   return(5); 
-    	    break;
+	case 235:   $message = 'Authentication successful';
+			$status = 5;
+			break;
 	case 250:   $message = 'Requested mail action okay, completed';
     	    $status = 5;
     	    break;
 	case 251:   $message = 'User not local; will forward';
     	    $status = 5;
     	    break;
-	case 334:   return(5); break;
+	case 334:   $message = 'OK - continue request';
+			$status = 5;
+			break;
 	case 450:   $message = 'Requested mail action not taken:  mailbox unavailable';
     	    $status = 0;
     	    break;
@@ -234,6 +291,9 @@ class Deliver_SMTP extends Deliver {
 	    $status = 0;
 	    break;
         /* end RFC2554 */	
+	case 535: $message = 'Authentication failed';
+		$status = 0;
+        break;
 	default:    $message = 'Unknown response: '. nl2br(htmlspecialchars($lines));
     	    $status = 0;
     	    $err_num = '001';

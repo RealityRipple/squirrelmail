@@ -13,8 +13,10 @@ NUMBER     DESCRIPTION
 RFC 1730   IMAP version 4
 RFC 2060   IMAP version 4rev1
 RFC 2183   Content-Disposition MIME header
+RFC 2195   IMAP/POP AUTHorize Extension for Simple Challenge/Response
 RFC 2298   Details return receipts
 RFC 2342   The IMAP4 NAMESPACE command
 RFC 2616   HTTP/1.1
 RFC 2683   IMAP4 Implementation Recommendations
 RFC 2822   Format of an email message (sendmail)
+RFC 2831   Using Digest Authentication as a SASL Mechanism (digest-md5)
