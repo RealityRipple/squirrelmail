@@ -57,7 +57,7 @@
       session_register("onetimepad");
       // verify that username and password are correct
       if ($force_username_lowercase)
-          username = strtolower($login_username);
+          $username = strtolower($login_username);
       $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
       sqimap_logout($imapConnection);
 
