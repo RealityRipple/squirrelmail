@@ -66,14 +66,23 @@
     **  will be displayed.  This function returns the imap connection handle.
     ******************************************************************************/
    function sqimap_login ($username, $password, $imap_server_address, $imap_port, $hide) {
-      global $color;
+      global $color, $squirrelmail_language, $HTTP_ACCEPT_LANGUAGE;
+
       $imap_stream = fsockopen ($imap_server_address, $imap_port, &$error_number, &$error_string);
       $server_info = fgets ($imap_stream, 1024);
       
+      // This function can sometimes be called before the check for
+      // gettext is done.
+      if (!function_exists("_")) {
+         function _($string) {
+            return $string;
+         }
+      }
+
       /** Do some error correction **/
       if (!$imap_stream) {
          if (!$hide) {
-            echo "Error connecting to IMAP server: $imap_server_address.<br>\r\n";
+            printf (_("Error connecting to IMAP server: %s.")."<br>\r\n", $imap_server_address);
             echo "$error_number : $error_string<br>\r\n";
          }
          exit;
@@ -86,9 +95,33 @@
       if (substr($read, 0, 7) != "a001 OK") {
          if (!$hide) {
             if (substr($read, 0, 8) == "a001 BAD") {
-               echo "Bad request: $read<br>\r\n";
+               printf (_("Bad request: %s")."<br>\r\n", $read);
                exit;
             } else if (substr($read, 0, 7) == "a001 NO") {
+               // If the user does not log in with the correct
+               // username and password it is not possible to get the
+               // correct locale from the user's preferences.
+               // Therefore, apply the same hack as on the login
+               // screen.
+
+               // $squirrelmail_language is set by a cookie when
+               // the user selects language and logs out
+               
+               // Use HTTP content language negotiation if cookie
+               // not set
+               if (!isset($squirrelmail_language) && isset($HTTP_ACCEPT_LANGUAGE)) {
+                  $squirrelmail_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
+               }
+               
+               if (isset($squirrelmail_language)) {
+                  if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
+                     putenv("LC_ALL=".$squirrelmail_language);
+                     bindtextdomain("squirrelmail", "../locale/");
+                     textdomain("squirrelmail");
+                     header ("Content-Type: text/html; charset=".$languages[$squirrelmail_language]["CHARSET"]);
+                  }
+               }
+               
                ?>
                   <html>
                      <body bgcolor=ffffff>
@@ -120,7 +153,7 @@
                session_destroy();
                exit;
             } else {
-               echo "Unknown error: $read<br>";
+               printf (_("Unknown error: %s")."<br>", $read);
                exit;
             }
          } else {
