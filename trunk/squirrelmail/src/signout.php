@@ -47,11 +47,8 @@ if (!isset($_SESSION['base_uri'])) {
 } else {
     $base_uri = $_SESSION['base_uri'];
 }
-
+sqsession_destroy();
 do_hook('logout');
-setcookie('username', '', 0, $base_uri);
-setcookie('key', '', 0, $base_uri);
-session_destroy();
 
 if ($signout_page) {
     header('Status: 303 See Other');
