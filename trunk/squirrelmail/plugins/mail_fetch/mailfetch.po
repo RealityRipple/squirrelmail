@@ -1,0 +1,394 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2001-08-01 17:22+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: fetch.php:198
+msgid " deleted from Remote Server!"
+msgstr ""
+
+#: options.php:58 options.php:90
+msgid "Add Server"
+msgstr ""
+
+#: options.php:63 options.php:153
+msgid "Alias:"
+msgstr ""
+
+#: fetch.php:57
+msgid "All"
+msgstr ""
+
+#: options.php:89 options.php:186
+msgid "Check mail during folder refresh"
+msgstr ""
+
+#: options.php:88 options.php:184
+msgid "Check mail during login"
+msgstr ""
+
+#: fetch.php:209
+msgid "Closing POP"
+msgstr ""
+
+#: class.POP3.php:668
+msgid "Command failed "
+msgstr ""
+
+#: options.php:132
+msgid "Confirm Deletion of a Server"
+msgstr ""
+
+#: options.php:137
+msgid "Confirm delete of selected server?"
+msgstr ""
+
+#: options.php:122
+msgid "Delete"
+msgstr ""
+
+#: options.php:112
+msgid "Delete Server"
+msgstr ""
+
+#: fetch.php:200
+msgid "Delete failed:"
+msgstr ""
+
+#: fetch.php:167
+msgid "Deleting messages from server..."
+msgstr ""
+
+#: fetch.php:218
+msgid "Done"
+msgstr ""
+
+#: class.POP3.php:522
+msgid "Empty command string"
+msgstr ""
+
+#: options.php:51
+msgid "Encrypt passwords (informative only)"
+msgstr ""
+
+#: class.POP3.php:94 class.POP3.php:108 class.POP3.php:157 class.POP3.php:309
+#: class.POP3.php:364 class.POP3.php:375 class.POP3.php:424 class.POP3.php:458
+#: class.POP3.php:492 class.POP3.php:595 class.POP3.php:620
+msgid "Error "
+msgstr ""
+
+#: fetch.php:205 setup.php:267
+msgid "Error Appending Message!"
+msgstr ""
+
+#: setup.php:21
+msgid "Fetch"
+msgstr ""
+
+#: fetch.php:77
+msgid "Fetch Mail"
+msgstr ""
+
+#: options.php:128 options.php:142 options.php:191
+msgid "Fetching Servers"
+msgstr ""
+
+#: fetch.php:157
+msgid "Fetching UIDL..."
+msgstr ""
+
+#: fetch.php:110
+msgid "Fetching from "
+msgstr ""
+
+#: fetch.php:171
+msgid "Fetching message "
+msgstr ""
+
+#: options.php:196
+msgid "Hey! Wath do You are looking for?"
+msgstr ""
+
+#: options.php:47
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr ""
+
+#: options.php:87 options.php:182
+msgid "Leave Mail on Server"
+msgstr ""
+
+#: fetch.php:165
+msgid "Leaving Mail on Server..."
+msgstr ""
+
+#: fetch.php:211
+msgid "Logging out from IMAP"
+msgstr ""
+
+#: fetch.php:127 setup.php:205
+msgid "Login Failed:"
+msgstr ""
+
+#: fetch.php:149
+msgid "Login OK: Inbox EMPTY"
+msgstr ""
+
+#: fetch.php:154
+msgid "Login OK: Inbox contains ["
+msgstr ""
+
+#: fetch.php:144
+msgid "Login OK: No new messages"
+msgstr ""
+
+#: setup.php:280
+msgid "Mail Fetch Result:"
+msgstr ""
+
+#: fetch.php:198
+msgid "Message "
+msgstr ""
+
+#: fetch.php:194
+msgid "Message appended to mailbox"
+msgstr ""
+
+#: options.php:105
+msgid "Modify"
+msgstr ""
+
+#: options.php:96 options.php:187
+msgid "Modify Server"
+msgstr ""
+
+#: options.php:146
+msgid "Mofify a Server"
+msgstr ""
+
+#: class.POP3.php:191 class.POP3.php:251
+msgid "NOOP failed. Server not RFC 1939 compliant"
+msgstr ""
+
+#: class.POP3.php:128 class.POP3.php:207 class.POP3.php:266 class.POP3.php:293
+#: class.POP3.php:336 class.POP3.php:411 class.POP3.php:451 class.POP3.php:482
+#: class.POP3.php:516 class.POP3.php:582 class.POP3.php:657
+msgid "No connection to server"
+msgstr ""
+
+#: class.POP3.php:219
+msgid "No login ID submitted"
+msgstr ""
+
+#: class.POP3.php:662
+msgid "No msg number submitted"
+msgstr ""
+
+#: class.POP3.php:170 class.POP3.php:224
+msgid "No password submitted"
+msgstr ""
+
+#: class.POP3.php:230
+msgid "No server banner"
+msgstr ""
+
+#: class.POP3.php:85
+msgid "No server specified"
+msgstr ""
+
+#: options.php:106 options.php:123
+msgid "No-one server in use. Try to add."
+msgstr ""
+
+#: fetch.php:117 fetch.php:177
+msgid "Oops, "
+msgstr ""
+
+#: fetch.php:121
+msgid "Opening IMAP server"
+msgstr ""
+
+#: fetch.php:124
+msgid "Opening POP server"
+msgstr ""
+
+#: class.POP3.php:207 class.POP3.php:219 class.POP3.php:224 class.POP3.php:230
+#: class.POP3.php:241 class.POP3.php:251
+msgid "POP3 apop:"
+msgstr ""
+
+#: class.POP3.php:85 class.POP3.php:94 class.POP3.php:108
+msgid "POP3 connect:"
+msgstr ""
+
+#: class.POP3.php:657 class.POP3.php:662 class.POP3.php:668
+msgid "POP3 delete:"
+msgstr ""
+
+#: class.POP3.php:411 class.POP3.php:424
+msgid "POP3 get:"
+msgstr ""
+
+#: class.POP3.php:451 class.POP3.php:458
+msgid "POP3 last:"
+msgstr ""
+
+#: class.POP3.php:266
+msgid "POP3 login:"
+msgstr ""
+
+#: class.POP3.php:128
+msgid "POP3 noop:"
+msgstr ""
+
+#: class.POP3.php:170 class.POP3.php:175 class.POP3.php:181 class.POP3.php:191
+msgid "POP3 pass:"
+msgstr ""
+
+#: class.POP3.php:336 class.POP3.php:364 class.POP3.php:375 class.POP3.php:387
+msgid "POP3 pop_list:"
+msgstr ""
+
+#: class.POP3.php:543
+msgid "POP3 quit:"
+msgstr ""
+
+#: class.POP3.php:482 class.POP3.php:492
+msgid "POP3 reset:"
+msgstr ""
+
+#: class.POP3.php:516 class.POP3.php:522
+msgid "POP3 send_cmd:"
+msgstr ""
+
+#: class.POP3.php:293 class.POP3.php:309
+msgid "POP3 top:"
+msgstr ""
+
+#: class.POP3.php:582 class.POP3.php:595 class.POP3.php:620
+msgid "POP3 uidl:"
+msgstr ""
+
+#: class.POP3.php:146 class.POP3.php:151 class.POP3.php:157
+msgid "POP3 user:"
+msgstr ""
+
+#: class.POP3.php:117
+msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
+msgstr ""
+
+#: fetch.php:70
+msgid "Password for"
+msgstr ""
+
+#: options.php:65 options.php:157
+msgid "Password:"
+msgstr ""
+
+#: class.POP3.php:387
+msgid "Premature end of list"
+msgstr ""
+
+#: fetch.php:46
+msgid "Remote POP server Fetching Mail"
+msgstr ""
+
+#: options.php:43
+msgid "Remote POP server settings"
+msgstr ""
+
+#: fetch.php:214
+msgid "Saving UIDL"
+msgstr ""
+
+#: fetch.php:55
+msgid "Select Server:"
+msgstr ""
+
+#: options.php:136
+msgid "Selected Server:"
+msgstr ""
+
+#: options.php:100 options.php:116
+msgid "Server Name:"
+msgstr ""
+
+#: fetch.php:162 setup.php:236
+msgid "Server does not support UIDL."
+msgstr ""
+
+#: options.php:62 options.php:151
+msgid "Server:"
+msgstr ""
+
+#: setup.php:35
+msgid "Simple POP3 Fetch Mail"
+msgstr ""
+
+#: options.php:66 options.php:159
+msgid "Store in Folder:"
+msgstr ""
+
+#: setup.php:38
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+
+#: options.php:194
+msgid "Undefined Function"
+msgstr ""
+
+#: options.php:64 options.php:155
+msgid "Username:"
+msgstr ""
+
+#: setup.php:197 setup.php:244
+msgid "Warning, "
+msgstr ""
+
+#: options.php:45
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+
+#: fetch.php:154
+msgid "] messages"
+msgstr ""
+
+#: class.POP3.php:230 class.POP3.php:241
+msgid "abort"
+msgstr ""
+
+#: class.POP3.php:241
+msgid "apop authentication failed"
+msgstr ""
+
+#: class.POP3.php:181
+msgid "authentication failed "
+msgstr ""
+
+#: class.POP3.php:543
+msgid "connection does not exist"
+msgstr ""
+
+#: class.POP3.php:151 class.POP3.php:175
+msgid "connection not established"
+msgstr ""
+
+#: class.POP3.php:146
+msgid "no login ID submitted"
+msgstr ""
