@@ -104,6 +104,7 @@
     session_register('attachment_common_types');
     session_register('attachment_common_types_parsed');
   
+    $debug = false;
     if (isset($HTTP_SERVER_VARS['HTTP_ACCEPT']) &&
         !isset($attachment_common_types_parsed[$HTTP_SERVER_VARS['HTTP_ACCEPT']]))
         attachment_common_parse($HTTP_SERVER_VARS['HTTP_ACCEPT'], $debug);
