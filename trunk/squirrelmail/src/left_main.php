@@ -112,10 +112,16 @@
       }
 
       if (($move_to_trash == true) && ($real_box == $trash_folder)) {
-         $urlMailbox = urlencode($real_box);
-         $line .= "\n<small>\n";
-         $line .= " &nbsp; (<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
-         $line .= "\n</small>\n";
+         if (! isset($numMessages))
+            $numMessages = sqimap_get_num_messages($imapConnection, $real_box);
+
+         if ($numMessages > 0)
+	 {
+            $urlMailbox = urlencode($real_box);
+            $line .= "\n<small>\n";
+            $line .= " &nbsp; (<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
+            $line .= "\n</small>\n";
+	 }
       }
       $line .= "</NOBR>";
       return $line;
