@@ -821,6 +821,7 @@ $languages['bg']['ALIAS'] = 'bg_BG';
 $languages['bn_IN']['NAME']    = 'Bengali';
 $languages['bn_IN']['CHARSET'] = 'utf-8';
 $languages['bn_IN']['LOCALE']  = 'bn_IN.UTF-8';
+$languages['bn_BD']['ALIAS'] = 'bn_IN';
 $languages['bn']['ALIAS'] = 'bn_IN';
 
 $languages['ca_ES']['NAME']    = 'Catalan';
