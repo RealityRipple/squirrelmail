@@ -8,7 +8,7 @@ the repository.
 -------------------------
 
 a) You must have gettext installed. If it is not installed you can
-   download the soources from
+   download the sources from
    <URL:ftp://ftp.gnu.org/pub/gnu/gettext/>.
 
 b) Find the language code for the language you are going to translate
@@ -21,7 +21,7 @@ b) Find the language code for the language you are going to translate
    file that is going to be translated.
 
 c) To translate the actual strings fill in the msgstr after each
-   msgid with the appropiate translation. There are a few tools which
+   msgid with the appropriate translation. There are a few tools which
    can make this job a bit easier at
    <URL:http://i18n.kde.org/translation-howto/gui-specialized-apps.html>.
 
@@ -55,7 +55,7 @@ squirrelmail/locale/language/LC_MESSAGES/squirrelmail.po.new
    strings that are no longer in use. You might want to make a copy
    before doing this.
 
-b) Rung msgfmt again to create a new binary file.
+b) Run msgfmt again to create a new binary file.
 
 
 3. Updating the template
@@ -71,3 +71,7 @@ xgettext --keyword=_ -keyword=N_ \
   --default-domain=squirrelmail/po/squirrelmail \
   -C -j squirrelmail/functions/*.php
 
+
+
+
+$ Id $
