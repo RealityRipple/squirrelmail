@@ -47,9 +47,13 @@
       echo "<TABLE WIDTH=98% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
 
-      if ($type1 != "html")
+      if ($type1 == 'html') {
+         $body = MagicHTML( $body, $id );
+      } else {
          translateText($body, $wrap_at, $charset);
+      }
       
+      flush();
       echo $body;
 
       echo "</TT></TD></TR></TABLE>";
