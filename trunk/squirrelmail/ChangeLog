@@ -1,18 +1,24 @@
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
 **************************************
+
 Version 1.4.0 RC 2
 ------------------
   - Fix broken themes box in display options
   - Massive overhaul of administrator plugin
   - Added new function sqgetGlobalVar to global.php to provide direct access
-    to variables in $_GET, $_POST, and $_SESSION
+    to variables in $_GET, $_POST, $_SESSION, $_COOKIE and $_SERVER.
   - Patch from O'Shaughnessy Evans <shaug-sqm@wumpus.org> to allow disabled $org_logo
   - Lots of language/internationalization updates
   - conf.pl fixes for certain uses of SM_PATH, esp. $signout_page
   - SMTP & IMAP auth method "plain" was a misnomer - now corrected to 
     the more accurate name "login" (Plain to be implemented soon)
   - Fix for compose after search bug.  (Closes #662346)
+  - Improved error reporting when sending mail with SMTP.
+  - Changed SquirrelMail identification to use User-Agent in stead of X-Mailer.
+  - Prevent endless loop when timezone config is not found. Thanks Joshua Colson.
+  - Fix IMAP error when returning to message from viewing image attachment.
+
 	
 Version 1.4.0 RC 1
 ------------------
