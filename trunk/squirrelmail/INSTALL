@@ -2,102 +2,80 @@ Installing SquirrelMail
 =======================
 
 Table of Contents:
+  0.  (QUICK!)   Quick install guide
   1.  (PHP4)     Configure your webserver to work with PHP4
   2.  (IMAP)     Setting up IMAP (not covered)
   3.  (INSTALL)  Obtaining and installing SquirrelMail
   4.  (RUN)      Running SquirrelMail
   5.  (CHARSETS) Russian Charsets
+  6.  (LOCALES)  Translations of SquirrelMail
+
+
+0. QUICK INSTALL GUIDE
+----------------------
+
+Each of these steps is covered in detail below.
+
+- Install webserver and PHP4 (at least 4.1.0).
+- Install IMAP server (see docs of that server).
+- Unpack the SquirrelMail package in a web-accessible location.
+- Select a data-dir and attachment dir, outside the webtree (e.g. in /var).
+  The data-dir (for user prefs) should be owned by the user the webserver
+  runs as (eg www-data). The attachment dir (for uploading files as
+  attachments) should be file mode 0730 and in the same group as the
+  webserver.
+- Run config/conf.pl from the command line. Use the D option to load
+  predefined options for specific IMAP servers, and edit at least the
+  Server Settings and General Options (datadir).
+- Browse to http://www.example.com/yourwebmaillocation/src/configtest.php
+  to test your configuration for common errors.
+- Browse to http://www.example.com/yourwebmaillocation/ to log in.
 
 
 1. CONFIGURE YOUR WEBSERVER TO WORK WITH PHP4
 ---------------------------------------------
 
-  If your webserver does not already have PHP4 you must configure it
-  to work with PHP4. SquirrelMail uses the standard suffix .php for
-  all PHP4 files. This is a quick and dirty guide to installing PHP4
-  to run as CGI under Apache. How you end up doing this is up to you
-  (your mileage may vary).
-
-  You will need at least PHP v4.1.0. If you need to upgrade please go
-  ahead and install it now.
-
-a. Obtaining and compiling PHP4
+  If your webserver does not already have PHP you must configure it
+  to work with PHP. You need at least PHP v4.1.0. SquirrelMail uses
+  the standard suffix .php for all PHP4 files.
   
-  SquirrelMail has not been extensively tested for use with PHP 4.3.x.
-  See the ReleaseNotes file.
+  You can find PHP at http://www.php.net. See the documentation that
+  comes with PHP for instructions how to set it up.
 
-  Point your favorite web browser at http://www.php.net/downloads.php/ and
-  download the source. Untar (tar xvfz filename-you-downloaded.tgz)
-  the source, cd into the directory and run configure. To make PHP4
-  work with SquirrelMail a commandline like this should do:
+  The PHP IMAP extension is NOT neccessary at all (but won't harm)!
+  Below is a list of optional PHP extensions:
 
-   ./configure --enable-track-vars --enable-force-cgi-redirect --with-gettext
+  --with-ldap     Required for LDAP addressbooks
+  --with-mhash    Will improve charset decoding if present
+  --with-mysql    For MySQL storage of preferences or addressbooks
+  --with-openssl  When you want to use encrypted IMAP connections (TLS)
+  
+  If you're going to use LDAP in the addressbook, you must compile PHP
+  with the LDAP extension. Include the MHASH extension to improve
+  performance in character set decoding.
 
-  If you have a database like MySQL you might want to add something
-  like --with-mysql to get database functionality.
+  If you want your users to attach files to their mails, make sure
+  File Uploads in php.ini is set to On.
 
-  If you're going to use LDAP in the addressbook, you must compile PHP4
-  with --with-ldap (see the PHP4 docs for more information).
-
-  Run make to build the binary file. This will generate a binary file
-  called "php". Move this file into a CGI-directory.
-
-  You might also want to read the INSTALL file in the PHP-distribution
-  :-)
-
-b. Changing php.ini
-
-  PHP defaults to look for php.ini (PHP's configuration file) in
-  /usr/local/lib.  However, for security reasons, it is suggested
-  that the location of this file is changed to someplace else.  This
-  can be done at configure time with the configuration directive
-  --with-config-file-path=PATH.
-
-  Edit the php.ini file and make sure session.use_cookies is 1.  Also 
-  be sure to change the session.save_path to someplace that can only 
-  be read and written to by the webserver.  session.save_path is the
-  location that PHP's session data will be written to.
-
-  SECURITY WARNING - If a user has access to write PHP scripts on your 
-  system and knows the location where PHP stores session data, he 
-  could get a listing of the sessions being used and then read a given 
-  session's data with his own PHP script.  Caution should be used when 
-  setting up permissions and locations of php.ini and the session data.
-
-  FILE UPLOADS - Note that sending attachments will not work if your
-  "file_uploads" setting is "Off". Squirrelmail requires that setting
-  enabled in order to be able to attach files.
-
-c. Setting up .php files to use PHP4
-
-  You need to create a .htaccess file in you SquirrelMail directory
-  that looks something like this:
-
-    AddType application/php4script .php
-    Action application/php4script /cgi-bin/php
-
-  You could also add these lines to your Apache configuration file.
-
-d. Running into trouble
-
-  Setting up Apache with PHP4 can be a non-trivial task. Read the PHP4
-  and Apache documentation carefully if you run into trouble. If you
-  have an experienced system administrator around ask her/him to help
-  you.
 
 2. SETTING UP IMAP
 ------------------
 
-  This is not covered here :-/
+  This depends a lot on the server your choose. See the documentation
+  that comes with your server.
+  
+  If you're concerned about people accessing it directly, you can
+  limit access to only the IP of the webserver.
+
 
 3. OBTAINING AND INSTALLING SQUIRRELMAIL
 ----------------------------------------
 
   SquirrelMail is constantly being improved. Therefore you should always
-  get the newest version around. Look at http://www.squirrelmail.org/
+  get the newest version around. Look at http://www.squirrelmail.org
   to see what it is. If you want to be bleeding edge you might want to
   consider using the latest CVS version (with the latest and most
-  fashionable of bugs).
+  fashionable bugs).
 
 a. Download SquirrelMail
 
@@ -201,6 +179,7 @@ c. Setting up SquirrelMail
 
   For information on how to make SquirrelMail work with Russian
   Apache, see the README.russian_apache in the doc/ subdirectory.
+
 
 6. TRANSLATIONS
 ---------------
