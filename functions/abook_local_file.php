@@ -151,8 +151,8 @@ class abook_local_file extends addressbook_backend {
                 for($j = 0, $cnt_part=count($rows[$i]) ; $j < $cnt_part ; $j++) {
                     $rows[$i][$j] = $this->quotevalue($rows[$i][$j]);
                 }
-                $tmpwrite = @fwrite($newfh, join('|', $rows[$i]) . "\n");
-                if ($tmpwrite == -1) {
+                $tmpwrite = sq_fwrite($newfh, join('|', $rows[$i]) . "\n");
+                if ($tmpwrite === FALSE) {
                     return $this->set_error($this->filename . '.tmp:' . _("Write failed"));
                 }
             }
@@ -286,17 +286,19 @@ class abook_local_file extends addressbook_backend {
         }
   
         /* Write */
-        $r = fwrite($this->filehandle, $data);
+        $r = sq_fwrite($this->filehandle, $data);
   
         /* Unlock file */
         $this->unlock();
   
-        /* Test write result and exit if OK */
-        if($r > 0) return true;
+        /* Test write result */
+        if($r === FALSE) {
+        	/* Fail */
+        	$this->set_error(_("Write to addressbook failed"));
+		return FALSE;
+	}
   
-        /* Fail */
-        $this->set_error(_("Write to addressbook failed"));
-        return false;
+        return TRUE;
     }
 
     /* Delete address */

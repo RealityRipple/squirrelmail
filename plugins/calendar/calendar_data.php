@@ -57,7 +57,7 @@ function readcalendardata() {
 
 //makes events persistant
 function writecalendardata() {
-    global $calendardata, $username, $data_dir, $year;
+    global $calendardata, $username, $data_dir, $year, $color;
 
     $filetmp = getHashedFile($username, $data_dir, "$username.$year.cal.tmp");
     $filename = getHashedFile($username, $data_dir, "$username.$year.cal");
@@ -67,7 +67,9 @@ function writecalendardata() {
             while ( $calbar = each ($calfoo['value'])) {
                 $calfoobar = $calendardata[$calfoo['key']][$calbar['key']];
                 $calstr = "$calfoo[key]|$calbar[key]|$calfoobar[length]|$calfoobar[priority]|$calfoobar[title]|$calfoobar[message]|$calfoobar[reminder]\n";
-                fwrite($fp, $calstr, 4096);
+                if(sq_fwrite($fp, $calstr, 4096) === FALSE) {
+			error_box(_("Could not write calendar file %s", "$username.$year.cal.tmp"), $color);
+		}
             }
 
         }
