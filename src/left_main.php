@@ -95,7 +95,7 @@
          if (isset($box_array['parent']))
   	    $line .= FoldLink($box_array['unformatted'], $box_array['parent']);
          else
-            $line .= '&nbsp;&nbsp;';
+            $line .= '<tt>&nbsp;</tt>&nbsp;';
       }
 	  
       $line .= "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\">";
@@ -180,14 +180,14 @@
 
          if (in_array('noselect', $boxes[$i]['flags'])) {
             $line .= "<FONT COLOR=\"$color[10]\">";
-	    if (ereg("^([\\s]*)([^\\s]*)$", $mailbox, $regs))
+	    if (ereg("^( *)([^ ]*)$", $mailbox, $regs))
 	    {
 		$line .= str_replace(' ', '&nbsp;', $regs[1]);
-		if ($boxes[$i]['parent'])
+		if (isset($boxes[$i]['parent']))
 		    $line .= FoldLink($boxes[$i]['unformatted'], 
 		        $boxes[$i]['parent']);
 		else
-		    $line .= '&nbsp;&nbsp;';
+		    $line .= '<tt>&nbsp;</tt>&nbsp;';
 		$line .= str_replace(' ', '&nbsp;', $regs[2]);
 	    }
             $line .= '</FONT>';
