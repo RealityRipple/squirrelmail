@@ -594,43 +594,45 @@
    }
 
    function get_selectall_link($start_msg, $sort) {
-       global $checkall, $PHP_SELF, $what, $where, $mailbox;
+       global $checkall, $PHP_SELF, $what, $where, $mailbox, $javascript_on;
 
-       $result =
-            '&nbsp;<script language="JavaScript">' .
-            "\n<!-- \n" .
-            "function CheckAll() {\n" .
-            "   for (var i = 0; i < document.messageList.elements.length; i++) {\n" .
-            "       if( document.messageList.elements[i].type == 'checkbox' ) {\n" .
-            "           document.messageList.elements[i].checked = !(document.messageList.elements[i].checked);\n".
-            "       }\n" .
-            "   }\n" .
-            "}\n" .
-            'window.document.write(\'<a href=# onClick="CheckAll();">' . _("Toggle All") . "</a>');\n" .
-            "//-->\n" .
-            "</script>\n<noscript>\n";
-
-       $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
-          .  "&startMessage=$start_msg&sort=$sort&checkall=";
-       if (isset($checkall) && $checkall == '1') {
-           $result .= '0';
+       if ($javascript_on) {
+           $result =
+               '&nbsp;<script language="JavaScript">' .
+                "\n<!-- \n" .
+                "function CheckAll() {\n" .
+                "   for (var i = 0; i < document.messageList.elements.length; i++) {\n" .
+                "       if( document.messageList.elements[i].type == 'checkbox' ) {\n" .
+                "           document.messageList.elements[i].checked = !(document.messageList.elements[i].checked);\n".
+                "       }\n" .
+                "   }\n" .
+                "}\n" .
+                "//-->\n" .
+                '</script><a href=# onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
        } else {
-           $result .= '1';
+           $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
+                    . "&startMessage=$start_msg&sort=$sort&checkall=";
+           if (isset($checkall) && $checkall == '1') {
+               $result .= '0';
+           } else {
+               $result .= '1';
+           }
+
+           if (isset($where) && isset($what)) {
+               $result .= '&where=' . urlencode($where)
+                       . '&what=' . urlencode($what);
+           }
+
+           $result .= "\">";
+
+           if (isset($checkall) && ($checkall == '1')) {
+               $result .= _("Unselect All");
+           } else {
+               $result .= _("Select All");
+           }
+
+           $result .= "</A>\n";
        }
-
-       if (isset($where) && isset($what)) {
-           $result .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
-       }
-
-       $result .= "\">";
-
-       if (isset($checkall) && ($checkall == '1')) {
-           $result .= _("Unselect All");
-       } else {
-           $result .= _("Select All");
-       }
-
-       $result .= "</A>\n</noscript>\n";
 
        /* Return our final result. */
        return ($result);
