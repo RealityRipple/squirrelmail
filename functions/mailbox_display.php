@@ -598,7 +598,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                 $msgs = getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
-                         _("Thread sorting is not supported by your IMAP server.") . "<br />" .
+                         _("Thread sorting is not supported by your IMAP server.") . '<br />' .
 			 _("Please report this to the system administrator.").
                          '</center></small></b>';
                     $thread_sort_messages = 0;
@@ -613,7 +613,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                               $num_msgs, $sort, $mbxresponse);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
-                         _( "Server-side sorting is not supported by your IMAP server.") . "<br />" .
+                         _( "Server-side sorting is not supported by your IMAP server.") . '<br />' .
 			 _("Please report this to the system administrator.").
                          '</center></small></b>';
                     $sort = $server_sort_order;
@@ -926,12 +926,7 @@ function mail_message_listing_beginning ($imapConnection,
           <td>
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
               <tr>
-                <td align="left"><small>
-		    <?php
-			echo $paginator; 
-			echo $thread_link_str; 
-		    ?>
-		</small></td>
+                <td align="left"><small><?php echo $paginator . $thread_link_str; ?></small></td>
                 <td align="center"></td>
                 <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
               </tr>
@@ -1132,7 +1127,7 @@ function ShowSortButton($sort, $mailbox, $Down, $Up ) {
          . '&amp;startMessage=1&amp;mailbox=' . urlencode($mailbox)
          . '"><img src="../images/' . $img
          . '" border="0" width="12" height="10" alt="sort" title="'
-         . _("Click here to change the sorting of the message list") .'"></a>';
+         . _("Click here to change the sorting of the message list") .' /"></a>';
 }
 
 /**
@@ -1360,7 +1355,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
          * I am leaving this debug code here, commented out, because
          * it is a really nice way to see what the above code is doing.
          * echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "
-         *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br>';
+         *    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br />';
          */
 
         /* Print out the page links from the compute page quarters. */

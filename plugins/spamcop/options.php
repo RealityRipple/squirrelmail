@@ -178,46 +178,46 @@ spamcop_load();
 	</tr>
       </table>
 <?php
-echo "<p>";
+echo '<p><b>' . _("About SpamCop") . '</b><br />';
 echo _("SpamCop is a free service that greatly assists in finding the true source of the spam and helps in letting the proper people know about the abuse.");
 echo "</p>\n";
 
-echo "<p>";
-echo _("To use it, you must get a SpamCop authorization code. There is a free <a href=\"http://spamcop.net/anonsignup.shtml\">sign up page</a> so you can use SpamCop.");
+echo '<p>';
+printf(_("To use it, you must get a SpamCop authorization code. There is a free %ssign up page%s so you can use SpamCop."), '<a href="http://spamcop.net/anonsignup.shtml">', '</a>');
 echo "</p>\n";
 
-echo "<p>";
-echo _("<b>Before you sign up, be warned:</b> Some users have reported that the email addresses used with SpamCop find their way onto spam lists. To be safe, you can just create an email forwarding account and have all SpamCop reports get sent to there. Also, if it gets flooded with spam, you can then just delete that account with no worries about losing your real email address. Just go create an email forwarder somewhere (<a href=\"http://www.yahoo.com/\">Yahoo!</a> has a <a href=\"http://dir.yahoo.com/Business_and_Economy/Business_to_Business/Communications_and_Networking/Internet_and_World_Wide_Web/Email_Providers/Forwarding_Services/Free_Forwarding/\">list of places</a>) so that messages from system administrators and whatnot can be sent to you.");
+echo '<p><b>' . _("Before you sign up, be warned") . '</b><br />';
+printf(_("Some users have reported that the email addresses used with SpamCop find their way onto spam lists. To be safe, you can just create an email forwarding account and have all SpamCop reports get sent to there. Also, if it gets flooded with spam, you can then just delete that account with no worries about losing your real email address. Just go create an email forwarder somewhere (%s has a %slist of places%s) so that messages from system administrators and what not can be sent to you."), '<a href="http://www.yahoo.com/">Yahoo!</a>', '<a href="http://dir.yahoo.com/Business_and_Economy/Business_to_Business/Communications_and_Networking/Internet_and_World_Wide_Web/Email_Providers/Forwarding_Services/Free_Forwarding/">', '</a>');
 echo "</p>\n";
 
-echo "<p>";
-echo _("Once you have signed up with SpamCop and have received your SpamCop authorization code, you need to enable this plugin -- just click the link above. Once enabled, you go about your normal life. If you encounter a spam message in your mailbox, just view it. On the right-hand side, near the top of where the message is displayed, you will see a link to report this message as spam. Clicking on it brings you to a confirmation page. Confirming that you want the spam report sent will do different things with different reporting methods.");
+echo '<p>';
+echo _("Once you have signed up with SpamCop and have received your SpamCop authorization code, you need to enable this plugin by clicking the link above. Once enabled, you go about your normal life. If you encounter a spam message in your mailbox, just view it. On the right-hand side, near the top of where the message is displayed, you will see a link to report this message as spam. Clicking on it brings you to a confirmation page. Confirming that you want the spam report sent will do different things with different reporting methods.");
 echo "</p>\n";
 
-echo "<p><b>" . _("Email-based Reporting") . "</b><br />";
+echo '<p><b>' . _("Email-based reporting") . '</b><br />';
 echo _("Pressing the button forwards the message to the SpamCop service and will optionally delete the message. From there, you just need to go to your INBOX and quite soon a message should appear from SpamCop. (It gets sent to the account you registered with, so make sure that your mail forwarder works!) Open it up, click on the appropriate link at the top, and a new browser window will open.");
-echo "</p>";
+echo "</p>\n";
 
 if ($spamcop_quick_report) {
-echo "<p>";
-echo _("Currently, the quick reporting just forwards the request to the thorough reporting. Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
-echo "</p>\n";
+    echo '<p>';
+    echo _("Currently, the quick reporting just forwards the request to the thorough reporting. Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
+    echo "</p>\n";
 }
 
-echo "<p><b>" . _("Web-based Reporting") . "</b><br />";
+echo '<p><b>' . _("Web-based reporting") . '</b><br />';
 echo _("When you press the button on the confirmation page, this will pop open a new browser window and the SpamCop service should appear inside. The message will not be deleted (working on that part), but you won't need to wait for a response email to start the spam reporting.");
 echo "</p>\n";
 
-echo "<p>";
+echo '<p>';
 echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button. It might pause a little while it is looking up information, so be a little patient. Read what it says, and submit the spam. Close the browser window. Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
 echo "</p>\n";
 
-echo "<p><b>". _("Spamcop Service Type") . "</b><br />\n";
+echo '<p><b>' . _("Spamcop service type") . '</b><br />';
 echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms and does not display nags. You can purchase these services, if you want to support SpamCop.");
 echo "</p>\n";
 
-echo "<p>";
-echo _("<b>For more information</b> about SpamCop, it's services, spam in general, and many related topics, try reading through SpamCop's <a href=\"http://spamcop.net/help.shtml\">Help and Feedback</a> section.");
+echo '<p><b>' . _("More information") . '</b><br />';
+printf(_("For more information about SpamCop, it's services, spam in general, and many related topics, try reading through SpamCop's %sHelp and Feedback%s section."), '<a href="http://spamcop.net/help.shtml">', '</a>');
 echo "</p>\n";
 ?>
 </body></html>

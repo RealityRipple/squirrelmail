@@ -73,14 +73,14 @@ if (sizeof($use_langs)){
   }
   $dsp_string = substr( $dsp_string, 0, -2 );
   $msg = '<p>'
-    . sprintf(_("Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as default dictionary."), $dsp_string, _($lang_default))
+    . sprintf(_("Settings adjusted to: %s with %s as default dictionary."), '<strong>'.$dsp_string.'</strong>', '<strong>'._($lang_default).'</strong>')
     . '</p>';
 } else {
   /**
    * No dictionaries selected. Use system default.
    */
   $msg = '<p>'
-    . sprintf(_("Using <strong>%s</strong> dictionary (system default) for spellcheck." ), $SQSPELL_APP_DEFAULT)
+    . sprintf(_("Using %s dictionary (system default) for spellcheck." ), '<strong>'.$SQSPELL_APP_DEFAULT.'</strong>')
     . '</p>';
   $lang_string = $SQSPELL_APP_DEFAULT;
 }
