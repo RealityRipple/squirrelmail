@@ -115,7 +115,7 @@
             <td><select name="new_reply_citation_style">
                 <option value="none"<?PHP
                     if ($reply_citation_style == 'none') echo ' SELECTED';
-                    ?>>- <?PHP echo _("Not Used"); ?> -</option>
+                    ?>>- <?PHP echo _("No Citation"); ?> -</option>
                 <option value="author_said"<?PHP
                     if ($reply_citation_style == 'author_said') echo ' SELECTED';
                     ?>><?PHP echo _("AUTHOR Said"); ?></option>
