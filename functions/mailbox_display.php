@@ -488,7 +488,8 @@
          } while ($i && $i < $endVar);
       }
 
-      echo "<TR BGCOLOR=\"$color[5]\"><TD colspan=5><table width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table></td></tr></table>";
+      echo '</table>;
+      echo "<table width=100%><tr ><td>$lMore$mMore$rMore</td><td align=right>$Message</td></tr></table>";
       /** End of message-list table */
 
       do_hook('mailbox_index_after');
