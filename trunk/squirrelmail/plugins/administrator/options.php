@@ -191,7 +191,17 @@ foreach ( $newcfg as $k => $v ) {
         $type = SMOPT_TYPE_STRING;
     }
 
+    if ( substr( $k, 0, 7 ) == '$theme[' ) {
+        $type = SMOPT_TYPE_THEME;
+    } else if ( substr( $k, 0, 9 ) == '$plugins[' ) {
+        $type = SMOPT_TYPE_PLUGINS;
+    }
+
     switch ( $type ) {
+    case SMOPT_TYPE_PLUGINS:
+    case SMOPT_TYPE_THEME:
+    case SMOPT_TYPE_HIDDEN:
+        break;
     case SMOPT_TYPE_TITLE:
         echo "<tr bgcolor=\"$color[0]\"><th colspan=2>$name</th></tr>";
         break;
@@ -242,6 +252,14 @@ foreach ( $newcfg as $k => $v ) {
         echo '</select>';
         break;
 
+    case SMOPT_TYPE_TEXTAREA:
+        if ( isset( $HTTP_POST_VARS[$e] ) ) {
+            $v = '"' . $HTTP_POST_VARS[$e] . '"';
+            $newcfg[$k] = str_replace( "\n", '', $v );
+        }
+        echo "<tr><td valign=top>$name</td><td>".
+             "<textarea cols=\"$size\" name=\"adm_$n\">" . substr( $v, 1, strlen( $v ) - 2 ) . "</textarea>";
+        break;
     case SMOPT_TYPE_STRING:
         if ( isset( $HTTP_POST_VARS[$e] ) ) {
             $v = '"' . $HTTP_POST_VARS[$e] . '"';
@@ -272,6 +290,9 @@ foreach ( $newcfg as $k => $v ) {
         echo "<tr><td>$name</td><td>" .
              "<b><i>$v</i></b>";
     }
+    if ( isset( $defcfg[$k]['comment'] ) ) {
+        echo ' &nbsp; ' . $defcfg[$k]['comment'];
+    }
     echo "</td></tr>\n";
 }
 echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
@@ -289,6 +310,7 @@ fwrite( $fp, "<?PHP\n".
             " * Created using the Administrator Plugin\n".
             " */\n\n" );
 
+/*
 fwrite( $fp, 'GLOBAL ' );
 $not_first = FALSE;
 foreach ( $newcfg as $k => $v ) {
@@ -303,13 +325,14 @@ foreach ( $newcfg as $k => $v ) {
         } else {
             if( $not_first ) {
                 fwrite( $fp, ', ' );
-            }        
+            }
             fwrite( $fp, $k );
         }
         $not_first = TRUE;
     }
 }
 fwrite( $fp, ";\n" );
+*/
 foreach ( $newcfg as $k => $v ) {
     if ( $k{0} == '$' ) {
         if ( substr( $k, 1, 11 ) == 'ldap_server' ) {
