@@ -102,7 +102,7 @@
              $bodyTop .= "\n";
              $body = $bodyTop . $body;
          } else if ($reply_id) {
-             $orig_from = $orig_header->from;
+             $orig_from = decodeHeader($orig_header->from);
              $orig_from = trim(substr($orig_from,0,strpos($orig_from,'<')));
              $orig_from = str_replace('"','',$orig_from);
              $orig_from = str_replace("'",'',$orig_from);
