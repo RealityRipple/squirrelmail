@@ -31,23 +31,23 @@
       a button used to delete selected messages.  Just select the junk mail and 
       press the button.
       </p><p>
-	  A bar three fields (From, Date, and Subject) is next.  These Headings
+	  A bar containing three fields (From, Date, and Subject) is next.  These Headings
 	  separate the message table into logical parts.  From tells you who sent
-	  you the message.  Or at least what email address it came from.  Date
+	  you the message, or at least what email address it came from.  Date
 	  shows the day which the email was sent.  Subject displays what the sender
 	  entered as the subject.  <b>Note:</b> Between the Date and Subject
 	  columns is a small column that is unlabeled.  There could be a "+", "!"
 	  or an "A" in there.  If you see the "+", that means that the message has
-	  attachments, if you see the "A", that means that you have answered the
+	  attachments; if you see the "A", that means that you have answered the
 	  message, and if you see the "!", then the message was marked as urgent!  
       </p><p>
       What remains is the actual message table.  You will notice that unread 
       messages are <B>bold</B> while viewed messages are in normal text.
       Four fields form this table.  On the far left is a select box.  When 
-      selected the message on the same line is subject to the actions previously 
+      selected, the message on the same line is subject to the actions previously 
       discussed, (moving and deletion).  Under the From header is listed whom 
       the message is from.  Surprising, we know. But hey, you don't have to read 
-      this.  Next is listed the date, and finally the subject.
+      this.  The date is listed next, and finally the subject.
       </p>
    </description>
 </section>

@@ -25,9 +25,9 @@
       First among these is the <B>To:</B> field.  In this field you should 
       enter the email address of the person or persons you are sending a 
       message to.  You may enter as many addresses as you like, separating 
-      them with a coma.  One may also press the "Addresses" button to fill 
+      them with a comma.  One may also press the "Addresses" button to fill 
       in the field.  Don't worry if the entire address is not displayed.
-      The field is a fixed length but everything you put in it will be used,
+      The field is a fixed length, but everything you put in it will be used,
       even though it might scroll to the right or left.
       </p>
    </description>
