@@ -7,6 +7,7 @@ Version 1.2.3 -- ??
   - Fixed 'sticky priority' so that replies are set to the same
     priority as the original message.
   - Fixed Printer Friendly to print HTML messages.
+  - Fixed multiple receivers in Sent mailbox (#500910).
   - Disabled prefs caching under PHP 4.1
   - Added "Search Memory". Enabling to store up to
     9 predefined searchs.
