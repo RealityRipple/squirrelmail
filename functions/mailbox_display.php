@@ -14,7 +14,6 @@
 
 require_once('../functions/strings.php');
 require_once('../functions/imap_utf7_decode_local.php');
-require_once('../functions/html.php');
 
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
@@ -33,7 +32,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
     $server_sort_order, /* sort value when using server-sorting */
     $row_count,
 	$allow_server_sort; /* enable/disable server-side sorting */
-  $color_string = $color[4];
+    $color_string = $color[4];
   
   if ($GLOBALS['alt_index_colors']) {
     if (!isset($row_count)) {
@@ -497,126 +496,140 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 function displayMessageArray($imapConnection, $num_msgs, $start_msg, 
 			     &$msgs, $msort, $mailbox, $sort, $color, 
 			     $show_num) {
-  global $folder_prefix, $sent_folder, 
-    $imapServerAddress, $data_dir, $username, $use_mailbox_cache, 
-    $index_order, $real_endMessage, $real_startMessage, $checkall, 
-    $indent_array, $thread_sort_messages, $allow_server_sort, $server_sort_order;
-
-  /* If cache isn't already set, do it now. */
-  if (!session_is_registered('msgs')) {
-    session_register('msgs');
-  }
-  if (!session_is_registered('msort')) {
-    session_register('msort');
-  }
-  
-  if ($start_msg + ($show_num - 1) < $num_msgs){
-    $end_msg = $start_msg + ($show_num - 1);
-  } else {
-    $end_msg = $num_msgs;
-  }
-
-  if ($end_msg < $start_msg) {
-    $start_msg = $start_msg - $show_num;
-    if ($start_msg < 1) {
-      $start_msg = 1;
+			        
+    global $folder_prefix, $sent_folder, 
+           $imapServerAddress, $data_dir, $username, $use_mailbox_cache, 
+           $index_order, $real_endMessage, $real_startMessage, $checkall, 
+           $indent_array, $thread_sort_messages, $allow_server_sort, 
+           $server_sort_order, $html;
+    
+    /* If cache isn't already set, do it now. */
+    if (!session_is_registered('msgs')) {
+        session_register('msgs');
     }
-  }
-
-  $urlMailbox = urlencode($mailbox);
-
-  do_hook('mailbox_index_before');
-
-  $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
-  $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, 
-				     $num_msgs, $show_num, $sort);
-
-  if (!isset($msg)) {
-    $msg = '';
-  }
-
-  /* get indent level for subject display */
-  if ($thread_sort_messages == 1 ) {
-    $indent_array = get_parent_level($imapConnection);
-  }
-  $fstring = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
-    . "&amp;startMessage=$start_msg";
-  mail_message_listing_beginning($imapConnection, $fstring,
-				 $mailbox, $sort, $msg_cnt_str, 
-				 $paginator_str, $start_msg);
-
-  $groupNum = $start_msg % ($show_num - 1);
-  $real_startMessage = $start_msg;
-  if ($sort == 6) {
-    if ($end_msg - $start_msg < $show_num - 1) {
-      $end_msg = $end_msg - $start_msg + 1;
-      $start_msg = 1;
-    } else if ($start_msg > $show_num) {
-      $end_msg = $show_num;
-      $start_msg = 1;
+    if (!session_is_registered('msort')) {
+        session_register('msort');
     }
-  }
-  $endVar = $end_msg + 1;
-  
-  /*
-   * Loop through and display the info for each message. 
-   * ($t is used for the checkbox number)
-   */
-  $t = 0;
-  if ($num_msgs == 0) {
-    /* if there's no messages in this folder */
-    echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" 
-      . count($index_order) . ">\n"
-      . "  <CENTER><BR><B>". _("THIS FOLDER IS EMPTY") 
-      . "</B><BR>&nbsp;</CENTER>\n"
-      . "</TD></TR>";
-  } elseif ($start_msg == $end_msg) {
-    /* if there's only one message in the box, handle it differently. */
-    if ($sort != 6){
-      $i = $start_msg;
+    
+    if ($start_msg + ($show_num - 1) < $num_msgs){
+        $end_msg = $start_msg + ($show_num - 1);
     } else {
-      $i = 1;
+        $end_msg = $num_msgs;
     }
-    reset($msort);
-    $k = 0;
-    do {
-      $key = key($msort);
-      next($msort);
-      $k++;
-    } while (isset ($key) && ($k < $i));
-    printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, 
-		     $real_startMessage, 0, 0);
-  } else {
-    $i = $start_msg;
-    reset($msort);
-    $k = 0;
-    do {
-      $key = key($msort);
-      next($msort);
-      $k++;
-    } while (isset ($key) && ($k < $i));
-    do {
-      printMessageInfo($imapConnection, $t, $i, $key, $mailbox, 
-		       $sort, $real_startMessage, 0, 0);
-      $key = key($msort);
-      $t++;
-      $i++;
-      next($msort);
-    } while ($i && $i < $endVar);
-  }
-  
-  echo '</table>'
-    . html_tag( 'table', '', 
-                "bgcolor=\"$color[9]\" width=\"100%\" border=0 cellpadding=1 cellspacing=1" ) 
-    . "<tr BGCOLOR=\"$color[4]\"><td>"
-    . "<table width=\"100%\" BGCOLOR=\"$color[4]\" border=0 cellpadding=1 "
-    . "cellspacing=0><tr><td>$paginator_str</td>"
-    . html_tag( 'td', 'right' ) . "$msg_cnt_str</td></tr></table>"
-    . "</td></tr></table>";
-  /* End of message-list table */
-  
-  do_hook('mailbox_index_after');
-  echo "</TABLE></FORM>\n";
+    
+    if ($end_msg < $start_msg) {
+        $start_msg = $start_msg - $show_num;
+        if ($start_msg < 1) {
+            $start_msg = 1;
+        }
+    }
+    
+    $urlMailbox = urlencode($mailbox);
+    
+    do_hook('mailbox_index_before');
+    
+    $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
+    $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, 
+    			     $num_msgs, $show_num, $sort);
+    
+    if (!isset($msg)) {
+        $msg = '';
+    }
+    
+    /* get indent level for subject display */
+    if ($thread_sort_messages == 1 ) {
+        $indent_array = get_parent_level($imapConnection);
+    }
+    $fstring = "move_messages.php?msg=$msg&amp;mailbox=$urlMailbox"
+             . "&amp;startMessage=$start_msg";
+    mail_message_listing_beginning($imapConnection, $fstring,
+    			 $mailbox, $sort, $msg_cnt_str, 
+    			 $paginator_str, $start_msg);
+    
+    $groupNum = $start_msg % ($show_num - 1);
+    $real_startMessage = $start_msg;
+    if ($sort == 6) {
+        if ($end_msg - $start_msg < $show_num - 1) {
+          $end_msg = $end_msg - $start_msg + 1;
+          $start_msg = 1;
+        } else if ($start_msg > $show_num) {
+          $end_msg = $show_num;
+          $start_msg = 1;
+        }
+    }
+    $endVar = $end_msg + 1;
+    
+    /*
+    * Loop through and display the info for each message. 
+    * ($t is used for the checkbox number)
+    */
+    $t = 0;
+    if ($num_msgs == 0) {
+        /* if there's no messages in this folder */
+        echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=" 
+           . count($index_order) . ">\n"
+           . "  <CENTER><BR><B>". _("THIS FOLDER IS EMPTY") 
+           . "</B><BR>&nbsp;</CENTER>\n"
+           . "</TD></TR>";
+    } elseif ($start_msg == $end_msg) {
+        /* if there's only one message in the box, handle it differently. */
+        if ($sort != 6){
+            $i = $start_msg;
+        } else {
+            $i = 1;
+        }
+        reset($msort);
+        $k = 0;
+        do {
+            $key = key($msort);
+            next($msort);
+            $k++;
+        } while (isset ($key) && ($k < $i));
+        printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, 
+                	     $real_startMessage, 0, 0);
+    } else {
+        $i = $start_msg;
+        reset($msort);
+        $k = 0;
+        do {
+            $key = key($msort);
+            next($msort);
+            $k++;
+        } while (isset ($key) && ($k < $i));
+        do {
+            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, 
+                   $sort, $real_startMessage, 0, 0);
+            $key = key($msort);
+            $t++;
+            $i++;
+            next($msort);
+        } while ($i && $i < $endVar);
+    }
+    
+    echo '</table>' .
+         $html->tag( 'table',
+            $html->tag( 'tr',
+                $html->tag( 'td',
+                    $html->tag( 'table',
+                        $html->tag( 'tr', 
+                            $html->tag( 'td', $paginator_str ) .
+                            $html->tag( 'td', $msg_cnt_str, array( 'align' => 'right' ) ) 
+                        )
+                    , array( 'bgcolor'=> $color[4],
+                             'width' => '100%',
+                             'cellpadding' => 1,
+                             'cellspacing' => 1 ) )
+                )
+            , array( 'bgcolor' => $color[4] ) )
+         , array( 'bgcolor' => $color[9],
+                  'width' => '100%',
+                  'cellpadding' => 1,
+                  'cellspacing' => 1 ) );
+         
+    /* End of message-list table */
+    
+    do_hook('mailbox_index_after');
+    echo "</TABLE></FORM>\n";
 }
 
 /*
