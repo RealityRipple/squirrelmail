@@ -1945,6 +1945,7 @@ sub set_defaults {
 
       print "\n";
       if ($server eq "cyrus") { 
+         $imap_server_type = "cyrus";
          $default_folder_prefix = "";
          $trash_folder = "INBOX.Trash";
          $sent_folder = "INBOX.Sent";
@@ -1952,11 +1953,12 @@ sub set_defaults {
          $show_prefix_option = false;
          $default_sub_of_inbox = true;
          $show_contain_subfolders_option = false;
-         $imap_server_type = "cyrus";
+         $optional_delimiter = ".";
          $disp_default_folder_prefix = "<none>";
 
          $continue = 1;
       } elsif ($server eq "uw") {
+         $imap_server_type = "uw";
          $default_folder_prefix = "mail/";
          $trash_folder = "Trash";
          $sent_folder = "Sent";
@@ -1964,11 +1966,12 @@ sub set_defaults {
          $show_prefix_option = true;
          $default_sub_of_inbox = false;
          $show_contain_subfolders_option = true;
-         $imap_server_type = "uw";
+         $optional_delimiter = "/";
          $disp_default_folder_prefix = $default_folder_prefix;
 
          $continue = 1;
       } elsif ($server eq "exchange") {
+         $imap_server_type = "exchange";
          $default_folder_prefix = "";
          $default_sub_of_inbox = true;
          $trash_folder = "INBOX/Deleted Items";
@@ -1976,11 +1979,12 @@ sub set_defaults {
          $drafts_folder = "INBOX/Drafts";
          $show_prefix_option = false;
          $show_contain_subfolders_option = false;
-         $imap_server_type = "exchange";
+         $optional_delimiter = "detect";
          $disp_default_folder_prefix = "<none>";
          
          $continue = 1;
       } elsif ($server eq "courier") {
+         $imap_server_type = "courier";
          $default_folder_prefix = "INBOX.";
          $trash_folder = "Trash";
          $sent_folder = "Sent";
@@ -1988,7 +1992,7 @@ sub set_defaults {
          $show_prefix_option = false;
          $default_sub_of_inbox = false;
          $show_contain_subfolders_option = false;
-         $imap_server_type = "courier";
+         $optional_delimiter = ".";
          $disp_default_folder_prefix = $default_folder_prefix;
 
          $continue = 1;
@@ -2000,6 +2004,7 @@ sub set_defaults {
          print "\n";
       }
 
+      print "              imap_server_type = $imap_server_type\n";
       print "         default_folder_prefix = $disp_default_folder_prefix\n";
       print "                  trash_folder = $trash_folder\n";
       print "                   sent_folder = $sent_folder\n";
@@ -2007,7 +2012,7 @@ sub set_defaults {
       print "            show_prefix_option = $show_prefix_option\n";
       print "          default_sub_of_inbox = $default_sub_of_inbox\n";
       print "show_contain_subfolders_option = $show_contain_subfolders_option\n";
-      print "              imap_server_type = $imap_server_type\n";
+      print "            optional_delimiter = $optional_delimiter\n";
    }   
    print "\nPress any key to continue...";
    $tmp = <STDIN>;
