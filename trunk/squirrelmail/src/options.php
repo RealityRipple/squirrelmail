@@ -235,7 +235,8 @@ if ($optpage == SMOPT_PAGE_MAIN) {
         echo '<B>' . _("Successfully Saved Options") . ": $optpage_name</B><BR>\n";
 
         /* If $max_refresh != SMOPT_REFRESH_NONE, provide a refresh link. */
-        if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
+        if ( !isset( $max_refresh ) ) {
+        } else if ($max_refresh == SMOPT_REFRESH_FOLDERLIST) {
             echo '<A HREF="../src/left_main.php" TARGET="left">' . _("Refresh Folder List") . '</A><BR>';
         } else if ($max_refresh) {
             echo '<A HREF="../src/webmail.php?right_frame=options.php" TARGET="' . $frame_top . '">' . _("Refresh Page") . '</A><BR>';

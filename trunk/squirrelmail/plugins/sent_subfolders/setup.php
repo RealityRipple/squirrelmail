@@ -68,8 +68,8 @@ function sent_subfolders_check_handleAsSent() {
 }
 
 function sent_subfolders_load_prefs() {
-    global $use_sent_subfolders;
-    global $sent_subfolders_setting, $sent_subfolders_base;
+    global $use_sent_subfolders, $data_dir, $username,
+           $sent_subfolders_setting, $sent_subfolders_base;
 
     $use_sent_subfolders = getPref
     ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);

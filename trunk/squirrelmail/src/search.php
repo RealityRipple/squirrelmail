@@ -169,40 +169,41 @@ displayPageHeader($color, $mailbox);
 //	if the page is called from a search link or button  update recent values
 //	in pref files here
 
-if ($submit == "Search" && !empty($what)) {
+if ( !isset( $submit ) ) {
+    $submit = '';
+} else if ($submit == 'Search' && !empty($what)) {
     update_recent($what_array, $what, "search_what", $username, $data_dir);
     update_recent($where_array, $where, "search_where", $username, $data_dir);
     update_recent($folder_array, $mailbox, "search_folder", $username, $data_dir);
 }
 //	if the page is called from a "forget recent" link remove search from pref file
-elseif ($submit == "forget") {
+elseif ($submit == 'forget') {
     forget_recent($count, $username, $data_dir);
 }
 //	if the page is called from a "save recent" link add search to saved searches
-elseif ($submit == "save") {
+elseif ($submit == 'save') {
     save_recent($count, $username, $data_dir);
 }
-elseif ($submit == "delete") {
+elseif ($submit == 'delete') {
     delete_saved($count, $username, $data_dir);
 }
 //	if the page is called from a "delete saved" link delete saved search
 do_hook('search_before_form');
 
 echo "<BR>\n".
-     "      <table width=\"100%\">\n".
-     "      <TR><td bgcolor=\"$color[0]\">\n".
-     "          <CENTER><B>"._("Search")."</B></CENTER>\n".
-     "      </TD></TR>\n".
-	 "		</TABLE>\n";
-#     '      <TR><td align=center>';
+     "<table width=\"100%\">\n".
+        "<TR><td bgcolor=\"$color[0]\">\n".
+            "<CENTER><B>" . _("Search") . "</B></CENTER>\n".
+        "</TD></TR>\n".
+     "</TABLE>\n";
 
-//	update the recent and saved searches from the pref files
+//  update the recent and saved searches from the pref files
 
 $what_array = get_recent("search_what", $username, $data_dir);
 $where_array = get_recent("search_where", $username, $data_dir);
 $folder_array = get_recent("search_folder", $username, $data_dir);
 $recent_count = getPref($data_dir, $username, 'search_memory', 0);
-$saved_what_array = get_saved("saved_what", $username, $data_dir); 
+$saved_what_array = get_saved("saved_what", $username, $data_dir);
 $saved_where_array = get_saved("saved_where", $username, $data_dir);
 $saved_folder_array = get_saved("saved_folder", $username, $data_dir);
 $saved_count = count($saved_what_array);
@@ -211,36 +212,36 @@ $count_all = 0;
 /* Saved Search Table */
 if ($saved_count > 0) {
     echo "<BR>\n"
-       . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
-       . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
-       . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
+    . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
+    . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
     for ($i=0; $i < $saved_count; ++$i) {
-		if ($i % 2) {
-			echo "<TR BGCOLOR=\"$color[0]\">";
-		} else {
+        if ($i % 2) {
+            echo "<TR BGCOLOR=\"$color[0]\">";
+        } else {
             echo "<TR BGCOLOR=\"$color[4]\">";
         }
         echo "<TD WIDTH=\"35%\">$saved_folder_array[$i]</TD>"
-           . "<TD ALIGN=LEFT>$saved_what_array[$i]</TD>"
-           . "<TD ALIGN=CENTER>$saved_where_array[$i]</TD>"
-           . '<TD ALIGN=RIGHT>'
-           .   '<A HREF=search.php'
-	       .     '?mailbox=' . urlencode($saved_folder_array[$i])
-	       .     '&what=' . urlencode($saved_what_array[$i])
-	       .     '&where=' . urlencode($saved_where_array[$i])
-	       .   '>' . _("edit") . '</A>'
-	       .   '&nbsp;|&nbsp;'
-           .   '<A HREF=search.php'
-	       .     '?mailbox=' . urlencode($saved_folder_array[$i])
-	       .     '&what=' . urlencode($saved_what_array[$i])
-	       .     '&where=' . urlencode($saved_where_array[$i])
-	       .     '&submit=Search_no_update'
-           .   '>' . _("search") . '</A>'
-	       .   '&nbsp;|&nbsp;'
-	       .   "<A HREF=search.php?count=$i&submit=delete>"
-           .     _("delete")
-           .   '</A>'
-	       . '</TD></TR>';
+        . "<TD ALIGN=LEFT>$saved_what_array[$i]</TD>"
+        . "<TD ALIGN=CENTER>$saved_where_array[$i]</TD>"
+        . '<TD ALIGN=RIGHT>'
+        .   '<A HREF=search.php'
+        .     '?mailbox=' . urlencode($saved_folder_array[$i])
+        .     '&what=' . urlencode($saved_what_array[$i])
+        .     '&where=' . urlencode($saved_where_array[$i])
+        .   '>' . _("edit") . '</A>'
+        .   '&nbsp;|&nbsp;'
+        .   '<A HREF=search.php'
+        .     '?mailbox=' . urlencode($saved_folder_array[$i])
+        .     '&what=' . urlencode($saved_what_array[$i])
+        .     '&where=' . urlencode($saved_where_array[$i])
+        .     '&submit=Search_no_update'
+        .   '>' . _("search") . '</A>'
+        .   '&nbsp;|&nbsp;'
+        .   "<A HREF=search.php?count=$i&submit=delete>"
+        .     _("delete")
+        .   '</A>'
+        . '</TD></TR>';
     }
     echo "</TABLE></TD></TR></TABLE>\n";
 }
@@ -300,7 +301,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         }
         else {
             echo "         <OPTION VALUE=\"$box\">$box2</OPTION>\n";
-        }  
+        }
     }
 }
         echo "<OPTION VALUE=\"All Folders\"";
@@ -311,6 +312,9 @@ for ($i = 0; $i < count($boxes); $i++) {
 echo '         </SELECT>'.
      "       </TD>\n".
      "        <TD ALIGN=\"CENTER\">\n";
+if ( !isset( $what ) ) {
+    $what = '';
+}
 $what_disp = str_replace(',', ' ', $what);
 $what_disp = str_replace('\\\\', '\\', $what_disp);
 $what_disp = str_replace('\\"', '"', $what_disp);
@@ -336,43 +340,50 @@ echo "         </SELECT>\n" .
      "</TD></TR></TABLE>\n";
 
 
-do_hook("search_after_form");
+do_hook('search_after_form');
 
-//	search all folders option still in the works. returns a table for each 
-//	folder it finds a match in. The toggle all link does not work
+/*
+    search all folders option still in the works. returns a table for each
+    folder it finds a match in. The toggle all link does not work
+*/
 
-
-if ($search_all == "all") {
-    $mailbox == "";
+if ($search_all == 'all') {
+    $mailbox == '';
     $boxcount = count($boxes);
-    echo "<BR><CENTER><B>Search Results</B><CENTER><BR>\n";
+    echo '<BR><CENTER><B>' .
+         _("Search Results") .
+         "</B><CENTER><BR>\n";
     for ($x=0;$x<$boxcount;$x++) {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
-	    $mailbox = $boxes[$x]['unformatted'];
-	}
+            $mailbox = $boxes[$x]['unformatted'];
+        }
         if (($submit == "Search" || $submit == "Search_no_update") && !empty($what)) {
             sqimap_mailbox_select($imapConnection, $mailbox);
-           $count_all = sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos, $search_all, $count_all);
-       }
+            $count_all = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
+        }
     }
-	if ($count_all == 0) {
-	echo "<br><b>No Messages found</b><br>";
-	}
+    if ($count_all == 0) {
+        echo '<br><b>' .
+             _("No Messages found") .
+             '</b><br>';
+    }
 }
 
-//	search one folder option
+//  search one folder option
 
 else {
-    if (($submit == "Search" || $submit == "Search_no_update") && !empty($what)) {
-        echo "<BR><CENTER><B>Search Results</B></CENTER>\n";
+    if (($submit == 'Search' || $submit == 'Search_no_update') && !empty($what)) {
+        echo '<BR><CENTER><B>' .
+             _("Search Results") .
+             "</B></CENTER>\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
-        sqimap_search($imapConnection, $where, $what, $mailbox, $color, $pos, $search_all, $count_all);
+        sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
     }
 }
 
-//	must have search terms to search
+//  must have search terms to search
 
-if ($submit == "Search" && empty($what)) {
+if ($submit == 'Search' && empty($what)) {
     echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
 }
 

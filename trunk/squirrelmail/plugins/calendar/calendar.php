@@ -32,6 +32,7 @@ function startcalendar() {
     $next_month = date( 'm', $next_date);
     $prev_year = date( 'Y', $prev_date);
     $next_year = date( 'Y', $next_date );
+    $self = 'calendar.php';
 
     echo "<TR BGCOLOR=\"$color[0]\"><TD>" .
          "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">" .
@@ -82,8 +83,8 @@ function drawmonthview() {
             if (isset($calendardata[$cdate])){
                 $i=0;
                 while ($calfoo = each($calendardata[$cdate])) {
-                    $calbar = $calendardata[$cdate][$calfoo[key]];
-                    echo ($calbar[priority]==1) ? "<FONT COLOR=\"$color[1]\">$calbar[title]</FONT><br>\n" : "$calbar[title]<br>\n";
+                    $calbar = $calendardata[$cdate][$calfoo['key']];
+                    echo ($calbar['priority']==1) ? "<FONT COLOR=\"$color[1]\">$calbar[title]</FONT><br>\n" : "$calbar[title]<br>\n";
                     $i=$i+1;
                     if($i==2){
                         break;
@@ -116,13 +117,13 @@ function endcalendar() {
 }
 
 
-if($month <= 0){
+if( !isset( $month ) || $month <= 0){
     $month = date( 'm' );
 }
-if($year <= 0){
+if( !isset($year) || $year <= 0){
     $year = date( 'Y' );
 }
-if($day <= 0){
+if( !isset($day) || $day <= 0){
     $day = date( 'd' );
 }
 
