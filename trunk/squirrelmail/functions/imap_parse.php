@@ -204,7 +204,7 @@ function sqimap_parse_RFC822Header ($read, $hdr) {
         if (strlen(trim($hdr->subject)) == 0) {
            $hdr->subject = _("(no subject)");
         }
-        if (strlen(trim($hdr->from)) == 0) {
+        if (!is_object($hdr->from) && strlen(trim($hdr->from)) == 0) {
            $hdr->from = _("(unknown sender)");
         }
         if (strlen(trim($hdr->date)) == 0) {
