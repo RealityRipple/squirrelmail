@@ -101,19 +101,20 @@ echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspaci
      _("as a subfolder of").
      '<BR>'.
      "<TT><SELECT NAME=subfolder>\n";
-if ($default_sub_of_inbox == false) {
+
+$show_selected=0;
+$skip_folders=0;
+$server_type = strtolower($imap_server_type);
+if ( $server_type == 'courier' ) {
+  $show_selected = array('inbox');
+  $skip_folders = array('inbox','inbox.trash');
+}
+
+if ( $default_sub_of_inbox == false ) {
     echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
 } else {
     echo '<OPTION VALUE="">[ '._("None")." ]\n";
-}
-
-$show_selected = 0;
-if ( $default_sub_of_inbox ) {
     $show_selected = array('inbox');
-}
-$skip_folders = 0;
-if ( strtolower($imap_server_type) == 'courier' ) {
-    $skip_folders = array('inbox.trash');
 }
 
 echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors');
