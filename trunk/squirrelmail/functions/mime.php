@@ -169,22 +169,6 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
     $read = fgets ($imap_stream,8192);
 
 
-//    if (preg_match('/.*\{(\d+)\}.*/',$read,$regs)) {
-/*
-       $size = $regs[1];
-       $size_div = (int) ($size / 4096);
-       $size_mod = $size % 4096;
-       if (!$size_mod) $size_div++;
-       $read = '';
-       for ($i=0;$i<$size_div;$i++) { 
-           $read .= fread ($imap_stream,4096);
-       }
-       if ($size_mod > 0) {
-          $read .= fread ($imap_stream, $size_mod);
-       }
-       echo decodeBody($read, $encoding);
-    }
-*/
     // This could be bad -- if the section has sqimap_session_id() . ' OK'
     // or similar, it will kill the download.
     while (!ereg("^".$sid_s." (OK|BAD|NO)(.*)$", $read, $regs)) {
@@ -232,120 +216,6 @@ function listEntities ($message) {
 function getEntity ($message, $ent_id) {
     return $message->getEntity($ent_id);
 }
-
-/*
- * figures out what entity to display and returns the $message object
- * for that entity.
- */
-function findDisplayEntity ($msg, $textOnly = true, $entity = array() )   {
-    global $show_html_default;
-    
-    $found = false;    
-    if ($msg) {
-        $type = $msg->type0.'/'.$msg->type1;
-        if ( $type == 'multipart/alternative') {
-	    $msg = findAlternativeEntity($msg, $textOnly);
-	    if (count($msg->entities) == 0) {
-        	$entity[] = $msg->entity_id;
-	    } else {
-		$found = true;
-	         $entity =findDisplayEntity($msg,$textOnly, $entity);
-	    }
-	} else 	if ( $type == 'multipart/related') {
-            $msgs = findRelatedEntity($msg);
-	    for ($i = 0; $i < count($msgs); $i++) {
-	        $msg = $msgs[$i];
-		if (count($msg->entities) == 0) {
-        	    $entity[] = $msg->entity_id;
-		} else {
-		    $found = true;
-	    	     $entity =findDisplayEntity($msg,$textOnly, $entity);
-		}
-	    }
-	} else if ( count($entity) == 0 &&
-             $msg->type0 == 'text' &&
-             ( $msg->type1 == 'plain' ||
-               $msg->type1 == 'html' ) &&
-             isset($msg->entity_id) ) {
-	     if (count($msg->entities) == 0) {
-        	$entity[] = $msg->entity_id;
-	     }
-        } 
-    	$i = 0;
-    	while ( isset($msg->entities[$i]) && count($entity) == 0 && !$found )  {
-    	    $entity = findDisplayEntity($msg->entities[$i], $textOnly, $entity);
-    	    $i++;
-    	}
-    }
-    if ( !isset($entity[0]) ) {
-        $entity[]="";
-    }
-    return( $entity );
-}
-
-/* Shows the HTML version */
-function findDisplayEntityHTML ($message) {
-
-    if ( $message->header->type0 == 'text' &&
-         $message->header->type1 == 'html' &&
-         isset($message->header->entity_id)) {
-        return $message->header->entity_id;
-    }
-    for ($i = 0; isset($message->entities[$i]); $i ++) {
-	if ( $message->header->type0 == 'message' &&
-    	    $message->header->type1 == 'rfc822' &&
-            isset($message->header->entity_id)) {
-    	    return 0;
-	}
-	
-        $entity = findDisplayEntityHTML($message->entities[$i]);
-        if ($entity != 0) {
-            return $entity;
-        }
-    }
-
-    return 0;
-}
-
-function findAlternativeEntity ($message, $textOnly) {
-    global $show_html_default;
-    /* if we are dealing with alternative parts then we choose the best 
-     * viewable message supported by SM.
-     */
-    if ($show_html_default && !$textOnly) {     
-	$alt_order = array ('text/plain','text/html');
-    } else {
-	$alt_order = array ('text/plain');
-    }
-    $best_view = 0;
-    $ent_id = 0;
-    $k = 0; 
-    for ($i = 0; $i < count($message->entities); $i ++) {
-        $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
-	if ($type == 'multipart/related') {
-	   $type = $message->entities[$i]->header->type;
-	}
-	for ($j = $k; $j < count($alt_order); $j++) {
-	    if ($alt_order[$j] == $type && $j > $best_view) {
-		$best_view = $j;
-		$ent_id = $i;
-		$k = $j;
-	    }
-	}
-    }
-    return $message->entities[$ent_id];
-}
-
-function findRelatedEntity ($message) {
-    $msgs = array(); 
-    for ($i = 0; $i < count($message->entities); $i ++) {
-        $type = $message->entities[$i]->header->type0.'/'.$message->entities[$i]->header->type1;
-        if ($message->header->type == $type) {
-	    $msgs[] = $message->entities[$i];
-	}
-    }
-    return $msgs;
-}    
 
 /*
  * translateText
@@ -415,12 +285,9 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
-    $has_unsafe_images = 0;
-
-    if ($message->type0 == 'message' && $message->type1 == 'rfc822') {
-        $message = $message->entities[0];
-    }
-    $urlmailbox = urlencode($message->mailbox);
+    $has_unsafe_images= 0;
+    
+    $urlmailbox = urlencode($mailbox);
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
@@ -429,6 +296,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
+
         // If there are other types that shouldn't be formatted, add
         // them here
         if ($body_message->header->type1 == 'html') {
@@ -441,68 +309,48 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         } else {
             translateText($body, $wrap_at, $body_message->header->charset);
         }
-        $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
+
         if ($has_unsafe_images) {
             if ($view_unsafe_images) {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Hide Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;passed_ent_id=".$message->entity_id."&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Hide Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             } else {
-                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
+                $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;passed_ent_id=".$message->entity_id."&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             }
-        }
-
-        /** Display the ATTACHMENTS: message if there's more than one part **/
-        if (isset($message->entities[1])) {
-	    /* Header-type alternative means we choose the best one to display 
-	       so don't show the alternatives as attachment. Header-type related
-	       means that the attachments are already part of the related message.
-	    */   
-	    if ($message->header->type1 !='related' && $message->header->type1 !='alternative') {
-        	$body .= formatAttachments ($message, $ent_num, $mailbox, $id);
-	    }
-        }
-    } else {
-        $body = formatAttachments ($message, -1, $message->mailbox, $id);
-    }
+        } 
+    } 
     return ($body);
 }
 
-/*
- * A recursive function that returns a list of attachments with links
- * to where to download these attachments
- */
-function formatAttachments($message, $ent_id, $mailbox, $id) {
+
+function formatAttachments($message, $exclude_id, $mailbox, $id) {
     global $where, $what;
     global $startMessage, $color;
     static $ShownHTML = 0;
 
-    $body = '';
-    if ($ShownHTML == 0) {
+    $att_ar = $message->getAttachments($exclude_id);
 
-        $ShownHTML = 1;
-        $body .= "<TABLE WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
+    if (!count($att_ar)) return '';
+    
+    $attachments = "<TABLE WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
                 "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n" .
                 _("Attachments") . ':' .
                 "</B></TH></TR><TR><TD>\n" .
-                "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n" .
-                formatAttachments($message, $ent_id, $mailbox, $id) .
-                "</TABLE></TD></TR></TABLE>";
+                "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n";
+   
+    $urlMailbox = urlencode($mailbox);
 
-    } else if ($message) {
-	$header = $message->header;
+    foreach ($att_ar as $att) {
+                
+        $ent = urlencode($att->entity_id);
+	$header = $att->header;
         $type0 = strtolower($header->type0);
         $type1 = strtolower($header->type1);
 	$name = '';
-	if (isset($header->name)) {
-    	    $name = decodeHeader($header->name);
-	}
 	if ($type0 =='message' && $type1 == 'rfc822') {
-	 
-            $filename = decodeHeader($message->header->subject);
+
+            $filename = decodeHeader($header->subject);
             $display_filename = $filename;
             
-            $urlMailbox = urlencode($mailbox);
-            $ent = urlencode($message->entity_id);
-
             $DefaultLink =
                 "../src/read_body.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
             if ($where && $what) {
@@ -527,53 +375,40 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             $Links = $HookResults[1];
             $DefaultLink = $HookResults[6];
 
-            $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+            $attachments .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
                         "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
-                        '<TD><SMALL><b>' . show_readable_size($message->header->size) .
+                        '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
-	    $from_o = $message->header->from;
+	    $from_o = $header->from;
 	    if (isset($from_o)) {
 		$from_name = $from_o->getAddress(false);
 	    } else {
 		$from_name = _("Unknown sender");
 	    }
 	    $from_name = decodeHeader(htmlspecialchars($from_name));
-            $body .= '<b>' . $from_name . '</b>';
-            $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
+            $attachments .= '<b>' . $from_name . '</b>';
+            $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
             $SkipSpaces = 1;
             foreach ($Links as $Val) {
                 if ($SkipSpaces) {
                     $SkipSpaces = 0;
                 } else {
-                    $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
                 }
-                $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+                $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
             }
-
             unset($Links);
-
-            $body .= "</SMALL></TD></TR>\n";
-            
-	    return( $body );	
-    	
-        } elseif (!$message->entities) {
-
-            $type0 = strtolower($message->header->type0);
-            $type1 = strtolower($message->header->type1);
-            $name = decodeHeader($message->header->name);
-
-            if ($message->entity_id != $ent_id) {
-            $filename = decodeHeader($message->header->filename);
+        } else {
+            $filename = decodeHeader($header->filename);
             if (trim($filename) == '') {
                 if (trim($name) == '') {
-                    if ( trim( $message->header->id ) == '' )
-                        $display_filename = 'untitled-[' . $message->entity_id . ']' ;
+                    if ( trim( $header->id ) == '' )
+                        $display_filename = 'untitled-[' . $ent . ']' ;
                     else
-                        $display_filename = 'cid: ' . $message->header->id;
-                    // $display_filename = 'untitled-[' . $message->entity_id . ']' ;
+                        $display_filename = 'cid: ' . $header->id;
                 } else {
                     $display_filename = $name;
                     $filename = $name;
@@ -581,9 +416,6 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             } else {
                 $display_filename = $filename;
             }
-
-            $urlMailbox = urlencode($mailbox);
-            $ent = urlencode($message->entity_id);
 
             $DefaultLink =
                 "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
@@ -610,41 +442,37 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             $Links = $HookResults[1];
             $DefaultLink = $HookResults[6];
 
-            $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+            $attachments .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
                         "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
-                        '<TD><SMALL><b>' . show_readable_size($message->header->size) .
+                        '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
             if ($message->header->description) {
-                $body .= '<b>' . htmlspecialchars(_($message->header->description)) . '</b>';
+                $attachments .= '<b>' . htmlspecialchars(_($header->description)) . '</b>';
             }
-            $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
-
+            $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
             $SkipSpaces = 1;
             foreach ($Links as $Val) {
                 if ($SkipSpaces) {
                     $SkipSpaces = 0;
                 } else {
-                    $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                    $attachments .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
                 }
-                $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+                $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
             }
 
             unset($Links);
-
-            $body .= "</SMALL></TD></TR>\n";
-            }
-        } else {
-            for ($i = 0; $i < count($message->entities); $i++) {
-                $body .= formatAttachments($message->entities[$i], $ent_id, $mailbox, $id);
-            }
-        }
-    }
-    return( $body );
+	}         
+   
+   }
+   $attachments .= "</SMALL></TD></TR>\n";
+   
+   $attachments .= "</TABLE></TD></TR></TABLE>";
+   
+   return $attachments;
 }
-
 
 /** this function decodes the body depending on the encoding type. **/
 function decodeBody($body, $encoding) {
@@ -1725,7 +1553,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                            );
     if (preg_match("|$secremoveimg|si", $trusted)){
         $has_unsafe_images = true;
-    }
+    } 
     return $trusted;
 }
 
