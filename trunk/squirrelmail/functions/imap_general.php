@@ -354,7 +354,7 @@ function sqimap_find_email ($string) {
  *    Luke Ehresman   <lkehresman@yahoo.com>
  *    "Luke Ehresman" <lkehresman@yahoo.com>
  *    lkehresman@yahoo.com (Luke Ehresman)
- *           become:   Luke Ehresman
+ *           becomes:   Luke Ehresman
  *    <lkehresman@yahoo.com>
  *           becomes:   lkehresman@yahoo.com
  */
