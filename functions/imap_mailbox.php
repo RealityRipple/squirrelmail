@@ -83,6 +83,7 @@ function sortSpecialMbx($a, $b) {
     return ($acmp > $bcmp) ? 1: -1;
 }
 
+/*
 function find_mailbox_name ($mailbox) {
     if (preg_match('/\*.+\"([^\r\n\"]*)\"[\s\r\n]*$/', $mailbox, $regs)) 
         return $regs[1];
@@ -90,6 +91,47 @@ function find_mailbox_name ($mailbox) {
         return $regs[1];
     ereg(" *([^ \r\n\"]*)[ \r\n]*$",$mailbox,$regs);
     return $regs[1];
+}
+*/
+
+// Extract the mailbox name from an untagged LIST (7.2.2) or LSUB (7.2.3) answer
+// * (LIST|LSUB) (<Flags list>) (NIL|"<separator atom>") <mailbox name string>\r\n
+// mailbox name in quoted string MUST be unquoted and stripslashed (sm API)
+function find_mailbox_name($line)
+{
+    if (preg_match('/^\* (?:LIST|LSUB) \([^\)]*\) (?:NIL|\"[^\"]*\") ([^\r\n]*)[\r\n]*$/i', $line, $regs)) {
+        if (substr($regs[1], 0, 1) == '"')
+            return stripslashes(substr($regs[1], 1, -1));
+        return $regs[1];
+    }
+    return '';
+}
+
+function encode_mailbox_name($what)
+{
+	if (ereg("[\"\\\r\n]", $what))
+		return '{' . strlen($what) . "}\r\n" . $what;	/* 4.3 literal form */
+	return '"' . $what . '"';	/* 4.3 quoted string form */
+}
+
+function compact_mailboxes_response($ary)
+{
+    /*
+     * Workaround for mailboxes returned as literal
+     * FIXME : Doesn't work if the mailbox name is multiple lines 
+     * (larger then fgets buffer)
+     */
+    for ($i = 0; $i < count($ary); $i++) {
+        if (isset($ary[$i + 1]) && substr($ary[$i], -3) == "}\r\n") {
+            if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                 $ary[$i], $regs)) {
+                $ary[$i] = $regs[1] . '"' . addslashes(trim($ary[$i+1])) . '"' . $regs[2];
+                array_splice($ary, $i+1, 2);
+            }
+        }
+    }
+    /* remove duplicates and ensure array is contiguous */
+    return array_values(array_unique($ary));
 }
 
 function check_is_noselect ($lsub_line) {
@@ -201,7 +243,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
     if (!isset($mailbox) || empty($mailbox)) {
         return false;
     }
-    $mbx = sqimap_run_command($imap_stream, "LIST \"\" \"$mailbox\"",
+    $mbx = sqimap_run_command($imap_stream, 'LIST "" ' . encode_mailbox_name($mailbox),
                               true, $response, $message);
     return isset($mbx[0]);
 }
@@ -214,7 +256,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
         return;
     }
 
-    $read = sqimap_run_command($imap_stream, "SELECT \"$mailbox\"",
+    $read = sqimap_run_command($imap_stream, 'SELECT ' . encode_mailbox_name($mailbox),
                                true, $response, $message);
     $result = array();
     for ($i = 0, $cnt = count($read); $i < $cnt; $i++) {
@@ -249,27 +291,27 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
         $mailbox .= $delimiter;
     }
 
-    $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, 'CREATE ' . encode_mailbox_name($mailbox),
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
 }
 
 /* Subscribes to an existing folder */
 function sqimap_subscribe ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command($imap_stream, "SUBSCRIBE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, 'SUBSCRIBE ' . encode_mailbox_name($mailbox),
                                    true, $response, $message);
 }
 
 /* Unsubscribes to an existing folder */
 function sqimap_unsubscribe ($imap_stream, $mailbox) {
-    $read_ary = sqimap_run_command($imap_stream, "UNSUBSCRIBE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, 'UNSUBSCRIBE ' . encode_mailbox_name($mailbox),
                                    true, $response, $message);
 }
 
 /* Deletes the given folder */
 function sqimap_mailbox_delete ($imap_stream, $mailbox) {
     global $data_dir, $username;
-    $read_ary = sqimap_run_command($imap_stream, "DELETE \"$mailbox\"",
+    $read_ary = sqimap_run_command($imap_stream, 'DELETE ' . encode_mailbox_name($mailbox),
                                    true, $response, $message);
     sqimap_unsubscribe ($imap_stream, $mailbox);
     do_hook_function('rename_or_delete_folder', $args = array($mailbox, 'delete', ''));
@@ -300,7 +342,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         }
 
         $boxesall = sqimap_mailbox_list($imap_stream);
-        $cmd = 'RENAME "' . $old_name . '" "' . $new_name . '"';
+        $cmd = 'RENAME ' . encode_mailbox_name($old_name) . ' ' . encode_mailbox_name($new_name);
         $data = sqimap_run_command($imap_stream, $cmd, true, $response, $message);
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         $oldpref = getPref($data_dir, $username, 'thread_'.$old_name.$postfix);
@@ -517,29 +559,16 @@ function sqimap_mailbox_list($imap_stream) {
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
                                         true, $response, $message);
+        $lsub_ary = compact_mailboxes_response($lsub_ary);
 
         $sorted_lsub_ary = array();
         for ($i = 0, $cnt = count($lsub_ary);$i < $cnt; $i++) {
-            /*
-             * Workaround for mailboxes returned as literal
-             * Doesn't work if the mailbox name is multiple lines 
-             * (larger then fgets buffer)
-             */
-            if (isset($lsub_ary[$i + 1]) && substr($lsub_ary[$i],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $lsub_ary[$i], $regs)) {
-                    $i++;
-                    $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
-                }
-            }
             $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
             $sorted_lsub_ary[] = $temp_mailbox_name;
             if (!$inbox_subscribed && strtoupper($temp_mailbox_name) == 'INBOX') {
                 $inbox_subscribed = true;
             }
         }
-        /* remove duplicates and ensure array is contiguous, so we don't rely on sort()' side-effect that fails if count()==1 */
-        $sorted_lsub_ary = array_values(array_unique($sorted_lsub_ary));
 
         /* natural sort mailboxes */
         if (isset($sorted_lsub_ary)) {
@@ -560,42 +589,24 @@ function sqimap_mailbox_list($imap_stream) {
             else {
                 $mbx = $sorted_lsub_ary[$i];
             }
-
-            $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
+            $mbx = stripslashes($mbx);
+            $read = sqimap_run_command ($imap_stream, 'LIST "" ' . encode_mailbox_name($mbx),
                                         true, $response, $message);
-
-            /* Another workaround for literals */
-
-            if (isset($read[1]) && substr($read[1],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $read[0], $regs)) {
-                     $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) . '"' . $regs[2];
-                }
-            }
-
+            $read = compact_mailboxes_response($read);
             if (isset($read[0])) {
                 $sorted_list_ary[$i] = $read[0];
             } else {
                 $sorted_list_ary[$i] = '';
             }
         }
-
         /*
          * Just in case they're not subscribed to their inbox,
          * we'll get it for them anyway
          */
         if (!$inbox_subscribed) {
-            $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
+            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" ' . encode_mailbox_name('INBOX'),
                                              true, $response, $message);
-            /* Another workaround for literals */
-            if (isset($inbox_ary[1]) && substr($inbox_ary[0],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $inbox_ary[0], $regs)) {
-                    $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
-                                '"' . $regs[2];
-                }
-            }
-            $sorted_list_ary[] = $inbox_ary[0];
+            $sorted_list_ary[] = implode('', compact_mailboxes_response($inbox_ary));
             $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
         }
 
@@ -639,18 +650,14 @@ function sqimap_mailbox_list($imap_stream) {
  */
 function sqimap_mailbox_list_all($imap_stream) {
     global $list_special_folders_first, $folder_prefix, $delimiter;
-    $read_ary = sqimap_run_command($imap_stream,"LIST \"$folder_prefix\" *",true,$response, $message,false); 
+
+    $read_ary = sqimap_run_command($imap_stream,"LIST \"$folder_prefix\" *",true,$response, $message,false);
+    $read_ary = compact_mailboxes_response($read_ary);
+
     $g = 0;
     $phase = 'inbox';
     $fld_pre_length = strlen($folder_prefix);
     for ($i = 0, $cnt = count($read_ary); $i < $cnt; $i++) {
-        /* Another workaround for EIMS */
-        if (isset($read_ary[$i + 1]) &&
-            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $read_ary[$i], $regs)) {
-            $i ++;
-            $read_ary[$i] = $regs[1] . '"' . addslashes(trim($read_ary[$i])) . '"' . $regs[2];
-        }
         /* Store the raw IMAP reply */
         $boxes[$g]['raw'] = $read_ary[$i];
 
@@ -725,6 +732,7 @@ function sqimap_mailbox_tree($imap_stream) {
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
                                         true, $response, $message);
+        $lsub_ary = compact_mailboxes_response($lsub_ary);
 
         /* Check to see if we have an INBOX */
         $has_inbox = false;
@@ -737,28 +745,17 @@ function sqimap_mailbox_tree($imap_stream) {
         }
 
         if ($has_inbox == false) {
-	    $lsub_ary[] = '* LSUB () INBOX';
+            $lsub_ary[] = '* LSUB () INBOX';
         }
 
         /*
          * Section about removing the last element was removed 
          * We don't return "* OK" anymore from sqimap_read_data
          */
+
         $sorted_lsub_ary = array();
         $cnt = count($lsub_ary);
-
         for ($i = 0; $i < $cnt; $i++) {
-            /*
-             * Workaround for EIMS
-             * Doesn't work if the mailbox name is multiple lines
-             */
-            if (isset($lsub_ary[$i + 1]) &&
-                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $lsub_ary[$i], $regs)) {
-                $i++;
-                $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
-            }
-
             $mbx = find_mailbox_name($lsub_ary[$i]);
 
             // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
@@ -776,9 +773,8 @@ function sqimap_mailbox_tree($imap_stream) {
            $aTag = array();
            // prepare an array with queries
            foreach ($sorted_lsub_ary as $aMbx) {
-               $mbx = $aMbx['mbx'];
-               $query = "LIST \"\" \"$mbx\"";
-               sqimap_prepare_pipelined_query($query,$tag,$aQuery,false);
+               $mbx = stripslashes($aMbx['mbx']);
+               sqimap_prepare_pipelined_query('LIST "" ' . encode_mailbox_name($mbx), $tag, $aQuery, false);
                $aTag[$tag] = $mbx;
            } 
            $sorted_lsub_ary = array();
@@ -793,8 +789,7 @@ function sqimap_mailbox_tree($imap_stream) {
            }
            $cnt = count($sorted_lsub_ary);
        }
-       
-       $sorted_lsub_ary = array_values($sorted_lsub_ary);           
+       $sorted_lsub_ary = array_values($sorted_lsub_ary);
        array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
        $boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
        return $boxesnew;
@@ -932,9 +927,9 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
                 $mbx = $oMbx->mailboxname_full;
                 if ($unseen_type == 2 ||
                    ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
-                   $query = "STATUS \"$mbx\" (MESSAGES UNSEEN)";
+                   $query = 'STATUS ' . encode_mailbox_name($mbx) . ' (MESSAGES UNSEEN)';
                 } else {
-                   $query = "STATUS \"$mbx\" (UNSEEN)";
+                   $query = 'STATUS ' . encode_mailbox_name($mbx) . ' (UNSEEN)';
                 }
                 sqimap_prepare_pipelined_query($query,$tag,$aQuery,false);
             } else {
