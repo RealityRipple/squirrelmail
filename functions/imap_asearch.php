@@ -8,13 +8,14 @@
  *
  * IMAP asearch routines
  *
- * $Id$
+ * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
+ *
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  * @see search.php
  * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
- *
- * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
  */
 
 /** This functionality requires the IMAP and date functions */

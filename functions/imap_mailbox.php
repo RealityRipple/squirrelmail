@@ -8,8 +8,9 @@
  *
  * This impliments all functions that manipulate mailboxes
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  */
 
 /** UTF7 support */

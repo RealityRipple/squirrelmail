@@ -9,8 +9,9 @@
  * This just includes the different sections of the imap functions.
  * They have been organized into these sections for simplicity sake.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  */
 
 /** Includes */

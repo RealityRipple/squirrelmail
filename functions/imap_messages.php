@@ -9,8 +9,9 @@
  * This implements functions that manipulate messages
  * NOTE: Quite a few functions in this file are obsolete
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  */
 
 /**
