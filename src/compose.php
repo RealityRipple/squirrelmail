@@ -64,7 +64,7 @@
          } else {
             $body = "";
          }
-	 
+         
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
 
@@ -90,7 +90,7 @@
             }
             sqWordWrap($body_ary[$i], $editor_size - 1);
             $body .= $body_ary[$i] . "\n";
-	    unset($body_ary[$i]);
+            unset($body_ary[$i]);
          }
          if ($forward_id)
          {
@@ -150,7 +150,7 @@
       if (!$message) {
            sqimap_mailbox_select($imapConnection, $mailbox);
            $message = sqimap_get_message($imapConnection, $forward_id, 
-	       $mailbox);
+               $mailbox);
       }
       
       if (count($message->entities) == 0) {
@@ -161,19 +161,19 @@
                   $filename = "untitled-".$message->header->entity_id;
       
               $localfilename = GenerateRandomString(32, '', 7);
-	      while (file_exists($attachment_dir . $localfilename))
-	          $localfilename = GenerateRandomString(32, '', 7);
+              while (file_exists($attachment_dir . $localfilename))
+                  $localfilename = GenerateRandomString(32, '', 7);
 
               $newAttachment['localfilename'] = $localfilename;
-	      $newAttachment['remotefilename'] = $filename;
-	      $newAttachment['type'] = strtolower($message->header->type0 .
-	         '/' . $message->header->type1);
+              $newAttachment['remotefilename'] = $filename;
+              $newAttachment['type'] = strtolower($message->header->type0 .
+                 '/' . $message->header->type1);
 
               // Write Attachment to file
               $fp = fopen ($attachment_dir.$localfilename, 'w');
               fputs ($fp, decodeBody(mime_fetch_body($imapConnection, 
-	          $forward_id, $message->header->entity_id), 
-		  $message->header->encoding));
+                  $forward_id, $message->header->entity_id), 
+                  $message->header->encoding));
               fclose ($fp);
       
               $attachments[] = $newAttachment;
@@ -210,7 +210,7 @@
 
       echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\"";
       do_hook("compose_form");
-	  echo ">\n";
+          echo ">\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }                 
@@ -305,11 +305,11 @@
          echo "<tr><td bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
          echo "</td><td align=left bgcolor=\"$color[0]\">";
-	 foreach ($attachments as $key => $info) {
+         foreach ($attachments as $key => $info) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$key\">\n";
-	    echo $info['remotefilename'] . " - " . $info['type'] . " (";
-	    echo show_readable_size(filesize($attachment_dir . 
-	        $info['localfilename'])) . ")<br>\n";
+            echo $info['remotefilename'] . " - " . $info['type'] . " (";
+            echo show_readable_size(filesize($attachment_dir . 
+                $info['localfilename'])) . ")<br>\n";
          }
          
          echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
@@ -390,9 +390,9 @@
     //
     global $CHARSET, $SOURCE_CHARSET, $send_to, $send_to_cc, $send_to_bcc, $subject, $body;
     $charset_ary = array("koi8-r" => "k",
-   			 "windows-1251" => "w",
-			 "ibm866" => "a",
-			 "ISO-8859-5" => "i");
+                            "windows-1251" => "w",
+                         "ibm866" => "a",
+                         "ISO-8859-5" => "i");
     $body = convert_cyr_string($body, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
     $send_to = convert_cyr_string($send_to, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
     $send_to_cc = convert_cyr_string($send_to_cc, $charset_ary[$CHARSET], $charset_ary[$SOURCE_CHARSET]);
@@ -422,10 +422,11 @@
          if (! isset($reply_id))
              $reply_id = 0;
          // Set $default_charset to correspond with the user's selection
-	 // of language interface.
-	 set_my_charset();
+         // of language interface.
+         set_my_charset();
+         do_hook("compose_send");
+
          if (sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id) == 0) {showInputForm(); exit();}
-//         header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
          //$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          displayPageHeader($color, $mailbox);
@@ -494,7 +495,7 @@
          {
             unlink ($attachment_dir.$attachments[$index]['localfilename']);
             unset ($attachments[$index]);
-	 }
+         }
       }
 
       showInputForm();
@@ -520,16 +521,13 @@
    
    
    
-   function ClearAttachments()
-   {
+   function ClearAttachments() {
        global $attachments, $attachment_dir;
        
-       foreach ($attachments as $info)
-       {
-           if (file_exists($attachment_dir . $info['localfilename']))
-	   {
+       foreach ($attachments as $info) {
+           if (file_exists($attachment_dir . $info['localfilename'])) {
                unlink($attachment_dir . $info['localfilename']);
-	   }
+           }
        }
        
        $attachments = array();

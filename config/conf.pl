@@ -282,6 +282,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "1.  Organization Name    : $WHT$org_name$NRM\n";
       print "2.  Organization Logo    : $WHT$org_logo$NRM\n";
       print "3.  Organization Title   : $WHT$org_title$NRM\n";
+      print "4.  Signout Page         : $WHT$signout_page$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 2) {
@@ -450,6 +451,7 @@ while (($command ne "q") && ($command ne "Q")) {
          if    ($command == 1) { $org_name   = command1 (); }
          elsif ($command == 2) { $org_logo   = command2 (); }
          elsif ($command == 3) { $org_title  = command3 (); }
+         elsif ($command == 4) { $signout_page  = command4 (); }
       } elsif ($menu == 2) {
          if    ($command == 1)  { $domain             = command11 (); }
          elsif ($command == 2)  { $imapServerAddress  = command12 (); }
@@ -546,6 +548,24 @@ sub command3 {
       $new_org_title =~ s/[\r|\n]//g;
    }
    return $new_org_title;
+}
+
+# signout_page
+sub command4 {
+   print "When users click the Sign Out button they will be logged out and\n";
+   print "then sent to signout_page.  If signout_page is left empty,\n";
+   print "(hit space and then return) they will be taken, as normal,\n";
+   print "to the default and rather sparse SquirrelMail signout page.\n";
+   print "\n";
+   print "[$WHT$signout_page$NRM]: $WHT";
+   $new_signout_page = <STDIN>;
+   if ($new_signout_page eq "\n") {
+      $new_signout_page = $signout_page;
+   } else {
+      $new_signout_page =~ s/[\r|\n]//g;
+      $new_signout_page =~ s/^\s+$//g;
+   }
+   return $new_signout_page;
 }
 
 ####################################################################################
@@ -1563,6 +1583,7 @@ sub save_data {
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
    print FILE "\t\$org_title  = \"$org_title\";\n";
+   print FILE "\t\$signout_page  = \"$signout_page\";\n";
 
    print FILE "\n";
 
