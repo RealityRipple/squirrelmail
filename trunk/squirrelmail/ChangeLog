@@ -68,6 +68,10 @@ Version 1.5.0 -- CVS
   - Add a confirmation for the user that their mail has been sent.
   - Fixed issue with forwarding emails having a ) appended to the end.
   - Add "attachments_bottom" hook to allow manipulating/adding to the attachments
+  - Fix to prevent username & password from being displayed in error messages
+    if IMAP connection dropped during login
+  - Modified preference loading code to always have a complete $color array
+    set in case a user uses an incomplete theme.
   
 
 **************************************
