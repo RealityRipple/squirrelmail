@@ -34,74 +34,75 @@ THE SQUIRRELMAIL TEAM
  Mailinglist:    squirrelmail-i18n@lists.sourceforge.net
  Leader:         Philippe Mingo <philippe@squirrelmail.org>
  
-   Arabic        Asrar Abbasi <asrar@canasoft.net>
-                 Naveed Saqib <naveed.saqib@biznas.com>
-   Basque        Iker Etxaniz ietxaniz@csiss.jesuitak.org
-                 Eneko Harreguy eharreguy@csiss.jesuitak.org
-                 Jabier Martinez jmartinez@csiss.jesuitak.org
-   Bulgarian     Stanislav Yordanov <stanprog@yahoo.com>  
-   Catalan       Josep Sanz <jsanz@fa.upc.es>
-   Croatian      Albert Novak <Albert.Novak@CARNet.hr> 
-   Czech         Ondrej Sury <ondrej@sury.cz>
-                 Tomas Zvala <fox@murder.cz>
-   Danish        Claus Rasmussen <claus@webclaus.com>
-   Dutch         M.J. Prinsen <translation@prinsenonline.com>
-                 Arjen Halma <arjen@halma.nl>
-   Estonian      Lauri Jesmin <jesmin@ut.ee>
-                 Peeter Russak <pezz@tkwcy.ee>
-   Faroese       Danial Olsen <danial@linux.com-data.fo>
-   Finnish       Teemu Junnila <teejun@vallcom.com>   
-   French        Ali Nedjimi <lrdfrx@club-internet.fr>
-                 Nicolas Cartron <nc@ncartron.com>
-                 Olivier Piquerez <piquerez@topd.ch>  
-   German        Roland Bauerschmidt <rb@debian.org>
-                 Ralf Hildebrandt <Ralf.Hildebrandt@charite.de>
-                 Klaus Brunner <klaus@winf.at>
+   Arabic        Asrar Abbasi <asrar at canasoft.net>
+                 Naveed Saqib <naveed.saqib at biznas.com>
+   Basque        Iker Etxaniz ietxaniz at csiss.jesuitak.org
+                 Eneko Harreguy eharreguy at csiss.jesuitak.org
+                 Jabier Martinez jmartinez at csiss.jesuitak.org
+   Bengali       Uttiya Chowdhury <chowdhury_uttiya at yahoo.com>
+   Bulgarian     Stanislav Yordanov <stanprog at yahoo.com>  
+   Catalan       Josep Sanz <jsanz at fa.upc.es>
+   Croatian      Albert Novak <Albert.Novak at CARNet.hr> 
+   Czech         Ondrej Sury <ondrej at sury.cz>
+                 Tomas Zvala <fox at murder.cz>
+   Danish        Claus Rasmussen <claus at webclaus.com>
+   Dutch         M.J. Prinsen <translation at prinsenonline.com>
+                 Arjen Halma <arjen at halma.nl>
+   Estonian      Lauri Jesmin <jesmin at ut.ee>
+                 Peeter Russak <pezz at tkwcy.ee>
+   Faroese       Danial Olsen <danial at linux.com-data.fo>
+   Finnish       Teemu Junnila <teejun at vallcom.com>   
+   French        Ali Nedjimi <lrdfrx at club-internet.fr>
+                 Nicolas Cartron <nc at ncartron.com>
+                 Olivier Piquerez <piquerez at topd.ch>  
+   German        Roland Bauerschmidt <rb at debian.org>
+                 Ralf Hildebrandt <Ralf.Hildebrandt at charite.de>
+                 Klaus Brunner <klaus at winf.at>
    Greek         George P. Kremmydas <george at kefalonia-ithaki.gr>
                  Alexandros Vellis <avel at noc.uoa.gr>
-   Hebrew        Yoav Bagno <yoavb@zavit.net.il>
-   Hungarian     István-Attila András <bergkatten@netscape.net>
-                 KADI Gergo <gergo@kapu.hu>
-            	 Zoltan Levardy <zoltan@levardy.org>
-   Icelandic     Karl Heiðar <karlh@macho.is>
-                 Hordur Mar Gestsson <zbot@kuntnet.org>
-   Indonesian    Arief S Fitrianto <arief@fisika.ui.ac.id>
-   Italian       Aldo Moresco <moresco@idcm.it>
-                 Antonetti Roberto <antonr@piceniaweb.com> (help files)
-   Japanese      HIGASHIYAMA Masato <masato@yamaai-tech.com>
-   Korean        Jong-II Kim <aporie@netian.com>
-   Lithuanian    Tomas Kuliavas <tokul@users.sourceforge.net>
-   Malay         Sapuan bin Samion <sapuan@pc.jaring.my>
-   Norwegian     Gustav Foseid <gustavf@squirrelmail.org>
-   Polish        Lukasz Klimek <casa@lo.pila.pl>
-                 Horus <horus@dronet.pl>
+   Hebrew        Yoav Bagno <yoavb at zavit.net.il>
+   Hungarian     István-Attila András <bergkatten at netscape.net>
+                 KADI Gergo <gergo at kapu.hu>
+            	 Zoltan Levardy <zoltan at levardy.org>
+   Icelandic     Karl Heiðar <karlh at macho.is>
+                 Hordur Mar Gestsson <zbot at kuntnet.org>
+   Indonesian    Arief S Fitrianto <arief at fisika.ui.ac.id>
+   Italian       Aldo Moresco <moresco at idcm.it>
+                 Antonetti Roberto <antonr at piceniaweb.com> (help files)
+   Japanese      HIGASHIYAMA Masato <masato at yamaai-tech.com>
+   Korean        Jong-II Kim <aporie at netian.com>
+   Lithuanian    Tomas Kuliavas <tokul at users.sourceforge.net>
+   Malay         Sapuan bin Samion <sapuan at pc.jaring.my>
+   Norwegian     Gustav Foseid <gustavf at squirrelmail.org>
+   Polish        Lukasz Klimek <casa at lo.pila.pl>
+                 Horus <horus at dronet.pl>
                  Andrzej Pruszynski <donkiszot (at) fiz,coi,waw,pl>
-   Portuguese (Brazil) Henrique Moura <henriquemoura@hotmail.com>
-                 Gleydson Mazioli da Silva <gleydson.mazioli@ima.sp.gov.br>
-   Portuguese (Portugal) Ruben Leote Mendes <ruben@nocturno.org>
-   Romanian      Mircea Ilie <mrx@tep.ro>
-   Russian       Grisha Mokhin <mok@kde.ru>
-   Serbian       Boris Manojlovic <steki@verat.net>
-   Slovak        Ondrej Sury <ondrej@sury.cz>
-   Slovenian     Tomaz Zupan <tomaz.zupan@orpo.si>
-   Spanish       Hernan Collazo <hcollazo@opengeeks.com.ar>
-                 Philippe Mingo <philippe@squirrelmail.org> 
-   Swedish       Tobias Ekbom <tobias@vallcom.net>
-                 Teemu Junnila <teejun@vallcom.com>
-                 Olle Hällnäs <olle@xmms.org> 
-                 Johan Fernberger <johan@fernberger.com>
-                 Fredrik Jervfors <sqm_admin@fimbul.net>
-   Taiwan        Ching <ching@kiwa.com.tw>
-   Thai          Nartpong Ampornaramweth <yongnarak@yahoo.com>  
-   Turkish       Volkan Yildirim <volkan@ozzmosis.pleksus.net.tr>
-   Uighur        Mamatjan Tursun <oghri@163.com>
-   Ukrainian 	 Oleg Baranovsky <oleg@uazone.net>
+   Portuguese (Brazil) Henrique Moura <henriquemoura at hotmail.com>
+                 Gleydson Mazioli da Silva <gleydson.mazioli at ima.sp.gov.br>
+   Portuguese (Portugal) Ruben Leote Mendes <ruben at nocturno.org>
+   Romanian      Mircea Ilie <mrx at tep.ro>
+   Russian       Grisha Mokhin <mok at kde.ru>
+   Serbian       Boris Manojlovic <steki at verat.net>
+   Slovak        Ondrej Sury <ondrej at sury.cz>
+   Slovenian     Tomaz Zupan <tomaz.zupan at orpo.si>
+   Spanish       Hernan Collazo <hcollazo at opengeeks.com.ar>
+                 Philippe Mingo <philippe at squirrelmail.org> 
+   Swedish       Tobias Ekbom <tobias at vallcom.net>
+                 Teemu Junnila <teejun at vallcom.com>
+                 Olle Hällnäs <olle at xmms.org> 
+                 Johan Fernberger <johan at fernberger.com>
+                 Fredrik Jervfors <sqm_admin at fimbul.net>
+   Taiwan        Ching <ching at kiwa.com.tw>
+   Thai          Nartpong Ampornaramweth <yongnarak at yahoo.com>  
+   Turkish       Volkan Yildirim <volkan at ozzmosis.pleksus.net.tr>
+   Uighur        Mamatjan Tursun <oghri at 163.com>
+   Ukrainian 	 Oleg Baranovsky <oleg at uazone.net>
      (Ukrainian is not supported unless someone updates translation. 
      translation is not in Ukrainian)
-   Vietnamese    Le Viet Hung <heros@hcm.fpt.vn>
+   Vietnamese    Le Viet Hung <heros at hcm.fpt.vn>
      (Vietnamese is not supported unless someone updates translation. 
      translation is not in Vietnamese)
-   Welsh	 Andrew Rawlins <awr@aber.ac.uk> 
+   Welsh	 Andrew Rawlins <awr at aber.ac.uk> 
 
  Significant Contributions:
  --------------------------
