@@ -538,7 +538,7 @@ function get_sorted_msgs_list($imapConnection,$aMailbox,&$error) {
 * @param array $aMailbox associative array with mailbox related vars
 */
 function showMessagesForMailbox($imapConnection, $aMailbox) {
-    global $msgs, $server_sort_array,$indent_array;
+    global $msgs, $server_sort_array, $indent_array, $color;
 
     // to retrieve the internaldate pref: (I know this is not the right place to do that, move up in front
     // and use a properties array as function argument to provide user preferences
