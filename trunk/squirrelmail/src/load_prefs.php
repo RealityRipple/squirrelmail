@@ -218,7 +218,7 @@ $sig_first = getPref($data_dir, $username, 'sig_first', 0);
 $internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
 
 /* if thread sorting is enabled/disabled */
-$thread_sort_messages = getPref($data_dir, $username, 'thread_sort_messages', 0);
+$thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox", 0);
 $sort_by_ref = getPref($data_dir, $username, 'sort_by_ref', 1);
 
 /* Load the javascript settings. */

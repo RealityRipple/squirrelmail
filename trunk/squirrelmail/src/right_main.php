@@ -52,16 +52,16 @@ global $allow_thread_sort;
 if ($allow_thread_sort == TRUE) {
     if (isset($set_thread)) {
         if ($set_thread == 1) {
-            setPref($data_dir, $username, 'thread_sort_messages', 1);
+            setPref($data_dir, $username, "thread_$mailbox", 1);
             $thread_sort_messages = '1';    
         }
         elseif ($set_thread == 2)  {
-            setPref($data_dir, $username, 'thread_sort_messages', 0);
+            setPref($data_dir, $username, "thread_$mailbox", 0);
             $thread_sort_messages = '0';    
         }
     }
     else {
-        $thread_sort_messages = getPref($data_dir, $username, 'thread_sort_messages');
+        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox");
     }
 }
 else {
