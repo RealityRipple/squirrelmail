@@ -173,9 +173,11 @@ function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $where, $wha
 
 
        $msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
+       $toggle_all = get_selectall_link(1, $sort);
 
+       echo '<table bgcolor="' . $color[0] . '" border="0" width="100%" cellpadding="1" cellspacing="0"><tr><td>';
        mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
-                                       $msg_cnt_str, '', 1);
+                                       $msg_cnt_str, $toggle_all, 1);
 
 
        printHeader($mailbox, 6, $color, false);
@@ -184,6 +186,8 @@ function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $where, $wha
 		          $msort, $mailbox, $sort, $color, $cnt, $where, $what);
 
        mail_message_listing_end($cnt, '', $msg_cnt_str, $color); 
+       echo '</td></tr></table>';
+       
     }
 }			      
 
