@@ -136,6 +136,7 @@
           htmlspecialchars($addrquery));
 
    // List all backends to allow the user to choose where to search
+   if(!isset($backend)) $backend = "";
    if($abook->numbackends > 1) {
       printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n", 
              _("in"));
