@@ -28,7 +28,7 @@
       var $encoding = '', $size = 0, $to = array(), $from = '', $date = '';
       var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
       var $id = 0, $mailbox = '', $description = '', $filename = '';
-      var $entity_id = 0, $message_id = 0;
+      var $entity_id = 0, $message_id = 0, $name = '';
    }
    
    class message {
@@ -568,11 +568,17 @@
          if (!$message->entities) {
             $type0 = strtolower($message->header->type0);
             $type1 = strtolower($message->header->type1);
+            $name = decodeHeader($message->header->name);
             
             if ($message->header->entity_id != $ent_id) {
                $filename = decodeHeader($message->header->filename);
                if (trim($filename) == "") {
-                  $display_filename = "untitled-".$message->header->entity_id;
+                  if (trim($name) == "") { 
+                     $display_filename = "untitled-".$message->header->entity_id; 
+                  } else { 
+                     $display_filename = $name; 
+                     $filename = $name; 
+                  } 
                } else {
                   $display_filename = $filename;
                }

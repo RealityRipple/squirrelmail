@@ -87,6 +87,9 @@
    if (isset($override_type1))
        $type1 = $override_type1;
    $filename = decodeHeader($header->filename);
+   if (!$filename) {
+      $filename = decodeHeader($header->name);
+   }
 
    if (strlen($filename) < 1) {
       if ($type1 == "plain" && $type0 == "text")                  $suffix = "txt";
