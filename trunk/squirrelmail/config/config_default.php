@@ -200,6 +200,8 @@
     $theme[8]["PATH"] = "../config/plain_blue_theme.php";
     $theme[8]["NAME"] = "Plain Blue";
 
+    $theme[9]["PATH"] = "../config/bluesteel_theme.php";
+    $theme[9]["NAME"] = "Blue Steel";
 
 //  LDAP server(s)
 //
