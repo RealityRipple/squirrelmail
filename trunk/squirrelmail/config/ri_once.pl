@@ -215,15 +215,28 @@ sub dofile {
 
 # process a directory recursively
 sub dodir {
+    my $dirname;
+    my $file;
+    my $full;
+    my @files;
+    my $i;
     $dirname = $_[0];
     $dirname =~ s/\/$//;
     opendir(DIR, $dirname) or die "can't opendir $dirname: $!";
+    $i = 0;
     while (defined($file = readdir(DIR))) {
+        @files[$i++] = $file;
+    }
+    $i = 0;
+    while (defined($file = @files[$i++])) {
 	next if $file =~ /^\.\.?$/;
 	$full = $dirname.'/'.$file;
+#        print "found: $full\n";
 	if (-d $full) {
+#            print "doing dir: $full\n";
 	    &dodir($full);
 	} else { if ($file =~ /.*\.php$/) {
+#            print "doing file: $full\n";
 	    &dofile($full);
 	}}
     }
