@@ -6,7 +6,7 @@
 
 
    function decodeMime($body, $bound, $type0, $type1) {
-      echo "$type0/$type1<BR>";
+//      echo "$type0/$type1<BR>";
       if ($type0 == "multipart") {
          if ($body[0] == "")
             $i = 1;
@@ -42,13 +42,17 @@
 
    /** This gets one entity's properties **/
    function getEntity($body, $bound, $type0, $type1, $encoding, $charset) {
-      echo "$type0/$type1<BR>";
+//      echo "--$type0/$type1--<BR>";
       $msg[0]["TYPE0"] = $type0;
       $msg[0]["TYPE1"] = $type1;
       $msg[0]["ENCODING"] = $encoding;
       $msg[0]["CHARSET"] = $charset;
 
       if ($type0 == "text") {
+         // error correcting if they didn't follow RFC standards
+         if (trim($type1) == "")
+            $type1 = "plain";
+
          if ($type1 == "plain") {
             $msg[0]["PRIORITY"] = 10;
             for ($p = 0;$p < count($body);$p++) {
@@ -65,8 +69,6 @@
                $msg[0]["BODY"][$p] = $body[$q];
             }
          }
-      } else if ($type0 == "image") {
-         $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This is an image.  Squirrelmail currently cannot decode images.</FONT></B>";
       } else {
          $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This attachment is of an unknown format:  $type0/$type1</FONT></B>";
       }
@@ -111,6 +113,25 @@
                      break;
          }
       }
+
+      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
+         $pos = count($body);
+         if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
+            $body[$pos] = "<BR><TT><U><B>ATTACHMENTS:</B></U></TT><BR>";
+         }
+      }
+
+      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
+         $pos = count($body);
+         if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
+            if ($message["ENTITIES"][$i]["TYPE0"] == "image") {
+               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Image: " . strtoupper($message["ENTITIES"][$i]["TYPE1"]) . "</TT><BR>";
+            } else {
+               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Unknown Type: " . $message["ENTITIES"][$i]["TYPE0"] . "/" . $message["ENTITIES"][$i]["TYPE1"] . "</TT><BR>";
+            }
+         }
+      }
+
       return $body;
    }
 
