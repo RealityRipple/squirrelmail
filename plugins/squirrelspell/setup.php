@@ -21,13 +21,13 @@
  * @return void
  */
 function squirrelmail_plugin_init_squirrelspell() {
-  global $squirrelmail_plugin_hooks;
-  $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] = 
-     'squirrelspell_setup';
-  $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] = 
-     'squirrelspell_optpage_register_block';
-  $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
-     'squirrelspell_options';
+    global $squirrelmail_plugin_hooks;
+    $squirrelmail_plugin_hooks['compose_button_row']['squirrelspell'] = 
+        'squirrelspell_setup';
+    $squirrelmail_plugin_hooks['optpage_register_block']['squirrelspell'] = 
+        'squirrelspell_optpage_register_block';
+    $squirrelmail_plugin_hooks['options_link_and_description']['squirrelspell'] =
+        'squirrelspell_options';
 }
 
 /**
@@ -37,22 +37,22 @@ function squirrelmail_plugin_init_squirrelspell() {
  * @return void
  */
 function squirrelspell_optpage_register_block() {
-  global $optpage_blocks;
-  /**
-   * Check if this browser is capable of using the plugin
-   */
-  if (checkForJavascript()) {
+    global $optpage_blocks;
     /**
-     * The browser checks out.
-     * Register Squirrelspell with the $optionpages array. 
+     * Check if this browser is capable of using the plugin
      */
-    $optpage_blocks[] =
-       array(
-	     'name' => _("SpellChecker Options"),
-	     'url'  => '../plugins/squirrelspell/sqspell_options.php',
-	     'desc' => _("Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."),
-	     'js'   => TRUE);
-  }
+    if (checkForJavascript()) {
+        /**
+         * The browser checks out.
+         * Register Squirrelspell with the $optionpages array. 
+         */
+        $optpage_blocks[] =
+            array(
+                'name' => _("SpellChecker Options"),
+                'url'  => '../plugins/squirrelspell/sqspell_options.php',
+                'desc' => _("Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."),
+                'js'   => TRUE);
+    }
 }
 
 /**
@@ -62,26 +62,26 @@ function squirrelspell_optpage_register_block() {
  * @return void
  */
 function squirrelspell_setup() {
-  /**
-   * Check if this browser is capable of displaying SquirrelSpell
-   * correctly.
-   */
-  if (checkForJavascript()) {
     /**
-     * Some people may choose to disable javascript even though their
-     * browser is capable of using it. So these freaks don't complain,
-     * use document.write() so the "Check Spelling" button is not
-     * displayed if js is off in the browser.
+     * Check if this browser is capable of displaying SquirrelSpell
+     * correctly.
      */
-    echo "<script type=\"text/javascript\">\n"
-      . "<!--\n"
-      . 'document.write("<input type=\"button\" value=\"'
-      . _("Check Spelling") 
-      . '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'
-      . 'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'
-      . 'resizable=yes\')\">");' . "\n"
-      . "//-->\n"
-      . "</script>\n";
-  }
+    if (checkForJavascript()) {
+        /**
+         * Some people may choose to disable javascript even though their
+         * browser is capable of using it. So these freaks don't complain,
+         * use document.write() so the "Check Spelling" button is not
+         * displayed if js is off in the browser.
+         */
+        echo "<script type=\"text/javascript\">\n".
+             "<!--\n".
+             'document.write("<input type=\"button\" value=\"'.
+             _("Check Spelling").
+             '\" onclick=\"window.open(\'../plugins/squirrelspell/sqspell_'.
+             'interface.php\', \'sqspell\', \'status=yes,width=550,height=370,'.
+             'resizable=yes\')\" />");' . "\n".
+             "//-->\n".
+             "</script>\n";
+    }
 }
 ?>

@@ -49,7 +49,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     
     if ($squirrelmail_language == 'ja_JP') {
         echo "<!-- \xfd\xfe -->\n";
-        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
+        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp" />' . "\n";
     }
     
     if ($do_hook) {
@@ -347,7 +347,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         echo "</td>\n";
     }
     echo "   </tr>\n".
-        "</table><br>\n\n";
+        "</table><br />\n\n";
 }
 
 /**

@@ -22,7 +22,7 @@ $msg = '<p>'
   . _("Please check any available international dictionaries which you would like to use when spellchecking:")
   . '</p>'
   . '<form method="post">'
-  . '<input type="hidden" name="MOD" value="lang_change">'
+  . '<input type="hidden" name="MOD" value="lang_change" />'
   . '<blockquote><p>';
 /**
  * Present a nice listing.
@@ -37,7 +37,7 @@ while (list($avail_lang, $junk) = each($SQSPELL_APP)){
   if (in_array($avail_lang, $langs)) {
     $msg .= ' checked';
   }
-  $msg .= '> ' . _($avail_lang) . "<br>\n";
+  $msg .= ' /> ' . _($avail_lang) . "<br />\n";
   $add .= "<option";
   if ($avail_lang==$langs[0]) {
     $add .= ' selected';
@@ -46,7 +46,7 @@ while (list($avail_lang, $junk) = each($SQSPELL_APP)){
 }
 $msg .= "</p>\n" . $add . "</select>\n";
 $msg .= "</p></blockquote><p><input type=\"submit\" value=\" " 
-  . _("Make these changes") . " \"></p>";
+  . _("Make these changes") . " \" /></p>";
 sqspell_makePage(_("Add International Dictionaries"), null, $msg); 
 
 /**

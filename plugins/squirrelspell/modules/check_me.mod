@@ -121,9 +121,9 @@ if ($sqspell_exitcode){
      . sprintf(_("I tried to execute '%s', but it returned:"),
                $sqspell_command) . "<pre>"
      . join("\n", htmlspecialchars($sqspell_output)) . "</pre>"
-     . "<form onsubmit=\"return false\">"
-     . "<input type=\"submit\" value=\"  " . _("Close")
-     . "  \" onclick=\"self.close()\"></form></div>";
+     . '<form onsubmit="return false">'
+     . '<input type="submit" value="  ' . _("Close")
+     . '  " onclick="self.close()" /></form></div>';
   sqspell_makeWindow(null, _("SquirrelSpell is misconfigured."), null, $msg);
   exit;
 }
@@ -225,7 +225,7 @@ if ($errors){
    * Check if there are user-defined stylesheets.
    */
   if ($theme_css != '') {
-    echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />\n";
   }
   /**
    * Load the spelling errors into JavaScript arrays
@@ -311,7 +311,7 @@ if ($errors){
    </tr>
    <tr>
     <td>
-      <hr>
+      <hr />
     </td>
    </tr>
    <tr>
@@ -365,7 +365,7 @@ if ($errors){
         </td>
         <td align="left">
          <input name="sqspell_oruse" size="15" value=""
-                onfocus="if(!this.value) this.value=document.forms[0].sqspell_error.value">
+                onfocus="if(!this.value) this.value=document.forms[0].sqspell_error.value" />
         </td>
         <td align="right">
          <?php
@@ -373,12 +373,12 @@ if ($errors){
          ?>
         </td>
         <td align="left">
-         <input name="sqspell_likethis" size=3 value="" onfocus="this.blur()">
+         <input name="sqspell_likethis" size=3 value="" onfocus="this.blur()" />
         </td>
        </tr>
         <!-- hello? What is this? </td></tr> -->
        <tr>
-        <td colspan="4"><hr></td>
+        <td colspan="4"><hr /></td>
        </tr>
        <tr>
         <td colspan="4">
@@ -406,21 +406,21 @@ if ($errors){
         </td>
        </tr>
        <tr>
-        <td colspan="4"><hr></td>
+        <td colspan="4"><hr /></td>
        </tr>
        <tr>
-	<td colspan="4" align="center" bgcolor="<?php echo $color[9] ?>">
-	 <?php
-	  echo '<input type="button" value="  '
-	    . _("Close and Commit")
-	    . '  " onclick="if (confirm(\''
-	    . _("The spellcheck is not finished. Really close and commit changes?")
-	    . '\')) sqspellCommitChanges()">'
-            . ' <input type="button" value="  '
-            . _("Close and Cancel")
-            . '  " onclick="if (confirm(\''
-            . _("The spellcheck is not finished. Really close and discard changes?")
-            . '\')) self.close()">';
+        <td colspan="4" align="center" bgcolor="<?php echo $color[9] ?>">
+         <?php
+             echo '<input type="button" value="  '
+                . _("Close and Commit")
+                . '  " onclick="if (confirm(\''
+                . _("The spellcheck is not finished. Really close and commit changes?")
+                . '\')) sqspellCommitChanges()" />'
+                . ' <input type="button" value="  '
+                . _("Close and Cancel")
+                . '  " onclick="if (confirm(\''
+                . _("The spellcheck is not finished. Really close and discard changes?")
+                . '\')) self.close()" />';
          ?>
         </td>
        </tr>
@@ -435,9 +435,9 @@ if ($errors){
   /**
    * AREN'T YOU SUCH A KNOW-IT-ALL!
    */
-  $msg="<form onsubmit=\"return false\"><div align=\"center\">"
-     . "<input type=\"submit\" value=\"  " . _("Close") 
-     . "  \" onclick=\"self.close()\"></div></form>";
+  $msg='<form onsubmit="return false"><div align="center">'.
+       '<input type="submit" value="  ' . _("Close") .
+       '  " onclick="self.close()" /></div></form>';
   sqspell_makeWindow(null, _("No errors found"), null, $msg);
 }
 

@@ -21,8 +21,8 @@
  */
 $langs=sqspell_getSettings(null);
 $msg = '<form method="post">'
-  . '<input type="hidden" name="MOD" value="check_me">'
-  . '<input type="hidden" name="sqspell_text">'
+  . '<input type="hidden" name="MOD" value="check_me" />'
+  . '<input type="hidden" name="sqspell_text" />'
   . '<p align="center">';
 if (sizeof($langs)==1){ 
   /**
@@ -32,7 +32,7 @@ if (sizeof($langs)==1){
   $onload="sqspell_init(true)";
   $msg .= _("Please wait, communicating with the server...")
     . '</p>'
-    . "<input type=\"hidden\" name=\"sqspell_use_app\" value=\"$langs[0]\">";
+    . "<input type=\"hidden\" name=\"sqspell_use_app\" value=\"$langs[0]\" />";
 } else {
   /**
    * More than one dictionary. Let the user choose the dictionary first
@@ -50,7 +50,7 @@ if (sizeof($langs)==1){
     $msg .= " value=\"$langs[$i]\"> " . _($langs[$i]) . "</option>\n";
   }  
   $msg .= ' </select>'
-    . '<input type="submit" value="' . _("Go") . '">'
+    . '<input type="submit" value="' . _("Go") . '" />'
     . '</p>';
 }
 $msg .="</form>\n";
@@ -63,5 +63,5 @@ sqspell_makeWindow($onload, _("SquirrelSpell Initiating"), "init.js", $msg);
  * End:
  * vim: syntax=php
  */
-    
+ 
 ?>
