@@ -85,7 +85,8 @@ function newMail () {
                     mime_fetch_body($imapConnection, $id, 1),
                     $message->header->encoding);
             }
-        } else {
+        }
+        else {
             $body = '';
         }
 
@@ -105,12 +106,13 @@ function newMail () {
             if ($reply_id) {
                 if (ereg('^[ >]+', $body_ary[$i])) {
                     $body_ary[$i] = '>' . $body_ary[$i];
-                } else {
+                }
+                else {
                     $body_ary[$i] = '> ' . $body_ary[$i];
                 }
             }
             if (!$draft_id) {
-               sqWordWrap($body_ary[$i], $editor_size - 1);
+                sqWordWrap($body_ary[$i], $editor_size - 1);
             }
             $body .= $body_ary[$i] . "\n";
             unset($body_ary[$i]);
@@ -119,25 +121,27 @@ function newMail () {
             $bodyTop =  '-------- ' . _("Original Message") . " --------\n" .
                         _("Subject") . ': ' . $orig_header->subject . "\n" .
                         _("From")    . ': ' . $orig_header->from    . "\n" .
-                        _("Date")      . ': ' . getLongDateString( $orig_header->date ). "\n" .
+                        _("Date")      . ': ' .
+                                 getLongDateString( $orig_header->date ). "\n" .
                         _("To")      . ': ' . $orig_header->to[0]   . "\n";
-             if (count($orig_header->to) > 1) {
-                 for ($x=1; $x < count($orig_header->to); $x++) {
-                     $bodyTop .= '         ' . $orig_header->to[$x] . "\n";
-                 }
-             }
-             $bodyTop .= "\n";
-             $body = $bodyTop . $body;
-         } else if ($reply_id) {
-             $orig_from = decodeHeader($orig_header->from);
-             $body = getReplyCitation($orig_from) . $body;
-         }
+            if (count($orig_header->to) > 1) {
+                for ($x=1; $x < count($orig_header->to); $x++) {
+                    $bodyTop .= '         ' . $orig_header->to[$x] . "\n";
+                }
+            }
+            $bodyTop .= "\n";
+            $body = $bodyTop . $body;
+        }
+        elseif ($reply_id) {
+            $orig_from = decodeHeader($orig_header->from);
+            $body = getReplyCitation($orig_from) . $body;
+        }
 
-         return;
+        return;
     }
 
     if (!$send_to) {
-         $send_to = sqimap_find_email($send_to);
+        $send_to = sqimap_find_email($send_to);
     }
 
     /* This formats a CC string if they hit "reply all" */
@@ -176,9 +180,10 @@ function getAttachments($message) {
            $ent_num, $forward_id, $draft_id, $username;
 
     if (isset($draft_id)) {
-         $id = $draft_id;
-    } else {
-         $id = $forward_id;
+        $id = $draft_id;
+    }
+    else {
+        $id = $forward_id;
     }
 
     if (!$message) {
@@ -206,7 +211,7 @@ function getAttachments($message) {
             $newAttachment['localfilename'] = $localfilename;
             $newAttachment['remotefilename'] = $filename;
             $newAttachment['type'] = strtolower($message->header->type0 .
-                '/' . $message->header->type1);
+                                                '/' . $message->header->type1);
 
             /* Write Attachment to file */
             $fp = fopen ("$hashed_attachment_dir/$localfilename", 'w');
@@ -217,7 +222,8 @@ function getAttachments($message) {
 
             $attachments[] = $newAttachment;
         }
-    } else {
+    }
+    else {
         for ($i = 0; $i < count($message->entities); $i++) {
             getAttachments($message->entities[$i]);
         }
@@ -232,7 +238,7 @@ function showInputForm () {
            $use_javascript_addr_book, $send_to_bcc, $reply_id, $mailbox,
            $from_htmladdr_search, $location_of_buttons, $attachment_dir,
            $username, $data_dir, $identity, $draft_id, $delete_draft,
-       $mailprio;
+           $mailprio;
 
     $subject = decodeHeader($subject);
     $reply_subj = decodeHeader($reply_subj);
@@ -263,7 +269,9 @@ function showInputForm () {
 
     echo '<TABLE WIDTH="100%" ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
 
-    if ($location_of_buttons == 'top') { showComposeButtonRow(); }
+    if ($location_of_buttons == 'top') {
+        showComposeButtonRow();
+    }
 
     $idents = getPref($data_dir, $username, 'identities');
     if ($idents != '' && $idents > 1) {
@@ -282,13 +290,13 @@ function showInputForm () {
         for ($i = 1; $i < $idents; $i ++) {
             echo '<option value="' . $i . '"';
             if (isset($identity) && $identity == $i) {
-               echo ' SELECTED';
+                echo ' SELECTED';
             }
             echo '>' . htmlspecialchars(getPref($data_dir, $username,
                                                 'full_name' . $i));
             $em = getPref($data_dir, $username, 'email_address' . $i);
             if ($em != '') {
-               echo htmlspecialchars(' <' . $em . '>') . "\n";
+                echo htmlspecialchars(' <' . $em . '>') . "\n";
             }
         }
         echo '</select>' . "\n" .
@@ -325,11 +333,13 @@ function showInputForm () {
     if ($reply_subj) {
         $reply_subj = str_replace('"', "'", $reply_subj);
         $reply_subj = trim($reply_subj);
-        if (substr(strtolower($reply_subj), 0, 3) != 're:')
+        if (substr(strtolower($reply_subj), 0, 3) != 're:') {
             $reply_subj = 'Re: ' . $reply_subj;
+        }
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($reply_subj) . '">';
-    } else if ($forward_subj) {
+    }
+    elseif ($forward_subj) {
         $forward_subj = trim($forward_subj);
         if ((substr(strtolower($forward_subj), 0, 4) != 'fwd:') &&
             (substr(strtolower($forward_subj), 0, 5) != '[fwd:') &&
@@ -338,13 +348,16 @@ function showInputForm () {
         }
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($forward_subj) . '">';
-    } else {
+    }
+    else {
         echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
              htmlspecialchars($subject) . '">';
     }
     echo '</td></tr>' . "\n\n";
 
-    if ($location_of_buttons == 'between') { showComposeButtonRow(); }
+    if ($location_of_buttons == 'between') {
+        showComposeButtonRow();
+    }
 
     echo '   <TR>' . "\n" .
          '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
@@ -367,7 +380,7 @@ function showInputForm () {
         echo '   <TR><TD>&nbsp;</TD><TD ALIGN=LEFT><INPUT TYPE=SUBMIT ' .
              'NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
     }
-
+    
     /* This code is for attachments */
     echo '   <TR>' . "\n" .
          '     <TD VALIGN=MIDDLE ALIGN=RIGHT>' . "\n" .
@@ -409,61 +422,65 @@ function showInputForm () {
 }
 
 
+function showComposeButtonRow()
+{
+    global $use_javascript_addr_book, $save_as_draft,
+        $default_use_priority, $mailprio;
 
-
-
-
-
-   function showComposeButtonRow() {
-      global $use_javascript_addr_book, $save_as_draft,
-             $default_use_priority, $mailprio;
-
-      echo "   <TR><td>\n   </td><td>\n";
-      if ($use_javascript_addr_book) {
-         echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
-         echo "         <input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
-         echo "         // --></SCRIPT><NOSCRIPT>\n";
-         echo "         <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-         echo "      </NOSCRIPT>\n";
-      } else {
-         echo "      <input type=submit name=\"html_addr_search\" value=\""._("Addresses")."\">";
-      }
-      echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
-
-      if ($save_as_draft) {
-          echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
-      }
-      if ($default_use_priority) {
-        if(!isset($mailprio)) {
-      $mailprio = "3";
+    echo "   <TR><td>\n   </td><td>\n";
+    if ($use_javascript_addr_book) {
+        echo "      <SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
+        echo "         <input type=button value=\\\""._("Addresses").
+                              "\\\" onclick='javascript:open_abook();'>\");";
+        echo "         // --></SCRIPT><NOSCRIPT>\n";
+        echo "         <input type=submit name=\"html_addr_search\" value=\"".
+                              _("Addresses")."\">";
+        echo "      </NOSCRIPT>\n";
     }
-    echo "\n\t". _("Priority") .":<select name=\"mailprio\">".
-      "\n\t\t<option value=1".($mailprio=="1"?" selected":"").">". _("High") ."</option>".
-      "\n\t\t<option value=3".($mailprio=="3"?" selected":"").">". _("Normal") ."</option>".
-      "\n\t\t<option value=5".($mailprio=="5"?" selected":"").">". _("Low")."</option>".
-      "\n\t</select>";
-      }
+    else {
+        echo "      <input type=submit name=\"html_addr_search\" value=\"".
+                              _("Addresses")."\">";
+    }
+    echo "\n    <INPUT TYPE=SUBMIT NAME=send VALUE=\"". _("Send") . "\">\n";
 
-      do_hook("compose_button_row");
+    if ($save_as_draft) {
+        echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
+    }
+    if ($default_use_priority) {
+        if(!isset($mailprio)) {
+            $mailprio = "3";
+        }
+        echo "\n\t". _("Priority") .':<select name="mailprio">'.
+            "\n\t\t<option value=1".($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
+            "\n\t\t<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
+            "\n\t\t<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
+            "\n\t</select>";
+    }
 
-      echo "   </TD>\n";
-      echo "   </TR>\n\n";
-   }
+    do_hook('compose_button_row');
 
-   function checkInput ($show) {
-      /** I implemented the $show variable because the error messages
-          were getting sent before the page header.  So, I check once
-          using $show=false, and then when i'm ready to display the
-          error message, show=true **/
-      global $body, $send_to, $subject, $color;
+    echo "   </TD>\n";
+    echo "   </TR>\n\n";
+}
 
-      if ($send_to == "") {
-         if ($show)
+function checkInput ($show)
+{
+    /*
+     * I implemented the $show variable because the error messages
+     * were getting sent before the page header.  So, I check once
+     * using $show=false, and then when i'm ready to display the error
+     * message, show=true
+     */
+    global $body, $send_to, $subject, $color;
+
+    if ($send_to == "") {
+        if ($show) {
             plain_error_message(_("You have not filled in the \"To:\" field."), $color);
-         return false;
-      }
-      return true;
-   } // function checkInput()
+        }
+        return false;
+    }
+    return true;
+} /* function checkInput() */
 
 
    // True if FAILURE
