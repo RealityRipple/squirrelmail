@@ -44,7 +44,7 @@ function Show_Array($array) {
 }
 
 $browser = get_browser();
-$body_top .= "I subscribe to the squirrelmail-list mailing list.\n" .
+$body_top .= "I subscribe to the squirrelmail-users mailing list.\n" .
                 "  [ ]  True - No need to CC me when replying\n" .
                 "  [ ]  False - Please CC me when replying\n" .
                 "\n" .
@@ -175,7 +175,7 @@ $body = htmlspecialchars($body_top . $body);
    <tr>
      <td>
        This bug involves: <select name="send_to">
-         <option value="squirrelmail-list@lists.sourceforge.net">the general program</option>
+         <option value="squirrelmail-users@lists.sourceforge.net">the general program</option>
          <option value="squirrelmail-plugins@lists.sourceforge.net">a specific plugin</option>
        </select>
      </td>
