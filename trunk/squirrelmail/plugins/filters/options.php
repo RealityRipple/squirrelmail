@@ -42,6 +42,10 @@
       $filter_what = str_replace("\\\"", "\"", $filter_what);
       $filter_what = str_replace("\"", "&quot;", $filter_what);
 
+      if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
+         print ('WARNING! Header filters should be of the format "Header: value"<BR>');
+	 $action = 'edit';
+      }
       setPref($data_dir, $username, "filter".$theid, $filter_where.",".$filter_what.",".$filter_folder);
       $filters[$theid]["where"] = $filter_where;
       $filters[$theid]["what"] = $filter_what;
