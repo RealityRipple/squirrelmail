@@ -37,6 +37,16 @@
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
    }
 
+
+   /******************************************************************************
+    **  Remove specified flag from specified messages
+    ******************************************************************************/
+   function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag) {
+      fputs ($imap_stream, "a001 STORE $start:$end -FLAGS (\\$flag)\r\n");
+      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+   }
+
+
    /******************************************************************************
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/

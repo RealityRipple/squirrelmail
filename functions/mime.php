@@ -455,7 +455,7 @@
    
          // If there are other types that shouldn't be formatted, add
          // them here 
-         if ($message->header->type1 != "html") {   
+         if ($body_message->header->type1 != "html") {   
             translateText($body, $wrap_at, $body_message->header->charset);
          }   
    
