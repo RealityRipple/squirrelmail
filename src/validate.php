@@ -73,7 +73,6 @@ $theme=array();
 require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
-require_once('../functions/html.php');
 
 /* Set up the language (i18n.php was included by auth.php). */
 global $username, $data_dir;
@@ -84,11 +83,5 @@ if ( $timeZone != SMPREF_NONE && ($timeZone <> '')
     && !ini_get( 'safe_mode' )) {
     putenv( 'TZ=' . $timeZone );
 }
-
-/*
-    Initialize the html object
-*/
-GLOBAL $html;
-$html = new ZkSvc_html();
 
 ?>
