@@ -31,7 +31,7 @@
       Levo od dugmeta za brisanje su dva dodatna dugmeta koji vam dozvoljavaju da obele¾ite
       izabrane poruke kao proèitane ili neproèitane. 
       </p><p>
-	  Sledeæa je linija sa tri polja (Od, Datum, Naslov) is next.  Ova polja dele
+	  Sledeæa je linija sa tri polja (Od, Datum, Naslov).  Ova polja dele
 	  listu poruka u logièke delove. Polje Od vam govori od koga je stigla poruka
 	  ili email adresu s koje je poslata. Datum prikazuje dan kada je poruka poslata
 	  i Naslov prikazuje ¹ta je po¹iljalac uneo kao temu poruke. <b>Primedba:</b> 
@@ -41,7 +41,7 @@
 	  na tu poruku odgovorili; i ukoliko vidite znak "!" to znaèi da je ta poruka
 	  markirana od strane po¹iljaoca kao hitna!  
       </p><p>
-      ©ta preostaje je u stvari lista konretnih poruka. Primetiæete da je neproèitana
+      ©ta preostaje je u stvari lista konkretnih poruka. Primetiæete da je neproèitana
       po¹ta napisana <B>masnim</B> slovima, dok su proèitane poruke normalnog formata
       teksta. Ova tabela se sastoji od èetiri polja. S leve strane je kuæica za biranje
       poruka, ukoliko nju ¹tiklirate time izabirate poruku s kojom posle mo¾ete raditi

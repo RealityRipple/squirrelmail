@@ -4,7 +4,7 @@
    </title>   
    <summary>
       Mo¾ete sme¹tati poruke u razlièite direktorijume. To 
-      je posebno korisno ako imate nmnogo po¹te i ¾elite da
+      je posebno korisno ako imate mnogo po¹te i ¾elite da
       sve dr¾ite organizovanim. Opcije direktorijuma vam 
       dozvoljavaju manipulaciju va¹im direktorijumima.
    </summary>
@@ -16,11 +16,11 @@
    </title>
    <description>
       <p>
-      Trenutno ukljuèeni i kativni direktorijumi se nalaze u obojenom
+      Trenutno ukljuèeni i aktivni direktorijumi se nalaze u obojenom
       polju s leve strane. Ovaj frejm se mo¾e podesiti da se automatski 
       osve¾ava u stranici sa Opcijama. Na vrhu levog frejma je
       veliki masni naslov. Ukoliko su vr¹ene neke promene u direktorijumima
-      koji su aktivni, ova lkista se mo¾e osve¾iti uz pomoæ linka ispod
+      koji su aktivni, ova lista se mo¾e osve¾iti uz pomoæ linka ispod
       naslova. zaèudo, ovaj link se i zove "osve¾i listu direktorijuma".
       </p><p>
       Prvi direktorijum na listi sadr¾i va¹u primljenu po¹tu. 
@@ -42,7 +42,7 @@
    <description>
       <p>
       Mo¾ete obrisati bilo koji od direktorijuma koji je prikazan u padajuæem
-      meniju s desne strane. Zapamtite da ovaj padajuæi meni mo¾da<B>neæe</B> 
+      meniju s desne strane. Zapamtite da ovaj padajuæi meni mo¾da <B>neæe</B> 
       prikazati sve direktorijume koje imate. Specijalni direktorijumi poput
       Sent ili Trash se ne mogu obrisati, i naravno ne mo¾ete obrisati INBOX.
       </p>
@@ -56,7 +56,7 @@
    </title>
    <description>
       <p>
-      Direktorijumi se kreiraju jednostavnik upisivanjem uimena direktorijuma u 
+      Direktorijumi se kreiraju jednostavnim upisivanjem imena direktorijuma u 
       kuæicu za tekst i pritiskom na Kreiraj dugme. Ukoliko ¾elite da to bude                 poddirektorijum nekog drugog direktorijuma to mo¾ete izabrati u padajuæem
       meniju s listom svih direktorijuma. 
       </p>
@@ -64,7 +64,7 @@
       Na nekim mail serverima, postoje dve vrtse direktorijuma.
       Jedan koji sadr¾i poruke, i drugi koji sadr¾i direktorijume. 
       Mo¾ete videti opciju "Neka ovaj direktorijum sadr¾i poddirektorijume".
-      Ukoliko to imate, i ukljuèite, direktorijum koji ste kreirali æe moèi samo da 
+      Ukoliko to imate, i ukljuèite, direktorijum koji ste kreirali æe moæi samo da 
       sadr¾i druge direktorijume, ali ne i poruke. U suprotnom u njemu æete moæi
       da dr¾ite samo poruke, ali ne i druge direktorijume.
       </p>
@@ -77,8 +77,8 @@
    </title>
    <description>
       <p>
-      Mo¾ete premienovati bilo koji deirektorijum koji se nalazi u padajuæem
-      meniju levo od "Preminenuj" dugmeta. Zapamtite da ova lista mo¾da<B>ne</B> 
+      Mo¾ete premienovati bilo koji direktorijum koji se nalazi u padajuæem
+      meniju levo od "Preminenuj" dugmeta. Zapamtite da ova lista mo¾da <B>ne</B> 
       sadr¾i sve direktorijume koji su vam ispisani u levom frejmu. Iz istih razloga
       dakle, ne mo¾ete preimenovati INBOX, Trash ili Sent direktorijume.
       </p>
