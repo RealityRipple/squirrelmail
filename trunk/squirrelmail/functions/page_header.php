@@ -65,17 +65,18 @@ function displayHtmlHeader
 
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, $delimiter);
-      echo "<A NAME=pagetop></A>\n".
-           "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n".
-           "   <TR BGCOLOR=\"$color[9]\" >\n".
-           "      <TD ALIGN=left><b>\n";
-      displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
-      echo "      </b></TD><TD ALIGN=right>\n".
-           '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n".
-           "      </TD>\n".
-           "   </TR>\n".
-           "   <TR BGCOLOR=\"$color[4]\">\n".
-           "      <TD ALIGN=left>\n";
+      echo "<A NAME=pagetop></A>\n"
+         . "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n"
+         . "   <TR BGCOLOR=\"$color[9]\" >\n"
+         . "      <TD ALIGN=left>\n"
+         . '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n"
+         . "      </TD>\n"
+         . "      <TD ALIGN=right><b>\n";
+      displayInternalLink ('src/signout.php', _("Sign Out"), '_top');
+      echo "      </b></TD>\n"
+         . "   </TR>\n"
+         . "   <TR BGCOLOR=\"$color[4]\">\n"
+         . "      <TD ALIGN=left>\n";
       $urlMailbox = urlencode($mailbox);
       displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
       echo "&nbsp;&nbsp;\n";
