@@ -389,14 +389,18 @@ class Rfc822Header {
                 break;
             case ':':  /* process the group addresses */
                 /* group marker */
-                $group = substr($address, 0, $pos);
-                $address = substr($address, $pos+1);
-                $result = $this->parseAddress($address, $ar, $addr_ar, $group, $lookup);
-                $addr_ar = $result[0];
-                $pos = $result[1];
-                $address = substr($address, $pos++);
-                $j = strlen($address);
-                $group = '';
+		if (strpos($address,';',$pos)) {
+            	    $group = substr($address, 0, $pos);
+            	    $address = substr($address, $pos+1);
+            	    $result = $this->parseAddress($address, $ar, $addr_ar, $group, $lookup);
+            	    $addr_ar = $result[0];
+            	    $pos = $result[1];
+            	    $address = substr($address, $pos++);
+            	    $j = strlen($address);
+            	    $group = '';
+		} else {
+		    $pos = $j;
+		}
                 break;
             case ' ':
                 ++$pos;
