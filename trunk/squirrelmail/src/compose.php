@@ -30,6 +30,16 @@ if (!isset($attachments)) {
     session_register('attachments');
 }
 
+if (!isset($composesession)) {
+    $composesession = 0;
+    session_register('composesession');
+}
+
+if (!isset($session)) {
+    $session = "$composesession" +1; 
+    $composesession = $session;        
+}    
+
 if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
     $mailbox = 'INBOX';
 }
@@ -43,7 +53,7 @@ if (isset($draft)) {
         $MDN = 'False';
     }
     if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN)) {
-        showInputForm();
+        showInputForm($session);
         exit();
     } else {
         $draft_message = _("Draft Email Saved");
@@ -55,7 +65,7 @@ if (isset($draft)) {
         }
         else {
             if ($compose_new_win == '1') {
-                Header("Location: compose.php?saved_draft=yes");
+                Header("Location: compose.php?saved_draft=yes&session=$composesession");
             exit();
             }
             else {
@@ -71,7 +81,7 @@ if (isset($send)) {
     if (isset($HTTP_POST_FILES['attachfile']) &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
-        $AttachFailure = saveAttachedFiles();
+        $AttachFailure = saveAttachedFiles($session);
     }
     if (checkInput(false) && !isset($AttachFailure)) {
         $urlMailbox = urlencode (trim($mailbox));
@@ -117,13 +127,13 @@ if (isset($send)) {
         $MDN = False;  // we are not sending a mdn response
         if (! isset($mailprio)) {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $MDN);
+                                  $subject, $body, $reply_id, $MDN, '', $session);
         } else {
             $Result = sendMessage($send_to, $send_to_cc, $send_to_bcc,
-                                  $subject, $body, $reply_id, $MDN, $mailprio);
+                                  $subject, $body, $reply_id, $MDN, $mailprio, $session);
         }
         if (! $Result) {
-            showInputForm();
+            showInputForm($session);
             exit();
         }
         if ( isset($delete_draft)) {
@@ -132,7 +142,7 @@ if (isset($send)) {
             exit();
         }
         if ($compose_new_win == '1') {
-            Header("Location: compose.php?mail_sent=yes");
+            Header("Location: compose.php?mail_sent=yes&session=$composesession");
         }
         else {
             Header("Location: right_main.php?mailbox=$urlMailbox&sort=$sort".
@@ -155,7 +165,7 @@ if (isset($send)) {
         }
 
         checkInput(true);
-        showInputForm();
+        showInputForm($session);
         /* sqimap_logout($imapConnection); */
     }
 } elseif (isset($html_addr_search_done)) {
@@ -188,12 +198,12 @@ if (isset($send)) {
             }
         }
     }
-    showInputForm();
+    showInputForm($session);
 } elseif (isset($html_addr_search)) {
     if (isset($HTTP_POST_FILES['attachfile']) &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] &&
         $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none') {
-        if (saveAttachedFiles()) {
+        if (saveAttachedFiles($session)) {
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
         }
     }
@@ -203,7 +213,7 @@ if (isset($send)) {
      */
     include_once('./addrbook_search_html.php');
 } elseif (isset($attach)) {
-    if (saveAttachedFiles()) {
+    if (saveAttachedFiles($session)) {
         plain_error_message(_("Could not move/copy file. File not attached"), $color);
     }
         if ($compose_new_win == '1') {
@@ -212,7 +222,7 @@ if (isset($send)) {
         else {
             displayPageHeader($color, $mailbox);
         }
-    showInputForm();
+    showInputForm($session);
 }
 elseif (isset($sigappend)) {
     $idents = getPref($data_dir, $username, 'identities', 0);
@@ -230,7 +240,7 @@ elseif (isset($sigappend)) {
     } else {
         displayPageHeader($color, $mailbox);
     }
-    showInputForm();
+    showInputForm($session);
 } elseif (isset($do_delete)) {
         if ($compose_new_win == '1') {
             compose_Header($color, $mailbox);
@@ -244,12 +254,33 @@ elseif (isset($sigappend)) {
         foreach($delete as $index) {
             $attached_file = $hashed_attachment_dir . '/'
                            . $attachments[$index]['localfilename'];
-            unlink ($attached_file);
-            unset ($attachments[$index]);
+    	    unlink ($attached_file);
+    	    unset ($attachments[$index]);
         }
     }
 
-    showInputForm();
+    showInputForm($session);
+    
+} elseif (isset($attachedmessages)) {
+
+    /*
+     * This handles the case if we attache message 
+     */
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress,
+                                   $imapPort, 0);
+        if ($compose_new_win == '1') {
+            compose_Header($color, $mailbox);
+        }
+        else {
+            displayPageHeader($color, $mailbox);
+        }
+
+    $newmail = true;
+
+    newMail();
+    showInputForm($session);
+    sqimap_logout($imapConnection);
+
 } else {
     /*
      * This handles the default case as well as the error case
@@ -266,18 +297,18 @@ elseif (isset($sigappend)) {
 
     $newmail = true;
 
-    ClearAttachments();
+    ClearAttachments($session);
 
     if (isset($forward_id) && $forward_id && isset($ent_num) && $ent_num) {
-        getAttachments(0);
+        getAttachments(0, $session);
     }
 
     if (isset($draft_id) && $draft_id && isset($ent_num) && $ent_num) {
-        getAttachments(0);
+        getAttachments(0, $session);
     }
 
-    newMail();
-    showInputForm();
+    newMail($session);
+    showInputForm($session);
     sqimap_logout($imapConnection);
 }
 
@@ -291,7 +322,7 @@ exit();
 function newMail () {
     global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
            $reply_id, $send_to, $send_to_cc, $mailbox, $send_to_bcc, $editor_size,
-           $draft_id, $use_signature;
+           $draft_id, $use_signature, $composesession;
 
     $send_to = decodeHeader($send_to, false);
     $send_to_cc = decodeHeader($send_to_cc, false);
@@ -414,7 +445,7 @@ function newMail () {
 } /* function newMail() */
 
 
-function getAttachments($message) {
+function getAttachments($message, $session) {
     global $mailbox, $attachments, $attachment_dir, $imapConnection,
            $ent_num, $forward_id, $draft_id, $username;
 
@@ -450,6 +481,8 @@ function getAttachments($message) {
             $newAttachment['remotefilename'] = $filename;
             $newAttachment['type'] = strtolower($message->header->type0 .
                                                 '/' . $message->header->type1);
+	    $newAttachment['id'] = strtolower($message->header->id);
+	    $newAttachment['session'] = $session;
 
             /* Write Attachment to file */
             $fp = fopen ("$hashed_attachment_dir/$localfilename", 'w');
@@ -462,13 +495,13 @@ function getAttachments($message) {
         }
     } else {
         for ($i = 0; $i < count($message->entities); $i++) {
-            getAttachments($message->entities[$i]);
+            getAttachments($message->entities[$i], $session);
         }
     }
     return;
 }
 
-function showInputForm () {
+function showInputForm ($session) {
     global $send_to, $send_to_cc, $reply_subj, $forward_subj, $body,
            $passed_body, $color, $use_signature, $signature, $prefix_sig,
            $editor_size, $attachments, $subject, $newmail,
@@ -506,6 +539,10 @@ function showInputForm () {
     if (isset($delete_draft)) {
         echo '<input type="hidden" name="delete_draft" value="' . $delete_draft. "\">\n";
     }
+    if (isset($session)) {
+        echo '<input type="hidden" name="session" value="' . "$session" . "\">\n";
+    }
+
     if ($saved_draft == 'yes') {
         echo '<BR><CENTER><B>'. _("Draft Saved").'</CENTER></B>';
     }
@@ -642,10 +679,12 @@ function showInputForm () {
              '&nbsp;' .
              '</td><td align=left bgcolor="' . $color[0] . '">';
         foreach ($attachments as $key => $info) {
-            $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-            echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
-                 $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
-                 show_readable_size(filesize($attached_file)) . ")<br>\n";
+	    if ($info['session'] == $session) { 
+        	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
+        	echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
+                    $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
+                    show_readable_size(filesize($attached_file)) . ")<br>\n";
+	    }
         }
 
         echo '<input type="submit" name="do_delete" value="' .
@@ -736,7 +775,7 @@ function checkInput ($show) {
 
 
 /* True if FAILURE */
-function saveAttachedFiles() {
+function saveAttachedFiles($session) {
     global $HTTP_POST_FILES, $attachment_dir, $attachments, $username;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -756,6 +795,7 @@ function saveAttachedFiles() {
     $newAttachment['localfilename'] = $localfilename;
     $newAttachment['remotefilename'] = $HTTP_POST_FILES['attachfile']['name'];
     $newAttachment['type'] = strtolower($HTTP_POST_FILES['attachfile']['type']);
+    $newAttachment['session'] = $session;
 
     if ($newAttachment['type'] == "") {
          $newAttachment['type'] = 'application/octet-stream';
@@ -765,22 +805,25 @@ function saveAttachedFiles() {
 }
 
 
-
-
-function ClearAttachments()
+function ClearAttachments($session)
 {
     global $username, $attachments, $attachment_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
 
+    $rem_attachments = array();
     foreach ($attachments as $info) {
-        $attached_file = "$hashed_attachment_dir/$info[localfilename]";
-        if (file_exists($attached_file)) {
-            unlink($attached_file);
-        }
+	if ($info['session'] == $session) {
+    	    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+    	    if (file_exists($attached_file)) {
+        	unlink($attached_file);
+    	    }
+	} else {
+	    $rem_attachments[] = $info;
+	}
     }
-
-    $attachments = array();
+    $attachments = $rem_attachments;
 }
+
 
 function getReplyCitation($orig_from)
 {
