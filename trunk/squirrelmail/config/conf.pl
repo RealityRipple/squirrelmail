@@ -294,6 +294,15 @@ if ( !$noselect_fix_enable ) {
 if ( !$frame_top ) {
     $frame_top = "_top";
 }
+
+if ( !$provider_uri ) {
+    $provider_uri = "http://www.squirrelmail.org/";
+}
+
+if ( !$provider_name ) {
+    $provider_name = "SquirrelMail";
+}
+
 if ( !$edit_identity ) {
     $edit_identity = "true";
 }
@@ -383,6 +392,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "5.  Signout Page           : $WHT$signout_page$NRM\n";
         print "6.  Default Language       : $WHT$squirrelmail_default_language$NRM\n";
         print "7.  Top Frame              : $WHT$frame_top$NRM\n";
+        print "8.  Provider link          : $WHT$provider_uri$NRM\n";
+        print "9.  Provider name          : $WHT$provider_name$NRM\n";
+
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 2 ) {
@@ -586,6 +598,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 5 ) { $signout_page                  = command4(); }
             elsif ( $command == 6 ) { $squirrelmail_default_language = command5(); }
             elsif ( $command == 7 ) { $frame_top                     = command6(); }
+            elsif ( $command == 8 ) { $provider_uri                  = command7(); }
+            elsif ( $command == 9 ) { $provider_name                 = command8(); }
+
         } elsif ( $menu == 2 ) {
             if    ( $command == 1 )  { $domain                 = command11(); }
             elsif ( $command == 2 )  { $imapServerAddress      = command12(); }
@@ -787,6 +802,37 @@ sub command6 {
         $new_frame_top =~ s/^\s+$//g;
     }
     return $new_frame_top;
+}
+
+# Default link to provider
+sub command7 {
+    print "Here you can set the link on the right of the page.\n";
+    print "The default is 'http://www.squirrelmail.org/'\n";
+    print "\n";
+    print "[$WHT$provider_uri$NRM]: $WHT";
+    $new_provider_uri = <STDIN>;
+    if ( $new_provider_uri eq "\n" ) {
+        $new_provider_uri = 'http://www.squirrelmail.org/';
+    } else {
+        $new_provider_uri =~ s/[\r|\n]//g;
+        $new_provider_uri =~ s/^\s+$//g;
+    }
+    return $provider_uri;
+}
+
+sub command8 {
+    print "Here you can set the name of the link on the right of the page.\n";
+    print "The default is 'SquirrelMail/'\n";
+    print "\n";
+    print "[$WHT$provider_name$NRM]: $WHT";
+    $new_provider_name = <STDIN>;
+    if ( $new_provider_name eq "\n" ) {
+        $new_provider_name = 'SquirrelMail';
+    } else {
+        $new_provider_name =~ s/[\r|\n]//g;
+        $new_provider_name =~ s/^\s+$//g;
+    }
+    return $provider_name;
 }
 
 ####################################################################################
@@ -2323,6 +2369,12 @@ sub save_data {
         print CF "\$signout_page  = " . &change_to_SM_path($signout_page) . ";\n";
 	# string
         print CF "\$frame_top     = '$frame_top';\n";
+        print CF "\n";
+
+        print CF "\$provider_uri     = '$provider_uri';\n";
+        print CF "\n";
+
+        print CF "\$provider_name     = '$provider_name';\n";
         print CF "\n";
 
 	# string that can contain variables
