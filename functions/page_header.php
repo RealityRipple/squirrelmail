@@ -51,7 +51,6 @@ function displayPageHeader($color, $mailbox) {
 
     global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win, $username, $datadir;
 
-    displayHtmlHeader ();
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if (!isset($frame_top)) {
@@ -65,9 +64,10 @@ function displayPageHeader($color, $mailbox) {
     case 'src/search.php':
         $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
         $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
+        displayHtmlHeader ();
         break;
     default:
-        echo '<script language="JavaScript">' .
+        $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
              "function checkForm() {\n".
                 "var f = document.forms.length;\n".
@@ -97,18 +97,20 @@ function displayPageHeader($color, $mailbox) {
                     $width = (.9*$width);
                     $pix_width = intval($width).'0';
                 }
-                echo "function comp_in_new() {\n".
+                $js .= "function comp_in_new() {\n".
                      "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
                      ", \"compose_window\", \"width=".$pix_width.",height=650".
                      ",scrollbars=yes,resizable=yes\");\n".
                      "}\n";
             }
-        echo "// -->\n".
+        $js .= "// -->\n".
         	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
+        displayHtmlHeader ('Squirrelmail', $js);
         break;   
 
     }
+
 
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
     /** Here is the header and wrapping table **/
@@ -167,7 +169,6 @@ function compose_Header($color, $mailbox) {
 
     global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win;
 
-    displayHtmlHeader (_("Compose"));
 
     $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
     if (!isset($frame_top)) {
@@ -181,9 +182,10 @@ function compose_Header($color, $mailbox) {
     case 'src/search.php':
         $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
         $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
+        displayHtmlHeader (_("Compose"));
         break;
     default:
-        echo '<script language="JavaScript">' .
+        $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
              "function checkForm() {\n".
                 "var f = document.forms.length;\n".
@@ -204,9 +206,10 @@ function compose_Header($color, $mailbox) {
                     "document.forms[i-1].elements[pos].focus();\n".
                 "}\n".
             "}\n";
-        echo "// -->\n".
+        $js .= "// -->\n".
         	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
+        displayHtmlHeader (_("Compose"), $js);
         break;   
 
     }
