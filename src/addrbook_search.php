@@ -142,6 +142,13 @@ function bcc_address($addr) {
       $res = $abook->s_search($query);
 
       if(!is_array($res)) {
+	 printf("<P ALIGN=center><BR>%s:<br>%s</P>\n</BODY></HTML>\n",
+		_("Your search failed with the following error(s)"),
+		$abook->error);
+	 exit;
+      }
+
+      if(sizeof($res) == 0) {
 	 printf("<P ALIGN=center><BR>%s.</P>\n</BODY></HTML>\n",
 		_("No persons matching your search was found"));
 	 exit;
@@ -149,14 +156,19 @@ function bcc_address($addr) {
 
       // List search results
       $line = 0;
-      print "<table border=0 width=100%>";
+      print "<table border=0 width=\"98%\" align=center>";
       printf("<tr bgcolor=\"$color[9]\"><TH align=left>&nbsp;".
-             "<TH align=left>%s<TH align=left>%s<TH align=left>%s".
-             "<TH align=left>%s</tr>\n",
+             "<TH align=left>&nbsp;%s<TH align=left>&nbsp;%s".
+	     "<TH align=left>&nbsp;%s<TH align=left width=\"10%%\">".
+	     "&nbsp;%s</tr>\n",
              _("Name"), _("E-mail"), _("Info"), _("Source"));
 
       while(list($key, $row) = each($res)) {
-	 printf("<tr%s nowrap><td nowrap><a href=\"javascript:to_address('%s');\">To</A> | <a href=\"javascript:cc_address('%s');\">Cc</A><td nowrap>%s&nbsp;<td nowrap>%s&nbsp;<td nowrap>%s&nbsp;<td nowrap>%s</tr>\n", 
+	 printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
+		"<a href=\"javascript:to_address('%s');\">To</A> | ".
+		"<a href=\"javascript:cc_address('%s');\">Cc</A>".
+		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s&nbsp;".
+		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s</tr>\n", 
 		($line % 2) ? " bgcolor=\"$color[0]\"" : "", $row["email"],
 		$row["email"], $row["name"], $row["email"], $row["label"], 
 		$row["source"]);
