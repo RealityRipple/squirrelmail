@@ -1,5 +1,10 @@
-Version 0.3pre2 -- Development
-------------------------------
+Version 0.3 (final) -- March 9, 2000
+------------------------------------
+- Fixed a bug that wouldn't let you rename folders with UW server.
+- Other minor bugfixes
+
+Version 0.3pre2 -- March 5, 2000 
+--------------------------------
 - Rewrote folder deletion.  It works much more flexably now.
 - Fixed message deletion that didn't always delete the right messages.
 - Removed font tags
