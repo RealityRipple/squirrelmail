@@ -800,6 +800,23 @@ function mail_message_listing_beginning ($imapConnection,
 		          '<input type="hidden" name="startMessage" value="'.htmlspecialchars($start_msg).'">'.
                   '<input type="hidden" name="location" value="'.$location.'">';
 
+    /* build thread sorting links */
+    if ($allow_thread_sort == TRUE) {
+      if ($thread_sort_messages == 1 ) {
+        $set_thread = 2;
+        $thread_name = _("Unthread View");
+      } elseif ($thread_sort_messages == 0) {
+        $set_thread = 1;
+        $thread_name = _("Thread View");
+      }
+      $thread_link_str = '&nbsp;&nbsp;<small>[<a href="' . $source_url . '?sort='
+           . $sort . '&start_messages=1&set_thread=' . $set_thread
+           . '&mailbox=' . urlencode($mailbox) . '">' . $thread_name
+           . '</a>]</small>';
+    }
+    else
+        $thread_link_str ='';
+
     /*
      * This is the beginning of the message list table.
      * It wraps around all messages
@@ -816,6 +833,7 @@ function mail_message_listing_beginning ($imapConnection,
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
               <tr>
                 <td align="left"><small><?php echo $paginator; ?></small></td>
+                <td align="center"><small><?php echo $thread_link_str; ?></small></td>
                 <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
               </tr>
             </table>
@@ -830,7 +848,7 @@ function mail_message_listing_beginning ($imapConnection,
                     
                     // display flag buttons only if supported
                     if ($show_flag_buttons && $mbxresponse != NULL && 
-                        strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
+                      strpos($mbxresponse['PERMANENTFLAGS'], '\\Flagged') !== FALSE) {
                         echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
                         echo getButton('SUBMIT', 'markFlagged',_("Flag"));
                         echo '&nbsp;';
@@ -853,22 +871,9 @@ function mail_message_listing_beginning ($imapConnection,
                 </td>
                 <td align="right">
                   <small><?php
-                    /* draws thread sorting links */
-                    if ($allow_thread_sort == TRUE) {
-                      if ($thread_sort_messages == 1 ) {
-                        $set_thread = 2;
-                        $thread_name = _("Unthread View");
-                      } elseif ($thread_sort_messages == 0) {
-                        $set_thread = 1;
-                        $thread_name = _("Thread View");
-                      }
-                      echo '&nbsp;&nbsp;<small>[<a href="' . $source_url . '?sort='
-                           . $sort . '&start_messages=1&set_thread=' . $set_thread
-                           . '&mailbox=' . urlencode($mailbox) . '">' . $thread_name
-                           . '</a>]</small>';
-                    }
+                    //echo $thread_link_str;	//previous behaviour
                     getMbxList($imapConnection);  
-                    echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";   
+                    echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";
                   ?></small>
                 </td>
               </tr>
