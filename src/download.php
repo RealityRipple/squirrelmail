@@ -106,6 +106,7 @@
 
    header("Pragma: ");
    header("Content-Description: SquirrelMail Attachment");
+   header("Cache-Control: no-cache, must-revalidate");
    if ($absolute_dl == "true") {
       switch($type0) {
          case "text":
