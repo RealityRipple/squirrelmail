@@ -360,10 +360,10 @@ function sqimap_find_email ($string) {
  */
 function sqimap_find_displayable_name ($string) {
     $string = trim($string);
-    
+
     if ( ereg('^(.+)<.*>', $string, $regs) ) {
         $orig_string = $string;
-        $string = ereg_replace ('"', '', $regs[1] );
+        $string = str_replace ('"', '', $regs[1] );
         if (trim($string) == '') {
              $string = sqimap_find_email($orig_string);
         }
@@ -383,7 +383,7 @@ function sqimap_find_displayable_name ($string) {
         }
     }
     else {
-        $string = sqimap_find_email($string);
+        $string = str_replace ('"', '', sqimap_find_email($string));
     }
 
     return trim($string);
