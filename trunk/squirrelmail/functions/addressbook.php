@@ -63,7 +63,7 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     */
     if (isset($addrbook_dsn) && !empty($addrbook_dsn)) {
         /* Database */
-        if (!isset($addrbook_table) || isempty($addrbook_table)) {
+        if (!isset($addrbook_table) || empty($addrbook_table)) {
             $addrbook_table = 'address';
         }
         $r = $abook->add_backend('database', Array('dsn' => $addrbook_dsn,
