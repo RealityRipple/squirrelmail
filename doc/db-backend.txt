@@ -55,6 +55,19 @@ The table structure should be similar to this (for MySQL):
      KEY firstname (firstname,lastname)
    );
 
+and similar to this for PostgreSQL:
+CREATE TABLE "address" (
+   "owner" varchar(128) NOT NULL,
+   "nickname" varchar(16) NOT NULL,
+   "firstname" varchar(128) NOT NULL,
+   "lastname" varchar(128) NOT NULL,
+   "email" varchar(128) NOT NULL,
+   "label" varchar(255) NOT NULL,
+   CONSTRAINT "address_pkey" PRIMARY KEY ("nickname", "owner")
+);
+CREATE  UNIQUE INDEX "address_firstname_key" ON "address"
+   ("firstname", "lastname");
+
 
 Next, edit your configuration so that the address book DSN (Data Source
 Name) is specified, this can be done using either conf.pl or via the
@@ -81,6 +94,14 @@ The table structure should be similar to this (for MySQL):
     prefval BLOB DEFAULT '' NOT NULL,
     PRIMARY KEY (user,prefkey)
   );
+
+and for PostgreSQL:
+CREATE TABLE "userprefs" (
+   "user" varchar(128) NOT NULL,
+   "prefkey" varchar(64) NOT NULL,
+   "prefval" text,
+   CONSTRAINT "userprefs_pkey" PRIMARY KEY ("prefkey", "user")
+);
 
 Next, edit your configuration so that the preferences DSN (Data Source
 Name) is specified, this can be done using either conf.pl or via the
