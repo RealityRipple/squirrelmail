@@ -232,7 +232,7 @@
    function getLineOfAddrs($array) {
       if (is_array($array)) {
         $to_line = implode(', ', $array);
-        $to_line = trim(ereg_replace(',,+', ',', $to_line));
+        $to_line = trim(ereg_replace(', (, )+', ', ', $to_line));
       } else {
         $to_line = '';
       }
@@ -300,12 +300,9 @@
 
    }
 
+   // Depreciated.  :-)  I always wanted to say that.
    function replace_spaces ($string) {
       return str_replace(' ', '&nbsp;', $string);
-   }
-
-   function replace_escaped_spaces ($string) {
-      return str_replace('&nbsp;', ' ', $string);
    }
 
    function get_location () {
