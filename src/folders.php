@@ -119,7 +119,11 @@ if ( $default_sub_of_inbox == false ) {
     $show_selected = array('inbox');
 }
 
-echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, 'noinferiors');
+// Call sqimap_mailbox_option_list, using existing connection to IMAP server,
+// the arrays of folders to include or skip (assembled above), 
+// and indicate that folders listed should be parents (we're creating folders,
+// so we want to list the folders that can contain other folders)
+echo sqimap_mailbox_option_list($imapConnection, $show_selected, $skip_folders, $boxes, true);
 
 echo "</SELECT></TT>\n";
 if ($show_contain_subfolders_option) {
