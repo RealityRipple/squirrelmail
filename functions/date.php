@@ -16,43 +16,59 @@
 
 require_once( '../functions/constants.php' );
 
-// corrects a time stamp to be the local time
+/* corrects a time stamp to be the local time */
 function getGMTSeconds($stamp, $gmt) {
     global $invert_time;
 
-    // date couldn't be parsed
+    /* date couldn't be parsed */
     if ($stamp == -1) {
         return -1;
     }
 
-    if (($gmt == 'Pacific') || ($gmt == 'PST')) {
-        $gmt = '-0800'; 
-    } else if (($gmt == 'EDT')) {
-        $gmt = '-0400';
-    } else if (($gmt == 'Eastern') || ($gmt == 'EST') || ($gmt == 'CDT')) {
-        $gmt = '-0500';
-    } else if (($gmt == 'Central') || ($gmt == 'CST') || ($gmt == 'MDT')) {
-        $gmt = '-0600';
-    } else if (($gmt == 'Mountain') || ($gmt == 'MST') || ($gmt == 'PDT')) {
-        $gmt = '-0700';
-    } else if ($gmt == 'BST') {
-        $gmt = '+0100';
-    } else if ($gmt == 'EET') {
-        $gmt = '+0200';
-    } else if ($gmt == 'GMT') {
-        $gmt = '+0000';
-    } else if ($gmt == 'HKT') {
-        $gmt = '+0800';
-    } else if ($gmt == 'IST') {
-        $gmt = '+0200';
-    } else if ($gmt == 'JST') {
-        $gmt = '+0900';
-    } else if ($gmt == 'KST') {
-        $gmt = "+0900";
-    } else if ($gmt == 'MET') {
-        $gmt = '+0100';
-    } else if ($gmt == 'MET DST' || $gmt == 'METDST') {
-        $gmt = '+0200';
+    switch($gmt)
+    {
+        case 'Pacific':
+        case 'PST':
+            $gmt = '-0800';
+            break;
+        case 'Mountain':   
+        case 'MST':   
+        case 'PDT':   
+            $gmt = '-0700';     
+            break;
+        case 'Central':
+        case 'CST':
+        case 'MDT':   
+            $gmt = '-0600';     
+            break;
+        case 'Eastern':
+        case 'EST':
+        case 'CDT':   
+            $gmt = '-0500';     
+            break;
+        case 'EDT':
+            $gmt = '-0400';
+            break;
+        case 'GMT':   
+            $gmt = '+0000';     
+            break;
+        case 'BST':
+        case 'MET':   
+            $gmt = '+0100';     
+        case 'EET':
+        case 'IST':   
+        case 'MET DST':   
+        case 'METDST':   
+            $gmt = '+0200';     
+            break;
+        case 'HKT':   
+            $gmt = '+0800';     
+            break;
+        case 'JST':   
+        case 'KST':
+            $gmt = '+0900';     
+            break;
+            break;
     }
     
     if (substr($gmt, 0, 1) == '-') {
@@ -68,7 +84,7 @@ function getGMTSeconds($stamp, $gmt) {
     $difference = substr($gmt, 2, 2);
     $gmt = substr($gmt, 0, 2);
     $gmt = ($gmt + ($difference / 60)) * 3600;
-    if ($neg == true) {
+    if ($neg) {
         $gmt = "-$gmt";
     } else {
         $gmt = "+$gmt";
@@ -85,7 +101,7 @@ function getGMTSeconds($stamp, $gmt) {
 }
 
 /**
-  Switch system has been intentionaly choosed for the
+  Switch system has been intentionaly chosen for the
   internationalization of month and day names. The reason
   is to make sure that _("") strings will go into the
   main po.
@@ -202,6 +218,10 @@ function getLongDateString( $stamp ) {
 function getDateString( $stamp ) {
 
     global $invert_time, $hour_format;
+
+    if ( $stamp == -1 ) {
+       return '';
+    }
     
     $now = time();
     
@@ -250,46 +270,23 @@ function getTimeStamp($dateParts) {
     /* 
      * Simply check to see if the first element in the dateParts
      * array is an integer or not.
-     *    Since the day of week is optional, this check is needed.
-     *
-     *    The old code used eregi('mon|tue|wed|thu|fri|sat|sun',
-     *    $dateParts[0], $tmp) to find if the first element was the
-     *    day of week or day of month. This is an expensive call
-     *    (processing time) to have inside a loop. Doing it this way
-     *    saves quite a bit of time for large mailboxes.
-     *
-     *    It is also quicker to call explode only once rather than
-     *    the 3 times it was getting called by calling the functions
-     *    getHour, getMinute, and getSecond.
+     * Since the day of week is optional, this check is needed.
      */
 
-    if (! isset($dateParts[1])) {
-        $dateParts[1] = '';
-    }
-    if (! isset($dateParts[2])) {
-        $dateParts[2] = '';
-    }
-    if (! isset($dateParts[3])) {
-        $dateParts[3] = '';
-    }
+    $string = implode (' ', $dateParts);
+
     if (! isset($dateParts[4])) {
         $dateParts[4] = '';
     }
     if (! isset($dateParts[5])) {
         $dateParts[5] = '';
     }
+
     if (intval(trim($dateParts[0])) > 0) {
-        $string = $dateParts[0] . ' ' . $dateParts[1] . ' ' .
-                  $dateParts[2] . ' ' . $dateParts[3];
         return getGMTSeconds(strtotime($string), $dateParts[4]);
     }
-    $string = $dateParts[0] . ' ' . $dateParts[1] . ' ' .
-            $dateParts[2] . ' ' . $dateParts[3] . ' ' . $dateParts[4];
-    if (isset($dateParts[5])) {
-        return getGMTSeconds(strtotime($string), $dateParts[5]);
-    } else {
-        return getGMTSeconds(strtotime($string), '');
-    }
+
+    return getGMTSeconds(strtotime($string), $dateParts[5]);
 }
 
 /* I use this function for profiling. Should never be called in
