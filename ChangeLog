@@ -123,7 +123,9 @@ Version 1.5.1 -- CVS
     information about supported options.
   - Added php-gettext classes (see class/l10n/*.php) and ngettext support 
     functions (provides fix for #1019007).
-  
+  - LC_NUMERIC locale is set to C. (workaround for #1027130). Some plugins
+    might use decimal delimiters incorrectly.
+
 
 Version 1.5.0
 --------------------
