@@ -81,7 +81,7 @@ function get_reference_header ($imap_stream, $message) {
     $sid = sqimap_session_id();
 	$results = array();
 	$references = "";
-    $query = "$sid FETCH $message BODY.PEEK[HEADER.FIELDS (References)]\r\n";
+    $query = "$sid FETCH $message BODY[HEADER.FIELDS (References)]\r\n";
     fputs ($imap_stream, $query);
 	$responses = sqimap_read_data_list($imap_stream, $sid, true, $responses, $message);
     if (!eregi("^\\* ([0-9]+) FETCH", $responses[0][0], $regs)) {
