@@ -2,22 +2,9 @@
 
 /**
  * bluesteel_theme.php
- *    Name:    Default Theme
- *    Author:  Luke Ehresman
- *    Date:    January 2, 2000
- *    Comment: This is the default theme that comes standard with
- *             SquirrelMail. Most of the colors were taken from
- *             mail.yahoo.com's theme on their site.
- *
- * To create a new theme, just copy this file, and edit the colors.
- * Be sure to rename the file and keep the original, just in case.
  *
  * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * NOTE: Please email any themes you create to captbunzo@squirrelmail.org
- *       for inclusion in further releases of SquirrelMail and for download
- *       from the web page.
  *
  * $Id$
  */
