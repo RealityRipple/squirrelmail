@@ -527,6 +527,43 @@ function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
     }
 }
 
+/** sqimap_create_stream()
+ * @return imap-stream resource identifier
+ * Connects to the IMAP server and returns a resource identifier for use with
+ * the other SquirrelMail IMAP functions.  Does NOT login!
+ */
+function sqimap_create_stream($server,$port,$tls=false) {
+    global $username, $use_imap_tls;
+
+    if ($use_imap_tls == true) {
+        if ((check_php_version(4,3)) and (extension_loaded('openssl'))) {
+            /* Use TLS by prefixing "tls://" to the hostname */
+            $server = 'tls://' . $imap_server_address;
+        } else {
+            require_once(SM_PATH . 'functions/display_messages.php');
+            $string = "Unable to connect to IMAP server!<br>TLS is enabled, but this " .
+              "version of PHP does not support TLS sockets, or is missing the openssl " .
+              "extension.<br><br>Please contact your system administrator.";
+            logout_error($string,$color);
+        }
+    }
+
+    $imap_stream = fsockopen($server, $port, $error_number, $error_string, 15);
+
+    /* Do some error correction */
+    if (!$imap_stream) {
+        set_up_language($squirrelmail_language, true);
+        require_once(SM_PATH . 'functions/display_messages.php');
+        $string = sprintf (_("Error connecting to IMAP server: %s.") .
+           "<br>\r\n", $server) .
+           "$error_number : $error_string<br>\r\n";
+        logout_error($string,$color);
+        exit;
+    }
+    $server_info = fgets ($imap_stream, 1024);
+    return $imap_stream;
+}
+
 /*
  * Logs the user into the imap server.  If $hide is set, no error messages
  * will be displayed.  This function returns the imap connection handle.
@@ -537,99 +574,79 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     if (!isset($onetimepad) || empty($onetimepad)) {
         sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
     }
+    $host = $imap_server_address;
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
-        $host=$imap_server_address;
-        
-        if (($use_imap_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
-          /* Use TLS by prefixing "tls://" to the hostname */
-          $imap_server_address = 'tls://' . $imap_server_address;
-        }
     
-    $imap_stream = fsockopen ( $imap_server_address, $imap_port, $error_number, $error_string, 15);
-
-    /* Do some error correction */
-    if (!$imap_stream) {
-        if (!$hide) {
-            set_up_language($squirrelmail_language, true);
-            require_once(SM_PATH . 'functions/display_messages.php');
-            $string = sprintf (_("Error connecting to IMAP server: %s.") .
-                              "<br>\r\n", $imap_server_address) .
-                      "$error_number : $error_string<br>\r\n";
-            logout_error($string,$color);
-        }
-        exit;
-    }
-
-    $server_info = fgets ($imap_stream, 1024);
-
+    $imap_stream = sqimap_create_stream($imap_server_address,$imap_port,$use_imap_tls);
+ 
     /* Decrypt the password */
     $password = OneTimePadDecrypt($password, $onetimepad);
 
-        if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
-      // We're using some sort of authentication OTHER than plain or login
-          $tag=sqimap_session_id(false);
-          if ($imap_auth_mech == 'digest-md5') {
+    if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
+    // We're using some sort of authentication OTHER than plain or login
+        $tag=sqimap_session_id(false);
+        if ($imap_auth_mech == 'digest-md5') {
             $query = $tag . " AUTHENTICATE DIGEST-MD5\r\n";
-          } elseif ($imap_auth_mech == 'cram-md5') {
+        } elseif ($imap_auth_mech == 'cram-md5') {
             $query = $tag . " AUTHENTICATE CRAM-MD5\r\n";
-          }
-          fputs($imap_stream,$query);
-          $answer=sqimap_fgets($imap_stream);
-          // Trim the "+ " off the front
-          $response=explode(" ",$answer,3);
-          if ($response[0] == '+') {
+        }
+        fputs($imap_stream,$query);
+        $answer=sqimap_fgets($imap_stream);
+        // Trim the "+ " off the front
+        $response=explode(" ",$answer,3);
+        if ($response[0] == '+') {
             // Got a challenge back
-                $challenge=$response[1];
-                if ($imap_auth_mech == 'digest-md5') {
-                  $reply = digest_md5_response($username,$password,$challenge,'imap',$host);
-                } elseif ($imap_auth_mech == 'cram-md5') {
-                  $reply = cram_md5_response($username,$password,$challenge);
-                }
-                fputs($imap_stream,$reply);
-                $read=sqimap_fgets($imap_stream);
-                if ($imap_auth_mech == 'digest-md5') {
-                  // DIGEST-MD5 has an extra step..
-                  if (substr($read,0,1) == '+') { // OK so far..
+            $challenge=$response[1];
+            if ($imap_auth_mech == 'digest-md5') {
+                $reply = digest_md5_response($username,$password,$challenge,'imap',$host);
+            } elseif ($imap_auth_mech == 'cram-md5') {
+                $reply = cram_md5_response($username,$password,$challenge);
+            }
+            fputs($imap_stream,$reply);
+            $read=sqimap_fgets($imap_stream);
+            if ($imap_auth_mech == 'digest-md5') {
+            // DIGEST-MD5 has an extra step..
+                if (substr($read,0,1) == '+') { // OK so far..
                     fputs($imap_stream,"\r\n");
                     $read=sqimap_fgets($imap_stream);
-                  }
                 }
-                $results=explode(" ",$read,3);
-                $response=$results[1];
-                $message=$results[2];
-      } else {
-                // Fake the response, so the error trap at the bottom will work
-                $response="BAD";
-                $message='IMAP server does not appear to support the authentication method selected.';
-                $message .= '  Please contact your system administrator.';
-      }
-    } elseif ($imap_auth_mech == 'login') {
-          // Original IMAP login code
-      $query = 'LOGIN "' . quoteimap($username) .  '" "' . quoteimap($password) . '"';
-      $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
-    } elseif ($imap_auth_mech == 'plain') {
-                /* SASL PLAIN */
-                $tag=sqimap_session_id(false);
-                $auth = base64_encode("$username\0$username\0$password");
-                  
-                $query = $tag . " AUTHENTICATE PLAIN\r\n";
-                fputs($imap_stream, $query);
-                $read=sqimap_fgets($imap_stream);
-
-                if (substr($read,0,1) == '+') { // OK so far..
-                    fputs($imap_stream, "$auth\r\n");
-                    $read = sqimap_fgets($imap_stream);
-                }
-                
-                $results=explode(" ",$read,3);
-                $response=$results[1];
-                $message=$results[2];
+            }
+            $results=explode(" ",$read,3);
+            $response=$results[1];
+            $message=$results[2];
         } else {
-                $response="BAD";
-                $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
+        // Fake the response, so the error trap at the bottom will work
+            $response="BAD";
+            $message='IMAP server does not appear to support the authentication method selected.';
+            $message .= '  Please contact your system administrator.';
         }
+    } elseif ($imap_auth_mech == 'login') {
+    // Original IMAP login code
+        $query = 'LOGIN "' . quoteimap($username) .  '" "' . quoteimap($password) . '"';
+        $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
+    } elseif ($imap_auth_mech == 'plain') {
+        /* SASL PLAIN */
+        $tag=sqimap_session_id(false);
+        $auth = base64_encode("$username\0$username\0$password");
+                  
+        $query = $tag . " AUTHENTICATE PLAIN\r\n";
+        fputs($imap_stream, $query);
+        $read=sqimap_fgets($imap_stream);
+
+        if (substr($read,0,1) == '+') { // OK so far..
+            fputs($imap_stream, "$auth\r\n");
+            $read = sqimap_fgets($imap_stream);
+        }
+                
+        $results=explode(" ",$read,3);
+        $response=$results[1];
+        $message=$results[2];
+    } else {
+        $response="BAD";
+        $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
+    }
     
-        /* If the connection was not successful, lets see why */
+    /* If the connection was not successful, lets see why */
     if ($response != 'OK') {
         if (!$hide) {
             if ($response != 'NO') {
