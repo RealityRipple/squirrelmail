@@ -860,8 +860,8 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 /** Print the $msgs messages from $mailbox mailbox
  */
 
-function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color)
-{
+function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color) {
+    global $javascript_on, $compact_paginator;
     /**
      * A mailbox can contain different sets with uid's. Default, for normal
      * message list view we use '0' as setindex and for search a different
@@ -883,6 +883,18 @@ function asearch_print_mailbox_msgs($imapConnection, &$aMailbox, $color)
 
     $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'],
                                     $cnt, $aMailbox['LIMIT'], $aMailbox['SHOWALL'][$iSetIndx]);
+
+    if ($javascript_on && $compact_paginator) {
+    echo "\n<!-- start of compact paginator javascript -->\n"
+    . "<script language=\"JavaScript\">\n"
+    . "function SubmitOnSelect(select, URL)\n"
+    . "{\n"
+    . "   URL += select.options[select.selectedIndex].value;\n"
+    . "   window.location.href = URL;\n"
+    . "}\n"
+    . "</script>\n"
+    . "<!-- end of compact paginator javascript -->\n";
+    }
 
     $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $iEnd,$cnt);
 
