@@ -687,6 +687,9 @@ for you.  This is the preferred method of building options lists going forward.
                         or other code to the user input
          post_script    You may specify some script (usually Javascript) that
                         will be placed after (outside of) the INPUT tag.
+         htmlencoded    disables html sanitizing. WARNING - don't use it, if user
+                        input is possible in option or use own sanitizing functions.
+                        Currently works only with SMOPT_TYPE_STRLIST.
 
       Note that you do not have to create a whole new section on the options
       page if you merely want to add a simple input item or two to an options
