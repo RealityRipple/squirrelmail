@@ -305,7 +305,43 @@ function printMessageInfo($aMsg) {
     echo html_tag( 'tr','','','','valign="top"') . "\n";
 
     if (sizeof($index_order)) {
+
+        // figure out which columns should serve as labels for checkbox:
+        // we try to grab the two columns before and after the checkbox,
+        // except the subject column, since it is the link that opens
+        // the message view
+        //
+        $get_next_two = 0;
+        $last_order_part = 0;
+        $last_last_order_part = 0;
+        $show_label_columns = array();
         foreach ($index_order as $index_order_part) {
+            if ($index_order_part == 1) {
+                $get_next_two = 1;
+                if ($last_last_order_part != 4)
+                   $show_label_columns[] = $last_last_order_part;
+                if ($last_order_part != 4)
+                   $show_label_columns[] = $last_order_part;
+
+            } else if ($get_next_two > 0 && $get_next_two < 3 && $index_order_part != 4) {
+                $show_label_columns[] = $index_order_part;
+                $get_next_two++;
+            }
+            $last_last_order_part = $last_order_part;
+            $last_order_part = $index_order_part;
+        }
+
+
+        // build the actual columns for display
+        //
+        foreach ($index_order as $index_order_part) {
+            if (in_array($index_order_part, $show_label_columns)) {
+                $label_start = '<label for="msg[' . $t . ']">';
+                $label_end = '</label>';
+            } else {
+                $label_start = '';
+                $label_end = '';
+            }
             switch ($index_order_part) {
             case 1: /* checkbox */
                 echo html_tag( 'td',
@@ -321,8 +357,8 @@ function printMessageInfo($aMsg) {
                     $title = '';
                 }
                 echo html_tag( 'td',
-                            $italic . $bold . $flag . $fontstr . $senderName .
-                            $fontstr_end . $flag_end . $bold_end . $italic_end,
+                            $label_start . $italic . $bold . $flag . $fontstr . $senderName .
+                            $fontstr_end . $flag_end . $bold_end . $italic_end . $label_end,
                             'left',
                             $hlt_color, $title );
                 break;
@@ -331,8 +367,8 @@ function printMessageInfo($aMsg) {
                     $sDate = _("Unknown date");
                 }
                 echo html_tag( 'td',
-                            $bold . $flag . $fontstr . $sDate .
-                            $fontstr_end . $flag_end . $bold_end,
+                            $label_start . $bold . $flag . $fontstr . $sDate .
+                            $fontstr_end . $flag_end . $bold_end . $label_end,
                             'center',
                             $hlt_color,
                             'style="white-space: nowrap;"' );
@@ -403,7 +439,7 @@ function printMessageInfo($aMsg) {
                     $td_str .= '<img src="' . $msg_icon . '.png" border="0" alt="'. $msg_alt . '" title="' . $msg_title . '" height="12" width="18" />';
                     $td_str .= '</small></b>';
                     echo html_tag( 'td',
-                                $td_str,
+                                $label_start . $td_str . $label_end,
                                 'right',
                                 $hlt_color,
                                 'style="white-space: nowrap;"' );
@@ -441,7 +477,7 @@ function printMessageInfo($aMsg) {
                     }
                     $td_str .= '</small></b>';
                     echo html_tag( 'td',
-                                $td_str,
+                                $label_start . $td_str . $label_end,
                                 'center',
                                 $hlt_color,
                                 'style="white-space: nowrap;"' );
@@ -449,8 +485,8 @@ function printMessageInfo($aMsg) {
                 break;
             case 6: /* size */
                 echo html_tag( 'td',
-                            $bold . $fontstr . show_readable_size($iSize) .
-                            $fontstr_end . $bold_end,
+                            $label_start . $bold . $fontstr . show_readable_size($iSize) .
+                            $fontstr_end . $bold_end . $label_end,
                             'right',
                             $hlt_color );
                 break;
