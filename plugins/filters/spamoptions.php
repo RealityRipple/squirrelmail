@@ -201,7 +201,7 @@ if (isset($action) && $action == 'spam') {
          ' - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br /><br />';
     printf( _("Spam is sent to %s."), ($filters_spam_folder?'<b>'.imap_utf7_decode_local($filters_spam_folder).'</b>':'[<i>'._("not set yet").'</i>]' ) );
     echo '<br />';
-    printf( _("Spam scan is limited to %s."), '<b>' . ( ($filters_spam_scan == 'new')?_("Unread messages only"):_("All Messages") ) . '</b>' );
+    printf( _("Spam scan is limited to %s."), '<b>' . ( ($filters_spam_scan == 'new')?_("Unread messages only"):_("All messages") ) . '</b>' );
     echo '</p>'.
         '<table border="0" cellpadding="3" cellspacing="0" align="center" bgcolor="' . $color[0] . "\">\n";
 
