@@ -5,6 +5,8 @@ Version 1.0.2 -- DEVELOPMENT
 - Select All works through the search
 - Better escaped string handling from POST variables
 - Many more code cleanups and optimizations
+- Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
+- Updated Taiwan translation
 - Updated Sweedish translation
 - Updated Finnish translation
 

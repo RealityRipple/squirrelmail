@@ -40,6 +40,9 @@
    $languages['fi']['NAME']    = 'Finnish';
    $languages['fi']['CHARSET'] = 'iso-8859-1';
 
+   $languages['hu']['NAME']    = 'Hungarian';
+   $languages['hu']['CHARSET'] = 'iso-8859-1';
+
    $languages['it']['NAME']    = 'Italian';
    $languages['it']['CHARSET'] = 'iso-8859-1';
   
