@@ -20,6 +20,7 @@ require_once('../functions/imap.php');
 require_once('../functions/plugin.php');
 require_once('../functions/constants.php');
 require_once('../functions/page_header.php');
+require_once('../functions/global.php');
 
 // Remove slashes if PHP added them
 if (get_magic_quotes_gpc()) {
