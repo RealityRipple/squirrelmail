@@ -551,6 +551,29 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         /* code for navigating through attached message/rfc822 messages */
         $url = set_url_var($PHP_SELF, 'passed_ent_id',0);
         $s .= '<a href="'.$url.'">'._("View Message").'</a>';
+        $entities     = array();
+        $entity_count = array();
+        $c = 0;
+        foreach($message->parent->entities as $ent) {
+            $c++;
+            $entity_count[$c] = $ent->entity_id;
+            $entities[$ent->entity_id] = $c;
+        }
+        $prev_link = _("Previous");
+        $next_link = _("Next");
+        if($entities[$passed_ent_id] > 1) {
+            $prev_ent_id = $entity_count[$entities[$passed_ent_id] - 1];
+            $prev_link   = '<a href="'
+                         . set_url_var($PHP_SELF, 'passed_ent_id', $prev_ent_id)
+                         . '">' . $prev_link . '</a>';
+        }
+        if($entities[$passed_ent_id] < $c) {
+            $next_ent_id = $entity_count[$entities[$passed_ent_id] + 1];
+            $next_link   = '<a href="'
+                         . set_url_var($PHP_SELF, 'passed_ent_id', $next_ent_id)
+                         . '">' . $next_link . '</a>';
+        }
+        $s .= $topbar_delimiter . $prev_link;
         $par_ent_id = $message->parent->entity_id;
         if ($par_ent_id) {
             $par_ent_id = substr($par_ent_id,0,-2);
@@ -558,6 +581,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
             $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
             $s .= '<a href="'.$url.'">'._("Up").'</a>';
         }
+        $s .= $topbar_delimiter . $next_link;
     }
 
     $s .= '</small></td>' . "\n" . '<td align="right" width="33%" nowrap><small>';
