@@ -542,7 +542,7 @@
       echo "      </TD>\n";
       echo "      <TD>&nbsp;</TD>\n";
       echo "      <TD WIDTH=\"1%\" ALIGN=RIGHT NOWRAP>\n";
-      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": </SMALL><BR>\n";
+      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
