@@ -190,21 +190,21 @@
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'attachment_common_show_images',
-        'caption' => _("Enable display of images with email, below attachment box"),
+        'caption' => _("Display Attached Images with Message"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'pf_subtle_link',
-        'caption' => _("Printer Friendly: Subtle Link"),
+        'caption' => _("Enable Subtle Printer Friendly Link"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );
 
     $optvals[SMOPT_GRP_MESSAGE][] = array(
         'name'    => 'pf_cleandisplay',
-        'caption' => _("Printer Friendly: Clean Display"),
+        'caption' => _("Enable Printer Friendly Clean Display"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );

@@ -29,12 +29,12 @@
 ?>
 
 <br>
-<table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
-<tr><td align="center">
+<TABLE BGCOLOR="<?php echo $color[0] ?>" WIDTH="95%" align="center" CELLPADDING="2" CELLSPACING="0" BORDER="0">
+<TR><TD align="center">
     <b><?php echo _("Options") ?></b><br>
 
-    <table width="100%" border="0" cellpadding="5" cellspacing="0">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
+    <TABLE WIDTH="100%" BORDER="0" CELLPADDING="5" CELLSPACING="0">
+    <TR><TD BGCOLOR="<?php echo $color[4] ?>" align="center">
 
 <?php
     if (isset($submit_personal)) {
@@ -98,7 +98,7 @@
         do_hook('options_display_save');
 
         echo '<br><b>'._("Successfully saved display preferences!").'</b><br>';
-        echo '<a href="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</a><br>';
+        echo '<A HREF="../src/webmail.php?right_frame=options.php" target=_top>' . _("Refresh Page") . '</A><br>';
     } else if (isset($submit_folder)) { 
         /* Save trash folder preferences. */
         if ($new_trash_folder != SMPREF_NONE) {
@@ -145,7 +145,7 @@
 
         do_hook('options_folders_save');
         echo '<br><b>'._("Successfully saved folder preferences!").'</b><br>';
-        echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a><br>';
+        echo '<A HREF="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</A><br>';
     } else {
         do_hook('options_save');
     }
@@ -214,9 +214,9 @@
     /* Now, print out each option page section. */
     /********************************************/
     $first_optpage = false;
-    echo "<table bgcolor=\"$color[4]\" width=\"100%\" cellpadding=0 cellspacing=5 border=0>" .
-                '<tr><td valign="top">' .
-                   '<table width="100%" cellpadding="3" cellspacing="0" border="0">';
+    echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=\"5\" BORDER=\"0\">" .
+                '<TR><TD VALIGN="TOP">' .
+                   "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=\"3\" CELLSPACING=\"0\" BORDER=\"0\">";
     foreach ($optionpages as $next_optpage) {
         if ($first_optpage == false) {
             $first_optpage = $next_optpage;
@@ -230,18 +230,18 @@
         print_optionpages_row($first_optpage);
     }
 
-    echo '</table>' .
-                '</td></tr>' .
-             "</table>\n";
+    echo '</TABLE>' .
+                '</TD></TR>' .
+             "</TABLE>\n";
 
     do_hook('options_link_and_description');
 
 ?>
-    </td></tr>
-    </table>
+    </TD></TR>
+    </TABLE>
 
-</td></tr>
-</table>
+</TD></TR>
+</TABLE>
 
 </body></html>
 
@@ -272,34 +272,40 @@
     function print_optionpages_row($leftopt, $rightopt = false) {
         global $color;
 
-        echo '<tr>' .
-                         "<td valign=top bgcolor=\"$color[9]\" width=\"50%\">" .
-                            '<a href="' . $leftopt['url'] . '">' . $leftopt['name'] . '</a>'.
-                         '</td>'.
-                         "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
-        if( $rightopt ) {
-            echo         "<td valign=top bgcolor=\"$color[9]\" width=\"50%\">" .
-                            '<a href="' . $rightopt['url'] . '">' . $rightopt['name'] . '</a>' .
-                         '</td>';
+        echo "<TABLE BGCOLOR=\"$color[4]\" WIDTH=\"100%\" CELLPADDING=0 CELLSPACING=5 BORDER=0>" .
+                '<TR><TD VALIGN="TOP">' .
+                   '<TABLE WIDTH="100%" CELLPADDING="3" CELLSPACING="0" BORDER="0">' .
+                      '<TR>' .
+                         "<TD VALIGN=TOP BGCOLOR=\"$color[9]\" WIDTH=\"50%\">" .
+                            '<A HREF="' . $leftopt['url'] . '">' . $leftopt['name'] . '</A>'.
+                         '</TD>'.
+                         "<TD VALIGN=TOP BGCOLOR=\"$color[4]\">&nbsp;</TD>";
+        if ($rightopt) {
+            echo         "<TD VALIGN=top BGCOLOR=\"$color[9]\" WIDTH=\"50%\">" .
+                            '<A HREF="' . $rightopt['url'] . '">' . $rightopt['name'] . '</A>' .
+                         '</TD>';
         } else {
-            echo         "<td valign=top bgcolor=\"$color[4]\" width=\"50%\">&nbsp;</td>";
+            echo         "<TD VALIGN=top BGCOLOR=\"$color[4]\" WIDTH=\"50%\">&nbsp;</TD>";
         }
 
-        echo          '</tr>' .
-                      '<tr>' .
-                         "<td valign=top bgcolor=\"$color[0]\">" .
+        echo          '</TR>' .
+                      '<TR>' .
+                         "<TD VALIGN=top BGCOLOR=\"$color[0]\">" .
                             $leftopt['desc'] .
-                         '</td>' .
-                         "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
-        if( $rightopt ) {
-            echo         "<td valign=top bgcolor=\"$color[0]\">" .
+                         '</TD>' .
+                         "<TD VALIGN=top BGCOLOR=\"$color[4]\">&nbsp;</TD>";
+        if ($rightopt) {
+            echo         "<TD VALIGN=top BGCOLOR=\"$color[0]\">" .
                             $rightopt['desc'] .
-                         '</td>';
-        }else {
-            echo "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
+                         '</TD>';
+        } else {
+            echo "<TD VALIGN=top BGCOLOR=\"$color[4]\">&nbsp;</TD>";
         }
         
-        echo          "</tr>\n";
+        echo          '</TR>' .
+                   '</TABLE>' .
+                '</TD></TR>' .
+             "</TABLE>\n";
     }
 
 ?>
