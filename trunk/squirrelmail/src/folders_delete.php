@@ -63,7 +63,7 @@ if( !sqgetGlobalVar('confirmed', $tmp, SQ_POST) ) {
         sprintf(_("Are you sure you want to delete %s?"), imap_utf7_decode_local($mailbox)).
         '<FORM ACTION="folders_delete.php" METHOD="POST"><p>'.
 
-        '<INPUT TYPE=HIDDEN NAME="mailbox" VALUE="'.$mailbox."\">\n" .
+        '<INPUT TYPE=HIDDEN NAME="mailbox" VALUE="' . htmlspecialchars($mailbox) . "\">\n" .
         '<INPUT TYPE=SUBMIT NAME="confirmed" VALUE="'._("Yes")."\">\n".
         '<INPUT TYPE=SUBMIT NAME="backingout" VALUE="'._("No")."\">\n".
         '</p></FORM><BR></td></tr></table>';
