@@ -42,7 +42,7 @@
       echo '<tr><td>';
 
       $cnum = 0;
-      for ($i=1; $i < count($read)-1; $i++) {
+      for ($i=1; $i < count($read); $i++) {
          $line = htmlspecialchars($read[$i]);
 			if (eregi("^&gt;", $line)) {
 				$second[$i] = $line;
