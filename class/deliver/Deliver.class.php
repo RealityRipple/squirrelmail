@@ -304,19 +304,19 @@ class Deliver {
 
         $header[] = $contenttype . $rn;
         if ($mime_header->description) {
-            $header[] .= 'Content-Description: ' . $mime_header->description . $rn;
+            $header[] = 'Content-Description: ' . $mime_header->description . $rn;
         }
         if ($mime_header->encoding) {
-            $header[] .= 'Content-Transfer-Encoding: ' . $mime_header->encoding . $rn;
+            $header[] = 'Content-Transfer-Encoding: ' . $mime_header->encoding . $rn;
         } else {
             if ($mime_header->type0 == 'text' || $mime_header->type0 == 'message') {
-                $header[] .= 'Content-Transfer-Encoding: 8bit' .  $rn;
+                $header[] = 'Content-Transfer-Encoding: 8bit' .  $rn;
             } else {
-                $header[] .= 'Content-Transfer-Encoding: base64' .  $rn;
+                $header[] = 'Content-Transfer-Encoding: base64' .  $rn;
             }
         }
         if ($mime_header->id) {
-            $header[] .= 'Content-ID: ' . $mime_header->id . $rn;
+            $header[] = 'Content-ID: ' . $mime_header->id . $rn;
         }
         if ($mime_header->disposition) {
             $disposition = $mime_header->disposition;
@@ -328,10 +328,10 @@ class Deliver {
             $header[] = $contentdisp . $rn;
         }
         if ($mime_header->md5) {
-            $header[] .= 'Content-MD5: ' . $mime_header->md5 . $rn;
+            $header[] = 'Content-MD5: ' . $mime_header->md5 . $rn;
         }
         if ($mime_header->language) {
-            $header[] .= 'Content-Language: ' . $mime_header->language . $rn;
+            $header[] = 'Content-Language: ' . $mime_header->language . $rn;
         }
 
         $cnt = count($header);
