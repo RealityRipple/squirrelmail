@@ -212,6 +212,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
         $searchstr = '';
     }
 
+    $matches = array('TO' => 'sTo', 'CC' => 'sCc', 'FROM' => 'sFrom', 'SUBJECT' => 'sSubject');
     if (is_array($message_highlight_list) && count($message_highlight_list)) {
         $sTo = parseAddress($sTo);
         $sCc = parseAddress($sCc);
@@ -229,7 +230,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                         case('TO'):
                         case('CC'):
                         case('FROM'):
-                            foreach ($msg[$match_type] as $address) {
+                            foreach ($$matches[$match_type] as $address) {
                                 $address[0] = decodeHeader($address[0], true, false);
                                 $address[1] = decodeHeader($address[1], true, false);
                                 if (strstr('^^' . strtolower($address[0]), $high_val) ||
@@ -240,7 +241,7 @@ function printMessageInfo($t, $last=false, $msg, $mailbox,
                             }
                             break;
                         default:
-                            $headertest = strtolower(decodeHeader($msg[$match_type], true, false));
+                            $headertest = strtolower(decodeHeader($$matches[$match_type], true, false));
                             if (strstr('^^' . $headertest, $high_val)) {
                                 $hlt_color = $message_highlight_list_part['color'];
                                 break 3;
