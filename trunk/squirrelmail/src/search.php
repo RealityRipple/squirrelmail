@@ -260,7 +260,7 @@ if ($saved_count > 0) {
 if ($recent_count > 0) {
     echo "<BR>\n"
        . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>\n"
-       . '<TR><TD ALIGN=CENTER><B>Recent Searches</B></TD></TR><TR><TD>'
+       . '<TR><TD ALIGN=CENTER><B>' . _("Recent Searches") . '</B></TD></TR><TR><TD>'
        . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
     for ($i=0; $i < $recent_count; ++$i) {
         if (!empty($what_array[$i])) {
