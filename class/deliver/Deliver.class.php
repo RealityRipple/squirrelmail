@@ -436,8 +436,6 @@ class Deliver {
         }
         /* Identify SquirrelMail */
         $header[] = 'User-Agent: SquirrelMail/' . $version . $rn;
-        // Spamassassin complains about no X-Mailer in combination with X-Priority
-        $header[] = 'X-Mailer: SquirrelMail/' . $version . $rn;
         /* Do the MIME-stuff */
         $header[] = 'MIME-Version: 1.0' . $rn;
         $contenttype = 'Content-Type: '. $rfc822_header->content_type->type0 .'/'.
