@@ -86,7 +86,7 @@ class dbPrefs {
         if (!empty($prefs_table)) {
             $this->table = $prefs_table;
         }
-        $dbh = DB::connect($prefs_dsn);
+        $dbh = DB::connect($prefs_dsn, true);
 
         if(DB::isError($dbh) || DB::isWarning($dbh)) {
             $this->error = DB::errorMessage($dbh);
