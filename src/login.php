@@ -15,13 +15,20 @@
    if (!isset($strings_php))
       include("../functions/strings.php");
 
-   // $squirrelmail_language is set by a cookie when the user selects
-   // language
-   if (isset($squirrelmail_language)) {
-      if ($squirrelmail_language != "en") {
-         putenv("LANG=".$squirrelmail_language);
-         bindtextdomain("squirrelmail", "../locale/");
-         textdomain("squirrelmail");
+   // let's check to see if they compiled with gettext support
+   if (!function_exists("_")) {
+      function _($string) {
+         return $string;
+      }
+   } else {
+      // $squirrelmail_language is set by a cookie when the user selects
+      // language
+      if (isset($squirrelmail_language)) {
+         if ($squirrelmail_language != "en") {
+            putenv("LANG=".$squirrelmail_language);
+            bindtextdomain("squirrelmail", "../locale/");
+            textdomain("squirrelmail");
+         }
       }
    }
 
@@ -31,12 +38,6 @@
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
  
-   // let's check to see if they compiled with gettext support
-   if (!function_exists("_")) {
-      echo "<CENTER>PHP was not configured --with-gettext.  Reconfigure and try again.</CENTER></BODY></HTML>";
-      exit;
-   }
-   
    echo "<FORM ACTION=webmail.php METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><SMALL>";
