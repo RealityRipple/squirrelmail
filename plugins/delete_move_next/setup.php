@@ -284,31 +284,31 @@ function delete_move_next_display_inside() {
         $delete_move_next_b, $delete_move_next_formATbottom;
     
     echo "<tr><td align=right valign=top>\n".
-         _("delete_move_next:") . "</td>\n".
+         _("Delete/Move/Next Buttons:") . "</td>\n".
          "<td><input type=checkbox name=delete_move_next_ti";
          
     if ($delete_move_next_t == 'on') {
         echo " checked";
     }
-    echo '> <- ' . _("display at top").
+    echo '> ' . _("Display at top").
          " <input type=checkbox name=delete_move_next_formATtopi";
          
     if ($delete_move_next_formATtop == 'on') {
         echo ' checked';
     }
-    echo '> <- ' . _("with move option") . '<br>';    
+    echo '> ' . _("with move option") . '<br>';    
     
     echo '<input type=checkbox name=delete_move_next_bi';
     if($delete_move_next_b != 'off') {
         echo ' checked';
     }
-    echo '> <- ' . _("display at bottom") .
+    echo '> ' . _("Display at bottom") .
          '<input type=checkbox name=delete_move_next_formATbottomi';
          
     if ($delete_move_next_formATbottom != 'off') {
         echo ' checked';
     }
-    echo '> <- ' . _("with move option") . '<br>'.
+    echo '> ' . _("with move option") . '<br>'.
          "</td></tr>\n";
 }
 
