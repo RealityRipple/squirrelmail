@@ -836,8 +836,11 @@ function encodeHeader ($string) {
 */
 function MagicHTML( $body, $id ) {
 
-    global $message, $PHP_SELF, $HTTP_SERVER_VARS;
+    global $message, $PHP_SELF, $HTTP_SERVER_VARS, 
+           $attachment_common_show_images;
 
+    $attachment_common_show_images =
+                     FALSE; // Don't display attached images in HTML mode
     $j = strlen( $body );   // Legnth of the HTML
     $ret = '';              // Returned string
     $bgcolor = '#ffffff';   // Background style color (defaults to white)
