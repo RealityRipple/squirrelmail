@@ -290,6 +290,12 @@ function removePref($data_dir, $username, $string) {
     }
 
     $db->deleteKey($username, $string);
+
+    if (isset($prefs_cache[$string])) {
+        unset($prefs_cache[$string]);
+    }
+
+    sqsession_register($prefs_cache , 'prefs_cache');
     return;
 }
 
@@ -316,7 +322,7 @@ function setPref($data_dir, $username, $string, $set_to) {
     assert_options(ASSERT_ACTIVE, 1);
     assert_options(ASSERT_BAIL, 1);
     assert ('$set_to == $prefs_cache[$string]');
-
+    sqsession_register($prefs_cache , 'prefs_cache');
     return;
 }
 
