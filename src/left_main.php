@@ -158,7 +158,7 @@
     echo '<CENTER><FONT SIZE=4><B>';
     echo _("Folders") . "</B><BR></FONT>\n\n";
 
-    if($date_format != 6) { 
+    if ($date_format != 6) { 
         /* First, display the clock. */
         if ($hour_format == 1) {
           if ($date_format == 4) {
