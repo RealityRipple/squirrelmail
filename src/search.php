@@ -54,16 +54,18 @@ function asearch_get_href($params = '')
 
 /** Builds a [link]
  */
-function asearch_get_link(&$href, $text)
+function asearch_get_link(&$href, $text, $title = '')
 {
-		return '<small>[<a href="' . $href . '">' . $text . '</a>]</small>';
+	if ($title != '')
+		$title = ' title="' . $title . '"';
+	return '<small>[<a href="' . $href . '"' . $title . '>' . $text . '</a>]</small>';
 }
 
 /** Builds a toggle [link]
  */
-function asearch_get_toggle_link($value, $action, $text_array)
+function asearch_get_toggle_link($value, $action, $text_array, $title_array = array())
 {
-	return ' - ' . asearch_get_link(asearch_get_href($action . '=' . (int)$value), $text_array[$value]);
+	return asearch_get_link(asearch_get_href($action . '=' . (int)$value), $text_array[$value], asearch_nz($title_array[$value]));
 }
 
 /**
@@ -537,11 +539,13 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
 	global $data_dir, $username;
 
 	$show_flag = getPref($data_dir, $username, $show_pref, 0) & 1;
-	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, array(_("Hide"), _("Show")));
+	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, array(_("-"), _("+")), array(_("Hide"), _("Show")));
 
 	echo "<br>\n";
 	echo html_tag('table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"');
-	echo html_tag('tr', html_tag('td', asearch_get_title_display($color, $title) . $toggle_link, 'center', $color[5], 'colspan=5'));
+	echo html_tag('tr',
+		html_tag('td', $toggle_link, 'center', $color[5], 'width="5%"')
+		. html_tag('td', asearch_get_title_display($color, $title), 'center', $color[5], 'colspan=4'));
 	if ($show_flag) {
 		$main_key = $query_keys[ASEARCH_WHERE];
 		$query_count = count($query_array[$main_key]);
@@ -1237,7 +1241,7 @@ do_hook('search_before_form');
 if (!$search_silent) {
 	//Add a link to the other search mode if allowed
 	if ($allow_advanced_search > 1)
-		$toggle_link = asearch_get_toggle_link(!$search_advanced, 'advanced', array(_("Standard search"), _("Advanced search")));
+		$toggle_link = ' - ' . asearch_get_toggle_link(!$search_advanced, 'advanced', array(_("Standard search"), _("Advanced search")));
 	else
 		$toggle_link = '';
 
