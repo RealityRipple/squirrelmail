@@ -60,7 +60,24 @@
    /******************************************************************************
     **  Returns the flags for the specified messages 
     ******************************************************************************/
-   function sqimap_get_flags () {
+   function sqimap_get_flags ($imap_stream, $start, $end) {
+      fputs ($imap_stream, "a001 FETCH $start:$end FLAGS\n");
+      $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+      $i = 0;
+      while ($i < count($read)) {
+         if (strpos($read[$i], "FLAGS")) {
+            $tmp = ereg_replace("\(", "", $read[$i]);
+            $tmp = ereg_replace("\)", "", $tmp);
+            $tmp = str_replace("\\", "", $tmp);
+            $tmp = substr($tmp, strpos($tmp, "FLAGS")+6, strlen($tmp));
+            $tmp = trim($tmp);
+            $flags[$i] = explode(" ", $tmp);
+         } else {
+            $flags[$i][0] = "None";
+         }
+         $i++;
+      }
+      return $flags;
    }
 
    /******************************************************************************
