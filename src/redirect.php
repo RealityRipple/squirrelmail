@@ -23,7 +23,6 @@
 
    header("Pragma: no-cache");
    $location = get_location();
-   header("Location: $location/webmail.php");
 
    session_set_cookie_params (0, $base_uri);
    session_start();
@@ -69,4 +68,5 @@
    session_register ("user_is_logged_in");
    $user_is_logged_in = true;
 
+   header("Location: $location/webmail.php");
 ?>
