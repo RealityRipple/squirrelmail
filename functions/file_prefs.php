@@ -131,7 +131,7 @@ function savePrefValues($data_dir, $username) {
         exit;
     }
     @unlink($filename . '.tmp');
-    chmod($filename, 0600);
+    @chmod($filename, 0600);
     sqsession_register($prefs_cache , 'prefs_cache');
 }
 
@@ -236,7 +236,7 @@ function setSig($data_dir, $username, $number, $value) {
        exit;
     }
     @unlink($filename . '.tmp');
-    chmod($filename, 0600);
+    @chmod($filename, 0600);
 
 }
 
