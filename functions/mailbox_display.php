@@ -804,6 +804,7 @@ function mail_message_listing_beginning ($imapConnection,
      */
     $safe_name = preg_replace("/[^0-9A-Za-z_]/", '_', $mailbox);
     $form_name = "FormMsgs" . $safe_name;
+
     echo '<form name="' . $form_name . '" method="post" action="move_messages.php">' ."\n"
 	     . $moveFields;
 ?>
@@ -826,8 +827,8 @@ function mail_message_listing_beginning ($imapConnection,
                   <small><?php
                     
                     // display flag buttons only if supported
-                    if ($show_flag_buttons 
-                        && strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
+                    if ($show_flag_buttons && $mbxresponse != NULL && 
+                        strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
                         echo getButton('SUBMIT', 'markFlagged',_("Flag"));
                         echo '&nbsp;';
                         echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
@@ -932,7 +933,7 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
     foreach ($index_order as $item) {
         switch ($item) {
         case 1: /* checkbox */
-            echo html_tag( 'td',get_selectall_link($start_msg, $sort) , '', '', 'width="1%"' );
+            echo html_tag( 'td',get_selectall_link($start_msg, $sort, $mailbox) , '', '', 'width="1%"' );
             break;
         case 5: /* flags */
             echo html_tag( 'td','' , '', '', 'width="1%"' );
@@ -1007,8 +1008,8 @@ function ShowSortButton($sort, $mailbox, $Down, $Up ) {
          . _("Click here to change the sorting of the message list") .'"></a>';
 }
 
-function get_selectall_link($start_msg, $sort) {
-    global $checkall, $what, $where, $mailbox, $javascript_on;
+function get_selectall_link($start_msg, $sort, $mailbox) {
+    global $checkall, $what, $where, $javascript_on;
     global $PHP_SELF, $PG_SHOWNUM;
 
     $result = '';
