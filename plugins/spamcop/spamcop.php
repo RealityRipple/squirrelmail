@@ -30,7 +30,7 @@ function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id,
                                      TRUE, $response, $readmessage, $uid_support);
         $message = $message->parent;
     }
-    if ($response = 'OK') {
+    if ($response == 'OK') {
         $subject = encodeHeader($message->rfc822_header->subject);
         array_shift($body_a);
         $body = implode('', $body_a) . "\r\n";
