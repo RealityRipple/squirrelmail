@@ -78,10 +78,12 @@ methods are provided:
    fullname before it is returned.
 
 
-  lookup(NICKNAME)  
+  lookup(NICKNAME, [BNUM])  
 
      NICKNAME - Return the user identified by NICKNAME in
      the addressbook.
+
+     BNUM - ID of the backend to look in (optional).
 
    This method will return one result array (see below), an empty
    array if nothing was found, or false if the search failed. The
@@ -107,6 +109,33 @@ methods are provided:
    This method will return the backend ID of the backend where data
    was added, or false if it failed.
 
+
+  remove(NICKNAME, BNUM)
+
+     NICKNAME - Delete the user identified by NICKNAME in the
+     addressbook or, if NICKNAME is an array, all users indentified by
+     nthe nicknames in the array.
+
+     BNUM - ID of the backend, as returned by add_backend, to remove
+     the user(s) from.
+
+   This method will retrun true if the user(s) was removed, or false
+   if removal failed.
+
+
+  modify(NICKNAME, USERDATA, BNUM)
+
+     NICKNAME - Update the user identified by NICKNAME in the
+     addressbook.
+
+     USERDATA - Array with user data. The exisiting data for the user
+     will be replaced with this.
+
+     BNUM - ID of the backend, as returned by add_backend, to update
+     the user in.
+
+   This method will retrun true if the user was modified, or false if
+   something failed.
 
 
 If one of the above methods fail, an error message is available in the
