@@ -113,6 +113,7 @@ List of hooks
   & options_identities_table      src/options_identities.php
   & options_identities_buttons    src/options_identities.php
   logout                          src/signout.php
+  logout_above_text               src/signout.php
   login_before                    src/webmail.php
   login_verified                  src/webmail.php
   loading_prefs                   src/load_prefs.php

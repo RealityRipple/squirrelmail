@@ -55,8 +55,8 @@
 <TITLE><?php echo $org_title ?> - Signout</TITLE>
 </HEAD>
 <BODY TEXT="<?php echo $color[8] ?>" BGCOLOR="<?php echo $color[4] ?>" 
-LINK="<?php echo $color[7] ?>" VLINK="<?php echo $color[7] ?>" A
-LINK="<?php echo $color[7] ?>">
+LINK="<?php echo $color[7] ?>" VLINK="<?php echo $color[7] ?>"
+ALINK="<?php echo $color[7] ?>">
 <BR><BR>
 <TABLE BGCOLOR="FFFFFF" BORDER="0" COLS="1" WIDTH="50%" CELLSPACING="0" 
 CELLPADDING="2" ALIGN="CENTER">
@@ -67,6 +67,7 @@ CELLPADDING="2" ALIGN="CENTER">
   </TR>
   <TR BGCOLOR="<?php echo $color[4] ?>" WIDTH=100%>
     <TD ALIGN="CENTER">
+      <?php do_hook('logout_above_text'); ?>
       <?php echo _("You have been successfully signed out.") ?><BR>
       <A HREF="login.php" TARGET="_top">
       <?php echo _("Click here to log back in.") ?>
