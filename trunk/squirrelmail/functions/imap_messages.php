@@ -12,12 +12,23 @@
  */
 
 /* Copies specified messages to specified folder */
+/* obsolete */
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "COPY $start:$end \"$mailbox\"", true, $response, $message, $uid_support);
 }
 
+function sqimap_msgs_list_copy ($imap_stream, $id, $mailbox) {
+    global $uid_support;
+    $msgs_id = sqimap_message_list_squisher($id);    
+    echo $msgs_id;
+    $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \"$mailbox\"", true, $response, $message, $uid_support);
+    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", true, $response, $message, $uid_support);
+}
+
+
 /* Deletes specified messages and moves them to trash if possible */
+/* obsolete */
 function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
     global $move_to_trash, $trash_folder, $auto_expunge, $uid_support;
 
@@ -26,6 +37,16 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
     }
     sqimap_messages_flag ($imap_stream, $start, $end, "Deleted", true);
 }
+
+function sqimap_msgs_list_delete ($imap_stream, $mailbox, $id) {
+    global $move_to_trash, $trash_folder, $uid_support;
+    $msgs_id = sqimap_message_list_squisher($id);
+    if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
+        $read = sqimap_run_command ($imap_stream, "COPY $msgs_id \"$trash_folder\"", true, $response, $message, $uid_support);
+    }
+    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id +FLAGS (\\Deleted)", $handle_errors, $response, $message, $uid_support);
+}
+
 
 /* Sets the specified messages with specified flag */
 function sqimap_messages_flag ($imap_stream, $start, $end, $flag, $handle_errors) {
@@ -38,6 +59,14 @@ function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag, $handle
     global $uid_support;
     $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", $handle_errors, $response, $message, $uid_support);
 }
+
+function sqimap_toggle_flag($imap_stream, $id, $flag, $set, $handle_errors) {
+    global $uid_support;
+    $msgs_id = sqimap_message_list_squisher($id);
+    $set_string = ($set ? '+' : '-');
+    $read = sqimap_run_command ($imap_stream, "STORE $msgs_id ".$set_string."FLAGS ($flag)", $handle_errors, $response, $message, $uid_support);
+}
+
 
 /* Returns some general header information -- FROM, DATE, and SUBJECT */
 class small_header {
@@ -351,6 +380,10 @@ function get_thread_sort ($imap_stream) {
     if (isset($thread_list)) {
         $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     }
+    $t = new thread();
+    $t->parseThread($thread_list);
+    print_r($t);
+    echo $thread_list;
     $char_count = count($thread_temp);
     $counter = 0;
     $thread_new = array();
@@ -387,6 +420,54 @@ function get_thread_sort ($imap_stream) {
     sqsession_register($server_sort_array, 'server_sort_array');
     return $thread_list;
 }
+
+class thread {
+   var $thread_cnt=0,
+       $id='',
+       $childs = array();
+       
+   function addChild($id) {
+       $this->childs[] = new thread();
+   }
+   
+   function parseThread($thread_list, $i=0, $thread_cnt=0) {
+        $par = false;
+	$thread_id = '';
+	for ($cnt = strlen($thread_list);$i<$cnt;++$i) {
+	    $char = $thread_list{$i};
+	    switch ($char) {
+	    case '(':
+	        $par = new thread();
+		++$thread_cnt;
+		$thread_id = '';
+		break;
+	    case ' ':
+	        $par->id = $thread_id;
+		++$thread_cnt;
+		$res_a = $this->parseThread($thread,$i, $thread_cnt);
+		$par->childs[] = $res_a[0];
+		$i = $res_a[1];
+		$thread_id = '';
+		break;
+	    case ')':
+	        if ($thread_id) {
+		    $par->id = $thread_id;
+		    $thread_id='';
+		}
+	        $par->thread_cnt=$thread_cnt;
+		if (count($this->childs)) {
+		    return array($par, $i);
+		} else {
+		    $this->childs[] = $par;
+		}
+	    default:
+	        $thread_id .= $char;
+		break;
+	    }
+	}
+	print_r($this);
+    }               
+}   
 
 function elapsedTime($start) {
  $stop = gettimeofday();
