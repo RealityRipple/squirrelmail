@@ -330,7 +330,6 @@ msgid "Receipt"
 msgstr "Confirmación"
 
 #: squirrelmail/src/compose.php:958
-#, fuzzy
 msgid "On Read"
 msgstr "De lectura"
 
@@ -496,9 +495,8 @@ msgid "No folders were found to subscribe to!"
 msgstr "¡No hay carpetas a las que suscribirse!"
 
 #: squirrelmail/src/folders.php:300
-#, fuzzy
 msgid "Subscribe to:"
-msgstr "Suscribirse"
+msgstr "Suscribirse a:"
 
 #: squirrelmail/src/folders_rename_getname.php:24
 msgid "You have not selected a folder to rename. Please do so."
@@ -740,7 +738,6 @@ msgid "Enable Forward as Attachment"
 msgstr "Permitir reenvios adjuntos"
 
 #: squirrelmail/src/options_display.php:206
-#, fuzzy
 msgid "Include CCs when Forwarding Messages"
 msgstr "Incluir CCs en el reenvio de mensajes"
 
@@ -765,27 +762,22 @@ msgid "Enable Printer Friendly Clean Display"
 msgstr "Limpiar Visualización en Vista Preliminar"
 
 #: squirrelmail/src/options_display.php:249
-#, fuzzy
 msgid "Enable Mail Delivery Notification"
 msgstr "Activar Notificación de Nuevos Mensajes"
 
 #: squirrelmail/src/options_display.php:257
-#, fuzzy
 msgid "Compose Messages in New Window"
 msgstr "Siempre escribir en una ventana nueva"
 
 #: squirrelmail/src/options_display.php:264
-#, fuzzy
 msgid "Width of Compose Window"
 msgstr "Ancho de edición de mensajes"
 
 #: squirrelmail/src/options_display.php:272
-#, fuzzy
 msgid "Height of Compose Window"
 msgstr "Alto de edición de mensajes"
 
 #: squirrelmail/src/options_display.php:280
-#, fuzzy
 msgid "Append Signature before Reply/Forward Text"
 msgstr "Incluir firma antes de los bloques de respuesta"
 
@@ -973,9 +965,8 @@ msgid "To or Cc"
 msgstr "Para o CC"
 
 #: squirrelmail/src/options_highlight.php:91
-#, fuzzy
 msgid "subject"
-msgstr "Asunto"
+msgstr "asunto"
 
 #: squirrelmail/plugins/filters/options.php:189
 #: squirrelmail/plugins/filters/spamoptions.php:179
@@ -1341,7 +1332,6 @@ msgid "more"
 msgstr "mas"
 
 #: squirrelmail/functions/mime.php:407 squirrelmail/src/read_body.php:322
-#, fuzzy
 msgid "Unknown sender"
 msgstr "Remitente Desconocido"
 
@@ -1375,7 +1365,6 @@ msgid "Send read receipt now"
 msgstr "Emitir confirmación de lectura"
 
 #: squirrelmail/src/read_body.php:399
-#, fuzzy
 msgid "Search results"
 msgstr "Resultado de la búsqueda"
 
@@ -1392,7 +1381,6 @@ msgid "Edit Message as New"
 msgstr "Editar como nuevo mensaje"
 
 #: squirrelmail/src/read_body.php:466
-#, fuzzy
 msgid "View Message"
 msgstr "Ver el mensaje"
 
@@ -1407,9 +1395,8 @@ msgid "Forward"
 msgstr "Reenviar"
 
 #: squirrelmail/src/read_body.php:490 squirrelmail/src/read_body.php:492
-#, fuzzy
 msgid "Forward as Attachment"
-msgstr "Ficheros adjuntos"
+msgstr "Reenviar como adjunto"
 
 #: squirrelmail/src/read_body.php:500 squirrelmail/src/read_body.php:502
 msgid "Reply"
@@ -1835,11 +1822,11 @@ msgstr ""
 
 #: squirrelmail/functions/file_prefs.php:47
 #: squirrelmail/functions/file_prefs.php:107
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Preference file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "Contacte con su administrador y comuníquele este error."
+msgstr "El fichero de preferencias %s no pudo abrirse. Contacte con su administrador y comuníquele este error."
 
 #: squirrelmail/functions/file_prefs.php:175
 #, c-format
@@ -1867,11 +1854,11 @@ msgstr "Debe darse derechos de escritura en el directorio %s al usuario %s"
 
 #: squirrelmail/functions/file_prefs.php:209
 #: squirrelmail/functions/file_prefs.php:227
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "Contacte con su administrador y comuníquele este error."
+msgstr "El fichero de firmas %s no pudo abrirse. Contacte con su administrador y comuníquele este error."
 
 #: squirrelmail/functions/i18n.php:785
 msgid ""
@@ -1980,7 +1967,6 @@ msgid "THIS FOLDER IS EMPTY"
 msgstr "Esta Carpeta esta Vacía"
 
 #: squirrelmail/functions/mailbox_display.php:707
-#, fuzzy
 msgid "Move Selected To"
 msgstr "Mover seleccionados a:"
 
@@ -3799,9 +3785,8 @@ msgid "Saving UIDL"
 msgstr "Guardando UIDL"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:220
-#, fuzzy
 msgid "Re-fetching message "
-msgstr "Recogiendo mensaje "
+msgstr "Recogiendo de nuevo mensaje "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:239
 #: squirrelmail/plugins/mail_fetch/fetch.php:261
@@ -4018,7 +4003,6 @@ msgstr "HOY"
 #: squirrelmail/plugins/calendar/event_create.php:101
 #: squirrelmail/plugins/calendar/event_delete.php:98
 #: squirrelmail/plugins/calendar/event_edit.php:204
-#, fuzzy
 msgid "l, F j Y"
 msgstr "D, j \\d\\e F \\d\\e Y, G:i"
 
@@ -4231,7 +4215,6 @@ msgid "Contact Listowner"
 msgstr "Contactar Adm."
 
 #: squirrelmail/plugins/listcommands/setup.php:85
-#, fuzzy
 msgid "Mailing List"
 msgstr "Lista de Correo:"
 
@@ -4594,14 +4577,12 @@ msgstr ""
 "Squirrelmail."
 
 #: squirrelmail/plugins/abook_take/setup.php:109
-#, fuzzy
 msgid "Take Address"
-msgstr "Dirección"
+msgstr "Tomar dirección"
 
 #: squirrelmail/plugins/abook_take/setup.php:140
-#, fuzzy
 msgid "Address Book Take"
-msgstr "Libreta de Direcciones"
+msgstr "Tomar Direcciones"
 
 #: squirrelmail/plugins/abook_take/setup.php:146
 msgid "Left aligned"
@@ -4612,9 +4593,8 @@ msgid "Centered"
 msgstr "Centrado"
 
 #: squirrelmail/plugins/abook_take/setup.php:154
-#, fuzzy
 msgid "Right aligned"
-msgstr "Magenta Claro"
+msgstr "Alineado a la Dcha."
 
 #: squirrelmail/plugins/abook_take/setup.php:155
 msgid "on the Read screen"
