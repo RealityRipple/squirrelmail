@@ -171,7 +171,7 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
  * be broken. If so, returns true and the plugin is invisible to the
  * offending browser.
  * *** THIS IS A TEST FOR JAVASCRIPT SUPPORT ***
- * This function needs to have its name changed!
+ * FIXME: This function needs to have its name changed!
  *
  * @return bool whether this browser properly supports JavaScript
  */
