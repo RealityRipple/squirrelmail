@@ -205,19 +205,28 @@ function printSearchMessages($msgs,$mailbox, $cnt, $imapConnection, $where, $wha
        $msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
        $toggle_all = get_selectall_link(1, $sort);
 
-       echo '<table bgcolor="' . $color[0] . '" border="0" width="100%" cellpadding="1" cellspacing="0"><tr><td>';
+       echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+       echo '<tr><td>';
+
        mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
                                        $msg_cnt_str, $toggle_all, 1);
 
+       echo '</td></tr>';
+       echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
+       echo '<tr><td>';
+       echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+       echo '     <tr><td>';
+       echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
+       echo '<tr><td>';
 
        printHeader($mailbox, 6, $color, false);
 
        displayMessageArray($imapConnection, $cnt, 1, 
 		          $msort, $mailbox, $sort, $color, $cnt, $where, $what);
 
+       echo '</td></tr></table></td></tr></table>';
        mail_message_listing_end($cnt, '', $msg_cnt_str, $color); 
        echo '</td></tr></table>';
-       
     }
 }			      
 
@@ -452,7 +461,7 @@ if ( !isset( $what ) ) {
     $what = '';
 }
 if ( !isset( $where ) ) {
-    $where = '';
+    $where = 'FROM';
 }
 
 
