@@ -446,7 +446,7 @@ function getTimeStamp($dateParts) {
 }
 
 /* I use this function for profiling. Should never be called in
-   actual versions of squirrelmail released to public. */
+   actual versions of SquirrelMail released to public. */
 /*
    function getmicrotime() {
       $mtime = microtime();

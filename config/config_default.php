@@ -145,7 +145,7 @@ $smtpPort = 25;
 /**
  * SquirrelMail header control
  *
- * Option can be used to disable Received: headers added by squirrelmail.
+ * Option can be used to disable Received: headers added by SquirrelMail.
  * This can increase user's privacy and solve problems with spam filters
  * that increase spam marks for dynamic dialup addresses.
  *
@@ -199,7 +199,7 @@ $imapPort = 143;
  * Please note that this changes only some of server settings.
  *
  * In order to set everything correctly, you need to adjust several
- * squirrelmail options. These options are listed in doc/presets.txt
+ * SquirrelMail options. These options are listed in doc/presets.txt
  * @global string $imap_server_type
  */
 $imap_server_type = 'other';
@@ -456,7 +456,7 @@ $attachment_dir = $data_dir;
 /**
  * Hash level used for data directory.
  *
- * This option allows spliting file based squirrelmail user
+ * This option allows spliting file based SquirrelMail user
  * data storage directory into several subfolders. Number from
  * 0 to 4 allows allows having up to four subfolder levels.
  *
@@ -497,7 +497,7 @@ $default_use_priority = true;
 /**
  * SquirrelMail Attributions Control
  *
- * This option disables display of "created by squirrelmail developers"
+ * This option disables display of "created by SquirrelMail developers"
  * strings and provider link
  * @global bool $hide_sm_attributions
  */

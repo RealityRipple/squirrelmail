@@ -28,7 +28,7 @@ $SQSPELL_DIR='plugins/squirrelspell/';
 $SQSPELL_CRYPTO=FALSE;
 
 /**
- * Load the stuff needed from squirrelmail
+ * Load the stuff needed from SquirrelMail
  * @ignore
  */
 define('SM_PATH','../../');

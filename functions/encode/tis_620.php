@@ -30,7 +30,7 @@ function charset_encode_tis_620 ($string) {
  * Return tis-620 symbol when unicode character number is provided
  *
  * This function is used internally by charset_encode_tis_620
- * function. It might be unavailable to other squirrelmail functions.
+ * function. It might be unavailable to other SquirrelMail functions.
  * Don't use it or make sure, that functions/encode/tis_620.php is
  * included.
  *

@@ -1,4 +1,3 @@
-
 bulkquery - A program by Brent Bice - 02/2002
 
    Bulkquery is a multi-threaded program that makes a large number of
@@ -6,12 +5,12 @@ DNS queries as fast as possible. It's tailored for making DNS queries for
 specific IP addresses against specific DNS based RBLs.
 
    "Why bother?"
-I've been asked this several times. While running squirrelmail on a server
+I've been asked this several times. While running SquirrelMail on a server
 with very little bandwidth and very high latency (a dial-up account - snicker)
 I noticed that while my filters plugin was making gethostbyname() function
 calls, my dial-up line was mostly idle. This was, apparently, because all
 the DNS function calls were being made in series. Once a DNS query had been
-sent, no others were sent until a response had been received or until a 
+sent, no others were sent until a response had been received or until a
 certain timeout period had occurred.  And some of the RBLs were quite a
 bit faster than the others.  This seemed pretty inefficient. "Why not make
 more DNS queries while waiting for the replies," I thought.

@@ -7,7 +7,7 @@
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This code provides various string manipulation functions that are
- * used by the rest of the Squirrelmail code.
+ * used by the rest of the SquirrelMail code.
  *
  * @version $Id$
  * @package squirrelmail

@@ -76,7 +76,7 @@ Version 1.5.1 -- CVS
   - Current hook name is now globally available when running a hook ($currentHookName)
   - Fix bug when Saving to Draft folder that contains special characters.
   - Added size limit to signatures saved in file backend. Created error_option_save
-    function, that allows sending error message to options page. Thanks to Martynas 
+    function, that allows sending error message to options page. Thanks to Martynas
     Bieliauskas for spotting big signature "option".
   - Make SquirrelSpell work with safe_mode enabled, if using PHP >=4.3.0.
     Patch by Ray Ferguson.
@@ -93,13 +93,13 @@ Version 1.5.1 -- CVS
   - $agresive_decoding configuration option changed to $aggressive_decoding.
     Fixed spelling.
   - Added $lossy_encoding option (provides fix for #806698)
-  - Reenabled use of $default_charset option. Option works only with en_US 
+  - Reenabled use of $default_charset option. Option works only with en_US
     translation in order to prevent language/charset misconfiguration.
   - Fixes for nonpopulation of folder lists and errors when emptying the trash
     (provides fixes for #1019185 and #1017941)
   - Fixed $custom_css loading in squirrelspell plugin.
-  - Turkish translation uses C character case conversion rules. Fixes php and
-    squirrelmail functions are assume English conversion rules.
+  - Turkish translation uses C character case conversion rules. Fixes PHP and
+    SquirrelMail functions are assume English conversion rules.
   - Fixed problem that caused an error when deleting all messages on the last page
     of a paginated view (provides fix for #1014612)
   - Added MySQL password/UNIX crypt support to mysql backend in the
@@ -121,19 +121,19 @@ Version 1.5.1 -- CVS
   - Removed japanese_xtra function used by older XTRA_CODE calls. Plugins
     should use separate xtra_code functions. Older function does not provide
     information about supported options.
-  - Added php-gettext classes (see class/l10n/*.php) and ngettext support 
+  - Added php-gettext classes (see class/l10n/*.php) and ngettext support
     functions (provides fix for #1019007).
   - LC_NUMERIC locale is set to C. (workaround for #1027130). Some plugins
     might use decimal delimiters incorrectly.
   - Added sq_is8bit function that can be used to detect 8bit strings.
   - Added sq_mb_list_encodings function that provides list of encodings supported
-    by php mbstring module.
+    by PHP mbstring module.
   - Added Content-Transfer-Encoding: 8bit header for read receipts that contain
     8bit symbols. (provides fix for #934033).
   - Fixed decoding function problems when mbstring.func_override has MB_OVERLOAD_REGEX
     enabled.
   - Security: Fixed XSS exploit in decodeHeader function. [CAN-2004-1036]
-  - Added site configuration and custom translation engine support to translate 
+  - Added site configuration and custom translation engine support to translate
     plugin.
   - Fixed SquirrelSpell error output.  Patch courtesy David Boone.
   - Fixed bug in IMAP read routines that treated "0" as false instead of
@@ -142,18 +142,18 @@ Version 1.5.1 -- CVS
   - Added compact paginator option. Patch by Felix Egli.
   - Fixed reply/forward form in order to avoid warnings in SSL enabled sites. Patch
     by Felix Egli.
-  - Removed command line option unsupported by qmail-inject in 
+  - Removed command line option unsupported by qmail-inject in
     class/deliver/Deliver_SendMail.class.php. Thanks to Ken Brush.
   - Global file based address book is controled in configuration. Removed
     global_file address book backend (use 'local_file' instead).
   - Added Net-Style theme by Gabriele Maidecchi. Closes patch #1041323.
-  - Fix: Messages shown with bad times in message list due to misinterpreted 
+  - Fix: Messages shown with bad times in message list due to misinterpreted
     UW IMAP internal date.
   - Fixed path used by random theme.
-  - Utf7-imap encoding/decoding functions will check, if required charset is 
+  - Utf7-imap encoding/decoding functions will check, if required charset is
     supported by mbstring and use it. Fixes bug #1005353.
-  - LDAP backend will use internal squirrelmail charset conversion functions
-    instead of php xml extension. Fixes bug #655137.
+  - LDAP backend will use internal SquirrelMail charset conversion functions
+    instead of PHP XML extension. Fixes bug #655137.
   - Added Wood theme and Silver Steel theme by Pavel Spatny and Simple Green theme
   - Fix two time zone calculation bugs, thanks to David White. Fixes #1063879.
   - 'Priority' and 'Importance' headers are now also recognised, next to the
@@ -167,7 +167,7 @@ Version 1.5.1 -- CVS
   - Removed extra ; in SquirrelMail added Received header per RFC 822. Fixes #1088548.
   - Add IMAP server type "hmailserver" to make search work with hMailServer.
     Fixes #1085377.
-  - Reuploaded newmail plugin sounds. Fixes files uploaded to cvs without binary 
+  - Reuploaded newmail plugin sounds. Fixes files uploaded to cvs without binary
     option.
   - Changing your JavaScript preference required a re-login to work.
     Fixes #983614.
@@ -360,7 +360,7 @@ Version 1.4.0 RC 2a
   - Fix IMAP error when returning to message from viewing image attachment.
   - Do more trimming to indented subjects in threadview so they don't wrap.
   - Trash folder now displays purge link in all cases. (Closes #655943)
-  - Fix typo in delete_move_next plugin which caused php file-handle errors.
+  - Fix typo in delete_move_next plugin which caused PHP file-handle errors.
   - Make vCard more liberal in what it accepts (thanks Kurt Pires).
   - Fix problem with subject encoding when using Japanse.
   - Move login_form hook to be actually in the login form.
@@ -388,7 +388,7 @@ Version 1.4.0 RC 1
   - Added CRAM-MD5 and DIGEST-MD5 authentication support for IMAP and SMTP
   - Experimental TLS support for IMAP and SMTP (requires PHP 4.3.x)
   - Override settings with config_local.php
-  - Compose form no longer shows attachment options if php file_uploads
+  - Compose form no longer shows attachment options if PHP file_uploads
     disabled
   - Improved bodystructure parsing.
   - Support for windows-1257 charset.
@@ -674,17 +674,17 @@ Version 1.2.0 -- 25 December 2001
 
 
 ***************************************************************
-*** Squirrelmail Development Series 1.1 and 1.1 Pre-Releases ***
+*** SquirrelMail Development Series 1.1 and 1.1 Pre-Releases ***
 ****************************************************************
 
 Version 1.2.0-rc3 -- 2 December 2001
 ------------------------------------
   - Speed improvements and optimizations on much of the code
   - Comments added, formatting cleaned up for much of the code
-  - Several plugins integrated into the Squirrelmail core
+  - Several plugins integrated into the SquirrelMail core
     (focus change, attachment common, printer friendly, etc)
   - Several plugins added as "Official Plugins" to the main
-    Squirrelmail distribution
+    SquirrelMail distribution
   - First half of a rewrite of the option pages code
   - The Paginator!!!
   - Other stuff that I don't recall (developers, please fill this in!)
@@ -737,7 +737,7 @@ Version 1.1.0 -- April 21, 2000
 
 
 **************************************
-*** Squirrelmail Stable Series 1.0 ***
+*** SquirrelMail Stable Series 1.0 ***
 **************************************
 
 Version 1.0.6 -- April 19, 2001
@@ -819,7 +819,7 @@ Version 1.0 -- January 30, 2001
 
 
 ********************************************************
-*** Squirrelmail Development Series 1.0 Pre-Releases ***
+*** SquirrelMail Development Series 1.0 Pre-Releases ***
 ********************************************************
 
 Version 1.0pre3 -- January 22, 2001
@@ -887,7 +887,7 @@ Version 1.0pre1 -- December 14, 2000
 
 
 *****************************************
-*** Squirrelmail 0.5 and Pre-Releases ***
+*** SquirrelMail 0.5 and Pre-Releases ***
 *****************************************
 
 Version 0.5 -- September 25, 2000
@@ -942,7 +942,7 @@ Version 0.5pre1 -- August 9, 2000
 
 
 *****************************************
-*** Squirrelmail 0.4 and Pre-Releases ***
+*** SquirrelMail 0.4 and Pre-Releases ***
 *****************************************
 
 Version 0.4 -- May 15, 2000
@@ -992,7 +992,7 @@ Version 0.4pre1 -- April 29, 2000
 
 
 *****************************************
-*** Squirrelmail 0.3 and Pre-Releases ***
+*** SquirrelMail 0.3 and Pre-Releases ***
 *****************************************
 
 Version 0.3.1 -- March 13, 2000
@@ -1040,7 +1040,7 @@ Version 0.3pre1 -- February 17, 2000
 
 
 *****************************************
-*** Squirrelmail 0.2 and Pre-Releases ***
+*** SquirrelMail 0.2 and Pre-Releases ***
 *****************************************
 
 Version 0.2.1 -- January 05, 2000
@@ -1059,7 +1059,7 @@ Version 0.2 -- January 02, 2000
 
 
 *****************************************
-*** Squirrelmail 0.1 and Pre-Releases ***
+*** SquirrelMail 0.1 and Pre-Releases ***
 *****************************************
 
 Version 0.1.2  -- December 20, 1999

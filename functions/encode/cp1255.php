@@ -30,7 +30,7 @@ function charset_encode_cp1255 ($string) {
  * Return cp1255 symbol when unicode character number is provided
  *
  * This function is used internally by charset_encode_cp1255
- * function. It might be unavailable to other squirrelmail functions.
+ * function. It might be unavailable to other SquirrelMail functions.
  * Don't use it or make sure, that functions/encode/cp1255.php is
  * included.
  *

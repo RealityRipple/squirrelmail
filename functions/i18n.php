@@ -66,8 +66,8 @@ function sq_textdomain($domain) {
  * php gettext extension works only when locale is set. This wrapper
  * function allows to use more than one locale name.
  *
- * @param int $category locale category name. Use php named constants 
- *     (LC_ALL, LC_COLLATE, LC_CTYPE, LC_MONETARY, LC_NUMERIC, LC_TIME)  
+ * @param int $category locale category name. Use php named constants
+ *     (LC_ALL, LC_COLLATE, LC_CTYPE, LC_MONETARY, LC_NUMERIC, LC_TIME)
  * @param mixed $locale option contains array with possible locales or string with one locale
  * @return string name of set locale or false, if all locales fail.
  * @since 1.5.1
@@ -320,9 +320,9 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
         if (function_exists('bind_textdomain_codeset')) {
             // Japanese translation uses different internal charset
             if ($sm_notAlias == 'ja_JP') {
-                bind_textdomain_codeset ("squirrelmail", 'EUC-JP');
+                bind_textdomain_codeset ('squirrelmail', 'EUC-JP');
             } else {
-                bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+                bind_textdomain_codeset ('squirrelmail', $languages[$sm_notAlias]['CHARSET'] );
             }
         }
 

@@ -30,7 +30,7 @@ function charset_encode_koi8_u ($string) {
  * Return koi8-u symbol when unicode character number is provided
  *
  * This function is used internally by charset_encode_koi8_u
- * function. It might be unavailable to other squirrelmail functions.
+ * function. It might be unavailable to other SquirrelMail functions.
  * Don't use it or make sure, that functions/encode/koi8_u.php is
  * included.
  *

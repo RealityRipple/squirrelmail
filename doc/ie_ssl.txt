@@ -10,7 +10,7 @@ things, one being the key to decypher the password.
 
 Once we had figured out that it was sessions in PHP that was causing the
 problem, we tried turning the session management off in the download script
-in Squirrelmail.  This introduced another problem for us because we NEEDED
+in SquirrelMail.  This introduced another problem for us because we NEEDED
 sessions to decypher the key so we could log into the IMAP server and
 download the attachment.
 
@@ -25,8 +25,8 @@ session had been started, and lo and behold, it worked!  Below is the code
 that made this work:
 
      session_start()
-	 header("Pragma: ");
-	 header("Cache-Control: cache");
+         header("Pragma: ");
+         header("Cache-Control: cache");
 
 With all the testing I have done, this works, and works very well for all
 browsers.
@@ -43,7 +43,7 @@ This was submitted by Marcin Jessa <yazzy@yazzy.org>
      gets fixed). The problem has to do with downloading attachments.
      Apparently, MSIE forgets how MIME works, when it uses HTTP/1.1. For
      the Apache server, insert the following directive in httpd.conf:
-  
+
      BrowserMatch "MSIE" nokeepalive downgrade-1.0 force-response-1.0
 
      Recent versions of Apache already have a similar directive for a

@@ -1490,7 +1490,7 @@ function sq_fixatts($tagname,
 
 /**
  * This function edits the style definition to make them friendly and
- * usable in squirrelmail.
+ * usable in SquirrelMail.
  *
  * @param  $message  the message object
  * @param  $id       the message id
