@@ -86,7 +86,7 @@
       if ($move_to_sent == true)
          echo '<option value="none">' . _("Do not use Sent");
       else
-         echo "<option value=none selected>" . _("Do not use Sent");
+         echo "<option value=\"none\" selected>" . _("Do not use Sent");
  
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
@@ -113,7 +113,7 @@
    if ($save_as_draft == true)
       echo '<option value="none">' . _("Do not use Drafts");
    else
-      echo '<option value="none selected">' . _("Do not use Drafts");
+      echo '<option value="none" selected>' . _("Do not use Drafts");
 
    for ($i = 0; $i < count($boxes); $i++) {
       $use_folder = true;
