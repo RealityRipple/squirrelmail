@@ -81,7 +81,6 @@ function checkForm() {
         i++;
     }
     if( pos >= 0 ) {
-        // document.write( "Si tio" );
         document.forms[i-1].elements[pos].focus();
     }
     
