@@ -239,6 +239,10 @@
    
       global $PHP_SELF, $SERVER_NAME, $HTTPS, $HTTP_HOST, $SERVER_PORT;
 
+      // check for HTTPS mode (you must have 'SSLOptions +StdEnvVars'
+      // in your apache config).
+      $HTTPS=getenv(HTTPS); 
+
       // Get the path
       $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
    
