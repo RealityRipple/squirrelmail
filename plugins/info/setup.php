@@ -8,7 +8,7 @@
  *
  */
 
-require_once ('../plugins/info/functions.php');
+require_once (SM_PATH . 'plugins/info/functions.php');
 
 function squirrelmail_plugin_init_info() {
     global $squirrelmail_plugin_hooks;
