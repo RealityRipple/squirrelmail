@@ -469,9 +469,14 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     } // end while
     
     /* error processing in case $read is false */
-    if ($read === false) {
-        unset($data);
-        if ($handle_errors) {
+    if ($read === false && $handle_errors) {
+        // try to retrieve an untagged bye respons from the results
+        $sResponse = array_pop($data);
+        if ($sResponse != NULL && strpos($sResponse,'* BYE')) {
+            $message[$tag] = substr($sResponse,5);
+            $response[$tag] = 'BYE';
+        } else {
+            unset($data); 
             sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
             exit;
         }
