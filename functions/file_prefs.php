@@ -184,35 +184,42 @@ function checkForPrefs($data_dir, $username, $filename = '') {
 
     /* Then, check if the file exists. */
     if (!@file_exists($filename) ) {
-        /* First, check the $data_dir for the default preference file. */
+
+        /* If it does not exist, check for default_prefs */
+        
+        /* First, check legacy locations: data dir */
         if(substr($data_dir,-1) != '/') {
             $data_dir .= '/';
         }
         $default_pref = $data_dir . 'default_pref';
 
-        /* If it is not there, check the internal data directory. */
+        /* or legacy location: internal data dir */
         if (!@file_exists($default_pref)) {
             $default_pref = SM_PATH . 'data/default_pref';
         }
 
-        /* Otherwise, report an error. */
-        $errTitle = sprintf( _("Error opening %s"), $default_pref );
-        if (!is_readable($default_pref)) {
-            $errString = $errTitle . "<br />\n" .
-                         _("Default preference file not found or not readable!") . "<br />\n" .
-                         _("Please contact your system administrator and report this error.") . "<br />\n";
-            logout_error( $errString, $errTitle );
-            exit;
-        } else if (!@copy($default_pref, $filename)) {
+        /* If no legacies, check where we'd expect it to be located:
+         * under config/ */
+        if (!@file_exists($default_pref)) {
+            $default_pref = SM_PATH . 'config/default_pref';
+        }
+        
+        /* If a default_pref file found, try to copy it, if none found,
+         * try to create an empty one. If that fails, report an error.
+         */
+        if (
+            ( is_readable($default_pref) && !@copy($default_pref, $filename) ) ||
+            !@touch($filename)
+        ) {
             $uid = 'httpd';
             if (function_exists('posix_getuid')){
                 $user_data = posix_getpwuid(posix_getuid());
                 $uid = $user_data['name'];
             }
-            $errString = $errTitle . '<br />' .
-                       _("Could not create initial preference file!") . "<br />\n" .
-                       sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) .
-                       "<br />\n" . _("Please contact your system administrator and report this error.") . "<br />\n";
+            $errTitle = _("Could not create initial preference file!");
+            $errString = $errTitle . "<br />\n" .
+                       sprintf( _("%s should be writable by user %s"), $data_dir, $uid ) . "<br />\n" .
+                       _("Please contact your system administrator and report this error.") . "<br />\n";
             logout_error( $errString, $errTitle );
             exit;
         }
