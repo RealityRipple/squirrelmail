@@ -91,6 +91,95 @@
         'posvals' => $draft_folder_values
     );
 
+    $optvals[] = array(
+        'name'    => 'location_of_bar',
+        'caption' => _("Location of Folder List"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => array(SMPREF_LOC_LEFT  => _("Left"),
+                           SMPREF_LOC_RIGHT => _("Right"))
+    );
+
+    $left_size_values = array();
+    for ($lsv = 100; $lsv <= 300; $lsv += 10) {
+        $left_size_values[$lsv] = "$lsv " . _("pixels");
+    }
+    $optvals[] = array(
+        'name'    => 'left_size',
+        'caption' => _("Width of Folder List"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_ALL,
+        'posvals' => $left_size_values
+    );
+
+    $minute_str = _("Minutes");
+    $left_refresh_values = array(SMPREF_NONE => _("Never"));
+    foreach (array(30,60,120,180,300,600) as $lr_val) {
+        if ($lr_val < 60) {
+            $left_refresh_values[$lr_val] = "$lr_val " . _("Seconds");
+        } else if ($lr_val == 60) {
+            $left_refresh_values[$lr_val] = "1 " . _("Minute");
+        } else {
+            $left_refresh_values[$lr_val] = ($lr_val/60) . " $minute_str";
+        }
+    }
+    $optvals[] = array(
+        'name'    => 'left_refresh',
+        'caption' => _("Auto Refresh Folder List"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => $left_refresh_values
+    );
+
+    $optvals[] = array(
+        'name'    => 'unseen_notify',
+        'caption' => _("Enable Unseen Message Notification"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array(SMPREF_UNSEEN_NONE  => _("No Notification"),
+                           SMPREF_UNSEEN_INBOX => _("Only INBOX"),
+                           SMPREF_UNSEEN_ALL   => _("All Folders"))
+    );
+
+    $optvals[] = array(
+        'name'    => 'unseen_type',
+        'caption' => _("Unseen Message Notification Type"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array(SMPREF_UNSEEN_ONLY  => _("Only Unseen"),
+                           SMPREF_UNSEEN_TOTAL => _("Unseen and Total")) 
+    );
+
+    $optvals[] = array(
+        'name'    => 'collapse_folders',
+        'caption' => _("Enable Collapsable Folders"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST
+    );
+
+    $optvals[] = array(
+        'name'    => 'date_format',
+        'caption' => _("Show Clock on Folders Panel"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array( '1' => 'MM/DD/YY HH:MM',
+                            '2' => 'DD/MM/YY HH:MM',
+                            '3' => 'DDD, HH:MM',
+                            '4' => 'HH:MM:SS',
+                            '5' => 'HH:MM',
+                            '6' => _("No Clock")),
+    );
+
+    $optvals[] = array(
+        'name'    => 'hour_format',
+        'caption' => _("Hour Format"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_FOLDERLIST,
+        'posvals' => array(SMPREF_TIME_12HR => _("12-hour clock"),
+                           SMPREF_TIME_24HR => _("24-hour clock")) 
+    );
+
+
     /* Build all these values into an array of SquirrelOptions objects. */
     $options = createOptionArray($optvals);
 
@@ -109,37 +198,7 @@
 
    // if( $unseen_notify == '' )
    //   $unseen_notify = '2';
-   OptionRadio( _("Unseen message notification"),
-                'unseennotify',
-                array( 1 => _("No notification"),
-                       2 => _("Only INBOX"),
-                       3 => _("All Folders") ),
-                $unseen_notify, '', '',
-                '<br>' );
-    OptionRadio( _("Unseen message notification type"),
-                 'unseentype',
-                 array( 1 => _("Only unseen"),
-                        2 => _("Unseen and Total") ),
-                 $unseen_type, '', '',
-                 '<br>' );
-    OptionCheck( _("Collapseable folders"),
-                 'collapsefolders',
-                 $collapse_folders,
-                 _("Enable Collapseable Folders") );
-   OptionSelect( '<b>' . _("Show Clock on Folders Panel") . '</b> ' . _("Date format"),
-                 'dateformat',
-                 array( '1' => 'MM/DD/YY HH:MM',
-                        '2' => 'DD/MM/YY HH:MM',
-                        '3' => 'DDD, HH:MM',
-                        '4' => 'HH:MM:SS',
-                        '5' => 'HH:MM',
-                        '6' => _("No Clock") ),
-                 $date_format );
-   OptionSelect( _("Hour format"),
-                 'hourformat',
-                 array( '1' => _("24-hour clock"),
-                        '2' => _("12-hour clock") ),
-                 $hour_format );     
+
                  
    echo '<tr><td colspan=2><hr noshade></td></tr>';
    do_hook("options_folders_inside");
