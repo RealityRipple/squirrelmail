@@ -2,12 +2,14 @@
 /**
  * SquirrelMail internal gettext functions
  *
- * Uses php-gettext classes
+ * Since 1.5.1 uses php-gettext classes.
+ * Original implementation was done by Tyler Akins (fidian)
  * @copyright (c) 1999-2005 The SquirrelMail Project Team
- * @license http://opensource.org/licenses/gpl-license.php GNU Public Licens
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link http://www.php.net/gettext Original php gettext manual
  * @link http://savannah.nongnu.org/projects/php-gettext php-gettext classes
  * @version $Id$
+ * @since 1.1.2
  * @package squirrelmail
  * @subpackage i18n
  */
@@ -26,6 +28,7 @@ include_once(SM_PATH . 'functions/ngettext.php');
  *
  * @param string $str English string
  * @return string translated string
+ * @since 1.1.2
  */
 function _($str) {
     global $l10n, $gettext_domain;
@@ -42,6 +45,7 @@ function _($str) {
  * @param string $domain gettext domain name
  * @param string $dir directory that contains all translations
  * @return string path to translation directory
+ * @since 1.1.2
  */
 function bindtextdomain($domain, $dir) {
     global $l10n, $sm_notAlias;
@@ -57,11 +61,13 @@ function bindtextdomain($domain, $dir) {
 /**
  * Alternative php textdomain function
  *
- * Sets default domain name
+ * Sets default domain name. Before 1.5.1 command required
+ * bindtextdomain() call for each gettext domain change.
  *
  * @link http://www.php.net/function.textdomain
  * @param string $name gettext domain name
  * @return string gettext domain name
+ * @since 1.1.2
  */
 function textdomain($name = false) {
     global $gettext_domain;
