@@ -1,6 +1,9 @@
 <?php
+
    /**
     **  imap.php
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.    
     **
     **  This implements all functions that do general imap functions.
     **
