@@ -70,7 +70,7 @@ function sq_textdomain($domain) {
  *     (LC_ALL, LC_COLLATE, LC_CTYPE, LC_MONETARY, LC_NUMERIC, LC_TIME)
  * @param mixed $locale option contains array with possible locales or string with one locale
  * @return string name of set locale or false, if all locales fail.
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.5
  * @see http://www.php.net/setlocale
  */
 function sq_setlocale($category,$locale) {
@@ -105,7 +105,7 @@ function sq_setlocale($category,$locale) {
  * @param string $charset
  * @param string $string Text to be decoded
  * @param boolean $force_decode converts string to html without $charset!=$default_charset check. 
- * Argument is available since 1.5.1.
+ * Argument is available since 1.5.1 and 1.4.5.
  * @return string decoded string
  */
 function charset_decode ($charset, $string, $force_decode=false) {
@@ -183,7 +183,7 @@ function charset_decode ($charset, $string, $force_decode=false) {
 
 /**
  * Converts html string to given charset
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  * @param string $string
  * @param string $charset
  * @param boolean $htmlencode keep htmlspecialchars encoding
@@ -219,7 +219,7 @@ function charset_encode($string,$charset,$htmlencode=true) {
  *
  * If conversion is done to charset different that utf-8, unsupported symbols
  * will be replaced with question marks.
- * @since 1.5.1
+ * @since 1.5.1 and 1.4.4
  * @param string $in_charset initial charset
  * @param string $string string that has to be converted
  * @param string $out_charset final charset
@@ -235,7 +235,7 @@ function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
 /**
  * Makes charset name suitable for decoding cycles
  *
- * @since 1.5.0
+ * @since 1.5.0 and 1.4.4
  * @param string $charset Name of charset
  * @return string $charset Adjusted name of charset
  */
@@ -865,7 +865,7 @@ if (! isset($squirrelmail_language)) {
  *  CHARSET   - Encoding used by translation
  *  ALIAS     - used when 'language' is only short name and 'value' should provide long language name
  *  ALTNAME   - Native translation name. Any 8bit symbols must be html encoded.
- *  LOCALE    - Full locale name (in xx_XX.charset format)
+ *  LOCALE    - Full locale name (in xx_XX.charset format). It can use array with several locale names since 1.4.5 and 1.5.1
  *  DIR       - Text direction. Used to define Right-to-Left languages. Possible values 'rtl' or 'ltr'. If undefined - defaults to 'ltr'
  *  XTRA_CODE - translation uses special functions. See doc/i18n.txt
  *
