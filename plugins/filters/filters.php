@@ -317,14 +317,14 @@ function user_filters($imap_stream) {
 }
 
 function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan) {
-    global $languages, $squirrelmail_language;
+    global $languages, $squirrelmail_language, $allow_charset_search;
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
         $category = 'ALL';
     }
 
-    if (isset($languages[$squirrelmail_language]['CHARSET']) &&
+    if ($allow_charset_search && isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
         $search_str = "SEARCH CHARSET "
             . strtoupper($languages[$squirrelmail_language]['CHARSET']) 

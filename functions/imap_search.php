@@ -21,7 +21,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
                        $color, $search_position = '', $search_all, $count_all) {
 
     global $msgs, $message_highlight_list, $squirrelmail_language, $languages,
-           $index_order, $pos;
+           $index_order, $pos, $allow_charset_search;
 
     $pos = $search_position;
 
@@ -41,7 +41,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     $search_string = trim($search_string);
 
     /* now use $search_string in the imap search */
-    if (isset($languages[$squirrelmail_language]['CHARSET']) &&
+    if ($allow_charset_search && isset($languages[$squirrelmail_language]['CHARSET']) &&
         $languages[$squirrelmail_language]['CHARSET']) {
         $ss = "SEARCH CHARSET "
             . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
