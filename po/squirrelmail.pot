@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-03-31 21:14+0300\n"
+"POT-Creation-Date: 2004-04-07 22:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1702,6 +1702,15 @@ msgid "Enable Cumulative Unread Message Notification"
 msgstr ""
 
 msgid "Show Clock on Folders Panel"
+msgstr ""
+
+msgid "International date and time"
+msgstr ""
+
+msgid "American date and time"
+msgstr ""
+
+msgid "European date and time"
 msgstr ""
 
 msgid "Show weekday and time"
