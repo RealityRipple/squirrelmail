@@ -44,7 +44,9 @@
    function expandAddrs ($array) {
       global $domain;
       
-      $abook = addressbook_init();
+      // don't show errors -- kinda critical that we don't see
+      // them here since the redirect won't work if we do show them
+      $abook = addressbook_init(false);
       for ($i=0; $i < count($array); $i++) {
          $result = $abook->lookup($array[$i]);
          $ret = "";
