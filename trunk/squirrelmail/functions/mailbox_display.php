@@ -378,7 +378,8 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg, &$msgs, $ms
     do_hook('mailbox_index_before');
 
     $msg_cnt_str = get_msgcnt_str($start_msg, $end_msg, $num_msgs);
-    $paginator_str = get_paginator_str($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort);
+    $paginator_str = get_paginator_str
+        ($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort);
 
     if (! isset($msg)) {
         $msg = '';
@@ -478,33 +479,27 @@ function mail_message_listing_beginning
     * This is the beginning of the message list table.
     * It wraps around all messages
     */
-    echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n".
-        "<TR BGCOLOR=\"$color[0]\"><TD>".
-            "<TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n".
-        "    <TD ALIGN=LEFT>$paginator";
-
-    if( $paginator <> '&nbsp;' ) {
-        echo ' | ';
-    }
-
-    echo get_selectall_link($start_msg, $sort) . "</TD>\n".
-        "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n".
-        "  </TR></TABLE>\n".
-        '</TD></TR>'.
-        "<TR><TD BGCOLOR=\"$color[0]\">\n".
-        "<FORM name=messageList method=post action=\"$moveURL\">\n".
-        "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n".
-        "   <TR>\n" .
-        "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
-        '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n" .
-        "      </TD>\n" .
-        "      <TD ALIGN=RIGHT NOWRAP>\n" .
-        '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n" .
-        "      </TD>\n" .
-        "   </TR>\n" .
-        "   <TR>\n" .
-        "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
-        '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
+    echo "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" CELLSPACING=\"0\">\n"
+       . "<TR BGCOLOR=\"$color[0]\"><TD>"
+       . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" CELLSPACING=\"0\" BORDER=\"0\"><TR>\n"
+       . "    <TD ALIGN=LEFT>$paginator</TD>\n"
+       . "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n"
+       . "  </TR></TABLE>\n"
+       . '</TD></TR>'
+       . "<TR><TD BGCOLOR=\"$color[0]\">\n"
+       . "<FORM name=messageList method=post action=\"$moveURL\">\n"
+       . "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n"
+       . "   <TR>\n"
+       . "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n"
+       . '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n"
+       . "      </TD>\n"
+       . "      <TD ALIGN=RIGHT NOWRAP>\n"
+       . '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n"
+       . "      </TD>\n"
+       . "   </TR>\n"
+       . "   <TR>\n"
+       . "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n"
+       . '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
 
     $boxes = sqimap_mailbox_list($imapConnection);
     for ($i = 0; $i < count($boxes); $i++) {
@@ -667,75 +662,205 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
 }
 
 /**
-* This function computes the paginator string.
-*/
+ * Generate a paginator link.
+ */
+function get_paginator_link
+($box, $start_msg, $use, $text) {
+    $result = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
+            . "&startMessage=$start_msg&mailbox=$box\" "
+            . "TARGET=\"right\">$text</A>";
+    return ($result);
+}
+
+/**
+ * This function computes the paginator string.
+ */
 function get_paginator_str
-($urlMailbox, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
+($box, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
     global $username, $data_dir, $use_mailbox_cache, $color;
 
-    $nextGroup = $start_msg + $show_num;
-    $prevGroup = $start_msg - $show_num;
+    /* Initialize paginator string chunks. */
+    $prv_str = '';
+    $nxt_str = '';
+    $pg_str = '';
+    $all_str = '';
+    $tgl_str = '';
 
+    /* Create simple strings that will be creating the paginator. */
+    $spc = '&nbsp;';     /* This will be used as a space. */
+    $sep = '|';          /* This will be used as a seperator. */
+
+    /* Get some paginator preference values. */
+    $pg_sel = getPref($data_dir, $username, 'page_selector', SM_OPT_ON);
+    $pg_max = getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX);
+
+    /* Make sure that our start message number is not too big. */
+    $start_msg = min($start_msg, $num_msgs);
+
+    /* Decide whether or not we will use the mailbox cache. */
+    /* Not sure why $use_mailbox_cache is even passed in.   */
     if ($sort == 6) {
         $use = 0;
     } else {
         $use = 1;
     }
-    $lMore = '';
-    $rMore = '';
-    if (($nextGroup <= $num_msgs) && ($prevGroup >= 0)) {
-        $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
-        $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
-    } else if (($nextGroup > $num_msgs) && ($prevGroup >= 0)) {
-        $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
-        $rMore = "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
-    } else if (($nextGroup <= $num_msgs) && ($prevGroup < 0)) {
-        $lMore = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
-        $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
-    }
-    if ($lMore <> '') {
-        $lMore .= ' | ';
-    }
-    if ($rMore <> '' || $lMore <> '' ) {
-        $rMore = "<A HREF=\"right_main.php?PG_SHOWNUM=9999use_mailbox_cache=$use&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\">" .
-                 _("All") . '</A> | ' . $rMore;
-    }
-    /* Page selector block. Following code computes page links. */
-    $mMore = '';
-    if (getPref($data_dir, $username, 'page_selector')
-        && ($num_msgs > $show_num)) {
-        $j = intval( $num_msgs / $show_num );  // Max pages
-        $k = max( 1, $j / getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX ) );
-        if ($num_msgs % $show_num <> 0 ) {
-            $j++;
-        }
-        $start_msg = min( $start_msg, $num_msgs );
-        $p = intval( $start_msg / $show_num ) + 1;
-        $i = 1;
-        while( $i < $p ) {
-            $pg = intval( $i );
-            $start = ( ($pg-1) * $show_num ) + 1;
-            $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                    "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a>&nbsp;";
-            $i += $k;
-        }
-        $mMore .= "<B>$p</B>&nbsp;";
-        $i += $k;
-        while( $i <= $j ) {
-        $pg = intval( $i );
-        $start = ( ($pg-1) * $show_num ) + 1;
-        $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start"
-                . "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a>&nbsp;";
-        $i+=$k;
-        }
-        $mMore .= '&nbsp;|&nbsp;';
+
+    /* Compute the starting message of the previous and next page group. */
+    $next_grp = $start_msg + $show_num;
+    $prev_grp = $start_msg - $show_num;
+
+    /* Compute the basic previous and next strings. */
+    if (($next_grp <= $num_msgs) && ($prev_grp >= 0)) {
+        $prv_str = get_paginator_link($box, $prev_grp, $use, _("Previous"));
+        $nxt_str = get_paginator_link($box, $next_grp, $use, _("Next"));
+    } else if (($next_grp > $num_msgs) && ($prev_grp >= 0)) {
+        $prv_str = get_paginator_link($box, $prev_grp, $use, _("Previous"));
+        $nxt_str = "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
+    } else if (($next_grp <= $num_msgs) && ($prev_grp < 0)) {
+        $prv_str = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
+        $nxt_str = get_paginator_link($box, $next_grp, $use, _("Next"));
     }
 
-    /* Return the resulting string. */
-    if( $lMore . $mMore . $rMore == '' ) {
-        $lMore = '&nbsp;';
+    /* Page selector block. Following code computes page links. */
+    if ($pg_sel && ($num_msgs > $show_num)) {
+        /* Most importantly, what is the current page!!! */
+        $cur_pg = intval($start_msg / $show_num) + 1;
+
+        /* Compute total # of pages and # of paginator page links. */
+        $tot_pgs = ceil($num_msgs / $show_num);  /* Total # of Pages */
+        $vis_pgs = min($pg_max, $tot_pgs - 1);   /* Visible Pages    */
+
+        /************************************************************/
+        /* Compute the size of the four quarters of the page links. */
+        /************************************************************/
+
+        /* If we can, just show all the pages. */
+        if (($tot_pgs - 1) <= $pg_max) {
+            $q1_pgs = $cur_pg - 1;
+            $q2_pgs = $q3_pgs = 0;
+            $q4_pgs = $tot_pgs - $cur_pg;
+            
+        /* Otherwise, compute some magic to choose the four quarters. */
+        } else {
+            /* Compute the magic base values. Added together,  */
+            /* these values will always equal to the $pag_pgs. */
+            /* NOTE: These are DEFAULT values and do not take  */
+            /* the current page into account. That is below.   */
+            $q1_pgs = floor($vis_pgs/4);
+            $q2_pgs = round($vis_pgs/4, 0);
+            $q3_pgs = ceil($vis_pgs/4);
+            $q4_pgs = round(($vis_pgs - $q2_pgs)/3, 0);
+        
+            /* Adjust if the first quarter contains the current page. */
+            if (($cur_pg - $q1_pgs) < 1) {
+                $extra_pgs = ($q1_pgs - ($cur_pg - 1)) + $q2_pgs;
+                $q1_pgs = $cur_pg - 1;
+                $q2_pgs = 0;
+                $q3_pgs += ceil($extra_pgs / 2);
+                $q4_pgs += floor($extra_pgs / 2);
+
+            /* Adjust if the first and second quarters intersect. */
+            } else if (($cur_pg - $q2_pgs - ceil($q2_pgs/3)) <= $q1_pgs) {
+                $extra_pgs = $q2_pgs;
+                $extra_pgs -= ceil(($cur_pg - $q1_pgs - 1) * 0.75);
+                $q2_pgs = ceil(($cur_pg - $q1_pgs - 1) * 0.75);
+                $q3_pgs += ceil($extra_pgs / 2);
+                $q4_pgs += floor($extra_pgs / 2);
+
+            /* Adjust if the fourth quarter contains the current page. */
+            } else if (($cur_pg + $q4_pgs) >= $tot_pgs) {
+                $extra_pgs = ($q4_pgs - ($tot_pgs - $cur_pg)) + $q3_pgs;
+                $q3_pgs = 0;
+                $q4_pgs = $tot_pgs - $cur_pg;
+                $q1_pgs += floor($extra_pgs / 2);
+                $q2_pgs += ceil($extra_pgs / 2);
+
+            /* Adjust if the third and fourth quarter intersect. */
+            } else if (($cur_pg + $q3_pgs + 1) >= ($tot_pgs - $q4_pgs + 1)) {
+                $extra_pgs = $q3_pgs;
+                $extra_pgs -= ceil(($tot_pgs - $cur_pg - $q4_pgs) * 0.75);
+                $q3_pgs = ceil(($tot_pgs - $cur_pg - $q4_pgs) * 0.75);
+                $q1_pgs += floor($extra_pgs / 2);
+                $q2_pgs += ceil($extra_pgs / 2);
+            }
+        }
+
+        /* I am leaving this debug code here, commented out, because    */
+        /* it is a really nice way to see what the above code is doing. */
+        /* echo "qts =  $q1_pgs/$q2_pgs/$q3_pgs/$q4_pgs = "             */
+        /*    . ($q1_pgs + $q2_pgs + $q3_pgs + $q4_pgs) . '<br>';       */
+
+        /************************************************************/
+        /* Print out the page links from the compute page quarters. */
+        /************************************************************/
+
+        /* Start with the first quarter. */
+        if (($q1_pgs == 0) && ($cur_pg > 1)) {
+            $pg_str .= "...$spc";
+        } else {
+            for ($pg = 1; $pg <= $q1_pgs; ++$pg) {
+                $start = (($pg-1) * $show_num) + 1;
+                $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
+            }
+            if ($cur_pg - $q2_pgs - $q1_pgs > 1) {
+                $pg_str .= "...$spc";
+            }
+        }
+
+        /* Continue with the second quarter. */
+        for ($pg = $cur_pg - $q2_pgs; $pg < $cur_pg; ++$pg) {
+            $start = (($pg-1) * $show_num) + 1;
+            $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
+        }
+
+        /* Now print the current page. */
+        $pg_str .= $cur_pg . $spc;
+
+        /* Next comes the third quarter. */
+        for ($pg = $cur_pg + 1; $pg <= $cur_pg + $q3_pgs; ++$pg) {
+            $start = (($pg-1) * $show_num) + 1;
+            $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
+        }
+
+        /* And last, print the forth quarter page links. */
+        if (($q4_pgs == 0) && ($cur_pg < $tot_pgs)) {
+            $pg_str .= "...$spc";
+        } else {
+            if (($tot_pgs - $q4_pgs) > ($cur_pg + $q3_pgs)) {
+                $pg_str .= "...$spc";
+            }
+            for ($pg = $tot_pgs - $q4_pgs + 1; $pg <= $tot_pgs; ++$pg) {
+                $start = (($pg-1) * $show_num) + 1;
+                $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
+            }
+        }
     }
-    return ($lMore . $mMore . $rMore);
+
+    /* If necessary, compute the 'show all' string. */
+    if (($prv_str != '') || ($nxt_str != '')) {
+        $all_str = "<A HREF=\"right_main.php?PG_SHOWNUM=9999"
+                 . "&use_mailbox_cache=$use&startMessage=1&mailbox=$box\" "
+                 . "TARGET=\"right\">" . _("Show All") . '</A>';
+    }
+
+    /* Last but not least, get the value for the toggle all link. */
+    $tgl_str = get_selectall_link($start_msg, $sort);
+
+    /* Put all the pieces of the paginator string together. */
+    $result = '';
+    $result .= ($all_str != '' ? $all_str . $spc . $sep . $spc: '');
+    $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
+    $result .= ($pg_str != '' ? $pg_str . $sep . $spc : '');
+    $result .= ($nxt_str != '' ? $nxt_str : '');
+    $result .= ($result != '' ? $spc . $sep . $spc . $tgl_str: $tgl_str);
+
+    /* If the resulting string is blank, return a non-breaking space. */
+    if ($result == '') {
+        $result = '&nbsp;';
+    }
+
+    /* Return our final magical paginator string. */
+    return ($result);
 }
 
 function processSubject($subject) {

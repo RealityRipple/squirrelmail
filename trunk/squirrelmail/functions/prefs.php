@@ -11,160 +11,163 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the $prefs_are_cached and $prefs_cache stuff below.  ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 global $prefs_are_cached, $prefs_cache;
 if (!session_is_registered('prefs_are_cached')) {
     $prefs_are_cached = false;
     $prefs_cache = array();
 }
 
-   function cachePrefValues($data_dir, $username) {
-       global $prefs_are_cached, $prefs_cache;
+/**
+ * Check the preferences into the session cache.
+ */
+function cachePrefValues($data_dir, $username) {
+    global $prefs_are_cached, $prefs_cache;
        
-       if ($prefs_are_cached)
-           return;
+    if ($prefs_are_cached) {
+        return;
+    }
+
+    $filename = $data_dir . $username . '.pref';
+
+    if (!file_exists($filename)) {
+        printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
+        exit;
+    }
+
+    $file = fopen($filename, 'r');
+
+    /* Read in the preferences. */
+    $highlight_num = 0;
+    while (! feof($file)) {
+        $pref = trim(fgets($file, 1024));
+        $equalsAt = strpos($pref, '=');
+        if ($equalsAt > 0) {
+            $key = substr($pref, 0, $equalsAt);
+            $value = substr($pref, $equalsAt + 1);
+            if (substr($key, 0, 9) == 'highlight') {
+                $key = 'highlight' . $highlight_num;
+                $highlight_num ++;
+            }
+
+            if ($value != '') {
+                $prefs_cache[$key] = $value;
+            }
+        }
+     }
+     fclose($file);
+
+     session_unregister('prefs_cache');
+     session_register('prefs_cache');
        
-       $filename = $data_dir . $username . '.pref';
-       
-       if (!file_exists($filename)) {
-           printf (_("Preference file, %s, does not exist. Log out, and log back in to create a default preference file."), $filename);
-           exit;
-       }
-
-       $file = fopen($filename, 'r');
-
-       /** read in all the preferences **/
-       $highlight_num = 0;
-       while (! feof($file)) {
-          $pref = trim(fgets($file, 1024));
-          $equalsAt = strpos($pref, '=');
-          if ($equalsAt > 0) {
-              $Key = substr($pref, 0, $equalsAt);
-              $Value = substr($pref, $equalsAt + 1);
-              if (substr($Key, 0, 9) == 'highlight') {
-                  $Key = 'highlight' . $highlight_num;
-                  $highlight_num ++;
-              }
-
-              if ($Value != '') {
-                  $prefs_cache[$Key] = $Value;
-              }
-          }
-       }
-       fclose($file);
-
-       session_unregister('prefs_cache');
-       session_register('prefs_cache');
-       
-       $prefs_are_cached = true;
-       session_unregister('prefs_are_cached');
-       session_register('prefs_are_cached');
-   }
+     $prefs_are_cached = true;
+     session_unregister('prefs_are_cached');
+     session_register('prefs_are_cached');
+}
    
+/**
+ * Return the value for the prefernce given by $string.
+ */
+function getPref($data_dir, $username, $string, $default = '') {
+    global $prefs_cache;
+    $result = '';
+
+    cachePrefValues($data_dir, $username);
+
+    if (isset($prefs_cache[$string])) {
+        $result = $prefs_cache[$string];
+    } else {
+        $result = $default;
+    }
+
+    return ($result);
+}
+
+/**
+ * Save the preferences for this user.
+ */
+function savePrefValues($data_dir, $username) {
+    global $prefs_cache;
    
-   /** returns the value for $string **/
-   function getPref($data_dir, $username, $string, $default = '') {
-      global $prefs_cache;
+    $file = fopen($data_dir . $username . '.pref', 'w');
+    foreach ($prefs_cache as $Key => $Value) {
+        if (isset($Value)) {
+            fwrite($file, $Key . '=' . $Value . "\n");
+        }
+    }
+    fclose($file);
+}
 
-      cachePrefValues($data_dir, $username);
+/**
+ * Remove a preference for the current user.
+ */
+function removePref($data_dir, $username, $string) {
+    global $prefs_cache;
 
-      if (isset($prefs_cache[$string]))
-          return $prefs_cache[$string];
-      else
-          return $default;
-   }
+    cachePrefValues($data_dir, $username);
+ 
+    if (isset($prefs_cache[$string])) {
+        unset($prefs_cache[$string]);
+    }
+ 
+    savePrefValues($data_dir, $username);
+}
 
+/**
+ * Set a there preference $string to $value.
+ */
+function setPref($data_dir, $username, $string, $value) {
+    global $prefs_cache;
 
-   function savePrefValues($data_dir, $username) {
-      global $prefs_cache;
-      
-      $file = fopen($data_dir . $username . '.pref', 'w');
-      foreach ($prefs_cache as $Key => $Value) {
-          if (isset($Value)) {
-              fwrite($file, $Key . '=' . $Value . "\n");
-          }
-      }
-      fclose($file);
-   }
+    cachePrefValues($data_dir, $username);
+    if (isset($prefs_cache[$string]) && ($prefs_cache[$string] == $value)) {
+        return;
+    }
 
+    if ($value === '') {
+        removePref($data_dir, $username, $string);
+        return;
+    }
 
-   function removePref($data_dir, $username, $string) {
-      global $prefs_cache;
+    $prefs_cache[$string] = $value;
+    savePrefValues($data_dir, $username);
+}
 
-      cachePrefValues($data_dir, $username);
-
-      if (isset($prefs_cache[$string])) {
-          unset($prefs_cache[$string]);
-      }
-
-      savePrefValues($data_dir, $username);
-   }
-
-   /** sets the pref, $string, to $set_to **/
-   function setPref($data_dir, $username, $string, $set_to) {
-      global $prefs_cache;
-
-      cachePrefValues($data_dir, $username);
-      if (isset($prefs_cache[$string]) && $prefs_cache[$string] == $set_to)
-         return;
-      if ($set_to === '') {
-         removePref($data_dir, $username, $string);
-         return;
-      }
-      $prefs_cache[$string] = $set_to;
-      savePrefValues($data_dir, $username);
-   }
-
-
-   /** This checks if there is a pref file, if there isn't, it will
-       create it. **/
-   function checkForPrefs($data_dir, $username) {
-      $filename = $data_dir . $username . '.pref';
-      if (!file_exists($filename) ) {
-         if (!copy($data_dir . 'default_pref', $filename)) {
+/**
+ * Check for a preferences file. If one can not be found, create it.
+ */
+function checkForPrefs($data_dir, $username) {
+    $filename = $data_dir . $username . '.pref';
+    if (!file_exists($filename) ) {
+        if (!copy($data_dir . 'default_pref', $filename)) {
             echo _("Error opening ") . $filename;
             exit;
-         }
-      }
-   }
+        }
+    }
+}
 
+/**
+ * Write the User Signature.
+ */
+function setSig($data_dir, $username, $value) {
+    $file = fopen($data_dir . $username . '.sig', 'w');
+    fwrite($file, $value);
+    fclose($file);
+}
 
-   /** Writes the Signature **/
-   function setSig($data_dir, $username, $string) {
-      $file = fopen($data_dir . $username . '.sig', 'w');
-      fwrite($file, $string);
-      fclose($file);
-   }
-
-
-
-   /** Gets the signature **/
-   function getSig($data_dir, $username) {
-      $filename = $data_dir . $username . '.sig';
-      $sig = '';
-      if (file_exists($filename)) {
-         $file = fopen($filename, 'r');
-         while (!feof($file)) {
+/**
+ * Get the signature.
+ */
+function getSig($data_dir, $username) {
+    $filename = $data_dir . $username . '.sig';
+    $sig = '';
+    if (file_exists($filename)) {
+        $file = fopen($filename, 'r');
+        while (!feof($file)) {
             $sig .= fgets($file, 1024);
-         }
-         fclose($file);
-      }
-      return $sig;
-   }
+        }
+        fclose($file);
+    }
+    return $sig;
+}
 
 ?>
