@@ -28,6 +28,7 @@ Version 1.4.0 CVS
   - Fixed encoded string handling inside MDN notifications
   - Fixed unfold header routine in imap_messages (for mailbox_display).
   - Make listcommands work with PHP versions 4.0.4 & 4.0.5.
+  - Fixed subject_line hook
   
 Version 1.4.0 RC 2a
 -------------------
