@@ -3,6 +3,44 @@
    /* $Id$ */
 
    $strings_php = true;
+   
+   // Remove all slashes for form values
+   if (get_magic_quotes_gpc())
+   {
+       global $REQUEST_METHOD;
+       if ($REQUEST_METHOD == "POST")
+       {
+           global $HTTP_POST_VARS;
+	   RemoveSlashes($HTTP_POST_VARS);
+       }
+       elseif ($REQUEST_METHOD == "GET")
+       {
+           global $HTTP_GET_VARS;
+	   RemoveSlashes($HTTP_GET_VARS);
+       }
+   }
+   
+   
+   function RemoveSlashes($array)
+   {
+       foreach ($array as $k => $v)
+       {
+           global $$k;
+	   if (is_array($$k))
+	   {
+	       foreach ($$k as $k2 => $v2)
+	       {
+	           $newArray[stripslashes($k2)] = stripslashes($v2);
+	       }
+	       $$k = $newArray;
+	   }
+	   else
+	   {
+	       $$k = stripslashes($v);
+	   }
+       }
+   }
+
 
    //*************************************************************************
    // Count the number of occurances of $needle are in $haystack.
@@ -284,13 +322,6 @@
       // although this is not RFC 2616 compliant.
       return $path;    
    }   
-
-   function sqStripSlashes($string) {
-      if (get_magic_quotes_gpc()) {
-         $string = stripslashes($string);
-      }
-      return $string;
-   }
 
 
    // These functions are used to encrypt the passowrd before it is

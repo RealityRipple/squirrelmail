@@ -117,9 +117,9 @@
             header("Content-type: application/octet-stream; name=\"$filename\"");
             set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
-               echo _("Subject") . ": " . decodeHeader(sqStripSlashes($top_header->subject)) . "\n";
-               echo "   " . _("From") . ": " . decodeHeader(sqStripSlashes($top_header->from)) . "\n";
-               echo "     " . _("To") . ": " . decodeHeader(sqStripSlashes(getLineOfAddrs($top_header->to))) . "\n";
+               echo _("Subject") . ": " . decodeHeader($top_header->subject) . "\n";
+               echo "   " . _("From") . ": " . decodeHeader($top_header->from) . "\n";
+               echo "     " . _("To") . ": " . decodeHeader(getLineOfAddrs($top_header->to)) . "\n";
                echo "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
             }
             echo trim($body);
