@@ -29,6 +29,8 @@
     $color[9]   = '#ABABAB'; // (mid-gray)       Darker version of #0
     $color[10]  = '#666666'; // (dark gray)      Darker version of #9
     $color[11]  = '#770000'; // (dark red)       Special Folders color
-    $color[12]  = '#EDEDED';
+    $color[12]  = '#EDEDED'; // (light gray)     Alternate color for message list
+    $color[13]  = '#800000'; // (dark red)       Color for quoted text -- > 1 quote
+    $color[14]  = '#FF0000'; // (red)            Color for quoted text -- >> 2 or more
     $color[15]  = '#002266'; // (dark blue)      Unselectable folders
 ?>
