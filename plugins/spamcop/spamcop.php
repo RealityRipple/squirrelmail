@@ -1,10 +1,30 @@
 <?php
+   /** 
+    **  spamcop.php -- SpamCop plugin           
+    **
+    **  Copyright (c) 1999-2002 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **  
+    **  $Id$                                                         
+    **/
 
 define('SM_PATH','../../');
 
  /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
+
+    /* GLOBALS */
+
+    $username = $_SESSION['username'];
+    $key  = $_COOKIE['key'];
+    $onetimepad = $_SESSION['onetimepad'];
+
+    $mailbox = $_GET['mailbox'];
+    $passed_id = $_GET['passed_id'];
+    $startMessage = $_GET['startMessage'];
+
+    /* END GLOBALS */
     
     displayPageHeader($color, $mailbox);
 
@@ -22,7 +42,7 @@ require_once(SM_PATH . 'functions/imap.php');
        // Use email-based reporting -- save as an attachment
        if(!isset($composesession)) {
         $composesession = 0;
-        session_register('composesession');
+        sqsession_register($composesession, 'composesession');
        }
        if (!isset($session)) {
          $session = "$composesession" +1;
@@ -31,7 +51,7 @@ require_once(SM_PATH . 'functions/imap.php');
 
        if (!isset($attachments)) {
           $attachments = array();
-          session_register('attachments');
+          sqsession_register($attachments, 'attachments');
        }
     
        foreach ($attachments as $info) {
@@ -51,8 +71,10 @@ require_once(SM_PATH . 'functions/imap.php');
        foreach ($read as $line) {
           fputs($fp, $line);
        }
+       sqsession_unregister('attachments');
        $attachments[] = $newAttachment;
-    
+       sqsession_register($attachments , 'attachments');    
+
        $fn = getPref($data_dir, $username, 'full_name');
        $em = getPref($data_dir, $username, 'email_address');
     

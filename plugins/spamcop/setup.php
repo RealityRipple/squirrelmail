@@ -1,5 +1,12 @@
 <?php
-
+   /** 
+    **  setup.php -- SpamCop plugin           
+    **
+    **  Copyright (c) 1999-2002 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **  
+    **  $Id$                                                         
+    **/
 
 /* Initialize the plugin */
 function squirrelmail_plugin_init_spamcop() {
@@ -12,6 +19,8 @@ function squirrelmail_plugin_init_spamcop() {
       'spamcop_load';
    $squirrelmail_plugin_hooks['read_body_header_right']['spamcop'] =
       'spamcop_show_link';
+
+   sqextractGlobalVar('spamcop_is_composing');
       
    if (isset($spamcop_is_composing)) {
       $squirrelmail_plugin_hooks['compose_send']['spamcop'] =
@@ -44,16 +53,16 @@ function spamcop_load() {
 
 // Show the link on the read-a-message screen
 function spamcop_show_link() {
-   global $passed_id, $mailbox, $ent_num, $spamcop_enabled, $startMessage,
-      $spamcop_method;
-
-   // This was stolen from printer_friendly
-   // Do I really need/want it?
-   if (!trim($mailbox))
-      $mailbox = 'INBOX';
+   global $spamcop_enabled, $spamcop_method;
 
    if (! $spamcop_enabled)
       return;
+
+   /* GLOBALS */
+   $passed_id = $_GET['passed_id'];
+   $mailbox = $_GET['mailbox'];
+   $startMessage = $_GET['startMessage'];
+   /* END GLOBALS */
 
    echo "<br>\n";
    

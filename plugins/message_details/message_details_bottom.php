@@ -21,6 +21,14 @@ require_once(SM_PATH . 'functions/prefs.php');
 
 global $color, $uid_support;
 
+$passed_id = $_GET['passed_id'];
+$mailbox = $_GET['mailbox'];
+
+$username = $_SESSION['username'];
+$key = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+
+
 function CalcEntity($entString, $direction) {
     $result = $entString;
     if ($direction == -1) {

@@ -19,6 +19,9 @@ require_once(SM_PATH . 'functions/strings.php');
 
 displayHtmlHeader( _("Message details"), '', FALSE );
 
+$mailbox = $_GET['mailbox'];
+$passed_id = $_GET['passed_id'];
+
 echo "<frameset rows=\"60, *\" noresize border=\"0\">\n";
 echo '<frame src="message_details_top.php?mailbox=' . urlencode($mailbox) .'&passed_id=' . "$passed_id". '" name="top_frame" scrolling="off">';
 echo '<frame src="message_details_bottom.php?mailbox=' . urlencode($mailbox) .'&passed_id=' . "$passed_id" . '" name="bottom_frame">';

@@ -1,9 +1,25 @@
 <?php
 
+   /**
+    **  options.php -- SpamCop options page
+    **
+    **  Copyright (c) 1999-2002 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  $Id$
+    **/
+
 define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 
-displayPageHeader($color, "None");   
+displayPageHeader($color, 'None');
+   
+/* globals */
+sqextractGlobalVar('action');
+sqextractGlobalVar('meth');
+sqextractGlobalVar('ID');
+extract($_SESSION);
+/* end of globals */
 
 $action = (!isset($action) ? '' : $action);
 

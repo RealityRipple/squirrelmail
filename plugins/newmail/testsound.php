@@ -6,8 +6,6 @@
  * Copyright (c) 1999-2002 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.        
  *
- * Displays all options relating to new mail sounds
- *
  * $Id$
  */
 
@@ -17,7 +15,12 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/html.php');
 
-$sound = (!isset($sound) ? 'Click.wav' : $sound);
+if (!isset($_GET['sound'])) {
+    $sound = 'Click.wav';
+} else {
+    $sound = $_GET['sound'];
+}
+
 $sound = str_replace('../plugins/newmail/', '', $sound);
 $sound = str_replace('../', '', $sound);
 $sound = str_replace("..\\", '', $sound);
