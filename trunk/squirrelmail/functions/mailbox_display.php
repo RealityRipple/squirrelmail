@@ -153,7 +153,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
             echo "   <td bgcolor=\"$hlt_color\" align=center nowrap><b><small>\n";
             if (isset($msg['FLAG_ANSWERED']) &&
                 $msg['FLAG_ANSWERED'] == true) {
-                echo "A\n";
+                echo _("A") . "\n";
                 $stuff = true;
             }
             if ($msg['TYPE0'] == 'multipart') {
