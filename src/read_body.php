@@ -112,8 +112,8 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color) {
     global $javascript_on;
 
     $params = '?passed_ent_id=' . $passed_ent_id .
-              '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . $passed_id;
+              '&amp;mailbox=' . urlencode($mailbox) .
+              '&amp;passed_id=' . $passed_id;
 
     $print_text = _("View Printable Version");
 

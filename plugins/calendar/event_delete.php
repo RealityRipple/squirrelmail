@@ -159,7 +159,7 @@ if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($d
     if (isset($confirmed)){
         delete_event("$dmonth$dday$dyear", "$dhour$dminute");
         echo '<br><br>' . _("Event deleted!") . "<br>\n";
-        echo "<a href=\"day.php?year=$year&month=$month&day=$day\">" .
+        echo "<a href=\"day.php?year=$year&amp;month=$month&amp;day=$day\">" .
           _("Day View") . "</a>\n";
     } else {
         readcalendardata();

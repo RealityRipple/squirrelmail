@@ -61,19 +61,19 @@ function startcalendar() {
                    html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) .
                        html_tag( 'tr', "\n".
                             html_tag( 'th',
-                                "<a href=\"$self?year=".($year-1)."&month=$month\">&lt;&lt;&nbsp;".($year-1)."</a>"
+                                "<a href=\"$self?year=".($year-1)."&amp;month=$month\">&lt;&lt;&nbsp;".($year-1)."</a>"
                             ) . "\n".
                             html_tag( 'th',
-                                "<a href=\"$self?year=$prev_year&month=$prev_month\">&lt;&nbsp;" .
+                                "<a href=\"$self?year=$prev_year&amp;month=$prev_month\">&lt;&nbsp;" .
                                 date_intl( 'M', $prev_date). "</a>"
                             ) . "\n".
                             html_tag( 'th', date_intl( 'F Y', $act_date ), '', $color[0], 'colspan="3"') .
                             html_tag( 'th',
-                                "<a href=\"$self?year=$next_year&month=$next_month\">" .
+                                "<a href=\"$self?year=$next_year&amp;month=$next_month\">" .
                                 date_intl( 'M', $next_date) . "&nbsp;&gt;</a>"
                             ) . "\n".
                             html_tag( 'th',
-                                "<a href=\"$self?year=".($year+1)."&month=$month\">".($year+1)."&nbsp;&gt;&gt;</a>"
+                                "<a href=\"$self?year=".($year+1)."&amp;month=$month\">".($year+1)."&nbsp;&gt;&gt;</a>"
                             )
                        ) . "\n".
                        html_tag( 'tr',
@@ -105,7 +105,7 @@ function drawmonthview() {
                 echo html_tag( 'td', '', 'left', $color[4], 'height="50" valign="top"' ) ."\n".
                      html_tag( 'div', '', 'right' );
                 echo(($cdate==$todayis) ? "<font size=-1 color=$color[1]>[ " . _("TODAY") . " ] " : "<font size=-1>");
-                echo "<a href=day.php?year=$year&month=$month&day=";
+                echo "<a href=day.php?year=$year&amp;month=$month&amp;day=";
                 echo(($aday<10) ? "0" : "");
                 echo "$aday>$aday</a></font></div>";
             } else {

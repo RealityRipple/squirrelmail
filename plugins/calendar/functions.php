@@ -23,11 +23,11 @@ function calendar_header() {
          html_tag( 'td', '', 'left', '', 'width="100%"' );
 
     displayInternalLink("plugins/calendar/calendar.php?year=$year&month=$month",_("Month View"),"right");
-    echo "&nbsp;&nbsp\n";
+    echo "&nbsp;&nbsp;\n";
     displayInternalLink("plugins/calendar/day.php?year=$year&month=$month&day=$day",_("Day View"),"right");
-    echo "&nbsp;&nbsp\n";
+    echo "&nbsp;&nbsp;\n";
     // displayInternalLink("plugins/calendar/event_create.php?year=$year&month=$month&day=$day",_("Add Event"),"right");
-    // echo "&nbsp;&nbsp\n";
+    // echo "&nbsp;&nbsp;\n";
     echo '</td></tr>';
 
 }
@@ -35,19 +35,19 @@ function calendar_header() {
 function select_option_length($selected) {
 
     $eventlength = array(
-        "0" => _("0 min."),
-        "15" => _("15 min."),
-        "30" => _("35 min."),
-        "45" => _("45 min."),
-        "60" => _("1 hr."),
-        "90" => _("1.5 hr."),
-        "120" => _("2 hr."),
-        "150" => _("2.5 hr."),
-        "180" => _("3 hr."),
-        "210" => _("3.5 hr."),
-        "240" => _("4 hr."),
-        "300" => _("5 hr."),
-        "360" => _("6 hr.")
+        '0' => _("0 min."),
+        '15' => _("15 min."),
+        '30' => _("35 min."),
+        '45' => _("45 min."),
+        '60' => _("1 hr."),
+        '90' => _("1.5 hr."),
+        '120' => _("2 hr."),
+        '150' => _("2.5 hr."),
+        '180' => _("3 hr."),
+        '210' => _("3.5 hr."),
+        '240' => _("4 hr."),
+        '300' => _("5 hr."),
+        '360' => _("6 hr.")
     );
 
     while( $bar = each($eventlength)) {
@@ -61,18 +61,18 @@ function select_option_length($selected) {
 
 function select_option_minute($selected) {
     $eventminute = array(
-    "00"=>"00",
-    "05"=>"05",
-    "10"=>"10",
-    "15"=>"15",
-    "20"=>"20",
-    "25"=>"25",
-    "30"=>"30",
-    "35"=>"35",
-    "40"=>"40",
-    "45"=>"45",
-    "50"=>"50",
-    "55"=>"55"
+    '00'=>'00',
+    '05'=>'05',
+    '10'=>'10',
+    '15'=>'15',
+    '20'=>'20',
+    '25'=>'25',
+    '30'=>'30',
+    '35'=>'35',
+    '40'=>'40',
+    '45'=>'45',
+    '50'=>'50',
+    '55'=>'55'
     );
 
     while ( $bar = each($eventminute)) {
@@ -98,8 +98,8 @@ function select_option_hour($selected) {
 
 function select_option_priority($selected) {
     $eventpriority = array(
-        "0" => _("Normal"),
-        "1" => _("High"),
+        '0' => _("Normal"),
+        '1' => _("High"),
     );
 
     while( $bar = each($eventpriority)) {

@@ -495,7 +495,7 @@ if ($search_all == 'all') {
     $boxcount = count($boxes);
     echo '<BR><CENTER><B>' .
          _("Search Results") .
-         "</B><CENTER><BR>\n";
+         "</B></CENTER><BR>\n";
     for ($x=0;$x<$boxcount;$x++) {
         if (!in_array('noselect', $boxes[$x]['flags'])) {
             $mailbox = $boxes[$x]['unformatted'];
