@@ -122,23 +122,23 @@ function load_optpage_data_personal() {
     while (!feof ($fd)) {
         $zone = fgets($fd, 1024);
         if( $zone ) {
-	    $zone = trim($zone);
+            $zone = trim($zone);
             $TZ_ARRAY["$zone"] = "$zone";
         }
     }
     fclose ($fd);
-    
+
     $optgrps[SMOPT_GRP_TZ] = _("Timezone Options");
     $optvals[SMOPT_GRP_TZ] = array();
 
     $optvals[SMOPT_GRP_TZ][] = array(
         'name'    => 'timezone',
-	'caption' => _("Your current timezone"),
-	'type'    => SMOPT_TYPE_STRLIST,
-	'refresh' => SMOPT_REFRESH_NONE,
-	'posvals' => $TZ_ARRAY
+        'caption' => _("Your current timezone"),
+        'type'    => SMOPT_TYPE_STRLIST,
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => $TZ_ARRAY
     );
-											     
+
     /*** Load the Reply Citation Options into the array ***/
     $optgrps[SMOPT_GRP_REPLY] = _("Reply Citation Options");
     $optvals[SMOPT_GRP_REPLY] = array();

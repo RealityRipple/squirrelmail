@@ -642,7 +642,7 @@ function get_selectall_link($start_msg, $sort) {
             $result .= "<a href=\"$PHP_SELF&amp;mailbox=" . urlencode($mailbox)
                     . "&amp;startMessage=$start_msg&amp;sort=$sort&amp;checkall=";
         }
-		else {
+        else {
             $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
                     . "&amp;startMessage=$start_msg&amp;sort=$sort&amp;checkall=";
         }

@@ -242,7 +242,7 @@ for ($i = 0, $q = 0; $i < count($boxes_all); $i++) {
             $use_folder = false;
         }
     }
-    if ($use_folder == true) {	
+    if ($use_folder == true) {
         $box[$q] = $boxes_all[$i]["unformatted-dm"];
         $box2[$q] = $boxes_all[$i]["unformatted-disp"];
         $q++;

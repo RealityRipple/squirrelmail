@@ -420,7 +420,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
 *            if ( $base <> '' ) {
 *                $ret = "<base href=\"$base\">" . $ret;
 *            }
-*	    */
+*           */
         }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
@@ -609,22 +609,22 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
     $has_unsafe_images = 0;
-    
+
     $id = $message->header->id;
     $urlmailbox = urlencode($message->header->mailbox);
-    
+
     // Get the right entity and redefine message to be this entity
     // Pass the 0 to mean that we want the 'best' viewable one
     $ent_num = findDisplayEntity ($message, 0);
     $body_message = getEntity($message, $ent_num);
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
-    
+
         $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
         $body = $hookResults[1];
-        
+
         // If there are other types that shouldn't be formatted, add
         // them here
         if ($body_message->header->type1 == 'html') {
@@ -639,13 +639,13 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         }
 
         $body .= "<CENTER><SMALL><A HREF=\"../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;passed_ent_id=$ent_num&amp;mailbox=$urlmailbox&amp;showHeaders=1\">". _("Download this as a file") ."</A></SMALL></CENTER><BR>";
-	if ($has_unsafe_images) {
-	    if ($view_unsafe_images) {
+        if ($has_unsafe_images) {
+            if ($view_unsafe_images) {
                 $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">". _("Hide Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             } else {
                 $body .= "<CENTER><SMALL><A HREF=\"read_body.php?passed_id=$id&amp;mailbox=$urlmailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;view_unsafe_images=1\">". _("View Unsafe Images") ."</A></SMALL></CENTER><BR>\n";
             }
-	}
+        }
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
         if (isset($message->entities[0])) {
@@ -1090,11 +1090,11 @@ function MagicHTML( $body, $id ) {
 
 return( "\n\n<!-- HTML Output ahead -->\n" .
         $ret .
-	/* Base is illegal within HTML
+        /* Base is illegal within HTML
         "\n<!-- END of HTML Output --><base href=\"".
         get_location() . '/'.
         "\">\n\n" );
-	*/
+        */
         "\n<!-- END of HTML Output -->\n\n" );
 }
 
@@ -1199,14 +1199,14 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                     $src = substr( $src, 4 );
                     $src = "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
                            urlencode( $message->header->mailbox ) .
-                           "&amp;passed_ent_id=" . find_ent_id( $src, $message );                       
-                } else if ( strtolower( substr( $src, 0, 4 ) ) <> 'http' || 
+                           "&amp;passed_ent_id=" . find_ent_id( $src, $message );
+                } else if ( strtolower( substr( $src, 0, 4 ) ) <> 'http' ||
                             stristr( $src, $base_uri ) ) {
                     /* Javascript and local urls goes out */
-		    if (!$view_unsafe_images) {
+                    if (!$view_unsafe_images) {
                         $src = '../images/' . _("sec_remove_eng.png");
-		    }
-		    $has_unsafe_images = 1;
+                    }
+                    $has_unsafe_images = 1;
                 }
                 $ret .= 'src="' . $src . '" ';
                 $i = $k - 2;

@@ -212,7 +212,7 @@ echo '<BR>' .
 /*******************************************************************/
 
 /* If in submit mode, select a save hook name and run it. */
-if ($optmode == SMOPT_MODE_SUBMIT)	 {
+if ($optmode == SMOPT_MODE_SUBMIT) {
     /* Select a save hook name. */
     switch ($optpage) {
         case SMOPT_PAGE_PERSONAL:

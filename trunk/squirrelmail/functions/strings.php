@@ -192,9 +192,9 @@ function getLineOfAddrs($array) {
 function translateText(&$body, $wrap_at, $charset) {
     global $where, $what; /* from searching */
     global $color; /* color theme */
-    
+
     require_once('../functions/url_parser.php');
-    
+
     $body_ary = explode("\n", $body);
     $PriorQuotes = 0;
     for ($i=0; $i < count($body_ary); $i++) {
@@ -209,7 +209,7 @@ function translateText(&$body, $wrap_at, $charset) {
 
         $Quotes = 0;
         $pos = 0;
-	$j = strlen( $line );
+        $j = strlen( $line );
 
         while ( $pos < $j ) {
             if ($line[$pos] == ' ') {

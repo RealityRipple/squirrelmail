@@ -315,7 +315,7 @@ if (isset($view_hdr)) {
         }
         parseEmail($s);
         if (isset($f)) {
-        	echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
+            echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
         }
     }
     echo "</td></tr></table>\n" .
@@ -910,7 +910,7 @@ if ($default_use_mdn) {
             $sendreceipt = 'removeMDN';
             $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
             $sendreceipt='';
-			/*
+            /*
             if ($MDNDebug && $supportMDN) {
             echo "      <TR>\n" .
                     "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .

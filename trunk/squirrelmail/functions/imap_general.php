@@ -19,7 +19,7 @@ require_once('../functions/display_messages.php');
  *
  * Sets an unique session id in order to avoid simultanous sessions crash.
  *
- * @return	string	a 4 chars unique string
+ * @return  string  a 4 chars unique string
  */
 
 global $sqimap_session_id;
