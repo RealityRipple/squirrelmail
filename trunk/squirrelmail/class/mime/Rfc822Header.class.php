@@ -299,7 +299,7 @@ class Rfc822Header {
                             $sNextToken = trim(substr($address,$i+1,$iEnd - $i -1));
                             $i = $iEnd-1;
                         } else {
-                            $sToken = trim(substr($address,$i+1));
+                            $sNextToken = trim(substr($address,$i+1));
                             $i = $iCnt;
                         }
                         // remove the token
