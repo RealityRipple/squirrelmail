@@ -47,6 +47,18 @@
    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
    $base_uri = $regs[1];
 
+   if ($testingcookie != 1){ 
+      setcookie("TestCookie", "Checking cookies", 0 , $base_uri);
+      header("Location: " . $base_uri . "src/login.php?testingcookie=1");
+   }
+   if(!isset($TestCookie)){
+      $no_cookies = true;
+   } else {
+      // Cookies are enabled... Deleting test cookie.
+      setcookie("TestCookie", "", 0, $base_uri);
+      $no_cookies = false;
+   }
+   
    setcookie("username", "", 0, $base_uri);
    setcookie("key", "", 0, $base_uri);
    setcookie("logged_in", 0, 0, $base_uri);
@@ -60,7 +72,6 @@
    echo $org_name . " - " . _("Login");
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
- 
    echo "<FORM ACTION=\"webmail.php\" METHOD=\"POST\" NAME=f>\n";
    echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
    echo "<CENTER><SMALL>";
@@ -99,6 +110,12 @@
    echo "\"></CENTER>\n";
    echo "      </TD>\n";
    echo "   </TR>\n";
+   if ($no_cookies){
+     echo "   <TR><TD>\n";
+     echo "<FONT COLOR=\"FF0000\"><CENTER>It appears that your browser is not accepting cookies.".
+          " Please make sure you have cookies enabled before proceding.</CENTER></FONT>";
+     echo "   </TD></TR>\n";
+   } 
    echo "</TABLE>\n";
    echo "<input type=hidden name=just_logged_in value=1>\n";
    echo "</FORM>\n";
