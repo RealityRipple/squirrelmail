@@ -133,6 +133,8 @@ class Deliver {
         case 'message':
             if ($message->body_part) {
                 $body_part = $message->body_part;
+                // remove NUL characters
+                $body_part = str_replace("\0",'',$body_part);
                 $length += $this->clean_crlf($body_part);
                 if ($stream) {
                     $this->preWriteToStream($body_part);
