@@ -299,10 +299,10 @@ function initPage () {
 
     global $theme_css, $custom_css, $base_uri;
     $page = new html();
-    $page->addChild('!DOCTYPE','','','','',
-       array('HTML','PUBLIC', '"-//W3C//DTD HTML 4.0 Transitional//EN"'));
+    $page->addChild('','',array('!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"' => false),'','','');
     $html = new html('html');
     $html->addChild('HTML');
+/* shouldn't the last two lines be just this line?    $page->addChild('HTML'); */
     return $page;
 }
 
