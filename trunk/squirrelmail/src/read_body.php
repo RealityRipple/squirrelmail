@@ -114,7 +114,8 @@
    
    // returns the index of the previous message from the array
    function findPreviousMessage() {
-      global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection, $mailbox;
+      global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection, 
+         $mailbox, $data_dir, $username;
       if ($sort == 6) {
          $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
          if ($currentArrayIndex != $numMessages) {
