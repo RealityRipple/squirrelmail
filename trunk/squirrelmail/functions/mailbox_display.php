@@ -528,7 +528,7 @@ function calc_msort($msgs, $sort) {
     return $msort;
 }
 
-function fillMessageArray($imapConnection, $id, $count, $show_num) {
+function fillMessageArray($imapConnection, $id, $count, $show_num=false) {
     return sqimap_get_small_header_list($imapConnection, $id, $show_num);
 }
 
