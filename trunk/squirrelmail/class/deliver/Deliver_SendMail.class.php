@@ -55,7 +55,7 @@ class Deliver_SendMail extends Deliver {
 	$envelopefrom = trim($from->mailbox.'@'.$from->host);
         $envelopefrom = str_replace(array("\0","\n"),array('',''),$envelopefrom);
 	if (strstr($sendmail_path, "qmail-inject")) {
-    	    $stream = popen (escapeshellcmd("$sendmail_path -i -f$envelopefrom"), "w");
+    	    $stream = popen (escapeshellcmd("$sendmail_path -f$envelopefrom"), "w");
 	} else {
     	    $stream = popen (escapeshellcmd("$sendmail_path -i -t -f$envelopefrom"), "w");
 	}
