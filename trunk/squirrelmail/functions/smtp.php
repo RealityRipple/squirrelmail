@@ -109,6 +109,7 @@
    function write822Header ($fp, $t, $c, $b, $subject) {
       global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $domain, $version, $useSendmail;
+      global $default_charset;
 
       // Storing the header to make sure the header is the same
       // everytime the header is printed.
@@ -176,7 +177,10 @@
             $header .= mimeBoundary();
             $header .= "\"\r\n";
          } else {
-            $header .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
+            if ($default_charset != "")
+               $header .= "Content-Type: text/plain; charset=$default_charset\r\n";
+            else
+               $header .= "Content-Type: text/plain;\r\n";
             $header .= "Content-Transfer-Encoding: 8bit\r\n";
          }
          $header .= "\r\n"; // One blank line to separate header and body
@@ -192,11 +196,18 @@
 
    // Send the body
    function writeBody ($fp, $passedBody) {
+      global $default_charset;
+
       $attachmentlength = 0;
       
       if (isMultipart()) {
          $body = "--".mimeBoundary()."\r\n";
-         $body .= "Content-Type: text/plain; charset=iso-8859-1\r\n";
+
+         if ($default_charset != "")
+            $body .= "Content-Type: text/plain; charset=$default_charset\r\n";
+         else 
+            $body .= "Content-Type: text/plain\r\n";
+
          $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
          $body .= stripslashes($passedBody) . "\r\n";
          fputs ($fp, $body);

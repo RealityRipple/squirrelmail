@@ -138,23 +138,27 @@
 
       if (containsType($message, "text", "html", $ent_num)) {
          $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
       } else if (containsType($message, "text", "plain", $ent_num)) {
          $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
       }
       // add other primary displaying message types here
       else {
          // find any type that's displayable
          if (containsType($message, "text", "any_type", $ent_num)) {
             $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+            $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
          } else if (containsType($message, "message", "any_type", $ent_num)) {
             $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+            $charset = $message["ENTITIES"][$ent_num]["CHARSET"];
          }
       }
 
       /** If there are other types that shouldn't be formatted, add
           them here **/
       if ($message["ENTITIES"][$ent_num]["TYPE1"] != "html")
-         $body = translateText($body, $wrap_at);
+         $body = translateText($body, $wrap_at, $charset);
 
 
       $body .= "<BR><SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";

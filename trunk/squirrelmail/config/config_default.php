@@ -31,43 +31,6 @@
 //  This is displayed right after they log in
     $motd = "You are using SquirrelMail's web-based email client.  If you run into any bugs or have suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
 
-//  Themes
-//     You can define your own theme and put it in this directory.  You must
-//     call it as the example below.  You can name the theme whatever you
-//     want.  For an example of a theme, see the ones included in the config
-//     directory.
-//
-//     You can download themes from http://squirrelmail.sourceforge.net/index.php3?page=10
-//
-//  To add a new theme to the options that users can choose from, just add
-//  a new number to the array at the bottom, and follow the pattern.
-
-    // The first one HAS to be here, and is your system's default theme.
-    // It can be any theme you want
-    $theme[0]["PATH"] = "../config/default_theme.php";
-    $theme[0]["NAME"] = "Default";
-
-    $theme[1]["PATH"] = "../config/sandstorm_theme.php";
-    $theme[1]["NAME"] = "Sand Storm";
-
-    $theme[2]["PATH"] = "../config/deepocean_theme.php";
-    $theme[2]["NAME"] = "Deep Ocean";
-
-    $theme[3]["PATH"] = "../config/slashdot_theme.php";
-    $theme[3]["NAME"] = "Slashdot";
-
-    $theme[4]["PATH"] = "../config/purple_theme.php";
-    $theme[4]["NAME"] = "Purple";
-
-    $theme[5]["PATH"] = "../config/forest_theme.php";
-    $theme[5]["NAME"] = "Forest";
-
-    $theme[6]["PATH"] = "../config/ice_theme.php";
-    $theme[6]["NAME"] = "Ice";
-
-    $theme[7]["PATH"] = "../config/seaspray_theme.php";
-    $theme[7]["NAME"] = "Sea Spray";
-
 //  Whether or not to use a special color for special folders.  If not, special
 //  folders will be the same color as the other folders
     $use_special_folder_color = true;
@@ -125,6 +88,12 @@
 
     $show_contain_subfolders_option = false;
 
+//  This option controls what character set is used when sending mail
+//  and when sending HTMl to the browser. Do not set this to US-ASCII,
+//  use ISO-8859-1 instead. For cyrillic it is best to use KOI8-R,
+//  since this implementation is faster than the alternatives.
+    $default_charset = "iso-8859-1";
+
 //  Whether or not to use META tags and automatically forward after an
 //  action has been completed.
     $auto_forward = true;
@@ -163,4 +132,42 @@
 //  but you can set it to whatever you wish.
 
    $default_left_size = 200;
+
+//  Themes
+//     You can define your own theme and put it in this directory.  You must
+//     call it as the example below.  You can name the theme whatever you
+//     want.  For an example of a theme, see the ones included in the config
+//     directory.
+//
+//     You can download themes from http://squirrelmail.sourceforge.net/index.php3?page=10
+//
+//  To add a new theme to the options that users can choose from, just add
+//  a new number to the array at the bottom, and follow the pattern.
+
+    // The first one HAS to be here, and is your system's default theme.
+    // It can be any theme you want
+    $theme[0]["PATH"] = "../config/default_theme.php";
+    $theme[0]["NAME"] = "Default";
+
+    $theme[1]["PATH"] = "../config/sandstorm_theme.php";
+    $theme[1]["NAME"] = "Sand Storm";
+
+    $theme[2]["PATH"] = "../config/deepocean_theme.php";
+    $theme[2]["NAME"] = "Deep Ocean";
+
+    $theme[3]["PATH"] = "../config/slashdot_theme.php";
+    $theme[3]["NAME"] = "Slashdot";
+
+    $theme[4]["PATH"] = "../config/purple_theme.php";
+    $theme[4]["NAME"] = "Purple";
+
+    $theme[5]["PATH"] = "../config/forest_theme.php";
+    $theme[5]["NAME"] = "Forest";
+
+    $theme[6]["PATH"] = "../config/ice_theme.php";
+    $theme[6]["NAME"] = "Ice";
+
+    $theme[7]["PATH"] = "../config/seaspray_theme.php";
+    $theme[7]["NAME"] = "Sea Spray";
+
 ?>
