@@ -20,7 +20,7 @@ require_once('../functions/date.php');
 header('Pragma: ');
 header('Cache-Control: cache');
 
-function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
+function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at, $imapConnection) {
     global $where, $what, $charset;
     global $startMessage;
 
@@ -46,7 +46,8 @@ function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
          "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
 
     if ($type1 == 'html') {
-        $body = MagicHTML( $body, $id );
+        $msg  = sqimap_get_message($imapConnection, $id, $mailbox);    
+        $body = MagicHTML( $body, $id, $msg );
     } else {
         translateText($body, $wrap_at, $charset);
     }
@@ -66,7 +67,13 @@ function viewMessage($imapConnection, $id, $mailbox, $ent_id, $color, $wrap_at, 
     $header = sqimap_get_ent_header($imapConnection,$id,$mailbox,$ent_id);
     $header->id = $id;
     $msg->header = $header;
-    $body = formatBody($imapConnection, $msg, $color, $wrap_at);
+
+    $ent_ar = findDisplayEntity($msg, 0);
+    $body = '';
+    for ($i = 0; $i < count($ent_ar); $i++) {
+	$body .= formatBody($imapConnection, $msg, $color, $wrap_at, $ent_ar[$i], false);
+    }
+    
     $bodyheader = viewHeader($header, $color);
     displayPageHeader($color, 'None');
 
@@ -390,7 +397,7 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
         if ($type1 == 'plain' || $type1 == 'html') {
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
-            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
+            viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at, $imapConnection);
         } else {
             DumpHeaders($type0, $type1, $filename, 0);
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
@@ -404,7 +411,7 @@ if (isset($absolute_dl) && $absolute_dl == 'true') {
 	} else {
     	    $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
     	    $body = decodeBody($body, $msgheader->encoding);
-    	    viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at);
+    	    viewText($color, $body, $passed_id, $passed_ent_id, $mailbox, $type1, $wrap_at, $imapConnection);
         }
         break;
     default:
