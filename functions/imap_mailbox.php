@@ -137,9 +137,9 @@
          // a parent.
          $boxesbyname[$mailbox] = $g;
          $parentfolder = readMailboxParent($mailbox, $dm);
-         if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
-            (ereg("^".$folder_prefix, $mailbox)) ||
-            ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+         if((strtolower(substr($mailbox, 0, 5)) == "inbox") ||
+            (substr($mailbox, 0, strlen($folder_prefix)) == $folder_prefix) ||
+            (isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
             $indent = $dm_count - (countCharInString($folder_prefix, $dm));
             if ($indent > 0)
                 $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
@@ -154,11 +154,14 @@
          if (substr($mailbox, -1) == $dm)
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
          $boxes[$g]['unformatted'] = $mailbox;
-         $boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
+         //$boxes[$g]['unformatted-disp'] = ereg_replace('^' . $folder_prefix, '', $mailbox);
+         if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) { 
+            $boxes[$g]['unformatted-disp'] = substr($mailbox, strlen($folder_prefix)+1); 
+         }
          $boxes[$g]['id'] = $g;
 
          if (isset($line[$g]))
-         ereg("\(([^)]*)\)",$line[$g],$regs);
+            ereg("\(([^)]*)\)",$line[$g],$regs);
          $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
          if ($flags) {
             $boxes[$g]['flags'] = explode(' ', $flags);
