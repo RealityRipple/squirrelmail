@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-07-03 09:25+0200\n"
+"POT-Creation-Date: 2004-08-10 14:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -380,10 +380,13 @@ msgstr ""
 msgid "INBOX"
 msgstr ""
 
-msgid "purge"
+msgid "Purge"
 msgstr ""
 
 msgid "Last Refresh"
+msgstr ""
+
+msgid "Check mail"
 msgstr ""
 
 msgid "Save folder tree"
@@ -429,6 +432,12 @@ msgid "Index Order"
 msgstr ""
 
 msgid "Options"
+msgstr ""
+
+msgid "Error(s) happened while saving your options"
+msgstr ""
+
+msgid "Some of your preference changes are not applied."
 msgstr ""
 
 msgid "Successfully Saved Options"
@@ -787,9 +796,6 @@ msgstr ""
 msgid "Folder:"
 msgstr ""
 
-msgid "No Messages Found"
-msgstr ""
-
 msgid "Add New Criteria"
 msgstr ""
 
@@ -890,6 +896,9 @@ msgid "Standard search"
 msgstr ""
 
 msgid "Advanced search"
+msgstr ""
+
+msgid "No Messages Found"
 msgstr ""
 
 msgid "Signout"
@@ -1239,6 +1248,9 @@ msgstr ""
 msgid "%s should be writable by user %s"
 msgstr ""
 
+msgid "Signature is too big."
+msgstr ""
+
 #, c-format
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
@@ -1390,7 +1402,7 @@ msgid "Viewing Messages: %s to %s (%s total)"
 msgstr ""
 
 #, c-format
-msgid "Viewing Message: %s (1 total)"
+msgid "Viewing Message: %s (%s total)"
 msgstr ""
 
 msgid "Paginate"
@@ -1662,6 +1674,9 @@ msgid "Focus in body"
 msgstr ""
 
 msgid "Select body"
+msgstr ""
+
+msgid "No focus"
 msgstr ""
 
 msgid "Strip signature when replying"
