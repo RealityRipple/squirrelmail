@@ -361,7 +361,9 @@ if ($send) {
             } else {
                 sqWordWrap($line, $editor_size);
                 $newBody .= $line . "\n";
+	
             }
+	    
         }
         $body = $newBody;
         do_hook('compose_send');
@@ -655,10 +657,14 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         switch ($action) {
         case ('draft'):
             $use_signature = FALSE;
+            $composeMessage->rfc822_header = $orig_header;
             $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
             $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
             $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);            
             $subject = decodeHeader($orig_header->subject,false,true);
+//            /* remember the references and in-reply-to headers in case of an reply */
+//            $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
+//            $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
             $body_ary = explode("\n", $body);
             $cnt = count($body_ary) ;
             $body = '';
@@ -1022,21 +1028,21 @@ function showInputForm ($session, $values=false) {
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             } else {
-            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false);
+            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
             }
-            echo "\n\n".decodeHeader($body,false,true);
+            echo "\n\n".decodeHeader($body,false,false);
         }
         else {
-            echo "\n\n".decodeHeader($body,false,true);
+            echo "\n\n".decodeHeader($body,false,false);
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
-            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,true);
+            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,false);
         }
     }
     }
     else {
-       echo decodeHeader($body,false,true);
+       echo decodeHeader($body,false,false);
     }
     echo '</textarea><br />' . "\n" .
          '      </td>' . "\n" .
