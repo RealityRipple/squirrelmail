@@ -37,6 +37,10 @@
 
      // Constructor. Connects to database
      function abook_ldap_server($param) {
+       if(!function_exists("ldap_connect")) {
+         $this->set_error("LDAP support missing from PHP");
+         return;
+       }
        if(is_array($param)) {
 	 $this->server = $param["host"];
 	 $this->basedn = $param["base"];
