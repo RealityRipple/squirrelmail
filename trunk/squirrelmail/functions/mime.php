@@ -102,7 +102,7 @@ function mime_parse_structure ($structure, $ent_id) {
         $start = $end+1;
         $end = mime_match_parenthesis ($start, $structure);
         /* add "forgotten"  parent entities (alternative and relative) */
-	if (strpos($ent_id, '0')  || strpos($ent_id) == 0) { 
+	if (strpos($ent_id, '0')  || strpos($ent_id, '0') == 0) { 
 	    $str = substr($structure, $end+1 );
 	    $startprop = strrpos($str,'(');
 	    $endprop   = strrpos($str,')');
