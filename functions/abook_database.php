@@ -108,13 +108,13 @@
          if(is_array($expr)) return;
 
          // Make regexp from glob'ed expression 
-         $expr = ereg_replace('\\?', '_', $expr);
-         $expr = ereg_replace('\\*'. '%', $expr);
+         $expr = str_replace('?', '_', $expr);
+         $expr = str_replace('*', '%', $expr);
          $expr = $this->dbh->quoteString($expr);
          $expr = "%$expr%";
 
-         $query = sprintf('SELECT * FROM %s WHERE owner=\'%s\' AND ' .
-                          '(firstname LIKE \'%s\' OR lastname LIKE \'%s\')',
+         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND " .
+                          "(firstname LIKE '%s' OR lastname LIKE '%s')",
                           $this->table, $this->owner, $expr, $expr);
          $res = $this->dbh->query($query);
 
@@ -145,7 +145,7 @@
          if(!$this->open())
             return false;
          
-         $query = sprintf('SELECT * FROM %s WHERE owner=\'%s\' AND nickname=\'%s\'',
+         $query = sprintf("SELECT * FROM %s WHERE owner='%s' AND nickname='%s'",
                           $this->table, $this->owner, $alias);
 
          $res = $this->dbh->query($query);
@@ -174,7 +174,7 @@
          if(!$this->open())
             return false;
 
-         $query = sprintf(;SELECT * FROM %s WHERE owner=\'%s\';,
+         $query = sprintf("SELECT * FROM %s WHERE owner='%s'",
                           $this->table, $this->owner);
 
          $res = $this->dbh->query($query);
@@ -211,7 +211,7 @@
                                             $ret['nickname']));
 
          // Create query
-         $query = sprintf('INSERT INTO %s (owner, nickname, firstname, ' .
+         $query = sprintf("INSERT INTO %s (owner, nickname, firstname, " .
                           "lastname, email, label) VALUES('%s','%s','%s'," .
                           "'%s','%s','%s')",
                           $this->table, $this->owner,
@@ -239,12 +239,12 @@
             return false;
          
          // Create query
-         $query = sprintf('DELETE FROM %s WHERE owner=\'%s\' AND (',
+         $query = sprintf("DELETE FROM %s WHERE owner='%s' AND (",
                           $this->table, $this->owner);
 
          $sepstr = '';
          while(list($undef, $nickname) = each($alias)) {
-            $query .= sprintf('%s nickname=\'%s\' ', $sepstr,
+            $query .= sprintf("%s nickname='%s' ", $sepstr,
                               $this->dbh->quoteString($nickname));
             $sepstr = 'OR';
          }
