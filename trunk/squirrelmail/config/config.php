@@ -24,17 +24,18 @@
     $smtpPort = 25;
 
 //  This is displayed right after they log in
-    $motd = "";
-    $motd .= "You are using SquirrelMail's web-based email client.  If you run into any bugs or have ";
-    $motd .= "suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
+    $motd = "You are using SquirrelMail's web-based email client.  If you run into any bugs or have suggestions, please report them to our <A HREF=\"mailto:squirrelmail-list@sourceforge.net\">mailing list</A>";
 
-//  Customizable colors
+//  Themes
 //     You can define your own theme and put it in this directory.  You must
 //     call it as the example below.  You can name the theme whatever you
 //     want.  For an example of a theme, see the ones included in the config
 //     directory.
+//
+//     You can download themes from http://squirrelmail.sourceforge.net/index.php3?page=10
+//
 //   Example:   require("../config/default_theme.php");
-    require("../config/tan_theme.php");
+    require("../config/default_theme.php");
 
 //  Whether or not to use $color[11] for special folders.  If not, special
 //  folders will be the same color as the other folders

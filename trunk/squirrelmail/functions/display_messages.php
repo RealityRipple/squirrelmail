@@ -9,7 +9,7 @@
 
     function error_username_password_incorrect($color) {
       echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+      echo "<TABLE COLS=1 WIDTH=75% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>ERROR</CENTER></B></FONT>";
@@ -22,15 +22,15 @@
 
     function general_info($motd, $org_logo, $version, $org_name, $color) {
       echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+      echo "<TABLE COLS=1 WIDTH=80% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
       echo "   <TR>";
       echo "      <TD BGCOLOR=\"$color[0]\">";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>Welcome to $org_name's WebMail system</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
       echo "   <TR><TD BGCOLOR=\"$color[4]\">";
-      echo "         <FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>Running SquirrelMail version $version (c) 1999 by Nathan and Luke Ehresman.</CENTER></FONT>";
+      echo "         <FONT FACE=\"Arial,Helvetica\" SIZE=-1><CENTER>Running SquirrelMail version $version (c) 1999-2000.</CENTER></FONT>";
       echo "   </TD></TR><TR><TD>";
-      echo "      <TABLE COLS=2 WIDTH=75% NOBORDER align=\"center\">";
+      echo "      <TABLE COLS=2 WIDTH=90% NOBORDER align=\"center\">";
       echo "         <TR>";
       echo "            <TD BGCOLOR=\"$color[4]\"><CENTER>";
       if (strlen($org_logo) > 3)

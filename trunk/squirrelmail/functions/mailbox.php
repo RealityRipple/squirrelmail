@@ -240,7 +240,9 @@
    }
 
    /** This function gets all the information about a message.  Including Header and body **/
-   function fetchMessage($imapConnection, $id) {
+   function fetchMessage($imapConnection, $id, $mailbox) {
+      $message["INFO"]["ID"] = $id;
+      $message["INFO"]["MAILBOX"] = $mailbox;
       $message["HEADER"] = fetchHeader($imapConnection, $id);
       $message["ENTITIES"] = fetchBody($imapConnection, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE0"], $message["HEADER"]["TYPE1"]);
 
@@ -503,6 +505,10 @@
             }
          }
          $i++;
+      }
+
+      if ( ($encoding == "us-ascii") && ($type0 != "text") && ($type0 != "message") ) {
+         $encoding = "base64";
       }
 
       /** remove the header from the entity **/

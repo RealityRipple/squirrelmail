@@ -12,10 +12,10 @@
 
    // $message contains all information about the message
    // including header and body
-   $message = fetchMessage($imapConnection, $passed_id);
+   $message = fetchMessage($imapConnection, $passed_id, $mailbox);
+   echo "$mailbox, $passed_id<BR>";
 
    echo "<HTML>";
-   echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"" . $message["HEADER"]["TYPE"][0] . "/" . $message["HEADER"]["TYPE"][1] . "; charset=" . $message["HEADER"]["CHARSET"] . "\">";
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, $mailbox);
 
