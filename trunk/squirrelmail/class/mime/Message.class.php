@@ -443,7 +443,7 @@ class Message {
         if (count($arg_a) > 9) {
             $d = strtr($arg_a[0], array('  ' => ' '));
             $d = explode(' ', $d);
-        if (!$arg_a[1]) $arg_1[1] = _("(no subject)");        
+        if (!$arg_a[1]) $arg_a[1] = _("(no subject)");        
 
             $hdr->date = getTimeStamp($d); /* argument 1: date */
             $hdr->subject = $arg_a[1];     /* argument 2: subject */
