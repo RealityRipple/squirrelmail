@@ -126,7 +126,7 @@ function select_option_month($selected) {
 
     for ($i=1;$i<13;$i++){
         $im=date('m',mktime(0,0,0,$i,1,1));
-        $is = substr( _( date('F',mktime(0,0,0,$i,1,1)) ), 0, 3 );
+        $is = getMonthAbrv( date('m',mktime(0,0,0,$i,1,1)) );
         if ($im==$selected){
             echo "            <OPTION VALUE=\"$im\" SELECTED>$is</OPTION>\n";
         } else {
