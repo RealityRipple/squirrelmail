@@ -162,10 +162,10 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                          * Check if the last line has newline ($rn) in it
                          * and append if it doesn't.
                          */
-                        if ($fp && feof($fp) && !strstr($tmp, "$rn")){
+                        if ($file && feof($file) && !strstr($tmp, "$rn")){
                             $tmp .= $rn;
                         }
-                        if ($fp) {
+                        if ($fp) { 
                             fputs($fp, $tmp);
                         }
                         $length += strlen($tmp);
