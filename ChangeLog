@@ -677,9 +677,9 @@ Version 1.0.2 -- February 8, 2001
   - Better escaped string handling from POST variables
   - Many more code cleanups and optimizations
   - Added Hungarian translation by Teemu Junnila <teejun@vallcom.com>
-  - Added Icelandic translation by Karl Heiï¿½r" <karlh@macho.is>
+  - Added Icelandic translation by Karl Heiðar <karlh@macho.is>
   - Updated Taiwan translation
-  - Updated Sweedish translation
+  - Updated Swedish translation
   - Updated Finnish translation
 
 Version 1.0.1 -- February 1, 2001
@@ -705,7 +705,7 @@ Version 1.0 -- January 30, 2001
   - Fixed problems in sqimap_read_body(), made it more reliable
   - Added French translation of help files by  gore K <gore_k@ymca-cepiere.org>
   - Added Finnish translation by Teemu Junnila <teejun@vallcom.com>
-  - Updated Sweedish translation
+  - Updated Swedish translation
   - Updated Russian translation
 
 
