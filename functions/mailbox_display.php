@@ -194,9 +194,11 @@
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         $box = $boxes[$i]["unformatted"];
-         $box2 = replace_spaces($boxes[$i]["formatted"]);
-         echo "         <OPTION VALUE=\"$box\">$box2\n";
+			if ($boxes[$i]["flags"][0] != "noselect" && $boxes[$i]["flags"][1] != "noselect" && $boxes[$i]["flags"][2] != "noselect") {
+         	$box = $boxes[$i]["unformatted"];
+         	$box2 = replace_spaces($boxes[$i]["formatted"]);
+         	echo "         <OPTION VALUE=\"$box\">$box2\n";
+			}	
       }
       echo "         </SELECT></SMALL></TT>";
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
