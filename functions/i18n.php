@@ -9,6 +9,7 @@
  ** Internally the output character set is used. Other characters are
  ** encoded using Unicode entities according to HTML 4.0.
  **
+ ** $Id$
  **/
 
    $i18n_php = true;
@@ -762,7 +763,9 @@
       if (isset($sm_language) && $use_gettext &&
          $squirrelmail_language != "" &&
          $languages[$sm_language]["CHARSET"]) {
-         putenv("LC_ALL=".$sm_language);
+         if (ini_get("safe_mode")==FALSE && getenv("LC_ALL")!=$sm_language) {
+            putenv("LC_ALL=".$sm_language);
+         }
          setlocale("LC_ALL", $sm_language);
          bindtextdomain("squirrelmail", "../locale/");
          textdomain("squirrelmail");
