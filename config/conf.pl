@@ -383,7 +383,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             print "8.    Authenticated SMTP : $WHT$use_authenticated_smtp$NRM\n";
             print "9.    POP Before SMTP    : $WHT$pop_before_smtp$NRM\n";
         }
-        print "10.  Server               : $WHT$imap_server_type$NRM\n";
+        print "10. Server               : $WHT$imap_server_type$NRM\n";
         print "11. Invert Time          : $WHT$invert_time$NRM\n";
         print "12. Delimiter            : $WHT$optional_delimiter$NRM\n";
         print "\n";
@@ -730,7 +730,7 @@ sub command4 {
 sub command5 {
     print "SquirrelMail attempts to set the language in many ways.  If it\n";
     print "can not figure it out in another way, it will default to this\n";
-    print "language.  Please use the two-letter code for the desired language.\n";
+    print "language.  Please use the code for the desired language.\n";
     print "\n";
     print "[$WHT$squirrelmail_default_language$NRM]: $WHT";
     $new_signout_page = <STDIN>;
@@ -764,7 +764,7 @@ sub command6 {
 
 # domain
 sub command11 {
-    print "The domain name is the suffix at the end of all email messages.  If\n";
+    print "The domain name is the suffix at the end of all email addresses.  If\n";
     print "for example, your email address is jdoe\@myorg.com, then your domain\n";
     print "would be myorg.com.\n";
     print "\n";
