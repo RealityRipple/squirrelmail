@@ -94,11 +94,11 @@ function printMessageInfo($aMsg) {
         $default_use_priority,
         $message_highlight_list,
         $index_order,
-        $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
+        $truncate_sender,           /* number of characters for From/To field (<= 0 for unchanged) */
         $email_address,
-        $show_recipient_instead,	/* show recipient name instead of default identity */
-        $use_icons,            /* indicates to use icons or text markers */
-        $icon_theme;           /* icons theming */
+        $show_recipient_instead,    /* show recipient name instead of default identity */
+        $use_icons,                 /* indicates to use icons or text markers */
+        $icon_theme;                /* icons theming */
 
     $color_string = $color[4];
 
@@ -1185,16 +1185,39 @@ function mail_message_listing_beginning ($imapConnection,
     echo '<form name="' . $form_name . '" method="post" action="'.$php_self.'">' ."\n"
         . $moveFields;
 
-
+    $button_str = '';
+    // display flag buttons only if supported
+    if ($show_flag_buttons  &&
+        in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true) ) {
+        $button_str .= getButton('SUBMIT', 'markUnflagged', _("Unflag"));
+        $button_str .= getButton('SUBMIT', 'markFlagged',   _("Flag"));
+        $button_str .= "&nbsp;\n";
+    }
+    if (in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true)) {
+        $button_str .= getButton('SUBMIT', 'markUnread', _("Unread"));
+        $button_str .= getButton('SUBMIT', 'markRead',   _("Read"));
+        $button_str .= "&nbsp;\n";
+    }
+    $button_str .= getButton('SUBMIT', 'attache',_("Forward")) .
+                   "&nbsp;\n";
+    if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
+        $button_str .= getButton('SUBMIT', 'delete',_("Delete"));
+        $button_str .= '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
+        $button_str .= "&nbsp;\n";
+    }
+    if (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY') {
+        $button_str .= getButton('SUBMIT', 'expungeButton',_("Expunge"))  .'&nbsp;' . _("mailbox") . "\n";
+        $button_str .= '&nbsp;';
+    }
 ?>
     <table width="100%" cellpadding="1"  cellspacing="0" style="border: 1px solid <?php echo $color[0]; ?>">
         <tr>
         <td>
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
-                <td align="left"><small><?php echo $paginator . $thread_link_str; ?></small></td>
-                <td align="center"></td>
-                <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
+                <?php echo html_tag('td', '<small>' . $paginator . $thread_link_str . '</small>', 'left') . "\n"; ?>
+                <?php echo html_tag('td', '', 'center') . "\n"; ?>
+                <?php echo html_tag('td', '<small>' . $msg_cnt_str . '</small>', 'right') . "\n"; ?>
             </tr>
             </table>
         </td>
@@ -1203,45 +1226,23 @@ function mail_message_listing_beginning ($imapConnection,
         <td>
             <table border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
-                <td align="left">
-                <small><?php
-
-                    // display flag buttons only if supported
-                    if ($show_flag_buttons  &&
-                    in_array('\\flagged',$aMailbox['PERMANENTFLAGS'], true) ) {
-                        echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
-                        echo getButton('SUBMIT', 'markFlagged',_("Flag"));
-                        echo '&nbsp;';
-                    }
-                    if (in_array('\\seen',$aMailbox['PERMANENTFLAGS'], true)) {
-                        echo getButton('SUBMIT', 'markUnread',_("Unread"));
-                        echo getButton('SUBMIT', 'markRead',_("Read"));
-                        echo '&nbsp;';
-                    }
-
-                    echo getButton('SUBMIT', 'attache',_("Forward"));
-                    echo '&nbsp;';
-                    if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
-                        echo getButton('SUBMIT', 'delete',_("Delete"));
-                        echo '<input type="checkbox" name="bypass_trash" />' . _("Bypass Trash");
-                        echo '&nbsp;';
-                    }
-                    if (!$aMailbox['AUTO_EXPUNGE'] && $aMailbox['RIGHTS'] != 'READ-ONLY') {
-                    echo getButton('SUBMIT', 'expungeButton',_("Expunge"))  .'&nbsp;' . _("mailbox") . "\n";
-                    echo '&nbsp;';
-                    }
-                    do_hook('mailbox_display_buttons');
-                ?></small>
+                <?php echo html_tag('td', '', 'left') . "\n"; ?>
+                <small>
+                    <?php echo $button_str; ?>
+                    <?php do_hook('mailbox_display_buttons'); ?>
+                </small>
                 </td>
                 <?php
                 if (in_array('\\deleted',$aMailbox['PERMANENTFLAGS'], true)) {
-                    echo '<td align="right">
-                <small>';
-                    echo  '         <small>&nbsp;<tt><select name="targetMailbox">';
-                    echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes);
-                    echo '         </select></tt>&nbsp;';
-                    echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n
-                </small>";
+                ?>
+                <?php echo html_tag('td', '', 'right'); ?>
+                    <small>&nbsp;<tt>
+                        <select name="targetMailbox">
+                            <?php echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)), 0, $boxes); ?>
+                        </select></tt>&nbsp;
+                        <?php echo getButton('SUBMIT', 'moveButton',_("Move")); ?>
+                    </small>
+                <?php
                 }
                 ?>
                 </td>
@@ -1250,7 +1251,6 @@ function mail_message_listing_beginning ($imapConnection,
         </td>
         </tr>
     </table>
-
 <?php
     do_hook('mailbox_form_before');
 }
@@ -1276,8 +1276,8 @@ if ($num_msgs) {
         <td>
             <table bgcolor="<?php echo $color[4]; ?>" border="0" width="100%" cellpadding="1"  cellspacing="0">
             <tr>
-                <td align="left"><small><?php echo $paginator_str; ?></small></td>
-                <td align="right"><small><?php echo $msg_cnt_str; ?></small></td>
+                    <?php echo html_tag('td', '<small>' . $paginator_str . '</small>', 'left');  ?>
+                    <?php echo html_tag('td', '<small>' . $msg_cnt_str   . '</small>', 'right'); ?>
             </tr>
             </table>
         </td>
