@@ -134,4 +134,36 @@
       return  preg_replace('/&/','&amp;',$url);
     } 
 
+    /* Temporary test function to proces template vars with formatting.
+     * I use it for viewing the message_header (view_header.php) with 
+     * a sort of template.
+     */ 
+    function echo_template_var($var, $format_ar = array() ) {
+      $frm_last = count($format_ar) -1;
+
+      if (isset($format_ar[0])) echo $format_ar[0]; 
+         $i = 1;
+ 
+      switch (true) {
+        case (is_string($var)):
+          echo $var;
+          break;
+        case (is_array($var)):
+          $frm_a = array_slice($format_ar,1,$frm_last-1);
+          foreach ($var as $a_el) {
+             if (is_array($a_el)) {
+                echo_template_var($a_el,$frm_a);
+             } else {
+	        echo $a_el;
+                if (isset($format_ar[$i])) echo $format_ar[$i];
+                  $i++;
+             }
+          }
+          break;
+        default: 
+          break;
+      }
+      if (isset($format_ar[$frm_last]) && $frm_last>$i ) echo $format_ar[$frm_last];
+    }
+
 ?>
