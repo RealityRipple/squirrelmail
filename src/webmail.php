@@ -83,8 +83,7 @@
    } else if ($right_frame == 'compose.php') {
       $right_frame_url = "compose.php?send_to=$rcptaddress";
    } else {
-      if (!isset($just_logged_in)) $just_logged_in = 0;
-      $right_frame_url = "right_main.php?just_logged_in=$just_logged_in";
+      $right_frame_url = "right_main.php";
    }
 
    if ($location_of_bar == 'right')
