@@ -82,8 +82,7 @@
    
    $languages['es']['NAME']    = 'Spanish';
    $languages['es']['CHARSET'] = 'iso-8859-1';
-   $languages['es_ES']['NAME']    = 'Spanish';
-   $languages['es_ES']['CHARSET'] = 'iso-8859-1';
+   $languages['es_ES']['ALIAS'] = 'es';
 
    $languages['sv']['NAME']    = 'Swedish';
    $languages['sv']['CHARSET'] = 'iso-8859-1';
@@ -775,7 +774,8 @@
    {
       static $SetupAlready = 0;
       global $HTTP_ACCEPT_LANGUAGE, $use_gettext, $languages, 
-          $squirrelmail_language, $squirrelmail_default_language;
+          $squirrelmail_language, $squirrelmail_default_language, 
+	  $sm_notAlias;
       
       if ($SetupAlready)
          return;
@@ -789,14 +789,17 @@
       }
       if (! $sm_language && isset($squirrelmail_default_language))
          $sm_language = $squirrelmail_default_language;
+      $sm_notAlias = $sm_language;
+      while (isset($languages[$sm_notAlias]['ALIAS']))
+         $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];
 
       if (isset($sm_language) && $use_gettext &&
           $squirrelmail_language != '' &&
- 	  isset($languages[$sm_language]['CHARSET'])) {
+ 	  isset($languages[$sm_notAlias]['CHARSET'])) {
          if ((ini_get('safe_mode') == FALSE) && (getenv('LC_ALL') != $sm_language)) {
-           putenv('LC_ALL=' . $sm_language);
+           putenv('LC_ALL=' . $sm_notAlias);
          }
-         setlocale('LC_ALL', $sm_language);
+         setlocale('LC_ALL', $sm_notAlias);
          bindtextdomain('squirrelmail', '../locale/');
          textdomain('squirrelmail');
          header ('Content-Type: text/html; charset=' . $languages[$sm_language]['CHARSET']);
@@ -816,6 +819,8 @@
      global $data_dir, $username, $default_charset, $languages;
      $my_language = getPref($data_dir, $username, "language");
      if (!$my_language) return;
+     while (isset($languages[$my_language]['ALIAS']))
+        $my_language = $languages[$my_language]['ALIAS'];
      $my_charset=$languages[$my_language]['CHARSET'];
      if ($my_charset) $default_charset=$my_charset;
    }
