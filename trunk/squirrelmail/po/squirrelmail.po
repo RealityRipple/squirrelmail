@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-04-30 14:14+0300\n"
+"POT-Creation-Date: 2003-05-31 14:56+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -422,6 +422,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
+msgid "Up"
+msgstr ""
+
+msgid "Down"
+msgstr ""
+
 msgid "No highlighting is defined"
 msgstr ""
 
@@ -656,9 +662,6 @@ msgid "Edit Message as New"
 msgstr ""
 
 msgid "View Message"
-msgstr ""
-
-msgid "Up"
 msgstr ""
 
 msgid "Forward"
@@ -1112,19 +1115,13 @@ msgid ""
 "folder."
 msgstr ""
 
-msgid "Unknown response from IMAP server: "
-msgstr ""
-
-msgid "Unknown message number in reply from server: "
-msgstr ""
-
 msgid "(no subject)"
 msgstr ""
 
 msgid "Unknown Sender"
 msgstr ""
 
-msgid "(unknown sender)"
+msgid "Unknown response from IMAP server: "
 msgstr ""
 
 msgid "Unknown date"
@@ -2232,9 +2229,6 @@ msgstr ""
 msgid "Contains:"
 msgstr ""
 
-msgid "Down"
-msgstr ""
-
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr ""
@@ -2372,12 +2366,6 @@ msgstr ""
 msgid "Error "
 msgstr ""
 
-msgid "POP3 noop:"
-msgstr ""
-
-msgid "No connection to server"
-msgstr ""
-
 msgid "POP3 user:"
 msgstr ""
 
@@ -2397,6 +2385,9 @@ msgid "authentication failed "
 msgstr ""
 
 msgid "POP3 apop:"
+msgstr ""
+
+msgid "No connection to server"
 msgstr ""
 
 msgid "No login ID submitted"
@@ -3120,19 +3111,22 @@ msgid "Your server options are as follows:"
 msgstr ""
 
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr ""
 
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
 
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
 msgstr ""
 
 msgid ""
