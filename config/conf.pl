@@ -1430,7 +1430,7 @@ sub save_data {
    print FILE "\t\$useSendmail          =  $useSendmail;\n";
    print FILE "\t\$smtpServerAddress    = \"$smtpServerAddress\";\n";
    print FILE "\t\$smtpPort             =  $smtpPort;\n";
-   print FILE "\t\$sendmailPath         = \"$sendmail_path\";\n";
+   print FILE "\t\$sendmail_path         = \"$sendmail_path\";\n";
    print FILE "\t\$imap_server_type     = \"$imap_server_type\";\n";
    
    print FILE "\n";
