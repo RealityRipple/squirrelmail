@@ -10,7 +10,7 @@
     **  this will also handle all errors that are received.  If it is not set,
     **  the errors will be sent back through $response and $message
     ******************************************************************************/
-   function sqimap_read_data ($imap_stream, $pre, $handle_errors, $response, $message) {
+   function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
       global $color, $squirrelmail_language;
 
       //$imap_general_debug = true;
@@ -24,25 +24,29 @@
          $read = fgets ($imap_stream, 1024);
 			if ($imap_general_debug) echo "<small><tt><font color=cc0000>$read</font></tt></small><br>";
          $counter++;
-      }       
+      }
+      
+      $response = $regs[1];
+      $message = trim($regs[2]);
+      
       if ($imap_general_debug) echo "--<br>";
 
       if ($handle_errors == true) {
-         if ($regs[1] == "NO") {
+         if ($response == "NO") {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Could not complete request.");
             echo "</b><br>\n";
             echo _("Reason Given: ");
-            echo trim($regs[2]) . "</font><br>\n";
+            echo $message . "</font><br>\n";
             exit;
-         } else if ($regs[1] == "BAD") {
+         } else if ($response == "BAD") {
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
             echo _("ERROR : Bad or malformed request.");
             echo "</b><br>\n";
             echo _("Server responded: ");
-            echo trim($regs[2]) . "</font><br>\n";
+            echo $message . "</font><br>\n";
             exit;
          }
       }
@@ -77,16 +81,26 @@
       }
 
       fputs ($imap_stream, "a001 LOGIN \"$username\" \"$password\"\r\n");
-      $read = fgets ($imap_stream, 1024);
+      $read = sqimap_read_data ($imap_stream, "a001", false, $response, $message);
 
       /** If the connection was not successful, lets see why **/
-      if (substr($read, 0, 7) != "a001 OK") {
+      if ($response != "OK") {
          if (!$hide) {
-            if (substr($read, 0, 8) == "a001 BAD") {
+            if ($response != "NO") {
+               // "BAD" and anything else gets reported here.
                set_up_language($squirrelmail_language, true);
-               printf (_("Bad request: %s")."<br>\r\n", $read);
+               if ($response == "BAD")
+                   printf (_("Bad request: %s")."<br>\r\n", $message);
+               else
+                   printf (_("Unknown error: %s") . "<br>\n", $message);
+               echo "<br>";
+               echo _("Read data:") . "<br>\n";
+               foreach ($read as $line)
+               {
+                   echo htmlspecialchars($line) . "<br>\n";
+               }
                exit;
-            } else if (substr($read, 0, 7) == "a001 NO") {
+            } else if ($response == "NO") {
                // If the user does not log in with the correct
                // username and password it is not possible to get the
                // correct locale from the user's preferences.
@@ -127,10 +141,6 @@
                   </html>
                <?php
                session_destroy();
-               exit;
-            } else {
-               set_up_language($squirrelmail_language, true);
-               printf (_("Unknown error: %s")."<br>", $read);
                exit;
             }
          } else {

@@ -57,7 +57,7 @@
       }
       if ($auto_expunge) {
          fputs ($imap_stream, "a001 EXPUNGE\r\n");
-         $tmp = sqimap_read_data($imap_stream, "a001", $a, $b, true);
+         $tmp = sqimap_read_data($imap_stream, "a001", true, $a, $b);
       }   
    }
 
