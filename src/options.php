@@ -87,6 +87,10 @@
          setPref($data_dir, $username, 'show_html_default', 1);
       else
          removePref($data_dir, $username, 'show_html_default');
+      if (isset($includeselfreplyall))
+         setPref($data_dir, $username, 'include_self_reply_all', 1);
+      else
+         removePref($data_dir, $username, 'include_self_reply_all');
     
       do_hook('options_display_save');
 
