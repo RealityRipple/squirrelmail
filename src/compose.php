@@ -46,6 +46,7 @@
        session_register('attachments');
    }
 
+
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
@@ -178,7 +179,7 @@
 
               $newAttachment['localfilename'] = $localfilename;
 	      $newAttachment['remotefilename'] = $filename;
-	      $newAttachment['type0'] = strtolower($message->header->type0 .
+	      $newAttachment['type'] = strtolower($message->header->type0 .
 	         '/' . $message->header->type1);
 
               // Write Attachment to file
