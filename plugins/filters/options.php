@@ -62,48 +62,48 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
     // FIXME: write human readable error messages
     sqgetGlobalVar('filter_what', $filter_what, SQ_POST);
     if (!sqgetGlobalVar('filter_what', $filter_what, SQ_POST)) {
-	do_error("Post error");
-	$complete_post=false;
+        do_error("Post error");
+        $complete_post=false;
     }
 
     sqgetGlobalVar('filter_where', $filter_where, SQ_POST);
     if (!sqgetGlobalVar('filter_where', $filter_where, SQ_POST)) {
-	do_error("Post error");
-	$complete_post=false;
+        do_error("Post error");
+        $complete_post=false;
     }
 
     sqgetGlobalVar('filter_folder', $filter_folder, SQ_POST);
     if (!sqgetGlobalVar('filter_folder', $filter_folder, SQ_POST)) {
-	do_error("Post error");
-	$complete_post=false;
+        do_error("Post error");
+        $complete_post=false;
     }
 
     if ($complete_post) {
-	$filter_what = str_replace(',', ' ', $filter_what);
+        $filter_what = str_replace(',', ' ', $filter_what);
         $filter_what = str_replace("\\\\", "\\", $filter_what);
         $filter_what = str_replace("\\\"", '"', $filter_what);
         $filter_what = str_replace('"', '&quot;', $filter_what);
 
         if (($filter_where == 'Header') && (strchr($filter_what,':') == '')) {
-	    do_error(_("WARNING! Header filters should be of the format &quot;Header: value&quot;"));
-    	    $action = 'edit';
-    	}
-	setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
-	$filters[$theid]['where'] = $filter_where;
-	$filters[$theid]['what'] = $filter_what;
-	$filters[$theid]['folder'] = $filter_folder;
+            do_error(_("WARNING! Header filters should be of the format &quot;Header: value&quot;"));
+            $action = 'edit';
+        }
+        setPref($data_dir, $username, 'filter'.$theid, $filter_where.','.$filter_what.','.$filter_folder);
+        $filters[$theid]['where'] = $filter_where;
+        $filters[$theid]['what'] = $filter_what;
+        $filters[$theid]['folder'] = $filter_folder;
     }
-   } elseif (isset($action) && $action == 'delete') {
+} elseif (isset($action) && $action == 'delete') {
       remove_filter($theid);
-   } elseif (isset($action) && $action == 'move_up') {
+} elseif (isset($action) && $action == 'move_up') {
       filter_swap($theid, $theid - 1);
-   } elseif (isset($action) && $action == 'move_down') {
+} elseif (isset($action) && $action == 'move_down') {
       filter_swap($theid, $theid + 1);
-   } elseif (sqgetGlobalVar('user_submit',$user_submit,SQ_POST)) {
-	sqgetGlobalVar('filters_user_scan_set',$filters_user_scan_set,SQ_POST);
-	setPref($data_dir, $username, 'filters_user_scan', $filters_user_scan_set);
-	echo '<br /><center><b>'._("Saved Scan type")."</b></center>\n";
-   }
+} elseif (sqgetGlobalVar('user_submit',$user_submit,SQ_POST)) {
+    sqgetGlobalVar('filters_user_scan_set',$filters_user_scan_set,SQ_POST);
+    setPref($data_dir, $username, 'filters_user_scan', $filters_user_scan_set);
+    echo '<br /><center><b>'._("Saved Scan type")."</b></center>\n";
+}
 
    $filters = load_filters();
    $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
@@ -111,11 +111,12 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
    echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
-                    '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>' ,
-                'left', $color[0] )
-            ) ,
-         'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) .
-
+                    '<center><b>' . _("Options") . ' - ' . _("Message Filtering") . '</b></center>' ,
+                    'left', $color[0]
+                )
+            ),
+            'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"'
+        ) .
         '<br /><form method="post" action="options.php">'.
         '<center>'.
         html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
@@ -214,7 +215,7 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
 
     }
 
-	echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' );
+    echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' );
 
     for ($i=0, $num = count($filters); $i < $num; $i++) {
 
@@ -230,25 +231,27 @@ if (sqgetGlobalVar('filter_submit',$filter_submit,SQ_POST)) {
                        '<small>' .
                        "[<a href=\"options.php?theid=$i&amp;action=delete\">" . _("Delete") . '</a>]'.
                        '</small>' ,
-                   'left' ) .
-                   html_tag( 'td', '', 'center' ) . '<small>[';
+                   'left' );
 
-        if (isset($filters[$i + 1])) {
-            echo "<a href=\"options.php?theid=$i&amp;action=move_down\">" . _("Down") . '</a>';
-            if ($i > 0) {
-                echo '&nbsp;|&nbsp;';
+        if ($num > 1) {
+            echo html_tag( 'td', '', 'center' ) . '<small>[';
+            if (isset($filters[$i + 1])) {
+                echo "<a href=\"options.php?theid=$i&amp;action=move_down\">" . _("Down") . '</a>';
+                if ($i > 0) {
+                    echo '&nbsp;|&nbsp;';
+                }
             }
+            if ($i > 0) {
+                echo "<a href=\"options.php?theid=$i&amp;action=move_up\">" . _("Up") . '</a>';
+            }
+            echo ']</small></td>';
         }
-        if ($i > 0) {
-            echo "<a href=\"options.php?theid=$i&amp;action=move_up\">" . _("Up") . '</a>';
-        }
-        echo ']</small></td>'.
-            html_tag( 'td', '-', 'left' ) .
-            html_tag( 'td', '', 'left' );
+        echo html_tag( 'td', '-', 'left' ) .
+             html_tag( 'td', '', 'left' );
         printf( _("If %s contains %s then move to %s"),
-	    '<b>'.$filters[$i]['where'].'</b>',
-	    '<b>'.$filters[$i]['what'].'</b>',
-	    '<b>'.imap_utf7_decode_local($fdr).'</b>');
+            '<b>'.$filters[$i]['where'].'</b>',
+            '<b>'.$filters[$i]['what'].'</b>',
+            '<b>'.imap_utf7_decode_local($fdr).'</b>');
         echo '</td></tr>';
 
     }
