@@ -249,7 +249,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox,
         }
     }
     echo '</tr>'."\n".'<tr><td colspan="'.$col.'" BGCOLOR="'.
-                               $color[3].'"></td></tr>'."\n";
+                               $color[0].'" HEIGHT="1"></td></tr>'."\n";
 }
 
 function getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs) {
