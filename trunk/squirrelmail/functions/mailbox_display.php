@@ -634,8 +634,14 @@ function get_selectall_link($start_msg, $sort) {
             "//-->\n" .
             '</script><a href="#" onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
     } else {
-        $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
+        if (strpos($PHP_SELF, "?")) {
+            $result .= "<a href=\"$PHP_SELF&mailbox=" . urlencode($mailbox)
                     . "&startMessage=$start_msg&sort=$sort&checkall=";
+        }
+		else {
+            $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
+                    . "&startMessage=$start_msg&sort=$sort&checkall=";
+        }
         if (isset($checkall) && $checkall == '1') {
             $result .= '0';
         } else {
