@@ -1,36 +1,40 @@
 <?php
+
+   /**
+    **  newmail.php
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
+    **
+    **  Displays all options relating to new mail sounds
+    **
+    **  $Id$
+    **    
+    **/
+    
    chdir ('../');
    require_once('../src/validate.php');
    require_once('../src/load_prefs.php');
+   
+   echo "<HTML>\n".
+        '<TITLE>' . _("New Mail") . "</TITLE>\n".
+        "<BODY bgcolor=\"$color[4]\" topmargin=0 leftmargin=0 rightmargin=0 marginwidth=0 marginheight=0>\n".
+        '<CENTER>'.
+        "<table width=100% cellpadding=2 cellspacing=2 border=0>\n".
+        "<tr>\n".
+        "<td bgcolor=\"$color[0]\">\n".
+        '<b><center>' . _("SquirrelMail Notice:") . "</center></b>\n".
+        "</td>\n".
+        "</tr><tr>\n".
+        "<td><center><br><big><font color=\"$color[2]\">" . 
+        _("You have new mail!") . "</font></big><br>\n".
+        "<form name=nm>\n".
+            '<input type=button name=bt value="Close Window" onClick="javascript:window.close();">'.
+        "</form></center></td></tr></table></CENTER>\n".
+        "<script language=javascript>\n".
+        "<!--\n".
+            "document.nm.bt.focus();\n".
+        "-->\n".
+        "</script>\n".
+        "</BODY></HTML>\n";
+        
 ?>
-<HTML>
-<TITLE>New Mail</TITLE>
-<BODY bgcolor=<?php echo $color[4] ?> topmargin=0 leftmargin=0
-rightmargin=0 marginwidth=0 marginheight=0>
-<CENTER>
-<table width=100% cellpadding=2 cellspacing=2 border=0>
-<tr>
-   <td bgcolor=<?php echo $color[0] ?>>
-      <b><center>SquirrelMail Notice:</center></b>
-   </td>
-</tr><tr>   
-   <td>
-      <center>
-      <br>
-      <big><font color=<?php echo $color[2] ?>>You have new
-mail!</font></big><br>
-      <form name=nm>
-         <input type=button name=bt value="Close Window"
-onClick="javascript:window.close();">
-      </form>
-      </center>
-   </td>
-</tr>
-</table>
-</CENTER>
-<script language=javascript>
-<!--
-   document.nm.bt.focus();
--->
-</script>
-</BODY></HTML>

@@ -1,18 +1,23 @@
 <?php
+
    /**
     **  newmails_opt.php
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
     **
     **  Displays all options relating to new mail sounds
     **
+    **  $Id$
+    **    
     **/
 
-   chdir('..');
+   chdir("..");
    require_once('../src/validate.php');
-   require_once('../functions/page_header.php');
-   require_once('../functions/display_messages.php');
-   require_once('../functions/imap.php');
-   require_once('../functions/array.php');
-   require_once('../src/load_prefs.php');
+   require_once("../functions/page_header.php");
+   require_once("../functions/display_messages.php");
+   require_once("../functions/imap.php");
+   require_once("../functions/array.php");
+   require_once("../src/load_prefs.php");
 
    displayPageHeader($color, "None");
 
