@@ -5,6 +5,8 @@
 
 Version 1.3.0-DEVEL -- CVS
 --------------------
+  - Better clean-up of left attachments at login.
+  - Restore compose sessions in case of a expired session.
   - Added "Display Message" / "Up" links in read_body to navigate in messages with
     attached messages (message/rfc822).
   - Don't activate the Send Receipt link when the folder is the Sent folder.
