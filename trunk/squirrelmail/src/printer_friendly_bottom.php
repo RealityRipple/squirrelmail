@@ -55,13 +55,34 @@ require_once('../functions/page_header.php');
     $to = decodeHeader(getLineOfAddrs($message->header->to));
 
      // and Body and Subject could easily stream off the page...
-    $body = mime_fetch_body($imap_stream, $passed_id, $passed_ent_id);
-    $body = str_replace("\n", "\n", trim(decodeBody($body, $message->header->encoding)));
+    $id = $message->header->id;
+    $ent_num = findDisplayEntity ($message, 0);  
+    $body_message = getEntity($message, $ent_num);
+    if (($body_message->header->type0 == 'text') ||
+        ($body_message->header->type0 == 'rfc822')) {    
+        $body = mime_fetch_body ($imap_stream, $id, $ent_num);
+        $body = decodeBody($body, $body_message->header->encoding);
+        $hookResults = do_hook("message_body", $body);
+        $body = $hookResults[1];
+        if ($body_message->header->type1 == 'html') {
+        if( $show_html_default <> 1 ) {
+            $body = strip_tags( $body );
+            translateText($body, $wrap_at, $body_message->header->charset);
+        } else {
+            $body = MagicHTML( $body, $id );
+        }
+        } else {
+        translateText($body, $wrap_at, $body_message->header->charset);
+        }              
+    } else {
+        $body = _("Message not printable");
+    }
+
     $subject = trim(decodeHeader($message->header->subject));
 
      // now, if they choose to, we clean up the display a bit...
-    if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' )
-    {
+     /*
+    if ( empty($pf_cleandisplay) || $pf_cleandisplay != 'no' ) {
 
         $num_leading_spaces = 9; // nine leading spaces for indentation
 
@@ -78,7 +99,7 @@ require_once('../functions/page_header.php');
         $date = pf_clean_string($date, $num_leading_spaces);
 
     } // end cleanup
-
+    */
     // --end display setup--
 
 
@@ -96,12 +117,10 @@ require_once('../functions/page_header.php');
     echo '<tr><td>' . _("Date") . ':</td><td>' . htmlentities($date) . "</td></td>\n".
          '<tr><td>' . _("Subject") . ':</td><td>' . htmlentities($subject) . "</td></td>\n".
          '</table>'.
-         "\n<pre>";
-
-
+         "\n";
      // body
     echo "<hr noshade size=1>\n";
-    echo htmlentities($body);
+    echo $body;
 
 // --end browser output--
 
