@@ -761,6 +761,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
         } else {
             fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
             $read = sqimap_read_data($imap_stream, '.', true, $a, $b);
+            $read = $read['.'][0];	//sqimap_read_data() now returns a tag array of response array
             $quote_position = strpos ($read[0], '"');
             $sqimap_delimiter = substr ($read[0], $quote_position+1, 1);
         }
