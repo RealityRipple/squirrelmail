@@ -832,7 +832,7 @@
          $sm_language = substr($HTTP_ACCEPT_LANGUAGE, 0, 2);
       }
       if (!$sm_language && isset($squirrelmail_default_language))
-         $sm_language = $squirrelmail_default_language;
+         $squirrelmail_language = $squirrelmail_default_language;
       $sm_notAlias = $sm_language;
       while (isset($languages[$sm_notAlias]['ALIAS']))
          $sm_notAlias = $languages[$sm_notAlias]['ALIAS'];

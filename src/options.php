@@ -15,9 +15,12 @@
    require_once('../functions/display_messages.php');
    require_once('../functions/imap.php');
    require_once('../functions/array.php');
+   
+  ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+  $base_uri = $regs[1];   
 
    if (isset($language)) {
-      setcookie('squirrelmail_language', $language, time()+2592000);
+      setcookie('squirrelmail_language', $language, time()+2592000, $base_uri);
       $squirrelmail_language = $language;
    }   
 
