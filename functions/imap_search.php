@@ -16,12 +16,16 @@
    $imap_search_php = true;
 
 function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color) {
-   global $msgs, $message_highlight_list;
+   global $msgs, $message_highlight_list, $squirrelmail_language, $languages;
    $urlMailbox = urlencode($mailbox);
    
    # Construct the Search QuERY
    
-   $ss = "a001 SEARCH ALL $search_where \"$search_what\"\r\n";
+   if ($languages[$squirrelmail_language]["CHARSET"]) {
+      $ss = "a001 SEARCH CHARSET ".$languages[$squirrelmail_language]["CHARSET"]." ALL $search_where \"$search_what\"\r\n";
+   } else {
+      $ss = "a001 SEARCH ALL $search_where \"$search_what\"\r\n";
+   }
    fputs($imapConnection,$ss);
 
    # Read Data Back From IMAP
