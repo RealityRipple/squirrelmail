@@ -52,7 +52,7 @@
          } else if (substr($read[$i], 0, 8) == "Subject:") {
             $subject = htmlspecialchars(substr($read[$i], 8));
             if (strlen(trim($subject)) == 0)
-               $subject = "(no subject)";
+               $subject = _("(no subject)");
          }
       }
    }
@@ -222,7 +222,7 @@
          else if (strtolower(substr($read[$i], 0, 8)) == "subject:") {
             $header["SUBJECT"] = trim(substr($read[$i], 8, strlen($read[$i]) - 9));
             if (strlen(Chop($header["SUBJECT"])) == 0)
-               $header["SUBJECT"] = "(no subject)";
+               $header["SUBJECT"] = _("(no subject)");
             $i++;
          }
          /** CC **/
@@ -251,10 +251,10 @@
          /** ERROR CORRECTION **/
          else if (substr($read[$i], 0, 1) == ")") {
             if ($header["SUBJECT"] == "")
-                $header["SUBJECT"] = "(no subject)";
+                $header["SUBJECT"] = _("(no subject)");
 
             if ($header["FROM"] == "")
-                $header["FROM"] = "(unknown sender)";
+                $header["FROM"] = _("(unknown sender)");
 
             if ($header["DATE"] == "")
                 $header["DATE"] = time();
