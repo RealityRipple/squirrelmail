@@ -19,27 +19,42 @@
 
    // returns the index of the next valid message from the array
    function findNextMessage() {
-      global $currentArrayIndex, $msgs;
-      if ($currentArrayIndex < (count($msgs)-1))
-         return $msgs[$currentArrayIndex+1]["ID"];
+      global $msort, $currentArrayIndex, $msgs;
+		for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
+   	   if ($currentArrayIndex == $msgs[$key]["ID"]) {
+				next($msort); 
+				$key = key($msort);
+				if (isset($key)) 
+					return $msgs[$key]["ID"];
+			}
+		}
       return -1;
    }
 
    // returns the index of the previous message from the array
    function findPreviousMessage() {
-      global $currentArrayIndex, $msgs;
-      if ($currentArrayIndex > 0)
-         return $msgs[$currentArrayIndex-1]["ID"];
+      global $msort, $currentArrayIndex, $msgs;
+		for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) { 
+   	   if ($currentArrayIndex == $msgs[$key]["ID"]) {
+				prev($msort);
+				$key = key($msort);
+				if (isset($key))
+					return $msgs[$key]["ID"];
+			}
+		}
       return -1;
    }
 
    if (isset($msgs)) {
+		$currentArrayIndex = $passed_id;
+		/*
       for ($i=0; $i < count($msgs); $i++) {
          if ($msgs[$i]["ID"] == $passed_id) {
             $currentArrayIndex = $i;
             break;
          }
       }
+		*/
    } else {
       $currentArrayIndex = -1;
    }
