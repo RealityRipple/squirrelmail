@@ -52,7 +52,7 @@ if (isset($draft)) {
     if (! isset($MDN)) {
         $MDN = 'False';
     }
-    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN)) {
+    if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id, $MDN, $session)) {
         showInputForm($session);
         exit();
     } else {
