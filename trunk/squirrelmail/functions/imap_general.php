@@ -966,15 +966,22 @@ function sqimap_status_messages ($imap_stream, $mailbox,
 function sqimap_append ($imap_stream, $sent_folder, $length) {
     fputs ($imap_stream, sqimap_session_id() . ' APPEND ' . sqimap_encode_mailbox_name($sent_folder) . " (\\Seen) \{$length}\r\n");
     $tmp = fgets ($imap_stream, 1024);
+    sqimap_append_checkresponse($tmp, $sent_folder);
 }
 
 function sqimap_append_done ($imap_stream, $folder='') {
-    global $squirrelmail_language, $color;
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
-    if (preg_match("/(.*)(BAD|NO)(.*)$/", $tmp, $regs)) {
+    sqimap_append_checkresponse($tmp, $folder);
+}
+
+function sqimap_append_checkresponse($response, $folder) {
+    
+    if (preg_match("/(.*)(BAD|NO)(.*)$/", $response, $regs)) {
+        global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
+
         $reason = $regs[3];
         if ($regs[2] == 'NO') {
            $string = "<b><font color=\"$color[2]\">\n" .
@@ -994,7 +1001,7 @@ function sqimap_append_done ($imap_stream, $folder='') {
                   _("ERROR : Bad or malformed request.") .
                   "</b><br />\n" .
                   _("Server responded: ") .
-                  $tmp . "</font><br />\n";
+                  $reason . "</font><br />\n";
            error_box($string,$color);
            exit;
         }
