@@ -112,15 +112,17 @@
       
       $selected_input = "";
       
-      if (isset($message_highlight_list[$theid]["color"]))
-      {
-          for ($i=0; $i < 14; $i++) {
-             if ($color_list[$i] == $message_highlight_list[$theid]["color"]) {
-                $selected_choose = " checked";
-                ${"selected".$i} = " selected";
-                continue;
-             }
-	 }
+      for ($i=0; $i < 14; $i++) {
+         ${"selected".$i} = "";
+      }
+      if (isset($message_highlight_list[$theid]["color"])) {
+         for ($i=0; $i < 14; $i++) {
+            if ($color_list[$i] == $message_highlight_list[$theid]["color"]) {
+               $selected_choose = " checked";
+               ${"selected".$i} = " selected";
+               continue;
+            }
+	     }
       }
       if (!isset($message_highlight_list[$theid]["color"]))
          $selected_choose = " checked";
@@ -180,15 +182,15 @@
       echo "      </b></td>\n";
       echo "      <td width=75%>\n";
       echo "         <select name=match_type>\n";
-      if ($message_highlight_list[$theid]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n";
+      if (isset($message_highlight_list[$theid]["match_type"]) && $message_highlight_list[$theid]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n";
       else                                                         echo "            <option value=\"from\">From\n";
-      if ($message_highlight_list[$theid]["match_type"] == "to")      echo "            <option value=\"to\" selected>To\n";
+      if (isset($message_highlight_list[$theid]["match_type"]) && $message_highlight_list[$theid]["match_type"] == "to")      echo "            <option value=\"to\" selected>To\n";
       else                                                         echo "            <option value=\"to\">To\n";
-      if ($message_highlight_list[$theid]["match_type"] == "cc")      echo "            <option value=\"cc\" selected>Cc\n";
+      if (isset($message_highlight_list[$theid]["match_type"]) && $message_highlight_list[$theid]["match_type"] == "cc")      echo "            <option value=\"cc\" selected>Cc\n";
       else                                                         echo "            <option value=\"cc\">Cc\n";
-      if ($message_highlight_list[$theid]["match_type"] == "to_cc")   echo "            <option value=\"to_cc\" selected>To or Cc\n";
+      if (isset($message_highlight_list[$theid]["match_type"]) && $message_highlight_list[$theid]["match_type"] == "to_cc")   echo "            <option value=\"to_cc\" selected>To or Cc\n";
       else                                                         echo "            <option value=\"to_cc\">To or Cc\n";
-      if ($message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
+      if (isset($message_highlight_list[$theid]["match_type"]) && $message_highlight_list[$theid]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
       if (isset($message_highlight_list[$theid]["value"]))
