@@ -28,6 +28,7 @@
    displayPageHeader($color, $mailbox);
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
+   do_hook("search_before_form");
    echo "<br>
       <table width=95% align=center cellpadding=2 cellspacing=0 border=0>
       <tr><td bgcolor=\"$color[0]\">
@@ -91,10 +92,12 @@
    echo "   </TABLE>\n"; 
    echo "</FORM>";
    echo "</td></tr></table>";
+   do_hook("search_after_form");
    if ($where && $what) {   
       sqimap_mailbox_select($imapConnection, $mailbox);
       sqimap_search($imapConnection, $where, $what, $mailbox, $color);
    }
+   do_hook("search_bottom");
    sqimap_logout ($imapConnection);
 ?>
 </body></html>

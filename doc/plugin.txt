@@ -89,8 +89,19 @@ List of hooks
   loading_prefs                  src/load_prefs.php
   mailbox_index_before           functions/mailbox_display.php
   mailbox_index_after            functions/mailbox_display.php
-
-
+  right_main_after_header        src/right_main.php
+  right_main_bottom              src/right_main.php
+  login_top                      src/login.php
+  login_bottom                   src/login.php
+  read_body_top                  src/read_body.php
+  read_body_bottom               src/read_body.php
+  search_before_form             src/search.php
+  search_after_form              src/search.php
+  search_bottom                  src/search.php
+  help_top                       src/help.php
+  help_bottom                    src/help.php
+  help_chapter                   src/help.php
+   
 Options
 -------
 

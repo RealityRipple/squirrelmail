@@ -100,6 +100,7 @@
    echo "</TABLE>\n";
    echo "<input type=hidden name=just_logged_in value=1>\n";
    echo "</FORM>\n";
+   do_hook("login_bottom");
 ?>
 </BODY>
 </HTML>
