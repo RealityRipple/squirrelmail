@@ -40,16 +40,18 @@ Version 1.5.0 -- CVS
   - Rewrite of email address parser and solve the infinite loops issues due to
     bad formatted addresses.
   - Modified conf.pl: default to force usernames lowercase for servers which
-    are case-insensitive
+    are case-insensitive.
   - Applied bugfixes from stable to htmlfilter code.
-  - Fix bug #722933 where resuming a draft message would lose the reference headers
+  - Fix bug #722933 where resuming a draft message would lose the reference headers.
   - Removed hard coded colors from login.php and made it use the default theme and css file
   - Fix that sending of read receipts failed when JavaScript on and comp in new off (#738130).
   - Replaced search with new version by Alex Lemaresquier. (Originally
-    "asearch" plugin)
-  - New debugging function: sm_print_r() in strings.php
+    "asearch" plugin).
+  - New debugging function: sm_print_r() in strings.php.
   - Use SM_PATH in config_default. Change default server type to 'other' in stead
-    of cyrus. (#766577)
+    of cyrus. (#766577).
+  - Added feature to allow user to switch on full date display in mailboxes instead
+    of just partial date/time based on time of email, and current date.
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
