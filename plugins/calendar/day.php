@@ -34,8 +34,8 @@ function day_header() {
                                 "<a href=\"day.php?year=$prev_year&month=$prev_month&day=$prev_day\">&lt;&nbsp;".
                                 date_intl('D',$prev_date)."</a>",
                             'left' ) .
-                            html_tag( 'th', date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year)) ,
-                            '', '', 'width="75%"' ) .
+                            html_tag( 'th', date_intl( _("l, F j Y"), mktime(0, 0, 0, $month, $day, $year)) ,
+                                '', '', 'width="75%"' ) .
                             html_tag( 'th',
                                 "<a href=\"day.php?year=$next_year&month=$next_month&day=$next_day\">".
                                 date_intl('D',$next_date)."&nbsp;&gt;</a>" ,

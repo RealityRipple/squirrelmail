@@ -95,7 +95,7 @@ echo html_tag( 'tr', '', '', $color[0] ) .
                html_tag( 'table', '', '', $color[0], 'width="100%" border="0" cellpadding="2" cellspacing="1"' ) .
                    html_tag( 'tr' ) .
                        html_tag( 'td', '', 'left' ) .
-     date_intl( 'l, F d Y', mktime(0, 0, 0, $month, $day, $year));
+     date_intl( _("l, F j Y"), mktime(0, 0, 0, $month, $day, $year));
 if (isset($dyear) && isset($dmonth) && isset($dday) && isset($dhour) && isset($dminute)){
     if (isset($confirmed)){
         delete_event("$dmonth$dday$dyear", "$dhour$dminute");
