@@ -5,3 +5,4 @@ Known BUGS to be fixed before 0.4pre1:
 (lme)  I'm not convinced that the cache gets deleted all the time.  I'll look into this one.  
   -    Special folders don't get listed at the top of folder list
   -    In UW, removing folders with a / at the end is broke
+  -    There is an infinate loop when moving messages to other folders, thus breaking the move, and delete buttons.
