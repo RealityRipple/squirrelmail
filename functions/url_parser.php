@@ -157,7 +157,7 @@ function parseUrl (&$body) {
                             $mailto_params .= '?' . $to;
                     }
                 }
-                $url_str = str_replace(array('to=', 'cc=', 'bcc='), array('send_to=', 'send_to_cc=', 'send_to_bcc='), $mailto_params);
+                $url_str = preg_replace(array('/to=/i', '/(?<!b)cc=/i', '/bcc=/i'), array('send_to=', 'send_to_cc=', 'send_to_bcc='), $mailto_params);
                 $comp_uri = makeComposeLink('src/compose.php' . $url_str, $mailto_before);
                 replaceBlock($body, $comp_uri, $target_pos - 7, $target_pos + strlen($regs[0]));
                 $target_pos += strlen($comp_uri) - 7;
