@@ -546,8 +546,12 @@ class addressbook_backend {
 
 }
 
-/* Sort array by the key "name" */
+/**
+ * Sort array by the key "name"
+ */
 function alistcmp($a,$b) {
+    $abook_sort=get_abook_sort();
+
     if ($a['backend'] > $b['backend']) {
         return 1;
     } else {
@@ -555,9 +559,31 @@ function alistcmp($a,$b) {
             return -1;
         }
     }
-    return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
+    return (strtolower($a[$abook_sort]) > strtolower($b[$abook_sort])) ? 1 : -1;
 }
 
+/**
+ * Address book sorting order
+ *
+ * returns name of field that should be used for sorting.
+ * @return string name of address book field
+ */
+function get_abook_sort() {
+    global $data_dir, $username;
+
+    /* get sorting order */
+    if(sqgetGlobalVar('abook_sort', $abook_sort,SQ_GET)) {
+	sqgetGlobalVar('abook_sort', $abook_sort,SQ_GET);
+	setPref($data_dir, $username, 'abook_sort', $abook_sort);
+    } else {
+	$abook_sort = getPref($data_dir, $username, 'abook_sort', 'name');
+    }
+
+    if ($abook_sort != "nickname" && $abook_sort != "email" && $abook_sort != "label")
+        $abook_sort = "name";
+
+    return $abook_sort;
+}
 
 /*
   PHP 5 requires that the class be made first, which seems rather
