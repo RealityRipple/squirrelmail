@@ -516,9 +516,6 @@
       $body = ereg_replace("\r\n", "\n", $body);
       $body = ereg_replace("\n", "\r\n", $body);
       
-      // Make sure that $t does not contain newlines.
-      $t = ereg_replace("[\n|\r]", "", $t);
-
       if ($useSendmail) {
          $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers);
       } else {
