@@ -8,7 +8,7 @@
    /******************************************************************************
     **  Expunges a mailbox 
     ******************************************************************************/
-   function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors) {
+   function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = true) {
       sqimap_mailbox_select ($imap_stream, $mailbox);
       fputs ($imap_stream, "a001 EXPUNGE\r\n");
       $read = sqimap_read_data($imap_stream, "a001", $handle_errors, $response, $message);

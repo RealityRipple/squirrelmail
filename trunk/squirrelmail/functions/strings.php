@@ -106,6 +106,7 @@
    
 
    /** Returns an array of email addresses **/
+   /* Be cautious of "user@host.com" */
    function parseAddrs($text) {
       if (trim($text) == "")
          return;
