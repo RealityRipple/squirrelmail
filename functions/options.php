@@ -421,4 +421,3 @@ function OptionSubmit( $name ) {
 }
 
 ?>
-)
