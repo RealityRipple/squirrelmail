@@ -143,7 +143,7 @@ if (isset($emailaddress)) {
          "      </TR>\n".
          "      <TR>\n".
          '         <TD WIDTH="30%" ALIGN=right>' . _("Password:") . "</TD>\n".
-         "         <TD WIDTH=* ALIGN=left>\n".
+         "         <TD WIDTH=\"*\" ALIGN=left>\n".
          "            <INPUT TYPE=PASSWORD NAME=\"$password_form_name\">\n".
          "            <INPUT TYPE=HIDDEN NAME=\"js_autodetect_results\" VALUE=\"" . SMPREF_JS_OFF . "\">\n".
          "            <INPUT TYPE=HIDDEN NAME=\"just_logged_in\" value=1>\n";

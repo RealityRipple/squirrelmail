@@ -611,7 +611,7 @@ function get_selectall_link($start_msg, $sort) {
             "   }\n" .
             "}\n" .
             "//-->\n" .
-            '</script><a href=\"#\" onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
+            '</script><a href="#" onClick="CheckAll();">' . _("Toggle All") . "</a>\n";
     } else {
         $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
                     . "&startMessage=$start_msg&sort=$sort&checkall=";
