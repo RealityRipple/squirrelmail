@@ -161,13 +161,13 @@
    function getLineOfAddrs($array) {
       if (is_array($array)) {
         $to_line = implode(', ', $array);
-        $to_line = trim(ereg_replace(', (, )+', ', ', $to_line));
+        $to_line = ereg_replace(', (, )+', ', ', $to_line);
+        $to_line = trim(ereg_replace('^, ', '', $to_line));
+        if( substr( $to_line, -1 ) == ',' )
+            $to_line = substr( $to_line, 0, -1 );
       } else {
         $to_line = '';
       }
-
-      if( substr( $to_line, -1 ) == ',' )
-         $to_line = substr( $to_line, 0, strlen( $to_line ) - 1 );
 
       return( $to_line );
    }
