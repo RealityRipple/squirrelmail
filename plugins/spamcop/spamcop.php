@@ -10,6 +10,9 @@
        $imapPort, 0);
     sqimap_mailbox_select($imap_stream, $mailbox);
     fputs($imap_stream, 'a010 FETCH ' . $passed_id . ' RFC822' . "\r\n");
+    $sid = 'a010';
+    if ($uid_support) $sid .= ' UID';
+    
     $read = sqimap_read_data($imap_stream, 'a010', true, $response, $message);
     array_shift($read);
 
