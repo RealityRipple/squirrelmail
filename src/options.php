@@ -214,6 +214,9 @@
     /* Now, print out each option page section. */
     /********************************************/
     $first_optpage = false;
+    echo "<table bgcolor=\"$color[4]\" width=\"100%\" cellpadding=0 cellspacing=5 border=0>" .
+                '<tr><td valign="top">' .
+                   '<table width="100%" cellpadding="3" cellspacing="0" border="0">';
     foreach ($optionpages as $next_optpage) {
         if ($first_optpage == false) {
             $first_optpage = $next_optpage;
@@ -226,6 +229,10 @@
     if ($first_optpage != false) {
         print_optionpages_row($first_optpage);
     }
+
+    echo '</table>' .
+                '</td></tr>' .
+             "</table>\n";
 
     do_hook('options_link_and_description');
 
@@ -264,11 +271,8 @@
      */
     function print_optionpages_row($leftopt, $rightopt = false) {
         global $color;
-        
-        echo "<table bgcolor=\"$color[4]\" width=\"100%\" cellpadding=0 cellspacing=5 border=0>" .
-                '<tr><td valign="top">' .
-                   '<table width="100%" cellpadding="3" cellspacing="0" border="0">' .
-                      '<tr>' .
+
+        echo '<tr>' .
                          "<td valign=top bgcolor=\"$color[9]\" width=\"50%\">" .
                             '<a href="' . $leftopt['url'] . '">' . $leftopt['name'] . '</a>'.
                          '</td>'.
@@ -280,7 +284,7 @@
         } else {
             echo         "<td valign=top bgcolor=\"$color[4]\" width=\"50%\">&nbsp;</td>";
         }
-        
+
         echo          '</tr>' .
                       '<tr>' .
                          "<td valign=top bgcolor=\"$color[0]\">" .
@@ -295,10 +299,7 @@
             echo "<td valign=top bgcolor=\"$color[4]\">&nbsp;</td>";
         }
         
-        echo          '</tr>' .
-                   '</table>' .
-                '</td></tr>' .
-             "</table>\n";
+        echo          "</tr>\n";
     }
 
 ?>
