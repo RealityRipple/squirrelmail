@@ -64,7 +64,7 @@ switch ($action) {
         break;
 }
 
-global $spamcop_enabled, $spamcop_delete;
+global $spamcop_enabled, $spamcop_delete, $spamcop_quick_report;
 spamcop_load();
 
 ?>
@@ -97,12 +97,14 @@ spamcop_load();
 	  <form method="post" action="options.php">
 	  <td>
 	    <select name="meth">
-	      <option value="quick_email"
 		<?php
-	          if ($spamcop_method == 'quick_email') echo ' selected';
-	          echo ">"._("Quick email-based reporting");
-		?>
-	      </option>
+		    if ($spamcop_quick_report) {
+			echo '<option value="quick_email"';
+    	    		if ($spamcop_method == 'quick_email') echo ' selected';
+			echo ">"._("Quick email-based reporting");
+			echo '</option>';
+		    }
+	        ?>
 	      <option value="thorough_email"
 		<?php
 	    	  if ($spamcop_method == 'thorough_email') echo ' selected';
@@ -153,9 +155,11 @@ echo "<p><b>" . _("Email-based Reporting") . "</b><br />";
 echo _("Pressing the button forwards the message to the SpamCop service and will optionally delete the message.  From there, you just need to go to your INBOX and quite soon a message should appear from SpamCop.  (It gets sent to the account you registered with, so make sure that your mail forwarder works!) Open it up, click on the appropriate link at the top, and a new browser window will open.");
 echo "</p>";
 
+if ($spamcop_quick_report) {
 echo "<p>";
 echo _("Currently, the quick reporting just forwards the request to the thorough reporting.  Also, it appears that this is for members (non-free) only. Hopefully this will change soon.");
 echo "</p>\n";
+}
 
 echo "<p><b>" . _("Web-based Reporting") . "</b><br />";
 echo _("When you press the button on the confirmation page, this will pop open a new browser window and the SpamCop service should appear inside. The message will not be deleted (working on that part), but you won't need to wait for a response email to start the spam reporting.");

@@ -13,6 +13,8 @@
 /** @ignore */
 require_once(SM_PATH . 'functions/global.php');
 
+/** Disable Quick Reporting by default */
+$spamcop_quick_report = false;
 
 /** Initialize the plugin */
 function squirrelmail_plugin_init_spamcop() {
@@ -39,18 +41,25 @@ function squirrelmail_plugin_init_spamcop() {
 // Validate some of it (make '' into 'default', etc.)
 function spamcop_load() {
    global $username, $data_dir, $spamcop_enabled, $spamcop_delete,
-      $spamcop_method, $spamcop_id;
+      $spamcop_method, $spamcop_id, $spamcop_quick_report;
 
    $spamcop_enabled = getPref($data_dir, $username, 'spamcop_enabled');
    $spamcop_delete = getPref($data_dir, $username, 'spamcop_delete');
    $spamcop_method = getPref($data_dir, $username, 'spamcop_method');
    $spamcop_id = getPref($data_dir, $username, 'spamcop_id');
-   if ($spamcop_method == '') {
-      if (getPref($data_dir, $username, 'spamcop_form'))
-         $spamcop_method = 'web_form';
-      else
-         $spamcop_method = 'thorough_email';
-      setPref($data_dir, $username, 'spamcop_method', $spamcop_method);
+    if ($spamcop_method == '') {
+// This variable is not used
+//      if (getPref($data_dir, $username, 'spamcop_form'))
+//         $spamcop_method = 'web_form';
+//      else
+
+// Default to web_form. It is faster.
+	$spamcop_method = 'web_form';
+	setPref($data_dir, $username, 'spamcop_method', $spamcop_method);
+    }
+   if (! $spamcop_quick_report && $spamcop_method=='quick_email') {
+	$spamcop_method = 'web_form';
+	setPref($data_dir, $username, 'spamcop_method', $spamcop_method);
    }
    if ($spamcop_id == '')
       $spamcop_enabled = 0;
@@ -59,7 +68,7 @@ function spamcop_load() {
 
 // Show the link on the read-a-message screen
 function spamcop_show_link() {
-   global $spamcop_enabled, $spamcop_method;
+   global $spamcop_enabled, $spamcop_method, $spamcop_quick_report;
 
    if (! $spamcop_enabled)
       return;
@@ -71,6 +80,15 @@ function spamcop_show_link() {
    /* END GLOBALS */
 
    echo "<br>\n";
+
+    /* 
+       Catch situation when user use quick_email and does not update 
+       preferences. User gets web_form link. If prefs are set to 
+       quick_email format - they will be updated after clicking the link
+     */
+    if (! $spamcop_quick_report && $spamcop_method=='quick_email') {
+	$spamcop_method = 'web_form';
+    }
    
    if ($spamcop_method == 'web_form') {
 ?><script language="javascript" type="text/javascript">
