@@ -1,18 +1,18 @@
-# Romanian Squirrelmail Translation 
+# Romanian Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Mircea Ilie <mirceax@tep.ro>, 2001
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2001-12-12 10:21+0100\n"
-"PO-Revision-Date: 2001-09-26 15:17+EEST\n"
-"Last-Translator: Mircea Ilie <mirceax@tep.ro>\n"
+"PO-Revision-Date: 2002-05-22 16:57+0300\n"
+"Last-Translator: Manic Miner <helminthe@slayerized.com>\n"
 "Language-Team: Romanian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 0.9.6\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
@@ -103,11 +103,11 @@ msgstr "Închide fereastra"
 
 #: squirrelmail/src/addressbook.php:66 squirrelmail/src/addressbook.php:316
 msgid "Nickname"
-msgstr "Poreclã"
+msgstr "Pseudonim"
 
 #: squirrelmail/src/addressbook.php:67
 msgid "Must be unique"
-msgstr "trebuie sã fie unicã"
+msgstr "trebuie sã fie unic"
 
 #: squirrelmail/src/addressbook.php:68
 msgid "E-mail address"
@@ -136,7 +136,7 @@ msgstr "Nu puteþi modifica decît o adresã la un moment dat"
 #: squirrelmail/src/addressbook.php:193 squirrelmail/src/addressbook.php:196
 #: squirrelmail/src/addressbook.php:225 squirrelmail/src/addressbook.php:228
 msgid "Update address"
-msgstr "Modificã o adresã"
+msgstr "Modificã adresa"
 
 #: squirrelmail/functions/display_messages.php:20
 #: squirrelmail/functions/display_messages.php:71
@@ -155,11 +155,11 @@ msgstr "Adaugã o adresã"
 
 #: squirrelmail/src/addressbook.php:297 squirrelmail/src/addressbook.php:355
 msgid "Edit selected"
-msgstr "Modificã textul selectat"
+msgstr "Modificã adresa selectatã"
 
 #: squirrelmail/src/addressbook.php:299 squirrelmail/src/addressbook.php:357
 msgid "Delete selected"
-msgstr "ªterge textul selectat"
+msgstr "ªterge adresele selectate"
 
 #: squirrelmail/src/addressbook.php:368
 #, c-format
@@ -244,26 +244,24 @@ msgid "Addresses"
 msgstr "Adrese"
 
 #: squirrelmail/src/compose.php:413
-#, fuzzy
 msgid "Save Draft"
-msgstr "Salveazã / Modificã"
+msgstr "Salveazã ciorna"
 
 #: squirrelmail/src/compose.php:419 squirrelmail/src/read_body.php:598
 msgid "Priority"
-msgstr ""
+msgstr "Prioritate"
 
 #: squirrelmail/src/compose.php:420 squirrelmail/src/read_body.php:433
-#, fuzzy
 msgid "High"
-msgstr "Dreapta"
+msgstr "Mare"
 
 #: squirrelmail/src/compose.php:421 squirrelmail/src/read_body.php:436
 msgid "Normal"
-msgstr ""
+msgstr "Normalã"
 
 #: squirrelmail/src/compose.php:422 squirrelmail/src/read_body.php:440
 msgid "Low"
-msgstr ""
+msgstr "Micã"
 
 #: squirrelmail/src/compose.php:441
 msgid "You have not filled in the \"To:\" field."
@@ -271,12 +269,12 @@ msgstr "Nu aþi completat cîmpul \"Cãtre:\"."
 
 #: squirrelmail/src/compose.php:482
 msgid "Draft Email Saved"
-msgstr ""
+msgstr "Mesaj salvat"
 
 #: squirrelmail/src/compose.php:553 squirrelmail/src/compose.php:590
 #: squirrelmail/src/compose.php:597
 msgid "Could not move/copy file. File not attached"
-msgstr "Nu pot muta/copia fiºierul. Fiºierul nu e anexat."
+msgstr "Nu pot muta/copia fiºierul. Fiºierul nu a fost anexat."
 
 #: squirrelmail/src/compose.php:659
 msgid "said"
@@ -284,15 +282,15 @@ msgstr "a scris"
 
 #: squirrelmail/src/compose.php:662
 msgid "quote"
-msgstr "citez"
+msgstr "quote"
 
 #: squirrelmail/src/compose.php:662
 msgid "who"
-msgstr "cine"
+msgstr "who"
 
 #: squirrelmail/src/download.php:49
 msgid "Viewing a text attachment"
-msgstr "Afiºez o anexã text"
+msgstr "Afiºez textul anexat"
 
 #: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
 #: squirrelmail/src/image.php:47 squirrelmail/src/image.php:51
@@ -315,7 +313,7 @@ msgstr "Datã"
 
 #: squirrelmail/src/folders_create.php:41
 msgid "Illegal folder name.  Please select a different name."
-msgstr "Nume de dosar nepermis. Alegeþi un alt nume."
+msgstr "Nume de director nepermis. Alegeþi un alt nume."
 
 #: squirrelmail/src/folders_create.php:41
 msgid "Click here to go back"
@@ -324,35 +322,35 @@ msgstr "Apãsaþi aici pentru a reveni"
 #: squirrelmail/functions/page_header.php:84 squirrelmail/src/folders.php:45
 #: squirrelmail/src/left_main.php:261
 msgid "Folders"
-msgstr "Dosare"
+msgstr "Directoare"
 
 #: squirrelmail/src/folders.php:58
 msgid "Subscribed successfully!"
-msgstr "Abonare reuºitã!"
+msgstr "Selectare reuºitã!"
 
 #: squirrelmail/src/folders.php:60
 msgid "Unsubscribed successfully!"
-msgstr "Dezabonare reuºitã!"
+msgstr "Deselectare reuºitã!"
 
 #: squirrelmail/src/folders.php:62
 msgid "Deleted folder successfully!"
-msgstr "Dosarul a fost ºters!"
+msgstr "Directorul a fost ºters!"
 
 #: squirrelmail/src/folders.php:64
 msgid "Created folder successfully!"
-msgstr "Dosarul a fost creat!"
+msgstr "Directorul a fost creat!"
 
 #: squirrelmail/src/folders.php:66
 msgid "Renamed successfully!"
-msgstr "Dosarul a fost redenumit!"
+msgstr "Directorul a fost redenumit!"
 
 #: squirrelmail/src/folders.php:69 squirrelmail/src/left_main.php:300
 msgid "refresh folder list"
-msgstr "împrospãteazã lista dosarelor"
+msgstr "Actualizeazã lista directoarelor"
 
 #: squirrelmail/src/folders.php:79
 msgid "Delete Folder"
-msgstr "ªterge dosarul"
+msgstr "ªterge directorul"
 
 #: squirrelmail/functions/mailbox_display.php:521
 #: squirrelmail/plugins/filters/options.php:152
@@ -366,15 +364,15 @@ msgstr "ªterge"
 
 #: squirrelmail/src/folders.php:129 squirrelmail/src/folders.php:205
 msgid "No folders found"
-msgstr "Nu am gãsit nici un dosar"
+msgstr "Nu am gãsit nici un director"
 
 #: squirrelmail/src/folders.php:136
 msgid "Create Folder"
-msgstr "Creeazã dosarul"
+msgstr "Creeazã directorul"
 
 #: squirrelmail/src/folders.php:141
 msgid "as a subfolder of"
-msgstr "ca un sub-dosar al lui"
+msgstr "ca un subdirector al"
 
 #: squirrelmail/src/folders.php:146 squirrelmail/src/folders.php:148
 msgid "None"
@@ -382,7 +380,7 @@ msgstr "Nici unul"
 
 #: squirrelmail/src/folders.php:169
 msgid "Let this folder contain subfolders"
-msgstr "Permite acestui dosar sã conþinã sub-dosare"
+msgstr "Permite acestui director sã conþinã subdirectoare"
 
 #: squirrelmail/src/folders.php:172
 msgid "Create"
@@ -390,7 +388,7 @@ msgstr "Creeazã"
 
 #: squirrelmail/src/folders.php:179
 msgid "Rename a Folder"
-msgstr "Redenumeºte un dosar"
+msgstr "Redenumeºte un director"
 
 #: squirrelmail/src/folders.php:201
 msgid "Rename"
@@ -398,23 +396,23 @@ msgstr "Redenumeºte"
 
 #: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:234
 msgid "Unsubscribe"
-msgstr "Dezaboneazã-mã"
+msgstr "Eliminã"
 
 #: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:275
 msgid "Subscribe"
-msgstr "Aboneazã-mã"
+msgstr "Adaugã"
 
 #: squirrelmail/src/folders.php:238
 msgid "No folders were found to unsubscribe from!"
-msgstr "Nu am gãsit nici un dosar pentru dezabonare!"
+msgstr "Nu am gãsit nici un director pentru eliminare!"
 
 #: squirrelmail/src/folders.php:278
 msgid "No folders were found to subscribe to!"
-msgstr "Nu am gãsit nici un dosar pentru abonare!"
+msgstr "Nu am gãsit nici un director pentru adãugare!"
 
 #: squirrelmail/src/folders_rename_getname.php:53
 msgid "Rename a folder"
-msgstr "Redenumeºte un dosar"
+msgstr "Redenumeºte un director"
 
 #: squirrelmail/src/folders_rename_getname.php:57
 msgid "New name:"
@@ -438,7 +436,7 @@ msgstr "Ajutor"
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
-msgstr "Acest ajutor nu a fost tradus în românã. Va fi afiºat în englezã."
+msgstr "Acest ajutor nu a fost tradus în %s. Va fi afiºat în englezã."
 
 #: squirrelmail/src/help.php:137
 msgid "Some or all of the help documents are not present!"
@@ -469,18 +467,16 @@ msgid "Top"
 msgstr "Mergi în vîrful paginii"
 
 #: squirrelmail/src/image.php:42
-#, fuzzy
 msgid "Viewing an image attachment"
-msgstr "Afiºez o anexã text"
+msgstr "Afiºez o anexa de tip imagine"
 
 #: squirrelmail/src/left_main.php:115
-#, fuzzy
 msgid "empty"
-msgstr "Rãspunde"
+msgstr "Goleºte"
 
 #: squirrelmail/src/left_main.php:294
 msgid "Last Refresh"
-msgstr ""
+msgstr "Ultima actualizare"
 
 #: squirrelmail/src/login.php:105 squirrelmail/src/login.php:157
 msgid "Login"
@@ -493,7 +489,7 @@ msgstr "SquirrelMail versiunea %s"
 
 #: squirrelmail/src/login.php:129
 msgid "By the SquirrelMail Development Team"
-msgstr "de SquirrelMail Development Team"
+msgstr "realizat de SquirrelMail Development Team"
 
 #: squirrelmail/src/login.php:135
 #, c-format
@@ -518,7 +514,7 @@ msgstr "Nu aþi selectat nici un mesaj."
 
 #: squirrelmail/src/options_display.php:32
 msgid "General Display Options"
-msgstr ""
+msgstr "Opþiuni generale de afiºare"
 
 #: squirrelmail/src/options_display.php:42
 msgid "Theme"
@@ -529,17 +525,16 @@ msgid "Language"
 msgstr "Limba"
 
 #: squirrelmail/src/options_display.php:66
-#, fuzzy
 msgid "Use Javascript"
-msgstr "JavaScript"
+msgstr "Utilizeaza JavaScript"
 
 #: squirrelmail/src/options_display.php:69
 msgid "Autodetect"
-msgstr ""
+msgstr "Autodetect"
 
 #: squirrelmail/src/options_display.php:70
 msgid "Always"
-msgstr ""
+msgstr "Întotdeauna"
 
 #: squirrelmail/src/options_display.php:71
 #: squirrelmail/src/options_folder.php:122
@@ -548,7 +543,7 @@ msgstr "Niciodatã"
 
 #: squirrelmail/src/options_display.php:89
 msgid "Mailbox Display Options"
-msgstr ""
+msgstr "Opþiuni de afiºare a mesajelor"
 
 #: squirrelmail/src/options_display.php:94
 msgid "Number of Messages to Index"
@@ -561,26 +556,23 @@ msgstr "Sã folosesc alternanþa culorilor la afiºarea rîndurilor?"
 
 #: squirrelmail/src/options_display.php:109
 msgid "Enable Page Selector"
-msgstr ""
+msgstr "Afiºeazã lista paginilor"
 
 #: squirrelmail/src/options_display.php:116
-#, fuzzy
 msgid "Maximum Number of Pages to Show"
-msgstr "Numãrul de mesaje de indexat"
+msgstr "Numãrul de pagini de indexat"
 
 #: squirrelmail/src/options_display.php:123
 msgid "Message Display and Composition"
-msgstr ""
+msgstr "Afiºarea ºi compunerea mesajelor"
 
 #: squirrelmail/src/options_display.php:128
-#, fuzzy
 msgid "Wrap Incoming Text At"
-msgstr "Aranjeazã textul pe (caractere)"
+msgstr "Afiºeazã maxim (caractere) pe linie"
 
 #: squirrelmail/src/options_display.php:136
-#, fuzzy
 msgid "Size of Editor Window"
-msgstr "Dimensiunea ferestrei de modificare (în caractere)"
+msgstr "Dimensiunea ferestrei de editare (în caractere)"
 
 #: squirrelmail/src/options_display.php:144
 #, fuzzy
@@ -600,9 +592,8 @@ msgid "After message body"
 msgstr "Dupã corpul mesajului"
 
 #: squirrelmail/src/options_display.php:154
-#, fuzzy
 msgid "Addressbook Display Format"
-msgstr "Nu se poate scrie în agendã"
+msgstr "Formatul folosit pentru afiºarea agendei"
 
 #: squirrelmail/src/options_display.php:157
 #, fuzzy
@@ -614,74 +605,68 @@ msgid "HTML"
 msgstr "HTML"
 
 #: squirrelmail/src/options_display.php:163
-#, fuzzy
 msgid "Show HTML Version by Default"
-msgstr "Sã afiºez implicit versiunea HTML a mesjaelor?"
+msgstr "Sã afiºez implicit versiunea HTML a mesajelor?"
 
 #: squirrelmail/src/options_display.php:170
 msgid "Include Me in CC when I Reply All"
-msgstr ""
+msgstr "Include adresa proprie in cimpul CC dacã se rãspunde tuturor"
 
 #: squirrelmail/src/options_display.php:177
 msgid "Enable Mailer Display"
-msgstr ""
+msgstr "Afiºeazã clientul de mail folosit"
 
 #: squirrelmail/src/options_display.php:184
 msgid "Display Attached Images with Message"
-msgstr ""
+msgstr "Afiºeazã imaginile anexate mesajului"
 
 #: squirrelmail/src/options_display.php:191
 msgid "Enable Subtle Printer Friendly Link"
-msgstr ""
+msgstr "Afiºeazã link-ul pentru format imprimabil"
 
 #: squirrelmail/src/options_display.php:198
 msgid "Enable Printer Friendly Clean Display"
-msgstr ""
+msgstr "Afiºeazã mesajele intr-un format imprimabil"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
-msgstr ""
+msgstr "Opþiuni pentru directoarele sistem"
 
 #: squirrelmail/src/options_folder.php:47
 msgid "Folder Path"
-msgstr "Calea spre dosare"
+msgstr "Calea spre directoare"
 
 #: squirrelmail/src/options_folder.php:63
 msgid "Do not use Trash"
-msgstr "Nu folosi dosarul Gunoi"
+msgstr "Nu folosi directorul Trash"
 
 #: squirrelmail/src/options_folder.php:67
-#, fuzzy
 msgid "Trash Folder"
-msgstr "Dosarul Gunoi:"
+msgstr "Directorul pt. mesaje ºterse"
 
 #: squirrelmail/src/options_folder.php:74
 msgid "Do not use Sent"
-msgstr "Nu folosi dosarul Trimise"
+msgstr "Nu salva mesajele trimise"
 
 #: squirrelmail/src/options_folder.php:78
-#, fuzzy
 msgid "Sent Folder"
-msgstr "Dosarul Trimise:"
+msgstr "Director pentru mesajele trimise"
 
 #: squirrelmail/src/options_folder.php:85
-#, fuzzy
 msgid "Do not use Drafts"
-msgstr "Nu folosi dosarul Gunoi"
+msgstr "Nu salva mesajele neexpediate"
 
 #: squirrelmail/src/options_folder.php:89
-#, fuzzy
 msgid "Draft Folder"
-msgstr "Creeazã dosarul"
+msgstr "Director pentru mesaje neexpediate"
 
 #: squirrelmail/src/options_folder.php:97
 msgid "Folder List Options"
-msgstr ""
+msgstr "Opþiuni de afiºare a directoarelor"
 
 #: squirrelmail/src/options_folder.php:102
-#, fuzzy
 msgid "Location of Folder List"
-msgstr "Locul listei dosarelor"
+msgstr "Locaþia listei directoarelor"
 
 #: squirrelmail/src/options_folder.php:105
 msgid "Left"
@@ -693,12 +678,11 @@ msgstr "Dreapta"
 
 #: squirrelmail/src/options_folder.php:111
 msgid "pixels"
-msgstr ""
+msgstr "pixeli"
 
 #: squirrelmail/src/options_folder.php:115
-#, fuzzy
 msgid "Width of Folder List"
-msgstr "Lãþimea listei dosarelor"
+msgstr "Lãþimea listei directoarelor"
 
 #: squirrelmail/src/options_folder.php:121
 msgid "Minutes"
@@ -713,27 +697,24 @@ msgid "Minute"
 msgstr "minut"
 
 #: squirrelmail/src/options_folder.php:134
-#, fuzzy
 msgid "Auto Refresh Folder List"
-msgstr "Împrospãteazã lista dosarelor"
+msgstr "Actualizeazã lista directoarelor"
 
 #: squirrelmail/src/options_folder.php:142
-#, fuzzy
 msgid "Enable Unread Message Notification"
-msgstr "Înºtiinþare pentru mesaje necitite"
+msgstr "Notificare mesaje necitite"
 
 #: squirrelmail/src/options_folder.php:145
-#, fuzzy
 msgid "No Notification"
-msgstr "Fãrã înºtiinþare"
+msgstr "Fãrã notificare"
 
 #: squirrelmail/src/options_folder.php:146
 msgid "Only INBOX"
-msgstr "Numai PRIMITE"
+msgstr "Numai în INBOX"
 
 #: squirrelmail/src/options_folder.php:147
 msgid "All Folders"
-msgstr "Toate dosarele"
+msgstr "În toate subdirectoarele"
 
 #: squirrelmail/src/options_folder.php:152
 #, fuzzy
@@ -750,29 +731,28 @@ msgid "Unseen and Total"
 msgstr "Necitite ºi total"
 
 #: squirrelmail/src/options_folder.php:161
-#, fuzzy
 msgid "Enable Collapsable Folders"
-msgstr "Activeazã dosarele armonicã"
+msgstr "Se poate comuta afiºarea subdirectoarelor"
 
 #: squirrelmail/src/options_folder.php:168
 msgid "Show Clock on Folders Panel"
-msgstr ""
+msgstr "Afiºeazã ora in lista directoarelor"
 
 #: squirrelmail/src/options_folder.php:176
 msgid "No Clock"
-msgstr ""
+msgstr "Fãrã ceas"
 
 #: squirrelmail/src/options_folder.php:181
 msgid "Hour Format"
-msgstr ""
+msgstr "Format orã"
 
 #: squirrelmail/src/options_folder.php:184
 msgid "12-hour clock"
-msgstr ""
+msgstr "1:00 pm"
 
 #: squirrelmail/src/options_folder.php:185
 msgid "24-hour clock"
-msgstr ""
+msgstr "13:00"
 
 #: squirrelmail/functions/page_header.php:86
 #: squirrelmail/plugins/filters/options.php:60
@@ -877,7 +857,7 @@ msgstr "alb"
 
 #: squirrelmail/src/options_highlight.php:287
 msgid "Other:"
-msgstr "Altceva:"
+msgstr "Alta:"
 
 #: squirrelmail/src/options_highlight.php:289
 msgid "Ex: 63aa7f"
@@ -886,16 +866,16 @@ msgstr "Ex: 63aa7f"
 #: squirrelmail/plugins/filters/options.php:89
 #: squirrelmail/src/options_highlight.php:323 squirrelmail/src/search.php:86
 msgid "Cc"
-msgstr "Cc"
+msgstr "CC"
 
 #: squirrelmail/plugins/filters/options.php:92
 #: squirrelmail/src/options_highlight.php:326
 msgid "To or Cc"
-msgstr ""
+msgstr "Cãtre sau CC"
 
 #: squirrelmail/src/options_highlight.php:331
 msgid "Matches"
-msgstr "Unde"
+msgstr "include"
 
 #: squirrelmail/src/options_identities.php:58
 msgid "Advanced Identities"
@@ -926,7 +906,7 @@ msgstr "Adresa de e-mail"
 #: squirrelmail/src/options_identities.php:308
 #: squirrelmail/src/options_personal.php:65
 msgid "Reply To"
-msgstr "Rãspuns cãtre"
+msgstr "Adresa de rãspuns"
 
 #: squirrelmail/src/options_identities.php:315
 msgid "Save / Update"
@@ -951,7 +931,7 @@ msgstr "cãsuþa"
 
 #: squirrelmail/src/options_order.php:60
 msgid "Flags"
-msgstr "Fanioane"
+msgstr "Atribute mesaj"
 
 #: squirrelmail/functions/mailbox_display.php:571
 #: squirrelmail/src/options_order.php:61
@@ -985,7 +965,7 @@ msgstr "Întoarce-te la pagina de opþiuni"
 
 #: squirrelmail/src/options_personal.php:41
 msgid "Name and Address Options"
-msgstr ""
+msgstr "Opþiuni nume / adresã"
 
 #: squirrelmail/src/options_personal.php:57
 #, fuzzy
@@ -1030,14 +1010,12 @@ msgid "User-Defined"
 msgstr "Definitã de utilizator"
 
 #: squirrelmail/src/options_personal.php:100
-#, fuzzy
 msgid "User-Defined Citation Start"
-msgstr "Citare la rãspuns definitã de utilizator"
+msgstr "Început citare definitã de utilizator"
 
 #: squirrelmail/src/options_personal.php:108
-#, fuzzy
 msgid "User-Defined Citation End"
-msgstr "Citare la rãspuns definitã de utilizator"
+msgstr "Sfîrºit citare definitã de utilizator"
 
 #: squirrelmail/src/options_personal.php:115
 #, fuzzy
@@ -1068,7 +1046,7 @@ msgstr "Preferinþe de afiºare"
 
 #: squirrelmail/src/options.php:115 squirrelmail/src/options.php:265
 msgid "Folder Preferences"
-msgstr "Preferinþe referitoare la dosare"
+msgstr "Preferinþe referitoare la directoare"
 
 #: squirrelmail/src/options.php:225
 #, fuzzy
@@ -1077,26 +1055,24 @@ msgstr "Am salvat informaþiile personale!"
 
 #: squirrelmail/src/options.php:229
 msgid "Refresh Folder List"
-msgstr "Împrospãteazã lista dosarelor"
+msgstr "Actualizeazã lista directoarelor"
 
 #: squirrelmail/src/options.php:231
 msgid "Refresh Page"
-msgstr "Împrospãteazã pagina"
+msgstr "Actualizeazã pagina"
 
 #: squirrelmail/src/options.php:243
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr ""
-"Aici sînt informaþii presonale despre dumneavoastrã, cum ar fi numele, "
+msgstr "Aici sînt informaþii personale despre dumneavoastrã, cum ar fi numele, "
 "adresa de e-mail etc"
 
 #: squirrelmail/src/options.php:251
 msgid ""
 "You can change the way that SquirrelMail looks and displays information to "
 "you, such as the colors, the language, and other settings."
-msgstr ""
-"Puteþi schimba felul în care SquirrelMail aratã ºi afiºeazã informaþia "
+msgstr "Puteþi schimba felul în care SquirrelMail aratã ºi afiºeazã informaþia "
 "(culori, limbã ºi altele)"
 
 #: squirrelmail/src/options.php:259
@@ -1104,29 +1080,25 @@ msgid ""
 "Based upon given criteria, incoming messages can have different background "
 "colors in the message list.  This helps to easily distinguish who the "
 "messages are from, especially for mailing lists."
-msgstr ""
-"În funcþie de criteriile date, mesajele sosite pot avea fundalul colorat "
+msgstr "În funcþie de criteriile date, mesajele sosite pot avea fundalul colorat "
 "diferit în listã. Aceasta ajutã la identificarea expeditorului, în special "
 "în cazul listelor de distribuþie."
 
 #: squirrelmail/src/options.php:267
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-"Aceste opþiuni schimbã felul în care sînt afiºate ºi manipulate dosarele"
+msgid "These settings change the way your folders are displayed and manipulated."
+msgstr "Aceste opþiuni schimbã felul în care sînt afiºate ºi manipulate directoarele"
 
 #: squirrelmail/src/options.php:275
 msgid ""
 "The order of the message index can be rearanged and changed to contain the "
 "headers in any order you want."
-msgstr ""
-"Indexul poate fi modificat pentru a conþine cîmpurile în ordinea doritã."
+msgstr "Indexul poate fi modificat pentru a conþine cîmpurile în ordinea doritã."
 
 #: squirrelmail/src/printer_friendly_bottom.php:86
 #: squirrelmail/src/printer_friendly_main.php:31
 #: squirrelmail/src/printer_friendly_top.php:37
 msgid "Printer Friendly"
-msgstr ""
+msgstr "Format tipãribil"
 
 #: squirrelmail/src/printer_friendly_bottom.php:94
 #, fuzzy
@@ -1135,7 +1107,7 @@ msgstr "CC:"
 
 #: squirrelmail/src/printer_friendly_top.php:52
 msgid "Print"
-msgstr ""
+msgstr "Tipãreºte" 
 
 #: squirrelmail/src/printer_friendly_top.php:53
 #, fuzzy
@@ -1149,7 +1121,7 @@ msgstr "Afiºez antetul în întregime"
 
 #: squirrelmail/src/read_body.php:180
 msgid "View Printable Version"
-msgstr ""
+msgstr "Afiºare în format tipãribil"
 
 #: squirrelmail/src/read_body.php:314
 msgid "more"
@@ -1165,7 +1137,7 @@ msgstr "Lista mesajelor"
 
 #: squirrelmail/src/read_body.php:472
 msgid "Resume Draft"
-msgstr ""
+msgstr "Editeazã mesajul"
 
 #: squirrelmail/src/read_body.php:507
 msgid "Forward"
@@ -1190,7 +1162,7 @@ msgstr "Data:"
 
 #: squirrelmail/src/read_body.php:615
 msgid "Mailer"
-msgstr ""
+msgstr "Client de mail"
 
 #: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
 #: squirrelmail/src/redirect.php:85
@@ -1203,7 +1175,7 @@ msgstr "Mergeþi la pagina de conectare"
 
 #: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
 msgid "There was an error contacting the mail server."
-msgstr "Eroare la legãtura cu serverul de e-mail."
+msgstr "Eroare la conexiunea cu serverul de e-mail."
 
 #: squirrelmail/src/redirect.php:111
 msgid "Contact your administrator for help."
@@ -1230,14 +1202,12 @@ msgid "Click here to log back in."
 msgstr "Faceþi clic aici ca sã vã reconectaþi"
 
 #: squirrelmail/src/vcard.php:46
-#, fuzzy
 msgid "Viewing a Business Card"
-msgstr "Afiºez mesajul"
+msgstr "Afiºez informaþiile personale ataºate"
 
 #: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
-#, fuzzy
 msgid "Title"
-msgstr "alb"
+msgstr "Titlu"
 
 #: squirrelmail/src/vcard.php:109
 #, fuzzy
@@ -1245,13 +1215,12 @@ msgid "Email"
 msgstr "E-mail"
 
 #: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
-#, fuzzy
 msgid "Web Page"
-msgstr "Împrospãteazã pagina"
+msgstr "Paginã web"
 
 #: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
 msgid "Organization / Department"
-msgstr ""
+msgstr "Organizaþie / Departament"
 
 #: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
 #, fuzzy
@@ -1260,33 +1229,31 @@ msgstr "Adrese"
 
 #: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
 msgid "Work Phone"
-msgstr ""
+msgstr "Telefon firmã"
 
 #: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
 msgid "Home Phone"
-msgstr ""
+msgstr "Telefon acasã"
 
 #: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
 msgid "Cellular Phone"
-msgstr ""
+msgstr "Telefon mobil"
 
 #: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
 msgid "Fax"
-msgstr ""
+msgstr "Fax"
 
 #: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
-#, fuzzy
 msgid "Note"
-msgstr "Nici unul"
+msgstr "Note"
 
 #: squirrelmail/src/vcard.php:149
-#, fuzzy
 msgid "Add to Addressbook"
-msgstr "Adaugã o adresã"
+msgstr "Adaugã în agendã"
 
 #: squirrelmail/src/vcard.php:176
 msgid "Title & Org. / Dept."
-msgstr ""
+msgstr "Titlu & Org. / Dept."
 
 #: squirrelmail/functions/abook_database.php:50
 #: squirrelmail/functions/abook_local_file.php:53
@@ -1400,116 +1367,110 @@ msgstr "Lipseºte adresa de e-mail"
 
 #: squirrelmail/functions/addressbook.php:331
 #: squirrelmail/functions/addressbook.php:409
-#, fuzzy
 msgid "Nickname contains illegal characters"
-msgstr "Porecla conþine caractere nepermise"
+msgstr "Pseudonimul conþine caractere nepermise"
 
 #: squirrelmail/functions/attachment_common.php:116
 #: squirrelmail/functions/attachment_common.php:140
 #: squirrelmail/functions/attachment_common.php:164
 msgid "view"
-msgstr ""
+msgstr "vizualizare"
 
 #: squirrelmail/functions/attachment_common.php:180
 msgid "Business Card"
-msgstr ""
+msgstr "Informaþii personale"
 
 #: squirrelmail/functions/date.php:101
-#, fuzzy
 msgid "Sunday"
-msgstr "Trimite"
+msgstr "Duminicã"
 
 #: squirrelmail/functions/date.php:104
-#, fuzzy
 msgid "Monday"
-msgstr "Corp"
+msgstr "Luni"
 
 #: squirrelmail/functions/date.php:107
 msgid "Tuesday"
-msgstr ""
+msgstr "Marþi"
 
 #: squirrelmail/functions/date.php:110
 msgid "Wednesday"
-msgstr ""
+msgstr "Miercuri"
 
 #: squirrelmail/functions/date.php:113
 msgid "Thursday"
-msgstr ""
+msgstr "Joi"
 
 #: squirrelmail/functions/date.php:116
 msgid "Friday"
-msgstr ""
+msgstr "Vineri"
 
 #: squirrelmail/functions/date.php:119
 msgid "Saturday"
-msgstr ""
+msgstr "Sîmbãtã"
 
 #: squirrelmail/functions/date.php:130
 msgid "January"
-msgstr ""
+msgstr "Ianuarie"
 
 #: squirrelmail/functions/date.php:133
 msgid "February"
-msgstr ""
+msgstr "Februarie"
 
 #: squirrelmail/functions/date.php:136
-#, fuzzy
 msgid "March"
-msgstr "Cautã"
+msgstr "Martie"
 
 #: squirrelmail/functions/date.php:139
 msgid "April"
-msgstr ""
+msgstr "Aprilie"
 
 #: squirrelmail/functions/date.php:142
 msgid "May"
-msgstr ""
+msgstr "Mai"
 
 #: squirrelmail/functions/date.php:145
 msgid "June"
-msgstr ""
+msgstr "Iunie"
 
 #: squirrelmail/functions/date.php:148
 msgid "July"
-msgstr ""
+msgstr "Iulie"
 
 #: squirrelmail/functions/date.php:151
 msgid "August"
-msgstr ""
+msgstr "August"
 
 #: squirrelmail/functions/date.php:154
 msgid "September"
-msgstr ""
+msgstr "Septembrie"
 
 #: squirrelmail/functions/date.php:157
-#, fuzzy
 msgid "October"
-msgstr "Altceva:"
+msgstr "Octombrie"
 
 #: squirrelmail/functions/date.php:160
-#, fuzzy
 msgid "November"
-msgstr "Niciodatã"
+msgstr "Noiembrie"
 
 #: squirrelmail/functions/date.php:163
 msgid "December"
-msgstr ""
+msgstr "Decembrie"
 
 #: squirrelmail/functions/date.php:185
 msgid "D, F j, Y g:i a"
-msgstr ""
+msgstr "D, F j, Y g:i a"
 
 #: squirrelmail/functions/date.php:202
 msgid "g:i a"
-msgstr ""
+msgstr "g:i a"
 
 #: squirrelmail/functions/date.php:205
 msgid "D, g:i a"
-msgstr ""
+msgstr "D, g:i a"
 
 #: squirrelmail/functions/date.php:208
 msgid "M j, Y"
-msgstr ""
+msgstr "M j, Y"
 
 #: squirrelmail/functions/db_prefs.php:82
 #: squirrelmail/functions/db_prefs.php:85
@@ -1530,12 +1491,12 @@ msgstr "Apãsaþi aici pentru a încerca din nou"
 #: squirrelmail/functions/display_messages.php:39
 #, c-format
 msgid "Welcome to %s's WebMail system"
-msgstr "Bine aþi venit la sistemul WebMail al %s"
+msgstr "Bine aþi venit în sistemul WebMail al %s"
 
 #: squirrelmail/functions/display_messages.php:51
-#, fuzzy, c-format
+#, c-format
 msgid "Running SquirrelMail version %s (c) 1999-2001."
-msgstr "SquirrelMail versiunea %s (c) 1999-2000."
+msgstr "SquirrelMail versiunea %s (c) 1999-2002"
 
 #: squirrelmail/functions/display_messages.php:76
 #, c-format
@@ -1560,7 +1521,7 @@ msgstr "Motivul:"
 #: squirrelmail/functions/imap_general.php:128
 #: squirrelmail/plugins/filters/filters.php:97
 msgid "ERROR : Bad or malformed request."
-msgstr "EROARE: cerere incorectã sau malformatã."
+msgstr "EROARE: cerere incorectã sau parametri greºiþi"
 
 #: squirrelmail/functions/imap_general.php:130
 #: squirrelmail/plugins/filters/filters.php:99
@@ -1613,18 +1574,16 @@ msgid "Unknown Sender"
 msgstr "Expeditor necunoscut"
 
 #: squirrelmail/functions/imap_messages.php:233
-#, fuzzy
 msgid "No To Address"
-msgstr "Adrese"
+msgstr "Fãrã adresã destinatar"
 
 #: squirrelmail/functions/imap_messages.php:505
 msgid "(unknown sender)"
 msgstr "(expeditor necunoscut)"
 
 #: squirrelmail/functions/imap_search.php:79
-#, fuzzy
 msgid "No Messages Found"
-msgstr "Numãrul de mesaje de indexat"
+msgstr "Nu sînt mesaje"
 
 #: squirrelmail/functions/imap_search.php:163
 msgid "Found"
@@ -1636,7 +1595,7 @@ msgstr "mesaje"
 
 #: squirrelmail/functions/mailbox_display.php:410
 msgid "THIS FOLDER IS EMPTY"
-msgstr "ACEST DOSAR E GOL"
+msgstr "ACEST DIRECTOR E GOL"
 
 #: squirrelmail/functions/mailbox_display.php:494
 msgid "Move selected to:"
@@ -1644,7 +1603,7 @@ msgstr "Mutã mesajele selectate în:"
 
 #: squirrelmail/functions/mailbox_display.php:497
 msgid "Transform Selected Messages"
-msgstr ""
+msgstr "Transformã mesajele selectate"
 
 #: squirrelmail/functions/mailbox_display.php:513
 msgid "Move"
@@ -1652,20 +1611,19 @@ msgstr "Mutã"
 
 #: squirrelmail/functions/mailbox_display.php:517
 msgid "Expunge"
-msgstr "Expulzeazã"
+msgstr "ªterge de pe server"
 
 #: squirrelmail/functions/mailbox_display.php:517
 msgid "mailbox"
 msgstr "cãsuþa poºtalã"
 
 #: squirrelmail/functions/mailbox_display.php:519
-#, fuzzy
 msgid "Read"
-msgstr "Redenumeºte"
+msgstr "Citite"
 
 #: squirrelmail/functions/mailbox_display.php:520
 msgid "Unread"
-msgstr ""
+msgstr "Necitite"
 
 #: squirrelmail/functions/mailbox_display.php:616
 msgid "Toggle All"
@@ -1682,16 +1640,16 @@ msgstr "Selecteazã-le pe toate"
 #: squirrelmail/functions/mailbox_display.php:653
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
-msgstr ""
+msgstr "Afiºez mesajele de la: <B>%s</B> la <B>%s</B> (%s total)"
 
 #: squirrelmail/functions/mailbox_display.php:655
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
-msgstr ""
+msgstr "Afiºez mesajul: <B>%s</B> (1 total)"
 
 #: squirrelmail/functions/mailbox_display.php:843
 msgid "Show All"
-msgstr ""
+msgstr "Afiºeazã toate mesajele"
 
 #: squirrelmail/functions/mime.php:647
 msgid "Attachments"
@@ -1703,12 +1661,12 @@ msgstr "descarcã"
 
 #: squirrelmail/functions/mime.php:960
 msgid "Title:"
-msgstr ""
+msgstr "Titlu:"
 
 #: squirrelmail/functions/options.php:167
 #, c-format
 msgid "Option Type '%s' Not Found"
-msgstr ""
+msgstr "Opþiunea '%s' nu existã"
 
 #: squirrelmail/functions/options.php:253
 msgid "Yes"
@@ -1720,7 +1678,7 @@ msgstr "Nu"
 
 #: squirrelmail/functions/page_header.php:74
 msgid "Current Folder"
-msgstr "Dosarul curent"
+msgstr "Directorul curent"
 
 #: squirrelmail/functions/page_header.php:80
 msgid "Compose"
@@ -1744,6 +1702,8 @@ msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
 msgstr ""
+"COMERCIAL - Aceastã listã conþine servere care trimit mesaje comerciale nesolicitate. "
+"Este o listã destul de sigurã pentru filtrarea mesajelor."
 
 #: squirrelmail/plugins/filters/filters.php:367
 msgid ""
@@ -1751,6 +1711,8 @@ msgid ""
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
 msgstr ""
+"COMERCIAL - Servere incorect configurate, care permit trimiterea de mailuri fãrã a "
+"verifica expeditorul. De asemenea, o lista recomandatã."
 
 #: squirrelmail/plugins/filters/filters.php:375
 msgid ""
@@ -1758,28 +1720,32 @@ msgid ""
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
 "account and send spam directly from there."
 msgstr ""
+"COMERCIAL - Utilizatorii care folosesc conexiuni dial-up sînt adesea filtraþi "
+"deoarece ar trebui sa foloseascã serverul furnizorului. "
 
 #: squirrelmail/plugins/filters/filters.php:383
 msgid "COMMERCIAL - RBL+ Blackhole entries."
-msgstr ""
+msgstr "COMERCIAL - RBL + Blackhole"
 
 #: squirrelmail/plugins/filters/filters.php:391
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
-msgstr ""
+msgstr "COMERCIAL - RBL+OpenRelay"
 
 #: squirrelmail/plugins/filters/filters.php:399
 msgid "COMMERCIAL - RBL+ Dial-up entries."
-msgstr ""
+msgstr "COMERCIAL - RBL+Dial-up"
 
 #: squirrelmail/plugins/filters/filters.php:407
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
+"GRATUIT - Lista Osirusoft de servere care permit transmiterea de mailuri. Se pare "
+"cã include ºi lista de auto-respondere a abuse@uunet.net."
 
 #: squirrelmail/plugins/filters/filters.php:415
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
-msgstr ""
+msgstr "GRATUIT - Lista de adrese dial-up furnizatã de Osirusoft"
 
 #: squirrelmail/plugins/filters/filters.php:423
 msgid ""
@@ -1787,12 +1753,18 @@ msgid ""
 "have been manually added after multiple nominations. Use with caution. Seems "
 "to catch abuse auto-replies from some ISPs."
 msgstr ""
+"GRATUIT - adrese confirmate cã ar permite trimiterea de mailuri nedorite furnizatã de "
+"Osirusoft. Include adrese adãugate manual, dupã ce au fost nominalizate de mai "
+"multe ori. A se folosi cu grijã - pare sã includã si rãspunsuri automate de la unii "
+"provideri. "
 
 #: squirrelmail/plugins/filters/filters.php:431
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
 msgstr ""
+"GRATUIT - Lista Osirusoft de servere securizate, dar care permit retransmiterea de "
+"mesaje provenind din servere nesigure."
 
 #: squirrelmail/plugins/filters/filters.php:439
 msgid ""
@@ -1800,54 +1772,63 @@ msgid ""
 "ranges of companies that are known to produce spam software. Seems to catch "
 "abuse auto-replies from some ISPs."
 msgstr ""
+"GRATUIT - Lista Osirusoft de adrese ale unor producãtori de software folosit pentru "
+"trimiterea de SPAM. Pare sã includã si rãspunsuri automate de la unii provideri."
 
 #: squirrelmail/plugins/filters/filters.php:447
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
 msgstr ""
+"GRATUIT - Lista Osirusoft de servere care includ adrese in liste de mail fãrã o "
+"confirmare prealabilã."
 
 #: squirrelmail/plugins/filters/filters.php:455
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
-msgstr ""
+msgstr "GRATUIT - ORDB: înlocuitor al ORBS. Pare sã conþinã mai putine adrese incorecte."
 
 #: squirrelmail/plugins/filters/filters.php:463
+#, fuzzy
 msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
-msgstr ""
+msgstr "GRATUIT - alt înlocuitor al ORBS. Intrãri."
 
 #: squirrelmail/plugins/filters/filters.php:471
+#, fuzzy
 msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
-msgstr ""
+msgstr "GRATUIT - alt înlocuitor al ORBS. Ieºiri."
 
 #: squirrelmail/plugins/filters/filters.php:479
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com: surse directe de SPAM."
 
 #: squirrelmail/plugins/filters/filters.php:487
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com: Liste de adrese dial-up (include si "
+"conexiuni DSL)"
 
 #: squirrelmail/plugins/filters/filters.php:495
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com: Liste de mail care nu cer confirmare la înscriere"
 
 #: squirrelmail/plugins/filters/filters.php:503
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com: alte adrese"
 
 #: squirrelmail/plugins/filters/filters.php:511
+#, fuzzy
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com: Single Stage servers "
 
 #: squirrelmail/plugins/filters/filters.php:519
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com - servere care permit trimiterea de SPAM"
 
 #: squirrelmail/plugins/filters/filters.php:527
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
-msgstr ""
+msgstr "GRATUIT - Five-Ten-sg.com - Servere WEB care permit trimiterea de e-mailuri "
+"farã autentificare."
 
 #: squirrelmail/plugins/filters/filters.php:535
 msgid ""
@@ -1855,26 +1836,32 @@ msgid ""
 "the US to avoid being sued. Interestingly enough, their website recommends "
 "you NOT use their service."
 msgstr ""
+"GRATUIT -Dorkslayers: include numai servere aflate în afara SUA pentru a evita "
+"acþiunile legale. Interesant, pagina lor de web recomandã sã NU le folosiþi serviciul."
 
 #: squirrelmail/plugins/filters/filters.php:543
 msgid ""
 "FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
 "SLOOOOOOW!"
-msgstr ""
+msgstr "GRATUIT - ORBL: încã un înlocuitor al ORBS. Poate fi LENT."
 
 #: squirrelmail/plugins/filters/filters.php:551
+#, fuzzy
 msgid "FREE - orbz.gst-group.co.uk - Inputs only."
-msgstr ""
+msgstr "GRATUIT - orbz.gst-group.co.uk Intrãri."
 
 #: squirrelmail/plugins/filters/filters.php:559
+#, fuzzy
 msgid "FREE - orbz.gst-group.co.uk - Outputs only."
-msgstr ""
+msgstr "GRATUIT - orbz.gst-group.co.uk Ieºiri."
 
 #: squirrelmail/plugins/filters/filters.php:567
 msgid ""
 "FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
 "addressed to postmaster@<theirdomain>."
 msgstr ""
+"GRATUIT - orbz.gst-group.co.uk: servere care refuzã mesajele adresate "
+"postmaster@<domeniu>"
 
 #: squirrelmail/plugins/filters/filters.php:575
 #, c-format
@@ -1882,6 +1869,8 @@ msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
+"GRATUIT (deocamdatã) - SPAMCOP - O soluþie interesantã: listeazã serverele "
+"de la care mai mult de 85% din mesaje sînt SPAM."
 
 #: squirrelmail/plugins/filters/options.php:60
 #, fuzzy
@@ -1889,13 +1878,12 @@ msgid "Message Filtering"
 msgstr "Evidenþierea unui mesaj"
 
 #: squirrelmail/plugins/filters/options.php:76
-#, fuzzy
 msgid "Match:"
-msgstr "Unde"
+msgstr "Unde:"
 
 #: squirrelmail/plugins/filters/options.php:102
 msgid "Contains:"
-msgstr ""
+msgstr "Conþine:"
 
 #: squirrelmail/plugins/filters/options.php:114
 #, fuzzy
@@ -1903,53 +1891,53 @@ msgid "Move to:"
 msgstr "Mutã"
 
 #: squirrelmail/plugins/filters/options.php:156
-#, fuzzy
 msgid "Down"
-msgstr "Gata"
+msgstr "Jos"
 
 #: squirrelmail/plugins/filters/options.php:162
 msgid "Up"
-msgstr ""
+msgstr "Sus"
 
 #: squirrelmail/plugins/filters/options.php:165
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
-msgstr ""
+msgstr "Dacã <b>%s</b> conþine <b>%s</b> atunci mutã în <b>%s</b>"
 
 #: squirrelmail/plugins/filters/setup.php:79
-#, fuzzy
 msgid "Message Filters"
-msgstr "Lista mesajelor"
+msgstr "Filtre mesaje"
 
 #: squirrelmail/plugins/filters/setup.php:81
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
-msgstr ""
+msgstr "Filtrarea permite organizarea mesajelor dupã diferite criterii in "
+"subdirectoare. "
 
 #: squirrelmail/plugins/filters/setup.php:87
-#, fuzzy
 msgid "SPAM Filters"
-msgstr "Toate dosarele"
+msgstr "Filtrare SPAM"
 
 #: squirrelmail/plugins/filters/setup.php:89
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
+"Filtrele SPAM permit selectarea de diverse liste cu adrese de la care provin "
+"mesaje comerciale nesolicitate ºi mutarea acelor mesaje în alte subdirectoare "
+"(de ex. Gunoi)."
 
 #: squirrelmail/plugins/filters/spamoptions.php:52
 msgid "Spam Filtering"
-msgstr ""
+msgstr "Filtrare SPAM"
 
 #: squirrelmail/plugins/filters/spamoptions.php:56
 msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
-msgstr ""
+msgstr "ATENÞIE: Administratorul trebuie sã seteze variabila SpamFilters_YourHop."
 
 #: squirrelmail/plugins/filters/spamoptions.php:76
-#, fuzzy
 msgid "Move spam to:"
-msgstr "Mutã mesajele selectate în:"
+msgstr "Mutã mesajele nedorite în:"
 
 #: squirrelmail/plugins/filters/spamoptions.php:93
 msgid ""
@@ -1959,20 +1947,22 @@ msgid ""
 "periodically, so that you don't have an excessively large mailbox hanging "
 "around."
 msgstr ""
+"Mutarea mesajelor direct în directorul Trash poate sã nu fie o idee bunã, "
+"deoarece astfel mesaje incorect identificate ca SPAM vor fi ºterse. "
+"Asiguraþi-vã totuºi cã directorul ales este golit periodic, pentru a nu depãºi "
+"spaþiul alocat pentru mesaje. "
 
 #: squirrelmail/plugins/filters/spamoptions.php:96
 msgid "What to Scan:"
-msgstr ""
+msgstr "Ce sã se scaneze:"
 
 #: squirrelmail/plugins/filters/spamoptions.php:101
-#, fuzzy
 msgid "All messages"
-msgstr "mesaje"
+msgstr "Toate mesajele"
 
 #: squirrelmail/plugins/filters/spamoptions.php:105
-#, fuzzy
 msgid "Only unread messages"
-msgstr "mesajele bifate"
+msgstr "Numai mesajele necitite"
 
 #: squirrelmail/plugins/filters/spamoptions.php:111
 msgid ""
@@ -1982,64 +1972,66 @@ msgid ""
 "scan only new messages.  That way, your new spam filters will be applied and "
 "you'll scan even the spam you read with the new filters."
 msgstr ""
+"Scanarea tuturor mesajelor poate lua mult timp - este recomandat sã nu filtraþi "
+"decît cele necitite."
 
 #: squirrelmail/plugins/filters/spamoptions.php:137
 msgid "Save"
-msgstr ""
+msgstr "Salveazã"
 
 #: squirrelmail/plugins/filters/spamoptions.php:149
 #, c-format
 msgid "Spam is sent to <b>%s</b>"
-msgstr ""
+msgstr "Mesajele filtrate vor fi mutate in <b>%s</b>"
 
 #: squirrelmail/plugins/filters/spamoptions.php:149
 msgid "[<i>not set yet</i>]"
-msgstr ""
+msgstr "[<i>nesetat</i>]"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
 #, c-format
 msgid "Spam scan is limited to <b>%s</b>"
-msgstr ""
+msgstr "Scanarea este limitatã la <b>%s</b>"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
-#, fuzzy
 msgid "New Messages Only"
-msgstr "Afiºeazã mesajul"
+msgstr "Mesajele noi"
 
 #: squirrelmail/plugins/filters/spamoptions.php:151
-#, fuzzy
 msgid "All Messages"
-msgstr "mesaje"
+msgstr "Toate mesajele"
 
 #: squirrelmail/plugins/filters/spamoptions.php:161
 msgid "ON"
-msgstr ""
+msgstr "Activat"
 
 #: squirrelmail/plugins/filters/spamoptions.php:163
 msgid "OFF"
-msgstr ""
+msgstr "Dezactivat"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:46
 msgid "SpellChecker Options"
-msgstr ""
+msgstr "Opþiuni pentru corectorul ortografic"
 
 #: squirrelmail/plugins/squirrelspell/setup.php:48
 msgid ""
 "Here you may set up how your personal dictionary is stored, edit it, or "
 "choose which languages should be available to you when spell-checking."
 msgstr ""
+"Aici puteþi configura dicþionarele disponibile pentru verificarea ortograficã, sau "
+"edita un dicþionar personal."
 
 #: squirrelmail/plugins/squirrelspell/setup.php:64
 msgid "Check Spelling"
-msgstr ""
+msgstr "Verificã ortografia"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
 msgid "Back to &quot;SpellChecker Options&quot; page"
-msgstr ""
+msgstr "Înapoi la pagina &quot;Opþiuni corector ortografic&quot;"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:212
 msgid "ATTENTION:"
-msgstr ""
+msgstr "ATENÞIE:"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:213
 msgid ""
@@ -2051,38 +2043,38 @@ msgid ""
 "got mangled and is no longer valid. You will have to delete it and start "
 "anew. This is also true if you don't remember your old password -- without "
 "it, the encrypted data is no longer accessible."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:219
 msgid "Delete my dictionary and start a new one"
-msgstr ""
+msgstr "ªterge dicþionarul ºi deschide unul nou."
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:220
 msgid "Decrypt my dictionary with my old password:"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:223
 msgid "Proceed"
-msgstr ""
+msgstr "Continuã"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:229
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:231
 msgid "Error Decrypting Dictionary"
-msgstr ""
+msgstr "Eroare la decriptarea dicþionarului"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
 #: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
 msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:24
 msgid "Your personal dictionary was erased."
-msgstr ""
+msgstr "Dicþionarul personal a fost ºters."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:25
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:32
 msgid "Dictionary Erased"
-msgstr ""
+msgstr "Dicþionar ºters"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:30
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:57
@@ -2094,174 +2086,165 @@ msgstr "Închide fereastra"
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Now return to the "
 "&quot;SpellChecker options&quot; menu and make your selection again."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
 msgid "Successful Re-encryption"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:54
 msgid ""
 "Your personal dictionary was re-encrypted successfully. Please close this "
 "window and click \"Check Spelling\" button again to start your spellcheck "
 "over."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
 msgid "Dictionary re-encrypted"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
 msgid ""
 "Your personal dictionary has been <strong>encrypted</strong> and is now "
 "stored in an <strong>encrypted format</strong>."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
 msgid ""
 "Your personal dictionary has been <strong>decrypted</strong> and is now "
 "stored as <strong>clear text</strong>."
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
 msgid "Personal Dictionary Crypto Settings"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:121
 msgid "SquirrelSpell Results"
-msgstr ""
+msgstr "Corector ortografic - rezultate"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:170
 #, c-format
 msgid "Found %s errors"
-msgstr ""
+msgstr "Am gãsit %s erori"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:183
 msgid "Line with an error:"
-msgstr ""
+msgstr "Linia care conþine eroarea:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:192
 msgid "Error:"
-msgstr ""
+msgstr "Eroare:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:200
 msgid "Suggestions:"
-msgstr ""
+msgstr "Sugestii:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:206
 msgid "Suggestions"
-msgstr ""
+msgstr "Sugestii"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:214
 msgid "Change to:"
-msgstr ""
+msgstr "Înlocuieºte cu:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:223
 msgid "Occurs times:"
-msgstr ""
+msgstr "Numãr apariþii:"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:239
 msgid "Change this word"
-msgstr ""
+msgstr "Schimbã acest cuvînt"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:240
 msgid "Change"
-msgstr ""
+msgstr "Schimbã"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:242
 msgid "Change ALL occurances of this word"
-msgstr ""
+msgstr "Schimbã TOATE apariþiile acestui cuvînt"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:243
-#, fuzzy
 msgid "Change All"
-msgstr "Inverseazã-le pe toate"
+msgstr "Înlocuieºte-le pe toate"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:245
 msgid "Ignore this word"
-msgstr ""
+msgstr "Ignorã acest cuvînt"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:246
-#, fuzzy
 msgid "Ignore"
-msgstr "mai mult"
+msgstr "Ignorã"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:248
 msgid "Ignore ALL occurances this word"
-msgstr ""
+msgstr "Ignorã toate apariþiile acestui cuvînt"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:249
-#, fuzzy
 msgid "Ignore All"
-msgstr "Inverseazã-le pe toate"
+msgstr "Ignorã-le pe toate"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:251
 msgid "Add this word to your personal dictionary"
-msgstr ""
+msgstr "Adaugã acest cuvînt la dicþionarul personal"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:252
-#, fuzzy
 msgid "Add to Dic"
-msgstr "Adaugã la %s"
+msgstr "Adaugã la dicþionar"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:264
-#, fuzzy
 msgid "Close and Commit"
-msgstr "Închide fereastra"
+msgstr "Salveazã ºi închide"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
 msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr ""
+msgstr "Verificarea nu este completã. Sigur doriþi sã aplicaþi modificãrile ºi sã închideþi fereastra?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
 msgid "Close and Cancel"
-msgstr ""
+msgstr "Anuleazã modificãrile"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
 msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr ""
+msgstr "Verificarea nu este completã. Sigur doriþi sã anulaþi modificãrile ºi sã închideþi fereastra?"
 
 #: squirrelmail/plugins/newmail/testsound.php:33
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
-#, fuzzy
 msgid "Close"
-msgstr "Compune"
+msgstr "Închide"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:286
-#, fuzzy
 msgid "No errors found"
-msgstr "Nu am gãsit nici un dosar"
+msgstr "Nu am gãsit nici o eroare"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
-#, fuzzy
 msgid "Personal Dictionary"
-msgstr "Informaþii personale"
+msgstr "Dicþionar personal"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:61
 msgid "No words in your personal dictionary."
-msgstr ""
+msgstr "Nu sînt cuvinte în dicþionarul personal."
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:24
 msgid "Please check any words you wish to delete from your dictionary."
-msgstr ""
+msgstr "Bifaþi cuvintele care trebuie ºterse din dicþionar."
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:35
 #, c-format
 msgid "%s dictionary"
-msgstr ""
+msgstr "Dicþionar %s"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:54
-#, fuzzy
 msgid "Delete checked words"
-msgstr "ªterge textul selectat"
+msgstr "ªterge cuvintele selectat"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:65
 msgid "Edit your Personal Dictionary"
-msgstr ""
+msgstr "Editeazã dicþionarul personal"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:22
 msgid ""
@@ -2274,17 +2257,16 @@ msgid ""
 "unaccessible, since it can no longer be decrypted. If you change your "
 "mailbox password, SquirrelSpell will recognize it and prompt you for your "
 "old password in order to re-encrypt the dictionary with a new key.</p>"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
-msgid ""
-"Please decrypt my personal dictionary and store it in a clear-text format."
-msgstr ""
+msgid "Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
 msgid "Change crypto settings"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
 msgid ""
@@ -2301,194 +2283,188 @@ msgid ""
 "change your mailbox password but you still have the old password at hand, "
 "you will be able to enter the old key to re-encrypt the dictionary with the "
 "new value.</p>"
-msgstr ""
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
-msgid ""
-"Please encrypt my personal dictionary and store it in an encrypted format."
-msgstr ""
+msgid "Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr "???"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:22
 #, c-format
 msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
-msgstr ""
+msgstr "Urmãtoarele cuvinte vor fi ºterse din dicþionarul %s:"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:52
-#, fuzzy
 msgid "All done!"
-msgstr "Toate dosarele"
+msgstr "Gata!"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:53
 #: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:51
 msgid "Personal Dictionary Updated"
-msgstr ""
+msgstr "Dicþionarul personal a fost actualizat"
 
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
-#, fuzzy
 msgid "No changes requested."
-msgstr "Nu aþi selectat nici un mesaj."
+msgstr "Nu au fost necesare modificãri"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:25
 msgid "Please wait, communicating with the server..."
-msgstr ""
+msgstr "Aºteptaþi, comunic cu serverul..."
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:32
 msgid ""
 "Please choose which dictionary you would like to use to spellcheck this "
 "message:"
-msgstr ""
+msgstr "Selectaþi dicþionarul dorit pentru acest mesaj:"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
 msgid "Go"
-msgstr ""
+msgstr "Start"
 
 #: squirrelmail/plugins/squirrelspell/modules/init.mod.php:48
 msgid "SquirrelSpell Initiating"
-msgstr ""
+msgstr "Se iniþializeazã corectorul"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:56
 #, c-format
 msgid ""
 "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
 "default dictionary."
-msgstr ""
+msgstr "Setãrile modificate pt <strong>%s</strong> cu <strong>%s</strong> ca dicþionar implicit."
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
 #, c-format
 msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
-msgstr ""
+msgstr "Folosesc <strong>%s</strong> ca dicþionar implicit"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
 msgid "International Dictionaries Preferences Updated"
-msgstr ""
+msgstr "Preferinþele pentru dicþionar actualizate"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:19
 msgid ""
 "Please check any available international dictionaries which you would like "
 "to use when spellchecking:"
-msgstr ""
+msgstr "Bifaþi oricare dicþionar pe care doriþi sã îl folosiþi pentru corectare"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
 msgid "Make this dictionary my default selection:"
-msgstr ""
+msgstr "Selecteazã acest dicþionar ca implicit"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:41
 msgid "Make these changes"
-msgstr ""
+msgstr "Aplicã modificãrile"
 
 #: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:42
 msgid "Add International Dictionaries"
-msgstr ""
+msgstr "Adaugã dicþionar"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:18
 msgid "Please choose which options you wish to set up:"
-msgstr ""
+msgstr "Alegeþi opþiunile pe care doriþi sã le modificaþi:"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:22
 msgid "Edit your personal dictionary"
-msgstr ""
+msgstr "Editare dicþionar personal"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:27
 msgid "Set up international dictionaries"
-msgstr ""
+msgstr "Configurare dicþionare"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:35
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
 msgid "Encrypt or decrypt your personal dictionary"
-msgstr ""
+msgstr "Criptare / decriptare dicþionar personal"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
 msgid "not available"
-msgstr ""
+msgstr "(indisponibil)"
 
 #: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:43
 msgid "SquirrelSpell Options Menu"
-msgstr ""
+msgstr "Opþiuni corector ortografic"
 
 #: squirrelmail/plugins/translate/options.php:67
 msgid "Translator"
-msgstr ""
+msgstr "Translator"
 
 #: squirrelmail/plugins/translate/options.php:70
 msgid "Your server options are as follows:"
-msgstr ""
+msgstr "Opþiunile pentru servere sînt:"
 
 #: squirrelmail/plugins/translate/options.php:75
-msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr ""
+msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "13 perechi de limbi, maxim 100 de caractere, furnizat de Systran"
 
 #: squirrelmail/plugins/translate/options.php:78
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr ""
+msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgstr "10 perechi de limbi, maxim 25k, furnizat de Systran"
 
 #: squirrelmail/plugins/translate/options.php:81
 msgid "12 language pairs, no known limits, powered by Systran"
-msgstr ""
+msgstr "12 perechi de limbi, nelimitat, furnizat de Systran"
 
 #: squirrelmail/plugins/translate/options.php:84
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
-msgstr ""
+msgstr "767 perechi de limbi, nelimitat, furnizat de Translation Experts' InterTran"
 
 #: squirrelmail/plugins/translate/options.php:87
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
-msgstr ""
+msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr "8 perechi de limbi, nelimitat, furnizat de GPLTrans (gratuit, open source)"
 
 #: squirrelmail/plugins/translate/options.php:93
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
-msgstr ""
+msgstr "Puteþi alege de asemenea locaþia casetei de traducere"
 
 #: squirrelmail/plugins/translate/options.php:98
 msgid "Select your translator:"
-msgstr ""
+msgstr "Selectaþi translatorul:"
 
 #: squirrelmail/plugins/translate/options.php:109
 msgid "When reading:"
-msgstr ""
+msgstr "La citirea mesajului:"
 
 #: squirrelmail/plugins/translate/options.php:114
 msgid "Show translation box"
-msgstr ""
+msgstr "Afiºeazã caseta de traducere"
 
 #: squirrelmail/plugins/translate/options.php:116
 msgid "to the left"
-msgstr ""
+msgstr "în stînga"
 
 #: squirrelmail/plugins/translate/options.php:117
 msgid "in the center"
-msgstr ""
+msgstr "centrat"
 
 #: squirrelmail/plugins/translate/options.php:118
 msgid "to the right"
-msgstr ""
+msgstr "în dreapta"
 
 #: squirrelmail/plugins/translate/options.php:123
 msgid "Translate inside the SquirrelMail frames"
-msgstr ""
+msgstr "Traducerea in acelaºi cadru cu SquirrelMail"
 
 #: squirrelmail/plugins/translate/options.php:126
 msgid "When composing:"
-msgstr ""
+msgstr "La compunerea unui mesaj:"
 
 #: squirrelmail/plugins/translate/options.php:130
 msgid "Not yet functional, currently does nothing"
-msgstr ""
+msgstr "Nefuncþional deocamdatã"
 
 #: squirrelmail/plugins/translate/setup.php:96
 msgid "Translation Options"
-msgstr ""
+msgstr "Opþiuni translator"
 
 #: squirrelmail/plugins/translate/setup.php:98
 msgid ""
 "Which translator should be used when you get messages in a different "
 "language?"
-msgstr ""
+msgstr "Ce translator doriþi sã fie folosit la primirea de mesaje în alte limbi?"
 
 #: squirrelmail/plugins/translate/setup.php:266
 #: squirrelmail/plugins/translate/setup.php:270
@@ -2526,9 +2502,9 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:509
 #: squirrelmail/plugins/translate/setup.php:513
 #: squirrelmail/plugins/translate/setup.php:517
-#, fuzzy, c-format
+#, c-format
 msgid "%s to %s"
-msgstr "Adaugã la %s"
+msgstr "%s la %s"
 
 #: squirrelmail/plugins/translate/setup.php:267
 #: squirrelmail/plugins/translate/setup.php:271
@@ -2564,7 +2540,7 @@ msgstr "Adaugã la %s"
 #: squirrelmail/plugins/translate/setup.php:515
 #: squirrelmail/plugins/translate/setup.php:519
 msgid "English"
-msgstr ""
+msgstr "Englezã"
 
 #: squirrelmail/plugins/translate/setup.php:268
 #: squirrelmail/plugins/translate/setup.php:287
@@ -2580,7 +2556,7 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:498
 #: squirrelmail/plugins/translate/setup.php:503
 msgid "French"
-msgstr ""
+msgstr "Francezã"
 
 #: squirrelmail/plugins/translate/setup.php:272
 #: squirrelmail/plugins/translate/setup.php:291
@@ -2596,7 +2572,7 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:502
 #: squirrelmail/plugins/translate/setup.php:506
 msgid "German"
-msgstr ""
+msgstr "Germanã"
 
 #: squirrelmail/plugins/translate/setup.php:276
 #: squirrelmail/plugins/translate/setup.php:295
@@ -2608,7 +2584,7 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:483
 #: squirrelmail/plugins/translate/setup.php:510
 msgid "Italian"
-msgstr ""
+msgstr "Italianã"
 
 #: squirrelmail/plugins/translate/setup.php:280
 #: squirrelmail/plugins/translate/setup.php:299
@@ -2620,7 +2596,7 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:487
 #: squirrelmail/plugins/translate/setup.php:514
 msgid "Portuguese"
-msgstr ""
+msgstr "Portughezã"
 
 #: squirrelmail/plugins/translate/setup.php:284
 #: squirrelmail/plugins/translate/setup.php:303
@@ -2632,13 +2608,13 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:491
 #: squirrelmail/plugins/translate/setup.php:518
 msgid "Spanish"
-msgstr ""
+msgstr "Spaniolã"
 
 #: squirrelmail/plugins/translate/setup.php:315
 #: squirrelmail/plugins/translate/setup.php:403
 #: squirrelmail/plugins/translate/setup.php:433
 msgid "Russian"
-msgstr ""
+msgstr "Rusã"
 
 #: squirrelmail/plugins/translate/setup.php:318
 #: squirrelmail/plugins/translate/setup.php:370
@@ -2646,117 +2622,116 @@ msgstr ""
 #: squirrelmail/plugins/translate/setup.php:462
 #: squirrelmail/plugins/translate/setup.php:521
 msgid "Translate"
-msgstr ""
+msgstr "Tradu"
 
 #: squirrelmail/plugins/translate/setup.php:382
 #: squirrelmail/plugins/translate/setup.php:412
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Portughezã Brazilianã"
 
 #: squirrelmail/plugins/translate/setup.php:383
 #: squirrelmail/plugins/translate/setup.php:413
 msgid "Bulgarian"
-msgstr ""
+msgstr "Bulgarã"
 
 #: squirrelmail/plugins/translate/setup.php:384
 #: squirrelmail/plugins/translate/setup.php:414
 msgid "Croatian"
-msgstr ""
+msgstr "Croatã"
 
 #: squirrelmail/plugins/translate/setup.php:385
 #: squirrelmail/plugins/translate/setup.php:415
 msgid "Czech"
-msgstr ""
+msgstr "Cehã"
 
 #: squirrelmail/plugins/translate/setup.php:386
 #: squirrelmail/plugins/translate/setup.php:416
 msgid "Danish"
-msgstr ""
+msgstr "Danezã"
 
 #: squirrelmail/plugins/translate/setup.php:387
 #: squirrelmail/plugins/translate/setup.php:417
 #: squirrelmail/plugins/translate/setup.php:452
 msgid "Dutch"
-msgstr ""
+msgstr "Olandezã"
 
 #: squirrelmail/plugins/translate/setup.php:389
 #: squirrelmail/plugins/translate/setup.php:419
 msgid "European Spanish"
-msgstr ""
+msgstr "Spaniolã europeanã"
 
 #: squirrelmail/plugins/translate/setup.php:390
 #: squirrelmail/plugins/translate/setup.php:420
 msgid "Finnish"
-msgstr ""
+msgstr "Finlandezã"
 
 #: squirrelmail/plugins/translate/setup.php:393
 #: squirrelmail/plugins/translate/setup.php:423
 msgid "Greek"
-msgstr ""
+msgstr "Greacã"
 
 #: squirrelmail/plugins/translate/setup.php:394
 #: squirrelmail/plugins/translate/setup.php:424
 msgid "Hungarian"
-msgstr ""
+msgstr "Ungarã"
 
 #: squirrelmail/plugins/translate/setup.php:395
 #: squirrelmail/plugins/translate/setup.php:425
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandezã"
 
 #: squirrelmail/plugins/translate/setup.php:397
 #: squirrelmail/plugins/translate/setup.php:427
 msgid "Japanese"
-msgstr ""
+msgstr "Japonezã"
 
 #: squirrelmail/plugins/translate/setup.php:398
 #: squirrelmail/plugins/translate/setup.php:428
 msgid "Latin American Spanish"
-msgstr ""
+msgstr "Spaniolã Latino-Americanã"
 
 #: squirrelmail/plugins/translate/setup.php:399
 #: squirrelmail/plugins/translate/setup.php:429
 msgid "Norwegian"
-msgstr ""
+msgstr "Norvegianã"
 
 #: squirrelmail/plugins/translate/setup.php:400
 #: squirrelmail/plugins/translate/setup.php:430
 msgid "Polish"
-msgstr ""
+msgstr "Polonezã"
 
 #: squirrelmail/plugins/translate/setup.php:402
 #: squirrelmail/plugins/translate/setup.php:432
 msgid "Romanian"
-msgstr ""
+msgstr "Românã"
 
 #: squirrelmail/plugins/translate/setup.php:404
 #: squirrelmail/plugins/translate/setup.php:434
 msgid "Serbian"
-msgstr ""
+msgstr "Sîrbã"
 
 #: squirrelmail/plugins/translate/setup.php:405
 #: squirrelmail/plugins/translate/setup.php:435
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenã"
 
 #: squirrelmail/plugins/translate/setup.php:407
 #: squirrelmail/plugins/translate/setup.php:437
 msgid "Swedish"
-msgstr ""
+msgstr "Suedezã"
 
 #: squirrelmail/plugins/translate/setup.php:408
 #: squirrelmail/plugins/translate/setup.php:438
 msgid "Welsh"
-msgstr ""
+msgstr "Galezã"
 
 #: squirrelmail/plugins/translate/setup.php:455
 msgid "Indonesian"
-msgstr ""
+msgstr "Indnezianã"
 
 #: squirrelmail/plugins/translate/setup.php:457
-#, fuzzy
 msgid "Latin"
-msgstr "Login"
+msgstr "Latinã"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:33
 #, fuzzy
@@ -2768,19 +2743,23 @@ msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
-msgstr ""
+msgstr "Selectaþi <b>Fiºier audio</b> pentru a folosi notificarea sonorã la sosirea mesajelor."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:38
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
+"Opþiunea <b>Verificã toate directoarele</b> va activa verificarea tuturor "
+"subdirectoarelor, nu numai pentru INBOX."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:40
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
+"Opþiunea <b>Alertã vizualã</b> va deschide o fereastrã de notificare la "
+"sosirea mesajelor (numai dacã JavaScript este activat)."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:42
 msgid ""
@@ -2789,6 +2768,8 @@ msgid ""
 "been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
 "by sounds or popups for unseen mail."
 msgstr ""
+"Folosiþi <b>Numai mesajele recente</b> pentru a nu fi notificat decît dacã au "
+"apãrut mesaje noi de la ultima verificare."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:44
 msgid ""
@@ -2798,6 +2779,9 @@ msgid ""
 "always tell you if you have new mail, even if you have <b>Check RECENT</b> "
 "enabled."
 msgstr ""
+"Opþiunea <b> Schimbã titlul</b> va modifica titlul ferestrei dacã sînt mesaje necitite. "
+"Funcþioneazã numai în IE+JavaScript, dar nu genereazã erori în alte browsere. Titlul "
+"va rãmîne însã modificat chiar dacã aþi bifat opþiunea <b>Verificã mesajele recente</b>"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:46
 msgid ""
@@ -2805,109 +2789,106 @@ msgid ""
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
 "the <b>local media file</b> box to play from the local computer.  If no file "
 "is specified, the system will use a default from the server."
-msgstr ""
+msgstr "Selectaþi unul din fiºierele audio de pe server sau unul de pe hard-disk."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:56
 msgid "Enable Media Playing"
-msgstr ""
+msgstr "Fiºier audio"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:64
 msgid "Check all boxes, not just INBOX"
-msgstr ""
+msgstr "Verificã toate directoarele"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:72
 msgid "Count only messages that are RECENT"
-msgstr ""
+msgstr "Numai mesajele recente"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:80
 msgid "Change title on supported browsers."
-msgstr ""
+msgstr "Schimbã titlul"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:80
 #: squirrelmail/plugins/newmail/newmail_opt.php:88
 msgid "requires JavaScript to work"
-msgstr ""
+msgstr "necesitã JavaScript"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:88
 msgid "Show popup window on new mail"
-msgstr ""
+msgstr "Alertã vizualã"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:91
 msgid "Select server file:"
-msgstr ""
+msgstr "Selectaþi un fiºier de pe server:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:93
 msgid "(local media)"
-msgstr ""
+msgstr "(de pe hard-disk)"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:110
 msgid "Try"
-msgstr ""
+msgstr "Încearcã"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:118
 msgid "Local Media File:"
-msgstr ""
+msgstr "Fiºier local:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:124
-#, fuzzy
 msgid "Current File:"
-msgstr "Dosarul curent"
+msgstr "Fiºierul selectat:"
 
 #: squirrelmail/plugins/newmail/newmail.php:19
 msgid "New Mail"
-msgstr ""
+msgstr "Mesaje noi"
 
 #: squirrelmail/plugins/newmail/newmail.php:26
-#, fuzzy
 msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail versiunea %s"
+msgstr "SquirrelMail:"
 
 #: squirrelmail/plugins/newmail/newmail.php:30
 msgid "You have new mail!"
-msgstr ""
+msgstr "Aveþi mesaje noi!"
 
 #: squirrelmail/plugins/newmail/setup.php:76
-#, fuzzy
 msgid "NewMail Options"
-msgstr "Opþiuni"
+msgstr "Opþiuni notificare"
 
 #: squirrelmail/plugins/newmail/setup.php:78
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
-msgstr ""
+msgstr "Aici puteþi configura opþiunile de notificare la sosirea de mesaje noi"
 
 #: squirrelmail/plugins/newmail/setup.php:127
 msgid "New Mail Notification options saved"
-msgstr ""
+msgstr "Opþiunile au fost salvate"
 
 #: squirrelmail/plugins/newmail/setup.php:200
-#, fuzzy, c-format
+#, c-format
 msgid "%s New Messages"
-msgstr "Afiºeazã mesajul"
+msgstr "%s Mesaje noi"
 
 #: squirrelmail/plugins/newmail/setup.php:204
-#, fuzzy, c-format
+#, c-format
 msgid "%s New Message"
-msgstr "Afiºeazã mesajul"
+msgstr "%s Mesaj nou"
 
 #: squirrelmail/plugins/newmail/testsound.php:24
 msgid "Test Sound"
-msgstr ""
+msgstr "Testeazã sunetul"
 
 #: squirrelmail/plugins/newmail/testsound.php:30
 msgid "Loading the sound..."
-msgstr ""
+msgstr "încarc sunetul..."
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:81
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:89
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:101
 msgid "POP3 connect:"
-msgstr ""
+msgstr "Conectare POP3:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:81
 msgid "No server specified"
-msgstr ""
+msgstr "Nu a fost specificat nici un server"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:89
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:101
@@ -2920,17 +2901,16 @@ msgstr ""
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:454
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:553
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:576
-#, fuzzy
 msgid "Error "
-msgstr "Eroare la deschiderea "
+msgstr "Eroare"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:109
 msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
-msgstr ""
+msgstr "POP3: NOOP OK prematur, serverul NU e conform cu RFC 1939"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:119
 msgid "POP3 noop:"
-msgstr ""
+msgstr "POP3 noop:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:119
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:185
@@ -2943,45 +2923,44 @@ msgstr ""
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:478
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:541
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:609
-#, fuzzy
 msgid "No connection to server"
-msgstr "Eroare la conectarea la serverul IMAP: %s."
+msgstr "Nu mã pot conecta la server"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:132
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:135
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:140
 msgid "POP3 user:"
-msgstr ""
+msgstr "Utilizator POP3:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:132
 msgid "no login ID submitted"
-msgstr ""
+msgstr "nu a fost introdus un nume de utilizator"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:135
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:155
 msgid "connection not established"
-msgstr ""
+msgstr "conexiunea nu a fost stabilitã"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:152
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:155
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:160
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:169
 msgid "POP3 pass:"
-msgstr ""
+msgstr "Parola POP3:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:152
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:194
 msgid "No password submitted"
-msgstr ""
+msgstr "Nu a fost introdusã parola"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:160
 msgid "authentication failed "
-msgstr ""
+msgstr "Autentificare eºuatã"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:169
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:218
 msgid "NOOP failed. Server not RFC 1939 compliant"
-msgstr ""
+msgstr "NOOP a esuat, serverul NU e conform cu RFC 1939"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:185
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:191
@@ -2990,110 +2969,108 @@ msgstr ""
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:209
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:218
 msgid "POP3 apop:"
-msgstr ""
+msgstr "POP3 apop:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:191
 msgid "No login ID submitted"
-msgstr ""
+msgstr "Nu a fost introdus un nume de utilizator"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:199
 msgid "No server banner"
-msgstr ""
+msgstr "Nu existã eticheta serverului"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:199
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:209
 msgid "abort"
-msgstr ""
+msgstr "abandoneazã"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:209
 msgid "apop authentication failed"
-msgstr ""
+msgstr "autentificarea apop a eºuat"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:234
 msgid "POP3 login:"
-msgstr ""
+msgstr "POP3 login:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:259
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:275
 msgid "POP3 top:"
-msgstr ""
+msgstr "POP3 top:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:301
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:329
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:340
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:352
 msgid "POP3 pop_list:"
-msgstr ""
+msgstr "POP3 pop_list:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:352
 msgid "Premature end of list"
-msgstr ""
+msgstr "Sfîrºit de listã prematur"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:375
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:388
 msgid "POP3 get:"
-msgstr ""
+msgstr "POP3 get:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:414
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:421
 msgid "POP3 last:"
-msgstr ""
+msgstr "POP3 last:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:444
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:454
 msgid "POP3 reset:"
-msgstr ""
+msgstr "POP3 reset:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:478
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:484
 msgid "POP3 send_cmd:"
-msgstr ""
+msgstr "POP3 send_cmd:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:484
 msgid "Empty command string"
-msgstr ""
+msgstr "Comandã vidã"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:504
 msgid "POP3 quit:"
-msgstr ""
+msgstr "POP3 quit:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:504
-#, fuzzy
 msgid "connection does not exist"
-msgstr "Utilizatorul \"%s\" nu existã"
+msgstr "Conexiune inexistentã"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:541
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:553
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:576
 msgid "POP3 uidl:"
-msgstr ""
+msgstr "POP3 uidl:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:609
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:614
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:620
 msgid "POP3 delete:"
-msgstr ""
+msgstr "POP3 delete:"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:614
 msgid "No msg number submitted"
-msgstr ""
+msgstr "Nu s-a trimis numãrul mesajului"
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:620
-#, fuzzy
 msgid "Command failed "
-msgstr "Nu am putut deschide"
+msgstr "Comanda a eºuat"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:54
 msgid "Remote POP server Fetching Mail"
-msgstr ""
+msgstr "Aducere mesaje de pe alt server POP3"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:63
 msgid "Select Server:"
-msgstr ""
+msgstr "Selectaþi serverul:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:65
 msgid "All"
-msgstr ""
+msgstr "Toate"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:78
 #, fuzzy
@@ -3102,108 +3079,103 @@ msgstr "Parolã:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:85
 msgid "Fetch Mail"
-msgstr ""
+msgstr "Descarcã mesajele"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:117
 msgid "Fetching from "
-msgstr ""
+msgstr "Descarc mesajele de la"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:124
 #: squirrelmail/plugins/mail_fetch/fetch.php:184
 msgid "Oops, "
-msgstr ""
+msgstr "Hopa,"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:128
 msgid "Opening IMAP server"
-msgstr ""
+msgstr "Deschid serverul IMAP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:131
 msgid "Opening POP server"
-msgstr ""
+msgstr "Deschid serverul POP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:134
 #: squirrelmail/plugins/mail_fetch/setup.php:123
 msgid "Login Failed:"
-msgstr ""
+msgstr "Autentificare eºuatã:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:151
 msgid "Login OK: No new messages"
-msgstr ""
+msgstr "Login OK: Nu sînt mesaje noi"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
 msgid "Login OK: Inbox EMPTY"
-msgstr ""
+msgstr "Login OK: Nu sînt mesaje în INBOX"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "Login OK: Inbox contains ["
-msgstr ""
+msgstr "Login OK: ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
-#, fuzzy
 msgid "] messages"
-msgstr "mesaje"
+msgstr "] mesaje în INBOX"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:164
 msgid "Fetching UIDL..."
-msgstr ""
+msgstr "Trimit UIDL"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:169
 #: squirrelmail/plugins/mail_fetch/setup.php:154
 msgid "Server does not support UIDL."
-msgstr ""
+msgstr "Serverul nu ºtie de UIDL."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:172
 msgid "Leaving Mail on Server..."
-msgstr ""
+msgstr "Mesajele vor fi pãstrate ºi pe server"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:174
 msgid "Deleting messages from server..."
-msgstr ""
+msgstr "ªtergere mesaje de pe server..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:178
-#, fuzzy
 msgid "Fetching message "
-msgstr "Afiºez mesajul"
+msgstr "Aduc mesajul"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:201
 msgid "Message appended to mailbox"
-msgstr ""
+msgstr "Mesaj adaugat la INBOX"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
-#, fuzzy
 msgid "Message "
-msgstr "Lista mesajelor"
+msgstr "Mesaj"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
 msgid " deleted from Remote Server!"
-msgstr ""
+msgstr "ºters de pe server!"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:207
-#, fuzzy
 msgid "Delete failed:"
-msgstr "ªterge textul selectat"
+msgstr "ªtergerea a eºuat:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:212
 #: squirrelmail/plugins/mail_fetch/setup.php:185
-#, fuzzy
 msgid "Error Appending Message!"
-msgstr "Eroare la deschiderea "
+msgstr "Eroare la copierea mesajului!"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:216
 msgid "Closing POP"
-msgstr ""
+msgstr "Închid conexiunea POP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:218
 msgid "Logging out from IMAP"
-msgstr ""
+msgstr "Închid conexiunea IMAP"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:221
 msgid "Saving UIDL"
-msgstr ""
+msgstr "Salvez UIDL"
 
 #: squirrelmail/plugins/mail_fetch/options.php:105
 msgid "Remote POP server settings"
-msgstr ""
+msgstr "Setãri server POP"
 
 #: squirrelmail/plugins/mail_fetch/options.php:107
 msgid ""
@@ -3212,30 +3184,32 @@ msgid ""
 "encryption anyway. Additionally, the encryption that we do to save it on the "
 "server can be undone by a hacker reading the source to this file."
 msgstr ""
+"Trebuie sã ºtiþi cã metoda de folositã pentru criptarea parolei nu este sigurã. "
+"Dar, daca folosiþi un cont POP, parola nu este trimisã criptat cãtre server oricum. "
+"Mai mult, parola poate fi decriptatã de un hacker care citeºte sursa acestui program."
 
 #: squirrelmail/plugins/mail_fetch/options.php:109
 msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr ""
+msgstr "Dacã nu completaþi cîmpul parola, ea va fi cerutã la conectare."
 
 #: squirrelmail/plugins/mail_fetch/options.php:113
 msgid "Encrypt passwords (informative only)"
-msgstr ""
+msgstr "Cripteazã parolele (doar cu titlu informativ)"
 
 #: squirrelmail/plugins/mail_fetch/options.php:119
 #: squirrelmail/plugins/mail_fetch/options.php:151
 msgid "Add Server"
-msgstr ""
+msgstr "Adaugã server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:123
 #: squirrelmail/plugins/mail_fetch/options.php:201
-#, fuzzy
 msgid "Server:"
-msgstr "Niciodatã"
+msgstr "Server:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:124
 #: squirrelmail/plugins/mail_fetch/options.php:203
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:125
 #: squirrelmail/plugins/mail_fetch/options.php:205
@@ -3245,62 +3219,59 @@ msgstr "Nume nou:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:127
 #: squirrelmail/plugins/mail_fetch/options.php:209
-#, fuzzy
 msgid "Store in Folder:"
-msgstr "Dosarul Trimise:"
+msgstr "Salveazã mesajele aduse în directorul:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:148
 #: squirrelmail/plugins/mail_fetch/options.php:233
 msgid "Leave Mail on Server"
-msgstr ""
+msgstr "Pãstreazã o copie a mesajelor pe server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:149
 #: squirrelmail/plugins/mail_fetch/options.php:235
 msgid "Check mail during login"
-msgstr ""
+msgstr "Verificã mailurile externe la conectare"
 
 #: squirrelmail/plugins/mail_fetch/options.php:150
 #: squirrelmail/plugins/mail_fetch/options.php:237
 msgid "Check mail during folder refresh"
-msgstr ""
+msgstr "Verificã mailurile externe la fiecare actualizare a directoarelor locale"
 
 #: squirrelmail/plugins/mail_fetch/options.php:157
 #: squirrelmail/plugins/mail_fetch/options.php:238
 msgid "Modify Server"
-msgstr ""
+msgstr "Modificã server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:161
-#, fuzzy
 msgid "Server Name:"
-msgstr "Serverul a rãspuns:"
+msgstr "Nume server:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:167
 #: squirrelmail/plugins/mail_fetch/options.php:190
-#, fuzzy
 msgid "Modify"
-msgstr "Corp"
+msgstr "Modificã"
 
 #: squirrelmail/plugins/mail_fetch/options.php:171
 msgid "No-one server in use. Try to add."
-msgstr ""
+msgstr "Nu sînt servere configurate. Puteþi adãuga unul."
 
 #: squirrelmail/plugins/mail_fetch/options.php:177
 #: squirrelmail/plugins/mail_fetch/options.php:192
 #: squirrelmail/plugins/mail_fetch/options.php:243
 msgid "Fetching Servers"
-msgstr ""
+msgstr "Actualizez lista serverelor"
 
 #: squirrelmail/plugins/mail_fetch/options.php:181
 msgid "Confirm Deletion of a Server"
-msgstr ""
+msgstr "Confirmaþi ºtergerea serverului"
 
 #: squirrelmail/plugins/mail_fetch/options.php:185
 msgid "Selected Server:"
-msgstr ""
+msgstr "Server selectat:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:186
 msgid "Confirm delete of selected server?"
-msgstr ""
+msgstr "Sînteþi sigur?"
 
 #: squirrelmail/plugins/mail_fetch/options.php:187
 #, fuzzy
@@ -3309,83 +3280,36 @@ msgstr "ªterge"
 
 #: squirrelmail/plugins/mail_fetch/options.php:196
 msgid "Mofify a Server"
-msgstr ""
+msgstr "Modificã un server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:246
 msgid "Undefined Function"
-msgstr ""
+msgstr "Funcþie nedefinitã"
 
 #: squirrelmail/plugins/mail_fetch/options.php:248
 msgid "Hey! Wath do You are looking for?"
-msgstr ""
+msgstr "Hey you! Yes you! What ARE you looking for?"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:30
 msgid "Fetch"
-msgstr ""
+msgstr "Mesaje externe"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:115
 #: squirrelmail/plugins/mail_fetch/setup.php:162
 msgid "Warning, "
-msgstr ""
+msgstr "Avertisment, "
 
 #: squirrelmail/plugins/mail_fetch/setup.php:198
 msgid "Mail Fetch Result:"
-msgstr ""
+msgstr "Rezultat:"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:224
 msgid "Simple POP3 Fetch Mail"
-msgstr ""
+msgstr "Sincronizare servere POP3 externe"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:226
 msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
 "account on this server."
-msgstr ""
+msgstr "Puteþi configura aducerea mesajelor de pe un alt server POP3 în contul de pe acest server."
 
-#~ msgid "purge"
-#~ msgstr "goleºte"
-
-#~ msgid "Use Javascript or HTML addressbook?"
-#~ msgstr "Sã folosesc agenda HTML sau Javascript?"
-
-#~ msgid "Auto refresh folder list"
-#~ msgstr "Împrospãteazã automat lista dosarelor"
-
-#~ msgid "Yes, show me the HTML version of a mail message, if it is available."
-#~ msgstr "Da, dacã e disponibilã."
-
-#~ msgid "Include Self"
-#~ msgstr "Includere la rãspuns"
-
-#~ msgid "Don't remove me from the CC addresses when I use \"Reply All\""
-#~ msgstr "Nu mã elimina de la CC atunci cînd folosesc \"Rãspunde Tuturor\""
-
-#~ msgid "Don't use Trash"
-#~ msgstr "Nu folosi dosarul Gunoi"
-
-#~ msgid "Don't use Sent"
-#~ msgstr "Nu folosi dosarul Trimise"
-
-#~ msgid "Collapseable folders"
-#~ msgstr "Dosare armonicã"
-
-#~ msgid "Author's Name"
-#~ msgstr "Numele autorului"
-
-#~ msgid "Successfully saved display preferences!"
-#~ msgstr "Am salvat informaþiile de afiºare!"
-
-#~ msgid "Successfully saved folder preferences!"
-#~ msgstr "Am salvat preferinþele referitoare la dosare!"
-
-#~ msgid "(only Cc/Bcc)"
-#~ msgstr "(numai Cc/Bcc)"
-
-#~ msgid "Viewing messages"
-#~ msgstr "Afiºez mesajele"
-
-#~ msgid "to"
-#~ msgstr "-"
-
-#~ msgid "total"
-#~ msgstr "în total"
