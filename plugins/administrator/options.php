@@ -247,7 +247,15 @@ if ( isset( $_GET['switch'] ) ) {
 echo "<form action=options.php method=post name=options>" .
     "<center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
-    "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
+    "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>",
+    "<tr bgcolor=\"$color[5]\"><td colspan=2i align=\"center\">";
+?>
+<small>Note: it is recommended that you configure your system using conf.pl, and not this plugin.
+conf.pl contains additional information regarding the purpose of variables and
+appropriate values, as well as additional verification steps.<br />
+Run or consult conf.pl should you run into difficulty with your configuration.</small>
+</td></tr>
+<?php
 
 $act_grp = 'Titles';  /* Active group */
 
@@ -588,5 +596,4 @@ if( $fp = @fopen( $cfgfile, 'w' ) ) {
          _("Config file can't be opened. Please check config.php.").
          '</font>';
 }
-
 ?>
