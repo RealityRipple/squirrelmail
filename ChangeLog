@@ -7,7 +7,7 @@ Version 1.2.5 -- CVS
   - Added the possibility to add special folders through plugins.
   - Made searching on multiple criteria possible, with thanks to Jason Munro
   - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
-  - Fixed a small bug in db_prefs
+  - Fixed small bugs in db_prefs
   - Allowed SquirrelMail to work from within a frame, eg. not using _top
     this is configureable. (thanks to Simon Dick)
   - Added options to conf.pl to enable automated plugin installation:
@@ -15,7 +15,8 @@ Version 1.2.5 -- CVS
     distributed in packages. Conf.pl now also reports when saving fails.
   - Attachment hooks now also allow specification of generic rules like
     text/* which will be used when no specific rule is available.
-  - conf.pl can now configure database backed address books.
+  - conf.pl can now configure database backed address books and
+    preferences.
   - Version 0.3.7 of SquirrelSpell. Fixes a potential privacy
     vulnerability (symlink attack), plus introduces formatting fixes 
     and javadoc-style comments.
