@@ -59,6 +59,9 @@
       if ($force_username_lowercase)
           $username = strtolower($login_username);
       $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
+	  if (!$imapConnection) {
+	  	exit;
+	  }
       sqimap_logout($imapConnection);
 
       setcookie("username", $login_username, 0, $base_uri);
