@@ -111,20 +111,42 @@
 
    /******************************************************************************
     **  Formats a mailbox into 4 parts for the $boxes array
+    **
+    **  The four parts are:
+    **
+    **    raw            - Raw LIST/LSUB response from the IMAP server
+    **    formatted      - nicely formatted folder name
+    **    unformatted    - unformatted, but with delimiter at end removed
+    **    unformatted-dm - folder name as it appears in raw response
+    **
     ******************************************************************************/
    function sqimap_mailbox_parse ($line, $line_lsub, $dm) {
-		global $folder_prefix;
+      global $folder_prefix;
+     
+      // Process each folder line
       for ($g=0; $g < count($line); $g++) {
+
+	 // Store the raw IMAP reply
          $boxes[$g]["raw"] = $line[$g];
-            
+
+	 // Count number of delimiters ($dm) in folder name
          $mailbox = trim($line_lsub[$g]);
          $dm_count = countCharInString($mailbox, $dm);
          if (substr($mailbox, -1) == $dm)
-            $dm_count--;
-            
-         for ($j = 0; $j < $dm_count - (countCharInString($folder_prefix, $dm)); $j++)
-            $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "&nbsp;&nbsp;";
-         $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+            $dm_count--;  // If name ends in delimiter - decrement count by one
+
+	 // Format folder name, but only if it's a INBOX.* or have
+	 // a parent.
+	 $boxesbyname[$mailbox] = $g;
+	 $parentfolder = readMailboxParent($mailbox, $dm);
+	 if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
+	    ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+	    $indent = $dm_count - (countCharInString($folder_prefix, $dm));
+	    $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
+	    $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+	 } else {
+	    $boxes[$g]["formatted"]  = $mailbox;
+	 }
             
          $boxes[$g]["unformatted-dm"] = $mailbox;
          if (substr($mailbox, -1) == $dm)
@@ -138,22 +160,24 @@
             $boxes[$g]["flags"] = explode(" ", $flags);
          }
       }
+
       return $boxes;
    }
 
-	/* patch from dave_michmerhuizen@yahoo.com
-	 * allows case insensativity when sorting folders
-	 */
-	function _icmp ($a, $b) {
-		return strcasecmp($a, $b);
-	}
+   /* patch from dave_michmerhuizen@yahoo.com
+    * allows case insensativity when sorting folders
+    */
+   function _icmp ($a, $b) {
+      return strcasecmp($a, $b);
+   }
    
    /******************************************************************************
     **  Returns sorted mailbox lists in several different ways.
-    **  The array returned looks like this:
+    **  See comment on sqimap_mailbox_parse() for info about the returned array.
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
-      global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username, $list_special_folders_first;
+      global $load_prefs_php, $prefs_php, $config_php;
+      global $data_dir, $username, $list_special_folders_first;
       global $trash_folder, $sent_folder;
       global $move_to_trash, $move_to_sent;
 
@@ -184,7 +208,7 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-			usort($sorted_lsub_ary, "_icmp");
+	 usort($sorted_lsub_ary, "_icmp");
          //sort($sorted_lsub_ary);
       }   
 
@@ -216,40 +240,54 @@
 
       $boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary, $dm);
 
+
       /** Now, lets sort for special folders **/
+
+      $boxesnew = Array();
+
+      // Find INBOX
       for ($i = 0; $i < count($boxes); $i++) {
          if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
-            $boxesnew[0] = $boxes[$i];
+            $boxesnew[] = $boxes[$i];
             $boxes[$i]["used"] = true;
-				$i = count($boxes);
+	    $i = count($boxes);
          }
       }
 
       if ($list_special_folders_first == true) {
-         for ($i = count($boxes)-1; $i >= 0 ; $i--) {
-				if (($boxes[$i]["unformatted"] == $trash_folder) && ($move_to_trash)) {	
-               $pos = count($boxesnew);
-               $boxesnew[$pos] = $boxes[$i];
-               $boxes[$i]["used"] = true;
-					$trash_found = true;
-            }
-				else if (($boxes[$i]["unformatted"] == $sent_folder) && ($move_to_sent)) {	
-               $pos = count($boxesnew);
-               $boxesnew[$pos] = $boxes[$i];
-               $boxes[$i]["used"] = true;
-					$sent_found = true;
-            }
 
-				if (($sent_found && $trash_found) || ($sent_found && !$move_to_trash) || ($trash_found && !$move_to_sent) || (!$move_to_sent && !$move_to_trash))
-					$i = -1;
+	 // Then list special folders and their subfolders
+	 for ($i = 0 ; $i <= count($boxes) ; $i++) {
+	    if((eregi("^".$trash_folder.'$', $boxes[$i]["unformatted"]) ||
+		eregi("^".$trash_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+	       ($move_to_trash)) {	
+               $boxesnew[] = $boxes[$i];
+               $boxes[$i]["used"] = true;
+            }
+	    else if((eregi("^".$sent_folder.'$', $boxes[$i]["unformatted"]) ||
+		     eregi("^".$sent_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+		    ($move_to_sent)) {	
+               $boxesnew[] = $boxes[$i];
+               $boxes[$i]["used"] = true;
+            }
          }
+
+	 // Put INBOX.* folders ahead of the rest
+	 for ($i = 0; $i <= count($boxes); $i++) {
+	    if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
+		($boxes[$i]["used"] == false)) {
+	       $boxesnew[] = $boxes[$i];
+	       $boxes[$i]["used"] = true;
+	    }
+	 }
+
       }
 
+      // Rest of the folders
       for ($i = 0; $i < count($boxes); $i++) {
          if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
              ($boxes[$i]["used"] == false))  {
-            $pos = count($boxesnew);
-            $boxesnew[$pos] = $boxes[$i];
+            $boxesnew[] = $boxes[$i];
             $boxes[$i]["used"] = true;
          }
       }
@@ -272,18 +310,30 @@
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       $g = 0;
       $phase = "inbox"; 
+
       for ($i = 0; $i < count($read_ary); $i++) {
          if (substr ($read_ary[$i], 0, 4) != "a001") {
+
+	    // Store the raw IMAP reply
             $boxes[$g]["raw"] = $read_ary[$i];
 
+	    // Count number of delimiters ($dm) in folder name
             $mailbox = find_mailbox_name($read_ary[$i]);
             $dm_count = countCharInString($mailbox, $dm);
             if (substr($mailbox, -1) == $dm)
-               $dm_count--;
-               
-            for ($j = 0; $j < $dm_count; $j++)
-               $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "  ";
-            $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+               $dm_count--;  // If name ends in delimiter - decrement count by one
+	    
+	    // Format folder name, but only if it's a INBOX.* or have
+	    // a parent.
+	    $boxesbyname[$mailbox] = $g;
+	    $parentfolder = readMailboxParent($mailbox, $dm);
+	    if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
+	       ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+	       $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
+	       $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+	    } else {
+	       $boxes[$g]["formatted"]  = $mailbox;
+	    }
                
             $boxes[$g]["unformatted-dm"] = $mailbox;
             if (substr($mailbox, -1) == $dm)
@@ -305,9 +355,10 @@
          }
          $g++;
       }
-      if ($boxes) {
+      if(is_array($boxes)) {
          $boxes = ary_sort ($boxes, "unformatted", 1);
       }
+
       return $boxes;
    }
    

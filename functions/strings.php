@@ -20,6 +20,16 @@
       return $regs[1];
    }
 
+   //*************************************************************************
+   // Read from the back of $haystack until $needle is found, or the begining
+   //    of the $haystack is reached.  $needle is a single character
+   //*************************************************************************
+   function readMailboxParent($haystack, $needle) {
+      if ($needle == ".") $needle = "\.";
+      ereg("^(.+)$needle([^$needle]+)$needle?$", $haystack, $regs);
+      return $regs[1];
+   }
+
    // Searches for the next position in a string minus white space
    function next_pos_minus_white ($haystack, $pos) {
       while (substr($haystack, $pos, 1) == " " ||
