@@ -33,18 +33,26 @@ $onetimepad = $_SESSION['onetimepad'];
 
 $passed_id = (int) $_GET['passed_id'];
 $mailbox = $_GET['mailbox'];
+
+if (!isset($_GET['passed_ent_id'])) {
+    $passed_ent_id = '';
+} else {
+    $passed_ent_id = $_GET['passed_ent_id'];
+}
 /* end globals */
 
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay');
 $mailbox = urldecode($mailbox);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-sqimap_mailbox_select($imapConnection, $mailbox);
-$message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-$id = $passed_id;
-if (isset($passed_ent_id)) {
-   $message = $message->getEntity($passed_ent_id);
+$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
+if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
+    $message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
+} else {
+    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 }
-
+if ($passed_ent_id) {
+    $message = &$message->getEntity($passed_ent_id);
+}
 
 /* --start display setup-- */
 
