@@ -167,12 +167,18 @@
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
    function sqimap_get_delimiter ($imap_stream = false) {
-      fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
-      $read = sqimap_read_data($imap_stream, ".", true, $a, $b);
-      $quote_position = strpos ($read[0], "\"");
-      $delim = substr ($read[0], $quote_position+1, 1);
+		global $optional_delimiter;
+		if (!$optional_delimiter) $optional_delimiter = "detect";
 
-      return $delim;
+		if (strtolower($optional_delimiter) == "detect") {
+      	fputs ($imap_stream, ". LIST \"INBOX\" \"\"\r\n");
+      	$read = sqimap_read_data($imap_stream, ".", true, $a, $b);
+      	$quote_position = strpos ($read[0], "\"");
+      	$delim = substr ($read[0], $quote_position+1, 1);
+      	return $delim;
+		} else {
+			return $optional_delimiter;
+		}
    
    /* According to something that I can't find, this is supposed to work on all systems
    
