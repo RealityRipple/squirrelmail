@@ -35,7 +35,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
   }
 
   displayPageHeader($color, 'None');  
-  echo "&nbsp;<br>\n";
+  echo "&nbsp;<br />\n";
   /**
    * Check if we need to link in a script.
    */
@@ -370,15 +370,15 @@ function sqspell_getWords(){
        * gettext will bork. ;(
        */
       $msg = html_tag( 'p', "\n" .
-                     '<strong>' . _("ATTENTION:") . '</strong><br>'
-                     .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.") ,
+                     '<strong>' . _("ATTENTION:") . '</strong><br />'
+                     .  _("SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this. If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible.") ,
                  'left' ) .  "\n"
 	 . '<blockquote>' . "\n"
 	 . '<form method="post" onsubmit="return AYS()">' . "\n"
 	 . '<input type="hidden" name="MOD" value="crypto_badkey">' . "\n"
 	 . html_tag( 'p',  "\n" .
 	       '<input type="checkbox" name="delete_words" value="ON">'
-	       . _("Delete my dictionary and start a new one") . '<br>'
+	       . _("Delete my dictionary and start a new one") . '<br />'
 	       . _("Decrypt my dictionary with my old password:")
 	       . '<input name="old_key" size=\"10\">' ,
 	   'left' ) . "\n"
