@@ -25,10 +25,19 @@
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");
+   if (!isset($plugin_php))
+      include ("../functions/plugin.php");
 
-   // verify that username and password are correct
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-   
+   if ($is_logged_in != true) {
+      do_hook ("login_before");
+      // verify that username and password are correct
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      do_hook ("login_verified");
+   }
+
+   session_register ("is_logged_in");
+   $is_logged_in = true;
+
    include ("../src/load_prefs.php");
 
    echo "<html><head\n";
