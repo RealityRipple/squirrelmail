@@ -418,8 +418,9 @@
    do_hook("read_body_header");
    echo '</TABLE>' .
         '   </TD></TR>' .
-        '</table>' .
-        "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
+        '</table>';
+   flush();        
+   echo "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
         "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n" .
         '<BR>';
    
