@@ -465,7 +465,7 @@
             $type1 = strtolower($message->header->type1);
             
             if ($message->header->entity_id != $ent_id) {
-               $filename = $message->header->filename;
+               $filename = decodeHeader($message->header->filename);
                if (trim($filename) == "") {
                   $display_filename = "untitled-".$message->header->entity_id;
                } else {
