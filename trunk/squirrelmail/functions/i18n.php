@@ -1142,6 +1142,9 @@ function set_up_language($sm_language, $do_search = false) {
          isset($languages[$sm_notAlias]['CHARSET']) ) {
         bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
         textdomain( 'squirrelmail' );
+	if (function_exists('bind_textdomain_codeset')) {
+	     bind_textdomain_codeset ("squirrelmail", $languages[$sm_notAlias]['CHARSET'] );
+	}
         if ( !ini_get('safe_mode') &&
              getenv( 'LC_ALL' ) != $sm_notAlias ) {
             putenv( "LC_ALL=$sm_notAlias" );
