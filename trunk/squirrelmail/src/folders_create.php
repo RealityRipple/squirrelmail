@@ -1,5 +1,4 @@
 <?
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
