@@ -583,7 +583,9 @@ $dateString = getLongDateString($message->header->date);
 /**
  * What do we reply to -- text only, if possible
  */
-$ent_num = findDisplayEntity($message);
+$ent_ar = findDisplayEntity($message);
+/* first step in displaying multiple entities */
+$ent_num = $ent_ar[0];
 
 /** TEXT STRINGS DEFINITIONS **/
 $echo_more = _("more");
@@ -1071,11 +1073,10 @@ echo '</TABLE>' .
     '   </TD></TR>' .
     '</TABLE>';
 flush();
-
 echo "<TABLE CELLSPACING=0 WIDTH=\"97%\" BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
     "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
     '<BR>'.
-    formatBody($imapConnection, $message, $color, $wrap_at).
+    formatBody($imapConnection, $message, $color, $wrap_at, $ent_num).
     '</TD></TR></TABLE>' .
     '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n" .
     "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>" .
