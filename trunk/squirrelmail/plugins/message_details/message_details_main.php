@@ -1,17 +1,16 @@
 <?php
 /** Message Source  
-*
-* Plugin to view the RFC822 raw message output and the bodystructure of a message
-*
-* Copyright (c) 2002 Marc Groot Koerkamp, The Netherlands
-* Licensed under the GNU GPL. For full terms see the file COPYING.
-* 
-* $Id$
-**/
-/* Path for SquirrelMail required files. */
+ *
+ * Plugin to view the RFC822 raw message output and the bodystructure of a message
+ *
+ * Copyright (c) 2002 Marc Groot Koerkamp, The Netherlands
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ * 
+ * $Id$
+ */
 
-chdir('..');
-define('SM_PATH','../');
+/* Path for SquirrelMail required files. */
+define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');

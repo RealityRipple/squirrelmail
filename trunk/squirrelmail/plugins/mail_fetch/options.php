@@ -1,22 +1,21 @@
 <?php
 
-   /**
-    **  mail_fetch/options.php
-    **
-    **  Copyright (c) 1999-2002 The SquirrelMail Project Team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **
-    **  Setup of the mailfetch plugin.
-    **
-    **  $Id$
-    **/
+/**
+ * mail_fetch/options.php
+ *
+ * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
+ *
+ * Setup of the mailfetch plugin.
+ *
+ * $Id$
+ */
 
-    chdir('..');
-    define('SM_PATH','../');
+define('SM_PATH','../../');
 
-    require_once(SM_PATH . 'include/validate.php');
-    require_once(SM_PATH . 'functions/imap.php');
-    require_once(SM_PATH . 'include/load_prefs.php');
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/imap.php');
+require_once(SM_PATH . 'include/load_prefs.php');
 
     displayPageHeader( $color, 'None' );
 

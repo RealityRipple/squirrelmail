@@ -1,29 +1,41 @@
 <?php
-   chdir ('..');
-   define('SM_PATH','../');
-   require_once(SM_PATH . 'include/validate.php');
 
-   displayPageHeader($color, "None");   
+define('SM_PATH','../../');
+require_once(SM_PATH . 'include/validate.php');
 
-   if (! isset($action))
-      $action = '';
-   if ($action == 'enable')
-      setPref($data_dir, $username, 'spamcop_enabled', 1);
-   elseif ($action == 'disable')
-      setPref($data_dir, $username, 'spamcop_enabled', '');
-   elseif ($action == 'save')
-      setPref($data_dir, $username, 'spamcop_delete', '');
-   elseif ($action == 'delete')
-      setPref($data_dir, $username, 'spamcop_delete', 1);
-   elseif ($action == 'meth' && isset($meth))
-      setPref($data_dir, $username, 'spamcop_method', $meth);
-   elseif ($action == 'save_id' && isset($ID))
-      setPref($data_dir, $username, 'spamcop_id', $ID);
+displayPageHeader($color, "None");   
 
-   global $spamcop_enabled, $spamcop_delete;
-   spamcop_load();
+$action = (!isset($action) ? '' : $action);
 
-   ?>
+switch ($action) {
+    case 'enable':
+        setPref($data_dir, $username, 'spamcop_enabled', 1);
+        break;
+    case 'disable':
+        setPref($data_dir, $username, 'spamcop_enabled', '');
+        break;
+    case 'save':
+        setPref($data_dir, $username, 'spamcop_delete', '');
+        break;
+    case 'delete':
+        setPref($data_dir, $username, 'spamcop_delete', 1);
+        break;
+    case 'meth':
+        if (isset($meth)) {
+            setPref($data_dir, $username, 'spamcop_method', $meth);
+        }
+        break;
+    case 'save_id':
+        if (isset($ID)) {
+            setPref($data_dir, $username, 'spamcop_id', $ID);
+        }
+        break;
+}
+
+global $spamcop_enabled, $spamcop_delete;
+spamcop_load();
+
+?>
       <br>
       <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
          <center><b><?php echo _("Options") ?> - Message Filtering</b></center>

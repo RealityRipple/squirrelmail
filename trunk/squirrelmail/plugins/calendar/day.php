@@ -11,13 +11,12 @@
  * Displays the day page (day view).
  *
  * $Id$
- */
 
-require_once('calendar_data.php');
-require_once('functions.php');
+define('SM_PATH','../../');
 
-chdir('..');
-define('SM_PATH','../');
+/* Calender plugin required files. */
+require_once(SM_PATH . 'plugins/calendar/calendar_data.php');
+require_once(SM_PATH . 'plugins/calendar/functions.php');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');

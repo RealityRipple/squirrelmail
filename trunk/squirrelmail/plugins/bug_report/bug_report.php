@@ -17,8 +17,7 @@
  */
 
 session_start();
-chdir('..');
-define('SM_PATH','../');
+define('SM_PATH','../../');
 
 require_once(SM_PATH . 'config/config.php');
 require_once(SM_PATH . 'functions/strings.php');
