@@ -628,11 +628,11 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
                 $aFetchItems[] = 'UID';
 
                 //create id range
-                $iRangeEnd = (($aMailbox['EXISTS'] - $aMailbox['OFFSET']) > $aMailbox['LIMIT']) ?
-                                 $aMailbox['EXISTS'] - $aMailbox['OFFSET'] +1 - $aMailbox['LIMIT']:
-                                 $aMailbox['EXISTS'] - $aMailbox['OFFSET'];
-                $iRangeStart = (($aMailbox['EXISTS'] - $aMailbox['OFFSET']) > $aMailbox['LIMIT']) ?
-                                 $aMailbox['EXISTS']-$aMailbox['OFFSET'] +1:1;
+                $iRangeStart = $aMailbox['EXISTS'] - $aMailbox['OFFSET'];
+
+                $iRangeEnd   = ($iRangeStart > $aMailbox['LIMIT']) ?
+                               ($iRangeStart - $aMailbox['LIMIT']+1):1;
+
                 $id_slice = range($iRangeStart, $iRangeEnd);
                 $msgs = sqimap_get_small_header_list($imapConnection,$id_slice,$aMailbox['LIMIT'],
                      $aHeaderFields,$aFetchItems);
