@@ -221,7 +221,6 @@
 	         }
 	      }
       }
-
 		$boxes = sqimap_mailbox_parse ($merged, $dm);
 		
 		/** Now, lets sort for special folders **/

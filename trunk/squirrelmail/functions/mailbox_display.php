@@ -44,15 +44,16 @@
 
       if (!$use_cache) {
          if ($numMessages >= 1) {
-            for ($q = 0; $q < $numMessages; $q++) {
-					if ($mailbox == $sent_folder)
-               	sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d, true);
-					else
-               	sqimap_get_small_header ($imapConnection, $q+1, $f, $s, $d, false);
+				if ($mailbox == $sent_folder)
+              	$ary = sqimap_get_small_header ($imapConnection, 1, $numMessages, true);
+				else
+              	$ary = sqimap_get_small_header ($imapConnection, 1, $numMessages, false);
 						
-               $from[$q] = $f;
-               $date[$q] = $d;
-               $subject[$q] = $s;
+            for ($q = 0; $q < $numMessages; $q++) {
+					$from[$q] = $ary[$q]->from;
+					$date[$q] = $ary[$q]->date;
+					$subject[$q] = $ary[$q]->subject;
+
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
          }
@@ -249,7 +250,7 @@
       // loop through and display the info for each message.
       $t = 0; // $t is used for the checkbox number
       if ($numMessages == 0) { // if there's no messages in this folder
-         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp</CENTER></TD></TR>";
+         echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=5><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
          reset($msort);
