@@ -90,6 +90,9 @@ Version 1.5.1 -- CVS
     mailbox_display_button_action to promote the new location
   - Making delete button, when viewing a message, consider which page was viewed
     before.
+  - $agresive_decoding configuration option changed to $aggressive_decoding.
+    Fixed spelling.
+  - Added $loosy_encoding option (provides fix for #806698)
 
 Version 1.5.0
 --------------------

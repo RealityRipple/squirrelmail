@@ -306,7 +306,8 @@ $imap_auth_mech = 'login'               if ( !$imap_auth_mech );
 $session_name = 'SQMSESSID'             if ( !$session_name );
 $show_alternative_names = 'false'       if ( !$show_alternative_names );
 $available_languages = 'all'            if ( !$available_languages );
-$agresive_decoding = 'false'            if ( !$agresive_decoding );
+$aggressive_decoding = 'false'          if ( !$aggressive_decoding );
+$loosy_encoding = 'false'        if ( !$loosy_encoding );
 $advanced_tree = 'false'                if ( !$advanced_tree );
 $oldway = 'false'                       if ( !$oldway );
 $use_icons = 'false'                    if ( !$use_icons );
@@ -572,7 +573,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
     print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
     print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
     print "4.  Available languages             : $WHT$available_languages$NRM\n";
-    print "5.  Use agresive decoding           : $WHT$agresive_decoding$NRM\n";
+    print "5.  Enable aggressive decoding      : $WHT$aggressive_decoding$NRM\n";
+    print "6.  Enable loosy encoding           : $WHT$loosy_encoding$NRM\n";
     print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 11 ) {
@@ -732,7 +734,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 2 ) { $default_charset           = commandA2(); }
             elsif ( $command == 3 ) { $show_alternative_names        = commandA3(); }
             elsif ( $command == 4 ) { $available_languages         = commandA4(); }
-            elsif ( $command == 5 ) { $agresive_decoding         = commandA5(); }
+            elsif ( $command == 5 ) { $aggressive_decoding         = commandA5(); }
+            elsif ( $command == 6 ) { $loosy_encoding         = commandA6(); }
         } elsif ( $menu == 11 ) {
             if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
             elsif ( $command == 2 ) { $oldway            = commandB2(); }
@@ -2854,7 +2857,7 @@ sub commandA4 {
     }
     return $new_available_languages;
 }
-# Agresive decoding
+# Aggressive decoding
 sub commandA5 {
     print "Enable this option if you want to use CPU and memory intensive decoding\n";
     print "functions. This option allows reading multibyte charset, that are used\n";
@@ -2862,20 +2865,44 @@ sub commandA5 {
     print "even when you have disabled use of recode in Tweaks section.\n";
     print "\n";
 
-    if ( lc($agresive_decoding) eq 'true' ) {
+    if ( lc($aggressive_decoding) eq 'true' ) {
         $default_value = "y";
     } else {
         $default_value = "n";
     }
-    print "Use agresive decoding? (y/n) [$WHT$default_value$NRM]: $WHT";
-    $agresive_decoding = <STDIN>;
-    if ( ( $agresive_decoding =~ /^y\n/i ) || ( ( $agresive_decoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
-        $agresive_decoding = 'true';
+    print "Enable aggressive decoding? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $aggressive_decoding = <STDIN>;
+    if ( ( $aggressive_decoding =~ /^y\n/i ) || ( ( $aggressive_decoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $aggressive_decoding = 'true';
     } else {
-        $agresive_decoding = 'false';
+        $aggressive_decoding = 'false';
     }
-    return $agresive_decoding;
+    return $aggressive_decoding;
 }
+
+# Loosy encoding
+sub commandA6 {
+    print "Enable this option if you want to allow loosy charset encoding in message\n";
+    print "composition pages. This option allows charset conversions when output\n";
+    print "charset does not support all symbols used in original charset. Symbols\n";
+    print "unsupported by output charset will be replaced with question marks.\n";
+    print "\n";
+
+    if ( lc($loosy_encoding) eq 'true' ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Enable loosy encoding? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $loosy_encoding = <STDIN>;
+    if ( ( $loosy_encoding =~ /^y\n/i ) || ( ( $loosy_encoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $loosy_encoding = 'true';
+    } else {
+        $loosy_encoding = 'false';
+    }
+    return $loosy_encoding;
+}
+
 
 # Advanced tree
 sub commandB1 {
@@ -3049,7 +3076,9 @@ sub save_data {
         # string
         print CF "\$available_languages   = '$available_languages';\n";
         # boolean
-        print CF "\$agresive_decoding   = $agresive_decoding;\n";
+        print CF "\$aggressive_decoding   = $aggressive_decoding;\n";
+        # boolean
+        print CF "\$loosy_encoding        = $loosy_encoding;\n";
         print CF "\n";
 
         # string

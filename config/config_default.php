@@ -823,6 +823,7 @@ $default_charset = 'iso-8859-1';
  * 'all' (all languages are available) and 'none' (language selection
  * is disabled, interface is set to $squirrelmail_default_language
  * @global string $available_languages
+ * @since 1.5.0
  */
 $available_languages   = 'all';
 
@@ -832,18 +833,31 @@ $available_languages   = 'all';
  * This options allows displaying native language names in language 
  * selection box.
  * @global bool $show_alternative_names
+ * @since 1.5.0
  */
 $show_alternative_names   = false;
 
 /**
- * Agresive Decoding Control
+ * Aggressive Decoding Control
  *
  * This option enables reading of Eastern multibyte encodings. 
  * Functions that provide this support are very cpu and memory intensive.
  * Don't enable this option unless you really need it.
- * @global bool $agresive_decoding
+ * @global bool $aggressive_decoding
+ * @since 1.5.1
  */
-$agresive_decoding = false;
+$aggressive_decoding = false;
+
+/**
+ * Loosy Encoding Control
+ *
+ * This option allows charset conversions when output charset does not support 
+ * all symbols used in original charset. Symbols unsupported by output charset 
+ * will be replaced with question marks.
+ * @global bool $loosy_encoding
+ * @since 1.5.1
+ */
+$loosy_encoding = false;
 
 /*** Tweaks ***/
 /**
@@ -851,8 +865,10 @@ $agresive_decoding = false;
  *
  * Use experimental DHTML folder listing
  * @global bool $advanced_tree
+ * @since 1.5.0
  */
 $advanced_tree = false;
+
 /**
  * Older listing way control
  *
@@ -860,6 +876,7 @@ $advanced_tree = false;
  * @global bool $oldway
  */
 $oldway = false;
+
 /**
  * Message Icons control
  *
@@ -878,8 +895,10 @@ $use_icons = false;
  * Don't enable this option if you are not sure about availability of 
  * recode support.
  * @global bool $use_php_recode
+ * @since 1.5.0
  */
 $use_php_recode = false;
+
 /**
  * PHP iconv functions control
  *
@@ -890,6 +909,7 @@ $use_php_recode = false;
  * Don't enable this option if you are not sure about availability of 
  * iconv support.
  * @global bool $use_php_iconv
+ * @since 1.5.0
  */
 $use_php_iconv = false;
 

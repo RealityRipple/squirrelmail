@@ -36,7 +36,7 @@ require_once(SM_PATH . 'functions/global.php');
  */
 function charset_decode ($charset, $string) {
     global $languages, $squirrelmail_language, $default_charset;
-    global $use_php_recode, $use_php_iconv, $agresive_decoding;
+    global $use_php_recode, $use_php_iconv, $aggressive_decoding;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_decode')) {
@@ -93,8 +93,8 @@ function charset_decode ($charset, $string) {
     $string = htmlspecialchars ($string);
 
     /* controls cpu and memory intensive decoding cycles */
-    if (! isset($agresive_decoding) || $agresive_decoding=="" ) {
-         $agresive_decoding=false; }
+    if (! isset($aggressive_decoding) || $aggressive_decoding=="" ) {
+         $aggressive_decoding=false; }
 
     $decode=fixcharset($charset);
     $decodefile=SM_PATH . 'functions/decode/' . $decode . '.php';
@@ -1148,9 +1148,9 @@ endswitch;
  * @return bool is it possible to convert to user's charset
  */
 function is_conversion_safe($input_charset) {
-  global $languages, $sm_notAlias, $default_charset, $enable_loosy_encoding;
+  global $languages, $sm_notAlias, $default_charset, $loosy_encoding;
 
-    if (isset($enable_loosy_encoding) && $enable_loosy_encoding )
+    if (isset($loosy_encoding) && $loosy_encoding )
 	return true;
 
  // convert to lower case
