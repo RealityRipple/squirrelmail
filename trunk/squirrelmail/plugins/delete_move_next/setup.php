@@ -248,10 +248,6 @@ function delete_move_next_moveNextForm($next) {
     echo '<tr>'.
          "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
            "<form action=\"read_body.php?mailbox=$mailbox&sort=$sort&startMessage=$startMessage&passed_id=$next\" method=\"post\"><small>".
-            "<input type=\"hidden\" name=\"passed_id\" value=\"$next\">".
-            "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
-            "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
-            "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
             "<input type=\"hidden\" name=\"show_more\" value=\"0\">".
             "<input type=\"hidden\" name=\"move_id\" value=\"$passed_id\">".
             _("Move to:") .
@@ -273,10 +269,7 @@ function delete_move_next_moveRightMainForm() {
 
     echo '<tr>' .
             "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\">".
-            "<form action=\"right_main.php?mailbox=$mailbox&sort=$sort&startMessage=$startMessage&passed_id=$passed_id\" method=\"post\"><small>" .
-            "<input type=\"hidden\" name=\"mailbox\" value=\"".$mailbox."\">".
-            "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
-            "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
+            "<form action=\"right_main.php?mailbox=$mailbox&sort=$sort&startMessage=$startMessage\" method=\"post\"><small>" .
             "<input type=\"hidden\" name=\"move_id\" value=\"$passed_id\">".
             _("Move to:") .
             ' <select name="targetMailbox">';
@@ -316,7 +309,7 @@ function delete_move_next_move() {
     }
 
     $move_id = $_POST['move_id'];
-    $mailbox = $_POST['mailbox'];
+    sqgetGlobalVar('mailbox', $mailbox, SQ_FORM);
     $targetMailbox = $_POST['targetMailbox'];
 
     // Move message
