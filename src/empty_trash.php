@@ -45,11 +45,10 @@
          removeFolder($imapConnection, $thisfolder);
       }
    }
-   // Log out this session
-   fputs($imapConnection, "1 logout");
 
+   selectMailbox($imapConnection, $trash_folder, $numMessages);
    echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
    displayPageHeader($mailbox);
-
-   messages_deleted_message("INBOX", $sort, $startMessage);
+   messages_deleted_message($trash_folder, $sort, $startMessage);
+   fputs($imapConnection, "1 logout");
 ?>
