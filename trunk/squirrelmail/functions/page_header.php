@@ -96,9 +96,18 @@ function makeInternalLink($path, $text, $target='') {
     if ($target != '') {
         $target = " target=\"$target\"";
     }
-    $hooktext = do_hook_function('internal_link',$text);
-    if ($hooktext != '')
-        $text = $hooktext;
+
+    // This is an inefficient hook and is only used by 
+    // one plugin that still needs to patch this code,
+    // plus if we are templat-izing SM, visual hooks 
+    // are not needed.  However, I am leaving the code 
+    // here just in case we find a good (non-visual?) 
+    // use for the internal_link hook.
+    //
+    //$hooktext = do_hook_function('internal_link',$text);
+    //if ($hooktext != '')
+    //    $text = $hooktext;
+
     return '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }
 

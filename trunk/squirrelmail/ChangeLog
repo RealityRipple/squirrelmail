@@ -161,6 +161,7 @@ Version 1.5.1 -- CVS
   - Handle a reload of the signout page gracefully: do not present an error
     about having to be logged in to be able to sign out. Fixes #1070069.
   - Prevent & being eaten in set_url_var, thanks Marcin Orlowski. Fixes #1053725.
+  - Removed internal_link hook
 
 Version 1.5.0
 --------------------
