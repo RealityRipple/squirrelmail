@@ -311,6 +311,10 @@ foreach ( $newcfg as $k => $v ) {
                 $v = '"' . $HTTP_POST_VARS[$e] . '"';
                 $newcfg[$k] = $v;
             }
+            if ( $v == '""' && isset( $defcfg[$k]['default'] ) ) {
+                $v = "'" . $defcfg[$k]['default'] . "'";
+                $newcfg[$k] = $v;
+            }
             echo "<tr><td>$name</td><td>".
                  "<input size=\"$size\" name=\"adm_$n\" value=\"" . substr( $v, 1, strlen( $v ) - 2 ) . "\">";
             if ( isset( $defcfg[$k]['comment'] ) ) {
