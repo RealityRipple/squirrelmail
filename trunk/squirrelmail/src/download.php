@@ -93,29 +93,23 @@ if (is_object($message->header->disposition)) {
     $filename = $header->getParameter('name');
 }
 
+//$filename = decodeHeader($filename, false, false);	//Don't want html output nor utf8 because it will return html output
 $filename = decodeHeader($filename, true, false);   //Don't want html output
 if (strlen($filename) < 1) {
-    if ($type1 == 'plain' && $type0 == 'text') {
+    $filename = $subject;
+    if ($type1 == 'plain' && $type0 == 'text')
         $suffix = 'txt';
-        $filename = $subject . '.txt';
-    } else if ($type1 == 'richtext' && $type0 == 'text') {
+    else if ($type1 == 'richtext' && $type0 == 'text')
         $suffix = 'rtf';
-        $filename = $subject . '.rtf';
-    } else if ($type1 == 'postscript' && $type0 == 'application') {
+    else if ($type1 == 'postscript' && $type0 == 'application')
         $suffix = 'ps';
-        $filename = $subject . '.ps';
-    } else if ($type1 == 'rfc822' && $type0 == 'message') {
-        $suffix = 'eml';
-        $filename = $subject . '.msg';
-    } else {
+    else if ($type1 == 'rfc822' && $type0 == 'message')
+        $suffix = 'msg';
+    else {
+        $filename = 'untitled' . strip_tags($ent_id);
         $suffix = $type1;
     }
-
-    if (strlen($filename) < 1) {
-       $filename = 'untitled'.strip_tags($ent_id).'.'.$suffix;
-    } else {
-       $filename = "$filename.$suffix";
-    }
+    $filename = $filename . '.' . $suffix;
 }
 
 /*
