@@ -213,6 +213,9 @@ if (!isset($index_order)) {
 $alt_index_colors =
     getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
 
+$fancy_index_highlite =
+    getPref($data_dir, $username, 'fancy_index_highlite', SMPREF_OFF );
+
 /* Folder List Display Format */
 $location_of_bar =
     getPref($data_dir, $username, 'location_of_bar', SMPREF_LOC_LEFT);

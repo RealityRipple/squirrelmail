@@ -198,6 +198,13 @@ function load_optpage_data_display() {
         'refresh' => SMOPT_REFRESH_NONE
     );
 
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'fancy_index_highlite',
+        'caption' => _("Enable Fancy Row Mouseover Highlighting"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     if ($use_icons) {
         global $icon_themes, $icon_theme;
         $temp = array();
