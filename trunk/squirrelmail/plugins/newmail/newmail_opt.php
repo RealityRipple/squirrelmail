@@ -156,7 +156,7 @@ if ($allowsound == "true") {
             html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'nowrap' ) .
                     html_tag( 'td', '<input type="hidden" value="' .
-                        htmlspecialchars($media) . '" name="media_default">' .
+                        htmlspecialchars($media) . '" name="media_default" />' .
                         htmlspecialchars($media_output) . '', 'left' )
              ) . "\n";
 }
