@@ -45,6 +45,8 @@ if( isset( $PG_SHOWNUM ) ) {
 
 if (isset($newsort) && $newsort != $sort) {
     setPref($data_dir, $username, 'sort', $newsort);
+    $sort = $newsort;
+    session_register('sort');
 }
 
 /* If the page has been loaded without a specific mailbox, */
@@ -63,11 +65,11 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
                                   substr($mailbox, 0, 1) == '/')) {
    $mailbox = 'INBOX';
 }
-    global $color;
+global $color;
 
-    if( isset($do_hook) && $do_hook ) {
-        do_hook ("generic_header");
-    }
+if( isset($do_hook) && $do_hook ) {
+    do_hook ("generic_header");
+}
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
@@ -107,11 +109,6 @@ if ($just_logged_in == true) {
              '</table>' .
              '</td></tr></table>';
     }
-}
-
-if (isset($newsort)) {
-    $sort = $newsort;
-    session_register('sort');
 }
 
 /*********************************************************************

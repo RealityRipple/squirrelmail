@@ -14,13 +14,15 @@
 
 function error_username_password_incorrect() {
     global $frame_top, $color;
+    /* XXX: Should really not start the HTML before this, or close off more
+       cleanly. */
 
     if (!isset($frame_top)) {
         $frame_top = '_top';
     }
 
     echo '<BR>'.
-                '<TABLE COLS=1 WIDTH="75%" NOBORDER BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
+                '<TABLE COLS=1 WIDTH="75%" BORDER="0" BGCOLOR="' . $color[4] . '" ALIGN=CENTER>'.
                 '<TR BGCOLOR="' . $color[0] . '">'.
                     '<TH>' . _("ERROR") . '</TH>'.
                 '</TR>' .
@@ -37,15 +39,15 @@ function error_username_password_incorrect() {
 function general_info($motd, $org_logo, $version, $org_name, $color) {
 
     echo '<BR>'.
-         "<TABLE COLS=1 WIDTH=\"80%\" CELLSPACING=0 CELLPADDING=2 NOBORDER ALIGN=CENTER><TR><TD BGCOLOR=\"$color[9]\">".
-         '<TABLE COLS=1 WIDTH="100%" CELLSPACING=0 CELLPADDING=3 NOBORDER BGCOLOR="' .  $color[4] . '" ALIGN=CENTER>'.
+         "<TABLE COLS=1 WIDTH=\"80%\" CELLSPACING=0 CELLPADDING=2 BORDER=\"0\" ALIGN=CENTER><TR><TD BGCOLOR=\"$color[9]\">".
+         '<TABLE COLS=1 WIDTH="100%" CELLSPACING=0 CELLPADDING=3 BORDER="0" BGCOLOR="' .  $color[4] . '" ALIGN=CENTER>'.
             '<TR>' .
                "<TD BGCOLOR=\"$color[0]\">" .
                   '<B><CENTER>';
     printf (_("Welcome to %s's WebMail system"), $org_name);
     echo          '</CENTER></B>'.
             '<TR><TD BGCOLOR="' . $color[4] .  '">'.
-               '<TABLE COLS=2 WIDTH="90%" CELLSPACING=0 CELLPADDING=3 NOBORDER align="center">'.
+               '<TABLE COLS=2 WIDTH="90%" CELLSPACING=0 CELLPADDING=3 BORDER="0" align="center">'.
                   '<TR>'.
                      '<TD BGCOLOR="' . $color[4] .  '"><CENTER>';
     if ( strlen($org_logo) > 3 ) {
@@ -71,7 +73,7 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
 
     echo '<BR>'.
-         "<TABLE COLS=1 WIDTH=\"70%\" NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+         "<TABLE COLS=1 WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
             '<TR>'.
                "<TD BGCOLOR=\"$color[0]\">".
                   "<FONT COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") . '</CENTER></B></FONT>'.
@@ -87,7 +89,7 @@ function error_message($message, $mailbox, $sort, $startMessage, $color) {
 
 function plain_error_message($message, $color) {
     echo '<BR>'.
-         "<TABLE COLS=1 WIDTH=\"70%\" NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+         "<TABLE COLS=1 WIDTH=\"70%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
             '<TR>'.
                "<TD BGCOLOR=\"$color[0]\">".
                   "<FONT COLOR=\"$color[2]\"><B><CENTER>" . _("ERROR") . '</CENTER></B></FONT>'.

@@ -341,8 +341,8 @@ for ($i = 0; $i < count($boxes); $i++) {
     }
 }
 
-sqimap_logout($imapConnection);
 do_hook('left_main_after');
+sqimap_logout($imapConnection);
 
 echo "</BODY></HTML>\n";
 
