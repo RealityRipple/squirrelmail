@@ -44,18 +44,15 @@ function formatMailboxName($imapConnection, $box_array) {
         $mailbox = $regs[2];
     }
     $unseen = 0;
-    $status = array();
+    $status = array('','');
     if (($unseen_notify == 2 && $real_box == 'INBOX') ||
         $unseen_notify == 3) {
-	$status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );
+	$tmp_status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );
 	if ($status !== false) {
-	    list($unseen_string, $unseen) = $status;
-	} else {
-	    list($unseen_string, $unseen) = array(_("Not available"),'');
-	}
-    } else {
-	list($unseen_string, $unseen) = array('','');
+	    $status = $tmp_status;
+	} 
     }
+    list($unseen_string, $unseen) = $status;
     $special_color = ($use_special_folder_color && isSpecialMailbox($real_box));
 
     /* Start off with a blank line. */
