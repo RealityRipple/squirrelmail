@@ -812,7 +812,7 @@ function sqimap_mailbox_tree($imap_stream) {
         $has_inbox = false;
 
         for ($i = 0, $cnt = count($lsub_ary); $i < $cnt; $i++) {
-            if (preg_match("/^\*\s+LSUB\s+(.*)\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
+            if (preg_match("/^\*\s+LSUB.*\s\"?INBOX\"?[^(\/\.)].*$/i",$lsub_ary[$i])) {
 	        $lsub_ary[$i] = strtoupper($lsub_ary[$i]);
                 $has_inbox = true;
                 break;
