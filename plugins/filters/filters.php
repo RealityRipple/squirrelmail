@@ -237,8 +237,7 @@ function user_filters($imap_stream) {
     }
 }
 
-function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $del_id)
-{
+function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $del_id) {
     global $languages, $squirrelmail_language, $allow_charset_search, $uid_support;
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
@@ -262,7 +261,7 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $
     }
 
     /* read data back from IMAP */
-    $read = sqimap_run_command($imap, $search_str, true, $reponse, $message, $uid_support);
+    $read = sqimap_run_command($imap, $search_str, true, $response, $message, $uid_support);
 
     // This may have problems with EIMS due to it being goofy
 
@@ -273,7 +272,7 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $
         if (sqimap_mailbox_exists($imap, $where_to)) {
             for ($j=2; $j < count($ids); $j++) {
                 $id = trim($ids[$j]);
-		$del_id[] = $id;
+                $del_id[] = $id;
                 sqimap_messages_copy ($imap, $id, $id, $where_to);
                 sqimap_messages_flag ($imap, $id, $id, 'Deleted',false);
             }
