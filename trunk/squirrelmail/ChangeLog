@@ -2,7 +2,10 @@
 *** Squirrelmail Stable Series 1.2 ***
 **************************************
 
-Version 1.2.5 -- 22 Febraury 2002
+Version 1.2.6 -- CVS
+--------------------
+
+Version 1.2.5 -- 22 February 2002
 ---------------------------------
   - Multiple mailbox list calls cached.
   - Added 'View unsafe images' link to the bottom of pages which contain
