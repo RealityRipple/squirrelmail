@@ -5,7 +5,7 @@
  * WARNING: This is only an example config. Don't use it for your
  * configuration. Almisbar translation engine is not public.
  *
- * Copyright (c) 2004 The SquirrelMail Project Team
+ * Copyright (c) 2004-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * @version $Id$

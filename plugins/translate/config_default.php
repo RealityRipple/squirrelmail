@@ -2,7 +2,7 @@
 /**
  * Default SquirrelMail translate plugin configuration
  *
- * Copyright (c) 2004 The SquirrelMail Project Team
+ * Copyright (c) 2004-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * @version $Id$

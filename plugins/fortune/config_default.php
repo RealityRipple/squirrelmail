@@ -4,7 +4,7 @@
  *
  * Configuration defaults to /usr/games/fortune with short quotes
  *
- * @copyright (c) 2004 The SquirrelMail Project Team
+ * @copyright (c) 2004-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package plugins

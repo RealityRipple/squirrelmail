@@ -5,7 +5,7 @@
  * Theme Name:   'Net-Style theme'
  * URL:          http://www.net-style.it
  *
- * Copyright (c) 2000-2004 The SquirrelMail Project Team
+ * Copyright (c) 2000-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * @version $Id$

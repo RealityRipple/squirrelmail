@@ -5,7 +5,7 @@
 Version 1.5.1 -- CVS
 --------------------
   - New reply citation to include date and author.
-  - Securiy: Fix some possible XSS bugs.
+  - Security: Fix some possible XSS bugs.
   - Norwegian Bokmal translation uses nb_NO.
   - Integrated Msg_Flags plugin - turn on/off icons using configuration tool, menu
     number 11 (Tweaks), option number 3, after which users must select an icon

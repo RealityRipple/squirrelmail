@@ -6,7 +6,7 @@
  * top frame of printer_friendly_main.php
  * displays some javascript buttons for printing & closing
  *
- * @copyright (c) 1999-2004 The SquirrelMail Project Team
+ * @copyright (c) 1999-2005 The SquirrelMail Project Team
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
  * @version $Id$
  * @package squirrelmail
