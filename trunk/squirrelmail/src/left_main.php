@@ -810,7 +810,7 @@ if ($advanced_tree) {
    echo '<div ID="leftframe"><br><br>';
 }
 
-echo "\n\n" . html_tag( 'table', '', '', '', 'border="0" cellspacing="0" cellpadding="0" width="100%"' ) . 
+echo "\n\n" . html_tag( 'table', '', 'left', '', 'border="0" cellspacing="0" cellpadding="0" width="99%"' ) . 
     html_tag( 'tr' ) . 
     html_tag( 'td', '', 'left' ) . 
     '<center><font size="4"><b>'. _("Folders") . "</b><br></font>\n\n";
