@@ -126,6 +126,36 @@ function getDayName( $day_number ) {
     return( $ret );
 }
 
+function getDayAbrv( $day_number ) {
+
+    switch( $day_number ) {
+    case 0:
+        $ret = _("Sun");
+        break;
+    case 1:
+        $ret = _("Mon");
+        break;
+    case 2:
+        $ret = _("Tue");
+        break;
+    case 3:
+        $ret = _("Wed");
+        break;
+    case 4:
+        $ret = _("Thu");
+        break;
+    case 5:
+        $ret = _("Fri");
+        break;
+    case 6:
+        $ret = _("Sat");
+        break;
+    default:
+        $ret = '';
+    }
+    return( $ret );
+}
+
 function getMonthName( $month_number ) {
     switch( $month_number ) {
      case '01':
@@ -170,6 +200,51 @@ function getMonthName( $month_number ) {
     return( $ret );
 }
 
+function getMonthAbrv( $month_number ) {
+    switch( $month_number ) {
+     case '01':
+        $ret = _("Jan");
+        break;
+     case '02':
+        $ret = _("Feb");
+        break;
+     case '03':
+        $ret = _("Mar");
+        break;
+     case '04':
+        $ret = _("Apr");
+        break;
+     case '05':
+        $ret = _("Ma&#121;");
+        break;
+     case '06':
+        $ret = _("Jun");
+        break;
+     case '07':
+        $ret = _("Jul");
+        break;
+     case '08':
+        $ret = _("Aug");
+        break;
+     case '09':
+        $ret = _("Sep");
+        break;
+     case '10':
+        $ret = _("Oct");
+        break;
+     case '11':
+        $ret = _("Nov");
+        break;
+     case '12':
+        $ret = _("Dec");
+        break;
+     default:
+        $ret = '';
+    }
+    return( $ret );
+}
+
+
 function date_intl( $date_format, $stamp ) {
 
     $ret = str_replace( 'D', '$1', $date_format );
@@ -177,8 +252,8 @@ function date_intl( $date_format, $stamp ) {
     $ret = str_replace( 'l', '$4', $ret );
     $ret = str_replace( 'M', '$5', $ret );
     $ret = date( '$3'. $ret . '$3', $stamp ); // Workaround for a PHP 4.0.4 problem
-    $ret = str_replace( '$1', substr( getDayName( date( 'w', $stamp ) ), 0, 3 ), $ret );
-    $ret = str_replace( '$5', substr( getMonthName( date( 'm', $stamp ) ), 0, 3 ), $ret );    
+    $ret = str_replace( '$1', getDayAbrv( date( 'w', $stamp ) ), $ret );
+    $ret = str_replace( '$5', getMonthAbrv( date( 'm', $stamp ) ), $ret );    
     $ret = str_replace( '$2', getMonthName( date( 'm', $stamp ) ), $ret );
     $ret = str_replace( '$4', getDayName( date( 'w', $stamp ) ), $ret );
     $ret = str_replace( '$3', '', $ret );
