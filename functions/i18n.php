@@ -250,8 +250,10 @@ function set_up_language($sm_language, $do_search = false, $default = false) {
             putenv( "LC_ALL=$longlocale" );
             putenv( "LANG=$longlocale" );
             putenv( "LANGUAGE=$longlocale" );
+            if ($sm_notAlias=='tr_TR') putenv( "LC_CTYPE=C" );
         }
         setlocale(LC_ALL, $longlocale);
+        if ($sm_notAlias=='tr_TR') setlocale(LC_CTYPE,'C');
 
         // Set text direction/alignment variables
         if (isset($languages[$sm_notAlias]['DIR']) &&
