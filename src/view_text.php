@@ -26,72 +26,65 @@ require_once(SM_PATH . 'functions/html.php');
 sqgetGlobalVar('key',        $key,          SQ_COOKIE);
 sqgetGlobalVar('username',   $username,     SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad,   SQ_SESSION);
-sqgetGlobalVar('delimiter',  $delimiter,    SQ_SESSION);
+sqgetGlobalVar('messages',   $messages,     SQ_SESSION);
+sqgetGlobalVar('mailbox',    $mailbox,      SQ_GET);
+sqgetGlobalVar('ent_id',     $ent_id,       SQ_GET);
+sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET);
 sqgetGlobalVar('QUERY_STRING', $QUERY_STRING, SQ_SERVER);
-sqgetGlobalVar('messages', $messages);
-sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
-
-if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
-  $mailbox = $temp;
+if (sqgetGlobalVar('passed_id', $temp, SQ_GET)) {
+    $passed_id = (int) $temp;
 }
-if ( !sqgetGlobalVar('ent_id', $ent_id, SQ_GET) ) {
-  $ent_id = '';
-}
-if ( !sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
-  $passed_ent_id = '';
-} 
-
-
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-$mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
+$mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox);
 
-$message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
+$message = &$messages[$mbx_response['UIDVALIDITY']][$passed_id];
+if (!is_object($message)) {
+    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+}
 $message_ent = &$message->getEntity($ent_id);
 if ($passed_ent_id) {
     $message = &$message->getEntity($passed_ent_id);
 }
-   
-$header = $message_ent->header;
-$charset = $header->getParameter('charset');
-$type0 = $header->type0;
-$type1 = $header->type1;
+$header   = $message_ent->header;
+$type0    = $header->type0;
+$type1    = $header->type1;
+$charset  = $header->getParameter('charset');
 $encoding = strtolower($header->encoding);
 
-$msg_url = 'read_body.php?' . $QUERY_STRING;
-$msg_url = set_url_var($msg_url, 'ent_id', 0);
+$msg_url   = 'read_body.php?' . $QUERY_STRING;
+$msg_url   = set_url_var($msg_url, 'ent_id', 0);
+$dwnld_url = '../src/download.php?'. $QUERY_STRING . '&amp;absolute_dl=true';
 
 $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
 $body = decodeBody($body, $encoding);
 
-displayPageHeader($color, 'None');
-
-echo "<BR><TABLE WIDTH=\"100%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-     "<B><CENTER>".
-     _("Viewing a text attachment") . " - ";
-echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
-
-$dwnld_url = '../src/download.php?'. $QUERY_STRING.'&amp;absolute_dl=true';
-echo '</b></td><tr><tr><td><CENTER><A HREF="'.$dwnld_url. '">'.
-     _("Download this as a file").
-     "</A></CENTER><BR>".
-     "</CENTER></B>".
-     "</TD></TR></TABLE>".
-     "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
-     "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
-
-    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        if (mb_detect_encoding($body) != 'ASCII') {
-            $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
-        }
+if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+    function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+    if (mb_detect_encoding($body) != 'ASCII') {
+        $body = $languages[$squirrelmail_language]['XTRA_CODE']('decode', $body);
     }
+}
 
 if ($type1 == 'html' || (isset($override_type1) &&  $override_type1 == 'html')) {
     $body = MagicHTML( $body, $passed_id, $message, $mailbox);
 } else {
     translateText($body, $wrap_at, $charset);
 }
-echo $body . "</TT></TD></TR></TABLE>";
 
+displayPageHeader($color, 'None');
+
+echo '<BR><TABLE WIDTH="100%" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR="' . $color[0] . '">' .
+     '<B><CENTER>' .
+     _("Viewing a text attachment") . ' - ' .
+     '<a href="'.$msg_url.'">'. _("View message") . '</a>' .
+     '</b></td><tr><tr><td><CENTER><A HREF="' . $dwnld_url . '">' .
+     _("Download this as a file") .
+     '</A></CENTER><BR>' .
+     '</CENTER></B>' .
+     '</TD></TR></TABLE>' .
+     '<TABLE WIDTH="98%" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR="' . $color[0] . '">' .
+     '<TR><TD BGCOLOR="' . $color[4] . '"><TT>' .
+     $body . '</TT></TD></TR></TABLE>' .
+     '</body></html>';
 ?>
