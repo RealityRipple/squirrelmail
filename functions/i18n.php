@@ -395,8 +395,10 @@ $languages['el_GR']['ALTNAME'] = '&Epsilon;&lambda;&lambda;&eta;&nu;&iota;&kappa
 $languages['el_GR']['CHARSET'] = 'iso-8859-7';
 $languages['el']['ALIAS'] = 'el_GR';
 
-// There is no en_EN! There is en_US, en_BR, en_AU, and so forth, 
-// but who cares about !US, right? Right? :)
+$languages['en_GB']['NAME']    = 'British';
+$languages['en_GB']['CHARSET'] = 'iso-8859-15';
+$languages['en_GB']['LOCALE']  = 'en_GB.ISO-8859-15';
+
 $languages['en_US']['NAME']    = 'English';
 $languages['en_US']['CHARSET'] = 'iso-8859-1';
 $languages['en']['ALIAS'] = 'en_US';
