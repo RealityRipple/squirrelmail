@@ -294,7 +294,7 @@ function ListBoxes ($boxes, $j=0 ) {
     if (!isset($boxes) || empty($boxes))
         return;
 
-    $pre = '<nobr>';
+    $pre = '<span style="white-space: nowrap;">';
     $end = '';
     $collapse = false;
     $unseen_found = false;
@@ -422,7 +422,7 @@ function ListBoxes ($boxes, $j=0 ) {
         array(isset($numMessages) ? $numMessages : '',
               $boxes->mailboxname_full, $imapConnection));
 
-    $end .= '</nobr>';
+    $end .= '</span>';
 
     if (!$boxes->is_root) {
         echo "" . $pre .$font. str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),$boxes->mailboxname_sub) .$fontend . $end. '<br />' . "\n";
@@ -1023,7 +1023,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         } else {
             $prefix = str_replace(' ','&nbsp;',$prefix);
         }
-        $line = "<nobr><tt>$prefix</tt>";
+        $line = "<span style=\"white-space: nowrap;\"><tt>$prefix</tt>";
 
         /* Add the folder name and link. */
         if (! isset($color[15])) {
@@ -1046,7 +1046,7 @@ for ($i = 0; $i < count($boxes); $i++) {
         }
 
         /* Put the final touches on our folder line. */
-        $line .= "</nobr><br />\n";
+        $line .= "</span><br />\n";
 
         /* Output the line for this folder. */
         echo $line;
