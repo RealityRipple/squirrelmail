@@ -15,6 +15,7 @@ Version 1.2.2 -- ??
   - Changed conf.pl invocation from '#/usr/bin/perl' to
     '#!/usr/bin/env perl' to help people who have perl somewhere
     else. (Bug #496753)
+  - Fixed sorting of folder list, bug #497181
   	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
