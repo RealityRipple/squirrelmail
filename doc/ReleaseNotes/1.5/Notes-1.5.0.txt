@@ -1,0 +1,61 @@
+/*****************************************************************
+ * Release Notes: SquirrelMail 1.5.0                             *
+ * The "Breeze Before the Storm" Release                         *
+ * 1 Feb 2004                                                    *
+ *****************************************************************/
+
+In this edition of SquirrelMail Release Notes:
+   * All about this Release!
+   * Major updates
+   * A note on plugins
+   * Reporting my favorite SquirrelMail 1.5 bug
+
+All about this Release!
+=======================
+
+This is the first release of our new 1.5.x-series, which is a 
+DEVELOPMENT release. 
+
+See the Major Updates section of this file for more.
+
+
+Major updates
+==============
+
+1.5.0 includes the integration of the delete_move_next plugin, 
+as well as a new "save replies to the same folder as the original"
+option. 
+
+Reporting my favorite SquirrelMail 1.4 bug
+==========================================
+
+We constantly aim to make SquirrelMail even better. So we need you to
+submit any bug you come across! Also, please mention that the bug is
+in this 1.5.0 release, and list your IMAP server and webserver details.
+
+   http://www.squirrelmail.org/bugs
+
+Thanks for your cooperation with this. That helps us to make
+sure nothing slips through the cracks. Also, it would help if
+people would check existing tracker items for a bug before reporting
+it again. This would help to eliminate duplicate reports, and
+increase the time we can spend CODING by DECREASING the time we
+spend sorting through bug reports. And remember, check not only OPEN
+bug reports, but also closed ones as a bug that you report MAY have
+been fixed in CVS already.
+
+If you want to join us in coding SquirrelMail, or have other
+things to share with the developers, join the development mailinglist:
+
+   squirrelmail-devel@lists.sourceforge.net
+
+
+About Our Release Alias
+=======================
+
+This release is labeled the "Breeze Before the Storm" Release.
+Major UI changes are coming in the next few releases, hold
+onto your hats!
+
+                  Happy SquirrelMailing!
+                    - The SquirrelMail Project Team
