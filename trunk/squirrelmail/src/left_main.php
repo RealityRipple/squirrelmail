@@ -202,7 +202,7 @@
     echo '</A>)</SMALL></CENTER><BR>';
 
     /* Lastly, display the folder list. */
-    if (isset($collapse_folders) && $collapse_folders) {
+    if (isset($collapse_folders) && $collapse_folders ) {
         /* If directed, collapse or uncollapse a folder. */
         if (isset($fold)) {
             setPref($data_dir, $username, 'collapse_folder_' . $fold, SM_BOX_COLLAPSED);
@@ -303,7 +303,7 @@
      * status and parent (or not parent) status for all children boxes.
      */
     function compute_folder_children(&$parbox, $boxcount) {
-        global $boxes, $data_dir, $username;
+        global $boxes, $data_dir, $username, $collapse_folders;
         $nextbox = $parbox + 1;
 
         /* Retreive the name for the parent box. */
@@ -313,16 +313,19 @@
         $boxes[$parbox]['parent'] = false;
 
         /* Compute the collapse status for this box. */
-        $collapse = 0;
-        $collapse = getPref($data_dir, $username, 'collapse_folder_' . $parbox_name);
-        $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
+        if( isset($collapse_folders) && $collapse_folders ) {
+            $collapse = getPref($data_dir, $username, 'collapse_folder_' . $parbox_name);
+            $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
+        } else {
+            $collapse = SM_BOX_UNCOLLAPSED;
+        }
         $boxes[$parbox]['collapse'] = $collapse;
 
         /* Otherwise, get the name of the next box. */
-	if (isset($boxes[$nextbox]['unformatted']))
-           $nextbox_name = $boxes[$nextbox]['unformatted'];
-	else
-	   $nextbox_name = '';
+    	if (isset($boxes[$nextbox]['unformatted']))
+               $nextbox_name = $boxes[$nextbox]['unformatted'];
+    	else
+    	   $nextbox_name = '';
 
         /* Compute any children boxes for this box. */
         while (($nextbox < $boxcount) &&
