@@ -182,7 +182,7 @@ function isSpecialMailbox( $box ) {
              isTrashMailbox($box) || isSentMailbox($box) || isDraftMailbox($box) );
 
     if ( !$ret ) {
-        $ret = do_hook_function( 'special_mailbox', $box );
+        $ret = boolean_hook_function('special_mailbox',$box,1);
     }
     return $ret;
 }

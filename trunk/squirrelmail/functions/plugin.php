@@ -91,6 +91,51 @@ function concat_hook_function($name,$parm=NULL) {
 }
 
 /**
+ * This function is used for hooks which are to return true or
+ * false. If $priority is > 0, any one or more trues will override
+ * any falses. If $priority < 0, then one or more falses will
+ * override any trues.
+ * Priority 0 means majority rules.  Ties will be broken with $tie */
+function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
+    global $squirrelmail_plugin_hooks;
+    $yea = 0;
+    $nay = 0;
+    $ret = $tie;
+
+    if (isset($squirrelmail_plugin_hooks[$name]) &&
+        is_array($squirrelmail_plugin_hooks[$name])) {
+
+        /* Loop over the plugins that registered the hook */
+        foreach ($squirrelmail_plugin_hooks[$name] as $function) {
+            if (function_exists($function)) {
+                $ret = $function($parm);
+                if ($ret) {
+                    $yea++;
+                } else {
+                    $nay++;
+                }
+            }
+        }
+
+        /* Examine the aftermath and assign the return value appropriately */
+        if (($priority > 0) && ($yea)) {
+            $ret = true;
+        } elseif (($priority < 0) && ($nay)) {
+            $ret = false;
+        } elseif ($yea > $nay) {
+            $ret = true;
+        } elseif ($nay > $yea) {
+            $ret = false;
+        } else {
+            // There's a tie, no action needed.
+        }
+        return $ret;
+    }
+    // If the code gets here, there was a problem - no hooks, etc.
+    return NULL;
+}
+
+/**
  * This function checks whether the user's USER_AGENT is known to
  * be broken. If so, returns true and the plugin is invisible to the
  * offending browser.
