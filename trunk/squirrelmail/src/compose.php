@@ -341,8 +341,8 @@
 
       // This code is for attachments
       echo "   <tr>\n";
-      echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
-      echo "      <SMALL><BR></SMALL>"._("Attach:");
+      echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=MIDDLE ALIGN=RIGHT>\n";
+      echo        _("Attach:");
       echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
       echo "      <INPUT NAME=\"attachfile\" SIZE=48 TYPE=\"file\">\n";
       echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"";
