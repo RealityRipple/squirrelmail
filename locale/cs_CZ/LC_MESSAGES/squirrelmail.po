@@ -210,7 +210,7 @@ msgstr "Skrytá kopie"
 
 #: src/compose.php:512 src/read_body.php:537
 msgid "Subject:"
-msgstr "Pøedmìt"
+msgstr "Pøedmìt:"
 
 #: src/compose.php:557 src/compose.php:619 src/compose_sms.php:304
 #: src/compose_sms.php:324
