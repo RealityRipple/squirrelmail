@@ -206,6 +206,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     if ($iSize < $iBufferSize) {
         $iBufferSize = $iSize;
     }
+
     $iRetrieved = 0;
     $results = '';
     $sRead = $sReadRem = '';
@@ -226,19 +227,10 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
             $sRead = $sReadRem . $sRead;
             $sReadRem = '';
         }
-        if (substr($sRead,-1) !== "\n") {  
-            $i = strrpos($sRead,"\n");
-            if ($i !== false && $iRetrieved<$iSize) {
-                ++$i;
-                $sReadRem = substr($sRead,$i);
-                $sRead = substr($sRead,0,$i);
-            } else if ($iLength && $iRetrieved<$iSize) { // linelength > received buffer
-                $sReadRem = $sRead;
-                $sRead = '';
-            }
-        } 
+
         if ($filter && $sRead) {
-           $filter($sRead);
+           // in case the filter is base64 decoding we return a remainder 
+           $sReadRem = $filter($sRead);
         }
         if ($outputstream && $sRead) {
            if (is_resource($outputstream)) {
@@ -255,6 +247,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     }
     return $results;       
 }        
+
 
 /**
  * Obsolete function, inform plugins that use it
