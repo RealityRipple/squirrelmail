@@ -56,7 +56,7 @@
          }
          messages_deleted_message($mailbox, $sort, $startMessage, $color);
       } else {
-         error_message("No messages were selected.", $mailbox, $sort, $startMessage, $color);
+         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
    } else {    // Move messages
       displayPageHeader($color, $mailbox);
@@ -82,7 +82,7 @@
 
          messages_moved_message($mailbox, $sort, $startMessage, $color);
       } else {
-         error_message("No messages were selected.", $mailbox, $sort, $startMessage, $color);
+         error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
    }
 

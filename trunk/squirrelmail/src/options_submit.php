@@ -24,8 +24,14 @@
    setSig($data_dir, $username, stripslashes($signature_edit));
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
-   echo "<BR><BR><BR><CENTER><B>Options Saved!</B><BR><BR>";
-   echo "Your options have been saved.<BR><A HREF=\"webmail.php\" TARGET=_top>Click here</A> to continue.";
+   echo "<BR><BR><BR><CENTER><B>";
+   echo _("Options Saved!");
+   echo "</B><BR><BR>";
+   echo _("Your options have been saved.");
+   echo "<BR><A HREF=\"webmail.php\" TARGET=_top>";
+   echo _("Click here");
+   echo "</A>";
+   echo _("to continue.");
    echo "</CENTER></FONT>";
    echo "</BODY></HTML>";
 ?>
