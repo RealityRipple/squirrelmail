@@ -21,9 +21,7 @@
    if (isset($squirrelmail_language)) {
       setcookie("squirrelmail_language", $squirrelmail_language, time()+2592000);
    }
-?>
-<HTML><HEAD>
-<?php
+
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");
@@ -32,7 +30,8 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    
    include ("../src/load_prefs.php");
-   
+
+   echo "<html><head\n";
    echo "<TITLE>";
    echo "$org_title";
    echo "</TITLE>";
