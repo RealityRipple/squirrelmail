@@ -88,7 +88,7 @@
       $message["INFO"]["ID"] = $id;
       $message["INFO"]["MAILBOX"] = $mailbox;
       $message["HEADER"] = sqimap_get_message_header($imap_stream, $id);
-      $message["ENTITIES"] = sqimap_get_message_body($imap_stream, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE0"], $message["HEADER"]["TYPE1"]);
+      $message["ENTITIES"] = sqimap_get_message_body($imap_stream, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE0"], $message["HEADER"]["TYPE1"], $message["HEADER"]["ENCODING"]);
       return $message;
    }
 
@@ -271,7 +271,7 @@
    /******************************************************************************
     **  Returns the body of a message.
     ******************************************************************************/
-   function sqimap_get_message_body ($imap_stream, $bound, $id, $type0, $type1) {
+   function sqimap_get_message_body ($imap_stream, $bound, $id, $type0, $type1, $encoding) {
       fputs ($imap_stream, "a001 FETCH $id:$id BODY[TEXT]\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
        
@@ -285,6 +285,7 @@
          $i++;
       }
       $body = $bodytmp;
-      return decodeMime($body, $bound, $type0, $type1);
+
+      return decodeMime($body, $bound, $type0, $type1, $encoding);
    }
 ?>

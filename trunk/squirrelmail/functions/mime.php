@@ -11,7 +11,7 @@
    /** This is the first function called.  It decides if this is a multipart
        message or if it should be handled as a single entity
     **/
-   function decodeMime($body, $bound, $type0, $type1, &$entities) {
+   function decodeMime($body, $bound, $type0, $type1, $encoding, &$entities) {
       if ($type0 == "multipart") {
          $bound = trim($bound);
          $i = 0;
