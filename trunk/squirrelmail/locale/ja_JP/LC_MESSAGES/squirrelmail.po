@@ -1,14 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR Free Software Foundation, Inc.
+# Squirrelmail Japanese Translation.
+# Copyright (c) 1999-2002 The Squirrelmail Development Team
 # HIGASHIYAMA Masato <masato@yamaai-tech.com>, 2002.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: squirrelmail\n"
+"Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2002-05-30 16:53+0200\n"
 "PO-Revision-Date: 2002-08-19 02:21+0900\n"
 "Last-Translator: Masato HIGASHIYAMA <masato@yamaai-tech.com>\n"
-"Language-Team: Japanese\n"
+"Language-Team: Japanese  <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=euc-jp\n"
 "Content-Transfer-Encoding: 8bit\n"
