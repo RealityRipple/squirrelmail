@@ -82,23 +82,21 @@ function get_info($doc, $pos) {
 
 /**************[ END HELP FUNCTIONS ]******************/
 
-?>
 
-<br>
-<table width="95%" align="center" cellpadding="2" cellspacing="2" border="0">
- <tr>
-  <td bgcolor="<?php echo $color[0] ?>">
-   <center><b><?php echo _("Help") ?></b></center>
-  </td>
- </tr>
-</table>
 
-<?php do_hook("help_top") ?>
+echo '<br>' .
+    html_tag( 'table',
+        html_tag( 'tr',
+            html_tag( 'td','<center><b>' . _("Help") .'</b></center>', 'center', $color[0] )
+        ) ,
+    'center', '', 'width="95%" cellpadding="2" cellspacing="2" border="0"' );
 
-<table width="90%" cellpadding="0" cellspacing="10" border="0" align="center">
-<tr>
-<td>
-<?php 
+do_hook("help_top");
+
+echo html_tag( 'table', '', 'center', '', 'width="90%" cellpadding="0" cellspacing="10" border="0"' ) .
+        html_tag( 'tr' ) .
+            html_tag( 'td' );
+
 if (isset($HTTP_REFERER)) {
     $ref = strtolower($HTTP_REFERER);
     if (strpos($ref, 'src/compose')){
@@ -165,16 +163,18 @@ if ($help_exists == true) {
     }
 
     if (!isset($chapter)) {
-        echo '<table cellpadding="0" cellspacing="0" border="0" align="center"><tr><td>' .
-             '<b><center>' . _("Table of Contents") . '</center></b><br>';
+        echo html_tag( 'table', '', 'center', '', 'cellpadding="0" cellspacing="0" border="0"' );
+	            html_tag( 'tr' ) .
+                        html_tag( 'td' ) .
+                             '<b><center>' . _("Table of Contents") . '</center></b><br>';
         do_hook('help_chapter');
-        echo '<ol>';
+        echo html_tag( 'ol' );
         for ($i=0; $i < count($helpdir); $i++) {
             $doc = file("../help/$user_language/$helpdir[$i]");
             $help_info = get_info($doc, 0);
             echo '<li><a href="../src/help.php?chapter=' . ($i+1)
-                 . '">' . $help_info[0] . '</a>';
-                 echo '<ul>' . $help_info[2] . '</ul>';
+                 . '">' . $help_info[0] . '</a>' .
+                 html_tag( 'ul', $help_info[2] );
         }
         echo '</ol></td></tr></table>';
     } else {
@@ -202,17 +202,15 @@ if ($help_exists == true) {
         if (isset($help_info[1])){
             echo $help_info[1];
         } else {
-            echo '<p>' . $help_info[2] . '</p>';
+            echo html_tag( 'p', $help_info[2], 'left' );
         }
              
         $section = 0;
         for ($n = $help_info[3]; $n < count($doc); $n++) {
             $section++;
             $help_info = get_info($doc, $n);
-            echo "<b>$chapter.$section - $help_info[0]</b>";
-            echo '<ul>';
-            echo $help_info[1];
-            echo '</ul>';
+            echo "<b>$chapter.$section - $help_info[0]</b>" .
+                html_tag( 'ul', $help_info[1] );
             $n = $help_info[3];
         }
 
@@ -220,6 +218,9 @@ if ($help_exists == true) {
     }
 }
 do_hook('help_bottom');
+
+echo html_tag( 'tr',
+            html_tag( 'td', '&nbsp;', 'left', $color[0] )
+        ).
+       '</table></body></html>';
 ?>
-<tr><td bgcolor="<?php echo $color[0] ?>">&nbsp;</td></tr></table>
-</body></html>
