@@ -119,16 +119,17 @@ function charset_encode($string,$charset,$htmlencode=true) {
 
   // Undo html special chars
   if (! $htmlencode ) {
-     $string = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$string);
+      $string = str_replace(array('&amp;','&gt;','&lt;','&quot;'),array('&','>','<','"'),$string);
   }
 
   $encode=fixcharset($charset);
   $encodefile=SM_PATH . 'functions/encode/' . $encode . '.php';
   if (file_exists($encodefile)) {
-    include_once($encodefile);
-    $ret = call_user_func('charset_encode_'.$encode, $string);
+      include_once($encodefile);
+      $ret = call_user_func('charset_encode_'.$encode, $string);
   } else {
-    $ret = $string;
+      include_once(SM_PATH . 'functions/encode/us_ascii.php');
+      $ret = charset_encode_us_ascii($string);
   }
   return( $ret );
 }
@@ -145,9 +146,9 @@ function charset_encode($string,$charset,$htmlencode=true) {
  * @return string converted string
  */
 function charset_convert($in_charset,$string,$out_charset,$htmlencode=true) {
-  $string=charset_decode($in_charset,$string);
-  $string=charset_encode($string,$out_charset,$htmlencode);
-  return $string;
+    $string=charset_decode($in_charset,$string);
+    $string=charset_encode($string,$out_charset,$htmlencode);
+    return $string;
 }
 
 /**
@@ -1147,7 +1148,10 @@ endswitch;
  * @return bool is it possible to convert to user's charset
  */
 function is_conversion_safe($input_charset) {
-  global $languages, $sm_notAlias, $default_charset;
+  global $languages, $sm_notAlias, $default_charset, $enable_loosy_encoding;
+
+    if (isset($enable_loosy_encoding) && $enable_loosy_encoding )
+	return true;
 
  // convert to lower case
  $input_charset = strtolower($input_charset);
