@@ -22,7 +22,7 @@
     	GLOBAL $languages, $squirrelmail_language;
     	
     	$align = strtolower( $align );
-    	$dir   = strtolower( $dir );
+    	$bgc = '';
     	$tag = strtoupper( $tag );
     	
     	if ( isset( $languages[$squirrelmail_language]['DIR']) ) {
@@ -76,5 +76,62 @@
 	
         return( $ret );
     }
+
+    /* handy function to set url vars */
+    /* especially usefull when $url = $PHP_SELF */
+    function set_url_var($url, $var, $val=0) {
+      $k = '';
+      $ret = '';
+      $url = trim(preg_replace('/&amp;/','&',$url));
+
+      $pat_a = array (
+                       '/.+(\\&'.$var.')=(.*)\\&/AU',   /* in the middle */
+		       '/.+\\?('.$var.')=(.*\\&).+/AU', /* at front, more follow */
+		       '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
+		       '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
+		     );
+      switch (true) {
+        case (preg_match($pat_a[0],$url,$regs)):
+          $k = $regs[1];
+          $v = $regs[2];
+	  break;
+        case (preg_match($pat_a[1],$url,$regs)):
+          $k = $regs[1];
+          $v = $regs[2];
+	  break;
+	case (preg_match($pat_a[2],$url,$regs)): 
+          $k = $regs[1];
+          $v = $regs[2];
+	  break;
+        case (preg_match($pat_a[3],$url,$regs)):
+          $k = $regs[1];
+          $v = $regs[2];
+	  break;
+	default:
+          if ($val) {
+            if (strpos($url,'?')) {
+           
+    $url .= "&$var=$val";
+	    } else {
+           
+   $url .= "?$var=$val";
+	    }   
+          }
+	  break;
+      }
+
+      if ($k) {
+        if ($val) {
+           $pat = "/$k=$v/";
+	   $rpl = "$k=$val";
+	   echo "<B>$pat , $rpl </b><BR>";
+           $url = preg_replace($pat,$rpl,$url);
+        } else {
+           $pat = "/$k=$v/";
+           $url = preg_replace($pat,'',$url);
+        }
+      }	
+      return  preg_replace('/&/','&amp;',$url);
+    } 
 
 ?>
