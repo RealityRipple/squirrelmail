@@ -16,6 +16,6 @@
     $color[7]   = "8B6029"; // (blue)           Links
     $color[8]   = "000000"; // (black)          Normal text
     $color[9]   = "BFA779"; // (mid tan)        Darker version of #0
-    $color[10]  = "8F7739"; // (dark tan)       Darker version of #9
+    $color[10]  = "7F6729"; // (dark tan)       Darker version of #9
     $color[11]  = "770000"; // (dark red)       Special Folders color
 ?>

@@ -1,7 +1,7 @@
 <?
    include("../config/config.php");
-   include("../functions/strings.php");
-   include("../functions/page_header.php");
+//   include("../functions/strings.php");
+//   include("../functions/page_header.php");
    include("../functions/imap.php");
    include("../functions/mime.php");
    include("../functions/mailbox.php");
