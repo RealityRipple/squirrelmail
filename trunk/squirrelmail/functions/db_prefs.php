@@ -77,7 +77,7 @@ class dbPrefs {
     var $error = NULL;
     var $db_type = SMDB_UNKNOWN;
 
-    var $default = Array('chosen_theme' => '../themes/default_theme.php',
+    var $default = Array('theme_default' => 0,
                          'show_html_default' => '0');
 
     function open() {
