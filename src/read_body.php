@@ -37,16 +37,20 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
  * @param int $passed_id The current message UID
  * @return the index of the next valid message from the array
  */
-function findNextMessage($passed_id) {
-    global $server_sort_array;
+function findNextMessage($uidset,$passed_id='backwards') {
+    if ($passed_id=='backwards' || !is_array($uidset)) { // check for backwards compattibilty gpg plugin
+        $passed_id = $uidset;
+        sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
+        $uidset = $server_sort_array;
+    }
     $result = -1;
-    $count = count($server_sort_array) - 1;
-    foreach($server_sort_array as $key=>$value) {
+    $count = count($uidset) - 1;
+    foreach($uidset as $key=>$value) {
         if ($passed_id == $value) {
             if ($key == $count) {
                 break;
             }
-            $result = $server_sort_array[$key + 1];
+            $result = $uidset[$key + 1];
             break;
         }
     }
@@ -60,13 +64,17 @@ function findNextMessage($passed_id) {
  * @param int $passed_id The current message UID
  * @return the index of the next valid message from the array
  */
-function findPreviousMessage($numMessages, $passed_id) {
-    global $server_sort_array;
+
+function findPreviousMessage($uidset, $passed_id) {
+    if (!is_array($uidset)) { //obsolete check
+        sqgetGlobalVar('server_sort_array',$server_sort_array,SQ_SESSION);
+        $uidset = $server_sort_array;
+    }
     $result = -1;
-    foreach($server_sort_array as $key=>$value) {
+    foreach($uidset as $key=>$value) {
         if ($passed_id == $value) {
             if ($key != 0) {
-                $result = $server_sort_array[$key - 1];
+                $result = $uidset[$key - 1];
             }
             break;
         }
@@ -359,11 +367,13 @@ function formatRecipientString($recipients, $item ) {
     return $string;
 }
 
-function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
+function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
                          $color, $FirstTimeSee) {
     global $msn_user_support, $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
 	   $squirrelmail_language;
+
+    $mailbox = $aMailbox['NAME']	;
 
     $header = $message->rfc822_header;
     $env = array();
@@ -448,12 +458,15 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
  * @param object $message Current message object
  * @param object $mbx_response
  */
-function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, $nav_on_top = TRUE) {
+function formatMenubar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_response, $nav_on_top = TRUE) {
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $data_dir, $username, $delete_prev_next_display,
            $compose_new_win, $javascript_on;
+
+    //FIXME cleanup argument list, use $aMailbox where possible
+    $mailbox = $aMailbox['NAME'];
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $double_delimiter = '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -513,8 +526,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     // Prev/Next links for regular messages
     } else if ( !(isset($where) && isset($what)) ) {
-        $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
-        $next = findNextMessage($passed_id);
+        $prev = findPreviousMessage($aMailbox['UIDSET'], $passed_id);
+        $next = findNextMessage($aMailbox['UIDSET'],$passed_id);
 
         $prev_link = _("Previous");
         if ($prev >= 0) {
@@ -788,13 +801,31 @@ global $sqimap_capabilities, $lastTargetMailbox;
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
+global $allow_thread_sort, $auto_expunge;
+
+if ($allow_thread_sort && getPref($data_dir, $username, "thread_$mailbox",0)) {
+    $aMailbox['SORT_METHOD'] = 'THREAD';
+} else if ($allow_server_sort) {
+    $aMailbox['SORT_METHOD'] = 'SERVER';
+} else {
+    $aMailbox['SORT_METHOD'] = 'SQUIRREL';
+}
+sqgetGlobalVar('aLastSelectedMailbox',$aMailbox,SQ_SESSION);
+$aMailbox['UIDSET'] = $server_sort_array;
+$aMailbox['SORT'] = $sort;
+$aMailbox['NAME'] = $mailbox;
+$aMailbox['EXISTS'] = $mbx_response['EXISTS'];
+$aMailbox['AUTO_EXPUNGE'] = $auto_expunge;
+$aMailbox['MSG_HEADERS'] = $msgs;
+
+
 /**
  * Process Delete from delete-move-next
  * but only if delete_id was set
  */
 if ( sqgetGlobalVar('delete_id', $delete_id, SQ_GET) ) {
     sqimap_messages_delete($imapConnection, $delete_id, $delete_id, $mailbox);
-    sqimap_mailbox_expunge_dmn($delete_id,$mbx_response,$server_sort_array);
+    sqimap_mailbox_expunge_dmn($imapConnection,$aMailbox,$delete_id);
 }
 
 /**
@@ -876,8 +907,8 @@ for ($i = 0; $i < $cnt; $i++) {
 }
 
 displayPageHeader($color, $mailbox);
-formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
-formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
+formatMenuBar($aMailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
+formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
 echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
 echo '  <tr><td>';
 echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
