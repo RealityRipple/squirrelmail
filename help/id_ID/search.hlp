@@ -80,3 +80,17 @@
       </p>
    </description>
 </section>
+
+<section>
+   <title>
+   Pencarian Terakhir
+   </title>
+   <description>
+   Jika Anda menghidupkan pilihan ini, halaman pencarian juga menampilkan 
+   rangkuman hingga 9 pencarian terakhir untuk akses cepat. Klik "Cari" di
+   samping daftar tersebut untuk mencari kata itu lagi. Dengan link "Simpan"
+   Anda dapat memindahkan sebuah pencarian ke dalam "Pencarian Tersimpan" yang
+   akan tersimpan sampai Anda menekan "Hapus". Klik "Lupakan" untuk menghapus
+   sebuah pencarian dari daftar pencarian terakhir.
+   </description>
+</section>
