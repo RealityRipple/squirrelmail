@@ -401,7 +401,7 @@ if ($recent_count > 0) {
 
 if (isset($newsort)) {
     $sort = $newsort;
-    session_register('sort');
+    sqsession_register($sort, 'sort');
 }
 
 /*********************************************************************
