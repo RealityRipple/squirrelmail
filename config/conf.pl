@@ -234,6 +234,9 @@ if (!$config_use_color) {
 if (!$invert_time) {
    $invert_time = "false";
 }
+if (!$force_username_lowercase) {
+	$force_username_lowercase = "false";
+}
 
 #####################################################################################
 if ($config_use_color == 1) {

@@ -33,7 +33,8 @@
 
    // In case the last session was not terminated properly, make sure
    // we get a new one.
-   setcookie("PHPSESSID", "", 0, $base_uri);
+	$cookie_params = session_get_cookie_params(); 
+	setcookie(session_name(),"",0,$cookie_params["domain"].$cookie_params["path"]); 
 
    echo "<HTML>";
    echo "<HEAD><TITLE>";
