@@ -193,7 +193,7 @@
       echo "<TR><TD BGCOLOR=\\\"$color[4]\\\">&nbsp;</TD>";
       echo "</TD><TD BGCOLOR=\\\"$color[4]\\\" ALIGN=LEFT>";
       printf("<A HREF=\\\"javascript:open_abook();\\\">%s</A>",
-	     _("Lookup recipients in addressbook.<BR>"));
+	     _("Lookup recipients in addressbook.")."<BR>");
       echo "</TD></TR>\");\n";
       echo "// --></SCRIPT>\n";
 

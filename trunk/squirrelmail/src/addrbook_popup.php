@@ -7,9 +7,7 @@
     **/
 
    if(!isset($logged_in)) {
-      echo _("You must ");
-      echo _("login");
-      echo _(" first.");
+      echo _("You must login first.");
       exit;
    }
    if(!isset($username) || !isset($key)) {
