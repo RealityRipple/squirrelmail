@@ -18,39 +18,43 @@
     **
     **  This was tested with IE5.0 - but I hear Netscape works well,
     **  too (with a plugin).
+    **
+    **  $Id$
+    **
     **/
 
-   function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
-		global $folder_prefix, $trash_folder, $sent_folder;
+    function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
+        global $folder_prefix, $trash_folder, $sent_folder;
 		global $color, $move_to_sent, $move_to_trash;
-      global $unseen_notify, $unseen_type, $newmail_allbox, $newmail_recent;
-      global $newmail_changetitle;
+        global $unseen_notify, $unseen_type, $newmail_allbox, $newmail_recent;
+        global $newmail_changetitle;
 
-      $mailboxURL = urlencode($real_box);
-      $unseen_found = 0;
+        $mailboxURL = urlencode($real_box);
+        $unseen_found = 0;
 
-      // Skip folders for Sent and Trash
+        // Skip folders for Sent and Trash
 
-      if ($real_box == $sent_folder || $real_box == $trash_folder)
-      {
-	   return 0;
-      }
+        if ($real_box == $sent_folder || 
+            $real_box == $trash_folder) {
+	        return 0;
+        }
 
-      if (($unseen_notify == 2 && $real_box == "INBOX") ||
-          ($unseen_notify == 3 && ($newmail_allbox == "on" ||
-	                           $real_box == "INBOX"))) {
-         $unseen = sqimap_unseen_messages($imapConnection, $real_box);
-	 $total_unseen += $unseen;
+        if (($unseen_notify == 2 && $real_box == 'INBOX') ||
+            ($unseen_notify == 3 && ($newmail_allbox == 'on' ||
+	                                 $real_box == 'INBOX'))) {
+            $unseen = sqimap_unseen_messages($imapConnection, $real_box);
+	        $total_unseen += $unseen;
 	 
-	 if($newmail_recent == 'on')
-	   $unseen = sqimap_mailbox_select($imapConnection,$real_box,true,true);
+	        if($newmail_recent == 'on') {
+	            $unseen = sqimap_mailbox_select( $imapConnection, $real_box, TRUE, TRUE);
+	        }
 	 
-         if ($unseen > 0) {
-            $unseen_found = 1;
-         } 
-      }
-      return $unseen_found;
-   }
+            if ($unseen > 0) {
+                $unseen_found = 1;
+            } 
+        }
+        return( $unseen_found );
+    }
 
 function squirrelmail_plugin_init_newmail() {
   global $squirrelmail_plugin_hooks;
@@ -123,41 +127,41 @@ function newmail_sav() {
    } else {
      setPref($data_dir,$username,"newmail_media","");
    }
-   echo "<center> New Mail Notification options saved</center>";
+   echo '<center> ' . _("New Mail Notification options saved") . '</center>';
   }
 }
 
-function newmail_pref() {
-  
-  global $username,$data_dir;
-  global $newmail_media,$newmail_enable,$newmail_popup,$newmail_allbox;
-  global $newmail_recent, $newmail_changetitle;
-
-  $newmail_recent = getPref($data_dir,$username,"newmail_recent");
-  $newmail_enable = getPref($data_dir,$username,"newmail_enable");
-  $newmail_media = getPref($data_dir, $username, "newmail_media");
-  $newmail_popup = getPref($data_dir, $username, "newmail_popup");
-  $newmail_allbox = getPref($data_dir, $username, "newmail_allbox");
-  $newmail_changetitle = getPref($data_dir, $username, "newmail_changetitle");
-
-  if ($newmail_media == "")
-  {
-    $newmail_media = "../plugins/newmail/sounds/Notify.wav";
-  }
-
-}
+    function newmail_pref() {
+      
+        global $username,$data_dir;
+        global $newmail_media,$newmail_enable,$newmail_popup,$newmail_allbox;
+        global $newmail_recent, $newmail_changetitle;
+        
+        $newmail_recent = getPref($data_dir,$username,'newmail_recent');
+        $newmail_enable = getPref($data_dir,$username,'newmail_enable');
+        $newmail_media = getPref($data_dir, $username, 'newmail_media');
+        $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
+        $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
+        $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
+        
+        if ($newmail_media == '') {
+            $newmail_media = '../plugins/newmail/sounds/Notify.wav';
+        }
+    
+    }
 
 function newmail_plugin() {
 
  global $username,$key,$imapServerAddress,$imapPort;
  global $newmail_media,$newmail_enable,$newmail_popup,$newmail_recent;
  global $newmail_changetitle;
+ global $imapConnection;
 
- if ($newmail_enable == "on" || $newmail_popup == "on" || $newmail_changetitle) {
+ if ($newmail_enable == 'on' || $newmail_popup == 'on' || $newmail_changetitle) {
 
    // open a connection on the imap port (143)
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
+   // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
 
    $boxes = sqimap_mailbox_list($imapConnection);
    $delimeter = sqimap_get_delimiter($imapConnection);
@@ -166,54 +170,55 @@ function newmail_plugin() {
    $totalNew = 0;
 
    for ($i = 0;$i < count($boxes); $i++) {
-      $line = "";
-      $mailbox = $boxes[$i]["formatted"];
+
+      $line = '';
+      $mailbox = $boxes[$i]['formatted'];
 
       if (! isset($boxes[$i]['unseen']))
          $boxes[$i]['unseen'] = '';
-      if ($boxes[$i]["flags"]) {
+      if ($boxes[$i]['flags']) {
          $noselect = false;
-         for ($h = 0; $h < count($boxes[$i]["flags"]); $h++) {
-            if (strtolower($boxes[$i]["flags"][$h]) == "noselect")
+         for ($h = 0; $h < count($boxes[$i]['flags']); $h++) {
+            if (strtolower($boxes[$i]["flags"][$h]) == 'noselect')
                $noselect = true;
          }
          if (! $noselect) {
             $status = $status + CheckNewMailboxSound($imapConnection, $mailbox,
-			$boxes[$i]["unformatted"], $delimeter, $boxes[$i]["unseen"],
+			$boxes[$i]['unformatted'], $delimeter, $boxes[$i]['unseen'],
 			$totalNew);
          }
       } else {
-         $status = $status + CheckNewMailboxSound($imapConnection, $mailbox, $boxes[$i]["unformatted"],
-			$delimeter, $boxes[$i]["unseen"], $totalNew);
+         $status = $status + CheckNewMailboxSound($imapConnection, $mailbox, $boxes[$i]['unformatted'],
+			$delimeter, $boxes[$i]['unseen'], $totalNew);
       }
    
    }
-   sqimap_logout($imapConnection);
+   
+   // sqimap_logout($imapConnection);
 
    // If we found unseen messages, then we
    // will play the sound as follows:
 
-   if ($newmail_changetitle) {
-?>
-<script language="javascript">
-function ChangeTitleLoad() {
-   changetitlenum = <?PHP echo $totalNew ?>;
-   if (changetitlenum == 1)
-      window.parent.document.title = changetitlenum + " New Message";
-   else
-      window.parent.document.title = changetitlenum + " New Messages";
-   if (BeforeChangeTitle != null)
-      BeforeChangeTitle();
-}
-BeforeChangeTitle = window.onload;
-window.onload = ChangeTitleLoad;
-</script>
-<?PHP
-   }
-   if ($status > 0 && $newmail_enable == "on") {
-      echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>";
-   }
-   if ($status >0 && $newmail_popup == "on") {
+    if ($newmail_changetitle) {
+        echo "<script language=\"javascript\">\n" .
+             "function ChangeTitleLoad() {\n";
+        if( $totalNew > 1 ) {
+            echo    'window.parent.document.title = "' . sprintf(_("%s New Messages"), $totalNew ) . "\";\n";
+        }else {
+            echo    'window.parent.document.title = "' . sprintf(_("%s New Message"), $totalNew ) . "\";\n";
+        }
+        echo    "if (BeforeChangeTitle != null)\n".
+                    "BeforeChangeTitle();\n".
+             "}\n".
+             "BeforeChangeTitle = window.onload;\n".
+             "window.onload = ChangeTitleLoad;\n".
+             "</script>\n";
+    }
+
+    if ($status > 0 && $newmail_enable == 'on') {
+        echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>";
+    }
+    if ($status >0 && $newmail_popup == 'on') {
 ?>
 <SCRIPT LANGUAGE="JavaScript">
 <!--

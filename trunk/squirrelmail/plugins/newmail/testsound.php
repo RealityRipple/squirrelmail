@@ -1,9 +1,21 @@
 <?php
-   chdir ('../');
-   require_once ('../src/validate.php');
-   require_once ('../src/load_prefs.php');
+
+   /**
+    **  testsound.php
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.        
+    **
+    **  Displays all options relating to new mail sounds
+    **
+    **  $Id$
+    **    
+    **/
+
+   chdir ("../");
+   require_once('../src/validate.php');
+   require_once("../src/load_prefs.php");
    if (!isset($sound)) {
-    $sound = 'Click.wav';
+    $sound = "Click.wav";
    }
    $sound = str_replace("../plugins/newmail/", "", $sound);
    $sound = str_replace("../", "", $sound);
