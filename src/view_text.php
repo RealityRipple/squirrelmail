@@ -15,7 +15,7 @@
 
    $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
    $message = &$message->getEntity($ent_id);
-
+   
    $header = $message->header;
    $charset = $header->getParameter('charset');
    $type0 = $header->type0;
@@ -25,7 +25,7 @@
    $msg_url = 'read_body.php?' . $QUERY_STRING;
    $msg_url = set_url_var($msg_url, 'ent_id', 0);
 
-   $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
+   $body = mime_fetch_body($imapConnection, $passed_id, $ent_id);
    $body = decodeBody($body, $encoding);
 
     displayPageHeader($color, 'None');
