@@ -1,34 +1,16 @@
 <?php
 /**
- * addressbook.php
+ * functions/addressbook.php - Functions and classes for the addressbook system
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * Functions and classes for the addressbook system.
+ * Functions require SM_PATH and support of forms.php functions
  *
  * @version $Id$
  * @package squirrelmail
  * @subpackage addressbook
  */
-
-/**
-   This is the path to the global site-wide addressbook.
-   It looks and feels just like a user's .abook file
-   If this is in the data directory, use "$data_dir/global.abook"
-   If not, specify the path as though it was accessed from the
-   src/ directory ("../global.abook" -> in main directory)
-
-   If you don't want a global site-wide addressbook, comment these
-   two lines out.  (They are disabled by default.)
-
-   The global addressbook is unmodifiable by anyone.  You must actually
-   use a shell script or whatnot to modify the contents.
-
-  global $data_dir, $address_book_global_filename;
-  $address_book_global_filename = "$data_dir/global.abook";
-
-*/
 
 global $addrbook_dsn, $addrbook_global_dsn;
 
@@ -253,28 +235,40 @@ function address_form($name, $submittext, $values = array()) {
     }
 }
 
+/**
+ * Provides list of writeable backends.
+ * Works only when address is added ($name='addaddr')
+ * @param string $name name of form
+ * @return string html formated backend field (select or hidden)
+ */
 function list_writable_backends($name) {
     global $color, $abook;
     if ( $name != 'addaddr' ) { return; }
+    $writeable_abook = 1;
     if ( $abook->numbackends > 1 ) {
-        $ret = '<select name="backend">';
         $backends = $abook->get_backend_list();
+        $writeable_abooks=array();
         while (list($undef,$v) = each($backends)) {
             if ($v->writeable) {
-                $ret .= '<option value="' . $v->bnum;
-                $ret .= '">' . $v->sname . "</option>\n";
+                // add each backend to array
+                $writeable_abooks[$v->bnum]=$v->sname;
+                // save backend number
+                $writeable_abook=$v->bnum;
             }
         }
-        $ret .= "</select>";
-        return html_tag( 'tr',
-                html_tag( 'td', _("Add to:"),'right', $color[4] ) .
-                html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
-    } else {
-        return html_tag( 'tr',
-                html_tag( 'td',
-                    addHidden('backend', '1'),
-                    'center', $color[4], 'colspan="2"')) . "\n";
+        if (count($writeable_abooks)>1) {
+            // we have more than one writeable backend
+            $ret=addSelect('backend',$writeable_abooks,null,true);
+            return html_tag( 'tr',
+                             html_tag( 'td', _("Add to:"),'right', $color[4] ) .
+                             html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
+        }
     }
+    // Only one backend exists or is writeable.
+    return html_tag( 'tr',
+                     html_tag( 'td',
+                               addHidden('backend', $writeable_abook),
+                               'center', $color[4], 'colspan="2"')) . "\n";
 }
 
 /**
