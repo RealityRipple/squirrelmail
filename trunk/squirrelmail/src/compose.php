@@ -104,7 +104,7 @@ $key = $_COOKIE['key'];
 
 function replyAllString($header) {
    global $include_self_reply_all, $username, $data_dir;
-   $excl_arr = array();
+   $excl_ar = array();
    /**
     * 1) Remove the addresses we'll be sending the message 'to'
     */
