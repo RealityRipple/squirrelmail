@@ -42,13 +42,12 @@ function sqm_baseuri(){
 
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
-    $string = '<tr><td ALIGN="center">' . $message . '</td></tr>'."\n".
-               '<tr><td ALIGN="center">'.
-                  '<A HREF="' . sqm_baseuri() 
-                  . "src/right_main.php?sort=$sort&amp;startMessage=$startMessage"
-                  . "&amp;mailbox=$urlMailbox\">" .
-    sprintf (_("Click here to return to %s"), strtoupper($mailbox) == 'INBOX' ? _("INBOX") : imap_utf7_decode_local($mailbox)) .
-	    '</A></td></tr>';
+    $string = '<tr><td align="center">' . $message . '</td></tr>'.
+              '<tr><td align="center">'.
+              '<a href="'.sqm_baseuri()."src/right_main.php?sort=$sort&amp;startMessage=$startMessage&amp;mailbox=$urlMailbox\">".
+              sprintf (_("Click here to return to %s"),
+                  strtoupper($mailbox) == 'INBOX' ? _("INBOX") : imap_utf7_decode_local($mailbox)).
+              '</a></td></tr>';
     error_box($string, $color);
 }
 
@@ -70,10 +69,10 @@ function logout_error( $errString, $errTitle = '' ) {
     /* Display width and height like good little people */
     $width_and_height = '';
     if (isset($org_logo_width) && is_numeric($org_logo_width) && $org_logo_width>0) {
-        $width_and_height = " WIDTH=\"$org_logo_width\"";
+        $width_and_height = " width=\"$org_logo_width\"";
     }
     if (isset($org_logo_height) && is_numeric($org_logo_height) && $org_logo_height>0) {
-        $width_and_height .= " HEIGHT=\"$org_logo_height\"";
+        $width_and_height .= " height=\"$org_logo_height\"";
     }
 
     if (!isset($frame_top) || $frame_top == '' ) {
@@ -82,46 +81,45 @@ function logout_error( $errString, $errTitle = '' ) {
 
     if ( !isset( $color ) ) {
         $color = array();
-        $color[0]  = '#DCDCDC';  /* light gray    TitleBar               */
+        $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
         $color[1]  = '#800000';  /* red                                  */
-        $color[2]  = '#CC0000';  /* light red     Warning/Error Messages */
-        $color[4]  = '#FFFFFF';  /* white         Normal Background      */
-        $color[7]  = '#0000CC';  /* blue          Links                  */
+        $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
+        $color[4]  = '#ffffff';  /* white         Normal Background      */
+        $color[7]  = '#0000cc';  /* blue          Links                  */
         $color[8]  = '#000000';  /* black         Normal text            */
     }
 
     list($junk, $errString, $errTitle) = do_hook('logout_error', $errString, $errTitle);
 
     if ( $errTitle == '' ) {
-        $errTitle = $errString;
+        $errTitle = $org_name . ' - ' . $errString;
     }
     set_up_language($squirrelmail_language, true);
 
     displayHtmlHeader( $errTitle, '', false );
 
-    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
-         '<CENTER>';
+    echo '<body text="'.$color[8].'" bgcolor="'.$color[4].'" link="'.$color[7].'" vlink="'.$color[7].'" alink="'.$color[7]."\">\n\n".
+         '<center>';
 
     if (isset($org_logo) && ($org_logo != '')) {
-        echo "<IMG SRC=\"$org_logo\" ALT=\"" . sprintf(_("%s Logo"), $org_name) .
-             "\"$width_and_height><BR>\n";
+        echo '<img src="'.$org_logo.'" alt="'.sprintf(_("%s Logo"), $org_name).
+             "\"$width_and_height /><br />\n";
     }
     echo ( $hide_sm_attributions ? '' :
-           '<SMALL>' . sprintf (_("SquirrelMail version %s"), $version) . "<BR>\n".
-           '  ' . _("By the SquirrelMail Development Team") . "<BR></SMALL>\n" ) .
-         "<table cellspacing=1 cellpadding=0 bgcolor=\"$color[1]\" width=\"70%\"><tr><td>".
-         "<TABLE WIDTH=\"100%\" BORDER=\"0\" BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
-                  "<FONT COLOR=\"$color[2]\"><B>" . _("ERROR") .
-                  '</B></FONT></TD></TR>'.
-            '<TR><TD ALIGN="center">' . $errString . '</TD></TR>'.
-            "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=\"center\">".
-                  "<FONT COLOR=\"$color[2]\"><B>".
-                  '<a href="' . $base_uri . 'src/login.php" target="' .
-                  $frame_top . '">' .
-                  _("Go to the login page") . "</a></B></FONT>".
-            '</TD></TR>'.
-            '</TABLE></td></tr></table></center></body></html>';
+            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />'.
+            _("By the SquirrelMail Development Team") . "<br /></small>\n" ).
+         '<table cellspacing="1" cellpadding="0" bgcolor="'.$color[1].'" width="70%">'.
+         '<tr><td>'.
+         '<table width="100%" border="0" bgcolor="'.$color[4].'" align="center">'.
+         '<tr><td bgcolor="'.$color[0].'" align="center">'.
+         '<font color="'.$color[2].'"><b>' . _("ERROR") . '</b></font>'.
+         '</td></tr>'.
+         '<tr><td align="center">' . $errString . '</td></tr>'.
+         '<tr><td bgcolor="'.$color[0].'" align="center">'.
+         '<font color="'.$color[2].'"><b>'.
+         '<a href="'.$base_uri.'src/login.php" target="'.$frame_top.'">'.
+         _("Go to the login page") . '</a></b></font></td></tr>'.
+         '</table></td></tr></table></center></body></html>';
 }
 
 function error_box($string, $color) {
@@ -129,13 +127,13 @@ function error_box($string, $color) {
 
     if ( !isset( $color ) ) {
         $color = array();
-        $color[0]  = '#DCDCDC';  /* light gray    TitleBar               */
+        $color[0]  = '#dcdcdc';  /* light gray    TitleBar               */
         $color[1]  = '#800000';  /* red                                  */
-        $color[2]  = '#CC0000';  /* light red     Warning/Error Messages */
-        $color[4]  = '#FFFFFF';  /* white         Normal Background      */
-        $color[7]  = '#0000CC';  /* blue          Links                  */
+        $color[2]  = '#cc0000';  /* light red     Warning/Error Messages */
+        $color[4]  = '#ffffff';  /* white         Normal Background      */
+        $color[7]  = '#0000cc';  /* blue          Links                  */
         $color[8]  = '#000000';  /* black         Normal text            */
-        $color[9]  = '#ABABAB';  /* mid-gray      Darker version of #0   */
+        $color[9]  = '#ababab';  /* mid-gray      Darker version of #0   */
     }
 
     $err = _("ERROR");
@@ -154,20 +152,15 @@ function error_box($string, $color) {
         echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n\n";
     }
 
-   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
-   echo '     <tr><td>';
-   echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr><td ALIGN="center" bgcolor="'.$color[0].'">';
-   echo '           <font color="' . $color[2].'"><b>' . $err . ':</b></font>';
-   echo '        </td></tr>';
-   echo '        <tr><td>';
-   echo '            <table cellpadding="1" cellspacing="5" align="center" border="0">';
-   echo '              <tr>' . html_tag( 'td', $string."\n", 'left')
-                    . '</tr>';
-   echo '            </table>';
-   echo '        </td></tr>';
-   echo '       </table></td></tr>';
-   echo '    </table>';
+    echo '<table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">'.
+         '<tr><td>'.
+         '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">'.
+         '<tr><td align="center" bgcolor="'.$color[0].'">'.
+         '<font color="'.$color[2].'"><b>' . $err . ':</b></font>'.
+         '</td></tr><tr><td>'.
+         '<table cellpadding="1" cellspacing="5" align="center" border="0">'.
+         '<tr>' . html_tag( 'td', $string."\n", 'left') . '</tr></table>'.
+         '</td></tr></table></td></tr></table>';
 }
 
 // vim: et ts=4
