@@ -246,19 +246,15 @@ function getMonthAbrv( $month_number ) {
 
 
 function date_intl( $date_format, $stamp ) {
-
-    $ret = str_replace( 'D', '$1', $date_format );
-    $ret = str_replace( 'F', '$2', $ret );
-    $ret = str_replace( 'l', '$4', $ret );
-    $ret = str_replace( 'M', '$5', $ret );
-    $ret = date( '$3'. $ret . '$3', $stamp ); // Workaround for a PHP 4.0.4 problem
-    $ret = str_replace( '$1', getDayAbrv( date( 'w', $stamp ) ), $ret );
-    $ret = str_replace( '$5', getMonthAbrv( date( 'm', $stamp ) ), $ret );    
-    $ret = str_replace( '$2', getMonthName( date( 'm', $stamp ) ), $ret );
-    $ret = str_replace( '$4', getDayName( date( 'w', $stamp ) ), $ret );
-    $ret = str_replace( '$3', '', $ret );
-    
-    return( $ret );
+    $ret = str_replace( array('D','F','l','M'), array('$1','$2','$3','$4'), $date_format );
+    $ret = date('w#m#'. $ret, $stamp ); // to reduce the date calls we retrieve m and w in the same call
+    $aParts = explode('#',$ret);        // extract day and month in order to replace later by intl day and month
+    $ret = str_replace(array('$1','$4','$2','$3',), array(getDayAbrv($aParts[0]),
+                                                          getMonthAbrv($Parts[1]),
+                   				          getMonthName($Parts[1]),
+						          getDayName($aParts[0])),
+						          $aParts[2]);
+ return( $ret );
 }
 
 function getLongDateString( $stamp ) {
