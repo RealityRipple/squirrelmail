@@ -53,44 +53,6 @@
       echo "</TD></TR></TABLE>";
    }
 
-    function messages_deleted_message($mailbox, $sort, $startMessage, $color) {
-      $urlMailbox = urlencode($mailbox);
-
-      echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-      echo "   <TR>";
-      echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <B><CENTER>". _("Messages Deleted") ."</CENTER></B>";
-      echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><BR>". _("The selected messages were deleted successfully.") ."<BR>\n";
-      echo "      <BR>";
-      echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      printf (_("Click here to return to %s"), $mailbox);
-      echo "</A>.";
-      echo "      </CENTER>";
-      echo "   </TD></TR>";
-      echo "</TABLE>";
-    }
-
-    function messages_moved_message($mailbox, $sort, $startMessage, $color) {
-      $urlMailbox = urlencode($mailbox);
-
-      echo "<BR>";
-      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-      echo "   <TR>";
-      echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo "         <B><CENTER>". _("Messages Moved") ."</CENTER></B>";
-      echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><BR>". _("The selected messages were moved successfully.") ."<BR>\n";
-      echo "      <BR>";
-      echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
-      printf (_("Click here to return to %s"), $mailbox);
-      echo "</A>.";
-      echo "      </CENTER>";
-      echo "   </TD></TR>";
-      echo "</TABLE>";
-    }
-
     function error_message($message, $mailbox, $sort, $startMessage, $color) {
       $urlMailbox = urlencode($mailbox);
 
@@ -102,7 +64,7 @@
       echo "   </TD></TR><TR><TD>";
       echo "      <CENTER><BR>$message<BR>\n";
       echo "      <BR>";
-      echo "              <A HREF=\"webmail.php?right_frame=right_main.php&sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\" TARGET=_top>";
+      echo "         <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">";
       printf (_("Click here to return to %s"), $mailbox);
       echo "</A>.";
       echo "   </TD></TR>";

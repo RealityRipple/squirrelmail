@@ -27,13 +27,18 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
 
+   $location = get_location();
    if ($method == "sub") {
       $mailbox = trim($mailbox);
       sqimap_subscribe ($imapConnection, $mailbox);
+      header("Location: $location/folders.php?success=subscribe");
    } else {
       sqimap_unsubscribe ($imapConnection, $mailbox);
+      header("Location: $location/folders.php?success=unsubscribe");
    }
+   sqimap_logout($imapConnection);
 
+   /*
    displayPageHeader($color, "None");
    echo "<BR><BR><BR><CENTER><B>";
    if ($method == "sub") {
@@ -51,5 +56,6 @@
    echo _("to continue.");
    echo "</CENTER>";
    echo "</BODY></HTML>";
+   */
 ?>
 

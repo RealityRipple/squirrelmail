@@ -49,13 +49,18 @@
       else if ($reply_id)
          $id = $reply_id;
 
+
       if ($id) {
          sqimap_mailbox_select($imapConnection, $mailbox);
          $message = sqimap_get_message($imapConnection, $id, $mailbox);
-         $message = getEntity($message, $ent_num);
+         if ($ent_num)
+            $message = getEntity($message, $ent_num);
 
          if ($message->header->type0 == "text" || $message->header->type1 == "message") {
-            $body = decodeBody(mime_fetch_body($imapConnection, $id, $message->header->entity_id), $message->header->encoding);
+            if ($ent_num)
+               $body = decodeBody(mime_fetch_body($imapConnection, $id, $ent_num), $message->header->encoding);
+            else
+               $body = decodeBody(mime_fetch_body($imapConnection, $id, 1), $message->header->encoding);
          } else {
             $body = "";
          }
@@ -68,14 +73,17 @@
          $body_ary = explode("\n", $body);
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
-            $tmp = $body_ary[$i];
+            if ($i==0 && $forward_id)
+               $tmp = _("-------- Original Message ---------\n") . $body_ary[$i];
+            else
+               $tmp = $body_ary[$i];
             
             if ($forward_id)
-               $body = "$body$tmp\n";
+               $body .= "$body$tmp\n";
             else
-               $body = "$body> $tmp\n";
+               $body .= "$body> $tmp\n";
          }
-            
+         return $body;   
       }
 
       if (!$send_to) {
@@ -292,6 +300,7 @@
          checkInput(true);
          
          showInputForm();
+         sqimap_logout($imapConnection);
       }
    } else if ($html_addr_search_done) {
       is_logged_in();
@@ -365,5 +374,6 @@
       $newmail = true;
       newMail();
       showInputForm();
+      sqimap_logout($imapConnection);
    }
 ?>

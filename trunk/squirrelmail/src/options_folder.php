@@ -31,8 +31,7 @@
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list($imapConnection, $boxes);
-   fputs($imapConnection, "1 logout\n");
-
+   sqimap_logout($imapConnection);
 ?>
    <table width=100% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
       <center><b><? echo _("Options") . " - " . _("Folder Preferences"); ?></b></center>

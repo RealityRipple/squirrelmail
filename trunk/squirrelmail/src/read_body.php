@@ -9,11 +9,6 @@
    **  the resulting emails in the right frame.
    **/
 
-
-
-
-
-
    session_start();
 
    if (!isset($config_php))
@@ -287,4 +282,5 @@
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo "</TABLE>\n";
 
+   sqimap_logout($imapConnection);
 ?>

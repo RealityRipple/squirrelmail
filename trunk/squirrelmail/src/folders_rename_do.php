@@ -59,7 +59,6 @@
 
    include("../src/load_prefs.php");
 
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
 
    if (strpos($orig, $dm))
@@ -90,7 +89,10 @@
 
    /** Log out this session **/
    sqimap_logout($imapConnection);
-
+   $location = get_location();
+   header ("Location: $location/folders.php?success=rename");
+   sqimap_logout($imapConnection);
+   /*
    displayPageHeader($color, "None");
    echo "<BR><BR><BR><CENTER><B>";
    echo _("Folder Renamed!");
@@ -103,4 +105,5 @@
    echo "</CENTER>";
    
    echo "</BODY></HTML>"; 
+   */
 ?>
