@@ -89,8 +89,10 @@ function check_sm_version($a = 0, $b = 0, $c = 0)
     global $SQM_INTERNAL_VERSION;
     if ( !isset($SQM_INTERNAL_VERSION) ||
          $SQM_INTERNAL_VERSION[0] < $a ||
-	 $SQM_INTERNAL_VERSION[1] < $b ||
-	 ( $SQM_INTERNAL_VERSION[1] == $b &&
+         ( $SQM_INTERNAL_VERSION[0] == $a &&
+           $SQM_INTERNAL_VERSION[1] < $b) ||
+         ( $SQM_INTERNAL_VERSION[0] == $a &&
+           $SQM_INTERNAL_VERSION[1] == $b &&
            $SQM_INTERNAL_VERSION[2] < $c ) ) {
         return FALSE;
     } 
