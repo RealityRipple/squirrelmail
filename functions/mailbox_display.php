@@ -168,30 +168,15 @@
       global $message_highlight_list;
       global $auto_expunge;
 
-     if ($auto_expunge == true) sqimap_mailbox_expunge($imapConnection, $mailbox, false);
+      if ($auto_expunge == true) sqimap_mailbox_expunge($imapConnection, $mailbox, false);
       sqimap_mailbox_select($imapConnection, $mailbox);
 
+      $issent = ($mailbox == $sent_folder);
       if (!$use_cache) {
          // if it's sorted
          if ($numMessages >= 1) {
             if ($sort < 6) {
-               for ($q = 0; $q < $numMessages; $q++) {
-                  if($mailbox == $sent_folder)
-                     $hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
-                  else
-                     $hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
-                       
-                  $from[$q] = $hdr->from;
-                  $date[$q] = $hdr->date;
-                  $subject[$q] = $hdr->subject;
-                  $to[$q] = $hdr->to;
-                  $priority[$q] = $hdr->priority;
-                  $cc[$q] = $hdr->cc;
-                  $size[$q] = $hdr->size;
-                  $type[$q] = $hdr->type0;
-                  $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
-                  $id[$q] = $q + 1;
-               }
+               $id = range(1, $numMessages);
             } else {
                // if it's not sorted
                if ($startMessage + ($show_num - 1) < $numMessages) {
@@ -206,31 +191,24 @@
                      $startMessage = 1;
                }
 
-
                $real_startMessage = $numMessages - $startMessage + 1;
-               $real_endMessage = $numMessages - $startMessage - $show_num;
+               $real_endMessage = $numMessages - $startMessage - $show_num + 2;
                if ($real_endMessage <= 0)
                   $real_endMessage = 1;
+               $id = array_reverse(range($real_endMessage, $real_startMessage));
+            }
 
-               $j = 0;
-               for ($q = $real_startMessage; $q >= $real_endMessage; $q--) {
-                  if($mailbox == $sent_folder)
-                     $hdr = sqimap_get_small_header ($imapConnection, $q, true);
-                  else
-                     $hdr = sqimap_get_small_header ($imapConnection, $q, false);
-
-                  $from[$j] = $hdr->from;
-                  $date[$j] = $hdr->date;
-                  $subject[$j] = $hdr->subject;
-                  $to[$j] = $hdr->to;
-                  $priority[$j] = $hdr->priority;
-                  $cc[$j] = $hdr->cc;
-                  $size[$j] = $hdr->size;
-                  $type[$j] = $hdr->type0;
-                  $flags[$j] = sqimap_get_flags ($imapConnection, $q);
-                  $id[$j] = $q;
-                  $j++;
-               }
+            $msgs_list = sqimap_get_small_header_list($imapConnection, $id, $issent);
+            $flags = sqimap_get_flags_list($imapConnection, $id, $issent);
+            foreach ($msgs_list as $hdr) {
+               $from[] = $hdr->from;
+               $date[] = $hdr->date;
+               $subject[] = $hdr->subject;
+               $to[] = $hdr->to;
+               $priority[] = $hdr->priority;
+               $cc[] = $hdr->cc;
+               $size[] = $hdr->size;
+               $type[] = $hdr->type0;
             }
          }
 

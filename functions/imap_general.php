@@ -19,71 +19,87 @@
     **  this will also handle all errors that are received.  If it is not set,
     **  the errors will be sent back through $response and $message
     ******************************************************************************/
-   function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
+
+   function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
+				   &$response, &$message) {
       global $color, $squirrelmail_language, $imap_general_debug;
 
-      $read = fgets($imap_stream, 9096);
-
-      if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
-         $size = $regs[1];
-      } else {
-         $size = 0;
-      }
+      $read = "";
+      $resultlist = array();
       
-      $data = array();
-      $total_size = 0;
-      
-      $continue = true;
-      while ($continue) {
-         // Continue if needed for this single line
+      $more_msgs = true;
+      while ($more_msgs) {
+         $data = array();
+         $total_size = 0;
          while (strpos($read, "\n") === false) {
             $read .= fgets($imap_stream, 9096);
          }
-         // For debugging purposes
-         if ($imap_general_debug) {
-            echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
-            flush();
+
+         if (ereg("^\\* [0-9]+ FETCH.*\\{([0-9]+)\\}", $read, $regs)) {
+            $size = $regs[1];
+         } else if (ereg("^\\* [0-9]+ FETCH", $read, $regs)) {
+            // Sizeless response, probably single-line
+            // For debugging purposes
+            if ($imap_general_debug) {
+               echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+               flush();
+            }
+            $size = 0;
+            $data[] = $read;
+            $read = fgets($imap_stream, 9096);
+         } else {
+            $size = 0;
          }
-
-
-         // If we know the size, no need to look at the end parameters
-         if ($size > 0) {
-            if ($total_size == $size) {
-               $data[] = $read;
-               $read = fgets($imap_stream, 9096);
-               while (!ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
+         while (1) {
+            while (strpos($read, "\n") === false) {
+               $read .= fgets($imap_stream, 9096);
+            }
+            // For debugging purposes
+            if ($imap_general_debug) {
+               echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+               flush();
+            }
+            // If we know the size, no need to look at the end parameters
+            if ($size > 0) {
+               if ($total_size == $size) {
+                  // We've reached the end of this 'message', switch to the next one.
+                  $data[] = $read;
+                  $break;
+               } else if ($total_size > $size) {
+                  $difference = $total_size - $size;
+                  $total_size = $total_size - strlen($read);
+                  $data[] = substr ($read, 0, strlen($read)-$difference);
+                  $read = substr ($read, strlen($read)-$difference, strlen($read));
+                  break;
+               } else {
+                  $data[] = $read;
                   $read = fgets($imap_stream, 9096);
                }
-               $continue = false;
-            } else if ($total_size > $size) {
-               $difference = $total_size - $size;
-               $total_size = $total_size - strlen($read);
-               $read = substr ($read, 0, strlen($read)-$difference);
-               $data[] = $read;
-               $junk = fgets($imap_stream, 9096);
-               $continue = false;
+               $total_size += strlen($read);
             } else {
-               $data[] = $read;
-               $read = fgets($imap_stream, 9096);
-            }
-            $total_size += strlen($read);
-         } else {
-            if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
-               $continue = false;
-            } else {
-               $data[] = $read;
-               $read = fgets ($imap_stream, 9096);
+               if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) ||
+                   ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
+                  break;
+               } else {
+                  $data[] = $read;
+                  $read = fgets ($imap_stream, 9096);
+               }
             }
          }
-      }
 
+         while (($more_msgs = !ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) &&
+                !ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
+            $read = fgets($imap_stream, 9096);
+         }
+         $resultlist[] = $data;
+      }
       $response = $regs[1];
       $message = trim($regs[2]);
       
       if ($imap_general_debug) echo '--<br>';
 
       if ($handle_errors == false)
-          return $data;
+          return $resultlist;
      
       if ($response == 'NO') {
          // ignore this error from m$ exchange, it is not fatal (aka bug)
@@ -105,8 +121,12 @@
          echo $message . "</font><br>\n";
          exit;
       }
-      
-      return $data;
+      return $resultlist;
+   }
+
+   function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
+   	$res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message);
+	return $res[0];
    }
    
    /******************************************************************************

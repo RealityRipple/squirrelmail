@@ -1,5 +1,6 @@
 Version 1.1.3 -- DEVELOPMENT
 ----------------------------
+- Added major speed improvements to IMAP functions by our friends at XS4ALL
 - Fixed MOTD
 - Fixed multipart/alternative messages
 - Updated Dutch translation
