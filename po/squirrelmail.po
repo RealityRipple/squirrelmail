@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2002-03-01 11:31+0100\n"
+"POT-Creation-Date: 2002-03-01 11:41+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -286,7 +286,7 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:191
+#: squirrelmail/plugins/administrator/defines.php:193
 #: squirrelmail/plugins/calendar/functions.php:98
 #: squirrelmail/src/compose.php:680 squirrelmail/src/read_body.php:564
 msgid "High"
@@ -297,7 +297,7 @@ msgstr ""
 msgid "Normal"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:188
+#: squirrelmail/plugins/administrator/defines.php:190
 #: squirrelmail/src/compose.php:682 squirrelmail/src/read_body.php:570
 msgid "Low"
 msgstr ""
@@ -722,7 +722,7 @@ msgstr ""
 msgid "Do not use Trash"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:125
+#: squirrelmail/plugins/administrator/defines.php:127
 #: squirrelmail/src/options_folder.php:67
 msgid "Trash Folder"
 msgstr ""
@@ -731,7 +731,7 @@ msgstr ""
 msgid "Do not use Sent"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:128
+#: squirrelmail/plugins/administrator/defines.php:130
 #: squirrelmail/src/options_folder.php:78
 msgid "Sent Folder"
 msgstr ""
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Do not use Drafts"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:131
+#: squirrelmail/plugins/administrator/defines.php:133
 #: squirrelmail/src/options_folder.php:89
 msgid "Draft Folder"
 msgstr ""
@@ -790,17 +790,17 @@ msgstr ""
 msgid "Enable Unread Message Notification"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:152
+#: squirrelmail/plugins/administrator/defines.php:154
 #: squirrelmail/src/options_folder.php:145
 msgid "No Notification"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:153
+#: squirrelmail/plugins/administrator/defines.php:155
 #: squirrelmail/src/options_folder.php:146
 msgid "Only INBOX"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:154
+#: squirrelmail/plugins/administrator/defines.php:156
 #: squirrelmail/src/options_folder.php:147
 msgid "All Folders"
 msgstr ""
@@ -809,12 +809,12 @@ msgstr ""
 msgid "Unread Message Notification Type"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:157
+#: squirrelmail/plugins/administrator/defines.php:159
 #: squirrelmail/src/options_folder.php:155
 msgid "Only Unseen"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:158
+#: squirrelmail/plugins/administrator/defines.php:160
 #: squirrelmail/src/options_folder.php:156
 msgid "Unseen and Total"
 msgstr ""
@@ -4029,172 +4029,176 @@ msgstr ""
 msgid "Invert Time"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:118
-msgid "Folders Defaults"
+#: squirrelmail/plugins/administrator/defines.php:117
+msgid "Use Confirmation Flags"
 msgstr ""
 
 #: squirrelmail/plugins/administrator/defines.php:120
+msgid "Folders Defaults"
+msgstr ""
+
+#: squirrelmail/plugins/administrator/defines.php:122
 msgid "Default Folder Prefix"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:123
+#: squirrelmail/plugins/administrator/defines.php:125
 msgid "Show Folder Prefix Option"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:134
+#: squirrelmail/plugins/administrator/defines.php:136
 msgid "By default, move to trash"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:136
+#: squirrelmail/plugins/administrator/defines.php:138
 msgid "By default, move to sent"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:138
+#: squirrelmail/plugins/administrator/defines.php:140
 msgid "By default, save as draft"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:140
+#: squirrelmail/plugins/administrator/defines.php:142
 msgid "List Special Folders First"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:142
+#: squirrelmail/plugins/administrator/defines.php:144
 msgid "Show Special Folders Color"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:144
+#: squirrelmail/plugins/administrator/defines.php:146
 msgid "Auto Expunge"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:146
+#: squirrelmail/plugins/administrator/defines.php:148
 msgid "Default Sub. of INBOX"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:148
+#: squirrelmail/plugins/administrator/defines.php:150
 msgid "Show 'Contain Sub.' Option"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:150
+#: squirrelmail/plugins/administrator/defines.php:152
 msgid "Default Unseen Notify"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:155
+#: squirrelmail/plugins/administrator/defines.php:157
 msgid "Default Unseen Type"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:159
+#: squirrelmail/plugins/administrator/defines.php:161
 msgid "Auto Create Special Folders"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:161
+#: squirrelmail/plugins/administrator/defines.php:163
 msgid "Default Javascript Adrressbook"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:163
+#: squirrelmail/plugins/administrator/defines.php:165
 msgid "Auto delete folders"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:166
+#: squirrelmail/plugins/administrator/defines.php:168
 msgid "General Options"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:168
+#: squirrelmail/plugins/administrator/defines.php:170
 msgid "Default Charset"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:179
+#: squirrelmail/plugins/administrator/defines.php:181
 msgid "Data Directory"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:182
+#: squirrelmail/plugins/administrator/defines.php:184
 msgid "Temp Directory"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:185
+#: squirrelmail/plugins/administrator/defines.php:187
 msgid "Hash Level"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:187
+#: squirrelmail/plugins/administrator/defines.php:189
 msgid "Hash Disabled"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:189
+#: squirrelmail/plugins/administrator/defines.php:191
 msgid "Moderate"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:190
+#: squirrelmail/plugins/administrator/defines.php:192
 msgid "Medium"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:192
+#: squirrelmail/plugins/administrator/defines.php:194
 msgid "Default Left Size"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:195
+#: squirrelmail/plugins/administrator/defines.php:197
 msgid "Usernames in Lowercase"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:197
+#: squirrelmail/plugins/administrator/defines.php:199
 msgid "Allow use of priority"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:199
+#: squirrelmail/plugins/administrator/defines.php:201
 msgid "Hide SM attributions"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:201
+#: squirrelmail/plugins/administrator/defines.php:203
 msgid "Enable use of delivery receipts"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:203
+#: squirrelmail/plugins/administrator/defines.php:205
 msgid "Allow editing of identities"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:205
+#: squirrelmail/plugins/administrator/defines.php:207
 msgid "Allow editing of full name"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:208
 #: squirrelmail/plugins/administrator/defines.php:210
+#: squirrelmail/plugins/administrator/defines.php:212
 msgid "Message of the Day"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:214
+#: squirrelmail/plugins/administrator/defines.php:216
 msgid "Database"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:216
+#: squirrelmail/plugins/administrator/defines.php:218
 msgid "Address book DSN"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:219
+#: squirrelmail/plugins/administrator/defines.php:221
 msgid "Address book table"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:223
+#: squirrelmail/plugins/administrator/defines.php:225
 msgid "Preferences DSN"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:226
+#: squirrelmail/plugins/administrator/defines.php:228
 msgid "Preferences table"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:230
+#: squirrelmail/plugins/administrator/defines.php:232
 msgid "Preferences username field"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:234
+#: squirrelmail/plugins/administrator/defines.php:236
 msgid "Preferences key field"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:238
+#: squirrelmail/plugins/administrator/defines.php:240
 msgid "Preferences value field"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:243
+#: squirrelmail/plugins/administrator/defines.php:245
 msgid "Themes"
 msgstr ""
 
-#: squirrelmail/plugins/administrator/defines.php:245
+#: squirrelmail/plugins/administrator/defines.php:247
 msgid "Style Sheet URL (css)"
 msgstr ""
 

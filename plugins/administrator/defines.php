@@ -114,6 +114,8 @@ $defcfg = array( '$config_version' => array( 'name' => _("Config File Version"),
                                                      'type' => SMOPT_TYPE_BOOLEAN ),
                  '$invert_time' => array( 'name' => _("Invert Time"),
                                           'type' => SMOPT_TYPE_BOOLEAN ),
+                 '$default_use_mdn' => array( 'name' => _("Use Confirmation Flags"),
+                                              'type' => SMOPT_TYPE_BOOLEAN ),                                          
                  /* --------------------------------------------------------*/
                  'Group3' => array( 'name' => _("Folders Defaults"),
                                     'type' => SMOPT_TYPE_TITLE ),
