@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-05-15 12:12+0200\n"
+"POT-Creation-Date: 2004-05-15 15:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2254,11 +2254,9 @@ msgid ""
 msgstr ""
 
 #, c-format
-msgid "Make sure that you are running the most recent copy of %s."
-msgstr ""
-
-#, c-format
-msgid "You are currently using version %s."
+msgid ""
+"Make sure that you are running the most recent copy of %s. You are currently "
+"using version %s."
 msgstr ""
 
 #, c-format
