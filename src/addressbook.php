@@ -148,7 +148,7 @@
 	 $delfailed = false;
 
 	 for($i = 0 ; (($i < sizeof($sel)) && !$delfailed) ; $i++) {
-	    list($sbackend, $snick) = split(':', $sel[$i]);
+	    list($sbackend, $snick) = explode(':', $sel[$i]);
 
 	    // When we get to a new backend, process addresses in
 	    // previous one.
@@ -197,7 +197,7 @@
 	       $defselected = $sel;
 	    } else {
 	       $abortform = true;
-	       list($ebackend, $enick) = split(":", $sel[0]);
+	       list($ebackend, $enick) = explode(':', $sel[0]);
 	       $olddata = $abook->lookup($enick, $ebackend);
 
 	       // Display the "new address" form
