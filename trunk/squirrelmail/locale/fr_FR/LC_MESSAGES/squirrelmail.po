@@ -4,8 +4,7 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: $Id: squirrelmail.po,v 1.15 2001/12/19 10:34:11 "
-"philippe_mingo Exp $\n"
+"Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2001-12-27 09:35+0100\n"
 "PO-Revision-Date: 2001-12-27 15:58GMT+1\n"
 "Last-Translator: Nicolas Cartron <nc@ncartron.com>\n"
