@@ -195,6 +195,7 @@ $attachment_common_show_images = getPref($data_dir, $username, 'attachment_commo
 $pf_subtle_link = getPref($data_dir, $username, 'pf_subtle_link', SMPREF_ON);
 $pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', SMPREF_OFF);
 
+/* message disposition notification support setting */
 $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', SMPREF_ON);
 
 $include_self_reply_all =
@@ -212,6 +213,9 @@ $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
 
 /* signature placement settings */
 $sig_first = getPref($data_dir, $username, 'sig_first', 0);
+
+/* use the internal date of the message for sorting instead of the supplied header date */
+$internal_date_sort = getPref($data_dir, $username, 'internal_date_sort', SMPREF_ON);
 
 /* Load the javascript settings. */
 $javascript_setting =
