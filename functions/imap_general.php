@@ -21,8 +21,11 @@ require_once(SM_PATH . 'functions/auth.php');
 /**
  * Generates a new session ID by incrementing the last one used;
  * this ensures that each command has a unique ID.
- * @param bool unique_id
+ * @param bool $unique_id (since 1.3.0) controls use of unique 
+ *  identifiers/message sequence numbers in IMAP commands. See IMAP
+ *  rfc 'UID command' chapter.
  * @return string IMAP session id of the form 'A000'.
+ * @since 1.2.0
  */
 function sqimap_session_id($unique_id = FALSE) {
     static $sqimap_session_id = 1;
@@ -37,6 +40,17 @@ function sqimap_session_id($unique_id = FALSE) {
 /**
  * Both send a command and accept the result from the command.
  * This is to allow proper session number handling.
+ * @param resource $imap_stream imap connection resource
+ * @param string $query imap command
+ * @param boolean $handle_errors see sqimap_retrieve_imap_response()
+ * @param mixed $response
+ * @param mixed $message
+ * @param boolean $unique_id (since 1.3.0) controls use of unique 
+ *  identifiers/message sequence numbers in IMAP commands. See IMAP
+ *  rfc 'UID command' chapter.
+ * @return mixed returns false on imap error. displays error message 
+ *  if imap stream is not available.
+ * @since 1.2.3
  */
 function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
     if ($imap_stream) {
@@ -61,6 +75,22 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
     }
 }
 
+/**
+ * @param resource $imap_stream imap connection resource
+ * @param string $query imap command
+ * @param boolean $handle_errors see sqimap_retrieve_imap_response()
+ * @param mixed $response
+ * @param mixed $message
+ * @param boolean $unique_id (since 1.3.0) controls use of unique 
+ *  identifiers/message sequence numbers in IMAP commands. See IMAP
+ *  rfc 'UID command' chapter.
+ * @param mixed $filter (since 1.4.1 and 1.5.0)
+ * @param mixed $outputstream (since 1.4.1 and 1.5.0)
+ * @param mixed $no_return (since 1.4.1 and 1.5.0)
+ * @return mixed returns false on imap error. displays error message 
+ *  if imap stream is not available.
+ * @since 1.2.3
+ */
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
                             &$message, $unique_id = false,$filter=false,
                              $outputstream=false,$no_return=false) {
@@ -251,7 +281,8 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
 
 /**
  * Obsolete function, inform plugins that use it
- * @deprecated use sqimap_run_command or sqimap_run_command_list instead
+ * @since 1.1.3
+ * @deprecated (since 1.5.0) use sqimap_run_command or sqimap_run_command_list instead
  */
 function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '') {
