@@ -207,6 +207,7 @@ while ($line = <FILE>) {
       }   
    }
 }
+close FILE;
 if ($useSendmail ne "true") {
    $useSendmail = "false";
 }
@@ -322,10 +323,40 @@ while (($command ne "q") && ($command ne "Q")) {
       print "R   Return to Main Menu\n";
    } elsif ($menu == 8) {
       print $WHT."Plugins\n".$NRM;
-      print "1   Change Plugins\n";
+      print "  Installed Plugins\n";
+      $num = 0;
       for ($count = 0; $count <= $#plugins; $count++) {
-         print "    >  $plugins[$count]\n";
+         $num = $count + 1;
+         print "    $num. $plugins[$count]\n";
       }
+      print "\n  Available Plugins:\n";
+      opendir(DIR, "../plugins");
+      @files = readdir(DIR);
+      $pos=0;
+      @unused_plugins = ();
+      chdir ("../plugins");
+      for ($i=0; $i <= $#files; $i++) {
+         if ( -d $files[$i] && $files[$i] !~ /^\./ && $files[$i] ne "CVS") {
+            $match = 0;
+            for ($k=0; $k<=$#plugins; $k++) {
+               if ($plugins[$k] eq $files[$i]) {
+                  $match = 1;
+               }
+            }
+            if ($match == 0) {
+               $unused_plugins[$pos] = $files[$i];
+               $pos++;
+            }
+         }
+      }
+      chdir ("../config");
+      
+      for ($i=0; $i<=$#unused_plugins; $i++) {
+         $num = $num + 1;
+         print "    $num. $unused_plugins[$i]\n"; 
+      }
+      closedir DIR;
+      
       print "\n";
       print "R   Return to Main Menu\n";
    }
@@ -404,7 +435,7 @@ while (($command ne "q") && ($command ne "Q")) {
       } elsif ($menu == 7) {
          if    ($command == 1) { $motd             = command71(); }
       } elsif ($menu == 8) {
-         if    ($command == 1) { $plugins = command81(); }
+         if    ($command =~ /^[0-9]+/) { @plugins = command81(); }
       }
    }   
 }
@@ -617,72 +648,33 @@ sub command71 {
 ################# PLUGINS ###################
 
 sub command81 {
-   print "\nThis is where you can define plugins.  The plugin must already exist in the\n";
-   print "plugins/ directory in order to add them here.  A plugin name is the name of the\n";
-   print "directory that it resides in.  For example, if you have a plugin in the directory\n";
-   print "plugins/myplug, the name is \"myplug\".\n\n";
-   print "[plugins] command (?=help) > ";
-   $input = <STDIN>;
-   $input =~ s/[\r|\n]//g;
-   while ($input ne "d") {
-      if ($input =~ /^\s*l\s*/i) {
-         $count = 0;
-         while ($count <= $#plugins) {
-            print " $count.  $plugins[$count]\n";
-            $count++;
-         }
-         print "\n";
-      } elsif ($input =~ /^\s*\+/) {
-         print "What is the name of this plugin: ";
-         $name = <STDIN>;
-         $name =~ s/[\r|\n]//g;
-
-         if (-e "../plugins/$name") {
-            $exists = 0;
-            for ($m=0; $m <= $#plugins; $m++) {
-               if ($plugins[$m] eq $name) {
-                  $exists = 1;
-               }
+   $command =~ s/[\s|\n|\r]*//g;
+   if ($command > 0) {  
+      $command = $command - 1;
+      if ($command <= $#plugins) {
+         @newplugins = ();
+         $ct=0;
+         while ($ct <= $#plugins) {
+            if ($ct != $command) {
+               @newplugins = (@newplugins, $plugins[$ct]);
             }
-            if ($exists == 1) {
-               print "\nThat plugin already exists in the list!\n";
-            } else {
-               $plugins[$#plugins+1] = $name;
-            }   
-            print "\n";
-         } else {
-            print "\nThat plugin does not exist in the plugins/ directory!\n\n";
+            $ct++;
          }
-      } elsif ($input =~ /^\s*-\s*[0-9]?/) {
-         if ($input =~ /[0-9]+\s*$/) {
-            $rem_num = $input;
-            $rem_num =~ s/^\s*-\s*//g;
-            $rem_num =~ s/\s*$//;
-         } else {
-            $rem_num = $#plugins;
-         }
-            
-         $count = 0;
-         @new_plugins = ();
-         while ($count <= $#plugins) {
-            if ($count != $rem_num) {
-               @new_plugins = (@new_plugins, $plugins[$count]);
+         @plugins = @newplugins;
+      } elsif ($command <= $#plugins + $#unused_plugins + 1) {
+         $num = $command - $#plugins - 1;
+         @newplugins = @plugins;
+         $ct=0;
+         while ($ct <= $#unused_plugins) {
+            if ($ct == $num) {
+               @newplugins = (@newplugins, $unused_plugins[$ct]);
             }
-            $count++;
+            $ct++;
          }
-         @plugins = @new_plugins;
-      } elsif ($input =~ /^\s*\?\s*/) {
-         print ".-------------------------.\n";
-         print "| +          (add plugin) |\n";
-         print "| - N     (remove plugin) |\n";
-         print "| l        (list plugins) |\n";
-         print "| d                (done) |\n";
-         print "`-------------------------'\n";
+         @plugins = @newplugins;
       }
-      print "[plugins] command (?=help) > ";
-      $input = <STDIN>;
-      $input =~ s/[\r|\n]//g;
-   }
+   }   
+   return @plugins;
 }   
 
 ################# FOLDERS ###################
@@ -1440,8 +1432,8 @@ sub save_data {
 
    print FILE "\n";
 
-   for ($count=0; $count <= $#plugins; $count++) {
-      print FILE "\t\$plugins[$count] = \"$plugins[$count]\";\n";
+   for ($ct=0; $ct <= $#plugins; $ct++) {
+      print FILE "\t\$plugins[$ct] = \"$plugins[$ct]\";\n";
    }
    
    print FILE "\n";
