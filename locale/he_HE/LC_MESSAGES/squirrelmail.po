@@ -11,7 +11,7 @@ msgstr ""
 "Last-Translator: yoav <yoavb@zavit.net.il>\n"
 "Language-Team: HEBREW <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=windows-1255\n"
+"Content-Type: text/plain; charset=iso-8859-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
@@ -715,7 +715,7 @@ msgstr "רענן דף"
 msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
-msgstr "דף זה מכיל הגדרות אישיות לגבי עצמך כגון, שמך, כתובת דוא\"ל שלך וכ\"ו..."
+msgstr "דף זה מכיל הגדרות אישיות כגון, שמך, כתובת דוא\"ל שלך וכ\"ו..."
 
 #: squirrelmail/src/options.php:295
 msgid ""
@@ -731,10 +731,8 @@ msgid ""
 "messages are from, especially for mailing lists."
 msgstr ""
 "ביכולתך לצבוע הודעות מסוימות בתיבת הדואר שלך לפי קריטריונים שונים (כגון שם "
-"ה"
-"שולח, נושא ההודעה וכ\"ו). אפשרות זו עוזרת להבחין בדואר אשר מגיע ממכותב "
-"מ"
-"סוים, מכיל נושא מסויים ועוד..."
+"השולח, נושא ההודעה וכ\"ו). אפשרות זו עוזרת להבחין בדואר אשר מגיע ממכותב "
+"מסוים, מכיל נושא מסוים ועוד..."
 
 #: squirrelmail/src/options.php:311
 msgid ""
@@ -1422,13 +1420,12 @@ msgid ""
 "this message. Would you like to send a receipt?"
 msgstr ""
 "השולח של ההודעה ביקש שתשלח קבלה בעת קריאת ההודעה. האם ברצונך לשלוח אלי קבלה "
-"כ"
-"עת?"
+"כעת?"
 
 #: squirrelmail/src/redirect.php:64 squirrelmail/src/redirect.php:86
 #: squirrelmail/functions/auth.php:20
 msgid "You must be logged in to access this page."
-msgstr "עליך להנכס למערכת בכדי להראות דף זה."
+msgstr "עליך להכנס למערכת בכדי לראות דף זה."
 
 #: squirrelmail/src/redirect.php:82
 msgid "There was an error contacting the mail server."
@@ -1790,7 +1787,7 @@ msgstr "j M, Y"
 #: squirrelmail/functions/db_prefs.php:340
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
-msgstr "שגיאת מסד נתונים של ההגדרות )%s). יוצא בצורה אבנורמלית."
+msgstr "שגיאת מסד נתונים של ההגדרות (%s). יוצא בצורה אבנורמלית."
 
 #: squirrelmail/functions/display_messages.php:73
 #: squirrelmail/functions/imap_general.php:252
@@ -1817,8 +1814,7 @@ msgid ""
 "default preference file."
 msgstr ""
 "קובץ ההגדרות, %s, אינו קיים. התנתק, והכנס מחדש בכדי ליצור קובץ הגדרות ברירת "
-"מ"
-"חדל."
+"מחדש."
 
 #: squirrelmail/functions/file_prefs.php:162
 #, c-format
