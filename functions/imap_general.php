@@ -349,7 +349,15 @@ function sqimap_find_displayable_name ($string) {
         $string = ereg_replace ('"', '', $regs[1] );
     }
     elseif ( ereg('\((.*)\)', $string, $regs) ) {
-        $string = $regs[1];
+        if( ( $regs[1] == '' ) || ( $regs[1] == ' ' ) ){
+            if ( ereg('^(.+) \(', $string, $regs) ) {
+               $string = ereg_replace( ' \(\)$', '', $string );
+            } else {
+               $string = '&nbsp';
+            }
+        } else {
+            $string = $regs[1];
+        }
     }
     else {
         $string = sqimap_find_email($string);
