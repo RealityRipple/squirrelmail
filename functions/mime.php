@@ -605,7 +605,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     // this if statement checks for the entity to show as the
     // primary message. To add more of them, just put them in the
     // order that is their priority.
-    global $startMessage, $username, $key, $imapServerAddress, $imapPort,
+    global $startMessage, $username, $key, $imapServerAddress, $imapPort, $body,
            $show_html_default, $has_unsafe_images, $view_unsafe_images, $sort;
 
     $has_unsafe_images = 0;
