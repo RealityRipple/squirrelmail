@@ -10,7 +10,7 @@
  *
  * $Id$
  * @package squirrelmail
- * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
+ * @link http://www.ietf.org/rfc/rfc3501.txt
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
  *
  * Subfolder search idea from Patch #806075 by Thomas Pohl xraven at users.sourceforge.net. Thanks Thomas!
@@ -663,15 +663,14 @@ function asearch_print_mailbox_msgs($imapConnection, $mailbox, $msgs, $cnt, $sor
 			$real_sort = $sort;
 		}
 		$mailbox_display = asearch_get_mailbox_display($mailbox);
-		echo html_tag('div', '<b><big>' . _("Folder:") . ' '. $mailbox_display . '</big></b>','center') . "\n";
 
 		$msg_cnt_str = get_msgcnt_str(1, $cnt, $cnt);
-		$toggle_all = get_selectall_link(1, $real_sort);
+		$paginator_str = '<b><big>' . _("Folder:") . ' '. $mailbox_display . '</big></b>';
 
-		echo '<table border="0" width="100%" cellpadding="0" cellspacing="0">';
+		echo '<br><table border="0" width="100%" cellpadding="0" cellspacing="0">';
 
 		echo '<tr><td>';
-		mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $toggle_all, 1);
+		mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $paginator_str, 1);
 		echo '</td></tr>';
 
 		echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
@@ -1047,7 +1046,7 @@ if ($submit == $search_button_text) {
 	echo html_tag('table', '', 'center', $color[9], 'width="100%" cellpadding="1" cellspacing="0" border="0"');
 	echo html_tag('tr', html_tag('td', asearch_get_title_display($color, _("Search Results")), 'center', $color[5]));
 	echo html_tag('tr', html_tag('td', asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array), 'center', $color[4]));
-	echo '</table><br>' . "\n";
+	echo '</table>' . "\n";
 
 	$query_error = asearch_check_query($where_array, $what_array, $exclude_array);
 	if ($query_error != '')
