@@ -32,7 +32,7 @@ $org_name = 'SquirrelMail';
  *   This is the web page title that appears at the top of the browser window.
  */
 global $org_title;
-$org_title = 'SquirrelMail $version';
+$org_title = "SquirrelMail $version";
     
 /**
  * Default language
