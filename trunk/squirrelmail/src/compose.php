@@ -243,7 +243,7 @@
          echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>".$body."</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
+      echo "   <TR><TD COLSPAN=3 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
       echo _("Send");
       echo "\"></TD></TR>\n";
       
@@ -251,7 +251,7 @@
       echo "   <tr>\n";
       echo "     <TD WIDTH=50 BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
       echo "      <SMALL><BR></SMALL>"._("Attach:");
-      echo "      </td><td width=% ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      echo "      </td><td width=% colspan=2 ALIGN=left BGCOLOR=\"$color[0]\">\n";
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
       echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
@@ -263,7 +263,7 @@
       if (isset($attachments) && count($attachments)>0) {
          echo "</tr><tr><td width=50 bgcolor=\"$color[0]\" align=right>\n";
          echo "&nbsp;";
-         echo "</td><td width=% align=left bgcolor=\"$color[0]\">";
+         echo "</td><td width=% align=left colspan=2 bgcolor=\"$color[0]\">";
          while (list($localname, $remotename) = each($attachments)) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
             echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
@@ -312,9 +312,6 @@
 
 
 
-
-
-
    if(isset($send)) {
       if (checkInput(false)) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
@@ -327,10 +324,6 @@
          
          showInputForm();
       }
-   } else if ($html_addr_search) {
-      //* I am using an include so as to elminiate an extra unnecessary click.  If you
-      //* can think of a better way, please implement it.
-      include ("addrbook_search_html.php");
    } else if ($html_addr_search_done) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
@@ -342,7 +335,23 @@
       $send_to_bcc = stripslashes($send_to_bcc);
       $subject = stripslashes($subject);
       
+      for ($i=0; $i < count($send_to_search); $i++) {
+         if ($send_to)
+            $send_to .= ", ";
+         $send_to .= $send_to_search[$i];   
+      }
+      
+      for ($i=0; $i < count($send_to_cc_search); $i++) {
+         if ($send_to_cc)
+            $send_to_cc .= ", ";
+         $send_to_cc .= $send_to_cc_search[$i];   
+      }
+      
       showInputForm();
+   } else if ($html_addr_search) {
+      //* I am using an include so as to elminiate an extra unnecessary click.  If you
+      //* can think of a better way, please implement it.
+      include ("addrbook_search_html.php");
    } else if (isset($attach)) {
       echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
