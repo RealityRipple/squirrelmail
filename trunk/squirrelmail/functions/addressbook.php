@@ -8,8 +8,9 @@
  *
  * Functions and classes for the addressbook system.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage addressbook
  */
 
 /**
