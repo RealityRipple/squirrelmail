@@ -260,12 +260,12 @@ function SendMDN ( $recipient , $sender) {
 
 
 function ToggleMDNflag ( $set ) {
-    global $imapConnection, $passed_id, $mailbox, $uid;
+    global $imapConnection, $passed_id, $mailbox, $uid_support;
     sqimap_mailbox_select($imapConnection, $mailbox);
     $sg =  $set?'+':'-';
     $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
     $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
-                                $readmessage, $uid);
+                                $readmessage, $uid_support);
 }
 
 function ClearAttachments() {
