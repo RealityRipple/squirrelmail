@@ -52,7 +52,8 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
            $row_count,
            $allow_server_sort,    /* enable/disable server-side sorting */
            $truncate_sender,      /* number of characters for From/To field (<= 0 for unchanged) */
-           $email_address;
+           $email_address,
+           $show_recipient_instead;	/* show recipient name instead of default identity */
 
     $color_string = $color[4];
 
@@ -78,13 +79,17 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     $urlMailbox = urlencode($mailbox);
 
     $bSentFolder = handleAsSent($mailbox);
-    // If the From address is the same as $email_address, then handle as Sent
-    $from_array = parseAddress($msg['FROM'], 1);
-    if (!isset($email_address)) {
-        global $datadir, $username;
-        $email_address = getPref($datadir, $username, 'email_address');
+    if ((!$bSentFolder) && ($show_recipient_instead)) {
+        // If the From address is the same as $email_address, then handle as Sent
+        $from_array = parseAddress($msg['FROM'], 1);
+        if (!isset($email_address)) {
+            global $datadir, $username;
+            $email_address = getPref($datadir, $username, 'email_address');
+        }
+        $bHandleAsSent = ((isset($from_array[0][0])) && ($from_array[0][0] == $email_address));
     }
-    $bHandleAsSent = ($bSentFolder) || ((isset($from_array[0][0])) && ($from_array[0][0] == $email_address));
+    else
+        $bHandleAsSent = $bSentFolder;
     // If this is a Sent message, display To address instead of From
     if ($bHandleAsSent)	
        $msg['FROM'] = $msg['TO'];
@@ -1303,6 +1308,7 @@ function getEndMessage($start_msg, $show_num, $num_msgs) {
     return (array($start_msg,$end_msg));
 }
 
+// This should go in imap_mailbox.php
 function handleAsSent($mailbox) {
     global $handleAsSent_result;
  
