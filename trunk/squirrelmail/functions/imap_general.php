@@ -3,6 +3,8 @@
     **  imap.php
     **
     **  This implements all functions that do general imap functions.
+    **
+    **  $Id$
     **/
 
    $imap_general_debug = false;
@@ -16,9 +18,14 @@
       global $color, $squirrelmail_language, $imap_general_debug;
 
       $read = fgets($imap_stream, 9096);
+
       if (ereg("^\* [0-9]+ FETCH.*{([0-9]+)}", $read, $regs)) {
          $size = $regs[1];
+      } else {
+         $size = 0;
       }
+      
+      $data = Array();
       
       $continue = true;
       while ($continue) {
@@ -202,8 +209,11 @@ function sqimap_capability($imap_stream, $capability) {
 
 		$c = explode(' ', $read[0]);
 		for ($i=2; $i < count($c); $i++) {
-			list($k, $v) = explode('=', $c[$i]);
-			$sqimap_capabilities[$k] = ($v)?$v:TRUE;
+			$cap_list = explode('=', $c[$i]);
+			if (isset($cap_list[1]))
+			    $sqimap_capabilities[$cap_list[0]] = $cap_list[1];
+			else
+ 			    $sqimap_capabilities[$cap_list[0]] = TRUE;
 		}
 	}
 	return $sqimap_capabilities[$capability];

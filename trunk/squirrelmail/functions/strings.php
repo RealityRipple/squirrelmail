@@ -290,6 +290,7 @@
    // stored in a cookie.
    function OneTimePadEncrypt ($string, $epad) {
       $pad = base64_decode($epad);
+      $encrypted = "";
       for ($i = 0; $i < strlen ($string); $i++) {
 	 $encrypted .= chr (ord($string[$i]) ^ ord($pad[$i]));
       }
@@ -300,7 +301,7 @@
    function OneTimePadDecrypt ($string, $epad) {
       $pad = base64_decode($epad);
       $encrypted = base64_decode ($string);
-      
+      $decrypted = "";
       for ($i = 0; $i < strlen ($encrypted); $i++) {
 	 $decrypted .= chr (ord($encrypted[$i]) ^ ord($pad[$i]));
       }
@@ -375,8 +376,12 @@
       // getrusage
       if (function_exists("getrusage")) {
          $dat = getrusage();
-	 sq_mt_seed(md5($dat["ru_nswap"] . $dat["ru_majflt"] . 
-	    $dat["ru_utime.tv_sec"] . $dat["ru_utime.tv_usec"]));
+	 $Str = "";
+	 foreach ($dat as $k => $v)
+	 {
+	     $Str .= "$k = $v\n";
+	 }
+	 sq_mt_seed(md5($Str));
       }
       
       // Apache-specific
@@ -387,7 +392,8 @@
    
    function OneTimePadCreate ($length=100) {
       sq_mt_randomize();
-      
+
+      $pad = "";
       for ($i = 0; $i < $length; $i++) {
 	 $pad .= chr(mt_rand(0,255));
       }

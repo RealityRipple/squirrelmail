@@ -2,7 +2,9 @@
    /**
     **  imap_messages.php
     **
-    **  This implements functions that manipulate messages 
+    **  This implements functions that manipulate messages
+    **
+    **  $Id$
     **/
 
    if (!isset($mime_php)) include "../functions/mime.php";
@@ -51,7 +53,8 @@
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
    class small_header {
-      var $from, $subject, $date, $to, $priority, $message_id;
+      var $from = '', $subject = '', $date = '', $to = '', 
+          $priority = 0, $message_id = 0, $cc = '';
    }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
@@ -63,6 +66,11 @@
       $from = _("Unknown Sender");
       $priority = "0";
       $messageid = "<>";
+      $cc = "";
+      $to = "";
+      $date = "";
+      $type[0] = "";
+      $type[1] = "";
 
       $g = 0;
       for ($i = 0; $i < count($read); $i++) {
@@ -128,7 +136,7 @@
       $header->size = $size;
       $header->type0 = $type[0];
       $header->type1 = $type[1];
-
+      
       return $header;
    }
 
@@ -149,8 +157,7 @@
     ******************************************************************************/
    function sqimap_get_message ($imap_stream, $id, $mailbox) {
       $header = sqimap_get_message_header($imap_stream, $id, $mailbox);
-      $msg = sqimap_get_message_body($imap_stream, &$header);
-      return $msg;
+      return sqimap_get_message_body($imap_stream, &$header);
    }
 
    /******************************************************************************
@@ -291,7 +298,7 @@
          /** FROM **/
          else if (strtolower(substr($read[$i], 0, 5)) == "from:") {
             $hdr->from = trim(substr($read[$i], 5, strlen($read[$i]) - 6));
-            if ($hdr->replyto == "")
+            if (! isset($hdr->replyto) || $hdr->replyto == "")
                $hdr->replyto = $hdr->from;
             $i++;
          }
@@ -369,7 +376,7 @@
     ******************************************************************************/
    function sqimap_get_message_body ($imap_stream, &$header) {
       $id = $header->id;
-      return decodeMime($imap_stream, $body, &$header);
+      return decodeMime($imap_stream, &$header);
    }
 
 

@@ -3,6 +3,8 @@
     **
     ** This contains all the functions needed to send messages through
     ** an smtp server or sendmail.
+    **
+    ** $Id$
     **/
 
    $smtp_php = true;

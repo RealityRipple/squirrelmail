@@ -7,6 +7,8 @@
     **
     **  Creates folders on the IMAP server. 
     **  Called from folders.php
+    **
+    **  $Id$
     **/
 
    session_start();

@@ -1,6 +1,4 @@
 <?php
-   session_start();
-
    /**
     **  signout.php -- cleans up session and logs the user out
     **
@@ -10,7 +8,10 @@
     **  Cleans up after the user. Resets cookies and terminates
     **  session.
     **
+    **  $Id$
     **/
+
+   session_start();
 
    include ("../src/load_prefs.php");
 

@@ -8,14 +8,16 @@
     **  Handles all interaction between the user and the other folder
     **  scripts which do most of the work. Also handles the Special
     **  Folders.
+    **
+    **  $Id$
     **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -36,7 +38,9 @@
    echo "   </b></TD></TR>\n";
    echo "</TABLE>\n";
 
-   if ($success || $sent_create == "true" || $trash_create == "true") {
+   if ((isset($success) && $success) || 
+       (isset($sent_create) && $sent_create == "true") || 
+       (isset($trash_create) && $trash_create == "true")) {
       echo "<table width=100% align=center cellpadding=3 cellspacing=0 border=0>\n";
       echo "   <tr><td><center>\n";
       if ($success == "subscribe") {

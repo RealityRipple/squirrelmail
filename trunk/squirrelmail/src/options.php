@@ -8,14 +8,15 @@
     **  Displays the options page. Pulls from proper user preference files
     **  and config.php. Displays preferences as selected and other options.
     **
+    **  $Id$
     **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -46,7 +47,7 @@
 </td></tr></table>
 
 <?php
-   if ($submit_personal) {
+   if (isset($submit_personal)) {
       # Save personal information
       if (isset($full_name)) setPref($data_dir, $username, "full_name", sqStripSlashes($full_name));
       if (isset($email_address)) setPref($data_dir, $username, "email_address", sqStripSlashes($email_address));
@@ -57,7 +58,7 @@
       do_hook("options_personal_save");
       
       echo "<br><center><b>"._("Successfully saved personal information!")."</b></center><br>";
-   } else if ($submit_display) {  
+   } else if (isset($submit_display)) {  
       # Save display preferences
       setPref($data_dir, $username, "chosen_theme", $chosentheme);
       setPref($data_dir, $username, "show_num", $shownum);
@@ -74,7 +75,7 @@
 
       echo "<br><center><b>"._("Successfully saved display preferences!")."</b><br>";
       echo "<a href=\"../src/webmail.php\" target=_top>" . _("Refresh Page") . "</a></center><br>";
-   } else if ($submit_folder) { 
+   } else if (isset($submit_folder)) { 
       # Save folder preferences
       if ($trash != "none") {
          setPref($data_dir, $username, "move_to_trash", true);

@@ -10,6 +10,7 @@
     **  prevents users from reposting their form data after a
     **  successful logout
     **
+    **  $Id$
     **/
 
    if (!isset($strings_php))

@@ -23,6 +23,8 @@
     **
     **  NOTE. This class should not be used directly. Use the
     **        "AddressBook" class instead.
+    **
+    ** $Id$
     **/
    
    require_once("DB.php");

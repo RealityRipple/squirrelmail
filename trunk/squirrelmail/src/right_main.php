@@ -8,6 +8,7 @@
     **  This is where the mailboxes are listed.  This controls most of what
     **  goes on in SquirrelMail.
     **
+    **  $Id$
     **/
 
    if (!isset($i18n_php))
@@ -27,12 +28,12 @@
       exit;
    }
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
-   if (!isset($strings_php))
-      include("../functions/strings.php");
    if (!isset($date_php))
       include("../functions/date.php");
    if (!isset($page_header_php))
@@ -89,7 +90,8 @@
 
    do_hook("right_main_after_header");
    
-   if ($just_logged_in == 1 && strlen(trim($motd)) > 0) {
+   if (isset($just_logged_in) && $just_logged_in == 1 && 
+       strlen(trim($motd)) > 0) {
       echo "<center><br>\n";
       echo "<table width=70% cellpadding=0 cellspacing=0 border=0><tr><td bgcolor=\"$color[9]\">\n";
       echo "<table width=100% cellpadding=5 cellspacing=1 border=0><tr><td bgcolor=\"$color[4]\">\n";
@@ -107,6 +109,8 @@
    // Check to see if we can use cache or not.  Currently the only time when you wont use it is
    //    when a link on the left hand frame is used.  Also check to make sure we actually have the
    //    array in the registered session data.  :)
+   if (! isset($use_mailbox_cache))
+       $use_mailbox_cache = 0;
    if ($use_mailbox_cache && session_is_registered("msgs")) {
       showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
    } else {

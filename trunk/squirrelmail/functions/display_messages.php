@@ -5,6 +5,7 @@
     **  This contains all messages, including information, error, and just
     **  about any other message you can think of.
     **
+    ** $Id$
     **/
 
     $display_messages_php = true;

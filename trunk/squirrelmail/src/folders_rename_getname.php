@@ -7,6 +7,8 @@
     **
     **  Gets folder names and enables renaming
     **  Called from folders.php
+    **
+    **  $Id$
     **/
 
    session_start();

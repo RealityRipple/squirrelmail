@@ -7,18 +7,19 @@
     **
     **  Manage personal address book.
     **
+    **  $Id$
     **/
 
    session_start();
 
+   if (!isset($strings_php))
+      include("../functions/strings.php");
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($array_php))
       include("../functions/array.php");
    if (!isset($auth_php))
       include("../functions/auth.php");
-   if (!isset($strings_php))
-      include("../functions/strings.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -47,28 +48,38 @@
       printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
 	     "<INPUT NAME=\"%s[nickname]\" SIZE=15 VALUE=\"%s\">".
 	     "&nbsp;<SMALL>%s</SMALL></TD></TR>\n",
-	     $color[4], $name, htmlspecialchars($values["nickname"]), 
+	     $color[4], $name, 
+	     (isset($values["nickname"]))?
+	         htmlspecialchars($values["nickname"]):"",
 	     _("Must be unique"));
       printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
 	     _("E-mail address"));
       printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
 	     "<INPUT NAME=\"%s[email]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-	     $color[4], $name, htmlspecialchars($values["email"]));
+	     $color[4], $name, 
+	     (isset($values["email"]))?
+	         htmlspecialchars($values["email"]):"");
       printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
 	     _("First name"));
       printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
 	     "<INPUT NAME=\"%s[firstname]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-	     $color[4], $name, htmlspecialchars($values["firstname"]));
+	     $color[4], $name, 
+	     (isset($values["firstname"]))?
+	         htmlspecialchars($values["firstname"]):"");
       printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
 	     _("Last name"));
       printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
 	     "<INPUT NAME=\"%s[lastname]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-	     $color[4], $name, htmlspecialchars($values["lastname"]));
+	     $color[4], $name, 
+	     (isset($values["lastname"]))?
+	         htmlspecialchars($values["lastname"]):"");
       printf("<TR><TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>%s:</TD>",
 	     _("Additional info"));
       printf("<TD BGCOLOR=\"%s\" ALIGN=left>".
 	     "<INPUT NAME=\"%s[label]\" SIZE=45 VALUE=\"%s\"></TD></TR>\n",
-	     $color[4], $name, htmlspecialchars($values["label"]));
+	     $color[4], $name, 
+	     (isset($values["label"]))?
+	         htmlspecialchars($values["label"]):"");
 
       printf("<TR><TD COLSPAN=2 BGCOLOR=\"%s\" ALIGN=center>\n".
 	     "<INPUT TYPE=submit NAME=\"%s[SUBMIT]\" VALUE=\"%s\"></TD></TR>\n",

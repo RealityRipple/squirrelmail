@@ -8,6 +8,7 @@
     **  Loads preferences from the $username.pref file used by almost
     **  every other script in the source directory and alswhere.
     **
+    **  $Id$
     **/
 
    if (!isset($config_php))
@@ -59,7 +60,7 @@
       }
    }
 
-    if (!$download_php) session_register("theme_css");
+    if (!isset($download_php)) session_register("theme_css");
 
    $use_javascript_addr_book = getPref($data_dir, $username, "use_javascript_addr_book");
    if ($use_javascript_addr_book == "")

@@ -4,6 +4,7 @@
     **
     **  Prints the page header (duh)
     **
+    **  $Id$
     **/
 
    session_start();

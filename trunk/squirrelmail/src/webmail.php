@@ -10,6 +10,7 @@
     **  shown can be given as parameters. If the user is not logged in
     **  this file will verify username and password.
     **
+    **  $Id$
     **/
 
    session_start();
@@ -30,6 +31,8 @@
       exit;
    }
 
+   if (!isset($strings_php))
+      include ("../functions/strings.php");
    include ("../config/config.php");
    include ("../functions/prefs.php");
    include ("../functions/imap.php");
@@ -37,8 +40,7 @@
       include ("../functions/plugin.php");
    if (!isset($auth_php))
       include ("../functions/auth.php");
-   if (!isset($strings_php))
-      include ("../functions/strings.php");
+
 
    include ("../src/load_prefs.php");
 

@@ -3,6 +3,8 @@
 # Luke Ehresman (luke@squirrelmail.org)
 #
 # A simple configure script to configure squirrelmail
+#
+# $Id$
 ############################################################              
 $conf_pl_version = "x62";
 

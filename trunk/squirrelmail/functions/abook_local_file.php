@@ -14,6 +14,8 @@
    **
    **  NOTE. This class should not be used directly. Use the
    **        "AddressBook" class instead.
+   **
+   ** $Id$
    **/
 
    class abook_local_file extends addressbook_backend {

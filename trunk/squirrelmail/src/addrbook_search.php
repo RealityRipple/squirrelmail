@@ -10,6 +10,8 @@
     **  NOTE: A lot of this code is similar to the code in
     **        addrbook_search_html.html -- If you change one,
     **        change the other one too!
+    **
+    **  $Id$
     **/
 
    // Function to include JavaScript code

@@ -20,6 +20,8 @@
    **
    **  NOTE. This class should not be used directly. Use the
    **        "AddressBook" class instead.
+   **
+   ** $Id$
    **/
 
    class abook_ldap_server extends addressbook_backend {

@@ -6,14 +6,16 @@
     **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  Enables message moving between folders on the IMAP server.
+    **
+    **  $Id$
     **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -50,7 +52,7 @@
    sqimap_mailbox_select($imapConnection, $mailbox);
 
    // expunge-on-demand if user isn't using move_to_trash or auto_expunge
-   if($expungeButton) {
+   if(isset($expungeButton)) {
      sqimap_mailbox_expunge($imapConnection, $mailbox, true);
      $location = get_location();
      if ($where && $what)
@@ -59,7 +61,7 @@
        header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=". urlencode($mailbox));
    }
    // undelete messages if user isn't using move_to_trash or auto_expunge
-   elseif($undeleteButton) {
+   elseif(isset($undeleteButton)) {
       if (is_array($msg) == 1) {
          // Removes \Deleted flag from selected messages
          $j = 0;
@@ -86,7 +88,7 @@
       }
    }
    // If the delete button was pressed, the moveButton variable will not be set.
-   elseif (!$moveButton) {
+   elseif (!isset($moveButton)) {
       if (is_array($msg) == 1) {
          // Marks the selected messages ad 'Deleted'
          $j = 0;

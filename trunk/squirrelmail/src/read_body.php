@@ -7,14 +7,16 @@
    **
    **  This file is used for reading the msgs array and displaying
    **  the resulting emails in the right frame.
+   **
+   **  $Id$
    **/
 
    session_start();
 
-   if (!isset($config_php))
-      include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($config_php))
+      include("../config/config.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($imap_php))
@@ -32,7 +34,7 @@
    do_hook("html_top");
    displayPageHeader($color, $mailbox);
 
-   if ($view_hdr) {
+   if (isset($view_hdr)) {
       fputs ($imapConnection, "a003 FETCH $passed_id BODY[HEADER]\r\n");
       $read = sqimap_read_data ($imapConnection, "a003", true, $a, $b); 
       
