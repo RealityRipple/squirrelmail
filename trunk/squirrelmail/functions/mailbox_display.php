@@ -54,7 +54,7 @@
       if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>\n";
       elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>\n";
       else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
-      echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
+      echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
       echo "</tr>\n";
    }
