@@ -8,8 +8,8 @@
  *
  * IMAP asearch routines
  * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
- * See README file for infos.
  * @package squirrelmail
+ * @see search.php
  *
  */
 
@@ -17,9 +17,14 @@
 require_once(SM_PATH . 'functions/imap_general.php');
 require_once(SM_PATH . 'functions/date.php');
 
-/** Set to TRUE to dump the imap dialogue */
+/** Set to TRUE to dump the imap dialogue
+ * @global bool $imap_asearch_debug_dump
+ */
 $imap_asearch_debug_dump = FALSE;
 
+/** Array of imap SEARCH opcodes
+ * @global array $imap_asearch_opcodes
+ */
 $imap_asearch_opcodes = array(
 /* <message set> => 'asequence', */
 /*'ALL' is binary operator */
@@ -59,6 +64,9 @@ $imap_asearch_opcodes = array(
 	'UNSEEN' => ''
 );
 
+/** Imap SEARCH month names encoding
+ * @global array $imap_asearch_months
+ */
 $imap_asearch_months = array(
 	'01' => 'jan',
 	'02' => 'feb',
@@ -74,6 +82,9 @@ $imap_asearch_months = array(
 	'12' => 'dec'
 );
 
+/** Error message titles according to imap server returned code
+ * @global array $imap_error_titles
+ */
 $imap_error_titles = array(
 	'OK' => '',
 	'NO' => _("ERROR : Could not complete request."),
@@ -81,8 +92,16 @@ $imap_error_titles = array(
 	'BYE' => _("ERROR : Imap server closed the connection.")
 );
 
-// why can't this just use sqimap_error_box() ?
-// It does, indeed I isolated sqimap_error_box() as a stand-alone function just for this purpose ;)
+/**
+ * Function to display an error related to an IMAP-query.
+ * We need to do our own error management since we may receive NO responses on purpose (even BAD with SORT or THREAD)
+ * so we call sqimap_error_box() if the function exists (sm >= 1.5) or use our own embedded code
+ * @global array imap_error_titles
+ * @param string $response the imap server response code
+ * @param string $query the failed query
+ * @param string $message the error message
+ */
+//@global array color sm colors array
 function sqimap_asearch_error_box($response, $query, $message)
 {
 	global $imap_error_titles;
@@ -112,6 +131,8 @@ function sqimap_asearch_error_box($response, $query, $message)
 
 /**
  * This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc!
+ * @param mixed $var any variable
+ * @return mixed zls ('') if $var is not defined, otherwise $var
  */
 function asearch_nz(&$var)
 {
@@ -123,6 +144,8 @@ function asearch_nz(&$var)
 /**
  * This should give the same results as PHP 4 >= 4.3.0's html_entity_decode(),
  * except it doesn't handle hex constructs
+ * @param string $string string to unhtmlentity()
+ * @return string decoded string
  */
 function asearch_unhtmlentities($string) {
 	$trans_tbl = array_flip(get_html_translation_table(HTML_ENTITIES));
@@ -135,6 +158,12 @@ function asearch_unhtmlentities($string) {
 */
 }
 
+/**
+ * Provide an easy way to dump the imap dialogue if $imap_asearch_debug_dump is TRUE
+ * @global imap_asearch_debug_dump
+ * @param string $var_name
+ * @param string $var_var
+ */
 function s_debug_dump($var_name, $var_var)
 {
 	global $imap_asearch_debug_dump;
@@ -150,13 +179,17 @@ function s_debug_dump($var_name, $var_var)
 	}
 }
 
-/*
-4.3 String:
-	A quoted string is a sequence of zero or more 7-bit characters,
-	 excluding CR and LF, with double quote (<">) characters at each end.
-9. Formal Syntax:
-	quoted-specials = DQUOTE / "\"
-*/
+/** Encode a string to quoted or literal as defined in rfc 3501
+ *
+ * - § 4.3 String:
+ *	A quoted string is a sequence of zero or more 7-bit characters,
+ *	 excluding CR and LF, with double quote (<">) characters at each end.
+ * - § 9. Formal Syntax:
+ *	quoted-specials = DQUOTE / "\"
+ * @param string $what string to encode
+ * @param string $charset search charset used
+ * @return string encoded string
+ */
 function sqimap_asearch_encode_string($what, $charset)
 {
 	if (strtoupper($charset) == 'ISO-2022-JP')	// This should be now handled in imap_utf7_local?
@@ -168,11 +201,15 @@ function sqimap_asearch_encode_string($what, $charset)
 }
 
 /**
- * Parses a user date string into an rfc2060 date string
- * (<day number>-<US month TLA>-<4 digit year>).
- * Returns a preg_match-style array: [0]: fully formatted date,
- * [1]: day, [2]: month, [3]: year
+ * Parses a user date string into an rfc 3501 date string
  * Handles space, slash, backslash, dot and comma as separators (and dash of course ;=)
+ * @global imap_asearch_months
+ * @param string user date
+ * @return array a preg_match-style array:
+ *  - [0] = fully formatted rfc 3501 date string (<day number>-<US month TLA>-<4 digit year>)
+ *  - [1] = day
+ *  - [2] = month
+ *  - [3] = year
  */
 function sqimap_asearch_parse_date($what)
 {
@@ -204,6 +241,14 @@ function sqimap_asearch_parse_date($what)
 	return $what_parts;
 }
 
+/**
+ * Build one criteria sequence
+ * @global array imap_asearch_opcodes
+ * @param string $opcode search opcode
+ * @param string $what opcode argument
+ * @param string $charset search charset
+ * @return string one full criteria sequence
+ */
 function sqimap_asearch_build_criteria($opcode, $what, $charset)
 {
 	global $imap_asearch_opcodes;
@@ -212,12 +257,12 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 	switch ($imap_asearch_opcodes[$opcode]) {
 		default:
 		case 'anum':
-/*			$what = str_replace(' ', '', $what);*/
+//			$what = str_replace(' ', '', $what);
 			$what = ereg_replace('[^0-9]+', '', $what);
 			if ($what != '')
 				$criteria = $opcode . ' ' . $what . ' ';
 		break;
-		case '':	/* aflag */
+		case '':	//aflag
 			$criteria = $opcode . ' ';
 		break;
 		case 'afield':	/* HEADER field-name: field-body */
@@ -245,7 +290,12 @@ function sqimap_asearch_build_criteria($opcode, $what, $charset)
 	return $criteria;
 }
 
-// equivalent to : $to = array_values(array_unique(array_merge($to, $from)));
+/**
+ * Another way to do array_values(array_unique(array_merge($to, $from)));
+ * @param array $to to array
+ * @param array $from from array
+ * @return array uniquely merged array
+ */
 function sqimap_array_merge_unique($to, $from)
 {
 	if (empty($to))
@@ -258,6 +308,14 @@ function sqimap_array_merge_unique($to, $from)
 	return $to;
 }
 
+/**
+ * Run the imap SEARCH command as defined in rfc 3501
+ * @link ftp://ftp.rfc-editor.org/in-notes/rfc3501.txt
+ * @param resource $imapConnection the current imap stream
+ * @param string $search_string the full search expression eg "ALL RECENT"
+ * @param string $search_charset charset to use or zls ('')
+ * @return array an IDs or UIDs array of matching messages or an empty array
+ */
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
 	global $uid_support;
@@ -287,9 +345,7 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 	foreach ($readin as $readin_part) {
 		s_debug_dump('S:', $readin_part);
 		if (substr($readin_part, 0, 9) == '* SEARCH ') {
-			//workaround for an EIMS singularity (to say the least)
-			//$messagelist = preg_split("/ /", substr($readin_part, 9));
-			//break;	//this should be the last anyway
+			//EIMS returns multiple SEARCH responses, and this allowed according to Mark Crispin
 			$messagelist = sqimap_array_merge_unique($message_list, preg_split("/ /", substr($readin_part, 9)));
 		}
 	}
@@ -303,6 +359,15 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
 	return $id;
 }
 
+/**
+ * Run the imap SORT command as defined in 
+ * @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
+ * @param resource $imapConnection the current imap stream
+ * @param string $search_string the full search expression as defined in rfc 3501
+ * @param string $search_charset mandatory charset
+ * @param string $sort_criteria the full sort criteria expression eg "SUBJECT REVERSE DATE"
+ * @return array an IDs or UIDs array of matching messages or an empty array
+ */
 function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort_criteria)
 {
 	global $uid_support;
@@ -330,8 +395,8 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 	foreach ($readin as $readin_part) {
 		s_debug_dump('S:', $readin_part);
 		if (substr($readin_part, 0, 7) == '* SORT ') {
-			$messagelist = preg_split("/ /", substr($readin_part, 7));
-			break;	// Should be the last anyway
+			//SORT returns untagged responses
+			$messagelist = sqimap_array_merge_unique($message_list, preg_split("/ /", substr($readin_part, 7)));
 		}
 	}
 
@@ -344,6 +409,17 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 	return $id;
 }
 
+/**
+ * Run the imap THREAD command as defined in 
+ * @link http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt
+ * @param resource $imapConnection the current imap stream
+ * @param string $search_string the full search expression as defined in rfc 3501
+ * @param string $search_charset mandatory charset
+ * @param string $thread_algorithm the threading algorithm "ORDEREDSUBJECT" or "REFERENCES"
+ * @return array an IDs or UIDs array of matching messages or an empty array
+ * @global array $thread_new will be used by thread view in mailbox_display
+ * @global array $server_sort_array will be used by thread view in mailbox_display
+ */
 function sqimap_run_thread($imapConnection, $search_string, $search_charset, $thread_algorithm)
 {
 	global $thread_new, $server_sort_array;
@@ -431,6 +507,12 @@ function sqimap_run_thread($imapConnection, $search_string, $search_charset, $th
 	return $thread_list;
 }
 
+/**
+ * @global bool allow_charset_search user setting
+ * @global array languages sm languages array
+ * @global string squirrelmail_language user language setting
+ * @return string the user defined charset if $allow_charset_search is TRUE else zls ('')
+ */
 function sqimap_asearch_get_charset()
 {
 	global $allow_charset_search, $languages, $squirrelmail_language;
@@ -440,6 +522,15 @@ function sqimap_asearch_get_charset()
 	return '';
 }
 
+/**
+ * Convert sm internal sort to imap sort taking care of:
+ * - user defined date sorting (ARRIVAL vs DATE)
+ * - if the searched mailbox is the sent folder then TO is being used instead of FROM
+ * - reverse order by using REVERSE
+ * @param string $mailbox mailbox name to sort
+ * @param integer $sort_by sm sort criteria
+ * @return string imap sort criteria
+ */
 function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
 {
 	global $internal_date_sort, $sent_folder;
@@ -454,6 +545,10 @@ function sqimap_asearch_get_sort_criteria($mailbox, $sort_by)
 	return (($sort_by % 2) ? '' : 'REVERSE ') . $sort_opcodes[$sort_by >> 1];
 }
 
+/**
+ * Performs the search, given all the criteria, merging results for every mailbox
+ * @return array array(mailbox => array(UIDs))
+ */
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $mboxes_array)
 {
 	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages;
