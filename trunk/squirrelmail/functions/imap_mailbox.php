@@ -745,7 +745,7 @@ function sqimap_mailbox_tree($imap_stream) {
         }
 
         if ($has_inbox == false) {
-            $lsub_ary[] = '* LSUB () INBOX';
+            $lsub_ary[] = '* LSUB () "' . $folder_prefix . '" INBOX';
         }
 
         /*
@@ -875,11 +875,14 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
 }
 
 function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
-   $mbx_tree->mailboxname_sub=imap_utf7_decode_local($mbx_tree->mailboxname_sub);
+   if (strtoupper($mbx_tree->mailboxname_sub) == 'INBOX')
+       $mbx_tree->mailboxname_sub = _("INBOX");
+   else
+       $mbx_tree->mailboxname_sub = imap_utf7_decode_local($mbx_tree->mailboxname_sub);
    if ($mbx_tree->mbxs) {
       $iCnt = count($mbx_tree->mbxs);
       for ($i=0;$i<$iCnt;++$i) {
-         $mbxs_tree->mbxs[$i] = sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
+          $mbxs_tree->mbxs[$i] = sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
       }
    }
 }
