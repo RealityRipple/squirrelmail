@@ -39,6 +39,7 @@ $theme=array();
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'class/mime.class.php');
+require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
 
@@ -53,7 +54,6 @@ session_start();
 
 require_once(SM_PATH . 'functions/i18n.php');
 require_once(SM_PATH . 'functions/auth.php');
-require_once(SM_PATH . 'functions/global.php');
 
 is_logged_in();
 
