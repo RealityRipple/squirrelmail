@@ -122,7 +122,7 @@ sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
 sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
 
 sqgetGlobalVar('optpage',     $optpage);
-sqgetGlobalVar('optmode',     $optmode,      SQ_POST);
+sqgetGlobalVar('optmode',     $optmode);
 sqgetGlobalVar('optpage_data',$optpage_data, SQ_POST);
 /* end of getting globals */
 
