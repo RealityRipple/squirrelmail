@@ -27,7 +27,6 @@ Version 1.4.0 CVS
   - Fixed folder creation for Courier using Autoconfig options.
   - Fixed encoded string handling inside MDN notifications.
   - Fixed unfold header routine in imap_messages (for mailbox_display).
-  - Make listcommands work with PHP versions 4.0.4 & 4.0.5.
   - Fixed subject_line hook.
   - Fixed sqgetGlobalVar switching.
   - Fixed handling of encoding/decoding strings.
@@ -37,7 +36,8 @@ Version 1.4.0 CVS
   - Fixed uninitialized indices when parsing attachments.
   - Support text/directory MIME-type for vCards (RFC 2425).
   - Added Arabic locale. Thanks to Asrar Abbasi <asrar at canasoft.net> and
-    Naveed Saqib <naveed.saqib at biznas.com>
+    Naveed Saqib <naveed.saqib at biznas.com>.
+  - Update required PHP version in documentation to 4.0.6.
 
 Version 1.4.0 RC 2a
 -------------------
