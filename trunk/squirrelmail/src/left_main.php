@@ -71,9 +71,8 @@
          $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
          $line .= "</small></a>\n";
       }
-
-      echo "</NOBR>";
       return $line;
+      echo "</NOBR>";
    }
 
    // open a connection on the imap port (143)
