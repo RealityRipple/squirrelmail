@@ -193,10 +193,12 @@ echo    addSelect('addaddr[label]', $opts, '', TRUE);
 </td></tr>
 <tr><td colspan="2" align="center">
 <?php
-echo addHidden('addaddr[email]', $vcard_nice['email;internet']).
-     addHidden('addaddr[firstname]', $vcard_safe['firstname']).
-     addHidden('addaddr[lastname]', $vcard_safe['lastname']).
-     addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
+if (isset($vcard_nice['email;internet']))
+    echo addHidden('addaddr[email]', $vcard_nice['email;internet']);
+
+echo addHidden('addaddr[firstname]', $vcard_safe['firstname']).
+    addHidden('addaddr[lastname]', $vcard_safe['lastname']).
+    addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]');
 ?>
 </td></tr>
 </table>
