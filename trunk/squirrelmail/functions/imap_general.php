@@ -234,6 +234,7 @@
     ******************************************************************************/
    function sqimap_find_displayable_name ($string) {
       $string = " ".trim($string);
+      $orig_string = $string;
       if (strpos($string, "<") && strpos($string, ">")) {
          if (strpos($string, "<") == 1) {
             $string = sqimap_find_email($string);
@@ -242,6 +243,10 @@
             $string = substr($string, 0, strpos($string, "<"));
             $string = ereg_replace ("\"", "", $string);   
          }   
+
+         if (trim($string) == "") {
+            $string = sqimap_find_email($orig_string);
+         }
       }
       return $string; 
    }
