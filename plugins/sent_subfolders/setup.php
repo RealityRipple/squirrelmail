@@ -61,8 +61,8 @@ function sent_subfolders_check_handleAsSent() {
         /* Perform the comparison. */
         $handleAsSent_result =
             ( $handleAsSent_result
-              || ($base_str == $mbox_str)
-              || ($sent_subfolders_base == $args[1])
+            || ($base_str == $mbox_str)
+            || ($sent_subfolders_base == $args[1])
             );
     }
 }
@@ -73,7 +73,7 @@ function sent_subfolders_load_prefs() {
 
     $use_sent_subfolders = getPref
     ($data_dir, $username, 'use_sent_subfolders', SMPREF_OFF);
-    
+
     $sent_subfolders_setting = getPref
     ($data_dir, $username, 'sent_subfolders_setting', SMPREF_SENT_SUBFOLDERS_DISABLED);
 
@@ -100,9 +100,9 @@ function sent_subfolders_optpage_loadhook_folders() {
         'type'    => SMOPT_TYPE_STRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => array(SMPREF_SENT_SUBFOLDERS_DISABLED  => _("Disabled"),
-                           SMPREF_SENT_SUBFOLDERS_MONTHLY   => _("Monthly"),
-                           SMPREF_SENT_SUBFOLDERS_QUARTERLY => _("Quarterly"),
-                           SMPREF_SENT_SUBFOLDERS_YEARLY    => _("Yearly")),
+                        SMPREF_SENT_SUBFOLDERS_MONTHLY   => _("Monthly"),
+                        SMPREF_SENT_SUBFOLDERS_QUARTERLY => _("Quarterly"),
+                        SMPREF_SENT_SUBFOLDERS_YEARLY    => _("Yearly")),
         'save'    => 'save_option_sent_subfolders_setting'
     );
 
@@ -148,7 +148,7 @@ function sent_subfolders_update_sentfolder() {
     global $sent_subfolders_base, $sent_subfolders_setting;
     global $username, $data_dir, $key, $imapServerAddress, $imapPort;
     global $use_sent_subfolders, $move_to_sent;
-    
+
     if ($use_sent_subfolders && $move_to_sent) {
         $year = date('Y');
         $month = date('m');
@@ -156,7 +156,7 @@ function sent_subfolders_update_sentfolder() {
 
         switch ($sent_subfolders_setting) {
             case SMPREF_SENT_SUBFOLDERS_YEARLY:
-	            $sent_subfolder = $sent_subfolders_base
+                $sent_subfolder = $sent_subfolders_base
                                 . $delimiter . $year;
                 $year_folder = $sent_subfolder;
                 break;
@@ -193,14 +193,14 @@ function sent_subfolders_update_sentfolder() {
                 /* Create the imap connection. */
                 $ic = sqimap_login
                 ($username, $key, $imapServerAddress, $imapPort, 10);
-	    
+
                 /* Auto-create the year folder, if it does not yet exist. */
                 if (!sqimap_mailbox_exists($ic, $year_folder)) {
                     sqimap_mailbox_create($ic, $year_folder, '');
                 } else if (!sqimap_mailbox_is_subscribed($ic, $year_folder)) {
                     sqimap_subscribe($ic, $year_folder);
                 }
-	    
+
                 /* Auto-create the subfolder, if it does not yet exist. */
                 if (!sqimap_mailbox_exists($ic, $sent_folder)) {
                     sqimap_mailbox_create($ic, $sent_folder, '');
@@ -219,17 +219,26 @@ function sent_subfolder_getQuarter($month) {
     switch ($month) {
         case '01':
         case '02':
-        case '03': $result = '1'; break;
+        case '03':
+            $result = '1';
+            break;
         case '04':
         case '05':
-        case '06': $result = '2'; break;
+        case '06':
+            $result = '2';
+            break;
         case '07':
         case '08':
-        case '09': $result = '3'; break;
+        case '09':
+            $result = '3';
+            break;
         case '10':
         case '11':
-        case '12': $result = '4'; break;
-	default: $result = 'ERR';
+        case '12':
+            $result = '4';
+            break;
+        default:
+            $result = 'ERR';
     }
 
     /* Return the current quarter. */
