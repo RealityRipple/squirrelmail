@@ -295,7 +295,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
             '<br>' .
             html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="5" cellspacing="1"' ) .
                 html_tag( 'tr',
-                    html_tag( 'td', '<b>' . _("Modify a Server") . '</b>', 'center', $color[9] )
+                    html_tag( 'td', '<b>' . _("Modify Server") . '</b>', 'center', $color[9] )
                 ) .
                 html_tag( 'tr' ) .
                     html_tag( 'td', '', 'center', $color[0] ) .
