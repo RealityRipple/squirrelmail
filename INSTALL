@@ -58,6 +58,8 @@ b. Changing php.ini
   be sure to change the session.save_path to someplace that can only 
   be read and written to by the webserver.  session.save_path is the
   location that PHP's session data will be written to.
+  
+  Squirrelmail 1.2.x also requires register_globals to be enabled. 
 
   SECURITY WARNING - If a user has access to write PHP scripts on your 
   system and knows the location where PHP stores session data, he 
