@@ -58,7 +58,7 @@ function load_optpage_data_display() {
     }
     closedir($handle);
     
-    if ( count( $css_values > 1 ) ) {
+    if ( count( $css_values ) > 1 ) {
     
         $optvals[SMOPT_GRP_GENERAL][] = array(
             'name'    => 'custom_css',
