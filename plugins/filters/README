@@ -21,18 +21,19 @@ you still require it.
 This is slow.  Yep.  Slow.
 
 
-To configure, you should just take a peek at setup.php and set
+To configure, first you need to rename config.php.sample to config.php.
+You should then just take a peek at config.php and set
 $SpamFilters_YourHop to some string if you want to avoid tons of false
 hits on the RSS and DUL and ORBS databases.  It should also speed up the
 scan somewhat.  
 
-If you do not want to enable spam filters for all users, edit setup.php and
+If you do not want to enable spam filters for all users, edit config.php and
 set the $AllowSpamFilters to false.  Spam filters can take TONS of time, so
 if you don't want your users to complain and ask you tons of questions, this
 is a quick and easy method.
 
 If you use UW and if you encounter strange errors while using this plugin on 
-your system, edit setup.php and set $UseSeparateImapConnection to true.  This
+your system, edit config.php and set $UseSeparateImapConnection to true.  This
 may not solve the problem.  One problem it might fix is if you run UW 2001
 and if you don't see the number of unread messages in your left-hand folder
 pane, or if you see timeouts or IMAP server error messages.  Turning on this
@@ -42,4 +43,4 @@ connection.
 Lastly, if there are some IPs that you want to refuse email from or some IPs
 you want to accept email from REGARDLESS of what the DNS databases say, you
 can put in overrides in the SpamFilters_DNScache[] array.  See the comments
-in setup.php for more info on this.
+in config.php for more info on this.
