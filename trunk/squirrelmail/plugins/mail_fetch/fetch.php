@@ -289,7 +289,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
                 if ($mailfetch_lmos != 'on') {
                    if( $pop3->delete($i) ) {
-                        Mail_Fetch_Status(sprintf(_("Message %i deleted from remote server!"), $i));
+                        Mail_Fetch_Status(sprintf(_("Message %d deleted from remote server!"), $i));
                    } else {
                         Mail_Fetch_Status(_("Delete failed:") . htmlspecialchars($pop3->ERROR) );
                    }
