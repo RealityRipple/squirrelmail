@@ -467,8 +467,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     	    sqsession_unregister('msgs');	}
         switch ($mode) {
             case 'thread':
-                $id   = get_thread_sort($imapConnection);
-                $msgs = getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
+                $msgs = getThreadMessages($imapConnection, $start_msg, $show_num, $num_msgs);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
                          _("Thread sorting is not supported by your IMAP server.<br>Please report this to the system administrator.").
@@ -481,8 +480,8 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                 }
                 break;
             case 'serversort':
-                $id   = sqimap_get_sort_order($imapConnection, $sort, $mbxresponse);
-                $msgs = getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id);
+                $msgs = getServerSortMessages($imapConnection, $start_msg, $show_num,
+                                              $num_msgs, $sort, $mbxresponse);
                 if ($msgs === false) {
                     echo '<b><small><center><font color=red>' .
                          _( "Server-side sorting is not supported by your IMAP server.<br>Please report this to the system administrator.").
@@ -537,7 +536,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
               <tr>
                 <td>
                   <?php 
-                    printHeader($mailbox, $sort, $color, !$thread_sort_messages, $start_msg);
+                    printHeader($mailbox, $srt, $color, !$thread_sort_messages, $start_msg);
                     displayMessageArray($imapConnection, $num_msgs, $start_msg, 
 		                                $msort, $mailbox, $sort, $color, $show_num,0,0);
                   ?>
@@ -905,8 +904,9 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
 /*
  * This function shows the sort button. Isn't this a good comment?
  */
-function ShowSortButton($sort, $mailbox, $Up, $Down ) {
+function ShowSortButton($sort, $mailbox, $Down, $Up ) {
     global $PHP_SELF;
+
     /* Figure out which image we want to use. */
     if ($sort != $Up && $sort != $Down) {
         $img = 'sort_none.png';

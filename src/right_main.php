@@ -100,11 +100,13 @@ else if( isset( $PG_SHOWNUM ) ) {
     $show_num = $PG_SHOWNUM;
 }
 
-if (isset($newsort) && $newsort != $sort) {
-    setPref($data_dir, $username, 'sort', $newsort);
+if (isset($newsort) ) {
+    if ( $newsort != $sort )
+        setPref($data_dir, $username, 'sort', $newsort);
+
+    $sort = $newsort;
+    sqsession_register($sort, 'sort');
 }
-
-
 
 /* If the page has been loaded without a specific mailbox, */
 /* send them to the inbox                                  */
@@ -186,10 +188,6 @@ if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
     }
 }
 
-if (isset($newsort)) {
-    $sort = $newsort;
-    sqsession_register($sort, 'sort');
-}
 
 /*********************************************************************
  * Check to see if we can use cache or not. Currently the only time  *
