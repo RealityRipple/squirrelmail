@@ -223,7 +223,7 @@ class SquirrelOption {
 
             /* If this value is the current value, select it. */
             if ($real_value == $this->value) {
-               $new_option .= ' selected';
+               $new_option .= ' selected=""';
             }
 
             /* Add the display value to our option string. */
@@ -318,22 +318,24 @@ class SquirrelOption {
     function createWidget_Boolean() {
         /* Do the whole current value thing. */
         if ($this->value != SMPREF_NO) {
-            $yes_chk = ' checked';
+            $yes_chk = ' checked=""';
             $no_chk = '';
         } else {
             $yes_chk = '';
-            $no_chk = ' checked';
+            $no_chk = ' checked=""';
         }
 
         /* Build the yes choice. */
-        $yes_option = '<input type="radio" name="new_' . $this->name
-                    . '" value="' . SMPREF_YES . "\"$yes_chk $this->script>&nbsp;"
-                    . _("Yes");
+        $yes_option = '<input type="radio" id="new_' . $this->name . '_yes" '
+                    . 'name="new_' . $this->name . '" value="' . SMPREF_YES . '"'
+                    . $yes_chk . ' ' . $this->script . '>&nbsp;'
+                    . '<label for="new_'.$this->name.'_yes">' . _("Yes") . '</label>';
 
         /* Build the no choice. */
-        $no_option = '<input type="radio" name="new_' . $this->name
-                   . '" value="' . SMPREF_NO . "\"$no_chk $this->script>&nbsp;"
-                   . _("No");
+        $no_option = '<input type="radio" id="new_' . $this->name . '_no" '
+                   . 'name="new_' . $this->name . '" value="' . SMPREF_NO . '"'
+                   . $no_chk . ' ' . $this->script . '>&nbsp;'
+                    . '<label for="new_'.$this->name.'_no">' . _("No") . '</label>';
 
         /* Build and return the combined "boolean widget". */
         $result = "$yes_option&nbsp;&nbsp;&nbsp;&nbsp;$no_option";
