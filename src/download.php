@@ -53,14 +53,8 @@ if ($ent_id) {
     
     if ($message->rfc822_header) {
        $subject = $message->rfc822_header->subject;
-       if (isset($header->content_type)) {
-           $charset = $header->content_type->properties['charset'];
-       } else {
-           $charset = '';
-       }
     } else {
        $header = $message->header;
-       $charset = $header->getParameter('charset');
     }
     $type0 = $header->type0;
     $type1 = $header->type1;
@@ -89,7 +83,7 @@ $filename = '';
 if (is_object($message->header->disposition)) {
     $filename = $header->disposition->getProperty('filename');
     if (!$filename) {
-	$filename = $header->disposition->getProperty('name');
+        $filename = $header->disposition->getProperty('name');
     }
     if (!$filename) {
         $filename = $header->getParameter('name');
@@ -102,16 +96,16 @@ $filename = decodeHeader($filename);
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
         $suffix = 'txt';
-	$filename = $subject . '.txt';
+        $filename = $subject . '.txt';
     } else if ($type1 == 'richtext' && $type0 == 'text') {
         $suffix = 'rtf';
-	$filename = $subject . '.rtf';
+        $filename = $subject . '.rtf';
     } else if ($type1 == 'postscript' && $type0 == 'application') {
         $suffix = 'ps';
-	$filename = $subject . '.ps';
+        $filename = $subject . '.ps';
     } else if ($type1 == 'rfc822' && $type0 == 'message') {
         $suffix = 'eml';
-	$filename = $subject . '.msg';
+        $filename = $subject . '.msg';
     } else {
         $suffix = $type1;
     }
