@@ -633,7 +633,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         }
     }
 
-    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.'><small>'."\n";
+    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.' style="display: inline"><small>'."\n";
 
     // If Draft folder - create Resume link
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
@@ -694,7 +694,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
             $location = $base_uri . 'src/right_main.php?';
         }
 
-        $menu_row .= '<form action="'.$base_uri.'src/move_messages.php?'.$current_box.'" method="post">'.
+        $menu_row .= '<form action="'.$base_uri.'src/move_messages.php?'.$current_box.'" method="post" style="display: inline">'.
               '<small><input type="hidden" name="show_more" value="0" />'.
               '<input type="hidden" name="dmn" value="1" />'.
               '<input type="hidden" name="location" value="'.$location.$current_box.'" />'.
