@@ -1,5 +1,7 @@
 Version 0.6pre1 -- DEVELOPMENT
 ------------------------------
+- Updated attachment viewing, added plugin support (see plugins.txt)
+- Added file and message size in many locations
 - Made message index order customizable (from, subject, date) can be (date, from, subject)
 - Fixed some security problems with uploading attachments
 - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>

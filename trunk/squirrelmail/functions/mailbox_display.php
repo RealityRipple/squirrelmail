@@ -71,6 +71,7 @@
                else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
                break;
             case 6: # size   
+               echo "   <td bgcolor=$hlt_color width=1%>$bold".$msg["SIZE"]."k$bold_end</td>\n";
                break;
          }
       }
@@ -107,6 +108,7 @@
                $to[$q] = $hdr->to;
                $priority[$q] = $hdr->priority;
                $cc[$q] = $hdr->cc;
+               $size[$q] = $hdr->size;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
@@ -127,6 +129,7 @@
             $messages[$j]["TO"] = decodeHeader($to[$j]);
 				$messages[$j]["PRIORITY"] = $priority[$j];
             $messages[$j]["CC"] = $cc[$j];
+            $messages[$j]["SIZE"] = $size[$j];
 
             # fix SUBJECT-SORT to remove Re:
             if (substr($messages[$j]["SUBJECT-SORT"], 0, 3) == "re:" ||
@@ -327,7 +330,7 @@
                echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
                break;
             case 6: # size   
-               echo "   <TD WIDTH=1%>Size</TD>\n";
+               echo "   <TD WIDTH=1%><b>" . _("Size")."</b></TD>\n";
                break;
          }
       }
