@@ -237,8 +237,10 @@ function user_filters($imap_stream) {
     }
 }
 
-function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $del_id) {
-    global $languages, $squirrelmail_language, $allow_charset_search, $uid_support;
+function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, 
+                                  $del_id) {
+    global $languages, $squirrelmail_language, $allow_charset_search, 
+           $uid_support, $imap_server_type;
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
@@ -259,8 +261,13 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan, $
         $where = trim($where . ' ' . $what[0]);
         $what  = addslashes(trim($what[1]));
     }
-    $search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
-                 . $what . "\r\n";
+
+    if ($imap_server_type == 'macosx') {    
+	$search_str .= ' ' . $where . ' ' . $what;
+    } else {
+	$search_str .= ' ' . $where . ' {' . strlen($what) . "}\r\n"
+                    . $what . "\r\n";
+    }
 
     /* read data back from IMAP */
     $read = sqimap_run_command($imap, $search_str, true, $response, $message, $uid_support);
