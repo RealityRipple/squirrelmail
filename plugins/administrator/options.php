@@ -8,13 +8,16 @@
  *
  * Philippe Mingo
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage administrator
  */
 
 /**
  * parse the config file
+ *
+ * @param string $cfg_file
+ * @access private
  */
 function parseConfig( $cfg_file ) {
 
@@ -134,14 +137,19 @@ function parseConfig( $cfg_file ) {
     }
 }
 
-/* Change paths containing SM_PATH to admin-friendly paths
-   relative to the config dir, i.e.:
-     ''                          --> <empty string>
-     SM_PATH . 'images/logo.gif' --> ../images/logo.gif
-     '/absolute/path/logo.gif'   --> /absolute/path/logo.gif
-     'http://whatever/'          --> http://whatever
-   Note removal of quotes in returned value
-*/
+/**
+ * Change paths containing SM_PATH to admin-friendly paths
+ * relative to the config dir, i.e.:
+ *    ''                          --> <empty string>
+ *    SM_PATH . 'images/logo.gif' --> ../images/logo.gif
+ *    '/absolute/path/logo.gif'   --> /absolute/path/logo.gif
+ *    'http://whatever/'          --> http://whatever
+ *  Note removal of quotes in returned value
+ *  
+ * @param string $old_path path that has to be converted
+ * @return string new path
+ * @access private
+ */
 function change_to_rel_path($old_path) {
     $new_path = str_replace("SM_PATH . '", "../", $old_path); 
     $new_path = str_replace("../config/","", $new_path);
@@ -149,13 +157,18 @@ function change_to_rel_path($old_path) {
     return $new_path;
 }
 
-/* Change relative path (relative to config dir) to 
-   internal SM_PATH, i.e.:
-     empty_string            --> ''
-     ../images/logo.gif      --> SM_PATH . 'images/logo.gif'
-     images/logo.gif         --> SM_PATH . 'config/images/logo.gif'
-     /absolute/path/logo.gif --> '/absolute/path/logo.gif'
-     http://whatever/        --> 'http://whatever'
+/**
+ * Change relative path (relative to config dir) to 
+ *  internal SM_PATH, i.e.:
+ *     empty_string            --> ''
+ *     ../images/logo.gif      --> SM_PATH . 'images/logo.gif'
+ *     images/logo.gif         --> SM_PATH . 'config/images/logo.gif'
+ *     /absolute/path/logo.gif --> '/absolute/path/logo.gif'
+ *     http://whatever/        --> 'http://whatever'
+ *  
+ * @param string $old_path path that has to be converted
+ * @return string new path
+ * @access private
 */     
 function change_to_sm_path($old_path) {
    if ( $old_path === '' || $old_path == "''" ) {

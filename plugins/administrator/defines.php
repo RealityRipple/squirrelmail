@@ -8,7 +8,7 @@
  *
  * Philippe Mingo
  *
- * $Id$
+ * @version $Id$
  * @package plugins
  * @subpackage administrator
  */
