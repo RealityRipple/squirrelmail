@@ -190,7 +190,6 @@ function sqimap_fgets($imap_stream) {
             $offset = strlen($results) - 1;
         }
         $results .= $read;
-#sm_print_r("Trace from line " . __LINE__, $results);
     }
     return $results;
 }
@@ -252,7 +251,6 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         } else {    
             $results .= $sRead;
         }
-#sm_print_r("Trace from line " . __LINE__, $results);
     }
     return $results;       
 }        
