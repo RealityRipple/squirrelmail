@@ -25,12 +25,12 @@
    if (!isset($i18n_php))
       include("../functions/i18n.php");
 
+   include("../src/load_prefs.php");
 
    function viewText($color, $body, $id, $entid, $mailbox, $type1, $wrap_at) {
       global $where, $what, $charset;
       global $startMessage;
       
-      include("../src/load_prefs.php");
       displayPageHeader($color, "None");
 
       echo "<BR><TABLE WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
