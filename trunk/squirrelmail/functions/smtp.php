@@ -158,8 +158,8 @@
         fputs ($fp, "\n--".mimeBoundary()."--\n");
      } else {
        fputs ($fp, stripslashes($body) . "\n");
-       fputs ($fp, "\n");
      }
+     fputs ($fp, "\n");
    }
 
    // Send mail using the sendmail command
