@@ -10,6 +10,7 @@
 					 necessary.
     **/
 
+    global $color;
     $color[0]   = "#B0B0B0"; // (gray)				TitleBar
     $color[1]   = "#A04040"; // (dull red)			Quoted Replies in Emails
     $color[2]   = "#F04040"; // (bright red)		Warning/Error Messages

@@ -10,24 +10,13 @@
     **  $Id$
     **/
 
-   session_start();
-
-   if (!isset($strings_php))
-      include('../functions/strings.php');
-   if (!isset($config_php))
-      include('../config/config.php');
-   if (!isset($array_php))
-      include('../functions/array.php');
-   if (!isset($auth_php))
-      include('../functions/auth.php');
-   if (!isset($page_header_php))
-      include('../functions/page_header.php');
-   if (!isset($display_messages_php))
-      include('../functions/display_messages.php');
-   if (!isset($addressbook_php))
-      include('../functions/addressbook.php');
-
-   is_logged_in();
+   include('../src/validate.php');
+   include('../functions/strings.php');
+   include('../config/config.php');
+   include('../functions/array.php');
+   include('../functions/page_header.php');
+   include('../functions/display_messages.php');
+   include('../functions/addressbook.php');
 
    // Sort array by the key "name"
    function alistcmp($a,$b) {   

@@ -13,8 +13,7 @@
     **  $Id$
     **/
 
-   if (!isset($strings_php))
-      include ('../functions/strings.php');
+   include ('../functions/strings.php');
    include('../config/config.php');
 
    // Before starting the session, the base URI must be known.
@@ -29,9 +28,17 @@
    session_set_cookie_params (0, $base_uri);
    session_start();
 
+   session_unregister ('user_is_logged_in');
    session_register ('base_uri');
 
    if(!isset($login_username)) {
+      echo "<html><body bgcolor=\"ffffff\">\n";
+      echo "<br><br>";
+      echo "<center>";
+      echo "<b>"._("You must be logged in to access this page.")."</b><br>";
+      echo "<a href=\"../src/login.php\">"._("Go to the login page")."</a>\n";
+      echo "</center>";
+      echo "</body></html>\n";
       exit;
    }
 
@@ -41,15 +48,9 @@
    }
 
 
-   include ('../config/config.php');
    include ('../functions/prefs.php');
    include ('../functions/imap.php');
-   if (!isset($plugin_php))
-      include ('../functions/plugin.php');
-   if (!isset($auth_php))
-      include ('../functions/auth.php');
-   if (!isset($strings_php))
-      include ('../functions/strings.php');
+   include ('../functions/plugin.php');
 
    if (!session_is_registered('user_is_logged_in') || $logged_in != 1) {
       do_hook ('login_before');
@@ -62,7 +63,14 @@
           $login_username = strtolower($login_username);
       $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
 	  if (!$imapConnection) {
-	  	exit;
+             echo "<html><body bgcolor=\"ffffff\">\n";
+	     echo "<br><br>";
+	     echo "<center>";
+	     echo "<b>"._("There was an error contacting the mail server.")."</b><br>";
+	     echo _("Contact your administrator for help.")."\n";
+	     echo "</center>";
+	     echo "</body></html>\n";
+	     exit;
 	  }
       sqimap_logout($imapConnection);
 
@@ -72,8 +80,8 @@
       do_hook ('login_verified');
    }
 
-   session_register ('user_is_logged_in');
    $user_is_logged_in = true;
+   session_register ('user_is_logged_in');
 
-   header("Location: $location/webmail.php");
+   header("Location: webmail.php");
 ?>

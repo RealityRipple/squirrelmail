@@ -11,19 +11,14 @@
     **  $Id$
     **/
 
-   session_start();
-
+   include('../src/validate.php');
    include("../functions/strings.php");
    include("../config/config.php");
    include("../functions/page_header.php");
    include("../functions/display_messages.php");
    include("../functions/imap.php");
-   if (!function_exists("ary_sort"))
-      include("../functions/array.php");
-
-   if (!isset($tree_php))
-      include("../functions/tree.php");
-
+   include("../functions/array.php");
+   include("../functions/tree.php");
    include("../src/load_prefs.php");
 
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

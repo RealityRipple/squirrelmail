@@ -7,6 +7,7 @@
 					 contrast colorset, easy to read with very little eye strain.
     **/
 
+    global $color;
     $color[0]   = "#181818"; // (off-black)			TitleBar
     $color[1]   = "#A0A0A0"; // (gray)				Quoted Replies in Emails
     $color[2]   = "#800000"; // (red)				Warning/Error Messages

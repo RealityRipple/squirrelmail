@@ -16,6 +16,7 @@
        page.
     **/
 
+    global $color;
     $color[0]   = "#A8A8A8"; // (darkish grey)   TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

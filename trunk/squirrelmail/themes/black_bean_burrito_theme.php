@@ -4,6 +4,7 @@
        Theme Name:   "Black Bean Burrito"
     **/
 
+    global $color;
     $color[0]   = "#595959"; // (mid-dark gray)		TitleBar
     $color[1]   = "#F88888"; // (light red)			Quoted Replies in Emails
     $color[2]   = "#ff7171"; // (pinkish)			Warning/Error Messages

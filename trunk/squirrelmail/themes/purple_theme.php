@@ -6,6 +6,7 @@
        This Theme is composed entirely of shades of purple.
     **/
 
+    global $color;
     $color[0]   = "#AC9ECB"; // (light purp)     TitleBar
     $color[1]   = "#800000"; // (red)
     $color[2]   = "#CC0000"; // (light red)      Warning/Error Messages

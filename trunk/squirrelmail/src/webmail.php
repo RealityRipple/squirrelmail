@@ -13,35 +13,17 @@
     **  $Id$
     **/
 
-   session_start();
-
-   if (!isset($i18n_php))
-      include ('../functions/i18n.php');
-
-   if(!isset($username)) {
-      set_up_language($squirrelmail_language);
-	  include ('../themes/default_theme.php');
-	  include ('../functions/display_messages.php');
-	  printf('<html><BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
-			  $color[8], $color[4], $color[7], $color[7], $color[7]);
-	  plain_error_message(_("You need a valid user and password to access this page!") 
-	                      . "<br><a href=\"../src/login.php\">" 
-						  . _("Click here to log back in.") . "</a>.", $color);
-	  echo '</body></html>';
-      exit;
-   }
-
-   if (!isset($strings_php))
-      include ('../functions/strings.php');
+   include ('../functions/i18n.php');
+   include ('../functions/strings.php');
    include ('../config/config.php');
    include ('../functions/prefs.php');
    include ('../functions/imap.php');
-   if (!isset($plugin_php))
-      include ('../functions/plugin.php');
-   if (!isset($auth_php))
-      include ('../functions/auth.php');
+   include ('../functions/plugin.php');
+   include ('../functions/auth.php');
 
-   include ('../src/load_prefs.php');
+   session_start();
+   is_logged_in();
+   checkForPrefs($data_dir, $username);
 
    // We'll need this to later have a noframes version
    //
@@ -59,7 +41,16 @@
    echo $org_title;
    echo '</TITLE>';
    
-   $bar_size = $left_size;
+   $left_size = getPref($data_dir, $username, "left_size");
+   $location_of_bar = getPref($data_dir, $username, "location_of_bar");
+   if ($location_of_bar == '')
+       $location_of_bar = 'left';
+   if ($left_size == "") {
+      if (isset($default_left_size))
+         $left_size = $default_left_size;
+      else  
+         $left_size = 200;
+   }      
    
    if ($location_of_bar == 'right')
    {
@@ -90,7 +81,7 @@
    } else if ($right_frame == 'folders.php') {
       $right_frame_url = 'folders.php';
    } else {
-      if (!isset($just_logged_in)) $just_logged_in = 1;
+      if (!isset($just_logged_in)) $just_logged_in = 0;
       $right_frame_url = "right_main.php?just_logged_in=$just_logged_in";
    }
 
