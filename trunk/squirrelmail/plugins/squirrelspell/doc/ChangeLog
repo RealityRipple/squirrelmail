@@ -1,5 +1,9 @@
 SQUIRRELSPELL
 
+v0.3.6
+------
+- Remote arbirtary execution as apache user vulnerability fix.
+
 v0.3.5
 -------
 - Making it work with 1.1.1 broke it under 1.0.6. Decided not to support

@@ -304,6 +304,6 @@
        of the user dictionary files and messing with this can do ugly 
        stuff. :)
        								**/
-    $SQSPELL_VERSION="v0.3.5";
+    $SQSPELL_VERSION="v0.3.6";
     
 ?>
