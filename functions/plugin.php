@@ -16,6 +16,7 @@
 
 /** Everything needs global.. */
 require_once(SM_PATH . 'functions/global.php');
+require_once(SM_PATH . 'functions/prefs.php');
 
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks = array();
@@ -169,21 +170,13 @@ function boolean_hook_function($name,$parm=NULL,$priority=0,$tie=false) {
  * This function checks whether the user's USER_AGENT is known to
  * be broken. If so, returns true and the plugin is invisible to the
  * offending browser.
+ * *** THIS IS A TEST FOR JAVASCRIPT SUPPORT ***
  * This function needs to have its name changed!
  *
  * @return bool whether this browser properly supports JavaScript
  */
 function soupNazi(){
-
-    $soup_menu = array('Mozilla/3','Mozilla/2','Mozilla/1', 'Opera 4',
-                       'Opera/4', 'OmniWeb', 'Lynx');
-    sqgetGlobalVar('HTTP_USER_AGENT', $user_agent, SQ_SERVER);
-    foreach($soup_menu as $browser) {
-        if(stristr($user_agent, $browser)) {
-            return 1;
-        }
-    }
-    return 0;
+    return !checkForJavascript();
 }
 /*************************************/
 /*** MAIN PLUGIN LOADING CODE HERE ***/
