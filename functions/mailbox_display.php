@@ -278,7 +278,6 @@
             next($msort);
             $k++;
          } while (isset ($key) && ($k < $i));
-	echo $key;
          printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
       } else {
          $i = $startMessage;
