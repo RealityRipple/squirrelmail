@@ -18,7 +18,7 @@ Version 1.2.0 -- 25 December 2001
   - Multiple identities
   - Reply Citations
   - Better Attachment Handling
-  - Integration of Severl Plugins into Core Code (including xmailer,
+  - Integration of Several Plugins into Core Code (including xmailer,
     attachment_common, paginator, priority, printer_friendly, sqclock)
   - Ability to mark messages as Read/Unread
   - New themes (including a Christmas theme, and several changing themes)
