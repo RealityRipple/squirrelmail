@@ -408,7 +408,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
                         '<TD><SMALL>';
 	    $from_o = $header->from;
-	    if (isset($from_o)) {
+	    if (is_object($from_o)) {
 		$from_name = $from_o->getAddress(false);
 	    } else {
 		$from_name = _("Unknown sender");
@@ -430,6 +430,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         } else {
             $filename = decodeHeader($header->filename);
             if (trim($filename) == '') {
+	        $name = decodeHeader($header->name);
                 if (trim($name) == '') {
                     if ( trim( $header->id ) == '' )
                         $display_filename = 'untitled-[' . $ent . ']' ;
