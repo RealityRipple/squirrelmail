@@ -136,14 +136,13 @@ function isSpecialMailbox( $box ) {
            $move_to_trash, $move_to_sent, $save_as_draft;
 
     $ret = ( (strtolower($box) == 'inbox') ||
-             ( $move_to_trash && isBoxBelow( $box, $trash_folder ) ) ||
-             ( $move_to_sent && isBoxBelow( $box, $sent_folder )) ||
+             ( $move_to_trash && $trash_folder && isBoxBelow( $box, $trash_folder )) ||
+             ( $move_to_sent  && $sent_folder  && isBoxBelow( $box, $sent_folder  )) ||
              ($save_as_draft && $box == $draft_folder ) );
 
     if ( !$ret ) {
         $ret = do_hook_function( 'special_mailbox', $box );
     }
-
     return $ret;
 }
 
