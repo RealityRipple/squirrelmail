@@ -588,6 +588,7 @@ function showInputForm ($session) {
            $mailprio, $default_use_mdn, $mdn_user_support, $compose_new_win,
            $saved_draft, $mail_sent, $sig_first, $edit_as_new;
 
+    $file_uploads = ini_get('file_uploads');
     $subject = decodeHeader($subject, false);
     $reply_subj = decodeHeader($reply_subj, false);
     $forward_subj = decodeHeader($forward_subj, false);
@@ -603,8 +604,10 @@ function showInputForm ($session) {
              '// --></SCRIPT>' . "\n\n";
     }
 
-    echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ' .
-         'ENCTYPE="multipart/form-data"';
+    echo "\n" . '<FORM name=compose action="compose.php" METHOD=POST ';
+    if ($file_uploads) {
+        echo 'ENCTYPE="multipart/form-data"';
+    }
     do_hook("compose_form");
 
     
@@ -757,36 +760,38 @@ function showInputForm ($session) {
     }
 
     /* This code is for attachments */
-    echo '   <TR>' . "\n" .
-         '     <TD VALIGN=MIDDLE ALIGN=RIGHT>' . "\n" .
-                _("Attach:") .
-         '      </TD>' . "\n" .
-         '      <TD VALIGN=MIDDLE ALIGN=LEFT>' . "\n" .
-         '      <INPUT NAME="attachfile" SIZE=48 TYPE="file">' . "\n" .
-         '      &nbsp;&nbsp;<input type="submit" name="attach"' .
-         ' value="' . _("Add") .'">' . "\n" .
-         '     </TD>' . "\n" .
-         '   </TR>' . "\n";
+    if ($file_uploads) {
+        echo '   <TR>' . "\n" .
+             '     <TD VALIGN=MIDDLE ALIGN=RIGHT>' . "\n" .
+                    _("Attach:") .
+             '      </TD>' . "\n" .
+             '      <TD VALIGN=MIDDLE ALIGN=LEFT>' . "\n" .
+             '      <INPUT NAME="attachfile" SIZE=48 TYPE="file">' . "\n" .
+             '      &nbsp;&nbsp;<input type="submit" name="attach"' .
+             ' value="' . _("Add") .'">' . "\n" .
+             '     </TD>' . "\n" .
+             '   </TR>' . "\n";
 
-    if (count($attachments)) {
-        $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-        echo '<tr><td bgcolor="' . $color[0] . '" align=right>' . "\n" .
-             '&nbsp;' .
-             '</td><td align=left bgcolor="' . $color[0] . '">';
-        foreach ($attachments as $key => $info) {
-    	    if ($info['session'] == $session) { 
-            	$attached_file = "$hashed_attachment_dir/$info[localfilename]";
-            	echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
-                        $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
-                        show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
-    	    }
+        if (count($attachments)) {
+            $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+            echo '<tr><td bgcolor="' . $color[0] . '" align=right>' . "\n" .
+                 '&nbsp;' .
+                 '</td><td align=left bgcolor="' . $color[0] . '">';
+            foreach ($attachments as $key => $info) {
+                if ($info['session'] == $session) {
+                    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+                    echo '<input type="checkbox" name="delete[]" value="' . $key . "\">\n" .
+                            $info['remotefilename'] . ' - ' . $info['type'] . ' (' .
+                            show_readable_size( filesize( $attached_file ) ) . ")<br>\n";
+                }
+            }
+
+            echo '<input type="submit" name="do_delete" value="' .
+                 _("Delete selected attachments") . "\">\n" .
+                 '</td></tr>';
         }
-
-        echo '<input type="submit" name="do_delete" value="' .
-             _("Delete selected attachments") . "\">\n" .
-             '</td></tr>';
+        /* End of attachment code */
     }
-    /* End of attachment code */
     if ($compose_new_win == '1') {
         echo '</TABLE>'."\n";
     }
