@@ -31,7 +31,8 @@
 
       echo "<BR><TABLE WIDTH=90% BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">";
       echo "<B><CENTER>";
-      echo _("Viewing a plain text attachment");
+      echo _("Viewing a text attachment") . " - ";
+      echo "<a href=\"read_body.php?mailbox=$mailbox&passed_id=$id\">". _("View message") . "</a>";
       echo "</CENTER></B>";
       echo "</TD></TR><TR><TD BGCOLOR=\"$color[4]\">";
       $urlmailbox = urlencode($mailbox);
@@ -113,11 +114,6 @@
             echo $body;
             break;
       }
-#   } else if ($view == "true") {
-#      $body = decodeBody ($body, $header->encoding);
-#      header("Content-type: $type0/$type1; name=\"$filename\"");
-#      header("Content-disposition: attachment; filename=\"$filename\"");
-#      echo $body;
    } else {
       switch ($type0) {
          case "text":
@@ -130,7 +126,7 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: applicatin/octet-stream; name=\"$filename\"");
+            header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
             echo $body;
             break;
