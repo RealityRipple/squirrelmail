@@ -20,4 +20,5 @@
     $color[9]   = "#000080"; // (bright blue)		Darker version of #0
     $color[10]  = "#000080"; // (bright blue)		Darker version of #9
     $color[11]  = "#3333FF"; // (dull blue)			Special Folders color
+    $color[12]  = "#808080"; //                         Alternate rows
 ?>
