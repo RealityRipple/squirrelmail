@@ -10,8 +10,10 @@
  */
 
 function adm_check_user() {
-    GLOBAL $username, $PHP_SELF;
-
+    global $PHP_SELF;
+    
+    $username = ( !isset($_SESSION['username']) ? '' : $_SESSION['username'] );
+    /* This needs to be first, for all non_options pages */
     if (strpos('options.php', $PHP_SELF)) {
         $auth = FALSE;
     } else if (file_exists(SM_PATH . 'plugins/administrator/admins')) {

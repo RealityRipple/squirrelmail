@@ -127,8 +127,71 @@ function parseConfig( $cfg_file ) {
             }
         }
     }
-
 }
+
+/* Change paths containing SM_PATH to admin-friendly paths
+   relative to the config dir, i.e.:
+     ''                          --> <empty string>
+     SM_PATH . 'images/logo.gif' --> ../images/logo.gif
+     '/absolute/path/logo.gif'   --> /absolute/path/logo.gif
+     'http://whatever/'          --> http://whatever
+   Note removal of quotes in returned value
+*/
+function change_to_rel_path($old_path) {
+    $new_path = str_replace("SM_PATH . '", "../", $old_path); 
+    $new_path = str_replace("../config/","", $new_path);
+    $new_path = str_replace("'","", $new_path);
+    return $new_path;
+}
+
+/* Change relative path (relative to config dir) to 
+   internal SM_PATH, i.e.:
+     empty_string            --> ''
+     ../images/logo.gif      --> SM_PATH . 'images/logo.gif'
+     images/logo.gif         --> SM_PATH . 'config/images/logo.gif'
+     /absolute/path/logo.gif --> '/absolute/path/logo.gif'
+     http://whatever/        --> 'http://whatever'
+*/     
+function change_to_sm_path($old_path) {
+   if ( $old_path === '' || $old_path == "''" ) {
+     return "''";
+   } elseif ( preg_match("/^(\/|http)/", $old_path) ) {
+     return "'" . $old_path . "'";
+   } elseif ( preg_match("/^(\$|SM_PATH)/", $old_path) ) {
+     return $old_path;
+   }
+   
+   $new_path = '';
+   $rel_path = explode("../", $old_path);
+   if ( count($rel_path) > 2 ) {
+     // Since we're relative to the config dir, 
+     // more than 1 ../ puts us OUTSIDE the SM tree.
+     // get full path to config.php, then pop the filename
+     $abs_path = explode('/', realpath (SM_PATH . 'config/config.php'));
+     array_pop ($abs_path); 
+     foreach ( $rel_path as $subdir ) {
+       if ( $subdir === '' ) {
+         array_pop ($abs_path);
+       } else {
+         array_push($abs_path, $subdir);
+       }
+     }
+     foreach ($abs_path as $subdir) {
+       $new_path .= $subdir . '/';
+     }
+     $new_path = "'$new_path'";
+   } elseif ( count($rel_path) > 1 ) {
+     // we're within the SM tree, prepend SM_PATH
+     $new_path = str_replace('../',"SM_PATH . '", $old_path . "'");
+   } else {
+     // Last, if it's a relative path without a .. prefix, 
+     // we're somewhere within the config dir, so prepend
+     //  SM_PATH . 'config/  
+     $new_path = "SM_PATH . 'config/" . $old_path . "'";
+   }
+   return $new_path;
+}
+
 
 /* ---------------------- main -------------------------- */
 
@@ -145,7 +208,7 @@ require_once(SM_PATH . 'plugins/administrator/auth.php');
 GLOBAL $data_dir, $username;
 
 if ( !adm_check_user() ) {
-    header("Location: ../../src/options.php") ;
+    header('Location: ' . SM_PATH . 'src/options.php') ;
     exit;
 }
 
@@ -171,15 +234,14 @@ $colapse = array( 'Titles' => 'off',
                   'Group7' => getPref($data_dir, $username, 'adm_Group7', 'on' ),
                   'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ) );
 
-if ( isset( $switch ) ) {
-
+if ( isset( $_GET['switch'] ) ) {
+    $switch = $_GET['switch'];
     if ( $colapse[$switch] == 'on' ) {
        $colapse[$switch] = 'off';
     } else {
        $colapse[$switch] = 'on';
     }
     setPref($data_dir, $username, "adm_$switch", $colapse[$switch] );
-
 }
 
 echo "<form action=options.php method=post name=options>" .
@@ -363,6 +425,22 @@ foreach ( $newcfg as $k => $v ) {
             }
             echo "</td></tr>\n";
             break;
+	case SMOPT_TYPE_PATH:
+	    if ( isset( $HTTP_POST_VARS[$e] ) ) {
+               $v = change_to_sm_path($HTTP_POST_VARS[$e]);
+               $newcfg[$k] = $v;
+            }
+            if ( $v == "''" && isset( $defcfg[$k]['default'] ) ) {
+               $v = change_to_sm_path($defcfg[$k]['default']);
+               $newcfg[$k] = $v;
+            }
+	    echo "<tr><td>$name</td><td>".
+                 "<input size=\"$size\" name=\"adm_$n\" value=\"" . change_to_rel_path($v) . "\">";
+            if ( isset( $defcfg[$k]['comment'] ) ) {
+                 echo ' &nbsp; ' . $defcfg[$k]['comment'];
+            }
+	    echo "</td></tr>\n";
+	    break;
         default:
             echo "<tr><td>$name</td><td>" .
                  "<b><i>$v</i></b>";
@@ -372,7 +450,6 @@ foreach ( $newcfg as $k => $v ) {
             echo "</td></tr>\n";
         }
     }
-
 }
 
 /* Special Themes Block */
@@ -394,14 +471,13 @@ if ( $colapse['Group7'] == 'off' ) {
         $k2 = "\$theme[$i]['PATH']";
         $e2 = "theme_path_$i";
         if ( isset( $HTTP_POST_VARS[$e2] ) ) {
-            $v2 = '"' . str_replace( '\"', '"', $HTTP_POST_VARS[$e2] ) . '"';
-            $v2 = '"' . str_replace( '"', '\"', $v2 ) . '"';
-            $newcfg[$k2] = $v2;
+            $v2 = change_to_sm_path($HTTP_POST_VARS[$e2]);
+	    $newcfg[$k2] = $v2;
         } else {
             $v2 = $newcfg[$k2];
         }
         $name = substr( $v1, 1, strlen( $v1 ) - 2 );
-        $path = substr( $v2, 1, strlen( $v2 ) - 2 );
+        $path = change_to_rel_path($v2);
         echo '<tr>'.
              "<td align=right>$i. <input name=\"$e1\" value=\"$name\" size=30></td>".
              "<td><input name=\"$e2\" value=\"$path\" size=40></td>".
