@@ -19,7 +19,7 @@ require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
 
 displayHtmlHeader( _("Printer Friendly"),
-             "<script language=\"javascript\">\n".
+             "<script language=\"javascript\" type=\"text/javascript\">\n".
              "<!--\n".
              "function printPopup() {\n".
                 "parent.frames[1].focus();\n".
