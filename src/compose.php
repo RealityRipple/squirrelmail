@@ -536,6 +536,9 @@ elseif (isset($sigappend)) {
     if (isset($send_to_bcc)) {
        $values['send_to_bcc'] = $send_to_bcc;
     }
+    if (isset($subject)) {
+       $values['subject'] = $subject;
+    }
     showInputForm($session, $values);
 }
 
