@@ -38,6 +38,10 @@
       $gettext_php_loaded_language = '';
       session_register('gettext_php_loaded_language');
    }
+   if (! isset($gettext_php_short_circuit)) {
+      $gettext_php_short_circuit = false;
+      session_register('gettext_php_short_circuit');
+   }
 
    function gettext_php_load_strings() {
       global $squirrelmail_language, $gettext_php_translateStrings,
