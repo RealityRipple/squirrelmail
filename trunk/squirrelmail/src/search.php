@@ -24,8 +24,14 @@ function s_opt( $val, $sel, $tit ) {
 
 /* ------------------------ main ------------------------ */
 
-displayPageHeader($color, $mailbox);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$boxes = sqimap_mailbox_list($imapConnection);
+
+if( $mailbox == 'None' ) {
+    $mailbox = $boxes[0]['unformatted'];
+}
+
+displayPageHeader($color, $mailbox);
 
 if( !isset( $search_memory ) ) {
     $search_memory = 0;
@@ -62,8 +68,6 @@ for ( $form = 0; $form <= $search_memory; $form++ ) {
              "     <TR>\n".
              "       <TD WIDTH=\"33%\">\n".
              '         <TT><SMALL><SELECT NAME="mailbox">';
-        
-        $boxes = sqimap_mailbox_list($imapConnection);
         
         for ($i = 0; $i < count($boxes); $i++) {
             if (!in_array('noselect', $boxes[$i]['flags'])) {
