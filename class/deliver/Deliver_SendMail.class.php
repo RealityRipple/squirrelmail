@@ -36,6 +36,7 @@ class Deliver_SendMail extends Deliver {
     
     function finalizeStream($stream) {
 	pclose($stream);
+	return true;
     }
 }
 ?>
