@@ -853,7 +853,7 @@ class message {
                         $hdr->disposition = (isset($arg_a[8+$s]) ? $arg_a[8+$s] : $hdr->disposition);
                         $hdr->language = (isset($arg_a[9+$s]) ? $arg_a[9+$s] : $hdr->language);
                         $msg->header = $hdr;
-                        $arg_no = 0;
+//                        $arg_no = 0;
                         ++$i;
                         if ((substr($msg->entity_id, -2) == '.0') && ($msg->type0 !='multipart')) {
                            $msg->entity_id++;
@@ -863,9 +863,9 @@ class message {
                         $hdr->type1 = $arg_a[0];
                         $msg->type0 = 'multipart';
                         $msg->type1 = $arg_a[0];
-                        $hdr->parameters = (is_array($arg_a[1]) ? $arg_a[1] : $hdr->parameters);
-                        $hdr->disposition = (is_array($arg_a[2]) ? $arg_a[2] : $hdr->disposition);
-                        $hdr->language = (is_array($arg_a[3]) ? $arg_a[3] : $hdr->language);
+                        $hdr->parameters = (isset($arg_a[1]) ? $arg_a[1] : $hdr->parameters);
+                        $hdr->disposition = (isset($arg_a[2]) ? $arg_a[2] : $hdr->disposition);
+                        $hdr->language = (isset($arg_a[3]) ? $arg_a[3] : $hdr->language);
                         $msg->header = $hdr;
                     }
                     return (array($msg, $i));
