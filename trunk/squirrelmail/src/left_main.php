@@ -178,6 +178,10 @@ function create_collapse_link($boxnum) {
     }
     $link .= '</a>';
 
+    $hooklink = do_hook_function('create_collapse_link',$link);
+    if ($hooklink != '')
+        $link = $hooklink;
+
     /* Return the finished product. */
     return ($link);
 }
