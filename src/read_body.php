@@ -694,7 +694,7 @@ if (($mailbox == $draft_folder) && ($save_as_draft)) {
                 "identity=$identity&amp;send_to=$url_to_string&amp;".
 		"send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;".
 		"subject=$url_subj&amp;mailprio=$priority_level&amp;".
-		"draft_id=$passed_id&amp;ent_num=$ent_num&amp;passed_id=$passed_id";
+		"draft_id=$passed_id&amp;ent_num=$ent_num";
     
     if ($compose_new_win == '1') {
         echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$comp_uri')\"";
