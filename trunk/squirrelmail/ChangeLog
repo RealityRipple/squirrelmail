@@ -1,8 +1,12 @@
+Version 1.0 -- DEVELOPMENT
+--------------------------
+
 Version 1.0pre3 -- January 22, 2001 
 -----------------------------------
 - Fixed some "Select All" bugs
 - Finally fixed the IE/SSL download problem!!
 - Added Danish translation by Claus Rasmussen <claus@webclaus.com>
+- Updated Spanish translation
 - Updated Polish translation
 - Updated Taiwan translation
 - Updated Czech translation
