@@ -83,12 +83,12 @@
 //      if (session_is_registered("messages"))
 //         session_unregister("messages");
 
-      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color);
+      showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num);
 //   } else {
 //      echo "<br>using cache<br>\n";
 //      $msgs = unserialize($messages);
 
-//      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color);
+//      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
 //   }
 
    // close the connection

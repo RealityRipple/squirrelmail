@@ -143,6 +143,19 @@
    echo "      </TD>";
    echo "   </TR>";
 
+   // SHOW_NUM
+   echo "   <TR>";
+   echo "      <TD WIDTH=60% ALIGN=RIGHT>";
+   echo           _("Number of Messages to Index:");
+   echo "      </TD>";
+   echo "      <TD WIDTH=40% ALIGN=LEFT>";
+   if (isset($wrap_at))
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=shownum VALUE=\"$show_num\"></TT><BR>";
+   else
+      echo "         <TT><INPUT TYPE=TEXT SIZE=5 NAME=shownum VALUE=\"25\"></TT><BR>";
+   echo "      </TD>";
+   echo "   </TR>";
+   
    // WRAP_AT
    echo "   <TR>";
    echo "      <TD WIDTH=60% ALIGN=RIGHT>";
