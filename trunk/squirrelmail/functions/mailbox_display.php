@@ -639,22 +639,18 @@
    function ShowSelectAllLink($startMessage, $sort) {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
 
-       ?>&nbsp;
-<script language="JavaScript">
-<!--
-function CheckAll() {
-  for (var i = 0; i < document.messageList.elements.length; i++) {
-    if( document.messageList.elements[i].type == 'checkbox' ) {
-      document.messageList.elements[i].checked =
-        !(document.messageList.elements[i].checked);
-    }
-  }
-}
-window.document.write('<a href=# onClick="CheckAll();"><?php echo
- _("Toggle All") ?></a>');
-//-->
-</script><noscript>
-<?PHP
+       echo '&nbsp;<script language="JavaScript">' .
+            "\n<!-- \n" .
+            "function CheckAll() {\n" .
+            "   for (var i = 0; i < document.messageList.elements.length; i++) {\n" .
+            "       if( document.messageList.elements[i].type == 'checkbox' ) {\n" .
+            "           document.messageList.elements[i].checked = !(document.messageList.elements[i].checked);\n".
+            "       }\n" .
+            "   }\n" .
+            "}\n" .
+            'window.document.write(\'<a href=# onClick="CheckAll();">' . _("Toggle All") . "</a>');\n" .
+            "//-->\n" .
+            "</script>\n<noscript>\n";
 
        echo "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox) .
           "&startMessage=$startMessage&sort=$sort&checkall=";

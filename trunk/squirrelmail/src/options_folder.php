@@ -15,6 +15,7 @@
    require_once('../functions/imap.php');
    require_once('../functions/array.php');
    require_once('../functions/plugin.php');
+   require_once('../functions/options.php');   
    
    displayPageHeader($color, 'None');
 
@@ -132,42 +133,45 @@
    }
    echo "</SELECT></TT>\n";
    echo '</td></tr>';
-?>
-         <tr>
-            <td valign=top align=right>
-               <?php echo _("Unseen message notification"); ?>:
-            </td>
-            <td>
-               <input type=radio name=unseennotify value=1<?php if ($unseen_notify == 1) echo " checked"; ?>> <?php echo _("No notification") ?><br>
-               <input type=radio name=unseennotify value=2<?php if ($unseen_notify != 1 && $unseen_notify != 3) echo " checked"; ?>> <?php echo _("Only INBOX") ?><br>
-               <input type=radio name=unseennotify value=3<?php if ($unseen_notify == 3) echo " checked"; ?>> <?php echo _("All Folders") ?><br>
-            </td>
-         </tr>
-         <tr>
-            <td valign=top align=right>
-               <?php echo _("Unseen message notification type"); ?>:
-            </td>
-	    <td>
-               <input type=radio name=unseentype value=1<?php if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <?php echo _("Only unseen"); ?> - (4)<br>
-               <input type=radio name=unseentype value=2<?php if ($unseen_type == 2) echo " checked"; ?>> <?php echo _("Unseen and Total"); ?> - (4/27)
-            </td>
-         </tr>
-         <tr>
-            <td valign=top align=right>
-               <?php echo _("Collapseable folders"); ?>:
-            </td>
-            <td>
-               <input type=checkbox name=collapsefolders <?php if (isset($collapse_folders) && $collapse_folders) echo " checked"; ?>>
-	         <?php echo _("Enable Collapseable Folders"); ?>
-            </td>
-         </tr>
-         <?php do_hook("options_folders_inside"); ?>
-         <tr>
-            <td>&nbsp;
-            </td><td>
-               <input type="submit" value="<?php echo _("Submit"); ?>" name="submit_folder">
-            </td>
-         </tr>
+   // if( $unseen_notify == '' )
+   //   $unseen_notify = '2';
+   OptionRadio( _("Unseen message notification"),
+                'unseennotify',
+                array( 1 => _("No notification"),
+                       2 => _("Only INBOX"),
+                       3 => _("All Folders") ),
+                $unseen_notify, '', '',
+                '<br>' );
+    OptionRadio( _("Unseen message notification type"),
+                 'unseentype',
+                 array( 1 => _("Only unseen"),
+                        2 => _("Unseen and Total") ),
+                 $unseen_type, '', '',
+                 '<br>' );
+    OptionCheck( _("Collapseable folders"),
+                 'collapsefolders',
+                 $collapse_folders,
+                 _("Enable Collapseable Folders") );
+   OptionSelect( '<b>' . _("Show Clock on Folders Panel") . '</b> ' . _("Date format"),
+                 'dateformat',
+                 array( '1' => 'MM/DD/YY HH:MM',
+                        '2' => 'DD/MM/YY HH:MM',
+                        '3' => 'DDD, HH:MM',
+                        '4' => 'HH:MM:SS',
+                        '5' => 'HH:MM',
+                        '6' => _("No Clock") ),
+                 $date_format );
+   OptionSelect( _("Hour format"),
+                 'hourformat',
+                 array( '1' => _("24-hour clock"),
+                        '2' => _("12-hour clock") ),
+                 $hour_format );     
+                 
+   echo '<tr><td colspan=2><hr noshade></td></tr>';
+   do_hook("options_folders_inside");
+   OptionSubmit();
+?>         
+
       </table>
    </form>
 

@@ -92,13 +92,10 @@
                 " <input name=pageselectormax size=3  value=\"$psw\"> &nbsp;" .
                 _("pages max") );
 
-   do_hook('options_display_inside'); ?>
-         <tr>
-            <td>&nbsp;
-            </td><td>
-               <input type="submit" value="<?php echo _("Submit"); ?>"name="submit_display">
-            </td>
-         </tr>
+   echo '<tr><td colspan=2><hr noshade></td></tr>';
+   do_hook('options_display_inside');
+   OptionSubmit();
+?>
 
       </table>
    </form>
