@@ -295,7 +295,7 @@ function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $i
         } else {
             $end_loop = $show_num;
         }
-        return fillMessageArray($imapConnection,$id,$end_loop);
+        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
     } else {
         return false;
     }
@@ -343,7 +343,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
                 $end_loop = $show_num;
             }
         }
-        $msgs = fillMessageArray($imapConnection,$id,$end_loop);
+        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
     }
     return $msgs;
 }
@@ -528,8 +528,8 @@ function calc_msort($msgs, $sort) {
     return $msort;
 }
 
-function fillMessageArray($imapConnection, $id, $count) {
-    return sqimap_get_small_header_list($imapConnection, $id);
+function fillMessageArray($imapConnection, $id, $count, $show_num) {
+    return sqimap_get_small_header_list($imapConnection, $id, $show_num);
 }
 
 
