@@ -213,7 +213,6 @@ function &sqBodyWrap (&$body, $wrap) {
         * Set this to false to stop appending short strings to previous lines
         */
        $smartwrap = true;
-
        // inner loop, (obviously) handles wrapping up to
        // the next newline
        while ($pos < $nextNewline) {
@@ -221,8 +220,6 @@ function &sqBodyWrap (&$body, $wrap) {
            while (($pos < $nextNewline) && (ctype_space ($body{$pos}))) {
                $pos++;
            }
-
-
            // if this is a short line then just append it and continue outer loop
            if (($outStringCol + $nextNewline - $pos) <= ($wrap - $citeLevel - 1) ) {
                // if this is the final line in the input string then include
@@ -237,16 +234,15 @@ function &sqBodyWrap (&$body, $wrap) {
                while (($lastRealChar > $pos && $lastRealChar < $length) && (ctype_space ($body{$lastRealChar}))) {
                    $lastRealChar--;
                }
-
                // decide if appending the short string is what we want
                if (($nextNewline < $length && $body{$nextNewline} == "\n") &&
                      isset($lastRealChar)) {
-
-                     //check the first word:
-                   $mypos = $nextNewline+1;
+                   $mypos = $pos;
+                   //check the first word:
                    while (($mypos < $length) && ($body{$mypos} == '>')) {
                        $mypos++;
                        // skip over any spaces interleaved among the cite markers
+                       $oldpos = $mypos;
                        while (($mypos < $length) && ($body{$mypos} == ' ')) {
                            $mypos++;
                        }
@@ -261,7 +257,6 @@ function &sqBodyWrap (&$body, $wrap) {
 */
 
                    $firstword = substr($body,$mypos,strpos($body,' ',$mypos) - $mypos);
-
                    //if ($dowrap || $ldnspacecnt > 1 || ($firstword && (
                    if (!$smartwrap || $firstword && (
                                         $firstword{0} == '-' ||
