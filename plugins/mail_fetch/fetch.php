@@ -101,7 +101,7 @@ extract($_POST);
                                   htmlspecialchars((($mailfetch_alias_[$i]=='')?$mailfetch_server_[$i]:$mailfetch_alias_[$i])) .
                                   '</b>: &nbsp; &nbsp; ',
                               'right' ) .
-                              html_tag( 'td', '<input type="password" name="pass_' . $i , '">', 'left' )
+                              html_tag( 'td', '<input type="password" name="pass_' . $i . '">', 'left' )
                           );
              }
         }
