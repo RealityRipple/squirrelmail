@@ -142,7 +142,7 @@
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[4]\" WIDTH=15% ALIGN=RIGHT>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\">";
-   echo _("Date:")
+   echo _("Date:");
    echo "</FONT>\n";
    echo "         </TD><TD BGCOLOR=\"$color[4]\" WIDTH=85%>\n";
    echo "            <FONT FACE=\"Arial,Helvetica\"><B>$dateString</B></FONT>\n";
