@@ -11,7 +11,7 @@
  */
 
 
-require_once('Deliver.class.php');
+require_once('../class/deliver/Deliver.class.php');
 
 class Deliver_IMAP extends Deliver {
 

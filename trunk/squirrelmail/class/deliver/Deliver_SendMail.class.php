@@ -10,7 +10,7 @@
  * $Id$
  */
 
-require_once('Deliver.class.php');
+require_once('../class/deliver/Deliver.class.php');
 
 class Deliver_SendMail extends Deliver {
 
