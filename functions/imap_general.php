@@ -39,14 +39,14 @@ function sqimap_session_id() {
 function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message) {
     $sid = sqimap_session_id();
     fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-    $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message);
+    $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
     return $read;
 }
 
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message) {
     $sid = sqimap_session_id();
     fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-    $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message);
+    $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
     return $read;
 }
 
@@ -58,7 +58,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &
  */
 
 function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
-                               &$response, &$message) {
+                               &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
 
     $read = '';
@@ -155,6 +155,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
             echo "<br><b><font color=$color[2]>\n" .
                  _("ERROR : Could not complete request.") .
                  "</b><br>\n" .
+                 _("Query:") .
+                 $query . '<br>' .
                  _("Reason Given: ") .
                  $message . "</font><br>\n";
             exit;
@@ -164,6 +166,8 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
         echo "<br><b><font color=$color[2]>\n" .
              _("ERROR : Bad or malformed request.") .
              "</b><br>\n" .
+             _("Query:") .
+             $query . '<br>' .
              _("Server responded: ") .
              $message . "</font><br>\n";
         exit;
@@ -172,9 +176,9 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors,
     }
 }
 
-function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
+function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
 
-    $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message);
+    $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message, $query);
     return $res[0];
 
 }
