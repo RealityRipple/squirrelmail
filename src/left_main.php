@@ -548,9 +548,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
                 $collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
             }
             if ($collapse) {
-                $link = '<a href="javascript:void(0)">'." <img src=\"../images/plus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
+                $link = '<a href="javascript:void(0)">'." <img src=\"../images/plus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" style=\"cursor:hand\" /></a>";
             } else {
-                $link = '<a href="javascript:void(0)">'."<img src=\"../images/minus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" /></a>";
+                $link = '<a href="javascript:void(0)">'."<img src=\"../images/minus.png\" border=\"1\" id=$j onclick=\"hidechilds(this)\" style=\"cursor:hand\" /></a>";
             }
             $collapse_link = $link;
         } else $collapse_link='';
@@ -562,9 +562,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         }
     }
     if ($collapse) {
-        $visible = ' style="display:none;"';
+        $visible = ' style="display:none"';
     } else {
-        $visible = ' style="display:block;"';
+        $visible = ' style="display:block"';
     }
 
     if (isset($boxes->mbxs[0]) && !$boxes->is_root) /* mailbox contains childs */
@@ -615,13 +615,17 @@ if (isset($left_refresh) && ($left_refresh != '') &&
 /**
  * $advanced_tree and $oldway are boolean vars which are default set to default
  * SM behaviour.
- * Setting $oldway to false causes left_main.php to use the new  experimental
+ * Setting $oldway to false causes left_main.php to use the new experimental
  * way of getting the mailbox-tree.
  * Setting $advanced tree to true causes SM to display a experimental
  * mailbox-tree with dhtml behaviour.
  * It only works on browsers which supports css and javascript. The used
- * javascript is experimental and doesn't support all browsers. It is tested on
- * IE6 an Konquerer 3.0.0-2.
+ * javascript is experimental and doesn't support all browsers.
+ * It has been tested on IE6 an Konquerer 3.0.0-2.
+ * It is now tested and working on: (please test and update this list)
+ * Windows: IE 5.5 SP2, IE 6 SP1, Gecko based (Mozilla, Firebird) and Opera7
+ * XWindow: ?
+ * Mac: ?
  * In the function ListAdvancedBoxes there is another var $use_folder_images.
  * setting this to true is only usefull if the images exists in ../images.
  *
@@ -663,7 +667,7 @@ var vTreeSrc;
     function hidechilds(img) {
       id = img.id + ".0000";
       form_id = "mbx[" + img.id +"F]";
-      if (document.all) {	//IE
+      if (document.all) {	//IE, Opera7
         div = document.all[id];
         if (div) {
            if (div.style.display == "none") {
@@ -678,12 +682,15 @@ var vTreeSrc;
            }
            vTreeImg = img;
            vTreeDiv = div;
-           setTimeout("fTreeTimeout()",100);
+           if (typeof vTreeDiv.readyState != "undefined")	//IE
+              setTimeout("fTreeTimeout()",100);
+           else	//Non IE
+              vTreeImg.src = vTreeSrc;
            div.style.display = style;
            document.all[form_id].value = value;
         }
       }
-      else if (document.getElementById) {	//Mozilla
+      else if (document.getElementById) {	//Gecko
         div = document.getElementById(id);
         if (div) {
            if (div.style.display == "none") {
@@ -705,14 +712,15 @@ var vTreeSrc;
 
    function buttonover(el,on) {
       if (!on) {
-         el.style.borderColor="blue";}
+//         el.style.borderColor="$color[9]";}
+         el.style.background="$color[0]";}
       else {
-         el.style.borderColor="orange";}
+         el.style.background="$color[9]";}
    }
 
    function buttonclick(el,on) {
       if (!on) {
-         el.style.border="groove"}
+         el.style.border="groove";}
       else {
          el.style.border="ridge";}
    }
@@ -820,8 +828,9 @@ $xtra .= <<<ECHO
 
   .button {
      border:outset;
-     border-color:blue;
-     background:white;
+     border-color: $color[9];
+     background:$color[0];
+     color:$color[6];
      width:99%;
      heigth:99%;
   }
@@ -877,7 +886,7 @@ $xtra .= <<<ECHO
      padding-left:4px;
      border: groove;
      border-width:0.1em;
-     border-color:green;
+     border-color:$color[9];
      background: $color[0];
   }
 
