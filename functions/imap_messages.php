@@ -492,9 +492,9 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
 
         foreach ($read as $read_part) {
             //unfold multi-line headers
-            while ($prevline && strspn($read_part, "\t ") > 0) {
-               $read_part = substr($prevline, 0, -2) . ' ' . ltrim($read_part);
-            }
+	    if ($prevline && strpos($read_part, "\t ") === true) {
+	        $read_part = substr($prevline, 0, -2) . preg_replace('/(\t\s+)/',' ',$read_part);
+	    }
             $prevline = $read_part;
             if ($read_part{0} == '*') {
                 if ($internaldate) {
