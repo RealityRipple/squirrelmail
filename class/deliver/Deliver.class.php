@@ -220,10 +220,19 @@ class Deliver {
     }    
 
     function prepareRFC822_Header($rfc822_header, $reply_rfc822_header, &$raw_length) {
-	global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
-	global $version, $useSendmail, $username;
-	global $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
-	global $REMOTE_HOST;
+        $REMOTE_ADDR = $_SERVER['REMOTE_ADDR'];
+        $SERVER_NAME = $_SERVER['SERVER_NAME'];
+        $REMOTE_PORT = $_SERVER['REMOTE_PORT'];
+        if(isset($_SERVER['REMOTE_HOST'])) {
+            $REMOTE_HOST = $_SERVER['REMOTE_HOST'];
+        }
+        if(isset($_SERVER['HTTP_VIA'])) {
+            $HTTP_VIA = $_SERVER['HTTP_VIA'];
+        }
+        if(isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $HTTP_X_FORWARDED_FOR = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+	global $version, $username;
 	$rn = "\r\n";
 	/* This creates an RFC 822 date */
 	$date = date("D, j M Y H:i:s ", mktime()) . $this->timezone();
