@@ -24,5 +24,9 @@ Known BUGS to be fixed before 0.4pre1:
 
   -    In UW, removing folders with a / at the end is broke
 
-  -    There is an infinate loop when moving messages to other folders, 
+
+
+--SQUASHED--
+
+(lme)  There is an infinate loop when moving messages to other folders, 
        thus breaking the move, and delete buttons.
