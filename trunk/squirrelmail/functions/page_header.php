@@ -135,7 +135,7 @@ function displayPageHeader($color, $mailbox) {
     $urlMailbox = urlencode($mailbox);
     if ($compose_new_win == '1') {
         echo "<a href=$base_uri". "src/compose.php?mailbox=$urlMailbox target=".
-             '"compose_window" onClick="comp_in_new()">Compose</a>';
+             '"compose_window" onClick="comp_in_new()">'. _("Compose"). '</a>';
     }
     else {
         displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');
