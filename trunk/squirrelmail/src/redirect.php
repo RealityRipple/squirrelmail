@@ -86,11 +86,13 @@ if (!session_is_registered('user_is_logged_in')) {
         logout_error( _("You must be logged in to access this page.") );            
         exit;
     } else {
+        $sqimap_capabilities = sqimap_capability($imapConnection);
+	session_register('sqimap_capabilities');
         $delimiter = sqimap_get_delimiter ($imapConnection);
     }
     sqimap_logout($imapConnection);
     session_register('delimiter');
-
+    global $username;    
     $username = $login_username;
     session_register ('username');
     setcookie('key', $key, 0, $base_uri);
@@ -146,9 +148,20 @@ if(isset($rcptemail)) {
     $redirect_url = 'webmail.php?right_frame=compose.php&rcptaddress=';
     $redirect_url .= $rcptemail;
 } else {
-    $redirect_url = 'webmail.php';
+    global $session_expired_location, $session_expired_post;
+    if (isset($session_expired_location) && $session_expired_location) {
+       $compose_new_win = getPref($data_dir, $username, 'compose_new_win', 0);
+       if ($compose_new_win) {
+          $redirect_url = $session_expired_location;
+       } else {
+          $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
+       }
+       session_unregister('session_expired_location');
+       unset($session_expired_location);
+    } else {
+       $redirect_url = 'webmail.php';
+    }
 }
-
 /* Send them off to the appropriate page. */
 header("Location: $redirect_url");
 
