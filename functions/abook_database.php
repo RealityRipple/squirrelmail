@@ -1,31 +1,9 @@
 <?php
-
 /**
  * abook_database.php
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * Backend for personal addressbook stored in a database,
- * accessed using the DB-classes in PEAR.
- *
- * IMPORTANT:  The PEAR modules must be in the include path
- * for this class to work.
- *
- * An array with the following elements must be passed to
- * the class constructor (elements marked ? are optional):
- *
- *    dsn       => database DNS (see PEAR for syntax)
- *    table     => table to store addresses in (must exist)
- *    owner     => current user (owner of address data)
- *  ? writeable => set writeable flag (true/false)
- *
- * The table used should have the following columns:
- * owner, nickname, firstname, lastname, email, label
- * The pair (owner,nickname) should be unique (primary key).
- *
- *  NOTE. This class should not be used directly. Use the
- *        "AddressBook" class instead.
  *
  * @version $Id$
  * @package squirrelmail
@@ -45,23 +23,84 @@ if (!include_once('DB.php')) {
 }
 
 /**
- * Undocumented class - stores the addressbook in a sql database
+ * Address book in a database backend
+ *
+ * Backend for personal/shared address book stored in a database,
+ * accessed using the DB-classes in PEAR.
+ *
+ * IMPORTANT:  The PEAR modules must be in the include path
+ * for this class to work.
+ *
+ * An array with the following elements must be passed to
+ * the class constructor (elements marked ? are optional):
+ * <pre>
+ *   dsn       => database DNS (see PEAR for syntax)
+ *   table     => table to store addresses in (must exist)
+ *   owner     => current user (owner of address data)
+ * ? name      => name of address book
+ * ? writeable => set writeable flag (true/false)
+ * ? listing   => enable/disable listing
+ * </pre>
+ * The table used should have the following columns:
+ * owner, nickname, firstname, lastname, email, label
+ * The pair (owner,nickname) should be unique (primary key).
+ *
+ *  NOTE. This class should not be used directly. Use the
+ *        "AddressBook" class instead.
  * @package squirrelmail
+ * @subpackage addressbook
  */
 class abook_database extends addressbook_backend {
+    /**
+     * Backend type
+     * @var string
+     */
     var $btype = 'local';
+    /**
+     * Backend name
+     * @var string
+     */
     var $bname = 'database';
 
+    /**
+     * Data Source Name (connection description)
+     * @var string
+     */
     var $dsn       = '';
+    /**
+     * Table that stores addresses
+     * @var string
+     */
     var $table     = '';
+    /**
+     * Owner name
+     *
+     * Limits list of database entries visible to end user
+     * @var string
+     */
     var $owner     = '';
+    /**
+     * Database Handle
+     * @var resource
+     */
     var $dbh       = false;
-
+    /**
+     * Enable/disable writing into address book
+     * @var bool
+     */
     var $writeable = true;
+    /**
+     * Enable/disable address book listing
+     * @var bool
+     */
+    var $listing = true;
 
     /* ========================== Private ======================= */
 
-    /* Constructor */
+    /**
+     * Constructor
+     * @param array $param address book backend options
+     */
     function abook_database($param) {
         $this->sname = _("Personal address book");
 
@@ -96,7 +135,11 @@ class abook_database extends addressbook_backend {
     }
 
 
-    /* Open the database. New connection if $new is true */
+    /**
+     * Open the database. 
+     * @param bool $new new connection if it is true
+     * @return bool
+     */
     function open($new = false) {
         $this->error = '';
 
@@ -121,7 +164,9 @@ class abook_database extends addressbook_backend {
         return true;
     }
 
-    /* Close the file and forget the filehandle */
+    /**
+     * Close the file and forget the filehandle
+     */
     function close() {
         $this->dbh->disconnect();
         $this->dbh = false;
@@ -129,7 +174,11 @@ class abook_database extends addressbook_backend {
 
     /* ========================== Public ======================== */
 
-    /* Search the file */
+    /**
+     * Search the database
+     * @param string $expr search expression
+     * @return array search results
+     */
     function &search($expr) {
         $ret = array();
         if(!$this->open()) {
@@ -170,7 +219,11 @@ class abook_database extends addressbook_backend {
         return $ret;
     }
 
-    /* Lookup alias */
+    /**
+     * Lookup alias
+     * @param string $alias alias
+     * @return array search results
+     */
     function &lookup($alias) {
         if (empty($alias)) {
             return array();
@@ -205,7 +258,10 @@ class abook_database extends addressbook_backend {
         return array();
     }
 
-    /* List all addresses */
+    /**
+     * List all addresses 
+     * @return array search results
+     */
     function &list_addr() {
         $ret = array();
         if (!$this->open()) {
@@ -240,7 +296,11 @@ class abook_database extends addressbook_backend {
         return $ret;
     }
 
-    /* Add address */
+    /**
+     * Add address
+     * @param array $userdata added data
+     * @return bool
+     */
     function add($userdata) {
         if (!$this->writeable) {
             return $this->set_error(_("Addressbook is read-only"));
@@ -279,7 +339,11 @@ class abook_database extends addressbook_backend {
                                          DB::errorMessage($r)));
     }
 
-    /* Delete address */
+    /**
+     * Delete address
+     * @param string $alias alias that has to be deleted
+     * @return bool
+     */
     function remove($alias) {
         if (!$this->writeable) {
             return $this->set_error(_("Addressbook is read-only"));
@@ -312,7 +376,12 @@ class abook_database extends addressbook_backend {
                                          DB::errorMessage($r)));
     }
 
-    /* Modify address */
+    /**
+     * Modify address
+     * @param string $alias modified alias
+     * @param array $userdata new data
+     * @return bool
+     */
     function modify($alias, $userdata) {
         if (!$this->writeable) {
             return $this->set_error(_("Addressbook is read-only"));
