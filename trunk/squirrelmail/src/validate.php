@@ -8,11 +8,9 @@
     **  $Id$
     **/
 
-   if (defined ('validate_php')) { 
+   if (defined ('validate_php'))
       return; 
-   } else { 
-      define ('validate_php', true); 
-   }
+   define ('validate_php', true); 
 
    session_start();
    include ('../functions/auth.php');
