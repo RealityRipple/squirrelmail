@@ -633,7 +633,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         }
     }
 
-    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.' style="display: inline"><small>'."\n";
+    $menu_row .= "\n".'<form name="composeForm" action="'.$comp_uri.'" '.$method.$target.' style="display: inline">'."\n";
 
     // If Draft folder - create Resume link
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
@@ -658,7 +658,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     // Form for deletion
     $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox;
-    $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline"><small>';
+    $menu_row .= '<form action="'.$delete_url.'" method="post" style="display: inline">';
 
     if (!(isset($passed_ent_id) && $passed_ent_id)) {
         $menu_row .= '<input type="hidden" name="message" value="'.$passed_id.'" />';
