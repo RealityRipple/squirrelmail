@@ -158,17 +158,15 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                         if ($rn == "\r\n"){
                             $tmp = str_replace("\n", "\r\n", $tmp);
                         }
-                        /**
-                         * Check if the last line has newline ($rn) in it
-                         * and append if it doesn't.
-                         */
-                        if ($file && feof($file) && !strstr($tmp, "$rn")){
-                            $tmp .= $rn;
-                        }
                         if ($fp) {
                             fputs($fp, $tmp);
                         }
                         $length += strlen($tmp);
+                    }
+                    if (substr($tmp, strlen($tmp) - strlen($rn), strlen($rn)) != $rn) {
+                        if ($fp) {
+                            fputs($fp, $rn);
+                        }
                     }
                 } else {
                     $header .= "Content-Transfer-Encoding: base64" 
