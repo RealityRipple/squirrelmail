@@ -14,7 +14,6 @@
  * @package squirrelmail
  */
 
-
 /**
  * Deliver Class - called to actually deliver the message
  *

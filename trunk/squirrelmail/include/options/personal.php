@@ -9,9 +9,10 @@
  * Displays all options relating to personal information
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* SquirrelMail required files. */
+/** SquirrelMail required files. */
 require_once(SM_PATH . 'functions/imap.php');
 
 /* Define the group constants for the personal options page. */

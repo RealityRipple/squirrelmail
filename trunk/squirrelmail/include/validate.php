@@ -7,9 +7,10 @@
 * Licensed under the GNU GPL. For full terms see the file COPYING.
 *
 * $Id$
+* @package squirrelmail
 */
 
-/* include the mime class before the session start ! otherwise we can't store
+/** include the mime class before the session start ! otherwise we can't store
  * messages with a session_register.
  *
  * From http://www.php.net/manual/en/language.oop.serialization.php:

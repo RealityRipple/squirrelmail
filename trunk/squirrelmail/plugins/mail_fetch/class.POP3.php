@@ -20,6 +20,7 @@
 
 /**
  * This is the pop3 class - DOCUMENT ME
+ * @package squirrelmail
  */
 class POP3 {
     var $ERROR      = '';       //  Error string.

@@ -8,10 +8,16 @@
  * Delivery backend for the Deliver class.
  *
  * $Id$
+ * @package squirrelmail
  */
 
+/** This of course depends upon Deliver */
 require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 
+/**
+ * Deliver messages using SMTP
+ * @package squirrelmail
+ */
 class Deliver_SMTP extends Deliver {
 
     function preWriteToStream(&$s) {
