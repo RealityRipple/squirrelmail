@@ -28,8 +28,9 @@
          
          // Setting cookie to use on the login screen the next time the
          // same user logs in.
-         setcookie("squirrelmail_language", $squirrelmail_language, 
-                   time()+2592000);
+         #setcookie("squirrelmail_language", $squirrelmail_language, 
+         #          time()+2592000);
+         $squirrelmail_language = $language;
       }
    } else {
       function _($string) {
