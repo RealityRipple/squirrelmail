@@ -222,7 +222,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
             Mail_Fetch_Status(_("Server does not support UIDL."));
 
         if ($mailfetch_lmos == 'on') {
-            Mail_Fetch_Status(_("Leaving Mail on Server..."));
+            Mail_Fetch_Status(_("Leaving mail on server..."));
         } else {
             Mail_Fetch_Status(_("Deleting messages from server..."));
         }
@@ -238,7 +238,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
             while ( (!$MessArray) or (gettype($MessArray) != "array")) {
                  Mail_Fetch_Status(_("Oops, ") . $pop3->ERROR);
                  // re-connect pop3
-                 Mail_Fetch_Status(_("Server error...Disconnect"));
+                 Mail_Fetch_Status(_("Server error. Disconnect"));
                  $pop3->quit();
                  Mail_Fetch_Status(_("Reconnect from dead connection"));
                  if (!$pop3->connect($mailfetch_server)) {
@@ -289,7 +289,7 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
 
                 if ($mailfetch_lmos != 'on') {
                    if( $pop3->delete($i) ) {
-                        Mail_Fetch_Status(_("Message ") . $i . _(" deleted from Remote Server!"));
+                        Mail_Fetch_Status(_("Message %i deleted from remote server!"), $i);
                    } else {
                         Mail_Fetch_Status(_("Delete failed:") . htmlspecialchars($pop3->ERROR) );
                    }
