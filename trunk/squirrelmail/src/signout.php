@@ -68,7 +68,7 @@ if ($signout_page) {
 <?php
     }
 ?>
-   <title><?php echo $org_title ?> - Signout</title>
+   <title><?php echo $org_title . ' - ' . _("Signout"); ?></title>
 </head>
 <body text="<?php echo $color[8] ?>" bgcolor="<?php echo $color[4] ?>" 
 link="<?php echo $color[7] ?>" vlink="<?php echo $color[7] ?>"
