@@ -1,6 +1,6 @@
 <?
    /**
-    **  left_main.php3
+    **  left_main.php
     **
     **  This is the code for the left bar.  The left bar shows the folders
     **  available, and has cookie information.
@@ -34,9 +34,9 @@
 <BODY BGCOLOR=A0B8C8 TEXT="#000000" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE" onUnLoad="unSetCookies()">
 <FONT FACE="Arial,Helvetica">
 <?
-   include("../config/config.php3");
-   include("../functions/strings.php3");
-   include("../functions/imap.php3");
+   include("../config/config.php");
+   include("../functions/strings.php");
+   include("../functions/imap.php");
 
    // *****************************************
    //    Parse the incoming mailbox name and return a string that is the FOLDER.MAILBOX
@@ -85,7 +85,7 @@
          echo "&nbsp;&nbsp;";
       
       $mailboxURL = urlencode($mailbox);
-      echo "<a href=\"right_main.php3?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
+      echo "<a href=\"right_main.php?sort=0&startMessage=1&mailbox=$mailboxURL\" target=\"right\" style=\"text-decoration:none\"><FONT FACE=\"Arial,Helvetica\">";
       echo readShortMailboxName($mailbox, ".");
       echo "</FONT></a><br>\n";
    }

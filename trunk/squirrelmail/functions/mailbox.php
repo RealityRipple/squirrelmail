@@ -1,6 +1,6 @@
 <?
    /**
-    **  mailbox.php3
+    **  mailbox.php
     **
     **  This contains functions that request information about a mailbox.  Including
     **  reading and parsing headers, getting folder information, etc.

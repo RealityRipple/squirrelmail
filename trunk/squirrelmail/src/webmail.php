@@ -1,6 +1,6 @@
 <?
    /**
-    **  webmail.php3
+    **  webmail.php
     **
     **  This simply creates the frames.
     **
@@ -20,7 +20,7 @@
 OM-USA WebMail
 </TITLE>
 <FRAMESET COLS="200, *" NORESIZE BORDER=0>
-   <FRAME SRC="left_main.php3" NAME="left">
-   <FRAME SRC="right_main.php3" NAME="right">
+   <FRAME SRC="left_main.php" NAME="left">
+   <FRAME SRC="right_main.php" NAME="right">
 </FRAMESET>
 </HEAD></HTML>

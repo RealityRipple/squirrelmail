@@ -1,6 +1,6 @@
 <?
    /**
-    **  imap.php3
+    **  imap.php
     **
     **  Functions for the IMAP connection
     **

@@ -1,6 +1,6 @@
 <?
    /**
-    **  right_main.php3
+    **  right_main.php
     **
     **  This is where the mailboxes are listed.  This controls most of what
     **  goes on in SquirrelMail.
@@ -8,7 +8,7 @@
     **/
 
    if(!isset($logged_in)) {
-      echo "You must <a href=\"login.php3\">login</a> first.";
+      echo "You must <a href=\"login.php\">login</a> first.";
       exit;
    }
    if(!isset($username) || !isset($key)) {
@@ -20,15 +20,15 @@
 <BODY TEXT="#000000" BGCOLOR="#FFFFFF" LINK="#0000EE" VLINK="#0000EE" ALINK="#0000EE">
 <FONT FACE="Arial,Helvetica">
 <?
-   include("../config/config.php3");
-   include("../functions/imap.php3");
-   include("../functions/strings.php3");
-   include("../functions/date.php3");
-   include("../functions/page_header.php3");
-   include("../functions/array.php3");
-   include("../functions/mailbox.php3");
-   include("../functions/mailbox_display.php3");
-   include("../functions/display_messages.php3");
+   include("../config/config.php");
+   include("../functions/imap.php");
+   include("../functions/strings.php");
+   include("../functions/date.php");
+   include("../functions/page_header.php");
+   include("../functions/array.php");
+   include("../functions/mailbox.php");
+   include("../functions/mailbox_display.php");
+   include("../functions/display_messages.php");
 
    /////////////////////////////////////////////////////////////////////////////////
    //
