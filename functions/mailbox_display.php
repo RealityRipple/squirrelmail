@@ -231,6 +231,17 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     $auto_expunge, $thread_sort_messages, $allow_server_sort,
     $data_dir, $username, $server_sort_order;
 
+   /* if $start_msg is lower than $num_msgs, we probably deleted all messages
+    * in the last page. We need to re-adjust the start_msg
+    */
+
+   if($start_msg > $num_msgs) {
+       $start_msg -= $show_num;
+       if($start_msg < 1) {
+         $start_msg = 1;
+       }
+   }
+
   /* This code and the next if() block check for
    * server-side sorting methods. The $id array is
    * formatted and $sort is set to 6 to disable 
