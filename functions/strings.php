@@ -66,18 +66,19 @@ function readMailboxParent($haystack, $needle) {
 }
 
 /**
- * Searches for the next position in a string minus white space.
+ * Returns the index of the first chunk of string $haystack that
+ * starts with non-white-space character, starting at position $pos.
+ * If there is no such chunk, returns -1.
  */
 function next_pos_minus_white ($haystack, $pos) {
-    while (substr($haystack, $pos, 1) == ' ' ||
-           substr($haystack, $pos, 1) == "\t" ||
-           substr($haystack, $pos, 1) == "\n" ||
-           substr($haystack, $pos, 1) == "\r") {
-        if ($pos >= strlen($haystack))
-            return -1;
-        $pos++;
+    $len = strlen($haystack);
+    for ( ; $pos < $len; $pos++ ) {
+        $char = substr($haystack, $pos, 1);
+        if ( $char != ' ' && $char != "\t" && $char != "\n" && $char != "\r" ) {
+            return $pos;
+        }
     }
-    return $pos;
+    return -1;
 }
 
 /**
