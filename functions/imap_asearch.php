@@ -605,13 +605,14 @@ function sqimap_asearch_get_sub_mailboxes($cur_mailbox, $mboxes_array)
  * @global integer $sort sm internal sort order
  * @global bool $allow_thread_sort comes from config.php
  * @global bool $thread_sort_messages does it really need to global?
+ * @global integer $sort_by_ref thread by references
  * @global string $data_dir
  * @global string $username
  * @return array $mbox_msgs array(mailbox => array(UIDs))
  */
 function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array, $mboxes_array)
 {
-	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages;
+	global $allow_server_sort, $sort, $allow_thread_sort, $thread_sort_messages, $sort_by_ref;
 	global $data_dir, $username;
 
 	$search_charset = sqimap_asearch_get_charset();
@@ -636,7 +637,10 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 					sqimap_mailbox_select($imapConnection, $cur_mailbox);
 					$thread_sort_messages = $allow_thread_sort && getPref($data_dir, $username, 'thread_' . $cur_mailbox);
 					if ($thread_sort_messages) {
-						$thread_algorithm = 'REFERENCES';
+						if ($sort_by_ref == 1)
+							$thread_algorithm = 'REFERENCES';
+						else
+							$thread_algorithm = 'ORDEREDSUBJECT';
 						$found_msgs = sqimap_run_thread($imapConnection, $search_string, $search_charset, $thread_algorithm);
 					}
 					else
