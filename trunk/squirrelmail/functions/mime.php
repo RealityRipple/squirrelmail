@@ -75,7 +75,7 @@
 
       if ($debug_mime) echo "<tt>$read</tt><br><br>";
 
-      $msg = mime_parse_structure ($read);
+      $msg = mime_parse_structure ($read, 0);
       $msg->header = $header;
       return $msg;
    }
