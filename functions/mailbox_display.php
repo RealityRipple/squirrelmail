@@ -134,60 +134,41 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     } else {
         $searchstr = '';
     }
-    /**
-    * AAAAH! Make my eyes stop bleeding!
-    * Who wrote this?!
-    */
+    
     if (is_array($message_highlight_list) && count($message_highlight_list)) {
-	$msg['TO'] = parseAddress($msg['TO']);
-	$msg['CC'] = parseAddress($msg['CC']);
+        $msg['TO'] = parseAddress($msg['TO']);
+        $msg['CC'] = parseAddress($msg['CC']);
         foreach ($message_highlight_list as $message_highlight_list_part) {
             if (trim($message_highlight_list_part['value']) != '') {
                 $high_val   = strtolower($message_highlight_list_part['value']);
                 $match_type = strtoupper($message_highlight_list_part['match_type']);
-                switch($match_type) {
-                    case('TO'):
-                    case('TO_CC'):
-                        foreach ($msg['TO'] as $address) {
-                            $address[0] = decodeHeader($address[0]);
-                            $address[1] = decodeHeader($address[1]);
-                            if (strstr('^^' . strtolower($address[0]), $high_val) ||
-                                strstr('^^' . strtolower($address[1]), $high_val)) {
-                                $hlt_color = $message_highlight_list_part['color'];
-                                continue;
+                if($match_type == 'TO_CC') {
+                    $match = array('TO', 'CC');
+                } else {
+                    $match = array($match_type);
+                }
+                foreach($match as $match_type) {
+                    switch($match_type) {
+                        case('TO'):
+                        case('CC'):
+                        case('FROM'):
+                            foreach ($msg[$match_type] as $address) {
+                                $address[0] = decodeHeader($address[0]);
+                                $address[1] = decodeHeader($address[1]);
+                                if (strstr('^^' . strtolower($address[0]), $high_val) ||
+                                    strstr('^^' . strtolower($address[1]), $high_val)) {
+                                    $hlt_color = $message_highlight_list_part['color'];
+                                    break 4;
+                                }
                             }
-                        }
-                        if($match_type != 'TO_CC') {
                             break;
-                        }
-                    case('CC'):
-                        foreach ($msg['CC'] as $address) {
-                            $address[0] = decodeHeader($address[0]);
-                            $address[1] = decodeHeader($address[1]);
-                            if( strstr('^^' . strtolower($address[0]), $high_val) ||
-                                strstr('^^' . strtolower($address[1]), $high_val)) {
+                        default:
+                            if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
                                 $hlt_color = $message_highlight_list_part['color'];
-                                continue;
+                                break 3; 
                             }
-                        }
-                        break;
-                    case('FROM'):
-                        foreach ($msg['FROM'] as $address) {
-                            $address[0] = decodeHeader($address[0]);
-                            $address[1] = decodeHeader($address[1]);
-                            if( strstr('^^' . strtolower($address[0]), $high_val) ||
-                                strstr('^^' . strtolower($address[1]), $high_val)) {
-                                $hlt_color = $message_highlight_list_part['color'];
-                                continue;
-                            }
-                        }
-                        break;
-                    default:
-                        if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
-                            $hlt_color = $message_highlight_list_part['color'];
-                            continue;
-                        }
-                        break;
+                            break;
+                    }
                 }
             }
         }
@@ -393,7 +374,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         $msgs = array();
     }
 
-    $start = microtime();
+    //$start = microtime();
     /* If autoexpunge is turned on, then do it now. */
     $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
     $srt = $sort;
@@ -507,7 +488,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
     mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
     echo '</td></tr></table>';
-    $t = elapsed($start);
+    //$t = elapsed($start);
     //echo("elapsed time = $t seconds\n");
 }
 
