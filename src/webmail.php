@@ -90,8 +90,7 @@ else {
  */
 if (!isset($right_frame)) {
     $right_frame = '';
-}
-
+} 
 if ($right_frame == 'right_main.php') {
     $urlMailbox = urlencode($mailbox);
     $right_frame_url =
@@ -102,8 +101,10 @@ if ($right_frame == 'right_main.php') {
     $right_frame_url = 'folders.php';
 } elseif ($right_frame == 'compose.php') {
     $right_frame_url = "compose.php?send_to=$rcptaddress";
-} else {
+} else if ($right_frame == '') {
     $right_frame_url = 'right_main.php';
+} else {
+    $right_frame_url =  urldecode($right_frame);
 }
 
 if ($location_of_bar == 'right') {
