@@ -1608,7 +1608,7 @@ msgstr "Поместить выделенные в:"
 
 #: squirrelmail/functions/mailbox_display.php:496
 msgid "Transform Selected Messages"
-msgstr "Преобразовать выделенные"
+msgstr "Пометить выделенные как"
 
 #: squirrelmail/functions/mailbox_display.php:512
 msgid "Move"
@@ -1624,11 +1624,11 @@ msgstr "папка"
 
 #: squirrelmail/functions/mailbox_display.php:518
 msgid "Read"
-msgstr "Прочитаны"
+msgstr "Прочитанныe"
 
 #: squirrelmail/functions/mailbox_display.php:519
 msgid "Unread"
-msgstr "Непрочитаны"
+msgstr "Непрочитанныe"
 
 #: squirrelmail/functions/mailbox_display.php:615
 msgid "Toggle All"
