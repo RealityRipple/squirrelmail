@@ -1353,7 +1353,9 @@ sub command33c {
    } else {
       $new_dir_hash_level =~ s/[\r|\n]//g;
    }
-   if ((int($new_dir_hash_level) < 0) || (int($new_dir_hash_level) > 4)) {
+   if ((int($new_dir_hash_level) < 0) || 
+       (int($new_dir_hash_level) > 4) ||
+       !(int($new_dir_hash_level) eq $new_dir_hash_level )) {
       print "Invalid Directory Hash Level.\n";
       print "Value must be an integer ranging from 0 to 4\n";
       print "Hit enter to continue.\n";
