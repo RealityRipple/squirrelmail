@@ -229,6 +229,7 @@ Version 1.5.1 -- CVS
     support.
   - Removed unused save_option_header() function from display and compose
     option includes.
+  - Fixed bug #1124764, view unsafe images inside printer friendly view.
 
 Version 1.5.0
 --------------------
