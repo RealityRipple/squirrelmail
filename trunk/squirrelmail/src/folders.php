@@ -74,7 +74,7 @@ if ( sqgetGlobalVar('smaction', $action, SQ_POST) ) {
                 sqgetGlobalVar('orig',        $orig,     SQ_POST);
                 sqgetGlobalVar('old_name',    $old_name, SQ_POST);
                 folders_rename_do($imapConnection, $delimiter, $orig, $old_name, $new_name);
-                $td_str =  _("Renamed successfully!");
+                $td_str =  _("Renamed successfully.");
             }
             break;
         case 'delete':
@@ -311,7 +311,7 @@ if ($show_only_subscribed_folders) {
                . "\" />\n"
                . "</form></td>\n";
         } else {
-            echo _("No folders were found to unsubscribe from!") . '</td>';
+            echo _("No folders were found to unsubscribe from.") . '</td>';
         }
 
         /** SUBSCRIBE TO FOLDERS **/

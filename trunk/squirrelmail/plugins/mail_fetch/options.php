@@ -167,7 +167,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
-                        _("If you leave password empty, it will be required when you fetch mail.") ,
+                        _("If you leave password empty, it will be asked when you fetch mail.") ,
                     'left' )
                 ) .
                 html_tag( 'tr',
@@ -229,11 +229,11 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
-                    html_tag( 'td', '<input type="checkbox" name="mf_login" />' . _("Check mail during login"), 'left' )
+                    html_tag( 'td', '<input type="checkbox" name="mf_login" />' . _("Check mail at login"), 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
-                    html_tag( 'td', '<input type="checkbox" name="mf_fref" />' . _("Check mail during folder refresh"), 'left' )
+                    html_tag( 'td', '<input type="checkbox" name="mf_fref" />' . _("Check mail at folder refresh"), 'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'td',
@@ -262,7 +262,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                  '&nbsp;&nbsp;<input type="submit" name="mf_action_del" value="' . _("Delete") . '" />'.
                  '</form>';
         } else {
-            echo _("No-one server in use. Try to add.");
+            echo _("No servers known.");
         }
         echo '</td></tr></table>';
         break;
@@ -356,14 +356,14 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
                     html_tag( 'th', '&nbsp;', 'right' ) .
                     html_tag( 'td',
                         '<input type="checkbox" name="mf_login" ' . ( ($mailfetch_login_[$mf_sn] == 'on')?'checked="checked"':'') .
-                        ' />' . _("Check mail during login"),
+                        ' />' . _("Check mail at login"),
                     'left' )
                 ) .
                 html_tag( 'tr',
                     html_tag( 'th', '&nbsp;', 'right' ) .
                     html_tag( 'td',
                         '<input type="checkbox" name="mf_fref" ' . ( ($mailfetch_fref_[$mf_sn] == 'on')?'checked="checked"':'') .
-                        ' />' . _("Check mail during folder refresh") ,
+                        ' />' . _("Check mail at folder refresh") ,
                     'left' )
                 ) .
                 html_tag( 'tr',
@@ -385,7 +385,7 @@ sqgetGlobalVar('submit_mailfetch', $submit_mailfetch, SQ_POST);
         html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Undefined Function") . '</b>', 'center', $color[9] ) .
-                html_tag( 'td', '<b>' . _("Hey! Wath do You are looking for?") . '</b>', 'center', $color[0] )
+                html_tag( 'td', '<b>' . _("The function you requested is unknown.") . '</b>', 'center', $color[0] )
             ) ,
         'center', '', 'width="70%"' );
     }
