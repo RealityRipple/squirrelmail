@@ -48,30 +48,32 @@
 <?php
    if ($theme_css != '') {
 ?>
-<LINK REL="stylesheet" TYPE=text/css" HREF="<?= $theme_css ?>">
+<LINK REL="stylesheet" TYPE=text/css" HREF="<?php echo $theme_css ?>">
 <?php
    }
 ?>
-<TITLE><?= $org_title ?> - Signout</TITLE>
+<TITLE><?php echo $org_title ?> - Signout</TITLE>
 </HEAD>
-<BODY TEXT="<?= $color[8] ?>" BGCOLOR="<?= $color[4] ?>" 
-LINK="<?= $color[7] ?>" VLINK="<?= $color[7] ?>" ALINK="<?= $color[7] ?>">
+<BODY TEXT="<?php echo $color[8] ?>" BGCOLOR="<?php echo $color[4] ?>" 
+LINK="<?php echo $color[7] ?>" VLINK="<?php echo $color[7] ?>" A
+LINK="<?php echo $color[7] ?>">
 <BR><BR>
 <TABLE BGCOLOR="FFFFFF" BORDER="0" COLS="1" WIDTH="50%" CELLSPACING="0" 
 CELLPADDING="2" ALIGN="CENTER">
-  <TR BGCOLOR="<?= $color[0] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH=100%>
     <TD ALIGN="CENTER">
-      <B><?= _("Sign Out") ?></B>
+      <B><?php echo _("Sign Out") ?></B>
     </TD>
   </TR>
-  <TR BGCOLOR="<?= $color[4] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[4] ?>" WIDTH=100%>
     <TD ALIGN="CENTER">
-      <?= _("You have been successfully signed out.") ?><BR>
-      <A HREF="login.php" TARGET="_top"><?= _("Click here to log back in.") ?>
+      <?php echo _("You have been successfully signed out.") ?><BR>
+      <A HREF="login.php" TARGET="_top">
+      <?php echo _("Click here to log back in.") ?>
       </A><BR><BR>
     </TD>
   </TR>
-  <TR BGCOLOR="<?= $color[0] ?>" WIDTH=100%>
+  <TR BGCOLOR="<?php echo $color[0] ?>" WIDTH=100%>
     <TD ALIGN="CENTER">
       <BR>
     </TD>
