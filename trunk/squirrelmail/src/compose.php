@@ -669,6 +669,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             if ($identity_match) {
                 $identity = $identity_match;
             }
+	    // we need identiy here fore draft case #845290
+	    // echo $identity."leer";
         }
 
         switch ($action) {
@@ -683,6 +685,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
             $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
             $body_ary = explode("\n", $body);
+/*	   echo "debug: $identity"; #845290
+	   $identity='2'; */
+            echo "header".decodeHeader($orig_header->getAddr_s('from'),false,true)."<BR>";
+	    print_r($identities);
             $cnt = count($body_ary) ;
             $body = '';
             for ($i=0; $i < $cnt; $i++) {
