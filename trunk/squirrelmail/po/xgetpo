@@ -16,5 +16,11 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/filters/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/squirrelspell/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/squirrelspell/modules/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/plugins/translate/*.php --output-dir=squirrelmail/po/
 
 cd squirrelmail/po

@@ -203,14 +203,14 @@
               }
               $i ++;
           }
-	  
-	  // Lookie!  It's spam!  Yum!
+
+          // Lookie!  It's spam!  Yum!
           if ($IsSpam) {
               if (sqimap_mailbox_exists ($imap_stream, $filters_spam_folder)) {
-                  sqimap_messages_copy ($imap_stream, $MsgNum, $MsgNum, 
-		     $filters_spam_folder);
+                  sqimap_messages_copy ($imap_stream, $MsgNum, $MsgNum,
+                                        $filters_spam_folder);
                   sqimap_messages_flag ($imap_stream, $MsgNum, $MsgNum, 
-		     'Deleted');
+                                        'Deleted');
               }
           }
       }
@@ -304,7 +304,7 @@ _("FREE - Another ORBS replacement (just the INPUTS database used here).");
       $filters['Five-Ten']['link'] = 'http://www.five-ten-sg.com/blackhole.php';
       $filters['Five-Ten']['dns'] = 'blackholes.five-ten-sg.com';
       $filters['Five-Ten']['comment'] =
-_("FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and and Dialup IPs.");
+_("FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and Dialup IPs.");
       
       $filters['Dorkslayers']['prefname'] = 'filters_spam_dorks';
       $filters['Dorkslayers']['name'] = 'Dorkslayers Lists';
@@ -318,7 +318,7 @@ _("FREE - Dorkslayers appears to include only really bad open relays outside the
       $filters['ORBL']['link'] = 'http://www.orbl.org';
       $filters['ORBL']['dns'] = 'or.orbl.org';
       $filters['ORBL']['comment'] =
-_("'FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be SLOOOOOOW!");
+_("FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be SLOOOOOOW!");
       
       $filters['ORBZ-UK']['prefname'] = 'filters_spam_orbzuk';
       $filters['ORBZ-UK']['name'] = 'ORBZ-UK Lists';

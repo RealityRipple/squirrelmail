@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-08 11:06+0100\n"
+"POT-Creation-Date: 2001-11-10 21:24+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,20 +263,20 @@ msgstr ""
 msgid "Draft Email Saved"
 msgstr ""
 
-#: squirrelmail/src/compose.php:530 squirrelmail/src/compose.php:567
-#: squirrelmail/src/compose.php:574
+#: squirrelmail/src/compose.php:536 squirrelmail/src/compose.php:573
+#: squirrelmail/src/compose.php:580
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-#: squirrelmail/src/compose.php:636
+#: squirrelmail/src/compose.php:642
 msgid "said"
 msgstr ""
 
-#: squirrelmail/src/compose.php:639
+#: squirrelmail/src/compose.php:645
 msgid "quote"
 msgstr ""
 
-#: squirrelmail/src/compose.php:639
+#: squirrelmail/src/compose.php:645
 msgid "who"
 msgstr ""
 
@@ -405,8 +405,9 @@ msgstr ""
 msgid "New name:"
 msgstr ""
 
-#: squirrelmail/functions/options.php:94
+#: squirrelmail/functions/options.php:139
 #: squirrelmail/plugins/filters/options.php:229
+#: squirrelmail/plugins/translate/options.php:133
 #: squirrelmail/src/folders_rename_getname.php:46
 #: squirrelmail/src/options_highlight.php:330
 msgid "Submit"
@@ -492,8 +493,9 @@ msgid "No messages were selected."
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:67
-#: squirrelmail/plugins/filters/options.php:74 squirrelmail/src/options.php:34
-#: squirrelmail/src/options_display.php:27
+#: squirrelmail/plugins/filters/options.php:74
+#: squirrelmail/plugins/translate/options.php:67
+#: squirrelmail/src/options.php:34 squirrelmail/src/options_display.php:27
 #: squirrelmail/src/options_folder.php:30
 #: squirrelmail/src/options_highlight.php:49
 #: squirrelmail/src/options_identities.php:36
@@ -1558,7 +1560,7 @@ msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
 msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:307
-msgid "FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and and Dialup IPs."
+msgid "FREE - Five-Ten-sg.com has SPAM source, OpenRelay, and Dialup IPs."
 msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:314
@@ -1570,7 +1572,7 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:321
 msgid ""
-"'FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
 "SLOOOOOOW!"
 msgstr ""
 
@@ -1585,6 +1587,7 @@ msgid "Message Filtering"
 msgstr ""
 
 #: squirrelmail/plugins/filters/options.php:90
+#: squirrelmail/plugins/filters/options.php:122
 msgid "Edit"
 msgstr ""
 
@@ -1693,4 +1696,432 @@ msgstr ""
 msgid ""
 "Filtering enables messages with different criteria to be automatically "
 "filtered into different folders for easier organization."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/setup.php:46
+msgid "SpellChecker Options"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/setup.php:48
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/setup.php:64
+msgid "Check Spelling"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:212
+msgid "ATTENTION:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:213
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:218
+msgid "Delete my dictionary and start a new one"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:219
+msgid "Decrypt my dictionary with my old password:"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:221
+msgid "Proceed"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:228
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:230
+msgid "Error Decrypting Dictionary"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
+#: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
+msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:41
+msgid "Personal Dictionary Updated"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:67
+msgid "Translator"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:70
+msgid "Your server options are as follows:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:75
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:78
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:81
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:84
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:87
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:93
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:98
+msgid "Select your translator:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:109
+msgid "When reading:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:114
+msgid "Show translation box"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:116
+msgid "to the left"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:117
+msgid "in the center"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:118
+msgid "to the right"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:123
+msgid "Translate inside the SquirrelMail frames"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:126
+msgid "When composing:"
+msgstr ""
+
+#: squirrelmail/plugins/translate/options.php:130
+msgid "Not yet functional, currently does nothing"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:96
+msgid "Translation Options"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:98
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:266
+#: squirrelmail/plugins/translate/setup.php:270
+#: squirrelmail/plugins/translate/setup.php:274
+#: squirrelmail/plugins/translate/setup.php:278
+#: squirrelmail/plugins/translate/setup.php:282
+#: squirrelmail/plugins/translate/setup.php:286
+#: squirrelmail/plugins/translate/setup.php:290
+#: squirrelmail/plugins/translate/setup.php:294
+#: squirrelmail/plugins/translate/setup.php:298
+#: squirrelmail/plugins/translate/setup.php:302
+#: squirrelmail/plugins/translate/setup.php:306
+#: squirrelmail/plugins/translate/setup.php:310
+#: squirrelmail/plugins/translate/setup.php:314
+#: squirrelmail/plugins/translate/setup.php:329
+#: squirrelmail/plugins/translate/setup.php:333
+#: squirrelmail/plugins/translate/setup.php:337
+#: squirrelmail/plugins/translate/setup.php:341
+#: squirrelmail/plugins/translate/setup.php:345
+#: squirrelmail/plugins/translate/setup.php:349
+#: squirrelmail/plugins/translate/setup.php:353
+#: squirrelmail/plugins/translate/setup.php:357
+#: squirrelmail/plugins/translate/setup.php:361
+#: squirrelmail/plugins/translate/setup.php:365
+#: squirrelmail/plugins/translate/setup.php:440
+#: squirrelmail/plugins/translate/setup.php:473
+#: squirrelmail/plugins/translate/setup.php:477
+#: squirrelmail/plugins/translate/setup.php:481
+#: squirrelmail/plugins/translate/setup.php:485
+#: squirrelmail/plugins/translate/setup.php:489
+#: squirrelmail/plugins/translate/setup.php:493
+#: squirrelmail/plugins/translate/setup.php:497
+#: squirrelmail/plugins/translate/setup.php:501
+#: squirrelmail/plugins/translate/setup.php:505
+#: squirrelmail/plugins/translate/setup.php:509
+#: squirrelmail/plugins/translate/setup.php:513
+#: squirrelmail/plugins/translate/setup.php:517
+#, c-format
+msgid "%s to %s"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:267
+#: squirrelmail/plugins/translate/setup.php:271
+#: squirrelmail/plugins/translate/setup.php:275
+#: squirrelmail/plugins/translate/setup.php:279
+#: squirrelmail/plugins/translate/setup.php:283
+#: squirrelmail/plugins/translate/setup.php:288
+#: squirrelmail/plugins/translate/setup.php:292
+#: squirrelmail/plugins/translate/setup.php:296
+#: squirrelmail/plugins/translate/setup.php:300
+#: squirrelmail/plugins/translate/setup.php:304
+#: squirrelmail/plugins/translate/setup.php:316
+#: squirrelmail/plugins/translate/setup.php:330
+#: squirrelmail/plugins/translate/setup.php:334
+#: squirrelmail/plugins/translate/setup.php:338
+#: squirrelmail/plugins/translate/setup.php:342
+#: squirrelmail/plugins/translate/setup.php:346
+#: squirrelmail/plugins/translate/setup.php:351
+#: squirrelmail/plugins/translate/setup.php:355
+#: squirrelmail/plugins/translate/setup.php:359
+#: squirrelmail/plugins/translate/setup.php:363
+#: squirrelmail/plugins/translate/setup.php:367
+#: squirrelmail/plugins/translate/setup.php:388
+#: squirrelmail/plugins/translate/setup.php:418
+#: squirrelmail/plugins/translate/setup.php:474
+#: squirrelmail/plugins/translate/setup.php:478
+#: squirrelmail/plugins/translate/setup.php:482
+#: squirrelmail/plugins/translate/setup.php:486
+#: squirrelmail/plugins/translate/setup.php:490
+#: squirrelmail/plugins/translate/setup.php:495
+#: squirrelmail/plugins/translate/setup.php:507
+#: squirrelmail/plugins/translate/setup.php:511
+#: squirrelmail/plugins/translate/setup.php:515
+#: squirrelmail/plugins/translate/setup.php:519
+msgid "English"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:268
+#: squirrelmail/plugins/translate/setup.php:287
+#: squirrelmail/plugins/translate/setup.php:308
+#: squirrelmail/plugins/translate/setup.php:311
+#: squirrelmail/plugins/translate/setup.php:335
+#: squirrelmail/plugins/translate/setup.php:354
+#: squirrelmail/plugins/translate/setup.php:391
+#: squirrelmail/plugins/translate/setup.php:421
+#: squirrelmail/plugins/translate/setup.php:453
+#: squirrelmail/plugins/translate/setup.php:475
+#: squirrelmail/plugins/translate/setup.php:494
+#: squirrelmail/plugins/translate/setup.php:498
+#: squirrelmail/plugins/translate/setup.php:503
+msgid "French"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:272
+#: squirrelmail/plugins/translate/setup.php:291
+#: squirrelmail/plugins/translate/setup.php:307
+#: squirrelmail/plugins/translate/setup.php:312
+#: squirrelmail/plugins/translate/setup.php:339
+#: squirrelmail/plugins/translate/setup.php:358
+#: squirrelmail/plugins/translate/setup.php:392
+#: squirrelmail/plugins/translate/setup.php:422
+#: squirrelmail/plugins/translate/setup.php:454
+#: squirrelmail/plugins/translate/setup.php:479
+#: squirrelmail/plugins/translate/setup.php:499
+#: squirrelmail/plugins/translate/setup.php:502
+#: squirrelmail/plugins/translate/setup.php:506
+msgid "German"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:276
+#: squirrelmail/plugins/translate/setup.php:295
+#: squirrelmail/plugins/translate/setup.php:343
+#: squirrelmail/plugins/translate/setup.php:362
+#: squirrelmail/plugins/translate/setup.php:396
+#: squirrelmail/plugins/translate/setup.php:426
+#: squirrelmail/plugins/translate/setup.php:456
+#: squirrelmail/plugins/translate/setup.php:483
+#: squirrelmail/plugins/translate/setup.php:510
+msgid "Italian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:280
+#: squirrelmail/plugins/translate/setup.php:299
+#: squirrelmail/plugins/translate/setup.php:347
+#: squirrelmail/plugins/translate/setup.php:366
+#: squirrelmail/plugins/translate/setup.php:401
+#: squirrelmail/plugins/translate/setup.php:431
+#: squirrelmail/plugins/translate/setup.php:458
+#: squirrelmail/plugins/translate/setup.php:487
+#: squirrelmail/plugins/translate/setup.php:514
+msgid "Portuguese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:284
+#: squirrelmail/plugins/translate/setup.php:303
+#: squirrelmail/plugins/translate/setup.php:331
+#: squirrelmail/plugins/translate/setup.php:350
+#: squirrelmail/plugins/translate/setup.php:406
+#: squirrelmail/plugins/translate/setup.php:436
+#: squirrelmail/plugins/translate/setup.php:459
+#: squirrelmail/plugins/translate/setup.php:491
+#: squirrelmail/plugins/translate/setup.php:518
+msgid "Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:315
+#: squirrelmail/plugins/translate/setup.php:403
+#: squirrelmail/plugins/translate/setup.php:433
+msgid "Russian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:318
+#: squirrelmail/plugins/translate/setup.php:370
+#: squirrelmail/plugins/translate/setup.php:441
+#: squirrelmail/plugins/translate/setup.php:462
+#: squirrelmail/plugins/translate/setup.php:521
+msgid "Translate"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:382
+#: squirrelmail/plugins/translate/setup.php:412
+msgid "Brazilian Portuguese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:383
+#: squirrelmail/plugins/translate/setup.php:413
+msgid "Bulgarian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:384
+#: squirrelmail/plugins/translate/setup.php:414
+msgid "Croatian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:385
+#: squirrelmail/plugins/translate/setup.php:415
+msgid "Czech"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:386
+#: squirrelmail/plugins/translate/setup.php:416
+msgid "Danish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:387
+#: squirrelmail/plugins/translate/setup.php:417
+#: squirrelmail/plugins/translate/setup.php:452
+msgid "Dutch"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:389
+#: squirrelmail/plugins/translate/setup.php:419
+msgid "European Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:390
+#: squirrelmail/plugins/translate/setup.php:420
+msgid "Finnish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:393
+#: squirrelmail/plugins/translate/setup.php:423
+msgid "Greek"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:394
+#: squirrelmail/plugins/translate/setup.php:424
+msgid "Hungarian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:395
+#: squirrelmail/plugins/translate/setup.php:425
+msgid "Icelandic"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:397
+#: squirrelmail/plugins/translate/setup.php:427
+msgid "Japanese"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:398
+#: squirrelmail/plugins/translate/setup.php:428
+msgid "Latin American Spanish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:399
+#: squirrelmail/plugins/translate/setup.php:429
+msgid "Norwegian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:400
+#: squirrelmail/plugins/translate/setup.php:430
+msgid "Polish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:402
+#: squirrelmail/plugins/translate/setup.php:432
+msgid "Romanian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:404
+#: squirrelmail/plugins/translate/setup.php:434
+msgid "Serbian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:405
+#: squirrelmail/plugins/translate/setup.php:435
+msgid "Slovenian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:407
+#: squirrelmail/plugins/translate/setup.php:437
+msgid "Swedish"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:408
+#: squirrelmail/plugins/translate/setup.php:438
+msgid "Welsh"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:455
+msgid "Indonesian"
+msgstr ""
+
+#: squirrelmail/plugins/translate/setup.php:457
+msgid "Latin"
 msgstr ""

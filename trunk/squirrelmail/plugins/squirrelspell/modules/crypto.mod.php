@@ -22,8 +22,8 @@
       $SQSPELL_CRYPTO=true;
       sqspell_writeWords($words);
       $msg='<p>' .
-           _("Your personal dictionary has been <strong>encrypted</strong> and is now stored in an <strong>encrypted format"=.
-           '</strong>.</p>';
+           _("Your personal dictionary has been <strong>encrypted</strong> and is now stored in an <strong>encrypted format</strong>.").
+           '</p>';
      break;
     
      case 'decrypt':
@@ -33,8 +33,7 @@
       $SQSPELL_CRYPTO=false;
       sqspell_writeWords($words);
       $msg='<p>' . 
-           _("Your personal dictionary has been <strong>decrypted</strong> and is now stored as <strong>clear text") . 
-           '</strong>.</p>';
+           _("Your personal dictionary has been <strong>decrypted</strong> and is now stored as <strong>clear text</strong>.") . '</p>';
      break;
      
      case "":
