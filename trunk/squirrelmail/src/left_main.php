@@ -341,7 +341,6 @@ function listBoxes ($boxes, $j=0 ) {
             $pre.= $leader . '&nbsp;&nbsp;&nbsp;';
         }
 
-
         /* If there are unseen message, bold the line. */
 
         if (($move_to_trash) && ($mailbox == $trash_folder)) {
@@ -398,10 +397,10 @@ function listBoxes ($boxes, $j=0 ) {
             $fontend = "</font>";
         }
         $end .= '</nobr>';
-        if (!$boxes->is_root) {
-            echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
-            $j++;
-        }
+        
+        echo "" . $pre .$font. $boxes->mailboxname_sub .$fontend . $end. '<br />' . "\n";
+        $j++;
+        
         if (!$collapse || $boxes->is_root) {
             for ($i = 0; $i <count($boxes->mbxs); $i++) {
                 listBoxes($boxes->mbxs[$i],$j);
@@ -587,7 +586,7 @@ if (isset($left_refresh) && ($left_refresh != '') &&
  **/
 
 $advanced_tree = false; /* set this to true if you want to see a nicer mailboxtree */
-$oldway = false; /* default SM behaviour */
+$oldway = false;        /* default SM behaviour */
 
 if ($advanced_tree) {
 $xtra .= <<<ECHO
