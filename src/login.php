@@ -56,7 +56,16 @@ $header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
           "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
-          '    document.forms[0].elements[' . (isset($loginname) ? 1 : 0) . "].focus();\n".
+          "    var textElements = 0;\n".
+          "    for (i = 0; i < document.forms[0].elements.length; i++) {\n".
+          "      if (document.forms[0].elements[i].type == \"text\" || document.forms[0].elements[i].type == \"password\") {\n".
+          "        textElements++;\n".
+          "        if (textElements == " . (isset($loginname) ? 2 : 1) . ") {\n".
+          "          document.forms[0].elements[i].focus();\n".
+          "          break;\n".
+          "        }\n".
+          "      }\n".
+          "    }\n".
           "  }\n".
           "// -->\n".
           "</script>\n";
