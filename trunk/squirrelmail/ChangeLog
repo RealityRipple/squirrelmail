@@ -31,6 +31,8 @@ Version 1.5.0 -- CVS
     works the same way.
   - Fix that when JavaScript off, compose in new was broken (#749654).
   - Do not output JavaScript functions in page_header when JavaScript off.
+  - Support MS Exchange "DOMAIN/username/mailbox"-style usernames (#745814).
+  - Do not set Full Name to empty when edit_identity is false and edit_name is true (#750728).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
