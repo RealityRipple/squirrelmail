@@ -89,7 +89,7 @@ function sqimap_message_list_squisher($messages_array) {
 }   
 
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
-    global $squirrelmail_language, $color;
+    global $squirrelmail_language, $color, $data_dir, $username;
 
     /* Get the small headers for each message in $msg_list */
     $sid = sqimap_session_id();
@@ -205,7 +205,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
                 }
             }
         }
-        if (trim($date) == "") {
+	$internaldate = getPref($data_dir, $username, 'internal_date_sort');
+        if (trim($date) == "" || $internaldate) {
             fputs($imap_stream, "$sid FETCH $msg_list[$msgi] INTERNALDATE\r\n");
             $readdate = sqimap_read_data($imap_stream, $sid, true, $response, $message);
             if (eregi(".*INTERNALDATE \"(.*)\".*", $readdate[0], $regs)) {
