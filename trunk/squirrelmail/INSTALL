@@ -11,8 +11,8 @@ overview of how to install SquirrelMail.
 4.  Change the permissons for the "data/" directory so it's writable to
     the web server.  Under Red Hat Linux 6.0, this is done by:
 
-    chown nobody data
-    chgrp nobody data
+    chown -R nobody data
+    chgrp -R nobody data
 
     "nobody" is the user and group for the apache server for this
     example.
