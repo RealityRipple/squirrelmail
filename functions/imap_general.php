@@ -47,7 +47,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
         $read = sqimap_retrieve_imap_response ($imap_stream, $tag, $handle_errors, $response, $message, $query );
         /* get the response and the message */
         $message = $message[$tag];
-        $response = $response[$tag]; 
+        $response = $response[$tag];
         return $read[$tag];
     } else {
         global $squirrelmail_language, $color;
@@ -61,15 +61,15 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
     }
 }
 
-function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, 
+function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
                             &$message, $unique_id = false,$filter=false,
                              $outputstream=false,$no_return=false) {
     if ($imap_stream) {
         $sid = sqimap_session_id($unique_id);
-        fputs ($imap_stream, $sid . ' ' . $query . "\r\n"); 
+        fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
         $tag_uid_a = explode(' ',trim($sid));
         $tag = $tag_uid_a[0];
-   
+
         $read = sqimap_read_data ($imap_stream, $tag, $handle_errors, $response,
                                   $message, $query,$filter,$outputstream,$no_return);
         if (empty($read)) {	//Imap server dropped its connection
@@ -80,7 +80,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
         /* retrieve the response and the message */
         $response = $response[$tag];
         $message  = $message[$tag];
-    
+
         if (!empty($read[$tag])) {
             return $read[$tag][0];
         } else {
@@ -95,7 +95,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response,
                 "</b></font>\n";
         error_box($string,$color);
         return false;
-    }    
+    }
 }
 
 function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
@@ -106,19 +106,19 @@ function sqimap_prepare_pipelined_query($new_query,&$tag,&$aQuery,$unique_id) {
     $aQuery[$tag] = $query;
 }
 
-function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors, 
+function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors,
                        &$aServerResponse, &$aServerMessage, $unique_id = false,
-                       $filter=false,$outputstream=false,$no_return=false) {    
+                       $filter=false,$outputstream=false,$no_return=false) {
     $aResponse = false;
 
-    /* 
+    /*
        Do not fire all calls at once to the imap-server but split the calls up
-       in portions of $iChunkSize. If we do not do that I think we misbehave as 
+       in portions of $iChunkSize. If we do not do that I think we misbehave as
        IMAP client or should handle BYE calls if the IMAP-server drops the
        connection because the number of queries is to large. This isn't tested
        but a wild guess how it could work in the field.
-       
-       After testing it on Exchange 2000 we discovered that a chunksize of 32 
+
+       After testing it on Exchange 2000 we discovered that a chunksize of 32
        was quicker then when we raised it to 128.
     */
     $iQueryCount = count($aQueryList);
@@ -138,11 +138,11 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
                 if (next($aQueryList) === false) break;
             }
             $aQueryChunks[] = $aTmp;
-        } 
+        }
     } else {
         $aQueryChunks = array_chunk($aQueryList,$iChunkSize,true);
     }
-    
+
     for ($i=0;$i<$iLoops;++$i) {
         $aQuery = $aQueryChunks[$i];
         foreach($aQuery as $tag => $query) {
@@ -151,7 +151,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
         }
         foreach($aQuery as $tag => $query) {
             if ($aResults[$tag] == false) {
-                $aReturnedResponse = sqimap_retrieve_imap_response ($imap_stream, $tag, 
+                $aReturnedResponse = sqimap_retrieve_imap_response ($imap_stream, $tag,
                                     $handle_errors, $response, $message, $query,
                                     $filter,$outputstream,$no_return);
                 foreach ($aReturnedResponse as $returned_tag => $aResponse) {
@@ -169,7 +169,7 @@ function sqimap_run_pipelined_command ($imap_stream, $aQueryList, $handle_errors
     return $aResults;
 }
 
-/** 
+/**
  * Custom fgets function: gets a line from the IMAP-server,
  * no matter how big it may be.
  * @param stream imap_stream the stream to read from
@@ -210,7 +210,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
     $iRetrieved = 0;
     $results = '';
     $sRead = $sReadRem = '';
-    // NB: fread can also stop at end of a packet on sockets. 
+    // NB: fread can also stop at end of a packet on sockets.
     while ($iRetrieved < $iSize) {
         $sRead = fread($imap_stream,$iBufferSize);
         $iLength = strlen($sRead);
@@ -229,7 +229,7 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         }
 
         if ($filter && $sRead) {
-           // in case the filter is base64 decoding we return a remainder 
+           // in case the filter is base64 decoding we return a remainder
            $sReadRem = $filter($sRead);
         }
         if ($outputstream && $sRead) {
@@ -241,19 +241,19 @@ function sqimap_fread($imap_stream,$iSize,$filter=false,
         }
         if ($no_return) {
             $sRead = '';
-        } else {    
+        } else {
             $results .= $sRead;
         }
     }
-    return $results;       
-}        
+    return $results;
+}
 
 
 /**
  * Obsolete function, inform plugins that use it
  * @deprecated use sqimap_run_command or sqimap_run_command_list instead
  */
-function sqimap_read_data_list($imap_stream, $tag, $handle_errors, 
+function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '') {
     global $color, $squirrelmail_language;
     set_up_language($squirrelmail_language);
@@ -269,8 +269,8 @@ function sqimap_read_data_list($imap_stream, $tag, $handle_errors,
           'The following query was issued:<br>'.
            htmlspecialchars($query) . '<br>' . "</font><br>\n";
     error_box($string,$color);
-    echo '</body></html>';        
-    exit; 
+    echo '</body></html>';
+    exit;
 }
 
 /**
@@ -309,7 +309,7 @@ function sqimap_error_box($title, $query = '', $message_title = '', $message = '
  * this will also handle all errors that are received.  If it is not set,
  * the errors will be sent back through $response and $message.
  */
-function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors, 
+function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
           &$response, &$message, $query = '',
            $filter = false, $outputstream = false, $no_return = false) {
     global $color, $squirrelmail_language;
@@ -359,7 +359,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                         break 3; /* switch switch while */
                     }
                   break;
-                  default: 
+                  default:
                     /* this shouldn't happen */
                     $response[$found_tag] = $arg;
                     $message[$found_tag] = trim(substr($read,$i+strlen($arg)));
@@ -408,7 +408,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                                 $fetch_data[] = $line ."\n";
                             }
                             /* release not neaded data */
-                            unset($aLiteral); 
+                            unset($aLiteral);
                             /* next fgets belongs to this fetch because
                                we just got the exact literalsize and there
                                must follow data to complete the response */
@@ -462,12 +462,12 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
                     $s = substr($read,-3);
                 } while ($s === "}\r\n");
                 break 1;
-            }    
+            }
             break;
           } // end case '*'
         }   // end switch
     } // end while
-    
+
     /* error processing in case $read is false */
     if ($read === false) {
         // try to retrieve an untagged bye respons from the results
@@ -480,18 +480,18 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
             echo '</body></html>';
             exit;
         } else if ($handle_errors) {
-            unset($data); 
+            unset($data);
             sqimap_error_box(_("ERROR : Connection dropped by imap-server."), $query);
             exit;
         }
     }
-    
+
     /* Set $resultlist array */
     if (!empty($data)) {
         //$resultlist[] = $data;
     }
     elseif (empty($resultlist)) {
-        $resultlist[] = array(); 
+        $resultlist[] = array();
     }
 
     /* Return result or handle errors */
@@ -502,7 +502,7 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
     case 'OK':
         return $aResponse;
         break;
-    case 'NO': 
+    case 'NO':
         /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message[$tag], 'command resulted in') === false) {
             sqimap_error_box(_("ERROR : Could not complete request."), $query, _("Reason Given: "), $message[$tag]);
@@ -510,51 +510,33 @@ function sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
             exit;
         }
         break;
-    case 'BAD': 
+    case 'BAD':
         sqimap_error_box(_("ERROR : Bad or malformed request."), $query, _("Server responded: "), $message[$tag]);
-        echo '</body></html>';        
-        exit; 
-    case 'BYE': 
-        sqimap_error_box(_("ERROR : Imap server closed the connection."), $query, _("Server responded: "), $message[$tag]);
-        echo '</body></html>';        
+        echo '</body></html>';
         exit;
-    default: 
+    case 'BYE':
+        sqimap_error_box(_("ERROR : Imap server closed the connection."), $query, _("Server responded: "), $message[$tag]);
+        echo '</body></html>';
+        exit;
+    default:
         sqimap_error_box(_("ERROR : Unknown imap response."), $query, _("Server responded: "), $message[$tag]);
        /* the error is displayed but because we don't know the reponse we
           return the result anyway */
-       return $aResponse;    
+       return $aResponse;
        break;
     }
 }
 
-function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors, 
+function sqimap_read_data ($imap_stream, $tag_uid, $handle_errors,
                            &$response, &$message, $query = '',
                            $filter=false,$outputstream=false,$no_return=false) {
 
     $tag_uid_a = explode(' ',trim($tag_uid));
     $tag = $tag_uid_a[0];
 
-    $res = sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors, 
-              $response, $message, $query,$filter,$outputstream,$no_return); 
-    /* sqimap_read_data should be called for one response
-       but since it just calls sqimap_retrieve_imap_response which 
-       handles multiple responses we need to check for that
-       and merge the $res array IF they are seperated and 
-       IF it was a FETCH response. */
-  
-//    if (isset($res[1]) && is_array($res[1]) && isset($res[1][0]) 
-//        && preg_match('/^\* \d+ FETCH/', $res[1][0])) {
-//        $result = array();
-//        foreach($res as $index=>$value) {
-//            $result = array_merge($result, $res["$index"]);
-//        }
-//    }
-    if (isset($result)) {
-        return $result[$tag];
-    }
-    else {
-        return $res;
-    }
+    $res = sqimap_retrieve_imap_response($imap_stream, $tag, $handle_errors,
+              $response, $message, $query,$filter,$outputstream,$no_return);
+    return $res;
 }
 
 /**
@@ -853,9 +835,10 @@ function sqimap_encode_mailbox_name($what)
 	return '"' . $what . '"';	/* 4.3 quoted string form */
 }
 
-
 /**
  * Gets the number of messages in the current mailbox.
+ *
+ * OBSOLETE use sqimap_status_messages instead.
  */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
     $read_ary = sqimap_run_command ($imap_stream, 'EXAMINE ' . sqimap_encode_mailbox_name($mailbox), false, $result, $message);
@@ -866,176 +849,35 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     }
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
+include_once(SM_PATH . 'functions/rfc822address.php');
 
+/**
+ * OBSOLETE FUNCTION should be removed after mailbox_display,
+ * printMessage function is adapted
+ */
 function parseAddress($address, $max=0) {
-    $aTokens = array();
-    $aAddress = array();
-    $iCnt = strlen($address);
-    $aSpecials = array('(' ,'<' ,',' ,';' ,':');
-    $aReplace =  array(' (',' <',' ,',' ;',' :');
-    $address = str_replace($aSpecials,$aReplace,$address);
-    $i = $iAddrFound = $bGroup = 0;
-    while ($i < $iCnt) {
-        $cChar = $address{$i};
-        switch($cChar)
-        {
-        case '<':
-            $iEnd = strpos($address,'>',$i+1);
-            if (!$iEnd) {
-               $sToken = substr($address,$i);
-               $i = $iCnt;
-            } else {
-               $sToken = substr($address,$i,$iEnd - $i +1);
-               $i = $iEnd;
-            }
-            $sToken = str_replace($aReplace, $aSpecials,$sToken);
-            $aTokens[] = $sToken;
-            break;
-        case '"':
-            $iEnd = strpos($address,$cChar,$i+1);
-            if ($iEnd) {
-               // skip escaped quotes
-               $prev_char = $address{$iEnd-1};
-               while ($prev_char === '\\' && substr($address,$iEnd-2,2) !== '\\\\') {
-                   $iEnd = strpos($address,$cChar,$iEnd+1);
-                   if ($iEnd) {
-                      $prev_char = $address{$iEnd-1};
-                   } else {
-                      $prev_char = false;
-                   }
-               }
-            }
-            if (!$iEnd) {
-                $sToken = substr($address,$i);
-                $i = $iCnt;
-            } else {
-                // also remove the surrounding quotes
-                $sToken = substr($address,$i+1,$iEnd - $i -1);
-                $i = $iEnd;
-            }
-            $sToken = str_replace($aReplace, $aSpecials,$sToken);
-            if ($sToken) $aTokens[] = $sToken;
-            break;
-        case '(':
-            $iEnd = strpos($address,')',$i);
-            if (!$iEnd) {
-                $sToken = substr($address,$i);
-                $i = $iCnt;
-            } else {
-                $sToken = substr($address,$i,$iEnd - $i + 1);
-                $i = $iEnd;
-            }
-            $sToken = str_replace($aReplace, $aSpecials,$sToken);
-            $aTokens[] = $sToken;
-            break;
-        case ',':
-            ++$iAddrFound;
-        case ';':
-            if (!$bGroup) {
-               ++$iAddrFound;
-            } else {
-               $bGroup = false;
-            }
-            if ($max && $max == $iAddrFound) {
-               break 2;
-            } else {
-               $aTokens[] = $cChar;
-               break;
-            }
-        case ':':
-           $bGroup = true;
-        case ' ':
-            $aTokens[] = $cChar;
-            break;
-        default:
-            $iEnd = strpos($address,' ',$i+1);
-            if ($iEnd) {
-                $sToken = trim(substr($address,$i,$iEnd - $i));
-                $i = $iEnd-1;
-            } else {
-                $sToken = trim(substr($address,$i));
-                $i = $iCnt;
-            }
-            if ($sToken) $aTokens[] = $sToken;
-        }
-        ++$i;
-    }
-    $sPersonal = $sEmail = $sComment = $sGroup = '';
-    $aStack = $aComment = array();
-    foreach ($aTokens as $sToken) {
-        if ($max && $max == count($aAddress)) {
-            return $aAddress;
-        }
-        $cChar = $sToken{0};
-        switch ($cChar)
-        {
-          case '=':
-          case '"':
-          case ' ':
-            $aStack[] = $sToken; 
-            break;
-          case '(':
-            $aComment[] = substr($sToken,1,-1);
-            break;
-          case ';':
-            if ($sGroup) {
-                $sEmail = trim(implode(' ',$aStack));
-                $aAddress[] = array($sGroup,$sEmail);
-                $aStack = $aComment = array();
-                $sGroup = '';
-                break;
-            }
-          case ',':
-            if (!$sEmail) {
-                while (count($aStack) && !$sEmail) {
-                    $sEmail = trim(array_pop($aStack));
-                }
-            }
-            if (count($aStack)) {
-                $sPersonal = trim(implode('',$aStack));
-            } else { 
-                $sPersonal = '';
-            }
-            if (!$sPersonal && count($aComment)) {
-                $sComment = implode(' ',$aComment);
-                $sPersonal .= $sComment;
-            }
-            $aAddress[] = array($sEmail,$sPersonal);
-            $sPersonal = $sComment = $sEmail = '';
-            $aStack = $aComment = array();
-            break;
-          case ':': 
-            $sGroup = implode(' ',$aStack); break;
-            $aStack = array();
-            break;
-          case '<':
-            $sEmail = trim(substr($sToken,1,-1));
-            break;
-          case '>':
-            /* skip */
-            break; 
-          default: $aStack[] = $sToken; break;
-        }
-    }
-    /* now do the action again for the last address */
-    if (!$sEmail) {
-        while (count($aStack) && !$sEmail) {
-            $sEmail = trim(array_pop($aStack));
-        }
-    }
-    if (count($aStack)) {
-        $sPersonal = trim(implode('',$aStack));
-    } else {
-        $sPersonal = '';
-    }
-    if (!$sPersonal && count($aComment)) {
-        $sComment = implode(' ',$aComment);
-        $sPersonal .= $sComment;
-    }
-    $aAddress[] = array($sEmail,$sPersonal);
-    return $aAddress;
-} 
+    $aAddress = parseRFC822Address($address,array('limit'=> $max));
+    /*
+     * Because the expected format of the array element is changed we adapt it now.
+     * This also implies that this function is obsolete and should be removed after the
+     * rest of the source is adapted. See Rfc822Address.php for the new function.
+     */
+     array_walk($aAddress, '_adaptAddress');
+     return $aAddress;
+}
 
+/**
+ * OBSOLETE FUNCTION should be removed after mailbox_display,
+ * printMessage function is adapted
+ */
+function _adaptAddress(&$aAddr,$k) {
+   $sPersonal = (isset($aAddr[SQM_ADDR_PERSONAL]) && $aAddr[SQM_ADDR_PERSONAL]) ?
+       $aAddr[SQM_ADDR_PERSONAL] : '';
+   $sEmail = ($aAddr[SQM_ADDR_HOST]) ?
+       $aAddr[SQM_ADDR_HOST] . '@'.$aAddr[SQM_ADDR_HOST] :
+       $aAddr[SQM_ADDR_HOST];
+   $aAddr = array($sEmail,$sPersonal);
+}
 
 /**
  * Returns the number of unseen messages in this folder.
@@ -1051,7 +893,7 @@ function sqimap_unseen_messages ($imap_stream, $mailbox) {
  * Default it returns MESSAGES,UNSEEN and RECENT
  * Supported status items are MESSAGES, UNSEEN, RECENT, UIDNEXT and UIDVALIDITY
  */
-function sqimap_status_messages ($imap_stream, $mailbox, 
+function sqimap_status_messages ($imap_stream, $mailbox,
                        $aStatusItems = array('MESSAGES','UNSEEN','RECENT')) {
 
     $aStatusItems = implode(' ',$aStatusItems);
@@ -1069,17 +911,17 @@ function sqimap_status_messages ($imap_stream, $mailbox,
         }
         if (preg_match('/RECENT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
             $recent = $regs[1];
-        }        
+        }
         if (preg_match('/UIDNEXT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
             $uidnext = $regs[1];
-        }        
+        }
         if (preg_match('/UIDVALIDITY\s+([0-9]+)/i', $read_ary[$i], $regs)) {
             $uidvalidity = $regs[1];
-        }        
+        }
         $i++;
     }
-    return array('MESSAGES' => $messages, 
-                 'UNSEEN'=>$unseen, 
+    return array('MESSAGES' => $messages,
+                 'UNSEEN'=>$unseen,
                  'RECENT' => $recent,
                  'UIDNEXT' => $uidnext,
                  'UIDVALIDITY' => $uidvalidity);
@@ -1109,8 +951,8 @@ function sqimap_append_done ($imap_stream, $folder='') {
                   _("Server responded: ") .
                   $reason . "<br>\n";
            if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
-              $string .= _("Solution: ") . 
-            _("Remove unneccessary messages from your folder and start with your Trash folder.") 
+              $string .= _("Solution: ") .
+            _("Remove unneccessary messages from your folder and start with your Trash folder.")
               ."<br>\n";
            }
            $string .= "</font>\n";
@@ -1137,13 +979,13 @@ function sqimap_get_user_server ($imap_server, $username) {
 
 /**
  * This is an example that gets imapservers from yellowpages (NIS).
- * you can simple put map:map_yp_alias in your $imap_server_address 
+ * you can simple put map:map_yp_alias in your $imap_server_address
  * in config.php use your own function instead map_yp_alias to map your
  * LDAP whatever way to find the users imapserver.
  */
 function map_yp_alias($username) {
    $yp = `ypmatch $username aliases`;
    return chop(substr($yp, strlen($username)+1));
-} 
+}
 
 ?>
