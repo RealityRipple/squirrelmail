@@ -175,8 +175,8 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
  * and shows them to the user.
  */
 function showMessagesForMailbox
-        ($imapConnection, $mailbox, $num_msgs, $start_msg,
-        $sort, $color,$show_num, $use_cache) {
+($imapConnection, $mailbox, $num_msgs, $start_msg, $sort,
+ $color, $show_num, $use_cache) {
     global $msgs, $msort;
     global $sent_folder, $draft_folder;
     global $message_highlight_list;
@@ -597,7 +597,8 @@ function ShowSortButton($sort, $mailbox, $Up, $Down) {
 }
 
 function get_selectall_link($start_msg, $sort) {
-    global $checkall, $PHP_SELF, $what, $where, $mailbox, $javascript_on;
+    global $checkall, $what, $where, $mailbox, $javascript_on;
+    global $PHP_SELF, $PG_SHOWNUM;
 
     if ($javascript_on) {
         $result =
@@ -624,6 +625,10 @@ function get_selectall_link($start_msg, $sort) {
         if (isset($where) && isset($what)) {
             $result .= '&where=' . urlencode($where)
                     . '&what=' . urlencode($what);
+        }
+
+        if ($PG_SHOWNUM == 999999) {
+            $result .= '&PG_SHOWNUM=999999';
         }
 
         $result .= "\">";
@@ -675,7 +680,7 @@ function get_paginator_link
  */
 function get_paginator_str
 ($box, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
-    global $username, $data_dir, $use_mailbox_cache, $color;
+    global $username, $data_dir, $use_mailbox_cache, $color, $PG_SHOWNUM;
 
     /* Initialize paginator string chunks. */
     $prv_str = '';
@@ -832,11 +837,15 @@ function get_paginator_str
                 $pg_str .= get_paginator_link($box, $start, $use, $pg) . $spc;
             }
         }
+    } else if ($PG_SHOWNUM == 999999) {
+        $pg_str = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
+                . "&startMessage=1&mailbox=$box\" TARGET=\"right\">"
+                . _("Show Pages") . '</A>' . $spc;
     }
 
     /* If necessary, compute the 'show all' string. */
     if (($prv_str != '') || ($nxt_str != '')) {
-        $all_str = "<A HREF=\"right_main.php?PG_SHOWNUM=9999"
+        $all_str = "<A HREF=\"right_main.php?PG_SHOWNUM=999999"
                  . "&use_mailbox_cache=$use&startMessage=1&mailbox=$box\" "
                  . "TARGET=\"right\">" . _("Show All") . '</A>';
     }
@@ -846,10 +855,10 @@ function get_paginator_str
 
     /* Put all the pieces of the paginator string together. */
     $result = '';
-    $result .= ($all_str != '' ? $all_str . $spc . $sep . $spc: '');
     $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
     $result .= ($nxt_str != '' ? $nxt_str . $spc . $sep . $spc : '');
     $result .= ($pg_str != '' ? $pg_str : '');
+    $result .= ($all_str != '' ? $sep . $spc . $all_str . $spc : '');
     $result .= ($result != '' ? $sep . $spc . $tgl_str: $tgl_str);
 
     /* If the resulting string is blank, return a non-breaking space. */
