@@ -13,6 +13,8 @@
  * $Id$
  */
 
+require_once(SM_PATH . 'functions/global.php');
+
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks = array();
 
