@@ -1138,7 +1138,7 @@ files.
 
       You should change the header to look something more like:
 
-         # Copyright (c) 1999-2003 The SquirrelMail Development Team
+         # Copyright (c) 1999-2005 The SquirrelMail Development Team
          # Roland Bauerschmidt <rb@debian.org>, 1999.
          # $Id$
          msgid ""
@@ -1191,7 +1191,7 @@ name of your plugin. For instance:
 /**
  * demo.php
  *
- * Copyright (c) 2003 My Name <my-email-address>
+ * Copyright (c) 2005 My Name <my-email-address>
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * @package plugins
