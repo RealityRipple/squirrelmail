@@ -456,7 +456,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                      . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
                      . '&amp;ent_id='.$ent.$passed_ent_id_link;
         if ($where && $what) {
-           $defaultlink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
+           $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
         /* This executes the attachment hook with a specific MIME-type.
          * If that doesn't have results, it tries if there's a rule
