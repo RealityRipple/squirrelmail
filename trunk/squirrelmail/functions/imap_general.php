@@ -179,8 +179,14 @@ function sqimap_capability($imap_stream, $capability) {
     **  Returns the delimeter between mailboxes:  INBOX/Test, or INBOX.Test... 
     ******************************************************************************/
 function sqimap_get_delimiter ($imap_stream = false) {
-	global $imap_general_debug;
-    global $sqimap_delimiter;
+   global $imap_general_debug;
+   global $sqimap_delimiter;
+   global $optional_delimiter;
+
+   /* Use configured delimiter if set */
+   if((!empty($optional_delimiter)) && $optional_delimiter != "detect") {
+      return $optional_delimiter;
+   }
 
 	/* Do some caching here */
     if (!$sqimap_delimiter) {
