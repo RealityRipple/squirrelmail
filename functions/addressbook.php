@@ -1,5 +1,4 @@
 <?php
-
 /**
  * addressbook.php
  *
@@ -87,15 +86,15 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     if (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn)) {
       /* Database configured */
       if (!isset($addrbook_global_table) || empty($addrbook_global_table)) {
-	$addrbook_global_table = 'global_abook';
+          $addrbook_global_table = 'global_abook';
       }
       $r = $abook->add_backend('database',
-			       Array('dsn' => $addrbook_global_dsn,
-				     'owner' => 'global',
-				     'name' => _("Global address book"),
-				     'writeable' => $addrbook_global_writeable,
-				     'listing' => $addrbook_global_listing,
-				     'table' => $addrbook_global_table));
+                               Array('dsn' => $addrbook_global_dsn,
+                                     'owner' => 'global',
+                                     'name' => _("Global address book"),
+                                     'writeable' => $addrbook_global_writeable,
+                                     'listing' => $addrbook_global_listing,
+                                     'table' => $addrbook_global_table));
     }
 
     /*
@@ -131,6 +130,30 @@ function addressbook_init($showerr = true, $onlylocal = false) {
     return $abook;
 }
 
+/**
+ * Display the "new address" form
+ *
+ * Form is not closed and you must add closing form tag.
+ * @since 1.5.1
+ * @param string $form_url form action url
+ * @param string $name form name
+ * @param string $title form title
+ * @param string $button form button name
+ * @param array $defdata values of form fields
+ */
+function abook_create_form($form_url,$name,$title,$button,$defdata=array()) {
+    global $color;
+    echo addForm($form_url, 'post', 'f_add').
+        html_tag( 'table',
+                  html_tag( 'tr',
+                            html_tag( 'td', "\n". '<strong>' . $title . '</strong>' . "\n",
+                                      'center', $color[0]
+                                      )
+                            )
+                  , 'center', '', 'width="100%"' ) ."\n";
+    address_form($name, $button, $defdata);
+}
+
 
 /*
  *   Had to move this function outside of the Addressbook Class
@@ -149,13 +172,200 @@ function addressbook_cmp($a,$b) {
 
 }
 
+/**
+ * Make an input field
+ * @param string $label
+ * @param string $field
+ * @param string $name
+ * @param string $size
+ * @param array $values
+ * @param string $add
+ */
+function addressbook_inp_field($label, $field, $name, $size, $values, $add='') {
+    global $color;
+    $value = ( isset($values[$field]) ? $values[$field] : '');
+
+    if (is_array($value)) {
+        $td_str = addSelect($name.'['.$field.']', $value);
+    } else {
+        $td_str = addInput($name.'['.$field.']', $value, $size);
+    }
+    $td_str .= $add ;
+
+    return html_tag( 'tr' ,
+            html_tag( 'td', $label . ':', 'right', $color[4]) .
+            html_tag( 'td', $td_str, 'left', $color[4])
+            )
+        . "\n";
+}
+
+/**
+ * Output form to add and modify address data
+ */
+function address_form($name, $submittext, $values = array()) {
+    global $color, $squirrelmail_language;
+
+    if ($squirrelmail_language == 'ja_JP') {
+        echo html_tag( 'table',
+                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+                    ' <small>' . _("Must be unique") . '</small>') .
+                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
+                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
+                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
+                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+                list_writable_backends($name) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        addSubmit($submittext, $name.'[SUBMIT]'),
+                        'center', $color[4], 'colspan="2"')
+                    )
+                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+    } else {
+        echo html_tag( 'table',
+                addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+                    ' <small>' . _("Must be unique") . '</small>') .
+                addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
+                addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
+                addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
+                addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+                list_writable_backends($name) .
+                html_tag( 'tr',
+                    html_tag( 'td',
+                        addSubmit($submittext, $name.'[SUBMIT]') ,
+                        'center', $color[4], 'colspan="2"')
+                    )
+                , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
+    }
+}
+
+function list_writable_backends($name) {
+    global $color, $abook;
+    if ( $name != 'addaddr' ) { return; }
+    if ( $abook->numbackends > 1 ) {
+        $ret = '<select name="backend">';
+        $backends = $abook->get_backend_list();
+        while (list($undef,$v) = each($backends)) {
+            if ($v->writeable) {
+                $ret .= '<option value="' . $v->bnum;
+                $ret .= '">' . $v->sname . "</option>\n";
+            }
+        }
+        $ret .= "</select>";
+        return html_tag( 'tr',
+                html_tag( 'td', _("Add to:"),'right', $color[4] ) .
+                html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
+    } else {
+        return html_tag( 'tr',
+                html_tag( 'td',
+                    addHidden('backend', '1'),
+                    'center', $color[4], 'colspan="2"')) . "\n";
+    }
+}
+
+/**
+ * Sort array by the key "name"
+ */
+function alistcmp($a,$b) {
+    $abook_sort_order=get_abook_sort();
+
+    switch ($abook_sort_order) {
+    case 0:
+    case 1:
+      $abook_sort='nickname';
+      break;
+    case 4:
+    case 5:
+      $abook_sort='email';
+      break;
+    case 6:
+    case 7:
+      $abook_sort='label';
+      break;
+    case 2:
+    case 3:
+    case 8:
+    default:
+      $abook_sort='name';
+    }
+
+    if ($a['backend'] > $b['backend']) {
+        return 1;
+    } else {
+        if ($a['backend'] < $b['backend']) {
+            return -1;
+        }
+    }
+
+    if( (($abook_sort_order+2) % 2) == 1) {
+      return (strtolower($a[$abook_sort]) < strtolower($b[$abook_sort])) ? 1 : -1;
+    } else {
+      return (strtolower($a[$abook_sort]) > strtolower($b[$abook_sort])) ? 1 : -1;
+    }
+}
+
+/**
+ * Address book sorting options
+ *
+ * returns address book sorting order
+ * @return integer book sorting options order
+ */
+function get_abook_sort() {
+    global $data_dir, $username;
+
+    /* get sorting order */
+    if(sqgetGlobalVar('abook_sort_order', $temp, SQ_GET)) {
+      $abook_sort_order = (int) $temp;
+
+      if ($abook_sort_order < 0 or $abook_sort_order > 8)
+        $abook_sort_order=8;
+
+      setPref($data_dir, $username, 'abook_sort_order', $abook_sort_order);
+    } else {
+      /* get previous sorting options. default to unsorted */
+      $abook_sort_order = getPref($data_dir, $username, 'abook_sort_order', 8);
+    }
+
+    return $abook_sort_order;
+}
+
+/**
+ * This function shows the address book sort button.
+ *
+ * @param integer $abook_sort_order current sort value
+ * @param string $alt_tag alt tag value (string visible to text only browsers)
+ * @param integer $Down sort value when list is sorted ascending
+ * @param integer $Up sort value when list is sorted descending
+ * @return string html code with sorting images and urls
+ */
+function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
+    global $form_url;
+
+     /* Figure out which image we want to use. */
+    if ($abook_sort_order != $Up && $abook_sort_order != $Down) {
+        $img = 'sort_none.png';
+        $which = $Up;
+    } elseif ($abook_sort_order == $Up) {
+        $img = 'up_pointer.png';
+        $which = $Down;
+    } else {
+        $img = 'down_pointer.png';
+        $which = 8;
+    }
+
+      /* Now that we have everything figured out, show the actual button. */
+    return ' <a href="' . $form_url .'?abook_sort_order=' . $which
+         . '"><img src="../images/' . $img
+         . '" border="0" width="12" height="10" alt="' . $alt_tag . '" title="'
+         . _("Click here to change the sorting of the address list") .'" /></a>';
+}
+
 
 /**
  * This is the main address book class that connect all the
  * backends and provide services to the functions above.
  * @package squirrelmail
+ * @subpackage addressbook
  */
-
 class AddressBook {
 
     var $backends    = array();
@@ -490,6 +700,7 @@ class AddressBook {
 /**
  * Generic backend that all other backends extend
  * @package squirrelmail
+ * @subpackage addressbook
  */
 class addressbook_backend {
 
@@ -544,103 +755,6 @@ class addressbook_backend {
         return false;
     }
 
-}
-
-/**
- * Sort array by the key "name"
- */
-function alistcmp($a,$b) {
-    $abook_sort_order=get_abook_sort();
-
-    switch ($abook_sort_order) {
-    case 0:
-    case 1:
-      $abook_sort='nickname';
-      break;
-    case 4:
-    case 5:
-      $abook_sort='email';
-      break;
-    case 6:
-    case 7:
-      $abook_sort='label';
-      break;
-    case 2:
-    case 3:
-    case 8:
-    default:
-      $abook_sort='name';
-    }
-
-    if ($a['backend'] > $b['backend']) {
-        return 1;
-    } else {
-        if ($a['backend'] < $b['backend']) {
-            return -1;
-        }
-    }
-
-    if( (($abook_sort_order+2) % 2) == 1) {
-      return (strtolower($a[$abook_sort]) < strtolower($b[$abook_sort])) ? 1 : -1;
-    } else {
-      return (strtolower($a[$abook_sort]) > strtolower($b[$abook_sort])) ? 1 : -1;
-    }
-}
-
-/**
- * Address book sorting options
- *
- * returns address book sorting order
- * @return integer book sorting options order
- */
-function get_abook_sort() {
-    global $data_dir, $username;
-
-    /* get sorting order */
-    if(sqgetGlobalVar('abook_sort_order', $temp, SQ_GET)) {
-      $abook_sort_order = (int) $temp;
-
-      if ($abook_sort_order < 0 or $abook_sort_order > 8)
-        $abook_sort_order=8;
-
-      setPref($data_dir, $username, 'abook_sort_order', $abook_sort_order);
-    } else {
-      /* get previous sorting options. default to unsorted */
-      $abook_sort_order = getPref($data_dir, $username, 'abook_sort_order', 8);
-    }
-
-    return $abook_sort_order;
-}
-
-/**
- * This function shows the address book sort button.
- *
- * @param integer $abook_sort_order current sort value
- * @param string $alt_tag alt tag value (string visible to text only browsers)
- * @param integer $Down sort value when list is sorted ascending
- * @param integer $Up sort value when list is sorted descending
- * @return string html code with sorting images and urls
- */
-function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
-    global $form_url;
-
-     /* Figure out which image we want to use. */
-    if ($abook_sort_order != $Up && $abook_sort_order != $Down) {
-        $img = 'sort_none.png';
-        $which = $Up;
-    } elseif ($abook_sort_order == $Up) {
-        $img = 'up_pointer.png';
-        $which = $Down;
-    } else {
-        $img = 'down_pointer.png';
-        $which = 8;
-    }
-
-      /* Now that we have everything figured out, show the actual button. */
-    return ' <a href="' . $form_url .'?abook_sort_order=' . $which
-         . '"><img src="../images/' . $img
-         . '" border="0" width="12" height="10" alt="' . $alt_tag . '" title="'
-         . _("Click here to change the sorting of the address list") .'" /></a>';
 }
 
 /*
