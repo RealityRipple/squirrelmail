@@ -271,7 +271,6 @@ function translateText(&$body, $wrap_at, $charset) {
             sqWordWrap($line, $wrap_at);
         }
         $line = charset_decode($charset, $line);
-	$line = htmlspecialchars($line);
         $line = str_replace("\t", '        ', $line);
 
         parseUrl ($line);
@@ -307,7 +306,6 @@ function translateText(&$body, $wrap_at, $charset) {
     }
     $body = '<pre>' . implode("\n", $body_ary) . '</pre>';
 }
-
 
 /* This returns a parsed string called $body. That string can then
  * be displayed as the actual message in the HTML. It contains
@@ -409,7 +407,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         if ($type0 =='message' && $type1 == 'rfc822') {
             $default_page = '../src/read_body.php';
             $rfc822_header = $att->rfc822_header;
-            $filename = decodeHeader($rfc822_header->subject);
+            $filename = $rfc822_header->subject;
             if (trim( $filename ) == '') {
                 $filename = 'untitled-[' . $ent . ']' ;
 	    }		
@@ -419,16 +417,16 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             } else {
                 $from_name = _("Unknown sender");
             }
-            $from_name = decodeHeader(htmlspecialchars($from_name));
+            $from_name = decodeHeader(($from_name));
             $description = $from_name;
         } else {
             $default_page = '../src/download.php';
             if (is_object($header->disposition)) {
-                $filename = decodeHeader($header->disposition->getProperty('filename'));
+                $filename = $header->disposition->getProperty('filename');
                 if (trim($filename) == '') {
                     $name = decodeHeader($header->disposition->getProperty('name'));
                     if (trim($name) == '') {
-                        $name = decodeHeader($header->getParameter('name'));
+                        $name = $header->getParameter('name');
                         if(trim($name) == '') {
                             if (trim( $header->id ) == '') {
                                 $filename = 'untitled-[' . $ent . ']' ;
@@ -443,7 +441,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                     }
                 }
             } else {
-		$filename = decodeHeader($header->getParameter('name'));
+		$filename = $header->getParameter('name');
 		if (!trim($filename)) {
             	    if (trim( $header->id ) == '') {
                 	$filename = 'untitled-[' . $ent . ']' ;
@@ -453,7 +451,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         	}
 	    }
             if ($header->description) {
-                $description = htmlspecialchars($header->description);
+                $description = decodeHeader($header->description);
             } else {
                 $description = '';
             }
@@ -488,7 +486,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $defaultlink = $hookresults[6];
 
         $attachments .= '<TR><TD>' .
-                        '<A HREF="'.$defaultlink.'">'.htmlspecialchars($display_filename).'</A>&nbsp;</TD>' .
+                        '<A HREF="'.$defaultlink.'">'.decodeHeader($display_filename).'</A>&nbsp;</TD>' .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
                         "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
@@ -545,7 +543,7 @@ function decodeBody($body, $encoding) {
  * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
  */
-function decodeHeader ($string, $utfencode=true) {
+function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     global $languages, $squirrelmail_language;
     if (is_array($string)) {
         $string = implode("\n", $string);
@@ -557,33 +555,54 @@ function decodeHeader ($string, $utfencode=true) {
     }
 
     $i = 0;
-    while (preg_match('/^(.{' . $i . '})(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=/Ui', 
-                      $string, $res)) {
-        $prefix = $res[1];
-        /* Ignore white-space between consecutive encoded-words. */
-        if (strspn($res[2], " \t") != strlen($res[2])) {
-            $prefix .= $res[2];
-        }
-
-        if (ucfirst($res[4]) == 'B') {
-            $replace = base64_decode($res[5]);
-            $replace = charset_decode($res[3],$replace);
-            
-        } else {
-            $replace = str_replace('_', ' ', $res[5]);
-            $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))', 
+    $aString = explode(' ',$string);
+    foreach ($aString as $chunk) {
+        $encoded = false;
+        $aString[$i] = '';
+        while (preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
+            $aString[$i] .= $res[1];
+            $encoding = ucfirst($res[3]);
+            switch ($encoding)
+            {
+            case 'B':
+                $replace = base64_decode($res[4]);
+                $aString[$i] .= charset_decode($res[2],$replace);
+                break;
+            case 'Q':
+                
+                $replace = str_replace('_', ' ', $res[4]);
+                $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))', 
                                     $replace);
-            /* Only encode into entities by default. Some places
-             * don't need the encoding, like the compose form.
-             */
-            if ($utfencode) {
-                $replace = charset_decode($res[3], $replace);
+                /* Only encode into entities by default. Some places
+                 * don't need the encoding, like the compose form.
+                 */
+                if ($utfencode) {
+                    $replace = charset_decode($res[2], $replace);
+                } else {
+                    if ($htmlsave) {
+                        $replace = htmlspecialchars($res[4]);
+                    }
+                }
+                $aString[$i] .= $replace;
+                break;
+            default:
+                break;
             }
+            $chunk = $res[5];
+            $encoded = true;
+        } 
+        if (!$encoded && $htmlsave) {
+            $aString[$i] = htmlspecialchars($chunk);
+        } else {
+            $aString[$i] .= $chunk;
         }
-        $string = $prefix . $replace . substr($string, strlen($res[0]));
-        $i = strlen($prefix) + strlen($replace);
+        ++$i;
     }
-    return $string;
+    if (!$htmlsave) {
+	return implode(' ',$aString);
+    } else {
+	return implode('&nbsp;',$aString);
+    }
 }
 
 /*
@@ -602,27 +621,67 @@ function encodeHeader ($string) {
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen($string);
     $l = strstr($string, '=?');         // Must be encoded ?
+    $max_l = 75 - strlen($default_charset) - 7;
+    $aRet = array();
     $ret = '';
+    $cur_l = 0;
     for($i = 0; $i < $j; ++$i) {
         switch($string{$i}) {
             case '=':
+                $cur_l+=3;
+                if ($cur_l > $max_l) {
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
+                    $cur_l = 3;
+                    $ret = '';
+                }            
                 $ret .= '=3D';
                 break;
             case '?':
+                $cur_l+=3;
+                if ($cur_l > $max_l) {
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
+                    $cur_l = 3;
+                    $ret = '';
+                }
                 $ret .= '=3F';
                 break;
             case '_':
+                $cur_l+=3;
+                if ($cur_l > $max_l) {
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
+                    $cur_l = 3;
+                    $ret = '';
+                }                
                 $ret .= '=5F';
                 break;
             case ' ':
+                $cur_l++;
+                if ($cur_l > $max_l) {
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
+                    $cur_l = 1;
+                    $ret = '';
+                }                
                 $ret .= '_';
                 break;
             default:
                 $k = ord($string{$i});
                 if ($k > 126) {
-                    $ret .= sprintf("=%02X", $k);
+                    $s = sprintf("=%02X", $k);
+                    $cur_l += strlen($s);
+                    if ($cur_l > $max_l) {
+                        $aRet[] = "=?$default_charset?Q?$ret?=";
+                        $cur_l = strlen($s);
+                        $ret = '';
+                    }                     
+                    $ret .= $s;
                     $l = TRUE;
                 } else {
+                    $cur_l++;
+                    if ($cur_l > $max_l) {
+                        $aRet[] = "=?$default_charset?Q?$ret?=";
+                        $cur_l = 1;
+                        $ret = '';
+                    }                     
                     $ret .= $string{$i};
                 }
                 break;
@@ -630,7 +689,7 @@ function encodeHeader ($string) {
     }
 
     if ($l) {
-        $string = "=?$default_charset?Q?$ret?=";
+        $string = implode('',$aRet) . "=?$default_charset?Q?$ret?=";
     }
 
     return $string;
@@ -1230,7 +1289,7 @@ function sq_fixstyle($message, $id, $content){
         $content = preg_replace("|url\(([\'\"])\s*https*:.*?([\'\"])\)|si",
                                 "url(\\1$secremoveimg\\2)", $content);
     }
-    
+   
     /**
      * Fix urls that refer to cid:
      */

@@ -20,6 +20,20 @@ require_once(SM_PATH . 'functions/imap_mailbox.php');
 /* Default value for page_selector_max. */
 define('PG_SEL_MAX', 10);
 
+function elapsed($start)
+{
+   $end = microtime();
+   list($start2, $start1) = explode(" ", $start);
+   list($end2, $end1) = explode(" ", $end);
+  $diff1 = $end1 - $start1;
+   $diff2 = $end2 - $start2;
+   if( $diff2 < 0 ){
+       $diff1 -= 1;
+       $diff2 += 1.0;
+  }
+   return $diff2 + $diff1;
+}
+
 function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                           $start_msg, $where, $what) {
     global $checkall,
@@ -58,25 +72,29 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 
     if (handleAsSent($mailbox)) {
        $msg['FROM'] = $msg['TO'];
+    }
        /*
         * This is done in case you're looking into Sent folders,
         * because you can have multiple receivers.
         */
-       $senderNames = explode(',', $msg['FROM']);
-       $senderName  = '';
-       if (sizeof($senderNames)){
-          foreach ($senderNames as $senderNames_part) {
+        
+    $senderNames = $msg['FROM'];
+    $senderName  = '';
+    if (sizeof($senderNames)){
+        foreach ($senderNames as $senderNames_part) {
             if ($senderName != '') {
                 $senderName .= ', ';
             }
-            $senderName .= sqimap_find_displayable_name($senderNames_part);
-          }
-       }
-    } else {
-       $senderName = sqimap_find_displayable_name($msg['FROM']);
-    }
+            if ($senderNames_part[1]) {
+                $senderName .= decodeHeader($senderNames_part[1]);
+            } else {
+                $senderName .= htmlspecialchars($senderNames_part[0]);
+            }
+        }
+    } 
+    
 
-    $subject = processSubject($msg['SUBJECT'], $indent_array[$msg['ID']]);
+    $subject = processSubject(decodeHeader($msg['SUBJECT']), $indent_array[$msg['ID']]);
 
     echo html_tag( 'tr','','','','VALIGN="top"') . "\n";
 
@@ -124,10 +142,19 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 $high_val   = strtolower($message_highlight_list_part['value']);
                 $match_type = strtoupper($message_highlight_list_part['match_type']);
                 if ($match_type == 'TO_CC') {
-                    if (strstr('^^' . strtolower($msg['TO']), $high_val) ||
-                        strstr('^^' . strtolower($msg['CC']), $high_val)) {
-                        $hlt_color = $message_highlight_list_part['color'];
-                        continue;
+                    foreach ($msg['TO'] as $address) {
+                        if (strstr('^^' . strtolower($address[0]), $high_val) ||
+                            strstr('^^' . strtolower($address[1]), $high_val)) {
+                            $hlt_color = $message_highlight_list_part['color'];
+                            continue;
+                        }
+                    }
+                    foreach ($msg['CC'] as $address) {
+                        if( strstr('^^' . strtolower($address[0]), $high_val) ||
+                            strstr('^^' . strtolower($address[1]), $high_val)) {
+                            $hlt_color = $message_highlight_list_part['color'];
+                            continue;
+                        }
                     }
                 } else {
                     if (strstr('^^' . strtolower($msg[$match_type]), $high_val)) {
@@ -155,7 +182,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 break;
             case 2: /* from */
                 echo html_tag( 'td',
-                               $italic . $bold . $flag . $fontstr . htmlentities($senderName) .
+                               $italic . $bold . $flag . $fontstr . $senderName .
                                $fontstr_end . $flag_end . $bold_end . $italic_end,
                                'left',
                                $hlt_color );
@@ -182,7 +209,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
                         .  '&amp;passed_id='. $msg["ID"]
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
-                $td_str .= ' ' .concat_hook_function('subject_link');
+                do_hook("subject_link");
                 if ($subject != $msg['SUBJECT']) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
                     $title = array_flip($title);
@@ -250,13 +277,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
 
 function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $id) {
     if ($id != 'no') {
-        if ($start_msg + ($show_num - 1) < $num_msgs) {
-            $end_msg = $start_msg + ($show_num-1);
-        } else {
-            $end_msg = $num_msgs;
-        }
-        $id = array_slice($id, ($start_msg-1), ($end_msg));
-
+        $id = array_slice($id, ($start_msg-1), $show_num);
         $end = $start_msg + $show_num - 1;
         if ($num_msgs < $show_num) {
             $end_loop = $num_msgs;
@@ -303,7 +324,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
                     $start_msg = 1;
                 }
             }
-            $id = array_slice(array_reverse($id), ($start_msg-1), ($end_msg));
+            $id = array_slice(array_reverse($id), ($start_msg-1), $show_num);
             $end = $start_msg + $show_num - 1;
             if ($num_msgs < $show_num) {
                 $end_loop = $num_msgs;
@@ -313,7 +334,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
                 $end_loop = $show_num;
             }
         }
-        $msgs = fillMessageArray($imapConnection,$id,$end_loop);
+        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $mailbox);
     }
     return $msgs;
 }
@@ -330,6 +351,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
     global $msgs, $msort, $auto_expunge, $thread_sort_messages,
            $allow_server_sort, $server_sort_order;
 
+    $start = microtime();
     /* If autoexpunge is turned on, then do it now. */
     $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
     $srt = $sort;
@@ -443,6 +465,8 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
     mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
     echo '</td></tr></table>';
+    $t = elapsed($start);
+    echo("elapsed time = $t seconds\n");
 }
 
 function calc_msort($msgs, $sort) {

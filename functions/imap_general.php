@@ -22,9 +22,9 @@ $sqimap_session_id = 1;
 function sqimap_session_id($unique_id = false) {
     global $data_dir, $username, $sqimap_session_id;
     if (!$unique_id) {
-	return( sprintf("A%03d", $sqimap_session_id++) );
+        return( sprintf("A%03d", $sqimap_session_id++) );
     } else {
-	return( sprintf("A%03d", $sqimap_session_id++) . ' UID' );
+        return( sprintf("A%03d", $sqimap_session_id++) . ' UID' );
     }
 }
 
@@ -34,10 +34,10 @@ function sqimap_session_id($unique_id = false) {
  */
 function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
     if ($imap_stream) {
-	$sid = sqimap_session_id($unique_id);
-	fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-	$read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
-	return $read;
+        $sid = sqimap_session_id($unique_id);
+        fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+        $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message, $query );
+        return $read;
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
@@ -46,7 +46,7 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
                 _("ERROR : No available imapstream.") .
                 "</b></font>\n";
         error_box($string,$color);
-	return false;
+        return false;
     }
     
 }
@@ -54,9 +54,9 @@ function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$respon
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message, $unique_id = false) {
     if ($imap_stream) {
         $sid = sqimap_session_id($unique_id);
-	fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
-	$read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
-	return $read;
+        fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+        $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message, $query);
+        return $read;
     } else {
         global $squirrelmail_language, $color;
         set_up_language($squirrelmail_language);
@@ -65,7 +65,7 @@ function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &
                 _("ERROR : No available imapstream.") .
                 "</b></font>\n";
         error_box($string,$color);
-	return false;
+        return false;
     }
     
 }
@@ -151,21 +151,21 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
     /* ignore this error from M$ exchange, it is not fatal (aka bug) */
         if (strstr($message, 'command resulted in') === false) {
             set_up_language($squirrelmail_language);
-	    require_once(SM_PATH . 'functions/display_messages.php');
-	    $string = "<b><font color=$color[2]>\n" .
+            require_once(SM_PATH . 'functions/display_messages.php');
+            $string = "<b><font color=$color[2]>\n" .
                 _("ERROR : Could not complete request.") .
                 "</b><br>\n" .
                 _("Query:") . ' ' .
                 htmlspecialchars($query) . '<br>' .
                 _("Reason Given: ") .
                 htmlspecialchars($message) . "</font><br>\n";
-	    error_box($string,$color);
+            error_box($string,$color);
             exit;
         }
     } 
     elseif ($response == 'BAD') {
         set_up_language($squirrelmail_language);
-	require_once(SM_PATH . 'functions/display_messages.php');
+        require_once(SM_PATH . 'functions/display_messages.php');
         $string = "<b><font color=$color[2]>\n" .
             _("ERROR : Bad or malformed request.") .
             "</b><br>\n" .
@@ -173,7 +173,7 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
             htmlspecialchars($query) . '<br>' .
             _("Server responded: ") .
             htmlspecialchars($message) . "</font><br>\n";
-	error_box($string,$color);    
+        error_box($string,$color);    
         exit;
     } 
     else {
@@ -217,12 +217,12 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         sqgetglobalvar('onetimepad' , $onetimepad , SQ_SESSION );
     }
     $imap_server_address = sqimap_get_user_server($imap_server_address, $username);
-	$host=$imap_server_address;
-	
-	if (($use_imap_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
-	  /* Use TLS by prefixing "tls://" to the hostname */
-	  $imap_server_address = 'tls://' . $imap_server_address;
-	}
+        $host=$imap_server_address;
+        
+        if (($use_imap_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
+          /* Use TLS by prefixing "tls://" to the hostname */
+          $imap_server_address = 'tls://' . $imap_server_address;
+        }
     
     $imap_stream = fsockopen ( $imap_server_address, $imap_port, $error_number, $error_string, 15);
 
@@ -230,11 +230,11 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     if (!$imap_stream) {
         if (!$hide) {
             set_up_language($squirrelmail_language, true);
-	    require_once(SM_PATH . 'functions/display_messages.php');
-	    $string = sprintf (_("Error connecting to IMAP server: %s.") .
-	                      "<br>\r\n", $imap_server_address) .
+            require_once(SM_PATH . 'functions/display_messages.php');
+            $string = sprintf (_("Error connecting to IMAP server: %s.") .
+                              "<br>\r\n", $imap_server_address) .
                       "$error_number : $error_string<br>\r\n";
-	    logout_error($string,$color);
+            logout_error($string,$color);
         }
         exit;
     }
@@ -244,77 +244,77 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
     /* Decrypt the password */
     $password = OneTimePadDecrypt($password, $onetimepad);
 
-	if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
+        if (($imap_auth_mech == 'cram-md5') OR ($imap_auth_mech == 'digest-md5')) {
       // We're using some sort of authentication OTHER than plain or login
-	  $tag=sqimap_session_id(false);
-	  if ($imap_auth_mech == 'digest-md5') {
-	    $query = $tag . " AUTHENTICATE DIGEST-MD5\r\n";
-	  } elseif ($imap_auth_mech == 'cram-md5') {
-	    $query = $tag . " AUTHENTICATE CRAM-MD5\r\n";
-	  }
-	  fputs($imap_stream,$query);
-	  $answer=sqimap_fgets($imap_stream);
-	  // Trim the "+ " off the front
-	  $response=explode(" ",$answer,3);
-	  if ($response[0] == '+') {
-	    // Got a challenge back
-		$challenge=$response[1];
-		if ($imap_auth_mech == 'digest-md5') {
-		  $reply = digest_md5_response($username,$password,$challenge,'imap',$host);
-		} elseif ($imap_auth_mech == 'cram-md5') {
-		  $reply = cram_md5_response($username,$password,$challenge);
-		}
-		fputs($imap_stream,$reply);
-		$read=sqimap_fgets($imap_stream);
-		if ($imap_auth_mech == 'digest-md5') {
-		  // DIGEST-MD5 has an extra step..
-		  if (substr($read,0,1) == '+') { // OK so far..
-		    fputs($imap_stream,"\r\n");
-		    $read=sqimap_fgets($imap_stream);
-		  }
-		}
-		$results=explode(" ",$read,3);
-		$response=$results[1];
-		$message=$results[2];
+          $tag=sqimap_session_id(false);
+          if ($imap_auth_mech == 'digest-md5') {
+            $query = $tag . " AUTHENTICATE DIGEST-MD5\r\n";
+          } elseif ($imap_auth_mech == 'cram-md5') {
+            $query = $tag . " AUTHENTICATE CRAM-MD5\r\n";
+          }
+          fputs($imap_stream,$query);
+          $answer=sqimap_fgets($imap_stream);
+          // Trim the "+ " off the front
+          $response=explode(" ",$answer,3);
+          if ($response[0] == '+') {
+            // Got a challenge back
+                $challenge=$response[1];
+                if ($imap_auth_mech == 'digest-md5') {
+                  $reply = digest_md5_response($username,$password,$challenge,'imap',$host);
+                } elseif ($imap_auth_mech == 'cram-md5') {
+                  $reply = cram_md5_response($username,$password,$challenge);
+                }
+                fputs($imap_stream,$reply);
+                $read=sqimap_fgets($imap_stream);
+                if ($imap_auth_mech == 'digest-md5') {
+                  // DIGEST-MD5 has an extra step..
+                  if (substr($read,0,1) == '+') { // OK so far..
+                    fputs($imap_stream,"\r\n");
+                    $read=sqimap_fgets($imap_stream);
+                  }
+                }
+                $results=explode(" ",$read,3);
+                $response=$results[1];
+                $message=$results[2];
       } else {
-		// Fake the response, so the error trap at the bottom will work
-		$response="BAD";
-		$message='IMAP server does not appear to support the authentication method selected.';
-		$message .= '  Please contact your system administrator.';
+                // Fake the response, so the error trap at the bottom will work
+                $response="BAD";
+                $message='IMAP server does not appear to support the authentication method selected.';
+                $message .= '  Please contact your system administrator.';
       }
     } elseif ($imap_auth_mech == 'login') {
-	  // Original IMAP login code
+          // Original IMAP login code
       $query = 'LOGIN "' . quoteIMAP($username) .  '" "' . quoteIMAP($password) . '"';
       $read = sqimap_run_command ($imap_stream, $query, false, $response, $message);
     } elseif ($imap_auth_mech == 'plain') {
-		/* Replace this with SASL PLAIN if it ever gets implemented */
-		$response="BAD";
-		$message='SquirrelMail does not support SASL PLAIN yet. Rerun conf.pl and use login instead.';
-	} else {
-		$response="BAD";
-		$message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
-	}
+                /* Replace this with SASL PLAIN if it ever gets implemented */
+                $response="BAD";
+                $message='SquirrelMail does not support SASL PLAIN yet. Rerun conf.pl and use login instead.';
+        } else {
+                $response="BAD";
+                $message="Internal SquirrelMail error - unknown IMAP authentication method chosen.  Please contact the developers.";
+        }
     
-	/* If the connection was not successful, lets see why */
+        /* If the connection was not successful, lets see why */
     if ($response != 'OK') {
         if (!$hide) {
             if ($response != 'NO') {
                 /* "BAD" and anything else gets reported here. */
-		$message = htmlspecialchars($message);
+                $message = htmlspecialchars($message);
                 set_up_language($squirrelmail_language, true);
-		require_once(SM_PATH . 'functions/display_messages.php');
+                require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {
                    $string = sprintf (_("Bad request: %s")."<br>\r\n", $message);
                 } else {
                    $string = sprintf (_("Unknown error: %s") . "<br>\n", $message);
                 }
                 if (isset($read) && is_array($read)) {
-                	$string .= '<br>' . _("Read data:") . "<br>\n";
+                        $string .= '<br>' . _("Read data:") . "<br>\n";
                     foreach ($read as $line) {
                         $string .= htmlspecialchars($line) . "<br>\n";
                     }
                 }
-		error_box($string,$color);
+                error_box($string,$color);
                 exit;
             } else {
                 /*
@@ -330,7 +330,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
                 
                 set_up_language($squirrelmail_language, true);
                 include_once(SM_PATH . 'functions/display_messages.php' );
-		sqsession_destroy();
+                sqsession_destroy();
                 logout_error( _("Unknown user or password incorrect.") );
                 exit;
             }
@@ -365,11 +365,11 @@ function sqimap_capability($imap_stream, $capability='') {
         }
     }
     if ($capability) {
-	if (isset($sqimap_capabilities[$capability])) {
-    	    return $sqimap_capabilities[$capability];
-	} else {
-    	    return false;
-	}
+        if (isset($sqimap_capabilities[$capability])) {
+                return $sqimap_capabilities[$capability];
+        } else {
+                return false;
+        }
     }
     return $sqimap_capabilities;
 }
@@ -431,63 +431,126 @@ function sqimap_get_num_messages ($imap_stream, $mailbox) {
     return false; //"BUG! Couldn't get number of messages in $mailbox!";
 }
 
-
-/* Returns a displayable email address.
- *     Luke Ehresman <lehresma@css.tayloru.edu>
- *     "Luke Ehresman" <lehresma@css.tayloru.edu>
- *     <lehresma@css.tayloru.edu>
- *     lehresma@css.tayloru.edu (Luke Ehresman)
- *     lehresma@css.tayloru.edu
- * becomes: lehresma@css.tayloru.edu
- */
-function sqimap_find_email ($string) {
-    if (ereg("<([^>]+)>", $string, $regs)) {
-        $string = $regs[1];
-    } else if (ereg("([^ ]+@[^ ]+)", $string, $regs)) {
-        $string = $regs[1];
+function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='') {
+    $pos = 0;
+    $j = strlen($address);
+    $personal = '';
+    $addr = '';
+    $comment = '';
+    if ($max && $max = count($addr_ar)) {
+        return $addr_ar;
     }
-    return trim($string);
-}
-
-
-/*
- * Takes the From: field and creates a displayable name.
- *     Luke Ehresman   <lkehresman@yahoo.com>
- *     "Luke Ehresman" <lkehresman@yahoo.com>
- *     lkehresman@yahoo.com (Luke Ehresman)
- * becomes: Luke Ehresman
- *     <lkehresman@yahoo.com>
- * becomes: lkehresman@yahoo.com
- */
-function sqimap_find_displayable_name ($string) {
-    $string = trim($string);
-
-    if ( ereg('^(.+)<.*>', $string, $regs) ) {
-        $orig_string = $string;
-        $string = str_replace ('"', '', $regs[1] );
-        if (trim($string) == '') {
-             $string = sqimap_find_email($orig_string);
+    while ($pos < $j) {
+        if ($max && $max = count($addr_ar)) {
+            return $addr_ar;
         }
-        if( $string == '' || $string == ' ' ){
-            $string = '&nbsp;';
+        $char = $address{$pos};
+        switch ($char) {
+            case '=':
+                if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',substr($address,$pos),$reg)) {
+                    $personal = $reg[1];
+                    $pos += strlen($personal);
+                }
+                ++$pos;
+                break;
+            case '"': /* get the personal name */
+                ++$pos;
+                if ($address{$pos} == '"') {
+                    ++$pos;
+                } else {                
+                    $personal_start = $personal_end = $pos;
+                    while ($pos < $j) {
+                        $personal_end = strpos($address,'"',$pos);
+                        if (($personal_end-2)>0 && (substr($address,$personal_end-2,2) === '\\"' ||
+                            substr($address,$personal_end-2,2) === '\\\\')) {
+                            $pos = $personal_end+1;
+                        } else {
+                            $personal = substr($address,$personal_start,$personal_end-$personal_start);
+                            break;
+                        }
+                    }
+                    if ($personal_end) { /* prohibit endless loops due to very wrong addresses */
+                         $pos = $personal_end+1;
+                    } else {
+                         $pos = $j;
+                    }
+                }
+                break;
+            case '<':  /* get email address */
+                $addr_start = $pos;
+                $addr_end = strpos($address,'>',$addr_start);
+                $addr = substr($address,$addr_start+1,$addr_end-$addr_start-1);
+                $pos = $addr_end+1;
+                break;
+            case '(':  /* rip off comments */
+                $addr_start = $pos;
+                $pos = strpos($address,')');
+                if ($pos !== false) {
+                    $comment = substr($address, $addr_start+1,($pos-$addr_start-1));
+                    $address_start = substr($address, 0, $addr_start);
+                    $address_end   = substr($address, $pos + 1);
+                    $address       = $address_start . $address_end;
+                }
+                $j = strlen($address);
+                $pos = $addr_start + 1;
+                break;
+            case ',':  /* we reached a delimiter */
+                if ($addr == '') {
+                    $addr = substr($address, 0, $pos);
+                } else if ($personal == '') {
+                    $personal = trim(substr($address, 0, $addr_start));
+                }
+                if (!$personal && $comment) $personal = $comment;
+                if ($personal) $personal = decodeHeader($personal);
+                $addr_ar[] = array($addr,$personal);
+                $address = trim(substr($address, $pos+1));
+                $j = strlen($address);
+                $pos = 0;
+                $personal = '';
+                $addr = '';
+                break;
+            case ':':  /* process the group addresses */
+                /* group marker */
+                $group = substr($address, 0, $pos);
+                $address = substr($address, $pos+1);
+                $result = parseAddress($address, $max, $addr_ar, $group);
+                $addr_ar = $result[0];
+                $pos = $result[1];
+                $address = substr($address, $pos++);
+                $j = strlen($address);
+                $group = '';
+                break;
+            case ';':
+                if ($group) {
+                    $address = substr($address, 0, $pos - 1);
+                }
+                ++$pos;
+                break;
+            default:
+                ++$pos;
+                break;
         }
     }
-    elseif ( ereg('\((.*)\)', $string, $regs) ) {
-        if( ( $regs[1] == '' ) || ( $regs[1] == ' ' ) ){
-            if ( ereg('^(.+) \(', $string, $regs) ) {
-               $string = ereg_replace( ' \(\)$', '', $string );
-            } else {
-               $string = '&nbsp;';
-            }
-        } else {
-            $string = $regs[1];
+    if ($addr == '') {
+        $addr = substr($address, 0, $pos);
+    } else if ($personal == '') {
+        $personal = trim(substr($address, 0, $addr_start));
+    }
+    if (!$personal && $comment) $personal = $comment;
+    $email = $addr;
+    if ($group && $addr == '') { /* no addresses found in group */
+        $personal = $group;
+        $addr_ar[] = array('',$personal);
+        return (array($addr_ar,$pos+1 ));
+    } elseif ($group) {
+        $addr_ar[] = array($addr,$personal);
+        return (array($addr_ar,$pos+1 ));
+    } else {
+        if ($personal || $addr) {
+            $addr_ar[] = array($addr, $personal);
         }
     }
-    else {
-        $string = str_replace ('"', '', sqimap_find_email($string));
-    }
-
-    return trim($string);
+    return ($addr_ar);
 }
 
 /*
@@ -516,14 +579,14 @@ function sqimap_status_messages ($imap_stream, $mailbox) {
     $regs = array(false,false);
     while (isset($read_ary[$i])) {
         if (preg_match('/UNSEEN\s+([0-9]+)/i', $read_ary[$i], $regs)) {
-	    $unseen = $regs[1];
-	}
+            $unseen = $regs[1];
+        }
         if (preg_match('/MESSAGES\s+([0-9]+)/i', $read_ary[$i], $regs)) {
-	    $messages = $regs[1];
-	}
+            $messages = $regs[1];
+        }
         if (preg_match('/RECENT\s+([0-9]+)/i', $read_ary[$i], $regs)) {
-	    $recent = $regs[1];
-	}        
+            $recent = $regs[1];
+        }        
         $i++;
     }
     return array('MESSAGES' => $messages, 'UNSEEN'=>$unseen, 'RECENT' => $recent);
@@ -545,29 +608,29 @@ function sqimap_append_done ($imap_stream, $folder='') {
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $tmp, $regs)) {
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
-	$reason = $regs[3];
-	if ($regs[2] == 'NO') {
-	   $string = "<b><font color=$color[2]>\n" .
-        	  _("ERROR : Could not append message to") ." $folder." .
-        	  "</b><br>\n" .
-        	  _("Server responded: ") .
-        	  $reason . "<br>\n";
-	   if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
-	      $string .= _("Solution: ") . 
-	    _("Remove unneccessary messages from your folder and start with your Trash folder.") 
-	      ."<br>\n";
-	   }
-	   $string .= "</font>\n";
-	   error_box($string,$color);
-	} else {
+        $reason = $regs[3];
+        if ($regs[2] == 'NO') {
            $string = "<b><font color=$color[2]>\n" .
-        	  _("ERROR : Bad or malformed request.") .
-        	  "</b><br>\n" .
-        	  _("Server responded: ") .
-        	  $tmp . "</font><br>\n";
-	   error_box($string,$color);
+                  _("ERROR : Could not append message to") ." $folder." .
+                  "</b><br>\n" .
+                  _("Server responded: ") .
+                  $reason . "<br>\n";
+           if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
+              $string .= _("Solution: ") . 
+            _("Remove unneccessary messages from your folder and start with your Trash folder.") 
+              ."<br>\n";
+           }
+           $string .= "</font>\n";
+           error_box($string,$color);
+        } else {
+           $string = "<b><font color=$color[2]>\n" .
+                  _("ERROR : Bad or malformed request.") .
+                  "</b><br>\n" .
+                  _("Server responded: ") .
+                  $tmp . "</font><br>\n";
+           error_box($string,$color);
            exit;
-	}
+        }
     }
 }
 
