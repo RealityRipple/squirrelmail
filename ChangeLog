@@ -88,6 +88,8 @@ Version 1.5.1 -- CVS
   - Added status bar to compose window when "Compose In New Window" is used.
   - Reenabled the move_messages_button_action hook and changed its name to
     mailbox_display_button_action to promote the new location
+  - Making delete button, when viewing a message, consider which page was viewed
+    before.
 
 Version 1.5.0
 --------------------
