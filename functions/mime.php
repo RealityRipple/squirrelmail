@@ -40,7 +40,7 @@ function mime_structure ($bodystructure, $flags=array()) {
          '<CENTER>';
 	$errormessage = _("Squirrelmail could not decode the bodystructure of the message");
 	$errormessage .= '<BR>'._("the provided bodystructure by your imap-server").':<BR><BR>';
-        $errormessage .= '<table><tr><td>'.$read.'</td></tr></table>';
+        $errormessage .= '<table><tr><td>'.htmlspecialchars($read).'</td></tr></table>';
         plain_error_message( $errormessage, $color );
 	echo '</body></html>';
         exit;
