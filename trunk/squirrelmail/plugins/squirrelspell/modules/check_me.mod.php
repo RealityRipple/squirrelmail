@@ -1,12 +1,17 @@
 <?php
+   /**
+    **  check_me.mod.php -- Squirrelspell module
+    **
+    **  Copyright (c) 1999-2001 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This module is the main workhorse of SquirrelSpell. It submits
+    **  the message to the spell-checker, parses the output, and loads
+    **  the interface window.
+    **
+    **  $Id$
+    **/
 
- /**
-    CHECK_ME.MOD.PHP
-    -----------------
-    This module is the main workhorse of SquirrelSpell. It submits
-    the message to the spell-checker, parses the output, and loads
-    the interface window.
-								**/
 // Declaring globals for E_ALL.
 global $sqspell_text, $SQSPELL_APP, $sqspell_use_app, $attachment_dir,
        $username, $SQSPELL_EREG, $color; 
@@ -162,7 +167,7 @@ global $sqspell_text, $SQSPELL_APP, $sqspell_use_app, $attachment_dir,
    <table border="0" width="100%">
     <tr align="center">
      <td colspan="4">
-      <span style="background-color:<?php echo $color[9] ?>">Line with an error:</span><br>
+      <span style="background-color:<?php echo $color[9] . '">' . _("Line with an error:"); ?></span><br>
       <textarea name="sqspell_line_area" cols="50" rows="3" wrap="hard" onfocus="this.blur()"></textarea>
      </td>
     </tr>
