@@ -535,7 +535,7 @@ function asearch_print_form($imapConnection, $boxes, $mailbox_array, $biop_array
 	$mailbox = '';
 	for ($row_num = 0; $row_num < $row_count; $row_num++) {
 		/* Keep the last non-empty mailbox as default choice */
-		if (strip_tags($mailbox_array[$row_num]) != '')
+		if (strip_tags(asearch_nz($mailbox_array[$row_num])) != '')
 			$mailbox = strip_tags($mailbox_array[$row_num]);
 		if ($mailbox == '')
 			$mailbox = $boxes[0]['unformatted'];
