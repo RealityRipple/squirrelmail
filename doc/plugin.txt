@@ -541,52 +541,58 @@ for you.  This is the preferred method of building options lists going forward.
       The array that you use to specify each plugin option has the following
       possible attributes:
 
-         name       The name of this setting, which is used not only for
-                    the INPUT tag name, but also for the name of this
-                    setting in the user's preferences
-         caption    The text that prefaces this setting on the preferences page
-         type       The type of INPUT element, which should be one of:
-                       SMOPT_TYPE_STRING     String/text input
-                       SMOPT_TYPE_STRLIST    Select list input
-                       SMOPT_TYPE_TEXTAREA   Text area input
-                       SMOPT_TYPE_INTEGER    Integer input
-                       SMOPT_TYPE_FLOAT      Floating point number input
-                       SMOPT_TYPE_BOOLEAN    Boolean (yes/no radio buttons) 
-                                             input
-                       SMOPT_TYPE_HIDDEN     Hidden input (not actually shown
-                                             on preferences page)
-                       SMOPT_TYPE_COMMENT    Text is shown (specified by the 
-                                             'comment' attribute), but no user
-                                             input is needed
-                       SMOPT_TYPE_FLDRLIST   Select list of IMAP folders
-         refresh    Indicates if a link should be shown to refresh part or all
-                    of the window (optional).  Possible values are:
-                       SMOPT_REFRESH_NONE         No refresh link is shown
-                       SMOPT_REFRESH_FOLDERLIST   Link is shown to refresh
-                                                  only the folder list
-                       SMOPT_REFRESH_ALL          Link is shown to refresh
-                                                  the entire window
-         posvals    For select lists, this should be an associative array,
-                    where each key is an actual input value and the
-                    corresponding value is what is displayed to the user
-                    for that list item in the drop-down list
-         value      Specify the default/preselected value for this option input
-         save       You may indicate that special functionality needs to be
-                    used instead of just saving this setting by giving the 
-                    name of a function to call when this value would otherwise
-                    just be saved in the user's preferences
-         size       Specifies the size of certain input items (typically
-                    textual inputs).  Possible values are:
-                       SMOPT_SIZE_TINY
-                       SMOPT_SIZE_SMALL
-                       SMOPT_SIZE_MEDIUM
-                       SMOPT_SIZE_LARGE
-                       SMOPT_SIZE_HUGE
-                       SMOPT_SIZE_NORMAL
-         comment    For SMOPT_TYPE_COMMENT type options, this is the text
-                    displayed to the user
-         script     This is where you may add any additional javascript 
-                    or other code to the user input
+         name           The name of this setting, which is used not only for
+                        the INPUT tag name, but also for the name of this
+                        setting in the user's preferences
+         caption        The text that prefaces this setting on the preferences
+                        page
+         type           The type of INPUT element, which should be one of:
+                           SMOPT_TYPE_STRING     String/text input
+                           SMOPT_TYPE_STRLIST    Select list input
+                           SMOPT_TYPE_TEXTAREA   Text area input
+                           SMOPT_TYPE_INTEGER    Integer input
+                           SMOPT_TYPE_FLOAT      Floating point number input
+                           SMOPT_TYPE_BOOLEAN    Boolean (yes/no radio buttons)
+                                                   input
+                           SMOPT_TYPE_HIDDEN     Hidden input (not actually
+                                                 shown on preferences page)
+                           SMOPT_TYPE_COMMENT    Text is shown (specified by the
+                                                 'comment' attribute), but no
+                                                 user input is needed
+                           SMOPT_TYPE_FLDRLIST   Select list of IMAP folders
+         refresh        Indicates if a link should be shown to refresh part or
+                        all of the window (optional).  Possible values are:
+                           SMOPT_REFRESH_NONE         No refresh link is shown
+                           SMOPT_REFRESH_FOLDERLIST   Link is shown to refresh
+                                                      only the folder list
+                           SMOPT_REFRESH_ALL          Link is shown to refresh
+                                                    the entire window
+         initial_value  The value that should initially be placed in this 
+                        INPUT element
+         posvals        For select lists, this should be an associative array,
+                        where each key is an actual input value and the
+                        corresponding value is what is displayed to the user
+                        for that list item in the drop-down list
+         value          Specify the default/preselected value for this option
+                        input
+         save           You may indicate that special functionality needs to be
+                        used instead of just saving this setting by giving the
+                        name of a function to call when this value would 
+                        otherwise just be saved in the user's preferences
+         size           Specifies the size of certain input items (typically
+                        textual inputs).  Possible values are:
+                           SMOPT_SIZE_TINY
+                           SMOPT_SIZE_SMALL
+                           SMOPT_SIZE_MEDIUM
+                           SMOPT_SIZE_LARGE
+                           SMOPT_SIZE_HUGE
+                           SMOPT_SIZE_NORMAL
+         comment        For SMOPT_TYPE_COMMENT type options, this is the text
+                        displayed to the user
+         script         This is where you may add any additional javascript 
+                        or other code to the user input
+         post_script    You may specify some script (usually Javascript) that
+                        will be placed after (outside of) the INPUT tag.
 
   3.  If you indicated a 'save' attribute for any of your options, you must
       create that function (you'll only need to do this if you need to do
