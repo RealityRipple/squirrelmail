@@ -4,6 +4,9 @@
 
 Version 1.2.7 -- CVS
 --------------------
+  - Added possibility to use multiple compose windows without loss
+    of attachements.
+  - Fixed forward message/rfc822 attachments from a search 
   - Fix SpamCop plugin.
   - Fixed send MDN link.
   - Fixed dealing with \r\n and \n in smtp.php. 
