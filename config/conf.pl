@@ -1981,13 +1981,13 @@ sub set_defaults {
          
          $continue = 1;
       } elsif ($server eq "courier") {
-         $default_folder_prefix = "mail/";
+         $default_folder_prefix = "INBOX.";
          $trash_folder = "Trash";
          $sent_folder = "Sent";
          $draft_folder = "Drafts";
-         $show_prefix_option = true;
+         $show_prefix_option = false;
          $default_sub_of_inbox = false;
-         $show_contain_subfolders_option = true;
+         $show_contain_subfolders_option = false;
          $imap_server_type = "courier";
          $disp_default_folder_prefix = $default_folder_prefix;
 

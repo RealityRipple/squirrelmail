@@ -790,7 +790,7 @@ class msg_header {
 
      // Encode only if the string contains 8-bit characters or =?
      $j = strlen( $string  );
-     $l = FALSE;                             // Must be encoded ?
+     $l = strstr($string, '=?');         // Must be encoded ?
      $ret = '';
      for( $i=0; $i < $j; ++$i) {
         switch( $string{$i} ) {
@@ -798,7 +798,6 @@ class msg_header {
           $ret .= '=3D';
           break;
        case '?':
-          $l = TRUE;
           $ret .= '=3F';
           break;
        case '_':
