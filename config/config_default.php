@@ -36,7 +36,7 @@
 //  can't figure out which language to display.
 //  Use the two-letter code.
     global $squirrelmail_default_language;
-    $squirrelmail_default_language = 'en';
+    $squirrelmail_default_language = "en";
 
 //  The server that your imap server is on
     global $imapServerAddress, $imapPort;
