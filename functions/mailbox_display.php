@@ -673,6 +673,7 @@ function get_paginator_link
 
 /**
  * This function computes the paginator string.
+ * It was derived from code contributed by Charles Scheidecker.
  */
 function get_paginator_str
 ($box, $start_msg, $end_msg, $num_msgs, $show_num, $sort) {
