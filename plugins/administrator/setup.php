@@ -34,11 +34,10 @@ function squirrelmail_plugin_init_administrator() {
  */
 function squirrelmail_administrator_optpage_register_block() {
     global $optpage_blocks;
-    global $AllowSpamFilters;
 
     $optpage_blocks[] = array(
         'name' => _("Administration"),
-        'url'  => '../plugins/administrator/options.php',
+        'url'  => SM_PATH . 'plugins/administrator/options.php',
         'desc' => _("This module allows administrators to manage SquirrelMail main configuration remotely."),
         'js'   => false
     );
