@@ -19,3 +19,4 @@ initials = taken by that person
   -     Better handling emptying Trash folder.  Some servers don't allow deleting it (Courier)
 (lme)   Fix "Seen" bug with UW IMAP server
   -     Add "subscribe" to folders section.
+  -     Make Location redirects absolute rather than relative (index.php)

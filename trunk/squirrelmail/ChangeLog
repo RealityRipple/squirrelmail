@@ -4,7 +4,7 @@ Version 0.4pre1 -- Development
 - It doesn't bail out if PHP wasn't compiled with --with-gettext.  
     It only uses english in this case.
 - Added support for Cyrillic (thanks to Artem Botchkov for help)
-- Honoring charste parameter for the body.
+- Honoring charset parameter for the body.
 
 
 Version 0.3.1 -- March 13, 2000

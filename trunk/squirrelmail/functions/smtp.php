@@ -212,7 +212,7 @@
          $body .= stripslashes($passedBody) . "\r\n";
          fputs ($fp, $body);
 
-         $attachmentlenght = attachFiles($fp);
+         $attachmentlength = attachFiles($fp);
 
          $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
          fputs ($fp, $postbody);
@@ -424,7 +424,7 @@
 
    function sendMessage($t, $c, $b, $subject, $body) {
       global $useSendmail;
-      global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress;
+      global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
 
       if ($useSendmail==true) {  
          $length = sendSendmail($t, $c, $b, $subject, $body);
@@ -436,11 +436,11 @@
       // This is a proposed interface to save messages in the sent folder
       //  -- gustavf
       //
-      // $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
-      // sqimap_append ($imap_stream, $sent_folder, $length);
-      // write822Header ($imap_stream, .....);
-      // writeBody ($imap_stream, ....);
-      // sqimap_append_done($imap_stream);
+//      $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
+//      sqimap_append ($imap_stream, $sent_folder, $length);
+//      write822Header ($imap_stream, $t, $c, $b, $subject);
+//      writeBody ($imap_stream, $body); 
+      //sqimap_append_done($imap_stream);
       //
       // Or something like that... 
    

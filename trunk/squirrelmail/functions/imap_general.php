@@ -235,36 +235,8 @@
    /******************************************************************************
     **  Saves a message to a given folder -- used for saving sent messages
     ******************************************************************************/
-   function sqimap_append ($imap_stream, $mailbox, $body, $to, $cc, $bcc, $subject, $data_dir, $username, $domain, $version) {
-      global $sent_folder, $data_dir;
-
-      $from = getPref($data_dir, $username, "full_name");
-      $from_addr = getPref($data_dir, $username, "email_address");
-      if ($from_addr == "")
-         $from_addr = "$username@$domain";
-
-      if ($from == "")
-         $from = "<$from_addr>";
-      else
-         $from = $from . " <$from_addr>";
-
-      $message  = "Date: ".date("D, j M Y H:i:s ", mktime()) . timezone() . "\r\n";
-      $message .= "Subject: ". $subject."\r\n";
-      $message .= "From: ".$from."\r\n";
-      $message .= "To: ".$to."\r\n";
-      if ($cc_list) {
-         $message .= "Cc: ".$cc."\r\n"; // Who the CCs are
-      }
-      $message .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
-      $message .= "Content-Transfer-Encoding: 8bit\r\n";
-      $message .= "\r\n";
-      $message .= stripslashes($body) . "\r\n";
-      $message .= "\r\n";
-      
-      $size = count_chars($message);
-      fputs ($imap_stream, "a001 APPEND $sent_folder (\\Seen) \{$size}\r\n");
-      fputs ($imap_stream, "$message");
-
+   function sqimap_append ($imap_stream, $sent_folder, $length) {
+      fputs ($imap_stream, "a001 APPEND $sent_folder (\\Seen) \{$length}\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $result, $message);
    } 
 ?>
