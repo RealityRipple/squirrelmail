@@ -626,6 +626,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
  * $Message is a message that is centered on top of the list
  * $More is a second line that is left aligned
  */
+ 
 function mail_message_listing_beginning ($imapConnection, $moveURL, 
 					 $mailbox = '', $sort = -1,
 					 $msg_cnt_str = '', 
@@ -633,7 +634,9 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
 					 $start_msg = 1) {
   global $color, $index_order, $auto_expunge, $move_to_trash, $base_uri,
     $checkall, $sent_folder, $draft_folder, $thread_sort_messages, 
-    $allow_thread_sort, $allow_server_sort, $server_sort_order;
+    $allow_thread_sort, $allow_server_sort, $server_sort_order,
+    $lastTargetMailbox;
+
   $urlMailbox = urlencode($mailbox);
 
   /*
@@ -674,7 +677,12 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
       if( $box2 == 'INBOX' ) {
 	$box2 = _("INBOX");
       }
-      echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
+      if ($lastTargetMailbox == $box) {
+        echo "       <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
+      }
+      else {
+        echo "         <OPTION VALUE=\"$box\">$box2</OPTION>\n";
+      }
     }
   }
   echo '         </SELECT></TT>&nbsp;'

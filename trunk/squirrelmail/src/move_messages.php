@@ -43,7 +43,7 @@ function putSelectedMessagesIntoString($msg) {
 
 function attachSelectedMessages($msg, $imapConnection) {
 
-    global $mailbox, $username, $attachment_dir, $attachments, $identity, $data_dir, $composesession;
+    global $mailbox, $username, $attachment_dir, $attachments, $identity, $data_dir, $composesession, $lastTargetMailbox;
 
 
     if (!isset($attachments)) {
@@ -124,6 +124,15 @@ function attachSelectedMessages($msg, $imapConnection) {
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 sqimap_mailbox_select($imapConnection, $mailbox);
+
+/* remember changes to mailbox setting */
+if (!isset($lastTargetMailbox)) {
+    $lastTargetMailbox = 'INBOX';
+}
+if ($targetMailbox != $lastTargetMailbox) {
+    $lastTargetMailbox = $targetMailbox;
+    session_register('lastTargetMailbox');
+}
 
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
 if(isset($expungeButton)) {
