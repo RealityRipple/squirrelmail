@@ -160,7 +160,7 @@
          echo "<CENTER>". _("Viewing messages ") ."<B>$startMessage</B>". _(" to ") ."<B>$endMessage</B> ($numMessages total)</CENTER>\n";
          echo "</TD></TR>\n";
       } else if ($startMessage == $endMessage) {
-         echo "<TR BGCOLOR=\"$color[4]>\"TD>";
+         echo "<TR BGCOLOR=\"$color[4]\"><TD>";
          echo "<CENTER>". _("Viewing message ") ."<B>$startMessage</B> ($numMessages ". _("total") .")</CENTER>\n";
          echo "</TD></TR>\n";
       }
