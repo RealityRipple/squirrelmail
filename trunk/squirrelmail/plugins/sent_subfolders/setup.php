@@ -130,19 +130,13 @@ function sent_subfolders_optpage_loadhook_folders() {
         'save'    => 'save_option_sent_subfolders_setting'
     );
 
-    $sent_subfolders_base_values = array();
-    foreach ($boxes as $folder) {
-        if (strtolower($folder['unformatted']) != 'inbox') {
-            $real_value = $folder['unformatted-dm'];
-            $disp_value = str_replace(' ', '&nbsp;', $folder['formatted']);
-            $sent_subfolders_base_values[$real_value] = $disp_value;
-        }
-    }
+    $filtered_folders=array_filter($boxes, "filter_folders");
+    $sent_subfolders_base_values = array('whatever'=>$filtered_folders);
 
     $optvals[] = array(
         'name'    => 'sent_subfolders_base',
         'caption' => _("Base Sent Folder"),
-        'type'    => SMOPT_TYPE_STRLIST,
+        'type'    => SMOPT_TYPE_FLDRLIST,
         'refresh' => SMOPT_REFRESH_FOLDERLIST,
         'posvals' => $sent_subfolders_base_values
     );
@@ -150,6 +144,18 @@ function sent_subfolders_optpage_loadhook_folders() {
     /* Add our option data to the global array. */
     $optpage_data['grps'][SMOPT_GRP_SENT_SUBFOLDERS] = $optgrp;
     $optpage_data['vals'][SMOPT_GRP_SENT_SUBFOLDERS] = $optvals;
+}
+
+/**
+ * Defines folder filtering rules
+ *
+ * Callback function that should exclude some folders from folder listing.
+ * @param array $fldr list of folders. See sqimap_mailbox_list
+ * @return boolean returns true, if folder has to included in folder listing
+ * @access private 
+ */
+function filter_folders($fldr) {
+    return strtolower($fldr['unformatted'])!='inbox';
 }
 
 /**
