@@ -190,7 +190,7 @@
    /** SUBSCRIBE TO FOLDERS **/
 
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-   if ($count_special_folders < count($boxes)) {
+   if ($count_special_folders <= count($boxes)) {
       $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
       $boxes = sqimap_mailbox_list_all ($imap_stream);
       
