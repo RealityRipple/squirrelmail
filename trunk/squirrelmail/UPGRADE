@@ -7,7 +7,7 @@ using a previous version (0.1 or 0.2), it is suggested that you just start
 from scratch and configure your settings as if it was your first install.
 
 NOTE: The new plugin architecture required the use of some functions which
-are not in all versions of PHP4. You will need at least PHP 4.0.4. If you
+are not in all versions of PHP4. You will need at least PHP 4.0.6. If you
 need to upgrade please go ahead and install the latest release version of
 PHP4.
 
