@@ -285,13 +285,13 @@
 
          /** ERROR CORRECTION **/
          else if (substr($read[$i], 0, 1) == ")") {
-            if ($header["SUBJECT"] == "")
+            if (strlen(trim($header["SUBJECT"])) == 0)
                 $header["SUBJECT"] = _("(no subject)");
 
-            if ($header["FROM"] == "")
+            if (strlen(trim($header["FROM"])) == 0)
                 $header["FROM"] = _("(unknown sender)");
 
-            if ($header["DATE"] == "")
+            if (strlen(trim($header["DATE"])) == 0)
                 $header["DATE"] = time();
             $i++;
          }
