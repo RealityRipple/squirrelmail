@@ -609,7 +609,6 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
  * See comment on sqimap_mailbox_parse() for info about the returned array.
  */
 function sqimap_mailbox_list($imap_stream) {
-    echo "TEST<BR>";
     global $default_folder_prefix;
 
     if (!isset($boxesnew)) {
