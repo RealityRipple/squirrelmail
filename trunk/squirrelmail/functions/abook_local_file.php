@@ -1,22 +1,25 @@
 <?php
 
-  /**
-   **  abook_local_file.php
-   **
-   **  Backend for addressbook as a pipe separated file
-   **
-   **  An array with the following elements must be passed to
-   **  the class constructor (elements marked ? are optional):
-   **
-   **     filename  => path to addressbook file
-   **   ? create    => if true: file is created if it does not exist.
-   **   ? umask     => umask set before opening file.
-   **
-   **  NOTE. This class should not be used directly. Use the
-   **        "AddressBook" class instead.
-   **
-   ** $Id$
-   **/
+   /**
+    **  abook_local_file.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Backend for addressbook as a pipe separated file
+    **
+    **  An array with the following elements must be passed to
+    **  the class constructor (elements marked ? are optional):
+    **
+    **     filename  => path to addressbook file
+    **   ? create    => if true: file is created if it does not exist.
+    **   ? umask     => umask set before opening file.
+    **
+    **  NOTE. This class should not be used directly. Use the
+    **        "AddressBook" class instead.
+    **
+    ** $Id$
+    **/
 
    class abook_local_file extends addressbook_backend {
      var $btype = 'local';

@@ -1,12 +1,15 @@
 <?php
 
-  /**
-   **  addressbook.php
-   **
-   **  Functions and classes for the addressbook system.
-   **
-   **  $Id$
-   **/
+   /**
+    **  addressbook.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  Functions and classes for the addressbook system.
+    **
+    **  $Id$
+    **/
 
 
    // This is the path to the global site-wide addressbook.

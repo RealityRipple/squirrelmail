@@ -3,6 +3,9 @@
    /**
     **  abook_database.php
     **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  Backend for personal addressbook stored in a database,
     **  accessed using the DB-classes in PEAR.
     **

@@ -2,6 +2,9 @@
    /**
     **  page_header.php
     **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
     **  Prints the page header (duh)
     **
     **  $Id$
@@ -45,18 +48,18 @@
 
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, $delimiter);
-      echo "<A NAME=pagetop></A>\n";
-      // echo "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[4]\" width=100%><tr><td>";
-      echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
-      echo "   <TR BGCOLOR=\"$color[9]\" >\n";
-      echo "      <TD ALIGN=left><b>\n";
+      echo "<A NAME=pagetop></A>\n".
+      // "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[4]\" width=100%><tr><td>".
+           "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n".
+           "   <TR BGCOLOR=\"$color[9]\" >\n".
+           "      <TD ALIGN=left><b>\n";
       displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
-      echo "      </b></TD><TD ALIGN=right>\n";
-      echo '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n";
-      echo "      </TD>\n";
-      echo "   </TR>\n";
-      echo "   <TR BGCOLOR=\"$color[4]\">\n";
-      echo "      <TD ALIGN=left>\n";
+      echo "      </b></TD><TD ALIGN=right>\n".
+           '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n".
+           "      </TD>\n".
+           "   </TR>\n".
+           "   <TR BGCOLOR=\"$color[4]\">\n".
+           "      <TD ALIGN=left>\n";
       $urlMailbox = urlencode($mailbox);
       displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
       echo "&nbsp;&nbsp;\n";
@@ -76,9 +79,10 @@
       echo "      </TD><TD ALIGN=right>\n";
       echo ($hide_sm_attributions ? '&nbsp;' :
             "<A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n");
-      echo "      </TD>\n";
-      echo "   </TR>\n";
-      echo "</TABLE>\n\n";
+      echo "      </TD>\n".
+           "   </TR>\n".
+           "</TABLE>\n\n";
       // echo "</td></tr></table>";
   }
+
 ?>

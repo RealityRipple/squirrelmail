@@ -1,11 +1,14 @@
 <?php
-/**
- ** attachment_common.php
- **
- ** This file provides the handling of often-used attachment types.
- **
- ** $Id$
- **/
+    /**
+    ** attachment_common.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    ** This file provides the handling of often-used attachment types.
+    **
+    ** $Id$
+    **/
 
   global $FileExtensionToMimeType, $attachment_common_types;
   $FileExtensionToMimeType = array('bmp'  => 'image/x-bitmap',

@@ -1,12 +1,15 @@
 <?php
    /**
-    * array.php
-    *
-    * This contains functions that work with array manipulation.  They
-    * will help sort, and do other types of things with arrays
-    *
-    *  $Id$
-    */
+    ** array.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    ** This contains functions that work with array manipulation.  They
+    ** will help sort, and do other types of things with arrays
+    **
+    **  $Id$
+    **/
 
 
    function ary_sort($ary,$col, $dir = 1){

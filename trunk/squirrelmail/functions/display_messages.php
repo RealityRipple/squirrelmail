@@ -1,6 +1,10 @@
 <?php
+
    /**
     **  display_messages.php
+    **
+    **  Copyright (c) 1999-2001 The Squirrelmail Development Team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
     **
     **  This contains all messages, including information, error, and just
     **  about any other message you can think of.
@@ -9,16 +13,21 @@
     **/
 
     function error_username_password_incorrect($color) {
-      echo '<BR>';
-      echo " <TABLE COLS=1 WIDTH=75% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
-      echo '   <TR>';
-      echo "      <TD BGCOLOR=\"$color[0]\">";
-      echo '         <B><CENTER>ERROR</CENTER></B>';
-      echo '   </TD></TR><TR><TD>';
-      echo '      <CENTER><BR>' . _("Unknown user or password incorrect.") . '<BR><A HREF="login.php" TARGET=_top>' . _("Click here to try again") . '</A>.</CENTER>';
-      echo '   </TD></TR>';
-      echo '</TABLE>';
-      echo '</BODY></HTML>';
+
+        echo '<BR>'.
+                "<TABLE COLS=1 WIDTH=75% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>".
+                '<TR>'.
+                    "<TD BGCOLOR=\"$color[0]\">".
+                        '<B><CENTER>ERROR</CENTER></B>'.
+                    '</TD></TR><TR><TD>'.
+                        '<CENTER><BR>' . _("Unknown user or password incorrect.") .
+                        '<BR><A HREF="login.php" TARGET=_top>' .
+                        _("Click here to try again") .
+                        '</A>.</CENTER>'.
+                    '</TD></TR>'.
+                '</TABLE>'.
+            '</BODY></HTML>';
+
     }
 
     function general_info($motd, $org_logo, $version, $org_name, $color) {
