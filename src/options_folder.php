@@ -13,7 +13,7 @@
    session_start();
 
    if (!isset($strings_php))
-      include('../functions/strings.php\);
+      include('../functions/strings.php');
    if (!isset($config_php))
       include('../config/config.php');
    if (!isset($page_header_php))
@@ -69,7 +69,7 @@
  
       for ($i = 0; $i < count($boxes); $i++) {
          $use_folder = true;
-         if (strtolower($boxes[$i]["unformatted"]) == 'inbox') {
+         if (strtolower($boxes[$i]['unformatted']) == 'inbox') {
             $use_folder = false;
          }
          if ($use_folder == true) {
