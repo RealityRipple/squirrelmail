@@ -411,10 +411,10 @@ if ($send) {
             if( $line <> '-- ' ) {
                 $line = rtrim($line);
             }
-            if (strlen($line) <= $editor_size + 1) {
+            if (sq_strlen($line,$default_charset) <= $editor_size + 1) {
                 $newBody .= $line . "\n";
             } else {
-                sqWordWrap($line, $editor_size);
+                sqWordWrap($line, $editor_size,$default_charset);
                 $newBody .= $line . "\n";
 
             }
