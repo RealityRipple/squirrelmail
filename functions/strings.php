@@ -82,7 +82,9 @@ function sqUnWordWrap(&$body) {
         $CurrentSpaces = $regs[1];
         if (isset($regs[2])) {
             $CurrentRest = $regs[2];
-        }
+        } else {
+	    $CurrentRest = '';
+	}
         
         if ($i == 0) {
             $PreviousSpaces = $CurrentSpaces;
