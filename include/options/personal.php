@@ -23,7 +23,8 @@ define('SMOPT_GRP_TZ', 3);
 /* Define the optpage load function for the personal options page. */
 function load_optpage_data_personal() {
     global $data_dir, $username, $edit_identity, $edit_name,
-           $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed;
+           $full_name, $reply_to, $email_address, $signature, $tzChangeAllowed,
+           $color;
 
     /* Set the values of some global variables. */
     $full_name = getPref($data_dir, $username, 'full_name');
@@ -119,12 +120,17 @@ function load_optpage_data_personal() {
     
     if ( $tzChangeAllowed ) {
         $TZ_ARRAY[SMPREF_NONE] = _("Same as server");
-        $fd = fopen('../locale/timezones.cfg','r');
+        $tzfile = SM_PATH . 'locale/timezones.cfg';
+        if(!$fd = fopen($tzfile ,'r')) {
+            $message = _("Error opening timezone config, contact administrator.");
+            plain_error_message($message, $color);
+            exit;
+        }
         while (!feof ($fd)) {
             $zone = fgets($fd, 1024);
             if( $zone ) {
                 $zone = trim($zone);
-                $TZ_ARRAY["$zone"] = "$zone";
+                $TZ_ARRAY[$zone] = $zone;
             }
         }
         fclose ($fd);
