@@ -15,6 +15,11 @@
 define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 
+/**
+ * Internal spamcop plugin function.
+ *
+ * It is used to display similar action links.
+ */
 function spamcop_enable_disable($option,$disable_action,$enable_action) {
     if ($option) { 
 	$ret= _("Enabled") . "(<a href=\"options.php?action=$disable_action\">" . _("Disable it") . "</a>)\n";
@@ -29,6 +34,7 @@ displayPageHeader($color, 'None');
 /* globals */
 sqgetGlobalVar('action', $action);
 sqgetGlobalVar('meth', $meth);
+sqgetGlobalVar('type', $type);
 sqgetGlobalVar('ID' , $ID);
 
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -54,6 +60,11 @@ switch ($action) {
             setPref($data_dir, $username, 'spamcop_method', $meth);
         }
         break;
+    case 'type':
+        if (isset($type)) {
+            setPref($data_dir, $username, 'spamcop_type', $type);
+        }
+	break;
     case 'save_id':
         if (isset($ID)) {
             $ID = trim($ID);
@@ -123,6 +134,30 @@ spamcop_load();
 	  </td></form>
 	</tr>
 	<tr>
+	      	  <?php
+	  echo html_tag('td',_("Spam Service Type:"),'right');
+	  ?>
+	  <form method="post" action="options.php">
+	  <td>
+	    <select name="type">
+	      <option value="free"
+		<?php
+	    	  if ($spamcop_type == 'free') echo ' selected';
+	    	  echo ">"._("Free reporting");
+		?>
+	      </option>
+	      <option value="member"
+	        <?php
+	          if ($spamcop_type == 'member') echo ' selected';
+	    	  echo ">"._("Member services");
+		?>
+	      </option>
+	    </select>
+	    <input type="hidden" name="action" value="type">
+	    <input type="submit" value="<?php echo _("Save Service Type"); ?>">
+	   </td></form>
+	</tr>
+	<tr>
 	  <?php
 	    echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
 	    '<font size="-2">(' . _("see below") . ')</font>','right','','valign="top"');
@@ -166,7 +201,11 @@ echo _("When you press the button on the confirmation page, this will pop open a
 echo "</p>\n";
 
 echo "<p>";
-echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button.  It might pause a little while it is looking up information, so be a little patient.  Read what it says, and submit the spam.  Close the browser window.  Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
+echo _("The SpamCop service will display information as it finds it, so scroll down until you see a form button. It might pause a little while it is looking up information, so be a little patient. Read what it says, and submit the spam. Close the browser window.  Press Cancel or click on the appropriate mail folder to see messages and/or delete the spam.");
+echo "</p>\n";
+
+echo "<p><b>". _("Spamcop Service Type") . "</b><br />\n";
+echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms  and does not display nags. You can purchase these services, if you want to support SpamCop.");
 echo "</p>\n";
 
 echo "<p>";
