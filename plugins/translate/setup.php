@@ -93,9 +93,9 @@ function translate_button() {
 function translate_opt() {
     global $optionpages;
     $optionpages[] = array(
-        'name' => 'Translation Options',
+        'name' => _("Translation Options"),
         'url'  => '../plugins/translate/options.php',
-        'desc' => 'Which translator should be used when you get messages in a different language?',
+        'desc' => _("Which translator should be used when you get messages in a different language?"),
         'js'   => false
     );
 }
@@ -209,18 +209,20 @@ function translate_does_it_match_language($test) {
 
 function translate_lang_opt($from, $to, $value, $text) {
     global $translate_dir;
-    
-    echo '  <option value="' . $value . '"';
-    
+
+    $ret = '  <option value="' . $value . '"';
+
     if (translate_does_it_match_language($to) && ($translate_dir == 'to')) {
-        echo ' SELECTED';
+        $ret .= ' SELECTED';
     }
 
     if (translate_does_it_match_language($from) && ($translate_dir == 'from')) {
-        echo ' SELECTED';
+        $ret .= ' SELECTED';
     }
-        
-    echo '>' . $text . "</option>\n";
+
+    $ret .= '>' . $text . "</option>\n";
+
+    return( $ret );
 }
 
 
@@ -241,7 +243,7 @@ function translate_new_form($action) {
     if (!$translate_same_window) {
         echo ' target="_blank"';
     }
-  
+
     echo ">\n";
 
     ?><table align="<?php echo $translate_location ?>" cellpadding=3 cellspacing=0 border=0 bgcolor=<?php echo $color[10] ?>>
@@ -260,22 +262,61 @@ function translate_form_babelfish($message) {
     <input type="hidden" name="bblType" value="urltext">
     <input type="hidden" name="urltext" value="<?php echo $message; ?>">
     <select name="lp"><?php
-        translate_lang_opt('en',  'fr',  'en_fr', 'English to French');
-        translate_lang_opt('',    'de',  'en_de', 'English to German');
-        translate_lang_opt('',    'it',  'en_it', 'English to Italian');
-        translate_lang_opt('',    'pt*', 'en_pt', 'English to Portuguese');
-        translate_lang_opt('',    'es',  'en_es', 'English to Spanish');
-        translate_lang_opt('fr',  'en',  'fr_en', 'French to English');
-        translate_lang_opt('de',  '',    'de_en', 'German to English');
-        translate_lang_opt('it',  '',    'it_en', 'Italian to English');
-        translate_lang_opt('pt*', '',    'pt_en', 'Portuguese to English');
-        translate_lang_opt('es',  '',    'es_en', 'Spanish to English');
-        translate_lang_opt('',    '',    'de_fr', 'German to French');
-        translate_lang_opt('',    '',    'fr_de', 'French to German');
-        translate_lang_opt('ru',  '',    'ru_en', 'Russian to English');
-?></select>
-    Babelfish: <input type="Submit" value="Translate">
-<?php
+        echo translate_lang_opt('en',  'fr',  'en_fr',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("French"))) .
+             translate_lang_opt('',    'de',  'en_de',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("German"))) .
+             translate_lang_opt('',    'it',  'en_it',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Italian"))) .
+             translate_lang_opt('',    'pt*', 'en_pt',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Portuguese"))) .
+             translate_lang_opt('',    'es',  'en_es',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Spanish"))) .
+             translate_lang_opt('fr',  'en',  'fr_en',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("English"))) .
+             translate_lang_opt('de',  '',    'de_en',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("English"))) .
+             translate_lang_opt('it',  '',    'it_en',
+                                sprintf( _("%s to %s"),
+                                         _("Italian"),
+                                         _("English"))) .
+             translate_lang_opt('pt*', '',    'pt_en',
+                                sprintf( _("%s to %s"),
+                                         _("Portuguese"),
+                                         _("English"))) .
+             translate_lang_opt('es',  '',    'es_en',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("English"))) .
+             translate_lang_opt('',    '',    'de_fr',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("French"))) .
+             translate_lang_opt('',    '',    'fr_de',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("German"))) .
+             translate_lang_opt('ru',  '',    'ru_en',
+                                sprintf( _("%s to %s"),
+                                         _("Russian"),
+                                         _("English")));
+    echo '</select>'.
+         'Babelfish: <input type="Submit" value="' . _("Translate") . '">';
+
     translate_table_end();
 }
 
@@ -284,133 +325,201 @@ function translate_form_go($message) {
 ?>
     <input type=hidden name=input_type value=text>
     <select name=lp><?php
-        translate_lang_opt('en', 'es', 'en_sp', 'English to Spanish');
-        translate_lang_opt('',   'fr', 'en_fr', 'English to French');
-        translate_lang_opt('',   'de', 'en_ge', 'English to German');
-        translate_lang_opt('',   'it', 'en_it', 'English to Italian');
-        translate_lang_opt('',   'pt', 'en_pt', 'English to Portuguese');
-        translate_lang_opt('es', 'en', 'sp_en', 'Spanish to English');
-        translate_lang_opt('fr', '',   'fr_en', 'French to English');
-        translate_lang_opt('de', '',   'ge_en', 'German to English');
-        translate_lang_opt('it', '',   'it_en', 'Italian to English');
-        translate_lang_opt('pt', '',   'pt_en', 'Portuguese to English');
-?></select>
-    <input type="hidden" name="text" value="<?php echo $message ?>">
-    Go.com: <input type="Submit" value="Translate">
-<?php
+        echo translate_lang_opt('en', 'es', 'en_sp',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Spanish"))) .
+             translate_lang_opt('',   'fr', 'en_fr',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("French"))) .
+             translate_lang_opt('',   'de', 'en_ge',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("German"))) .
+             translate_lang_opt('',   'it', 'en_it',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Italian"))) .
+             translate_lang_opt('',   'pt', 'en_pt',
+                                sprintf( _("%s to %s"),
+                                         _("English"),
+                                         _("Portuguese"))) .
+             translate_lang_opt('es', 'en', 'sp_en',
+                                sprintf( _("%s to %s"),
+                                         _("Spanish"),
+                                         _("English"))) .
+             translate_lang_opt('fr', '',   'fr_en',
+                                sprintf( _("%s to %s"),
+                                         _("French"),
+                                         _("English"))) .
+             translate_lang_opt('de', '',   'ge_en',
+                                sprintf( _("%s to %s"),
+                                         _("German"),
+                                         _("English"))) .
+             translate_lang_opt('it', '',   'it_en',
+                                sprintf( _("%s to %s"),
+                                         _("Italian"),
+                                         _("English"))) .
+             translate_lang_opt('pt', '',   'pt_en',
+                                sprintf( _("%s to %s"),
+                                         _("Portuguese"),
+                                         _("English")));
+    echo '</select>'.
+         "<input type=\"hidden\" name=\"text\" value=\"$message\">".
+         'Go.com: <input type="Submit" value="' . _("Translate") . '">';
+
     translate_table_end();
 }
 
 function translate_form_intertran($message) {
     translate_new_form('http://www.tranexp.com:2000/InterTran');
-?>
-    <INPUT TYPE="hidden" NAME="topframe" VALUE="yes">
-    <INPUT TYPE="hidden" NAME="type" VALUE="text">
-    <input type="hidden" name="text" value="<?php echo $message ?>">
-    <SELECT name="from"><?PHP
-        translate_lang_opt('pt_BR', '',    'pob', 'Brazilian Portuguese');
-        translate_lang_opt('',      '',    'bul', 'Bulgarian (CP 1251)');
-        translate_lang_opt('',      '',    'cro', 'Croatian (CP 1250)');
-        translate_lang_opt('cs',    '',    'che', 'Czech (CP 1250)');
-        translate_lang_opt('',      '',    'dan', 'Danish');
-        translate_lang_opt('nl',    '',    'dut', 'Dutch');
-        translate_lang_opt('en',    '!en', 'eng', 'English');
-        translate_lang_opt('',      '',    'spe', 'European Spanish');
-        translate_lang_opt('',      '',    'fin', 'Finnish');
-        translate_lang_opt('fr',    '',    'fre', 'French');
-        translate_lang_opt('de',    '',    'ger', 'German');
-        translate_lang_opt('',      '',    'grk', 'Greek');
-        translate_lang_opt('',      '',    'hun', 'Hungarian (CP 1250)');
-        translate_lang_opt('',      '',    'ice', 'Icelandic');
-        translate_lang_opt('it',    '',    'ita', 'Italian');
-        translate_lang_opt('',      '',    'jpn', 'Japanese (Shift JIS)');
-        translate_lang_opt('',      '',    'spl', 'Latin American Spanish');
-        translate_lang_opt('no*',   '',    'nor', 'Norwegian');
-        translate_lang_opt('pl',    '',    'pol', 'Polish (ISO 8859-2)');
-        translate_lang_opt('',      '',    'poe', 'Portuguese');
-        translate_lang_opt('',      '',    'rom', 'Romanian (CP 1250)');
-        translate_lang_opt('ru',    '',    'rus', 'Russian (CP 1251)');
-        translate_lang_opt('',      '',    'sel', 'Serbian (CP 1250)');
-        translate_lang_opt('',      '',    'slo', 'Slovenian (CP 1250)');
-        translate_lang_opt('es',    '',    'spa', 'Spanish');
-        translate_lang_opt('sv',    '',    'swe', 'Swedish');
-        translate_lang_opt('',      '',    'wel', 'Welsh');
-?></SELECT> to <SELECT name="to"><?PHP
-        translate_lang_opt('',    'pt_BR', 'pob', 'Brazilian Portuguese');
-        translate_lang_opt('',    '',      'bul', 'Bulgarian (CP 1251)');
-        translate_lang_opt('',    '',      'cro', 'Croatian (CP 1250)');
-        translate_lang_opt('',    'cs',    'che', 'Czech (CP 1250)');
-        translate_lang_opt('',    '',      'dan', 'Danish');
-        translate_lang_opt('',    'nl',    'dut', 'Dutch');
-        translate_lang_opt('!en', 'en',    'eng', 'English');
-        translate_lang_opt('',    '',      'spe', 'European Spanish');
-        translate_lang_opt('',    '',      'fin', 'Finnish');
-        translate_lang_opt('',    'fr',    'fre', 'French');
-        translate_lang_opt('',    'de',    'ger', 'German');
-        translate_lang_opt('',    '',      'grk', 'Greek');
-        translate_lang_opt('',    '',      'hun', 'Hungarian (CP 1250)');
-        translate_lang_opt('',    '',      'ice', 'Icelandic');
-        translate_lang_opt('',    'it',    'ita', 'Italian');
-        translate_lang_opt('',    '',      'jpn', 'Japanese (Shift JIS)');
-        translate_lang_opt('',    '',      'spl', 'Latin American Spanish');
-        translate_lang_opt('',    'no*',   'nor', 'Norwegian');
-        translate_lang_opt('',    'pl',    'pol', 'Polish (ISO 8859-2)');
-        translate_lang_opt('',    '',      'poe', 'Portuguese');
-        translate_lang_opt('',    '',      'rom', 'Romanian (CP 1250)');
-        translate_lang_opt('',    'ru',    'rus', 'Russian (CP 1251)');
-        translate_lang_opt('',    '',      'sel', 'Serbian (CP 1250)');
-        translate_lang_opt('',    '',      'slo', 'Slovenian (CP 1250)');
-        translate_lang_opt('',    'es',    'spa', 'Spanish');
-        translate_lang_opt('',    'sv',    'swe', 'Swedish');
-        translate_lang_opt('',    '',      'wel', 'Welsh');
-?></SELECT>
-    InterTran: <input type=submit value="Translate">
-<?php
+    echo '<INPUT TYPE="hidden" NAME="topframe" VALUE="yes">'.
+         '<INPUT TYPE="hidden" NAME="type" VALUE="text">'.
+         "<input type=\"hidden\" name=\"text\" value=\"$message\">";
+
+    $left = '<SELECT name="from">' .
+        translate_lang_opt('pt_BR', '',    'pob', _("Brazilian Portuguese")).
+        translate_lang_opt('',      '',    'bul', _("Bulgarian") . ' (CP 1251)').
+        translate_lang_opt('',      '',    'cro', _("Croatian") . ' (CP 1250)').
+        translate_lang_opt('cs',    '',    'che', _("Czech") . ' (CP 1250)').
+        translate_lang_opt('',      '',    'dan', _("Danish")).
+        translate_lang_opt('nl',    '',    'dut', _("Dutch")).
+        translate_lang_opt('en',    '!en', 'eng', _("English")).
+        translate_lang_opt('',      '',    'spe', _("European Spanish")).
+        translate_lang_opt('',      '',    'fin', _("Finnish")).
+        translate_lang_opt('fr',    '',    'fre', _("French")).
+        translate_lang_opt('de',    '',    'ger', _("German")).
+        translate_lang_opt('',      '',    'grk', _("Greek")).
+        translate_lang_opt('',      '',    'hun', _("Hungarian") . ' (CP 1250)').
+        translate_lang_opt('',      '',    'ice', _("Icelandic")).
+        translate_lang_opt('it',    '',    'ita', _("Italian")).
+        translate_lang_opt('',      '',    'jpn', _("Japanese") . ' (Shift JIS)').
+        translate_lang_opt('',      '',    'spl', _("Latin American Spanish")).
+        translate_lang_opt('no*',   '',    'nor', _("Norwegian")).
+        translate_lang_opt('pl',    '',    'pol', _("Polish") . ' (ISO 8859-2)').
+        translate_lang_opt('',      '',    'poe', _("Portuguese")).
+        translate_lang_opt('',      '',    'rom', _("Romanian") . ' (CP 1250)').
+        translate_lang_opt('ru',    '',    'rus', _("Russian") . ' (CP 1251)').
+        translate_lang_opt('',      '',    'sel', _("Serbian") . ' (CP 1250)').
+        translate_lang_opt('',      '',    'slo', _("Slovenian") . ' (CP 1250)').
+        translate_lang_opt('es',    '',    'spa', _("Spanish")).
+        translate_lang_opt('sv',    '',    'swe', _("Swedish")).
+        translate_lang_opt('',      '',    'wel', _("Welsh")).
+        '</SELECT>';
+
+    $right = '<SELECT name="to">'.
+        translate_lang_opt('',    'pt_BR', 'pob', _("Brazilian Portuguese")).
+        translate_lang_opt('',    '',      'bul', _("Bulgarian") . ' (CP 1251)').
+        translate_lang_opt('',    '',      'cro', _("Croatian") . ' (CP 1250)').
+        translate_lang_opt('',    'cs',    'che', _("Czech") . ' (CP 1250)').
+        translate_lang_opt('',    '',      'dan', _("Danish")).
+        translate_lang_opt('',    'nl',    'dut', _("Dutch")).
+        translate_lang_opt('!en', 'en',    'eng', _("English")).
+        translate_lang_opt('',    '',      'spe', _("European Spanish")).
+        translate_lang_opt('',    '',      'fin', _("Finnish")).
+        translate_lang_opt('',    'fr',    'fre', _("French")).
+        translate_lang_opt('',    'de',    'ger', _("German")).
+        translate_lang_opt('',    '',      'grk', _("Greek")).
+        translate_lang_opt('',    '',      'hun', _("Hungarian") . ' (CP 1250)').
+        translate_lang_opt('',    '',      'ice', _("Icelandic")).
+        translate_lang_opt('',    'it',    'ita', _("Italian")).
+        translate_lang_opt('',    '',      'jpn', _("Japanese") . ' (Shift JIS)').
+        translate_lang_opt('',    '',      'spl', _("Latin American Spanish")).
+        translate_lang_opt('',    'no*',   'nor', _("Norwegian")).
+        translate_lang_opt('',    'pl',    'pol', _("Polish") . ' (ISO 8859-2)').
+        translate_lang_opt('',    '',      'poe', _("Portuguese")).
+        translate_lang_opt('',    '',      'rom', _("Romanian") . ' (CP 1250)').
+        translate_lang_opt('',    'ru',    'rus', _("Russian") . ' (CP 1251)').
+        translate_lang_opt('',    '',      'sel', _("Serbian") . ' (CP 1250)').
+        translate_lang_opt('',    '',      'slo', _("Slovenian") . ' (CP 1250)').
+        translate_lang_opt('',    'es',    'spa', _("Spanish")).
+        translate_lang_opt('',    'sv',    'swe', _("Swedish")).
+        translate_lang_opt('',    '',      'wel', _("Welsh")).
+        '</SELECT>';
+    printf( _("%s to %s"), $left, $right );
+    echo 'InterTran: <input type=submit value="' . _("Translate") . '">';
+
     translate_table_end();
 }
 
 function translate_form_gpltrans($message) {
     translate_new_form('http://www.translator.cx/cgi-bin/gplTrans');
-?><select name="toenglish"><?php
+    echo '<select name="toenglish">';
     translate_lang_opt('en',  '!en', 'no',  'From English');
     translate_lang_opt('!en', 'en',  'yes', 'To English');
-?></select><select name="language">
-<?php
-    translate_lang_opt('nl', 'nl', 'dutch_dict',      'Dutch');
-    translate_lang_opt('fr', 'fr', 'french_dict',     'French');
-    translate_lang_opt('de', 'de', 'german_dict',     'German');
-    translate_lang_opt('',   '',   'indonesian_dict', 'Indonesian');
-    translate_lang_opt('it', 'it', 'italian_dict',    'Italian');
-    translate_lang_opt('',   '',   'latin_dict',      'Latin');
-    translate_lang_opt('pt', 'pt', 'portuguese_dict', 'Portuguese');
-    translate_lang_opt('es', 'es', 'spanish_dict',    'Spanish');
-?></select>
-    <input type="hidden" name="text" value="<?php echo $message ?>">
-    GPLTrans: <input type="submit" value="Translate">
-<?php
+    echo '</select><select name="language">'.
+        translate_lang_opt('nl', 'nl', 'dutch_dict',      _("Dutch")).
+        translate_lang_opt('fr', 'fr', 'french_dict',     _("French")).
+        translate_lang_opt('de', 'de', 'german_dict',     _("German")).
+        translate_lang_opt('',   '',   'indonesian_dict', _("Indonesian")).
+        translate_lang_opt('it', 'it', 'italian_dict',    _("Italian")).
+        translate_lang_opt('',   '',   'latin_dict',      _("Latin")).
+        translate_lang_opt('pt', 'pt', 'portuguese_dict', _("Portuguese")).
+        translate_lang_opt('es', 'es', 'spanish_dict',    _("Spanish")).
+        '</select>'.
+        "<input type=hidden name=text value=\"$message\">".
+        'GPLTrans: <input type="submit" value="' . _("Translate") . '">';
+
     translate_table_end();
 }
 
 function translate_form_dictionary($message) {
     translate_new_form('http://translate.dictionary.com:8800/systran/cgi');
-?><INPUT TYPE=HIDDEN NAME=partner VALUE=LEXICO>
-    <input type=hidden name=urltext value="<?php echo $message ?>">
-<SELECT NAME="lp"><?php
-    translate_lang_opt('en',  'fr', 'en_fr', 'English to French');
-    translate_lang_opt('',    'de', 'en_de', 'English to German');
-    translate_lang_opt('',    'it', 'en_it', 'English to Italian');
-    translate_lang_opt('',    'pt*', 'en_pt', 'English to Portuguese');
-    translate_lang_opt('',    'es', 'en_sp', 'English to Spanish');
-    translate_lang_opt('fr',  '', 'fr_en', 'French to English');
-    translate_lang_opt('',    '', 'fr_ge', 'French to German');
-    translate_lang_opt('',    '', 'ge_fr', 'German to French');
-    translate_lang_opt('de',  '', 'de_en', 'German to English');
-    translate_lang_opt('it',  '', 'it_en', 'Italian to English');
-    translate_lang_opt('pt*', '', 'pt_en', 'Portuguese to English');
-    translate_lang_opt('es',  '', 'sp_en', 'Spanish to English');
-?></SELECT>
-    Dictionary.com: <INPUT TYPE="submit" VALUE="Translate">
-<?php
+    echo '<INPUT TYPE=HIDDEN NAME=partner VALUE=LEXICO>'.
+         "<input type=hidden name=urltext value=\"$message\">".
+         '<SELECT NAME="lp">'.
+         translate_lang_opt('en',  'fr', 'en_fr',
+                            sprintf( _("%s to %s"),
+                                     _("English"),
+                                     _("French"))) .
+         translate_lang_opt('',    'de', 'en_de',
+                            sprintf( _("%s to %s"),
+                                     _("English"),
+                                     _("German"))) .
+         translate_lang_opt('',    'it', 'en_it',
+                            sprintf( _("%s to %s"),
+                                     _("English"),
+                                     _("Italian"))) .
+         translate_lang_opt('',    'pt*', 'en_pt',
+                            sprintf( _("%s to %s"),
+                                     _("English"),
+                                     _("Portuguese"))) .
+         translate_lang_opt('',    'es', 'en_sp',
+                            sprintf( _("%s to %s"),
+                                     _("English"),
+                                     _("Spanish"))) .
+         translate_lang_opt('fr',  '', 'fr_en',
+                            sprintf( _("%s to %s"),
+                                     _("French"),
+                                     _("English"))) .
+         translate_lang_opt('',    '', 'fr_ge',
+                            sprintf( _("%s to %s"),
+                                     _("French"),
+                                     _("German"))) .
+         translate_lang_opt('',    '', 'ge_fr',
+                            sprintf( _("%s to %s"),
+                                     _("German"),
+                                     _("French"))) .
+         translate_lang_opt('de',  '', 'de_en',
+                            sprintf( _("%s to %s"),
+                                     _("German"),
+                                     _("English"))) .
+         translate_lang_opt('it',  '', 'it_en',
+                            sprintf( _("%s to %s"),
+                                     _("Italian"),
+                                     _("English"))) .
+         translate_lang_opt('pt*', '', 'pt_en',
+                            sprintf( _("%s to %s"),
+                                     _("Portuguese"),
+                                     _("English"))) .
+         translate_lang_opt('es',  '', 'sp_en',
+                            sprintf( _("%s to %s"),
+                                     _("Spanish"),
+                                     _("English"))) .
+         '<\SELECT>'.
+         'Dictionary.com: <INPUT TYPE="submit" VALUE="'._("Translate").'">';
+
   translate_table_end();
 }
 ?>
