@@ -52,14 +52,15 @@ class Deliver_SMTP extends Deliver {
         }
 
         if (($use_smtp_tls == true) and (check_php_version(4,3)) and (extension_loaded('openssl'))) {
-            $stream = fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
+            $stream = @fsockopen('tls://' . $host, $port, $errorNumber, $errorString);
         } else {
-            $stream = fsockopen($host, $port, $errorNumber, $errorString);
+            $stream = @fsockopen($host, $port, $errorNumber, $errorString);
         }
 
         if (!$stream) {
             $this->dlv_msg = $errorString;
             $this->dlv_ret_nr = $errorNumber;
+            $this->dlv_server_msg = '';
             return(0);
         }
         $tmp = fgets($stream, 1024);
