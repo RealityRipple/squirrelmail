@@ -14,12 +14,14 @@
  * @version $Id$
  * @package squirrelmail
  * @subpackage i18n
+ * @since 1.5.1
  */
 
 /**
  * internal ngettext wrapper.
  *
  * provides ngettext support
+ * @since 1.5.1
  * @link http://www.php.net/function.ngettext
  * @param string $single English string, singular form
  * @param string $plural English string, plural form
