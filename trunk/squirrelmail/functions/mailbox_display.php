@@ -41,11 +41,12 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
      * because you can have multi receiver.
      */
     $sendersName = split(',', $msg['FROM']);
-    for( $index = 0 ; $index < count($sendersName) ; $index++ ) {
-        if( strlen($senderName) > 0 )
+    for ($index = 0 ; $index < count($sendersName) ; $index++) {
+        if (strlen($senderName) > 0) {
             $senderName .= ', ';
-        $senderName .= sqimap_find_displayable_name($sendersName[$index]);
         }
+        $senderName .= sqimap_find_displayable_name($sendersName[$index]);
+    }
 
     if( $mailbox == 'None' ) {
         // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
