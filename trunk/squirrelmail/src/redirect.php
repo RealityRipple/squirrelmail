@@ -49,6 +49,9 @@ sqGetGlobalVar('js_autodetect_results', $js_autodetect_results);
 if(!sqGetGlobalVar('squirrelmail_language', $squirrelmail_language) || $squirrelmail_language == '') {
 	$squirrelmail_language = $squirrelmail_default_language;
 }
+if (!sqgetGlobalVar('mailto', $mailto)) {
+    $mailto = '';
+}
 
 /* end of get globals */
 
@@ -146,6 +149,10 @@ if ( sqgetGlobalVar('session_expired_location', $session_expired_location, SQ_SE
         $redirect_url = 'webmail.php?right_frame='.urldecode($session_expired_location);
     }
     unset($session_expired_location);
+}
+if($mailto != '') {
+    $redirect_url  = 'webmail.php?right_frame=compose.php&mailto=';
+    $redirect_url .= $mailto;
 }
 
 /* Write session data and send them off to the appropriate page. */
