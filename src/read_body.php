@@ -943,7 +943,7 @@ if ($default_use_mdn) {
                                 _("Read receipt") . ': ' .
                             "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
                                 '<B>' . _("requested") .
-                                "</B> &nbsp; <a href=$url>[" . _("Send read receipt now") . "]</a>" .
+                                "</B> &nbsp; <a href=\"$url\">[" . _("Send read receipt now") . "]</a>" .
                             '</TD>' .
                         '</TR>' . "\n";
                 $sendreceipt='';
@@ -958,7 +958,7 @@ if ($default_use_mdn) {
                     _("The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?") .
                     "\")) {  \n" .
                     "                       window.location=($url); \n" .
-                    '                       window.reload()' . "\n" .
+                    '                       location.reload()' . "\n" .
                     '               }' . "\n" .
                     '// -->' . "\n" .
                     '</script>' . "\n";
