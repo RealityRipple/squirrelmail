@@ -13,6 +13,7 @@
  *
  * @version $Id$
  * @package squirrelmail
+ * @subpackage date
  */
 
 /** Load up some useful constants */
