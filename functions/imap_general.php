@@ -20,9 +20,12 @@
     */
     function sqimap_session_id() {
 
+        global $data_dir, $username;
+
         $IMAPSessionID = substr(session_id(), -4);
         if( $IMAPSessionID == '' ) {
-            $IMAPSessionID = GenerateRandomString(4, '', 7);
+            $IMAPSessionID = str_pad( dechex( getPref( $data_dir, $username, 'counter', 0 ) ),
+                                      4, '0', STR_PAD_LEFT);
         }
 
         return( $IMAPSessionID );

@@ -104,6 +104,8 @@
         session_register ('username');
         setcookie('key', $key, 0, $base_uri);
         do_hook ('login_verified');
+        setPref( $data_dir, $username, 'counter',
+            getPref( $data_dir, $username, 'counter', 0 ) + 1 );
     }
 
     /* Set the login variables. */

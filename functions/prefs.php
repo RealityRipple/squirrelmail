@@ -70,7 +70,7 @@
       if (isset($prefs_cache[$string]))
           return $prefs_cache[$string];
       else
-        return $default;
+          return $default;
    }
 
 
