@@ -351,7 +351,7 @@ if ($showaddrlist) {
 
     /* List addresses */
     if (count($alist) > 0) {
-        echo '<FORM ACTION="' . $form_url . '" METHOD="POST">' . "\n";
+        echo '<form action="' . $form_url . '" method="post">' . "\n";
         while(list($undef,$row) = each($alist)) {
     
             /* New table header for each backend */
@@ -360,10 +360,10 @@ if ($showaddrlist) {
                     echo html_tag( 'table',
                                     html_tag( 'tr',
                                           html_tag( 'td',
-                                                     '<INPUT TYPE=submit NAME=editaddr VALUE="' . 
-                                                     _("Edit selected") . "\">\n" .
-                                                     '<INPUT TYPE=submit NAME=deladdr VALUE="' .
-                                                     _("Delete selected") . "\">\n",
+                                                     '<input type=submit name=editaddr value="' . 
+                                                     _("Edit selected") . "\" />\n" .
+                                                     '<input type=submit name=deladdr value="' .
+                                                     _("Delete selected") . "\" />\n",
                                           'center', '', 'colspan="5"' )
                                     ) .
                                     html_tag( 'tr',
@@ -376,8 +376,9 @@ if ($showaddrlist) {
                                 html_tag( 'tr',
                                     html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] )
                                 ) ,
-                        'center', '', 'width="95%"' ) ."\n"
-                . html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
+                        'center', '', 'width="95%"' ) ."\n" .
+		    "<!-- start of address book table -->\n" .
+            	  html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
                       html_tag( 'tr', "\n" .
                           html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) .
                           html_tag( 'th', _("Nickname"), 'left', '', 'width="1%"' ) .
@@ -389,7 +390,7 @@ if ($showaddrlist) {
                 $line = 0;
                 $headerprinted = true;
             } /* End of header */
-    
+
             $prevbackend = $row['backend'];
     
             /* Check if this user is selected */
@@ -402,9 +403,9 @@ if ($showaddrlist) {
                 {
             echo html_tag( 'tr', '', '', $tr_bgcolor) .
                 html_tag( 'td',
-                          '<SMALL>' .
+                          '<small>' .
 			  addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
-                          '</SMALL>' ,
+                          '</small>' ,
                           'center', '', 'valign="top" width="1%"' ) .
                 html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) . 
                 html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
@@ -412,9 +413,9 @@ if ($showaddrlist) {
                 } else {
             echo html_tag( 'tr', '', '', $tr_bgcolor) .
             html_tag( 'td',
-                '<SMALL>' .
-                '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
-                $row['backend'] . ':' . $row['nickname'] . '"></SMALL>' ,
+                '<small>' .
+                '<input type=checkbox ' . $selected . ' name="sel[]" value="' .
+                $row['backend'] . ':' . $row['nickname'] . '" /></small>' ,
                 'center', '', 'valign="top" width="1%"' ) .
             html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
             html_tag( 'td', '&nbsp;' . $row['name'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
@@ -427,27 +428,31 @@ if ($showaddrlist) {
             html_tag( 'td', '&nbsp;' . htmlspecialchars($row['label']) . '&nbsp;', 'left', '', 'valign="top" width="1%"' ) .
             "</tr>\n";
             $line++;
+	    echo "</table>\n".
+		"<!-- end of address book table -->\n";
         }
     
-        /* End of list. Close table. */
+        /* End of list. Add edit/delete select buttons */
         if ($headerprinted) {
-            echo html_tag( 'tr',
+            echo html_tag( 'table',
+		    html_tag( 'tr',
                         html_tag( 'td',
-                                '<INPUT TYPE="submit" NAME="editaddr" VALUE="' . _("Edit selected") .
-                                "\">\n" .
-                                '<INPUT TYPE="submit" NAME="deladdr" VALUE="' . _("Delete selected") .
-                                "\">\n",
+                                '<input type="submit" name="editaddr" value="' . _("Edit selected") .
+                                "\" />\n" .
+                                '<input type="submit" name="deladdr" value="' . _("Delete selected") .
+                                "\" />\n",
                          'center', '', 'colspan="5"' )
-                    );
+                    ),
+		'center' );
         }
-        echo '</table></FORM>';
+        echo "</form>\n";
     }
 } /* end of addresslist */
 
 
 /* Display the "new address" form */
 echo '<a name="AddAddress"></a>' . "\n" .
-    '<FORM ACTION="' . $form_url . '" NAME=f_add METHOD="POST">' . "\n" .
+    '<form action="' . $form_url . '" name="f_add" method="post">' . "\n" .
     html_tag( 'table',  
         html_tag( 'tr',
             html_tag( 'td', "\n". '<strong>' . _("Add to address book") . '</strong>' . "\n",
@@ -456,10 +461,10 @@ echo '<a name="AddAddress"></a>' . "\n" .
         )
     , 'center', '', 'width="100%"' ) ."\n";
 address_form('addaddr', _("Add address"), $defdata);
-echo '</FORM>';
+echo "</form>\n";
 
 /* Add hook for anything that wants on the bottom */
 do_hook('addressbook_bottom');
 ?>
 
-</BODY></HTML>
+</body></html>
