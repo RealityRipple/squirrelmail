@@ -365,7 +365,7 @@ function show_readable_size($bytes) {
     
     if ($bytes / 1024 > 1) {
         $bytes /= 1024;
-        $type = 'm';
+        $type = 'M';
     }
     
     if ($bytes < 10) {
