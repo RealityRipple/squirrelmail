@@ -1745,8 +1745,8 @@ function truncateWithEntities($subject, $trim_at)
         return $subject;
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-        function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
-        return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth')) {
+        return call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_strimwidth', $subject, $trim_val);
     }
 
     return substr_replace($subject, '...', $trim_val);
