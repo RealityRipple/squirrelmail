@@ -62,6 +62,7 @@
       var $backends    = array();
       var $numbackends = 0;
       var $error       = "";
+      var $localbackend = 0;
 
       // Constructor function.
       function AddressBook() {
@@ -98,6 +99,11 @@
        
 	 $newback->bnum = $this->numbackends;
 	 $this->backends[$this->numbackends] = $newback;
+
+	 // Store ID of first local backend added
+	 if($this->localbackend == 0 && $newback->btype == "local")
+	    $this->localbackend = $this->numbackends;
+
 	 return $this->numbackends;
       }
 
