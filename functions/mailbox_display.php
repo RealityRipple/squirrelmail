@@ -73,7 +73,7 @@ function printMessageInfo($imapConnection, $t, $not_last=true, $key, $mailbox,
     if (handleAsSent($mailbox)) {
        $msg['FROM'] = $msg['TO'];
     }
-    $msg['FROM'] = parseAddress($msg['FROM']);
+    $msg['FROM'] = parseAddress($msg['FROM'],1);
     
        /*
         * This is done in case you're looking into Sent folders,
