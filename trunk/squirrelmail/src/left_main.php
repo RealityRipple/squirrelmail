@@ -301,7 +301,7 @@ function listBoxes ($boxes, $j=0 ) {
         /* get unseen/total messages information */
         if ($boxes->unseen !== false || $boxes->total !== false) {
             $unseen = $boxes->unseen;
-            if ($unseen>0 && $boxes->total>0) {
+            if ($unseen>0 || $boxes->total>0) {
                 $unseen_string = "($unseen)";
                 $unseen_found = TRUE;
             }
@@ -375,7 +375,7 @@ function listBoxes ($boxes, $j=0 ) {
         }
 
         /* Print unseen information. */
-        if (isset($unseen_found) && $unseen_found) {
+        if (isset($unseen_found) && $unseen_found && ($unseen > 0)) {
             $end .= "&nbsp;<small>$unseen_string</small>";
         }
 
@@ -441,7 +441,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     if ($unseen > 0) { $end .= '</b>'; }
 
     /* Print unseen information. */
-    if (isset($unseen_found) && $unseen_found) {
+    if (isset($unseen_found) && $unseen_found && ($unseen > 0)) {
             $end .= "&nbsp;$unseen_string";
     }
 
