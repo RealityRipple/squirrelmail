@@ -213,10 +213,14 @@
             $replace = quoted_printable_decode($replace);
          }
 
-         // Only US-ASCII and ISO-8859-1 can be displayed without further ado
-         if ($res[2] != "" && $res[2] != "1") {
+         if ($res[2] != "" && $res[2] == "15") {
+            // Remove all chararacters in iso-8859-15 that is not the same
+            // as in iso-8859-1
+            $replace = strtr($replace, "\244\246\250\255\264\270\274\275".
+                             "\276", "??????????");
+         } else if ($res[2] != "" && $res[2] != "1") {
             // This gets rid of all characters with over 0x9F for other
-            // charsets.
+            // iso-8859 charsets.
             $replace = strtr($replace, "\240\241\242\243\244\245\246\247".
                              "\250\251\252\253\254\255\256\257".
                              "\260\261\262\263\264\265\266\267".
