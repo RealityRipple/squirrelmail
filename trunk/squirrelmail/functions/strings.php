@@ -158,7 +158,10 @@
          $line = charset_decode($charset, $line);
          $line = str_replace("\t", '        ', $line);
          
-         $line = str_replace(' ', '&nbsp;', $line);
+         // We need to do it twice to catch times where there
+         // are an odd number of spaces
+         $line = str_replace('  ', '&nbsp; ', $line);
+         $line = str_replace('  ', '&nbsp; ', $line);
          $line = nl2br($line);
 
          parseUrl ($line);
@@ -254,7 +257,6 @@
           $host = $SERVER_NAME;
       }
       
-      // Workaround to possibly get rid of extra port definitions.
       $port = '';
       if (! strstr($host, ':'))
       {
