@@ -314,7 +314,9 @@ if (isset($view_hdr)) {
             $j++;
         }
         parseEmail($s);
-        if (isset($f)) echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
+        if (isset($f)) {
+        	echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
+        }
     }
     echo "</td></tr></table>\n" .
          '</body></html>';
@@ -456,7 +458,7 @@ while ($i < count($to_ary)) {
 /** FORMAT THE CC STRING **/
 $i = 0;
 if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
-    $cc_string = "";
+    $cc_string = '';
     $cc_ary = $message->header->cc;
     while ($i < count(decodeHeader($cc_ary))) {
         $cc_ary[$i] = htmlspecialchars($cc_ary[$i]);
@@ -500,7 +502,7 @@ else {
 /** FORMAT THE BCC STRING **/
 $i = 0;
 if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
-    $bcc_string = "";
+    $bcc_string = '';
     $bcc_ary = $message->header->bcc;
     while ($i < count(decodeHeader($bcc_ary))) {
         $bcc_ary[$i] = htmlspecialchars($bcc_ary[$i]);
@@ -640,7 +642,7 @@ echo                '</SMALL>' .
                 '</TD><TD WIDTH="33%" ALIGN="RIGHT">' .
                    '<SMALL>' .
                    '<A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&amp;forward_subj=$url_subj&amp;".
-                    ($default_use_priority?"mailprio=$priority_level&amp;":"")
+                    ($default_use_priority?"mailprio=$priority_level&amp;":'')
                     ."mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
@@ -649,7 +651,7 @@ echo                '</SMALL>' .
     _("Forward") .
     '</A>&nbsp;|&nbsp;' .
                    '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&amp;reply_subj=$url_subj&amp;".
-                    ($default_use_priority?"mailprio=$priority_level&amp;":"").
+                    ($default_use_priority?"mailprio=$priority_level&amp;":'').
                     "reply_id=$passed_id&amp;mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
@@ -658,7 +660,7 @@ echo                '</SMALL>' .
     _("Reply") .
     '</A>&nbsp;|&nbsp;' .
                    '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&amp;send_to_cc=$url_replytoallcc&amp;reply_subj=$url_subj&amp;".
-                    ($default_use_priority?"mailprio=$priority_level&amp;":"").
+                    ($default_use_priority?"mailprio=$priority_level&amp;":'').
                     "reply_id=$passed_id&amp;mailbox=$urlMailbox&amp;ent_num=$ent_num\"";
     if ($compose_new_win == '1') {
         echo 'TARGET="compose_window" onClick="comp_in_new()"';
@@ -783,7 +785,7 @@ if ($default_use_mdn) {
     if ($mdn_user_support) {
 
         // debug gives you the capability to remove mdn-flags
-        $MDNDebug = false;
+        // $MDNDebug = false;
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY.PEEK[HEADER.FIELDS (Disposition-Notification-To)]", true,
                                 $response, $readmessage);
         $MDN_to = substr($read[1], strpos($read[1], ' '));
@@ -800,7 +802,8 @@ if ($default_use_mdn) {
             if ( $MDN_flag_present && $supportMDN) {
                 $sendreceipt = 'removeMDN';
                 $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
-                $sendreceipt="";
+                $sendreceipt='';
+                /*
                 if ($MDNDebug ) {
                     echo       '<TR>' .
                                  "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
@@ -812,14 +815,17 @@ if ($default_use_mdn) {
                                  '</TD>' .
                              '</TR>' . "\n";
                 } else {
-                    echo       '<TR>' .
-                                 "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
-                                       _("Read receipt") . ': ' .
-                                 "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
-                                    '<B>'._("send").'</B>'.
-                                 '</TD>' .
-                             '</TR>' . "\n";
+                */
+                echo       '<TR>' .
+                             "<TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>" .
+                                   _("Read receipt") . ': ' .
+                             "</TD><TD BGCOLOR=\"$color[9]\" VALIGN=TOP colspan=2>" .
+                                '<B>'._("send").'</B>'.
+                             '</TD>' .
+                         '</TR>' . "\n";
+                /*
                 }
+                */
 
             } // when deleted or draft flag is set don't offer to send a MDN response
             else if ( ereg('\\Draft',$read[0] || ereg('\\Deleted',$read[0])) ) {
@@ -892,8 +898,8 @@ if ($default_use_mdn) {
             }
             $sendreceipt = 'removeMDN';
             $url = "\"read_body.php?mailbox=$mailbox&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more&amp;sendreceipt=$sendreceipt\"";
-            $sendreceipt="";
-
+            $sendreceipt='';
+			/*
             if ($MDNDebug && $supportMDN) {
             echo "      <TR>\n" .
                     "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .
@@ -903,6 +909,7 @@ if ($default_use_mdn) {
                     '         </TD>' . "\n" .
                     '     </TR>' . "\n";
             } else {
+            */
             echo "      <TR>\n" .
                     "         <TD BGCOLOR=\"$color[9]\"  ALIGN=RIGHT VALIGN=TOP>\n" .
                     "            "._("Read receipt").": \n".
@@ -910,7 +917,9 @@ if ($default_use_mdn) {
                     '            <B>'._("send").'</B>'. "\n" .
                     '         </TD>' . "\n" .
                     '     </TR>' . "\n";
+            /*
             }
+            */
         }
         elseif ($sendreceipt == 'removeMDN' ) {
             ToggleMDNflag ( false );
