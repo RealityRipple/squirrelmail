@@ -1,0 +1,3360 @@
+# Swedish SquirrelMail Translation
+# Copyright (c) 1999-2002 The Squirrelmail Development Team
+# Tobias Ekbom <tobias@vallcom.net>, 2001.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: $Id$ \n"
+"POT-Creation-Date: 2001-12-21 14:06+0100\n"
+"PO-Revision-Date: 2001-12-22 11:45+0200\n"
+"Last-Translator: Olle Hällnäs <olle@xmms.org> \n"
+"Language-Team: Swedish <squirrelmail-i18n@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: squirrelmail/src/addrbook_popup.php:22
+msgid "Address Book"
+msgstr "Adressbok"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:317 squirrelmail/src/vcard.php:107
+msgid "Name"
+msgstr "Namn"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:318
+msgid "E-mail"
+msgstr "E-post"
+
+#: squirrelmail/src/addrbook_search.php:117
+#: squirrelmail/src/addrbook_search_html.php:84
+#: squirrelmail/src/addressbook.php:319
+msgid "Info"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search.php:120
+#: squirrelmail/src/addrbook_search_html.php:87
+msgid "Source"
+msgstr "Källa"
+
+#: squirrelmail/src/addrbook_search_html.php:112
+msgid "Use Addresses"
+msgstr "Använd Adresser"
+
+#: squirrelmail/src/addrbook_search_html.php:131
+msgid "Address Book Search"
+msgstr "Adressbok Sökning"
+
+#: squirrelmail/src/addrbook_search.php:183
+#: squirrelmail/src/addrbook_search_html.php:141
+msgid "Search for"
+msgstr "Sök efter"
+
+#: squirrelmail/src/addrbook_search.php:190
+#: squirrelmail/src/addrbook_search_html.php:152
+msgid "in"
+msgstr "i"
+
+#: squirrelmail/src/addrbook_search.php:192
+#: squirrelmail/src/addrbook_search_html.php:155
+msgid "All address books"
+msgstr "Alla adressböcker"
+
+#: squirrelmail/functions/page_header.php:88
+#: squirrelmail/src/addrbook_search.php:202
+#: squirrelmail/src/addrbook_search_html.php:167
+#: squirrelmail/src/search.php:32 squirrelmail/src/search.php:79
+msgid "Search"
+msgstr "Sök"
+
+#: squirrelmail/src/addrbook_search.php:204
+#: squirrelmail/src/addrbook_search_html.php:169
+msgid "List all"
+msgstr "Visa alla"
+
+#: squirrelmail/src/addrbook_search.php:223
+#: squirrelmail/src/addrbook_search_html.php:192
+#, c-format
+msgid "Unable to list addresses from %s"
+msgstr "Det går inte att visa adresser från %s"
+
+#: squirrelmail/src/addrbook_search.php:245
+#: squirrelmail/src/addrbook_search_html.php:215
+msgid "Your search failed with the following error(s)"
+msgstr "Din sökning misslyckades med följande fel"
+
+#: squirrelmail/src/addrbook_search.php:171
+#: squirrelmail/src/addrbook_search.php:252
+#: squirrelmail/src/addrbook_search_html.php:219
+msgid "No persons matching your search was found"
+msgstr "Kunde inte hitta några personer överensstämmande med din sökning"
+
+#: squirrelmail/src/addrbook_search_html.php:228
+msgid "Return"
+msgstr "Tillbaka"
+
+#: squirrelmail/src/addrbook_search.php:207
+msgid "Close window"
+msgstr "Stäng fönstret"
+
+#: squirrelmail/src/addressbook.php:66 squirrelmail/src/addressbook.php:316
+msgid "Nickname"
+msgstr "Smeknamn"
+
+#: squirrelmail/src/addressbook.php:67
+msgid "Must be unique"
+msgstr "Måste vara unik"
+
+#: squirrelmail/src/addressbook.php:68
+msgid "E-mail address"
+msgstr "E-post adress"
+
+#: squirrelmail/src/addressbook.php:69
+msgid "First name"
+msgstr "Förnamn"
+
+#: squirrelmail/src/addressbook.php:70
+msgid "Last name"
+msgstr "Efternamn"
+
+#: squirrelmail/src/addressbook.php:71
+msgid "Additional info"
+msgstr "Ytterligare information"
+
+#: squirrelmail/src/addressbook.php:85
+msgid "No personal address book is defined. Contact administrator."
+msgstr "Ingen personlig adressbok är angiven. Kontakta administratören."
+
+#: squirrelmail/src/addressbook.php:181
+msgid "You can only edit one address at the time"
+msgstr "Du kan bara ändra en adress åt gången"
+
+#: squirrelmail/src/addressbook.php:193 squirrelmail/src/addressbook.php:196
+#: squirrelmail/src/addressbook.php:225 squirrelmail/src/addressbook.php:228
+msgid "Update address"
+msgstr "Uppdatera adress"
+
+#: squirrelmail/functions/display_messages.php:20
+#: squirrelmail/functions/display_messages.php:71
+#: squirrelmail/functions/display_messages.php:87
+#: squirrelmail/src/addressbook.php:216 squirrelmail/src/addressbook.php:266
+msgid "ERROR"
+msgstr "FEL"
+
+#: squirrelmail/src/addressbook.php:241
+msgid "Unknown error"
+msgstr "Okänt fel"
+
+#: squirrelmail/src/addressbook.php:286 squirrelmail/src/addressbook.php:371
+msgid "Add address"
+msgstr "Lägg till adress"
+
+#: squirrelmail/src/addressbook.php:297 squirrelmail/src/addressbook.php:355
+msgid "Edit selected"
+msgstr "Modifiera markerade"
+
+#: squirrelmail/src/addressbook.php:299 squirrelmail/src/addressbook.php:357
+msgid "Delete selected"
+msgstr "Ta bort markerade"
+
+#: squirrelmail/src/addressbook.php:368
+#, c-format
+msgid "Add to %s"
+msgstr "Lägg till i %s"
+
+#: squirrelmail/src/compose.php:118
+msgid "Original Message"
+msgstr "Ursprungligt meddelande"
+
+#: squirrelmail/functions/mailbox_display.php:564
+#: squirrelmail/plugins/filters/options.php:95
+#: squirrelmail/src/compose.php:119 squirrelmail/src/download.php:137
+#: squirrelmail/src/download.php:143
+#: squirrelmail/src/options_highlight.php:329
+#: squirrelmail/src/options_order.php:59
+#: squirrelmail/src/printer_friendly_bottom.php:97
+#: squirrelmail/src/search.php:71
+msgid "Subject"
+msgstr "Ämne"
+
+#: squirrelmail/functions/mailbox_display.php:550
+#: squirrelmail/plugins/filters/options.php:83
+#: squirrelmail/src/compose.php:120 squirrelmail/src/download.php:138
+#: squirrelmail/src/download.php:145
+#: squirrelmail/src/options_highlight.php:317
+#: squirrelmail/src/options_order.php:57
+#: squirrelmail/src/printer_friendly_bottom.php:91
+#: squirrelmail/src/search.php:72
+msgid "From"
+msgstr "Från"
+
+#: squirrelmail/functions/mailbox_display.php:548
+#: squirrelmail/plugins/filters/options.php:86
+#: squirrelmail/src/compose.php:121 squirrelmail/src/download.php:139
+#: squirrelmail/src/download.php:147
+#: squirrelmail/src/options_highlight.php:320
+#: squirrelmail/src/printer_friendly_bottom.php:92
+#: squirrelmail/src/search.php:74
+msgid "To"
+msgstr "Till"
+
+#: squirrelmail/src/compose.php:269 squirrelmail/src/read_body.php:551
+msgid "From:"
+msgstr "Från:"
+
+#: squirrelmail/src/compose.php:294 squirrelmail/src/read_body.php:568
+msgid "To:"
+msgstr "Till:"
+
+#: squirrelmail/src/compose.php:302
+msgid "CC:"
+msgstr ""
+
+#: squirrelmail/src/compose.php:310
+msgid "BCC:"
+msgstr ""
+
+#: squirrelmail/src/compose.php:318 squirrelmail/src/read_body.php:526
+msgid "Subject:"
+msgstr "Ämne"
+
+#: squirrelmail/src/compose.php:360 squirrelmail/src/compose.php:414
+msgid "Send"
+msgstr "Sänd"
+
+#: squirrelmail/src/compose.php:366
+msgid "Attach:"
+msgstr "Bifoga:"
+
+#: squirrelmail/src/compose.php:370 squirrelmail/src/options_order.php:145
+msgid "Add"
+msgstr "Lägg till"
+
+#: squirrelmail/src/compose.php:385
+msgid "Delete selected attachments"
+msgstr "Ta bort markerade bifogade filer"
+
+#: squirrelmail/functions/page_header.php:82 squirrelmail/src/compose.php:407
+#: squirrelmail/src/compose.php:409 squirrelmail/src/compose.php:412
+msgid "Addresses"
+msgstr "Adresser"
+
+#: squirrelmail/src/compose.php:417
+msgid "Save Draft"
+msgstr "Spara Skiss"
+
+#: squirrelmail/src/compose.php:423 squirrelmail/src/read_body.php:598
+msgid "Priority"
+msgstr "Prioritet"
+
+#: squirrelmail/src/compose.php:424 squirrelmail/src/read_body.php:433
+msgid "High"
+msgstr "Hög"
+
+#: squirrelmail/src/compose.php:425 squirrelmail/src/read_body.php:436
+msgid "Normal"
+msgstr ""
+
+#: squirrelmail/src/compose.php:426 squirrelmail/src/read_body.php:440
+msgid "Low"
+msgstr "Låg"
+
+#: squirrelmail/src/compose.php:445
+msgid "You have not filled in the \"To:\" field."
+msgstr "Meddelandets \"Till:\"-fält är tomt."
+
+#: squirrelmail/src/compose.php:490
+msgid "Draft Email Saved"
+msgstr "Skiss Sparad"
+
+#: squirrelmail/src/compose.php:561 squirrelmail/src/compose.php:598
+#: squirrelmail/src/compose.php:605
+msgid "Could not move/copy file. File not attached"
+msgstr "Kunde inte flytta/kopiera filen. Filen bifogades inte."
+
+#: squirrelmail/src/compose.php:670
+msgid "said"
+msgstr "skrev"
+
+#: squirrelmail/src/compose.php:673
+msgid "quote"
+msgstr "citat"
+
+#: squirrelmail/src/compose.php:673
+msgid "who"
+msgstr "vem"
+
+#: squirrelmail/src/download.php:49
+msgid "Viewing a text attachment"
+msgstr "Visar ett bifogat textdokument"
+
+#: squirrelmail/src/download.php:52 squirrelmail/src/download.php:54
+#: squirrelmail/src/image.php:47 squirrelmail/src/image.php:51
+#: squirrelmail/src/read_body.php:55 squirrelmail/src/vcard.php:51
+#: squirrelmail/src/vcard.php:55
+msgid "View message"
+msgstr "Visar meddelande"
+
+#: squirrelmail/functions/mime.php:620 squirrelmail/src/download.php:59
+#: squirrelmail/src/image.php:60 squirrelmail/src/vcard.php:212
+msgid "Download this as a file"
+msgstr "Ladda ner detta som en fil"
+
+#: squirrelmail/functions/mailbox_display.php:558
+#: squirrelmail/src/download.php:140 squirrelmail/src/download.php:149
+#: squirrelmail/src/options_order.php:58
+#: squirrelmail/src/printer_friendly_bottom.php:96
+msgid "Date"
+msgstr "Datum"
+
+#: squirrelmail/src/folders_create.php:41
+msgid "Illegal folder name.  Please select a different name."
+msgstr "Otillåtet mappnamn. Var god välj ett annat namn."
+
+#: squirrelmail/src/folders_create.php:41
+msgid "Click here to go back"
+msgstr "Klicka här för att gå tillbaka"
+
+#: squirrelmail/functions/page_header.php:84 squirrelmail/src/folders.php:45
+#: squirrelmail/src/left_main.php:261
+msgid "Folders"
+msgstr "Mappar"
+
+#: squirrelmail/src/folders.php:58
+msgid "Subscribed successfully!"
+msgstr "Mappen har aktiverats!"
+
+#: squirrelmail/src/folders.php:60
+msgid "Unsubscribed successfully!"
+msgstr "Mappen har avaktiverats!"
+
+#: squirrelmail/src/folders.php:62
+msgid "Deleted folder successfully!"
+msgstr "Mappen har tagits bort!"
+
+#: squirrelmail/src/folders.php:64
+msgid "Created folder successfully!"
+msgstr "Mappen har skapats!"
+
+#: squirrelmail/src/folders.php:66
+msgid "Renamed successfully!"
+msgstr "Bytt namn på mappen!"
+
+#: squirrelmail/src/folders.php:69 squirrelmail/src/left_main.php:300
+msgid "refresh folder list"
+msgstr "uppdatera listan"
+
+#: squirrelmail/src/folders.php:79
+msgid "Delete Folder"
+msgstr "Ta bort Mapp"
+
+#: squirrelmail/functions/mailbox_display.php:520
+#: squirrelmail/plugins/filters/options.php:152
+#: squirrelmail/plugins/mail_fetch/options.php:168
+#: squirrelmail/plugins/mail_fetch/options.php:175
+#: squirrelmail/src/folders.php:125 squirrelmail/src/options_highlight.php:71
+#: squirrelmail/src/options_identities.php:320
+#: squirrelmail/src/read_body.php:468
+msgid "Delete"
+msgstr "Ta bort"
+
+#: squirrelmail/src/folders.php:129 squirrelmail/src/folders.php:205
+msgid "No folders found"
+msgstr "Kunde inte finna några mappar"
+
+#: squirrelmail/src/folders.php:136
+msgid "Create Folder"
+msgstr "Skapa Mapp"
+
+#: squirrelmail/src/folders.php:141
+msgid "as a subfolder of"
+msgstr "som en undermapp till"
+
+#: squirrelmail/src/folders.php:146 squirrelmail/src/folders.php:148
+msgid "None"
+msgstr "Inget"
+
+#: squirrelmail/src/folders.php:169
+msgid "Let this folder contain subfolders"
+msgstr "Låt denna mapp innehålla undermappar"
+
+#: squirrelmail/src/folders.php:172
+msgid "Create"
+msgstr "Skapa"
+
+#: squirrelmail/src/folders.php:179
+msgid "Rename a Folder"
+msgstr "Byt namn på en Mapp"
+
+#: squirrelmail/src/folders.php:201
+msgid "Rename"
+msgstr "Byt namn"
+
+#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:234
+msgid "Unsubscribe"
+msgstr "Avaktivera"
+
+#: squirrelmail/src/folders.php:214 squirrelmail/src/folders.php:275
+msgid "Subscribe"
+msgstr "Aktivera"
+
+#: squirrelmail/src/folders.php:238
+msgid "No folders were found to unsubscribe from!"
+msgstr "Inga mappar att avaktivera!"
+
+#: squirrelmail/src/folders.php:278
+msgid "No folders were found to subscribe to!"
+msgstr "Inga mappar att aktivera!"
+
+#: squirrelmail/src/folders_rename_getname.php:53
+msgid "Rename a folder"
+msgstr "Byt namn på en mapp"
+
+#: squirrelmail/src/folders_rename_getname.php:57
+msgid "New name:"
+msgstr "Nytt namn:"
+
+#: squirrelmail/functions/options.php:404
+#: squirrelmail/plugins/filters/options.php:136
+#: squirrelmail/plugins/newmail/newmail_opt.php:132
+#: squirrelmail/plugins/translate/options.php:159
+#: squirrelmail/src/folders_rename_getname.php:63
+#: squirrelmail/src/options_highlight.php:342
+msgid "Submit"
+msgstr "Skicka"
+
+#: squirrelmail/functions/page_header.php:90 squirrelmail/src/help.php:97
+msgid "Help"
+msgstr "Hjälp"
+
+#: squirrelmail/src/help.php:131
+#, c-format
+msgid ""
+"The help has not been translated to %s.  It will be displayed in English "
+"instead."
+msgstr "Hjälp finns tyvärr inte på svenska. Använder engelska istället."
+
+#: squirrelmail/src/help.php:137
+msgid "Some or all of the help documents are not present!"
+msgstr "Somliga eller samtliga dokument saknas!"
+
+#: squirrelmail/src/help.php:163 squirrelmail/src/help.php:182
+msgid "Table of Contents"
+msgstr "Innehållsförteckning"
+
+#: squirrelmail/functions/mailbox_display.php:713
+#: squirrelmail/functions/mailbox_display.php:716
+#: squirrelmail/functions/mailbox_display.php:719
+#: squirrelmail/src/help.php:180 squirrelmail/src/help.php:181
+#: squirrelmail/src/read_body.php:490 squirrelmail/src/read_body.php:492
+msgid "Previous"
+msgstr "Tidigare"
+
+#: squirrelmail/functions/mailbox_display.php:714
+#: squirrelmail/functions/mailbox_display.php:717
+#: squirrelmail/functions/mailbox_display.php:720
+#: squirrelmail/src/help.php:183 squirrelmail/src/help.php:184
+#: squirrelmail/src/read_body.php:496 squirrelmail/src/read_body.php:498
+msgid "Next"
+msgstr "Nästa"
+
+#: squirrelmail/src/help.php:204
+msgid "Top"
+msgstr "Början"
+
+#: squirrelmail/src/image.php:42
+msgid "Viewing an image attachment"
+msgstr "Visar en bifogad bild"
+
+#: squirrelmail/src/left_main.php:115
+msgid "empty"
+msgstr "töm"
+
+#: squirrelmail/src/left_main.php:294
+msgid "Last Refresh"
+msgstr "Senast uppdaterat"
+
+#: squirrelmail/src/login.php:105 squirrelmail/src/login.php:157
+msgid "Login"
+msgstr "Logga in"
+
+#: squirrelmail/src/login.php:128
+#, c-format
+msgid "SquirrelMail version %s"
+msgstr ""
+
+#: squirrelmail/src/login.php:129
+msgid "By the SquirrelMail Development Team"
+msgstr "Av SquirrelMails UtvecklingsTeam"
+
+#: squirrelmail/src/login.php:135
+#, c-format
+msgid "%s Login"
+msgstr "Logga in"
+
+#: squirrelmail/src/login.php:139
+msgid "Name:"
+msgstr "Användarnamn:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:126
+#: squirrelmail/plugins/mail_fetch/options.php:207
+#: squirrelmail/src/login.php:145
+msgid "Password:"
+msgstr "Lösenord:"
+
+#: squirrelmail/src/move_messages.php:93
+#: squirrelmail/src/move_messages.php:128
+#: squirrelmail/src/move_messages.php:157
+msgid "No messages were selected."
+msgstr "Inga meddelanden markerades."
+
+#: squirrelmail/src/options_display.php:32
+msgid "General Display Options"
+msgstr "Ällmäna Visningsinställningar"
+
+#: squirrelmail/src/options_display.php:44
+msgid "Theme"
+msgstr "Tema"
+
+#: squirrelmail/src/options_display.php:59
+msgid "Language"
+msgstr "Språk"
+
+#: squirrelmail/src/options_display.php:68
+msgid "Use Javascript"
+msgstr "Använd Javascript"
+
+#: squirrelmail/src/options_display.php:71
+msgid "Autodetect"
+msgstr "Automatisk igenkänning"
+
+#: squirrelmail/src/options_display.php:72
+msgid "Always"
+msgstr "Alltid"
+
+#: squirrelmail/src/options_display.php:73
+#: squirrelmail/src/options_folder.php:122
+msgid "Never"
+msgstr "Aldrig"
+
+#: squirrelmail/src/options_display.php:91
+msgid "Mailbox Display Options"
+msgstr "Postlådans Visningsinställningar"
+
+#: squirrelmail/src/options_display.php:96
+msgid "Number of Messages to Index"
+msgstr "Antal Meddelanden att Indexera"
+
+#: squirrelmail/src/options_display.php:104
+msgid "Enable Alternating Row Colors"
+msgstr "Använd alternativa färger på olika rader"
+
+#: squirrelmail/src/options_display.php:111
+msgid "Enable Page Selector"
+msgstr "Sidväljare på"
+
+#: squirrelmail/src/options_display.php:118
+msgid "Maximum Number of Pages to Show"
+msgstr "Antal Sidor att Visas"
+
+#: squirrelmail/src/options_display.php:125
+msgid "Message Display and Composition"
+msgstr "Visning och Skrivning av Meddelanden"
+
+#: squirrelmail/src/options_display.php:130
+msgid "Wrap Incoming Text At"
+msgstr "Radbryt mottagen text vid"
+
+#: squirrelmail/src/options_display.php:138
+msgid "Size of Editor Window"
+msgstr "Textfönstrets storlek"
+
+#: squirrelmail/src/options_display.php:146
+msgid "Location of Buttons when Composing"
+msgstr "Knapparnas placering, nytt meddelande"
+
+#: squirrelmail/src/options_display.php:149
+msgid "Before headers"
+msgstr "Före rubriker"
+
+#: squirrelmail/src/options_display.php:150
+msgid "Between headers and message body"
+msgstr "Mellan rubriker och meddelandet"
+
+#: squirrelmail/src/options_display.php:151
+msgid "After message body"
+msgstr "Efter meddelandet"
+
+#: squirrelmail/src/options_display.php:156
+msgid "Addressbook Display Format"
+msgstr "Adressbokens Visningsformat"
+
+#: squirrelmail/src/options_display.php:159
+msgid "Javascript"
+msgstr "Javascript"
+
+#: squirrelmail/src/options_display.php:160
+msgid "HTML"
+msgstr ""
+
+#: squirrelmail/src/options_display.php:165
+msgid "Show HTML Version by Default"
+msgstr "Visa HTML-versionen"
+
+#: squirrelmail/src/options_display.php:172
+msgid "Include Me in CC when I Reply All"
+msgstr "Lägg mig med i CC när jag svarar alla"
+
+#: squirrelmail/src/options_display.php:179
+msgid "Enable Mailer Display"
+msgstr "Använd Mailervisning"
+
+#: squirrelmail/src/options_display.php:186
+msgid "Display Attached Images with Message"
+msgstr "Visa Bifogade Bilder med Meddelanden"
+
+#: squirrelmail/src/options_display.php:193
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "Använd Utskriftsvänlig Länk"
+
+#: squirrelmail/src/options_display.php:200
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Använd Utskriftsvänlig Klar Visning"
+
+#: squirrelmail/src/options_folder.php:40
+msgid "Special Folder Options"
+msgstr "Inställningar för Specialmappar"
+
+#: squirrelmail/src/options_folder.php:47
+msgid "Folder Path"
+msgstr "Mappens plats"
+
+#: squirrelmail/src/options_folder.php:63
+msgid "Do not use Trash"
+msgstr "Använd inte Papperskorgen"
+
+#: squirrelmail/src/options_folder.php:67
+msgid "Trash Folder"
+msgstr "Mappen Papperskorgen:"
+
+#: squirrelmail/src/options_folder.php:74
+msgid "Do not use Sent"
+msgstr "Använd inte Skickat"
+
+#: squirrelmail/src/options_folder.php:78
+msgid "Sent Folder"
+msgstr "Mappen Skickat:"
+
+#: squirrelmail/src/options_folder.php:85
+msgid "Do not use Drafts"
+msgstr "Använd inte Skiss"
+
+#: squirrelmail/src/options_folder.php:89
+msgid "Draft Folder"
+msgstr "Skiss Mapp"
+
+#: squirrelmail/src/options_folder.php:97
+msgid "Folder List Options"
+msgstr "Mapplistans Inställningar"
+
+#: squirrelmail/src/options_folder.php:102
+msgid "Location of Folder List"
+msgstr "Placeringen av mapplistan"
+
+#: squirrelmail/src/options_folder.php:105
+msgid "Left"
+msgstr "Vänster"
+
+#: squirrelmail/src/options_folder.php:106
+msgid "Right"
+msgstr "Höger"
+
+#: squirrelmail/src/options_folder.php:111
+msgid "pixels"
+msgstr "pixlar"
+
+#: squirrelmail/src/options_folder.php:115
+msgid "Width of Folder List"
+msgstr "Mapplistans bredd"
+
+#: squirrelmail/src/options_folder.php:121
+msgid "Minutes"
+msgstr "Minuter"
+
+#: squirrelmail/src/options_folder.php:125
+msgid "Seconds"
+msgstr "Sekunder"
+
+#: squirrelmail/src/options_folder.php:127
+msgid "Minute"
+msgstr "Minut"
+
+#: squirrelmail/src/options_folder.php:134
+msgid "Auto Refresh Folder List"
+msgstr "Uppdatera Listan av Mappar Automatiskt"
+
+#: squirrelmail/src/options_folder.php:142
+msgid "Enable Unread Message Notification"
+msgstr "Notifiering om olästa meddelanden på"
+
+#: squirrelmail/src/options_folder.php:145
+msgid "No Notification"
+msgstr "Ingen notifiering"
+
+#: squirrelmail/src/options_folder.php:146
+msgid "Only INBOX"
+msgstr "Bara Inkorgen"
+
+#: squirrelmail/src/options_folder.php:147
+msgid "All Folders"
+msgstr "Alla Mappar"
+
+#: squirrelmail/src/options_folder.php:152
+msgid "Unread Message Notification Type"
+msgstr "Sättet att notifiera om olästa meddelanden"
+
+#: squirrelmail/src/options_folder.php:155
+msgid "Only Unseen"
+msgstr "Bara olästa"
+
+#: squirrelmail/src/options_folder.php:156
+msgid "Unseen and Total"
+msgstr "Olästa och sammanlagt"
+
+#: squirrelmail/src/options_folder.php:161
+msgid "Enable Collapsable Folders"
+msgstr "Använd Hierarkiska Mappar"
+
+#: squirrelmail/src/options_folder.php:168
+msgid "Show Clock on Folders Panel"
+msgstr "Visa Klockan i Mapppanelen"
+
+#: squirrelmail/src/options_folder.php:176
+msgid "No Clock"
+msgstr "Ingen Klocka"
+
+#: squirrelmail/src/options_folder.php:181
+msgid "Hour Format"
+msgstr "Timmeformat"
+
+#: squirrelmail/src/options_folder.php:184
+msgid "12-hour clock"
+msgstr "12-timmars klocka"
+
+#: squirrelmail/src/options_folder.php:185
+msgid "24-hour clock"
+msgstr "24-timmars klocka"
+
+#: squirrelmail/functions/page_header.php:86
+#: squirrelmail/plugins/filters/options.php:60
+#: squirrelmail/plugins/newmail/newmail_opt.php:33
+#: squirrelmail/plugins/translate/options.php:93
+#: squirrelmail/src/options.php:158 squirrelmail/src/options_highlight.php:57
+#: squirrelmail/src/options_identities.php:58
+#: squirrelmail/src/options_order.php:48
+msgid "Options"
+msgstr "Inställningar"
+
+#: squirrelmail/src/options.php:110 squirrelmail/src/options.php:257
+#: squirrelmail/src/options_highlight.php:57
+msgid "Message Highlighting"
+msgstr "Markering av Meddelanden"
+
+#: squirrelmail/plugins/filters/options.php:62
+#: squirrelmail/src/options_highlight.php:61
+msgid "New"
+msgstr "Ny"
+
+#: squirrelmail/plugins/filters/options.php:63
+#: squirrelmail/plugins/filters/spamoptions.php:148
+#: squirrelmail/plugins/mail_fetch/fetch.php:225
+#: squirrelmail/src/options_highlight.php:62
+msgid "Done"
+msgstr "Färdigt"
+
+#: squirrelmail/plugins/filters/options.php:150
+#: squirrelmail/plugins/filters/spamoptions.php:147
+#: squirrelmail/src/options_highlight.php:69
+msgid "Edit"
+msgstr "Editera"
+
+#: squirrelmail/src/options_highlight.php:82
+msgid "No highlighting is defined"
+msgstr "Ingen markeringssätt är definierat"
+
+#: squirrelmail/src/options_highlight.php:254
+msgid "Identifying name"
+msgstr "Idenitieringsnamn"
+
+#: squirrelmail/src/options_highlight.php:268
+msgid "Color"
+msgstr "Färg"
+
+#: squirrelmail/src/options_highlight.php:272
+msgid "Dark Blue"
+msgstr "Mörkblå"
+
+#: squirrelmail/src/options_highlight.php:273
+msgid "Dark Green"
+msgstr "Mörkgrön"
+
+#: squirrelmail/src/options_highlight.php:274
+msgid "Dark Yellow"
+msgstr "Mörkgul"
+
+#: squirrelmail/src/options_highlight.php:275
+msgid "Dark Cyan"
+msgstr "Mörk cyan"
+
+#: squirrelmail/src/options_highlight.php:276
+msgid "Dark Magenta"
+msgstr "Mörk magenta"
+
+#: squirrelmail/src/options_highlight.php:277
+msgid "Light Blue"
+msgstr "Ljusblå"
+
+#: squirrelmail/src/options_highlight.php:278
+msgid "Light Green"
+msgstr "Ljusgrön"
+
+#: squirrelmail/src/options_highlight.php:279
+msgid "Light Yellow"
+msgstr "Ljusgul"
+
+#: squirrelmail/src/options_highlight.php:280
+msgid "Light Cyan"
+msgstr "Ljus cyan"
+
+#: squirrelmail/src/options_highlight.php:281
+msgid "Light Magenta"
+msgstr "Ljus magenta"
+
+#: squirrelmail/src/options_highlight.php:282
+msgid "Dark Gray"
+msgstr "Mörkgrå"
+
+#: squirrelmail/src/options_highlight.php:283
+msgid "Medium Gray"
+msgstr "Grå"
+
+#: squirrelmail/src/options_highlight.php:284
+msgid "Light Gray"
+msgstr "Ljusgrå"
+
+#: squirrelmail/src/options_highlight.php:285
+msgid "White"
+msgstr "Vit"
+
+#: squirrelmail/src/options_highlight.php:287
+msgid "Other:"
+msgstr "Annat:"
+
+#: squirrelmail/src/options_highlight.php:289
+msgid "Ex: 63aa7f"
+msgstr "T.ex. 63aa7f"
+
+#: squirrelmail/plugins/filters/options.php:89
+#: squirrelmail/src/options_highlight.php:323 squirrelmail/src/search.php:73
+msgid "Cc"
+msgstr ""
+
+#: squirrelmail/plugins/filters/options.php:92
+#: squirrelmail/src/options_highlight.php:326
+msgid "To or Cc"
+msgstr "Till eller CC"
+
+#: squirrelmail/src/options_highlight.php:331
+msgid "Matches"
+msgstr "Matchar"
+
+#: squirrelmail/src/options_identities.php:58
+msgid "Advanced Identities"
+msgstr "Avancerade Identiteter"
+
+#: squirrelmail/src/options_identities.php:69
+msgid "Default Identity"
+msgstr "Identitet"
+
+#: squirrelmail/src/options_identities.php:80
+#, c-format
+msgid "Alternate Identity %d"
+msgstr "Alternativ Identitet %d"
+
+#: squirrelmail/src/options_identities.php:90
+msgid "Add a New Identity"
+msgstr "Lägg till identitet"
+
+#: squirrelmail/src/options_identities.php:306
+#: squirrelmail/src/options_personal.php:49
+msgid "Full Name"
+msgstr "Fullt Namn"
+
+#: squirrelmail/src/options_identities.php:307
+msgid "E-Mail Address"
+msgstr "E-post adress"
+
+#: squirrelmail/src/options_identities.php:308
+#: squirrelmail/src/options_personal.php:65
+msgid "Reply To"
+msgstr "Svara Till"
+
+#: squirrelmail/src/options_identities.php:315
+msgid "Save / Update"
+msgstr "Spara / Uppdatera"
+
+#: squirrelmail/src/options_identities.php:318
+msgid "Make Default"
+msgstr "Välj som standard"
+
+#: squirrelmail/src/options_identities.php:324
+msgid "Move Up"
+msgstr "Flytta Upp"
+
+#: squirrelmail/src/options.php:120 squirrelmail/src/options.php:273
+#: squirrelmail/src/options_order.php:48
+msgid "Index Order"
+msgstr "Indexeringsordning"
+
+#: squirrelmail/src/options_order.php:56
+msgid "Checkbox"
+msgstr "Kontrollruta"
+
+#: squirrelmail/src/options_order.php:60
+msgid "Flags"
+msgstr "Flaggor"
+
+#: squirrelmail/functions/mailbox_display.php:570
+#: squirrelmail/src/options_order.php:61
+msgid "Size"
+msgstr "Storlek"
+
+#: squirrelmail/src/options_order.php:104
+msgid ""
+"The index order is the order that the columns are arranged in the message "
+"index.  You can add, remove, and move columns around to customize them to "
+"fit your needs."
+msgstr ""
+"Indexordning är ordningen av kolumnerna i meddelandelistan. Du kan lägga "
+"till, ta bort och flytta kolumner så att de passar dina behov."
+
+#: squirrelmail/src/options_order.php:113
+msgid "up"
+msgstr "upp"
+
+#: squirrelmail/src/options_order.php:115
+msgid "down"
+msgstr "ner"
+
+#: squirrelmail/src/options_order.php:120
+msgid "remove"
+msgstr "ta bort"
+
+#: squirrelmail/src/options_order.php:149
+msgid "Return to options page"
+msgstr "Tillbaka till inställningssidan"
+
+#: squirrelmail/src/options_personal.php:41
+msgid "Name and Address Options"
+msgstr "Namn och Adressinställningar"
+
+#: squirrelmail/src/options_personal.php:57
+msgid "Email Address"
+msgstr "E-post adress"
+
+#: squirrelmail/src/options_personal.php:72
+msgid "Edit Advanced Identities"
+msgstr "Editera Avancerade Identiteter"
+
+#: squirrelmail/src/options_personal.php:74
+msgid "(discards changes made on this form so far)"
+msgstr "(annullerar hittilsgjorda förändringar)"
+
+#: squirrelmail/src/options_personal.php:77
+msgid "Multiple Identities"
+msgstr "Flera Identiteter"
+
+#: squirrelmail/src/options_personal.php:84
+msgid "Reply Citation Options"
+msgstr "Svarscitatsinställningar"
+
+#: squirrelmail/src/options_personal.php:89
+msgid "Reply Citation Style"
+msgstr "Svarscitatsstil"
+
+#: squirrelmail/src/options_personal.php:92
+msgid "No Citation"
+msgstr "Ingen citering"
+
+#: squirrelmail/src/options_personal.php:93
+msgid "AUTHOR Said"
+msgstr "AVSÄNDAREN Skrev"
+
+#: squirrelmail/src/options_personal.php:94
+msgid "Quote Who XML"
+msgstr "XML Citat"
+
+#: squirrelmail/src/options_personal.php:95
+msgid "User-Defined"
+msgstr "Användardefinierad"
+
+#: squirrelmail/src/options_personal.php:100
+msgid "User-Defined Citation Start"
+msgstr "Användardefinierad Svarscitat, början"
+
+#: squirrelmail/src/options_personal.php:108
+msgid "User-Defined Citation End"
+msgstr "Användardefinierad Svarscitat, slut"
+
+#: squirrelmail/src/options_personal.php:115
+msgid "Signature Options"
+msgstr "Signaturinställningar"
+
+#: squirrelmail/src/options_personal.php:120
+msgid "Use Signature"
+msgstr "Använd signatur?"
+
+#: squirrelmail/src/options_personal.php:127
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Börja signaturen med '-- '"
+
+#: squirrelmail/src/options_personal.php:134
+msgid "Signature"
+msgstr "Signatur"
+
+#: squirrelmail/src/options.php:100 squirrelmail/src/options.php:241
+msgid "Personal Information"
+msgstr "Personlig Information"
+
+#: squirrelmail/src/options.php:105 squirrelmail/src/options.php:249
+msgid "Display Preferences"
+msgstr "Visualiseringsinställningar"
+
+#: squirrelmail/src/options.php:115 squirrelmail/src/options.php:265
+msgid "Folder Preferences"
+msgstr "Mappinställningar"
+
+#: squirrelmail/src/options.php:225
+msgid "Successfully Saved Options"
+msgstr "Inställningarna sparade"
+
+#: squirrelmail/src/options.php:229
+msgid "Refresh Folder List"
+msgstr "Uppdatera Listan av Mappar"
+
+#: squirrelmail/src/options.php:231
+msgid "Refresh Page"
+msgstr "Ladda om Sidan"
+
+#: squirrelmail/src/options.php:243
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "Detta innehåller personlig information om dig, namn, emailadress, osv."
+
+#: squirrelmail/src/options.php:251
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "Du kan byta utseendet på SquirrelMail, bl. a. färger och språk."
+
+#: squirrelmail/src/options.php:259
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"Enligt angivna villkor, kommande meddelanden kan ha olika bakgrundsfärjer i "
+"meddelandelistan. Detta hjälper dig att enkelt se från vem meddelanden "
+"kommer från, särskilt bra med maillistor."
+
+#: squirrelmail/src/options.php:267
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "Dessa inställningar påverkar sättet mapparna visas och hanteras."
+
+#: squirrelmail/src/options.php:275
+msgid ""
+"The order of the message index can be rearanged and changed to contain the "
+"headers in any order you want."
+msgstr "Ordningen av meddelanden kan göras om och förändras enligt önskemål."
+
+#: squirrelmail/src/printer_friendly_bottom.php:86
+#: squirrelmail/src/printer_friendly_main.php:31
+#: squirrelmail/src/printer_friendly_top.php:37
+msgid "Printer Friendly"
+msgstr "Utskriftsvänlig"
+
+#: squirrelmail/src/printer_friendly_bottom.php:94
+msgid "CC"
+msgstr ""
+
+#: squirrelmail/src/printer_friendly_top.php:52
+msgid "Print"
+msgstr "Utskrift"
+
+#: squirrelmail/src/printer_friendly_top.php:53
+msgid "Close Window"
+msgstr "Stäng fönstret"
+
+#: squirrelmail/src/read_body.php:48
+msgid "Viewing Full Header"
+msgstr "Visar alla rubriker"
+
+#: squirrelmail/src/read_body.php:180
+msgid "View Printable Version"
+msgstr "Visa Utskriftsversion"
+
+#: squirrelmail/src/read_body.php:314
+msgid "more"
+msgstr "mer"
+
+#: squirrelmail/src/read_body.php:315
+msgid "less"
+msgstr "mindre"
+
+#: squirrelmail/src/read_body.php:461
+msgid "Message List"
+msgstr "Meddelandelista"
+
+#: squirrelmail/src/read_body.php:472
+msgid "Resume Draft"
+msgstr "Fortsätt med skiss"
+
+#: squirrelmail/src/read_body.php:507
+msgid "Forward"
+msgstr "Framåt"
+
+#: squirrelmail/src/read_body.php:510
+msgid "Reply"
+msgstr "Svara"
+
+#: squirrelmail/src/read_body.php:513
+msgid "Reply All"
+msgstr "Svar till Alla"
+
+#: squirrelmail/src/read_body.php:534 squirrelmail/src/read_body.php:536
+msgid "View Full Header"
+msgstr "Visa alla rubriker"
+
+#: squirrelmail/src/read_body.php:559
+msgid "Date:"
+msgstr "Datum:"
+
+#: squirrelmail/src/read_body.php:615
+msgid "Mailer"
+msgstr ""
+
+#: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
+#: squirrelmail/src/redirect.php:85
+msgid "You must be logged in to access this page."
+msgstr ""
+"Du behöver ett giltigt användarnamn och lösenord för att använda den här "
+"sidan!"
+
+#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
+msgid "Go to the login page"
+msgstr "Go till inloggningssidan"
+
+#: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
+msgid "There was an error contacting the mail server."
+msgstr "Fel uppträffade när mailservern kontaktades."
+
+#: squirrelmail/src/redirect.php:111
+msgid "Contact your administrator for help."
+msgstr "Kontakta din administrator för hjälp."
+
+#: squirrelmail/src/search.php:69
+msgid "Body"
+msgstr "Text"
+
+#: squirrelmail/src/search.php:70
+msgid "Everywhere"
+msgstr "Alla fält"
+
+#: squirrelmail/functions/page_header.php:72 squirrelmail/src/signout.php:83
+msgid "Sign Out"
+msgstr "Logga Ut"
+
+#: squirrelmail/src/signout.php:89
+msgid "You have been successfully signed out."
+msgstr "Du har framgångsrikt loggats ut."
+
+#: squirrelmail/src/signout.php:91
+msgid "Click here to log back in."
+msgstr "Klicka här för att logga in igen."
+
+#: squirrelmail/src/vcard.php:46
+msgid "Viewing a Business Card"
+msgstr "Visar visitkortet"
+
+#: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
+msgid "Title"
+msgstr "Titel"
+
+#: squirrelmail/src/vcard.php:109
+msgid "Email"
+msgstr "E-post"
+
+#: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
+msgid "Web Page"
+msgstr "WWW-Sida"
+
+#: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
+msgid "Organization / Department"
+msgstr "Organisation / Avdelning"
+
+#: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
+msgid "Address"
+msgstr "Adress"
+
+#: squirrelmail/src/vcard.php:113 squirrelmail/src/vcard.php:179
+msgid "Work Phone"
+msgstr "Telefon Arbete"
+
+#: squirrelmail/src/vcard.php:114 squirrelmail/src/vcard.php:182
+msgid "Home Phone"
+msgstr "Telefon Hem"
+
+#: squirrelmail/src/vcard.php:115 squirrelmail/src/vcard.php:185
+msgid "Cellular Phone"
+msgstr "Mobilnummer"
+
+#: squirrelmail/src/vcard.php:116 squirrelmail/src/vcard.php:188
+msgid "Fax"
+msgstr ""
+
+#: squirrelmail/src/vcard.php:117 squirrelmail/src/vcard.php:191
+msgid "Note"
+msgstr "Not"
+
+#: squirrelmail/src/vcard.php:149
+msgid "Add to Addressbook"
+msgstr "Lägg till i adressboken"
+
+#: squirrelmail/src/vcard.php:176
+msgid "Title & Org. / Dept."
+msgstr "Titel & Org. / Avd."
+
+#: squirrelmail/functions/abook_database.php:50
+#: squirrelmail/functions/abook_local_file.php:53
+#: squirrelmail/functions/addressbook.php:152
+msgid "Personal address book"
+msgstr "Personlig adressbok"
+
+#: squirrelmail/functions/abook_database.php:96
+#: squirrelmail/functions/abook_database.php:136
+#: squirrelmail/functions/abook_database.php:171
+#: squirrelmail/functions/abook_database.php:201
+#: squirrelmail/functions/abook_database.php:253
+#: squirrelmail/functions/abook_database.php:286
+#: squirrelmail/functions/abook_database.php:327
+#, c-format
+msgid "Database error: %s"
+msgstr "Databaserror %s"
+
+#: squirrelmail/functions/abook_database.php:221
+#: squirrelmail/functions/abook_database.php:260
+#: squirrelmail/functions/abook_database.php:293
+#: squirrelmail/functions/abook_local_file.php:247
+#: squirrelmail/functions/abook_local_file.php:267
+#: squirrelmail/functions/abook_local_file.php:290
+#: squirrelmail/functions/abook_local_file.php:319
+#: squirrelmail/functions/addressbook.php:349
+#: squirrelmail/functions/addressbook.php:384
+#: squirrelmail/functions/addressbook.php:437
+msgid "Addressbook is read-only"
+msgstr "Adressboken är skrivskyddad"
+
+#: squirrelmail/functions/abook_database.php:231
+#: squirrelmail/functions/abook_local_file.php:252
+#, c-format
+msgid "User '%s' already exist"
+msgstr "Användaren '%s' finns redan"
+
+#: squirrelmail/functions/abook_database.php:303
+#: squirrelmail/functions/abook_local_file.php:324
+#, c-format
+msgid "User '%s' does not exist"
+msgstr "Användaren '%s' finns inte"
+
+#: squirrelmail/functions/abook_global_file.php:51
+msgid "Global address book"
+msgstr "Globala adressboken"
+
+#: squirrelmail/functions/abook_global_file.php:71
+#: squirrelmail/functions/abook_local_file.php:94
+msgid "No such file or directory"
+msgstr "Ingen katalog eller fil finns med det namnet"
+
+#: squirrelmail/functions/abook_global_file.php:81
+#: squirrelmail/functions/abook_local_file.php:114
+#: squirrelmail/functions/abook_local_file.php:150
+msgid "Open failed"
+msgstr "Kunde inte öppna"
+
+#: squirrelmail/functions/abook_global_file.php:178
+#: squirrelmail/functions/abook_global_file.php:184
+#: squirrelmail/functions/abook_global_file.php:190
+msgid "Can not modify global address book"
+msgstr "Kan inte editera den globala adressboken"
+
+#: squirrelmail/functions/abook_local_file.php:61
+msgid "Not a file name"
+msgstr "Illegalt filnamn"
+
+#: squirrelmail/functions/abook_local_file.php:271
+#: squirrelmail/functions/abook_local_file.php:295
+#: squirrelmail/functions/abook_local_file.php:330
+msgid "Could not lock datafile"
+msgstr "Kunde inte låsa datafilen"
+
+#: squirrelmail/functions/abook_local_file.php:283
+msgid "Write to addressbook failed"
+msgstr "Kunde inte skriva in i adressboken"
+
+#: squirrelmail/functions/addressbook.php:70
+msgid "Error initializing addressbook database."
+msgstr "Fel med initieringen av adressbokdatabasen:"
+
+#: squirrelmail/functions/addressbook.php:79
+#, c-format
+msgid "Error opening file %s"
+msgstr "Fel vid öppnandet av filen %s"
+
+#: squirrelmail/functions/addressbook.php:89
+msgid "Error initializing global addressbook."
+msgstr "Fel med initieringen av globala adressboken"
+
+#: squirrelmail/functions/addressbook.php:105
+#, c-format
+msgid "Error initializing LDAP server %s:"
+msgstr "Fel med initieringen av LDAP servern %s:"
+
+#: squirrelmail/functions/addressbook.php:327
+#: squirrelmail/functions/addressbook.php:414
+msgid "Invalid input data"
+msgstr "Felaktigt data"
+
+#: squirrelmail/functions/addressbook.php:331
+#: squirrelmail/functions/addressbook.php:418
+msgid "Name is missing"
+msgstr "Namnet saknas"
+
+#: squirrelmail/functions/addressbook.php:335
+#: squirrelmail/functions/addressbook.php:422
+msgid "E-mail address is missing"
+msgstr "E-post adress saknas"
+
+#: squirrelmail/functions/addressbook.php:343
+#: squirrelmail/functions/addressbook.php:427
+msgid "Nickname contains illegal characters"
+msgstr "Smeknamnet innehåller otillåtna tecken"
+
+#: squirrelmail/functions/attachment_common.php:116
+#: squirrelmail/functions/attachment_common.php:140
+#: squirrelmail/functions/attachment_common.php:164
+msgid "view"
+msgstr "visa"
+
+#: squirrelmail/functions/attachment_common.php:180
+msgid "Business Card"
+msgstr "Visitkort"
+
+#: squirrelmail/functions/date.php:91
+msgid "Sunday"
+msgstr "Söndag"
+
+#: squirrelmail/functions/date.php:94
+msgid "Monday"
+msgstr "Mondag"
+
+#: squirrelmail/functions/date.php:97
+msgid "Tuesday"
+msgstr "Tisdag"
+
+#: squirrelmail/functions/date.php:100
+msgid "Wednesday"
+msgstr "Onsdag"
+
+#: squirrelmail/functions/date.php:103
+msgid "Thursday"
+msgstr "Torsdag"
+
+#: squirrelmail/functions/date.php:106
+msgid "Friday"
+msgstr "Fredag"
+
+#: squirrelmail/functions/date.php:109
+msgid "Saturday"
+msgstr "Lördag"
+
+#: squirrelmail/functions/date.php:120
+msgid "January"
+msgstr "Januari"
+
+#: squirrelmail/functions/date.php:123
+msgid "February"
+msgstr "Februari"
+
+#: squirrelmail/functions/date.php:126
+msgid "March"
+msgstr "Mars"
+
+#: squirrelmail/functions/date.php:129
+msgid "April"
+msgstr "April"
+
+#: squirrelmail/functions/date.php:132
+msgid "May"
+msgstr "Maj"
+
+#: squirrelmail/functions/date.php:135
+msgid "June"
+msgstr "Juni"
+
+#: squirrelmail/functions/date.php:138
+msgid "July"
+msgstr "Juli"
+
+#: squirrelmail/functions/date.php:141
+msgid "August"
+msgstr "August"
+
+#: squirrelmail/functions/date.php:144
+msgid "September"
+msgstr "September"
+
+#: squirrelmail/functions/date.php:147
+msgid "October"
+msgstr "Oktober"
+
+#: squirrelmail/functions/date.php:150
+msgid "November"
+msgstr "November"
+
+#: squirrelmail/functions/date.php:153
+msgid "December"
+msgstr "December"
+
+#: squirrelmail/functions/date.php:178
+msgid "D, F j, Y g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:180
+msgid "D, F j, Y G:i"
+msgstr ""
+
+#: squirrelmail/functions/date.php:202
+msgid "g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:204
+msgid "G:i"
+msgstr ""
+
+#: squirrelmail/functions/date.php:209
+msgid "D, g:i a"
+msgstr ""
+
+#: squirrelmail/functions/date.php:211
+msgid "D, G:i"
+msgstr ""
+
+#: squirrelmail/functions/date.php:215
+msgid "M j, Y"
+msgstr ""
+
+#: squirrelmail/functions/db_prefs.php:82
+#: squirrelmail/functions/db_prefs.php:85
+#: squirrelmail/functions/db_prefs.php:204
+#, c-format
+msgid "Preference database error (%s). Exiting abnormally"
+msgstr "Preferensdatabasfel (%s). Avslutar programmet"
+
+#: squirrelmail/functions/display_messages.php:23
+#: squirrelmail/functions/imap_general.php:206
+msgid "Unknown user or password incorrect."
+msgstr "Felaktigt användarnamn eller fel lösenord."
+
+#: squirrelmail/functions/display_messages.php:25
+msgid "Click here to try again"
+msgstr "Klicka här för att försöka igen"
+
+#: squirrelmail/functions/display_messages.php:39
+#, c-format
+msgid "Welcome to %s's WebMail system"
+msgstr "Välkommen till WebMail hos %s"
+
+# c-format
+#: squirrelmail/functions/display_messages.php:51
+#, c-format
+msgid "Running SquirrelMail version %s (c) 1999-2001."
+msgstr "SquirrelMail version %s (c) 1999-2001."
+
+#: squirrelmail/functions/display_messages.php:76
+#, c-format
+msgid "Click here to return to %s"
+msgstr "Klicka här för att gå tillbaka till %s"
+
+#: squirrelmail/functions/imap_general.php:119
+#: squirrelmail/functions/imap_messages.php:132
+#: squirrelmail/functions/imap_messages.php:140
+#: squirrelmail/functions/imap_messages.php:159
+#: squirrelmail/functions/imap_messages.php:168
+#: squirrelmail/functions/imap_messages.php:280
+#: squirrelmail/plugins/filters/filters.php:88
+msgid "ERROR : Could not complete request."
+msgstr "FEL : operationen misslyckades."
+
+#: squirrelmail/functions/imap_general.php:121
+#: squirrelmail/plugins/filters/filters.php:90
+msgid "Reason Given: "
+msgstr "Orsak: "
+
+#: squirrelmail/functions/imap_general.php:128
+#: squirrelmail/plugins/filters/filters.php:97
+msgid "ERROR : Bad or malformed request."
+msgstr "FEL : Felaktigt eller felskrivet operation."
+
+#: squirrelmail/functions/imap_general.php:130
+#: squirrelmail/plugins/filters/filters.php:99
+msgid "Server responded: "
+msgstr "Servern svarade: "
+
+#: squirrelmail/functions/imap_general.php:166
+#, c-format
+msgid "Error connecting to IMAP server: %s."
+msgstr "Kunde inte kontakta IMAP server %s."
+
+#: squirrelmail/functions/imap_general.php:183
+#, c-format
+msgid "Bad request: %s"
+msgstr "Felaktigt operation: %s"
+
+#: squirrelmail/functions/imap_general.php:185
+#, c-format
+msgid "Unknown error: %s"
+msgstr "Okänt fel: %s"
+
+#: squirrelmail/functions/imap_general.php:187
+msgid "Read data:"
+msgstr "Läs data:"
+
+#: squirrelmail/functions/imap_messages.php:134
+#: squirrelmail/functions/imap_messages.php:161
+#: squirrelmail/functions/imap_messages.php:282
+msgid "Unknown response from IMAP server: "
+msgstr "Okänt svar från IMAP-servern: "
+
+#: squirrelmail/functions/imap_messages.php:142
+msgid "Unknown message number in reply from server: "
+msgstr "Okänt svar från servern: "
+
+#: squirrelmail/functions/imap_messages.php:170
+msgid "Unknown messagenumber in reply from server: "
+msgstr "Okänt svar från servern: "
+
+#: squirrelmail/functions/imap_messages.php:179
+#: squirrelmail/functions/imap_messages.php:208
+#: squirrelmail/functions/imap_messages.php:452
+#: squirrelmail/functions/imap_messages.php:502
+#: squirrelmail/functions/mailbox_display.php:868
+msgid "(no subject)"
+msgstr "(ämne saknas)"
+
+#: squirrelmail/functions/imap_messages.php:180
+msgid "Unknown Sender"
+msgstr "Okänt Avsändare"
+
+#: squirrelmail/functions/imap_messages.php:233
+msgid "No To Address"
+msgstr "Ingen Mottagare"
+
+#: squirrelmail/functions/imap_messages.php:505
+msgid "(unknown sender)"
+msgstr "(okänt avsändare)"
+
+#: squirrelmail/functions/imap_search.php:62
+msgid "No Messages Found"
+msgstr "Inga Meddelanden Hittades"
+
+#: squirrelmail/functions/imap_search.php:150
+msgid "Found"
+msgstr "Hittades"
+
+#: squirrelmail/functions/imap_search.php:150
+msgid "messages"
+msgstr "meddelanden"
+
+#: squirrelmail/functions/mailbox_display.php:409
+msgid "THIS FOLDER IS EMPTY"
+msgstr "DENNA MAPP ÄR TOM"
+
+#: squirrelmail/functions/mailbox_display.php:493
+msgid "Move selected to:"
+msgstr "Flytta markerade till:"
+
+#: squirrelmail/functions/mailbox_display.php:496
+msgid "Transform Selected Messages"
+msgstr "Transformera Markerade Meddelanden"
+
+#: squirrelmail/functions/mailbox_display.php:512
+msgid "Move"
+msgstr "Flytta"
+
+#: squirrelmail/functions/mailbox_display.php:516
+msgid "Expunge"
+msgstr "Radera"
+
+#: squirrelmail/functions/mailbox_display.php:516
+msgid "mailbox"
+msgstr "brevlåda"
+
+#: squirrelmail/functions/mailbox_display.php:518
+msgid "Read"
+msgstr "Läst"
+
+#: squirrelmail/functions/mailbox_display.php:519
+msgid "Unread"
+msgstr "Oläst"
+
+#: squirrelmail/functions/mailbox_display.php:615
+msgid "Toggle All"
+msgstr "Vänd om Alla"
+
+#: squirrelmail/functions/mailbox_display.php:633
+msgid "Unselect All"
+msgstr "Avmarkera Alla"
+
+#: squirrelmail/functions/mailbox_display.php:635
+msgid "Select All"
+msgstr "Markera Alla"
+
+#: squirrelmail/functions/mailbox_display.php:652
+#, c-format
+msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
+msgstr "Visar Meddelanden <B>%s</B> till <B>%s</B> (%s totalt)"
+
+#: squirrelmail/functions/mailbox_display.php:654
+#, c-format
+msgid "Viewing Message: <B>%s</B> (1 total)"
+msgstr "Visar Meddelanden: <B>%s</B> (1 totalt)"
+
+#: squirrelmail/functions/mailbox_display.php:842
+msgid "Show All"
+msgstr "Visa Alla"
+
+#: squirrelmail/functions/mime.php:647
+msgid "Attachments"
+msgstr "Bilagor"
+
+#: squirrelmail/functions/mime.php:686
+msgid "download"
+msgstr "ladda ner"
+
+#: squirrelmail/functions/mime.php:956
+msgid "Title:"
+msgstr "Titel:"
+
+#: squirrelmail/functions/options.php:167
+#, c-format
+msgid "Option Type '%s' Not Found"
+msgstr "Optionstyp '%s' Finns Inte"
+
+#: squirrelmail/functions/options.php:253
+msgid "Yes"
+msgstr "Ja"
+
+#: squirrelmail/functions/options.php:258
+msgid "No"
+msgstr "Nej"
+
+#: squirrelmail/functions/page_header.php:74
+msgid "Current Folder"
+msgstr "Aktiv Mapp"
+
+#: squirrelmail/functions/page_header.php:80
+msgid "Compose"
+msgstr "Nytt meddelande"
+
+#: squirrelmail/functions/prefs.php:33
+#, c-format
+msgid ""
+"Preference file, %s, does not exist. Log out, and log back in to create a "
+"default preference file."
+msgstr ""
+"Inställningsfilen %s finns inte. Logga ut och in igen för att skapa en ny "
+"inställningsfil."
+
+#: squirrelmail/functions/prefs.php:144
+msgid "Error opening "
+msgstr "Fel vid öpnnandet "
+
+#: squirrelmail/plugins/filters/filters.php:359
+msgid ""
+"COMMERCIAL - This list contains servers that are verified spam senders. It "
+"is a pretty reliable list to scan spam from."
+msgstr ""
+"KOMMERSIELL - Denna lista innehåller servrar som är verifierade "
+"skräpmailkällor. En ganska pålitlig lista för att skanna för skräpmail."
+
+#: squirrelmail/plugins/filters/filters.php:367
+msgid ""
+"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
+"be relayed through their system will be banned with this.  Another good one "
+"to use."
+msgstr ""
+"KOMMERSIELL - Servrar som är konfigurerade (elle felkonfigurerade) så att de "
+"släpper igenom skräpmail. En annan bra lista att användas."
+
+#: squirrelmail/plugins/filters/filters.php:375
+msgid ""
+"COMMERCIAL - Dial-up users are often filtered out since they should use "
+"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
+"account and send spam directly from there."
+msgstr ""
+"KOMMERSIELL - Dial-up användare filtreras ofta bort för att de borde använda "
+"sina ISP mailservrar för att skicka mail. Skräpmailsändare ganska ofta "
+"skaffar sig en dial-up-konto och skickar skräpmail direkt därifrån."
+
+#: squirrelmail/plugins/filters/filters.php:383
+msgid "COMMERCIAL - RBL+ Blackhole entries."
+msgstr "KOMMERSIELL - RBL+ Svarta hål."
+
+#: squirrelmail/plugins/filters/filters.php:391
+msgid "COMMERCIAL - RBL+ OpenRelay entries."
+msgstr "KOMMERSIELL - RBL+ Öppna bryggor."
+
+#: squirrelmail/plugins/filters/filters.php:399
+msgid "COMMERCIAL - RBL+ Dial-up entries."
+msgstr "KOMMERSIELL - RBL+ Dial-up."
+
+#: squirrelmail/plugins/filters/filters.php:407
+msgid ""
+"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
+"include servers used by abuse@uunet.net auto-replies too."
+msgstr ""
+"FRI - Osirusoft Relays - Osirusofts lista på verifierade öppna servers. "
+"Verkar innehålla också servrar som används för abuse@uunet.net  auto-svar."
+
+#: squirrelmail/plugins/filters/filters.php:415
+msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
+msgstr "FRI - Osirusoft Dialups - Osirusofts Dialup Skräpkällalista."
+
+#: squirrelmail/plugins/filters/filters.php:423
+msgid ""
+"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
+"have been manually added after multiple nominations. Use with caution. Seems "
+"to catch abuse auto-replies from some ISPs."
+msgstr ""
+"FRI - Osirusoft Confirmed Spam Source - Siter som kontinuerligt skickar "
+"sräpmail och har lagts in manuellt. Använd med försiktighet. Verkar fånga "
+"många abuse auto-svar från vissa ISP."
+
+#: squirrelmail/plugins/filters/filters.php:431
+msgid ""
+"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
+"other mail servers that are not secure."
+msgstr ""
+"FRI - Osirusoft Smart Hosts - Lista på servrar som är själv säkra men "
+"släpper igenom mail från andra som inte är säkrade."
+
+#: squirrelmail/plugins/filters/filters.php:439
+msgid ""
+"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
+"ranges of companies that are known to produce spam software. Seems to catch "
+"abuse auto-replies from some ISPs."
+msgstr ""
+"FRI - Osirusoft Spamware Developers - Man tror att dessa adresser tillhör "
+"bolag som man vet tillverkar program för att skicka skräpmail. Verkar också "
+"fånga abuse auto-svar från vissa ISP."
+
+#: squirrelmail/plugins/filters/filters.php:447
+msgid ""
+"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
+"users in without confirmation."
+msgstr ""
+"FRI - Osirusoft Unconfirmed OptIn Servers - Lista på listservrar som släpper "
+"in användare utan korfirmering."
+
+#: squirrelmail/plugins/filters/filters.php:455
+msgid ""
+"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
+"false positives than ORBS did though."
+msgstr ""
+"FRI - ORDB föddes när ORBS försvann. Verkar i alla fall ha färre falsklarm "
+"än ORBS hade."
+
+#: squirrelmail/plugins/filters/filters.php:463
+msgid "FREE - Another ORBS replacement (just the INPUTS database used here)."
+msgstr "FRI - En annan ORBS ersättare (bara INPUT databas)."
+
+#: squirrelmail/plugins/filters/filters.php:471
+msgid "FREE - Another ORBS replacement (just the OUTPUTS database used here)."
+msgstr "FRI- En annan ORBS ersättare (bara OUTPUT databas)."
+
+#: squirrelmail/plugins/filters/filters.php:479
+msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
+msgstr "FRI - Five-Ten-sg.com - Direkta skräpkällor."
+
+#: squirrelmail/plugins/filters/filters.php:487
+msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
+msgstr "FRI - Five-Ten-sg.com - Dial-up listor - inkluderar vissa DSL ISP."
+
+#: squirrelmail/plugins/filters/filters.php:495
+msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
+msgstr ""
+"FRI - Five-Ten-sg.com - Massmailare som inte verifierar sina användare."
+
+#: squirrelmail/plugins/filters/filters.php:503
+msgid "FREE - Five-Ten-sg.com - Other misc. servers."
+msgstr "FRI - Five-Ten-sg.com - Andra ospecifierade servrar."
+
+#: squirrelmail/plugins/filters/filters.php:511
+msgid "FREE - Five-Ten-sg.com - Single Stage servers."
+msgstr "FRI - Five-Ten-sg.com - Single Stage servrar."
+
+#: squirrelmail/plugins/filters/filters.php:519
+msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
+msgstr "FRI - Five-Ten-sg.com - Skräpmail stödjande servers."
+
+#: squirrelmail/plugins/filters/filters.php:527
+msgid "FREE - Five-Ten-sg.com - Web Form IPs."
+msgstr "FRI - Five-Ten-sg.com - Web Form adresser."
+
+#: squirrelmail/plugins/filters/filters.php:535
+msgid ""
+"FREE - Dorkslayers appears to include only really bad open relays outside "
+"the US to avoid being sued. Interestingly enough, their website recommends "
+"you NOT use their service."
+msgstr ""
+"FRI - Dorkslayers verkar bara innehålla riktigt dåliga öppna servrar utanför "
+"USA för att de skall slippa att bli åtalade. Intresserande nog rekommenderar "
+"de att man inte skall använda deras tjänster."
+
+#: squirrelmail/plugins/filters/filters.php:543
+msgid ""
+"FREE - ORBL is another ORBS spinoff formed after ORBS shut down. May be "
+"SLOOOOOOW!"
+msgstr ""
+"FRI - ORBL är en till ORBS lik tjänst som tillkommit efter att ORBS "
+"stängdes. Kan vara SLÖÖÖÖÖ!"
+
+#: squirrelmail/plugins/filters/filters.php:551
+msgid "FREE - orbz.gst-group.co.uk - Inputs only."
+msgstr "FRI - orbz.gst-group.co.uk - Bara Input."
+
+#: squirrelmail/plugins/filters/filters.php:559
+msgid "FREE - orbz.gst-group.co.uk - Outputs only."
+msgstr "FRI - orbz.gst-group.co.uk - Bara Output."
+
+#: squirrelmail/plugins/filters/filters.php:567
+msgid ""
+"FREE - orbz.gst-group.co.uk - mailservers that refuse or bounce email "
+"addressed to postmaster@<theirdomain>."
+msgstr ""
+"FRI - orbz.gst-group.co.uk - Mailservrar som inte tar emot mail som är "
+"adresserad till deras postmaster@<derasdomain>."
+
+#: squirrelmail/plugins/filters/filters.php:575
+#, c-format
+msgid ""
+"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
+"have a very high spam to legit email ratio (85% or more)."
+msgstr ""
+"FRI, än så länge - SPAMCOP - Intressant lösning som listar servrar som har "
+"mycket hög andel skräpmail (85% eller mer)."
+
+#: squirrelmail/plugins/filters/options.php:60
+msgid "Message Filtering"
+msgstr "Filtrering av Meddelanden"
+
+#: squirrelmail/plugins/filters/options.php:76
+msgid "Match:"
+msgstr "Matchar:"
+
+#: squirrelmail/plugins/filters/options.php:102
+msgid "Contains:"
+msgstr "Innehåller:"
+
+#: squirrelmail/plugins/filters/options.php:114
+msgid "Move to:"
+msgstr "Flytta till:"
+
+#: squirrelmail/plugins/filters/options.php:156
+msgid "Down"
+msgstr "Neråt"
+
+#: squirrelmail/plugins/filters/options.php:162
+msgid "Up"
+msgstr "Upp"
+
+#: squirrelmail/plugins/filters/options.php:165
+#, c-format
+msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
+msgstr "Om <b>%s</b> innehåller <b>%s</b> flytta till <b>%s</b>"
+
+#: squirrelmail/plugins/filters/setup.php:79
+msgid "Message Filters"
+msgstr "Meddelandefilter"
+
+#: squirrelmail/plugins/filters/setup.php:81
+msgid ""
+"Filtering enables messages with different criteria to be automatically "
+"filtered into different folders for easier organization."
+msgstr ""
+"Filtrering möjliggör en automatisk kriteriebaserad flytt av meddelanden till "
+"olika mappar för enklare organisation."
+
+#: squirrelmail/plugins/filters/setup.php:87
+msgid "SPAM Filters"
+msgstr "Skräpmailfilter"
+
+#: squirrelmail/plugins/filters/setup.php:89
+msgid ""
+"SPAM filters allow you to select from various DNS based blacklists to detect "
+"junk email in your INBOX and move it to another folder (like Trash)."
+msgstr ""
+"Skräpmailfilter tillåter dig att välja från olika DNS-baserade svartlistor "
+"så att du kan flytta skräpmail till en annan mapp (t.ex. Papperskorgen)."
+
+#: squirrelmail/plugins/filters/spamoptions.php:52
+msgid "Spam Filtering"
+msgstr "Skräpmailfiltrering"
+
+#: squirrelmail/plugins/filters/spamoptions.php:56
+msgid "WARNING! Tell your admin to set the SpamFilters_YourHop variable"
+msgstr "VARNING! Be din administrator att sätta SpamFilters_YourHop variabeln"
+
+#: squirrelmail/plugins/filters/spamoptions.php:76
+msgid "Move spam to:"
+msgstr "Flytta skräpmail till:"
+
+#: squirrelmail/plugins/filters/spamoptions.php:93
+msgid ""
+"Moving spam directly to the trash may not be a good idea at first, since "
+"messages from friends and mailing lists might accidentally be marked as "
+"spam. Whatever folder you set this to, make sure that it gets cleaned out "
+"periodically, so that you don't have an excessively large mailbox hanging "
+"around."
+msgstr ""
+"Det kan hända att det inte är så bra att flytta skräpmail direkt till "
+"papperskorgen då det kan komma med helt vanliga meddelanden som av misstag "
+"tolkas att vara skräpmail. Vilken mapp du än väljer se till att tömma den då "
+"och då för att inte samla alltför stora mappar som bara tar utrymme i onödan."
+
+#: squirrelmail/plugins/filters/spamoptions.php:96
+msgid "What to Scan:"
+msgstr "Vad skall Skannas:"
+
+#: squirrelmail/plugins/filters/spamoptions.php:101
+msgid "All messages"
+msgstr "Alla meddelanden"
+
+#: squirrelmail/plugins/filters/spamoptions.php:105
+msgid "Only unread messages"
+msgstr "Bara olästa meddelanden"
+
+#: squirrelmail/plugins/filters/spamoptions.php:111
+msgid ""
+"The more messages you scan, the longer it takes.  I would suggest that you "
+"scan only new messages.  If you make a change to your filters, I would set "
+"it to scan all messages, then go view my INBOX, then come back and set it to "
+"scan only new messages.  That way, your new spam filters will be applied and "
+"you'll scan even the spam you read with the new filters."
+msgstr ""
+"Ju flera meddelanden du skannar desto längre tid det tar. Jag skulle föreslå "
+"att bara skanna nya meddelanden. Om du gör förändringar i filtren, byt "
+"tillfälligt att skanna alla meddelanden, gå till inkorgen, och byt tillbaks "
+"att bara skanna nya meddelanden."
+
+#: squirrelmail/plugins/filters/spamoptions.php:137
+msgid "Save"
+msgstr "Spara"
+
+#: squirrelmail/plugins/filters/spamoptions.php:149
+#, c-format
+msgid "Spam is sent to <b>%s</b>"
+msgstr "Skräpmail skickats till <b>%s</b>"
+
+#: squirrelmail/plugins/filters/spamoptions.php:149
+msgid "[<i>not set yet</i>]"
+msgstr "[<i>inte än definierat</i>]"
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+#, c-format
+msgid "Spam scan is limited to <b>%s</b>"
+msgstr "Skräpmailskanning begränsad till <b>%s</b>"
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+msgid "New Messages Only"
+msgstr "Bara Nya Meddelanden"
+
+#: squirrelmail/plugins/filters/spamoptions.php:151
+msgid "All Messages"
+msgstr "Alla Meddelanden"
+
+#: squirrelmail/plugins/filters/spamoptions.php:161
+msgid "ON"
+msgstr "PÅ"
+
+#: squirrelmail/plugins/filters/spamoptions.php:163
+msgid "OFF"
+msgstr "AV"
+
+#: squirrelmail/plugins/squirrelspell/setup.php:46
+msgid "SpellChecker Options"
+msgstr "Rättstavningsinställningar"
+
+#: squirrelmail/plugins/squirrelspell/setup.php:48
+msgid ""
+"Here you may set up how your personal dictionary is stored, edit it, or "
+"choose which languages should be available to you when spell-checking."
+msgstr ""
+"Här kan du välja hur din personliga ordbok sparas, modifiera denna, eller "
+"välja vilka språk kan kontrolleras."
+
+#: squirrelmail/plugins/squirrelspell/setup.php:64
+msgid "Check Spelling"
+msgstr "Kontrollera Stavning"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:37
+msgid "Back to &quot;SpellChecker Options&quot; page"
+msgstr "Tillbaks till &quot;Rättstavningsinställningar&quot; sidan"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:212
+msgid "ATTENTION:"
+msgstr "OBSERVERA:"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:213
+msgid ""
+"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
+"likely due to the fact that you have changed your mailbox password. In order "
+"to proceed, you will have to supply your old password so that SquirrelSpell "
+"can decrypt your personal dictionary. It will be re-encrypted with your new "
+"password after this.<br>If you haven't encrypted your dictionary, then it "
+"got mangled and is no longer valid. You will have to delete it and start "
+"anew. This is also true if you don't remember your old password -- without "
+"it, the encrypted data is no longer accessible."
+msgstr ""
+"SquirrelSpell kunde inte dekryptera din personliga ordbok. Det beror "
+"troligen på det att du har bytt ditt lösenord. För att fortsätta ge ditt "
+"gamla lösenord så att SquirrelSpell kan dekryptera din personliga ordbok."
+"Ordboken kommer sedan att krypteras med ditt nya lösenord.<br>Om du inte har "
+"bytt lösenordet så har din ordbok förmodligen blivit korrupt. I så fall kan "
+"du tyvärr bara radera den och skapa en ny. Detta gäller också ifall du har "
+"glömt ditt gamla lösenord."
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:219
+msgid "Delete my dictionary and start a new one"
+msgstr "Radera min orbok och skapa en ny"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:220
+msgid "Decrypt my dictionary with my old password:"
+msgstr "Dekryptera min ordbok med mitt gamla lösenord:"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:223
+msgid "Proceed"
+msgstr "Fortsätt"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:229
+#: squirrelmail/plugins/squirrelspell/sqspell_functions.php:231
+msgid "Error Decrypting Dictionary"
+msgstr "Fel vid Dekryptering av Ordbok"
+
+#: squirrelmail/plugins/squirrelspell/sqspell_interface.php:43
+#: squirrelmail/plugins/squirrelspell/sqspell_options.php:41
+msgid "SECURITY BREACH ON DECK 5! CMDR TUVOK AND SECURITY TEAM REQUESTED."
+msgstr "SÄKERHETSGENOMGÅNG PÅ DÄCK 5! CMDR TUVOK OCH BESÄTTNING OMBEDS DIT."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:24
+msgid "Your personal dictionary was erased."
+msgstr "Din personliga orbok har tömts."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:25
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:32
+msgid "Dictionary Erased"
+msgstr "Ordbok har Tömts"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:30
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:57
+msgid "Close this Window"
+msgstr "Stäng detta fönster"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:48
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Now return to the "
+"&quot;SpellChecker options&quot; menu and make your selection again."
+msgstr ""
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:51
+msgid "Successful Re-encryption"
+msgstr "Omdekryprering Lyckades"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:54
+msgid ""
+"Your personal dictionary was re-encrypted successfully. Please close this "
+"window and click \"Check Spelling\" button again to start your spellcheck "
+"over."
+msgstr ""
+"Din personliga ordbok har omkrypterats. Stäng detta fönster och klicka på "
+"\"Kontrollera Stavning\" för att starta om stavningskontrollen."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod.php:59
+msgid "Dictionary re-encrypted"
+msgstr "Ordboken har omkrypterats"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:25
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"Din personliga ordbok har <strong>krypterats</strong> och har sparats i "
+"<strong>krypterad format</strong>."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:36
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"Din personliga ordbok har <strong>dekrypterats</strong> och har sparats i "
+"<strong>klartext</strong>."
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
+msgid "Personal Dictionary Crypto Settings"
+msgstr "Personliga Ordbokens Krypteringsinställningar"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:121
+msgid "SquirrelSpell Results"
+msgstr "SquirrelSpell Resultat"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:170
+#, c-format
+msgid "Found %s errors"
+msgstr "Hittade %s fel"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:183
+msgid "Line with an error:"
+msgstr "Rad med fel:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:192
+msgid "Error:"
+msgstr "Fel:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:200
+msgid "Suggestions:"
+msgstr "Förslag:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:206
+msgid "Suggestions"
+msgstr "Förslag"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:214
+msgid "Change to:"
+msgstr "Byt till:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:223
+msgid "Occurs times:"
+msgstr "Hittades ggr:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:239
+msgid "Change this word"
+msgstr "Byt detta ord:"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:240
+msgid "Change"
+msgstr "Byt"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:242
+msgid "Change ALL occurances of this word"
+msgstr "Byt detta ord överallt"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:243
+msgid "Change All"
+msgstr "Byt Alla"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:245
+msgid "Ignore this word"
+msgstr "Ignorera detta ord"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:246
+msgid "Ignore"
+msgstr "Ignorera"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:248
+msgid "Ignore ALL occurances this word"
+msgstr "Ignorera detta ord överallt"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:249
+msgid "Ignore All"
+msgstr "Ignorera Alla"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:251
+msgid "Add this word to your personal dictionary"
+msgstr "Lägg till detta ord i personliga ordboken"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:252
+msgid "Add to Dic"
+msgstr "Lägg till i orboken"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:264
+msgid "Close and Commit"
+msgstr "Stäng och Utför"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:266
+msgid "The spellcheck is not finished. Really close and commit changes?"
+msgstr "Stavningskontrollen är inte färdig. Stäng och gör ändringarna?"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:269
+msgid "Close and Cancel"
+msgstr "Stäng och Ångra"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:271
+msgid "The spellcheck is not finished. Really close and discard changes?"
+msgstr "Stavningskontrollen är inte färdig. Stäng och skippa ändringarna?"
+
+#: squirrelmail/plugins/newmail/testsound.php:33
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:285
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:50
+msgid "Close"
+msgstr "Stäng"
+
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod.php:286
+msgid "No errors found"
+msgstr "Inga fel hittades"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+msgid "Personal Dictionary"
+msgstr "Personlig Ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:21
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:61
+msgid "No words in your personal dictionary."
+msgstr "Inga ord hittades från personliga ordboken."
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:24
+msgid "Please check any words you wish to delete from your dictionary."
+msgstr "Välj ord som skall tas bort från din ordbok."
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:35
+#, c-format
+msgid "%s dictionary"
+msgstr "%s ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:54
+msgid "Delete checked words"
+msgstr "Ta bort markerade ord"
+
+#: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod.php:65
+msgid "Edit your Personal Dictionary"
+msgstr "Modifiera din Personliga Ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:22
+msgid ""
+"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
+"helps protect your privacy in case the web-mail system gets compromized and "
+"your personal dictionary ends up stolen. It is currently encrypted with the "
+"password you use to access your mailbox, making it hard for anyone to see "
+"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
+"strong> If you forget your password, your personal dictionary will become "
+"unaccessible, since it can no longer be decrypted. If you change your "
+"mailbox password, SquirrelSpell will recognize it and prompt you for your "
+"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgstr ""
+"<p>Din personliga ordbok är <strong>krypterad</strong>. Detta hjälper skydda "
+"den ifall webmailsystemet utsätts för intrång och din ordbok blir stulen. "
+"Ordboken är krypterad med ditt lösenord, detta gör det mycket svårt för "
+"andra att se vad som är sparad där.</p> <p>><strong>OBS:</strong> Om du "
+"glömmer ditt lösenord kommer du inte att kunna använda din ordbok. Om du "
+"byter ditt lösenord, SquirrelSpell märker det och frågar efter ditt gamla "
+"lösenord för att sedan kryptera om ordboken med det nya lösenordet.</p>"
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
+msgid ""
+"Please decrypt my personal dictionary and store it in a clear-text format."
+msgstr "Dekryptera min personliga ordbok och spara den i klartext."
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
+msgid "Change crypto settings"
+msgstr "Byt krypteringsinställningar"
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
+msgid ""
+"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
+"may wish to encrypt your personal dictionary to protect your privacy in case "
+"the webmail system gets compromized and your personal dictionary file gets "
+"stolen. When encrypted, the file's contents look garbled and are hard to "
+"decrypt without knowing the correct key (which is your mailbox password).</"
+"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
+"dictionary, you must remember that it gets &quot;hashed&quot; with your "
+"mailbox password. If you forget your mailbox password and the administrator "
+"changes it to a new value, your personal dictionary will become useless and "
+"will have to be created anew. However, if you or your system administrator "
+"change your mailbox password but you still have the old password at hand, "
+"you will be able to enter the old key to re-encrypt the dictionary with the "
+"new value.</p>"
+msgstr ""
+"<p>Din personliga ordbok är <strong>inte krypterad</strong>. Du kanske vill "
+"kryptera den för att skydda den ifall webmailsystemet blir utsatt för "
+"intrång och din ordbok blir stulen. I krypterad form är ordboken oläsbar "
+"utan en giltig nyckel (ditt lösenord).</p> <p><strong>OBS:</strong> Om du "
+"väljer att kryptera din ordbok och glömmer ditt lösenord, du kan inte längre "
+"använda den utan måste skapa en ny. Om du eller systemadministrator byter "
+"ditt lösenord kan, du kan ge ditt gamla lösenord för att dekryptera ordboken "
+"och sedan kryptera om den igen med det nya lösenordet."
+
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
+msgid ""
+"Please encrypt my personal dictionary and store it in an encrypted format."
+msgstr "Kryptera min personliga ordbok och spara den i skyddad format."
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:22
+#, c-format
+msgid "Deleting the following entries from <strong>%s</strong> dictionary:"
+msgstr "Raderar följande ord från <strong>%s</strong> ordbok:"
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:52
+msgid "All done!"
+msgstr "Allt gjort!"
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:53
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod.php:51
+msgid "Personal Dictionary Updated"
+msgstr "Personliga Ordboken är Uppdaterad"
+
+#: squirrelmail/plugins/squirrelspell/modules/forget_me.mod.php:56
+msgid "No changes requested."
+msgstr "Inga meddelanden begärdes."
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:25
+msgid "Please wait, communicating with the server..."
+msgstr "Vänta, kommunicerar med servern..."
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:32
+msgid ""
+"Please choose which dictionary you would like to use to spellcheck this "
+"message:"
+msgstr "Välj med vilken ordbok denna meddelande skall kontrolleras:"
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:44
+msgid "Go"
+msgstr "Gå"
+
+#: squirrelmail/plugins/squirrelspell/modules/init.mod.php:48
+msgid "SquirrelSpell Initiating"
+msgstr "SquirrelSpell Initieras"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:56
+#, c-format
+msgid ""
+"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
+"default dictionary."
+msgstr ""
+"Inställningarna justerade till: <strong>%s</strong> med <strong>%s</strong> "
+"som standardordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:61
+#, c-format
+msgid "Using <strong>%s</strong> dictionary (system default) for spellcheck."
+msgstr "Använder <strong>%s</strong> ordbok (system standard) för kontroll."
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_change.mod.php:69
+msgid "International Dictionaries Preferences Updated"
+msgstr "Internationella Ordboksinställningar Uppdaterade"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:19
+msgid ""
+"Please check any available international dictionaries which you would like "
+"to use when spellchecking:"
+msgstr ""
+"Välj från tillgängliga internationella ordbok som du vill använda vid "
+"stavningskontroll:"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:26
+msgid "Make this dictionary my default selection:"
+msgstr "Välj denna ordbok till mitt standardval:"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:41
+msgid "Make these changes"
+msgstr "Gör dessa förändringar"
+
+#: squirrelmail/plugins/squirrelspell/modules/lang_setup.mod.php:42
+msgid "Add International Dictionaries"
+msgstr "Lägg till Internationella Ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:18
+msgid "Please choose which options you wish to set up:"
+msgstr "Välj inställningar som du vill konfigurera:"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:22
+msgid "Edit your personal dictionary"
+msgstr "Modifiera din personliga ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:27
+msgid "Set up international dictionaries"
+msgstr "Konfigurera internationella ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:35
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+msgid "Encrypt or decrypt your personal dictionary"
+msgstr "Kryptera eller dekryptera din personliga ordbok"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:39
+msgid "not available"
+msgstr "inte tillgängligt"
+
+#: squirrelmail/plugins/squirrelspell/modules/options_main.mod.php:43
+msgid "SquirrelSpell Options Menu"
+msgstr "SquirrelSpell Optionsmenu"
+
+#: squirrelmail/plugins/translate/options.php:93
+msgid "Translator"
+msgstr "Översättare"
+
+#: squirrelmail/plugins/translate/options.php:96
+msgid "Your server options are as follows:"
+msgstr "Dina serverinställningar är följande:"
+
+#: squirrelmail/plugins/translate/options.php:101
+msgid ""
+"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "13 språkpar, max 1000 tecken översatta, av Systran"
+
+#: squirrelmail/plugins/translate/options.php:104
+msgid ""
+"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgstr "10 språkpar, max 25 kB översatta, av Systran"
+
+#: squirrelmail/plugins/translate/options.php:107
+msgid "12 language pairs, no known limits, powered by Systran"
+msgstr "12 språkpar, inga kända begränsningar, av Systran"
+
+#: squirrelmail/plugins/translate/options.php:110
+msgid ""
+"767 language pairs, no known limits, powered by Translation Experts's "
+"InterTran"
+msgstr ""
+"767 språkpar, inga kända begränsningar, av Translation Experts's InterTran"
+
+#: squirrelmail/plugins/translate/options.php:113
+msgid ""
+"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgstr "8 språkpar, inga kända begränsningar, av GPLTrans (fri, open-source)"
+
+#: squirrelmail/plugins/translate/options.php:119
+msgid ""
+"You also decide if you want the translation box displayed, and where it will "
+"be located."
+msgstr ""
+"Du kan också välja om översättningsrutan visas, och vart den skall placeras."
+
+#: squirrelmail/plugins/translate/options.php:123
+msgid "Select your translator:"
+msgstr "Välj din översättare:"
+
+#: squirrelmail/plugins/translate/options.php:135
+msgid "When reading:"
+msgstr "Vid läsning:"
+
+#: squirrelmail/plugins/translate/options.php:140
+msgid "Show translation box"
+msgstr "Visa översättningsrutan"
+
+#: squirrelmail/plugins/translate/options.php:142
+msgid "to the left"
+msgstr "till vänster"
+
+#: squirrelmail/plugins/translate/options.php:143
+msgid "in the center"
+msgstr "i mitten"
+
+#: squirrelmail/plugins/translate/options.php:144
+msgid "to the right"
+msgstr "till höger"
+
+#: squirrelmail/plugins/translate/options.php:149
+msgid "Translate inside the SquirrelMail frames"
+msgstr "Översätt inom SquirrelMail ramar"
+
+#: squirrelmail/plugins/translate/options.php:152
+msgid "When composing:"
+msgstr "Vid skrivning:"
+
+#: squirrelmail/plugins/translate/options.php:156
+msgid "Not yet functional, currently does nothing"
+msgstr "Fungerar inte än"
+
+#: squirrelmail/plugins/translate/setup.php:95
+msgid "Translation Options"
+msgstr "Översättningsinställningar"
+
+#: squirrelmail/plugins/translate/setup.php:97
+msgid ""
+"Which translator should be used when you get messages in a different "
+"language?"
+msgstr ""
+"Vilken översättare skall användas om du får meddelanden i ett annat språk?"
+
+#: squirrelmail/plugins/translate/setup.php:221
+#: squirrelmail/plugins/translate/setup.php:225
+#: squirrelmail/plugins/translate/setup.php:229
+#: squirrelmail/plugins/translate/setup.php:233
+#: squirrelmail/plugins/translate/setup.php:237
+#: squirrelmail/plugins/translate/setup.php:241
+#: squirrelmail/plugins/translate/setup.php:245
+#: squirrelmail/plugins/translate/setup.php:249
+#: squirrelmail/plugins/translate/setup.php:253
+#: squirrelmail/plugins/translate/setup.php:257
+#: squirrelmail/plugins/translate/setup.php:261
+#: squirrelmail/plugins/translate/setup.php:265
+#: squirrelmail/plugins/translate/setup.php:269
+#: squirrelmail/plugins/translate/setup.php:284
+#: squirrelmail/plugins/translate/setup.php:288
+#: squirrelmail/plugins/translate/setup.php:292
+#: squirrelmail/plugins/translate/setup.php:296
+#: squirrelmail/plugins/translate/setup.php:300
+#: squirrelmail/plugins/translate/setup.php:304
+#: squirrelmail/plugins/translate/setup.php:308
+#: squirrelmail/plugins/translate/setup.php:312
+#: squirrelmail/plugins/translate/setup.php:316
+#: squirrelmail/plugins/translate/setup.php:320
+#: squirrelmail/plugins/translate/setup.php:395
+#: squirrelmail/plugins/translate/setup.php:428
+#: squirrelmail/plugins/translate/setup.php:432
+#: squirrelmail/plugins/translate/setup.php:436
+#: squirrelmail/plugins/translate/setup.php:440
+#: squirrelmail/plugins/translate/setup.php:444
+#: squirrelmail/plugins/translate/setup.php:448
+#: squirrelmail/plugins/translate/setup.php:452
+#: squirrelmail/plugins/translate/setup.php:456
+#: squirrelmail/plugins/translate/setup.php:460
+#: squirrelmail/plugins/translate/setup.php:464
+#: squirrelmail/plugins/translate/setup.php:468
+#: squirrelmail/plugins/translate/setup.php:472
+#, c-format
+msgid "%s to %s"
+msgstr "%s till %s"
+
+#: squirrelmail/plugins/translate/setup.php:222
+#: squirrelmail/plugins/translate/setup.php:226
+#: squirrelmail/plugins/translate/setup.php:230
+#: squirrelmail/plugins/translate/setup.php:234
+#: squirrelmail/plugins/translate/setup.php:238
+#: squirrelmail/plugins/translate/setup.php:243
+#: squirrelmail/plugins/translate/setup.php:247
+#: squirrelmail/plugins/translate/setup.php:251
+#: squirrelmail/plugins/translate/setup.php:255
+#: squirrelmail/plugins/translate/setup.php:259
+#: squirrelmail/plugins/translate/setup.php:271
+#: squirrelmail/plugins/translate/setup.php:285
+#: squirrelmail/plugins/translate/setup.php:289
+#: squirrelmail/plugins/translate/setup.php:293
+#: squirrelmail/plugins/translate/setup.php:297
+#: squirrelmail/plugins/translate/setup.php:301
+#: squirrelmail/plugins/translate/setup.php:306
+#: squirrelmail/plugins/translate/setup.php:310
+#: squirrelmail/plugins/translate/setup.php:314
+#: squirrelmail/plugins/translate/setup.php:318
+#: squirrelmail/plugins/translate/setup.php:322
+#: squirrelmail/plugins/translate/setup.php:343
+#: squirrelmail/plugins/translate/setup.php:373
+#: squirrelmail/plugins/translate/setup.php:429
+#: squirrelmail/plugins/translate/setup.php:433
+#: squirrelmail/plugins/translate/setup.php:437
+#: squirrelmail/plugins/translate/setup.php:441
+#: squirrelmail/plugins/translate/setup.php:445
+#: squirrelmail/plugins/translate/setup.php:450
+#: squirrelmail/plugins/translate/setup.php:462
+#: squirrelmail/plugins/translate/setup.php:466
+#: squirrelmail/plugins/translate/setup.php:470
+#: squirrelmail/plugins/translate/setup.php:474
+msgid "English"
+msgstr "Engelska"
+
+#: squirrelmail/plugins/translate/setup.php:223
+#: squirrelmail/plugins/translate/setup.php:242
+#: squirrelmail/plugins/translate/setup.php:263
+#: squirrelmail/plugins/translate/setup.php:266
+#: squirrelmail/plugins/translate/setup.php:290
+#: squirrelmail/plugins/translate/setup.php:309
+#: squirrelmail/plugins/translate/setup.php:346
+#: squirrelmail/plugins/translate/setup.php:376
+#: squirrelmail/plugins/translate/setup.php:408
+#: squirrelmail/plugins/translate/setup.php:430
+#: squirrelmail/plugins/translate/setup.php:449
+#: squirrelmail/plugins/translate/setup.php:453
+#: squirrelmail/plugins/translate/setup.php:458
+msgid "French"
+msgstr "Franska"
+
+#: squirrelmail/plugins/translate/setup.php:227
+#: squirrelmail/plugins/translate/setup.php:246
+#: squirrelmail/plugins/translate/setup.php:262
+#: squirrelmail/plugins/translate/setup.php:267
+#: squirrelmail/plugins/translate/setup.php:294
+#: squirrelmail/plugins/translate/setup.php:313
+#: squirrelmail/plugins/translate/setup.php:347
+#: squirrelmail/plugins/translate/setup.php:377
+#: squirrelmail/plugins/translate/setup.php:409
+#: squirrelmail/plugins/translate/setup.php:434
+#: squirrelmail/plugins/translate/setup.php:454
+#: squirrelmail/plugins/translate/setup.php:457
+#: squirrelmail/plugins/translate/setup.php:461
+msgid "German"
+msgstr "Tyska"
+
+#: squirrelmail/plugins/translate/setup.php:231
+#: squirrelmail/plugins/translate/setup.php:250
+#: squirrelmail/plugins/translate/setup.php:298
+#: squirrelmail/plugins/translate/setup.php:317
+#: squirrelmail/plugins/translate/setup.php:351
+#: squirrelmail/plugins/translate/setup.php:381
+#: squirrelmail/plugins/translate/setup.php:411
+#: squirrelmail/plugins/translate/setup.php:438
+#: squirrelmail/plugins/translate/setup.php:465
+msgid "Italian"
+msgstr "Italienska"
+
+#: squirrelmail/plugins/translate/setup.php:235
+#: squirrelmail/plugins/translate/setup.php:254
+#: squirrelmail/plugins/translate/setup.php:302
+#: squirrelmail/plugins/translate/setup.php:321
+#: squirrelmail/plugins/translate/setup.php:356
+#: squirrelmail/plugins/translate/setup.php:386
+#: squirrelmail/plugins/translate/setup.php:413
+#: squirrelmail/plugins/translate/setup.php:442
+#: squirrelmail/plugins/translate/setup.php:469
+msgid "Portuguese"
+msgstr "Portugesiska"
+
+#: squirrelmail/plugins/translate/setup.php:239
+#: squirrelmail/plugins/translate/setup.php:258
+#: squirrelmail/plugins/translate/setup.php:286
+#: squirrelmail/plugins/translate/setup.php:305
+#: squirrelmail/plugins/translate/setup.php:361
+#: squirrelmail/plugins/translate/setup.php:391
+#: squirrelmail/plugins/translate/setup.php:414
+#: squirrelmail/plugins/translate/setup.php:446
+#: squirrelmail/plugins/translate/setup.php:473
+msgid "Spanish"
+msgstr "Spanska"
+
+#: squirrelmail/plugins/translate/setup.php:270
+#: squirrelmail/plugins/translate/setup.php:358
+#: squirrelmail/plugins/translate/setup.php:388
+msgid "Russian"
+msgstr "Ryska"
+
+#: squirrelmail/plugins/translate/setup.php:273
+#: squirrelmail/plugins/translate/setup.php:325
+#: squirrelmail/plugins/translate/setup.php:396
+#: squirrelmail/plugins/translate/setup.php:417
+#: squirrelmail/plugins/translate/setup.php:476
+msgid "Translate"
+msgstr "Översätt"
+
+#: squirrelmail/plugins/translate/setup.php:337
+#: squirrelmail/plugins/translate/setup.php:367
+msgid "Brazilian Portuguese"
+msgstr "Brasiliansk portugesiska"
+
+#: squirrelmail/plugins/translate/setup.php:338
+#: squirrelmail/plugins/translate/setup.php:368
+msgid "Bulgarian"
+msgstr "Bulgarska"
+
+#: squirrelmail/plugins/translate/setup.php:339
+#: squirrelmail/plugins/translate/setup.php:369
+msgid "Croatian"
+msgstr "Kroatiska"
+
+#: squirrelmail/plugins/translate/setup.php:340
+#: squirrelmail/plugins/translate/setup.php:370
+msgid "Czech"
+msgstr "Tsekkiska"
+
+#: squirrelmail/plugins/translate/setup.php:341
+#: squirrelmail/plugins/translate/setup.php:371
+msgid "Danish"
+msgstr "Danska"
+
+#: squirrelmail/plugins/translate/setup.php:342
+#: squirrelmail/plugins/translate/setup.php:372
+#: squirrelmail/plugins/translate/setup.php:407
+msgid "Dutch"
+msgstr "Holländska"
+
+#: squirrelmail/plugins/translate/setup.php:344
+#: squirrelmail/plugins/translate/setup.php:374
+msgid "European Spanish"
+msgstr "Europeisk spanska"
+
+#: squirrelmail/plugins/translate/setup.php:345
+#: squirrelmail/plugins/translate/setup.php:375
+msgid "Finnish"
+msgstr "Finska"
+
+#: squirrelmail/plugins/translate/setup.php:348
+#: squirrelmail/plugins/translate/setup.php:378
+msgid "Greek"
+msgstr "Grekiska"
+
+#: squirrelmail/plugins/translate/setup.php:349
+#: squirrelmail/plugins/translate/setup.php:379
+msgid "Hungarian"
+msgstr "Ungerska"
+
+#: squirrelmail/plugins/translate/setup.php:350
+#: squirrelmail/plugins/translate/setup.php:380
+msgid "Icelandic"
+msgstr "Isländska"
+
+#: squirrelmail/plugins/translate/setup.php:352
+#: squirrelmail/plugins/translate/setup.php:382
+msgid "Japanese"
+msgstr "Japanska"
+
+#: squirrelmail/plugins/translate/setup.php:353
+#: squirrelmail/plugins/translate/setup.php:383
+msgid "Latin American Spanish"
+msgstr "Latinamerikansk spanska"
+
+#: squirrelmail/plugins/translate/setup.php:354
+#: squirrelmail/plugins/translate/setup.php:384
+msgid "Norwegian"
+msgstr "Norska"
+
+#: squirrelmail/plugins/translate/setup.php:355
+#: squirrelmail/plugins/translate/setup.php:385
+msgid "Polish"
+msgstr "Polska"
+
+#: squirrelmail/plugins/translate/setup.php:357
+#: squirrelmail/plugins/translate/setup.php:387
+msgid "Romanian"
+msgstr "Rumänska"
+
+#: squirrelmail/plugins/translate/setup.php:359
+#: squirrelmail/plugins/translate/setup.php:389
+msgid "Serbian"
+msgstr "Serbiska"
+
+#: squirrelmail/plugins/translate/setup.php:360
+#: squirrelmail/plugins/translate/setup.php:390
+msgid "Slovenian"
+msgstr "Sloveniska"
+
+#: squirrelmail/plugins/translate/setup.php:362
+#: squirrelmail/plugins/translate/setup.php:392
+msgid "Swedish"
+msgstr "Svenska"
+
+#: squirrelmail/plugins/translate/setup.php:363
+#: squirrelmail/plugins/translate/setup.php:393
+msgid "Welsh"
+msgstr "Walesiska"
+
+#: squirrelmail/plugins/translate/setup.php:410
+msgid "Indonesian"
+msgstr "Indonesiska"
+
+#: squirrelmail/plugins/translate/setup.php:412
+msgid "Latin"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:33
+msgid "New Mail Notification"
+msgstr "Notifiering för Nya Meddelanden"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:36
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+"Välj <b>MediaSpelning På</b> för att spela media då du får nya meddelanden. "
+"Vid PÅ du kan specifiera vilken mediafil som spelas."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:38
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+"<b>Kontrolletra alla mappar, inte bara inkorgen</b> option vill kontrollera "
+"ALLA dina mappar för notifiering av olästa meddelanden."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:40
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+"Om du väljer <b>Visa pop-upp</b> option ett fönster poppar upp då du har "
+"olästa meddelanden i dina mappar (kräver JavaScript)."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:42
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+"Använd <b>Kontrollera SENASTE</b> för att bara kontrollera de senaste "
+"inkommna meddelanden. Detta kan minska en eventuell irriterande kontinuerlig "
+"påminnelse för olästa meddelanden."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:44
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+"Om du väljer <b>Byt rubriken</b> optionen kommer tittelraden i vissa "
+"webläsare att bytas då du har nya meddelanden (kräver requires JavaScript, "
+"och fungerar bara med IE men visar inga fel med andra webläsare). Detta "
+"kommer alltid att visa om du har nya meddelanden, även om du har valt "
+"<b>Kontrollera SENASTE</b>."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:46
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+"Välj mediafilen från en lista på <b>serverfiler</b>. Om du väljer <b>lokal "
+"media</b> spelas filen som specifieras i <b>lokal mediafil</b> rutan, denna "
+"fil skall finnas lokalt på din dator. Om ingenting väljs spelas en "
+"standardfil från servern."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:56
+msgid "Enable Media Playing"
+msgstr "MediaSpelning På"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:64
+msgid "Check all boxes, not just INBOX"
+msgstr "Kontrollera alla mappar, inte bara inkorgen"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:72
+msgid "Count only messages that are RECENT"
+msgstr "Räkna bara de senaste meddelanden"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:80
+msgid "Change title on supported browsers."
+msgstr "Byt rubriken på supporterade webläsare."
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:80
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "requires JavaScript to work"
+msgstr "kräver JavaScript"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "Show popup window on new mail"
+msgstr "Visa pop-upp vid nya meddelanden"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:91
+msgid "Select server file:"
+msgstr "Välj en fil från servern:"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:93
+msgid "(local media)"
+msgstr "(lokal media)"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:110
+msgid "Try"
+msgstr "Försök"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:118
+msgid "Local Media File:"
+msgstr "Lokal Mediafil:"
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:124
+msgid "Current File:"
+msgstr "Aktiv Fil:"
+
+#: squirrelmail/plugins/newmail/newmail.php:19
+msgid "New Mail"
+msgstr "Nytt Meddelande"
+
+#: squirrelmail/plugins/newmail/newmail.php:26
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail Notis:"
+
+#: squirrelmail/plugins/newmail/newmail.php:30
+msgid "You have new mail!"
+msgstr "Du har nya meddelanden!"
+
+#: squirrelmail/plugins/newmail/setup.php:76
+msgid "NewMail Options"
+msgstr "Inställningar För Nya Meddelanden"
+
+#: squirrelmail/plugins/newmail/setup.php:78
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+"Detta konfigurerar inställningar för spelning av ljud och/eller pop-upp "
+"fönster då nya meddelanden kommit."
+
+#: squirrelmail/plugins/newmail/setup.php:127
+msgid "New Mail Notification options saved"
+msgstr "Notifieringsinställningar för Nya Meddelanden sparade"
+
+#: squirrelmail/plugins/newmail/setup.php:200
+#, c-format
+msgid "%s New Messages"
+msgstr "%s Nya Meddelanden"
+
+#: squirrelmail/plugins/newmail/setup.php:204
+#, c-format
+msgid "%s New Message"
+msgstr "%s Nytt Meddelande"
+
+#: squirrelmail/plugins/newmail/testsound.php:24
+msgid "Test Sound"
+msgstr "Testa Ljud"
+
+#: squirrelmail/plugins/newmail/testsound.php:30
+msgid "Loading the sound..."
+msgstr "Laddar ljud..."
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
+msgid "POP3 connect:"
+msgstr "POP3 uppkoppling:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:82
+msgid "No server specified"
+msgstr "Ingen server angiven"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:90
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:102
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
+msgid "Error "
+msgstr "Fel "
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:110
+msgid "POP3: premature NOOP OK, NOT an RFC 1939 Compliant server"
+msgstr "POP3: för tidig NOOP OK, server följer INTE RFC 1939"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
+msgid "POP3 noop:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:120
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
+msgid "No connection to server"
+msgstr "Kunde inte kontakta servern"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:141
+msgid "POP3 user:"
+msgstr "POP3 användare:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:133
+msgid "no login ID submitted"
+msgstr "ingen inloggningsid angiven"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:136
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
+msgid "connection not established"
+msgstr "Uppkoppling kunde inte göras"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:156
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
+msgid "POP3 pass:"
+msgstr "POP3 lösenord:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:153
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
+msgid "No password submitted"
+msgstr "inget lösenord angivet"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:161
+msgid "authentication failed "
+msgstr "validation misslyckades"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:170
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
+msgid "NOOP failed. Server not RFC 1939 compliant"
+msgstr "NOOP misslyckades. Server följer inte RFC 1939"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:186
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:195
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:219
+msgid "POP3 apop:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:192
+msgid "No login ID submitted"
+msgstr "Ingen inloggningsid angiven"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
+msgid "No server banner"
+msgstr "Ingen serversträng"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:200
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
+msgid "abort"
+msgstr "bryt"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:210
+msgid "apop authentication failed"
+msgstr "apop validering misslyckades"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:235
+msgid "POP3 login:"
+msgstr "POP3 inlogging:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:260
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:276
+msgid "POP3 top:"
+msgstr "POP3 början:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:302
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:330
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:341
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
+msgid "POP3 pop_list:"
+msgstr "POP3 pop_lista:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:353
+msgid "Premature end of list"
+msgstr "Listan är inte fullständig"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:376
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:389
+msgid "POP3 get:"
+msgstr "POP3 hämta:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:415
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:422
+msgid "POP3 last:"
+msgstr "POP3 sista:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:445
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:455
+msgid "POP3 reset:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:479
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
+msgid "POP3 send_cmd:"
+msgstr "POP3 skicka_kommando:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:485
+msgid "Empty command string"
+msgstr "Tom kommandosträng"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
+msgid "POP3 quit:"
+msgstr "POP3 avsluta:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:505
+msgid "connection does not exist"
+msgstr "uppkopplingen finns inte"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:542
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:554
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:577
+msgid "POP3 uidl:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:610
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
+msgid "POP3 delete:"
+msgstr "POP3 radera:"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:615
+msgid "No msg number submitted"
+msgstr "Inget meddelandenummer angivet"
+
+#: squirrelmail/plugins/mail_fetch/class.POP3.php:621
+msgid "Command failed "
+msgstr "Kommandor misslyckades "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:54
+msgid "Remote POP server Fetching Mail"
+msgstr "POP-server hämtar meddelanden"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:63
+msgid "Select Server:"
+msgstr "Välj Server:"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:65
+msgid "All"
+msgstr "Alla"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:78
+msgid "Password for"
+msgstr "Lösenord för"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:85
+msgid "Fetch Mail"
+msgstr "Hämta meddelanden"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:117
+msgid "Fetching from "
+msgstr "Hämtar från "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:124
+#: squirrelmail/plugins/mail_fetch/fetch.php:184
+msgid "Oops, "
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:128
+msgid "Opening IMAP server"
+msgstr "Öppnar IMAP servern"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:131
+msgid "Opening POP server"
+msgstr "Öppnar POP servern"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:134
+#: squirrelmail/plugins/mail_fetch/setup.php:123
+msgid "Login Failed:"
+msgstr "Inlogging Misslyckades:"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:151
+msgid "Login OK: No new messages"
+msgstr "Inloggning OK: Inga nya meddelanden"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:156
+msgid "Login OK: Inbox EMPTY"
+msgstr "Inloggning OK: Inkorgen är tom"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:161
+msgid "Login OK: Inbox contains ["
+msgstr "Inloggning OK: Inorgen innehåller ["
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:161
+msgid "] messages"
+msgstr "] meddelanden"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:164
+msgid "Fetching UIDL..."
+msgstr "Hämtar UIDL..."
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:169
+#: squirrelmail/plugins/mail_fetch/setup.php:154
+msgid "Server does not support UIDL."
+msgstr "Server stödjer inte UIDL."
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:172
+msgid "Leaving Mail on Server..."
+msgstr "Lämnar meddelanden på servern..."
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:174
+msgid "Deleting messages from server..."
+msgstr "Raderar meddelanden från servern..."
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:178
+msgid "Fetching message "
+msgstr "Hämtar meddelandet "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:201
+msgid "Message appended to mailbox"
+msgstr "Meddelandet har lagts till i meddelandekorgen"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:205
+msgid "Message "
+msgstr "Meddelande "
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:205
+msgid " deleted from Remote Server!"
+msgstr " raderats från Servern!"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:207
+msgid "Delete failed:"
+msgstr "Radering misslyckades:"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:212
+#: squirrelmail/plugins/mail_fetch/setup.php:185
+msgid "Error Appending Message!"
+msgstr "Fel vid Tilläggandet av Meddelandet!"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:216
+msgid "Closing POP"
+msgstr "Avslutar POP"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:218
+msgid "Logging out from IMAP"
+msgstr "Loggar ut från IMAP"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:221
+msgid "Saving UIDL"
+msgstr "Sparar UIDL"
+
+#: squirrelmail/plugins/mail_fetch/options.php:105
+msgid "Remote POP server settings"
+msgstr "POP server inställningar"
+
+#: squirrelmail/plugins/mail_fetch/options.php:107
+msgid ""
+"You should be aware that the encryption used to store your password is not "
+"perfectly secure.  However, if you are using pop, there is inherently no "
+"encryption anyway. Additionally, the encryption that we do to save it on the "
+"server can be undone by a hacker reading the source to this file."
+msgstr ""
+"Du bör veta att kryptering som används för att spara undan ditt lösenord "
+"inte är helt säker. I vilket fall som helst, om du använder pop så används "
+"ingen kryptering alls. Kryptering som används kan brytas av en hacker som "
+"kommer åt källan av den här filen."
+
+#: squirrelmail/plugins/mail_fetch/options.php:109
+msgid "If you leave password empty, it will be required when you fetch mail."
+msgstr "Om du inte fyller i ett lösenord frågas detta när du hämtar din post."
+
+#: squirrelmail/plugins/mail_fetch/options.php:113
+msgid "Encrypt passwords (informative only)"
+msgstr "Kryptera lösenord (bara info)"
+
+#: squirrelmail/plugins/mail_fetch/options.php:119
+#: squirrelmail/plugins/mail_fetch/options.php:151
+msgid "Add Server"
+msgstr "Lägg till Server"
+
+#: squirrelmail/plugins/mail_fetch/options.php:123
+#: squirrelmail/plugins/mail_fetch/options.php:201
+msgid "Server:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:124
+#: squirrelmail/plugins/mail_fetch/options.php:203
+msgid "Alias:"
+msgstr ""
+
+#: squirrelmail/plugins/mail_fetch/options.php:125
+#: squirrelmail/plugins/mail_fetch/options.php:205
+msgid "Username:"
+msgstr "Användarid:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:127
+#: squirrelmail/plugins/mail_fetch/options.php:209
+msgid "Store in Folder:"
+msgstr "Spara i Mappen:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:148
+#: squirrelmail/plugins/mail_fetch/options.php:233
+msgid "Leave Mail on Server"
+msgstr "Lämna meddelanden på Servern"
+
+#: squirrelmail/plugins/mail_fetch/options.php:149
+#: squirrelmail/plugins/mail_fetch/options.php:235
+msgid "Check mail during login"
+msgstr "Kontrollera om det finns nya meddelanden under inloggningen"
+
+#: squirrelmail/plugins/mail_fetch/options.php:150
+#: squirrelmail/plugins/mail_fetch/options.php:237
+msgid "Check mail during folder refresh"
+msgstr "Kontrollera om det finns nya meddelanden vid uppdateringen av mappen"
+
+#: squirrelmail/plugins/mail_fetch/options.php:157
+#: squirrelmail/plugins/mail_fetch/options.php:238
+msgid "Modify Server"
+msgstr "Modifiera Server"
+
+#: squirrelmail/plugins/mail_fetch/options.php:161
+msgid "Server Name:"
+msgstr "Servernnamn:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:167
+#: squirrelmail/plugins/mail_fetch/options.php:190
+msgid "Modify"
+msgstr "Modifiera"
+
+#: squirrelmail/plugins/mail_fetch/options.php:171
+msgid "No-one server in use. Try to add."
+msgstr "Ingen server i bruk. Försök att lägga till."
+
+#: squirrelmail/plugins/mail_fetch/options.php:177
+#: squirrelmail/plugins/mail_fetch/options.php:192
+#: squirrelmail/plugins/mail_fetch/options.php:243
+msgid "Fetching Servers"
+msgstr "Hämtar Servrar"
+
+#: squirrelmail/plugins/mail_fetch/options.php:181
+msgid "Confirm Deletion of a Server"
+msgstr "Konfirmera borttagning av Servern"
+
+#: squirrelmail/plugins/mail_fetch/options.php:185
+msgid "Selected Server:"
+msgstr "Vald Server:"
+
+#: squirrelmail/plugins/mail_fetch/options.php:186
+msgid "Confirm delete of selected server?"
+msgstr "Konfirmera borttagning av valda servern"
+
+#: squirrelmail/plugins/mail_fetch/options.php:187
+msgid "Confirm Delete"
+msgstr "Bekräfta Borttagning"
+
+#: squirrelmail/plugins/mail_fetch/options.php:196
+msgid "Mofify a Server"
+msgstr "Modifiera Servern"
+
+#: squirrelmail/plugins/mail_fetch/options.php:246
+msgid "Undefined Function"
+msgstr "Ickedefinierad Funktion"
+
+#: squirrelmail/plugins/mail_fetch/options.php:248
+msgid "Hey! Wath do You are looking for?"
+msgstr "Hej! Vad letar du efter?"
+
+#: squirrelmail/plugins/mail_fetch/setup.php:30
+msgid "Fetch"
+msgstr "Hämta"
+
+#: squirrelmail/plugins/mail_fetch/setup.php:115
+#: squirrelmail/plugins/mail_fetch/setup.php:162
+msgid "Warning, "
+msgstr "Varning, "
+
+#: squirrelmail/plugins/mail_fetch/setup.php:198
+msgid "Mail Fetch Result:"
+msgstr "Resultat från Hämtning av meddelanden:"
+
+#: squirrelmail/plugins/mail_fetch/setup.php:224
+msgid "Simple POP3 Fetch Mail"
+msgstr "Enkel POP3 Hämtning"
+
+#: squirrelmail/plugins/mail_fetch/setup.php:226
+msgid ""
+"This configures settings for downloading email from a pop3 mailbox to your "
+"account on this server."
+msgstr ""
+"Detta konfigurerar inställningar för hämtning av meddelanden från en pop3 "
+"meddelandekonto till denna server."
