@@ -990,13 +990,13 @@ function showInputForm ($session, $values=false) {
     if ($compose_new_win == '1') {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[0] . '" COLSPAN=2 ALIGN=CENTER>' . "\n" .
-             '         <TEXTAREA NAME=body ROWS=20 COLS="' .
+             '         <TEXTAREA NAME=body ID=body ROWS=20 COLS="' .
                        $editor_size . '" WRAP="VIRTUAL">';
     }
     else {
         echo '   <TR>' . "\n" .
             '      <TD BGCOLOR="' . $color[4] . '" COLSPAN=2>' . "\n" .
-            '         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS="' .
+            '         &nbsp;&nbsp;<TEXTAREA NAME=body ID=body ROWS=20 COLS="' .
                       $editor_size . '" WRAP="VIRTUAL">';
     }
 
