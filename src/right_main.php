@@ -53,6 +53,7 @@ sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
 sqgetGlobalVar('numMessages'      , $numMessages,       SQ_SESSION);
 sqgetGlobalVar('session',           $session,           SQ_GET);
 sqgetGlobalVar('note',              $note,              SQ_GET);
+sqgetGlobalVar('mail_sent',         $mail_sent,         SQ_GET);
 sqgetGlobalVar('use_mailbox_cache', $use_mailbox_cache, SQ_GET);
 
 if ( sqgetGlobalVar('startMessage', $temp) ) {
@@ -154,6 +155,11 @@ if ($composenew) {
     displayPageHeader($color, $mailbox);
 }
 do_hook('right_main_after_header');
+
+/* display a message to the user that their mail has been sent */
+if (isset($mail_sent) && $mail_sent == 'yes') {
+    $note = _("Your Message has been sent.");
+}
 if (isset($note)) {
     echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";
 }
