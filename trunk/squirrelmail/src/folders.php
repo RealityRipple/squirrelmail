@@ -36,7 +36,7 @@
    echo "   </b></TD></TR>\n";
    echo "</TABLE>\n";
 
-   if ($success) {
+   if ($success || $sent_create == "true" || $trash_create == "true") {
       echo "<table width=100% align=center cellpadding=3 cellspacing=0 border=0>\n";
       echo "   <tr><td><center>\n";
       if ($success == "subscribe") {
@@ -50,12 +50,14 @@
       } else if ($success == "rename") {
          echo "<b>" . _("Renamed successfully!") . "</b><br>";
       } else if (($sent_create == "true") || ($trash_create == "true")) {
+         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
          if ($sent_create == "true") {
             sqimap_mailbox_create ($imapConnection, $sent_folder, "");  
          }
          if ($trash_create == "true") {
             sqimap_mailbox_create ($imapConnection, $trash_folder, "");
          }
+         sqimap_logout($imapConnection);
          echo _("Folders created successfully!");
       }
 
