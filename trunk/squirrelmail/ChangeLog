@@ -1,5 +1,8 @@
-Version 1.1.0 -- DEVELOPMENT
+Version 1.1.1 -- DEVELOPMENT
 ----------------------------
+
+Version 1.1.0 -- April 21, 2000 
+-------------------------------
 - Added option to have signout page redirect to another page (patch from Scott Bronson)
     This can be configured in conf.pl (Org Prefs)
 - Much improved SMTP error handling (patch from Jeff Evans)
