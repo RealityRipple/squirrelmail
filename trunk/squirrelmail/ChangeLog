@@ -1,5 +1,7 @@
 Version 0.5 -- DEVELOPMENT
 --------------------------
+- Fixed some lingering bugs in mime parsing 
+- Searching specifies CHARSET option
 - Security fixes
 - Fixed hyperlink rendering problems
 
