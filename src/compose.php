@@ -30,13 +30,13 @@
          } else if (containsType($msg, "msg", "any_type", $ent_num)) {
             $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"]);
          } else {
-            $body = "No Message";
+            $body = _("No Message");
          }
       }
 
       $type1 = $msg["ENTITIES"][$ent_num]["TYPE1"];
 
-      $tmp = "-------- Original Message ---------\n";
+      $tmp = _("-------- Original Message ---------\n");
       $body_ary = explode("\n", $body);
       $body = "";
       for ($i=0;$i < count($body_ary);$i++) {
@@ -66,7 +66,7 @@
          } else if (containsType($msg, "msg", "any_type", $ent_num)) {
             $body = decodeBody($msg["ENTITIES"][$ent_num]["BODY"], $msg["ENTITIES"][$ent_num]["ENCODING"], false);
          } else {
-            $body = "No Message";
+            $body = _("No Message");
          }
       }
 
@@ -128,7 +128,9 @@
    echo "<TABLE COLS=2 WIDTH=50 ALIGN=CENTER CELLSPACING=0 BORDER=0>\n";
    echo "   <TR>\n";
    echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-   echo "         <FONT FACE=\"Arial,Helvetica\">To: </FONT>\n";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo _("To:");
+   echo " </FONT>\n";
    echo "      </TD><TD WIDTH=% \"$color[4]\" ALIGN=LEFT>\n";
    if ($send_to)
       echo "         <INPUT TYPE=TEXT NAME=passed_to VALUE=\"$send_to\" SIZE=60><BR>";
@@ -153,10 +155,11 @@
    echo "         <INPUT TYPE=TEXT NAME=passed_bcc SIZE=60><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
-
    echo "   <TR>\n";
    echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
-   echo "         <FONT FACE=\"Arial,Helvetica\">Subject:</FONT>\n";
+   echo "         <FONT FACE=\"Arial,Helvetica\">";
+   echo _("Subject:");
+   echo " </FONT>\n";
    echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
    if ($reply_subj) {
       $reply_subj = str_replace("\"", "'", $reply_subj);
@@ -177,7 +180,9 @@
    } else {
       echo "         <INPUT TYPE=TEXT NAME=passed_subject SIZE=60>";
    }
-   echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT VALUE=\"Send\"><BR>";
+   echo "&nbsp;&nbsp;<INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Send");
+   echo "\"><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
    echo "   <TR>\n";
@@ -189,6 +194,8 @@
    echo "      </TD>";
    echo "   </TR>\n";
    echo "</TABLE>\n";
-   echo "<CENTER><INPUT TYPE=SUBMIT VALUE=\"Send\"></CENTER>";
+   echo "<CENTER><INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Send");
+   echo "\"></CENTER>";
    echo "</FORM>";
 ?>
