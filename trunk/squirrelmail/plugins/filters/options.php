@@ -54,6 +54,14 @@
 
    $filters = load_filters();
 
+   echo '<br>' .
+        '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
+        "<tr><td bgcolor=\"$color[0]\">".
+        '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
+        '</td></tr></table>'.
+        '<br><center>[<a href="options.php?action=add">' . _("New") .
+        '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>';
+
     if (isset($action) && ($action == 'add' || $action == 'edit')) {
         $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
@@ -132,14 +140,7 @@
 
     }
 
-   echo '<br>' .
-        '<table width=95% align=center border=0 cellpadding=2 cellspacing=0>'.
-        "<tr><td bgcolor=\"$color[0]\">".
-        '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>'.
-        '</td></tr></table>'.
-        '<br><center>[<a href="options.php?action=add">' . _("New") .
-        '</a>] - [<a href="../../src/options.php">' . _("Done") . '</a>]</center><br>' .
-        '<table border=0 cellpadding=3 cellspacing=0 align=center>';
+	echo '<table border=0 cellpadding=3 cellspacing=0 align=center>';
 
     for ($i=0; $i < count($filters); $i++) {
 
