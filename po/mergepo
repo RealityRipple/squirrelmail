@@ -39,7 +39,7 @@ fi
 echo "Merging $LOCALEDIR/LC_MESSAGES/squirrelmail.po"
 mv $LOCALEDIR/LC_MESSAGES/squirrelmail.po \
      $LOCALEDIR/LC_MESSAGES/squirrelmail.po.bak 
-msgmerge $LOCALEDIR/LC_MESSAGES/squirrelmail.po.bak ../po/squirrelmail.po > \
+msgmerge $LOCALEDIR/LC_MESSAGES/squirrelmail.po.bak ../po/squirrelmail.pot > \
      $LOCALEDIR/LC_MESSAGES/squirrelmail.po
 
 # msgmerge will split long lines, such as the RCS Id line. If it did split
