@@ -170,11 +170,11 @@
 
          echo "<small><center>";
 
-         if ($chapter <= 1) echo "<font color=\"$color[9]\">Previous</font> | ";
-         else echo "<a href=\"../src/help.php?chapter=".($chapter-1)."\">Previous</a> | ";
-         echo "<a href=\"../src/help.php\">Table of Contents</a>";
-         if ($chapter >= count($helpdir)) echo " | <font color=\"$color[9]\">Next</font>";
-         else echo " | <a href=\"../src/help.php?chapter=".($chapter+1)."\">Next</a>\n";
+         if ($chapter <= 1) echo "<font color=\"$color[9]\">"._("Previous")."</font> | ";
+         else echo "<a href=\"../src/help.php?chapter=".($chapter-1)."\">"._("Previous")."</a> | ";
+         echo "<a href=\"../src/help.php\">"._("Table of Contents")."</a>";
+         if ($chapter >= count($helpdir)) echo " | <font color=\"$color[9]\">"._("Next")."</font>";
+         else echo " | <a href=\"../src/help.php?chapter=".($chapter+1)."\">"._("Next")."</a>\n";
          echo "</center></small><br>\n";
 
          echo "<font size=5><b>$chapter - $help_info[0]</b></font><br><br>\n";

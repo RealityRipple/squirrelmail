@@ -80,7 +80,7 @@
          <tr>
             <td>&nbsp;
             </td><td>
-               <input type="submit" value="Submit" name="submit_personal">
+               <input type="submit" value="<?php echo _("Submit"); ?>" name="submit_personal">
             </td>
          </tr>
       </table>   
