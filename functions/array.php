@@ -51,4 +51,17 @@
 
       return $newArray;
    }
+
+  function array_cleave($array1, $column)
+  {
+    $key=0;
+    $array2 = array();
+    while ($key < count($array1)) {
+        array_push($array2, $array1[$key]["$column"]);
+        $key++;
+    }
+
+    return ($array2);
+  }
+
 ?>
