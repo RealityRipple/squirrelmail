@@ -63,7 +63,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     echo '<form action="../../src/options.php" method=post>'.
          html_tag( 'table', '', '', '', 'width="100%" cellpadding="0" cellspacing="2" border="0"' ) . "\n" .
              html_tag( 'tr' ) . "\n" .
-                 html_tag( 'td', '&nbsp', 'right', '', 'nowrap' ) . "\n";
+                 html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n";
     if ($allowsound == "true") {
                 echo html_tag( 'td', '', 'left' ) .
                             '<input type="checkbox" ';
@@ -74,7 +74,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
                 '</tr>' . "\n";
     }  
             echo html_tag( 'tr' ) . "\n" .
-                html_tag( 'td', '&nbsp', 'right', '', 'nowrap' ) . "\n" .
+                html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n" .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
     if ($media_allbox == 'on') {
@@ -83,7 +83,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     echo 'name="media_allbox"><b> ' . _("Check all boxes, not just INBOX") . '</b></td>'.
             '</tr>'.  "\n" .
             html_tag( 'tr' ) . "\n" .
-                html_tag( 'td', '&nbsp', 'right', '', 'nowrap' ) . "\n" .
+                html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n" .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
     if ($media_recent == 'on') {
@@ -92,7 +92,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     echo 'name="media_recent"><b> ' . _("Count only messages that are RECENT") . '</b></td>'.
             '</tr>'. "\n" .
             html_tag( 'tr' ) . "\n" .
-                html_tag( 'td', '&nbsp', 'right', '', 'nowrap' ) . "\n" .
+                html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n" .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
     if ($media_changetitle == 'on') {
@@ -101,7 +101,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
     echo 'name="media_changetitle"><b> ' . _("Change title on supported browsers.") . '</b> &nbsp; (' . _("requires JavaScript to work") . ')</td>'.
             '</tr>'. "\n" .
             html_tag( 'tr' ) . "\n" .
-                html_tag( 'td', '&nbsp', 'right', '', 'nowrap' ) . "\n" .
+                html_tag( 'td', '&nbsp;', 'right', '', 'nowrap' ) . "\n" .
                 html_tag( 'td', '', 'left' ) .
                     '<input type="checkbox" ';
     if($media_popup == 'on') {

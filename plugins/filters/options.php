@@ -239,7 +239,7 @@ require_once(SM_PATH . 'plugins/filters/filters.php');
     echo '</table>'.
         html_tag( 'table',
             html_tag( 'tr',
-                html_tag( 'td', '&nbsp', 'left' )
+                html_tag( 'td', '&nbsp;', 'left' )
             ) ,
         'center', '', 'width="80%" border="0" cellpadding="2" cellspacing="0"' );
 ?>

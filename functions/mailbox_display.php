@@ -719,7 +719,7 @@ function mail_message_listing_beginning ($imapConnection,
 
     echo getButton('SUBMIT', 'markRead',_("Read"));
     echo getButton('SUBMIT', 'markUnread',_("Unread"));
-    echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp\n";
+    echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp;\n";
     if (!strpos($php_self,'mailbox')) {
         $location = $php_self.'?mailbox=INBOX&amp;startMessage=1';
     } else {
