@@ -623,6 +623,7 @@ function get_selectall_link($start_msg, $sort) {
     global $checkall, $what, $where, $mailbox, $javascript_on;
     global $PHP_SELF, $PG_SHOWNUM;
 
+    $result = '';
     if ($javascript_on) {
         $result =
             '<script language="JavaScript">' .
