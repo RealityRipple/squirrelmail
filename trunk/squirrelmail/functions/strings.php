@@ -180,7 +180,7 @@
 
    function get_location () {
       # This determines the location to forward to relative
-      # to your server.  If this doesn't work correctly for
+      # to your server.  If this doesnt work correctly for
       # you (although it should), you can remove all this 
       # code except the last two lines, and change the header()
       # function to look something like this, customized to
