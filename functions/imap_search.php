@@ -54,6 +54,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
    # HACKED CODED FROM ANOTHER FUNCTION, Could Probably dump this and mondify 
    # exsitising code with a search true/false varible.
 
+
    global $sent_folder;
    for ($q = 0; $q < count($messagelist); $q++) {
       $messagelist[$q] = trim($messagelist[$q]);
