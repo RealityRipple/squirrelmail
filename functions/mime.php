@@ -319,7 +319,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
      * order that is their priority.
      */
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
-           $show_html_default, $sort, $has_unsafe_images;
+           $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
 
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
@@ -360,21 +360,24 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             translateText($body, $wrap_at,
                           $body_message->header->getParameter('charset'));
         }
-
+	$link = 'read_body.php?passed_id=' . $id . '&amp;ent_id='.$ent_num.
+                 '&amp;mailbox=' . $urlmailbox .'&amp;sort=' . $sort .
+		 '&amp;startMessage=' . $startMessage . '&amp;show_more=0'; 
+	if (isset($passed_ent_id)) {
+	    $link .= '&amp;passed_ent_id='.$passed_ent_id;
+	}
         if ($view_unsafe_images) {
-            $untext = '">' . _("Hide Unsafe Images");
+            $text = _("Hide Unsafe Images");
         } else {
 	    if (isset($has_unsafe_images) && $has_unsafe_images) {
-        	$untext = '&amp;view_unsafe_images=1">' . _("View Unsafe Images");
+        	$link .= '&amp;view_unsafe_images=1';
+		$text = _("View Unsafe Images");
 	    } else {
-		$untext = '">';
+		$text = '';
 	    }
         }
-        $body .= '<center><small><a href="read_body.php?passed_id=' . $id .
-                 '&amp;passed_ent_id=' . $message->entity_id . '&amp;mailbox=' . $urlmailbox .
-                 '&amp;sort=' . $sort . '&amp;startMessage=' . $startMessage . '&amp;show_more=0' .
-                 $untext . '</a></small></center><br>' . "\n";
-        
+        $body .= '<center><small><a href="'.$link.'">'.$text.
+	         '</a></small></center><br>' . "\n";
     }
     return $body;
 }
