@@ -186,25 +186,23 @@
    
    // 5) Remove the addresses we'll be sending the message 'to'
    $url_replytoall_avoid_addrs = '';
-   if (isset($message->header->replyto))
+   if (isset($message->header->replyto)) {
       $url_replytoall_avoid_addrs = $message->header->replyto;
+   }
+
    $url_replytoall_avoid_addrs = parseAddrs($url_replytoall_avoid_addrs);
-   foreach ($url_replytoall_avoid_addrs as $addr)
-   {
+   foreach ($url_replytoall_avoid_addrs as $addr) {
        RemoveAddress($url_replytoall_extra_addrs, $addr);
    }
    
    // 6) Remove our identities from the CC list (they still can be in the
-   // TO list) only if $include_self_reply_all isn't set or it is ''.
-   if (getPref($data_dir, $username, 'include_self_reply_all') == '')
-   {
+   // TO list) only if $include_self_reply_all is turned off
+   if (!$include_self_reply_all) {
        RemoveAddress($url_replytoall_extra_addrs, 
                      getPref($data_dir, $username, 'email_address'));
        $idents = getPref($data_dir, $username, 'identities');
-       if ($idents != '' && $idents > 1)
-       {
-           for ($i = 1; $i < $idents; $i ++)
-           {
+       if ($idents != '' && $idents > 1) {
+           for ($i = 1; $i < $idents; $i ++) {
                RemoveAddress($url_replytoall_extra_addrs, 
 	                     getPref($data_dir, $username, 'email_address' .
 			             $i));
