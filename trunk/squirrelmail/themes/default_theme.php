@@ -11,9 +11,9 @@
        Be sure to rename the file and keep the original, just in case.
 
        NOTE:
-       Please email any themes you create to captbunzo@squirrelmail.org
-       for inclusion in further releases of SquirrelMail and for download
-       from the web page.
+       You might want to submit the theme you create to our Patches tracker
+       on http://sourceforge.net/projects/squirrelmail
+       for inclusion in further releases of SquirrelMail.
     **/
 
     global $color;
