@@ -644,7 +644,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         }
 
         if ( $actual && is_conversion_safe($actual) && $actual != $default_charset){
-          $bodypart = charset_convert($actual,$bodypart,$default_charset);
+          $bodypart = charset_convert($actual,$bodypart,$default_charset,false);
         }
 
             $body .= $bodypart;
