@@ -114,10 +114,10 @@
             }
             else if (substr($read, 0, 7) == "a001 NO") {
                echo "<BR>";
-               echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
+               echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
                echo "   <TR>";
-               echo "      <TD BGCOLOR=\"$color[0]\">";
-               echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[2]\"><B><CENTER>ERROR</CENTER></B></FONT>";
+               echo "      <TD BGCOLOR=\"DCDCDC\">";
+               echo "         <FONT FACE=\"Arial,Helvetica\" COLOR=CC0000><B><CENTER>ERROR</CENTER></B></FONT>";
                echo "   </TD></TR><TR><TD>";
                echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
                echo "   </TD></TR>";
