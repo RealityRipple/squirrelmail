@@ -82,7 +82,9 @@ spamcop_load();
       <br />
       <table width="95%" align="center" border="0" cellpadding="2" cellspacing="0">
       <tr><td bgcolor="<?php echo $color[0]; ?>">
-         <center><b><?php echo _("Options") . " - " . _("Spam reporting"); ?></b></center>
+         <center><b>
+	 <?php echo _("Options") . " - " . _("Spam reporting"); ?>
+	 </b></center>
       </td></tr></table>
       <br />
       
@@ -96,7 +98,7 @@ spamcop_load();
         <tr>
 	  <?php
 	  echo html_tag('td',_("Delete spam when reported:") . "<br />\n" .
-	  '<font size="-2">(' . _("Only works with email-based reporting") . ')</font>',
+	  '<small>(' . _("Only works with email-based reporting") . ')</small>',
 	  'right','','valign="top"');
 	  echo html_tag('td', spamcop_enable_disable($spamcop_delete,'save','delete'),'','','valign="top"');
 	  ?>
@@ -129,14 +131,16 @@ spamcop_load();
 		?>
 	      </option>
 	    </select>
-	    <input type="hidden" name="action" value="meth">
-	    <input type="submit" value="<?php echo _("Save Method"); ?>">
+	    <input type="hidden" name="action" value="meth" />
+	    <?php
+		echo '<input type="submit" value="' . _("Save Method") . "\" />\n";
+	    ?>
 	  </td></form>
 	</tr>
 	<tr>
-	      	  <?php
-	  echo html_tag('td',_("Spam Service Type:"),'right');
-	  ?>
+	    <?php
+		echo html_tag('td',_("Spam Service Type:"),'right');
+	    ?>
 	  <form method="post" action="options.php">
 	  <td>
 	    <select name="type">
@@ -153,19 +157,23 @@ spamcop_load();
 		?>
 	      </option>
 	    </select>
-	    <input type="hidden" name="action" value="type">
-	    <input type="submit" value="<?php echo _("Save Service Type"); ?>">
+	    <?php
+	    echo '<input type="hidden" name="action" value="type" />' .
+		 '<input type="submit" value="' . _("Save Service Type") . "\" />\n";
+	    ?>
 	   </td></form>
 	</tr>
 	<tr>
 	  <?php
 	    echo html_tag('td',_("Your SpamCop authorization code:") . "<br />" .
-	    '<font size="-2">(' . _("see below") . ')</font>','right','','valign="top"');
+	    '<small>(' . _("see below") . ')</small>','right','','valign="top"');
 	  ?>
 	  <form method="post" action="options.php"><td valign="top">
 	    <input type="text" size="30" name="ID" value="<?php echo htmlspecialchars($spamcop_id) ?>" />
 	    <input type="hidden" name="action" value="save_id" />
-	    <input type="submit" value="<?php echo _("Save ID"); ?>" />
+	    <?php
+		echo '<input type="submit" value="' . _("Save ID") . "\" />\n";
+	    ?>
 	  </td></form>
 	</tr>
       </table>
