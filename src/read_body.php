@@ -617,9 +617,9 @@ if ($message->header->type0 == 'multipart' && $message->header->type1 == 'digest
 /* first step in displaying multiple entities */
 $ent_ar = findDisplayEntity($message,true);
 
-$ent_num = $ent_num_ar[0];
+$ent_num = $ent_ar[0];
 for ($i = 1 ; $i < count($ent_ar); $i++) {
-    $ent_num .= '_'.$ent_num_ar[$i];
+    $ent_num .= '_'.$ent_ar[$i];
 }
 /** TEXT STRINGS DEFINITIONS **/
 $echo_more = _("more");
