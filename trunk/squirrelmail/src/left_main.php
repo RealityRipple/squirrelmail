@@ -44,7 +44,7 @@
 
       $special_color = false;
       for ($i = 0; $i < count($special_folders); $i++) {
-         if ((substr($real_box, strlen($folder_prefix), strlen($special_folders[$i])) == $special_folders[$i]) && ($use_special_folder_color == true))
+         if (((substr($real_box, strlen($folder_prefix), strlen($special_folders[$i])) == $special_folders[$i]) || ($real_box == $special_folders[0])) && ($use_special_folder_color == true))
             $special_color = true;
       }
 
@@ -65,7 +65,7 @@
          $line .= "&nbsp;<small>($numUnseen)</small>";
       }
 
-      if (($move_to_trash == true) && (trim($real_box) == $trash_folder)) {
+      if (($move_to_trash == true) && (substr($real_box, strlen($folder_prefix), strlen($trash_folder)) == $trash_folder)) {
          $urlMailbox = urlencode($real_box);
          $line .= "<small>";
          $line .= "&nbsp;&nbsp;&nbsp;&nbsp;(<B><A HREF=\"empty_trash.php?numMessages=$numMessages&mailbox=$urlMailbox\" TARGET=right style=\"text-decoration:none\">"._("purge")."</A></B>)";
