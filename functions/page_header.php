@@ -26,7 +26,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     global $theme_css, $custom_css, $pageheader_sent;
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' .
-         "\n\n" . html_tag( 'html' ,'' , '', '', '' ) . "\n<head>\n";
+         "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
 
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
@@ -39,7 +39,7 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     
     if ($squirrelmail_language == 'ja_JP') {
         echo "<!-- \xfd\xfe -->\n";
-        echo '<meta http-equuiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
+        echo '<meta http-equiv="Content-type" content="text/html; charset=euc-jp">' . "\n";
     }
     
     if ($do_hook) {
