@@ -129,11 +129,11 @@
         fputs ($fp, "--".mimeBoundary()."\n");
         fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
         fputs ($fp, "Content-Transfer-Encoding: 8bit\n\n");
-        fputs ($fp, "$body\n");
+        fputs ($fp, stripslashes($body) . "\n");
         attachFiles($fp);
         fputs ($fp, "\n--".mimeBoundary()."--\n");
      } else {
-       fputs ($fp, "$body\n");
+       fputs ($fp, stripslashes($body) . "\n");
      }
    }
 

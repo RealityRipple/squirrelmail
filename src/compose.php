@@ -238,9 +238,9 @@
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       if ($use_signature == true)
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>$body\n\n$signature</TEXTAREA><BR>";
+         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>". $body . "\n\n".$signature."</TEXTAREA><BR>";
       else
-         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>$body</TEXTAREA><BR>\n";
+         echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>".$body."</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
