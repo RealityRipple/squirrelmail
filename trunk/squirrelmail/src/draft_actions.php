@@ -141,11 +141,16 @@ function writeBodyForDraft ($fp, $passedBody, $session) {
 }
 
 
-function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $session) {
+function saveMessageAsDraft($t, $c, $b, $subject, $body, $reply_id, $prio = 3, $session) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
            $data_dir, $username, $domain, $key, $version, $sent_folder,
-           $imapServerAddress, $imapPort, $draft_folder, $attachment_dir;
+           $imapServerAddress, $imapPort, $draft_folder, $attachment_dir,
+           $default_use_priority;
     $more_headers = Array();
+
+    if ($default_use_priority) {
+        $more_headers = array_merge($more_headers, createPriorityHeaders($prio));
+    }
 
     $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 

@@ -582,6 +582,17 @@ if ($default_use_priority) {
 /** make sure everything will display in HTML format **/
 $from_name = decodeHeader(htmlspecialchars($message->header->from));
 $subject = decodeHeader(htmlspecialchars($message->header->subject));
+$identity = '';
+$idents = getPref($data_dir, $username, 'identities');
+if (!empty($idents) && $idents > 1) {
+    for ($i = 1; $i < $idents; $i++) {
+        if (htmlspecialchars('"' . encodeHeader(getPref($data_dir, $username, 'full_name' . $i)) .
+            '" <' . getPref($data_dir, $username, 'email_address' . $i) . '>') == $from_name) {
+            $identity = $i;
+            break;
+        }
+    }
+}
 
 do_hook('read_body_top');
 echo '<BR>' .
@@ -612,12 +623,21 @@ if ($where && $what) {
 echo _("Delete") . '</A>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     echo '|&nbsp;<A HREF="' . $base_uri .
-         "src/compose.php?mailbox=$mailbox&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;draft_id=$passed_id&amp;ent_num=$ent_num" . '"';
+         "src/compose.php?mailbox=$mailbox&amp;identity=$identity&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;mailprio=$priority_level&amp;draft_id=$passed_id&amp;ent_num=$ent_num" . '"';
     if ($compose_new_win == '1') {
-        echo 'TARGET="compose_window" onClick="comp_in_new()"';
+        echo ' TARGET="compose_window" onClick="comp_in_new()"';
     }
     echo '>'.
          _("Resume Draft") . '</a>';
+}
+if ($mailbox == $sent_folder) {
+    echo '|&nbsp;<A HREF="' . $base_uri .
+         "src/compose.php?mailbox=$mailbox&amp;identity=$identity&amp;send_to=$url_to_string&amp;send_to_cc=$url_cc_string&amp;send_to_bcc=$url_bcc_string&amp;subject=$url_subj&amp;mailprio=$priority_level&amp;draft_id=$passed_id&amp;ent_num=$ent_num" . '"';
+    if ($compose_new_win == '1') {
+        echo ' TARGET="compose_window" onClick="comp_in_new()"';
+    }
+    echo '>'.
+          _("Edit Message as New") . '</a>';
 }
 
 echo '&nbsp;&nbsp;' .
