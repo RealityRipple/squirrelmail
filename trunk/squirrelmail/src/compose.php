@@ -91,12 +91,12 @@ function getforwardHeader($orig_header) {
       $display[$key] = $key .': '. str_pad('', $maxsize - $val);
    }      
    $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH);
-   $bodyTop .=  "\n". $display[_("Subject")] . $orig_header->subject . "\n" .
-        $display[_("From")] . $orig_header->getAddr_s('from',"\n$indent") . "\n" .
+   $bodyTop .=  "\n". $display[_("Subject")] . decodeHeader($orig_header->subject) . "\n" .
+        $display[_("From")] . decodeHeader($orig_header->getAddr_s('from',"\n$indent")) . "\n" .
         $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
-        $display[_("To")] . $orig_header->getAddr_s('to',"\n$indent") ."\n";
+        $display[_("To")] . decodeHeader($orig_header->getAddr_s('to',"\n$indent")) ."\n";
   if ($orig_header->cc != array() && $orig_header->cc !='') {
-     $bodyTop .= $display[_("Cc")] . $orig_header->getAddr_s('cc',"\n$indent") . "\n";
+     $bodyTop .= $display[_("Cc")] . decodeHeader($orig_header->getAddr_s('cc',"\n$indent")) . "\n";
   }
   $bodyTop .= str_pad('', $editor_size -2 , '-');
   $bodyTop .= "\n";
