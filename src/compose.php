@@ -35,7 +35,7 @@ if (!isset($mailbox) || $mailbox == '' || ($mailbox == 'None')) {
 }
 
 if (isset($draft)) {
-    require_once ('../src/draft_actions.php');
+    include_once ('../src/draft_actions.php');
     if (!saveMessageAsDraft($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id)) {
         showInputForm();
         exit();
@@ -454,8 +454,8 @@ function showInputForm () {
         showComposeButtonRow();
     }
 
-    $idents = getPref($data_dir, $username, 'identities');
-    if ($idents != '' && $idents > 1) {
+    $idents = getPref($data_dir, $username, 'identities', 0);
+    if ($idents > 1) {
         echo '   <TR>' . "\n" .
              '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
              "\n" .

@@ -41,10 +41,56 @@ function displayInternalLink($path, $text, $target='') {
 }
 
 function displayPageHeader($color, $mailbox) {
-    global $delimiter, $hide_sm_attributions;
+
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF;
+
     displayHtmlHeader ();
 
-    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" onLoad='if ( ( document.forms.length > 0 ) && ( document.forms[0].elements[0].type == \"text\" ) ) { document.forms[0].elements[0].focus(); }'>\n\n";
+    $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
+
+    /*
+        Locate the first displayable form element
+    */
+    switch ( $module ) {
+    case 'src/search.php':
+        $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
+        $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
+        break;
+    default:
+        echo '
+<script language="JavaScript">
+<!--
+function checkForm() {
+
+    var f = document.forms.length;
+    var i = 0;
+    var pos = -1;
+    while( pos == -1 && i < f ) {
+        var e = document.forms[i].elements.length;
+        var j = 0;
+        while( pos == -1 && j < e ) {
+            if ( document.forms[i].elements[j].type == \'text\' ) {
+                pos = j;
+            }
+            j++;
+        }
+        i++;
+    }
+    if( pos >= 0 ) {
+        // document.write( "Si tio" );
+        document.forms[i-1].elements[pos].focus();
+    }
+    
+}
+-->
+</script>
+        ';
+        $onload = "onLoad=\"checkForm();\"";
+        break;   
+
+    }
+
+    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
 
     /** Here is the header and wrapping table **/
     $shortBoxName = readShortMailboxName($mailbox, $delimiter);
