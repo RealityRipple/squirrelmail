@@ -277,11 +277,11 @@ function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_ar
 
     // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
     if ($allow_thread_sort && getPref($data_dir, $username, "thread_$mailbox",0)) {
-        $mode = 'thread';
+        $mode = 'THREAD';
     } else if ($allow_server_sort) {
-        $mode = 'server_sort';
+        $mode = 'SERVER';
     } else {
-        $mode = '';
+        $mode = 'SQUIRREL';
     }
     $error = '';
     if (is_array($server_sort_array)) {
