@@ -1,40 +1,37 @@
- Developers:
- -----------
-   Brent Bice
-   Bron Gondwana    <brong@brong.net> http://brong.net/
-   Bryan Stalcup    <bryan@stalcup.net>
-   Erin Schnabel    <ebullient@squirrelmail.org> http://ebullient.haaser.com
-   Gerrit Padgham   <gpadgham@commnav.com>
-   Gustav Foseid    <gustavf@squirrelmail.org> http://www.initio.no
-   Jason Munro      <jason@stdbev.com>
-   Jonathan Angliss <jon@squirrelmail.org>
-   Konstantin Riabitsev <icon@duke.edu> 
-   Lewis Bergman
-   Luke Ehresman    <luke@squirrelmail.org> http://www.css.tayloru.edu/~lehresma
-   Marc Groot Koerkamp <marc@its-projects.nl>
-   Matt Phillips    <mphillip@commnav.com>
-   Michael Douma
-   Nathan Ehresman  <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
-   Paul Thompson    <captbunzo@squirrelmail.org>
-   Peter Hutnick    <peter@hutnick.com>
-   Philippe Mingo   <philippe@squirrelmail.org>  http://mingo.ath.cx/
-   Pål Løberg       <pallo@squirrelmail.org> http://www.initio.no
-   Shane Wilson
-   Simon Dick       <simond@irrelevant.org>
-   Stefan Sels      <sm@sels.com> http://stefan.sels.com
-   Steve Falla
-   Steve Gare       http://www.xantara.co.uk
-   Thijs Kinkhorst  <thijs@jaze.nl>
-   Tomas Kuliavas   <tokul@users.sourceforge.net>
-   Tyler Akins
-   Wouter Teepe     <wouter@teepe.com>
-   Chris Hilts      <tassium@squirrelmail.org> http://www.birdbrained.org
+THE SQUIRRELMAIL TEAM
+=====================
+
+ Project Leader:
+ ---------------
+   Rick Castello	<rick@squirrelmail.org>
+
+ Main Developers:
+ ----------------
+   Alex Lemaresquier	<alex@brainstorm.fr>
+   Chris Hilts		<tassium@squirrelmail.org>	http://www.birdbrained.org
+   Erin Schnabel	<ebullient@squirrelmail.org>	http://ebullient.haaser.com
+   Jonathan Angliss	<jon@squirrelmail.org>
+   Marc Groot Koerkamp	<marc@squirrelmail.org>
+   Paul Lesneiwski	<pdontthink@angrynerds.com>
+   Philippe Mingo	<philippe@squirrelmail.org>	http://mingo.ath.cx
+   Seth E. Randall	<sethr@missoulafcu.org>
+   Thijs Kinkhorst	<kink@squirrelmail.org>
+   Tomas Kuliavas	<tokul@users.sourceforge.net>	http://www.topolis.lt
+
+ Past Developers, now retired:
+ -----------------------------
+ Brent Bice, Bron Gondwana, Bryan Stalcup, Gerrit Padgham, Gustav Foseid,
+ Jason Munro, Konstantin Riabitsev, Lewis Bergman, Luke Ehresman, Matt Phillips
+ Nathan Ehresman, Paul Thompson, Peter Hutnick, Pål Løberg, Shane Wilson,
+ Simon Dick, Steve Falla, Steve Gare, Tyler Akins, Wouter Teepe.
+ (Thanks people!)
+
 
  Translations: 
  -------------
  
- Mail-List:   squirrelmail-i18n@lists.sourceforge.net
- Leader:      Philippe Mingo <philippe@squirrelmail.org>
+ Mailinglist:    squirrelmail-i18n@lists.sourceforge.net
+ Leader:         Philippe Mingo <philippe@squirrelmail.org>
  
    Arabic        Asrar Abbasi <asrar@canasoft.net>
                  Naveed Saqib <naveed.saqib@biznas.com>
@@ -44,7 +41,6 @@
    Czech         Ondrej Sury <ondrej@sury.cz>
    Danish        Claus Rasmussen <claus@webclaus.com>
    Dutch         M.J. Prinsen <translation@prinsenonline.com>
-                 Thijs Kinkhorst <thijs@jaze.nl>
                  Arjen Halma <arjen@halma.nl>
    Estonian      Lauri Jesmin <jesmin@ut.ee>
                  Peeter Russak <pezz@tkwcy.ee>
@@ -89,23 +85,14 @@
 
  Significant Contributions:
  --------------------------
-   i18n support:        Sergiusz Pawlowicz 
-   SquirrelMail logo:   Libor Kopecky <libor@globe.cz>
-   Web Site Admin/PR:   Rick Castello <rick@squirrelmail.org>
-   Multisig support:    Stefan Meier <Stefan.Meier@cimsource.com> 
+ Sergiusz Pawlowicz, Libor Kopecky, Stefan Meier, Charles Scheidecker,
+ Alex Bleeker, Damien Sandras, David Whittington, Jan-Pieter Cornet,
+ John Williams, Martin Jespersen, Ondrej Sury, Pontus Ullgren,
+ Stefan Sels, Rob Siemborski and many others!
 
-   Paginator Help: Charles Scheidecker
-   Other Code contributions:
-       Alex Bleeker <beheer@hackers.nl>
-       Damien Sandras <dsandras@acm.org>
-       David Whittington <dwhittin@css.tayloru.edu>
-       Jan-Pieter Cornet <johnpc@xs4all.nl>
-       John Williams <jw@netpimp.com> 
-       Martin Jespersen <mbj@mbj.dk>
-       Ondrej Sury <ondrej@globe.cz>
-       Pontus Ullgren <pontus@ullgren.com>
-       Rob Siemborski <rjs3+@andrew.cmu.edu>
-       Many, many others...
+ Thanks to all who have made SquirrelMail the way it is now!
+ That includes bugreporters, patch submitters, testers, plugin authors, ...
+
 
 ( We have tried to keep this up to date to give credit where it
   is due. If you feel that you have wrongfully been left off this
