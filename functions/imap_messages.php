@@ -240,7 +240,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         natcasesort($aUid);
         $aUid = array_keys($aUid);
         if ($reverse) {
-             array_reverse($aUid);
+             $aUid = array_reverse($aUid);
         }
         break;
         //  \natcasesort section
