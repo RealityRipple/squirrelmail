@@ -150,8 +150,8 @@ function delete_move_next_read($currloc) {
 	   $uid_support;
 
     if (!(($where && $what) || ($currentArrayIndex == -1))) {
-        $next = findNextMessage();
-        $prev = findPreviousMessage($mbx_response['EXISTS']);
+        $next = findNextMessage($passed_id);
+        $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
         $prev_if_del = $prev;
         $next_if_del = $next;
         if (!$uid_support && ($auto_expunge || $move_to_trash)) {
@@ -170,16 +170,16 @@ function delete_move_next_read($currloc) {
              '<tr>'.
                  "<td bgcolor=\"$color[9]\" width=\"100%\" align=center><small>";
     
-        if ($prev > 0) {
-            echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
-        } else {
-            echo _("Previous") . "&nbsp;|&nbsp;";
-        }
-        if ($next > 0) {
-            echo "<a href=\"read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>&nbsp;|&nbsp;\n";
-        } else {
-            echo _("Next") . "&nbsp;|&nbsp;";
-        }
+//        if ($prev > 0) {
+//            echo "<a href=\"read_body.php?passed_id=$prev&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Previous") . "</A>&nbsp;|&nbsp;\n";
+//        } else {
+//            echo _("Previous") . "&nbsp;|&nbsp;";
+//        }
+//        if ($next > 0) {
+//            echo "<a href=\"read_body.php?passed_id=$next&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0\">" . _("Next") . "</A>&nbsp;|&nbsp;\n";
+//        } else {
+//            echo _("Next") . "&nbsp;|&nbsp;";
+//        }
         if ($prev > 0){
             echo "<a href=\"read_body.php?passed_id=$prev_if_del&amp;mailbox=$urlMailbox&amp;sort=$sort&amp;startMessage=$startMessage&amp;show_more=0&amp;delete_id=$passed_id\">" . _("Delete & Prev") . "</a>" . "&nbsp;|&nbsp;\n";
         }
