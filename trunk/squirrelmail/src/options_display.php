@@ -48,7 +48,6 @@ function load_optpage_data_display() {
         'save'    => 'save_option_theme'
     );
 
-    $language = (!isset($language) || ($language == '') ? 'en' : $language);
     $language_values = array();
     foreach ($languages as $lang_key => $lang_attributes) {
         if (isset($lang_attributes['NAME'])) {
@@ -56,6 +55,8 @@ function load_optpage_data_display() {
         }
     }
     asort($language_values);
+    $language_values =
+        array_merge(array('' => _("Default")), $language_values);
     $optvals[SMOPT_GRP_GENERAL][] = array(
         'name'    => 'language',
         'caption' => _("Language"),
