@@ -770,9 +770,9 @@ function get_sorted_msgs_list($imapConnection,&$aMailbox,&$error) {
         $aRes = get_thread_sort($imapConnection,$aMailbox['SEARCH'][$iSetIndx]);
         if ($aRes === false) {
             $error = '<b><small><center><font color=red>' .
-                    _("Thread sorting is not supported by your IMAP server.") . '<br />' .
-                    _("Please report this to the system administrator.").
-                    '</center></small></b>';
+                _("Thread sorting is not supported by your IMAP server.") . '<br />' .
+                _("Please report this to the system administrator.") .
+                '</center></small></b>';
             $aMailbox['SORT'] -= SQSORT_THREAD;
         } else {
             $aMailbox['UIDSET'][$iSetIndx] = $aRes[0];
@@ -784,8 +784,8 @@ function get_sorted_msgs_list($imapConnection,&$aMailbox,&$error) {
         $id = sqimap_get_sort_order($imapConnection, $sSortField, $bDirection, $aMailbox['SEARCH'][$iSetIndx]);
         if ($id === false) {
             $error =  '<b><small><center><font color=red>' .
-                _( "Server-side sorting is not supported by your IMAP server.") . '<br />' .
-                _("Please report this to the system administrator.").
+                _("Server-side sorting is not supported by your IMAP server.") . '<br />' .
+                _("Please report this to the system administrator.") .
                 '</center></small></b>';
         } else {
             $aMailbox['UIDSET'][$iSetIndx] = $id;
