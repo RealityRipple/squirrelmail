@@ -38,6 +38,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
     }
 
     function Mail_Fetch_Servers() {
+        global $data_dir, $username;
+
         $mailfetch['server_number'] = getPref($data_dir, $username, "mailfetch_server_number");
         if (!isset($mailfetch['server_number']) || ($mailfetch['server_number'] < 1)) {
             $mailfetch['server_number'] = 0;
@@ -67,6 +69,8 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
     }
 
     function Mail_Fetch_Select_Server($mailfetch) {
+        global $PHP_SELF;
+
         echo '<font size=-5><br></font>' .
              "<form action=\"$PHP_SELF\" method=\"post\" target=\"_self\">" .
              html_tag( 'table', '', 'center', '', 'width="70%" cols="2"' ) .
@@ -113,6 +117,16 @@ sqgetGlobalVar('delimiter',  $delimiter,  SQ_SESSION);
                    html_tag( 'td', '<b>' . _("Remote POP server Fetching Mail") . '</b>', 'center', $color[0] )
                ) ,
            'center', '', 'width="95%" cols="1"' );
+
+
+    /* there are no servers defined yet... */
+    if($mailfetch['server_number'] == 0) {
+        echo '<p>' . _("No POP3 servers configured yet.") . '</p>';
+        displayInternalLink('plugins/mail_fetch/options.php',
+            _("Click here to go to the options page.") );
+        echo '</body></html>';
+        exit();
+    }
 
     // get $server_to_fetch from globals, if not set display a choice to the user
     if (! sqgetGlobalVar('server_to_fetch', $server_to_fetch, SQ_POST) ) {
