@@ -31,20 +31,6 @@ if (!$domain) {
     $domain = getenv('HOSTNAME');
 }
 
-/**
- * Return which separator we should be using.
- * \r\n for SMTP delivery, just \n for Sendmail.
- */
-function sqm_nrn(){
-    global $useSendmail;
-    if ($useSendmail){
-        return "\n";
-    } else {
-        return "\r\n";
-    }
-}
-
-
 /* Returns true only if this message is multipart */
 function isMultipart ($session) {
     global $attachments;
@@ -124,11 +110,10 @@ function expandRcptAddrs ($array) {
 
 /* Attach the files that are due to be attached
  */
-function attachFiles ($fp, $session) {
+function attachFiles ($fp, $session, $rn="\r\n") {
     global $attachments, $attachment_dir, $username;
 
     $length = 0;
-    $rn = sqm_nrn();
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (isMultipart($session)) {
@@ -260,15 +245,12 @@ function timezone () {
 }
 
 /* Print all the needed RFC822 headers */
-function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session) {
+function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session, $rn="\r\n") {
     global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
     global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
     global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
     global $REMOTE_HOST, $identity;
-    /**
-     * Get which delimiter we are going to use.
-     */
-    $rn = sqm_nrn();
+
     /* Storing the header to make sure the header is the same
      * everytime the header is printed.
      */
@@ -362,6 +344,9 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session) {
         if(is_array($more_headers)) {
             reset($more_headers);
             while(list($h_name, $h_val) = each($more_headers)) {
+	        if ($h_name == 'References') {
+		    $h_val = str_replace(' ', "$rn        ", $h_val);
+		}    
                 $header .= sprintf("%s: %s%s", $h_name, $h_val, $rn);
             }
         }
@@ -408,12 +393,8 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session) {
 
 /* Send the body
  */
-function writeBody ($fp, $passedBody, $session) {
+function writeBody ($fp, $passedBody, $session, $rn="\r\n") {
     global $default_charset;
-    /**
-     * Get delimiter.
-     */
-    $rn = sqm_nrn();
 
     $attachmentlength = 0;
     
@@ -431,7 +412,7 @@ function writeBody ($fp, $passedBody, $session) {
         $body .= $passedBody . $rn . $rn;
         fputs ($fp, $body);
         
-        $attachmentlength = attachFiles($fp, $session);
+        $attachmentlength = attachFiles($fp, $session, $rn);
         
         if (!isset($postbody)) { 
             $postbody = ""; 
@@ -473,8 +454,8 @@ function sendSendmail($t, $c, $b, $subject, $body, $more_headers, $session) {
     }
     
     $headerlength = write822Header ($fp, $t, $c, $b, $subject, 
-                                    $more_headers, $session);
-    $bodylength = writeBody($fp, $body, $session);
+                                    $more_headers, $session, "\n");
+    $bodylength = writeBody($fp, $body, $session, "\n");
     
     pclose($fp);
     
@@ -759,10 +740,7 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
 /* create new reference header per rfc2822 */
 
 function calculate_references($refs, $inreplyto, $old_reply_to) {
-    /**
-     * Get the delimiter.
-     */
-    $rn = sqm_nrn();
+
     $refer = "";
     for ($i=1;$i<count($refs[0]);$i++) {
         if (!empty($refs[0][$i])) {
@@ -787,7 +765,6 @@ function calculate_references($refs, $inreplyto, $old_reply_to) {
         }                        
     }
     trim($refer);
-    $refer = str_replace(' ', "$rn        ", $refer);
     return $refer;
 }
 
@@ -798,10 +775,6 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
         $imapServerAddress, $imapPort, $default_use_priority, $more_headers, 
         $request_mdn, $request_dr;
 
-    /**
-     * Get the delimiter.
-     */
-    $rn = sqm_nrn();
     $more_headers = Array();
     
     do_hook('smtp_send');
@@ -821,20 +794,19 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
 	$sid = sqimap_session_id(); 
 	$query = "$sid FETCH $reply_id (BODY.PEEK[HEADER.FIELDS (Message-Id In-Reply-To)])\r\n";
 	fputs ($imap_stream, $query);
-	$read_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
+	$read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
 	$message_id = '';
 	$in_reply_to = '';
-	foreach ($read_list as $read) {
-	    foreach ($read as $r) {
+
+	foreach ($read as $r) {
 		if (preg_match("/^message-id:(.*)/iA", $r, $regs)) {
 		    $message_id = trim($regs[1]);
 		}
 		if (preg_match("/^in-reply-to:(.*)/iA", $r, $regs)) {
 		    $in_reply_to = trim($regs[1]);
 		}
-	    }
 	}
- 
+
         if(strlen($message_id) > 2) {
             $refs = get_reference_header ($imap_stream, $reply_id);
             $inreplyto = $message_id;
@@ -872,9 +844,6 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
      * into just \n inside the compose.php file.
      * But only if delimiter is, in fact, \r\n.
      */
-    if ($rn == "\r\n"){
-        $body = ereg_replace("\n", "\r\n", $body);
-    }
     
     if ($MDN) {
         $more_headers["Content-Type"] = "multipart/report; ".
@@ -885,10 +854,12 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN,
         $length = sendSendmail($t, $c, $b, $subject, $body, $more_headers, 
                                $session);
     } else {
+        $body = ereg_replace("\n", "\r\n", $body);
         $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers, 
                            $session);
     }
     if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
+        if ($useSendmail) $body = ereg_replace("\n", "\r\n", $body);
         sqimap_append ($imap_stream, $sent_folder, $length);
         write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers, 
                         $session);
