@@ -731,15 +731,14 @@ function sqimap_mailbox_tree($imap_stream) {
 
         if ($has_inbox == false) {
             $lsub_ibx = sqimap_run_command( $imap_stream, "LSUB \"\" \"INBOX\"", true, $response, $message );
-            if (isset($lsub_ibx[0])) {
-                if (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0])) {
+            if (isset($lsub_ibx[0]) && (preg_match("/^\*\s+LSUB\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0]))) {
+                $lsub_ary[] = $lsub_ibx[0];
+            } else {
+                $lsub_ibx = sqimap_run_command( $imap_stream, "LIST \"\" \"INBOX\"", true, $response, $message );
+                if (preg_match("/^\*\s+LIST\s+(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0])) {
+                    sqimap_run_command( $imap_stream, "SUBSCRIBE \"INBOX\"", true, $response, $message );
+                    $lsub_ibx[0] = str_replace("LIST","LSUB",$lsub_ibx[0]);
                     $lsub_ary[] = $lsub_ibx[0];
-                } else {
-                    $lsub_ibx = sqimap_run_command( $imap_stream, "LIST \"\" \"INBOX\"", true, $response, $message );
-                    if (preg_match("/^\*\s+LIST(.*)\"?INBOX\"?[^(\/\.)].*$/",$lsub_ibx[0])) {
-                        $lsub_ibx[0] = str_replace("LIST","LSUB",$lsub_ibx[0]);
-                        $lsub_ary[] = $lsub_ibx[0];
-                    }
                 }
             }
         }
