@@ -283,6 +283,4 @@
  // the following:
  //   $plugins[0] = "sqclock";
 
- $plugins[0] = "attachment_common";
-
 ?>
