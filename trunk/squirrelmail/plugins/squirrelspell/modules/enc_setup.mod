@@ -53,14 +53,14 @@ if ($SQSPELL_CRYPTO){
         . _("If you forget your password, your personal dictionary will become unaccessible, since it can no longer be decrypted. If you change your mailbox password, SquirrelSpell will recognize it and prompt you for your old password in order to re-encrypt the dictionary with a new key.")
         . '</p>'
         . '<form method="post" onsubmit="return checkMe()">'
-        . '<input type="hidden" name="MOD" value="crypto">'
+        . '<input type="hidden" name="MOD" value="crypto" />'
         . '<p align="center"><input type="checkbox" name="action" '
-        . 'value="decrypt"> '
+        . 'value="decrypt" /> '
         . _("Please decrypt my personal dictionary and store it in a clear-text format." )
         . '</p>'
         . '<p align="center"><input type="submit" value=" '
         . _("Change crypto settings")
-        . ' "></p>'
+        . ' " /></p>'
         . '</form>';
 } else {
     /**
@@ -78,13 +78,13 @@ if ($SQSPELL_CRYPTO){
         . _("If you decide to encrypt your personal dictionary, you must remember that it gets &quot;hashed&quot; with your mailbox password. If you forget your mailbox password and the administrator changes it to a new value, your personal dictionary will become useless and will have to be created anew. However, if you or your system administrator change your mailbox password but you still have the old password at hand, you will be able to enter the old key to re-encrypt the dictionary with the new value.")
         . '</p>'
         . '<form method="post" onsubmit="return checkMe()">'
-        . '<input type="hidden" name="MOD" value="crypto">'
+        . '<input type="hidden" name="MOD" value="crypto" />'
         . '<p align="center"><input type="checkbox" name="action" '
-        . 'value="encrypt"> '
+        . 'value="encrypt" /> '
         . _("Please encrypt my personal dictionary and store it in an encrypted format.")
         . '</p>'
         . '<p align="center"><input type="submit" value=" '
-        . _("Change crypto settings") . ' "></p>'
+        . _("Change crypto settings") . ' " /></p>'
         . '</form>';
 }
 sqspell_makePage(_("Personal Dictionary Crypto Settings"), 

@@ -47,7 +47,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
           html_tag( 'td', '<strong>' . $title .'</strong>', 'center', $color[9] )
       ) . "\n"
     . html_tag( 'tr', "\n" .
-          html_tag( 'td', '<hr>', 'left' )
+          html_tag( 'td', '<hr />', 'left' )
       ) . "\n"
     . html_tag( 'tr', "\n" .
           html_tag( 'td', $body, 'left' )
@@ -58,7 +58,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
    */
   if ($MOD != "options_main"){ 
     echo html_tag( 'tr', "\n" .
-                html_tag( 'td', '<hr>', 'left' )
+                html_tag( 'td', '<hr />', 'left' )
             ) . "\n"
       . html_tag( 'tr', "\n" .
             html_tag( 'td', '<a href="sqspell_options.php">'
@@ -71,7 +71,7 @@ function sqspell_makePage($title, $scriptsrc, $body){
    * Close the table and display the version.
    */
   echo html_tag( 'tr', "\n" .
-              html_tag( 'td', '<hr>', 'left' )
+              html_tag( 'td', '<hr />', 'left' )
           ) . "\n"
     . html_tag( 'tr',
           html_tag( 'td', 'SquirrelSpell ' . $SQSPELL_VERSION, 'center', $color[9] )
@@ -103,7 +103,7 @@ function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
    * Check if we have a defined css theme to use.
    */
   if ($theme_css != "") {
-    echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />\n";
   }
   /**
    * Link in the .js file if needed
@@ -129,13 +129,13 @@ function sqspell_makeWindow($onload, $title, $scriptsrc, $body){
               html_tag( 'td', '<strong>' . $title . '</strong>', 'center', $color[9] )
           ) . "\n" .
           html_tag( 'tr', "\n" .
-              html_tag( 'td', '<hr>', 'left' )
+              html_tag( 'td', '<hr />', 'left' )
           ) . "\n" .
           html_tag( 'tr', "\n" .
               html_tag( 'td', $body, 'left' )
           ) . "\n" .
           html_tag( 'tr', "\n" .
-              html_tag( 'td', '<hr>', 'left' )
+              html_tag( 'td', '<hr />', 'left' )
           ) . "\n" .
           html_tag( 'tr', "\n" .
               html_tag( 'td', 'SquirrelSpell ' . $SQSPELL_VERSION, 'center', $color[9] )
@@ -375,17 +375,17 @@ function sqspell_getWords(){
                  'left' ) .  "\n"
 	 . '<blockquote>' . "\n"
 	 . '<form method="post" onsubmit="return AYS()">' . "\n"
-	 . '<input type="hidden" name="MOD" value="crypto_badkey">' . "\n"
+	 . '<input type="hidden" name="MOD" value="crypto_badkey" />' . "\n"
 	 . html_tag( 'p',  "\n" .
-	       '<input type="checkbox" name="delete_words" value="ON">'
+	       '<input type="checkbox" name="delete_words" value="ON" />'
 	       . _("Delete my dictionary and start a new one") . '<br />'
 	       . _("Decrypt my dictionary with my old password:")
-	       . '<input name="old_key" size=\"10\">' ,
+	       . '<input name="old_key" size="10" />' ,
 	   'left' ) . "\n"
 	 . '</blockquote>' . "\n"
 	 . html_tag( 'p', "\n" .
 	       '<input type="submit" value="' 
-	       . _("Proceed") . ' &gt;&gt;">' ,
+	       . _("Proceed") . ' &gt;&gt;" />' ,
 	   'center' ) . "\n"
 	 . '</form>' . "\n";
       /**

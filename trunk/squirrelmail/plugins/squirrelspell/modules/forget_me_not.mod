@@ -71,7 +71,7 @@ sqspell_writeWords($words_dic);
 $onload = "setTimeout('self.close()', 2000)";
 $msg = '<form onsubmit="return false"><div align="center">'
    . '<input type="submit" value="  '
-   . _("Close") . '  " onclick="self.close()"></div></form>';
+   . _("Close") . '  " onclick="self.close()" /></div></form>';
 sqspell_makeWindow($onload, _("Personal Dictionary Updated"), null, $msg);
 
 /**
