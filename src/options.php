@@ -414,7 +414,7 @@
          echo "      " . $message_highlight_list[$i]["name"];
          echo "   </td>\n";
          echo "   <td bgcolor=" . $message_highlight_list[$i]["color"] . ">\n";
-         echo "      " . $message_highlight_list[$i]["value"];
+         echo "      ".$message_highlight_list[$i]["match_type"]." = " . $message_highlight_list[$i]["value"];
          echo "   </td>\n";
          echo "</tr>\n";
       }

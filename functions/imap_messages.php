@@ -41,7 +41,7 @@
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
 	class small_header {
-		var $from, $subject, $date;
+		var $from, $subject, $date, $to;
 	}
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
@@ -52,16 +52,12 @@
       $from = _("Unknown Sender");
 		$g = 0;
       for ($i = 0; $i < count($read); $i++) {
-			if ($sent == true) {
-         	if (eregi ("^to:", $read[$i])) {
-            	$from = sqimap_find_displayable_name(substr($read[$i], 3));
-				}	
-			} else { 
-         	if (eregi ("^from:", $read[$i])) {
-            	$from = sqimap_find_displayable_name(substr($read[$i], 5));
-				}	
-			}
-
+         if (eregi ("^to:", $read[$i])) {
+            $to = sqimap_find_displayable_name(substr($read[$i], 3));
+			}	
+         if (eregi ("^from:", $read[$i])) {
+            $from = sqimap_find_displayable_name(substr($read[$i], 5));
+			}	
          if (eregi ("^date:", $read[$i])) {
             $date = substr($read[$i], 5);
          } else if (eregi ("^subject:", $read[$i])) {
@@ -72,9 +68,13 @@
 		}	
 
 		$header = new small_header;
-		$header->from = $from;
+      if ($sent == true)
+         $header->from = $to;
+      else   
+		   $header->from = $from;
 		$header->date = $date;
 		$header->subject = $subject;
+      $header->to = $to;
 
 		return $header;
    }

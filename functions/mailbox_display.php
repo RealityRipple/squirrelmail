@@ -27,7 +27,7 @@
 		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
       for ($i=0; $i < count($message_highlight_list); $i++) {
-         if (eregi($message_highlight_list[$i]["value"],$msg["FROM"])) {
+         if (eregi($message_highlight_list[$i]["value"],$msg[strtoupper($message_highlight_list[$i]["match_type"])])) {
             $hlt_color = $message_highlight_list[$i]["color"];
             continue;
          }   
@@ -64,6 +64,7 @@
 					$from[$q] = $hdr->from;
 					$date[$q] = $hdr->date;
 					$subject[$q] = $hdr->subject;
+               $to[$q] = $hdr->to;
 
                $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
             }
@@ -79,6 +80,7 @@
             $messages[$j]["ID"] = $j+1;
             $messages[$j]["FROM"] = decodeHeader($from[$j]);
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
+            $messages[$j]["TO"] = decodeHeader($to[$j]);
    
             $num = 0;
             while ($num < count($flags[$j])) {

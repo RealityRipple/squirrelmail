@@ -23,10 +23,11 @@
       $newcolor = ereg_replace("#", "", $newcolor);
       $newcolor = "$newcolor";
       $value = ereg_replace(",", " ", $value);
-      setPref($data_dir, $username, "highlight$id", $name.",".$newcolor.",".$value);
+      setPref($data_dir, $username, "highlight$id", $name.",".$newcolor.",".$value.",".$match_type);
       $message_highlight_list[$id]["name"] = $name;
       $message_highlight_list[$id]["color"] = $newcolor;
       $message_highlight_list[$id]["value"] = $value;
+      $message_highlight_list[$id]["match_type"] = $match_type;
    }
    include("../src/load_prefs.php");
    displayPageHeader($color, "None");
@@ -42,7 +43,7 @@
          echo "      " . $message_highlight_list[$i]["name"];
          echo "   </td>\n";
          echo "   <td bgcolor=" . $message_highlight_list[$i]["color"] . ">\n";
-         echo "      " . $message_highlight_list[$i]["value"];
+         echo "      ".$message_highlight_list[$i]["match_type"]." = " . $message_highlight_list[$i]["value"];
          echo "   </td>\n";
          echo "</tr>\n";
       }
@@ -77,7 +78,9 @@
             continue;
          }
       }
-      if (!$selected_choose)
+      if (!$message_highlight_list[$id]["color"])
+         $selected_choose = " checked";
+      else if (!$selected_choose)   
          $selected_input = " checked";
       
       echo "<form action=\"msg_highlight.php\">\n";
@@ -125,6 +128,14 @@
       echo _("Match") . ":";
       echo "      </td>\n";
       echo "      <td width=60%>\n";
+      echo "         <select name=match_type>\n";
+      if ($message_highlight_list[$id]["match_type"] == "from")    echo "            <option value=\"from\" selected>From\n"; 
+      else                                                         echo "            <option value=\"from\">From\n"; 
+      if ($message_highlight_list[$id]["match_type"] == "to")      echo "            <option value=\"to\" selected>To\n"; 
+      else                                                         echo "            <option value=\"to\">To\n"; 
+      if ($message_highlight_list[$id]["match_type"] == "subject") echo "            <option value=\"subject\" selected>Subject\n"; 
+      else                                                         echo "            <option value=\"subject\">Subject\n"; 
+      echo "         </select>\n";
       echo "         <input type=\"text\" value=\"".$message_highlight_list[$id]["value"]."\" name=\"value\">";
       echo "      </td>\n";
       echo "   </tr>\n";
