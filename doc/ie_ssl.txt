@@ -30,3 +30,22 @@ that made this work:
 
 With all the testing I have done, this works, and works very well for all
 browsers.
+
+
+This was submitted by Marcin Jessa <yazzy@yazzy.org>
+====================================================
+  Reading INSTALL file of SqWebMail i found following note:
+
+  Tweak the web server for MSIE
+     The MSIE browser has a number of bugs in its HTTP/1.1 implementation,
+     at least as of MSIE 4.x and 5.x. You must configure your web server to
+     use HTTP/1.0 when talking to any MSIE browser (at least until MSIE
+     gets fixed). The problem has to do with downloading attachments.
+     Apparently, MSIE forgets how MIME works, when it uses HTTP/1.1. For
+     the Apache server, insert the following directive in httpd.conf:
+  
+     BrowserMatch "MSIE" nokeepalive downgrade-1.0 force-response-1.0
+
+     Recent versions of Apache already have a similar directive for a
+     specific version of MSIE, MSIE 4.0b2. Just replace it with a
+     browsermatch for any MSIE version.
