@@ -20,25 +20,23 @@
    
    displayHtmlHeader();
 
-   $auto_create_done = getPref($data_dir, $username, 'auto_create_done');
    if ($auto_create_special && ! isset($auto_create_done)) {
    	  if (isset ($sent_folder) && $sent_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $sent_folder, "");
-		 } else {
+		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $sent_folder)) {
 		    sqimap_subscribe($imapConnection, $sent_folder);
 		 }
 	  }
    	  if (isset ($trash_folder) && $trash_folder != "none") {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
 		 	sqimap_mailbox_create ($imapConnection, $trash_folder, "");
-		 } else {
+		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
 		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
 	  }
 	  $auto_create_done = true;
 	  session_register('auto_create_done');
-          setPref($data_dir, $username, 'auto_create_done', TRUE);
    }
 
    function formatMailboxName($imapConnection, $box_array, $delimeter) {

@@ -103,6 +103,19 @@
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
       sqimap_unsubscribe ($imap_stream, $mailbox);
    }
+   
+   /***********************************************************************
+    ** Determines if the user is subscribed to the folder or not
+    **********************************************************************/
+   function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
+       $boxes = sqimap_mailbox_list ($imap_stream);
+       foreach ($boxes as $ref) {
+          if ($ref['unformatted'] == $folder)
+	     return true;
+       }
+       return false;
+   }
+      
 
 
    /******************************************************************************

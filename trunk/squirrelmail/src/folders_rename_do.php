@@ -36,7 +36,6 @@
 
    $cmd = "a024 RENAME \"" . quoteIMAP($orig) . "\" \"" .
       quoteIMAP($newone) . "\"\r\n";
-   echo htmlspecialchars($cmd) . "<br>\n";
    fputs ($imapConnection, $cmd);
    $data = sqimap_read_data($imapConnection, "a024", true, $a, $b);
 
