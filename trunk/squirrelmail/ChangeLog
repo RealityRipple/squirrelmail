@@ -114,6 +114,11 @@ Version 1.5.1 -- CVS
     See plugins/fortune/INSTALL.
   - Fix for #906217 when checking spelling of inline replies, the corrected
     words would appear through original email.
+  - Fixed empty information menu when viewing vcards without information
+    but name and e-mail address.
+  - User may now add an e-mail address when adding vcards without one to the
+    address book. No need to wait for the error message anymore.
+  
 
 Version 1.5.0
 --------------------
