@@ -97,7 +97,7 @@ if (isset($theid) && ($action == 'delete') ||
 
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 
-    header( 'Location: options_highlight.php' );
+    header( 'Location: ' .get_location(). '/options_highlight.php' );
     exit;
 } else if ($action == 'save') {
 

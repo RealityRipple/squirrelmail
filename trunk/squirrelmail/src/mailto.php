@@ -69,5 +69,5 @@ $url = urlencode($url);
 /* $redirect .= $url; */
 $redirect = 'login.php?mailto=' . $url;
 session_write_close();
-header('Location: ' . $redirect);
+header('Location: ' .get_location(). $redirect);
 ?>

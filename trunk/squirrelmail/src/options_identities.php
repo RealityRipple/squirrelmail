@@ -32,7 +32,7 @@ if (!empty($_POST)) {
 
     if (isset($return)) {
        SaveUpdateFunction();
-       header('Location: options_personal.php');
+       header('Location: '.get_location().'/options_personal.php');
        exit();
     }
     
