@@ -29,11 +29,11 @@
       for ($i=0; $i < count($message_highlight_list); $i++) {
          if (trim($message_highlight_list[$i]["value"]) != "") {
             if ($message_highlight_list[$i]["match_type"] == "to_cc") {
-               if (strpos("^^".$msg["TO"], $message_highlight_list[$i]["value"]) || strpos("^^".$msg["CC"], $message_highlight_list[$i]["value"])) {
+               if (strpos("^^".strtolower($msg["TO"]), $message_highlight_list[$i]["value"]) || strpos("^^".strtolower($msg["CC"]), $message_highlight_list[$i]["value"])) {
                   $hlt_color = $message_highlight_list[$i]["color"];
                   continue;
                }
-            } else if (strpos("^^".$msg[strtoupper($message_highlight_list[$i]["match_type"])],$message_highlight_list[$i]["value"])) {
+            } else if (strpos("^^".strtolower($msg[strtoupper($message_highlight_list[$i]["match_type"])]),$message_highlight_list[$i]["value"])) {
                $hlt_color = $message_highlight_list[$i]["color"];
                continue;
             }   
