@@ -80,6 +80,9 @@ if (!defined('download_php')) {
 // user's icon theme, if using icons
 $icon_theme = getPref($data_dir, $username, 'icon_theme', 'none' );
 
+// show (or not) flag and unflag buttons on mailbox list screen
+$show_flag_buttons = getPref($data_dir, $username, 'show_flag_buttons', SMPREF_OFF );
+
 $use_javascript_addr_book = getPref($data_dir, $username, 'use_javascript_addr_book', $default_use_javascript_addr_book);
 
 /* Load the user's special folder preferences */

@@ -585,7 +585,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 <table border="0" width="100%" cellpadding="0" cellspacing="0">
   <tr>
     <td>
-      <?php mail_message_listing_beginning($imapConnection, $mailbox, $sort, 
+      <?php mail_message_listing_beginning($imapConnection, $mbxresponse, $mailbox, $sort, 
                                            $msg_cnt_str, $paginator_str, $start_msg); ?>
     </td>
   </tr>
@@ -753,6 +753,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
  * you need to do a "</table></table>";
  *
  * $moveURL is the URL to submit the delete/move form to
+ * $mbxresponse is the array with the results of SELECT against the current mailbox 
  * $mailbox is the current mailbox
  * $sort is the current sorting method (-1 for no sorting available [searches])
  * $Message is a message that is centered on top of the list
@@ -760,11 +761,12 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
  */
 
 function mail_message_listing_beginning ($imapConnection,
+                                         $mbxresponse,
                                          $mailbox = '', $sort = -1,
                                          $msg_cnt_str = '',
                                          $paginator = '&nbsp;',
                                          $start_msg = 1) {
-    global $color, $auto_expunge, $base_uri,
+    global $color, $auto_expunge, $base_uri, $show_flag_buttons,
            $allow_server_sort, $server_sort_order,
            $PHP_SELF, $allow_thread_sort, $thread_sort_messages;
 
@@ -822,6 +824,15 @@ function mail_message_listing_beginning ($imapConnection,
               <tr>
                 <td align="left">
                   <small><?php
+                    
+                    // display flag buttons only if supported
+                    if ($show_flag_buttons 
+                        && strpos($mbxresponse['PERMANENTFLAGS'], '\Flagged') !== FALSE) {
+                        echo getButton('SUBMIT', 'markFlagged',_("Flag"));
+                        echo '&nbsp;';
+                        echo getButton('SUBMIT', 'markUnflagged',_("Unflag"));
+                        echo '&nbsp;';
+                    }
                     echo getButton('SUBMIT', 'markRead',_("Read"));
                     echo '&nbsp;';
                     echo getButton('SUBMIT', 'markUnread',_("Unread"));

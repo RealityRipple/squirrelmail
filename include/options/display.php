@@ -208,6 +208,13 @@ function load_optpage_data_display() {
     }
 
     $optvals[SMOPT_GRP_MAILBOX][] = array(
+        'name'    => 'show_flag_buttons',
+        'caption' => _("Show Flag / Unflag Buttons"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[SMOPT_GRP_MAILBOX][] = array(
         'name'    => 'page_selector',
         'caption' => _("Enable Page Selector"),
         'type'    => SMOPT_TYPE_BOOLEAN,
