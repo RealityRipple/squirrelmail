@@ -44,6 +44,7 @@ Version 1.5.0 -- CVS
   - Applied bugfixes from stable to htmlfilter code.
   - Fix bug #722933 where resuming a draft message would lose the reference headers
   - Removed hard coded colors from login.php and made it use the default theme and css file
+  - Fix that sending of read receipts failed when JavaScript on and comp in new off (#738130).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
