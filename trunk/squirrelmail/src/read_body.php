@@ -314,7 +314,7 @@
    echo "</TABLE>";
    echo "   </TD></TR>";
    echo "</table>";
-   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=100% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
+   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
    $body = formatBody($imapConnection, $message, $color, $wrap_at);

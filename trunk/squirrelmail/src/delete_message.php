@@ -36,4 +36,6 @@
       header ("Location: $location/search.php?where=".urlencode($where)."&what=".urlencode($what)."&mailbox=".urlencode($mailbox));
    else   
       header ("Location: $location/right_main.php?sort=$sort&startMessage=$startMessage&mailbox=".urlencode($mailbox));
+
+   sqimap_logout($imapConnection);
 ?>

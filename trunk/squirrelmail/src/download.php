@@ -9,8 +9,6 @@
     **  Also allows displaying of attachments when possible.
     **/
 
-   session_start();
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($strings_php))
@@ -101,8 +99,8 @@
       switch($type0) {
          case "text":
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: application/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
             if ($type1 == "plain") {
                echo _("Subject") . ": " . decodeHeader(stripslashes($top_header->subject)) . "\n";
                echo "   " . _("From") . ": " . decodeHeader(stripslashes($top_header->from)) . "\n";
@@ -113,8 +111,8 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: application/octet-stream; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-type: application/octet-stream; name=\"$filename\"");
             echo $body;
             break;
       }
@@ -130,8 +128,8 @@
             break;
          default:
             $body = decodeBody($body, $header->encoding);
-            header("Content-type: $type0/$type1; name=\"$filename\"");
             header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-type: $type0/$type1; name=\"$filename\"");
             echo $body;
             break;
       }

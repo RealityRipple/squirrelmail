@@ -64,16 +64,11 @@
    include("../src/load_prefs.php");
 
    // If the page has been loaded without a specific mailbox,
-   //    just show a page of general info.
+   //   send them to the inbox
    if (!isset($mailbox)) {
       $mailbox = "INBOX";
       $sort = $newsort = 0;
       $startMessage = 1;
-
-//      displayPageHeader($color, "None");
-//      general_info($motd, $org_logo, $version, $org_name, $color);
-//      echo "</BODY></HTML>";
-//      exit;
    }
 
    sqimap_mailbox_select($imapConnection, $mailbox);
