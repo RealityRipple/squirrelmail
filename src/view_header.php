@@ -10,7 +10,10 @@
  *
  * $Id$
  */
-
+require_once('../src/validate.php');
+require_once('../functions/imap.php');
+require_once('../functions/html.php');
+require_once('../functions/url_parser.php');
 
 function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
    global $uid_support;
@@ -64,20 +67,23 @@ function  parse_viewheader($imapConnection,$id, $passed_ent_id) {
     return $header_output;
 }
 
-function view_header($template_vars, $pageheader='', $pagefooter='') {
-    global $color;
-    
-    echo $pageheader;
+function view_header($header, $mailbox, $color) {
+    global $QUERY_STRING, $base_uri;
+
+    $ret_addr = $base_uri . 'src/read_body.php?'.$QUERY_STRING;
+
+    displayPageHeader($color, $mailbox);
+
     echo '<BR>' .
          '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0"'.
          ' ALIGN="CENTER">' . "\n" .
          "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>".
          _("Viewing Full Header") . '</B> - '.
          '<a href="'; 
-    echo_template_var($template_vars['return_address']);
+    echo_template_var($ret_addr);
     echo '">' ._("View message") . "</a></b></td></tr></table>\n";
 
-    echo_template_var($template_vars['full_header'], 
+    echo_template_var($header, 
          array(
            "<table width='99%' cellpadding='2' cellspacing='0' border='0'".
              "align=center>\n".'<tr><td>',
@@ -86,7 +92,19 @@ function view_header($template_vars, $pageheader='', $pagefooter='') {
            '</tt></nobr>',
            '</td></tr></table>'."\n" 
          ) );
-    echo $pagefooter;
+    echo '</body></html>';
 }
+
+if (!isset($passed_ent_id)) {
+  $passed_ent_id = '';
+}
+$mailbox = decodeHeader($mailbox);
+
+$imapConnection = sqimap_login($username, $key, $imapServerAddress, 
+                               $imapPort, 0);
+$mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
+
+$header = parse_viewheader($imapConnection,$passed_id, $passed_ent_id); 
+view_header($header, $mailbox, $color);
 
 ?>
