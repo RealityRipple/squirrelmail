@@ -17,6 +17,7 @@ initials = taken by that person
             a link
 (mcp)   Spell checking
   -     Search mailbox(es) for given criteria
+  -     Background highlighting messages in list based on header criteria (like pine 4.2x)
 
 
 Finished:
