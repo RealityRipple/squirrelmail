@@ -2,7 +2,6 @@
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # István-Attila András <bergkatten@netscape.net>, 2001.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
@@ -1386,7 +1385,6 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
-#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
