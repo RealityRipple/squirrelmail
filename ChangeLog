@@ -242,6 +242,7 @@ Version 1.5.1 -- CVS
     function argument to false.
   - Sanitized search in ldap address book backend. Use of asterisk 
     together with other symbols is not supported.
+  - Added ldap backend to change_password plugin.
 
 Version 1.5.0
 --------------------
