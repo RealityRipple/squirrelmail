@@ -17,8 +17,12 @@ require_once(SM_PATH . 'functions/html.php');
 require_once(SM_PATH . 'class/html.class.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
 
-/* Default value for page_selector_max. */
+/* Constants:
+ *   PG_SEL_MAX:   default value for page_selector_max
+ *   SUBJ_TRIM_AT: the length at which we trim off subjects
+ */
 define('PG_SEL_MAX', 10);
+define('SUBJ_TRIM_AT', 55);
 
 function elapsed($start)
 {
@@ -1178,17 +1182,20 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
 function processSubject($subject, $threadlevel = 0) {
     global $languages, $squirrelmail_language;
     /* Shouldn't ever happen -- caught too many times in the IMAP functions */
-    if ($subject == '')
+    if ($subject == '') {
         return _("(no subject)");
+    }
 
-    $trim_at = 55;
+    $trim_at = SUBJ_TRIM_AT;
 
     /* if this is threaded, subtract two chars per indentlevel */
-    if($threadlevel > 0 && $threadlevel <= 10)
+    if($threadlevel > 0 && $threadlevel <= 10) {
         $trim_at -= (2*$threadlevel);
+    }
 
-    if (strlen($subject) <= $trim_at)
+    if (strlen($subject) <= $trim_at) {
         return $subject;
+    }
 
     $ent_strlen = $orig_len = strlen($subject);
     $trim_val = $trim_at - 5;
@@ -1223,7 +1230,7 @@ function processSubject($subject, $threadlevel = 0) {
     }
 
     // only print '...' when we're actually dropping part of the subject
-    if(strlen($subject) < $trim_val) {
+    if(strlen($subject) <= $trim_val) {
         return $subject;
     } else {
         return substr($subject, 0, $trim_val) . '...';
