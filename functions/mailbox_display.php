@@ -382,6 +382,8 @@
       } else {
          $use = 1;
       }
+      $lMore = '';
+      $rMore = '';
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
          $lMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") . '</A>';
          $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
@@ -394,7 +396,8 @@
          $lMore = "<FONT COLOR=\"$color[9]\">"._("Previous") . '</FONT>';
          $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
-      $lMore .= ' | ';
+      if( $lMore <> '' )
+      	$lMore .= ' | ';
 
       // Page selector block. Following code computes page links.
       $mMore = '';
