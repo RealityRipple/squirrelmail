@@ -203,7 +203,7 @@
       #
       #   http://www.myhost.com/squirrelmail/src/login.php
    
-      global $PHP_SELF, $SERVER_NAME, $HTTPS, $HTTP_HOST, $HTTP_SERVER_VARS;
+      global $PHP_SELF, $SERVER_NAME, $HTTPS, $HTTP_HOST, $SERVER_PORT;
 
       // Get the path
       $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
@@ -214,9 +214,10 @@
         $proto = "https://";
       }
    
-      if ($HTTP_SERVER_VARS['SERVER_PORT']) {
-        if ($HTTP_SERVER_VARS['SERVER_PORT'] != 80) {
-            $port = ':' . $HTTP_SERVER_VARS['SERVER_PORT'];
+      $port = "";
+      if (isset($SERVER_PORT)) {
+        if ($SERVER_PORT != 80) {
+            $port = sprintf(':%d', $SERVER_PORT);
         }
       }
           
