@@ -113,7 +113,7 @@
       global $message_highlight_list;
       global $auto_expunge;
 
-      sqimap_mailbox_expunge($imapConnection, $mailbox, false);
+	  if ($auto_expunge == true) sqimap_mailbox_expunge($imapConnection, $mailbox, false);
       sqimap_mailbox_select($imapConnection, $mailbox);
 
       if (!$use_cache) {
