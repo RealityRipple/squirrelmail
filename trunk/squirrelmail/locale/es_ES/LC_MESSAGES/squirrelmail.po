@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-10-08 10:09+0200\n"
+"POT-Creation-Date: 2002-10-08 10:22+0200\n"
 "PO-Revision-Date: 2002-09-20 14:49GMT+1\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -337,6 +337,7 @@ msgstr "De lectura"
 msgid "On Delivery"
 msgstr "De entrega"
 
+#: squirrelmail/include/options/personal.php:100
 #: squirrelmail/src/compose.php:1063
 #: squirrelmail/src/options_identities.php:327
 msgid "Signature"
@@ -778,6 +779,8 @@ msgstr "Identidad por Omisión"
 msgid "Add a New Identity"
 msgstr "Añadir una identidad"
 
+#: squirrelmail/include/options/personal.php:57
+#: squirrelmail/include/options/personal.php:65
 #: squirrelmail/src/options_identities.php:324
 msgid "Full Name"
 msgstr "Nombre Completo"
@@ -786,6 +789,7 @@ msgstr "Nombre Completo"
 msgid "E-Mail Address"
 msgstr "Dirección de Correo Electrónico"
 
+#: squirrelmail/include/options/personal.php:92
 #: squirrelmail/src/options_identities.php:326
 msgid "Reply To"
 msgstr "Responder a"
@@ -1558,6 +1562,7 @@ msgstr "Contestación desconocida del servidor IMAP:"
 msgid "Unknown message number in reply from server: "
 msgstr "Número de mensaje desconocido en la contestación del servidor:"
 
+#: squirrelmail/class/mime/Message.class.php:436
 #: squirrelmail/functions/imap_messages.php:480
 #: squirrelmail/functions/imap_messages.php:583
 #: squirrelmail/functions/imap_parse.php:183
@@ -1762,6 +1767,384 @@ msgstr "Error creando el directorio %s."
 #: squirrelmail/functions/prefs.php:103
 msgid "Could not create hashed directory structure!"
 msgstr "¡No pude crear la estructura de directorios!"
+
+#: squirrelmail/include/options/display.php:33
+msgid "General Display Options"
+msgstr "Opciones Generales de Visualización"
+
+#: squirrelmail/include/options/display.php:45
+msgid "Theme"
+msgstr "Tema"
+
+#: squirrelmail/include/options/display.php:52
+#: squirrelmail/include/options/display.php:81
+#: squirrelmail/plugins/administrator/defines.php:42
+msgid "Default"
+msgstr "Por omisión del sistema"
+
+#: squirrelmail/include/options/display.php:65
+msgid "Custom Stylesheet"
+msgstr ""
+
+#: squirrelmail/include/options/display.php:85
+msgid "Language"
+msgstr "Idioma"
+
+#: squirrelmail/include/options/display.php:94
+msgid "Use Javascript"
+msgstr "Usar Javascript"
+
+#: squirrelmail/include/options/display.php:97
+msgid "Autodetect"
+msgstr "Auto-detectar"
+
+#: squirrelmail/include/options/display.php:98
+msgid "Always"
+msgstr "Siempre"
+
+#: squirrelmail/include/options/display.php:99
+#: squirrelmail/include/options/folder.php:123
+msgid "Never"
+msgstr "Nunca"
+
+#: squirrelmail/include/options/display.php:117
+msgid "Mailbox Display Options"
+msgstr "Opciones de Visualización del Buzón"
+
+#: squirrelmail/include/options/display.php:122
+msgid "Number of Messages to Index"
+msgstr "Número de Mensajes para Paginar"
+
+#: squirrelmail/include/options/display.php:130
+msgid "Enable Alternating Row Colors"
+msgstr "Activar Colores Alternos"
+
+#: squirrelmail/include/options/display.php:137
+msgid "Enable Page Selector"
+msgstr "Activar Paginador"
+
+#: squirrelmail/include/options/display.php:144
+msgid "Maximum Number of Pages to Show"
+msgstr "Número Máximo de Páginas a Mostrar"
+
+#: squirrelmail/include/options/display.php:151
+msgid "Message Display and Composition"
+msgstr "Visualización y Composición de Mensajes"
+
+#: squirrelmail/include/options/display.php:156
+msgid "Wrap Incoming Text At"
+msgstr "Ajustar Texto Entrante A"
+
+#: squirrelmail/include/options/display.php:164
+msgid "Size of Editor Window"
+msgstr "Tamaño de la Venta de Edición"
+
+#: squirrelmail/include/options/display.php:172
+msgid "Location of Buttons when Composing"
+msgstr "Ubicación de Botonoes al Componer"
+
+#: squirrelmail/include/options/display.php:175
+msgid "Before headers"
+msgstr "Antes de las cabeceras"
+
+#: squirrelmail/include/options/display.php:176
+msgid "Between headers and message body"
+msgstr "Entre las cabeceras y el cuerpo"
+
+#: squirrelmail/include/options/display.php:177
+msgid "After message body"
+msgstr "Después del Cuerpo"
+
+#: squirrelmail/include/options/display.php:183
+msgid "Addressbook Display Format"
+msgstr "Formato de Visualización de la Agenda"
+
+#: squirrelmail/include/options/display.php:186
+msgid "Javascript"
+msgstr "JavaScript"
+
+#: squirrelmail/include/options/display.php:187
+msgid "HTML"
+msgstr "HTML"
+
+#: squirrelmail/include/options/display.php:192
+msgid "Show HTML Version by Default"
+msgstr "Mostrar Versión HTML por Omisión"
+
+#: squirrelmail/include/options/display.php:199
+msgid "Enable Forward as Attachment"
+msgstr "Permitir Reenvíos Adjuntos"
+
+#: squirrelmail/include/options/display.php:206
+msgid "Include CCs when Forwarding Messages"
+msgstr "Incluir CCs en Reenvíos"
+
+#: squirrelmail/include/options/display.php:213
+msgid "Include Me in CC when I Reply All"
+msgstr "Inlcuirme en CC al Contestar a Todos"
+
+#: squirrelmail/include/options/display.php:220
+msgid "Enable Mailer Display"
+msgstr "Mostrar Versión de Cliente"
+
+#: squirrelmail/include/options/display.php:227
+msgid "Display Attached Images with Message"
+msgstr "Mostrar Imágenes Adjuntas"
+
+#: squirrelmail/include/options/display.php:234
+msgid "Enable Subtle Printer Friendly Link"
+msgstr "Activar Vista Preliminar"
+
+#: squirrelmail/include/options/display.php:241
+msgid "Enable Printer Friendly Clean Display"
+msgstr "Activar Vista Preliminar \"Limpia\""
+
+#: squirrelmail/include/options/display.php:249
+msgid "Enable Mail Delivery Notification"
+msgstr "Activar Confirmación de Entrega"
+
+#: squirrelmail/include/options/display.php:257
+msgid "Compose Messages in New Window"
+msgstr "Componer Mensajes en una Ventana Nueva"
+
+#: squirrelmail/include/options/display.php:264
+msgid "Width of Compose Window"
+msgstr "Ancho de la Venta de Composición"
+
+#: squirrelmail/include/options/display.php:272
+msgid "Height of Compose Window"
+msgstr "Alto de la Ventana de Composición"
+
+#: squirrelmail/include/options/display.php:280
+msgid "Append Signature before Reply/Forward Text"
+msgstr "Agregar Firma Antes del Bloque de Referencia"
+
+#: squirrelmail/include/options/display.php:287
+msgid "Enable Sort by of Receive Date"
+msgstr "Activar la Ordenación por Fecha de Recepción"
+
+#: squirrelmail/include/options/display.php:294
+msgid "Enable Thread Sort by References Header"
+msgstr "Activar Ordenación Temática"
+
+#: squirrelmail/include/options/folder.php:41
+msgid "Special Folder Options"
+msgstr "Opciones Especiales de Carpetas"
+
+#: squirrelmail/include/options/folder.php:48
+msgid "Folder Path"
+msgstr "Ruta de las Carpetas"
+
+#: squirrelmail/include/options/folder.php:64
+msgid "Do not use Trash"
+msgstr "No usar la Papelera"
+
+#: squirrelmail/include/options/folder.php:68
+#: squirrelmail/plugins/administrator/defines.php:135
+msgid "Trash Folder"
+msgstr "Papelera"
+
+#: squirrelmail/include/options/folder.php:75
+msgid "Do not use Sent"
+msgstr "No usar Elementos Enviados"
+
+#: squirrelmail/include/options/folder.php:79
+#: squirrelmail/plugins/administrator/defines.php:138
+msgid "Sent Folder"
+msgstr "Elementos enviados"
+
+#: squirrelmail/include/options/folder.php:86
+msgid "Do not use Drafts"
+msgstr "No usar Borradores"
+
+#: squirrelmail/include/options/folder.php:90
+#: squirrelmail/plugins/administrator/defines.php:141
+msgid "Draft Folder"
+msgstr "Borradores"
+
+#: squirrelmail/include/options/folder.php:98
+msgid "Folder List Options"
+msgstr "Opciones de Lista de Carpetas"
+
+#: squirrelmail/include/options/folder.php:103
+msgid "Location of Folder List"
+msgstr "Ubicación de la Lista de Carpetas"
+
+#: squirrelmail/include/options/folder.php:106
+msgid "Left"
+msgstr "Izquierda"
+
+#: squirrelmail/include/options/folder.php:107
+msgid "Right"
+msgstr "Derecha"
+
+#: squirrelmail/include/options/folder.php:112
+#: squirrelmail/plugins/administrator/defines.php:45
+msgid "pixels"
+msgstr "pixels"
+
+#: squirrelmail/include/options/folder.php:116
+msgid "Width of Folder List"
+msgstr "Ancho de la Lista de Carpetas"
+
+#: squirrelmail/include/options/folder.php:122
+msgid "Minutes"
+msgstr "Minutos"
+
+#: squirrelmail/include/options/folder.php:126
+msgid "Seconds"
+msgstr "Segundos"
+
+#: squirrelmail/include/options/folder.php:128
+msgid "Minute"
+msgstr "Minuto"
+
+#: squirrelmail/include/options/folder.php:135
+msgid "Auto Refresh Folder List"
+msgstr "Actualizar Carpetas Automáticamente"
+
+#: squirrelmail/include/options/folder.php:143
+msgid "Enable Unread Message Notification"
+msgstr "Activar Notificación de Mensajes Sin Leer"
+
+#: squirrelmail/include/options/folder.php:146
+#: squirrelmail/plugins/administrator/defines.php:162
+msgid "No Notification"
+msgstr "No Advertir"
+
+#: squirrelmail/include/options/folder.php:147
+#: squirrelmail/plugins/administrator/defines.php:163
+msgid "Only INBOX"
+msgstr "Solo Bandeja de entrada"
+
+#: squirrelmail/include/options/folder.php:148
+#: squirrelmail/plugins/administrator/defines.php:164
+msgid "All Folders"
+msgstr "Todas las carpetas"
+
+#: squirrelmail/include/options/folder.php:153
+msgid "Unread Message Notification Type"
+msgstr "Tipo de Notificación de Mensajes Sin Leer"
+
+#: squirrelmail/include/options/folder.php:156
+#: squirrelmail/plugins/administrator/defines.php:167
+msgid "Only Unseen"
+msgstr "Solo Nuevos"
+
+#: squirrelmail/include/options/folder.php:157
+#: squirrelmail/plugins/administrator/defines.php:168
+msgid "Unseen and Total"
+msgstr "No leídos y total"
+
+#: squirrelmail/include/options/folder.php:162
+msgid "Enable Collapsable Folders"
+msgstr "Activar Carpetas en Cascada"
+
+#: squirrelmail/include/options/folder.php:169
+msgid "Show Clock on Folders Panel"
+msgstr "Mostrar Reloj en el Panel de Carpetas"
+
+#: squirrelmail/include/options/folder.php:177
+msgid "No Clock"
+msgstr "Sin Reloj"
+
+#: squirrelmail/include/options/folder.php:182
+msgid "Hour Format"
+msgstr "Formato Horario"
+
+#: squirrelmail/include/options/folder.php:185
+msgid "12-hour clock"
+msgstr "12 horas"
+
+#: squirrelmail/include/options/folder.php:186
+msgid "24-hour clock"
+msgstr "24 horas"
+
+#: squirrelmail/include/options/folder.php:191
+msgid "Memory Search"
+msgstr "Memorizar Búsquedas"
+
+#: squirrelmail/include/options/folder.php:194
+#: squirrelmail/plugins/sent_subfolders/setup.php:112
+msgid "Disabled"
+msgstr "Desactivado"
+
+#: squirrelmail/include/options/personal.php:44
+msgid "Name and Address Options"
+msgstr "Opciones de Nombre y Dirección"
+
+#: squirrelmail/include/options/personal.php:75
+#: squirrelmail/include/options/personal.php:83
+msgid "Email Address"
+msgstr "Dirección de Correo Electrónico"
+
+#: squirrelmail/include/options/personal.php:109
+msgid "Edit Advanced Identities"
+msgstr "Editar Identidades Avanzadas"
+
+#: squirrelmail/include/options/personal.php:111
+msgid "(discards changes made on this form so far)"
+msgstr "(deshacer los cambios hechos hasta ahora)"
+
+#: squirrelmail/include/options/personal.php:114
+msgid "Multiple Identities"
+msgstr "Múltiples Identidades"
+
+#: squirrelmail/include/options/personal.php:122
+msgid "Same as server"
+msgstr "Igual que el servidor"
+
+#: squirrelmail/include/options/personal.php:133
+msgid "Timezone Options"
+msgstr "Opciones de Zona Horaria"
+
+#: squirrelmail/include/options/personal.php:138
+msgid "Your current timezone"
+msgstr "Su zona horaria"
+
+#: squirrelmail/include/options/personal.php:146
+msgid "Reply Citation Options"
+msgstr "Opciones de Citación para la Respuesta"
+
+#: squirrelmail/include/options/personal.php:151
+msgid "Reply Citation Style"
+msgstr "Estilo de la Citación"
+
+#: squirrelmail/include/options/personal.php:154
+msgid "No Citation"
+msgstr "Sin Citación"
+
+#: squirrelmail/include/options/personal.php:155
+msgid "AUTHOR Said"
+msgstr "El Autor Dijo"
+
+#: squirrelmail/include/options/personal.php:156
+msgid "Quote Who XML"
+msgstr "Quién XML"
+
+#: squirrelmail/include/options/personal.php:157
+msgid "User-Defined"
+msgstr "Definido por el Usuario"
+
+#: squirrelmail/include/options/personal.php:162
+msgid "User-Defined Citation Start"
+msgstr "Inicio"
+
+#: squirrelmail/include/options/personal.php:170
+msgid "User-Defined Citation End"
+msgstr "Fin"
+
+#: squirrelmail/include/options/personal.php:177
+msgid "Signature Options"
+msgstr "Opciones de Firma"
+
+#: squirrelmail/include/options/personal.php:182
+msgid "Use Signature"
+msgstr "Usar Firma"
+
+#: squirrelmail/include/options/personal.php:189
+msgid "Prefix Signature with '-- ' Line"
+msgstr "Preceder la firma con '--'"
 
 #: squirrelmail/plugins/filters/filters.php:470
 msgid ""
@@ -3615,10 +3998,6 @@ msgstr "Opciones de Carpetas Subordinadas de Mensajes Enviados"
 msgid "Use Sent Subfolders"
 msgstr "Emplear Carpetas Subordinadas de Mensajes Enviados"
 
-#: squirrelmail/plugins/sent_subfolders/setup.php:112
-msgid "Disabled"
-msgstr "Desactivado"
-
 #: squirrelmail/plugins/sent_subfolders/setup.php:113
 msgid "Monthly"
 msgstr "Mensualmente"
@@ -3885,14 +4264,6 @@ msgstr "activar mover"
 msgid "Display at bottom"
 msgstr "Mostrar abajo"
 
-#: squirrelmail/plugins/administrator/defines.php:42
-msgid "Default"
-msgstr "Por omisión del sistema"
-
-#: squirrelmail/plugins/administrator/defines.php:45
-msgid "pixels"
-msgstr "pixels"
-
 #: squirrelmail/plugins/administrator/defines.php:48
 msgid "Config File Version"
 msgstr "Versión de configuración"
@@ -4029,18 +4400,6 @@ msgstr "Prefijo de carpetas"
 msgid "Show Folder Prefix Option"
 msgstr "¿Permitir modificar el prefijo?"
 
-#: squirrelmail/plugins/administrator/defines.php:135
-msgid "Trash Folder"
-msgstr "Papelera"
-
-#: squirrelmail/plugins/administrator/defines.php:138
-msgid "Sent Folder"
-msgstr "Elementos enviados"
-
-#: squirrelmail/plugins/administrator/defines.php:141
-msgid "Draft Folder"
-msgstr "Borradores"
-
 #: squirrelmail/plugins/administrator/defines.php:144
 msgid "By default, move to trash"
 msgstr "¿Mover a la papelera por omisión?"
@@ -4077,29 +4436,9 @@ msgstr "¿Mostrar la opción de subcarpetas?"
 msgid "Default Unseen Notify"
 msgstr "Notificación de no leídos por omisión"
 
-#: squirrelmail/plugins/administrator/defines.php:162
-msgid "No Notification"
-msgstr "No Advertir"
-
-#: squirrelmail/plugins/administrator/defines.php:163
-msgid "Only INBOX"
-msgstr "Solo Bandeja de entrada"
-
-#: squirrelmail/plugins/administrator/defines.php:164
-msgid "All Folders"
-msgstr "Todas las carpetas"
-
 #: squirrelmail/plugins/administrator/defines.php:165
 msgid "Default Unseen Type"
 msgstr "Tipo de no leídos por omisión"
-
-#: squirrelmail/plugins/administrator/defines.php:167
-msgid "Only Unseen"
-msgstr "Solo Nuevos"
-
-#: squirrelmail/plugins/administrator/defines.php:168
-msgid "Unseen and Total"
-msgstr "No leídos y total"
 
 #: squirrelmail/plugins/administrator/defines.php:169
 msgid "Auto Create Special Folders"
