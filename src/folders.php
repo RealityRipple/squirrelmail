@@ -36,9 +36,6 @@
    if ($trash_create == "true") {
       sqimap_mailbox_create ($imapConnection, $trash_folder, "");
    }
-
-//Major hack, need to right a funtion to check and if mailbox is subscribed to
-   sqimap_subscribe($imapConnection, "INBOX");
    echo "<BR><BR><CENTER><b>";
    echo _("Mailboxes Created Successfully!");
    echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
