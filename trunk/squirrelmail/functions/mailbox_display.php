@@ -266,7 +266,7 @@ function showMessagesForMailbox
 
         while ($j < $end_loop) {
             if (isset($date[$j])) {
-                $date[$j] = ereg_replace('  ', ' ', $date[$j]);
+                $date[$j] = str_replace('  ', ' ', $date[$j]);
                 $tmpdate = explode(' ', trim($date[$j]));
             } else {
                 $tmpdate = $date = array('', '', '', '', '', '');

@@ -765,10 +765,10 @@ function decodeBody($body, $encoding) {
 function decodeHeader ($string, $utfencode=true) {
   if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
             $string, $res)) {
-     if (ucfirst($res[2]) == "B") {
+     if (ucfirst($res[2]) == 'B') {
         $replace = base64_decode($res[3]);
      } else {
-        $replace = ereg_replace("_", " ", $res[3]);
+        $replace = str_replace('_', ' ', $res[3]);
     // Convert lowercase Quoted Printable to uppercase for
     // quoted_printable_decode to understand it.
     while (ereg("(=(([0-9][abcdef])|([abcdef][0-9])|([abcdef][abcdef])))", $replace, $res)) {

@@ -59,7 +59,7 @@ foreach ($vcard as $l) {
             $k .= ';' . $attr;
     }
 
-    $v = ereg_replace(';', "\n", $v);
+    $v = str_replace(';', "\n", $v);
     $vcard_nice[$k] = $v;
 }
 

@@ -245,7 +245,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 function sqimap_get_flags ($imap_stream, $i) {
     $read = sqimap_run_command ($imap_stream, "FETCH $i:$i FLAGS", true, $response, $message);
     if (ereg("FLAGS(.*)", $read[0], $regs)) {
-        return explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
+        return explode(' ', trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
     }
     return Array('None');
 }
