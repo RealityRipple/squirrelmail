@@ -14,9 +14,12 @@
    $mbx_response =  sqimap_mailbox_select($imapConnection, $mailbox);
 
    $message = &$messages[$mbx_response['UIDVALIDITY']]["$passed_id"];
-   $message = &$message->getEntity($ent_id);
+   $message_ent = &$message->getEntity($ent_id);
+   if ($passed_ent_id) {
+      $message = &$message->getEntity($passed_ent_id);
+   }
    
-   $header = $message->header;
+   $header = $message_ent->header;
    $charset = $header->getParameter('charset');
    $type0 = $header->type0;
    $type1 = $header->type1;
@@ -44,9 +47,7 @@
          "<TABLE WIDTH=\"98%\" BORDER=0 CELLSPACING=0 CELLPADDING=2 ALIGN=CENTER><TR><TD BGCOLOR=\"$color[0]\">".
          "<TR><TD BGCOLOR=\"$color[4]\"><TT>";
     if ($type1 == 'html' || $override_type1 == 'html') {
-        $msg  = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-	$msg = $msg->getEntity($ent_id);
-        $body = MagicHTML( $body, $passed_id, $msg );
+        $body = MagicHTML( $body, $passed_id, $message, $mailbox);
     } else {
         translateText($body, $wrap_at, $charset);
     }
