@@ -213,7 +213,7 @@ echo _("The SpamCop service will display information as it finds it, so scroll d
 echo "</p>\n";
 
 echo '<p><b>' . _("SpamCop service type") . '</b><br />';
-echo _("Service type option allows selecting which spamcop services you are using. Member services use different web reporting forms and does not display nags. You can purchase these services, if you want to support SpamCop.");
+echo _("Service type option allows selecting which SpamCop services you are using. Member services use different web reporting forms and does not display nags. You can purchase these services, if you want to support SpamCop.");
 echo "</p>\n";
 
 echo '<p><b>' . _("More information") . '</b><br />';
