@@ -6,7 +6,7 @@
 #
 # $Id$
 ############################################################              
-$conf_pl_version = "x64";
+$conf_pl_version = "1.2.0";
 
 ############################################################              
 # Some people try to run this as a CGI. That's wrong!
@@ -24,22 +24,21 @@ if(defined($ENV{'PATH_INFO'}) || defined($ENV{'QUERY_STRING'}) ||
 if ( -e "config.php") {
    open (FILE, "config.php");
    while ($line = <FILE>) {
-      if ($line =~ /^\s+\$/) {
-         $line =~ s/^\s+\$//;
-         $var = $line;
+      $line =~ s/^\s+//;
+      $line =~ s/^\$//;
+      $var = $line;
       
-         $var =~ s/=/EQUALS/;
-         if ($var =~ /^([a-z]|[A-Z])/) {
-            @o = split(/\s*EQUALS\s*/, $var);
-            if ($o[0] eq "config_version") {
-               $o[1] =~ s/[\n|\r]//g;
-               $o[1] =~ s/\";\s*$//;
-               $o[1] =~ s/;$//;
-               $o[1] =~ s/^\"//;
+      $var =~ s/=/EQUALS/;
+      if ($var =~ /^([a-z]|[A-Z])/) {
+         @o = split(/\s*EQUALS\s*/, $var);
+         if ($o[0] eq "config_version") {
+            $o[1] =~ s/[\n|\r]//g;
+            $o[1] =~ s/[\'|\"];\s*$//;
+            $o[1] =~ s/;$//;
+            $o[1] =~ s/^[\'|\"]//;
 
-               $config_version = $o[1];
-               close (FILE);
-            }
+            $config_version = $o[1];
+            close (FILE);
          }
       }   
    }
@@ -48,11 +47,13 @@ if ( -e "config.php") {
    if ($config_version ne $conf_pl_version) {
       system "clear";
       print $WHT."WARNING:\n".$NRM;
-      print "  The file \"config/config.php\" was found, but it is for an older version of\n";
-      print "  SquirrelMail.  It is possible to still read the defaults from this file\n";
-      print "  but be warned that many preferences change between versions.  It is\n";
-      print "  recommended that you start with a clean config.php for each upgrade that\n";
-      print "  you do.  To do this, just move config/config.php out of the way.\n\n";
+      print "  The file \"config/config.php\" was found, but it is for\n";
+      print "  an older version of SquirrelMail. It is possible to still\n";
+      print "  read the defaults from this file but be warned that many\n";
+      print "  preferences change between versions. It is recommended that\n";
+      print "  you start with a clean config.php for each upgrade that you\n";
+      print "  do. To do this, just move config/config.php out of the way.\n";
+      print "\n";
       print "Continue loading with the old config.php [y/N]? ";
       $ctu = <STDIN>;
       if (($ctu !~ /^y\n/i) || ($ctu =~ /^\n/)) {
@@ -75,22 +76,21 @@ if ( -e "config.php") {
 } elsif (-e "config_default.php") {
    open (FILE, "config_default.php");
    while ($line = <FILE>) {
-      if ($line =~ /^\s+\$/) {
-         $line =~ s/^\s+\$//;
-         $var = $line;
+      $line =~ s/^\s+//;
+      $line =~ s/^\$//;
+      $var = $line;
       
-         $var =~ s/=/EQUALS/;
-         if ($var =~ /^([a-z]|[A-Z])/) {
-            @o = split(/\s*EQUALS\s*/, $var);
-            if ($o[0] eq "config_version") {
-               $o[1] =~ s/[\n|\r]//g;
-               $o[1] =~ s/\";\s*$//;
-               $o[1] =~ s/;$//;
-               $o[1] =~ s/^\"//;
+      $var =~ s/=/EQUALS/;
+      if ($var =~ /^([a-z]|[A-Z])/) {
+         @o = split(/\s*EQUALS\s*/, $var);
+         if ($o[0] eq "config_version") {
+            $o[1] =~ s/[\n|\r]//g;
+            $o[1] =~ s/[\'|\"];\s*$//;
+            $o[1] =~ s/;$//;
+            $o[1] =~ s/^[\'|\"]//;
 
-               $config_version = $o[1];
-               close (FILE);
-            }
+            $config_version = $o[1];
+            close (FILE);
          }
       }   
    }
@@ -99,12 +99,14 @@ if ( -e "config.php") {
    if ($config_version ne $conf_pl_version) {
       system "clear";
       print $WHT."WARNING:\n".$NRM;
-      print "  You are trying to use a \"config_default.php\" from an older version of\n";
-      print "  SquirrelMail.  This is HIGHLY unrecommended.  You should get the\n";
-      print "  \"config_default.php\" that matches the version of SquirrelMail that you\n";
-      print "  are running.  You can get this from the SquirrelMail web page by going\n";
-      print "  to:  http://www.squirrelmail.org.\n\n";
-      print "Continue loading with the old config_default.php (not a good idea) [y/N]? ";
+      print "  You are trying to use a 'config_default.php' from an older\n";
+      print "  version of SquirrelMail. This is HIGHLY unrecommended. You\n";
+      print "  should get the 'config_default.php' that matches the version\n";
+      print "  of SquirrelMail that you are running. You can get this from\n";
+      print "  the SquirrelMail web page by going to the following URL:\n";
+      print "      http://www.squirrelmail.org.\n";
+      print "\n";
+      print "Continue loading with old config_default.php (a bad idea) [y/N]? ";
       $ctu = <STDIN>;
       if (($ctu !~ /^y\n/i) || ($ctu =~ /^\n/)) {
          exit;
@@ -123,99 +125,97 @@ if ( -e "config.php") {
    $config = 2;
    open (FILE, "config_default.php");
 } else {
-   print "No configuration file found.  Please get config_default.php or\n";
-   print "config.php before running this again.  This program needs a\n";
-   print "default config file to get default values.\n";
+   print "No configuration file found. Please get config_default.php\n";
+   print "or config.php before running this again. This program needs\n";
+   print "a default config file to get default values.\n";
    exit;
 }
 
-#  Reads and parses the current configuration file (either
-#  config.php or config_default.php).
-
+# Read and parse the current configuration file
+# (either config.php or config_default.php).
 while ($line = <FILE>) {
-   if ($line =~ /^\s+\$/) {
-      $line =~ s/^\s+\$//;
-      $var = $line;
+   $line =~ s/^\s+//;
+   $line =~ s/^\$//;
+   $var = $line;
       
-      $var =~ s/=/EQUALS/;
-      if ($var =~ /^([a-z]|[A-Z])/) {
-         @options = split(/\s*EQUALS\s*/, $var);
-         $options[1] =~ s/[\n|\r]//g;
-         $options[1] =~ s/\";\s*$//;
-         $options[1] =~ s/;$//;
-         $options[1] =~ s/^\"//;
+   $var =~ s/=/EQUALS/;
+   if ($var =~ /^([a-z]|[A-Z])/) {
+      @options = split(/\s*EQUALS\s*/, $var);
+      $options[1] =~ s/[\n|\r]//g;
+      $options[1] =~ s/[\'|\"];\s*$//;
+      $options[1] =~ s/;$//;
+      $options[1] =~ s/^[\'|\"]//;
 
-         if ($options[0] =~ /^theme\[[0-9]+\]\["PATH"\]/) {
-            $sub = $options[0];
-            $sub =~ s/\]\["PATH"\]//;
-            $sub =~ s/.*\[//; 
-            if (-e "../themes") {
-               $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
-            }   
-            $theme_path[$sub] = $options[1];
-         } elsif ($options[0] =~ /^theme\[[0-9]+\]\["NAME"\]/) {
-            $sub = $options[0];
-            $sub =~ s/\]\["NAME"\]//;
-            $sub =~ s/.*\[//; 
-            $theme_name[$sub] = $options[1];
-         } elsif ($options[0] =~ /^plugins\[[0-9]+\]/) {
-            $sub = $options[0];
-            $sub =~ s/\]//; 
-            $sub =~ s/^plugins\[//;
-            $plugins[$sub] = $options[1];
-         } elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
-            $sub = $options[0];
-            $sub =~ s/\]//; 
-            $sub =~ s/^ldap_server\[//;
-            $continue = 0;
-            while (($tmp = <FILE>) && ($continue != 1)) {
-               if ($tmp =~ /\);\s*$/) {
-                  $continue = 1;
-               }
-               
-               if ($tmp =~ /^\s*\"host\"/i) {
-                  $tmp =~ s/^\s*\"host\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $host = $tmp;
-               } elsif ($tmp =~ /^\s*\"base\"/i) {
-                  $tmp =~ s/^\s*\"base\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $base = $tmp;
-               } elsif ($tmp =~ /^\s*\"charset\"/i) {
-                  $tmp =~ s/^\s*\"charset\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $charset = $tmp;
-               } elsif ($tmp =~ /^\s*\"port\"/i) {
-                  $tmp =~ s/^\s*\"port\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $port = $tmp;
-               } elsif ($tmp =~ /^\s*\"maxrows\"/i) {
-                  $tmp =~ s/^\s*\"maxrows\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $maxrows = $tmp;
-               } elsif ($tmp =~ /^\s*\"name\"/i) {
-                  $tmp =~ s/^\s*\"name\"\s*=>\s*\"//i;
-                  $tmp =~ s/\",\s*$//;
-                  $tmp =~ s/\"\);\s*$//;
-                  $name = $tmp;
-               }
-            }
-            $ldap_host[$sub] = $host;
-            $ldap_base[$sub] = $base;
-            $ldap_name[$sub] = $name;
-            $ldap_port[$sub] = $port;
-            $ldap_maxrows[$sub] = $maxrows;
-            $ldap_charset[$sub] = $charset;
-         } else {
-            ${$options[0]} = $options[1];
+      if ($options[0] =~ /^theme\[[0-9]+\]\[['|"]PATH['|"]\]/) {
+         $sub = $options[0];
+         $sub =~ s/\]\[['|"]PATH['|"]\]//;
+         $sub =~ s/.*\[//; 
+         if (-e "../themes") {
+            $options[1] =~ s/^\.\.\/config/\.\.\/themes/;
          }   
+         $theme_path[$sub] = $options[1];
+      } elsif ($options[0] =~ /^theme\[[0-9]+\]\[['|"]NAME['|"]\]/) {
+         $sub = $options[0];
+         $sub =~ s/\]\[['|"]NAME['|"]\]//;
+         $sub =~ s/.*\[//; 
+         $theme_name[$sub] = $options[1];
+      } elsif ($options[0] =~ /^plugins\[[0-9]+\]/) {
+         $sub = $options[0];
+         $sub =~ s/\]//; 
+         $sub =~ s/^plugins\[//;
+         $plugins[$sub] = $options[1];
+      } elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
+         $sub = $options[0];
+         $sub =~ s/\]//; 
+         $sub =~ s/^ldap_server\[//;
+         $continue = 0;
+         while (($tmp = <FILE>) && ($continue != 1)) {
+            if ($tmp =~ /\);\s*$/) {
+               $continue = 1;
+            }
+            
+            if ($tmp =~ /^\s*[\'|\"]host[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]host[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $host = $tmp;
+            } elsif ($tmp =~ /^\s*[\'|\"]base[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]base[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $base = $tmp;
+            } elsif ($tmp =~ /^\s*[\'|\"]charset[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]charset[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $charset = $tmp;
+            } elsif ($tmp =~ /^\s*[\'|\"]port[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]port[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $port = $tmp;
+            } elsif ($tmp =~ /^\s*[\'|\"]maxrows[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]maxrows[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $maxrows = $tmp;
+            } elsif ($tmp =~ /^\s*[\'|\"]name[\'|\"]/i) {
+               $tmp =~ s/^\s*[\'|\"]name[\'|\"]\s*=>\s*[\'|\"]//i;
+               $tmp =~ s/[\'|\"],?\s*$//;
+               $tmp =~ s/[\'|\"]\);\s*$//;
+               $name = $tmp;
+            }
+         }
+         $ldap_host[$sub] = $host;
+         $ldap_base[$sub] = $base;
+         $ldap_name[$sub] = $name;
+         $ldap_port[$sub] = $port;
+         $ldap_maxrows[$sub] = $maxrows;
+         $ldap_charset[$sub] = $charset;
+      } else {
+         ${$options[0]} = $options[1];
       }   
-   }
+   }   
 }
 close FILE;
 if ($useSendmail ne "true") {
@@ -237,22 +237,22 @@ if (!$invert_time) {
    $invert_time = "false";
 }
 if (!$force_username_lowercase) {
-	$force_username_lowercase = "false";
+    $force_username_lowercase = "false";
 }
 if (!$optional_delimiter) {
-	$optional_delimiter = "detect";
+    $optional_delimiter = "detect";
 }
 if (!$use_authenticated_smtp) {
     $use_authenticated_smtp = "false";
 }
 if (!$auto_create_special) {
-	$auto_create_special = "false";
+    $auto_create_special = "false";
 }
 if(!$default_use_priority) {
-        $default_use_priority = "true";
+    $default_use_priority = "true";
 }
 if(!$hide_sm_attributions) {
-        $hide_sm_attributions = "false";
+    $hide_sm_attributions = "false";
 }
 
 #####################################################################################
@@ -270,7 +270,7 @@ while (($command ne "q") && ($command ne "Q")) {
    print $WHT."SquirrelMail Configuration : ".$NRM;
    if ($config == 1) { print "Read: config.php"; }
    elsif ($config == 2) { print "Read: config_default.php"; }
-   print "\n";
+   print " ($print_config_version)\n";
    print "---------------------------------------------------------\n";
 
    if ($menu == 0) {
@@ -789,7 +789,7 @@ sub command111 {
 	print "folders.  For example, Cyrus uses '.' as the delimiter and a complete\n";
 	print "folder would look like 'INBOX.Friends.Bob', while UW uses '/' and would\n";
 	print "look like 'INBOX/Friends/Bob'.  Normally this should be left at 'detect'\n";
-	print "but if you are sure you konw what delimiter your server uses, you can\n";
+	print "but if you are sure you know what delimiter your server uses, you can\n";
 	print "specify it here.\n";
 	print "\nTo have it autodetect the delimiter, set it to 'detect'.\n\n";
    print "[$WHT$optional_delimiter$NRM]: $WHT";
@@ -1763,136 +1763,154 @@ sub command62 {
 
 
 sub save_data {
-   open (FILE, ">config.php");
+   $tab = "    ";
+   open (CF, ">config.php");
 
-   print FILE "<?php\n\t/** SquirrelMail configuration\n";
-   print FILE "\t ** Created using the configure script, conf.pl\n\t **/\n\n";
+   print CF "<?php\n";
+   print CF "\n";
+
+   print CF "/**\n";
+   print CF " * SquirrelMail Configuration File\n";
+   print CF " * Created using the configure script, conf.pl\n";
+   print CF " */\n";
+   print CF "\n";
    
-   print FILE "if (defined('config_php'))\n   return;\n";
-   print FILE "define('config_php', true);\n\n";
-
-   print FILE "\tglobal \$print_config_version, \$config_version, \$config_use_color;\n";
-
+   print CF "global \$config_version, \$config_use_color;\n";
    if ($print_config_version) {
-      print FILE "\t\$config_version = \"$print_config_version\";\n";
+      print CF "\$config_version = '$print_config_version';\n";
    }
-   print FILE "\t\$config_use_color = $config_use_color;\n"; 
-   print FILE "\n";
+   print CF "\$config_use_color = $config_use_color;\n"; 
+   print CF "\n";
 
-   print FILE "\tglobal \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
-   print FILE "\t\$org_name   = \"$org_name\";\n";
-   print FILE "\t\$org_logo   = \"$org_logo\";\n";
-   print FILE "\t\$org_title  = \"$org_title\";\n";
-   print FILE "\t\$signout_page  = \"$signout_page\";\n";
+   print CF "global \$org_name, \$org_logo, \$org_title, \$signout_page;\n";
+   print CF "\$org_name      = \"$org_name\";\n";
+   print CF "\$org_logo      = '$org_logo';\n";
+   print CF "\$org_title     = \"$org_title\";\n";
+   print CF "\$signout_page  = '$signout_page';\n";
+   print CF "\n";
 
-   print FILE "\n";
+   print CF "global \$motd;\n";
+   print CF "\$motd = '$motd';\n";
+   print CF "\n";
 
-   print FILE "\tglobal \$domain, \$imapServerAddress, \$imapPort;\n";
-   print FILE "\tglobal \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
-   print FILE "\tglobal \$sendmail_path, \$use_authenticated_smtp, \$imap_server_type;\n";
-   print FILE "\tglobal \$invert_time, \$optional_delimiter;\n";
-   print FILE "\t\$domain                 = \"$domain\";\n";
-   print FILE "\t\$imapServerAddress      = \"$imapServerAddress\";\n";
-   print FILE "\t\$imapPort               =  $imapPort;\n";
-   print FILE "\t\$useSendmail            =  $useSendmail;\n";
-   print FILE "\t\$smtpServerAddress      = \"$smtpServerAddress\";\n";
-   print FILE "\t\$smtpPort               =  $smtpPort;\n";
-   print FILE "\t\$sendmail_path          = \"$sendmail_path\";\n";
-   print FILE "\t\$use_authenticated_smtp = $use_authenticated_smtp;\n";
-   print FILE "\t\$imap_server_type       = \"$imap_server_type\";\n";
-   print FILE "\t\$invert_time            = $invert_time;\n";
-   print FILE "\t\$optional_delimiter     = \"$optional_delimiter\";\n";
-   
-   print FILE "\n";
+   print CF "global \$squirrelmail_default_language;\n";
+   print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
+   print CF "\n";
 
-   print FILE "\tglobal \$default_folder_prefix;\n";
-   print FILE "\tglobal \$trash_folder, \$default_move_to_trash;\n";
-   print FILE "\tglobal \$sent_folder, \$default_move_to_sent;\n";
-   print FILE "\tglobal \$draft_folder, \$default_save_to_draft;\n";
-   print FILE "\tglobal \$show_prefix_option, \$list_special_folders_first;\n";
-   print FILE "\tglobal \$use_special_folder_color, \$auto_expunge, \$default_sub_of_inbox;\n";
-   print FILE "\tglobal \$show_contain_subfolders_option, \$default_unseen_notify;\n";
-   print FILE "\tglobal \$default_unseen_type, \$auto_create_special;\n";
-   print FILE "\t\$default_folder_prefix            = \"$default_folder_prefix\";\n";
-   print FILE "\t\$trash_folder                     = \"$trash_folder\";\n";
-   print FILE "\t\$sent_folder                      = \"$sent_folder\";\n";
-   print FILE "\t\$draft_folder                     = \"$draft_folder\";\n";
-   print FILE "\t\$default_move_to_trash            =  $default_move_to_trash;\n";
-   print FILE "\t\$default_move_to_sent             =  $default_move_to_sent;\n";
-   print FILE "\t\$default_save_as_draft            =  $default_save_as_draft;\n";
-   print FILE "\t\$show_prefix_option               =  $show_prefix_option;\n";
-   print FILE "\t\$list_special_folders_first       =  $list_special_folders_first;\n";
-   print FILE "\t\$use_special_folder_color         =  $use_special_folder_color;\n";
-   print FILE "\t\$auto_expunge                     =  $auto_expunge;\n";
-   print FILE "\t\$default_sub_of_inbox             =  $default_sub_of_inbox;\n";
-   print FILE "\t\$show_contain_subfolders_option   =  $show_contain_subfolders_option;\n";
-   print FILE "\t\$default_unseen_notify            =  $default_unseen_notify;\n";
-   print FILE "\t\$default_unseen_type              =  $default_unseen_type;\n";
-   print FILE "\t\$auto_create_special              =  $auto_create_special;\n";
-   print FILE "\n";
+   print CF "global \$domain, \$imapServerAddress, \$imapPort;\n";
+   print CF "global \$useSendmail, \$smtpServerAddress, \$smtpPort;\n";
+   print CF "global \$sendmail_path, \$use_authenticated_smtp;\n";
+   print CF "global \$imap_server_type, \$invert_time;\n";
+   print CF "global \$optional_delimiter;\n";
+   print CF "\$domain                 = '$domain';\n";
+   print CF "\$imapServerAddress      = '$imapServerAddress';\n";
+   print CF "\$imapPort               = $imapPort;\n";
+   print CF "\$useSendmail            = $useSendmail;\n";
+   print CF "\$smtpServerAddress      = '$smtpServerAddress';\n";
+   print CF "\$smtpPort               = $smtpPort;\n";
+   print CF "\$sendmail_path          = '$sendmail_path';\n";
+   print CF "\$use_authenticated_smtp = $use_authenticated_smtp;\n";
+   print CF "\$imap_server_type       = '$imap_server_type';\n";
+   print CF "\$invert_time            = $invert_time;\n";
+   print CF "\$optional_delimiter     = '$optional_delimiter';\n";
+   print CF "\n";
 
-   print FILE "\tglobal \$default_charset;\n";
-   print FILE "\tglobal \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
-   print FILE "\tglobal \$default_left_size, \$force_username_lowercase;\n";
-   print FILE "\tglobal \$default_use_priority, \$hide_sm_attributions;\n";
-   print FILE "\t\$default_charset          = \"$default_charset\";\n";
-   print FILE "\t\$data_dir                 = \"$data_dir\";\n";
-   print FILE "\t\$attachment_dir           = \"$attachment_dir\";\n";
-   print FILE "\t\$dir_hash_level           = $dir_hash_level;\n";
-   print FILE "\t\$default_left_size        =  $default_left_size;\n";
-   print FILE "\t\$force_username_lowercase = $force_username_lowercase;\n";
-   print FILE "\t\$default_use_priority     = $default_use_priority;\n";
-   print FILE "\t\$hide_sm_attributions     = $hide_sm_attributions;\n";
+   print CF "global \$default_folder_prefix;\n";
+   print CF "global \$trash_folder, \$default_move_to_trash;\n";
+   print CF "global \$sent_folder, \$default_move_to_sent;\n";
+   print CF "global \$draft_folder, \$default_save_to_draft;\n";
+   print CF "global \$show_prefix_option, \$list_special_folders_first;\n";
+   print CF "global \$use_special_folder_color, \$auto_expunge;\n";
+   print CF "global \$default_sub_of_inbox;\n";
+   print CF "global \$show_contain_subfolders_option;\n";
+   print CF "global \$default_unseen_notify;\n";
+   print CF "global \$default_unseen_type, \$auto_create_special;\n";
+   print CF "\$default_folder_prefix          = '$default_folder_prefix';\n";
+   print CF "\$trash_folder                   = '$trash_folder';\n";
+   print CF "\$sent_folder                    = '$sent_folder';\n";
+   print CF "\$draft_folder                   = '$draft_folder';\n";
+   print CF "\$default_move_to_trash          = $default_move_to_trash;\n";
+   print CF "\$default_move_to_sent           = $default_move_to_sent;\n";
+   print CF "\$default_save_as_draft          = $default_save_as_draft;\n";
+   print CF "\$show_prefix_option             = $show_prefix_option;\n";
+   print CF "\$list_special_folders_first     = $list_special_folders_first;\n";
+   print CF "\$use_special_folder_color       = $use_special_folder_color;\n";
+   print CF "\$auto_expunge                   = $auto_expunge;\n";
+   print CF "\$default_sub_of_inbox           = $default_sub_of_inbox;\n";
+   print CF "\$show_contain_subfolders_option = $show_contain_subfolders_option;\n";
+   print CF "\$default_unseen_notify          = $default_unseen_notify;\n";
+   print CF "\$default_unseen_type            = $default_unseen_type;\n";
+   print CF "\$auto_create_special            = $auto_create_special;\n";
+   print CF "\n";
 
-   print FILE "\n";
+   print CF "global \$default_charset;\n";
+   print CF "global \$data_dir, \$attachment_dir, \$dir_hash_level;\n";
+   print CF "global \$default_left_size, \$force_username_lowercase;\n";
+   print CF "global \$default_use_priority, \$hide_sm_attributions;\n";
+   print CF "\$default_charset          = '$default_charset';\n";
+   print CF "\$data_dir                 = '$data_dir';\n";
+   print CF "\$attachment_dir           = \"$attachment_dir\";\n";
+   print CF "\$dir_hash_level           = $dir_hash_level;\n";
+   print CF "\$default_left_size        = $default_left_size;\n";
+   print CF "\$force_username_lowercase = $force_username_lowercase;\n";
+   print CF "\$default_use_priority     = $default_use_priority;\n";
+   print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
+   print CF "\n";
 
-   print FILE "\tglobal \$plugins;\n";
+   print CF "global \$plugins;\n";
    for ($ct=0; $ct <= $#plugins; $ct++) {
-      print FILE "\t\$plugins[$ct] = \"$plugins[$ct]\";\n";
+      print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
    }
-   
-   print FILE "\n";
+   print CF "\n";
 
-   print FILE "\tglobal \$theme_css, \$theme;\n";
-   print FILE "\t\$theme_css = \"$theme_css\";\n";
+   print CF "global \$theme_css, \$theme;\n";
+   print CF "\$theme_css = '$theme_css';\n";
    for ($count=0; $count <= $#theme_name; $count++) {
-      print FILE "\t\$theme[$count][\"PATH\"] = \"$theme_path[$count]\";\n";
-      print FILE "\t\$theme[$count][\"NAME\"] = \"$theme_name[$count]\";\n";
+      print CF "\$theme[$count]['PATH'] = '$theme_path[$count]';\n";
+      print CF "\$theme[$count]['NAME'] = '$theme_name[$count]';\n";
    }
-   
-   print FILE "\n";
+   print CF "\n";
 
    if ($default_use_javascript_addr_book ne "true") {
       $default_use_javascript_addr_book = "false";
    }   
-   print FILE "\tglobal \$default_use_javascript_addr_book, \$ldap_server;\n";
-   print FILE "\t\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
+   print CF "global \$default_use_javascript_addr_book, \$ldap_server;\n";
+   print CF "\$default_use_javascript_addr_book = $default_use_javascript_addr_book;\n";
    for ($count=0; $count <= $#ldap_host; $count++) {
-      print FILE "\t\$ldap_server[$count] = Array(\n";
-      print FILE "\t\t\t\"host\" => \"$ldap_host[$count]\",\n";
-      print FILE "\t\t\t\"base\" => \"$ldap_base[$count]\"";
+      print CF "\$ldap_server[$count] = array(\n";
+      print CF "    'host' => '$ldap_host[$count]',\n";
+      print CF "    'base' => '$ldap_base[$count]'";
       if ($ldap_name[$count]) {
-         print FILE ",\n\t\t\t\"name\" => \"$ldap_name[$count]\"";
+         print CF ",\n";
+         print CF "    'name' => '$ldap_name[$count]'";
       }
       if ($ldap_port[$count]) {
-         print FILE ",\n\t\t\t\"port\" => \"$ldap_port[$count]\"";
+         print CF ",\n";
+         print CF "    'port' => '$ldap_port[$count]'";
       }
       if ($ldap_charset[$count]) {
-         print FILE ",\n\t\t\t\"charset\" => \"$ldap_charset[$count]\"";
+         print CF ",\n";
+         print CF "    'charset' => '$ldap_charset[$count]'";
       }
       if ($ldap_maxrows[$count]) {
-         print FILE ",\n\t\t\t\"maxrows\" => \"$ldap_maxrows[$count]\"";
+         print CF ",\n";
+         print CF "    'maxrows' => '$ldap_maxrows[$count]'";
       }
-      print FILE ");\n\n";
+      print CF "\n";
+      print CF ");\n";
+      print CF "\n";
    }
 
-   print FILE "\tglobal \$motd;\n";
-   print FILE "\t\$motd = \"$motd\";\n";
-   
-   print FILE "\tglobal \$squirrelmail_default_language;\n";
-   print FILE "\t\$squirrelmail_default_language = \"$squirrelmail_default_language\";\n";
+   print CF "/**\n";
+   print CF " * Make sure there are no characters after the PHP closing\n";
+   print CF " * tag below (including newline characters and whitespace).\n";
+   print CF " * Otherwise, that character will cause the headers to be\n";
+   print CF " * sent and regular output to begin, which will majorly screw\n";
+   print CF " * things up when we try to send more headers later.\n";
+   print CF " */\n";
+   print CF "?>";
 
-   close FILE;
+   close CF;
 }
 
 sub set_defaults {

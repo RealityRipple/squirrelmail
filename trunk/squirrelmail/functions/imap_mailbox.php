@@ -220,14 +220,59 @@ function sqimap_mailbox_parse ($line, $line_lsub)
     return $boxes;
 }
 
-/* Apparently you must call a user function with usort instead
- * of calling a built-in directly.  Stupid.
- * Patch from dave_michmerhuizen@yahoo.com
- * Allows case insensitivity when sorting folders
+/**
+ * Sorting function used to sort mailbox names.
+ *   + Original patch from dave_michmerhuizen@yahoo.com
+ *   + Allows case insensitivity when sorting folders
+ *   + Takes care of the delimiter being sorted to the end, causing
+ *     subfolders to be listed in below folders that are prefixed
+ *     with their parent folders name.
+ *        For example: INBOX.foo, INBOX.foobar, and INBOX.foo.bar
+ *        Without special sort function: foobar between foo and foo.bar
+ *        With special sort function: foobar AFTER foo and foo.bar :)
  */
-function user_strcasecmp($a, $b)
-{
-    return strcasecmp($a, $b);
+function user_strcasecmp($a, $b) {
+    global $delimiter;
+
+    /* Calculate the length of some strings. */
+    $a_length = strlen($a);
+    $b_length = strlen($b);
+    $min_length = min($a_length, $b_length);
+    $delimiter_length = strlen($delimiter);
+
+    /* Set the initial result value. */
+    $result = 0;
+
+    /* Check the strings... */
+    for ($c = 0; $c < $min_length; ++$c) {
+        $a_del = substr($a, $c, $delimiter_length);
+        $b_del = substr($b, $c, $delimiter_length);
+
+        if (($a_del == $delimiter) && ($b_del == $delimiter)) {
+            $result = 0;
+        } else if (($a_del == $delimiter) && ($b_del != $delimiter)) {
+            $result = 1;
+        } else if (($a_del != $delimiter) && ($b_del != $delimiter)) {
+            $result = -1;
+        } else {
+            $result = strcasecmp($a{$c}, $b{$c});
+        }
+
+        if ($result != 0) {
+            break;
+        }
+    }
+    
+    /* If one string is a prefix of the other... */
+    if ($result == 0) {
+        if ($a_length < $b_length) {
+            $result = -1;
+        } else if ($a_length > $b_length) {
+            $result = 1;
+        }
+    }
+
+    return ($result);
 }
 
 
@@ -235,8 +280,7 @@ function user_strcasecmp($a, $b)
  **  Returns sorted mailbox lists in several different ways.
  **  See comment on sqimap_mailbox_parse() for info about the returned array.
  ******************************************************************************/
-function sqimap_mailbox_list ($imap_stream)
-{
+function sqimap_mailbox_list ($imap_stream) {
     global $data_dir, $username, $list_special_folders_first;
     global $folder_prefix, $trash_folder, $sent_folder, $draft_folder;
     global $move_to_trash, $move_to_sent, $save_as_draft;
@@ -283,7 +327,6 @@ function sqimap_mailbox_list ($imap_stream)
     $sorted_lsub_ary = $new_ary;
     if (isset($sorted_lsub_ary)) {
         usort($sorted_lsub_ary, 'user_strcasecmp');
-        /*sort($sorted_lsub_ary); */
     }   
     
     /** LIST array **/
