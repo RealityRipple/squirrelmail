@@ -1206,7 +1206,8 @@ function processSubject($subject) {
     return $subject;
   }
   
-  if (function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
+  if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+      function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
       return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
   }
   
