@@ -10,6 +10,7 @@ Version 1.2.2 -- ??
     Bug reported by Boris Manojlovic <steki@verat.net>  
   - Html cleanup, with patch from Dave Huang (#496712)
   - Fixed a problem saving prefs when using PHP 4.1
+  - Russian, Dutch and French update.
   	
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
