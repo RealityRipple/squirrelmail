@@ -17,7 +17,10 @@
 ?>
 <HTML><HEAD>
 <TITLE>
-OM-USA WebMail
+<?
+   include ("../config/config.php");
+   echo "$org_title";
+?>
 </TITLE>
 <FRAMESET COLS="200, *" NORESIZE BORDER=0>
 

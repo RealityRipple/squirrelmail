@@ -1,4 +1,5 @@
 <?
+
    //*************************************************************************
    // Count the number of occurances of $needle are in $haystack.
    //*************************************************************************
@@ -75,4 +76,7 @@
       }
       return $to_line;
    }
+
+   /* SquirrelMail version number -- DO NOT CHANGE */
+   $version = "0.1.2";
 ?>

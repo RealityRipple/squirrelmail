@@ -38,6 +38,12 @@
       }
    }
 
+   // Add some decoding information
+   $send_to = encodeEmailAddr($send_to);
+   // parses the field and returns only the email address
+   $send_to = decodeEmailAddr($send_to);
+
+   $send_to = strtolower($send_to);
    $send_to = ereg_replace("\"", "", $send_to);
    $send_to = stripslashes($send_to);
 

@@ -32,10 +32,10 @@
 
       if ($handle_errors == true) {
          if ($response == "NO") {
-            echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Could not complete request.</B> </FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT><BR><BR>";
+            echo "<BR><B><FONT FACE=\"Arial,Helvetica\" COLOR=FF0000>ERROR</FONT FACE=\"Arial,Helvetica\"><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>:  Could not complete request.</B> </FONT FACE=\"Arial,Helvetica\"><BR><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT FACE=\"Arial,Helvetica\"><BR><BR>";
             exit;
          } else if ($response == "BAD") {
-            echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+            echo "<BR><B><FONT FACE=\"Arial,Helvetica\" COLOR=FF0000>ERROR</FONT FACE=\"Arial,Helvetica\"><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>:  Bad or malformed request.</B></FONT FACE=\"Arial,Helvetica\"><BR><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT FACE=\"Arial,Helvetica\"><BR><BR>";
             exit;
          }
       }
@@ -151,11 +151,12 @@
       $data = imapReadData($imapConnection, "1", false, $response, $message);
 
       if ($response == "NO") {
-         echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Could not complete request.</B> </FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT><BR><BR>";
-         echo "Possible solutions:<BR><LI>You may need to specify that the folder is a subfolder of INBOX</LI>";
+         echo "<BR><B><FONT FACE=\"Arial,Helvetica\" COLOR=FF0000>ERROR</FONT FACE=\"Arial,Helvetica\"><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>:  Could not complete request.</B> </FONT FACE=\"Arial,Helvetica\"><BR><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>&nbsp;&nbsp;<B>Reason given:</B> $message</FONT FACE=\"Arial,Helvetica\"><BR><BR>";
+         echo "<FONT FACE=\"Arial,Helvetica\">Possible solutions:<BR><LI>You may need to specify that the folder is a subfolder of INBOX</LI>";
+         echo "<LI>Try renaming the folder to something different.</LI>";
          exit;
       } else if ($response == "BAD") {
-         echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+         echo "<B><FONT FACE=\"Arial,Helvetica\" COLOR=FF0000>ERROR</FONT FACE=\"Arial,Helvetica\"><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>:  Bad or malformed request.</B></FONT FACE=\"Arial,Helvetica\"><BR><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT FACE=\"Arial,Helvetica\"><BR><BR>";
          exit;
       }
    }
@@ -175,25 +176,85 @@
    }
 
    /** Sends back two arrays, boxesFormatted and boxesUnformatted **/
-   function getFolderList($imapConnection, &$boxesFormatted, &$boxesUnformatted, &$boxesRaw) {
+   function getFolderList($imapConnection, &$boxes) {
+      require ("../config/config.php");
+
       fputs($imapConnection, "1 list \"\" *\n");
       $str = imapReadData($imapConnection, "1", true, $response, $message);
 
       $dm = findMailboxDelimeter($imapConnection);
+      $g = 0;
       for ($i = 0;$i < count($str); $i++) {
          $mailbox = chop($str[$i]);
-         $boxesRaw[$i] = $mailbox;
+         if (substr(findMailboxName($mailbox), 0, 1) != ".") {
+            $boxes[$g]["RAW"] = $mailbox;
 
-         $mailbox = findMailboxName($mailbox);
-         $periodCount = countCharInString($mailbox, $dm);
+            $mailbox = findMailboxName($mailbox);
+            $periodCount = countCharInString($mailbox, $dm);
 
-         // indent the correct number of spaces.
-         for ($j = 0;$j < $periodCount;$j++)
-            $boxesFormatted[$i] = "$boxesFormatted[$i]&nbsp;&nbsp;";
+            // indent the correct number of spaces.
+            for ($j = 0;$j < $periodCount;$j++)
+               $boxes[$g]["FORMATTED"] = $boxes[$g]["FORMATTED"] . "&nbsp;&nbsp;";
 
-         $boxesFormatted[$i] = $boxesFormatted[$i] . readShortMailboxName($mailbox, $dm);
-         $boxesUnformatted[$i] = $mailbox;
+            $boxes[$g]["FORMATTED"] = $boxes[$g]["FORMATTED"] . readShortMailboxName($mailbox, $dm);
+            $boxes[$g]["UNFORMATTED"] = $mailbox;
+            $boxes[$g]["ID"] = $g;
+            $g++;
+         }
       }
+
+      $original = $boxes;
+
+      for ($i = 0; $i < count($original); $i++) {
+         $boxes[$i]["UNFORMATTED"] = strtolower($boxes[$i]["UNFORMATTED"]);
+      }
+
+      $boxes = ary_sort($boxes, "UNFORMATTED", 1);
+
+      for ($i = 0; $i < count($original); $i++) {
+         for ($j = 0; $j < count($original); $j++) {
+            if ($boxes[$i]["ID"] == $original[$j]["ID"]) {
+               $boxes[$i]["UNFORMATTED"] = $original[$j]["UNFORMATTED"];
+               $boxes[$i]["FORMATTED"] = $original[$j]["FORMATTED"];
+               $boxes[$i]["RAW"] = $original[$j]["RAW"];
+            }
+         }
+      }
+
+      for ($i = 0; $i < count($boxes); $i++) {
+         if ($boxes[$i]["UNFORMATTED"] == $special_folders[0]) {
+            $boxesnew[0]["FORMATTED"] = $boxes[$i]["FORMATTED"];
+            $boxesnew[0]["UNFORMATTED"] = trim($boxes[$i]["UNFORMATTED"]);
+            $boxesnew[0]["RAW"] = trim($boxes[$i]["RAW"]);
+            $boxes[$i]["USED"] = true;
+         }
+      }
+      if ($list_special_folders_first == true) {
+         for ($i = 0; $i < count($boxes); $i++) {
+            for ($j = 1; $j < count($special_folders); $j++) {
+               if (substr($boxes[$i]["UNFORMATTED"], 0, strlen($special_folders[$j])) == $special_folders[$j]) {
+                  $pos = count($boxesnew);
+                  $boxesnew[$pos]["FORMATTED"] = $boxes[$i]["FORMATTED"];
+                  $boxesnew[$pos]["RAW"] = trim($boxes[$i]["RAW"]);
+                  $boxesnew[$pos]["UNFORMATTED"] = trim($boxes[$i]["UNFORMATTED"]);
+                  $boxes[$i]["USED"] = true;
+               }
+            }
+         }
+      }
+      for ($i = 0; $i < count($boxes); $i++) {
+         if (($boxes[$i]["UNFORMATTED"] != $special_folders[0]) &&
+             ($boxes[$i]["UNFORMATTED"] != ".mailboxlist") &&
+             ($boxes[$i]["USED"] == false))  {
+            $pos = count($boxesnew);
+            $boxesnew[$pos]["FORMATTED"] = $boxes[$i]["FORMATTED"];
+            $boxesnew[$pos]["RAW"] = trim($boxes[$i]["RAW"]);
+            $boxesnew[$pos]["UNFORMATTED"] = trim($boxes[$i]["UNFORMATTED"]);
+            $boxes[$i]["USED"] = true;
+         }
+      }
+
+      $boxes = $boxesnew;
    }
 
    function deleteMessages($imapConnection, $a, $b, $numMessages, $trash_folder, $move_to_trash, $auto_expunge, $mailbox) {

@@ -66,8 +66,7 @@
          while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
 
             if (substr($read, 0, 5) == "From:") {
-               $read = ereg_replace("<", "EMAILSTART--", $read);
-               $read = ereg_replace(">", "--EMAILEND", $read);
+               $read = encodeEmailAddr("$read");
                $from[$pos] = substr($read, 5, strlen($read) - 6);
             }
             else if (substr($read, 0, 5) == "Date:") {
@@ -97,6 +96,12 @@
          }
          $rel_start = $rel_start + 50;
       }
+   }
+
+   function encodeEmailAddr($string) {
+      $string = ereg_replace("<", "EMAILSTART--", $string);
+      $string = ereg_replace(">", "--EMAILEND", $string);
+      return $string;
    }
 
    function setMessageFlag($imapConnection, $i, $q, $flag) {

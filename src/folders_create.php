@@ -4,10 +4,24 @@
    include("../functions/strings.php");
    include("../functions/page_header.php");
    include("../functions/imap.php");
+   include("../functions/display_messages.php");
 
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   displayPageHeader($color, "None");
+
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    $dm = findMailboxDelimeter($imapConnection);
+
+   if (strpos($folder_name, "\"") || strpos($folder_name, ".") ||
+       strpos($folder_name, "/") || strpos($folder_name, "\\") ||
+       strpos($folder_name, "'") || strpos($folder_name, "$dm")) {
+      plain_error_message("Illegal folder name.  Please select a different name.<BR><A HREF=\"../src/folders.php\">Click here to go back</A>.", $color);
+      exit;
+   }
+
+   if ($contain_subs == true)
+      $folder_name = "$folder_name$dm";
+
    if (trim($subfolder) == "[ None ]") {
       createFolder($imapConnection, "$folder_name");
    } else {
