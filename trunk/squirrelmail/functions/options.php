@@ -154,7 +154,7 @@ class SquirrelOption {
     }
 
     function createHTMLWidget() {
-        global $javascript_on;
+        global $javascript_on, $color;
 
         // Use new value if available
         if (!empty($this->new_value)) {
