@@ -131,7 +131,7 @@ msgid "Date"
 msgstr "Datum"
 
 msgid "Original Message"
-msgstr "Urspr&uuml;ngliche Nachricht"
+msgstr "Ursprüngliche Nachricht"
 
 msgid "Draft Email Saved"
 msgstr "E-Mail-Entwurf gespeichert"
@@ -143,7 +143,7 @@ msgid "Draft Saved"
 msgstr "E-Mail-Entwurf gespeichert"
 
 msgid "Your Message has been sent"
-msgstr "Ihre Nachrichten wurde verschickt"
+msgstr "Ihre Nachricht wurde verschickt"
 
 msgid "From:"
 msgstr "Von:"
@@ -472,7 +472,7 @@ msgid "Dark Green"
 msgstr "Dunkelgr&uuml;n"
 
 msgid "Dark Yellow"
-msgstr "dunkles Geld"
+msgstr "dunkles Gelb"
 
 msgid "Dark Cyan"
 msgstr "dunkles Cyan"
@@ -505,7 +505,7 @@ msgid "Light Gray"
 msgstr "Hellgrau"
 
 msgid "White"
-msgstr "Weiss"
+msgstr "Wei&szlig;"
 
 msgid "Other:"
 msgstr "Andere:"
@@ -1099,7 +1099,7 @@ msgid "the provided bodystructure by your imap-server"
 msgstr "die vom IMAP-Server zut Verf&uuml;gung gestellte Struktur des Nachrichtentextes"
 
 msgid "Body retrieval error. The reason for this is most probably that the message is malformed."
-msgstr "Fehler beim Mail-Body-Empfang. Der Grund f&uuml;r dies ist meisstens eine falsch formatierte Nachricht."
+msgstr "Fehler beim Mail-Body-Empfang. Der Grund f&uuml;r dies ist meistens eine falsch formatierte Nachricht."
 
 msgid "Command:"
 msgstr "Beefehl:"
@@ -1791,10 +1791,10 @@ msgid "This module allows administrators to manage SquirrelMail main configurati
 msgstr "Dieses Modul erlaubt es den Administratoren die Squirrelmail-Konfiguration aus der Ferne zu verwalten."
 
 msgid "Bug Reports:"
-msgstr "Softwarefehler Berichte:"
+msgstr "Bug Reports:"
 
 msgid "Show button in toolbar"
-msgstr "Zeige den Knopf im Toolbar"
+msgstr "Zeige den Knopf in der Werkzeugleiste"
 
 msgid "TODAY"
 msgstr "HEUTE"
@@ -2464,7 +2464,7 @@ msgid "Message details"
 msgstr "Nachrichtendetails"
 
 msgid "Close Window"
-msgstr "Fenster schliessen"
+msgstr "Fenster schlie&szlig;en"
 
 msgid "Save Message"
 msgstr "Nachricht speichern"
@@ -2601,7 +2601,7 @@ msgid "ATTENTION:"
 msgstr "ACHTUNG:"
 
 msgid "SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible."
-msgstr "SquirrelSpell war nicht in der Lage Ihr pers&ouml;nliches W&ouml;rterbuch zu entschl&uuml;sseln. Dies ist meisstens darauf zur&uuml;ckzuf&uuml;hren, dass Sie Ihr Postfach-Passwort ge&auml;ndert haben Damit Squirrelspell Ihr pers&ouml;nliches W&ouml;rterbuch entschl&uuml;sseln kann m&uuml;ssen Sie Ihr vorheriges Passwort eingeben, danach wird das W&ouml;rterbuch es mit dem neuen Passwort wieder verschl&uuml;sselt<br>Wenn Sie Ihr pers&ouml;nliches W&ouml;rterbuch nie verschl&uuml;sselt haben, ist es unlesbar und somit unbrauchbar geworden. Sie m&uuml;ssen es l&ouml;schen und ein neues W&ouml;rterbuch anlegen. Dies ist ebenfalls notwendig, wenn Sie Ihr vorheriges Passwort vergessen haben - ohne dies ist kein Zugriff auf die verschl&uuml;sselte Daten m&ouml;glich."
+msgstr "SquirrelSpell war nicht in der Lage Ihr pers&ouml;nliches W&ouml;rterbuch zu entschl&uuml;sseln. Dies ist meistens darauf zur&uuml;ckzuf&uuml;hren, dass Sie Ihr Postfach-Passwort ge&auml;ndert haben Damit Squirrelspell Ihr pers&ouml;nliches W&ouml;rterbuch entschl&uuml;sseln kann m&uuml;ssen Sie Ihr vorheriges Passwort eingeben, danach wird das W&ouml;rterbuch es mit dem neuen Passwort wieder verschl&uuml;sselt<br>Wenn Sie Ihr pers&ouml;nliches W&ouml;rterbuch nie verschl&uuml;sselt haben, ist es unlesbar und somit unbrauchbar geworden. Sie m&uuml;ssen es l&ouml;schen und ein neues W&ouml;rterbuch anlegen. Dies ist ebenfalls notwendig, wenn Sie Ihr vorheriges Passwort vergessen haben - ohne dies ist kein Zugriff auf die verschl&uuml;sselte Daten m&ouml;glich."
 
 msgid "Delete my dictionary and start a new one"
 msgstr "L&ouml;sche mein W&ouml;rterbuch und lege ein neues an."
@@ -2699,16 +2699,16 @@ msgid "Add to Dic"
 msgstr "Zum W&ouml;rterbuch hinzuf&uuml;gen"
 
 msgid "Close and Commit"
-msgstr "Schliessen und best&auml;tigen"
+msgstr "Schlie&szlig;en und best&auml;tigen"
 
 msgid "The spellcheck is not finished. Really close and commit changes?"
-msgstr "Die Rechtschreibpr&uuml;fung ist nicht beendet. Wirklich schliessen und &Auml;nderungen &uuml;bernehmen?"
+msgstr "Die Rechtschreibpr&uuml;fung ist nicht beendet. Wirklich schlie&szlig;en und &Auml;nderungen &uuml;bernehmen?"
 
 msgid "Close and Cancel"
-msgstr "Schliessen und Abbrechen"
+msgstr "Schlie&szlig;en und Abbrechen"
 
 msgid "The spellcheck is not finished. Really close and discard changes?"
-msgstr "Die Rechtschreibpr&uuml;fung ist noch nicht beendet. Wirklich schliessen und &Auml;nderungen verwerfen?"
+msgstr "Die Rechtschreibpr&uuml;fung ist noch nicht beendet. Wirklich schlie&szlig;en und &Auml;nderungen verwerfen?"
 
 msgid "No errors found"
 msgstr "Keine Fehler gefunden"
@@ -2729,10 +2729,10 @@ msgid "Dictionary Erased"
 msgstr "W&ouml;rterbuch gel&ouml;scht"
 
 msgid "Your personal dictionary was erased. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
-msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde gel&ouml;scht. Bitte schliessen Sie dieses Fenster und klicken Sie auf \"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
+msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde gel&ouml;scht. Bitte schlie&szlig;en Sie dieses Fenster und klicken Sie auf \"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
 
 msgid "Close this Window"
-msgstr "Dieses Fenster schliessen"
+msgstr "Dieses Fenster schlie&szlig;en"
 
 msgid "Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again."
 msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neuverschl&uuml;sselt. Kehren Sie zum &quot;SpellChecker Optionsmen&uuml;&quot; zur&uuml;ck und treffen Ihre Auswahl erneut."
@@ -2741,7 +2741,7 @@ msgid "Successful Re-encryption"
 msgstr "Neuverschl&uuml;sselung erfolgreich"
 
 msgid "Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
-msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neu verschl&uuml;sselt. Bitte schliessen Sie dieses Fenster und klicken Sie auf \"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
+msgstr "Ihr pers&ouml;nliches W&ouml;rterbuch wurde erfolgreich neu verschl&uuml;sselt. Bitte schlie&szlig;en Sie dieses Fenster und klicken Sie auf \"Rechtschreibpr&uuml;fung\", um die Pr&uuml;fung zu wiederholen."
 
 msgid "Dictionary re-encrypted"
 msgstr "W&ouml;rterbuch neu verschl&uuml;sselt"
