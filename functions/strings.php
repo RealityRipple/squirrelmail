@@ -12,6 +12,8 @@
  * $Id$
  */
 
+require_once(SM_PATH . 'functions/global.php');
+
 /**
  * SquirrelMail version number -- DO NOT CHANGE
  */
@@ -164,20 +166,15 @@ function getLineOfAddrs($array) {
 }
 
 function php_self () {
-    global $PHP_SELF, $_SERVER;
+    if ( sqgetGlobalVar('REQUEST_URI', $req_uri, SQ_SERVER) && !empty($req_uri) ) {
+      return $req_uri;
+    }
     
-    if (isset($_SERVER['REQUEST_URI']) && !empty($_SERVER['REQUEST_URI']) ) {
-        return $_SERVER['REQUEST_URI'];
-    }
-
-    if (isset($PHP_SELF) && !empty($PHP_SELF)) {
-        return $PHP_SELF;
-    } else if (isset($_SERVER['PHP_SELF']) &&
-               !empty($_SERVER['PHP_SELF'])) {
-        return $_SERVER['PHP_SELF'];
-    } else {
-        return '';
-    }
+    if ( sqgetGlobalVar('PHP_SELF', $php_self, SQ_SERVER) && !empty($php_self) ) {
+      return $php_self;
+    }  
+ 
+    return '';
 }
 
 
@@ -192,7 +189,7 @@ function php_self () {
  */
 function get_location () {
     
-    global $_SERVER, $imap_server_type;
+    global $imap_server_type;
     
     /* Get the path, handle virtual directories */
     $path = substr(php_self(), 0, strrpos(php_self(), '/'));
@@ -207,28 +204,24 @@ function get_location () {
      */
     $getEnvVar = getenv('HTTPS');
     if ((isset($getEnvVar) && !strcasecmp($getEnvVar, 'on')) ||
-        (isset($_SERVER['HTTPS']) &&
-         !strcasecmp($_SERVER['HTTPS'], 'on')) ||
-        (isset($_SERVER['SERVER_PORT']) &&
-         $_SERVER['SERVER_PORT'] == 443)) {
+        (sqgetGlobalVar('HTTPS', $https_on, SQ_SERVER) && !strcasecmp($https_on, 'on')) ||
+        (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER) &&  $server_port == 443)) {
         $proto = 'https://';
     }
     
     /* Get the hostname from the Host header or server config. */
-    $host = '';
-    if (isset($_SERVER['HTTP_HOST']) && !empty($_SERVER['HTTP_HOST'])) {
-        $host = $_SERVER['HTTP_HOST'];
-    } else if (isset($_SERVER['SERVER_NAME']) &&
-        !empty($_SERVER['SERVER_NAME'])) {
+    if ( !sqgetGlobalVar('HTTP_HOST', $host, SQ_SERVER) || empty($host) ) {
+      if ( !sqgetGlobalVar('SERVER_NAME', $host, SQ_SERVER) || empty($host) ) {
+        $host = '';
+      }
     }
-
     
     $port = '';
     if (! strstr($host, ':')) {
-        if (isset($_SERVER['SERVER_PORT'])) {
-            if (($_SERVER['SERVER_PORT'] != 80 && $proto == 'http://')
-                || ($_SERVER['SERVER_PORT'] != 443 && $proto == 'https://')) {
-                $port = sprintf(':%d', $_SERVER['SERVER_PORT']);
+        if (sqgetGlobalVar('SERVER_PORT', $server_port, SQ_SERVER)) {
+            if (($server_port != 80 && $proto == 'http://') || 
+                ($server_port != 443 && $proto == 'https://')) {
+                $port = sprintf(':%d', $server_port);
             }
         }
     }
@@ -305,7 +298,6 @@ function sq_mt_seed($Val) {
  * the same 'random' numbers twice in one session.
  */
 function sq_mt_randomize() {
-    global $_SERVER;
     static $randomized;
     
     if ($randomized) {
@@ -313,8 +305,10 @@ function sq_mt_randomize() {
     }
     
     /* Global. */
+    sqgetGlobalVar('REMOTE_PORT', $remote_port, SQ_SERVER);
+    sqgetGlobalVar('REMOTE_ADDR', $remote_addr, SQ_SERVER);
     sq_mt_seed((int)((double) microtime() * 1000000));
-    sq_mt_seed(md5($_SERVER['REMOTE_PORT'] . $_SERVER['REMOTE_ADDR'] . getmypid()));
+    sq_mt_seed(md5($remote_port . $remote_addr . getmypid()));
     
     /* getrusage */
     if (function_exists('getrusage')) {
@@ -330,8 +324,8 @@ function sq_mt_randomize() {
         }
     }
     
-    if(isset($_SERVER['UNIQUE_ID'])) {
-        sq_mt_seed(md5($_SERVER['UNIQUE_ID']));
+    if(sqgetGlobalVar('UNIQUE_ID', $unique_id, SQ_SERVER)) {
+        sq_mt_seed(md5($unique_id));
     }
     
     $randomized = 1;
@@ -346,14 +340,6 @@ function OneTimePadCreate ($length=100) {
     }
     
     return base64_encode($pad);
-}
-
-/**
- * Duplicate function: obsoleted. Use check_php_version.
- */
-function sqCheckPHPVersion($major, $minor, $release) {
-
-    return check_php_version($major, $minor, $release);
 }
 
 /**

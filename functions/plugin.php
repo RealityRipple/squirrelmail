@@ -97,8 +97,9 @@ function soupNazi(){
 
     $soup_menu = array('Mozilla/3','Mozilla/2','Mozilla/1', 'Opera 4',
                        'Opera/4', 'OmniWeb', 'Lynx');
+    sqgetGlobalVar('HTTP_USER_AGENT', $user_agent, SQ_SERVER);
     foreach($soup_menu as $browser) {
-        if(stristr($_SERVER['HTTP_USER_AGENT'], $browser)) {
+        if(stristr($user_agent, $browser)) {
             return 1;
         }
     }
