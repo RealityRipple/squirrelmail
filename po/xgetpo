@@ -39,6 +39,10 @@ xgettext ${XGETTEXT_OPTIONS} -j \
 xgettext ${XGETTEXT_OPTIONS} -j \
     squirrelmail/plugins/calendar/*.php --output=squirrelmail/po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
+    squirrelmail/plugins/change_password/*.php --output=squirrelmail/po/squirrelmail.pot
+xgettext ${XGETTEXT_OPTIONS} -j \
+    squirrelmail/plugins/change_password/backend/*.php --output=squirrelmail/po/squirrelmail.pot
+xgettext ${XGETTEXT_OPTIONS} -j \
     squirrelmail/plugins/filters/*.php --output=squirrelmail/po/squirrelmail.pot
 xgettext ${XGETTEXT_OPTIONS} -j \
     squirrelmail/plugins/fortune/*.php --output=squirrelmail/po/squirrelmail.pot
