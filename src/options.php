@@ -228,7 +228,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     /* First, display the results of a submission, if needed. */
     /**********************************************************/
     if ($optmode == SMOPT_MODE_SUBMIT) {
-        if (isset($frame_top)) {
+        if (!isset($frame_top)) {
             $frame_top = '_top';
         }
         /* Display a message indicating a successful save. */
