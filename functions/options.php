@@ -18,7 +18,7 @@
 /* Define constants for the various option types. */
 define('SMOPT_TYPE_STRING', 0);
 define('SMOPT_TYPE_STRLIST', 1);
-define('SMOPT_TYPE_textarea', 2);
+define('SMOPT_TYPE_TEXTAREA', 2);
 define('SMOPT_TYPE_INTEGER', 3);
 define('SMOPT_TYPE_FLOAT', 4);
 define('SMOPT_TYPE_BOOLEAN', 5);
@@ -145,7 +145,7 @@ class SquirrelOption {
             case SMOPT_TYPE_STRLIST:
                 $result = $this->createWidget_StrList();
                 break;
-            case SMOPT_TYPE_textarea:
+            case SMOPT_TYPE_TEXTAREA:
                 $result = $this->createWidget_TextArea();
                 break;
             case SMOPT_TYPE_INTEGER:
