@@ -39,9 +39,9 @@ function squirrelmail_plugin_init_squirrelspell() {
 function squirrelspell_optpage_register_block() {
   global $optpage_blocks;
   /**
-   * soupNazi checks if this browser is capable of using the plugin.
+   * Check if this browser is capable of using the plugin
    */
-  if (!soupNazi()) {
+  if (checkForJavascript()) {
     /**
      * The browser checks out.
      * Register Squirrelspell with the $optionpages array. 
@@ -66,7 +66,7 @@ function squirrelspell_setup() {
    * Check if this browser is capable of displaying SquirrelSpell
    * correctly.
    */
-  if (!soupNazi()) {
+  if (checkForJavascript()) {
     /**
      * Some people may choose to disable javascript even though their
      * browser is capable of using it. So these freaks don't complain,

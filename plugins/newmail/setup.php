@@ -78,9 +78,8 @@
        // Gets added to the user's OPTIONS page.
        global $optpage_blocks;
 
-       if ( !soupNazi() ) {
-
-           /* Register Squirrelspell with the $optionpages array. */
+       if ( checkForJavascript() ) {
+       /* Register Squirrelspell with the $optionpages array. */
            $optpage_blocks[] = array(
                'name' => _("NewMail Options"),
                'url'  => SM_PATH . 'plugins/newmail/newmail_opt.php',
