@@ -62,15 +62,6 @@
         'posvals' => $language_values
     );
 
-    $optvals[] = array(
-        'name'    => 'use_javascript_addr_book',
-        'caption' => _("Addressbook Display Format"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_NONE,
-        'posvals' => array('1' => _("Javascript"),
-                           '0' => _("HTML"))
-    );
-
     /* Set values for the "use javascript" option. */
     $optvals[] = array(
         'name'    => 'javascript_setting',
@@ -93,6 +84,27 @@
     $optvals[] = array(
         'name'    => 'show_num',
         'caption' => _("Number of Messages to Index"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'alt_index_colors',
+        'caption' => _("Enable Alternating Row Colors"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'page_selector',
+        'caption' => _("Enable Page Selector"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'page_selector_max',
+        'caption' => _("Maximum Number of Pages to Show"),
         'type'    => SMOPT_TYPE_INTEGER,
         'refresh' => SMOPT_REFRESH_NONE
     );
@@ -122,50 +134,12 @@
     );
 
     $optvals[] = array(
-        'name'    => 'location_of_bar',
-        'caption' => _("Location of Folder List"),
+        'name'    => 'use_javascript_addr_book',
+        'caption' => _("Addressbook Display Format"),
         'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => array(SMPREF_LOC_LEFT  => _("Left"),
-                           SMPREF_LOC_RIGHT => _("Right"))
-    );
-
-    $left_size_values = array();
-    for ($lsv = 100; $lsv <= 300; $lsv += 10) {
-        $left_size_values[$lsv] = "$lsv " . _("pixels");
-    }
-    $optvals[] = array(
-        'name'    => 'left_size',
-        'caption' => _("Width of Folder List"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_ALL,
-        'posvals' => $left_size_values
-    );
-
-    $minute_str = _("Minutes");
-    $left_refresh_values = array(SMPREF_NONE => _("Never"));
-    foreach (array(30,60,120,180,300,600) as $lr_val) {
-        if ($lr_val < 60) {
-            $left_refresh_values[$lr_val] = "$lr_val " . _("Seconds");
-        } else if ($lr_val == 60) {
-            $left_refresh_values[$lr_val] = "1 " . _("Minute");
-        } else {
-            $left_refresh_values[$lr_val] = ($lr_val/60) . " $minute_str";
-        }
-    }
-    $optvals[] = array(
-        'name'    => 'left_refresh',
-        'caption' => _("Auto Refresh Folder List"),
-        'type'    => SMOPT_TYPE_STRLIST,
-        'refresh' => SMOPT_REFRESH_FOLDERLIST,
-        'posvals' => $left_refresh_values
-    );
-
-    $optvals[] = array(
-        'name'    => 'alt_index_colors',
-        'caption' => _("Use Alternating Row Colors"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
+        'refresh' => SMOPT_REFRESH_NONE,
+        'posvals' => array('1' => _("Javascript"),
+                           '0' => _("HTML"))
     );
 
     $optvals[] = array(
@@ -183,22 +157,8 @@
     );
 
     $optvals[] = array(
-        'name'    => 'page_selector',
-        'caption' => _("Use Page Selector"),
-        'type'    => SMOPT_TYPE_BOOLEAN,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[] = array(
-        'name'    => 'page_selector_max',
-        'caption' => _("Maximum Number of Pages to Show"),
-        'type'    => SMOPT_TYPE_INTEGER,
-        'refresh' => SMOPT_REFRESH_NONE
-    );
-
-    $optvals[] = array(
         'name'    => 'show_xmailer_default',
-        'caption' => _("Show the Mailer of incoming messages"),
+        'caption' => _("Enable Mailer Display"),
         'type'    => SMOPT_TYPE_BOOLEAN,
         'refresh' => SMOPT_REFRESH_NONE
     );

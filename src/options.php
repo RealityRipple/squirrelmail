@@ -87,9 +87,6 @@
         setPref($data_dir, $username, 'wrap_at', $new_wrap_at);
         setPref($data_dir, $username, 'editor_size', $new_editor_size);
         setPref($data_dir, $username, 'location_of_buttons', $new_location_of_buttons);
-        setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
-        setPref($data_dir, $username, 'left_size', $new_left_size);
-        setPref($data_dir, $username, 'left_refresh', $new_left_refresh);
         setPref($data_dir, $username, 'alt_index_colors', $new_alt_index_colors);
         setPref($data_dir, $username, 'show_html_default', $new_show_html_default);
         setPref($data_dir, $username, 'include_self_reply_all', $new_include_self_reply_all);
@@ -146,14 +143,16 @@
         } else {
             setPref($data_dir, $username, 'folder_prefix', '');
         }
-        setPref($data_dir, $username, 'unseen_notify', $unseennotify);
-        setPref($data_dir, $username, 'unseen_type', $unseentype);
-        if (isset($collapsefolders))
-             setPref($data_dir, $username, 'collapse_folders', $collapsefolders);
-        else
-             removePref($data_dir, $username, 'collapse_folders');
-        setPref($data_dir, $username, 'date_format', $dateformat);
-        setPref($data_dir, $username, 'hour_format', $hourformat);
+
+        setPref($data_dir, $username, 'location_of_bar', $new_location_of_bar);
+        setPref($data_dir, $username, 'left_size', $new_left_size);
+        setPref($data_dir, $username, 'left_refresh', $new_left_refresh);
+        setPref($data_dir, $username, 'unseen_notify', $new_unseen_notify);
+        setPref($data_dir, $username, 'unseen_type', $new_unseen_type);
+        setPref($data_dir, $username, 'collapse_folders', $new_collapse_folders);
+        setPref($data_dir, $username, 'date_format', $new_date_format);
+        setPref($data_dir, $username, 'hour_format', $new_hour_format);
+
         do_hook('options_folders_save');
         echo '<br><b>'._("Successfully saved folder preferences!").'</b><br>';
         echo '<a href="../src/left_main.php" target=left>' . _("Refresh Folder List") . '</a><br>';
