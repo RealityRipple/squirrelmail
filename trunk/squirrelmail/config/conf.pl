@@ -2976,10 +2976,10 @@ sub set_defaults {
 # the SM directory tree, the SM_PATH variable will be 
 # prepended to the path, if not, then the path will be
 # converted to an absolute path, e.g.
-#   '../images/logo.gif'     --> SM_PATH . 'images/logo.gif'
-#   'images/logo.gif'        --> SM_PATH . 'config/images/logo.gif'
-#   /absoulte/path/logo.gif' --> '/absolute/path/logo.gif'
-#   'http://whatever/'       --> 'http://whatever'
+#   '../images/logo.gif'      --> SM_PATH . 'images/logo.gif'
+#   'images/logo.gif'         --> SM_PATH . 'config/images/logo.gif'
+#   '/absolute/path/logo.gif' --> '/absolute/path/logo.gif'
+#   'http://whatever/'        --> 'http://whatever'
 sub change_to_SM_path() {
     my ($old_path) = @_;
     my $new_path = '';
