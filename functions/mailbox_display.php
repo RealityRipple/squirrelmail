@@ -62,7 +62,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
         $bold_end = '';
     }
 
-    if (($mailbox == $sent_folder) || ($mailbox == $draft_folder)) {
+    if (handleAsSent($mailbox)) {
         $italic = '<i>';
         $italic_end = '</i>';
     } else {
@@ -188,7 +188,7 @@ function showMessagesForMailbox
     }
     sqimap_mailbox_select($imapConnection, $mailbox);
 
-    $issent = (($mailbox == $sent_folder) || ($mailbox == $draft_folder));
+    $issent = handleAsSent($mailbox);
     if (!$use_cache) {
         /* If it is sorted... */
         if ($num_msgs >= 1) {
@@ -543,8 +543,7 @@ function mail_message_listing_beginning
             break;
 
         case 2: /* from */
-            if (($mailbox == $sent_folder)
-                    || ($mailbox == $draft_folder)) {
+            if (handleAsSent($mailbox)) {
                 echo '   <TD WIDTH="25%"><B>'. _("To") .'</B>';
             } else {
                 echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
@@ -889,6 +888,21 @@ function processSubject($subject) {
         return $subject;
 
     return substr($subject, 0, $trim_val) . '...';
+}
+
+function handleAsSent($mailbox) {
+    global $sent_folder, $draft_folder;
+    global $handleAsSent_result;
+
+    /* First check if this is the sent or draft folder. */
+    $handleAsSent_result = (($mailbox == $sent_folder)
+                        || ($mailbox == $draft_folder));
+
+    /* Then check the result of the handleAsSent hook. */
+    do_hook('check_handleAsSent_result', $mailbox);
+
+    /* And return the result. */
+    return ($handleAsSent_result);
 }
 
 ?>

@@ -41,12 +41,10 @@ require_once('../functions/smtp.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/plugin.php');
 
-   if (!isset($attachments))
-   {
+   if (!isset($attachments)) {
        $attachments = array();
        session_register('attachments');
    }
-
 
    // This function is used when not sending or adding attachments
    function newMail () {

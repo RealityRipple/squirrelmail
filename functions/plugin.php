@@ -35,9 +35,9 @@ $squirrelmail_plugin_hooks = array();
     // This function adds a plugin
     function use_plugin ($name) {
 
-        if (file_exists('../plugins/'.$name.'/setup.php')) {
-            include_once('../plugins/'.$name.'/setup.php');
-            $function = 'squirrelmail_plugin_init_'.$name;
+        if (file_exists("../plugins/$name/setup.php")) {
+            include_once("../plugins/$name/setup.php");
+            $function = "squirrelmail_plugin_init_$name";
             if (function_exists($function)) {
                 $function();
             }
@@ -48,13 +48,14 @@ $squirrelmail_plugin_hooks = array();
     // This function executes a hook
     function do_hook ($name) {
         global $squirrelmail_plugin_hooks;
-        $Data = func_get_args();
-        if (isset($squirrelmail_plugin_hooks[$name]) &&
-            is_array($squirrelmail_plugin_hooks[$name])) {
+        $data = func_get_args();
+
+        if (isset($squirrelmail_plugin_hooks[$name])
+              && is_array($squirrelmail_plugin_hooks[$name])) {
             foreach ($squirrelmail_plugin_hooks[$name] as $function) {
                 // Add something to set correct gettext domain for plugin
                 if (function_exists($function)) {
-                    $function($Data);
+                    $function($data);
                 }
             }
         }

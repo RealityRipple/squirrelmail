@@ -97,29 +97,34 @@ $optpage_loader = '';
 switch ($optpage) {
     case SMOPT_PAGE_MAIN: break;
     case SMOPT_PAGE_PERSONAL:
-        $optpage_name   = _("Personal Information");
-        $optpage_file   = '../src/options_personal.php';
-        $optpage_loader = 'load_optpage_data_personal';
+        $optpage_name     = _("Personal Information");
+        $optpage_file     = '../src/options_personal.php';
+        $optpage_loader   = 'load_optpage_data_personal';
+        $optpage_loadhook = 'optpage_loadhook_personal';
         break;
     case SMOPT_PAGE_DISPLAY:
         $optpage_name   = _("Display Preferences");
         $optpage_file   = '../src/options_display.php';
         $optpage_loader = 'load_optpage_data_display';
+        $optpage_loadhook = 'optpage_loadhook_display';
         break;
     case SMOPT_PAGE_HIGHLIGHT:
         $optpage_name   = _("Message Highlighting");
         $optpage_file   = '../src/options_highlight.php';
         $optpage_loader = 'load_optpage_data_highlight';
+        $optpage_loadhook = 'optpage_loadhook_highlight';
         break;
     case SMOPT_PAGE_FOLDER:
         $optpage_name   = _("Folder Preferences");
         $optpage_file   = '../src/options_folder.php';
         $optpage_loader = 'load_optpage_data_folder';
+        $optpage_loadhook = 'optpage_loadhook_folder';
         break;
     case SMOPT_PAGE_ORDER:
         $optpage_name = _("Index Order");
         $optpage_file = '../src/options_order.php';
         $optpage_loader = 'load_optpage_data_order';
+        $optpage_loadhook = 'optpage_loadhook_order';
         break;
     default: do_hook('optpage_set_loadinfo');
 }
@@ -135,6 +140,7 @@ if ($optpage != SMOPT_PAGE_MAIN) {
     /* Assemble the data for this option page. */
     $optpage_data = array();
     $optpage_data = $optpage_loader();
+    do_hook($optpage_loadhook);
     $optpage_data['options'] =
         create_option_groups($optpage_data['grps'], $optpage_data['vals']);
 }
