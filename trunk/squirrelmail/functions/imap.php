@@ -160,6 +160,8 @@
          echo "<B><FONT FACE=\"Arial,Helvetica\" COLOR=FF0000>ERROR</FONT FACE=\"Arial,Helvetica\"><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>:  Bad or malformed request.</B></FONT FACE=\"Arial,Helvetica\"><BR><FONT FACE=\"Arial,Helvetica\" COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT FACE=\"Arial,Helvetica\"><BR><BR>";
          exit;
       }
+      fputs($imapConnection, "1 SUBSCRIBE \"$folder\"\n");
+      $data = imapReadData($imapConnection, "1", true, $response, $message);
    }
 
    function removeFolder($imapConnection, $folder) {
@@ -180,11 +182,34 @@
    function getFolderList($imapConnection, &$boxes) {
       require ("../config/config.php");
 
-      fputs($imapConnection, "1 list \"\" *\n");
+      /** First we get the inbox **/
+      fputs($imapConnection, "1 LIST \"\" INBOX\n");
       $str = imapReadData($imapConnection, "1", true, $response, $message);
-
       $dm = findMailboxDelimeter($imapConnection);
       $g = 0;
+      for ($i = 0;$i < count($str); $i++) {
+         $mailbox = chop($str[$i]);
+         if (substr(findMailboxName($mailbox), 0, 1) != ".") {
+            $boxes[$g]["RAW"] = $mailbox;
+
+            $mailbox = findMailboxName($mailbox);
+            $periodCount = countCharInString($mailbox, $dm);
+
+            // indent the correct number of spaces.
+            for ($j = 0;$j < $periodCount;$j++)
+               $boxes[$g]["FORMATTED"] = $boxes[$g]["FORMATTED"] . "&nbsp;&nbsp;";
+
+            $boxes[$g]["FORMATTED"] = $boxes[$g]["FORMATTED"] . readShortMailboxName($mailbox, $dm);
+            $boxes[$g]["UNFORMATTED"] = $mailbox;
+            $boxes[$g]["ID"] = $g;
+            $g++;
+         }
+      }
+
+      /** Next, we get all subscribed folders **/
+      fputs($imapConnection, "1 LSUB \"\" *\n");
+      $str = imapReadData($imapConnection, "1", true, $response, $message);
+      $dm = findMailboxDelimeter($imapConnection);
       for ($i = 0;$i < count($str); $i++) {
          $mailbox = chop($str[$i]);
          if (substr(findMailboxName($mailbox), 0, 1) != ".") {
