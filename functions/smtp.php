@@ -322,7 +322,7 @@
 
    function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
       global $username, $popuser, $domain, $version, $smtpServerAddress, $smtpPort,
-         $data_dir, $color, $use_authenticating_smtp;
+         $data_dir, $color, $use_authenticated_smtp;
 
       $to = expandAddrs(parseAddrs($t));
       $cc = expandAddrs(parseAddrs($c));
@@ -345,7 +345,7 @@
       $cc_list = getLineOfAddrs($cc);
 
       /** Lets introduce ourselves */
-      if (! isset ($use_authenticating_smtp)) {
+      if (! isset ($use_authenticated_smtp) && $use_authenticated_smtp == true) {
          fputs($smtpConnection, "HELO $domain\r\n");
          $tmp = fgets($smtpConnection, 1024);
          errorCheck($tmp, $smtpConnection);
