@@ -1,5 +1,9 @@
-Version 1.0.2 -- DEVELOPMENT
+Version 1.0.3 -- DEVELOPMENT
 ----------------------------
+- Made folder drop-down list consistant in look to the other drop-downs
+
+Version 1.0.2 -- February 8, 2001 
+---------------------------------
 - Added a workaround for RedHat's 4.0.4pl1-3 binary package  (It's also 
   the same workaround for Konqueror and other PHP installations?)
 - Select All works through the search
