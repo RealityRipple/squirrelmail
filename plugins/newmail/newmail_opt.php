@@ -16,9 +16,11 @@
 define('SM_PATH','../../');
 
 /* SquirrelMail required files. */
-require_once(SM_PATH . 'include/validate.php');
+include_once(SM_PATH . 'include/validate.php');
 /* sqm_baseuri function */
-require_once(SM_PATH . 'functions/display_messages.php');
+include_once(SM_PATH . 'functions/display_messages.php');
+/** Plugin functions (also loads plugin's config) */
+include_once(SM_PATH . 'plugins/newmail/functions.php');
 
 displayPageHeader($color, 'None');
 
@@ -28,6 +30,7 @@ $media_allbox = getPref($data_dir,$username,'newmail_allbox');
 $media_recent = getPref($data_dir,$username,'newmail_recent');
 $media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
 $media = getPref($data_dir,$username,'newmail_media', '(none)');
+$media_userfile_name = getPref($data_dir,$username,'newmail_userfile_name','');
 
 // Set $allowsound to false if you don't want sound files available
 $allowsound = "true";
@@ -65,7 +68,7 @@ echo '</td></tr>' .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center', $color[4] ) . "\n" . '<hr style="width: 25%; height: 1px;" />' . "\n";
 
-echo '<form action="'.sqm_baseuri().'src/options.php" method="post">' . "\n" .
+echo '<form action="'.sqm_baseuri().'src/options.php" method="post" enctype="multipart/form-data">' . "\n" .
         html_tag( 'table', '', '', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) . "\n";
 
 // Option: media_allbox
@@ -143,14 +146,62 @@ if ($allowsound == "true") {
         }
     }
     $d->close();
-    $media_output = ($media == '(none)') ? _("(none)") : substr($media, strrpos($media, '/')+1);
+    // display media selection
+    foreach($newmail_mmedia as $newmail_mm_name => $newmail_mm_data) {
+        echo '<option ';
+        if ($media=='mmedia_' . $newmail_mm_name) {
+            echo 'selected="selected" ';
+        }
+        echo 'value="mmedia_' . $newmail_mm_name . '">'
+            .htmlspecialchars($newmail_mm_name) . "</option>\n";
+    }
+    // display local file option
+    echo '<option ';
+    if ($media=='(userfile)') {
+        echo 'selected="selected" ';
+    }
+    echo 'value="(userfile)">'.
+        _("uploaded media file") . "</option>\n";
+    // end of local file option
+
+    // Set media file name
+    if ($media == '(none)') {
+        $media_output = _("none");
+    } elseif ($media == '(userfile)') {
+        $media_output = basename($media_userfile_name);
+    } elseif (preg_match("/^mmedia_+/",$media)) {
+        $media_output = preg_replace("/^mmedia_/",'',$media);
+    } else {
+        $media_output = substr($media, strrpos($media, '/')+1);
+    }
+
     echo '</select>'.
         '<input type="submit" value="' . _("Try") . '" name="test" onclick="' .
             "window.open('testsound.php?sound='+media_sel.options[media_sel.selectedIndex].value, 'TestSound'," .
             "'width=150,height=30,scrollbars=no');" .
             'return false;' .
-            '" /></td></tr>' .
-            html_tag( 'tr', "\n" .
+            '" /></td></tr>';
+    echo  '<tr>'.
+        '<td align="right" nowrap>' . _("Upload Media File:") .
+        '</td><td>'.
+        '<input type="file" size="40" name="media_file">'.
+        '</td>'.
+        '</tr>';
+
+    echo  '<tr>'.
+        '<td align="right" nowrap>' . _("Uploaded Media File:") .
+        '</td><td>'.
+        ($media_userfile_name!='' ? htmlspecialchars($media_userfile_name) : _("unavailable")).
+        '</td>'.
+        '</tr>';
+
+    if ($media_userfile_name!='') {
+        echo '<tr>'
+            .'<td colspan="2" align="center">'
+            .sprintf(_("Media file %s will be removed, if you upload other media file."),basename($media_userfile_name))
+            .'</td></tr>';
+    }
+    echo html_tag( 'tr', "\n" .
                 html_tag( 'td', _("Current File:"), 'right', '', 'style="white-space: nowrap;"' ) .
                     html_tag( 'td', '<input type="hidden" value="' .
                         htmlspecialchars($media) . '" name="media_default" />' .
