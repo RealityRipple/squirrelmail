@@ -169,7 +169,6 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 		     '           comp_uri = "'.$base_uri.$compose_uri."\";\n".
 		     '       }'. "\n".
 		     '    }'. "\n".
-		     '    window.alert(comp_uri);'.
                      '    var newwin = window.open(comp_uri' .
                      ', "_blank",
                 "width='.$compose_width.",height=$compose_height".
