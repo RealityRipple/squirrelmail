@@ -12,9 +12,9 @@
  */
 
 require_once('../functions/strings.php');
-require_once('../functions/imap_utf7_decode_local.php');
+//require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/html.php');
-//require_once('../functions/imap_mailbox.php');
+require_once('../functions/imap_mailbox.php');
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
@@ -89,7 +89,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                      '    var newwin = window.open(comp_uri' .
                      ', "_blank",'.
                      '"width='.$compose_width. ',height='.$compose_height.
-                     '",scrollbars="yes",resizable="yes");'."\n".
+                     ',scrollbars=yes,resizable=yes");'."\n".
                      "}\n\n";
 
 
@@ -172,7 +172,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                      '    var newwin = window.open(comp_uri' .
                      ', "_blank",'.
                      '"width='.$compose_width. ',height='.$compose_height.
-                     '",scrollbars="yes",resizable="yes");'."\n".
+                     ',scrollbars=yes,resizable=yes");'."\n".
                      "}\n\n";
 
             }
