@@ -14,6 +14,7 @@ Version 1.4.0 CVS
   - Subfolders of Sent and Drafts show To field instead of From
   - Updates in conf.pl to infamous delete_folder setting, including
     addition of appropriate default value for courier and UW.
+  - Fix for date/time display in certain timezones
   
 Version 1.4.0 RC 2a
 -------------------
