@@ -121,11 +121,6 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
       // There's gotta be messages in the array for it to sort them.
 
-      # Carn't Use the Display messages function it assumes messages are in order.
-      # Again More code Hacked from else where
-      # AT THE MOMENT YOU CARN'T SORT SEARCH RESULTS
-      # ACTULLY THE CODE IS PROLLY BROKEN ANY HOW!
-
       if (count($messagelist) > 0) {
          $j=0;
          echo "<center><b>" . _("Found") . " " . count($messagelist) . " " . _("messages") . "</b></center>\n";
