@@ -185,10 +185,13 @@ if ($addrquery == '' || !empty($listall)) {
     }
     exit;
 
+    if ( !empty( $listall ) ){
+        $addrquery = '*';
+    }
 } else {
 
     /* Do the search */
-    if (!empty($addrquery) && empty($listall)) {
+    if (!empty($addrquery)) {
 
         if ($backend == -1) {
             $res = $abook->s_search($addrquery);
