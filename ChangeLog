@@ -231,6 +231,8 @@ Version 1.5.1 -- CVS
     option includes.
   - Fixed bug #1124764, view unsafe images inside printer friendly view.
   - Fixed bug #1032366, remove NUL characters in text attachments on sent.
+  - URL Encode required for string being passed in mailto: links to pass on
+    additional values (cc, body, subject etc).
 
 Version 1.5.0
 --------------------
