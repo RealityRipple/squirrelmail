@@ -103,7 +103,7 @@ $disable_compose_translate=true;
  * If you enable custom translation engines, you must include
  * translate_form_custom(), translate_custom_showtrad() and
  * $translate_custom_showoption() functions in your config.
- * See example in config_sample.php
+ * @example plugins/translate/config_sample.php
  * @global bool $translate_custom_enabled
  */
 global $translate_custom_enabled;
