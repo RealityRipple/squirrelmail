@@ -128,9 +128,6 @@ function bcc_address($addr) {
 
    /* ================= End of functions ================= */
 
-   include("../functions/strings.php");
-   include('../functions/i18n.php');
-   include('../config/config.php');
    include('../functions/array.php');
    include('../functions/strings.php');
    include('../functions/page_header.php');

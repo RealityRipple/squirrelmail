@@ -7,7 +7,6 @@
    define('tree_php', true);
 
    include('../functions/imap.php');
-   include('../config/config.php');
 
    // Recursive function to find the correct parent for a new node
    function findParentForChild($value, $treeIndexToStart, $tree) {

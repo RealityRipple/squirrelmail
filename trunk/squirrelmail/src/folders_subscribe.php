@@ -11,19 +11,10 @@
     **  $Id$
     **/
 
-   session_start();
-
-   if (!isset($strings_php))
-      include("../functions/strings.php");
-   if (!isset($config_php))
-      include("../config/config.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
-   if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
-
+   include ('../src/validate.php');
+   include("../functions/page_header.php");
+   include("../functions/imap.php");
+   include("../functions/display_messages.php");
    include("../src/load_prefs.php");
 
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

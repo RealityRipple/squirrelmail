@@ -20,8 +20,6 @@
       $theme = array();
    if (! isset($color))
       $color = array();
-   include('../src/validate.php');
-   include("../config/config.php");
    include("../functions/prefs.php");
    include("../functions/plugin.php");
       

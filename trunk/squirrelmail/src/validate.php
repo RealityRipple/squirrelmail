@@ -15,7 +15,13 @@
    }
 
    session_start();
-   include ("../functions/auth.php");
+   include ('../functions/auth.php');
+   
+   // Everyone needs stuff from config, and config needs stuff from
+   // strings.php, so include them both here.
+   include ('../functions/strings.php');
+   include ('../config/config.php');
+   
    is_logged_in();
 
 

@@ -13,6 +13,7 @@
     **  $Id$
     **/
 
+   include('../functions/i18n.php');
    include ('../functions/strings.php');
    include('../config/config.php');
 
