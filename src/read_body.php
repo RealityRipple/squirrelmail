@@ -240,6 +240,9 @@ function ClearAttachments() {
     $passed_id
 */
 
+if ( isset( $mailbox ) ) {
+    $mailbox = urldecode( $mailbox );
+}
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $read = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 

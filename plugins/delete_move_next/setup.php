@@ -81,8 +81,6 @@ function delete_move_expunge_from_all($id) {
         }
     }
     
-    //  delete_move_show_msg_array();
-    
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 }
 
@@ -197,7 +195,10 @@ function get_move_target_list() {
         if (!in_array('noselect', $boxes[$i]['flags'])) {
             $box = $boxes[$i]['unformatted'];
             $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
-            echo "          <option value=\"$box\">$box2\n";
+            if ( $box2 == 'INBOX' ) {
+                $box2 = _("INBOX");
+            }
+            echo "<option value=\"$box\">$box2</option>\n";
         }
     }
 }
@@ -208,53 +209,48 @@ function delete_move_next_moveNextForm($next) {
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-?>
-   <tr>
-      <form action="<?php echo "read_body.php"?>" method="get">
-      <td bgcolor="<?php echo $color[9] ?>" width=100% align=center><small>
-        <input type="hidden" name="passed_id" value="<?php echo $next ?>">
-        <input type="hidden" name="mailbox" value="<?php echo $urlMailbox ?>">
-        <input type="hidden" name="sort" value="<?php echo $sort ?>">
-        <input type="hidden" name="startMessage" value="<?php echo $startMessage ?>">
-        <input type="hidden" name="show_more" value="0">
-        <input type="hidden" name="move_id" value="<?php echo $passed_id ?>">
-        Move to:
-        <select name="targetMailbox">
-        <?php get_move_target_list(); ?></select>
-       <input type=submit value="Move">
-       </small>
-      </td>
-      </form>
-    </tr>
-
-<?php
+    echo '<form action="read_body.php" method="post">'.
+         '<tr>'.
+         "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\"><small>".
+            "<input type=\"hidden\" name=\"passed_id\" value=\"$next\">".
+            "<input type=\"hidden\" name=\"mailbox\" value=\"$urlMailbox\">".
+            "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
+            "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
+            "<input type=\"hidden\" name=\"show_more\" value=\"0\">".
+            "<input type=\"hidden\" name=\"move_id\" value=\"$passed_id\">".
+            _("Move to:") .
+            ' <select name="targetMailbox">';
+    get_move_target_list(); 
+    echo    '</select> '.
+            '<input type="submit" value="' . _("Move") . '">'.
+            '</small>'.
+         '</td>'.
+         '</tr>' .
+         '</form>';
 
 }
-
 function delete_move_next_moveRightMainForm() {
 
     global $color, $where, $what, $currentArrayIndex, $passed_id,
            $urlMailbox, $sort, $startMessage, $delete_id, $move_id,
            $imapConnection;
 
-?>
-   <tr>
-      <form action="<?php echo "right_main.php"?>" method="get">
-      <td bgcolor="<?php echo $color[9] ?>" width=100% align=center><small>
-        <input type="hidden" name="mailbox" value="<?php echo $urlMailbox ?>">
-        <input type="hidden" name="sort" value="<?php echo $sort ?>">
-        <input type="hidden" name="startMessage" value="<?php echo $startMessage ?>">
-        <input type="hidden" name="move_id" value="<?php echo $passed_id ?>">
-        Move to:
-        <select name="targetMailbox">
-        <?php get_move_target_list(); ?></select>
-       <input type=submit value="Move">
-       </small>
-      </td>
-      </form>
-    </tr>
-
-<?php
+    echo '<form action="right_main.php" method="post">' .
+         '<tr>' .      
+            "<td bgcolor=\"$color[9]\" width=\"100%\" align=\"center\"><small>".
+            "<input type=\"hidden\" name=\"mailbox\" value=\"$urlMailbox\">".
+            "<input type=\"hidden\" name=\"sort\" value=\"$sort\">".
+            "<input type=\"hidden\" name=\"startMessage\" value=\"$startMessage\">".
+            "<input type=\"hidden\" name=\"move_id\" value=\"$passed_id\">".
+            _("Move to:") .
+            ' <select name="targetMailbox">';
+    get_move_target_list(); 
+    echo    ' </select>' .
+            '<input type=submit value="' . _("Move") . '">'.
+            '</small>'.
+         '</td>'.
+         '</tr>' .
+         '</form>';
 
 }
 
