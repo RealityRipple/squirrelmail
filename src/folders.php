@@ -228,7 +228,7 @@ require_once('../functions/plugin.php');
 	       echo "         <OPTION VALUE=\"$box\">$box2\n";
 	    }
       }
-      echo "</SELECT></TT><br>\n";
+      echo "</SELECT></TT><br><br>\n";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Unsubscribe");
       echo "\">\n";
@@ -270,7 +270,7 @@ require_once('../functions/plugin.php');
       for ($q = 0; $q < count($box); $q++) {      
          echo "         <OPTION VALUE=\"$box[$q]\">".$box2[$q]."\n";
       }      
-      echo "</select></tt><br>";
+      echo "</select></tt><br><br>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"". _("Subscribe") . "\">\n";
       echo "</TD></FORM></TR></TABLE><BR>\n";
    } else {

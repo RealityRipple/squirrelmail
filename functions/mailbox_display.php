@@ -508,8 +508,8 @@ function mail_message_listing_beginning
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
         }
     }
-    echo '         </SELECT></TT></SMALL>'.
-         "<SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n".
+    echo '         </SELECT></TT>&nbsp;'.
+         "<INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n".
          "      </TD>\n".
          "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
     if (!$auto_expunge) {
