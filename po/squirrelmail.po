@@ -6,13 +6,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-10-09 11:25+0200\n"
+"POT-Creation-Date: 2001-10-25 09:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
-"Content-Transfer-Encoding: ENCODING\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
@@ -41,10 +41,12 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:154
-#: squirrelmail/src/addrbook_search.php:238
-#: squirrelmail/src/addrbook_search_html.php:202
-msgid "No persons matching your search was found"
+#: squirrelmail/src/addrbook_search_html.php:95
+msgid "Use Addresses"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:114
+msgid "Address Book Search"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search.php:167
@@ -74,10 +76,6 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:191
-msgid "Close window"
-msgstr ""
-
 #: squirrelmail/src/addrbook_search.php:209
 #: squirrelmail/src/addrbook_search_html.php:175
 #, c-format
@@ -89,16 +87,18 @@ msgstr ""
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-#: squirrelmail/src/addrbook_search_html.php:95
-msgid "Use Addresses"
-msgstr ""
-
-#: squirrelmail/src/addrbook_search_html.php:114
-msgid "Address Book Search"
+#: squirrelmail/src/addrbook_search.php:154
+#: squirrelmail/src/addrbook_search.php:238
+#: squirrelmail/src/addrbook_search_html.php:202
+msgid "No persons matching your search was found"
 msgstr ""
 
 #: squirrelmail/src/addrbook_search_html.php:211
 msgid "Return"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search.php:191
+msgid "Close window"
 msgstr ""
 
 #: squirrelmail/src/addressbook.php:33 squirrelmail/src/addressbook.php:314
@@ -170,86 +170,86 @@ msgstr ""
 msgid "Original Message"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:596
-#: squirrelmail/src/compose.php:94 squirrelmail/src/download.php:116
-#: squirrelmail/src/download.php:122 squirrelmail/src/options_order.php:42
+#: squirrelmail/functions/mailbox_display.php:611
+#: squirrelmail/src/compose.php:94 squirrelmail/src/download.php:120
+#: squirrelmail/src/download.php:126 squirrelmail/src/options_order.php:42
 #: squirrelmail/src/search.php:58 squirrelmail/src/search.php:59
 msgid "Subject"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:584
-#: squirrelmail/src/compose.php:95 squirrelmail/src/download.php:117
-#: squirrelmail/src/download.php:124 squirrelmail/src/options_order.php:40
+#: squirrelmail/functions/mailbox_display.php:599
+#: squirrelmail/src/compose.php:95 squirrelmail/src/download.php:121
+#: squirrelmail/src/download.php:128 squirrelmail/src/options_order.php:40
 #: squirrelmail/src/search.php:61 squirrelmail/src/search.php:62
 msgid "From"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:582
-#: squirrelmail/src/compose.php:96 squirrelmail/src/download.php:118
-#: squirrelmail/src/download.php:126 squirrelmail/src/search.php:67
+#: squirrelmail/functions/mailbox_display.php:597
+#: squirrelmail/src/compose.php:96 squirrelmail/src/download.php:122
+#: squirrelmail/src/download.php:130 squirrelmail/src/search.php:67
 #: squirrelmail/src/search.php:68
 msgid "To"
 msgstr ""
 
-#: squirrelmail/src/compose.php:231 squirrelmail/src/read_body.php:387
+#: squirrelmail/src/compose.php:230 squirrelmail/src/read_body.php:387
 msgid "From:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:256 squirrelmail/src/read_body.php:403
+#: squirrelmail/src/compose.php:255 squirrelmail/src/read_body.php:403
 msgid "To:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:264
+#: squirrelmail/src/compose.php:263
 msgid "CC:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:272
+#: squirrelmail/src/compose.php:271
 msgid "BCC:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:280 squirrelmail/src/read_body.php:370
+#: squirrelmail/src/compose.php:279 squirrelmail/src/read_body.php:370
 msgid "Subject:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:322 squirrelmail/src/compose.php:370
+#: squirrelmail/src/compose.php:321 squirrelmail/src/compose.php:369
 msgid "Send"
 msgstr ""
 
-#: squirrelmail/src/compose.php:328
+#: squirrelmail/src/compose.php:327
 msgid "Attach:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:332 squirrelmail/src/options_order.php:128
+#: squirrelmail/src/compose.php:331 squirrelmail/src/options_order.php:128
 msgid "Add"
 msgstr ""
 
-#: squirrelmail/src/compose.php:347
+#: squirrelmail/src/compose.php:346
 msgid "Delete selected attachments"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:69 squirrelmail/src/compose.php:363
-#: squirrelmail/src/compose.php:365 squirrelmail/src/compose.php:368
+#: squirrelmail/functions/page_header.php:69 squirrelmail/src/compose.php:362
+#: squirrelmail/src/compose.php:364 squirrelmail/src/compose.php:367
 msgid "Addresses"
 msgstr ""
 
-#: squirrelmail/src/compose.php:387
+#: squirrelmail/src/compose.php:386
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: squirrelmail/src/compose.php:470 squirrelmail/src/compose.php:507
-#: squirrelmail/src/compose.php:514
+#: squirrelmail/src/compose.php:469 squirrelmail/src/compose.php:506
+#: squirrelmail/src/compose.php:513
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
-#: squirrelmail/src/compose.php:573
+#: squirrelmail/src/compose.php:572
 msgid "said"
 msgstr ""
 
-#: squirrelmail/src/compose.php:576
+#: squirrelmail/src/compose.php:575
 msgid "quote"
 msgstr ""
 
-#: squirrelmail/src/compose.php:576
+#: squirrelmail/src/compose.php:575
 msgid "who"
 msgstr ""
 
@@ -262,19 +262,29 @@ msgstr ""
 msgid "View message"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:559 squirrelmail/src/download.php:42
+#: squirrelmail/functions/mime.php:585 squirrelmail/src/download.php:42
 msgid "Download this as a file"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:590
-#: squirrelmail/src/download.php:119 squirrelmail/src/download.php:128
+#: squirrelmail/functions/mailbox_display.php:605
+#: squirrelmail/src/download.php:123 squirrelmail/src/download.php:132
 #: squirrelmail/src/options_order.php:41
 msgid "Date"
 msgstr ""
 
-#: squirrelmail/functions/imap_mailbox.php:40 squirrelmail/src/folders.php:20
-#: squirrelmail/src/folders.php:124 squirrelmail/src/folders.php:126
-#: squirrelmail/src/options.php:24 squirrelmail/src/options_display.php:161
+#: squirrelmail/src/folders_create.php:24
+msgid "Illegal folder name.  Please select a different name."
+msgstr ""
+
+#: squirrelmail/src/folders_create.php:24
+msgid "Click here to go back"
+msgstr ""
+
+#: squirrelmail/functions/imap_mailbox.php:40
+#: squirrelmail/functions/mailbox_display.php:38
+#: squirrelmail/src/folders.php:20 squirrelmail/src/folders.php:124
+#: squirrelmail/src/folders.php:126 squirrelmail/src/options.php:27
+#: squirrelmail/src/options_display.php:161
 msgid "None"
 msgstr ""
 
@@ -311,7 +321,7 @@ msgstr ""
 msgid "Delete Folder"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:554
+#: squirrelmail/functions/mailbox_display.php:570
 #: squirrelmail/src/folders.php:103 squirrelmail/src/read_body.php:326
 msgid "Delete"
 msgstr ""
@@ -360,14 +370,6 @@ msgstr ""
 msgid "No folders were found to subscribe to!"
 msgstr ""
 
-#: squirrelmail/src/folders_create.php:24
-msgid "Illegal folder name.  Please select a different name."
-msgstr ""
-
-#: squirrelmail/src/folders_create.php:24
-msgid "Click here to go back"
-msgstr ""
-
 #: squirrelmail/src/folders_rename_getname.php:36
 msgid "Rename a folder"
 msgstr ""
@@ -400,17 +402,17 @@ msgstr ""
 msgid "Table of Contents"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:387
-#: squirrelmail/functions/mailbox_display.php:391
 #: squirrelmail/functions/mailbox_display.php:395
+#: squirrelmail/functions/mailbox_display.php:399
+#: squirrelmail/functions/mailbox_display.php:403
 #: squirrelmail/src/help.php:163 squirrelmail/src/help.php:164
 #: squirrelmail/src/read_body.php:339 squirrelmail/src/read_body.php:341
 msgid "Previous"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:388
-#: squirrelmail/functions/mailbox_display.php:392
 #: squirrelmail/functions/mailbox_display.php:396
+#: squirrelmail/functions/mailbox_display.php:400
+#: squirrelmail/functions/mailbox_display.php:404
 #: squirrelmail/src/help.php:166 squirrelmail/src/help.php:167
 #: squirrelmail/src/read_body.php:343 squirrelmail/src/read_body.php:345
 msgid "Next"
@@ -424,39 +426,39 @@ msgstr ""
 msgid "purge"
 msgstr ""
 
-#: squirrelmail/src/login.php:80 squirrelmail/src/login.php:129
+#: squirrelmail/src/login.php:88 squirrelmail/src/login.php:137
 msgid "Login"
-msgstr ""
-
-#: squirrelmail/src/login.php:91
-#, c-format
-msgid "SquirrelMail version %s"
-msgstr ""
-
-#: squirrelmail/src/login.php:93
-msgid "By the SquirrelMail Development Team"
 msgstr ""
 
 #: squirrelmail/src/login.php:99
 #, c-format
-msgid "%s Login"
+msgid "SquirrelMail version %s"
+msgstr ""
+
+#: squirrelmail/src/login.php:101
+msgid "By the SquirrelMail Development Team"
 msgstr ""
 
 #: squirrelmail/src/login.php:107
+#, c-format
+msgid "%s Login"
+msgstr ""
+
+#: squirrelmail/src/login.php:115
 msgid "Name:"
 msgstr ""
 
-#: squirrelmail/src/login.php:116
+#: squirrelmail/src/login.php:124
 msgid "Password:"
 msgstr ""
 
 #: squirrelmail/src/move_messages.php:76
-#: squirrelmail/src/move_messages.php:105
-#: squirrelmail/src/move_messages.php:134
+#: squirrelmail/src/move_messages.php:111
+#: squirrelmail/src/move_messages.php:140
 msgid "No messages were selected."
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:73 squirrelmail/src/options.php:32
+#: squirrelmail/functions/page_header.php:73 squirrelmail/src/options.php:35
 #: squirrelmail/src/options_display.php:26
 #: squirrelmail/src/options_folder.php:29
 #: squirrelmail/src/options_highlight.php:49
@@ -466,74 +468,8 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: squirrelmail/src/options.php:65
-msgid "Successfully saved personal information!"
-msgstr ""
-
-#: squirrelmail/src/options.php:118
-msgid "Successfully saved display preferences!"
-msgstr ""
-
-#: squirrelmail/src/options.php:119
-msgid "Refresh Page"
-msgstr ""
-
-#: squirrelmail/src/options.php:148
-msgid "Successfully saved folder preferences!"
-msgstr ""
-
-#: squirrelmail/src/options.php:149
-msgid "Refresh Folder List"
-msgstr ""
-
-#: squirrelmail/src/options.php:162 squirrelmail/src/options_personal.php:30
-msgid "Personal Information"
-msgstr ""
-
-#: squirrelmail/src/options.php:167
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr ""
-
-#: squirrelmail/src/options.php:174 squirrelmail/src/options_highlight.php:49
-msgid "Message Highlighting"
-msgstr ""
-
-#: squirrelmail/src/options.php:179
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-
-#: squirrelmail/src/options.php:186 squirrelmail/src/options_order.php:31
-msgid "Index Order"
-msgstr ""
-
-#: squirrelmail/src/options.php:191
-msgid ""
-"The order of the message index can be rearanged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-
-#: squirrelmail/src/options.php:200 squirrelmail/src/options_display.php:26
+#: squirrelmail/src/options.php:203 squirrelmail/src/options_display.php:26
 msgid "Display Preferences"
-msgstr ""
-
-#: squirrelmail/src/options.php:205
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-
-#: squirrelmail/src/options.php:212 squirrelmail/src/options_folder.php:29
-msgid "Folder Preferences"
-msgstr ""
-
-#: squirrelmail/src/options.php:217
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
 msgstr ""
 
 #: squirrelmail/src/options_display.php:34
@@ -661,6 +597,10 @@ msgstr ""
 msgid "Show page selector"
 msgstr ""
 
+#: squirrelmail/src/options.php:215 squirrelmail/src/options_folder.php:29
+msgid "Folder Preferences"
+msgstr ""
+
 #: squirrelmail/src/options_folder.php:40
 msgid "Folder Path"
 msgstr ""
@@ -723,6 +663,10 @@ msgstr ""
 
 #: squirrelmail/src/options_folder.php:131
 msgid "Enable Collapseable Folders"
+msgstr ""
+
+#: squirrelmail/src/options.php:177 squirrelmail/src/options_highlight.php:49
+msgid "Message Highlighting"
 msgstr ""
 
 #: squirrelmail/src/options_highlight.php:53
@@ -857,6 +801,10 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
+#: squirrelmail/src/options.php:189 squirrelmail/src/options_order.php:31
+msgid "Index Order"
+msgstr ""
+
 #: squirrelmail/src/options_order.php:39
 msgid "Checkbox"
 msgstr ""
@@ -865,7 +813,7 @@ msgstr ""
 msgid "Flags"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:602
+#: squirrelmail/functions/mailbox_display.php:617
 #: squirrelmail/src/options_order.php:44
 msgid "Size"
 msgstr ""
@@ -891,6 +839,10 @@ msgstr ""
 
 #: squirrelmail/src/options_order.php:132
 msgid "Return to options page"
+msgstr ""
+
+#: squirrelmail/src/options.php:165 squirrelmail/src/options_personal.php:30
+msgid "Personal Information"
 msgstr ""
 
 #: squirrelmail/src/options_personal.php:56
@@ -943,6 +895,56 @@ msgstr ""
 
 #: squirrelmail/src/options_personal.php:106
 msgid "Prefix signature with '-- ' ?"
+msgstr ""
+
+#: squirrelmail/src/options.php:68
+msgid "Successfully saved personal information!"
+msgstr ""
+
+#: squirrelmail/src/options.php:121
+msgid "Successfully saved display preferences!"
+msgstr ""
+
+#: squirrelmail/src/options.php:122
+msgid "Refresh Page"
+msgstr ""
+
+#: squirrelmail/src/options.php:151
+msgid "Successfully saved folder preferences!"
+msgstr ""
+
+#: squirrelmail/src/options.php:152
+msgid "Refresh Folder List"
+msgstr ""
+
+#: squirrelmail/src/options.php:170
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+
+#: squirrelmail/src/options.php:182
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+
+#: squirrelmail/src/options.php:194
+msgid ""
+"The order of the message index can be rearanged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+
+#: squirrelmail/src/options.php:208
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+
+#: squirrelmail/src/options.php:220
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
 msgstr ""
 
 #: squirrelmail/src/read_body.php:31
@@ -1212,19 +1214,19 @@ msgstr ""
 msgid "December"
 msgstr ""
 
-#: squirrelmail/functions/date.php:170
+#: squirrelmail/functions/date.php:169
 msgid "D, F j, Y g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:187
+#: squirrelmail/functions/date.php:186
 msgid "g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:190
+#: squirrelmail/functions/date.php:189
 msgid "D, g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:193
+#: squirrelmail/functions/date.php:192
 msgid "M j, Y"
 msgstr ""
 
@@ -1261,11 +1263,11 @@ msgid "Click here to return to %s"
 msgstr ""
 
 #: squirrelmail/functions/imap_general.php:121
-#: squirrelmail/functions/imap_messages.php:116
-#: squirrelmail/functions/imap_messages.php:125
-#: squirrelmail/functions/imap_messages.php:143
-#: squirrelmail/functions/imap_messages.php:152
-#: squirrelmail/functions/imap_messages.php:263
+#: squirrelmail/functions/imap_messages.php:117
+#: squirrelmail/functions/imap_messages.php:126
+#: squirrelmail/functions/imap_messages.php:144
+#: squirrelmail/functions/imap_messages.php:153
+#: squirrelmail/functions/imap_messages.php:264
 msgid "ERROR : Could not complete request."
 msgstr ""
 
@@ -1300,107 +1302,119 @@ msgstr ""
 msgid "Read data:"
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:118
-#: squirrelmail/functions/imap_messages.php:145
-#: squirrelmail/functions/imap_messages.php:265
+#: squirrelmail/functions/imap_messages.php:119
+#: squirrelmail/functions/imap_messages.php:146
+#: squirrelmail/functions/imap_messages.php:266
 msgid "Unknown response from IMAP server: "
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:127
+#: squirrelmail/functions/imap_messages.php:128
 msgid "Unknown message number in reply from server: "
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:154
+#: squirrelmail/functions/imap_messages.php:155
 msgid "Unknown messagenumber in reply from server: "
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:163
-#: squirrelmail/functions/imap_messages.php:192
-#: squirrelmail/functions/imap_messages.php:435
-#: squirrelmail/functions/imap_messages.php:474
-#: squirrelmail/functions/mailbox_display.php:670
+#: squirrelmail/functions/imap_messages.php:164
+#: squirrelmail/functions/imap_messages.php:193
+#: squirrelmail/functions/imap_messages.php:436
+#: squirrelmail/functions/imap_messages.php:475
+#: squirrelmail/functions/mailbox_display.php:685
 msgid "(no subject)"
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:164
+#: squirrelmail/functions/imap_messages.php:165
 msgid "Unknown Sender"
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:217
+#: squirrelmail/functions/imap_messages.php:218
 msgid "(only Cc/Bcc)"
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:477
+#: squirrelmail/functions/imap_messages.php:478
 msgid "(unknown sender)"
 msgstr ""
 
-#: squirrelmail/functions/imap_search.php:142
+#: squirrelmail/functions/imap_search.php:146
 msgid "Found"
 msgstr ""
 
-#: squirrelmail/functions/imap_search.php:142
+#: squirrelmail/functions/imap_search.php:146
 msgid "messages"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:376
+#: squirrelmail/functions/mailbox_display.php:382
 msgid "Viewing messages"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:376
+#: squirrelmail/functions/mailbox_display.php:382
 msgid "to"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:376
-#: squirrelmail/functions/mailbox_display.php:378
+#: squirrelmail/functions/mailbox_display.php:382
+#: squirrelmail/functions/mailbox_display.php:384
 msgid "total"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:378
+#: squirrelmail/functions/mailbox_display.php:384
 msgid "Viewing message"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:448
+#: squirrelmail/functions/mailbox_display.php:458
 msgid "THIS FOLDER IS EMPTY"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:536
+#: squirrelmail/functions/mailbox_display.php:541
 msgid "Move selected to:"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:548
+#: squirrelmail/functions/mailbox_display.php:545
+msgid "Transform Selected Messages"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:561
 msgid "Move"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:552
+#: squirrelmail/functions/mailbox_display.php:566
 msgid "Expunge"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:552
+#: squirrelmail/functions/mailbox_display.php:566
 msgid "mailbox"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:554
-msgid "checked messages"
+#: squirrelmail/functions/mailbox_display.php:568
+msgid "Read"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:644
-msgid "Toggle All"
+#: squirrelmail/functions/mailbox_display.php:569
+msgid "Unread"
 msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:659
+msgid "Toggle All"
+msgstr ""
+
+#: squirrelmail/functions/mailbox_display.php:674
 msgid "Unselect All"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:661
+#: squirrelmail/functions/mailbox_display.php:676
 msgid "Select All"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:587
+#: squirrelmail/functions/mime.php:612
 msgid "Attachments"
 msgstr ""
 
-#: squirrelmail/functions/mime.php:625
+#: squirrelmail/functions/mime.php:651
 msgid "download"
+msgstr ""
+
+#: squirrelmail/functions/mime.php:915
+msgid "Title:"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:59

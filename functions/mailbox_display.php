@@ -41,36 +41,36 @@
          // sqimap_logout($imapConnection);
          $mailbox = $boxes[0]['unformatted'];
          unset( $boxes );
-      }      
+      }
       $urlMailbox = urlencode($mailbox);
       $subject = processSubject($msg['SUBJECT']);
 
       echo "<TR>\n";
 
-      if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) 
-      { 
-         $flag = "<font color=$color[2]>"; 
-         $flag_end = '</font>'; 
+      if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true)
+      {
+         $flag = "<font color=$color[2]>";
+         $flag_end = '</font>';
       }
       else
       {
          $flag = '';
          $flag_end = '';
       }
-      if (!isset($msg['FLAG_SEEN']) || $msg['FLAG_SEEN'] == false) 
-      { 
-         $bold = '<b>'; 
-         $bold_end = '</b>'; 
+      if (!isset($msg['FLAG_SEEN']) || $msg['FLAG_SEEN'] == false)
+      {
+         $bold = '<b>';
+         $bold_end = '</b>';
       }
       else
       {
          $bold = '';
          $bold_end = '';
       }
-      if ($mailbox == $sent_folder) 
-      { 
-         $italic = '<i>'; 
-         $italic_end = '</i>'; 
+      if ($mailbox == $sent_folder)
+      {
+         $italic = '<i>';
+         $italic_end = '</i>';
       }
       else
       {
@@ -79,8 +79,8 @@
       }
       if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'])
       {
-         $fontstr = "<font color=\"$color[9]\">"; 
-         $fontstr_end = '</font>'; 
+         $fontstr = "<font color=\"$color[9]\">";
+         $fontstr_end = '</font>';
       }
       else
       {
@@ -109,11 +109,11 @@
          $search_stuff = '&where='.urlencode($where).'&what='.urlencode($what);
       }
 
-      if ($checkall == 1) 
+      if ($checkall == 1)
          $checked = ' checked';
       else
          $checked = '';
-      
+
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
             case 1: # checkbox
@@ -143,7 +143,7 @@
             case 5: # flags
                $stuff = false;
                echo "   <td bgcolor=$hlt_color align=center nowrap><b><small>\n";
-               if (isset($msg['FLAG_ANSWERED']) && 
+               if (isset($msg['FLAG_ANSWERED']) &&
                    $msg['FLAG_ANSWERED'] == true) {
                   echo "A\n";
                   $stuff = true;
@@ -237,8 +237,8 @@
             if ($numMessages < $show_num)
                 $end_loop = $numMessages;
             elseif ($end > $numMessages)
-	        $end_loop = $numMessages - $startMessage + 1;
-	    else
+            $end_loop = $numMessages - $startMessage + 1;
+        else
                 $end_loop = $show_num;
          } else {
             $end = $numMessages;
@@ -293,7 +293,7 @@
 
          /* Only ignore messages flagged as deleted if we are using a
           * trash folder or auto_expunge */
-         if (((isset($move_to_trash) && $move_to_trash) 
+         if (((isset($move_to_trash) && $move_to_trash)
               || (isset($auto_expunge) && $auto_expunge)) && $sort != 6)
          {
             /** Find and remove the ones that are deleted */
@@ -315,7 +315,7 @@
                 $messages = array();
             $msgs = $messages;
          }
-      }         
+      }
 
       // There's gotta be messages in the array for it to sort them.
       if ($numMessages > 0 && ! $use_cache) {
@@ -404,7 +404,7 @@
          $rMore = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       if( $lMore <> '' )
-      	$lMore .= ' | ';
+        $lMore .= ' | ';
 
       // Page selector block. Following code computes page links.
       $mMore = '';
@@ -541,8 +541,8 @@
       echo '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n";
       echo "      </TD>\n";
       echo "      <TD>&nbsp;</TD>\n";
-      echo "      <TD WIDTH=\"1%\" ALIGN=LEFT NOWRAP>\n";
-      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ":</SMALL><BR>\n";
+      echo "      <TD WIDTH=\"1%\" ALIGN=RIGHT NOWRAP>\n";
+      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": </SMALL><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
@@ -591,59 +591,59 @@
             case 5: # flags
                echo '   <TD WIDTH="1%"><B>&nbsp;</B></TD>';
                break;
-               
+
             case 2: # from
                if ($mailbox == $sent_folder)
                   echo '   <TD WIDTH="25%"><B>'. _("To") .'</B>';
                else
                     echo '   <TD WIDTH="25%"><B>'. _("From") .'</B>';
-	       ShowSortButton($sort, $mailbox, 2, 3);
+           ShowSortButton($sort, $mailbox, 2, 3);
                echo "</TD>\n";
                break;
-               
+
             case 3: # date
                echo '   <TD NOWRAP WIDTH="5%"><B>'. _("Date") .'</B>';
-	       ShowSortButton($sort, $mailbox, 0, 1);
+               ShowSortButton($sort, $mailbox, 0, 1);
                echo "</TD>\n";
                break;
-               
+
             case 4: # subject
                echo '   <TD><B>'. _("Subject") .'</B> ';
-	       ShowSortButton($sort, $mailbox, 4, 5);
+               ShowSortButton($sort, $mailbox, 4, 5);
                echo "</TD>\n";
                break;
-               
-            case 6: # size 
+
+            case 6: # size
                echo '   <TD WIDTH="5%"><b>' . _("Size")."</b></TD>\n";
                break;
          }
       }
       echo "</TR>\n";
    }
-   
+
    function ShowSortButton($sort, $mailbox, $Up, $Down) {
       if ($sort != $Up && $sort != $Down) {
          $img = 'sort_none.gif';
          $which = $Up;
       } elseif ($sort == $Up) {
          $img = 'up_pointer.gif';
-	 $which = $Down;
+         $which = $Down;
       } else {
          $img = 'down_pointer.gif';
-	 $which = 6;
+         $which = 6;
       }
-      echo ' <a href="right_main.php?newsort=' . $which . 
-	 '&startMessage=1&mailbox=' . urlencode($mailbox) . 
-	 '"><IMG SRC="../images/' . $img . 
-	 '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
+      echo ' <a href="right_main.php?newsort=' . $which .
+           '&startMessage=1&mailbox=' . urlencode($mailbox) .
+           '"><IMG SRC="../images/' . $img .
+           '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
    }
-   
+
    function ShowSelectAllLink($startMessage, $sort)
    {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
 
        // This code is from Philippe Mingo <mingo@rotedic.com>
-    
+
        ?>
 <script language="JavaScript">
 <!--
@@ -674,7 +674,7 @@ window.document.write('<a href="#" onClick="CheckAll();"><?php echo
            echo _("Unselect All");
        else
            echo _("Select All");
-	   
+
        echo "</A>\n</noscript>\n";
    }
 
@@ -683,10 +683,10 @@ window.document.write('<a href="#" onClick="CheckAll();"><?php echo
       // Shouldn't ever happen -- caught too many times in the IMAP functions
       if ($subject == '')
           return _("(no subject)");
-	  
+
       if (strlen($subject) <= 55)
           return $subject;
-	  
+
       $ent_strlen=strlen($subject);
       $trim_val=50;
       $ent_offset=0;
@@ -697,11 +697,11 @@ window.document.write('<a href="#" onClick="CheckAll();"><?php echo
       while (($ent_loc = strpos($subject, '&', $ent_offset)) !== false &&
              ($ent_loc_end = strpos($subject, ';', $ent_loc)) !== false)
       {
-	 $trim_val += ($ent_loc_end-$ent_loc)+1;
-	 $ent_strlen -= $ent_loc_end-$ent_loc;
-	 $ent_offset = $ent_loc_end+1;
+     $trim_val += ($ent_loc_end-$ent_loc)+1;
+     $ent_strlen -= $ent_loc_end-$ent_loc;
+     $ent_offset = $ent_loc_end+1;
       }
-      
+
       if ($ent_strlen <= 55)
           return $subject;
 

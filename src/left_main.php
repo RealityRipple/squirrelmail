@@ -25,16 +25,16 @@
     displayHtmlHeader();
 
    if ($auto_create_special && ! isset($auto_create_done)) {
-   	  if (isset ($sent_folder) && $sent_folder != "none") {
+   	  if (isset ($sent_folder) && $sent_folder != 'none') {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $sent_folder)) {
-		 	sqimap_mailbox_create ($imapConnection, $sent_folder, "");
+		 	sqimap_mailbox_create ($imapConnection, $sent_folder, '');
 		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $sent_folder)) {
 		    sqimap_subscribe($imapConnection, $sent_folder);
 		 }
 	  }
-   	  if (isset ($trash_folder) && $trash_folder != "none") {
+   	  if (isset ($trash_folder) && $trash_folder != 'none') {
 	  	 if (!sqimap_mailbox_exists ($imapConnection, $trash_folder)) {
-		 	sqimap_mailbox_create ($imapConnection, $trash_folder, "");
+		 	sqimap_mailbox_create ($imapConnection, $trash_folder, '');
 		 } else if (! sqimap_mailbox_is_subscribed($imapConnection, $trash_folder)) {
 		    sqimap_subscribe($imapConnection, $trash_folder);
 		 }
@@ -59,7 +59,7 @@
       
       $unseen = 0;
 
-      if (($unseen_notify == 2 && $real_box == "INBOX") ||
+      if (($unseen_notify == 2 && $real_box == 'INBOX') ||
           $unseen_notify == 3) {
          $unseen = sqimap_unseen_messages($imapConnection, $real_box);
          if ($unseen_type == 1 && $unseen > 0) {
@@ -73,7 +73,7 @@
       }
       
       $special_color = false;
-      if ((strtolower($real_box) == "inbox") ||
+      if ((strtolower($real_box) == 'inbox') ||
           (($real_box == $trash_folder) && ($move_to_trash)) ||
           (($real_box == $sent_folder) && ($move_to_sent)))
          $special_color = true;
@@ -118,7 +118,7 @@
       return ($line);
    }
 
-    if (isset($left_refresh) && ($left_refresh != "None") && ($left_refresh != "")) {
+    if (isset($left_refresh) && ($left_refresh != 'None') && ($left_refresh != '')) {
         echo "<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n";
         echo "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n"; 
         echo "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
@@ -130,12 +130,12 @@
 
     $boxes = sqimap_mailbox_list($imapConnection);
 
-    echo "<CENTER><FONT SIZE=4><B>";
+    echo '<CENTER><FONT SIZE=4><B>';
     echo _("Folders") . "</B><BR></FONT>\n\n";
 
-    echo "<SMALL>(<A HREF=\"../src/left_main.php\" TARGET=\"left\">";
+    echo '<SMALL>(<A HREF="../src/left_main.php" TARGET="left">';
     echo _("refresh folder list");
-    echo "</A>)</SMALL></CENTER><BR>";
+    echo '</A>)</SMALL></CENTER><BR>';
     $delimeter = sqimap_get_delimiter($imapConnection);
 
     if (isset($collapse_folders) && $collapse_folders) {
@@ -278,5 +278,5 @@
         /* Set the parent box to the current next box. */
         $parbox = $nextbox;
     }
+    echo "</BODY></HTML>\n";
 ?>
-</BODY></HTML>
