@@ -844,7 +844,7 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
     echo "</FORM>\n";
 }
 
-function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=0) {
+function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg=1) {
     global $index_order;
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
 
