@@ -621,6 +621,60 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
     return $result;
 }
 
+function sqimap_get_headerfield($imap_stream, $field) {
+    $sid = sqimap_session_id(false);
+
+    $results = array();
+    $read_list = array();
+
+    $query = "$sid FETCH 1:* (UID BODY.PEEK[HEADER.FIELDS ($field)])\r\n";
+    fputs ($imap_stream, $query);
+    $readin_list = sqimap_read_data_list($imap_stream, $sid, false, $response, $message);
+    $i = 0;
+
+    foreach ($readin_list as $r) {
+        $r = implode('',$r);
+        /* first we unfold the header */
+	$r = str_replace(array("\r\n\t","\r\n\s"),array('',''),$r);
+	/* 
+	 * now we can make a new header array with each element representing 
+	 * a headerline
+	 */
+	$r = explode("\r\n" , $r);  
+        if (!$uid_support) {
+            if (!preg_match("/^\\*\s+([0-9]+)\s+FETCH/iAU",$r[0], $regs)) {
+                set_up_language($squirrelmail_language);
+                echo '<br><b><font color=$color[2]>' .
+                      _("ERROR : Could not complete request.") .
+                      '</b><br>' .
+                      _("Unknown response from IMAP server: ") . ' 1.' .
+                      $r[0] . "</font><br>\n";
+            } else {
+                $id = $regs[1];
+            }
+        } else {
+            if (!preg_match("/^\\*\s+([0-9]+)\s+FETCH.*UID\s+([0-9]+)\s+/iAU",$r[0], $regs)) {
+                set_up_language($squirrelmail_language);
+                echo '<br><b><font color=$color[2]>' .
+                     _("ERROR : Could not complete request.") .
+                     '</b><br>' .
+                     _("Unknown response from IMAP server: ") . ' 1.' .
+                     $r[0] . "</font><br>\n";
+            } else {
+	        $id = $regs[2];
+            }
+        }
+	$field = $r[1];
+	$field = substr($field,strlen($field)+2);
+	$result[] = array($id,$field);
+    }
+    return $result;
+}
+
+
+
+
+ 
 /*
  * Returns a message array with all the information about a message.  
  * See the documentation folder for more information about this array.
@@ -643,9 +697,9 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
     $bodystructure = implode('',$read);
     $msg =  mime_structure($bodystructure,$flags);
     $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);
-    $msg->addRFC822Header($read);
-    $msg->id = $id;
-    $msg->mailbox = $mailbox;
+    $rfc822_header = new rfc822_header();
+    $rfc822_header->parseHeader($read);
+    $msg->rfc822_header = $rfc822_header;
     return $msg;
 }
 
