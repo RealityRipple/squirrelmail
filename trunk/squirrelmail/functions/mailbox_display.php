@@ -34,7 +34,7 @@
    /**
     ** This function loops through a group of messages in the mailbox and shows them
     **/
-   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color) {
+   function showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color,$show_num) {
       include ("../config/config.php");
 
       if ($numMessages >= 1) {
@@ -148,11 +148,11 @@
 //      session_register("messages");
 //      $messages = serialize($msgs);
 
-      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color);
+      displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num);
    }
 
    // generic function to convert the msgs array into an HTML table
-   function displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color) {
+   function displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $mailbox, $sort, $color,$show_num) {
       // do a check to see if the config stuff has already been included or not
       if (!isset($imapServerAddress))
          include("../config/config.php");
@@ -160,15 +160,14 @@
       // if cache isn't already set, do it now
 //      if (!session_is_registered("messages"))
 //         session_register("messages");
-      
-      if ($startMessage + 24 < $numMessages) {
-         $endMessage = $startMessage + 24;
+      if ($startMessage + ($show_num - 1) < $numMessages) {
+         $endMessage = $startMessage + ($show_num-1);
       } else {
          $endMessage = $numMessages;
       }
 
-      $nextGroup = $startMessage + 25;
-      $prevGroup = $startMessage - 25;
+      $nextGroup = $startMessage + $show_num;
+      $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);
 
       /** This is the beginning of the message list table.  It wraps around all messages */

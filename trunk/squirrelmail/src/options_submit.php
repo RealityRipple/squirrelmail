@@ -22,6 +22,7 @@
    setPref($data_dir, $username, "reply_to", stripslashes($reply_to));
    setPref($data_dir, $username, "chosen_theme", $chosentheme);
    setPref($data_dir, $username, "move_to_trash", $movetotrash);
+   setPref($data_dir, $username, "show_num", $shownum);
    setPref($data_dir, $username, "wrap_at", $wrapat);
    setPref($data_dir, $username, "editor_size", $editorsize);
    setPref($data_dir, $username, "use_signature", $usesignature);
@@ -29,7 +30,7 @@
    setPref($data_dir, $username, "language", $language);
    setPref($data_dir, $username, "left_size", $leftsize);
    setPref($data_dir, $username, "folder_prefix", $folderprefix);
-
+   
    setSig($data_dir, $username, stripslashes($signature_edit));
 
    setcookie("squirrelmail_language", $language, time()+2592000);

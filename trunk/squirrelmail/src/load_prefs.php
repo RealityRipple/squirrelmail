@@ -30,6 +30,10 @@
    if ($move_to_trash == "")
       $move_to_trash = $default_move_to_trash;
 
+   $show_num = getPref($data_dir, $username, "show_num");
+   if ($show_num == "")
+      $show_num = 25;
+   
    $wrap_at = getPref($data_dir, $username, "wrap_at");
    if ($wrap_at == "")
       $wrap_at = 86;

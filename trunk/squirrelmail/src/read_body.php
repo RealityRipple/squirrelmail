@@ -15,7 +15,6 @@
       include("../functions/date.php");
 
    include("../src/load_prefs.php");
-
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    sqimap_mailbox_select($imapConnection, $mailbox);
 
