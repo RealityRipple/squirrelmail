@@ -48,7 +48,7 @@
    $password_form_name = 'secretkey';
    do_hook('login_top');
    
-   echo "<CENTER><IMG SRC=\"$org_logo\"</CENTER>\n";
+   echo "<CENTER><IMG SRC=\"$org_logo\"></CENTER>\n";
    echo "<CENTER><SMALL>";
    printf (_("SquirrelMail version %s"), $version);
    echo "<BR>\n";
