@@ -18,7 +18,7 @@
      */
     function soupNazi(){
 
-        global $HTTP_USER_AGENT;
+        global $HTTP_USER_AGENT, $SQSPELL_SOUP_NAZI;
         
         require_once('../plugins/squirrelspell/sqspell_config.php');
 
