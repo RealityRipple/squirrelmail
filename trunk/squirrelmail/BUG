@@ -1,9 +1,6 @@
 Known BUGS to be fixed before 0.4pre1:
 
   -    LDAP preferences in conf.pl are not working.
-  -    Next/Previous while viewing a message should take into account 
-       the way that the mailbox is sorted.  Right now, it just does it 
-		 by the next message id.
   -    If a new message comes in while still browsing cached message 
        list, the space is allocated, but it is blank.
 (lme)  I'm not convinced that the cache gets deleted all the time.  I'll 
@@ -15,6 +12,9 @@ Known BUGS to be fixed before 0.4pre1:
 
 
 --SQUASHED--
+(lme)  Next/Previous while viewing a message should take into account 
+       the way that the mailbox is sorted.  Right now, it just does it 
+		 by the next message id.
 (lme)  Special folders don't get listed at the top of folder list
 (lme)  The icon for message sorting doesn't always stay.  It usually 
        reverts back to the date.

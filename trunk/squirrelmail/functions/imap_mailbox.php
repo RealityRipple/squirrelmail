@@ -118,7 +118,12 @@
          if ($flags) {
             $boxes[$g]["flags"] = explode(" ", $flags);
          }
-
+			for ($i=0; $i < count($boxes[$g]["flags"]); $i++) {
+				if ($boxes[$g]["flags"][$i] == "noselect") {
+					$boxes[$g]["unformatted-dm"] = $boxes[$g]["unformatted-dm"].$dm;
+					echo $boxes[$g]["unformatted-dm"]." - debug<br>";
+				}
+			}
       }
       return $boxes;
    }
