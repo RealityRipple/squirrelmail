@@ -43,10 +43,17 @@
       header ("Content-Type: text/html; charset=$default_charset");
 
    function displayHtmlHeader ($title="SquirrelMail") {
+     global $theme_css;
+
       echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">';
       echo "\n\n";
       echo "<HTML>\n";
       echo "<HEAD>\n";
+      if ($theme_css != "") {
+        printf ('<LINK REL="stylesheet" TYPE="text/css" HREF="%s">', 
+                $theme_css);
+        echo "\n";
+      }
       echo "<TITLE>$title</TITLE>";
       echo "</HEAD>\n\n";
    }
