@@ -158,7 +158,7 @@
          if (substr($mailbox, -1) == $dm)
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
          $boxes[$g]['unformatted'] = $mailbox;
-         if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) { 
+         if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix)
             $mailbox = substr($mailbox, strlen($folder_prefix));
          $boxes[$g]['unformatted-disp'] = $mailbox;
          $boxes[$g]['id'] = $g;
