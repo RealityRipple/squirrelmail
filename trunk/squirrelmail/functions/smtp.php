@@ -76,7 +76,7 @@
       if (isMultipart()) {
          foreach ($attachments as $info)
 	 {
-	    if (isset($info['type']) && $filetype != "")
+	    if (isset($info['type']))
  	       $filetype = $info['type'];
             else
                $filetype = 'application/octet-stream';
