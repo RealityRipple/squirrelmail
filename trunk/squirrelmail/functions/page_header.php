@@ -12,9 +12,9 @@
  */
 
 require_once('../functions/strings.php');
-require_once('../functions/imap_utf7_decode_local.php');
+//require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/html.php');
-
+require_once('../functions/imap_mailbox.php');
 /* Always set up the language before calling these functions */
 function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
 
@@ -176,7 +176,10 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
                      "}\n\n";
 
             }
+	$js .= $xtra;    
         $js .= "// -->\n". "</script>\n";
+	
+
         $onload = "onLoad=\"checkForm();\"";
         displayHtmlHeader ('Squirrelmail', $js);
         break;   
