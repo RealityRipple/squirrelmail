@@ -697,4 +697,50 @@ function korean_charset_xtra() {
     return $ret;
 }
 
+/* 
+ * This function can be used to replace non-braking space symbols 
+ * that are inserted in forms by some browsers instead of normal 
+ * space symbol.
+ */
+function cleanup_nbsp($string,$charset) {
+
+  // reduce number of case statements
+  if (stristr('iso-8859-',substr($charset,0,9))){
+    $output_charset="iso-8859-x";
+  }
+  if (stristr('windows-125',substr($charset,0,11))){
+    $output_charset="cp125x";
+  }
+  if (stristr('koi8',substr($charset,0,4))){
+    $output_charset="koi8-x";
+  }
+  if (! isset($output_charset)){
+    $output_charset=strtolower($charset);
+  }
+
+// where is non-braking space symbol
+switch($output_charset):
+ case "iso-8859-x":
+  $nbsp="\xA0";
+  break;
+ case "cp125x":
+   $nbsp="\xA0";
+   break;
+ case "koi8-x":
+   $nbsp="\x9A";
+   break;
+ case "utf-8":
+   $nbsp="\xC2\xA0";
+   break;
+ case "iso-2022-jp":
+   $nbsp="\xA0";
+   break;
+ default:
+   // don't change string if charset is unmatched
+   return $string;
+endswitch;
+
+// return space instead of non-braking space. 
+ return str_replace($nbsp,' ',$string);
+}
 ?>
