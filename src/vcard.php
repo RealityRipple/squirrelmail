@@ -48,8 +48,8 @@ echo '<br><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
         '<b><center>' .
         _("Viewing a Business Card") . " - ";
 $msg_url = 'read_body.php?mailbox='.urlencode($mailbox).
-    '&amp;startMessage='.$startMessage.
-    '&amp;passed_id='.$passed_id;
+    '&amp;startMessage='.urlencode($startMessage).
+    '&amp;passed_id='.urlencode($passed_id);
 
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 
@@ -200,7 +200,7 @@ echo    '</td></tr>' .
         '</td></tr>' .
         '<tr><td align=center>' .
         '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
-        $passed_id . '&amp;mailbox=' . urlencode($mailbox) .
+        urlencode($passed_id) . '&amp;mailbox=' . urlencode($mailbox) .
         '&amp;ent_id=' . urlencode($ent_id) . '">' .
         _("Download this as a file") . '</A>' .
         '</TD></TR></TABLE>' .

@@ -125,9 +125,9 @@ function findPreviousMessage($numMessages, $passed_id) {
 function printer_friendly_link($mailbox, $passed_id, $passed_ent_id) {
     global $javascript_on, $color;
 
-    $params = '?passed_ent_id=' . $passed_ent_id .
+    $params = '?passed_ent_id=' . urlencode($passed_ent_id) .
               '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . $passed_id;
+              '&passed_id=' . urlencode($passed_id);
 
     $print_text = _("View Printable Version");
 
