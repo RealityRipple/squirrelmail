@@ -5,8 +5,26 @@
 
 Version 1.3.0-DEVEL -- CVS
 --------------------
+  - Added "Display Message" / "Up" links in read_body to navigate in messages with
+    attached messages (message/rfc822).
+  - Don't activate the Send Receipt link when the folder is the Sent folder.
+  - Moved view_header code out of read_body.php and put it in view_header.php.
+  - Open message/rfc822 attachments in read_body what makes it possible to
+    reply to attached messages.
+  - Rewrite of the newMail function in compose.php. This simplifies the 
+    interface between read_body.php and compose.php.
+  - Moved compose related code from read_body to compose.
+  - Rewrite of mailbox-display to make it more modular (we use it in search.php).
   - Added support for displaying multiple entities.
   - Changed finding display entities.
+  - Extract disposition and xmailer header information in the headerparser 
+    instead of request them individualy by an imap-call.
+  - Store message objects in the current session. This saves a lot of imap-calls.
+  - Added UID support.
+  - Store addresses in an object instead of a string.
+  - Rewrite of the bodystructureparser function. Now the message object contains 
+    all described parameters in RFC2060.
+  - Introduction of the mime class where all mime related functions are situated
   - Fixed removing MDN attachments.
   - Fixed MDN problems with js confirmbox.
   - Speedimprovements in case we download mime-entities.
