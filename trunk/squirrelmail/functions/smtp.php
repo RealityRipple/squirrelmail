@@ -23,38 +23,53 @@
 
       $length = 0;
 
-      while (list($localname, $remotename) = each($attachments)) {
-         // This is to make sure noone is giving a filename in another
-         // directory
-         $localname = ereg_replace ("\\/", "", $localname);
-
-         $fileinfo = fopen ($attachment_dir.$localname.".info", "r");
-         $filetype = fgets ($fileinfo, 8192);
-         fclose ($fileinfo);
-         $filetype = trim ($filetype);
-         if ($filetype=="")
-            $filetype = "application/octet-stream";
-
-         $header = "--".mimeBoundary()."\r\n";
-         $header .= "Content-Type: $filetype\n";
-         $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
-         $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
-         fputs ($fp, $header);
-         $length += strlen($header);
-
-         $file = fopen ($attachment_dir.$localname, "r");
-         while ($tmp = fread($file, 570)) {
-            $encoded = chunk_split(base64_encode($tmp));
-            $length += strlen($encoded);
-            fputs ($fp, $encoded);
+      if (isMultipart()) {
+         reset($attachments);
+         while (list($localname, $remotename) = each($attachments)) {
+            // This is to make sure noone is giving a filename in another
+            // directory
+            $localname = ereg_replace ("\\/", "", $localname);
+            
+            $fileinfo = fopen ($attachment_dir.$localname.".info", "r");
+            $filetype = fgets ($fileinfo, 8192);
+            fclose ($fileinfo);
+            $filetype = trim ($filetype);
+            if ($filetype=="")
+               $filetype = "application/octet-stream";
+            
+            $header = "--".mimeBoundary()."\r\n";
+            $header .= "Content-Type: $filetype\n";
+            $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
+            $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
+            fputs ($fp, $header);
+            $length += strlen($header);
+            
+            $file = fopen ($attachment_dir.$localname, "r");
+            while ($tmp = fread($file, 570)) {
+               $encoded = chunk_split(base64_encode($tmp));
+               $length += strlen($encoded);
+               fputs ($fp, $encoded);
+            }
+            fclose ($file);
          }
-         fclose ($file);
-
-         unlink ($attachment_dir.$localname);
-         unlink ($attachment_dir.$localname.".info");
       }
 
       return $length;
+   }
+
+   // Delete files that are uploaded for attaching
+   function deleteAttachments() {
+      global $attachments, $attachment_dir;
+
+      if (isMultipart()) {
+         reset($attachments);
+         while (list($localname, $remotename) = each($attachments)) {
+            if (!ereg ("\\/", $localname)) {
+               unlink ($attachment_dir.$localname);
+               unlink ($attachment_dir.$localname.".info");
+            }
+         }
+      }
    }
 
    // Return a nice MIME-boundary
@@ -92,7 +107,7 @@
 
    /* Print all the needed RFC822 headers */
    function write822Header ($fp, $t, $c, $b, $subject) {
-      global $REMOTE_ADDR, $SERVER_NAME;
+      global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
       global $data_dir, $username, $domain, $version, $useSendmail;
 
       // Storing the header to make sure the header is the same
@@ -119,14 +134,19 @@
          else
             $from = $from . " <$from_addr>";
          
-         /* This creates an RFC 822 date showing GMT */
+         /* This creates an RFC 822 date */
          $date = date("D, j M Y H:i:s ", mktime()) . timezone();
+
+         /* Create a message-id */
+         $message_id = "<" . $REMOTE_PORT . "." . $REMOTE_ADDR . ".";
+         $message_id .= time() . "@" . $SERVER_NAME .">";
          
          /* Make an RFC822 Received: line */
          $header = "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ";
          $header .= "$date\n";
          
-         /* The rest of the header */
+         /* Insert the rest of the header fields */
+         $header .= "Message-ID: $message_id\r\n";
          $header .= "Date: $date\r\n";
          $header .= "Subject: $subject\r\n";
          $header .= "From: $from\r\n";
@@ -401,6 +421,7 @@
          $length = sendSMTP($t, $c, $b, $subject, $body);
       }
 
+        
       // This is a proposed interface to save messages in the sent folder
       //  -- gustavf
       //
@@ -411,9 +432,10 @@
       // sqimap_append_done($imap_stream);
       //
       // Or something like that... 
+   
+      // Delete the files uploaded for attaching (if any).
+      deleteAttachments();
 
-      //$imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
-      //sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
    }
 
 ?>
