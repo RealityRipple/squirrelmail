@@ -874,7 +874,7 @@
                                    $style .= $body{$i};
                                $i++;
                             }
-                            stripComments( &$i, $j, &$body );
+                            stripComments( $i, $j, $body );
                             $style = strtoupper( trim( $style ) );
                             if( $style == 'BODY' ) {
                                 // Next we look into the definitions of the body style
@@ -903,7 +903,7 @@
                                 }
                                 $styleblk .= $body{$i};
                             }
-                            stripComments( &$i, $j, &$body );
+                            stripComments( $i, $j, $body );
                             if( $body{$i} <> '>' )
                                 $i++;
                         }
