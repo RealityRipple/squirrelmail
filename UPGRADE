@@ -1,20 +1,22 @@
 Upgrading from 0.3 or 0.4
 =========================
-If you are upgrading from versions 0.3 or 0.4 of SquirrelMail, you can use this
-guide to make the transition a bit smoother.  If you have been using a previous
-version (0.1 or 0.2), it is suggested that you just start from scratch and 
-configure your settings as if it was your first install.
+If you are upgrading from versions 0.3 or 0.4 of SquirrelMail, you can use
+this guide to make the transition a bit smoother.  If you have been using a
+previous version (0.1 or 0.2), it is suggested that you just start from
+scratch and configure your settings as if it was your first install.
 
-NOTE: The new plugin architecture required the use of some functions which are
-not in all versions of PHP4. You will need at least PHP4 beta2. If you need to
-upgrade please go ahead and install the latest release version of PHP4.
+NOTE: The new plugin architecture required the use of some functions which
+are not in all versions of PHP4. You will need at least PHP4 beta2. If you
+need to upgrade please go ahead and install the latest release version of
+PHP4.
 
 1.  Backups
 ===========
-Make a backup of your current SquirrelMail directory.  If you use "cp", be sure
-to use the "-Rp" options.  -R means recursive, and -p will save the permissions
-in the directory.  In this example, we assume that your httpd document directory
-is /home/httpd/html.
+
+Make a backup of your current SquirrelMail directory.  If you use "cp", be
+sure to use the "-Rp" options.  -R means recursive, and -p will save the
+permissions in the directory.  In this example, we assume that your httpd
+document directory is /home/httpd/html.
 
   $ cd /home/httpd/html
   $ cp -Rp squirrelmail-0.4 squirrelmail-0.4.bak
@@ -22,19 +24,20 @@ is /home/httpd/html.
 
 2.  Unarchives Squirrelmail-0.5.tar.gz
 ======================================
-Make sure that you're in your httpd document directory (/home/httpd/html) and
-then unarchive the squirrelmail archive (whatever the filename is):
- 
+Make sure that you're in your httpd document directory (/home/httpd/html)
+and then unarchive the squirrelmail archive (whatever the filename is): 
+
   $ tar -zxvf squirrelmail-0.5.tar.gz
 
 
 3.  Copy backups in place
 =========================
 Here is the main part.  There are two parts to this step: copy preferences,
-and copy config details.  The preference files are backwards compatible, so it
-is fine to copy the old user preferences into the new directory.  However, the
-configuration file has changed quite a bit, so you will want to be sure to run
-the configure script (conf.pl) to set up any new config details.
+and copy config details.  The preference files are backwards compatible, so
+it is fine to copy the old user preferences into the new directory.
+However, the configuration file has changed quite a bit, so you will want to
+be sure to run the configure script (conf.pl) to set up any new config
+details.
 
 First, copy the files in place:
   
@@ -61,6 +64,6 @@ as is often the case with Apache.
 
 5.  DONE!
 =========
-That should be all!  The most important part is copying your users' preference
-files back into the new data directory.  This will insure that your users will
-have their old preferences.
+That should be all!  The most important part is copying your users'
+preference files back into the new data directory.  This will insure that
+your users will have their old preferences.

@@ -11,6 +11,7 @@ Version 1.0pre1 -- DEVELOPMENT
 - Some functions now pass values by reference to save on memory
 - Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
 - Added Serbian translation from Boris Manojlovic <steki@verat.net>
+- Added Polish translation of Help from Krystian Kanabrodzki <krys@voruta.eu.org>
 
 
 Version 0.5 -- September 25, 2000 
