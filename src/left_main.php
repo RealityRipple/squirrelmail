@@ -380,9 +380,9 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
     			$collapse = ($collapse == '' ? SM_BOX_UNCOLLAPSED : $collapse);
 		    }
 		    if ($collapse) {
-    			$link = '<a href="javascript:hidechilds(this)">'." <img src=\"../images/plus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\"></A>";
+    			$link = '<a href="javascript:void(0)">'." <img src=\"../images/plus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\"></A>";
 		    } else {
-    			$link = '<a href="javascript:hidechilds(this)">'."<img src=\"../images/minus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\"></a>";
+    			$link = '<a href="javascript:void(0)">'."<img src=\"../images/minus.gif\" border=\"1\" id=$j onclick=\"hidechilds(this)\"></a>";
 		    }
 		    $collapse_link = $link;
 		} else $collapse_link='';
@@ -414,7 +414,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0' ) {
 
 /* -------------------- MAIN ------------------------ */
 
-global $delimiter, $default_folder_prefix;
+global $delimiter, $default_folder_prefix, $left_size;
 
 // open a connection on the imap port (143)
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
@@ -453,37 +453,45 @@ $oldway = true; /* default SM behaviour */
 
 if ($advanced_tree) {
 $xtra .= <<<ECHO
-<script language="Javascript">
+<script language="Javascript" TYPE="text/javascript">
 
-<!--'
+<!--
 
     function hidechilds(el) {
     	id = el.id +".0";
         form_id = "mbx[" + el.id +"F]";
 	if (document.all) {
 	    ele = document.all[id];
-	    if(ele.style.display == 'none') {
-               ele.style.display = 'inline';
-               document.all[el.id].src="../images/minus.gif";
-               document.all[form_id].value=0;
-            } else {
-               ele.style.display = 'none';
-	       document.all[el.id].src="../images/plus.gif";
-	       document.all[form_id].value=1;
+	    if (ele) {
+	       if(ele.style.display == "none") {
+                  ele.style.display = "block";
+	          ele.style.visibility = "visible"
+                  document.all[el.id].src="../images/minus.gif";
+                  document.all[form_id].value=0;
+               } else {
+                  ele.style.display = "none";
+	          ele.style.visibility = "hidden"
+	          document.all[el.id].src="../images/plus.gif";
+	          document.all[form_id].value=1;
+	       }
 	    }
 	} else if (document.getElementById) {
 	    id = el.id+".0";
             ele = document.getElementById(id);
 	    img_ele = document.getElementById(el.id);
-	    if(ele.style.display == 'none') {
-	       ele.style.display = 'inline';
-	       img_ele.src="../images/minus.gif";
-               document.getElementById(form_id).value=0;
-	    } else {
-	       ele.style.display = 'none';
-	       img_ele.src="../images/plus.gif";
-               document.getElementById(form_id).value=1;
-	    }
+	    if (ele) {
+	       if(ele.style.display == "none") {
+	          ele.style.display = "block";
+	          ele.style.visibility = "visible"
+	          img_ele.src="../images/minus.gif";
+                  document.getElementById(form_id).value=0;
+	       } else {
+	          ele.style.display = "none";
+	          ele.style.visibility = "hidden"
+	          img_ele.src="../images/plus.gif";
+                  document.getElementById(form_id).value=1;
+	       }
+	    }   
 	}
    }
    
@@ -499,12 +507,23 @@ $xtra .= <<<ECHO
 	    	  
    function changerowcolor(el,on) {
       id = el.id;
+ECHO;
+$xtra.= "\nvar color1 = \"$color[0]\";\n".
+        "var color2 = \"$color[9]\";\n";
+$xtra .= <<<ECHO
       if (document.all) {
-         if (!on) {  document.all[id].style.background="#FFFFFF"; }
-         else {  document.all[id].style.background="#AAAAAA"; }
-      } else if (document.getElementById) {
-         if (!on) {  document.getElementById(id).style.background="#FFFFFF"; }
-         else {  document.getElementById(id).style.background="#AAAAAA"; }
+         if(!on) {
+             document.all[id].style.background = color1;
+	  } else {
+             document.all[id].style.background = color2;
+	  }
+       } else if (document.getElementById) {
+         if (!on) {  
+	    document.getElementById(id).style.background=color1; 
+	 } else {  
+	    document.getElementById(id).style.background=color2; 
+
+	 }
       }
    }
 
@@ -521,66 +540,160 @@ $xtra .= <<<ECHO
       else {
          el.style.border="ridge";}
    }
--->
+
+   function hideframe(hide) {
+   
+ECHO;
+$xtra .= "      left_size = \"$left_size\";\n";
+$xtra .= <<<ECHO
+      if (document.all) {
+    	masterf = window.parent.document.all["fs1"];
+	leftf = window.parent.document.all["left"];
+	leftcontent = document.all["leftframe"];
+	leftbutton = document.all["showf"];
+      } else if (document.getElementById) {
+	masterf = window.parent.document.getElementById("fs1");
+	leftf = window.parent.document.getElementById("left");
+      } else {
+        return false;
+      }	
+      if(hide) {
+         new_col = calc_col("20");
+         masterf.cols = new_col;
+	 document.body.scrollLeft=0;
+	 document.body.style.overflow='hidden';
+	 leftcontent.style.display = 'none';
+	 leftbutton.style.display='block';
+      } else {
+         masterf.cols = calc_col(left_size);
+	 document.body.style.overflow='';
+	 leftbutton.style.display='none';
+	 leftcontent.style.display='block';
+	 
+      }
+   }
+   
+   function calc_col(c_w) {
+
+ECHO;
+   if ($location_of_bar == 'right') {
+       $xtra .= '     right=true;';
+   } else {    
+       $xtra .= '     right=false;';
+   }
+   $xtra .= "\n";
+$xtra .= <<<ECHO
+     if (right) {
+         new_col = '*,'+c_w;
+     } else {
+         new_col = c_w+',*';
+     }
+     return new_col;
+   }	 
+         
+   function resizeframe(direction) {
+     if (document.all) {
+    	masterf = window.parent.document.all["fs1"];
+     } else if (document.getElementById) {
+	window.parent.document.getElementById("fs1");
+     } else {
+        return false;
+     }
+     
+ECHO;
+   if ($location_of_bar == 'right') {
+       $xtra .= '  colPat=/^\*,(\d+)$/;';
+   } else {    
+       $xtra .= '  colPat=/^(\d+),.*$/;';
+   }
+   $xtra .= "\n";
+  
+$xtra .= <<<ECHO
+     old_col = masterf.cols;
+     colPat.exec(old_col);
+     
+     if (direction) {
+        new_col_width = parseInt(RegExp.$1) + 25;
+	
+     } else {
+        if (parseInt(RegExp.$1) > 35) {
+           new_col_width = parseInt(RegExp.$1) - 25;
+        }
+     }
+     masterf.cols = calc_col(new_col_width);	
+   }
+
+//-->
    
 </script>
 
 ECHO;
 
 /* style definitions */
-
+/* if you use konquerer and have problems with the width of mbx_par delete the line height = 100% */
+/* if you do that then ie6 have problems :-(  solution is browserdetection  */
 $xtra .= <<<ECHO
 
 <STYLE>
 <!--
+  body {
+     margin: 0px 0px 0px 0px;
+     padding: 5px 5px 5px 5px;
+  }
   .button {
      border:outset;
      border-color:blue;
-     background-color:white;
+     background:white;
      width:99%;
      heigth:99%;
   }
 
   .mbx_par {
-     width:99%;
-     heigth:99%;
      font-size:0.8em;
+     margin-left:4px;
+     margin-right:0px;
+
   }
 
   .mbx_sub {
-     width:99%;
-     heigth:99%;
+     voice-family: "\"}\"";
+     voice-family: inherit;
      padding-left:5px;
+     padding-right:0px;
      margin-left:4px;
+     margin-right:0px;
      font-size:0.7em;
   }
 
   .par_area {
-     margin-left:5px;
-     margin-right:5px;
-     margin-bottom:5px;
-     width:99%;
-     heigth:99%;
+     margin-top:0px;
+     margin-left:4px;
+     margin-right:0px;
      padding-left:10px;
-     padding-bottom:10px;
+     padding-bottom:5px;
      border-left: solid;
      border-left-width:0.1em;
      border-left-color:blue;
      border-bottom: solid;
      border-bottom-width:0.1em;
      border-bottom-color:blue;
-     display:inline;
+     display:block;
+     height: 100%; 
   }
 
   .mailboxes {
-     padding-right:0.1em;
      padding-bottom:3px;
-     width:99%;
-     heigth:99%;
+     margin-right:4px;
+     padding-right:4px;
+     margin-left:4px;
+     padding-left:4px;
      border: groove;
      border-width:0.1em;
      border-color:green;
-     background-color:white;
+     
+ECHO;
+$xtra .=  "     background:$color[0];";
+$xtra .= <<<ECHO
   }
 
 -->
@@ -617,6 +730,15 @@ if ($auto_create_special && !isset($auto_create_done)) {
 echo "\n<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\">\n";
 
 do_hook('left_main_before');
+if ($advanced_tree) {
+   /* nice future feature, needs layout !! volunteers?   */  
+   $right_pos = $left_size - 20;
+   echo '<div style="position:absolute;top:0;border=solid;border-width:0.1em;border-color:blue;"><div ID="hidef" style="width=20;font-size:12"><A HREF="javascript:hideframe(true)"><b><<</b></a></div>';
+   echo '<div ID="showf" style="width=20;font-size:12;display:none;"><A HREF="javascript:hideframe(false)"><b>>></b></a></div>';
+   echo '<div ID="incrf" style="width=20;font-size:12"><A HREF="javascript:resizeframe(true)"><b>></b></a></div>';
+   echo '<div ID="decrf" style="width=20;font-size:12"><A HREF="javascript:resizeframe(false)"><b><</b></a></div></div>';
+   echo '<div ID="leftframe"><br><br>';
+}
 
 
 echo '<CENTER><FONT SIZE=4><B>'. _("Folders") . "</B><BR></FONT>\n\n";
@@ -742,10 +864,9 @@ for ($i = 0; $i < count($boxes); $i++) {
 	ListBoxes($boxes);
     }
 } /* if ($oldway) else ... */
-
 do_hook('left_main_after');
 sqimap_logout($imapConnection);
 
-echo "</BODY></HTML>\n";
+echo "</div></BODY></HTML>\n";
 
 ?>
