@@ -629,7 +629,7 @@ function sqimap_get_mime_ent_header ($imap_stream, $id, $mailbox, $ent) {
     return $header;
 }
 
-*/
+
 /* Queries the IMAP server and gets all header information. */
 function sqimap_get_header ($imap_stream, $read) {
     global $where, $what;
