@@ -128,7 +128,7 @@ class abook_ldap_server extends addressbook_backend {
         if($this->charset == 'utf-8') {
             if(function_exists('utf8_decode')) {
                 return utf8_decode($str);
-            } else
+            } else {
                 return $str;
             }
         } else {
