@@ -247,6 +247,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
     return $cnt;
 }
 
+
 /**
  * Expunge specified message, updated $msgs and $msort
  *
@@ -267,28 +268,6 @@ function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_ar
     if (!isset($sort) || $sort === false) {
         sqgetGlobalVar('sort',$sort,SQ_GET);
     }
-    // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
-    if ($allow_thread_sort) {
-        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox",0);
-    }
-
-    for ($i = 0; $i < count($msort); $i++) {
-        if ($msgs[$i]['ID'] == $message_id) {
-            break;
-        }
-    }
-
-    if ( isset($msgs) ) {
-        unset($msgs[$i]);
-        $msgs = array_values($msgs);
-        sqsession_register($msgs, 'msgs');
-    }
-
-    if ( isset($msort) ) {
-        unset($msort[$i]);
-        $msort = array_values($msort);
-        sqsession_register($msort, 'msort');
-    }
 
     if ($auto_expunge) {
          $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
@@ -296,26 +275,25 @@ function sqimap_mailbox_expunge_dmn($message_id, $aMbxResponse, &$server_sort_ar
          return $cnt;
     }
 
-    // And after all that mucking around, update the sort list!
-    // Remind me why the hell we need those two arrays again?!
-
-    if ( $allow_thread_sort && $thread_sort_messages ) {
-        $server_sort_array = get_thread_sort($imapConnection);
-    } elseif ( $allow_server_sort ) {
-        if (is_array($server_sort_array)) {
-            $key = array_search($message_id,$server_sort_array,true);
-            if ($key !== false) {
-                unset($server_sort_array[$key]);
-                $server_sort_array = array_values($server_sort_array);
-            } else {
-                $server_sort_array = sqimap_get_sort_order($imapConnection,$sort,$aMbxResponse);
-            }
+    // Got to grab this out of prefs, since it isn't saved from mailbox_view.php
+    if ($allow_thread_sort && getPref($data_dir, $username, "thread_$mailbox",0)) {
+        $mode = 'thread';
+    } else if ($allow_server_sort) {
+        $mode = 'server_sort';
+    } else {
+        $mode = '';
+    }
+    $error = '';
+    if (is_array($server_sort_array)) {
+        $key = array_search($message_id,$server_sort_array,true);
+        if ($key !== false) {
+            unset($server_sort_array[$key]);
+            $server_sort_array = array_values($server_sort_array);
         } else {
-            $server_sort_array = sqimap_get_sort_order($imapConnection,$sort,$aMbxResponse);
+            $server_sort_array = get_sorted_msgs_list($imapConnection,$sort,$mode,$error);
         }
     } else {
-        $server_sort_array = sqimap_get_php_sort_order($imapConnection,
-                                                   $sort,$aMbxResponse);
+        $server_sort_array = get_sorted_msgs_list($imapConnection,$sort,$mode,$error);
     }
     sqsession_register($server_sort_array,'server_sort_array');
     return $cnt;
