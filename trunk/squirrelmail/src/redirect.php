@@ -53,22 +53,13 @@ sqsession_unregister ('user_is_logged_in');
 sqsession_register ($base_uri, 'base_uri');
 
 /* get globals we me need */
-if (isset($_POST['login_username'])) {
-    $login_username = $_POST['login_username'];
+sqGetGlobalVar('login_username', $login_username);
+sqGetGlobalVar('secretkey', $secretkey);
+sqGetGlobalVar('js_autodetect_results', $js_autodetect_results);
+if(!sqGetGlobalVar('squirrelmail_language', $squirrelmail_language) || $squirrelmail_language == '') {
+	$squirrelmail_language = $squirrelmail_default_language;
 }
-if (!isset($_COOKIE['squirrelmail_language']) ||
-    $squirrelmail_language == '' ) {
-    $squirrelmail_language = $squirrelmail_default_language;
-}
-else {
-    $squirrelmail_language = $_COOKIE['squirrelmail_language'];
-}
-if (isset($_POST['secretkey'])) {
-    $secretkey = $_POST['secretkey'];
-}
-if (isset($_POST['js_autodetect_results'])) {
-    $js_autodetect_results = $_POST['js_autodetect_results'];
-}
+
 /* end of get globals */
 
 set_up_language($squirrelmail_language, true);

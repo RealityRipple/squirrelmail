@@ -15,6 +15,8 @@ Version 1.4.0 CVS
   - Updates in conf.pl to infamous delete_folder setting, including
     addition of appropriate default value for courier and UW.
   - Fix for date/time display in certain timezones
+  - Fix some features of login.php that are used by some plugins and was broken
+    by register_globals = off.
   
 Version 1.4.0 RC 2a
 -------------------
