@@ -29,11 +29,6 @@ class Deliver {
        if ($stream) {
             $this->preWriteToStream($header);
             $this->writeToStream($stream, $header);
-       } else {
-    	    /* DEBUG */
-    	    $out =  htmlspecialchars($header);
-	    $out = str_replace("\r\n",'<BR>',$out);
-	    echo $out;
        }
        $this->writeBody($message, $stream, $raw_length, $boundary);
        return $raw_length;
@@ -47,11 +42,6 @@ class Deliver {
 	    if ($stream) {
                 $this->preWriteToStream($s);
 		$this->writeToStream($stream, $s);
-	    } else {
-       	        /* DEBUG */
-        	$out =  htmlspecialchars($s);
-		$out = str_replace("\r\n",'<BR>',$out);
-		echo $out;
 	    }
         }
 	$this->writeBodyPart($message, $stream, $length_raw);
@@ -70,11 +60,6 @@ class Deliver {
 	    if ($stream) {
                 $this->preWriteToStream($s);
 		$this->writeToStream($stream, $s);
-	    } else {
-       	        /* DEBUG */
-        	$out =  htmlspecialchars($s);
-		$out = str_replace("\r\n",'<BR>',$out);
-		echo $out;
 	    }
 	}
     }
@@ -94,11 +79,6 @@ class Deliver {
 	       if ($stream) {
                   $this->preWriteToStream($body_part);     
 	          $this->writeToStream($stream, $body_part);
-	       } else {
-	          /* DEBUG */
-	    	  $out =  htmlspecialchars($tmp);
-		  $out = str_replace("\r\n",'<BR>',$out);
-		  echo $out;
 	       }
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
@@ -108,11 +88,6 @@ class Deliver {
 		   if ($stream) {
 		      $this->preWriteToStream($tmp);
 		      $this->writeToStream($stream, $tmp);
-		   } else {
-		        /* DEBUG */
-		       	$out =  htmlspecialchars($tmp);
-			$out = str_replace("\r\n",'<BR>',$out);
-		        echo $out;
                    }
 		}
 		fclose($file);
@@ -124,11 +99,6 @@ class Deliver {
 	       $length += $this->clean_crlf($body_part);
 	       if ($stream) {
 	          $this->writeToStream($stream, $body_part);
-	       } else {
-	            /* DEBUG */
-	       	    $out =  htmlspecialchars($body_part);
-		    $out = str_replace("\r\n",'<BR>',$out);
-		    echo $out;
     	       }
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
@@ -138,11 +108,6 @@ class Deliver {
 		   
 		   if ($stream) {
 		      $this->writeToStream($stream, $encoded);
-		   } else {
-		        /* DEBUG */		   
-		       	$out =  htmlspecialchars($encoded);
-			$out = str_replace("\r\n",'<BR>',$out);
-		        echo $out;
 		   }
 		}
 		fclose($file);
@@ -154,11 +119,6 @@ class Deliver {
 	if ($stream) {
            $this->preWriteToStream($body_part_trailing);     
 	   $this->writeToStream($stream, $body_part_trailing);
-	} else {
-	  /* DEBUG */
-	  $out =  htmlspecialchars($body_part_trailing);
-	  $out = str_replace("\r\n",'<BR>',$out);
-	  echo $out;
 	}
     }
     
@@ -180,7 +140,7 @@ class Deliver {
        return $stream;
     }
     
-    function getBcc($bcc) {
+    function getBcc() {
        return false;
     }
 
