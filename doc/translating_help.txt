@@ -5,23 +5,23 @@ I have tried to write the help files in plain english with good grammer.
 Since English is not my strong point you probably can't tell, but I hope it 
 helps.
 
-The help files, at this point, are devided into functional areas.
-Each .hlp file represents a different functional block of how the program looks 
-to the user.
+The help files, at this point, are devided into functional areas.  Each .hlp 
+file represents a different functional block of how the program looks to the 
+user.
 
-Hopefully as SquirrelMail is more widely used, 
-non-english translations will be used to make other non-english translations.
-You might want to keep this in mind when writing yours. Remember that these will
-be used all over the world and in many different environments so local language 
-dialects might confuse someone else. 
+Hopefully as SquirrelMail is more widely used, non-english translations will
+be used to make other non-english translations.  You might want to keep this
+in mind when writing yours.  Remember that these will be used all over the
+world and in many different environments so local language dialects might 
+confuse someone else. 
 
 File Structure
 ==============
 
-All translated files should be placed under the help directory.  Under the help 
-directory create another directory. This directory MUST be named to the two letter 
-standard abbreviation for the language. English is "en" and Polish would be "pl" 
-for example.
+All translated files should be placed under the help directory.  Under the
+help directory create another directory. This directory MUST be named to the
+two letter standard abbreviation for the language. English is "en" and Polish 
+would be "pl" for example.
 
 The help files are written in a basic xml format.  Don't worry, XML isn't hard
 at all.  All it does is contain values inside tags like <start> and </start>.
