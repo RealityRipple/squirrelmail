@@ -14,6 +14,10 @@
    setcookie("username", $username, 0, "/");
    setcookie("key", $key, 0, "/");
    setcookie("logged_in", 1, 0, "/");
+   // Refresh the language cookie.
+   if (isset($squirrelmail_language))
+      setcookie("squirrelmail_language", $squirrelmail_language,
+                time()+2592000);
 ?>
 <HTML><HEAD>
 <?

@@ -17,19 +17,16 @@
 
    // Setting the language to use for gettext if it is not English
    // (the default language) or empty.
-   if (!isset($squirrelmail_language))
-      $squirrelmail_language = getPref ($data_dir, $username, "language");
-
+   $squirrelmail_language = getPref ($data_dir, $username, "language");
    if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
-      putenv("LANG=$use_language");
+      putenv("LANG=$squirrelmail_language");
       bindtextdomain("squirrelmail", "../locale/");
       textdomain("squirrelmail");
 
       // Setting cookie to use on the login screen the next time the
       // same user logs in.
-      if (!isset($HTTP_COOKIE_VARS["squirrelmail_language"]))
-         setcookie("squirrelmail_language", $squirrelmail_language, 
-                   time()+2592000);
+      setcookie("squirrelmail_language", $squirrelmail_language, 
+                time()+2592000);
    }
 
    function displayPageHeader($color, $mailbox) {

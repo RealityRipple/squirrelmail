@@ -9,6 +9,16 @@
 	$username = "";
 	$key = "";
 	$logged_in = 0;
+
+        // $squirrelmail_language is set by a cookie when the user
+        // selects language
+        if (isset($squirrelmail_language)) {
+           if ($squirrelmail_language != "en") {
+              putenv("LANG=".$squirrelmail_language);
+              bindtextdomain("squirrelmail", "../locale/");
+              textdomain("squirrelmail");
+           }
+        }
 	
 	setcookie("username", "", time(), "/");
 	setcookie("key", "", time(), "/");

@@ -28,6 +28,8 @@
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 
+   setcookie("squirrelmail_language", $language, time()+2592000);
+
    echo "<HTML>";
    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
