@@ -3546,24 +3546,24 @@ msgstr "Carpeta Base de Mensajes Enviados"
 
 #: squirrelmail/plugins/calendar/calendar.php:74
 msgid "TODAY"
-msgstr ""
+msgstr "HOY"
 
 #: squirrelmail/plugins/calendar/day.php:79
 msgid "ADD"
-msgstr ""
+msgstr "Agregar"
 
 #: squirrelmail/plugins/calendar/day.php:93
 msgid "EDIT"
-msgstr ""
+msgstr "Editar"
 
 #: squirrelmail/plugins/calendar/day.php:95
 msgid "DEL"
-msgstr ""
+msgstr "Borrar"
 
 #: squirrelmail/plugins/calendar/event_create.php:41
 #: squirrelmail/plugins/calendar/event_edit.php:60
 msgid "Length:"
-msgstr ""
+msgstr "Duración:"
 
 #: squirrelmail/plugins/calendar/event_create.php:47
 #: squirrelmail/plugins/calendar/event_edit.php:66
@@ -3634,7 +3634,7 @@ msgstr "35 min."
 
 #: squirrelmail/plugins/calendar/functions.php:37
 msgid "45 min."
-msgstr ""
+msgstr "45 min."
 
 #: squirrelmail/plugins/calendar/functions.php:38
 msgid "1 hr."
