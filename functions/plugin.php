@@ -17,15 +17,28 @@
 
 
    $plugin_php = true;
+   $plugin_general_debug = false;
 
    // This function adds a plugin
    function use_plugin ($name) {
+      global $plugin_general_debug;
+      
       if (file_exists('../plugins/'.$name.'/setup.php')) {
+         if ($plugin_general_debug)
+	    echo "plugin:  --  Loading $name/setup.php<br>\n";
          include ('../plugins/'.$name.'/setup.php');
          $function = 'squirrelmail_plugin_init_'.$name;
          if (function_exists($function))
+	 {
+	    if ($plugin_general_debug)
+	       echo "plugin:  ---- Executing $function to init plugin<br>\n";
             $function();
+	 }
+	 elseif ($plugin_general_debug)
+	    echo "plugin:  -- Init function $function doesn't exist.<br>\n";
       }
+      elseif ($plugin_general_debug)
+         echo "plugin:  Couldn't find $name/setup.php<br>\n";
    }
 
    // This function executes a hook
@@ -50,6 +63,10 @@
    // On startup, register all plugins configured for use
    if (isset($plugins) && is_array($plugins))
       foreach ($plugins as $id => $name)
+      {
+         if ($plugin_general_debug)
+	    echo "plugin:  Attempting load of plugin $name<br>\n";
          use_plugin($name);
+      }
 
 ?>
