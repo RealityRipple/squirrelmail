@@ -7,3 +7,7 @@ body, small {
 td, th {
   font-size: 12pt;
 }
+textarea, pre {
+  font-family: monospace;
+  font-size: 11pt;
+}
