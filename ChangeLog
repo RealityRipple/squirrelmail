@@ -15,7 +15,7 @@ Version 1.3.0-DEVEL -- CVS
   - Right to left languages implementation initiated
   - Enable people with file_uploads = off to still send mail. Patch from Seth
     E. Randall.
-
+  - Moved the generic_header hook back to page_header.php. bug #554278
   
 Version 1.2.7 -- CVS
 --------------------

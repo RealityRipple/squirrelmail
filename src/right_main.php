@@ -102,9 +102,9 @@ else {
 } 
 
 global $color;
-if( isset($do_hook) && $do_hook ) {
+/* if( isset($do_hook) && $do_hook ) {
     do_hook ("generic_header");
-}
+}*/
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
