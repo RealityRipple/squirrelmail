@@ -1032,23 +1032,44 @@ function showInputForm ($session, $values=false) {
 
     /* This code is for attachments */
         if ((bool) ini_get('file_uploads')) {
-    echo '   <TR>' . "\n" .
-         '      <TD COLSPAN=2>' . "\n" .
+
+    /* Calculate the max size for an uploaded file.
+     * This is advisory for the user because we can't actually prevent
+     * people to upload too large files. */
+    $sizes = array();
+    /* php.ini vars which influence the max for uploads */
+    $configvars = array('post_max_size', 'memory_limit', 'upload_max_filesize');
+    foreach($configvars as $var) {
+        /* skip 0 or empty values */
+        if( $size = getByteSize(ini_get($var)) ) {
+            $sizes[] = $size;
+        }
+    }
+
+    if(count($sizes) > 0) {
+        $maxsize = '(max.&nbsp;' . show_readable_size( min( $sizes ) ) . ')';
+    } else {
+        $maxsize = '';
+    }
+
+    echo '   <tr>' . "\n" .
+         '      <td colspan="2">' . "\n" .
          '         <table width="100%" cellpadding="1" cellspacing="0" align="center"'.
                    ' border="0" bgcolor="'.$color[9].'">' . "\n" .
-         '            <TR>' . "\n" .
-         '               <TD>' . "\n" .
+         '            <tr>' . "\n" .
+         '               <td>' . "\n" .
          '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
                            ' border="0">' . "\n" .
-         '                    <TR>' . "\n" .
-                                 html_tag( 'td', '', 'right', '', 'VALIGN=MIDDLE' ) .
-                                 _("Attach:") . '</TD>' . "\n" .
-                                 html_tag( 'td', '', 'left', '', 'VALIGN=MIDDLE' ) .
-         '                          <INPUT NAME="attachfile" SIZE=48 TYPE="file">' . "\n" .
+         '                    <tr>' . "\n" .
+                                 html_tag( 'td', '', 'right', '', 'valign="middle"' ) .
+                                 _("Attach:") . '</td>' . "\n" .
+                                 html_tag( 'td', '', 'left', '', 'valign="middle"' ) .
+         '                          <input name="attachfile" size="48" type="file" />' . "\n" .
          '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
                                     ' value="' . _("Add") .'">' . "\n" .
-         '                       </TD>' . "\n" .
-         '                    </TR>' . "\n";
+                                    $maxsize .
+         '                       </td>' . "\n" .
+         '                    </tr>' . "\n";
     
 
     $s_a = array();
@@ -1238,7 +1259,31 @@ function ClearAttachments($composeMessage) {
     }
 }
 
+/* parse values like 8M and 2k into bytes */
+function getByteSize($ini_size) {
 
+    if(!$ini_size) return FALSE;
+
+    $ini_size = trim($ini_size);
+
+    switch(strtoupper(substr($ini_size, -1))) {
+        case 'G':
+           $bytesize = 1073741824;
+           break;
+        case 'M':
+           $bytesize = 1048576;
+           break;
+        case 'K':
+           $bytesize = 1024;
+           break;
+        default:
+           $bytesize = 1;
+    }
+
+    $bytesize *= (int)substr($ini_size, 0, -1);
+	
+    return $bytesize;
+}
 
 
 /* temporary function to make use of the deliver class.
