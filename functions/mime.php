@@ -201,7 +201,7 @@
 
    // This functions decode strings that is encoded according to 
    // RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
-   function rfc1522Decode ($string) {
+   function decodeHeader ($string) {
       // Recognizing only US-ASCII and ISO-8859. Other charsets should
       // probably be recognized as well.
       if (eregi('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=', 
@@ -213,13 +213,43 @@
             $replace = quoted_printable_decode($replace);
          }
 
-         if ($res[2] != "" && $res[2] == "15") {
-            // Remove all chararacters in iso-8859-15 that is not the same
-            // as in iso-8859-1
-            $replace = strtr($replace, "\244\246\250\255\264\270\274\275".
-                             "\276", "??????????");
-         } else if ($res[2] != "" && $res[2] != "1") {
-            // This gets rid of all characters with over 0x9F for other
+         // All HTML characters are in the 7-bit ASCII range and can
+         // be replaced before doing anything with the 8-bi
+         // characters.
+         $replace = htmlspecialchars($replace);
+
+         if ($res[2] == 1) {
+            // This if clause is debug code. -- gustavf
+            // Latin small letter o with stroke
+            while (ereg("\370", $replace))
+               $replace = ereg_replace ("\370", "&#248;", $replace);
+         } else if ($res[2] == "15") {
+            // Euro sign
+            while (ereg("\244", $replace))
+               $replace = ereg_replace ("\244", "&#8364;", $replace);
+            // Latin capital letter S with caron
+            while (ereg("\246", $replace))
+               $replace = ereg_replace ("\244", "&#352;", $replace);
+            // Latin small letter s with caron
+            while (ereg("\250", $replace))
+               $replace = ereg_replace ("\250", "&#353;", $replace);
+            // Latin capital letter Z with caron
+            while (ereg("\264", $replace))
+               $replace = ereg_replace ("\264", "&#381;", $replace);
+            // Latin small letter z with caron
+            while (ereg("\270", $replace))
+               $replace = ereg_replace ("\270", "&#382;", $replace);
+            // Latin capital ligature OE
+            while (ereg("\274", $replace))
+               $replace = ereg_replace ("\274", "&#338;", $replace);
+            // Latin small ligature oe
+            while (ereg("\275", $replace))
+               $replace = ereg_replace ("\275", "&#339;", $replace);
+            // Latin capital letter Y with diaeresis
+            while (ereg("\276", $replace))
+               $replace = ereg_replace ("\276", "&#376;", $replace);
+         } else if ($res[2] != "") {
+            // This gets rid of all characters over 0x9F for other
             // iso-8859 charsets.
             $replace = strtr($replace, "\240\241\242\243\244\245\246\247".
                              "\250\251\252\253\254\255\256\257".
@@ -243,7 +273,8 @@
             ('=\?(us-ascii|iso-8859-([0-9])+)\?(q|b)\?([^?]+)\?=',
              $replace, $string);
 
-         return (rfc1522Decode($string));
+         // In case there should be more encoding in the string: recurse
+         return (decodeHeader($string));
       } else         
          return ($string);
    }
