@@ -84,19 +84,31 @@
       echo "<OPTION>[ None ]\n";
 
    for ($i = 0; $i < count($boxes); $i++) {
-//      for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
-//         if ($boxes[$i]["flags"][$j] != "noinferiors") {
-            if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
-               $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["formatted"]);
-               echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
-            } else {
-               $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["formatted"]);
-               echo "<OPTION VALUE=\"$box\">$box2\n";
-            }
-//         }   
-//      }
+      if (count($boxes[$i]["flags"]) > 0) {
+         for ($j = 0; $j < count($boxes[$i]["flags"]); $j++) {
+            if ($boxes[$i]["flags"][$j] != "noinferiors") {
+               if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
+                  $box = $boxes[$i]["unformatted"];
+                  $box2 = replace_spaces($boxes[$i]["formatted"]);
+                  echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
+               } else {
+                  $box = $boxes[$i]["unformatted"];
+                  $box2 = replace_spaces($boxes[$i]["formatted"]);
+                  echo "<OPTION VALUE=\"$box\">$box2\n";
+               }
+            }   
+         }    
+      } else {
+         if (($boxes[$i]["unformatted"] == $special_folders[0]) && ($default_sub_of_inbox == true)) {
+            $box = $boxes[$i]["unformatted"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            echo "<OPTION SELECTED VALUE=\"$box\">$box2\n";
+         } else {
+            $box = $boxes[$i]["unformatted"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            echo "<OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
    }
    echo "</SELECT></TT><BR>\n";
    if ($show_contain_subfolders_option) {
