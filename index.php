@@ -1,6 +1,4 @@
 <?php
-   /** This redirects to the login script **/
-
    // Get the path
    $path = substr($PHP_SELF, 0, strrpos($PHP_SELF, '/'));
 
