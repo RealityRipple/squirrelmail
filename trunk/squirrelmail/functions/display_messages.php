@@ -37,13 +37,14 @@ function sqm_baseuri(){
 
 function error_message($message, $mailbox, $sort, $startMessage, $color) {
     $urlMailbox = urlencode($mailbox);
-
+    if (strtoupper($mailbox) == 'INBOX')
+		    $mailbox = _("INBOX");
     $string = '<tr><td ALIGN="center">' . $message . '</td></tr>'."\n".
                '<tr><td ALIGN="center">'.
                   '<A HREF="' . sqm_baseuri() 
                   . "src/right_main.php?sort=$sort&amp;startMessage=$startMessage"
                   . "&amp;mailbox=$urlMailbox\">" .
-	    sprintf (_("Click here to return to %s"), $mailbox) .
+    sprintf (_("Click here to return to %s"), $mailbox) .
 	    '</A></td></tr>';
     error_box($string, $color);
 }
