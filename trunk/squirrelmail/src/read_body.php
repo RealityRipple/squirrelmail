@@ -38,37 +38,16 @@ require_once(SM_PATH . 'functions/mailbox_display.php');
  * @return the index of the next valid message from the array
  */
 function findNextMessage($passed_id) {
-    global $msort, $msgs, $sort,
-           $thread_sort_messages, $allow_server_sort,
-           $server_sort_array;
-    if (!is_array($server_sort_array)) {
-        $thread_sort_messages = 0;
-        $allow_server_sort = FALSE;
-    }
+    global $server_sort_array;
     $result = -1;
-    if ($thread_sort_messages || $allow_server_sort) {
-        $count = count($server_sort_array) - 1;
-        foreach($server_sort_array as $key=>$value) {
-            if ($passed_id == $value) {
-                if ($key == $count) {
-                    break;
-                }
-                $result = $server_sort_array[$key + 1];
+    $count = count($server_sort_array) - 1;
+    foreach($server_sort_array as $key=>$value) {
+        if ($passed_id == $value) {
+            if ($key == $count) {
                 break;
             }
-        }
-    } else {
-        if (is_array($msort)) {
-            for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
-                if ($passed_id == $msgs[$key]['ID']) {
-                    next($msort);
-                    $key = key($msort);
-                    if (isset($key)){
-                        $result = $msgs[$key]['ID'];
-                        break;
-                    }
-                }
-            }
+            $result = $server_sort_array[$key + 1];
+            break;
         }
     }
     return $result;
@@ -82,37 +61,17 @@ function findNextMessage($passed_id) {
  * @return the index of the next valid message from the array
  */
 function findPreviousMessage($numMessages, $passed_id) {
-    global $msort, $sort, $msgs,
-           $thread_sort_messages,
-           $allow_server_sort, $server_sort_array;
+    global $server_sort_array;
     $result = -1;
-    if (!is_array($server_sort_array)) {
-        $thread_sort_messages = 0;
-        $allow_server_sort = FALSE;
-    }
-    if ($thread_sort_messages || $allow_server_sort ) {
-        foreach($server_sort_array as $key=>$value) {
-            if ($passed_id == $value) {
-                if ($key != 0) {
-                    $result = $server_sort_array[$key - 1];
-                }
-                break;
+    foreach($server_sort_array as $key=>$value) {
+        if ($passed_id == $value) {
+            if ($key != 0) {
+                $result = $server_sort_array[$key - 1];
             }
-        }
-    } else {
-        if (is_array($msort)) {
-            for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
-                if ($passed_id == $msgs[$key]['ID']) {
-                    prev($msort);
-                    $key = key($msort);
-                    if (isset($key)) {
-                        $result = $msgs[$key]['ID'];
-                        break;
-                    }
-                }
-            }
+            break;
         }
     }
+
     return $result;
 }
 
