@@ -315,7 +315,7 @@ function get_thread_sort ($imap_stream) {
         session_unregister('thread_new');
     }
     if (session_is_registered('server_sort_array')) {
-        session_unregister('server_srot_array');
+        session_unregister('server_sort_array');
     }
     $sid = sqimap_session_id($uid_support);
     $thread_temp = array ();
@@ -640,7 +640,7 @@ function sqimap_get_message ($imap_stream, $id, $mailbox) {
        }
     }
     } else {
-      echo "ERROR Yeah I know, not a very usefull errormessage (sqimap_get_message)";
+      echo "ERROR Yeah I know, not a very usefull errormessage (id = $id, mailbox = $mailbox sqimap_get_message)";
       exit;
     } 
     $bodystructure = implode('',$read);
