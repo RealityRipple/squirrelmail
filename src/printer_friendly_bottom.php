@@ -119,7 +119,7 @@ require_once('../functions/page_header.php');
 function pf_clean_string ( $unclean_string, $num_leading_spaces ) {
     global $data_dir, $username;
 
-    $wrap_at = getPref($data_dir, $username, 'wrap_at');
+    $wrap_at = getPref($data_dir, $username, 'wrap_at', 86);
     $wrap_at = $wrap_at - $num_leading_spaces; // header stuff
 
     $leading_spaces = '';
