@@ -25,7 +25,7 @@
          $size = 0;
       }
       
-      $data = Array();
+      $data = array();
       $total_size = 0;
       
       $continue = true;
@@ -46,7 +46,9 @@
             if ($total_size == $size) {
                $data[] = $read;
                $read = fgets($imap_stream, 9096);
-               $read = fgets($imap_stream, 9096);
+               while (!ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs)) {
+                  $read = fgets($imap_stream, 9096);
+               }
                $continue = false;
             } else if ($total_size > $size) {
                $difference = $total_size - $size;

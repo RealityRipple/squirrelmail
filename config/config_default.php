@@ -163,10 +163,10 @@
 
     $attachment_dir = $data_dir;
 
-//  This is the default size of the folder list.  Default is 200,
+//  This is the default size of the folder list.  Default is 150,
 //  but you can set it to whatever you wish.
 
-   $default_left_size = 200;
+   $default_left_size = 150;
 
 //  Some IMAP servers allow a username (like "bob") to log in if they use
 //  uppercase in their name (like "Bob" or "BOB").  This creates extra
