@@ -391,11 +391,11 @@ if ($search_all == 'all') {
     }
     for ($i=0;$i<count($perbox_count);$i++) {
         if ($perbox_count[$i] != "") {
-           break;
+            $count_all = "found";
+            break;
         }
-        $count_all = "none";
     }
-    if ($count_all == "none") {
+    if ($count_all != "found") {
         echo '<br><b>' .
              _("No Messages found") .
              '</b><br>';
