@@ -23,13 +23,14 @@
       
       if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
-      if ($msg["FLAG_ANSWERED"] == true) { $ans = "&nbsp;[A]"; }
 		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
       echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
       echo "   <td width=30%>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
       echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
-      echo "   <td width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
+		if ($msg["FLAG_ANSWERED"] == true) echo "   <td width=1%><b><small>A</small></b></td>";
+		else	echo "   <td width=1%>&nbsp;</td>";
+      echo "   <td width=%>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$bold_end</td>\n";
 
       echo "</tr>\n";
    }
@@ -232,6 +233,7 @@
          echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
          echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+      echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
       /** SUBJECT HEADER **/
       echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
       if ($sort == 4)
@@ -240,6 +242,7 @@
          echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
       else
          echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+
       echo "</TR>";
 
       

@@ -96,6 +96,7 @@
    $to_ary = $message["HEADER"]["TO"];
    while ($i < count($to_ary)) {
       $to_ary[$i] = htmlspecialchars($to_ary[$i]);
+
       if ($to_string)
          $to_string = "$to_string<BR>$to_ary[$i]";
       else
