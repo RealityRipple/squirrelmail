@@ -31,6 +31,13 @@ if(isset($session_name) && $session_name) {
  */
 ini_set('magic_quotes_runtime','0');
 
+/* Since we decided all IMAP servers must implement the UID command as defined in
+ * the IMAP RFC, we force $uid_support to be on.
+ */
+
+global $uid_support;
+$uid_support = true;
+
 sqsession_is_active();
 
 /* if running with magic_quotes_gpc then strip the slashes
