@@ -145,7 +145,7 @@ function cpw_vmailmgrd_init(){
 /**
  * function used to change password in change_password plugin hooks.
  *
- * @param array data The username/currentpw/newpw data.
+ * @param array $data The username/curpw/newpw data.
  * @return array Array of error messages.
  */
 function cpw_vmailmgrd_dochange($data)
