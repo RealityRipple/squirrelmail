@@ -165,7 +165,7 @@ if ($javascript_setting != SMPREF_JS_ON){
 setPref($data_dir, $username, 'javascript_on', $js_pref);
 
 /* Compute the URL to forward the user to. */
-    if (isset($_SESSION['session_expired_location']) {
+    if (isset($_SESSION['session_expired_location'])) {
 	$session_expired_location= $_SESSION['session_expired_location'];
     } else {
 	$session_expired_location=false;
