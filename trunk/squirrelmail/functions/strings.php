@@ -92,6 +92,7 @@
    }
 
    function translateText($body, $wrap_at, $charset) {
+      include ("../functions/url_parser.php");
       /** Add any parsing you want to in here */
       $body = trim($body);
       $body_ary = explode("\n", $body);
@@ -124,6 +125,7 @@
             $line = "<TT><FONT COLOR=000000>$line</FONT></TT><BR>\n";
          }
 
+         $line = parseUrl ($line);
          $new_body[$i] = "$line";
       }
       $bdy = implode("\n", $new_body);
