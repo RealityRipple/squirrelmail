@@ -27,8 +27,8 @@
    ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
    $base_uri = $regs[1];
 
-   setcookie("username", "", 0, $base_uri);
-   setcookie("key", "", 0, $base_uri);
+   setcookie("username", '', 0, $base_uri);
+   setcookie("key", '', 0, $base_uri);
    setcookie("logged_in", 0, 0, $base_uri);
 
    // In case the last session was not terminated properly, make sure
@@ -43,7 +43,7 @@
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
    echo "<FORM ACTION=\"redirect.php\" METHOD=\"POST\" NAME=f>\n";
    
-   $username_form_name = 'username';
+   $username_form_name = 'login_username';
    $password_form_name = 'secretkey';
    do_hook('login_top');
    
