@@ -320,6 +320,9 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
         if ($sort < 6 ) {
             $end = $num_msgs;
             $end_loop = $end;
+	    /* set shownum to 999999 to fool sqimap_get_small_header_list
+	       and rebuild the msgs_str to 1:* */
+	    $show_num = 999999;
         } else {
             /* if it's not sorted */
             if ($start_msg + ($show_num - 1) < $num_msgs) {
@@ -411,8 +414,13 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
             $mode = '';
         }
 
-        sqsession_unregister('msort');
-        sqsession_unregister('msgs');
+	if ($use_cache) {
+	    sqgetGlobalVar('msgs', $msgs, SQ_SESSION);
+	    sqgetGlobalVar('msort', $msort, SQ_SESSION);
+	} else {
+    	    sqsession_unregister('msort');
+    	    sqsession_unregister('msgs');
+	}
         switch ($mode) {
             case 'thread':
                 $id   = get_thread_sort($imapConnection);
@@ -454,6 +462,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         } // switch
         sqsession_register($msort, 'msort');
         sqsession_register($msgs,  'msgs');
+
     } /* if exists > 0 */
 
     $res = getEndMessage($start_msg, $show_num, $num_msgs);
