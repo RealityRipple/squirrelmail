@@ -44,9 +44,6 @@
    echo "</TITLE>";
    $ishelp = substr(getenv(REQUEST_URI),-8);			// If calling help, set left frame to 300
    
-   if (ishelp == 'help.php')
-       $bar_size = 300;
-   else
        $bar_size = $left_size;
    
    if ($location_of_bar == 'right')
