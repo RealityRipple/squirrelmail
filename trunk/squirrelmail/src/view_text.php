@@ -29,7 +29,12 @@ if (!isset($_GET['passed_ent_id'])) {
     $passed_ent_id = $_GET['passed_ent_id'];
 }
 $passed_id = $_GET['passed_id'];
-$ent_id = $_GET['ent_id'];
+if (isset($_GET['ent_id'])) {
+	$ent_id = $_GET['ent_id'];
+} else {
+	$ent_id = '';
+}
+
 $username = $_SESSION['username'];
 $key = $_COOKIE['key'];
 $delimiter = $_SESSION['delimiter'];
