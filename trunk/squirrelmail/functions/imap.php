@@ -12,11 +12,9 @@
  * $Id$
  */
 
-$imap_backend = 'imap';
-
-require_once('../functions/' . $imap_backend . '_mailbox.php');
-require_once('../functions/' . $imap_backend . '_messages.php');
-require_once('../functions/' . $imap_backend . '_general.php');
-require_once('../functions/' . $imap_backend . '_search.php');
+require_once('../functions/imap_mailbox.php');
+require_once('../functions/imap_messages.php');
+require_once('../functions/imap_general.php');
+require_once('../functions/imap_search.php');
 
 ?>
