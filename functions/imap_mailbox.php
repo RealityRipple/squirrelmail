@@ -11,9 +11,6 @@
  * $Id$
  */
 
-require_once('../functions/imap_utf7_encode_local.php');
-require_once('../functions/imap_utf7_decode_local.php');
-
 global $boxesnew;
 
 class mailboxes {
@@ -217,9 +214,6 @@ function sqimap_mailbox_create ($imap_stream, $mailbox, $type) {
     if (strtolower($type) == 'noselect') {
         $mailbox .= $delimiter;
     }
-
-    $mailbox = imap_utf7_encode_local($mailbox);
-
     $read_ary = sqimap_run_command($imap_stream, "CREATE \"$mailbox\"",
                                    true, $response, $message);
     sqimap_subscribe ($imap_stream, $mailbox);
@@ -349,11 +343,10 @@ function sqimap_mailbox_parse ($line, $line_lsub) {
             else {
                 $boxesall[$g]['formatted'] = '';
             }
-            $boxesall[$g]['formatted'] .= imap_utf7_decode_local(
-					  readShortMailboxName($mailbox, $delimiter));
+            $boxesall[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
         }
         else {
-            $boxesall[$g]['formatted']  = imap_utf7_decode_local($mailbox);
+            $boxesall[$g]['formatted']  = $mailbox;
         }
 
         $boxesall[$g]['unformatted-dm'] = $mailbox;
@@ -642,10 +635,10 @@ function sqimap_mailbox_list_all($imap_stream) {
                 else {
                     $boxes[$g]['formatted'] = '';
                 }
-                $boxes[$g]['formatted'] .= imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
+                $boxes[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
             }
             else {
-                $boxes[$g]['formatted']  = imap_utf7_decode_local($mailbox);
+                $boxes[$g]['formatted']  = $mailbox;
             }
 
             $boxes[$g]['unformatted-dm'] = $mailbox;
@@ -690,9 +683,7 @@ function sqimap_mailbox_tree($imap_stream) {
     if ( !isset( $boxesnew ) ) {
 
         global $data_dir, $username, $list_special_folders_first,
-               $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
-               $move_to_trash, $move_to_sent, $save_as_draft,
-               $delimiter;
+               $folder_prefix, $delimiter;
 
 
         $inbox_in_list = false;
@@ -723,11 +714,16 @@ function sqimap_mailbox_tree($imap_stream) {
                 $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
             }
 
-	    if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$lsub_ary[$i],$regs)) {
-    		$flag = $regs[1];
-    		$mbx = trim($regs[3]);
-		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
-	    }
+//	    if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$lsub_ary[$i],$regs)) {
+//    		$flag = $regs[1];
+//    		$mbx = trim($regs[3]);
+//		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
+//	    }
+	    $mbx = find_mailbox_name($lsub_ary[$i]);
+	    if (substr($mbx, -1) == $delimiter) {
+    	        $mbx = substr($mbx, 0, strlen($mbx) - 1);
+    	    }
+	    $sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => ''); 
         }
 	array_multisort($sorted_lsub_ary, SORT_ASC, SORT_STRING);
 
@@ -752,14 +748,23 @@ function sqimap_mailbox_tree($imap_stream) {
                 $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
                     '"' . $regs[2];
             }
-	    if (preg_match("/^\*\s+LIST\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$inbox_ary[0],$regs)) {
-    		$flag = $regs[1];
-    		$mbx = trim($regs[3]);
-		if (substr($mbx, -1) == $delimiter) {
-        	    $mbx = substr($mbx, 0, strlen($mbx) - 1);
-    		}
-		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
-	    }
+	    $mbx = find_mailbox_name($inbox_ary[0]);
+	    if (substr($mbx, -1) == $delimiter) {
+    	        $mbx = substr($mbx, 0, strlen($mbx) - 1);
+    	    }
+	    if ( $mbx == 'INBOX') {
+		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => ''); 
+		sqimap_subscribe($imap_stream, 'INBOX');
+	    }	
+	    
+//	    if (preg_match("/^\*\s+LIST\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$inbox_ary[0],$regs)) {
+//    		$flag = $regs[1];
+//    		$mbx = trim($regs[3]);
+//		if (substr($mbx, -1) == $delimiter) {
+//        	    $mbx = substr($mbx, 0, strlen($mbx) - 1);
+//    		}
+//    		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
+//	    }
         }
 
 	for ($i=0 ; $i < count($sorted_lsub_ary); $i++) {
