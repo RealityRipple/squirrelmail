@@ -12,6 +12,7 @@
    define('smtp_php', true);
 
    include('../functions/addressbook.php');
+   include('../functions/plugin.php');
 
    global $username, $popuser, $domain;
 
@@ -567,7 +568,10 @@
    function sendMessage($t, $c, $b, $subject, $body, $reply_id) {
       global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad;
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, $imapPort;
+      global $more_headers;
       $more_headers = Array();
+
+      do_hook("smtp_send");
 
       $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 1);
 
