@@ -5,8 +5,11 @@
 Version 1.2.1 -- 25 December 2001
 ---------------------------------
 
-  - Fixed the bug that made the folders page appear only half (#496604)
+  - Fixed the bug that kept the create, delete, and rename sections
+    from appearing in the folders page (#496604)
   - Fixed the motd bug not allowing ' (#496616)
+  - Sorting of addressbook_search fixed, thanks to the patch of
+    Cor Bosman (xs4all)
 
 Version 1.2.0 -- 25 December 2001
 ---------------------------------
