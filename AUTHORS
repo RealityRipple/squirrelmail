@@ -1,54 +1,53 @@
  Developers:
  -----------
-   Paul Thompson    <captbunzo@squirrelmail.org>
-   Luke Ehresman    <luke@squirrelmail.org> http://www.css.tayloru.edu/~lehresma
-   Tyler Akins
-   Lewis Bergman
    Brent Bice
-   Simon Dick       <simond@irrelevant.org>
+   Bron Gondwana    <brong@brong.net> http://brong.net/
+   Bryan Stalcup    <bryan@stalcup.net>
+   Gerrit Padgham   <gpadgham@commnav.com>
+   Gustav Foseid    <gustavf@squirrelmail.org> http://www.initio.no
+   Jason Munro      <jason@stdbev.com>
+   Konstantin Riabitsev <icon@duke.edu> 
+   Lewis Bergman
+   Luke Ehresman    <luke@squirrelmail.org> http://www.css.tayloru.edu/~lehresma
+   Marc Groot Koerkamp <marc@its-projects.nl>
+   Matt Phillips    <mphillip@commnav.com>
    Michael Douma
    Nathan Ehresman  <nathan@squirrelmail.org> http://www.css.tayloru.edu/~nehresma
-   Steve Falla
-   Gustav Foseid    <gustavf@squirrelmail.org> http://www.initio.no
-   Steve Gare       http://www.xantara.co.uk
-   Bron Gondwana    <brong@brong.net> http://brong.net/
-   Marc Groot Koerkamp <marc@its-projects.nl>
+   Paul Thompson    <captbunzo@squirrelmail.org>
    Peter Hutnick    <peter@hutnick.com>
-   Thijs Kinkhorst  <thijs@jaze.nl>
-   Pål Løberg       <pallo@squirrelmail.org> http://www.initio.no
    Philippe Mingo   <philippe@squirrelmail.org>
-   Jason Munro      <jason@stdbev.com>
-   Gerrit Padgham   <gpadgham@commnav.com>
-   Matt Phillips    <mphillip@commnav.com>
-   Konstantin Riabitsev <icon@duke.edu> 
-   Stefan Sels      <sm@sels.com> http://stefan.sels.com
-   Bryan Stalcup    <bryan@stalcup.net>
-   Wouter Teepe     <wouter@teepe.com>
+   Pål Løberg       <pallo@squirrelmail.org> http://www.initio.no
    Shane Wilson
+   Simon Dick       <simond@irrelevant.org>
+   Stefan Sels      <sm@sels.com> http://stefan.sels.com
+   Steve Falla
+   Steve Gare       http://www.xantara.co.uk
+   Thijs Kinkhorst  <thijs@jaze.nl>
+   Tyler Akins
+   Wouter Teepe     <wouter@teepe.com>
 
  Translations: 
  -------------
  
-    Mail-List: squirrelmail-i18n@lists.sourceforge.net
-    Leaders:   Dave Huang <khym@azeotrope.org> 
-               Philippe Mingo <philippe@squirrelmail.org>
+ Mail-List:   squirrelmail-i18n@lists.sourceforge.net
+ Leader:      Philippe Mingo <philippe@squirrelmail.org>
  
    Bulgarian     Stanislav Yordanov <stanprog@yahoo.com>  
    Catalan       Josep Sanz <jsanz@fa.upc.es>
-   Czech         Ondrej Sury <ondrej@sury.cz>
    Croatian      Albert Novak <Albert.Novak@CARNet.hr> 
+   Czech         Ondrej Sury <ondrej@sury.cz>
    Danish        Claus Rasmussen <claus@webclaus.com>
    Dutch         M.J. Prinsen <translation@prinsenonline.com>
                  Thijs Kinkhorst <thijs@jaze.nl>
                  Arjen Halma <arjen@halma.nl>
    Estonian      Lauri Jesmin <jesmin@ut.ee>
                  Peeter Russak <pezz@tkwcy.ee>
-   Finnish       Teemu Junnila <teejun@vallcom.com>
+   Finnish       Teemu Junnila <teejun@vallcom.com>   
    French        Ali Nedjimi <lrdfrx@club-internet.fr>
-                 Nicolas Cartron <nc@ncartron.com> 
+                 Nicolas Cartron <nc@ncartron.com>
                  Olivier Piquerez <piquerez@topd.ch>  
    German        Roland Bauerschmidt <rb@debian.org>
-                 Ralf Hildebrandt <Ralf.Hildebrandt@charite.de> 
+                 Ralf Hildebrandt <Ralf.Hildebrandt@charite.de>
                  Klaus Brunner <klaus@winf.at>
    Hungarian     István-Attila András <bergkatten@netscape.net>
    Icelandic     Karl Heiðar <karlh@macho.is>
@@ -67,14 +66,14 @@
    Serbian       Boris Manojlovic <steki@verat.net>
    Slovak        Ondrej Sury <ondrej@sury.cz>
    Slovenian     Tomaz Zupan <tomaz.zupan@orpo.si>
-   Spanish       Hernan Collazo <hcollazo@opengeeks.com.ar> 
+   Spanish       Hernan Collazo <hcollazo@opengeeks.com.ar>
                  Philippe Mingo <philippe@squirrelmail.org> 
    Swedish       Tobias Ekbom <tobias@vallcom.net>
                  Teemu Junnila <teejun@vallcom.com>
                  Olle Hällnäs <olle@xmms.org> 
    Taiwan        Ching <ching@kiwa.com.tw>
-   Turkish       Volkan Yildirim <volkan@ozzmosis.pleksus.net.tr>
    Thai          Nartpong Ampornaramweth <yongnarak@yahoo.com>  
+   Turkish       Volkan Yildirim <volkan@ozzmosis.pleksus.net.tr>
  
  Significant Contributions:
  --------------------------
@@ -86,16 +85,16 @@
    Paginator Help: Charles Scheidecker
    Other Code contributions:
        Alex Bleeker <beheer@hackers.nl>
+       Damien Sandras <dsandras@acm.org>
+       David Whittington <dwhittin@css.tayloru.edu>
        Jan-Pieter Cornet <johnpc@xs4all.nl>
        John Williams <jw@netpimp.com> 
-       Ondrej Sury <ondrej@globe.cz>
-       Damien Sandras <dsandras@acm.org>
-       Rob Siemborski <rjs3+@andrew.cmu.edu>
        Martin Jespersen <mbj@mbj.dk>
-       David Whittington <dwhittin@css.tayloru.edu>
+       Ondrej Sury <ondrej@globe.cz>
        Pontus Ullgren <pontus@ullgren.com>
+       Rob Siemborski <rjs3+@andrew.cmu.edu>
        Many, many others...
 
 ( We have tried to keep this up to date to give credit where it
   is due. If you feel that you have wrongfully been left off this
-  list, contact <captbunzo@squirrelmail.org> )
+  list, contact <rick@squirrelmail.org> )
