@@ -35,7 +35,7 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start
     }
     $msg = $msgs[$key];
 
-    $senderName = htmlspecialchars(sqimap_find_displayable_name($msg['FROM']));
+    $senderName = sqimap_find_displayable_name($msg['FROM']);
     if( $mailbox == 'None' ) {
         // $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
         $boxes = sqimap_mailbox_list($imapConnection);
