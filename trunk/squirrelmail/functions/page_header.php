@@ -45,18 +45,17 @@
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, ".");
       echo "<A NAME=pagetop></A>\n";
-      echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
-      echo "   <TR BGCOLOR=\"$color[9]\">\n";
-      echo "      <TD ALIGN=left WIDTH=\"30%\"><b>\n";
+      echo "<table BGCOLOR=\"$color[9]\" width=100%><tr><td>";
+      echo "<TABLE BGCOLOR=\"$color[9]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
+      echo "   <TR>\n";
+      echo "      <TD ALIGN=left><b>\n";
       displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
-      echo "      </b></TD><TD ALIGN=right WIDTH=\"70%\">\n";
-      echo "         <div align=right>" . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B></div>\n";
+      echo "      </b></TD><TD ALIGN=right>\n";
+      echo '         ' . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "</TABLE>\n\n";
-      echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
-      echo "   <TR>\n";
-      echo "      <TD ALIGN=left WIDTH=\"90%\">\n";
+      echo "   <TR BGCOLOR=\"$color[4]\">\n";
+      echo "      <TD ALIGN=left>\n";
       $urlMailbox = urlencode($mailbox);
       displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
       echo "&nbsp;&nbsp;\n";
@@ -73,10 +72,11 @@
 
       do_hook("menuline");
 
-      echo "      </TD><TD ALIGN=right nowrap WIDTH=\"10%\">\n";
+      echo "      </TD><TD ALIGN=right>\n";
       echo "         <A HREF=\"http://www.squirrelmail.org/\" TARGET=\"_blank\">SquirrelMail</A>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";
+      echo "</td></tr></table>";
   }
 ?>
