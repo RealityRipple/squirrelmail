@@ -8,8 +8,9 @@
  *
  * This implements all functions that do general imap functions.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  */
 
 /** Includes.. */

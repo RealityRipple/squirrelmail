@@ -8,8 +8,9 @@
  *
  * This implements all functions that do imap UTF7 conversions.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  */
 
 /**

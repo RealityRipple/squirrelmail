@@ -8,8 +8,9 @@
  *
  * IMAP search routines
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage imap
  * @deprecated This search interface has been largely replaced by asearch
  */
 

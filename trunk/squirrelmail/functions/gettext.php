@@ -1,7 +1,6 @@
 <?php
-
 /**
- * gettext.php
+ * SquirrelMail internal gettext functions
  *
  * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
@@ -13,9 +12,9 @@
  *   $sm_language, I think
  *
  * @link http://www.php.net/gettext Original php gettext manual
- *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
+ * @subpackage i18n
  */
 
 /** Almost everything requires global.php... */
