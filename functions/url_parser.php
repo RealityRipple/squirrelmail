@@ -35,7 +35,7 @@ $Email_RegExp_Match = '[0-9a-z]([-_.+]?[0-9a-z])*(%' . $Host_RegExp_Match .
     ')?@' . $Host_RegExp_Match;
       
 function parseEmail (&$body) {
-    global $color, $Email_RegExp_Match;
+    global $color, $Email_RegExp_Match, $compose_new_win;
     $Size = strlen($body);
       
     /*
@@ -55,8 +55,13 @@ function parseEmail (&$body) {
      */
      
     if( eregi($Email_RegExp_Match, $body, $regs) ) {
-        $body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.
+		if ($compose_new_win == '1') {
+        	$body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.urlencode($regs[0]).'" target="compose_window" onClick="comp_in_new()">'.$regs[0].'</a>', $body);
+		}
+		else {
+        	$body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.
             urlencode($regs[0]).'">'.$regs[0].'</a>', $body);
+		}
     } 
 
     /* If there are any changes, it'll just get bigger. */

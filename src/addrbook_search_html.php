@@ -105,8 +105,12 @@ function addr_display_result($res, $includesource = true) {
 /* --- End functions --- */
 
 global $mailbox;
-displayPageHeader($color, $mailbox);
-
+if ($compose_new_win == '1') {
+    compose_Header($color, $mailbox);
+}
+else {
+    displayPageHeader($color, $mailbox);
+}
 /* Initialize addressbook */
 $abook = addressbook_init();
 

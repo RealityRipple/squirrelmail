@@ -22,7 +22,7 @@ function squirrelmail_plugin_init_listcommands () {
 
 function plugin_listcommands_menu() {
     global $imapConnection, $passed_id, $color, $mailbox,
-           $subject, $ent_num, $priority_level;
+           $subject, $ent_num, $priority_level, $compose_new_win;
 
     /**
      * Array of commands we can deal with from the header. The Reply option
@@ -83,15 +83,23 @@ function plugin_listcommands_menu() {
             if (isset($purl['query'])) {
                 $url .= '&' . $purl['query'];
             }
-
-            $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
-
+            if ($compose_new_win == '1') {
+                $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr[$cmd] . '</A>';
+            }
+            else {
+                $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
+            }
             if ($cmd == 'Post') {
                 $url .= '&reply_subj=' . urlencode($subject)
                       . '&reply_id=' . $passed_id
                       . '&ent_num=' . $ent_num
                       . '&mailprio=' . $priority_level;
+            if ($compose_new_win == '1') {
+                $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr['Reply'] . '</A>';
+            }
+            else {
                 $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
+            }
             }
         } else if (eregi('^(http|ftp)', $url)) {
             $output[] = '<A HREF="' . $url . '" TARGET="_blank">'

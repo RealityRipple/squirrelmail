@@ -49,7 +49,7 @@ function displayInternalLink($path, $text, $target='') {
 
 function displayPageHeader($color, $mailbox) {
 
-    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top;
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win, $username, $datadir;
 
     displayHtmlHeader ();
 
@@ -87,16 +87,30 @@ function displayPageHeader($color, $mailbox) {
                 "if( pos >= 0 ) {\n".
                     "document.forms[i-1].elements[pos].focus();\n".
                 "}\n".
-            "}\n".
-            "// -->\n".
-            "</script>\n";
+            "}\n";
+            if ($compose_new_win == '1') {
+                $width= getPref($username, $datadir, 'editor_size', 76);
+                if ($width < 65) {
+                    $pix_width = 560;
+                }
+                else {
+                    $width = (.9*$width);
+                    $pix_width = intval($width).'0';
+                }
+                echo "function comp_in_new() {\n".
+                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
+                     ", \"compose_window\", \"width=".$pix_width.",height=650".
+                     ",scrollbars=yes,resizable=yes\");\n".
+                     "}\n";
+            }
+        echo "// -->\n".
+        	 "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         break;   
 
     }
 
     echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
-
     /** Here is the header and wrapping table **/
     $shortBoxName = readShortMailboxName($mailbox, $delimiter);
     if ( $shortBoxName == 'INBOX' ) {
@@ -119,7 +133,13 @@ function displayPageHeader($color, $mailbox) {
         . "   <TR BGCOLOR=\"$color[4]\">\n"
         . "      <TD ALIGN=left>\n";
     $urlMailbox = urlencode($mailbox);
-    displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');
+    if ($compose_new_win == '1') {
+        echo "<a href=$base_uri". "src/compose.php?mailbox=$urlMailbox target=".
+             '"compose_window" onClick="comp_in_new()">Compose</a>';
+    }
+    else {
+        displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');
+    } 
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ("src/addressbook.php", _("Addresses"), 'right');
     echo "&nbsp;&nbsp;\n";
@@ -142,4 +162,70 @@ function displayPageHeader($color, $mailbox) {
         "</TABLE>\n\n";
 }
 
+/* blatently copied/truncated/modified from the above function */
+function compose_Header($color, $mailbox) {
+
+    global $delimiter, $hide_sm_attributions, $base_uri, $PHP_SELF, $frame_top, $compose_new_win;
+
+    displayHtmlHeader ('Compose');
+
+    $module = substr( $PHP_SELF, ( strlen( $PHP_SELF ) - strlen( $base_uri ) ) * -1 );
+    if (!isset($frame_top)) {
+        $frame_top = '_top';
+    }
+
+    /*
+        Locate the first displayable form element
+    */
+    switch ( $module ) {
+    case 'src/search.php':
+        $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
+        $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
+        break;
+    default:
+        echo '<script language="JavaScript">' .
+             "\n<!--\n" .
+             "function checkForm() {\n".
+                "var f = document.forms.length;\n".
+                "var i = 0;\n".
+                "var pos = -1;\n".
+                "while( pos == -1 && i < f ) {\n".
+                    "var e = document.forms[i].elements.length;\n".
+                    "var j = 0;\n".
+                    "while( pos == -1 && j < e ) {\n".
+                        "if ( document.forms[i].elements[j].type == 'text' ) {\n".
+                            "pos = j;\n".
+                        "}\n".
+                        "j++;\n".
+                    "}\n".
+                "i++;\n".
+                "}\n".
+                "if( pos >= 0 ) {\n".
+                    "document.forms[i-1].elements[pos].focus();\n".
+                "}\n".
+            "}\n";
+            if ($compose_new_win == '1') {
+                $width= getPref($username, $datadir, 'editor_size', 76);
+                if ($width < 65) {
+                    $pix_width = 560;
+                }
+                else {
+                    $width = (.9*$width);
+                    $pix_width = intval($width).'0';
+                }
+                echo "function comp_in_new() {\n".
+                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
+                     ", \"compose_window\", \"width=".$pix_width.",height=650".
+                     ",scrollbars=yes,resizable=yes\");\n".
+                     "}\n";
+            }
+        echo "// -->\n".
+        	 "</script>\n";
+        $onload = "onLoad=\"checkForm();\"";
+        break;   
+
+    }
+
+    echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\" $onload>\n\n";
+}
 ?>

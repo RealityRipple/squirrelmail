@@ -519,6 +519,9 @@ if (isset ($message->header->cc[0]) && trim($message->header->cc[0])) {
         }
     }
 }
+else {
+    $cc_string = '';
+}
 
 /** FORMAT THE BCC STRING **/
 $i = 0;
@@ -559,6 +562,9 @@ if (isset ($message->header->bcc[0]) && trim($message->header->bcc[0])){
             }
         }
     }
+}
+else {
+    $bcc_string = '';
 }
 
 if ($default_use_priority) {
@@ -620,7 +626,11 @@ if ($where && $what) {
 echo _("Delete") . '</A>&nbsp;';
 if (($mailbox == $draft_folder) && ($save_as_draft)) {
     echo '|&nbsp;<A HREF="' . $base_uri .
-         "src/compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$bcc_string&subject=$url_subj&draft_id=$passed_id&ent_num=$ent_num\">".
+         "src/compose.php?mailbox=$mailbox&send_to=$to_string&send_to_cc=$cc_string&send_to_bcc=$bcc_string&subject=$url_subj&draft_id=$passed_id&ent_num=$ent_num\"";
+    if ($compose_new_win == '1') {
+        echo 'TARGET="compose_window" onClick="comp_in_new()"';
+    }
+    echo '>'.
          _("Resume Draft") . '</a>';
 }
 
@@ -657,17 +667,29 @@ echo                '</SMALL>' .
                    '<SMALL>' .
                    '<A HREF="' . $base_uri . "src/compose.php?forward_id=$passed_id&forward_subj=$url_subj&".
                     ($default_use_priority?"mailprio=$priority_level&":"")
-                    ."mailbox=$urlMailbox&ent_num=$ent_num\">" .
+                    ."mailbox=$urlMailbox&ent_num=$ent_num\"";
+    if ($compose_new_win == '1') {
+        echo 'TARGET="compose_window" onClick="comp_in_new()"';
+    }
+    echo '>'.
     _("Forward") .
     '</A>&nbsp;|&nbsp;' .
                    '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replyto&reply_subj=$url_subj&".
                     ($default_use_priority?"mailprio=$priority_level&":"").
-                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\"";
+    if ($compose_new_win == '1') {
+        echo 'TARGET="compose_window" onClick="comp_in_new()"';
+    }
+    echo '>'.
     _("Reply") .
     '</A>&nbsp;|&nbsp;' .
                    '<A HREF="' . $base_uri . "src/compose.php?send_to=$url_replytoall&send_to_cc=$url_replytoallcc&reply_subj=$url_subj&".
                     ($default_use_priority?"mailprio=$priority_level&":"").
-                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\">" .
+                    "reply_id=$passed_id&mailbox=$urlMailbox&ent_num=$ent_num\"";
+    if ($compose_new_win == '1') {
+        echo 'TARGET="compose_window" onClick="comp_in_new()"';
+    }
+    echo '>'.
     _("Reply All") .
     '</A>&nbsp;&nbsp;' .
                    '</SMALL>' .
