@@ -544,7 +544,7 @@
             
             $body .= "<TABLE WIDTH=100% CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n";
             $body .= "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n";
-            $body .= _('Attachments') . ':';
+            $body .= _("Attachments") . ':';
             $body .= "</B></TH></TR><TR><TD>\n";
             
             $body .= "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n";
@@ -576,7 +576,7 @@
                   "../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
                if ($where && $what)
                   $DefaultLink .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
-               $Links['download link']['text'] = _('download');
+               $Links['download link']['text'] = _("download");
                $Links['download link']['href'] = 
                    "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
                $ImageURL = '';
