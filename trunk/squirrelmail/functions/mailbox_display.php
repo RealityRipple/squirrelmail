@@ -362,6 +362,10 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
         $msort = array();
     }
 
+    if (!isset($msgs)) {
+        $msgs = array();
+    }
+
     $start = microtime();
     /* If autoexpunge is turned on, then do it now. */
     $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
