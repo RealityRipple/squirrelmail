@@ -47,7 +47,6 @@ sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
 sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
 
 /** SESSION/POST/GET VARS */
-sqgetGlobalVar('smaction',$action);
 sqgetGlobalVar('session',$session);
 sqgetGlobalVar('mailbox',$mailbox);
 if(!sqgetGlobalVar('identity',$identity)) {
@@ -90,6 +89,15 @@ if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
 
 /** GET VARS */
 sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
+
+/** get smaction */
+if ( !sqgetGlobalVar('smaction',$action) )
+{
+  if ( sqgetGlobalVar('smaction_reply',$tmp) )      $action = 'reply';
+  if ( sqgetGlobalVar('smaction_reply_all',$tmp) )  $action = 'reply_all';
+  if ( sqgetGlobalVar('smaction_forward',$tmp) )    $action = 'forward';
+  if ( sqgetGlobalVar('smaction_attache',$tmp) )    $action = 'forward_as_attachment';
+}
 
 /* Location (For HTTP 1.1 Header("Location: ...") redirects) */
 $location = get_location();
