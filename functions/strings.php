@@ -59,6 +59,9 @@
 
    /** Returns an array of email addresses **/
    function parseAddrs($text) {
+      if (trim($text) == "") {
+         return;
+      }
       $text = str_replace(" ", "", $text);
       $text = str_replace(",", ";", $text);
       $array = explode(";", $text);
