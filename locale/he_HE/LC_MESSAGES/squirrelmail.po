@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2002-07-04 12:19+0300\n"
+"POT-Creation-Date: 2002-07-04 12:53+0300\n"
 "PO-Revision-Date: 2002-05-03 13:21+0200\n"
 "Last-Translator: yoav <yoavb@zavit.net.il>\n"
 "Language-Team: HEBREW <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -4596,14 +4596,6 @@ msgid ""
 "remotely."
 msgstr ""
 
-#: squirrelmail/po/independent_strings.txt:18
-msgid "Delivery error report"
-msgstr ""
-
-#: squirrelmail/po/independent_strings.txt:19
-msgid "Undelivered Message Headers"
-msgstr ""
-
 #: squirrelmail/plugins/abook_take/setup.php:109
 msgid "Take Address"
 msgstr "הוסף כתובת"
@@ -4635,3 +4627,11 @@ msgstr "הסתר את הקופסא"
 #: squirrelmail/plugins/abook_take/setup.php:163
 msgid "Try to verify addresses"
 msgstr "נסה לוודא כתובת דוא\"ל"
+
+#: squirrelmail/po/independent_strings.txt:18
+msgid "Delivery error report"
+msgstr ""
+
+#: squirrelmail/po/independent_strings.txt:19
+msgid "Undelivered Message Headers"
+msgstr ""

@@ -75,7 +75,7 @@
 
         '<br><form method=post action="options.php">'.
         '<center>'.
-        html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' )
+        html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
             html_tag( 'tr' ) .
                 html_tag( 'th', _("What to Scan:"), 'right', '', 'nowrap' ) .
                 html_tag( 'td', '', 'left' ) .
@@ -110,7 +110,7 @@
         }
         echo html_tag( 'div', '', 'center' ) .
              '<form action="options.php" method=post>'.
-             html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' )
+             html_tag( 'table', '', '', '', 'border="0" cellpadding="2" cellspacing="0"' ) .
              html_tag( 'tr' ) .
                 html_tag( 'td', _("Match:"), 'left' ) .
                 html_tag( 'td', '', 'left' ) .
@@ -178,14 +178,13 @@
 
     }
 
-	echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' )
+	echo html_tag( 'table', '', 'center', '', 'border="0" cellpadding="3" cellspacing="0"' );
 
     for ($i=0; $i < count($filters); $i++) {
 
         $clr = (($i % 2)?$color[0]:$color[9]);
         $fdr = ($folder_prefix)?str_replace($folder_prefix, "", $filters[$i]["folder"]):$filters[$i]["folder"];
-        echo "<tr bgcolor=\"$clr\"><td><small>".
-        echo html_tag( 'tr', '', $clr ) .
+        echo html_tag( 'tr', '', '', $clr ) .
                    html_tag( 'td',
                        '<small>' .
                        "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
