@@ -852,25 +852,25 @@ function asearch_print_form_basic($imapConnection, &$boxes, $mailbox_array, $bio
 
 /** Print the $msgs messages from $mailbox mailbox
  */
-function asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $msgs, $cnt, $sort, $color, $where, $what)
+function asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $id, $cnt, $sort, $color, $where, $what)
 {
 	if ($cnt > 0) {
 		global $allow_server_sort, $allow_thread_sort, $thread_sort_messages;
-
+        $msgs = sqimap_get_small_header_list ($imapConnection, $id, count($id));
 		$thread_sort_messages = 0;
 		if ($allow_thread_sort) {
 			global $data_dir, $username;
 			$thread_sort_messages = getPref($data_dir, $username, 'thread_' . $mailbox);
-			$msort = $msgs;
-			$real_sort = 6;
+			//$msort = $msgs;
+			//$real_sort = 6;
 		}
 		elseif ($allow_server_sort) {
-			$msort = $msgs;
-			$real_sort = 6;
+			//$msort = $msgs;
+			//$real_sort = 6;
 		}
 		else {
-			$msort = calc_msort($msgs, $sort);
-			$real_sort = $sort;
+			//$msort = calc_msort($msgs, $sort);
+			//$real_sort = $sort;
 		}
 
 		$mailbox_display = asearch_get_mailbox_display($mailbox);
@@ -886,12 +886,12 @@ function asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $ms
 
 		echo '<tr><td>';
 		if ($devel)
-			mail_message_listing_beginning($imapConnection, $mbxresponse, $mailbox, $real_sort, $msg_cnt_str, $mailbox_title, 1, 1);
+			mail_message_listing_beginning($imapConnection, $mbxresponse, $mailbox, $sort, $msg_cnt_str, $mailbox_title, 1, 1);
 		else
-			mail_message_listing_beginning($imapConnection, $mailbox, $real_sort, $msg_cnt_str, $mailbox_title, 1, 1);
+			mail_message_listing_beginning($imapConnection, $mailbox, $sort, $msg_cnt_str, $mailbox_title, 1, 1);
 		echo '</td></tr>';
 
-		echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';  
+		echo '<tr><td HEIGHT="5" BGCOLOR="'.$color[4].'"></td></tr>';
 
 		echo '<tr><td>';
 		echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
@@ -900,17 +900,17 @@ function asearch_print_mailbox_msgs($imapConnection, $mbxresponse, $mailbox, $ms
 		echo '       <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[5].'">';
 		echo '        <tr><td>';
 		printHeader($mailbox, $sort, $color, !$thread_sort_messages);
-		displayMessageArray($imapConnection, $cnt, 1, $msort, $mailbox, $real_sort, $color, $cnt, $where, $what);
+		displayMessageArray($imapConnection, $cnt, 1, $id, $msgs, $mailbox, $sort, $cnt, $where, $what);
 		echo '        </td></tr>';
 		echo '       </table>';
 		echo '     </td></tr>';
 		echo '    </table>';
-		mail_message_listing_end($cnt, '', $msg_cnt_str, $color); 
+		mail_message_listing_end($cnt, '', $msg_cnt_str, $color);
 		echo '</td></tr>';
 
 		echo '</table>';
 	}
-}			      
+}
 
 /**
  * @param array $boxes mailboxes array (reference)
@@ -935,8 +935,9 @@ sqgetGlobalVar('delimiter', $delimiter, SQ_SESSION);
 sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 if ( sqgetGlobalVar('checkall', $temp, SQ_GET) ) {
-  $checkall = (int) $temp;
+    $checkall = (int) $temp;
 }
+
 
 $search_button_html = _("Search");
 $search_button_text = asearch_unhtmlentities($search_button_html);
@@ -1374,7 +1375,7 @@ if ($submit == $search_button_text) {
 			foreach($mboxes_msgs as $mailbox => $msgs) {
 				echo '<br />';
 				$mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
-				$msgs = fillMessageArray($imapConnection, $msgs, count($msgs));
+				//$msgs = sqimap_get_small_header_list ($imapConnection, $msgs, count($msgs));
 /* For now just keep the first criteria to make the regular search happy if the user tries to come back to search */
 /*			$where = asearch_serialize($where_array);
 				$what = asearch_serialize($what_array);*/

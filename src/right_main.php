@@ -129,26 +129,6 @@ if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
    $mailbox = 'INBOX';
 }
 
-/* decide if we are thread sorting or not */
-if ($allow_thread_sort == TRUE) {
-    if (isset($set_thread)) {
-        if ($set_thread == 1) {
-            setPref($data_dir, $username, "thread_$mailbox", 1);
-            $thread_sort_messages = '1';
-        }
-        elseif ($set_thread == 2)  {
-            setPref($data_dir, $username, "thread_$mailbox", 0);
-            $thread_sort_messages = '0';
-        }
-    }
-    else {
-        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox");
-    }
-}
-else {
-    $thread_sort_messages = 0;
-}
-
 do_hook ('generic_header');
 
 $aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox);
@@ -178,13 +158,39 @@ if ($aLastSelectedMailbox && !isset($newsort)) {
                $aMbxResponse['SORT_ARRAY'] = $server_sort_array;
            }
        }
-    } 
+    }
 }
- 
+
 $aLastSelectedMailbox['NAME'] = $mailbox;
 $aLastSelectedMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
 $aLastSelectedMailbox['UIDVALIDITY'] = $aMbxResponse['UIDVALIDITY'];
 $aLastSelectedMailbox['UIDNEXT'] = $aMbxResponse['UIDNEXT'];
+
+/* decide if we are thread sorting or not */
+if ($allow_thread_sort == TRUE) {
+    if (isset($set_thread)) {
+        $aMbxResponse['SORT_ARRAY'] = false;
+        if (sqsession_is_registered('indent_array')) {
+            sqsession_unregister('indent_array');
+        }
+        if (sqsession_is_registered('server_sort_array')) {
+            sqsession_unregister('server_sort_array');
+        }
+        if ($set_thread == 1) {
+            setPref($data_dir, $username, "thread_$mailbox", 1);
+            $thread_sort_messages = '1';
+        } else if ($set_thread == 2)  {
+            setPref($data_dir, $username, "thread_$mailbox", 0);
+            $thread_sort_messages = '0';
+        }
+    } else {
+        $thread_sort_messages = getPref($data_dir, $username, "thread_$mailbox");
+    }
+} else {
+    $thread_sort_messages = 0;
+}
+
+
 
 if ($composenew) {
     $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
@@ -236,8 +242,8 @@ if (! isset($use_mailbox_cache)) {
 }
 
 if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
-    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, 
-                           $startMessage, $sort, $color, $show_num, 
+    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
+                           $startMessage, $sort, $color, $show_num,
                            $use_mailbox_cache, '',$aMbxResponse);
 } else {
     if (sqsession_is_registered('msgs')) {
