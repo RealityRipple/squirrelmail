@@ -931,6 +931,7 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
             $DefaultLink =
                 "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
             if ($where && $what) {
+	       $DefaultLink = '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
             }
             $Links['download link']['text'] = _("download");
             $Links['download link']['href'] =
