@@ -47,8 +47,10 @@ if (!isset($_SESSION['base_uri'])) {
 } else {
     $base_uri = $_SESSION['base_uri'];
 }
-sqsession_destroy();
+
 do_hook('logout');
+
+sqsession_destroy();
 
 if ($signout_page) {
     header('Status: 303 See Other');
@@ -56,16 +58,17 @@ if ($signout_page) {
     exit; /* we send no content if we're redirecting. */
 }
 ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-   <head>
+<head>
 <?php
     if ($theme_css != '') {
 ?>
-<link rel="stylesheet" type="text/css" href="<?php echo $theme_css ?>">
+   <link rel="stylesheet" type="text/css" href="<?php echo $theme_css ?>">
 <?php
     }
 ?>
-<title><?php echo $org_title ?> - Signout</title>
+   <title><?php echo $org_title ?> - Signout</title>
 </head>
 <body text="<?php echo $color[8] ?>" bgcolor="<?php echo $color[4] ?>" 
 link="<?php echo $color[7] ?>" vlink="<?php echo $color[7] ?>"
