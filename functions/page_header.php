@@ -57,6 +57,15 @@
       echo "</HEAD>\n\n";
    }
 
+   function displayInternalLink ($path, $text, $target="") {
+      global $base_uri;
+
+      if ($target != "")
+         $target = " target=\"$target\"";
+
+      echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
+   }
+
    function displayPageHeader($color, $mailbox) {
       displayHtmlHeader ($color);
 
@@ -69,9 +78,9 @@
       $shortBoxName = stripslashes($shortBoxName);
       echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
       echo "   <TR BGCOLOR=\"$color[9]\">\n";
-      echo "      <TD ALIGN=left WIDTH=\"30%\">\n";
-      echo "         <A HREF=\"signout.php\" TARGET=\"_top\"><B>" . _("Sign Out") . "</B></A>\n";
-      echo "      </TD><TD ALIGN=right WIDTH=\"70%\">\n";
+      echo "      <TD ALIGN=left WIDTH=\"30%\"><b>\n";
+      displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
+      echo "      </b></TD><TD ALIGN=right WIDTH=\"70%\">\n";
       echo "         <div align=right>" . _("Current Folder: ") . "<B>$shortBoxName&nbsp;</B></div>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
@@ -80,11 +89,16 @@
       echo "   <TR>\n";
       echo "      <TD ALIGN=left WIDTH=\"70%\">\n";
       $urlMailbox = $mailbox;
-      echo "         <A HREF=\"compose.php?mailbox=$urlMailbox\">" . _("Compose") . "</A>&nbsp;&nbsp;\n";
-      echo "         <A HREF=\"addressbook.php\">" . _("Addresses") . "</A>&nbsp;&nbsp;\n";
-      echo "         <A HREF=\"folders.php\">" . _("Folders") . "</A>&nbsp;&nbsp;\n";
-      echo "         <A HREF=\"options.php\">" . _("Options") . "</A>&nbsp;&nbsp;\n";
-      echo "         <A HREF=\"webmail.php?right_frame=help.php\" TARGET=\"Help Me!\">" . _("Help") . "</A>&nbsp;&nbsp;";
+      displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
+      echo "&nbsp;&nbsp;\n";
+      displayInternalLink ("src/addressbook.php", _("Addresses"), "right");
+      echo "&nbsp;&nbsp;\n";
+      displayInternalLink ("src/folders.php", _("Folders"), "right");
+      echo "&nbsp;&nbsp;\n";
+      displayInternalLink ("src/options.php", _("Options"), "right");
+      echo "&nbsp;&nbsp;\n";
+      displayInternalLink ("src/webmail.php?right_frame=help.php", _("Help"), "Help Me!");
+      echo "&nbsp;&nbsp;\n";
 
       do_hook("menuline");
 

@@ -1,21 +1,35 @@
 <?php
    /**
-    **  webmail.php
+    **  webmail.php -- Displays the main frameset
     **
-    **  This simply creates the frames.
+    **  Copyright (c) 2000 The SquirrelMail development team
+    **  Licensed under the GNU GPL. For full terms see the file COPYING.
+    **
+    **  This file generates the main frameset. The files that are
+    **  shown can be given as parameters. If the user is not logged in
+    **  this file will verify username and password.
     **
     **/
 
+   // Before starting the session, the base URI must be known.
+   // Assuming that this file is in the src/ subdirectory (or
+   // something).
+   ereg ("(^.*/)[^/]+/[^/]+$", $PHP_SELF, $regs);
+   $base_uri = $regs[1];
+
+   session_set_cookie_params (0, $base_uri);
    session_start();
+
+   session_register ("base_uri");
 
    if(!isset($username)) {
       echo _("You need a valid user and password to access this page!");
       exit;
    }
 
-   setcookie("username", $username, 0, "/");
-   setcookie("key", $key, 0, "/");
-   setcookie("logged_in", 1, 0, "/");
+   setcookie("username", $username, 0, $base_uri);
+   setcookie("key", $key, 0, $base_uri);
+   setcookie("logged_in", 1, 0, $base_uri);
    
    // Refresh the language cookie.
    if (isset($squirrelmail_language)) {
@@ -30,7 +44,7 @@
    if (!isset($auth_php))
       include ("../functions/auth.php");
 
-   if (session_is_registered("user_is_logged_in")) {
+   if (!session_is_registered("user_is_logged_in")) {
       do_hook ("login_before");
       // verify that username and password are correct
       $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
