@@ -9,7 +9,7 @@
  * Loads preferences from the $username.pref file used by almost
  * every other script in the source directory and alswhere.
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
