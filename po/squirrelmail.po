@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-07-21 21:30+0300\n"
+"POT-Creation-Date: 2003-08-20 12:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Draft Saved"
 msgstr ""
 
-msgid "Your Message has been sent"
+msgid "Your Message has been sent."
 msgstr ""
 
 msgid "From:"
@@ -595,10 +595,10 @@ msgstr ""
 msgid "Message not printable"
 msgstr ""
 
-msgid "Printer Friendly"
+msgid "CC"
 msgstr ""
 
-msgid "CC"
+msgid "Printer Friendly"
 msgstr ""
 
 msgid "Print"
@@ -635,7 +635,7 @@ msgstr ""
 msgid "Read receipt"
 msgstr ""
 
-msgid "send"
+msgid "sent"
 msgstr ""
 
 msgid "requested"
@@ -734,6 +734,9 @@ msgid "forget"
 msgstr ""
 
 msgid "Recent Searches"
+msgstr ""
+
+msgid "Missing"
 msgstr ""
 
 msgid "Exclude Criteria:"
@@ -893,6 +896,9 @@ msgid "Viewing Full Header"
 msgstr ""
 
 msgid "Viewing a text attachment"
+msgstr ""
+
+msgid "Folder List"
 msgstr ""
 
 msgid "Personal address book"
@@ -1108,12 +1114,6 @@ msgstr ""
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
-msgid "Unknown user or password incorrect."
-msgstr ""
-
-msgid "Click here to try again"
-msgstr ""
-
 #, c-format
 msgid "Click here to return to %s"
 msgstr ""
@@ -1185,6 +1185,24 @@ msgid ""
 "(using configure option --enable-mbstring)."
 msgstr ""
 
+msgid "ERROR : Could not complete request."
+msgstr ""
+
+msgid "ERROR : Bad or malformed request."
+msgstr ""
+
+msgid "ERROR : Imap server closed the connection."
+msgstr ""
+
+msgid "ERROR : Unknown imap response."
+msgstr ""
+
+msgid "Reason Given: "
+msgstr ""
+
+msgid "Query:"
+msgstr ""
+
 msgid "ERROR : No available imapstream."
 msgstr ""
 
@@ -1197,25 +1215,7 @@ msgstr ""
 msgid "ERROR : Connection dropped by imap-server."
 msgstr ""
 
-msgid "Query:"
-msgstr ""
-
-msgid "ERROR : Could not complete request."
-msgstr ""
-
-msgid "Reason Given: "
-msgstr ""
-
-msgid "ERROR : Bad or malformed request."
-msgstr ""
-
 msgid "Server responded: "
-msgstr ""
-
-msgid "ERROR : Imap server closed the connection."
-msgstr ""
-
-msgid "ERROR : Unknown imap response."
 msgstr ""
 
 #, c-format
@@ -1231,6 +1231,9 @@ msgid "Unknown error: %s"
 msgstr ""
 
 msgid "Read data:"
+msgstr ""
+
+msgid "Unknown user or password incorrect."
 msgstr ""
 
 msgid "ERROR : Could not append message to"
@@ -1306,6 +1309,9 @@ msgid "Unthread View"
 msgstr ""
 
 msgid "Thread View"
+msgstr ""
+
+msgid "Click here to change the sorting of the message list"
 msgstr ""
 
 msgid "Toggle All"
@@ -1555,6 +1561,9 @@ msgid "Height of Compose Window"
 msgstr ""
 
 msgid "Append Signature before Reply/Forward Text"
+msgstr ""
+
+msgid "Strip signature when replying"
 msgstr ""
 
 msgid "Enable Sort by of Receive Date"
@@ -2273,6 +2282,7 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
+#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2598,6 +2608,12 @@ msgid "Fetch Mail"
 msgstr ""
 
 msgid "Remote POP server Fetching Mail"
+msgstr ""
+
+msgid "No POP3 servers configured yet."
+msgstr ""
+
+msgid "Click here to go to the options page."
 msgstr ""
 
 msgid "Fetching from "

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-07-21 21:30+0300\n"
+"POT-Creation-Date: 2003-08-20 12:38+0200\n"
 "PO-Revision-Date: 2003-04-01 19:57+0100\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -610,11 +610,11 @@ msgstr ""
 msgid "Message not printable"
 msgstr "Este mensaje no puede imprimirse"
 
-msgid "Printer Friendly"
-msgstr "Vista Preliminar"
-
 msgid "CC"
 msgstr "CC"
+
+msgid "Printer Friendly"
+msgstr "Vista Preliminar"
 
 msgid "Print"
 msgstr "Imprimir"
@@ -650,7 +650,8 @@ msgstr "Cliente"
 msgid "Read receipt"
 msgstr "Confirmación de lectura"
 
-msgid "send"
+#, fuzzy
+msgid "sent"
 msgstr "enviada"
 
 msgid "requested"
@@ -752,6 +753,9 @@ msgstr "olvidar"
 
 msgid "Recent Searches"
 msgstr "Búsquedas recientes"
+
+msgid "Missing"
+msgstr ""
 
 msgid "Exclude Criteria:"
 msgstr ""
@@ -911,6 +915,10 @@ msgstr "Ver Encabezados Completos"
 
 msgid "Viewing a text attachment"
 msgstr "Ver un texto adosado"
+
+#, fuzzy
+msgid "Folder List"
+msgstr "Carpetas"
 
 msgid "Personal address book"
 msgstr "Libreta personal de direcciones"
@@ -1125,12 +1133,6 @@ msgstr "D, G:i"
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Archivo de preferencias %s no encontrado. Saliendo anormalmente."
 
-msgid "Unknown user or password incorrect."
-msgstr "Usuario o contraseña incorrecto."
-
-msgid "Click here to try again"
-msgstr "Pulse aquí para intentarlo de nuevo"
-
 #, c-format
 msgid "Click here to return to %s"
 msgstr "Pulse aquí para volver a %s"
@@ -1218,38 +1220,38 @@ msgstr ""
 "Error de sistema. Avise al administrador que necesita una versión de php4 "
 "con la opción multibyte activada (--with-mbstring)."
 
-msgid "ERROR : No available imapstream."
-msgstr "ERROR : No hay ningún canal IMAP disponible."
-
-msgid "ERROR : Bad function call."
-msgstr ""
-
-msgid "Reason:"
-msgstr "Motivo:"
-
-msgid "ERROR : Connection dropped by imap-server."
-msgstr ""
-
-msgid "Query:"
-msgstr "Consulta:"
-
 msgid "ERROR : Could not complete request."
 msgstr "ERROR: No se pudo completar el pedido."
 
-msgid "Reason Given: "
-msgstr "Razón dada: "
-
 msgid "ERROR : Bad or malformed request."
 msgstr "ERROR: pedido erroneo o con formato erroneo."
-
-msgid "Server responded: "
-msgstr "El servidor respondió: "
 
 msgid "ERROR : Imap server closed the connection."
 msgstr "ERROR: El servidor IMAP cerró la conexión."
 
 msgid "ERROR : Unknown imap response."
 msgstr "Error: Respuesta imap desconocida"
+
+msgid "Reason Given: "
+msgstr "Razón dada: "
+
+msgid "Query:"
+msgstr "Consulta:"
+
+msgid "ERROR : No available imapstream."
+msgstr "ERROR : No hay ningún canal IMAP disponible."
+
+msgid "ERROR : Bad function call."
+msgstr "ERROR : Llamada errónea a función."
+
+msgid "Reason:"
+msgstr "Motivo:"
+
+msgid "ERROR : Connection dropped by imap-server."
+msgstr "ERROR : Conexión descartada por servidor Imap"
+
+msgid "Server responded: "
+msgstr "El servidor respondió: "
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
@@ -1265,6 +1267,9 @@ msgstr "Error desconocido: %s"
 
 msgid "Read data:"
 msgstr "Leer datos:"
+
+msgid "Unknown user or password incorrect."
+msgstr "Usuario o contraseña incorrecto."
 
 msgid "ERROR : Could not append message to"
 msgstr "ERROR: No se puede agregar el mensaje a"
@@ -1287,13 +1292,15 @@ msgid "Unknown response from IMAP server: "
 msgstr "Contestación desconocida del servidor IMAP:"
 
 msgid "The server couldn't find the message you requested."
-msgstr ""
+msgstr "El servidor no ha podido encontrar el mensaje solicitado."
 
 msgid ""
 "Most probably your message list was out of date and the message has been "
 "moved away or deleted (perhaps by another program accessing the same "
 "mailbox)."
 msgstr ""
+"Seguramente su lista de mensajes estaba desfasada y su mensaje ha sido "
+"movio o eliminado (Quizás por otra conexión simultánea)."
 
 msgid "Unknown date"
 msgstr "Fecha desconocida"
@@ -1344,6 +1351,9 @@ msgstr "Quitar Orden Temático"
 
 msgid "Thread View"
 msgstr "Orden Temático"
+
+msgid "Click here to change the sorting of the message list"
+msgstr ""
 
 msgid "Toggle All"
 msgstr "Cambia Todos"
@@ -1528,7 +1538,7 @@ msgid "Maximum Number of Pages to Show"
 msgstr "Número Máximo de Páginas a Mostrar"
 
 msgid "Always Show Full Date"
-msgstr ""
+msgstr "Mostrar siempre fecha completa"
 
 msgid "Message Display and Composition"
 msgstr "Visualización y Composición de Mensajes"
@@ -1595,6 +1605,9 @@ msgstr "Alto de la Ventana de Composición"
 
 msgid "Append Signature before Reply/Forward Text"
 msgstr "Agregar Firma Antes del Bloque de Referencia"
+
+msgid "Strip signature when replying"
+msgstr ""
 
 msgid "Enable Sort by of Receive Date"
 msgstr "Activar la Ordenación por Fecha de Recepción"
@@ -2348,6 +2361,7 @@ msgstr ""
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "GRATUITO - Lista de conocidos SPAMERS de SPAMHaus."
 
+#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -2719,6 +2733,14 @@ msgstr "Recoger Correo"
 
 msgid "Remote POP server Fetching Mail"
 msgstr "Recogida POP3 de Correo Remoto"
+
+#, fuzzy
+msgid "No POP3 servers configured yet."
+msgstr "No se ha especificado un servidor"
+
+#, fuzzy
+msgid "Click here to go to the options page."
+msgstr "Pulse aquí para volver a ingresar"
 
 msgid "Fetching from "
 msgstr "Recogiendo desde "
@@ -3446,9 +3468,7 @@ msgid "Your server options are as follows:"
 msgstr "Estas son sus opciones de servidor:"
 
 msgid "Maximum of 1000 characters translated, powered by Systran"
-msgstr ""
-"Un máximo de 1000 caracteres traducidos, motor de "
-"Systran"
+msgstr "Un máximo de 1000 caracteres traducidos, motor de Systran"
 
 #, c-format
 msgid "Number of supported language pairs: %s"
@@ -3459,26 +3479,21 @@ msgstr "No hay límites conocidos, motor de Systran"
 
 #, fuzzy
 msgid "No known limits, powered by Translation Experts's InterTran"
-msgstr ""
-"No hay límites conocidos, motor InterTran de "
-"Translation Experts"
+msgstr "No hay límites conocidos, motor InterTran de Translation Experts"
 
 #, c-format
 msgid "Number of supported languages: %s"
 msgstr ""
 
 msgid "No known limits, powered by GPLTrans (free, open source)"
-msgstr ""
-"No hay límites conocidos, motor GPLTrans (gratuito, open "
-"source)"
+msgstr "No hay límites conocidos, motor GPLTrans (gratuito, open source)"
 
 msgid "Hellenic translations, no known limits, powered by Systran"
 msgstr "Traducciones Griegas, no hay límites conocidos, motor de Systran"
 
 msgid "Russian translations, maximum of 500 characters translated"
 msgstr ""
-"Traducciones Rusas, un máximo de 1000 caracteres traducidos, motor de "
-"Systran"
+"Traducciones Rusas, un máximo de 1000 caracteres traducidos, motor de Systran"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3642,6 +3657,9 @@ msgstr "Informe de error en entrega"
 
 msgid "Undelivered Message Headers"
 msgstr "Cabecera de mensaje no entregado"
+
+#~ msgid "Click here to try again"
+#~ msgstr "Pulse aquí para intentarlo de nuevo"
 
 #~ msgid "Current Search"
 #~ msgstr "Búsqueda Actual"
