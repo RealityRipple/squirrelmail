@@ -161,6 +161,41 @@
         'posvals' => $left_refresh_values
     );
 
+    $optvals[] = array(
+        'name'    => 'alt_index_colors',
+        'caption' => _("Use Alternating Row Colors"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'show_html_default',
+        'caption' => _("Show HTML Version by Default"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'include_self_reply_all',
+        'caption' => _("Include Self in Reply All"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'page_selector',
+        'caption' => _("Use Page Selector"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
+    $optvals[] = array(
+        'name'    => 'page_selector_max',
+        'caption' => _("Maximum Number of Pages to Show"),
+        'type'    => SMOPT_TYPE_INTEGER,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     /* Build all these values into an array of SquirrelOptions objects. */
     $options = createOptionArray($optvals);
 
@@ -178,27 +213,6 @@
     }
 
     /*** NOT YET CONVERTED TO OPTION OBJECTS ***/
-
-   OptionRadio( _("Use alternating row colors?"),
-                'altIndexColors',
-                array( 1 => _("Yes"),
-                       0 => _("No") ),
-                $alt_index_colors );
-   OptionCheck( _("Show HTML version by default"),
-                'showhtmldefault',
-                $show_html_default,
-                _("Yes, show me the HTML version of a mail message, if it is available.") );
-   OptionCheck( _("Include Self"),
-                'includeselfreplyall',
-                getPref($data_dir, $username, 'include_self_reply_all', FALSE ),
-                _("Don't remove me from the CC addresses when I use \"Reply All\"") );
-   $psw = getPref($data_dir, $username, 'page_selector_max', 10 );
-   OptionCheck( _("Page Selector"),
-                'pageselector',
-                !getPref($data_dir, $username, 'page_selector', FALSE ),
-                _("Show page selector") .
-                " <input name=pageselectormax size=3  value=\"$psw\"> &nbsp;" .
-                _("pages max") );
 
    echo '<tr><td colspan=2><hr noshade></td></tr>';
    do_hook('options_display_inside');

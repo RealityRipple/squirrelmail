@@ -133,19 +133,19 @@
     global $editor_size, $use_signature, $prefix_sig;
     $editor_size = getPref($data_dir, $username, "editor_size", 76 );
 
-    $use_signature = getPref($data_dir, $username, 'use_signature', FALSE );
+    $use_signature = getPref($data_dir, $username, 'use_signature', SMPREF_OFF );
 
     $prefix_sig = getPref($data_dir, $username, "prefix_sig");
 
     /* Load preferences for reply citation style. */
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
 
-    $reply_citation_style = getPref($data_dir, $username, 'reply_citation_style', 'none' );
+    $reply_citation_style = getPref($data_dir, $username, 'reply_citation_style', SMPREF_NONE );
     $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
     $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
     global $left_refresh, $sort;
-    $left_refresh = getPref($data_dir, $username, 'left_refresh', 'None' );
+    $left_refresh = getPref($data_dir, $username, 'left_refresh', SMPREF_NONE );
     $sort = getPref($data_dir, $username, 'sort', 6 );
 
     /** Load up the Signature file **/
@@ -182,17 +182,24 @@
     }
 
     global $alt_index_colors;
-    $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors', FALSE );
+    $alt_index_colors = getPref($data_dir, $username, 'alt_index_colors', SMPREF_ON );
 
     global $location_of_bar, $location_of_buttons;
-    $location_of_bar = getPref($data_dir, $username, 'location_of_bar', 'left');
-    $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons', 'between' );
+    $location_of_bar = getPref($data_dir, $username, 'location_of_bar', SMPREF_LOC_LEFT);
+    $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons', SMPREF_LOC_BETWEEN);
 
     global $collapse_folders, $show_html_default;
-    $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
+    $collapse_folders = getPref($data_dir, $username, 'collapse_folders', SMPREF_ON);
 
     /* show_html_default is a int value. */
-    $show_html_default = intval(getPref($data_dir, $username, 'show_html_default', 1 ) );
+    $show_html_default = intval(getPref($data_dir, $username, 'show_html_default', SMPREF_ON));
+
+    global $include_self_reply_all;
+    $include_self_reply_all = getPref($data_dir, $username, 'include_self_reply_all', SMPREF_ON);
+
+    global $page_selector, $page_selector_max;
+    $page_selector = getPref($data_dir, $username, 'page_selector', SMPREF_ON);
+    $page_selector_max = getPref($data_dir, $username, 'page_selector_max', 10);
 
     /* SqClock now in the core */
     global $date_format, $hour_format, $username, $data_dir;
@@ -202,7 +209,7 @@
     /* Load the javascript settings. */
     global $javascript_setting, $javascript_on;
     $javascript_setting = getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
-    $javascript_on = getPref($data_dir, $username, 'javascript_on', true);
+    $javascript_on = getPref($data_dir, $username, 'javascript_on', SMPREF_ON);
 
     do_hook("loading_prefs");
 ?>
