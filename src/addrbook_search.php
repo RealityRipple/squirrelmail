@@ -15,22 +15,6 @@
  * $Id$
  */
 
-/*****************************************************************/
-/*** THIS FILE NEEDS TO HAVE ITS FORMATTING FIXED!!!           ***/
-/*** PLEASE DO SO AND REMOVE THIS COMMENT SECTION.             ***/
-/***    + Base level indent should begin at left margin, as    ***/
-/***      the require_once below looks.                        ***/
-/***    + All identation should consist of four space blocks   ***/
-/***    + Tab characters are evil.                             ***/
-/***    + all comments should use "slash-star ... star-slash"  ***/
-/***      style -- no pound characters, no slash-slash style   ***/
-/***    + FLOW CONTROL STATEMENTS (if, while, etc) SHOULD      ***/
-/***      ALWAYS USE { AND } CHARACTERS!!!                     ***/
-/***    + Please use ' instead of ", when possible. Note "     ***/
-/***      should always be used in _( ) function calls.        ***/
-/*** Thank you for your help making the SM code more readable. ***/
-/*****************************************************************/
-
 require_once('../src/validate.php');
 
 /* Function to include JavaScript code */
@@ -120,18 +104,19 @@ function display_result($res, $includesource = true) {
     echo "</TR>\n";
     
     while (list($undef, $row) = each($res)) {
-        echo '<tr' . (($line % 2) ? " bgcolor=\"$color[0]\"" : '') .
-             ' nowrap><td valign=top nowrap align=center width="5%">' .
+        echo '<tr';
+        if ($line % 2) { echo ' bgcolor="' . $color[0] . '"' }
+        echo ' nowrap><td valign=top nowrap align=center width="5%">' .
              '<small><a href="javascript:to_address(' . 
                                        "'" . $row['email'] . "');\">To</A> | " .
              '<a href="javascript:cc_address(' . 
-                                       "'" . $row["email'] . "');\">Cc</A> | " .
+                                       "'" . $row['email'] . "');\">Cc</A> | " .
              '<a href="javascript:bcc_address(' . 
-                                 "'" . $row["email'] . "');\">Bcc</A></small>" .
+                                 "'" . $row['email'] . "');\">Bcc</A></small>" .
              '<td nowrap valign=top>&nbsp;' .
                                  $row['name'] . '&nbsp;<td nowrap valign=top>' .
              '&nbsp;<a href="javascript:to_and_close(' .
-                 "'" . $row["email'] . "');\">" . $row["email'] . '</A>&nbsp;' .
+                 "'" . $row['email'] . "');\">" . $row['email'] . '</A>&nbsp;' .
              '<td valign=top>&nbsp;' . $row['label'] . '&nbsp;';
         if ($includesource) {
             echo '<td nowrap valign=top>&nbsp;' . $row['source'];
@@ -186,7 +171,7 @@ if ($show == 'form') {
          '<TR><TD NOWRAP VALIGN=middle>' . "\n" .
          '  <STRONG>' . _("Search for") . "</STRONG>\n" .
          '  <INPUT TYPE=text NAME=query VALUE="' . htmlspecialchars($query) .
-         "\" SIZE=26>\n",
+         "\" SIZE=26>\n";
 
     /* List all backends to allow the user to choose where to search */
     if ($abook->numbackends > 1) {
@@ -205,7 +190,7 @@ if ($show == 'form') {
          '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
          '" NAME=listall>' . "\n" .
          '</TD><TD ALIGN=right>' . "\n" .
-         '<INPUT TYPE=button VALUE=" . _("Close window") .
+         '<INPUT TYPE=button VALUE="' . _("Close window") .
          '" onclick="parent.close();">' . "\n" .
          '</TD></TR></TABLE></FORM>' . "\n";
 } else {
