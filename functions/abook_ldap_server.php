@@ -1,5 +1,4 @@
 <?php
-
 /**
  * abook_ldap_server.php
  *
@@ -8,9 +7,17 @@
  *
  * Address book backend for LDAP server
  *
+ * @version $Id$
+ * @package squirrelmail
+ * @subpackage addressbook
+ */
+
+/**
+ * Address book backend for LDAP server
+ *
  * An array with the following elements must be passed to
  * the class constructor (elements marked ? are optional):
- *
+ * <pre>
  *    host      => LDAP server hostname/IP-address
  *    base      => LDAP server root (base dn). Empty string allowed.
  *  ? port      => LDAP server TCP port number (default: 389)
@@ -23,38 +30,79 @@
  *  ? binddn    => LDAP Bind DN.
  *  ? bindpw    => LDAP Bind Password.
  *  ? protocol  => LDAP Bind protocol.
- *
+ * </pre>
  * NOTE. This class should not be used directly. Use the
  *       "AddressBook" class instead.
- *
- * @version $Id$
  * @package squirrelmail
  * @subpackage addressbook
  */
-
-/**
- * Undocumented class - fixme
- * @package squirrelmail
- */
 class abook_ldap_server extends addressbook_backend {
+    /**
+     * @var string backend type
+     */
     var $btype = 'remote';
+    /**
+     * @var string backend name
+     */
     var $bname = 'ldap_server';
 
     /* Parameters changed by class */
+    /**
+     * @var string displayed name
+     */
     var $sname   = 'LDAP';       /* Service name */
-    var $server  = '';           /* LDAP server name */
-    var $port    = 389;          /* LDAP server port */
-    var $basedn  = '';           /* LDAP base DN  */
-    var $charset = 'utf-8';      /* LDAP server charset */
-    var $linkid  = false;        /* PHP LDAP link ID */
-    var $bound   = false;        /* True if LDAP server is bound */
-    var $maxrows = 250;          /* Max rows in result */
-    var $timeout = 30;           /* Timeout for LDAP operations (in seconds) */
-    var $binddn = '';            /* DN to bind to (non-anonymous bind) */
-    var $bindpw = '';            /* password to bind with (non-anonymous bind) */
-    var $protocol = '';          /* protocol used to connect to ldap server */
+    /**
+     * @var string LDAP server name or address or url
+     */
+    var $server  = '';
+    /**
+     * @var integer LDAP server port
+     */
+    var $port    = 389;
+    /**
+     * @var string LDAP base DN
+     */
+    var $basedn  = '';
+    /**
+     * @var string charset used for entries in LDAP server
+     */
+    var $charset = 'utf-8';
+    /**
+     * @var object PHP LDAP link ID
+     */
+    var $linkid  = false;
+    /**
+     * @var bool True if LDAP server is bound
+     */
+    var $bound   = false;
+    /**
+     * @var integer max rows in result
+     */
+    var $maxrows = 250;
+    /**
+     * @var integer timeout of LDAP operations (in seconds)
+     */
+    var $timeout = 30;
+    /**
+     * @var string DN to bind to (non-anonymous bind)
+     * @since 1.5.0 and 1.4.3
+     */
+    var $binddn = '';
+    /**
+     * @var string  password to bind with (non-anonymous bind)
+     * @since 1.5.0 and 1.4.3
+     */
+    var $bindpw = '';
+    /**
+     * @var integer protocol used to connect to ldap server
+     * @since 1.5.0 and 1.4.3
+     */
+    var $protocol = '';
 
-    /* Constructor. Connects to database */
+    /**
+     * Constructor. Connects to database
+     * @param array connection options
+     */
     function abook_ldap_server($param) {
         if(!function_exists('ldap_connect')) {
             $this->set_error('LDAP support missing from PHP');
@@ -80,10 +128,10 @@ class abook_ldap_server extends addressbook_backend {
             }
             if(isset($param['bindpw'])) {
                 $this->bindpw = $param['bindpw'];
-	    }
+            }
             if(isset($param['protocol'])) {
                 $this->protocol = $param['protocol'];
-	    }
+            }
             if(empty($param['name'])) {
                 $this->sname = 'LDAP: ' . $param['host'];
             }
@@ -98,7 +146,11 @@ class abook_ldap_server extends addressbook_backend {
     }
 
 
-    /* Open the LDAP server. New connection if $new is true */
+    /**
+     * Open the LDAP server.
+     * @param bool $new is it a new connection
+     * @return bool
+     */
     function open($new = false) {
         $this->error = '';
 
@@ -116,15 +168,15 @@ class abook_ldap_server extends addressbook_backend {
             }
         }
 
-	if(!empty($this->protocol)) {
+        if(!empty($this->protocol)) {
             if(!@ldap_set_option($this->linkid, LDAP_OPT_PROTOCOL_VERSION, $this->protocol)) {
                 if(function_exists('ldap_error')) {
                     return $this->set_error(ldap_error($this->linkid));
                 } else {
                     return $this->set_error('ldap_set_option failed');
-        	}
-	    }
-	}
+                }
+            }
+        }
 
         if(!empty($this->binddn)) {
             if(!@ldap_bind($this->linkid, $this->binddn, $this->bindpw)) {
@@ -135,13 +187,13 @@ class abook_ldap_server extends addressbook_backend {
                 }
               }
         } else {
-    	    if(!@ldap_bind($this->linkid)) {
-        	if(function_exists('ldap_error')) {
-            	    return $this->set_error(ldap_error($this->linkid));
-        	} else {
-            	    return $this->set_error('anonymous ldap_bind failed');
-        	}
-    	    }
+            if(!@ldap_bind($this->linkid)) {
+                if(function_exists('ldap_error')) {
+                    return $this->set_error(ldap_error($this->linkid));
+                } else {
+                    return $this->set_error('anonymous ldap_bind failed');
+                }
+            }
         }
 
         $this->bound = true;
@@ -149,8 +201,11 @@ class abook_ldap_server extends addressbook_backend {
         return true;
     }
 
-
-    /* Encode iso8859-1 string to the charset used by this LDAP server */
+    /**
+     * Encode string to the charset used by this LDAP server
+     * @param string string that has to be encoded
+     * @return string encoded string
+     */
     function charset_encode($str) {
         if($this->charset == 'utf-8') {
             if(function_exists('utf8_encode')) {
@@ -163,15 +218,17 @@ class abook_ldap_server extends addressbook_backend {
         }
     }
 
-
-    /* Decode from charset used by this LDAP server to iso8859-1 */
+    /**
+     * Decode from charset used by this LDAP server to html entities
+     *
+     * Uses squirrelmail charset_decode functions
+     * @param string string that has to be decoded
+     * @return string decoded string
+     */
     function charset_decode($str) {
-        if($this->charset == 'utf-8') {
-            if(function_exists('utf8_decode')) {
-                return utf8_decode($str);
-            } else {
-                return $str;
-            }
+        global $default_charset;
+        if ($this->charset != $default_charset) {
+            return charset_decode($this->charset,$str);
         } else {
             return $str;
         }
@@ -180,7 +237,11 @@ class abook_ldap_server extends addressbook_backend {
 
     /* ========================== Public ======================== */
 
-    /* Search the LDAP server */
+    /**
+     * Search the LDAP server
+     * @param string $expr search expression
+     * @return array search results
+     */
     function search($expr) {
 
         /* To be replaced by advanded search expression parsing */
@@ -199,8 +260,7 @@ class abook_ldap_server extends addressbook_backend {
         }
 
         $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-            array('dn', 'o', 'ou', 'sn', 'givenname',
-            'cn', 'mail', 'telephonenumber'),
+            array('dn', 'o', 'ou', 'sn', 'givenname', 'cn', 'mail'),
             0, $this->maxrows, $this->timeout);
 
         /* Should get error from server using the ldap_error() function,
@@ -228,12 +288,6 @@ class abook_ldap_server extends addressbook_backend {
              * of an object. Use only the first name */
             $nickname = $this->charset_decode($row['dn']);
             $fullname = $this->charset_decode($row['cn'][0]);
-
-            if(empty($row['telephonenumber'][0])) {
-                $phone = '';
-            } else {
-                $phone = $this->charset_decode($row['telephonenumber'][0]);
-            }
 
             if(!empty($row['ou'][0])) {
                 $label = $this->charset_decode($row['ou'][0]);
@@ -265,7 +319,6 @@ class abook_ldap_server extends addressbook_backend {
                    'lastname'  => $surname,
                    'email'     => $row['mail'][$j],
                    'label'     => $label,
-                   'phone'     => $phone,
                    'backend'   => $this->bnum,
                    'source'    => &$this->sname));
 
@@ -288,13 +341,19 @@ class abook_ldap_server extends addressbook_backend {
     } /* end search() */
 
 
-    /* If you run a tiny LDAP server and you want the "List All" button
-     * to show EVERYONE, then uncomment this tiny block of code:
+    /**
+     * List all entries present in LDAP server
      *
-     * function list_addr() {
-     *    return $this->search('*');
-     * }
+     * If you run a tiny LDAP server and you want the "List All" button
+     * to show EVERYONE, disable first return call and enable the second one.
+     * Remember that maxrows setting might limit list of returned entries.
      *
-     * Careful with this -- it could get quite large for big sites. */
+     * Careful with this -- it could get quite large for big sites.
+     * @return array all entries in ldap server
+     */
+     function list_addr() {
+         return array();
+         // return $this->search('*');
+     }
 }
 ?>
