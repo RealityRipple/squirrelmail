@@ -56,6 +56,7 @@ Version 1.5.1 -- CVS
   - In POP3-class, be more liberal regarding RFC-incompliant POP3-servers.
   - Disabled Korean extra functions, because they don't provide all required 
     options and message composition is broken.
+  - Added Basque translation support.
 
 Version 1.5.0
 --------------------
