@@ -9,6 +9,7 @@
     **  Copies specified messages to specified folder
     ******************************************************************************/
    function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
+      echo "a001 COPY $start:$end \"$mailbox\"\n<br>";
       fputs ($imap_stream, "a001 COPY $start:$end \"$mailbox\"\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
    }
@@ -41,15 +42,15 @@
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
    function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date) {
-      fputs ($imap_stream, "a001 FETCH $id:$id RFC822.HEADER.LINES (From Subject Date)\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER.FIELDS (From Subject Date)]\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       for ($i = 0; $i < count($read); $i++) {
-         if (substr($read[$i], 0, 5) == "From:") {
+         if (strtolower(substr($read[$i], 0, 5)) == "from:") {
             $from = sqimap_find_displayable_name(substr($read[$i], 5));
-         } else if (substr($read[$i], 0, 5) == "Date:") {
+         } else if (strtolower(substr($read[$i], 0, 5)) == "date:") {
             $date = substr($read[$i], 5);
-         } else if (substr($read[$i], 0, 8) == "Subject:") {
+         } else if (strtolower(substr($read[$i], 0, 8)) == "subject:") {
             $subject = htmlspecialchars(substr($read[$i], 8));
             if (strlen(trim($subject)) == 0)
                $subject = _("(no subject)");
@@ -96,7 +97,7 @@
     **  Wrapper function that reformats the header information.
     ******************************************************************************/
    function sqimap_get_message_header ($imap_stream, $id) {
-      fputs ($imap_stream, "a001 FETCH $id:$id RFC822.HEADER\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER]\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
      
       return sqimap_get_header($imap_stream, $read); 

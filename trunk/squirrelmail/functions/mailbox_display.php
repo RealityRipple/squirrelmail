@@ -249,7 +249,7 @@
       else
          echo "   <A HREF=\"right_main.php?sort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
       /** SUBJECT HEADER **/
-      echo "   <TD WIDTH=*><FONT FACE=\"Arial,Helvetica\"><B>". _("Subject") ."</B></FONT>\n";
+      echo "   <TD WIDTH=%><FONT FACE=\"Arial,Helvetica\"><B>". _("Subject") ."</B></FONT>\n";
       if ($sort == 4)
         echo "   <A HREF=\"right_main.php?sort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
       else if ($sort == 5)

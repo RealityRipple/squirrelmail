@@ -8,9 +8,6 @@
 
    include("../src/load_prefs.php");
 
-   echo "<HTML>";
-   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   displayPageHeader($color, "None");
 
    setPref($data_dir, $username, "full_name", stripslashes($full_name));
    setPref($data_dir, $username, "reply_to", stripslashes($reply_to));
@@ -23,6 +20,9 @@
 
    setSig($data_dir, $username, stripslashes($signature_edit));
 
+   echo "<HTML>";
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   displayPageHeader($color, "None");
    echo "<FONT FACE=\"Arial,Helvetica\">";
    echo "<BR><BR><BR><CENTER><B>";
    echo _("Options Saved!");
