@@ -81,7 +81,7 @@
    if($flag <= 1) {                                      // If first run of script, setup the filename to copy
       $tempfilename = ($username . (time()+2592000));
       $nameholder = $tempfilename;
-      if(copy($smusercsv, "$data_dir$tempfilename")) {	// Set up variable to use in printing status
+      if(copy($smusercsv, "$attachment_dir$tempfilename")) {	// Set up variable to use in printing status
          $goodcopy = true;
       } else {
          $goodcopy = false;
@@ -105,7 +105,7 @@
 	   echo "   </TR>\n";
 	   echo "   <TR>\n";
 	   echo "      <TD>";
-	   if(!$goodcopy && $flag == 0) {			// print correct status of file copying
+	   if(!$goodcopy && $flag == 0) {			            // print correct status of file copying
 	      echo _("Failed to create working copy, Please try again.");
 	   } else {
 	      echo _("Created working copy, continuing with process...");
@@ -157,9 +157,9 @@
 
    // open the correct filename to work with
 	if($flag <= 1) {                            // before submit
-	   $fp = fopen("$data_dir$tempfilename", "r");
+	   $fp = fopen("$attachment_dir$tempfilename", "r");
 	} elseif($flag >= 2) {                      // after submit
-	   $fp = fopen("$data_dir$nameholder", "r");
+	   $fp = fopen("$attachment_dir$nameholder", "r");
 	}
 
 	echo "<CENTER><TABLE WIDTH=\"95%\" FRAME=\"void\" CELLSPACING=\"1\">\n";	// user's data table
@@ -400,7 +400,7 @@
 
    // Clean up after ourselves.
    if($finish) {
-      unlink ("$data_dir$tempfilename");
+      unlink ("$attachment_dir$tempfilename");
    }
    
 ?>
