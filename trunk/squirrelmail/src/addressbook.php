@@ -233,7 +233,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                              echo html_tag( 'table',
                                 html_tag( 'tr',
                                    html_tag( 'td',
-                                      "\n". '<br><strong><font color="' . $color[2] .
+                                      "\n". '<strong><font color="' . $color[2] .
                                       '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
                                       'center' )
                                    ),
@@ -245,10 +245,10 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                  html_tag( 'table',
                                      html_tag( 'tr',
                                          html_tag( 'td',
-                                                    "\n". '<br><strong>' . _("Update address") . '</strong>' ."\n",
+                                                    "\n". '<strong>' . _("Update address") . '</strong>' ."\n",
                                          'center', $color[0] )
                                      ),
-                                 'center', '', 'width="100%"' ) .
+                                 'center', '', 'width="100%"' );
                             address_form("editaddr", _("Update address"), $newdata);
                             echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' .
                                  htmlspecialchars($oldnick) . "\">\n" .
