@@ -36,40 +36,27 @@ $Email_RegExp_Match = '[0-9a-z]([-_.+]?[0-9a-z])*(%' . $Host_RegExp_Match .
 
 function parseEmail (&$body) {
     global $color, $Email_RegExp_Match, $compose_new_win;
-    $Size = strlen($body);
+    $sbody     = $body;
+    $addresses = array();
 
-    /*
-     * This is here in case we ever decide to use highlighting of searched
-     * text.  this does it for email addresses
-     *
-     * if ($what && ($where == "BODY" || $where == "TEXT")) {
-     *    eregi ($Email_RegExp_Match, $body, $regs);
-     *    $oldaddr = $regs[0];
-     *    if ($oldaddr) {
-     *       $newaddr = eregi_replace ($what, "<b><font color=\"$color[2]\">$what</font></font></b>", $oldaddr);
-     *       $body = str_replace ($oldaddr, "<a href=\"../src/compose.php?send_to=$oldaddr\">$newaddr</a>", $body);
-     *    }
-     * } else {
-     *    $body = eregi_replace ($Email_RegExp_Match, "<a href=\"../src/compose.php?send_to=\\0\">\\0</a>", $body);
-     * }
-     */
-
-    if( eregi($Email_RegExp_Match, $body, $regs) ) {
+    /* Find all the email addresses in the body */
+    while(eregi($Email_RegExp_Match, $sbody, $regs)) {
+        $addresses[$regs[0]] = $regs[0];
+        $start = strpos($sbody, $regs[0]) + strlen($regs[0]);
+        $sbody = substr($sbody, $start);
+    }
+    /* Replace each email address with a compose URL */
+    foreach ($addresses as $email) {
+        $comp_uri = '../src/compose.php?send_to='.urlencode($email);
         if ($compose_new_win == '1') {
-	    $comp_uri = '../src/compose.php?send_to='.urlencode($regs[0]);
-            $body = str_replace($regs[0],  '<a href="javascript:void(0)" onClick="comp_in_new('."'$comp_uri'".')">'.$regs[0].'</a>', $body);
+            $comp_uri  = 'javascript:void(0)" onClick="comp_in_new('
+                       . "'$comp_uri'" . ')';
         }
-        else {
-            $body = str_replace($regs[0],  '<a href="../src/compose.php?send_to='.
-            urlencode($regs[0]).'">'.$regs[0].'</a>', $body);
-        }
+        $comp_uri = '<a href="'.$comp_uri.'">'.$email.'</a>';
+        $body = str_replace($email, $comp_uri, $body);
     }
-
-    /* If there are any changes, it'll just get bigger. */
-    if ($Size != strlen($body)) {
-        return 1;
-    }
-    return 0;
+    /* Return number of unique addresses found */
+    return count($addresses);
 }
 
 
@@ -93,43 +80,45 @@ $url_parser_poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n",
 
 function parseUrl (&$body) {
     global $url_parser_poss_ends, $url_parser_url_tokens;;
-    $start = 0;
-    $target_pos = strlen($body);
-      
-    while ($start != $target_pos) {
+    $start      = 0;
+    $blength    = strlen($body);
+    $target_pos = $blength;
+
+    while ($start != $blength) {
         $target_token = '';
-        
+
         /* Find the first token to replace */
         foreach ($url_parser_url_tokens as $the_token) {
             $pos = strpos(strtolower($body), $the_token, $start);
-            if (is_int($pos) && $pos < $target_pos) {
-                $target_pos = $pos;
+            if (is_int($pos) && $pos < $blength) {
+                $target_pos   = $pos;
                 $target_token = $the_token;
             }
         }
-        
+
         /* Look for email addresses between $start and $target_pos */
-        $check_str = substr($body, $start, $target_pos);
-       
+        $check_str = substr($body, $start, $target_pos-$start);
+
         if (parseEmail($check_str)) {
             replaceBlock($body, $check_str, $start, $target_pos);
+            $blength    = strlen($body);
             $target_pos = strlen($check_str) + $start;
         }
 
         /* If there was a token to replace, replace it */
         if ($target_token != '') {
             /* Find the end of the URL */
-            $end=strlen($body); 
-            foreach ($url_parser_poss_ends as $key => $val) {
-                $enda = strpos($body,$val,$target_pos);
+            $end = $blength;
+            foreach ($url_parser_poss_ends as $val) {
+                $enda = strpos($body, $val, $target_pos);
                 if (is_int($enda) && $enda < $end) {
                     $end = $enda;
                 }
             }
-         
+
             /* Extract URL */
             $url = substr($body, $target_pos, $end-$target_pos);
-          
+
             /* Needed since lines are not passed with \n or \r */
             while ( ereg("[,\.]$", $url) ) {
                 $url = substr( $url, 0, -1 );
@@ -141,16 +130,16 @@ function parseUrl (&$body) {
                 $url_str = "<a href=\"$url\" target=\"_blank\">$url</a>";
                 replaceBlock($body,$url_str,$target_pos,$end);
                 $target_pos += strlen($url_str);
-            } 
-            else { 
-                 // Not quite a valid link, skip ahead to next chance
-                 $target_pos += strlen($target_token);
+            }
+            else {
+                // Not quite a valid link, skip ahead to next chance
+                $target_pos += strlen($target_token);
             }
         }
-        
+
         /* Move forward */
-        $start = $target_pos;
-        $target_pos = strlen($body);
+        $start   = $target_pos;
+        $blength = strlen($body);
     }
 } 
 ?>
