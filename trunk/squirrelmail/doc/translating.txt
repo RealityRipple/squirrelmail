@@ -32,6 +32,9 @@ c) To translate the actual strings fill inn the msgstr after each
 d) Add the language name and language code to the array at the top of
    squirrelmail/functions/i18n.php.
 
+There is also a small script in the po/ directory that can help in
+creating charset mappings from the mappings files that are provided by
+the Unicode consortium.
 
 2. Maintaining translations
 ---------------------------
