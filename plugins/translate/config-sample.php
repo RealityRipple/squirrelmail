@@ -51,13 +51,6 @@ $disable_compose_translate=true;
 
 /** Custom translation engine setup */
 
-/**
- * Controls inclusion of custom translation engines.
- *
- * If you enable custon translation engines, you must include
- * translate_custom(), translate_custom_showtrad() and
- * $translate_custom_showoption() functions in your config.
- */
 global $translate_custom_enabled;
 $translate_custom_enabled=true;
 
