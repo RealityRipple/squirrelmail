@@ -626,16 +626,25 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
                $move_to_trash, $move_to_sent, $save_as_draft,
-               $delimiter, $noselect_fix_enable;
+               $delimiter, $noselect_fix_enable, $imap_server_type;
         $inbox_in_list = false;
         $inbox_subscribed = false;
+        $listsubscribed = sqimap_capability($imap_stream,'LIST-SUBSCRIBED');
 
         require_once(SM_PATH . 'include/load_prefs.php');
 
-        if ($noselect_fix_enable) {
-            $lsub_args = "LSUB \"$folder_prefix\" \"*%\"";
+
+        if ($listsubscribed) {
+            $lsub = 'LIST (SUBSCRIBED)';
         } else {
-            $lsub_args = "LSUB \"$folder_prefix\" \"*\"";
+            $lsub = 'LSUB';
+        } 
+        
+        if ($noselect_fix_enable) {
+            
+            $lsub_args = "$lsub \"$folder_prefix\" \"*%\"";
+        } else {
+            $lsub_args = "$lsub \"$folder_prefix\" \"*\"";
         }
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
@@ -664,7 +673,8 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
            * in other words, we cannot rely on it.
          */
         $sorted_list_ary = array();
-        for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+ //       if (!$listsubscribed) {
+          for ($i=0; $i < count($sorted_lsub_ary); $i++) {
             if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
                 $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
             }
@@ -682,7 +692,8 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
             } else {
                 $sorted_list_ary[$i] = '';
             }
-        }
+          }
+ //       }
         /*
          * Just in case they're not subscribed to their inbox,
          * we'll get it for them anyway
@@ -800,7 +811,7 @@ function sqimap_mailbox_list_all($imap_stream) {
 
 function sqimap_mailbox_tree($imap_stream) {
     global $boxesnew, $default_folder_prefix, $unseen_notify, $unseen_type;
-    if (!isset($boxesnew)) {
+    if (true) {
 
         global $data_dir, $username, $list_special_folders_first,
                $folder_prefix, $delimiter, $trash_folder, $move_to_trash,
