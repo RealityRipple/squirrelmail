@@ -264,9 +264,14 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
             break;
 
         case 'src/right_main.php':
-// following code graciously stolen from phpMyAdmin project at:
-// http://www.phpmyadmin.net
-            $js = <<<EOS
+            global $fancy_index_highlite;
+            if (!$fancy_index_highlite) {
+                $js = '';
+            } else //{ putting braces around this block creats strange PHP errors
+                // following code graciously borrowed from 
+                // phpMyAdmin project at:
+                // http://www.phpmyadmin.net
+                $js = <<<EOS
 /**
  * This array is used to remember mark status of rows in browse mode
  */
@@ -418,6 +423,7 @@ function setPointer(theRow, theRowNum, theAction, theDefaultColor, thePointerCol
     return true;
 } // end of the 'setPointer()' function
 EOS;
+            //} putting braces around this block creats strange PHP errors
             $js = "\n".'<script language="JavaScript" type="text/javascript">' .
                         "\n<!--\n" . $js;
             if ($compose_new_win == '1') {
@@ -427,7 +433,7 @@ EOS;
                 if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
                     $compose_height = '550';
                 }
-                $js .= "\nfunction comp_in_new(comp_uri) {\n".
+                $js .= "\n\nfunction comp_in_new(comp_uri) {\n".
                      "       if (!comp_uri) {\n".
                      '           comp_uri = "'.$compose_uri."\";\n".
                      '       }'. "\n".
@@ -437,7 +443,7 @@ EOS;
                      ',scrollbars=yes,resizable=yes,status=yes");'."\n".
                      "}\n\n";
             }
-            $js .= "// -->\n</script>\n";
+            $js .= $xtra . "\n\n// -->\n</script>\n";
             $onload = '';
             displayHtmlHeader ('SquirrelMail', $js);
             break;
