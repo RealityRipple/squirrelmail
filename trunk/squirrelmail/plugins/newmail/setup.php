@@ -224,7 +224,6 @@
 
             if ($totalNew > 0 && $newmail_enable == 'on') {
                 echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>\n";
-                echo "JAAAAAAAA";
             }
             if ($totalNew > 0 && $newmail_popup == 'on') {
                 echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".
