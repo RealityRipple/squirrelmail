@@ -79,12 +79,19 @@ function getPref($data_dir, $username, $string, $default = '') {
     global $prefs_cache;
     $result = '';
 
-    cachePrefValues($data_dir, $username);
+    $result = do_hook_function('get_pref_override', array($username, $string));
 
-    if (isset($prefs_cache[$string])) {
-        $result = $prefs_cache[$string];
-    } else {
-        $result = $default;
+    if ($result == '') {
+        cachePrefValues($data_dir, $username);
+
+        if (isset($prefs_cache[$string])) {
+            $result = $prefs_cache[$string];
+        } else {
+            $result = do_hook_function('get_pref', array($username, $string));
+            if ($result == '') {
+                $result = $default;
+            }
+        }
     }
 
     return ($result);
