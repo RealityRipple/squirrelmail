@@ -9,7 +9,7 @@
 * This contains functions that display mailbox information, such as the
 * table row that has sender, date, subject, etc...
 *
-* @version $Id$
+* $Id$
 * @package squirrelmail
 */
 
@@ -653,7 +653,7 @@ function showMessagesForMailbox($imapConnection, $aMailbox) {
     $paginator_str = get_paginator_str($aMailbox['NAME'], $aMailbox['PAGEOFFSET'], $end_msg,
                                     $aMailbox['EXISTS'], $aMailbox['LIMIT'], $aMailbox['SORT']);
 
-    $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $aMailbox['EXISTS'], $aMailbox['LIMIT']);
+    $msg_cnt_str = get_msgcnt_str($aMailbox['PAGEOFFSET'], $aMailbox['PAGEOFFSET']+$aMailbox['LIMIT'],$aMailbox['EXISTS']);
 
     do_hook('mailbox_index_before');
 ?>
@@ -1155,7 +1155,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     $all_str = '';
 
     $box = urlencode($box);
-
+    $use = 0;
     /* Create simple strings that will be creating the paginator. */
     $spc = '&nbsp;';     /* This will be used as a space. */
     $sep = '|';          /* This will be used as a seperator. */
@@ -1166,14 +1166,6 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
 
     /* Make sure that our start message number is not too big. */
     $start_msg = min($start_msg, $num_msgs);
-
-    /* Decide whether or not we will use the mailbox cache. */
-    /* Not sure why $use_mailbox_cache is even passed in.   */
-    if ($sort == 6) {
-        $use = 0;
-    } else {
-        $use = 1;
-    }
 
     /* Compute the starting message of the previous and next page group. */
     $next_grp = $start_msg + $show_num;
@@ -1192,7 +1184,7 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     }
 
     /* Page selector block. Following code computes page links. */
-    if ($pg_sel && ($num_msgs > $show_num)) {
+    if ($show_num != 0 && $pg_sel && ($num_msgs > $show_num)) {
         /* Most importantly, what is the current page!!! */
         $cur_pg = intval($start_msg / $show_num) + 1;
 
