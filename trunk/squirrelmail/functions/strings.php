@@ -1,4 +1,6 @@
 <?php
+   
+   /* $Id$ */
 
    $strings_php = true;
 
@@ -194,7 +196,7 @@
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
-   $version = "1.0pre3 [cvs]";
+   var $version = "1.0pre3 [cvs]";
 
 
    function find_mailbox_name ($mailbox) {
