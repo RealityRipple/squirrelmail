@@ -31,12 +31,9 @@
 		 break;
 	  }
    }
-   if (!$in_ary) {
-   		$chosen_theme = "";
-   }
 
-   if ((isset($chosen_theme)) && (file_exists($chosen_theme))) {
-      $loaded=@include("$chosen_theme");
+   if ($in_ary && (file_exists($chosen_theme))) {
+      $loaded=@include($chosen_theme);
    } else {
       if (file_exists($theme[0]["PATH"])) {
          require($theme[0]["PATH"]);

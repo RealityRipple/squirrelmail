@@ -51,9 +51,9 @@
       # Save personal information
       if (isset($full_name)) setPref($data_dir, $username, 'full_name', $full_name);
       if (isset($email_address)) setPref($data_dir, $username, 'email_address', $email_address);
-      if (isset($reply_to)) setPref($data_dir, $username, 'reply_to', $reply_to);  
-      setPref($data_dir, $username, 'use_signature', $usesignature);  
-      setPref($data_dir, $username, 'prefix_sig', $prefixsig);
+      if (isset($reply_to)) setPref($data_dir, $username, 'reply_to', $reply_to);
+      if (isset($usesignature)) setPref($data_dir, $username, 'use_signature', $usesignature);  
+      if (isset($prefixsig)) setPref($data_dir, $username, 'prefix_sig', $prefixsig);
       if (isset($signature_edit)) setSig($data_dir, $username, $signature_edit);
       
       do_hook('options_personal_save');
