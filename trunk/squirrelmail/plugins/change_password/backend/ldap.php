@@ -342,8 +342,8 @@ function cpw_ldap_dochange($data) {
             return $msgs;
         }
 
-        // set new password
-        $ldap_pass_change=ldap_modify($cpw_ldap_con,$cpw_ldap_userdn,array('userpassword'=>$cpw_ldap_new_pass));
+        // set new password. suppress ldap_modify errors. script checks and displays ldap_modify errors.
+        $ldap_pass_change=@ldap_modify($cpw_ldap_con,$cpw_ldap_userdn,array('userpassword'=>$cpw_ldap_new_pass));
 
         // check if ldap_modify was successful
         if(! $ldap_pass_change) {
@@ -392,11 +392,11 @@ function cpw_ldap_get_crypto($pass,$curpass='') {
 
     if ($ret=='crypt') {
         // {CRYPT} can be standard des crypt, extended des crypt, md5 crypt or blowfish
-        // depends on first salt symbols (ext_des = '_', md5 = '$1$', blowfish = '$2$')
+        // depends on first salt symbols (ext_des = '_', md5 = '$1$', blowfish = '$2')
         // and length of salt (des = 2 chars, ext_des = 9, md5 = 12, blowfish = 16).
         if (preg_match("/^\{crypt\}\\\$1\\\$+/i",$pass)) {
             $ret='md5crypt';
-        } elseif (preg_match("/^\{crypt\}\\\$2\\\$+/i",$pass)) {
+        } elseif (preg_match("/^\{crypt\}\\\$2+/i",$pass)) {
             $ret='blowfish';
         } elseif (preg_match("/^\{crypt\}_+/i",$pass)) {
             $ret='extcrypt';
@@ -503,15 +503,21 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             }
             $ret = "{SMD5}".base64_encode( mhash( MHASH_MD5, $pass.$salt ).$salt );
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'smd5') . _("PHP mhash extension is missing."));
+            // use two array_push calls in order to display messages in different lines.
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'smd5'));
+            array_push($msgs,_("PHP mhash extension is missing."));
         }
         break;
     case 'sha':
-        // minimal requirement = mhash extension
-        if( function_exists( 'mhash' ) ) {
+        // minimal requirement = php 4.3.0+ or php with mhash extension
+        if ( function_exists('sha1') ) {
+            // use php 4.3.0+ sha1 function, if it is available.
+            $new_value = '{SHA}' . base64_encode( pack( 'H*' , sha1( $password_clear) ) );
+        } elseif( function_exists( 'mhash' ) ) {
             $ret = '{SHA}' . base64_encode( mhash( MHASH_SHA1, $pass) );
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'sha') . _("PHP mhash extension is missing."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'sha'));
+            array_push($msgs,_("PHP mhash extension is missing."));
         }
         break;
     case 'ssha':
@@ -525,16 +531,16 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             }
             $ret = "{SSHA}".base64_encode( mhash( MHASH_SHA1, $pass.$salt ).$salt );
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ssha')
-                       . _("PHP mhash extension is missing."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ssha'));
+            array_push(_("PHP mhash extension is missing."));
         }
         break;
     case 'crypt':
         if (defined('CRYPT_STD_DES') && CRYPT_STD_DES==1) {
             $ret = '{CRYPT}' . crypt($pass,GenerateRandomString(2,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'crypt')
-                       . _("System crypt library doesn't support standard DES crypt."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'crypt'));
+            array_push($msgs,_("System crypt library doesn't support standard DES crypt."));
         }
         break;
     case 'md5crypt':
@@ -542,8 +548,8 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
         if (defined('CRYPT_MD5') && CRYPT_MD5==1) {
             $ret = '{CRYPT}' . crypt($pass,'$1$' . GenerateRandomString(9,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'md5crypt')
-                       . _("System crypt library doesn't have MD5 support."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'md5crypt'));
+            array_push($msgs,_("System crypt library doesn't have MD5 support."));
         }
         break;
     case 'extcrypt':
@@ -552,18 +558,18 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             // FIXME: guinea pigs with extended des support needed.
             $ret = '{CRYPT}' . crypt($pass,'_' . GenerateRandomString(8,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ext_des')
-                       . _("System crypt library doesn't support extended DES crypt."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ext_des'));
+            array_push($msgs,_("System crypt library doesn't support extended DES crypt."));
         }
         break;
     case 'blowfish':
         // check if crypt() supports blowfish
         if (defined('CRYPT_BLOWFISH') && CRYPT_BLOWFISH==1) {
             // FIXME: guinea pigs with blowfish support needed.
-            $ret = '{CRYPT}' . crypt($pass,'$2$' . GenerateRandomString(13,$extra_salt_chars,7));
+            $ret = '{CRYPT}' . crypt($pass,'$2a$12$' . GenerateRandomString(13,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'Blowfish')
-                       . _("System crypt library doesn't have Blowfish support."));
+            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'Blowfish'));
+            array_push($msgs,_("System crypt library doesn't have Blowfish support."));
         }
         break;
     case 'plaintext':
@@ -633,17 +639,16 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
         break;
     case 'md5':
         // MD5 crypted passwords
-        if( strcasecmp( cpw_ldap_password_hash( $pass_clear,'md5',$msgs), "{MD5}".$pass_hash ) == 0 )
+        if( strcasecmp( cpw_ldap_password_hash($pass_clear,'md5',$msgs), "{MD5}".$pass_hash ) == 0 )
             $ret=true;
         break;
     case 'crypt':
         // Crypt passwords
-        if( strstr( $pass_hash, '$2$' ) ) { // Check if it's blowfish crypt
+        if(  preg_match( "/^\\\$2+/",$pass_hash ) ) { // Check if it's blowfish crypt
             // check CRYPT_BLOWFISH here.
             // ldap server might support it, but php can be on other OS
             if (defined('CRYPT_BLOWFISH') && CRYPT_BLOWFISH==1) {
-                list(,$type,$salt,$hash) = explode('$',$pass_hash);
-                if( crypt( $pass_clear, '$2$' .$salt ) == $pass_hash )
+                if( crypt( $pass_clear, $pass_hash ) == $pass_hash )
                     $ret=true;
             } else {
                 array_push($msgs,_("Unable to validate user's password."));
@@ -682,13 +687,13 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
             }
         }
         break;
-    // No crypt is given assume plaintext passwords are used
+    // No crypt is given, assume plaintext passwords are used
     default:
         if( $pass_clear == $pass_hash )
             $ret=true;
         break;
     }
-    if (! $ret) {
+    if (! $ret && empty($msgs)) {
         array_push($msgs,CPW_CURRENT_NOMATCH);
     }
     return $ret;
