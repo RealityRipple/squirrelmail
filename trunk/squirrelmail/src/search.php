@@ -41,8 +41,14 @@ define('ASEARCH_UNOP', 3);
 define('ASEARCH_BIOP', 4);
 define('ASEARCH_EXCLUDE', 5);
 define('ASEARCH_SUB', 6);
+define('ASEARCH_MAX', 7);
+
+/** Name of session var
+ */
+define('ASEARCH_CRITERIA', 'criteria');
 
 /** Builds a href with params
+ * @param string $params optional parameters to GET
  */
 function asearch_get_href($params = '')
 {
@@ -53,15 +59,22 @@ function asearch_get_href($params = '')
 }
 
 /** Builds a [link]
+ * @param string $href (reference)
+ * @param string $text
+ * @param string $title
  */
 function asearch_get_link(&$href, $text, $title = '')
 {
 	if ($title != '')
 		$title = ' title="' . $title . '"';
-	return '<small>[<a href="' . $href . '"' . $title . '>' . $text . '</a>]</small>';
+	return '<a href="' . $href . '"' . $title . '>' . $text . '</a>';
 }
 
 /** Builds a toggle [link]
+ * @param integer $value
+ * @param string $action
+ * @param array $text_array
+ * @param array $title_array
  */
 function asearch_get_toggle_link($value, $action, $text_array, $title_array = array())
 {
@@ -337,6 +350,8 @@ function asearch_push_recent(&$mailbox_array, &$biop_array, &$unop_array, &$wher
 {
 	global $recent_prefkeys, $search_memory;
 
+	$criteria = array($mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
+	sqsession_register($criteria, ASEARCH_CRITERIA);
 	if ($search_memory > 0) {
 		$recent_array = asearch_read_recent();
 		$recent_found = asearch_find_recent($recent_array, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array);
@@ -379,9 +394,23 @@ function asearch_edit_recent($index)
  */
 function asearch_edit_last()
 {
-	global $search_memory;
-	if ($search_memory > 0)
-		asearch_edit_recent(0);
+	if (sqGetGlobalVar(ASEARCH_CRITERIA, $criteria, SQ_SESSION)) {
+		global $where_array, $mailbox_array, $what_array, $unop_array;
+		global $biop_array, $exclude_array, $sub_array;
+		$mailbox_array = $criteria[0];
+		$biop_array = $criteria[1];
+		$unop_array = $criteria[2];
+		$where_array = $criteria[3];
+		$what_array = $criteria[4];
+		$exclude_array = $criteria[5];
+		$sub_array = $criteria[6];
+		sqsession_unregister(ASEARCH_CRITERIA);
+	}
+	else {
+/*		global $search_memory;
+		if ($search_memory > 0)
+			asearch_edit_recent(0);*/
+	}
 }
 
 /** Edit a saved search
@@ -480,15 +509,12 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
 				$mailbox_display = '';
 				$biop_display = $imap_asearch_biops[$biop];
 			}
-			$biop_display = ' <U><I>' . $biop_display . '</I></U>';
 			$unop = $unop_array[$crit_num];
 			$unop_display = $imap_asearch_unops[$unop];
-			$where = $where_array[$crit_num];
-			$where_display = asearch_nz($imap_asearch_options[$where], $where);
 			if ($unop_display != '')
-				$where_display = ' <U><I>' . $unop_display . ' ' . $where_display . '</I></U>';
-			else
-				$where_display = ' <U><I>' . $where_display . '</I></U>';
+				$unop_display .= ' ';
+			$where = $where_array[$crit_num];
+			$where_display = $unop_display . asearch_nz($imap_asearch_options[$where], $where);
 			$what_type = $imap_asearch_opcodes[$where];
 			$what = $what_array[$crit_num];
 			if ($what_type) {	/* Check opcode parameter */
@@ -508,7 +534,10 @@ function asearch_get_query_display(&$color, &$mailbox_array, &$biop_array, &$uno
 				else
 					$what_display = '';
 			}
-			$query_display .= ' ' . $biop_display . $mailbox_display . $where_display . $what_display;
+			if ($mailbox_display != '')
+				$query_display .= ' <U><I>' . $biop_display . '</I></U>' . $mailbox_display . ' <U><I>' . $where_display . '</I></U>' . $what_display;
+			else
+				$query_display .= ' <U><I>' . $biop_display . ' ' . $where_display . '</I></U>' . $what_display;
 		}
 	}
 	return $query_display;
@@ -537,9 +566,18 @@ function asearch_print_query_array(&$boxes, &$query_array, &$query_keys, &$actio
 {
 	global $color;
 	global $data_dir, $username;
+	global $use_icons, $icon_theme;
 
 	$show_flag = getPref($data_dir, $username, $show_pref, 0) & 1;
-	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, array(_("-"), _("+")), array(_("Hide"), _("Show")));
+	$use_icons_flag = ($use_icons) && ($icon_theme != 'none');
+	if ($use_icons_flag)
+		$text_array = array('<img src="' . SM_PATH . 'images/minus.png" border="0" height="7" width="7">',
+			'<img src="' . SM_PATH . 'images/plus.png" border="0" height="7" width="7">');
+	else
+		$text_array = array(_("-"), _("+"));
+	$toggle_link = asearch_get_toggle_link(!$show_flag, $show_pref, $text_array, array(_("Fold"), _("Unfold")));
+	if (!$use_icons_flag)
+		$toggle_link = '<small>[' . $toggle_link . ']</small>';
 
 	echo "<br>\n";
 	echo html_tag('table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"');
@@ -643,6 +681,8 @@ function asearch_mailbox_exists($mailbox, &$boxes)
 	return FALSE;
 }
 
+/** Build the mailbox select
+ */
 function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num = 0)
 {
 	if (($mailbox != 'All Folders') && (!asearch_mailbox_exists($mailbox, $boxes)))
@@ -656,12 +696,16 @@ function asearch_get_form_mailbox($imapConnection, &$boxes, $mailbox, $row_num =
 		. '</select>';
 }
 
+/** Build the Include subfolders checkbox
+ */
 function asearch_get_form_sub($sub, $row_num = 0)
 {
 	return function_exists('addCheckBox') ? addCheckBox('sub[' . $row_num .']', $sub)
 	: '<input type=checkbox name="sub[' . $row_num .']"' . ($sub ? ' CHECKED' : '') . '>';
 }
 
+/** Build the 2 unop and where selects
+ */
 function asearch_get_form_location($unop, $where, $row_num = 0)
 {
 	global $imap_asearch_unops, $imap_asearch_options;
@@ -670,12 +714,16 @@ function asearch_get_form_location($unop, $where, $row_num = 0)
 		. asearch_opt_array('where[' . $row_num . ']', $imap_asearch_options, $where);
 }
 
+/** Build the what text input
+ */
 function asearch_get_form_what($what, $row_num = 0)
 {
 	return function_exists('addInput') ? addInput('what[' . $row_num . ']', $what, '35')
 	: '<input type="text" size="35" name="what[' . $row_num . ']" value="' . htmlspecialchars($what) . '">';
 }
 
+/** Build the Exclude criteria checkbox
+ */
 function asearch_get_form_exclude($exclude, $row_num = 0)
 {
 	return function_exists('addCheckBox') ? addCheckBox('exclude['.$row_num.']', $exclude)
@@ -908,7 +956,7 @@ $search_memory = getPref($data_dir, $username, 'search_memory', 0);
  * Default 2
  * @global integer $allow_advanced_search
  */
-$allow_advanced_search = getPref($data_dir, $username, 'allow_advanced_search', 2);
+$allow_advanced_search = asearch_nz($allow_advanced_search, 2);
 
 /**
  * Toggle advanced/basic search
@@ -1221,7 +1269,7 @@ uasort($imap_asearch_options, 'asearch_unhtml_strcoll');
 
 /* open IMAP connection */
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-/* get mailbox names once here */
+/* get mailboxes once here */
 $boxes = sqimap_mailbox_list($imapConnection);
 /* ensure we have a valid default mailbox name */
 $mailbox = asearch_nz($mailbox_array[0]);
@@ -1241,7 +1289,9 @@ do_hook('search_before_form');
 if (!$search_silent) {
 	//Add a link to the other search mode if allowed
 	if ($allow_advanced_search > 1)
-		$toggle_link = ' - ' . asearch_get_toggle_link(!$search_advanced, 'advanced', array(_("Standard search"), _("Advanced search")));
+		$toggle_link = ' - <small>['
+			. asearch_get_toggle_link(!$search_advanced, 'advanced', array(_("Standard search"), _("Advanced search")))
+			. ']</small>';
 	else
 		$toggle_link = '';
 
