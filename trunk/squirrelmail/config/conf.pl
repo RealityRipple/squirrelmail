@@ -817,7 +817,7 @@ sub command7 {
         $new_provider_uri =~ s/[\r|\n]//g;
         $new_provider_uri =~ s/^\s+$//g;
     }
-    return $provider_uri;
+    return $new_provider_uri;
 }
 
 sub command8 {
@@ -832,7 +832,7 @@ sub command8 {
         $new_provider_name =~ s/[\r|\n]//g;
         $new_provider_name =~ s/^\s+$//g;
     }
-    return $provider_name;
+    return $new_provider_name;
 }
 
 ####################################################################################
