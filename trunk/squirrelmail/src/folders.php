@@ -84,7 +84,6 @@
 		$num_max++;
 
    for ($p = 0; $p < count($boxes) && $count_special_folders < $num_max; $p++) {
-		echo "$count_special_folders - $p<br>";
       if (strtolower($boxes[$i]["unformatted"]) == "inbox")
          $count_special_folders++;
       else if ($boxes[$i]["unformatted"] == $trash_folder)
