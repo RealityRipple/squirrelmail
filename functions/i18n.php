@@ -1132,6 +1132,7 @@ function set_up_language($sm_language, $do_search = false) {
     if ($SetupAlready) {
         return;
     }
+
     $SetupAlready = TRUE;
 
     if ($do_search && ! $sm_language && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
@@ -1151,7 +1152,7 @@ function set_up_language($sm_language, $do_search = false) {
          $use_gettext &&
          $sm_language != '' &&
          isset($languages[$sm_notAlias]['CHARSET']) ) {
-        bindtextdomain( 'squirrelmail', '../locale/' );
+        bindtextdomain( 'squirrelmail', SM_PATH . 'locale/' );
         textdomain( 'squirrelmail' );
         if ( !ini_get('safe_mode') &&
              getenv( 'LC_ALL' ) != $sm_notAlias ) {
