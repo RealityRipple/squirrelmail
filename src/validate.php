@@ -9,11 +9,6 @@
 * $Id$
 */
 
-require_once('../config/config.php');
-require_once('../functions/prefs.php');
-global $username, $attachment_dir;
-
-session_save_path( getHashedDir($username, $attachment_dir) );
 session_start();
 
 require_once('../functions/i18n.php');
@@ -66,6 +61,7 @@ if (isset($send)
 * Include them down here instead of at the top so that all config
 * variables overwrite any passed in variables (for security).
 */
+require_once('../config/config.php');
 require_once('../src/load_prefs.php');
 require_once('../functions/page_header.php');
 require_once('../functions/prefs.php');
