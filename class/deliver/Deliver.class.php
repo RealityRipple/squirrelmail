@@ -56,7 +56,7 @@ class Deliver {
 	    if ($i == $entCount-1) $last = true;
 	}
         if ($boundary && $last) {
-	    $s = "\r\n--".$boundary."--\r\n\r\n";
+	    $s = "--".$boundary."--\r\n\r\n";
 	    $length_raw += strlen($s);
 	    if ($stream) {
                 $this->preWriteToStream($s);
@@ -71,6 +71,8 @@ class Deliver {
 	} else {
 	   $type0 = $message->rfc822_header->content_type->type0;
 	}
+	
+	$body_part_trailing = $last = '';
 	switch ($type0) {
 	case 'text':
 	case 'message':
@@ -81,15 +83,17 @@ class Deliver {
                   $this->preWriteToStream($body_part);     
 	          $this->writeToStream($stream, $body_part);
 	       }
+	       $last = $body_part;
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
 		$file = fopen ($filename, 'rb');
-		while ($tmp = fgets($file, 4096)) {
-		   $length += $this->clean_crlf($tmp);
+		while ($body_part = fgets($file, 4096)) {
+		   $length += $this->clean_crlf($body_part);
 		   if ($stream) {
-		      $this->preWriteToStream($tmp);
-		      $this->writeToStream($stream, $tmp);
+		      $this->preWriteToStream($body_part);
+		      $this->writeToStream($stream, $body_part);
                    }
+		   $last = $body_part;
 		}
 		fclose($file);
             }
@@ -104,22 +108,28 @@ class Deliver {
 	    } elseif ($message->att_local_name) {
 	        $filename = $message->att_local_name;
 		$file = fopen ($filename, 'rb');
+		$encoded = '';
 		while ($tmp = fread($file, 570)) {
-		   $encoded = chunk_split(base64_encode($tmp));
-		   
+		   $body_part = chunk_split(base64_encode($tmp));
+		   $length += $this->clean_crlf($body_part);
 		   if ($stream) {
-		      $this->writeToStream($stream, $encoded);
+		      $this->writeToStream($stream, $body_part);
 		   }
 		}
 		fclose($file);
 	    }
 	    break;
 	}
-	$body_part_trailing = "\r\n";
-	$length += strlen($body_part_trailing);
-	if ($stream) {
-           $this->preWriteToStream($body_part_trailing);     
-	   $this->writeToStream($stream, $body_part_trailing);
+	$body_part_trailing = '';
+	if ($last && substr($last,-1) != "\n") {
+	   $body_part_trailing = "\r\n";
+	}
+	if ($body_part_trailing) {
+	    $length += strlen($body_part_trailing);
+	    if ($stream) {
+        	$this->preWriteToStream($body_part_trailing);     
+		$this->writeToStream($stream, $body_part_trailing);
+	    }
 	}
     }
     
