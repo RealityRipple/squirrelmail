@@ -188,8 +188,16 @@ define('SQ_SERVER',5);
  * Returns TRUE if it is.
  */
 function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
+
     if ( !check_php_version(4,1) ) {
-        global $_SESSION, $_GET, $_POST, $_COOKIE, $_SERVER;
+        global $HTTP_COOKIE_VARS, $HTTP_GET_VARS, $HTTP_POST_VARS, 
+               $HTTP_SERVER_VARS, $HTTP_SESSION_VARS;
+
+        $_COOKIE  =& $HTTP_COOKIE_VARS;
+        $_GET     =& $HTTP_GET_VARS;
+        $_POST    =& $HTTP_POST_VARS;
+        $_SERVER  =& $HTTP_SERVER_VARS;
+        $_SESSION =& $HTTP_SESSION_VARS;
     }
 
     /* NOTE: DO NOT enclose the constants in the switch
