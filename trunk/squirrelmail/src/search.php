@@ -218,12 +218,12 @@ elseif ($submit == 'delete') {
 
 do_hook('search_before_form');
 
-echo "<BR>\n".
-     "<table width=\"100%\">\n".
-        "<TR><td bgcolor=\"$color[0]\">\n".
-            "<CENTER><B>" . _("Search") . "</B></CENTER>\n".
-        "</TD></TR>\n".
-     "</TABLE>\n";
+echo "<br>\n".
+     html_tag( 'table',
+         html_tag( 'tr', "\n" .
+             html_tag( 'td', '<b>' . _("Search") . '</b>', 'center', $color[0] )
+         ) ,
+     '', '', 'width="100%"') . "\n";
 
 /*  update the recent and saved searches from the pref files  */
 $attributes = get_recent($username, $data_dir);
@@ -233,39 +233,43 @@ $count_all = 0;
 
 /* Saved Search Table */
 if ($saved_count > 0) {
-    echo "<BR>\n"
-    . "<TABLE WIDTH=\"95%\" BGCOLOR=\"$color[9]\" ALIGN=\"CENTER\" CELLPADDING=1 CELLSPACING=1>"
-    . '<TR><TD align=center><B>Saved Searches</B></TD></TR><TR><TD>'
-    . '<TABLE WIDTH="100%" ALIGN="CENTER" CELLPADDING=0 CELLSPACING=0>';
+    echo "<br>\n"
+    . html_tag( 'table', '', 'center', $color[9], 'width="95%" cellpadding="1" cellspacing="1" border="0"' )
+    . html_tag( 'tr',
+          html_tag( 'td', '<b>Saved Searches</b>', 'center' )
+      )
+    . html_tag( 'tr' )
+    . html_tag( 'td' )
+    . html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="2" cellspacing="2" border="0"' );
     for ($i=0; $i < $saved_count; ++$i) {
         if ($i % 2) {
-            echo "<TR BGCOLOR=\"$color[0]\">";
+            echo html_tag( 'tr', '', '', $color[0] );
         } else {
-            echo "<TR BGCOLOR=\"$color[4]\">";
+            echo html_tag( 'tr', '', '', $color[4] );
         }
-        echo "<TD WIDTH=\"35%\">".$saved_attributes['saved_folder'][$i]."</TD>"
-        . "<TD ALIGN=LEFT>".$saved_attributes['saved_what'][$i]."</TD>"
-        . "<TD ALIGN=CENTER>".$saved_attributes['saved_where'][$i]."</TD>"
-        . '<TD ALIGN=RIGHT>'
-        .   '<A HREF=search.php'
+        echo html_tag( 'td', $saved_attributes['saved_folder'][$i], 'left', '', 'width="35%"' )
+        . html_tag( 'td', $saved_attributes['saved_what'][$i], 'left' )
+        . html_tag( 'td', $saved_attributes['saved_where'][$i], 'center' )
+        . html_tag( 'td', '', 'right' )
+        .   '<a href=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
-        .   '>' . _("edit") . '</A>'
+        .   '>' . _("edit") . '</a>'
         .   '&nbsp;|&nbsp;'
-        .   '<A HREF=search.php'
+        .   '<a href=search.php'
         .     '?mailbox=' . urlencode($saved_attributes['saved_folder'][$i])
         .     '&amp;what=' . urlencode($saved_attributes['saved_what'][$i])
         .     '&amp;where=' . urlencode($saved_attributes['saved_where'][$i])
         .     '&amp;submit=Search_no_update'
-        .   '>' . _("search") . '</A>'
+        .   '>' . _("search") . '</a>'
         .   '&nbsp;|&nbsp;'
-        .   "<A HREF=search.php?count=$i&amp;submit=delete>"
+        .   "<a href=search.php?count=$i&amp;submit=delete>"
         .     _("delete")
-        .   '</A>'
-        . '</TD></TR>';
+        .   '</a>'
+        . '</td></tr>';
     }
-    echo "</TABLE></TD></TR></TABLE>\n";
+    echo "</table></td></tr></table>\n";
 }
 
 if ($recent_count > 0) {
@@ -473,9 +477,8 @@ if ($search_all == 'all') {
 /*  search one folder option  */
 else {
     if (($submit == _("Search") || $submit == 'Search_no_update') && !empty($what)) {
-        echo '<BR><CENTER><B>' .
-             _("Search Results") .
-             "</B></CENTER>\n";
+        echo '<br>'
+        . html_tag( 'div', '<b>' . _("Search Results") . '</b>', 'center' ) . "\n";
         sqimap_mailbox_select($imapConnection, $mailbox);
         $msgs = sqimap_search($imapConnection, $where, $what, $mailbox, $color, 0, $search_all, $count_all);
         printSearchMessages($msgs, $mailbox, count($msgs), $imapConnection);
@@ -484,7 +487,8 @@ else {
 
 /*  must have search terms to search  */
 if ($submit == _("Search") && empty($what)) {
-    echo "<BR><CENTER><B>Please enter something to search for</B></CENTER>\n";
+        echo '<br>'
+        . html_tag( 'div', '<b>Please enter something to search for</b>', 'center' ) . "\n";
 }
 
 $allow_thread_sort = $old_value;
