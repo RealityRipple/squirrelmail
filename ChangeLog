@@ -9,6 +9,9 @@ Version 1.2.5 -- CVS
   - Fixed 'too many close table tags' and various other issues
     which meant SM output didn't always validate as clean HTML.
   - Added the ability to add special folders through plugins.
+  - Added an Always compose in a pop-up window option.
+  - Search page update with ability to save searches and search
+    all folders at once.
   - Made searching on multiple criteria possible, with thanks to Jason Munro
   - Fixed 'list all' in addressbook (#506624, thanks to Kurt Yoder)
   - Fixed small bugs in db_prefs
