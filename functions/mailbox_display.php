@@ -242,115 +242,31 @@
       $urlMailbox = urlencode($mailbox);
 
       do_hook("mailbox_index_before");
-      /** This is the beginning of the message list table.  It wraps around all messages */
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
 
+      $Message = '';
       if ($startMessage < $endMessage) {
-         echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-         echo "<CENTER>". _("Viewing messages") ." <B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")</CENTER>\n";
-         echo "</TD></TR>\n";
+         $Message = _("Viewing messages") ." <B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
       } else if ($startMessage == $endMessage) {
-         echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-         echo "<CENTER>". _("Viewing message") ." <B>$startMessage</B> ($numMessages " . _("total") . ")</CENTER>\n";
-         echo "</TD></TR>\n";
+         $Message = _("Viewing message") ." <B>$startMessage</B> ($numMessages " . _("total") . ")\n";
       }
 
-      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
+      $More = '';
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
+         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
-         echo "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
+         $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
+         $More .= "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $More = "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
+         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
-      echo "</TD></TR>\n";
 
-      /** The delete and move options */
-      echo "<TR><TD BGCOLOR=\"$color[0]\">";
-
-      echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage\">";
-      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
-      echo "   <TR>\n";
-      echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
-      echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
-      echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
-
-      $boxes = sqimap_mailbox_list($imapConnection);
-      for ($i = 0; $i < count($boxes); $i++) {
-			if ($boxes[$i]["flags"][0] != "noselect" && $boxes[$i]["flags"][1] != "noselect" && $boxes[$i]["flags"][2] != "noselect") {
-         	$box = $boxes[$i]["unformatted"];
-         	$box2 = replace_spaces($boxes[$i]["formatted"]);
-         	echo "         <OPTION VALUE=\"$box\">$box2\n";
-			}	
-      }
-      echo "         </SELECT></SMALL></TT>";
-      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
-
-      echo "      </TD>\n";
-      echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
-      echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
-      echo "      </TD>";
-      echo "   </TR>\n";
-
-      echo "</TABLE>\n";
-      do_hook("mailbox_form_before");
-      echo "</TD></TR>";
-
-      echo "<TR><TD BGCOLOR=\"$color[0]\">";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
-      echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-
-      for ($i=1; $i <= count($index_order); $i++) {
-         switch ($index_order[$i]) {
-            case 1: # checkbox
-               echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
-               break;
-            case 2: # from
-         		if ($mailbox == $sent_folder)
-               	echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
-         		else
-               	echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
-         
-               if ($sort == 2)
-                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 3)
-                  echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else
-                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               break;
-            case 3: # date
-               echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
-               if ($sort == 0)
-                  echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 1)
-                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else
-                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               break;
-            case 4: # subject
-               echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
-               if ($sort == 4)
-                 echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-               else if ($sort == 5)
-                  echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-               else
-                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               break;
-            case 5: # flags
-               echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
-               break;
-            case 6: # size   
-               echo "   <TD WIDTH=1%><b>" . _("Size")."</b></TD>\n";
-               break;
-         }
-      }
-      echo "</TR>";
-
+      mail_message_listing_beginning($imapConnection, 
+         "move_messages.php?msg=$msg&mailbox=$urlMailbox&startMessage=$startMessage",
+          $mailbox, $sort, $Message, $More);
 
       
       // loop through and display the info for each message.
@@ -386,25 +302,126 @@
       }
       echo "</TABLE>";
 
-      echo "</TABLE>\n";
-      echo "</TD></TR>\n";
+      echo "</td></tr>\n";
 
-      echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A> | \n";
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
+      if ($More)
+      {
+         echo "<TR BGCOLOR=\"$color[4]\"><TD>$More</td></tr>\n";
       }
-      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A> | \n";
-         echo "<FONT COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
-      }
-      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT COLOR=\"$color[9]\">" . _("Previous"). "</FONT> | \n";
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
-      }
-      echo "</form>";
-      echo "</TD></TR></table>"; /** End of message-list table */
+      echo "</table>"; /** End of message-list table */
 
       do_hook("mailbox_index_after");
+   }
+
+   /* Displays the standard message list header.
+    * To finish the table, you need to do a "</table></table>";
+    * $moveURL is the URL to submit the delete/move form to
+    * $mailbox is the current mailbox
+    * $sort is the current sorting method (-1 for no sorting available [searches])
+    * $Message is a message that is centered on top of the list
+    * $More is a second line that is left aligned
+    */
+   function mail_message_listing_beginning($imapConnection, $moveURL, 
+       $mailbox = '', $sort = -1, $Message = '', $More = '')
+   {
+      global $color, $index_order;
+       
+         /** This is the beginning of the message list table.  It wraps around all messages */
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
+      
+      if ($Message)
+      {
+         echo "<TR BGCOLOR=\"$color[4]\"><TD align=center>$Message</td></tr>\n";
+      }
+      
+      if ($More)
+      {
+         echo "<TR BGCOLOR=\"$color[4]\"><TD>$More</td></tr>\n";
+      }
+
+      /** The delete and move options */
+      echo "<TR><TD BGCOLOR=\"$color[0]\">";
+
+      echo "\n\n\n<FORM name=messageList method=post action=\"$moveURL\">\n";
+      echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
+      echo "   <TR>\n";
+      echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
+      echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
+      echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
+
+      $boxes = sqimap_mailbox_list($imapConnection);
+      for ($i = 0; $i < count($boxes); $i++) {
+         if ($boxes[$i]["flags"][0] != "noselect" && 
+            $boxes[$i]["flags"][1] != "noselect" && 
+            $boxes[$i]["flags"][2] != "noselect") {
+            $box = $boxes[$i]["unformatted"];
+            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
+	 }
+      }
+      echo "         </SELECT></SMALL></TT>";
+      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
+      echo "      </TD>\n";
+      echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
+      echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
+      echo "      </TD>\n";
+      echo "   </TR>\n";
+
+      echo "</TABLE>\n";
+      do_hook("mailbox_form_before");
+      echo "</TD></TR>";
+
+      echo "<TR><TD BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
+      echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
+
+      // Print the headers
+      for ($i=1; $i <= count($index_order); $i++) {
+         switch ($index_order[$i]) {
+            case 1: # checkbox
+            case 5: # flags
+               echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
+               break;
+               
+            case 2: # from
+               if ($mailbox == $sent_folder)
+                  echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
+               else
+               	  echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+         
+               if ($sort == 2)
+                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 3)
+                  echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort != -1)
+                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+               
+            case 3: # date
+               echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
+               if ($sort == 0)
+                  echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 1)
+                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort != -1)
+                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+               
+            case 4: # subject
+               echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
+               if ($sort == 4)
+                 echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 5)
+                  echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort != -1)
+                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+               
+            case 6: # size   
+               echo "   <TD WIDTH=1%><b>" . _("Size")."</b></TD>\n";
+               break;
+         }
+      }
+      echo "</TR>\n";
    }
 ?>

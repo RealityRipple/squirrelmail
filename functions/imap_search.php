@@ -127,86 +127,11 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 
       if (count($messagelist) > 0) {
          $j=0;
-         echo "<center><b>" . _("Found") . " " . count($messagelist) . " " . _("messages") . "</b></center>\n";
-         echo "<br>\n";
-         echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
-         echo "<TR><TD BGCOLOR=\"$color[0]\">";
-   
-         echo "\n\n\n<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&where=".urlencode($search_where)."&what=".urlencode($search_what)."\">";
-         echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n";
-         echo "   <TR>\n";
-         echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
-         echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
-         echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
-   
-         $boxes = sqimap_mailbox_list($imapConnection);
-         for ($i = 0; $i < count($boxes); $i++) {
-            if ($boxes[$i]["flags"][0] != "noselect" && $boxes[$i]["flags"][1] != "noselect" && $boxes[$i]["flags"][2] != "noselect") {
-               $box = $boxes[$i]["unformatted"];
-               $box2 = replace_spaces($boxes[$i]["formatted"]);
-               echo "         <OPTION VALUE=\"$box\">$box2\n";
-            }
-         }
-         echo "         </SELECT></SMALL></TT>";
-         echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
-   
-         echo "      </TD>\n";
-         echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
-         echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
-         echo "      </TD>";
-         echo "   </TR>\n";
-         echo "</TABLE>\n";
-         do_hook("mailbox_form_before");
-         echo "</TD></TR>";
-         echo "<TR><TD BGCOLOR=\"$color[0]\">";
-         echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
-         echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-
-         for ($i=1; $i <= count($index_order); $i++) {
-            switch ($index_order[$i]) {
-               case 1: # checkbox
-                  echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
-                  break;
-               case 2: # from
-                  if ($mailbox == $sent_folder)
-               	     echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
-                  else
-               	     echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+         mail_message_listing_beginning($imapConnection, 
+            "move_messages.php?msg=$msg&mailbox=$urlMailbox&where=".urlencode($search_where)."&what=".urlencode($search_what),
+             '', -1, '<b>' . _("Found") . ' ' . count($messagelist) . ' ' . _("messages") . '</b>',
+             '&nbsp;');
          
-                  if ($sort == 2)
-                     echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-                  else if ($sort == 3)
-                     echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-                  else
-                     echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-                  break;
-               case 3: # date
-                  echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
-                  if ($sort == 0)
-                     echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-                  else if ($sort == 1)
-                     echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-                  else
-                     echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-                  break;
-               case 4: # subject
-                  echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
-                  if ($sort == 4)
-                     echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-                  else if ($sort == 5)
-                     echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-                  else
-                     echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-                  break;
-               case 5: # flags
-                  echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
-                  break;
-               case 6: # size   
-                  echo "   <TD WIDTH=1%><b>" . _("Size")."</b></TD>\n";
-                  break;
-            }
-         }
-         echo "</TR>";
  
          while ($j < count($msgs)) {
             printMessageInfo($imapConnection, $msgs[$j]["ID"], 0, $j, $mailbox, "", 0, $search_where, $search_what);
