@@ -24,6 +24,7 @@
     *
     * $Id$
     */
+    include_once(SM_PATH . 'functions/display_messages.php');
 
     function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_new) {
     
@@ -77,7 +78,7 @@
            /* Register Squirrelspell with the $optionpages array. */
            $optpage_blocks[] = array(
                'name' => _("NewMail Options"),
-               'url'  => '../plugins/newmail/newmail_opt.php',
+               'url'  => SM_PATH . 'plugins/newmail/newmail_opt.php',
                'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),
                'js'   => TRUE
             );
@@ -85,44 +86,33 @@
     }
 
     function newmail_sav() {
+        global $data_dir, $username;
 
-        global $data_dir, $username, $_POST;
-     
-        if ( isset($_POST['submit_newmail']) ) {
+        if ( sqgetGlobalVar('submit_newmail', $submit, SQ_POST) ) {        
+            $media_enable = '';
+            $media_popup = '';
+            $media_allbox = '';
+            $media_recent = '';
+            $media_changetitle = '';
+            $media_sel = '';
 
-            if(isset($_POST['media_enable'])) {
-                setPref($data_dir,$username,'newmail_enable',$_POST['media_enable']);
+            sqgetGlobalVar('media_enable',      $media_enable,      SQ_POST);
+            sqgetGlobalVar('media_popup',       $media_popup,       SQ_POST);
+            sqgetGlobalVar('media_allbox',      $media_allbox,      SQ_POST);
+            sqgetGlobalVar('media_recent',      $media_recent,      SQ_POST);
+            sqgetGlobalVar('media_changetitle', $media_changetitle, SQ_POST);
+
+            setPref($data_dir,$username,'newmail_enable',$media_enable);
+            setPref($data_dir,$username,'newmail_popup', $media_popup);
+            setPref($data_dir,$username,'newmail_allbox',$media_allbox);
+            setPref($data_dir,$username,'newmail_recent',$media_recent);
+            setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
+            
+            if( sqgetGlobalVar('media_sel', $media_sel, SQ_POST) &&
+                ($media_sel == '(none)' || $media_sel == '(local media)') ) {
+                removePref($data_dir,$username,'newmail_media');
             } else {
-                setPref($data_dir,$username,'newmail_enable','');
-            }
-            if(isset($_POST['media_popup'])) {
-                setPref($data_dir,$username,'newmail_popup',$_POST['media_popup']);
-            } else {
-                setPref($data_dir,$username,'newmail_popup','');
-            }
-            if(isset($_POST['media_allbox'])) {
-                setPref($data_dir,$username,'newmail_allbox',$_POST['media_allbox']);
-            } else {
-                setPref($data_dir,$username,'newmail_allbox','');
-            }
-            if(isset($_POST['media_recent'])) {
-                setPref($data_dir,$username,'newmail_recent',$_POST['media_recent']);
-            } else {
-                setPref($data_dir,$username,'newmail_recent','');
-            }
-            if(isset($_POST['media_changetitle'])) {
-                setPref($data_dir,$username,'newmail_changetitle',$_POST['media_changetitle']);
-            } else {
-                setPref($data_dir,$username,'newmail_changetitle','');
-            }
-            if(isset($_POST['media_sel'])) {
-                if($_POST['media_sel'] == '(local media)') {
-                    setPref($data_dir,$username,'newmail_media',StripSlashes($_POST['media_file']));
-                } else {
-                    setPref($data_dir,$username,'newmail_media',$_POST['media_sel']);
-                }
-            } else {
-                setPref($data_dir,$username,'newmail_media','');
+                setPref($data_dir,$username,'newmail_media',$media_sel);
             }
             echo html_tag( 'p', _("New Mail Notification options saved"), 'center' );
         }
@@ -136,7 +126,7 @@
         
         $newmail_recent = getPref($data_dir,$username,'newmail_recent');
         $newmail_enable = getPref($data_dir,$username,'newmail_enable');
-        $newmail_media = getPref($data_dir, $username, 'newmail_media', '../plugins/newmail/sounds/Notify.wav');
+        $newmail_media = getPref($data_dir, $username, 'newmail_media', '(none)');
         $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
         $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
         $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
@@ -149,8 +139,6 @@
                $newmail_media, $newmail_enable, $newmail_popup,
                $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
 
-        /* temp hack to locate the sounds correct from the src dir */
-        $newmail_media = SM_PATH . 'plugins/newmail/' . $newmail_media;
         if ($newmail_enable == 'on' ||
             $newmail_popup == 'on' ||
             $newmail_changetitle) {
@@ -222,14 +210,14 @@
                     "</script>\n";
             }
 
-            if ($totalNew > 0 && $newmail_enable == 'on') {
+            if ($totalNew > 0 && $newmail_enable == 'on' && $newmail_media != '' ) {
                 echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>\n";
             }
             if ($totalNew > 0 && $newmail_popup == 'on') {
                 echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".
                     "<!--\n".
                     "function PopupScriptLoad() {\n".
-                        'window.open("../plugins/newmail/newmail.php", "SMPopup",'.
+                        'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php", "SMPopup",'.
                                      "\"width=200,height=130,scrollbars=no\");\n".
                         "if (BeforePopupScript != null)\n".
                             "BeforePopupScript();\n".
@@ -241,7 +229,6 @@
                     // More code from Tyler Akins
                     "// End -->\n".
                     "</script>\n";
-
             }
         }
     }
