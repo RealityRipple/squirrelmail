@@ -167,15 +167,19 @@ $javascript_setting = getPref
     ($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
 $js_autodetect_results = (isset($js_autodetect_results) ?
     $js_autodetect_results : SMPREF_JS_OFF);
-if ($javascript_setting == SMPREF_JS_AUTODETECT) {
-    if ($js_autodetect_results == SMPREF_JS_ON) {
-        setPref($data_dir, $username, 'javascript_on', SMPREF_JS_ON);
+/* See if it's set to "Always on" */
+$js_pref = SMPREF_JS_ON;
+if ($javascript_setting != SMPREF_JS_ON){
+    if ($javascript_setting == SMPREF_JS_AUTODETECT) {
+        if ($js_autodetect_results == SMPREF_JS_OFF) {
+            $js_pref = SMPREF_JS_OFF;
+        }
     } else {
-        setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
+        $js_pref = SMPREF_JS_OFF;
     }
-} else {
-    setPref($data_dir, $username, 'javascript_on', SMPREF_JS_OFF);
 }
+/* Update the prefs */
+setPref($data_dir, $username, 'javascript_on', $js_pref);
 
 /* Compute the URL to forward the user to. */
 if(isset($rcptemail)) {
