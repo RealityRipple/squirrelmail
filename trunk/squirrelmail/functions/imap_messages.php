@@ -479,6 +479,17 @@ function elapsedTime($start) {
 }
 
 
+/**
+ * Normalise the different Priority headers into a uniform value,
+ * namely that of the X-Priority header (1, 3, 5). Supports:
+ * Prioirty, X-Priority, Importance.
+ * X-MS-Mail-Priority is not parsed because it always coincides
+ * with one of the other headers.
+ *
+ * DUPLICATE CODE ALERT:
+ * NOTE: this is actually a duplicate from the function in
+ * class/mime/Rfc822Header.php.
+ */
 function parsePriority($value) {
     $value = strtolower(array_shift(split('/\w/',trim($value))));
     if ( is_numeric($value) ) {
