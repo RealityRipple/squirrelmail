@@ -16,6 +16,13 @@ $config_version = '1.2.0';
 global $org_logo;
 $org_logo = '../images/sm_logo.png';
 
+/*  The width of the logo (0 for default) */
+$org_logo_width = 0;
+
+/*  The height of the logo (0 for default) */
+$org_logo_height = 1;
+
+
 /* Organization's name */
 global $org_name;
 $org_name = 'SquirrelMail';

@@ -345,12 +345,13 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "\n";
     } elsif ( $menu == 1 ) {
         print $WHT. "Organization Preferences\n" . $NRM;
-        print "1.  Organization Name    : $WHT$org_name$NRM\n";
-        print "2.  Organization Logo    : $WHT$org_logo$NRM\n";
-        print "3.  Organization Title   : $WHT$org_title$NRM\n";
-        print "4.  Signout Page         : $WHT$signout_page$NRM\n";
-        print "5.  Default Language     : $WHT$squirrelmail_default_language$NRM\n";
-        print "6.  Top Frame            : $WHT$frame_top$NRM\n";
+        print "1.  Organization Name      : $WHT$org_name$NRM\n";
+        print "2.  Organization Logo      : $WHT$org_logo$NRM\n";
+        print "3.  Org. Logo Width/Height : $WHT($org_logo_width/$org_logo_height)$NRM\n";
+        print "4.  Organization Title     : $WHT$org_title$NRM\n";
+        print "5.  Signout Page           : $WHT$signout_page$NRM\n";
+        print "6.  Default Language       : $WHT$squirrelmail_default_language$NRM\n";
+        print "7.  Top Frame              : $WHT$frame_top$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 2 ) {
@@ -545,10 +546,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         } elsif ( $menu == 1 ) {
             if    ( $command == 1 ) { $org_name                      = command1(); }
             elsif ( $command == 2 ) { $org_logo                      = command2(); }
-            elsif ( $command == 3 ) { $org_title                     = command3(); }
-            elsif ( $command == 4 ) { $signout_page                  = command4(); }
-            elsif ( $command == 5 ) { $squirrelmail_default_language = command5(); }
-            elsif ( $command == 6 ) { $frame_top                     = command6(); }
+            elsif ( $command == 3 ) { ($org_logo_width,$org_logo_height)  = command2a(); }
+            elsif ( $command == 4 ) { $org_title                     = command3(); }
+            elsif ( $command == 5 ) { $signout_page                  = command4(); }
+            elsif ( $command == 6 ) { $squirrelmail_default_language = command5(); }
+            elsif ( $command == 7 ) { $frame_top                     = command6(); }
         } elsif ( $menu == 2 ) {
             if    ( $command == 1 )  { $domain                 = command11(); }
             elsif ( $command == 2 )  { $imapServerAddress      = command12(); }
@@ -647,6 +649,27 @@ sub command2 {
         $new_org_logo =~ s/[\r|\n]//g;
     }
     return $new_org_logo;
+}
+
+# org_logo_width
+sub command2a {
+    print "Your organization's logo is an image that will be displayed at\n";
+    print "different times throughout SquirrelMail.  Width\n";
+    print "and Height of your logo image.  Use '0' to disable.\n";
+    print "\n";
+    print "Width: [$WHT$org_logo_width$NRM]: $WHT";
+    $new_org_logo_width = <STDIN>;
+    $new_org_logo_width =~ tr/0-9//cd;  # only want digits!
+    if ( $new_org_logo_width eq '' ) {
+        $new_org_logo_width = $org_logo_width;
+    }
+    print "Height: [$WHT$org_logo_height$NRM]: $WHT";
+    $new_org_logo_height = <STDIN>;
+    $new_org_logo_height =~ tr/0-9//cd;  # only want digits!
+    unless ( $new_org_logo_height > 0 ) {
+        $new_org_logo_height = $org_logo_height;
+    }
+    return ($new_org_logo_width, $new_org_logo_height);
 }
 
 # org_title
@@ -2093,6 +2116,11 @@ sub save_data {
         print CF "\n";
 
         print CF "\$org_name      = \"$org_name\";\n";
+        print CF "\$org_logo      = '$org_logo';\n";
+        $org_logo_width |= 0;
+        $org_logo_height |= 0;
+        print CF "\$org_logo_width  = $org_logo_width;\n";
+        print CF "\$org_logo_height = $org_logo_height;\n";
         print CF "\$org_logo      = '$org_logo';\n";
         print CF "\$org_title     = \"$org_title\";\n";
         print CF "\$signout_page  = '$signout_page';\n";
