@@ -23,6 +23,7 @@ require_once('../functions/smtp.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/addressbook.php');
 require_once('../functions/plugin.php');
+include_once('../functions/strings.php');
 
 /* Insert hidden data */
 function addr_insert_hidden() {

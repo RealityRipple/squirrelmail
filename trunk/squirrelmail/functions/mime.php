@@ -836,7 +836,7 @@ function encodeHeader ($string) {
 */
 function MagicHTML( $body, $id ) {
 
-    global $message, $PHP_SELF, $HTTP_SERVER_VARS, 
+    global $message, $HTTP_SERVER_VARS, 
            $attachment_common_show_images;
 
     $attachment_common_show_images =

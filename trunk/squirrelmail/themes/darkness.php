@@ -6,6 +6,9 @@
        
    **/
 
+
+include_once('../functions/strings.php');
+
    // Note:  The text distance is actually pre-squared
    // Background range is from 24-64, all three colors are the same
    // Text range is from 196 to 255

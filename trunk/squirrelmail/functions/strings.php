@@ -261,6 +261,20 @@ function find_mailbox_name ($mailbox) {
     
 }
 
+function php_self () {
+    global $PHP_SELF, $HTTP_SERVER_VARS;
+    
+    if (isset($PHP_SELF) && !empty($PHP_SELF)) {
+        return $PHP_SELF;
+    } else if (isset($HTTP_SERVER_VARS['PHP_SELF']) &&
+               !empty($HTTP_SERVER_VARS['PHP_SELF'])) {
+        return $HTTP_SERVER_VARS['PHP_SELF'];
+    } else {
+        return '';
+    }
+}
+
+
 /**
  * This determines the location to forward to relative to your server.
  * If this doesnt work correctly for you (although it should), you can
@@ -588,5 +602,7 @@ function RemoveSlashes(&$array) {
         $array[$k] = $$k;
     }
 }
+
+$PHP_SELF = php_self();
 
 ?>
