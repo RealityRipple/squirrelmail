@@ -51,6 +51,8 @@ function charset_decode ($charset, $string) {
         $ret = charset_decode_koi8r ($string);
     } else if ($charset == 'windows-1251') {
         $ret = charset_decode_koi8r ($string);
+    } else if ($charset == 'windows-1257') {
+        $ret = charset_decode_windows_1257 ($string);
     } else {
         $ret = $string;
     }
@@ -408,49 +410,123 @@ function charset_decode_iso_8859_2 ($string) {
 }
 
 /* 
-   iso-8859-4 is Baltic codeset used in some email clients 
-   instead of iso-8859-13 in Lithuania 
-   only Lithuanian charactes are added.
+ ISO/IEC 8859-4:1998 Latin Alphabet No. 4
 */
 
 function charset_decode_iso_8859_4 ($string) {
-    // latin capital a with ogonek
-    $string = str_replace ("\241", '&#0260;', $string);
-    // latin capital c with caron
-    $string = str_replace ("\310", '&#0268;', $string);
-    // latin capital e with ogonek
-    $string = str_replace ("\312", '&#0280;', $string);
-    // latin capital e with dot above
-    $string = str_replace ("\314", '&#0278;', $string);
-    // latin capital i with ogonek
-    $string = str_replace ("\307", '&#0302;', $string);
-    // latin capital s with caron
-    $string = str_replace ("\251", '&#0352;', $string);
-    // latin capital u with ogonek
-    $string = str_replace ("\331", '&#0370;', $string);
-    // latin capital u with macron
-    $string = str_replace ("\336", '&#0362;', $string);
-    // latin capital z with caron
-    $string = str_replace ("\256", '&#0381;', $string);
-    // latin small a with ogonek
-    $string = str_replace ("\261", '&#0261;', $string);
-    // latin small c with caron
-    $string = str_replace ("\350", '&#0269;', $string);
-    // latin small e with ogonek
-    $string = str_replace ("\352", '&#0281;', $string);
-    // latin small e with dot above
-    $string = str_replace ("\354", '&#0279;', $string);
-    // latin small i with ogonek
-    $string = str_replace ("\347", '&#0303;', $string);
-    // latin small s with caron
-    $string = str_replace ("\271", '&#0353;', $string);
-    // latin small u with ogonek
-    $string = str_replace ("\371", '&#0371;', $string);
-    // latin small u with macron
-    $string = str_replace ("\376", '&#0363;', $string);
-    // latin small z with caron
-    $string = str_replace ("\276", '&#0382;', $string);
+    global $default_charset, $languages, $sm_notAlias;
 
+    if (strtolower($default_charset) == 'iso-8859-4')
+        return $string;
+    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'iso-8859-4')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    // latin capital letter a with ogonek 161 -> 260
+    $string = str_replace ("\241", '&#260;', $string);
+    // latin small letter kra 162 -> 312
+    $string = str_replace ("\242", '&#312;', $string);
+    // latin capital letter r with cedilla 163 -> 342
+    $string = str_replace ("\243", '&#342;', $string);
+    // latin capital letter i with tilde 165 -> 296
+    $string = str_replace ("\245", '&#296;', $string);
+    // latin capital letter l with cedilla 166 -> 315
+    $string = str_replace ("\246", '&#315;', $string);
+    // latin capital letter s with caron 169 -> 352
+    $string = str_replace ("\251", '&#352;', $string);
+    // latin capital letter e with macron 170 -> 274
+    $string = str_replace ("\252", '&#274;', $string);
+    // latin capital letter g with cedilla 171 -> 290
+    $string = str_replace ("\253", '&#290;', $string);
+    // latin capital letter t with stroke 172 -> 358
+    $string = str_replace ("\254", '&#358;', $string);
+    // latin capital letter z with caron 174 -> 381
+    $string = str_replace ("\256", '&#381;', $string);
+    // latin small letter a with ogonek 177 -> 261
+    $string = str_replace ("\261", '&#261;', $string);
+    // ogonek 178 -> 731
+    $string = str_replace ("\262", '&#731;', $string);
+    // latin small letter r with cedilla 179 -> 343
+    $string = str_replace ("\263", '&#343;', $string);
+    // latin small letter i with tilde 181 -> 297
+    $string = str_replace ("\265", '&#297;', $string);
+    // latin small letter l with cedilla 182 -> 316
+    $string = str_replace ("\266", '&#316;', $string);
+    // caron 183 -> 711 
+    $string = str_replace ("\267", '&#711;', $string);
+    // latin small letter s with caron 185 -> 353
+    $string = str_replace ("\271", '&#353;', $string);
+    // latin small letter e with macron 186 -> 275
+    $string = str_replace ("\272", '&#275;', $string);
+    // latin small letter g with cedilla 187 -> 291
+    $string = str_replace ("\273", '&#291;', $string);
+    // latin small letter t with stroke 188 -> 359
+    $string = str_replace ("\274", '&#359;', $string);
+    // latin capital letter eng 189 -> 330
+    $string = str_replace ("\275", '&#330;', $string);
+    // latin small letter z with caron 190 -> 382
+    $string = str_replace ("\276", '&#382;', $string);
+    // latin small letter eng 191 -> 331
+    $string = str_replace ("\277", '&#331;', $string);
+    // latin capital letter a with macron 192 -> 256
+    $string = str_replace ("\300", '&#256;', $string);
+    // latin capital letter i with ogonek 199 -> 302
+    $string = str_replace ("\307", '&#302;', $string);
+    // latin capital letter c with caron 200 -> 268
+    $string = str_replace ("\310", '&#268;', $string);
+    // latin capital letter e with ogonek 202 -> 280
+    $string = str_replace ("\312", '&#280;', $string);
+    // latin capital letter e with dot above 204 -> 278
+    $string = str_replace ("\314", '&#278;', $string);
+    // latin capital letter i with macron 207 -> 298
+    $string = str_replace ("\317", '&#298;', $string);
+    // latin capital letter d with stroke 208 -> 272
+    $string = str_replace ("\320", '&#272;', $string);
+    // latin capital letter n with cedilla 209 -> 325
+    $string = str_replace ("\321", '&#325;', $string);
+    // latin capital letter o with macron 210 -> 332
+    $string = str_replace ("\322", '&#332;', $string);
+    // latin capital letter k with cedilla 211 -> 310
+    $string = str_replace ("\323", '&#310;', $string);
+    // latin capital letter u with ogonek 217 -> 370
+    $string = str_replace ("\331", '&#370;', $string);
+    // latin capital letter u with tilde 221 -> 360
+    $string = str_replace ("\335", '&#360;', $string);
+    // latin capital letter u with macron 222 -> 362
+    $string = str_replace ("\336", '&#362;', $string);
+    // latin small letter a with macron 224 -> 257
+    $string = str_replace ("\340", '&#257;', $string);
+    // latin small letter i with ogonek 231 -> 303
+    $string = str_replace ("\347", '&#303;', $string);
+    // latin small letter c with caron 232 -> 269
+    $string = str_replace ("\350", '&#269;', $string);
+    // latin small letter e with ogonek 234 -> 281
+    $string = str_replace ("\352", '&#281;', $string);
+    // latin small letter e with dot above 236 -> 279
+    $string = str_replace ("\354", '&#279;', $string);
+    // latin small letter i with macron 239 -> 299
+    $string = str_replace ("\357", '&#299;', $string);
+    // latin small letter d with stroke 240 -> 273
+    $string = str_replace ("\360", '&#273;', $string);
+    // latin small letter n with cedilla 241 -> 326
+    $string = str_replace ("\361", '&#326;', $string);
+    // latin small letter o with macron 242 -> 333
+    $string = str_replace ("\362", '&#333;', $string);
+    // latin small letter k with cedilla 243 -> 311
+    $string = str_replace ("\363", '&#311;', $string);
+    // latin small letter u with ogonek 249 -> 371
+    $string = str_replace ("\371", '&#371;', $string);
+    // latin small letter u with tilde 253 -> 361
+    $string = str_replace ("\375", '&#361;', $string);
+    // latin small letter u with macron 254 -> 363
+    $string = str_replace ("\376", '&#363;', $string);
+    // dot above 255 -> 729
+    $string = str_replace ("\377", '&#729;', $string);
+
+    // rest of charset is the same as ISO-8859-1
     return (charset_decode_iso_8859_1($string));
 }
 
@@ -516,48 +592,134 @@ function charset_decode_iso_8859_7 ($string) {
 }
 
 /*
- iso-8859-13 codeset used in Lithuania
- only Lithuanian charactes are added.
+ ISO/IEC 8859-13:1998 Latin Alphabet No. 7 (Baltic Rim) 
 */
-
 function charset_decode_iso_8859_13 ($string) {
-    // latin capital a with ogonek
-    $string = str_replace ("\300", '&#0260;', $string);
-    // latin capital c with caron
-    $string = str_replace ("\310", '&#0268;', $string);
-    // latin capital e with ogonek
-    $string = str_replace ("\306", '&#0280;', $string);
-    // latin capital e with dot above
-    $string = str_replace ("\313", '&#0278;', $string);
-    // latin capital i with ogonek
-    $string = str_replace ("\301", '&#0302;', $string);
-    // latin capital s with caron
-    $string = str_replace ("\320", '&#0352;', $string);
-    // latin capital u with ogonek
-    $string = str_replace ("\330", '&#0370;', $string);
-    // latin capital u with macron
-    $string = str_replace ("\333", '&#0362;', $string);
-    // latin capital z with caron
-    $string = str_replace ("\336", '&#0381;', $string);
-    // latin small a with ogonek
-    $string = str_replace ("\340", '&#0261;', $string);
-    // latin small c with caron
-    $string = str_replace ("\350", '&#0269;', $string);
-    // latin small e with ogonek
-    $string = str_replace ("\346", '&#0281;', $string);
-    // latin small e with dot above
-    $string = str_replace ("\353", '&#0279;', $string);
-    // latin small i with ogonek
-    $string = str_replace ("\341", '&#0303;', $string);
-    // latin small s with caron
-    $string = str_replace ("\360", '&#0353;', $string);
-    // latin small u with ogonek
-    $string = str_replace ("\370", '&#0371;', $string);
-    // latin small u with macron
-    $string = str_replace ("\373", '&#0363;', $string);
-    // latin small z with caron
-    $string = str_replace ("\376", '&#0382;', $string);
+    global $default_charset, $languages, $sm_notAlias;
 
+    if (strtolower($default_charset) == 'iso-8859-13')
+        return $string;
+    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'iso-8859-13')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    // right double quotation mark 161 -> 8221
+    $string = str_replace ("\241", '&#8221;', $string);
+    // double low-9 quotation mark 165 -> 8222
+    $string = str_replace ("\245", '&#8222;', $string);
+    // latin capital letter o with stroke 168 -> 216
+    $string = str_replace ("\250", '&#216;', $string);
+    // latin capital letter r with cedilla 170 -> 342
+    $string = str_replace ("\252", '&#342;', $string);
+    // latin capital letter ae 175 -> 198
+    $string = str_replace ("\257", '&#198;', $string);
+    // left double quotation mark 180 -> 8220
+    $string = str_replace ("\264", '&#8220;', $string);
+    // latin small letter o with stroke 184 -> 248
+    $string = str_replace ("\270", '&#248;', $string);
+    // latin small letter r with cedilla 186 -> 343
+    $string = str_replace ("\272", '&#343;', $string);
+    // latin small letter ae 191 -> 230
+    $string = str_replace ("\277", '&#230;', $string);
+    // latin capital letter a with ogonek 192 -> 260
+    $string = str_replace ("\300", '&#260;', $string);
+    // latin capital letter i with ogonek 193 -> 302
+    $string = str_replace ("\301", '&#302;', $string);
+    // latin capital letter a with macron 194 -> 256
+    $string = str_replace ("\302", '&#256;', $string);
+    // latin capital letter c with acute 195 -> 262
+    $string = str_replace ("\303", '&#262;', $string);
+    // latin capital letter e with ogonek 198 -> 280
+    $string = str_replace ("\306", '&#280;', $string);
+    // latin capital letter e with macron 199 -> 274
+    $string = str_replace ("\307", '&#274;', $string);
+    // latin capital letter c with caron 200 -> 268
+    $string = str_replace ("\310", '&#268;', $string);
+    // latin capital letter z with acute 202 -> 377
+    $string = str_replace ("\312", '&#377;', $string);
+    // latin capital letter e with dot above 203 -> 278
+    $string = str_replace ("\313", '&#278;', $string);
+    // latin capital letter g with cedilla 204 -> 290
+    $string = str_replace ("\314", '&#290;', $string);
+    // latin capital letter k with cedilla 205 -> 310
+    $string = str_replace ("\315", '&#310;', $string);
+    // latin capital letter i with macron 206 -> 298
+    $string = str_replace ("\316", '&#298;', $string);
+    // latin capital letter l with cedilla 207 -> 315
+    $string = str_replace ("\317", '&#315;', $string);
+    // latin capital letter s with caron 208 -> 352
+    $string = str_replace ("\320", '&#352;', $string);
+    // latin capital letter n with acute 209 -> 323
+    $string = str_replace ("\321", '&#323;', $string);
+    // latin capital letter n with cedilla 210 -> 325
+    $string = str_replace ("\322", '&#325;', $string);
+    // latin capital letter o with macron 212 -> 332
+    $string = str_replace ("\324", '&#332;', $string);
+    // latin capital letter u with ogonek 216 -> 370
+    $string = str_replace ("\330", '&#370;', $string);
+    // latin capital letter l with stroke 217 -> 321
+    $string = str_replace ("\331", '&#321;', $string);
+    // latin capital letter s with acute 218 -> 346
+    $string = str_replace ("\332", '&#346;', $string);
+    // latin capital letter u with macron 219 -> 362
+    $string = str_replace ("\333", '&#362;', $string);
+    // latin capital letter z with dot above 221 -> 379
+    $string = str_replace ("\335", '&#379;', $string);
+    // latin capital letter z with caron 222 -> 381
+    $string = str_replace ("\336", '&#381;', $string);
+    // latin small letter a with ogonek 224 -> 261
+    $string = str_replace ("\340", '&#261;', $string);
+    // latin small letter i with ogonek 225 -> 303
+    $string = str_replace ("\341", '&#303;', $string);
+    // latin small letter a with macron 226 -> 257
+    $string = str_replace ("\342", '&#257;', $string);
+    // latin small letter c with acute 227 -> 263
+    $string = str_replace ("\343", '&#263;', $string);
+    // latin small letter e with ogonek 230 -> 281
+    $string = str_replace ("\346", '&#281;', $string);
+    // latin small letter e with macron 231 -> 275
+    $string = str_replace ("\347", '&#275;', $string);
+    // latin small letter c with caron 232 -> 269
+    $string = str_replace ("\350", '&#269;', $string);
+    // latin small letter z with acute 234 -> 378
+    $string = str_replace ("\352", '&#378;', $string);
+    // latin small letter e with dot above 235 -> 279
+    $string = str_replace ("\353", '&#279;', $string);
+    // latin small letter g with cedilla 236 -> 291
+    $string = str_replace ("\354", '&#291;', $string);
+    // latin small letter k with cedilla 237 -> 311
+    $string = str_replace ("\355", '&#311;', $string);
+    // latin small letter i with macron 238 -> 299
+    $string = str_replace ("\356", '&#299;', $string);
+    // latin small letter l with cedilla 239 -> 316
+    $string = str_replace ("\357", '&#316;', $string);
+    // latin small letter s with caron 240 -> 253
+    $string = str_replace ("\360", '&#353;', $string);
+    // latin small letter n with acute 241 -> 324
+    $string = str_replace ("\361", '&#324;', $string);
+    // latin small letter n with cedilla 242 -> 326
+    $string = str_replace ("\362", '&#326;', $string);
+    // latin small letter o with macron 244 -> 333
+    $string = str_replace ("\364", '&#333;', $string);
+    // latin small letter u with ogonek 248 -> 371
+    $string = str_replace ("\370", '&#371;', $string);
+    // latin small letter l with stroke 249 -> 322
+    $string = str_replace ("\371", '&#322;', $string);
+    // latin small letter s with acute 250 -> 347
+    $string = str_replace ("\372", '&#347;', $string);
+    // latin small letter u with macron 251 -> 363
+    $string = str_replace ("\373", '&#363;', $string);    
+    // latin small letter z with dot above 253 -> 380
+    $string = str_replace ("\375", '&#380;', $string);
+    // latin small letter z with caron 254 -> 382
+    $string = str_replace ("\376", '&#382;', $string);
+    // right single quotation mark 255 -> 8217
+    $string = str_replace ("\377", '&#8217;', $string);
+
+    // rest of charset is the same as ISO-8859-1
     return (charset_decode_iso_8859_1($string));
 }
 
@@ -774,6 +936,176 @@ function charset_decode_koi8r ($string) {
     $string = str_replace("\377", '&#1066;', $string);
 
     return $string;
+}
+
+/*
+ windows-1257 (BaltRim)
+ */
+function charset_decode_windows_1257 ($string) {
+    global $default_charset, $languages, $sm_notAlias;
+
+    if (strtolower($default_charset) == 'windows-1257')
+        return $string;
+    if (strtolower($languages[$sm_notAlias]['CHARSET']) == 'windows-1257')
+        return $string;
+
+    /* Only do the slow convert if there are 8-bit characters */
+    if (! ereg("[\200-\377]", $string))
+        return $string;
+
+    // Euro sign 128 -> 8364
+    $string = str_replace("\200", '&#8364;', $string);
+    // Single low-9 quotation mark 130 -> 8218
+    $string = str_replace("\202", '&#8218;', $string);
+    // Double low-9 quotation mark 132 -> 8222
+    $string = str_replace("\204", '&#8222;', $string);
+    // horizontal ellipsis 133 -> 8230
+    $string = str_replace("\205", '&#8230;', $string);
+    // dagger 134 -> 8224
+    $string = str_replace("\206", '&#8224;', $string);
+    // double dagger 135 -> 8225
+    $string = str_replace("\207", '&#8225;', $string);
+    // per mille sign 137 -> 8240
+    $string = str_replace("\211", '&#8240;', $string);
+    // single left-pointing angle quotation mark 139 -> 8249
+    $string = str_replace("\213", '&#8249;', $string);
+    // diaeresis 141 -> 168
+    $string = str_replace("\215", '&#168;', $string);
+    // caron 142 -> 711
+    $string = str_replace("\216", '&#711;', $string);
+    // cedilla 143 -> 184
+    $string = str_replace("\217", '&#184;', $string);
+    // left single quotation mark 145 -> 8216
+    $string = str_replace("\221", '&#8216;', $string);
+    // right single quotation mark 146 -> 8217
+    $string = str_replace("\222", '&#8217;', $string);
+    // left double quotation mark 147 -> 8220
+    $string = str_replace("\223", '&#8220;', $string);
+    // right double quotation mark 148 -> 8221
+    $string = str_replace("\224", '&#8221;', $string);
+    // bullet 149 -> 8226
+    $string = str_replace("\225", '&#8226;', $string);
+    // en dash 150 -> 8211
+    $string = str_replace("\226", '&#8211;', $string);
+    // em dash 151 -> 8212
+    $string = str_replace("\227", '&#8212;', $string);
+    // trade mark sign 153 -> 8482
+    $string = str_replace("\231", '&#8482;', $string);
+    // single right-pointing angle quotation mark 155 -> 8250
+    $string = str_replace("\233", '&#8250;', $string);
+    // macron 157 -> 175
+    $string = str_replace("\235", '&#175;', $string);
+    // ogonek 158 -> 731
+    $string = str_replace("\236", '&#731;', $string);
+    // latin capital letter o with stroke 168 -> 216
+    $string = str_replace ("\250", '&#216;', $string);
+    // latin capital letter r with cedilla 170 -> 342
+    $string = str_replace ("\252", '&#342;', $string);
+    // latin capital letter ae 175 -> 198
+    $string = str_replace ("\257", '&#198;', $string);
+    // latin small letter o with stroke 184 -> 248
+    $string = str_replace ("\270", '&#248;', $string);
+    // latin small letter r with cedilla 186 -> 343
+    $string = str_replace ("\272", '&#343;', $string);
+    // latin small letter ae 191 -> 230
+    $string = str_replace ("\277", '&#230;', $string);
+    // latin capital letter a with ogonek 192 -> 260
+    $string = str_replace ("\300", '&#260;', $string);
+    // latin capital letter i with ogonek 193 -> 302
+    $string = str_replace ("\301", '&#302;', $string);
+    // latin capital letter a with macron 194 -> 256
+    $string = str_replace ("\302", '&#256;', $string);
+    // latin capital letter c with acute 195 -> 262
+    $string = str_replace ("\303", '&#262;', $string);
+    // latin capital letter e with ogonek 198 -> 280
+    $string = str_replace ("\306", '&#280;', $string);
+    // latin capital letter e with macron 199 -> 274
+    $string = str_replace ("\307", '&#274;', $string);
+    // latin capital letter c with caron 200 -> 268
+    $string = str_replace ("\310", '&#268;', $string);
+    // latin capital letter z with acute 202 -> 377
+    $string = str_replace ("\312", '&#377;', $string);
+    // latin capital letter e with dot above 203 -> 278
+    $string = str_replace ("\313", '&#278;', $string);
+    // latin capital letter g with cedilla 204 -> 290
+    $string = str_replace ("\314", '&#290;', $string);
+    // latin capital letter k with cedilla 205 -> 310
+    $string = str_replace ("\315", '&#310;', $string);
+    // latin capital letter i with macron 206 -> 298
+    $string = str_replace ("\316", '&#298;', $string);
+    // latin capital letter l with cedilla 207 -> 315
+    $string = str_replace ("\317", '&#315;', $string);
+    // latin capital letter s with caron 208 -> 352
+    $string = str_replace ("\320", '&#352;', $string);
+    // latin capital letter n with acute 209 -> 323
+    $string = str_replace ("\321", '&#323;', $string);
+    // latin capital letter n with cedilla 210 -> 325
+    $string = str_replace ("\322", '&#325;', $string);
+    // latin capital letter o with macron 212 -> 332
+    $string = str_replace ("\324", '&#332;', $string);
+    // latin capital letter u with ogonek 216 -> 370
+    $string = str_replace ("\330", '&#370;', $string);
+    // latin capital letter l with stroke 217 -> 321
+    $string = str_replace ("\331", '&#321;', $string);
+    // latin capital letter r with acute 218 -> 340
+    $string = str_replace ("\332", '&#340;', $string);
+    // latin capital letter u with macron 219 -> 362
+    $string = str_replace ("\333", '&#362;', $string);
+    // latin capital letter z with dot above 221 -> 379
+    $string = str_replace ("\335", '&#379;', $string);
+    // latin capital letter z with caron 222 -> 381
+    $string = str_replace ("\336", '&#381;', $string);
+    // latin small letter a with ogonek 224 -> 261
+    $string = str_replace ("\340", '&#261;', $string);
+    // latin small letter i with ogonek 225 -> 303
+    $string = str_replace ("\341", '&#303;', $string);
+    // latin small letter a with macron 226 -> 257
+    $string = str_replace ("\342", '&#257;', $string);
+    // latin small letter c with acute 227 -> 263
+    $string = str_replace ("\343", '&#263;', $string);
+    // latin small letter e with ogonek 230 -> 281
+    $string = str_replace ("\346", '&#281;', $string);
+    // latin small letter e with macron 231 -> 275
+    $string = str_replace ("\347", '&#275;', $string);
+    // latin small letter c with caron 232 -> 269
+    $string = str_replace ("\350", '&#269;', $string);
+    // latin small letter z with acute 234 -> 378
+    $string = str_replace ("\352", '&#378;', $string);
+    // latin small letter e with dot above 235 -> 279
+    $string = str_replace ("\353", '&#279;', $string);
+    // latin small letter g with cedilla 236 -> 291
+    $string = str_replace ("\354", '&#291;', $string);
+    // latin small letter k with cedilla 237 -> 311
+    $string = str_replace ("\355", '&#311;', $string);
+    // latin small letter i with macron 238 -> 299
+    $string = str_replace ("\356", '&#299;', $string);
+    // latin small letter l with cedilla 239 -> 316
+    $string = str_replace ("\357", '&#316;', $string);
+    // latin small letter s with caron 240 -> 253
+    $string = str_replace ("\360", '&#353;', $string);
+    // latin small letter n with acute 241 -> 324
+    $string = str_replace ("\361", '&#324;', $string);
+    // latin small letter n with cedilla 242 -> 326
+    $string = str_replace ("\362", '&#326;', $string);
+    // latin small letter o with macron 244 -> 333
+    $string = str_replace ("\364", '&#333;', $string);
+    // latin small letter u with ogonek 248 -> 371
+    $string = str_replace ("\370", '&#371;', $string);
+    // latin small letter l with stroke 249 -> 322
+    $string = str_replace ("\371", '&#322;', $string);
+    // latin small letter s with acute 250 -> 347
+    $string = str_replace ("\372", '&#347;', $string);
+    // latin small letter u with macron 251 -> 363
+    $string = str_replace ("\373", '&#363;', $string);    
+    // latin small letter z with dot above 253 -> 380
+    $string = str_replace ("\375", '&#380;', $string);
+    // latin small letter z with caron 254 -> 382
+    $string = str_replace ("\376", '&#382;', $string);
+    // dot above 255 -> 729
+    $string = str_replace ("\377", '&#729;', $string);
+
+    // Rest of charset is like iso-8859-1
+    return (charset_decode_iso_8859_1($string));
 }
 
 
