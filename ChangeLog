@@ -39,6 +39,8 @@ Version 1.5.1 -- CVS
   - Fixed RFC2821 incompliancy by adding a fallback mechanism to HELO if
     EHLO is not supported.
   - Fixed RFC2298 incompliancy by setting envelop sender to null.
+  - Fixed problem where setting all the messages on the last page of the
+    message list would return one page higher.
 
 Version 1.5.0
 --------------------
