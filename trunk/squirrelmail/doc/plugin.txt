@@ -1,9 +1,9 @@
 $Id$
 
 It is best if you check out the SquirrelMail development FAQ for more
-information.  This document may be obsoleted at some point in the future (or
-maybe we'll write a script to get the wiki contents and dump them in here
-automatically).
+information.  This document is currently quite out of date.  Help writing
+plugins is easily obtained by posting to the squirrelmail-plugins mailing
+list.  (See details about mailing lists on the website)
 
 FAQ -> http://www.squirrelmail.org/wiki/wiki.php?DeveloperFAQ
 Plugin Hooks -> http://www.squirrelmail.org/wiki/wiki.php?DevelopingPlugins
