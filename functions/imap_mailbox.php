@@ -374,8 +374,12 @@
             $flags = str_replace('\\', '', $flags);
             $flags = trim(strtolower($flags));
             if ($flags) {
-               $boxes[$g]["flags"] = explode(" ", $flags);
+               $boxes[$g]['flags'] = explode(" ", $flags);
             }
+	    else
+	    {
+	       $boxes[$g]['flags'] = array();
+	    }
          }
          $g++;
       }
