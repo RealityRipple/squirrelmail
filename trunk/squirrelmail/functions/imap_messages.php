@@ -660,6 +660,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
                 /* Now we can make a new header array with */
                 /* each element representing a headerline  */
                 $hdr = explode("\n" , $hdr);
+                $aReceived = array();
                 foreach ($hdr as $line) {
                     $pos = strpos($line, ':');
                     if ($pos > 0) {
@@ -687,10 +688,16 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
                                     $msg['TYPE1'] = 'plain';
                                 }
                                 break;
+                            case 'received':
+                                $aReceived[] = $value;
+                                break;
                             default: break;
                             }
                         }
                     }
+                }
+                if (count($aReceived)) {
+                    $msg['RECEIVED'] = $aReceived;
                 }
                 break;
             default:
