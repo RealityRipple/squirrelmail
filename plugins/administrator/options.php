@@ -484,46 +484,52 @@ echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
     Write the options to the file.
 */
 
-$fp = fopen( $cfgfile, 'w' );
-fwrite( $fp, "<?PHP\n".
+if( $fp = @fopen( $cfgfile, 'w' ) ) {
+    fwrite( $fp, "<?PHP\n".
             "/**\n".
             " * SquirrelMail Configuration File\n".
             " * Created using the Administrator Plugin\n".
             " */\n" );
 
-/*
-fwrite( $fp, 'GLOBAL ' );
-$not_first = FALSE;
-foreach ( $newcfg as $k => $v ) {
+    /*
+    fwrite( $fp, 'GLOBAL ' );
+    $not_first = FALSE;
+    foreach ( $newcfg as $k => $v ) {
     if ( $k{0} == '$' ) {
-        if( $i = strpos( $k, '[' ) ) {
+            if( $i = strpos( $k, '[' ) ) {
             if( strpos( $k, '[0]' ) ) {
-                if( $not_first ) {
+                    if( $not_first ) {
                     fwrite( $fp, ', ' );
-                }
-                fwrite( $fp, substr( $k, 0, $i) );
+                    }
+                    fwrite( $fp, substr( $k, 0, $i) );
             }
-        } else {
+            } else {
             if( $not_first ) {
-                fwrite( $fp, ', ' );
+                    fwrite( $fp, ', ' );
             }
             fwrite( $fp, $k );
-        }
-        $not_first = TRUE;
+            }
+            $not_first = TRUE;
     }
-}
-fwrite( $fp, ";\n" );
-*/
-foreach ( $newcfg as $k => $v ) {
+    }
+    fwrite( $fp, ";\n" );
+    */
+    foreach ( $newcfg as $k => $v ) {
     if ( $k{0} == '$' && $v <> '' ) {
-        if ( substr( $k, 1, 11 ) == 'ldap_server' ) {
+            if ( substr( $k, 1, 11 ) == 'ldap_server' ) {
             $v = substr( $v, 0, strlen( $v ) - 1 ) . "\n)";
             $v = str_replace( 'array(', "array(\n\t", $v );
             $v = str_replace( "',", "',\n\t", $v );
-        }
-        fwrite( $fp, "$k = $v;\n" );
+            }
+            fwrite( $fp, "$k = $v;\n" );
     }
+    }
+    fwrite( $fp, '?>' );
+    fclose( $fp );
+} else {
+    echo '<font size=+1><br>'.
+         _("Config file can't be opened. Please check config.php.").
+         '</font>';
 }
-fwrite( $fp, '?>' );
-fclose( $fp );
+
 ?>
