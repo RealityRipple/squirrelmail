@@ -106,7 +106,7 @@
              $orig_from = trim(substr($orig_from,0,strpos($orig_from,'<')));
              $orig_from = str_replace('"','',$orig_from);
              $orig_from = str_replace("'",'',$orig_from);
-	     $body = $orig_from . ' ' . _('said') . ":\n" . $body;
+	     $body = getReplyCitation($orig_from) . $body;
          }
          
          return;
@@ -545,9 +545,6 @@
       sqimap_logout($imapConnection);
    }
    
-   
-   
-   
    function ClearAttachments() {
        global $attachments, $attachment_dir;
        
@@ -559,5 +556,33 @@
        
        $attachments = array();
    }
-   
+
+   function getReplyCitation($orig_from) {
+      global $reply_citation_style, $reply_citation_start, $reply_citation_end;
+
+      /* First, return an empty string when no citation style selected. */
+      if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
+         return ('');
+      }
+
+      /* Otherwise, try to select the desired citation style. */
+      switch ($reply_citation_style) {
+         case 'author_said':
+            $start = '';
+            $end   = ' ' . _("said") . ':';
+            break;
+         case 'quote_who':
+            $start = '<' . _("quote") . ' ' . _("who") . '="';
+            $end   = '">';
+            break;
+         case 'user-defined':
+            $start = $reply_citation_start;
+            $end   = $reply_citation_end;
+            break;
+         default: return ('');
+      }
+
+      /* Build and return the citation string. */
+      return ($start . $orig_from . $end . "\n");
+   }   
 ?>

@@ -105,69 +105,87 @@
 
    global $folder_prefix;
    $folder_prefix = getPref($data_dir, $username, "folder_prefix");
-   if ($folder_prefix == "")
+   if ($folder_prefix == "") {
       $folder_prefix = $default_folder_prefix;
+   }
 
+   /** Load special folders **/
+   global $trash_folder, $sent_folder;
+   $new_trash_folder = getPref($data_dir, $username, "trash_folder");
+   if (($new_trash_folder == "") && ($move_to_trash == true)) {
+      $trash_folder = $folder_prefix . $trash_folder;
+   } else {
+      $trash_folder = $new_trash_folder;
+   }
 
-	/** Load special folders **/
-	global $trash_folder, $sent_folder;
-	$new_trash_folder = getPref($data_dir, $username, "trash_folder");
-	if (($new_trash_folder == "") && ($move_to_trash == true))
-		$trash_folder = $folder_prefix . $trash_folder;
-	else
-		$trash_folder = $new_trash_folder;
-
-	/** Load special folders **/
-	$new_sent_folder = getPref($data_dir, $username, "sent_folder");
-	if (($new_sent_folder == "") && ($move_to_sent == true))
-		$sent_folder = $folder_prefix . $sent_folder;
-	else
-		$sent_folder = $new_sent_folder;
-
+   /** Load special folders **/
+   $new_sent_folder = getPref($data_dir, $username, "sent_folder");
+   if (($new_sent_folder == "") && ($move_to_sent == true)) {
+      $sent_folder = $folder_prefix . $sent_folder;
+   } else {
+      $sent_folder = $new_sent_folder;
+   }
 
    global $show_num, $wrap_at, $left_size;
    $show_num = getPref($data_dir, $username, "show_num");
-   if ($show_num == "")
+   if ($show_num == "") {
       $show_num = 25;
+   }
    
    $wrap_at = getPref($data_dir, $username, "wrap_at");
-   if ($wrap_at == "")
+   if ($wrap_at == "") {
       $wrap_at = 86;
-   if ($wrap_at < 15)
+   } else if ($wrap_at < 15) {
       $wrap_at = 15;
+   }
 
    $left_size = getPref($data_dir, $username, "left_size");
    if ($left_size == "") {
-      if (isset($default_left_size))
+      if (isset($default_left_size)) {
          $left_size = $default_left_size;
-      else  
+      } else {
          $left_size = 200;
-   }      
-
+      }
+   }
 
    global $editor_size, $use_signature, $prefix_sig;
    $editor_size = getPref($data_dir, $username, "editor_size");
-   if ($editor_size == "")
+   if ($editor_size == "") {
       $editor_size = 76;
+   }
+
 
    $use_signature = getPref($data_dir, $username, "use_signature");
-   if ($use_signature == "")
+   if ($use_signature == "") {
       $use_signature = false;
+   }
 
    $prefix_sig = getPref($data_dir, $username, "prefix_sig");
-   if ($prefix_sig == "")
+   if ($prefix_sig == "") {
       $prefix_sig = true;
+   }
+
+   /* Load preferences for reply citation style. */
+   global $reply_citation_style, $reply_citation_start, $reply_citation_end;
+
+   $reply_citation_style = getPref($data_dir, $username, 'reply_citation_style');
+   if ($reply_citation_style == '') {
+      $reply_citation_style = 'none';
+   }
+   $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
+   $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
 
    global $left_refresh, $sort;
    $left_refresh = getPref($data_dir, $username, "left_refresh");
-   if ($left_refresh == "")
+   if ($left_refresh == "") {
       $left_refresh = false;
+   }
 
    $sort = getPref($data_dir, $username, "sort");
-   if ($sort == "")
+   if ($sort == "") {
       $sort = 6;
-   
+   }
    
    /** Load up the Signature file **/
    global $signature_abs;
@@ -211,18 +229,17 @@
    } else {
       $alt_index_colors = true;
    }
-   
-   
+      
    global $location_of_bar, $location_of_buttons;
    $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
    if ($location_of_bar == '')
        $location_of_bar = 'left';
        
    $location_of_buttons = getPref($data_dir, $username, 'location_of_buttons');
-   if ($location_of_buttons == '')
+   if ($location_of_buttons == '') {
        $location_of_buttons = 'between';
-       
-       
+   }
+    
    global $collapse_folders, $show_html_default;
    $collapse_folders = getPref($data_dir, $username, 'collapse_folders');
   

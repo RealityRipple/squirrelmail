@@ -70,27 +70,36 @@
    
       # Save display preferences
       setPref($data_dir, $username, 'chosen_theme', $chosentheme);
+      setPref($data_dir, $username, 'language', $language);
+      setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
       setPref($data_dir, $username, 'show_num', $shownum);
       setPref($data_dir, $username, 'wrap_at', $wrapat);
       setPref($data_dir, $username, 'editor_size', $editorsize);
+      setPref($data_dir, $username, 'reply_citation_style', $new_reply_citation_style);
+      setPref($data_dir, $username, 'reply_citation_start', $new_reply_citation_start);
+      setPref($data_dir, $username, 'reply_citation_end', $new_reply_citation_end);
       setPref($data_dir, $username, 'left_refresh', $leftrefresh);
-      setPref($data_dir, $username, 'language', $language);
       setPref($data_dir, $username, 'location_of_bar', $folder_new_location);
       setPref($data_dir, $username, 'location_of_buttons', $button_new_location);
       setPref($data_dir, $username, 'left_size', $leftsize);
-      setPref($data_dir, $username, 'use_javascript_addr_book', $javascript_abook);
-      if (isset($altIndexColors) && $altIndexColors == 1)
+
+      if (isset($altIndexColors) && $altIndexColors == 1) {
          setPref($data_dir, $username, 'alt_index_colors', 1);
-      else
+      } else {
          setPref($data_dir, $username, 'alt_index_colors', 0);
-      if (isset($showhtmldefault))
+      }
+
+      if (isset($showhtmldefault)) {
          setPref($data_dir, $username, 'show_html_default', 1);
-      else
+      } else {
          removePref($data_dir, $username, 'show_html_default');
-      if (isset($includeselfreplyall))
+      }
+
+      if (isset($includeselfreplyall)) {
          setPref($data_dir, $username, 'include_self_reply_all', 1);
-      else
+      } else {
          removePref($data_dir, $username, 'include_self_reply_all');
+      }
     
       do_hook('options_display_save');
 
