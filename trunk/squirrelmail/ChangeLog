@@ -56,6 +56,7 @@ Version 1.5.0 -- CVS
     the time.
   - Fixed unseen/total notifications to return behaviour back to 1.2.x style.
   - Added 4 hooks (internal_link, mailbox_display_buttons, move_messages_button_action, create_collapse_link)
+  - Fix SquirrelSpell JS problem with other plugins that use forms (ie Menu Buttons).
 
 **************************************
 *** SquirrelMail Stable Series 1.4 ***
