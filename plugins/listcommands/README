@@ -1,4 +1,4 @@
-List Commands plugin -- v1.2
+List Commands plugin -- v1.3
 
 This plugin gives the user a menu of mailinglist options such as
 (un)subscribe, help and archives when viewing messages from compliant
@@ -44,9 +44,11 @@ Changes
 1.2
  * Fixed too greedy regexp; changed to PCRE.
  * Fixed IMAP session id handling.
- 
+1.3
+ * Fixes to allow internationalization.
+
 
 Acknowledgements
 ================
-I'd like to thank Peter Walker, Wouter Teepe and Jason Edwards for their
-useful contributions to this plugin.
+I'd like to thank Peter Walker, Wouter Teepe, Jason Edwards and Phillipe Mingo
+for their useful contributions to this plugin.
