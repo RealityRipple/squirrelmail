@@ -159,25 +159,25 @@
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }		 
       printf("<INPUT TYPE=hidden NAME=mailbox VALUE=\"%s\">\n", htmlspecialchars($mailbox));
-      echo "<TABLE WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
+      echo "<TABLE WIDTH=\"100%\" ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
-      echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("To:");
-      echo "      </TD><TD colspan=2 WIDTH=\"100%\" BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD BGCOLOR=\"$color[4]\">\n";
       printf("         <INPUT TYPE=text NAME=\"send_to\" VALUE=\"%s\" SIZE=60><BR>\n",
 	     htmlspecialchars($send_to));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
-      echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("CC:");
-      echo "      </TD><TD colspan=2 BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
+      echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       printf("         <INPUT TYPE=text NAME=\"send_to_cc\" SIZE=60 VALUE=\"%s\"><BR>\n",
 	     htmlspecialchars($send_to_cc));
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "   <TR>\n";
-      echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("BCC:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       printf("         <INPUT TYPE=text NAME=\"send_to_bcc\" VALUE=\"%s\" SIZE=60><BR>\n",
@@ -185,7 +185,7 @@
       echo "</TD></TR>\n";
 
       echo "   <TR>\n";
-      echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("Subject:");
       echo "      </TD><TD BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
       if ($reply_subj) {
@@ -231,7 +231,7 @@
 
 
       echo "   <TR>\n";
-      echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=3>\n";
+      echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
       if ($use_signature == true && $newmail == true) {
 	 echo sqStripSlashes(htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
@@ -241,15 +241,15 @@
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
-      echo "   <TR><TD COLSPAN=3 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
+      echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
       echo _("Send");
       echo "\"></TD></TR>\n";
       
       // This code is for attachments
       echo "   <tr>\n";
-      echo "     <TD WIDTH=50 BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
+      echo "     <TD BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
       echo "      <SMALL><BR></SMALL>"._("Attach:");
-      echo "      </td><td colspan=2 ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      echo "      </td><td ALIGN=left BGCOLOR=\"$color[0]\">\n";
       //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
       //      echo "      value=\"10000\">\n";
       echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
@@ -258,9 +258,9 @@
       echo "     </td>\n";
       echo "   </tr>\n";
       if (isset($attachments) && count($attachments)>0) {
-         echo "</tr><tr><td width=50 bgcolor=\"$color[0]\" align=right>\n";
+         echo "</tr><tr><td bgcolor=\"$color[1]\" align=right>\n";
          echo "&nbsp;";
-         echo "</td><td align=left colspan=2 bgcolor=\"$color[0]\">";
+         echo "</td><td align=left bgcolor=\"$color[0]\">";
          while (list($localname, $remotename) = each($attachments)) {
             echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
             echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
