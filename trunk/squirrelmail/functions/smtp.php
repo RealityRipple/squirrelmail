@@ -912,11 +912,19 @@ function createPriorityHeaders($prio) {
 
 function createReceiptHeaders($receipt) {
 
-    GLOBAL $data_dir, $username;
+    GLOBAL $data_dir, $username, $identity;
 
     $receipt_headers = Array();
-    $from_addr = getPref($data_dir, $username, 'email_address');
-    $from = getPref($data_dir, $username, 'full_name');
+    if (isset($identity) && $identity != 'default') {
+        $from = getPref($data_dir, $username, 'full_name' . $identity);
+        $from_addr = getPref($data_dir, $username, 'email_address' . $identity);
+    } else {
+        $from = getPref($data_dir, $username, 'full_name');
+        $from_addr = getPref($data_dir, $username, 'email_address');
+    }
+    if ($from_addr == '') {
+        $from_addr = $popuser.'@'.$domain;
+    }
 
     if ($from == '') {
         $from = "<$from_addr>";
