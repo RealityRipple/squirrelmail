@@ -122,9 +122,7 @@ if(!file_exists($data_dir)) {
 if(!is_dir($data_dir)) {
     do_err("Data dir ($data_dir) is not a directory!");
 }
-if(!is_readable($data_dir)) {
-    do_err("I cannot read from data dir ($data_dir)!");
-}
+// datadir should be executable - but no clean way to test on that
 if(!is_writable($data_dir)) {
     do_err("I cannot write to data dir ($data_dir)!");
 }
