@@ -12,7 +12,7 @@
 require_once('../src/validate.php');
 require_once('../functions/imap.php');
 require_once('../functions/imap_search.php');
-require_once('../functions/imap_utf7_decode_local');
+require_once('../functions/imap_utf7_decode_local.php');
 require_once('../functions/array.php');
 require_once('../functions/strings.php');
 
@@ -182,7 +182,7 @@ if ($mailbox == 'All Folders') {
 }
 
 if (isset($composenew) && $composenew) {
-    displayPageHeader($color, $mailbox, 'comp_in_new();', $session);
+    displayPageHeader($color, $mailbox, 'comp_in_new('.$session.',true);');
 } else {
     displayPageHeader($color, $mailbox);
 }
