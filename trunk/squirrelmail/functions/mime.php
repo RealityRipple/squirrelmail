@@ -192,7 +192,6 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id, $encoding) {
 
 /* -[ END MIME DECODING ]----------------------------------------------------------- */
 
-
 /* findDisplayEntity
  * Checks to see if $message contains content of type $type0/$type1
  * returns the first entity number it finds of that type, or NULL if
@@ -210,6 +209,7 @@ function findDisplayEntity($message, $type0, $type1, $start=0) {
     }
     return NULL;
 }
+
 // This is here for debugging purposese.  It will print out a list
 // of all the entity IDs that are in the $message object.
 
@@ -375,11 +375,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
 
     if (!count($att_ar)) return '';
     
-    $attachments = "<TABLE WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
-                "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n" .
-                _("Attachments") . ':' .
-                "</B></TH></TR><TR><TD>\n" .
-                "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n";
+    $attachments = '';
    
     $urlMailbox = urlencode($mailbox);
 
@@ -419,7 +415,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $Links = $HookResults[1];
             $DefaultLink = $HookResults[6];
 
-            $attachments .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+            $attachments .= '<TR><TD>' .
                         "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
@@ -445,6 +441,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                 $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
             }
             unset($Links);
+	    $attachments .= "</TD></TR>\n";
         } else {
             $filename = decodeHeader($header->getParameter('filename'));
             if (trim($filename) == '') {
@@ -487,7 +484,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $Links = $HookResults[1];
             $DefaultLink = $HookResults[6];
 
-            $attachments .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+            $attachments .= '<TR><TD>' .
                         "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
                         '<TD><SMALL><b>' . show_readable_size($header->size) .
                         '</b>&nbsp;&nbsp;</small></TD>' .
@@ -507,14 +504,11 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
                 }
                 $attachments .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
             }
-
+            $attachments .= "</TD></TR>\n";
             unset($Links);
 	}         
    
-   }
-   $attachments .= "</SMALL></TD></TR>\n";
-   
-   $attachments .= "</TABLE></TD></TR></TABLE>";
+     }
    
    return $attachments;
 }
