@@ -310,7 +310,7 @@ if(!$no_list_for_subscribe) {
        . '<tt><select name="mailbox[]" multiple="multiple" size="8">';
 
     for ($q = 0; $q < count($box); $q++) {      
-       echo '         <option value="$box[$q]">'.$box2[$q]."</option>\n";
+       echo '         <option value="' . $box[$q] . '">'.$box2[$q]."</option>\n";
     }      
     echo '</select></tt><br /><br />'
        . '<input type="submit" value="'. _("Subscribe") . "\" />\n"
