@@ -70,6 +70,12 @@ if (isset($_GET['PG_SHOWALL'])) {
 if (isset($_GET['newsort'])) {
     $newsort = $_GET['newsort'];
 }
+if (isset($_GET['composenew'])) {
+    $composenew = $_GET['composenew'];
+} else {
+    $composenew = false;
+}
+
 if (isset($_GET['checkall'])) {
     $checkall = $_GET['checkall'];
 }
@@ -79,6 +85,11 @@ if (isset($_GET['set_thread'])) {
 if (isset($_SESSION['lastTargetMailbox'])) {
     $lastTargetMailbox =$_SESSION['lastTargetMailbox'];
 }
+
+if (isset($_GET['session'])) {
+    $session = $_GET['session'];
+}
+
 
 /* end of get globals */
 
@@ -150,9 +161,9 @@ do_hook ('generic_header');
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-if (isset($composenew) && $composenew) {
-    $comp_uri = '../src/compose.php?mailbox='. urlencode($mailbox).
-		"&amp;session=$composesession";
+if ($composenew) {
+    $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
+		"&amp;session=$session";
     displayPageHeader($color, $mailbox, "comp_in_new('$comp_uri');", false);
 } else {
     displayPageHeader($color, $mailbox);
