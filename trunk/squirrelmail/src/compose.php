@@ -172,6 +172,8 @@
                   $filename = "untitled-".$message->header->entity_id;
       
               $localfilename = GenerateRandomString(32, '', 7);
+	      while (isset($attachments[$localfilename]))
+	          $localfilename = GenerateRandomString(32, '', 7);
       
               // Write File Info
               $fp = fopen ($attachment_dir.$localfilename.".info", "w");
