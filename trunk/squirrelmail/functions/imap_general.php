@@ -473,20 +473,36 @@ function sqimap_append ($imap_stream, $sent_folder, $length) {
     $tmp = fgets ($imap_stream, 1024);
 }
 
-function sqimap_append_done ($imap_stream) {
+function sqimap_append_done ($imap_stream, $folder='') {
     global $squirrelmail_language, $color;
     fputs ($imap_stream, "\r\n");
     $tmp = fgets ($imap_stream, 1024);
     if (preg_match("/(.*)(BAD|NO)(.*)$/", $tmp, $regs)) {
         set_up_language($squirrelmail_language);
         require_once(SM_PATH . 'functions/display_messages.php');
-        $string = "<b><font color=$color[2]>\n" .
+	$reason = $regs[3];
+	if ($regs[2] == 'NO') {
+	   $string = "<b><font color=$color[2]>\n" .
+        	  _("ERROR : Could not append message to") ." $folder." .
+        	  "</b><br>\n" .
+        	  _("Server responded: ") .
+        	  $reason . "<br>\n";
+	   if (preg_match("/(.*)(quota)(.*)$/i", $reason, $regs)) {
+	      $string .= _("Sollution: ") . 
+	    _("Remove unnessecarry messages from your folder and start with your Trash folder.") 
+	      ."<br>\n";
+	   }
+	   $string .= "</font>\n";
+	   error_box($string,$color);
+	} else {
+           $string = "<b><font color=$color[2]>\n" .
         	  _("ERROR : Bad or malformed request.") .
         	  "</b><br>\n" .
         	  _("Server responded: ") .
         	  $tmp . "</font><br>\n";
-	error_box($string,$color);
-        exit;
+	   error_box($string,$color);
+           exit;
+	}
     }
 }
 
