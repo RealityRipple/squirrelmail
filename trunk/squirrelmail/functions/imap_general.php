@@ -74,6 +74,9 @@
                } else {
                   $data[] = $read;
                   $read = fgets($imap_stream, 9096);
+		  while (strpos($read, "\n") === false) {
+		     $read .= fgets($imap_stream, 9096);
+		  }
                }
                $total_size += strlen($read);
             } else {
