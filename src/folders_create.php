@@ -34,22 +34,20 @@ if (isset($_POST['contain_subs'])) {
 
 /* end of get globals */
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-
 $folder_name = trim($folder_name);
 
-if (substr_count($folder_name, "\"") || substr_count($folder_name, "\\") ||
-    substr_count($folder_name, "'")  || substr_count($folder_name, "$delimiter") ||
-    ($folder_name == '')) {
+if (substr_count($folder_name, '"') || substr_count($folder_name, "\\") ||
+    substr_count($folder_name, $delimiter) || ($folder_name == '')) {
     displayPageHeader($color, 'None');
 
-    plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
-    sqimap_logout($imapConnection);
+    plain_error_message(_("Illegal folder name.  Please select a different name.").
+        '<BR><A HREF="../src/folders.php">'._("Click here to go back").'</A>.', $color);
+
     exit;
 }
 
 if (isset($contain_subs) && $contain_subs ) {
-    $folder_name = "$folder_name$delimiter";
+    $folder_name = $folder_name . $delimiter;
 }
 
 if ($folder_prefix && (substr($folder_prefix, -1) != $delimiter)) {
@@ -62,13 +60,17 @@ if ($folder_prefix && (substr($subfolder, 0, strlen($folder_prefix)) != $folder_
     $subfolder_orig = $subfolder;
 }
 
+$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+
 if (trim($subfolder_orig) == '') {
     sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, '');
 } else {
     sqimap_mailbox_create ($imapConnection, $subfolder.$delimiter.$folder_name, '');
 }
 
+sqimap_logout($imapConnection);
+
 $location = get_location();
 header ("Location: $location/folders.php?success=create");
-sqimap_logout($imapConnection);
+
 ?>
