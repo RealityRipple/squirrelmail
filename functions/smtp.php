@@ -144,6 +144,7 @@
          fputs($fp, "Content-Type: text/plain; charset=ISO-8859-1\n");
          fputs($fp, "Content-Transfer-Encoding: 8bit\n");
       }
+      fputs ($fp, "\n");
    }
 
    // Send the body
@@ -157,6 +158,7 @@
         fputs ($fp, "\n--".mimeBoundary()."--\n");
      } else {
        fputs ($fp, stripslashes($body) . "\n");
+       fputs ($fp, "\n");
      }
    }
 
