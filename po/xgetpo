@@ -42,8 +42,8 @@ xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
 #xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
 #    -C squirrelmail/plugins/spamcop/*.php --output-dir=squirrelmail/po/
 xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
-    -C squirrelmail/po/independent_strings.txt --output-dir=squirrelmail/po/
-xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
     -C squirrelmail/plugins/abook_take/*.php --output-dir=squirrelmail/po/
+xgettext --keyword=_ -keyword=N_  --default-domain=squirrelmail -j \
+    -C squirrelmail/po/independent_strings.txt --output-dir=squirrelmail/po/
 
 cd squirrelmail/po
