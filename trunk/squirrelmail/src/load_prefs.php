@@ -225,6 +225,9 @@ $javascript_setting =
     getPref($data_dir, $username, 'javascript_setting', SMPREF_JS_AUTODETECT);
 $javascript_on = getPref($data_dir, $username, 'javascript_on', SMPREF_ON);
 
+global $search_memory;
+$search_memory = getPref($data_dir, $username, 'search_memory', 2);
+
 do_hook('loading_prefs');
 
 ?>
