@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-11-15 13:58+0100\n"
+"POT-Creation-Date: 2001-11-16 15:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgstr ""
 
 #: squirrelmail/functions/display_messages.php:66
 #: squirrelmail/functions/display_messages.php:82
-#: squirrelmail/functions/imap_general.php:217
+#: squirrelmail/functions/imap_general.php:220
 #: squirrelmail/src/addressbook.php:214 squirrelmail/src/addressbook.php:264
 msgid "ERROR"
 msgstr ""
@@ -310,7 +310,7 @@ msgstr ""
 msgid "Click here to go back"
 msgstr ""
 
-#: squirrelmail/functions/imap_mailbox.php:40
+#: squirrelmail/functions/imap_mailbox.php:43
 #: squirrelmail/functions/mailbox_display.php:42
 #: squirrelmail/src/folders.php:20 squirrelmail/src/folders.php:124
 #: squirrelmail/src/folders.php:126 squirrelmail/src/options.php:27
@@ -318,7 +318,7 @@ msgid "None"
 msgstr ""
 
 #: squirrelmail/functions/page_header.php:65 squirrelmail/src/folders.php:28
-#: squirrelmail/src/left_main.php:161
+#: squirrelmail/src/left_main.php:162
 msgid "Folders"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr ""
 msgid "Renamed successfully!"
 msgstr ""
 
-#: squirrelmail/src/folders.php:52 squirrelmail/src/left_main.php:201
+#: squirrelmail/src/folders.php:52 squirrelmail/src/left_main.php:202
 msgid "refresh folder list"
 msgstr ""
 
@@ -410,6 +410,7 @@ msgstr ""
 
 #: squirrelmail/functions/options.php:390
 #: squirrelmail/plugins/filters/options.php:230
+#: squirrelmail/plugins/newmail/newmail_opt.php:139
 #: squirrelmail/plugins/translate/options.php:133
 #: squirrelmail/src/folders_rename_getname.php:46
 #: squirrelmail/src/options_highlight.php:330
@@ -459,11 +460,11 @@ msgstr ""
 msgid "Viewing an image attachment"
 msgstr ""
 
-#: squirrelmail/src/left_main.php:135
+#: squirrelmail/src/left_main.php:136
 msgid "empty"
 msgstr ""
 
-#: squirrelmail/src/left_main.php:195
+#: squirrelmail/src/left_main.php:196
 msgid "Last Refresh"
 msgstr ""
 
@@ -501,6 +502,7 @@ msgstr ""
 
 #: squirrelmail/functions/page_header.php:67
 #: squirrelmail/plugins/filters/options.php:75
+#: squirrelmail/plugins/newmail/newmail_opt.php:41
 #: squirrelmail/plugins/translate/options.php:67
 #: squirrelmail/src/options.php:34 squirrelmail/src/options_display.php:27
 #: squirrelmail/src/options_folder.php:30
@@ -1413,12 +1415,12 @@ msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
 #: squirrelmail/functions/display_messages.php:22
-#: squirrelmail/functions/imap_general.php:225
+#: squirrelmail/functions/imap_general.php:228
 msgid "Unknown user or password incorrect."
 msgstr ""
 
 #: squirrelmail/functions/display_messages.php:22
-#: squirrelmail/functions/imap_general.php:226
+#: squirrelmail/functions/imap_general.php:229
 msgid "Click here to try again"
 msgstr ""
 
@@ -1437,7 +1439,7 @@ msgstr ""
 msgid "Click here to return to %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:124
+#: squirrelmail/functions/imap_general.php:127
 #: squirrelmail/functions/imap_messages.php:116
 #: squirrelmail/functions/imap_messages.php:124
 #: squirrelmail/functions/imap_messages.php:143
@@ -1446,34 +1448,34 @@ msgstr ""
 msgid "ERROR : Could not complete request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:126
+#: squirrelmail/functions/imap_general.php:129
 msgid "Reason Given: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:133
+#: squirrelmail/functions/imap_general.php:136
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:135
+#: squirrelmail/functions/imap_general.php:138
 msgid "Server responded: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:165
+#: squirrelmail/functions/imap_general.php:168
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:182
+#: squirrelmail/functions/imap_general.php:185
 #, c-format
 msgid "Bad request: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:184
+#: squirrelmail/functions/imap_general.php:187
 #, c-format
 msgid "Unknown error: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:186
+#: squirrelmail/functions/imap_general.php:189
 msgid "Read data:"
 msgstr ""
 
@@ -1900,7 +1902,7 @@ msgid ""
 msgstr ""
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto.mod.php:44
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:64
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:45
 msgid "Personal Dictionary Crypto Settings"
 msgstr ""
 
@@ -2042,17 +2044,17 @@ msgid ""
 "old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:34
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:26
 msgid ""
 "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:37
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:61
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:29
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:42
 msgid "Change crypto settings"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:43
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:35
 msgid ""
 "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
 "may wish to encrypt your personal dictionary to protect your privacy in case "
@@ -2069,7 +2071,7 @@ msgid ""
 "new value.</p>"
 msgstr ""
 
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:58
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod.php:39
 msgid ""
 "Please encrypt my personal dictionary and store it in an encrypted format."
 msgstr ""
@@ -2519,4 +2521,136 @@ msgstr ""
 
 #: squirrelmail/plugins/translate/setup.php:457
 msgid "Latin"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:41
+msgid "New Mail Notification"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:44
+msgid ""
+"Select <b>Enable Media Playing</b> to turn on playing a media file when "
+"unseen mail is in your folders. When enabled, you can specify the media file "
+"to play in the provided file box."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:46
+msgid ""
+"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
+"folders for unseen mail, not just the inbox for notification."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:48
+msgid ""
+"Selecting the <b>Show popup</b> option will enable the showing of a popup "
+"window when unseen mail is in your folders (requires JavaScript)."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:50
+msgid ""
+"Use the <b>Check RECENT</b> to only check for messages that are recent. "
+"Recent messages are those that have just recently showed up and have not "
+"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
+"by sounds or popups for unseen mail."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:52
+msgid ""
+"Selecting the <b>Change title</b> option will change the title in some "
+"browsers to let you know when you have new mail (requires JavaScript, and "
+"only works in IE but you won't see errors with other browsers).  This will "
+"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
+"enabled."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:54
+msgid ""
+"Select from the list of <b>server files</b> the media file to play when new "
+"mail arrives.  Selecting <b>local media</b> will play the file specified in "
+"the <b>local media file</b> box to play from the local computer.  If no file "
+"is specified, the system will use a default from the server."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:64
+msgid "Enable Media Playing"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:72
+msgid "Check all boxes, not just INBOX"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:80
+msgid "Count only messages that are RECENT"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "Change title on supported browsers."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:88
+msgid "requires IE and JavaScript to work"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:96
+msgid "Show popup window on new mail"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:96
+msgid "requires JavaScript to work"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:99
+msgid "Select server file:"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:101
+msgid "(local media)"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:118
+msgid "Try"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:126
+msgid "Local Media File :"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail_opt.php:132
+msgid "Current File:"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail.php:19
+msgid "New Mail"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail.php:25
+msgid "SquirrelMail Notice:"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/newmail.php:29
+msgid "You have new mail!"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:77
+msgid "NewMail Options"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:79
+msgid ""
+"This configures settings for playing sounds and/or showing popup windows "
+"when new mail arrives."
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:127
+msgid "New Mail Notification options saved"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:203
+#, c-format
+msgid "%s New Messages"
+msgstr ""
+
+#: squirrelmail/plugins/newmail/setup.php:205
+#, c-format
+msgid "%s New Message"
 msgstr ""
