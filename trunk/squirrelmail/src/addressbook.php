@@ -323,7 +323,7 @@ if ($showaddrlist) {
              '<INPUT TYPE=submit NAME=deladdr VALUE="' . _("Delete selected") .
              "\">\n" . '</TR></TABLE>';
     }
-    echo '</FORM>'
+    echo '</FORM>';
 } /* end of addresslist */
 
 
