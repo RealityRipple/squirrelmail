@@ -663,7 +663,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             } elsif ( $show_imap_settings ) {
               if    ( $command == 4 )  { $imapServerAddress      = command12(); }
               elsif ( $command == 5 )  { $imapPort               = command13(); }
-              elsif ( $command == 6 )  { $imap_auth_mech     = command112("IMAP",$imap_auth_mech); }
+              elsif ( $command == 6 )  { $imap_auth_mech     = command112a(); }
               elsif ( $command == 7 )  { $use_imap_tls       = command113("IMAP",$use_imap_tls); }
               elsif ( $command == 8 )  { $imap_server_type       = command19(); }
               elsif ( $command == 9 )  { $optional_delimiter     = command111(); }
@@ -673,7 +673,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
               if    ( $command == 4 )  { $smtpServerAddress      = command16(); }
               elsif ( $command == 5 )  { $smtpPort               = command17(); }
               elsif ( $command == 6 )  { $pop_before_smtp        = command18a(); }
-              elsif ( $command == 7 )  { $smtp_auth_mech    = command112("SMTP",$smtp_auth_mech); }
+              elsif ( $command == 7 )  { $smtp_auth_mech    = command112b(); }
               elsif ( $command == 8 )  { $use_smtp_tls      = command113("SMTP",$use_smtp_tls); }
             }
         } elsif ( $menu == 3 ) {
@@ -1109,32 +1109,150 @@ sub command111 {
     }
     return $new_optional_delimiter;
 }
+# IMAP authentication type
+# Possible values: plain, cram-md5, digest-md5
+# Now offers to detect supported mechs, assuming server & port are set correctly
 
-# authentication type
-# This sub gets reused for IMAP and SMTP, so pass in the server type as an arg
-# Second arg is the default value to use
-# Possible choices: plain, cram-md5, digest-md5
-# SMTP also can be disabled with 'none'
-sub command112 {
-    my($default_val,$service,$inval);
-    $service=$_[0];
-    $default_val=$_[1];
-    print "What authentication mechanism do you want to use for " . $service . " logins?\n";
-    if ($service eq "SMTP") {
-      print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
-    }
+sub command112a {
+	print "If you have already set the hostname and port number, I can try to\n";
+	print "detect the methods your IMAP server supports.\n";
+	print "I will try to detect CRAM-MD5 and DIGEST-MD5 support.  I can't test\n";
+	print "for \"plain\" without knowing a username and password.\n";
+	print "\nTry to detect auth methods? [y/N]: ";
+	$inval=<STDIN>;
+	chomp($inval);
+	if ($inval =~ /^y\b/i) {
+	  # Yes, let's try to detect.
+	  print "Trying to detect IMAP capabilities...\n";
+	  my $host = $imapServerAddress . ':'. $imapPort;
+	  print "CRAM-MD5:\t";
+	  my $tmp = detect_auth_support('IMAP',$host,'CRAM-MD5');
+	  if (defined($tmp)) {
+		  if ($tmp eq 'YES') {
+		  	print "$WHT SUPPORTED$NRM\n";
+		  } else {
+		    print "$WHT NOT SUPPORTED$NRM\n";
+		  }
+      } else {
+	    print $WHT . " ERROR DETECTING$NRM\n";
+	  }
+
+	  print "DIGEST-MD5:\t";
+	  $tmp = detect_auth_support('IMAP',$host,'DIGEST-MD5');
+	  if (defined($tmp)) {
+	  	if ($tmp eq 'YES') {
+			print "$WHT SUPPORTED$NRM\n";
+		} else {
+			print "$WHT NOT SUPPORTED$NRM\n";
+		}
+	  } else {
+	    print $WHT . " ERROR DETECTING$NRM\n";
+	  }
+	  
+	} 
+	  print "\nWhat authentication mechanism do you want to use for IMAP connections?\n\n";
+	  print $WHT . "plain" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
+	  print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext. (Requires PHP mhash extension)\n";
+	  print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5.  (Requires PHP mhash extension)\n";
+	  print "\n*** YOUR IMAP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
+	  print "If you don't understand or are unsure, you probably want \"plain\"\n\n";
+	  print "plain, cram-md5, or digest-md5 [$WHT$imap_auth_mech$NRM]: $WHT";
+      $inval=<STDIN>;
+      chomp($inval);
+      if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || ($inval =~ /^plain\b/i)) {
+        return lc($inval);
+      } else {
+        # user entered garbage or default value so nothing needs to be set
+        return $imap_auth_mech;
+      }
+}
+
+	
+# SMTP authentication type
+# Possible choices: none, plain, cram-md5, digest-md5
+sub command112b {
+    print "If you have already set the hostname and port number, I can try to\n";
+    print "detect the methods your SMTP server supports.\n";
+    print "\nTry to detect auth methods? [y/N]: ";
+    $inval=<STDIN>;
+    chomp($inval);
+    if ($inval =~ /^y\b/i) {
+		# Yes, let's try to detect.
+		print "Detecting supported methods...\n";
+		
+		# Special case!
+		# Check none by trying to relay to junk@birdbrained.org
+		$host = $smtpServerAddress . ':' . $smtpPort;
+		use IO::Socket;
+		my $sock = IO::Socket::INET->new($host);
+		print "Testing none:\t\t$WHT";
+		if (!defined($sock)) {
+			print " ERROR TESTING\n";
+			close $sock;
+		} else {
+			print $sock "mail from: tester\@squirrelmail.org\n";
+			$got = <$sock>;  # Discard
+			print $sock "rcpt to: junk\@birdbrained.org\n";
+			$got = <$sock>;  # This is the important line
+			if ($got =~ /^250\b/) {  # SMTP will relay without auth
+				print "SUPPORTED$NRM\n";
+	        } else {
+			  print "NOT SUPPORTED$NRM\n";
+        	}
+			print $sock "rset\n";
+			print $sock "quit\n";
+			close $sock;
+		}
+		# Try plain (SquirrelMail default)
+		print "Testing plain:\t\t";
+		$tmp=detect_auth_support('SMTP',$host,'LOGIN');
+		if (defined($tmp)) {
+        	if ($tmp eq 'YES') {
+            	print $WHT . "SUPPORTED$NRM\n";
+	        } else {
+    	        print $WHT . "NOT SUPPORTED$NRM\n";
+        	}
+	      } else {
+    		  print $WHT . "ERROR DETECTING$NRM\n";
+      	}
+
+		# Try CRAM-MD5
+        print "Testing CRAM-MD5:\t";
+        $tmp=detect_auth_support('SMTP',$host,'CRAM-MD5');
+        if (defined($tmp)) {
+            if ($tmp eq 'YES') {
+                print $WHT . "SUPPORTED$NRM\n";
+            } else {
+                print $WHT . "NOT SUPPORTED$NRM\n";
+            }
+          } else {
+              print $WHT . "ERROR DETECTING$NRM\n";
+        }
+
+
+        print "Testing DIGEST-MD5:\t";
+        $tmp=detect_auth_support('SMTP',$host,'DIGEST-MD5');
+        if (defined($tmp)) {
+            if ($tmp eq 'YES') {
+                print $WHT . "SUPPORTED$NRM\n";
+            } else {
+                print $WHT . "NOT SUPPORTED$NRM\n";
+            }
+          } else {
+              print $WHT . "ERROR DETECTING$NRM\n";
+        }
+    } 
+    print "\tWhat authentication mechanism do you want to use for SMTP connections?\n";
+    print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
     print $WHT . "plain" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
     print $WHT . "cram-md5" . $NRM . " - Slightly better than plaintext. (Requires PHP mhash extension)\n";
     print $WHT . "digest-md5" . $NRM . " - Privacy protection - better than cram-md5. (Requires PHP mhash extension)\n";
-    print "\n*** YOUR " . $service . " SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE ***\n";
-    print "If you don't understand or are unsure, you probably want \"plain\"\n\n";
-    if ($service eq "SMTP") {
-      print "none, ";
-    }
-    print "plain, cram-md5, or digest-md5 [$WHT$default_val$NRM]: $WHT";
+    print "\n*** YOUR SMTP SERVER MUST SUPPORT THE MECHANISM YOU CHOOSE HERE ***\n";
+    print "If you don't understand or are unsure, you probably want \"none\"\n\n";
+    print "none, plain, cram-md5, or digest-md5 [$WHT$smtp_auth_mech$NRM]: $WHT";
     $inval=<STDIN>;
     chomp($inval);
-    if ( ($service eq "SMTP") && ($inval =~ /^none\b/i) ) {
+    if ($inval =~ /^none\b/i) {
       # SMTP doesn't necessarily require logins
       return "none";
     }
@@ -1142,7 +1260,8 @@ sub command112 {
     ($inval =~ /^plain\b/i)) {
       return lc($inval);
     } else {
-      return $default_val;
+      # user entered garbage, or default value so nothing needs to be set
+	  return;
     }
 }
 
@@ -2871,4 +2990,72 @@ sub change_to_rel_path() {
     }
 
     return $new_path;
+}
+
+sub detect_auth_support {
+# Attempts to auto-detect if a specific auth mechanism is supported.
+# Called by 'command112a' and 'command112b'
+# ARGS: service-name (IMAP or SMTP), host:port, mech-name (ie. CRAM-MD5)
+
+	# Misc setup
+	use IO::Socket;
+	my $service = shift;
+	my $host = shift;
+	my $mech = shift;
+	# Sanity checks
+	if ((!defined($service)) or (!defined($host)) or (!defined($mech))) {
+	  # Error - wrong # of args
+	  print "BAD ARGS!\n";
+	  return undef;
+	}
+	
+	if ($service eq 'SMTP') {
+		$cmd = "AUTH $mech\n";
+		$logout = "QUIT\n";
+	} elsif ($service eq 'IMAP') {
+		$cmd = "A01 AUTHENTICATE $mech\n";
+		$logout = "C01 LOGOUT\n";
+	} else {
+		# unknown service - whoops.
+		return undef;
+	}
+
+	# Get this show on the road
+    my $sock=IO::Socket::INET->new($host);
+    if (!defined($sock)) {
+        # Connect failed
+        return undef;
+    }
+	my $discard = <$sock>; # Server greeting/banner - who cares..
+	print $sock $cmd;
+
+	my $response = <$sock>;
+	if (!defined($response)) {
+		return undef;
+	}
+
+	# So at this point, we have a response, and it is (hopefully) valid.
+	if ($service eq 'SMTP') {
+		if (($response =~ /^535/) or ($response =~/^502/)) {
+			# Not supported
+			close $sock;
+			return 'NO';
+		}
+	} elsif ($service eq 'IMAP') {
+		if ($response =~ /^A01/) {
+			# Not supported
+			close $sock;
+			return 'NO';
+		}
+	} else {
+		# Unknown service - this shouldn't be able to happen.
+		close $sock;
+		return undef;
+	}
+
+	# If it gets here, the mech is supported
+	print $sock "*\n";  # Attempt to cancel authentication
+	print $sock $logout; # Try to log out, but we don't really care if this fails
+	close $sock;
+	return 'YES';
 }
