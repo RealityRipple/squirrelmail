@@ -20,13 +20,14 @@
  * Backend might require functions, that are available only in SquirrelMail 
  * v.1.5.1 and v.1.4.4.
  *
+ * @author Tomas Kuliavas <tokul@users.sourceforge.net>
  * @version $Id$
  * @link http://www.vmailmgr.org vmailmgr site
  * @package plugins
  * @subpackage change_password
  */
 
-/* Backend configuration */
+/* Default backend configuration */
 
 /**
  * path to vmail.inc
@@ -70,6 +71,18 @@ global $cpw_vmailmgrd_8bitpw;
 $cpw_vmailmgrd_8bitpw=false;
 
 /* end of backend configuration */
+
+/** load configuration from config.php */
+if ( isset($vmailmgrd) && is_array($vmailmgrd) && !empty($vmailmgrd) ) {
+    if (isset($vmailmgrd['vmail_inc_path']))
+        $vmail_inc_path=$vmailmgrd['vmail_inc_path'];
+    if (isset($vmailmgrd['vm_tcphost']))
+        $vm_tcphost=$vmailmgrd['vm_tcphost'];
+    if (isset($vmailmgrd['vm_tcphost_port']))
+        $vm_tcphost_port=$vmailmgrd['vm_tcphost_port'];
+    if (isset($vmailmgrd['cpw_vmailmgrd_8bitpw']))
+        $cpw_vmailmgrd_8bitpw=$vmailmgrd['cpw_vmailmgrd_8bitpw'];
+}
 
 
 /**

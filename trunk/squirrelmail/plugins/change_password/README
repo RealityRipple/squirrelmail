@@ -27,12 +27,39 @@ BACKENDS
     $mysql['server'] = 'remote_servername';
   to config.php.
 
--
--
+
+- merak
+
+  Default settings are supplied in backends/merak.php.
 
 
-AUTHORS
+- poppassd
+
+  Default settings are supplied in backends/poppassd.php.
 
 
+- vmailmgrd
+
+  Default settings are supplied in backends/vmailmgrd.php.
+  
+  Site configuration is controlled in config.php $vmailmgrd 
+  array. Backend uses 'vmail_inc_path', 'vm_tcphost', 
+  'vm_tcphost_port' and 'cpw_vmailmgrd_8bitpw' array keys.
+  
+  'vmail_inc_path' sets path to vmail.inc. 'vm_tcphost' sets
+  vmailmgrd tcp service ip address or dns name. Plugin uses 
+  vmailmgrd socket, if it is not set. 'vm_tcphost_port' sets 
+  port of vmailmrgd service. Plugin uses port 322, if it is 
+  not set. 'cpw_vmailmgrd_8bitpw' controls use of 8bit 
+  passwords. If it is not set, interface does not allow new 
+  passwords with 8bit symbols.
+
+  $vmailmgrd['vmail_inc_path'] setting is required.
+
+AUTHORS:
+merak backend     - Edwin van Elk <Edwin@eve-software.com>
+mysql backend     - Thijs Kinkhorst <kink@squirrelmail.org>
+poppassd backend  - Seth Randall <sethr@missoulafcu.org>
+vmailmgrd backend - Tomas Kuliavas <tokul@users.sourceforge.net>
 
 $Id$
