@@ -679,6 +679,8 @@
       $body = str_replace("\r\n", "\n", $body);
       $encoding = strtolower($encoding);
 
+      global $show_html_default;
+
       if ($encoding == "quoted-printable") {
          $body = quoted_printable_decode($body);
 
@@ -686,6 +688,13 @@
             $body = ereg_replace ("=\n", "", $body);
       } else if ($encoding == "base64") {
          $body = base64_decode($body);
+      }
+
+      if (!$show_html_default) {
+         $body = str_replace('<', '&lt;', $body);
+//         $body = str_replace('>', '&gt;', $body);
+// Both this and $body = htmlspecialchars($body); mess up inline
+//  quoting :-(  Anyway, just replacing < gets the job done.
       }
 
       // All other encodings are returned raw.
