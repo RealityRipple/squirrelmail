@@ -88,7 +88,21 @@ function sqimap_asearch_error_box($response, $query, $message)
 		$title = _("ERROR : Unknown imap response.");
 	else
 		$title = $imap_error_titles[$response];
-	sqimap_error_box($title, $query, _("Reason Given: "), $message);
+	$message_title = _("Reason Given: ");
+	if (function_exists('sqimap_error_box'))
+		sqimap_error_box($title, $query, $message_title, $message);
+	else {	//Straight copy of 1.5 imap_general.php:sqimap_error_box(). Can be removed at a later time
+    require_once(SM_PATH . 'functions/display_messages.php');
+    $string = "<font color=$color[2]><b>\n" . $title . "</b><br>\n";
+    if ($query != '')
+        $string .= _("Query:") . ' ' . htmlspecialchars($query) . '<br>';
+    if ($message_title != '')
+        $string .= $message_title;
+    if ($message != '')
+        $string .= htmlspecialchars($message);
+    $string .= "</font><br>\n";
+    error_box($string,$color);
+	}
 }
 
 /* This is to avoid the E_NOTICE warnings signaled by marc AT squirrelmail.org. Thanks Marc! */
@@ -99,7 +113,7 @@ function asearch_nz(&$var)
 	return '';
 }
 
-/* This should give the same results as PHP 4 >= 4.3.0's html_entity_decode() */
+/* This should give the same results as PHP 4 >= 4.3.0's html_entity_decode(), except it doesn't handle hex constructs */
 function asearch_unhtmlentities($string) {
 	$trans_tbl = array_flip(get_html_translation_table(HTML_ENTITIES));
 	for ($i=127; $i<255; $i++)	/* Add &#<dec>; entities */
@@ -115,7 +129,7 @@ function s_debug_dump($var_name, $var_var)
 {
 	global $imap_asearch_debug_dump;
 	if ($imap_asearch_debug_dump) {
-		if (function_exists('sm_print_r'))
+		if (function_exists('sm_print_r'))	//Only exists since 1.4.2
 			sm_print_r($var_name, $var_var);	//Better be the 'varargs' version ;)
 		else {
 			echo '<pre>';
