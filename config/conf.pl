@@ -69,7 +69,7 @@ if ( -e "config.php" ) {
     close(FILE);
 
     if ( $config_version ne $conf_pl_version ) {
-        system "clear";
+        clear_screen();
         print $WHT. "WARNING:\n" . $NRM;
         print "  The file \"config/config.php\" was found, but it is for\n";
         print "  an older version of SquirrelMail. It is possible to still\n";
@@ -122,7 +122,7 @@ if ( -e "config.php" ) {
     close(FILE);
 
     if ( $config_version ne $conf_pl_version ) {
-        system "clear";
+        clear_screen();
         print $WHT. "WARNING:\n" . $NRM;
         print "  You are trying to use a 'config_default.php' from an older\n";
         print "  version of SquirrelMail. This is HIGHLY unrecommended. You\n";
@@ -382,7 +382,7 @@ if ( $config_use_color == 1 ) {
 }
 
 while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
-    system "clear";
+    clear_screen();
     print $WHT. "SquirrelMail Configuration : " . $NRM;
     if    ( $config == 1 ) { print "Read: config.php"; }
     elsif ( $config == 2 ) { print "Read: config_default.php"; }
@@ -2880,7 +2880,7 @@ sub save_data {
 }
 
 sub set_defaults {
-    system "clear";
+    clear_screen();
     print $WHT. "SquirrelMail Configuration : " . $NRM;
     if    ( $config == 1 ) { print "Read: config.php"; }
     elsif ( $config == 2 ) { print "Read: config_default.php"; }
@@ -3143,4 +3143,12 @@ sub detect_auth_support {
 	print $sock $logout; # Try to log out, but we don't really care if this fails
 	close $sock;
 	return 'YES';
+}
+
+sub clear_screen() {
+    if ( $^O =~ /^mswin/i) {
+        system "cls";
+    } else {
+        system "clear";
+    }
 }
