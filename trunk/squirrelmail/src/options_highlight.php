@@ -58,14 +58,13 @@ if ($action == 'delete' && isset($theid)) {
 }
 displayPageHeader($color, 'None');
 
-echo '<br>' .
+echo
 html_tag( 'table', "\n" .
     html_tag( 'tr', "\n" .
-        html_tag( 'td', '<center><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></center>',
-        'left', $color[0] )
-    ) ,
-'center', '', 'width="95% border="0" cellpadding="2" cellspacing="0"' ) . "<br>\n" .
-html_tag( 'table', '', '', '', 'width="100% border="0" cellpadding="0" cellspacing="0"' ) . 
+        html_tag( 'td', '<center><b>' . _("Options") . ' - ' . _("Message Highlighting") . '</b></center>', 'left')
+    ),
+    'center', $color[9], 'width="95% border="0" cellpadding="1" cellspacing="0"' ) . "<br>\n" .
+html_tag( 'table', '', '', '', 'width="100% border="0" cellpadding="1" cellspacing="0"' ) . 
      html_tag( 'tr' ) . "\n" .
          html_tag( 'td', '', 'left' );
 

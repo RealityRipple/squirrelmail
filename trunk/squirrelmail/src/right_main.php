@@ -112,7 +112,6 @@ if (isset($composenew) && $composenew) {
 } else {
     displayPageHeader($color, $mailbox);
 }
-echo "<br>\n";
 do_hook('right_main_after_header');
 if (isset($note)) {
     echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";

@@ -448,12 +448,14 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                   $msg_cnt_str, $paginator_str, $start_msg);
 
   
+  echo '<table bgcolor="' . $color[0] . '" border="0" width="100%" cellpadding="1" cellspacing="0"><tr><td>';
   printHeader($mailbox, $srt, $color, !$thread_sort_messages);
 
   displayMessageArray($imapConnection, $num_msgs, $start_msg, 
 		      $msort, $mailbox, $sort, $color, $show_num,0,0);
 
   mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $color); 
+  echo '</td></tr></table>';
 		      
   /**
    * TODO: Switch to using $_SESSION[] whenever we ditch the 4.0.x series.
@@ -801,7 +803,7 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 
 function printHeader($mailbox, $sort, $color, $showsort=true) {
   global $index_order;
-    echo html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="1"' );
+    echo html_tag( 'table' ,'' , '', $color[4], 'border="0" width="100%" cellpadding="1" cellspacing="0"' );
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {

@@ -25,12 +25,12 @@ if ($action == 'delete' && isset($theid)) {
 } 
 displayPageHeader($color, 'None');
 
-   echo '<br>' . 
-   html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . 
+   echo
+   html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . 
    html_tag( 'tr' ) . 
    html_tag( 'td', '', 'center', $color[0] ) .
    '<b>' . _("Options") . ' - ' . _("Index Order") . '</b>' .
-   html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="1" cellspacing="1"' ) . 
+   html_tag( 'table', '', '', '', 'width="100%" border="0" cellpadding="8" cellspacing="0"' ) . 
    html_tag( 'tr' ) . 
    html_tag( 'td', '', 'center', $color[4] );
  

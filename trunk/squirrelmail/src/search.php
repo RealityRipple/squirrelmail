@@ -240,8 +240,7 @@ elseif ($submit == 'delete') {
 
 do_hook('search_before_form');
 
-echo "<br>\n".
-     html_tag( 'table',
+echo html_tag( 'table',
          html_tag( 'tr', "\n" .
              html_tag( 'td', '<b>' . _("Search") . '</b>', 'center', $color[0] )
          ) ,

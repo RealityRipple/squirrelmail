@@ -23,7 +23,7 @@ require_once('../functions/html.php');
 displayPageHeader($color, 'None');
 
 echo '<br>' .
-    html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="2" cellspacing="0" border="0"' ) .
+    html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) .
         html_tag( 'tr' ) .
             html_tag( 'td', '', 'center' ) . '<b>' . _("Folders") . '</b>' .
                 html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) .

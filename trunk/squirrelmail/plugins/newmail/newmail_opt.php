@@ -32,8 +32,7 @@
     // Set $allowsound to false if you don't want sound files available
     $allowsound = "true";
 
-    echo '<br>' .
-         html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="2" cellspacing="0"' ) . "\n" .
+    echo html_tag( 'table', '', 'center', '', 'width="95%" border="0" cellpadding="1" cellspacing="0"' ) . "\n" .
              html_tag( 'tr', "\n" .
                  html_tag( 'td', '<b>' . _("Options") . ' - ' . _("New Mail Notification") . '</b>', 'center', $color[0] )
              ) . "\n" .

@@ -48,14 +48,12 @@ function findNextMessage($passed_id) {
                 break; 
             }
         }
-    } 
-    elseif ($sort == 6 && !$allow_server_sort  &&
+    } else if ($sort == 6 && !$allow_server_sort  &&
             !$thread_sort_messages ) {
         if ($passed_id != 1) {
             $result = $passed_id - 1;
         }
-    }
-    elseif (!$allow_server_sort  && !$thread_sort_messages ) {
+    } else if (!$allow_server_sort  && !$thread_sort_messages ) {
         if (!is_array($msort)) {
             return -1;
         }
@@ -95,14 +93,12 @@ function findPreviousMessage($numMessages, $passed_id) {
                 break;
             }
         }
-    }
-    elseif ($sort == 6 && !$allow_server_sort  && 
+    } else if ($sort == 6 && !$allow_server_sort  && 
             !$thread_sort_messages) {
         if ($passed_id != $numMessages) {
             $result = $passed_id + 1;
         }
-    } 
-    elseif (!$thread_sort_messages  && !$allow_server_sort) {
+    } else if (!$thread_sort_messages  && !$allow_server_sort) {
         if (!is_array($msort)) {
             return -1;
         }
@@ -111,7 +107,7 @@ function findPreviousMessage($numMessages, $passed_id) {
                 prev($msort);
                 $key = key($msort);
                 if (isset($key)) {
-		    echo $msort[$key];
+		    //echo $msort[$key];   /* Why again were we echoing here? */
                     $result = $msgs[$key]['ID'];
                     break;
                 }
@@ -384,7 +380,8 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
    global $base_uri, $sent_folder, $draft_folder, $where, $what, $color, $sort,
-          $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft;
+          $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft,
+          $enable_forward_as_attachment;
 
    $topbar_delimiter = '&nbsp;|&nbsp;';
    $urlMailbox = urlencode($mailbox);
@@ -403,7 +400,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    }
    $s .= '<a href="'. $msgs_url.'">'.$msgs_str.'</a>';
    $s .= $topbar_delimiter;
-   
+
    $delete_url = $base_uri . 'src/delete_message.php?mailbox='.$urlMailbox.
               '&amp;message='.$passed_id.'&amp;';
    if (!(isset($passed_ent_id) && $passed_ent_id)) {
@@ -482,15 +479,16 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
    }
    $s .= $topbar_delimiter;
 
-   $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
-   if ($compose_new_win == '1') {
-      $s .= '<a href="javascript:void(0)" '. 
-            'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as Attachment").'</a>';
-   } else {
-      $s .= '<a href="'.$comp_action_uri.'">'._("Forward as Attachment").'</a>';
+   if ($enable_forward_as_attachment) {
+      $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
+      if ($compose_new_win == '1') {
+         $s .= '<a href="javascript:void(0)" '. 
+               'onclick="comp_in_new(\''.$comp_action_uri.'\')">'._("Forward as Attachment").'</a>';
+      } else {
+         $s .= '<a href="'.$comp_action_uri.'">'._("Forward as Attachment").'</a>';
+      }
+      $s .= $topbar_delimiter;
    }
-   $s .= $topbar_delimiter;
-
 
 
    $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
@@ -536,10 +534,9 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 }
 
-
-/*
- *   Main of read_boby.php  --------------------------------------------------
- */
+/***************************/
+/*   Main of read_boby.php */
+/***************************/
 
 /*
     Urled vars
@@ -553,9 +550,7 @@ if (isset($mailbox)) {
     $mailbox = urldecode( $mailbox );
 }
 
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, 
-                               $imapPort, 0);
-
+$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
 if (!isset($messages)) {
@@ -600,11 +595,9 @@ $header = $message->header;
 
 do_hook('html_top');
 
-/* ============================================================================= 
- *   block for handling incoming url vars 
- *
- * =============================================================================
- */
+/****************************************/
+/* Block for handling incoming url vars */
+/****************************************/
 
 if (isset($sendreceipt)) {
    if ( !$message->is_mdnsent ) {
@@ -627,11 +620,10 @@ if (isset($sendreceipt)) {
       ClearAttachments();
    }
 }
-/* ============================================================================= 
- *   end block for handling incoming url vars 
- *
- * =============================================================================
- */
+/***********************************************/
+/* End of block for handling incoming url vars */
+/***********************************************/
+
 $msgs[$passed_id]['FLAG_SEEN'] = true;
  
 $messagebody = ''; 
@@ -652,30 +644,37 @@ for ($i = 0; $i < $cnt; $i++) {
 displayPageHeader($color, $mailbox);
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-echo '<table width="100%" cellpadding="0" cellspacing="5" align="center" border="0">';
-echo '   <tr><td>';
-echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
+echo '  <tr><td>';
+echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
 echo '      <tr><td>';
-echo '      <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
-echo '          <tr bgcolor="'.$color[4].'"><td>'.$messagebody. '</td></tr>';      
-echo '      </table></td></tr>';
-echo '   </table>';
-echo '   </td></tr>';
+echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
+echo '          <tr bgcolor="'.$color[4].'"><td>';
+echo '            <table cellpadding="0" cellspacing="0" align="center" border="0">';
+echo '              <tr><td><br>' . $messagebody . '</td></td>';
+echo '            </table>';
+echo '          </td></tr>';      
+echo '        </table></td></tr>';
+echo '      </table>';
+echo '    </td></tr>';
 
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
-   echo '   <tr><td>';
-   echo '   <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+   echo '    <tr><td>';
+   echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '      <tr><td>';
    echo '      <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '         <tr><td ALIGN="left" bgcolor="'.$color[9].'"><b>';
-   echo           _("Attachments").':</b></td></tr><tr><td>';
-   echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[0].'">';
-   echo             $attachmentsdisplay;
-   echo '         </td></tr></table></table></td></tr>';
+   echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
+   echo '           <b>' . _("Attachments") . ':</b>';
+   echo '        </td></tr>';
+   echo '        <tr><td>';
+   echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[0].'"><tr><td>';
+   echo              $attachmentsdisplay;
+   echo '          </td></tr></table>';
+   echo '        </table></td></tr>';
    echo '      </table></td></tr>';
-   echo '   </table>';
-   echo '   </td></tr>';
+   echo '    </table>';
+   echo '  </td></tr>';
 }
 echo '</table>';
 

@@ -47,7 +47,8 @@ function process_optionmode_submit($optpage, $optpage_data) {
             /* Remove Debug Mode Until Needed
             echo "name = '$option->name', "
                . "value = '$option->value', "
-               . "new_value = '$option->new_value'<br>\n";
+               . "new_value = '$option->new_value'\n";
+            echo "<br>";
             */
             if ($option->changed()) {
                 $option->save();
@@ -202,8 +203,7 @@ if (isset($optpage_name) && ($optpage_name != '')) {
     $optpage_title .= " - $optpage_name";
 }
 
-echo '<br>' .
-    html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="2" cellspacing="0" border="0"' ) . "\n" .
+echo html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="1" cellspacing="0" border="0"' ) . "\n" .
         html_tag( 'tr' ) . "\n" .
             html_tag( 'td', '', 'center' ) .
                 "<b>$optpage_title</b><br>\n".

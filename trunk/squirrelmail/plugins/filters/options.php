@@ -64,8 +64,7 @@
    $filters = load_filters();
    $filters_user_scan = getPref($data_dir, $username, 'filters_user_scan');
 
-   echo '<br>' .
-        html_tag( 'table',
+   echo html_tag( 'table',
             html_tag( 'tr',
                 html_tag( 'td',
                     '<center><b>' . _("Options") . ' -  ' . _("Message Filtering") . '</b></center>' ,

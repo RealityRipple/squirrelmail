@@ -181,7 +181,7 @@ if ( isset( $switch ) ) {
 }
 
 echo "<form action=options.php method=post name=options>" .
-    "<br><center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
+    "<center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>";
 

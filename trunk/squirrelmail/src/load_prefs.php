@@ -185,9 +185,11 @@ $location_of_buttons =
 $collapse_folders =
     getPref($data_dir, $username, 'collapse_folders', SMPREF_ON);
 
-/* show_html_default is a int value. */
 $show_html_default =
-    intval(getPref($data_dir, $username, 'show_html_default', SMPREF_OFF));
+   getPref($data_dir, $username, 'show_html_default', SMPREF_OFF);
+
+$enable_forward_as_attachment =
+   getPref($data_dir, $username, 'enable_forward_as_attachment', SMPREF_ON);
 
 $show_xmailer_default =
     getPref($data_dir, $username, 'show_xmailer_default', SMPREF_OFF );
