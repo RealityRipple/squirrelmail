@@ -13,6 +13,8 @@
        return;
    define('mailbox_display_php', true);
 
+   define( 'PG_SEL_MAX', 10 );         // Default value for page_selector_max
+
    function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, $where, $what) {
       global $checkall;
       global $color, $msgs, $msort;
@@ -269,7 +271,8 @@
             $re_abbr = # Add more here!
                'vedr|sv|' .    # Danish
                're|aw';        # English
-            if (eregi("^($re_abbr):[ ]*(.*)$", $messages[$j]['SUBJECT-SORT'], $regs))
+
+            if (eregi( "^($re_abbr):[ ]*(.*)$", $messages[$j]['SUBJECT-SORT'], $regs))
                $messages[$j]['SUBJECT-SORT'] = $regs[2];
 
             $num = 0;
@@ -379,9 +382,9 @@
 
       $Message = '';
       if ($startMessage < $endMessage) {
-         $Message = _("Viewing messages") ." <B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = _("Viewing messages") .":<br><B>$startMessage</B> ". _("to") ." <B>$endMessage</B> ($numMessages " . _("total") . ")\n";
       } elseif ($startMessage == $endMessage) {
-         $Message = _("Viewing message") ." <B>$startMessage</B> ($numMessages " . _("total") . ")\n";
+         $Message = _("Viewing message") .":<br><B>$startMessage</B> ($numMessages " . _("total") . ")\n";
       }
 
       if ($sort == 6) {
@@ -408,25 +411,30 @@
 
       // Page selector block. Following code computes page links.
       $mMore = '';
-      if( getPref($data_dir, $username, 'page_selector') && $numMessages > $show_num ) {
-
-        $j = intval( $numMessages / $show_num );
+      if( !getPref($data_dir, $username, 'page_selector') &&
+          $numMessages > $show_num ) {
+        $j = intval( $numMessages / $show_num );  // Max pages
+        $k = max( 1, $j / getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX ) );
         if( $numMessages % $show_num <> 0 )
                 $j++;
         $startMessage = min( $startMessage, $numMessages );
-        for( $i = 0; $i < $j; $i++ ) {
-
-                $start = ( ( $i * $show_num ) + 1 );
-
-                if( $startMessage >= $start &&
-                $startMessage < $start + $show_num ) {
-                $mMore .= '<b>' . ($i+1) . '</b> ';
-                } else {
-                $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                        "&mailbox=$urlMailbox\" TARGET=\"right\">" .
-                        ($i+1) .
-                        '</a> ';
-                }
+        $p = intval( $startMessage / $show_num ) + 1;
+        $i = 1;
+        while( $i < $p ) {
+            $pg = intval( $i );
+            $start = ( ($pg-1) * $show_num ) + 1;
+            $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
+                    "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+            $i+=$k;
+        }
+        $mMore .= "<b>$p</b> ";
+        $i += $k;
+        while( $i <= $j ) {
+            $pg = intval( $i );
+            $start = ( ($pg-1) * $show_num ) + 1;
+            $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
+                    "&mailbox=$urlMailbox\" TARGET=\"right\">$pg</a> ";
+            $i+=$k;
         }
         $mMore .= ' | ';
       }
@@ -493,11 +501,12 @@
       echo "</td></tr>\n";
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
-      echo "$lMore$mMore$rMore</td><td align=right>\n";
-      if (!$startMessage) $startMessage=1;
+      echo "<table BGCOLOR=\"$color[4]\" ".
+           'width="100%" cellpadding="0" cellspacing="2" border="0"><tr><td>';
+      echo "$lMore$mMore$rMore</td><td align=right>";
+      if (!$startMessage)
+          $startMessage=1;
       ShowSelectAllLink($startMessage, $sort);
-
       echo '</td></tr></table></td></tr></table>'; /** End of message-list table */
 
       do_hook('mailbox_index_after');
@@ -520,15 +529,8 @@
 
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
-      if ($Message) {
-         echo "<TR BGCOLOR=\"$color[4]\"><TD align=center>$Message</td></tr>\n";
-      }
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
-      echo "$More</td><td align=right>\n";
-      ShowSelectAllLink($startMessage, $sort);
-      echo '</td></tr></table></td></tr>';
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
@@ -536,18 +538,18 @@
       echo "\n<FORM name=messageList method=post action=\"$moveURL\">\n";
       echo "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n";
 
-      echo "   <TR>\n";
-      echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER NOWRAP>\n";
-      echo '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n";
-      echo "      </TD>\n";
-      echo "      <TD>&nbsp;</TD>\n";
-      echo "      <TD WIDTH=\"1%\" ALIGN=RIGHT NOWRAP>\n";
-      echo '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n";
-      echo "      </TD>\n";
-      echo "   </TR>\n";
-      echo "   <TR>\n";
-      echo "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n";
-      echo '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
+      echo "   <TR>\n" .
+           "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
+           '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n" .
+           "      </TD>\n" .
+           "      <TD rowspan=2><center>$Message</TD>\n" .
+           "      <TD ALIGN=RIGHT NOWRAP>\n" .
+           '         <SMALL>&nbsp;' . _("Transform Selected Messages") . ": &nbsp; </SMALL><BR>\n" .
+           "      </TD>\n" .
+           "   </TR>\n" .
+           "   <TR>\n" .
+           "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
+           '         <SMALL>&nbsp;<TT><SELECT NAME="targetMailbox">';
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
@@ -560,19 +562,27 @@
       echo '         </SELECT></TT></SMALL>';
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"" . _("Move") . "\"></SMALL>\n";
       echo "      </TD>\n";
-      echo "      <TD>&nbsp;</TD>\n";
       echo "      <TD ALIGN=RIGHT NOWRAP>&nbsp;&nbsp;&nbsp;\n";
       if (! $auto_expunge) {
          echo '         <INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."&nbsp;\n";
       }
+
       echo "         <INPUT TYPE=SUBMIT NAME=\"markRead\" VALUE=\"". _("Read")."\">\n";
       echo "         <INPUT TYPE=SUBMIT NAME=\"markUnread\" VALUE=\"". _("Unread")."\">\n";
       echo "         <INPUT TYPE=SUBMIT VALUE=\"". _("Delete") . "\">&nbsp;\n";
+
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n";
       do_hook('mailbox_form_before');
       echo '</TD></TR>';
+
+      echo "<tr  bgcolor=\"$color[4]\"><td colspan=3>\n";
+      echo "<table bgcolor=\"$color[4]\" cellpadding=2".
+           ' width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
+      echo "$More</td><td align=right>";
+      ShowSelectAllLink($startMessage, $sort);
+      echo "</td></tr></table>\n</td></tr>";
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=";
@@ -621,6 +631,8 @@
       echo "</TR>\n";
    }
 
+/* ----------------------------------------------------------------------- */
+
    function ShowSortButton($sort, $mailbox, $Up, $Down) {
       if ($sort != $Up && $sort != $Down) {
          $img = 'sort_none.gif';
@@ -642,21 +654,19 @@
    {
        global $checkall, $PHP_SELF, $what, $where, $mailbox;
 
-       // This code is from Philippe Mingo <mingo@rotedic.com>
-
-       ?>
+       ?>&nbsp;
 <script language="JavaScript">
 <!--
 function CheckAll() {
   for (var i = 0; i < document.messageList.elements.length; i++) {
-    if( document.messageList.elements[i].name.substr( 0, 3 ) == 'msg') {
+    if( document.messageList.elements[i].type == 'checkbox' ) {
       document.messageList.elements[i].checked =
         !(document.messageList.elements[i].checked);
     }
   }
 }
-window.document.write('<a href="#" onClick="CheckAll();"><?php echo
- _("Toggle All") ?></A>');
+window.document.write('<input type=button onClick="CheckAll();" value="<?php echo
+ _("Toggle All") ?>">');
 //-->
 </script><noscript>
 <?PHP

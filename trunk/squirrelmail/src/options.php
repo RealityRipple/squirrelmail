@@ -110,10 +110,16 @@
          removePref($data_dir, $username, 'include_self_reply_all');
       }
 
-      if (isset($pageselector)) {
-         setPref($data_dir, $username, 'page_selector', 1);
+      if (isset($pageselectormax)) {
+         setPref($data_dir, $username, 'page_selector_max', $pageselectormax);
       } else {
+         removePref($data_dir, $username, 'page_selector_max', 0 );
+      }
+
+      if (isset($pageselector)) {
          removePref($data_dir, $username, 'page_selector');
+      } else {
+         setPref($data_dir, $username, 'page_selector', 1);
       }
 
       do_hook('options_display_save');
