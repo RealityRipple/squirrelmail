@@ -205,6 +205,7 @@ if ($show == 'form') {
             $res = $abook->list_addr($backend);
 
             if(is_array($res)) {
+                usort($res,'alistcmp');
                 display_result($res, false);
             } else {
                 echo '<P ALIGN=center><STRONG>' .
@@ -214,6 +215,7 @@ if ($show == 'form') {
             }
         } else {
             $res = $abook->list_addr();
+            usort($res,'alistcmp');
             display_result($res, true);
         }
 

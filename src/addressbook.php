@@ -16,18 +16,6 @@ require_once('../functions/array.php');
 require_once('../functions/display_messages.php');
 require_once('../functions/addressbook.php');
 
-/* Sort array by the key "name" */
-function alistcmp($a,$b) {
-    if($a['backend'] > $b['backend']) {
-        return 1;
-    } else {
-        if($a['backend'] < $b['backend']) {
-            return -1;
-        }
-    }
-    return (strtolower($a['name']) > strtolower($b['name'])) ? 1 : -1;
-}
-
 /* Make an input field */
 function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
     global $color;
