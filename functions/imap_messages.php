@@ -243,7 +243,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
       case 'SUBJECT':
         array_walk($msgs, create_function('&$v,&$k',
               '$v["SUBJECT"] = strtolower(decodeHeader(trim($v["SUBJECT"])));
-               $v["SUBJECT"] = (preg_match("/^(vedr|sv|re|aw):\s*(.*)$/si", $v["SUBJECT"], $matches)) ?
+               $v["SUBJECT"] = (preg_match("/^(vedr|sv|re|aw|\[\w\]):\s*(.*)$/si", $v["SUBJECT"], $matches)) ?
                                   $matches[2] : $v["SUBJECT"];'));
         foreach ($msgs as $item) {
             $msort["$item[ID]"] = $item['SUBJECT'];
@@ -272,7 +272,7 @@ function get_squirrel_sort ($imap_stream, $sSortField, $reverse = false) {
         //array_walk($msgs, create_function('&$v,$k',
         //    '$v["RFC822.SIZE"] = getTimeStamp(explode(" ",$v["RFC822.SIZE"]));'));
         foreach ($msgs as $item) {
-            $msort[$item['ID']] = $item['SIZE'];
+            $msort[$item['ID']] = $item[$sSortField];
         }
         if ($reverse) {
             arsort($msort,SORT_NUMERIC);
