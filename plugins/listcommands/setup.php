@@ -77,27 +77,26 @@ function plugin_listcommands_menu() {
                 $url = 'compose.php?';
             } else {
                 $url = "../plugins/listcommands/mailout.php?action=$cmd&amp;";
+		
             }
-
-            $url .= 'mailbox=' . urlencode($mailbox)
-                  . '&amp;send_to=' . $purl['path'];
+            $url .= '&amp;send_to=' . $purl['path'];
 
             if (isset($purl['query'])) {
                 $url .= '&amp;' . $purl['query'];
             }
             if ($compose_new_win == '1') {
-                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new(false,'$url')\">" . $fieldsdescr[$cmd] . '</A>';
+                $output[] = "<a href=\"javascript:void(0)\" onclick=\"comp_in_new('$url')\">" . $fieldsdescr[$cmd] . '</A>';
             }
             else {
                 $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
             }
             if ($cmd == 'Post') {
-                $url .= '&amp;reply_subj=' . urlencode($subject)
-                      . '&amp;reply_id=' . $passed_id
-                      . '&amp;ent_num=' . $ent_num
-                      . '&amp;mailprio=' . $priority_level;
+	        $url .= '&amp;passed_id='.$passed_id.
+		        '&amp;mailbox='.urlencode($mailbox).
+		        (isset($passed_ent_id)?'&amp;passed_ent_id='.$passed_ent_id:'');
+                $url .= '&amp;action=reply';
                 if ($compose_new_win == '1') {
-                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new(false,'$url')\">" . $fieldsdescr['Reply'] . '</A>';
+                    $output[] = "<A HREF=\"javascript:void(0)\" onClick=\"comp_in_new('$url')\">" . $fieldsdescr['Reply'] . '</A>';
                 }
                 else {
                     $output[] = '<A HREF="' . $url . '">' . $fieldsdescr['Reply'] . '</A>';
@@ -110,12 +109,14 @@ function plugin_listcommands_menu() {
     }
 
     if (count($output) > 0) {
-        echo html_tag( 'tr',
-                    html_tag( 'td', str_replace(' ', '&nbsp;', _("Mailing List:")), 'right', $color[0]) .
-                    html_tag( 'td',
-                        '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>' ,
-                    'left', $color[0], 'width="100%" colspan="2"')
-                );
+        echo '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
+             ' border="0" bgcolor="'.$color[0].'">'. "\n";
+        echo '<tr>';
+        echo html_tag( 'td', '<b>'._("Mailing List").':&nbsp;&nbsp;</b>', 'right', $color[0], 'valign="top" width="20%"') . "\n";
+        echo html_tag( 'td', 
+	         '<small>' . implode('&nbsp;|&nbsp;', $output) . '</small>', 'left', $color[0], 'valign="top" width="80%"');
+        echo "\n</tr>";
+	echo '</table>'."\n";
     }
 }
 
