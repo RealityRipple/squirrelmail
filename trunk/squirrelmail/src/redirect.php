@@ -25,10 +25,10 @@ require_once('../functions/page_header.php');
 if (get_magic_quotes_gpc()) {
     global $REQUEST_METHOD;
 
-    if ($REQUEST_METHOD == "POST") {
+    if ($REQUEST_METHOD == 'POST') {
         global $HTTP_POST_VARS;
         RemoveSlashes($HTTP_POST_VARS);
-    } else if ($REQUEST_METHOD == "GET") {
+    } else if ($REQUEST_METHOD == 'GET') {
         global $HTTP_GET_VARS;
         RemoveSlashes($HTTP_GET_VARS);
     }
@@ -59,10 +59,10 @@ setcookie('squirrelmail_language', $squirrelmail_language, time()+2592000,$base_
 if (!isset($login_username)) {
     displayHtmlHeader( _("You must be logged in to access this page.") );
     echo "<BODY BGCOLOR=\"#ffffff\">\n" .
-        "<BR>&nbsp;<BR>\n" .
+        "&nbsp;<p>\n" .
         "<CENTER>\n" .
         '<B>' . _("You must be logged in to access this page.") . "</B><BR>" .
-        '<A HREF="../src/login.php">'  . _("Go to the login page") . "</A>\n" .
+        "<A HREF=\"$base_uri/src/login.php\">"  . _("Go to the login page") . "</A>\n" .
         "</CENTER>\n" .
         "</BODY></HTML>\n";
     exit;

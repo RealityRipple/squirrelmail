@@ -19,6 +19,57 @@ global $version;
 $version = '1.2.6 [cvs]';
 
 /**
+ * Wraps text at $wrap characters
+ *
+ * Has a problem with special HTML characters, so call this before
+ * you do character translation.
+ *
+ * Specifically, &#039 comes up as 5 characters instead of 1.
+ * This should not add newlines to the end of lines.
+ */
+function sqWordWrap(&$line, $wrap) {
+    ereg("^([\t >]*)([^\t >].*)?$", $line, $regs);
+    $beginning_spaces = $regs[1];
+    if (isset($regs[2])) {
+        $words = explode(' ', $regs[2]);
+    } else {
+        $words = '';
+    }
+    
+    $i = 0;
+    $line = $beginning_spaces;
+    
+    while ($i < count($words)) {
+        /* Force one word to be on a line (minimum) */
+        $line .= $words[$i];
+        $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 2;
+        if (isset($words[$i + 1]))
+            $line_len += strlen($words[$i + 1]);
+        $i ++;
+        
+        /* Add more words (as long as they fit) */
+        while ($line_len < $wrap && $i < count($words)) {
+            $line .= ' ' . $words[$i];
+            $i++;
+            if (isset($words[$i]))
+                $line_len += strlen($words[$i]) + 1;
+            else
+                $line_len += 1;
+        }
+        
+        /* Skip spaces if they are the first thing on a continued line */
+        while (!isset($words[$i]) && $i < count($words)) {
+            $i ++;
+        }
+        
+        /* Go to the next line if we have more to process */
+        if ($i < count($words)) {
+            $line .= "\n" . $beginning_spaces;
+        }
+    }
+}
+
+/**
  * If $haystack is a full mailbox name and $needle is the mailbox
  * separator character, returns the last part of the mailbox name.
  */
