@@ -636,13 +636,13 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list) {
         
         $messages[$msgi]['TIME_STAMP'] = getTimeStamp($tmpdate);
         $messages[$msgi]['DATE_STRING'] = getDateString($messages[$msgi]['TIME_STAMP']);
-        $messages[$msgi]['FROM'] = parseAddress($from);
+        $messages[$msgi]['FROM'] = $from; //parseAddress($from);
         $messages[$msgi]['SUBJECT'] = $subject;
 //        if (handleAsSent($mailbox)) {
-            $messages[$msgi]['TO'] = parseAddress($to);
+            $messages[$msgi]['TO'] = $to; //parseAddress($to);
 //        }
         $messages[$msgi]['PRIORITY'] = $priority;
-        $messages[$msgi]['CC'] = parseAddress($cc);
+        $messages[$msgi]['CC'] = $cc; //parseAddress($cc);
         $messages[$msgi]['SIZE'] = $size;
         $messages[$msgi]['TYPE0'] = $type[0];
         $messages[$msgi]['FLAG_DELETED'] = $flag_deleted;
