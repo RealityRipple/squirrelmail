@@ -25,15 +25,15 @@
    **/
 
    class abook_ldap_server extends addressbook_backend {
-     var $btype = "remote";
-     var $bname = "ldap_server";
+     var $btype = 'remote';
+     var $bname = 'ldap_server';
 
      // Parameters changed by class
-     var $sname   = "LDAP";       // Service name
-     var $server  = "";           // LDAP server name
+     var $sname   = 'LDAP';       // Service name
+     var $server  = '';           // LDAP server name
      var $port    = 389;          // LDAP server port
-     var $basedn  = "";           // LDAP base DN 
-     var $charset = "utf-8";      // LDAP server charset
+     var $basedn  = '';           // LDAP base DN 
+     var $charset = 'utf-8';      // LDAP server charset
      var $linkid  = false;        // PHP LDAP link ID
      var $bound   = false;        // True if LDAP server is bound
      var $maxrows = 250;          // Max rows in result
@@ -41,36 +41,36 @@
 
      // Constructor. Connects to database
      function abook_ldap_server($param) {
-       if(!function_exists("ldap_connect")) {
-         $this->set_error("LDAP support missing from PHP");
+       if(!function_exists('ldap_connect')) {
+         $this->set_error('LDAP support missing from PHP');
          return;
        }
        if(is_array($param)) {
-	 $this->server = $param["host"];
-	 $this->basedn = $param["base"];
-	 if(!empty($param["port"]))
-	   $this->port = $param["port"];
-	 if(!empty($param["charset"]))
-	   $this->charset = strtolower($param["charset"]);
-	 if(isset($param["maxrows"]))
-	   $this->maxrows = $param["maxrows"];
-	 if(isset($param["timeout"]))
-	   $this->timeout = $param["timeout"];
-	 if(empty($param["name"]))
-	   $this->sname = "LDAP: ".$param["host"];
+	 $this->server = $param['host'];
+	 $this->basedn = $param['base'];
+	 if(!empty($param['port']))
+	   $this->port = $param['port'];
+	 if(!empty($param['charset']))
+	   $this->charset = strtolower($param['charset']);
+	 if(isset($param['maxrows']))
+	   $this->maxrows = $param['maxrows'];
+	 if(isset($param['timeout']))
+	   $this->timeout = $param['timeout'];
+	 if(empty($param['name']))
+	   $this->sname = 'LDAP: ' . $param['host'];
 	 else
-	   $this->sname = $param["name"];
+	   $this->sname = $param['name'];
 	 
 	 $this->open(true);
        } else {
-	 $this->set_error("Invalid argument to constructor");
+	 $this->set_error('Invalid argument to constructor');
        }
      }
 
 
      // Open the LDAP server. New connection if $new is true
      function open($new = false) {
-       $this->error = "";
+       $this->error = '';
 
        // Connection is already open
        if($this->linkid != false && !$new) 
@@ -78,16 +78,16 @@
 
        $this->linkid = @ldap_connect($this->server, $this->port);
        if(!$this->linkid) 
-	 if(function_exists("ldap_error"))
+	 if(function_exists('ldap_error'))
 	   return $this->set_error(ldap_error($this->linkid)); 
 	 else
-	   return $this->set_error("ldap_connect failed");
+	   return $this->set_error('ldap_connect failed');
        
        if(!@ldap_bind($this->linkid))
-	 if(function_exists("ldap_error"))
+	 if(function_exists('ldap_error'))
 	   return $this->set_error(ldap_error($this->linkid)); 
 	 else
-	   return $this->set_error("ldap_bind failed");
+	   return $this->set_error('ldap_bind failed');
 
        $this->bound = true;
        
@@ -97,8 +97,8 @@
 
      // Encode iso8859-1 string to the charset used by this LDAP server
      function charset_encode($str) {
-       if($this->charset == "utf-8") {
-	 if(function_exists("utf8_encode"))
+       if($this->charset == 'utf-8') {
+	 if(function_exists('utf8_encode'))
 	   return utf8_encode($str);
 	 else
 	   return $str;
@@ -110,8 +110,8 @@
 
      // Decode from charset used by this LDAP server to iso8859-1
      function charset_decode($str) {
-       if($this->charset == "utf-8") {
-	 if(function_exists("utf8_decode"))
+       if($this->charset == 'utf-8') {
+	 if(function_exists('utf8_decode'))
 	   return utf8_decode($str);
 	 else
 	   return $str;
@@ -131,8 +131,8 @@
 
        // Encode the expression
        $expr = $this->charset_encode($expr);
-       if(!ereg("\*", $expr)) 
-	 $expr = "*$expr*";
+       if(!ereg('\*', $expr)) 
+	 $expr = '*$expr*';
        $expression = "cn=$expr";
 
        // Make sure connection is there
@@ -143,22 +143,22 @@
        // 4.0.2 or newer.
        if(sqCheckPHPVersion(4, 0, 2)) {
 	  $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-			       array("dn", "o", "ou", "sn", "givenname", 
-				     "cn", "mail", "telephonenumber"),
+			       array('dn', 'o', 'ou', 'sn', 'givenname', 
+				     'cn', 'mail', 'telephonenumber'),
 			       0, $this->maxrows, $this->timeout);
        } else {
 	  $sret = @ldap_search($this->linkid, $this->basedn, $expression,
-			       array("dn", "o", "ou", "sn", "givenname", 
-				     "cn", "mail", "telephonenumber"));
+			       array('dn', 'o', 'ou', 'sn', 'givenname', 
+				     'cn', 'mail', 'telephonenumber'));
        }
 
        // Should get error from server using the ldap_error() function,
        // but it only exist in the PHP LDAP documentation.
        if(!$sret)
-	 if(function_exists("ldap_error"))
+	 if(function_exists('ldap_error'))
 	   return $this->set_error(ldap_error($this->linkid)); 
 	 else
-	   return $this->set_error("ldap_search failed");       
+	   return $this->set_error('ldap_search failed');       
 
        if(@ldap_count_entries($this->linkid, $sret) <= 0)
 	 return array();
@@ -167,41 +167,41 @@
        $ret = array();
        $returned_rows = 0;
        $res = @ldap_get_entries($this->linkid, $sret);
-       for($i = 0 ; $i < $res["count"] ; $i++) {
+       for($i = 0 ; $i < $res['count'] ; $i++) {
 	 $row = $res[$i];
 
 	 // Extract data common for all e-mail addresses
 	 // of an object. Use only the first name
-	 $nickname = $this->charset_decode($row["dn"]);
-	 $fullname = $this->charset_decode($row["cn"][0]);
+	 $nickname = $this->charset_decode($row['dn']);
+	 $fullname = $this->charset_decode($row['cn'][0]);
 
-	 if(empty($row["telephonenumber"][0])) $phone = "";
-	 else $phone = $this->charset_decode($row["telephonenumber"][0]);
+	 if(empty($row['telephonenumber'][0])) $phone = '';
+	 else $phone = $this->charset_decode($row['telephonenumber'][0]);
 
-	 if(!empty($row["ou"][0]))
-	   $label = $this->charset_decode($row["ou"][0]);
-	 else if(!empty($row["o"][0]))
-	   $label = $this->charset_decode($row["o"][0]);
+	 if(!empty($row['ou'][0]))
+	   $label = $this->charset_decode($row['ou'][0]);
+	 else if(!empty($row['o'][0]))
+	   $label = $this->charset_decode($row['o'][0]);
 	 else 
-	   $label = "";
+	   $label = '';
 
-	 if(empty($row["givenname"][0])) $firstname = "";
-	 else $firstname = $this->charset_decode($row["givenname"][0]);
+	 if(empty($row['givenname'][0])) $firstname = '';
+	 else $firstname = $this->charset_decode($row['givenname'][0]);
 
-	 if(empty($row["sn"][0])) $surname = "";
-	 else $surname = $this->charset_decode($row["sn"][0]);
+	 if(empty($row['sn'][0])) $surname = '';
+	 else $surname = $this->charset_decode($row['sn'][0]);
 
 	 // Add one row to result for each e-mail address
-	 for($j = 0 ; $j < $row["mail"]["count"] ; $j++) {
-	   array_push($ret, array("nickname"  => $nickname,
-				  "name"      => $fullname,
-				  "firstname" => $firstname,
-				  "lastname"  => $surname,
-				  "email"     => $row["mail"][$j],
-				  "label"     => $label,
-				  "phone"     => $phone,
-				  "backend"   => $this->bnum,
-				  "source"    => &$this->sname));
+	 for($j = 0 ; $j < $row['mail']['count'] ; $j++) {
+	   array_push($ret, array('nickname'  => $nickname,
+				  'name'      => $fullname,
+				  'firstname' => $firstname,
+				  'lastname'  => $surname,
+				  'email'     => $row['mail'][$j],
+				  'label'     => $label,
+				  'phone'     => $phone,
+				  'backend'   => $this->bnum,
+				  'source'    => &$this->sname));
 
 	   // Limit number of hits
 	   $returned_rows++;
