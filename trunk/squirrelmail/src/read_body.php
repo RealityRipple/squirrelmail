@@ -163,7 +163,7 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     }
     $rfc822_header->content_type = $content_type;
     $rfc822_header->to[] = $header->dnt;
-    $rfc822_header->subject = _("Read:") . ' ' . $header->subject;
+    $rfc822_header->subject = _("Read:") . ' ' . decodeHeader($header->subject);
 
 
     $reply_to = '';
@@ -200,8 +200,8 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     $now = getLongDateString( time() );
     set_my_charset();
     $body = _("Your message") . "\r\n\r\n" .
-            "\t" . _("To:") . ' ' . $to . "\r\n" .
-            "\t" . _("Subject:") . ' ' . $header->subject . "\r\n" .
+            "\t" . _("To:") . ' ' . decodeHeader($to) . "\r\n" .
+            "\t" . _("Subject:") . ' ' . decodeHeader($header->subject) . "\r\n" .
             "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
             "\r\n" .
             sprintf( _("Was displayed on %s"), $now );
