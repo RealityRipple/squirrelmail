@@ -56,34 +56,31 @@
         return( $unseen_found );
     }
 
-function squirrelmail_plugin_init_newmail() {
-  global $squirrelmail_plugin_hooks;
+    function squirrelmail_plugin_init_newmail() {
+        global $squirrelmail_plugin_hooks;
+        
+        $squirrelmail_plugin_hooks['left_main_before']['newmail'] = 'newmail_plugin';
+        $squirrelmail_plugin_hooks['options_register']['newmail'] = 'newmail_options';
+        $squirrelmail_plugin_hooks['options_link_and_description']['newmail'] = 'newmail_options';
+        $squirrelmail_plugin_hooks['options_save']['newmail'] = 'newmail_sav';
+        $squirrelmail_plugin_hooks['loading_prefs']['newmail'] = 'newmail_pref';
+    }
 
-  $squirrelmail_plugin_hooks["left_main_before"]["newmail"] = "newmail_plugin";
-  $squirrelmail_plugin_hooks["options_link_and_description"]["newmail"] = "newmail_opt";
-  $squirrelmail_plugin_hooks["options_save"]["newmail"] = "newmail_sav";
-  $squirrelmail_plugin_hooks["loading_prefs"]["newmail"] = "newmail_pref";
+    function newmail_options() {
+       // Gets added to the user's OPTIONS page.
+       global $optionpages;
 
-}
+       if ( !soupNazi() ) {
 
-function newmail_opt() {
-  global $color;
-  ?>
-  <table width=50% cellpadding=3 cellspacing=0 border=0 align=center>
-  <tr>
-     <td bgcolor="<?php echo $color[9] ?>">
-       <a href="../plugins/newmail/newmail_opt.php">New Mail Notification</a>
-     </td>
-  </tr>
-  <tr>
-     <td bgcolor="<?php echo $color[0] ?>">
-	This configures settings for playing sounds and/or showing
-	popup windows when new mail arrives.
-     </td>
-  </tr>
-  </table>
-  <?php
-}
+           /* Register Squirrelspell with the $optionpages array. */
+           $optionpages[] = array(
+               'name' => _("NewMail Options"),
+               'url'  => '../plugins/newmail/newmail_opt.php',
+               'desc' => _("This configures settings for playing sounds and/or showing popup windows when new mail arrives."),
+               'js'   => TRUE
+            );
+        }
+    }
 
 function newmail_sav() {
 
