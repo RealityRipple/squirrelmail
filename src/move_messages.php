@@ -7,6 +7,10 @@
    include("../functions/display_messages.php");
    include("../functions/imap.php");
 
+   for ($i = 0; $i < count($msg); $i++) {
+      echo "MSG: $msg[$i]<BR>";
+   }
+
    function putSelectedMessagesIntoString($msg) {
       $j = 0;
       $i = 0;
