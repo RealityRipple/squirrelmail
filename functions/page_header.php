@@ -529,9 +529,12 @@ EOS;
     if (!$hide_sm_attributions)
     {
         echo html_tag( 'td', '', 'right' ) ."\n";
-        if (!isset($provider_uri)) $provider_uri= 'http://www.squirrelmail.org/';
-        if (!isset($provider_name)) $provider_name= 'SquirrelMail';
-        echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
+        if (empty($provider_uri)) {
+            echo '<a href="about.php">SquirrelMail</a>';
+        } else {
+            if (empty($provider_name)) $provider_name= 'SquirrelMail';
+            echo '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>';
+        }
         echo "</td>\n";
     }
     echo "   </tr>\n".

@@ -139,7 +139,7 @@ echo html_tag( 'table',
                 ' /><br />' . "\n"
               : '' ).
             ( (isset($hide_sm_attributions) && $hide_sm_attributions) ? '' :
-            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
+            '<small>' . _("SquirrelMail Webmail Application") . '<br />' ."\n".
             '  ' . _("By the SquirrelMail Development Team") . '<br /></small>' . "\n" ) .
             html_tag( 'table',
                 html_tag( 'tr',
