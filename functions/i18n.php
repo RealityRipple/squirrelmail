@@ -15,6 +15,7 @@
 
    // This array specifies the available languages.
    $languages["en"]["NAME"]    = "English";
+	$languages["en"]["CHARSET"] = "iso-8859-1";
    $languages["no"]["NAME"]    = "Norwegian (Bokm&aring;l)";
    $languages["no"]["CHARSET"] = "iso-8859-1";
    $languages["no_NO_ny"]["NAME"] = "Norwegian (Nynorsk)";
@@ -723,7 +724,7 @@
    function set_up_language($sm_language, $do_search = false)
    {
       static $SetupAlready = 0;
-      global $HTTP_ACCEPT_LANGUAGE;
+		global $HTTP_ACCEPT_LANGUAGE, $use_gettext, $languages, $squirrelmail_language;
       
       if ($SetupAlready)
          return;
@@ -734,7 +735,7 @@
       }
       
       if (isset($sm_language) && $use_gettext &&
-         $sm_language != "en" && $squirrelmail_language != "" &&
+         $squirrelmail_language != "" &&
          $languages[$sm_language]["CHARSET"]) {
          putenv("LC_ALL=".$sm_language);
          bindtextdomain("squirrelmail", "../locale/");
