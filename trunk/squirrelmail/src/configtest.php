@@ -117,9 +117,6 @@ if($data_dir == $attachment_dir) {
     if (!is_dir($attachment_dir)) {
         do_err("Attachment dir ($attachment_dir) is not a directory!");
     } 
-    if (!is_readable($attachment_dir)) {
-        do_err("I cannot read from attachment dir ($attachment_dir)!");
-    } 
     if (!is_writable($attachment_dir)) {
         do_err("I cannot write to attachment dir ($attachment_dir)!");
     }
