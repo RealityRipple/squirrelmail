@@ -111,7 +111,7 @@
           ** 2 = Name (up)
           ** 3 = Name (dn)
           **/
-
+         session_unregister("msgs");
          if (($sort == 0) || ($sort == 1))
             $msort = array_cleave ($msgs, "TIME_STAMP");
          if (($sort == 2) || ($sort == 3))
@@ -127,6 +127,7 @@
          session_register("msort");
       }
       displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $msort, $mailbox, $sort, $color,$show_num);
+     session_register("msgs");
    }
 
    // generic function to convert the msgs array into an HTML table
