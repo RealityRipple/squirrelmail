@@ -146,7 +146,7 @@ function replyAllString($header) {
 
 function getReplyCitation($orig_from) {
     global $reply_citation_style, $reply_citation_start, $reply_citation_end;
-    $orig_from = decodeHeader($orig_from->getAddress(false),false,false);
+    $orig_from = decodeHeader($orig_from->getAddress(false),false,false,true);
 //    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
     /* First, return an empty string when no citation style selected. */
     if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
@@ -194,11 +194,11 @@ function getforwardHeader($orig_header) {
    foreach($display as $key => $val) {
       $display[$key] = $key .': '. str_pad('', $maxsize - $val);
    }
-   $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
+   $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false,true);
    $from = str_replace('&nbsp;',' ',$from);
-   $to = decodeHeader($orig_header->getAddr_s('to',"\n$indent"),false,false);
+   $to = decodeHeader($orig_header->getAddr_s('to',"\n$indent"),false,false,true);
    $to = str_replace('&nbsp;',' ',$to);
-   $subject = decodeHeader($orig_header->subject,false,false);
+   $subject = decodeHeader($orig_header->subject,false,false,true);
    $subject = str_replace('&nbsp;',' ',$subject);
    $bodyTop =  str_pad(' '._("Original Message").' ',$editor_size -2,'-',STR_PAD_BOTH) .
                "\n". $display[_("Subject")] . $subject . "\n" .
@@ -206,7 +206,7 @@ function getforwardHeader($orig_header) {
                $display[_("Date")] . getLongDateString( $orig_header->date ). "\n" .
                $display[_("To")] . $to . "\n";
    if ($orig_header->cc != array() && $orig_header->cc !='') {
-      $cc = decodeHeader($orig_header->getAddr_s('cc',"\n$indent"),false,false);
+      $cc = decodeHeader($orig_header->getAddr_s('cc',"\n$indent"),false,false,true);
       $cc = str_replace('&nbsp;',' ',$cc);
      $bodyTop .= $display[_("Cc")] .$cc . "\n";
   }
@@ -677,9 +677,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('draft'):
             $use_signature = FALSE;
             $composeMessage->rfc822_header = $orig_header;
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true,true);
             $send_from = $orig_header->getAddr_s('from');
             $send_from_parts = new AddressStructure();
             $send_from_parts = $orig_header->parseAddress($send_from);
@@ -693,7 +693,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     }
                 }
             }
-            $subject = decodeHeader($orig_header->subject,false,true);
+            $subject = decodeHeader($orig_header->subject,false,true,true);
 //            /* remember the references and in-reply-to headers in case of an reply */
             $composeMessage->rfc822_header->more_headers['References'] = $orig_header->references;
             $composeMessage->rfc822_header->more_headers['In-Reply-To'] = $orig_header->in_reply_to;
@@ -711,10 +711,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
-            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
-            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
-            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);
-            $subject = decodeHeader($orig_header->subject,false,true);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true,true);
+            $subject = decodeHeader($orig_header->subject,false,true,true);
             $mailprio = $orig_header->priority;
             $orig_from = '';
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
@@ -722,14 +722,14 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             break;
         case ('forward'):
             $send_to = '';
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true));
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true,true));
             $body = getforwardHeader($orig_header) . $body;
             sqUnWordWrap($body);
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             $body = "\n" . $body;
             break;
         case ('forward_as_attachment'):
-            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true));
+            $subject = getforwardSubject(decodeHeader($orig_header->subject,false,true,true));
             $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, $passed_ent_id, $imapConnection);
             $body = '';
             break;
@@ -738,7 +738,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 $send_to = $orig_header->getAddr_s('mail_followup_to');
             } else {
                 $send_to_cc = replyAllString($orig_header);
-                $send_to_cc = decodeHeader($send_to_cc,false,true);
+                $send_to_cc = decodeHeader($send_to_cc,false,true,true);
             }
         case ('reply'):
             // skip this if send_to was already set right above here
@@ -752,8 +752,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                     $send_to = $orig_header->getAddr_s('from');
                 }
             }
-            $send_to = decodeHeader($send_to,false,true);
-            $subject = decodeHeader($orig_header->subject,false,true);
+            $send_to = decodeHeader($send_to,false,true,true);
+            $subject = decodeHeader($orig_header->subject,false,true,true);
             $subject = str_replace('"', "'", $subject);
             $subject = trim($subject);
             if (substr(strtolower($subject), 0, 3) != 're:') {
@@ -1351,10 +1351,13 @@ function deliverMessage($composeMessage, $draft=false) {
        by replacing them back to spaces addressparsing works */
     /* FIXME: How to handle in case of other charsets where "\240"
        is not a non breaking space ??? */
+    /* THEFIX: browsers don't replace space with nbsp. SM replaces 
+       space with nbsp when decodes headers. If problem still happens, 
+       use cleanup_nbsp() */
 
-    $send_to = str_replace("\240",' ',$send_to);
-    $send_to_cc = str_replace("\240",' ',$send_to_cc);
-    $send_to_bcc = str_replace("\240",' ',$send_to_bcc);
+//    $send_to = str_replace("\240",' ',$send_to);
+//    $send_to_cc = str_replace("\240",' ',$send_to_cc);
+//    $send_to_bcc = str_replace("\240",' ',$send_to_bcc);
 
     $rfc822_header = $composeMessage->rfc822_header;
 
