@@ -52,7 +52,7 @@ do_hook('login_cookie');
 
 /* Output the javascript onload function. */
 
-$header = "<SCRIPT LANGUAGE=\"JavaScript\" type=\"text/javascript\">\n" .
+$header = "<script language=\"JavaScript\" type=\"text/javascript\">\n" .
           "<!--\n".
           "  function squirrelmail_loginpage_onload() {\n".
           "    document.forms[0].js_autodetect_results.value = '" . SMPREF_JS_ON . "';\n".
@@ -63,8 +63,7 @@ $header = "<SCRIPT LANGUAGE=\"JavaScript\" type=\"text/javascript\">\n" .
 $custom_css = 'none';          
 displayHtmlHeader( "$org_name - " . _("Login"), $header, FALSE );
 
-/* Set the title of this page. */
-echo '<body text="#000000" bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC" onLoad="squirrelmail_loginpage_onload();">';
+echo '<body text="#000000" bgcolor="#FFFFFF" link="#0000CC" vlink="#0000CC" alink="#0000CC" onload="squirrelmail_loginpage_onload();">';
 
 $username_form_name = 'login_username';
 $password_form_name = 'secretkey';
@@ -87,10 +86,10 @@ html_tag( 'table',
         html_tag( 'td',
             '<center>'.
             '<img src="' . $org_logo . '" alt="' . sprintf(_("%s Logo"), $org_name) .'"' .
-            $width_and_height .'><br>' . "\n".
+            $width_and_height .' /><br />' . "\n".
             ( $hide_sm_attributions ? '' :
-            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br>' ."\n".
-            '  ' . _("By the SquirrelMail Development Team") . '<br></small>' . "\n" ) .
+            '<small>' . sprintf (_("SquirrelMail version %s"), $version) . '<br />' ."\n".
+            '  ' . _("By the SquirrelMail Development Team") . '<br /></small>' . "\n" ) .
             html_tag( 'table',
                 html_tag( 'tr',
                     html_tag( 'td',
@@ -105,7 +104,7 @@ html_tag( 'table',
                                     _("Name:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-                                    '<input type="text" name="' . $username_form_name .'" value="' . $loginname_value .'">' ,
+                                    '<input type="text" name="' . $username_form_name .'" value="' . $loginname_value .'" />' ,
                                 'left', '', 'width="*"' )
                                 ) . "\n" .
                             html_tag( 'tr',
@@ -113,9 +112,9 @@ html_tag( 'table',
                                     _("Password:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-                                    '<input type="password" name="' . $password_form_name . '">' . "\n" .
-                                    '<input type=hidden name="js_autodetect_results" value="SMPREF_JS_OFF">' . "\n" .
-                                    '<input type=hidden name="just_logged_in" value=1>' . "\n",
+                                    '<input type="password" name="' . $password_form_name . '" />' . "\n" .
+                                    '<input type="hidden" name="js_autodetect_results" value="SMPREF_JS_OFF" />' . "\n" .
+                                    '<input type="hidden" name="just_logged_in" value="1" />' . "\n",
                                 'left', '', 'width="*"' )
                             ) ,
                         'center', '#ffffff', 'border="0" width="100%"' ) ,
@@ -123,7 +122,7 @@ html_tag( 'table',
                 ) . 
                 html_tag( 'tr',
                     html_tag( 'td',
-                        '<center><input type="submit" value="' . _("Login") . '"></center>',
+                        '<center><input type="submit" value="' . _("Login") . '" /></center>',
                     'left' )
                 ),
             '', '#ffffff', 'border="0" width="350"' ) . '</center>',

@@ -75,7 +75,7 @@ $body = '';
 if ($ent_ar[0] != '') {
   for ($i = 0; $i < count($ent_ar); $i++) {
      $body .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
-     $body .= '<hr noshade size=1>';
+     $body .= '<hr noshade size="1" />';
   }
   $hookResults = do_hook('message_body', $body);
   $body = $hookResults[1];
@@ -138,7 +138,7 @@ echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"
      }
      /* body */
      echo html_tag( 'tr',
-         html_tag( 'td', '<hr noshade size=1><br>' . "\n" . $body, 'left', '', 'colspan="2"' )
+         html_tag( 'td', '<hr noshade size="1" /><br>' . "\n" . $body, 'left', '', 'colspan="2"' )
      ) . "\n" .
 
      '</table>' . "\n" .

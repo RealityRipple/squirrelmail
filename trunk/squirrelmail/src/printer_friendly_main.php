@@ -25,12 +25,12 @@ $mailbox = $_GET['mailbox'];
 /* end globals */
 
 echo "<frameset rows=\"60, *\" noresize border=\"0\">\n".
-     "<frame src=\"printer_friendly_top.php\" name=\"top_frame\" scrolling=\"no\">".
+     '<frame src="printer_friendly_top.php" name="top_frame" scrolling="no" />'.
      '<frame src="printer_friendly_bottom.php?passed_ent_id='.
      urlencode($passed_ent_id) . '&amp;mailbox=' . urlencode($mailbox) .
      '&amp;passed_id=' . $passed_id .
-     "\" name=\"bottom_frame\">".
-     "</frameset>\n".
+     '" name="bottom_frame" />'.
+     "\n</frameset>\n".
      "</html>\n";
 
 ?>

@@ -14,7 +14,7 @@
  */
 
     function html_tag( $tag,                // Tag to output
-                       $val = '',           // Value between tags (if empty only start tag is issued)
+                       $val = '',           // Value between tags
                        $align = '',         // Alignment
                        $bgcolor = '',       // Back color
                        $xtra = '' ) {       // Extra options
@@ -23,10 +23,10 @@
 
         $align = strtolower( $align );
         $bgc = '';
-        $tag = strtoupper( $tag );
+        $tag = strtolower( $tag );
 
         if ( isset( $languages[$squirrelmail_language]['DIR']) ) {
-        $dir = $languages[$squirrelmail_language]['DIR'];
+            $dir = $languages[$squirrelmail_language]['DIR'];
         } else {
             $dir = 'ltr';
         }
@@ -40,7 +40,7 @@
         }
 
         if ( $bgcolor <> '' ) {
-            $bgc = " BGCOLOR=\"$bgcolor\""; 
+            $bgc = " bgcolor=\"$bgcolor\""; 
         }
 
         switch ( $align ) {
@@ -48,31 +48,32 @@
                 $alg = '';
                 break;
             case 'right':
-                $alg = " ALIGN=\"$rgt\"";
+                $alg = " align=\"$rgt\"";
                 break;
             case 'left':
-                $alg = " ALIGN=\"$lft\"";
+                $alg = " align=\"$lft\"";
                 break;
             default:
-                $alg = " ALIGN=\"$align\"";
+                $alg = " align=\"$align\"";
                 break;
         }
 
         $ret = "<$tag";
 
         if ( $dir <> 'ltr' ) {
-            $ret .= " DIR=\"$dir\"";
+            $ret .= " dir=\"$dir\"";
         }
-        $ret .= "$bgc$alg";
+        $ret .= $bgc . $alg;
 
         if ( $xtra <> '' ) {
             $ret .= " $xtra";
         }
-        $ret .= '>';
 
         if ( $val <> '' ) {
-            $ret .= "$val</$tag>";
-        }
+            $ret .= ">$val</$tag>";
+        } else {
+            $ret .= ' />';
+        } 
 
         return( $ret );
     }

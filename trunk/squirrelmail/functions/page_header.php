@@ -31,19 +31,19 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     global $theme_css, $custom_css;
 
     echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' .
-         "\n\n<HTML>\n<HEAD>\n";
+         "\n\n<html>\n<head>\n";
 
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
-            echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">";
+            echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$theme_css\" />";
         }
     } else {
-        echo '<LINK REL="stylesheet" TYPE="text/css" HREF="' .
-             $base_uri . 'themes/css/'.$custom_css.'">';
+        echo '<link rel="stylesheet" type="text/css" href="' .
+             $base_uri . 'themes/css/'.$custom_css.'" />';
     }
     
     if ($do_hook) {
-       do_hook("generic_header");
+        do_hook('generic_header');
     }
     
     echo "\n<title>$title</title>$xtra\n";
@@ -100,7 +100,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     }
 
     if ($session) {
-	$compose_uri = $base_uri.'src/compose.php?mailbox='. urlencode($mailbox).'&attachedmessages=true&session='."$session";
+	$compose_uri = $base_uri.'src/compose.php?mailbox='.urlencode($mailbox).'&amp;attachedmessages=true&amp;session='."$session";
     } else {
         $compose_uri = $base_uri.'src/compose.php?newmessage=1';
 	$session = 0;
@@ -166,7 +166,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 	    
         $js .= "// -->\n".
         	 "</script>\n";
-        $onload = "onLoad=\"checkForm();\"";
+        $onload = 'onload="checkForm();"';
         displayHtmlHeader ('SquirrelMail', $js);
         break;   
 
@@ -215,7 +215,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         $js .= "// -->\n". "</script>\n";
 	
 
-        $onload = "onLoad=\"checkForm();\"";
+        $onload = 'onload="checkForm();"';
         displayHtmlHeader ('SquirrelMail', $js);
         break;   
 
@@ -246,24 +246,24 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
         . html_tag( 'td', '', 'left' ) ."\n";
     $urlMailbox = urlencode($mailbox);
     if ($compose_new_win == '1') {
-        echo "<a href=\"javascript:void(0)\" onclick=\"comp_in_new()\">". _("Compose"). '</a>';
+        echo '<a href="javascript:void(0)" onclick="comp_in_new()">'. _("Compose").'</a>';
     }
     else {
         displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), 'right');
     } 
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/addressbook.php", _("Addresses"), 'right');
+    displayInternalLink ('src/addressbook.php', _("Addresses"), 'right');
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/folders.php", _("Folders"), 'right');
+    displayInternalLink ('src/folders.php', _("Folders"), 'right');
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/options.php", _("Options"), 'right');
+    displayInternalLink ('src/options.php', _("Options"), 'right');
     echo "&nbsp;&nbsp;\n";
     displayInternalLink ("src/search.php?mailbox=$urlMailbox", _("Search"), 'right');
     echo "&nbsp;&nbsp;\n";
-    displayInternalLink ("src/help.php", _("Help"), 'right');
+    displayInternalLink ('src/help.php', _("Help"), 'right');
     echo "&nbsp;&nbsp;\n";
 
-    do_hook("menuline");
+    do_hook('menuline');
 
     echo "      </td>\n"
         . html_tag( 'td', '', 'right' ) ."\n";
@@ -294,7 +294,7 @@ function compose_Header($color, $mailbox) {
     switch ( $module ) {
     case 'src/search.php':
         $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
-        $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
+        $onload = "onload=\"document.forms[$pos].elements[2].focus();\"";
         displayHtmlHeader (_("Compose"));
         break;
     default:
@@ -321,7 +321,7 @@ function compose_Header($color, $mailbox) {
             "}\n";
         $js .= "// -->\n".
         	 "</script>\n";
-        $onload = "onLoad=\"checkForm();\"";
+        $onload = 'onload="checkForm();"';
         displayHtmlHeader (_("Compose"), $js);
         break;   
 
