@@ -20,7 +20,7 @@ $params_desc[0][4]["name"] = "message";
 $params_desc[0][4]["desc"] = "Returned if handle_errors is false.  It is the error message";
 $params_desc[0][4]["type"] = "string";
 $example[0] = "fputs (\$imap_stream, \"a001 SELECT INBOX\\n\");<br>";
-$example[0] .="\$read_ary = sqimap_read_data(\$imap_stream, \"a001\", true, $response, $message);<br>";
+$example[0] .="\$read_ary = sqimap_read_data(\$imap_stream, \"a001\", true, \$response, \$message);<br>";
 $example[0] .="for (\$i = 0; \$i &lt; count(\$read_ary); \$i++) {<br>";
 $example[0] .="&nbsp;&nbsp;&nbsp;&nbsp;echo \$read_ary[\$i];<br>";
 $example[0] .="}<br>";
@@ -71,9 +71,28 @@ $params_desc[4][0]["desc"] = $imap_stream_def;
 $params_desc[4][1]["name"] = "mailbox";
 $params_desc[4][1]["type"] = "string";
 $params_desc[4][1]["desc"] = "The mailbox that you wish to check out.";
-$example[4] = "$num = sqimap_get_num_messages (\$imap_stream, \"INBOX\");";
+$example[4] = "\$num = sqimap_get_num_messages (\$imap_stream, \"INBOX\");";
 
-/*
+$name[5] = "find_email";
+$params[5] = "(\$string)";
+$explain[5] = "This parses the given string for an email address.  It is meant for taking the \"from:\" header and return the email address for replying.  <br>If \$string looks like this:  Luke Ehresman &lt;lehresma@css.tayloru.edu><br>It will return this:  lehresma@css.tayloru.edu ";
+$params_desc[5][0]["name"] = "string";
+$params_desc[5][0]["type"] = "string";
+$params_desc[5][0]["desc"] = "The string that needs parsing";
+$example[5] = "\$from = \"Luke Ehresman &lt;lehresma@css.tayloru.edu><br>";
+$example[5] .="\$from_email = sqimap_find_email(\$from);";
+
+$name[6] = "find_displayable_name";
+$params[6] = "(\$string)";
+$explain[6] = "this parses the given string for a displayable name.  It is meant for taking the \"from:\" header and return the name of whom it is from.  If no name is found, it will display the email address.  If nothing acceptable is found, it just returns \$string back to you.";
+$params_desc[6][0]["name"] = "string";
+$params_desc[6][0]["type"] = "string";
+$params_desc[6][0]["desc"] = "The string that needs parsing";
+$example[6] = "";
+
+
+
+/*  16
 $name[1] = "";
 $params[1] = "";
 $explain[1] = "";
