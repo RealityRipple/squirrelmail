@@ -311,9 +311,17 @@ function printMessageInfo($aMsg) {
     // this stuff does the auto row highlighting on mouseover
     //
     if ($javascript_on && $fancy_index_highlite) {
+
         $mouseoverColor = $color[5];
+
+        // set this to an empty string to turn off extra 
+        // highlighting of checked rows
+        //
+        //$clickedColor = '';
         $clickedColor = $color[2];
+
         $row_extra .= ' onmouseover="setPointer(this, ' . $t . ', \'over\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmouseout="setPointer(this, ' . $t . ', \'out\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');" onmousedown="setPointer(this, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\');"';
+
     }
 
 
@@ -325,7 +333,7 @@ function printMessageInfo($aMsg) {
     //
     $javascript_auto_click = '';
     if ($javascript_on && $fancy_index_highlite)
-        $javascript_auto_click = ' onMouseDown="if (document.getElementById(\'msg[' . $t . ']\')) { document.getElementById(\'msg[' . $t . ']\').checked = (document.getElementById(\'msg[' . $t . ']\').checked ? false : true); }"';
+        $javascript_auto_click = ' onMouseDown="row_click(\'msg[' . $t . ']\')"';
 
 
     if (sizeof($index_order)) {
