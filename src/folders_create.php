@@ -17,8 +17,7 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $dm = sqimap_get_delimiter($imapConnection);
 
-   if (strpos($folder_name, "\"") || strpos($folder_name, ".") ||
-       strpos($folder_name, "/") || strpos($folder_name, "\\") ||
+   if (strpos($folder_name, "\"") || strpos($folder_name, "\\") ||
        strpos($folder_name, "'") || strpos($folder_name, "$dm")) {
       plain_error_message(_("Illegal folder name.  Please select a different name.")."<BR><A HREF=\"../src/folders.php\">"._("Click here to go back")."</A>.", $color);
       exit;
@@ -35,7 +34,7 @@
       $subfolder = $folder_prefix . $subfolder;
    }
 
-   if (trim($subfolder_orig) == "[ None ]") {
+   if ((trim($subfolder_orig) == "[ None ]") || (trim(stripslashes($subfolder_orig)) == "[ None ]")) {
       sqimap_mailbox_create ($imapConnection, $folder_prefix.$folder_name, "");
    } else {
       sqimap_mailbox_create ($imapConnection, $subfolder.$dm.$folder_name, "");

@@ -312,7 +312,7 @@
    } // function checkInput()
 
 
-   if ($mailbox == "")
+   if (($mailbox == "") || ($mailbox == "None"))
       $mailbox = "INBOX";
 
    if(isset($send)) {
