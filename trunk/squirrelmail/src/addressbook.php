@@ -282,7 +282,7 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
 
     // Some times we end output before forms are printed
     if($abortform) {
-       noframes_bottom();
+       echo "</BODY></HTML>\n";
        exit();
     }
 }
@@ -436,5 +436,6 @@ echo '</FORM>';
 
 /* Add hook for anything that wants on the bottom */
 do_hook('addressbook_bottom');
-noframes_bottom();
 ?>
+
+</BODY></HTML>

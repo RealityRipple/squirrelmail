@@ -67,10 +67,7 @@ for ($i = 0; $i < $numboxes; $i++) {
 walkTreeInPreOrderEmptyTrash(0, $imap_stream, $foldersTree);
 
 $location = get_location();
-if (isset($use_frames) && !$use_frames)
-    header ("Location: $location/right_main.php");
-else
-    header ("Location: $location/left_main.php");
+header ("Location: $location/left_main.php");
 
 sqimap_logout($imap_stream);
 ?>

@@ -239,6 +239,5 @@ sqgetGlobalVar('action', $action, SQ_GET);
                 html_tag( 'td', '&nbsp;', 'left' )
             ) ,
         'center', '', 'width="80%" border="0" cellpadding="2" cellspacing="0"' );
-    noframes_bottom();
-
+    echo '</body></html>';
 ?>

@@ -1001,15 +1001,11 @@ function get_msgcnt_str($start_msg, $end_msg, $num_msgs) {
  * Generate a paginator link.
  */
 function get_paginator_link($box, $start_msg, $use, $text) {
-    global $PHP_SELF, $use_frames;
-    if ($use_frames)
-        $target = 'right';
-    else
-        $target = '';
+    global $PHP_SELF;
 
     $result = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
             . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
-            . "TARGET=\"$target\">$text</A>";
+            . "TARGET=\"right\">$text</A>";
     return ($result);
 /*
     if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
@@ -1020,7 +1016,7 @@ function get_paginator_link($box, $start_msg, $use, $text) {
 
     $result = '<A HREF="'. $source_url . "?use_mailbox_cache=$use"
             . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
-            . "TARGET=\"$target\">$text</A>";
+            . "TARGET=\"right\">$text</A>";
     return ($result);
 */
 }
@@ -1030,7 +1026,7 @@ function get_paginator_link($box, $start_msg, $use, $text) {
  */
 function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
                            $show_num, $sort) {
-    global $username, $data_dir, $use_mailbox_cache, $color, $PG_SHOWNUM, $use_frames;
+    global $username, $data_dir, $use_mailbox_cache, $color, $PG_SHOWNUM;
 
     /* Initialize paginator string chunks. */
     $prv_str = '';
@@ -1038,11 +1034,6 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     $pg_str  = '';
     $all_str = '';
     $tgl_str = '';
-
-    if ($use_frames)
-        $target = 'right';
-    else
-        $target = '';
 
     $box = urlencode($box);
 
@@ -1197,14 +1188,14 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
     } else if ($PG_SHOWNUM == 999999) {
         $pg_str = "<A HREF=\"right_main.php?PG_SHOWALL=0"
                 . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
-                . "TARGET=\"$target\">" ._("Paginate") . '</A>' . $spc;
+                . "TARGET=\"right\">" ._("Paginate") . '</A>' . $spc;
     }
 
     /* If necessary, compute the 'show all' string. */
     if (($prv_str != '') || ($nxt_str != '')) {
         $all_str = "<A HREF=\"right_main.php?PG_SHOWALL=1"
                  . "&amp;use_mailbox_cache=$use&amp;startMessage=1&amp;mailbox=$box\" "
-                 . "TARGET=\"$target\">" . _("Show All") . '</A>';
+                 . "TARGET=\"right\">" . _("Show All") . '</A>';
     }
 
     /* Last but not least, get the value for the toggle all link. */

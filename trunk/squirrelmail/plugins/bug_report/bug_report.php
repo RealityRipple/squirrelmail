@@ -196,5 +196,4 @@ $body = htmlspecialchars($body_top . $body);
    </tr>
    </table>
    </form>
-<?php noframes_bottom(); ?>
-
+</body></html>

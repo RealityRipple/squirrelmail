@@ -846,5 +846,6 @@ sqimap_logout($imapConnection);
    them at the end so we avoid double session_register calls */
 sqsession_register($messages,'messages');
 
-noframes_bottom();
 ?>
+</body>
+</html>

@@ -87,14 +87,10 @@ ECHO;
  * @param string target the target frame for this link
  */
 function makeInternalLink($path, $text, $target='') {
-    global $use_frames;
     sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION);
-    if (isset($use_frames) && $use_frames) {
-        if ($target != '')
-            $target = " target=\"$target\"";
-    } else 
-       $target='';
-
+    if ($target != '') {
+        $target = " target=\"$target\"";
+    }
     $hooktext = do_hook_function('internal_link',$text);
     if ($hooktext != '')
         $text = $hooktext;
@@ -279,8 +275,6 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
     }
 
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
-    noframes_top();
-
     /** Here is the header and wrapping table **/
     $shortBoxName = imap_utf7_decode_local(
 		      readShortMailboxName($mailbox, $delimiter));
@@ -404,8 +398,6 @@ function compose_Header($color, $mailbox) {
     }
 
     echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\" $onload>\n\n";
-
-
 }
 
 ?>

@@ -1166,8 +1166,7 @@ function showInputForm ($session, $values=false) {
     }
 
     do_hook('compose_bottom');
-    if ($compose_new_win != '1')
-       noframes_bottom();
+    echo '</BODY></HTML>' . "\n";
 }
 
 

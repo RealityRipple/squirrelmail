@@ -237,6 +237,7 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 }
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
-noframes_bottom();
+
+echo '</body></html>';
 
 ?>
