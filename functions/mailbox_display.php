@@ -423,7 +423,7 @@
                 $mMore .= '<b>' . ($i+1) . '</b> ';
                 } else {
                 $mMore .= "<a href=\"right_main.php?use_mailbox_cache=$use_mailbox_cache&startMessage=$start" .
-                        "&mailbox=$mailbox\" TARGET=\"right\">" .
+                        "&mailbox=$urlMailbox\" TARGET=\"right\">" .
                         ($i+1) .
                         '</a> ';
                 }
