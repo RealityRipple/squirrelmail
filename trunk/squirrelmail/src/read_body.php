@@ -34,68 +34,6 @@ require_once('../functions/mime.php');
 require_once('../functions/date.php');
 require_once('../functions/url_parser.php');
    
-    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
-    sqimap_mailbox_select($imapConnection, $mailbox);
-    do_hook('html_top');
-    displayPageHeader($color, $mailbox);
-
-    if (isset($view_hdr)) {
-        fputs ($imapConnection, sqimap_session_id() . " FETCH $passed_id BODY[HEADER]\r\n");
-        $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b);
-
-        echo '<BR>' .
-             '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
-             "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\"><CENTER><B>" . _("Viewing Full Header") . '</B> - ';
-        if (isset($where) && isset($what)) {
-            // Got here from a search
-            echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what).'">';
-        } else {
-            echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
-        }
-        echo ''._("View message") . "</a></b></center></td></tr></table>\n" .
-             "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n" .
-             '<tr><td>';
-
-        $cnum = 0;
-        for ($i=1; $i < count($read); $i++) {
-            $line = htmlspecialchars($read[$i]);
-            if (eregi("^&gt;", $line)) {
-                $second[$i] = $line;
-                $first[$i] = '&nbsp;';
-                $cnum++;
-            } else if (eregi("^[ |\t]", $line)) {
-                $second[$i] = $line;
-                $first[$i] = '';
-            } else if (eregi("^([^:]+):(.+)", $line, $regs)) {
-                $first[$i] = $regs[1] . ':';
-                $second[$i] = $regs[2];
-                $cnum++;
-            } else {
-                $second[$i] = trim($line);
-                $first[$i] = '';
-            }
-        }
-        for ($i=0; $i < count($second); $i = $j) {
-            if (isset($first[$i])) {
-                $f = $first[$i];
-            }
-            if (isset($second[$i])) {
-                $s = nl2br($second[$i]);
-            }
-            $j = $i + 1;
-            while (($first[$j] == '') && ($j < count($first))) {
-                $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
-                $j++;
-            }
-            parseEmail($s);
-            if (isset($f)) echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
-        }
-        echo "</td></tr></table>\n";
-        echo '</body></html>';
-        sqimap_logout($imapConnection);
-        exit;
-    }
-
     /**
      * Given an IMAP message id number, this will look it up in the cached
      * and sorted msgs array and return the index. Used for finding the next
@@ -219,16 +157,70 @@ require_once('../functions/url_parser.php');
     /*** Main of read_boby.php ***/
     /*****************************/
 
+    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+    sqimap_mailbox_select($imapConnection, $mailbox);
+    do_hook('html_top');
+    displayPageHeader($color, $mailbox);
+
+    if (isset($view_hdr)) {
+        fputs ($imapConnection, sqimap_session_id() . " FETCH $passed_id BODY[HEADER]\r\n");
+        $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b);
+
+        echo '<BR>' .
+             '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
+             "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\"><CENTER><B>" . _("Viewing Full Header") . '</B> - ';
+        if (isset($where) && isset($what)) {
+            // Got here from a search
+            echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what).'">';
+        } else {
+            echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more\">";
+        }
+        echo ''._("View message") . "</a></b></center></td></tr></table>\n" .
+             "<table width=99% cellpadding=2 cellspacing=0 border=0 align=center>\n" .
+             '<tr><td>';
+
+        $cnum = 0;
+        for ($i=1; $i < count($read); $i++) {
+            $line = htmlspecialchars($read[$i]);
+            if (eregi("^&gt;", $line)) {
+                $second[$i] = $line;
+                $first[$i] = '&nbsp;';
+                $cnum++;
+            } else if (eregi("^[ |\t]", $line)) {
+                $second[$i] = $line;
+                $first[$i] = '';
+            } else if (eregi("^([^:]+):(.+)", $line, $regs)) {
+                $first[$i] = $regs[1] . ':';
+                $second[$i] = $regs[2];
+                $cnum++;
+            } else {
+                $second[$i] = trim($line);
+                $first[$i] = '';
+            }
+        }
+        for ($i=0; $i < count($second); $i = $j) {
+            if (isset($first[$i])) {
+                $f = $first[$i];
+            }
+            if (isset($second[$i])) {
+                $s = nl2br($second[$i]);
+            }
+            $j = $i + 1;
+            while (($first[$j] == '') && ($j < count($first))) {
+                $s .= '&nbsp;&nbsp;&nbsp;&nbsp;' . nl2br($second[$j]);
+                $j++;
+            }
+            parseEmail($s);
+            if (isset($f)) echo "<nobr><tt><b>$f</b>$s</tt></nobr>";
+        }
+        echo "</td></tr></table>\n";
+        echo '</body></html>';
+        sqimap_logout($imapConnection);
+        exit;
+    }
+
     if (isset($msgs)) {
         $currentArrayIndex = $passed_id;
-/*** START OF COMMENTED OUT CODE - PHILIPPE, CAN THIS BE REMOVED?
-        for ($i=0; $i < count($msgs); $i++) {
-        if ($msgs[$i]["ID"] == $passed_id) {
-            $currentArrayIndex = $i;
-            break;
-        }
-    }
-*** END OF COMMENTED OUT CODE */
     } else {
         $currentArrayIndex = -1;
     }
