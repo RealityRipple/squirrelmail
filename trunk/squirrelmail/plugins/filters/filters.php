@@ -269,7 +269,7 @@ _("COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to 
       $filters['MAPS DUL']['link'] = 'http://www.mail-abuse.org/dul/';
       $filters['MAPS DUL']['dns'] = 'dialups.mail-abuse.org';
       $filters['MAPS DUL']['comment'] =
-_("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP\'s mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
+_("COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there.");
 
       $filters['MAPS RBLplus']['prefname'] = 'filters_spam_maps_rblplus';
       $filters['MAPS RBLplus']['name'] = 'MAPS RBL+ List';
@@ -283,7 +283,7 @@ _("COMMERCIAL - RBL+ is a combination of RSS, DUL, and RBL.");
       $filters['Osirusoft']['link'] = 'http://relays.osirusoft.com/';
       $filters['Osirusoft']['dns'] = 'relays.osirusoft.com';
       $filters['Osirusoft']['comment'] =
-_("FREE - Osirusoft - Very thorough, but also rejects replies from many ISP\'s abuse@domain.name email messages for some reason.");
+_("FREE - Osirusoft - Very thorough, but also rejects replies from many ISP's abuse@domain.name email messages for some reason.");
 
       $filters['ORDB']['prefname'] = 'filters_spam_ordb';
       $filters['ORDB']['name'] = 'Open Relay Database List';
