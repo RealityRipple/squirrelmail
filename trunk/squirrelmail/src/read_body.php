@@ -143,7 +143,7 @@ function printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color) {
 
 function ServerMDNSupport($read) {
     /* escaping $ doesn't work -> \x36 */    
-    $ret = preg_match('/(\x36MDNSent|\\\*)/i', $read);
+    $ret = preg_match('/(\x36MDNSent|\\\\\*)/i', $read);
     return $ret;
 }
 
