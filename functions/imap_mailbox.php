@@ -13,6 +13,66 @@
 
 global $boxesnew;
 
+class mailboxes {
+  var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, 
+      $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
+       $is_trash = false, $is_draft = false,  $mbxs = array(), 
+       $unseen = false, $total = false;
+
+  function addMbx($mbx, $delimiter, $start, $specialfirst) {
+      $ary = explode($delimiter, $mbx->mailboxname_full);
+      $mbx_parent = &$this;
+      for ($i=$start; $i < (count($ary) -1); $i++) {
+        $mbx_childs = &$mbx_parent->mbxs;
+	$found = false;
+        foreach ($mbx_childs as $key => $parent) {
+	    if ($parent->mailboxname_sub == $ary[$i]) {
+		$mbx_parent = &$mbx_parent->mbxs[$key];
+		$found = true;
+	    } 
+	}
+	if (!$found) {
+	    $no_select_mbx = new mailboxes();
+	    if (isset($mbx_parent->mailboxname_full) && $mbx_parent->mailboxname_full != '') {
+		$no_select_mbx->mailboxname_full = $mbx_parent->mailboxname_full.$delimiter.$ary[$i];
+	    } else {
+		$no_select_mbx->mailboxname_full = $ary[$i];
+	    }
+	    $no_select_mbx->mailboxname_sub = $ary[$i];
+	    $no_select_mbx->is_noselect = true;
+	    $mbx_parent->mbxs[] = $no_select_mbx;
+	    $i--;
+	}
+	
+     }
+     $mbx_parent->mbxs[] = $mbx;
+     if ($mbx->is_special && $specialfirst) {
+	usort($mbx_parent->mbxs, 'sortSpecialMbx');
+     }
+     
+  }
+}
+
+function sortSpecialMbx($a, $b) {
+    if ($a->is_inbox) {
+	$acmp = '0'. $a->mailboxname_full;
+    } else if ($a->is_special) {
+	$acmp = '1'. $a->mailboxname_full;
+    } else {
+	$acmp = '2' . $a->mailboxname_full;
+    }	
+    if ($b->is_inbox) {
+	$bcmp = '0'. $b->mailboxname_full;
+    }else if ($b->is_special) {
+	$bcmp = '1' . $b->mailboxname_full;
+    } else {
+	$bcmp = '2' . $b->mailboxname_full;
+    }
+    if ($acmp == $bcmp) return 0;
+    return ($acmp>$bcmp) ? 1: -1;
+}     	
+
+
 function find_mailbox_name ($mailbox) {
     if (ereg(" *\"([^\r\n\"]*)\"[ \r\n]*$", $mailbox, $regs))
         return $regs[1];
@@ -617,5 +677,168 @@ function sqimap_mailbox_list_all($imap_stream) {
 
     return $boxes;
 }
+
+function sqimap_mailbox_tree($imap_stream) {
+    global $boxesnew, $default_folder_prefix, $unseen_notify, $unseen_type;
+    if ( !isset( $boxesnew ) ) {
+
+        global $data_dir, $username, $list_special_folders_first,
+               $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
+               $move_to_trash, $move_to_sent, $save_as_draft,
+               $delimiter;
+
+
+        $inbox_in_list = false;
+        $inbox_subscribed = false;
+
+        require_once('../src/load_prefs.php');
+        require_once('../functions/array.php');
+
+        /* LSUB array */
+        $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"\" \"*\"",
+                                        true, $response, $message);
+
+        /*
+         * Section about removing the last element was removed 
+         * We don't return "* OK" anymore from sqimap_read_data
+         */
+        $sorted_lsub_ary = array();
+
+        for ($i=0;$i < count($lsub_ary); $i++) {
+            /*
+             * Workaround for EIMS
+             * Doesn't work if the mailbox name is multiple lines
+             */
+            if (isset($lsub_ary[$i + 1]) &&
+                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                     $lsub_ary[$i], $regs)) {
+                $i ++;
+                $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
+            }
+
+	    if (preg_match("/^\*\s+LSUB\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$lsub_ary[$i],$regs)) {
+    		$flag = $regs[1];
+    		$mbx = trim($regs[3]);
+		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
+	    }
+        }
+	array_multisort($sorted_lsub_ary, SORT_ASC, SORT_STRING);
+
+	foreach ($sorted_lsub_ary as $mbx) {
+	    if ($mbx['mbx'] == 'INBOX') {
+                $inbox_in_list = true;
+		break;
+            }
+	}
+
+        /*
+         * Just in case they're not subscribed to their inbox,
+         * we'll get it for them anyway
+         */
+        if (!$inbox_in_list) {
+            $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
+                                             true, $response, $message);
+            /* Another workaround for EIMS */
+            if (isset($inbox_ary[1]) &&
+                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+                     $inbox_ary[0], $regs)) {
+                $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
+                    '"' . $regs[2];
+            }
+	    if (preg_match("/^\*\s+LIST\s+\((.*)\)\s+\"(.*)\"\s+\"?(.+(?=\")|.+).*$/",$inbox_ary[0],$regs)) {
+    		$flag = $regs[1];
+    		$mbx = trim($regs[3]);
+		$sorted_lsub_ary[] = array ('mbx' => $mbx, 'flag' => $flag); 
+	    }
+        }
+
+	for ($i=0 ; $i < count($sorted_lsub_ary); $i++) {
+	    if (($unseen_notify == 2 && $sorted_lsub_ary[$i]['mbx'] == 'INBOX') 
+		|| $unseen_notify == 3 
+		|| ($move_to_trash && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder))) {
+    		$sorted_lsub_ary[$i]['unseen'] = sqimap_unseen_messages($imap_stream, $mbx['mbx']);
+		if ($unseen_type == 2 || ($move_to_trash 
+		    && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder) )) {
+        	    $sorted_lsub_ary[$i]['nummessages'] = sqimap_get_num_messages($imap_stream, $mbx['mbx']);
+    		}
+		if ($unseen_notify != 3 && !($move_to_trash 
+		    && ($sorted_lsub_ary[$i]['mbx'] == $trash_folder) )) break;
+	    }
+	}
+
+	$boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary);
+    return $boxesnew;
+    }
+}
+
+
+function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
+    global $data_dir, $username, $list_special_folders_first,
+           $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
+           $move_to_trash, $move_to_sent, $save_as_draft,
+           $delimiter;
+
+    $special_folders = array ('INBOX', $sent_folder, $draft_folder, $trash_folder);
+    	   
+    /* create virtual root node */
+    $mailboxes= new mailboxes();
+    $mailboxes->is_root = true;
+    $trail_del = false;	   
+    if (isset($folder_prefix) && $folder_prefix != '') {
+	$start = substr_count($folder_prefix,$delimiter);
+	if (strrpos($folder_prefix, $delimiter) == (strlen($folder_prefix)-1)) {
+	    $trail_del = true;
+	    $mailboxes->mailboxname_full = substr($folder_prefix,0, (strlen($folder_prefix)-1));
+	} else {
+	    $mailboxes->mailboxname_full = $folder_prefix;
+	    $start++;
+	}
+	$mailboxes->mailboxname_sub = $mailboxes->mailboxname_full;
+    } else $start = 0;
+
+    for ($i=0; $i < count($mbx_ary); $i++) {
+       if ($mbx_ary[$i]['mbx'] !='' ) {
+	    $mbx = new mailboxes();
+	    $mailbox = $mbx_ary[$i]['mbx'];
+	    switch ($mailbox) {
+		case 'INBOX':
+		    $mbx->is_inbox = true;
+		    $mbx->is_special = true;
+		    break;
+		case $trash_folder:
+		    $mbx->is_trash = true;
+		    $mbx->is_special = true;
+		    break;
+		case $sent_folder:
+		    $mbx->is_sent = true;
+		    $mbx->is_special = true;
+		    break;
+		case $draft_folder:
+		    $mbx->is_draft = true;
+		    $mbx->is_special = true;
+		    break;
+	    }    
+			    
+	    if (isset($mbx_ary[$i]['unseen'])) {
+		$mbx->unseen = $mbx_ary[$i]['unseen'];
+	    }
+	    if (isset($mbx_ary[$i]['nummessages'])) {
+		$mbx->total = $mbx_ary[$i]['nummessages'];
+	    }
+	    
+            $r_del_pos = strrpos($mbx_ary[$i]['mbx'], $delimiter);
+	    if ($r_del_pos) {
+		$mbx->mailboxname_sub = substr($mbx_ary[$i]['mbx'],$r_del_pos+1);
+	    } else {   /* mailbox is root folder */
+		$mbx->mailboxname_sub = $mbx_ary[$i]['mbx'];
+	    }
+	    $mbx->mailboxname_full = $mbx_ary[$i]['mbx'];
+	    $mailboxes->addMbx($mbx, $delimiter, $start, $list_special_folders_first);
+	}
+    }
+
+    return $mailboxes;
+}
+
 
 ?>
