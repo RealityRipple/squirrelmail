@@ -209,9 +209,7 @@ class Message {
                         case 3:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $res= $msg->parseLanguage($read, $i);
-                                $arg_a[] = $res[0];
-                                $i = $res[1];
+                                $arg_a[]= $msg->parseLanguage($read, $i);
                             }
                         case 7:
                             if (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822')) {
@@ -220,9 +218,7 @@ class Message {
                                 $msg->type0 = $arg_a[0];
                                 $msg->type1 = $arg_a[1];
                                 $rfc822_hdr = new Rfc822Header();
-                                $res = $msg->parseEnvelope($read, $i, $rfc822_hdr);
-                                $msg->rfc822_header = $res[0];
-                                $i = $res[1] + 1;
+                                $msg->rfc822_header = $msg->parseEnvelope($read, $i, $rfc822_hdr);
                                 while (($i < $cnt) && ($read{$i} != '(')) {
                                     ++$i;
                                 }
@@ -371,7 +367,7 @@ class Message {
         return $properties;
     }
 
-    function parseEnvelope($read, $i, $hdr) {
+    function parseEnvelope($read, &$i, $hdr) {
         $arg_no = 0;
         $arg_a = array();
 
@@ -405,9 +401,7 @@ class Message {
                     $a=0;
                     for (; $i < $cnt && $read{$i} != ')'; ++$i) {
                         if ($read{$i} == '(') {
-                            $res = $this->parseAddress($read, $i);
-                            $addr = $res[0];
-                            $i = $res[1];
+                            $addr = $this->parseAddress($read, $i);
                             if (($addr->host == '') && ($addr->mailbox != '')) {
                                 /* start of group */
                                 $group = $addr->mailbox;
@@ -454,7 +448,7 @@ class Message {
             $hdr->inreplyto = $arg_a[8];   /* argument 9: in-reply-to */
             $hdr->message_id = $arg_a[9];  /* argument 10: message-id */
         }
-        return (array($hdr, $i));
+        return $hdr;
     }
 
     function parseLiteral($read, &$i) {
@@ -482,7 +476,7 @@ class Message {
         return $s;
     }
 
-    function parseAddress($read, $i) {
+    function parseAddress($read, &$i) {
         $arg_a = array();
 
         for (; $read{$i} != ')'; ++$i) {
@@ -512,7 +506,7 @@ class Message {
         } else {
             $adr = '';
         }
-        return (array($adr, $i));
+        return $adr;
     }
 
     function parseDisposition($read, &$i) {
