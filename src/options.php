@@ -306,10 +306,11 @@
    echo "<CENTER>";
    if ($use_signature == true)
       echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature CHECKED>&nbsp;&nbsp;Use a signature?<BR>";
-   else
+   else {
       echo "<INPUT TYPE=CHECKBOX VALUE=\"1\" NAME=usesignature>&nbsp;&nbsp;";
       echo _("Use a signature?");
       echo "<BR>";
+   }
 
    if ($editor_size < 5)
       $sig_size = 76;
