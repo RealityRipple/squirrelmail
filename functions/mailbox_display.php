@@ -419,6 +419,15 @@ function printMessageInfo($aMsg) {
                 $td_str .= '<a href="read_body.php?mailbox='.$urlMailbox
                         .  '&amp;passed_id='. $iId
                         .  '&amp;startMessage='.$start_msg.$searchstr.'"';
+
+                // don't highlight the row or check the checkbox 
+                // when clicking subject link (when fancy highlighting is on)
+                //
+                // parentNode property is DOM Level 1
+                //
+                if ($javascript_on && $fancy_index_highlite)
+                    $td_str .= ' onClick="row_click(\'msg[' . $t . ']\'); setPointer(this.parentNode.parentNode, ' . $t . ', \'click\', \'' . $hlt_color . '\', \'' . $mouseoverColor . '\', \'' . $clickedColor . '\')"';
+
                 $td_str .= ' ' .concat_hook_function('subject_link', array($start_msg, $searchstr));
                 if ($subject != $sSubject) {
                     $title = get_html_translation_table(HTML_SPECIALCHARS);
