@@ -21,6 +21,8 @@
    function attachFiles ($fp) {
       global $attachments, $attachment_dir;
 
+      $length = 0;
+
       while (list($localname, $remotename) = each($attachments)) {
          // This is to make sure noone is giving a filename in another
          // directory
@@ -33,25 +35,33 @@
          if ($filetype=="")
             $filetype = "application/octet-stream";
 
-         fputs ($fp, "--".mimeBoundary()."\r\n");
-         fputs ($fp, "Content-Type: $filetype\n");
-         fputs ($fp, "Content-Disposition: attachment; filename=\"$remotename\"\r\n");
-         fputs ($fp, "Content-Transfer-Encoding: base64\r\n\r\n");
+         $header = "--".mimeBoundary()."\r\n";
+         $header .= "Content-Type: $filetype\n";
+         $header .= "Content-Disposition: attachment; filename=\"$remotename\"\r\n";
+         $header .= "Content-Transfer-Encoding: base64\r\n\r\n";
+         fputs ($fp, $header);
+         $length += strlen($header);
 
          $file = fopen ($attachment_dir.$localname, "r");
-         while ($tmp = fread($file, 57))
-            fputs ($fp, chunk_split(base64_encode($tmp)));
+         while ($tmp = fread($file, 570)) {
+            $encoded = chunk_split(base64_encode($tmp));
+            $length += strlen($encoded);
+            fputs ($fp, $encoded);
+         }
          fclose ($file);
 
          unlink ($attachment_dir.$localname);
          unlink ($attachment_dir.$localname.".info");
       }
+
+      return $length;
    }
 
    // Return a nice MIME-boundary
    function mimeBoundary () {
-      global $mimeBoundaryString, $version, $REMOTE_ADDR, $SERVER_NAME,
-         $REMOTE_PORT;
+      global $version, $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
+
+      static $mimeBoundaryString;
 
       if ($mimeBoundaryString == "") {
          $temp = "SquirrelMail".$version.$REMOTE_ADDR.$SERVER_NAME.
@@ -85,94 +95,119 @@
       global $REMOTE_ADDR, $SERVER_NAME;
       global $data_dir, $username, $domain, $version, $useSendmail;
 
-      $to = parseAddrs($t);
-      $cc = parseAddrs($c);
-      $bcc = parseAddrs($b);
-      $reply_to = getPref($data_dir, $username, "reply_to");
-      $from = getPref($data_dir, $username, "full_name");
-      $from_addr = getPref($data_dir, $username, "email_address");
+      // Storing the header to make sure the header is the same
+      // everytime the header is printed.
+      static $header, $headerlength;
 
-      if ($from_addr == "")
-         $from_addr = "$username@$domain";
-
-      $to_list = getLineOfAddrs($to);
-      $cc_list = getLineOfAddrs($cc);
-      $bcc_list = getLineOfAddrs($bcc);
-
-      if ($from == "")
-         $from = "<$from_addr>";
-      else
-         $from = $from . " <$from_addr>";
-
-      /* This creates an RFC 822 date showing GMT */
-      $date = date("D, j M Y H:i:s ", mktime()) . timezone();
-
-      /* Make an RFC822 Received: line */
-      fputs ($fp, "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ");
-      fputs ($fp, "$date\n");
-
-      /* The rest of the header */
-      fputs ($fp, "Date: $date\r\n");
-      fputs ($fp, "Subject: $subject\r\n"); // Subject
-      fputs ($fp, "From: $from\r\n"); // Subject
-      fputs ($fp, "To: $to_list\r\n");    // Who it's TO
-
-      if ($cc_list) {
-         fputs($fp, "Cc: $cc_list\r\n"); // Who the CCs are
-      }
-
-      if ($reply_to != "")
-         fputs($fp, "Reply-To: $reply_to\r\n");
-
-      if ($useSendmail) {
-         if ($bcc_list) {
-            // BCCs is removed from header by sendmail
-            fputs($fp, "Bcc: $bcc_list\r\n"); 
+      if ($header == "") {
+         $to = parseAddrs($t);
+         $cc = parseAddrs($c);
+         $bcc = parseAddrs($b);
+         $reply_to = getPref($data_dir, $username, "reply_to");
+         $from = getPref($data_dir, $username, "full_name");
+         $from_addr = getPref($data_dir, $username, "email_address");
+         
+         if ($from_addr == "")
+            $from_addr = "$username@$domain";
+         
+         $to_list = getLineOfAddrs($to);
+         $cc_list = getLineOfAddrs($cc);
+         $bcc_list = getLineOfAddrs($bcc);
+         
+         if ($from == "")
+            $from = "<$from_addr>";
+         else
+            $from = $from . " <$from_addr>";
+         
+         /* This creates an RFC 822 date showing GMT */
+         $date = date("D, j M Y H:i:s ", mktime()) . timezone();
+         
+         /* Make an RFC822 Received: line */
+         $header = "Received: from $REMOTE_ADDR by $SERVER_NAME with HTTP; ";
+         $header .= "$date\n";
+         
+         /* The rest of the header */
+         $header .= "Date: $date\r\n";
+         $header .= "Subject: $subject\r\n";
+         $header .= "From: $from\r\n";
+         $header .= "To: $to_list \r\n";    // Who it's TO
+         
+         if ($cc_list) {
+            $header .= "Cc: $cc_list\r\n"; // Who the CCs are
          }
-      }
+         
+         if ($reply_to != "")
+            $header .= "Reply-To: $reply_to\r\n";
+         
+         if ($useSendmail) {
+            if ($bcc_list) {
+               // BCCs is removed from header by sendmail
+               $header .= "Bcc: $bcc_list\r\n"; 
+            }
+         }
+         
+         $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; // Identify SquirrelMail
+         
+         // Do the MIME-stuff
+         $header .= "MIME-Version: 1.0\n";
+         
+         if (isMultipart()) {
+            $header .= "Content-Type: multipart/mixed; boundary=\"";
+            $header .= mimeBoundary();
+            $header .= "\"\r\n";
+         } else {
+            $header .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
+            $header .= "Content-Transfer-Encoding: 8bit\r\n";
+         }
+         $header .= "\r\n"; // One blank line to separate header and body
 
-      fputs($fp, "X-Mailer: SquirrelMail (version $version)\r\n"); // Identify SquirrelMail
+         $headerlength = strlen($header);
+      }     
+      
+      // Write the header
+      fputs ($fp, $header);
 
-      // Do the MIME-stuff
-      fputs($fp, "MIME-Version: 1.0\n");
-
-      if (isMultipart()) {
-         fputs ($fp, "Content-Type: multipart/mixed; boundary=\"");
-         fputs ($fp, mimeBoundary());
-         fputs ($fp, "\"\r\n");
-      } else {
-         fputs($fp, "Content-Type: text/plain; charset=ISO-8859-1\r\n");
-         fputs($fp, "Content-Transfer-Encoding: 8bit\r\n");
-      }
-      fputs ($fp, "\r\n");
+      return $headerlength;
    }
 
    // Send the body
-   function writeBody ($fp, $body) {
-     if (isMultipart()) {
-        fputs ($fp, "--".mimeBoundary()."\r\n");
-        fputs ($fp, "Content-Type: text/plain; charset=ISO-8859-1\r\n");
-        fputs ($fp, "Content-Transfer-Encoding: 8bit\r\n\r\n");
-        fputs ($fp, stripslashes($body) . "\r\n");
-        attachFiles($fp);
-        fputs ($fp, "\r\n--".mimeBoundary()."--\r\n");
-     } else {
-       fputs ($fp, stripslashes($body) . "\r\n");
-     }
-     fputs ($fp, "\r\n");
+   function writeBody ($fp, $passedBody) {
+      $attachmentlength = 0;
+      
+      if (isMultipart()) {
+         $body = "--".mimeBoundary()."\r\n";
+         $body .= "Content-Type: text/plain; charset=iso-8859-1\r\n";
+         $body .= "Content-Transfer-Encoding: 8bit\r\n\r\n";
+         $body .= stripslashes($passedBody) . "\r\n";
+         fputs ($fp, $body);
+
+         $attachmentlenght = attachFiles($fp);
+
+         $postbody .= "\r\n--".mimeBoundary()."--\r\n\r\n";
+         fputs ($fp, $postbody);
+      } else {
+         $body = stripslashes($passedBody) . "\r\n";
+         fputs ($fp, $body);
+         $postbody = "\r\n";
+         fputs ($fp, $postbody);
+      }
+
+      return (strlen($body) + strlen($postbody) + $attachmentlength);
    }
 
    // Send mail using the sendmail command
    function sendSendmail($t, $c, $b, $subject, $body) {
       global $sendmail_path, $username, $domain;
-      
+
       // open pipe to sendmail
-      $fp = popen (escapeshellcmd("$sendmail_path -odb -oi -t -f$username@$domain"), "w");
+      $fp = popen (escapeshellcmd("$sendmail_path -t -f$username@$domain"), "w");
       
-      write822Header ($fp, $t, $c, $b, $subject);
-      writeBody($fp, $body);
+      $headerlength = write822Header ($fp, $t, $c, $b, $subject);
+      $bodylength = writeBody($fp, $body);
 
       pclose($fp);
+
+      return ($headerlength + $bodylenght);
    }
 
    function smtpReadData($smtpConnection) {
@@ -242,9 +277,9 @@
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
       errorCheck($tmp);
 
-      write822Header ($smtpConnection, $t, $c, $b, $subject);
-
-      writeBody($smtpConnection, $body); // send the body of the message
+      // Send the message
+      $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject);
+      $bodylength = writeBody($smtpConnection, $body);
 
       fputs($smtpConnection, ".\r\n"); // end the DATA part
       $tmp = nl2br(htmlspecialchars(fgets($smtpConnection, 1024)));
@@ -256,6 +291,8 @@
       fputs($smtpConnection, "QUIT\r\n"); // log off
 
       fclose($smtpConnection);
+
+      return ($headerlength + $bodylength);
    }
 
 
@@ -359,13 +396,24 @@
       global $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress;
 
       if ($useSendmail==true) {  
-         sendSendmail($t, $c, $b, $subject, $body);
+         $length = sendSendmail($t, $c, $b, $subject, $body);
       } else {
-         sendSMTP($t, $c, $b, $subject, $body);
+         $length = sendSMTP($t, $c, $b, $subject, $body);
       }
 
-      $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
-      sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
+      // This is a proposed interface to save messages in the sent folder
+      //  -- gustavf
+      //
+      // $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
+      // sqimap_append ($imap_stream, $sent_folder, $length);
+      // write822Header ($imap_stream, .....);
+      // writeBody ($imap_stream, ....);
+      // sqimap_append_done($imap_stream);
+      //
+      // Or something like that... 
+
+      //$imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
+      //sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
    }
 
 ?>
