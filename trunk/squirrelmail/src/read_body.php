@@ -30,6 +30,10 @@ function findNextMessage() {
     global $msort, $currentArrayIndex, $msgs, $sort, 
            $thread_sort_messages, $allow_server_sort,
            $server_sort_array;
+    if (!is_array($server_sort_array)) {
+        $thread_sort_messages = 0;
+        $allow_server_sort = 'false';
+    }
     $result = -1;
     if ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
         reset($server_sort_array);
@@ -89,6 +93,10 @@ function findPreviousMessage() {
            $mailbox, $data_dir, $username, $thread_sort_messages,
            $allow_server_sort, $server_sort_array;
     $result = -1;
+    if (!is_array($server_sort_array)) {
+        $thread_sort_messages = 0;
+        $allow_server_sort = 'false';
+    }
     if ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {

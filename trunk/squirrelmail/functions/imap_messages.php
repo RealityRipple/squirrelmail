@@ -130,8 +130,10 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
         fputs($imap_stream, $sort_query);
         $sort_test = sqimap_read_data($imap_stream, $sid, false, $response, $message);
     }
-    if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
-        $server_sort_array = preg_split("/ /", trim($regs[1]));
+    if (isset($sort_test[0])) {
+        if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
+            $server_sort_array = preg_split("/ /", trim($regs[1]));
+        }
     }
     if ($sort == 0 || $sort == 2 || $sort == 4) {
        $server_sort_array = array_reverse($server_sort_array);
@@ -256,8 +258,10 @@ function get_thread_sort ($imap_stream) {
     $thread_query = "$sid THREAD $sort_type ".strtoupper($default_charset)." ALL\r\n";
     fputs($imap_stream, $thread_query);
     $thread_test = sqimap_read_data($imap_stream, $sid, false, $response, $message);
-    if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
-       $thread_list = trim($regs[1]);
+    if (isset($thread_test[0])) {
+        if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
+            $thread_list = trim($regs[1]);
+        }
     }
     else {
        $thread_list = "";
