@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2002-05-30 16:53+0200\n"
-"PO-Revision-Date: 2002-08-19 02:21+0900\n"
+"PO-Revision-Date: 2002-08-24 08:03+0900\n"
 "Last-Translator: Masato HIGASHIYAMA <masato@yamaai-tech.com>\n"
 "Language-Team: Japanese  <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -16,6 +16,13 @@ msgstr ""
 #: squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book"
 msgstr "アドレス帳"
+
+#: squirrelmail/plugins/mail_fetch/fetch.php:71
+#: squirrelmail/src/addrbook_search_html.php:81
+#: squirrelmail/src/addrbook_search_html.php:83
+#: squirrelmail/src/addrbook_search_html.php:85
+msgid "All"
+msgstr "全て"
 
 #: squirrelmail/src/addrbook_search.php:100
 #: squirrelmail/src/addrbook_search_html.php:90
@@ -40,128 +47,126 @@ msgstr "情報"
 msgid "Source"
 msgstr "ソース"
 
-#: squirrelmail/src/addrbook_search.php:165
-#: squirrelmail/src/addrbook_search.php:261
-#: squirrelmail/src/addrbook_search_html.php:253
-msgid "No persons matching your search was found"
-msgstr "一致しませんでした"
+#: squirrelmail/functions/mailbox_display.php:817
+#: squirrelmail/plugins/filters/options.php:124
+#: squirrelmail/src/addrbook_search_html.php:107
+#: squirrelmail/src/compose.php:86 squirrelmail/src/compose.php:98
+#: squirrelmail/src/options_highlight.php:82
+#: squirrelmail/src/options_highlight.php:371
+#: squirrelmail/src/printer_friendly_bottom.php:105
+#: squirrelmail/src/read_body.php:325 squirrelmail/src/search.php:416
+msgid "To"
+msgstr ""
 
-#: squirrelmail/src/addrbook_search.php:180
-#: squirrelmail/src/addrbook_search_html.php:162
+#: squirrelmail/plugins/filters/options.php:127
+#: squirrelmail/src/addrbook_search_html.php:109
+#: squirrelmail/src/compose.php:87 squirrelmail/src/compose.php:100
+#: squirrelmail/src/options_highlight.php:85
+#: squirrelmail/src/options_highlight.php:374
+#: squirrelmail/src/read_body.php:326 squirrelmail/src/search.php:415
+msgid "Cc"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:111
+#: squirrelmail/src/read_body.php:327
+msgid "Bcc"
+msgstr ""
+
+#: squirrelmail/src/addrbook_search_html.php:127
+msgid "Use Addresses"
+msgstr "チェックしたアドレスを使う"
+
+#: squirrelmail/src/addrbook_search_html.php:151
+msgid "Address Book Search"
+msgstr "アドレス帳の検索"
+
+#: squirrelmail/src/addrbook_search.php:181
+#: squirrelmail/src/addrbook_search_html.php:163
 msgid "Search for"
 msgstr "検索 for"
 
-#: squirrelmail/src/addrbook_search.php:187
-#: squirrelmail/src/addrbook_search_html.php:172
+#: squirrelmail/src/addrbook_search.php:188
+#: squirrelmail/src/addrbook_search_html.php:173
 msgid "in"
 msgstr "中"
 
-#: squirrelmail/src/addrbook_search.php:188
-#: squirrelmail/src/addrbook_search_html.php:175
+#: squirrelmail/src/addrbook_search.php:189
+#: squirrelmail/src/addrbook_search_html.php:176
 msgid "All address books"
 msgstr "全アドレス帳"
 
-#: squirrelmail/src/addrbook_search.php:202
-#: squirrelmail/src/addrbook_search_html.php:190
-#: squirrelmail/src/search.php:194 squirrelmail/src/search.php:198
-#: squirrelmail/src/search.php:218 squirrelmail/src/search.php:366
-#: squirrelmail/src/search.php:396 squirrelmail/src/search.php:417
-#: squirrelmail/src/search.php:426 squirrelmail/functions/page_header.php:224
+#: squirrelmail/functions/page_header.php:225
+#: squirrelmail/src/addrbook_search.php:203
+#: squirrelmail/src/addrbook_search_html.php:191
+#: squirrelmail/src/search.php:226 squirrelmail/src/search.php:230
+#: squirrelmail/src/search.php:249 squirrelmail/src/search.php:419
+#: squirrelmail/src/search.php:449 squirrelmail/src/search.php:471
+#: squirrelmail/src/search.php:486
 msgid "Search"
 msgstr "検索"
 
-#: squirrelmail/src/addrbook_search.php:203
-#: squirrelmail/src/addrbook_search_html.php:191
+#: squirrelmail/src/addrbook_search.php:204
+#: squirrelmail/src/addrbook_search_html.php:192
 msgid "List all"
 msgstr "全表示"
 
-#: squirrelmail/src/addrbook_search.php:205 squirrelmail/src/compose.php:639
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:119
-#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:427
-#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
-#: squirrelmail/plugins/newmail/testsound.php:36
-msgid "Close"
-msgstr "閉じる"
-
-#: squirrelmail/src/addrbook_search.php:226
-#: squirrelmail/src/addrbook_search_html.php:221
+#: squirrelmail/src/addrbook_search.php:227
+#: squirrelmail/src/addrbook_search_html.php:222
 #, c-format
 msgid "Unable to list addresses from %s"
 msgstr "%s の検索結果は有りませんでした。"
 
-#: squirrelmail/src/addrbook_search.php:252
-#: squirrelmail/src/addrbook_search_html.php:246
+#: squirrelmail/src/addrbook_search.php:253
+#: squirrelmail/src/addrbook_search_html.php:247
 msgid "Your search failed with the following error(s)"
 msgstr "次のエラーで検索に失敗しました。"
 
-#: squirrelmail/src/addrbook_search_html.php:81
-#: squirrelmail/src/addrbook_search_html.php:83
-#: squirrelmail/src/addrbook_search_html.php:85
-#: squirrelmail/plugins/mail_fetch/fetch.php:71
-msgid "All"
-msgstr "全て"
+#: squirrelmail/src/addrbook_search.php:166
+#: squirrelmail/src/addrbook_search.php:262
+#: squirrelmail/src/addrbook_search_html.php:254
+msgid "No persons matching your search was found"
+msgstr "一致しませんでした"
 
-#: squirrelmail/src/addrbook_search_html.php:106
-#: squirrelmail/src/compose.php:464 squirrelmail/src/download.php:401
-#: squirrelmail/src/download.php:410 squirrelmail/src/options_highlight.php:83
-#: squirrelmail/src/options_highlight.php:372
-#: squirrelmail/src/printer_friendly_bottom.php:103
-#: squirrelmail/src/search.php:363
-#: squirrelmail/functions/mailbox_display.php:793
-#: squirrelmail/plugins/filters/options.php:125
-msgid "To"
-msgstr ""
-
-#: squirrelmail/src/addrbook_search_html.php:108
-#: squirrelmail/src/compose.php:471 squirrelmail/src/options_highlight.php:86
-#: squirrelmail/src/options_highlight.php:375 squirrelmail/src/search.php:362
-#: squirrelmail/plugins/filters/options.php:128
-msgid "Cc"
-msgstr ""
-
-#: squirrelmail/src/addrbook_search_html.php:110
-msgid "Bcc"
-msgstr ""
-
-#: squirrelmail/src/addrbook_search_html.php:126
-msgid "Use Addresses"
-msgstr "チェックしたアドレスを使う"
-
-#: squirrelmail/src/addrbook_search_html.php:150
-msgid "Address Book Search"
-msgstr "アドレス帳の検索"
-
-#: squirrelmail/src/addrbook_search_html.php:267
+#: squirrelmail/src/addrbook_search_html.php:268
 msgid "Return"
 msgstr "戻る"
 
-#: squirrelmail/src/addressbook.php:40 squirrelmail/src/addressbook.php:304
+#: squirrelmail/plugins/newmail/testsound.php:36
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:119
+#: squirrelmail/plugins/squirrelspell/modules/check_me.mod:427
+#: squirrelmail/plugins/squirrelspell/modules/forget_me_not.mod:70
+#: squirrelmail/src/addrbook_search.php:206 squirrelmail/src/compose.php:756
+#: squirrelmail/src/printer_friendly_top.php:39
+msgid "Close"
+msgstr "閉じる"
+
 #: squirrelmail/plugins/abook_take/take.php:35
+#: squirrelmail/src/addressbook.php:40 squirrelmail/src/addressbook.php:304
 msgid "Nickname"
 msgstr "ニックネーム"
 
-#: squirrelmail/src/addressbook.php:41
 #: squirrelmail/plugins/abook_take/take.php:37
+#: squirrelmail/src/addressbook.php:41
 msgid "Must be unique"
 msgstr "重複しないようにしてください"
 
-#: squirrelmail/src/addressbook.php:42
 #: squirrelmail/plugins/abook_take/take.php:41
+#: squirrelmail/src/addressbook.php:42
 msgid "E-mail address"
 msgstr ""
 
-#: squirrelmail/src/addressbook.php:43
 #: squirrelmail/plugins/abook_take/take.php:60
+#: squirrelmail/src/addressbook.php:43
 msgid "First name"
 msgstr "名"
 
-#: squirrelmail/src/addressbook.php:44
 #: squirrelmail/plugins/abook_take/take.php:64
+#: squirrelmail/src/addressbook.php:44
 msgid "Last name"
 msgstr "姓"
 
-#: squirrelmail/src/addressbook.php:45
 #: squirrelmail/plugins/abook_take/take.php:68
+#: squirrelmail/src/addressbook.php:45
 msgid "Additional info"
 msgstr "その他の情報"
 
@@ -178,11 +183,11 @@ msgstr "一度に一件しか編集できません。"
 msgid "Update address"
 msgstr "アドレス帳を更新"
 
-#: squirrelmail/src/addressbook.php:197 squirrelmail/src/addressbook.php:251
 #: squirrelmail/functions/display_messages.php:70
 #: squirrelmail/functions/display_messages.php:89
 #: squirrelmail/functions/display_messages.php:106
 #: squirrelmail/functions/display_messages.php:172
+#: squirrelmail/src/addressbook.php:197 squirrelmail/src/addressbook.php:251
 msgid "ERROR"
 msgstr "エラー"
 
@@ -190,245 +195,204 @@ msgstr "エラー"
 msgid "Unknown error"
 msgstr "不明なエラー"
 
-#: squirrelmail/src/addressbook.php:271 squirrelmail/src/addressbook.php:373
 #: squirrelmail/plugins/abook_take/take.php:73
+#: squirrelmail/src/addressbook.php:271 squirrelmail/src/addressbook.php:374
 msgid "Add address"
 msgstr "アドレスの追加"
 
-#: squirrelmail/src/addressbook.php:285 squirrelmail/src/addressbook.php:351
+#: squirrelmail/src/addressbook.php:285 squirrelmail/src/addressbook.php:352
 msgid "Edit selected"
 msgstr "選択された物を編集"
 
-#: squirrelmail/src/addressbook.php:287 squirrelmail/src/addressbook.php:353
+#: squirrelmail/src/addressbook.php:287 squirrelmail/src/addressbook.php:354
 msgid "Delete selected"
 msgstr "選択された物を削除"
 
-#: squirrelmail/src/addressbook.php:368
 #: squirrelmail/plugins/abook_take/take.php:29
+#: squirrelmail/src/addressbook.php:369
 #, c-format
 msgid "Add to %s"
 msgstr "%s に追加"
 
-#: squirrelmail/src/compose.php:98
-msgid "Draft Email Saved"
-msgstr "ドラフトに保存しました"
-
-#: squirrelmail/src/compose.php:201 squirrelmail/src/compose.php:245
-#: squirrelmail/src/compose.php:255
-msgid "Could not move/copy file. File not attached"
-msgstr "添付するファイルが見つかりません。"
-
-#: squirrelmail/src/compose.php:459
-msgid "Original Message"
-msgstr "オリジナルメッセージ"
-
-#: squirrelmail/src/compose.php:460 squirrelmail/src/download.php:399
-#: squirrelmail/src/download.php:406
-#: squirrelmail/src/options_highlight.php:381
+#: squirrelmail/functions/mailbox_display.php:837
+#: squirrelmail/plugins/filters/options.php:133
+#: squirrelmail/src/compose.php:83 squirrelmail/src/compose.php:95
+#: squirrelmail/src/options_highlight.php:380
 #: squirrelmail/src/options_order.php:40
-#: squirrelmail/src/printer_friendly_bottom.php:117
-#: squirrelmail/src/search.php:360
-#: squirrelmail/functions/mailbox_display.php:813
-#: squirrelmail/plugins/filters/options.php:134
+#: squirrelmail/src/printer_friendly_bottom.php:97
+#: squirrelmail/src/read_body.php:315 squirrelmail/src/search.php:413
 msgid "Subject"
 msgstr ""
 
-#: squirrelmail/src/compose.php:461 squirrelmail/src/download.php:171
-#: squirrelmail/src/download.php:400 squirrelmail/src/download.php:408
-#: squirrelmail/src/options_highlight.php:80
-#: squirrelmail/src/options_highlight.php:369
+#: squirrelmail/functions/mailbox_display.php:820
+#: squirrelmail/plugins/filters/options.php:121
+#: squirrelmail/src/compose.php:84 squirrelmail/src/compose.php:96
+#: squirrelmail/src/options_highlight.php:79
+#: squirrelmail/src/options_highlight.php:368
 #: squirrelmail/src/options_order.php:38
-#: squirrelmail/src/printer_friendly_bottom.php:99
-#: squirrelmail/src/search.php:361
-#: squirrelmail/functions/mailbox_display.php:796
-#: squirrelmail/plugins/filters/options.php:122
+#: squirrelmail/src/printer_friendly_bottom.php:93
+#: squirrelmail/src/read_body.php:323 squirrelmail/src/search.php:414
 msgid "From"
 msgstr ""
 
-#: squirrelmail/src/compose.php:462 squirrelmail/src/download.php:402
-#: squirrelmail/src/download.php:412 squirrelmail/src/options_order.php:39
-#: squirrelmail/src/printer_friendly_bottom.php:113
-#: squirrelmail/functions/mailbox_display.php:805
+#: squirrelmail/functions/mailbox_display.php:829
+#: squirrelmail/src/compose.php:85 squirrelmail/src/compose.php:97
+#: squirrelmail/src/options_order.php:39
+#: squirrelmail/src/printer_friendly_bottom.php:101
+#: squirrelmail/src/read_body.php:324
 msgid "Date"
 msgstr ""
 
-#: squirrelmail/src/compose.php:628
+#: squirrelmail/src/compose.php:94
+msgid "Original Message"
+msgstr "オリジナルメッセージ"
+
+#: squirrelmail/src/compose.php:184
+msgid "Draft Email Saved"
+msgstr "ドラフトに保存しました"
+
+#: squirrelmail/src/compose.php:287 squirrelmail/src/compose.php:330
+#: squirrelmail/src/compose.php:340
+msgid "Could not move/copy file. File not attached"
+msgstr "添付するファイルが見つかりません。"
+
+#: squirrelmail/src/compose.php:748
 msgid "Draft Saved"
 msgstr "ドラフトに保存しました"
 
-#: squirrelmail/src/compose.php:631
+#: squirrelmail/src/compose.php:751
 msgid "Your Message has been sent"
 msgstr "送信完了しました。"
 
-#: squirrelmail/src/compose.php:650 squirrelmail/src/read_body.php:872
 #: squirrelmail/plugins/listcommands/mailout.php:54
+#: squirrelmail/src/compose.php:767
 msgid "From:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:677 squirrelmail/src/download.php:183
-#: squirrelmail/src/read_body.php:220 squirrelmail/src/read_body.php:887
+#: squirrelmail/src/compose.php:795 squirrelmail/src/read_body.php:183
 msgid "To:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:684
+#: squirrelmail/src/compose.php:803
 msgid "CC:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:691
+#: squirrelmail/src/compose.php:811
 msgid "BCC:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:719 squirrelmail/src/download.php:176
-#: squirrelmail/src/read_body.php:221 squirrelmail/src/read_body.php:847
+#: squirrelmail/src/compose.php:818 squirrelmail/src/read_body.php:184
 msgid "Subject:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:762 squirrelmail/src/compose.php:858
+#: squirrelmail/src/compose.php:868 squirrelmail/src/compose.php:978
 msgid "Send"
 msgstr "送信"
 
-#: squirrelmail/src/compose.php:769
+#: squirrelmail/src/compose.php:883
 msgid "Attach:"
 msgstr "添付:"
 
-#: squirrelmail/src/compose.php:772 squirrelmail/src/options_order.php:132
+#: squirrelmail/src/compose.php:888 squirrelmail/src/options_order.php:132
 msgid "Add"
 msgstr "追加"
 
-#: squirrelmail/src/compose.php:791
+#: squirrelmail/src/compose.php:908
 msgid "Delete selected attachments"
 msgstr "選択した添付ファイルを削除"
 
-#: squirrelmail/src/compose.php:824 squirrelmail/src/read_body.php:913
+#: squirrelmail/src/compose.php:942 squirrelmail/src/read_body.php:329
 msgid "Priority"
 msgstr "重要度"
 
-#: squirrelmail/src/compose.php:825 squirrelmail/src/read_body.php:622
+#: squirrelmail/functions/mime.php:244
+#: squirrelmail/plugins/administrator/defines.php:202
 #: squirrelmail/plugins/calendar/functions.php:99
-#: squirrelmail/plugins/administrator/defines.php:201
+#: squirrelmail/src/compose.php:943
 msgid "High"
 msgstr "高"
 
-#: squirrelmail/src/compose.php:826 squirrelmail/src/read_body.php:635
+#: squirrelmail/functions/mime.php:257
 #: squirrelmail/plugins/calendar/functions.php:98
+#: squirrelmail/src/compose.php:944
 msgid "Normal"
 msgstr "中"
 
-#: squirrelmail/src/compose.php:827 squirrelmail/src/read_body.php:628
-#: squirrelmail/plugins/administrator/defines.php:198
+#: squirrelmail/functions/mime.php:250
+#: squirrelmail/plugins/administrator/defines.php:199
+#: squirrelmail/src/compose.php:945
 msgid "Low"
 msgstr "低"
 
-#: squirrelmail/src/compose.php:833
+#: squirrelmail/src/compose.php:951
 msgid "Receipt"
 msgstr "受取通知"
 
-#: squirrelmail/src/compose.php:835
-msgid "On read"
+#: squirrelmail/src/compose.php:953
+msgid "On Read"
 msgstr "読んだとき"
 
-#: squirrelmail/src/compose.php:837
+#: squirrelmail/src/compose.php:955
 msgid "On Delivery"
 msgstr "配送したとき"
 
-#: squirrelmail/src/compose.php:845
+#: squirrelmail/src/compose.php:960
 #: squirrelmail/src/options_identities.php:314
 #: squirrelmail/src/options_personal.php:99
 msgid "Signature"
 msgstr "署名"
 
-#: squirrelmail/src/compose.php:848 squirrelmail/src/compose.php:852
-#: squirrelmail/src/compose.php:856 squirrelmail/functions/page_header.php:218
+#: squirrelmail/functions/page_header.php:219 squirrelmail/src/compose.php:963
+#: squirrelmail/src/compose.php:967 squirrelmail/src/compose.php:971
 msgid "Addresses"
 msgstr "アドレス帳"
 
-#: squirrelmail/src/compose.php:861
+#: squirrelmail/src/compose.php:975
 msgid "Save Draft"
 msgstr "ドラフトに保存"
 
-#: squirrelmail/src/compose.php:880
+#: squirrelmail/src/compose.php:995
 msgid "You have not filled in the \"To:\" field."
 msgstr "宛先が入力されていません。"
 
-#: squirrelmail/src/compose.php:972
+#: squirrelmail/src/compose.php:1083
 msgid "said"
 msgstr ""
 
-#: squirrelmail/src/compose.php:975
+#: squirrelmail/src/compose.php:1086
 msgid "quote"
 msgstr ""
 
-#: squirrelmail/src/compose.php:975
+#: squirrelmail/src/compose.php:1086
 msgid "who"
 msgstr ""
 
-#: squirrelmail/src/download.php:32 squirrelmail/src/download.php:34
-#: squirrelmail/src/download.php:102 squirrelmail/src/image.php:26
-#: squirrelmail/src/image.php:30 squirrelmail/src/read_body.php:437
-#: squirrelmail/src/vcard.php:36 squirrelmail/src/vcard.php:40
-msgid "View message"
-msgstr "メッセージを表示"
-
-#: squirrelmail/src/download.php:43
-msgid "Viewing a text attachment"
-msgstr "テキストの添付ファイルを表示"
-
-#: squirrelmail/src/download.php:50 squirrelmail/src/download.php:109
-#: squirrelmail/src/image.php:49 squirrelmail/src/vcard.php:213
-#: squirrelmail/functions/mime.php:863
-#: squirrelmail/plugins/abook_take/setup.php:91
-msgid "Download this as a file"
-msgstr "このファイルをダウンロード"
-
-#: squirrelmail/src/download.php:101
-msgid "Viewing a message attachment"
-msgstr "添付のイメージファイルを表示"
-
-#: squirrelmail/src/download.php:137
-msgid "Save to:"
-msgstr "移動"
-
-#: squirrelmail/src/download.php:141
-msgid "Extract"
-msgstr "取り出す"
-
-#: squirrelmail/src/download.php:156 squirrelmail/src/left_main.php:74
-#: squirrelmail/src/search.php:329 squirrelmail/functions/imap_search.php:217
-#: squirrelmail/functions/mailbox_display.php:717
-#: squirrelmail/functions/page_header.php:192
+#: squirrelmail/functions/mailbox_display.php:1218
+#: squirrelmail/functions/page_header.php:193
+#: squirrelmail/plugins/delete_move_next/setup.php:227
 #: squirrelmail/plugins/mail_fetch/options.php:172
 #: squirrelmail/plugins/mail_fetch/options.php:290
-#: squirrelmail/plugins/delete_move_next/setup.php:219
+#: squirrelmail/src/download.php:29 squirrelmail/src/left_main.php:74
+#: squirrelmail/src/search.php:168 squirrelmail/src/search.php:382
 msgid "INBOX"
 msgstr ""
 
-#: squirrelmail/src/download.php:189 squirrelmail/src/read_body.php:880
-#: squirrelmail/plugins/calendar/event_create.php:125
-#: squirrelmail/plugins/calendar/event_delete.php:35
-#: squirrelmail/plugins/calendar/event_edit.php:37
-#: squirrelmail/plugins/calendar/event_edit.php:103
-#: squirrelmail/plugins/calendar/event_edit.php:127
-msgid "Date:"
-msgstr "日付:"
+#: squirrelmail/src/folders_create.php:29
+msgid "Illegal folder name.  Please select a different name."
+msgstr "正しくないフォルダ名です。違う名前にしてください。"
 
-#: squirrelmail/src/download.php:197 squirrelmail/src/read_body.php:895
-msgid "Cc:"
-msgstr ""
+#: squirrelmail/src/folders_create.php:29
+#: squirrelmail/src/folders_delete.php:30
+#: squirrelmail/src/folders_rename_getname.php:24
+msgid "Click here to go back"
+msgstr "戻る"
 
-#: squirrelmail/src/download.php:205 squirrelmail/src/read_body.php:905
-msgid "Bcc:"
-msgstr ""
+#: squirrelmail/src/folders_delete.php:30
+msgid "You have not selected a folder to delete. Please do so."
+msgstr "削除するフォルダが選択されていません。"
 
-#: squirrelmail/src/download.php:224 squirrelmail/src/read_body.php:586
-msgid "more"
-msgstr "全部"
-
-#: squirrelmail/src/download.php:225 squirrelmail/src/read_body.php:587
-msgid "less"
-msgstr "省略"
-
-#: squirrelmail/src/folders.php:28 squirrelmail/src/left_main.php:754
-#: squirrelmail/functions/page_header.php:220
+#: squirrelmail/functions/page_header.php:221 squirrelmail/src/folders.php:28
+#: squirrelmail/src/left_main.php:754
 msgid "Folders"
 msgstr "フォルダ"
 
@@ -452,91 +416,86 @@ msgstr "フォルダを作成しました。"
 msgid "Renamed successfully!"
 msgstr "名前を変更しました。"
 
-#: squirrelmail/src/folders.php:51 squirrelmail/src/left_main.php:793
+#: squirrelmail/src/folders.php:48
+msgid "Subscription Unsuccessful - Folder does not exist."
+msgstr "処理は完了しませんでした。フォルダが存在しません。"
+
+#: squirrelmail/src/folders.php:55 squirrelmail/src/left_main.php:793
 msgid "refresh folder list"
 msgstr "リフレッシュ"
 
-#: squirrelmail/src/folders.php:64
+#: squirrelmail/src/folders.php:68
 msgid "Create Folder"
 msgstr "フォルダの作成"
 
-#: squirrelmail/src/folders.php:71
+#: squirrelmail/src/folders.php:75
 msgid "as a subfolder of"
 msgstr "このフォルダのサブフォルダとして"
 
-#: squirrelmail/src/folders.php:75 squirrelmail/src/folders.php:77
+#: squirrelmail/src/folders.php:79 squirrelmail/src/folders.php:81
 msgid "None"
 msgstr "なし"
 
-#: squirrelmail/src/folders.php:102
+#: squirrelmail/src/folders.php:106
 msgid "Let this folder contain subfolders"
 msgstr "このフォルダのサブフォルダとして"
 
-#: squirrelmail/src/folders.php:105
+#: squirrelmail/src/folders.php:109
 msgid "Create"
 msgstr "作成"
 
-#: squirrelmail/src/folders.php:141
+#: squirrelmail/src/folders.php:145
 msgid "Rename a Folder"
 msgstr "リネーム"
 
-#: squirrelmail/src/folders.php:149 squirrelmail/src/folders.php:190
+#: squirrelmail/src/folders.php:153 squirrelmail/src/folders.php:194
 msgid "Select a folder"
 msgstr "フォルダを選択"
 
-#: squirrelmail/src/folders.php:168
+#: squirrelmail/src/folders.php:172
 msgid "Rename"
 msgstr "リネーム"
 
-#: squirrelmail/src/folders.php:172 squirrelmail/src/folders.php:212
+#: squirrelmail/src/folders.php:176 squirrelmail/src/folders.php:216
 msgid "No folders found"
 msgstr "フォルダが有りません"
 
-#: squirrelmail/src/folders.php:182
+#: squirrelmail/src/folders.php:186
 msgid "Delete Folder"
 msgstr "フォルダ削除"
 
-#: squirrelmail/src/folders.php:208 squirrelmail/src/options_highlight.php:101
-#: squirrelmail/src/options_identities.php:328
-#: squirrelmail/src/read_body.php:729
-#: squirrelmail/functions/mailbox_display.php:739
-#: squirrelmail/plugins/filters/options.php:196
+#: squirrelmail/functions/mailbox_display.php:725
+#: squirrelmail/plugins/filters/options.php:194
 #: squirrelmail/plugins/mail_fetch/options.php:214
 #: squirrelmail/plugins/mail_fetch/options.php:221
+#: squirrelmail/src/folders.php:212 squirrelmail/src/options_highlight.php:100
+#: squirrelmail/src/options_identities.php:328
+#: squirrelmail/src/read_body.php:414
 msgid "Delete"
 msgstr "削除"
 
-#: squirrelmail/src/folders.php:223 squirrelmail/src/folders.php:245
-#: squirrelmail/plugins/listcommands/setup.php:36
+#: squirrelmail/plugins/listcommands/setup.php:34
+#: squirrelmail/src/folders.php:227 squirrelmail/src/folders.php:249
 msgid "Unsubscribe"
 msgstr "解除する"
 
-#: squirrelmail/src/folders.php:223 squirrelmail/src/folders.php:286
-#: squirrelmail/plugins/listcommands/setup.php:35
+#: squirrelmail/plugins/listcommands/setup.php:33
+#: squirrelmail/src/folders.php:227 squirrelmail/src/folders.php:292
+#: squirrelmail/src/folders.php:302
 msgid "Subscribe"
 msgstr "登録する"
 
-#: squirrelmail/src/folders.php:249
+#: squirrelmail/src/folders.php:253
 msgid "No folders were found to unsubscribe from!"
 msgstr "フォルダが見付かりません："
 
-#: squirrelmail/src/folders.php:289
+#: squirrelmail/src/folders.php:295
 msgid "No folders were found to subscribe to!"
 msgstr "フォルダが見付かりません："
 
-#: squirrelmail/src/folders_create.php:29
-msgid "Illegal folder name.  Please select a different name."
-msgstr "正しくないフォルダ名です。違う名前にしてください。"
-
-#: squirrelmail/src/folders_create.php:29
-#: squirrelmail/src/folders_delete.php:29
-#: squirrelmail/src/folders_rename_getname.php:24
-msgid "Click here to go back"
-msgstr "戻る"
-
-#: squirrelmail/src/folders_delete.php:29
-msgid "You have not selected a folder to delete. Please do so."
-msgstr "削除するフォルダが選択されていません。"
+#: squirrelmail/src/folders.php:300
+msgid "Subscribe to:"
+msgstr "登録する"
 
 #: squirrelmail/src/folders_rename_getname.php:24
 msgid "You have not selected a folder to rename. Please do so."
@@ -550,62 +509,69 @@ msgstr "名前を変更"
 msgid "New name:"
 msgstr "新しい名前"
 
-#: squirrelmail/src/folders_rename_getname.php:62
-#: squirrelmail/src/options_highlight.php:394
 #: squirrelmail/functions/options.php:419
-#: squirrelmail/plugins/filters/options.php:174
-#: squirrelmail/plugins/translate/options.php:160
-#: squirrelmail/plugins/newmail/newmail_opt.php:155
+#: squirrelmail/plugins/filters/options.php:173
+#: squirrelmail/plugins/newmail/newmail_opt.php:154
+#: squirrelmail/plugins/translate/options.php:159
+#: squirrelmail/src/folders_rename_getname.php:62
+#: squirrelmail/src/options_highlight.php:393
 msgid "Submit"
 msgstr "登録"
 
-#: squirrelmail/src/help.php:90 squirrelmail/functions/page_header.php:226
-#: squirrelmail/plugins/listcommands/setup.php:39
+#: squirrelmail/functions/page_header.php:227
+#: squirrelmail/plugins/listcommands/setup.php:37 squirrelmail/src/help.php:89
 msgid "Help"
 msgstr "ヘルプ"
 
-#: squirrelmail/src/help.php:129
+#: squirrelmail/src/help.php:128
 #, c-format
 msgid ""
 "The help has not been translated to %s.  It will be displayed in English "
 "instead."
 msgstr "ヘルプファイルはまだ %s に翻訳されていません。英語で表示されます。"
 
-#: squirrelmail/src/help.php:135
+#: squirrelmail/src/help.php:134
 msgid "Some or all of the help documents are not present!"
 msgstr "いくつかのヘルプドキュメントは提供されていません。"
 
-#: squirrelmail/src/help.php:169 squirrelmail/src/help.php:191
+#: squirrelmail/src/help.php:168 squirrelmail/src/help.php:190
 msgid "Table of Contents"
 msgstr "目次"
 
-#: squirrelmail/src/help.php:185 squirrelmail/src/help.php:189
-#: squirrelmail/src/read_body.php:775 squirrelmail/src/read_body.php:777
-#: squirrelmail/functions/mailbox_display.php:978
-#: squirrelmail/functions/mailbox_display.php:981
-#: squirrelmail/functions/mailbox_display.php:984
-#: squirrelmail/plugins/delete_move_next/setup.php:167
-#: squirrelmail/plugins/delete_move_next/setup.php:169
+#: squirrelmail/functions/mailbox_display.php:1013
+#: squirrelmail/functions/mailbox_display.php:1016
+#: squirrelmail/functions/mailbox_display.php:1019
+#: squirrelmail/src/help.php:184 squirrelmail/src/help.php:188
+#: squirrelmail/src/read_body.php:448 squirrelmail/src/read_body.php:450
 msgid "Previous"
 msgstr "戻る"
 
-#: squirrelmail/src/help.php:193 squirrelmail/src/help.php:196
-#: squirrelmail/src/read_body.php:781 squirrelmail/src/read_body.php:783
-#: squirrelmail/functions/mailbox_display.php:979
-#: squirrelmail/functions/mailbox_display.php:982
-#: squirrelmail/functions/mailbox_display.php:985
-#: squirrelmail/plugins/delete_move_next/setup.php:172
-#: squirrelmail/plugins/delete_move_next/setup.php:174
+#: squirrelmail/functions/mailbox_display.php:1014
+#: squirrelmail/functions/mailbox_display.php:1017
+#: squirrelmail/functions/mailbox_display.php:1020
+#: squirrelmail/src/help.php:192 squirrelmail/src/help.php:195
+#: squirrelmail/src/read_body.php:457 squirrelmail/src/read_body.php:459
 msgid "Next"
 msgstr "次へ"
 
-#: squirrelmail/src/help.php:217
+#: squirrelmail/src/help.php:216
 msgid "Top"
 msgstr "トップ"
 
-#: squirrelmail/src/image.php:42
+#: squirrelmail/src/image.php:27
 msgid "Viewing an image attachment"
 msgstr "添付のイメージファイルを表示"
+
+#: squirrelmail/src/image.php:31 squirrelmail/src/vcard.php:36
+#: squirrelmail/src/vcard.php:40 squirrelmail/src/view_header.php:84
+#: squirrelmail/src/view_text.php:36
+msgid "View message"
+msgstr "メッセージを表示"
+
+#: squirrelmail/plugins/abook_take/setup.php:91 squirrelmail/src/image.php:40
+#: squirrelmail/src/vcard.php:213 squirrelmail/src/view_text.php:40
+msgid "Download this as a file"
+msgstr "このファイルをダウンロード"
 
 #: squirrelmail/src/left_main.php:98 squirrelmail/src/left_main.php:251
 #: squirrelmail/src/left_main.php:326
@@ -618,129 +584,49 @@ msgstr "前のリフレッシュ"
 
 #: squirrelmail/src/left_main.php:867
 msgid "Save folder tree"
-msgstr ""
+msgstr "フォルダツリーの保存"
 
-#: squirrelmail/src/login.php:103 squirrelmail/src/login.php:171
+#: squirrelmail/src/login.php:62 squirrelmail/src/login.php:124
 msgid "Login"
 msgstr "ログイン"
 
-#: squirrelmail/src/login.php:133
 #: squirrelmail/functions/display_messages.php:164
+#: squirrelmail/src/login.php:87
 #, c-format
 msgid "%s Logo"
 msgstr ""
 
-#: squirrelmail/src/login.php:136
 #: squirrelmail/functions/display_messages.php:167
+#: squirrelmail/src/login.php:90
 #, c-format
 msgid "SquirrelMail version %s"
 msgstr ""
 
-#: squirrelmail/src/login.php:137
 #: squirrelmail/functions/display_messages.php:168
+#: squirrelmail/src/login.php:91
 msgid "By the SquirrelMail Development Team"
 msgstr ""
 
-#: squirrelmail/src/login.php:141
+#: squirrelmail/src/login.php:95
 #, c-format
 msgid "%s Login"
 msgstr ""
 
-#: squirrelmail/src/login.php:149
+#: squirrelmail/src/login.php:103
 msgid "Name:"
 msgstr "ログイン名:"
 
-#: squirrelmail/src/login.php:157
 #: squirrelmail/plugins/mail_fetch/options.php:157
 #: squirrelmail/plugins/mail_fetch/options.php:274
+#: squirrelmail/src/login.php:111
 msgid "Password:"
 msgstr "パスワード:"
 
-#: squirrelmail/src/move_messages.php:94
-msgid "<No subject>"
-msgstr ""
-
-#: squirrelmail/src/move_messages.php:172
-#: squirrelmail/src/move_messages.php:225
-#: squirrelmail/src/move_messages.php:254
+#: squirrelmail/src/move_messages.php:158
+#: squirrelmail/src/move_messages.php:200
+#: squirrelmail/src/move_messages.php:224
 msgid "No messages were selected."
 msgstr "メッセージが選択されていません。"
-
-#: squirrelmail/src/options.php:136 squirrelmail/src/options.php:285
-msgid "Personal Information"
-msgstr "個人情報"
-
-#: squirrelmail/src/options.php:142 squirrelmail/src/options.php:293
-msgid "Display Preferences"
-msgstr "表示オプション"
-
-#: squirrelmail/src/options.php:148 squirrelmail/src/options.php:301
-#: squirrelmail/src/options_highlight.php:64
-msgid "Message Highlighting"
-msgstr "メッセージのハイライト表示"
-
-#: squirrelmail/src/options.php:154 squirrelmail/src/options.php:309
-msgid "Folder Preferences"
-msgstr "フォルダの設定"
-
-#: squirrelmail/src/options.php:160 squirrelmail/src/options.php:317
-#: squirrelmail/src/options_order.php:32
-msgid "Index Order"
-msgstr "表示順の設定"
-
-#: squirrelmail/src/options.php:200 squirrelmail/src/options_highlight.php:64
-#: squirrelmail/src/options_identities.php:57
-#: squirrelmail/src/options_order.php:32
-#: squirrelmail/functions/page_header.php:222
-#: squirrelmail/plugins/filters/options.php:71
-#: squirrelmail/plugins/translate/options.php:94
-#: squirrelmail/plugins/newmail/newmail_opt.php:38
-msgid "Options"
-msgstr "オプション"
-
-#: squirrelmail/src/options.php:268
-msgid "Successfully Saved Options"
-msgstr "オプションを保存しました。"
-
-#: squirrelmail/src/options.php:273
-msgid "Refresh Folder List"
-msgstr "リフレッシュ"
-
-#: squirrelmail/src/options.php:275
-msgid "Refresh Page"
-msgstr "画面を更新"
-
-#: squirrelmail/src/options.php:287
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr "名前、メールアドレスなどの個人情報の設定をします。"
-
-#: squirrelmail/src/options.php:295
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr "SquirrelMailの画面表示の設定や言語、その他の選択をします。"
-
-#: squirrelmail/src/options.php:303
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-"メッセージの種類毎に背景を変更することが出来ます。メッセージが誰からの物か、"
-"メーリングリストのメッセージなのか簡単に分かるようにできます。"
-
-#: squirrelmail/src/options.php:311
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr "フォルダの設定の変更をします。"
-
-#: squirrelmail/src/options.php:319
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr "メッセージ一覧の表示項目の順番を設定します。"
 
 #: squirrelmail/src/options_display.php:33
 msgid "General Display Options"
@@ -750,9 +636,9 @@ msgstr "表示オプション"
 msgid "Theme"
 msgstr "テーマ"
 
+#: squirrelmail/plugins/administrator/defines.php:42
 #: squirrelmail/src/options_display.php:52
 #: squirrelmail/src/options_display.php:81
-#: squirrelmail/plugins/administrator/defines.php:42
 msgid "Default"
 msgstr "デフォルト"
 
@@ -846,56 +732,60 @@ msgid "Show HTML Version by Default"
 msgstr "HTML パートを優先する"
 
 #: squirrelmail/src/options_display.php:199
-msgid "Include Me in CC when I Reply All"
-msgstr "返信するとき CC に自分も含める"
+msgid "Enable Forward as Attachment"
+msgstr "添付ファイルとして転送を有効"
 
 #: squirrelmail/src/options_display.php:206
-msgid "Include CCs when forwarding messages"
+msgid "Include CCs when Forwarding Messages"
 msgstr "フォワードするときにCCの宛先も含める"
 
 #: squirrelmail/src/options_display.php:213
+msgid "Include Me in CC when I Reply All"
+msgstr "返信するとき CC に自分も含める"
+
+#: squirrelmail/src/options_display.php:220
 msgid "Enable Mailer Display"
 msgstr "メーラを表示"
 
-#: squirrelmail/src/options_display.php:220
+#: squirrelmail/src/options_display.php:227
 msgid "Display Attached Images with Message"
 msgstr "添付ファイルのイメージを表示する"
 
-#: squirrelmail/src/options_display.php:227
+#: squirrelmail/src/options_display.php:234
 msgid "Enable Subtle Printer Friendly Link"
 msgstr "印刷用のリンクを表示する"
 
-#: squirrelmail/src/options_display.php:234
+#: squirrelmail/src/options_display.php:241
 msgid "Enable Printer Friendly Clean Display"
 msgstr "プリンタ用表示をより簡潔に"
 
-#: squirrelmail/src/options_display.php:242
-msgid "Enable request/confirm reading"
-msgstr "受取通知機能を使用する"
-
-#: squirrelmail/src/options_display.php:250
-msgid "Always compose in a new window"
-msgstr "メール作成は新規ウインドウで"
+#: squirrelmail/src/options_display.php:249
+msgid "Enable Mail Delivery Notification"
+msgstr "メール配送通知を有効に"
 
 #: squirrelmail/src/options_display.php:257
-msgid "Width of compose window"
+msgid "Compose Messages in New Window"
+msgstr "メール作成は新規ウインドウで"
+
+#: squirrelmail/src/options_display.php:264
+msgid "Width of Compose Window"
 msgstr "メール作成ウインドウの幅"
 
-#: squirrelmail/src/options_display.php:265
-msgid "Height of compose window"
+#: squirrelmail/src/options_display.php:272
+msgid "Height of Compose Window"
 msgstr "メール作成ウインドウの高さ<"
 
-#: squirrelmail/src/options_display.php:273
-msgid "Append signature before reply/forward text"
+#: squirrelmail/src/options_display.php:280
+msgid "Append Signature before Reply/Forward Text"
 msgstr "署名を返信／転送する文書の前に入れる"
 
-#: squirrelmail/src/options_display.php:280
-msgid "Use receive date for sort"
-msgstr "ソート（一覧表示）に受信日付を使用する"
-
 #: squirrelmail/src/options_display.php:287
-msgid "Use References header for thread sort"
-msgstr "Referencesヘッダーでスレッドを並べ変える"
+msgid "Enable Sort by of Receive Date"
+msgstr "受信日付でソートを有効"
+
+#: squirrelmail/src/options_display.php:294
+msgid "Enable Thread Sort by References Header"
+msgstr "スレッドのソートにReferencesヘッダを使う"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
@@ -909,8 +799,8 @@ msgstr "フォルダパス"
 msgid "Do not use Trash"
 msgstr "Trashを使用しない"
 
-#: squirrelmail/src/options_folder.php:67
 #: squirrelmail/plugins/administrator/defines.php:135
+#: squirrelmail/src/options_folder.php:67
 msgid "Trash Folder"
 msgstr "Trashフォルダ"
 
@@ -918,8 +808,8 @@ msgstr "Trashフォルダ"
 msgid "Do not use Sent"
 msgstr "Sentを使用しない"
 
-#: squirrelmail/src/options_folder.php:78
 #: squirrelmail/plugins/administrator/defines.php:138
+#: squirrelmail/src/options_folder.php:78
 msgid "Sent Folder"
 msgstr "Sentフォルダ"
 
@@ -927,8 +817,8 @@ msgstr "Sentフォルダ"
 msgid "Do not use Drafts"
 msgstr "Trashを使用しない"
 
-#: squirrelmail/src/options_folder.php:89
 #: squirrelmail/plugins/administrator/defines.php:141
+#: squirrelmail/src/options_folder.php:89
 msgid "Draft Folder"
 msgstr "Draft フォルダ"
 
@@ -948,8 +838,8 @@ msgstr "左"
 msgid "Right"
 msgstr "右"
 
-#: squirrelmail/src/options_folder.php:111
 #: squirrelmail/plugins/administrator/defines.php:45
+#: squirrelmail/src/options_folder.php:111
 msgid "pixels"
 msgstr "ピクセル"
 
@@ -977,18 +867,18 @@ msgstr "自動リフレッシュ"
 msgid "Enable Unread Message Notification"
 msgstr "未読メッセージの通知"
 
-#: squirrelmail/src/options_folder.php:145
 #: squirrelmail/plugins/administrator/defines.php:162
+#: squirrelmail/src/options_folder.php:145
 msgid "No Notification"
 msgstr "通知しない"
 
-#: squirrelmail/src/options_folder.php:146
 #: squirrelmail/plugins/administrator/defines.php:163
+#: squirrelmail/src/options_folder.php:146
 msgid "Only INBOX"
 msgstr "INBOXだけ"
 
-#: squirrelmail/src/options_folder.php:147
 #: squirrelmail/plugins/administrator/defines.php:164
+#: squirrelmail/src/options_folder.php:147
 msgid "All Folders"
 msgstr "全フォルダ"
 
@@ -996,13 +886,13 @@ msgstr "全フォルダ"
 msgid "Unread Message Notification Type"
 msgstr "未読メッセージの通知のタイプ"
 
-#: squirrelmail/src/options_folder.php:155
 #: squirrelmail/plugins/administrator/defines.php:167
+#: squirrelmail/src/options_folder.php:155
 msgid "Only Unseen"
 msgstr "未読のみ"
 
-#: squirrelmail/src/options_folder.php:156
 #: squirrelmail/plugins/administrator/defines.php:168
+#: squirrelmail/src/options_folder.php:156
 msgid "Unseen and Total"
 msgstr "未読と合計"
 
@@ -1034,116 +924,131 @@ msgstr "２４時間"
 msgid "Memory Search"
 msgstr "検索の記憶"
 
-#: squirrelmail/src/options_folder.php:193
 #: squirrelmail/plugins/sent_subfolders/setup.php:102
+#: squirrelmail/src/options_folder.php:193
 msgid "Disabled"
 msgstr "無効"
 
-#: squirrelmail/src/options_highlight.php:72
-#: squirrelmail/plugins/filters/options.php:100
+#: squirrelmail/functions/page_header.php:223
+#: squirrelmail/plugins/filters/options.php:70
+#: squirrelmail/plugins/newmail/newmail_opt.php:37
+#: squirrelmail/plugins/translate/options.php:93
+#: squirrelmail/src/options.php:201 squirrelmail/src/options_highlight.php:64
+#: squirrelmail/src/options_identities.php:57
+#: squirrelmail/src/options_order.php:32 squirrelmail/src/read_body.php:523
+msgid "Options"
+msgstr "オプション"
+
+#: squirrelmail/src/options.php:149 squirrelmail/src/options.php:301
+#: squirrelmail/src/options_highlight.php:64
+msgid "Message Highlighting"
+msgstr "メッセージのハイライト表示"
+
+#: squirrelmail/plugins/filters/options.php:99
+#: squirrelmail/src/options_highlight.php:71
 msgid "New"
 msgstr "新規"
 
-#: squirrelmail/src/options_highlight.php:73
-#: squirrelmail/plugins/filters/options.php:101
+#: squirrelmail/plugins/filters/options.php:100
 #: squirrelmail/plugins/filters/spamoptions.php:180
 #: squirrelmail/plugins/mail_fetch/fetch.php:283
+#: squirrelmail/src/options_highlight.php:72
 msgid "Done"
 msgstr "完了"
 
-#: squirrelmail/src/options_highlight.php:89
-#: squirrelmail/src/options_highlight.php:378
-#: squirrelmail/plugins/filters/options.php:131
+#: squirrelmail/plugins/filters/options.php:130
+#: squirrelmail/src/options_highlight.php:88
+#: squirrelmail/src/options_highlight.php:377
 msgid "To or Cc"
 msgstr "To または Cc"
 
-#: squirrelmail/src/options_highlight.php:92
+#: squirrelmail/src/options_highlight.php:91
 msgid "subject"
 msgstr ""
 
-#: squirrelmail/src/options_highlight.php:99
-#: squirrelmail/plugins/filters/options.php:191
+#: squirrelmail/plugins/filters/options.php:189
 #: squirrelmail/plugins/filters/spamoptions.php:179
+#: squirrelmail/src/options_highlight.php:98
 msgid "Edit"
 msgstr "編集"
 
-#: squirrelmail/src/options_highlight.php:115
+#: squirrelmail/src/options_highlight.php:114
 msgid "No highlighting is defined"
 msgstr "ハイライト表示は設定されていません"
 
-#: squirrelmail/src/options_highlight.php:308
+#: squirrelmail/src/options_highlight.php:307
 msgid "Identifying name"
 msgstr "名前"
 
-#: squirrelmail/src/options_highlight.php:321
+#: squirrelmail/src/options_highlight.php:320
 msgid "Color"
 msgstr "色"
 
-#: squirrelmail/src/options_highlight.php:324
+#: squirrelmail/src/options_highlight.php:323
 msgid "Dark Blue"
 msgstr "濃い青"
 
-#: squirrelmail/src/options_highlight.php:325
+#: squirrelmail/src/options_highlight.php:324
 msgid "Dark Green"
 msgstr "濃い緑"
 
-#: squirrelmail/src/options_highlight.php:326
+#: squirrelmail/src/options_highlight.php:325
 msgid "Dark Yellow"
 msgstr "濃い黄色"
 
-#: squirrelmail/src/options_highlight.php:327
+#: squirrelmail/src/options_highlight.php:326
 msgid "Dark Cyan"
 msgstr "濃い水色"
 
-#: squirrelmail/src/options_highlight.php:328
+#: squirrelmail/src/options_highlight.php:327
 msgid "Dark Magenta"
 msgstr "濃い紫"
 
-#: squirrelmail/src/options_highlight.php:329
+#: squirrelmail/src/options_highlight.php:328
 msgid "Light Blue"
 msgstr "明るい青"
 
-#: squirrelmail/src/options_highlight.php:330
+#: squirrelmail/src/options_highlight.php:329
 msgid "Light Green"
 msgstr "明るい緑"
 
-#: squirrelmail/src/options_highlight.php:331
+#: squirrelmail/src/options_highlight.php:330
 msgid "Light Yellow"
 msgstr "明るい黄色"
 
-#: squirrelmail/src/options_highlight.php:332
+#: squirrelmail/src/options_highlight.php:331
 msgid "Light Cyan"
 msgstr "明るい水色"
 
-#: squirrelmail/src/options_highlight.php:333
+#: squirrelmail/src/options_highlight.php:332
 msgid "Light Magenta"
 msgstr "明るい紫"
 
-#: squirrelmail/src/options_highlight.php:334
+#: squirrelmail/src/options_highlight.php:333
 msgid "Dark Gray"
 msgstr "濃い灰色"
 
-#: squirrelmail/src/options_highlight.php:335
+#: squirrelmail/src/options_highlight.php:334
 msgid "Medium Gray"
 msgstr "灰色"
 
-#: squirrelmail/src/options_highlight.php:336
+#: squirrelmail/src/options_highlight.php:335
 msgid "Light Gray"
 msgstr "明るい灰色"
 
-#: squirrelmail/src/options_highlight.php:337
+#: squirrelmail/src/options_highlight.php:336
 msgid "White"
 msgstr "白"
 
-#: squirrelmail/src/options_highlight.php:339
+#: squirrelmail/src/options_highlight.php:338
 msgid "Other:"
 msgstr "その他:"
 
-#: squirrelmail/src/options_highlight.php:341
+#: squirrelmail/src/options_highlight.php:340
 msgid "Ex: 63aa7f"
 msgstr "例: 63aa7f"
 
-#: squirrelmail/src/options_highlight.php:383
+#: squirrelmail/src/options_highlight.php:382
 msgid "Matches"
 msgstr "一致"
 
@@ -1191,6 +1096,11 @@ msgstr "デフォルトにする"
 msgid "Move Up"
 msgstr "移動"
 
+#: squirrelmail/src/options.php:161 squirrelmail/src/options.php:317
+#: squirrelmail/src/options_order.php:32
+msgid "Index Order"
+msgstr "表示順の設定"
+
 #: squirrelmail/src/options_order.php:37
 msgid "Checkbox"
 msgstr "チェックボックス"
@@ -1199,8 +1109,8 @@ msgstr "チェックボックス"
 msgid "Flags"
 msgstr "フラグ"
 
+#: squirrelmail/functions/mailbox_display.php:844
 #: squirrelmail/src/options_order.php:42
-#: squirrelmail/functions/mailbox_display.php:820
 msgid "Size"
 msgstr ""
 
@@ -1304,17 +1214,73 @@ msgstr "署名を使う"
 msgid "Prefix Signature with '-- ' Line"
 msgstr "署名の前に '--' を付ける。"
 
-#: squirrelmail/src/printer_friendly_bottom.php:64
+#: squirrelmail/src/options.php:137 squirrelmail/src/options.php:285
+msgid "Personal Information"
+msgstr "個人情報"
+
+#: squirrelmail/src/options.php:143 squirrelmail/src/options.php:293
+msgid "Display Preferences"
+msgstr "表示オプション"
+
+#: squirrelmail/src/options.php:155 squirrelmail/src/options.php:309
+msgid "Folder Preferences"
+msgstr "フォルダの設定"
+
+#: squirrelmail/src/options.php:268
+msgid "Successfully Saved Options"
+msgstr "オプションを保存しました。"
+
+#: squirrelmail/src/options.php:273
+msgid "Refresh Folder List"
+msgstr "リフレッシュ"
+
+#: squirrelmail/src/options.php:275
+msgid "Refresh Page"
+msgstr "画面を更新"
+
+#: squirrelmail/src/options.php:287
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr "名前、メールアドレスなどの個人情報の設定をします。"
+
+#: squirrelmail/src/options.php:295
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr "SquirrelMailの画面表示の設定や言語、その他の選択をします。"
+
+#: squirrelmail/src/options.php:303
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list.  This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+"メッセージの種類毎に背景を変更することが出来ます。メッセージが誰からの物か、"
+"メーリングリストのメッセージなのか簡単に分かるようにできます。"
+
+#: squirrelmail/src/options.php:311
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr "フォルダの設定の変更をします。"
+
+#: squirrelmail/src/options.php:319
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr "メッセージ一覧の表示項目の順番を設定します。"
+
+#: squirrelmail/src/printer_friendly_bottom.php:58
 msgid "Message not printable"
 msgstr "メッセージは印刷できません"
 
-#: squirrelmail/src/printer_friendly_bottom.php:93
+#: squirrelmail/src/printer_friendly_bottom.php:87
 #: squirrelmail/src/printer_friendly_main.php:15
 #: squirrelmail/src/printer_friendly_top.php:22
 msgid "Printer Friendly"
 msgstr "印刷用"
 
-#: squirrelmail/src/printer_friendly_bottom.php:108
+#: squirrelmail/src/printer_friendly_bottom.php:110
 msgid "CC"
 msgstr ""
 
@@ -1322,90 +1288,53 @@ msgstr ""
 msgid "Print"
 msgstr "印刷"
 
-#: squirrelmail/src/printer_friendly_top.php:39
-#: squirrelmail/plugins/newmail/newmail.php:33
-msgid "Close Window"
-msgstr "閉じる"
-
-#: squirrelmail/src/read_body.php:156
+#: squirrelmail/src/read_body.php:131
 msgid "View Printable Version"
 msgstr "印刷用バージョン"
 
-#: squirrelmail/src/read_body.php:219
+#: squirrelmail/src/read_body.php:182
 msgid "Your message"
 msgstr "あなたのメッセージ："
 
-#: squirrelmail/src/read_body.php:222
+#: squirrelmail/src/read_body.php:185
 msgid "Sent:"
 msgstr "送信済"
 
-#: squirrelmail/src/read_body.php:224
+#: squirrelmail/src/read_body.php:187
 #, c-format
 msgid "Was displayed on %s"
 msgstr "%s に読まれました。"
 
-#: squirrelmail/src/read_body.php:256
+#: squirrelmail/src/read_body.php:217
 msgid "Read:"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:426
-msgid "Viewing Full Header"
-msgstr "全ヘッダ表示"
+#: squirrelmail/src/read_body.php:291
+msgid "less"
+msgstr "省略"
 
-#: squirrelmail/src/read_body.php:721
-msgid "Message List"
-msgstr "メッセージ一覧"
+#: squirrelmail/src/read_body.php:293
+msgid "more"
+msgstr "全部"
 
-#: squirrelmail/src/read_body.php:743
-msgid "Resume Draft"
-msgstr "編集を続ける"
+#: squirrelmail/functions/mime.php:408 squirrelmail/src/read_body.php:320
+msgid "Unknown sender"
+msgstr "送信者不明"
 
-#: squirrelmail/src/read_body.php:758
-msgid "Edit Message as New"
-msgstr "このメッセージを編集"
-
-#: squirrelmail/src/read_body.php:804
-#: squirrelmail/functions/mailbox_display.php:728
-msgid "Forward"
-msgstr "転送"
-
-#: squirrelmail/src/read_body.php:819
-msgid "Reply"
-msgstr "返信"
-
-#: squirrelmail/src/read_body.php:834
-msgid "Reply All"
-msgstr "全員に返信"
-
-#: squirrelmail/src/read_body.php:855 squirrelmail/src/read_body.php:858
-msgid "View Full Header"
-msgstr "ヘッダの表示"
-
-#: squirrelmail/src/read_body.php:926
+#: squirrelmail/src/read_body.php:332
 msgid "Mailer"
 msgstr ""
 
-#: squirrelmail/src/read_body.php:971 squirrelmail/src/read_body.php:983
-#: squirrelmail/src/read_body.php:994 squirrelmail/src/read_body.php:1016
-#: squirrelmail/src/read_body.php:1058 squirrelmail/src/read_body.php:1073
+#: squirrelmail/src/read_body.php:338 squirrelmail/src/read_body.php:357
+#: squirrelmail/src/read_body.php:360
 msgid "Read receipt"
 msgstr "受取通知"
 
-#: squirrelmail/src/read_body.php:973 squirrelmail/src/read_body.php:1060
+#: squirrelmail/src/read_body.php:338
 msgid "send"
 msgstr "送信済"
 
-#: squirrelmail/src/read_body.php:985 squirrelmail/src/read_body.php:996
-#: squirrelmail/src/read_body.php:1018 squirrelmail/src/read_body.php:1075
-msgid "requested"
-msgstr "要求"
-
-#: squirrelmail/src/read_body.php:996 squirrelmail/src/read_body.php:1018
-#: squirrelmail/src/read_body.php:1075
-msgid "Send read receipt now"
-msgstr "受取通知を直ぐに送信する"
-
-#: squirrelmail/src/read_body.php:1008
+#: squirrelmail/src/read_body.php:349
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
@@ -1413,64 +1342,122 @@ msgstr ""
 "メッセージ送信者は、あなたがこのメッセージを読んだことを連絡することを要求し"
 "ました。受取通知を送信しますか？"
 
-#: squirrelmail/src/redirect.php:64 squirrelmail/src/redirect.php:86
-#: squirrelmail/functions/auth.php:20
+#: squirrelmail/src/read_body.php:357 squirrelmail/src/read_body.php:360
+msgid "requested"
+msgstr "要求"
+
+#: squirrelmail/src/read_body.php:358
+msgid "Send read receipt now"
+msgstr "受取通知を直ぐに送信する"
+
+#: squirrelmail/src/read_body.php:397
+msgid "Search results"
+msgstr "検索結果"
+
+#: squirrelmail/src/read_body.php:401
+msgid "Message List"
+msgstr "メッセージ一覧"
+
+#: squirrelmail/src/read_body.php:424
+msgid "Resume Draft"
+msgstr "編集を続ける"
+
+#: squirrelmail/src/read_body.php:427
+msgid "Edit Message as New"
+msgstr "このメッセージを編集"
+
+#: squirrelmail/src/read_body.php:464
+msgid "View Message"
+msgstr "メッセージを表示"
+
+#: squirrelmail/plugins/filters/options.php:206
+#: squirrelmail/src/read_body.php:470
+msgid "Up"
+msgstr "↑"
+
+#: squirrelmail/functions/mailbox_display.php:713
+#: squirrelmail/src/read_body.php:478 squirrelmail/src/read_body.php:480
+msgid "Forward"
+msgstr "転送"
+
+#: squirrelmail/src/read_body.php:488 squirrelmail/src/read_body.php:490
+msgid "Forward as Attachment"
+msgstr "添付ファイルとして転送"
+
+#: squirrelmail/src/read_body.php:499 squirrelmail/src/read_body.php:501
+msgid "Reply"
+msgstr "返信"
+
+#: squirrelmail/src/read_body.php:508 squirrelmail/src/read_body.php:510
+msgid "Reply All"
+msgstr "全員に返信"
+
+#: squirrelmail/src/read_body.php:670
+msgid "Attachments"
+msgstr "添付ファイル"
+
+#: squirrelmail/functions/auth.php:34 squirrelmail/src/redirect.php:65
+#: squirrelmail/src/redirect.php:87
 msgid "You must be logged in to access this page."
 msgstr "このページにアクセスするにはアカウントが必要です。"
 
-#: squirrelmail/src/redirect.php:82
+#: squirrelmail/src/redirect.php:83
 msgid "There was an error contacting the mail server."
 msgstr "メールサーバへの接続でエラーが発生しました。"
 
-#: squirrelmail/src/redirect.php:84
+#: squirrelmail/src/redirect.php:85
 msgid "Contact your administrator for help."
 msgstr "管理者に連絡を取ってください。"
 
-#: squirrelmail/src/search.php:252
+#: squirrelmail/src/search.php:172
+msgid "Folder:"
+msgstr "フォルダ:"
+
+#: squirrelmail/src/search.php:283
 msgid "edit"
 msgstr "編集"
 
-#: squirrelmail/src/search.php:259 squirrelmail/src/search.php:305
+#: squirrelmail/src/search.php:290 squirrelmail/src/search.php:335
 msgid "search"
 msgstr "検索"
 
-#: squirrelmail/src/search.php:262
+#: squirrelmail/src/search.php:293
 msgid "delete"
 msgstr "削除"
 
-#: squirrelmail/src/search.php:274
+#: squirrelmail/src/search.php:304
 msgid "Recent Searches"
 msgstr "現在の検索"
 
-#: squirrelmail/src/search.php:297
+#: squirrelmail/src/search.php:327
 msgid "save"
 msgstr "保存"
 
-#: squirrelmail/src/search.php:308
+#: squirrelmail/src/search.php:338
 msgid "forget"
 msgstr "破棄"
 
-#: squirrelmail/src/search.php:317
+#: squirrelmail/src/search.php:370
 msgid "Current Search"
 msgstr "現在の検索"
 
-#: squirrelmail/src/search.php:358
+#: squirrelmail/src/search.php:411
 msgid "Body"
 msgstr "本文"
 
-#: squirrelmail/src/search.php:359
+#: squirrelmail/src/search.php:412
 msgid "Everywhere"
 msgstr "全体"
 
-#: squirrelmail/src/search.php:390 squirrelmail/src/search.php:419
+#: squirrelmail/src/search.php:443 squirrelmail/src/search.php:473
 msgid "Search Results"
 msgstr "検索結果"
 
-#: squirrelmail/src/search.php:410
-msgid "No Messages found"
+#: squirrelmail/src/search.php:465 squirrelmail/src/search.php:480
+msgid "No Messages Found"
 msgstr "表示するメッセージはありません。"
 
-#: squirrelmail/src/signout.php:76 squirrelmail/functions/page_header.php:205
+#: squirrelmail/functions/page_header.php:206 squirrelmail/src/signout.php:76
 msgid "Sign Out"
 msgstr "ログアウト"
 
@@ -1534,6 +1521,14 @@ msgstr "アドレスの追加"
 msgid "Title & Org. / Dept."
 msgstr "肩書/所属など"
 
+#: squirrelmail/src/view_header.php:81
+msgid "Viewing Full Header"
+msgstr "全ヘッダ表示"
+
+#: squirrelmail/src/view_text.php:35
+msgid "Viewing a text attachment"
+msgstr "テキストの添付ファイルを表示"
+
 #: squirrelmail/functions/abook_database.php:50
 #: squirrelmail/functions/abook_local_file.php:37
 #: squirrelmail/functions/addressbook.php:155
@@ -1558,9 +1553,9 @@ msgstr "データベースエラー: %s"
 #: squirrelmail/functions/abook_local_file.php:267
 #: squirrelmail/functions/abook_local_file.php:292
 #: squirrelmail/functions/abook_local_file.php:324
-#: squirrelmail/functions/addressbook.php:351
-#: squirrelmail/functions/addressbook.php:386
-#: squirrelmail/functions/addressbook.php:439
+#: squirrelmail/functions/addressbook.php:371
+#: squirrelmail/functions/addressbook.php:406
+#: squirrelmail/functions/addressbook.php:459
 msgid "Addressbook is read-only"
 msgstr "アドレス帳は読込専用です。"
 
@@ -1629,145 +1624,145 @@ msgstr "グローバルアドレス帳の初期化に失敗しました。:"
 msgid "Error initializing LDAP server %s:"
 msgstr "%s の LDAPサーバの初期化に失敗しました。:"
 
-#: squirrelmail/functions/addressbook.php:329
-#: squirrelmail/functions/addressbook.php:416
+#: squirrelmail/functions/addressbook.php:349
+#: squirrelmail/functions/addressbook.php:436
 msgid "Invalid input data"
 msgstr "入力データが異常です。"
 
-#: squirrelmail/functions/addressbook.php:333
-#: squirrelmail/functions/addressbook.php:420
+#: squirrelmail/functions/addressbook.php:353
+#: squirrelmail/functions/addressbook.php:440
 msgid "Name is missing"
 msgstr "名前が入力されていません。"
 
-#: squirrelmail/functions/addressbook.php:337
-#: squirrelmail/functions/addressbook.php:424
+#: squirrelmail/functions/addressbook.php:357
+#: squirrelmail/functions/addressbook.php:444
 msgid "E-mail address is missing"
 msgstr "メールアドレスが入力されていません。"
 
-#: squirrelmail/functions/addressbook.php:345
-#: squirrelmail/functions/addressbook.php:429
+#: squirrelmail/functions/addressbook.php:365
+#: squirrelmail/functions/addressbook.php:449
 msgid "Nickname contains illegal characters"
 msgstr "ニックネームに使用出来ない文字が含まれています。"
 
-#: squirrelmail/functions/attachment_common.php:107
-#: squirrelmail/functions/attachment_common.php:128
-#: squirrelmail/functions/attachment_common.php:143
-#: squirrelmail/functions/attachment_common.php:168
+#: squirrelmail/functions/attachment_common.php:105
+#: squirrelmail/functions/attachment_common.php:125
+#: squirrelmail/functions/attachment_common.php:142
+#: squirrelmail/functions/attachment_common.php:163
 msgid "view"
 msgstr "表示"
 
-#: squirrelmail/functions/attachment_common.php:185
+#: squirrelmail/functions/attachment_common.php:178
 msgid "Business Card"
 msgstr "名刺"
 
-#: squirrelmail/functions/date.php:92
+#: squirrelmail/functions/date.php:113
 #: squirrelmail/plugins/calendar/calendar.php:59
 msgid "Sunday"
 msgstr "日"
 
-#: squirrelmail/functions/date.php:95
+#: squirrelmail/functions/date.php:116
 #: squirrelmail/plugins/calendar/calendar.php:60
 msgid "Monday"
 msgstr "月"
 
-#: squirrelmail/functions/date.php:98
+#: squirrelmail/functions/date.php:119
 #: squirrelmail/plugins/calendar/calendar.php:61
 msgid "Tuesday"
 msgstr "火"
 
-#: squirrelmail/functions/date.php:101
+#: squirrelmail/functions/date.php:122
 #: squirrelmail/plugins/calendar/calendar.php:62
 msgid "Wednesday"
 msgstr "水"
 
-#: squirrelmail/functions/date.php:104
+#: squirrelmail/functions/date.php:125
 #: squirrelmail/plugins/calendar/calendar.php:63
 msgid "Thursday"
 msgstr "木"
 
-#: squirrelmail/functions/date.php:107
+#: squirrelmail/functions/date.php:128
 #: squirrelmail/plugins/calendar/calendar.php:64
 msgid "Friday"
 msgstr "金"
 
-#: squirrelmail/functions/date.php:110
+#: squirrelmail/functions/date.php:131
 #: squirrelmail/plugins/calendar/calendar.php:65
 msgid "Saturday"
 msgstr "土"
 
-#: squirrelmail/functions/date.php:121
+#: squirrelmail/functions/date.php:142
 msgid "January"
 msgstr " 1"
 
-#: squirrelmail/functions/date.php:124
+#: squirrelmail/functions/date.php:145
 msgid "February"
 msgstr " 2"
 
-#: squirrelmail/functions/date.php:127
+#: squirrelmail/functions/date.php:148
 msgid "March"
 msgstr " 3"
 
-#: squirrelmail/functions/date.php:130
+#: squirrelmail/functions/date.php:151
 msgid "April"
 msgstr " 4"
 
-#: squirrelmail/functions/date.php:133
+#: squirrelmail/functions/date.php:154
 msgid "May"
 msgstr " 5"
 
-#: squirrelmail/functions/date.php:136
+#: squirrelmail/functions/date.php:157
 msgid "June"
 msgstr " 6"
 
-#: squirrelmail/functions/date.php:139
+#: squirrelmail/functions/date.php:160
 msgid "July"
 msgstr " 7"
 
-#: squirrelmail/functions/date.php:142
+#: squirrelmail/functions/date.php:163
 msgid "August"
 msgstr " 8"
 
-#: squirrelmail/functions/date.php:145
+#: squirrelmail/functions/date.php:166
 msgid "September"
 msgstr " 9"
 
-#: squirrelmail/functions/date.php:148
+#: squirrelmail/functions/date.php:169
 msgid "October"
 msgstr "10"
 
-#: squirrelmail/functions/date.php:151
+#: squirrelmail/functions/date.php:172
 msgid "November"
 msgstr "11"
 
-#: squirrelmail/functions/date.php:154
+#: squirrelmail/functions/date.php:175
 msgid "December"
 msgstr "12"
 
-#: squirrelmail/functions/date.php:183
+#: squirrelmail/functions/date.php:208
 msgid "D, F j, Y g:i a"
 msgstr "Y年 F月 j日 (D) g:i a"
 
-#: squirrelmail/functions/date.php:185
+#: squirrelmail/functions/date.php:210
 msgid "D, F j, Y G:i"
 msgstr "Y年 F月 j日 (D) G:i"
 
-#: squirrelmail/functions/date.php:207
+#: squirrelmail/functions/date.php:236
 msgid "g:i a"
 msgstr ""
 
-#: squirrelmail/functions/date.php:209
+#: squirrelmail/functions/date.php:238
 msgid "G:i"
 msgstr ""
 
-#: squirrelmail/functions/date.php:214
+#: squirrelmail/functions/date.php:243
 msgid "D, g:i a"
 msgstr "(D) g:i a"
 
-#: squirrelmail/functions/date.php:216
+#: squirrelmail/functions/date.php:245
 msgid "D, G:i"
 msgstr "(D) G:i"
 
-#: squirrelmail/functions/date.php:220
+#: squirrelmail/functions/date.php:249
 msgid "M j, Y"
 msgstr "Y/m/j"
 
@@ -1781,7 +1776,7 @@ msgid "Preference database error (%s). Exiting abnormally"
 msgstr "設定ファイルエラー (%s)。 異常終了しました。"
 
 #: squirrelmail/functions/display_messages.php:73
-#: squirrelmail/functions/imap_general.php:252
+#: squirrelmail/functions/imap_general.php:214
 msgid "Unknown user or password incorrect."
 msgstr "ユーザ名かパスワードが間違っています。"
 
@@ -1805,137 +1800,135 @@ msgid ""
 "default preference file."
 msgstr "設定ファイル %s が存在しません。再ログインしてください。"
 
-#: squirrelmail/functions/file_prefs.php:162
+#: squirrelmail/functions/file_prefs.php:47
+#: squirrelmail/functions/file_prefs.php:107
+#, c-format
+msgid ""
+"Preference file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "設定ファイル %s をオープンできません。このエラーとともに管理者に連絡を取ってください。"
+
+#: squirrelmail/functions/file_prefs.php:175
 #, c-format
 msgid "Error opening %s"
 msgstr "オープンエラー %s"
 
-#: squirrelmail/functions/file_prefs.php:165
+#: squirrelmail/functions/file_prefs.php:178
 msgid "Default preference file not found!"
 msgstr "デフォルトの設定ファイルが見付かりません。"
 
-#: squirrelmail/functions/file_prefs.php:166
 #: squirrelmail/functions/file_prefs.php:179
+#: squirrelmail/functions/file_prefs.php:192
 #: squirrelmail/functions/prefs.php:94
 msgid "Please contact your system administrator and report this error."
 msgstr "このエラーとともに管理者に連絡を取ってください。"
 
-#: squirrelmail/functions/file_prefs.php:177
+#: squirrelmail/functions/file_prefs.php:190
 msgid "Could not create initial preference file!"
 msgstr "初期設定ファイルを作ることができませんでした。"
 
-#: squirrelmail/functions/file_prefs.php:178
+#: squirrelmail/functions/file_prefs.php:191
 #, c-format
 msgid "%s should be writable by user %s"
 msgstr "%s は ユーザ %s によって書き込み可能でなければいけません"
 
-#: squirrelmail/functions/imap_general.php:132
+#: squirrelmail/functions/file_prefs.php:209
+#: squirrelmail/functions/file_prefs.php:227
+#, c-format
 msgid ""
-"Please contact your system administrator and report the following error:"
-msgstr "管理者に次のメッセージとともに連絡を取ってください。"
+"Signature file, %s, could not be opened. Contact your system administrator "
+"to resolve this issue."
+msgstr "署名ファイル %s がオープンできません。このエラーとともに管理者に連絡を取ってください。"
 
-#: squirrelmail/functions/imap_general.php:163
-#: squirrelmail/functions/imap_messages.php:366
-#: squirrelmail/functions/imap_messages.php:374
-#: squirrelmail/functions/imap_messages.php:572
+#: squirrelmail/functions/i18n.php:751
+msgid ""
+"You need to have php4 installed with the multibyte string function enabled "
+"(using configure option --with-mbstring)."
+msgstr ""
+
+#: squirrelmail/functions/imap_general.php:121
+#: squirrelmail/functions/imap_messages.php:427
+#: squirrelmail/functions/imap_messages.php:434
+#: squirrelmail/functions/imap_messages.php:445
+#: squirrelmail/functions/imap_messages.php:452
+#: squirrelmail/functions/imap_messages.php:652
+#: squirrelmail/functions/imap_messages.php:663
 #: squirrelmail/plugins/filters/filters.php:227
 msgid "ERROR : Could not complete request."
 msgstr "エラー: 要求を完了できませんでした。"
 
-#: squirrelmail/functions/imap_general.php:165
-#: squirrelmail/functions/imap_general.php:176
+#: squirrelmail/functions/imap_general.php:123
+#: squirrelmail/functions/imap_general.php:135
 msgid "Query:"
 msgstr "問合せ:"
 
-#: squirrelmail/functions/imap_general.php:167
+#: squirrelmail/functions/imap_general.php:125
 #: squirrelmail/plugins/filters/filters.php:229
 msgid "Reason Given: "
 msgstr "理由:"
 
-#: squirrelmail/functions/imap_general.php:174
+#: squirrelmail/functions/imap_general.php:133
 #: squirrelmail/plugins/filters/filters.php:236
 msgid "ERROR : Bad or malformed request."
 msgstr "Error: リクエストに異常があります。"
 
-#: squirrelmail/functions/imap_general.php:178
+#: squirrelmail/functions/imap_general.php:137
 #: squirrelmail/plugins/filters/filters.php:238
 msgid "Server responded: "
 msgstr "サーバの応答:"
 
-#: squirrelmail/functions/imap_general.php:211
+#: squirrelmail/functions/imap_general.php:173
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr "IMAPサーバーの接続でエラー: %s"
 
-#: squirrelmail/functions/imap_general.php:227
+#: squirrelmail/functions/imap_general.php:189
 #, c-format
 msgid "Bad request: %s"
 msgstr "不正な要求: %s"
 
-#: squirrelmail/functions/imap_general.php:229
+#: squirrelmail/functions/imap_general.php:191
 #, c-format
 msgid "Unknown error: %s"
 msgstr "原因不明のエラー: %s"
 
-#: squirrelmail/functions/imap_general.php:231
+#: squirrelmail/functions/imap_general.php:193
 msgid "Read data:"
 msgstr "読んだデータ:"
 
-#: squirrelmail/functions/imap_messages.php:368
-#: squirrelmail/functions/imap_messages.php:574
+#: squirrelmail/functions/imap_messages.php:429
+#: squirrelmail/functions/imap_messages.php:447
+#: squirrelmail/functions/imap_messages.php:654
+#: squirrelmail/functions/imap_messages.php:665
 msgid "Unknown response from IMAP server: "
 msgstr "異常な応答が IMAP サーバーからありました:"
 
-#: squirrelmail/functions/imap_messages.php:376
+#: squirrelmail/functions/imap_messages.php:436
+#: squirrelmail/functions/imap_messages.php:454
 msgid "Unknown message number in reply from server: "
 msgstr "不正なメッセージ番号がサーバから返されました："
 
-#: squirrelmail/functions/imap_messages.php:396
-#: squirrelmail/functions/imap_messages.php:497
-#: squirrelmail/functions/imap_messages.php:775
-#: squirrelmail/functions/imap_messages.php:839
+#: squirrelmail/functions/imap_messages.php:476
+#: squirrelmail/functions/imap_messages.php:579
 #: squirrelmail/functions/imap_parse.php:183
 #: squirrelmail/functions/imap_parse.php:205
-#: squirrelmail/functions/mailbox_display.php:1141
+#: squirrelmail/functions/mailbox_display.php:1177
 msgid "(no subject)"
 msgstr ""
 
-#: squirrelmail/functions/imap_messages.php:397
+#: squirrelmail/functions/imap_messages.php:477
 msgid "Unknown Sender"
 msgstr "送信者不明"
 
-#: squirrelmail/functions/imap_messages.php:520
-msgid "No To Address"
-msgstr "宛先無し"
-
-#: squirrelmail/functions/imap_messages.php:842
 #: squirrelmail/functions/imap_parse.php:208
 msgid "(unknown sender)"
 msgstr "(送信者不明)"
 
-#: squirrelmail/functions/imap_search.php:98
-msgid "No Messages Found"
-msgstr "表示するメッセージはありません。"
-
-#: squirrelmail/functions/imap_search.php:206
-#: squirrelmail/functions/imap_search.php:214
-msgid "Found"
-msgstr "みつかりました"
-
-#: squirrelmail/functions/imap_search.php:206
-#: squirrelmail/functions/imap_search.php:214
-msgid "messages"
-msgstr "メッセージが"
-
-#: squirrelmail/functions/imap_search.php:221
-msgid "Folder:"
-msgstr "フォルダ:"
-
-#: squirrelmail/functions/mailbox_display.php:196
+#: squirrelmail/functions/mailbox_display.php:203
 msgid "A"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:274
+#: squirrelmail/functions/mailbox_display.php:388
 msgid ""
 "Thread sorting is not supported by your IMAP server.<br>Please report this "
 "to the system administrator."
@@ -1943,7 +1936,7 @@ msgstr ""
 "スレッドソートはあなたのIMAPサーバではサポートされていません。<br>システム管"
 "理者に報告してください。"
 
-#: squirrelmail/functions/mailbox_display.php:296
+#: squirrelmail/functions/mailbox_display.php:407
 msgid ""
 "Server-side sorting is not supported by your IMAP server.<br>Please report "
 "this to the system administrator."
@@ -1951,83 +1944,79 @@ msgstr ""
 "サーバサイドソーティングはあなたのIMAPサーバではサポートされていません。<br>"
 "システム管理者に報告してください。"
 
-#: squirrelmail/functions/mailbox_display.php:590
+#: squirrelmail/functions/mailbox_display.php:608
 msgid "THIS FOLDER IS EMPTY"
 msgstr "このフォルダは空です。"
 
-#: squirrelmail/functions/mailbox_display.php:697
-msgid "Move Selected To:"
+#: squirrelmail/functions/mailbox_display.php:706
+msgid "Move Selected To"
 msgstr "チェックしたものの移動："
 
-#: squirrelmail/functions/mailbox_display.php:702
+#: squirrelmail/functions/mailbox_display.php:707
 msgid "Transform Selected Messages"
 msgstr "チェックしたものの状態変更"
 
-#: squirrelmail/functions/mailbox_display.php:727
-#: squirrelmail/plugins/delete_move_next/setup.php:245
-#: squirrelmail/plugins/delete_move_next/setup.php:269
+#: squirrelmail/functions/mailbox_display.php:712
+#: squirrelmail/plugins/delete_move_next/setup.php:253
+#: squirrelmail/plugins/delete_move_next/setup.php:277
 msgid "Move"
 msgstr "移動"
 
-#: squirrelmail/functions/mailbox_display.php:734
+#: squirrelmail/functions/mailbox_display.php:719
 msgid "Expunge"
 msgstr "削除する"
 
-#: squirrelmail/functions/mailbox_display.php:735
+#: squirrelmail/functions/mailbox_display.php:720
 msgid "mailbox"
 msgstr ""
 
-#: squirrelmail/functions/mailbox_display.php:737
+#: squirrelmail/functions/mailbox_display.php:723
 msgid "Read"
 msgstr "既読"
 
-#: squirrelmail/functions/mailbox_display.php:738
+#: squirrelmail/functions/mailbox_display.php:724
 msgid "Unread"
 msgstr "未読"
 
-#: squirrelmail/functions/mailbox_display.php:747
+#: squirrelmail/functions/mailbox_display.php:739
 msgid "Unthread View"
 msgstr "スレッドなし表示"
 
-#: squirrelmail/functions/mailbox_display.php:751
+#: squirrelmail/functions/mailbox_display.php:743
 msgid "Thread View"
 msgstr "スレッド表示"
 
-#: squirrelmail/functions/mailbox_display.php:874
+#: squirrelmail/functions/mailbox_display.php:900
 msgid "Toggle All"
 msgstr "全反転"
 
-#: squirrelmail/functions/mailbox_display.php:898
+#: squirrelmail/functions/mailbox_display.php:924
 msgid "Unselect All"
 msgstr "全選択解除"
 
-#: squirrelmail/functions/mailbox_display.php:900
+#: squirrelmail/functions/mailbox_display.php:926
 msgid "Select All"
 msgstr "全選択"
 
-#: squirrelmail/functions/mailbox_display.php:917
+#: squirrelmail/functions/mailbox_display.php:943
 #, c-format
 msgid "Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"
 msgstr "<b>%s</b>〜<b>%s</b>表示中(全%s件)"
 
-#: squirrelmail/functions/mailbox_display.php:920
+#: squirrelmail/functions/mailbox_display.php:946
 #, c-format
 msgid "Viewing Message: <B>%s</B> (1 total)"
 msgstr "<b>%s</b>表示中(全1件)"
 
-#: squirrelmail/functions/mailbox_display.php:1104
+#: squirrelmail/functions/mailbox_display.php:1139
 msgid "Paginate"
 msgstr "ページ表示"
 
-#: squirrelmail/functions/mailbox_display.php:1111
+#: squirrelmail/functions/mailbox_display.php:1146
 msgid "Show All"
 msgstr "全表示"
 
-#: squirrelmail/functions/mime.php:449
-msgid "Error decoding mime structure.  Report this as a bug!"
-msgstr "mimeのデコードエラー。このバグを報告してください。"
-
-#: squirrelmail/functions/mime.php:522
+#: squirrelmail/functions/mime.php:127
 msgid ""
 "Body retrieval error. The reason for this is most probably that the message "
 "is malformed. Please help us making future versions better by submitting "
@@ -2036,19 +2025,19 @@ msgstr ""
 "読み出しエラーです。理由はメッセージに異常があるためです。このメッセージを開"
 "発者に連絡することによって、将来のバージョンに役に立つでしょう。"
 
-#: squirrelmail/functions/mime.php:524
+#: squirrelmail/functions/mime.php:129
 msgid "Submit message"
 msgstr "メッセージを送信"
 
-#: squirrelmail/functions/mime.php:526
+#: squirrelmail/functions/mime.php:131
 msgid "Command:"
 msgstr "コマンド:"
 
-#: squirrelmail/functions/mime.php:527
+#: squirrelmail/functions/mime.php:132
 msgid "Response:"
 msgstr "応答:"
 
-#: squirrelmail/functions/mime.php:528
+#: squirrelmail/functions/mime.php:133
 #: squirrelmail/plugins/calendar/event_create.php:137
 #: squirrelmail/plugins/calendar/event_delete.php:47
 #: squirrelmail/plugins/calendar/event_edit.php:119
@@ -2056,27 +2045,23 @@ msgstr "応答:"
 msgid "Message:"
 msgstr "メッセージ:"
 
-#: squirrelmail/functions/mime.php:529
+#: squirrelmail/functions/mime.php:134
 msgid "FETCH line:"
 msgstr "取り込んでいる行:"
 
-#: squirrelmail/functions/mime.php:866
+#: squirrelmail/functions/mime.php:366
 msgid "Hide Unsafe Images"
 msgstr "安全でないイメージを隠す"
 
-#: squirrelmail/functions/mime.php:868
+#: squirrelmail/functions/mime.php:368
 msgid "View Unsafe Images"
 msgstr "安全でないイメージの表示"
 
-#: squirrelmail/functions/mime.php:903
-msgid "Attachments"
-msgstr "添付ファイル"
-
-#: squirrelmail/functions/mime.php:939 squirrelmail/functions/mime.php:1017
+#: squirrelmail/functions/mime.php:395
 msgid "download"
 msgstr "ダウンロード"
 
-#: squirrelmail/functions/mime.php:1746 squirrelmail/functions/mime.php:2064
+#: squirrelmail/functions/mime.php:1176 squirrelmail/functions/mime.php:1497
 msgid "sec_remove_eng.png"
 msgstr "sec_remove_ja_JP.png"
 
@@ -2086,27 +2071,27 @@ msgid "Option Type '%s' Not Found"
 msgstr "オプションタイプ '%s' が見付かりません。"
 
 #: squirrelmail/functions/options.php:263
+#: squirrelmail/plugins/administrator/options.php:357
 #: squirrelmail/plugins/calendar/event_delete.php:62
 #: squirrelmail/plugins/calendar/event_edit.php:165
-#: squirrelmail/plugins/administrator/options.php:357
 msgid "Yes"
 msgstr ""
 
 #: squirrelmail/functions/options.php:268
+#: squirrelmail/plugins/administrator/options.php:358
 #: squirrelmail/plugins/calendar/event_delete.php:70
 #: squirrelmail/plugins/calendar/event_edit.php:173
-#: squirrelmail/plugins/administrator/options.php:358
 msgid "No"
 msgstr ""
 
-#: squirrelmail/functions/page_header.php:199
+#: squirrelmail/functions/page_header.php:200
 msgid "Current Folder"
 msgstr "現在のフォルダ"
 
-#: squirrelmail/functions/page_header.php:212
-#: squirrelmail/functions/page_header.php:215
-#: squirrelmail/functions/page_header.php:258
-#: squirrelmail/functions/page_header.php:285
+#: squirrelmail/functions/page_header.php:213
+#: squirrelmail/functions/page_header.php:216
+#: squirrelmail/functions/page_header.php:259
+#: squirrelmail/functions/page_header.php:286
 msgid "Compose"
 msgstr "メッセージ作成"
 
@@ -2119,7 +2104,7 @@ msgstr "%s のディレクトリが作成できません。"
 msgid "Could not create hashed directory structure!"
 msgstr "ハッシュディレクトリの作成ができません。"
 
-#: squirrelmail/plugins/filters/filters.php:554
+#: squirrelmail/plugins/filters/filters.php:560
 msgid ""
 "COMMERCIAL - This list contains servers that are verified spam senders. It "
 "is a pretty reliable list to scan spam from."
@@ -2127,7 +2112,7 @@ msgstr ""
 "有償 - このリストは立証されたスパム送信者のサーバを含む。スパムをスキャンする"
 "上で信頼性の高いリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:562
+#: squirrelmail/plugins/filters/filters.php:568
 msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
@@ -2136,7 +2121,7 @@ msgstr ""
 "有償 - スパムを中継させるように、設定(または誤って設定)されているサーバは、こ"
 "ちらで禁止されます。お推めの一つです。"
 
-#: squirrelmail/plugins/filters/filters.php:570
+#: squirrelmail/plugins/filters/filters.php:576
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
 "their ISP's mail servers to send mail.  Spammers typically get a dial-up "
@@ -2146,19 +2131,19 @@ msgstr ""
 "ルタで取り除かれます。ダイヤルアカウントを取得し、そこから直接スパムを送信す"
 "ることが、スパマーのありがちな手法です。"
 
-#: squirrelmail/plugins/filters/filters.php:578
+#: squirrelmail/plugins/filters/filters.php:584
 msgid "COMMERCIAL - RBL+ Blackhole entries."
 msgstr "有償 - RBL+ ブラックホールの項目"
 
-#: squirrelmail/plugins/filters/filters.php:586
+#: squirrelmail/plugins/filters/filters.php:592
 msgid "COMMERCIAL - RBL+ OpenRelay entries."
 msgstr "有償 - RBL+ オープンリレー"
 
-#: squirrelmail/plugins/filters/filters.php:594
+#: squirrelmail/plugins/filters/filters.php:600
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr "有償 - RBL+ ダイヤルアップ項目"
 
-#: squirrelmail/plugins/filters/filters.php:603
+#: squirrelmail/plugins/filters/filters.php:609
 msgid ""
 "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
 "include servers used by abuse@uunet.net auto-replies too."
@@ -2166,11 +2151,11 @@ msgstr ""
 "無償 - Osirusoft Relays - Osirusoftsによる、立証できたオープンリレーのリス"
 "ト。abuse@uunet.netが自動返信に使うサーバも含まれるようです。"
 
-#: squirrelmail/plugins/filters/filters.php:611
+#: squirrelmail/plugins/filters/filters.php:617
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr "無償 - Osirusoft Dialups - Osirusoftのダイヤルアップスパム元のリスト"
 
-#: squirrelmail/plugins/filters/filters.php:619
+#: squirrelmail/plugins/filters/filters.php:625
 msgid ""
 "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
 "have been manually added after multiple nominations. Use with caution. Seems "
@@ -2181,7 +2166,7 @@ msgstr ""
 "判断が必要です。悪用報告に対する、いくつかのISPによる自動返信も掴んでしまうよ"
 "うです。"
 
-#: squirrelmail/plugins/filters/filters.php:627
+#: squirrelmail/plugins/filters/filters.php:633
 msgid ""
 "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
 "other mail servers that are not secure."
@@ -2189,7 +2174,7 @@ msgstr ""
 "無償 - Osirusoft Smart Hosts - セキュアだが、セキュアではないメールサーバの中"
 "継をしてしまうホストのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:635
+#: squirrelmail/plugins/filters/filters.php:641
 msgid ""
 "FREE - Osirusoft Spamware Developers - It is believed that these are IP "
 "ranges of companies that are known to produce spam software. Seems to catch "
@@ -2199,7 +2184,7 @@ msgstr ""
 "ると知られる企業のものだとされています。いくつかのISPからのabuse自動返信を捕"
 "まえるようです。"
 
-#: squirrelmail/plugins/filters/filters.php:643
+#: squirrelmail/plugins/filters/filters.php:649
 msgid ""
 "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
 "users in without confirmation."
@@ -2207,7 +2192,7 @@ msgstr ""
 "無償 - Osirusoft 未確認オプトインサーバ - ユーザによる確認をなしに、登録する"
 "リストサーバのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:651
+#: squirrelmail/plugins/filters/filters.php:657
 msgid ""
 "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
 "cgi scripts. (planned)."
@@ -2215,12 +2200,12 @@ msgstr ""
 "無償 - Osirusoft Insecure formmail.cgi scripts - セキュアではないformmail cgi"
 "のリストです。(予定)"
 
-#: squirrelmail/plugins/filters/filters.php:659
+#: squirrelmail/plugins/filters/filters.php:665
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
 "無償 - Osirusoft Open Proxy Servers - オープンプロクシサーバのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:667
+#: squirrelmail/plugins/filters/filters.php:673
 msgid ""
 "FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
 "false positives than ORBS did though."
@@ -2228,38 +2213,38 @@ msgstr ""
 "無償 - ORDBはORBSが無くなった時に生まれました。しかし、ORBSよりfalse "
 "positivesが少ないようです。"
 
-#: squirrelmail/plugins/filters/filters.php:675
+#: squirrelmail/plugins/filters/filters.php:681
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
 msgstr "無償 - Five-Ten-sg.com - 直接のスパム源です。"
 
-#: squirrelmail/plugins/filters/filters.php:683
+#: squirrelmail/plugins/filters/filters.php:689
 msgid "FREE - Five-Ten-sg.com - Dial-up lists - includes some DSL IPs."
 msgstr ""
 "無償 - Five-Ten-sg.com - ダイヤルアップリスト - 他にいくつかのDSLのIPsを含み"
 "ます。"
 
-#: squirrelmail/plugins/filters/filters.php:691
+#: squirrelmail/plugins/filters/filters.php:697
 msgid "FREE - Five-Ten-sg.com - Bulk mailers that do not use confirmed opt-in."
 msgstr ""
 "無償 -  Five-Ten-sg.com - 確認されたオプトインを利用しない大量メーラーです。"
 
-#: squirrelmail/plugins/filters/filters.php:699
+#: squirrelmail/plugins/filters/filters.php:705
 msgid "FREE - Five-Ten-sg.com - Other misc. servers."
 msgstr "無償 - Five-Ten-sg.com - 他の様々なサーバです。"
 
-#: squirrelmail/plugins/filters/filters.php:707
+#: squirrelmail/plugins/filters/filters.php:713
 msgid "FREE - Five-Ten-sg.com - Single Stage servers."
 msgstr "無償 - Five-Ten-sg.com - シングルステージサーバ"
 
-#: squirrelmail/plugins/filters/filters.php:715
+#: squirrelmail/plugins/filters/filters.php:721
 msgid "FREE - Five-Ten-sg.com - SPAM Support servers."
 msgstr "無償 - Five-Ten-sg.com - スパムを支援するサーバ"
 
-#: squirrelmail/plugins/filters/filters.php:723
+#: squirrelmail/plugins/filters/filters.php:729
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr "無償 - Five-Ten-sg.com - ウェブフォームのIP"
 
-#: squirrelmail/plugins/filters/filters.php:731
+#: squirrelmail/plugins/filters/filters.php:737
 msgid ""
 "FREE - Dorkslayers appears to include only really bad open relays outside "
 "the US to avoid being sued. Interestingly enough, their website recommends "
@@ -2269,40 +2254,40 @@ msgstr ""
 "レーのみを含みます。面白いことに、彼らのウェブサイトは彼らのサービスを利用*し"
 "ない*ことを推める。"
 
-#: squirrelmail/plugins/filters/filters.php:739
+#: squirrelmail/plugins/filters/filters.php:745
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "無償 - SPAMhaus - 良く知られるスパム源のリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:747
+#: squirrelmail/plugins/filters/filters.php:753
 #, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:755
+#: squirrelmail/plugins/filters/filters.php:761
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr "無償 - dev.null.dk - このリストに関しては特に詳しい情報はありません。"
 
-#: squirrelmail/plugins/filters/filters.php:763
+#: squirrelmail/plugins/filters/filters.php:769
 msgid "FREE - visi.com - Relay Stop List. Very conservative OpenRelay List."
 msgstr ""
 "無償 - visi.com - リレー防止リストです。非常に協力的なオープンリレーのリスト"
 "です。"
 
-#: squirrelmail/plugins/filters/filters.php:771
+#: squirrelmail/plugins/filters/filters.php:777
 msgid "FREE - 2mbit.com Open Relays - Another list of Open Relays."
 msgstr "無償 - 2mbit.com Open Relays - もう一つのオープンリレーのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:779
+#: squirrelmail/plugins/filters/filters.php:785
 msgid "FREE - 2mbit.com SPAM Source - List of Direct SPAM Sources."
 msgstr "無償 -  2mbit.com SPAM Source - 直接のスパム源のリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:787
+#: squirrelmail/plugins/filters/filters.php:793
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr "無償 - 2mbit.com SPAM ISPs - スパムにあまいISPのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:795
+#: squirrelmail/plugins/filters/filters.php:801
 msgid ""
 "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
 "assigned IPs."
@@ -2310,7 +2295,7 @@ msgstr ""
 "無償 - Leadmon DUL - ダイヤルアップまたは他に動的に割り当てられるIPのリストで"
 "す。"
 
-#: squirrelmail/plugins/filters/filters.php:803
+#: squirrelmail/plugins/filters/filters.php:809
 msgid ""
 "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
 "directly from."
@@ -2318,7 +2303,7 @@ msgstr ""
 "無償 - Leadmon Spam SOurce - Leadmon.netが直接スパムを送られたことのあるIPの"
 "リストです。"
 
-#: squirrelmail/plugins/filters/filters.php:811
+#: squirrelmail/plugins/filters/filters.php:817
 msgid ""
 "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
 "in or that have allowed known spammers to become clients and abuse their "
@@ -2327,7 +2312,7 @@ msgstr ""
 "無償 - Leadmon Bulk Mailers - オプトインを必要としない大量メーラー、または既"
 "知のスパマーを会員にさせてサービスを悪用を許すものです。"
 
-#: squirrelmail/plugins/filters/filters.php:819
+#: squirrelmail/plugins/filters/filters.php:825
 msgid ""
 "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
 "other active RBLs."
@@ -2335,7 +2320,7 @@ msgstr ""
 "無償 - Leadmon Open Relays - 他に活躍しているRBLに載っていないシングルステー"
 "ジのオープンリレーです。"
 
-#: squirrelmail/plugins/filters/filters.php:827
+#: squirrelmail/plugins/filters/filters.php:833
 msgid ""
 "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
 "other active RBLs and that have sent SPAM to Leadmon.net."
@@ -2344,7 +2329,7 @@ msgstr ""
 "オープンリレーでLeadmon.netへスパムが送られたマルチステージのオープンリレーで"
 "す。"
 
-#: squirrelmail/plugins/filters/filters.php:835
+#: squirrelmail/plugins/filters/filters.php:841
 msgid ""
 "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
 "direct SPAM from IPs in netblocks where the entire block has no DNS "
@@ -2356,7 +2341,7 @@ msgstr ""
 "引が設定されてないものです。Leadmon.netへスパムを送ったことのある人達のIPブ"
 "ロックのリストです。"
 
-#: squirrelmail/plugins/filters/filters.php:843
+#: squirrelmail/plugins/filters/filters.php:849
 msgid ""
 "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
 "SPAM Sources."
@@ -2364,21 +2349,21 @@ msgstr ""
 "無償 (今のところ) - 単なるもう一つのブラックリストではない - オープンリレーと"
 "直接のスパム源の両方を含めます。"
 
-#: squirrelmail/plugins/filters/filters.php:851
+#: squirrelmail/plugins/filters/filters.php:857
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
 msgstr ""
 "無償 - (今のところ) - 単なるもう一つのブラックリストではない - ダイヤルアップ"
 "IP"
 
-#: squirrelmail/plugins/filters/filters.php:859
+#: squirrelmail/plugins/filters/filters.php:865
 msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:867
+#: squirrelmail/plugins/filters/filters.php:873
 msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
 msgstr ""
 
-#: squirrelmail/plugins/filters/filters.php:875
+#: squirrelmail/plugins/filters/filters.php:881
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
 msgstr ""
 
@@ -2386,57 +2371,53 @@ msgstr ""
 msgid "Saved Scan type"
 msgstr "スキャンタイプを保存しました。"
 
-#: squirrelmail/plugins/filters/options.php:71
+#: squirrelmail/plugins/filters/options.php:70
 msgid "Message Filtering"
 msgstr "メッセージのフィルタリング"
 
-#: squirrelmail/plugins/filters/options.php:80
+#: squirrelmail/plugins/filters/options.php:79
 #: squirrelmail/plugins/filters/spamoptions.php:115
 msgid "What to Scan:"
 msgstr "どのメッセージをスキャンするか:"
 
-#: squirrelmail/plugins/filters/options.php:87
+#: squirrelmail/plugins/filters/options.php:86
 #: squirrelmail/plugins/filters/spamoptions.php:122
 msgid "All messages"
 msgstr "全メッセージ"
 
-#: squirrelmail/plugins/filters/options.php:92
+#: squirrelmail/plugins/filters/options.php:91
 #: squirrelmail/plugins/filters/spamoptions.php:127
 msgid "Only unread messages"
 msgstr "未読メッセージだけ"
 
-#: squirrelmail/plugins/filters/options.php:95
+#: squirrelmail/plugins/filters/options.php:94
 #: squirrelmail/plugins/filters/spamoptions.php:168
 msgid "Save"
 msgstr "保存"
 
-#: squirrelmail/plugins/filters/options.php:115
+#: squirrelmail/plugins/filters/options.php:114
 msgid "Match:"
 msgstr "項目:"
 
-#: squirrelmail/plugins/filters/options.php:137
+#: squirrelmail/plugins/filters/options.php:136
 msgid "Header"
 msgstr "ヘッダ"
 
-#: squirrelmail/plugins/filters/options.php:143
+#: squirrelmail/plugins/filters/options.php:142
 msgid "Contains:"
 msgstr "含む:"
 
-#: squirrelmail/plugins/filters/options.php:153
-#: squirrelmail/plugins/delete_move_next/setup.php:241
-#: squirrelmail/plugins/delete_move_next/setup.php:265
+#: squirrelmail/plugins/delete_move_next/setup.php:249
+#: squirrelmail/plugins/delete_move_next/setup.php:273
+#: squirrelmail/plugins/filters/options.php:152
 msgid "Move to:"
 msgstr "移動"
 
-#: squirrelmail/plugins/filters/options.php:202
+#: squirrelmail/plugins/filters/options.php:200
 msgid "Down"
 msgstr "↓"
 
-#: squirrelmail/plugins/filters/options.php:208
-msgid "Up"
-msgstr "↑"
-
-#: squirrelmail/plugins/filters/options.php:213
+#: squirrelmail/plugins/filters/options.php:211
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "<b>%s</b> に <b>%s</b> を含むものを <b>%s</b> に移動する。"
@@ -2724,27 +2705,6 @@ msgstr "スペルチェックは完了していません。本当に閉じますか？"
 msgid "No errors found"
 msgstr "エラーはありません。"
 
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
-msgstr ""
-"個人辞書は<strong>暗号化</strong>されて<strong>暗号</strong>で保存されまし"
-"た。"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
-msgstr ""
-"個人辞書<strong>復号</strong>されて<strong>クリアーテキスト</strong>で保存さ"
-"れました。"
-
-#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
-#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
-msgid "Personal Dictionary Crypto Settings"
-msgstr "個人辞書の暗号化の設定"
-
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:33
 msgid "Your personal dictionary was erased."
 msgstr "個人辞書は消去されました。"
@@ -2791,6 +2751,27 @@ msgstr ""
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:79
 msgid "Dictionary re-encrypted"
 msgstr "辞書は再暗号化されました。"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:39
+msgid ""
+"Your personal dictionary has been <strong>encrypted</strong> and is now "
+"stored in an <strong>encrypted format</strong>."
+msgstr ""
+"個人辞書は<strong>暗号化</strong>されて<strong>暗号</strong>で保存されまし"
+"た。"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:54
+msgid ""
+"Your personal dictionary has been <strong>decrypted</strong> and is now "
+"stored as <strong>clear text</strong>."
+msgstr ""
+"個人辞書<strong>復号</strong>されて<strong>クリアーテキスト</strong>で保存さ"
+"れました。"
+
+#: squirrelmail/plugins/squirrelspell/modules/crypto.mod:65
+#: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:76
+msgid "Personal Dictionary Crypto Settings"
+msgstr "個人辞書の暗号化の設定"
 
 #: squirrelmail/plugins/squirrelspell/modules/edit_dic.mod:28
 #: squirrelmail/plugins/squirrelspell/modules/forget_me.mod:77
@@ -2927,8 +2908,8 @@ msgid ""
 "message:"
 msgstr "このメッセージのスペルチェックにどの辞書を使用するか選択:"
 
-#: squirrelmail/plugins/squirrelspell/modules/init.mod:53
 #: squirrelmail/plugins/calendar/calendar.php:125
+#: squirrelmail/plugins/squirrelspell/modules/init.mod:53
 msgid "Go"
 msgstr ""
 
@@ -2996,78 +2977,78 @@ msgstr "未実装"
 msgid "SquirrelSpell Options Menu"
 msgstr "SquirrelSpellオプションメニュー"
 
-#: squirrelmail/plugins/translate/options.php:94
+#: squirrelmail/plugins/translate/options.php:93
 msgid "Translator"
 msgstr "翻訳"
 
-#: squirrelmail/plugins/translate/options.php:97
+#: squirrelmail/plugins/translate/options.php:96
 msgid "Your server options are as follows:"
 msgstr "サーバオプションは以下のとおり:"
 
-#: squirrelmail/plugins/translate/options.php:102
+#: squirrelmail/plugins/translate/options.php:101
 msgid ""
 "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr "13種類の言語の組み合わせ。最大1000文字までの制限。Systran提供。"
 
-#: squirrelmail/plugins/translate/options.php:105
+#: squirrelmail/plugins/translate/options.php:104
 msgid ""
 "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr "10種類の言語の組み合わせ。制限不明。Systran提供。"
 
-#: squirrelmail/plugins/translate/options.php:108
+#: squirrelmail/plugins/translate/options.php:107
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12言語の組み合わせ。制限不明。Systran提供。"
 
-#: squirrelmail/plugins/translate/options.php:111
+#: squirrelmail/plugins/translate/options.php:110
 msgid ""
 "767 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr "767言語の組み合わせ。制限不明。Translation Experts's InterTran提供。"
 
-#: squirrelmail/plugins/translate/options.php:114
+#: squirrelmail/plugins/translate/options.php:113
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr "8言語の組み合わせ。制限不明。GPLTrans提供(free, open source)"
 
-#: squirrelmail/plugins/translate/options.php:120
+#: squirrelmail/plugins/translate/options.php:119
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
 "be located."
 msgstr "翻訳ボックスの表示、位置、翻訳を使用するかどうか設定する。"
 
-#: squirrelmail/plugins/translate/options.php:124
+#: squirrelmail/plugins/translate/options.php:123
 msgid "Select your translator:"
 msgstr "翻訳サイトの選択:"
 
-#: squirrelmail/plugins/translate/options.php:136
+#: squirrelmail/plugins/translate/options.php:135
 msgid "When reading:"
 msgstr "読むとき:"
 
-#: squirrelmail/plugins/translate/options.php:141
+#: squirrelmail/plugins/translate/options.php:140
 msgid "Show translation box"
 msgstr "翻訳ボックスの表示"
 
-#: squirrelmail/plugins/translate/options.php:143
+#: squirrelmail/plugins/translate/options.php:142
 msgid "to the left"
 msgstr "左に"
 
-#: squirrelmail/plugins/translate/options.php:144
+#: squirrelmail/plugins/translate/options.php:143
 msgid "in the center"
 msgstr "中央に"
 
-#: squirrelmail/plugins/translate/options.php:145
+#: squirrelmail/plugins/translate/options.php:144
 msgid "to the right"
 msgstr "右に"
 
-#: squirrelmail/plugins/translate/options.php:150
+#: squirrelmail/plugins/translate/options.php:149
 msgid "Translate inside the SquirrelMail frames"
 msgstr "翻訳結果をSquirrelMailのフレームの中に"
 
-#: squirrelmail/plugins/translate/options.php:153
+#: squirrelmail/plugins/translate/options.php:152
 msgid "When composing:"
 msgstr "メール作成時:"
 
-#: squirrelmail/plugins/translate/options.php:157
+#: squirrelmail/plugins/translate/options.php:156
 msgid "Not yet functional, currently does nothing"
 msgstr "現在は機能しません。"
 
@@ -3348,23 +3329,11 @@ msgstr "インドネシア語"
 msgid "Latin"
 msgstr "ラテン語"
 
-#: squirrelmail/plugins/newmail/newmail.php:20
-msgid "New Mail"
-msgstr "新着メール"
-
-#: squirrelmail/plugins/newmail/newmail.php:26
-msgid "SquirrelMail Notice:"
-msgstr "SquirrelMail 通知:"
-
-#: squirrelmail/plugins/newmail/newmail.php:31
-msgid "You have new mail!"
-msgstr "新しいメールがあります！"
-
-#: squirrelmail/plugins/newmail/newmail_opt.php:38
+#: squirrelmail/plugins/newmail/newmail_opt.php:37
 msgid "New Mail Notification"
 msgstr "新着メールの通知"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:44
+#: squirrelmail/plugins/newmail/newmail_opt.php:43
 msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
@@ -3373,7 +3342,7 @@ msgstr ""
 "未読のメッセージがフォルダーにあるとき音を再生する場合、<b>音の再生を有効</b>"
 "を選択しておきます。"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:48
+#: squirrelmail/plugins/newmail/newmail_opt.php:47
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
@@ -3381,7 +3350,7 @@ msgstr ""
 "<b>INBOXだけでなく、全てのメールボックスを確認する</b>オプションは全てのフォ"
 "ルダをの未読のチェックをして通知します。"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:51
+#: squirrelmail/plugins/newmail/newmail_opt.php:50
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
@@ -3390,7 +3359,7 @@ msgstr ""
 "メールがある時にポップアップウインドウが開きます。(JavaScriptが有効になってい"
 "る必要があります。)"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:54
+#: squirrelmail/plugins/newmail/newmail_opt.php:53
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
 "Recent messages are those that have just recently showed up and have not "
@@ -3398,7 +3367,7 @@ msgid ""
 "by sounds or popups for unseen mail."
 msgstr "新着メールがあるときにポップアップウインドウを開く"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:57
+#: squirrelmail/plugins/newmail/newmail_opt.php:56
 msgid ""
 "Selecting the <b>Change title</b> option will change the title in some "
 "browsers to let you know when you have new mail (requires JavaScript, and "
@@ -3411,7 +3380,7 @@ msgstr ""
 "他のブラウザではエラーになるかもしれません。これは、あなたが「チェック"
 "RECENT」を有効にていても、新着メールがあるかどうか知らせてくれます。"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:61
+#: squirrelmail/plugins/newmail/newmail_opt.php:60
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
 "mail arrives.  Selecting <b>local media</b> will play the file specified in "
@@ -3423,56 +3392,72 @@ msgstr ""
 "す。「ローカルファイルの選択」ボックスでファイルを指定します。ファイルが指定"
 "されていなければ、サーバのデフォルトを使います。"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:74
+#: squirrelmail/plugins/newmail/newmail_opt.php:73
 msgid "Enable Media Playing"
 msgstr "音の再生を有効"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:84
+#: squirrelmail/plugins/newmail/newmail_opt.php:83
 msgid "Check all boxes, not just INBOX"
 msgstr "INBOXだけでなく、全てのメールボックスを確認する"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:93
+#: squirrelmail/plugins/newmail/newmail_opt.php:92
 msgid "Count only messages that are RECENT"
 msgstr "最新のメッセージの数だけ"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:102
+#: squirrelmail/plugins/newmail/newmail_opt.php:101
 msgid "Change title on supported browsers."
 msgstr "タイトルの変更が可能なブラウザではタイトルを変更する。"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:102
-#: squirrelmail/plugins/newmail/newmail_opt.php:111
+#: squirrelmail/plugins/newmail/newmail_opt.php:101
+#: squirrelmail/plugins/newmail/newmail_opt.php:110
 msgid "requires JavaScript to work"
 msgstr "Javascriptが動くことが必要です"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:111
+#: squirrelmail/plugins/newmail/newmail_opt.php:110
 msgid "Show popup window on new mail"
 msgstr "新着メールがあるときにポップアップウインドウを開く"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:115
+#: squirrelmail/plugins/newmail/newmail_opt.php:114
 msgid "Select server file:"
 msgstr "サーバファイルの選択:"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:118
+#: squirrelmail/plugins/newmail/newmail_opt.php:117
 msgid "(local media)"
 msgstr "(ローカルメディア)"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:135
+#: squirrelmail/plugins/newmail/newmail_opt.php:134
 msgid "Try"
 msgstr "試す"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:143
+#: squirrelmail/plugins/newmail/newmail_opt.php:142
 msgid "Local Media File:"
 msgstr "ローカルファイル:"
 
-#: squirrelmail/plugins/newmail/newmail_opt.php:147
+#: squirrelmail/plugins/newmail/newmail_opt.php:146
 msgid "Current File:"
 msgstr "現在のファイル:"
 
-#: squirrelmail/plugins/newmail/setup.php:78
+#: squirrelmail/plugins/newmail/newmail.php:20
+msgid "New Mail"
+msgstr "新着メール"
+
+#: squirrelmail/plugins/newmail/newmail.php:26
+msgid "SquirrelMail Notice:"
+msgstr "SquirrelMail 通知:"
+
+#: squirrelmail/plugins/newmail/newmail.php:31
+msgid "You have new mail!"
+msgstr "新しいメールがあります！"
+
+#: squirrelmail/plugins/newmail/newmail.php:33
+msgid "Close Window"
+msgstr "閉じる"
+
+#: squirrelmail/plugins/newmail/setup.php:79
 msgid "NewMail Options"
 msgstr "新着メールオプション"
 
-#: squirrelmail/plugins/newmail/setup.php:80
+#: squirrelmail/plugins/newmail/setup.php:81
 msgid ""
 "This configures settings for playing sounds and/or showing popup windows "
 "when new mail arrives."
@@ -3480,16 +3465,16 @@ msgstr ""
 "ここでは新着メールがあったときに、サウンドを鳴らしたり、ポップアップウインド"
 "ウを表示する設定をします。"
 
-#: squirrelmail/plugins/newmail/setup.php:129
+#: squirrelmail/plugins/newmail/setup.php:130
 msgid "New Mail Notification options saved"
 msgstr "新着通知機能の設定が保存されました"
 
-#: squirrelmail/plugins/newmail/setup.php:202
+#: squirrelmail/plugins/newmail/setup.php:211
 #, c-format
 msgid "%s New Messages"
 msgstr "新着メッセージ %s 通"
 
-#: squirrelmail/plugins/newmail/setup.php:206
+#: squirrelmail/plugins/newmail/setup.php:215
 #, c-format
 msgid "%s New Message"
 msgstr "新着メッセージ %s 通"
@@ -3988,6 +3973,13 @@ msgstr "基本Sentフォルダ"
 msgid "TODAY"
 msgstr "今日"
 
+#: squirrelmail/plugins/calendar/day.php:37
+#: squirrelmail/plugins/calendar/event_create.php:101
+#: squirrelmail/plugins/calendar/event_delete.php:98
+#: squirrelmail/plugins/calendar/event_edit.php:204
+msgid "l, F j Y"
+msgstr "Y年 F月 j日 (D)"
+
 #: squirrelmail/plugins/calendar/day.php:89
 msgid "ADD"
 msgstr "追加"
@@ -4032,6 +4024,14 @@ msgstr "イベントをセットする"
 #: squirrelmail/plugins/calendar/event_create.php:122
 msgid "Event Has been added!"
 msgstr "イベントは追加されました。"
+
+#: squirrelmail/plugins/calendar/event_create.php:125
+#: squirrelmail/plugins/calendar/event_delete.php:35
+#: squirrelmail/plugins/calendar/event_edit.php:37
+#: squirrelmail/plugins/calendar/event_edit.php:103
+#: squirrelmail/plugins/calendar/event_edit.php:127
+msgid "Date:"
+msgstr "日付:"
 
 #: squirrelmail/plugins/calendar/event_create.php:129
 #: squirrelmail/plugins/calendar/event_delete.php:39
@@ -4169,50 +4169,50 @@ msgstr ""
 msgid "Send Mail"
 msgstr "メール送信"
 
-#: squirrelmail/plugins/listcommands/setup.php:33
+#: squirrelmail/plugins/listcommands/setup.php:31
 msgid "Post to List"
 msgstr "MLに投稿"
 
-#: squirrelmail/plugins/listcommands/setup.php:34
+#: squirrelmail/plugins/listcommands/setup.php:32
 msgid "Reply to List"
 msgstr "MLに返信"
 
-#: squirrelmail/plugins/listcommands/setup.php:37
+#: squirrelmail/plugins/listcommands/setup.php:35
 msgid "List Archives"
 msgstr "アーカイブ"
 
-#: squirrelmail/plugins/listcommands/setup.php:38
+#: squirrelmail/plugins/listcommands/setup.php:36
 msgid "Contact Listowner"
 msgstr "ML管理者に連絡"
 
-#: squirrelmail/plugins/listcommands/setup.php:115
-msgid "Mailing List:"
-msgstr ""
+#: squirrelmail/plugins/listcommands/setup.php:85
+msgid "Mailing List"
+msgstr "メーリングリスト"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:177
-#: squirrelmail/plugins/delete_move_next/setup.php:180
+#: squirrelmail/plugins/delete_move_next/setup.php:185
+#: squirrelmail/plugins/delete_move_next/setup.php:188
 msgid "Delete & Prev"
 msgstr "削除&戻る"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:183
-#: squirrelmail/plugins/delete_move_next/setup.php:185
+#: squirrelmail/plugins/delete_move_next/setup.php:191
+#: squirrelmail/plugins/delete_move_next/setup.php:193
 msgid "Delete & Next"
 msgstr "削除&次へ"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:306
+#: squirrelmail/plugins/delete_move_next/setup.php:314
 msgid "Delete/Move/Next Buttons:"
 msgstr "削除／移動／次へ ボタン："
 
-#: squirrelmail/plugins/delete_move_next/setup.php:313
+#: squirrelmail/plugins/delete_move_next/setup.php:320
 msgid "Display at top"
 msgstr "上に表示"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:319
-#: squirrelmail/plugins/delete_move_next/setup.php:331
+#: squirrelmail/plugins/delete_move_next/setup.php:326
+#: squirrelmail/plugins/delete_move_next/setup.php:338
 msgid "with move option"
 msgstr "移動オプション付き"
 
-#: squirrelmail/plugins/delete_move_next/setup.php:325
+#: squirrelmail/plugins/delete_move_next/setup.php:332
 msgid "Display at bottom"
 msgstr "下に表示"
 
@@ -4412,100 +4412,100 @@ msgstr "全般のオプション"
 msgid "Default Charset"
 msgstr "デフォルト文字セット"
 
-#: squirrelmail/plugins/administrator/defines.php:189
+#: squirrelmail/plugins/administrator/defines.php:190
 msgid "Data Directory"
 msgstr "データディレクトリ"
 
-#: squirrelmail/plugins/administrator/defines.php:192
+#: squirrelmail/plugins/administrator/defines.php:193
 msgid "Temp Directory"
 msgstr "Tempディレクトリ"
 
-#: squirrelmail/plugins/administrator/defines.php:195
+#: squirrelmail/plugins/administrator/defines.php:196
 msgid "Hash Level"
 msgstr "ハッシュレベル"
 
-#: squirrelmail/plugins/administrator/defines.php:197
+#: squirrelmail/plugins/administrator/defines.php:198
 msgid "Hash Disabled"
 msgstr "ハッシュ無効"
 
-#: squirrelmail/plugins/administrator/defines.php:199
+#: squirrelmail/plugins/administrator/defines.php:200
 msgid "Moderate"
 msgstr "モデレート"
 
-#: squirrelmail/plugins/administrator/defines.php:200
+#: squirrelmail/plugins/administrator/defines.php:201
 msgid "Medium"
 msgstr "中"
 
-#: squirrelmail/plugins/administrator/defines.php:202
+#: squirrelmail/plugins/administrator/defines.php:203
 msgid "Default Left Size"
 msgstr "デフォルトの左側(フォルダなど)フレームサイズ"
 
-#: squirrelmail/plugins/administrator/defines.php:205
+#: squirrelmail/plugins/administrator/defines.php:206
 msgid "Usernames in Lowercase"
 msgstr "ユーザー名を小文字に限定"
 
-#: squirrelmail/plugins/administrator/defines.php:207
+#: squirrelmail/plugins/administrator/defines.php:208
 msgid "Allow use of priority"
 msgstr "優先度を使用"
 
-#: squirrelmail/plugins/administrator/defines.php:209
+#: squirrelmail/plugins/administrator/defines.php:210
 msgid "Hide SM attributions"
 msgstr "SMの情報を隠す"
 
-#: squirrelmail/plugins/administrator/defines.php:211
+#: squirrelmail/plugins/administrator/defines.php:212
 msgid "Enable use of delivery receipts"
 msgstr "配送確認を使用する"
 
-#: squirrelmail/plugins/administrator/defines.php:213
+#: squirrelmail/plugins/administrator/defines.php:214
 msgid "Allow editing of identities"
 msgstr "IDの編集を可能にする"
 
-#: squirrelmail/plugins/administrator/defines.php:215
+#: squirrelmail/plugins/administrator/defines.php:216
 msgid "Allow editing of full name"
 msgstr "名前の編集を可能にする"
 
-#: squirrelmail/plugins/administrator/defines.php:218
-#: squirrelmail/plugins/administrator/defines.php:220
+#: squirrelmail/plugins/administrator/defines.php:219
+#: squirrelmail/plugins/administrator/defines.php:221
 msgid "Message of the Day"
 msgstr "今日のメッセージ"
 
-#: squirrelmail/plugins/administrator/defines.php:224
+#: squirrelmail/plugins/administrator/defines.php:225
 msgid "Database"
 msgstr "データベース"
 
-#: squirrelmail/plugins/administrator/defines.php:226
+#: squirrelmail/plugins/administrator/defines.php:227
 msgid "Address book DSN"
 msgstr "アドレス帳DSN"
 
-#: squirrelmail/plugins/administrator/defines.php:229
+#: squirrelmail/plugins/administrator/defines.php:230
 msgid "Address book table"
 msgstr "アドレス帳テーブル名"
 
-#: squirrelmail/plugins/administrator/defines.php:233
+#: squirrelmail/plugins/administrator/defines.php:234
 msgid "Preferences DSN"
 msgstr "設定DSN"
 
-#: squirrelmail/plugins/administrator/defines.php:236
+#: squirrelmail/plugins/administrator/defines.php:237
 msgid "Preferences table"
 msgstr "設定テーブル名"
 
-#: squirrelmail/plugins/administrator/defines.php:240
+#: squirrelmail/plugins/administrator/defines.php:241
 msgid "Preferences username field"
 msgstr "設定ユーザ名フィールド"
 
-#: squirrelmail/plugins/administrator/defines.php:244
+#: squirrelmail/plugins/administrator/defines.php:245
 msgid "Preferences key field"
 msgstr "設定キーフィールド"
 
-#: squirrelmail/plugins/administrator/defines.php:248
+#: squirrelmail/plugins/administrator/defines.php:249
 msgid "Preferences value field"
 msgstr "設定値フィールド"
 
-#: squirrelmail/plugins/administrator/defines.php:253
+#: squirrelmail/plugins/administrator/defines.php:254
 msgid "Themes"
 msgstr "テーマ"
 
-#: squirrelmail/plugins/administrator/defines.php:255
+#: squirrelmail/plugins/administrator/defines.php:256
 msgid "Style Sheet URL (css)"
 msgstr "スタイルシートURL (css)"
 
@@ -4582,3 +4582,43 @@ msgstr "配送エラーレポート"
 #: squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
 msgstr "配送不能メッセージヘッダ"
+
+#~ msgid "Viewing a message attachment"
+#~ msgstr "添付のイメージファイルを表示"
+
+#~ msgid "Save to:"
+#~ msgstr "移動"
+
+#~ msgid "Extract"
+#~ msgstr "取り出す"
+
+#~ msgid "Enable request/confirm reading"
+#~ msgstr "受取通知機能を使用する"
+
+#~ msgid "Use receive date for sort"
+#~ msgstr "ソート（一覧表示）に受信日付を使用する"
+
+#~ msgid "Use References header for thread sort"
+#~ msgstr "Referencesヘッダーでスレッドを並べ変える"
+
+#~ msgid "View Full Header"
+#~ msgstr "ヘッダの表示"
+
+#~ msgid "No Messages found"
+#~ msgstr "表示するメッセージはありません。"
+
+#~ msgid ""
+#~ "Please contact your system administrator and report the following error:"
+#~ msgstr "管理者に次のメッセージとともに連絡を取ってください。"
+
+#~ msgid "No To Address"
+#~ msgstr "宛先無し"
+
+#~ msgid "Found"
+#~ msgstr "みつかりました"
+
+#~ msgid "messages"
+#~ msgstr "メッセージが"
+
+#~ msgid "Error decoding mime structure.  Report this as a bug!"
+#~ msgstr "mimeのデコードエラー。このバグを報告してください。"
