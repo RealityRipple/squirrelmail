@@ -398,7 +398,7 @@ function ListBoxes ($boxes, $j=0 ) {
                 $end .= "&nbsp;<small>$unseen_string</small>";
             }
             $end .= "\n<small>\n" .
-                    '&nbsp;&nbsp;[<a href="empty_trash.php" style="text-decoration:none">'._("purge").'</a>]'.
+                    '&nbsp;&nbsp;[<a href="empty_trash.php">'._("Purge").'</a>]'.
                     '</small>';
         }
     } else {
@@ -524,7 +524,7 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
         if ($numMessages > 0) {
             $urlMailbox = urlencode($mailbox);
             $end .= "\n<small>\n" .
-                    '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("purge").'</a>]'.
+                    '&nbsp;&nbsp;[<a class="mbx_link" href="empty_trash.php">'._("Purge").'</a>]'.
                     '</small>';
         }
     } else {
