@@ -74,8 +74,10 @@
          
          sqUnWordWrap($body);   
          $body_ary = explode("\n", $body);
-         while (ereg("^[>\s]*$", $body_ary[count($body_ary) - 1])) {
-            unset($body_ary[count($body_ary) - 1]);
+         $i = count($body_ary) - 1;
+         while (isset($body_ary[$i]) && ereg("^[>\s]*$", $body_ary[$i])) {
+            unset($body_ary[$i]);
+            $i --;
          }
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
