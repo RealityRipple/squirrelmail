@@ -211,7 +211,7 @@
 	    $this->error = _("Invalid input data");
 	    return false;
 	 }
-	 if(empty($userdata["fullname"]) &&
+	 if(empty($userdata["firstname"]) &&
 	    empty($userdata["lastname"])) {
 	    $this->error = _("Name is missing");
 	    return false;
