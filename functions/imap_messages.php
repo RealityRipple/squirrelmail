@@ -574,6 +574,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false,
     $i = 0;
 
     foreach ($read_list as $r) {
+        $msg = array();
         // use unset because we do isset below
         $read = implode('',$r);
 
