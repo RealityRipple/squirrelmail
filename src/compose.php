@@ -465,11 +465,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         $encoding = $message->header->encoding;
 	$type0 = $message->type0;
 	$type1 = $message->type1;
-
         foreach ($entities as $ent) {
-           $bodypart = decodeBody(
-	              mime_fetch_body($imapConnection, $passed_id, $ent),
-                      $encoding);
+           $unencoded_bodypart = mime_fetch_body($imapConnection, $passed_id, $ent);
+	   $body_part_entity = $message->getEntity($ent);
+	   $bodypart = decodeBody($unencoded_bodypart,
+	                          $body_part_entity->header->encoding);
 	   if ($type1 == 'html') {
               $bodypart = strip_tags($bodypart);
     	   }
