@@ -39,20 +39,41 @@ function charset_decode ($charset, $string) {
             $ret = charset_decode_iso_8859_1 ($string);
         } else if ($res[1] == '2') {
             $ret = charset_decode_iso_8859_2 ($string);
+        } else if ($res[1] == '3') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-3.php');
+            $ret = charset_decode_iso8859_3 ($string);
         } else if ($res[1] == '4') {
-            $ret = charset_decode_iso_8859_4 ($string);
+	    include_once(SM_PATH . 'functions/decode/iso8859-4.php');
+            $ret = charset_decode_iso8859_4 ($string);
         } else if ($res[1] == '5') {
-            $ret = charset_decode_iso_8859_5 ($string);
+	    include_once(SM_PATH . 'functions/decode/iso8859-5.php');
+            $ret = charset_decode_iso8859_5 ($string);
         } else if ($res[1] == '6') {
             $ret = charset_decode_iso_8859_6 ($string);
         } else if ($res[1] == '7') {
             $ret = charset_decode_iso_8859_7 ($string);
+        } else if ($res[1] == '8') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-8.php');
+            $ret = charset_decode_iso8859_8 ($string);
         } else if ($res[1] == '9') {
             $ret = charset_decode_iso_8859_9 ($string);
+        } else if ($res[1] == '10') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-10.php');
+            $ret = charset_decode_iso8859_10 ($string);
+        } else if ($res[1] == '11') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-11.php');
+            $ret = charset_decode_iso8859_11 ($string);
         } else if ($res[1] == '13') {
-            $ret = charset_decode_iso_8859_13 ($string);
+	    include_once(SM_PATH . 'functions/decode/iso8859-13.php');
+            $ret = charset_decode_iso8859_13 ($string);
+        } else if ($res[1] == '14') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-14.php');
+            $ret = charset_decode_iso8859_14 ($string);
         } else if ($res[1] == '15') {
             $ret = charset_decode_iso_8859_15 ($string);
+        } else if ($res[1] == '16') {
+	    include_once(SM_PATH . 'functions/decode/iso8859-16.php');
+            $ret = charset_decode_iso8859_16 ($string);
         } else {
             $ret = charset_decode_iso_8859_default ($string);
         }
@@ -73,7 +94,8 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'windows-1256') {
 	     $ret = charset_decode_windows_1256 ($string);
     } else if ($charset == 'windows-1257') {
-        $ret = charset_decode_windows_1257 ($string);
+        include_once(SM_PATH . 'functions/decode/cp1257.php');
+        $ret = charset_decode_cp1257 ($string);
     } else if ($charset == 'utf-8') {
 	$ret = charset_decode_utf8 ($string);
     } else {
