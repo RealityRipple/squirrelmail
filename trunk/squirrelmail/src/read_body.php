@@ -488,6 +488,23 @@
 	  "      </TR>" . "\n";
       }
    }
+   if ($show_xmailer_default) {
+      fputs ($imapConnection, sqimap_session_id() .
+                   " FETCH $passed_id BODY.PEEK[HEADER.FIELDS (X-Mailer)]\r\n");
+      $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, 
+                                                       $response, $readmessage);
+      $mailer = substr($read[1], strpos($read[1], " "));
+      if (trim($mailer)) {
+	echo "      <TR>\n" .
+	  "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n" .
+	  "            "._("Mailer").": \n".
+	  "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n" .
+	  "            <B>$mailer</B>&nbsp;\n" .
+	  "         </TD>" . "\n" .
+	  "      </TR>" . "\n";
+      }
+   }
+
    do_hook("read_body_header");
    echo '</TABLE>' .
         '   </TD></TR>' .

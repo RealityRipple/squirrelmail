@@ -196,6 +196,13 @@
         'refresh' => SMOPT_REFRESH_NONE
     );
 
+    $optvals[] = array(
+        'name'    => 'show_xmailer_default',
+        'caption' => _("Show the Mailer of incoming messages"),
+        'type'    => SMOPT_TYPE_BOOLEAN,
+        'refresh' => SMOPT_REFRESH_NONE
+    );
+
     /* Build all these values into an array of SquirrelOptions objects. */
     $options = createOptionArray($optvals);
 
