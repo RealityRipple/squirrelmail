@@ -177,6 +177,11 @@ function getSig($data_dir, $username) {
 function getHashedFile($username, $dir, $datafile, $hash_search = true) {
     global $dir_hash_level;
 
+    /* Remove trailing slash from $dir if found */
+    if (substr($dir, -1) == '/') {
+        $dir = substr($dir, 0, strlen($dir) - 1);
+    }
+    
     /* Compute the hash for this user and extract the hash directories. */
     $hash_dirs = computeHashDirs($username);
 
@@ -197,7 +202,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
             $check_hash_dir = $dir;
             for ($h = 0; $h < 4; ++$h) {
                 $check_hash_dir .= '/' . $hash_dirs[$h];
-                if (is_readable("$check_hash_dir/$datafile")) {
+                if (@is_readable("$check_hash_dir/$datafile")) {
                     rename("$check_hash_dir/$datafile", $result);
                     break;
                 }
