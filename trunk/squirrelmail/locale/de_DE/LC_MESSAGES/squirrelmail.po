@@ -1419,7 +1419,7 @@ msgstr "Februar"
 
 #: squirrelmail/functions/date.php:126
 msgid "March"
-msgstr "M&auml;rz"
+msgstr "März"
 
 #: squirrelmail/functions/date.php:129
 msgid "April"
@@ -2485,7 +2485,7 @@ msgstr "Noch nicht in Betrieb, mach momentan nichts"
 
 #: squirrelmail/plugins/translate/setup.php:104
 msgid "Translation Options"
-msgstr ""
+msgstr "Übersetzungsoptionen"
 
 #: squirrelmail/plugins/translate/setup.php:106
 msgid ""
@@ -2772,12 +2772,18 @@ msgid ""
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
 msgstr ""
+"Wählen Sie <b>Enable Media Playing</b> wenn Sie wollen, daß eine "
+"Mediendatei abgespielt wird, wenn sich neue Mail in Ihren Mailordnern "
+"befindet. Wenn aktiviert, können Sie auswählen, welche Mediendatei "
+"abgespielt wird."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:39
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
 msgstr ""
+"Die Option <b>Prüfe alle Mailboxen, nicht nur Inbox</b> prüft alle "
+"Mailordner auf neue Mail, anstatt nur der Inbox."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:41
 msgid ""
@@ -2812,36 +2818,36 @@ msgstr ""
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:57
 msgid "Enable Media Playing"
-msgstr ""
+msgstr "Aktiviere das Spielen von Medien"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:65
 msgid "Check all boxes, not just INBOX"
-msgstr ""
+msgstr "Prüfe alle Mailboxen, nicht nur Inbox"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:73
 msgid "Count only messages that are RECENT"
-msgstr ""
+msgstr "Zähle nur aktuelle Nachrichten"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:81
 msgid "Change title on supported browsers."
-msgstr ""
+msgstr "Ändere Titel bei unterstützten Webbrowsern."
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:81
 #: squirrelmail/plugins/newmail/newmail_opt.php:89
 msgid "requires JavaScript to work"
-msgstr ""
+msgstr "benötigt JavaScript"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:89
 msgid "Show popup window on new mail"
-msgstr ""
+msgstr "Zeige pop-up Fenster bei neuer Mail"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:92
 msgid "Select server file:"
-msgstr ""
+msgstr "Wählen Sie die Serverdatei:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:94
 msgid "(local media)"
-msgstr ""
+msgstr "(lokale Medien)"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:111
 msgid "Try"
@@ -2849,7 +2855,7 @@ msgstr "Versuch"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:119
 msgid "Local Media File:"
-msgstr ""
+msgstr "Lokale Tondatei:"
 
 #: squirrelmail/plugins/newmail/newmail_opt.php:125
 msgid "Current File:"
@@ -2881,7 +2887,7 @@ msgstr ""
 
 #: squirrelmail/plugins/newmail/setup.php:129
 msgid "New Mail Notification options saved"
-msgstr ""
+msgstr "Optionen für Neue Mail gespeichert"
 
 #: squirrelmail/plugins/newmail/setup.php:202
 #, c-format
@@ -2899,7 +2905,7 @@ msgstr "Testton"
 
 #: squirrelmail/plugins/newmail/testsound.php:30
 msgid "Loading the sound..."
-msgstr ""
+msgstr "Lade den Ton..."
 
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:82
 #: squirrelmail/plugins/mail_fetch/class.POP3.php:90
@@ -3087,11 +3093,11 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:63
 msgid "Select Server:"
-msgstr ""
+msgstr "Wählen Sie den Server:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:65
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:78
 msgid "Password for"
@@ -3099,41 +3105,41 @@ msgstr "Passwort für"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:85
 msgid "Fetch Mail"
-msgstr ""
+msgstr "Hole Mail"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:117
 msgid "Fetching from "
-msgstr ""
+msgstr "Hole von "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:124
 #: squirrelmail/plugins/mail_fetch/fetch.php:184
 msgid "Oops, "
-msgstr ""
+msgstr "Ups, "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:128
 msgid "Opening IMAP server"
-msgstr ""
+msgstr "Öffne IMAP Server"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:131
 msgid "Opening POP server"
-msgstr ""
+msgstr "Öffne POP Server"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:134
 #: squirrelmail/plugins/mail_fetch/setup.php:123
 msgid "Login Failed:"
-msgstr ""
+msgstr "Login fehlgeschlagen:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:151
 msgid "Login OK: No new messages"
-msgstr ""
+msgstr "Login OK: Keine neuen Mails"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:156
 msgid "Login OK: Inbox EMPTY"
-msgstr ""
+msgstr "Login OK: Inbox LEER"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "Login OK: Inbox contains ["
-msgstr ""
+msgstr "Login OK: Inbox enthält ["
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:161
 msgid "] messages"
@@ -3141,20 +3147,20 @@ msgstr "] Nachrichten"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:164
 msgid "Fetching UIDL..."
-msgstr ""
+msgstr "Hole UIDL..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:169
 #: squirrelmail/plugins/mail_fetch/setup.php:154
 msgid "Server does not support UIDL."
-msgstr ""
+msgstr "Server unterstützt kein UIDL."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:172
 msgid "Leaving Mail on Server..."
-msgstr ""
+msgstr "Belasse Mail auf dem Server..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:174
 msgid "Deleting messages from server..."
-msgstr ""
+msgstr "Lösche Mails vom Server..."
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:178
 msgid "Fetching message "
@@ -3162,7 +3168,7 @@ msgstr "Hole Nachricht "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:201
 msgid "Message appended to mailbox"
-msgstr ""
+msgstr "Nachricht an Mailbox angefügt"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
 msgid "Message "
@@ -3170,11 +3176,11 @@ msgstr "Nachricht "
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:205
 msgid " deleted from Remote Server!"
-msgstr ""
+msgstr " vom Server gelöscht!"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:207
 msgid "Delete failed:"
-msgstr ""
+msgstr "Löschen fehlgeschlagen:"
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:212
 #: squirrelmail/plugins/mail_fetch/setup.php:185
@@ -3191,11 +3197,11 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/fetch.php:221
 msgid "Saving UIDL"
-msgstr ""
+msgstr "Saving UIDL"
 
 #: squirrelmail/plugins/mail_fetch/options.php:105
 msgid "Remote POP server settings"
-msgstr ""
+msgstr "Einstellungen für den POP3 Server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:107
 msgid ""
@@ -3207,16 +3213,16 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/options.php:109
 msgid "If you leave password empty, it will be required when you fetch mail."
-msgstr ""
+msgstr "Wenn Sie das Passwort leer lassen, werden Sie beim Abrufen danach gefragt."
 
 #: squirrelmail/plugins/mail_fetch/options.php:113
 msgid "Encrypt passwords (informative only)"
-msgstr ""
+msgstr "Passwort verschlüsseln (nur zur Information)"
 
 #: squirrelmail/plugins/mail_fetch/options.php:119
 #: squirrelmail/plugins/mail_fetch/options.php:151
 msgid "Add Server"
-msgstr ""
+msgstr "Server hinzufügen"
 
 #: squirrelmail/plugins/mail_fetch/options.php:123
 #: squirrelmail/plugins/mail_fetch/options.php:201
@@ -3226,7 +3232,7 @@ msgstr "Server:"
 #: squirrelmail/plugins/mail_fetch/options.php:124
 #: squirrelmail/plugins/mail_fetch/options.php:203
 msgid "Alias:"
-msgstr ""
+msgstr "Alias:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:125
 #: squirrelmail/plugins/mail_fetch/options.php:205
@@ -3241,26 +3247,26 @@ msgstr "Speichern im Ordner:"
 #: squirrelmail/plugins/mail_fetch/options.php:148
 #: squirrelmail/plugins/mail_fetch/options.php:233
 msgid "Leave Mail on Server"
-msgstr ""
+msgstr "Mail auf Server belassen"
 
 #: squirrelmail/plugins/mail_fetch/options.php:149
 #: squirrelmail/plugins/mail_fetch/options.php:235
 msgid "Check mail during login"
-msgstr ""
+msgstr "Auf neue Mail prüfen während des Einloggens"
 
 #: squirrelmail/plugins/mail_fetch/options.php:150
 #: squirrelmail/plugins/mail_fetch/options.php:237
 msgid "Check mail during folder refresh"
-msgstr ""
+msgstr "Auf neue Mail prüfen während Ordernübersicht erneuert wird"
 
 #: squirrelmail/plugins/mail_fetch/options.php:157
 #: squirrelmail/plugins/mail_fetch/options.php:238
 msgid "Modify Server"
-msgstr ""
+msgstr "Server modifizieren"
 
 #: squirrelmail/plugins/mail_fetch/options.php:161
 msgid "Server Name:"
-msgstr ""
+msgstr "Name des Servers:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:167
 #: squirrelmail/plugins/mail_fetch/options.php:190
@@ -3275,19 +3281,19 @@ msgstr ""
 #: squirrelmail/plugins/mail_fetch/options.php:192
 #: squirrelmail/plugins/mail_fetch/options.php:243
 msgid "Fetching Servers"
-msgstr ""
+msgstr "Hole Server"
 
 #: squirrelmail/plugins/mail_fetch/options.php:181
 msgid "Confirm Deletion of a Server"
-msgstr ""
+msgstr "Löschen eines Servers bestätigen"
 
 #: squirrelmail/plugins/mail_fetch/options.php:185
 msgid "Selected Server:"
-msgstr ""
+msgstr "Ausgewählter Server:"
 
 #: squirrelmail/plugins/mail_fetch/options.php:186
 msgid "Confirm delete of selected server?"
-msgstr ""
+msgstr "Soll der ausgewählte Server gelöscht werden?"
 
 #: squirrelmail/plugins/mail_fetch/options.php:187
 msgid "Confirm Delete"
@@ -3295,7 +3301,7 @@ msgstr "Löschen bestätigen"
 
 #: squirrelmail/plugins/mail_fetch/options.php:196
 msgid "Mofify a Server"
-msgstr ""
+msgstr "Server modifizieren"
 
 #: squirrelmail/plugins/mail_fetch/options.php:246
 msgid "Undefined Function"
@@ -3307,7 +3313,7 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/setup.php:30
 msgid "Fetch"
-msgstr ""
+msgstr "Abholen"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:115
 #: squirrelmail/plugins/mail_fetch/setup.php:162
@@ -3320,25 +3326,27 @@ msgstr ""
 
 #: squirrelmail/plugins/mail_fetch/setup.php:223
 msgid "Simple POP3 Fetch Mail"
-msgstr ""
+msgstr "Einfacher POP3 Client"
 
 #: squirrelmail/plugins/mail_fetch/setup.php:225
 msgid ""
 "This configures settings for downloading email from a pop3 mailbox to your "
 "account on this server."
 msgstr ""
+"Hiermit können Sie den Download von Inhalten einer beliebigen POP3 Mailbox "
+"in dieses Konto auf diesem Server konfigurieren."
 
 #: squirrelmail/plugins/bug_report/setup.php:65
 msgid "Bug Reports:"
-msgstr ""
+msgstr "Softwarefehler Berichte:"
 
 #: squirrelmail/plugins/bug_report/setup.php:70
 msgid "Show button in toolbar"
-msgstr ""
+msgstr "Zeige den Knopf im Toolbar"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:94
 msgid "Sent Subfolders Options"
-msgstr ""
+msgstr "Optionen für den Unterordner Sent"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:99
 msgid "Use Sent Subfolders"
@@ -3346,7 +3354,7 @@ msgstr "Ordner für gesendete Nachrichten verwenden"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:102
 msgid "Disabled"
-msgstr ""
+msgstr "Deaktiviert"
 
 #: squirrelmail/plugins/sent_subfolders/setup.php:103
 msgid "Monthly"
