@@ -200,8 +200,11 @@ global $delimiter, $default_folder_prefix;
 // open a connection on the imap port (143)
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 10); // the 10 is to hide the output
 
-
-if (isset($left_refresh) && ($left_refresh != 'none') && ($left_refresh != '')) {
+/**
+ * Using stristr since older preferences may contain "None" and "none".
+ */
+if (isset($left_refresh) && ($left_refresh != '') &&
+    !stristr($left_refresh, "none")){
     $xtra =  "\n<META HTTP-EQUIV=\"Expires\" CONTENT=\"Thu, 01 Dec 1994 16:00:00 GMT\">\n" .
              "<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n".
              "<META HTTP-EQUIV=\"REFRESH\" CONTENT=\"$left_refresh;URL=left_main.php\">\n";
