@@ -17,11 +17,10 @@
    fputs($imapConnection, "1 LIST \"$mailbox\" *\n");
    $data = imapReadData($imapConnection , "1", false, $response, $message);
    while (substr($data[0], strpos($data[0], " ")+1, 4) == "LIST") {
+      echo "DEBUG - data from IMAP \"LIST\" : " . $data[0] . "<BR>\n"; 
       for ($i = 0; $i < count($boxes); $i++) {
          if (($boxes[$i]["UNFORMATTED"] == $mailbox) ||
              (substr($boxes[$i]["UNFORMATTED"], 0, strlen($mailbox . $dm)) == $mailbox . $dm)) {
-            echo "\nDEBUG - Removing folder " . $boxes[$i]["UNFORMATTED"] . "<BR>\n";
-            echo "DEBUG - mailbox is : $mailbox<br>\n";
             removeFolder($imapConnection, $boxes[$i]["UNFORMATTED"]);
          }
       }
