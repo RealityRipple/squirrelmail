@@ -16,6 +16,10 @@ initials = taken by that person
   -     Make Location redirects absolute rather than relative (index.php)
   -     Foreground themes
 (lme)   Configure script
+  -     When deleting or moving messages (empty trash too), go back to the 
+            list for the mail box you were looking at without having to click
+            a link
+  -     Spell checking
 
 
 Finished:
