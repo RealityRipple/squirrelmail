@@ -7,7 +7,7 @@
  *    Date:    May 23, 2000
  *    Comment: Deep Ocean 2 is very blue with a white background.
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

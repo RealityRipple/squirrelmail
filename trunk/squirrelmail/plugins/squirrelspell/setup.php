@@ -4,7 +4,7 @@
  * -----------
  * Squirrelspell setup file, as defined by the SquirrelMail-1.2 API.
  * 
- * Copyright (c) 1999-2002 The SquirrelMail development team
+ * Copyright (c) 1999-2003 The SquirrelMail development team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

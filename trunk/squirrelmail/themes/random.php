@@ -7,7 +7,7 @@
  *    Date:    December 24, 2001
  *    Comment: Guess what this does!
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

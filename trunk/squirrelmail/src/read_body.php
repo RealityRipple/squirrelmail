@@ -3,7 +3,7 @@
 /**
  * read_body.php
  *
- * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file is used for reading the msgs array and displaying

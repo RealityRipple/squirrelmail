@@ -3,7 +3,7 @@
    /**
     * mail_fetch/setup.php
     *
-    * Copyright (c) 1999-2002 The SquirrelMail Project Team
+    * Copyright (c) 1999-2003 The SquirrelMail Project Team
     *
     * Copyright (c) 1999 CDI (cdi@thewebmasters.net) All Rights Reserved
     * Modified by Philippe Mingo 2001 mingo@rotedic.com

@@ -3,7 +3,7 @@
 /**
  * constants.php
  *
- * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * Loads constants used by the rest of the Squirrelmail source.

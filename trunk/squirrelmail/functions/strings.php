@@ -3,7 +3,7 @@
 /** 
  * strings.php
  *
- * Copyright (c) 1999-2002 The SquirrelMail Project Team
+ * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This code provides various string manipulation functions that are
@@ -16,14 +16,14 @@
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.3.3 [CVS-DEVEL]';
+$version = '1.4.0 RC1';
 
 /** 
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
 global $SQM_INTERNAL_VERSION;
-$SQM_INTERNAL_VERSION = array(1,3,3);
+$SQM_INTERNAL_VERSION = array(1,4,0);
 
 
 /**

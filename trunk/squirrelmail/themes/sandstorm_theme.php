@@ -7,7 +7,7 @@
  *    Date:    January 2, 2000
  *    Comment: This is a theme using Tan as its main color.
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

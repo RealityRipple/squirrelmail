@@ -4,7 +4,7 @@
 * redirect.php
 * Derived from webmail.php by Ralf Kraudelt <kraude@wiwi.uni-rostock.de>
 *
-* Copyright (c) 1999-2002 The SquirrelMail Project Team
+* Copyright (c) 1999-2003 The SquirrelMail Project Team
 * Licensed under the GNU GPL. For full terms see the file COPYING.
 *
 * Prevents users from reposting their form data after a successful logout.

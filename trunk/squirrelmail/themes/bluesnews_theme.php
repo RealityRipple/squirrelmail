@@ -9,7 +9,7 @@
  *             you the 'inspired by BluesNews.com' theme. Simple, high-
  *             contrast colorset, easy to read with very little eye strain.
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * $Id$

@@ -12,7 +12,7 @@
  * To create a new theme, just copy this file, and edit the colors.
  * Be sure to rename the file and keep the original, just in case.
  *
- * Copyright (c) 2000-2002 The SquirrelMail Project Team
+ * Copyright (c) 2000-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * NOTE: Please email any themes you create to captbunzo@squirrelmail.org

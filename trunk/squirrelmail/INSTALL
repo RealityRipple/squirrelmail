@@ -22,7 +22,7 @@ Table of Contents:
 
   NOTE: The new plugin architecture required the use of some functions 
   which are not in all versions of PHP4. You will need at least 
-  PHP4 v4.0.2. If you need to upgrade please go ahead and install the
+  PHP4 v4.0.4. If you need to upgrade please go ahead and install the
   latest release version of PHP4.
 
 a. Obtaining and compiling PHP4
@@ -58,8 +58,6 @@ b. Changing php.ini
   be sure to change the session.save_path to someplace that can only 
   be read and written to by the webserver.  session.save_path is the
   location that PHP's session data will be written to.
-  
-  Squirrelmail 1.2.x also requires register_globals to be enabled. 
 
   SECURITY WARNING - If a user has access to write PHP scripts on your 
   system and knows the location where PHP stores session data, he 
@@ -67,9 +65,9 @@ b. Changing php.ini
   session's data with his own PHP script.  Caution should be used when 
   setting up permissions and locations of php.ini and the session data.
 
-  FILE UPLOADS - Note that sending messages will not work if your
+  FILE UPLOADS - Note that sending attachments will not work if your
   "file_uploads" setting is "Off". Squirrelmail requires that setting
-  enabled in order to work.
+  enabled in order to be able to attach files.
 
 c. Setting up .php files to use PHP4
 
