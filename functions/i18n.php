@@ -41,6 +41,8 @@
    $languages["es"]["CHARSET"] = "iso-8859-1";
    $languages["ko"]["NAME"]    = "Korean";
    $languages["ko"]["CHARSET"] = "euc-KR";
+   $languages["ca"]["NAME"]    = "Catalan";
+   $languages["ca"]["CHARSET"] = "iso-8859-1";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {

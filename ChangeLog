@@ -1,5 +1,11 @@
-Version 0.5 -- DEVELOPMENT
---------------------------
+Version 0.6pre1 -- DEVELOPMENT
+------------------------------
+- Fixed some security problems with uploading attachments
+- Added Catalan translation from Josep Sanz <jsanz@fa.upc.es>
+
+
+Version 0.5 -- September 25, 2000 
+---------------------------------
 - Fixed some problems with downloading attachments in IE
 - If no date is set in header, we take internal date of the imap server
 - Fixed some lingering bugs in mime parsing 
