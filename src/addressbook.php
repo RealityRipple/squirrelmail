@@ -372,6 +372,8 @@ abook_create_form($form_url,'addaddr',_("Add to address book"),_("Add address"),
 echo "</form>\n";
 
 /* Add hook for anything that wants on the bottom */
+echo "<!-- start of addressbook_bottom hook-->\n";
 do_hook('addressbook_bottom');
+echo "\n<!-- end of addressbook_bottom hook-->\n";
 ?>
 </body></html>
