@@ -9,13 +9,14 @@
       include("../functions/page_header.php");
    if (!isset($dipslay_messages_php))
       include("../functions/display_messages.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
    if (!isset($array_php))
       include("../functions/array.php");
+   if (!isset($auth_php))
+      include ("../functions/auth.php");
 
    include("../src/load_prefs.php");
 
+   is_logged_in();
 
    setPref($data_dir, $username, "full_name", stripslashes($full_name));
    setPref($data_dir, $username, "email_address", stripslashes($email_address));

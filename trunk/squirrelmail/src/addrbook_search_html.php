@@ -17,14 +17,12 @@
       include("../config/config.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
+   if (!isset($auth_php))
+      include("../functions/auth.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
    if (!isset($date_php))
       include("../functions/date.php");
-   if (!isset($mime_php))
-      include("../functions/mime.php");
    if (!isset($smtp_php))
       include("../functions/smtp.php");
    if (!isset($display_messages_php))
@@ -33,7 +31,6 @@
       include("../functions/addressbook.php");
 
    include("../src/load_prefs.php");
-
 
    // Insert hidden data
    function addr_insert_hidden() {
