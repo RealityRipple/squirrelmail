@@ -75,8 +75,16 @@
 	setcookie(session_name(),"",0,$cookie_params["domain"].$cookie_params["path"]); 
 
    do_hook('login_cookie');
-   echo "<HTML>";
-   echo "<HEAD><TITLE>";
+
+   echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">' .
+        "\n\n" .
+	"<HTML>\n" .
+	"<HEAD>\n";
+			   
+   if ($theme_css != "")
+       echo "<LINK REL=\"stylesheet\" TYPE=\"text/css\" HREF=\"$theme_css\">\n";
+	 
+   echo "<TITLE>";
    echo $org_name . " - " . _("Login");
    echo "</TITLE></HEAD>\n";
    echo "<BODY TEXT=000000 BGCOLOR=#FFFFFF LINK=0000CC VLINK=0000CC ALINK=0000CC>\n";
