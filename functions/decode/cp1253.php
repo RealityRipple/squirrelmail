@@ -3,7 +3,7 @@
  * decode/cp1253.php
  * $Id$
  *
- * Copyright (c) 2003 The SquirrelMail Project Team
+ * Copyright (c) 2003-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This file contains cp1253 decoding function that is needed to read

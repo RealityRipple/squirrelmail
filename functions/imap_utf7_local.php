@@ -3,7 +3,7 @@
 /**
  * imap_utf7_local.php
  *
- * Copyright (c) 1999-2003 The SquirrelMail Project Team
+ * Copyright (c) 1999-2004 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
  * This implements all functions that do imap UTF7 conversions.
