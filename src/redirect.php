@@ -54,10 +54,10 @@
       do_hook ("login_before");
 
       $onetimepad = OneTimePadCreate(strlen($secretkey));
-      $key = OneTimePadEncrypt(qoutemeta($secretkey), $onetimepad);
+      $key = OneTimePadEncrypt($secretkey, $onetimepad);
       session_register("onetimepad");
       // verify that username and password are correct
-      $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+      $imapConnection = sqimap_login($username, quotemeta($key), $imapServerAddress, $imapPort, 0);
       sqimap_logout($imapConnection);
 
       setcookie("username", $username, 0, $base_uri);
