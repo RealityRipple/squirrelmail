@@ -588,7 +588,13 @@ $prefs_table = 'userprefs';
 $prefs_key_field = 'prefkey';
 $prefs_user_field = 'user';
 $prefs_val_field = 'prefval';
-
+/**
+ * Global sql database options
+ */
+$addrbook_global_dsn = '';
+$addrbook_global_table = 'global_abook';
+$addrbook_global_writeable = false;
+$addrbook_global_listing = false;
 
 /*** Language settings ***/
 /**

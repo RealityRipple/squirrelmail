@@ -230,6 +230,21 @@ while ( $line = <FILE> ) {
                     $tmp =~ s/[\'|\"],?\s*$//;
                     $tmp =~ s/[\'|\"]\);\s*$//;
                     $name = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'|\"]binddn[\'|\"]/i ) {
+                    $tmp =~ s/^\s*[\'|\"]binddn[\'|\"]\s*=>\s*[\'|\"]//i;
+                    $tmp =~ s/[\'|\"],?\s*$//;
+                    $tmp =~ s/[\'|\"]\);\s*$//;
+                    $binddn = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'|\"]bindpw[\'|\"]/i ) {
+                    $tmp =~ s/^\s*[\'|\"]bindpw[\'|\"]\s*=>\s*[\'|\"]//i;
+                    $tmp =~ s/[\'|\"],?\s*$//;
+                    $tmp =~ s/[\'|\"]\);\s*$//;
+                    $bindpw = $tmp;
+                } elsif ( $tmp =~ /^\s*[\'|\"]protocol[\'|\"]/i ) {
+                    $tmp =~ s/^\s*[\'|\"]protocol[\'|\"]\s*=>\s*[\'|\"]?//i;
+                    $tmp =~ s/[\'|\"]?,?\s*$//;
+                    $tmp =~ s/[\'|\"]?\);\s*$//;
+                    $protocol = $tmp;
                 }
             }
             $ldap_host[$sub]    = $host;
@@ -238,6 +253,9 @@ while ( $line = <FILE> ) {
             $ldap_port[$sub]    = $port;
             $ldap_maxrows[$sub] = $maxrows;
             $ldap_charset[$sub] = $charset;
+            $ldap_binddn[$sub]  = $binddn;
+            $ldap_bindpw[$sub]  = $bindpw;
+            $ldap_protocol[$sub] = $protocol;
         } elsif ( $options[0] =~ /^(data_dir|attachment_dir|theme_css|org_logo|signout_page)$/ ) {
             ${ $options[0] } = &change_to_rel_path($options[1]);
         } else {
@@ -326,6 +344,15 @@ if ( !$prefs_user_field ) {
 }
 if ( !$prefs_key_field ) {
     $prefs_key_field = 'prefkey';
+}
+if ( !$addrbook_global_table ) {
+    $addrbook_global_table = 'global_abook';
+}
+if ( !$addrbook_global_writeable ) {
+    $addrbook_global_writeable = 'false';
+}
+if ( !$addrbook_global_listing ) {
+    $addrbook_global_listing = 'false';
 }
 if ( !$prefs_val_field ) {
     $prefs_val_field = 'prefval';
@@ -622,6 +649,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "6.  Field for prefs key    : $WHT$prefs_key_field$NRM\n";
         print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
         print "\n";
+        print "8.  DSN for Global Address Book            : $WHT$addrbook_global_dsn$NRM\n";
+        print "9.  Table for Global Address Book          : $WHT$addrbook_global_table$NRM\n";
+        print "10. Allow writing into Global Address Book : $WHT$addrbook_global_writeable$NRM\n";
+        print "11. Allow listing of Global Address Book   : $WHT$addrbook_global_listing$NRM\n";
+        print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 10 ) {
 	print $WHT. "Language settings\n" . $NRM;
@@ -777,6 +809,10 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 5 ) { $prefs_user_field = command95(); }
             elsif ( $command == 6 ) { $prefs_key_field  = command96(); }
             elsif ( $command == 7 ) { $prefs_val_field  = command97(); }
+            elsif ( $command == 8 ) { $addrbook_global_dsn       = command98(); }
+            elsif ( $command == 9 ) { $addrbook_global_table     = command99(); }
+            elsif ( $command == 10 ) { $addrbook_global_writeable = command910(); }
+            elsif ( $command == 11 ) { $addrbook_global_listing  = command911(); }
         } elsif ( $menu == 10 ) {
             if    ( $command == 1 ) { $squirrelmail_default_language = commandA1(); }
             elsif ( $command == 2 ) { $default_charset  	     = commandA2(); }
@@ -1882,7 +1918,7 @@ sub command33a {
     print "  Relative:    ../data/\n";     
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n\n";
-    print "Note: There are potential security risks with having a writable directory\n";
+    print "Note: There are potential security risks with having a writeable directory\n";
     print "under the web server's root directory (ex: /home/httpd/html).\n";
     print "For this reason, it is recommended to put the data directory\n";
     print "in an alternate location of your choice. \n";
@@ -2405,6 +2441,16 @@ sub command61 {
                 if ( $ldap_maxrows[$count] ) {
                     print "     maxrows: $ldap_maxrows[$count]\n";
                 }
+                if ( $ldap_binddn[$count] ) {
+                    print "      binddn: $ldap_binddn[$count]\n";
+                    if ( $ldap_bindpw[$count] ) {
+                        print "      bindpw: $ldap_bindpw[$count]\n";
+                    }
+                }
+		if ( $ldap_protocol[$count] ) {
+                    print "    protocol: $ldap_protocol[$count]\n";
+                }
+
                 print "\n";
                 $count++;
             }
@@ -2466,6 +2512,36 @@ sub command61 {
 
             print "\n";
 
+            print "If your LDAP server does not like anonymous logins, you can specify bind DN.\n";
+            print "Default is none, anonymous bind.  Press ENTER for default.\n";
+            print "binddn: ";
+            $name = <STDIN>;
+            $name =~ s/[\r|\n]//g;
+            $ldap_binddn[$sub] = $name;
+
+            print "\n";
+
+            if ( $ldap_binddn[$sub] ne '' ) {
+
+                print "Now, please specify password for that DN.\n";
+                print "bindpw: ";
+                $name = <STDIN>;
+                $name =~ s/[\r|\n]//g;
+                $ldap_bindpw[$sub] = $name;
+
+                print "\n";
+            }
+
+	    print "You can specify bind protocol version here.\n";
+            print "Default protocol version depends on your php ldap settings.\n";
+	    print "Press ENTER for default.\n";
+            print "protocol: ";
+            $name = <STDIN>;
+            $name =~ s/[\r|\n]//g;
+            $ldap_protocol[$sub] = $name;
+
+            print "\n";
+
         } elsif ( $input =~ /^\s*-\s*[0-9]?/ ) {
             if ( $input =~ /[0-9]+\s*$/ ) {
                 $rem_num = $input;
@@ -2481,6 +2557,9 @@ sub command61 {
             @new_ldap_name    = ();
             @new_ldap_charset = ();
             @new_ldap_maxrows = ();
+            @new_ldap_bindpw  = ();
+            @new_ldap_binddn  = ();
+            @new_ldap_protocol = ();
 
             while ( $count <= $#ldap_host ) {
                 if ( $count != $rem_num ) {
@@ -2490,6 +2569,9 @@ sub command61 {
                     @new_ldap_name    = ( @new_ldap_name,    $ldap_name[$count] );
                     @new_ldap_charset = ( @new_ldap_charset, $ldap_charset[$count] );
                     @new_ldap_maxrows = ( @new_ldap_maxrows, $ldap_maxrows[$count] );
+                    @new_ldap_binddn  = ( @new_ldap_binddn,  $ldap_binddn[$count] );
+                    @new_ldap_bindpw  = ( @new_ldap_bindpw,  $ldap_bindpw[$count] );
+                    @new_ldap_protocol  = ( @new_ldap_protocol,  $ldap_protocol[$count] );
                 }
                 $count++;
             }
@@ -2499,6 +2581,10 @@ sub command61 {
             @ldap_name    = @new_ldap_name;
             @ldap_charset = @new_ldap_charset;
             @ldap_maxrows = @new_ldap_maxrows;
+            @ldap_binddn  = @new_ldap_binddn;
+            @ldap_bindpw  = @new_ldap_bindpw;
+            @ldap_protocol = @new_ldap_protocol;
+
         } elsif ( $input =~ /^\s*\?\s*/ ) {
             print ".-------------------------.\n";
             print "| +            (add host) |\n";
@@ -2663,6 +2749,85 @@ sub command97 {
     }
     return $new_field;
 }
+
+sub command98 {
+    print "If you want to store your global address book in a database then\n";
+    print "you need to set this DSN to a valid value. The format for this is:\n";
+    print "mysql://user:pass\@hostname/dbname\n";
+    print "Where mysql can be one of the databases PHP supports, the most common\n";
+    print "of these are mysql, msql and pgsql\n";
+    print "If the DSN is left empty (hit space and then return) the database\n";
+    print "related code for global SQL address book will not be used\n";
+    print "\n";
+
+    if ( $addrbook_global_dsn eq "" ) {
+        $default_value = "Disabled";
+    } else {
+        $default_value = $addrbook_global_dsn;
+    }
+    print "[$WHT$addrbook_global_dsn$NRM]: $WHT";
+    $new_dsn = <STDIN>;
+    if ( $new_dsn eq "\n" ) {
+        $new_dsn = "";
+    } else {
+        $new_dsn =~ s/[\r|\n]//g;
+        $new_dsn =~ s/^\s+$//g;
+    }
+    return $new_dsn;
+}
+
+sub command99 {
+    print "This is the name of the table you want to store the global address book\n";
+    print "data in, it defaults to 'global_address'\n";
+    print "\n";
+    print "[$WHT$addrbook_global_table$NRM]: $WHT";
+    $new_table = <STDIN>;
+    if ( $new_table eq "\n" ) {
+        $new_table = $addrbook_global_table;
+    } else {
+        $new_table =~ s/[\r|\n]//g;
+    }
+    return $new_table;
+}
+
+sub command910 {
+    print "This option controls users\' ability to add or modify records stored \n";
+    print "in global address book\n";
+
+    if ( lc($addrbook_global_writeable) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow writing into global address book? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $addrbook_global_writeable = <STDIN>;
+    if ( ( $addrbook_global_writeable =~ /^y\n/i ) || ( ( $addrbook_global_writeable =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $addrbook_global_writeable = "true";
+    } else {
+        $addrbook_global_writeable = "false";
+    }
+    return $addrbook_global_writeable;
+}
+
+sub command911 {
+    print "Enable this option if you want to see listing of addresses stored \n";
+    print "in global address book\n";
+
+    if ( lc($addrbook_global_listing) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Allow listing of global address book? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $addrbook_global_listing = <STDIN>;
+    if ( ( $addrbook_global_listing =~ /^y\n/i ) || ( ( $addrbook_global_listing =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $addrbook_global_listing = "true";
+    } else {
+        $addrbook_global_listing = "false";
+    }
+    return $addrbook_global_listing;
+}
+
 
 # Default language
 sub commandA1 {
@@ -3070,6 +3235,21 @@ sub save_data {
 		# integer
                 print CF "    'maxrows' => $ldap_maxrows[$count]";
             }
+            if ( $ldap_binddn[$count] ) {
+                print CF ",\n";
+                # string
+                print CF "    'binddn' => '$ldap_binddn[$count]'";
+                if ( $ldap_bindpw[$count] ) {
+                    print CF ",\n";
+                    # string
+                    print CF "    'bindpw' => '$ldap_bindpw[$count]'";
+                }
+            }
+            if ( $ldap_protocol[$count] ) {
+                print CF ",\n";
+		# integer
+                print CF "    'protocol' => $ldap_protocol[$count]";
+            }
             print CF "\n";
             print CF ");\n";
             print CF "\n";
@@ -3088,7 +3268,15 @@ sub save_data {
 	# string
         print CF "\$prefs_key_field = '$prefs_key_field';\n";
 	# string
-        print CF "\$prefs_val_field = '$prefs_val_field';\n";
+        print CF "\$prefs_val_field = '$prefs_val_field';\n\n";
+	# string
+        print CF "\$addrbook_global_dsn = '$addrbook_global_dsn';\n";
+	# string
+        print CF "\$addrbook_global_table = '$addrbook_global_table';\n";
+	# boolean
+        print CF "\$addrbook_global_writeable = $addrbook_global_writeable;\n\n";
+	# boolean
+        print CF "\$addrbook_global_listing = $addrbook_global_listing;\n\n";
 	# boolean
 		print CF "\$no_list_for_subscribe = $no_list_for_subscribe;\n";
 

@@ -30,7 +30,7 @@
 
 */
 
-global $addrbook_dsn;
+global $addrbook_dsn, $addrbook_global_dsn;
 
 /**
    Create and initialize an addressbook object.
@@ -39,6 +39,7 @@ global $addrbook_dsn;
 function addressbook_init($showerr = true, $onlylocal = false) {
     global $data_dir, $username, $ldap_server, $address_book_global_filename;
     global $addrbook_dsn, $addrbook_table;
+    global $addrbook_global_dsn, $addrbook_global_table, $addrbook_global_writeable, $addrbook_global_listing;
 
     /* Create a new addressbook object */
     $abook = new AddressBook;
@@ -79,6 +80,21 @@ function addressbook_init($showerr = true, $onlylocal = false) {
             echo _("Error initializing global addressbook.");
             exit;
         }
+    }
+
+    /* Load global addressbook from SQL if configured */
+    if (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn)) {
+      /* Database configured */
+      if (!isset($addrbook_global_table) || empty($addrbook_global_table)) {
+	$addrbook_global_table = 'global_abook';
+      }
+      $r = $abook->add_backend('database',
+			       Array('dsn' => $addrbook_global_dsn,
+				     'owner' => 'global',
+				     'name' => _("Global address book"),
+				     'writeable' => $addrbook_global_writeable,
+				     'listing' => $addrbook_global_listing,
+				     'table' => $addrbook_global_table));
     }
 
     if ($onlylocal) {
@@ -388,7 +404,7 @@ class AddressBook {
             $alias = array(0 => $alias);
         }
         
-        /* Check that specified backend is writable */
+        /* Check that specified backend is writeable */
         if (!$this->backends[$bnum]->writeable) {
             $this->error = _("Addressbook is read-only");
             return false;
@@ -441,7 +457,7 @@ class AddressBook {
             $userdata['nickname'] = $userdata['email'];
         }
         
-        /* Check that specified backend is writable */
+        /* Check that specified backend is writeable */
         if (!$this->backends[$bnum]->writeable) {
             $this->error = _("Addressbook is read-only");;
             return false;
@@ -548,7 +564,8 @@ if (isset($address_book_global_filename)) {
 }
 
 /* Only load database backend if database is configured */
-if(isset($addrbook_dsn) && !empty($addrbook_dsn)) {
+if((isset($addrbook_dsn) && !empty($addrbook_dsn)) || 
+ (isset($addrbook_global_dsn) && !empty($addrbook_global_dsn)) ) {
   include_once(SM_PATH . 'functions/abook_database.php');
 }
 
