@@ -34,25 +34,25 @@
    sqimap_logout($imapConnection);
 ?>
    <br>
-   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<? echo $color[0] ?>">
-      <center><b><? echo _("Options") . " - " . _("Folder Preferences"); ?></b></center>
+   <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
+      <center><b><?php echo _("Options") . " - " . _("Folder Preferences"); ?></b></center>
    </td></tr></table>
 
    <form action="options.php" method=post>
       <table width=100% cellpadding=0 cellspacing=2 border=0>
 
-<? if ($show_prefix_option == true) {   ?>   
+<?php if ($show_prefix_option == true) {   ?>   
          <tr>
-            <td align=right nowrap><? echo _("Folder Path"); ?>:
+            <td align=right nowrap><?php echo _("Folder Path"); ?>:
             </td><td>
-<? if (isset ($folder_prefix))
+<?php if (isset ($folder_prefix))
       echo "         <input type=text name=folderprefix value=\"$folder_prefix\" size=35><br>";
    else
       echo "         <input type=text name=folderprefix value=\"$default_folder_prefix\" size=35><br>";
 ?>
             </td>
          </tr>
-<? }          
+<?php }          
 
    // TRASH FOLDER
    echo "<tr><td nowrap align=right>";
@@ -112,23 +112,23 @@
          <tr>
             <td valign=top align=right>
                <br>
-               <? echo _("Unseen message notification"); ?>:
+               <?php echo _("Unseen message notification"); ?>:
             </td>
             <td>
-               <input type=radio name=unseennotify value=1<? if ($unseen_notify == 1) echo " checked"; ?>> <? echo _("No notification") ?><br>
-               <input type=radio name=unseennotify value=2<? if ($unseen_notify != 1 && $unseen_notify != 3) echo " checked"; ?>> <? echo _("Only INBOX") ?><br>
-               <input type=radio name=unseennotify value=3<? if ($unseen_notify == 3) echo " checked"; ?>> <? echo _("All Folders") ?><br>
+               <input type=radio name=unseennotify value=1<?php if ($unseen_notify == 1) echo " checked"; ?>> <?php echo _("No notification") ?><br>
+               <input type=radio name=unseennotify value=2<?php if ($unseen_notify != 1 && $unseen_notify != 3) echo " checked"; ?>> <?php echo _("Only INBOX") ?><br>
+               <input type=radio name=unseennotify value=3<?php if ($unseen_notify == 3) echo " checked"; ?>> <?php echo _("All Folders") ?><br>
                <br>
             </td>
          </tr>
          <tr>
             <td valign=top align=right>
                <br>
-               <? echo _("Unseen message notification type"); ?>:
+               <?php echo _("Unseen message notification type"); ?>:
             </td>
             <td>
-               <input type=radio name=unseentype value=1<? if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <? echo _("Only unseen"); ?> - (4)<br> 
-               <input type=radio name=unseentype value=2<? if ($unseen_type == 2) echo " checked"; ?>> <? echo _("Unseen and Total"); ?> - (4/27)
+               <input type=radio name=unseentype value=1<?php if ($unseen_type < 2 || $unseen_type > 2) echo " checked"; ?>> <?php echo _("Only unseen"); ?> - (4)<br> 
+               <input type=radio name=unseentype value=2<?php if ($unseen_type == 2) echo " checked"; ?>> <?php echo _("Unseen and Total"); ?> - (4/27)
             </td>
          </tr>
          <tr>

@@ -41,11 +41,11 @@
 
 <br>
 <table width=95% align=center cellpadding=2 cellspacing=2 border=0>
-<tr><td bgcolor="<? echo $color[0] ?>">
-   <center><b><? echo _("Options") ?></b></center>
+<tr><td bgcolor="<?php echo $color[0] ?>">
+   <center><b><?php echo _("Options") ?></b></center>
 </td></tr></table>
 
-<?
+<?php
    if ($submit_personal) {
       # Save personal information
       if (isset($full_name)) setPref($data_dir, $username, "full_name", stripslashes($full_name));
@@ -98,25 +98,25 @@
    <td width=50% valign=top>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
-            <td bgcolor="<? echo $color[9] ?>">
-               <a href="options_personal.php"><? echo _("Personal Information"); ?></a>
+            <td bgcolor="<?php echo $color[9] ?>">
+               <a href="options_personal.php"><?php echo _("Personal Information"); ?></a>
             </td>
          </tr>
          <tr>
-            <td bgcolor="<? echo $color[0] ?>">
-               <? echo _("This contains personal information about yourself such as your name, your email address, etc.") ?>
+            <td bgcolor="<?php echo $color[0] ?>">
+               <?php echo _("This contains personal information about yourself such as your name, your email address, etc.") ?>
             </td>
          </tr>   
       </table><br>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
-            <td bgcolor="<? echo $color[9] ?>">
-               <a href="options_highlight.php"><? echo _("Message Highlighting"); ?></a>
+            <td bgcolor="<?php echo $color[9] ?>">
+               <a href="options_highlight.php"><?php echo _("Message Highlighting"); ?></a>
             </td>
          </tr>
          <tr>
-            <td bgcolor="<? echo $color[0] ?>">
-               <? echo _("Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists.") ?>
+            <td bgcolor="<?php echo $color[0] ?>">
+               <?php echo _("Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists.") ?>
             </td>
          </tr>   
       </table><br>
@@ -124,31 +124,29 @@
    <td valign=top width=50%>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
-            <td bgcolor="<? echo $color[9] ?>">
-               <a href="options_display.php"><? echo _("Display Preferences"); ?></a>
+            <td bgcolor="<?php echo $color[9] ?>">
+               <a href="options_display.php"><?php echo _("Display Preferences"); ?></a>
             </td>
          </tr>
          <tr>
-            <td bgcolor="<? echo $color[0] ?>">
-               <? echo _("You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings.") ?>
+            <td bgcolor="<?php echo $color[0] ?>">
+               <?php echo _("You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings.") ?>
             </td>
          </tr>   
       </table><br>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
          <tr>
-            <td bgcolor="<? echo $color[9] ?>">
-               <a href="options_folder.php"><? echo _("Folder Preferences"); ?></a>
+            <td bgcolor="<?php echo $color[9] ?>">
+               <a href="options_folder.php"><?php echo _("Folder Preferences"); ?></a>
             </td>
          </tr>
          <tr>
-            <td bgcolor="<? echo $color[0] ?>">
-               <? echo _("These settings change the way your folders are displayed and manipulated.") ?>
+            <td bgcolor="<?php echo $color[0] ?>">
+               <?php echo _("These settings change the way your folders are displayed and manipulated.") ?>
             </td>
          </tr>   
       </table><br>
    </td>
 </tr>
 </table>
-<?
-?>
 </body></html>
