@@ -13,28 +13,28 @@
    session_start();
 
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
+      include('../functions/display_messages.php');
    if (!isset($imap_php))
-      include("../functions/imap.php");
+      include('../functions/imap.php');
    if (!isset($array_php))
-      include("../functions/array.php");
+      include('../functions/array.php');
    if (!isset($i18n_php))
-      include("../functions/i18n.php");
+      include('../functions/i18n.php');
    if (!isset($plugin_php))
-      include("../functions/plugin.php");
+      include('../functions/plugin.php');
 
-   include("../src/load_prefs.php");
-   displayPageHeader($color, "None");
+   include('../src/load_prefs.php');
+   displayPageHeader($color, 'None');
 
-   $fullname = getPref($data_dir, $username, "full_name");
-   $replyto = getPref($data_dir, $username, "reply_to");
-   $email_address  = getPref($data_dir, $username, "email_address"); 
+   $fullname = getPref($data_dir, $username, 'full_name');
+   $replyto = getPref($data_dir, $username, 'reply_to');
+   $email_address  = getPref($data_dir, $username, 'email_address'); 
 
 ?>
    <br>
@@ -67,13 +67,13 @@
             </td><td>
 <?php
    if ($use_signature == true)
-      echo "<input type=checkbox value=\"1\" name=usesignature checked>&nbsp;&nbsp;" . _("Use a signature") . "?<BR>";
+      echo '<input type=checkbox value="1" name=usesignature checked>&nbsp;&nbsp;' . _("Use a signature") . "?<BR>";
    else {
-      echo "<input type=checkbox value=\"1\" name=usesignature>&nbsp;&nbsp;";
+      echo '<input type=checkbox value="1" name=usesignature>&nbsp;&nbsp;';
       echo _("Use a signature?");
-      echo "<BR>";
+      echo '<BR>';
    } 
-   echo "\n<textarea name=signature_edit rows=5 cols=50>$signature_abs</textarea><br>";
+   echo "\n<textarea name=\"signature_edit\" rows=\"5\" cols=\"50\">$signature_abs</textarea><br>";
 ?>
             </td>
          </tr>
@@ -86,5 +86,5 @@
          </tr>
       </table>   
    </form>
-   <?php do_hook("options_personal_bottom"); ?>
+   <?php do_hook('options_personal_bottom'); ?>
 </body></html>

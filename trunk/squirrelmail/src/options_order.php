@@ -13,30 +13,30 @@
    session_start();
 
    if (!isset($strings_php))
-      include("../functions/strings.php");
+      include('../functions/strings.php');
    if (!isset($config_php))
-      include("../config/config.php");
+      include('../config/config.php');
    if (!isset($page_header_php))
-      include("../functions/page_header.php");
+      include('../functions/page_header.php');
    if (!isset($display_messages_php))
-      include("../functions/display_messages.php");
+      include('../functions/display_messages.php');
    if (!isset($imap_php))
-      include("../functions/imap.php");
+      include('../functions/imap.php');
    if (!isset($array_php))
-      include("../functions/array.php");
+      include('../functions/array.php');
    if (!isset($i18n_php))
-      include("../functions/i18n.php");
+      include('../functions/i18n.php');
    if (!isset($plugin_php))
-      include("../functions/plugin.php");
+      include('../functions/plugin.php');
 
 
-   if (! isset($action)) { $action = ""; }
-   if ($action == "delete" && isset($theid)) {
+   if (! isset($action)) { $action = ''; }
+   if ($action == 'delete' && isset($theid)) {
       removePref($data_dir, $username, "highlight$theid");
-   } else if ($action == "save") {
+   } else if ($action == 'save') {
    } 
-   include("../src/load_prefs.php");
-   displayPageHeader($color, "None");
+   include('../src/load_prefs.php');
+   displayPageHeader($color, 'None');
 ?>
    <br>
    <table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor="<?php echo $color[0] ?>">
@@ -53,19 +53,19 @@
    $available[5] = _("Flags");
    $available[6] = _("Size");
    
-   if (! isset($method)) { $method = ""; }
+   if (! isset($method)) { $method = ''; }
 
-   if ($method == "up" && $num > 1) {
+   if ($method == 'up' && $num > 1) {
       $prev = $num-1;
       $tmp = $index_order[$prev];
       $index_order[$prev] = $index_order[$num];
       $index_order[$num] = $tmp;
-   } else if ($method == "down" && $num < count($index_order)) {
+   } else if ($method == 'down' && $num < count($index_order)) {
       $next = $num++;
       $tmp = $index_order[$next];
       $index_order[$next] = $index_order[$num];
       $index_order[$num] = $tmp;
-   } else if ($method == "remove" && $num) {
+   } else if ($method == 'remove' && $num) {
       for ($i=1; $i < 8; $i++) {
          removePref($data_dir, $username, "order$i"); 
       }
@@ -78,9 +78,9 @@
       $index_order = array();
       $index_order = $new_ary;
       if (count($index_order) < 1) {
-         include "../src/load_prefs.php";
+         include ('../src/load_prefs.php');
       }
-   } else if ($method == "add" && $add) {
+   } else if ($method == 'add' && $add) {
       $index_order[count($index_order)+1] = $add;
    }
 
@@ -89,38 +89,38 @@
          setPref($data_dir, $username, "order$i", $index_order[$i]);
       }
    }
-   echo "<center>";
-   echo "<table cellspacing=0 cellpadding=0 border=0 width=65%><tr><td>\n";
+   echo '<center>';
+   echo '<table cellspacing="0" cellpadding="0" border="0" width="65%"><tr><td>' . "\n";
    echo _("The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs.");
-   echo "</td></tr></table></center><br>";
+   echo '</td></tr></table></center><br>';
 
    if (count($index_order))
    {
-      echo "<center>";
-      echo "<table cellspacing=0 cellpadding=0 border=0>\n";
+      echo '<center>';
+      echo '<table cellspacing="0" cellpadding="0" border="0">' . "\n";
       for ($i=1; $i <= count($index_order); $i++) {
          $tmp = $index_order[$i];
-         echo "<tr>";
+         echo '<tr>';
          echo "<td><small><a href=\"options_order.php?method=up&num=$i\">". _("up") ."</a></small></td>\n";
-         echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
+         echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
          echo "<td><small><a href=\"options_order.php?method=down&num=$i\">". _("down") . "</a></small></td>\n";
-         echo "<td><small>&nbsp;|&nbsp;</small></td>\n";
-         echo "<td>";
+         echo '<td><small>&nbsp;|&nbsp;</small></td>' . "\n";
+         echo '<td>';
          // Always show the subject
          if ($tmp != 4)
-            echo "<small><a href=\"options_order.php?method=remove&num=$i\">" . _("remove") . "</a></small>";
+            echo "<small><a href=\"options_order.php?method=remove&num=$i\">" . _("remove") . '</a></small>';
          echo "</td>\n";
-         echo "<td><small>&nbsp;-&nbsp;</small></td>\n";
-         echo "<td>" . $available[$tmp] . "</td>\n";
+         echo '<td><small>&nbsp;-&nbsp;</small></td>' . "\n";
+         echo '<td>' . $available[$tmp] . "</td>\n";
          echo "</tr>\n";
       }
       echo "</table>\n";
-      echo "</center>";
+      echo '</center>';
    }
    
    if (count($index_order) != count($available)) {
-   echo "<center><form name=f method=post action=options_order.php>";
-   echo "<select name=add>";
+   echo '<center><form name="f" method="post" action="options_order.php">';
+   echo '<select name="add">';
    for ($i=1; $i <= count($available); $i++) {
       $found = false;
       for ($j=1; $j <= count($index_order); $j++) {
@@ -129,16 +129,16 @@
          }
       }
       if (!$found) {
-         echo "<option value=$i>$available[$i]</option>";
+         echo "<option value=\"$i\">$available[$i]</option>";
       }
    }
-   echo "</select>";
-   echo "<input type=hidden value=add name=method>";
-   echo "<input type=submit value=\""._("Add")."\" name=submit>";
-   echo "</form></center>";
+   echo '</select>';
+   echo '<input type="hidden" value="add" name="method">';
+   echo '<input type="submit" value="'._("Add").'" name="submit">';
+   echo '</form></center>';
    }
 
-   echo "<br><center><a href=\"../src/options.php\">" . _("Return to options page") . "</a></center>";
+   echo '<br><center><a href="../src/options.php">' . _("Return to options page") . '</a></center>';
 
 ?>
    </td></tr></table>
