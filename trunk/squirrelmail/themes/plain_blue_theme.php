@@ -16,4 +16,5 @@
     $color[9]   = "#83A0BA"; // Darker version of #0
     $color[10]  = "#376589"; // Darker version of #9
     $color[11]  = "#770000"; // Special Folders color
+    $color[12]  = "#EDEDED"; // Alternating rows color
 ?>
