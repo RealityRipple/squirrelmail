@@ -273,7 +273,7 @@ function getTimeStamp($dateParts) {
      */
 
     /* validate zone before we uses strtotime */
-    if (isset($dateParts[6]) && $dateParts[6]{0} != '(') {
+    if (isset($dateParts[6]) && $dateParts[6] && $dateParts[6]{0} != '(') {
         $dateParts[6] = '('.$dateParts[6].')';
     }
     $string = implode (' ', $dateParts);
