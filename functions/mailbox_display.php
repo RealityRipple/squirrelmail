@@ -24,7 +24,7 @@ require_once(SM_PATH . 'functions/mime.php');
  *   SUBJ_TRIM_AT: the length at which we trim off subjects
  */
 define('PG_SEL_MAX', 10);
-define('SUBJ_TRIM_AT', 55);
+define('SUBJ_TRIM_AT', 50);
 
 function elapsed($start)
 {
@@ -1216,50 +1216,42 @@ function get_paginator_str($box, $start_msg, $end_msg, $num_msgs,
 
 function truncateWithEntities($subject, $trim_at)
 {
-    if (($trim_at == 0) || (strlen($subject) <= $trim_at))
+    $ent_strlen = strlen($subject);
+    if (($trim_at <= 0) || ($ent_strlen <= $trim_at))
         return $subject;
 
     global $languages, $squirrelmail_language;
 
-    $ent_strlen = $orig_len = strlen($subject);
-    $trim_val = $trim_at - 5;
-    $ent_offset = 0;
     /*
      * see if this is entities-encoded string
      * If so, Iterate through the whole string, find out
      * the real number of characters, and if more
      * than $trim_at, substr with an updated trim value. 
      */
-    $step = $ent_loc = 0;
+    $trim_val = $trim_at;
+    $ent_offset = 0;
+    $ent_loc = 0;
     while ( $ent_loc < $trim_val && (($ent_loc = strpos($subject, '&', $ent_offset)) !== false) &&
             (($ent_loc_end = strpos($subject, ';', $ent_loc+3)) !== false) ) {
         $trim_val += ($ent_loc_end-$ent_loc);
         $ent_offset  = $ent_loc_end+1;
-        ++$step;
     }
-    
-    if (($trim_val > ($trim_at - 5)) && (strlen($subject) > ($trim_val))&& (strpos($subject,';',$trim_val) < ($trim_val +6))) {
+    if (($trim_val > $trim_at) && ($ent_strlen > $trim_val) && (strpos($subject,';',$trim_val) < ($trim_val + 6))) {
         $i = strpos($subject,';',$trim_val);
         if ($i) {
             $trim_val = strpos($subject,';',$trim_val);
         }
     }
-    if ($ent_strlen <= $trim_at){
+    // only print '...' when we're actually dropping part of the subject
+    if ($ent_strlen <= $trim_val)
         return $subject;
-    }
 
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return $languages[$squirrelmail_language]['XTRA_CODE']('strimwidth', $subject, $trim_val);
     }
 
-    // only print '...' when we're actually dropping part of the subject
-    if (strlen($subject) <= $trim_val) {
-        return $subject;
-    } else {
-//      return substr($subject, 0, $trim_val) . '...';
-        return substr_replace($subject, '...', $trim_val);
-    }
+    return substr_replace($subject, '...', $trim_val);
 }
 
 function processSubject($subject, $threadlevel = 0) {
