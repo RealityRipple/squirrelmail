@@ -185,6 +185,9 @@ define('SQ_FORM',6);
  *    sqgetGlobalVar('username',$username,SQ_SESSION);
  *  -- no quotes around last param!
  *
+ * WARNING: Since 1.4.5 and 1.5.1 function nulls $value, 
+ * if variable is not available.
+ *
  * @param string name the name of the var to search
  * @param mixed value the variable to return
  * @param int search constant defining where to look
