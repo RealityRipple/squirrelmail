@@ -265,7 +265,7 @@ if ($count_special_folders < count($boxes)) {
             ($boxes[$i]["unformatted"] != $draft_folder)) {
             $box = htmlspecialchars($boxes[$i]["unformatted-dm"]);
             $box2 = str_replace(' ', '&nbsp;',
-                                htmlentities(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
+                                htmlspecialchars(imap_utf7_decode_local($boxes[$i]["unformatted-disp"])));
             echo "         <OPTION VALUE=\"$box\">$box2\n";
         }
     }
@@ -298,7 +298,7 @@ if(!$no_list_for_subscribe) {
     }
     if ($use_folder == true) {
         $box[$q] = htmlspecialchars($boxes_all[$i]['unformatted-dm']);
-        $box2[$q] = htmlentities(imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']));
+        $box2[$q] = htmlspecialchars(imap_utf7_decode_local($boxes_all[$i]['unformatted-disp']));
         $q++;
     }
   }
