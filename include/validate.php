@@ -6,7 +6,7 @@
 * Copyright (c) 1999-2004 The SquirrelMail Project Team
 * Licensed under the GNU GPL. For full terms see the file COPYING.
 *
-* $Id$
+* @version $Id$
 * @package squirrelmail
 */
 

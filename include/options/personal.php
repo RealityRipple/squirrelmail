@@ -8,7 +8,7 @@
  *
  * Displays all options relating to personal information
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

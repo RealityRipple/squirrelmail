@@ -8,7 +8,7 @@
  *
  * Displays all optinos about display preferences
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 

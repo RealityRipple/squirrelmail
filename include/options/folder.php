@@ -8,7 +8,7 @@
  *
  * Displays all options relating to folders
  *
- * $Id$
+ * @version $Id$
  * @package squirrelmail
  */
 
