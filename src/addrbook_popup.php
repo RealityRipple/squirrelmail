@@ -28,6 +28,7 @@ require_once(SM_PATH . 'functions/addressbook.php');
 
 <html>
     <head>
+        <meta name="robots" content="noindex,nofollow">
         <title><?php echo "$org_title: " . _("Address Book"); ?></title>
     </head>
     <frameset rows="60,*" border="0">
