@@ -324,16 +324,17 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
      * order that is their priority.
      */
     global $startMessage, $username, $key, $imapServerAddress, $imapPort,
-           $show_html_default, $has_unsafe_images, $sort;
+           $show_html_default, $sort, $has_unsafe_images;
 
     if ( !check_php_version(4,1) ) {
         global $_GET;
     }
     if(isset($_GET['view_unsafe_images'])) {
         $view_unsafe_images = $_GET['view_unsafe_images'];
+    } else {
+	$view_unsafe_images = false;
     }
 
-    $has_unsafe_images= 0;
     $body = '';
     $urlmailbox = urlencode($mailbox);
     $body_message = getEntity($message, $ent_num);
@@ -370,17 +371,20 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
                           $body_message->header->getParameter('charset'));
         }
 
-        if ($has_unsafe_images) {
-            if ($view_unsafe_images) {
-                $untext = '">' . _("Hide Unsafe Images");
-            } else {
-                $untext = '&amp;view_unsafe_images=1">' . _("View Unsafe Images");
-            }
-            $body .= '<center><small><a href="read_body.php?passed_id=' . $id .
-                     '&amp;passed_ent_id=' . $message->entity_id . '&amp;mailbox=' . $urlmailbox .
-                     '&amp;sort=' . $sort . '&amp;startMessage=' . $startMessage . '&amp;show_more=0' .
-                     $untext . '</a></small></center><br>' . "\n";
+        if ($view_unsafe_images) {
+            $untext = '">' . _("Hide Unsafe Images");
+        } else {
+	    if (isset($has_unsafe_images) && $has_unsafe_images) {
+        	$untext = '&amp;view_unsafe_images=1">' . _("View Unsafe Images");
+	    } else {
+		$untext = '';
+	    }
         }
+        $body .= '<center><small><a href="read_body.php?passed_id=' . $id .
+                 '&amp;passed_ent_id=' . $message->entity_id . '&amp;mailbox=' . $urlmailbox .
+                 '&amp;sort=' . $sort . '&amp;startMessage=' . $startMessage . '&amp;show_more=0' .
+                 $untext . '</a></small></center><br>' . "\n";
+        
     }
     return $body;
 }
@@ -1490,7 +1494,7 @@ function sq_sanitize($body,
  * @param  $id    the id of the message
  * @return        a string with html safe to display in the browser.
  */
-function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
+function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     global $attachment_common_show_images, $view_unsafe_images,
            $has_unsafe_images;
     /**
@@ -1594,6 +1598,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
         );
     if(isset($_GET['view_unsafe_images'])) {
         $view_unsafe_images = $_GET['view_unsafe_images'];
+    } else {
+	$view_unsafe_images = false;
     }
     if (!$view_unsafe_images){
         /**
