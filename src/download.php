@@ -65,7 +65,7 @@ if ($ent_id) {
     /* raw message */
     $type0 = 'message';
     $type1 = 'rfc822';
-    $encoding = "US-ASCII";
+    $encoding = 'US-ASCII';
 }
 
 /*
@@ -90,8 +90,9 @@ if (is_object($message->header->disposition)) {
         $filename = $header->getParameter('name');
     }    
 } else {
-    $filename = $header->getParameter('name');
+    $filename = $message->header->getParameter('name');
 }
+
 $filename = decodeHeader($filename);
 if (strlen($filename) < 1) {
     if ($type1 == 'plain' && $type0 == 'text') {
