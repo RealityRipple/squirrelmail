@@ -644,10 +644,10 @@ $base_uri   = $_SESSION['base_uri'];
 $delimiter  = $_SESSION['delimiter'];
 
 if (isset($_GET['passed_id'])) {
-    $passed_id = $_GET['passed_id'];
+    $passed_id = (int) $_GET['passed_id'];
 }
 elseif (isset($_POST['passed_id'])) {
-    $passed_id = $_POST['passed_id'];
+    $passed_id = (int) $_POST['passed_id'];
 }
 
 if (isset($_GET['passed_ent_id'])) {
@@ -662,25 +662,25 @@ if (isset($_GET['sendreceipt'])) {
 }
 
 if (isset($_GET['sort'])) {
-    $sort = $_GET['sort'];
+    $sort = (int) $_GET['sort'];
 }
 elseif (isset($_POST['sort'])) {
-    $sort = $_POST['sort'];
+    $sort = (int) $_POST['sort'];
 }
 if (isset($_GET['startMessage'])) {
-    $startMessage = $_GET['startMessage'];
+    $startMessage = (int) $_GET['startMessage'];
 }
 elseif (isset($_POST['startMessage'])) {
-    $startMessage = $_POST['startMessage'];
+    $startMessage = (int) $_POST['startMessage'];
 }
 if (isset($_GET['show_more'])) {
-    $show_more = $_GET['show_more'];
+    $show_more = (int) $_GET['show_more'];
 }
 if (isset($_GET['show_more_cc'])) {
-    $show_more_cc = $_GET['show_more_cc'];
+    $show_more_cc = (int) $_GET['show_more_cc'];
 }
 if (isset($_GET['show_more_bcc'])) {
-    $show_more_bcc = $_GET['show_more_bcc'];
+    $show_more_bcc = (int) $_GET['show_more_bcc'];
 }
 if (isset($_GET['mailbox'])) {
     $mailbox = $_GET['mailbox'];
@@ -695,7 +695,7 @@ if (isset($_GET['what'])) {
     $what = $_GET['what'];
 }
 if (isset($_GET['view_hdr'])) {
-    $view_hdr = $_GET['view_hdr'];
+    $view_hdr = (int) $_GET['view_hdr'];
 }
 if (isset($_SESSION['server_sort_array'])) {
     $server_sort_array = $_SESSION['server_sort_array'];

@@ -151,10 +151,10 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
 	    $string = "<b><font color=$color[2]>\n" .
                 _("ERROR : Could not complete request.") .
                 "</b><br>\n" .
-                _("Query:") .
-                $query . '<br>' .
+                _("Query:") . ' ' .
+                htmlspecialchars($query) . '<br>' .
                 _("Reason Given: ") .
-                $message . "</font><br>\n";
+                htmlspecialchars($message) . "</font><br>\n";
 	    error_box($string,$color);
             exit;
         }
@@ -165,10 +165,10 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
         $string = "<b><font color=$color[2]>\n" .
             _("ERROR : Bad or malformed request.") .
             "</b><br>\n" .
-            _("Query:") .
-            $query . '<br>' .
+            _("Query:") . ' '.
+            htmlspecialchars($query) . '<br>' .
             _("Server responded: ") .
-            $message . "</font><br>\n";
+            htmlspecialchars($message) . "</font><br>\n";
 	error_box($string,$color);    
         exit;
     } 
@@ -286,6 +286,7 @@ function sqimap_login ($username, $password, $imap_server_address, $imap_port, $
         if (!$hide) {
             if ($response != 'NO') {
                 /* "BAD" and anything else gets reported here. */
+		$message = htmlspecialchars($message);
                 set_up_language($squirrelmail_language, true);
 		require_once(SM_PATH . 'functions/display_messages.php');
                 if ($response == 'BAD') {

@@ -31,8 +31,7 @@ $key = $_COOKIE['key'];
 $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 
-$passed_ent_id = $_GET['passed_ent_id'];
-$passed_id = $_GET['passed_id'];
+$passed_id = (int) $_GET['passed_id'];
 $mailbox = $_GET['mailbox'];
 /* end globals */
 

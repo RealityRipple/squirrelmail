@@ -26,7 +26,7 @@ $key  = $_COOKIE['key'];
 $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $mailbox = decodeHeader($_GET['mailbox']);
-$passed_id = $_GET['passed_id'];
+$passed_id = (int) $_GET['passed_id'];
 $ent_id = $_GET['ent_id'];
 $passed_ent_id = $_GET['passed_ent_id'];
 $QUERY_STRING = $_SERVER['QUERY_STRING'];
@@ -43,7 +43,7 @@ echo '<br><table width="100%" border="0" cellspacing="0" cellpadding="2" ' .
         '<tr><td bgcolor="' . $color[0] . '">' .
         '<b><center>' .
         _("Viewing a Business Card") . " - ";
-$msg_url = 'read_body.php?' . $QUERY_STRING;
+$msg_url = 'read_body.php?' . urlencode(strip_tags(urldecode($QUERY_STRING)));
 $msg_url = set_url_var($msg_url, 'ent_id', 0);
 echo '<a href="'.$msg_url.'">'. _("View message") . '</a>';
 
@@ -201,7 +201,7 @@ echo '</select>' .
         '<tr><td align=center>' .
         '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
         $passed_id . '&amp;mailbox=' . urlencode($mailbox) .
-        '&amp;passed_ent_id=' . $passed_ent_id . '">' .
+        '&amp;passed_ent_id=' . urlencode($passed_ent_id) . '">' .
         _("Download this as a file") . '</A>' .
         '</TD></TR></TABLE>' .
 
