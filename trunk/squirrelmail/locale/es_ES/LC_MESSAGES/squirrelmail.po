@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-04-30 14:14+0300\n"
+"POT-Creation-Date: 2003-07-21 21:30+0300\n"
 "PO-Revision-Date: 2003-04-01 19:57+0100\n"
 "Last-Translator: Philippe Mingo <philippe@squirrelmail.org>\n"
 "Language-Team: spanish <squirrelmail-i18n@lists.sourceforge.net>\n"
@@ -423,6 +423,12 @@ msgstr "asunto"
 msgid "Edit"
 msgstr "Editar"
 
+msgid "Up"
+msgstr "Arriba"
+
+msgid "Down"
+msgstr "Abajo"
+
 msgid "No highlighting is defined"
 msgstr "No hay resaltadores definidos"
 
@@ -675,9 +681,6 @@ msgstr "Editar como nuevo mensaje"
 msgid "View Message"
 msgstr "Ver el mensaje"
 
-msgid "Up"
-msgstr "Arriba"
-
 msgid "Forward"
 msgstr "Reenviar"
 
@@ -699,8 +702,35 @@ msgstr "Ficheros adjuntos"
 msgid "You must be logged in to access this page."
 msgstr "¡Necesita un nombre de usuario y contraseña válidos para acceder!."
 
-msgid "Folder:"
-msgstr "Carpeta:"
+msgid "All Folders"
+msgstr "Todas las carpetas"
+
+msgid "Please enter something to search for"
+msgstr "Introduzca algo que buscar por favor"
+
+msgid "There must be at least one criteria to search for"
+msgstr "Tiene que haber al menos un criterio para buscar"
+
+msgid "Error in criteria argument"
+msgstr "Error de criterio en argumentos"
+
+msgid "M j, Y"
+msgstr "j/m/Y"
+
+msgid "(Illegal date)"
+msgstr "(Fecha no válida)"
+
+msgid "(Wrong date)"
+msgstr "(Fecha errónea)"
+
+msgid "In"
+msgstr "En"
+
+msgid "(Missing argument)"
+msgstr "(Falta Argumento)"
+
+msgid "(Spurious argument)"
+msgstr ""
 
 msgid "edit"
 msgstr "editar"
@@ -711,8 +741,8 @@ msgstr "buscar"
 msgid "delete"
 msgstr "borrar"
 
-msgid "Recent Searches"
-msgstr "Búsquedas Recientes"
+msgid "Saved Searches"
+msgstr "Búsquedas almacenadas"
 
 msgid "save"
 msgstr "guardar"
@@ -720,17 +750,107 @@ msgstr "guardar"
 msgid "forget"
 msgstr "olvidar"
 
-msgid "Current Search"
-msgstr "Búsqueda Actual"
+msgid "Recent Searches"
+msgstr "Búsquedas recientes"
 
-msgid "All Folders"
-msgstr "Todas las carpetas"
+msgid "Exclude Criteria:"
+msgstr ""
 
-msgid "Body"
-msgstr "Cuerpo"
+msgid "Search Criteria"
+msgstr "Criterio de búsqueda"
 
-msgid "Everywhere"
-msgstr "Todos lados"
+msgid "Folder:"
+msgstr "Carpeta:"
+
+msgid "Add New Criteria"
+msgstr "Agregar criterio"
+
+msgid "Remove Excluded Criteria"
+msgstr "Eliminar criterios excluidos"
+
+msgid "Remove All Criteria"
+msgstr "Eliminar todos los criterios"
+
+msgid "Answered"
+msgstr ""
+
+msgid "Before"
+msgstr "Antes"
+
+msgid "Message Body"
+msgstr "Cuerpo de mensaje"
+
+msgid "Deleted"
+msgstr "Borrado"
+
+msgid "Draft"
+msgstr "Borrador"
+
+msgid "Flagged"
+msgstr "Marcado"
+
+msgid "Sent By"
+msgstr "Enviado por:"
+
+msgid "Header Field"
+msgstr "Campo de cabecera"
+
+msgid "Keyword"
+msgstr "Abreviado"
+
+msgid "Larger Than"
+msgstr "Mayor que"
+
+msgid "Old"
+msgstr "Vienjo"
+
+msgid "On"
+msgstr "En"
+
+msgid "Recent"
+msgstr "Confirmación"
+
+msgid "Seen"
+msgstr "Visto"
+
+msgid "Sent Before"
+msgstr "Enviado antes de"
+
+msgid "Sent On"
+msgstr "Enviado el"
+
+msgid "Sent Since"
+msgstr "Enviado desde"
+
+msgid "Since"
+msgstr "Desde"
+
+msgid "Smaller Than"
+msgstr "Inferior a"
+
+msgid "Subject Contains"
+msgstr "El tema contiene"
+
+msgid "Header and Body"
+msgstr ""
+
+msgid "Sent To"
+msgstr "Enviado a"
+
+msgid "Not"
+msgstr "No"
+
+msgid "And In"
+msgstr "Y en"
+
+msgid "Or In"
+msgstr "O en"
+
+msgid "And"
+msgstr "Y"
+
+msgid "Or"
+msgstr "O"
 
 msgid "Search Results"
 msgstr "Resultado de la búsqueda"
@@ -1001,9 +1121,6 @@ msgstr "D, g:i a"
 msgid "D, G:i"
 msgstr "D, G:i"
 
-msgid "M j, Y"
-msgstr "j/m/Y"
-
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr "Archivo de preferencias %s no encontrado. Saliendo anormalmente."
@@ -1104,11 +1221,20 @@ msgstr ""
 msgid "ERROR : No available imapstream."
 msgstr "ERROR : No hay ningún canal IMAP disponible."
 
-msgid "ERROR : Could not complete request."
-msgstr "ERROR: No se pudo completar el pedido."
+msgid "ERROR : Bad function call."
+msgstr ""
+
+msgid "Reason:"
+msgstr "Motivo:"
+
+msgid "ERROR : Connection dropped by imap-server."
+msgstr ""
 
 msgid "Query:"
 msgstr "Consulta:"
+
+msgid "ERROR : Could not complete request."
+msgstr "ERROR: No se pudo completar el pedido."
 
 msgid "Reason Given: "
 msgstr "Razón dada: "
@@ -1118,6 +1244,12 @@ msgstr "ERROR: pedido erroneo o con formato erroneo."
 
 msgid "Server responded: "
 msgstr "El servidor respondió: "
+
+msgid "ERROR : Imap server closed the connection."
+msgstr "ERROR: El servidor IMAP cerró la conexión."
+
+msgid "ERROR : Unknown imap response."
+msgstr "Error: Respuesta imap desconocida"
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
@@ -1145,20 +1277,23 @@ msgid ""
 "folder."
 msgstr "Elimine todos los mensajes innecesarios y empiece por la papelera"
 
-msgid "Unknown response from IMAP server: "
-msgstr "Contestación desconocida del servidor IMAP:"
-
-msgid "Unknown message number in reply from server: "
-msgstr "Número de mensaje desconocido en la contestación del servidor:"
-
 msgid "(no subject)"
 msgstr "(sin asunto)"
 
 msgid "Unknown Sender"
 msgstr "Remitente Desconocido"
 
-msgid "(unknown sender)"
-msgstr "(remitente desconocido)"
+msgid "Unknown response from IMAP server: "
+msgstr "Contestación desconocida del servidor IMAP:"
+
+msgid "The server couldn't find the message you requested."
+msgstr ""
+
+msgid ""
+"Most probably your message list was out of date and the message has been "
+"moved away or deleted (perhaps by another program accessing the same "
+"mailbox)."
+msgstr ""
 
 msgid "Unknown date"
 msgstr "Fecha desconocida"
@@ -1391,6 +1526,9 @@ msgstr "Activar Paginador"
 
 msgid "Maximum Number of Pages to Show"
 msgstr "Número Máximo de Páginas a Mostrar"
+
+msgid "Always Show Full Date"
+msgstr ""
 
 msgid "Message Display and Composition"
 msgstr "Visualización y Composición de Mensajes"
@@ -2326,9 +2464,6 @@ msgstr "Cabecera"
 msgid "Contains:"
 msgstr "Contiene:"
 
-msgid "Down"
-msgstr "Abajo"
-
 #, c-format
 msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr "Si <b>%s</b> contiene <b>%s</b> muévelo a <b>%s</b>"
@@ -2492,12 +2627,6 @@ msgstr "No se ha especificado un servidor"
 msgid "Error "
 msgstr "Error "
 
-msgid "POP3 noop:"
-msgstr "POP3 noop:"
-
-msgid "No connection to server"
-msgstr "No hay conexión al servidor"
-
 msgid "POP3 user:"
 msgstr "POP3 usuario:"
 
@@ -2518,6 +2647,9 @@ msgstr "falló la identificación"
 
 msgid "POP3 apop:"
 msgstr "POP3 apop:"
+
+msgid "No connection to server"
+msgstr "No hay conexión al servidor"
 
 msgid "No login ID submitted"
 msgstr "No se ha facilitado identificador"
@@ -2576,9 +2708,6 @@ msgstr "No se ha comunicado el número del mensaje"
 msgid "Command failed "
 msgstr "El comando falló "
 
-msgid "Remote POP server Fetching Mail"
-msgstr "Recogida POP3 de Correo Remoto"
-
 msgid "Select Server:"
 msgstr "Seleccione Servidor:"
 
@@ -2587,6 +2716,9 @@ msgstr "Contraseña para"
 
 msgid "Fetch Mail"
 msgstr "Recoger Correo"
+
+msgid "Remote POP server Fetching Mail"
+msgstr "Recogida POP3 de Correo Remoto"
 
 msgid "Fetching from "
 msgstr "Recogiendo desde "
@@ -2736,9 +2868,6 @@ msgstr "¿Confirma el borrado del servidor?"
 
 msgid "Confirm Delete"
 msgstr "Confirmar Borrado"
-
-msgid "Mofify a Server"
-msgstr "Modificar un Servidor"
 
 msgid "Undefined Function"
 msgstr "Función no definida"
@@ -3316,27 +3445,40 @@ msgstr "Opciones de Traducción Guardadas"
 msgid "Your server options are as follows:"
 msgstr "Estas son sus opciones de servidor:"
 
-msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgid "Maximum of 1000 characters translated, powered by Systran"
 msgstr ""
-"13 pares de idiomas, un máximo de 1000 caracteres traducidos, motor de "
+"Un máximo de 1000 caracteres traducidos, motor de "
 "Systran"
 
-msgid "12 language pairs, no known limits, powered by Systran"
-msgstr "12 pares de idiomas, no hay límites conocidos, motor de Systran"
-
-msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
-"InterTran"
+#, c-format
+msgid "Number of supported language pairs: %s"
 msgstr ""
-"767 pares de idiomas, no hay límites conocidos, motor InterTran de "
+
+msgid "No known limits, powered by Systran"
+msgstr "No hay límites conocidos, motor de Systran"
+
+#, fuzzy
+msgid "No known limits, powered by Translation Experts's InterTran"
+msgstr ""
+"No hay límites conocidos, motor InterTran de "
 "Translation Experts"
 
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+#, c-format
+msgid "Number of supported languages: %s"
 msgstr ""
-"8 pares de idiomas, no hay límites conocidos, motor GPLTrans (gratuito, open "
+
+msgid "No known limits, powered by GPLTrans (free, open source)"
+msgstr ""
+"No hay límites conocidos, motor GPLTrans (gratuito, open "
 "source)"
+
+msgid "Hellenic translations, no known limits, powered by Systran"
+msgstr "Traducciones Griegas, no hay límites conocidos, motor de Systran"
+
+msgid "Russian translations, maximum of 500 characters translated"
+msgstr ""
+"Traducciones Rusas, un máximo de 1000 caracteres traducidos, motor de "
+"Systran"
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3489,11 +3631,38 @@ msgstr "al Inglés"
 msgid "from English"
 msgstr "del Inglés"
 
+msgid "Interface language"
+msgstr "Idioma de la interfaz"
+
+msgid "Translation direction"
+msgstr "Opciones de Traducción"
+
 msgid "Delivery error report"
 msgstr "Informe de error en entrega"
 
 msgid "Undelivered Message Headers"
 msgstr "Cabecera de mensaje no entregado"
+
+#~ msgid "Current Search"
+#~ msgstr "Búsqueda Actual"
+
+#~ msgid "Body"
+#~ msgstr "Cuerpo"
+
+#~ msgid "Everywhere"
+#~ msgstr "Todos lados"
+
+#~ msgid "Unknown message number in reply from server: "
+#~ msgstr "Número de mensaje desconocido en la contestación del servidor:"
+
+#~ msgid "(unknown sender)"
+#~ msgstr "(remitente desconocido)"
+
+#~ msgid "POP3 noop:"
+#~ msgstr "POP3 noop:"
+
+#~ msgid "Mofify a Server"
+#~ msgstr "Modificar un Servidor"
 
 #~ msgid "Not available"
 #~ msgstr "No disponible"
