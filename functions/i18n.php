@@ -857,9 +857,9 @@ $languages['ru_RU']['NAME']    = 'Russian';
 $languages['ru_RU']['CHARSET'] = 'koi8-r';
 $languages['ru']['ALIAS'] = 'ru_RU';
 
-$languages['sr']['NAME']    = 'Serbian';
-$languages['sr']['CHARSET'] = 'iso-8859-2';
-$languages['sr_YU']['ALIAS'] = 'sr';
+$languages['sr_YU']['NAME']    = 'Serbian';
+$languages['sr_YU']['CHARSET'] = 'iso-8859-2';
+$languages['sr']['ALIAS'] = 'sr_YU';
 
 $languages['sv_SE']['NAME']    = 'Swedish';
 $languages['sv_SE']['CHARSET'] = 'iso-8859-1';
