@@ -333,7 +333,7 @@ if ($draft) {
                 exit();
             }
             else {
-                Header("Location: $location/right_main.php?mailbox=$draft_folder".
+                Header("Location: $location/right_main.php?mailbox=" . urlencode($draft_folder) .
                        "&startMessage=1&note=".urlencode($draft_message));
                 exit();
             }
