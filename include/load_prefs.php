@@ -161,6 +161,9 @@ $reply_citation_style =
 $reply_citation_start = getPref($data_dir, $username, 'reply_citation_start');
 $reply_citation_end = getPref($data_dir, $username, 'reply_citation_end');
 
+$body_quote = getPref($data_dir, $username, 'body_quote', '>');
+if ($body_quote == 'NONE') $body_quote = '';
+
 // who is using those darn block comments?  poo!
 
 // Load preference for cursor behavior for replies
