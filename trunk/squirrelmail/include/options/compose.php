@@ -166,10 +166,24 @@ function load_optpage_data_compose() {
 
 /******************************************************************/
 /** Define any specialized save functions for this option page. ***/
+/**                                                             ***/
+/** You must add every function that is set in save parameter   ***/
 /******************************************************************/
 
-function save_option_header($option) {
+/**
+ * This function saves the reply prefix (body_quote) character(s)
+ * @param object $option
+ */
+function save_option_reply_prefix($option) {
+
+    // save as "NONE" if it was blanked out
+    //
+    if (empty($option->new_value)) $option->new_value = 'NONE';
+
+
+    // Save the option like normal.
+    //
+    save_option($option);
+
 }
-
-
 ?>

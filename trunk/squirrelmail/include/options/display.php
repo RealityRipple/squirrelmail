@@ -364,9 +364,6 @@ function load_optpage_data_display() {
 /** Define any specialized save functions for this option page. ***/
 /******************************************************************/
 
-function save_option_header($option) {
-}
-
 /**
  * This function saves a new theme setting.
  * It updates the theme array.
@@ -414,22 +411,6 @@ function icon_theme_save($option) {
         setPref($data_dir, $username, 'icon_theme', $icon_themes[$option->new_value]['PATH']);
     else
        setPref($data_dir, $username, 'icon_theme', 'none');
-
-}
-
-/**
- * This function saves the reply prefix (body_quote) character(s)
- */
-function save_option_reply_prefix($option) {
-
-    // save as "NONE" if it was blanked out
-    //
-    if (empty($option->new_value)) $option->new_value = 'NONE';
-
-
-    // Save the option like normal.
-    //
-    save_option($option);
 
 }
 
