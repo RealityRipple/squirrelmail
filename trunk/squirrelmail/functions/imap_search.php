@@ -36,7 +36,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
     $multi_search = explode(' ', $search_what);
     $search_string = '';
 
-    /* it seems macosx does not support the prefered search
+    /* it seems macosx and hmailserver do not support the prefered search
        syntax so we fall back to the older style. This IMAP
        server has a problem with multiple search terms. Instead
        of returning the messages that match all the terms it
@@ -44,7 +44,7 @@ function sqimap_search($imapConnection, $search_where, $search_what, $mailbox,
        on the client side, but should be fixed on the server
        as per the RFC */
 
-    if ($imap_server_type == 'macosx') {
+    if ($imap_server_type == 'macosx' || $imap_server_type == 'hmailserver') {
         foreach ($multi_search as $multi_search_part) {
             if (strtoupper($languages[$squirrelmail_language]['CHARSET']) == 'ISO-2022-JP') {
                 $multi_search_part = mb_convert_encoding($multi_search_part, 'JIS', 'auto');

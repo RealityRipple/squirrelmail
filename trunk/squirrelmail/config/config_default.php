@@ -192,6 +192,7 @@ $imapPort = 143;
  *   exchange
  *   uw
  *   macosx
+ *   hmailserver
  *   mercury32
  *   other
  *
