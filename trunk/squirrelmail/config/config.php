@@ -81,7 +81,7 @@
 
     $default_move_to_trash = true;
     $trash_folder = "INBOX.Trash";
-    $default_auto_expunge = true;
+    $auto_expunge = true;
 
 //  Special Folders are folders that can't be manipulated like normal user created
 //  folders can.  A couple of examples would be "INBOX.Trash", "INBOX.Drafts".  We have

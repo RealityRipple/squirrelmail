@@ -292,7 +292,10 @@
       } else {
          setMessageFlag($imapConnection, $a, $b, "Deleted");
       }
+      if ($auto_expunge == true)
+         expungeBox($imapConnection, $mailbox);
    }
+
    function stripComments($line) {
       if (strpos($line, ";")) {
          $line = substr($line, 0, strpos($line, ";"));
