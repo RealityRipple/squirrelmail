@@ -1434,11 +1434,10 @@ function deliverMessage($composeMessage, $draft=false) {
         } else {    
             $rfc822_header->encoding = '8bit';
         }            
-    }
-    if ($default_charset) {
-        $content_type->properties['charset']=$default_charset;
-    }
-        
+        if ($default_charset) {
+            $content_type->properties['charset']=$default_charset;
+        }
+    }        
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
     
