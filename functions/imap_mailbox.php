@@ -320,8 +320,6 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox) {
  * Selects a mailbox
  */
 function sqimap_mailbox_select ($imap_stream, $mailbox) {
-    global $auto_expunge;
-
     if ($mailbox == 'None') {
         return;
     }
@@ -348,9 +346,6 @@ function sqimap_mailbox_select ($imap_stream, $mailbox) {
         $result['RIGHTS']=$regs[1];
     }
 
-    if ($auto_expunge) {
-        $tmp = sqimap_run_command($imap_stream, 'EXPUNGE', false, $a, $b);
-    }
     return $result;
 }
 
