@@ -106,8 +106,10 @@
          }
       }
       
-      $send_to = sqimap_find_email($send_to);
-      
+      if (!$send_to) {
+         $send_to = sqimap_find_email($send_to);
+      }
+
       $send_to = ereg_replace("\"", "", $send_to);
       $send_to = stripslashes($send_to);
       
