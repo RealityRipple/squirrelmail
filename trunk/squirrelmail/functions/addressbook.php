@@ -30,17 +30,17 @@
 
 
    // Include backends here.
-   include('../functions/abook_local_file.php');
-   include('../functions/abook_ldap_server.php');
+   require_once('../functions/abook_local_file.php');
+   require_once('../functions/abook_ldap_server.php');
 
    // Use this if you wanna have a global address book
    if (isset($address_book_global_filename))
-      include('../functions/abook_global_file.php');
+      include_once('../functions/abook_global_file.php');
 
    // Only load database backend if database is configured
    global $addrbook_dsn;
    if(isset($addrbook_dsn))
-      include('../functions/abook_database.php');
+      include_once('../functions/abook_database.php');
 
 
    // Create and initialize an addressbook object. 

@@ -785,7 +785,7 @@
    // If we can fake gettext, try that
    elseif ($gettext_flags == 0) {
       $use_gettext = true;
-      include('../functions/gettext.php');
+      include_once('../functions/gettext.php');
    } else {
       // Uh-ho.  A weird install
       if (! $gettext_flags & 1) {

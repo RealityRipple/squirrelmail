@@ -8,11 +8,11 @@
       return;
    define ('imap_search_php', true);
    
-   include("../functions/imap.php");
-   include("../functions/date.php");
-   include("../functions/array.php");
-   include("../functions/mailbox_display.php");
-   include("../functions/mime.php");
+   require_once('../functions/imap.php');
+   require_once('../functions/date.php');
+   require_once('../functions/array.php');
+   require_once('../functions/mailbox_display.php');
+   require_once('../functions/mime.php');
 
 
 function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$color) {
