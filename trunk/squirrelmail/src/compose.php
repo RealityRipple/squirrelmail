@@ -549,7 +549,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
            }
 	   $body = getforwardHeader($orig_header) . $body;
 	   sqUnWordWrap($body);
-           getAttachments($message, $session, $passed_id, $entities, $imapConnection);	     
+           getAttachments($message, $session, $passed_id, $entities, $imapConnection);
+	   break;
+	case ('forward_as_attachment'):
+           getMessage_RFC822_Attachment($message, $session, $passed_id, $imapConnection);
+	   $body = '';
 	   break;
         case ('reply_all'):
 	   $send_to_cc = replyAllString($orig_header);
@@ -652,6 +656,32 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
         for ($i = 0; $i < count($message->entities); $i++) {
             getAttachments($message->entities[$i], $session, $passed_id, $entities, $imapConnection);
         }
+    }
+    return;
+}
+
+function getMessage_RFC822_Attachment($message, $session, $passed_id, $imapConnection) {
+    global $attachments, $attachment_dir, $username, $data_dir, $uid_support;
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+    $body_a = sqimap_run_command($imapConnection, "FETCH $passed_id RFC822",true, $response, $readmessage, $uid_support);
+    if ($response = 'OK') {
+	$subject = encodeHeader($message->rfc822_header->subject);
+    	array_shift($body_a);
+    	$body = implode('', $body_a);
+    	$body .= "\r\n";
+        		
+    	$localfilename = GenerateRandomString(32, 'FILE', 7);
+    	$full_localfilename = "$hashed_attachment_dir/$localfilename";
+        	
+    	$fp = fopen( $full_localfilename, 'w');
+    	fwrite ($fp, $body);
+    	fclose($fp);
+	$newAttachment = array();
+    	$newAttachment['localfilename'] = $localfilename;
+    	$newAttachment['type'] = "message/rfc822";
+    	$newAttachment['remotefilename'] = $subject.'.eml';
+    	$newAttachment['session'] = $session;
+    	$attachments[] = $newAttachment;
     }
     return;
 }
