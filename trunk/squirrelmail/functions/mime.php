@@ -50,7 +50,6 @@ class message {
  */
 function mime_structure ($imap_stream, $header) {
 
-    sqimap_messages_flag ($imap_stream, $header->id, $header->id, 'Seen');
     $ssid = sqimap_session_id();
     $lsid = strlen( $ssid );
     $id = $header->id;
@@ -252,11 +251,11 @@ function mime_get_element (&$structure, $msg, $ent_id) {
      $text = "";
   }
   // loop through the additional properties and put those in the various headers
-  if ($msg->header->type0 != 'message') {
+//  if ($msg->header->type0 != 'message') {
      for ($i=0; $i < count($properties); $i++) {
         $msg->header->{$properties[$i]['name']} = $properties[$i]['value'];
      }
-  }
+//  }
 
   return $msg;
 }
@@ -511,7 +510,7 @@ function decodeMime ($imap_stream, &$header) {
 
 // This is here for debugging purposese.  It will print out a list
 // of all the entity IDs that are in the $message object.
-/*
+
 function listEntities ($message) {
 if ($message) {
  if ($message->header->entity_id)
@@ -523,7 +522,7 @@ if ($message) {
  }
 }
 }
-*/
+
 
 /* returns a $message object for a particular entity id */
 function getEntity ($message, $ent_id) {
@@ -553,12 +552,12 @@ function findDisplayEntity ($message, $textOnly = 1)   {
     if ($message) {
         if ( $message->header->type0 == 'multipart' &&
              ( $message->header->type1 == 'alternative' ||
-               $message->header->type1 == 'mixed' ||
+               $message->header->type1 == 'mixed' ||	       
                $message->header->type1 == 'related' ) &&
              $show_html_default && ! $textOnly ) {
             $entity = findDisplayEntityHTML($message);
         }
-    
+
         // Show text/plain or text/html -- the first one we find.
         if ( $entity == 0 &&
              $message->header->type0 == 'text' &&
@@ -587,6 +586,11 @@ function findDisplayEntityHTML ($message) {
         return $message->header->entity_id;
     }
     for ($i = 0; isset($message->entities[$i]); $i ++) {
+	if ( $message->header->type0 == 'message' &&
+    	    $message->header->type1 == 'rfc822' &&
+            isset($message->header->entity_id)) {
+    	    return 0;
+	}
         $entity = findDisplayEntityHTML($message->entities[$i]);
         if ($entity != 0) {
             return $entity;
@@ -611,15 +615,16 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
     $has_unsafe_images = 0;
 
     $id = $message->header->id;
+
     $urlmailbox = urlencode($message->header->mailbox);
 
     // Get the right entity and redefine message to be this entity
     // Pass the 0 to mean that we want the 'best' viewable one
     $ent_num = findDisplayEntity ($message, 0);
     $body_message = getEntity($message, $ent_num);
+
     if (($body_message->header->type0 == 'text') ||
         ($body_message->header->type0 == 'rfc822')) {
-
         $body = mime_fetch_body ($imap_stream, $id, $ent_num);
         $body = decodeBody($body, $body_message->header->encoding);
         $hookResults = do_hook("message_body", $body);
@@ -679,8 +684,81 @@ function formatAttachments($message, $ent_id, $mailbox, $id) {
                 "</TABLE></TD></TR></TABLE>";
 
     } else if ($message) {
+	$header = $message->header;
+        $type0 = strtolower($header->type0);
+        $type1 = strtolower($header->type1);
+        $name = decodeHeader($header->name);
 
-        if (!$message->entities) {
+	if ($type0 =='message' && $type1 = 'rfc822') {
+	 
+            $filename = decodeHeader($message->header->filename);
+            if (trim($filename) == '') {
+                if (trim($name) == '') {
+                    $display_filename = 'untitled-[' . $message->header->entity_id . ']' ;
+                } else {
+                    $display_filename = $name;
+                    $filename = $name;
+                }
+            } else {
+                $display_filename = $filename;
+            }
+
+            $urlMailbox = urlencode($mailbox);
+            $ent = urlencode($message->header->entity_id);
+
+            $DefaultLink =
+                "../src/download.php?startMessage=$startMessage&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
+            if ($where && $what) {
+                $DefaultLink .= '&amp;where=' . urlencode($where) . '&amp;what=' . urlencode($what);
+            }
+            $Links['download link']['text'] = _("download");
+            $Links['download link']['href'] =
+                "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=$urlMailbox&amp;passed_ent_id=$ent";
+            $ImageURL = '';
+
+            /* this executes the attachment hook with a specific MIME-type.
+                * if that doens't have results, it tries if there's a rule
+                * for a more generic type. */
+            $HookResults = do_hook("attachment $type0/$type1", $Links,
+                $startMessage, $id, $urlMailbox, $ent, $DefaultLink, $display_filename, $where, $what);
+            if(count($HookResults[1]) <= 1) {
+                $HookResults = do_hook("attachment $type0/*", $Links,
+                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
+                $display_filename, $where, $what);
+            }
+
+            $Links = $HookResults[1];
+            $DefaultLink = $HookResults[6];
+
+            $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+                        "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
+                        '<TD><SMALL><b>' . show_readable_size($message->header->size) .
+                        '</b>&nbsp;&nbsp;</small></TD>' .
+                        "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
+                        '<TD><SMALL>';
+            if ($message->header->description) {
+                $body .= '<b>' . htmlspecialchars(_($message->header->description)) . '</b>';
+            }
+            $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
+
+
+            $SkipSpaces = 1;
+            foreach ($Links as $Val) {
+                if ($SkipSpaces) {
+                    $SkipSpaces = 0;
+                } else {
+                    $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                }
+                $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+            }
+
+            unset($Links);
+
+            $body .= "</SMALL></TD></TR>\n";
+            
+	    return( $body );	
+    	
+        } elseif (!$message->entities) {
 
             $type0 = strtolower($message->header->type0);
             $type1 = strtolower($message->header->type1);
