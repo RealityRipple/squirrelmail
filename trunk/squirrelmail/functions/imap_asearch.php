@@ -112,8 +112,7 @@ function sqimap_asearch_error_box($response, $query, $message, $link = '')
 {
 	global $imap_error_titles;
 
-	//if (!array_key_exists($response, $imap_error_titles))	//php 4.0.6 compatibility
-	if (!in_array($response, array_keys($imap_error_titles)))
+	if (!array_key_exists($response, $imap_error_titles))
 		$title = _("ERROR : Unknown imap response.");
 	else
 		$title = $imap_error_titles[$response];

@@ -18,7 +18,7 @@ Table of Contents:
   to run as CGI under Apache. How you end up doing this is up to you
   (your mileage may vary).
 
-  You will need at least PHP v4.0.6. If you need to upgrade please go
+  You will need at least PHP v4.1.0. If you need to upgrade please go
   ahead and install it now.
 
 a. Obtaining and compiling PHP4
