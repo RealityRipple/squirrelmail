@@ -25,11 +25,11 @@
 
     if (isset($view_hdr)) {
         fputs ($imapConnection, sqimap_session_id() . " FETCH $passed_id BODY[HEADER]\r\n");
-        $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b); 
-      
+        $read = sqimap_read_data ($imapConnection, sqimap_session_id(), true, $a, $b);
+
         echo '<BR>' .
              '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
-             "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=100%><CENTER><B>" . _("Viewing Full Header") . '</B> - ';
+             "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\"><CENTER><B>" . _("Viewing Full Header") . '</B> - ';
         if (isset($where) && isset($what)) {
             // Got here from a search
             echo "<a href=\"read_body.php?mailbox=".urlencode($mailbox)."&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what).'">';
@@ -281,7 +281,7 @@
                 RemoveAddress($url_replytoall_extra_addrs, $cur_email_address);
             }
         }
-    } 
+    }
    
     // 7) Smoosh back into one nice line
     $url_replytoallcc = getLineOfAddrs($url_replytoall_extra_addrs);
@@ -615,9 +615,9 @@
          '</TABLE>';
     flush();        
     echo "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n" .
-         "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n" .
+         "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=\"100%\">\n" .
          '<BR>';
-   
+
     $body = formatBody($imapConnection, $message, $color, $wrap_at);
 
     echo $body .

@@ -483,7 +483,7 @@
            '</TD></TR>'.
            "<TR><TD BGCOLOR=\"$color[0]\">\n".
            "<FORM name=messageList method=post action=\"$moveURL\">\n".
-           "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=100%>\n".
+           "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0 cellspacing=0 width=\"100%\">\n".
            "   <TR>\n" .
            "      <TD ALIGN=LEFT VALIGN=CENTER NOWRAP>\n" .
            '         <SMALL>&nbsp;' . _("Move selected to:") . "</SMALL>\n" .

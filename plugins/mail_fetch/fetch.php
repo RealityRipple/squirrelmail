@@ -22,7 +22,7 @@
 
 
     function Mail_Fetch_Status($msg) {
-        echo '<table width=90%><tr><td>' .
+        echo '<table width="90%"><tr><td>' .
             htmlspecialchars( $msg ) .
             '</td></tr></table>';
         flush();
@@ -113,7 +113,7 @@
         
         $pop3 = new POP3($mailfetch_server, 60);
         
-        echo "<br><table width=90%><tr bgcolor=\"$color[9]\"><td><b>" . 
+        echo "<br><table width=\"90%\"><tr bgcolor=\"$color[9]\"><td><b>" . 
             _("Fetching from ") . 
             (($mailfetch_alias_[$i_loop] == '')?$mailfetch_server:$mailfetch_alias_[$i_loop]) . 
             "</b></td></tr></table>";

@@ -36,7 +36,7 @@
 
       if ($target != '')
          $target = " target=\"$target\"";
-      
+
       echo '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
    }
 
@@ -49,7 +49,6 @@
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, $delimiter);
       echo "<A NAME=pagetop></A>\n".
-      // "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[4]\" width=100%><tr><td>".
            "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n".
            "   <TR BGCOLOR=\"$color[9]\" >\n".
            "      <TD ALIGN=left><b>\n";

@@ -27,25 +27,25 @@
    echo '      <tr><td align=center>';
 
    echo "<FORM ACTION=\"search.php\" NAME=s>\n";
-   echo "   <TABLE WIDTH=75%>\n";
+   echo "   <TABLE WIDTH=\"75%\">\n";
    echo "     <TR>\n";
-   echo "       <TD WIDTH=33%>\n";
+   echo "       <TD WIDTH=\"33%\">\n";
    echo '         <TT><SMALL><SELECT NAME="mailbox">';
 
    $boxes = sqimap_mailbox_list($imapConnection);
    for ($i = 0; $i < count($boxes); $i++) {
-	  if (!in_array('noselect', $boxes[$i]['flags'])) {
+      if (!in_array('noselect', $boxes[$i]['flags'])) {
          $box = $boxes[$i]['unformatted'];
-	 $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
+         $box2 = str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']);
          if ($mailbox == $box)
-            echo "         <OPTION VALUE=\"$box\" SELECTED>$box2\n";
+            echo "         <OPTION VALUE=\"$box\" SELECTED>$box2</OPTION>\n";
          else
-            echo "         <OPTION VALUE=\"$box\">$box2\n";
+            echo "         <OPTION VALUE=\"$box\">$box2</OPTION>\n";
       }
    }
    echo '         </SELECT></SMALL></TT>';
    echo "       </TD>\n";
-   echo "        <TD ALIGN=\"CENTER\" WIDTH=33%>\n";
+   echo "        <TD ALIGN=\"CENTER\" WIDTH=\"33%\">\n";
    if (!isset($what))
        $what = '';
    $what_disp = ereg_replace(',', ' ', $what);
@@ -54,7 +54,7 @@
    $what_disp = str_replace('"', '&quot;', $what_disp);
    echo "          <INPUT TYPE=\"TEXT\" SIZE=\"20\" NAME=\"what\" VALUE=\"$what_disp\">\n";
    echo '        </TD>';
-   echo "       <TD ALIGN=\"RIGHT\" WIDTH=33%>\n";
+   echo "       <TD ALIGN=\"RIGHT\" WIDTH=\"33%\">\n";
    echo '         <SELECT NAME="where">';
    
    if (isset($where) && $where == 'BODY') echo '           <OPTION VALUE="BODY" SELECTED>'._("Body")."\n";
