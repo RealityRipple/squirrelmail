@@ -697,26 +697,26 @@ function mail_message_listing_beginning ($imapConnection,
         . html_tag( 'td' ,'' , 'left', $color[0], '' )
         . html_tag( 'table' ,'' , '', $color[0], 'border="0" width="100%" cellpadding="0"  cellspacing="0"' )
             . html_tag( 'tr',
-	        getSmallStringCell(_("Move Selected To:"), 'left') .
+	        getSmallStringCell(_("Move Selected To"), 'left') .
 	        getSmallStringCell(_("Transform Selected Messages"), 'right')
             )
             . html_tag( 'tr' ) ."\n"
             . html_tag( 'td', '', 'left', '', 'valign="middle" nowrap' );
             getMbxList($imapConnection);  
-            echo getButton('SUBMIT', 'moveButton',_("Move")) . '&nbsp;'."\n";   
-            echo getButton('SUBMIT', 'attache',_("Forward")) . '&nbsp;'."\n";   
+            echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";   
+            echo getButton('SUBMIT', 'attache',_("Forward")) . "\n";   
 
   echo "      </TD>\n"
     . html_tag( 'td', '', 'right', '', 'nowrap' );
 
   if (!$auto_expunge) {
      echo getButton('SUBMIT', 'expungeButton',_("Expunge")) 
-          .'&nbsp;' . _("mailbox") . '&nbsp;'."\n";   
+          .'&nbsp;' . _("mailbox") . "\n";   
   }
   
-  echo getButton('SUBMIT', 'markRead',_("Read")) ."\n";   
-  echo getButton('SUBMIT', 'markUnread',_("Unread")) ."\n";   
-  echo getButton('SUBMIT', 'delete',_("Delete")) .'&nbsp;'."\n";
+  echo getButton('SUBMIT', 'markRead',_("Read"));
+  echo getButton('SUBMIT', 'markUnread',_("Unread"));
+  echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp\n";
   echo '<INPUT TYPE="HIDDEN" NAME="location" VALUE="'.$PHP_SELF.'">';
   echo "</TD>\n"
        . "   </TR>\n";
@@ -792,7 +792,7 @@ function mail_message_listing_end($num_msgs, $paginator_str, $msg_cnt_str, $colo
 
 function printHeader($mailbox, $sort, $color, $showsort=true) {
   global $index_order;
-    echo html_tag( 'table' ,'' , '', '', 'border="0" width="100%" cellpadding="1"  cellspacing="0"' );
+    echo html_tag( 'table' ,'' , '', $color[9], 'border="0" width="100%" cellpadding="1"  cellspacing="1"' );
     echo html_tag( 'tr' ,'' , 'center', $color[5] );
     for ($i=1; $i <= count($index_order); $i++) {
         switch ($index_order[$i]) {
@@ -1218,7 +1218,7 @@ return '<INPUT TYPE="'.$type.'" NAME="'.$name.'" VALUE="'.$value . '">';
 
 function getSmallStringCell($string, $align) {
   return html_tag( 'td',            
-            '<small>' . $string . ': &nbsp; </small>',
+            '<small>' . $string . ':&nbsp; </small>',
             $align,
             '',
             'nowrap' );
