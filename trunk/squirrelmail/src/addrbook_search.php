@@ -88,6 +88,11 @@
 ?>
 <SCRIPT LANGUAGE="Javascript"><!--
 
+function to_and_close($addr) {
+  to_address($addr);
+  parent.close();
+}
+
 function to_address($addr) {
   var prefix    = "";
   var pwintype = typeof parent.opener.document.compose;
@@ -176,11 +181,12 @@ function bcc_address($addr) {
 	 printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
 		"<a href=\"javascript:to_address('%s');\">To</A> | ".
 		"<a href=\"javascript:cc_address('%s');\">Cc</A>".
-		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s&nbsp;".
+		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
+                "<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
 		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s</tr>\n", 
 		($line % 2) ? " bgcolor=\"$color[0]\"" : "", $row["email"],
-		$row["email"], $row["name"], $row["email"], $row["label"], 
-		$row["source"]);
+		$row["email"], $row["name"], $row["email"], $row["email"],
+                $row["label"], $row["source"]);
 	 $line++;
       }
       print "</TABLE>";
