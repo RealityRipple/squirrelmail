@@ -18,7 +18,7 @@ require_once(SM_PATH . 'functions/global.php');
  * SquirrelMail version number -- DO NOT CHANGE
  */
 global $version;
-$version = '1.4.0 [CVS-DEVEL]';
+$version = '1.4.0';
 
 /** 
  * SquirrelMail internal version number -- DO NOT CHANGE

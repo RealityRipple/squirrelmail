@@ -9,8 +9,6 @@ Table of Contents:
   5.  (CHARSETS) Russian Charsets
 
 
-
-
 1. CONFIGURE YOUR WEBSERVER TO WORK WITH PHP4
 ---------------------------------------------
 
@@ -95,12 +93,11 @@ d. Running into trouble
 3. OBTAINING AND INSTALLING SQUIRRELMAIL
 ----------------------------------------
 
-  SquirrelMail is still under development. Therefore you should always
-  get the newest version around. Look at
-  http://www.squirrelmail.org/index.php3?page=5 to see what it
-  is. If you want to be bleeding edge you might want to consider using
-  the latest CVS version (with the latest and most fashionable of
-  bugs).
+  SquirrelMail is constantly being improved. Therefore you should always
+  get the newest version around. Look at http://www.squirrelmail.org/
+  to see what it is. If you want to be bleeding edge you might want to
+  consider using the latest CVS version (with the latest and most
+  fashionable of bugs).
 
 a. Download SquirrelMail
 
