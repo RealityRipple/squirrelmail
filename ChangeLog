@@ -104,6 +104,7 @@ Version 1.5.1 -- CVS
     of a paginated view (provides fix for #1014612)
   - Added MySQL password/UNIX crypt support to mysql backend in the
     change_password plugin
+  - Make SMTP Authentication detection in conf.pl more RFC-compliant.
 
 Version 1.5.0
 --------------------
