@@ -14,7 +14,9 @@
 
    echo "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    echo "   <TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n";
-   echo "      <FONT FACE=\"Arial,Helvetica\">Folders</FONT>\n";
+   echo "      <FONT FACE=\"Arial,Helvetica\">";
+   echo _("Folders");
+   echo "</FONT>\n";
    echo "   </TD></TR>\n";
    echo "</TABLE>\n";
 
@@ -23,7 +25,9 @@
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Delete Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>";
+   echo _("Delete Folder");
+   echo "</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_delete.php METHOD=SUBMIT>\n";
    echo "<TT><SELECT NAME=mailbox>\n";
@@ -44,15 +48,21 @@
    }
 
    echo "</SELECT></TT>\n";
-   echo "<FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=Delete></FONT>\n";
+   echo "<FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Delete");
+   echo "\"></FONT>\n";
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** CREATING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Create Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>";
+   echo _("Create Folder");
+   echo "</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_create.php METHOD=POST>\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
-   echo "<FONT FACE=\"Arial,Helvetica\">as a subfolder of</FONT><BR>";
+   echo "<FONT FACE=\"Arial,Helvetica\">";
+   echo _("as a subfolder of");
+   echo "</FONT><BR>";
    echo "<TT><SELECT NAME=subfolder><FONT FACE=\"Arial,Helvetica\">\n";
    if ($default_sub_of_inbox == false)
       echo "<OPTION SELECTED>[ None ]\n";
@@ -73,12 +83,16 @@
    echo "</SELECT></TT><BR>\n";
    echo "<FONT FACE=\"Arial,Helvetica\">";
    if ($show_contain_subfolders_option)
-      echo "<INPUT TYPE=CHECKBOX NAME=\"contain_subs\"><FONT FACE=\"Arial,Helvetica\"> &nbsp;Let this folder contain subfolders</FONT><BR>";
+      echo "<INPUT TYPE=CHECKBOX NAME=\"contain_subs\"><FONT FACE=\"Arial,Helvetica\"> &nbsp;";
+      echo _("Let this folder contain subfolders");
+      echo "</FONT><BR>";
    echo "<INPUT TYPE=SUBMIT VALUE=Create></FONT>\n";
    echo "</FORM><BR></TD></TR><BR>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename a Folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>";
+   echo _("Rename a Folder");
+   echo "</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename_getname.php METHOD=POST>\n";
    echo "<TT><SELECT NAME=old><FONT FACE=\"Arial,Helvetica\">\n";
@@ -98,7 +112,9 @@
       }
    }
    echo "</SELECT></TT>\n";
-   echo "<FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=\"Rename\"></FONT>\n";
+   echo "<FONT FACE=\"Arial,Helvetica\"><INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Rename");
+   echo "\"></FONT>\n";
    echo "</FORM></TD></TR></TABLE><BR>\n";
 
 ?>

@@ -22,12 +22,17 @@
    echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");
    echo "<TABLE WIDTH=100% COLS=1>";
-   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Rename a folder</B></FONT></TD></TR>";
+   echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>";
+   echo _("Rename a folder");
+   echo "</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    echo "<FORM ACTION=folders_rename_do.php METHOD=POST>\n";
-   echo "New name: &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
+   echo _("New name:");
+   echo " &nbsp;&nbsp;<INPUT TYPE=TEXT SIZE=25 NAME=new_name VALUE=\"$old_name\"><BR>\n";
    echo "<INPUT TYPE=HIDDEN NAME=orig VALUE=\"$old\">";
-   echo "<INPUT TYPE=SUBMIT VALUE=Submit>\n";
+   echo "<INPUT TYPE=SUBMIT VALUE=\"";
+   echo _("Submit");
+   echo "\">\n";
    echo "</FORM><BR></TD></TR>";
    echo "</TABLE>";
 
