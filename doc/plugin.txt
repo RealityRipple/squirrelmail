@@ -124,6 +124,7 @@ List of hooks
   read_body_bottom                src/read_body.php
   html_bottom                     src/read_body.php
   read_body_header                src/read_body.php
+  read_body_header_right          src/read_body.php
   search_before_form              src/search.php
   search_after_form               src/search.php
   search_bottom                   src/search.php

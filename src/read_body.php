@@ -334,7 +334,7 @@
    echo '      </TABLE>';
    echo '   </TD></TR>';
    echo '   <TR><TD CELLSPACING="0" WIDTH="100%">';
-   echo '   <TABLE COLS="2" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
+   echo '   <TABLE COLS="3" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
    echo '      <TR>' . "\n";
    /** subject **/
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
@@ -342,18 +342,20 @@
    echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
+   echo '         <TD WIDTH=1% ROWSPAN=4 BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
-      echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
-   } else {   
-      echo "         <TD WIDTH=1% bgcolor=\"$color[0]\" nowrap align=right><small><a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a></small>&nbsp;&nbsp;</td>";
+      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a><br>\n";
+   } else {
+      echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&view_hdr=1\">" . _("View full header") . "</a><br>\n";
    }
-   echo '      </TR>' ."\n";
+      do_hook("read_body_header_right");
+   echo ' </TR>' ."\n";
    /** from **/
    echo '      <TR>' . "\n";
    echo '         <TD BGCOLOR="' . $color[0] . '" WIDTH="15%" ALIGN="RIGHT">' . "\n";
    echo _("From:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%" colspan="2">' . "\n";
+   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%">' . "\n";
    echo "            <B>$from_name</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
@@ -361,7 +363,7 @@
    echo '      <TR>' . "\n";
    echo '         <TD BGCOLOR="' . $color[0] . '" WIDTH="15%" ALIGN="RIGHT">' . "\n";
    echo _("Date:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% colspan=2>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85%>\n";
    echo "            <B>$dateString</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
@@ -369,7 +371,7 @@
    echo "      <TR>\n";
    echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
    echo _("To:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%" VALIGN="TOP" colspan="2">' . "\n";
+   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%" VALIGN="TOP">' . "\n";
    echo "            <B>$to_string</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
