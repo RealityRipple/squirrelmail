@@ -130,7 +130,7 @@
          if ($numMessages > 0) {
             $urlMailbox = urlencode($real_box);
             $line .= "\n<small>\n";
-            $line .= " &nbsp; (<B><A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("purge")."</A></B>)";
+            $line .= "&nbsp;&nbsp;(<A HREF=\"empty_trash.php\" style=\"text-decoration:none\">"._("empty")."</A>)";
             $line .= "\n</small>\n";
          }
       }
