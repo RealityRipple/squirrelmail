@@ -1442,22 +1442,50 @@ function get_selectall_link($aMailbox) {
 //                . <a href="javascript:void(0)" onClick="' . $func_name . '();">' . _("Toggle All")
 //                . "</a>\n";
     } else {
+        $result .= "<a href=\"$PHP_SELF";
+        // FIXME: why strpos() is used to detect presense of the symbol in the string.
+        // Function returns boolean value only when symbol is not found
         if (strpos($PHP_SELF, "?")) {
-            $result .= "<a href=\"$PHP_SELF&amp;mailbox=" . urlencode($aMailbox['NAME'])
-                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;srt=$aMailbox[SORT]&amp;checkall=";
+            $prefix = '&amp;';
         } else {
-            $result .= "<a href=\"$PHP_SELF?mailbox=" . urlencode($mailbox)
-                    .  "&amp;startMessage=$aMailbox[PAGEOFFSET]&amp;srt=$aMailbox[SORT]&amp;checkall=";
-        }
-        if (isset($checkall) && $checkall == '1') {
-            $result .= '0';
-        } else {
-            $result .= '1';
+            $prefix = '?';
         }
 
-        if (isset($aMailbox['SEARCH']) && $aMailbox['SEARCH'][0]) {
-            $result .= '&amp;where=' . urlencode($aMailbox['SEARCH'][0])
-                    .  '&amp;what=' .  urlencode($aMailbox['SEARCH'][1]);
+        // If variables are part of GET request, they are present in $PHP_SELF
+        // maybe other functions can be used instead of sqgetGlobalVar (like preg_match)
+        if (! sqgetGlobalVar('mailbox',$tmp,SQ_GET)) {
+            $result .= $prefix . 'mailbox=' . urlencode($aMailbox['NAME']);
+            $prefix = '&amp;';
+        }
+        if (! sqgetGlobalVar('startMessage',$tmp,SQ_GET)) {
+            $result .= $prefix . 'startMessage=' . $aMailbox['PAGEOFFSET'];
+            $prefix = '&amp;';
+        }
+        if (! sqgetGlobalVar('str',$tmp,SQ_GET)) {
+            $result .= $prefix . 'str=' . $aMailbox['SORT'];
+            $prefix = '&amp;';
+        }
+
+        if (isset($checkall) && $checkall == '1') {
+            $checkall_val = '0';
+        } else {
+            $checkall_val = '1';
+        }
+        if (! sqgetGlobalVar('checkall',$tmp,SQ_GET) ) {
+            $result .= $prefix . 'checkall=' . $checkall_val;
+            $prefix = '&amp;';
+        } else {
+            // checkall is already present in php_self. replace it
+            $result = preg_replace("/checkall=(\d)/","checkall=$checkall_val",$result);
+        }
+
+        // FIXME: I suspect that search pages use different variables in 1.5.1cvs 
+        // and these variables are present in $PHP_SELF.
+        if (isset($aMailbox['SEARCH']) && isset($aMailbox['SEARCH'][0]) && ! sqgetGlobalVar('where',$tmp,SQ_GET)) {
+            $result .= '&amp;where=' . urlencode($aMailbox['SEARCH'][0]);
+            if (isset($aMailbox['SEARCH'][1]) && ! sqgetGlobalVar('what',$tmp,SQ_GET)) {
+                $result .= '&amp;what=' .  urlencode($aMailbox['SEARCH'][1]);
+		    }
         }
         $result .= "\">";
         $result .= _("All");
