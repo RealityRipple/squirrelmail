@@ -165,6 +165,8 @@
    // add them to the list.  Remove duplicates.
    // This is somewhat messy, so I'll explain:
    // 1) Take all addresses (from, to, cc) (avoid nasty join errors here)
+   if (!is_array($message->header->to)) { $message->header->cc = array($message->header->to); }
+   if (!is_array($message->header->cc)) { $message->header->cc = array($message->header->cc); }
    $url_replytoall_extra_addrs = array_merge(array($message->header->from),
       $message->header->to, $message->header->cc);
 
@@ -175,7 +177,9 @@
    $url_replytoall_extra_addrs = parseAddrs($url_replytoall_extra_addrs);
    
    // 4) Make them unique -- weed out duplicates
-   $url_replytoall_extra_addrs = array_unique($url_replytoall_extra_addrs);
+   if (function_exists("array_unique")) {
+      $url_replytoall_extra_addrs = array_unique($url_replytoall_extra_addrs);
+   }
    
    // 5) Remove the addresses we'll be sending the message 'to'
    $url_replytoall_avoid_addrs = parseAddrs($message->header->replyto);

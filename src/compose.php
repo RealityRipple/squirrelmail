@@ -385,7 +385,7 @@
          }
       }
       
-      if (!$failed) {
+      if (!isset($failed) || !$failed) {
          // Write information about the file
          $fp = fopen ($attachment_dir.$localfilename.".info", "w");
          fputs ($fp, $HTTP_POST_FILES['attachfile']['type']."\n".$HTTP_POST_FILES['attachfile']['name']."\n");
@@ -395,7 +395,7 @@
       }
     }
 
-   if (($mailbox == "") || ($mailbox == "None"))
+   if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
    if(isset($send)) {
