@@ -88,7 +88,7 @@ if (!session_is_registered('user_is_logged_in')) {
         $errString = $errTitle . "<br>\n".
                      _("Contact your administrator for help.");
         include_once( '../functions/display_messages.php' );
-        logout_error( _("You must be logged in to access this page.") );            
+        logout_error( $errString, $errTitle );            
         exit;
     } else {
         $sqimap_capabilities = sqimap_capability($imapConnection);
