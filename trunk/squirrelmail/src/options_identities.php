@@ -327,7 +327,7 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post)
     $return_val .= sti_input( _("Reply To"), 'reply_to', $reply_to, $post, $OtherBG );
     $return_val .= sti_textarea( _("Signature"), 'signature', $signature, $post, $OtherBG );
 
-    do_hook('options_identities_table', $OtherBG, $isEmptySection, $post);
+    $return_val .= concat_hook_function('options_identities_table', array($OtherBG, $isEmptySection, $post));
     $return_val .= html_tag( 'tr', '', '', $OtherBG);
     $return_val .= html_tag( 'td', '&nbsp;', 'left' );
     $return_val .= html_tag( 'td', '', 'left' );
@@ -345,7 +345,7 @@ function ShowTableInfo($full_name, $email_address, $reply_to, $signature, $post)
         $return_val .= '<input type=submit name="promote_' . $post . '" value="'.
              _("Move Up") . '">';
     }
-    do_hook('options_identities_buttons', $isEmptySection, $post);
+    $return_val .= concat_hook_function('options_identities_buttons', array($isEmptySection, $post));
     $return_val .=  '</td></tr>'.
          html_tag( 'tr', html_tag( 'td', '&nbsp;', 'left', '', 'colspan="2"' ));
 
