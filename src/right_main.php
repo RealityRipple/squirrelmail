@@ -225,16 +225,13 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 
     if (sqsession_is_registered('msgs') && isset($msgs)) {
         sqsession_register($msgs, 'msgs');
-        //$_SESSION['msgs'] = $msgs;
     }
 
     if (sqsession_is_registered('msort') && isset($msort)) {
         sqsession_register($msort, 'msort');
-        //$_SESSION['msort'] = $msort;
     }
 
     sqsession_register($numMessages, 'numMessages');
-    //$_SESSION['numMessages'] = $numMessages;
 }
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
