@@ -33,7 +33,7 @@
 
       $special_color = false;
       for ($i = 0; $i < count($special_folders); $i++) {
-         if (($special_folders[$i] == $mailbox) && ($use_special_folder_color == true))
+         if (($special_folders[$i] == $real_box) && ($use_special_folder_color == true))
             $special_color = true;
       }
 
