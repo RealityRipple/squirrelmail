@@ -387,7 +387,7 @@ class Message {
                     $arg_a[] = $this->parseLiteral($read, $i);
 		    /* temp bugfix (SM 1.5 will have a working clean version)
 		       too much work to implement that version right now */
-		    --$i;
+//		    --$i;
                     ++$arg_no;
                     break;
                 case 'N':
@@ -465,6 +465,9 @@ class Message {
 	   /* Now read the literal */
 	   $s = ($lit_cnt ? substr($read,$i,$lit_cnt): '');
 	   $i += $lit_cnt;
+	   /* temp bugfix (SM 1.5 will have a working clean version)
+	      too much work to implement that version right now */
+	   --$i;
 	} else { /* should never happen */
 	   $i += 3; /* } + \r + \n */
 	   $s = '';
