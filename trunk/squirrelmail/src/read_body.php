@@ -178,11 +178,19 @@ function SendMDN ( $recipient , $sender) {
 
     $subject = $header->subject;
     $now = getLongDateString( time() );
+
+    $body = _("Your message") . "\r\n\r\n" .
+            "\t" . _("To:") . ' ' . $to . "\r\n" .
+            "\t" . _("Subject:") . ' ' . $subject . "\r\n" .
+            "\t" . _("Sent:") . ' ' . $senton . "\r\n" .
+            "\r\n" .
+            sprintf( _("Was displayed on %s"), $now );
+/*
     $body = sprintf( _("This message sent on %s to %s with subject \"%s\" has been displayed on %s."),
                       $senton, $to, $subject, $now ) .
             "\r\n" .
             _("This is no guarantee that the message has been read or understood.") . "\r\n";
-
+*/
     // part2  (RFC2298)
 
     $original_recipient = $to;
@@ -228,7 +236,7 @@ function ToggleMDNflag ( $set ) {
         $sg = '-';
     }
 
-    $cmd = 'STORE ' . $passed_id . ' ' . $cmd . 'FLAGS ($MDNSent)';
+    $cmd = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
     sqimap_mailbox_select($imapConnection, $mailbox);
     $read = sqimap_run_command ($imapConnection, $cmd, true, $response, $readmessage);
 
