@@ -376,7 +376,9 @@
       if ($startMessage < $endMessage) {
          $Message = sprintf( _("Viewing Messages: <B>%s</B> to <B>%s</B> (%s total)"), $startMessage, $endMessage, $numMessages );
       } elseif ($startMessage == $endMessage) {
-         $Message = sprintf( _("Viewing Message: <B>%s</B> to <B>%s</B> (%s total)"), $startMessage, $endMessage, $numMessages );
+         $Message = _("Viewing Message: <b>1</b> (1 total)");
+      } else {
+         $Message = '<br>';
       }
 
       if ($sort == 6) {
