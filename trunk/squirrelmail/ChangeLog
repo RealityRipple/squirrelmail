@@ -8,6 +8,9 @@ Version 0.3pre1 -- Development
     Wrap incoming text at XX characters
     Editor window size (in characters)
 - Rewrote SMTP functions.  It now works and handles error correction.
+- Only folders that you're subscribed to will be listed
+- Fixed a bug in outbound messages that translated " into \"
+- Added themes in distrobution (7 total)
 
 
 

@@ -100,7 +100,7 @@
       $serverInfo = fgets($imapConnection, 256);
  
       // login
-      fputs($imapConnection, "a001 LOGIN $username $key\n");
+      fputs($imapConnection, "a001 LOGIN \"$username\" \"$key\"\n");
       $read = fgets($imapConnection, 1024);
       if ($debug_login == true) {
          echo "SERVER SAYS: $read<BR>";
