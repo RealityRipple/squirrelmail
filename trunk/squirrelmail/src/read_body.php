@@ -386,9 +386,8 @@ function formatRecipientString($recipients, $item ) {
 
 function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
                          $color, $FirstTimeSee) {
-    global $msn_user_support, $default_use_mdn, $draft_folder, $sent_folder,
-           $default_use_priority, $show_xmailer_default, 
-           $mdn_user_support, $PHP_SELF, $javascript_on;
+    global $msn_user_support, $default_use_mdn, $default_use_priority,
+           $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on;
 
     $header = $message->rfc822_header;
     $env = array();
@@ -418,8 +417,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
                     $env[_("Read receipt")] = _("send");
                 } else {
                     $env[_("Read receipt")] = _("requested"); 
-                    if (!($mailbox == $draft_folder || 
-                          $mailbox == $sent_folder  || 
+                    if (!(handleAsSent($mailbox) || 
                           $message->is_deleted ||
                           $passed_ent_id)) {
                         $mdn_url = $PHP_SELF . '&sendreceipt=1';
@@ -466,7 +464,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
 }
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
-    global $base_uri, $sent_folder, $draft_folder, $where, $what, $color, $sort,
+    global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment;
 
@@ -514,7 +512,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     if (($mailbox == $draft_folder) && ($save_as_draft)) {
         $comp_alt_uri = $comp_uri . '&amp;action=draft';
         $comp_alt_string = _("Resume Draft");
-    } else if ($mailbox == $sent_folder) {
+    } else if (handleAsSent($mailbox)) {
         $comp_alt_uri = $comp_uri . '&amp;action=edit_as_new';
         $comp_alt_string = _("Edit Message as New");
     }
