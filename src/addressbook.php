@@ -280,6 +280,9 @@
       $prevbackend = -1;
       $headerprinted = false;
 
+      echo "<p align=center><a href=\"#AddAddress\">" .
+         _("Add address") . "</a></p>\n";
+
       // List addresses
       printf("<FORM ACTION=\"%s\" METHOD=\"POST\">\n", $PHP_SELF);
       while(list($undef,$row) = each($alist)) {
@@ -287,6 +290,12 @@
 	 // New table header for each backend
 	 if($prevbackend != $row["backend"]) {
 	    if($prevbackend >= 0) {
+	       print "<TR><TD COLSPAN=5 ALIGN=center>\n";
+	       printf("<INPUT TYPE=submit NAME=editaddr VALUE=\"%s\">\n",
+	          _("Edit selected"));
+	       printf("<INPUT TYPE=submit NAME=deladdr VALUE=\"%s\">\n",
+	          _("Delete selected"));
+	       echo "</tr>\n";
 	       print '<TR><TD COLSPAN="5" ALIGN=center>';
 	       print "&nbsp;<BR></TD></TR></TABLE>\n";
 	    }
@@ -349,6 +358,7 @@
 
 
    // Display the "new address" form
+   echo "<a name=\"AddAddress\"></a>\n";
    printf("<FORM ACTION=\"%s\" NAME=f_add METHOD=\"POST\">\n", $PHP_SELF);
    print "<TABLE WIDTH=100% COLS=1 ALIGN=CENTER>\n";
    print "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>\n<STRONG>";
