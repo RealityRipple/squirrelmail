@@ -848,9 +848,9 @@ function get_paginator_str
     $result = '';
     $result .= ($all_str != '' ? $all_str . $spc . $sep . $spc: '');
     $result .= ($prv_str != '' ? $prv_str . $spc . $sep . $spc : '');
-    $result .= ($pg_str != '' ? $pg_str . $sep . $spc : '');
-    $result .= ($nxt_str != '' ? $nxt_str : '');
-    $result .= ($result != '' ? $spc . $sep . $spc . $tgl_str: $tgl_str);
+    $result .= ($nxt_str != '' ? $nxt_str . $spc . $sep . $spc : '');
+    $result .= ($pg_str != '' ? $pg_str : '');
+    $result .= ($result != '' ? $sep . $spc . $tgl_str: $tgl_str);
 
     /* If the resulting string is blank, return a non-breaking space. */
     if ($result == '') {
