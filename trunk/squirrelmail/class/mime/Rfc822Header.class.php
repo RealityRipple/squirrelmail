@@ -234,7 +234,7 @@ class Rfc822Header {
                    $i = $iEnd;
                 }
                 $sToken = str_replace($aReplace, $aSpecials,$sToken);
-                $aTokens[] = $sToken;
+                if($sToken) $aTokens[] = $sToken;
                 break;
             case '"':
                 $iEnd = strpos($address,$cChar,$i+1);
@@ -310,11 +310,11 @@ class Rfc822Header {
                         array_pop($aTokens);
                         // create token and add it again
                         $sNewToken = $prevToken . $sNextToken;
-                        $aTokens[] = $sNewToken;
+                        if($sNewToken) $aTokens[] = $sNewToken;
                     }
                 }
                 $sToken = str_replace($aReplace, $aSpecials,$sToken);
-                $aTokens[] = $sToken;
+                if($sToken) $aTokens[] = $sToken;
                 break;
             case ',':
             case ':':
