@@ -194,20 +194,16 @@ class Message {
                         case 1:
                             /* multipart properties */
                             ++$i;
-                            $res = $this->parseProperties($read, $i);
-                            $arg_a[] = $res[0];
-                            $i = $res[1];
+                            $arg_a[] = $this->parseProperties($read, $i);
                             ++$arg_no;
                             break;
                         case 2:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $res = $msg->parseDisposition($read, $i);
+                                $arg_a[] = $msg->parseDisposition($read, $i);
                             } else { /* properties */
-                                $res = $msg->parseProperties($read, $i);
+                                $arg_a[] = $msg->parseProperties($read, $i);
                             }
-                            $arg_a[] = $res[0];
-                            $i = $res[1];
                             ++$arg_no;
                             break;
                         case 3:
@@ -237,28 +233,22 @@ class Message {
                             break;
                         case 8:
                             ++$i;
-                            $res = $msg->parseDisposition($read, $i);
-                            $arg_a[] = $res[0];
-                            $i = $res[1];
+                            $arg_a[] = $msg->parseDisposition($read, $i);
                             ++$arg_no;
                             break;
                         case 9:
                             ++$i;
                             if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
-                                $res = $msg->parseDisposition($read, $i);
+                                $arg_a[] = $msg->parseDisposition($read, $i);
                             } else {
-                                $res = $msg->parseLanguage($read, $i);
+                                $arg_a[] = $msg->parseLanguage($read, $i);
                             }
-                            $arg_a[] = $res[0];
-                            $i = $res[1];
                             ++$arg_no;
                             break;
                        case 10:
                            if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
                                ++$i;
-                               $res = $msg->parseLanguage($read, $i);
-                               $arg_a[] = $res[0];
-                               $i = $res[1];
+                               $arg_a[] = $msg->parseLanguage($read, $i);
                            } else {
                                $i = $msg->parseParenthesis($read, $i);
                                $arg_a[] = ''; /* not yet described in rfc2060 */
@@ -276,9 +266,7 @@ class Message {
                 case '"':
                     /* inside an entity -> start processing */
                     $debug = substr($read, $i, 20);
-                    $res = $msg->parseQuote($read, $i);
-                    $arg_s = $res[0];
-                    $i = $res[1];
+                    $arg_s = $msg->parseQuote($read, $i);
                     ++$arg_no;
                     if ($arg_no < 3) {
                         $arg_s = strtolower($arg_s); /* type0 and type1 */
@@ -296,9 +284,7 @@ class Message {
                     break;
                 case '{':
                     /* process the literal value */
-                    $res = $msg->parseLiteral($read, $i);
-                    $arg_s = $res[0];
-                    $i = $res[1];
+                    $arg_s = $msg->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
                 case is_numeric($read{$i}):
@@ -360,20 +346,16 @@ class Message {
         } /* for */
     } /* parsestructure */
 
-    function parseProperties($read, $i) {
+    function parseProperties($read, &$i) {
         $properties = array();
         $prop_name = '';
 
         for (; $read{$i} != ')'; ++$i) {
             $arg_s = '';
             if ($read{$i} == '"') {
-                $res = $this->parseQuote($read, $i);
-                $arg_s = $res[0];
-                $i = $res[1];
+                $arg_s = $this->parseQuote($read, $i);
             } else if ($read{$i} == '{') {
-                $res = $this->parseLiteral($read, $i);
-                $arg_s = $res[0];
-                $i = $res[1];
+                $arg_s = $this->parseLiteral($read, $i);
             }
 
             if ($arg_s != '') {
@@ -386,7 +368,7 @@ class Message {
                 }
             }
         }
-        return array($properties, $i);
+        return $properties;
     }
 
     function parseEnvelope($read, $i, $hdr) {
@@ -398,15 +380,11 @@ class Message {
             $char = strtoupper($read{$i});
             switch ($char) {
                 case '"':
-                    $res = $this->parseQuote($read, $i);
-                    $arg_a[] = $res[0];
-                    $i = $res[1];
+                    $arg_a[] = $this->parseQuote($read, $i);
                     ++$arg_no;
                     break;
                 case '{':
-                    $res = $this->parseLiteral($read, $i);
-                    $arg_a[] = $res[0];
-                    $i = $res[1];
+                    $arg_a[] = $this->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
                 case 'N':
@@ -479,7 +457,7 @@ class Message {
         return (array($hdr, $i));
     }
 
-    function parseLiteral($read, $i) {
+    function parseLiteral($read, &$i) {
         $lit_cnt = '';
         for (++$i; $read{$i} != '}'; ++$i) {
             $lit_cnt .= $read{$i};
@@ -493,7 +471,7 @@ class Message {
         return (array($s, $i));
     }
 
-    function parseQuote($read, $i) {
+    function parseQuote($read, &$i) {
         $s = '';
         for (++$i; $read{$i} != '"'; ++$i) {
             if ($read{$i} == '\\') {
@@ -501,7 +479,7 @@ class Message {
              }
              $s .= $read{$i};
         }
-        return (array($s, $i));
+        return $s;
     }
 
     function parseAddress($read, $i) {
@@ -512,9 +490,7 @@ class Message {
             switch ($char) {
                 case '"':
                 case '{':
-                    $res = ($char == '"' ? $this->parseQuote($read, $i) : $this->parseLiteral($read, $i));
-                    $arg_a[] = $res[0];
-                    $i = $res[1];
+                    $arg_a[] = ($char == '"' ? $this->parseQuote($read, $i) : $this->parseLiteral($read, $i));
                     break;
                 case 'n':
                 case 'N':
@@ -539,22 +515,13 @@ class Message {
         return (array($adr, $i));
     }
 
-    function parseDisposition($read, $i) {
+    function parseDisposition($read, &$i) {
         $arg_a = array();
-
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
-                case '"':
-                case '{':
-                case '(':
-                    switch ($read{$i}) {
-                        case '"': $res = $this->parseQuote($read, $i); break;
-                        case '{': $res = $this->parseLiteral($read, $i); break;
-                        case '(': $res = $this->parseProperties($read, $i); break;
-                    }
-                    $arg_a[] = $res[0];
-                    $i = $res[1];
-                    break;
+                case '"': $arg_a[] = $this->parseQuote($read, $i); break;
+                case '{': $arg_a[] = $this->parseLiteral($read, $i); break;
+                case '(': $arg_a[] = $this->parseProperties($read, $i); break;
                 default: break;
             }
         }
@@ -566,26 +533,18 @@ class Message {
             }
         }
 
-        return (is_object($disp) ? array($disp, $i) : array('', $i));
+        return (is_object($disp) ? $disp : '');
     }
 
-    function parseLanguage($read, $i) {
+    function parseLanguage($read, &$i) {
         /* no idea how to process this one without examples */
         $arg_a = array();
 
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
-                case '"':
-                case '{':
-                case '(':
-                    switch ($read{$i}) {
-                        case '"': $res = $this->parseQuote($read, $i); break;
-                        case '{': $res = $this->parseLiteral($read, $i); break;
-                        case '(': $res = $this->parseProperties($read, $i); break;
-                    }
-                    $arg_a[] = $res[0];
-                    $i = $res[1];
-                    break;
+                case '"': $arg_a[] = $this->parseQuote($read, $i); break;
+                case '{': $arg_a[] = $this->parseLiteral($read, $i); break;
+                case '(': $arg_a[] = $this->parseProperties($read, $i); break;
                 default: break;
             }
         }
@@ -597,22 +556,15 @@ class Message {
             }
         }
 
-        return (is_object($lang) ? array($lang, $i) : array('', $i));
+        return (is_object($lang) ? $lang : '');
     }
 
     function parseParenthesis($read, $i) {
         for (; $read{$i} != ')'; ++$i) {
             switch ($read{$i}) {
-                case '"':
-                case '{':
-                case '(':
-                    switch ($read{$i}) {
-                        case '"': $res = $this->parseQuote($read, $i); break;
-                        case '{': $res = $this->parseLiteral($read, $i); break;
-                        case '(': $res = $this->parseProperties($read, $i); break;
-                    }
-                    $i = $res[1];
-                    break;
+                case '"': $this->parseQuote($read, $i); break;
+                case '{': $this->parseLiteral($read, $i); break;
+                case '(': $this->parseProperties($read, $i); break;
                 default: break;
             }
         }
