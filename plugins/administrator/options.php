@@ -232,7 +232,9 @@ $colapse = array( 'Titles' => 'off',
                   'Group5' => getPref($data_dir, $username, 'adm_Group5', 'on' ),
                   'Group6' => getPref($data_dir, $username, 'adm_Group6', 'on' ),
                   'Group7' => getPref($data_dir, $username, 'adm_Group7', 'on' ),
-                  'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ) );
+                  'Group8' => getPref($data_dir, $username, 'adm_Group8', 'on' ),
+                  'Group9' => getPref($data_dir, $username, 'adm_Group9', 'on' ),
+                  'Group10' => getPref($data_dir, $username, 'adm_Group10', 'on' ) );
 
 /* look in $_GET array for 'switch' */
 if ( sqgetGlobalVar('switch', $switch, SQ_GET) ) {
@@ -248,14 +250,14 @@ echo "<form action=options.php method=post name=options>" .
     "<center><table width=95% bgcolor=\"$color[5]\"><tr><td>".
     "<table width=100% cellspacing=0 bgcolor=\"$color[4]\">" ,
     "<tr bgcolor=\"$color[5]\"><th colspan=2>" . _("Configuration Administrator") . "</th></tr>",
-    "<tr bgcolor=\"$color[5]\"><td colspan=2i align=\"center\">";
-?>
-<small>Note: it is recommended that you configure your system using conf.pl, and not this plugin.
-conf.pl contains additional information regarding the purpose of variables and
-appropriate values, as well as additional verification steps.<br />
-Run or consult conf.pl should you run into difficulty with your configuration.</small>
-</td></tr>
-<?php
+    "<tr bgcolor=\"$color[5]\"><td colspan=2 align=\"center\">";
+
+echo "<small>";
+echo _("Note: it is recommended that you configure your system using conf.pl, and not this plugin. conf.pl contains additional information regarding the purpose of variables and appropriate values, as well as additional verification steps.");
+echo "<br />";
+echo _("Run or consult conf.pl should you run into difficulty with your configuration.");
+echo "</small></td></tr>";
+
 
 $act_grp = 'Titles';  /* Active group */
 
@@ -577,7 +579,9 @@ if( $fp = @fopen( $cfgfile, 'w' ) ) {
     "/**\n".
     " * SquirrelMail Configuration File\n".
     " * Created using the Administrator Plugin\n".
-    " */\n" );
+    " */\n".
+    "\n".
+    "global \$version;\n" );
 
     foreach ( $newcfg as $k => $v ) {
         if ( $k{0} == '$' && $v <> '' ) {

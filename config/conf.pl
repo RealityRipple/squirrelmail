@@ -351,6 +351,34 @@ if (!$session_name ) {
 	$session_name = 'SQMSESSID';
 }
 
+if (!$show_alternative_names ) {
+	$show_alternative_names = 'false';
+}
+
+if (!$available_languages ) {
+	$available_languages = 'all';
+}
+
+if (!$agresive_decoding ) {
+	$agresive_decoding = 'false';
+}
+
+if (!$advanced_tree ) {
+	$advanced_tree = 'false';
+}
+
+if (!$oldway ) {
+	$oldway = 'false';
+}
+
+if (!$use_php_recode ) {
+	$use_php_recode = 'false';
+}
+
+if (!$use_php_iconv ) {
+	$use_php_iconv = 'false';
+}
+
 if ( $ARGV[0] eq '--install-plugin' ) {
     print "Activating plugin " . $ARGV[1] . "\n";
     push @plugins, $ARGV[1];
@@ -397,6 +425,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "7.  Message of the Day (MOTD)\n";
         print "8.  Plugins\n";
         print "9.  Database\n";
+	print "10. Language settings\n"; 
+	print "11. Tweaks\n"; 
         print "\n";
         print "D.  Set pre-defined settings for specific IMAP servers\n";
         print "\n";
@@ -407,10 +437,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "3.  Org. Logo Width/Height : $WHT($org_logo_width/$org_logo_height)$NRM\n";
         print "4.  Organization Title     : $WHT$org_title$NRM\n";
         print "5.  Signout Page           : $WHT$signout_page$NRM\n";
-        print "6.  Default Language       : $WHT$squirrelmail_default_language$NRM\n";
-        print "7.  Top Frame              : $WHT$frame_top$NRM\n";
-        print "8.  Provider link          : $WHT$provider_uri$NRM\n";
-        print "9.  Provider name          : $WHT$provider_name$NRM\n";
+        print "6.  Top Frame              : $WHT$frame_top$NRM\n";
+        print "7.  Provider link          : $WHT$provider_uri$NRM\n";
+        print "8.  Provider name          : $WHT$provider_name$NRM\n";
 
         print "\n";
         print "R   Return to Main Menu\n";
@@ -502,20 +531,19 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 4 ) {
         print $WHT. "General Options\n" . $NRM;
-        print "1.  Default Charset             : $WHT$default_charset$NRM\n";
-        print "2.  Data Directory              : $WHT$data_dir$NRM\n";
-        print "3.  Attachment Directory        : $WHT$attachment_dir$NRM\n";
-        print "4.  Directory Hash Level        : $WHT$dir_hash_level$NRM\n";
-        print "5.  Default Left Size           : $WHT$default_left_size$NRM\n";
-        print "6.  Usernames in Lowercase      : $WHT$force_username_lowercase$NRM\n";
-        print "7.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
-        print "8.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
-        print "9.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
-        print "10. Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
-        print "11. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
-        print "12. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
-        print "13. Allow server charset search : $WHT$allow_charset_search$NRM\n";
-		print "14. PHP session name            : $WHT$session_name$NRM\n";
+        print "1.  Data Directory              : $WHT$data_dir$NRM\n";
+        print "2.  Attachment Directory        : $WHT$attachment_dir$NRM\n";
+        print "3.  Directory Hash Level        : $WHT$dir_hash_level$NRM\n";
+        print "4.  Default Left Size           : $WHT$default_left_size$NRM\n";
+        print "5.  Usernames in Lowercase      : $WHT$force_username_lowercase$NRM\n";
+        print "6.  Allow use of priority       : $WHT$default_use_priority$NRM\n";
+        print "7.  Hide SM attributions        : $WHT$hide_sm_attributions$NRM\n";
+        print "8.  Allow use of receipts       : $WHT$default_use_mdn$NRM\n";
+        print "9. Allow editing of identity   : $WHT$edit_identity$NRM/$WHT$edit_name$NRM\n";
+        print "10. Allow server thread sort    : $WHT$allow_thread_sort$NRM\n";
+        print "11. Allow server-side sorting   : $WHT$allow_server_sort$NRM\n";
+        print "12. Allow server charset search : $WHT$allow_charset_search$NRM\n";
+	print "13. PHP session name            : $WHT$session_name$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 5 ) {
@@ -595,6 +623,25 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "7.  Field for prefs value  : $WHT$prefs_val_field$NRM\n";
         print "\n";
         print "R   Return to Main Menu\n";
+    } elsif ( $menu == 10 ) {
+	print $WHT. "Language settings\n" . $NRM;
+	print "1.  Default Language                : $WHT$squirrelmail_default_language$NRM\n";
+	print "2.  Default Charset                 : $WHT$default_charset$NRM\n";
+	print "3.  Show alternative language names : $WHT$show_alternative_names$NRM\n";
+	print "4.  Available languages             : $WHT$available_languages$NRM\n";
+	print "5.  Use agresive decoding           : $WHT$agresive_decoding$NRM\n";
+	print "\n";
+        print "R   Return to Main Menu\n";
+    } elsif ( $menu == 11 ) {
+	print $WHT. "Interface tweaks\n" . $NRM;
+	print "1.  Advanced tree            : $WHT$advanced_tree$NRM\n";
+	print "2.  Oldway                   : $WHT$oldway$NRM\n";
+	print "\n";
+	print $WHT. "PHP tweaks\n" . $NRM;
+	print "3.  Use php recode functions : $WHT$use_php_recode$NRM\n";
+	print "4.  Use php iconv functions  : $WHT$use_php_iconv$NRM\n";
+	print "\n";
+        print "R   Return to Main Menu\n";
     }
     if ( $config_use_color == 1 ) {
         print "C.  Turn color off\n";
@@ -641,7 +688,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
     } else {
         $saved = 0;
         if ( $menu == 0 ) {
-            if ( ( $command > 0 ) && ( $command < 10 ) ) {
+            if ( ( $command > 0 ) && ( $command < 12 ) ) {
                 $menu = $command;
             }
         } elsif ( $menu == 1 ) {
@@ -650,10 +697,9 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 3 ) { ($org_logo_width,$org_logo_height)  = command2a(); }
             elsif ( $command == 4 ) { $org_title                     = command3(); }
             elsif ( $command == 5 ) { $signout_page                  = command4(); }
-            elsif ( $command == 6 ) { $squirrelmail_default_language = command5(); }
-            elsif ( $command == 7 ) { $frame_top                     = command6(); }
-            elsif ( $command == 8 ) { $provider_uri                  = command7(); }
-            elsif ( $command == 9 ) { $provider_name                 = command8(); }
+            elsif ( $command == 6 ) { $frame_top                     = command6(); }
+            elsif ( $command == 7 ) { $provider_uri                  = command7(); }
+            elsif ( $command == 8 ) { $provider_name                 = command8(); }
 
         } elsif ( $menu == 2 ) {
             if ( $command eq "a" )    { $show_imap_settings = 1; $show_smtp_settings = 0; }
@@ -700,20 +746,19 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 17 ) { $delete_folder                  = command215(); }
             elsif ( $command == 18 ) { $noselect_fix_enable            = command216(); }
         } elsif ( $menu == 4 ) {
-            if    ( $command == 1 )  { $default_charset          = command31(); }
-            elsif ( $command == 2 )  { $data_dir                 = command33a(); }
-            elsif ( $command == 3 )  { $attachment_dir           = command33b(); }
-            elsif ( $command == 4 )  { $dir_hash_level           = command33c(); }
-            elsif ( $command == 5 )  { $default_left_size        = command35(); }
-            elsif ( $command == 6 )  { $force_username_lowercase = command36(); }
-            elsif ( $command == 7 )  { $default_use_priority     = command37(); }
-            elsif ( $command == 8 )  { $hide_sm_attributions     = command38(); }
-            elsif ( $command == 9 )  { $default_use_mdn          = command39(); }
-            elsif ( $command == 10 ) { $edit_identity            = command310(); }
-            elsif ( $command == 11 ) { $allow_thread_sort        = command312(); }
-            elsif ( $command == 12 ) { $allow_server_sort        = command313(); }
-            elsif ( $command == 13 ) { $allow_charset_search     = command314(); }
-			elsif ( $command == 14 ) { $session_name             = command316(); }
+            if    ( $command == 1 )  { $data_dir                 = command33a(); }
+            elsif ( $command == 2 )  { $attachment_dir           = command33b(); }
+            elsif ( $command == 3 )  { $dir_hash_level           = command33c(); }
+            elsif ( $command == 4 )  { $default_left_size        = command35(); }
+            elsif ( $command == 5 )  { $force_username_lowercase = command36(); }
+            elsif ( $command == 6 )  { $default_use_priority     = command37(); }
+            elsif ( $command == 7 )  { $hide_sm_attributions     = command38(); }
+            elsif ( $command == 8 )  { $default_use_mdn          = command39(); }
+            elsif ( $command == 9 ) { $edit_identity            = command310(); }
+            elsif ( $command == 10 ) { $allow_thread_sort        = command312(); }
+            elsif ( $command == 11 ) { $allow_server_sort        = command313(); }
+            elsif ( $command == 12 ) { $allow_charset_search     = command314(); }
+			elsif ( $command == 13 ) { $session_name             = command316(); }
         } elsif ( $menu == 5 ) {
             if ( $command == 1 ) { command41(); }
             elsif ( $command == 2 ) { $theme_css = command42(); }
@@ -732,6 +777,17 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
             elsif ( $command == 5 ) { $prefs_user_field = command95(); }
             elsif ( $command == 6 ) { $prefs_key_field  = command96(); }
             elsif ( $command == 7 ) { $prefs_val_field  = command97(); }
+        } elsif ( $menu == 10 ) {
+            if    ( $command == 1 ) { $squirrelmail_default_language = commandA1(); }
+            elsif ( $command == 2 ) { $default_charset  	     = commandA2(); }
+            elsif ( $command == 3 ) { $show_alternative_names        = commandA3(); }
+            elsif ( $command == 4 ) { $available_languages	     = commandA4(); }
+            elsif ( $command == 5 ) { $agresive_decoding	     = commandA5(); }
+        } elsif ( $menu == 11 ) {
+            if    ( $command == 1 ) { $advanced_tree  = commandB1(); }
+            elsif ( $command == 2 ) { $oldway  	      = commandB2(); }
+            elsif ( $command == 3 ) { $use_php_recode = commandB3(); }
+            elsif ( $command == 4 ) { $use_php_iconv  = commandB4(); }
         }
     }
 }
@@ -842,23 +898,6 @@ sub command4 {
     $new_signout_page = <STDIN>;
     if ( $new_signout_page eq "\n" ) {
         $new_signout_page = $signout_page;
-    } else {
-        $new_signout_page =~ s/[\r|\n]//g;
-        $new_signout_page =~ s/^\s+$//g;
-    }
-    return $new_signout_page;
-}
-
-# Default language
-sub command5 {
-    print "SquirrelMail attempts to set the language in many ways.  If it\n";
-    print "can not figure it out in another way, it will default to this\n";
-    print "language.  Please use the code for the desired language.\n";
-    print "\n";
-    print "[$WHT$squirrelmail_default_language$NRM]: $WHT";
-    $new_signout_page = <STDIN>;
-    if ( $new_signout_page eq "\n" ) {
-        $new_signout_page = $squirrelmail_default_language;
     } else {
         $new_signout_page =~ s/[\r|\n]//g;
         $new_signout_page =~ s/^\s+$//g;
@@ -1834,25 +1873,6 @@ sub command216 {
 }
 ############# GENERAL OPTIONS #####################
 
-# Default Charset
-sub command31 {
-    print "This option controls what character set is used when sending\n";
-    print "mail and when sending HTML to the browser.  Do not set this\n";
-    print "to US-ASCII, use ISO-8859-1 instead.  For cyrillic, it is best\n";
-    print "to use KOI8-R, since this implementation is faster than most\n";
-    print "of the alternatives\n";
-    print "\n";
-
-    print "[$WHT$default_charset$NRM]: $WHT";
-    $new_default_charset = <STDIN>;
-    if ( $new_default_charset eq "\n" ) {
-        $new_default_charset = $default_charset;
-    } else {
-        $new_default_charset =~ s/[\r|\n]//g;
-    }
-    return $new_default_charset;
-}
-
 # Data directory
 sub command33a {
     print "Specify the location for your data directory.\n";
@@ -2644,6 +2664,210 @@ sub command97 {
     return $new_field;
 }
 
+# Default language
+sub commandA1 {
+    print "SquirrelMail attempts to set the language in many ways.  If it\n";
+    print "can not figure it out in another way, it will default to this\n";
+    print "language.  Please use the code for the desired language.\n";
+    print "\n";
+    print "[$WHT$squirrelmail_default_language$NRM]: $WHT";
+    $new_squirrelmail_default_language = <STDIN>;
+    if ( $new_squirrelmail_default_language eq "\n" ) {
+        $new_squirrelmail_default_language = $squirrelmail_default_language;
+    } else {
+        $new_squirrelmail_default_language =~ s/[\r|\n]//g;
+        $new_squirrelmail_default_language =~ s/^\s+$//g;
+    }
+    return $new_squirrelmail_default_language;
+}
+# Default Charset
+sub commandA2 {
+#    print "This option controls what character set is used when sending\n";
+#    print "mail and when sending HTML to the browser.  Do not set this\n";
+#    print "to US-ASCII, use ISO-8859-1 instead.  For cyrillic, it is best\n";
+#    print "to use KOI8-R, since this implementation is faster than most\n";
+#    print "of the alternatives\n";
+    print "This option is obsolate. Default charset depends on language\n";
+    print "you have selected in \"Default language\" option.\n";
+    print "\n";
+
+    print "[$WHT$default_charset$NRM]: $WHT";
+    $new_default_charset = <STDIN>;
+    if ( $new_default_charset eq "\n" ) {
+        $new_default_charset = $default_charset;
+    } else {
+        $new_default_charset =~ s/[\r|\n]//g;
+    }
+    return $new_default_charset;
+}
+# Alternative language names
+sub commandA3 {
+    print "Enable this option if you want to see localized language names in\n";
+    print "language selection box. Note, that if don't limit list of available\n";
+    print "languages, this option can trigger installation of foreign language\n";
+    print "support modules in some browsers.\n";
+    print "\n";
+
+    if ( lc($show_alternative_names) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Show alternative language names? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $show_alternative_names = <STDIN>;
+    if ( ( $show_alternative_names =~ /^y\n/i ) || ( ( $show_alternative_names =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $show_alternative_names = "true";
+    } else {
+        $show_alternative_names = "false";
+    }
+    return $show_alternative_names;
+}
+# Available languages
+sub commandA4 {
+    print "This option allows to limit number of languages available in\n";
+    print "language selection box. You can enter as code of every language that\n";
+    print "you want to enable. Language codes should be separated by space. If you\n";
+    print "enter name unsupported by SquirrelMail, it will be ignored. If you enter\n";
+    print "special key \'all\' - all languages available in SquirrelMail will be\n";
+    print "listed. If you enter special key \'none\' - user won't be able to change";
+    print "language and interface will use language set it \"Default language\" option.\n";
+    print "\n";
+    print "Valid language names are:\n";
+    print " ar (Arabic), bg_BG (Bulgarian), ca_ES (Catalan), cy_GB (Welsh)\n";
+    print " cs_CZ (Chech), da_DK (Danish), de_DE (German), el_GR (Greek),\n";
+    print " en_US (English), es_ES (Spanish), et_EE (Estonian), fi_FI (Finnish),\n";
+    print " fo_FO (Faroese), fr_FR (French), he_IL (Hebrew), hr_HR (Croatian),\n";
+    print " hu_HU (Hungarian), id_ID (Indonesian), is_IS (Icelandic), it_IT (Italian),\n";
+    print " ja_JP (Japanese), ko_KR (Korean), lt_LT (Lithuanian), ms_MY (Malay),\n";
+    print " nl_NL (Dutch), nn_NO (Norwegian (Nynorsk)), no_NO (Norwegian (Bokmal)),\n";
+    print " pl_PL (Polish), pt_BR (Portuguese (Brazil)), pt_PT (Portuguese (Portugal)),\n";
+    print " ro_RO (Romanian), ru_RU (Russian), sk_SK (Slovak), sl_SI (Slovenian),\n";
+    print " sr_YU (Serbian), sv_SE (Swedish), th_TH (Thai), tr_TR (Turkish),\n";
+    print " zh_CN (Chinese Simplified), zh_TW (Chinese Traditional).\n";
+    print "\n";
+    print "[$WHT$available_languages$NRM]: $WHT";
+    $new_available_languages = <STDIN>;
+    if ( $new_available_languages eq "\n" ) {
+        $new_available_languages = $available_languages;
+    } else {
+        $new_available_languages =~ s/[\r|\n]//g;
+        $new_available_languages =~ s/^\s+$//g;
+    }
+    return $new_available_languages;
+}
+# Agresive decoding
+sub commandA5 {
+    print "Enable this option if you want to use CPU and memory intensive decoding\n";
+    print "functions. This option allows reading multibyte charset, that are used\n";
+    print "in Eastern Asia. SquirrelMail will try to use recode functions here,\n";
+    print "even when you have disabled use of recode in Tweaks section.\n";
+    print "\n";
+
+    if ( lc($agresive_decoding) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use agresive decoding? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $agresive_decoding = <STDIN>;
+    if ( ( $agresive_decoding =~ /^y\n/i ) || ( ( $agresive_decoding =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $agresive_decoding = "true";
+    } else {
+        $agresive_decoding = "false";
+    }
+    return $agresive_decoding;
+}
+
+# Advanced tree
+sub commandB1 {
+    print "Enable this option if you want to use DHTML based folder listing.\n";
+    print "Code is experimental, works only with some browsers and there might\n";
+    print "be some glitches.\n";
+    print "\n";
+
+    if ( lc($advanced_tree) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $advanced_tree = <STDIN>;
+    if ( ( $advanced_tree =~ /^y\n/i ) || ( ( $advanced_tree =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $advanced_tree = "true";
+    } else {
+        $advanced_tree = "false";
+    }
+    return $advanced_tree;
+}
+# Oldway
+sub commandB2 {
+    print "Setting $oldway to false causes left_main.php to use the new\n";
+    print "experimental way of getting the mailbox-tree.\n";
+    print "\n";
+
+    if ( lc($oldway) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $oldway = <STDIN>;
+    if ( ( $oldway =~ /^y\n/i ) || ( ( $oldway =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $oldway = "true";
+    } else {
+        $oldway = "false";
+    }
+    return $oldway;
+}
+# php recode
+sub commandB3 {
+    print "Enable this option if you want to use php recode functions to read\n";
+    print "emails written in charset that differs from the one that is set in\n";
+    print "translation selected by user. Code is experimental, it might cause\n";
+    print "errors, if email contains charset unsupported by recode or if your\n";
+    print "php does not have recode support.\n";
+    print "\n";
+
+    if ( lc($use_php_recode) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $use_php_recode = <STDIN>;
+    if ( ( $use_php_recode =~ /^y\n/i ) || ( ( $use_php_recode =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $use_php_recode = "true";
+    } else {
+        $use_php_recode = "false";
+    }
+    return $use_php_recode;
+}
+# php iconv
+sub commandB4 {
+    print "Enable this option if you want to use php iconv functions to read\n";
+    print "emails written in charset that differs from the one that is set in\n";
+    print "translation selected by user. Code is experimental, it works only\n";
+    print "with translations that use utf-8 charset. Code might cause errors,\n";
+    print "if email contains charset unsupported by iconv or if your php does\n";
+    print "not have iconv support.\n";
+    print "\n";
+
+    if ( lc($use_php_iconv) eq "true" ) {
+        $default_value = "y";
+    } else {
+        $default_value = "n";
+    }
+    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    $use_php_iconv = <STDIN>;
+    if ( ( $use_php_iconv =~ /^y\n/i ) || ( ( $use_php_iconv =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
+        $use_php_iconv = "true";
+    } else {
+        $use_php_iconv = "false";
+    }
+    return $use_php_iconv;
+}
+
+
 sub save_data {
     $tab = "    ";
     if ( open( CF, ">config.php" ) ) {
@@ -2694,6 +2918,14 @@ sub save_data {
 	
 	# string
         print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
+	# string
+        print CF "\$default_charset          = '$default_charset';\n";
+	# boolean
+        print CF "\$show_alternative_names   = '$show_alternative_names';\n";
+	# string
+        print CF "\$available_languages   = '$available_languages';\n";
+	# boolean
+        print CF "\$agresive_decoding   = '$agresive_decoding';\n";
         print CF "\n";
 
 	# string
@@ -2761,8 +2993,6 @@ sub save_data {
 
         print CF "\n";
 
-	# string
-        print CF "\$default_charset          = '$default_charset';\n";
 	# string
         print CF "\$data_dir                 = " . &change_to_SM_path($data_dir) . ";\n";
 	# string that can contain a variable
@@ -2872,6 +3102,20 @@ sub save_data {
 		print CF "\$session_name = '$session_name';\n";
 
 	    print CF "\n";
+
+	# boolean
+	print CF "\$advanced_tree = '$advanced_tree';\n";
+	print CF "\n";
+	# boolean
+	print CF "\$oldway = '$oldway';\n";
+	print CF "\n";
+	# boolean
+	print CF "\$use_php_recode = '$use_php_recode';\n";
+	print CF "\n";
+	# boolean
+	print CF "\$use_php_iconv = '$use_php_iconv';\n";
+	print CF "\n";
+
 		print CF "\@include SM_PATH . 'config/config_local.php';\n";
     
 		print CF "\n/**\n";
