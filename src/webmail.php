@@ -82,6 +82,7 @@ $err=set_up_language(getPref($data_dir, $username, 'language'));
 
 $output = "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\n".
           "<html><head>\n" .
+	  "<meta name=\"robots\" content=\"noindex,nofollow\">\n" .
           "<title>$org_title</title>\n".
           "</head>";
 
