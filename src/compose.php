@@ -648,15 +648,14 @@ function getAttachments($message, $session, $passed_id, $entities, $imapConnecti
                 $passed_id, $message->entity_id),
                 $message->header->encoding));
             fclose ($fp);
-
             $attachments[] = $newAttachment;
-            setPref($data_dir, $username, 'attachments', $attachments);
         }
     } else {
         for ($i = 0; $i < count($message->entities); $i++) {
             getAttachments($message->entities[$i], $session, $passed_id, $entities, $imapConnection);
         }
     }
+    setPref($data_dir, $username, 'attachments', serialize($attachments));    
     return;
 }
 
@@ -693,6 +692,7 @@ function getMessage_RFC822_Attachment($message, $session, $passed_id,
     	$newAttachment['session'] = $session;
     	$attachments[] = $newAttachment;
     }
+    setPref($data_dir, $username, 'attachments', serialize($attachments));
     return;
 }
 
