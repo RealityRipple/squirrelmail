@@ -441,6 +441,12 @@ if ( file_exists( SM_PATH . 'locale/nl_NL') ) {
     $languages['nl_NL']['CHARSET'] = 'iso-8859-1';
     $languages['nl']['ALIAS'] = 'nl_NL';
 }
+if ( file_exists( SM_PATH . 'locale/ms_MY') ) {
+    $languages['ms_MY']['NAME']    = 'Bahasa Melayu';
+    $languages['ms_MY']['CHARSET'] = 'iso-8859-1';
+    $languages['my']['ALIAS'] = 'ms_MY';
+}
+
 if ( file_exists( SM_PATH . 'locale/no_NO') ) {
     $languages['no_NO']['NAME']    = 'Norwegian (Bokm&aring;l)';
     $languages['no_NO']['CHARSET'] = 'iso-8859-1';
