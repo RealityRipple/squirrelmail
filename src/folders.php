@@ -67,7 +67,7 @@ $imapConnection = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 
 $boxes = sqimap_mailbox_list($imapConnection);
 
 /** CREATING FOLDERS **/
-echo html_tag( 'table', '', 'center', '', 'width="70%" cols="1" cellpadding="4" cellspacing="0" border="0"' ) .
+echo html_tag( 'table', '', 'center', '', 'width="70%" cellpadding="4" cellspacing="0" border="0"' ) .
             html_tag( 'tr',
                 html_tag( 'td', '<b>' . _("Create Folder") . '</b>', 'center', $color[9] )
             ) .

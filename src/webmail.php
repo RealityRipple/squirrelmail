@@ -49,7 +49,8 @@ if ($my_language != $squirrelmail_language) {
 
 set_up_language(getPref($data_dir, $username, 'language'));
 
-echo "<html><head>\n" .
+echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">'.
+     "<html><head>\n" .
      "<title>$org_title</title>";
 
 $left_size = getPref($data_dir, $username, 'left_size');

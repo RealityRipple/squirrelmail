@@ -53,7 +53,7 @@ function address_form($name, $submittext, $values = array()) {
                                        $submittext . '">',
                                    'center', $color[4], 'colspan="2"')
                        )
-    , 'center', '', 'border="0" cellpadding="1" cols="2" width="90%"') ."\n";
+    , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
 }
 
 
@@ -175,7 +175,7 @@ if($REQUEST_METHOD == 'POST') {
                                       "\n". '<strong>' . _("Update address") . '</strong>' ."\n",
                                       'center', $color[0] )
                                    ),
-                             'center', '', 'width="100%" cols="1"' ) .
+                             'center', '', 'width="100%" ' ) .
                         address_form("editaddr", _("Update address"), $olddata);
                         echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' . 
                              htmlspecialchars($olddata["nickname"]) . "\">\n" .
@@ -201,7 +201,7 @@ if($REQUEST_METHOD == 'POST') {
                                       '">' . _("ERROR") . ': ' . $abook->error . '</font></strong>' ."\n",
                                       'center' )
                                    ),
-                             'center', '', 'width="100%" cols="1"' );
+                             'center', '', 'width="100%"' );
 
                             /* Display the "new address" form again */
                             echo '<FORM ACTION="' . $PHP_SELF .
@@ -212,7 +212,7 @@ if($REQUEST_METHOD == 'POST') {
                                                     "\n". '<br><strong>' . _("Update address") . '</strong>' ."\n",
                                          'center', $color[0] )
                                      ),
-                                 'center', '', 'width="100%" cols="1"' ) .
+                                 'center', '', 'width="100%"' ) .
                             address_form("editaddr", _("Update address"), $newdata);
                             echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' .
                                  htmlspecialchars($oldnick) . "\">\n" .
@@ -255,7 +255,7 @@ if (!empty($formerror)) {
                    '">' . _("ERROR") . ': ' . $formerror . '</font></strong>' ."\n",
             'center' )
         ),
-    'center', '', 'width="100%" cols="1"' );
+    'center', '', 'width="100%"' );
 }
 
 
@@ -301,8 +301,8 @@ if ($showaddrlist) {
                                 html_tag( 'tr',
                                     html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] )
                                 ) ,
-                        'center', '', 'width="95%" cols="1"' ) ."\n"
-                . html_tag( 'table', '', 'center', '', 'cols="5" border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
+                        'center', '', 'width="95%"' ) ."\n"
+                . html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
                       html_tag( 'tr', "\n" .
                           html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) .
                           html_tag( 'th', _("Nickname"), 'left', '', 'width="1%"' ) .
@@ -374,7 +374,7 @@ echo '<a name="AddAddress"></a>' . "\n" .
                 'center', $color[0]
             )
         )
-    , 'center', '', 'width="100%" cols="1"' ) ."\n";
+    , 'center', '', 'width="100%"' ) ."\n";
 address_form('addaddr', _("Add address"), $defdata);
 echo '</FORM>';
 
