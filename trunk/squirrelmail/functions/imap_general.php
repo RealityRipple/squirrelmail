@@ -91,11 +91,14 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
                 $fetch_data = array();
                 $fetch_data[] = $read;
                 $read = sqimap_fgets($imap_stream);
-                $i = 0;
-                while (!preg_match('/^\* [0-9]+ FETCH.*/', $read) && 
+                while (!preg_match('/^\* [0-9]+ FETCH.*/', $read) &&
                        !preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
                     $fetch_data[] = $read;
+                    $last = $read;
                     $read = sqimap_fgets($imap_stream);
+                }
+                if (isset($last) && preg_match('/^\)/', $last)) {
+                    array_pop($fetch_data);
                 }
                 $resultlist[] = $fetch_data;
                 break 1;
@@ -145,72 +148,26 @@ function sqimap_read_data_list ($imap_stream, $pre, $handle_errors, &$response, 
 }
 
 function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message, $query = '') {
-    global $color, $squirrelmail_language;
-    $read = '';
-    $pre_a = explode(' ',trim($pre));
-    $pre = $pre_a[0];
-    $result = '';
-    $data = array();
-    $read = sqimap_fgets($imap_stream);
-    while (1) {
-        switch (true) { 
-            case preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read, $regs):
-            case preg_match('/^\* (BYE \[ALERT\])(.*)$/', $read, $regs):
-                $response = $regs[1];
-                $message = trim($regs[2]);
-                break 2;
-            case preg_match("/^\* (OK \[PARSE\])(.*)$/", $read):
-                $read = sqimap_fgets($imap_stream);
-                break 1;
-            case preg_match('/^\* [0-9]+ FETCH.*/', $read):
-                $fetch_data = array();
-                $fetch_data[] = $read;
-                $read = sqimap_fgets($imap_stream);
-                while (!preg_match("/^$pre (OK|BAD|NO)(.*)$/", $read)) {
-                    $fetch_data[] = $read;
-                    $read = sqimap_fgets($imap_stream);
-                }
-                $result = $fetch_data;
-		break 2;
-            default:
-                $data[] = $read;
-                $read = sqimap_fgets($imap_stream);
-                break 1;
+    $res = sqimap_read_data_list($imap_stream, $pre, $handle_errors, $response, $message, $query);
+  
+    /* sqimap_read_data should be called for one response
+       but since it just calls sqimap_read_data_list which 
+       handles multiple responses we need to check for that
+       and merge the $res array IF they are seperated and 
+       IF it was a FETCH response. */
+  
+    if (isset($res[1]) && is_array($res[1]) && isset($res[1][0]) 
+        && preg_match('/^\* \d+ FETCH/', $res[1][0])) {
+        $result = array();
+        foreach($res as $index=>$value) {
+            $result = array_merge($result, $res["$index"]);
         }
     }
-    if (!empty($data)) {
-        $result = $data;
-    }
-    if ($handle_errors == false) {
-        return( $result );
-    } 
-    elseif ($response == 'NO') {
-    /* ignore this error from M$ exchange, it is not fatal (aka bug) */
-        if (strstr($message, 'command resulted in') === false) {
-            set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n" .
-                _("ERROR : Could not complete request.") .
-                "</b><br>\n" .
-                _("Query:") .
-                $query . '<br>' .
-                _("Reason Given: ") .
-                $message . "</font><br>\n";
-            exit;
-        }
-    } 
-    elseif ($response == 'BAD') {
-        set_up_language($squirrelmail_language);
-        echo "<br><b><font color=$color[2]>\n" .
-            _("ERROR : Bad or malformed request.") .
-            "</b><br>\n" .
-            _("Query:") .
-            $query . '<br>' .
-            _("Server responded: ") .
-            $message . "</font><br>\n";
-        exit;
-    } 
-    else {
+    if (isset($result)) {
         return $result;
+    }
+    else {
+        return $res[0];
     }
 
 }
