@@ -66,10 +66,10 @@ if( !sqgetGlobalVar('confirmed', $tmp, SQ_POST) ) {
         html_tag( 'tr' ) .
         html_tag( 'td', '', 'center', $color[4] ) .
         sprintf(_("Are you sure you want to delete %s?"), str_replace(array(' ','<','>'),array('&nbsp;','&lt;','&gt;'),imap_utf7_decode_local($mailbox))).
-        addForm('folders_delete.php', 'POST').
+        addForm('folders_delete.php', 'post')."<p>\n".
         addHidden('mailbox', $mailbox).
-        '<input type="submit" name="confirmed" value="'._("Yes")."\" />\n".
-        '<input type="submit" name="backingout" value="'._("No")."\" />\n".
+        addSubmit(_("Yes"), 'confirmed').
+        addSubmit(_("No"), 'backingout').
         '</p></form><br /></td></tr></table>';
 
     exit;
