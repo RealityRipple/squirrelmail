@@ -77,7 +77,7 @@
          for ($i=0; isset($body_ary[$i]); $i++) {
             if (! $forward_id)
             {
-                if (ereg('^[\\s>]+', $body_ary[$i]))
+                if (ereg('^[ >]+', $body_ary[$i]))
                 {
                     $body_ary[$i] = '>' . $body_ary[$i];
                 }
