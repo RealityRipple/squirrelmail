@@ -42,7 +42,8 @@ function plugin_listcommands_menu() {
 	/* I don't know this action... skip it */
 	if ( ( function_exists('array_key_exists') &&       /* PHP >= 4.1 */
                !array_key_exists($cmd, $fieldsdescr) ) ||
-             !key_exists($cmd, $fieldsdescr)                /* PHP == 4.0.6 */
+             ( function_exists('key_exists') && 
+               !key_exists($cmd, $fieldsdescr) )            /* PHP == 4.0.6 */
         ) {
             continue;
         }
