@@ -19,8 +19,8 @@ Version 1.4.0 RC 1
   - Allow Mail Fetch to use a different POP3 server port number.
   - Force magic_quotes_runtime to be off to avoid problems with this setting.
   - Introduce check_sm_version function for plugins wanting to know
-    which SquirrelMail function this is.
-  - Confirable session name to avoid conflicts with other PHP applications.
+    which version of SquirrelMail this is.
+  - Configurable session name to avoid conflicts with other PHP applications.
   - Miscellaneous fixes for systems with error_reporting set to E_ALL.
   - Many many other bugfixes and tweaks!
 
