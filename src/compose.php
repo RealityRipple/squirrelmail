@@ -76,11 +76,11 @@
          
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
-         
+
          sqUnWordWrap($body);   
          $body_ary = explode("\n", $body);
          $i = count($body_ary) - 1;
-         while (isset($body_ary[$i]) && ereg("^[>\s]*$", $body_ary[$i])) {
+         while (isset($body_ary[$i]) && ereg("^[>\\s]*$", $body_ary[$i])) {
             unset($body_ary[$i]);
             $i --;
          }
@@ -88,7 +88,7 @@
          for ($i=0; $i < count($body_ary); $i++) {
             if (! $forward_id)
             {
-                if (ereg('^[\s>]+', $body_ary[$i]))
+                if (ereg('^[\\s>]+', $body_ary[$i]))
                 {
                     $body_ary[$i] = '>' . $body_ary[$i];
                 }
@@ -99,7 +99,7 @@
             }
             sqWordWrap($body_ary[$i], $editor_size - 1);
             $body .= $body_ary[$i] . "\n";
-            $body_ary[$i] = '';
+	    unset($body_ary[$i]);
          }
          if ($forward_id)
          {
@@ -200,7 +200,6 @@
       $subject = sqStripSlashes(decodeHeader($subject));
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
-      $body = sqStripSlashes($body);
       
       if ($use_javascript_addr_book) {
          echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
