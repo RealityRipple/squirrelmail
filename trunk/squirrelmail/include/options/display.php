@@ -109,7 +109,7 @@ function load_optpage_data_display() {
         'caption' => '',
         'type'    => SMOPT_TYPE_HIDDEN,
         'refresh' => SMOPT_REFRESH_NONE,
-        'script'  => $js_autodetect_script,
+        'post_script' => $js_autodetect_script,
         'save'    => 'save_option_javascript_autodetect'
     );
 
