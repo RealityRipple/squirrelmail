@@ -10,8 +10,12 @@
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    displayPageHeader($mailbox);
 
-   echo "<FORM action=\"mailto:luke@usa.om.org\" METHOD=POST>\n";
-   echo "<TEXTAREA NAME=body ROWS=20 COLS=82></TEXTAREA>";
+   echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
+   echo "<CENTER>";
+   echo "<INPUT TYPE=TEXT NAME=passed_to>";
+   echo "<INPUT TYPE=TEXT NAME=passed_subject>";
+   echo "<TEXTAREA NAME=passed_body ROWS=20 COLS=72 WRAP=SOFT></TEXTAREA><BR>";
    echo "<INPUT TYPE=SUBMIT VALUE=\"Send\">";
+   echo "</CENTER>";
    echo "</FORM>";
 ?>

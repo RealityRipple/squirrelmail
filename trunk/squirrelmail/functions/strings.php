@@ -39,9 +39,21 @@
             $i++;
             $line_len = $line_len + strlen($words[$i])+1;
          }
-         if ($i < count($words)) // don't <BR> the last line
-            $line = "$line<BR>";
          $line_len = strlen($words[$i])+1;
+         if ($line_len < $wrap) {
+            if ($i < count($words)) // don't <BR> the last line
+               $line = "$line<BR>";
+         } else {
+            $endline = $words[$i];
+            while ($line_len >= $wrap) {
+               $bigline = substr($endline, 0, $wrap);
+               $endline = substr($endline, $wrap, strlen($endline));
+               $line_len = strlen($endline);
+               $line = "$line$bigline<BR>";
+            }
+            $line = "$line$endline<BR>";
+            $i++;
+         }
       }
       return $line;
    }
