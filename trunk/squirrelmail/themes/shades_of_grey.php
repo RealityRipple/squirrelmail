@@ -8,7 +8,7 @@
    **/
 
    /** seed the random number generator **/
-   sm_mt_randomize();
+   sq_mt_randomize();
 
    for ($i = 0; $i <= 14; $i++) {
 	if ($i == 0 or $i == 3 or $i == 4 or $i == 5 or $i == 9 or $i == 10 or $i == 12) {
