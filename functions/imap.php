@@ -308,6 +308,8 @@
          $success = copyMessages($imapConnection, $a, $b, $trash_folder);
          if ($success == true)
             setMessageFlag($imapConnection, $a, $b, "Deleted");
+         else
+            echo "There was an error moving the messages.<BR>Messages NOT deleted.";
       } else {
          setMessageFlag($imapConnection, $a, $b, "Deleted");
       }

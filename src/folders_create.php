@@ -32,10 +32,15 @@
    fputs($imapConnection, "1 logout\n");
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
-   echo "<BR><BR><CENTER><B>" . _("Folder Created!") . "</B><BR><BR>";
-   echo _("You will be automatically forwarded.") . "<BR>" . _("If not,") . " <A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>" . _("click here") . "</a>.";   
-   echo "</CENTER></FONT>"; 
-         
+   echo "<BR><BR><BR><CENTER><B>";
+   echo _("Folder Created!");
+   echo "</B><BR><BR>";
+   echo _("The folder has been successfully created.");
+   echo "<BR><A HREF=\"webmail.php\" TARGET=_top>";
+   echo _("Click here");
+   echo " </A>";
+   echo _("to continue.");
+   echo "</CENTER></FONT>";
 ?>
 </BODY></HTML>
 

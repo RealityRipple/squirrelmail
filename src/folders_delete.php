@@ -8,7 +8,8 @@
 
    include("../src/load_prefs.php");
 
-   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   echo "<HTML>";
+   echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
    displayPageHeader($color, "None");  
    
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress, 0);
@@ -76,8 +77,14 @@
    fputs($imapConnection, "1 logout");
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
-   echo "<BR><BR><CENTER><B>" . _("Folder Deleted!") . "</B><BR><BR>";
-   echo _("You will be automatically forwarded.") . "<BR>" . _("If not,") . " <A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>" . _("click here") . "</A>";
+   echo "<BR><BR><BR><CENTER><B>";
+   echo _("Folder Deleted!");
+   echo "</B><BR><BR>";
+   echo _("The folder has been successfully deleted.");
+   echo "<BR><A HREF=\"webmail.php\" TARGET=_top>";
+   echo _("Click here");
+   echo " </A>";
+   echo _("to continue.");
    echo "</CENTER></FONT>"; 
    
    echo "</BODY></HTML>";
