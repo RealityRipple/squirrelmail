@@ -47,7 +47,7 @@ $em = getPref($data_dir, $username, 'email_address');
 if ($em != '') {
     $defaultmail .= htmlspecialchars(' <' . $em . '>') . "\n";
 }
-echo '<P><CENTER>' . _("From:");
+echo '<P><CENTER>' . _("From:") . ' ';
 
 $idents = getPref($data_dir, $username, 'identities');
 if ($idents != '' && $idents > 1) {
