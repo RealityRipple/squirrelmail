@@ -1,3 +1,4 @@
+<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">
 <?
    include("../config/config.php");
    include("../functions/mailbox.php");
@@ -6,7 +7,6 @@
    include("../functions/display_messages.php");
    include("../functions/imap.php");
 
-   echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">";
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
 
    // switch to the mailbox, and get the number of messages in it.
@@ -42,3 +42,4 @@
    fputs($imapConnection, "1 logout");
 
 ?>
+</BODY></HTML>

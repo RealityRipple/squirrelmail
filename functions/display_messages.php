@@ -45,7 +45,6 @@
       echo "      </TABLE>";
       echo "   </TD></TR>";
       echo "</TABLE>";
-      echo "</BODY></HTML>";
    }
 
     function messages_deleted_message($mailbox, $sort, $startMessage) {
@@ -63,6 +62,5 @@
       echo "      </FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
-      echo "</BODY></HTML>";
     }
 ?>

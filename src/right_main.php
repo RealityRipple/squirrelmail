@@ -54,6 +54,7 @@
    if (!isset($mailbox)) {
       displayPageHeader("None");
       general_info($motd, $org_logo, $version, $org_name);
+      echo "</BODY></HTML>";
       exit;
    }
 
