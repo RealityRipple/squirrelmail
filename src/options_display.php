@@ -264,7 +264,7 @@
          <tr>
             <td>&nbsp;
             </td><td>
-               <input type="submit" value="Submit" name="submit_display">
+               <input type="submit" value="<?php echo _("Submit"); ?>"name="submit_display">
             </td>
          </tr>
       </table>   

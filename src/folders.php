@@ -82,16 +82,16 @@
          if (!sqimap_mailbox_exists ($imapConnection, $trash_folder) && $trash_folder != "none"){
             echo _("Create Trash") . "<INPUT TYPE=checkbox NAME=trash_create value=true><br>\n";
          }
-         echo "<INPUT TYPE=submit VALUE=Create>";
+         echo "<INPUT TYPE=submit VALUE="._("Create").">";
          echo "</FORM></TD></TR></TABLE><br>";
       }
    }
 
    /** DELETING FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Delete Folder");
-   echo "</TD></TR>";
+   echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
 
    $count_special_folders = 0;
@@ -141,9 +141,9 @@
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** CREATING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Create Folder");
-   echo "</TD></TR>";
+   echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    echo "<FORM NAME=cf ACTION=\"folders_create.php\" METHOD=\"POST\">\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name><BR>\n";
@@ -205,9 +205,9 @@
    echo "<tr><td bgcolor=\"$color[4]\">&nbsp;</td></tr>\n";
 
    /** RENAMING FOLDERS **/
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER><B>";
    echo _("Rename a Folder");
-   echo "</TD></TR>";
+   echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_rename_getname.php\" METHOD=\"POST\">\n";
@@ -239,9 +239,9 @@
    
    /** UNSUBSCRIBE FOLDERS **/
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER cellpadding=2 cellspacing=0 border=0>\n";
-   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=3>";
+   echo "<TR><TD BGCOLOR=\"$color[9]\" ALIGN=CENTER colspan=3><B>";
    echo _("Unsubscribe") . "/" . _("Subscribe");
-   echo "</TD></TR>";
+   echo "</B></TD></TR>";
    echo "<TR><TD BGCOLOR=\"$color[0]\" width=49% ALIGN=CENTER>";
    if ($count_special_folders < count($boxes)) {
       echo "<FORM ACTION=\"folders_subscribe.php?method=unsub\" METHOD=\"POST\">\n";
