@@ -43,6 +43,8 @@ if (isset($spam_submit)) {
         if ( isset( $$input ) ) {
             setPref( $data_dir, $username, $spam_filters[$Key]['prefname'],
                      $$input);
+        } else {
+            removePref($data_dir, $username, $spam_filters[$Key]['prefname']);
         }
     }
 }
