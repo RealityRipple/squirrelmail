@@ -201,7 +201,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
 			echo '</td></tr>';
         }
         echo '</table></td></tr></table></form>';
-		$count_all += count($msgs);
+		$count_all = count($msgs);
     }
 		return $count_all;
 }
