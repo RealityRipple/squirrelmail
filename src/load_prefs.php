@@ -147,6 +147,20 @@
       $message_highlight_list[$i]["value"] = $ary[2];
       $message_highlight_list[$i]["match_type"] = $ary[3];
    }
+
+   #index order lets you change the order of the message index
+   $order = getPref($data_dir, $username, "order1");
+   for ($i=1; $order; $i++) {
+      $index_order[$i] = $order;
+      $order = getPref($data_dir, $username, "order".($i+1));
+   }
+   if (!$index_order) {
+      $index_order[1] = 1;
+      $index_order[2] = 2;
+      $index_order[3] = 3;
+      $index_order[4] = 5;
+      $index_order[5] = 4;
+   }
    
    $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
    if ($location_of_bar == '')

@@ -14,6 +14,7 @@
       global $color, $msgs, $msort;
 		global $sent_folder;
       global $message_highlight_list;
+      global $index_order;
 
 		$msg = $msgs[$key];
 
@@ -49,15 +50,31 @@
       if ($where && $what) {
          $search_stuff = "&where=".urlencode($where)."&what=".urlencode($what);
       }
-      
-      echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
-      echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
-      echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
 
-      if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>\n";
-      elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>\n";
-      else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
-      echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
+      for ($i=1; $i <= count($index_order); $i++) {
+         switch ($index_order[$i]) {
+            case 1: # checkbox
+               echo "   <td width=1% bgcolor=$hlt_color align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."$checked></TD>\n";
+               break;
+            case 2: # from
+               echo "   <td width=30% bgcolor=$hlt_color>$italic$bold$flag$senderName$flag_end$bold_end$italic_end</td>\n";
+               break;
+            case 3: # date
+               echo "   <td nowrap width=1% bgcolor=$hlt_color><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
+               break;
+            case 4: # subject
+               echo "   <td bgcolor=$hlt_color>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\">$flag$subject$flag_end</a>$bold_end</td>\n";
+               break;
+            case 5: # flags
+               if ($msg["FLAG_ANSWERED"] == true) echo "   <td bgcolor=$hlt_color width=1%><b><small>A</small></b></td>\n";
+               elseif (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) echo "   <td bgcolor=$hlt_color width=1%><b><small><font color=$color[1]>!</font></small></b></td>\n";
+               else    echo "   <td bgcolor=$hlt_color width=1%>&nbsp;</td>\n";
+               break;
+            case 6: # size   
+               break;
+         }
+      }
+
 
       echo "</tr>\n";
    }
@@ -181,6 +198,7 @@
    function displayMessageArray($imapConnection, $numMessages, $startMessage, &$msgs, $msort, $mailbox, $sort, $color,$show_num) {
       global $folder_prefix, $sent_folder;
 		global $imapServerAddress;
+      global $index_order;
 
       // if cache isn't already set, do it now
       if (!session_is_registered("msgs"))
@@ -268,38 +286,53 @@
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-      echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
-      /** FROM HEADER **/
-		if ($mailbox == $sent_folder)
-      	echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
-		else
-      	echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
 
-      if ($sort == 2)
-         echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-      else if ($sort == 3)
-         echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-      else
-         echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-      /** DATE HEADER **/
-      echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
-      if ($sort == 0)
-         echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-      else if ($sort == 1)
-         echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-      else
-         echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-      echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
-      /** SUBJECT HEADER **/
-      echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
-      if ($sort == 4)
-        echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
-      else if ($sort == 5)
-         echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
-      else
-         echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-
+      for ($i=1; $i <= count($index_order); $i++) {
+         switch ($index_order[$i]) {
+            case 1: # checkbox
+               echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
+               break;
+            case 2: # from
+         		if ($mailbox == $sent_folder)
+               	echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
+         		else
+               	echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+         
+               if ($sort == 2)
+                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 3)
+                  echo "   <A HREF=\"right_main.php?newsort=2&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else
+                  echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+            case 3: # date
+               echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
+               if ($sort == 0)
+                  echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 1)
+                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else
+                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+            case 4: # subject
+               echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
+               if ($sort == 4)
+                 echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
+               else if ($sort == 5)
+                  echo "   <A HREF=\"right_main.php?newsort=4&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               else
+                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
+               break;
+            case 5: # flags
+               echo "   <TD WIDTH=1%>&nbsp;</TD>\n";
+               break;
+            case 6: # size   
+               echo "   <TD WIDTH=1%>Size</TD>\n";
+               break;
+         }
+      }
       echo "</TR>";
+
 
       
       // loop through and display the info for each message.

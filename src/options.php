@@ -137,6 +137,18 @@
             </td>
          </tr>   
       </table><br>
+      <table width=100% cellpadding=3 cellspacing=0 border=0>
+         <tr>
+            <td bgcolor="<?php echo $color[9] ?>">
+               <a href="options_order.php"><?php echo _("Index Order"); ?></a>
+            </td>
+         </tr>
+         <tr>
+            <td bgcolor="<?php echo $color[0] ?>">
+               <?php echo _("The order of the message index can be rearanged and changed to contain the headers in any order you want.") ?>
+            </td>
+         </tr>   
+      </table><br>
    </td>
    <td valign=top width=50%>
       <table width=100% cellpadding=3 cellspacing=0 border=0>
