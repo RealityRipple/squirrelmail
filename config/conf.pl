@@ -40,6 +40,10 @@ if ( defined( $ENV{'PATH_INFO'} )
 ############################################################
 use Cwd;
 $dir = cwd();
+if ( $dir =~ /:/ ) {
+  $dir = substr($dir, index($dir, ':') + 1);
+}
+  
 
 ############################################################              
 # First, lets read in the data already in there...
@@ -769,11 +773,14 @@ sub command1 {
 # org_logo
 sub command2 {
     print "Your organization's logo is an image that will be displayed at\n";
-    print "different times throughout SquirrelMail.  This is asking for the\n";
-    print "literal (/usr/local/squirrelmail/images/logo.png) or relative\n";
-    print "(../images/logo.png) path from the config directory to your logo.\n";
-    print "Relative paths to files outside the SquirrelMail distribution\n";
-    print "will be converted to their absolute path equivalents in config.php.\n";
+    print "different times throughout SquirrelMail. ";
+    print "\n";
+    print "Please be aware of the following: \n";
+    print "  - Relative URLs are relative to the config dir\n";
+    print "    to use the default logo, use ../images/sm_logo.png\n";
+    print "  - To specify a logo defined outside the SquirrelMail source tree\n";
+    print "    use the absolute URL the webserver would use to include the file\n";
+    print "    e.g. http://some.host.com/images/mylogo.gif or /images/mylogo.jpg\n";
     print "\n";
     print "[$WHT$org_logo$NRM]: $WHT";
     $new_org_logo = <STDIN>;
@@ -2305,8 +2312,12 @@ sub command42 {
     print "\n";
     print "To clear out an existing value, just type a space for the input.\n";
     print "\n";
-    print "Relative links to files outside the SquirrelMail distribution\n";
-    print "will be converted to their absolute path equivalents in config.php.\n";
+    print "Please be aware of the following: \n";
+    print "  - Relative URLs are relative to the config dir\n";
+    print "    to use the themes directory, use ../themes/css/newdefault.css\n";
+    print "  - To specify a css file defined outside the SquirrelMail source tree\n";
+    print "    use the absolute URL the webserver would use to include the file\n";
+    print "    e.g. http://some.host.com/css/mystyle.css or /css/mystyle.css\n";
     print "\n";
     print "[$WHT$theme_css$NRM]: $WHT";
     $new_theme_css = <STDIN>;
@@ -2990,7 +3001,11 @@ sub change_to_SM_path() {
     # If the path is absolute, don't bother.
     return "\'" . $old_path . "\'"  if ( $old_path eq '');
     return "\'" . $old_path . "\'"  if ( $old_path =~ /^(\/|http)/ );
+    return $old_path                if ( $old_path =~ /^\'(\/|http)/ );
     return $old_path                if ( $old_path =~ /^(\$|SM_PATH)/);
+    
+    # Remove remaining '
+    $old_path =~ s/\'//g;
     
     # For relative paths, split on '../'
     @rel_path = split(/\.\.\//, $old_path);
@@ -2998,6 +3013,10 @@ sub change_to_SM_path() {
     if ( $#rel_path > 1 ) {
         # more than two levels away. Make it absolute.
         @abs_path = split(/\//, $dir);
+
+	# account for leading slash
+	shift @abs_path;
+
         foreach $subdir (@rel_path) {
             if ($subdir eq '') {
                 pop @abs_path;
@@ -3005,21 +3024,22 @@ sub change_to_SM_path() {
                 push @abs_path, $subdir;
             }
         }
-        foreach $subdir (@abs_path) {
-            $new_path .= $subdir . '/';
+        $new_path = "\'";
+	foreach $subdir (@abs_path) {
+          $new_path .= '/' . $subdir;
         }
+        $new_path .= "\'";
     } elsif ( $#rel_path > 0 ) {
         # it's within the SM tree, prepend SM_PATH
         $new_path = $old_path;
         $new_path =~ s/^\.\.\//SM_PATH . \'/;
-        $new_path .= '\'';
+        $new_path .= "\'";
     } else {
         # Last, it's a relative path without any leading '.'
 	# Prepend SM_PATH and config, since the paths are 
 	# relative to the config directory
         $new_path = "SM_PATH . \'config/" . $old_path . "\'";
     }
-
   return $new_path;
 }
 
