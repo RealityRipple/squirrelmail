@@ -973,10 +973,9 @@ if ($default_use_mdn) {
 //$envtable->echoHtml($use_css);
 
 $rb_tools_table = new html('table','','','rb_tools','',$ar_table);
-$row = new html('tr','','','rb_rt','',array('width'=> '100%',
-                                            'valign'=> 'top',
-                                            'align'=> 'right',					    
-					    'nowrap'));
+$row = new html('tr','','','rb_rt','',array('valign'=> 'top',
+                                            'align'=> 'right'));
+
 /* view header */
 $viewheader_url = $base_uri . 'src/read_body.php?mailbox=' . $urlMailbox . 
                   '&amp;passed_id='. $passed_id. '&amp;';
@@ -990,7 +989,7 @@ if ($where && $what) {
 
 $link = new html('a',_("View Full Header") .' | ','','','',array (
             'href' => $viewheader_url));
-$col = new html('td','',array('small'=>true),'rb_ht','rb_vht');
+$col = new html('td','',array('small'=>true),'rb_ht','rb_vht',array('nowrap'));
 $col->htmlAdd($link);
 
 /* Output the printer friendly link if we are in subtle mode. */
@@ -1017,13 +1016,13 @@ if ($use_css) {
 
 $rb_message_table =  new html('table','','','rb_body','',$ar_table);
 $row_body = new html('tr','','','rb_bd','rb_bdr');
-$col_body = new html('td',$messagebody,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
+$col_body = new html('td',$messagebody,array('br'=>false),'rb_bd','',$ar_row);
 $row_body->htmlAdd($col_body);
 $rb_message_table->htmlAdd($row_body);
 
-$row_body = new html('tr','','','rb_bd','rb_bdr');
+$row_body = new html('tr','','','rb_bd','');
 $attachements = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
-$col_body = new html('td',$attachements,array('br'=>false),'rb_bd','rb_bdr',$ar_row);
+$col_body = new html('td',$attachements,array('br'=>false),'rb_bd','',$ar_row);
 $row_body->htmlAdd($col_body);
 $rb_message_table->htmlAdd($row_body);
 
