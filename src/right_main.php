@@ -59,6 +59,9 @@
 
    do_hook('right_main_after_header');
    
+   if (isset($note))
+      echo "<CENTER><B>$note</B></CENTER><BR>\n";
+
    if ($just_logged_in == true) {
       $just_logged_in = false;
       
