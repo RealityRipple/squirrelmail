@@ -11,6 +11,14 @@ $imapServerAddress = "adam.usa.om.org";
 /* This is displayed right after they log in */
 $motd = "  Welcome to OM's webmail system, SquirrelMail.  We are currently in beta, and have not yet released a full version of SquirrelMail.  Please feel free to look around, and please report any bugs to <A HREF=\"mailto:nathan@usa.om.org\">Nathan</A> or <A HREF=\"mailto:luke@usa.om.org\">Luke</A>.";
 
+/* Customizable colors */
+$color_lgray     = "DCDCDC";
+$color_red       = "800000";
+$color_light_red = "FF0000";
+$color_left_bg   = "A0B8C8";
+$color_bground   = "FFFFFF";
+$color_light_yel = "FFFFCC";
+
 /* SquirrelMail version number -- DO NOT CHANGE */
 $version = "0.0.1";
 
