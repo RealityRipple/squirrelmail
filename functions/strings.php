@@ -974,5 +974,104 @@ function sq_htmlentities($string,$quote_style=ENT_COMPAT,$charset='us-ascii') {
   return str_replace(array_keys($sq_html_ent_table),array_values($sq_html_ent_table),$string);
 }
 
+/**
+ * Tests if string contains 8bit symbols.
+ *
+ * If charset is not set, function defaults to default_charset.
+ * $default_charset global must be set correctly if $charset is 
+ * not used.
+ * @param string $string tested string
+ * @param string $charset charset used in a string
+ * @return bool true if 8bit symbols are detected
+ * @since 1.5.1
+ */
+function sq_is8bit($string,$charset='') {
+    global $default_charset;
+
+    if ($charset=='') $charset=$default_charset;
+
+    /**
+     * Don't use \240 in ranges. Sometimes RH 7.2 doesn't like it.
+     * Don't use \200-\237 for iso-8859-x charsets. This ranges 
+     * stores control symbols in those charsets.
+     * Use preg_match instead of ereg in order to avoid problems
+     * with mbstring overloading
+     */
+    if (preg_match("/^iso-8859/i",$charset)) {
+        $needle='/\240|[\241-\377]/';
+    } else {
+        $needle='/[\200-\237]|\240|[\241-\377]/';
+    }
+    return preg_match("$needle",$string);
+}
+
+/**
+ * Replacement of mb_list_encodings function
+ *
+ * This function provides replacement for function that is available only
+ * in php 5.x. Function does not test all mbstring encodings. Only the ones
+ * that might be used in SM translations.
+ *
+ * Supported arrays are stored in session in order to reduce number of 
+ * mb_internal_encoding function calls.
+ *
+ * If you want to test all mbstring encodings - fill $list_of_encodings 
+ * array.
+ * @return array list of encodings supported by mbstring
+ * @since 1.5.1
+ */
+function sq_mb_list_encodings() {
+    if (! function_exists('mb_internal_encoding'))
+        return array();
+
+    // don't try to test encodings, if they are already stored in session
+    if (sqgetGlobalVar('mb_supported_encodings',$mb_supported_encodings,SQ_SESSION))
+        return $mb_supported_encodings;
+
+    // save original encoding
+    $orig_encoding=mb_internal_encoding();
+
+    $list_of_encoding=array(
+        'pass',
+        'auto',
+        'ascii',
+        'jis',
+        'utf-8',
+        'sjis',
+        'euc-jp',
+        'iso-8859-1',
+        'iso-8859-2',
+        'iso-8859-7',
+        'iso-8859-9',
+        'iso-8859-15',
+        'koi8-r',
+        'koi8-u',
+        'big5',
+        'gb2312',
+        'windows-1251',
+        'windows-1255',
+        'windows-1256',
+        'tis-620',
+        'iso-2022-jp',
+        'euc-kr',
+        'utf7-imap');
+
+    $supported_encodings=array();
+
+    foreach ($list_of_encoding as $encoding) {
+        // try setting encodings. suppress warning messages
+        if (@mb_internal_encoding($encoding))
+            $supported_encodings[]=$encoding;
+    }
+
+    // restore original encoding
+    mb_internal_encoding($orig_encoding);
+
+    // register list in session
+    sqsession_register($supported_encodings,'mb_supported_encodings');
+
+    return $supported_encodings;
+}
+
 $PHP_SELF = php_self();
 ?>
