@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2004-07-01 16:55+0200\n"
+"POT-Creation-Date: 2004-07-03 09:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1968,7 +1968,7 @@ msgstr ""
 msgid "IMAP Folder Delimiter"
 msgstr ""
 
-msgid "Use \"detect\" to auto-detect."
+msgid "Use &quot;detect&quot; to auto-detect."
 msgstr ""
 
 msgid "Use TLS for IMAP Connections"
@@ -1980,7 +1980,13 @@ msgstr ""
 msgid "IMAP Authentication Type"
 msgstr ""
 
+msgid "IMAP login"
+msgstr ""
+
 msgid "Use Sendmail Binary"
+msgstr ""
+
+msgid "Choose &quot;no&quot; for SMTP"
 msgstr ""
 
 msgid "Sendmail Path"
@@ -1996,6 +2002,12 @@ msgid "Use TLS for SMTP Connections"
 msgstr ""
 
 msgid "SMTP Authentication Type"
+msgstr ""
+
+msgid "No SMTP auth"
+msgstr ""
+
+msgid "Login (plain text)"
 msgstr ""
 
 msgid "POP3 Before SMTP?"
