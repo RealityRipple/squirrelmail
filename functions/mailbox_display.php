@@ -17,20 +17,20 @@ require_once('../functions/strings.php');
 define('PG_SEL_MAX', 10);  /* Default value for page_selector_max. */
 
 function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $start_msg, $where, $what) {
-    global $checkall;
-    global $color, $msgs, $msort;
-    global $sent_folder, $draft_folder;
-    global $default_use_priority;
-    global $message_highlight_list;
-    global $index_order;
-    global $pos;            /* Search postion (if any)  */
+    global $checkall,
+           $color, $msgs, $msort,
+           $sent_folder, $draft_folder,
+           $default_use_priority,
+           $message_highlight_list,
+           $index_order,
+           $pos;            /* Search postion (if any)  */
 
     $color_string = $color[4];
     if ($GLOBALS['alt_index_colors']) {
         if (!isset($GLOBALS["row_count"])) {
             $GLOBALS["row_count"] = 0;
         }
-        $GLOBALS["row_count"]++;
+        $GLOBALS['row_count']++;
         if ($GLOBALS["row_count"] % 2) {
         if (!isset($color[12])) $color[12] = '#EAEAEA';
             $color_string = $color[12];
