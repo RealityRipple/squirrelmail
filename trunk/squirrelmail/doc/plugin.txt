@@ -1046,6 +1046,19 @@ files.
 
          echo _("This is what I want to eat before noon: ") . $fruitName;
 
+      Note:
+      Support for single quotes in gettext was added somewhere along gettext
+      0.11.x (release dates 2002-01-31--08-06). This means that strings could
+      be written as:
+
+      echo _('Hello');
+
+      However, gettext 0.10.40 is currently the oldest version available at the
+      GNU site. It's still used in some Linux and BSD distributions/versions.
+      Since it's still in common use and it doesn't support single quoted
+      strings, double quoted strings are the preferred way when writing a
+      plugin.
+
   2.  By default, the SquirrelMail gettext domain is always in use.  That
       means that any text in the format described above will be translated
       using the locale files found in the main SquirrelMail locale directory.
