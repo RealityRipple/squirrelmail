@@ -92,6 +92,7 @@
     **  Formats a mailbox into 4 parts for the $boxes array
     ******************************************************************************/
    function sqimap_mailbox_parse ($line, $dm) {
+		global $folder_prefix;
       for ($g=0; $g < count($line); $g++) {
          $boxes[$g]["raw"] = $line[$g];
             
@@ -100,7 +101,7 @@
          if (substr($mailbox, -1) == $dm)
             $dm_count--;
             
-         for ($j = 0; $j < $dm_count; $j++)
+         for ($j = 0; $j < $dm_count - (countCharInString($folder_prefix, $dm)); $j++)
             $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "  ";
          $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
             
@@ -127,7 +128,8 @@
     **  The array returned looks like this:
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
-      global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username;
+      global $load_prefs_php, $prefs_php, $config_php, $data_dir, $username, $list_special_folders_first;
+		global $special_folders;
 
       $inbox_in_list = false;
       $inbox_subscribed = false;
@@ -141,6 +143,7 @@
       /** LIST array **/
       fputs ($imap_stream, "a001 LIST \"\" \"$folder_prefix*\"\r\n");
       $list_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
+
       for ($i=0;$i < count($list_ary); $i++) {
          $sorted_list_ary[$i]["name"] = find_mailbox_name($list_ary[$i]);
          $sorted_list_ary[$i]["raw"]  = $list_ary[$i];
@@ -197,38 +200,20 @@
 	      }
       }
 
-      return sqimap_mailbox_parse ($merged, $dm);
-   }
-   
-/*
-      $original = $boxes;
-
-      for ($i = 0; $i < count($original); $i++) {
-         $boxes[$i]["unformatted"] = strtolower($boxes[$i]["unformatted"]);
-      }
-
-      $boxes = ary_sort($boxes, "unformatted", 1);
-
-      for ($i = 0; $i < count($boxes); $i++) {
-         for ($j = 0; $j < count($original); $j++) {
-            if ($boxes[$i]["id"] == $original[$j]["id"]) {
-               $boxes[$i] = $original[$j];
-            }
-         }
-      }     
- 
-      
+		$boxes = sqimap_mailbox_parse ($merged, $dm);
+		
+		/** Now, lets sort for special folders **/
       for ($i = 0; $i < count($boxes); $i++) {
          if ($boxes[$i]["unformatted"] == $special_folders[0]) {
             $boxesnew[0] = $boxes[$i];
             $boxes[$i]["used"] = true;
          }
       }
-      
+
       if ($list_special_folders_first == true) {
          for ($i = 0; $i < count($boxes); $i++) {
             for ($j = 1; $j < count($special_folders); $j++) {
-               if (substr($boxes[$i]["unformatted"], 0, strlen($special_folders[$j])) == $special_folders[$j]) {
+               if (substr($boxes[$i]["unformatted"], strlen($folder_prefix), strlen($special_folders[$j])) == $special_folders[$j]) {
                   $pos = count($boxesnew);
                   $boxesnew[$pos] = $boxes[$i];
                   $boxes[$i]["used"] = true;
@@ -236,7 +221,7 @@
             }
          }
       }
-      
+		
       for ($i = 0; $i < count($boxes); $i++) {
          if (($boxes[$i]["unformatted"] != $special_folders[0]) &&
              ($boxes[$i]["used"] == false))  {
@@ -248,7 +233,6 @@
 
       return $boxesnew;
    }
-   */
    
    /******************************************************************************
     **  Returns a list of all folders, subscribed or not
