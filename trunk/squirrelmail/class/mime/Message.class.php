@@ -284,6 +284,7 @@ class Message {
                     $arg_s = $msg->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
+		case '0':
                 case is_numeric($read{$i}):
                     /* process integers */
                     if ($read{$i} == ' ') { break; }
