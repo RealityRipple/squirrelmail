@@ -66,7 +66,7 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     global $hide_sm_attributions, $PHP_SELF, $frame_top,
            $compose_new_win, $username, $datadir, $compose_width, $compose_height,
-           $attachemessages, $session;
+           $attachemessages, $session, $provider_name, $provider_uri;
 
     if ( (float)substr(PHP_VERSION,0,3) < 4.1 ) {
             global $_SESSION;
@@ -250,8 +250,10 @@ function displayPageHeader($color, $mailbox, $xtra='', $session=false) {
 
     echo "      </td>\n"
         . html_tag( 'td', '', 'right' ) ."\n";
+    if (!isset($provider_uri)) $provider_uri= 'http://www.squirrelmail.org/';
+    if (!isset($provider_name)) $provider_name= 'SquirrelMail';
     echo ($hide_sm_attributions ? '&nbsp;' :
-            '<a href="http://www.squirrelmail.org/" target="_blank">SquirrelMail</a>');
+            '<a href="'.$provider_uri.'" target="_blank">'.$provider_name.'</a>');
     echo "</td>\n".
         "   </tr>\n".
         "</table><br>\n\n";
