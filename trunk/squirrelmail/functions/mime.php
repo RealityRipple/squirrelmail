@@ -25,8 +25,8 @@
       /** could be in a header.                                 **/
       
       var $type0 = '', $type1 = '', $boundary = '', $charset = '';
-      var $encoding = '', $size = 0, $to = '', $from = '', $date = '';
-      var $cc = '', $bcc = '', $reply_to = '', $subject = '';
+      var $encoding = '', $size = 0, $to = array(), $from = '', $date = '';
+      var $cc = array(), $bcc = array(), $reply_to = '', $subject = '';
       var $id = 0, $mailbox = '', $description = '', $filename = '';
       var $entity_id = 0, $message_id = 0;
    }
