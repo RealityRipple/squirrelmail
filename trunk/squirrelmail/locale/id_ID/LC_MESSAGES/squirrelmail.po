@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-18 10:47+0200\n"
-"PO-Revision-Date: 2003-03-29 16:35\n"
+"POT-Creation-Date: 2003-05-02 14:08+0300\n"
+"PO-Revision-Date: 2003-05-26 13:35\n"
 "Last-Translator: Arief S Fitrianto <arief@gurame.fisika.ui.ac.id>\n"
 "Language-Team: Indonesia <squirrelmail-i18n@sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -38,13 +38,13 @@ msgid "Cc"
 msgstr "Tembusan"
 
 msgid "Bcc"
-msgstr "Salinan"
+msgstr "Tembusan Rahasia"
 
 msgid "Use Addresses"
 msgstr "Gunakan alamat"
 
 msgid "Address Book Search"
-msgstr "Menelusuri Buku Alamat"
+msgstr "Telusuri Buku Alamat"
 
 msgid "Search for"
 msgstr "Cari untuk"
@@ -86,11 +86,11 @@ msgstr "Harus tunggal (unik)"
 msgid "E-mail address"
 msgstr "Alamat Surat-E"
 
-msgid "First name"
-msgstr "Nama Depan"
-
 msgid "Last name"
 msgstr "Nama Belakang"
+
+msgid "First name"
+msgstr "Nama Depan"
 
 msgid "Additional info"
 msgstr "Keterangan tambahan"
@@ -123,8 +123,17 @@ msgstr "Hapus yang dipilih"
 msgid "Add to %s"
 msgstr "Tambahkan ke %s"
 
+msgid "said"
+msgstr "berkata"
+
+msgid "quote"
+msgstr "kutipan"
+
+msgid "who"
+msgstr "dari"
+
 msgid "Subject"
-msgstr "Subyek"
+msgstr "Judul Surat"
 
 msgid "From"
 msgstr "Dari"
@@ -139,7 +148,7 @@ msgid "Draft Email Saved"
 msgstr "Konsep Surat telah disimpan"
 
 msgid "Could not move/copy file. File not attached"
-msgstr "Tidak dapat memindah/menyalin file. File tidak disisipkan"
+msgstr "Tidak dapat memindah/menyalin file. File tidak dilampirkan"
 
 msgid "Draft Saved"
 msgstr "Konsep Surat telah disimpan"
@@ -157,22 +166,22 @@ msgid "CC:"
 msgstr "Tembusan:"
 
 msgid "BCC:"
-msgstr "Salinan:"
+msgstr "Tembusan Rahasia:"
 
 msgid "Subject:"
-msgstr "Subyek:"
+msgstr "Judul Surat:"
 
 msgid "Send"
 msgstr "Kirim"
 
 msgid "Attach:"
-msgstr "Sisipan:"
+msgstr "Lampiran:"
 
 msgid "Add"
 msgstr "Tambah"
 
 msgid "Delete selected attachments"
-msgstr "Hapus sisipan yang dipilih"
+msgstr "Hapus lampiran yang dipilih"
 
 msgid "Priority"
 msgstr "Prioritas"
@@ -206,15 +215,6 @@ msgstr "Simpan Konsep"
 
 msgid "You have not filled in the \"To:\" field."
 msgstr "Anda belum mengisi kolom \"Untuk:\" "
-
-msgid "said"
-msgstr "berkata"
-
-msgid "quote"
-msgstr "kutipan"
-
-msgid "who"
-msgstr "dari"
 
 msgid "Draft folder"
 msgstr "Laci Konsep (Draft)"
@@ -355,16 +355,13 @@ msgid "Top"
 msgstr "Atas"
 
 msgid "Viewing an image attachment"
-msgstr "Menampilkan sisipan gambar"
+msgstr "Menampilkan lampiran gambar"
 
 msgid "View message"
 msgstr "Lihat pesan"
 
 msgid "Download this as a file"
 msgstr "Simpan ke file"
-
-msgid "Not available"
-msgstr "Tidak tersedia"
 
 msgid "INBOX"
 msgstr "KOTAK POS"
@@ -613,7 +610,7 @@ msgid "Print"
 msgstr "Cetak"
 
 msgid "View Printable Version"
-msgstr "Lihat Versi yang Bisa Dicetak"
+msgstr "Lihat Versi Cetak"
 
 msgid "Read:"
 msgstr "Sudah dibaca:"
@@ -681,7 +678,7 @@ msgid "Forward"
 msgstr "Kirimkan ke"
 
 msgid "Forward as Attachment"
-msgstr "Kirimkan sebagai Sisipan"
+msgstr "Kirimkan sebagai Lampiran"
 
 msgid "Reply"
 msgstr "Balas"
@@ -889,6 +886,27 @@ msgstr "Jum'at"
 msgid "Saturday"
 msgstr "Sabtu"
 
+msgid "Sun"
+msgstr "Min"
+
+msgid "Mon"
+msgstr "Sen"
+
+msgid "Tue"
+msgstr "Sel"
+
+msgid "Wed"
+msgstr "Rab"
+
+msgid "Thu"
+msgstr "Kam"
+
+msgid "Fri"
+msgstr "Jum"
+
+msgid "Sat"
+msgstr "Sab"
+
 msgid "January"
 msgstr "Januari"
 
@@ -924,6 +942,42 @@ msgstr "Nopember"
 
 msgid "December"
 msgstr "Desember"
+
+msgid "Jan"
+msgstr "Jan"
+
+msgid "Feb"
+msgstr "Peb"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Apr"
+
+msgid "Ma&#121;"
+msgstr "Mei"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "Aug"
+msgstr "Agu"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "Oct"
+msgstr "Okt"
+
+msgid "Nov"
+msgstr "Nop"
+
+msgid "Dec"
+msgstr "Des"
 
 msgid "D, F j, Y g:i a"
 msgstr "D, j F Y, g:i"
@@ -967,7 +1021,9 @@ msgstr "Kembali ke halaman masuk"
 msgid ""
 "Preference file, %s, does not exist. Log out, and log back in to create a "
 "default preference file."
-msgstr "File Acuan, %s, tidak ada. Keluar sekarang dan masuk lagi untuk membuat file acuan awal."
+msgstr ""
+"File Acuan, %s, tidak ada. Keluar sekarang dan masuk lagi untuk membuat file "
+"acuan awal."
 
 #, c-format
 msgid ""
@@ -984,6 +1040,14 @@ msgid ""
 msgstr ""
 "File Acuan, %s, tidak dapat ditulisi. Hubungi administrator sistem Anda "
 "untuk mengatasi hal ini."
+
+#, c-format
+msgid ""
+"Preference file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"File Acuan , %s , tidak dapat disalin dari file sementara, %s. "
+"Hubungi administrator Anda untuk mengatasi hal ini."
 
 #, c-format
 msgid "Error opening %s"
@@ -1006,7 +1070,9 @@ msgstr "%s harus bisa ditulis oleh %s"
 msgid ""
 "Signature file, %s, could not be opened. Contact your system administrator "
 "to resolve this issue."
-msgstr "File Tanda tangan, %s, tidak dapat dibuka. Hubungi administrator Anda untuk mengatasi hal ini."
+msgstr ""
+"File Tanda tangan, %s, tidak dapat dibuka. Hubungi administrator Anda untuk "
+"mengatasi hal ini."
 
 #, c-format
 msgid ""
@@ -1016,12 +1082,20 @@ msgstr ""
 "File Tanda tangan, %s, tidak dapat ditulisi. Hubungi administrator sistem "
 "Anda untuk mengatasi hal ini."
 
+#, c-format
+msgid ""
+"Signature file, %s, could not be copied from temporary file, %s. Contact "
+"your system administrator to resolve this issue."
+msgstr ""
+"File Tanda tangan, %s, tidak dapat disalin dari file sementara, %s. "
+"Hubungi administrator Anda untuk mengatasi hal ini."
+
 msgid ""
 "You need to have php4 installed with the multibyte string function enabled "
-"(using configure option --with-mbstring)."
+"(using configure option --enable-mbstring)."
 msgstr ""
-"Anda harus memasang PHP4 dengan fungsi string multibyte aktif (menggunakan "
-"pilihan konfigurasi --with-mbstring)."
+"Anda harus memasang PHP4 dengan fungsi string multibyte aktif "
+"(menggunakan pilihan konfigurasi --enable-mbstring)."
 
 msgid "ERROR : No available imapstream."
 msgstr "SALAH: Tidak ada imapstream yang tersedia"
@@ -1039,7 +1113,7 @@ msgid "ERROR : Bad or malformed request."
 msgstr "SALAH : Perintah jelek atau salah."
 
 msgid "Server responded: "
-msgstr "Tanggapan dari server: "
+msgstr "Tanggapan server: "
 
 #, c-format
 msgid "Error connecting to IMAP server: %s."
@@ -1461,7 +1535,7 @@ msgstr "Hanya yang belum dibaca"
 msgid "Unseen and Total"
 msgstr "Yang belum dibaca dan semaunya"
 
-msgid "Enable Collapsable Folders"
+msgid "Enable Collapsible Folders"
 msgstr "Izinkan Laci yang bisa digulung"
 
 msgid "Enable Cumulative Unread Message Notification"
@@ -1945,8 +2019,8 @@ msgstr "0 menit"
 msgid "15 min."
 msgstr "15 menit."
 
-msgid "35 min."
-msgstr "35 menit."
+msgid "30 min."
+msgstr "30 menit"
 
 msgid "45 min."
 msgstr "45 menit."
@@ -2013,7 +2087,10 @@ msgid ""
 "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
 "be relayed through their system will be banned with this.  Another good one "
 "to use."
-msgstr "KOMERSIL - Server yang dikonfigurasi (atau salah konfigurasi) untuk memungkinkan spam diteruskan melalui sistem mereka akan dicekal dengan daftar ini. Suatu pilihan baik lainnya untuk digunakan. "
+msgstr ""
+"KOMERSIL - Server yang dikonfigurasi (atau salah konfigurasi) untuk "
+"memungkinkan spam diteruskan melalui sistem mereka akan dicekal dengan "
+"daftar ini. Suatu pilihan baik lainnya untuk digunakan. "
 
 msgid ""
 "COMMERCIAL - Dial-up users are often filtered out since they should use "
@@ -2133,7 +2210,10 @@ msgstr "BEBAS - SPAMhaus - Sebuah daftar sumber SPAM yang terkenal"
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
-msgstr "BEBAS, saat ini - SPAMCOP - Sebuah pemechan menarik yang memuat daftar server yang memiliki rasio spam sangat banyak untuk merusak surate (85% atau lebih)."
+msgstr ""
+"BEBAS, saat ini - SPAMCOP - Sebuah pemechan menarik yang memuat daftar "
+"server yang memiliki rasio spam sangat banyak untuk merusak surate (85% atau "
+"lebih)."
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
 msgstr "BEBAS - dev.null.dk - Saya tidak tahu lebih jauh tentang hal ini."
@@ -2270,7 +2350,10 @@ msgstr "Pemilah SPAM"
 msgid ""
 "SPAM filters allow you to select from various DNS based blacklists to detect "
 "junk email in your INBOX and move it to another folder (like Trash)."
-msgstr "Pemilah SPAM memungkinkan Anda memilih berbagai daftar hitam berbasis DNS untuk mendeteksi surate sampah dalam INBOX Anda dan memindahkannya ke laci lain (seperti laci Sampah)."
+msgstr ""
+"Pemilah SPAM memungkinkan Anda memilih berbagai daftar hitam berbasis DNS "
+"untuk mendeteksi surate sampah dalam INBOX Anda dan memindahkannya ke laci "
+"lain (seperti laci Sampah)."
 
 msgid "Spam Filtering"
 msgstr "Pemilahan Spam"
@@ -2690,9 +2773,6 @@ msgstr ""
 msgid "Message Details"
 msgstr "Rincian Pesan"
 
-msgid "Message details"
-msgstr "Rincian pesan"
-
 msgid "Close Window"
 msgstr "Tutup jendela"
 
@@ -2709,17 +2789,24 @@ msgid ""
 "Select <b>Enable Media Playing</b> to turn on playing a media file when "
 "unseen mail is in your folders. When enabled, you can specify the media file "
 "to play in the provided file box."
-msgstr "Pilih <b> Aktifkan Pemutar Media </b> untuk menghidupkan file media (suara) ketika ada pesan yang belum dibaca di laci Anda. Ketika diaktifkan, Anda dapat memilih file media yang tersedia dalam kotak."
+msgstr ""
+"Pilih <b> Aktifkan Pemutar Media </b> untuk menghidupkan file media (suara) "
+"ketika ada pesan yang belum dibaca di laci Anda. Ketika diaktifkan, Anda "
+"dapat memilih file media yang tersedia dalam kotak."
 
 msgid ""
 "The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
 "folders for unseen mail, not just the inbox for notification."
-msgstr "Pilihan <b>Periksa semua laci, bukan hanya INBOX </b> akan memeriksa pesan baru semua di laci Anda, jadi bukan hanya INBOX ."
+msgstr ""
+"Pilihan <b>Periksa semua laci, bukan hanya INBOX </b> akan memeriksa pesan "
+"baru semua di laci Anda, jadi bukan hanya INBOX ."
 
 msgid ""
 "Selecting the <b>Show popup</b> option will enable the showing of a popup "
 "window when unseen mail is in your folders (requires JavaScript)."
-msgstr "Memilih <b> Tampilkan popup </b> akan menampilkan jendela popup ketika ada pesan yang belum dibaca dalam laci Anda (perlu JavaScript)."
+msgstr ""
+"Memilih <b> Tampilkan popup </b> akan menampilkan jendela popup ketika ada "
+"pesan yang belum dibaca dalam laci Anda (perlu JavaScript)."
 
 msgid ""
 "Use the <b>Check RECENT</b> to only check for messages that are recent. "
@@ -2747,14 +2834,11 @@ msgstr ""
 
 msgid ""
 "Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+"mail arrives.  If no file is specified, \"(none)\", no sound will be used."
 msgstr ""
 "Pilihlah dari daftar <b> file server </b> file media yang ingin Anda mainkan "
-"bila ada surat baru tiba. Memilih <b> media lokal </b> akan memainkan file "
-"yang ada di kotak <b> file media lokal </b> dari komputer lokal . Jika tidak "
-"ada file yang dipilih, sistem akan menggunakan file utama yang ada di server."
+"bila ada surat baru tiba. Jika tidak ada file yang dipilih,\"(tiada)\", "
+"tidak ada suara yang diperdengarkan."
 
 msgid "Enable Media Playing"
 msgstr "Aktifkan Pemutar Media"
@@ -2777,14 +2861,11 @@ msgstr "Tampilkan jendela popup bila ada surat baru"
 msgid "Select server file:"
 msgstr "Pilih file server:"
 
-msgid "(local media)"
-msgstr "(media lokal)"
+msgid "(none)"
+msgstr "(tiada)"
 
 msgid "Try"
 msgstr "Coba dulu"
-
-msgid "Local Media File:"
-msgstr "File Media Local:"
 
 msgid "Current File:"
 msgstr "File saat ini:"
@@ -2821,6 +2902,9 @@ msgstr "Pesan Baru : %s buah"
 
 msgid "Test Sound"
 msgstr "Coba Suara"
+
+msgid "No sound specified"
+msgstr "tiada suara yang dipilih"
 
 msgid "Loading the sound..."
 msgstr "Menyiapkan Suara ... "
@@ -3095,12 +3179,16 @@ msgstr "Mohon tentukan pilihan Anda dahulu"
 msgid ""
 "This will encrypt your personal dictionary and store it in an encrypted "
 "format. Proceed?"
-msgstr "Ini akan mengenkripsi kamus pribadi Anda dan menyimpannya dalam bentuk terenkripsi. Lanjut?"
+msgstr ""
+"Ini akan mengenkripsi kamus pribadi Anda dan menyimpannya dalam bentuk "
+"terenkripsi. Lanjut?"
 
 msgid ""
 "This will decrypt your personal dictionary and store it in a clear-text "
 "format. Proceed?"
-msgstr "Ini akan mendekripsi kamus pribadi Anda dan akan menyimpannya dalam bentuk teks murni. Lanjut?"
+msgstr ""
+"Ini akan mendekripsi kamus pribadi Anda dan akan menyimpannya dalam bentuk "
+"teks murni. Lanjut?"
 
 msgid ""
 "<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
@@ -3246,25 +3334,24 @@ msgid "Your server options are as follows:"
 msgstr "Pilihan server Anda sebagai berikut:"
 
 msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
-msgstr "13 kombinasi bahasa, menerjemahkan maksimum 1000 huruf, oleh Systran."
-
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
-msgstr "10 kombinasi bahasa, menerjemahkan maksimum 25 Kb, oleh Systran."
+"19 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgstr "19 kombinasi bahasa, menerjemahkan maksimal 1000 huruf, oleh Systran."
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr "12 kombinasi bahasa, tidak ada batasan, oleh Systran."
 
 msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
+"784 language pairs, no known limits, powered by Translation Experts's "
 "InterTran"
 msgstr ""
-"767 kombinasi bahasa, tidak ada batasan, oleh Translation Experts's InterTran"
+"784 kombinasi bahasa, tidak ada batasan, oleh Translation Experts's InterTran"
 
 msgid ""
 "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr "8 kombinasi bahasa, tidak ada batasan, oleh GPLTrans (bebas, terbuka)"
+
+msgid "4 language pairs for Hellenic, no known limits, powered by Systran"
+msgstr "4 kombinasi bahasa unutk Hellenic, tidak ada batasan, oleh Systran."
 
 msgid ""
 "You also decide if you want the translation box displayed, and where it will "
@@ -3316,14 +3403,23 @@ msgstr "%s sampai %s"
 msgid "English"
 msgstr "Inggris"
 
+msgid "Chinese"
+msgstr "Cina"
+
 msgid "French"
-msgstr "Perancis"
+msgstr "Prancis"
 
 msgid "German"
 msgstr "Jerman"
 
 msgid "Italian"
 msgstr "Italia"
+
+msgid "Japanese"
+msgstr "Jepang"
+
+msgid "Korean"
+msgstr "Korea"
 
 msgid "Portuguese"
 msgstr "Portugis"
@@ -3370,9 +3466,6 @@ msgstr "Hungaria"
 msgid "Icelandic"
 msgstr "Islandia"
 
-msgid "Japanese"
-msgstr "Jepang"
-
 msgid "Latin American Spanish"
 msgstr "Spanyol Amerika Latin"
 
@@ -3406,8 +3499,15 @@ msgstr "Bahasa Indonesia"
 msgid "Latin"
 msgstr "Latin"
 
+msgid "to English"
+msgstr "ke Inggris"
+
+msgid "from English"
+msgstr "dari Inggris"
+
 msgid "Delivery error report"
 msgstr "Laporan kesalahan pengiriman"
 
 msgid "Undelivered Message Headers"
 msgstr "Header Pesan tidak bisa dikirimkan"
+
