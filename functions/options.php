@@ -310,11 +310,6 @@ function create_hidden_element($name, $value) {
     return ($result);
 }
 
-
-function createOptionGroups($optgrps, $optvals) {
-    return create_option_groups($optgrps, $optvals);
-}
-
 function create_option_groups($optgrps, $optvals) {
     /* Build a simple array with which to start. */
     $result = array();
@@ -377,14 +372,17 @@ function create_option_groups($optgrps, $optvals) {
     return ($result);
 }
 
-function printOptionGroups($option_groups) {
-    print_option_groups($option_groups);
-}
-
 function print_option_groups($option_groups) {
+    /* Print each option group. */
     foreach ($option_groups as $next_optgrp) {
-        echo '<TR><TD ALIGN="CENTER" VALIGN="MIDDLE" COLSPAN="2" NOWRAP><B>'
-           . $next_optgrp['name'] . "</B></TD></TR>\n";
+        /* If it is not blank, print the name for this option group. */
+        if ($next_optgrp['name'] != '') {
+            echo '<TR><TD ALIGN=CENTER VALIGN=MIDDLE COLSPAN=2 NOWRAP><B>'
+               .   $next_optgrp['name']
+	       . "</B></TD></TR>\n";
+	}
+	
+	/* Print each option in this option group. */
         foreach ($next_optgrp['options'] as $option) {
             if ($option->type != SMOPT_TYPE_HIDDEN) {
                 echo "<TR>\n";
@@ -396,6 +394,8 @@ function print_option_groups($option_groups) {
                 echo $option->createHTMLWidget();
             }
         }
+	
+	/* Print an empty row after this option group. */
         echo "<TR><TD COLSPAN=\"2\">&nbsp;</TD></TR>\n";
     }
 }

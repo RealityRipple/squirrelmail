@@ -20,7 +20,7 @@ define('SMOPT_GRP_FOLDERLIST', 1);
 /* Define the optpage load function for the folder options page. */
 function load_optpage_data_folder() {
     global $username, $key, $imapServerAddress, $imapPort;
-    global $folder_prefix, $default_folder_prefix;
+    global $folder_prefix, $default_folder_prefix, $show_prefix_option;
 
     /* Get some imap data we need later. */
     $imapConnection =

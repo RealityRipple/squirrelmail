@@ -98,30 +98,30 @@ switch ($optpage) {
     case SMOPT_PAGE_MAIN: break;
     case SMOPT_PAGE_PERSONAL:
         $optpage_name   = _("Personal Information");
-        $optpage_file   = 'options_personal.php';
+        $optpage_file   = '../src/options_personal.php';
         $optpage_loader = 'load_optpage_data_personal';
         break;
     case SMOPT_PAGE_DISPLAY:
         $optpage_name   = _("Display Preferences");
-        $optpage_file   = 'options_display.php';
+        $optpage_file   = '../src/options_display.php';
         $optpage_loader = 'load_optpage_data_display';
         break;
     case SMOPT_PAGE_HIGHLIGHT:
         $optpage_name   = _("Message Highlighting");
-        $optpage_file   = 'options_highlight.php';
+        $optpage_file   = '../src/options_highlight.php';
         $optpage_loader = 'load_optpage_data_highlight';
         break;
     case SMOPT_PAGE_FOLDER:
         $optpage_name   = _("Folder Preferences");
-        $optpage_file   = 'options_folder.php';
+        $optpage_file   = '../src/options_folder.php';
         $optpage_loader = 'load_optpage_data_folder';
         break;
     case SMOPT_PAGE_ORDER:
         $optpage_name = _("Index Order");
-        $optpage_file = 'options_order.php';
+        $optpage_file = '../src/options_order.php';
         $optpage_loader = 'load_optpage_data_order';
         break;
-    default: do_hook('set_optpage_loadinfo');
+    default: do_hook('optpage_set_loadinfo');
 }
 
 /**********************************************************/
@@ -323,16 +323,13 @@ if ($optpage == SMOPT_PAGE_MAIN) {
 /*************************************************************************/
 } else {
     echo '<FORM NAME="f" ACTION="options.php" METHOD="POST"><BR>' . "\n"
-       . '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0">' . "\n"
+       . '<TABLE WIDTH="100%" CELLPADDING=2 CELLSPACING=0 BORDER=0>' . "\n"
        . create_optpage_element($optpage)
        . create_optmode_element(SMOPT_MODE_SUBMIT);
 
     /* Output the option groups for this page. */
     print_option_groups($optpage_data['options']);
 
-    /*** FIXME: CURRENTLY, THIS NEXT SWITCH STATEMENT DOES NOT TAKE
-     *** INTO ACCOUNT FOR PLUGINS. NEED TO FIX IT. ***/
- 
     /* Set the inside_hook_name and submit_name. */
     switch ($optpage) {
         case SMOPT_PAGE_PERSONAL:
@@ -347,12 +344,12 @@ if ($optpage == SMOPT_PAGE_MAIN) {
             break;
         case SMOPT_PAGE_HIGHLIGHT:
             $inside_hook_name = 'options_highlight_inside';
-            $bottom_hook_name = 'options_display_bottom';
+            $bottom_hook_name = 'options_highlight_bottom';
             $submit_name = 'submit_highlight';
             break;
         case SMOPT_PAGE_FOLDER:
             $inside_hook_name = 'options_folder_inside';
-            $bottom_hook_name = 'options_display_bottom';
+            $bottom_hook_name = 'options_folder_bottom';
             $submit_name = 'submit_folder';
             break;
         case SMOPT_PAGE_ORDER:
