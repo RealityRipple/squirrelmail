@@ -1,6 +1,7 @@
 # Italian Squirrelmail Translation
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Aldo Moresco <moresco@idcm.it>, 1999.
+# Marco Ciullini <marco.ciullini@datamar.it>, 2002.
 #
 #, fuzzy
 msgid ""
@@ -8,7 +9,7 @@ msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2001-12-12 10:21+0100\n"
 "PO-Revision-Date: 2000-08-22 19:39+0100\n"
-"Last-Translator: Aldo Moresco <trd@idcm.it>\n"
+"Last-Translator: MArco Ciullini <marco.ciullini@datamar.it>\n"
 "Language-Team: Italian <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -179,7 +180,7 @@ msgstr "Messaggio originale"
 #: squirrelmail/src/printer_friendly_bottom.php:97
 #: squirrelmail/src/search.php:84
 msgid "Subject"
-msgstr "Subject"
+msgstr "Oggetto"
 
 #: squirrelmail/functions/mailbox_display.php:551
 #: squirrelmail/plugins/filters/options.php:83
@@ -245,23 +246,23 @@ msgstr "Indirizzo"
 
 #: squirrelmail/src/compose.php:413
 msgid "Save Draft"
-msgstr ""
+msgstr "Salva Bozza"
 
 #: squirrelmail/src/compose.php:419 squirrelmail/src/read_body.php:598
 msgid "Priority"
-msgstr ""
+msgstr "Priorità"
 
 #: squirrelmail/src/compose.php:420 squirrelmail/src/read_body.php:433
 msgid "High"
-msgstr ""
+msgstr "Alta"
 
 #: squirrelmail/src/compose.php:421 squirrelmail/src/read_body.php:436
 msgid "Normal"
-msgstr ""
+msgstr "Normale"
 
 #: squirrelmail/src/compose.php:422 squirrelmail/src/read_body.php:440
 msgid "Low"
-msgstr ""
+msgstr "Bassa"
 
 #: squirrelmail/src/compose.php:441
 msgid "You have not filled in the \"To:\" field."
@@ -269,7 +270,7 @@ msgstr "Non hai compilato il campo \"A:\""
 
 #: squirrelmail/src/compose.php:482
 msgid "Draft Email Saved"
-msgstr ""
+msgstr "Bozza Salvata"
 
 #: squirrelmail/src/compose.php:553 squirrelmail/src/compose.php:590
 #: squirrelmail/src/compose.php:597
@@ -278,15 +279,15 @@ msgstr "Impossibile muovere/copiare il file. Il file non è stato allegato"
 
 #: squirrelmail/src/compose.php:659
 msgid "said"
-msgstr ""
+msgstr "disse"
 
 #: squirrelmail/src/compose.php:662
 msgid "quote"
-msgstr ""
+msgstr "quota"
 
 #: squirrelmail/src/compose.php:662
 msgid "who"
-msgstr ""
+msgstr "who"
 
 #: squirrelmail/src/download.php:49
 msgid "Viewing a text attachment"
@@ -475,11 +476,11 @@ msgstr "Visualizzazione di un allegato di testo"
 #: squirrelmail/src/left_main.php:115
 #, fuzzy
 msgid "empty"
-msgstr "Rispondi"
+msgstr "svuota"
 
 #: squirrelmail/src/left_main.php:294
 msgid "Last Refresh"
-msgstr ""
+msgstr "Ultimo refresh"
 
 #: squirrelmail/src/login.php:105 squirrelmail/src/login.php:157
 msgid "Login"
@@ -517,11 +518,15 @@ msgstr "Non è stato selezionato alcun messaggio"
 
 #: squirrelmail/src/options_display.php:32
 msgid "General Display Options"
-msgstr ""
+msgstr "Opzioni di visualizzazione generali"
 
 #: squirrelmail/src/options_display.php:42
 msgid "Theme"
 msgstr "Tema"
+
+#: squirrelmail/src/options_display.php:62
+msgid "Custom Stylesheet"
+msgstr "Modifica il CSS"
 
 #: squirrelmail/src/options_display.php:57
 msgid "Language"
@@ -530,24 +535,24 @@ msgstr "Lingua"
 #: squirrelmail/src/options_display.php:66
 #, fuzzy
 msgid "Use Javascript"
-msgstr "JavaScript"
+msgstr "Usa JavaScript"
 
 #: squirrelmail/src/options_display.php:69
 msgid "Autodetect"
-msgstr ""
+msgstr "Autorileva"
 
 #: squirrelmail/src/options_display.php:70
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: squirrelmail/src/options_display.php:71
 #: squirrelmail/src/options_folder.php:122
 msgid "Never"
-msgstr ""
+msgstr "Mai"
 
 #: squirrelmail/src/options_display.php:89
 msgid "Mailbox Display Options"
-msgstr ""
+msgstr "Opzioni Visualizzazione Mailbox"
 
 #: squirrelmail/src/options_display.php:94
 msgid "Number of Messages to Index"
@@ -555,11 +560,11 @@ msgstr "Numero di messaggi nell'Indice"
 
 #: squirrelmail/src/options_display.php:102
 msgid "Enable Alternating Row Colors"
-msgstr ""
+msgstr "Abilita l'alternanza dei colori dlle righe"
 
 #: squirrelmail/src/options_display.php:109
 msgid "Enable Page Selector"
-msgstr ""
+msgstr "Abilita il page selector"
 
 #: squirrelmail/src/options_display.php:116
 #, fuzzy
@@ -568,7 +573,7 @@ msgstr "Numero di messaggi nell'Indice"
 
 #: squirrelmail/src/options_display.php:123
 msgid "Message Display and Composition"
-msgstr ""
+msgstr "Visualizzazione e composizione messaggi"
 
 #: squirrelmail/src/options_display.php:128
 #, fuzzy
@@ -582,16 +587,16 @@ msgstr "Dimensione della finestra dell'editor"
 
 #: squirrelmail/src/options_display.php:144
 msgid "Location of Buttons when Composing"
-msgstr ""
+msgstr "Posizione dei pulsanti durante la composizione"
 
 #: squirrelmail/src/options_display.php:147
 #, fuzzy
 msgid "Before headers"
-msgstr "Ricarica cartelle"
+msgstr "Prima delle intestazioni"
 
 #: squirrelmail/src/options_display.php:148
 msgid "Between headers and message body"
-msgstr ""
+msgstr "Tra le intestazioni e i corpi dei messaggi"
 
 #: squirrelmail/src/options_display.php:149
 #, fuzzy
@@ -601,7 +606,7 @@ msgstr "Visualizza il messaggio"
 #: squirrelmail/src/options_display.php:154
 #, fuzzy
 msgid "Addressbook Display Format"
-msgstr "La rubrica è in sola lettura"
+msgstr "Formato visualizzaizone rubrica"
 
 #: squirrelmail/src/options_display.php:157
 #, fuzzy
@@ -614,31 +619,39 @@ msgstr "HTML"
 
 #: squirrelmail/src/options_display.php:163
 msgid "Show HTML Version by Default"
-msgstr ""
+msgstr "Visualizza la versione HTML di default"
 
 #: squirrelmail/src/options_display.php:170
 msgid "Include Me in CC when I Reply All"
-msgstr ""
+msgstr "Includimi in CC quando rispondo a tutti"
 
 #: squirrelmail/src/options_display.php:177
 msgid "Enable Mailer Display"
-msgstr ""
+msgstr "Abilita la visualizzazione del Mailer"
 
 #: squirrelmail/src/options_display.php:184
 msgid "Display Attached Images with Message"
-msgstr ""
+msgstr "Visualizza le immagini in attach con il messaggio"
 
 #: squirrelmail/src/options_display.php:191
 msgid "Enable Subtle Printer Friendly Link"
-msgstr ""
+msgstr "Abilita il link alla versione stampabile"
 
 #: squirrelmail/src/options_display.php:198
 msgid "Enable Printer Friendly Clean Display"
-msgstr ""
+msgstr "Abilita il display printer friendly"
+
+#: squirrelmail/src/options_display.php:228
+msgid "Enable request/confirm reading"
+msgstr "Abilita la richiesta/conferma di lettura"
+
+#: squirrelmail/src/options_display.php:236
+msgid "Always compose in a new window"
+msgstr "Componi sempre in una nuova finestra"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
-msgstr "Cartelle speciali"
+msgstr "Opzioni Cartelle speciali"
 
 #: squirrelmail/src/options_folder.php:47
 msgid "Folder Path"
@@ -651,7 +664,7 @@ msgstr "Non usare il cestino"
 #: squirrelmail/src/options_folder.php:67
 #, fuzzy
 msgid "Trash Folder"
-msgstr "Cestino:"
+msgstr "Cestino"
 
 #: squirrelmail/src/options_folder.php:74
 msgid "Do not use Sent"
@@ -660,34 +673,34 @@ msgstr "Non usare \"Posta inviata\""
 #: squirrelmail/src/options_folder.php:78
 #, fuzzy
 msgid "Sent Folder"
-msgstr "Posta inviata:"
+msgstr "Posta inviata"
 
 #: squirrelmail/src/options_folder.php:85
 #, fuzzy
 msgid "Do not use Drafts"
-msgstr "Non usare il cestino"
+msgstr "Non usare le bozze"
 
 #: squirrelmail/src/options_folder.php:89
 #, fuzzy
 msgid "Draft Folder"
-msgstr "Crea Cartella"
+msgstr "Cartella Bozze"
 
 #: squirrelmail/src/options_folder.php:97
 #, fuzzy
 msgid "Folder List Options"
-msgstr "Cartelle speciali"
+msgstr "Opzioni lista cartelle"
 
 #: squirrelmail/src/options_folder.php:102
 msgid "Location of Folder List"
-msgstr ""
+msgstr "Posizione della lista cartelle"
 
 #: squirrelmail/src/options_folder.php:105
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 #: squirrelmail/src/options_folder.php:106
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
 #: squirrelmail/src/options_folder.php:111
 msgid "pixels"
@@ -696,20 +709,20 @@ msgstr ""
 #: squirrelmail/src/options_folder.php:115
 #, fuzzy
 msgid "Width of Folder List"
-msgstr "Larghezza della lista di cartelle a sinistra"
+msgstr "Larghezza della lista di cartelle"
 
 #: squirrelmail/src/options_folder.php:121
 msgid "Minutes"
-msgstr ""
+msgstr "minuti"
 
 #: squirrelmail/src/options_folder.php:125
 #, fuzzy
 msgid "Seconds"
-msgstr "Invia"
+msgstr "secondi"
 
 #: squirrelmail/src/options_folder.php:127
 msgid "Minute"
-msgstr ""
+msgstr "minuto"
 
 #: squirrelmail/src/options_folder.php:134
 #, fuzzy
@@ -719,7 +732,7 @@ msgstr "Ricarica automaticamente la lista di cartelle"
 #: squirrelmail/src/options_folder.php:142
 #, fuzzy
 msgid "Enable Unread Message Notification"
-msgstr "Notifica dei messaggi non letti"
+msgstr "Abilita Notifica dei messaggi non letti"
 
 #: squirrelmail/src/options_folder.php:145
 #, fuzzy
@@ -737,7 +750,7 @@ msgstr "Tutte le cartelle"
 #: squirrelmail/src/options_folder.php:152
 #, fuzzy
 msgid "Unread Message Notification Type"
-msgstr "Tipo di notifica di nuovo messaggio"
+msgstr "Tipo di notifica dei messaggi non letti"
 
 #: squirrelmail/src/options_folder.php:155
 #, fuzzy
@@ -750,27 +763,31 @@ msgstr "Nuovi e totale"
 
 #: squirrelmail/src/options_folder.php:161
 msgid "Enable Collapsable Folders"
-msgstr ""
+msgstr "Abilita le cartelle chiudibili"
 
 #: squirrelmail/src/options_folder.php:168
 msgid "Show Clock on Folders Panel"
-msgstr ""
+msgstr "Mostra l'orologio nel pannello delle cartelle"
 
 #: squirrelmail/src/options_folder.php:176
 msgid "No Clock"
-msgstr ""
+msgstr "No Orologio"
 
 #: squirrelmail/src/options_folder.php:181
 msgid "Hour Format"
-msgstr ""
+msgstr "Formato ora"
 
 #: squirrelmail/src/options_folder.php:184
 msgid "12-hour clock"
-msgstr ""
+msgstr "orario 12 ore"
 
 #: squirrelmail/src/options_folder.php:185
 msgid "24-hour clock"
-msgstr ""
+msgstr "orario 24 ore"
+
+#: squirrelmail/src/options_folder.php:188
+msgid "Memory Search"
+msgstr "Cerca in memoria"
 
 #: squirrelmail/functions/page_header.php:86
 #: squirrelmail/plugins/filters/options.php:60
@@ -889,7 +906,7 @@ msgstr "Cc"
 #: squirrelmail/plugins/filters/options.php:92
 #: squirrelmail/src/options_highlight.php:326
 msgid "To or Cc"
-msgstr ""
+msgstr "a o CC"
 
 #: squirrelmail/src/options_highlight.php:331
 #, fuzzy
@@ -902,16 +919,16 @@ msgstr ""
 
 #: squirrelmail/src/options_identities.php:69
 msgid "Default Identity"
-msgstr ""
+msgstr "Identità di default"
 
 #: squirrelmail/src/options_identities.php:80
 #, c-format
 msgid "Alternate Identity %d"
-msgstr ""
+msgstr "Identità"
 
 #: squirrelmail/src/options_identities.php:90
 msgid "Add a New Identity"
-msgstr ""
+msgstr "Aggiungi una nuova identità"
 
 #: squirrelmail/src/options_identities.php:306
 #: squirrelmail/src/options_personal.php:49
@@ -929,16 +946,16 @@ msgstr "Rispondi"
 
 #: squirrelmail/src/options_identities.php:315
 msgid "Save / Update"
-msgstr ""
+msgstr "Salva / modifica"
 
 #: squirrelmail/src/options_identities.php:318
 msgid "Make Default"
-msgstr ""
+msgstr "Rendi questo il default"
 
 #: squirrelmail/src/options_identities.php:324
 #, fuzzy
 msgid "Move Up"
-msgstr "Sposta"
+msgstr "Sposta in alto"
 
 #: squirrelmail/src/options.php:120 squirrelmail/src/options.php:273
 #: squirrelmail/src/options_order.php:48
@@ -956,7 +973,7 @@ msgstr ""
 #: squirrelmail/functions/mailbox_display.php:571
 #: squirrelmail/src/options_order.php:61
 msgid "Size"
-msgstr ""
+msgstr "Dimensione"
 
 #: squirrelmail/src/options_order.php:104
 msgid ""
@@ -967,25 +984,25 @@ msgstr ""
 
 #: squirrelmail/src/options_order.php:113
 msgid "up"
-msgstr ""
+msgstr "sopra"
 
 #: squirrelmail/src/options_order.php:115
 #, fuzzy
 msgid "down"
-msgstr "scaricare"
+msgstr "sotto"
 
 #: squirrelmail/src/options_order.php:120
 #, fuzzy
 msgid "remove"
-msgstr "Sposta"
+msgstr "rimuovi"
 
 #: squirrelmail/src/options_order.php:149
 msgid "Return to options page"
-msgstr ""
+msgstr "Torna alla pagian delle opzioni"
 
 #: squirrelmail/src/options_personal.php:41
 msgid "Name and Address Options"
-msgstr ""
+msgstr "Opzioni per nome e indirizzo"
 
 #: squirrelmail/src/options_personal.php:57
 #, fuzzy
@@ -994,36 +1011,36 @@ msgstr "Indirizzo E-mail"
 
 #: squirrelmail/src/options_personal.php:72
 msgid "Edit Advanced Identities"
-msgstr ""
+msgstr "Modifica le identità avanzate"
 
 #: squirrelmail/src/options_personal.php:74
 msgid "(discards changes made on this form so far)"
-msgstr ""
+msgstr "(scarta le modifiche fatte su questo form)"
 
 #: squirrelmail/src/options_personal.php:77
 msgid "Multiple Identities"
-msgstr ""
+msgstr "Identità multiple"
 
 #: squirrelmail/src/options_personal.php:84
 msgid "Reply Citation Options"
-msgstr ""
+msgstr "Opzioni Citazioni nella risposta"
 
 #: squirrelmail/src/options_personal.php:89
 msgid "Reply Citation Style"
-msgstr ""
+msgstr "Stile Citazioni nelle risposte"
 
 #: squirrelmail/src/options_personal.php:92
 #, fuzzy
 msgid "No Citation"
-msgstr "Nessuna notifica"
+msgstr "Nessuna citazione"
 
 #: squirrelmail/src/options_personal.php:93
 msgid "AUTHOR Said"
-msgstr ""
+msgstr "AUTHOR ha detto"
 
 #: squirrelmail/src/options_personal.php:94
 msgid "Quote Who XML"
-msgstr ""
+msgstr""
 
 #: squirrelmail/src/options_personal.php:95
 msgid "User-Defined"
@@ -1040,16 +1057,16 @@ msgstr ""
 #: squirrelmail/src/options_personal.php:115
 #, fuzzy
 msgid "Signature Options"
-msgstr "Firma"
+msgstr "Opzioni Firma"
 
 #: squirrelmail/src/options_personal.php:120
 #, fuzzy
 msgid "Use Signature"
-msgstr "Usa una firma digitale"
+msgstr "Usa una firma"
 
 #: squirrelmail/src/options_personal.php:127
 msgid "Prefix Signature with '-- ' Line"
-msgstr ""
+msgstr "Precedi la firma con una linea di '--'"
 
 #: squirrelmail/src/options_personal.php:134
 msgid "Signature"
@@ -1075,7 +1092,7 @@ msgstr "Informazioni personali salvate con successo!"
 #: squirrelmail/src/options.php:229
 #, fuzzy
 msgid "Refresh Folder List"
-msgstr "Ricarica cartelle"
+msgstr "Ricarica lista cartelle"
 
 #: squirrelmail/src/options.php:231
 msgid "Refresh Page"
@@ -1086,7 +1103,7 @@ msgid ""
 "This contains personal information about yourself such as your name, your "
 "email address, etc."
 msgstr ""
-"Contiene informazioni personali quali il tuo nome, il tuo indirizzo diemail, "
+"Contiene informazioni personali quali il tuo nome, il tuo indirizzo email, "
 "ecc."
 
 #: squirrelmail/src/options.php:251
@@ -1133,7 +1150,7 @@ msgstr "CC:"
 
 #: squirrelmail/src/printer_friendly_top.php:52
 msgid "Print"
-msgstr ""
+msgstr "Stampa"
 
 #: squirrelmail/src/printer_friendly_top.php:53
 #, fuzzy
@@ -1143,11 +1160,11 @@ msgstr "Chiudi la finestra"
 #: squirrelmail/src/read_body.php:48
 #, fuzzy
 msgid "Viewing Full Header"
-msgstr "Visione delle intestazioni internet"
+msgstr "Visione delle intestazioni complete"
 
 #: squirrelmail/src/read_body.php:180
 msgid "View Printable Version"
-msgstr ""
+msgstr "Guarda la versione stampabile"
 
 #: squirrelmail/src/read_body.php:314
 msgid "more"
@@ -1163,7 +1180,7 @@ msgstr "Lista messaggi"
 
 #: squirrelmail/src/read_body.php:472
 msgid "Resume Draft"
-msgstr ""
+msgstr "Recupera la bozza"
 
 #: squirrelmail/src/read_body.php:507
 msgid "Forward"
@@ -1175,12 +1192,12 @@ msgstr "Rispondi"
 
 #: squirrelmail/src/read_body.php:513
 msgid "Reply All"
-msgstr "Rispondi A.."
+msgstr "Rispondi a tutti"
 
 #: squirrelmail/src/read_body.php:534 squirrelmail/src/read_body.php:536
 #, fuzzy
 msgid "View Full Header"
-msgstr "Visualizza l'intestazione internet"
+msgstr "Visualizza l'intestazione completa"
 
 #: squirrelmail/src/read_body.php:559
 msgid "Date:"
@@ -1200,7 +1217,7 @@ msgstr ""
 
 #: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
 msgid "Go to the login page"
-msgstr ""
+msgstr "Vai alla pagina di login"
 
 #: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
 msgid "There was an error contacting the mail server."
@@ -1233,12 +1250,12 @@ msgstr "Cliccare qui per ricollegarsi."
 #: squirrelmail/src/vcard.php:46
 #, fuzzy
 msgid "Viewing a Business Card"
-msgstr "Visualizzazione del messaggio"
+msgstr "Visualizzazione del biglietto da visita"
 
 #: squirrelmail/src/vcard.php:108 squirrelmail/src/vcard.php:169
 #, fuzzy
 msgid "Title"
-msgstr "Bianco"
+msgstr "Titolo"
 
 #: squirrelmail/src/vcard.php:109
 #, fuzzy
@@ -1248,11 +1265,11 @@ msgstr "E-mail"
 #: squirrelmail/src/vcard.php:110 squirrelmail/src/vcard.php:163
 #, fuzzy
 msgid "Web Page"
-msgstr "Ricarica la pagina"
+msgstr "Pagina web"
 
 #: squirrelmail/src/vcard.php:111 squirrelmail/src/vcard.php:172
 msgid "Organization / Department"
-msgstr ""
+msgstr "Organizzazione / Ufficio"
 
 #: squirrelmail/src/vcard.php:112 squirrelmail/src/vcard.php:166
 #, fuzzy
@@ -1282,7 +1299,7 @@ msgstr ""
 #: squirrelmail/src/vcard.php:149
 #, fuzzy
 msgid "Add to Addressbook"
-msgstr "Aggiungi l'indirizzo"
+msgstr "Aggiungi alla rubrica"
 
 #: squirrelmail/src/vcard.php:176
 msgid "Title & Org. / Dept."
@@ -1389,7 +1406,7 @@ msgstr "Errore nell'inizializzazione del server LDAP %s"
 #: squirrelmail/functions/addressbook.php:314
 #: squirrelmail/functions/addressbook.php:395
 msgid "Invalid input data"
-msgstr "I dati inseriti non sono corretti"
+msgstr "I dati inseriti non sono validi"
 
 #: squirrelmail/functions/addressbook.php:319
 #: squirrelmail/functions/addressbook.php:400
@@ -1415,87 +1432,87 @@ msgstr ""
 
 #: squirrelmail/functions/attachment_common.php:180
 msgid "Business Card"
-msgstr ""
+msgstr "Biglietto da visita"
 
 #: squirrelmail/functions/date.php:101
 #, fuzzy
 msgid "Sunday"
-msgstr "Invia"
+msgstr "Domenica"
 
 #: squirrelmail/functions/date.php:104
 #, fuzzy
 msgid "Monday"
-msgstr "Corpo del messaggio"
+msgstr "Lunedì"
 
 #: squirrelmail/functions/date.php:107
 msgid "Tuesday"
-msgstr ""
+msgstr "Martedì"
 
 #: squirrelmail/functions/date.php:110
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercoledì"
 
 #: squirrelmail/functions/date.php:113
 msgid "Thursday"
-msgstr ""
+msgstr "Giovedì"
 
 #: squirrelmail/functions/date.php:116
 msgid "Friday"
-msgstr ""
+msgstr "Venerdì"
 
 #: squirrelmail/functions/date.php:119
 msgid "Saturday"
-msgstr ""
+msgstr "Sabato"
 
 #: squirrelmail/functions/date.php:130
 msgid "January"
-msgstr ""
+msgstr "Gennaio"
 
 #: squirrelmail/functions/date.php:133
 msgid "February"
-msgstr ""
+msgstr "Febbraio"
 
 #: squirrelmail/functions/date.php:136
 #, fuzzy
 msgid "March"
-msgstr "Corrispondenza"
+msgstr "Marzo"
 
 #: squirrelmail/functions/date.php:139
 msgid "April"
-msgstr ""
+msgstr "Aprile"
 
 #: squirrelmail/functions/date.php:142
 msgid "May"
-msgstr ""
+msgstr "Maggio"
 
 #: squirrelmail/functions/date.php:145
 msgid "June"
-msgstr ""
+msgstr "Giugno"
 
 #: squirrelmail/functions/date.php:148
 msgid "July"
-msgstr ""
+msgstr "Luglio"
 
 #: squirrelmail/functions/date.php:151
 msgid "August"
-msgstr ""
+msgstr "Agosto"
 
 #: squirrelmail/functions/date.php:154
 msgid "September"
-msgstr ""
+msgstr "Settembre"
 
 #: squirrelmail/functions/date.php:157
 #, fuzzy
 msgid "October"
-msgstr "Altro:"
+msgstr "Ottobre"
 
 #: squirrelmail/functions/date.php:160
 msgid "November"
-msgstr ""
+msgstr "Novembre"
 
 #: squirrelmail/functions/date.php:163
 msgid "December"
-msgstr ""
+msgstr "Dicembre"
 
 #: squirrelmail/functions/date.php:185
 msgid "D, F j, Y g:i a"
@@ -1618,7 +1635,7 @@ msgstr "Mittente sconosciuto"
 #: squirrelmail/functions/imap_messages.php:233
 #, fuzzy
 msgid "No To Address"
-msgstr "Indirizzo"
+msgstr "Manca l'Indirizzo del destinatario"
 
 #: squirrelmail/functions/imap_messages.php:505
 msgid "(unknown sender)"
@@ -1647,7 +1664,7 @@ msgstr "Sposta la selezione in:"
 
 #: squirrelmail/functions/mailbox_display.php:497
 msgid "Transform Selected Messages"
-msgstr ""
+msgstr "Trasforma i messaggi selezionati"
 
 #: squirrelmail/functions/mailbox_display.php:513
 msgid "Move"
@@ -1656,34 +1673,34 @@ msgstr "Sposta"
 #: squirrelmail/functions/mailbox_display.php:517
 #, fuzzy
 msgid "Expunge"
-msgstr "scarica"
+msgstr "Spunta"
 
 #: squirrelmail/functions/mailbox_display.php:517
 #, fuzzy
 msgid "mailbox"
-msgstr "E-mail"
+msgstr ""
 
 #: squirrelmail/functions/mailbox_display.php:519
 #, fuzzy
 msgid "Read"
-msgstr "Rinomina"
+msgstr "Letti"
 
 #: squirrelmail/functions/mailbox_display.php:520
 msgid "Unread"
-msgstr ""
+msgstr "Non letti"
 
 #: squirrelmail/functions/mailbox_display.php:616
 msgid "Toggle All"
-msgstr ""
+msgstr "Seleziona tutti"
 
 #: squirrelmail/functions/mailbox_display.php:634
 msgid "Unselect All"
-msgstr ""
+msgstr "Deseleziona tutti"
 
 #: squirrelmail/functions/mailbox_display.php:636
 #, fuzzy
 msgid "Select All"
-msgstr "Rispondi A.."
+msgstr "Seleziona tutti"
 
 #: squirrelmail/functions/mailbox_display.php:653
 #, c-format
@@ -1702,7 +1719,7 @@ msgstr ""
 #: squirrelmail/functions/mime.php:647
 #, fuzzy
 msgid "Attachments"
-msgstr "Allega:"
+msgstr "Allegati"
 
 #: squirrelmail/functions/mime.php:686
 msgid "download"
@@ -1719,7 +1736,7 @@ msgstr ""
 
 #: squirrelmail/functions/options.php:253
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 #: squirrelmail/functions/options.php:258
 msgid "No"
