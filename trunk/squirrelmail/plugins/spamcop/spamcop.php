@@ -17,10 +17,13 @@ define('SM_PATH','../../');
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/imap.php');
 
+/**
+ * Stores message in attachment directory, when email based reports are used
+ */
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
                                       $passed_ent_id='', $imapConnection) {
     global $attachments, $attachment_dir, $username, $data_dir, $uid_support;
-    
+
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection, 
@@ -66,12 +69,16 @@ sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('js_web', $js_web, SQ_GET);
 
 if (! sqgetGlobalVar('startMessage', $startMessage, SQ_GET) ) {
     $startMessage = 1;
 }
 if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
-    $passed_ent_id = '';
+    $passed_ent_id = 0;
+}
+if (! sqgetGlobalVar('js_web', $js_web, SQ_GET) ) {
+    $js_web = 0;
 }
 
 sqgetGlobalVar('compose_messages', $compose_messages, SQ_SESSION);
@@ -82,8 +89,14 @@ if(! sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
 }
 /* END GLOBALS */
 
-    
-    displayPageHeader($color, $mailbox);
+// js_web variable is 1 only when link opens web based report page in new window
+// and in new window menu line or extra javascript code is not needed.
+if ($js_web) {
+  displayHTMLHeader('SpamCop reporting');
+  echo "<body text=\"$color[8]\" bgcolor=\"$color[4]\" link=\"$color[7]\" vlink=\"$color[7]\" alink=\"$color[7]\">\n";
+} else {
+  displayPageHeader($color,$mailbox);
+}
 
     $imap_stream = sqimap_login($username, $key, $imapServerAddress, 
        $imapPort, 0);
@@ -112,7 +125,7 @@ if(! sqgetGlobalVar('composesession', $composesession, SQ_SESSION) ) {
 
         $message = sqimap_get_message($imap_stream, $passed_id, $mailbox);
         $composeMessage = getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
-                                      $passed_ent_id='', $imap_stream);
+                                      $passed_ent_id, $imap_stream);
 
     	$compose_messages[$session] = $composeMessage;
 	sqsession_register($compose_messages, 'compose_messages');
@@ -166,18 +179,23 @@ echo "</p>";
   <input type="hidden" name="session" value="<?PHP echo $session?>">
   <input type="submit" name="send" value="Send Spam Report">
 <?PHP } else {
-   $spam_message = mime_fetch_body ($imap_stream, $passed_id, 0, 50000);
+   $spam_message = mime_fetch_body ($imap_stream, $passed_id, $passed_ent_id, 50000);
 
    if (strlen($spam_message) == 50000) {
       $Warning = "\n[truncated by SpamCop]\n";
       $spam_message = substr($spam_message, 0, 50000 - strlen($Warning)) . $Warning;
    }
-   if (isset($js_web) && $js_web) {
-?>  <form method="post" action="http://www.spamcop.net/sc" name="submitspam"
-    enctype="multipart/form-data"><?PHP
+   if ($spamcop_type=='member') {
+     $action_url="http://members.spamcop.net/sc";
    } else {
-?>  <form method="post" action="http://www.spamcop.net/sc" name="submitspam"
-    enctype="multipart/form-data" target="_blank"><?PHP
+     $action_url="http://www.spamcop.net/sc";
+   }
+   if (isset($js_web) && $js_web) {
+     echo "<form method=\"post\" action=\"$action_url\" name=\"submitspam\"".
+       " enctype=\"multipart/form-data\">\n";
+   } else {
+     echo "<form method=\"post\" action=\"$action_url\" name=\"submitspam\"".
+       " enctype=\"multipart/form-data\" target=\"_blank\">\n";
    } ?>
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="oldverbose" value="1">

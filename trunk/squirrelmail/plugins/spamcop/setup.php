@@ -37,23 +37,20 @@ function squirrelmail_plugin_init_spamcop() {
 }
 
 
-// Load the settings
-// Validate some of it (make '' into 'default', etc.)
+/**
+ * Loads spamcop settings and validates some of values (make '' into 'default', etc.)
+ */
 function spamcop_load() {
    global $username, $data_dir, $spamcop_enabled, $spamcop_delete,
-      $spamcop_method, $spamcop_id, $spamcop_quick_report;
+      $spamcop_method, $spamcop_id, $spamcop_quick_report, $spamcop_type;
 
    $spamcop_enabled = getPref($data_dir, $username, 'spamcop_enabled');
    $spamcop_delete = getPref($data_dir, $username, 'spamcop_delete');
    $spamcop_method = getPref($data_dir, $username, 'spamcop_method');
+   $spamcop_type = getPref($data_dir, $username, 'spamcop_type');
    $spamcop_id = getPref($data_dir, $username, 'spamcop_id');
     if ($spamcop_method == '') {
-// This variable is not used
-//      if (getPref($data_dir, $username, 'spamcop_form'))
-//         $spamcop_method = 'web_form';
-//      else
-
-// Default to web_form. It is faster.
+      // Default to web_form. It is faster.
 	$spamcop_method = 'web_form';
 	setPref($data_dir, $username, 'spamcop_method', $spamcop_method);
     }
@@ -61,23 +58,35 @@ function spamcop_load() {
 	$spamcop_method = 'web_form';
 	setPref($data_dir, $username, 'spamcop_method', $spamcop_method);
    }
+   if ($spamcop_type == '') {
+   	$spamcop_type = 'free';
+   	setPref($data_dir, $username, 'spamcop_type', $spamcop_type);
+   }
    if ($spamcop_id == '')
       $spamcop_enabled = 0;
 }
 
 
-// Show the link on the read-a-message screen
+/**
+ * Shows spamcop link on the read-a-message screen
+ */
 function spamcop_show_link() {
-   global $spamcop_enabled, $spamcop_method, $spamcop_quick_report;
+   global $spamcop_enabled, $spamcop_method, $spamcop_quick_report,$javascript_on;
 
    if (! $spamcop_enabled)
       return;
 
    /* GLOBALS */
    sqgetGlobalVar('passed_id',    $passed_id,    SQ_FORM);
+   sqgetGlobalVar('passed_ent_id',$passed_ent_id,SQ_FORM);
    sqgetGlobalVar('mailbox',      $mailbox,      SQ_FORM);
    sqgetGlobalVar('startMessage', $startMessage, SQ_FORM);
    /* END GLOBALS */
+
+   // catch unset passed_ent_id
+   if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_FORM) ) {
+    $passed_ent_id = 0;
+   }
 
    echo "<br>\n";
 
@@ -90,24 +99,24 @@ function spamcop_show_link() {
 	$spamcop_method = 'web_form';
     }
    
-   if ($spamcop_method == 'web_form') {
+    // Javascript is used only in web based reporting
+    // don't insert javascript if javascript is disabled
+   if ($spamcop_method == 'web_form' && $javascript_on) {
 ?><script language="javascript" type="text/javascript">
-document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP echo urlencode($mailbox); ?>" target="_blank">');
+document.write('<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;js_web=1&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;passed_ent_id=<?PHP echo urlencode($passed_ent_id); ?>" target="_blank">');
 document.write("<?PHP echo _("Report as Spam"); ?>");
 document.write("</a>");
-</script><noscript>
-<a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>">
-<?PHP echo _("Report as Spam"); ?></a>
-</noscript><?PHP
+</script><?PHP
    } else {
-?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>">
+?><a href="../plugins/spamcop/spamcop.php?passed_id=<?PHP echo urlencode($passed_id); ?>&amp;mailbox=<?PHP echo urlencode($mailbox); ?>&amp;startMessage=<?PHP echo urlencode($startMessage); ?>&amp;passed_ent_id=<?PHP echo urlencode($passed_ent_id); ?>">
 <?PHP echo _("Report as Spam"); ?></a>
 <?PHP
    }
 }
 
-
-// Show the link to our own custom options page
+/**
+ * Show spamcop options block
+ */
 function spamcop_options()
 {
    global $optpage_blocks;
@@ -121,7 +130,9 @@ function spamcop_options()
 }
 
 
-// When we send the email, we optionally trash it then too
+/**
+ * When we send the email, we optionally trash it then too
+ */
 function spamcop_while_sending()
 {
    global $mailbox, $spamcop_delete, $spamcop_is_composing, $auto_expunge, 
