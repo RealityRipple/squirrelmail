@@ -2594,7 +2594,8 @@ sub save_data {
         print CF " * Created using the configure script, conf.pl\n";
         print CF " */\n";
         print CF "\n";
-
+        print CF "global \$version;\n";
+	
         if ($print_config_version) {
             print CF "\$config_version = '$print_config_version';\n";
         }
@@ -2968,9 +2969,10 @@ sub change_to_SM_path() {
     # If the path is absolute, don't bother.
     return "\'" . $old_path . "\'"  if ( $old_path eq '');
     return "\'" . $old_path . "\'"  if ( $old_path =~ /^\// );
+    return "\'" . $old_path . "\'"  if ( $old_path =~ /^http/ );
     return $old_path                if ( $old_path =~ /^\$/);
     return $old_path                if ( $old_path =~ /^SM_PATH/ );
-
+    
     # For relative paths, split on '../'
     @rel_path = split(/\.\.\//, $old_path);
 
@@ -3008,6 +3010,7 @@ sub change_to_rel_path() {
     return $old_path if ( $old_path eq '');
     return $old_path if ( $old_path =~ /^\$/ );
     return $old_path if ( $old_path =~ /^\// );
+    return $old_path if ( $old_path =~ /^http/ );
     return $old_path if ( $old_path =~ /^\.\./ );
 
     if ( $old_path =~ /^SM_PATH/ ) {
