@@ -1212,62 +1212,77 @@ class message {
         }
     }
 
-    function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html')) {
+    function findDisplayEntity($entity = array(), $alt_order = array('text/plain', 'text/html'), $strict=false) {
         $found = false;
-        $type = $this->type0.'/'.$this->type1;
-        if ($type == 'multipart/alternative') {
-            $msg = $this->findAlternativeEntity($alt_order);
-            if (count($msg->entities) == 0) {
-                $entity[] = $msg->entity_id;
-            } else {
-                $entity = $msg->findDisplayEntity($entity, $alt_order);
-            }
-            $found = true;
-        } else if ($type == 'multipart/related') {
-            $msgs = $this->findRelatedEntity();
-            foreach ($msgs as $msg) {
+        if ($this->type0 == 'multipart') {
+            if($this->type1 == 'alternative') {
+                $msg = $this->findAlternativeEntity($alt_order);
                 if (count($msg->entities) == 0) {
                     $entity[] = $msg->entity_id;
                 } else {
-                    $entity = $msg->findDisplayEntity($entity, $alt_order);
+                    $entity = $msg->findDisplayEntity($entity, $alt_order, $strict);
+                }
+                $found = true;
+            } else if ($this->type1 == 'related') { /* RFC 2387 */
+                $msgs = $this->findRelatedEntity();
+                foreach ($msgs as $msg) {
+                    if (count($msg->entities) == 0) {
+                        $entity[] = $msg->entity_id;
+                    } else {
+                        $entity = $msg->findDisplayEntity($entity, $alt_order, $strict);
+                    }
+                }
+                if (count($msgs) > 0) {
+                    $found = true;
+                }
+            } else { /* Treat as multipart/mixed */
+                foreach ($this->entities as $ent) {
+                    if(strtolower($ent->header->disposition->name) != 'attachment' &&
+                       ($ent->type0 != 'message' && $ent->type1 != 'rfc822'))
+                    {
+                        $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
+                        $found = true;
+                    }
                 }
             }
-            if (count($msgs) > 0) {
-                $found = true;
-            }
-        } else if (($this->type0 == 'text') &&
-                   (($this->type1 == 'plain') ||
-                    ($this->type1 == 'html')  ||
-                    ($this->type1 == 'message')) &&
-                   isset($this->entity_id)) {
-            if (count($this->entities) == 0) {
-                if (strtolower($this->header->disposition->name) != 'attachment') {
-                    $entity[] = $this->entity_id;
+        } else { /* If not multipart, then just compare with each entry from $alt_order */
+            $type = $this->type0.'/'.$this->type1;
+            foreach ($alt_order as $alt) {
+                if( ($alt == $type) && isset($this->entity_id) ) {
+                    if ( (count($this->entities) == 0) && 
+                         (strtolower($this->header->disposition->name) != 'attachment') )
+                    {
+                            $entity[] = $this->entity_id;
+                            $found = true;
+                    }
                 }
             }
         }
-        $i = 0;
-        if (!$found) {
+        if(!$found) {
             foreach ($this->entities as $ent) {
                 if((strtolower($ent->header->disposition->name) != 'attachment') &&
                    (($ent->type0 != 'message') && ($ent->type1 != 'rfc822'))) {
-                    $entity = $ent->findDisplayEntity($entity, $alt_order);
+                    $entity = $ent->findDisplayEntity($entity, $alt_order, $strict);
+                    $found = true;
+                }
+            }
+        }
+        if(!$strict && !$found) {
+            if ($this->type0 == 'text' &&
+                ($this->type1 == 'plain' ||
+                 $this->type1 == 'html'  ||
+                 $this->type1 == 'message') &&
+                isset($this->entity_id) )
+            {
+                if (count($this->entities) == 0) {
+                    if (strtolower($this->header->disposition->name) != 'attachment') {
+                        $entity[] = $this->entity_id;
+                    }
                 }
             }
         }
 
-        /* CAN THIS BE REMOVED? IF SO, DO IT!!! */
-        //while (isset($this->entities[$i]) && !$found &&
-        //        (strtolower($this->entities[$i]->header->disposition->name)
-        //         != 'attachment') &&
-        //        ($this->entities[$i]->type0 != 'message' &&
-        //         $this->entities[$i]->type1 != 'rfc822')
-        //     ) {
-        //    $entity = $this->entities[$i]->findDisplayEntity($entity, $alt_order);
-        //    ++$i;
-        //}
-
-        return ($entity);
+        return $entity;
     }
 
     function findAlternativeEntity($alt_order) {
