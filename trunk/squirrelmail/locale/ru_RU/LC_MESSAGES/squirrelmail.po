@@ -2,6 +2,7 @@
 # Copyright (c) 1999-2002 The Squirrelmail Development Team
 # Konstantin Riabitsev <squirrelmail-i18n@mricon.com>, 2001.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
