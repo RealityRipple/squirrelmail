@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
 "POT-Creation-Date: 2002-08-22 12:34+0200\n"
-"PO-Revision-Date: 2002-08-22 22:30+0200\n"
+"PO-Revision-Date: 2002-08-23 14:30+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -575,7 +575,7 @@ msgstr "Succesvol hernoemd!"
 
 #: squirrelmail/src/folders.php:48
 msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr ""
+msgstr "Aanmelding niet gelukt - Map bestaat niet."
 
 # squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:280
 #: squirrelmail/src/folders.php:55 squirrelmail/src/left_main.php:793
