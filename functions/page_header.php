@@ -53,7 +53,7 @@
    }
 
    function displayPageHeader($color, $mailbox) {
-      displayHtmlHeader ($color);
+      displayHtmlHeader ();
 
       printf('<BODY TEXT="%s" BGCOLOR="%s" LINK="%s" VLINK="%s" ALINK="%s">',
              $color[8], $color[4], $color[7], $color[7], $color[7]);
