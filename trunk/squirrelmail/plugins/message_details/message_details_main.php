@@ -8,11 +8,15 @@
 * 
 * $Id$
 **/
+/* Path for SquirrelMail required files. */
 
-chdir ('..');
-require_once('../src/validate.php');
-require_once('../functions/page_header.php');
-require_once('../functions/strings.php');
+chdir('..');
+define('SM_PATH','../');
+
+/* SquirrelMail required files. */
+require_once(SM_PATH . 'include/validate.php');
+require_once(SM_PATH . 'functions/page_header.php');
+require_once(SM_PATH . 'functions/strings.php');
 
 displayHtmlHeader( _("Message details"), '', FALSE );
 
