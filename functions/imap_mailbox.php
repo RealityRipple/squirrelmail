@@ -14,6 +14,15 @@ require_once(SM_PATH . 'functions/imap_utf7_local.php');
 
 global $boxesnew;
 
+/*
+   FIXME. This class should be extracted and placed in a separate file that 
+   can be included before we start the session. That makes caching of the tree
+   possible. On a refresh mailboxes from left_main.php the only function that 
+   should be called is the sqimap_get_status_mbx_tree. In case of subscribe 
+   / rename / delete / new we have to create methods for adding/changing the 
+   mailbox in the mbx_tree without the need for a refresh.
+*/
+
 class mailboxes {
     var $mailboxname_full = '', $mailboxname_sub= '', $is_noselect = false, 
         $is_special = false, $is_root = false, $is_inbox = false, $is_sent = false,
@@ -929,7 +938,8 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
 	    $oMbx =& $aMbxs[$i];
 	    if (!$oMbx->is_noselect) {
                 $mbx = $oMbx->mailboxname_full;
-	        if ($unseen_type == 2) {
+	        if ($unseen_type == 2 ||
+	           ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
 		    $query = "STATUS \"$mbx\" (MESSAGES UNSEEN)";
 	        } else {
 	            $query = "STATUS \"$mbx\" (UNSEEN)";
@@ -965,7 +975,8 @@ function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
 	    $oMbx =& $aMbxs[$i];
 	    if (strtoupper($oMbx->mailboxname_full) == 'INBOX' ||
 	        ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
-	        if ($unseen_type == 2) {
+	        if ($unseen_type == 2 || 
+		    ($oMbx->mailboxname_full == $trash_folder && $move_to_trash)) {
 		    $aStatus = sqimap_status_messages($imap_stream,$oMbx->mailboxname_full);
 		    $oMbx->unseen = $aStatus['UNSEEN'];
 		    $oMbx->total  = $aStatus['MESSAGES'];
