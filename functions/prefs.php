@@ -108,6 +108,7 @@ function savePrefValues($data_dir, $username) {
         }
     }
     fclose($file);
+    chmod($filename, 0600);
 }
 
 /**
