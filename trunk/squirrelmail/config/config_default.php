@@ -73,6 +73,14 @@
     global $imap_server_type;
     $imap_server_type = "cyrus";
 
+// Rather than going to the signout.php page (which only allows you
+// to sign back in), setting signout_page allows you to sign
+// the user out and then redirect to whatever page you want.
+// For instance, the following would return the user to your
+// home page:    $signout_page = "/";
+// Set to the empty string to continue to use the default signout page.
+    $signout_page = "";
+
 //  Many servers store mail in your home directory.  With this, they
 //  store them in a subdirectory: mail/ or Mail/, etc.  If your
 //  server does this, please set this to what the default mail folder

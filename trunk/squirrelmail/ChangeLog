@@ -1,6 +1,8 @@
 Version 1.1.0 -- DEVELOPMENT
 ----------------------------
-- Much improved SMTP error handling (patch by Jeff Evans)
+- Added option to have signout page redirect to another page (patch from Scott Bronson)
+    This can be configured in conf.pl (Org Prefs)
+- Much improved SMTP error handling (patch from Jeff Evans)
 - Preferences are now cached instead of read in every page load.
 - Improved URL parser
 - Added ability to read HTML messages by default instead of plain text (Display Options)

@@ -42,6 +42,12 @@
    setcookie('key', '', 0, $base_uri);
    setcookie('logged_in', '', 0, $base_uri);
    session_destroy();
+
+   if ($signout_page) {
+       header("Status: 303 See Other");
+       header("Location: $signout_page");
+       exit; /* we send no content if we're redirecting. */
+   }
 ?>
 <HTML>
    <HEAD>
