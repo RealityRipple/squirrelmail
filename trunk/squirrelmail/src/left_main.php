@@ -11,9 +11,7 @@
       echo "You need a valid user and password to access this page!";
       exit;
    }
-?>
-<HTML>
-<?
+
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($array_php))
@@ -22,6 +20,10 @@
       include("../functions/strings.php");
    if (!isset($imap_php))
       include("../functions/imap.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+
+   echo "<HTML>";
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
       require ("../config/config.php");
