@@ -122,6 +122,7 @@ if (!session_is_registered('user_is_logged_in')) {
     session_register ('username');
     setcookie('key', $key, 0, $base_uri);
     do_hook ('login_verified');
+    checkForPrefs( $data_dir, $username);
 
 }
 
