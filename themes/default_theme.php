@@ -28,4 +28,5 @@
     $color[9]   = "#ABABAB"; // (mid-gray)       Darker version of #0
     $color[10]  = "#666666"; // (dark gray)      Darker version of #9
     $color[11]  = "#770000"; // (dark red)       Special Folders color
+    $color[12]  = "#EDEDED";
 ?>

@@ -18,4 +18,5 @@
     $color[9]   = "#88a990"; // (mid purp)       Darker version of #0
     $color[10]  = "#5E7F67"; // (dark purp)      Darker version of #9
     $color[11]  = "#4A9B62"; // (dark red)       Special Folders color
+    $color[12]  = "#D2F3DA";
 ?>

@@ -18,6 +18,17 @@
       global $message_highlight_list;
       global $index_order;
 
+      if (!isset($GLOBALS["row_count"])) {
+        $GLOBALS["row_count"] = 0;
+      }
+      $GLOBALS["row_count"]++;
+      if ($GLOBALS["row_count"] % 2) {
+        if (!isset($color[12])) $color[12] = "#EAEAEA";
+        $color_string = $color[12];
+      } else {
+        $color_string = $color[4];
+      }
+
       $msg = $msgs[$key];
 
       $senderName = sqimap_find_displayable_name($msg['FROM']);
@@ -82,7 +93,7 @@
       }
 
       if (!isset($hlt_color))
-         $hlt_color = $color[4];
+         $hlt_color = $color_string;
 
       if ($where && $what) {
          $search_stuff = '&where='.urlencode($where).'&what='.urlencode($what);
@@ -479,7 +490,6 @@
       global $color, $index_order, $auto_expunge, $move_to_trash;
       global $checkall, $sent_folder;
       $urlMailbox = urlencode($mailbox);
-
          /** This is the beginning of the message list table.  It wraps around all messages */
       echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
 
@@ -532,7 +542,7 @@
       echo '</TD></TR>';
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
+      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=1 CELLSPACING=0 BGCOLOR=\"$color[0]\">";
       echo "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
 
       $urlMailbox=urlencode($mailbox);
