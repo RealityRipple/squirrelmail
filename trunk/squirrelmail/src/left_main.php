@@ -301,8 +301,8 @@ function listBoxes ($boxes, $j=0 ) {
         /* get unseen/total messages information */
         if ($boxes->unseen !== false || $boxes->total !== false) {
             $unseen = $boxes->unseen;
-            $unseen_string = "($unseen)";
-            if ($unseen>0||$boxes->total>0) {
+            if ($unseen>0 && $boxes->total>0) {
+                $unseen_string = "($unseen)";
                 $unseen_found = TRUE;
             }
             $unseen_before = '<font color="' . $color[11] . '">';
@@ -418,8 +418,10 @@ function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     /* get unseen/total messages information */
     if ($boxes->unseen !== false) {
         $unseen = $boxes->unseen;
-        $unseen_string = "($unseen)";
-        if ($unseen>0) $unseen_found = TRUE;
+        if ($unseen>0) {
+            $unseen_found = TRUE;
+            $unseen_string = "($unseen)";
+        }
         if ($boxes->total) {
             $numMessages = $boxes->total;
             $unseen_string = "<font color=\"$color[11]\">($unseen/$numMessages)</font>";
