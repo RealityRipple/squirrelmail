@@ -28,7 +28,9 @@ function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort,
     $indent_array,   /* indent subject by */
     $pos,            /* Search postion (if any)  */
     $thread_sort_messages, /* thread sorting on/off */
-    $row_count;
+    $server_sort_order, /* sort value when using server-sorting */
+    $row_count,
+	$allow_server_sort; /* enable/disable server-side sorting */
   $color_string = $color[4];
   
   if ($GLOBALS['alt_index_colors']) {
@@ -223,21 +225,41 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 				$use_cache) {
   global $msgs, $msort,
     $sent_folder, $draft_folder,
-    $message_highlight_list,
-    $auto_expunge, $thread_sort_messages,
-    $data_dir, $username;
-  /* If autoexpunge is turned on, then do it now. */
-  
+    $message_highlight_list, 
+    $auto_expunge, $thread_sort_messages, $allow_server_sort,
+    $data_dir, $username, $server_sort_order;
+
+  /* This code and the next if() block check for
+   * server-side sorting methods. The $id array is
+   * formatted and $sort is set to 6 to disable 
+   * SM internal sorting
+   */
   if ($thread_sort_messages == 1) {
     $id = get_thread_sort($imapConnection);
     $sort = 6;
     if ($start_msg + ($show_num - 1) < $num_msgs) {
       $end_msg = $start_msg + ($show_num-1);
-    } else {
+    } 
+	else {
       $end_msg = $num_msgs;
     }
     $id = array_slice($id, ($start_msg-1), ($end_msg));
   }
+
+  if ($allow_server_sort == TRUE && $thread_sort_messages != 1) {
+    $server_sort_order = $sort;
+    $id = sqimap_get_sort_order($imapConnection, $server_sort_order);
+    $sort = 6;
+    if ($start_msg + ($show_num - 1) < $num_msgs) {
+      $end_msg = $start_msg + ($show_num-1);
+    } 
+	else {
+      $end_msg = $num_msgs;
+    }
+    $id = array_slice($id, ($start_msg-1), ($end_msg));
+  }
+
+  /* If autoexpunge is turned on, then do it now. */
   if ($auto_expunge == true) {
     sqimap_mailbox_expunge($imapConnection, $mailbox, false);
   }
@@ -249,7 +271,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       if ($sort < 6 ) {
 	$id = range(1, $num_msgs);
       } 
-      elseif ($thread_sort_messages != 1) {
+      elseif ($thread_sort_messages != 1 && $allow_server_sort != TRUE && $sort == 6) {
 	/* if it's not sorted */
 	if ($start_msg + ($show_num - 1) < $num_msgs){
 	  $end_msg = $start_msg + ($show_num - 1);
@@ -413,7 +435,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
       }
     }		
     session_register('msort');
-  } elseif ($thread_sort_messages == 1 ) {
+  } elseif ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
     $msort = $msgs;
     session_unregister('msgs');
     session_register('msort');
@@ -433,7 +455,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
   global $folder_prefix, $sent_folder, 
     $imapServerAddress, $data_dir, $username, $use_mailbox_cache, 
     $index_order, $real_endMessage, $real_startMessage, $checkall, 
-    $indent_array, $thread_sort_messages;
+    $indent_array, $thread_sort_messages, $allow_server_sort, $server_sort_order;
 
   /* If cache isn't already set, do it now. */
   if (!session_is_registered('msgs')) {
@@ -568,7 +590,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
 					 $start_msg = 1) {
   global $color, $index_order, $auto_expunge, $move_to_trash, $base_uri,
     $checkall, $sent_folder, $draft_folder, $thread_sort_messages, 
-    $allow_thread_sort;
+    $allow_thread_sort, $allow_server_sort, $server_sort_order;
   $urlMailbox = urlencode($mailbox);
 
   /*
@@ -581,20 +603,6 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" "
     . "CELLSPACING=\"0\" BORDER=\"0\"><TR>\n"
     . "    <TD ALIGN=LEFT>$paginator\n";
-
-  if ($allow_thread_sort == TRUE) {
-    if ($thread_sort_messages == 1 ) {
-      $set_thread = 2;
-      $thread_name = 'Unthread View';
-    } elseif ($thread_sort_messages == 0) {
-      $set_thread = 1;
-      $thread_name = 'Thread View';
-    }
-    echo   '|&nbsp;<a href=' . "$base_uri" . 'src/right_main.php?sort=' 
-      . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
-      . '&mailbox=' . urlencode($mailbox) . '>' . _("$thread_name")
-      . '</a>&nbsp;';
-  }
 
   echo "    <TD ALIGN=RIGHT>$msg_cnt_str</TD>\n"
     . "  </TR></TABLE>\n"
@@ -641,8 +649,25 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     . '<INPUT TYPE="SUBMIT" NAME="markUnread" VALUE="' . _("Unread") . '">'
     . '<INPUT TYPE="SUBMIT" VALUE="' . _("Delete") . '">&nbsp;'
     . "</TD>\n"
-    . "   </TR>\n"
-    . "</TABLE>\n";
+    . "   </TR>\n";
+
+/* draws thread sorting links */
+  if ($allow_thread_sort == TRUE) {
+    if ($thread_sort_messages == 1 ) {
+      $set_thread = 2;
+      $thread_name = 'Unthread View';
+    } 
+	elseif ($thread_sort_messages == 0) {
+      $set_thread = 1;
+      $thread_name = 'Thread View';
+    }
+    echo   '<tr><td>&nbsp;<a href=' . "$base_uri" . 'src/right_main.php?sort=' 
+      . "$sort" . '&start_messages=1&set_thread=' . "$set_thread"
+      . '&mailbox=' . urlencode($mailbox) . '><small>' . _("$thread_name")
+      . '</a></small>&nbsp;</td></tr>';
+  }
+
+  echo "</TABLE>\n";
   do_hook('mailbox_form_before');
   echo '</TD></TR>'
     . "<TR><TD BGCOLOR=\"$color[0]\">"
@@ -654,7 +679,14 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
   }
   echo " BGCOLOR=\"$color[0]\">"
     . "<TR BGCOLOR=\"$color[5]\" ALIGN=\"center\">";
-
+  /* if using server sort we highjack the
+   * the $sort var and use $server_sort_order
+   * instead. but here we reset sort for a bit
+   * since its easy
+   */
+  if ($allow_server_sort == TRUE) {
+    $sort = $server_sort_order;
+  }
   /* Print the headers. */
   for ($i=1; $i <= count($index_order); $i++) {
     switch ($index_order[$i]) {
@@ -691,6 +723,12 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
       echo '   <TD WIDTH="5%"><b>' . _("Size") . "</b></TD>\n";
       break;
     }
+  }
+  /* if using server-sorting,
+   * send sort back to 6
+   */
+  if ($allow_server_sort == TRUE) {
+    $sort = 6;
   }
   echo "</TR>\n";
 }

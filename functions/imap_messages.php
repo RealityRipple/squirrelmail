@@ -90,6 +90,45 @@ function get_reference_header ($imap_stream, $message) {
 	return $responses;
 }
 
+
+/* get sort order from server and
+ * return it as the $id array for
+ * mailbox_display
+ */
+ 
+function sqimap_get_sort_order ($imap_stream, $sort) {
+    global  $default_charset, $thread_sort_messages, $internal_date_sort;
+    $sid = sqimap_session_id();
+    $sort_on = array();
+    $reverse = 0;
+    $server_sort_array = array();
+    $sort_test = array();
+    $sort_query = '';
+    $sort_on = array (0=> 'DATE',
+                      1=> 'DATE',
+                      2=> 'FROM',
+                      3=> 'FROM',
+                      4=> 'SUBJECT',
+                      5=> 'SUBJECT',
+                      6=> 'DATE');
+    if ($internal_date_sort == true) {
+        $sort_on[0] = 'ARRIVAL';
+        $sort_on[1] = 'ARRIVAL';
+    }
+    if (!empty($sort_on[$sort])) {
+        $sort_query = "$sid SORT ($sort_on[$sort]) ".strtoupper($default_charset)." ALL\r\n";
+        fputs($imap_stream, $sort_query);
+        $sort_test = sqimap_read_data($imap_stream, $sid, true, $response, $message);
+    }
+    if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
+        $server_sort_array = preg_split("/ /", trim($regs[1]));
+    }
+    if ($sort == 0 || $sort == 2 || $sort == 4) {
+       $server_sort_array = array_reverse($server_sort_array);
+    }
+    return $server_sort_array;
+}
+	
 /* returns an indent array for printMessageinfo()
    this represents the amount of indent needed
    for this message number
@@ -181,7 +220,7 @@ function get_thread_sort ($imap_stream) {
     else {
         $sort_type = 'ORDEREDSUBJECT';
     }
-    $thread_query = "$sid THREAD $sort_type $default_charset ALL\r\n";
+    $thread_query = "$sid THREAD $sort_type ".strtoupper($default_charset)." ALL\r\n";
     fputs($imap_stream, $thread_query);
     $thread_test = sqimap_read_data($imap_stream, $sid, true, $response, $message);
     if (preg_match("/^\* THREAD (.+)$/", $thread_test[0], $regs)) {
@@ -225,7 +264,6 @@ function get_thread_sort ($imap_stream) {
     $thread_list = preg_split("/\s/", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     return $thread_list;
 }
-
 
 
 
