@@ -238,7 +238,7 @@
    if ($where && $what) {
       echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."\">";
    } else {
-      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=1\">";
+      echo "               <A HREF=\"delete_message.php?mailbox=$urlMailbox&message=$passed_id&sort=$sort&startMessage=$startMessage\">";
    }
    echo _("Delete");
    echo "</A>&nbsp;&nbsp;";
