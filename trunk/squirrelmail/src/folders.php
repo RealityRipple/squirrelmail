@@ -22,18 +22,13 @@ require_once('../functions/html.php');
 
 displayPageHeader($color, 'None');
 
-?>
-
-<br>
-<table bgcolor="<?php echo $color[0] ?>" width="95%" align="center" cellpadding="2" cellspacing="0" border="0">
-<tr><td align="center">
-
-    <b><?php echo _("Folders"); ?></b>
-
-    <table width="100%" border="0" cellpadding="5" cellspacing="0">
-    <tr><td bgcolor="<?php echo $color[4] ?>" align="center">
-
-<?php
+echo '<br>' .
+    html_tag( 'table', '', 'center', $color[0], 'width="95%" cellpadding="2" cellspacing="0" border="0"' ) .
+        html_tag( 'tr' ) .
+            html_tag( 'td', '', 'center' ) . '<b>' . _("Folders") . '</b>' .
+                html_tag( 'table', '', 'center', '', 'width="100%" cellpadding="5" cellspacing="0" border="0"' ) .
+                    html_tag( 'tr' ) .
+                        html_tag( 'td', '', 'center', $color[4] );
 
 if ((isset($success) && $success) ||
     (isset($sent_create) && $sent_create == 'true') ||
