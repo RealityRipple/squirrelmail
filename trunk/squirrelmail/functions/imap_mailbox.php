@@ -532,10 +532,10 @@ function sqimap_mailbox_option_list($imap_stream, $show_selected = 0, $folder_sk
                 switch ($shorten_box_names)
                 {
                   case 2:   /* delimited, style = 2 */
-                    $box2 = str_replace('&nbsp;&nbsp;', '.&nbsp;', $boxes_part['formatted']);
+                    $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '.&nbsp;', htmlspecialchars($boxes_part['formatted']));
                     break;
                   case 1:   /* indent, style = 1 */
-                    $box2 = $boxes_part['formatted'];
+                    $box2 = str_replace('&amp;nbsp;&amp;nbsp;', '&nbsp;&nbsp;', htmlspecialchars($boxes_part['formatted']));
                     break;
                   default:  /* default, long names, style = 0 */
                     $box2 = str_replace(' ', '&nbsp;', htmlspecialchars(imap_utf7_decode_local($boxes_part['unformatted-disp'])));
