@@ -22,7 +22,6 @@ define('SM_PATH','../');
 
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
-require_once(SM_PATH . 'functions/global.php');
 require_once(SM_PATH . 'functions/imap.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/mime.php');
@@ -32,19 +31,17 @@ require_once(SM_PATH . 'class/deliver/Deliver.class.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 
 /* --------------------- Get globals ------------------------------------- */
-/** COOKIE VARS */
-sqgetGlobalVar('key',       $key,           SQ_COOKIE);
+$username = $_SESSION['username'];
+$onetimepad = $_SESSION['onetimepad'];
+$base_uri = $_SESSION['base_uri'];
+$delimiter = $_SESSION['delimiter'];
 
-/** SESSION VARS */
-sqgetGlobalVar('username',  $username,      SQ_SESSION);
-sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
-sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
-sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
-
-sqgetGlobalVar('composesession',    $composesession,    SQ_SESSION);
-sqgetGlobalVar('compose_messages',  $compose_messages,  SQ_SESSION);
-
-/** SESSION/POST/GET VARS */
+if (isset($_POST['return'])) {
+    $html_addr_search_done = 'Use Addresses';
+}
+if ( isset($_SESSION['composesession']) ) {
+    $composesession = $_SESSION['composesession'];
+}
 sqgetGlobalVar('action',$action);
 sqgetGlobalVar('session',$session);
 sqgetGlobalVar('mailbox',$mailbox);
@@ -63,28 +60,46 @@ sqgetGlobalVar('passed_id',$passed_id);
 sqgetGlobalVar('passed_ent_id',$passed_ent_id);
 sqgetGlobalVar('send',$send);
 
-sqgetGlobalVar('attach',$attach);
+if ( isset($_POST['sigappend']) ) {
+    $sigappend = $_POST['sigappend'];
+}
+/* From addressbook search */
+if ( isset($_POST['from_htmladdr_search']) ) {
+    $from_htmladdr_search = $_POST['from_htmladdr_search'];
+}
+if ( isset($_POST['addr_search_done']) ) {
+    $html_addr_search_done = $_POST['addr_search_done'];
+}
+if ( isset($_POST['send_to_search']) ) {
+    $send_to_search = &$_POST['send_to_search'];
+}
 
+/* Attachments */
+sqgetGlobalVar('attach',$attach);
+if ( isset($_POST['do_delete']) ) {
+    $do_delete = $_POST['do_delete'];
+}
+if ( isset($_POST['delete']) ) {
+    $delete = &$_POST['delete'];
+}
+if ( isset($_SESSION['compose_messages']) ) {
+    $compose_messages = &$_SESSION['compose_messages'];
+}
+
+
+/* Forward message as attachment */
+if ( isset($_GET['attachedmessages']) ) {
+    $attachedmessages = $_GET['attachedmessages'];
+}
+
+/* Drafts */
 sqgetGlobalVar('draft',$draft);
 sqgetGlobalVar('draft_id',$draft_id);
 sqgetGlobalVar('ent_num',$ent_num);
 sqgetGlobalVar('saved_draft',$saved_draft);
 sqgetGlobalVar('delete_draft',$delete_draft);
 
-
-/** POST VARS */
-sqgetGlobalVar('sigappend',             $sigappend,             SQ_POST);
-sqgetGlobalVar('from_htmladdr_search',  $from_htmladdr_search,  SQ_POST);
-sqgetGlobalVar('addr_search_done',      $html_addr_search_done, SQ_POST);
-sqgetGlobalVar('send_to_search',        $send_to_search,        SQ_POST);
-sqgetGlobalVar('do_delete',             $do_delete,             SQ_POST);
-sqgetGlobalVar('delete',                $delete,                SQ_POST);
-if ( sqgetGlobalVar('return', $temp, SQ_POST) ) {
-  $html_addr_search_done = 'Use Addresses';
-}
-
-/** GET VARS */
-sqgetGlobalVar('attachedmessages', $attachedmessages, SQ_GET);
+$key = $_COOKIE['key'];
 
 /* --------------------- Specific Functions ------------------------------ */
 
@@ -137,6 +152,43 @@ function replyAllString($header) {
    return $url_replytoallcc;
 }
 
+function getReplyCitation($orig_from) {
+    global $reply_citation_style, $reply_citation_start, $reply_citation_end;
+    $orig_from = decodeHeader($orig_from->getAddress(false),false,false);
+//    $from = decodeHeader($orig_header->getAddr_s('from',"\n$indent"),false,false);
+    /* First, return an empty string when no citation style selected. */
+    if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
+        return '';
+    }
+
+    /* Make sure our final value isn't an empty string. */
+    if ($orig_from == '') {
+        return '';
+    }
+
+    /* Otherwise, try to select the desired citation style. */
+    switch ($reply_citation_style) {
+    case 'author_said':
+        $start = '';
+        $end   = ' ' . _("said") . ':';
+        break;
+    case 'quote_who':
+        $start = '<' . _("quote") . ' ' . _("who") . '="';
+        $end   = '">';
+        break;
+    case 'user-defined':
+        $start = $reply_citation_start . 
+         ($reply_citation_start == '' ? '' : ' ');
+        $end   = $reply_citation_end;
+        break;
+    default:
+        return '';
+    }
+
+    /* Build and return the citation string. */
+    return ($start . $orig_from . $end . "\n");
+}
+
 function getforwardHeader($orig_header) {
     global $editor_size;
 
@@ -177,7 +229,7 @@ function getforwardHeader($orig_header) {
  * vars.
  */
 if (sqsession_is_registered('session_expired_post')) {
-    sqgetGlobalVar('session_expired_post', $session_expired_post, SQ_SESSION);
+    $session_expired_post = $_SESSION['session_expired_post'];
     /* 
      * extra check for username so we don't display previous post data from
      * another user during this session.
@@ -559,6 +611,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $bodypart = decodeBody($unencoded_bodypart,
             $body_part_entity->header->encoding);
             if ($type1 == 'html') {
+                $bodypart = str_replace(array('&nbsp;','&gt','&lt'),array(' ','<','>'),$bodypart);
                 $bodypart = strip_tags($bodypart);
             }
             $body .= $bodypart;
@@ -605,10 +658,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         switch ($action) {
         case ('draft'):
             $use_signature = FALSE;
-            $send_to = $orig_header->getAddr_s('to');
-            $send_to_cc = $orig_header->getAddr_s('cc');
-            $send_to_bcc = $orig_header->getAddr_s('bcc');
-            $subject = decodeHeader($orig_header->subject,true,false);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);            
+            $subject = decodeHeader($orig_header->subject,false,true);
             $body_ary = explode("\n", $body);
             $cnt = count($body_ary) ;
             $body = '';
@@ -623,10 +676,10 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
-            $send_to = $orig_header->getAddr_s('to');
-            $send_to_cc = $orig_header->getAddr_s('cc');
-            $send_to_bcc = $orig_header->getAddr_s('bcc');
-            $subject = decodeHeader($orig_header->subject,true,false);
+            $send_to = decodeHeader($orig_header->getAddr_s('to'),false,true);
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'),false,true);
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'),false,true);
+            $subject = decodeHeader($orig_header->subject,false,true);
             $mailprio = $orig_header->priority;
             $orig_from = '';
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
@@ -634,7 +687,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             break;
         case ('forward'):
             $send_to = '';
-            $subject = decodeHeader($orig_header->subject,true,false);
+            $subject = decodeHeader($orig_header->subject,false,true);
 	    if ((substr(strtolower($subject), 0, 4) != 'fwd:') &&
                 (substr(strtolower($subject), 0, 5) != '[fwd:') &&
                 (substr(strtolower($subject), 0, 6) != '[ fwd:')) {
@@ -651,6 +704,7 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             break;
         case ('reply_all'):
             $send_to_cc = replyAllString($orig_header);
+            $send_to_cc = decodeHeader($send_to_cc,false,true);
         case ('reply'):
             $send_to = $orig_header->reply_to;
             if (is_array($send_to) && count($send_to)) {
@@ -660,7 +714,8 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             } else {
                 $send_to = $orig_header->getAddr_s('from');
             }
-            $subject = decodeHeader($orig_header->subject,true,false);
+            $send_to = decodeHeader($send_to,false,true);
+            $subject = decodeHeader($orig_header->subject,false,true);
             $subject = str_replace('"', "'", $subject);
             $subject = trim($subject);
             if (substr(strtolower($subject), 0, 3) != 're:') {
@@ -668,10 +723,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             }
             /* this corrects some wrapping/quoting problems on replies */
             $rewrap_body = explode("\n", $body);
-                $from =  (is_array($orig_header->from)) ? 
-                        $orig_header->from[0] : $orig_header->from;
-            $body = getReplyCitation($from->getAddress(false));
+            $from =  (is_array($orig_header->from)) ? $orig_header->from[0] : $orig_header->from;
             sqUnWordWrap($body);
+            $body = '';
             $cnt = count($rewrap_body);
             for ($i=0;$i<$cnt;$i++) {
               sqWordWrap($rewrap_body[$i], ($editor_size));
@@ -683,9 +737,11 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
                 }
                 unset($rewrap_body[$i]);
             }
+            $body = getReplyCitation($from) . $body;
             $composeMessage->reply_rfc822_header = $orig_header;
+
             break;
-            default:
+        default:
             break;
         }
         $compose_messages[$session] = $composeMessage;
@@ -894,7 +950,7 @@ function showInputForm ($session, $values=false) {
                 _("To:") . '</TD>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4], 'WIDTH="90%"' ) .
          '         <INPUT TYPE=text NAME="send_to" VALUE="' .
-                   decodeHeader($send_to,false) . '" SIZE=60><BR>' . "\n" .
+                   $send_to . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
@@ -902,7 +958,7 @@ function showInputForm ($session, $values=false) {
                 _("CC:") . '</TD>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
          '         <INPUT TYPE=text NAME="send_to_cc" SIZE=60 VALUE="' .
-                   decodeHeader($send_to_cc,false) . '"><BR>' . "\n" .
+                   $send_to_cc . '"><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
@@ -910,7 +966,7 @@ function showInputForm ($session, $values=false) {
                 _("BCC:") . '</TD>' . "\n" .
                 html_tag( 'td', '', 'left', $color[4] ) .
          '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
-                decodeHeader($send_to_bcc,false) . '" SIZE=60><BR>' . "\n" .
+                $send_to_bcc . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
@@ -954,23 +1010,24 @@ function showInputForm ($session, $values=false) {
             } else {
             echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false);
             }
-            echo "\n\n".decodeHeader($body,false);
+            echo "\n\n".decodeHeader($body,false,true);
         }
         else {
-            echo "\n\n".decodeHeader($body,false);
+            echo "\n\n".decodeHeader($body,false,true);
             if ($default_charset == 'iso-2022-jp') {
                 echo "\n\n".($prefix_sig==true? "-- \n":'').mb_convert_encoding($signature, 'EUC-JP');
             }else{
-            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false);
+            echo "\n\n".($prefix_sig==true? "-- \n":'').decodeHeader($signature,false,true);
         }
     }
     }
     else {
-       echo decodeHeader($body,false);
+       echo decodeHeader($body,false,true);
     }
     echo '</TEXTAREA><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n";
+
 
     if ($location_of_buttons == 'bottom') {
         showComposeButtonRow();
@@ -1050,10 +1107,9 @@ function showInputForm ($session, $values=false) {
        store the complete ComposeMessages array in a hidden input value 
        so we can restore them in case of a session timeout.
     */
-    sqgetGlobalVar('QUERY_STRING', $queryString, SQ_SERVER);
     echo '<input type=hidden name=restoremessages value="' . urlencode(serialize($compose_messages)) . "\">\n";
     echo '<input type=hidden name=composesession value="' . $composesession . "\">\n";
-    echo '<input type=hidden name=querystring value="' . $queryString . "\">\n";
+    echo '<input type=hidden name=querystring value="' . $_SERVER['QUERY_STRING'] . "\">\n";
     echo '</FORM>';
     if (!(bool) ini_get('file_uploads')) {
       /* File uploads are off, so we didn't show that part of the form.
@@ -1193,41 +1249,6 @@ function ClearAttachments($composeMessage) {
 
 
 
-function getReplyCitation($orig_from) {
-    global $reply_citation_style, $reply_citation_start, $reply_citation_end;
-
-    /* First, return an empty string when no citation style selected. */
-    if (($reply_citation_style == '') || ($reply_citation_style == 'none')) {
-        return '';
-    }
-
-    /* Make sure our final value isn't an empty string. */
-    if ($orig_from == '') {
-        return '';
-    }
-
-    /* Otherwise, try to select the desired citation style. */
-    switch ($reply_citation_style) {
-    case 'author_said':
-        $start = '';
-        $end   = ' ' . _("said") . ':';
-        break;
-    case 'quote_who':
-        $start = '<' . _("quote") . ' ' . _("who") . '="';
-        $end   = '">';
-        break;
-    case 'user-defined':
-        $start = $reply_citation_start . 
-         ($reply_citation_start == '' ? '' : ' ');
-        $end   = $reply_citation_end;
-        break;
-    default:
-        return '';
-    }
-
-    /* Build and return the citation string. */
-    return ($start . $orig_from . $end . "\n");
-}
 
 /* temporary function to make use of the deliver class.
    In the future the responsable backend should be automaticly loaded
@@ -1286,7 +1307,12 @@ function deliverMessage($composeMessage, $draft=false) {
     if ($full_name) {
         $from = $rfc822_header->from[0];
         if (!$from->host) $from->host = $domain;
-        $from_addr = '"'.$full_name .'" <'.$from->mailbox.'@'.$from->host.'>';
+        $full_name_encoded = encodeHeader($full_name);
+        if ($full_name_encoded != $full_name) {
+            $from_addr = $full_name_encoded .' <'.$from->mailbox.'@'.$from->host.'>';
+        } else {
+            $from_addr = '"'.$full_name .'" <'.$from->mailbox.'@'.$from->host.'>';
+        }
         $rfc822_header->from = $rfc822_header->parseAddress($from_addr,true);
     }
     if ($reply_to) {
@@ -1311,7 +1337,7 @@ function deliverMessage($composeMessage, $draft=false) {
         if ($special_encoding) {
             $mime_header->encoding = $special_encoding;
         } else {    
-            $mime_header->encoding = 'us-ascii';
+            $mime_header->encoding = '8bit';
         }
         if ($default_charset) {
             $mime_header->parameters['charset'] = $default_charset;
