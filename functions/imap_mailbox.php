@@ -21,26 +21,28 @@ function isSpecialMailbox( $box ) {
            $move_to_trash, $move_to_sent, $save_as_draft,
            $delimiter, $folder_prefix, $imap_server_type;
 
-    if ( $move_to_sent  ) {
-        if ( $imap_server_type == 'uw' ) {
-            $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
-            if ( $i === FALSE ) {
-                $i = strlen( $box );
-            }
+    if ( $imap_server_type == 'uw' ) {
+        $boxs = $box;
+        $i = strpos( $sent_folder, $delimiter, strlen( $folder_prefix ) );
+        if ( $i === FALSE ) {
+            $i = strlen( $box );
+        }
+    } else {
+        $boxs = $box . $delimiter;
+        // Skip next second delimiter
+        $i = strpos( $sent_folder, $delimiter );
+        $i = strpos( $sent_folder, $delimiter, $i + 1  );
+        if ( $i === FALSE ) {
+            $i = strlen( $box );
         } else {
-            // Skip next second delimiter
-            $i = strpos( $sent_folder, $delimiter );
-            $i = strpos( $sent_folder, $delimiter, $i+ 1  ) + 1;
-            if ( $i === FALSE ) {
-                $i = strlen( $box );
-            }
+            $i++;
         }
     }
 
     $ret = ( (strtolower($box) == 'inbox') ||
-             ($box == $trash_folder &&
+             ( substr( $trash_folder, 0, $i ) == substr( $boxs, 0, $i ) &&
               $move_to_trash) ||
-             ( substr( $sent_folder, 0, $i ) == substr( $box, 0, $i ) &&
+             ( substr( $sent_folder, 0, $i ) == substr( $boxs, 0, $i ) &&
               $move_to_sent) ||
              ($box == $draft_folder &&
               $save_as_draft) );
