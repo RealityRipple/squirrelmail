@@ -549,7 +549,9 @@
    
          $body = mime_fetch_body ($imap_stream, $id, $ent_num);
          $body = decodeBody($body, $body_message->header->encoding);
-   
+	 $hookResults = do_hook("message_body", $body);
+	 $body = $hookResults[1];
+
          // If there are other types that shouldn't be formatted, add
          // them here 
          if ($body_message->header->type1 != "html" || ! $show_html_default) {
