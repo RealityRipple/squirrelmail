@@ -704,7 +704,7 @@ function mail_message_listing_beginning ($imapConnection,
                                          $start_msg = 1) {
     global $color, $auto_expunge, $base_uri,
            $allow_server_sort, $server_sort_order,
-           $PHP_SELF;
+           $PHP_SELF, $allow_thread_sort, $thread_sort_messages;
 
     $php_self = $PHP_SELF;
     /* fix for incorrect $PHP_SELF */
@@ -777,6 +777,20 @@ function mail_message_listing_beginning ($imapConnection,
                 </td>
                 <td align="right">
                   <small><?php
+                    /* draws thread sorting links */
+                    if ($allow_thread_sort == TRUE) {
+                      if ($thread_sort_messages == 1 ) {
+                        $set_thread = 2;
+                        $thread_name = _("Unthread View");
+                      } elseif ($thread_sort_messages == 0) {
+                        $set_thread = 1;
+                        $thread_name = _("Thread View");
+                      }
+                      echo '&nbsp;&nbsp;<small>[<a href="' . $source_url . '?sort='
+                           . $sort . '&start_messages=1&set_thread=' . $set_thread
+                           . '&mailbox=' . urlencode($mailbox) . '">' . $thread_name
+                           . '</a>]</small>';
+                    }
                     getMbxList($imapConnection);  
                     echo getButton('SUBMIT', 'moveButton',_("Move")) . "\n";   
                   ?></small>
@@ -876,28 +890,6 @@ function printHeader($mailbox, $sort, $color, $showsort=true, $start_msg) {
             if ($showsort) {
                 ShowSortButton($sort, $mailbox, 4, 5);
             }
-            /* draws thread sorting links */
-            global $allow_thread_sort, $thread_sort_messages, $PHP_SELF;
-            if ($allow_thread_sort == TRUE) {
-              if ($thread_sort_messages == 1 ) {
-                $set_thread = 2;
-                $thread_name = _("Unthread View");
-              } elseif ($thread_sort_messages == 0) {
-                $set_thread = 1;
-                $thread_name = _("Thread View");
-              }
-              if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
-                $source_url = $regs[1];
-              } else {
-                $source_url = $PHP_SELF;
-              }
-
-              echo '&nbsp;&nbsp;<small>[<a href="' . $source_url . '?sort='
-                 . $sort . '&start_messages=1&set_thread=' . $set_thread
-                 . '&mailbox=' . urlencode($mailbox) . '">' . $thread_name
-                 . '</a>]</small>';
-            }
-
             echo "</td>\n";
             break;
         case 6: /* size */
