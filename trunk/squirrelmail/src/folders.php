@@ -141,10 +141,9 @@ require_once('../functions/plugin.php');
    echo _("as a subfolder of");
    echo "<BR>";
    echo "<TT><SELECT NAME=subfolder>\n";
-   if (strtolower($imap_server_type) != "courier"){
-     if ($default_sub_of_inbox == false)
+   if ($default_sub_of_inbox == false) {
        echo '<OPTION SELECTED VALUE="">[ '._("None")." ]\n";
-     else
+   } else {
        echo '<OPTION VALUE="">[ '._("None")." ]\n";
    }
 
