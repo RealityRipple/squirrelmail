@@ -256,12 +256,12 @@
    }
 
    function OneTimePadCreate ($length=100) {
-      global $REMOTE_PORT, $REMOTE_IP, $UNIQUE_ID;
+      global $REMOTE_PORT, $REMOTE_ADDR, $UNIQUE_ID;
 
       // Entropy gathering
       if (function_exists("crc32")) {
 	 $seed1 = (double) microtime() * 1000000;
-	 $seed2 = md5($REMOTE_PORT . $REMOTE_IP . $UNIQUE_ID);
+	 $seed2 = md5($REMOTE_PORT . $REMOTE_ADDR . $UNIQUE_ID);
 	 if (function_exists("getrusage")) {
 	    $dat = getrusage();
 	    $seed3 = md5($dat["ru_nswap"].$dat["ru_majflt"].$dat["ru_utime.tv_sec"].$dat["ru_utime.tv_usec"].getmypid());
