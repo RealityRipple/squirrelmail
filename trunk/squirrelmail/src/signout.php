@@ -75,12 +75,13 @@ link="<?php echo $color[7] ?>" vlink="<?php echo $color[7] ?>"
 alink="<?php echo $color[7] ?>">
 <br><br>
 <?php
-do_hook('logout_above_text');
+$plugin_message = concat_hook_function('logout_above_text');
 echo
 html_tag( 'table',
     html_tag( 'tr',
          html_tag( 'th', _("Sign Out"), 'center' ) ,
     '', $color[0], 'width="100%"' ) .
+    $plugin_message .
     html_tag( 'tr',
          html_tag( 'td', _("You have been successfully signed out.") .
              '<br><a href="login.php" target="' . $frame_top . '">' .
