@@ -44,7 +44,6 @@
 
    // If the delete button was pressed, the moveButton variable will not be set.
    if (!$moveButton) {
- //     displayPageHeader($color, $mailbox);
       if (is_array($msg) == 1) {
          // Marks the selected messages ad 'Deleted'
          $j = 0;
@@ -75,7 +74,6 @@
          error_message(_("No messages were selected."), $mailbox, $sort, $startMessage, $color);
       }
    } else {    // Move messages
-//      displayPageHeader($color, $mailbox);
       // lets check to see if they selected any messages
       if (is_array($msg) == 1) {
          $j = 0;

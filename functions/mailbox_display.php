@@ -10,8 +10,9 @@
 
    $mailbox_info = true;
 
-   function printMessageInfo($imapConnection, $t, $msg, $mailbox, $sort, $startMessage) {
-      global $color;
+   function printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage) {
+      global $color, $msgs, $msort;
+		$msg = $msgs[$key];
 
       $senderName = $msg["FROM"];
       $urlMailbox = urlencode($mailbox);
@@ -22,7 +23,7 @@
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
       if ($msg["FLAG_ANSWERED"] == true) { $ans = "&nbsp;[A]"; }
       
-      echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=$i></TD>\n";
+      echo "   <td width=1% align=center><input type=checkbox name=\"msg[$t]\" value=".$msg["ID"]."></TD>\n";
       echo "   <td>$bold$flag$senderName$flag_end$bold_end</td>\n";
       echo "   <td nowrap width=1%><center>$bold$flag".$msg["DATE_STRING"]."$flag_end$bold_end</center></td>\n";
       echo "   <td>$bold<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&sort=$sort&startMessage=$startMessage&show_more=0\">$flag$subject$flag_end</a>$ans$bold_end</td>\n";
@@ -236,7 +237,13 @@
          echo "<TR><TD BGCOLOR=\"$color[4]\" COLSPAN=4><CENTER><BR><B>". _("THIS FOLDER IS EMPTY") ."</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
-         printMessageInfo($imapConnection, $t, $msgs[$i], $mailbox, $sort, $startMessage);
+         reset($msort);
+         do {
+            $key = key($msort);
+            next($msort);
+            $k++;
+         } while (isset ($key) && ($k < $i));
+         printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
       } else {
          $i = $startMessage;
          reset($msort);
@@ -247,7 +254,7 @@
          } while (isset ($key) && ($k < $i));
 
 		   do {
-            printMessageInfo($imapConnection, $t, $msgs[$key], $mailbox, $sort, $startMessage);
+            printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage);
             $key = key($msort);
             $t++;
             $i++;
