@@ -82,8 +82,6 @@
     function set_url_var($url, $var, $val=0) {
         $k = '';
         $ret = '';
-        $url = trim(preg_replace('/&amp;/','&',$url));
-
         $pat_a = array (
                        '/.+(\\&'.$var.')=(.*)\\&/AU',   /* in the middle */
                        '/.+\\?('.$var.')=(.*\\&).+/AU', /* at front, more follow */
@@ -110,7 +108,7 @@
             default:
                 if ($val) {
                     if (strpos($url,'?')) {
-                        $url .= "&$var=$val";
+                        $url .= "&amp;$var=$val";
                     } else {
                         $url .= "?$var=$val";
                     }
@@ -121,13 +119,14 @@
         if ($k) {
             if ($val) {
                 $rpl = "$k=$val";
+		$rpl = preg_replace('/&/','&amp;',$rpl);
             } else {
                 $rpl = '';
             }
             $pat = "/$k=$v/";
             $url = preg_replace($pat,$rpl,$url);
         }
-        return  preg_replace('/&/','&amp;',$url);
+        return $url;
     }
 
     /* Temporary test function to proces template vars with formatting.
