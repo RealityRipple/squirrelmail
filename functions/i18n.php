@@ -29,6 +29,8 @@
    $languages["nl"]["CHARSET"] = "iso-8859-1";
    $languages["pt_BR"]["NAME"] = "Portuguese (Brazil)";
    $languages["pt_BR"]["CHARSET"] = "iso-8859-1";
+   $languages["fr"]["NAME"]    = "French";
+   $languages["fr"]["CHARSET"] = "iso-8859-1";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
