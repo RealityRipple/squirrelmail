@@ -97,7 +97,6 @@ function mime_structure ($bodystructure, $flags=array()) {
  */
 
 function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
-    global $uid_support;
     /* Do a bit of error correction.  If we couldn't find the entity id, just guess
      * that it is the first one.  That is usually the case anyway.
      */
@@ -110,7 +109,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
 
     if ($fetch_size!=0) $cmd .= "<0.$fetch_size>";
 
-    $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, $uid_support);
+    $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message, TRUE);
     do {
         $topline = trim(array_shift($data));
     } while($topline && ($topline[0] == '*') && !preg_match('/\* [0-9]+ FETCH.*/i', $topline)) ;
@@ -122,7 +121,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
          * in order to parse html messages. Let's get them here.
          */
 //        if ($ret{0} == '<') {
-//            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, $uid_support);
+//            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, TRUE);
 //        }
     } else if (ereg('"([^"]*)"', $topline, $regs)) {
         $ret = $regs[1];
@@ -149,7 +148,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
                '<tr><td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
                "</table><BR></tt></font><hr>";
 
-        $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message, $uid_support);
+        $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message, TRUE);
         array_shift($data);
         $wholemessage = implode('', $data);
 
@@ -159,7 +158,6 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
 }
 
 function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
-    global $uid_support;
 
     /* Don't kill the connection if the browser is over a dialup
      * and it would take over 30 seconds to download it.
@@ -177,7 +175,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
         } else {
            $query = "FETCH $id BODY[$ent_id]";
         }
-        sqimap_run_command($imap_stream,$query,true,$response,$message,$uid_support,'sqimap_base64_decode','php://stdout',true);
+        sqimap_run_command($imap_stream,$query,true,$response,$message,TRUE,'sqimap_base64_decode','php://stdout',true);
     } else {
        $body = mime_fetch_body ($imap_stream, $id, $ent_id);
        echo decodeBody($body, $encoding);

@@ -27,6 +27,7 @@ Version 1.5.1 -- CVS
   - Update required PHP version to 4.1.0, and remove PHP 4.0.x legacy code.
   - Make writing of preferences, abook, calendars fail better when disk full
     (#915527).
+  - Remove code related to non-UID-supporting IMAP servers.
 
 Version 1.5.0
 --------------------

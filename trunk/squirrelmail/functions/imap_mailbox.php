@@ -224,13 +224,12 @@ function isDraftMailbox($box) {
  * Expunges a mailbox, ie. delete all contents.
  */
 function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, $id='') {
-    global $uid_support;
     if ($id) {
         if (is_array($id)) {
             $id = sqimap_message_list_squisher($id);
         }
         $id = ' '.$id;
-        $uid = $uid_support;
+	$uid = TRUE;
     } else {
         $uid = false;
     }
@@ -260,7 +259,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox, $handle_errors = true, 
 function sqimap_mailbox_expunge_dmn($message_id)
 {
     global $msgs, $msort, $sort, $imapConnection, 
-           $mailbox, $uid_support, $mbx_response, $auto_expunge, 
+           $mailbox, $mbx_response, $auto_expunge, 
            $sort, $allow_server_sort, $thread_sort_messages, $allow_thread_sort,
            $username, $data_dir;
 
@@ -294,7 +293,7 @@ function sqimap_mailbox_expunge_dmn($message_id)
         $server_sort_array = get_thread_sort($imapConnection);
     } elseif ( $allow_server_sort ) {
         $server_sort_array = sqimap_get_sort_order($imapConnection, $sort, $mbx_response);
-    } elseif ( $uid_support ) {
+    } else {
         $server_sort_array = sqimap_get_php_sort_order($imapConnection, $mbx_response);
     }
 

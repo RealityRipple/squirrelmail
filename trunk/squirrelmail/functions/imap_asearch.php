@@ -328,21 +328,19 @@ function sqimap_array_merge_unique(&$to, $from)
  */
 function sqimap_run_search($imapConnection, $search_string, $search_charset)
 {
-	global $uid_support;
-
 	/* 6.4.4 try OPTIONAL [CHARSET] specification first */
 	if ($search_charset != '')
 		$query = 'SEARCH CHARSET "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	else
 		$query = 'SEARCH ALL ' . $search_string;
 	s_debug_dump('C:', $query);
-	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 
 	/* 6.4.4 try US-ASCII charset if we tried an OPTIONAL [CHARSET] and received a tagged NO response (SHOULD be [BADCHARSET]) */
 	if (($search_charset != '')  && (strtoupper($response) == 'NO')) {
 		$query = 'SEARCH CHARSET US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
-		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 	}
 	if (strtoupper($response) != 'OK') {
 		sqimap_asearch_error_box($response, $query, $message);
@@ -378,13 +376,11 @@ function sqimap_run_search($imapConnection, $search_string, $search_charset)
  */
 function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort_criteria)
 {
-	global $uid_support;
-
 	if ($search_charset == '')
 		$search_charset = 'US-ASCII';
 	$query = 'SORT (' . $sort_criteria . ') "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	s_debug_dump('C:', $query);
-	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 	s_debug_dump('S:', $response);
 
 	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
@@ -392,7 +388,7 @@ function sqimap_run_sort($imapConnection, $search_string, $search_charset, $sort
 		s_debug_dump('S:', $readin);
 		$query = 'SORT (' . $sort_criteria . ') US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
-		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 		s_debug_dump('S:', $response);
 	}
 
@@ -446,13 +442,11 @@ function sqimap_run_thread($imapConnection, $search_string, $search_charset, $th
 
 	$server_sort_array = array();
 
-	global $uid_support;
-
 	if ($search_charset == '')
 		$search_charset = 'US-ASCII';
 	$query = 'THREAD ' . $thread_algorithm . ' "' . strtoupper($search_charset) . '" ALL ' . $search_string;
 	s_debug_dump('C:', $query);
-	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+	$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 	s_debug_dump('S:', $response);
 
 	/* 6.4 try US-ASCII charset if we received a tagged NO response (SHOULD be [BADCHARSET]) */
@@ -460,7 +454,7 @@ function sqimap_run_thread($imapConnection, $search_string, $search_charset, $th
 		s_debug_dump('S:', $readin);
 		$query = 'THREAD ' . $thread_algorithm . ' US-ASCII ALL ' . $search_string;
 		s_debug_dump('C:', $query);
-		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, $uid_support);
+		$readin = sqimap_run_command($imapConnection, $query, false, $response, $message, TRUE);
 		s_debug_dump('S:', $response);
 	}
 

@@ -315,11 +315,11 @@ function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
     return $success;
 }
 
-function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id, $uid_support) {
+function ToggleMDNflag ($set ,$imapConnection, $mailbox, $passed_id) {
     $sg   =  $set?'+':'-';
     $cmd  = 'STORE ' . $passed_id . ' ' . $sg . 'FLAGS ($MDNSent)';
     $read = sqimap_run_command ($imapConnection, $cmd, true, $response, 
-                                $readmessage, $uid_support);
+                                $readmessage, TRUE);
 }
 
 function ClearAttachments() {
@@ -487,7 +487,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
  */
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response, $nav_on_top = TRUE) {
     global $base_uri, $draft_folder, $where, $what, $color, $sort,
-           $startMessage, $PHP_SELF, $save_as_draft, $uid_support,
+           $startMessage, $PHP_SELF, $save_as_draft, 
            $enable_forward_as_attachment, $imapConnection, $lastTargetMailbox,
            $data_dir, $username, $delete_prev_next_display;
 
@@ -575,8 +575,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         }
 
         // Only bother with Delete & Prev and Delete & Next IF
-        // we have UID support, and top display is enabled.
-        if ( $uid_support && $delete_prev_next_display == 1 ) {
+        // top display is enabled.
+        if ( $delete_prev_next_display == 1 ) {
             $del_prev_link = _("Delete & Prev");
             if ($prev >= 0) {
                 $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
@@ -793,7 +793,7 @@ if ( sqgetGlobalVar('startMessage', $temp) ) {
 }
 
 /* end of get globals */
-global $uid_support, $sqimap_capabilities, $lastTargetMailbox;
+global $sqimap_capabilities, $lastTargetMailbox;
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response   = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
@@ -818,7 +818,7 @@ $uidvalidity = $mbx_response['UIDVALIDITY'];
 if (!isset($messages[$uidvalidity])) {
    $messages[$uidvalidity] = array();
 }
-if (!isset($messages[$uidvalidity][$passed_id]) || !$uid_support) {
+if (!isset($messages[$uidvalidity][$passed_id])) {
    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
    $FirstTimeSee = !$message->is_seen;
    $message->is_seen = true;
@@ -834,7 +834,7 @@ if (isset($passed_ent_id) && $passed_ent_id) {
    if ($message->type0 != 'message'  && $message->type1 != 'rfc822') {
       $message = $message->parent;
    }
-   $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
+   $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, TRUE);
    $rfc822_header = new Rfc822Header();
    $rfc822_header->parseHeader($read);
    $message->rfc822_header = $rfc822_header;
@@ -858,7 +858,7 @@ if (isset($sendreceipt)) {
          $final_recipient = trim(getPref($data_dir, $username, 'email_address', '' ));
       $supportMDN = ServerMDNSupport($mbx_response["PERMANENTFLAGS"]);
       if ( SendMDN( $mailbox, $passed_id, $final_recipient, $message, $imapConnection ) > 0 && $supportMDN ) {
-         ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id, $uid_support);
+         ToggleMDNflag( true, $imapConnection, $mailbox, $passed_id);
          $message->is_mdnsent = true;
          $messages[$uidvalidity][$passed_id]=$message;
       }

@@ -191,8 +191,8 @@ function user_filters($imap_stream) {
 
 function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_scan, 
                                   $should_expunge) {
-    global $languages, $squirrelmail_language, $allow_charset_search, 
-           $uid_support, $imap_server_type;
+    global $languages, $squirrelmail_language, $allow_charset_search, $imap_server_type;
+
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
@@ -222,7 +222,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
     }
 
     /* read data back from IMAP */
-    $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, $uid_support);
+    $read = sqimap_run_command($imap_stream, $search_str, true, $response, $message, TRUE);
 
     // This may have problems with EIMS due to it being goofy
 
@@ -251,7 +251,7 @@ function filter_search_and_delete($imap_stream, $where, $what, $where_to, $user_
 
 // These are the spam filters
 function spam_filters($imap_stream) {
-    global $data_dir, $username, $uid_support;
+    global $data_dir, $username;
     global $SpamFilters_YourHop;
     global $SpamFilters_DNScache;
     global $SpamFilters_SharedCache;
@@ -289,7 +289,7 @@ function spam_filters($imap_stream) {
     if ($filters_spam_scan != 'new') {
         $query = 'FETCH 1:* (BODY.PEEK[HEADER.FIELDS (Received)])';
     } else {
-        $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $response, $message, $uid_support);
+        $read = sqimap_run_command($imap_stream, 'SEARCH UNSEEN', true, $response, $message, TRUE);
         if ($response != 'OK' || trim($read[0]) == '* SEARCH') {
     	    $query = 'FETCH 1:* (BODY.PEEK[HEADER.FIELDS (RECEIVED)])';
         } else {
@@ -751,10 +751,9 @@ function update_for_folder ($args) {
  * The unused FETCH arguments and HEADERS are disabled.
  */
 function filter_get_headers ($imap_stream, $query) {
-    global $uid_support;
     /* Get the small headers for each message in $msg_list */
 
-    $read_list = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, $uid_support);
+    $read_list = sqimap_run_command_list ($imap_stream, $query, false, $response, $message, TRUE);
 
     if (isset($response) && $response != 'OK') {
         return false;

@@ -22,18 +22,18 @@ require_once(SM_PATH . 'functions/imap.php');
  */
 function getMessage_RFC822_Attachment($message, $composeMessage, $passed_id, 
                                       $passed_ent_id='', $imapConnection) {
-    global $attachments, $attachment_dir, $username, $data_dir, $uid_support;
+    global $attachments, $attachment_dir, $username, $data_dir;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     if (!$passed_ent_id) {
         $body_a = sqimap_run_command($imapConnection, 
                                     'FETCH '.$passed_id.' RFC822',
                                     TRUE, $response, $readmessage, 
-                                    $uid_support);
+                                    TRUE);
     } else {
         $body_a = sqimap_run_command($imapConnection, 
                                      'FETCH '.$passed_id.' BODY['.$passed_ent_id.']',
-                                     TRUE, $response, $readmessage, $uid_support);
+                                     TRUE, $response, $readmessage,TRUE);
         $message = $message->parent;
     }
     if ($response == 'OK') {
