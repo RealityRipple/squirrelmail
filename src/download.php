@@ -96,7 +96,8 @@ if (is_object($message->header->disposition)) {
 //$filename = decodeHeader($filename, false, false);	//Don't want html output nor utf8 because it will return html output
 $filename = decodeHeader($filename, true, false);   //Don't want html output
 if (strlen($filename) < 1) {
-    $filename = $subject;
+    //$filename = decodeHeader($subject, false, false);	//Don't want html output nor utf8 because it will return html output
+    $filename = decodeHeader($subject, true, false);   //Don't want html output
     if ($type1 == 'plain' && $type0 == 'text')
         $suffix = 'txt';
     else if ($type1 == 'richtext' && $type0 == 'text')
