@@ -50,8 +50,8 @@ if (file_exists(SM_PATH . 'config/translate_config.php')) {
 
 /** Setup functions */
 
-/** 
- * Shows translation box in message display window 
+/**
+ * Shows translation box in message display window
  * @access private
  */
 function translate_read_form_function() {
@@ -74,7 +74,7 @@ function translate_read_form_function() {
     if ($translate_server=='gpltrans' && $translate_gpltrans_url=='' ||
         ! $$translate_server_option || ! function_exists('translate_form_' . $translate_server)) {
         error_box(_("Selected translation engine is disabled. Please update your translation preferences."),$color);
-	return;
+        return;
     }
     $translate_dir = 'to';
 
@@ -131,7 +131,7 @@ function translate_optpage_function() {
  * Gets user's translation preferences
  * @access private
  */
-function translate_pref_function() { 
+function translate_pref_function() {
     global $username, $data_dir;
     global $translate_server, $translate_location;
     global $translate_show_send, $translate_show_read;
@@ -179,8 +179,8 @@ function translate_showoption() {
     if ($translate_go_enabled) translate_showoption_internal('server','go', 'Go.com');
     if ($translate_dictionary_enabled) translate_showoption_internal('server','dictionary', 'Dictionary.com');
     if ($translate_google_enabled) translate_showoption_internal('server','google', 'Google Translate');
-    if ($translate_gpltrans_enabled && $translate_gpltrans_url!='') 
-        translate_showoption_internal('server','gpltrans', 'GPLTrans'); 
+    if ($translate_gpltrans_enabled && $translate_gpltrans_url!='')
+        translate_showoption_internal('server','gpltrans', 'GPLTrans');
     if ($translate_intertran_enabled) translate_showoption_internal('server','intertran', 'Intertran');
     if ($translate_otenet_enabled) translate_showoption_internal('server','otenet', 'OTEnet');
     if ($translate_promt_enabled) translate_showoption_internal('server','promt', 'PROMT');
@@ -201,35 +201,35 @@ function translate_showtrad() {
 
     if ($translate_babelfish_enabled) translate_showtrad_internal( 'Babelfish',
               _("Maximum of 1000 characters translated, powered by Systran").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"19")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'19').' ' ,
               'http://babelfish.altavista.com/' );
     if ($translate_go_enabled) translate_showtrad_internal( 'Translator.Go.com',
               _("Maximum of 25 kilobytes translated, powered by Systran").
-         "<br />".sprintf(_("Number of supported language pairs: %s"),"10")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'10').' ' ,
               'http://translator.go.com/' );
     if ($translate_dictionary_enabled) translate_showtrad_internal( 'Dictionary.com',
               _("No known limits, powered by Systran").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"24")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'24').' ' ,
               'http://www.dictionary.com/translate' );
     if ($translate_google_enabled) translate_showtrad_internal( 'Google Translate',
               _("No known limits, powered by Systran").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'12').' ' ,
               'http://www.google.com/translate' );
     if ($translate_gpltrans_enabled && $translate_gpltrans_url!='') translate_showtrad_internal( 'GPLTrans',
               _("No known limits, powered by GPLTrans (free, open source)").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"16")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'16').' ' ,
               'http://www.translator.cx/' );
     if ($translate_intertran_enabled) translate_showtrad_internal( 'InterTran',
               _("No known limits, powered by Translation Experts' InterTran").
-	      "<br />".sprintf(_("Number of supported languages: %s"),"29")." " ,
+              '<br />'.sprintf(_("Number of supported languages: %s"),'29').' ' ,
               'http://www.tranexp.com/' );
     if ($translate_otenet_enabled) translate_showtrad_internal( 'OTEnet',
               _("Hellenic translations, no known limits, powered by Systran").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"20")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'20').' ' ,
               'http://systran.otenet.gr/' );
     if ($translate_promt_enabled) translate_showtrad_internal( 'PROMT',
               _("Russian translations, maximum of 500 characters translated").
-	      "<br />".sprintf(_("Number of supported language pairs: %s"),"13")." " ,
+              '<br />'.sprintf(_("Number of supported language pairs: %s"),'13').' ' ,
               'http://www.online-translator.com/' );
 
     if ($translate_custom_enabled && function_exists('translate_custom_showtrad')) {
@@ -385,10 +385,10 @@ function translate_new_form($action) {
 
     echo ">\n";
 
-    ?><table align="<?php echo $translate_location ?>" cellpadding=3 cellspacing=0 border=0 bgcolor=<?php echo $color[10] ?>>
+    ?><table align="<?php echo $translate_location; ?>" cellpadding="3" cellspacing="0" border="0" bgcolor="<?php echo $color[10]; ?>">
     <tr>
       <td>
-        <table cellpadding=2 cellspacing=1 border=0 bgcolor="<?php echo $color[5] ?>">
+        <table cellpadding="2" cellspacing="1" border="0" bgcolor="<?php echo $color[5]; ?>">
           <tr>
             <td><?php
 }
@@ -609,7 +609,7 @@ function translate_form_gpltrans($message) {
  */
 function translate_form_dictionary($message) {
     translate_new_form('http://dictionary.reference.com/translate/text.html');
-    list($usec, $sec) = explode(" ",microtime());
+    list($usec, $sec) = explode(' ',microtime());
     $time = $sec . (float)$usec*100000000;
     echo '<input type="hidden" name="text" value="'.$message.'" />'.
          '<input type="hidden" name="r" value="'.$time.'" />'.
