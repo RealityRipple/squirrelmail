@@ -761,51 +761,47 @@ function sqimap_mailbox_tree($imap_stream) {
 
             $mbx = find_mailbox_name($lsub_ary[$i]);
 
-            // Force a list for UW as it returns \NoSelect in LIST and not LSUB //
-            if ($imap_server_type == "uw") {                
-                $tmp_str = sqimap_run_command( $imap_stream , "LIST \"\" \"$mbx\"" , true, $response, $message );
-                if (isset($tmp_str[0])) {
-                    $lsub_ary[$i] = $tmp_str[0];
-                }
+            // only do the noselect test if !uw, is checked later. FIX ME see conf.pl setting
+            if ($imap_server_type != "uw") {                
+                $noselect = check_is_noselect($lsub_ary[$i]);
             }
-            $noselect = check_is_noselect($lsub_ary[$i]);
             if (substr($mbx, -1) == $delimiter) {
                 $mbx = substr($mbx, 0, strlen($mbx) - 1);
             }
             $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect); 
         }
-        array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
-
-        for ($i = 0 ; $i < $cnt; $i++) {
-            $mbx = $sorted_lsub_ary[$i]['mbx'];
-            if (($unseen_notify == 2 && $mbx == 'INBOX') ||
-                ($unseen_notify == 3) ||
-                ($move_to_trash && ($mbx == $trash_folder))) {
-                if( $sorted_lsub_ary[$i]['noselect'] ) {
-                    $sorted_lsub_ary[$i]['unseen'] = 0;
-                } else {
-                    $sorted_lsub_ary[$i]['unseen'] = 
-                        sqimap_unseen_messages($imap_stream, $mbx);
-                }
-                if (($unseen_type == 2) ||
-                    ($move_to_trash && ($mbx == $trash_folder)) ||
-                    ($mbx == $trash_folder)) {
-                    if($sorted_lsub_ary[$i]['noselect']) {
-                        $sorted_lsub_ary[$i]['nummessages'] = 0;
-                    } else {
-                        $sorted_lsub_ary[$i]['nummessages'] =
-                            sqimap_get_num_messages($imap_stream, $mbx);
-                    }
-                }
-            }
-        }
-        $boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary);
-        return $boxesnew;
+	// FIX ME this requires a config setting inside conf.pl instead of checking on server type
+        if ($imap_server_type == "uw") {
+	   $aQuery = array();
+	   $aTag = array();
+	   // prepare an array with queries
+	   foreach ($sorted_lsub_ary as $aMbx) {
+	       $mbx = $aMbx['mbx'];
+	       $query = "LIST \"\" \"$mbx\"";
+               sqimap_prepare_pipelined_query($query,$tag,$aQuery,false);
+	       $aTag[$tag] = $mbx;
+	   } 
+	   $sorted_lsub_ary = array();
+	   // execute all the queries at once
+	   $aResponse = sqimap_run_pipelined_command ($imap_stream, $aQuery, false, $aServerResponse, $aServerMessage);
+	   foreach($aTag as $tag => $mbx) {
+	       if ($aServerResponse[$tag] == 'OK') {
+		   $sResponse = implode('', $aResponse[$tag]);
+	           $noselect = check_is_noselect($sResponse);
+		   $sorted_lsub_ary[] = array ('mbx' => $mbx, 'noselect' => $noselect);
+	       }
+	   }
+	   $cnt = count($sorted_lsub_ary);
+       }
+       
+       $sorted_lsub_ary = array_values($sorted_lsub_ary);           
+       array_multisort($sorted_lsub_ary, SORT_ASC, SORT_REGULAR);
+       $boxesnew = sqimap_fill_mailbox_tree($sorted_lsub_ary,false,$imap_stream);
+       return $boxesnew;
     }
 }
 
-
-function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
+function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false,$imap_stream) {
     global $data_dir, $username, $list_special_folders_first,
            $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
            $move_to_trash, $move_to_sent, $save_as_draft,
@@ -879,6 +875,7 @@ function sqimap_fill_mailbox_tree($mbx_ary, $mbxs=false) {
         }
     }
     sqimap_utf7_decode_mbx_tree($mailboxes);
+    sqimap_get_status_mbx_tree($imap_stream,$mailboxes);
     return $mailboxes;
 }
 
@@ -890,6 +887,103 @@ function sqimap_utf7_decode_mbx_tree(&$mbx_tree) {
          $mbxs_tree->mbxs[$i] = sqimap_utf7_decode_mbx_tree($mbx_tree->mbxs[$i]);
       }
    }
-}      
+}
+
+
+function sqimap_tree_to_ref_array(&$mbx_tree,&$aMbxs) {
+   $aMbxs[] =& $mbx_tree;
+   if ($mbx_tree->mbxs) {
+      $iCnt = count($mbx_tree->mbxs);
+      for ($i=0;$i<$iCnt;++$i) {
+         $aMbxs[] =& sqimap_tree_to_ref_array($mbx_tree->mbxs[$i],$aMbxs);
+      }
+   }
+} 
+
+
+/* Define preferences for folder settings. */
+/* FIXME, we should load constants.php
+unseen_notify
+define('SMPREF_UNSEEN_NONE', 1);
+define('SMPREF_UNSEEN_INBOX', 2);
+define('SMPREF_UNSEEN_ALL', 3);
+
+define('SMPREF_UNSEEN_SPECIAL', 4); // Only special folders
+define('SMPREF_UNSEEN_NORMAL', 5);  // Only normal folders
+
+unseen_type
+define('SMPREF_UNSEEN_ONLY', 1);
+define('SMPREF_UNSEEN_TOTAL', 2);
+*/
+
+function sqimap_get_status_mbx_tree($imap_stream,&$mbx_tree) {
+    global $unseen_notify, $unseen_type, $trash_folder,$move_to_trash;
+    $aMbxs = $aQuery = $aTag = array();
+    sqimap_tree_to_ref_array($mbx_tree,$aMbxs);
+    // remove the root node
+    array_shift($aMbxs);
+
+    if($unseen_notify == 3) {
+        $cnt = count($aMbxs);
+        for($i=0;$i<$cnt;++$i) {
+	    $oMbx =& $aMbxs[$i];
+	    if (!$oMbx->is_noselect) {
+                $mbx = $oMbx->mailboxname_full;
+	        if ($unseen_type == 2) {
+		    $query = "STATUS \"$mbx\" (MESSAGES UNSEEN)";
+	        } else {
+	            $query = "STATUS \"$mbx\" (UNSEEN)";
+	        }
+                sqimap_prepare_pipelined_query($query,$tag,$aQuery,false);
+	    } else {
+	        $oMbx->unseen = $oMbx->total = false;
+	        $tag = false;
+	    }
+	    $oMbx->tag = $tag;
+	    $aMbxs[$i] =& $oMbx;
+        }
+        // execute all the queries at once
+        $aResponse = sqimap_run_pipelined_command ($imap_stream, $aQuery, false, $aServerResponse, $aServerMessage);
+        $cnt = count($aMbxs);
+        for($i=0;$i<$cnt;++$i) {
+	    $oMbx =& $aMbxs[$i];
+	    $tag = $oMbx->tag;
+	    if ($tag && $aServerResponse[$tag] == 'OK') {
+		$sResponse = implode('', $aResponse[$tag]);
+                if (preg_match('/UNSEEN\s+([0-9]+)/i', $sResponse, $regs)) {
+                    $oMbx->unseen = $regs[1];
+                }
+                if (preg_match('/MESSAGES\s+([0-9]+)/i', $sResponse, $regs)) {
+                    $oMbx->total = $regs[1];
+		}
+	   }
+	   unset($oMbx->tag);
+	}
+    } else if ($unseen_notify == 2) { // INBOX only
+        $cnt = count($aMbxs);
+        for($i=0;$i<$cnt;++$i) {
+	    $oMbx =& $aMbxs[$i];
+	    if (strtoupper($oMbx->mailboxname_full) == 'INBOX' ||
+	        ($move_to_trash && $oMbx->mailboxname_full == $trash_folder)) {
+	        if ($unseen_type == 2) {
+		    $aStatus = sqimap_status_messages($imap_stream,$oMbx->mailboxname_full);
+		    $oMbx->unseen = $aStatus['UNSEEN'];
+		    $oMbx->total  = $aStatus['MESSAGES'];
+	        } else {
+	            $oMbx->unseen = sqimap_unseen_messages($imap_stream,$oMbx->mailboxname_full);
+	        }
+		$aMbxs[$i] =& $oMbx;
+		if (!$move_to_trash && $trash_folder) {
+		   break;
+		} else {
+	           // trash comes after INBOX
+		   if ($oMbx->mailboxname_full == $trash_folder) {
+		      break;
+		   }
+		}
+	    }
+	}
+    }	       
+} 
 
 ?>
