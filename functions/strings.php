@@ -349,53 +349,11 @@ function OneTimePadCreate ($length=100) {
 }
 
 /**
- * Check if we have a required PHP-version. Return TRUE if we do,
- * or FALSE if we don't.
- *
- *     To check for 4.0.1, use sqCheckPHPVersion(4,0,1)
- *     To check for 4.0b3, use sqCheckPHPVersion(4,0,-3)
- *
- * Does not handle betas like 4.0.1b1 or development versions
+ * Duplicate function: obsoleted. Use check_php_version.
  */
 function sqCheckPHPVersion($major, $minor, $release) {
-    
-    $ver = phpversion();
-    eregi('^([0-9]+)\\.([0-9]+)(.*)', $ver, $regs);
-    
-    /* Parse the version string. */
-    $vmajor  = strval($regs[1]);
-    $vminor  = strval($regs[2]);
-    $vrel    = $regs[3];
-    if($vrel[0] == '.') {
-        $vrel = strval(substr($vrel, 1));
-    }
-    if($vrel[0] == 'b' || $vrel[0] == 'B') {
-        $vrel = - strval(substr($vrel, 1));
-    }
-    if($vrel[0] == 'r' || $vrel[0] == 'R') {
-        $vrel = - strval(substr($vrel, 2))/10;
-    }
-    
-    /* Compare major version. */
-    if ($vmajor < $major) { return false; }
-    if ($vmajor > $major) { return true; }
-    
-    /* Major is the same. Compare minor. */
-    if ($vminor < $minor) { return false; }
-    if ($vminor > $minor) { return true; }
-    
-    /* Major and minor is the same as the required one. Compare release */
-    if ($vrel >= 0 && $release >= 0) {       /* Neither are beta */
-        if($vrel < $release) return false;
-    } else if($vrel >= 0 && $release < 0) {  /* This is not beta, required is beta */
-        return true;
-    } else if($vrel < 0 && $release >= 0){   /* This is beta, require not beta */
-        return false;
-    } else {                                 /* Both are beta */
-        if($vrel > $release) return false;
-    }
-    
-    return true;
+
+    return check_php_version($major, $minor, $release);
 }
 
 /**
