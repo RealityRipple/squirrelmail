@@ -90,13 +90,16 @@
    echo "      <TD WIDTH=80% ALIGN=LEFT>";
 
    echo "         <TT><SELECT NAME=language>\n";
-   for ($i = 0; $i < count($languages); $i++) {
-      if ($languages[$i]["CODE"] == $chosen_language)
-         echo "         <OPTION SELECTED VALUE=\"".$languages[$i]["CODE"]."\">".$languages[$i]["NAME"]."\n";
+   reset ($languages);
+   while (list($code, $name)=each($languages)) {
+      if ($code==$chosen_language)
+         echo "         <OPTION SELECTED VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
       else
-         echo "         <OPTION VALUE=\"".$languages[$i]["CODE"]."\">".$languages[$i]["NAME"]."\n";
+         echo "         <OPTION VALUE=\"".$code."\">".$languages[$code]["NAME"]."\n";
+
    }
    echo "         </SELECT></TT>";
+
    echo "      </TD>";
    echo "   </TR>";
    echo "</TABLE>";
