@@ -357,5 +357,12 @@
    print "</FORM>";
 
 ?>
+<!-- ----------------- csv import form --------------------- -->
+  
+<FORM ENCTYPE="multipart/form-data" ACTION="addressbook_csvimport.php" METHOD=POST>
+<INPUT TYPE="hidden" NAME="max_file_size" value="5000">
+Import CSV File: <INPUT NAME="smusercsv" TYPE="file">
+<INPUT TYPE="submit" VALUE="Import CSV File">
+</FORM
 
 </BODY></HTML>
