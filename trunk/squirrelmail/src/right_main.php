@@ -132,7 +132,7 @@
       session_register('numMessages');
    }
 
-   do_hook('ight_main_bottom');
+   do_hook('right_main_bottom');
    sqimap_logout ($imapConnection);
 ?>
 </FONT>
