@@ -33,11 +33,6 @@ function cpw_check_input()
 
     $msg = array();
 
-    if(!$currentpw) {
-        $msg[] = _("You must type in your current password.");
-    } elseif($currentpw != OneTimePadDecrypt($key, $onetimepad)) {
-        $msg[] = _("Your current password is not correct.");
-    }
     if(!$newpw) {
         $msg[] = _("You must type in a new password.");
     }
@@ -46,6 +41,15 @@ function cpw_check_input()
     } elseif ($verifypw != $newpw) {
         $msg[] = _("Your new password does not match the verify password.");
     }
+
+    $orig_pw = OneTimePadDecrypt($key, $onetimepad);
+
+    if(!$currentpw) {
+        $msg[] = _("You must type in your current password.");
+    } elseif ($currentpw != $orig_pw) {
+        $msg[] = _("Your current password is not correct.");
+    }
+
     if($newpw && (strlen($newpw) < $cpw_pass_min_length ||
                   strlen($newpw) > $cpw_pass_max_length ) ) {
         $msg[] = sprintf(_("Your new password should be %s to %s characters long."),
@@ -85,9 +89,9 @@ function cpw_do_change()
     $msgs = do_hook_function('change_password_dochange',
         array (
             'username' => $username,
-	    'curpw' => $curpw,
-	    'newpw' => $newpw
-	) );
+            'curpw' => $curpw,
+            'newpw' => $newpw
+        ) );
 
     /* something bad happened, return */
     if(count($msgs) > 0) {

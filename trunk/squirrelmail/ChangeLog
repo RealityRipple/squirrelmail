@@ -102,6 +102,8 @@ Version 1.5.1 -- CVS
     squirrelmail functions are assume English conversion rules.
   - Fixed problem that caused an error when deleting all messages on the last page
     of a paginated view (provides fix for #1014612)
+  - Added MySQL password/UNIX crypt support to mysql backend in the
+    change_password plugin
 
 Version 1.5.0
 --------------------
