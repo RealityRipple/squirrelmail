@@ -691,16 +691,7 @@
          $body = base64_decode($body);
       }
      
-    switch($show_html_default) {
-        case '1': // Safe HTML
-	      // Philippe's code
-            break;
-        case '2': // Any HTML
-            break;
-        default: // No HTML
-	    $body = str_replace('<', '&lt;', $body);
-            break;
-       }
+      // All other encodings are returned raw.
       return $body;
    }
 
