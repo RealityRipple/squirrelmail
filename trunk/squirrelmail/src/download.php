@@ -167,12 +167,15 @@
    }
    
    
+   // This function is verified to work with Netscape and the *very latest*
+   // version of IE.  I don't know if it works with Opera, but it should now.
    function DumpHeaders($type0, $type1, $filename, $force)
    {
       global $HTTP_USER_AGENT;
       
       $isIE = 0;
-      if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false) {
+      if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
+          strstr($HTTP_USER_AGENT, 'Opera') === false) {
         $isIE = 1;
       }
       
