@@ -276,9 +276,9 @@
    do_hook('read_body_top');
    echo '<BR>';
 
-   echo '<TABLE COLS="1" CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
+   echo '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
    echo '   <TR><TD BGCOLOR="' . $color[9] . '" WIDTH="100%">';
-   echo '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" COLS="2" CELLPADDING="3">';
+   echo '      <TABLE WIDTH="100%" CELLSPACING="0" BORDER="0" CELLPADDING="3">';
    echo '         <TR>';
    echo '            <TD ALIGN="LEFT" WIDTH="33%">';
    echo '               <SMALL>';
@@ -334,15 +334,20 @@
    echo '      </TABLE>';
    echo '   </TD></TR>';
    echo '   <TR><TD CELLSPACING="0" WIDTH="100%">';
-   echo '   <TABLE COLS="3" WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
+   echo '   <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="3">' . "\n";
    echo '      <TR>' . "\n";
    /** subject **/
-   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=5% ALIGN=RIGHT>\n";
    echo _("Subject:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=84%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=90%>\n";
    echo "            <B>$subject</B>&nbsp;\n";
    echo "         </TD>\n";
-   echo '         <TD ROWSPAN=4 BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
+   echo '         <TD ROWSPAN=';
+   if (isset($cc_string))
+      echo '5';
+   else
+      echo '4';
+   echo ' width=5% BGCOLOR="'.$color[0].'" ALIGN=right VALIGN=top NOWRAP><small>' . "\n";
    if ($where && $what) {
       // Got here from a search
       echo "             <a href=\"read_body.php?mailbox=$urlMailbox&passed_id=$passed_id&where=".urlencode($where)."&what=".urlencode($what)."&view_hdr=1\">" . _("View full header") . "</a>\n";
@@ -354,34 +359,34 @@
    echo ' </TR>' ."\n";
    /** from **/
    echo '      <TR>' . "\n";
-   echo '         <TD BGCOLOR="' . $color[0] . '" WIDTH="15%" ALIGN="RIGHT">' . "\n";
+   echo '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n";
    echo _("From:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%">' . "\n";
+   echo '         </TD><TD BGCOLOR="' . $color[0] . '">' . "\n";
    echo "            <B>$from_name</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
    /** date **/
    echo '      <TR>' . "\n";
-   echo '         <TD BGCOLOR="' . $color[0] . '" WIDTH="15%" ALIGN="RIGHT">' . "\n";
+   echo '         <TD BGCOLOR="' . $color[0] . '" ALIGN="RIGHT">' . "\n";
    echo _("Date:");
-   echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85%>\n";
+   echo "         </TD><TD BGCOLOR=\"$color[0]\">\n";
    echo "            <B>$dateString</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
    /** to **/
    echo "      <TR>\n";
-   echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+   echo "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n";
    echo _("To:");
-   echo '         </TD><TD BGCOLOR="' . $color[0] . '" WIDTH="85%" VALIGN="TOP">' . "\n";
+   echo '         </TD><TD BGCOLOR="' . $color[0] . '" VALIGN="TOP">' . "\n";
    echo "            <B>$to_string</B>&nbsp;\n";
    echo '         </TD>' . "\n";
    echo '      </TR>' . "\n";
    /** cc **/
    if (isset($cc_string)) {
       echo "      <TR>\n";
-      echo "         <TD BGCOLOR=\"$color[0]\" WIDTH=15% ALIGN=RIGHT VALIGN=TOP>\n";
+      echo "         <TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>\n";
       echo '            Cc:' . "\n";
-      echo "         </TD><TD BGCOLOR=\"$color[0]\" WIDTH=85% VALIGN=TOP colspan=2>\n";
+      echo "         </TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>\n";
       echo "            <B>$cc_string</B>&nbsp;\n";
       echo '         </TD>' . "\n";
       echo '      </TR>' . "\n";
@@ -390,7 +395,7 @@
    echo '</TABLE>';
    echo '   </TD></TR>';
    echo '</table>';
-   echo "<TABLE COLS=1 CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
+   echo "<TABLE CELLSPACING=0 WIDTH=97% BORDER=0 ALIGN=CENTER CELLPADDING=0>\n";
 
    echo "   <TR><TD BGCOLOR=\"$color[4]\" WIDTH=100%>\n";
    echo '<BR>';
@@ -400,7 +405,7 @@
    echo $body;
    
    echo '</TABLE>';
-   echo '<TABLE COLS="1" CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
+   echo '<TABLE CELLSPACING="0" WIDTH="100%" BORDER="0" ALIGN="CENTER" CELLPADDING="0">' . "\n";
    echo "   <TR><TD BGCOLOR=\"$color[9]\">&nbsp;</TD></TR>";
    echo '</TABLE>' . "\n";
 
