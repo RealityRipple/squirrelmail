@@ -3,8 +3,7 @@ Ideas to be implemented
 
 initials = taken by that person
 
-  -     LDAP support for address books
-  -     Importing of address books
+(pl/gf) Importing of address books
 (lme)   Better email message body parsing
   -     Use PHP4 Session management, get rid of cookies
   -     Make it possible to save preferences in MySQL DB or on Filesystem
@@ -23,3 +22,4 @@ Finished:
 (lme) (24.3.00) Saving sent messages  
 (lme) (24.3.00) Fix "Seen" bug with UW IMAP server 
 (lme) (24.3.00) Add "subscribe" to folders section
+(pl)  (25.3.00) LDAP support for address books

@@ -146,7 +146,16 @@
       $reply_subj = decodeHeader($reply_subj);
       $forward_subj = decodeHeader($forward_subj);
 
-      echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
+      echo "\n<SCRIPT LANGUAGE=JavaScript><!--\n";
+      echo "function open_abook() { \n";
+      echo "  var nwin = window.open(\"addrbook_popup.php\",\"abookpopup\",";
+      echo "\"width=670,height=300,resizable=yes,scrollbars=yes\");\n";
+      echo "  if((!nwin.opener) && (document.windows != null))\n";
+      echo "    nwin.opener = document.windows;\n";
+      echo "}\n";
+      echo "// --></SCRIPT>\n\n";
+
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";
       echo "<TABLE COLS=2 WIDTH=50 ALIGN=center CELLSPACING=0 BORDER=0>\n";
       echo "   <TR>\n";
@@ -179,6 +188,15 @@
          echo "         <INPUT TYPE=TEXT NAME=send_to_bcc SIZE=60><BR>";
       echo "      </TD>\n";
       echo "   </TR>\n";
+
+      echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
+      echo "<TR><TD BGCOLOR=\\\"$color[4]\\\">&nbsp;</TD>";
+      echo "</TD><TD BGCOLOR=\\\"$color[4]\\\" ALIGN=LEFT>";
+      printf("<A HREF=\\\"javascript:open_abook();\\\">%s</A>",
+	     _("Lookup recipients in addressbook.<BR>"));
+      echo "</TD></TR>\");\n";
+      echo "// --></SCRIPT>\n";
+
       echo "   <TR>\n";
       echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
       echo _("Subject:");
