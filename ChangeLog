@@ -29,6 +29,7 @@ Version 1.4.0 CVS
   - Fixed unfold header routine in imap_messages (for mailbox_display).
   - Make listcommands work with PHP versions 4.0.4 & 4.0.5.
   - Fixed subject_line hook
+  - Fixed sqgetGlobalVar switching
   
 Version 1.4.0 RC 2a
 -------------------
