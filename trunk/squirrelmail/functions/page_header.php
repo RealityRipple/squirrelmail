@@ -60,6 +60,29 @@ function displayPageHeader($color, $mailbox, $xtra='') {
         Locate the first displayable form element
     */
     switch ( $module ) {
+    case 'src/read_body.php':
+            if ($compose_new_win == '1') {
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_width)) {
+                    $compose_width = '640';
+                }
+                if (!preg_match("/^[0-9]{3,4}$/", $compose_height)) {
+                    $compose_height = '550';
+                }
+                $js = "\n".'<script language="JavaScript" type="text/javascript">' .
+                    "\n<!--\n";
+                $js .= "function comp_in_new() {\n".
+                     "    var newwin = window.open(\"".$base_uri."src/compose.php\"".
+                     ", \"compose_window\",
+                \"width=".$compose_width.",height=$compose_height".
+                     ",scrollbars=yes,resizable=yes\");\n".
+                     "}\n";
+        $js .= "// -->\n".
+        	 "</script>\n";
+        displayHtmlHeader ('Squirrelmail', $js);
+            }
+        displayHtmlHeader();
+        $onload = '';
+        break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
              "\n<!--\n" .
@@ -176,9 +199,6 @@ function compose_Header($color, $mailbox) {
         $pos = getPref($data_dir, $username, 'search_pos', 0 ) - 1;
         $onload = "onLoad=\"document.forms[$pos].elements[2].focus();\"";
         displayHtmlHeader (_("Compose"));
-        break;
-    case 'src/read_body.php':
-        displayHtmlHeader();
         break;
     default:
         $js = '<script language="JavaScript" type="text/javascript">' .
