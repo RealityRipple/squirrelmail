@@ -114,25 +114,21 @@
     **  individually.  I'm not sure why it happens like that, but that's what my
     **  testing found.  Perhaps later I will be proven wrong and this will change.
     **/
-   function getMessageFlags($imapConnection, $j, &$flags) {
+   function getMessageFlags($imapConnection, $low, $high, &$flags) {
       /**   * 2 FETCH (FLAGS (\Answered \Seen))   */
-      fputs($imapConnection, "messageFetch FETCH $j:$j FLAGS\n");
+      fputs($imapConnection, "messageFetch FETCH $low:$high FLAGS\n");
       $read = fgets($imapConnection, 1024);
       $count = 0;
       while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
          if (strpos($read, "FLAGS")) {
             $read = ereg_replace("\(", "", $read);
             $read = ereg_replace("\)", "", $read);
+            $read = str_replace("\\", "", $read);
             $read = substr($read, strpos($read, "FLAGS")+6, strlen($read));
             $read = trim($read);
-            $flags = explode(" ", $read);;
-            $s = 0;
-            while ($s < count($flags)) {
-               $flags[$s] = substr($flags[$s], 1, strlen($flags[$s]));
-               $s++;
-            }
+            $flags[$count] = explode(" ", $read);;
          } else {
-            $flags[0] = "None";
+            $flags[$count][0] = "None";
          }
          $count++;
          $read = fgets($imapConnection, 1024);
