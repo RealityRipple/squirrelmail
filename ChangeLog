@@ -1,5 +1,6 @@
 Version 1.0pre1 -- DEVELOPMENT
 ------------------------------
+- Added sorting option for NO sorting.. 10000 times faster!
 - Using <pre> tags for viewing message body instead of <tt> and &nbsp;
 - Added redirection from subdirectories to login page
 - Attachments are shown in message index (shown as a "+")

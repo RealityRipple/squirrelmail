@@ -71,7 +71,7 @@
    //   send them to the inbox
    if (!isset($mailbox)) {
       $mailbox = "INBOX";
-      $sort = $newsort = 0;
+      $sort = $newsort = 6;
       $startMessage = 1;
    }
 

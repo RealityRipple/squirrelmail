@@ -16,7 +16,7 @@
       global $message_highlight_list;
       global $index_order;
 
-		$msg = $msgs[$key];
+      $msg = $msgs[$key];
 
       $senderName = sqimap_find_displayable_name($msg["FROM"]);
       $urlMailbox = urlencode($mailbox);
@@ -28,7 +28,7 @@
       
       if ($msg["FLAG_FLAGGED"] == true) { $flag = "<font color=$color[2]>"; $flag_end = "</font>"; }
       if ($msg["FLAG_SEEN"] == false) { $bold = "<b>"; $bold_end = "</b>"; }
-		if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
+      if ($mailbox == $sent_folder) { $italic = "<i>"; $italic_end = "</i>"; }
       
       for ($i=0; $i < count($message_highlight_list); $i++) {
          if (trim($message_highlight_list[$i]["value"]) != "") {
@@ -107,37 +107,75 @@
       global $message_highlight_list;
       global $auto_expunge;
 
-      if ($auto_expunge) {
-         sqimap_mailbox_expunge($imapConnection, $mailbox);
-         sqimap_mailbox_select($imapConnection, $mailbox);
-      }
+      sqimap_mailbox_expunge($imapConnection, $mailbox);
+      sqimap_mailbox_select($imapConnection, $mailbox);
 
       if (!$use_cache) {
+         // if it's sorted
          if ($numMessages >= 1) {
-            for ($q = 0; $q < $numMessages; $q++) {
-               if($mailbox == $sent_folder)
-                  $hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
-               else
-                  $hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
-         	     	
-						
- 	       $from[$q] = $hdr->from;
-	       $date[$q] = $hdr->date;
-	       $subject[$q] = $hdr->subject;
-               $to[$q] = $hdr->to;
-               $priority[$q] = $hdr->priority;
-               $cc[$q] = $hdr->cc;
-               $size[$q] = $hdr->size;
-               $type[$q] = $hdr->type0;
-               $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
-            }
+            if ($sort < 6) {
+               for ($q = 0; $q < $numMessages; $q++) {
+                  if($mailbox == $sent_folder)
+                     $hdr = sqimap_get_small_header ($imapConnection, $q+1, true);
+                  else
+                     $hdr = sqimap_get_small_header ($imapConnection, $q+1, false);
+                       
+                  $from[$q] = $hdr->from;
+                  $date[$q] = $hdr->date;
+                  $subject[$q] = $hdr->subject;
+                  $to[$q] = $hdr->to;
+                  $priority[$q] = $hdr->priority;
+                  $cc[$q] = $hdr->cc;
+                  $size[$q] = $hdr->size;
+                  $type[$q] = $hdr->type0;
+                  $flags[$q] = sqimap_get_flags ($imapConnection, $q+1);
+               }
+            } else {
+               // if it's not sorted
+               if ($startMessage + ($show_num - 1) < $numMessages) {
+                  $endMessage = $startMessage + ($show_num-1);
+               } else {
+                  $endMessage = $numMessages;
+               }
+               
+               if ($endMessage < $startMessage) {
+                  $startMessage = $startMessage - $show_num;
+                  if ($startMessage < 1)
+                     $startMessage = 1;
+               }
+
+               $j = $startMessage - 1;;
+               echo $startMessage . " - " . $endMessage . "<br>";
+               for ($q = $startMessage; $q <= $endMessage; $q++) {
+                  if($mailbox == $sent_folder)
+                     $hdr = sqimap_get_small_header ($imapConnection, $q, true);
+                  else
+                     $hdr = sqimap_get_small_header ($imapConnection, $q, false);
+                       
+                  $from[$j] = $hdr->from;
+                  $date[$j] = $hdr->date;
+                  $subject[$j] = $hdr->subject;
+                  $to[$j] = $hdr->to;
+                  $priority[$j] = $hdr->priority;
+                  $cc[$j] = $hdr->cc;
+                  $size[$j] = $hdr->size;
+                  $type[$j] = $hdr->type0;
+                  $flags[$j] = sqimap_get_flags ($imapConnection, $q);
+                  $j++;
+               }
+            }   
          }
    
          $j = 0;
-         while ($j < $numMessages) {
+         if ($sort == 6) {
+            $end = $startMessage + $show_num - 1;
+         } else {
+            $end = $numMessages;
+         }
+         while ($j < $end) {
             $date[$j] = ereg_replace("  ", " ", $date[$j]);
             $tmpdate = explode(" ", trim($date[$j]));
-   
+
             $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
             $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
             $messages[$j]["ID"] = $j+1;
@@ -146,18 +184,17 @@
             $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
             $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
             $messages[$j]["TO"] = decodeHeader($to[$j]);
-	    $messages[$j]["PRIORITY"] = $priority[$j];
+            $messages[$j]["PRIORITY"] = $priority[$j];
             $messages[$j]["CC"] = $cc[$j];
             $messages[$j]["SIZE"] = $size[$j];
             $messages[$j]["TYPE0"] = $type[$j];
 
             # fix SUBJECT-SORT to remove Re:
-	    $re_abbr = # Add more here!
-	       "vedr|sv|" .    # Danish
-	       "re|aw";        # English
-	    if (eregi("^($re_abbr):[ ]*(.*)$",
-	       $messages[$j]['SUBJECT-SORT'], $regs))
-	       $messages[$j]['SUBJECT-SORT'] = $regs[2];
+            $re_abbr = # Add more here!
+               "vedr|sv|" .    # Danish
+               "re|aw";        # English
+            if (eregi("^($re_abbr):[ ]*(.*)$", $messages[$j]['SUBJECT-SORT'], $regs))
+               $messages[$j]['SUBJECT-SORT'] = $regs[2];
    
             $num = 0;
             while ($num < count($flags[$j])) {
@@ -180,7 +217,7 @@
 
          /* Only ignore messages flagged as deleted if we are using a
           * trash folder or auto_expunge */
-         if ($move_to_trash || $auto_expunge)
+         if (($move_to_trash || $auto_expunge) && $sort != 6)
          {      
             /** Find and remove the ones that are deleted */
             $i = 0;
@@ -196,6 +233,8 @@
                $j++;
             }
             $numMessages = $i;
+         } else {
+            $msgs = $messages;
          }
       }         
 
@@ -213,11 +252,15 @@
             $msort = array_cleave ($msgs, "FROM-SORT");
          if (($sort == 4) || ($sort == 5))
             $msort = array_cleave ($msgs, "SUBJECT-SORT");
+         if ($sort == 6)
+            $msort = $msgs;
 
-         if($sort % 2) {
-            asort($msort);
-         } else {
-            arsort($msort);
+         if ($sort < 6) {
+            if($sort % 2) {
+               asort($msort);
+            } else {
+               arsort($msort);
+            }
          }
          session_register("msort");
       }
@@ -264,17 +307,22 @@
       }
 
       $More = '';
+      if ($sort == 6) {
+         $use = 0;
+      } else {
+         $use = 1;
+      }
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
-         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $More = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
+         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       elseif (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         $More = "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
+         $More = "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
          $More .= "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
       }
       elseif (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
          $More = "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
-         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
+         $More .= "<A HREF=\"right_main.php?use_mailbox_cache=$use&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
 
       mail_message_listing_beginning($imapConnection, 
@@ -305,7 +353,7 @@
             $k++;
          } while (isset ($key) && ($k < $i));
 
-		   do {
+         do {
             printMessageInfo($imapConnection, $t, $i, $key, $mailbox, $sort, $startMessage, 0, 0);
             $key = key($msort);
             $t++;
@@ -370,7 +418,7 @@
             $box = $boxes[$i]["unformatted"];
             $box2 = replace_spaces($boxes[$i]["formatted"]);
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
-	 }
+    }
       }
       echo "         </SELECT></SMALL></TT>";
       echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
@@ -405,7 +453,7 @@
                if ($mailbox == $sent_folder)
                   echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
                else
-               	  echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+                    echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
          
                if ($sort == 2)
                   echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
@@ -420,7 +468,9 @@
                if ($sort == 0)
                   echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 1)
-                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+                  echo "   <A HREF=\"right_main.php?newsort=6&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/down_pointer.gif\" BORDER=0></A></TD>\n";
+               elseif ($sort == 6)   
+                  echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                break;
