@@ -49,13 +49,11 @@
    echo "   </TR>";
    echo "   <TR BGCOLOR=$color[0] WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
-   echo "         <BR>";
+	echo "			<br>";
    echo "      </TD>";
    echo "   </TR>";
    echo "</TABLE>";
+	echo "<br><br>";
 ?>
 </BODY>
 </HTML>
-<?php
-   session_destroy();
-?>
