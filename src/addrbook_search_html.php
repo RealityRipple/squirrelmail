@@ -10,10 +10,6 @@
  *
  * This file is included from compose.php
  *
- * NOTE: A lot of this code is similar to the code in
- *       addrbook_search.html -- If you change one, change
- *       the other one too!
- *
  * $Id$
  */
 
@@ -23,7 +19,6 @@ define('SM_PATH','../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/date.php');
-require_once(SM_PATH . 'functions/smtp.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/plugin.php');
