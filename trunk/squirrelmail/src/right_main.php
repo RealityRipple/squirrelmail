@@ -50,8 +50,10 @@ sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
 
 sqgetGlobalVar('mailbox',   $mailbox);
 sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
+sqgetGlobalVar('numMessages'      , $numMessages,       SQ_SESSION);
 sqgetGlobalVar('session',           $session,           SQ_GET);
 sqgetGlobalVar('note',              $note,              SQ_GET);
+sqgetGlobalVar('use_mailbox_cache', $use_mailbox_cache, SQ_GET);
 
 if ( sqgetGlobalVar('startMessage', $temp) ) {
   $startMessage = (int) $temp;
@@ -214,16 +216,16 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 
     if (sqsession_is_registered('msgs') && isset($msgs)) {
         sqsession_register($msgs, 'msgs');
-        $_SESSION['msgs'] = $msgs;
+        //$_SESSION['msgs'] = $msgs;
     }
 
     if (sqsession_is_registered('msort') && isset($msort)) {
         sqsession_register($msort, 'msort');
-        $_SESSION['msort'] = $msort;
+        //$_SESSION['msort'] = $msort;
     }
 
     sqsession_register($numMessages, 'numMessages');
-    $_SESSION['numMessages'] = $numMessages;
+    //$_SESSION['numMessages'] = $numMessages;
 }
 do_hook('right_main_bottom');
 sqimap_logout ($imapConnection);
