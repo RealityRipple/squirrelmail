@@ -1,11 +1,14 @@
 <?php
-/*
- *  calendar_data.php
+
+/**
+ * calendar_data.php
  *
- *  Copyright (c) 2001 Michal Szczotka <michal@tuxy.org>
- *  Licensed under the GNU GPL. For full terms see the file COPYING.
+ * Copyright (c) 2002 The SquirrelMail Project Team
+ * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- *  functions to operate on calendar data files.
+ * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
+ *
+ * functions to operate on calendar data files.
  *
  * $Id$
  */
