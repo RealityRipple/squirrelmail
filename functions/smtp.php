@@ -293,72 +293,72 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
                 $HTTP_X_FORWARDED_FOR = 'unknown';
             }
             $received_from .= " (proxying for $HTTP_X_FORWARDED_FOR)";
-        }            
-        
+        }
+
         $header  = "Received: from $received_from\r\n";
         $header .= "        (SquirrelMail authenticated user $username)\r\n";
         $header .= "        by $SERVER_NAME with HTTP;\r\n";
         $header .= "        $date\r\n";
-        
+
         /* Insert the rest of the header fields */
         $header .= "Message-ID: $message_id\r\n";
         $header .= "Date: $date\r\n";
         $header .= "Subject: $subject\r\n";
         $header .= "From: $from\r\n";
         $header .= "To: $to_list\r\n";    // Who it's TO
-        
+
         if (isset($more_headers["Content-Type"])) {
-	  $contentType = $more_headers["Content-Type"];
-	  unset($more_headers["Content-Type"]);
-	}
+            $contentType = $more_headers["Content-Type"];
+            unset($more_headers["Content-Type"]);
+        }
         else {
-	  if (isMultipart()) {
-	    $contentType = "multipart/mixed;";
-	  }
-	  else {
-	    if ($default_charset != '') {
-                $contentType = 'text/plain; charset='.$default_charset;
+            if (isMultipart()) {
+                $contentType = "multipart/mixed;";
             }
             else {
-                $contentType = 'text/plain;';
-            } 
-	  }
+                if ($default_charset != '') {
+                    $contentType = 'text/plain; charset='.$default_charset;
+                }
+                else {
+                    $contentType = 'text/plain;';
+                }
+            }
         }
-            
-	/* Insert headers from the $more_headers array */
-	if(is_array($more_headers)) {
+
+        /* Insert headers from the $more_headers array */
+        if(is_array($more_headers)) {
             reset($more_headers);
             while(list($h_name, $h_val) = each($more_headers)) {
                 $header .= sprintf("%s: %s\r\n", $h_name, $h_val);
             }
         }
-        
+
         if ($cc_list) {
             $header .= "Cc: $cc_list\r\n"; // Who the CCs are
         }
-        
+
         if ($reply_to != '') {
             $header .= "Reply-To: $reply_to\r\n";
         }
-        
+
         if ($useSendmail) {
             if ($bcc_list) {
                 // BCCs is removed from header by sendmail
-                $header .= "Bcc: $bcc_list\r\n"; 
+                $header .= "Bcc: $bcc_list\r\n";
             }
         }
-        
+
         $header .= "X-Mailer: SquirrelMail (version $version)\r\n"; /* Identify SquirrelMail */
 
         /* Do the MIME-stuff */
         $header .= "MIME-Version: 1.0\r\n";
-        
+
         if (isMultipart()) {
             $header .= 'Content-Type: '.$contentType.' boundary="';
             $header .= mimeBoundary();
             $header .= "\"\r\n";
         } else {
-	    $header .= 'Content-Type: '.$contentType."\r\n";
+            $header .= 'Content-Type: '.$contentType."\r\n";
             $header .= "Content-Transfer-Encoding: 8bit\r\n";
         }
         $header .= "\r\n"; // One blank line to separate header and body
@@ -406,7 +406,7 @@ function writeBody ($fp, $passedBody) {
         $postbody = "\r\n";
         fputs ($fp, $postbody);
     }
-    
+
     return (strlen($body) + strlen($postbody) + $attachmentlength);
 }
 
@@ -658,13 +658,13 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
         $error_num = '001';
         break;
     }
-    
+
     if ($status == 0) {
         include_once('../functions/page_header.php');
         if ($compose_new_win == '1') {
             compose_Header($color, 'None');
         }
-		else {
+        else {
             displayPageHeader($color, 'None');
         }
         include_once('../functions/display_messages.php');

@@ -389,10 +389,10 @@ function print_option_groups($option_groups) {
         if ($next_optgrp['name'] != '') {
             echo '<TR><TD ALIGN=CENTER VALIGN=MIDDLE COLSPAN=2 NOWRAP><B>'
                .   $next_optgrp['name']
-	       . "</B></TD></TR>\n";
-	}
-	
-	/* Print each option in this option group. */
+               . "</B></TD></TR>\n";
+        }
+
+        /* Print each option in this option group. */
         foreach ($next_optgrp['options'] as $option) {
             if ($option->type != SMOPT_TYPE_HIDDEN) {
                 echo "<TR>\n";
@@ -404,8 +404,8 @@ function print_option_groups($option_groups) {
                 echo $option->createHTMLWidget();
             }
         }
-	
-	/* Print an empty row after this option group. */
+
+        /* Print an empty row after this option group. */
         echo "<TR><TD COLSPAN=\"2\">&nbsp;</TD></TR>\n";
     }
 }

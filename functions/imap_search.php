@@ -42,7 +42,7 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             $search_string = '';
     $count = count($multi_search);
             for ($x=0;$x<$count;$x++) {
-			trim($multi_search[$x]);
+                trim($multi_search[$x]);
                 $search_string = $search_string . ' ' . $search_where . ' "' . $multi_search[$x] . '"';
             }
     }

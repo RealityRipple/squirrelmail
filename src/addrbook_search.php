@@ -189,7 +189,7 @@ if ($show == 'form' && empty($listall)) {
     }
         
     echo '</TD></TR><TR><TD></TD><TD align=left>'.
-					'<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
+         '<INPUT TYPE=submit VALUE="' . _("Search") . '" NAME=show>' .
          '&nbsp;|&nbsp;<INPUT TYPE=submit VALUE="' . _("List all") .
          '" NAME=listall>' . "\n" .
          '&nbsp;|&nbsp;<INPUT TYPE=button VALUE="' . _("Close") .

@@ -104,7 +104,7 @@ function displayPageHeader($color, $mailbox) {
                      "}\n";
             }
         $js .= "// -->\n".
-        	 "</script>\n";
+               "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         displayHtmlHeader ('Squirrelmail', $js);
         break;   
@@ -207,7 +207,7 @@ function compose_Header($color, $mailbox) {
                 "}\n".
             "}\n";
         $js .= "// -->\n".
-        	 "</script>\n";
+               "</script>\n";
         $onload = "onLoad=\"checkForm();\"";
         displayHtmlHeader (_("Compose"), $js);
         break;   
