@@ -1496,7 +1496,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                       "html",
                       "head",
                       "base",
-                      "link"
+                      "link",
+		      "frame",
+		      "iframe"
                       );
 
     $rm_tags_with_content = Array(
