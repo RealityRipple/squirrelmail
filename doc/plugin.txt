@@ -177,6 +177,7 @@ version is not listed, files are included from v.1.3.2.):
          7.3.2. functions/prefs.php (from 1.5.1)
       7.4. functions/constants.php
       7.5. do_hook('loading_prefs')
+         7.5.1. files loaded by plugins that use 'loading_prefs'
    8. functions/page_header.php
       8.1. functions/strings.php
       8.2. functions/html.php
@@ -185,11 +186,13 @@ version is not listed, files are included from v.1.3.2.):
       8.4. functions/global.php
    9. functions/prefs.php
       9.1. functions/global.php
-      9.2. $prefs_backend (from 1.4.3rc1 and 1.5.0)
+      9.2. $prefs_backend (only in 1.4.3 and 1.5.0)
+           do_hook_function('prefs_backend') (since 1.4.4 and 1.5.1)
            functions/db_prefs.php
            functions/file_prefs.php
          9.2.1. functions/display_messages.php
                 (loaded only by file_prefs.php)
+         9.2.2. files loaded by plugin that uses 'prefs_backend'
 
 Hook Types:  Parameters and Return Values
 -----------------------------------------
