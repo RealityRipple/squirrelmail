@@ -441,6 +441,7 @@
    } else if (isset($attach)) {
       if (saveAttachedFiles())
             plain_error_message(_("Could not move/copy file. File not attached"), $color);
+      displayPageHeader($color, $mailbox);
       showInputForm();
    } else if (isset($do_delete)) {
       is_logged_in();
