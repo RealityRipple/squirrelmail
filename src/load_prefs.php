@@ -19,7 +19,10 @@ require_once('../functions/constants.php');
 
 $username = ( !isset($username) ? '' : $username );
 
-global $theme, $chosen_theme, $color;
+global $theme, $chosen_theme, $color, $custom_css;
+
+$custom_css = getPref($data_dir, $username, 'custom_css', 'none' );
+
 $theme = ( !isset($theme) ? array() : $theme );
 $color = ( !isset($color) ? array() : $color );
 
