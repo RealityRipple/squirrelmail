@@ -63,9 +63,9 @@
          'gopher://',
          'news://');
 
-      $poss_ends = array(' ', '\n', '\r', '<', '>', '.\r', '.\n', '.&nbsp;', 
+      $poss_ends = array(' ', "\n", "\r", '<', '>', ".\r", ".\n", '.&nbsp;', 
          '&nbsp;', ')', '(', '&quot;', '&lt;', '&gt;', '.<', ']', '[', '{', 
-         '}', '\240');
+         '}', "\240");
 
       $start = 0;
       $target_pos = strlen($body);

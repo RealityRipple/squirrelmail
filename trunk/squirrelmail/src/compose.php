@@ -176,11 +176,6 @@
         // Write Attachment to file
         $fp = fopen ($attachment_dir.$localfilename, "w");
       fputs ($fp, decodeBody(mime_fetch_body($imapConnection, $forward_id, $message->header->entity_id), $message->header->encoding));
-      
-//      Don't know why these lines were included
-//        fgets($imapConnection, 256);
-//        fgets($imapConnection, 256);
-
       fclose ($fp);
       
       $attachments[$localfilename] = $filename;
