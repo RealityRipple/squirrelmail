@@ -38,7 +38,6 @@ if (! sqgetGlobalVar('passed_ent_id', $passed_ent_id, SQ_GET) ) {
 }
 /* end globals */
 
-$pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', false);
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox);
 if (isset($messages[$mbx_response['UIDVALIDITY']][$passed_id])) {
@@ -79,27 +78,20 @@ if ($ent_ar[0] != '') {
   $body = _("Message not printable");
 }
 
- /* now, if they choose to, we clean up the display a bit... */
+/* now we clean up the display a bit... */
 
-if ($pf_cleandisplay) {
+$num_leading_spaces = 9; // nine leading spaces for indentation
 
-    $num_leading_spaces = 9; // nine leading spaces for indentation
+// sometimes I see ',,' instead of ',' seperating addresses *shrug*
+$cc = pf_clean_string(str_replace(',,', ',', $cc), $num_leading_spaces);
+$to = pf_clean_string(str_replace(',,', ',', $to), $num_leading_spaces);
 
-     // sometimes I see ',,' instead of ',' seperating addresses *shrug*
-    $cc = pf_clean_string(str_replace(',,', ',', $cc), $num_leading_spaces);
-    $to = pf_clean_string(str_replace(',,', ',', $to), $num_leading_spaces);
+// clean up everything else...
+$subject = pf_clean_string($subject, $num_leading_spaces);
+$from = pf_clean_string($from, $num_leading_spaces);
+$date = pf_clean_string($date, $num_leading_spaces);
 
-     // the body should have no leading zeros
-    // disabled because it destroys html mail
-
-//    $body = pf_clean_string($body, 0);
-
-     // clean up everything else...
-    $subject = pf_clean_string($subject, $num_leading_spaces);
-    $from = pf_clean_string($from, $num_leading_spaces);
-    $date = pf_clean_string($date, $num_leading_spaces);
-
-} // end cleanup
+// end cleanup
 
 $to = decodeHeader($to);
 $cc = decodeHeader($cc);
