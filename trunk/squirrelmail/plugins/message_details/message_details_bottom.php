@@ -21,13 +21,12 @@ require_once(SM_PATH . 'functions/prefs.php');
 
 global $color, $uid_support;
 
-$passed_id = $_GET['passed_id'];
-$mailbox = $_GET['mailbox'];
+sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
+sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 
-$username = $_SESSION['username'];
-$key = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-
+sqgetGlobalVar('username', $username, SQ_SESSION);
+sqgetGlobalVar('key', $key, SQ_COOKIE);
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 function CalcEntity($entString, $direction) {
     $result = $entString;

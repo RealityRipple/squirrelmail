@@ -27,23 +27,17 @@ displayPageHeader($color, 'None');
 $mailbox = 'INBOX';
 
 /* GLOBALS */
-$username = $_SESSION['username'];
-$key  = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
+sqgetGlobalVar('username', $username, SQ_SESSION);     
+sqgetGlobalVar('key', $key, SQ_COOKIE);     
+sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);  
 
-if(isset($_POST['submit'])) {
-    $submit = $_POST['submit'];
-}
+sqgetGlobalVar('submit', $submit, SQ_POST);
 
 for($i = 0; $i <= 9; $i++){
-    if(isset($_POST["CHECK_TEST_$i"])) {
-        $var = "CHECK_TEST_$i";
-        $$var = $_POST["CHECK_TEST_$i"];
-    }
-    if(isset($_POST["TEST_$i"])) {
-        $var = "TEST_$i";
-        $$var = $_POST["TEST_$i"];
-    }
+    $varc = 'CHECK_TEST_'.$i;
+    sqgetGlobalVar($varc, $$varc, SQ_POST);
+    $vart  = 'TEST_'.$i;
+    sqgetGlobalVar($vart, $$vart, SQ_POST);
 }
 
 /* END GLOBALS */
