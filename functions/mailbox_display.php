@@ -532,7 +532,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
  */
 function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
                                 $start_msg, $sort, $color, $show_num,
-                                $use_cache, $mode='') {
+                                $use_cache, $mode='',$mbxresponse) {
     global $msgs, $msort, $auto_expunge, $thread_sort_messages,
            $allow_server_sort, $server_sort_order;
 
@@ -552,14 +552,14 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
     //$start = microtime();
     /* If autoexpunge is turned on, then do it now. */
-    $mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
+    //$mbxresponse = sqimap_mailbox_select($imapConnection, $mailbox);
     $srt = $sort;
     /* If autoexpunge is turned on, then do it now. */
-    if ($auto_expunge == true) {
-        $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
-        $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
-        $num_msgs = $mbxresponse['EXISTS'];
-    }
+    //if ($auto_expunge == true) {
+    //    $exp_cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, false, '');
+    //    $mbxresponse['EXISTS'] = $mbxresponse['EXISTS'] - $exp_cnt;
+    //    $num_msgs = $mbxresponse['EXISTS'];
+    //}
 
     if ($mbxresponse['EXISTS'] > 0) {
         /* if $start_msg is lower than $num_msgs, we probably deleted all messages

@@ -151,7 +151,7 @@ else {
 
 do_hook ('generic_header');
 
-sqimap_mailbox_select($imapConnection, $mailbox);
+$aMbxResponse = sqimap_mailbox_select($imapConnection, $mailbox);
 
 if ($composenew) {
     $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
@@ -203,7 +203,9 @@ if (! isset($use_mailbox_cache)) {
 }
 
 if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
-    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, $startMessage, $sort, $color, $show_num, $use_mailbox_cache);
+    showMessagesForMailbox($imapConnection, $mailbox, $numMessages, 
+                           $startMessage, $sort, $color, $show_num, 
+                           $use_mailbox_cache, '',$aMbxResponse);
 } else {
     if (sqsession_is_registered('msgs')) {
         unset($msgs);
@@ -221,7 +223,7 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 
     showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
                            $startMessage, $sort, $color, $show_num,
-                           $use_mailbox_cache);
+                           $use_mailbox_cache,'',$aMbxResponse);
 
     if (sqsession_is_registered('msgs') && isset($msgs)) {
         sqsession_register($msgs, 'msgs');
