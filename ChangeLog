@@ -1,5 +1,6 @@
 Version 0.4pre1 -- Development
 ------------------------------
+- Added flag status showing on message list (Answered, Flagged, and Seen)
 - Now using PHP session management
 - Parsing the body for URLs and Email addrs
 - Added option to configure default folder directory. ie: ~/mail
