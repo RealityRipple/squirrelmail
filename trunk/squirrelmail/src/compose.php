@@ -369,7 +369,7 @@ if ($send) {
 	    
         }
         $body = $newBody;
-        do_hook('compose_send');
+        
         $composeMessage=$compose_messages[$session];
 
         $Result = deliverMessage($composeMessage);
@@ -1431,6 +1431,10 @@ function deliverMessage($composeMessage, $draft=false) {
         
     $rfc822_header->content_type = $content_type;
     $composeMessage->rfc822_header = $rfc822_header;
+    
+    /* Here you can modify the message structure just before we hand 
+       it over to deliver */
+    do_hook('compose_send');
 
     if (!$useSendmail && !$draft) {
         require_once(SM_PATH . 'class/deliver/Deliver_SMTP.class.php');
