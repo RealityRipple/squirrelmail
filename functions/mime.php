@@ -6,7 +6,7 @@
 
 
    function decodeMime($body, $bound, $type0, $type1) {
-//      echo "$type0/$type1<BR>";
+      echo "<TT>decodeMime: $type0/$type1</TT><BR>";
       if ($type0 == "multipart") {
          if ($body[0] == "")
             $i = 1;
@@ -20,12 +20,28 @@
                $j = $i + 1;
                $p = 0;
 
-               while (substr(trim($body[$j]), 0, strlen($bound)) != $bound) {
-                  $entity_body[$p] = $body[$j];
+               while ((substr(trim($body[$j]), 0, strlen($bound)) != $bound) && (trim($body[$j]) != "")) {
+                  $entity_header[$p] = $body[$j];
                   $j++;
                   $p++;
                }
-               fetchEntityHeader($imapConnection, $entity_body, $ent_type0, $ent_type1, $ent_bound, &$encoding, &$charset);
+
+               fetchEntityHeader($imapConnection, $entity_header, $ent_type0, $ent_type1, $ent_bound, $encoding, $charset);
+
+               if ($ent_type0 == "text") {
+                  while (substr(trim($body[$j]), 0, strlen($bound)) != $bound) {
+                     $entity_body[$p] = $body[$j];
+                     $j++;
+                     $p++;
+                  }
+               } else {
+                  if (trim($body[$j]) == "")
+                     $j++;
+                  while (substr(trim($body[$j]), 0, strlen($bound)) != $bound) {
+                     $entity_body .= $body[$j];
+                     $j++;
+                  }
+               }
                $entity = getEntity($entity_body, $ent_bound, $ent_type0, $ent_type1, $encoding, $charset);
 
                $q = count($full_message);
@@ -42,7 +58,7 @@
 
    /** This gets one entity's properties **/
    function getEntity($body, $bound, $type0, $type1, $encoding, $charset) {
-//      echo "--$type0/$type1--<BR>";
+      echo "<TT>getEntity: $type0/$type1</TT><BR>";
       $msg[0]["TYPE0"] = $type0;
       $msg[0]["TYPE1"] = $type1;
       $msg[0]["ENCODING"] = $encoding;
@@ -69,6 +85,9 @@
                $msg[0]["BODY"][$p] = $body[$q];
             }
          }
+      } else if ($type0 == "image") {
+         $msg[0]["PRIORITY"] == 5;
+         $msg[0]["BODY"][0] = $body;
       } else {
          $msg[0]["BODY"][0] = "<B><FONT COLOR=DD0000>This attachment is of an unknown format:  $type0/$type1</FONT></B>";
       }
@@ -125,7 +144,12 @@
          $pos = count($body);
          if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
             if ($message["ENTITIES"][$i]["TYPE0"] == "image") {
-               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Image: " . strtoupper($message["ENTITIES"][$i]["TYPE1"]) . "</TT><BR>";
+               $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Image: " . $message["ENTITIES"][$i]["TYPE0"] . "/" . $message["ENTITIES"][$i]["TYPE1"] . "</TT><BR>";
+
+/*               $file = fopen("../data/tmp.png", "w");
+               fwrite($file, base64_decode($message["ENTITIES"][$i]["BODY"][0]));
+               fclose($file);
+*/
             } else {
                $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;Unknown Type: " . $message["ENTITIES"][$i]["TYPE0"] . "/" . $message["ENTITIES"][$i]["TYPE1"] . "</TT><BR>";
             }
