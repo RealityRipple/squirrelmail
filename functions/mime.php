@@ -585,12 +585,20 @@ function decodeBody($body, $encoding) {
     return $body;
 }
 
-/*
+/**
+ * Decodes headers
+ *
  * This functions decode strings that is encoded according to
  * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
  * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
+ *
+ * @param string $string header string that has to be made readable
+ * @param boolean $utfencode change message in order to be readable on user's charset. defaults to true
+ * @param boolean $htmlsave preserve spaces and sanitize html special characters. defaults to true
+ * @param boolean $decide decide if string can be utfencoded. defaults to false
+ * @return string decoded header string
  */
-function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
+function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
     global $languages, $squirrelmail_language;
     if (is_array($string)) {
         $string = implode("\n", $string);
@@ -623,7 +631,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
             /* if the last chunk isn't an encoded string then put back the space, otherwise don't */
             if ($iLastMatch !== $j) {
                 if ($htmlsave) {
-                    $ret .= '&nbsp;';
+                    $ret .= '&#32;';
                 } else {
                     $ret .= ' ';
                 }
@@ -642,6 +650,13 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
                 $replace = str_replace('_', ' ', $res[4]);
                 $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))',
                                     $replace);
+		/* decide about valid decoding */
+		if ($decide && is_conversion_safe($res[2])) {
+		  $utfencode=true;
+		  $can_be_decoded=true;
+		} else {
+		  $can_be_decoded=false;
+		}
                 /* Only encode into entities by default. Some places
                  * don't need the encoding, like the compose form.
                  */
@@ -662,7 +677,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         }
         if (!$encoded) {
             if ($htmlsave) {
-                $ret .= '&nbsp;';
+                $ret .= '&#32;';
             } else {
                 $ret .= ' ';
             }
@@ -678,7 +693,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     /* remove the first added space */
     if ($ret) {
         if ($htmlsave) {
-            $ret = substr($ret,6);
+            $ret = substr($ret,5);
         } else {
             $ret = substr($ret,1);
         }
@@ -687,10 +702,15 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     return $ret;
 }
 
-/*
+/**
+ * Encodes header as quoted-printable
+ *
  * Encode a string according to RFC 1522 for use in headers if it
  * contains 8-bit characters or anything that looks like it should
  * be encoded.
+ *
+ * @param string $string header string, that has to be encoded
+ * @return string quoted-printable encoded string
  */
 function encodeHeader ($string) {
     global $default_charset, $languages, $squirrelmail_language;
@@ -699,9 +719,10 @@ function encodeHeader ($string) {
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return  $languages[$squirrelmail_language]['XTRA_CODE']('encodeheader', $string);
     }
-    if (strtolower($default_charset) == 'iso-8859-1') {
-        $string = str_replace("\240",' ',$string);
-    }
+    // instead of removing nbsp here, we don't add it in decodeHeader
+    //    if (strtolower($default_charset) == 'iso-8859-1') {
+    //    $string = str_replace("\240",' ',$string);
+    //}
 
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen($string);
