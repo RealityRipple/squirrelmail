@@ -17,6 +17,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/imap_asearch.php');
 require_once(SM_PATH . 'functions/imap_mailbox.php');
+require_once(SM_PATH . 'functions/imap_messages.php');
 require_once(SM_PATH . 'functions/mailbox_display.php');	//getButton()...
 
 function asearch_unhtml_strcoll($a, $b)
