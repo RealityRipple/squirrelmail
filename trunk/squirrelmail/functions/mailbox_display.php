@@ -585,7 +585,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 
         if ($thread_sort_messages == 1) {
             $mode = 'thread';
-        } elseif (sqimap_capabilty($imapConnection,'SORT') && !$disable_server_sort == 1) {
+        } elseif (sqimap_capabilty($imapConnection,'SORT') && $disable_server_sort != 1) {
             $mode = 'serversort';
         } else {
             $mode = '';
