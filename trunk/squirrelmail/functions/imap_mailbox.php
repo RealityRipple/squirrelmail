@@ -49,8 +49,7 @@ function isSpecialMailbox( $box ) {
     $ret = ( (strtolower($box) == 'inbox') ||
              ( $move_to_trash && isBoxBelow( $box, $trash_folder ) ) ||
              ( $move_to_sent && isBoxBelow( $box, $sent_folder )) ||
-             ($box == $draft_folder &&
-              $save_as_draft) );
+             ($save_as_draft && $box == $draft_folder ) );
 
     return( $ret );
 
