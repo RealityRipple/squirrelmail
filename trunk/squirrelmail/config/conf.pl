@@ -676,7 +676,9 @@ sub command2a {
         print "Height: [$WHT$org_logo_height$NRM]: $WHT";
         $new_org_logo_height = <STDIN>;
         $new_org_logo_height =~ tr/0-9//cd;  # only want digits!
-        $new_org_logo_height = $org_logo_height;
+        if( $new_org_logo_height eq '' ) {
+		$new_org_logo_height = $org_logo_height;
+	}
     } else {
         $new_org_logo_height = 0;
     }
