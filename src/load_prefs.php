@@ -1,6 +1,8 @@
 <?
    include("../config/config.php");
-   include("../functions/prefs.php");
+
+   if (!isset($prefs_php))
+      include("../functions/prefs.php");
 
    checkForPrefs($data_dir, $username);
 

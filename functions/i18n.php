@@ -13,6 +13,12 @@
 
    $i18n_php = true;
 
+   // This array specifies the available languages.
+   $languages[0]["NAME"] = "English";
+   $languages[0]["CODE"] = "en";
+   $languages[1]["NAME"] = "Norsk";
+   $languages[1]["CODE"] = "no";
+
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
       // All HTML special characters are 7 bit and can be replaced first

@@ -8,9 +8,29 @@
 
    $page_header_php = true;
 
+   if (!isset($prefs_php))
+      include ("../functions/prefs.php");
+
    // This is done to ensure that the character set is correct when
    // receiving input from HTTP forms
    header ("Content-Type: text/html; charset=iso-8859-1");
+
+   // Setting the language to use for gettext if it is not English
+   // (the default language) or empty.
+   if (!isset($squirrelmail_language))
+      $squirrelmail_language = getPref ($data_dir, $username, "language");
+
+   if ($squirrelmail_language != "en" && $squirrelmail_language != "") {
+      putenv("LANG=$use_language");
+      bindtextdomain("squirrelmail", "../locale/");
+      textdomain("squirrelmail");
+
+      // Setting cookie to use on the login screen the next time the
+      // same user logs in.
+      if (!isset($HTTP_COOKIE_VARS["squirrelmail_language"]))
+         setcookie("squirrelmail_language", $squirrelmail_language, 
+                   time()+2592000);
+   }
 
    function displayPageHeader($color, $mailbox) {
       /** Here is the header and wrapping table **/
