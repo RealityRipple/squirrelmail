@@ -109,7 +109,7 @@ Version 1.5.1 -- CVS
   - Fixed folder list in Create Folders list for Courier (properly skip INBOX).
   - Fixed undefined variables in sqimap_create_stream().
   - Added Bengali translation support.
-  - Fixed left frame mailbox list when sorting by case
+  - Fixed left frame mailbox list when sorting by case.
 
 Version 1.5.0
 --------------------
