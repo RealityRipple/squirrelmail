@@ -167,6 +167,8 @@ Version 1.5.1 -- CVS
   - Removed extra ; in SquirrelMail added Received header per RFC 822. Fixes #1088548.
   - Add IMAP server type "hmailserver" to make search work with hMailServer.
     Fixes #1085377.
+  - Reuploaded newmail plugin sounds. Fixes files uploaded to cvs without binary 
+    option.
 
 Version 1.5.0
 --------------------
