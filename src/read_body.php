@@ -513,7 +513,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
          printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
    echo $s;
    do_hook("read_body_header_right");
-   echo '</small></td></tr></table>'."\n";
+   echo '</small></td></tr>';
+   echo '</table>'."\n";
 }
 
 
@@ -613,12 +614,14 @@ $messagebody = '';
 $ent_ar = $message->findDisplayEntity(array());
 for ($i = 0; $i < count($ent_ar); $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
+   $messagebody .= '<hr noshade size=1>';
 }
 
 displayPageHeader($color, $mailbox);
 do_hook('read_body_top');
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
+do_hook("read_body_header");   
 formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
 echo '<table width="100%" cellpadding="3" cellspacing="3" align="center"'.
       ' border="0" bgcolor="'.$color[4].'">';
