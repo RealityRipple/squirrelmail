@@ -136,8 +136,9 @@ function walkTreeInPostOrderCreatingFoldersUnderTrash($index, $imap_stream, $tre
     global $trash_folder, $delimiter;
 
     $position = strrpos($topFolderName, $delimiter);
-    if ($position !== FALSE)
+    if ($position !== FALSE) {
         $position++;
+    }
     $subFolderName = substr($tree[$index]['value'], $position);
 
     if ($tree[$index]['doIHaveChildren']) {
