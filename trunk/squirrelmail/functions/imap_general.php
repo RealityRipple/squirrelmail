@@ -449,7 +449,7 @@ function parseAddress($address, $max=0, $addr_ar = array(), $group = '', $host='
         switch ($char) {
             case '=':
                 if (preg_match('/^(=\?([^?]*)\?(Q|B)\?([^?]*)\?=)(.*)/Ui',substr($address,$pos),$reg)) {
-                    $personal = $reg[1];
+                    $personal .= $reg[1];
                     $pos += strlen($personal);
                 }
                 ++$pos;

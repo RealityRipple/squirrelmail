@@ -34,6 +34,7 @@ function mime_structure ($bodystructure, $flags=array()) {
     if (!is_object($msg)) {
         include_once(SM_PATH . 'functions/display_messages.php');
         global $color, $mailbox;
+        /* removed urldecode because $_GET is auto urldecoded ??? */
         displayPageHeader( $color, $mailbox );
         echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n\n" .
          '<CENTER>';
@@ -548,7 +549,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
     if (is_array($string)) {
         $string = implode("\n", $string);
     }
-
+    
     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         $string = $languages[$squirrelmail_language]['XTRA_CODE']('decodeheader', $string);
@@ -562,7 +563,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         $aString[$i] = '';
         while (preg_match('/^(.*)=\?([^?]*)\?(Q|B)\?([^?]*)\?=(.*)$/Ui',$chunk,$res)) {
             //$aString[$i] .= $res[1];
-	    //echo "match ". $res[5] . "<br>";
+	    //echo "$chunk match ". $res[5] . "<br>";
             $encoding = ucfirst($res[3]);
             switch ($encoding)
             {
@@ -581,7 +582,7 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
                     $replace = charset_decode($res[2], $replace);
                 } else {
                     if ($htmlsave) {
-                        $replace = htmlspecialchars($res[4]);
+                        $replace = htmlspecialchars($replace);
                     }
                 }
                 $aString[$i] .= $replace;
@@ -599,11 +600,8 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true) {
         }
         ++$i;
     }
-    if ($htmlsave) {
-	return implode('&nbsp;',$aString);
-    } else {
-	return implode (' ',$aString);
-    }
+    return implode (' ',$aString);
+
 }
 
 /*
@@ -618,117 +616,115 @@ function encodeHeader ($string) {
         function_exists($languages[$squirrelmail_language]['XTRA_CODE'])) {
         return  $languages[$squirrelmail_language]['XTRA_CODE']('encodeheader', $string);
     }
+    if (strtolower($default_charset) == 'iso-8859-1') {
+        $string = str_replace("\240",' ',$string);
+    }
 
     // Encode only if the string contains 8-bit characters or =?
     $j = strlen($string);
-    $l = strstr($string, '=?');         // Must be encoded ?
     $max_l = 75 - strlen($default_charset) - 7;
     $aRet = array();
     $ret = '';
-    $enc = false;
+    $iEncStart = $enc_init = false;
     $cur_l = $iOffset = 0;
     for($i = 0; $i < $j; ++$i) {
-        switch($string{$i}) {
-            case '=':
-                $cur_l+=3;
-                if ($cur_l > $max_l) {
-		    if ($enc) {
-                	$aRet[] = "=?$default_charset?Q?$ret?=";
-			$enc = false;
-		    } else {
-			$aRet[] = substr($string,$iOffset,$i-$iOffset+1);
-		    }
-		    $iOffset = $i+1;
-            	    $cur_l = 3;
-            	    $ret = '';
-		}
-                $ret .= '=3D';
-                break;
-            case '?':
-                $cur_l+=3;
-                if ($cur_l > $max_l) {
-		    if ($enc) {
-                	$aRet[] = "=?$default_charset?Q?$ret?=";
-			$enc = false;
-		    } else {
-			$aRet[] = substr($string,$iOffset,$i-$iOffset+1);
-		    }
-		    $iOffset = $i+1;
-            	    $cur_l = 3;
-            	    $ret = '';
-		}
-                $ret .= '=3F';
-                break;
-            case '_':
-                $cur_l+=3;
-                if ($cur_l > $max_l) {
-		    if ($enc) {
-                	$aRet[] = "=?$default_charset?Q?$ret?=";
-			$enc = false;
-		    } else {
-			$aRet[] = substr($string,$iOffset,$i-$iOffset+1);
-		    }
-		    $iOffset = $i+1;
-            	    $cur_l = 3;
-                    $ret = '';
-		}
-                $ret .= '=5F';
-                break;
-            case ' ':
+        switch($string{$i})
+        {
+        case '=':
+        case '<':
+        case '>':
+        case ',':
+        case '?':
+        case '_':
+            if ($iEncStart === false) {
+                $iEncStart = $i;
+            }
+            $cur_l+=3;
+            if ($cur_l > ($max_l-2)) {
+                $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);
+                $aRet[] = "=?$default_charset?Q?$ret?=";
+                $iOffset = $i;
+                $cur_l = 0;
+                $ret = '';
+                $iEncStart = false;
+            } else {
+                $ret .= sprintf("=%02X",ord($string{$i}));
+            }
+            break;
+        case '(':
+        case ')':
+            if ($iEncStart !== false) {
+                $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);                        
+                $aRet[] = "=?$default_charset?Q?$ret?=";
+                $iOffset = $i;
+                $cur_l = 0;
+                $ret = '';
+                $iEncStart = false;
+            }
+            break;
+        case ' ':
+            if ($iEncStart !== false) {
                 $cur_l++;
                 if ($cur_l > $max_l) {
-		    if ($enc) {
-                	$aRet[] = "=?$default_charset?Q?$ret?=";
-			$enc = false;
-		    } else {
-			$aRet[] = substr($string,$iOffset,$i-$iOffset+1);
-		    }
-		    $iOffset = $i+1;
-            	    $cur_l = 1;
-            	    $ret = '';
-                }                
-                $ret .= '_';
-                break;
-            default:
-                $k = ord($string{$i});
-                if ($k > 126) {
-		    $enc = true;
-                    $s = sprintf("=%02X", $k);
-                    $cur_l += strlen($s);
-                    if ($cur_l > $max_l) {
+                    $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);                        
+                    $aRet[] = "=?$default_charset?Q?$ret?=";
+                    $iOffset = $i;
+                    $cur_l = 0;
+                    $ret = '';
+                    $iEncStart = false;
+                } else {                
+                    $ret .= '_';
+                }
+            }
+            break;
+        default:
+            $k = ord($string{$i});
+            if ($k > 126) {
+                if ($iEncStart === false) {
+                    $iEncStart = $i;
+                }
+                $cur_l += 3;
+                if ($cur_l > ($max_l-2)) {
+                    if ($iEncStart !== false) {
+                        $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);                        
                         $aRet[] = "=?$default_charset?Q?$ret?=";
-                        $cur_l = strlen($s);
-                        $ret = '';
-			$l = false;
-			$enc = false;
-			$iOffset = $i+1;
-                    }                     
-                    $ret .= $s;
-                    $l = TRUE;
-                } else {
+                    } else {
+                        $aRet[] = substr($string,$iOffset,$i-$iOffset);
+                    }
+                    $cur_l = 3;
+                    $ret = '';
+                    $iOffset = $i;
+                }
+                $enc_init = true;                    
+                $ret .= sprintf("=%02X", $k);
+            } else {
+                if ($iEncStart !== false) {
                     $cur_l++;
                     if ($cur_l > $max_l) {
-			if ($enc) {
-                    	   $aRet[] = "=?$default_charset?Q?$ret?=";
-			   $enc = false;
-			} else {
-			   $aRet[] = substr($ret,$iOffset,$i-$iOffset+1);
-			}
-			$iOffset = $i+1;
-			$l = false;
-                        $cur_l = 1;
+                        $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);  
+                        $aRet[] = "=?$default_charset?Q?$ret?=";
+                        $iEncStart = false;
+                        $iOffset = $i;
+                        $cur_l = 0;
                         $ret = '';
-                    }                     
-                    $ret .= $string{$i};
+                    } else {                     
+                        $ret .= $string{$i};
+                    }
                 }
-                break;
+            }
+            break;
         }
     }
 
-    if ($enc) {
-        $string = implode('',$aRet) . "=?$default_charset?Q?$ret?=";
+    if ($enc_init) {
+        if ($iEncStart !== false) {
+            $aRet[] = substr($string,$iOffset,$iEncStart-$iOffset);
+            $aRet[] = "=?$default_charset?Q?$ret?=";
+        } else {
+            $aRet[] = substr($string,$iOffset);
+        }
+        $string = implode('',$aRet);
     }
-
     return $string;
 }
 
