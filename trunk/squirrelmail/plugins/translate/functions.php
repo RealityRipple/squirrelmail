@@ -468,13 +468,13 @@ function translate_form_babelfish($message) {
     <input type="hidden" name="trtext" value="<?php echo $message; ?>" />
     <select name="lp"><?php
         echo translate_lang_opt('zh_CN',  '',     'zh_en',
-                            sprintf( _("%s to %s"),_("Chinese Simplified"),_("English"))) .
+                            sprintf( _("%s to %s"),_("Chinese, Simplified"),_("English"))) .
          translate_lang_opt('zh_TW',  '',     'zt_en',
-                            sprintf( _("%s to %s"),_("Chinese Traditional"),_("English"))) .
+                            sprintf( _("%s to %s"),_("Chinese, Traditional"),_("English"))) .
          translate_lang_opt('en_US', 'zh_CN', 'en_zh',
-                            sprintf( _("%s to %s"),_("English"),_("Chinese Simplified"))) .
+                            sprintf( _("%s to %s"),_("English"),_("Chinese, Simplified"))) .
          translate_lang_opt('en_US', 'zh_TW', 'en_zt',
-                            sprintf( _("%s to %s"),_("English"),_("Chinese Traditional"))) .
+                            sprintf( _("%s to %s"),_("English"),_("Chinese, Traditional"))) .
          translate_lang_opt('en_US', 'nl_NL',  'en_nl',
                             sprintf( _("%s to %s"),_("English"),_("Dutch"))) .
          translate_lang_opt('en_US', 'fr_FR',  'en_fr',
@@ -706,9 +706,9 @@ function translate_form_dictionary($message) {
          '<input type="hidden" name="ts" value="'.$time.'" />'.
          '<select name="lp">'.
          translate_lang_opt('en_US', 'zh_CN', 'en_zh',
-                            sprintf( _("%s to %s"),_("English"),_("Simplified Chinese"))) .
+                            sprintf( _("%s to %s"),_("English"),_("Chinese, Simplified"))) .
          translate_lang_opt('en_US', 'zh_TW', 'en_zt',
-                            sprintf( _("%s to %s"),_("English"),_("Traditional Chinese"))) .
+                            sprintf( _("%s to %s"),_("English"),_("Chinese, Traditional"))) .
          translate_lang_opt('en_US', 'nl_NL', 'en_nl',
                             sprintf( _("%s to %s"),_("English"),_("Dutch"))) .
          translate_lang_opt('en_US', 'fr_FR', 'en_fr',
@@ -730,9 +730,9 @@ function translate_form_dictionary($message) {
          translate_lang_opt('en_US', 'es_ES', 'en_es',
                             sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
          translate_lang_opt('zh_CN',  '',     'zh_en',
-                            sprintf( _("%s to %s"),_("Simplified Chinese"),_("English"))) .
+                            sprintf( _("%s to %s"),_("Chinese, Simplified"),_("English"))) .
          translate_lang_opt('zh_TW',  '',     'zt_en',
-                            sprintf( _("%s to %s"),_("Traditional Chinese"),_("English"))) .
+                            sprintf( _("%s to %s"),_("Chinese, Traditional"),_("English"))) .
          translate_lang_opt('nl_NL',  '',     'nl_en',
                             sprintf( _("%s to %s"),_("Dutch"),_("English"))) .
          translate_lang_opt('fr_FR',  '',     'fr_en',
