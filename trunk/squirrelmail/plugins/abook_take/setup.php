@@ -1,5 +1,7 @@
 <?php
 
+   require_once('../functions/url_parser.php');
+
 
 /* Address Take -- steals addresses from incoming email messages.  Searches
    the To, Cc, From and Reply-To headers, also searches the body of the
@@ -18,45 +20,36 @@ function squirrelmail_plugin_init_abook_take()
 
 function valid_email ($email, $verify)
 {
-  global $abook_take_verify;
+  global $abook_take_verify, $Email_RegExp_Match;
   
-  if (eregi("^[0-9a-z]([-_.]?[0-9a-z])*@[0-9a-z]([-.]?[0-9a-z])*\\.[a-wyz][a-z](g|l|m|pa|t|u|v)?$", 
-    $email, $check)) 
-  {
-    if (! $verify)
-    {
-      return TRUE;
-    }
+  if (! eregi('^' . $Email_RegExp_Match . '$', $email))
+    return false;
     
-    if (checkdnsrr(substr(strstr($email, '@'), 1), 'ANY'))
-    {
-      return TRUE;
-    }
-  }
-  return FALSE;
+  if (! $verify)
+    return true;
+
+  if (! checkdnsrr(substr(strstr($email, '@'), 1), 'ANY'))
+    return false;
+
+  return true;
 }
 
 
 function abook_take_read_string($str)
 {
-  global $abook_found_email;
+  global $abook_found_email, $Email_RegExp_Match;
   
-  $str = eregi_replace('[^-0-9a-z_.@]', ' ', $str);
-  $str = eregi_replace('[[:space:]]+', ' ', $str);
-  $chances = split(' ', $str);
-  $i = 0;
-  while ($i < count($chances))
+
+  while (eregi('(' . $Email_RegExp_Match . ')', $str, $hits))
   {
-    if (valid_email($chances[$i], 0) && 
-        ! isset($abook_found_email[$chances[$i]]))
-    {
-      //echo '<option value="' . $chances[$i] . '">' . $chances[$i] . 
-      //  '</option>' . "\n";
-      echo "<input type=\"hidden\" name=\"email[]\" value=\"$chances[$i]\">\n";
-      $abook_found_email[$chances[$i]] = 1;
-    }
-    $i ++;
+      $str = substr(strstr($str, $hits[0]), strlen($hits[0]));
+      if (! isset($abook_found_email[$hits[0]]))
+      {
+          echo "<input type=\"hidden\" name=\"email[]\" value=\"$hits[0]\">\n";
+	  $abook_found_email[$hits[0]] = 1;
+      }
   }
+  return;
 }
 
 
