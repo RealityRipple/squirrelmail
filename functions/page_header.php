@@ -74,6 +74,9 @@ function makeInternalLink($path, $text, $target='') {
     if ($target != '') {
         $target = " target=\"$target\"";
     }
+    $hooktext = do_hook_function('internal_link',$text);
+    if ($hooktext != '')
+        $text = $hooktext;
     return '<a href="'.$base_uri.$path.'"'.$target.'>'.$text.'</a>';
 }
 

@@ -69,7 +69,7 @@ function attachSelectedMessages($msg, $imapConnection) {
             $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage, $uid_support);
             if ($response == 'OK') {
             $k = $i + $start_index;
-        $subject = $msgs[$k]['SUBJECT'];
+            $subject = $msgs[$k]['SUBJECT'];
 
             array_shift($body_a);
             $body = implode('', $body_a);
@@ -177,14 +177,17 @@ if(isset($expungeButton)) {
     if (count($id)) {
         $cnt = count($id);
         if (!isset($attache)) {
+            $button_action = concat_hook_function('move_messages_button_action');
             if (isset($markRead)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',true,true);
             } else if (isset($markUnread)) {
                 sqimap_toggle_flag($imapConnection, $id, '\\Seen',false,true);
             } else  {
-                sqimap_msgs_list_delete($imapConnection, $mailbox, $id);
-                if ($auto_expunge) {
-                    $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+                if (!$button_action) {
+                    sqimap_msgs_list_delete($imapConnection, $mailbox, $id);
+                    if ($auto_expunge) {
+                        $cnt = sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+                    }
                 }
             }
         }

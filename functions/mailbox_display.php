@@ -295,8 +295,7 @@ function getServerMessages($imapConnection, $start_msg, $show_num, $num_msgs, $i
             $end_loop = $num_msgs - $start_msg + 1;
         } else {
             $end_loop = $show_num;
-        }
-        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
+        }        return fillMessageArray($imapConnection,$id,$end_loop,$show_num);
     } else {
         return false;
     }
@@ -346,8 +345,7 @@ function getSelfSortMessages($imapConnection, $start_msg, $show_num,
             } else {
                 $end_loop = $show_num;
             }
-        }
-        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
+        }        $msgs = fillMessageArray($imapConnection,$id,$end_loop, $show_num);
     }
     return $msgs;
 }
@@ -420,8 +418,7 @@ function showMessagesForMailbox($imapConnection, $mailbox, $num_msgs,
 	    sqgetGlobalVar('msort', $msort, SQ_SESSION);
 	} else {
     	    sqsession_unregister('msort');
-    	    sqsession_unregister('msgs');
-	}
+    	    sqsession_unregister('msgs');	}
         switch ($mode) {
             case 'thread':
                 $id   = get_thread_sort($imapConnection);
@@ -720,7 +717,7 @@ function mail_message_listing_beginning ($imapConnection,
         echo getButton('SUBMIT', 'expungeButton',_("Expunge"))
              .'&nbsp;' . _("mailbox") . "\n";
     }
-
+    do_hook('mailbox_display_buttons');
     echo getButton('SUBMIT', 'markRead',_("Read"));
     echo getButton('SUBMIT', 'markUnread',_("Unread"));
     echo getButton('SUBMIT', 'delete',_("Delete")) ."&nbsp;\n";
