@@ -63,91 +63,98 @@
       $msg[0]["CHARSET"] = $charset;
       $msg[0]["FILENAME"] = $filename;
 
-      echo "$type0 / $type1<BR>";
       if ($type0 == "text") {
          // error correcting if they didn't follow RFC standards
          if (trim($type1) == "")
             $type1 = "plain";
 
          if ($type1 == "plain") {
-            $msg[0]["PRIORITY"] = 10;
             for ($p = 0;$p < count($body);$p++) {
                $msg[0]["BODY"][$p] = parsePlainTextMessage($body[$p]);
             }
-         } else if ($type1 == "html") {
-            $msg[0]["PRIORITY"] = 20;
-            $msg[0]["BODY"] = $body;
          } else {
-            $msg[0]["PRIORITY"] = 1;
-            $msg[0]["BODY"][0] = "This entity is of an unknown format.  Doing my best to display anyway...<BR><BR>";
-            for ($p = 1;$p < count($body);$p++) {
-               $q = $p - 1;
-               $msg[0]["BODY"][$p] = $body[$q];
-            }
+            $msg[0]["BODY"] = $body;
          }
       } else {
-         $msg[0]["PRIORITY"] == 5;
          $msg[0]["BODY"][0] = $body;
       }
 
       return $msg;
    }
 
+   function containsType($message, $type0, $type1, &$ent_num) {
+      $type0 = strtolower($type0);
+      $type1 = strtolower($type1);
+      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
+         /** Check only on type0 **/
+         if ( $type1 == "any_type" ) {
+            if ( ($message["ENTITIES"][$i]["TYPE0"] == $type0) ) {
+               $ent_num = $i;
+               return true;
+            }
+
+         /** Check on type0 and type1 **/
+         } else {
+            if ( ($message["ENTITIES"][$i]["TYPE0"] == $type0) && ($message["ENTITIES"][$i]["TYPE1"] == $type1) ) {
+               $ent_num = $i;
+               return true;
+            }
+         }
+      }
+      return false;
+   }
+
    function formatBody($message) {
-      for ($i=0; $i < count($message["ENTITIES"]); $i++) {
-         if ($message["ENTITIES"][$i]["TYPE0"] == "text") {
-            if ($message["ENTITIES"][$i]["PRIORITY"] > $priority)
-               $priority = $message["ENTITIES"][$i]["PRIORITY"];
+      if (containsType($message, "text", "html", $ent_num)) {
+         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+      } else if (containsType($message, "text", "plain", $ent_num)) {
+         $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+      } // add other primary displaying message types here
+
+      else {
+         // find any type that's displayable
+         if (containsType($message, "text", "any_type", $ent_num)) {
+            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
+         } else if (containsType($message, "message", "any_type", $ent_num)) {
+            $body = decodeBody($message["ENTITIES"][$ent_num]["BODY"], $message["ENTITIES"][$ent_num]["ENCODING"]);
          }
       }
 
-      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
-         switch ($priority) {
-            /** HTML **/
-            case 20: for ($i=0; $i < count($message["ENTITIES"]); $i++) {
-                        if (($message["ENTITIES"][$i]["TYPE0"] == "text") && ($message["ENTITIES"][$i]["TYPE1"] == "html")) {
-                           $body = decodeBody($message["ENTITIES"][$i]["BODY"], $message["ENTITIES"][$i]["ENCODING"]);
-                        }
-                     }
-                     break;
-            /** PLAIN **/
-            case 10: for ($i=0; $i < count($message["ENTITIES"]); $i++) {
-                        if (($message["ENTITIES"][$i]["TYPE0"] == "text") && ($message["ENTITIES"][$i]["TYPE1"] == "plain")) {
-                           $body = decodeBody($message["ENTITIES"][$i]["BODY"], $message["ENTITIES"][$i]["ENCODING"]);
-                        }
-                     }
-                     break;
-            /** UNKNOWN...SEND WHAT WE GOT **/
-            case 1:  for ($i=0; $i < count($message["ENTITIES"]); $i++) {
-                        if (($message["ENTITIES"][$i]["TYPE0"] == "text")) {
-                           $pos = count($body);
-                           for ($b=0; $b < count($message["ENTITIES"][$i]["BODY"]); $b++) {
-                              $pos = $pos + $b;
-                              $body[$pos] = $message["ENTITIES"][$i]["BODY"][$b];
-                           }
-                        }
-                     }
-                     break;
-         }
-      }
 
-      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
+      /** Display the ATTACHMENTS: message if there's more than one part **/
+      if (count($message["ENTITIES"]) > 1) {
          $pos = count($body);
-         if ($message["ENTITIES"][$i]["TYPE0"] != "text") {
-            $body[$pos] = "<BR><TT><U><B>ATTACHMENTS:</B></U></TT><BR>";
-            $i = count($message["ENTITIES"]);
-         }
-      }
+         $body[$pos] .= "<BR><TT><U><B>ATTACHMENTS:</B></U></TT><BR>";
+         $num = 0;
 
-      for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
-         $pos = count($body);
-         if (($message["ENTITIES"][$i]["TYPE0"] == "image") || ($message["ENTITIES"][$i]["TYPE0"] == "application")){
+         for ($i = 0; $i < count($message["ENTITIES"]); $i++) {
+            /** If we've displayed this entity, go to the next one **/
+            if ($ent_num == $i)
+               continue;
+
+            $type0 = strtolower($message["ENTITIES"][$i]["TYPE0"]);
+            $type1 = strtolower($message["ENTITIES"][$i]["TYPE1"]);
+
+            $num++;
             $filename = $message["ENTITIES"][$i]["FILENAME"];
-            $body[$pos] = "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../data/$filename\">" . $filename . "</A></TT><BR>";
+            if (trim($filename) == "") {
+               $filename = "UNKNOWN_FORMAT_" . time() . $i;
+               $display_filename = "Attachment $i";
+            } else {
+               $display_filename = $filename;
+            }
 
+            $body[$pos] .= "<TT>&nbsp;&nbsp;&nbsp;<A HREF=\"../data/$filename\">" . $display_filename . "</A>&nbsp;&nbsp;<SMALL>(TYPE: $type0/$type1)</SMALL></TT><BR>";
             $file = fopen("../data/$filename", "w");
-            $image = base64_decode($message["ENTITIES"][$i]["BODY"][0]);
-            fwrite($file, $image);
+
+            /** Determine what encoding type is used **/
+            if ($message["ENTITIES"][$i]["ENCODING"] == "base64") {
+               $thefile = base64_decode($message["ENTITIES"][$i]["BODY"][0]);
+            } else {
+               $thefile = $message["ENTITIES"][$i]["BODY"][0];
+            }
+
+            fwrite($file, $thefile);
             fclose($file);
          }
       }
