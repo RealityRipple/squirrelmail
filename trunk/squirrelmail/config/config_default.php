@@ -17,10 +17,10 @@ global $org_logo;
 $org_logo = '../images/sm_logo.png';
 
 /*  The width of the logo (0 for default) */
-$org_logo_width = 0;
+$org_logo_width = 308;
 
 /*  The height of the logo (0 for default) */
-$org_logo_height = 1;
+$org_logo_height = 111;
 
 
 /* Organization's name */
