@@ -604,12 +604,25 @@ function find_ent_id( $id, $message ) {
 	if ( $message->entities[$i]->header->type0 == 'multipart')  { 	 
     	    $ret = find_ent_id( $id, $message->entities[$i] );
         } else {
-            if ( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 )
-                $ret = $message->entities[$i]->entity_id;
+            if ( strcasecmp( $message->entities[$i]->header->id, $id ) == 0 ) {
+	        if (sq_check_save_extension($message->entities[$i])) {
+            	    $ret = $message->entities[$i]->entity_id;
+		} else {
+		    $ret = '';
+		}
+	    }
         }
     }
     return( $ret );
 }
+
+function sq_check_save_extension($message) {
+    $filename = $message->getFilename();
+    $ext = substr($filename, strrpos($filename,'.')+1);
+    $save_extensions = array('jpg','jpeg','gif','png','bmp');
+    return (in_array($ext, $save_extensions));
+}
+
 
 /**
  ** HTMLFILTER ROUTINES
@@ -1221,9 +1234,15 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     $quotchar = substr($cidurl, 0, 1);
     $cidurl = str_replace($quotchar, "", $cidurl);
     $cidurl = substr(trim($cidurl), 4);
-    $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
-        "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
-        "&amp;ent_id=" . find_ent_id($cidurl, $message) . $quotchar;
+    $linkurl = find_ent_id($cidurl, $message);
+    /* in case of non-save cid links $httpurl should be replaced by a sort of
+       unsave link image */
+    $httpurl = '';
+    if ($linkurl) {
+        $httpurl = $quotchar . "../src/download.php?absolute_dl=true&amp;" .
+                   "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
+                   "&amp;ent_id=" . $linkurl . $quotchar;
+    }
     return $httpurl;
 }
 
