@@ -770,33 +770,40 @@ function decodeBody($body, $encoding) {
  * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
  */
 function decodeHeader ($string, $utfencode=true) {
-  if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
+
+if ( is_array( $string ) ) {
+    $string = implode("\n", $string );
+}
+
+if (eregi('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
             $string, $res)) {
-     if (ucfirst($res[2]) == 'B') {
+    if (ucfirst($res[2]) == 'B') {
         $replace = base64_decode($res[3]);
-     } else {
+    } else {
         $replace = str_replace('_', ' ', $res[3]);
-    // Convert lowercase Quoted Printable to uppercase for
-    // quoted_printable_decode to understand it.
-    while (ereg("(=(([0-9][abcdef])|([abcdef][0-9])|([abcdef][abcdef])))", $replace, $res)) {
-       $replace = str_replace($res[1], strtoupper($res[1]), $replace);
-    }
+        // Convert lowercase Quoted Printable to uppercase for
+        // quoted_printable_decode to understand it.
+        while (ereg("(=(([0-9][abcdef])|([abcdef][0-9])|([abcdef][abcdef])))",
+               $replace, $res)) {
+            $replace = str_replace($res[1], strtoupper($res[1]), $replace);
+        }
         $replace = quoted_printable_decode($replace);
-     }
-     /* Only encode into entities by default. Some places
+    }
+    /* Only encode into entities by default. Some places
         don't need the encoding, like the compose form. */
-     if ($utfencode){
-         $replace = charset_decode ($res[1], $replace);
-     }
+    if ($utfencode){
+        $replace = charset_decode ($res[1], $replace);
+    }
 
-     // Remove the name of the character set.
-     $string = eregi_replace ('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
-         $replace, $string);
+    // Remove the name of the character set.
+    $string = eregi_replace ('=\\?([^?]+)\\?(q|b)\\?([^?]+)\\?=',
+              $replace, $string);
 
-     // In case there should be more encoding in the string: recurse
-     return (decodeHeader($string));
-  } else
-     return ($string);
+    // In case there should be more encoding in the string: recurse
+    $string = decodeHeader($string);
+}
+
+return ($string);
 }
 
 /*
