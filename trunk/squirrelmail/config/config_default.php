@@ -20,7 +20,7 @@
 
 //  Organization's logo picture (blank if none)
     global $org_logo;
-    $org_logo = "../images/sm_logo.jpg";
+    $org_logo = "../images/sm_logo.png";
 
 //  Organization's name
     global $org_name;

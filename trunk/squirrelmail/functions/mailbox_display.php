@@ -581,13 +581,13 @@ function mail_message_listing_beginning
 function ShowSortButton($sort, $mailbox, $Up, $Down) {
     /* Figure out which image we want to use. */
     if ($sort != $Up && $sort != $Down) {
-        $img = 'sort_none.gif';
+        $img = 'sort_none.png';
         $which = $Up;
     } elseif ($sort == $Up) {
-        $img = 'up_pointer.gif';
+        $img = 'up_pointer.png';
         $which = $Down;
     } else {
-        $img = 'down_pointer.gif';
+        $img = 'down_pointer.png';
         $which = 6;
     }
 
