@@ -347,15 +347,15 @@ function formatRecipientString($recipients, $item ) {
         foreach($recipients as $r) {
             $add = decodeHeader($r->getAddress(true));
             if ($string) {
-                $string .= '<BR>' . $add;
+                $string .= '<br />' . $add;
             } else {
                 $string = $add;
                 if ($cnt > 1) {
-                    $string .= '&nbsp;(<A HREF="'.$url;
+                    $string .= '&nbsp;(<a href="'.$url;
                     if ($show) {
-                       $string .= '">'._("less").'</A>)';
+                       $string .= '">'._("less").'</a>)';
                     } else {
-                       $string .= '">'._("more").'</A>)';
+                       $string .= '">'._("more").'</a>)';
                        break;
                     }
                 }
@@ -425,26 +425,26 @@ function formatEnvheader($aMailbox, $passed_id, $passed_ent_id, $message,
         }
     }
 
-    $s  = '<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="2" BORDER="0"';
-    $s .= ' ALIGN="center" BGCOLOR="'.$color[0].'">';
+    $s  = '<table width="100%" cellpadding="0" cellspacing="2" border="0"';
+    $s .= ' align="center" bgcolor="'.$color[0].'">';
     foreach ($env as $key => $val) {
         if ($val) {
-            $s .= '<TR>';
-            $s .= html_tag('TD', '<B>' . $key . ':&nbsp;&nbsp;</B>', 'RIGHT', '', 'VALIGN="TOP" WIDTH="20%"') . "\n";
-            $s .= html_tag('TD', $val, 'left', '', 'VALIGN="TOP" WIDTH="80%"') . "\n";
-            $s .= '</TR>';
+            $s .= '<tr>';
+            $s .= html_tag('td', '<b>' . $key . ':&nbsp;&nbsp;</b>', 'right', '', 'valign="top" width="20%"') . "\n";
+            $s .= html_tag('td', $val, 'left', '', 'valign="top" width="80%"') . "\n";
+            $s .= '</tr>';
         }
     }
-    echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
-         ' CELLSPACING="0" BORDER="0" ALIGN="center">'."\n";
-    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
-          $color[4].'"></TD></TR><TR><TD align=center>'."\n";
+    echo '<table bgcolor="'.$color[9].'" width="100%" cellpadding="1"'.
+         ' cellspacing="0" border="0" align="center">'."\n";
+    echo '<tr><td height="5" colspan="2" bgcolor="'.
+          $color[4].'"></td></tr><tr><td align="center">'."\n";
     echo $s;
     do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
-    echo '</TABLE>';
-    echo '</TD></TR><TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR>'."\n";
-    echo '</TABLE>';
+    echo '</table>';
+    echo '</td></tr><tr><td height="5" colspan="2" bgcolor="'.$color[4].'"></td></tr>'."\n";
+    echo '</table>';
 }
 
 /**
@@ -715,9 +715,9 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
-    $s  = "<TR>\n" .
-          html_tag( 'td', '', 'right', '', 'VALIGN="MIDDLE" WIDTH="20%"' ) . '<B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
-          html_tag( 'td', '', 'left', '', 'VALIGN="MIDDLE" WIDTH="80%"' ) . '<SMALL>' .
+    $s  = "<tr>\n" .
+          html_tag( 'td', '', 'right', '', 'valign="middle" width="20%"' ) . '<b>' . _("Options") . ":&nbsp;&nbsp;</b></td>\n" .
+          html_tag( 'td', '', 'left', '', 'valign="middle" width="80%"' ) . '<small>' .
           '<a href="'.$url.'">'._("View Full Header").'</a>';
 
     /* Output the printer friendly link if we are in subtle mode. */
@@ -725,8 +725,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
           printer_friendly_link($mailbox, $passed_id, $passed_ent_id);
     echo $s;
     do_hook("read_body_header_right");
-    $s = "</SMALL></TD>\n" .
-         "</TR>\n";
+    $s = "</small></td>\n" .
+         "</tr>\n";
     echo $s;
 
 }
@@ -879,7 +879,7 @@ $cnt = count($ent_ar);
 for ($i = 0; $i < $cnt; $i++) {
    $messagebody .= formatBody($imapConnection, $message, $color, $wrap_at, $ent_ar[$i], $passed_id, $mailbox);
    if ($i != $cnt-1) {
-       $messagebody .= '<hr noshade size=1>';
+       $messagebody .= '<hr noshade size=1 />';
    }
 }
 
@@ -894,7 +894,7 @@ echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center"
 echo '          <tr bgcolor="'.$color[4].'"><td>';
 // echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
 echo html_tag( 'table' ,'' , 'left', '', 'cellpadding="1" cellspacing="5" border="0"' );
-echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
+echo '              <tr>' . html_tag( 'td', '<br />'. $messagebody."\n", 'left')
                         . '</tr>';
 echo '            </table>';
 echo '          </td></tr>';
@@ -902,8 +902,8 @@ echo '        </table></td></tr>';
 echo '    </table>';
 echo '  </td></tr>';
 
-echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
-          $color[4].'"></TD></TR>'."\n";
+echo '<tr><td height="5" colspan="2" bgcolor="'.
+          $color[4].'"></td></tr>'."\n";
 
 $attachmentsdisplay = formatAttachments($message,$ent_ar,$mailbox, $passed_id);
 if ($attachmentsdisplay) {
@@ -920,8 +920,8 @@ if ($attachmentsdisplay) {
    echo '          </td></tr></table>';
    echo '       </td></tr></table>';
    echo '  </td></tr>';
-   echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
-          $color[4].'"></TD></TR>';
+   echo '<tr><td height="5" colspan="2" bgcolor="'.
+          $color[4].'"></td></tr>';
 }
 echo '</table>';
 
@@ -938,10 +938,10 @@ if (($attachment_common_show_images) &&
 
         echo html_tag( 'table', "\n" .
                     html_tag( 'tr', "\n" .
-                        html_tag( 'td', '<img src="' . $imgurl . '">' ."\n", 'left'
+                        html_tag( 'td', '<img src="' . $imgurl . '" />' ."\n", 'left'
                         )
                     ) ,
-        'center', '', 'cellspacing=0 border="0" cellpadding="2"');
+        'center', '', 'cellspacing="0" border="0" cellpadding="2"');
     }
 }
 

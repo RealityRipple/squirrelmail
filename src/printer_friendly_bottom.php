@@ -144,7 +144,7 @@ echo '<body text="#000000" bgcolor="#FFFFFF" link="#000000" vlink="#000000" alin
      }
      /* body */
      echo html_tag( 'tr',
-         html_tag( 'td', '<hr noshade size="1" /><br>' . "\n" . $body, 'left', '', 'colspan="2"' )
+         html_tag( 'td', '<hr noshade size="1" /><br />' . "\n" . $body, 'left', '', 'colspan="2"' )
      ) . "\n" .
 
      '</table>' . "\n" .

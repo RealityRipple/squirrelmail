@@ -87,19 +87,19 @@ function view_header($header, $mailbox, $color) {
 
     displayPageHeader($color, $mailbox);
 
-    echo '<BR>' .
-         '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0"'.
-         ' ALIGN="CENTER">' . "\n" .
-         "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>".
-         _("Viewing Full Header") . '</B> - '.
+    echo '<br />' .
+         '<table width="100%" cellpadding="2" cellspacing="0" border="0" '.
+            'align="center">' . "\n" .
+         '<tr><td bgcolor="'.$color[9].'" width="100%" align="center"><b>'.
+         _("Viewing Full Header") . '</b> - '.
          '<a href="'; 
     echo_template_var($ret_addr);
     echo '">' ._("View message") . "</a></b></td></tr></table>\n";
 
     echo_template_var($header, 
-         array(
-           "<table width='99%' cellpadding='2' cellspacing='0' border='0'".
-             "align=center>\n".'<tr><td>',
+        array(
+            '<table width="99%" cellpadding="2" cellspacing="0" border="0" '.
+                "align=center>\n".'<tr><td>',
            '<nobr><tt><b>',
            '</b>',
            '</tt></nobr>',

@@ -41,7 +41,7 @@ function mime_structure ($bodystructure, $flags=array()) {
         /* removed urldecode because $_GET is auto urldecoded ??? */
         displayPageHeader( $color, $mailbox );
         $errormessage  = _("SquirrelMail could not decode the bodystructure of the message");
-        $errormessage .= '<BR>'._("the provided bodystructure by your imap-server").':<BR><BR>';
+        $errormessage .= '<br />'._("the provided bodystructure by your imap-server").':<br /><br />';
         $errormessage .= '<pre>' . htmlspecialchars($read) . '</pre>';
         plain_error_message( $errormessage, $color );
         echo '</body></html>';
@@ -137,16 +137,16 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
                 '&amp;message='  . urlencode($message)  .
                 '&amp;topline='  . urlencode($topline);
 
-        echo   '<tt><br>' .
+        echo   '<tt><br />' .
                '<table width="80%"><tr>' .
-               '<tr><td colspan=2>' .
+               '<tr><td colspan="2">' .
                _("Body retrieval error. The reason for this is most probably that the message is malformed.") .
                '</td></tr>' .
                '<tr><td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
                '<tr><td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
                '<tr><td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
                '<tr><td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
-               "</table><BR></tt></font><hr>";
+               "</table><br /></tt></font><hr />";
 
         $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message, TRUE);
         array_shift($data);
@@ -233,7 +233,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
  */
 function listEntities ($message) {
     if ($message) {
-        echo "<tt>" . $message->entity_id . ' : ' . $message->type0 . '/' . $message->type1 . ' parent = '. $message->parent->entity_id. '<br>';
+        echo "<tt>" . $message->entity_id . ' : ' . $message->type0 . '/' . $message->type1 . ' parent = '. $message->parent->entity_id. '<br />';
         for ($i = 0; isset($message->entities[$i]); $i++) {
             echo "$i : ";
             $msg = listEntities($message->entities[$i]);
@@ -414,7 +414,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         if($text != '') {
             $body .= '&nbsp;|&nbsp;<a href="read_body.php?' . $link . '">' . $text . '</a>';
         }
-        $body .= '</small></center><br>' . "\n";
+        $body .= '</small></center><br />' . "\n";
     }
     return $body;
 }
@@ -522,14 +522,14 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
         $links = $hookresults[1];
         $defaultlink = $hookresults[6];
 
-        $attachments .= '<TR><TD>' .
-                        '<A HREF="'.$defaultlink.'">'.decodeHeader($display_filename).'</A>&nbsp;</TD>' .
-                        '<TD><SMALL><b>' . show_readable_size($header->size) .
-                        '</b>&nbsp;&nbsp;</small></TD>' .
-                        '<TD><SMALL>[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]&nbsp;</SMALL></TD>' .
-                        '<TD><SMALL>';
+        $attachments .= '<tr><td>' .
+                        '<a href="'.$defaultlink.'">'.decodeHeader($display_filename).'</a>&nbsp;</td>' .
+                        '<td><small><b>' . show_readable_size($header->size) .
+                        '</b>&nbsp;&nbsp;</small></td>' .
+                        '<td><small>[ '.htmlspecialchars($type0).'/'.htmlspecialchars($type1).' ]&nbsp;</small></td>' .
+                        '<td><small>';
         $attachments .= '<b>' . $description . '</b>';
-        $attachments .= '</SMALL></TD><TD><SMALL>&nbsp;';
+        $attachments .= '</small></td><td><small>&nbsp;';
 
         $skipspaces = 1;
         foreach ($links as $val) {
@@ -541,7 +541,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $attachments .= '<a href="' . $val['href'] . '">' .  $val['text'] . '</a>';
         }
         unset($links);
-        $attachments .= "</TD></TR>\n";
+        $attachments .= "</td></tr>\n";
     }
     $attachmentadd = do_hook_function('attachments_bottom',$attachments);
     if ($attachmentadd != '')

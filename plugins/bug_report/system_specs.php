@@ -117,7 +117,7 @@ if (isset($warning) && $warning) {
             $warning_html .= "<dd>* $corr_val</dd>\n";
         }
     }
-    $warning_html .= "</dl>\n<p>$warning_num warning(s) reported.</p>\n<hr>\n";
+    $warning_html .= "</dl>\n<p>$warning_num warning(s) reported.</p>\n<hr />\n";
     $body_top .= "\n$warning_num warning(s) reported.\n";
     $body_top .= "----------------------------------------------\n";
 }

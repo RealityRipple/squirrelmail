@@ -204,7 +204,7 @@ if (isset($mail_sent) && $mail_sent == 'yes') {
     $note = _("Your Message has been sent.");
 }
 if (isset($note)) {
-    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br>\n";
+    echo html_tag( 'div', '<b>' . $note .'</b>', 'center' ) . "<br />\n";
 }
 
 if ( sqgetGlobalVar('just_logged_in', $just_logged_in, SQ_SESSION) ) {
@@ -231,7 +231,7 @@ if ($aMailbox['EXISTS'] > 0) {
     showMessagesForMailbox($imapConnection,$aMailbox);
 } else {
     $string = '<b>' . _("THIS FOLDER IS EMPTY") . '</b>';
-    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
+    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
     echo '     <tr><td>';
     echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
     echo '        <tr><td><br />';
