@@ -90,7 +90,7 @@
                  "[<a href=\"options.php?theid=$i&action=edit\">" . _("Edit") . '</a>]'.
                  '</small></td><td><small>'.
                  "[<a href=\"options.php?theid=$i&action=delete\">" . _("Delete") . '</a>]'.
-                 '</small></td><td align=center><small>';
+                 '</small></td><td align=center><small>[';
 
             if (isset($filters[$i + 1])) {
                 echo "<a href=\"options.php?theid=$i&action=move_down\">" . _("Down") . '</a>';
