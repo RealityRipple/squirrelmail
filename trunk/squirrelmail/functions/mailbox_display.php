@@ -691,7 +691,7 @@ function get_paginator_str
     $sep = '|';          /* This will be used as a seperator. */
 
     /* Get some paginator preference values. */
-    $pg_sel = getPref($data_dir, $username, 'page_selector', SM_OPT_ON);
+    $pg_sel = getPref($data_dir, $username, 'page_selector', SMPREF_ON);
     $pg_max = getPref($data_dir, $username, 'page_selector_max', PG_SEL_MAX);
 
     /* Make sure that our start message number is not too big. */
