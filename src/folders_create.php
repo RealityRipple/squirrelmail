@@ -27,7 +27,7 @@
    if (trim($subfolder) == "[ None ]") {
       createFolder($imapConnection, "$folder_name");
    } else {
-      createFolder($imapConnection, "$subfolder$folder_name");
+      createFolder($imapConnection, "$subfolder$dm$folder_name");
    }
    fputs($imapConnection, "1 logout\n");
 
