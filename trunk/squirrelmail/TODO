@@ -17,7 +17,7 @@ initials = taken by that person
   -     When deleting or moving messages (empty trash too), go back to the 
             list for the mail box you were looking at without having to click
             a link
-  -     Spell checking
+(mcp)   Spell checking
   -     Cache the sorted messages in mailbox and use that for navigation inside
             of mailbox (next 25, prev 25, etc.)
   -     Search mailbox(es) for given criteria
