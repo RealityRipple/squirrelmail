@@ -163,28 +163,23 @@ echo "</p>";
   <input type="hidden" name="session" value="<?PHP echo $session?>">
   <input type="submit" name="send" value="Send Spam Report">
 <?PHP } else {
-   $sid = sqimap_session_id($uid_support);
-   fputs($imap_stream, $sid.' FETCH ' . $passed_id . ' RFC822' . "\r\n");
-    
-   $read = sqimap_read_data($imap_stream, $sid, true, $response, $message);
-   array_shift($read);
+   $spam_message = mime_fetch_body ($imap_stream, $passed_id, 0, 50000);
 
-   $Message = implode('', $read);
-   if (strlen($Message) > 50000) {
+   if (strlen($spam_message) == 50000) {
       $Warning = "\n[truncated by SpamCop]\n";
-      $Message = substr($Message, 0, 50000 - strlen($Warning)) . $Warning;
+      $spam_message = substr($spam_message, 0, 50000 - strlen($Warning)) . $Warning;
    }
    if (isset($js_web) && $js_web) {
-?>  <form method="post" action="http://spamcop.net/sc" name="submitspam"
+?>  <form method="post" action="http://www.spamcop.net/sc" name="submitspam"
     enctype="multipart/form-data"><?PHP
    } else {
-?>  <form method="post" action="http://spamcop.net/sc" name="submitspam"
+?>  <form method="post" action="http://www.spamcop.net/sc" name="submitspam"
     enctype="multipart/form-data" target="_blank"><?PHP
    } ?>
   <input type="hidden" name="action" value="submit">
   <input type="hidden" name="oldverbose" value="1">
   <input type="hidden" name="code" value="<?PHP echo $spamcop_id ?>">
-  <input type="hidden" name="spam" value="<?PHP echo htmlspecialchars($Message); ?>">
+  <input type="hidden" name="spam" value="<?PHP echo htmlspecialchars($spam_message); ?>">
   <input type="submit" name="x1" value="Send Spam Report">
 <?PHP }
 ?>  </form>
