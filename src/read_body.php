@@ -382,22 +382,25 @@ $mbx_response = sqimap_mailbox_select($imapConnection, $mailbox, false, false, t
 if (!isset($messages)) {
     $messages = array();
     session_register('messages');
-    echo "SET messages";
 }
 
 /**
  * $message contains all information about the message
  * including header and body
  */
-if (!isset($messages[$passed_id])) { 
+
+$uidvalidity = $mbx_response['UIDVALIDITY'];
+ 
+if (!isset($messages[$uidvalidity])) {
+   $messages[$uidvalidity] = array();
+}  
+if (!isset($messages[$uidvalidity][$passed_id])) {
     $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
-    $messages["$passed_id"] = $message;
+    $messages[$uidvalidity][$passed_id] = $message;
     $header = $message->header;
-    
-    echo "NOT SET $passed_id";
 } else {
-    $message = $messages[$passed_id];
-    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+    $message = $messages[$uidvalidity][$passed_id];
+//    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
     if (isset($passed_ent_id)) {
        $message = $message->getEntity($passed_ent_id);
        $message->id = $passed_id;
