@@ -23,7 +23,7 @@
   */
  function sqm_array_swap_values(&$a,$v1,$v2) {
      $r = false;
-     if (in_array($v1,$ar) && in_array($v2,$a)) {
+     if (in_array($v1,$a) && in_array($v2,$a)) {
         $k1 = array_search($v1,$a);
         $k2 = array_search($v1,$a);
         $d = $a[$k1];
