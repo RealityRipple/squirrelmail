@@ -52,6 +52,10 @@
            '<tr><th align=center>' . _("Spam Filtering") . '</th></tr>'.
        '</table>';
 
+    if ($SpamFilters_YourHop == ' ') {
+       echo '<BR><center><b>WARNING! Tell your admin to set the SpamFilters_YourHop variable</b></center><BR>';
+    }
+
 
    if (isset($action) && $action == 'spam') {
        $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
