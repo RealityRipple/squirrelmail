@@ -237,10 +237,25 @@
    echo "<TR><TD BGCOLOR=\"$color[4]\" ALIGN=CENTER>";
    if ($count_special_folders <= count($boxes)) {
       $imap_stream = sqimap_login ($username, $key, $imapServerAddress, $imapPort, 1);
-      $boxes = sqimap_mailbox_list_all ($imap_stream);
+      $boxes_all = sqimap_mailbox_list_all ($imap_stream);
       
       echo "<FORM ACTION=\"folders_subscribe.php?PHPSESSID=$PHPSESSID&method=sub\" METHOD=\"POST\">\n";
-      echo "<tt><input type=text size=32 name=mailbox></tt>";
+      echo "<tt><select name=mailbox>";
+      for ($i = 0; $i < count($boxes_all); $i++) {
+         $use_folder = true;
+         for ($p = 0; $p < count ($boxes); $p++) {
+            if ($boxes_all[$i]["unformatted"] == $boxes[$p]["unformatted"]) {
+               $use_folder = false;
+               continue;
+            }
+         }
+         if ($use_folder == true) {
+            $box = $boxes_all[$i]["unformatted-dm"];
+            $box2 = replace_spaces($boxes_all[$i]["formatted"]);
+            echo "         <OPTION VALUE=\"$box\">$box2\n";
+         }
+      }
+      echo "</select></tt>";
       echo "<INPUT TYPE=SUBMIT VALUE=\"";
       echo _("Subscribe");
       echo "\">\n";

@@ -212,14 +212,14 @@
     **  Returns a list of all folders, subscribed or not
     ******************************************************************************/
    function sqimap_mailbox_list_all ($imap_stream) {
-      global $special_folders, $list_special_folders_first;
+      global $special_folders, $list_special_folders_first, $folder_prefix;
       
       if (!function_exists ("ary_sort"))
          include ("../functions/array.php");
       
       $dm = sqimap_get_delimiter ($imap_stream);
 
-      fputs ($imap_stream, "a001 LIST \"INBOX\" *\r\n");
+      fputs ($imap_stream, "a001 LIST \"$folder_prefix\" *\r\n");
       $read_ary = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
       $g = 0;
       $phase = "inbox"; 
