@@ -24,10 +24,10 @@ require_once(SM_PATH . 'include/load_prefs.php');
 displayPageHeader($color, 'None');
 
 /* globals */
-
 $mailbox = $_GET['mailbox'];
 $passed_id = $_GET['passed_id'];
-
+$ent_id = $_GET['ent_id'];
+$QUERY_STRING = $_SERVER['QUERY_STRING'];
 /* end globals */
 
 echo '<BR>' . 
