@@ -398,7 +398,7 @@ function getTimeStamp($dateParts) {
      * Since the day of week is optional, this check is needed.
      */
      if (count($dateParts) <2) {
-        return 0;
+        return -1;
      }
 
     /* remove day of week */
