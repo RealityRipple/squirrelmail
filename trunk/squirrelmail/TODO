@@ -3,7 +3,6 @@ Ideas to be implemented
 
 initials = taken by that person
 
-(pl?)   Importing of address books
   -     Make it possible to save preferences in MySQL DB or on Filesystem
   -     Configurable headers shown on the message listing, like:  cc, to, etc
   -     Filters
@@ -39,3 +38,4 @@ Finished:
 (lme) (18.6.00)  Background highlighting messages in list based on header criteria (like pine 4.2x)
 (lme) (18.6.00)  Fix conf.pl script and add more error checking so it doesn't throw parse errors
 (lme) (21.6.00)  Rewrite of mime.php (see Gustav before any work is done)
+(pl)  (5.7.00)   Insert In-Reply-To and References headers when replying to a message.
