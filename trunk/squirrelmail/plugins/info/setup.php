@@ -32,7 +32,7 @@ function info_opt() {
     $optpage_blocks[] = array(
         'name' => _("IMAP server information"),
         'url'  => '../plugins/info/options.php',
-        'desc' => _("Run some test IMAP commands, displaying both the command and the result. These tests use the Squirrelmail IMAP commands and your current Squirrelmail configuration. Custom command strings can be used."),
+        'desc' => _("Run some test IMAP commands, displaying both the command and the result. These tests use the SquirrelMail IMAP commands and your current SquirrelMail configuration. Custom command strings can be used."),
         'js'   => false
     );
 }
