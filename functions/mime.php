@@ -811,7 +811,13 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
 
         /** Display the ATTACHMENTS: message if there's more than one part **/
         if (isset($message->entities[1])) {
-            $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
+	    /* Header-type alternative means we choose the best one to display 
+	       so don't show the alternatives as attachment. Header-type related
+	       means that the attachments are already part of the related message.
+	    */   
+	    if ($message->header->type1 !='related' && $message->header->type1 !='alternative') {
+        	$body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
+	    }
         }
     } else {
         $body = formatAttachments ($message, -1, $message->header->mailbox, $id);
