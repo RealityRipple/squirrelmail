@@ -1,6 +1,6 @@
 <?
 	/**
-	 **  signout.php3
+	 **  signout.php
 	 **
 	 **  Clears the cookie, and logs them out.
 	 **
@@ -26,7 +26,7 @@
    echo "   <TR BGCOLOR=FFFFFF WIDTH=100%>";
    echo "      <TD ALIGN=CENTER>";
    echo "         <FONT FACE=\"Arial,Helvetica\"><BR>You have been successfully signed out.<BR></FONT>";
-   echo "         <FONT FACE=\"Arial,Helvetica\">Click here to <A HREF=\"login.php3\" TARGET=_top>log back in.</A></FONT><BR><BR>";
+   echo "         <FONT FACE=\"Arial,Helvetica\">Click here to <A HREF=\"login.php\" TARGET=_top>log back in.</A></FONT><BR><BR>";
    echo "      </TD>";
    echo "   </TR>";
    echo "   <TR BGCOLOR=DCDCDC WIDTH=100%>";

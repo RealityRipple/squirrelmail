@@ -1,6 +1,6 @@
 <?
    /**
-    **  array.php3
+    **  array.php
     **
     **  This contains functions that work with array manipulation.  They
     **  will help sort, and do other types of things with arrays

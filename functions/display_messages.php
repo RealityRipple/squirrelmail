@@ -1,6 +1,6 @@
 <?
    /**
-    **  display_messages.php3
+    **  display_messages.php
     **
     **  This contains all messages, including information, error, and just
     **  about any other message you can think of.
@@ -14,7 +14,7 @@
       echo "      <TD BGCOLOR=DCDCDC>";
       echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>ERROR</CENTER></B></FONT>";
       echo "   </TD></TR><TR><TD>";
-      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php3\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
       echo "   </TD></TR>";
       echo "</TABLE>";
       echo "</BODY></HTML>";

@@ -1,6 +1,6 @@
 <?
    /**
-    **  date.php3
+    **  date.php
     **
     **  Takes a date and parses it into a usable format.  The form that a
     **  date SHOULD arrive in is:
