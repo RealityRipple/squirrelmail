@@ -389,6 +389,14 @@
       }
     }
 
+   $mailbox = trim($mailbox);
+   $send_to = trim($send_to);
+   $send_to_cc = trim($send_to_cc);
+   $send_to_bcc = trim($send_to_bcc);
+   $subject = trim($subject);
+   $body = trim($body);
+   $attachfile = trim($attachfile);
+   
    if (!isset($mailbox) || $mailbox == "" || ($mailbox == "None"))
       $mailbox = "INBOX";
 
@@ -398,9 +406,9 @@
           $HTTP_POST_FILES['attachfile']['tmp_name'] != 'none')
           $AttachFailure = saveAttachedFiles();
       if (checkInput(false) && ! isset($AttachFailure)) {
-         $urlMailbox = urlencode ($mailbox);
-	 if (! isset($reply_id))
-	     $reply_id = 0;
+         $urlMailbox = urlencode (trim($mailbox));
+         if (! isset($reply_id))
+             $reply_id = 0;
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body, $reply_id);
          header ("Location: right_main.php?mailbox=$urlMailbox&sort=$sort&startMessage=1");
       } else {
