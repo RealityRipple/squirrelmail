@@ -492,7 +492,7 @@ function charset_decode_iso_8859_7 ($string) {
      * ISO-8859-7 characters from 11/04 (0xB4) to 11/06 (0xB6)
      * These are Unicode 900-902
      */
-    $string = preg_replace("/([\264-\266])/",'&#' . (ord(\\1)+720),$string);
+    $string = preg_replace("/([\264-\266])/e","'&#' . (ord(\\1)+720)",$string);
     
     /* 11/07 (0xB7) Middle dot is the same in iso-8859-1 */
     $string = str_replace("\267", '&#183;', $string);
@@ -501,7 +501,7 @@ function charset_decode_iso_8859_7 ($string) {
      * ISO-8859-7 characters from 11/08 (0xB8) to 11/10 (0xBA)
      * These are Unicode 900-902
      */
-    $string = preg_replace("/([\270-\272])/",'&#' . (ord(\\1)+720),$string);
+    $string = preg_replace("/([\270-\272])/e","'&#' . (ord(\\1)+720)",$string);
 
     /*
      * 11/11 (0xBB) Right angle quotation mark is the same as in
@@ -510,7 +510,7 @@ function charset_decode_iso_8859_7 ($string) {
     $string = str_replace("\273", '&#187;', $string);
 
     /* And now the rest of the charset */
-    $string = preg_replace("/([\274-\376])/",'&#' . (ord(\\1)+720),$string);
+    $string = preg_replace("/([\274-\376])/e","'&#' . (ord(\\1)+720)",$string);
 
     return $string;
 }
