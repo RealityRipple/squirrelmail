@@ -31,6 +31,7 @@
    echo "<HTML>";
 
    function formatMailboxName($imapConnection, $mailbox, $real_box, $delimeter, $color, $move_to_trash) {
+		global $folder_prefix;
       require ("../config/config.php");
 
       $mailboxURL = urlencode($real_box);
@@ -43,7 +44,7 @@
 
       $special_color = false;
       for ($i = 0; $i < count($special_folders); $i++) {
-         if (($special_folders[$i] == $real_box) && ($use_special_folder_color == true))
+         if ((substr($real_box, strlen($folder_prefix), strlen($special_folders[$i])) == $special_folders[$i]) && ($use_special_folder_color == true))
             $special_color = true;
       }
 

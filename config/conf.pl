@@ -626,7 +626,7 @@ sub command211 {
    print "\n[folders] command (?=help) > ";
    $input = <STDIN>;
    $input =~ s/[\r|\n]//g;
-   while ($input !~ /d/i) {
+   while ($input !~ /^d$/i) {
       ## ADD
       if ($input =~ /^\s*\+\s*.*/) {
          $input =~ s/^\s*\+\s*//;

@@ -40,7 +40,7 @@
     **  Returns some general header information -- FROM, DATE, and SUBJECT
     ******************************************************************************/
    function sqimap_get_small_header ($imap_stream, $id, &$from, &$subject, &$date) {
-      fputs ($imap_stream, "a001 FETCH $id:$id RFC822.HEADER.LINES (From Subject Date)\r\n");
+      fputs ($imap_stream, "a001 FETCH $id:$id BODY[HEADER.FIELDS (DATE FROM SUBJECT)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
       $subject = _("(no subject)");
