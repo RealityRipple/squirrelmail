@@ -488,7 +488,7 @@ function TrimArray(&$array) {
  * @param string text the link text, default "Compose"
  * @return string a link to the compose page
  */
-function makeComposeLink($url, $text = null)
+function makeComposeLink($url, $text = null, $target='')
 {
     global $compose_new_win,$javascript_on;
 
@@ -500,7 +500,7 @@ function makeComposeLink($url, $text = null)
     // if not using "compose in new window", make 
     // regular link and be done with it
     if($compose_new_win != '1') {
-        return makeInternalLink($url, $text, 'right');
+        return makeInternalLink($url, $text, $target);
     }
 
 

@@ -1005,7 +1005,7 @@ function get_paginator_link($box, $start_msg, $use, $text) {
 
     $result = "<A HREF=\"right_main.php?use_mailbox_cache=$use"
             . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
-            . "TARGET=\"right\">$text</A>";
+            . ">$text</A>";
     return ($result);
 /*
     if (preg_match('/^(.+)\?.+$/',$PHP_SELF,$regs)) {
@@ -1016,7 +1016,7 @@ function get_paginator_link($box, $start_msg, $use, $text) {
 
     $result = '<A HREF="'. $source_url . "?use_mailbox_cache=$use"
             . "&amp;startMessage=$start_msg&amp;mailbox=$box\" "
-            . "TARGET=\"right\">$text</A>";
+            . ">$text</A>";
     return ($result);
 */
 }
