@@ -64,7 +64,7 @@
       if ($code==$chosen_language)
          echo '         <OPTION SELECTED VALUE="'.$code.'">'.$languages[$code]['NAME']."\n";
       else
-         echo '         <OPTION VALUE=\"".$code.'">'.$languages[$code]['NAME']."\n";
+         echo '         <OPTION VALUE="'.$code.'">'.$languages[$code]['NAME']."\n";
    }
    echo '         </select></tt>';  
    if (! $use_gettext)
