@@ -81,7 +81,7 @@
       echo "      <TD ALIGN=left WIDTH=\"30%\"><b>\n";
       displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
       echo "      </b></TD><TD ALIGN=right WIDTH=\"70%\">\n";
-      echo "         <div align=right>" . _("Current Folder: ") . "<B>$shortBoxName&nbsp;</B></div>\n";
+      echo "         <div align=right>" . _("Current Folder") . ": <B>$shortBoxName&nbsp;</B></div>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";

@@ -201,15 +201,15 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
+         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A>\n";
-         echo "<FONT COLOR=\"$color[9]\">Next</FONT>\n";
+         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Previous") ."</A> | \n";
+         echo "<FONT COLOR=\"$color[9]\">"._("Next")."</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
+         echo "<FONT COLOR=\"$color[9]\">"._("Previous")."</FONT> | \n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">". _("Next") ."</A>\n";
       }
       echo "</TD></TR>\n";
@@ -318,15 +318,15 @@
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
       if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A> | \n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A>\n";
+         echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Previous") . "</A> | \n";
          echo "<FONT COLOR=\"$color[9]\">" . _("Next") . "</FONT>\n";
       }
       else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<FONT COLOR=\"$color[9]\">Previous</FONT>\n";
+         echo "<FONT COLOR=\"$color[9]\">" . _("Previous"). "</FONT> | \n";
          echo "<A HREF=\"right_main.php?use_mailbox_cache=1&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">" . _("Next") . "</A>\n";
       }
       echo "</TD></TR></table>"; /** End of message-list table */
