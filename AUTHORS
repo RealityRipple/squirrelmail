@@ -14,28 +14,29 @@
 
  Translations:
  -------------
-   Norwegian:    Gustav Foseid <gustavf@squirrelmail.org>
-   German:       Roland Bauerschmidt <rb@debian.org>
-   Russian:      Konstantin Riabitsev <graf@relhum.org>
-   Polish:       Lukasz Klimek <casa@lo.pila.pl>
-   Swedish:      Tobias Ekbom <tobias@vallcom.net>    
-   Dutch:        Arjen Halma <arjen@halma.nl>
-   Portuguese (Brazil): Henrique Moura <henriquemoura@hotmail.com>
-   French        Ali Nedjimi <lrdfrx@club-internet.fr>
-   Italian       Aldo Moresco <moresco@idcm.it>
-                 Antonetti Roberto <antonr@piceniaweb.com> (help files)
-   Spanish       Hernan Collazo <hernan_collazo@salutia.com>  
-   Korean        Jong-II Kim <aporie@netian.com>
-   Czech         Ondrej Sury <ondrej@sury.cz>
    Catalan       Josep Sanz <jsanz@fa.upc.es>
-   Serbian       Boris Manojlovic <steki@verat.net>
-   Taiwan        Ching <ching@kiwa.com.tw>
+   Czech         Ondrej Sury <ondrej@sury.cz>
    Danish        Claus Rasmussen <claus@webclaus.com>
+   Dutch:        Arjen Halma <arjen@halma.nl>
    Finnish       Teemu Junnila <teejun@vallcom.com>
+   French        Ali Nedjimi <lrdfrx@club-internet.fr>
+   German:       Roland Bauerschmidt <rb@debian.org>
    Hungarian     István-Attila András <bergkatten@netscape.net>
    Icelandic     Karl Heiðar <karlh@macho.is>
    Indonesian    Arief S Fitrianto <arief@fisika.ui.ac.id>
+   Italian       Aldo Moresco <moresco@idcm.it>
+                 Antonetti Roberto <antonr@piceniaweb.com> (help files)
+   Korean        Jong-II Kim <aporie@netian.com>
+   Norwegian:    Gustav Foseid <gustavf@squirrelmail.org>
+   Polish:       Lukasz Klimek <casa@lo.pila.pl>
+   Portuguese (Brazil): Henrique Moura <henriquemoura@hotmail.com>
    Portuguese (Portugal): Ruben Leote Mendes <ruben@nocturno.org>
+   Russian:      Konstantin Riabitsev <graf@relhum.org>
+   Serbian       Boris Manojlovic <steki@verat.net>
+   Spanish       Hernan Collazo <hernan_collazo@salutia.com>  
+   Swedish:      Tobias Ekbom <tobias@vallcom.net>    
+   Taiwan        Ching <ching@kiwa.com.tw>
+   Turkish       Volkan Yildirim <volkan@ozzmosis.pleksus.net.tr>
  
  Significant Contributions:
  --------------------------
