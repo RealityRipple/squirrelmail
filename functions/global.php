@@ -162,10 +162,12 @@ define('SQ_INORDER',0);
 define('SQ_GET',1);
 define('SQ_POST',2);
 define('SQ_SESSION',3);
+define('SQ_COOKIE',4);
+define('SQ_SERVER',5);
 
 /**
- * Search for the var $name in $_SESSION, $_POST, $_GET
- * and set it in provided var. 
+ * Search for the var $name in $_SESSION, $_POST, $_GET,
+ * $_COOKIE, or $_SERVER and set it in provided var. 
  * If $search is not provided,  or == SQ_INORDER, it will search
  * $_SESSION, then $_POST, then $_GET. Otherwise,
  * use one of the defined constants to look for 
@@ -175,7 +177,7 @@ define('SQ_SESSION',3);
  */
 function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
     if ( !check_php_version(4,1) ) {
-        global $_SESSION, $_GET, $_POST;
+        global $_SESSION, $_GET, $_POST, $_COOKIE, $_SERVER;
     }
     
     switch ($search) {
@@ -202,9 +204,21 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
 	  if ( isset($_GET[$name]) ) {
             $value = $_GET[$name];
 	    return TRUE;
-	  } elseif ( $search == SQ_GET ) {
-	    break;
-	  }
+	  } 
+	  /* NO IF HERE. FOR DEFAULT CASE, EXIT after GET */
+	  break;
+        case SQ_COOKIE:
+          if ( isset($_COOKIE[$name]) ) {
+             $value = $_COOKIE[$name];
+             return TRUE;
+          }
+	  break;
+	case SQ_SERVER:
+          if ( isset($_SERVER[$name]) ) {
+             $value = $_SERVER[$name];
+             return TRUE;
+          }
+          break;
     }
     return FALSE;
 }
