@@ -29,7 +29,7 @@ require_once(SM_PATH . 'functions/global.php');
  * $squirrelmail_language is set by a cookie when the user selects
  * language and logs out
  */
-set_up_language($squirrelmail_language, TRUE);
+set_up_language($squirrelmail_language, TRUE, TRUE);
 
 /**
  * Find out the base URI to set cookies.
