@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-12-07 09:12+0100\n"
+"POT-Creation-Date: 2001-12-12 10:21+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -138,9 +138,9 @@ msgstr ""
 msgid "Update address"
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:86
-#: squirrelmail/functions/display_messages.php:102
-#: squirrelmail/functions/imap_general.php:226
+#: squirrelmail/functions/display_messages.php:20
+#: squirrelmail/functions/display_messages.php:71
+#: squirrelmail/functions/display_messages.php:87
 #: squirrelmail/src/addressbook.php:216 squirrelmail/src/addressbook.php:266
 msgid "ERROR"
 msgstr ""
@@ -1144,19 +1144,20 @@ msgstr ""
 msgid "Mailer"
 msgstr ""
 
-#: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:84
+#: squirrelmail/functions/auth.php:44 squirrelmail/src/redirect.php:81
+#: squirrelmail/src/redirect.php:85
 msgid "You must be logged in to access this page."
 msgstr ""
 
-#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:85
+#: squirrelmail/functions/auth.php:45 squirrelmail/src/redirect.php:86
 msgid "Go to the login page"
 msgstr ""
 
-#: squirrelmail/src/redirect.php:108
+#: squirrelmail/src/redirect.php:106 squirrelmail/src/redirect.php:110
 msgid "There was an error contacting the mail server."
 msgstr ""
 
-#: squirrelmail/src/redirect.php:109
+#: squirrelmail/src/redirect.php:111
 msgid "Contact your administrator for help."
 msgstr ""
 
@@ -1456,32 +1457,31 @@ msgstr ""
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:38
-#: squirrelmail/functions/imap_general.php:234
+#: squirrelmail/functions/display_messages.php:23
+#: squirrelmail/functions/imap_general.php:206
 msgid "Unknown user or password incorrect."
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:40
-#: squirrelmail/functions/imap_general.php:235
+#: squirrelmail/functions/display_messages.php:25
 msgid "Click here to try again"
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:55
+#: squirrelmail/functions/display_messages.php:39
 #, c-format
 msgid "Welcome to %s's WebMail system"
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:66
+#: squirrelmail/functions/display_messages.php:51
 #, c-format
-msgid "Running SquirrelMail version %s (c) 1999-2000."
+msgid "Running SquirrelMail version %s (c) 1999-2001."
 msgstr ""
 
-#: squirrelmail/functions/display_messages.php:91
+#: squirrelmail/functions/display_messages.php:76
 #, c-format
 msgid "Click here to return to %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:132
+#: squirrelmail/functions/imap_general.php:119
 #: squirrelmail/functions/imap_messages.php:132
 #: squirrelmail/functions/imap_messages.php:140
 #: squirrelmail/functions/imap_messages.php:159
@@ -1491,37 +1491,37 @@ msgstr ""
 msgid "ERROR : Could not complete request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:134
+#: squirrelmail/functions/imap_general.php:121
 #: squirrelmail/plugins/filters/filters.php:90
 msgid "Reason Given: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:141
+#: squirrelmail/functions/imap_general.php:128
 #: squirrelmail/plugins/filters/filters.php:97
 msgid "ERROR : Bad or malformed request."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:143
+#: squirrelmail/functions/imap_general.php:130
 #: squirrelmail/plugins/filters/filters.php:99
 msgid "Server responded: "
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:174
+#: squirrelmail/functions/imap_general.php:166
 #, c-format
 msgid "Error connecting to IMAP server: %s."
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:191
+#: squirrelmail/functions/imap_general.php:183
 #, c-format
 msgid "Bad request: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:193
+#: squirrelmail/functions/imap_general.php:185
 #, c-format
 msgid "Unknown error: %s"
 msgstr ""
 
-#: squirrelmail/functions/imap_general.php:195
+#: squirrelmail/functions/imap_general.php:187
 msgid "Read data:"
 msgstr ""
 
