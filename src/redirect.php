@@ -29,7 +29,7 @@
 
    session_register ("base_uri");
 
-   if(!isset($username)) {
+   if(!isset($login_username)) {
       exit;
    }
 
@@ -56,10 +56,12 @@
       $key = OneTimePadEncrypt($secretkey, $onetimepad);
       session_register("onetimepad");
       // verify that username and password are correct
-      $imapConnection = sqimap_login($username, quotemeta($key), $imapServerAddress, $imapPort, 0);
+      if ($force_username_lowercase)
+          username = strtolower($login_username);
+      $imapConnection = sqimap_login($login_username, $key, $imapServerAddress, $imapPort, 0);
       sqimap_logout($imapConnection);
 
-      setcookie("username", $username, 0, $base_uri);
+      setcookie("username", $login_username, 0, $base_uri);
       setcookie("key", $key, 0, $base_uri);
       setcookie("logged_in", 1, 0, $base_uri);
       do_hook ("login_verified");
