@@ -9,7 +9,7 @@
 //
 
     // don't change
-    $config_version = "x51";
+    $config_version = "x52";
 
 //  Organization's logo picture (blank if none)
     $org_logo = "../images/sm_logo.jpg";

@@ -4,9 +4,7 @@
 #
 # A simple configure script to configure squirrelmail
 ############################################################              
-$WHT = "\x1B[37;1m";
-$NRM = "\x1B[0m";
-$conf_pl_version = "x51";
+$conf_pl_version = "x52";
 
 ############################################################              
 # First, lets read in the data already in there...
@@ -220,8 +218,19 @@ if (!$default_unseen_notify) {
 if (!$default_unseen_type) {
    $default_unseen_type = 1;
 }
+if (!$config_use_color) {
+   $config_use_color = 1;
+}
 
 #####################################################################################
+if ($config_use_color == 1) {
+   $WHT = "\x1B[37;1m";
+   $NRM = "\x1B[0m";
+} else {
+   $WHT = "";
+   $NRM = "";
+   $config_use_color = 2;
+}
 
 while (($command ne "q") && ($command ne "Q")) {
    system "clear";
@@ -243,6 +252,11 @@ while (($command ne "q") && ($command ne "Q")) {
       print "8.  Plugins\n";
       print "\n";
       print "D.  Set pre-defined settings for specific IMAP servers\n";
+      if ($config_use_color == 1) {
+         print "C.  Turn color off\n";
+      } else {
+         print "C.  Turn color on\n";
+      }
       print "\n";
    } elsif ($menu == 1) {
       print $WHT."Organization Preferences\n".$NRM;
@@ -385,6 +399,16 @@ while (($command ne "q") && ($command ne "Q")) {
       if (($save =~ /^y/i) || ($save =~ /^\s*$/)) {
          save_data ();
        }
+   } elsif (($command eq "c") || ($command eq "C")) {
+      if ($config_use_color == 1) {
+         $config_use_color = 2;
+         $WHT = "";
+         $NRM = "";
+      } else {
+         $config_use_color = 1;
+         $WHT = "\x1B[37;1m";
+         $NRM = "\x1B[0m";
+      }
    } elsif (($command eq "d") || ($command eq "D")) {
       set_defaults ();
    } else {
@@ -1390,8 +1414,9 @@ sub save_data {
 
    if ($print_config_version) {
       print FILE "\t\$config_version = \"$print_config_version\";\n";
-      print FILE "\n";
    }
+   print FILE "\t\$config_use_color = $config_use_color;\n"; 
+   print FILE "\n";
    
    print FILE "\t\$org_name   = \"$org_name\";\n";
    print FILE "\t\$org_logo   = \"$org_logo\";\n";
