@@ -208,33 +208,6 @@
       echo "      </TD>\n";
       echo "   </TR>\n";
 
-      // This code is for attachments
-      echo "   <tr>\n";
-      echo "     <TD WIDTH=50 BGCOLOR=\"$color[4]\" VALIGN=TOP ALIGN=RIGHT>\n";
-      echo "      <FONT FACE=\"Arial,Helvetica\">";
-      echo "      <SMALL><BR></SMALL>"._("Attach:")."</FONT>\n";
-      echo "      </td><td width=% ALIGN=left>\n";
-      //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
-      //      echo "      value=\"10000\">\n";
-      echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
-      echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"\n";
-      echo "      value=\"" . _("Add") ."\">\n";
-      echo "     </td>\n";
-      echo "     </font>\n";
-      echo "   </tr>\n";
-      if (isset($attachments) && count($attachments)>0) {
-         echo "</tr><tr><td width=50 align=right>\n";
-         echo "</td><td width=% align=left>";
-         while (list($localname, $remotename) = each($attachments)) {
-            echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
-            echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
-         }
-         
-         echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
-         echo "</td></tr>";
-      }
-      // End of attachment code
-
       echo "   <TR>\n";
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       if ($use_signature == true)
@@ -246,6 +219,35 @@
       echo "   <TR><TD COLSPAN=2 ALIGN=CENTER><INPUT TYPE=SUBMIT NAME=send VALUE=\"";
       echo _("Send");
       echo "\"></TD></TR>\n";
+      
+      // This code is for attachments
+      echo "   <tr>\n";
+      echo "     <TD WIDTH=50 BGCOLOR=\"$color[0]\" VALIGN=TOP ALIGN=RIGHT>\n";
+      echo "      <FONT FACE=\"Arial,Helvetica\">";
+      echo "      <SMALL><BR></SMALL>"._("Attach:")."</FONT>\n";
+      echo "      </td><td width=% ALIGN=left BGCOLOR=\"$color[0]\">\n";
+      //      echo "      <INPUT TYPE=\"hidden\" name=\"MAX_FILE_SIZE\"\n";
+      //      echo "      value=\"10000\">\n";
+      echo "      <INPUT NAME=\"attachfile\" TYPE=\"file\">\n";
+      echo "      &nbsp;&nbsp;<input type=\"submit\" name=\"attach\"\n";
+      echo "      value=\"" . _("Add") ."\">\n";
+      echo "     </td>\n";
+      echo "     </font>\n";
+      echo "   </tr>\n";
+      if (isset($attachments) && count($attachments)>0) {
+         echo "</tr><tr><td width=50 bgcolor=\"$color[0]\" align=right>\n";
+         echo "&nbsp;";
+         echo "</td><td width=% align=left bgcolor=\"$color[0]\">";
+         while (list($localname, $remotename) = each($attachments)) {
+            echo "<input type=\"checkbox\" name=\"delete[]\" value=\"$localname\">\n";
+            echo "$remotename <input type=\"hidden\" name=\"attachments[$localname]\" value=\"$remotename\"><br>\n";
+         }
+         
+         echo "<input type=\"submit\" name=\"do_delete\" value=\""._("Delete selected attachments")."\">\n";
+         echo "</td></tr>";
+      }
+      // End of attachment code
+
       echo "</TABLE>\n";
       echo "</FORM>";
    }

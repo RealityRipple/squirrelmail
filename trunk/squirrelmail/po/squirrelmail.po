@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-09 07:13-0500\n"
+"POT-Creation-Date: 2000-02-09 07:26-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,35 +34,35 @@ msgstr ""
 msgid "Subject:"
 msgstr ""
 
-#: squirrelmail/src/compose.php:215
-msgid "Attach:"
-msgstr ""
-
-#: squirrelmail/src/compose.php:221
-msgid "Add"
-msgstr ""
-
-#: squirrelmail/src/compose.php:233
-msgid "Delete selected attachments"
-msgstr ""
-
-#: squirrelmail/src/compose.php:247
+#: squirrelmail/src/compose.php:220
 msgid "Send"
 msgstr ""
 
-#: squirrelmail/src/compose.php:264
+#: squirrelmail/src/compose.php:227
+msgid "Attach:"
+msgstr ""
+
+#: squirrelmail/src/compose.php:233
+msgid "Add"
+msgstr ""
+
+#: squirrelmail/src/compose.php:246
+msgid "Delete selected attachments"
+msgstr ""
+
+#: squirrelmail/src/compose.php:266
 msgid "You have not entered a message body."
 msgstr ""
 
-#: squirrelmail/src/compose.php:268
+#: squirrelmail/src/compose.php:270
 msgid "You have not filled in the \"To:\" field."
 msgstr ""
 
-#: squirrelmail/src/compose.php:271
+#: squirrelmail/src/compose.php:273
 msgid "You have not entered a subject."
 msgstr ""
 
-#: squirrelmail/src/compose.php:292
+#: squirrelmail/src/compose.php:294
 msgid "Could not move/copy file. File not attached"
 msgstr ""
 
