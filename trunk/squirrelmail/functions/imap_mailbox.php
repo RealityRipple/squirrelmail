@@ -107,7 +107,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
             $tmp = sqimap_run_command($imap_stream, 'EXPUNGE',
                                   false, $a, $b);
         }
-        if (isset( $extroinfo ) && $extroinfo) {
+        if (isset( $extrainfo ) && $extrainfo) {
             $result = array();
             for ($i=0; $i<count($read); $i++) {
                 if (preg_match("/PERMANENTFLAGS(.*)/i",$read[$i], $regs)) {
