@@ -1168,10 +1168,12 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                     $src .= $body{$k};
                     $k++;
                 }
+                $k++;
                 while( !isNoSep( $body{$k} ) &&
                        $k < $j ) {
                     $k++;
                 }
+                $k++;
                 if ( strtolower( substr( $src, 0, 4 ) ) == 'cid:' ) {
                     $src = substr( $src, 4 );
                     $src = "../src/download.php?absolute_dl=true&amp;passed_id=$id&amp;mailbox=" .
