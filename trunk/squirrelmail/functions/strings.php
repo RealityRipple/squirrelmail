@@ -22,8 +22,8 @@ $version = '1.3.3 [CVS-DEVEL]';
  * SquirrelMail internal version number -- DO NOT CHANGE
  * $sm_internal_version = array (release, major, minor)
  */
-//global $SQM_INTERNAL_VERSION;
-//$SQM_INTERNAL_VERSION = array(1,3,3);
+global $SQM_INTERNAL_VERSION;
+$SQM_INTERNAL_VERSION = array(1,3,3);
 
 
 /**
