@@ -171,6 +171,7 @@ $aLastSelectedMailbox['LIMIT'] = ($show_num != 999999) ? $show_num : $aMbxRespon
 $aLastSelectedMailbox['UIDSET'] = $aMbxResponse['SORT_ARRAY'];
 $aLastSelectedMailbox['SEEN'] = (isset($aMbxResponse['SEEN'])) ? $aMbxResponse['SEEN'] : $aMbxResponse['EXISTS'];
 $aLastSelectedMailbox['RECENT'] = (isset($aMbxResponse['RECENT'])) ? $aMbxResponse['RECENT'] : 0;
+$aLastSelectedMailbox['RIGHTS'] = $aMbxResponse['RIGHTS'];
 
 $aLastSelectedMailbox['AUTO_EXPUNGE'] = $auto_expunge;
 
