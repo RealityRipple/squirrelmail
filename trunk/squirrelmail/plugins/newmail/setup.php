@@ -1,27 +1,27 @@
 <?php
 
    /**
-    **  newmail.php
-    **  (c)2000 by Michael Huttinger
-    **
-    **  Quite a hack -- but my first attempt at a plugin.  We were
-    **  looking for a way to play a sound when there was unseen
-    **  messages to look at.  Nice for users who keep the squirrel
-    **  mail window up for long periods of time and want to know
-    **  when mail arrives.
-    **
-    **  Basically, I hacked much of left_main.php into a plugin that
-    **  goes through each mail folder and increments a flag if
-    **  there are unseen messages.  If the final count of unseen
-    **  folders is > 0, then we play a sound (using the HTML at the
-    **  far end of this script).
-    **
-    **  This was tested with IE5.0 - but I hear Netscape works well,
-    **  too (with a plugin).
-    **
-    **  $Id$
-    **
-    **/
+    *  newmail.php
+    *  (c)2000 by Michael Huttinger
+    *
+    *  Quite a hack -- but my first attempt at a plugin.  We were
+    *  looking for a way to play a sound when there was unseen
+    *  messages to look at.  Nice for users who keep the squirrel
+    *  mail window up for long periods of time and want to know
+    *  when mail arrives.
+    *
+    *  Basically, I hacked much of left_main.php into a plugin that
+    *  goes through each mail folder and increments a flag if
+    *  there are unseen messages.  If the final count of unseen
+    *  folders is > 0, then we play a sound (using the HTML at the
+    *  far end of this script).
+    *
+    *  This was tested with IE5.0 - but I hear Netscape works well,
+    *  too (with a plugin).
+    *
+    *  $Id$
+    *
+    */
 
     function CheckNewMailboxSound($imapConnection, $mailbox, $real_box, $delimeter, $unseen, &$total_unseen) {
         global $folder_prefix, $trash_folder, $sent_folder;
@@ -88,7 +88,8 @@
         global $media_recent,$media_sel;
         global $media_allbox, $media_changetitle;
 
-        if ($submit_newmail) {
+        if ( isset($submit_newmail) ) {
+         
             if(isset($media_enable)) {
                 setPref($data_dir,$username,'newmail_enable',$media_enable);
             } else {
@@ -135,14 +136,10 @@
         
         $newmail_recent = getPref($data_dir,$username,'newmail_recent');
         $newmail_enable = getPref($data_dir,$username,'newmail_enable');
-        $newmail_media = getPref($data_dir, $username, 'newmail_media');
+        $newmail_media = getPref($data_dir, $username, 'newmail_media', '../plugins/newmail/sounds/Notify.wav');
         $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
         $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
         $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
-
-        if ($newmail_media == '') {
-            $newmail_media = '../plugins/newmail/sounds/Notify.wav';
-        }
 
     }
 
@@ -216,7 +213,7 @@
             }
 
             if ($status > 0 && $newmail_enable == 'on') {
-                echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>";
+                echo "<EMBED SRC=\"$newmail_media\" HIDDEN=TRUE AUTOSTART=TRUE>\n";
             }
             if ($status >0 && $newmail_popup == 'on') {
                 echo "<SCRIPT LANGUAGE=\"JavaScript\">\n".

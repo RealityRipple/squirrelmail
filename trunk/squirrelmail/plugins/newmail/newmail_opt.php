@@ -21,20 +21,12 @@
 
     displayPageHeader($color, 'None');
 
-    $media_enable = getPref($data_dir,$username, 'newmail_enable');
-    if ($media_enable == '') {
-        $media_enable = 'FALSE';
-    }
-
+    $media_enable = getPref($data_dir,$username, 'newmail_enable', 'FALSE' );
     $media_popup = getPref($data_dir, $username,'newmail_popup');
     $media_allbox = getPref($data_dir,$username,'newmail_allbox');
     $media_recent = getPref($data_dir,$username,'newmail_recent');
     $media_changetitle = getPref($data_dir,$username,'newmail_changetitle');
-
-    $media = getPref($data_dir,$username,'newmail_media');
-    if ($media == '') {
-        $media = '../plugins/newmail/sounds/Notify.wav';
-    }
+    $media = getPref($data_dir,$username,'newmail_media', '../plugins/newmail/sounds/Notify.wav');
 
     echo '<br>' .
          "<table width=95% align=center border=0 cellpadding=2 cellspacing=0><tr><td bgcolor=\"$color[0]\">\n".
@@ -98,19 +90,19 @@ _("Select from the list of <b>server files</b> the media file to play when new m
             '<tr>'.
                 '<td align=right nowrap>' . _("Select server file:") . '</td>'.
                 '<td><SELECT NAME=media_sel>'.
-                    '<OPTION VALUE="(local media)">' . _("(local media)");
+                    '<OPTION VALUE="(local media)">' . _("(local media)") . '</option>';
 
     // Iterate sound files for options
 
     $d = dir('../plugins/newmail/sounds');
     while($entry=$d->read()) {
         $fname = $d->path . "/" . $entry;
-        if ($entry != ".." && $entry != ".") {
+        if ($entry != '..' && $entry != '.') {
             echo "<OPTION ";
             if ($fname == $media) {
                 echo "SELECTED ";
             }
-            echo "VALUE=\"" . $fname . "\">" . $entry . "\n";
+            echo "VALUE=\"" . $fname . "\">" . $entry . "</option>\n";
         }
     }
     $d->close();
@@ -136,6 +128,7 @@ _("Select from the list of <b>server files</b> the media file to play when new m
          '<tr>'.
             '<td>&nbsp;</td>'.
             '<td>'.
+               '<INPUT TYPE=HIDDEN NAME=optmode VALUE=submit>'. 
                '<input type="submit" value="' . _("Submit") . '" name="submit_newmail">'.
             '</td>'.
          '</tr>'.

@@ -143,15 +143,16 @@ if ($optpage != SMOPT_PAGE_MAIN) {
 /*** Next, process anything that needs to be processed. ***/
 /***********************************************************/
 
-switch ($optmode) {
-    case SMOPT_MODE_SUBMIT:
-        $max_refresh = process_optionmode_submit($optpage, $optpage_data);
-        break;
-    case SMOPT_MODE_LINK:
-        $max_refresh = process_optionmode_link($optpage, $optpage_data);
-        break;
+if ( isset( $optpage_data ) ) {
+    switch ($optmode) {
+        case SMOPT_MODE_SUBMIT:
+            $max_refresh = process_optionmode_submit($optpage, $optpage_data);
+            break;
+        case SMOPT_MODE_LINK:
+            $max_refresh = process_optionmode_link($optpage, $optpage_data);
+            break;
+    }
 }
-
 /*** MOVE THIS DISPLAY CODE DOWN EVENTUALLY!!! ***/
 
 $optpage_title = _("Options");
@@ -187,7 +188,8 @@ if ($optmode == SMOPT_MODE_SUBMIT)	 {
         case SMOPT_PAGE_FOLDER:
             $save_hook_name = 'options_folder_save';
             break;
-        default: $save_hook_name = 'options_save';
+        default: 
+            $save_hook_name = 'options_save';
             break;
     }
 
