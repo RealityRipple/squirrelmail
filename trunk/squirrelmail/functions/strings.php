@@ -45,56 +45,36 @@
    }
 
    // Wraps text at $wrap characters
+   // Has a problem with special HTML characters, so call this before
+   // you do character translation.
+   // Specifically, &#039 comes up as 5 characters instead of 1.
    function sqWordWrap(&$line, $wrap) {
-      $line = str_replace("&lt;", "<", $line);
-      $line = str_replace("&gt;", ">", $line);
-
       preg_match("/^(\s|>)+/", $line, $regs);
       $beginning_spaces = $regs[0];
-
+      
       $words = explode(" ", $line);
-      $i = -1;
-      $line_len = strlen($words[0])+1;
-      $line = "";
-      if (count($words) > 1) {   
-         while ($i++ < count($words)) {
+
+      $i = 0;
+      $line = $beginning_spaces;
+      if (count($words) > 1) {
+         while ($i < count($words)) {
+            // Force one word to be on a line (minimum)
+            $line .= $words[$i] . ' ';
+            $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
+                strlen($words[$i + 1]) + 2;
+            $i ++;
             while ($line_len < $wrap && $i < count($words)) {
-               $line = "$line$words[$i] ";
+               $line .= $words[$i] . ' ';
                $i++;
-               $line_len = $line_len + strlen($words[$i]) + 1;
+               $line_len += strlen($words[$i]) + 1;
             }
-            $line_len = strlen($words[$i])+1;
-            if ($line_len <= $wrap) {
-               if (strlen($beginning_spaces) +2 >= $wrap)
-                  $beginning_spaces = "";
-               if ($i < count($words)) { // don't <BR> the last line
-                  $line = "$line\n$beginning_spaces";
-               }   
-               $line = "$line$words[$i] ";
-               $line_len = strlen($beginning_spaces) + strlen($words[$i]) + 1;
-            } else {
-               /*
-               $endline = $words[$i];
-               while ($line_len >= $wrap) {
-                  $bigline = substr($endline, 0, $wrap);
-                  $endline = substr($endline, $wrap, strlen($endline));
-                  $line_len = strlen($endline);
-                  $line = "$line$bigline<BR>";
-               }
-               */
-               if (strlen($line) > $wrap)
-                  $line = "$line\n$words[$i]";
-               else
-                  $line = "$line$words[$i]";
-               $line_len = strlen($words[$i]);
+            if ($i < count($words)) {  // If there's more to do, worry about it
+               $line .= "\n$beginning_spaces";
             }
          }
       } else {
          $line = $words[0];
       }
-
-      $line = str_replace(">", "&gt;", $line);
-      $line = str_replace("<", "&lt;", $line);
    }
 
    /** Returns an array of email addresses **/
@@ -134,13 +114,11 @@
       $body_ary = explode("\n", $body);
       for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
-         $line = charset_decode($charset, $line);
-         $line = str_replace("\t", '        ', $line);
-         chop($line);
-         
          if (strlen($line) - 2 >= $wrap_at) {
             sqWordWrap($line, $wrap_at);  
          }
+         $line = charset_decode($charset, $line);
+         $line = str_replace("\t", '        ', $line);
          
          $line = str_replace(' ', '&nbsp;', $line);
          $line = nl2br($line);
