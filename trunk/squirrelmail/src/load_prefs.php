@@ -137,15 +137,6 @@
       $signature_abs = getSig($data_dir, $username);
    }
 
-   /** Load up the Language preference **/
-   $user_language = getPref($data_dir, $username, "language");
-   if ($user_language == "") {
-      if (isset($default_charset))
-         $user_language = $default_charset;
-     else  
-         $user_language = en;
-   }      
-
    //  highlightX comes in with the form: name,color,header,value
    for ($i=0; $hlt = getPref($data_dir, $username, "highlight$i"); $i++) {
       $ary = explode(",", $hlt);
