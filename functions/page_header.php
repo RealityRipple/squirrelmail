@@ -25,9 +25,10 @@ require_once(SM_PATH . 'functions/global.php');
  * @param string title the page title, default SquirrelMail.
  * @param string xtra extra HTML to insert into the header
  * @param bool do_hook whether to execute hooks, default true
+ * @param bool frames generate html frameset doctype (since 1.5.1)
  * @return void
  */
-function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE ) {
+function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = true, $frames = false ) {
     global $squirrelmail_language;
 
     if ( !sqgetGlobalVar('base_uri', $base_uri, SQ_SESSION) ) {
@@ -35,8 +36,12 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
     }
     global $theme_css, $custom_css, $pageheader_sent;
 
-    echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">' .
-         "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
+    if ($frames) {
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">';
+    } else {          
+        echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">';
+    }
+    echo "\n\n" . html_tag( 'html' ,'' , '', '', 'lang="'.$squirrelmail_language.'"' ) . "\n<head>\n";
 
     if ( !isset( $custom_css ) || $custom_css == 'none' ) {
         if ($theme_css != '') {
