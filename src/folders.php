@@ -21,7 +21,7 @@
    echo "<TABLE WIDTH=70% COLS=1 ALIGN=CENTER>\n";
    echo "<TR><TD BGCOLOR=DCDCDC ALIGN=CENTER><FONT FACE=\"Arial,Helvetica\"><B>Delete Folder</B></FONT></TD></TR>";
    echo "<TR><TD BGCOLOR=FFFFFF ALIGN=CENTER>";
-   echo "<FORM ACTION=folders_delete.php METHOD=POST>\n";
+   echo "<FORM ACTION=folders_delete.php METHOD=SUBMIT>\n";
    echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
    for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;

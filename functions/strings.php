@@ -27,22 +27,22 @@
       return strrev($data);
    }
 
-   // Wraps text at $wrap_max characters
-   function wordWrap($line) {
-      $newline = $line;
-      $lastpart = $line;
-      $numlines = 0;
-      $wrap_max = 80;
-      while (strlen($lastpart) > $wrap_max) {
-         $pos = $wrap_max;
-         while ((substr($line, $pos, $pos+1) != " ") && ($pos > 0)) {
-            $pos--;
+   // Wraps text at $wrap characters
+   function wordWrap($passed, $wrap) {
+      $words = explode(" ", trim($passed));
+      $i = 0;
+      $line_len = strlen($words[$i])+1;
+      $line = "";
+      while ($i < count($words)) {
+         while ($line_len < $wrap) {
+            $line = "$line$words[$i]&nbsp;";
+            $i++;
+            $line_len = $line_len + strlen($words[$i])+1;
          }
-         $before = substr($line, 0, $pos);
-         $lastpart = substr($line, $pos+1, strlen($line));
-         $newline = $before . "<BR>" . $lastpart;
-         $numlines++;
+         if ($i < count($words)) // don't <BR> the last line
+            $line = "$line<BR>";
+         $line_len = strlen($words[$i])+1;
       }
-      return $newline;
+      return $line;
    }
 ?>

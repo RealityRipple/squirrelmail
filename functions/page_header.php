@@ -19,7 +19,7 @@
       echo "   </TR></TABLE>\n";
       echo "<TABLE BGCOLOR=FFFFFF BORDER=0 COLS=2 WIDTH=100% CELLSPACING=0 CELLPADDING=2><TR>";
       echo "      <TD ALIGN=left WIDTH=70%>";
-      echo "         <FONT FACE=\"Arial,Helvetica\">Compose</FONT>&nbsp&nbsp";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"compose.php\">Compose</A></FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\">Addresses</FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\"><A HREF=\"folders.php\">Folders</A></FONT>&nbsp&nbsp";
       echo "         <FONT FACE=\"Arial,Helvetica\">Options</FONT>&nbsp&nbsp";

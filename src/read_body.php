@@ -20,10 +20,14 @@
 //   $date = getDateString($date);
    $date = $d[0];
    $from_name = getSenderName($f[0]);
+   $urlMailbox = urlencode($mailbox);
 
-   echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER>\n";
-   echo "   <TR><TD BGCOLOR=DCDCDC>&nbsp;</TD></TR>";
-   echo "   <TR><TD BGCOLOR=FFFFFF>";
+   echo "<BR>";
+   echo "<TABLE COLS=1 WIDTH=95% BORDER=0 ALIGN=CENTER CELLPADDING=2>\n";
+   echo "   <TR><TD BGCOLOR=DCDCDC WIDTH=100%>";
+   echo "      <A HREF=\"right_main.php?sort=$sort&startMessage=$startMessage&mailbox=$urlMailbox\">Message List</A>&nbsp;&nbsp;";
+   echo "   </TD></TR>";
+   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
    echo "   <TABLE COLS=2 WIDTH=100% BORDER=0 CELLSPACING=0 CELLPADDING=2>\n";
    echo "      <TR>\n";
    /** subject **/
@@ -52,7 +56,7 @@
 
    echo "   </TABLE></TD></TR>\n";
 
-   echo "   <TR><TD BGCOLOR=FFFFFF><BR>\n";
+   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%><BR>\n";
    $i = 0;
    while ($i < count($body)) {
       echo "$body[$i]";
