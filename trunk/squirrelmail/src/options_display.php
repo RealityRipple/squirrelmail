@@ -260,6 +260,7 @@
 ?>
             </td>
          </tr>
+         <?php do_hook("options_display_inside"); ?>
          <tr>
             <td>&nbsp;
             </td><td>

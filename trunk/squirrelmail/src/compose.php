@@ -152,8 +152,8 @@
          echo "// --></SCRIPT>\n\n";
       }
 
-      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
-      //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
+      //echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST ENCTYPE=\"multipart/form-data\">\n";
+      echo "\n<FORM name=compose action=\"compose.php\" METHOD=POST>\n";
       if ($reply_id) {
          echo "<input type=hidden name=reply_id value=$reply_id>\n";
       }                 
@@ -233,9 +233,9 @@
       echo "      <TD BGCOLOR=\"$color[4]\" COLSPAN=2>\n";
       echo "         &nbsp;&nbsp;<TEXTAREA NAME=body ROWS=20 COLS=\"$editor_size\" WRAP=HARD>";
       if ($use_signature == true && $newmail == true && !isset($from_htmladdr_search)) {
-         echo sqStripSlashes(htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
+         echo (htmlspecialchars($body)) . "\n\n-- \n" . htmlspecialchars($signature);
       } else {
-         echo sqStripSlashes(htmlspecialchars($body));
+         echo (htmlspecialchars($body));
       }
       echo "</TEXTAREA><BR>\n";
       echo "      </TD>\n";

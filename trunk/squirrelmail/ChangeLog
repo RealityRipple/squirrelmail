@@ -1,5 +1,6 @@
 Version 0.5pre2 -- DEVELOPMENT
 ------------------------------
+- Added more hooks for plugins, updated plugin.txt
 - Improved HTML address book
 - Fixed bugs in parsing email addresses in smtp.php
 - Applied fixes for Courier IMAP server (by Andreas Dahl)

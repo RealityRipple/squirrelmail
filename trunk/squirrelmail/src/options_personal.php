@@ -76,6 +76,7 @@
 ?>
             </td>
          </tr>
+         <?php do_hook("options_personal_inside"); ?>
          <tr>
             <td>&nbsp;
             </td><td>

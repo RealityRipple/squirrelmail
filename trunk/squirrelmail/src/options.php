@@ -54,6 +54,8 @@
       setPref($data_dir, $username, "use_signature", sqStripSlashes($usesignature));  
       if (isset($signature_edit)) setSig($data_dir, $username, sqStripSlashes($signature_edit)); 
       
+      do_hook("options_personal_save");
+      
       echo "<br><center><b>"._("Successfully saved personal information!")."</b></center><br>";
    } else if ($submit_display) {  
       # Save display preferences
@@ -66,6 +68,8 @@
       setPref($data_dir, $username, "left_size", $leftsize);
       setPref($data_dir, $username, "use_javascript_addr_book", $javascript_abook);
     
+      do_hook("options_display_save");
+
       echo "<br><center><b>"._("Successfully saved display preferences!")."</b><br>";
       echo "<a href=\"webmail.php?right_frame=options.php\" target=_top>"._("Refresh Page")."</a></center><br>";
    } else if ($submit_folder) { 
@@ -87,6 +91,7 @@
       setPref($data_dir, $username, "folder_prefix", $folderprefix);
       setPref($data_dir, $username, "unseen_notify", $unseennotify);
       setPref($data_dir, $username, "unseen_type", $unseentype);
+      do_hook("options_folders_save");
       echo "<br><center><b>"._("Successfully saved folder preferences!")."</b><br>";
       echo "<a href=\"left_main.php\" target=left>"._("Refresh Folders")."</a></center><br>";
    } else {

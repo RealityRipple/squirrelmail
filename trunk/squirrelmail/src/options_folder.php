@@ -133,6 +133,7 @@
                <input type=radio name=unseentype value=2<?php if ($unseen_type == 2) echo " checked"; ?>> <?php echo _("Unseen and Total"); ?> - (4/27)
             </td>
          </tr>
+         <?php do_hook("options_folders_inside"); ?>
          <tr>
             <td>&nbsp;
             </td><td>
