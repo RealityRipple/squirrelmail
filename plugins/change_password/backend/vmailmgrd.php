@@ -2,22 +2,22 @@
 /**
  * Change password vmailmgrd backend
  *
- * Backend won't work, if vmail.inc file is not included. vmail.inc file 
- * should be part of your vmailmgr install. In some cases it is included in 
+ * Backend won't work, if vmail.inc file is not included. vmail.inc file
+ * should be part of your vmailmgr install. In some cases it is included in
  * separate package.
  *
- * If you use modified vmail.inc, it must provide vchpass() function that 
- * acts same way as stock (vmailmgr v.0.96.9) vmail.inc function call 
- * and other vmail.inc functions should use same $vm_tcphost and 
+ * If you use modified vmail.inc, it must provide vchpass() function that
+ * acts same way as stock (vmailmgr v.0.96.9) vmail.inc function call
+ * and other vmail.inc functions should use same $vm_tcphost and
  * $vm_tcphost_port globals as used by stock vm_daemon_raw() function call.
- * If you have heavily modified vmail.inc and this backend does not work 
- * correctly - recheck, if you can reproduce your problem with stock 
+ * If you have heavily modified vmail.inc and this backend does not work
+ * correctly - recheck, if you can reproduce your problem with stock
  * vmail.inc or adjust backend configuration for your site.
  *
- * Backend also needs vmailmgrd service. You can find information about 
+ * Backend also needs vmailmgrd service. You can find information about
  * installing this service in vmailmgr FAQ and vmailmgrd.html.
  *
- * Backend might require functions, that are available only in SquirrelMail 
+ * Backend might require functions, that are available only in SquirrelMail
  * v.1.5.1 and v.1.4.4.
  *
  * @author Tomas Kuliavas <tokul@users.sourceforge.net>
@@ -33,10 +33,10 @@
  * path to vmail.inc
  *
  * This variable must provide full path to vmail.inc file including filename.
- * 
- * WARNING: Don't disable this variable. It must be set to correct value or 
- * to empty string. If variable is missing, backend can have security problems 
- * in some php configurations.
+ *
+ * WARNING: Don't disable this variable. It must be set to correct value or
+ * to empty string. If variable is missing, backend can have security problems
+ * in some PHP configurations.
  * @global string $vmail_inc_path
  */
 global $vmail_inc_path;
@@ -86,7 +86,7 @@ if ( isset($vmailmgrd) && is_array($vmailmgrd) && !empty($vmailmgrd) ) {
 
 
 /**
- * Init change_password plugin hooks. 
+ * Init change_password plugin hooks.
  */
 global $squirrelmail_plugin_hooks;
 $squirrelmail_plugin_hooks['change_password_dochange']['vmailmgrd'] =

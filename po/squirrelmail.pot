@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-02-27 18:57+0200\n"
+"POT-Creation-Date: 2005-02-27 23:00+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,15 +18,6 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 msgid "Address Book"
-msgstr ""
-
-msgid "All"
-msgstr ""
-
-msgid "To"
-msgstr ""
-
-msgid "Cc"
 msgstr ""
 
 msgid "Name"
@@ -41,13 +32,16 @@ msgstr ""
 msgid "Source"
 msgstr ""
 
+msgid "To"
+msgstr ""
+
+msgid "Cc"
+msgstr ""
+
 msgid "Bcc"
 msgstr ""
 
-msgid "Use Addresses"
-msgstr ""
-
-msgid "Address Book Search"
+msgid "No persons matching your search were found"
 msgstr ""
 
 msgid "Search for"
@@ -65,6 +59,9 @@ msgstr ""
 msgid "List all"
 msgstr ""
 
+msgid "Close"
+msgstr ""
+
 #, php-format
 msgid "Unable to list addresses from %s"
 msgstr ""
@@ -72,13 +69,16 @@ msgstr ""
 msgid "Your search failed with the following error(s)"
 msgstr ""
 
-msgid "No persons matching your search were found"
+msgid "All"
+msgstr ""
+
+msgid "Use Addresses"
+msgstr ""
+
+msgid "Address Book Search"
 msgstr ""
 
 msgid "Return"
-msgstr ""
-
-msgid "Close"
 msgstr ""
 
 msgid "No personal address book is defined. Contact administrator."
@@ -239,28 +239,6 @@ msgstr ""
 msgid "Server replied: "
 msgstr ""
 
-msgid "Illegal folder name. Please select a different name."
-msgstr ""
-
-msgid "Click here to go back"
-msgstr ""
-
-msgid "You have not selected a folder to delete. Please do so."
-msgstr ""
-
-msgid "Delete Folder"
-msgstr ""
-
-#, php-format
-msgid "Are you sure you want to delete %s?"
-msgstr ""
-
-msgid "Yes"
-msgstr ""
-
-msgid "No"
-msgstr ""
-
 msgid "Folders"
 msgstr ""
 
@@ -318,6 +296,9 @@ msgstr ""
 msgid "No folders found"
 msgstr ""
 
+msgid "Delete Folder"
+msgstr ""
+
 msgid "Delete"
 msgstr ""
 
@@ -334,6 +315,25 @@ msgid "No folders were found to subscribe to!"
 msgstr ""
 
 msgid "Subscribe to:"
+msgstr ""
+
+msgid "Illegal folder name. Please select a different name."
+msgstr ""
+
+msgid "Click here to go back"
+msgstr ""
+
+msgid "You have not selected a folder to delete. Please do so."
+msgstr ""
+
+#, php-format
+msgid "Are you sure you want to delete %s?"
+msgstr ""
+
+msgid "Yes"
+msgstr ""
+
+msgid "No"
 msgstr ""
 
 msgid "You have not selected a folder to rename. Please do so."
@@ -438,10 +438,71 @@ msgstr ""
 msgid "Password:"
 msgstr ""
 
-msgid "Options"
+msgid "Personal Information"
+msgstr ""
+
+msgid "Display Preferences"
+msgstr ""
+
+msgid "Compose Preferences"
 msgstr ""
 
 msgid "Message Highlighting"
+msgstr ""
+
+msgid "Folder Preferences"
+msgstr ""
+
+msgid "Index Order"
+msgstr ""
+
+msgid "Options"
+msgstr ""
+
+msgid "Error(s) occurred while saving your options"
+msgstr ""
+
+msgid "Some of your preference changes were not applied."
+msgstr ""
+
+#. Display a message indicating a successful save.
+msgid "Successfully Saved Options"
+msgstr ""
+
+msgid "Refresh Folder List"
+msgstr ""
+
+msgid "Refresh Page"
+msgstr ""
+
+msgid ""
+"This contains personal information about yourself such as your name, your "
+"email address, etc."
+msgstr ""
+
+msgid ""
+"You can change the way that SquirrelMail looks and displays information to "
+"you, such as the colors, the language, and other settings."
+msgstr ""
+
+msgid ""
+"Based upon given criteria, incoming messages can have different background "
+"colors in the message list. This helps to easily distinguish who the "
+"messages are from, especially for mailing lists."
+msgstr ""
+
+msgid ""
+"These settings change the way your folders are displayed and manipulated."
+msgstr ""
+
+msgid ""
+"The order of the message index can be rearranged and changed to contain the "
+"headers in any order you want."
+msgstr ""
+
+msgid ""
+"Control the behaviour and layout of writing new mail messages, replying to "
+"and forwarding messages."
 msgstr ""
 
 msgid "New"
@@ -556,9 +617,6 @@ msgstr ""
 msgid "Move Up"
 msgstr ""
 
-msgid "Index Order"
-msgstr ""
-
 msgid "Checkbox"
 msgstr ""
 
@@ -584,64 +642,6 @@ msgid "remove"
 msgstr ""
 
 msgid "Return to options page"
-msgstr ""
-
-msgid "Personal Information"
-msgstr ""
-
-msgid "Display Preferences"
-msgstr ""
-
-msgid "Compose Preferences"
-msgstr ""
-
-msgid "Folder Preferences"
-msgstr ""
-
-msgid "Error(s) occurred while saving your options"
-msgstr ""
-
-msgid "Some of your preference changes were not applied."
-msgstr ""
-
-#. Display a message indicating a successful save.
-msgid "Successfully Saved Options"
-msgstr ""
-
-msgid "Refresh Folder List"
-msgstr ""
-
-msgid "Refresh Page"
-msgstr ""
-
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
-msgstr ""
-
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
-msgstr ""
-
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list. This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
-msgstr ""
-
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
-msgstr ""
-
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
-msgstr ""
-
-msgid ""
-"Control the behaviour and layout of writing new mail messages, replying to "
-"and forwarding messages."
 msgstr ""
 
 msgid "Message not printable"
@@ -2323,10 +2323,10 @@ msgstr ""
 msgid "Use icons"
 msgstr ""
 
-msgid "Use php recode functions"
+msgid "Use PHP recode functions"
 msgstr ""
 
-msgid "Use php iconv functions"
+msgid "Use PHP iconv functions"
 msgstr ""
 
 #. ---- Settings of address books ----
@@ -2549,11 +2549,11 @@ msgstr ""
 msgid "Show button in toolbar"
 msgstr ""
 
-#, php-format
-msgid "Could not write calendar file %s"
+msgid "TODAY"
 msgstr ""
 
-msgid "TODAY"
+#, php-format
+msgid "Could not write calendar file %s"
 msgstr ""
 
 msgid "l, F j Y"
@@ -2699,7 +2699,7 @@ msgstr ""
 msgid "Use this to change your email password."
 msgstr ""
 
-msgid "Current configuration requires ldap support in php."
+msgid "Current configuration requires LDAP support in PHP."
 msgstr ""
 
 msgid "Plugin is not configured correctly."
@@ -2707,7 +2707,7 @@ msgstr ""
 
 #. set error message
 #, php-format
-msgid "Setting of ldap connection option %s to value %s failed."
+msgid "Setting of LDAP connection option %s to value %s failed."
 msgstr ""
 
 #. FIXME: check if ldap_set_option modifies ldap_error.
@@ -2721,21 +2721,21 @@ msgstr ""
 msgid "Unable to use LDAP TLS in current setup."
 msgstr ""
 
-msgid "Unable to bind to ldap server"
+msgid "Unable to bind to LDAP server."
 msgstr ""
 
 #, php-format
 msgid "Server replied: %s"
 msgstr ""
 
-msgid "Unable to rebind to ldap server"
+msgid "Unable to rebind to LDAP server."
 msgstr ""
 
 msgid "Unable to connect to LDAP server."
 msgstr ""
 
 #. ldap_get_dn() returned error
-msgid "Unable to find user's dn."
+msgid "Unable to find user's DN."
 msgstr ""
 
 msgid "Search error."
@@ -2751,7 +2751,7 @@ msgstr ""
 msgid "Unsupported crypto: %s"
 msgstr ""
 
-msgid "php mhash extension is missing."
+msgid "PHP mhash extension is missing."
 msgstr ""
 
 msgid "System crypt library doesn't support standard des crypt."
@@ -3472,6 +3472,18 @@ msgstr ""
 msgid "View Message details"
 msgstr ""
 
+msgid "New Mail"
+msgstr ""
+
+msgid "SquirrelMail Notice:"
+msgstr ""
+
+#, php-format
+msgid "You have %s new message"
+msgid_plural "You have %s new messages"
+msgstr[0] ""
+msgstr[1] ""
+
 msgid "New Mail Notification"
 msgstr ""
 
@@ -3564,18 +3576,6 @@ msgstr ""
 
 msgid "Current File:"
 msgstr ""
-
-msgid "New Mail"
-msgstr ""
-
-msgid "SquirrelMail Notice:"
-msgstr ""
-
-#, php-format
-msgid "You have %s new message"
-msgid_plural "You have %s new messages"
-msgstr[0] ""
-msgstr[1] ""
 
 msgid "NewMail Options"
 msgstr ""
@@ -3954,6 +3954,18 @@ msgstr ""
 msgid "No errors found"
 msgstr ""
 
+msgid ""
+"Your personal dictionary has been encrypted and is now stored in an "
+"encrypted format."
+msgstr ""
+
+msgid ""
+"Your personal dictionary has been decrypted and is now stored as plain text."
+msgstr ""
+
+msgid "Personal Dictionary Crypto Settings"
+msgstr ""
+
 msgid "Your personal dictionary was erased."
 msgstr ""
 
@@ -3983,18 +3995,6 @@ msgid ""
 msgstr ""
 
 msgid "Dictionary re-encrypted"
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been encrypted and is now stored in an "
-"encrypted format."
-msgstr ""
-
-msgid ""
-"Your personal dictionary has been decrypted and is now stored as plain text."
-msgstr ""
-
-msgid "Personal Dictionary Crypto Settings"
 msgstr ""
 
 #. *
