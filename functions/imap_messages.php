@@ -831,7 +831,7 @@ function sqimap_parse_envelope($read, &$i, &$msg) {
     if (count($arg_a) > 9) {
         $d = strtr($arg_a[0], array('  ' => ' '));
         $d = explode(' ', $d);
-        if (!$arg_a[1]) $arg_1[1] = '';
+        if (!$arg_a[1]) $arg_a[1] = '';
         $msg['DATE'] = $d; /* argument 1: date */
         $msg['SUBJECT'] = $arg_a[1];     /* argument 2: subject */
         $msg['FROM'] = is_array($arg_a[2]) ? $arg_a[2][0] : '';     /* argument 3: from        */
