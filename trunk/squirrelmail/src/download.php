@@ -116,19 +116,30 @@
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
             set_up_language(getPref($data_dir, $username, "language"));
-            header("Content-Disposition: attachment; filename=\"$filename\"");
-            header("Content-type: application/octet-stream; name=\"$filename\"");
-            if ($type1 == "plain") {
+            header("Content-Disposition: inline; filename=\"$filename\"");
+            header("Content-Type: application/download; name=\"$filename\"");
+            if ($type1 == "plain" && isset($showHeaders)) {
                echo _("Subject") . ": " . decodeHeader($top_header->subject) . "\n";
                echo "   " . _("From") . ": " . decodeHeader($top_header->from) . "\n";
                echo "     " . _("To") . ": " . decodeHeader(getLineOfAddrs($top_header->to)) . "\n";
                echo "   " . _("Date") . ": " . getLongDateString($top_header->date) . "\n\n";
             }
+	    elseif ($type1 == "html" && isset($showHeaders)) {
+	       echo '<table><tr><th align=right>' . _("Subject");
+	       echo ':</th><td>' . decodeHeader($top_header->subject);
+	       echo "</td></tr>\n<tr><th align=right>" . _("From");
+	       echo ':</th><td>' . decodeHeader($top_header->from);
+	       echo "</td></tr>\n<tr><th align=right>" . _("To");
+	       echo ':</th><td>' . decodeHeader(getLineOfAddrs($top_header->to));
+	       echo "</td></tr>\n<tr><th align=right>" . _("Date");
+	       echo ':</th><td>' . getLongDateString($top_header->date);
+	       echo "</td></tr>\n</table>\n<hr>\n";
+	    }
             echo trim($body);
             break;
          default:
             header("Content-Disposition: inline; filename=\"$filename\"");
-            header("Content-type: application/download; name=\"$filename\"");
+            header("Content-Type: application/download; name=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
@@ -143,7 +154,7 @@
             } else {
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
-                header("Content-type: $type0/$type1; name=\"$filename\"");
+                header("Content-Type: $type0/$type1; name=\"$filename\"");
                 header("Content-Disposition: inline; filename=\"$filename\"");
                 echo $body;
             }
