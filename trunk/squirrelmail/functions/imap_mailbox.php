@@ -107,6 +107,8 @@
     **  The array returned looks like this:
     ******************************************************************************/
    function sqimap_mailbox_list ($imap_stream) {
+      global $special_folders, $list_special_folders_first;
+      
       if (!function_exists ("ary_sort"))
          include ("../functions/array.php");
       
@@ -159,8 +161,16 @@
       }
 
       $original = $boxes;
+
+      /** Get the folders into lower case so sorting is not case sensative */
+      for ($i = 0; $i < count($original); $i++) {
+         $boxes[$i]["unformatted"] = strtolower($boxes[$i]["unformatted"]);
+      }
+
+      /** Sort them **/
       $boxes = ary_sort($boxes, "unformatted", 1);
-      
+
+      /** Get them back from the original array, still sorted by the id **/
       for ($i = 0; $i < count($boxes); $i++) {
          for ($j = 0; $j < count($original); $j++) {
             if ($boxes[$i]["id"] == $original[$j]["id"]) {
@@ -169,11 +179,14 @@
          }
       }     
  
+      
       for ($i = 0; $i < count($boxes); $i++) {
          if ($boxes[$i]["unformatted"] == $special_folders[0]) {
             $boxesnew[0] = $boxes[$i];
+            $boxes[$i]["used"] = true;
          }
       }
+      
       if ($list_special_folders_first == true) {
          for ($i = 0; $i < count($boxes); $i++) {
             for ($j = 1; $j < count($special_folders); $j++) {
@@ -185,6 +198,7 @@
             }
          }
       }
+      
       for ($i = 0; $i < count($boxes); $i++) {
          if (($boxes[$i]["unformatted"] != $special_folders[0]) &&
              ($boxes[$i]["used"] == false))  {
@@ -194,7 +208,7 @@
          }
       }
 
-      return $boxes;
+      return $boxesnew;
    }
    
-?>   
+?>
