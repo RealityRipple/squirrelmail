@@ -1,5 +1,4 @@
 <?php
-
 /**
  * addressbook.php
  *
@@ -42,7 +41,7 @@ sqgetGlobalVar('deladdr',   $deladdr,   SQ_POST);
 sqgetGlobalVar('sel',       $sel,       SQ_POST);
 sqgetGlobalVar('oldnick',   $oldnick,   SQ_POST);
 sqgetGlobalVar('backend',   $backend,   SQ_POST);
-sqgetGlobalVar('doedit',    $doedit,    SQ_POST); 
+sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
 
 /**
  * Make an input field
@@ -59,7 +58,7 @@ function addressbook_inp_field($label, $field, $name, $size, $values, $add) {
     
     $td_str = addInput($name.'['.$field.']', $value, $size)
         . $add ;
-	
+
     return html_tag( 'tr' ,
         html_tag( 'td', $label . ':', 'right', $color[4]) .
         html_tag( 'td', $td_str, 'left', $color[4])
@@ -82,7 +81,7 @@ function address_form($name, $submittext, $values = array()) {
                        addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
                        addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-		       list_writable_backends($name) .
+                   list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
                                        '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
@@ -98,7 +97,7 @@ function address_form($name, $submittext, $values = array()) {
                        addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
                        addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
                        addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
-		       list_writable_backends($name) .
+                   list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
                                        '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
@@ -117,18 +116,18 @@ function list_writable_backends($name) {
     $backends = $abook->get_backend_list();
     while (list($undef,$v) = each($backends)) {
       if ($v->writeable) {
-	$ret .= '<OPTION VALUE=' . $v->bnum;
-	$ret .= '>' . $v->sname . "\n";
+        $ret .= '<OPTION VALUE=' . $v->bnum;
+        $ret .= '>' . $v->sname . "\n";
       }
     }
     $ret .= "</select>";
     return html_tag( 'tr',
-		     html_tag( 'td', _("Add to:"),'right', $color[4] ) .
-		     html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
+                     html_tag( 'td', _("Add to:"),'right', $color[4] ) .
+                     html_tag( 'td', $ret, 'left', $color[4] )) . "\n";
   } else {
   return html_tag( 'tr',
-		   html_tag( 'td',
-		             addHidden('backend', '1'),
+                   html_tag( 'td',
+                             addHidden('backend', '1'),
                              'center', $color[4], 'colspan="2"')) . "\n";
   }
 }
@@ -163,11 +162,11 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
         foreach( $addaddr as $k => $adr ) {
             $addaddr[$k] = strip_tags( $adr );
         }
-	if (isset($backend)) {
-	  $r = $abook->add($addaddr, $backend);
-	} else {
-	  $r = $abook->add($addaddr, $abook->localbackend);
-	}
+    if (isset($backend)) {
+      $r = $abook->add($addaddr, $backend);
+    } else {
+      $r = $abook->add($addaddr, $abook->localbackend);
+    }
 
         /* Handle error messages */
         if (!$r) {
@@ -258,9 +257,9 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                    ),
                              'center', '', 'width="100%" ' );
                         address_form("editaddr", _("Update address"), $olddata);
-			echo addHidden('oldnick', $olddata['nickname']).
+                        echo addHidden('oldnick', $olddata['nickname']).
                              addHidden('backend', $olddata['backend']).
-			     addHidden('doedit', '1').
+                             addHidden('doedit', '1').
                              '</FORM>';
                     }
                 } else {
@@ -294,9 +293,9 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                  'center', '', 'width="100%"' );
                             address_form("editaddr", _("Update address"), $newdata);
                             echo 
-			    	addHidden('oldnick', $oldnick).
-				addHidden('backend', $backend).
-				addHidden('doedit',  '1').
+                              addHidden('oldnick', $oldnick).
+                              addHidden('backend', $backend).
+                              addHidden('doedit',  '1').
                                  "\n" . '</FORM>';
                             $abortform = true;
                         }
@@ -373,43 +372,44 @@ if ($showaddrlist) {
                                           html_tag( 'td', '&nbsp;<br>', 'center', '', 'colspan="5"' )
                                     ) ,
                              'center' );
-		    echo "\n<!-- start of address book table -->\n" .
-            		  html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
-			  html_tag( 'tr', "\n" .
-                            html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
-                            html_tag( 'th', _("Nickname") .
-					  " <a href=\"$form_url?abook_sort=nickname\">".
-					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" alt=\"sort by nickname\" title=\"" .
-					  _("Click here to change the sorting of the address list") . 
-					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
-                            html_tag( 'th', _("Name") . 
-					  " <a href=\"$form_url?abook_sort=name\">" .
-					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-					  "alt=\"sort by name\" title=\"" .
-					  _("Click here to change the sorting of the address list") . 
-					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
-                            html_tag( 'th', _("E-mail") . 
-					  " <a href=\"$form_url?abook_sort=email\">" .
-					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-					  "alt=\"sort by email\" title=\"" .
-					  _("Click here to change the sorting of the address list") . 
-					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
-                            html_tag( 'th', _("Info") .
-					  " <a href=\"$form_url?abook_sort=label\">" .
-					  "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
-					  "alt=\"sort by info\" title=\"" .
-					  _("Click here to change the sorting of the address list") . 
-					  "\" /></a>", 'left', '', 'width="1%"' ) . "\n",
-                      '', $color[9] ) . "\n";
+                    echo "\n<!-- start of address book table -->\n" .
+                      html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
+                      html_tag( 'tr', "\n" .
+                          html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
+                          html_tag( 'th', _("Nickname") .
+                                    " <a href=\"$form_url?abook_sort=nickname\">".
+                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" alt=\"sort by nickname\" title=\"" .
+                                    _("Click here to change the sorting of the address list") . 
+                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                          html_tag( 'th', _("Name") . 
+                                    " <a href=\"$form_url?abook_sort=name\">" .
+                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+                                    "alt=\"sort by name\" title=\"" .
+                                    _("Click here to change the sorting of the address list") . 
+                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                          html_tag( 'th', _("E-mail") . 
+                                    " <a href=\"$form_url?abook_sort=email\">" .
+                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+                                    "alt=\"sort by email\" title=\"" .
+                                    _("Click here to change the sorting of the address list") . 
+                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n" .
+                          html_tag( 'th', _("Info") .
+                                    " <a href=\"$form_url?abook_sort=label\">" .
+                                    "<img src=\"../images/sort_none.png\" border=\"0\" width=\"12\" height=\"10\" " .
+                                    "alt=\"sort by info\" title=\"" .
+                                    _("Click here to change the sorting of the address list") . 
+                                    "\" /></a>", 'left', '', 'width="1%"' ) . "\n",
+                                '', $color[9] ) . "\n";
                 }
 
-		// Separate different backends with <hr />
+                // Separate different backends with <hr />
                 if($prevbackend > 0) {
                     echo  html_tag( 'tr',
                         html_tag( 'td', "<hr />", 'center', '' ,'colspan="5"' )
                       );
-		}
-		// Print backend name
+                }
+
+                // Print backend name
                 echo  html_tag( 'tr',
                         html_tag( 'td', "\n" . '<strong>' . $row['source'] . '</strong>' . "\n", 'center', $color[0] ,'colspan="5"' )
                       );
@@ -431,7 +431,7 @@ if ($showaddrlist) {
             echo html_tag( 'tr', '', '', $tr_bgcolor) .
                 html_tag( 'td',
                           '<small>' .
-			  addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
+                          addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
                           '</small>' ,
                           'center', '', 'valign="top" width="1%"' ) .
                 html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) . 
@@ -456,21 +456,21 @@ if ($showaddrlist) {
             "</tr>\n";
             $line++;
         }
-	echo "</table>" .
-	    "\n<!-- end of address book table -->\n";
+        echo "</table>" .
+          "\n<!-- end of address book table -->\n";
 
         /* End of list. Add edit/delete select buttons */
         if ($headerprinted) {
             echo html_tag( 'table',
-		    html_tag( 'tr',
-                        html_tag( 'td',
-                                '<input type="submit" name="editaddr" value="' . _("Edit selected") .
-                                "\" />\n" .
-                                '<input type="submit" name="deladdr" value="' . _("Delete selected") .
-                                "\" />\n",
-                         'center', '', 'colspan="5"' )
-                    ),
-		'center' );
+                           html_tag( 'tr',
+                                     html_tag( 'td',
+                                               '<input type="submit" name="editaddr" value="' . _("Edit selected") .
+                                               "\" />\n" .
+                                               '<input type="submit" name="deladdr" value="' . _("Delete selected") .
+                                               "\" />\n",
+                                               'center', '', 'colspan="5"' )
+                                     ),
+                           'center' );
         }
         echo "</form>\n";
     }
