@@ -687,9 +687,11 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
         // Set subsequent location based on whether or not there is a 'next' message.
         if ( isset($next) && $next >= 0 ) {
-          $location = $base_uri . 'src/read_body.php?passed_id='.$next.'&';
+            $location = $base_uri . 'src/read_body.php?passed_id='.$next.'&';
+        } elseif (isset($prev) && $prev >= 0) {
+            $location = $base_uri . 'src/read_body.php?passed_id='.$prev.'&';
         } else {
-          $location = $base_uri . 'src/right_main.php?';
+            $location = $base_uri . 'src/right_main.php?';
         }
 
         $menu_row .= '<form action="'.$base_uri.'src/move_messages.php?'.$current_box.'" method="post">'.
