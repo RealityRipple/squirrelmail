@@ -22,63 +22,84 @@
    // This array specifies the available languages.
    $languages['en']['NAME']    = 'English';
    $languages['en']['CHARSET'] = 'iso-8859-1';
+   $languages['en_EN']['ALIAS'] = 'en';
    
    $languages['ca']['NAME']    = 'Catalan';
    $languages['ca']['CHARSET'] = 'iso-8859-1';
+   $languages['ca_CA']['ALIAS'] = 'ca';
 
    $languages['hr']['NAME']    = 'Croatian';
    $languages['hr']['CHARSET'] = 'iso-8859-2';
+   $languages['hr_HR']['ALIAS'] = 'hr';
 
    $languages['cs_CZ']['NAME']    = 'Czech';
    $languages['cs_CZ']['CHARSET'] = 'iso-8859-2';
    
    $languages['da']['NAME']    = 'Danish';
    $languages['da']['CHARSET'] = 'iso-8859-1';
+   $languages['da_DA']['ALIAS'] = 'da';
    
    $languages['de']['NAME']    = 'Deutsch';
    $languages['de']['CHARSET'] = 'iso-8859-1';
+   $languages['de_DE']['ALIAS'] = 'de';
    
    $languages['id']['NAME']    = 'Indonesian';
    $languages['id']['CHARSET'] = 'iso-8859-1';
+   $languages['id_ID']['ALIAS'] = 'id';
    
    $languages['nl']['NAME']    = 'Dutch';
    $languages['nl']['CHARSET'] = 'iso-8859-1';
+   $languages['nl_NL']['ALIAS'] = 'nl';
    
    $languages['fr']['NAME']    = 'French';
    $languages['fr']['CHARSET'] = 'iso-8859-1';
+   $languages['fr_FR']['ALIAS'] = 'fr';
    
    $languages['fi']['NAME']    = 'Finnish';
    $languages['fi']['CHARSET'] = 'iso-8859-1';
+   $languages['fi_FI']['ALIAS'] = 'fi';
 
    $languages['hu']['NAME']    = 'Hungarian';
    $languages['hu']['CHARSET'] = 'iso-8859-1';
+   $languages['hu_HU']['ALIAS'] = 'hu';
 
    $languages['is']['NAME']    = 'Icelandic';
    $languages['is']['CHARSET'] = 'iso-8859-1';
+   $languages['is_IS']['ALIAS'] = 'is';
    
    $languages['it']['NAME']    = 'Italian';
    $languages['it']['CHARSET'] = 'iso-8859-1';
+   $languages['it_IT']['ALIAS'] = 'it';
   
    $languages['ko']['NAME']    = 'Korean';
    $languages['ko']['CHARSET'] = 'euc-KR';
+   $languages['ko_KO']['CHARSET'] = 'ko';
    
    $languages['no']['NAME']    = 'Norwegian (Bokm&aring;l)';
    $languages['no']['CHARSET'] = 'iso-8859-1';
+   $languages['no_NO']['ALIAS'] = 'no';
    
    $languages['no_NO_ny']['NAME']    = 'Norwegian (Nynorsk)';
    $languages['no_NO_ny']['CHARSET'] = 'iso-8859-1';
    
    $languages['pl']['NAME']    = 'Polish';
    $languages['pl']['CHARSET'] = 'iso-8859-2';
+   $languages['pl_PL']['Alias'] = 'pl';
+   
+   $languages['pt']['NAME'] = 'Português (Portugal)';
+   $languages['pt']['CHARSET'] = 'iso-8859-1';
+   $languages['pt_PT']['CHARSET'] = 'pt';
    
    $languages['pt_BR']['NAME']    = 'Portuguese (Brazil)';
    $languages['pt_BR']['CHARSET'] = 'iso-8859-1';
    
    $languages['ru']['NAME']    = 'Russian KOI8-R';
    $languages['ru']['CHARSET'] = 'koi8-r';
+   $languages['ru_RU']['ALIAS'] = 'ru';
    
    $languages['sr']['NAME']    = 'Serbian';
    $languages['sr']['CHARSET'] = 'iso-8859-2';
+   $languages['sr_SR']['ALIAS'] = 'sr';
    
    $languages['es']['NAME']    = 'Spanish';
    $languages['es']['CHARSET'] = 'iso-8859-1';
@@ -86,9 +107,11 @@
 
    $languages['sv']['NAME']    = 'Swedish';
    $languages['sv']['CHARSET'] = 'iso-8859-1';
+   $languages['sv_SV']['ALIAS'] = 'sv';
    
    $languages['tw']['NAME']    = 'Taiwan';
    $languages['tw']['CHARSET'] = 'big5';
+   $languages['tw_TW']['ALIAS'] = 'tw';
    
 
    // Decodes a string to the internal encoding from the given charset
