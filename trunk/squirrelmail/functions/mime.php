@@ -33,9 +33,8 @@ class message {
       more objects of type message.  See documentation in mime.txt for
       a better description of how this works.
     **/
-    var $header = '';
-    var $entities = array();
-    
+    var $header = '', $entities = array();
+
     function addEntity ($msg) {
         $this->entities[] = $msg;
     }
@@ -59,15 +58,15 @@ function mime_structure ($imap_stream, $header) {
     //
     // This should use sqimap_read_data instead of reading it itself
     //
-    $read = fgets ($imap_stream, 10000);
+    $read = fgets ($imap_stream, 9216);
     $bodystructure = '';
     while ( substr($read, 0, $lsid) <> $ssid &&
          !feof( $imap_stream ) ) {
         $bodystructure .= $read;
-        $read = fgets ($imap_stream, 10000);
+        $read = fgets ($imap_stream, 9216);
     }
     $read = $bodystructure;
-    
+
     // isolate the body structure and remove beginning and end parenthesis
     $read = trim(substr ($read, strpos(strtolower($read), 'bodystructure') + 13));
     $read = trim(substr ($read, 0, -1));
@@ -77,10 +76,10 @@ function mime_structure ($imap_stream, $header) {
         $read = trim(substr ($read, 1));
         $end = mime_match_parenthesis(0, $read);
     }
-    
+
     $msg = mime_parse_structure ($read, 0);
     $msg->header = $header;
-    
+
     return( $msg );
 }
 
@@ -120,15 +119,15 @@ function mime_parse_structure ($structure, $ent_id) {
  */
 function mime_increment_id ($id) {
 
-    if (strpos($id, ".")) {
-        $first = substr($id, 0, strrpos($id, "."));
-        $last = substr($id, strrpos($id, ".")+1);
+    if (strpos($id, '.')) {
+        $first = substr($id, 0, strrpos($id, '.'));
+        $last = substr($id, strrpos($id, '.')+1);
         $last++;
-        $new = $first . "." .$last;
+        $new = $first . '.' .$last;
     } else {
         $new = $id + 1;
     }
-    
+
     return $new;
 }
 
@@ -142,13 +141,13 @@ function mime_increment_id ($id) {
  */
 function mime_new_element_level ($id) {
 
-  if (!$id) {
-      $id = 0;
-  } else {
-      $id = $id . '.0';
-  }
+    if (!$id) {
+        $id = 0;
+    } else {
+        $id = $id . '.0';
+    }
 
-  return( $id );
+    return( $id );
 }
 
 function mime_get_element (&$structure, $msg, $ent_id) {
@@ -380,14 +379,15 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
         $ent_id = 1;
     }
 
-    $cmd = "FETCH $id BODY[$ent_id]";
+    $cmd = "FETCH $id BODY[$ent_id] ";
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
-    $topline = array_shift($data);
-    while (! ereg('\\* [0-9]+ FETCH ', $topline) && $data) {
-        $topline = array_shift($data);
-    }
+
+    do {
+        $topline = array_shift( $data );
+    } while( $topline && $topline == '*' && !preg_match( '/\\* [0-9] FETCH.*/i', $topline )) ;
     $wholemessage = implode('', $data);
     if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
+
         $ret = substr( $wholemessage, 0, $regs[1] );
         /*
             There is some information in the content info header that could be important
@@ -634,7 +634,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
         }
         
         $body .= "<SMALL><CENTER><A HREF=\"../src/download.php?absolute_dl=true&passed_id=$id&passed_ent_id=$ent_num&mailbox=$urlmailbox&showHeaders=1\">". _("Download this as a file") ."</A></CENTER><BR></SMALL>";
-        
+
         /** Display the ATTACHMENTS: message if there's more than one part **/
         $body .= "</TD></TR></TABLE>";
         if (isset($message->entities[0])) {
@@ -651,108 +651,109 @@ function formatBody($imap_stream, $message, $color, $wrap_at) {
  * A recursive function that returns a list of attachments with links
  * to where to download these attachments
  */
-function formatAttachments ($message, $ent_id, $mailbox, $id) {
-  global $where, $what;
-  global $startMessage, $color;
-  static $ShownHTML = 0;
+function formatAttachments($message, $ent_id, $mailbox, $id) {
+    global $where, $what;
+    global $startMessage, $color;
+    static $ShownHTML = 0;
 
-  $body = "";
-  if ($ShownHTML == 0) {
+    $body = '';
+    if ($ShownHTML == 0) {
+
         $ShownHTML = 1;
-
         $body .= "<TABLE WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2 BORDER=0 BGCOLOR=\"$color[0]\"><TR>\n" .
-                 "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n" .
-                 _("Attachments") . ':' .
-                 "</B></TH></TR><TR><TD>\n" .
-                 "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n" .
-                 formatAttachments ($message, $ent_id, $mailbox, $id) .
-                 "</TABLE></TD></TR></TABLE>";
+                "<TH ALIGN=\"left\" BGCOLOR=\"$color[9]\"><B>\n" .
+                _("Attachments") . ':' .
+                "</B></TH></TR><TR><TD>\n" .
+                "<TABLE CELLSPACING=0 CELLPADDING=1 BORDER=0>\n" .
+                formatAttachments($message, $ent_id, $mailbox, $id) .
+                "</TABLE></TD></TR></TABLE>";
 
-        return( $body );
-  }
+    } else if ($message) {
 
-  if ($message) {
-     if (!$message->entities) {
-        $type0 = strtolower($message->header->type0);
-        $type1 = strtolower($message->header->type1);
-        $name = decodeHeader($message->header->name);
+        if (!$message->entities) {
 
-        if ($message->header->entity_id != $ent_id) {
-           $filename = decodeHeader($message->header->filename);
-           if (trim($filename) == '') {
-              if (trim($name) == '') {
-                 if ( trim( $message->header->id ) == '' )
-                    $display_filename = 'untitled-[' . $message->header->entity_id . ']' ;
-                 else
-                    $display_filename = 'cid: ' . $message->header->id;
-                 // $display_filename = 'untitled-[' . $message->header->entity_id . ']' ;
-              } else {
-                 $display_filename = $name;
-                 $filename = $name;
-              }
-           } else {
-              $display_filename = $filename;
-           }
+            $type0 = strtolower($message->header->type0);
+            $type1 = strtolower($message->header->type1);
+            $name = decodeHeader($message->header->name);
 
-           $urlMailbox = urlencode($mailbox);
-           $ent = urlencode($message->header->entity_id);
+            if ($message->header->entity_id != $ent_id) {
+            $filename = decodeHeader($message->header->filename);
+            if (trim($filename) == '') {
+                if (trim($name) == '') {
+                    if ( trim( $message->header->id ) == '' )
+                        $display_filename = 'untitled-[' . $message->header->entity_id . ']' ;
+                    else
+                        $display_filename = 'cid: ' . $message->header->id;
+                    // $display_filename = 'untitled-[' . $message->header->entity_id . ']' ;
+                } else {
+                    $display_filename = $name;
+                    $filename = $name;
+                }
+            } else {
+                $display_filename = $filename;
+            }
 
-           $DefaultLink =
-              "../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
-           if ($where && $what)
-              $DefaultLink .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
-           $Links['download link']['text'] = _("download");
-           $Links['download link']['href'] =
-               "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
-           $ImageURL = '';
+            $urlMailbox = urlencode($mailbox);
+            $ent = urlencode($message->header->entity_id);
 
-           /* this executes the attachment hook with a specific MIME-type.
-            * if that doens't have results, it tries if there's a rule
-            * for a more generic type. */
-           $HookResults = do_hook("attachment $type0/$type1", $Links,
-               $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
-               $display_filename, $where, $what);
-           if(count($HookResults[1]) <= 1) {
-               $HookResults = do_hook("attachment $type0/*", $Links,
-               $startMessage, $id, $urlMailbox, $ent, $DefaultLink,  
-               $display_filename, $where, $what);
-           }
+            $DefaultLink =
+                "../src/download.php?startMessage=$startMessage&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+            if ($where && $what) {
+                $DefaultLink .= '&where=' . urlencode($where) . '&what=' . urlencode($what);
+            }
+            $Links['download link']['text'] = _("download");
+            $Links['download link']['href'] =
+                "../src/download.php?absolute_dl=true&passed_id=$id&mailbox=$urlMailbox&passed_ent_id=$ent";
+            $ImageURL = '';
 
-           $Links = $HookResults[1];
-           $DefaultLink = $HookResults[6];
+            /* this executes the attachment hook with a specific MIME-type.
+                * if that doens't have results, it tries if there's a rule
+                * for a more generic type. */
+            $HookResults = do_hook("attachment $type0/$type1", $Links,
+                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
+                $display_filename, $where, $what);
+            if(count($HookResults[1]) <= 1) {
+                $HookResults = do_hook("attachment $type0/*", $Links,
+                $startMessage, $id, $urlMailbox, $ent, $DefaultLink,
+                $display_filename, $where, $what);
+            }
 
-           $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
-                    "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
-                    '<TD><SMALL><b>' . show_readable_size($message->header->size) .
-                    '</b>&nbsp;&nbsp;</small></TD>' .
-                    "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
-                    '<TD><SMALL>';
-           if ($message->header->description)
-              $body .= '<b>' . htmlspecialchars($message->header->description) . '</b>';
-           $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
+            $Links = $HookResults[1];
+            $DefaultLink = $HookResults[6];
+
+            $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>' .
+                        "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>" .
+                        '<TD><SMALL><b>' . show_readable_size($message->header->size) .
+                        '</b>&nbsp;&nbsp;</small></TD>' .
+                        "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>" .
+                        '<TD><SMALL>';
+            if ($message->header->description) {
+                $body .= '<b>' . htmlspecialchars(_($message->header->description)) . '</b>';
+            }
+            $body .= '</SMALL></TD><TD><SMALL>&nbsp;';
 
 
-           $SkipSpaces = 1;
-           foreach ($Links as $Val) {
-              if ($SkipSpaces) {
-                 $SkipSpaces = 0;
-              } else {
-                 $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-              }
-              $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
-           }
+            $SkipSpaces = 1;
+            foreach ($Links as $Val) {
+                if ($SkipSpaces) {
+                    $SkipSpaces = 0;
+                } else {
+                    $body .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+                }
+                $body .= '<a href="' . $Val['href'] . '">' .  $Val['text'] . '</a>';
+            }
 
-           unset($Links);
+            unset($Links);
 
-           $body .= "</SMALL></TD></TR>\n";
+            $body .= "</SMALL></TD></TR>\n";
+            }
+        } else {
+            for ($i = 0; $i < count($message->entities); $i++) {
+                $body .= formatAttachments($message->entities[$i], $ent_id, $mailbox, $id);
+            }
         }
-     } else {
-        for ($i = 0; $i < count($message->entities); $i++) {
-           $body .= formatAttachments ($message->entities[$i], $ent_id, $mailbox, $id);
-        }
-     }
-     return( $body );
-  }
+    }
+    return( $body );
 }
 
 

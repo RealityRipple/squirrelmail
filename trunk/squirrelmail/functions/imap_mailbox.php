@@ -102,10 +102,12 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
             }
         }
         return $r[1];
-    }
-    if ($auto_expunge) {
-        $tmp = sqimap_run_command($imap_stream, 'EXPUNGE',
+    } else {
+        if ($auto_expunge) {
+            $tmp = sqimap_run_command($imap_stream, 'EXPUNGE',
                                   false, $a, $b);
+        }
+        return( $read );
     }
 }
 

@@ -219,16 +219,19 @@ function SendMDN ( $recipient , $sender) {
 
 function ToggleMDNflag ( $set ) {
 
-    global $imapConnection, $passed_id;
+    global $imapConnection, $passed_id, $mailbox;
 
-    $myflag = '$MDNSent';
-    if ($set) {
-        $read = sqimap_run_command ($imapConnection, "STORE $passed_id +FLAGS ($myflag)", true,
-                $response, $readmessage);
+    if ( $set ) {
+        $sg = '+';
+
     } else {
-        $read = sqimap_run_command ($imapConnection, "STORE $passed_id -FLAGS ($myflag)", true,
-                $response, $readmessage);
+        $sg = '-';
     }
+
+    $cmd = 'STORE ' . $passed_id . ' ' . $cmd . 'FLAGS ($MDNSent)';
+    sqimap_mailbox_select($imapConnection, $mailbox);
+    $read = sqimap_run_command ($imapConnection, $cmd, true, $response, $readmessage);
+
 }
 
 function ClearAttachments() {
@@ -269,17 +272,8 @@ if( $default_use_mdn &&
     ( $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', $default_use_mdn) ) ) {
 
     $supportMDN = ServerMDNSupport($read);
-
     $flags = sqimap_get_flags ($imapConnection, $passed_id);
-    $FirstTimeSee = TRUE;
-    $num=0;
-    while ($num < count($flags)) {
-        if ($flags[$num] == 'Seen') {
-            $FirstTimeSee = false;
-        }
-        $num++;
-    }
-
+    $FirstTimeSee = !(in_array( 'Seen', $flags ));
 }
 
 displayPageHeader($color, $mailbox);
@@ -786,8 +780,7 @@ if ($default_use_mdn) {
     if ($mdn_user_support) {
 
         // debug gives you the capability to remove mdn-flags
-        $debug = FALSE;
-
+        $debug = false;
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY.PEEK[HEADER.FIELDS (Disposition-Notification-To)]", true,
                                 $response, $readmessage);
         $MDN_to = substr($read[1], strpos($read[1], ' '));
@@ -795,15 +788,14 @@ if ($default_use_mdn) {
 
         $read = sqimap_run_command ($imapConnection, "FETCH $passed_id FLAGS", true,
                                 $response, $readmessage);
-        $str = strtolower($read[0]);
-        if (ereg('mdnsent', $str ) ) {
-            $MDN_flag_present = true;
-        }
+
+        $MDN_flag_present = preg_match( '/.*\$MDNSent/i', $read[0]);
+
         if (trim($MDN_to) &&
             (!isset( $sendreceipt ) || $sendreceipt == '' )  ) {
 
             if ( $MDN_flag_present && $supportMDN) {
-                $sendreceipt="removeMDN";
+                $sendreceipt = 'removeMDN';
                 $url = "\"read_body.php?mailbox=$mailbox&passed_id=$passed_id&startMessage=$startMessage&show_more=$show_more&sendreceipt=$sendreceipt\"";
                 $sendreceipt="";
                 if ($debug ) {
@@ -877,20 +869,22 @@ if ($default_use_mdn) {
             }
         }
 
-        if ( !isset( $sendreceipt ) ) {
+        if ( !isset( $sendreceipt ) || $sendreceipt == '' ) {
         } else if ( $sendreceipt == 'send' ) {
             if ( !$MDN_flag_present) {
                 if (isset($identity) ) {
-                    $final_recipient = getPref($data_dir, $username, 'email_address' . '0');
-                } else $final_recipient = getPref($data_dir, $username, 'email_address');
+                    $final_recipient = getPref($data_dir, $username, 'email_address' . '0', '' );
+                } else {
+                    $final_recipient = getPref($data_dir, $username, 'email_address', '' );
+                }
 
                 $final_recipient = trim($final_recipient);
                 if ($final_recipient == '' ) {
-                    $final_recipient = getPref($data_dir, $username, 'email_address');
+                    $final_recipient = getPref($data_dir, $username, 'email_address', '' );
                 }
 
-                if ( SendMDN( $MDN_to, $final_recipient ) > 0 && $supportMDN == true ) {
-                    ToggleMDNflag ( true);
+                if ( SendMDN( $MDN_to, $final_recipient ) > 0 && $supportMDN ) {
+                    ToggleMDNflag( true);
                 }
             }
             $sendreceipt = 'removeMDN';
