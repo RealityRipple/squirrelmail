@@ -2254,7 +2254,7 @@ sub save_data {
 
         print CF "\$default_charset          = '$default_charset';\n";
         print CF "\$data_dir                 = '$data_dir';\n";
-        print CF "\$attachment_dir           = '$attachment_dir';\n";
+        print CF "\$attachment_dir           = \"$attachment_dir\";\n";
         print CF "\$dir_hash_level           = '$dir_hash_level';\n";
         print CF "\$default_left_size        = '$default_left_size';\n";
         print CF "\$force_username_lowercase = '$force_username_lowercase';\n";
