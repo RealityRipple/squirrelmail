@@ -1,41 +1,41 @@
-# Greek Squirrelmail translation.
-# Copyright (C) YEAR Free Software Foundation, Inc.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translation of Squirrelmail to Hellenic (Greek)
+# Copyright (c) 1999-2002 The Squirrelmail Development Team
+# Alexandros Vellis <avel@noc.uoa.gr>, 2003.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: $id: squirrelmail.po v.1.0 $\n"
 "POT-Creation-Date: 2002-12-07 18:05+0100\n"
-"PO-Revision-Date: 2002-12-30 16:10+0200\n"
-"Last-Translator: Tomas Kuliavas <tokul@users.sourceforge.net>\n"
-"Language-Team: Squirrelmail i18n team <squirrelmail-i18n@lists.sourcefornet.net>\n"
+"PO-Revision-Date: 2003-01-03 21:48+0100\n"
+"Last-Translator: Alexandros Vellis <avel@noc.uoa.gr>\n"
+"Language-Team: Squirrelmail i18n team <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-7\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Address Book"
-msgstr ""
+msgstr "Βιβλίο Διευθύνσεων"
 
 msgid "All"
-msgstr ""
+msgstr "Όλα"
 
 msgid "Name"
-msgstr ""
+msgstr "Όνομα"
 
 msgid "E-mail"
-msgstr ""
+msgstr "Email"
 
 msgid "Info"
-msgstr ""
+msgstr "Πληροφορίες"
 
 msgid "Source"
 msgstr ""
 
 msgid "To"
-msgstr ""
+msgstr "Προς"
 
 msgid "Cc"
-msgstr ""
+msgstr "Κοιν"
 
 msgid "Bcc"
 msgstr ""
@@ -47,16 +47,16 @@ msgid "Address Book Search"
 msgstr ""
 
 msgid "Search for"
-msgstr ""
+msgstr "Εύρεση για"
 
 msgid "in"
-msgstr ""
+msgstr "στο"
 
 msgid "All address books"
 msgstr ""
 
 msgid "Search"
-msgstr ""
+msgstr "Εύρεση"
 
 msgid "List all"
 msgstr ""
@@ -75,7 +75,7 @@ msgid "Return"
 msgstr ""
 
 msgid "Close"
-msgstr ""
+msgstr "Κλείσιμο"
 
 msgid "Nickname"
 msgstr ""
@@ -105,10 +105,10 @@ msgid "Update address"
 msgstr ""
 
 msgid "ERROR"
-msgstr ""
+msgstr "ΛΑΘΟΣ"
 
 msgid "Unknown error"
-msgstr ""
+msgstr "¶γνωστο λάθος"
 
 msgid "Add address"
 msgstr ""
@@ -133,13 +133,13 @@ msgid "Original Message"
 msgstr ""
 
 msgid "Subject"
-msgstr ""
+msgstr "Θέμα"
 
 msgid "From"
-msgstr ""
+msgstr "Από"
 
 msgid "Date"
-msgstr ""
+msgstr "Ημ/νία"
 
 msgid "Draft Saved"
 msgstr ""
@@ -148,58 +148,58 @@ msgid "Your Message has been sent"
 msgstr ""
 
 msgid "From:"
-msgstr ""
+msgstr "Από:"
 
 msgid "To:"
-msgstr ""
+msgstr "Προς:"
 
 msgid "CC:"
-msgstr ""
+msgstr "Κοιν.:"
 
 msgid "BCC:"
-msgstr ""
+msgstr "Κ.Κοιν.:"
 
 msgid "Subject:"
-msgstr ""
+msgstr "Θέμα:"
 
 msgid "Send"
-msgstr ""
+msgstr "Αποστολή"
 
 msgid "Attach:"
-msgstr ""
+msgstr "Επισύναψη:"
 
 msgid "Add"
-msgstr ""
+msgstr "Πρόσθεσε"
 
 msgid "Delete selected attachments"
 msgstr ""
 
 msgid "Priority"
-msgstr ""
+msgstr "Προτεραιότητα"
 
 msgid "High"
-msgstr ""
+msgstr "Υψηλή"
 
 msgid "Normal"
-msgstr ""
+msgstr "Κανονική"
 
 msgid "Low"
-msgstr ""
+msgstr "Χαμηλή"
 
 msgid "Receipt"
-msgstr ""
+msgstr "Απόδειξη Παραλαβής"
 
 msgid "On read"
-msgstr ""
+msgstr "Στην ανάγνωση"
 
 msgid "On Delivery"
-msgstr ""
+msgstr "Στην παράδοση"
 
 msgid "Signature"
-msgstr ""
+msgstr "Υπογραφή"
 
 msgid "Addresses"
-msgstr ""
+msgstr "Διευθύνσεις"
 
 msgid "Save Draft"
 msgstr ""
@@ -229,22 +229,22 @@ msgid "Viewing a message attachment"
 msgstr ""
 
 msgid "Date:"
-msgstr ""
+msgstr "Ημ/νία:"
 
 msgid "Cc:"
-msgstr ""
+msgstr "Κοιν:"
 
 msgid "Bcc:"
-msgstr ""
+msgstr "Κ. Κοιν.:"
 
 msgid "more"
-msgstr ""
+msgstr "περισσότερα"
 
 msgid "less"
-msgstr ""
+msgstr "λιγότερα"
 
 msgid "Illegal folder name.  Please select a different name."
-msgstr ""
+msgstr "Λάθος όνομα φακέλου. Παρακαλώ διαλέξτε ένα διαφορετικό όνομα."
 
 msgid "Click here to go back"
 msgstr ""
@@ -253,7 +253,7 @@ msgid "You have not selected a folder to delete. Please do so."
 msgstr ""
 
 msgid "Folders"
-msgstr ""
+msgstr "Φάκελοι"
 
 msgid "Subscribed successfully!"
 msgstr ""
@@ -301,10 +301,10 @@ msgid "No folders found"
 msgstr ""
 
 msgid "Delete Folder"
-msgstr ""
+msgstr "Διαγραφή Φακέλου"
 
 msgid "Delete"
-msgstr ""
+msgstr "Διαγραφή"
 
 msgid "Unsubscribe"
 msgstr ""
@@ -334,13 +334,11 @@ msgid "ERROR: Help files are not in the right format!"
 msgstr ""
 
 msgid "Help"
-msgstr ""
+msgstr "Βοήθεια"
 
 #, c-format
-msgid ""
-"The help has not been translated to %s.  It will be displayed in English "
-"instead."
-msgstr ""
+msgid "The help has not been translated to %s.  It will be displayed in English instead."
+msgstr "Η βοήθεια δεν έχει μεταφραστεί στα %s. Θα εμφανιστεί στα Αγγλικά."
 
 msgid "Some or all of the help documents are not present!"
 msgstr ""
@@ -349,10 +347,10 @@ msgid "Table of Contents"
 msgstr ""
 
 msgid "Previous"
-msgstr ""
+msgstr "Προηγούμενο"
 
 msgid "Next"
-msgstr ""
+msgstr "Επόμενο"
 
 msgid "Top"
 msgstr ""
@@ -363,8 +361,9 @@ msgstr ""
 msgid "INBOX"
 msgstr ""
 
+#, fuzzy
 msgid "purge"
-msgstr ""
+msgstr "Εκκαθάριση"
 
 msgid "Last Refresh"
 msgstr ""
@@ -378,23 +377,23 @@ msgstr ""
 
 #, c-format
 msgid "SquirrelMail version %s"
-msgstr ""
+msgstr "SquirrelMail έκδοση %s"
 
 msgid "By the SquirrelMail Development Team"
-msgstr ""
+msgstr "Από την Ομάδα Ανάπτυξης του Squirrelmail"
 
 #, c-format
 msgid "%s Login"
 msgstr ""
 
 msgid "Name:"
-msgstr ""
+msgstr "Όνομα:"
 
 msgid "Password:"
-msgstr ""
+msgstr "Κωδικός:"
 
 msgid "<No subject>"
-msgstr ""
+msgstr "<Χωρίς θέμα>"
 
 msgid "No messages were selected."
 msgstr ""
@@ -613,7 +612,7 @@ msgid "Disabled"
 msgstr ""
 
 msgid "Options"
-msgstr ""
+msgstr "Επιλογές"
 
 msgid "Message Highlighting"
 msgstr ""
@@ -733,10 +732,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-msgid ""
-"The index order is the order that the columns are arranged in the message "
-"index.  You can add, remove, and move columns around to customize them to "
-"fit your needs."
+msgid "The index order is the order that the columns are arranged in the message index.  You can add, remove, and move columns around to customize them to fit your needs."
 msgstr ""
 
 msgid "up"
@@ -826,29 +822,19 @@ msgstr ""
 msgid "Refresh Page"
 msgstr ""
 
-msgid ""
-"This contains personal information about yourself such as your name, your "
-"email address, etc."
+msgid "This contains personal information about yourself such as your name, your email address, etc."
 msgstr ""
 
-msgid ""
-"You can change the way that SquirrelMail looks and displays information to "
-"you, such as the colors, the language, and other settings."
+msgid "You can change the way that SquirrelMail looks and displays information to you, such as the colors, the language, and other settings."
 msgstr ""
 
-msgid ""
-"Based upon given criteria, incoming messages can have different background "
-"colors in the message list.  This helps to easily distinguish who the "
-"messages are from, especially for mailing lists."
+msgid "Based upon given criteria, incoming messages can have different background colors in the message list.  This helps to easily distinguish who the messages are from, especially for mailing lists."
 msgstr ""
 
-msgid ""
-"These settings change the way your folders are displayed and manipulated."
+msgid "These settings change the way your folders are displayed and manipulated."
 msgstr ""
 
-msgid ""
-"The order of the message index can be rearranged and changed to contain the "
-"headers in any order you want."
+msgid "The order of the message index can be rearranged and changed to contain the headers in any order you want."
 msgstr ""
 
 msgid "Message not printable"
@@ -861,10 +847,10 @@ msgid "CC"
 msgstr ""
 
 msgid "Print"
-msgstr ""
+msgstr "Εκτύπωση"
 
 msgid "Close Window"
-msgstr ""
+msgstr "Κλείσιμο Παραθύρου"
 
 msgid "View Printable Version"
 msgstr ""
@@ -921,9 +907,7 @@ msgstr ""
 msgid "Send read receipt now"
 msgstr ""
 
-msgid ""
-"The message sender has requested a response to indicate that you have read "
-"this message. Would you like to send a receipt?"
+msgid "The message sender has requested a response to indicate that you have read this message. Would you like to send a receipt?"
 msgstr ""
 
 msgid "You must be logged in to access this page."
@@ -1097,143 +1081,143 @@ msgid "Business Card"
 msgstr ""
 
 msgid "Sunday"
-msgstr ""
+msgstr "Κυριακή"
 
 msgid "Monday"
-msgstr ""
+msgstr "Δευτέρα"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Τρίτη"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Τετάρτη"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Πέμπτη"
 
 msgid "Friday"
-msgstr ""
+msgstr "Παρασκευή"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Σάββατο"
 
 msgid "Sun"
-msgstr ""
+msgstr "Κυρ"
 
 msgid "Mon"
-msgstr ""
+msgstr "Δευ"
 
 msgid "Tue"
-msgstr ""
+msgstr "Τρί"
 
 msgid "Wed"
-msgstr ""
+msgstr "Τετ"
 
 msgid "Thu"
-msgstr ""
+msgstr "Πέμ"
 
 msgid "Fri"
-msgstr ""
+msgstr "Παρ"
 
 msgid "Sat"
-msgstr ""
+msgstr "Σάβ"
 
 msgid "January"
-msgstr ""
+msgstr "Ιανουάριος"
 
 msgid "February"
-msgstr ""
+msgstr "Φεβρουάριος"
 
 msgid "March"
-msgstr ""
+msgstr "Μάρτιος"
 
 msgid "April"
-msgstr ""
+msgstr "Απρίλιος"
 
 msgid "May"
-msgstr ""
+msgstr "Μάιος"
 
 msgid "June"
-msgstr ""
+msgstr "Ιούνιος"
 
 msgid "July"
-msgstr ""
+msgstr "Ιούλιος"
 
 msgid "August"
-msgstr ""
+msgstr "Αύγουστος"
 
 msgid "September"
-msgstr ""
+msgstr "Σεπτέμβριος"
 
 msgid "October"
-msgstr ""
+msgstr "Οκτώβριος"
 
 msgid "November"
-msgstr ""
+msgstr "Νοέμβριος"
 
 msgid "December"
-msgstr ""
+msgstr "Δεκέμβριος"
 
 msgid "Jan"
-msgstr ""
+msgstr "Ιαν"
 
 msgid "Feb"
-msgstr ""
+msgstr "Φεβ"
 
 msgid "Mar"
-msgstr ""
+msgstr "Μάρ"
 
 msgid "Apr"
-msgstr ""
+msgstr "Απρ"
 
 msgid "Jun"
-msgstr ""
+msgstr "Ιούν"
 
 msgid "Jul"
-msgstr ""
+msgstr "Ιούλ"
 
 msgid "Aug"
-msgstr ""
+msgstr "Αύγ"
 
 msgid "Sep"
-msgstr ""
+msgstr "Σεπ"
 
 msgid "Oct"
-msgstr ""
+msgstr "Οκτ"
 
 msgid "Nov"
-msgstr ""
+msgstr "Νοέ"
 
 msgid "Dec"
-msgstr ""
+msgstr "Δεκ"
 
 msgid "D, F j, Y g:i a"
-msgstr ""
+msgstr "D, F j, Y g:i a"
 
 msgid "D, F j, Y G:i"
-msgstr ""
+msgstr "D, F j, Y G:i"
 
 msgid "g:i a"
-msgstr ""
+msgstr "g:i a"
 
 msgid "G:i"
-msgstr ""
+msgstr "G:i"
 
 msgid "D, g:i a"
-msgstr ""
+msgstr "D, g:i a"
 
 msgid "D, G:i"
-msgstr ""
+msgstr "D, G:i"
 
 msgid "M j, Y"
-msgstr ""
+msgstr "M j, Y"
 
 #, c-format
 msgid "Preference database error (%s). Exiting abnormally"
 msgstr ""
 
 msgid "Unknown user or password incorrect."
-msgstr ""
+msgstr "¶γνωστος χρήστης ή λάθος κωδικός."
 
 msgid "Click here to try again"
 msgstr ""
@@ -1246,21 +1230,15 @@ msgid "Go to the login page"
 msgstr ""
 
 #, c-format
-msgid ""
-"Preference file, %s, does not exist. Log out, and log back in to create a "
-"default preference file."
+msgid "Preference file, %s, does not exist. Log out, and log back in to create a default preference file."
 msgstr ""
 
 #, c-format
-msgid ""
-"Preference file, %s, could not be opened. Contact your system administrator "
-"to resolve this issue."
+msgid "Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."
 msgstr ""
 
 #, c-format
-msgid ""
-"Preference file, %s, could not be written. Contact your system administrator "
-"to resolve this issue."
+msgid "Preference file, %s, could not be written. Contact your system administrator to resolve this issue."
 msgstr ""
 
 #, c-format
@@ -1281,15 +1259,11 @@ msgid "%s should be writable by user %s"
 msgstr ""
 
 #, c-format
-msgid ""
-"Signature file, %s, could not be opened. Contact your system administrator "
-"to resolve this issue."
+msgid "Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."
 msgstr ""
 
 #, c-format
-msgid ""
-"Signature file, %s, could not be written. Contact your system administrator "
-"to resolve this issue."
+msgid "Signature file, %s, could not be written. Contact your system administrator to resolve this issue."
 msgstr ""
 
 msgid "ERROR : Could not complete request."
@@ -1344,48 +1318,47 @@ msgid "No Messages Found"
 msgstr ""
 
 msgid "Folder:"
-msgstr ""
+msgstr "Φάκελος:"
 
 msgid "Found"
-msgstr ""
+msgstr "Βρέθηκαν"
 
 msgid "messages"
-msgstr ""
+msgstr "μηνύματα"
 
 msgid "A"
 msgstr ""
 
-msgid ""
-"Server-side sorting is not supported by your IMAP server.<br>Please report "
-"this to the system administrator"
+msgid "Server-side sorting is not supported by your IMAP server.<br>Please report this to the system administrator"
 msgstr ""
 
 msgid "THIS FOLDER IS EMPTY"
-msgstr ""
+msgstr "ΑΥΤΟΣ Ο ΦΑΚΕΛΟΣ ΕΙΝΑΙ ΑΔΕΙΟΣ"
 
 msgid "Move Selected To:"
 msgstr ""
 
 msgid "Transform Selected Messages"
-msgstr ""
+msgstr "Αλλαγή Επιλεγμένων Μηνυμάτων"
 
 msgid "Move"
-msgstr ""
+msgstr "Μετακίνηση"
 
 msgid "Expunge"
-msgstr ""
+msgstr "Εκκαθάριση"
 
 msgid "mailbox"
 msgstr ""
 
 msgid "Read"
-msgstr ""
+msgstr "Αναγνωσμένα"
 
 msgid "Unread"
-msgstr ""
+msgstr "Μη Αναγνωσμένα"
 
+#, fuzzy
 msgid "Unthread View"
-msgstr ""
+msgstr "Μη Αναγνωσμένα"
 
 msgid "Thread View"
 msgstr ""
@@ -1416,9 +1389,7 @@ msgstr ""
 msgid "Error decoding mime structure.  Report this as a bug!"
 msgstr ""
 
-msgid ""
-"Body retrieval error. The reason for this is most probably that the message "
-"is malformed."
+msgid "Body retrieval error. The reason for this is most probably that the message is malformed."
 msgstr ""
 
 msgid "Command:"
@@ -1428,7 +1399,7 @@ msgid "Response:"
 msgstr ""
 
 msgid "Message:"
-msgstr ""
+msgstr "Μήνυμα:"
 
 msgid "FETCH line:"
 msgstr ""
@@ -1440,7 +1411,7 @@ msgid "View Unsafe Images"
 msgstr ""
 
 msgid "Attachments"
-msgstr ""
+msgstr "Επισυνάψεις"
 
 msgid "download"
 msgstr ""
@@ -1453,16 +1424,16 @@ msgid "Option Type '%s' Not Found"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
+msgstr "Ναι"
 
 msgid "No"
-msgstr ""
+msgstr "Όχι"
 
 msgid "Current Folder"
-msgstr ""
+msgstr "Τρέχων Φάκελος"
 
 msgid "Compose"
-msgstr ""
+msgstr "Σύνθεση"
 
 #, c-format
 msgid "Error creating directory %s."
@@ -1471,21 +1442,13 @@ msgstr ""
 msgid "Could not create hashed directory structure!"
 msgstr ""
 
-msgid ""
-"COMMERCIAL - This list contains servers that are verified spam senders. It "
-"is a pretty reliable list to scan spam from."
+msgid "COMMERCIAL - This list contains servers that are verified spam senders. It is a pretty reliable list to scan spam from."
 msgstr ""
 
-msgid ""
-"COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to "
-"be relayed through their system will be banned with this.  Another good one "
-"to use."
+msgid "COMMERCIAL - Servers that are configured (or misconfigured) to allow spam to be relayed through their system will be banned with this.  Another good one to use."
 msgstr ""
 
-msgid ""
-"COMMERCIAL - Dial-up users are often filtered out since they should use "
-"their ISP's mail servers to send mail.  Spammers typically get a dial-up "
-"account and send spam directly from there."
+msgid "COMMERCIAL - Dial-up users are often filtered out since they should use their ISP's mail servers to send mail.  Spammers typically get a dial-up account and send spam directly from there."
 msgstr ""
 
 msgid "COMMERCIAL - RBL+ Blackhole entries."
@@ -1497,47 +1460,31 @@ msgstr ""
 msgid "COMMERCIAL - RBL+ Dial-up entries."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to "
-"include servers used by abuse@uunet.net auto-replies too."
+msgid "FREE - Osirusoft Relays - Osirusofts list of verified open relays. Seems to include servers used by abuse@uunet.net auto-replies too."
 msgstr ""
 
 msgid "FREE - Osirusoft Dialups - Osirusofts Dialup Spam Source list."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and "
-"have been manually added after multiple nominations. Use with caution. Seems "
-"to catch abuse auto-replies from some ISPs."
+msgid "FREE - Osirusoft Confirmed Spam Source - Sites that continually spam and have been manually added after multiple nominations. Use with caution. Seems to catch abuse auto-replies from some ISPs."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for "
-"other mail servers that are not secure."
+msgid "FREE - Osirusoft Smart Hosts - List of hosts that are secure but relay for other mail servers that are not secure."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Spamware Developers - It is believed that these are IP "
-"ranges of companies that are known to produce spam software. Seems to catch "
-"abuse auto-replies from some ISPs."
+msgid "FREE - Osirusoft Spamware Developers - It is believed that these are IP ranges of companies that are known to produce spam software. Seems to catch abuse auto-replies from some ISPs."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt "
-"users in without confirmation."
+msgid "FREE - Osirusoft Unconfirmed OptIn Servers - List of listservers that opt users in without confirmation."
 msgstr ""
 
-msgid ""
-"FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail."
-"cgi scripts. (planned)."
+msgid "FREE - Osirusoft Insecure formmail.cgi scripts - List of insecure formmail.cgi scripts. (planned)."
 msgstr ""
 
 msgid "FREE - Osirusoft Open Proxy Servers - List of Open Proxy Servers."
 msgstr ""
 
-msgid ""
-"FREE - ORDB was born when ORBS went off the air. It seems to have fewer "
-"false positives than ORBS did though."
+msgid "FREE - ORDB was born when ORBS went off the air. It seems to have fewer false positives than ORBS did though."
 msgstr ""
 
 msgid "FREE - Five-Ten-sg.com - Direct SPAM sources."
@@ -1561,19 +1508,14 @@ msgstr ""
 msgid "FREE - Five-Ten-sg.com - Web Form IPs."
 msgstr ""
 
-msgid ""
-"FREE - Dorkslayers appears to include only really bad open relays outside "
-"the US to avoid being sued. Interestingly enough, their website recommends "
-"you NOT use their service."
+msgid "FREE - Dorkslayers appears to include only really bad open relays outside the US to avoid being sued. Interestingly enough, their website recommends you NOT use their service."
 msgstr ""
 
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr ""
 
 #, c-format
-msgid ""
-"FREE, for now - SPAMCOP - An interesting solution that lists servers that "
-"have a very high spam to legit email ratio (85% or more)."
+msgid "FREE, for now - SPAMCOP - An interesting solution that lists servers that have a very high spam to legit email ratio (85% or more)."
 msgstr ""
 
 msgid "FREE - dev.null.dk - I don't have any detailed info on this list."
@@ -1591,42 +1533,25 @@ msgstr ""
 msgid "FREE - 2mbit.com SPAM ISPs - List of SPAM-friendly ISPs."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically "
-"assigned IPs."
+msgid "FREE - Leadmon DUL - Another list of Dial-up or otherwise dynamically assigned IPs."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM "
-"directly from."
+msgid "FREE - Leadmon SPAM Source - List of IPs Leadmon.net has received SPAM directly from."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-"
-"in or that have allowed known spammers to become clients and abuse their "
-"services."
+msgid "FREE - Leadmon Bulk Mailers - Bulk mailers that do not require confirmed opt-in or that have allowed known spammers to become clients and abuse their services."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on "
-"other active RBLs."
+msgid "FREE - Leadmon Open Relays - Single Stage Open Relays that are not listed on other active RBLs."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on "
-"other active RBLs and that have sent SPAM to Leadmon.net."
+msgid "FREE - Leadmon Multi-stage - Multi-Stage Open Relays that are not listed on other active RBLs and that have sent SPAM to Leadmon.net."
 msgstr ""
 
-msgid ""
-"FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net "
-"direct SPAM from IPs in netblocks where the entire block has no DNS "
-"mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed "
-"Leadmon.net."
+msgid "FREE - Leadmon SpamBlock - Sites on this listing have sent Leadmon.net direct SPAM from IPs in netblocks where the entire block has no DNS mappings. It's a list of BLOCKS of IPs being used by people who have SPAMmed Leadmon.net."
 msgstr ""
 
-msgid ""
-"FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct "
-"SPAM Sources."
+msgid "FREE, for now - Not Just Another Blacklist - Both Open Relays and Direct SPAM Sources."
 msgstr ""
 
 msgid "FREE, for now - Not Just Another Blacklist - Dial-up IPs."
@@ -1653,8 +1578,9 @@ msgstr ""
 msgid "Match:"
 msgstr ""
 
+#, fuzzy
 msgid "Header"
-msgstr ""
+msgstr "Αναγνωσμένα"
 
 msgid "Contains:"
 msgstr ""
@@ -1673,19 +1599,15 @@ msgid "If <b>%s</b> contains <b>%s</b> then move to <b>%s</b>"
 msgstr ""
 
 msgid "Message Filters"
-msgstr ""
+msgstr "Φίλτρα Μηνυμάτων"
 
-msgid ""
-"Filtering enables messages with different criteria to be automatically "
-"filtered into different folders for easier organization."
+msgid "Filtering enables messages with different criteria to be automatically filtered into different folders for easier organization."
 msgstr ""
 
 msgid "SPAM Filters"
 msgstr ""
 
-msgid ""
-"SPAM filters allow you to select from various DNS based blacklists to detect "
-"junk email in your INBOX and move it to another folder (like Trash)."
+msgid "SPAM filters allow you to select from various DNS based blacklists to detect junk email in your INBOX and move it to another folder (like Trash)."
 msgstr ""
 
 msgid "Spam Filtering"
@@ -1697,20 +1619,10 @@ msgstr ""
 msgid "Move spam to:"
 msgstr ""
 
-msgid ""
-"Moving spam directly to the trash may not be a good idea at first, since "
-"messages from friends and mailing lists might accidentally be marked as "
-"spam. Whatever folder you set this to, make sure that it gets cleaned out "
-"periodically, so that you don't have an excessively large mailbox hanging "
-"around."
+msgid "Moving spam directly to the trash may not be a good idea at first, since messages from friends and mailing lists might accidentally be marked as spam. Whatever folder you set this to, make sure that it gets cleaned out periodically, so that you don't have an excessively large mailbox hanging around."
 msgstr ""
 
-msgid ""
-"The more messages you scan, the longer it takes.  I would suggest that you "
-"scan only new messages.  If you make a change to your filters, I would set "
-"it to scan all messages, then go view my INBOX, then come back and set it to "
-"scan only new messages.  That way, your new spam filters will be applied and "
-"you'll scan even the spam you read with the new filters."
+msgid "The more messages you scan, the longer it takes.  I would suggest that you scan only new messages.  If you make a change to your filters, I would set it to scan all messages, then go view my INBOX, then come back and set it to scan only new messages.  That way, your new spam filters will be applied and you'll scan even the spam you read with the new filters."
 msgstr ""
 
 #, c-format
@@ -1739,9 +1651,7 @@ msgstr ""
 msgid "SpellChecker Options"
 msgstr ""
 
-msgid ""
-"Here you may set up how your personal dictionary is stored, edit it, or "
-"choose which languages should be available to you when spell-checking."
+msgid "Here you may set up how your personal dictionary is stored, edit it, or choose which languages should be available to you when spell-checking."
 msgstr ""
 
 msgid "Check Spelling"
@@ -1753,15 +1663,7 @@ msgstr ""
 msgid "ATTENTION:"
 msgstr ""
 
-msgid ""
-"SquirrelSpell was unable to decrypt your personal dictionary. This is most "
-"likely due to the fact that you have changed your mailbox password. In order "
-"to proceed, you will have to supply your old password so that SquirrelSpell "
-"can decrypt your personal dictionary. It will be re-encrypted with your new "
-"password after this.<br>If you haven't encrypted your dictionary, then it "
-"got mangled and is no longer valid. You will have to delete it and start "
-"anew. This is also true if you don't remember your old password -- without "
-"it, the encrypted data is no longer accessible."
+msgid "SquirrelSpell was unable to decrypt your personal dictionary. This is most likely due to the fact that you have changed your mailbox password. In order to proceed, you will have to supply your old password so that SquirrelSpell can decrypt your personal dictionary. It will be re-encrypted with your new password after this.<br>If you haven't encrypted your dictionary, then it got mangled and is no longer valid. You will have to delete it and start anew. This is also true if you don't remember your old password -- without it, the encrypted data is no longer accessible."
 msgstr ""
 
 msgid "Delete my dictionary and start a new one"
@@ -1776,8 +1678,7 @@ msgstr ""
 msgid "You must make a choice"
 msgstr ""
 
-msgid ""
-"You can either delete your dictionary or type in the old password. Not both."
+msgid "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
 
 msgid "This will delete your personal dictionary file. Proceed?"
@@ -1881,39 +1782,28 @@ msgstr ""
 msgid "Dictionary Erased"
 msgstr ""
 
-msgid ""
-"Your personal dictionary was erased. Please close this window and click "
-"\"Check Spelling\" button again to start your spellcheck over."
+msgid "Your personal dictionary was erased. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
 
 msgid "Close this Window"
 msgstr ""
 
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Now return to the "
-"&quot;SpellChecker options&quot; menu and make your selection again."
+msgid "Your personal dictionary was re-encrypted successfully. Now return to the &quot;SpellChecker options&quot; menu and make your selection again."
 msgstr ""
 
 msgid "Successful Re-encryption"
 msgstr ""
 
-msgid ""
-"Your personal dictionary was re-encrypted successfully. Please close this "
-"window and click \"Check Spelling\" button again to start your spellcheck "
-"over."
+msgid "Your personal dictionary was re-encrypted successfully. Please close this window and click \"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
 
 msgid "Dictionary re-encrypted"
 msgstr ""
 
-msgid ""
-"Your personal dictionary has been <strong>encrypted</strong> and is now "
-"stored in an <strong>encrypted format</strong>."
+msgid "Your personal dictionary has been <strong>encrypted</strong> and is now stored in an <strong>encrypted format</strong>."
 msgstr ""
 
-msgid ""
-"Your personal dictionary has been <strong>decrypted</strong> and is now "
-"stored as <strong>clear text</strong>."
+msgid "Your personal dictionary has been <strong>decrypted</strong> and is now stored as <strong>clear text</strong>."
 msgstr ""
 
 msgid "Personal Dictionary Crypto Settings"
@@ -1941,53 +1831,25 @@ msgstr ""
 msgid "Please make your selection first."
 msgstr ""
 
-msgid ""
-"This will encrypt your personal dictionary and store it in an encrypted "
-"format. Proceed?"
+msgid "This will encrypt your personal dictionary and store it in an encrypted format. Proceed?"
 msgstr ""
 
-msgid ""
-"This will decrypt your personal dictionary and store it in a clear-text "
-"format. Proceed?"
+msgid "This will decrypt your personal dictionary and store it in a clear-text format. Proceed?"
 msgstr ""
 
-msgid ""
-"<p>Your personal dictionary is <strong>currently encrypted</strong>. This "
-"helps protect your privacy in case the web-mail system gets compromized and "
-"your personal dictionary ends up stolen. It is currently encrypted with the "
-"password you use to access your mailbox, making it hard for anyone to see "
-"what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</"
-"strong> If you forget your password, your personal dictionary will become "
-"unaccessible, since it can no longer be decrypted. If you change your "
-"mailbox password, SquirrelSpell will recognize it and prompt you for your "
-"old password in order to re-encrypt the dictionary with a new key.</p>"
+msgid "<p>Your personal dictionary is <strong>currently encrypted</strong>. This helps protect your privacy in case the web-mail system gets compromized and your personal dictionary ends up stolen. It is currently encrypted with the password you use to access your mailbox, making it hard for anyone to see what is stored in your personal dictionary.</p> <p><strong>ATTENTION:</strong> If you forget your password, your personal dictionary will become unaccessible, since it can no longer be decrypted. If you change your mailbox password, SquirrelSpell will recognize it and prompt you for your old password in order to re-encrypt the dictionary with a new key.</p>"
 msgstr ""
 
-msgid ""
-"Please decrypt my personal dictionary and store it in a clear-text format."
+msgid "Please decrypt my personal dictionary and store it in a clear-text format."
 msgstr ""
 
 msgid "Change crypto settings"
 msgstr ""
 
-msgid ""
-"<p>Your personal dictionary is <strong>currently not encrypted</strong>. You "
-"may wish to encrypt your personal dictionary to protect your privacy in case "
-"the webmail system gets compromized and your personal dictionary file gets "
-"stolen. When encrypted, the file's contents look garbled and are hard to "
-"decrypt without knowing the correct key (which is your mailbox password).</"
-"p> <strong>ATTENTION:</strong> If you decide to encrypt your personal "
-"dictionary, you must remember that it gets &quot;hashed&quot; with your "
-"mailbox password. If you forget your mailbox password and the administrator "
-"changes it to a new value, your personal dictionary will become useless and "
-"will have to be created anew. However, if you or your system administrator "
-"change your mailbox password but you still have the old password at hand, "
-"you will be able to enter the old key to re-encrypt the dictionary with the "
-"new value.</p>"
+msgid "<p>Your personal dictionary is <strong>currently not encrypted</strong>. You may wish to encrypt your personal dictionary to protect your privacy in case the webmail system gets compromized and your personal dictionary file gets stolen. When encrypted, the file's contents look garbled and are hard to decrypt without knowing the correct key (which is your mailbox password).</p> <strong>ATTENTION:</strong> If you decide to encrypt your personal dictionary, you must remember that it gets &quot;hashed&quot; with your mailbox password. If you forget your mailbox password and the administrator changes it to a new value, your personal dictionary will become useless and will have to be created anew. However, if you or your system administrator change your mailbox password but you still have the old password at hand, you will be able to enter the old key to re-encrypt the dictionary with the new value.</p>"
 msgstr ""
 
-msgid ""
-"Please encrypt my personal dictionary and store it in an encrypted format."
+msgid "Please encrypt my personal dictionary and store it in an encrypted format."
 msgstr ""
 
 #, c-format
@@ -2006,9 +1868,7 @@ msgstr ""
 msgid "Please wait, communicating with the server..."
 msgstr ""
 
-msgid ""
-"Please choose which dictionary you would like to use to spellcheck this "
-"message:"
+msgid "Please choose which dictionary you would like to use to spellcheck this message:"
 msgstr ""
 
 msgid "Go"
@@ -2018,9 +1878,7 @@ msgid "SquirrelSpell Initiating"
 msgstr ""
 
 #, c-format
-msgid ""
-"Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as "
-"default dictionary."
+msgid "Settings adjusted to: <strong>%s</strong> with <strong>%s</strong> as default dictionary."
 msgstr ""
 
 #, c-format
@@ -2030,9 +1888,7 @@ msgstr ""
 msgid "International Dictionaries Preferences Updated"
 msgstr ""
 
-msgid ""
-"Please check any available international dictionaries which you would like "
-"to use when spellchecking:"
+msgid "Please check any available international dictionaries which you would like to use when spellchecking:"
 msgstr ""
 
 msgid "Make this dictionary my default selection:"
@@ -2071,33 +1927,26 @@ msgstr ""
 msgid "Your server options are as follows:"
 msgstr ""
 
-msgid ""
-"13 language pairs, maximum of 1000 characters translated, powered by Systran"
+msgid "13 language pairs, maximum of 1000 characters translated, powered by Systran"
 msgstr ""
 
-msgid ""
-"10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
+msgid "10 language pairs, maximum of 25 kilobytes translated, powered by Systran"
 msgstr ""
 
 msgid "12 language pairs, no known limits, powered by Systran"
 msgstr ""
 
-msgid ""
-"767 language pairs, no known limits, powered by Translation Experts's "
-"InterTran"
+msgid "767 language pairs, no known limits, powered by Translation Experts's InterTran"
 msgstr ""
 
-msgid ""
-"8 language pairs, no known limits, powered by GPLTrans (free, open source)"
+msgid "8 language pairs, no known limits, powered by GPLTrans (free, open source)"
 msgstr ""
 
-msgid ""
-"You also decide if you want the translation box displayed, and where it will "
-"be located."
+msgid "You also decide if you want the translation box displayed, and where it will be located."
 msgstr ""
 
 msgid "Select your translator:"
-msgstr ""
+msgstr "Επιλέξτε τον μεταφραστή σας:"
 
 msgid "When reading:"
 msgstr ""
@@ -2126,144 +1975,122 @@ msgstr ""
 msgid "Translation Options"
 msgstr ""
 
-msgid ""
-"Which translator should be used when you get messages in a different "
-"language?"
+msgid "Which translator should be used when you get messages in a different language?"
 msgstr ""
 
 #, c-format
 msgid "%s to %s"
-msgstr ""
+msgstr "από %s σε %s"
 
 msgid "English"
-msgstr ""
+msgstr "Αγγλικά"
 
 msgid "French"
-msgstr ""
+msgstr "Γαλλικά"
 
 msgid "German"
-msgstr ""
+msgstr "Γερμανικά"
 
 msgid "Italian"
-msgstr ""
+msgstr "Ιταλικά"
 
 msgid "Portuguese"
-msgstr ""
+msgstr "Πορτογαλικά"
 
 msgid "Spanish"
-msgstr ""
+msgstr "Ισπανικά"
 
 msgid "Russian"
-msgstr ""
+msgstr "Ρώσικα"
 
 msgid "Translate"
-msgstr ""
+msgstr "Μετάφραση"
 
 msgid "Brazilian Portuguese"
-msgstr ""
+msgstr "Πορτογαλικά Βραζιλίας"
 
 msgid "Bulgarian"
-msgstr ""
+msgstr "Βουλγαρικά"
 
 msgid "Croatian"
-msgstr ""
+msgstr "Κροατικά"
 
 msgid "Czech"
-msgstr ""
+msgstr "Τσέχικα"
 
 msgid "Danish"
-msgstr ""
+msgstr "Δανικά"
 
 msgid "Dutch"
-msgstr ""
+msgstr "Ολλανδικά"
 
 msgid "European Spanish"
-msgstr ""
+msgstr "Ευρωπαϊκά Ισπανικά"
 
 msgid "Finnish"
-msgstr ""
+msgstr "Φινλανδικά"
 
 msgid "Greek"
-msgstr ""
+msgstr "Ελληνικά"
 
 msgid "Hungarian"
-msgstr ""
+msgstr "Ουγγαρικά"
 
 msgid "Icelandic"
-msgstr ""
+msgstr "Ισλανδικά"
 
 msgid "Japanese"
-msgstr ""
+msgstr "Ιαπωνικά"
 
 msgid "Latin American Spanish"
-msgstr ""
+msgstr "Λατινοαμερικάνικα Ισπανικά"
 
 msgid "Norwegian"
-msgstr ""
+msgstr "Νορβηγικά"
 
 msgid "Polish"
-msgstr ""
+msgstr "Πολωνικά"
 
 msgid "Romanian"
-msgstr ""
+msgstr "Ρουμανικά"
 
 msgid "Serbian"
-msgstr ""
+msgstr "Σέρβικα"
 
 msgid "Slovenian"
-msgstr ""
+msgstr "Σλοβακικά"
 
 msgid "Swedish"
-msgstr ""
+msgstr "Σουηδικά"
 
 msgid "Welsh"
-msgstr ""
+msgstr "Ουαλικά"
 
 msgid "Indonesian"
-msgstr ""
+msgstr "Ινδονησιακά"
 
 msgid "Latin"
-msgstr ""
+msgstr "Λατινικά"
 
 msgid "New Mail Notification"
 msgstr ""
 
-msgid ""
-"Select <b>Enable Media Playing</b> to turn on playing a media file when "
-"unseen mail is in your folders. When enabled, you can specify the media file "
-"to play in the provided file box."
+msgid "Select <b>Enable Media Playing</b> to turn on playing a media file when unseen mail is in your folders. When enabled, you can specify the media file to play in the provided file box."
 msgstr ""
 
-msgid ""
-"The <b>Check all boxes, not just INBOX</b> option will check ALL of your "
-"folders for unseen mail, not just the inbox for notification."
+msgid "The <b>Check all boxes, not just INBOX</b> option will check ALL of your folders for unseen mail, not just the inbox for notification."
 msgstr ""
 
-msgid ""
-"Selecting the <b>Show popup</b> option will enable the showing of a popup "
-"window when unseen mail is in your folders (requires JavaScript)."
+msgid "Selecting the <b>Show popup</b> option will enable the showing of a popup window when unseen mail is in your folders (requires JavaScript)."
 msgstr ""
 
-msgid ""
-"Use the <b>Check RECENT</b> to only check for messages that are recent. "
-"Recent messages are those that have just recently showed up and have not "
-"been \"viewed\" or checked yet.  This can prevent being continuously annoyed "
-"by sounds or popups for unseen mail."
+msgid "Use the <b>Check RECENT</b> to only check for messages that are recent. Recent messages are those that have just recently showed up and have not been \"viewed\" or checked yet.  This can prevent being continuously annoyed by sounds or popups for unseen mail."
 msgstr ""
 
-msgid ""
-"Selecting the <b>Change title</b> option will change the title in some "
-"browsers to let you know when you have new mail (requires JavaScript, and "
-"only works in IE but you won't see errors with other browsers).  This will "
-"always tell you if you have new mail, even if you have <b>Check RECENT</b> "
-"enabled."
+msgid "Selecting the <b>Change title</b> option will change the title in some browsers to let you know when you have new mail (requires JavaScript, and only works in IE but you won't see errors with other browsers).  This will always tell you if you have new mail, even if you have <b>Check RECENT</b> enabled."
 msgstr ""
 
-msgid ""
-"Select from the list of <b>server files</b> the media file to play when new "
-"mail arrives.  Selecting <b>local media</b> will play the file specified in "
-"the <b>local media file</b> box to play from the local computer.  If no file "
-"is specified, the system will use a default from the server."
+msgid "Select from the list of <b>server files</b> the media file to play when new mail arrives.  Selecting <b>local media</b> will play the file specified in the <b>local media file</b> box to play from the local computer.  If no file is specified, the system will use a default from the server."
 msgstr ""
 
 msgid "Enable Media Playing"
@@ -2311,9 +2138,7 @@ msgstr ""
 msgid "NewMail Options"
 msgstr ""
 
-msgid ""
-"This configures settings for playing sounds and/or showing popup windows "
-"when new mail arrives."
+msgid "This configures settings for playing sounds and/or showing popup windows when new mail arrives."
 msgstr ""
 
 msgid "New Mail Notification options saved"
@@ -2340,7 +2165,7 @@ msgid "No server specified"
 msgstr ""
 
 msgid "Error "
-msgstr ""
+msgstr "Λάθος "
 
 msgid "POP3 noop:"
 msgstr ""
@@ -2507,11 +2332,7 @@ msgstr ""
 msgid "Remote POP server settings"
 msgstr ""
 
-msgid ""
-"You should be aware that the encryption used to store your password is not "
-"perfectly secure.  However, if you are using pop, there is inherently no "
-"encryption anyway. Additionally, the encryption that we do to save it on the "
-"server can be undone by a hacker reading the source to this file."
+msgid "You should be aware that the encryption used to store your password is not perfectly secure.  However, if you are using pop, there is inherently no encryption anyway. Additionally, the encryption that we do to save it on the server can be undone by a hacker reading the source to this file."
 msgstr ""
 
 msgid "If you leave password empty, it will be required when you fetch mail."
@@ -2526,8 +2347,9 @@ msgstr ""
 msgid "Server:"
 msgstr ""
 
+#, fuzzy
 msgid "Port:"
-msgstr ""
+msgstr "Προτεραιότητα"
 
 msgid "Alias:"
 msgstr ""
@@ -2595,9 +2417,7 @@ msgstr ""
 msgid "Simple POP3 Fetch Mail"
 msgstr ""
 
-msgid ""
-"This configures settings for downloading email from a pop3 mailbox to your "
-"account on this server."
+msgid "This configures settings for downloading email from a pop3 mailbox to your account on this server."
 msgstr ""
 
 msgid "Bug Reports:"
@@ -2628,7 +2448,7 @@ msgid "TODAY"
 msgstr ""
 
 msgid "l, F j Y"
-msgstr ""
+msgstr "D, F j, Y G:i"
 
 msgid "ADD"
 msgstr ""
@@ -2733,24 +2553,18 @@ msgid "Calendar"
 msgstr ""
 
 msgid "Mailinglist"
+msgstr "Ταχυδρομική λίστα"
+
+#, c-format
+msgid "This will send a message to %s requesting help for this list. You will receive an emailed response at the address below."
 msgstr ""
 
 #, c-format
-msgid ""
-"This will send a message to %s requesting help for this list. You will "
-"receive an emailed response at the address below."
+msgid "This will send a message to %s requesting that you will be subscribed to this list. You will be subscribed with the address below."
 msgstr ""
 
 #, c-format
-msgid ""
-"This will send a message to %s requesting that you will be subscribed to "
-"this list. You will be subscribed with the address below."
-msgstr ""
-
-#, c-format
-msgid ""
-"This will send a message to %s requesting that you will be unsubscribed from "
-"this list. It will try to unsubscribe the adress below."
+msgid "This will send a message to %s requesting that you will be unsubscribed from this list. It will try to unsubscribe the adress below."
 msgstr ""
 
 msgid "Send Mail"
@@ -3029,9 +2843,7 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-msgid ""
-"This module allows administrators to manage SquirrelMail main configuration "
-"remotely."
+msgid "This module allows administrators to manage SquirrelMail main configuration remotely."
 msgstr ""
 
 msgid "Delivery error report"
@@ -3039,3 +2851,4 @@ msgstr ""
 
 msgid "Undelivered Message Headers"
 msgstr ""
+
