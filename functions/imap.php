@@ -62,4 +62,24 @@
    function removeFolder($imapConnection, $folder) {
       fputs($imapConnection, "1 delete \"$folder\"\n");
    }
+
+   /** Sends back two arrays, boxesFormatted and boxesUnformatted **/
+   function getFolderList($imapConnection, &$boxesFormatted, &$boxesUnformatted) {
+      fputs($imapConnection, "1 list \"\" *\n");
+      $str = imapReadData($imapConnection);
+
+      for ($i = 0;$i < count($str); $i++) {
+         $mailbox = chop($str[$i]);
+         $mailbox = findMailboxName($mailbox);
+         $periodCount = countCharInString($mailbox, ".");
+
+         // indent the correct number of spaces.
+         for ($j = 0;$j < $periodCount;$j++)
+            $boxesFormatted[$i] = "$boxesFormatted[$i]&nbsp;&nbsp;";
+
+         $boxesFormatted[$i] = $boxesFormatted[$i] . readShortMailboxName($mailbox, ".");
+         $boxesUnformatted[$i] = $mailbox;
+      }
+   }
+
 ?>
