@@ -196,10 +196,11 @@
       echo "<TD width=1% BGCOLOR=\"$color[4]\" ALIGN=Right>";
       
       if ($use_javascript_addr_book) {
-         $lookup_str = _("Addresses");
          echo "<SCRIPT LANGUAGE=JavaScript><!--\n document.write(\"";
-         echo "<a href=\\\"javascript:open_abook();\\\">$lookup_str</a><br>\");";
-         echo "// --></SCRIPT>\n";
+         echo "<input type=button value=\\\""._("Addresses")."\\\" onclick='javascript:open_abook();'>\");";
+         echo "// --></SCRIPT><NOSCRIPT>\n";
+         echo "<input type=submit name=html_addr_search value=\""._("Addresses")."\">";
+         echo "</NOSCRIPT>\n";
       } else {  
          echo "<input type=submit name=html_addr_search value=\""._("Addresses")."\">";
       }   
