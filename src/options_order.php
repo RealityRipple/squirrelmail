@@ -127,7 +127,7 @@ displayPageHeader($color, 'None');
     
     if (count($index_order) != count($available)) {
 
-	$opts = array();
+        $opts = array();
         for ($i=1; $i <= count($available); $i++) {
             $found = false;
             for ($j=1; $j <= count($index_order); $j++) {
@@ -136,14 +136,14 @@ displayPageHeader($color, 'None');
                 }
             }
             if (!$found) {
-	        $opts[$i] = $available[$i];
+                $opts[$i] = $available[$i];
             }
         }
-	
+
         echo addForm('options_order.php', 'post', 'f');
-	echo addSelect('add', $opts, '', TRUE);
+        echo addSelect('add', $opts, '', TRUE);
         echo addHidden('method', 'add');
-	echo addSubmit(_("Add"), 'submit');
+        echo addSubmit(_("Add"), 'submit');
         echo '</form>';
     }
  

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * addressbook.php
  *
@@ -360,35 +361,35 @@ if ($showaddrlist) {
             if($prevbackend != $row['backend']) {
                 if($prevbackend < 0) {
                     echo html_tag( 'table',
-                                    html_tag( 'tr',
-                                          html_tag( 'td',
-                                                     '<input type="submit" name="editaddr" value="' . 
-                                                     _("Edit selected") . "\" />\n" .
-                                                     '<input type="submit" name="deladdr" value="' .
-                                                     _("Delete selected") . "\" />\n",
-                                          'center', '', 'colspan="5"' )
-                                    ) .
-                                    html_tag( 'tr',
-                                          html_tag( 'td', '&nbsp;<br />', 'center', '', 'colspan="5"' )
-                                    ) ,
-                             'center' );
+                            html_tag( 'tr',
+                                html_tag( 'td',
+                                    '<input type="submit" name="editaddr" value="' . 
+                                        _("Edit selected") . "\" />\n" .
+                                    '<input type="submit" name="deladdr" value="' .
+                                        _("Delete selected") . "\" />\n",
+                                    'center', '', 'colspan="5"' )
+                                ) .
+                            html_tag( 'tr',
+                                html_tag( 'td', '&nbsp;<br />', 'center', '', 'colspan="5"' )
+                                ),
+                            'center' );
                     echo "\n<!-- start of address book table -->\n" .
-                      html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
-                      html_tag( 'tr', "\n" .
-                          html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
-                          html_tag( 'th', _("Nickname") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by nickname"), 0, 1)
-                                    , 'left', '', 'width="1%"' ) . "\n" .
-                          html_tag( 'th', _("Name") . 
-                                    show_abook_sort_button($abook_sort_order, _("sort by name"), 2, 3)
-                                    , 'left', '', 'width="1%"' ) . "\n" .
-                          html_tag( 'th', _("E-mail") . 
-                                    show_abook_sort_button($abook_sort_order, _("sort by email"), 4, 5)
-                                    , 'left', '', 'width="1%"' ) . "\n" .
-                          html_tag( 'th', _("Info") .
-                                    show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7)
-                                    , 'left', '', 'width="1%"' ) . "\n",
-                                '', $color[9] ) . "\n";
+                         html_tag( 'table', '', 'center', '', 'border="0" cellpadding="1" cellspacing="0" width="90%"' ) .
+                         html_tag( 'tr', "\n" .
+                            html_tag( 'th', '&nbsp;', 'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Nickname") .
+                                show_abook_sort_button($abook_sort_order, _("sort by nickname"), 0, 1),
+                                'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Name") . 
+                                show_abook_sort_button($abook_sort_order, _("sort by name"), 2, 3),
+                                'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("E-mail") . 
+                                show_abook_sort_button($abook_sort_order, _("sort by email"), 4, 5),
+                                'left', '', 'width="1%"' ) . "\n" .
+                            html_tag( 'th', _("Info") .
+                                show_abook_sort_button($abook_sort_order, _("sort by info"), 6, 7),
+                                'left', '', 'width="1%"' ) . "\n",
+                            '', $color[9] ) . "\n";
                 }
 
                 // Separate different backends with <hr />
@@ -466,15 +467,15 @@ if ($showaddrlist) {
         /* End of list. Add edit/delete select buttons */
         if ($headerprinted) {
             echo html_tag( 'table',
-                           html_tag( 'tr',
-                                     html_tag( 'td',
-                                               '<input type="submit" name="editaddr" value="' . _("Edit selected") .
-                                               "\" />\n" .
-                                               '<input type="submit" name="deladdr" value="' . _("Delete selected") .
-                                               "\" />\n",
-                                               'center', '', 'colspan="5"' )
-                                     ),
-                           'center' );
+                    html_tag( 'tr',
+                        html_tag( 'td',
+                            '<input type="submit" name="editaddr" value="' . _("Edit selected") .
+                                "\" />\n" .
+                            '<input type="submit" name="deladdr" value="' . _("Delete selected") .
+                                "\" />\n",
+                            'center', '', 'colspan="5"' )
+                        ),
+                        'center' );
         }
         echo "</form>\n";
     }
@@ -497,5 +498,4 @@ echo "</form>\n";
 /* Add hook for anything that wants on the bottom */
 do_hook('addressbook_bottom');
 ?>
-
 </body></html>

@@ -82,7 +82,7 @@ if (isset($theid) && ($action == 'delete') ||
             $new_rules = $message_highlight_list;
             break;
     }
-    $message_highlight_list = $new_rules;    
+    $message_highlight_list = $new_rules;
 
     setPref($data_dir, $username, 'hililist', serialize($message_highlight_list));
 
@@ -386,29 +386,29 @@ if ($action == 'edit' || $action == 'add') {
     echo '         '.addRadioBox('color_type', $selected_choose, '1');
 
     $selops = array (
-    	$color_list[0] => _("Dark Blue"),
-	$color_list[1] => _("Dark Green"),
-	$color_list[2] => _("Dark Yellow"),
-	$color_list[3] => _("Dark Cyan"),
-	$color_list[4] => _("Dark Magenta"),
-	$color_list[5] => _("Light Blue"),
-	$color_list[6] => _("Light Green"),
-	$color_list[7] => _("Light Yellow"),
-	$color_list[8] => _("Light Cyan"),
-	$color_list[9] => _("Light Magenta"),
-	$color_list[10] => _("Dark Gray"),
-	$color_list[11] => _("Medium Gray"),
-	$color_list[12] => _("Light Gray"),
-	$color_list[13] => _("White") );
-	
+        $color_list[0] => _("Dark Blue"),
+        $color_list[1] => _("Dark Green"),
+        $color_list[2] => _("Dark Yellow"),
+        $color_list[3] => _("Dark Cyan"),
+        $color_list[4] => _("Dark Magenta"),
+        $color_list[5] => _("Light Blue"),
+        $color_list[6] => _("Light Green"),
+        $color_list[7] => _("Light Yellow"),
+        $color_list[8] => _("Light Cyan"),
+        $color_list[9] => _("Light Magenta"),
+        $color_list[10] => _("Dark Gray"),
+        $color_list[11] => _("Medium Gray"),
+        $color_list[12] => _("Light Gray"),
+        $color_list[13] => _("White") );
+
     echo addSelect('newcolor_choose', $selops, $selected_i, TRUE);
     echo "<br />\n";
 
     echo '         '.addRadioBox('color_type', $selected_input, 2).
         ' &nbsp;'. _("Other:") .
-	addInput('newcolor_input',
-	    (($selected_input && isset($theid)) ? $message_highlight_list[$theid]['color'] : ''),
-	    '7');
+        addInput('newcolor_input',
+            (($selected_input && isset($theid)) ? $message_highlight_list[$theid]['color'] : ''),
+            '7');
     echo _("Ex: 63aa7f")."<br />\n";
     echo "      </td>\n";
     echo "   </tr>\n";
@@ -424,7 +424,7 @@ if ($action == 'edit' || $action == 'add') {
         $gridindex = "$y,$x";
         $gridcolor = $new_color_list[$gridindex];
         echo html_tag( 'td', addRadioBox('color_type', ($gridcolor == $current_color), '#'.$gridcolor),
-	    'left', $gridcolor, 'colspan="2"' );
+            'left', $gridcolor, 'colspan="2"' );
         }
         echo "</tr>\n";
     }

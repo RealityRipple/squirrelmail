@@ -1,4 +1,5 @@
 <?php
+
 /**
  * right_main.php
  *

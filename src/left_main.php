@@ -52,10 +52,10 @@ function formatMailboxName($imapConnection, $box_array) {
     $status = array('','');
     if (($unseen_notify == 2 && $real_box == 'INBOX') ||
         $unseen_notify == 3) {
-    $tmp_status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );
-    if ($status !== false) {
-        $status = $tmp_status;
-    }
+            $tmp_status = create_unseen_string($real_box, $box_array, $imapConnection, $unseen_type );
+            if ($status !== false) {
+                $status = $tmp_status;
+            }
     }
     list($unseen_string, $unseen) = $status;
     $special_color = ($use_special_folder_color && isSpecialMailbox($real_box));
@@ -68,8 +68,8 @@ function formatMailboxName($imapConnection, $box_array) {
 
     /* Create the link for this folder. */
     if ($status !== false) {
-    $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox='.
-                $mailboxURL.'" target="right" style="text-decoration:none">';
+        $line .= '<a href="right_main.php?PG_SHOWALL=0&amp;startMessage=1&amp;mailbox='.
+                 $mailboxURL.'" target="right" style="text-decoration:none">';
     }
     if ($special_color) {
         $line .= "<font color=\"$color[11]\">";
@@ -82,7 +82,7 @@ function formatMailboxName($imapConnection, $box_array) {
     if ($special_color == TRUE)
         $line .= '</font>';
     if ($status !== false) {
-    $line .= '</a>';
+        $line .= '</a>';
     }
 
     /* If there are unseen message, close bolding. */
@@ -225,7 +225,7 @@ function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type
     $status = sqimap_status_messages($imapConnection, $boxName);
     $boxUnseenCount = $status['UNSEEN'];
     if ($boxUnseenCount === false) {
-    return false;
+        return false;
     }
     if ($unseen_type == 2) {
         $boxMessageCount = $status['MESSAGES'];
@@ -245,10 +245,10 @@ function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type
 
             /* Collect the counts for this subfolder. */
             if (($boxName != $boxes[$i]['unformatted'])
-                   && (substr($boxes[$i]['unformatted'], 0, $curBoxLength) == $boxName)
-                   && !in_array('noselect', $boxes[$i]['flags'])) {
-        $status = sqimap_status_messages($imapConnection, $boxes[$i]['unformatted']);
-        $subUnseenCount = $status['UNSEEN'];
+                    && (substr($boxes[$i]['unformatted'], 0, $curBoxLength) == $boxName)
+                    && !in_array('noselect', $boxes[$i]['flags'])) {
+                $status = sqimap_status_messages($imapConnection, $boxes[$i]['unformatted']);
+                $subUnseenCount = $status['UNSEEN'];
                 if ($unseen_type == 2) {
                     $subMessageCount = $status['MESSAGES'];;
                 }
@@ -447,7 +447,7 @@ function ListBoxes ($boxes, $j=0 ) {
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-           $move_to_trash, $trash_folder, $collapse_folders, $use_special_folder_color;
+        $move_to_trash, $trash_folder, $collapse_folders, $use_special_folder_color;
 
     if (!isset($boxes) || empty($boxes))
         return;
@@ -692,7 +692,7 @@ var vTreeSrc;
     function hidechilds(img) {
       id = img.id + ".0000";
       form_id = "mbx[" + img.id +"F]";
-      if (document.all) {	//IE, Opera7
+      if (document.all) { //IE, Opera7
         div = document.all[id];
         if (div) {
            if (div.style.display == "none") {
@@ -707,15 +707,15 @@ var vTreeSrc;
            }
            vTreeImg = img;
            vTreeDiv = div;
-           if (typeof vTreeDiv.readyState != "undefined")	//IE
+           if (typeof vTreeDiv.readyState != "undefined") //IE
               setTimeout("fTreeTimeout()",100);
-           else	//Non IE
+           else //Non IE
               vTreeImg.src = vTreeSrc;
            div.style.display = style;
            document.all[form_id].value = value;
         }
       }
-      else if (document.getElementById) {	//Gecko
+      else if (document.getElementById) { //Gecko
         div = document.getElementById(id);
         if (div) {
            if (div.style.display == "none") {
@@ -757,29 +757,29 @@ $xtra .= "      left_size = \"$left_size\";\n";
 $xtra .= <<<ECHO
       if (document.all) {
         masterf = window.parent.document.all["fs1"];
-    leftf = window.parent.document.all["left"];
-    leftcontent = document.all["leftframe"];
-    leftbutton = document.all["showf"];
+        leftf = window.parent.document.all["left"];
+        leftcontent = document.all["leftframe"];
+        leftbutton = document.all["showf"];
       } else if (document.getElementById) {
-    masterf = window.parent.document.getElementById("fs1");
-    leftf = window.parent.document.getElementById("left");
-    leftcontent = document.getElementById("leftframe");
-    leftbutton = document.getElementById("showf");
+        masterf = window.parent.document.getElementById("fs1");
+        leftf = window.parent.document.getElementById("left");
+        leftcontent = document.getElementById("leftframe");
+        leftbutton = document.getElementById("showf");
       } else {
         return false;
       }
       if(hide) {
          new_col = calc_col("20");
          masterf.cols = new_col;
-     document.body.scrollLeft=0;
-     document.body.style.overflow='hidden';
-     leftcontent.style.display = 'none';
-     leftbutton.style.display='block';
+         document.body.scrollLeft=0;
+         document.body.style.overflow='hidden';
+         leftcontent.style.display = 'none';
+         leftbutton.style.display='block';
       } else {
          masterf.cols = calc_col(left_size);
-     document.body.style.overflow='';
-     leftbutton.style.display='none';
-     leftcontent.style.display='block';
+         document.body.style.overflow='';
+         leftbutton.style.display='none';
+         leftcontent.style.display='block';
 
       }
    }
@@ -806,7 +806,7 @@ $xtra .= <<<ECHO
      if (document.all) {
         masterf = window.parent.document.all["fs1"];
      } else if (document.getElementById) {
-    window.parent.document.getElementById("fs1");
+        window.parent.document.getElementById("fs1");
      } else {
         return false;
      }
@@ -946,12 +946,13 @@ if ($auto_create_special && !isset($auto_create_done)) {
     sqsession_register($auto_create_done, 'auto_create_done');
 }
 
-if ($advanced_tree)
-  echo "\n<body" .
-	' onload="preload(\'../images/minus.png\',\'../images/plus.png\')"' .
-  " bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
-else
-  echo "\n<body bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+if ($advanced_tree) {
+    echo "\n<body" .
+            ' onload="preload(\'../images/minus.png\',\'../images/plus.png\')"' .
+            " bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+} else {
+    echo "\n<body bgcolor=\"$color[3]\" text=\"$color[6]\" link=\"$color[6]\" vlink=\"$color[6]\" alink=\"$color[6]\">\n";
+}
 
 do_hook('left_main_before');
 if ($advanced_tree) {
@@ -989,8 +990,8 @@ if ($date_format != 6) {
 
     switch( $date_format ) {
     case 0:
-	$clk = date('Y-m-d '.$hr. ' T', time());
-	break;
+        $clk = date('Y-m-d '.$hr. ' T', time());
+        break;
     case 1:
         $clk = date('m/d/y '.$hr, time());
         break;

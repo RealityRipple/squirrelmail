@@ -48,10 +48,10 @@ if (sqGetGlobalVar('what', $tmp, SQ_FORM)) {
     $what = urlencode($tmp);
 }
 if (sqGetGlobalVar('sort', $tmp, SQ_FORM)) {
-	$sort = (int) $tmp;
+    $sort = (int) $tmp;
 }
 if (sqGetGlobalVar('startMessage', $tmp, SQ_FORM)) {
-	$startMessage = (int) $tmp;
+    $startMessage = (int) $tmp;
 }
 
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);

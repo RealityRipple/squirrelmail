@@ -94,8 +94,8 @@ if ($vcard_nice['version'] == '2.1') {
     }
 } else {
     echo '<tr><td align="center">' .
-	sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."),$vcard_nice['version']) .
-	"</td></tr>\n";
+         sprintf(_("vCard Version %s is not supported. Some information might not be converted correctly."),$vcard_nice['version']) .
+         "</td></tr>\n";
 }
 
 foreach ($vcard_nice as $k => $v) {
@@ -191,10 +191,10 @@ if (isset($vcard_nice['note'])) {
 echo    addSelect('addaddr[label]', $opts, '', TRUE);
 echo    '</td></tr>' .
         '<tr><td colspan="2" align="center">' .
-	addHidden('addaddr[email]', $vcard_nice['email;internet']).
-	addHidden('addaddr[firstname]', $vcard_safe['firstname']).
-	addHidden('addaddr[lastname]', $vcard_safe['lastname']).
-	addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]').
+        addHidden('addaddr[email]', $vcard_nice['email;internet']).
+        addHidden('addaddr[firstname]', $vcard_safe['firstname']).
+        addHidden('addaddr[lastname]', $vcard_safe['lastname']).
+        addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]').
         '</td></tr>' .
         '</table>' .
         '</form>' .

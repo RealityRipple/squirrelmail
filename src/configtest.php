@@ -1,4 +1,5 @@
 <?php
+
 /**
  * SquirrelMail configtest script
  *
@@ -189,7 +190,7 @@ if($useSendmail) {
     $smtpline = fgets($stream, 1024);
     if(((int) $smtpline{0}) > 3) {
         do_err("Error connecting to SMTP server. Server error: ".
-	    htmlspecialchars($smtpline));
+        htmlspecialchars($smtpline));
     }
 
     fputs($stream, 'QUIT');
@@ -223,7 +224,7 @@ $stream = fsockopen( ($use_imap_tls?'tls://':'').$imapServerAddress, $imapPort,
 if(!$stream) {
     do_err("Error connecting to IMAP server \"$imapServerAddress:$imapPort\".".
         "Server error: ($errorNumber) ".
-	htmlspecialchars($errorString));
+    htmlspecialchars($errorString));
 }
 
 $imapline = fgets($stream, 1024);
@@ -274,7 +275,7 @@ echo "$IND timezone - ";
 if ( (!ini_get('safe_mode')) ||
     !strcmp(ini_get('safe_mode_allowed_env_vars'),'') ||
     preg_match('/^([\w_]+,)*TZ/', ini_get('safe_mode_allowed_env_vars')) ) {
-	echo "Webmail users can change their time zone settings.<br />\n";
+        echo "Webmail users can change their time zone settings.<br />\n";
 } else {
     echo "Webmail users can't change their time zone settings.<br />\n";
 }
@@ -283,54 +284,60 @@ if ( (!ini_get('safe_mode')) ||
 // Pear DB tests
 echo "Checking database functions...<br />\n";
 if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
-	@include_once('DB.php');
-	if (class_exists('DB')) {
-	    echo "$IND PHP Pear DB support is present.<br />\n";
-	    $db_functions=array(
-		'dbase' => 'dbase_open', 
-		'fbsql' => 'fbsql_connect', 
-		'interbase' => 'ibase_connect', 
-		'informix' => 'ifx_connect',
-		'msql' => 'msql_connect',
-		'mssql' => 'mssql_connect',
-		'mysql' => 'mysql_connect',
-		'mysqli' => 'mysqli_connect',
-		'oci8' => 'ocilogon',
-		'odbc' => 'odbc_connect',
-		'pgsql' => 'pgsql_connect',
-		'sqlite' => 'sqlite_open',
-		'sybase' => 'sybase_connect'
-	    );
+    @include_once('DB.php');
+    if (class_exists('DB')) {
+        echo "$IND PHP Pear DB support is present.<br />\n";
+        $db_functions=array(
+            'dbase' => 'dbase_open', 
+            'fbsql' => 'fbsql_connect', 
+            'interbase' => 'ibase_connect', 
+            'informix' => 'ifx_connect',
+            'msql' => 'msql_connect',
+            'mssql' => 'mssql_connect',
+            'mysql' => 'mysql_connect',
+            'mysqli' => 'mysqli_connect',
+            'oci8' => 'ocilogon',
+            'odbc' => 'odbc_connect',
+            'pgsql' => 'pgsql_connect',
+            'sqlite' => 'sqlite_open',
+            'sybase' => 'sybase_connect'
+            );
 
-	    $dsns = array();
-	    if($prefs_dsn) $dsns['preferences'] = $prefs_dsn;
-	    if($addrbook_dsn) $dsns['addressbook'] = $addrbook_dsn;
-	    if($addrbook_global_dsn) $dsns['global addressbook'] = $addrbook_global_dsn;
-	    
-            foreach($dsns as $type => $dsn) {
-	        $dbtype = array_shift(explode(':', $dsn));
-	        if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
-		    echo "$IND$dbtype database support present.<br />\n";
+        $dsns = array();
+        if($prefs_dsn) {
+            $dsns['preferences'] = $prefs_dsn;
+        }
+        if($addrbook_dsn) {
+            $dsns['addressbook'] = $addrbook_dsn;
+        }
+        if($addrbook_global_dsn) {
+            $dsns['global addressbook'] = $addrbook_global_dsn;
+        }
 
-		    // now, test this interface:
+        foreach($dsns as $type => $dsn) {
+            $dbtype = array_shift(explode(':', $dsn));
+            if(isset($db_functions[$dbtype]) && function_exists($db_functions[$dbtype])) {
+                echo "$IND$dbtype database support present.<br />\n";
 
-		    $dbh = DB::connect($dsn, true);
-                    if (DB::isError($dbh)) {
-                        do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
-			    ' in ' .$type .' DSN.');
-                    }
-		    $dbh->disconnect();
-		    echo "$IND$type database connect successful.<br />\n";
-		    
-		} else {
-		    do_err($db.' database support not present!');
-		}
+                // now, test this interface:
+
+                $dbh = DB::connect($dsn, true);
+                if (DB::isError($dbh)) {
+                    do_err('Database error: '. htmlspecialchars(DB::errorMessage($dbh)) .
+                        ' in ' .$type .' DSN.');
+                }
+                $dbh->disconnect();
+                echo "$IND$type database connect successful.<br />\n";
+
+            } else {
+                do_err($db.' database support not present!');
             }
-	} else {
-	    do_err('Required PHP PEAR DB support is not available. Is PEAR installed and is the
-	    	include path set correctly to find <tt>DB.php</tt>? The include path is now:
-		"<tt>' . ini_get('include_path') . '</tt>".');
-	}
+        }
+    } else {
+        do_err('Required PHP PEAR DB support is not available. Is PEAR installed and is the
+            include path set correctly to find <tt>DB.php</tt>? The include path is now:
+            "<tt>' . ini_get('include_path') . '</tt>".');
+    }
 } else {
     echo $IND."not using database functionality.<br />\n";
 }
@@ -338,18 +345,18 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
 // LDAP DB tests
 echo "Checking LDAP functions...<br />\n";
 if( empty($ldap_server) ) {
-	echo $IND."not using LDAP functionality.<br />\n";
+    echo $IND."not using LDAP functionality.<br />\n";
 } else {
     if ( !function_exists(ldap_connect) ) {
         do_err('Required LDAP support is not available.');
     } else {
-		echo "$IND LDAP support present.<br />\n";
+        echo "$IND LDAP support present.<br />\n";
         foreach ( $ldap_server as $param ) {
 
             $linkid = ldap_connect($param['host'], (empty($param['port']) ? 389 : $param['port']) );
 
             if ( $linkid ) {
-		        echo "$IND LDAP connect to ".$param['host']." successful: ".$linkid."<br />\n";
+               echo "$IND LDAP connect to ".$param['host']." successful: ".$linkid."<br />\n";
                 
                 if ( !empty($param['protocol']) &&
                      !ldap_set_option($linkid, LDAP_OPT_PROTOCOL_VERSION, $param['protocol']) ) {
@@ -385,3 +392,4 @@ if( empty($ldap_server) ) {
 </html>
 <?php
 // vim: et ts=4
+?>

@@ -154,7 +154,7 @@ echo html_tag( 'table',
                                     _("Name:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-				    addInput($username_form_name, $loginname_value),
+                                    addInput($username_form_name, $loginname_value),
                                 'left', '', 'width="*"' )
                                 ) . "\n" .
                             html_tag( 'tr',
@@ -162,10 +162,10 @@ echo html_tag( 'table',
                                     _("Password:") ,
                                 'right', '', 'width="30%"' ) .
                                 html_tag( 'td',
-				    addPwField($password_form_name).
-				    addHidden('js_autodetect_results', SMPREF_JS_OFF).
+                                    addPwField($password_form_name).
+                                    addHidden('js_autodetect_results', SMPREF_JS_OFF).
                                     $rcptaddress .
-				    addHidden('just_logged_in', '1'),
+                                    addHidden('just_logged_in', '1'),
                                 'left', '', 'width="*"' )
                             ) ,
                         'center', $color[4], 'border="0" width="100%"' ) ,
@@ -184,6 +184,5 @@ do_hook('login_form');
 echo '</form>' . "\n";
 
 do_hook('login_bottom');
-echo "</body>\n".
-     "</html>\n";
 ?>
+</body></html>

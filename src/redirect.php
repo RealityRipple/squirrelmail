@@ -50,7 +50,7 @@ sqsession_register ($base_uri, 'base_uri');
 sqGetGlobalVar('login_username', $login_username);
 sqGetGlobalVar('secretkey', $secretkey);
 if(!sqGetGlobalVar('squirrelmail_language', $squirrelmail_language) || $squirrelmail_language == '') {
-	$squirrelmail_language = $squirrelmail_default_language;
+    $squirrelmail_language = $squirrelmail_default_language;
 }
 if (!sqgetGlobalVar('mailto', $mailto)) {
     $mailto = '';
