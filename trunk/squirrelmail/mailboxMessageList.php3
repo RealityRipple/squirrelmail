@@ -190,7 +190,34 @@
    //    $key              pass
    //
    /////////////////////////////////////////////////////////////////////////////////
-   
+
+
+   // open a connection on the imap port (143)
+   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
+   if (!$imapConnection) {
+      echo "Error connecting to IMAP Server.<br>";
+      echo "$errorNumber : $errorString<br>";
+      exit;
+   }
+   $serverInfo = fgets($imapConnection, 256);
+
+   // login
+   fputs($imapConnection, "1 login $username $key\n");
+   $read = fgets($imapConnection, 1024);
+   if (strpos($read, "NO")) {
+      echo "<BR>";
+      echo "<TABLE COLS=1 WIDTH=70% NOBORDER BGCOLOR=FFFFFF ALIGN=CENTER>";
+      echo "   <TR>";
+      echo "      <TD BGCOLOR=DCDCDC>";
+      echo "         <FONT FACE=\"Arial,Helvetica\"><B><CENTER>ERROR</CENTER></B></FONT>";
+      echo "   </TD></TR><TR><TD>";
+      echo "      <CENTER><FONT FACE=\"Arial,Helvetica\"><BR>Unknown user or password incorrect.<BR><A HREF=\"login.php3\" TARGET=_top>Click here to try again</A>.</FONT></CENTER>";
+      echo "   </TD></TR>";
+      echo "</TABLE>";
+      echo "</BODY></HTML>";
+      exit;
+   }
+
    
    // If the page has been loaded without a specific mailbox,
    //    just show a page of general info.
@@ -225,18 +252,6 @@
       exit;
    }
 
-   // open a connection on the imap port (143)
-   $imapConnection = fsockopen($imapServerAddress, 143, &$errorNumber, &$errorString);
-   if (!$imapConnection) {
-      echo "Error connecting to IMAP Server.<br>";
-      echo "$errorNumber : $errorString<br>";
-      exit;
-   }
-   $serverInfo = fgets($imapConnection, 256);
-
-   // login
-   fputs($imapConnection, "1 login $username $key\n");
-   $read = fgets($imapConnection, 1024);
 
    // switch to the mailbox, and get the number of messages in it.
    selectMailbox($imapConnection, $mailbox, $numMessages);
