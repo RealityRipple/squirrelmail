@@ -680,6 +680,37 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
     return $err_num;
 }
 
+/* create new reference header per rfc2822 */
+
+function calculate_references($refs, $inreplyto, $old_reply_to) {
+    $refer = "";
+    for ($i=1;$i<count($refs[0]);$i++) {
+        if (!empty($refs[0][$i])) {
+            if (preg_match("/^References:(.+)$/", $refs[0][$i], $regs)) {
+                $refer = trim($regs[1]);
+            }
+            else {   
+                $refer .= ' ' . trim($refs[0][$i]);
+            }
+        }
+    }
+    $refer = trim($refer);
+    if (strlen($refer) > 2) {
+        $refer .= ' ' . $inreplyto;
+    }
+    else {
+        if (!empty($old_reply_to)) {
+            $refer .= $old_reply_to . ' ' . $inreplyto;
+        }
+        else {
+            $refer .= $inreplyto;
+        }			
+    }
+    trim($refer);
+    $refer = str_replace(' ', "\r\n        ", $refer);
+    return $refer;
+}
+
 function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3, $session) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
            $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, 
@@ -698,12 +729,16 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3, $s
         /* Insert In-Reply-To and References headers if the
          * message-id of the message we reply to is set (longer than "<>")
          * The References header should really be the old Referenced header
-         * with the message ID appended, but it can be only the message ID too.
+         * with the message ID appended, and now it is (jmunro)
          */
         $hdr = sqimap_get_small_header ($imap_stream, $reply_id, false);
         if(strlen($hdr->message_id) > 2) {
-            $more_headers['In-Reply-To'] = $hdr->message_id;
-            $more_headers['References']  = $hdr->message_id;
+            $refs = get_reference_header ($imap_stream, $reply_id);
+            $inreplyto = $hdr->message_id;
+			$old_reply_to = $hdr->inrepto;
+            $refer = calculate_references ($refs, $inreplyto, $old_reply_to);
+            $more_headers['In-Reply-To'] = $inreplyto;
+            $more_headers['References']  = $refer;
         }
     }
     if ($default_use_priority) {

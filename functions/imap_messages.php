@@ -75,6 +75,21 @@ function sqimap_message_list_squisher($messages_array) {
     return $msgs_str;
 }
 
+/* returns the references header lines */
+function get_reference_header ($imap_stream, $message) {
+    $responses = array ();
+    $sid = sqimap_session_id();
+	$results = array();
+	$references = "";
+    $query = "$sid FETCH $message BODY.PEEK[HEADER.FIELDS (References)]\r\n";
+    fputs ($imap_stream, $query);
+	$responses = sqimap_read_data_list($imap_stream, $sid, true, $responses, $message);
+    if (!eregi("^\\* ([0-9]+) FETCH", $responses[0][0], $regs)) {
+	    $responses = array ();
+	}
+	return $responses;
+}
+
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     global $squirrelmail_language, $color, $data_dir, $username;
 
@@ -95,7 +110,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         $id2index[$msg_list[$i]] = $i;
     }
 
-    $query = "$sid FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type References In-Reply-To)]\r\n";
+    $query = "$sid FETCH $msgs_str BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority Content-Type In-Reply-To)]\r\n";
     fputs ($imap_stream, $query);
     $readin_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
 
@@ -157,8 +172,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         $date = "";
         $type[0] = "";
         $type[1] = "";
-        $ref = "";
-        $inreplyto = "";
+        $inrepto = "";
         $read = $read_list[$msgi];
 
         foreach ($read as $read_part) {
@@ -188,10 +202,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
                 if (!isset($type[1])) {
                     $type[1] = '';
                 }
-            } else if (eregi ("^references:(.*)$", $read_part, $regs)) {
-                $ref = $regs[1];  
             } else if (eregi ("^in-reply-to:(.*)$", $read_part, $regs)) {
-                $inreplyto = $regs[1];
+                $inrepto = trim($regs[1]);
             }
         }
         $internaldate = getPref($data_dir, $username, 'internal_date_sort');
@@ -223,9 +235,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         $header->size = $size;
         $header->type0 = $type[0];
         $header->type1 = $type[1];
-        $header->references = $ref;
-        $header->inreplyto = $inreplyto;
-
+		$header->inrepto = $inrepto;
         $result[] = $header;
     }
     return $result;
