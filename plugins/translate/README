@@ -39,11 +39,12 @@ Servers
 =======
 
 Babelfish = babelfish.altavista.com
-Go.com = translator.go.com
+Go.com = translator.go.com (disabled - service unavailable)
 Dictionary.com = www.dictionary.com/translate
 InterTran = tranexp.com
 GPLTrans = www.translator.cx
-
+OteNet = systran.otenet.gr
+Promt = www.translate.ru
 
 Installation
 ============
