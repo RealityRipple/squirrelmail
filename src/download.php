@@ -166,7 +166,8 @@ function DumpHeaders($type0, $type1, $filename, $force) {
         $filename = 
             $languages[$squirrelmail_language]['XTRA_CODE']('downloadfilename', $filename, $HTTP_USER_AGENT);
     } else {
-       $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
+//     $filename = ereg_replace('[^-a-zA-Z0-9\.]', '_', $filename);
+       $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
     }
 
     // A Pox on Microsoft and it's Office!
