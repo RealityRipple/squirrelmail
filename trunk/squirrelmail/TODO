@@ -1,2 +1,8 @@
-see todo manager
+TODO:
+  initials, status, description
+  status = w=working on it, p=postponed, n=new(not started)
 
+----------------
+lme, w - Add better MIME support
+new, n - Add spell checking to "compose"
+new, n - Add LDAP address book support
