@@ -4,6 +4,7 @@
 
 Version 1.2.3 -- ??
 -------------------
+  - Fixed focus system on pages that contains forms.
   - Fixed IMAP code to send different command identifiers as per 
     section 2.2.1 of RFC 2060.
   - Fixed 'sticky priority' so that replies are set to the same
