@@ -97,7 +97,10 @@ if( check_php_version ( 4, 3 ) ) {
         error_box ( _("Could not run the spellchecker command (%s).",
             htmlspecialchars($sqspell_command) ) , $color );
     }
-    fwrite($pipes[0], $sqspell_new_text);
+    if ( ! @fwrite($pipes[0], $sqspell_new_text) ) {
+        error_box ( _("Error while writing to pipe.",
+            htmlspecialchars($floc) ) , $color );
+    }
     fclose($pipes[0]);
     $sqspell_output = array();
     for($i=1; $i<=2; $i++) {
@@ -116,7 +119,10 @@ if( check_php_version ( 4, 3 ) ) {
         error_box ( _("Could not open temporary file '%s'.",
             htmlspecialchars($floc) ) , $color );
     }
-    fwrite($fp, $sqspell_new_text);
+    if ( ! @fwrite($fp, $sqspell_new_text) ) {
+        error_box ( _("Error while writing to temporary file '%s'.",
+            htmlspecialchars($floc) ) , $color );
+    }
     fclose($fp);
     exec("$sqspell_command < $floc 2>&1", $sqspell_output, $sqspell_exitcode);
     unlink($floc);
