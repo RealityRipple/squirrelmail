@@ -944,6 +944,7 @@ function showInputForm ($session, $values=false) {
                 echo htmlspecialchars($em) . "\n";
             }
         }
+        echo '</option>';
         for ($i = 1; $i < $idents; $i ++) {
             $fn = getPref($data_dir, $username, 'full_name' . $i);
             $em = getPref($data_dir, $username, 'email_address' . $i);
