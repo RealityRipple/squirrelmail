@@ -201,29 +201,29 @@ class Message {
                                 $msg->header->type0 = 'multipart';
                                 $msg->type0 = 'multipart';
                                 while ($read{$i} == '(') {
-                                    $msg->addEntity($this->parseBodyStructure($read, $i, $msg));
+                                    $msg->addEntity($msg->parseBodyStructure($read, $i, $msg));
                                 }
                             }
                             break;
                         case 1:
                             /* multipart properties */
                             ++$i;
-                            $arg_a[] = $this->parseProperties($read, $i);
+                            $arg_a[] = $msg->parseProperties($read, $i);
                             ++$arg_no;
                             break;
                         case 2:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $arg_a[] = $this->parseDisposition($read, $i);
+                                $arg_a[] = $msg->parseDisposition($read, $i);
                             } else { /* properties */
-                                $arg_a[] = $this->parseProperties($read, $i);
+                                $arg_a[] = $msg->parseProperties($read, $i);
                             }
                             ++$arg_no;
                             break;
                         case 3:
                             if (isset($msg->type0) && ($msg->type0 == 'multipart')) {
                                 ++$i;
-                                $arg_a[]= $this->parseLanguage($read, $i);
+                                $arg_a[]= $msg->parseLanguage($read, $i);
                             }
                         case 7:
                             if (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822')) {
@@ -232,40 +232,40 @@ class Message {
                                 $msg->type0 = $arg_a[0];
                                 $msg->type1 = $arg_a[1];
                                 $rfc822_hdr = new Rfc822Header();
-                                $msg->rfc822_header = $this->parseEnvelope($read, $i, $rfc822_hdr);
+                                $msg->rfc822_header = $msg->parseEnvelope($read, $i, $rfc822_hdr);
                                 while (($i < $cnt) && ($read{$i} != '(')) {
                                     ++$i;
                                 }
-                                $msg->addEntity($this->parseBodyStructure($read, $i,$msg));
+                                $msg->addEntity($msg->parseBodyStructure($read, $i,$msg));
                             }
                             break;
                         case 8:
                             ++$i;
-                            $arg_a[] = $this->parseDisposition($read, $i);
+                            $arg_a[] = $msg->parseDisposition($read, $i);
                             ++$arg_no;
                             break;
                         case 9:
                             ++$i;
                             if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
-                                $arg_a[] = $this->parseDisposition($read, $i);
+                                $arg_a[] = $msg->parseDisposition($read, $i);
                             } else {
-                                $arg_a[] = $this->parseLanguage($read, $i);
+                                $arg_a[] = $msg->parseLanguage($read, $i);
                             }
                             ++$arg_no;
                             break;
                        case 10:
                            if (($arg_a[0] == 'text') || (($arg_a[0] == 'message') && ($arg_a[1] == 'rfc822'))) {
                                ++$i;
-                               $arg_a[] = $this->parseLanguage($read, $i);
+                               $arg_a[] = $msg->parseLanguage($read, $i);
                            } else {
-                               $i = $this->parseParenthesis($read, $i);
+                               $i = $msg->parseParenthesis($read, $i);
                                $arg_a[] = ''; /* not yet described in rfc2060 */
                            }
                            ++$arg_no;
                            break;
                        default:
                            /* unknown argument, skip this part */
-                           $i = $this->parseParenthesis($read, $i);
+                           $i = $msg->parseParenthesis($read, $i);
                            $arg_a[] = '';
                            ++$arg_no;
                            break;
@@ -273,7 +273,7 @@ class Message {
                    break;
                 case '"':
                     /* inside an entity -> start processing */
-                    $arg_s = $this->parseQuote($read, $i);
+                    $arg_s = $msg->parseQuote($read, $i);
                     ++$arg_no;
                     if ($arg_no < 3) {
                         $arg_s = strtolower($arg_s); /* type0 and type1 */
@@ -292,7 +292,7 @@ class Message {
                     break;
                 case '{':
                     /* process the literal value */
-                    $arg_a[] = $this->parseLiteral($read, $i);
+                    $arg_a[] = $msg->parseLiteral($read, $i);
                     ++$arg_no;
                     break;
         case '0':    
