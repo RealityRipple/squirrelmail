@@ -155,28 +155,72 @@ versions.
 Hook Types:  Parameters and Return Values
 -----------------------------------------
 
-Hooks, when executed, are called with one parameter, an array of data
-that is passed to the hook.  The first element in the array is the name
-of the hook that is being called.  Any other elements in the array are
-dependant on the type of hook that is being called.  Most hooks do not
-pass any other data, but be sure to check the hook you are using for 
-any useful information it may provide.  Generally speaking, in the case 
-that any extra data is available here, your plugin should NOT change 
-it unless you know what you are doing or it is documented otherwise.
-See below for further discussion of special hook types and the values
+Hooks, when executed, are called with differing parameters and may or may
+not take return values, all depending on the type of hook being called and
+the context in which it is being used.  On the source side (where the hook
+call originates), all hooks have at least one parameter, which is the
+name of the hook.  After that, things get complicated.
 
-Most hooks, when executed, are called using the do_hook() function,
-where no return value is used.  There are a limited number of hooks, 
-however, that are called using the do_hook_function() and 
-concat_hook_function() function calls.  Both of these hook types may
-use the value returned by your plugin for its own purposes or to
-display in the resultant HTML output (you need to research the specific
-hook to determine its use).  The do_hook_function() type hook will 
-only use the return value it retrieves from the LAST plugin in the 
-list of plugins registered against such a hook, whereas the
-concat_hook_function() type hook will concatenate the return values
-from all plugins that are registered against the hook and use that
-value (usually as a string of HTML code to output to the client).
+   do_hook
+   -------
+   Most hook calls don't pass any data and don't ask for anything back.
+   These always use the do_hook call.  A limited number of do_hook calls do
+   pass some extra parameters, in which case your plugin may modify the
+   given data if you do so by reference.  It is not necessary to return
+   anything from your function in such a case; modifying the parameter
+   data by reference is what does the job (although the hook call itself
+   (in the source) must grab the return value for this to work).  Note
+   that in this case, the parameter to your hook function will be an array,
+   the first element simply being the hook name, followed by any other
+   parameters that may have been included in the actual hook call in the
+   source.  Modify parameters with care!
+
+   do_hook_function
+   ----------------
+   This hook type was intended to be the main hook type used when the
+   source needs to get something back from your plugin.  It is somewhat
+   limited in that it will only use the value returned from the LAST
+   plugin registered against the hook.  The source for this hook might
+   use the return value for internal purposes, or might expect you to
+   provide text or HTML to be sent to the client browser (you'll have to
+   look at its use in context to understand how you should return values
+   here).  The parameters that your hook function gets will be anything
+   you see AFTER the hook name in the actual hook call in the source.
+   These cannot be changed in the same way that the do_hook parameters
+   can be.
+
+   concat_hook_function
+   --------------------
+   This is a newer hook type meant to address the shortcomings of
+   do_hook_function; specifically in that it uses the return values of
+   all plugins registered against the hook.  In order to do so, the
+   return value is assumed to be a string, which is just piled on top
+   of whatever it got from the other plugins working on the same hook.
+   Again, you'll have to inspect the source code to see how such data
+   is put to use, but most of the time, it is used to create a string
+   of HTML to be inserted into the output page.  The parameters that
+   your hook function will get are the same as for the do_hook_function;
+   they are anything AFTER the hook name in the actual hook call in the
+   source.
+
+   bool_hook_function
+   ------------------
+   The newest of the SquirrelMail hooks, this type is used to let all
+   plugins registered against the hook to "vote" for some action.  What
+   that action is is entirely dependent on how the hook is used in the
+   source (look for yourself).  Plugins make their "vote" by returning
+   TRUE or FALSE.  This hook may be configured to "tally votes" in one
+   of three ways.  This configuration is done with the third parameter
+   in the hook call in the source:
+      > 0  --  Any one or more TRUEs will override any FALSEs
+      < 0  --  Any one or more FALSEs will override any TRUEs
+      = 0  --  Majority wins.  Ties are broken in this case with
+               the last parameter in the hook call in the source.
+   Your hook function will get the second paramter in the hook call in
+   the source as its parameter (this might be an array if multiple values
+   need to be passed).
+
+See below for further discussion of special hook types and the values
 
 
 List of Hooks
