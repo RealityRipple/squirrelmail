@@ -28,10 +28,10 @@ require_once('../functions/smtp.php');
 */
 function findNextMessage() {
     global $msort, $currentArrayIndex, $msgs, $sort, 
-           $thread_sort_messages, $allow_server_sort,
+           $allow_thread_sort, $allow_server_sort,
            $server_sort_array;
     $result = -1;
-		if ($thread_sort_messages == 1 || $allow_server_sort == true) {
+		if ($allow_thread_sort == true || $allow_server_sort == true) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
@@ -41,16 +41,16 @@ function findNextMessage() {
                 }
                 $result = $server_sort_array[$key +1];
                 break; 
-						}
+            }
         }
-		}
+    }
     
-    elseif ($sort == 6 && $allow_server_sort != true && $thread_sort_messages != 1) {
+    elseif ($sort == 6 && $allow_server_sort != true && $allow_thread_sort != true) {
         if ($currentArrayIndex != 1) {
             $result = $currentArrayIndex - 1;
         }
     } 
-    elseif ($allow_server_sort != true && $thread_sort_messages != 1) {
+    elseif ($allow_server_sort != true && $allow_thread_sort != true) {
         if (!is_array($msort)) {
             return -1;
         }
@@ -79,10 +79,10 @@ function RemoveAddress(&$addr_list, $addr) {
 /** returns the index of the previous message from the array. */
 function findPreviousMessage() {
     global $msort, $currentArrayIndex, $sort, $msgs, $imapConnection,
-           $mailbox, $data_dir, $username, $thread_sort_messages,
+           $mailbox, $data_dir, $username, $allow_thread_sort,
            $allow_server_sort, $server_sort_array;
     $result = -1;
-		if ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
+        if ($allow_thread_sort == true || $allow_server_sort == TRUE) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
@@ -92,19 +92,19 @@ function findPreviousMessage() {
                 }
                 $result = $server_sort_array[$key -1];
                 break;
-						}
+            }
         }
-		}
-    elseif ($sort == 6 && $allow_server_sort != TRUE && $thread_sort_messages != 1) {
+    }
+    elseif ($sort == 6 && $allow_server_sort != TRUE && $allow_thread_sort != true) {
         $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
         if ($currentArrayIndex != $numMessages) {
             $result = $currentArrayIndex + 1;
         }
     } 
-    elseif ($thread_sort_messages != 1 && $allow_server_sort != TRUE) {
-	      if (!is_array($msort)) {
+    elseif ($allow_thread_sort != true && $allow_server_sort != TRUE) {
+          if (!is_array($msort)) {
             return -1;
-	      }
+          }
         for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
             if ($currentArrayIndex == $msgs[$key]['ID']) {
                 prev($msort);
