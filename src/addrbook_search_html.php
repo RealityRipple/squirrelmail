@@ -53,8 +53,9 @@
 
       if(sizeof($res) <= 0) return;
 
-      printf('<FORM METHOD=post ACTION="%s?html_addr_search_done=true">'."\n",
-             $PHP_SELF);
+      echo '<form method=post action="' . $PHP_SELF . "\">\n";
+      echo '<input type=hidden name="html_addr_search_done" value="true">';
+      echo "\n";
       addr_insert_hidden();
       $line = 0;
 
@@ -69,22 +70,23 @@
 
       print "</TR>\n";
       
-      while(list($undef, $row) = each($res)) {
-         printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
-                "<input type=checkbox name=\"send_to_search[]\" value=\"%s\">&nbsp;To".
-                "<input type=checkbox name=\"send_to_cc_search[]\" value=\"%s\">&nbsp;Cc&nbsp;".
-                "<input type=checkbox name=\"send_to_bcc_search[]\" value=\"%s\">&nbsp;Bcc&nbsp;".
-                "<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
-                "%s".
-                "<td nowrap>&nbsp;%s&nbsp;",
-                ($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
-                htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), htmlspecialchars($row["email"]), 
-                $row["name"], $row["email"], $row["label"]);
+      foreach ($res as $row) {
+         echo '<tr';
+	 if ($line % 2) echo ' bgcolor="' . $color[0] . '"';
+	 echo ' nowrap><td nowrap align=center width="5%">';
+	 echo '<input type=checkbox name="send_to_search[T' . $line . ']" value = "' .
+	    htmlspecialchars($row['email']) . '">&nbsp;To&nbsp;';
+	 echo '<input type=checkbox name="send_to_search[C' . $line . ']" value = "' .
+	    htmlspecialchars($row['email']) . '">&nbsp;Cc&nbsp;';
+	 echo '<input type=checkbox name="send_to_search[B' . $line . ']" value = "' .
+	    htmlspecialchars($row['email']) . '">&nbsp;Bcc&nbsp;';
+         echo '</td><td nowrap>&nbsp;' . $row['name'] . '&nbsp;</td>';
+	 echo '<td nowrap>&nbsp;' . $row['email'] . '&nbsp;</td>';
+	 echo '<td nowrap>&nbsp;' . $row['label'] . '&nbsp;</td>';
          if($includesource)
-            printf("<td nowrap>&nbsp;%s", $row["source"]);
-         
-         print "</TR>\n";
-         $line++;
+	    echo '<td nowrap>&nbsp;' . $row['source'] . '&nbsp;</td>';
+	 echo "</tr>\n";
+	 $line ++;
       }
       printf('<TR><TD ALIGN=center COLSPAN=%d><INPUT TYPE=submit '.
              'NAME="addr_search_done" VALUE="%s"></TD></TR>',
