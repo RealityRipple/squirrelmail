@@ -1048,6 +1048,8 @@ if ($submit == $search_button_text) {
 	echo html_tag('tr', html_tag('td', asearch_get_query_display($color, $mailbox_array, $biop_array, $unop_array, $where_array, $what_array, $exclude_array, $sub_array), 'center', $color[4]));
 	echo '</table>' . "\n";
 
+	flush();
+
 	$query_error = asearch_check_query($where_array, $what_array, $exclude_array);
 	if ($query_error != '')
 		echo '<br>' . html_tag('div', asearch_get_error_display($color, $query_error), 'center') . "\n";
