@@ -431,7 +431,7 @@ function ListBoxes ($boxes, $j=0 ) {
 
 function ListAdvancedBoxes ($boxes, $mbx, $j='ID.0000' ) {
     global $data_dir, $username, $startmessage, $color, $unseen_notify, $unseen_type,
-    $move_to_trash, $trash_folder, $collapse_folders;
+    $move_to_trash, $trash_folder, $collapse_folders, $oldway, $advanced_tree;
 
     if (!$boxes)
     	return;
@@ -627,8 +627,12 @@ if (isset($left_refresh) && ($left_refresh != '') &&
  * to marc@its-projects.nl
  **/
 
-$advanced_tree = false;  /* set this to true if you want to see a nicer mailboxtree */
-$oldway = false;        /* default SM behaviour */
+/* set this to true if you want to see a nicer mailboxtree */
+if (! isset($advanced_tree) || $advanced_tree=="" ) {
+         $advanced_tree=false; }
+/* default SM behaviour */
+if (! isset($oldway) || $oldway=="" ) {
+         $oldway=false; }
 
 if ($advanced_tree) {
 $xtra .= <<<ECHO
