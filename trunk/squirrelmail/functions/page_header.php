@@ -33,9 +33,9 @@ function displayHtmlHeader( $title = 'SquirrelMail', $xtra = '', $do_hook = TRUE
              $base_uri . 'themes/css/'.$custom_css.'">';
     }
     
-//    if ($do_hook) {
-//       do_hook("generic_header");
-//    }
+    if ($do_hook) {
+       do_hook("generic_header");
+    }
     
     echo "\n<title>$title</title>$xtra</head>\n\n";
 }
