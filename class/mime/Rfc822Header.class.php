@@ -458,28 +458,37 @@ class Rfc822Header {
      * example1: header->getAddr_s('to').
      * example2: header->getAddr_s(array('to', 'cc', 'bcc'))
      */
-    function getAddr_s($arr, $separator = ',') {
+    function getAddr_s($arr, $separator = ',',$encoded=false) {
         $s = '';
 
         if (is_array($arr)) {
             foreach($arr as $arg) {
-                if ($this->getAddr_s($arg)) {
+                if ($this->getAddr_s($arg, $separator, $encoded)) {
                     $s .= $separator . $result;
                 }
             }
             $s = ($s ? substr($s, 2) : $s);
         } else {
-            eval('$addr = $this->' . $arr . ';') ;
+            $addr = $this->{$arr};
+            //eval('$addr = $this->' . $arr . ';') ;
             if (is_array($addr)) {
                 foreach ($addr as $addr_o) {
                     if (is_object($addr_o)) {
-                        $s .= $addr_o->getAddress() . $separator;
+                        if ($encoded) {
+                            $s .= $addr_o->getEncodedAddress() . $separator;
+                        } else {
+                            $s .= $addr_o->getAddress() . $separator;
+                        }
                     }
                 }
                 $s = substr($s, 0, -strlen($separator));
             } else {
                 if (is_object($addr)) {
-                    $s .= $addr->getAddress();
+                    if ($encoded) {
+                        $s .= $addr->getEncodedAddress();
+                    } else {
+                        $s .= $addr->getAddress();
+                    }
                 }
             }
         }
