@@ -74,14 +74,14 @@ function plugin_listcommands_menu() {
             if (($cmd == 'Post') || ($cmd == 'Owner')) {
                 $url = 'compose.php?';
             } else {
-                $url = "../plugins/listcommands/mailout.php?action=$cmd&";
+                $url = "../plugins/listcommands/mailout.php?action=$cmd&amp;";
             }
 
             $url .= 'mailbox=' . urlencode($mailbox)
-                  . '&send_to=' . $purl['path'];
+                  . '&amp;send_to=' . $purl['path'];
 
             if (isset($purl['query'])) {
-                $url .= '&' . $purl['query'];
+                $url .= '&amp;' . $purl['query'];
             }
             if ($compose_new_win == '1') {
                 $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr[$cmd] . '</A>';
@@ -90,10 +90,10 @@ function plugin_listcommands_menu() {
                 $output[] = '<A HREF="' . $url . '">' . $fieldsdescr[$cmd] . '</A>';
             }
             if ($cmd == 'Post') {
-                $url .= '&reply_subj=' . urlencode($subject)
-                      . '&reply_id=' . $passed_id
-                      . '&ent_num=' . $ent_num
-                      . '&mailprio=' . $priority_level;
+                $url .= '&amp;reply_subj=' . urlencode($subject)
+                      . '&amp;reply_id=' . $passed_id
+                      . '&amp;ent_num=' . $ent_num
+                      . '&amp;mailprio=' . $priority_level;
             if ($compose_new_win == '1') {
                 $output[] = '<A HREF="' . $url . '" target="compose_window" onClick="comp_in_new()">' . $fieldsdescr['Reply'] . '</A>';
             }
