@@ -454,7 +454,6 @@
          $body .= "</TD></TR><TR><TD BGCOLOR=\"$color[0]\">";
          $num = 0;
 
-         /** make this recurisve at some point **/
          $body .= formatAttachments ($message, $ent_num, $message->header->mailbox, $id);
          $body .= "</TD></TR></TABLE>";
       }
