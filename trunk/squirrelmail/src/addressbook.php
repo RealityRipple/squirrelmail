@@ -22,6 +22,7 @@ require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/addressbook.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/forms.php');
 
 /** lets get the global vars we may need */
 sqgetGlobalVar('key',       $key,           SQ_COOKIE);
@@ -49,13 +50,13 @@ sqgetGlobalVar('doedit',    $doedit,    SQ_POST);
  * @param array $values
  * @param string $add
  */
-function adressbook_inp_field($label, $field, $name, $size, $values, $add) {
+function addressbook_inp_field($label, $field, $name, $size, $values, $add) {
     global $color;
-    $td_str = '<INPUT NAME="' . $name . '[' . $field . ']" SIZE="' . $size . '" VALUE="';
-    if (isset($values[$field])) {
-        $td_str .= htmlspecialchars( strip_tags( $values[$field] ) );
-    }
-    $td_str .= '">' . $add . '';
+    $value = ( isset($values[$field]) ? $values[$field] : '');
+    
+    $td_str = addInput($name.'['.$field.']', $value, $size)
+        . $add ;
+	
     return html_tag( 'tr' ,
         html_tag( 'td', $label . ':', 'right', $color[4]) .
         html_tag( 'td', $td_str, 'left', $color[4])
@@ -72,32 +73,32 @@ function address_form($name, $submittext, $values = array()) {
     if ($squirrelmail_language == 'ja_JP')
         {
     echo html_tag( 'table',
-                       adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+                       addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
                            ' <SMALL>' . _("Must be unique") . '</SMALL>') .
-                       adressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                       adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                       adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                       adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+                       addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
+                       addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
+                       addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
+                       addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
 		       list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
-                                       '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
+                                       '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
                                        $submittext . '">',
                                    'center', $color[4], 'colspan="2"')
                        )
     , 'center', '', 'border="0" cellpadding="1" width="90%"') ."\n";
         } else {
     echo html_tag( 'table',
-                       adressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
+                       addressbook_inp_field(_("Nickname"),     'nickname', $name, 15, $values,
                            ' <SMALL>' . _("Must be unique") . '</SMALL>') .
-                       adressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
-                       adressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
-                       adressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
-                       adressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
+                       addressbook_inp_field(_("E-mail address"),  'email', $name, 45, $values, '') .
+                       addressbook_inp_field(_("First name"),  'firstname', $name, 45, $values, '') .
+                       addressbook_inp_field(_("Last name"),    'lastname', $name, 45, $values, '') .
+                       addressbook_inp_field(_("Additional info"), 'label', $name, 45, $values, '') .
 		       list_writable_backends($name) .
                        html_tag( 'tr',
                            html_tag( 'td',
-                                       '<INPUT TYPE=submit NAME="' . $name . '[SUBMIT]" VALUE="' .
+                                       '<INPUT TYPE=submit NAME="' . htmlentities($name) . '[SUBMIT]" VALUE="' .
                                        $submittext . '">',
                                    'center', $color[4], 'colspan="2"')
                        )
@@ -124,7 +125,7 @@ function list_writable_backends($name) {
   } else {
   return html_tag( 'tr',
 		   html_tag( 'td',
-			     '<input type=hidden name=backend value=1>',
+		             addHidden('backend', '1'),
                              'center', $color[4], 'colspan="2"')) . "\n";
   }
 }
@@ -291,11 +292,10 @@ if(sqgetGlobalVar('REQUEST_METHOD', $req_method, SQ_SERVER) && $req_method == 'P
                                      ),
                                  'center', '', 'width="100%"' );
                             address_form("editaddr", _("Update address"), $newdata);
-                            echo '<INPUT TYPE=hidden NAME=oldnick VALUE="' .
-                                 htmlspecialchars($oldnick) . "\">\n" .
-                                 '<INPUT TYPE=hidden NAME=backend VALUE="' .
-                                 htmlspecialchars($backend) . "\">\n" .
-                                 '<INPUT TYPE=hidden NAME=doedit VALUE=1>' .
+                            echo 
+			    	addHidden('oldnick', $oldnick).
+				addHidden('backend', $backend).
+				addHidden('doedit',  '1').
                                  "\n" . '</FORM>';
                             $abortform = true;
                         }
@@ -395,11 +395,7 @@ if ($showaddrlist) {
             $prevbackend = $row['backend'];
     
             /* Check if this user is selected */
-            if(in_array($row['backend'] . ':' . $row['nickname'], $defselected)) {
-                $selected = 'CHECKED';
-            } else {
-                $selected = '';
-            }
+            $selected = in_array($row['backend'] . ':' . $row['nickname'], $defselected);
     
             /* Print one row */
             $tr_bgcolor = '';
@@ -409,8 +405,8 @@ if ($showaddrlist) {
             echo html_tag( 'tr', '', '', $tr_bgcolor) .
                 html_tag( 'td',
                           '<SMALL>' .
-                          '<INPUT TYPE=checkbox ' . $selected . ' NAME="sel[]" VALUE="' .
-                          $row['backend'] . ':' . $row['nickname'] . '"></SMALL>' ,
+			  addCheckBox('sel[]', $selected, $row['backend'].':'.$row['nickname']).
+                          '</SMALL>' ,
                           'center', '', 'valign="top" width="1%"' ) .
                 html_tag( 'td', '&nbsp;' . $row['nickname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) . 
                 html_tag( 'td', '&nbsp;' . $row['lastname'] . ' ' . $row['firstname'] . '&nbsp;', 'left', '', 'valign="top" width="1%" nowrap' ) .
