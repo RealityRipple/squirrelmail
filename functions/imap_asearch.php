@@ -284,14 +284,14 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 				foreach ($search_mboxes as $cur_mailbox) {
 					sqimap_mailbox_select($imapConnection, $cur_mailbox);
 					s_debug_dump('SELECT',$cur_mailbox);
-					if ($cur_biop == 'OR')	/* Merge with previous results */
-						$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset));
-					else {	/* Intersect previous results */
-						if (!is_array(asearch_nz($mbox_msgs[$cur_mailbox])))
-							$mbox_msgs[$cur_mailbox] = sqimap_run_search($imapConnection, $search_string, $search_charset);
-						else
+					if (isset($mbox_msgs[$cur_mailbox])) {
+						if ($cur_biop == 'OR')	/* Merge with previous results */
+							$mbox_msgs[$cur_mailbox] = sqimap_array_merge_unique($mbox_msgs[$cur_mailbox], sqimap_run_search($imapConnection, $search_string, $search_charset));
+						else	/* Intersect previous results */
 							$mbox_msgs[$cur_mailbox] = array_values(array_intersect(sqimap_run_search($imapConnection, $search_string, $search_charset), $mbox_msgs[$cur_mailbox]));
 					}
+					else /* No previous results */
+						$mbox_msgs[$cur_mailbox] = sqimap_run_search($imapConnection, $search_string, $search_charset);
 					if (empty($mbox_msgs[$cur_mailbox]))	/* Can happen with intersect, and we need at the end a contiguous array */
 						unset($mbox_msgs[$cur_mailbox]);
 				}
@@ -309,7 +309,7 @@ function sqimap_asearch($imapConnection, $mailbox_array, $biop_array, $unop_arra
 					for ($next_crit = $cur_crit+1; $next_crit <= count($where_array); $next_crit++) {
 						if (empty($exclude_array[$next_crit])) {
 							if (asearch_nz($mailbox_array[$next_crit]) == $cur_mailbox)
-								$next_biop = $biop_array[$next_crit];
+								$next_biop = asearch_nz($biop_array[$next_crit]);
 							break;
 						}
 					}
