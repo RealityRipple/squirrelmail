@@ -92,6 +92,12 @@
    $send_to = ereg_replace("\"", "", $send_to);
    $send_to = stripslashes($send_to);
 
+   if ($send_to_cc != "") {
+      $send_to_cc = strtolower($send_to_cc);
+      $send_to_cc = ereg_replace("\"", "", $send_to_cc);
+      $send_to_cc = stripslashes($send_to_cc);
+   }
+
    echo "<FORM action=\"compose_send.php\" METHOD=POST>\n";
    echo "<TABLE COLS=2 WIDTH=50 ALIGN=CENTER CELLSPACING=0 BORDER=0>\n";
    echo "   <TR>\n";
@@ -108,7 +114,10 @@
    echo "      <TD WIDTH=50 BGCOLOR=\"$color[4]\" ALIGN=RIGHT>\n";
    echo "         <FONT FACE=\"Arial,Helvetica\">CC:</FONT>\n";
    echo "      </TD><TD WIDTH=% BGCOLOR=\"$color[4]\" ALIGN=LEFT>\n";
-   echo "         <INPUT TYPE=TEXT NAME=passed_cc SIZE=60><BR>";
+   if ($send_to_cc)
+      echo "         <INPUT TYPE=TEXT NAME=passed_cc SIZE=60 VALUE=\"$send_to_cc\"><BR>";
+   else
+      echo "         <INPUT TYPE=TEXT NAME=passed_cc SIZE=60><BR>";
    echo "      </TD>\n";
    echo "   </TR>\n";
    echo "   <TR>\n";
