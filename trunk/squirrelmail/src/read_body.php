@@ -755,7 +755,7 @@ echo       "<TR>\n" .
              '</TD>' . "\n" .
           '</TR>' . "\n";
 /** cc **/
-if (isset($cc_string)) {
+if (isset($cc_string) && $cc_string <> '') {
     echo       '<TR>' .
                  "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
                     'Cc:' .
@@ -766,7 +766,7 @@ if (isset($cc_string)) {
 }
 
 /** bcc **/
-if (isset($bcc_string)) {
+if (isset($bcc_string) && $bcc_string <> '') {
     echo       '<TR>'.
                  "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
                     'Bcc:' .
@@ -775,16 +775,14 @@ if (isset($bcc_string)) {
                  '</TD>' .
               '</TR>' . "\n";
 }
-if ($default_use_priority) {
-    if (isset($priority_string)) {
-        echo       '<TR>' .
-                     "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
-                           _("Priority") . ': '.
-                     "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
-                        "<B>$priority_string</B>&nbsp;" .
-                     '</TD>' .
-                  "</TR>" . "\n";
-    }
+if ($default_use_priority && isset($priority_string) && $priority_string <> '' ) {
+    echo       '<TR>' .
+                 "<TD BGCOLOR=\"$color[0]\" ALIGN=RIGHT VALIGN=TOP>" .
+                       _("Priority") . ': '.
+                 "</TD><TD BGCOLOR=\"$color[0]\" VALIGN=TOP colspan=2>" .
+                    "<B>$priority_string</B>&nbsp;" .
+                 '</TD>' .
+              "</TR>" . "\n";
 }
 
 if ($show_xmailer_default) {
