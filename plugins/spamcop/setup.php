@@ -1,14 +1,13 @@
 <?php
-   /** 
-    **  setup.php -- SpamCop plugin           
-    **
-    **  Copyright (c) 1999-2004 The SquirrelMail development team
-    **  Licensed under the GNU GPL. For full terms see the file COPYING.
-    **  
-    **  $Id$
-    * @package plugins
-    * @subpackage spamcop
-    **/
+/** 
+ * setup.php -- SpamCop plugin - setup script
+ *
+ * @copyright (c) 1999-2004 The SquirrelMail development team
+ * @license http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @version $Id$
+ * @package plugins
+ * @subpackage spamcop
+ */
 
 /** @ignore */
 require_once(SM_PATH . 'functions/global.php');
@@ -16,7 +15,10 @@ require_once(SM_PATH . 'functions/global.php');
 /** Disable Quick Reporting by default */
 $spamcop_quick_report = false;
 
-/** Initialize the plugin */
+/**
+ * Initialize the plugin 
+ * @access private
+ */
 function squirrelmail_plugin_init_spamcop() {
    global $squirrelmail_plugin_hooks, $data_dir, $username,
       $spamcop_is_composing;
@@ -39,6 +41,7 @@ function squirrelmail_plugin_init_spamcop() {
 
 /**
  * Loads spamcop settings and validates some of values (make '' into 'default', etc.)
+ * @access private
  */
 function spamcop_load() {
    global $username, $data_dir, $spamcop_enabled, $spamcop_delete,
@@ -69,6 +72,7 @@ function spamcop_load() {
 
 /**
  * Shows spamcop link on the read-a-message screen
+ * @access private
  */
 function spamcop_show_link() {
    global $spamcop_enabled, $spamcop_method, $spamcop_quick_report,$javascript_on;
@@ -116,6 +120,7 @@ document.write("</a>");
 
 /**
  * Show spamcop options block
+ * @access private
  */
 function spamcop_options()
 {
@@ -132,6 +137,7 @@ function spamcop_options()
 
 /**
  * When we send the email, we optionally trash it then too
+ * @access private
  */
 function spamcop_while_sending()
 {
