@@ -113,9 +113,9 @@ List of hooks
   help_top                        src/help.php
   help_bottom                     src/help.php
   help_chapter                    src/help.php
-  abook_html_search_below         src/addrbook_search_html.php
+  addrbook_html_search_below      src/addrbook_search_html.php
   addressbook_bottom              src/addressbook.php
-  attachment $type0/$type1        functions/mime.php
+  ^ attachment $type0/$type1      functions/mime.php
    
 (*) Options
 -----------
@@ -123,6 +123,14 @@ There are two ways to do options for your plugin.  First, you can incorporate it
 into an existing section of the preferences (Display, Personal, or Folders).
 The second way, you create your own section that they can choose from and it 
 displays its own range of options.
+
+
+(^) Attachment Hooks
+--------------------
+When a message has attachments, this hook is called with the MIME types.  For
+instance, a .zip file hook is "attachment application/x-zip".  The hook should
+probably show a link to do a specific action, such as "Verify" or "View" for a
+.zip file.
 
 
 First:  Integrating into existing options
