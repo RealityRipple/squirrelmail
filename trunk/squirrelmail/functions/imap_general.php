@@ -6,7 +6,6 @@
     **/
 
    $imap_general_debug = false;
-   //$imap_general_debug = false;
 
    /******************************************************************************
     **  Reads the output from the IMAP stream.  If handle_errors is set to true,
@@ -16,39 +15,71 @@
    function sqimap_read_data ($imap_stream, $pre, $handle_errors, &$response, &$message) {
       global $color, $squirrelmail_language, $imap_general_debug;
 
-      $counter = 0;
-      do {
-          $data[$counter] = $read = fgets ($imap_stream, 9096);
-          if ($imap_general_debug) { echo "<small><tt><font color=cc0000>$read</font></tt></small><br>"; flush(); }
-          $counter++;
-      } while (! ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs));
+      $keep_going = true;
+      $read = fgets($imap_stream, 9096);
+      while ($keep_going)
+      {
+          // Continue if needed for this single line
+          while (strpos($read, "\n") === false)
+	  {
+	      $read .= fgets($imap_stream, 9096);
+	  }
+	  
+	  if ($imap_general_debug)
+	  {
+	      echo "<small><tt><font color=\"#CC0000\">$read</font></tt></small><br>\n";
+	      flush();
+	  }
+
+          if (ereg("^$pre (OK|BAD|NO)(.*)$", $read, $regs))
+	  {
+	      // Test if this is really the last line.
+	      // Very much a hack, but what else can I do?
+	      socket_set_blocking($imap_stream, false);
+	      $read_next = fgets($imap_stream, 2);
+	      socket_set_blocking($imap_stream, true);
+	      
+	      if ($read_next == "")
+	      {
+    	          $keep_going = 0;
+	      }
+	  }
+	  else
+	  {
+	      $read_next = fgets($imap_stream, 9096);
+	  }
+
+          $data[] = $read;
+	  $read = $read_next;
+      }
 
       $response = $regs[1];
       $message = trim($regs[2]);
       
       if ($imap_general_debug) echo "--<br>";
 
-      if ($handle_errors == true) {
-         if ($response == "NO") {
-            // ignore this error from m$ exchange, it is not fatal (aka bug)
-            if (!ereg("command resulted in",$message)) { 
-               set_up_language($squirrelmail_language);
-               echo "<br><b><font color=$color[2]>\n";
-               echo _("ERROR : Could not complete request.");
-               echo "</b><br>\n";
-               echo _("Reason Given: ");
-               echo $message . "</font><br>\n";
-               exit;
-            }
-         } else if ($response == "BAD") {
+      if ($handle_errors == false)
+          return $data;
+	  
+      if ($response == "NO") {
+         // ignore this error from m$ exchange, it is not fatal (aka bug)
+         if (!ereg("command resulted in",$message)) { 
             set_up_language($squirrelmail_language);
             echo "<br><b><font color=$color[2]>\n";
-            echo _("ERROR : Bad or malformed request.");
+            echo _("ERROR : Could not complete request.");
             echo "</b><br>\n";
-            echo _("Server responded: ");
+            echo _("Reason Given: ");
             echo $message . "</font><br>\n";
             exit;
          }
+      } else if ($response == "BAD") {
+         set_up_language($squirrelmail_language);
+         echo "<br><b><font color=$color[2]>\n";
+         echo _("ERROR : Bad or malformed request.");
+         echo "</b><br>\n";
+         echo _("Server responded: ");
+         echo $message . "</font><br>\n";
+         exit;
       }
       
       return $data;
