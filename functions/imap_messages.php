@@ -587,12 +587,12 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
                 
                 break;
             case 'INTERNALDATE':
-                $tmpdate = parseString($read,$i);
-                if ($tmpdate === false) break 3;
-                $tmpdate = str_replace('  ',' ',$tmpdate);
-                $tmpdate = explode(' ',$tmpdate);
-                $date = str_replace('-',' ',$tmpdate[0]) . " " . 
-                                            $tmpdate[1] . ' ' . $tmpdate[2];
+                $date = parseString($read,$i);
+                //if ($tmpdate === false) break 3;
+                //$tmpdate = str_replace('  ',' ',$tmpdate);
+                //$tmpdate = explode(' ',$tmpdate);
+                //$date = str_replace('-',' ',$tmpdate[0]) . " " . 
+                //                            $tmpdate[1] . ' ' . $tmpdate[2];
                 break;
             case 'BODY.PEEK[HEADER.FIELDS':
             case 'BODY[HEADER.FIELDS':
@@ -615,7 +615,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $show_num=false)
                             case 'to': $to = $value; break;
                             case 'cc': $cc = $value; break;
                             case 'from': $from = $value; break;
-                            case 'date':
+                            case 'date': $date = $value; break;
                             case 'x-priority': $priority = $value; break;
                             case 'subject':
                                 $subject = $value;
