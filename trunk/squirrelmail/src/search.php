@@ -313,7 +313,8 @@ echo '<B>' . _("Current Search") . '</B>'
 for ($i = 0; $i < count($boxes); $i++) {
     if (!in_array('noselect', $boxes[$i]['flags'])) {
         $box = $boxes[$i]['unformatted'];
-        $box2 = imap_utf7_decode_local(str_replace(' ', '&nbsp;', $boxes[$i]['unformatted-disp']));
+        $box2 = str_replace(' ', '&nbsp;', 
+                         imap_utf7_decode_local($boxes[$i]['unformatted-disp']));
         if( $box2 == 'INBOX' ) {
             $box2 = _("INBOX");
         }
