@@ -159,16 +159,8 @@
             }
 
             /** Detect the boundary of a multipart message **/
-            if (strpos(strtolower(trim($line)), "boundary=")) {
-               $pos = strpos(strtolower($line), "boundary=") + 9;
-               $bound = trim($line);
-               if (strpos($line, " ", $pos) > 0) {
-                  $bound = substr($bound, $pos, strpos($line, " ", $pos));
-               } else {
-                  $bound = substr($bound, $pos);
-               }
-               $bound = str_replace("\"", "", $bound);
-               $header["BOUNDARY"] = $bound;
+            if (eregi("boundary=\"([^\"]+)\"", $line, $regs)) {                             
+               $header["BOUNDARY"] = $regs[1];                                             
             }
 
             /** Detect the charset **/

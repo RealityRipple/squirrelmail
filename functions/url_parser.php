@@ -10,6 +10,11 @@
       return $ret;
    }
 
+   function parseEmail ($body) {
+      $body = eregi_replace ("([a-z]|[0-9]|_|\.)+\@([a-z]|[0-9]|_)+(.([a-z]|[0-9]|_)+)*", "<a href=\"mailto:\\0\">\\0</a>", $body);
+      return $body;
+   }
+
    function parseUrl ($body) {
       #Possible ways a URL could finish.
 
