@@ -30,7 +30,7 @@ require_once('../functions/display_messages.php');
     if (CheckAndDoDefault() || CheckAndDoPromote()) {
        SaveUpdateFunction();
     }
-    if (isset($update) || CheckForDelete())
+    if (isset($update) || CheckForDelete()) {
         SaveUpdateFunction();
     }
  
