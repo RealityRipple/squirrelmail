@@ -46,9 +46,9 @@
       /** Here is the header and wrapping table **/
       $shortBoxName = readShortMailboxName($mailbox, $delimiter);
       echo "<A NAME=pagetop></A>\n";
-      echo "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[9]\" width=100%><tr><td>";
-      echo "<TABLE BGCOLOR=\"$color[9]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
-      echo "   <TR>\n";
+      // echo "<table cellpadding=1 cellspacing=1 BGCOLOR=\"$color[4]\" width=100%><tr><td>";
+      echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
+      echo "   <TR BGCOLOR=\"$color[9]\" >\n";
       echo "      <TD ALIGN=left><b>\n";
       displayInternalLink ("src/signout.php", _("Sign Out"), "_top");
       echo "      </b></TD><TD ALIGN=right>\n";
@@ -78,6 +78,6 @@
       echo "      </TD>\n";
       echo "   </TR>\n";
       echo "</TABLE>\n\n";
-      echo "</td></tr></table>";
+      // echo "</td></tr></table>";
   }
 ?>
