@@ -38,5 +38,10 @@ class Deliver_SendMail extends Deliver {
 	pclose($stream);
 	return true;
     }
+    
+    function getBcc() {
+       return true;
+    }
+    
 }
 ?>
