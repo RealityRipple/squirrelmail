@@ -36,7 +36,12 @@
    echo "<TITLE>";
    echo "$org_title";
    echo "</TITLE>";
-   echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
+   $ishelp = substr(getenv(REQUEST_URI),-8);			// If calling help, set left frame to 300
+   if ($ishelp == "help.php") {			
+      echo "<FRAMESET COLS=\"300, *\" NORESIZE BORDER=0>";
+   } else {
+      echo "<FRAMESET COLS=\"$left_size, *\" NORESIZE BORDER=0>";
+   }
 
 /**
     There are four ways to call webmail.php
