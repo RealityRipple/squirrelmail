@@ -1,6 +1,9 @@
 Version 1.1.2 -- DEVELOPMENT
 ----------------------------
 - Support for multiple identities
+- Support for Russian Apache removed. It is now deemed easier to just
+  turn off Charset Recoding in the Russian Apache config. See 
+  doc/README.russian_apache
 
 Version 1.1.1 -- April 30, 2001
 -------------------------------
