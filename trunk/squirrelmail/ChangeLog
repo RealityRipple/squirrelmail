@@ -3,10 +3,14 @@
 **************************************
 
 Version 1.2.0 -- December 25, 2001 (PENDING)
-------------------------------------------------
-  - Cleanup of the paginator code, improving display style.
-  - Cleanup of configuration file code, a bit.
-  - Introduction of sent_subfolders plugin as Official Plugin.
+--------------------------------------------
+  - Cleanup of the paginator code, improving display style
+  - Cleanup of configuration file code, a bit
+  - Introduction of sent_subfolders plugin as Official Plugin
+  - The Paginator!!!
+  - Ability to mark messages as Read/Unread
+  - New themes (including a Christmas theme, and several changing themes)
+  - Rewrite of much of the options pages code
 
 
 ***************************************************************
