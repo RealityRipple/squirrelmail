@@ -53,10 +53,6 @@ class Rfc822Header {
                 $field = substr($line, 0, $pos);
 		if (!strstr($field,' ')) { /* valid field */
             	    $value = trim(substr($line, $pos+1));
-            	    if(!preg_match('/^X.*/i', $field) &&
-                       !preg_match('/^Subject/i', $field)) {
-                       $value = $this->stripComments($value);
-                    }
             	    $this->parseField($field, $value);
 		}
             }
@@ -68,7 +64,6 @@ class Rfc822Header {
 
     function stripComments($value) {
         $result = '';
-
         $cnt = strlen($value);
         for ($i = 0; $i < $cnt; ++$i) {
             switch ($value{$i}) {
@@ -113,6 +108,7 @@ class Rfc822Header {
         $field = strtolower($field);
         switch($field) {
             case 'date':
+		$value = $this->stripComments($value);
                 $d = strtr($value, array('  ' => ' '));
                 $d = explode(' ', $d);
                 $this->date = getTimeStamp($d);
@@ -142,53 +138,67 @@ class Rfc822Header {
                 $this->in_reply_to = $value;
                 break;
             case 'message-id':
+		$value = $this->stripComments($value);
                 $this->message_id = $value;
                 break;
 	    case 'references':
+		$value = $this->stripComments($value);
 	        $this->references = $value;
 		break;
             case 'disposition-notification-to':
+		$value = $this->stripComments($value);
                 $this->dnt = $this->parseAddress($value);
                 break;
             case 'mime-version':
+		$value = $this->stripComments($value);
                 $value = str_replace(' ', '', $value);
                 $this->mime = ($value == '1.0' ? true : $this->mime);
                 break;
             case 'content-type':
+		$value = $this->stripComments($value);
                 $this->parseContentType($value);
                 break;
             case 'content-disposition':
+		$value = $this->stripComments($value);
                 $this->parseDisposition($value);
                 break;
             case 'user-agent':
             case 'x-mailer':
-                $this->xmailer = $value;
+        	$this->xmailer = $value;
                 break;
             case 'x-priority':
                 $this->priority = $value;
                 break;
             case 'list-post':
+		$value = $this->stripComments($value);
                 $this->mlist('post', $value);
                 break;
             case 'list-reply':
+		$value = $this->stripComments($value);	    
                 $this->mlist('reply', $value);
                 break;
             case 'list-subscribe':
+		$value = $this->stripComments($value);	    
                 $this->mlist('subscribe', $value);
                 break;
             case 'list-unsubscribe':
+		$value = $this->stripComments($value);
                 $this->mlist('unsubscribe', $value);
                 break;
             case 'list-archive':
+		$value = $this->stripComments($value);
                 $this->mlist('archive', $value);
                 break;
             case 'list-owner':
+		$value = $this->stripComments($value);
                 $this->mlist('owner', $value);
                 break;
             case 'list-help':
+		$value = $this->stripComments($value);
                 $this->mlist('help', $value);
                 break;
             case 'list-id':
+		$value = $this->stripComments($value);
                 $this->mlist('id', $value);
                 break;
             default:
@@ -217,6 +227,7 @@ class Rfc822Header {
         $j = strlen($address);
         $name = '';
         $addr = '';
+	$comment = '';
         while ($pos < $j) {
             switch ($address{$pos}) {
                 case '"': /* get the personal name */
@@ -242,12 +253,13 @@ class Rfc822Header {
                     break;
                 case '(':  /* rip off comments */
                     $addr_start = $pos;
-                    for (++$pos; ($pos < $j) && ($address{$pos} != ')'); ++$pos) {
-                        $addr .= $address{$pos};
-                    }
-                    $address_start = substr($address, 0, $addr_start);
-                    $address_end   = substr($address, $pos + 1);
-                    $address       = $address_start . $address_end;
+		    $pos = strpos($address,')');
+		    if ($pos !== false) {
+			$comment = substr($address, $addr_start+1,($pos-$addr_start-1));
+                	$address_start = substr($address, 0, $addr_start);
+                	$address_end   = substr($address, $pos + 1);
+                	$address       = $address_start . $address_end;
+		    }
                     $j = strlen($address);
                     $pos = $addr_start + 1;
                     break;
@@ -260,6 +272,7 @@ class Rfc822Header {
 
                     $at = strpos($addr, '@');
                     $addr_structure = new AddressStructure();
+		    if (!$name && $comment) $name = $comment;
                     $addr_structure->personal = $name;
                     $addr_structure->group = $group;
                     if ($at) {
@@ -319,6 +332,7 @@ class Rfc822Header {
         } else if ($name == '') {
             $name = trim(substr($address, 0, $addr_start));
         }
+        if (!$name && $comment) $name = $comment;
         $at = strpos($addr, '@');
         $addr_structure = new AddressStructure();
         $addr_structure->group = $group;
@@ -476,7 +490,7 @@ class Rfc822Header {
                 $arr = $this->getAddr_a($argument, $excl_arr, $arr);
             }
         } else {
-            eval('$addr = $this->' . $arg . ';') ;
+	    $addr = $this->{$arg};
             if (is_array($addr)) {
                 foreach ($addr as $next_addr) {
                     if (is_object($next_addr)) {
@@ -561,6 +575,7 @@ class Rfc822Header {
 		return false;
 	    }	
 	}
+        //exit;
 	return $result;
     }
 
