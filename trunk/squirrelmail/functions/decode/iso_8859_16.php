@@ -55,7 +55,7 @@ function charset_decode_iso_8859_16 ($string) {
     if (! sq_is8bit($string,'iso-8859-16'))
         return $string;
 
-    $iso8869_16 = array(
+    $iso8859_16 = array(
         "\xA0" => '&#160;',
         "\xA1" => '&#260;',
         "\xA2" => '&#261;',

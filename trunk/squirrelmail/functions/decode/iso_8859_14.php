@@ -155,7 +155,7 @@ function charset_decode_iso_8859_14 ($string) {
         "\xFF" => '&#255;'
     );
 
-    $string = str_replace(array_keys($iso8869_14), array_values($iso8859_14), $string);
+    $string = str_replace(array_keys($iso8859_14), array_values($iso8859_14), $string);
 
     return $string;
 }
