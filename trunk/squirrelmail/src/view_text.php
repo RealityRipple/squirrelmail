@@ -32,7 +32,7 @@ sqgetGlobalVar('messages', $messages);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);
 
 if ( sqgetGlobalVar('mailbox', $temp, SQ_GET) ) {
-  $mailbox = urldecode($temp);
+  $mailbox = $temp;
 }
 if ( !sqgetGlobalVar('ent_id', $ent_id, SQ_GET) ) {
   $ent_id = '';
