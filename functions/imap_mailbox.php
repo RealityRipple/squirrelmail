@@ -82,9 +82,9 @@
     **  This function simply deletes the given folder
     ******************************************************************************/
    function sqimap_mailbox_delete ($imap_stream, $mailbox) {
-      sqimap_unsubscribe ($imap_stream, $mailbox);
       fputs ($imap_stream, "a001 DELETE \"$mailbox\"\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+      sqimap_unsubscribe ($imap_stream, $mailbox);
    }
 
 
@@ -118,6 +118,7 @@
                $boxes[$g]["formatted"] = $boxes[$g]["formatted"] . "  ";
             $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
                
+            $boxes[$g]["unformatted-dm"] = $mailbox;
             if (substr($mailbox, -1) == $dm)
                $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             $boxes[$g]["unformatted"] = $mailbox;
