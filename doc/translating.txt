@@ -30,8 +30,7 @@ c) To translate the actual strings fill inn the msgstr after each
    the directory where the translated squirrelmail.po is residing.
 
 d) Add the language name and language code to the array at the top of
-   squirrelmail/functions/i18n.php. For a reference of correct two character
-   country codes refer to this <URL:http://palimpsest.stnford.edu/lex/iso639.html>.
+   squirrelmail/functions/i18n.php.
 
 
 2. Maintaining translations
