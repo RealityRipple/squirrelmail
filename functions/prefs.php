@@ -105,7 +105,7 @@
       cachePrefValues($data_dir, $username);
       if (isset($prefs_cache[$string]) && $prefs_cache[$string] == $set_to)
          return;
-      if ($set_to == '') {
+      if ($set_to === '') {
          removePref($data_dir, $username, $string);
 	 return;
       }
