@@ -29,7 +29,7 @@
  */
 function SpellLink($jscode, $title, $link) {
   echo "<td><a href=\"javascript:$jscode\" "
-    . "title=\"$title\">$ln</a>"
+    . "title=\"$title\">$link</a>"
     . '</td>';
 }
 
