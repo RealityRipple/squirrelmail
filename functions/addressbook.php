@@ -1,5 +1,4 @@
 <?php
-
 /**
  * addressbook.php
  *
@@ -550,7 +549,27 @@ class addressbook_backend {
  * Sort array by the key "name"
  */
 function alistcmp($a,$b) {
-    $abook_sort=get_abook_sort();
+    $abook_sort_order=get_abook_sort();
+
+    switch ($abook_sort_order) {
+    case 0:
+    case 1:
+      $abook_sort='nickname';
+      break;
+    case 4:
+    case 5:
+      $abook_sort='email';
+      break;
+    case 6:
+    case 7:
+      $abook_sort='label';
+      break;
+    case 2:
+    case 3:
+    case 8:
+    default:
+      $abook_sort='name';
+    }
 
     if ($a['backend'] > $b['backend']) {
         return 1;
@@ -559,30 +578,68 @@ function alistcmp($a,$b) {
             return -1;
         }
     }
-    return (strtolower($a[$abook_sort]) > strtolower($b[$abook_sort])) ? 1 : -1;
+
+    if( (($abook_sort_order+2) % 2) == 1) {
+      return (strtolower($a[$abook_sort]) < strtolower($b[$abook_sort])) ? 1 : -1;
+    } else {
+      return (strtolower($a[$abook_sort]) > strtolower($b[$abook_sort])) ? 1 : -1;
+    }
 }
 
 /**
- * Address book sorting order
+ * Address book sorting options
  *
- * returns name of field that should be used for sorting.
- * @return string name of address book field
+ * returns address book sorting order
+ * @return integer book sorting options order
  */
 function get_abook_sort() {
     global $data_dir, $username;
 
     /* get sorting order */
-    if(sqgetGlobalVar('abook_sort', $abook_sort,SQ_GET)) {
-	sqgetGlobalVar('abook_sort', $abook_sort,SQ_GET);
-	setPref($data_dir, $username, 'abook_sort', $abook_sort);
+    if(sqgetGlobalVar('abook_sort_order', $temp, SQ_GET)) {
+      $abook_sort_order = (int) $temp;
+
+      if ($abook_sort_order < 0 or $abook_sort_order > 8)
+        $abook_sort_order=8;
+
+      setPref($data_dir, $username, 'abook_sort_order', $abook_sort_order);
     } else {
-	$abook_sort = getPref($data_dir, $username, 'abook_sort', 'name');
+      /* get previous sorting options. default to unsorted */
+      $abook_sort_order = getPref($data_dir, $username, 'abook_sort_order', 8);
     }
 
-    if ($abook_sort != "nickname" && $abook_sort != "email" && $abook_sort != "label")
-        $abook_sort = "name";
+    return $abook_sort_order;
+}
 
-    return $abook_sort;
+/**
+ * This function shows the address book sort button.
+ *
+ * @param integer $abook_sort_order current sort value
+ * @param string $alt_tag alt tag value (string visible to text only browsers)
+ * @param integer $Down sort value when list is sorted ascending
+ * @param integer $Up sort value when list is sorted descending
+ * @return string html code with sorting images and urls 
+ */
+function show_abook_sort_button($abook_sort_order, $alt_tag, $Down, $Up ) {
+    global $form_url;
+
+     /* Figure out which image we want to use. */
+    if ($abook_sort_order != $Up && $abook_sort_order != $Down) {
+        $img = 'sort_none.png';
+        $which = $Up;
+    } elseif ($abook_sort_order == $Up) {
+        $img = 'up_pointer.png';
+        $which = $Down;
+    } else {
+        $img = 'down_pointer.png';
+        $which = 8;
+    }
+
+      /* Now that we have everything figured out, show the actual button. */
+    return ' <a href="' . $form_url .'?abook_sort_order=' . $which
+         . '"><img src="../images/' . $img
+         . '" border="0" width="12" height="10" alt="' . $alt_tag . '" title="'
+         . _("Click here to change the sorting of the address list") .'"></a>';
 }
 
 /*
