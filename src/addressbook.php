@@ -8,23 +8,14 @@
 
    session_start();
 
-   if(!isset($logged_in)) {
-      echo _("You must login first.");
-      exit;
-   }
-   if(!isset($username) || !isset($key)) {
-      echo _("You need a valid user and password to access this page!");
-      exit;
-   }
-
    if (!isset($config_php))
       include("../config/config.php");
    if (!isset($array_php))
       include("../functions/array.php");
+   if (!isset($auth_php))
+      include("../functions/auth.php");
    if (!isset($strings_php))
       include("../functions/strings.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
    if (!isset($page_header_php))
       include("../functions/page_header.php");
    if (!isset($display_messages_php))
@@ -32,6 +23,7 @@
    if (!isset($addressbook_php))
       include("../functions/addressbook.php");
 
+   is_logged_in();
 
    // Sort array by the key "name"
    function alistcmp($a,$b) {   
@@ -83,12 +75,7 @@
    }
 
 
-   // IMAP Login
-   $imapConnection = sqimap_login ($username, $key, 
-	                           $imapServerAddress, $imapPort, 10);
    include("../src/load_prefs.php");
-   sqimap_logout ($imapConnection);
-
 
    // Open addressbook, with error messages on but without LDAP (the
    // second "true"). Don't need LDAP here anyway
