@@ -56,11 +56,11 @@ $imap_general_debug = false;
                 flush();
             }
 
-            $size = 0;
+            $size = -1;
             $data[] = $read;
             $read = fgets($imap_stream, 9096);
          } else {
-            $size = 0;
+            $size = -1;
          }
          while (1) {
             while (strpos($read, "\n") === false) {
@@ -95,7 +95,7 @@ $imap_general_debug = false;
                $total_size += strlen($read);
             } else {
                if (ereg("^$pre (OK|BAD|NO)(.*)", $read, $regs) ||
-                   ereg("^\\* [0-9]+ FETCH.*", $read, $regs)) {
+                   (($size == -1) && ereg("^\\* [0-9]+ FETCH.*", $read, $regs))) {
                   break;
                } else {
                   $data[] = $read;
