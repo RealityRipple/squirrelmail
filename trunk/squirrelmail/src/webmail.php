@@ -49,7 +49,8 @@ echo "<html><head>\n" .
 $left_size = getPref($data_dir, $username, 'left_size');
 $location_of_bar = getPref($data_dir, $username, 'location_of_bar');
 
-if (strtolower($languages[$squirrelmail_language]['DIR']) == 'rtl') {
+if (isset($languages[$squirrelmail_language]['DIR']) &&
+    strtolower($languages[$squirrelmail_language]['DIR']) == 'rtl') {
     $temp_location_of_bar = 'right';
 } else {
     $temp_location_of_bar = 'left';
