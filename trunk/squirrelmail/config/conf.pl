@@ -1091,12 +1091,11 @@ sub command61 {
 }   
 
 sub command62 {
-   print "Although our project goals stated that we would stay 100% HTML with\n";
-   print "no javascript, some of our developers have developed a wonderful\n";
-   print "javascript interface for searching for email addresses in your address\n";
-   print "books.  In order to stick with our project goals, and without having\n";
-   print "to refuse their work, we also developed an HTML version of address\n";
-   print "book searching.\n";
+   print "Some of our developers have come up with very good javascript interface\n";
+   print "for searching through address books, however, our original goals said\n";
+   print "that we would be 100% HTML.  In order to make it possible to use their\n";
+   print "interface, and yet stick with our goals, we have also written a plain\n";
+   print "HTML version of the search.  Here, you can choose which version to use.\n";
    print "\n";
    print "This is just the default value.  It is also a user option that each\n";
    print "user can configure individually\n";
