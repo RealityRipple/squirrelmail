@@ -31,7 +31,9 @@ if ( !sqsession_is_registered('prefs_are_cached') ||
     $prefs_cache = array();
 }
 
-if (isset($prefs_dsn) && !empty($prefs_dsn)) {
+if (isset($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
+    require_once(SM_PATH . $prefs_backend);
+} elseif (isset($prefs_dsn) && !empty($prefs_dsn)) {
     require_once(SM_PATH . 'functions/db_prefs.php');
 } else {
     require_once(SM_PATH . 'functions/file_prefs.php');
