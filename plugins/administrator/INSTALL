@@ -12,10 +12,7 @@ work, if user's id equals to 0.
 
 An alternative method, but less secure, is to add a file called
 admins into the plugin folder with the names of the users that
-you want to allow the use of the plugin. admins file must have 
-empty line after administrator's username. If administrator name
-ends of end-of-file symbol instead of line feed, it will be 
-ignored.
+you want to allow the use of the plugin.
 
 Use this plugin at your own risk, and always remember to make a
 backup of your config.php file before use. 

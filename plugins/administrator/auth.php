@@ -32,10 +32,12 @@ function adm_check_user() {
         $auth = FALSE;
     } else if (file_exists(SM_PATH . 'plugins/administrator/admins')) {
         $auths = file(SM_PATH . 'plugins/administrator/admins');
-        $auth = in_array("$username\n", $auths);
+        array_walk($auths, 'trim');
+        $auth = in_array($username, $auths);
     } else if (file_exists(SM_PATH . 'config/admins')) {
         $auths = file(SM_PATH . 'config/admins');
-        $auth = in_array("$username\n", $auths);
+        array_walk($auths, 'trim');
+        $auth = in_array($username, $auths);
     } else if (($adm_id = fileowner(SM_PATH . 'config/config.php')) &&
                function_exists('posix_getpwuid')) {
         $adm = posix_getpwuid( $adm_id );
