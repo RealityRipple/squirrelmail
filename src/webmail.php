@@ -16,14 +16,13 @@
    setcookie("logged_in", 1, 0, "/");
 ?>
 <HTML><HEAD>
-<TITLE>
 <?
    include ("../config/config.php");
    include ("../functions/prefs.php");
+   echo "<TITLE>";
    echo "$org_title";
-?>
-</TITLE>
-<FRAMESET COLS="200, *" NORESIZE BORDER=0>
+   echo "</TITLE>";
+   echo "<FRAMESET COLS=\"200, *\" NORESIZE BORDER=0>";
 
 /**
     There are three ways to call webmail.php
@@ -37,7 +36,6 @@
     This was done to create a pure HTML way of refreshing the folder list since
     we would like to use as little Javascript as possible.
 **/
-<?
    checkForPrefs($data_dir, $username);
 
    if ($right_frame == "right_main.php") {
