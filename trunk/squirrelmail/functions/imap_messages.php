@@ -133,10 +133,6 @@ function sqimap_message_list_squisher($messages_array) {
 function sqimap_get_sort_order($imap_stream, $sSortField, $reverse, $search='ALL') {
     global  $default_charset;
 
-    $id = array();
-    $sort_test = array();
-    $sort_query = '';
-
     if ($sSortField) {
         if ($reverse) {
             $sSortField = 'REVERSE '.$sSortField;
@@ -429,7 +425,6 @@ function get_thread_sort($imap_stream, $search='ALL') {
         $thread_temp = preg_split("//", $thread_list, -1, PREG_SPLIT_NO_EMPTY);
     }
 
-    $char_count = count($thread_temp);
     $counter = 0;
     $thread_new = array();
     $k = 0;
@@ -569,7 +564,6 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
     $aFetchItems = array('FLAGS', 'RFC822.SIZE', 'INTERNALDATE')) {
 
     $aMessageList = array();
-    $read_list = array();
 
     $bUidFetch = ! in_array('UID', $aFetchItems, true);
 
@@ -588,7 +582,6 @@ function sqimap_get_small_header_list($imap_stream, $msg_list,
         }
     } else {
         $msgs_str = '1:*';
-        $aId = array();
     }
 
     /*

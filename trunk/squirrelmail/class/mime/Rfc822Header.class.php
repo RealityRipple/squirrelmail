@@ -227,7 +227,6 @@ class Rfc822Header {
 
     function getAddressTokens($address) {
         $aTokens = array();
-        $aAddress = array();
         $aSpecials = array('(' ,'<' ,',' ,';' ,':');
         $aReplace =  array(' (',' <',' ,',' ;',' :');
         $address = str_replace($aSpecials,$aReplace,$address);
@@ -412,7 +411,7 @@ class Rfc822Header {
 
     function parseAddress($address,$ar=false,$aAddress=array(),$sGroup='',$sHost='',$lookup=false) {
         $aTokens = $this->getAddressTokens($address);
-        $sPersonal = $sEmail = $sComment = $sGroup = '';
+        $sPersonal = $sEmail = $sGroup = '';
         $aStack = $aComment = array();
         foreach ($aTokens as $sToken) {
             $cChar = $sToken{0};
@@ -621,7 +620,7 @@ class Rfc822Header {
         if (is_array($arr)) {
             foreach($arr as $arg) {
                 if ($this->getAddr_s($arg, $separator, $encoded)) {
-                    $s .= $separator . $result;
+                    $s .= $separator;
                 }
             }
             $s = ($s ? substr($s, 2) : $s);
@@ -692,7 +691,6 @@ class Rfc822Header {
             $i=0;
             foreach($address as $argument) {
                 $match = $this->findAddress($argument, true);
-                $last = end($match);
                 if ($match[1]) {
                     return $i;
                 } else {

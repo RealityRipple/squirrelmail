@@ -124,6 +124,8 @@ function printMessageInfo($aMsg) {
     $aFlags   = (isset($msg['FLAGS'])) ? $msg['FLAGS'] : array();
     $iPrio    = (isset($msg['PRIORITY'])) ? $msg['PRIORITY'] : 3;
     $iSize    = (isset($msg['SIZE'])) ? $msg['SIZE'] : 0;
+
+    // These don't appear to be used... are they safe to remove
     $sType0   = (isset($msg['TYPE0'])) ? $msg['TYPE0'] : 'text';
     $sType1   = (isset($msg['TYPE1'])) ? $msg['TYPE1'] : 'plain';
     if (isset($msg['INTERNALDATE'])) {
@@ -213,7 +215,7 @@ function printMessageInfo($aMsg) {
         $senderName = truncateWithEntities($senderName, $truncate_sender);
     }
 
-    $flag = $flag_end = $bold = $bold_end = $fontstr = $fontstr_end = $italic = $italic_end = '';
+    $flag = $flag_end = $fontstr = $fontstr_end = $italic = $italic_end = '';
     $bold = '<b>';
     $bold_end = '</b>';
 
@@ -492,6 +494,7 @@ function sqm_api_mailbox_select($imapConnection,$mailbox,$aConfig,$aProps) {
     /**
      * In case the properties arrays are empty set the defaults.
      */
+    // Doesn't appear to be used... safe to remove?
     $aDefaultMbxPref = array ();
 //                          MBX_PREF_SORT => 0,
 //                          MBX_PREF_LIMIT => 15,
@@ -595,7 +598,6 @@ function sqm_api_mailbox_select($imapConnection,$mailbox,$aConfig,$aProps) {
                         (!($newsort % 2) && ($newsort - 1 == $oldsort))) {
                         $aMailbox['UIDSET'][$iSetIndx] = array_reverse($aCachedMailbox['UIDSET'][$iSetIndx]);
                     } else {
-                        $server_sort_array = false;
                         $aMailbox['MSG_HEADERS'] = false;
                         $aMailbox['ID'] = false;
                     }
@@ -1141,8 +1143,6 @@ function mail_message_listing_beginning ($imapConnection,
     global $lastTargetMailbox, $boxes;
 
     $php_self = $PHP_SELF;
-
-    $urlMailbox = urlencode($aMailbox['NAME']);
 
     if (preg_match('/^(.+)\?.+$/',$php_self,$regs)) {
         $source_url = $regs[1];

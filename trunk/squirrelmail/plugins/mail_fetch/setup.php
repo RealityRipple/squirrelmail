@@ -155,8 +155,6 @@
                 if ($Count == 0) {
                     $pop3->quit();
                     continue;
-                } else {
-                    $newmsgcount = $Count - $i + 1;
                 }
 
                 // Faster to get them all at once

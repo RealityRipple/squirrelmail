@@ -163,7 +163,6 @@ class Deliver {
             } elseif ($message->att_local_name) {
                 $filename = $message->att_local_name;
                 $file = fopen ($filename, 'rb');
-                $encoded = '';
                 while ($tmp = fread($file, 570)) {
                    $body_part = chunk_split(base64_encode($tmp));
                     $length += $this->clean_crlf($body_part);
@@ -308,7 +307,6 @@ class Deliver {
             $header[] .= 'Content-Description: ' . $mime_header->description . $rn;
         }
         if ($mime_header->encoding) {
-            $encoding = $mime_header->encoding;
             $header[] .= 'Content-Transfer-Encoding: ' . $mime_header->encoding . $rn;
         } else {
             if ($mime_header->type0 == 'text' || $mime_header->type0 == 'message') {

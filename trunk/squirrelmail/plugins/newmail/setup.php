@@ -38,7 +38,6 @@
                $newmail_recent;
 
         $mailboxURL = urlencode($real_box);
-        $unseen = $recent = 0;
 
         // Skip folders for Sent and Trash
 
@@ -155,7 +154,6 @@
 
             for ($i = 0;$i < count($boxes); $i++) {
 
-                $line = '';
                 $mailbox = $boxes[$i]['formatted'];
 
                 if (! isset($boxes[$i]['unseen'])) {
