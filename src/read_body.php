@@ -32,10 +32,10 @@ function findNextMessage() {
            $server_sort_array;
     if (!is_array($server_sort_array)) {
         $thread_sort_messages = 0;
-        $allow_server_sort = 'false';
+        $allow_server_sort = FALSE;
     }
     $result = -1;
-    if ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
+    if ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
@@ -48,13 +48,13 @@ function findNextMessage() {
             }
         }
     } 
-    elseif ($sort == 6 && $allow_server_sort != 'true' &&
+    elseif ($sort == 6 && $allow_server_sort != TRUE &&
             $thread_sort_messages != 1) {
         if ($currentArrayIndex != 1) {
             $result = $currentArrayIndex - 1;
         }
     }
-    elseif ($allow_server_sort != 'true' && $thread_sort_messages != 1 ) {
+    elseif ($allow_server_sort != TRUE && $thread_sort_messages != 1 ) {
         if (!is_array($msort)) {
             return -1;
         }
@@ -95,9 +95,9 @@ function findPreviousMessage() {
     $result = -1;
     if (!is_array($server_sort_array)) {
         $thread_sort_messages = 0;
-        $allow_server_sort = 'false';
+        $allow_server_sort = FALSE;
     }
-    if ($thread_sort_messages == 1 || $allow_server_sort == 'true') {
+    if ($thread_sort_messages == 1 || $allow_server_sort == TRUE) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
@@ -110,14 +110,14 @@ function findPreviousMessage() {
             }
         }
     }
-    elseif ($sort == 6 && $allow_server_sort != 'true' && 
+    elseif ($sort == 6 && $allow_server_sort != TRUE && 
             $thread_sort_messages != 1) {
         $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
         if ($currentArrayIndex != $numMessages) {
             $result = $currentArrayIndex + 1;
         }
     } 
-    elseif ($thread_sort_messages != 1 && $allow_server_sort != 'true') {
+    elseif ($thread_sort_messages != 1 && $allow_server_sort != TRUE) {
         if (!is_array($msort)) {
             return -1;
         }
