@@ -19,6 +19,15 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/display_messages.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* POST data var names are dynamic because 
+   of the possible multiple idents so lets get
+   them all
+*/
+if (!empty($_POST)) {
+    extract($_POST);
+}
+/* got 'em all */
+
     if (isset($return)) {
        SaveUpdateFunction();
        header('Location: options_personal.php');

@@ -42,6 +42,7 @@ if (isset($_POST['return'])) {
 if ( isset($_SESSION['composesession']) ) {
     $composesession = $_SESSION['composesession'];
 }
+sqextractGlobalVar('action');
 sqextractGlobalVar('session');
 sqextractGlobalVar('mailbox');
 sqextractGlobalVar('identity');
@@ -56,6 +57,7 @@ sqextractGlobalVar('request_dr');
 sqextractGlobalVar('html_addr_search');
 sqextractGlobalVar('mail_sent');
 sqextractGlobalVar('passed_id');
+sqextractGlobalVar('passed_ent_id');
 
 if ( isset($_POST['sigappend']) ) {
     $sigappend = $_POST['sigappend'];

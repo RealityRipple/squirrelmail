@@ -22,6 +22,30 @@ require_once(SM_PATH . 'functions/array.php');
 require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* get globals */
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
+if (isset($_GET['num'])) {
+    $num = $_GET['num'];
+}
+if (isset($_GET['method'])) {
+    $method = $_GET['method'];
+}
+elseif (isset($_POST['method'])) {
+    $method = $_POST['method'];
+}
+if (isset($_POST['add'])) {
+    $add = $_POST['add'];
+}
+if (isset($_GET['submit'])) {
+    $submit = $_GET['submit'];
+}
+elseif (isset($_POST['submit'])) {
+    $submit = $_POST['submit'];
+}
+/* end of get globals */
+
 if (! isset($action)) { $action = ''; }
 if ($action == 'delete' && isset($theid)) {
     removePref($data_dir, $username, "highlight$theid");

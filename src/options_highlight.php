@@ -23,6 +23,35 @@ require_once(SM_PATH . 'functions/plugin.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'functions/html.php');
 
+/* get globals */
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+}
+if (isset($_GET['theid'])) {
+    $theid = $_GET['theid'];
+}
+if (isset($_GET['identname'])) {
+    $identname = $_GET['identname'];
+}
+if (isset($_GET['newcolor_choose'])) {
+    $newcolor_choose = $_GET['newcolor_choose'];
+}
+if (isset($_GET['newcolor_input'])) {
+    $newcolor_input = $_GET['newcolor_input'];
+}
+if (isset($_GET['color_type'])) {
+    $color_type = $_GET['color_type'];
+}
+if (isset($_GET['match_type'])) {
+    $match_type = $_GET['match_type'];
+}
+if (isset($_GET['value'])) {
+    $value = $_GET['value'];
+}
+
+$SCRIPT_NAME = $_SERVER['SCRIPT_NAME'];
+/* end of get globals */
+ 
 function oh_opt( $val, $sel, $tit ) {
     echo "<option value=\"$val\"";
     if ( $sel )
