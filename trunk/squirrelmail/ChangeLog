@@ -30,6 +30,7 @@ Version 1.2.6 -- CVS
   - SquirrelSpell version 0.3.8 -- pretty configuration error reporting
     added by popular demand.
   - Improved the handling of IMAP [PARSE] messages to reduce retrieval error.
+  - Fixed small bug in handeling timezone (bug #536149)	
 	
 Version 1.2.5 -- 22 February 2002
 ---------------------------------
