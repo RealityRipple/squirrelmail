@@ -705,7 +705,10 @@ function showInputForm ($session, $values=false) {
     if (isset($session)) {
         echo '<input type="hidden" name="session" value="' . $session . "\">\n";
     }
-
+    
+    if (isset($passed_id)) {
+        echo '<input type="hidden" name="passed_id" value="' . $passed_id . "\">\n";
+    }
 
     if ($saved_draft == 'yes') {
         echo '<BR><CENTER><B>'. _("Draft Saved").'</CENTER></B>';
