@@ -159,6 +159,7 @@ function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
             $qty = $mbxresponse['EXISTS'];
             $server_sort_array = range(1, $qty);
         }
+        $server_sort_array = array_reverse($server_sort_array);
         sqsession_register($server_sort_array, 'server_sort_array');
         return $server_sort_array;
     }
