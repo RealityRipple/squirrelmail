@@ -449,6 +449,18 @@ global $plugins;
  */
 
 /**
+ * If you don't want to allow users to change their email address
+ * then you can set $edit_identity to false, if you want them to
+ * not be able to change their full name too then set $edit_name
+ * to false as well. $edit_name has no effect unless $edit_identity
+ * is false;
+ */
+
+global $edit_identity, $edit_name;
+$edit_identity = true;
+$edit_name = true;
+
+/**
  * Make sure there are no characters after the PHP closing
  * tag below (including newline characters and whitespace).
  * Otherwise, that character will cause the headers to be

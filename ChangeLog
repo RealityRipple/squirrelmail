@@ -25,6 +25,7 @@ Version 1.2.5 -- CVS
   - Removed GLOBALS from conf.pl
   - HTML messages optimization.
   - Added support for requesting read receipts (MDN) and delivery receipts.  
+  - Added the ability to stop users changing their names and email addresses.
 	
 Version 1.2.4 -- 25 January 2002
 --------------------------------
