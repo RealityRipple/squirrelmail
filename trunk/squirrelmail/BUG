@@ -1,12 +1,9 @@
 Known BUGS to be fixed before 0.4pre1:
 
-  -    When more than one line of CCs or TOs is there, it doesn't have
+--SQUASHED--
+(lme)  When more than one line of CCs or TOs is there, it doesn't have
        the (more) or (less) option that used to be there.. only displays
 		 the first line.
-  -    Check about optomizing Delete.. it takes quite a while when deleting
-       a large number of messages.
-
---SQUASHED--
 (lme)  When reading through 7 unread messages, every time I would read
        a message and click on "Message List" to go back, they would stay
 		 marked "unread".  The caching was doing too good of a job.  (:
