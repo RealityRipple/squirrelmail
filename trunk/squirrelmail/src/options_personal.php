@@ -66,7 +66,7 @@
             </td><td>
 <?php
    if ($use_signature == true)
-      echo "<input type=checkbox value=\"0\" name=usesignature checked>&nbsp;&nbsp;" . _("Use a signature") . "?<BR>";
+      echo "<input type=checkbox value=\"1\" name=usesignature checked>&nbsp;&nbsp;" . _("Use a signature") . "?<BR>";
    else {
       echo "<input type=checkbox value=\"1\" name=usesignature>&nbsp;&nbsp;";
       echo _("Use a signature?");
