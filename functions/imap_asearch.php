@@ -31,6 +31,7 @@ $imap_asearch_debug_dump = FALSE;
 /** Imap SEARCH keys
 * @global array $imap_asearch_opcodes
 */
+global $imap_asearch_opcodes;
 $imap_asearch_opcodes = array(
 /* <sequence-set> => 'asequence', */	// Special handling, @see sqimap_asearch_build_criteria()
 /*'ALL' is binary operator */
