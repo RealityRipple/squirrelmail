@@ -21,8 +21,13 @@
    Wouter Teepe     <wouter@teepe.com>
    Shane Wilson
 
- Translations:
+ Translations: 
  -------------
+ 
+    Mail-List: squirrelmail-i18n@lists.sourceforge.net
+    Leaders:   Dave Huang <khym+skwirl@azeotrope.org> 
+               Philippe Mingo <philippe@squirrelmail.org>
+ 
    Bulgarian     Stanislav Yordanov <stanprog@yahoo.com>  
    Catalan       Josep Sanz <jsanz@fa.upc.es>
    Czech         Ondrej Sury <ondrej@sury.cz>
@@ -73,7 +78,6 @@
 
    Paginator Help: Charles Scheidecker
    Other Code contributions:
-       Konstantin Riabitsev <graf@relhum.org>
        Alex Bleeker <beheer@hackers.nl>
        Jan-Pieter Cornet <johnpc@xs4all.nl>
        John Williams <jw@netpimp.com> 

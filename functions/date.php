@@ -162,9 +162,11 @@ function date_intl( $date_format, $stamp ) {
 
     $ret = str_replace( 'D', '$1', $date_format );
     $ret = str_replace( 'F', '$2', $ret );
+    $ret = str_replace( 'l', '$4', $ret );
     $ret = date( '$3'. $ret . '$3', $stamp ); // Workaround for a PHP 4.0.4 problem
     $ret = str_replace( '$1', substr( getDayName( date( 'w', $stamp ) ), 0, 3 ), $ret );
     $ret = str_replace( '$2', getMonthName( date( 'm', $stamp ) ), $ret );
+    $ret = str_replace( '$4', getDayName( date( 'w', $stamp ) ), $ret );
     $ret = str_replace( '$3', '', $ret );
     
     return( $ret );
