@@ -620,7 +620,7 @@ function displayMessageArray($imapConnection, $num_msgs, $start_msg,
       $k++;
     } while (isset ($key) && ($k < $i));
     printMessageInfo($imapConnection, $t, $i, $key, $mailbox,  
-		     $real_startMessage);
+		     $real_startMessage, $where, $what);
   } else {
     $i = $start_msg;
     reset($msort);
