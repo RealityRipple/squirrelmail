@@ -12,6 +12,7 @@ Version 0.5pre2 -- DEVELOPMENT
 - Improved word wrapping
 - Fixed bugs with adding and not adding backslashes
 - Made message highlighting case insensative
+- Added Italian translation from Aldo Moresco <moresco@idcm.it>
 - Added French translation from Ali Nedjimi <lrdfrx@club-internet.fr>
 
 Version 0.5pre1 -- August 9, 2000 
