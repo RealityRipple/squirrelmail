@@ -218,8 +218,13 @@ function delete_move_next_read($currloc) {
 }
 
 function get_move_target_list() {
-    global $imapConnection;
-    echo sqimap_mailbox_option_list($imapConnection);
+    global $imapConnection, $lastTargetMailbox;
+    if (isset($lastTargetMailbox) && !empty($lastTargetMailbox)) {
+        echo sqimap_mailbox_option_list($imapConnection, array(strtolower($lastTargetMailbox)));
+    }
+    else {
+        echo sqimap_mailbox_option_list($imapConnection);
+    }
 }
 
 function delete_move_next_moveNextForm($next) {
@@ -292,7 +297,7 @@ function delete_move_next_delete() {
 }
 
 function delete_move_next_move() {
-    global $imapConnection, $mailbox, $auto_expunge;
+    global $imapConnection, $mailbox, $auto_expunge, $lastTargetMailbox;
 
     if ( !check_php_version(4,1) ) {
         global $_POST;
@@ -308,6 +313,11 @@ function delete_move_next_move() {
     if ($auto_expunge) {
         delete_move_expunge_from_all($move_id);
         // sqimap_mailbox_expunge($imapConnection, $mailbox, true);
+    }
+
+    if ($targetMailbox != $lastTargetMailbox) {
+        $lastTargetMailbox = $targetMailbox;
+        sqsession_register('lastTargetMailbox' , $lastTargetMailbox);
     }
 }
 
