@@ -407,6 +407,8 @@ while (($command ne "q") && ($command ne "Q")) {
       closedir DIR;
       
       print "\n";
+      print "A   Sanitize all plugins for use with Squirrelmail 1.2\n";
+      print "\n";
       print "R   Return to Main Menu\n";
    }
    if ($config_use_color == 1) {
@@ -510,6 +512,7 @@ while (($command ne "q") && ($command ne "Q")) {
          if    ($command == 1) { $motd             = command71(); }
       } elsif ($menu == 8) {
          if    ($command =~ /^[0-9]+/) { @plugins = command81(); }
+         elsif ($command eq "a") { command8s(); }
       }
    }   
 }
@@ -838,6 +841,9 @@ sub command81 {
          while ($ct <= $#unused_plugins) {
             if ($ct == $num) {
                @newplugins = (@newplugins, $unused_plugins[$ct]);
+               # sanitize the plugin
+	       $dir = $unused_plugins[$ct];
+               `./ri_once.pl ../plugins/$dir`;
             }
             $ct++;
          }
@@ -846,6 +852,18 @@ sub command81 {
    }   
    return @plugins;
 }   
+
+sub command8s {
+    print "This command will sanitize all plugins for use with\n";
+    print "Squirrelmail 1.2. That is, it will rewrite some php-\n";
+    print "constructs that are *incompatible* with the 1.2 design\n";
+    print "into ones that are *compatible*\n";
+    print "Do you wish to issue this command [y/N]? ";
+    $ctu = <STDIN>;
+    if ($ctu =~ /^y\n/i) {
+        `./ri_once.pl ../plugins`;
+    }
+}
 
 ################# FOLDERS ###################
 
