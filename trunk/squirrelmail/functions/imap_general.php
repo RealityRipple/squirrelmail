@@ -774,6 +774,18 @@ function parseAddress($address, $max=0) {
             break;
         case '"':
             $iEnd = strpos($address,$cChar,$i+1);
+            if ($iEnd) {
+               // skip escaped quotes
+               $prev_char = $address{$iEnd-1};
+               while ($prev_char === '\\' && substr($address,$iEnd-2,2) !== '\\\\') {
+                   $iEnd = strpos($address,$cChar,$iEnd+1);
+                   if ($iEnd) {
+                      $prev_char = $address{$iEnd-1};
+                   } else {
+                      $prev_char = false;
+                   }
+               }
+            }
             if (!$iEnd) {
                 $sToken = substr($address,$i);
                 $i = $iCnt;
