@@ -89,7 +89,7 @@
       echo "<TABLE BGCOLOR=\"$color[4]\" BORDER=0 WIDTH=\"100%\" CELLSPACING=0 CELLPADDING=2>\n";
       echo "   <TR>\n";
       echo "      <TD ALIGN=left WIDTH=\"99%\">\n";
-      $urlMailbox = $mailbox;
+      $urlMailbox = urlencode($mailbox);
       displayInternalLink ("src/compose.php?mailbox=$urlMailbox", _("Compose"), "right");
       echo "&nbsp;&nbsp;\n";
       displayInternalLink ("src/addressbook.php", _("Addresses"), "right");

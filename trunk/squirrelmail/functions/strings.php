@@ -45,7 +45,7 @@
    }
 
    // Wraps text at $wrap characters
-   function wordWrap($passed, $wrap) {
+   function sqWordWrap($passed, $wrap) {
       $passed = str_replace("&gt;", ">", $passed);
       $passed = str_replace("&lt;", "<", $passed);
 
@@ -54,7 +54,7 @@
       $line_len = strlen($words[$i])+1;
       $line = "";
       if (count($words) > 1) {   
-         while ($i < count($words)-1) {
+         while ($i < count($words)) {
             while ($line_len < $wrap) {
                $line = "$line$words[$i] ";
                $i++;
@@ -125,7 +125,7 @@
          $line = charset_decode($charset, $line);
          
          if (strlen($line) - 2 >= $wrap_at) {
-            $line = wordWrap($line, $wrap_at);  
+            $line = sqWordWrap($line, $wrap_at);  
          }
          
          $line = str_replace(" ", "&nbsp;", $line);
