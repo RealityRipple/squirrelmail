@@ -440,7 +440,7 @@ echo html_tag( 'div', '<b>' . _("Current Search") . '</b>', 'left' ) . "\n"
    if ($mailbox == 'All Folders') {
        echo ' selected';
    }
-   echo ">[ All Folders ]</option>\n";
+   echo '>[ ' . _("All Folders") . " ]</option>\n";
 
    $show_selected = array(strtolower($mailbox));
    echo sqimap_mailbox_option_list($imapConnection, $show_selected, 0, $boxes);
