@@ -202,6 +202,8 @@ Version 1.5.1 -- CVS
   - Move default_pref to the config/ dir, but keep checking legacy locations
     first for bc. Do not fail with an error when default_pref not found, just
     create an empty one.
+  - Add trailing slash for data directory used by global file based address
+    book (#1105760).
 
 Version 1.5.0
 --------------------
