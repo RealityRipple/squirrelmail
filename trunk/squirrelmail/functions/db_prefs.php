@@ -36,7 +36,7 @@ define('SMDB_UNKNOWN', 0);
 define('SMDB_MYSQL', 1);
 define('SMDB_PGSQL', 2);
 
-include_once('DB.php');
+require_once('DB.php');
 require_once('../config/config.php');
 
 global $prefs_are_cached, $prefs_cache;
