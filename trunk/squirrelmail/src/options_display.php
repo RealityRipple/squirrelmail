@@ -49,13 +49,13 @@ function load_optpage_data_display() {
     );
  
     $css_values = array( 'none' => _("Default" ) );
-	$handle=opendir('../themes/css/');
-	while ($file = readdir($handle) ) {
-	    if ( substr( $file, -4 ) == '.css' ) {
-	        $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
+    $handle=opendir('../themes/css/');
+    while ($file = readdir($handle) ) {
+        if ( substr( $file, -4 ) == '.css' ) {
+            $css_values[$file] = substr( $file, 0, strlen( $file ) - 4 );
         }
-	}	
-	closedir($handle);
+    }
+    closedir($handle);
     
     if ( count( $css_values > 1 ) ) {
     
