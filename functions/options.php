@@ -22,7 +22,7 @@ define('SMOPT_TYPE_textarea', 2);
 define('SMOPT_TYPE_INTEGER', 3);
 define('SMOPT_TYPE_FLOAT', 4);
 define('SMOPT_TYPE_BOOLEAN', 5);
-define('SMOPT_TYPE_hidden', 6);
+define('SMOPT_TYPE_HIDDEN', 6);
 define('SMOPT_TYPE_COMMENT', 7);
 
 /* Define constants for the options refresh levels. */
@@ -97,7 +97,7 @@ class SquirrelOption {
         }
 
         /* Set the default save function. */
-        if (($type != SMOPT_TYPE_hidden) && ($type != SMOPT_TYPE_COMMENT)) {
+        if (($type != SMOPT_TYPE_HIDDEN) && ($type != SMOPT_TYPE_COMMENT)) {
             $this->save_function = SMOPT_SAVE_DEFAULT;
         } else {
             $this->save_function = SMOPT_SAVE_NOOP;
@@ -157,7 +157,7 @@ class SquirrelOption {
             case SMOPT_TYPE_BOOLEAN:
                 $result = $this->createWidget_Boolean();
                 break;
-            case SMOPT_TYPE_hidden:
+            case SMOPT_TYPE_HIDDEN:
                 $result = $this->createWidget_Hidden();
                 break;
             case SMOPT_TYPE_COMMENT:
@@ -396,7 +396,7 @@ function print_option_groups($option_groups) {
 
         /* Print each option in this option group. */
         foreach ($next_optgrp['options'] as $option) {
-            if ($option->type != SMOPT_TYPE_hidden) {
+            if ($option->type != SMOPT_TYPE_HIDDEN) {
                 echo html_tag( 'tr', "\n".
                            html_tag( 'td', $option->caption . ':', 'right' ,'', 'valign="middle"' ) .
                            html_tag( 'td', $option->createHTMLWidget(), 'left' )
@@ -421,3 +421,4 @@ function OptionSubmit( $name ) {
 }
 
 ?>
+)
