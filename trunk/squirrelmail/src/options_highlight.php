@@ -26,20 +26,15 @@
    } else if ($action == 'save') {
       if (!$theid) $theid = 0;
       $identname = ereg_replace(',', ' ', $identname);
-      $identname = str_replace('\\\\', '\\', $identname);
-      $identname = str_replace('\\"', '"', $identname);
-      $identname = str_replace('"', '&quot;', $identname);
       if ($color_type == 1) $newcolor = $newcolor_choose;
       elseif ($color_type == 2) $newcolor = $newcolor_input;
       else $newcolor = $color_type;
  
       $newcolor = ereg_replace(',', '', $newcolor);
       $newcolor = ereg_replace('#', '', $newcolor);
-      $newcolor = "$newcolor";
+      $newcolor = ereg_replace('"', '', $newcolor);
+      $newcolor = ereg_replace('\'', '', $newcolor);
       $value = ereg_replace(',', ' ', $value);
-      $value = str_replace('\\\\', '\\', $value);
-      $value = str_replace('\\"', '"', $value);
-      $value = str_replace('"', '&quot;', $value);
 
       setPref($data_dir, $username, "highlight$theid", $identname.','.$newcolor.','.$value.','.$match_type);
       $message_highlight_list[$theid]['name'] = $identname;
@@ -60,17 +55,19 @@
    if (count($message_highlight_list) >= 1) {
       echo '<table border="0" cellpadding="3" cellspacing="0" align="center" width="80%">'."\n";
       for ($i=0; $i < count($message_highlight_list); $i++) {
-         echo "<tr>\n";
-         echo '   <td width="1%" bgcolor="' . $color[4] . "\">\n";
-         echo "<nobr><small>[<a href=\"options_highlight.php?action=edit&theid=$i\">" . _("Edit") . "</a>]&nbsp;[<a href=\"options_highlight.php?action=delete&theid=$i\">"._("Delete")."</a>]</small></nobr>\n";
-         echo '   </td>';
-         echo '   <td bgcolor="' . $message_highlight_list[$i]['color'] . "\">\n";
-         echo '      ' . $message_highlight_list[$i]['name'] . '&nbsp;';
-         echo "   </td>\n";
-         echo '   <td bgcolor="' . $message_highlight_list[$i]['color'] . "\">\n";
-         echo '      '.$message_highlight_list[$i]['match_type'].' = ' . $message_highlight_list[$i]['value'];
-         echo "   </td>\n";
-         echo "</tr>\n";
+?><tr bgcolor="<?PHP echo $message_highlight_list[$i]['color'] ?>">
+<td width=5% bgcolor="<?PHP echo $color[4] ?>" nobr>
+  <small>[<a href="options_highlight.php?action=edit&theid=<?PHP echo $i 
+  ?>"><?PHP echo  _("Edit") 
+  ?></a>]&nbsp;[<a href="options_highlight.php?action=delete&theid=<?PHP
+  echo $i ?>"><?PHP echo _("Delete") ?></a>]</small>
+</td><td>
+  <?PHP echo htmlspecialchars($message_highlight_list[$i]['name']) ?>
+</td><td>
+  <?PHP echo $message_highlight_list[$i]['match_type'] . ' = ' .
+     htmlspecialchars($message_highlight_list[$i]['value']); ?>
+</td></tr>
+<?PHP
       }
       echo "</table>\n";
       echo "<br>\n";
@@ -246,26 +243,24 @@
       echo '<input type="hidden" value="'.$theid.'" name="theid">' . "\n";
       echo '<table width="80%" align="center" cellpadding="3" cellspacing="0" border="0">' . "\n";
       echo "   <tr bgcolor=\"$color[0]\">\n";
-      echo "      <td align=\"right\" width=\"25%\"><b>\n";
+      echo "      <td align=\"right\" nobr><b>\n";
       echo _("Identifying name") . ":";
       echo '      </b></td>' . "\n";
-      echo '      <td width="75%">' . "\n";
+      echo '      <td>' . "\n";
       if (isset($message_highlight_list[$theid]['name']))
           $disp = $message_highlight_list[$theid]['name'];
       else
           $disp = '&nbsp;';
-      $disp = str_replace('\\\\', '\\', $disp);
-      $disp = str_replace('\\"', '"', $disp);
-      $disp = str_replace('"', '&quot;', $disp);
+      $disp = htmlspecialchars($disp);
       echo "         <input type=\"text\" value=\"".$disp."\" name=\"identname\">";
       echo "      </td>\n";
       echo "   </tr>\n";
       echo '   <tr><td><small><small>&nbsp;</small></small></td></tr>' . "\n";
       echo "   <tr bgcolor=\"$color[0]\">\n";
-      echo '      <td align="right" width="25%"><b>' . "\n";
+      echo '      <td align="right"><b>' . "\n";
       echo _("Color") . ':';
       echo "      </b></td>\n";
-      echo '      <td width="75%">' . "\n";
+      echo '      <td>' . "\n";
       echo "         <input type=\"radio\" name=color_type value=1$selected_choose> &nbsp;<select name=newcolor_choose>\n";
       echo "            <option value=\"$color_list[0]\"$selected0>" . _("Dark Blue") . "\n";
       echo "            <option value=\"$color_list[1]\"$selected1>" . _("Dark Green") . "\n";
@@ -308,10 +303,7 @@
 
       echo '   <tr><td><small><small>&nbsp;</small></small></td></tr>' . "\n";
       echo "   <tr bgcolor=\"$color[0]\">\n";
-      echo '      <td align="right" width="25%"><b>' . "\n";
-      echo _("Match") . ':';
-      echo "      </b></td>\n";
-      echo '      <td width="75%">' . "\n";
+      echo '      <td align="center" colspan=2>' . "\n";
       echo "         <select name=match_type>\n";
       if (isset($message_highlight_list[$theid]['match_type']) && $message_highlight_list[$theid]['match_type'] == 'from')    echo "            <option value=\"from\" selected>From\n";
       else                                                         echo "            <option value=\"from\">From\n";
@@ -324,20 +316,20 @@
       if (isset($message_highlight_list[$theid]['match_type']) && $message_highlight_list[$theid]['match_type'] == 'subject') echo "            <option value=\"subject\" selected>Subject\n";
       else                                                         echo "            <option value=\"subject\">Subject\n";
       echo "         </select>\n";
+      echo '<b>' . _("Matches") . ':</b> ';
       if (isset($message_highlight_list[$theid]['value']))
           $disp = $message_highlight_list[$theid]['value'];
       else
           $disp = '';
-      $disp = str_replace('\\\\', '\\', $disp);
-      $disp = str_replace('\\"', '"', $disp);
-      $disp = str_replace('"', '&quot;', $disp);
-      echo '         <nobr><input type="text" value="'.$disp.'" name="value">';
-      echo "        <nobr></td>\n";
+      $disp = htmlspecialchars($disp);
+      echo '         <input type="text" value="' . $disp .
+         '" name="value" size=40>';
+      echo "        </td>\n";
       echo "   </tr>\n";
       echo "</table>\n";
       echo '<center><input type="submit" value="' . _("Submit") . "\"></center>\n";
       echo "</form>\n";
-      do_hook('options_highlight_bottom');
    } 
+   do_hook('options_highlight_bottom');
 ?>
 </body></html>
