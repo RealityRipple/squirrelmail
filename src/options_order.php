@@ -78,7 +78,7 @@ displayPageHeader($color, 'None');
         $index_order = array();
         $index_order = $new_ary;
         if (count($index_order) < 1) {
-           include_once('../src/load_prefs.php');
+           include_once(SM_PATH . 'include/load_prefs.php');
         }
     } else if ($method == 'add' && $add) {
         /* User should not be able to insert PHP-code here */
