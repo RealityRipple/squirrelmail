@@ -866,6 +866,15 @@ function find_ent_id($id, $message) {
 //                if (sq_check_save_extension($message->entities[$i])) {
                     return $message->entities[$i]->entity_id;
 //                }
+            } elseif (!empty($message->entities[$i]->header->parameters['name'])) {
+                /**
+                 * This is part of a fix for Outlook Express 6.x generating
+                 * cid URLs without creating content-id headers
+                 * @@JA - 20050207
+                 */
+                if (strcasecmp($message->entities[$i]->header->parameters['name'], $id) == 0) {
+                    return $message->entities[$i]->entity_id;
+                }
             }
         }
     }
@@ -1550,11 +1559,37 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     /* in case of non-save cid links $httpurl should be replaced by a sort of
     unsave link image */
     $httpurl = '';
-    if ($linkurl) {
-        $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
-                "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
-                '&amp;ent_id=' . $linkurl . $quotchar;
+
+   /**
+    * This is part of a fix for Outlook Express 6.x generating
+    * cid URLs without creating content-id headers. These images are
+    * not part of the multipart/related html mail. The html contains
+    * <img src="cid:{some_id}/image_filename.ext"> references to
+    * attached images with as goal to render them inline although
+    * the attachment disposition property is not inline.
+    **/
+
+    if (empty($linkurl)) {
+        if (preg_match('/{.*}\//', $cidurl)) {
+            $cidurl = preg_replace('/{.*}\//','', $cidurl);
+            if (!empty($cidurl)) {
+                $linkurl = find_ent_id($cidurl, $message);
+            }
+        }
     }
+ 
+    if (!empty($linkurl)) {
+        $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
+                   "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
+                   '&amp;ent_id=' . $linkurl . $quotchar;
+    } else {
+        /**
+         * If we couldn't generate a proper img url, drop in a blank image
+         * instead of sending back empty, otherwise it causes unusual behaviour
+         */
+        $httpurl = $quotechar . SM_PATH . 'images/blank.png';
+    }
+ 
     return $httpurl;
 }
 
