@@ -124,7 +124,10 @@
          return getGMTSeconds(strtotime($string), $dateParts[4]);
       }
       $string = $dateParts[0] . " " . $dateParts[1] . " " . $dateParts[2] . " " . $dateParts[3] . " " . $dateParts[4];
-      return getGMTSeconds(strtotime($string), $dateParts[5]);
+	  if (isset($dateParts[5]))
+      	return getGMTSeconds(strtotime($string), $dateParts[5]);
+	  else 
+	  	return getGMTSeconds(strtotime($string), "");
    }
 
    // I use this function for profiling. Should never be called in
