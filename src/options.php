@@ -42,6 +42,8 @@
       if (isset($full_name)) setPref($data_dir, $username, 'full_name', $full_name);
       if (isset($email_address)) setPref($data_dir, $username, 'email_address', $email_address);
       if (isset($reply_to)) setPref($data_dir, $username, 'reply_to', $reply_to);
+      if (! isset($usesignature))
+         $usesignature = 0;
       setPref($data_dir, $username, 'use_signature', $usesignature);  
       if (! isset($prefixsig))
          $prefixsig = 0;
