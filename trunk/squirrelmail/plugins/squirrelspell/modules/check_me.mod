@@ -101,11 +101,26 @@ fclose($fp);
 /**
  * Execute ispell/aspell and catch the output.
  */
-exec("cat $floc | $sqspell_command", $sqspell_output);
+exec("cat $floc | $sqspell_command 2>&1", $sqspell_output, $sqspell_exitcode);
 /**
  * Remove the temp file.
  */
 unlink($floc);
+
+/**
+ * Check if the execution was successful. Bail out if it wasn't.
+ */
+if ($sqspell_exitcode){
+  $msg= "<div align='center'>"
+     . sprintf(_("I tried to execute '%s', but it returned:"),
+               $sqspell_command) . "<pre>"
+     . nl2br(join("\n", $sqspell_output)) . "</pre>"
+     . "<form onsubmit=\"return false\">"
+     . "<input type=\"submit\" value=\"  " . _("Close")
+     . "  \" onclick=\"self.close()\"></form></div>";
+  sqspell_makeWindow(null, _("SquirrelSpell is misconfigured."), null, $msg);
+  exit;
+}
 
 /**
  * Load the user dictionary.
