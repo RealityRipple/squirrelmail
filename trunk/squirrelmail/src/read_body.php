@@ -584,7 +584,7 @@ $FirstTimeSee = !$message->is_seen;
 $message->is_seen = true;
 $messages[$uidvalidity][$passed_id] = $message;
 
-if (isset($passed_ent_id)) {
+if (isset($passed_ent_id) && $passed_ent_id) {
    $message = $message->getEntity($passed_ent_id);
    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
    $rfc822_header = new rfc822_header();
