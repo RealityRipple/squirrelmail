@@ -1,17 +1,17 @@
 <?php
 
 /**
- * mime.php
- *
- * Copyright (c) 1999-2005 The SquirrelMail Project Team
- * Licensed under the GNU GPL. For full terms see the file COPYING.
- *
- * This contains the functions necessary to detect and decode MIME
- * messages.
- *
- * @version $Id$
- * @package squirrelmail
- */
+* mime.php
+*
+* Copyright (c) 1999-2005 The SquirrelMail Project Team
+* Licensed under the GNU GPL. For full terms see the file COPYING.
+*
+* This contains the functions necessary to detect and decode MIME
+* messages.
+*
+* @version $Id$
+* @package squirrelmail
+*/
 
 /** The typical includes... */
 require_once(SM_PATH . 'functions/imap.php');
@@ -22,12 +22,12 @@ require_once(SM_PATH . 'functions/attachment_common.php');
 /* -------------------------------------------------------------------------- */
 
 /**
- * Get the MIME structure
- *
- * This function gets the structure of a message and stores it in the "message" class.
- * It will return this object for use with all relevant header information and
- * fully parsed into the standard "message" object format.
- */
+* Get the MIME structure
+*
+* This function gets the structure of a message and stores it in the "message" class.
+* It will return this object for use with all relevant header information and
+* fully parsed into the standard "message" object format.
+*/
 function mime_structure ($bodystructure, $flags=array()) {
 
     /* Isolate the body structure and remove beginning and end parenthesis. */
@@ -88,18 +88,18 @@ function mime_structure ($bodystructure, $flags=array()) {
 
 
 /* This starts the parsing of a particular structure.  It is called recursively,
- * so it can be passed different structures.  It returns an object of type
- * $message.
- * First, it checks to see if it is a multipart message.  If it is, then it
- * handles that as it sees is necessary.  If it is just a regular entity,
- * then it parses it and adds the necessary header information (by calling out
- * to mime_get_elements()
- */
+* so it can be passed different structures.  It returns an object of type
+* $message.
+* First, it checks to see if it is a multipart message.  If it is, then it
+* handles that as it sees is necessary.  If it is just a regular entity,
+* then it parses it and adds the necessary header information (by calling out
+* to mime_get_elements()
+*/
 
 function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     /* Do a bit of error correction.  If we couldn't find the entity id, just guess
-     * that it is the first one.  That is usually the case anyway.
-     */
+    * that it is the first one.  That is usually the case anyway.
+    */
 
     if (!$ent_id) {
         $cmd = "FETCH $id BODY[]";
@@ -118,8 +118,8 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
     if (ereg('\\{([^\\}]*)\\}', $topline, $regs)) {
         $ret = substr($wholemessage, 0, $regs[1]);
         /* There is some information in the content info header that could be important
-         * in order to parse html messages. Let's get them here.
-         */
+        * in order to parse html messages. Let's get them here.
+        */
 //        if ($ret{0} == '<') {
 //            $data = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent_id.MIME]", true, $response, $message, TRUE);
 //        }
@@ -138,15 +138,15 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
                 '&amp;topline='  . urlencode($topline);
 
         echo   '<tt><br />' .
-               '<table width="80%"><tr>' .
-               '<tr><td colspan="2">' .
-               _("Body retrieval error. The reason for this is most probably that the message is malformed.") .
-               '</td></tr>' .
-               '<tr><td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
-               '<tr><td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
-               '<tr><td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
-               '<tr><td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
-               "</table><br /></tt></font><hr />";
+            '<table width="80%"><tr>' .
+            '<tr><td colspan="2">' .
+            _("Body retrieval error. The reason for this is most probably that the message is malformed.") .
+            '</td></tr>' .
+            '<tr><td><b>' . _("Command:") . "</td><td>$cmd</td></tr>" .
+            '<tr><td><b>' . _("Response:") . "</td><td>$response</td></tr>" .
+            '<tr><td><b>' . _("Message:") . "</td><td>$message</td></tr>" .
+            '<tr><td><b>' . _("FETCH line:") . "</td><td>$topline</td></tr>" .
+            "</table><br /></tt></font><hr />";
 
         $data = sqimap_run_command ($imap_stream, "FETCH $passed_id BODY[]", true, $response, $message, TRUE);
         array_shift($data);
@@ -160,40 +160,40 @@ function mime_fetch_body($imap_stream, $id, $ent_id=1, $fetch_size=0) {
 function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
 
     /* Don't kill the connection if the browser is over a dialup
-     * and it would take over 30 seconds to download it.
-     * Don't call set_time_limit in safe mode.
-     */
+    * and it would take over 30 seconds to download it.
+    * Don't call set_time_limit in safe mode.
+    */
 
     if (!ini_get('safe_mode')) {
         set_time_limit(0);
     }
     /* in case of base64 encoded attachments, do not buffer them.
-       Instead, echo the decoded attachment directly to screen */
+    Instead, echo the decoded attachment directly to screen */
     if (strtolower($encoding) == 'base64') {
         if (!$ent_id) {
-           $query = "FETCH $id BODY[]";
+        $query = "FETCH $id BODY[]";
         } else {
-           $query = "FETCH $id BODY[$ent_id]";
+        $query = "FETCH $id BODY[$ent_id]";
         }
         sqimap_run_command($imap_stream,$query,true,$response,$message,TRUE,'sqimap_base64_decode','php://stdout',true);
     } else {
-       $body = mime_fetch_body ($imap_stream, $id, $ent_id);
-       echo decodeBody($body, $encoding);
+    $body = mime_fetch_body ($imap_stream, $id, $ent_id);
+    echo decodeBody($body, $encoding);
     }
 
     /*
-       TODO, use the same method for quoted printable.
-       However, I assume that quoted printable attachments aren't that large
-       so the performancegain / memory usage drop will be minimal.
-       If we decide to add that then we need to adapt sqimap_fread because
-       we need to split te result on \n and fread doesn't stop at \n. That
-       means we also should provide $results from sqimap_fread (by ref) to
-       te function and set $no_return to false. The $filter function for
-       quoted printable should handle unsetting of $results.
+    TODO, use the same method for quoted printable.
+    However, I assume that quoted printable attachments aren't that large
+    so the performancegain / memory usage drop will be minimal.
+    If we decide to add that then we need to adapt sqimap_fread because
+    we need to split te result on \n and fread doesn't stop at \n. That
+    means we also should provide $results from sqimap_fread (by ref) to
+    te function and set $no_return to false. The $filter function for
+    quoted printable should handle unsetting of $results.
     */
     /*
-       TODO 2: find out how we write to the output stream php://stdout. fwrite
-       doesn't work because 'php://stdout isn't a stream.
+    TODO 2: find out how we write to the output stream php://stdout. fwrite
+    doesn't work because 'php://stdout isn't a stream.
     */
 
     return;
@@ -214,7 +214,7 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
                 return;
             } else {
                 echo decodeBody($read1, $encoding) .
-                     decodeBody($read, $encoding);
+                    decodeBody($read, $encoding);
             }
         } else if ($cnt) {
             echo decodeBody($read, $encoding);
@@ -229,8 +229,8 @@ function mime_print_body_lines ($imap_stream, $id, $ent_id=1, $encoding) {
 /* -[ END MIME DECODING ]----------------------------------------------------------- */
 
 /* This is here for debugging purposes.  It will print out a list
- * of all the entity IDs that are in the $message object.
- */
+* of all the entity IDs that are in the $message object.
+*/
 function listEntities ($message) {
     if ($message) {
         echo "<tt>" . $message->entity_id . ' : ' . $message->type0 . '/' . $message->type1 . ' parent = '. $message->parent->entity_id. '<br />';
@@ -279,8 +279,8 @@ function getEntity ($message, $ent_id) {
 }
 
 /* translateText
- * Extracted from strings.php 23/03/2002
- */
+* Extracted from strings.php 23/03/2002
+*/
 
 function translateText(&$body, $wrap_at, $charset) {
     global $where, $what;   /* from searching */
@@ -332,19 +332,19 @@ function translateText(&$body, $wrap_at, $charset) {
 }
 
 /**
- * This returns a parsed string called $body. That string can then
- * be displayed as the actual message in the HTML. It contains
- * everything needed, including HTML Tags, Attachments at the
- * bottom, etc.
- * @param clean Do not output stuff that's irrelevant for the printable version.
- */
+* This returns a parsed string called $body. That string can then
+* be displayed as the actual message in the HTML. It contains
+* everything needed, including HTML Tags, Attachments at the
+* bottom, etc.
+* @param clean Do not output stuff that's irrelevant for the printable version.
+*/
 function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $mailbox='INBOX', $clean=FALSE) {
     /* This if statement checks for the entity to show as the
-     * primary message. To add more of them, just put them in the
-     * order that is their priority.
-     */
+    * primary message. To add more of them, just put them in the
+    * order that is their priority.
+    */
     global $startMessage, $languages, $squirrelmail_language,
-           $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
+        $show_html_default, $sort, $has_unsafe_images, $passed_ent_id;
 
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
         $view_unsafe_images = false;
@@ -368,31 +368,31 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
         $body = $hookResults[1];
 
         /* If there are other types that shouldn't be formatted, add
-         * them here.
-         */
+        * them here.
+        */
 
         if ($body_message->header->type1 == 'html') {
             if ($show_html_default <> 1) {
                 $entity_conv = array('&nbsp;' => ' ',
-                                     '<p>'    => "\n",
-                                     '<P>'    => "\n",
-                                     '<br>'   => "\n",
-                                     '<BR>'   => "\n",
-                                     '<br />' => "\n",
-                                     '<BR />' => "\n",
-                                     '&gt;'   => '>',
-                                     '&lt;'   => '<');
+                                    '<p>'    => "\n",
+                                    '<P>'    => "\n",
+                                    '<br>'   => "\n",
+                                    '<BR>'   => "\n",
+                                    '<br />' => "\n",
+                                    '<BR />' => "\n",
+                                    '&gt;'   => '>',
+                                    '&lt;'   => '<');
                 $body = strtr($body, $entity_conv);
                 $body = strip_tags($body);
                 $body = trim($body);
                 translateText($body, $wrap_at,
-                              $body_message->header->getParameter('charset'));
+                            $body_message->header->getParameter('charset'));
             } else {
                 $body = magicHTML($body, $id, $message, $mailbox);
             }
         } else {
             translateText($body, $wrap_at,
-                          $body_message->header->getParameter('charset'));
+                        $body_message->header->getParameter('charset'));
         }
 
         // if this is the clean display (i.e. printer friendly), stop here.
@@ -407,7 +407,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
             $link .= '&amp;passed_ent_id='.$passed_ent_id;
         }
         $body .= '<center><small><a href="download.php?absolute_dl=true&amp;' .
-                 $link . '">' . _("Download this as a file") .  '</a>';
+                $link . '">' . _("Download this as a file") .  '</a>';
         if ($view_unsafe_images) {
             $text = _("Hide Unsafe Images");
         } else {
@@ -463,35 +463,7 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $description = $from_name;
         } else {
             $default_page = SM_PATH . 'src/download.php';
-            if (is_object($header->disposition)) {
-                $filename = $header->disposition->getProperty('filename');
-                if (trim($filename) == '') {
-                    $name = decodeHeader($header->disposition->getProperty('name'));
-                    if (trim($name) == '') {
-                        $name = $header->getParameter('name');
-                        if(trim($name) == '') {
-                            if (trim( $header->id ) == '') {
-                                $filename = 'untitled-[' . $ent . ']' ;
-                            } else {
-                                $filename = 'cid: ' . $header->id;
-                            }
-                        } else {
-                            $filename = $name;
-                        }
-                    } else {
-                        $filename = $name;
-                    }
-                }
-            } else {
-                $filename = $header->getParameter('name');
-                if (!trim($filename)) {
-                    if (trim( $header->id ) == '') {
-                        $filename = 'untitled-[' . $ent . ']' ;
-                    } else {
-                        $filename = 'cid: ' . $header->id;
-                    }
-                }
-            }
+            $filename = $att->getFilename();
             if ($header->description) {
                 $description = decodeHeader($header->description);
             } else {
@@ -506,23 +478,23 @@ function formatAttachments($message, $exclude_id, $mailbox, $id) {
             $passed_ent_id_link = '';
         }
         $defaultlink = $default_page . "?startMessage=$startMessage"
-                     . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
-                     . '&amp;ent_id='.$ent.$passed_ent_id_link;
+                    . "&amp;passed_id=$id&amp;mailbox=$urlMailbox"
+                    . '&amp;ent_id='.$ent.$passed_ent_id_link;
         if ($where && $what) {
-           $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
+        $defaultlink .= '&amp;where='. urlencode($where).'&amp;what='.urlencode($what);
         }
 
         /* This executes the attachment hook with a specific MIME-type.
-         * If that doesn't have results, it tries if there's a rule
-         * for a more generic type.
-         */
+        * If that doesn't have results, it tries if there's a rule
+        * for a more generic type.
+        */
         $hookresults = do_hook("attachment $type0/$type1", $links,
-                               $startMessage, $id, $urlMailbox, $ent, $defaultlink,
-                               $display_filename, $where, $what);
+                            $startMessage, $id, $urlMailbox, $ent, $defaultlink,
+                            $display_filename, $where, $what);
         if(count($hookresults[1]) <= 1) {
             $hookresults = do_hook("attachment $type0/*", $links,
-                                   $startMessage, $id, $urlMailbox, $ent, $defaultlink,
-                                   $display_filename, $where, $what);
+                                $startMessage, $id, $urlMailbox, $ent, $defaultlink,
+                                $display_filename, $where, $what);
         }
 
         $links = $hookresults[1];
@@ -612,18 +584,18 @@ function decodeBody($body, $encoding) {
 }
 
 /**
- * Decodes headers
- *
- * This functions decode strings that is encoded according to
- * RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
- * Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
- *
- * @param string $string header string that has to be made readable
- * @param boolean $utfencode change message in order to be readable on user's charset. defaults to true
- * @param boolean $htmlsave preserve spaces and sanitize html special characters. defaults to true
- * @param boolean $decide decide if string can be utfencoded. defaults to false
- * @return string decoded header string
- */
+* Decodes headers
+*
+* This functions decode strings that is encoded according to
+* RFC1522 (MIME Part Two: Message Header Extensions for Non-ASCII Text).
+* Patched by Christian Schmidt <christian@ostenfeld.dk>  23/03/2002
+*
+* @param string $string header string that has to be made readable
+* @param boolean $utfencode change message in order to be readable on user's charset. defaults to true
+* @param boolean $htmlsave preserve spaces and sanitize html special characters. defaults to true
+* @param boolean $decide decide if string can be utfencoded. defaults to false
+* @return string decoded header string
+*/
 function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
     global $languages, $squirrelmail_language,$default_charset;
     if (is_array($string)) {
@@ -673,10 +645,10 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
 
             /* decide about valid decoding */
             if ($decide && is_conversion_safe($res[2])) {
-              $utfencode=true;
-              $can_be_encoded=true;
+            $utfencode=true;
+            $can_be_encoded=true;
             } else {
-              $can_be_encoded=false;
+            $can_be_encoded=false;
             }
             switch ($encoding)
             {
@@ -685,8 +657,8 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                 if ($utfencode) {
                     if ($can_be_encoded) {
                         /* convert string to different charset,
-                         * if functions asks for it (usually in compose)
-                         */
+                        * if functions asks for it (usually in compose)
+                        */
                         $ret .= charset_convert($res[2],$replace,$default_charset);
                     } else {
                         // convert string to html codes in order to display it
@@ -704,15 +676,15 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
                 $replace = preg_replace('/=([0-9a-f]{2})/ie', 'chr(hexdec("\1"))',
                                     $replace);
                 if ($utfencode) {
-                  if ($can_be_encoded) {
+                if ($can_be_encoded) {
                     /* convert string to different charset,
-                     * if functions asks for it (usually in compose)
-                     */
+                    * if functions asks for it (usually in compose)
+                    */
                     $replace = charset_convert($res[2], $replace,$default_charset);
-                  } else {
+                } else {
                     // convert string to html codes in order to display it
                     $replace = charset_decode($res[2], $replace);
-                  }
+                }
                 } else {
                     if ($htmlsave) {
                         $replace = htmlspecialchars($replace);
@@ -754,15 +726,15 @@ function decodeHeader ($string, $utfencode=true,$htmlsave=true,$decide=false) {
 }
 
 /**
- * Encodes header as quoted-printable
- *
- * Encode a string according to RFC 1522 for use in headers if it
- * contains 8-bit characters or anything that looks like it should
- * be encoded.
- *
- * @param string $string header string, that has to be encoded
- * @return string quoted-printable encoded string
- */
+* Encodes header as quoted-printable
+*
+* Encode a string according to RFC 1522 for use in headers if it
+* contains 8-bit characters or anything that looks like it should
+* be encoded.
+*
+* @param string $string header string, that has to be encoded
+* @return string quoted-printable encoded string
+*/
 function encodeHeader ($string) {
     global $default_charset, $languages, $squirrelmail_language;
 
@@ -909,22 +881,22 @@ function sq_check_save_extension($message) {
 
 
 /**
- ** HTMLFILTER ROUTINES
- */
+** HTMLFILTER ROUTINES
+*/
 
 /**
- * This function is more or less a wrapper around stripslashes. Apparently
- * Explorer is stupid enough to just remove the backslashes and then
- * execute the content of the attribute as if nothing happened.
- * Who does that?
- *
- * @param  attvalue   The value of the attribute
- * @return attvalue   The value of the attribute stripslashed.
- */
+* This function is more or less a wrapper around stripslashes. Apparently
+* Explorer is stupid enough to just remove the backslashes and then
+* execute the content of the attribute as if nothing happened.
+* Who does that?
+*
+* @param  attvalue   The value of the attribute
+* @return attvalue   The value of the attribute stripslashed.
+*/
 function sq_unbackslash($attvalue){
     /**
-     * Remove any backslashes. See if there are any first.
-     */
+    * Remove any backslashes. See if there are any first.
+    */
 
     if (strstr($attvalue, '\\') !== false){
         $attvalue = stripslashes($attvalue);
@@ -933,13 +905,13 @@ function sq_unbackslash($attvalue){
 }
 
 /**
- * Kill any tabs, newlines, or carriage returns. Our friends the
- * makers of the browser with 95% market value decided that it'd
- * be funny to make "java[tab]script" be just as good as "javascript".
- *
- * @param  attvalue  The attribute value before extraneous spaces removed.
- * @return attvalue  The attribute value after extraneous spaces removed.
- */
+* Kill any tabs, newlines, or carriage returns. Our friends the
+* makers of the browser with 95% market value decided that it'd
+* be funny to make "java[tab]script" be just as good as "javascript".
+*
+* @param  attvalue  The attribute value before extraneous spaces removed.
+* @return attvalue  The attribute value after extraneous spaces removed.
+*/
 function sq_unspace($attvalue){
     if (strcspn($attvalue, "\t\r\n") != strlen($attvalue)){
         $attvalue = str_replace(Array("\t", "\r", "\n"), Array('', '', ''),
@@ -949,15 +921,15 @@ function sq_unspace($attvalue){
 }
 
 /**
- * This function returns the final tag out of the tag name, an array
- * of attributes, and the type of the tag. This function is called by
- * sq_sanitize internally.
- *
- * @param  $tagname  the name of the tag.
- * @param  $attary   the array of attributes and their values
- * @param  $tagtype  The type of the tag (see in comments).
- * @return           a string with the final tag representation.
- */
+* This function returns the final tag out of the tag name, an array
+* of attributes, and the type of the tag. This function is called by
+* sq_sanitize internally.
+*
+* @param  $tagname  the name of the tag.
+* @param  $attary   the array of attributes and their values
+* @param  $tagtype  The type of the tag (see in comments).
+* @return           a string with the final tag representation.
+*/
 function sq_tagprint($tagname, $attary, $tagtype){
     $me = 'sq_tagprint';
 
@@ -981,26 +953,26 @@ function sq_tagprint($tagname, $attary, $tagtype){
 }
 
 /**
- * A small helper function to use with array_walk. Modifies a by-ref
- * value and makes it lowercase.
- *
- * @param  $val a value passed by-ref.
- * @return      void since it modifies a by-ref value.
- */
+* A small helper function to use with array_walk. Modifies a by-ref
+* value and makes it lowercase.
+*
+* @param  $val a value passed by-ref.
+* @return      void since it modifies a by-ref value.
+*/
 function sq_casenormalize(&$val){
     $val = strtolower($val);
 }
 
 /**
- * This function skips any whitespace from the current position within
- * a string and to the next non-whitespace value.
- *
- * @param  $body   the string
- * @param  $offset the offset within the string where we should start
- *                 looking for the next non-whitespace character.
- * @return         the location within the $body where the next
- *                 non-whitespace char is located.
- */
+* This function skips any whitespace from the current position within
+* a string and to the next non-whitespace value.
+*
+* @param  $body   the string
+* @param  $offset the offset within the string where we should start
+*                 looking for the next non-whitespace character.
+* @return         the location within the $body where the next
+*                 non-whitespace char is located.
+*/
 function sq_skipspace($body, $offset){
     $me = 'sq_skipspace';
     preg_match('/^(\s*)/s', substr($body, $offset), $matches);
@@ -1012,16 +984,16 @@ function sq_skipspace($body, $offset){
 }
 
 /**
- * This function looks for the next character within a string.  It's
- * really just a glorified "strpos", except it catches if failures
- * nicely.
- *
- * @param  $body   The string to look for needle in.
- * @param  $offset Start looking from this position.
- * @param  $needle The character/string to look for.
- * @return         location of the next occurance of the needle, or
- *                 strlen($body) if needle wasn't found.
- */
+* This function looks for the next character within a string.  It's
+* really just a glorified "strpos", except it catches if failures
+* nicely.
+*
+* @param  $body   The string to look for needle in.
+* @param  $offset Start looking from this position.
+* @param  $needle The character/string to look for.
+* @return         location of the next occurance of the needle, or
+*                 strlen($body) if needle wasn't found.
+*/
 function sq_findnxstr($body, $offset, $needle){
     $me  = 'sq_findnxstr';
     $pos = strpos($body, $needle, $offset);
@@ -1032,18 +1004,18 @@ function sq_findnxstr($body, $offset, $needle){
 }
 
 /**
- * This function takes a PCRE-style regexp and tries to match it
- * within the string.
- *
- * @param  $body   The string to look for needle in.
- * @param  $offset Start looking from here.
- * @param  $reg    A PCRE-style regex to match.
- * @return         Returns a false if no matches found, or an array
- *                 with the following members:
- *                 - integer with the location of the match within $body
- *                 - string with whatever content between offset and the match
- *                 - string with whatever it is we matched
- */
+* This function takes a PCRE-style regexp and tries to match it
+* within the string.
+*
+* @param  $body   The string to look for needle in.
+* @param  $offset Start looking from here.
+* @param  $reg    A PCRE-style regex to match.
+* @return         Returns a false if no matches found, or an array
+*                 with the following members:
+*                 - integer with the location of the match within $body
+*                 - string with whatever content between offset and the match
+*                 - string with whatever it is we matched
+*/
 function sq_findnxreg($body, $offset, $reg){
     $me = 'sq_findnxreg';
     $matches = Array();
@@ -1060,19 +1032,19 @@ function sq_findnxreg($body, $offset, $reg){
 }
 
 /**
- * This function looks for the next tag.
- *
- * @param  $body   String where to look for the next tag.
- * @param  $offset Start looking from here.
- * @return         false if no more tags exist in the body, or
- *                 an array with the following members:
- *                 - string with the name of the tag
- *                 - array with attributes and their values
- *                 - integer with tag type (1, 2, or 3)
- *                 - integer where the tag starts (starting "<")
- *                 - integer where the tag ends (ending ">")
- *                 first three members will be false, if the tag is invalid.
- */
+* This function looks for the next tag.
+*
+* @param  $body   String where to look for the next tag.
+* @param  $offset Start looking from here.
+* @return         false if no more tags exist in the body, or
+*                 an array with the following members:
+*                 - string with the name of the tag
+*                 - array with attributes and their values
+*                 - integer with tag type (1, 2, or 3)
+*                 - integer where the tag starts (starting "<")
+*                 - integer where the tag ends (ending ">")
+*                 first three members will be false, if the tag is invalid.
+*/
 function sq_getnxtag($body, $offset){
     $me = 'sq_getnxtag';
     if ($offset > strlen($body)){
@@ -1083,23 +1055,23 @@ function sq_getnxtag($body, $offset){
         return false;
     }
     /**
-     * We are here:
-     * blah blah <tag attribute="value">
-     * \---------^
-     */
+    * We are here:
+    * blah blah <tag attribute="value">
+    * \---------^
+    */
     $pos = sq_skipspace($body, $lt+1);
     if ($pos >= strlen($body)){
         return Array(false, false, false, $lt, strlen($body));
     }
     /**
-     * There are 3 kinds of tags:
-     * 1. Opening tag, e.g.:
-     *    <a href="blah">
-     * 2. Closing tag, e.g.:
-     *    </a>
-     * 3. XHTML-style content-less tag, e.g.:
-     *    <img src="blah" />
-     */
+    * There are 3 kinds of tags:
+    * 1. Opening tag, e.g.:
+    *    <a href="blah">
+    * 2. Closing tag, e.g.:
+    *    </a>
+    * 3. XHTML-style content-less tag, e.g.:
+    *    <img src="blah" />
+    */
     $tagtype = false;
     switch (substr($body, $pos, 1)){
         case '/':
@@ -1108,8 +1080,8 @@ function sq_getnxtag($body, $offset){
             break;
         case '!':
             /**
-             * A comment or an SGML declaration.
-             */
+            * A comment or an SGML declaration.
+            */
             if (substr($body, $pos+1, 2) == "--"){
                 $gt = strpos($body, "-->", $pos);
                 if ($gt === false){
@@ -1125,17 +1097,17 @@ function sq_getnxtag($body, $offset){
             break;
         default:
             /**
-             * Assume tagtype 1 for now. If it's type 3, we'll switch values
-             * later.
-             */
+            * Assume tagtype 1 for now. If it's type 3, we'll switch values
+            * later.
+            */
             $tagtype = 1;
             break;
     }
 
     $tagname = '';
     /**
-     * Look for next [\W-_], which will indicate the end of the tag name.
-     */
+    * Look for next [\W-_], which will indicate the end of the tag name.
+    */
     $regary = sq_findnxreg($body, $pos, "[^\w\-_]");
     if ($regary == false){
         return Array(false, false, false, $lt, strlen($body));
@@ -1144,20 +1116,20 @@ function sq_getnxtag($body, $offset){
     $tagname = strtolower($tagname);
 
     /**
-     * $match can be either of these:
-     * '>'  indicating the end of the tag entirely.
-     * '\s' indicating the end of the tag name.
-     * '/'  indicating that this is type-3 xhtml tag.
-     *
-     * Whatever else we find there indicates an invalid tag.
-     */
+    * $match can be either of these:
+    * '>'  indicating the end of the tag entirely.
+    * '\s' indicating the end of the tag name.
+    * '/'  indicating that this is type-3 xhtml tag.
+    *
+    * Whatever else we find there indicates an invalid tag.
+    */
     switch ($match){
         case '/':
             /**
-             * This is an xhtml-style tag with a closing / at the
-             * end, like so: <img src="blah" />. Check if it's followed
-             * by the closing bracket. If not, then this tag is invalid
-             */
+            * This is an xhtml-style tag with a closing / at the
+            * end, like so: <img src="blah" />. Check if it's followed
+            * by the closing bracket. If not, then this tag is invalid
+            */
             if (substr($body, $pos, 2) == "/>"){
                 $pos++;
                 $tagtype = 3;
@@ -1171,12 +1143,12 @@ function sq_getnxtag($body, $offset){
             break;
         default:
             /**
-             * Check if it's whitespace
-             */
+            * Check if it's whitespace
+            */
             if (!preg_match('/\s/', $match)){
                 /**
-                 * This is an invalid tag! Look for the next closing ">".
-                 */
+                * This is an invalid tag! Look for the next closing ">".
+                */
                 $gt = sq_findnxstr($body, $lt, ">");
                 return Array(false, false, false, $lt, $gt);
             }
@@ -1184,12 +1156,12 @@ function sq_getnxtag($body, $offset){
     }
 
     /**
-     * At this point we're here:
-     * <tagname  attribute='blah'>
-     * \-------^
-     *
-     * At this point we loop in order to find all attributes.
-     */
+    * At this point we're here:
+    * <tagname  attribute='blah'>
+    * \-------^
+    *
+    * At this point we loop in order to find all attributes.
+    */
     $attname = '';
     $attary = Array();
 
@@ -1197,19 +1169,19 @@ function sq_getnxtag($body, $offset){
         $pos = sq_skipspace($body, $pos);
         if ($pos == strlen($body)){
             /**
-             * Non-closed tag.
-             */
+            * Non-closed tag.
+            */
             return Array(false, false, false, $lt, $pos);
         }
         /**
-         * See if we arrived at a ">" or "/>", which means that we reached
-         * the end of the tag.
-         */
+        * See if we arrived at a ">" or "/>", which means that we reached
+        * the end of the tag.
+        */
         $matches = Array();
         if (preg_match("%^(\s*)(>|/>)%s", substr($body, $pos), $matches)) {
             /**
-             * Yep. So we did.
-             */
+            * Yep. So we did.
+            */
             $pos += strlen($matches{1});
             if ($matches{2} == "/>"){
                 $tagtype = 3;
@@ -1219,46 +1191,46 @@ function sq_getnxtag($body, $offset){
         }
 
         /**
-         * There are several types of attributes, with optional
-         * [:space:] between members.
-         * Type 1:
-         *   attrname[:space:]=[:space:]'CDATA'
-         * Type 2:
-         *   attrname[:space:]=[:space:]"CDATA"
-         * Type 3:
-         *   attr[:space:]=[:space:]CDATA
-         * Type 4:
-         *   attrname
-         *
-         * We leave types 1 and 2 the same, type 3 we check for
-         * '"' and convert to "&quot" if needed, then wrap in
-         * double quotes. Type 4 we convert into:
-         * attrname="yes".
-         */
+        * There are several types of attributes, with optional
+        * [:space:] between members.
+        * Type 1:
+        *   attrname[:space:]=[:space:]'CDATA'
+        * Type 2:
+        *   attrname[:space:]=[:space:]"CDATA"
+        * Type 3:
+        *   attr[:space:]=[:space:]CDATA
+        * Type 4:
+        *   attrname
+        *
+        * We leave types 1 and 2 the same, type 3 we check for
+        * '"' and convert to "&quot" if needed, then wrap in
+        * double quotes. Type 4 we convert into:
+        * attrname="yes".
+        */
         $regary = sq_findnxreg($body, $pos, "[^:\w\-_]");
         if ($regary == false){
             /**
-             * Looks like body ended before the end of tag.
-             */
+            * Looks like body ended before the end of tag.
+            */
             return Array(false, false, false, $lt, strlen($body));
         }
         list($pos, $attname, $match) = $regary;
         $attname = strtolower($attname);
         /**
-         * We arrived at the end of attribute name. Several things possible
-         * here:
-         * '>'  means the end of the tag and this is attribute type 4
-         * '/'  if followed by '>' means the same thing as above
-         * '\s' means a lot of things -- look what it's followed by.
-         *      anything else means the attribute is invalid.
-         */
+        * We arrived at the end of attribute name. Several things possible
+        * here:
+        * '>'  means the end of the tag and this is attribute type 4
+        * '/'  if followed by '>' means the same thing as above
+        * '\s' means a lot of things -- look what it's followed by.
+        *      anything else means the attribute is invalid.
+        */
         switch($match){
             case '/':
                 /**
-                 * This is an xhtml-style tag with a closing / at the
-                 * end, like so: <img src="blah" />. Check if it's followed
-                 * by the closing bracket. If not, then this tag is invalid
-                 */
+                * This is an xhtml-style tag with a closing / at the
+                * end, like so: <img src="blah" />. Check if it's followed
+                * by the closing bracket. If not, then this tag is invalid
+                */
                 if (substr($body, $pos, 2) == "/>"){
                     $pos++;
                     $tagtype = 3;
@@ -1273,27 +1245,27 @@ function sq_getnxtag($body, $offset){
                 break;
             default:
                 /**
-                 * Skip whitespace and see what we arrive at.
-                 */
+                * Skip whitespace and see what we arrive at.
+                */
                 $pos = sq_skipspace($body, $pos);
                 $char = substr($body, $pos, 1);
                 /**
-                 * Two things are valid here:
-                 * '=' means this is attribute type 1 2 or 3.
-                 * \w means this was attribute type 4.
-                 * anything else we ignore and re-loop. End of tag and
-                 * invalid stuff will be caught by our checks at the beginning
-                 * of the loop.
-                 */
+                * Two things are valid here:
+                * '=' means this is attribute type 1 2 or 3.
+                * \w means this was attribute type 4.
+                * anything else we ignore and re-loop. End of tag and
+                * invalid stuff will be caught by our checks at the beginning
+                * of the loop.
+                */
                 if ($char == "="){
                     $pos++;
                     $pos = sq_skipspace($body, $pos);
                     /**
-                     * Here are 3 possibilities:
-                     * "'"  attribute type 1
-                     * '"'  attribute type 2
-                     * everything else is the content of tag type 3
-                     */
+                    * Here are 3 possibilities:
+                    * "'"  attribute type 1
+                    * '"'  attribute type 2
+                    * everything else is the content of tag type 3
+                    */
                     $quot = substr($body, $pos, 1);
                     if ($quot == "'"){
                         $regary = sq_findnxreg($body, $pos+1, "\'");
@@ -1313,28 +1285,28 @@ function sq_getnxtag($body, $offset){
                         $attary{$attname} = '"' . $attval . '"';
                     } else {
                         /**
-                         * These are hateful. Look for \s, or >.
-                         */
+                        * These are hateful. Look for \s, or >.
+                        */
                         $regary = sq_findnxreg($body, $pos, "[\s>]");
                         if ($regary == false){
                             return Array(false, false, false, $lt, strlen($body));
                         }
                         list($pos, $attval, $match) = $regary;
                         /**
-                         * If it's ">" it will be caught at the top.
-                         */
+                        * If it's ">" it will be caught at the top.
+                        */
                         $attval = preg_replace("/\"/s", "&quot;", $attval);
                         $attary{$attname} = '"' . $attval . '"';
                     }
                 } else if (preg_match("|[\w/>]|", $char)) {
                     /**
-                     * That was attribute type 4.
-                     */
+                    * That was attribute type 4.
+                    */
                     $attary{$attname} = '"yes"';
                 } else {
                     /**
-                     * An illegal character. Find next '>' and return.
-                     */
+                    * An illegal character. Find next '>' and return.
+                    */
                     $gt = sq_findnxstr($body, $pos, ">");
                     return Array(false, false, false, $lt, $gt);
                 }
@@ -1342,45 +1314,45 @@ function sq_getnxtag($body, $offset){
         }
     }
     /**
-     * The fact that we got here indicates that the tag end was never
-     * found. Return invalid tag indication so it gets stripped.
-     */
+    * The fact that we got here indicates that the tag end was never
+    * found. Return invalid tag indication so it gets stripped.
+    */
     return Array(false, false, false, $lt, strlen($body));
 }
 
 /**
- * This function checks attribute values for entity-encoded values
- * and returns them translated into 8-bit strings so we can run
- * checks on them.
- *
- * @param  $attvalue A string to run entity check against.
- * @return           Translated value.
- */
+* This function checks attribute values for entity-encoded values
+* and returns them translated into 8-bit strings so we can run
+* checks on them.
+*
+* @param  $attvalue A string to run entity check against.
+* @return           Translated value.
+*/
 
 function sq_deent($attvalue){
     $me = 'sq_deent';
     /**
-     * See if we have to run the checks first. All entities must start
-     * with "&".
-     */
+    * See if we have to run the checks first. All entities must start
+    * with "&".
+    */
     if (strpos($attvalue, '&') === false){
         return $attvalue;
     }
     /**
-     * Check named entities first.
-     */
+    * Check named entities first.
+    */
     $trans = get_html_translation_table(HTML_ENTITIES);
     /**
-     * Leave &quot; in, as it can mess us up.
-     */
+    * Leave &quot; in, as it can mess us up.
+    */
     $trans = array_flip($trans);
     unset($trans{'&quot;'});
     while (list($ent, $val) = each($trans)){
         $attvalue = preg_replace('/' . $ent . '*/si', $val, $attvalue);
     }
     /**
-     * Now translate numbered entities from 1 to 255 if needed.
-     */
+    * Now translate numbered entities from 1 to 255 if needed.
+    */
     if (strpos($attvalue, '#') !== false){
         $omit = Array(34, 39);
         for ($asc = 256; $asc >= 0; $asc--){
@@ -1397,17 +1369,17 @@ function sq_deent($attvalue){
 }
 
 /**
- * This function runs various checks against the attributes.
- *
- * @param  $tagname         String with the name of the tag.
- * @param  $attary          Array with all tag attributes.
- * @param  $rm_attnames     See description for sq_sanitize
- * @param  $bad_attvals     See description for sq_sanitize
- * @param  $add_attr_to_tag See description for sq_sanitize
- * @param  $message         message object
- * @param  $id              message id
- * @return                  Array with modified attributes.
- */
+* This function runs various checks against the attributes.
+*
+* @param  $tagname         String with the name of the tag.
+* @param  $attary          Array with all tag attributes.
+* @param  $rm_attnames     See description for sq_sanitize
+* @param  $bad_attvals     See description for sq_sanitize
+* @param  $add_attr_to_tag See description for sq_sanitize
+* @param  $message         message object
+* @param  $id              message id
+* @return                  Array with modified attributes.
+*/
 function sq_fixatts($tagname,
                     $attary,
                     $rm_attnames,
@@ -1420,8 +1392,8 @@ function sq_fixatts($tagname,
     $me = 'sq_fixatts';
     while (list($attname, $attvalue) = each($attary)){
         /**
-         * See if this attribute should be removed.
-         */
+        * See if this attribute should be removed.
+        */
         foreach ($rm_attnames as $matchtag=>$matchattrs){
             if (preg_match($matchtag, $tagname)){
                 foreach ($matchattrs as $matchattr){
@@ -1433,33 +1405,33 @@ function sq_fixatts($tagname,
             }
         }
         /**
-         * Remove any backslashes, entities, and extraneous whitespace.
-         */
+        * Remove any backslashes, entities, and extraneous whitespace.
+        */
         $attvalue = sq_unbackslash($attvalue);
         $attvalue = sq_deent($attvalue);
         $attvalue = sq_unspace($attvalue);
 
         /**
-         * Remove \r \n \t \0 " " "\\"
-         */
+        * Remove \r \n \t \0 " " "\\"
+        */
         $attvalue = str_replace(Array("\r", "\n", "\t", "\0", " ", "\\"),
                         Array('', '','','','',''), $attvalue);
 
         /**
-         * Now let's run checks on the attvalues.
-         * I don't expect anyone to comprehend this. If you do,
-         * get in touch with me so I can drive to where you live and
-         * shake your hand personally. :)
-         */
+        * Now let's run checks on the attvalues.
+        * I don't expect anyone to comprehend this. If you do,
+        * get in touch with me so I can drive to where you live and
+        * shake your hand personally. :)
+        */
         foreach ($bad_attvals as $matchtag=>$matchattrs){
             if (preg_match($matchtag, $tagname)){
                 foreach ($matchattrs as $matchattr=>$valary){
                     if (preg_match($matchattr, $attname)){
                         /**
-                         * There are two arrays in valary.
-                         * First is matches.
-                         * Second one is replacements
-                         */
+                        * There are two arrays in valary.
+                        * First is matches.
+                        * Second one is replacements
+                        */
                         list($valmatch, $valrepl) = $valary;
                         $newvalue =
                             preg_replace($valmatch, $valrepl, $attvalue);
@@ -1471,15 +1443,15 @@ function sq_fixatts($tagname,
             }
         }
         /**
-         * Turn cid: urls into http-friendly ones.
-         */
+        * Turn cid: urls into http-friendly ones.
+        */
         if (preg_match("/^[\'\"]\s*cid:/si", $attvalue)){
             $attary{$attname} = sq_cid2http($message, $id, $attvalue, $mailbox);
         }
     }
     /**
-     * See if we need to append any attributes to this tag.
-     */
+    * See if we need to append any attributes to this tag.
+    */
     foreach ($add_attr_to_tag as $matchtag=>$addattary){
         if (preg_match($matchtag, $tagname)){
             $attary = array_merge($attary, $addattary);
@@ -1489,15 +1461,15 @@ function sq_fixatts($tagname,
 }
 
 /**
- * This function edits the style definition to make them friendly and
- * usable in SquirrelMail.
- *
- * @param  $message  the message object
- * @param  $id       the message id
- * @param  $content  a string with whatever is between <style> and </style>
- * @param  $mailbox  the message mailbox
- * @return           a string with edited content.
- */
+* This function edits the style definition to make them friendly and
+* usable in SquirrelMail.
+*
+* @param  $message  the message object
+* @param  $id       the message id
+* @param  $content  a string with whatever is between <style> and </style>
+* @param  $mailbox  the message mailbox
+* @return           a string with edited content.
+*/
 function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     global $view_unsafe_images;
     $me = 'sq_fixstyle';
@@ -1508,32 +1480,32 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     $newpos = $ret[0] + strlen($ret[2]);
     $content = $ret[1];
     /**
-     * First look for general BODY style declaration, which would be
-     * like so:
-     * body {background: blah-blah}
-     * and change it to .bodyclass so we can just assign it to a <div>
-     */
+    * First look for general BODY style declaration, which would be
+    * like so:
+    * body {background: blah-blah}
+    * and change it to .bodyclass so we can just assign it to a <div>
+    */
     $content = preg_replace("|body(\s*\{.*?\})|si", ".bodyclass\\1", $content);
     $secremoveimg = '../images/' . _("sec_remove_eng.png");
     /**
-     * Fix url('blah') declarations.
-     */
+    * Fix url('blah') declarations.
+    */
     $content = preg_replace("|url\s*\(\s*([\'\"])\s*\S+script\s*:.*?([\'\"])\s*\)|si",
                             "url(\\1$secremoveimg\\2)", $content);
     /**
-     * Fix url('https*://.*) declarations but only if $view_unsafe_images
-     * is false.
-     */
+    * Fix url('https*://.*) declarations but only if $view_unsafe_images
+    * is false.
+    */
     if (!$view_unsafe_images){
         $content = preg_replace("|url\s*\(\s*([\'\"])\s*https*:.*?([\'\"])\s*\)|si",
                                 "url(\\1$secremoveimg\\2)", $content);
     }
 
     /**
-     * Fix urls that refer to cid:
-     */
+    * Fix urls that refer to cid:
+    */
     while (preg_match("|url\s*\(\s*([\'\"]\s*cid:.*?[\'\"])\s*\)|si",
-                      $content, $matches)){
+                    $content, $matches)){
         $cidurl = $matches{1};
         $httpurl = sq_cid2http($message, $id, $cidurl, $mailbox);
         $content = preg_replace("|url\s*\(\s*$cidurl\s*\)|si",
@@ -1541,32 +1513,32 @@ function sq_fixstyle($body, $pos, $message, $id, $mailbox){
     }
 
     /**
-     * Fix stupid css declarations which lead to vulnerabilities
-     * in IE.
-     */
+    * Fix stupid css declarations which lead to vulnerabilities
+    * in IE.
+    */
     $match   = Array('/expression/i',
-                     '/behaviou*r/i',
-                     '/binding/i',
-                     '/include-source/i');
+                    '/behaviou*r/i',
+                    '/binding/i',
+                    '/include-source/i');
     $replace = Array('idiocy', 'idiocy', 'idiocy', 'idiocy');
     $content = preg_replace($match, $replace, $content);
     return array($content, $newpos);
 }
 
 /**
- * This function converts cid: url's into the ones that can be viewed in
- * the browser.
- *
- * @param  $message  the message object
- * @param  $id       the message id
- * @param  $cidurl   the cid: url.
- * @param  $mailbox  the message mailbox
- * @return           a string with a http-friendly url
- */
+* This function converts cid: url's into the ones that can be viewed in
+* the browser.
+*
+* @param  $message  the message object
+* @param  $id       the message id
+* @param  $cidurl   the cid: url.
+* @param  $mailbox  the message mailbox
+* @return           a string with a http-friendly url
+*/
 function sq_cid2http($message, $id, $cidurl, $mailbox){
     /**
-     * Get rid of quotes.
-     */
+    * Get rid of quotes.
+    */
     $quotchar = substr($cidurl, 0, 1);
     if ($quotchar == '"' || $quotchar == "'"){
         $cidurl = str_replace($quotchar, "", $cidurl);
@@ -1576,26 +1548,26 @@ function sq_cid2http($message, $id, $cidurl, $mailbox){
     $cidurl = substr(trim($cidurl), 4);
     $linkurl = find_ent_id($cidurl, $message);
     /* in case of non-save cid links $httpurl should be replaced by a sort of
-       unsave link image */
+    unsave link image */
     $httpurl = '';
     if ($linkurl) {
         $httpurl = $quotchar . SM_PATH . 'src/download.php?absolute_dl=true&amp;' .
-                   "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
-                   '&amp;ent_id=' . $linkurl . $quotchar;
+                "passed_id=$id&amp;mailbox=" . urlencode($mailbox) .
+                '&amp;ent_id=' . $linkurl . $quotchar;
     }
     return $httpurl;
 }
 
 /**
- * This function changes the <body> tag into a <div> tag since we
- * can't really have a body-within-body.
- *
- * @param  $attary   an array of attributes and values of <body>
- * @param  $mailbox  mailbox we're currently reading (for cid2http)
- * @param  $message  current message (for cid2http)
- * @param  $id       current message id (for cid2http)
- * @return           a modified array of attributes to be set for <div>
- */
+* This function changes the <body> tag into a <div> tag since we
+* can't really have a body-within-body.
+*
+* @param  $attary   an array of attributes and values of <body>
+* @param  $mailbox  mailbox we're currently reading (for cid2http)
+* @param  $message  current message (for cid2http)
+* @param  $id       current message id (for cid2http)
+* @return           a modified array of attributes to be set for <div>
+*/
 function sq_body2div($attary, $mailbox, $message, $id){
     $me = 'sq_body2div';
     $divattary = Array('class' => "'bodyclass'");
@@ -1635,66 +1607,66 @@ function sq_body2div($attary, $mailbox, $message, $id){
 }
 
 /**
- * This is the main function and the one you should actually be calling.
- * There are several variables you should be aware of an which need
- * special description.
- *
- * Since the description is quite lengthy, see it here:
- * http://linux.duke.edu/projects/mini/htmlfilter/
- *
- * @param $body                 the string with HTML you wish to filter
- * @param $tag_list             see description above
- * @param $rm_tags_with_content see description above
- * @param $self_closing_tags    see description above
- * @param $force_tag_closing    see description above
- * @param $rm_attnames          see description above
- * @param $bad_attvals          see description above
- * @param $add_attr_to_tag      see description above
- * @param $message              message object
- * @param $id                   message id
- * @return                      sanitized html safe to show on your pages.
- */
+* This is the main function and the one you should actually be calling.
+* There are several variables you should be aware of an which need
+* special description.
+*
+* Since the description is quite lengthy, see it here:
+* http://linux.duke.edu/projects/mini/htmlfilter/
+*
+* @param $body                 the string with HTML you wish to filter
+* @param $tag_list             see description above
+* @param $rm_tags_with_content see description above
+* @param $self_closing_tags    see description above
+* @param $force_tag_closing    see description above
+* @param $rm_attnames          see description above
+* @param $bad_attvals          see description above
+* @param $add_attr_to_tag      see description above
+* @param $message              message object
+* @param $id                   message id
+* @return                      sanitized html safe to show on your pages.
+*/
 function sq_sanitize($body,
-                     $tag_list,
-                     $rm_tags_with_content,
-                     $self_closing_tags,
-                     $force_tag_closing,
-                     $rm_attnames,
-                     $bad_attvals,
-                     $add_attr_to_tag,
-                     $message,
-                     $id,
-                     $mailbox
-                     ){
+                    $tag_list,
+                    $rm_tags_with_content,
+                    $self_closing_tags,
+                    $force_tag_closing,
+                    $rm_attnames,
+                    $bad_attvals,
+                    $add_attr_to_tag,
+                    $message,
+                    $id,
+                    $mailbox
+                    ){
     $me = 'sq_sanitize';
     $rm_tags = array_shift($tag_list);
     /**
-     * Normalize rm_tags and rm_tags_with_content.
-     */
+    * Normalize rm_tags and rm_tags_with_content.
+    */
     @array_walk($tag_list, 'sq_casenormalize');
     @array_walk($rm_tags_with_content, 'sq_casenormalize');
     @array_walk($self_closing_tags, 'sq_casenormalize');
     /**
-     * See if tag_list is of tags to remove or tags to allow.
-     * false  means remove these tags
-     * true   means allow these tags
-     */
+    * See if tag_list is of tags to remove or tags to allow.
+    * false  means remove these tags
+    * true   means allow these tags
+    */
     $curpos = 0;
     $open_tags = Array();
     $trusted = "\n<!-- begin sanitized html -->\n";
     $skip_content = false;
     /**
-     * Take care of netscape's stupid javascript entities like
-     * &{alert('boo')};
-     */
+    * Take care of netscape's stupid javascript entities like
+    * &{alert('boo')};
+    */
     $body = preg_replace("/&(\{.*?\};)/si", "&amp;\\1", $body);
 
     while (($curtag = sq_getnxtag($body, $curpos)) != FALSE){
         list($tagname, $attary, $tagtype, $lt, $gt) = $curtag;
         $free_content = substr($body, $curpos, $lt-$curpos);
         /**
-         * Take care of <style>
-         */
+        * Take care of <style>
+        */
         if ($tagname == "style" && $tagtype == 1){
             list($free_content, $curpos) =
                 sq_fixstyle($body, $gt+1, $message, $id, $mailbox);
@@ -1712,8 +1684,8 @@ function sq_sanitize($body,
             if ($tagtype == 2){
                 if ($skip_content == $tagname){
                     /**
-                     * Got to the end of tag we needed to remove.
-                     */
+                    * Got to the end of tag we needed to remove.
+                    */
                     $tagname = false;
                     $skip_content = false;
                 } else {
@@ -1731,38 +1703,38 @@ function sq_sanitize($body,
                 }
             } else {
                 /**
-                 * $rm_tags_with_content
-                 */
+                * $rm_tags_with_content
+                */
                 if ($skip_content == false){
                     /**
-                     * See if this is a self-closing type and change
-                     * tagtype appropriately.
-                     */
+                    * See if this is a self-closing type and change
+                    * tagtype appropriately.
+                    */
                     if ($tagtype == 1
                         && in_array($tagname, $self_closing_tags)){
                         $tagtype = 3;
                     }
                     /**
-                     * See if we should skip this tag and any content
-                     * inside it.
-                     */
+                    * See if we should skip this tag and any content
+                    * inside it.
+                    */
                     if ($tagtype == 1 &&
                         in_array($tagname, $rm_tags_with_content)){
                         $skip_content = $tagname;
                     } else {
                         if (($rm_tags == false
-                             && in_array($tagname, $tag_list)) ||
+                            && in_array($tagname, $tag_list)) ||
                             ($rm_tags == true &&
-                             !in_array($tagname, $tag_list))){
+                            !in_array($tagname, $tag_list))){
                             $tagname = false;
                         } else {
                             /**
-                             * Convert body into div.
-                             */
+                            * Convert body into div.
+                            */
                             if ($tagname == "body"){
                                 $tagname = "div";
                                 $attary = sq_body2div($attary, $mailbox,
-                                                      $message, $id);
+                                                    $message, $id);
                             }
                             if ($tagtype == 1){
                                 if (isset($open_tags{$tagname})){
@@ -1772,18 +1744,18 @@ function sq_sanitize($body,
                                 }
                             }
                             /**
-                             * This is where we run other checks.
-                             */
+                            * This is where we run other checks.
+                            */
                             if (is_array($attary) && sizeof($attary) > 0){
                                 $attary = sq_fixatts($tagname,
-                                                     $attary,
-                                                     $rm_attnames,
-                                                     $bad_attvals,
-                                                     $add_attr_to_tag,
-                                                     $message,
-                                                     $id,
-                                                     $mailbox
-                                                     );
+                                                    $attary,
+                                                    $rm_attnames,
+                                                    $bad_attvals,
+                                                    $add_attr_to_tag,
+                                                    $message,
+                                                    $id,
+                                                    $mailbox
+                                                    );
                             }
                         }
                     }
@@ -1810,41 +1782,41 @@ function sq_sanitize($body,
 }
 
 /**
- * This is a wrapper function to call html sanitizing routines.
- *
- * @param  $body  the body of the message
- * @param  $id    the id of the message
- * @return        a string with html safe to display in the browser.
- */
+* This is a wrapper function to call html sanitizing routines.
+*
+* @param  $body  the body of the message
+* @param  $id    the id of the message
+* @return        a string with html safe to display in the browser.
+*/
 function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     global $attachment_common_show_images, $view_unsafe_images,
-           $has_unsafe_images;
+        $has_unsafe_images;
     /**
-     * Don't display attached images in HTML mode.
-     */
+    * Don't display attached images in HTML mode.
+    */
     $attachment_common_show_images = false;
     $tag_list = Array(
-                      false,
-                      "object",
-                      "meta",
-                      "html",
-                      "head",
-                      "base",
-                      "link",
-                      "frame",
-                      "iframe",
-                      "plaintext",
-                      "marquee"
-                      );
+                    false,
+                    "object",
+                    "meta",
+                    "html",
+                    "head",
+                    "base",
+                    "link",
+                    "frame",
+                    "iframe",
+                    "plaintext",
+                    "marquee"
+                    );
 
     $rm_tags_with_content = Array(
-                                  "script",
-                                  "applet",
-                                  "embed",
-                                  "title",
-                                  "frameset",
-                                  "xml"
-                                  );
+                                "script",
+                                "applet",
+                                "embed",
+                                "title",
+                                "frameset",
+                                "xml"
+                                );
 
     $self_closing_tags =  Array(
                                 "img",
@@ -1856,15 +1828,15 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     $force_tag_closing = true;
 
     $rm_attnames = Array(
-                         "/.*/" =>
-                         Array(
-                               "/target/i",
-                               "/^on.*/i",
-                               "/^dynsrc/i",
-                               "/^data.*/i",
-                               "/^lowsrc.*/i"
-                               )
-                         );
+                        "/.*/" =>
+                        Array(
+                            "/target/i",
+                            "/^on.*/i",
+                            "/^dynsrc/i",
+                            "/^data.*/i",
+                            "/^lowsrc.*/i"
+                            )
+                        );
 
     $secremoveimg = "../images/" . _("sec_remove_eng.png");
     $bad_attvals = Array(
@@ -1872,12 +1844,12 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
             Array(
                 "/^src|background/i" =>
                     Array(
-                          Array(
+                        Array(
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
                                 "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
                                 "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
-                          Array(
+                        Array(
                                 "\\1$secremoveimg\\2",
                                 "\\1$secremoveimg\\2",
                                 "\\1$secremoveimg\\2",
@@ -1886,12 +1858,12 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                         ),
                 "/^href|action/i" =>
                     Array(
-                          Array(
+                        Array(
                                 "/^([\'\"])\s*\S+script\s*:.*([\'\"])/si",
                                 "/^([\'\"])\s*mocha\s*:*.*([\'\"])/si",
                                 "/^([\'\"])\s*about\s*:.*([\'\"])/si"
                                 ),
-                          Array(
+                        Array(
                                 "\\1#\\1",
                                 "\\1#\\1",
                                 "\\1#\\1",
@@ -1900,7 +1872,7 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                         ),
                 "/^style/i" =>
                     Array(
-                          Array(
+                        Array(
                                 "/expression/i",
                                 "/binding/i",
                                 "/behaviou*r/i",
@@ -1909,8 +1881,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "/url\s*\(\s*([\'\"])\s*mocha\s*:.*([\'\"])\s*\)/si",
                                 "/url\s*\(\s*([\'\"])\s*about\s*:.*([\'\"])\s*\)/si",
                                 "/(.*)\s*:\s*url\s*\(\s*([\'\"]*)\s*\S+script\s*:.*([\'\"]*)\s*\)/si"
-                               ),
-                          Array(
+                            ),
+                        Array(
                                 "idiocy",
                                 "idiocy",
                                 "idiocy",
@@ -1920,8 +1892,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
                                 "url(\\1#\\1)",
                                 "url(\\1#\\1)",
                                 "\\1:url(\\2#\\3)"
-                               )
-                          )
+                            )
+                        )
                 )
         );
     if( !sqgetGlobalVar('view_unsafe_images', $view_unsafe_images, SQ_GET) ) {
@@ -1929,37 +1901,37 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
     }
     if (!$view_unsafe_images){
         /**
-         * Remove any references to http/https if view_unsafe_images set
-         * to false.
-         */
-         array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
+        * Remove any references to http/https if view_unsafe_images set
+        * to false.
+        */
+        array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[0],
                     '/^([\'\"])\s*https*:.*([\'\"])/si');
-         array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
+        array_push($bad_attvals{'/.*/'}{'/^src|background/i'}[1],
                     "\\1$secremoveimg\\1");
-         array_push($bad_attvals{'/.*/'}{'/^style/i'}[0],
+        array_push($bad_attvals{'/.*/'}{'/^style/i'}[0],
                     '/url\(([\'\"])\s*https*:.*([\'\"])\)/si');
-         array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
+        array_push($bad_attvals{'/.*/'}{'/^style/i'}[1],
                     "url(\\1$secremoveimg\\1)");
     }
 
     $add_attr_to_tag = Array(
         "/^a$/i" =>
             Array('target'=>'"_new"',
-                  'title'=>'"'._("This external link will open in a new window").'"'
+                'title'=>'"'._("This external link will open in a new window").'"'
             )
     );
     $trusted = sq_sanitize($body,
-                           $tag_list,
-                           $rm_tags_with_content,
-                           $self_closing_tags,
-                           $force_tag_closing,
-                           $rm_attnames,
-                           $bad_attvals,
-                           $add_attr_to_tag,
-                           $message,
-                           $id,
-                           $mailbox
-                           );
+                        $tag_list,
+                        $rm_tags_with_content,
+                        $self_closing_tags,
+                        $force_tag_closing,
+                        $rm_attnames,
+                        $bad_attvals,
+                        $add_attr_to_tag,
+                        $message,
+                        $id,
+                        $mailbox
+                        );
     if (preg_match("|$secremoveimg|i", $trusted)){
         $has_unsafe_images = true;
     }
@@ -1967,110 +1939,110 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX') {
 }
 
 /**
- * function SendDownloadHeaders - send file to the browser
- *
- * Original Source: SM core src/download.php
- * moved here to make it available to other code, and separate
- * front end from back end functionality.
- *
- * @param string $type0 first half of mime type
- * @param string $type1 second half of mime type
- * @param string $filename filename to tell the browser for downloaded file
- * @param boolean $force whether to force the download dialog to pop
- * @param optional integer $filesize send the Content-Header and length to the browser
- * @return void
- */
- function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
-     global $languages, $squirrelmail_language;
-     $isIE = $isIE6 = 0;
+* function SendDownloadHeaders - send file to the browser
+*
+* Original Source: SM core src/download.php
+* moved here to make it available to other code, and separate
+* front end from back end functionality.
+*
+* @param string $type0 first half of mime type
+* @param string $type1 second half of mime type
+* @param string $filename filename to tell the browser for downloaded file
+* @param boolean $force whether to force the download dialog to pop
+* @param optional integer $filesize send the Content-Header and length to the browser
+* @return void
+*/
+function SendDownloadHeaders($type0, $type1, $filename, $force, $filesize=0) {
+    global $languages, $squirrelmail_language;
+    $isIE = $isIE6 = 0;
 
-     sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
+    sqgetGlobalVar('HTTP_USER_AGENT', $HTTP_USER_AGENT, SQ_SERVER);
 
-     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
-         strstr($HTTP_USER_AGENT, 'Opera') === false) {
-         $isIE = 1;
-     }
+    if (strstr($HTTP_USER_AGENT, 'compatible; MSIE ') !== false &&
+        strstr($HTTP_USER_AGENT, 'Opera') === false) {
+        $isIE = 1;
+    }
 
-     if (strstr($HTTP_USER_AGENT, 'compatible; MSIE 6') !== false &&
-         strstr($HTTP_USER_AGENT, 'Opera') === false) {
-         $isIE6 = 1;
-     }
+    if (strstr($HTTP_USER_AGENT, 'compatible; MSIE 6') !== false &&
+        strstr($HTTP_USER_AGENT, 'Opera') === false) {
+        $isIE6 = 1;
+    }
 
-     if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
-         function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename')) {
-         $filename =
-         call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename', $filename, $HTTP_USER_AGENT);
-     } else {
-         $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
-     }
+    if (isset($languages[$squirrelmail_language]['XTRA_CODE']) &&
+        function_exists($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename')) {
+        $filename =
+        call_user_func($languages[$squirrelmail_language]['XTRA_CODE'] . '_downloadfilename', $filename, $HTTP_USER_AGENT);
+    } else {
+        $filename = ereg_replace('[\\/:\*\?"<>\|;]', '_', str_replace('&nbsp;', ' ', $filename));
+    }
 
-     // A Pox on Microsoft and it's Internet Explorer!
-     //
-     // IE has lots of bugs with file downloads.
-     // It also has problems with SSL.  Both of these cause problems
-     // for us in this function.
-     //
-     // See this article on Cache Control headers and SSL
-     // http://support.microsoft.com/default.aspx?scid=kb;en-us;323308
-     //
-     // The best thing you can do for IE is to upgrade to the latest
-     // version
-     //set all the Cache Control Headers for IE
-     if ($isIE) {
-         $filename=rawurlencode($filename);
-         header ("Pragma: public");
-         header ("Cache-Control: no-store, max-age=0, no-cache, must-revalidate"); # HTTP/1.1
-         header ("Cache-Control: post-check=0, pre-check=0", false);
-         header ("Cache-control: private");
+    // A Pox on Microsoft and it's Internet Explorer!
+    //
+    // IE has lots of bugs with file downloads.
+    // It also has problems with SSL.  Both of these cause problems
+    // for us in this function.
+    //
+    // See this article on Cache Control headers and SSL
+    // http://support.microsoft.com/default.aspx?scid=kb;en-us;323308
+    //
+    // The best thing you can do for IE is to upgrade to the latest
+    // version
+    //set all the Cache Control Headers for IE
+    if ($isIE) {
+        $filename=rawurlencode($filename);
+        header ("Pragma: public");
+        header ("Cache-Control: no-store, max-age=0, no-cache, must-revalidate"); # HTTP/1.1
+        header ("Cache-Control: post-check=0, pre-check=0", false);
+        header ("Cache-control: private");
 
-         //set the inline header for IE, we'll add the attachment header later if we need it
-         header ("Content-Disposition: inline; filename=$filename");
-     }
+        //set the inline header for IE, we'll add the attachment header later if we need it
+        header ("Content-Disposition: inline; filename=$filename");
+    }
 
-     if (!$force) {
-         // Try to show in browser window
-         header ("Content-Disposition: inline; filename=\"$filename\"");
-         header ("Content-Type: $type0/$type1; name=\"$filename\"");
-     } else {
-         // Try to pop up the "save as" box
+    if (!$force) {
+        // Try to show in browser window
+        header ("Content-Disposition: inline; filename=\"$filename\"");
+        header ("Content-Type: $type0/$type1; name=\"$filename\"");
+    } else {
+        // Try to pop up the "save as" box
 
-         // IE makes this hard.  It pops up 2 save boxes, or none.
-         // http://support.microsoft.com/support/kb/articles/Q238/5/88.ASP
-         // http://support.microsoft.com/default.aspx?scid=kb;EN-US;260519
-         // But, according to Microsoft, it is "RFC compliant but doesn't
-         // take into account some deviations that allowed within the
-         // specification."  Doesn't that mean RFC non-compliant?
-         // http://support.microsoft.com/support/kb/articles/Q258/4/52.ASP
+        // IE makes this hard.  It pops up 2 save boxes, or none.
+        // http://support.microsoft.com/support/kb/articles/Q238/5/88.ASP
+        // http://support.microsoft.com/default.aspx?scid=kb;EN-US;260519
+        // But, according to Microsoft, it is "RFC compliant but doesn't
+        // take into account some deviations that allowed within the
+        // specification."  Doesn't that mean RFC non-compliant?
+        // http://support.microsoft.com/support/kb/articles/Q258/4/52.ASP
 
-         // all browsers need the application/octet-stream header for this
-         header ("Content-Type: application/octet-stream; name=\"$filename\"");
+        // all browsers need the application/octet-stream header for this
+        header ("Content-Type: application/octet-stream; name=\"$filename\"");
 
-         // http://support.microsoft.com/support/kb/articles/Q182/3/15.asp
-         // Do not have quotes around filename, but that applied to
-         // "attachment"... does it apply to inline too?
-         header ("Content-Disposition: attachment; filename=\"$filename\"");
+        // http://support.microsoft.com/support/kb/articles/Q182/3/15.asp
+        // Do not have quotes around filename, but that applied to
+        // "attachment"... does it apply to inline too?
+        header ("Content-Disposition: attachment; filename=\"$filename\"");
 
-         if ($isIE && !$isIE6) {
-             // This combination seems to work mostly.  IE 5.5 SP 1 has
-             // known issues (see the Microsoft Knowledge Base)
+        if ($isIE && !$isIE6) {
+            // This combination seems to work mostly.  IE 5.5 SP 1 has
+            // known issues (see the Microsoft Knowledge Base)
 
-             // This works for most types, but doesn't work with Word files
-             header ("Content-Type: application/download; name=\"$filename\"");
+            // This works for most types, but doesn't work with Word files
+            header ("Content-Type: application/download; name=\"$filename\"");
 
-             // These are spares, just in case.  :-)
-             //header("Content-Type: $type0/$type1; name=\"$filename\"");
-             //header("Content-Type: application/x-msdownload; name=\"$filename\"");
-             //header("Content-Type: application/octet-stream; name=\"$filename\"");
-         } else {
-             // another application/octet-stream forces download for Netscape
-             header ("Content-Type: application/octet-stream; name=\"$filename\"");
-         }
-     }
+            // These are spares, just in case.  :-)
+            //header("Content-Type: $type0/$type1; name=\"$filename\"");
+            //header("Content-Type: application/x-msdownload; name=\"$filename\"");
+            //header("Content-Type: application/octet-stream; name=\"$filename\"");
+        } else {
+            // another application/octet-stream forces download for Netscape
+            header ("Content-Type: application/octet-stream; name=\"$filename\"");
+        }
+    }
 
-     //send the content-length header if the calling function provides it
-     if ($filesize > 0) {
-         header("Content-Length: $filesize");
-     }
+    //send the content-length header if the calling function provides it
+    if ($filesize > 0) {
+        header("Content-Length: $filesize");
+    }
 
 }  // end fn SendDownloadHeaders
 
