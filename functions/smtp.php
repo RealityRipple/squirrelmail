@@ -55,7 +55,7 @@ function expandAddrs ($array) {
     /* don't show errors -- kinda critical that we don't see
      * them here since the redirect won't work if we do show them
      */
-    $abook = addressbook_init(false);
+    $abook = addressbook_init(false, true);
     for ($i=0; $i < count($array); $i++) {
         $result = $abook->lookup($array[$i]);
         $ret = "";
@@ -89,7 +89,7 @@ function expandRcptAddrs ($array) {
     /* don't show errors -- kinda critical that we don't see
      * them here since the redirect won't work if we do show them
      */
-    $abook = addressbook_init(false);
+    $abook = addressbook_init(false, true);
     for ($i=0; $i < count($array); $i++) {
         $result = $abook->lookup($array[$i]);
         $ret = "";
