@@ -2810,7 +2810,7 @@ sub commandB2 {
     } else {
         $default_value = "n";
     }
-    print "Use advanced tree in folder listing? (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Use old way of folder list display? (y/n) [$WHT$default_value$NRM]: $WHT";
     $oldway = <STDIN>;
     if ( ( $oldway =~ /^y\n/i ) || ( ( $oldway =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $oldway = "true";
