@@ -2,34 +2,36 @@ Here is a map of the message array that contains all the information about
 a message.  A single part message is handled the same as a multipart message,
 except in the "ENTITIES" part, there would only be one entry (0).
 
-$message     ["HEADER"]                      (array)
-                  ["TO"]                     (array)
-                  ["CC"]                     (array)
-                  ["SUBJECT"]                (string)
-                  ["FROM"]                   (string)
-                  ["REPLYTO"]                (string)
-                  ["MAILER"]                 (string)
-                  ["TYPE0"]                  (string)
-                  ["TYPE1"]                  (string)
-                  ["BOUNDARY"]               (string)
-                  ["CHARSET"]                (string)
+$message     ["HEADER"]                    (array)
+                ["TO"]                     (array)
+                ["CC"]                     (array)
+                ["SUBJECT"]                (string)
+                ["FROM"]                   (string)
+                ["REPLYTO"]                (string)
+                ["MAILER"]                 (string)
+                ["TYPE0"]                  (string)
+                ["TYPE1"]                  (string)
+                ["BOUNDARY"]               (string)
+                ["CHARSET"]                (string)
+                ["MIME"]                   (boolean)
+                ["ENCODING"]               (string)
 
-             ["ENTITIES"]                    (array)
-                  [0]                        (array)
-                     ["TYPE0"]               (string)
-                     ["TYPE1"]               (string)
-                     ["CHARSET"]             (string)
-                     ["BOUNDARY"]            (string)
-                     ["PRIORITY"]            (integer)
-                     ["BODY"]                (array of strings)
+             ["ENTITIES"]                  (array)
+                [0]                        (array)
+                   ["TYPE0"]               (string)
+                   ["TYPE1"]               (string)
+                   ["CHARSET"]             (string)
+                   ["BOUNDARY"]            (string)
+                   ["PRIORITY"]            (integer)
+                   ["BODY"]                (array of strings)
 
-                 [1]                         (array)
-                     ["TYPE0"]               (string)
-                     ["TYPE1"]               (string)
-                     ["CHARSET"]             (string)
-                     ["BOUNDARY"]            (string)
-                     ["PRIORITY"]            (integer)
-                     ["BODY"]                (array of strings)
+                [1]                        (array)
+                   ["TYPE0"]               (string)
+                   ["TYPE1"]               (string)
+                   ["CHARSET"]             (string)
+                   ["BOUNDARY"]            (string)
+                   ["PRIORITY"]            (integer)
+                   ["BODY"]                (array of strings)
              .
              .
              .
@@ -49,6 +51,8 @@ $message     ["HEADER"]
                   ["TYPE1"]                  "alternative"
                   ["BOUNDARY"]               "--blkjoaiu2093ojv0q9"
                   ["CHARSET"]                "us-ascii"
+                  ["MIME"]                   true
+                  ["ENCODING"]               "us-ascii"
 
              ["ENTITIES"]
                   [0]
