@@ -13,7 +13,7 @@
          require($theme[0]["PATH"]);
       } else {
          echo _("Theme: ");
-	 echo . $theme[0]["PATH"];
+	 echo $theme[0]["PATH"];
 	 echo _(" was not found.");
 	 echo "<BR>";
          echo _("Exiting abnormally");
