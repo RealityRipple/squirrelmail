@@ -915,8 +915,8 @@ function MagicHTML( $body, $id ) {
             case '/HEA':
             case '!DOC':
             case 'META':
-            case 'DIV ':
-            case '/DIV':
+            //case 'DIV ':
+            //case '/DIV':
             case '!-- ':
                 $i += 4;
                 while ( $body{$i}  <> '>' &&
@@ -1155,7 +1155,7 @@ function stripEvent( &$i, $j, &$body, $id, $base ) {
                     $src = '../images/' . _("sec_remove_eng.png");
                 }
                 $ret .= 'src="' . $src . '" ';
-                $i = $k - 3;
+                $i = $k - 2;
             } else {
                 $ret .= 'src';
                 $i = $i + 3;
