@@ -222,5 +222,14 @@
        return $ret;
      } // end search()
 
+
+     // If you run a tiny LDAP server and you want the "List All" button
+     // to show EVERYONE, then uncomment this tiny block of code:
+     //
+     // function list_addr() {
+     //    return $this->search("*");
+     // }
+     //
+     // Careful with this -- it could get quite large for big sites.
    }
 ?>
