@@ -194,12 +194,13 @@ function get_location () {
     
     /*
      * If you have 'SSLOptions +StdEnvVars' in your apache config
-     *     OR if you have HTTPS in your HTTP_SERVER_VARS
+     *     OR if you have HTTPS=on in your HTTP_SERVER_VARS
      *     OR if you are on port 443
      */
     $getEnvVar = getenv('HTTPS');
     if ((isset($getEnvVar) && !strcasecmp($getEnvVar, 'on')) ||
-        (isset($_SERVER['HTTPS'])) ||
+        (isset($_SERVER['HTTPS']) &&
+         !strcasecmp($_SERVER['HTTPS'], 'on')) ||
         (isset($_SERVER['SERVER_PORT']) &&
          $_SERVER['SERVER_PORT'] == 443)) {
         $proto = 'https://';
