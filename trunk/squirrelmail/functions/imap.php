@@ -183,9 +183,12 @@
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=FF0000><B>ERROR</B>:  Could not delete the folder $folder.</FONT>";
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\">Probable causes:</FONT><BR>";
          echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\"><LI>This folder may contain subfolders.  Delete all subfolders first</LI></FONT>";
+         echo "<FONT FACE=\"Arial,Helvetica\" COLOR=\"$color[8]\"><BR><BR>The actual message returned from the server was:<BR>$message</FONT>";
+         echo "</BODY></HTML>";
          exit;
       } else if ($response == "BAD") {
          echo "<B><FONT COLOR=FF0000>ERROR</FONT><FONT COLOR=CC0000>:  Bad or malformed request.</B></FONT><BR><FONT COLOR=CC0000>&nbsp;&nbsp;<B>Server responded:</B> $message</FONT><BR><BR>";
+         echo "</BODY></HTML>";
          exit;
       }
    }
