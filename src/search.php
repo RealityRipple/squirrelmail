@@ -79,6 +79,9 @@ function forget_recent($forget_index, $username, $data_dir) {
     array_splice($what_array, $forget_index, 1);
     array_splice($where_array, $forget_index, 1);
     array_splice($folder_array, $forget_index, 1);
+	array_unshift($what_array, "");
+	array_unshift($where_array, "");
+	array_unshift($folder_array, "");
     $recent_count = getPref($data_dir, $username, 'search_memory', 0);
     $n=0;
     for ($i=1;$i<=$recent_count;$i++) {
