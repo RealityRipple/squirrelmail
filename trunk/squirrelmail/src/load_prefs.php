@@ -107,5 +107,6 @@
       $message_highlight_list[$i]["name"] = $ary[0]; 
       $message_highlight_list[$i]["color"] = $ary[1];
       $message_highlight_list[$i]["value"] = $ary[2];
+      $message_highlight_list[$i]["match_type"] = $ary[3];
    }
 ?>
