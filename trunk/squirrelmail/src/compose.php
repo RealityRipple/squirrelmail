@@ -537,9 +537,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         switch ($action) {
         case ('draft'):
             $use_signature = FALSE;
-            $send_to = $orig_header->getAddr_s('to');
-            $send_to_cc = $orig_header->getAddr_s('cc');
-            $send_to_bcc = $orig_header->getAddr_s('bcc');
+            $send_to = decodeHeader($orig_header->getAddr_s('to'));
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'));
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'));
             $subject = decodeHeader($orig_header->subject);
 
             $body_ary = explode("\n", $body);
@@ -556,9 +556,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
             $composeMessage = getAttachments($message, $composeMessage, $passed_id, $entities, $imapConnection);
             break;
         case ('edit_as_new'):
-            $send_to = $orig_header->getAddr_s('to');
-            $send_to_cc = $orig_header->getAddr_s('cc');
-            $send_to_bcc = $orig_header->getAddr_s('bcc');
+            $send_to = decodeHeader($orig_header->getAddr_s('to'));
+            $send_to_cc = decodeHeader($orig_header->getAddr_s('cc'));
+            $send_to_bcc = decodeHeader($orig_header->getAddr_s('bcc'));
             $subject = decodeHeader($orig_header->subject);
             $mailprio = $orig_header->priority;
             $orig_from = '';
@@ -586,9 +586,9 @@ function newMail ($mailbox='', $passed_id='', $passed_ent_id='', $action='', $se
         case ('reply'):
             $send_to = $orig_header->reply_to;
             if (is_object($send_to)) {
-                $send_to = $send_to->getAddr_s('reply_to');
+                $send_to = decodeHeader($send_to->getAddr_s('reply_to'));
             } else {
-                $send_to = $orig_header->getAddr_s('from');
+                $send_to = decodeHeader($orig_header->getAddr_s('from'));
             }
             $subject =  decodeHeader($orig_header->subject);
             $subject = str_replace('"', "'", $subject);
