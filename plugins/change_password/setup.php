@@ -21,6 +21,7 @@ function squirrelmail_plugin_init_change_password() {
     global $squirrelmail_plugin_hooks;
 
     $squirrelmail_plugin_hooks['optpage_register_block']['change_password'] = 'change_password_optpage';
+    $squirrelmail_plugin_hooks['optpage_set_loadinfo']['change_password'] = 'change_password_loadinfo';
 }
 
 /**
@@ -35,6 +36,19 @@ function change_password_optpage() {
         'desc' => _("Use this to change your email password."),
         'js' => FALSE
     );
+}
+
+/**
+ * Displays information after "Successfully Saved Options:"
+ * @since 1.5.1
+ */
+function change_password_loadinfo() {
+    global $optpage, $optpage_name;
+    if ($optpage=='change_password') {
+        // i18n: is displayed after "Successfully Saved Options:"
+        $optpage_name=_("User's Password");
+    }
+
 }
 
 /**
