@@ -247,9 +247,13 @@ Version 1.5.1 -- CVS
   - Revise the documentation of the packaged plugins.
   - Fixed edit form checks in address listing (#1124018).
   - After sending resumed draft, return to message list
-  - Parse URIs (including grabbing mailto: links) when viewing in HTML format
+  - Parse and replace mailto: links with internal compose links when 
+    viewing in HTML format
   - Plugins may now define an "extra" array element to return to the attachment
     types hook, which will be also inserted in the attachment link for the plugin
+  - Added mouseover row highlighting on message index
+  - Added <label> for checkboxes on message index (when highlighting is off)
+  - Fixed mailto: parsing in functions/url_parser.php
 
 Version 1.5.0
 --------------------
