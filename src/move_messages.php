@@ -110,6 +110,57 @@ function attachSelectedMessages($msg, $imapConnection) {
 }
 
 
+
+/* get globals */
+
+$username = $_SESSION['username'];
+$key  = $_COOKIE['key'];
+$onetimepad = $_SESSION['onetimepad'];
+$base_uri = $_SESSION['base_uri'];
+$delimiter = $_SESSION['delimiter'];
+
+if (isset($_GET['mailbox'])) {
+    $mailbox = $_GET['mailbox'];
+}
+if (isset($_GET['startMessage'])) {
+    $startMessage = $_GET['startMessage'];
+}
+if (isset($_POST['moveButton'])) {
+    $moveButton = $_POST['moveButton'];
+}
+if (isset($_POST['msg'])) {
+    $msg = $_POST['msg'];
+}
+elseif (isset($_GET['msg'])) {
+    $msg = $_GET['msg'];
+}
+if (isset($_POST['expungeButton'])) {
+    $expungeButton = $_POST['expungeButton'];
+}
+if (isset($_POST['targetMailbox'])) {
+    $targetMailbox = $_POST['targetMailbox'];
+}
+if (isset($_SESSION['lastTargetMailbox'])) {
+    $lastTargetMailbox = $_SESSION['lastTargetMailbox'];
+}
+if (isset($_POST['expungeButton'])) {
+    $expungeButton = $_POST['expungeButton'];
+}
+if (isset($_POST['undeleteButton'])) {
+    $undeleteButton = $_POST['undeleteButton'];
+}
+if (isset($_POST['markRead'])) {
+    $markRead = $_POST['markRead'];
+}
+if (isset($_POST['markUnread'])) {
+    $markUnread = $_POST['markUnread'];
+}
+if (isset($_POST['attache'])) {
+    $attache = $_POST['attache'];
+}
+
+/* end of get globals */
+
 $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 $mbx_response=sqimap_mailbox_select($imapConnection, $mailbox);
 
@@ -123,7 +174,7 @@ if (!isset($lastTargetMailbox)) {
 }
 if ($targetMailbox != $lastTargetMailbox) {
     $lastTargetMailbox = $targetMailbox;
-    session_register('lastTargetMailbox');
+    sqsession_register($lastTargetMailbox, 'lastTargetMailbox');
 }
 
 // expunge-on-demand if user isn't using move_to_trash or auto_expunge
