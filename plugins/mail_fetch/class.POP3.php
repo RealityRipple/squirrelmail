@@ -1,4 +1,5 @@
-<?
+<?php /* Modified at 1 places by ri_once */ ?>
+<?php /* 'php' Added by ri_once */
 
    /**
     **  mail_fetch/setup.php
