@@ -351,7 +351,7 @@
    /******************************************************************************
     **  Returns the number of unseen messages in this folder 
     ******************************************************************************/
-   function sqimap_unseen_messages ($imap_stream, &$num_unseen, $mailbox) {
+   function sqimap_unseen_messages ($imap_stream, $mailbox) {
       //fputs ($imap_stream, "a001 SEARCH UNSEEN NOT DELETED\r\n");
       fputs ($imap_stream, "a001 STATUS \"$mailbox\" (UNSEEN)\r\n");
       $read_ary = sqimap_read_data ($imap_stream, 'a001', true, $result, $message);

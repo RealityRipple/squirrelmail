@@ -32,10 +32,10 @@
       $mailboxURL = urlencode($real_box);
       
       $unseen = 0;
-      
+
       if (($unseen_notify == 2 && $real_box == "INBOX") ||
           $unseen_notify == 3) {
-         $unseen = sqimap_unseen_messages($imapConnection, $numUnseen, $real_box);
+         $unseen = sqimap_unseen_messages($imapConnection, $real_box);
          if ($unseen_type == 1 && $unseen > 0) {
             $unseen_string = "($unseen)";
             $unseen_found = true;
