@@ -22,11 +22,6 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/html.php');
-require_once(SM_PATH . 'functions/set_language_align.php');
-
-
-/* --------------------- Get globals ------------------------------------- */
-$language_align = set_language_align();
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -393,7 +388,7 @@ function formatRecipientString($recipients, $item ) {
 
 function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, 
                          $color, $FirstTimeSee) {
-    global $msn_user_support, $default_use_mdn, $default_use_priority, $language_align,
+    global $msn_user_support, $default_use_mdn, $default_use_priority,
            $show_xmailer_default, $mdn_user_support, $PHP_SELF, $javascript_on,
 	   $squirrelmail_language;
 
@@ -453,7 +448,7 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
         }
     }
 
-    $s  = '<TABLE dir="' . $language_align['dir'] . '" WIDTH="100%" CELLPADDING="0" CELLSPACING="2" BORDER="0"';
+    $s  = '<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="2" BORDER="0"';
     $s .= ' ALIGN="center" BGCOLOR="'.$color[0].'">';
     foreach ($env as $key => $val) {
         if ($val) {
@@ -463,27 +458,27 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
             $s .= '</TR>';
         }
     }
-    echo '<TABLE dir="' . $language_align['dir'] . '" BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
+    echo '<TABLE BGCOLOR="'.$color[9].'" WIDTH="100%" CELLPADDING="1"'.
          ' CELLSPACING="0" BORDER="0" ALIIGN="center">'."\n";
-    echo '<TR dir="' . $language_align['dir'] . '"><TD dir="' . $language_align['dir'] . '" HEIGHT="5" COLSPAN="2" BGCOLOR="'.
-          $color[4].'"></TD></TR><TR><TD dir="' . $language_align['dir'] . '" align=center>'."\n";
+    echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
+          $color[4].'"></TD></TR><TR><TD align=center>'."\n";
     echo $s;
     do_hook('read_body_header');
     formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color);
     echo '</TABLE>';
-    echo '</TD></TR><TR dir="' . $language_align['dir'] . '"><TD dir="' . $language_align['dir'] . '" HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR>'."\n";
+    echo '</TD></TR><TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.$color[4].'"></TD></TR>'."\n";
     echo '</TABLE>';
 }
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
-    global $base_uri, $draft_folder, $where, $what, $color, $sort, $language_align,
+    global $base_uri, $draft_folder, $where, $what, $color, $sort,
            $startMessage, $compose_new_win, $PHP_SELF, $save_as_draft,
            $enable_forward_as_attachment;
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $urlMailbox = urlencode($mailbox);
-    $s = '<table dir=' . $language_align['dir'] . ' width="100%" cellpadding="3" cellspacing="0" align="center"'.
-         ' border="0" bgcolor="'.$color[9].'"><tr><td align="' . $language_align['left'] . '" width="33%"><small>';
+    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
+         ' border="0" bgcolor="'.$color[9].'"><tr><td align="left" width="33%"><small>';
 
     $msgs_url = $base_uri . 'src/';
     if (isset($where) && isset($what)) {
@@ -619,14 +614,14 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 }
 
 function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
-    global $base_uri, $language_align;
+    global $base_uri;
 
     $urlMailbox = urlencode($mailbox);
     $url = $base_uri.'src/view_header.php?'.$_SERVER['QUERY_STRING'];
 
-    $s  = "<TR dir=" . $language_align['dir'] . ">\n" .
-          '<TD dir=' . $language_align['dir'] . ' VALIGN="MIDDLE" ALIGN=' . $language_align['right'] . ' WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
-          '<TD dir=' . $language_align['dir'] . ' VALIGN="MIDDLE" ALIGN=' . $language_align['left'] . ' WIDTH="80%"><SMALL>' .
+    $s  = "<TR>\n" .
+          '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
+          '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>' .
           '<a href="'.$url.'">'._("View Full Header").'</a>';
 
     /* Output the printer friendly link if we are in subtle mode. */
@@ -827,13 +822,13 @@ for ($i = 0; $i < $cnt; $i++) {
 displayPageHeader($color, $mailbox);
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-echo '<table dir="' . $language_align['dir'] . '" width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
+echo '<table width="100%" cellpadding="0" cellspacing="0" align="center" border="0">';
 echo '  <tr><td>';
-echo '    <table dir="' . $language_align['dir'] . '" width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
+echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" border="0" bgcolor="'.$color[9].'">';
 echo '      <tr><td>';
-echo '        <table dir="' . $language_align['dir'] . '" width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
+echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
 echo '          <tr bgcolor="'.$color[4].'"><td>';
-echo '            <table dir="' . $language_align['dir'] . '" cellpadding="1" cellspacing="5" align="' . $language_align['left'] . '" border="0">';
+echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
 echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
                         . '</tr>';
 echo '            </table>';
@@ -851,7 +846,7 @@ if ($attachmentsdisplay) {
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '     <tr><td>';
    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr><td align="' . $language_align['left'] . '" bgcolor="'.$color[9].'">';
+   echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
    echo '        <tr><td>';
