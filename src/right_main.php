@@ -113,15 +113,14 @@ if (isset($newsort) ) {
 
 /* If the page has been loaded without a specific mailbox, */
 /* send them to the inbox                                  */
-if (!isset($mailbox)) {
-    $mailbox = 'INBOX';
-    $startMessage = 1;
-}
+//if (!isset($mailbox)) {
+//    $mailbox = 'INBOX';
+//    $startMessage = 1;
+//}
 
-
-if (!isset($startMessage) || ($startMessage == '')) {
-    $startMessage = 1;
-}
+//if (!isset($startMessage) || ($startMessage == '')) {
+//    $startMessage = 1;
+//}
 
 /* compensate for the UW vulnerability. */
 if ($imap_server_type == 'uw' && (strstr($mailbox, '../') ||
@@ -165,11 +164,23 @@ $aLastSelectedMailbox['NAME'] = $mailbox;
 $aLastSelectedMailbox['EXISTS'] = $aMbxResponse['EXISTS'];
 $aLastSelectedMailbox['UIDVALIDITY'] = $aMbxResponse['UIDVALIDITY'];
 $aLastSelectedMailbox['UIDNEXT'] = $aMbxResponse['UIDNEXT'];
+$aLastSelectedMailbox['PERMANENTFLAGS'] = $aMbxResponse['PERMANENTFLAGS'];
+$aLastSelectedMailbox['OFFSET'] = (isset($startMessage) && $startMessage) ? $startMessage -1 : 0;
+$aLastSelectedMailbox['PAGEOFFSET'] = (isset($startMessage) && $startMessage) ? $startMessage : 1;
+$aLastSelectedMailbox['SORT'] = ($sort !== false) ? $sort : 0;
+$aLastSelectedMailbox['LIMIT'] = $show_num;
+
+$aLastSelectedMailbox['UIDSET'] = $aMbxResponse['SORT_ARRAY'];
+$aLastSelectedMailbox['SEEN'] = (isset($aMbxResponse['SEEN'])) ? $aMbxResponse['SEEN'] : $aMbxResponse['EXISTS'];
+$aLastSelectedMailbox['RECENT'] = (isset($aMbxResponse['RECENT'])) ? $aMbxResponse['RECENT'] : 0;
+
+$aLastSelectedMailbox['AUTO_EXPUNGE'] = $auto_expunge;
 
 /* decide if we are thread sorting or not */
+$aLastSelectedMailbox['ALLOW_THREAD'] = $allow_thread_sort;
 if ($allow_thread_sort == TRUE) {
     if (isset($set_thread)) {
-        $aMbxResponse['SORT_ARRAY'] = false;
+        $aLastSelectedMailbox['SORT_ARRAY'] = false;
         if (sqsession_is_registered('indent_array')) {
             sqsession_unregister('indent_array');
         }
@@ -189,8 +200,13 @@ if ($allow_thread_sort == TRUE) {
 } else {
     $thread_sort_messages = 0;
 }
-
-
+if ($thread_sort_messages == 1) {
+    $aLastSelectedMailbox['SORT_METHOD'] = 'THREAD';
+} else if ($allow_server_sort) {
+    $aLastSelectedMailbox['SORT_METHOD'] = 'SERVER';
+} else {
+    $aLastSelectedMailbox['SORT_METHOD'] = 'SQUIRREL';
+}
 
 if ($composenew) {
     $comp_uri = SM_PATH . 'src/compose.php?mailbox='. urlencode($mailbox).
@@ -242,9 +258,10 @@ if (! isset($use_mailbox_cache)) {
 }
 
 if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
-    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
-                           $startMessage, $sort, $color, $show_num,
-                           $use_mailbox_cache, '',$aMbxResponse);
+    showMessagesForMailbox($imapConnection,$aLastSelectedMailbox);
+//    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
+//                           $startMessage, $sort, $color, $show_num,
+//                           $use_mailbox_cache, '',$aMbxResponse);
 } else {
     if (sqsession_is_registered('msgs')) {
         unset($msgs);
@@ -260,9 +277,10 @@ if ($use_mailbox_cache && sqsession_is_registered('msgs')) {
 
     $numMessages = $aMbxResponse['EXISTS'];
 
-    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
-                           $startMessage, $sort, $color, $show_num,
-                           $use_mailbox_cache,'',$aMbxResponse);
+    showMessagesForMailbox($imapConnection,$aLastSelectedMailbox);
+//    showMessagesForMailbox($imapConnection, $mailbox, $numMessages,
+//                           $startMessage, $sort, $color, $show_num,
+//                           $use_mailbox_cache,'',$aMbxResponse);
 
     if (sqsession_is_registered('msgs') && isset($msgs)) {
         sqsession_register($msgs, 'msgs');
