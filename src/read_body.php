@@ -474,9 +474,12 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
 
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $urlMailbox = urlencode($mailbox);
-    $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-         ' border="0" bgcolor="'.$color[9].'"><tr><td align="left" width="33%"><small>';
-
+    $sNav = $sCmp = '';
+    $sBar = '<table width="100%" cellpadding="3" cellspacing="4" align="center"'.
+         ' border="0" bgcolor="'.$color[9].'">';
+    $sBar .= '<tr><td align="right" width="15%" nowrap><small><b>'
+		._("Navigation").':&nbsp;</small></b></td>';
+    $sBar .= '<td align="left" BGCOLOR="'.$color[0].'"><small>';
     $msgs_url = $base_uri . 'src/';
     if (isset($where) && isset($what)) {
         $msgs_url .= 'search.php?where=' . urlencode($where) .
@@ -487,8 +490,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                      $startMessage . '&amp;mailbox=' . $urlMailbox;
         $msgs_str  = _("Message List");
     }
-    $s .= '<a href="' . $msgs_url . '">' . $msgs_str . '</a>';
-    $s .= $topbar_delimiter;
+    $sNav = '<a href="' . $msgs_url . '">' . $msgs_str . '</a>';
+    $sNav .= $topbar_delimiter;
 
     $delete_url = $base_uri . 'src/delete_message.php?mailbox=' . $urlMailbox .
                   '&amp;message=' . $passed_id . '&amp;';
@@ -498,7 +501,7 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         } else {
             $delete_url .= 'sort=' . $sort . '&amp;startMessage=' . $startMessage;
         }
-        $s .= '<a href="' . $delete_url . '">' . _("Delete") . '</a>';
+        $sNav .= '<a href="' . $delete_url . '">' . _("Delete") . '</a>';
     }
 
     $comp_uri = $base_uri . 'src/compose.php' .
@@ -521,12 +524,12 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $comp_alt_string = _("Edit Message as New");
     }
     if (isset($comp_alt_uri)) {
-        $s .= $topbar_delimiter;
-        $s .= $link_open . $comp_alt_uri . $link_close . $comp_alt_string . '</a>';
+        $sCmp .= $link_open . $comp_alt_uri . $link_close . $comp_alt_string . '</a>';
+	$sCmp .= $topbar_delimiter;	
     }
 
-    $s .= '</small></td><td align="center" width="33%"><small>';
-
+//    $sNav .= '</small></td><td align="center"><small>';
+    $sNav .= '&nbsp;&nbsp;&nbsp;&nbsp;';
     if (!(isset($where) && isset($what)) && !$passed_ent_id) {
         $prev = findPreviousMessage($mbx_response['EXISTS'], $passed_id);
         $next = findNextMessage($passed_id);
@@ -534,23 +537,23 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
             $uri = $base_uri . 'src/read_body.php?passed_id='.$prev.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                    '&amp;startMessage='.$startMessage.'&amp;show_more=0';
-            $s .= '<a href="'.$uri.'">'._("Previous").'</a>';       
+            $sNav .= '<a href="'.$uri.'">'._("Previous").'</a>';       
         } else {
-            $s .= _("Previous");
+            $sNav .= _("Previous");
         }
-        $s .= $topbar_delimiter;
+        $sNav .= $topbar_delimiter;
         if ($next != -1) {
             $uri = $base_uri . 'src/read_body.php?passed_id='.$next.
                    '&amp;mailbox='.$urlMailbox.'&amp;sort='.$sort.
                    '&amp;startMessage='.$startMessage.'&amp;show_more=0';
-            $s .= '<a href="'.$uri.'">'._("Next").'</a>';
+            $sNav .= '<a href="'.$uri.'">'._("Next").'</a>';
         } else {
-            $s .= _("Next");
+            $sNav .= _("Next");
         }
     } else if (isset($passed_ent_id) && $passed_ent_id) {
         /* code for navigating through attached message/rfc822 messages */
         $url = set_url_var($PHP_SELF, 'passed_ent_id',0);
-        $s .= '<a href="'.$url.'">'._("View Message").'</a>';
+        $sNav .= '<a href="'.$url.'">'._("View Message").'</a>';
         $entities     = array();
         $entity_count = array();
         $c = 0;
@@ -573,37 +576,42 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
                          . set_url_var($PHP_SELF, 'passed_ent_id', $next_ent_id)
                          . '">' . $next_link . '</a>';
         }
-        $s .= $topbar_delimiter . $prev_link;
+        $sNav .= $topbar_delimiter . $prev_link;
         $par_ent_id = $message->parent->entity_id;
         if ($par_ent_id) {
             $par_ent_id = substr($par_ent_id,0,-2);
-            $s .= $topbar_delimiter;
+            $sNav .= $topbar_delimiter;
             $url = set_url_var($PHP_SELF, 'passed_ent_id',$par_ent_id);
-            $s .= '<a href="'.$url.'">'._("Up").'</a>';
+            $sNav .= '<a href="'.$url.'">'._("Up").'</a>';
         }
-        $s .= $topbar_delimiter . $next_link;
-    }
+	$sNav .= $topbar_delimiter . $next_link;
 
-    $s .= '</small></td>' . "\n" . '<td align="right" width="33%" nowrap><small>';
+    }
+    $sBar .= $sNav . '</small></td></tr>' . "\n"; 
+    $sBar .= '<tr><td align="right" width="15%" nowrap><small><b>'
+		._("Compose").':&nbsp;</small></b></td>';
+    $sBar .= '<td align="left" BGCOLOR="'.$color[0].'"><small>';
+
     $comp_action_uri = $comp_uri . '&amp;action=forward';
-    $s .= $link_open . $comp_action_uri . $link_close . _("Forward") . '</a>';
-    $s .= $topbar_delimiter;
+    $sCmp .= $link_open . $comp_action_uri . $link_close . _("Forward") . '</a>';
+    $sCmp .= $topbar_delimiter;
 
     if ($enable_forward_as_attachment) {
         $comp_action_uri = $comp_uri . '&amp;action=forward_as_attachment';
-        $s .= $link_open . $comp_action_uri . $link_close . _("Forward as Attachment") . '</a>';
-        $s .= $topbar_delimiter;
+        $sCmp .= $link_open . $comp_action_uri . $link_close . _("Forward as Attachment") . '</a>';
+        $sCmp .= $topbar_delimiter;
     }
 
     $comp_action_uri = decodeHeader($comp_uri . '&amp;action=reply');
-    $s .= $link_open . $comp_action_uri . $link_close . _("Reply") . '</a>';
-    $s .= $topbar_delimiter;
+    $sCmp .= $link_open . $comp_action_uri . $link_close . _("Reply") . '</a>';
+    $sCmp .= $topbar_delimiter;
 
     $comp_action_uri = $comp_uri . '&amp;action=reply_all';
-    $s .= $link_open . $comp_action_uri . $link_close . _("Reply All") . '</a>';
-    $s .= '</small></td></tr></table>';
+    $sCmp .= $link_open . $comp_action_uri . $link_close . _("Reply All") . '</a>';
+
+    $sBar .= $sCmp .'</small></td></tr></table>';
     do_hook("read_body_menu_top");
-    echo $s;
+    echo $sBar;
     do_hook("read_body_menu_bottom");
 }
 
@@ -672,6 +680,10 @@ if (isset($_GET['startMessage'])) {
 elseif (isset($_POST['startMessage'])) {
     $startMessage = $_POST['startMessage'];
 }
+if (isset($_GET['view_unsafe_images'])) {
+    $view_unsafe_images = $_GET['view_unsafe_images'];
+}
+
 if (isset($_GET['show_more'])) {
     $show_more = $_GET['show_more'];
 }
@@ -812,7 +824,7 @@ for ($i = 0; $i < $cnt; $i++) {
        $messagebody .= '<hr noshade size=1>';
    }
 }
-
+echo '<table>';
 displayPageHeader($color, $mailbox);
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
@@ -847,11 +859,13 @@ if ($attachmentsdisplay) {
    echo '          <table width="100%" cellpadding="2" cellspacing="2" align="center"'.' border="0" bgcolor="'.$color[0].'"><tr><td>';
    echo              $attachmentsdisplay;
    echo '          </td></tr></table>';
-   echo '        </table></td></tr>';
    echo '       </table></td></tr>';
    echo '    </table>';
    echo '  </td></tr>';
 }
+echo '<TR><TD HEIGHT="5" COLSPAN="2" BGCOLOR="'.
+          $color[4].'"></TD></TR><TR><TD align=center>'."\n";
+
 echo '</table>';
 
 /* show attached images inline -- if pref'fed so */
@@ -880,7 +894,7 @@ sqimap_logout($imapConnection);
 /* sessions are written at the end of the script. it's better to register 
    them at the end so we avoid double session_register calls */
 sqsession_register($messages,'messages');
-
+echo '</table>';
 ?>
 </body>
 </html>
