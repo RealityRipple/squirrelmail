@@ -174,6 +174,12 @@ function sqimap_search($imapConnection,$search_where,$search_what,$mailbox,$colo
             $msg = ''; 
         }
         if ($search_all != 'all') {
+	    if ( !isset( $start_msg ) ) {
+	        $start_msg =0;
+	    }
+	    if ( !isset( $sort ) ) {
+                $sort = 0;
+	    }
             mail_message_listing_beginning( $imapConnection,
                 "move_messages.php?msg=$msg&mailbox=$urlMailbox&pos=$pos&where=" . urlencode($search_where) . "&what=".urlencode($search_what),
             $mailbox,
