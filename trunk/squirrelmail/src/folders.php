@@ -15,39 +15,19 @@
    echo "</TABLE>\n";
 
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
-
-   fputs($imapConnection, "1 list \"\" *\n");
-   $str = imapReadData($imapConnection);
-
-   for ($i = 0;$i < count($str); $i++) {
-      $mailbox = Chop($str[$i]);
-      // find the quote at the begining of the mailbox name.
-      //    i subtract 1 from the strlen so it doesn't find the quote at the end of the mailbox name.
-      $mailbox = findMailboxName($mailbox);
-      $periodCount = countCharInString($mailbox, ".");
-
-      // indent the correct number of spaces.
-      for ($j = 0;$j < $periodCount;$j++)
-         $boxes[$i] = "$boxes[$i]&nbsp;&nbsp;&nbsp;";
-
-      $boxes[$i] = $boxes[$i] . readShortMailboxName($mailbox, ".");
-      $long_name_boxes[$i] = $mailbox;
-   }
+   getFolderList($imapConnection, $boxesFormatted, $boxesUnformatted);
 
    /** DELETING FOLDERS **/
-
    echo "<FORM ACTION=folders_delete.php METHOD=POST>\n";
    echo "<SELECT NAME=mailbox><FONT FACE=\"Arial,Helvetica\">\n";
-   for ($i = 0; $i < count($str); $i++) {
-      $thisbox = Chop($str[$i]);
-      $thisbox = findMailboxName($thisbox);
+   for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
-         if ($special_folders[$p] == $long_name_boxes[$i])
+         if ($special_folders[$p] == $boxesUnformatted[$i])
             $use_folder = false;
       }
       if ($use_folder == true)
-         echo "   <OPTION>$thisbox\n";
+         echo "   <OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Delete>\n";
@@ -58,11 +38,8 @@
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=folder_name>\n";
    echo "&nbsp;&nbsp;as a subfolder of&nbsp;&nbsp;";
    echo "<SELECT NAME=subfolder><FONT FACE=\"Arial,Helvetica\">\n";
-   for ($i = 0;$i < count($str); $i++) {
-      $thisbox = Chop($str[$i]);
-      $thisbox = findMailboxName($thisbox);
-      $thisbox = getFolderNameMinusINBOX($thisbox);
-      echo "<OPTION>$thisbox\n";
+   for ($i = 0;$i < count($boxesUnformatted); $i++) {
+      echo "<OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=SUBMIT VALUE=Create>\n";
@@ -71,14 +48,14 @@
    /** RENAMING FOLDERS **/
    echo "<FORM ACTION=folders_rename.php METHOD=POST>\n";
    echo "<SELECT NAME=folder_list><FONT FACE=\"Arial,Helvetica\">\n";
-   for ($i = 0; $i < count($str); $i++) {
+   for ($i = 0; $i < count($boxesUnformatted); $i++) {
       $use_folder = true;
       for ($p = 0; $p < count($special_folders); $p++) {
          if ($special_folders[$p] == $long_name_boxes[$i])
             $use_folder = false;
       }
       if ($use_folder == true)
-         echo "   <OPTION>$boxes[$i]\n";
+         echo "   <OPTION>$boxesUnformatted[$i]\n";
    }
    echo "</SELECT>\n";
    echo "<INPUT TYPE=TEXT SIZE=25 NAME=new_folder_name>\n";
