@@ -16,56 +16,120 @@ function parseConfig( $cfg_file ) {
     global $newcfg;
 
     $cfg = file( $cfg_file );
-    $cm = FALSE;
-    $j = count( $cfg );
+    $mode = '';
+    $l = count( $cfg );
+    $modifier = FALSE;
 
-    for ( $i=0; $i < $j; $i++ ) {
-        $l = '';
-        $first_char = $cfg[$i]{0};
-        do {
-            // Remove comments
-            $c = trim( $cfg[$i] );
-            // This is not correct. We should extract strings before removing comments.
-            $c = preg_replace( '/\/\*.*\*\//', '', $c );
-            $c = preg_replace( '/#.*$/', '', $c );
-            $c = preg_replace( '/\/\/.*$/', '', $c );
-            $c = trim( $c );
-            $l .= $c;
-            $i++;
-        } while( $first_char == '$' && substr( $c, -1 ) <> ';' && $i < $j );
-        $i--;
-        if ( $l <> '' ) {
-            if ( $cm ) {
-                if( substr( $l, -2 ) == '*/' ) {
-                    $l = '';
-                    $cm = FALSE;
-                } else if( $k = strpos( $l, '*/' ) ) {
-                    $l = substr( $l, $k );
-                    $cm = FALSE;
+    for ($i=0;$i<$l;$i++) {
+        $line = trim( $cfg[$i] );
+        $s = strlen( $line );
+        for ($j=0;$j<$s;$j++) {
+            switch ( $mode ) {
+            case '=':
+                if ( $line{$j} == '=' ) {
+                    // Ok, we've got a right value, lets detect what type
+                    $mode = 'D';
+                } else if ( $line{$j} == ';' ) {
+                    // hu! end of command
+                    $key = $mode = '';
+                }
+                break;
+            case 'K':
+                // Key detect
+                if( $line{$j} == ' ' ) {
+                    $mode = '=';
                 } else {
-                    $l = '';
+                    $key .= $line{$j};
                 }
-            } else {
-                if( $l{0}.$l{1} == '/*' ) {
-                    $l = '';
-                    $cm = TRUE;
-                } else if ( $k = strpos( $l, '/*' ) ) {
-                    $l = substr( $l, 0, $k );
-                    $cm = TRUE;
+                break;
+            case ';':
+                // Skip until next ;
+                if ( $line{$j} == ';' ) {
+                    $mode = '';
                 }
-            }
-    
-            if ( $k = strpos( $l, '=' ) ) {
-                $key = trim( substr( $l, 0, $k - 1 ) );
-                $val = str_replace( ';', '', trim( substr( $l, $k + 1 ) ) );
-                $newcfg[$key] = $val;
+                break;
+            case 'S':
+                if ( $line{$j} == '\\' ) {
+                    $value .= $line{$j};
+                    $modifier = TRUE;
+                } else if ( $line{$j} == $delimiter && $modifier === FALSE ) {
+                    // End of string;
+                    $newcfg[$key] = $value . $delimiter;
+                    $key = $value = '';
+                    $mode = ';';
+                } else {
+                    $value .= $line{$j};
+                    $modifier = FALSE;
+                }
+                break;
+            case 'N':
+                if ( $line{$j} == ';' ) {
+                    $newcfg{$key} = $value;
+                    $key = $mode = '';
+                } else {
+                    $value .= $line{$j};
+                }
+                break;
+            case 'C':
+                // Comments
+                if ( $line{$j}.$line{$j+1} == '*/' ) {
+                    $mode = '';
+                    $j++;
+                }
+                break;
+            case 'D':
+                // Delimiter detect
+                switch ( $line{$j} ) {
+                case '"':
+                case "'":
+                    // Double quote string
+                    $delimiter = $value = $line{$j};
+                    $mode = 'S';
+                    break;
+                case ' ':
+                    // Nothing yet
+                    break;
+                default:
+                    if ( strtoupper( substr( $line, $j, 4 ) ) == 'TRUE'  ) {
+                        // Boolean TRUE
+                        $newcfg{$key} = 'TRUE';
+                        $key = '';
+                        $mode = ';';
+                    } else if ( strtoupper( substr( $line, $j, 5 ) ) == 'FALSE'  ) {
+                        $newcfg{$key} = 'FALSE';
+                        $key = '';
+                        $mode = ';';
+                    } else {
+                        // Number or function call
+                        $mode = 'N';
+                        $value = $line{$j};
+                    }
+                }
+                break;
+            default:
+                if ( strtoupper( substr( $line, $j, 7 ) ) == 'GLOBAL ' ) {
+                    // Skip untill next ;
+                    $mode = ';';
+                    $j += 6;
+                } else if ( $line{$j}.$line{$j+1} == '/*' ) {
+                    $mode = 'C';
+                    $j++;
+                } else if ( $line{$j} == '#' || $line{$j}.$line{$j+1} == '//' ) {
+                    // Delete till the end of the line
+                    $j = $s;
+                } else if ( $line{$j} == '$' ) {
+                    // We must detect $key name
+                    $mode = 'K';
+                    $key = '$';
+                }
             }
         }
-
     }
 
 }
+
 /* ---------------------- main -------------------------- */
+
 chdir('..');
 require_once('../src/validate.php');
 require_once('../functions/page_header.php');
@@ -217,6 +281,7 @@ echo "<tr bgcolor=\"$color[5]\"><th colspan=2><input value=\"" .
 /*
     Write the options to the file.
 */
+
 $fp = fopen( $cfgfile, 'w' );
 fwrite( $fp, "<?PHP\n".
             "/**\n".
