@@ -18,8 +18,8 @@
    $languages[0]["CODE"] = "en";
    $languages[1]["NAME"] = "Norsk";
    $languages[1]["CODE"] = "no";
-   $languages[2]["NAME"] = "German";
-   $languages[2]["CODE"] = "ger";
+   $languages[2]["NAME"] = "Deutcsh";
+   $languages[2]["CODE"] = "de";
 
    // Decodes a string to the internal encoding from the given charset
    function charset_decode ($charset, $string) {
