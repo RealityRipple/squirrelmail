@@ -46,6 +46,9 @@
 	 if(isset($param["umask"])) 
 	   $this->umask = $param["umask"];
 
+	 if(!empty($param["name"]))
+	   $this->sname = $param["name"];
+
 	 $this->open(true);
        } else {
 	 $this->set_error("Invalid argument to constructor");
@@ -101,6 +104,40 @@
        $this->filehandle = 0;
        $this->filename   = "";
        $this->writable   = false;
+     }
+
+     // Lock the datafile - try 20 times in 5 seconds
+     function lock() {
+       for($i = 0 ; $i < 20 ; $i++) {
+	 if(flock($this->filehandle, 2 + 4)) 
+	   return true;
+	 else
+	   usleep(250000);
+       }
+       return false;
+     }
+
+     // Lock the datafile
+     function unlock() {
+       return flock($this->filehandle, 3);
+     }
+
+     // Overwrite the file with data from $rows
+     // NOTE! Previous locks are broken by this function
+     function overwrite($rows) {
+       $newfh = @fopen($this->filename, "w");
+       if(!$newfh)
+	 return $this->set_error("$file: "._("Open failed"));
+
+       for($i = 0 ; $i < sizeof($rows) ; $i++) {
+	 if(is_array($rows[$i]))
+	   fwrite($newfh, join("|", $rows[$i])."\n");
+       }       
+
+       fclose($newfh);
+       $this->unlock();
+       $this->open(true);
+       return true;
      }
      
      // ========================== Public ========================
@@ -208,13 +245,97 @@
        if(!$this->writeable) 
 	 return $this->set_error(_("Addressbook is read-only"));
 
-       $r = fwrite($this->filehandle, $data);
-       if($r > 0)
-	 return true;
+       // Lock the file
+       if(!$this->lock())
+	 return $this->set_error(_("Could not lock datafile"));
 
+       // Write
+       $r = fwrite($this->filehandle, $data);
+
+       // Unlock file
+       $this->unlock();
+
+       // Test write result and exit if OK
+       if($r > 0) return true;
+
+       // Fail
        $this->set_error(_("Write to addressbook failed"));
        return false;
      }
 
-   }
+     // Delete address
+     function remove($alias) {
+       if(!$this->writeable) 
+	 return $this->set_error(_("Addressbook is read-only"));
+
+       // Lock the file to make sure we're the only process working
+       // on it.
+       if(!$this->lock())
+	 return $this->set_error(_("Could not lock datafile"));
+
+       // Read file into memory, ignoring nicknames to delete
+       $this->open();
+       @rewind($this->filehandle);
+       $i = 0;
+       $rows = array();
+       while($row = @fgetcsv($this->filehandle, 2048, "|")) {
+	 if(!in_array($row[0], $alias))
+	   $rows[$i++] = $row;
+       }
+
+       // Write data back
+       if(!$this->overwrite(&$rows)) {
+	 $this->unlock();
+	 return false;
+       }
+
+       $this->unlock();
+       return true;
+     }
+
+     // Modify address
+     function modify($alias, $userdata) {
+       if(!$this->writeable) 
+	 return $this->set_error(_("Addressbook is read-only"));
+
+       // See if user exist
+       $ret = $this->lookup($alias);
+       if(empty($ret))
+	 return $this->set_error(sprintf(_("User '%s' does not exist"), 
+					 $alias));
+
+       // Lock the file to make sure we're the only process working
+       // on it.
+       if(!$this->lock())
+	 return $this->set_error(_("Could not lock datafile"));
+
+       // Read file into memory, modifying the data for the 
+       // user identifyed by $alias
+       $this->open();
+       @rewind($this->filehandle);
+       $i = 0;
+       $rows = array();
+       while($row = @fgetcsv($this->filehandle, 2048, "|")) {
+	 if(strtolower($row[0]) != strtolower($alias)) {
+	   $rows[$i++] = $row;
+	 } else {
+	   $rows[$i++] = array(0 => $userdata["nickname"],
+			       1 => $userdata["firstname"],
+			       2 => $userdata["lastname"],
+			       3 => $userdata["email"], 
+			       4 => $userdata["label"]);
+	 }
+       }
+
+       // Write data back
+       if(!$this->overwrite(&$rows)) {
+	 $this->unlock();
+	 return false;
+       }
+
+       $this->unlock();
+       return true;
+     }
+     
+   } // End of class abook_local_file
 ?>
