@@ -136,39 +136,41 @@
       for ($i=0; $i < count($body_ary); $i++) {
          $line = $body_ary[$i];
          $line = charset_decode($charset, $line);
-         $line = str_replace("\t", "        ", $line);
+         $line = str_replace("\t", '        ', $line);
          
          if (strlen($line) - 2 >= $wrap_at) {
             $line = sqWordWrap($line, $wrap_at);  
          }
          
-         $line = str_replace(" ", "&nbsp;", $line);
+         $line = str_replace(' ', '&nbsp;', $line);
          $line = nl2br($line);
 
-         $line = parseEmail ($line);
+         // Removed parseEmail and integrated it into parseUrl
+         // This line is no longer needed.
+         // $line = parseEmail ($line);
          $line = parseUrl ($line);
-
-         $line = "^^$line"; // gotta do this because if not, strpos() returns 0 
-                            // which in PHP is the same as false.  Now it returns 2
-         if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;&gt;") == 2) {
-            $line = substr($line, 2);
-            $line = "<FONT COLOR=FF0000>$line</FONT>\n";
-         } else if (strpos(trim(str_replace("&nbsp;", "", $line)), "&gt;") == 2) {
-            $line = substr($line, 2);
-            $line = "<FONT COLOR=800000>$line</FONT>\n";
-         } else {
-            $line = substr($line, 2);
-         } 
          
-         $body_ary[$i] = "<tt>$line</tt><br>";
+         $test_line = str_replace('&nbsp;', '', $line);
+         if (strpos($test_line, '&gt;&gt;') === 0) {
+            $line = "<FONT COLOR=FF0000>$line</FONT>\n";
+         } else if (strpos($test_line, '&gt;') === 0) {
+            $line = "<FONT COLOR=800000>$line</FONT>\n";
+         }
+
+         if ($line)
+         {
+             $line = '<tt>' . $line . '</tt>';
+         }
+
+         $body_ary[$i] = $line . '<br>';
       }
       $body = implode("\n", $body_ary);
-      
+            
       return $body;
    }
 
    /* SquirrelMail version number -- DO NOT CHANGE */
-   $version = "0.5pre2";
+   $version = "0.5";
 
 
    function find_mailbox_name ($mailbox) {
