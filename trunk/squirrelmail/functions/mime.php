@@ -421,7 +421,7 @@ function formatBody($imap_stream, $message, $color, $wrap_at, $ent_num, $id, $ma
 
 
 function formatAttachments($message, $exclude_id, $mailbox, $id) {
-    global $where, $what, $startMessage, $color;
+    global $where, $what, $startMessage, $color, $passed_ent_id;
     static $ShownHTML = 0;
 
     $att_ar = $message->getAttachments($exclude_id);
