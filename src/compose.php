@@ -42,23 +42,23 @@ if (isset($_POST['return'])) {
 if ( isset($_SESSION['composesession']) ) {
     $composesession = $_SESSION['composesession'];
 }
-sqextractGlobalVar('action');
-sqextractGlobalVar('session');
-sqextractGlobalVar('mailbox');
-sqextractGlobalVar('identity');
-sqextractGlobalVar('send_to');
-sqextractGlobalVar('send_to_cc');
-sqextractGlobalVar('send_to_bcc');
-sqextractGlobalVar('subject');
-sqextractGlobalVar('body');
-sqextractGlobalVar('mailprio');
-sqextractGlobalVar('request_mdn');
-sqextractGlobalVar('request_dr');
-sqextractGlobalVar('html_addr_search');
-sqextractGlobalVar('mail_sent');
-sqextractGlobalVar('passed_id');
-sqextractGlobalVar('passed_ent_id');
-sqextractGlobalVar('send');
+sqgetGlobalVar('action',$action);
+sqgetGlobalVar('session',$session);
+sqgetGlobalVar('mailbox',$mailbox);
+sqgetGlobalVar('identity',$identity);
+sqgetGlobalVar('send_to',$send_to);
+sqgetGlobalVar('send_to_cc',$send_to_cc);
+sqgetGlobalVar('send_to_bcc',$send_to_bcc);
+sqgetGlobalVar('subject',$subject);
+sqgetGlobalVar('body',$body);
+sqgetGlobalVar('mailprio',$mailprio);
+sqgetGlobalVar('request_mdn',$request_mdn);
+sqgetGlobalVar('request_dr',$request_dr);
+sqgetGlobalVar('html_addr_search',$html_addr_search);
+sqgetGlobalVar('mail_sent',$mail_sent);
+sqgetGlobalVar('passed_id',$passed_id);
+sqgetGlobalVar('passed_ent_id',$passed_ent_id);
+sqgetGlobalVar('send',$send);
 
 if ( isset($_POST['sigappend']) ) {
     $sigappend = $_POST['sigappend'];
@@ -75,7 +75,7 @@ if ( isset($_POST['send_to_search']) ) {
 }
 
 /* Attachments */
-sqextractGlobalVar('attach');
+sqgetGlobalVar('attach',$attach);
 if ( isset($_POST['do_delete']) ) {
     $do_delete = $_POST['do_delete'];
 }
@@ -93,11 +93,11 @@ if ( isset($_GET['attachedmessages']) ) {
 }
 
 /* Drafts */
-sqextractGlobalVar('draft');
-sqextractGlobalVar('draft_id');
-sqextractGlobalVar('ent_num');
-sqextractGlobalVar('saved_draft');
-sqextractGlobalVar('delete_draft');
+sqgetGlobalVar('draft',$draft);
+sqgetGlobalVar('draft_id',$draft_id);
+sqgetGlobalVar('ent_num',$ent_num);
+sqgetGlobalVar('saved_draft',$saved_draft);
+sqgetGlobalVar('delete_draft',$delete_draft);
 
 $key = $_COOKIE['key'];
 

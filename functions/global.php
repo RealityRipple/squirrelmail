@@ -223,19 +223,6 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
     return FALSE;
 }
 
- 
-/**
- *  Search for the var $name in $_SESSION, $_POST, $_GET
- *  (in that order) and register it as a global var.
- */
-function sqextractGlobalVar ($name) {
-
-    global $$name;
-
-    sqgetGlobalVar($name, $$name);
-
-}
-
 function sqsession_destroy() {
 
     /*
