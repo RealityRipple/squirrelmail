@@ -168,10 +168,19 @@ define('SQ_SERVER',5);
 /**
  * Search for the var $name in $_SESSION, $_POST, $_GET,
  * $_COOKIE, or $_SERVER and set it in provided var. 
+ *
  * If $search is not provided,  or == SQ_INORDER, it will search
  * $_SESSION, then $_POST, then $_GET. Otherwise,
  * use one of the defined constants to look for 
  * a var in one place specifically.
+ *
+ * Note: $search is an int value equal to one of the 
+ * constants defined above.
+ *
+ * example:
+ *    sqgetGlobalVar('username',$username,SQ_SESSION);
+ *  -- no quotes around last param!
+ *
  * Returns FALSE if variable is not found.
  * Returns TRUE if it is.
  */
@@ -179,46 +188,51 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
     if ( !check_php_version(4,1) ) {
         global $_SESSION, $_GET, $_POST, $_COOKIE, $_SERVER;
     }
-    
+
+    /* NOTE: DO NOT enclose the constants in the switch
+       statement with quotes. They are constant values,
+       enclosing them in quotes will cause them to evaluate
+       as strings. */
     switch ($search) {
         /* we want the default case to be first here,  
 	   so that if a valid value isn't specified, 
 	   all three arrays will be searched. */
-	default:
-	case 'SQ_INORDER':
-	case 'SQ_SESSION':
-	  if( isset($_SESSION[$name]) ) {
+      default:
+      case SQ_INORDER:
+      case SQ_SESSION:
+        if( isset($_SESSION[$name]) ) {
             $value = $_SESSION[$name];
-	    return TRUE;
-          } elseif ( $search == SQ_SESSION ) {
-	    break;
-	  }
-	case 'SQ_POST':
-	  if( isset($_POST[$name]) ) {
+            return TRUE;
+        } elseif ( $search == SQ_SESSION ) {
+            break;
+        }
+      case SQ_POST:
+        if( isset($_POST[$name]) ) {
             $value = $_POST[$name];
-	    return TRUE;
-	  } elseif ( $search == SQ_POST ) {
-	    break;
-	  }
-       	case 'SQ_GET':
-	  if ( isset($_GET[$name]) ) {
-            $value = $_GET[$name];
-	    return TRUE;
-	  } 
-	  /* NO IF HERE. FOR SQ_INORDER CASE, EXIT after GET */
-	  break;
-        case 'SQ_COOKIE':
-          if ( isset($_COOKIE[$name]) ) {
-             $value = $_COOKIE[$name];
-             return TRUE;
-          }
-	  break;
-	case 'SQ_SERVER':
-          if ( isset($_SERVER[$name]) ) {
-             $value = $_SERVER[$name];
-             return TRUE;
-          }
+            return TRUE;
+        } elseif ( $search == SQ_POST ) {
           break;
+        }
+      case SQ_GET:
+        if ( isset($_GET[$name]) ) {
+            $value = $_GET[$name];
+            return TRUE;
+        } 
+        /* NO IF HERE. FOR SQ_INORDER CASE, EXIT after GET */
+        break;
+      case SQ_COOKIE:
+        if ( isset($_COOKIE[$name]) ) {
+            $value = $_COOKIE[$name];
+            return TRUE; 
+        }
+        break;
+      case SQ_SERVER:
+print "SQ_SERVER CASE<br />\n";
+        if ( isset($_SERVER[$name]) ) {
+            $value = $_SERVER[$name];
+            return TRUE;
+        }
+        break;
     }
     return FALSE;
 }
