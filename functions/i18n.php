@@ -466,8 +466,8 @@ if ( file_exists( SM_PATH . 'locale/pt_BR') ) {
 }
 if ( file_exists( SM_PATH . 'locale/ru_RU') ) {
     $languages['ru_RU']['NAME']    = 'Russian';
-    $languages['ru_RU']['CHARSET'] = 'koi8-r';
-    $languages['ru_RU']['LOCALE'] = 'ru_RU.KOI8-R';
+    $languages['ru_RU']['CHARSET'] = 'utf-8';
+    $languages['ru_RU']['LOCALE'] = 'ru_RU.UTF-8';
     $languages['ru']['ALIAS'] = 'ru_RU';
 }
 if ( file_exists( SM_PATH . 'locale/sr_YU') ) {
