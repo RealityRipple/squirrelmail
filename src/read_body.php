@@ -735,7 +735,11 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri;
 
     $urlMailbox = urlencode($mailbox);
-    sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER);
+    if (sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER)) {                                                                 
+        $query_string = urlencode($query_string);                                                                                   
+    } else {                                                                                                                        
+        $query_string = '';                                                                                                         
+    } 
     $url = $base_uri.'src/view_header.php?'.$query_string;
 
     $s  = "<TR>\n" .
