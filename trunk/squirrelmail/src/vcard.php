@@ -147,70 +147,56 @@ echo '</table>' .
         _("Add to Addressbook") .
         '</td></tr>' .
         '<tr><td align=center>' .
-        '<FORM ACTION="../src/addressbook.php" METHOD="POST" NAME=f_add>' .
+	addForm('../src/addressbook.php', 'POST', 'f_add') .
         '<table border=0 cellpadding=2 cellspacing=0 align=center>' .
         '<tr><td align=right><b>Nickname:</b></td>' .
-        '<td><input type=text name="addaddr[nickname]" size=20 value="' .
-        $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'] .
-        '"></td></tr>' .
-        '<tr><td align=right><b>Note Field Contains:</b></td><td>' .
-        '<select name="addaddr[label]">';
+        '<td>'.
+	addInput('addaddr[nickname]', $vcard_safe['firstname'] . '-' . $vcard_safe['lastname'], '20').
+        '</td></tr>' .
+        '<tr><td align=right><b>Note Field Contains:</b></td><td>' ;
 
+$opts = array();
 if (isset($vcard_nice['url'])) {
-    echo '<option value="' . htmlspecialchars($vcard_nice['url']) .
-        '">' . _("Web Page") . "</option>\n";
+    $opts[$vcard_nice['url']] = _("Web Page");
 }
 if (isset($vcard_nice['adr'])) {
-    echo '<option value="' . $vcard_nice['adr'] .
-        '">' . _("Address") . "</option>\n";
+    $opts[$vcard_nice['adr']] = _("Address");
 }
 if (isset($vcard_nice['title'])) {
-    echo '<option value="' . $vcard_nice['title'] .
-        '">' . _("Title") . "</option>\n";
+    $opts[$vcard_nice['title']] = _("Title");
 }
 if (isset($vcard_nice['org'])) {
-    echo '<option value="' . $vcard_nice['org'] .
-        '">' . _("Organization / Department") . "</option>\n";
+    $opts[$vcard_nice['org']] = _("Organization / Department");
 }
 if (isset($vcard_nice['title'])) {
-    echo '<option value="' . $vcard_nice['title'] .
-        '; ' . $vcard_nice['org'] .
-        '">' . _("Title & Org. / Dept.") . "</option>\n";
+    $opts[$vcard_nice['title'].'; '.$vcard_nice['org']] = _("Title & Org. / Dept.");
 }
 if (isset($vcard_nice['tel;work'])) {
-    echo '<option value="' . $vcard_nice['tel;work'] .
-        '">' . _("Work Phone") . "</option>\n";
+    $opts[$vcard_nice['tel;work']] = _("Work Phone");
 }
 if (isset($vcard_nice['tel;home'])) {
-    echo '<option value="' . $vcard_nice['tel;home'] .
-        '">' . _("Home Phone") . "</option>\n";
+    $opts[$vcard_nice['tel;home']] = _("Home Phone");
 }
 if (isset($vcard_nice['tel;cell'])) {
-    echo '<option value="' . $vcard_nice['tel;cell'] .
-        '">' . _("Cellular Phone") . "</option>\n";
+    $opts[$vcard_nice['tel;cell']] = _("Cellular Phone");
 }
 if (isset($vcard_nice['tel;fax'])) {
-    echo '<option value="' . $vcard_nice['tel;fax'] .
-        '">' . _("Fax") . "</option>\n";
+    $opts[$vcard_nice['tel;fax']] = _("Fax");
 }
 if (isset($vcard_nice['note'])) {
-    echo '<option value="' . $vcard_nice['note'] .
-        '">' . _("Note") . "</option>\n";
+    $opts[$vcard_nice['note']] = _("Note");
 }
-echo '</select>' .
-        '</td></tr>' .
+
+echo    addSelect('addaddr[label]', $opts, '', TRUE);
+echo    '</td></tr>' .
         '<tr><td colspan=2 align=center>' .
-        '<INPUT NAME="addaddr[email]" type=hidden value="' .
-        htmlspecialchars($vcard_nice['email;internet']) . '">' .
-        '<INPUT NAME="addaddr[firstname]" type=hidden value="' .
-        $vcard_safe['firstname'] . '">' .
-        '<INPUT NAME="addaddr[lastname]" type=hidden value="' .
-        $vcard_safe['lastname'] . '">' .
-        '<INPUT TYPE=submit NAME="addaddr[SUBMIT]" ' .
-        'VALUE="Add to Address Book">' .
+	addHidden('addaddr[email]', $vcard_nice['email;internet']).
+	addHidden('addaddr[firstname]', $vcard_safe['firstname']).
+	addHidden('addaddr[lastname]', $vcard_safe['lastname']).
+	addSubmit(_("Add to Address Book"), 'addaddr[SUBMIT]').
         '</td></tr>' .
         '</table>' .
-        '</FORM>' .
+        '</form>' .
         '</td></tr>' .
         '<tr><td align=center>' .
         '<a href="../src/download.php?absolute_dl=true&amp;passed_id=' .
