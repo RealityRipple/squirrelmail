@@ -1502,8 +1502,8 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                       "head",
                       "base",
                       "link",
-		      "frame",
-		      "iframe"
+                      "frame",
+                      "iframe"
                       );
 
     $rm_tags_with_content = Array(
@@ -1589,6 +1589,9 @@ function magicHTML($body, $id, $message, $mailbox = 'INBOX'){
                           )
                 )
         );
+    if(isset($_GET['view_unsafe_images'])) {
+        $view_unsafe_images = $_GET['view_unsafe_images'];
+    }
     if (!$view_unsafe_images){
         /**
          * Remove any references to http/https if view_unsafe_images set
