@@ -45,6 +45,8 @@
    }
 	 
    function sqimap_get_small_header ($imap_stream, $id, $sent) {
+      global $where, $what;
+
       fputs ($imap_stream, "a001 FETCH $id BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject Message-Id X-Priority)]\r\n");
       $read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
 
@@ -76,6 +78,10 @@
          }
       }
 
+      if ($where == "SUBJECT") {
+         $subject = eregi_replace($what, "<b>\\0</b>", $subject);
+      }
+      
       $header = new small_header;
       if ($sent == true)
          $header->from = $to;
@@ -154,6 +160,8 @@
     **  Queries the IMAP server and gets all header information.
     ******************************************************************************/
    function sqimap_get_header ($imap_stream, $read) {
+      global $where, $what;
+
       $hdr = new msg_header();
       $i = 0;
       // Set up some defaults
@@ -272,6 +280,10 @@
             $hdr->subject = trim(substr($read[$i], 8, strlen($read[$i]) - 9));
             if (strlen(Chop($hdr->subject)) == 0)
                $hdr->subject = _("(no subject)");
+
+            if ($where == "SUBJECT") {
+               $hdr->subject = eregi_replace($what, "<b>\\0</b>", $hdr->subject);
+            }
             $i++;
          }
          /** CC **/
@@ -328,20 +340,6 @@
     ******************************************************************************/
    function sqimap_get_message_body ($imap_stream, &$header) {
       $id = $header->id;
-      //fputs ($imap_stream, "a001 FETCH $id:$id BODY[TEXT]\r\n");
-      //$read = sqimap_read_data ($imap_stream, "a001", true, $response, $message);
-       
-      /*
-      $i = 0;
-      $j = 0;
-      while ($i < count($read)-1) {
-         if ( ($i != 0) ) {
-            $body[$j] = $read[$i];
-            $j++;
-         }
-         $i++;
-      }
-      */
       return decodeMime($imap_stream, $body, &$header);
    }
 
