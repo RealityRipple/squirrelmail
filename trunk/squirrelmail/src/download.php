@@ -120,9 +120,9 @@
          case "text":
             $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
             $body = decodeBody($body, $header->encoding);
+            set_up_language(getPref($data_dir, $username, "language"));
             header("Content-Disposition: attachment; filename=\"$filename\"");
             header("Content-type: application/octet-stream; name=\"$filename\"");
-            set_up_language(getPref($data_dir, $username, "language"));
             if ($type1 == "plain") {
                echo _("Subject") . ": " . decodeHeader($top_header->subject) . "\n";
                echo "   " . _("From") . ": " . decodeHeader($top_header->from) . "\n";
@@ -132,8 +132,8 @@
             echo trim($body);
             break;
          default:
-            header("Content-Disposition: attachment; filename=\"$filename\"");
-            header("Content-type: application/octet-stream; name=\"$filename\"");
+            header("Content-Disposition: inline; filename=\"$filename\"");
+            header("Content-type: application/download; name=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
@@ -149,7 +149,7 @@
                 $body = mime_fetch_body($imapConnection, $passed_id, $passed_ent_id);
                 $body = decodeBody($body, $header->encoding);
                 header("Content-type: $type0/$type1; name=\"$filename\"");
-                header("Content-Disposition: attachment; filename=\"$filename\"");
+                header("Content-Disposition: inline; filename=\"$filename\"");
                 echo $body;
             }
             break;
@@ -161,7 +161,7 @@
             break;
          default:
             header("Content-type: $type0/$type1; name=\"$filename\"");
-            header("Content-Disposition: attachment; filename=\"$filename\"");
+            header("Content-Disposition: inline; filename=\"$filename\"");
             mime_print_body_lines ($imapConnection, $passed_id, $passed_ent_id, $header->encoding);
             break;
       }
