@@ -53,6 +53,7 @@
       if ($id) {
          sqimap_mailbox_select($imapConnection, $mailbox);
          $message = sqimap_get_message($imapConnection, $id, $mailbox);
+         $orig_header = $message->header;
          if ($ent_num)
             $message = getEntity($message, $ent_num);
 
@@ -65,23 +66,30 @@
             $body = "";
          }
          
-         if ($forward_id)
-            $tmp = _("-------- Original Message ---------\n");
          if ($message->header->type1 == "html")
             $body = strip_tags($body);
             
          $body_ary = explode("\n", $body);
          $body = "";
          for ($i=0; $i < count($body_ary); $i++) {
-            if ($i==0 && $forward_id)
-               $tmp = _("-------- Original Message ---------\n") . $body_ary[$i];
-            else
+            if ($i==0 && $forward_id) {
+               $tmp = _("-------- Original Message ---------\n");
+               $tmp .= _("Subject") . ": " . $orig_header->subject . "\n"; 
+               $tmp .= "   " . _("From") . ": " . $orig_header->from . "\n"; 
+               $tmp .= "     " . _("To") . ": " . $orig_header->to[0] . "\n"; 
+               if (count($orig_header->to) > 1) {
+                  for ($x=1; $x < count($orig_header->to); $x++) {
+                     $tmp .= "         " . $orig_header->to[$x] . "\n";
+                  }
+               }
+               $tmp .= "\n" . $body_ary[$i];
+            } else {
                $tmp = $body_ary[$i];
-            
+            }
             if ($forward_id)
-               $body .= "$body$tmp\n";
+               $body = "$body$tmp\n";
             else
-               $body .= "$body> $tmp\n";
+               $body = "$body> $tmp\n";
          }
          return $body;   
       }
