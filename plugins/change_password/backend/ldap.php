@@ -135,7 +135,7 @@ $squirrelmail_plugin_hooks['change_password_init']['ldap'] =
         'cpw_ldap_init';
 
 /**
- * Backend specific functions
+ * Makes sure that required functions and configuration options are set.
  */
 function cpw_ldap_init() {
     global $color;
@@ -174,6 +174,7 @@ function cpw_ldap_init() {
 
 
 /**
+ * Changes password. Main function attached to hook
  * @param array $data The username/curpw/newpw data.
  * @return array Array of error messages.
  */
@@ -204,16 +205,29 @@ function cpw_ldap_dochange($data) {
 
     if ($cpw_ldap_con) {
         $cpw_ldap_con_err=false;
+
         // set connection options
         if (is_array($cpw_ldap_connect_opts) && $cpw_ldap_connect_opts!=array()) {
-            foreach ($cpw_ldap_connect_opts as $opt => $value) {
-                if (! ldap_set_option($cpw_ldap_con,constant('LDAP_OPT_' . $opt),$value)) {
-                    // set error message
-                    array_push($msgs,sprintf(_("Setting of LDAP connection option %s to value %s failed."),$opt,$value));
-                    // FIXME: check if ldap_set_option modifies ldap_error.
-                    array_push($msgs,sprintf(_("Error: %s"),ldap_error($cpw_ldap_con)));
-                    $cpw_ldap_con_err=true;
+            // ldap_set_option() is available only with openldap 2.x and netscape directory sdk.
+            if (function_exists('ldap_set_option')) {
+                foreach ($cpw_ldap_connect_opts as $opt => $value) {
+                    // Make sure that constant is defined defore using it.
+                    if (defined('LDAP_OPT_' . $opt)) {
+                        // ldap_set_option() should not produce E_NOTICE or E_ALL errors and does not modify ldap_error().
+                        // leave it without @ in order to see any weird errors
+                        if (! ldap_set_option($cpw_ldap_con,constant('LDAP_OPT_' . $opt),$value)) {
+                            // set error message
+                            array_push($msgs,sprintf(_("Setting of LDAP connection option %s to value %s failed."),$opt,$value));
+                            $cpw_ldap_con_err=true;
+                        }
+                    } else {
+                        array_push($msgs,sprintf(_("Incorrect LDAP connection option: %s"),$opt));
+                        $cpw_ldap_con_err=true;
+                    }
                 }
+            } else {
+                array_push($msgs,_("Current PHP LDAP extension does not allow use of ldap_set_option() function."));
+                $cpw_ldap_con_err=true;
             }
         }
 
@@ -223,15 +237,17 @@ function cpw_ldap_dochange($data) {
             return $msgs;
         }
 
-        // enable tls
-        // FIXME: untested. use of undocumented ldap function
+        // enable ldap starttls
         if ($cpw_ldap_use_tls &&
             check_php_version(4,2,0) &&
             isset($cpw_ldap_connect_opts['PROTOCOL_VERSION']) &&
-            $cpw_ldap_connect_opts['PROTOCOL_VERSION']>=3) {
-            if (! ldap_use_tls($cpw_ldap_con)) {
-                array_push($msgs,_("Unable to use TLS."));
-                array_push($msgs,sprintf(_("Error: %s"),ldap_error($cpw_ldap_con)));
+            $cpw_ldap_connect_opts['PROTOCOL_VERSION']>=3 &&
+            function_exists('ldap_start_tls')) {
+            // suppress ldap_start_tls errors and process error messages
+            if (! @ldap_start_tls($cpw_ldap_con)) {
+                array_push($msgs,
+                           _("Unable to use TLS."),
+                           sprintf(_("Error: %s"),ldap_error($cpw_ldap_con)));
                 $cpw_ldap_con_err=true;
             }
         } elseif ($cpw_ldap_use_tls) {
@@ -259,8 +275,9 @@ function cpw_ldap_dochange($data) {
 
         // check ldap_bind errors
         if (! $cpw_ldap_binding) {
-            array_push($msgs,_("Unable to bind to LDAP server."));
-            array_push($msgs,sprintf(_("Server replied: %s"),ldap_error($cpw_ldap_con)));
+            array_push($msgs,
+                       _("Unable to bind to LDAP server."),
+                       sprintf(_("Server replied: %s"),ldap_error($cpw_ldap_con)));
             @ldap_unbind($cpw_ldap_con);
             return $msgs;
         }
@@ -270,7 +287,7 @@ function cpw_ldap_dochange($data) {
 
         // check for search errors and stop execution if something is wrong
         if (! $cpw_ldap_search_err) {
-            ldap_unbind($cpw_ldap_con);
+            @ldap_unbind($cpw_ldap_con);
             return $msgs;
         }
 
@@ -295,17 +312,25 @@ function cpw_ldap_dochange($data) {
                 // check for connection errors and stop execution if something is wrong
                 if (! $cpw_ldap_search_err) {
                     @ldap_unbind($cpw_ldap_con);
+                    // errors are added to msgs by cpw_ldap_uid_search()
                     return $msgs;
                 }
 
                 // we should check user password here.
-                $cpw_ldap_cur_pass_array=ldap_get_values($cpw_ldap_con,
+                // suppress errors and check value returned by function call
+                $cpw_ldap_cur_pass_array=@ldap_get_values($cpw_ldap_con,
                                                          ldap_first_entry($cpw_ldap_con,$cpw_ldap_res2),'userpassword');
-                // FIXME: check if ldap_get_values() found userpassword field. Currently it might cause php errors
+
+                // check if ldap_get_values() have found userpassword field
+                if (! $cpw_ldap_cur_pass_array) {
+                    array_push($msgs,_("Unable to find user's password attribute."));
+                    return $msgs;
+                }
 
                 // compare passwords
                 if (! cpw_ldap_compare_pass($cpw_ldap_cur_pass_array[0],$curpw,$msgs)) {
                     @ldap_unbind($cpw_ldap_con);
+                    // errors are added to $msgs by cpw_ldap_compare_pass()
                     return $msgs;
                 }
             }
@@ -314,8 +339,9 @@ function cpw_ldap_dochange($data) {
         }
 
         if (! $cpw_ldap_binding) {
-            array_push($msgs,_("Unable to rebind to LDAP server."));
-            array_push($msgs,sprintf(_("Server replied: %s"),ldap_error($cpw_ldap_con)));
+            array_push($msgs,
+                       _("Unable to rebind to LDAP server."),
+                       sprintf(_("Server replied: %s"),ldap_error($cpw_ldap_con)));
             @ldap_unbind($cpw_ldap_con);
             return $msgs;
         }
@@ -330,9 +356,15 @@ function cpw_ldap_dochange($data) {
             return $msgs;
         }
 
-        // getpassword
-        $cpw_ldap_cur_pass_array=ldap_get_values($cpw_ldap_con,ldap_first_entry($cpw_ldap_con,$cpw_ldap_res2),'userpassword');
-        // FIXME: check if ldap_get_values() found userpassword field
+        // getpassword. suppress errors and check value returned by function call
+        $cpw_ldap_cur_pass_array=@ldap_get_values($cpw_ldap_con,ldap_first_entry($cpw_ldap_con,$cpw_ldap_res2),'userpassword');
+
+        // check if ldap_get_values() have found userpassword field.
+        // Error differs from previous one, because user managed to authenticate.
+        if (! $cpw_ldap_cur_pass_array) {
+            array_push($msgs,_("LDAP server uses different attribute to store user's password."));
+            return $msgs;
+        }
 
         // encrypt new password (old password is needed for plaintext encryption detection)
         $cpw_ldap_new_pass=cpw_ldap_encrypt_pass($newpw,$cpw_ldap_cur_pass_array[0],$msgs,$curpw);
@@ -427,15 +459,19 @@ function cpw_ldap_uid_search($ldap_con,$ldap_basedn,&$msgs,&$results,&$userdn,$o
     $results=ldap_search($ldap_con,$ldap_basedn,cpw_ldap_specialchars($cpw_ldap_userid_attr . '=' . $username));
 
     if (! $results) {
-        array_push($msgs,_("Unable to find user's DN.") . _("Search error."));
-        array_push($msgs,sprintf(_("Error: %s"),ldap_error($ldap_con)));
+        array_push($msgs,
+                   _("Unable to find user's DN."),
+                   _("Search error."),
+                   sprintf(_("Error: %s"),ldap_error($ldap_con)));
         $ret=false;
     } elseif ($onlyone && ldap_count_entries($ldap_con,$results)>1) {
         array_push($msgs,_("Multiple userid matches found."));
         $ret=false;
     } elseif (! $userdn = ldap_get_dn($ldap_con,ldap_first_entry($ldap_con,$results))) {
         // ldap_get_dn() returned error
-        array_push($msgs,_("Unable to find user's DN.") . _("ldap_get_dn error."));
+        array_push($msgs,
+                   _("Unable to find user's DN."),
+                   _("ldap_get_dn error."));
         $ret=false;
     }
     return $ret;
@@ -504,20 +540,22 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             $ret = "{SMD5}".base64_encode( mhash( MHASH_MD5, $pass.$salt ).$salt );
         } else {
             // use two array_push calls in order to display messages in different lines.
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'smd5'));
-            array_push($msgs,_("PHP mhash extension is missing."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'smd5'),
+                       _("PHP mhash extension is missing."));
         }
         break;
     case 'sha':
         // minimal requirement = php 4.3.0+ or php with mhash extension
         if ( function_exists('sha1') ) {
             // use php 4.3.0+ sha1 function, if it is available.
-            $new_value = '{SHA}' . base64_encode( pack( 'H*' , sha1( $password_clear) ) );
+            $ret = '{SHA}' . base64_encode(pack('H*',sha1($pass)));
         } elseif( function_exists( 'mhash' ) ) {
             $ret = '{SHA}' . base64_encode( mhash( MHASH_SHA1, $pass) );
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'sha'));
-            array_push($msgs,_("PHP mhash extension is missing."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'sha'),
+                       _("PHP mhash extension is missing."));
         }
         break;
     case 'ssha':
@@ -531,16 +569,18 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             }
             $ret = "{SSHA}".base64_encode( mhash( MHASH_SHA1, $pass.$salt ).$salt );
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ssha'));
-            array_push(_("PHP mhash extension is missing."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'ssha'),
+                       _("PHP mhash extension is missing."));
         }
         break;
     case 'crypt':
         if (defined('CRYPT_STD_DES') && CRYPT_STD_DES==1) {
             $ret = '{CRYPT}' . crypt($pass,GenerateRandomString(2,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'crypt'));
-            array_push($msgs,_("System crypt library doesn't support standard DES crypt."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'crypt'),
+                       _("System crypt library doesn't support standard DES crypt."));
         }
         break;
     case 'md5crypt':
@@ -548,8 +588,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
         if (defined('CRYPT_MD5') && CRYPT_MD5==1) {
             $ret = '{CRYPT}' . crypt($pass,'$1$' . GenerateRandomString(9,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'md5crypt'));
-            array_push($msgs,_("System crypt library doesn't have MD5 support."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'md5crypt'),
+                       _("System crypt library doesn't have MD5 support."));
         }
         break;
     case 'extcrypt':
@@ -558,8 +599,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             // FIXME: guinea pigs with extended des support needed.
             $ret = '{CRYPT}' . crypt($pass,'_' . GenerateRandomString(8,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'ext_des'));
-            array_push($msgs,_("System crypt library doesn't support extended DES crypt."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'ext_des'),
+                       _("System crypt library doesn't support extended DES crypt."));
         }
         break;
     case 'blowfish':
@@ -568,8 +610,9 @@ function cpw_ldap_password_hash($pass,$crypto,&$msgs,$forced_salt='') {
             // FIXME: guinea pigs with blowfish support needed.
             $ret = '{CRYPT}' . crypt($pass,'$2a$12$' . GenerateRandomString(13,$extra_salt_chars,7));
         } else {
-            array_push($msgs,sprintf(_("Unsupported crypto: %s"),'Blowfish'));
-            array_push($msgs,_("System crypt library doesn't have Blowfish support."));
+            array_push($msgs,
+                       sprintf(_("Unsupported crypto: %s"),'Blowfish'),
+                       _("System crypt library doesn't have Blowfish support."));
         }
         break;
     case 'plaintext':
@@ -614,8 +657,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
             if( strcmp( $pass_hash, $new_hash ) == 0 )
                 $ret=true;
         } else {
-            array_push($msgs,_("Unable to validate user's password."));
-            array_push($msgs, _("PHP mhash extension is missing."));
+            array_push($msgs,
+                       _("Unable to validate user's password."),
+                       _("PHP mhash extension is missing."));
         }
         break;
     case 'smd5':
@@ -628,8 +672,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
             if( strcmp( $pass_hash, $new_hash ) == 0)
                 $ret=true;
         } else {
-            array_push($msgs,_("Unable to validate user's password."));
-            array_push($msgs, _("PHP mhash extension is missing."));
+            array_push($msgs,
+                       _("Unable to validate user's password."),
+                       _("PHP mhash extension is missing."));
         }
         break;
     case 'sha':
@@ -651,8 +696,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
                 if( crypt( $pass_clear, $pass_hash ) == $pass_hash )
                     $ret=true;
             } else {
-                array_push($msgs,_("Unable to validate user's password."));
-                array_push($msgs,_("Blowfish is not supported by webserver's system crypt library."));
+                array_push($msgs,
+                           _("Unable to validate user's password."),
+                           _("Blowfish is not supported by webserver's system crypt library."));
             }
         } elseif( strstr( $pass_hash, '$1$' ) ) { // Check if it's md5 crypt
             // check CRYPT_MD5 here.
@@ -662,8 +708,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
                 if( crypt( $pass_clear, '$1$' .$salt ) == $pass_hash )
                     $ret=true;
             } else {
-                array_push($msgs,_("Unable to validate user's password."));
-                array_push($msgs,_("MD5 is not supported by webserver's system crypt library."));
+                array_push($msgs,
+                           _("Unable to validate user's password."),
+                           _("MD5 is not supported by webserver's system crypt library."));
             }
         } elseif( strstr( $pass_hash, '_' ) ) { // Check if it's extended des crypt
             // check CRYPT_EXT_DES here.
@@ -672,8 +719,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
                 if( crypt( $pass_clear, $pass_hash ) == $pass_hash )
                     $ret=true;
             } else {
-                array_push($msgs,_("Unable to validate user's password."));
-                array_push($msgs,_("Extended DES crypt is not supported by webserver's system crypt library."));
+                array_push($msgs,
+                           _("Unable to validate user's password."),
+                           _("Extended DES crypt is not supported by webserver's system crypt library."));
             }
         } else {
             // it is possible that this test is useless and any crypt library supports it, but ...
@@ -682,8 +730,9 @@ function cpw_ldap_compare_pass($pass_hash,$pass_clear,&$msgs) {
                 if( crypt($pass_clear, $pass_hash ) == $pass_hash )
                     $ret=true;
             } else {
-                array_push($msgs,_("Unable to validate user's password."));
-                array_push($msgs,_("Standard DES crypt is not supported by webserver's system crypt library."));
+                array_push($msgs,
+                           _("Unable to validate user's password."),
+                           _("Standard DES crypt is not supported by webserver's system crypt library."));
             }
         }
         break;
