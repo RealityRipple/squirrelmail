@@ -386,7 +386,7 @@ function elapsedTime($start) {
  return $timepassed;
 }
 
-function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
+function sqimap_get_small_header_list ($imap_stream, $msg_list) {
     global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
     global $uid_support;
 
@@ -593,12 +593,8 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
             }
 
         }
+
         $header = new small_header;
-        if ($issent) {
-            $header->from = (trim($to) != '' ? $to : '(' ._("No To Address") . ')');
-        } else {
-            $header->from = $from;
-        }
 
         if ($uid_support) {
             $header->uid = $unique_id;
@@ -608,6 +604,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
         $header->date = $date;
         $header->subject = $subject;
         $header->to = $to;
+        $header->from = $from;	
         $header->priority = $priority;
         $header->message_id = $messageid;
         $header->cc = $cc;
