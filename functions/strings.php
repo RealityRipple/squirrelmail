@@ -642,7 +642,7 @@ function sq_mt_seed($Val) {
         $Val *= -1;
     }
 
-    if ($Val = 0) {
+    if ($Val == 0) {
         return;
     }
 
