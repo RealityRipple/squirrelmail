@@ -203,7 +203,7 @@ function charset_decode ($charset, $string) {
     } else if ($charset == 'gb2312' and $agresive_decoding ) {
         include_once(SM_PATH . 'functions/decode/gb2312.php');
         $ret = charset_decode_gb2312 ($string);
-    } else if ($charset == 'utf-8') {
+    } else if ($charset == 'utf-8' && $squirrelmail_language != 'ja_JP') {
         include_once(SM_PATH . 'functions/decode/utf-8.php');
 	$ret = charset_decode_utf8 ($string);
     } else {
