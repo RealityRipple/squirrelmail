@@ -248,6 +248,7 @@ but may be out of date soon thereafter.  You never know.  ;-)
   check_handleAsSent_result      functions/mailbox_display.php   do_hook
   subject_link                   functions/mailbox_display.php   concat_hook
   mailbox_display_buttons        functions/mailbox_display.php   do_hook
+  mailbox_display_button_action  functions/mailbox_display.php   hook_func
   message_body                   functions/mime.php              do_hook
   ^ attachment $type0/$type1     functions/mime.php              do_hook
   attachments_bottom             functions/mime.php              hook_func
@@ -273,8 +274,6 @@ but may be out of date soon thereafter.  You never know.  ;-)
   login_top                      src/login.php                   do_hook
   login_form                     src/login.php                   do_hook
   login_bottom                   src/login.php                   do_hook
-  move_before_move               src/move_messages.php           do_hook
-  move_messages_button_action    src/move_messages.php           concat_hook
   * optpage_set_loadinfo         src/options.php                 do_hook
   * optpage_loadhook_personal    src/options.php                 do_hook
   * optpage_loadhook_display     src/options.php                 do_hook
