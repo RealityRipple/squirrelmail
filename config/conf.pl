@@ -2592,6 +2592,9 @@ sub command63 {
 
 # writing into global filebased abook control
 sub command64 {
+    print "This setting controls writing into global file address\n";
+    print "book options. Address book file must be writeable by\n";
+    print "webserver's user, if you want to enable this option.\n";
     print "\n";
 
     if ( lc($abook_global_file_writeable) eq 'true' ) {
@@ -2600,7 +2603,7 @@ sub command64 {
         $abook_global_file_writeable = 'false';
         $default_value               = "n";
     }
-    print "Allow writting into global file address book (y/n) [$WHT$default_value$NRM]: $WHT";
+    print "Allow writing into global file address book (y/n) [$WHT$default_value$NRM]: $WHT";
     $new_show = <STDIN>;
     if ( ( $new_show =~ /^y\n/i ) || ( ( $new_show =~ /^\n/ ) && ( $default_value eq "y" ) ) ) {
         $abook_global_file_writeable = 'true';
