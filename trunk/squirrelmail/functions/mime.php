@@ -29,9 +29,8 @@ function mime_structure ($bodystructure, $flags=array()) {
     /* Isolate the body structure and remove beginning and end parenthesis. */
     $read = trim(substr ($bodystructure, strpos(strtolower($bodystructure), 'bodystructure') + 13));
     $read = trim(substr ($read, 0, -1));
-    $msg =& new Message();
-    $res  = $msg->parseStructure($read);
-    $msg  = $res[0];
+    $i = 0;
+    $msg = Message::parseStructure($read,$i);
     if (!is_object($msg)) {
         include_once(SM_PATH . 'functions/display_messages.php');
         global $color, $mailbox;
@@ -83,6 +82,8 @@ function mime_structure ($bodystructure, $flags=array()) {
     //    listEntities($msg);
     return $msg;
 }
+
+
 
 /* This starts the parsing of a particular structure.  It is called recursively,
  * so it can be passed different structures.  It returns an object of type
