@@ -589,7 +589,7 @@ if (isset($passed_ent_id) && $passed_ent_id) {
       $message = $message->parent;
    }
    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[$passed_ent_id.HEADER]", true, $response, $msg, $uid_support);
-   $rfc822_header = new rfc822_header();
+   $rfc822_header = new Rfc822Header();
    $rfc822_header->parseHeader($read);
    $message->rfc822_header = $rfc822_header;
 } else {
