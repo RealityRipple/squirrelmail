@@ -71,7 +71,8 @@ class POP3 {
         //  port defaults to 110. Returns true on success, false on fail
 
         // If MAILSERVER is set, override $server with it's value
-
+	
+	if (!isset($port) || !$port) {$port = 110;}
         if(!empty($this->MAILSERVER))
             $server = $this->MAILSERVER;
 
@@ -82,7 +83,7 @@ class POP3 {
         }
 
         $fp = fsockopen("$server", $port, $errno, $errstr);
-
+        echo 'Server: ' . $server . '<br>Port: ' . $port;
         if(!$fp) {
             $this->ERROR = _("POP3 connect:") . ' ' . _("Error ") . "[$errno] [$errstr]";
             unset($this->FP);
