@@ -27,6 +27,9 @@ sqgetGlobalVar('onetimepad', $onetimepad, SQ_SESSION);
 
 sqgetGlobalVar('message', $message, SQ_GET);
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
+
+sqgetGlobalVar('bypass_trash', $bypass_trash, SQ_GET);
+
 /* end globals */
 
 if (isset($_GET['saved_draft'])) {
@@ -54,7 +57,7 @@ $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0
 
 sqimap_mailbox_select($imapConnection, $mailbox);
 
-sqimap_messages_delete($imapConnection, $message, $message, $mailbox);
+sqimap_messages_delete($imapConnection, $message, $message, $mailbox,$bypass_trash);
 if ($auto_expunge) {
     sqimap_mailbox_expunge($imapConnection, $mailbox, true);
 }
