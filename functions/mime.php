@@ -528,9 +528,8 @@
 
                $body .= '<TR><TD>&nbsp;&nbsp;</TD><TD>';
                $body .= "<A HREF=\"$DefaultLink\">$display_filename</A>&nbsp;</TD>";
-               $size = $message->header->size / 1024;
-               settype($size, "integer");
-               $body .= "<TD><SMALL><b>" . $size . "k</b>&nbsp;&nbsp;</small></TD>";
+               $body .= '<TD><SMALL><b>' . show_readable_size($message->header->size) . 
+                   '</b>&nbsp;&nbsp;</small></TD>';
                $body .= "<TD><SMALL>[ $type0/$type1 ]&nbsp;</SMALL></TD>";
                $body .= '<TD><SMALL>';
                if ($message->header->description)

@@ -59,14 +59,14 @@
       if (count($words) > 1) {
          while ($i < count($words)) {
             // Force one word to be on a line (minimum)
-            $line .= $words[$i] . ' ';
+            $line .= $words[$i];
             $line_len = strlen($beginning_spaces) + strlen($words[$i]) +
                 strlen($words[$i + 1]) + 2;
             $i ++;
             
             // Add more words (as long as they fit)
             while ($line_len < $wrap && $i < count($words)) {
-               $line .= $words[$i] . ' ';
+               $line .= ' ' . $words[$i];
                $i++;
                $line_len += strlen($words[$i]) + 1;
             }
@@ -391,6 +391,30 @@
       }
       
       return true;
+   }
+   
+   /* Returns a string showing the size of the message/attachment */
+   function show_readable_size($bytes)
+   {
+       $bytes /= 1024;
+       $type = 'k';
+       
+       if ($bytes / 1024 > 1)
+       {
+           $bytes /= 1024;
+           $type = 'm';
+       }
+       
+       if ($bytes < 10)
+       {
+           $bytes *= 10;
+           settype($bytes, "integer");
+           $bytes /= 10;
+       }
+       else
+           settype($bytes, "integer");
+       
+       return $bytes . '<small>&nbsp;' . $type . '</small>';
    }
 
 ?>
