@@ -190,7 +190,7 @@ function getforwardHeader($orig_header) {
  */
 //$session_expired = false; 
 sqsession_unregister('session_expired_post');
-if (false && session_is_registered('session_expired_post')) {
+if (false && sqsession_is_registered('session_expired_post')) {
     global $session_expired_post, $session_expired;
     /* 
      * extra check for username so we don't display previous post data from

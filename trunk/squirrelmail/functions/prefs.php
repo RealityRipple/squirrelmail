@@ -22,7 +22,7 @@ if (isset($_SESSION['prefs_are_cached'])) {
 
 $rg = ini_get('register_globals');
 
-if ( !session_is_registered('prefs_are_cached') ||
+if ( !sqsession_is_registered('prefs_are_cached') ||
      !isset( $prefs_cache) ||
      !is_array( $prefs_cache) ||
      substr( phpversion(), 0, 3 ) == '4.1' ||
