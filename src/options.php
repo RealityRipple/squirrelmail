@@ -278,7 +278,7 @@ if ($optpage == SMOPT_PAGE_MAIN) {
     $optpage_blocks[] = array(
         'name' => _("Index Order"),
         'url'  => 'options_order.php',
-        'desc' => _("The order of the message index can be rearanged and changed to contain the headers in any order you want."),
+        'desc' => _("The order of the message index can be rearranged and changed to contain the headers in any order you want."),
         'js'   => false
     );
 
