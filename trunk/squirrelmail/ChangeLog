@@ -25,12 +25,16 @@ Version 1.4.0 CVS
   - Fixed charset decode of base64 encoded strings.
   - Fixed encoding of email addresses in our composed messages.
   - Fixed folder creation for Courier using Autoconfig options.
-  - Fixed encoded string handling inside MDN notifications
+  - Fixed encoded string handling inside MDN notifications.
   - Fixed unfold header routine in imap_messages (for mailbox_display).
   - Make listcommands work with PHP versions 4.0.4 & 4.0.5.
-  - Fixed subject_line hook
-  - Fixed sqgetGlobalVar switching
-  
+  - Fixed subject_line hook.
+  - Fixed sqgetGlobalVar switching.
+  - Fixed handling of encoding/decoding strings.
+  - Fixed wrong array_slice call for a subset of the headers.
+  - Allow encoded personal names in compose.php.
+  - Improved addresparsing from addresses coming from the compose form.
+
 Version 1.4.0 RC 2a
 -------------------
   - Fix broken themes box in display options.
