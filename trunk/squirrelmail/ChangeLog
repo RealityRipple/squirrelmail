@@ -95,6 +95,8 @@ Version 1.5.1 -- CVS
   - Added $loosy_encoding option (provides fix for #806698)
   - Reenabled use of $default_charset option. Option works only with en_US 
     translation in order to prevent language/charset misconfiguration.
+  - Fixes for nonpopulation of folder lists and errors when emptying the trash
+    (provides fixes for #1019185 and #1017941)
 
 Version 1.5.0
 --------------------
