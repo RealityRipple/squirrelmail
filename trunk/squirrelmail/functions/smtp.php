@@ -32,15 +32,20 @@ if (!$domain) {
 }
 
 /* Returns true only if this message is multipart */
-function isMultipart () {
+function isMultipart ($session) {
     global $attachments;
-    
+    return true;
+/*    
     if (count($attachments)>0) {
-        return true;
-    }
-    else {
+	for ($i=0 ; $i < count($attachments) ; $i++) {
+	    if ($attachments[$i]->session == $session) {
+    		return true;
+	    }
+	}
+    } else {
         return false;
     }
+*/
 }
 
 /* looks up aliases in the addressbook and expands them to
@@ -110,14 +115,15 @@ function expandRcptAddrs ($array) {
 
 /* Attach the files that are due to be attached
  */
-function attachFiles ($fp) {
+function attachFiles ($fp, $session) {
     global $attachments, $attachment_dir, $username;
 
     $length = 0;
 
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    if (isMultipart()) {
+    if (isMultipart($session)) {
         foreach ($attachments as $info) {
+	  if ($info['session'] == $session) {
             if (isset($info['type'])) {
                 $filetype = $info['type'];
             }
@@ -168,6 +174,7 @@ function attachFiles ($fp) {
                 }
             }
             fclose ($file);
+	  }
         }
     }
     return $length;
@@ -175,21 +182,41 @@ function attachFiles ($fp) {
 
 /* Delete files that are uploaded for attaching
  */
-function deleteAttachments() {
-    global $attachments, $attachment_dir;
-    
+function deleteAttachments($session) {
+    global $username, $attachments, $attachment_dir;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-    if (isMultipart()) {
-        reset($attachments);
-        while (list($localname, $remotename) = each($attachments)) {
-            if (!ereg ("\\/", $localname)) {
-                $filename = $hashed_attachment_dir . '/' . $localname;
-                unlink ($filename);
-                unlink ("$filename.info");
-            }
-        }
+
+    $rem_attachments = array();
+    foreach ($attachments as $info) {
+	if ($info['session'] == $session) {
+    	    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
+    	    if (file_exists($attached_file)) {
+        	unlink($attached_file);
+    	    }
+	} else {
+	    $rem_attachments[] = $info;
+	}
     }
+    $attachments = $rem_attachments;
 }
+
+
+
+    
+//    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
+//    if (isMultipart($ses)) {
+//        reset($attachments);
+//        while (list($localname, $remotename, $session) = each($attachments)) {
+//	  if ($session == $ses) {
+///            if (!ereg ("\\/", $localname)) {
+//                $filename = $hashed_attachment_dir . '/' . $localname;
+//                unlink ($filename);
+//                unlink ("$filename.info");
+//            }
+//	  }
+//        }
+//    }
+//}
 
 /* Return a nice MIME-boundary
  */
@@ -231,7 +258,7 @@ function timezone () {
 }
 
 /* Print all the needed RFC822 headers */
-function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
+function write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session) {
     global $REMOTE_ADDR, $SERVER_NAME, $REMOTE_PORT;
     global $data_dir, $username, $popuser, $domain, $version, $useSendmail;
     global $default_charset, $HTTP_VIA, $HTTP_X_FORWARDED_FOR;
@@ -312,7 +339,7 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
             unset($more_headers["Content-Type"]);
         }
         else {
-            if (isMultipart()) {
+            if (isMultipart($session)) {
                 $contentType = "multipart/mixed;";
             }
             else {
@@ -353,7 +380,7 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
         /* Do the MIME-stuff */
         $header .= "MIME-Version: 1.0\r\n";
 
-        if (isMultipart()) {
+        if (isMultipart($session)) {
             $header .= 'Content-Type: '.$contentType.' boundary="';
             $header .= mimeBoundary();
             $header .= "\"\r\n";
@@ -374,12 +401,12 @@ function write822Header ($fp, $t, $c, $b, $subject, $more_headers) {
 
 /* Send the body
  */
-function writeBody ($fp, $passedBody) {
+function writeBody ($fp, $passedBody, $session) {
     global $default_charset;
     
     $attachmentlength = 0;
     
-    if (isMultipart()) {
+    if (isMultipart($session)) {
         $body = '--'.mimeBoundary()."\r\n";
         
         if ($default_charset != "") {
@@ -393,7 +420,7 @@ function writeBody ($fp, $passedBody) {
         $body .= $passedBody . "\r\n\r\n";
         fputs ($fp, $body);
         
-        $attachmentlength = attachFiles($fp);
+        $attachmentlength = attachFiles($fp, $session);
         
         if (!isset($postbody)) { 
             $postbody = ""; 
@@ -412,7 +439,7 @@ function writeBody ($fp, $passedBody) {
 
 /* Send mail using the sendmail command
  */
-function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
+function sendSendmail($t, $c, $b, $subject, $body, $more_headers, $session) {
     global $sendmail_path, $popuser, $username, $domain;
     
     /* Build envelope sender address. Make sure it doesn't contain 
@@ -431,8 +458,8 @@ function sendSendmail($t, $c, $b, $subject, $body, $more_headers) {
         $fp = popen (escapeshellcmd("$sendmail_path -t -f$envelopefrom"), "w");
     }
     
-    $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers);
-    $bodylength = writeBody($fp, $body);
+    $headerlength = write822Header ($fp, $t, $c, $b, $subject, $more_headers, $session);
+    $bodylength = writeBody($fp, $body, $session);
     
     pclose($fp);
     
@@ -450,7 +477,7 @@ function smtpReadData($smtpConnection) {
     }
 }
 
-function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
+function sendSMTP($t, $c, $b, $subject, $body, $more_headers, $session) {
     global $username, $popuser, $domain, $version, $smtpServerAddress, 
         $smtpPort, $data_dir, $color, $use_authenticated_smtp, $identity, 
         $key, $onetimepad;
@@ -550,8 +577,8 @@ function sendSMTP($t, $c, $b, $subject, $body, $more_headers) {
     }
 
     /* Send the message */
-    $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers);
-    $bodylength = writeBody($smtpConnection, $body);
+    $headerlength = write822Header ($smtpConnection, $t, $c, $b, $subject, $more_headers, $session);
+    $bodylength = writeBody($smtpConnection, $body, $session);
     
     fputs($smtpConnection, ".\r\n"); /* end the DATA part */
     $tmp = fgets($smtpConnection, 1024);
@@ -676,7 +703,7 @@ function errorCheck($line, $smtpConnection, $verbose = false) {
     return $err_num;
 }
 
-function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
+function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3, $session) {
     global $useSendmail, $msg_id, $is_reply, $mailbox, $onetimepad,
            $data_dir, $username, $domain, $key, $version, $sent_folder, $imapServerAddress, 
            $imapPort, $default_use_priority, $more_headers, $request_mdn, $request_dr;
@@ -736,14 +763,14 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
     }
 
     if ($useSendmail) {
-        $length = sendSendmail($t, $c, $b, $subject, $body,  $more_headers);
+        $length = sendSendmail($t, $c, $b, $subject, $body,  $more_headers, $session);
     } else {
-        $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers);
+        $length = sendSMTP($t, $c, $b, $subject, $body, $more_headers, $session);
     }
     if (sqimap_mailbox_exists ($imap_stream, $sent_folder)) {
         sqimap_append ($imap_stream, $sent_folder, $length);
-        write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers);
-        writeBody ($imap_stream, $body);
+        write822Header ($imap_stream, $t, $c, $b, $subject, $more_headers, $session);
+        writeBody ($imap_stream, $body, $session);
         sqimap_append_done ($imap_stream);
     }
     sqimap_logout($imap_stream);
@@ -751,7 +778,7 @@ function sendMessage($t, $c, $b, $subject, $body, $reply_id, $MDN, $prio = 3) {
      * only if $length != 0 (if there was no error)
      */
     if ($length) {
-        ClearAttachments();
+        ClearAttachments($session);
     }
 
     return $length;
