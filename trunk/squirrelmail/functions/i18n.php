@@ -17,7 +17,7 @@
       // All HTML special characters are 7 bit and can be replaced first
       $string = htmlspecialchars ($string);
 
-      $charset = strolower($charset);
+      $charset = strtolower($charset);
 
       if (ereg("iso-8859-(.*)", $charset, $res)) {
          if ($res[1] == "1")

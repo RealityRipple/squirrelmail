@@ -19,10 +19,7 @@
       echo _("You need a valid user and password to access this page!");
       exit;
    }
-?>
-<HTML>
-<FONT FACE="Arial,Helvetica">
-<?
+
    include("../config/config.php");
    include("../functions/imap.php");
    include("../functions/strings.php");
@@ -32,7 +29,10 @@
    include("../functions/mime.php");
    include("../functions/mailbox_display.php");
    include("../functions/display_messages.php");
-
+?>
+<HTML>
+<FONT FACE="Arial,Helvetica">
+<?
    /////////////////////////////////////////////////////////////////////////////////
    //
    // incoming variables from URL:
