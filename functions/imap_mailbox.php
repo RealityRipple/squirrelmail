@@ -11,6 +11,8 @@
  * $Id$
  */
 
+GLOBAL $boxesnew;
+
 function isBoxBelow( $box2, $box1 ) {
 
     global $delimiter, $folder_prefix, $imap_server_type;
@@ -61,8 +63,7 @@ function isSpecialMailbox( $box ) {
 /*************************
  **  Expunges a mailbox **
  *************************/
-function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = TRUE)
-{
+function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = TRUE) {
     $read = sqimap_run_command($imap_stream, 'EXPUNGE',
                                $handle_errors, $response, $message);
 }
@@ -71,8 +72,7 @@ function sqimap_mailbox_expunge ($imap_stream, $mailbox,$handle_errors = TRUE)
 /******************************************************************************
  **  Checks whether or not the specified mailbox exists 
  ******************************************************************************/
-function sqimap_mailbox_exists ($imap_stream, $mailbox)
-{
+function sqimap_mailbox_exists ($imap_stream, $mailbox) {
     if (! isset($mailbox)) {
         return false;
     }
@@ -85,8 +85,7 @@ function sqimap_mailbox_exists ($imap_stream, $mailbox)
  **  Selects a mailbox
  ******************************************************************************/
 function sqimap_mailbox_select ($imap_stream, $mailbox,
-                                $hide=TRUE, $recent=false, $extrainfo=false)
-{
+                                $hide=TRUE, $recent=false, $extrainfo=false) {
     global $auto_expunge;
 
     if ( $mailbox == 'None' ) {
@@ -116,7 +115,7 @@ function sqimap_mailbox_select ($imap_stream, $mailbox,
                 }
                 else if (preg_match("/FLAGS(.*)/i",$read[$i], $regs)) {
                     $regs[1]=trim(preg_replace (  array ("/\(/","/\)/") ,'', $regs[1])) ;
-                    $result["FLAGS"] = $regs[1];
+                    $result['FLAGS'] = $regs[1];
                 }
                 else if (preg_match("/(.*)EXISTS/i",$read[$i], $regs)) {
                     $result['EXISTS']=trim($regs[1]);
@@ -190,10 +189,10 @@ function sqimap_mailbox_delete ($imap_stream, $mailbox)
 /***********************************************************************
  ** Determines if the user is subscribed to the folder or not
  **********************************************************************/
-function sqimap_mailbox_is_subscribed($imap_stream, $folder)
-{
-    $boxes = sqimap_mailbox_list ($imap_stream);
-    foreach ($boxes as $ref) {
+function sqimap_mailbox_is_subscribed($imap_stream, $folder) {
+
+    $boxesall = sqimap_mailbox_list ($imap_stream);
+    foreach ($boxesall as $ref) {
         if ($ref['unformatted'] == $folder) {
             return TRUE;
         }
@@ -214,10 +213,10 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
             $old_name = substr( $old_name, 0, strlen( $old_name ) - 1 );
             $new_name = substr( $new_name, 0, strlen( $new_name ) - 1 );
             $postfix = $delimiter;
-            $boxes = sqimap_mailbox_list($imap_stream);
+            $boxesall = sqimap_mailbox_list($imap_stream);
         } else {
             $postfix = '';
-            $boxes = FALSE;
+            $boxesall = FALSE;
         }
 
         $cmd = 'RENAME "' . quoteIMAP($old_name) . '" "' .  quoteIMAP($new_name) . '"';
@@ -226,11 +225,11 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
         sqimap_unsubscribe($imap_stream, $old_name.$postfix);
         sqimap_subscribe($imap_stream, $new_name.$postfix);
 
-        if ( $boxes ) {
+        if ( $boxesall ) {
             // Sub-unsub subfolders
             $l = strlen( $old_name ) + 1;
             $p = 'unformatted';
-            foreach ( $boxes as $box ) {
+            foreach ( $boxesall as $box ) {
                 if ( substr( $box[$p], 0, $l ) == $old_name . $delimiter ) {
                     sqimap_unsubscribe($imap_stream, $box[$p]);
                     sqimap_subscribe($imap_stream,
@@ -244,7 +243,7 @@ function sqimap_mailbox_rename( $imap_stream, $old_name, $new_name ) {
 }
 
 /******************************************************************************
- **  Formats a mailbox into 4 parts for the $boxes array
+ **  Formats a mailbox into 4 parts for the $boxesall array
  **
  **  The four parts are:
  **
@@ -264,10 +263,10 @@ function sqimap_mailbox_parse ($line, $line_lsub)
         
         /* Store the raw IMAP reply */
         if (isset($line[$g])) {
-            $boxes[$g]["raw"] = $line[$g];
+            $boxesall[$g]["raw"] = $line[$g];
         }
         else {
-            $boxes[$g]["raw"] = "";
+            $boxesall[$g]["raw"] = "";
         }
         
         
@@ -281,47 +280,47 @@ function sqimap_mailbox_parse ($line, $line_lsub)
         
         /* Format folder name, but only if it's a INBOX.* or have */
         /* a parent. */
-        $boxesbyname[$mailbox] = $g;
+        $boxesallbyname[$mailbox] = $g;
         $parentfolder = readMailboxParent($mailbox, $delimiter);
         if ( (strtolower(substr($mailbox, 0, 5)) == "inbox") ||
              (substr($mailbox, 0, strlen($folder_prefix)) == $folder_prefix) ||
-             ( isset($boxesbyname[$parentfolder]) &&
+             ( isset($boxesallbyname[$parentfolder]) &&
                (strlen($parentfolder) > 0) ) ) {
             $indent = $dm_count - ( substr_count($folder_prefix, $delimiter));
             if ($indent > 0) {
-                $boxes[$g]['formatted']  = str_repeat("&nbsp;&nbsp;", $indent);
+                $boxesall[$g]['formatted']  = str_repeat("&nbsp;&nbsp;", $indent);
             }
             else {
-                $boxes[$g]['formatted'] = '';
+                $boxesall[$g]['formatted'] = '';
             }
-            $boxes[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
+            $boxesall[$g]['formatted'] .= readShortMailboxName($mailbox, $delimiter);
         }
         else {
-            $boxes[$g]['formatted']  = $mailbox;
+            $boxesall[$g]['formatted']  = $mailbox;
         }
 
-        $boxes[$g]['unformatted-dm'] = $mailbox;
+        $boxesall[$g]['unformatted-dm'] = $mailbox;
         if (substr($mailbox, -1) == $delimiter) {
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
         }
-        $boxes[$g]['unformatted'] = $mailbox;
+        $boxesall[$g]['unformatted'] = $mailbox;
         if (substr($mailbox,0,strlen($folder_prefix))==$folder_prefix) {
             $mailbox = substr($mailbox, strlen($folder_prefix));
         }
-        $boxes[$g]['unformatted-disp'] = $mailbox;
-        $boxes[$g]['id'] = $g;
+        $boxesall[$g]['unformatted-disp'] = $mailbox;
+        $boxesall[$g]['id'] = $g;
 
-        $boxes[$g]['flags'] = array();
+        $boxesall[$g]['flags'] = array();
         if (isset($line[$g])) {
             ereg("\(([^)]*)\)",$line[$g],$regs);
             $flags = trim(strtolower(str_replace('\\', '',$regs[1])));
             if ($flags) {
-                $boxes[$g]['flags'] = explode(' ', $flags);
+                $boxesall[$g]['flags'] = explode(' ', $flags);
             }
         }
     }
 
-    return $boxes;
+    return $boxesall;
 }
 
 /**
@@ -384,142 +383,147 @@ function user_strcasecmp($a, $b) {
  **  Returns sorted mailbox lists in several different ways.
  **  See comment on sqimap_mailbox_parse() for info about the returned array.
  ******************************************************************************/
-function sqimap_mailbox_list ($imap_stream) {
+function sqimap_mailbox_list($imap_stream) {
 
-    global $data_dir, $username, $list_special_folders_first,
-           $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
-           $move_to_trash, $move_to_sent, $save_as_draft,
-           $delimiter;
+	GLOBAL $boxesnew;
 
-    $inbox_in_list = $inbox_subscribed = FALSE;
+	if ( !isset( $boxesnew ) ) {
 
-    require_once('../src/load_prefs.php');
-    require_once('../functions/array.php');
-
-    /** LSUB array **/
-    $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
-                                  TRUE, $response, $message);
-
-    /* Section about removing the last element was removed */
-    /* We don't return "* OK" anymore from sqimap_read_data */
-
-    $sorted_lsub_ary = array();
-    for ($i=0;$i < count($lsub_ary); $i++) {
-        /* Workaround for EIMS */
-        /* Doesn't work if the mailbox name is multiple lines */
-        if (isset($lsub_ary[$i + 1]) &&
-            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $lsub_ary[$i], $regs)) {
-            $i ++;
-            $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) .
-                '"' . $regs[2];
-        }
-        $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
-        $sorted_lsub_ary[] = $temp_mailbox_name;
-        if (strtoupper($temp_mailbox_name) == 'INBOX') {
-            $inbox_subscribed = TRUE;
-        }
-    }
-    $new_ary = array();
-    for ($i=0; $i < count($sorted_lsub_ary); $i++) {
-        if (!in_array($sorted_lsub_ary[$i], $new_ary)) {
-            $new_ary[] = $sorted_lsub_ary[$i];
-        }
-    }
-    $sorted_lsub_ary = $new_ary;
-    if (isset($sorted_lsub_ary)) {
-        usort($sorted_lsub_ary, 'user_strcasecmp');
-    }
-
-    /** LIST array **/
-    $sorted_list_ary = array();
-    for ($i=0; $i < count($sorted_lsub_ary); $i++) {
-        if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
-            $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
-        }
-        else {
-            $mbx = $sorted_lsub_ary[$i];
-        }
-
-        $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
-                                  TRUE, $response, $message);
-        /* Another workaround for EIMS */
-        if (isset($read[1]) &&
-            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $read[0], $regs)) {
-            $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) .
-                       '"' . $regs[2];
-        }
-
-        if (isset($sorted_list_ary[$i])) {
-            $sorted_list_ary[$i] = '';
-        }
-
-        if (isset($read[0])) {
-            $sorted_list_ary[$i] = $read[0];
-        }
-        else {
-            $sorted_list_ary[$i] = '';
-        }
-
-        if (isset($sorted_list_ary[$i]) &&
-            strtoupper(find_mailbox_name($sorted_list_ary[$i])) == 'INBOX') {
-            $inbox_in_list = TRUE;
-        }
-    }
-
-    /**
-     * Just in case they're not subscribed to their inbox,
-     * we'll get it for them anyway
-     */
-    if ($inbox_subscribed == false || $inbox_in_list == false) {
-        $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
-                                       TRUE, $response, $message);
-        /* Another workaround for EIMS */
-        if (isset($inbox_ary[1]) &&
-            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                 $inbox_ary[0], $regs)) {
-            $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
-                '"' . $regs[2];
-        }
-
-        $sorted_list_ary[] = $inbox_ary[0];
-        $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
-    }
-
-    $boxes = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary);
-
-    /** Now, lets sort for special folders **/
-    $boxesnew = $used = array();
-
-    /* Find INBOX */
-    foreach ( $boxes as $k => $box ) {
-        if ( strtolower($box['unformatted']) == 'inbox') {
-            $boxesnew[] = $box;
-            $used[$k] = TRUE;
-        } else {
-            $used[$k] = FALSE;
-        }
-    }
-
-    /* List special folders and their subfolders, if requested. */
-    if ($list_special_folders_first == TRUE) {
-
-        foreach ( $boxes as $k => $box ) {
-            if ( !$used[$k] &&
-                 isSpecialMailbox( $box['unformatted'] ) ) {
-                $boxesnew[] = $box;
-                $used[$k] = TRUE;
-            }
-        }
-
-    }
-
-    /* Rest of the folders */
-    foreach ( $boxes as $k => $box ) {
-        if ( !$used[$k] ) {
-            $boxesnew[] = $box;
-        }
+	    GLOBAL $data_dir, $username, $list_special_folders_first,
+	           $folder_prefix, $trash_folder, $sent_folder, $draft_folder,
+	           $move_to_trash, $move_to_sent, $save_as_draft,
+	           $delimiter;
+	
+	    $inbox_in_list = $inbox_subscribed = FALSE;
+	
+	    require_once('../src/load_prefs.php');
+	    require_once('../functions/array.php');
+	
+	    /** LSUB array **/
+	    $lsub_ary = sqimap_run_command ($imap_stream, "LSUB \"$folder_prefix\" \"*\"",
+	                                  TRUE, $response, $message);
+	
+	    /* Section about removing the last element was removed */
+	    /* We don't return "* OK" anymore from sqimap_read_data */
+	
+	    $sorted_lsub_ary = array();
+	    for ($i=0;$i < count($lsub_ary); $i++) {
+	        /* Workaround for EIMS */
+	        /* Doesn't work if the mailbox name is multiple lines */
+	        if (isset($lsub_ary[$i + 1]) &&
+	            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+	                 $lsub_ary[$i], $regs)) {
+	            $i ++;
+	            $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) .
+	                '"' . $regs[2];
+	        }
+	        $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
+	        $sorted_lsub_ary[] = $temp_mailbox_name;
+	        if (strtoupper($temp_mailbox_name) == 'INBOX') {
+	            $inbox_subscribed = TRUE;
+	        }
+	    }
+	    $new_ary = array();
+	    for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+	        if (!in_array($sorted_lsub_ary[$i], $new_ary)) {
+	            $new_ary[] = $sorted_lsub_ary[$i];
+	        }
+	    }
+	    $sorted_lsub_ary = $new_ary;
+	    if (isset($sorted_lsub_ary)) {
+	        usort($sorted_lsub_ary, 'user_strcasecmp');
+	    }
+	
+	    /** LIST array **/
+	    $sorted_list_ary = array();
+	    for ($i=0; $i < count($sorted_lsub_ary); $i++) {
+	        if (substr($sorted_lsub_ary[$i], -1) == $delimiter) {
+	            $mbx = substr($sorted_lsub_ary[$i], 0, strlen($sorted_lsub_ary[$i])-1);
+	        }
+	        else {
+	            $mbx = $sorted_lsub_ary[$i];
+	        }
+	
+	        $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
+	                                  TRUE, $response, $message);
+	        /* Another workaround for EIMS */
+	        if (isset($read[1]) &&
+	            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+	                 $read[0], $regs)) {
+	            $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) .
+	                       '"' . $regs[2];
+	        }
+	
+	        if (isset($sorted_list_ary[$i])) {
+	            $sorted_list_ary[$i] = '';
+	        }
+	
+	        if (isset($read[0])) {
+	            $sorted_list_ary[$i] = $read[0];
+	        }
+	        else {
+	            $sorted_list_ary[$i] = '';
+	        }
+	
+	        if (isset($sorted_list_ary[$i]) &&
+	            strtoupper(find_mailbox_name($sorted_list_ary[$i])) == 'INBOX') {
+	            $inbox_in_list = TRUE;
+	        }
+	    }
+	
+	    /**
+	     * Just in case they're not subscribed to their inbox,
+	     * we'll get it for them anyway
+	     */
+	    if ($inbox_subscribed == false || $inbox_in_list == false) {
+	        $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
+	                                       TRUE, $response, $message);
+	        /* Another workaround for EIMS */
+	        if (isset($inbox_ary[1]) &&
+	            ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
+	                 $inbox_ary[0], $regs)) {
+	            $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
+	                '"' . $regs[2];
+	        }
+	
+	        $sorted_list_ary[] = $inbox_ary[0];
+	        $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
+	    }
+	
+	    $boxesall = sqimap_mailbox_parse ($sorted_list_ary, $sorted_lsub_ary);
+	
+	    /** Now, lets sort for special folders **/
+	    $boxesnew = $used = array();
+	
+	    /* Find INBOX */
+	    foreach ( $boxesall as $k => $box ) {
+	        if ( strtolower($box['unformatted']) == 'inbox') {
+	            $boxesnew[] = $box;
+	            $used[$k] = TRUE;
+	        } else {
+	            $used[$k] = FALSE;
+	        }
+	    }
+	
+	    /* List special folders and their subfolders, if requested. */
+	    if ($list_special_folders_first == TRUE) {
+	
+	        foreach ( $boxesall as $k => $box ) {
+	            if ( !$used[$k] &&
+	                 isSpecialMailbox( $box['unformatted'] ) ) {
+	                $boxesnew[] = $box;
+	                $used[$k] = TRUE;
+	            }
+	        }
+	
+	    }
+	
+	    /* Rest of the folders */
+	    foreach ( $boxesall as $k => $box ) {
+	        if ( !$used[$k] ) {
+	            $boxesnew[] = $box;
+	        }
+	    }
     }
 
     return( $boxesnew );
@@ -529,10 +533,11 @@ function sqimap_mailbox_list ($imap_stream) {
 /*
  *  Returns a list of all folders, subscribed or not
  */
-function sqimap_mailbox_list_all ($imap_stream)
-{
-    global $list_special_folders_first, $folder_prefix;
-    global $delimiter;
+function sqimap_mailbox_list_all($imap_stream) {
+
+
+    GLOBAL $list_special_folders_first, $folder_prefix,
+           $delimiter;
 
     require_once('../functions/array.php');
 
@@ -568,11 +573,11 @@ function sqimap_mailbox_list_all ($imap_stream)
 
             /* Format folder name, but only if it's a INBOX.* or have */
             /* a parent. */
-            $boxesbyname[$mailbox] = $g;
+            $boxesallbyname[$mailbox] = $g;
             $parentfolder = readMailboxParent($mailbox, $delimiter);
             if((eregi('^inbox'.quotemeta($delimiter), $mailbox)) ||
                (ereg('^'.$folder_prefix, $mailbox)) ||
-               ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+               ( isset($boxesallbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
                 if ($dm_count) {
                     $boxes[$g]['formatted']  = str_repeat('&nbsp;&nbsp;', $dm_count);
                 }
@@ -585,7 +590,7 @@ function sqimap_mailbox_list_all ($imap_stream)
                 $boxes[$g]['formatted']  = $mailbox;
             }
 
-            $boxes[$g]["unformatted-dm"] = $mailbox;
+            $boxes[$g]['unformatted-dm'] = $mailbox;
             if (substr($mailbox, -1) == $delimiter) {
                 $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             }
