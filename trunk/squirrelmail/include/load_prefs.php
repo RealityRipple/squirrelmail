@@ -231,7 +231,6 @@ $enable_forward_as_attachment =
 $show_xmailer_default =
     getPref($data_dir, $username, 'show_xmailer_default', SMPREF_OFF );
 $attachment_common_show_images = getPref($data_dir, $username, 'attachment_common_show_images', SMPREF_OFF );
-$pf_cleandisplay = getPref($data_dir, $username, 'pf_cleandisplay', SMPREF_OFF);
 
 /* message disposition notification support setting */
 $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', SMPREF_ON);
