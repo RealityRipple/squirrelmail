@@ -59,11 +59,9 @@
          }
 	 else
 	 {
+	    if (strpos($array[$i], '@') === false)
+	       $array[$i] .= '@' . $domain;
 	    $array[$i] = '<' . $array[$i] . '>';
-	 }
-	 
-	 if (strpos($array[$i], '@') === false) {
-	    $array[$i] .= '@' . $domain;
 	 }
       }
       return $array;
@@ -78,6 +76,9 @@
       if (isMultipart()) {
          foreach ($attachments as $info)
 	 {
+//	    echo "<pre>Attachment Info:\n";
+//	    var_dump($info);
+//	    echo "\n</pre>\n";
 	    if (isset($info['type']))
  	       $filetype = $info['type'];
             else
@@ -99,6 +100,7 @@
 	          $tmp = str_replace("\r\n", "\n", $tmp);
 	          $tmp = str_replace("\r", "\n", $tmp);
 	          $tmp = str_replace("\n", "\r\n", $tmp);
+		  $tmp .= "\r\n";
 		  fputs($fp, $tmp);
 		  $length += strlen($tmp);
 	       }
