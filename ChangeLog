@@ -21,6 +21,9 @@ Version 1.4.0 CVS
     <george at kefalonia-ithaki.gr> and Alexandros Vellis <avel at noc.uoa.gr>
   - Added notes about PHP 4.3.x to documentation, and a gaudy warning message
     in src/login.php.  Warning can be disabled.
+  - Fixed \Noselect mailbox detection.
+  - Fixed charset decode of base64 encoded strings
+  - Fixed encoding of email addresses in our composed messages
   
 Version 1.4.0 RC 2a
 -------------------
