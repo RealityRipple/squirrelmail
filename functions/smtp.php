@@ -147,8 +147,10 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                 $file = fopen ($filename, 'rb');
                 if (substr($filetype, 0, 5) == 'text/' ||
                     substr($filetype, 0, 8) == 'message/' ) {
-                    $header .= "$rn";
-					if ($fp) fputs ($fp, $header);
+                    $header .= $rn;
+					if ($fp) {
+					    fputs ($fp, $header);
+					}
                     $length += strlen($header);
                     while ($tmp = fgets($file, 4096)) {
                         $tmp = str_replace("\r\n", "\n", $tmp);
@@ -160,10 +162,12 @@ function attachFiles ($fp, $session, $rn="\r\n") {
                          * Check if the last line has newline ($rn) in it
                          * and append if it doesn't.
                          */
-                        if (feof($fp) && !strstr($tmp, "$rn")){
-                            $tmp .= "$rn";
+                        if ($fp && feof($fp) && !strstr($tmp, "$rn")){
+                            $tmp .= $rn;
                         }
-                        if ($fp) fputs($fp, $tmp);
+                        if ($fp) {
+                            fputs($fp, $tmp);
+                        }
                         $length += strlen($tmp);
                     }
                 } else {

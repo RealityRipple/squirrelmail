@@ -47,29 +47,29 @@ function attachSelectedMessages($msg, $imapConnection) {
 
 
     if (!isset($attachments)) {
-	$attachments = array();
-	session_register('attachments');
+	    $attachments = array();
+	    session_register('attachments');
     }
 
     if (!isset($composesession)) {
-	$composesession = 1;
-	session_register('$composesession');
+	    $composesession = 1;
+	    session_register('$composesession');
     } else {
-	$composesession++;
+	    $composesession++;
     }
 
-    $hashed_attachment_dir = getHashedDir($username, $attachment_dir,$composesession);
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir, $composesession);
 
     $rem_attachments = array();
     foreach ($attachments as $info) {
-	if ($info['session'] == $composesession) {
+    	if ($info['session'] == $composesession) {
     	    $attached_file = "$hashed_attachment_dir/$info[localfilename]";
     	    if (file_exists($attached_file)) {
-        	unlink($attached_file);
+        	    unlink($attached_file);
     	    }
-	} else {
-	    $rem_attachments[] = $info;
-	}
+    	} else {
+    	    $rem_attachments[] = $info;
+    	}
     }
 
     $attachments = $rem_attachments;
@@ -77,46 +77,46 @@ function attachSelectedMessages($msg, $imapConnection) {
 
     $i = 0;
     $j = 0;
-    
+    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
     while ($j < count($msg)) {
         if (isset($msg[$i])) {
-	    $id = $msg[$i];
-	    $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage);
-	    if ($response = 'OK') {
-		// get subject so we can set the remotefilename
-    		$read = sqimap_run_command ($imapConnection, "FETCH $id BODY.PEEK[HEADER.FIELDS (Subject)]", true, $response, $readmessage);
-    		$subject = substr($read[1], strpos($read[1], ' '));
-		$subject = trim($subject);
-
-		if (isset($subject) && $subject != '') {
-		    $subject = htmlentities($subject);
-		} else {
-		    $subject = _("<No subject>");
-		    $subject = htmlentities($subject);
-		}
-
-		array_shift($body_a);
-		$body = implode('', $body_a);
-		$body .= "\r\n";
-		
-		$localfilename = GenerateRandomString(32, 'FILE', 7);
-		$full_localfilename = "$hashed_attachment_dir/$localfilename";
-	    
-		$fp = fopen( $full_localfilename, 'w');
-		fwrite ($fp, $body);
-		fclose($fp);
-
-		$newAttachment = array();
-		$newAttachment['localfilename'] = $localfilename;
-		$newAttachment['type'] = "message/rfc822";
-	    	$newAttachment['remotefilename'] = "$subject".".eml";
-	    	$newAttachment['session'] = $composesession;
-		$attachments[] = $newAttachment;
-		flush();
+    	    $id = $msg[$i];
+    	    $body_a = sqimap_run_command($imapConnection, "FETCH $id RFC822",true, $response, $readmessage);
+    	    if ($response = 'OK') {
+    		    // get subject so we can set the remotefilename
+        		$read = sqimap_run_command ($imapConnection, "FETCH $id BODY.PEEK[HEADER.FIELDS (Subject)]", true, $response, $readmessage);
+        		$subject = substr($read[1], strpos($read[1], ' '));
+    		    $subject = trim($subject);
+    
+        		if (isset($subject) && $subject != '') {
+        		    $subject = htmlentities($subject);
+        		} else {
+        		    $subject = _("<No subject>");
+        		    $subject = htmlentities($subject);
+        		}
+    
+        		array_shift($body_a);
+        		$body = implode('', $body_a);
+        		$body .= "\r\n";
+        		
+        		$localfilename = GenerateRandomString(32, 'FILE', 7);
+        		$full_localfilename = "$hashed_attachment_dir/$localfilename";
+        	    
+        		$fp = fopen( $full_localfilename, 'w');
+        		fwrite ($fp, $body);
+        		fclose($fp);
+    
+        		$newAttachment = array();
+        		$newAttachment['localfilename'] = $localfilename;
+        		$newAttachment['type'] = "message/rfc822";
+            	$newAttachment['remotefilename'] = "$subject".".eml";
+            	$newAttachment['session'] = $composesession;
+        		$attachments[] = $newAttachment;
+        		flush();
     	    }
-    	    $j++;	    
-	}
-	$i++;	
+            $j++;	    
+	    }
+	    $i++;	
 	
     }
     return $composesession;
