@@ -33,9 +33,9 @@
    /******************************************************************************
     **  Selects a mailbox
     ******************************************************************************/
-   function sqimap_mailbox_select ($imap_stream, $mailbox) {
+   function sqimap_mailbox_select ($imap_stream, $mailbox, $hide) {
       fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
-      $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+     	$read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
    }
 
    
@@ -229,24 +229,30 @@
          if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
             $boxesnew[0] = $boxes[$i];
             $boxes[$i]["used"] = true;
+				$i = count($boxes);
          }
       }
 
       if ($list_special_folders_first == true) {
-         for ($i = 0; $i < count($boxes); $i++) {
+         for ($i = count($boxes)-1; $i >= 0 ; $i--) {
 				if (($boxes[$i]["unformatted"] == $trash_folder) && ($move_to_trash)) {	
                $pos = count($boxesnew);
                $boxesnew[$pos] = $boxes[$i];
                $boxes[$i]["used"] = true;
+					$trash_found = true;
             }
 				else if (($boxes[$i]["unformatted"] == $sent_folder) && ($move_to_sent)) {	
                $pos = count($boxesnew);
                $boxesnew[$pos] = $boxes[$i];
                $boxes[$i]["used"] = true;
+					$sent_found = true;
             }
+
+				if (($sent_found && $trash_found) || ($sent_found && !$move_to_trash) || ($trash_found && !$move_to_sent) || (!$move_to_sent && !$move_to_trash))
+					$i = -1;
          }
       }
-		
+
       for ($i = 0; $i < count($boxes); $i++) {
          if ((strtolower($boxes[$i]["unformatted"]) != "inbox") &&
              ($boxes[$i]["used"] == false))  {
