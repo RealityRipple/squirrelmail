@@ -8,22 +8,20 @@
     **
     **/
 
-   function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen) {
+   function printMessageInfo($imapConnection, $t, $i, $from, $subject, $dateString, $answered, $seen, $mailbox) {
       $senderName = getSenderName($from);
-      if (strlen(Chop($subject)) == 0)
-         $subject = "(no subject)";
-
+      $urlMailbox = urlencode($mailbox);
       echo "<TR>\n";
       if ($seen == false) {
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><B><input type=checkbox name=\"msg[$t]\" value=$i></B></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$senderName</B></FONT></TD>\n";
          echo "   <TD><CENTER><B><FONT FACE=\"Arial,Helvetica\">$dateString</FONT></B></CENTER></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B>$subject</B></FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><B><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i\">$subject</A></B></FONT></TD>\n";
       } else {
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><nobr><input type=checkbox name=\"msg[$t]\" value=$i></nobr></FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\">$senderName</FONT></TD>\n";
          echo "   <TD><FONT FACE=\"Arial,Helvetica\"><CENTER>$dateString</CENTER></FONT></TD>\n";
-         echo "   <TD><FONT FACE=\"Arial,Helvetica\">$subject</FONT></TD>\n";
+         echo "   <TD><FONT FACE=\"Arial,Helvetica\"><A HREF=\"read_body.php?mailbox=$urlMailbox&passed_id=$i\">$subject</A></FONT></TD>\n";
       }
       echo "</TR>\n";
    }
@@ -177,7 +175,7 @@
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=DCDCDC>";
-      echo "<FORM name=messageList method=post action=\"move_messages.php?mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
+      echo "<FORM name=messageList method=post action=\"move_messages.php?msg=$msg&mailbox=$urlMailbox&sort=$sort&startMessage=$startMessage\">";
       echo "<SELECT NAME=move_or_delete><OPTION>Delete selected messages<OPTION>Move selected messages</SELECT>";
       echo "<NOBR><INPUT TYPE=SUBMIT VALUE=\"Go\">";
       if (($move_to_trash == true) && ($mailbox == $trash_folder))
@@ -220,10 +218,10 @@
          echo "<TR><TD BGCOLOR=FFFFFF COLSPAN=4><CENTER><BR><B>THIS FOLDER IS EMPTY</B><BR>&nbsp</CENTER></TD></TR>";
       } else if ($startMessage == $endMessage) { // if there's only one message in the box, handle it different.
          $i = $startMessage - 1;
-         printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
+         printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox);
       } else {
          for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
-            printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
+            printMessageInfo($imapConnection, $t, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"], $mailbox);
             $t++;
          }
       }
