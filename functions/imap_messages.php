@@ -333,7 +333,7 @@ function elapsedTime($start) {
 
 
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
-    global $squirrelmail_language, $color, $data_dir, $username;
+    global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
     $start = gettimeofday();
     /* Get the small headers for each message in $msg_list */
     $sid = sqimap_session_id();
