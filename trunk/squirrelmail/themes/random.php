@@ -33,12 +33,16 @@ if (!sqsession_is_registered('random_theme_good_theme')) {
     }
     $which = mt_rand(0, count($good_themes));
     $random_theme_good_theme = $good_themes[$which];
+    // remove current sm_path from theme name
+    $path=preg_quote(SM_PATH,'/');
+    $random_theme_good_theme=preg_replace("/^$path/",'',$random_theme_good_theme);
+    // store it in session
     sqsession_register($random_theme_good_theme, 'random_theme_good_theme');
 } else {
     // get random theme stored in session
     sqgetGlobalVar('random_theme_good_theme',$random_theme_good_theme);
 }
 
-@include_once ($random_theme_good_theme);
+@include_once (SM_PATH . $random_theme_good_theme);
 
 ?>
