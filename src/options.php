@@ -149,7 +149,7 @@
    else
       $sig_size = $editor_size;
 
-   echo "<BR>Signature:<BR><TEXTAREA NAME=signature_edit ROWS=5 COLS=\"$sig_size\" WRAP=HARD>$signature</TEXTAREA><BR>";
+   echo "<BR>Signature:<BR><TEXTAREA NAME=signature_edit ROWS=5 COLS=\"$sig_size\">$signature</TEXTAREA><BR>";
    echo "</CENTER>";
 
 

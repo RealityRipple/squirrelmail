@@ -21,9 +21,6 @@
    setPref($data_dir, $username, "editor_size", $editorsize);
    setPref($data_dir, $username, "use_signature", $usesignature);
 
-   echo $signature_edit;
-   echo stripslashes($signature_edit);
-
    setSig($data_dir, $username, stripslashes($signature_edit));
 
    echo "<FONT FACE=\"Arial,Helvetica\">";
