@@ -8,7 +8,7 @@
  *
  * Originally contrubuted by Michal Szczotka <michal@tuxy.org>
  *
- * init plugin into squirrelmail
+ * Init plugin into SquirrelMail
  *
  * $Id$
  * @package plugins

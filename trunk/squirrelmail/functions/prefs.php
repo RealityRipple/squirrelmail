@@ -41,7 +41,7 @@ if (isset($prefs_backend) && file_exists(SM_PATH . $prefs_backend)) {
  * hashed location of that datafile.
  *
  * @param string username the username of the current user
- * @param string dir the squirrelmail datadir
+ * @param string dir the SquirrelMail datadir
  * @param string datafile the name of the file to open
  * @param bool hash_seach default true
  * @return string the hashed location of datafile
@@ -91,7 +91,7 @@ function getHashedFile($username, $dir, $datafile, $hash_search = true) {
  * dir for that username.
  *
  * @param string username the username of the current user
- * @param string dir the squirrelmail datadir
+ * @param string dir the SquirrelMail datadir
  * @param string hash_dirs default ''
  * @return the path to the hash dir for username
  */

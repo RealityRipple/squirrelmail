@@ -218,7 +218,7 @@ class abook_ldap_server extends addressbook_backend {
     /**
      * Decode from charset used by this LDAP server to charset used by translation
      *
-     * Uses squirrelmail charset_decode functions
+     * Uses SquirrelMail charset_decode functions
      * @param string string that has to be decoded
      * @return string decoded string
      */

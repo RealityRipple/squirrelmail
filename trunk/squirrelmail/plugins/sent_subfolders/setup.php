@@ -6,7 +6,7 @@
  * Copyright (c) 1999-2005 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This is a standard Squirrelmail-1.2 API for plugins.
+ * This is a standard SquirrelMail 1.2 API for plugins.
  *
  * $Id$
  * @package plugins
@@ -23,7 +23,7 @@ define('SMPREF_SENT_SUBFOLDERS_MONTHLY',   3);
 define('SMOPT_GRP_SENT_SUBFOLDERS','SENT_SUBFOLDERS');
 
 /**
- * Adds plugin to squirrelmail hooks
+ * Adds plugin to SquirrelMail's hooks
  */
 function squirrelmail_plugin_init_sent_subfolders() {
     /* Standard initialization API. */

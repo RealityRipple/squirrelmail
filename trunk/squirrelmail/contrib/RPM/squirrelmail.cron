@@ -1,5 +1,5 @@
 #!/bin/sh
-# This goes through the squirrelmail attachment spool directory and
+# This goes through the SquirrelMail attachment spool directory and
 # removes any abandoned temporary files that are more than 10 days old.
 # $Id$
 #

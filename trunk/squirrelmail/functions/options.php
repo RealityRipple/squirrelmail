@@ -44,7 +44,7 @@ define('SMOPT_SAVE_DEFAULT', 'save_option');
 define('SMOPT_SAVE_NOOP', 'save_option_noop');
 
 /**
- * SquirrelOption: An option for Squirrelmail.
+ * SquirrelOption: An option for SquirrelMail.
  *
  * @package squirrelmail
  * @subpackage prefs
@@ -68,7 +68,7 @@ class SquirrelOption {
      */
     var $type;
     /**
-     * Indicates if a link should be shown to refresh part 
+     * Indicates if a link should be shown to refresh part
      * or all of the window
      *
      * See SMOPT_REFRESH_* defines
@@ -83,9 +83,9 @@ class SquirrelOption {
      */
     var $size;
     /**
-     * Text that follows a text input or 
+     * Text that follows a text input or
      * select list input on the preferences page
-     * 
+     *
      * useful for indicating units, meanings of special values, etc.
      * @var string
      */
@@ -103,7 +103,7 @@ class SquirrelOption {
      */
     var $script;
     /**
-     * script (usually Javascript) that will be placed after (outside of) 
+     * script (usually Javascript) that will be placed after (outside of)
      * the INPUT tag
      * @var string
      */
@@ -127,7 +127,7 @@ class SquirrelOption {
      */
     var $new_value;
     /**
-     * associative array, where each key is an actual input value 
+     * associative array, where each key is an actual input value
      * and the corresponding value is what is displayed to the user
      * for that list item in the drop-down list
      * @var array
@@ -135,9 +135,9 @@ class SquirrelOption {
     var $possible_values;
     /**
      * disables html sanitizing.
-     * 
-     * WARNING - don't use it, if user input is possible in option 
-     * or use own sanitizing functions. Currently works only with 
+     *
+     * WARNING - don't use it, if user input is possible in option
+     * or use own sanitizing functions. Currently works only with
      * SMOPT_TYPE_STRLIST.
      * @var bool
      */
@@ -232,7 +232,7 @@ class SquirrelOption {
 
     /**
      * Set the script for this option.
-     * @param string $script 
+     * @param string $script
      */
     function setScript($script) {
         $this->script = $script;
@@ -258,7 +258,7 @@ class SquirrelOption {
      * Creates fields on option pages according to option type
      *
      * Function that calls other createWidget* functions.
-     * @return string html formated option field 
+     * @return string html formated option field
      */
     function createHTMLWidget() {
         global $color;

@@ -16,7 +16,7 @@
  */
 
 /**
- * Standard squirrelmail plugin initialization API.
+ * Standard SquirrelMail plugin initialization API.
  *
  * @return void
  */

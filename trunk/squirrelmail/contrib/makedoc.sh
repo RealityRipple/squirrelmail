@@ -1,18 +1,18 @@
 #!/bin/bash
-# $Id$ 
+# $Id$
 
-# WARNING. In order to use it with squirrelmail, you should 
-# modify phpDocumentor.ini and add .mod extension 
+# WARNING. In order to use it with SquirrelMail, you should
+# modify phpDocumentor.ini and add .mod extension
 # to [_phpDocumentor_phpfile_exts] settings.
 
 #/**
 #  * makedoc - PHPDocumentor script to save your settings
-#  * 
+#  *
 #  * Put this file inside your PHP project homedir, edit its variables and run whenever you wants to
 #  * re/make your project documentation.
-#  * 
+#  *
 #  * The version of this file is the version of PHPDocumentor it is compatible.
-#  * 
+#  *
 #  * It simples run phpdoc with the parameters you set in this file.
 #  * NOTE: Do not add spaces after bash variables.
 #  *
@@ -28,21 +28,21 @@
 
 #/**
 #  * title of generated documentation, default is 'Generated Documentation'
-#  * 
+#  *
 #  * @var               string TITLE
 #  */
-TITLE="Squirrelmail Devel CVS Documentation"
+TITLE="SquirrelMail Devel CVS Documentation"
 
-#/** 
+#/**
 #  * name to use for the default package. If not specified, uses 'default'
 #  *
 #  * @var               string PACKAGES
 #  */
 PACKAGES="squirrelmail"
 
-#/** 
+#/**
 #  * name of a directory(s) to parse directory1,directory2
-#  * $PWD is the directory where makedoc.sh 
+#  * $PWD is the directory where makedoc.sh
 #  *
 #  * @var               string PATH_PROJECT
 #  */
@@ -69,7 +69,7 @@ PATH_DOCS=/var/www/smdocs
 #  */
 OUTPUTFORMAT=HTML
 
-#/** 
+#/**
 #  * converter to be used
 #  *
 #  * @var               string CONVERTER

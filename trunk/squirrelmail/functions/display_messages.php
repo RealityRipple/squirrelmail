@@ -19,12 +19,12 @@
 require_once(SM_PATH . 'functions/plugin.php');
 
 /**
- * Find out where squirrelmail lives and try to be smart about it.
- * The only problem would be when squirrelmail lives in directories
+ * Find out where SquirrelMail lives and try to be smart about it.
+ * The only problem would be when SquirrelMail lives in directories
  * called "src", "functions", or "plugins", but people who do that need
  * to be beaten with a steel pipe anyway.
  *
- * @return string the base uri of squirrelmail installation.
+ * @return string the base uri of SquirrelMail installation.
  */
 function sqm_baseuri(){
     global $base_uri, $PHP_SELF;

@@ -242,7 +242,7 @@ function get_squirrel_sort($imap_stream, $sSortField, $reverse = false, $aUid = 
       case 'RFC822.SIZE':
         if(!$walk) {
             // redefine $sSortField to maintain the same namespace between
-            // server-side sorting and squirrelmail sorting
+            // server-side sorting and SquirrelMail sorting
             $sSortField = 'SIZE';
         }
         foreach ($msgs as $item) {

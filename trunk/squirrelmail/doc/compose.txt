@@ -14,7 +14,7 @@ easily, taking into account the user's settings, "Compose in new window" and
 3) Print it:
    echo makeComposeLink($comp_uri, $disp);
 
-makeComposeLink() has been available since Squirrelmail 1.4.2.
+makeComposeLink() has been available since SquirrelMail 1.4.2.
 
 
 
@@ -27,8 +27,8 @@ the function needs one argument:
 1) url with arguments to the compose window.
 
 example 1:
-<a href="javascript:void(0)" onclick="comp_in_new("")> 
+<a href="javascript:void(0)" onclick="comp_in_new("")>
 
 example 2:
-<a href="javascript:void(0)" onclick="comp_in_new("../../src/compose.php?argument1=true&amp;argument2=test")> 
+<a href="javascript:void(0)" onclick="comp_in_new("../../src/compose.php?argument1=true&amp;argument2=test")>
 

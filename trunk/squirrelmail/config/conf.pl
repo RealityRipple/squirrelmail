@@ -1,13 +1,13 @@
 #!/usr/bin/env perl
 # conf.pl
 #
-# Copyright (c) 1999-2003 The SquirrelMail Project Team 
+# Copyright (c) 1999-2003 The SquirrelMail Project Team
 # Licensed under the GNU GPL. For full terms see COPYING.
 #
 # A simple configure script to configure SquirrelMail
 #
 # $Id$
-############################################################              
+############################################################
 $conf_pl_version = "1.4.0";
 
 ############################################################
@@ -22,9 +22,9 @@ if ( eval q{require "File/Basename.pm"} ) {
     chdir($dir);
 }
 
-############################################################              
+############################################################
 # Some people try to run this as a CGI. That's wrong!
-############################################################              
+############################################################
 if ( defined( $ENV{'PATH_INFO'} )
     || defined( $ENV{'QUERY_STRING'} )
     || defined( $ENV{'REQUEST_METHOD'} ) ) {
@@ -36,15 +36,15 @@ if ( defined( $ENV{'PATH_INFO'} )
 ############################################################
 # If we got here, use Cwd to get the full directory path
 # (the Basename stuff above will sometimes return '.' as
-# the base directory, which is not helpful here). 
+# the base directory, which is not helpful here).
 ############################################################
 use Cwd;
 $dir = cwd();
-  
 
-############################################################              
+
+############################################################
 # First, lets read in the data already in there...
-############################################################              
+############################################################
 if ( -e "config.php" ) {
     open( FILE, "config.php" );
     while ( $line = <FILE> ) {
@@ -160,7 +160,7 @@ if ( -e "config.php" ) {
 # Read and parse the current configuration file
 # (either config.php or config_default.php).
 while ( $line = <FILE> ) {
-    $line =~ s/^\s+//; 
+    $line =~ s/^\s+//;
     $line =~ s/^\$//;
     $var = $line;
 
@@ -315,7 +315,7 @@ $oldway = 'false'                       if ( !$oldway );
 $use_icons = 'false'                    if ( !$use_icons );
 $use_php_recode = 'false'               if ( !$use_php_recode );
 $use_php_iconv = 'false'                if ( !$use_php_iconv );
-$skip_SM_header = 'false'               if ( !$skip_SM_header ); 
+$skip_SM_header = 'false'               if ( !$skip_SM_header );
 $default_use_javascript_addr_book = 'false' if (! $default_use_javascript_addr_book);
 
 if ( $ARGV[0] eq '--install-plugin' ) {
@@ -364,8 +364,8 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "7.  Message of the Day (MOTD)\n";
         print "8.  Plugins\n";
         print "9.  Database\n";
-        print "10. Language settings\n"; 
-        print "11. Tweaks\n"; 
+        print "10. Language settings\n";
+        print "11. Tweaks\n";
         print "\n";
         print "D.  Set pre-defined settings for specific IMAP servers\n";
         print "\n";
@@ -396,7 +396,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         }
         print "$NRM\n";
         print "\n";
-        
+
         if ( $show_imap_settings ) {
           print $WHT . "IMAP Settings". $NRM . "\n--------------\n";
           print "4.  IMAP Server            : $WHT$imapServerAddress$NRM\n";
@@ -429,7 +429,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
           print "$WHT$imapServerAddress$NRM:";
           print "$WHT$imapPort$NRM ";
           print "($WHT$imap_server_type$NRM)\n";
-        } 
+        }
         if ($show_smtp_settings == 0) {
           if ( lc($useSendmail) eq 'true' ) {
             print "B.  Change Sendmail Config : $WHT$sendmail_path$NRM\n";
@@ -441,11 +441,11 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         }
         if ( $show_smtp_settings || $show_imap_settings )
         {
-          print "H.  Hide " . 
-                ($show_imap_settings ? "IMAP Server" : 
+          print "H.  Hide " .
+                ($show_imap_settings ? "IMAP Server" :
                   (lc($useSendmail) eq 'true') ? "Sendmail" : "SMTP") . " Settings\n";
         }
-        
+
         print "\n";
         print "R   Return to Main Menu\n";
     } elsif ( $menu == 3 ) {
@@ -493,7 +493,7 @@ while ( ( $command ne "q" ) && ( $command ne "Q" ) ) {
         print "1.  Change Themes\n";
         for ( $count = 0 ; $count <= $#theme_name/2 ; $count++ ) {
             $temp_name = $theme_name[$count*2];
-            printf "     %s%*s    %s\n", $temp_name, 
+            printf "     %s%*s    %s\n", $temp_name,
                    40 - length($temp_name), " ",
                    $theme_name[($count*2)+1];
         }
@@ -1030,7 +1030,7 @@ sub command17 {
     return $new_smtpPort;
 }
 
-# authenticated server 
+# authenticated server
 sub command18 {
     return;
     # This sub disabled by tassium - it has been replaced with smtp_auth_mech
@@ -1067,7 +1067,7 @@ sub command18a {
     return $pop_before_smtp;
 }
 
-# imap_server_type 
+# imap_server_type
 sub command19 {
     print "Each IMAP server has its own quirks.  As much as we tried to stick\n";
     print "to standards, it doesn't help much if the IMAP server doesn't follow\n";
@@ -1177,9 +1177,9 @@ sub command112a {
           } else {
             print $WHT . " ERROR DETECTING$NRM\n";
           }
-          
+
         }
-    } 
+    }
       print "\nWhat authentication mechanism do you want to use for IMAP connections?\n\n";
       print $WHT . "login" . $NRM . " - Plaintext. If you can do better, you probably should.\n";
       print $WHT . "plain" . $NRM . " - SASL PLAIN. If you need this, you already know it.\n";
@@ -1198,7 +1198,7 @@ sub command112a {
       }
 }
 
-    
+
 # SMTP authentication type
 # Possible choices: none, plain, cram-md5, digest-md5
 sub command112b {
@@ -1214,7 +1214,7 @@ sub command112b {
         if ($inval =~ /^y\b/i) {
             # Yes, let's try to detect.
             print "Trying to detect supported methods (SMTP)...\n";
-        
+
             # Special case!
             # Check none by trying to relay to junk@microsoft.com
             $host = $smtpServerAddress . ':' . $smtpPort;
@@ -1252,7 +1252,7 @@ sub command112b {
               } else {
                   print $WHT . "ERROR DETECTING$NRM\n";
               }
-    
+
             # Try CRAM-MD5
             print "Testing CRAM-MD5:\t";
             $tmp=detect_auth_support('SMTP',$host,'CRAM-MD5');
@@ -1265,7 +1265,7 @@ sub command112b {
               } else {
                   print $WHT . "ERROR DETECTING$NRM\n";
             }
-    
+
 
             print "Testing DIGEST-MD5:\t";
             $tmp=detect_auth_support('SMTP',$host,'DIGEST-MD5');
@@ -1278,7 +1278,7 @@ sub command112b {
               } else {
                   print $WHT . "ERROR DETECTING$NRM\n";
             }
-        } 
+        }
     }
     print "\nWhat authentication mechanism do you want to use for SMTP connections?\n";
     print $WHT . "none" . $NRM . " - Your SMTP server does not require authorization.\n";
@@ -1295,7 +1295,7 @@ sub command112b {
       # SMTP doesn't necessarily require logins
       return "none";
     }
-    if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) || 
+    if ( ($inval =~ /^cram-md5\b/i) || ($inval =~ /^digest-md5\b/i) ||
     ($inval =~ /^login\b/i) || ($inval =~/^plain\b/i)) {
       return lc($inval);
     } else {
@@ -1323,7 +1323,7 @@ sub command113 {
     } else {
       print "n";
     }
-    print "$NRM]: $WHT"; 
+    print "$NRM]: $WHT";
     $inval=<STDIN>;
     $inval =~ tr/yn//cd;
     return 'true'  if ( $inval eq "y" );
@@ -1344,7 +1344,7 @@ sub command114{
 
     return 'true'  if ( lc($new_skip_SM_header) eq 'y' );
     return 'false'  if ( lc($new_skip_SM_header) eq 'n' );
-    return $skip_SM_header;    
+    return $skip_SM_header;
 }
 
 # MOTD
@@ -1470,7 +1470,7 @@ sub command22 {
     return $show_prefix_option;
 }
 
-# Trash Folder 
+# Trash Folder
 sub command23a {
     print "You can now specify where the default trash folder is located.\n";
     print "On servers where you do not want this, you can set it to anything\n";
@@ -1492,7 +1492,7 @@ sub command23a {
     return $new_trash_folder;
 }
 
-# Sent Folder 
+# Sent Folder
 sub command23b {
     print "This is where messages that are sent will be stored.  SquirrelMail\n";
     print "by default puts a copy of all outgoing messages in this folder.\n";
@@ -1513,7 +1513,7 @@ sub command23b {
     return $new_sent_folder;
 }
 
-# Draft Folder 
+# Draft Folder
 sub command23c {
     print "You can now specify where the default draft folder is located.\n";
     print "On servers where you do not want this, you can set it to anything\n";
@@ -1535,7 +1535,7 @@ sub command23c {
     return $new_draft_folder;
 }
 
-# default move to trash 
+# default move to trash
 sub command24a {
     print "By default, should messages get moved to the trash folder?  You\n";
     print "can specify the default trash folder in option 3.  If this is set\n";
@@ -1560,7 +1560,7 @@ sub command24a {
     return $default_move_to_trash;
 }
 
-# default move to sent 
+# default move to sent
 sub command24b {
     print "By default, should messages get moved to the sent folder?  You\n";
     print "can specify the default sent folder in option 4.  If this is set\n";
@@ -1608,7 +1608,7 @@ sub command24c {
     return $default_save_as_draft;
 }
 
-# List special folders first 
+# List special folders first
 sub command27 {
     print "SquirrelMail has what we call 'special folders' that are not\n";
     print "manipulated and viewed like normal folders.  Some examples of\n";
@@ -1633,7 +1633,7 @@ sub command27 {
     return $list_special_folders_first;
 }
 
-# Show special folders color 
+# Show special folders color
 sub command28 {
     print "SquirrelMail has what we call 'special folders' that are not\n";
     print "manipulated and viewed like normal folders.  Some examples of\n";
@@ -1658,7 +1658,7 @@ sub command28 {
     return $use_special_folder_color;
 }
 
-# Auto expunge 
+# Auto expunge
 sub command29 {
     print "The way that IMAP handles deleting messages is as follows.  You\n";
     print "mark the message as deleted, and then to 'really' delete it, you\n";
@@ -1682,7 +1682,7 @@ sub command29 {
     return $auto_expunge;
 }
 
-# Default sub of inbox 
+# Default sub of inbox
 sub command210 {
     print "Some IMAP servers (Cyrus) have all folders as subfolders of INBOX.\n";
     print "This can cause some confusion in folder creation for users when\n";
@@ -1706,7 +1706,7 @@ sub command210 {
     return $default_sub_of_inbox;
 }
 
-# Show contain subfolder option 
+# Show contain subfolder option
 sub command211 {
     print "Some IMAP servers (UW) make it so that there are two types of\n";
     print "folders.  Those that contain messages, and those that contain\n";
@@ -1730,7 +1730,7 @@ sub command211 {
     return $show_contain_subfolders_option;
 }
 
-# Default Unseen Notify 
+# Default Unseen Notify
 sub command212 {
     print "This option specifies where the users will receive notification\n";
     print "about unseen messages by default.  This is of course an option that\n";
@@ -1749,7 +1749,7 @@ sub command212 {
     return $default_unseen_notify;
 }
 
-# Default Unseen Type 
+# Default Unseen Type
 sub command213 {
     print "Here you can define the default way that unseen messages will be displayed\n";
     print "to the user in the folder listing on the left side.\n";
@@ -1789,7 +1789,7 @@ sub command214 {
     return $auto_create_special;
 }
 
-# Automatically delete folders 
+# Automatically delete folders
 sub command215 {
     if ( $imap_server_type eq "uw" ) {
         print "UW IMAP servers will not allow folders containing mail to also contain folders.\n";
@@ -1799,7 +1799,7 @@ sub command215 {
         print "Press any key to continue...\n";
         $new_delete = <STDIN>;
         $delete_folder = 'true';
-    } else { 
+    } else {
         if ( $imap_server_type eq "courier" ) {
             print "Courier (or Courier-IMAP) IMAP servers may not support ";
             print "subfolders of Trash. \n";
@@ -1807,7 +1807,7 @@ sub command215 {
             print "Trash will be treated by Courier as a special folder that does not \n";
             print "allow subfolders. \n\n";
             print "Please verify your Courier configuration, and test folder deletion \n";
-            print "when changing this setting.\n\n";                                                             
+            print "when changing this setting.\n\n";
         }
 
         print "Are subfolders of the Trash supported by your IMAP server?\n";
@@ -1815,8 +1815,8 @@ sub command215 {
         print "If not, say no (deleted folders should not be sent to Trash)\n\n";
         # reversal of logic.
         # question was: Should folders be automatically deleted instead of sent to trash..
-        # we've changed the question to make it more clear, 
-        # and are here handling that to avoid changing the answers.. 
+        # we've changed the question to make it more clear,
+        # and are here handling that to avoid changing the answers..
         if ( lc($delete_folder) eq 'true' ) {
             $default_value = "n";
         } else {
@@ -1862,7 +1862,7 @@ sub command33a {
     print "The path name can be absolute or relative (to the config directory).\n";
     print "It doesn't matter.  Here are two examples:\n";
     print "  Absolute:    /var/spool/data/\n";
-    print "  Relative:    ../data/\n";     
+    print "  Relative:    ../data/\n";
     print "Relative paths to directories outside of the SquirrelMail distribution\n";
     print "will be converted to their absolute path equivalents in config.php.\n\n";
     print "Note: There are potential security risks with having a writeable directory\n";
@@ -1929,9 +1929,9 @@ sub command33b {
 
 sub command33c {
     print "The directory hash level setting allows you to configure the level\n";
-    print "of hashing that Squirremail employs in your data and attachment\n";
+    print "of hashing that SquirrelMail employs in your data and attachment\n";
     print "directories. This value must be an integer ranging from 0 to 4.\n";
-    print "When this value is set to 0, Squirrelmail will simply store all\n";
+    print "When this value is set to 0, SquirrelMail will simply store all\n";
     print "files as normal in the data and attachment directories. However,\n";
     print "when set to a value from 1 to 4, a simple hashing scheme will be\n";
     print "used to organize the files in this directory. In short, the crc32\n";
@@ -2578,7 +2578,7 @@ sub command63 {
     print "must set this option to a valid value. If option does\n";
     print "not have path elements, system assumes that file is\n";
     print "stored in data directory. If relative path is set, it is\n";
-    print "relative to main squirrelmail directory. If value is empty,\n";
+    print "relative to main SquirrelMail directory. If value is empty,\n";
     print "address book is not enabled.\n";
     print "\n";
 
@@ -3070,14 +3070,14 @@ sub save_data {
         print CF " */\n";
         print CF "\n";
         print CF "global \$version;\n";
-    
+
         if ($print_config_version) {
             print CF "\$config_version = '$print_config_version';\n";
         }
         # integer
         print CF "\$config_use_color = $config_use_color;\n";
         print CF "\n";
-    
+
         # string
         print CF "\$org_name      = \"$org_name\";\n";
         # string
@@ -3105,7 +3105,7 @@ sub save_data {
         # string that can contain variables
         print CF "\$motd = \"$motd\";\n";
         print CF "\n";
-    
+
         # string
         print CF "\$squirrelmail_default_language = '$squirrelmail_default_language';\n";
         # string
@@ -3216,7 +3216,7 @@ sub save_data {
     # integer
         print CF "\$allow_advanced_search    = $allow_advanced_search;\n";
         print CF "\n";
-    
+
     # all plugins are strings
         for ( $ct = 0 ; $ct <= $#plugins ; $ct++ ) {
             print CF "\$plugins[$ct] = '$plugins[$ct]';\n";
@@ -3346,7 +3346,7 @@ sub save_data {
     print CF "\n";
 
         print CF "\@include SM_PATH . 'config/config_local.php';\n";
-    
+
         print CF "\n/**\n";
         print CF " * Make sure there are no characters after the PHP closing\n";
         print CF " * tag below (including newline characters and whitespace).\n";
@@ -3355,7 +3355,7 @@ sub save_data {
         print CF " * things up when we try to send more headers later.\n";
         print CF " */\n";
         print CF "?>";
-        
+
         close CF;
 
         print "Data saved in config.php\n";
@@ -3425,7 +3425,7 @@ sub set_defaults {
             $disp_default_folder_prefix     = $default_folder_prefix;
             $delete_folder                  = true;
             $force_username_lowercase       = true;
-            
+
             $continue = 1;
         } elsif ( $server eq "exchange" ) {
             $imap_server_type               = "exchange";
@@ -3454,7 +3454,7 @@ sub set_defaults {
             $disp_default_folder_prefix     = $default_folder_prefix;
             $delete_folder                  = true;
             $force_username_lowercase       = false;
-            
+
             $continue = 1;
         } elsif ( $server eq "macosx" ) {
             $imap_server_type               = "macosx";
@@ -3526,7 +3526,7 @@ sub set_defaults {
 
 # This subroutine corrects relative paths to ensure they
 # will work within the SM space. If the path falls within
-# the SM directory tree, the SM_PATH variable will be 
+# the SM directory tree, the SM_PATH variable will be
 # prepended to the path, if not, then the path will be
 # converted to an absolute path, e.g.
 #   '../images/logo.gif'      --> SM_PATH . 'images/logo.gif'
@@ -3549,7 +3549,7 @@ sub change_to_SM_path() {
     return $old_path                if ( $old_path =~ /^\'(\/|http)/ );
     return $old_path                if ( $old_path =~ /^\'\w:\// );
     return $old_path                if ( $old_path =~ /^SM_PATH/);
-   
+
     if ( $old_path =~ /^\$/ ) {
         # check if it's a single var, or a $var/path combination
         # if it's $var/path, enclose in ""
@@ -3558,17 +3558,17 @@ sub change_to_SM_path() {
         }
         return $old_path;
     }
-    
+
     # Remove remaining '
     $old_path =~ s/\'//g;
-    
+
     # For relative paths, split on '../'
     @rel_path = split(/\.\.\//, $old_path);
 
     if ( $#rel_path > 1 ) {
         # more than two levels away. Make it absolute.
         @abs_path = split(/\//, $dir);
-        
+
         # Lop off the relative pieces of the absolute path..
         for ( $i = 0; $i <= $#rel_path; $i++ ) {
             pop @abs_path;
@@ -3583,7 +3583,7 @@ sub change_to_SM_path() {
         $new_path .= "\'";
     } else {
         # Last, it's a relative path without any leading '.'
-    # Prepend SM_PATH and config, since the paths are 
+    # Prepend SM_PATH and config, since the paths are
     # relative to the config directory
         $new_path = "SM_PATH . \'config/" . $old_path . "\'";
     }
@@ -3624,7 +3624,7 @@ sub detect_auth_support {
       print "BAD ARGS!\n";
       return undef;
     }
-    
+
     if ($service eq 'SMTP') {
         $cmd = "AUTH $mech\r\n";
         $logout = "QUIT\r\n";

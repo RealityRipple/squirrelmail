@@ -143,7 +143,7 @@ if (strlen($filename) < 1) {
  *    most likely display the attachment inline inside the browser.
  *      And finally, the third one will be used by default.  If it
  *    is displayable (text or html), it will load them up in a text
- *    viewer (built in to squirrelmail).  Otherwise, it sets the
+ *    viewer (built in to SquirrelMail).  Otherwise, it sets the
  *    content-type as application/octet-stream
  */
 if (isset($absolute_dl) && $absolute_dl) {

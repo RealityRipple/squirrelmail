@@ -7,13 +7,13 @@ Features
 
 * Copies messages from remote server
 * Saves server, alias, username, and password in prefs file...
-* Remembers where to resume downloading messages if 
+* Remembers where to resume downloading messages if
   your pop server supports UIDL.
 * Optionally deletes mail from the remote server.
 * Allow an infinite amount of remote servers
 * Optional to not save password - prompt on check
 * Save messages into a local IMAP folder instead of INBOX
-* Check mail during login (Needs SM 1.1.3 or older). 
+* Check mail during login (Needs SM 1.1.3 or older).
 * Check mail during folder refreshes.
 * Allows gettext translations.
 
@@ -31,7 +31,7 @@ Configuration
 Under the options you can add, delete or modify server list where
 fetching mail.  For each server you can set also username and password;
 if you leave password blank, the password whore required when you fetch
-mail.  Make sure "Leave Mail On Server" is checked if you do not want 
+mail.  Make sure "Leave Mail On Server" is checked if you do not want
 Mail_Fetch to delete it from the remote server.  Once configured,
 click 'Fetch' in the SquirrelMail menu to get your mail; you can fetch
 mail from all server instead or from only one by selecting the options
@@ -43,11 +43,11 @@ entered in order for this to work.
 
 In order to secure a little bit the system, pop3 passwords can be encrypted.
 The encryption key may be defined in to places. The first, and more secure,
-is in the httpd configuration as an enviromental variable called MF_TIT 
-only accesible from the squirrelmail directory.
- 
-the way you can do this from apache is adding the following directives to 
-httpd.conf (supposing that squirrelmail is located at /usr/local) or an
+is in the httpd configuration as an enviromental variable called MF_TIT
+only accesible from the SquirrelMail directory.
+
+the way you can do this from apache is adding the following directives to
+httpd.conf (supposing that SquirrelMail is located at /usr/local) or an
 included configuration file:
 
 <Directory "/usr/local/squirrelmail">
@@ -55,7 +55,7 @@ included configuration file:
 </Directory>
 
 Of course, you should replace the text inside double quotes with the key
-you want to (some kind of secret text). A please remember that the file 
+you want to (some kind of secret text). A please remember that the file
 where you decided to place this must be root only readable.
 
 The second way is to edit functions.php and look for:
@@ -79,7 +79,7 @@ Future Work
 ===========
 
 * Add IMAP server stealing
- 
+
 * Limit number of pop accounts
 
 
@@ -109,7 +109,7 @@ Old version (0.3) has been updated from Tyler's original version 0.1 by
 
 Translations
 ============
-Translation is made in the same manner than Squirrelmail's core does.
+Translation is made in the same manner as SquirrelMail's core.
 You need to take <plugin_name>.po file, fill the template, store it
 in the appropriate locale folder under the plugin and compile the po
 file. Better than this fill the po file and send it back to the author.
@@ -138,9 +138,9 @@ and then add it again.
 ChangeLog
 =========
 
-1.3.1 
+1.3.1
 
-Bugfix 
+Bugfix
 ------
 1 Delete mail server routine update record not as expected.
 The logic is still correct to completed the wanted action, but the order
@@ -154,7 +154,7 @@ Added features
 fetching mail from server is stopped in the middle.
 2. POP3 connection will be re-established for non-persistent server failure.
 
-"Chiu Wai Pun" <pun@alumni.ust.hk> 
+"Chiu Wai Pun" <pun@alumni.ust.hk>
 
 ---------------------------------------------------------------------------
                    Philippe Mingo <mingo@rotedic.com>
@@ -175,7 +175,7 @@ fetching mail from server is stopped in the middle.
 0.9   Added an alias for each server. Changed default encryption key, please
       reenter passwords if you're not using environment system.
 0.8   Better encryption security through env variables.
-0.7   Added password encryption and strings internationalization. 
+0.7   Added password encryption and strings internationalization.
 ----------------------------------------------------------------------------
 0.6   Bugfix for folder list and typo
       set_time_limit of 20 seconds per message (to avoid timeout errors)
@@ -193,7 +193,7 @@ fetching mail from server is stopped in the middle.
 0.3   Converted fetch routine to use the POP3 object from thewebmasters.net
       Added Leave Mail on Server option
       Now only downloads new messages if the pop server supports UIDL.
-----------------------------------------------------------------------------      
+----------------------------------------------------------------------------
 0.2   Now saves account information
 0.1   Initial release by Tyler Akins
 ----------------------------------------------------------------------------
