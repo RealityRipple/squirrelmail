@@ -235,14 +235,12 @@ msgid "Date"
 msgstr "Päiväys"
 
 #: squirrelmail/src/compose.php:490
-#, fuzzy
 msgid "Draft Saved"
 msgstr "Luonnos Talletettu"
 
 #: squirrelmail/src/compose.php:493
-#, fuzzy
 msgid "Your Message has been sent"
-msgstr "Ei valittuja viestejä."
+msgstr "Viesti lähetetty"
 
 #: squirrelmail/plugins/listcommands/mailout.php:50
 #: squirrelmail/src/compose.php:508 squirrelmail/src/read_body.php:735
@@ -305,16 +303,15 @@ msgstr "Alhainen"
 
 #: squirrelmail/src/compose.php:668
 msgid "Receipt"
-msgstr ""
+msgstr "Kuitti"
 
 #: squirrelmail/src/compose.php:669
-#, fuzzy
 msgid "On read"
-msgstr "Ei luettu"
+msgstr "Luettaessa"
 
 #: squirrelmail/src/compose.php:670
 msgid "On Delivery"
-msgstr ""
+msgstr "Perille toimitettaessa"
 
 #: squirrelmail/functions/page_header.php:144 squirrelmail/src/compose.php:677
 #: squirrelmail/src/compose.php:681 squirrelmail/src/compose.php:685
@@ -404,7 +401,7 @@ msgstr "alikansiona seuraavalle: "
 
 #: squirrelmail/src/folders.php:74 squirrelmail/src/folders.php:76
 msgid "None"
-msgstr "Ei päivitetä"
+msgstr "----"
 
 #: squirrelmail/src/folders.php:98
 msgid "Let this folder contain subfolders"
@@ -530,9 +527,8 @@ msgstr "Näytössä kuvaliite"
 #: squirrelmail/plugins/mail_fetch/options.php:137
 #: squirrelmail/plugins/mail_fetch/options.php:214
 #: squirrelmail/src/left_main.php:73 squirrelmail/src/search.php:310
-#, fuzzy
 msgid "INBOX"
-msgstr "Vain Saapuneet"
+msgstr "Saapuneet"
 
 #: squirrelmail/src/left_main.php:97
 msgid "empty"
@@ -701,11 +697,11 @@ msgstr "Tulostusystävällinen Puhdas Näyttö päälle"
 
 #: squirrelmail/src/options_display.php:231
 msgid "Enable request/confirm reading"
-msgstr ""
+msgstr "Käytä lukemisen konfirmointia"
 
 #: squirrelmail/src/options_display.php:238
 msgid "Always compose in a new window"
-msgstr ""
+msgstr "Avaa aina uusi ikkuna uuden viestin kirjoittamiseen"
 
 #: squirrelmail/src/options_folder.php:40
 msgid "Special Folder Options"
@@ -1209,24 +1205,21 @@ msgid "View Printable Version"
 msgstr "Näytä Tulostettavassa Muodossa"
 
 #: squirrelmail/src/read_body.php:183
-#, fuzzy
 msgid "Your message"
-msgstr "] viestiä"
+msgstr "Viestisi"
 
 #: squirrelmail/src/read_body.php:186
-#, fuzzy
 msgid "Sent:"
-msgstr "Lähetä"
+msgstr "Lähetetty:"
 
 #: squirrelmail/src/read_body.php:188
 #, c-format
 msgid "Was displayed on %s"
-msgstr ""
+msgstr "Avattiin näyttöön, %s"
 
 #: squirrelmail/src/read_body.php:225
-#, fuzzy
 msgid "Read:"
-msgstr "Luettu"
+msgstr "Luettu:"
 
 #: squirrelmail/src/read_body.php:299
 msgid "Viewing Full Header"
@@ -1282,33 +1275,34 @@ msgstr "Postittaja"
 #: squirrelmail/src/read_body.php:893 squirrelmail/src/read_body.php:928
 #: squirrelmail/src/read_body.php:936 squirrelmail/src/read_body.php:950
 msgid "Read receipt"
-msgstr ""
+msgstr "Lukukuitti"
 
 #: squirrelmail/src/read_body.php:838 squirrelmail/src/read_body.php:847
 #: squirrelmail/src/read_body.php:930 squirrelmail/src/read_body.php:938
-#, fuzzy
 msgid "send"
-msgstr "Lähetä"
+msgstr "lähetä"
 
 #: squirrelmail/src/read_body.php:839 squirrelmail/src/read_body.php:930
 msgid "Remove MDN flag"
-msgstr ""
+msgstr "Poista MDN merkintä"
 
 #: squirrelmail/src/read_body.php:858 squirrelmail/src/read_body.php:870
 #: squirrelmail/src/read_body.php:895 squirrelmail/src/read_body.php:952
 msgid "requested"
-msgstr ""
+msgstr "pyydetään"
 
 #: squirrelmail/src/read_body.php:871 squirrelmail/src/read_body.php:896
 #: squirrelmail/src/read_body.php:953
 msgid "Send read receipt now"
-msgstr ""
+msgstr "Lähetä lukukuitti nyt"
 
 #: squirrelmail/src/read_body.php:883
 msgid ""
 "The message sender has requested a response to indicate that you have read "
 "this message. Would you like to send a receipt?"
 msgstr ""
+"Viestin lähettäjä haluaa varmistuksen siitä että olet lukenut tämän viestin. "
+"Haluatko lähettää lukukuitin?"
 
 #: squirrelmail/functions/auth.php:33 squirrelmail/src/redirect.php:60
 #: squirrelmail/src/redirect.php:64
@@ -1328,33 +1322,28 @@ msgid "Contact your administrator for help."
 msgstr "Ota yhteys administraattoriin saadaksesi apua."
 
 #: squirrelmail/src/search.php:242
-#, fuzzy
 msgid "edit"
-msgstr "Muokkaa"
+msgstr "muokkaa"
 
 #: squirrelmail/src/search.php:249 squirrelmail/src/search.php:288
-#, fuzzy
 msgid "search"
-msgstr "Etsi"
+msgstr "etsi"
 
 #: squirrelmail/src/search.php:252
-#, fuzzy
 msgid "delete"
-msgstr "Poista"
+msgstr "poista"
 
 #: squirrelmail/src/search.php:280
-#, fuzzy
 msgid "save"
-msgstr "Talleta"
+msgstr "talleta"
 
 #: squirrelmail/src/search.php:291
 msgid "forget"
-msgstr ""
+msgstr "unohda"
 
 #: squirrelmail/src/search.php:300
-#, fuzzy
 msgid "Current Search"
-msgstr "Tämänhetkinen Kansio"
+msgstr "Tämänhetkinen Haku"
 
 #: squirrelmail/src/search.php:339
 msgid "Body"
@@ -1365,14 +1354,12 @@ msgid "Everywhere"
 msgstr "Kaikki kentät"
 
 #: squirrelmail/src/search.php:367 squirrelmail/src/search.php:396
-#, fuzzy
 msgid "Search Results"
-msgstr "Viestien haun Tulokset:"
+msgstr "Hakutulokset"
 
 #: squirrelmail/src/search.php:387
-#, fuzzy
 msgid "No Messages found"
-msgstr "Ei Viestejä"
+msgstr "Ei löytynyt viestejä"
 
 #: squirrelmail/functions/page_header.php:130 squirrelmail/src/signout.php:72
 msgid "Sign Out"
@@ -1747,9 +1734,8 @@ msgstr "VIRHE : Pyyntöä ei voida täyttää."
 
 #: squirrelmail/functions/imap_general.php:158
 #: squirrelmail/functions/imap_general.php:169
-#, fuzzy
 msgid "Query:"
-msgstr "Neljännesvuosittain"
+msgstr "Pyyntö:"
 
 #: squirrelmail/functions/imap_general.php:160
 #: squirrelmail/plugins/filters/filters.php:91
@@ -1834,13 +1820,12 @@ msgid "messages"
 msgstr "viesteissä"
 
 #: squirrelmail/functions/imap_search.php:203
-#, fuzzy
 msgid "Folder:"
-msgstr "Kansiot"
+msgstr "Kansio:"
 
 #: squirrelmail/functions/mailbox_display.php:156
 msgid "A"
-msgstr ""
+msgstr "V"
 
 #: squirrelmail/functions/mailbox_display.php:429
 msgid "THIS FOLDER IS EMPTY"
@@ -1919,14 +1904,12 @@ msgstr ""
 "lähettämällä tämä viesti kehitystiimille!"
 
 #: squirrelmail/functions/mime.php:442
-#, fuzzy
 msgid "Submit message"
-msgstr "Näytä viesti"
+msgstr "Lähetä viesti"
 
 #: squirrelmail/functions/mime.php:444
-#, fuzzy
 msgid "Command:"
-msgstr "Komento epäonnistui"
+msgstr "Komento:"
 
 #: squirrelmail/functions/mime.php:445
 msgid "Response:"
@@ -2162,7 +2145,7 @@ msgstr ""
 
 #: squirrelmail/plugins/filters/filters.php:560
 msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
-msgstr ""
+msgstr "VAPAA - SPAMhaus - Lista tunnetuista roskapostilähteistä."
 
 #: squirrelmail/plugins/filters/filters.php:568
 #, c-format
@@ -2369,17 +2352,17 @@ msgstr "Jatka"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:374
 msgid "You must make a choice"
-msgstr ""
+msgstr "Sinun on valittava yksi vaihtoehdoista"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:375
 msgid ""
 "You can either delete your dictionary or type in the old password. Not both."
 msgstr ""
+"Voit joko poistaa sanaston tai antaa vanhan tunnussanasi. Ei Molempia."
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:376
-#, fuzzy
 msgid "This will delete your personal dictionary file. Proceed?"
-msgstr "Lisää tämä sana omaan sanastoon"
+msgstr "Tämä poistaa henkilökohtaisen sanastotiedoston. Jatketaanko?"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:385
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:388
@@ -2388,7 +2371,7 @@ msgstr "Virhe Sanaston Lukemisessa"
 
 #: squirrelmail/plugins/squirrelspell/sqspell_functions.php:506
 msgid "Cute."
-msgstr ""
+msgstr "Hienoa."
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:196
 msgid "SquirrelSpell Results"
@@ -2396,17 +2379,15 @@ msgstr "SquirrelSpell Tulokset"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:256
 msgid "Spellcheck completed. Commit changes?"
-msgstr ""
+msgstr "Oikeinkirjoituksen tarkistus valmis. Tehdäänkö muutokset?"
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:258
-#, fuzzy
 msgid "No changes were made."
 msgstr "Ei muutoksia."
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:260
-#, fuzzy
 msgid "Now saving your personal dictionary... Please wait."
-msgstr "Sanastosi on tyhjä"
+msgstr "Henkilökohtainen sanastosi talletetaan... Odota."
 
 #: squirrelmail/plugins/squirrelspell/modules/check_me.mod:281
 #, c-format
@@ -2507,12 +2488,11 @@ msgid "Dictionary Erased"
 msgstr "Sanasto Poistettu"
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:41
-#, fuzzy
 msgid ""
 "Your personal dictionary was erased. Please close this window and click "
 "\"Check Spelling\" button again to start your spellcheck over."
 msgstr ""
-"Sanastosi uudelleentallennus onnistui. Ole hyvä ja sulje tämä ikkuna ja "
+"Henkilökohtainen sanastosi tyhjennettiin. Ole hyvä ja sulje tämä ikkuna ja "
 "klikkaa uudestaan \"Tarkista Oikeikirjoitus\"-nappia."
 
 #: squirrelmail/plugins/squirrelspell/modules/crypto_badkey.mod:45
@@ -2594,21 +2574,20 @@ msgstr "Muokkaa omaa sanastoasi"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:25
 msgid "Please make your selection first."
-msgstr ""
+msgstr "Ole hyvä ja tee valinta ensin."
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:27
-#, fuzzy
 msgid ""
 "This will encrypt your personal dictionary and store it in an encrypted "
 "format. Proceed?"
-msgstr "Talleta sanastoni suojatussa muodossa."
+msgstr "Tallettaa henkilökohtaisen sanastosi suojatussa muodossa. "
+"Jatketaanko?"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:30
-#, fuzzy
 msgid ""
 "This will decrypt your personal dictionary and store it in a clear-text "
 "format. Proceed?"
-msgstr "Avaa oma sanastoni ja talleta se avoimessa muodossa."
+msgstr "Avaa oman sanastosi ja tallettaa se avoimessa muodossa. Jatketaanko?"
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:47
 msgid ""
@@ -2638,7 +2617,6 @@ msgstr "Avaa oma sanastoni ja talleta se avoimessa muodossa."
 
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:55
 #: squirrelmail/plugins/squirrelspell/modules/enc_setup.mod:73
-#, fuzzy
 msgid "Change crypto settings"
 msgstr "Muuta suojausasetuksia"
 
@@ -3933,12 +3911,10 @@ msgid "Send Mail"
 msgstr "Lähetä Viesti"
 
 #: squirrelmail/plugins/listcommands/setup.php:31
-#, fuzzy
 msgid "Post to List"
 msgstr "Lähetä listaosoitteeseen"
 
 #: squirrelmail/plugins/listcommands/setup.php:32
-#, fuzzy
 msgid "Reply to List"
 msgstr "Vastaa listaosoitteeseen"
 
@@ -3951,9 +3927,8 @@ msgid "Contact Listowner"
 msgstr "Ota yhteys listan omistajaan"
 
 #: squirrelmail/plugins/listcommands/setup.php:113
-#, fuzzy
 msgid "Mailing List:"
-msgstr "Postituslista"
+msgstr "Postituslista:"
 
 #: squirrelmail/plugins/delete_move_next/setup.php:159
 #: squirrelmail/plugins/delete_move_next/setup.php:162
@@ -3983,56 +3958,48 @@ msgid "display at bottom"
 msgstr "näytä alalaidassa"
 
 #: squirrelmail/plugins/administrator/defines.php:48
-#, fuzzy
 msgid "Config File Version"
-msgstr "Näytä Tulostettavassa Muodossa"
+msgstr "Konfiguraatiotiedoston versio"
 
 #: squirrelmail/plugins/administrator/defines.php:51
-#, fuzzy
 msgid "Squirrelmail Version"
-msgstr "SquirrelMail versio %s"
+msgstr "SquirrelMail versio"
 
 #: squirrelmail/plugins/administrator/defines.php:54
 msgid "PHP Version"
-msgstr ""
+msgstr "PHP Versio"
 
 #: squirrelmail/plugins/administrator/defines.php:58
-#, fuzzy
 msgid "Organization Preferences"
-msgstr "Organisaatio / Osasto"
+msgstr "Organisaatioasetukset"
 
 #: squirrelmail/plugins/administrator/defines.php:60
-#, fuzzy
 msgid "Organization Name"
-msgstr "Organisaatio / Osasto"
+msgstr "Organisaation nimi"
 
 #: squirrelmail/plugins/administrator/defines.php:63
-#, fuzzy
 msgid "Organization Logo"
-msgstr "Organisaatio / Osasto"
+msgstr "Organisaation logo"
 
 #: squirrelmail/plugins/administrator/defines.php:66
-#, fuzzy
 msgid "Organization Title"
-msgstr "Organisaatio / Osasto"
+msgstr "Organisaation titteli"
 
 #: squirrelmail/plugins/administrator/defines.php:69
 msgid "Signout Page"
 msgstr "Poistumissivu"
 
 #: squirrelmail/plugins/administrator/defines.php:72
-#, fuzzy
 msgid "Default Language"
-msgstr "Kieli"
+msgstr "Oletuskieli"
 
 #: squirrelmail/plugins/administrator/defines.php:76
 msgid "Top Frame"
 msgstr "Näytön yläosa"
 
 #: squirrelmail/plugins/administrator/defines.php:81
-#, fuzzy
 msgid "Server Settings"
-msgstr "POP palvelimen asetukset"
+msgstr "Palvelimen asetukset"
 
 #: squirrelmail/plugins/administrator/defines.php:83
 msgid "Mail Domain"
@@ -4043,38 +4010,32 @@ msgid "IMAP Server Address"
 msgstr "IMAP Palvelimen Osoite"
 
 #: squirrelmail/plugins/administrator/defines.php:89
-#, fuzzy
 msgid "IMAP Server Port"
-msgstr "Lisää Palvelin"
+msgstr "IMAP Palvelimen portti"
 
 #: squirrelmail/plugins/administrator/defines.php:91
-#, fuzzy
 msgid "IMAP Server Type"
-msgstr "Lisää Palvelin"
+msgstr "IMAP Palvelimen tyyppi"
 
 #: squirrelmail/plugins/administrator/defines.php:93
-#, fuzzy
 msgid "Cyrus IMAP server"
-msgstr "Yhteys IMAP palvelimeen"
+msgstr "Cyrus IMAP palvelin"
 
 #: squirrelmail/plugins/administrator/defines.php:94
 msgid "University of Washington's IMAP server"
 msgstr "Washingtonin Yliopistin IMAP palvelin"
 
 #: squirrelmail/plugins/administrator/defines.php:95
-#, fuzzy
 msgid "Microsoft Exchange IMAP server"
-msgstr "Yhteys IMAP palvelimeen"
+msgstr "Microsoft Exchange IMAP palvelin"
 
 #: squirrelmail/plugins/administrator/defines.php:96
-#, fuzzy
 msgid "Courier IMAP server"
-msgstr "Yhteys IMAP palvelimeen"
+msgstr "Courier IMAP palvelin"
 
 #: squirrelmail/plugins/administrator/defines.php:97
-#, fuzzy
 msgid "Not one of the above servers"
-msgstr "Ei yhteyttä palvelimeen"
+msgstr "Ei mikään edelläolevista"
 
 #: squirrelmail/plugins/administrator/defines.php:98
 msgid "IMAP Folder Delimiter"
@@ -4085,14 +4046,12 @@ msgid "Use \"detect\" to auto-detect."
 msgstr "Käytä \"tunnista\" automaattiseen tunnistukseen."
 
 #: squirrelmail/plugins/administrator/defines.php:103
-#, fuzzy
 msgid "Use Sendmail"
-msgstr "Lähetä Viesti"
+msgstr "Käytä sendmailia"
 
 #: squirrelmail/plugins/administrator/defines.php:105
-#, fuzzy
 msgid "Sendmail Path"
-msgstr "Lähetä Viesti"
+msgstr "Sendmailin hakemistopolku"
 
 #: squirrelmail/plugins/administrator/defines.php:108
 msgid "SMTP Server Address"
@@ -4103,28 +4062,24 @@ msgid "SMTP Server Port"
 msgstr "Postipalvelimen (SMTP) Portti"
 
 #: squirrelmail/plugins/administrator/defines.php:113
-#, fuzzy
 msgid "Authenticated SMTP"
-msgstr "käyttäjän tarkastus epäonnistui"
+msgstr "Varmistettu SMTP"
 
 #: squirrelmail/plugins/administrator/defines.php:115
 msgid "Invert Time"
 msgstr "Kellonaika Päinvastoin"
 
 #: squirrelmail/plugins/administrator/defines.php:118
-#, fuzzy
 msgid "Folders Defaults"
-msgstr "Kansion hakemistopolku"
+msgstr "Kansion oletusarvot"
 
 #: squirrelmail/plugins/administrator/defines.php:120
-#, fuzzy
 msgid "Default Folder Prefix"
-msgstr "Poista Kansio"
+msgstr "Kansion etuliite"
 
 #: squirrelmail/plugins/administrator/defines.php:123
-#, fuzzy
 msgid "Show Folder Prefix Option"
-msgstr "Kansiolista-asetukset"
+msgstr "Näytä Kansion etuliite vaihoehto"
 
 #: squirrelmail/plugins/administrator/defines.php:134
 msgid "By default, move to trash"
@@ -4139,19 +4094,16 @@ msgid "By default, save as draft"
 msgstr "Siirrä luonnoksiin jos ei määritetä toisin"
 
 #: squirrelmail/plugins/administrator/defines.php:140
-#, fuzzy
 msgid "List Special Folders First"
-msgstr "Erikoiskansio-ominaisuudet"
+msgstr "Näytä Erikoiskansiot ensimmäisenä"
 
 #: squirrelmail/plugins/administrator/defines.php:142
-#, fuzzy
 msgid "Show Special Folders Color"
-msgstr "Erikoiskansio-ominaisuudet"
+msgstr "Näytä Erikoiskansiot eri värillä"
 
 #: squirrelmail/plugins/administrator/defines.php:144
-#, fuzzy
 msgid "Auto Expunge"
-msgstr "Siivoa"
+msgstr "Siivoa automaattisesti"
 
 #: squirrelmail/plugins/administrator/defines.php:146
 msgid "Default Sub. of INBOX"
@@ -4162,38 +4114,32 @@ msgid "Show 'Contain Sub.' Option"
 msgstr "Näytä 'Sisältää Alikansioita' Vaihtoehto"
 
 #: squirrelmail/plugins/administrator/defines.php:150
-#, fuzzy
 msgid "Default Unseen Notify"
-msgstr "Henkilötiedot"
+msgstr "Ei nähtyjen viestien oletusarvoinen esitystapa"
 
 #: squirrelmail/plugins/administrator/defines.php:155
-#, fuzzy
 msgid "Default Unseen Type"
-msgstr "Henkilötiedot"
+msgstr "Ei nähtyjen viestien oletusarvoinen tyyppi"
 
 #: squirrelmail/plugins/administrator/defines.php:159
-#, fuzzy
 msgid "Auto Create Special Folders"
-msgstr "Luo Kansio"
+msgstr "Luo Erikoiskansiot automaattisesti"
 
 #: squirrelmail/plugins/administrator/defines.php:161
 msgid "Default Javascript Adrressbook"
 msgstr "Oletusarvona Javascript Osoitekirja"
 
 #: squirrelmail/plugins/administrator/defines.php:163
-#, fuzzy
 msgid "Auto delete folders"
-msgstr "Poista Kansio"
+msgstr "Kansioitten automaattinen poistaminen"
 
 #: squirrelmail/plugins/administrator/defines.php:166
-#, fuzzy
 msgid "General Options"
-msgstr "Yleiset Näyttöasetukset"
+msgstr "Yleisasetukset"
 
 #: squirrelmail/plugins/administrator/defines.php:168
-#, fuzzy
 msgid "Default Charset"
-msgstr "Henkilötiedot"
+msgstr "Kirjasimen oletustyyppi"
 
 #: squirrelmail/plugins/administrator/defines.php:179
 msgid "Data Directory"
@@ -4208,24 +4154,20 @@ msgid "Hash Level"
 msgstr "Sisennystasojen Määrä"
 
 #: squirrelmail/plugins/administrator/defines.php:187
-#, fuzzy
 msgid "Hash Disabled"
-msgstr "Ei käytössä"
+msgstr "Sisennys ei käytössä"
 
 #: squirrelmail/plugins/administrator/defines.php:189
-#, fuzzy
 msgid "Moderate"
-msgstr "Kansion hakemistopolku"
+msgstr "Maltillinen"
 
 #: squirrelmail/plugins/administrator/defines.php:190
-#, fuzzy
 msgid "Medium"
-msgstr "Harmaa"
+msgstr "Keskinkertainen"
 
 #: squirrelmail/plugins/administrator/defines.php:192
-#, fuzzy
 msgid "Default Left Size"
-msgstr "Henkilötiedot"
+msgstr "Vasemman puolen oletusleveys"
 
 #: squirrelmail/plugins/administrator/defines.php:195
 msgid "Usernames in Lowercase"
@@ -4241,68 +4183,56 @@ msgstr "Piilota SM atribuutiot"
 
 #: squirrelmail/plugins/administrator/defines.php:202
 #: squirrelmail/plugins/administrator/defines.php:204
-#, fuzzy
 msgid "Message of the Day"
-msgstr "Viestiä ei voida tulostaa"
+msgstr "Päivän ilmoitusviesti"
 
 #: squirrelmail/plugins/administrator/defines.php:208
-#, fuzzy
 msgid "Database"
-msgstr "Päiväys"
+msgstr "Tietokanta"
 
 #: squirrelmail/plugins/administrator/defines.php:210
-#, fuzzy
 msgid "Address book DSN"
-msgstr "Osoitekirja"
+msgstr "Osoitekirja DSN"
 
 #: squirrelmail/plugins/administrator/defines.php:213
-#, fuzzy
 msgid "Address book table"
-msgstr "Osoitekirja"
+msgstr "Osoitekirjataulukko"
 
 #: squirrelmail/plugins/administrator/defines.php:217
-#, fuzzy
 msgid "Preferences DSN"
-msgstr "Kansioasetukset"
+msgstr "Asetukset DSN"
 
 #: squirrelmail/plugins/administrator/defines.php:220
-#, fuzzy
 msgid "Preferences table"
-msgstr "Kansioasetukset"
+msgstr "Asetukset taulukko"
 
 #: squirrelmail/plugins/administrator/defines.php:225
-#, fuzzy
 msgid "Themes"
-msgstr "Teema"
+msgstr "Teemat"
 
 #: squirrelmail/plugins/administrator/defines.php:227
 msgid "Style Sheet URL (css)"
 msgstr "Tyylisivujen internetosoite (css)"
 
 #: squirrelmail/plugins/administrator/options.php:186
-#, fuzzy
 msgid "Configuration Administrator"
-msgstr "Ota yhteys administraattoriin saadaksesi apua."
+msgstr "Konfiguraatioadministraattori"
 
 #: squirrelmail/plugins/administrator/options.php:379
-#, fuzzy
 msgid "Theme Name"
-msgstr "Teema"
+msgstr "Teeman nimi"
 
 #: squirrelmail/plugins/administrator/options.php:380
-#, fuzzy
 msgid "Theme Path"
-msgstr "Teema"
+msgstr "Teeman hakemistopolku"
 
 #: squirrelmail/plugins/administrator/options.php:418
-#, fuzzy
 msgid "Plugins"
-msgstr "Puola"
+msgstr "Lisätoimintoohjelmistot (plugin)"
 
 #: squirrelmail/plugins/administrator/options.php:480
-#, fuzzy
 msgid "Change Settings"
-msgstr "Muuta suojausasetuksia"
+msgstr "Muuta asetuksia"
 
 #: squirrelmail/plugins/administrator/setup.php:30
 msgid "Administration"
@@ -4317,8 +4247,8 @@ msgstr ""
 
 #: squirrelmail/po/independent_strings.txt:18
 msgid "Delivery error report"
-msgstr ""
+msgstr "Perilletoimituksen virheraportti"
 
 #: squirrelmail/po/independent_strings.txt:19
 msgid "Undelivered Message Headers"
-msgstr ""
+msgstr "Toimittamattomat Viestiotsakkeet"
