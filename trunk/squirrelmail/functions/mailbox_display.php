@@ -462,7 +462,7 @@
             $boxes[$i]["flags"][1] != "noselect" &&
             $boxes[$i]["flags"][2] != "noselect") {
             $box = $boxes[$i]["unformatted"];
-            $box2 = replace_spaces($boxes[$i]["formatted"]);
+            $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
     }
       }

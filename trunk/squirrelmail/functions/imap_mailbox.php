@@ -42,7 +42,7 @@
       global $auto_expunge;
       
       fputs ($imap_stream, "a001 SELECT \"$mailbox\"\r\n");
-     	$read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
+             $read = sqimap_read_data($imap_stream, "a001", true, $response, $message);
       if ($recent) {
          for ($i=0; $i<count($read); $i++) {
             if (strpos(strtolower($read[$i]), "recent")) {
@@ -90,7 +90,7 @@
     **  Unsubscribes to an existing folder 
     ******************************************************************************/
    function sqimap_unsubscribe ($imap_stream, $mailbox) {
-		global $imap_server_type;
+                global $imap_server_type;
 
       fputs ($imap_stream, "a001 UNSUBSCRIBE \"$mailbox\"\r\n");
       $read_ary = sqimap_read_data($imap_stream, "a001", true, $response, $message);
@@ -118,6 +118,7 @@
     **    formatted      - nicely formatted folder name
     **    unformatted    - unformatted, but with delimiter at end removed
     **    unformatted-dm - folder name as it appears in raw response
+	**    unformatted-disp - unformatted without $folder_prefix
     **
     ******************************************************************************/
    function sqimap_mailbox_parse ($line, $line_lsub, $dm) {
@@ -126,32 +127,34 @@
       // Process each folder line
       for ($g=0; $g < count($line); $g++) {
 
-	 // Store the raw IMAP reply
+         // Store the raw IMAP reply
          $boxes[$g]["raw"] = $line[$g];
 
-	 // Count number of delimiters ($dm) in folder name
+         // Count number of delimiters ($dm) in folder name
          $mailbox = trim($line_lsub[$g]);
          $dm_count = countCharInString($mailbox, $dm);
          if (substr($mailbox, -1) == $dm)
             $dm_count--;  // If name ends in delimiter - decrement count by one
 
-	 // Format folder name, but only if it's a INBOX.* or have
-	 // a parent.
-	 $boxesbyname[$mailbox] = $g;
-	 $parentfolder = readMailboxParent($mailbox, $dm);
-	 if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
-	    ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
-	    $indent = $dm_count - (countCharInString($folder_prefix, $dm));
-	    $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
-	    $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
-	 } else {
-	    $boxes[$g]["formatted"]  = $mailbox;
-	 }
+         // Format folder name, but only if it's a INBOX.* or have
+         // a parent.
+         $boxesbyname[$mailbox] = $g;
+         $parentfolder = readMailboxParent($mailbox, $dm);
+         if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
+	    (ereg("^".$folder_prefix, $mailbox)) ||
+            ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+            $indent = $dm_count - (countCharInString($folder_prefix, $dm));
+            $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $indent);
+            $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+         } else {
+            $boxes[$g]["formatted"]  = $mailbox;
+         }
             
          $boxes[$g]["unformatted-dm"] = $mailbox;
          if (substr($mailbox, -1) == $dm)
             $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
          $boxes[$g]["unformatted"] = $mailbox;
+         $boxes[$g]["unformatted-disp"] = ereg_replace("^" . $folder_prefix, "", $mailbox);
          $boxes[$g]["id"] = $g;
 
          ereg("\(([^)]*)\)",$line[$g],$regs);
@@ -208,7 +211,7 @@
       }
       $sorted_lsub_ary = $new_ary;
       if (isset($sorted_lsub_ary)) {
-	 usort($sorted_lsub_ary, "_icmp");
+         usort($sorted_lsub_ary, "_icmp");
          //sort($sorted_lsub_ary);
       }   
 
@@ -225,7 +228,7 @@
          if (find_mailbox_name($sorted_list_ary[$i]) == "INBOX")
             $inbox_in_list = true;
       }
-		
+                
       /** Just in case they're not subscribed to their inbox, we'll get it for them anyway **/
       if ($inbox_subscribed == false || $inbox_in_list == false) {
          fputs ($imap_stream, "a001 LIST \"\" \"INBOX\"\r\n");
@@ -250,36 +253,36 @@
          if (strtolower($boxes[$i]["unformatted"]) == "inbox") {
             $boxesnew[] = $boxes[$i];
             $boxes[$i]["used"] = true;
-	    $i = count($boxes);
+            $i = count($boxes);
          }
       }
 
       if ($list_special_folders_first == true) {
 
-	 // Then list special folders and their subfolders
-	 for ($i = 0 ; $i <= count($boxes) ; $i++) {
-	    if((eregi("^".$trash_folder.'$', $boxes[$i]["unformatted"]) ||
-		eregi("^".$trash_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
-	       ($move_to_trash)) {	
+         // Then list special folders and their subfolders
+         for ($i = 0 ; $i <= count($boxes) ; $i++) {
+            if((eregi("^".$trash_folder.'$', $boxes[$i]["unformatted"]) ||
+                eregi("^".$trash_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+               ($move_to_trash)) {        
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }
-	    else if((eregi("^".$sent_folder.'$', $boxes[$i]["unformatted"]) ||
-		     eregi("^".$sent_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
-		    ($move_to_sent)) {	
+            else if((eregi("^".$sent_folder.'$', $boxes[$i]["unformatted"]) ||
+                     eregi("^".$sent_folder.quotemeta($dm), $boxes[$i]["unformatted"]) )  &&
+                    ($move_to_sent)) {        
                $boxesnew[] = $boxes[$i];
                $boxes[$i]["used"] = true;
             }
          }
 
-	 // Put INBOX.* folders ahead of the rest
-	 for ($i = 0; $i <= count($boxes); $i++) {
-	    if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
-		($boxes[$i]["used"] == false)) {
-	       $boxesnew[] = $boxes[$i];
-	       $boxes[$i]["used"] = true;
-	    }
-	 }
+         // Put INBOX.* folders ahead of the rest
+         for ($i = 0; $i <= count($boxes); $i++) {
+            if (eregi("^inbox\.", $boxes[$i]["unformatted"]) &&
+                ($boxes[$i]["used"] == false)) {
+               $boxesnew[] = $boxes[$i];
+               $boxes[$i]["used"] = true;
+            }
+         }
 
       }
 
@@ -314,31 +317,33 @@
       for ($i = 0; $i < count($read_ary); $i++) {
          if (substr ($read_ary[$i], 0, 4) != "a001") {
 
-	    // Store the raw IMAP reply
+            // Store the raw IMAP reply
             $boxes[$g]["raw"] = $read_ary[$i];
 
-	    // Count number of delimiters ($dm) in folder name
+            // Count number of delimiters ($dm) in folder name
             $mailbox = find_mailbox_name($read_ary[$i]);
             $dm_count = countCharInString($mailbox, $dm);
             if (substr($mailbox, -1) == $dm)
                $dm_count--;  // If name ends in delimiter - decrement count by one
-	    
-	    // Format folder name, but only if it's a INBOX.* or have
-	    // a parent.
-	    $boxesbyname[$mailbox] = $g;
-	    $parentfolder = readMailboxParent($mailbox, $dm);
-	    if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
-	       ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
-	       $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
-	       $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
-	    } else {
-	       $boxes[$g]["formatted"]  = $mailbox;
-	    }
+            
+            // Format folder name, but only if it's a INBOX.* or have
+            // a parent.
+            $boxesbyname[$mailbox] = $g;
+            $parentfolder = readMailboxParent($mailbox, $dm);
+            if((eregi("^inbox".quotemeta($dm), $mailbox)) || 
+               (ereg("^".$folder_prefix, $mailbox)) ||
+               ( isset($boxesbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+               $boxes[$g]["formatted"]  = str_repeat("&nbsp;&nbsp;", $dm_count);
+               $boxes[$g]["formatted"] .= readShortMailboxName($mailbox, $dm);
+            } else {
+               $boxes[$g]["formatted"]  = $mailbox;
+            }
                
             $boxes[$g]["unformatted-dm"] = $mailbox;
             if (substr($mailbox, -1) == $dm)
                $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
             $boxes[$g]["unformatted"] = $mailbox;
+            $boxes[$g]["unformatted-disp"] = ereg_replace("^" . $folder_prefix, "", $mailbox);
             $boxes[$g]["id"] = $g;
 
             /** Now lets get the flags for this mailbox **/
