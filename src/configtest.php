@@ -96,6 +96,21 @@ if(count($diff)) {
 
 echo $IND . "PHP extensions OK.<br />\n";
 
+/* dangerous php settings */
+/**
+ * mbstring.func_overload allows to replace original string and regexp functions
+ * with their equivalents from php mbstring extension. It causes problems when
+ * scripts analyse 8bit strings byte after byte or use 8bit strings in regexp tests.
+ * Setting can be controlled in php.ini (php 4.2.0), webserver config (php 4.2.0) 
+ * and .htaccess files (php 4.3.5).
+ */
+if (function_exists('mb_internal_encoding') &&
+    check_php_version(4,2,0) && 
+    (int)ini_get('mbstring.func_overload')!=0) {
+    $mb_error='You have enabled mbstring overloading.'
+        .' It can cause problems with SquirrelMail scripts that rely on single byte string functions.';
+    do_err($mb_error);
+}
 
 /* checking paths */
 
@@ -269,15 +284,20 @@ fclose($stream);
 echo "Checking internationalization (i18n) settings...<br />\n";
 echo "$IND gettext - ";
 if (function_exists('gettext')) {
-    echo "Gettext functions are available. You must have appropriate system locales compiled.<br />\n";
+    echo 'Gettext functions are available.'
+        .' On some systems you must have appropriate system locales compiled.'
+        ."<br />\n";
 } else {
-    echo "Gettext functions are unavailable. SquirrelMail will use slower internal gettext functions.<br />\n";
+    echo 'Gettext functions are unavailable.'
+        .' SquirrelMail will use slower internal gettext functions.'
+        ."<br />\n";
 }
 echo "$IND mbstring - ";
 if (function_exists('mb_detect_encoding')) {
     echo "Mbstring functions are available.<br />\n";
 } else {
-    echo "Mbstring functions are unavailable. Japanese translation won't work.<br />\n";
+    echo 'Mbstring functions are unavailable.'
+        ." Japanese translation won't work.<br />\n";
 }
 echo "$IND recode - ";
 if (function_exists('recode')) {
@@ -361,9 +381,10 @@ if($addrbook_dsn || $prefs_dsn || $addrbook_global_dsn) {
             }
         }
     } else {
-        do_err('Required PHP PEAR DB support is not available. Is PEAR installed and is the
-            include path set correctly to find <tt>DB.php</tt>? The include path is now:
-            "<tt>' . ini_get('include_path') . '</tt>".');
+        $db_error='Required PHP PEAR DB support is not available.'
+            .' Is PEAR installed and is the include path set correctly to find <tt>DB.php</tt>?'
+            .' The include path is now:<tt>' . ini_get('include_path') . '</tt>.';
+        do_err($db_error);
     }
 } else {
     echo $IND."not using database functionality.<br />\n";
