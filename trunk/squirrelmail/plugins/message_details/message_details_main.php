@@ -17,7 +17,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/page_header.php');
 require_once(SM_PATH . 'functions/strings.php');
 
-displayHtmlHeader( _("Message details"), '', FALSE );
+displayHtmlHeader( _("Message Details"), '', FALSE );
 
 sqgetGlobalVar('mailbox', $mailbox, SQ_GET);
 sqgetGlobalVar('passed_id', $passed_id, SQ_GET);

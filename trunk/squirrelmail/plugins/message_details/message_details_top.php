@@ -17,7 +17,7 @@ require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/strings.php');
 require_once(SM_PATH . 'config/config.php');
 
-displayHtmlHeader( _("Message details"),
+displayHtmlHeader( _("Message Details"),
              "<script language=\"javascript\">\n".
              "<!--\n".
              "function printPopup() {\n".
