@@ -267,6 +267,9 @@ if(!$default_use_priority) {
 if(!$hide_sm_attributions) {
     $hide_sm_attributions = "false";
 }
+if(!$default_use_mdn) {
+    $default_use_mdn = "true";
+}
 
 if ($ARGV[0] eq '--install-plugin') {
     print "Activating plugin " . $ARGV[1]
@@ -386,6 +389,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "6.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
       print "7.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
       print "8.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
+      print "9.  Allow use of MDN       : $WHT$default_use_mdn$NRM\n";      
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -556,6 +560,7 @@ while (($command ne "q") && ($command ne "Q")) {
 	 elsif ($command == 6) { $force_username_lowercase = command36 (); }
 	 elsif ($command == 7) { $default_use_priority     = command37 (); }
          elsif ($command == 8) { $hide_sm_attributions     = command38 (); }
+         elsif ($command == 9) { $default_use_mdn          = command39 (); }     
       } elsif ($menu == 5) {
          if    ($command == 1) { command41 (); }
          elsif ($command == 2) { $theme_css = command42 (); }
@@ -1532,6 +1537,25 @@ sub command38 {
 }
 
 
+sub command39 {
+   print "";
+   print "\n";
+   
+   if ($default_use_mdn eq "true") {
+      $default_value = "y";
+   } else {
+      $default_value = "n";
+   }
+   
+   print "Enable read receipt support (y/n) [$WHT$default_value$NRM]: $WHT";
+      $new_show = <STDIN>;
+      if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+         return "true";
+      }
+      return "false";
+}
+
+
 sub command41 {
    print "\nNow we will define the themes that you wish to use.  If you have added\n";
    print "a theme of your own, just follow the instructions (?) about how to add\n";
@@ -2008,6 +2032,7 @@ sub save_data {
         print CF "\$force_username_lowercase = $force_username_lowercase;\n";
         print CF "\$default_use_priority     = $default_use_priority;\n";
         print CF "\$hide_sm_attributions     = $hide_sm_attributions;\n";
+        print CF "\$default_use_mdn          = $default_use_mdn;\n";
         print CF "\n";
      
         for ($ct=0; $ct <= $#plugins; $ct++) {
