@@ -643,7 +643,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
    * This is the beginning of the message list table.
    * It wraps around all messages
    */
-  echo "<FORM name=messageList method=post action=\"$moveURL\">\n"
+  echo "<FORM name=\"messageList\" method=post action=\"$moveURL\">\n"
     . "<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"1\" "
     . "CELLSPACING=\"0\">\n<TR BGCOLOR=\"$color[0]\"><TD>"
     . "    <TABLE BGCOLOR=\"$color[4]\" width=\"100%\" CELLPADDING=\"2\" "
@@ -654,7 +654,7 @@ function mail_message_listing_beginning ($imapConnection, $moveURL,
     . "  </TR></TABLE>\n"
     . '</TD></TR>'
     . "<TR><TD BGCOLOR=\"$color[0]\">\n"
-    . "<TABLE BGCOLOR=\"$color[0]\" COLS=2 BORDER=0 cellpadding=0"
+    . "<TABLE BGCOLOR=\"$color[0]\" BORDER=0 cellpadding=0 "
     . "cellspacing=0 width=\"100%\">\n"
     . "   <TR>\n"
     . "      <TD ALIGN=LEFT VALIGN=MIDDLE NOWRAP>\n"
@@ -804,7 +804,7 @@ function ShowSortButton($sort, $mailbox, $Up, $Down) {
   echo ' <a href="right_main.php?newsort=' . $which
     . '&amp;startMessage=1&amp;mailbox=' . urlencode($mailbox)
     . '"><IMG SRC="../images/' . $img
-    . '" BORDER=0 WIDTH=12 HEIGHT=10></a>';
+    . '" BORDER=0 WIDTH=12 HEIGHT=10 ALT="sort"></a>';
 }
 
 function get_selectall_link($start_msg, $sort) {
