@@ -6,76 +6,8 @@
     **
     **/
 
-   session_start();
-
-   if(!isset($logged_in)) {
-      echo _("You must login first.");
-      exit;
-   }
-   if(!isset($username) || !isset($key)) {
-      echo _("You need a valid user and password to access this page!");
-      exit;
-   }
-
-   if (!isset($config_php))
-      include("../config/config.php");
-   if (!isset($array_php))
-      include("../functions/array.php");
-   if (!isset($strings_php))
-      include("../functions/strings.php");
-   if (!isset($imap_php))
-      include("../functions/imap.php");
-   if (!isset($page_header_php))
-      include("../functions/page_header.php");
-   if (!isset($addressbook_php))
-      include("../functions/addressbook.php");
-
-   // Authenticate user and load prefs
-   $imapConnection = sqimap_login($username, $key, 
-				  $imapServerAddress, $imapPort, 10);
-   include("../src/load_prefs.php");
-   sqimap_logout ($imapConnection);
-
-   displayHtmlHeader();
-
-   // Choose correct colors for top and bottom frame
-   if($show == "form") {
-      echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" ";
-      echo "LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\" ";
-      echo "OnLoad=\"document.sform.query.focus();\">";  
-   } else {
-      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" ";
-      echo "LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   }
-
-   // Just make a blank page and exit
-   if(($show == "blank") || (empty($query) && empty($show)))  {
-      printf("<P ALIGN=center><BR>%s</P>\n</BODY></HTML>\n",
-	     _("Search results will display here"));
-      exit;
-   }
-
-   // Create search form 
-   if($show == "form") {
-      printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
-	     $PHP_SELF);
-      printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
-      printf("<TR><TD NOWRAP VALIGN=middle>\n");
-      printf("  <STRONG>%s:</STRONG>\n</TD><TD VALIGN=middle>\n",
-	     _("Search for"));
-      printf("  <INPUT TYPE=text NAME=query VALUE=\"%s\" SIZE=30>\n",
-	     htmlspecialchars($query));
-      printf("</TD><TD VALIGN=middle>\n");
-      printf("  <INPUT TYPE=submit VALUE=\"%s\">",
-	     _("Search"));
-      printf("</TD><TD WIDTH=\"50%%\" VALIGN=middle ALIGN=right>\n");
-      printf("<INPUT TYPE=button VALUE=\"%s\" onclick=\"parent.close();\">\n",
-             _("Close window"));
-      printf("</TD></TR></TABLE></FORM>\n");
-   }
-
-   // Include JavaScript code if this is search results
-   if(!empty($query)) {
+   // Function to include JavaScript code
+   function insert_javascript() {
 ?>
 <SCRIPT LANGUAGE="Javascript"><!--
 
@@ -139,12 +71,172 @@ function bcc_address($addr) {
 // --></SCRIPT>
 
 <?php 
-   } // End of included JavaScript code
+   } // End of included JavaScript
+
+
+   // List search results
+   function display_result($res, $includesource = true) {
+      global $color;
+
+      if(sizeof($res) <= 0) return;
+
+      insert_javascript();
+
+      $line = 0;
+      print "<TABLE BORDER=0 WIDTH=\"98%\" ALIGN=center>";
+      printf("<TR BGCOLOR=\"$color[9]\"><TH ALIGN=left>&nbsp;".
+	     "<TH ALIGN=left>&nbsp;%s<TH ALIGN=left>&nbsp;%s".
+	     "<TH ALIGN=left>&nbsp;%s",
+	     _("Name"), _("E-mail"), _("Info"));
+
+      if($includesource)
+	 printf("<TH ALIGN=left WIDTH=\"10%%\">&nbsp;%s", _("Source"));
+
+      print "</TR>\n";
+      
+      while(list($key, $row) = each($res)) {
+	 printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
+		"<small><a href=\"javascript:to_address('%s');\">To</A> | ".
+		"<a href=\"javascript:cc_address('%s');\">Cc</A> | ".
+		"<a href=\"javascript:bcc_address('%s');\">Bcc</A></small>".
+		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
+		"<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
+		"<td nowrap>&nbsp;%s&nbsp;", 
+		($line % 2) ? " bgcolor=\"$color[0]\"" : "", 
+		$row["email"], $row["email"], $row["email"], 
+		$row["name"],  $row["email"], $row["email"],
+		$row["label"]);
+
+	 if($includesource)
+	    printf("<td nowrap>&nbsp;%s", $row["source"]);
+
+	 print "</TR>\n";
+	 $line++;
+      }
+      print "</TABLE>";
+   }
+
+   /* ================= End of functions ================= */
+
+   session_start();
+
+   if(!isset($logged_in)) {
+      echo _("You must login first.");
+      exit;
+   }
+   if(!isset($username) || !isset($key)) {
+      echo _("You need a valid user and password to access this page!");
+      exit;
+   }
+
+   if (!isset($config_php))
+      include("../config/config.php");
+   if (!isset($array_php))
+      include("../functions/array.php");
+   if (!isset($strings_php))
+      include("../functions/strings.php");
+   if (!isset($imap_php))
+      include("../functions/imap.php");
+   if (!isset($page_header_php))
+      include("../functions/page_header.php");
+   if (!isset($addressbook_php))
+      include("../functions/addressbook.php");
+
+   // Authenticate user and load prefs
+   $imapConnection = sqimap_login($username, $key, 
+				  $imapServerAddress, $imapPort, 10);
+   include("../src/load_prefs.php");
+   sqimap_logout ($imapConnection);
+
+   displayHtmlHeader();
+
+   // Choose correct colors for top and bottom frame
+   if($show == "form") {
+      echo "<BODY BGCOLOR=\"$color[3]\" TEXT=\"$color[6]\" ";
+      echo "LINK=\"$color[6]\" VLINK=\"$color[6]\" ALINK=\"$color[6]\" ";
+      echo "OnLoad=\"document.sform.query.focus();\">";  
+   } else {
+      echo "<BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" ";
+      echo "LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+   }
+
+   // Empty search
+   if(empty($query) && empty($show) && empty($listall))  {
+      printf("<P ALIGN=center><BR>%s</P>\n</BODY></HTML>\n",
+	     _("No persons matching your search was found"));
+      exit;
+   }
+
+   // Initialize addressbook
+   $abook = addressbook_init();
+
+   // Create search form 
+   if($show == "form") {
+      printf("<FORM NAME=sform TARGET=abookres ACTION=\"%s\" METHOD=\"POST\">\n",
+	     $PHP_SELF);
+      printf("<TABLE BORDER=0 WIDTH=\"100%%\" HEIGHT=\"100%%\">");
+      printf("<TR><TD NOWRAP VALIGN=middle NOWRAP>\n");
+      printf("  <STRONG>%s</STRONG>\n", _("Search for"));
+      printf("  <INPUT TYPE=text NAME=query VALUE=\"%s\" SIZE=26>\n",
+	     htmlspecialchars($query));
+
+      // List all backends to allow the user to choose where to search
+      if($abook->numbackends > 1) {
+	 printf("<STRONG>%s</STRONG>&nbsp;<SELECT NAME=backend>\n", 
+		_("in"));
+	 printf("<OPTION VALUE=-1 SELECTED>%s\n", 
+		_("All address books"));
+	 $ret = $abook->get_backend_list();
+	 while(list($k,$v) = each($ret)) 
+	    printf("<OPTION VALUE=%d SELECTED>%s\n", $v->bnum, $v->sname);
+	 printf("</SELECT>\n");
+      } else {
+	 printf("<INPUT TYPE=hidden NAME=backend VALUE=-1>\n");
+      }
+
+      printf("<INPUT TYPE=submit VALUE=\"%s\">",
+	     _("Search"));
+      printf("&nbsp;|&nbsp;<INPUT TYPE=submit VALUE=\"%s\" NAME=listall>\n",
+             _("List all"));
+      printf("</TD><TD ALIGN=right>\n");
+      printf("<INPUT TYPE=button VALUE=\"%s\" onclick=\"parent.close();\">\n",
+             _("Close window"));
+      printf("</TD></TR></TABLE></FORM>\n");
+   } else
+
+   // Show personal addressbook
+   if($show == "blank" || !empty($listall)) {
+
+      if($backend != -1 || $show == "blank") {
+	 if($show == "blank") 
+	    $backend = $abook->localbackend;
+
+	 //printf("<H3 ALIGN=center>%s</H3>\n", $abook->backends[$backend]->sname);
+
+	 $res = $abook->list_addr($backend);
+
+	 if(is_array($res)) {
+	    display_result($res, false);
+	 } else {
+	    printf("<P ALIGN=center><STRONG>"._("Unable to list addresses from %s").
+		   "</STRONG></P>\n", $abook->backends[$backend]->sname);
+	 }
+
+      } else {
+	 $res = $abook->list_addr();
+	 display_result($res, true);
+      }
+
+   } else
 
    // Do the search
-   if(!empty($query)) {
-      $abook = addressbook_init();
-      $res = $abook->s_search($query);
+   if(!empty($query) && empty($listall)) {
+
+      if($backend == -1) {
+	 $res = $abook->s_search($query);
+      } else {
+	 $res = $abook->s_search($query, $backend);
+      }
 
       if(!is_array($res)) {
 	 printf("<P ALIGN=center><BR>%s:<br>%s</P>\n</BODY></HTML>\n",
@@ -159,28 +251,7 @@ function bcc_address($addr) {
 	 exit;
       }
 
-      // List search results
-      $line = 0;
-      print "<table border=0 width=\"98%\" align=center>";
-      printf("<tr bgcolor=\"$color[9]\"><TH align=left>&nbsp;".
-             "<TH align=left>&nbsp;%s<TH align=left>&nbsp;%s".
-	     "<TH align=left>&nbsp;%s<TH align=left width=\"10%%\">".
-	     "&nbsp;%s</tr>\n",
-             _("Name"), _("E-mail"), _("Info"), _("Source"));
-
-      while(list($key, $row) = each($res)) {
-	 printf("<tr%s nowrap><td nowrap align=center width=\"5%%\">".
-		"<a href=\"javascript:to_address('%s');\">To</A> | ".
-		"<a href=\"javascript:cc_address('%s');\">Cc</A>".
-		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;".
-                "<a href=\"javascript:to_and_close('%s');\">%s</A>&nbsp;".
-		"<td nowrap>&nbsp;%s&nbsp;<td nowrap>&nbsp;%s</tr>\n", 
-		($line % 2) ? " bgcolor=\"$color[0]\"" : "", $row["email"],
-		$row["email"], $row["name"], $row["email"], $row["email"],
-                $row["label"], $row["source"]);
-	 $line++;
-      }
-      print "</TABLE>";
+      display_result($res);
    }
 ?>
 

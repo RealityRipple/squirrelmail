@@ -59,20 +59,19 @@ methods are provided:
    moment), or false if it failed.
 
 
-  search(QUERY, [BTYPE])
+  search(QUERY, [BNUM])
 
      QUERY - Something to search for. At the moment, only 
      a string is allowed here, but advanced expressions
      will be supported through an array of parameters.
 
-     BTYPE - Optional backend type to search. Either "local"
-     or "remote".
+     BNUM  - Optional backend number to search.
 
    This method will return an array of result arrays (see below), an
    empty array if nothing was found, or false if the search failed.
 
 
-  s_search(QUERY, [BTYPE])
+  s_search(QUERY, [BNUM])
 
    The same as search(), but the result array is sorted by backend and
    fullname before it is returned.
@@ -163,3 +162,6 @@ In addition, the following keys may exist for some backends:
 ----------------------
 
 ... more later ...
+
+Ask pallo@squirrelmail.org if you have any questions on how to build
+new address book backends.
