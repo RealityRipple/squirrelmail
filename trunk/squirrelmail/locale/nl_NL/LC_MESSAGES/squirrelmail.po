@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: $Id$\n"
-"POT-Creation-Date: 2003-01-18 10:47+0200\n"
-"PO-Revision-Date: 2003-01-18 13:30+0200\n"
+"POT-Creation-Date: 2003-01-25 09:07+0100\n"
+"PO-Revision-Date: 2003-03-27 21:00+0200\n"
 "Last-Translator: M.J. Prinsen <translation@prinsenonline.com>\n"
 "Language-Team: Dutch <squirrelmail-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -427,7 +427,7 @@ msgid "Renamed successfully!"
 msgstr "Succesvol hernoemd!"
 
 msgid "Subscription Unsuccessful - Folder does not exist."
-msgstr ""
+msgstr "Aanmelding niet succesvol - Map bestaat niet."
 
 # squirrelmail/src/folders.php:53 squirrelmail/src/left_main.php:280
 msgid "refresh folder list"
@@ -961,7 +961,7 @@ msgstr "Gelezen:"
 
 # squirrelmail/src/read_body.php:219
 msgid "Your message"
-msgstr "Uw bericht:"
+msgstr "Uw bericht"
 
 # squirrelmail/src/read_body.php:222
 msgid "Sent:"
@@ -1018,7 +1018,7 @@ msgstr "Verzend leesbevestiging nu"
 
 # squirrelmail/src/search.php:380 squirrelmail/src/search.php:409
 msgid "Search results"
-msgstr "Zoek resultaten:"
+msgstr "Zoek resultaten"
 
 # squirrelmail/src/read_body.php:683
 msgid "Message List"
@@ -1121,7 +1121,7 @@ msgstr "Overal"
 
 # squirrelmail/src/search.php:380 squirrelmail/src/search.php:409
 msgid "Search Results"
-msgstr "Zoek resultaten:"
+msgstr "Zoek resultaten"
 
 # squirrelmail/functions/imap_search.php:83
 msgid "No Messages Found"
@@ -1297,7 +1297,7 @@ msgstr "Fout: Kan bestand %s niet openen"
 
 # squirrelmail/functions/addressbook.php:92
 msgid "Error initializing global addressbook."
-msgstr "Fout: kan LDAP server %s niet initialiseren."
+msgstr "Fout: kan globale adresboek niet initialiseren."
 
 # squirrelmail/functions/addressbook.php:108
 #, c-format
@@ -1591,7 +1591,7 @@ msgstr "Server reageerde: "
 # squirrelmail/functions/imap_general.php:211
 #, c-format
 msgid "Error connecting to IMAP server: %s."
-msgstr "FOUT: kan IMAP server %s niet initialiseren:"
+msgstr "FOUT: kan IMAP server %s niet initialiseren."
 
 # squirrelmail/functions/imap_general.php:227
 #, c-format
@@ -1633,7 +1633,7 @@ msgstr "Onbekend antwoord van IMAP server: "
 
 # squirrelmail/functions/imap_messages.php:376
 msgid "Unknown message number in reply from server: "
-msgstr "Onbekend berichtnummer in antwoord van server:"
+msgstr "Onbekend berichtnummer in antwoord van server: "
 
 # squirrelmail/functions/imap_messages.php:396
 # squirrelmail/functions/imap_messages.php:492
@@ -1833,7 +1833,8 @@ msgid "Requested action aborted: error in processing"
 msgstr "Gevraagde actie onderbroken: fout in voortgangsproces"
 
 msgid "Requested action not taken: insufficient system storage"
-msgstr "Gevraagde actie niet uitgevoerd: onvoldoende ruimte beschikbaar op systeem"
+msgstr ""
+"Gevraagde actie niet uitgevoerd: onvoldoende ruimte beschikbaar op systeem"
 
 # squirrelmail/plugins/mail_fetch/class.POP3.php:210
 msgid "Temporary authentication failure"
@@ -1876,7 +1877,8 @@ msgid "User not local; please try forwarding"
 msgstr "Gebruiker niet locaal; probeer doorsturen"
 
 msgid "Requested mail action aborted: exceeding storage allocation"
-msgstr "Gevraagde mail actie afgebroken: overschrijding toekenning opslagruimte"
+msgstr ""
+"Gevraagde mail actie afgebroken: overschrijding toekenning opslagruimte"
 
 msgid "Requested action not taken: mailbox name not allowed"
 msgstr "Gevraagde actie niet uitgevoerd: mailbox naam niet toegestaan"
@@ -2228,6 +2230,8 @@ msgstr "Zelfde als server"
 
 msgid "Error opening timezone config, contact administrator."
 msgstr ""
+"Fout bij openen tijdzone configuratie, "
+"neem contact op met uw systeembeheerder"
 
 # squirrelmail/src/options_personal.php:131
 msgid "Timezone Options"
@@ -2287,7 +2291,7 @@ msgstr "Sla e-mailadres op"
 
 # squirrelmail/src/addrbook_popup.php:22
 msgid "Address Book Take:"
-msgstr "Knop direct opslaan e-mailadres"
+msgstr "Knop direct opslaan e-mailadres:"
 
 msgid "Try to verify addresses"
 msgstr "Probeer adressen te verifieren"
@@ -3035,6 +3039,7 @@ msgid "FREE - SPAMhaus - A list of well-known SPAM sources."
 msgstr "FREE - SPAMhaus - Een lijst van bekende SPAM bronnen."
 
 # squirrelmail/plugins/filters/filters.php:747
+#, c-format
 msgid ""
 "FREE, for now - SPAMCOP - An interesting solution that lists servers that "
 "have a very high spam to legit email ratio (85% or more)."
@@ -3132,7 +3137,8 @@ msgid "FREE - Distributed Sender Boycott List - Confirmed Relays"
 msgstr "FREE - Gedistribueerde zender boycot lijst - Bevestigde relays"
 
 msgid "FREE - Distributed Sender Boycott List - Confirmed Multi-stage Relays"
-msgstr "FREE - Gedistribueerde zender boycot lijst - Bevestigde multi-stage relays"
+msgstr ""
+"FREE - Gedistribueerde zender boycot lijst - Bevestigde multi-stage relays"
 
 msgid "FREE - Distributed Sender Boycott List - UN-Confirmed Relays"
 msgstr "FREE - Gedistribueerde zender boycot lijst - Onbevestigde relays"
@@ -3315,9 +3321,9 @@ msgid ""
 "These tests use the Squirrelmail IMAP commands and your current Squirrelmail "
 "configuration. Custom command strings can be used."
 msgstr ""
-"Voer enkele IMAP commando/'s uit, het commando en het resultaat worden getoond."
-"Deze testen gebruiken de Squirrelmail IMAP commando/'s en uw huidige Squirrelmail "
-"configuratie. Aangepaste commandoregels kunnen worden gebruikt."
+"Voer enkele IMAP commando/'s uit, het commando en het resultaat worden "
+"getoond.Deze testen gebruiken de Squirrelmail IMAP commando/'s en uw huidige "
+"Squirrelmail configuratie. Aangepaste commandoregels kunnen worden gebruikt."
 
 # squirrelmail/plugins/listcommands/mailout.php:19
 msgid "Mailinglist"
@@ -4037,9 +4043,10 @@ msgid ""
 "Help fight the battle against unsolicited email.  SpamCop reads the spam "
 "email and determines the correct addresses to send complaints to.  Quite "
 "fast, really smart, and easy to use."
-msgstr "Help in de strijd tegen ongewenste e-mail. SpamCop leest de spam "
-"e-mail en bepaald het juiste adres om een klacht heen te sturen. Snel, slim "
-"en makkelijk in gebruik!"
+msgstr ""
+"Help in de strijd tegen ongewenste e-mail. SpamCop leest de spam e-mail en "
+"bepaald het juiste adres om een klacht heen te sturen. Snel, slim en "
+"makkelijk in gebruik!"
 
 # squirrelmail/plugins/squirrelspell/setup.php:49
 msgid "SpellChecker Options"
