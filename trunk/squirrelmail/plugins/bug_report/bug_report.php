@@ -153,7 +153,7 @@ $body = htmlspecialchars($body_top . $body);
 
    echo '<p><big>';
    echo _("Before you send your bug report, please make sure to check this checklist for any common problems.");
-   echo '</big></p>';
+   echo "</big></p>\n";
 
    echo "<ul>";
    echo "<li>";
@@ -183,7 +183,7 @@ $body = htmlspecialchars($body_top . $body);
    echo "</p>\n";
 ?>
    <form action="../../src/compose.php" method=post>
-   <table align=center border=0>
+   <table align="center" border="0">
    <tr>
      <td>
        <?php echo _("This bug involves"); ?>: <select name="send_to">
@@ -195,7 +195,7 @@ $body = htmlspecialchars($body_top . $body);
      </td>
    </tr>
    <tr>
-     <td align=center>
+     <td align="center">
     <?php
 	echo addHidden("send_to_cc","");
 	echo addHidden("send_to_bcc","");
