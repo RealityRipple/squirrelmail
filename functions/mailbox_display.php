@@ -20,64 +20,64 @@
 
       $msg = $msgs[$key];
 
-      $senderName = sqimap_find_displayable_name($msg["FROM"]);
+      $senderName = sqimap_find_displayable_name($msg['FROM']);
       $urlMailbox = urlencode($mailbox);
-      $subject = trim($msg["SUBJECT"]);
-      if ($subject == "")
+      $subject = trim($msg['SUBJECT']);
+      if ($subject == '')
          $subject = _("(no subject)");
 
       echo "<TR>\n";
 
-      if (isset($msg['FLAG_FLAGGED']) && $msg["FLAG_FLAGGED"] == true) 
+      if (isset($msg['FLAG_FLAGGED']) && $msg['FLAG_FLAGGED'] == true) 
       { 
          $flag = "<font color=$color[2]>"; 
-	 $flag_end = "</font>"; 
+	 $flag_end = '</font>'; 
       }
       else
       {
-         $flag = "";
-	 $flag_end = "";
+         $flag = '';
+	 $flag_end = '';
       }
-      if (isset($msg['FLAG_SEEN']) && $msg["FLAG_SEEN"] == false) 
+      if (!isset($msg['FLAG_SEEN']) && $msg['FLAG_SEEN'] == false) 
       { 
-         $bold = "<b>"; 
-	 $bold_end = "</b>"; 
+         $bold = '<b>'; 
+	 $bold_end = '</b>'; 
       }
       else
       {
-         $bold = "";
-	 $bold_end = "";
+         $bold = '';
+	 $bold_end = '';
       }
       if ($mailbox == $sent_folder) 
       { 
-         $italic = "<i>"; 
-	 $italic_end = "</i>"; 
+         $italic = '<i>'; 
+	 $italic_end = '</i>'; 
       }
       else
       {
-         $italic = "";
-	 $italic_end = "";
+         $italic = '';
+	 $italic_end = '';
       }
-      if (isset($msg['FLAG_DELETED']) && $msg["FLAG_DELETED"])
+      if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED'])
       { 
          $fontstr = "<font color=\"$color[9]\">"; 
-	 $fontstr_end = "</font>"; 
+	 $fontstr_end = '</font>'; 
       }
       else
       {
-         $fontstr = "";
-	 $fontstr_end = "";
+         $fontstr = '';
+	 $fontstr_end = '';
       }
 
       for ($i=0; $i < count($message_highlight_list); $i++) {
-         if (trim($message_highlight_list[$i]["value"]) != "") {
-            if ($message_highlight_list[$i]["match_type"] == "to_cc") {
-               if (strpos("^^".strtolower($msg["TO"]), strtolower($message_highlight_list[$i]["value"])) || strpos("^^".strtolower($msg["CC"]), strtolower($message_highlight_list[$i]["value"]))) {
-                  $hlt_color = $message_highlight_list[$i]["color"];
+         if (trim($message_highlight_list[$i]['value']) != '') {
+            if ($message_highlight_list[$i]['match_type'] == 'to_cc') {
+               if (strpos('^^'.strtolower($msg['TO']), strtolower($message_highlight_list[$i]['value'])) || strpos('^^'.strtolower($msg['CC']), strtolower($message_highlight_list[$i]['value']))) {
+                  $hlt_color = $message_highlight_list[$i]['color'];
                   continue;
                }
-            } else if (strpos("^^".strtolower($msg[strtoupper($message_highlight_list[$i]["match_type"])]),strtolower($message_highlight_list[$i]["value"]))) {
-               $hlt_color = $message_highlight_list[$i]["color"];
+            } else if (strpos('^^'.strtolower($msg[strtoupper($message_highlight_list[$i]['match_type'])]),strtolower($message_highlight_list[$i]['value']))) {
+               $hlt_color = $message_highlight_list[$i]['color'];
                continue;
             }
          }
@@ -87,13 +87,13 @@
          $hlt_color = $color[4];
 
       if ($where && $what) {
-         $search_stuff = "&where=".urlencode($where)."&what=".urlencode($what);
+         $search_stuff = '&where='.urlencode($where).'&what='.urlencode($what);
       }
 
       if ($checkall == 1) 
-         $checked = " checked";
+         $checked = ' checked';
       else
-         $checked = "";
+         $checked = '';
       
       for ($i=1; $i <= count($index_order); $i++) {
          switch ($index_order[$i]) {
@@ -109,12 +109,12 @@
             case 4: # subject
                echo "   <td bgcolor=$hlt_color>$bold";
 	       if (! isset($search_stuff))
-	           $search_stuff = "";
+	           $search_stuff = '';
 	       echo "<a href=\"read_body.php?mailbox=$urlMailbox&passed_id=".$msg["ID"]."&startMessage=$startMessage&show_more=0$search_stuff\"";
 	       do_hook("subject_link");
 	       echo ">$flag";
 	       if (strlen($subject) > 55)
-	           echo substr($subject, 0, 50) . "...";
+	           echo substr($subject, 0, 50) . '...';
 	       else
    	           echo $subject;
 	       echo "$flag_end</a>$bold_end</td>\n";
@@ -123,19 +123,19 @@
                $stuff = false;
                echo "   <td bgcolor=$hlt_color align=center width=1% nowrap><b><small>\n";
                if (isset($msg['FLAG_ANSWERED']) && 
-	           $msg["FLAG_ANSWERED"] == true) {
+	           $msg['FLAG_ANSWERED'] == true) {
                   echo "A\n";
                   $stuff = true;
                }
-               if ($msg["TYPE0"] == "multipart") {
+               if ($msg['TYPE0'] == 'multipart') {
                   echo "+\n";
                   $stuff = true;
                }
-               if (ereg("(1|2)",substr($msg["PRIORITY"],0,1))) {
+               if (ereg('(1|2)',substr($msg['PRIORITY'],0,1))) {
                   echo "<font color=$color[1]>!</font>\n";
                   $stuff = true;
                }
-               if (isset($msg['FLAG_DELETED']) && $msg["FLAG_DELETED"]) {
+               if (isset($msg['FLAG_DELETED']) && $msg['FLAG_DELETED']) {
                   echo "<font color=\"$color[1]\">D</font>\n";
                   $stuff = true;
                }
@@ -236,42 +236,42 @@
          }
 	 if ($end > $numMessages) $end = $numMessages;
          while ($j < $end) {
-            $date[$j] = ereg_replace("  ", " ", $date[$j]);
-            $tmpdate = explode(" ", trim($date[$j]));
+            $date[$j] = ereg_replace('  ', ' ', $date[$j]);
+            $tmpdate = explode(' ', trim($date[$j]));
 
-            $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
-            $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
-            $messages[$j]["ID"] = $id[$j];
-            $messages[$j]["FROM"] = decodeHeader($from[$j]);
-            $messages[$j]["FROM-SORT"] = strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
-            $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
-            $messages[$j]["SUBJECT-SORT"] = strtolower(decodeHeader($subject[$j]));
-            $messages[$j]["TO"] = decodeHeader($to[$j]);
-            $messages[$j]["PRIORITY"] = $priority[$j];
-            $messages[$j]["CC"] = $cc[$j];
-            $messages[$j]["SIZE"] = $size[$j];
-            $messages[$j]["TYPE0"] = $type[$j];
+            $messages[$j]['TIME_STAMP'] = getTimeStamp($tmpdate);
+            $messages[$j]['DATE_STRING'] = getDateString($messages[$j]['TIME_STAMP']);
+            $messages[$j]['ID'] = $id[$j];
+            $messages[$j]['FROM'] = decodeHeader($from[$j]);
+            $messages[$j]['FROM-SORT'] = strtolower(sqimap_find_displayable_name(decodeHeader($from[$j])));
+            $messages[$j]['SUBJECT'] = decodeHeader($subject[$j]);
+            $messages[$j]['SUBJECT-SORT'] = strtolower(decodeHeader($subject[$j]));
+            $messages[$j]['TO'] = decodeHeader($to[$j]);
+            $messages[$j]['PRIORITY'] = $priority[$j];
+            $messages[$j]['CC'] = $cc[$j];
+            $messages[$j]['SIZE'] = $size[$j];
+            $messages[$j]['TYPE0'] = $type[$j];
 
             # fix SUBJECT-SORT to remove Re:
             $re_abbr = # Add more here!
-               "vedr|sv|" .    # Danish
-               "re|aw";        # English
+               'vedr|sv|' .    # Danish
+               're|aw';        # English
             if (eregi("^($re_abbr):[ ]*(.*)$", $messages[$j]['SUBJECT-SORT'], $regs))
                $messages[$j]['SUBJECT-SORT'] = $regs[2];
 
             $num = 0;
             while ($num < count($flags[$j])) {
-               if ($flags[$j][$num] == "Deleted") {
-                  $messages[$j]["FLAG_DELETED"] = true;
+               if ($flags[$j][$num] == 'Deleted') {
+                  $messages[$j]['FLAG_DELETED'] = true;
                }
-               elseif ($flags[$j][$num] == "Answered") {
-                  $messages[$j]["FLAG_ANSWERED"] = true;
+               elseif ($flags[$j][$num] == 'Answered') {
+                  $messages[$j]['FLAG_ANSWERED'] = true;
                }
-               elseif ($flags[$j][$num] == "Seen") {
-                  $messages[$j]["FLAG_SEEN"] = true;
+               elseif ($flags[$j][$num] == 'Seen') {
+                  $messages[$j]['FLAG_SEEN'] = true;
                }
-               elseif ($flags[$j][$num] == "Flagged") {
-                  $messages[$j]["FLAG_FLAGGED"] = true;
+               elseif ($flags[$j][$num] == 'Flagged') {
+                  $messages[$j]['FLAG_FLAGGED'] = true;
                }
                $num++;
             }
@@ -287,7 +287,7 @@
             $i = 0;
             $j = 0;
             while ($j < $numMessages) {
-               if ($messages[$j]["FLAG_DELETED"] == true) {
+               if ($messages[$j]['FLAG_DELETED'] == true) {
                   $j++;
                   continue;
                }
@@ -313,11 +313,11 @@
           **/
          session_unregister("msgs");
          if (($sort == 0) || ($sort == 1))
-            $msort = array_cleave ($msgs, "TIME_STAMP");
+            $msort = array_cleave ($msgs, 'TIME_STAMP');
          if (($sort == 2) || ($sort == 3))
-            $msort = array_cleave ($msgs, "FROM-SORT");
+            $msort = array_cleave ($msgs, 'FROM-SORT');
          if (($sort == 4) || ($sort == 5))
-            $msort = array_cleave ($msgs, "SUBJECT-SORT");
+            $msort = array_cleave ($msgs, 'SUBJECT-SORT');
          if ($sort == 6)
             $msort = $msgs;
 
@@ -328,10 +328,10 @@
                arsort($msort);
             }
          }
-         session_register("msort");
+         session_register('msort');
       }
       displayMessageArray($imapConnection, $numMessages, $startMessage, $msgs, $msort, $mailbox, $sort, $color,$show_num);
-     session_register("msgs");
+     session_register('msgs');
    }
 
    // generic function to convert the msgs array into an HTML table
@@ -341,10 +341,10 @@
       global $index_order, $real_endMessage, $real_startMessage, $checkall;
       
       // if cache isn't already set, do it now
-      if (!session_is_registered("msgs"))
-         session_register("msgs");
-      if (!session_is_registered("msort"))
-         session_register("msort");
+      if (!session_is_registered('msgs'))
+         session_register('msgs');
+      if (!session_is_registered('msort'))
+         session_register('msort');
 
       if ($startMessage + ($show_num - 1) < $numMessages) {
          $endMessage = $startMessage + ($show_num-1);
@@ -362,7 +362,7 @@
       $prevGroup = $startMessage - $show_num;
       $urlMailbox = urlencode($mailbox);
 
-      do_hook("mailbox_index_before");
+      do_hook('mailbox_index_before');
 
       $Message = '';
       if ($startMessage < $endMessage) {
@@ -447,24 +447,24 @@
             next($msort);
          } while ($i && $i < $endVar);
       }
-      echo "</TABLE>";
+      echo '</TABLE>';
 
       echo "</td></tr>\n";
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
+      echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
       echo "$More</td><td align=right>\n";
       if (!$startMessage) $startMessage=1;
-      if ( $checkall == "1")
+      if ( $checkall == '1')
          echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
          echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$real_startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
 
-      echo "</td></tr></table>";
-      echo "</td></tr>";
-      echo "</table>"; /** End of message-list table */
+      echo '</td></tr></table>';
+      echo '</td></tr>';
+      echo '</table>'; /** End of message-list table */
 
-      do_hook("mailbox_index_after");
+      do_hook('mailbox_index_after');
    }
 
    /* Displays the standard message list header.
@@ -483,7 +483,7 @@
       $urlMailbox = urlencode($mailbox);
 
          /** This is the beginning of the message list table.  It wraps around all messages */
-      echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=0>";
+      echo '<TABLE WIDTH="100%" BORDER="0" CELLPADDING="2" CELLSPACING="0">';
 
       if ($Message)
       {
@@ -491,15 +491,15 @@
       }
 
       echo "<TR BGCOLOR=\"$color[4]\"><TD>";
-      echo "<table width=100% cellpadding=0 cellspacing=0 border=0><tr><td>";
+      echo '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td>';
       echo "$More</td><td align=right>\n";
-      if ( $checkall == "1")
+      if ( $checkall == '1')
          echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort\">" . _("Unselect All") . "</A>\n";
       else
          echo "\n<A HREF=\"right_main.php?mailbox=$urlMailbox&startMessage=$startMessage&sort=$sort&checkall=1\">" . _("Select All") . "</A>\n";
 
-      echo "</td></tr></table>";
-      echo "</td></tr>";
+      echo '</td></tr></table>';
+      echo '</td></tr>';
 
       /** The delete and move options */
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
@@ -510,33 +510,33 @@
       echo "      <TD WIDTH=60% ALIGN=LEFT VALIGN=CENTER>\n";
 
 
-      echo "         <NOBR><SMALL>". _("Move selected to:") ."</SMALL>";
-      echo "         <TT><SMALL><SELECT NAME=\"targetMailbox\">";
+      echo '         <NOBR><SMALL>'. _("Move selected to:") .'</SMALL>';
+      echo '         <TT><SMALL><SELECT NAME="targetMailbox">';
 
       $boxes = sqimap_mailbox_list($imapConnection);
       for ($i = 0; $i < count($boxes); $i++) {
-         if ($boxes[$i]["flags"][0] != "noselect" &&
-            $boxes[$i]["flags"][1] != "noselect" &&
-            $boxes[$i]["flags"][2] != "noselect") {
-            $box = $boxes[$i]["unformatted"];
-            $box2 = replace_spaces($boxes[$i]["unformatted-disp"]);
+         if ($boxes[$i]['flags'][0] != 'noselect' &&
+            $boxes[$i]['flags'][1] != 'noselect' &&
+            $boxes[$i]['flags'][2] != 'noselect') {
+            $box = $boxes[$i]['unformatted'];
+            $box2 = replace_spaces($boxes[$i]['unformatted-disp']);
             echo "         <OPTION VALUE=\"$box\">$box2</option>\n";
     }
       }
-      echo "         </SELECT></SMALL></TT>";
-      echo "         <SMALL><INPUT TYPE=SUBMIT NAME=\"moveButton\" VALUE=\"". _("Move") ."\"></SMALL></NOBR>\n";
+      echo '         </SELECT></SMALL></TT>';
+      echo '         <SMALL><INPUT TYPE=SUBMIT NAME="moveButton" VALUE="'. _("Move") ."\"></SMALL></NOBR>\n";
       echo "      </TD>\n";
       echo "      <TD WIDTH=40% ALIGN=RIGHT>\n";
       if (! $auto_expunge) {
-         echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT NAME=\"expungeButton\" VALUE=\"". _("Expunge") ."\">&nbsp;". _("mailbox") ."</SMALL></NOBR>&nbsp;&nbsp;\n";
+         echo '         <NOBR><SMALL><INPUT TYPE=SUBMIT NAME="expungeButton" VALUE="'. _("Expunge") .'">&nbsp;'. _("mailbox") ."</SMALL></NOBR>&nbsp;&nbsp;\n";
       }
       echo "         <NOBR><SMALL><INPUT TYPE=SUBMIT VALUE=\"". _("Delete") ."\">&nbsp;". _("checked messages") ."</SMALL></NOBR>\n";
       echo "      </TD>\n";
       echo "   </TR>\n";
 
       echo "</TABLE>\n";
-      do_hook("mailbox_form_before");
-      echo "</TD></TR>";
+      do_hook('mailbox_form_before');
+      echo '</TD></TR>';
 
       echo "<TR><TD BGCOLOR=\"$color[0]\">";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=\"$color[0]\">";
@@ -549,14 +549,14 @@
          switch ($index_order[$i]) {
             case 1: # checkbox
             case 5: # flags
-               echo "   <TD WIDTH=1%><B>&nbsp;</B></TD>";
+               echo '   <TD WIDTH="1%"><B>&nbsp;</B></TD>';
                break;
                
             case 2: # from
                if ($mailbox == $sent_folder)
-                  echo "   <TD WIDTH=30%><B>". _("To") ."</B>";
+                  echo '   <TD WIDTH="30%"><B>'. _("To") .'</B>';
                else
-                    echo "   <TD WIDTH=30%><B>". _("From") ."</B>";
+                    echo '   <TD WIDTH="30%"><B>'. _("From") .'</B>';
          
                if ($sort == 2)
                   echo "   <A HREF=\"right_main.php?newsort=3&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
@@ -568,7 +568,7 @@
                break;
                
             case 3: # date
-               echo "   <TD nowrap WIDTH=1%><B>". _("Date") ."</B>";
+               echo '   <TD nowrap WIDTH="1%"><B>'. _("Date") .'</B>';
                if ($sort == 0)
                   echo "   <A HREF=\"right_main.php?newsort=1&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 1)
@@ -577,11 +577,11 @@
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
                elseif ($sort != -1)
                   echo "   <A HREF=\"right_main.php?newsort=0&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/sort_none.gif\" BORDER=0></A></TD>\n";
-               echo "</TD>";
+               echo '</TD>';
                break;
                
             case 4: # subject
-               echo "   <TD WIDTH=%><B>". _("Subject") ."</B>\n";
+               echo '   <TD WIDTH=%><B>'. _("Subject") ."</B>\n";
                if ($sort == 4)
                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 5)
@@ -592,7 +592,7 @@
                break;
                
             case 6: # size   
-               echo "   <TD WIDTH=1%><b>" . _("Size")."</b></TD>\n";
+               echo '   <TD WIDTH="1%"><b>' . _("Size")."</b></TD>\n";
                break;
          }
       }
