@@ -1990,7 +1990,7 @@ msgstr ""
 msgid "Auto Create Special Folders"
 msgstr ""
 
-msgid "Default Javascript Adrressbook"
+msgid "Default Javascript Addressbook"
 msgstr ""
 
 msgid "Auto delete folders"
