@@ -36,6 +36,32 @@
       return $date;
    }
 
+   // corrects a time stamp to be the local time
+   function getGMTSeconds($stamp, $gmt) {
+      if (substr($gmt, 0, 1) == "-") {
+         $neg = true;
+         $gmt = substr($gmt, 1, strlen($gmt));
+      } else if (substr($gmt, 0, 1) == "+") {
+         $neg = false;
+         $gmt = substr($gmt, 1, strlen($gmt));
+      } else
+         $neg = false;
+
+      $gmt = substr($gmt, 0, 2);
+      $gmt = $gmt * 3600;
+      if ($neg == true)
+         $gmt = "-$gmt";
+      else
+         $gmt = "+$gmt";
+
+      /** now find what the server is at **/
+      $current = date("Z", time());
+
+      $stamp = (int)$stamp - (int)$gmt + (int)$current;
+
+      return $stamp;
+   }
+
    function getHour($hour) {
       $time = explode(":", $hour);
       return $time[0];
@@ -139,7 +165,15 @@
       return $year;
    }
 
-   function getDateString($dateParts) {
+   function getLongDateString($stamp) {
+      return date("D, F j, Y g:i a", $stamp);
+   }
+
+   function getDateString($stamp) {
+      return date("M j, Y", $stamp);
+   }
+
+   function getTimeStamp($dateParts) {
       /** $dateParts[0] == <day of week>   Mon, Tue, Wed
        ** $dateParts[1] == <day of month>  23
        ** $dateParts[2] == <month>         Jan, Feb, Mar
@@ -153,21 +187,6 @@
        **        and everything would be bumped up one.
        **/
 
-      /* if the first part is a day */
-      if (eregi("mon|tue|wed|thu|fri|sat|sun", trim($dateParts[0]), $tmp)) {
-         $dateParts[0] = getDayOfWeek(trim($dateParts[0]));
-         $dateParts[1] = getDayOfMonth(trim($dateParts[1]));
-         $dateParts[2] = getMonth(trim($dateParts[2]));
-         $dateParts[3] = getYear(trim($dateParts[3]));
-         return "$dateParts[2] $dateParts[1], $dateParts[3]";
-      }
-      $dateParts[0] = getDayOfMonth(trim($dateParts[0]));
-      $dateParts[1] = getMonth(trim($dateParts[1]));
-      $dateParts[2] = getYear(trim($dateParts[2]));
-      return "$dateParts[1] $dateParts[0], $dateParts[2]";
-   }
-
-   function getTimeStamp($dateParts) {
       if (eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp)) {
          $d[0] = getHour(trim($dateParts[4]));
          $d[1] = getMinute(trim($dateParts[4]));
@@ -175,7 +194,7 @@
          $d[3] = getMonthNum(trim($dateParts[2]));
          $d[4] = getDayOfMonth(trim($dateParts[1]));
          $d[5] = getYear(trim($dateParts[3]));
-         return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
+         return getGMTSeconds(mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]), $dateParts[5]);
       }
       $d[0] = getHour(trim($dateParts[3]));
       $d[1] = getMinute(trim($dateParts[3]));
@@ -183,28 +202,6 @@
       $d[3] = getMonthNum(trim($dateParts[1]));
       $d[4] = getDayOfMonth(trim($dateParts[0]));
       $d[5] = getYear(trim($dateParts[2]));
-      return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
-   }
-
-   function getLongDateString($stamp) {
-      $dateArray = getDate($stamp);
-
-      if ($dateArray["hours"] >= 12) {
-         $am_pm = "p.m.";
-      } else {
-         $am_pm = "a.m.";
-      }
-
-      if ($dateArray["hours"] >= 13) {
-         $dateArray["hours"] = $dateArray["hours"] - 12;
-      }
-
-      $dateParts[0] = getDayOfMonth($dateArray["mday"]);
-      $dateParts[1] = getMonth($dateArray["month"]);
-      $dateParts[2] = getYear($dateArray["year"]);
-      $dateParts[3] = $dateArray["hours"]; // hour
-      $dateParts[4] = getMinutes($dateArray["minutes"]); // minute
-
-      return "$dateParts[1] $dateParts[0], $dateParts[2] at $dateParts[3]:$dateParts[4] $am_pm";
+      return getGMTSeconds(mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]), $dateParts[4]);
    }
 ?>
