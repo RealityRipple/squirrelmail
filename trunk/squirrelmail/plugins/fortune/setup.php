@@ -31,13 +31,13 @@ function fortune() {
     }
 
     $fortune_location = '/usr/games/fortune';
-    $exist = file_exists('$fortune_location');
+    $exist = file_exists($fortune_location);
     echo "<center><table cellpadding=0 cellspacing=0 border=0 bgcolor=$color[10]><tr><td><table width=100% cellpadding=2 cellspacing=1 border=0 bgcolor=\"$color[5]\"><tr><td align=center>";
     echo '<TABLE><TR><TD>';
     if (!$exist) {
         echo "$fortune_location not found.";
     } else {
-        echo '<CENTER><FONT=3><EM>Today's Fortune</EM><BR></FONT></CENTER><pre>';
+        echo "<CENTER><FONT=3><EM>Today's Fortune</EM><BR></FONT></CENTER><pre>";
         system($fortune_location);
     } 
   
@@ -53,7 +53,7 @@ function fortune_load() {
 function fortune_options() {
   global $fortune_visible;
 
-  echo '<tr><td align=right nowrap>Fortunes:</td>\n';
+  echo "<tr><td align=right nowrap>Fortunes:</td>\n";
   echo '<td><input name="fortune_fortune_visible" type=CHECKBOX';
   if ($fortune_visible)
     echo ' CHECKED';
