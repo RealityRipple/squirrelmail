@@ -61,12 +61,17 @@
       fputs($imapConnection, ". list \"\" \"\"\n");
       $read = fgets($imapConnection, 1024);
 
-      $pos = strrpos($read, "\"");
-      $read = substr($read, 0, $pos);
+      if (strrpos($read, "\"") == strlen($read)) {
+         $pos = strrpos($read, "\"");
+         $read = substr($read, 0, $pos);
 
-      $pos = strrpos($read, "\"");
-      $read = substr($read, 0, $pos);
-
+         $pos = strrpos($read, "\"");
+         $read = substr($read, 0, $pos);
+      } else {
+         $pos = strrpos($read, " ");
+         $read = substr($read, 0, $pos);
+      }
+   
       $pos = strrpos($read, "\"");
       $read = substr($read, 0, $pos);
 
