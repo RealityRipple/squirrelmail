@@ -98,27 +98,28 @@
 
       $nextGroup = $startMessage + 25;
       $prevGroup = $startMessage - 25;
-
-      echo "Messages:  $numMessages, $numMessagesOld -- ";
-      echo "Start:     $startMessage to $endMessage<BR>";
-      echo "NextGroup: $nextGroup -- ";
-      echo "PrevGroup: $prevGroup<BR>";
-
       $urlMailbox = urlencode($mailbox);
-
-      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">Next</A>\n";
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">Previous</A>\n";
-      }
-      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\">Previous</A>\n";
-      }
-      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
-         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\">Next</A>\n";
-      }
 
       /** This is the beginning of the message list table.  It wraps around all messages */
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1>";
+
+      echo "<TR BGCOLOR=FFFFFF><TD>";
+      echo "<CENTER><FONT FACE=\"Arial,Helvetica\">Viewing messages <B>$startMessage</B> to <B>$endMessage</B> ($numMessages total)</FONT></CENTER>\n";
+      echo "</TD></TR>\n";
+
+      echo "<TR BGCOLOR=FFFFFF><TD>";
+      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
+      }
+      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
+      }
+      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
+      }
+      echo "</TD></TR>\n";
+
       echo "<TR><TD BGCOLOR=DCDCDC>";
       echo "<TABLE WIDTH=100% BORDER=0 CELLPADDING=2 CELLSPACING=1 BGCOLOR=FFFFFF>";
       echo "<TR BGCOLOR=FFFFCC ALIGN=\"center\">";
@@ -136,8 +137,20 @@
       for ($i = $startMessage - 1;$i <= $endMessage - 1; $i++) {
          printMessageInfo($imapConnection, $msgs[$i]["ID"], $msgs[$i]["FROM"], $msgs[$i]["SUBJECT"], $msgs[$i]["DATE_STRING"], $msgs[$i]["FLAG_ANSWERED"], $msgs[$i]["FLAG_SEEN"]);
       }
-
       echo "</TABLE>\n";
+
+      echo "</TD></TR>\n";
+      echo "<TR BGCOLOR=FFFFFF><TD>";
+      if (($nextGroup <= $numMessages) && ($prevGroup >= 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
+      }
+      else if (($nextGroup > $numMessages) && ($prevGroup >= 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$prevGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Previous</FONT></A>\n";
+      }
+      else if (($nextGroup <= $numMessages) && ($prevGroup < 0)) {
+         echo "<A HREF=\"right_main.php3?sort=$sort&startMessage=$nextGroup&mailbox=$urlMailbox\" TARGET=\"right\"><FONT FACE=\"Arial,Helvetica\">Next</FONT></A>\n";
+      }
       echo "</TD></TR></TABLE>"; /** End of message-list table */
    }
 ?>
