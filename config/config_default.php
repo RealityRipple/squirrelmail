@@ -286,6 +286,9 @@
     $theme[16]["PATH"] = "../themes/deepocean2_theme.php";
     $theme[16]["NAME"] = "Deep Ocean 2";
 
+    $theme[17]["PATH"] = "../themes/blue_gray_theme.php";
+    $theme[17]["NAME"] = "Blue Gray";
+
 //  LDAP server(s)
 //
 //    Array of arrays with LDAP server parameters. See
