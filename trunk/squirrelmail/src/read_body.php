@@ -10,12 +10,14 @@
    $imapConnection = loginToImapServer($username, $key, $imapServerAddress);
    selectMailbox($imapConnection, $mailbox, $numMessages);
 
-   echo "<HTML><BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">\n";
-   displayPageHeader($mailbox);
-
    // $message contains all information about the message
    // including header and body
    $message = fetchMessage($imapConnection, $passed_id);
+
+   echo "<HTML>";
+   echo "<META HTTP-EQUIV=\"Content-Type\" CONTENT=\"" . $message["HEADER"]["TYPE"][0] . "/" . $message["HEADER"]["TYPE"][1] . "; charset=" . $message["HEADER"]["CHARSET"] . "\">";
+   echo "<BODY TEXT=\"#000000\" BGCOLOR=\"#FFFFFF\" LINK=\"#0000EE\" VLINK=\"#0000EE\" ALINK=\"#0000EE\">\n";
+   displayPageHeader($mailbox);
 
    /** translate the subject and mailbox into url-able text **/
    $url_subj = urlencode(trim($message["HEADER"]["SUBJECT"]));
@@ -141,23 +143,34 @@
    }
    echo "   </TABLE></TD></TR>\n";
 
-   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%><BR>\n";
-   if (count($message["ENTITIES"]) > 1) {
-      echo "<B>This is a multipart MIME encoded message.<BR></B>";
+   echo "   <TR><TD BGCOLOR=FFFFFF WIDTH=100%>\n";
+   $body = formatBody($message);
+   for ($i = 0; $i < count($body); $i++) {
+      echo "$body[$i]";
+   }
+
+/*   if (count($message["ENTITIES"]) > 1) {
+      echo "</TD></TR><TR><TD BGCOLOR=DCDCDC><CENTER><B><FONT COLOR=DD0000>This is a multipart MIME encoded message.</FONT></B></CENTER></TD></TR><TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
+      echo "";
+
       $i = 0;
+      $q = 0;
+      $entity[0] = $i;
       while ($i < count($message["ENTITIES"])) {
-         echo "<B>--(PART $i)--</B><BR>";
+         $b = $i + 1;
+         echo "</TD></TR><TR><TD BGCOLOR=DCDCDC><CENTER>Part $b</CENTER></TD></TR><TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
          for ($p = 0; $p < count($message["ENTITIES"][$i][0]["BODY"]); $p++) {
             echo $message["ENTITIES"][$i][0]["BODY"][$p];
          }
          $i++;
       }
    } else {
-      echo "<FONT COLOR=DD0000><B>This is a single part mime encoded message</B></FONT><BR>";
+      echo "</TD></TR><TR><TD BGCOLOR=DCDCDC><CENTER><B><FONT COLOR=DD0000>This is a single part MIME encoded message.</FONT></B></CENTER></TD></TR><TR><TD BGCOLOR=FFFFFF WIDTH=100%>";
       for ($p = 0; $p < count($message["ENTITIES"][0]["BODY"]); $p++) {
          echo $message["ENTITIES"][0]["BODY"][$p];
       }
    }
+*/
    echo "   <BR></TD></TR>\n";
    echo "   <TR><TD BGCOLOR=DCDCDC>&nbsp;</TD></TR>";
    echo "</TABLE>\n";

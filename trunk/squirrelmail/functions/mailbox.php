@@ -238,7 +238,7 @@
    /** This function gets all the information about a message.  Including Header and body **/
    function fetchMessage($imapConnection, $id) {
       $message["HEADER"] = fetchHeader($imapConnection, $id);
-      $message["ENTITIES"] = fetchBody($imapConnection, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE"][0], $message["HEADER"]["TYPE"][1]);
+      $message["ENTITIES"] = fetchBody($imapConnection, $message["HEADER"]["BOUNDARY"], $id, $message["HEADER"]["TYPE0"], $message["HEADER"]["TYPE1"]);
 
       return $message;
    }
@@ -248,29 +248,66 @@
       $read = fgets($imapConnection, 1024);
 
       /** defaults... if the don't get overwritten, it will display text **/
-      $header["TYPE"][0] = "text";
-      $header["TYPE"][1] = "plain";
+      $header["TYPE0"] = "text";
+      $header["TYPE1"] = "plain";
+      $header["ENCODING"] = "us-ascii";
       while ((substr($read, 0, 15) != "messageFetch OK") && (substr($read, 0, 16) != "messageFetch BAD")) {
          /** MIME-VERSION **/
          if (substr($read, 0, 17) == "MIME-Version: 1.0") {
             $header["MIME"] = true;
             $read = fgets($imapConnection, 1024);
          }
+
+         /** ENCODING TYPE **/
+         else if (substr($read[$i], 0, 26) == "Content-Transfer-Encoding:") {
+            $header["ENCODING"] = strtolower(trim(substr($read[$i], 26)));
+         }
+
          /** CONTENT-TYPE **/
          else if (substr($read, 0, 13) == "Content-Type:") {
-            $cont = trim(substr($read, 13));
-            $cont = substr($cont, 0, strpos($cont, ";"));
-            $header["TYPE"][0] = substr($cont, 0, strpos($cont, "/"));
-            $header["TYPE"][1] = substr($cont, strpos($cont, "/")+1);
+            $cont = strtolower(trim(substr($read, 13)));
+            if (strpos($cont, ";"))
+               $cont = substr($cont, 0, strpos($cont, ";"));
+            $header["TYPE0"] = substr($cont, 0, strpos($cont, "/"));
+            $header["TYPE1"] = substr($cont, strpos($cont, "/")+1);
 
+            $line = $read;
             $read = fgets($imapConnection, 1024);
-            if (substr(strtolower(trim($read)), 0, 9) == "boundary=") {
-               $bound = trim($read);
-               $bound = substr($bound, 9);
-               $bound = str_replace("\"", "", $bound);
-               $header["BOUNDARY"] = $bound;
+            while ( (substr(substr($read, 0, strpos($read, " ")), -1) != ":") && (trim($read) != "") && (trim($read) != ")")) {
+               str_replace("\n", "", $line);
+               str_replace("\n", "", $read);
+               $line = "$line $read";
                $read = fgets($imapConnection, 1024);
             }
+
+            /** Detect the boundary of a multipart message **/
+            if (strpos(strtolower(trim($line)), "boundary=")) {
+               $pos = strpos($line, "boundary=") + 9;
+               $bound = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $bound = substr($bound, $pos, strpos($line, " ", $pos));
+               } else {
+                  $bound = substr($bound, $pos);
+               }
+               $bound = str_replace("\"", "", $bound);
+               $header["BOUNDARY"] = $bound;
+            }
+
+            /** Detect the charset **/
+            if (strpos(strtolower(trim($line)), "charset=")) {
+               $pos = strpos($line, "charset=") + 8;
+               $charset = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $charset = substr($charset, $pos, strpos($line, " ", $pos));
+               } else {
+                  $charset = substr($charset, $pos);
+               }
+               $charset = str_replace("\"", "", $charset);
+               $header["CHARSET"] = $charset;
+            } else {
+               $header["CHARSET"] = "us-ascii";
+            }
+
          }
          /** FROM **/
          else if (substr($read, 0, 5) == "From:") {
@@ -365,22 +402,53 @@
       return decodeMime($body, $bound, $type0, $type1);
    }
 
-   function fetchEntityHeader($imapConnection, &$read, &$type0, &$type1, &$bound) {
+   function fetchEntityHeader($imapConnection, &$read, &$type0, &$type1, &$bound, &$encoding, &$charset) {
       /** defaults... if the don't get overwritten, it will display text **/
       $type0 = "text";
       $type1 = "plain";
+      $encoding = "us-ascii";
       $i = 0;
       while (trim($read[$i]) != "") {
-         if (substr($read[$i], 0, 13) == "Content-Type:") {
-            $cont = trim(substr($read[$i], 13));
-            $cont = substr($cont, 0, strpos($cont, ";"));
+         if (substr($read[$i], 0, 26) == "Content-Transfer-Encoding:") {
+            $encoding = strtolower(trim(substr($read[$i], 26)));
+
+         } else if (substr($read[$i], 0, 13) == "Content-Type:") {
+            $cont = strtolower(trim(substr($read[$i], 13)));
+            if (strpos($cont, ";"))
+               $cont = substr($cont, 0, strpos($cont, ";"));
             $type0 = substr($cont, 0, strpos($cont, "/"));
             $type1 = substr($cont, strpos($cont, "/")+1);
 
-            if (substr(strtolower(trim($read[$i])), 0, 9) == "boundary=") {
-               $bound = trim($read[$i]);
-               $bound = substr($bound, 9);
+            $line = $read[$i];
+            while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
+               str_replace("\n", "", $line);
+               str_replace("\n", "", $read[$i]);
+               $line = "$line $read[$i]";
+               $i++;
+            }
+
+            /** Detect the boundary of a multipart message **/
+            if (strpos(strtolower(trim($line)), "boundary=")) {
+               $pos = strpos($line, "boundary=") + 9;
+               $bound = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $bound = substr($bound, $pos, strpos($line, " ", $pos));
+               } else {
+                  $bound = substr($bound, $pos);
+               }
                $bound = str_replace("\"", "", $bound);
+            }
+
+            /** Detect the charset **/
+            if (strpos(strtolower(trim($line)), "charset=")) {
+               $pos = strpos($line, "charset=") + 8;
+               $charset = trim($line);
+               if (strpos($line, " ", $pos) > 0) {
+                  $charset = substr($charset, $pos, strpos($line, " ", $pos));
+               } else {
+                  $charset = substr($charset, $pos);
+               }
+               $charset = str_replace("\"", "", $charset);
             }
          }
          $i++;
