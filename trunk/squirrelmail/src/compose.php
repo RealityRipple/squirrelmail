@@ -446,30 +446,23 @@
    } else if (isset($html_addr_search_done)) {
       displayPageHeader($color, $mailbox);
 
-      if (isset($send_to_search) && is_array($send_to_search))
-      {
-         for ($i=0; $i < count($send_to_search); $i++) {
-            if ($send_to)
-               $send_to .= ", ";
-            $send_to .= $send_to_search[$i];   
-         }
-      }
-      
-      if (isset($send_to_cc_search) && is_array($send_to_cc_search))
-      {
-         for ($i=0; $i < count($send_to_cc_search); $i++) {
-            if ($send_to_cc)
-               $send_to_cc .= ", ";
-            $send_to_cc .= $send_to_cc_search[$i];   
-         }
-      }
-      
-      if (isset($send_to_bcc_search) && is_array($send_to_bcc_search))
-      {
-         for ($i=0; $i < count($send_to_bcc_search); $i++) {
-            if ($send_to_bcc)
-               $send_to_bcc .= ", ";
-            $send_to_bcc .= $send_to_bcc_search[$i];   
+      if (isset($send_to_search) && is_array($send_to_search)) {
+         foreach ($send_to_search as $k => $v) {
+	    if (substr($k, 0, 1) == 'T') {
+               if ($send_to)
+                  $send_to .= ', ';
+               $send_to .= $v;
+	    }
+	    elseif (substr($k, 0, 1) == 'C') {
+	       if ($send_to_cc)
+	          $send_to_cc .= ', ';
+	       $send_to_cc .= $v;
+	    }
+	    elseif (substr($k, 0, 1) == 'B') {
+	       if ($send_to_bcc)
+	          $send_to_bcc .= ', ';
+	       $send_to_bcc .= $v;
+	    }
          }
       }
       
