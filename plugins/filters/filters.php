@@ -249,6 +249,7 @@ function start_filters() {
         $imap_general, $filters, $imap_stream, $imapConnection,
     $UseSeparateImapConnection, $AllowSpamFilters;
 
+# We really want to do this for ALL mailbox.
 #    if ($mailbox == 'INBOX') {
         // Detect if we have already connected to IMAP or not.
         // Also check if we are forced to use a separate IMAP connection
@@ -290,47 +291,57 @@ function user_filters($imap_stream) {
 
     sqimap_mailbox_select($imap_stream, 'INBOX');
 
-    // For every rule
+    /* For every rule */
     for ($i=0; $i < count($filters); $i++) {
         // If it is the "combo" rule
         if ($filters[$i]['where'] == 'To or Cc') {
-            /*
-            *  If it's "TO OR CC", we have to do two searches, one for TO
-            *  and the other for CC.
-            */
-            filter_search_and_delete($imap_stream, 'TO',
-            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
-            filter_search_and_delete($imap_stream, 'CC',
-            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
+
+            /* If it's "TO OR CC", we have to do two     */
+            /* searches one for TO and the other for CC. */
+            filter_search_and_delete($imap_stream,
+                                     'TO',
+                                     $filters[$i]['what'],
+                                     $filters[$i]['folder'],
+                                     $filters_user_scan);
+            filter_search_and_delete($imap_stream,
+                                     'CC',
+                                     $filters[$i]['what'],
+                                     $filters[$i]['folder'],
+                                     $filters_user_scan);
         } else {
-            /*
-            *  If it's a normal TO, CC, SUBJECT, or FROM, then handle it
-            *  normally.
-            */
-            filter_search_and_delete($imap_stream, $filters[$i]['where'],
-            $filters[$i]['what'], $filters[$i]['folder'], $filters_user_scan);
+
+            /* If it's a normal TO, CC, SUBJECT, */
+            /* or FROM, then handle it normally. */
+            filter_search_and_delete($imap_stream,
+                                     $filters[$i]['where'],
+                                     $filters[$i]['what'],
+                                     $filters[$i]['folder'],
+                                     $filters_user_scan);
         }
     }
-    // Clean out the mailbox whether or not auto_expunge is on
-    // That way it looks like it was redirected properly
+
+    /* Clean out the mailbox whether or not auto_expunge is */
+    /* on That way it looks like it was redirected properly */
     sqimap_mailbox_expunge($imap_stream, 'INBOX');
 }
 
 function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan) {
-    global $languages, $squirrelmail_language, $allow_charset_search;
+    global $languages, $squirrelmail_language, $allow_charset_search,
+           $uid_support;
     if ($user_scan == 'new') {
         $category = 'UNSEEN';
     } else {
         $category = 'ALL';
     }
 
-    if ($allow_charset_search && isset($languages[$squirrelmail_language]['CHARSET']) &&
-        $languages[$squirrelmail_language]['CHARSET']) {
-        $search_str = "SEARCH CHARSET "
+    if ($allow_charset_search
+     && isset($languages[$squirrelmail_language]['CHARSET'])
+     && $languages[$squirrelmail_language]['CHARSET']) {
+        $search_str = 'SEARCH CHARSET "'
             . strtoupper($languages[$squirrelmail_language]['CHARSET']) 
-            . ' ' . $category . ' ';
+            . '" ' . $category . ' ';
     } else {
-        $search_str = 'SEARCH CHARSET US-ASCII ' . $category . ' ';
+        $search_str = 'SEARCH CHARSET "US-ASCII" ' . $category . ' ';
     }
     if ($where == "Header") {
        $what = explode(':', $what);
@@ -338,21 +349,16 @@ function filter_search_and_delete($imap, $where, $what, $where_to, $user_scan) {
        $what = addslashes(trim($what[1]));
     }
     $search_str .= $where . ' {' . strlen($what) . "}\r\n" . $what . "\r\n";
-    
-    fputs ($imap, "a001 $search_str");
-    $read = filters_sqimap_read_data ($imap, 'a001', true, $response, $message);
+    $readin = sqimap_run_command($imap, $search_str, false, $result, $message, $uid_support);
 
-    // This may have problems with EIMS due to it being goofy
-
-    for ($r=0; $r < count($read) &&
-                substr($read[$r], 0, 8) != '* SEARCH'; $r++) {}
-    if ($response == 'OK') {
-        $ids = explode(' ', $read[$r]);
+    for ($r=0; $r < count($readin) && substr($readin[$r], 0, 8) != '* SEARCH'; ++$r) {}
+    if ($result == 'OK') {
+        $ids = explode(' ', $readin[$r]);
         if (sqimap_mailbox_exists($imap, $where_to)) {
             for ($j=2; $j < count($ids); $j++) {
                 $id = trim($ids[$j]);
                 sqimap_messages_copy ($imap, $id, $id, $where_to);
-                sqimap_messages_flag ($imap, $id, $id, 'Deleted');
+                sqimap_messages_flag ($imap, $id, $id, 'Deleted', true);
             }
         }
     }

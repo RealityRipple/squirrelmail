@@ -364,18 +364,21 @@ function formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message,
       }	         
    }
 
-   $s = '<table width="100%" cellpadding="0" cellspacing="0" border="0" ' .
-        'align="center">';
+/* BOOKMARK */
+   $s  = '<TABLE WIDTH="100%" CELLPADDING="0" CELLSPACING="0" BORDER="0"';
+   $s .=       ' ALIGN="center" BGCOLOR="' . $color[0] . '">';
    foreach ($env as $key => $val) {
      if ($val) {      
-        $s .= '<tr>';
-        $s .=  html_tag( 'td', '<b>'.$key.':&nbsp;&nbsp;</b>', 'right', $color[0], 'valign="top" width="20%"') . "\n";
-        $s .=  html_tag( 'td', $val, 'left', $color[0], 'valign="top" width="80%"');
-        $s .=  "\n</tr>";
+        $s .= '<TR>';
+        $s .=   html_tag('TD', '<B>' . $key . ':&nbsp;&nbsp;</B>', 'RIGHT', '', 'VALIGN="MIDDLE" WIDTH="20%"') . "\n";
+        $s .=   html_tag('TD', $val, 'left', '', 'VALIGN="MIDDLE" WIDTH="80%"') . "\n";
+        $s .= '</TR>';
      }
    }
-   $s .= '</table>';
    echo $s;
+   do_hook("read_body_header");   
+   formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
+   echo '</table>';
 }	     
 
 function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response) {
@@ -503,18 +506,21 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
    global $QUERY_STRING, $base_uri;
    
    $urlMailbox = urlencode($mailbox);
-   $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-         ' border="0" bgcolor="'.$color[9].'">'. "\n".
-	 '<tr align="right"><td valign="top" align="right"><small>';
    $url = $base_uri.'src/view_header.php?'.$QUERY_STRING;
+
+/* BOOKMARK */
+   $s  = "<TR>\n";
+   $s .= '<TD VALIGN="MIDDLE" ALIGN="RIGHT"><B>' . _("Other") . ":&nbsp;&nbsp;</B></TD>\n";
+   $s .= '<TD VALIGN="MIDDLE" ALIGN="LEFT"><SMALL>';
    $s .= '<a href="'.$url.'">'.("View Full Header").'</a>';
-  /* Output the printer friendly link if we are in subtle mode. */
-   $s .= '&nbsp;|&nbsp;'. 
-         printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
+
+   /* Output the printer friendly link if we are in subtle mode. */
+   $s .= '&nbsp;|&nbsp;';
+   $s .= printer_friendly_link($mailbox, $passed_id, $passed_ent_id, $color);
+   $s .= "</SMALL></TD>\n";
+   $s .= "</TR>\n";
    echo $s;
    do_hook("read_body_header_right");
-   echo '</small></td></tr>';
-   echo '</table>'."\n";
 }
 
 
@@ -621,8 +627,6 @@ displayPageHeader($color, $mailbox);
 do_hook('read_body_top');
 formatMenuBar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_response);
 formatEnvheader($mailbox, $passed_id, $passed_ent_id, $message, $color, $FirstTimeSee);
-do_hook("read_body_header");   
-formatToolbar($mailbox,$passed_id,$passed_ent_id,$message, $color);
 echo '<table width="100%" cellpadding="3" cellspacing="3" align="center"'.
       ' border="0" bgcolor="'.$color[4].'">';
 echo '<tr><td>'.$messagebody.'</td></tr>';      
