@@ -364,8 +364,8 @@
          sendSMTP($t, $c, $b, $subject, $body);
       }
 
-//      $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
-//      sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
+      $imap_stream = sqimap_login($username, $key, $imapServerAddress, 1);
+      sqimap_append ($imap_stream, $sent_folder, $body, $t, $c, $b, $subject, $data_dir, $username, $domain, $version);    
    }
 
 ?>

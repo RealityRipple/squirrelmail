@@ -26,10 +26,6 @@
 
    include("../src/load_prefs.php");
 
-   echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
-   $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
-   displayPageHeader($color, "None");
-
    // This function is used when not sending or adding attachments
    function newMail () {
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
@@ -279,11 +275,19 @@
    if(isset($send)) {
       if (checkInput()) {
          sendMessage($send_to, $send_to_cc, $send_to_bcc, $subject, $body);
-         showSentForm();
+         header ("Location: right_main.php");
       } else {
+         echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+         $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+         displayPageHeader($color, "None");
+
          showInputForm();
       }
    } else if (isset($attach)) {
+      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      displayPageHeader($color, "None");
+
       $localfilename = md5("$attachfile, $attachfile_name, $REMOTE_IP, $REMOTE_PORT, $UNIQUE_ID, and everything else that may add entropy");
       $localfilename = $localfilename;
       
@@ -308,6 +312,10 @@
       
       showInputForm();
    } else if (isset($do_delete)) {
+      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      displayPageHeader($color, "None");
+
       while (list($key, $localname) = each($delete)) {
          array_splice ($attachments, $key, 1);
          unlink ($attachment_dir.$localname);
@@ -316,6 +324,10 @@
 
       showInputForm();
    } else {
+      echo "<HTML><BODY TEXT=\"$color[8]\" BGCOLOR=\"$color[4]\" LINK=\"$color[7]\" VLINK=\"$color[7]\" ALINK=\"$color[7]\">\n";
+      $imapConnection = sqimap_login($username, $key, $imapServerAddress, 0);
+      displayPageHeader($color, "None");
+
       $newmail = true;
       newMail();
       showInputForm();
