@@ -127,35 +127,35 @@
        **/
 
       /* if the first part is a day */
-      if (eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp)) {
-         $dateParts[0] = getDayOfWeek($dateParts[0]);
-         $dateParts[1] = getDayOfMonth($dateParts[1]);
-         $dateParts[2] = getMonth($dateParts[2]);
-         $dateParts[3] = getYear($dateParts[3]);
+      if (eregi("mon|tue|wed|thu|fri|sat|sun", trim($dateParts[0]), $tmp)) {
+         $dateParts[0] = getDayOfWeek(trim($dateParts[0]));
+         $dateParts[1] = getDayOfMonth(trim($dateParts[1]));
+         $dateParts[2] = getMonth(trim($dateParts[2]));
+         $dateParts[3] = getYear(trim($dateParts[3]));
          return "$dateParts[2] $dateParts[1], $dateParts[3]";
       }
-      $dateParts[0] = getDayOfMonth($dateParts[0]);
-      $dateParts[1] = getMonth($dateParts[1]);
-      $dateParts[2] = getYear($dateParts[2]);
+      $dateParts[0] = getDayOfMonth(trim($dateParts[0]));
+      $dateParts[1] = getMonth(trim($dateParts[1]));
+      $dateParts[2] = getYear(trim($dateParts[2]));
       return "$dateParts[1] $dateParts[0], $dateParts[2]";
    }
 
    function getTimeStamp($dateParts) {
       if (eregi("mon|tue|wed|thu|fri|sat|sun", $dateParts[0], $tmp)) {
-         $d[0] = getHour($dateParts[4]);
-         $d[1] = getMinute($dateParts[4]);
-         $d[2] = getSecond($dateParts[4]);
-         $d[3] = getMonthNum($dateParts[2]);
-         $d[4] = getDayOfMonth($dateParts[1]);
-         $d[5] = getYear($dateParts[3]);
+         $d[0] = getHour(trim($dateParts[4]));
+         $d[1] = getMinute(trim($dateParts[4]));
+         $d[2] = getSecond(trim($dateParts[4]));
+         $d[3] = getMonthNum(trim($dateParts[2]));
+         $d[4] = getDayOfMonth(trim($dateParts[1]));
+         $d[5] = getYear(trim($dateParts[3]));
          return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
       }
-      $d[0] = getHour($dateParts[3]);
-      $d[1] = getMinute($dateParts[3]);
-      $d[2] = getSecond($dateParts[3]);
-      $d[3] = getMonthNum($dateParts[1]);
-      $d[4] = getDayOfMonth($dateParts[0]);
-      $d[5] = getYear($dateParts[2]);
+      $d[0] = getHour(trim($dateParts[3]));
+      $d[1] = getMinute(trim($dateParts[3]));
+      $d[2] = getSecond(trim($dateParts[3]));
+      $d[3] = getMonthNum(trim($dateParts[1]));
+      $d[4] = getDayOfMonth(trim($dateParts[0]));
+      $d[5] = getYear(trim($dateParts[2]));
       return mktime($d[0], $d[1], $d[2], $d[3], $d[4], $d[5]);
    }
 ?>
