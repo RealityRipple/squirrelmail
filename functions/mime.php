@@ -379,7 +379,7 @@ function mime_fetch_body($imap_stream, $id, $ent_id ) {
         $ent_id = 1;
     }
 
-    $cmd = "FETCH $id BODY[$ent_id] ";
+    $cmd = "FETCH $id BODY[$ent_id]";
     $data = sqimap_run_command ($imap_stream, $cmd, true, $response, $message);
 
     do {
