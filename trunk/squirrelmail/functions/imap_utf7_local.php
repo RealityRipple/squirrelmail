@@ -8,7 +8,7 @@
  *
  * This implements all functions that do imap UTF7 conversions.
  *
- * $Id $
+ * $Id$
  */
 
 function sqimap_mb_convert_encoding($str, $to_encoding, $from_encoding, $default_charset)
@@ -38,8 +38,8 @@ function imap_utf7_encode_local($s) {
       return '';
 
     global $default_charset;
-    set_my_charset();
-    if (strtolower($default_charset) != 'iso-8859-1') {
+    set_my_charset();	//must be called before using $default_charset
+    if ((strtolower($default_charset) != 'iso-8859-1') && ($default_charset != '')) {
       $utf7_s = sqimap_mb_convert_encoding($s, 'UTF7-IMAP', $default_charset, $default_charset);
       if ($utf7_s != '')
         return $utf7_s;
