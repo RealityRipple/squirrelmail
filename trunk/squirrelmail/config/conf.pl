@@ -103,6 +103,20 @@ while (($command ne "q") && ($command ne "Q")) {
 		print "R   Return to Main Menu\n";
 	} elsif ($menu == 3) {
 		print $WHT."Folder Defaults\n".$NRM;
+		print "1.  Default Folder Prefix      : $WHT$default_folder_prefix$NRM\n";
+		print "2.  Show Folder Prefix Option  : $WHT$show_prefix_option$NRM\n";
+		print "3.  Trash Folder               : $WHT$trash_folder$NRM\n";
+		print "4.  Sent Folder                : $WHT$sent_folder$NRM\n";
+		print "5.  List Special Folders First : $WHT$list_special_folders_first$NRM\n";
+		print "6.  Show Special Folders Color : $WHT$use_special_folder_color$NRM\n";
+		print "7.  By default, move to trash  : $WHT$default_move_to_trash$NRM\n";
+		print "8.  Auto Expunge               : $WHT$auto_expunge$NRM\n";
+		print "9.  Default Sub. of INBOX      : $WHT$default_sub_of_inbox$NRM\n";
+		print "10. Show 'Contain Sub.' Option : $WHT$show_contain_subfolders_option$NRM\n";
+		print "11. Special Folders            > $WHT$special_folders[0]$NRM\n";
+		for ($count = 1; $count <= $#special_folders; $count++) {
+			print "                               > $WHT$special_folders[$count]$NRM\n";
+		}
 		print "\n";
 		print "R   Return to Main Menu\n";
 	} elsif ($menu == 4) {
@@ -155,6 +169,17 @@ while (($command ne "q") && ($command ne "Q")) {
 			elsif ($command == 6) { $smtpServerAddress  = command16 (); }
 			elsif ($command == 7) { $smtpPort           = command17 (); }
 		} elsif ($menu == 3) {
+			if    ($command == 1) { $default_folder_prefix          = command21 (); }
+			elsif ($command == 2) { $show_prefix_option             = command22 (); }
+			elsif ($command == 3) { $trash_folder                   = command23 (); }
+			elsif ($command == 4) { $sent_folder                    = command24 (); }
+			elsif ($command == 5) { $list_special_folders_first     = command25 (); }
+			elsif ($command == 6) { $use_special_folder_color       = command26 (); }
+			elsif ($command == 7) { $default_move_to_trash          = command27 (); }
+			elsif ($command == 8) { $auto_expunge                   = command28 (); }
+			elsif ($command == 9) { $default_sub_of_inbox           = command29 (); }
+			elsif ($command == 10){ $show_contain_subfolders_option = command210(); }
+			elsif ($command == 11){ $special_folders                = command211(); }
 		} elsif ($menu == 4) {
 		} elsif ($menu == 5) {
 		} elsif ($menu == 6) {
@@ -338,4 +363,331 @@ sub command71 {
 	   }
 	} while ($line ne "@");
 	return $new_motd;
+}
+
+################# FOLDERS ###################
+
+# default_folder_prefix
+sub command21 {
+	print "Some IMAP servers (UW, for example) store mail and folders in\n";
+	print "your user space in a separate subdirectory.  This is where you\n";
+	print "specify what that directory is.\n";
+	print "\n";
+	print "NOTE:  If you use Cyrus, or some server that would not use this\n";
+	print "       option, you must set this to 'none'.\n";
+	print "\n";
+   print "[$WHT$default_folder_prefix$NRM]: $WHT";
+   $new_default_folder_prefix = <STDIN>;
+   if ($new_default_folder_prefix eq "\n") {
+      $new_default_folder_prefix = $default_folder_prefix;
+   } else {
+      $new_default_folder_prefix =~ s/[\r|\n]//g;
+   }
+	if (($new_default_folder_prefix =~ /^\s*$/) || ($new_default_folder_prefix =~ /none/i)) {
+		$new_default_folder_prefix = "";
+	} else {
+		$new_default_folder_prefix =~ s/\/*$//g;
+		$new_default_folder_prefix =~ s/$/\//g;
+	}	
+   return $new_default_folder_prefix;
+}
+
+# Show Folder Prefix
+sub command22 {
+	print "It is possible to set up the default folder prefix as a user\n";
+	print "specific option, where each user can specify what their mail\n";
+	print "folder is.  If you set this to false, they will never see the\n";
+	print "option, but if it is true, this option will appear in the\n";
+	print "'options' section.\n";
+	print "\n";
+	print "NOTE:  You set the default folder prefix in option '1' of this\n";
+	print "       section.  That will be the default if the user doesn't\n";
+	print "       specify anything different.\n";
+	print "\n";
+	
+	if ($show_prefix_option eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "\n";
+	print "Show option (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$show_prefix_option = "true";
+	} else {
+		$show_prefix_option = "false";
+	}
+	return $show_prefix_option;
+}
+
+# Trash Folder 
+sub command23 {
+	print "You can now specify where the default trash folder is located.\n";
+	print "On servers where you do not want this, you can set it to anything\n";
+	print "and set option 7 to false.\n";
+	print "\n";
+	print "This is relative to where the rest of your email is kept.  You do\n";
+	print "not need to worry about their mail directory.  If this folder\n";
+	print "would be ~/mail/trash on the filesystem, you only need to specify\n";
+	print "that this is 'trash', and be sure to put 'mail/' in option 1.\n";
+	print "\n";
+
+   print "[$WHT$trash_folder$NRM]: $WHT";
+   $new_trash_folder = <STDIN>;
+   if ($new_trash_folder eq "\n") {
+      $new_trash_folder = $trash_folder;
+   } else {
+      $new_trash_folder =~ s/[\r|\n]//g;
+   }
+	return $new_trash_folder;
+}
+
+# Sent Folder 
+sub command24 {
+	print "This is where messages that are sent will be stored.  SquirrelMail\n";
+	print "by default puts a copy of all outgoing messages in this folder.\n";
+	print "\n";
+	print "This is relative to where the rest of your email is kept.  You do\n";
+	print "not need to worry about their mail directory.  If this folder\n";
+	print "would be ~/mail/sent on the filesystem, you only need to specify\n";
+	print "that this is 'sent', and be sure to put 'mail/' in option 1.\n";
+	print "\n";
+
+   print "[$WHT$sent_folder$NRM]: $WHT";
+   $new_sent_folder = <STDIN>;
+   if ($new_sent_folder eq "\n") {
+      $new_sent_folder = $sent_folder;
+   } else {
+      $new_sent_folder =~ s/[\r|\n]//g;
+   }
+	return $new_sent_folder;
+}
+
+# List special folders first 
+sub command25 {
+	print "SquirrelMail has what we call 'special folders' that are not\n";
+	print "manipulated and viewed like normal folders.  Some examples of\n";
+	print "these folders would be INBOX, Trash, Sent, etc.  This option\n";
+	print "Simply asks if you want these folders listed first in the folder\n";
+	print "listing.\n";
+	print "\n";
+	
+	if ($list_special_folders_first eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "\n";
+	print "List first (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$list_special_folders_first = "true";
+	} else {
+		$list_special_folders_first = "false";
+	}
+	return $list_special_folders_first;
+}
+
+# Show special folders color 
+sub command26 {
+	print "SquirrelMail has what we call 'special folders' that are not\n";
+	print "manipulated and viewed like normal folders.  Some examples of\n";
+	print "these folders would be INBOX, Trash, Sent, etc.  This option\n";
+	print "wants to know if we should display special folders in a\n";
+	print "color than the other folders.\n";
+	print "\n";
+	
+	if ($use_special_folder_color eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "\n";
+	print "Show color (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$use_special_folder_color = "true";
+	} else {
+		$use_special_folder_color = "false";
+	}
+	return $use_special_folder_color;
+}
+
+# default move to trash
+sub command27 {
+	print "By default, should messages get moved to the trash folder?  You\n";
+	print "can specify the default trash folder in option 3.  If this is set\n";
+	print "to false, messages will get deleted immediately without moving\n";
+	print "to the trash folder.\n";
+	print "\n";
+	print "Trash folder is currently: $trash_folder\n";
+	print "\n";
+	
+	if ($default_move_to_trash eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "By default, move to trash (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$default_move_to_trash = "true";
+	} else {
+		$default_move_to_trash = "false";
+	}
+	return $default_move_to_trash;
+}
+
+# Auto expunge 
+sub command28 {
+	print "The way that IMAP handles deleting messages is as follows.  You\n";
+	print "mark the message as deleted, and then to 'really' delete it, you\n";
+	print "expunge it.  This option asks if you want to just have messages\n";
+	print "marked as deleted, or if you want SquirrelMail to expunge the \n";
+	print "messages too.\n";
+	print "\n";
+	
+	if ($auto_expunge eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "Auto expunge (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$auto_expunge = "true";
+	} else {
+		$auto_expunge = "false";
+	}
+	return $auto_expunge;
+}
+
+# Default sub of inbox 
+sub command29 {
+	print "Some IMAP servers (Cyrus) have all folders as subfolders of INBOX.\n";
+	print "This can cause some confusion in folder creation for users when\n";
+	print "they try to create folders and don't put it as a subfolder of INBOX\n";
+	print "and get permission errors.  This option asks if you want folders\n";
+	print "to be subfolders of INBOX by default.\n";
+	print "\n";
+	
+	if ($default_sub_of_inbox eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "Default sub of INBOX (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$default_sub_of_inbox = "true";
+	} else {
+		$default_sub_of_inbox = "false";
+	}
+	return $default_sub_of_inbox;
+}
+
+# Show contain subfolder option 
+sub command210 {
+	print "Some IMAP servers (UW) make it so that there are two types of\n";
+	print "folders.  Those that contain messages, and those that contain\n";
+	print "subfolders.  If this is the case for your server, set this to\n";
+	print "true, and it will ask the user whether the folder they are\n";
+	print "creating contains subfolders or messages.\n";
+	print "\n";
+	
+	if ($show_contain_subfolders_option eq "true") {
+	   $default_value = "y";
+	} else {
+	   $default_value = "n";
+	}
+	print "Show option (y/n) [$WHT$default_value$NRM]: $WHT";
+	$new_show = <STDIN>;
+	if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
+		$show_contain_subfolders_option = "true";
+	} else {
+		$show_contain_subfolders_option = "false";
+	}
+	return $show_contain_subfolders_option;
+}
+
+# special folders
+sub command211 {
+   print "\nSpecial folders are folders that can't be manipulated like normal\n";
+   print "user-created folders.  A couple of examples of these would be the\n";
+   print "trash folder, the sent folder, etc.\n";
+   print "Special Folders:\n";
+   $count = 0;
+   print "\n";
+   while ($count < @special_folders) {
+      print "   $count) $WHT" . $special_folders[$count] . "$NRM\n";
+      $count++;
+   }
+   print "\n[folders] command (?=help) > ";
+   $input = <STDIN>;
+   $input =~ s/[\r|\n]//g;
+   while ($input !~ /d/i) {
+      ## ADD
+      if ($input =~ /^\s*\+\s*.*/) {
+         $input =~ s/^\s*\+\s*//;
+         $special_folders[$#special_folders+1] = $input;
+      }
+   
+      elsif ($input =~ /^\s*-\s*[0-9]?/i) {
+         if ($input =~ /[0-9]+\s*$/) {
+            $rem_num = $input;
+            $rem_num =~ s/^\s*-\s*//g;
+            $rem_num =~ s/\s*$//;
+         } else {
+            $rem_num = $#special_folders;
+         }
+   
+         if ($rem_num == 0) {
+            print "You cannot remove INBOX.  It is a very special folder.\n";
+         } else {
+            $count = 0;
+            @new_special_folders = ();
+				$removed = 0;
+            while ($count <= $#special_folders) {
+               if ($count != $rem_num) {
+                  @new_special_folders = (@new_special_folders, $special_folders[$count]);     
+               }
+					if ($count == $rem_num) {
+						print "Removed: $special_folders[$rem_num]\n";
+						$removed = 1;
+					}
+               $count++;
+            }
+				if ($removed != 1) {
+					print "Error: Can't delete an entry that's not there!\n";
+				}
+            @special_folders = @new_special_folders;
+         }
+      }
+   
+      elsif ($input =~ /^\s*l\s*/i) {
+         $count = 0;
+         print "\n";
+         while ($count < @special_folders) {
+            print "   $count) $WHT" . $special_folders[$count] . "$NRM\n";
+            $count++;
+         }
+      } elsif ($input =~ /^\s*\?\s*/) {
+         print ".-------------------------.\n";
+         print "| + Folder   (add folder) |\n";
+         print "| - N     (remove folder) |\n";
+         print "| l        (list folders) |\n";
+         print "| d                (done) |\n";
+         print "`-------------------------'\n";
+      }
+   
+      else {
+         print "Unrecognized command.\n";
+      }
+   
+      print "\n[folders] command (?=help) > ";
+      $input = <STDIN>;
+      $input =~ s/[\r|\n]//g;
+   }
+	return @special_folders;
 }
