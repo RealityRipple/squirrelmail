@@ -35,7 +35,7 @@ function addPwField($name , $value = null) {
 /**
  * Form checkbox
  */
-function addCheckBox($name, $checked = false, $value='') {
+function addCheckBox($name, $checked = false, $value = null) {
     return addInputField('checkbox', $name, $value,
         ($checked ? ' checked="checked"' : ''));
 }
@@ -43,7 +43,7 @@ function addCheckBox($name, $checked = false, $value='') {
 /**
  * Form radio box
  */
-function addRadioBox($name, $checked = false, $value='') {
+function addRadioBox($name, $checked = false, $value = null) {
     return addInputField('radio', $name, $value, 
         ($checked ? ' checked="checked"' : ''));
 }
