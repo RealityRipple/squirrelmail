@@ -68,6 +68,35 @@
       return $array;
    }
 
+
+   // looks up aliases in the addressbook and expands them to
+   // the RFC 821 valid RCPT address. ie <user@example.com>
+   // Adds @$domain if it wasn't in the address book and if it
+   // doesn't have an @ symbol in it
+   function expandRcptAddrs ($array) {
+      global $domain;
+
+      // don't show errors -- kinda critical that we don't see
+      // them here since the redirect won't work if we do show them
+      $abook = addressbook_init(false);
+      for ($i=0; $i < count($array); $i++) {
+         $result = $abook->lookup($array[$i]);
+         $ret = "";
+         if (isset($result['email'])) {
+            $ret = '<'.$result['email'].'>';
+            $array[$i] = $ret;
+         }
+         else
+         {
+            if (strpos($array[$i], '@') === false)
+               $array[$i] .= '@' . $domain;
+            $array[$i] = '<' . $array[$i] . '>';
+         }
+      }
+      return $array;
+   }
+
+
    // Attach the files that are due to be attached
    function attachFiles ($fp) {
       global $attachments, $attachment_dir;
@@ -369,9 +398,9 @@
          $smtpPort, $data_dir, $color, $use_authenticated_smtp, $identity, 
 	 $key, $onetimepad;
 
-      $to = expandAddrs(parseAddrs($t));
-      $cc = expandAddrs(parseAddrs($c));
-      $bcc = expandAddrs(parseAddrs($b));
+      $to = expandRcptAddrs(parseAddrs($t));
+      $cc = expandRcptAddrs(parseAddrs($c));
+      $bcc = expandRcptAddrs(parseAddrs($b));
       if (isset($identity) && $identity != 'default')
 	 $from_addr = getPref($data_dir, $username, 'email_address' . $identity);
       else
