@@ -27,8 +27,8 @@
       global $forward_id, $imapConnection, $msg, $ent_num, $body_ary, $body,
          $reply_id, $send_to, $send_to_cc, $mailbox;
 
-      $send_to = rfc1522Decode($send_to);
-      $send_to_cc = rfc1522Decode($send_to_cc);
+      $send_to = decodeHeader($send_to);
+      $send_to_cc = decodeHeader($send_to_cc);
 
       if ($forward_id) {
          sqimap_mailbox_select($imapConnection, $mailbox);
@@ -138,9 +138,9 @@
          $passed_body, $color, $use_signature, $signature, $editor_size,
          $attachments, $subject, $newmail;
 
-      $subject = rfc1522Decode($subject);
-      $reply_subj = rfc1522Decode($reply_subj);
-      $forward_subj = rfc1522Decode($forward_subj);
+      $subject = decodeHeader($subject);
+      $reply_subj = decodeHeader($reply_subj);
+      $forward_subj = decodeHeader($forward_subj);
 
       echo "\n<FORM action=\"compose.php\" METHOD=POST\n";
       echo "ENCTYPE=\"multipart/form-data\">\n";

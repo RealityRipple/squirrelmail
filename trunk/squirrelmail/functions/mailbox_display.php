@@ -53,8 +53,8 @@
          $messages[$j]["TIME_STAMP"] = getTimeStamp($tmpdate);
          $messages[$j]["DATE_STRING"] = getDateString($messages[$j]["TIME_STAMP"]);
          $messages[$j]["ID"] = $j+1;
-         $messages[$j]["FROM"] = rfc1522Decode($from[$j]);
-         $messages[$j]["SUBJECT"] = rfc1522Decode($subject[$j]);
+         $messages[$j]["FROM"] = decodeHeader($from[$j]);
+         $messages[$j]["SUBJECT"] = decodeHeader($subject[$j]);
          $messages[$j]["FLAG_DELETED"] = false;
          $messages[$j]["FLAG_ANSWERED"] = false;
          $messages[$j]["FLAG_SEEN"] = false;
