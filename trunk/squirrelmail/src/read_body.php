@@ -20,36 +20,36 @@ require_once('../functions/url_parser.php');
 require_once('../functions/smtp.php');
 
 /**
-* Given an IMAP message id number, this will look it up in the cached
-* and sorted msgs array and return the index. Used for finding the next
-* and previous messages.
-*
-* returns the index of the next valid message from the array
-*/
+ * Given an IMAP message id number, this will look it up in the cached
+ * and sorted msgs array and return the index. Used for finding the next
+ * and previous messages.
+ *
+ * @return the index of the next valid message from the array
+ */
 function findNextMessage() {
     global $msort, $currentArrayIndex, $msgs, $sort, 
            $allow_thread_sort, $allow_server_sort,
            $server_sort_array;
     $result = -1;
-		if ($allow_thread_sort == true || $allow_server_sort == true) {
+    if ($allow_thread_sort == true || $allow_server_sort == true) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
-                if ($key == (count($server_sort_array) -1)) {
+                if ($key == (count($server_sort_array) - 1)) {
                     $result = -1;
                     break;
                 }
-                $result = $server_sort_array[$key +1];
+                $result = $server_sort_array[$key + 1];
                 break; 
             }
         }
-    }
-    
-    elseif ($sort == 6 && $allow_server_sort != true && $allow_thread_sort != true) {
+    } 
+    elseif ($sort == 6 && $allow_server_sort != true &&
+            $allow_thread_sort != true) {
         if ($currentArrayIndex != 1) {
             $result = $currentArrayIndex - 1;
         }
-    } 
+    }
     elseif ($allow_server_sort != true && $allow_thread_sort != true) {
         if (!is_array($msort)) {
             return -1;
@@ -58,16 +58,23 @@ function findNextMessage() {
             if ($currentArrayIndex == $msgs[$key]['ID']) {
                 next($msort);
                 $key = key($msort);
-                if (isset($key))
+                if (isset($key)){
                     $result = $msgs[$key]['ID'];
                     break;
+                }
             }
         }
     }
     return ($result);
 }
 
-/** Removes just one address from the list of addresses. */
+/**
+ * Removes just one address from the list of addresses. 
+ * 
+ * @param  &$addr_list  a by-ref array of addresses
+ * @param  $addr        an address to remove
+ * @return              void, since it operates on a by-ref param
+ */
 function RemoveAddress(&$addr_list, $addr) {
     if ($addr != '') {
         foreach (array_keys($addr_list, $addr) as $key_to_delete) {
@@ -82,7 +89,7 @@ function findPreviousMessage() {
            $mailbox, $data_dir, $username, $allow_thread_sort,
            $allow_server_sort, $server_sort_array;
     $result = -1;
-        if ($allow_thread_sort == true || $allow_server_sort == TRUE) {
+    if ($allow_thread_sort == true || $allow_server_sort == TRUE) {
         reset($server_sort_array);
         while(list($key, $value) = each ($server_sort_array)) {
             if ($currentArrayIndex == $value) {
@@ -95,16 +102,17 @@ function findPreviousMessage() {
             }
         }
     }
-    elseif ($sort == 6 && $allow_server_sort != TRUE && $allow_thread_sort != true) {
+    elseif ($sort == 6 && $allow_server_sort != TRUE && 
+            $allow_thread_sort != true) {
         $numMessages = sqimap_get_num_messages($imapConnection, $mailbox);
         if ($currentArrayIndex != $numMessages) {
             $result = $currentArrayIndex + 1;
         }
     } 
     elseif ($allow_thread_sort != true && $allow_server_sort != TRUE) {
-          if (!is_array($msort)) {
+        if (!is_array($msort)) {
             return -1;
-          }
+        }
         for (reset($msort); ($key = key($msort)), (isset($key)); next($msort)) {
             if ($currentArrayIndex == $msgs[$key]['ID']) {
                 prev($msort);
@@ -120,9 +128,9 @@ function findPreviousMessage() {
 }
 
 /**
-* Displays a link to a page where the message is displayed more
-* "printer friendly".
-*/
+ * Displays a link to a page where the message is displayed more
+ * "printer friendly".
+ */
 function printer_friendly_link() {
     global $passed_id, $mailbox, $ent_num, $color,
            $pf_subtle_link,
@@ -133,17 +141,17 @@ function printer_friendly_link() {
     }
 
     $params = '?passed_ent_id=' . $ent_num .
-              '&mailbox=' . urlencode($mailbox) .
-              '&passed_id=' . $passed_id;
+        '&mailbox=' . urlencode($mailbox) .
+        '&passed_id=' . $passed_id;
 
     $print_text = _("View Printable Version");
 
     if (!$pf_subtle_link) {
         /* The link is large, on the bottom of the header panel. */
-        $result =       '<tr bgcolor="' . $color[0] . '">' .
-                        '<td class="medText" align="right" valign="top">' .
-                          '&nbsp;' .
-                        '</td><td class="medText" valign="top" colspan="2">'."\n";
+        $result = '<tr bgcolor="' . $color[0] . '">' .
+            '<td class="medText" align="right" valign="top">' .
+            '&nbsp;' .
+            '</td><td class="medText" valign="top" colspan="2">'."\n";
     } else {
         /* The link is subtle, below "view full header". */
         $result = "<BR>\n";
@@ -235,7 +243,8 @@ function SendMDN ( $recipient , $sender) {
     $MDN_to = trim($recipient);
     $reply_id = 0;
 
-    return (SendMessage($MDN_to,'','', _("Read:") . ' ' . $subject, $body,$reply_id, True, 3, -1) );
+    return (SendMessage($MDN_to, '', '', _("Read:") . ' ' . $subject, 
+                        $body, $reply_id, True, 3, -1) );
 }
 
 
@@ -269,73 +278,87 @@ function ClearAttachments() {
 }
 
 function formatRecipientString($recipients, $item ) {
-    global $base_uri, $passed_id, $urlMailbox, $startMessage, $show_more_cc, $echo_more, $echo_less, $show_more, $show_more_bcc, $sort;
+    global $base_uri, $passed_id, $urlMailbox, $startMessage, $show_more_cc, 
+           $echo_more, $echo_less, $show_more, $show_more_bcc, $sort;
 
     $i = 0;
     $url_string = '';
     
     if (isset ($recipients[0]) && trim($recipients[0])) {
-	$string = '';
+        $string = '';
         $ary = $recipients;
 
-	switch ($item) {
+        switch ($item) {
 	    case 'to':
-		$show = "&amp;show_more=1&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=$show_more_bcc";
-		$show_n = "&amp;show_more=0&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=$show_more_bcc";
-		break;
+            $show = "&amp;show_more=1&amp;show_more_cc=$show_more_cc&amp;".
+                "show_more_bcc=$show_more_bcc";
+            $show_n = "&amp;show_more=0&amp;show_more_cc=$show_more_cc&amp;". 
+                "show_more_bcc=$show_more_bcc";
+            break;
 	    case 'cc':
-		$show = "&amp;show_more=$show_more&amp;show_more_cc=1&amp;show_more_bcc=$show_more_bcc";
-		$show_n = "&amp;show_more=$show_more&amp;show_more_cc=0&amp;show_more_bcc=$show_more_bcc";
-		$show_more = $show_more_cc;
-		break;
+            $show = "&amp;show_more=$show_more&amp;show_more_cc=1&amp;".
+                "show_more_bcc=$show_more_bcc";
+            $show_n = "&amp;show_more=$show_more&amp;show_more_cc=0&amp;".
+                "show_more_bcc=$show_more_bcc";
+            $show_more = $show_more_cc;
+            break;
 	    case 'bcc':
-		$show = "&amp;show_more=$show_more&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=1";
-		$show_n = "&amp;show_more=$show_more&amp;show_more_cc=$show_more_cc&amp;show_more_bcc=0";
-		$show_more = $show_more_bcc;
-		break;
+            $show = "&amp;show_more=$show_more&amp;show_more_cc=$show_more_cc".
+                "&amp;show_more_bcc=1";
+            $show_n = "&amp;show_more=$show_more&amp;show_more_cc=".
+                "$show_more_cc&amp;show_more_bcc=0";
+            $show_more = $show_more_bcc;
+            break;
 	    default:
-		$break;
-	}
-
-	while ($i < count($ary)) {
-    	    $ary[$i] = htmlspecialchars(decodeHeader($ary[$i]));
+            $break;
+        }
+        
+        while ($i < count($ary)) {
+    	    $ary[$i] = decodeHeader(htmlspecialchars($ary[$i]));
     	    $url_string .= $ary[$i];
     	    if ($string) {
-        	$string = "$string<BR>$ary[$i]";
+                $string = "$string<BR>$ary[$i]";
     	    } else {
-        	$string = "$ary[$i]";
+                $string = "$ary[$i]";
     	    }
 
     	    $i++;
     	    if (count($ary) > 1) {
-        	if ($show_more == false) {
+                if ($show_more == false) {
             	    if ($i == 1) {
-                	/* From a search... */
-                	$string .= '&nbsp;(<A HREF="' . $base_uri .
-                                   "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
-                	if (isset($where) && isset($what)) {
-                    	    $string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."$show\">$echo_more</A>)";
-                	} else {
-                    	    $string .= "sort=$sort&amp;startMessage=$startMessage"."$show\">$echo_more</A>)";
-                	}
-                	$i = count($ary);
+                        /* From a search... */
+                        $string .= '&nbsp;(<A HREF="' . $base_uri .
+                            "src/read_body.php?mailbox=$urlMailbox&amp;".
+                            "passed_id=$passed_id&amp;";
+                        if (isset($where) && isset($what)) {
+                    	    $string .= 'what=' . urlencode($what).
+                                "&amp;where=".urlencode($where).
+                                "$show\">$echo_more</A>)";
+                        } else {
+                    	    $string .= "sort=$sort&amp;startMessage=".
+                                "$startMessage"."$show\">$echo_more</A>)";
+                        }
+                        $i = count($ary);
             	    }
-        	} else if ($i == 1) {
+                } else if ($i == 1) {
             	    /* From a search... */
             	    $string .= '&nbsp;(<A HREF="' . $base_uri .
-                               "src/read_body.php?mailbox=$urlMailbox&amp;passed_id=$passed_id&amp;";
+                        "src/read_body.php?mailbox=$urlMailbox&amp;".
+                        "passed_id=$passed_id&amp;";
             	    if (isset($where) && isset($what)) {
-                	$string .= 'what=' . urlencode($what)."&amp;where=".urlencode($where)."$show_n\">$echo_less</A>)";
+                        $string .= 'what=' . urlencode($what).
+                            "&amp;where=".urlencode($where).
+                            "$show_n\">$echo_less</A>)";
             	    } else {
-                	$string .= "sort=$sort&amp;startMessage=$startMessage"."$show_n\">$echo_less</A>)";
+                        $string .= "sort=$sort&amp;startMessage=$startMessage".
+                            "$show_n\">$echo_less</A>)";
             	    }
-        	}
+                }
     	    }
-
-	}
+        }
     }
     else {
-	$string = '';
+        $string = '';
     }
     $url_string = urlencode($url_string);
     $result = array();
@@ -356,10 +379,11 @@ function formatRecipientString($recipients, $item ) {
     $passed_id
 */
 
-if ( isset( $mailbox ) ) {
+if (isset($mailbox)){
     $mailbox = urldecode( $mailbox );
 }
-$imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
+$imapConnection = sqimap_login($username, $key, $imapServerAddress, 
+                               $imapPort, 0);
 $read = sqimap_mailbox_select($imapConnection, $mailbox, false, false, true);
 
 do_hook('html_top');
@@ -367,9 +391,10 @@ do_hook('html_top');
 /*
  * The following code sets necesarry stuff for the MDN thing
  */
-if( $default_use_mdn &&
-    ( $mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', $default_use_mdn) ) ) {
-
+if($default_use_mdn &&
+   ($mdn_user_support = getPref($data_dir, $username, 'mdn_user_support', 
+                                $default_use_mdn))) {
+    
     $supportMDN = ServerMDNSupport($read["PERMANENTFLAGS"]);
     $flags = sqimap_get_flags ($imapConnection, $passed_id);
     $FirstTimeSee = !(in_array( 'Seen', $flags ));
@@ -382,22 +407,29 @@ displayPageHeader($color, $mailbox);
  * The following code shows the header of the message and then exit
  */
 if (isset($view_hdr)) {
-    $read = sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[HEADER]", true, $a, $b);
-
+    $read=sqimap_run_command ($imapConnection, "FETCH $passed_id BODY[HEADER]", 
+                              true, $a, $b);
+    
     echo '<BR>' .
-        '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0" ALIGN="CENTER">' . "\n" .
-        "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>" . _("Viewing Full Header") . '</B> - '.
-        '<a href="' . $base_uri . "src/read_body.php?mailbox=".urlencode($mailbox);
+        '<TABLE WIDTH="100%" CELLPADDING="2" CELLSPACING="0" BORDER="0"'.
+        ' ALIGN="CENTER">' . "\n" .
+        "   <TR><TD BGCOLOR=\"$color[9]\" WIDTH=\"100%\" ALIGN=\"CENTER\"><B>".
+        _("Viewing Full Header") . '</B> - '.
+        '<a href="' . $base_uri . 'src/read_body.php?mailbox='.
+        urlencode($mailbox);
     if (isset($where) && isset($what)) {
         // Got here from a search
-        echo "&amp;passed_id=$passed_id&amp;where=".urlencode($where)."&amp;what=".urlencode($what).'">';
+        echo "&amp;passed_id=$passed_id&amp;where=".urlencode($where).
+            "&amp;what=".urlencode($what).'">';
     } else {
-        echo "&amp;passed_id=$passed_id&amp;startMessage=$startMessage&amp;show_more=$show_more\">";
+        echo "&amp;passed_id=$passed_id&amp;startMessage=$startMessage".
+            "&amp;show_more=$show_more\">";
     }
-    echo _("View message") . "</a></b></td></tr></table>\n" .
-         "<table width=\"99%\" cellpadding=2 cellspacing=0 border=0 align=center>\n" .
-         '<tr><td>';
-
+    echo _("View message") . "</a></b></td></tr></table>\n".
+        "<table width='99%' cellpadding='2' cellspacing='0' border='0'".
+        "align=center>\n".
+        '<tr><td>';
+    
     $cnum = 0;
     for ($i=1; $i < count($read); $i++) {
         $line = htmlspecialchars($read[$i]);
@@ -435,7 +467,7 @@ if (isset($view_hdr)) {
         }
     }
     echo "</td></tr></table>\n" .
-         '</body></html>';
+        '</body></html>';
     sqimap_logout($imapConnection);
     exit;
 }
@@ -452,8 +484,10 @@ for ($i = 0; $i < count($msgs); $i++) {
     }
 }
 
-// $message contains all information about the message
-// including header and body
+/**
+ * $message contains all information about the message
+ * including header and body
+ */
 $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
 
 /** translate the subject and mailbox into url-able text **/
@@ -464,30 +498,40 @@ if (isset($message->header->replyto)) {
     $url_replyto = urlencode($message->header->replyto);
 }
 
-$url_replytoall   = $url_replyto;
+$url_replytoall = $url_replyto;
 
-// If we are replying to all, then find all other addresses and
-// add them to the list.  Remove duplicates.
-// This is somewhat messy, so I'll explain:
-// 1) Take all addresses (from, to, cc) (avoid nasty join errors here)
+/**
+ * If we are replying to all, then find all other addresses and
+ * add them to the list.  Remove duplicates.
+ * This is somewhat messy, so I'll explain:
+ * 1) Take all addresses (from, to, cc) (avoid nasty join errors here)
+ */
 $url_replytoall_extra_addrs = array_merge(
-    array($message->header->from),
-    $message->header->to,
-    $message->header->cc
-);
+                                          array($message->header->from),
+                                          $message->header->to,
+                                          $message->header->cc
+                                          );
 
-// 2) Make one big string out of them
+/**
+ * 2) Make one big string out of them
+ */
 $url_replytoall_extra_addrs = join(';', $url_replytoall_extra_addrs);
 
-// 3) Parse that into an array of addresses
+/**
+ * 3) Parse that into an array of addresses
+ */
 $url_replytoall_extra_addrs = parseAddrs($url_replytoall_extra_addrs);
 
-// 4) Make them unique -- weed out duplicates
-// (Coded for PHP 4.0.0)
+/**
+ * 4) Make them unique -- weed out duplicates
+ * (Coded for PHP 4.0.0)
+ */
 $url_replytoall_extra_addrs =
     array_keys(array_flip($url_replytoall_extra_addrs));
 
-// 5) Remove the addresses we'll be sending the message 'to'
+/**
+ * 5) Remove the addresses we'll be sending the message 'to'
+ */
 $url_replytoall_avoid_addrs = '';
 if (isset($message->header->replyto)) {
     $url_replytoall_avoid_addrs = $message->header->replyto;
@@ -498,29 +542,38 @@ foreach ($url_replytoall_avoid_addrs as $addr) {
     RemoveAddress($url_replytoall_extra_addrs, $addr);
 }
 
-// 6) Remove our identities from the CC list (they still can be in the
-// TO list) only if $include_self_reply_all is turned off
+/**
+ * 6) Remove our identities from the CC list (they still can be in the
+ * TO list) only if $include_self_reply_all is turned off
+ */
 if (!$include_self_reply_all) {
     RemoveAddress($url_replytoall_extra_addrs,
-                getPref($data_dir, $username, 'email_address'));
+                  getPref($data_dir, $username, 'email_address'));
     $idents = getPref($data_dir, $username, 'identities');
     if ($idents != '' && $idents > 1) {
         for ($i = 1; $i < $idents; $i ++) {
-            $cur_email_address = getPref($data_dir, $username, 'email_address' . $i);
+            $cur_email_address = getPref($data_dir, $username, 
+                                         'email_address' . $i);
             RemoveAddress($url_replytoall_extra_addrs, $cur_email_address);
         }
     }
 }
 
-// 7) Smoosh back into one nice line
+/**
+ * 7) Smoosh back into one nice line
+ */
 $url_replytoallcc = getLineOfAddrs($url_replytoall_extra_addrs);
 
-// 8) urlencode() it
+/**
+ * 8) urlencode() it
+ */
 $url_replytoallcc = urlencode($url_replytoallcc);
 
 $dateString = getLongDateString($message->header->date);
 
-// What do we reply to -- text only, if possible
+/**
+ * What do we reply to -- text only, if possible
+ */
 $ent_num = findDisplayEntity($message);
 
 /** TEXT STRINGS DEFINITIONS **/
@@ -586,8 +639,13 @@ $identity = '';
 $idents = getPref($data_dir, $username, 'identities');
 if (!empty($idents) && $idents > 1) {
     for ($i = 1; $i < $idents; $i++) {
-        if (htmlspecialchars('"' . encodeHeader(getPref($data_dir, $username, 'full_name' . $i)) .
-            '" <' . getPref($data_dir, $username, 'email_address' . $i) . '>') == $from_name) {
+        $enc_from_name = '"'. 
+            encodeHeader(getPref($data_dir, 
+                                 $username, 
+                                 'full_name' . $i)) .
+            '" <' . getPref($data_dir, $username, 
+                            'email_address' . $i) . '>';
+        if (htmlspecialchars($enc_from_name) == $from_name) {
             $identity = $i;
             break;
         }
