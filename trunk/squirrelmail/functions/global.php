@@ -227,7 +227,6 @@ function sqgetGlobalVar($name, &$value, $search = SQ_INORDER) {
         }
         break;
       case SQ_SERVER:
-print "SQ_SERVER CASE<br />\n";
         if ( isset($_SERVER[$name]) ) {
             $value = $_SERVER[$name];
             return TRUE;
