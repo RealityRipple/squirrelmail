@@ -14,6 +14,7 @@ session_start();
 require_once('../functions/i18n.php');
 require_once('../functions/auth.php');
 require_once('../functions/strings.php');
+require_once('../functions/prefs.php');
 
 is_logged_in();
 
