@@ -480,7 +480,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
     $topbar_delimiter = '&nbsp;|&nbsp;';
     $urlMailbox = urlencode($mailbox);
     $s = '<table width="100%" cellpadding="3" cellspacing="0" align="center"'.
-         ' border="0" bgcolor="'.$color[9].'"><tr><td align="left" width="33%"><small>';
+         ' border="0" bgcolor="'.$color[9].'"><tr>' .
+         html_tag( 'td', '', 'left', '', 'width="33%"' ) . '<small>';
 
     $msgs_url = $base_uri . 'src/';
     if (isset($where) && isset($what)) {
@@ -592,7 +593,8 @@ function formatMenubar($mailbox, $passed_id, $passed_ent_id, $message, $mbx_resp
         $s .= $topbar_delimiter . $next_link;
     }
 
-    $s .= '</small></td>' . "\n" . '<td align="right" width="33%" nowrap><small>';
+    $s .= '</small></td>' . "\n" . 
+          html_tag( 'td', '', 'right', '', 'width="33%" nowrap' ) . '<small>';
     $comp_action_uri = $comp_uri . '&amp;action=forward';
     $s .= $link_open . $comp_action_uri . $link_close . _("Forward") . '</a>';
 
@@ -622,8 +624,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     $url = $base_uri.'src/view_header.php?'.$_SERVER['QUERY_STRING'];
 
     $s  = "<TR>\n" .
-          '<TD VALIGN="MIDDLE" ALIGN="RIGHT" WIDTH="20%"><B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
-          '<TD VALIGN="MIDDLE" ALIGN="LEFT" WIDTH="80%"><SMALL>' .
+          html_tag( 'td', '', 'right', '', 'VALIGN="MIDDLE" WIDTH="20%"' ) . '<B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
+          html_tag( 'td', '', 'left', '', 'VALIGN="MIDDLE" WIDTH="80%"' ) . '<SMALL>' .
           '<a href="'.$url.'">'._("View Full Header").'</a>';
 
     /* Output the printer friendly link if we are in subtle mode. */
@@ -830,7 +832,8 @@ echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center" bor
 echo '      <tr><td>';
 echo '        <table width="100%" cellpadding="3" cellspacing="0" align="center" border="0">';
 echo '          <tr bgcolor="'.$color[4].'"><td>';
-echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
+// echo '            <table cellpadding="1" cellspacing="5" align="left" border="0">';
+echo html_tag( 'table' ,'' , 'left', '', 'cellpadding="1" cellspacing="5" border="0"' );
 echo '              <tr>' . html_tag( 'td', '<br>'. $messagebody."\n", 'left')
                         . '</tr>';
 echo '            </table>';
@@ -848,7 +851,8 @@ if ($attachmentsdisplay) {
    echo '    <table width="100%" cellpadding="1" cellspacing="0" align="center"'.' border="0" bgcolor="'.$color[9].'">';
    echo '     <tr><td>';
    echo '       <table width="100%" cellpadding="0" cellspacing="0" align="center" border="0" bgcolor="'.$color[4].'">';
-   echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
+ //  echo '        <tr><td ALIGN="left" bgcolor="'.$color[9].'">';
+   echo '        <tr>' . html_tag( 'td', '', 'left', $color[9] );              
    echo '           <b>' . _("Attachments") . ':</b>';
    echo '        </td></tr>';
    echo '        <tr><td>';

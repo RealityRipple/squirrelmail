@@ -867,7 +867,7 @@ function showInputForm ($session, $values=false) {
     echo '<TABLE ALIGN=center CELLSPACING=0 BORDER=0>' . "\n";
     if ($compose_new_win == '1') {
         echo '<TABLE ALIGN=CENTER BGCOLOR="'.$color[0].'" WIDTH="100%" BORDER=0>'."\n" .
-             '   <TR><TD></TD><TD ALIGN="RIGHT"><INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
+             '   <TR><TD></TD>'. html_tag( 'td', '', 'right' ) . '<INPUT TYPE="BUTTON" NAME="Close" onClick="return self.close()" VALUE='._("Close").'></TD></TR>'."\n";
     }
     if ($location_of_buttons == 'top') {
         showComposeButtonRow();
@@ -876,9 +876,9 @@ function showInputForm ($session, $values=false) {
     $idents = getPref($data_dir, $username, 'identities', 0);
     if ($idents > 1) {
         echo '   <TR>' . "\n" .
-             '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
+                    html_tag( 'td', '', 'right', $color[4], 'WIDTH="10%"' ) .
                     _("From:") . '</TD>' . "\n" .
-             '      <TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
+                    html_tag( 'td', '', 'left', $color[4], 'WIDTH="90%"' ) .
              '         <select name=identity>' . "\n" .
              '         <option value=default>' .
                        htmlspecialchars(getPref($data_dir, $username, 'full_name'));
@@ -904,33 +904,33 @@ function showInputForm ($session, $values=false) {
              '   </TR>' . "\n";
     }
     echo '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" WIDTH="10%" ALIGN=RIGHT>' .
+                html_tag( 'td', '', 'right', $color[4], 'WIDTH="10%"' ) .
                 _("To:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" WIDTH="90%">' . "\n" .
+                html_tag( 'td', '', 'left', $color[4], 'WIDTH="90%"' ) .
          '         <INPUT TYPE=text NAME="send_to" VALUE="' .
                    htmlspecialchars($send_to) . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+                html_tag( 'td', '', 'right', $color[4] ) .
                 _("CC:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
+                html_tag( 'td', '', 'left', $color[4] ) .
          '         <INPUT TYPE=text NAME="send_to_cc" SIZE=60 VALUE="' .
                    htmlspecialchars($send_to_cc) . '"><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+                html_tag( 'td', '', 'right', $color[4] ) .
                 _("BCC:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n" .
+                html_tag( 'td', '', 'left', $color[4] ) .
          '         <INPUT TYPE=text NAME="send_to_bcc" VALUE="' .
                 htmlspecialchars($send_to_bcc) . '" SIZE=60><BR>' . "\n" .
          '      </TD>' . "\n" .
          '   </TR>' . "\n" .
          '   <TR>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=RIGHT>' .
+                html_tag( 'td', '', 'right', $color[4] ) .
                 _("Subject:") . '</TD>' . "\n" .
-         '      <TD BGCOLOR="' . $color[4] . '" ALIGN=LEFT>' . "\n";
+                html_tag( 'td', '', 'left', $color[4] ) . "\n";
     echo '         <INPUT TYPE=text NAME=subject SIZE=60 VALUE="' .
                    htmlspecialchars($subject) . '">' . "\n" .
          '      </TD>' . "\n" .
@@ -990,7 +990,7 @@ function showInputForm ($session, $values=false) {
         showComposeButtonRow();
     } else {
         echo '   <TR>' . "\n" .
-             '      <TD COLSPAN=2 ALIGN=RIGHT>' . "\n" .
+                    html_tag( 'td', '', 'right', '', 'COLSPAN=2' ) . "\n" .
              '         <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '">' . "\n" .
              '         &nbsp;&nbsp;&nbsp;&nbsp;<BR><BR>' . "\n" .
              '      </TD>' . "\n" .
@@ -1008,9 +1008,9 @@ function showInputForm ($session, $values=false) {
          '                 <table width="100%" cellpadding="3" cellspacing="0" align="center"'.
                            ' border="0">' . "\n" .
          '                    <TR>' . "\n" .
-         '                       <TD VALIGN=MIDDLE ALIGN=RIGHT>' .
+                                 html_tag( 'td', '', 'right', '', 'VALIGN=MIDDLE' ) .
                                  _("Attach:") . '</TD>' . "\n" .
-         '                       <TD VALIGN=MIDDLE ALIGN=LEFT>' . "\n" .
+                                 html_tag( 'td', '', 'left', '', 'VALIGN=MIDDLE' ) .
          '                          <INPUT NAME="attachfile" SIZE=48 TYPE="file">' . "\n" .
          '                          &nbsp;&nbsp;<input type="submit" name="attach"' .
                                     ' value="' . _("Add") .'">' . "\n" .
@@ -1026,16 +1026,18 @@ function showInputForm ($session, $values=false) {
 		$attached_filename = decodeHeader($attachment->mime_header->getParameter('name'));
 		$type = $attachment->mime_header->type0.'/'.
 		        $attachment->mime_header->type1;
-        	$s_a[] = '<input type="checkbox" name="delete[]" value="' . 
-		         $key . "\">\n" . $attached_filename . ' - ' . $type . 
-		         ' ('.show_readable_size( filesize( $attached_file ) ) 
-		         . ')<br>'."\n";
+                
+                $s_a[] = '<table bgcolor="'.$color[0].'" border="0"><tr><td><input type="checkbox" name="delete[]" value
+="' .
+                         $key . "\"></td><td>\n" . $attached_filename . '</td><td>-</
+td><td> ' . $type . '</td><td>('.show_readable_size( filesize( $attached_file ) ) . '
+)</td></tr></table>'."\n";
            }
         }
     }
     if (count($s_a)) {
        foreach ($s_a as $s) {
-          echo '<tr><td align=left colspan="2" bgcolor="' . $color[0] . '">'.$s.'</td></tr>';
+          echo '<tr>' . html_tag( 'td', '', 'left', $color[0], 'colspan="2"' ) . $s .'</td></tr>';
        }         
        echo '<tr><td colspan="2"><input type="submit" name="do_delete" value="' .
             _("Delete selected attachments") . "\">\n" .
