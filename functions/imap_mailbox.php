@@ -616,15 +616,10 @@ function sqimap_mailbox_list($imap_stream) {
  */
 function sqimap_mailbox_list_all($imap_stream) {
     global $list_special_folders_first, $folder_prefix, $delimiter;
-
-    $ssid = sqimap_session_id();
-    $lsid = strlen( $ssid );
-    fputs ($imap_stream, $ssid . " LIST \"$folder_prefix\" *\r\n");
-    $read_ary = sqimap_read_data ($imap_stream, $ssid, true, $response, $message);
+    $read_ary = sqimap_run_command($imap_stream,"LIST \"$folder_prefix\" *",true,$response, $message,false); 
     $g = 0;
     $phase = 'inbox';
     $fld_pre_length = strlen($folder_prefix);
-
     for ($i = 0, $cnt = count($read_ary); $i < $cnt; $i++) {
         /* Another workaround for EIMS */
         if (isset($read_ary[$i + 1]) &&
@@ -633,65 +628,52 @@ function sqimap_mailbox_list_all($imap_stream) {
             $i ++;
             $read_ary[$i] = $regs[1] . '"' . addslashes(trim($read_ary[$i])) . '"' . $regs[2];
         }
-        if (substr($read_ary[$i], 0, $lsid) != $ssid ) {
-            /* Store the raw IMAP reply */
-            $boxes[$g]['raw'] = $read_ary[$i];
+        /* Store the raw IMAP reply */
+        $boxes[$g]['raw'] = $read_ary[$i];
 
-            /* Count number of delimiters ($delimiter) in folder name */
-            $mailbox = find_mailbox_name($read_ary[$i]);
-            $dm_count =  substr_count($mailbox, $delimiter);
-            if (substr($mailbox, -1) == $delimiter) {
-                /* If name ends in delimiter - decrement count by one */
-                $dm_count--;
-            }
+        /* Count number of delimiters ($delimiter) in folder name */
+        $mailbox = find_mailbox_name($read_ary[$i]);
+        $dm_count =  substr_count($mailbox, $delimiter);
+        if (substr($mailbox, -1) == $delimiter) {
+            /* If name ends in delimiter - decrement count by one */
+            $dm_count--;
+        }
 
-            /* Format folder name, but only if it's a INBOX.* or has a parent. */
-            $boxesallbyname[$mailbox] = $g;
-            $parentfolder = readMailboxParent($mailbox, $delimiter);
-            if((eregi('^inbox'.quotemeta($delimiter), $mailbox)) ||
-               (ereg('^'.$folder_prefix, $mailbox)) ||
-               ( isset($boxesallbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
-                if ($dm_count) {
-                    $boxes[$g]['formatted']  = str_repeat('&nbsp;&nbsp;', $dm_count);
-                } else {
-                    $boxes[$g]['formatted'] = '';
-                }
-                $boxes[$g]['formatted'] .= imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
+        /* Format folder name, but only if it's a INBOX.* or has a parent. */
+        $boxesallbyname[$mailbox] = $g;
+        $parentfolder = readMailboxParent($mailbox, $delimiter);
+        if((eregi('^inbox'.quotemeta($delimiter), $mailbox)) ||
+           (ereg('^'.$folder_prefix, $mailbox)) ||
+           ( isset($boxesallbyname[$parentfolder]) && (strlen($parentfolder) > 0) ) ) {
+            if ($dm_count) {
+                $boxes[$g]['formatted']  = str_repeat('&nbsp;&nbsp;', $dm_count);
             } else {
-                $boxes[$g]['formatted']  = imap_utf7_decode_local($mailbox);
+                $boxes[$g]['formatted'] = '';
             }
+            $boxes[$g]['formatted'] .= imap_utf7_decode_local(readShortMailboxName($mailbox, $delimiter));
+        } else {
+            $boxes[$g]['formatted']  = imap_utf7_decode_local($mailbox);
+        }
 
-            $boxes[$g]['unformatted-dm'] = $mailbox;
-            if (substr($mailbox, -1) == $delimiter) {
-                $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
-            }
-            $boxes[$g]['unformatted'] = $mailbox;
-            $boxes[$g]['unformatted-disp'] = substr($mailbox,$fld_pre_length);
+        $boxes[$g]['unformatted-dm'] = $mailbox;
+        if (substr($mailbox, -1) == $delimiter) {
+            $mailbox = substr($mailbox, 0, strlen($mailbox) - 1);
+        }
+        $boxes[$g]['unformatted'] = $mailbox;
+        $boxes[$g]['unformatted-disp'] = substr($mailbox,$fld_pre_length);
 
-            $boxes[$g]['id'] = $g;
+        $boxes[$g]['id'] = $g;
 
-            /* Now lets get the flags for this mailbox */
-            $read_mlbx = $read_ary[$i];
-
-//            $read_mlbx = sqimap_run_command ($imap_stream, "LIST \"\" \"$mailbox\"",
-//                                             true, $response, $message);
-
-            /* Another workaround for EIMS */
-//            if (isset($read_mlbx[1]) &&
-//                ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$", $read_mlbx[0], $regs)) {
-//                $read_mlbx[0] = $regs[1] . '"' . addslashes(trim($read_mlbx[1])) . '"' . $regs[2];
-//            }
-//            echo  $read_mlbx[0] .' raw 2 <br>';
-
-            $flags = substr($read_mlbx, strpos($read_mlbx, '(')+1);
-            $flags = substr($flags, 0, strpos($flags, ')'));
-            $flags = str_replace('\\', '', $flags);
-            $flags = trim(strtolower($flags));
-            if ($flags) {
-                $boxes[$g]['flags'] = explode(' ', $flags);
-            } else {
-                $boxes[$g]['flags'] = array();
-            }
+        /* Now lets get the flags for this mailbox */
+        $read_mlbx = $read_ary[$i];
+        $flags = substr($read_mlbx, strpos($read_mlbx, '(')+1);
+        $flags = substr($flags, 0, strpos($flags, ')'));
+        $flags = str_replace('\\', '', $flags);
+        $flags = trim(strtolower($flags));
+        if ($flags) {
+            $boxes[$g]['flags'] = explode(' ', $flags);
+        } else {
+            $boxes[$g]['flags'] = array();
         }
         $g++;
     }
