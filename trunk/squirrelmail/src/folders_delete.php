@@ -27,6 +27,8 @@
    $imap_stream = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
    $boxes = sqimap_mailbox_list ($imap_stream);
    $dm = sqimap_get_delimiter($imap_stream);
+   $mailbox = stripslashes($mailbox);
+   
    if (substr($mailbox, -1) == $dm)
       $mailbox_no_dm = substr($mailbox, 0, strlen($mailbox) - 1); 
    else
