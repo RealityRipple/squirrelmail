@@ -114,9 +114,9 @@ Version 1.5.1 -- CVS
     See plugins/fortune/INSTALL.
   - Fix for #906217 when checking spelling of inline replies, the corrected
     words would appear through original email.
-  - Fixed empty information menu when viewing vcards without information
+  - Fixed empty information menu when viewing vCards without information
     but name and e-mail address.
-  - User may now add an e-mail address when adding vcards without one to the
+  - User may now add an e-mail address when adding vCards without one to the
     address book. No need to wait for the error message anymore.
   - Removed japanese_xtra function used by older XTRA_CODE calls. Plugins
     should use separate xtra_code functions. Older function does not provide

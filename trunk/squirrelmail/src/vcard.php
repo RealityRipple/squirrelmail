@@ -21,6 +21,7 @@ Define('SM_PATH','../');
 /* SquirrelMail required files. */
 require_once(SM_PATH . 'include/validate.php');
 require_once(SM_PATH . 'functions/mime.php');
+require_once(SM_PATH . 'functions/url_parser.php');
 
 /* globals */
 sqgetGlobalVar('username', $username, SQ_SESSION);
@@ -153,19 +154,22 @@ echo addInput('addaddr[nickname]', $vcard_safe['firstname'] .
         '-' . $vcard_safe['lastname'], '20');
 
 /*
- * If the vcard comes with an e-mail address it should be added to the
+ * If the vCard comes with an e-mail address it should be added to the
  * address book, otherwise the user must add one manually to avoid an
- * error message in src/addressbook.php.
- *
- * TODO: If there's no e-mail address in the vcard, use the sender's address
- * instead of letting the user entering it manually.
+ * error message in src/addressbook.php. SquirrelMail is nice enough to
+ * suggest the e-mail address of the sender though.
  */
 if (isset($vcard_nice['email;internet'])) {
     echo addHidden('addaddr[email]', $vcard_nice['email;internet']);
 } else {
+    $message = sqimap_get_message($imapConnection, $passed_id, $mailbox);
+    $header = $message->rfc822_header;
+    $from_name = $header->getAddr_s('from');
+
     echo '</td></tr>' .
          '<tr><td align="right"><b>' . _("E-mail address") . ':</b></td><td>' .
-         addInput('addaddr[email]', '', '20');
+         addInput('addaddr[email]',
+                 getEmail(decodeHeader($from_name)), '20');
 }
 
 echo '</td></tr>' .
