@@ -40,7 +40,13 @@ function cachePrefValues($data_dir, $username) {
         exit;
     }
 
-    $file = fopen($filename, 'r');
+    /* Open the file, or else display an error to the user. */
+    if(!$file = @fopen($filename, 'r'))
+    {
+        include_once( '../functions/display_messages.php' );
+        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
+        exit;
+    }
 
     /* Read in the preferences. */
     $highlight_num = 0;
@@ -94,7 +100,14 @@ function savePrefValues($data_dir, $username) {
    
     $filename = getHashedFile($username, $data_dir, "$username.pref");
 
-    $file = fopen($filename, 'w');
+    /* Open the file for writing, or else display an error to the user. */
+    if(!$file = @fopen($filename, 'w'))
+    {
+        include_once( '../functions/display_messages.php' );
+        logout_error( sprintf( _("Preference file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
+        exit;
+    }
+
     foreach ($prefs_cache as $Key => $Value) {
         if (isset($Value)) {
             fwrite($file, $Key . '=' . $Value . "\n");
@@ -189,7 +202,13 @@ function checkForPrefs($data_dir, $username, $filename = '') {
  */
 function setSig($data_dir, $username, $number, $value) {
     $filename = getHashedFile($username, $data_dir, "$username.si$number");
-    $file = fopen($filename, 'w');
+    /* Open the file for writing, or else display an error to the user. */
+    if(!$file = @fopen($filename, 'w'))
+    {
+        include_once( '../functions/display_messages.php' );
+        logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
+        exit;
+    }
     fwrite($file, $value);
     fclose($file);
 }
@@ -198,11 +217,16 @@ function setSig($data_dir, $username, $number, $value) {
  * Get the signature.
  */
 function getSig($data_dir, $username, $number) {
-    #$filename = $data_dir . $username . '.si$number';
     $filename = getHashedFile($username, $data_dir, "$username.si$number");
     $sig = '';
     if (file_exists($filename)) {
-        $file = fopen($filename, 'r');
+        /* Open the file, or else display an error to the user. */
+        if(!$file = @fopen($filename, 'r'))
+        {
+            include_once( '../functions/display_messages.php' );
+            logout_error( sprintf( _("Signature file, %s, could not be opened. Contact your system administrator to resolve this issue."), $filename) );
+            exit;
+        }
         while (!feof($file)) {
             $sig .= fgets($file, 1024);
         }
