@@ -75,6 +75,37 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
 }
 
 /**
+ * Checks for spaces in strings - only used if PHP doesn't have native ctype support
+ *
+ * @author Tomas Kuliavas
+ * According to Tomas:
+ * You might be able to rewrite the function by adding short evaluation form
+ * or using preg_match instead of ereg. It is possible that you must use
+ * preg_match for binary safe comparison.
+ *
+ * possible problems:
+ *  - iso-2022-xx charsets  - hex 20 might be part of other symbol. I might
+ * be wrong. 0x20 is not used in iso-2022-jp. I haven't checked iso-2022-kr
+ * and iso-2022-cn mappings.
+ *
+ *  - no-break space (&nbsp;) - it is 8bit symbol, that depends on charset.
+ * there are at least three different charset groups that have nbsp in
+ * different places.
+ *
+ * I don't see any charset/nbsp options in php ctype either.
+ *
+ * @param string $string tested string
+ * @return bool true when space symbols are present in test string
+ */
+function sm_ctype_space($string) {
+   if ( ereg("[\11-\15]", $string) || ereg("[\40]", $string) ) {
+      return true;
+   } else {
+      return false;
+   }
+}
+
+/**
  * Wraps text at $wrap characters.  While sqWordWrap takes
  * a single line of text and wraps it, this function works
  * on the entire corpus at once, this allows it to be a little
@@ -87,6 +118,13 @@ function sqMakeNewLine (&$str, $citeLevel, &$column) {
  * @return string the wrapped text
  */
 function &sqBodyWrap (&$body, $wrap) {
+    //check for ctype support, and fake it if it doesn't exist
+    if (!function_exists('ctype_space')) {
+        function ctype_space ($string) {
+            return sm_ctype_space($string);
+        }
+    }
+
     // the newly wrapped text
     $outString = '';
     // current column since the last newline in the outstring
