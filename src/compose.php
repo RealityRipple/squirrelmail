@@ -285,11 +285,7 @@
           error message, show=true **/
       global $body, $send_to, $subject, $color;
 
-      if ($body == "" && $subject == "") {
-         if ($show)
-            plain_error_message(_("You have not entered a message body or a subject."), $color);
-         return false;
-      } else if ($send_to == "") {
+      if ($send_to == "") {
          if ($show)
             plain_error_message(_("You have not filled in the \"To:\" field."), $color);
          return false;
