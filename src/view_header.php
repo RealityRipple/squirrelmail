@@ -65,8 +65,7 @@ function  parse_viewheader($imapConnection,$id,$template_vars) {
 }
 
 function view_header($template_vars, $pageheader='', $pagefooter='') {
-    
-global $color;
+    global $color;
     
     echo $pageheader;
     echo '<BR>' .
@@ -81,8 +80,7 @@ global $color;
     echo_template_var($template_vars['full_header'], 
          array(
            "<table width='99%' cellpadding='2' cellspacing='0' border='0'".
-             "align=center>\n".
-'<tr><td>',
+             "align=center>\n".'<tr><td>',
            '<nobr><tt><b>',
            '</b>',
            '</tt></nobr>',
