@@ -20,7 +20,7 @@ The trickiest part was finding the correct parent node when creating
 a new node in the tree.  Check the documentation in the code for
 more info on this.
 
-Basically all we had to do as loop through each of the items that
+Basically all we had to do was loop through each of the items that
 need to be in the tree (folders, subfolders), find their parent,
 let their parent know it has a new child, and insert the values
 into the child.

@@ -185,9 +185,9 @@ It is possible to create your own options sections with plugins.  There are
 three hooks you will need to use.
 
 1.  options_link_and_description
-    This creates the link and has a description that are shown on the options
+    This creates the link and has a description that is shown on the options
     page.  This should output HTML that looks like this.  Make sure to read
-    the section on outputting your own pages.
+    the section on outputing your own pages.
 
     -----cut here-----  
       function my_plugin_name_my_function() {
@@ -299,7 +299,7 @@ of your PHP script should look very similar to this:
     
 The validate.php script will include internationalization support,
 config.php variables, strings.php functions, and also authenticate that the
-user is truly logged in.  Validate.php also calls stripslashes() on incoming
+user is truly logged in.  validate.php also calls stripslashes() on incoming
 data (if gpc_magic_quotes() is on).  You should never need to worry about
 that stuff again.  As a warning, this has only really been ironed out in
 1.1.1.  If you create/modify a plugin to follow these rules, you must

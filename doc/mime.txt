@@ -8,7 +8,7 @@ works and how it parses a MIME encoded message.
 
 Object Structure
 ----------------
-There are two objects that are used: "message" and "msg_header".  here is a
+There are two objects that are used: "message" and "msg_header".  Here is a
 brief overview of what each object contains.
 
 msg_header
@@ -43,7 +43,7 @@ Getting the Structure
 ---------------------
 Previously (version 0.4 and below), SquirrelMail handled all the parsing of
 the email message.  It would read the entire message in, search for 
-boundaries, and created an array similar to the $message object discribed
+boundaries, and create an array similar to the $message object described
 above.  This was very inefficient.
 
 Currently, all the parsing of the body of the message takes place on the
@@ -78,7 +78,7 @@ NOTE:  SquirrelMail passes the MIME Torture Test written by Mark
 
 Getting the Body
 ----------------
-Once all of the structure of the message has been read into the $message
+Once all the structure of the message has been read into the $message
 object, we then need to display the body of one entity.  There are a number
 of ways we decide which entity to display at a certain time, and I won't go
 into that here.  

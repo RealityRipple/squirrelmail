@@ -20,9 +20,9 @@ b) Find the language code for the language you are going to translate
    Copy squirrelmail/po/squirrelmail.po into this directory. This is the
    file that is going to be translated.
 
-c) To translate the actual strings fill inn the msgstr after each
+c) To translate the actual strings fill in the msgstr after each
    msgid with the appropiate translation. There are a few tools which
-   kan make this job a bit easier at
+   can make this job a bit easier at
    <URL:http://i18n.kde.org/translation-howto/gui-specialized-apps.html>.
 
    Convert the translated squirrelmail.po into a binary file by
@@ -39,9 +39,9 @@ the Unicode consortium.
 2. Maintaining translations
 ---------------------------
 
-the text strings in the program will change over time. This means that
-strings that are already translated is no longer used and new strings
-are added. Therefore it is neccessary to maintain the translations.
+The text strings in the program will change over time. This means that
+strings that are already translated are no longer used and new strings
+are added. Therefore it is necessary to maintain the translations.
 
 a) There should always be an updated template containing all strings
    in SquirrelMail in squirrelmail/squirrelmail.po. To merge all new

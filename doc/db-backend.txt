@@ -6,11 +6,11 @@ Storing private addressbooks and preferences in a database
 
 
 On sites with many users you might want to store your user data in a
-database instead of in files. This document describe how to configure
+database instead of in files. This document describes how to configure
 SquirrelMail to do this.
 
 Methods for storing both personal addressbooks and user preferences in
-a database is as a part of the distribution.
+a database is included as a part of the distribution.
 
 
 
@@ -41,7 +41,7 @@ For MySQL you would normally do something like:
 The table structure should be similar to this (for MySQL):
 
    CREATE TABLE address (
-     owner varchar(16) DEFAULT '' NOT NULL,
+     owner varchar(128) DEFAULT '' NOT NULL,
      nickname varchar(16) DEFAULT '' NOT NULL,
      firstname varchar(128) DEFAULT '' NOT NULL,
      lastname varchar(128) DEFAULT '' NOT NULL,
@@ -72,9 +72,9 @@ point to a database you create (can be the same you use for
 addressbooks).  Create a table similar to this (for MySQL):
 
   CREATE TABLE userprefs (
-    user varchar(32) DEFAULT '' NOT NULL,
+    user varchar(128) DEFAULT '' NOT NULL,
     prefkey varchar(64) DEFAULT '' NOT NULL,
-    prefval blob DEFAULT '' NOT NULL,
+    prefval BLOB DEFAULT '' NOT NULL,
     PRIMARY KEY (user,prefkey)
   );
 
