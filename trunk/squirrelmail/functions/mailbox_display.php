@@ -585,7 +585,7 @@
                break;
                
             case 4: # subject
-               echo '   <TD WIDTH=%><B>'. _("Subject") ."</B>\n";
+               echo '   <TD><B>'. _("Subject") ."</B>\n";
                if ($sort == 4)
                  echo "   <A HREF=\"right_main.php?newsort=5&startMessage=1&mailbox=$urlMailbox\" TARGET=\"right\"><IMG SRC=\"../images/up_pointer.gif\" BORDER=0></A></TD>\n";
                elseif ($sort == 5)
