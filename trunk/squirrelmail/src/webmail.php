@@ -20,7 +20,7 @@
    session_register("username");
    session_register("key");
    session_register("logged_in");
-   $logged_in = 0;
+   $logged_in = 1;
 
    $PHPSESSID = session_id();
    
