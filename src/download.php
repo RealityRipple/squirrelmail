@@ -279,7 +279,7 @@ sqimap_mailbox_select($imapConnection, $mailbox);
 $extracted = false;
 if (isset($extract_message) && $extract_message) {
   $cmd = "FETCH $passed_id BODY[$passed_ent_id]";
-  $read = sqimap_run_command ($imapConnection, $cmd, $handle_errors, $response, $message);
+  $read = sqimap_run_command ($imapConnection, $cmd, true, $response, $message);
   $cnt = count($read);
   $body = '';
   $length = 0;
