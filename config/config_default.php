@@ -174,8 +174,6 @@
 //     want.  For an example of a theme, see the ones included in the config
 //     directory.
 //
-//     You can download themes from http://squirrelmail.sourceforge.net/index.php3?page=10
-//
 //  To add a new theme to the options that users can choose from, just add
 //  a new number to the array at the bottom, and follow the pattern.
 
@@ -222,17 +220,15 @@
 //    Array of arrays with LDAP server parameters. See
 //    functions/abook_ldap_server.php for a list of possible
 //    parameters
+//
+//    EXAMPLE:
+//
+//    $ldap_server[0] = Array(
+//			"host" => "memberdir.netscape.com",
+//			"name" => "Netcenter Member Directory",
+//			"base" => "ou=member_directory,o=netcenter.com");
 
-    $ldap_server[0] = Array(
-			"host" => "memberdir.netscape.com",
-			"name" => "Netcenter Member Directory",
-			"base" => "ou=member_directory,o=netcenter.com");
 
-    $ldap_server[1] = Array(
-			"host" => "ldap.bigfoot.com",
-			"name" => "Bigfoot Directory",
-			"base" => "",
-			"charset" => "iso8859-1");
 
  // you have an option to chose between javascript or html version of
  // address book searching.  

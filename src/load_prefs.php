@@ -35,7 +35,7 @@
           #
           #  I hard coded the theme as a last resort if no themes were
           #  found.  It makes no sense to cause the whole thing to exit
-          #  just because themes weren't found.  This is the absolute
+          #  just because themes were not found.  This is the absolute
           #  last resort.
           #
           $color[0]   = "#DCDCDC"; // (light gray)     TitleBar

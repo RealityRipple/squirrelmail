@@ -29,12 +29,12 @@
    $imapConnection = sqimap_login($username, $key, $imapServerAddress, $imapPort, 0);
 
    do_hook("search_before_form");
-   echo "<br>
-      <table width=95% align=center cellpadding=2 cellspacing=0 border=0>
-      <tr><td bgcolor=\"$color[0]\">
-          <center><b>"._("Search")."</b></center>
-      </td></tr>
-      <tr><td align=center>";
+   echo "<br>\n";
+   echo "      <table width=95% align=center cellpadding=2 cellspacing=0 border=0>\n";
+   echo "      <tr><td bgcolor=\"$color[0]\">\n";
+   echo "          <center><b>"._("Search")."</b></center>\n";
+   echo "      </td></tr>\n";
+   echo "      <tr><td align=center>";
 
    echo "<FORM ACTION=\"search.php\" NAME=s>\n";
    echo "   <TABLE WIDTH=75%>\n";
