@@ -44,7 +44,7 @@
  * @param string $string Encoded string
  * @return string Decoded string
  */
-function charset_decode_koi8r ($string) {
+function charset_decode_koi8_r ($string) {
     global $default_charset;
 
     if (strtolower($default_charset) == 'koi8-r')

@@ -1,18 +1,18 @@
 <?php
 /**
- * decode/iso8859-2.php
+ * decode/iso8859-4.php
  * $Id$
  *
  * Copyright (c) 2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * This file contains iso-8859-2 decoding function that is needed to read
- * iso-8859-2 encoded mails in non-iso-8859-2 locale.
+ * This file contains iso-8859-4 decoding function that is needed to read
+ * iso-8859-4 encoded mails in non-iso-8859-4 locale.
  * 
  * Original data taken from:
- *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-2.TXT
+ *  ftp://ftp.unicode.org/Public/MAPPINGS/ISO8859/8859-4.TXT
  *
- *   Name:             ISO 8859-2:1999 to Unicode
+ *   Name:             ISO/IEC 8859-4:1998 to Unicode
  *   Unicode version:  3.0
  *   Table version:    1.0
  *   Table format:     Format A
@@ -40,14 +40,14 @@
  */
 
 /**
- * Decode iso8859-2 encoded string
+ * Decode iso8859-4 string
  * @param string $string Encoded string
  * @return string $string Decoded string
  */
-function charset_decode_iso8859_2 ($string) {
+function charset_decode_iso_8859_4 ($string) {
     global $default_charset;
 
-    if (strtolower($default_charset) == 'iso-8859-2')
+    if (strtolower($default_charset) == 'iso-8859-4')
         return $string;
 
     /* Only do the slow convert if there are 8-bit characters */
@@ -55,106 +55,106 @@ function charset_decode_iso8859_2 ($string) {
     if ( ! ereg("[\241-\377]", $string) )
         return $string;
 
-    $iso8859_2 = array(
+    $iso8859_4 = array(
 	"\xA0" => '&#160;',
 	"\xA1" => '&#260;',
-	"\xA2" => '&#728;',
-	"\xA3" => '&#321;',
+	"\xA2" => '&#312;',
+	"\xA3" => '&#342;',
 	"\xA4" => '&#164;',
-	"\xA5" => '&#317;',
-	"\xA6" => '&#346;',
+	"\xA5" => '&#296;',
+	"\xA6" => '&#315;',
 	"\xA7" => '&#167;',
 	"\xA8" => '&#168;',
 	"\xA9" => '&#352;',
-	"\xAA" => '&#350;',
-	"\xAB" => '&#356;',
-	"\xAC" => '&#377;',
+	"\xAA" => '&#274;',
+	"\xAB" => '&#290;',
+	"\xAC" => '&#358;',
 	"\xAD" => '&#173;',
 	"\xAE" => '&#381;',
-	"\xAF" => '&#379;',
+	"\xAF" => '&#175;',
 	"\xB0" => '&#176;',
 	"\xB1" => '&#261;',
 	"\xB2" => '&#731;',
-	"\xB3" => '&#322;',
+	"\xB3" => '&#343;',
 	"\xB4" => '&#180;',
-	"\xB5" => '&#318;',
-	"\xB6" => '&#347;',
+	"\xB5" => '&#297;',
+	"\xB6" => '&#316;',
 	"\xB7" => '&#711;',
 	"\xB8" => '&#184;',
 	"\xB9" => '&#353;',
-	"\xBA" => '&#351;',
-	"\xBB" => '&#357;',
-	"\xBC" => '&#378;',
-	"\xBD" => '&#733;',
+	"\xBA" => '&#275;',
+	"\xBB" => '&#291;',
+	"\xBC" => '&#359;',
+	"\xBD" => '&#330;',
 	"\xBE" => '&#382;',
-	"\xBF" => '&#380;',
-	"\xC0" => '&#340;',
+	"\xBF" => '&#331;',
+	"\xC0" => '&#256;',
 	"\xC1" => '&#193;',
 	"\xC2" => '&#194;',
-	"\xC3" => '&#258;',
+	"\xC3" => '&#195;',
 	"\xC4" => '&#196;',
-	"\xC5" => '&#313;',
-	"\xC6" => '&#262;',
-	"\xC7" => '&#199;',
+	"\xC5" => '&#197;',
+	"\xC6" => '&#198;',
+	"\xC7" => '&#302;',
 	"\xC8" => '&#268;',
 	"\xC9" => '&#201;',
 	"\xCA" => '&#280;',
 	"\xCB" => '&#203;',
-	"\xCC" => '&#282;',
+	"\xCC" => '&#278;',
 	"\xCD" => '&#205;',
 	"\xCE" => '&#206;',
-	"\xCF" => '&#270;',
+	"\xCF" => '&#298;',
 	"\xD0" => '&#272;',
-	"\xD1" => '&#323;',
-	"\xD2" => '&#327;',
-	"\xD3" => '&#211;',
+	"\xD1" => '&#325;',
+	"\xD2" => '&#332;',
+	"\xD3" => '&#310;',
 	"\xD4" => '&#212;',
-	"\xD5" => '&#336;',
+	"\xD5" => '&#213;',
 	"\xD6" => '&#214;',
 	"\xD7" => '&#215;',
-	"\xD8" => '&#344;',
-	"\xD9" => '&#366;',
+	"\xD8" => '&#216;',
+	"\xD9" => '&#370;',
 	"\xDA" => '&#218;',
-	"\xDB" => '&#368;',
+	"\xDB" => '&#219;',
 	"\xDC" => '&#220;',
-	"\xDD" => '&#221;',
-	"\xDE" => '&#354;',
+	"\xDD" => '&#360;',
+	"\xDE" => '&#362;',
 	"\xDF" => '&#223;',
-	"\xE0" => '&#341;',
+	"\xE0" => '&#257;',
 	"\xE1" => '&#225;',
 	"\xE2" => '&#226;',
-	"\xE3" => '&#259;',
+	"\xE3" => '&#227;',
 	"\xE4" => '&#228;',
-	"\xE5" => '&#314;',
-	"\xE6" => '&#263;',
-	"\xE7" => '&#231;',
+	"\xE5" => '&#229;',
+	"\xE6" => '&#230;',
+	"\xE7" => '&#303;',
 	"\xE8" => '&#269;',
 	"\xE9" => '&#233;',
 	"\xEA" => '&#281;',
 	"\xEB" => '&#235;',
-	"\xEC" => '&#283;',
+	"\xEC" => '&#279;',
 	"\xED" => '&#237;',
 	"\xEE" => '&#238;',
-	"\xEF" => '&#271;',
+	"\xEF" => '&#299;',
 	"\xF0" => '&#273;',
-	"\xF1" => '&#324;',
-	"\xF2" => '&#328;',
-	"\xF3" => '&#243;',
+	"\xF1" => '&#326;',
+	"\xF2" => '&#333;',
+	"\xF3" => '&#311;',
 	"\xF4" => '&#244;',
-	"\xF5" => '&#337;',
+	"\xF5" => '&#245;',
 	"\xF6" => '&#246;',
 	"\xF7" => '&#247;',
-	"\xF8" => '&#345;',
-	"\xF9" => '&#367;',
+	"\xF8" => '&#248;',
+	"\xF9" => '&#371;',
 	"\xFA" => '&#250;',
-	"\xFB" => '&#369;',
+	"\xFB" => '&#251;',
 	"\xFC" => '&#252;',
-	"\xFD" => '&#253;',
-	"\xFE" => '&#355;',
+	"\xFD" => '&#361;',
+	"\xFE" => '&#363;',
 	"\xFF" => '&#729;'
     );
 
-    $string = str_replace(array_keys($iso8859_2), array_values($iso8859_2), $string);
+    $string = str_replace(array_keys($iso8859_4), array_values($iso8859_4), $string);
 
     return $string;
 }

@@ -26,7 +26,7 @@
  * @param string $string Encoded string
  * @return string Decoded string
  */
-function charset_decode_utf8 ($string) {
+function charset_decode_utf_8 ($string) {
   global $default_charset;
 
     if (strtolower($default_charset) == 'utf-8')

@@ -43,7 +43,7 @@
  * @param string $string Encoded string
  * @return string Decoded string
  */
-function charset_decode_tis620 ($string) {
+function charset_decode_tis_620 ($string) {
     global $default_charset;
 
     if (strtolower($default_charset) == 'tis-620')

@@ -17,7 +17,7 @@
  * @param string $string Encoded string
  * @return string $string Decoded string
  */
-function charset_decode_iso8859_1 ($string) {
+function charset_decode_iso_8859_1 ($string) {
     global $default_charset;
 
     if (strtolower($default_charset) == 'iso-8859-1')
