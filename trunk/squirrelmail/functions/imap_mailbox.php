@@ -640,33 +640,21 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
         /* LSUB array */
         $lsub_ary = sqimap_run_command ($imap_stream, $lsub_args,
                                         true, $response, $message);
+        $lsub_ary = compact_mailboxes_response($lsub_ary);       
 
         $sorted_lsub_ary = array();
         for ($i = 0, $cnt = count($lsub_ary);$i < $cnt; $i++) {
-            /*
-             * Workaround for mailboxes returned as literal
-             * Doesn't work if the mailbox name is multiple lines
-             * (larger then fgets buffer)
-             */
-            if (isset($lsub_ary[$i + 1]) && substr($lsub_ary[$i],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $lsub_ary[$i], $regs)) {
-                    $i++;
-                    $lsub_ary[$i] = $regs[1] . '"' . addslashes(trim($lsub_ary[$i])) . '"' . $regs[2];
-                }
-            }
+
             $temp_mailbox_name = find_mailbox_name($lsub_ary[$i]);
             $sorted_lsub_ary[] = $temp_mailbox_name;
             if (!$inbox_subscribed && strtoupper($temp_mailbox_name) == 'INBOX') {
                 $inbox_subscribed = true;
             }
         }
-        /* remove duplicates */
-        $sorted_lsub_ary = array_unique($sorted_lsub_ary);
 
         /* natural sort mailboxes */
         if (isset($sorted_lsub_ary)) {
-            usort($sorted_lsub_ary, 'user_strcasecmp');
+            usort($sorted_lsub_ary, 'strnatcasecmp');
         }
         /*
          * The LSUB response doesn't provide us information about \Noselect
@@ -684,18 +672,11 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
                 $mbx = $sorted_lsub_ary[$i];
             }
 
-            $read = sqimap_run_command ($imap_stream, "LIST \"\" \"$mbx\"",
+            $read = sqimap_run_command ($imap_stream, 'LIST "" ' . sqimap_encode_mailbox_name($mbx),
                                         true, $response, $message);
-
-            /* Another workaround for literals */
-
-            if (isset($read[1]) && substr($read[1],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $read[0], $regs)) {
-                    $read[0] = $regs[1] . '"' . addslashes(trim($read[1])) . '"' . $regs[2];
-                }
-            }
-
+ 
+            $read = compact_mailboxes_response($read);
+ 
             if (isset($read[0])) {
                 $sorted_list_ary[$i] = $read[0];
             } else {
@@ -707,17 +688,9 @@ function sqimap_mailbox_list($imap_stream, $force=false) {
          * we'll get it for them anyway
          */
         if (!$inbox_subscribed) {
-            $inbox_ary = sqimap_run_command ($imap_stream, "LIST \"\" \"INBOX\"",
+            $inbox_ary = sqimap_run_command ($imap_stream, 'LIST "" "INBOX"',
                                              true, $response, $message);
-            /* Another workaround for literals */
-            if (isset($inbox_ary[1]) && substr($inbox_ary[0],-3) == "}\r\n") {
-                if (ereg("^(\\* [A-Z]+.*)\\{[0-9]+\\}([ \n\r\t]*)$",
-                     $inbox_ary[0], $regs)) {
-                    $inbox_ary[0] = $regs[1] . '"' . addslashes(trim($inbox_ary[1])) .
-                                '"' . $regs[2];
-                }
-            }
-            $sorted_list_ary[] = $inbox_ary[0];
+            $sorted_list_ary[] = implode('',compact_mailboxes_response($inbox_ary));
             $sorted_lsub_ary[] = find_mailbox_name($inbox_ary[0]);
         }
 
