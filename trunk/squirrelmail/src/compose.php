@@ -1289,22 +1289,26 @@ function getByteSize($ini_size) {
 
     $ini_size = trim($ini_size);
 
-    switch(strtoupper(substr($ini_size, -1))) {
-        case 'G':
-           $bytesize = 1073741824;
-           break;
-        case 'M':
-           $bytesize = 1048576;
-           break;
-        case 'K':
-           $bytesize = 1024;
-           break;
-        default:
-           $bytesize = 1;
-    }
+    // if there's some kind of letter at the end of the string we need to multiply.
+    if(!is_numeric(substr($ini_size, -1))) {
 
-    $bytesize *= (int)substr($ini_size, 0, -1);
-	
+        switch(strtoupper(substr($ini_size, -1))) {
+            case 'G':
+               $bytesize = 1073741824;
+               break;
+            case 'M':
+               $bytesize = 1048576;
+               break;
+            case 'K':
+               $bytesize = 1024;
+               break;
+        }
+
+        $bytesize *= (int)substr($ini_size, 0, -1);
+    }
+        
+
+
     return $bytesize;
 }
 
