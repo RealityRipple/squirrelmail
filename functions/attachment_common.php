@@ -49,7 +49,8 @@ if (isset($attachment_common_types)) {
 }
 
 /* Register text-type attachments */
-register_attachment_common('message/rfc822', 'link_text');
+//register_attachment_common('message/rfc822', 'link_text');
+register_attachment_common('message/rfc822', 'link_message');
 register_attachment_common('text/plain',     'link_text');
 register_attachment_common('text/richtext',  'link_text');
 
@@ -104,7 +105,7 @@ function attachment_common_link_text(&$Args)
     /* The link that we created needs a name.  "view" will be displayed for
        all text attachments handled by this plugin. */
     $Args[1]['attachment_common']['text'] = _("view");
-    
+
     /* Each attachment has a filename on the left, which is a link.
        Where that link points to can be changed.  Just in case the link above
        for viewing text attachments is not the same as the default link for
@@ -114,6 +115,17 @@ function attachment_common_link_text(&$Args)
        download the image, but the one that we set it to will format the page
        to have an image tag in the center (looking a lot like this text viewer) */
     $Args[6] = $Args[1]['attachment_common']['href'];
+}
+
+
+function attachment_common_link_message(&$Args)
+{
+    $Args[1]['attachment_common']['href'] = '../src/download.php?startMessage=' .
+        $Args[2] . '&amp;passed_id=' . $Args[3] . '&amp;mailbox=' . $Args[4] .
+        '&amp;passed_ent_id=' . $Args[5] . '&amp;override_type0=message&amp;override_type1=rfc822';
+    /* The link that we created needs a name.  "view" will be displayed for
+       all text attachments handled by this plugin. */
+    $Args[1]['attachment_common']['text'] = _("view");
 }
 
 
