@@ -131,8 +131,8 @@
 
        // Encode the expression
        $expr = $this->charset_encode($expr);
-       if(!ereg('\*', $expr)) 
-	 $expr = '*$expr*';
+       if(!ereg('\\*', $expr)) 
+	 $expr = "*$expr*";
        $expression = "cn=$expr";
 
        // Make sure connection is there
