@@ -34,18 +34,13 @@ if (!$domain) {
 /* Returns true only if this message is multipart */
 function isMultipart ($session) {
     global $attachments;
-    return true;
-/*    
-    if (count($attachments)>0) {
-	for ($i=0 ; $i < count($attachments) ; $i++) {
-	    if ($attachments[$i]->session == $session) {
-    		return true;
-	    }
+
+    foreach ($attachments as $info) {
+	if ($info['session'] == $session) {
+	    return true;
 	}
-    } else {
-        return false;
     }
-*/
+    return false;
 }
 
 /* looks up aliases in the addressbook and expands them to
@@ -199,24 +194,6 @@ function deleteAttachments($session) {
     }
     $attachments = $rem_attachments;
 }
-
-
-
-    
-//    $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
-//    if (isMultipart($ses)) {
-//        reset($attachments);
-//        while (list($localname, $remotename, $session) = each($attachments)) {
-//	  if ($session == $ses) {
-///            if (!ereg ("\\/", $localname)) {
-//                $filename = $hashed_attachment_dir . '/' . $localname;
-//                unlink ($filename);
-//                unlink ("$filename.info");
-//            }
-//	  }
-//        }
-//    }
-//}
 
 /* Return a nice MIME-boundary
  */
