@@ -22,6 +22,7 @@ require_once(SM_PATH . 'functions/mime.php');
 require_once(SM_PATH . 'functions/date.php');
 require_once(SM_PATH . 'functions/url_parser.php');
 require_once(SM_PATH . 'functions/html.php');
+require_once(SM_PATH . 'functions/global.php');
 
 /**
  * Given an IMAP message id number, this will look it up in the cached
@@ -143,12 +144,12 @@ function ServerMDNSupport($read) {
 }
 
 function SendMDN ( $mailbox, $passed_id, $sender, $message, $imapConnection) {
-    global $username, $attachment_dir, $_SERVER,
+    global $username, $attachment_dir, 
            $version, $attachments, $squirrelmail_language, $default_charset,
            $languages, $useSendmail, $domain, $sent_folder,
            $popuser, $data_dir, $username;
 
-    $SERVER_NAME = $_SERVER['SERVER_NAME'];
+    sqgetGlobalVar('SERVER_NAME', $SERVER_NAME, SQ_SERVER);
 
     $header = $message->rfc822_header;
     $hashed_attachment_dir = getHashedDir($username, $attachment_dir);
@@ -617,7 +618,8 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
     global $base_uri;
 
     $urlMailbox = urlencode($mailbox);
-    $url = $base_uri.'src/view_header.php?'.$_SERVER['QUERY_STRING'];
+    sqgetGlobalVar('QUERY_STRING', $query_string, SQ_SERVER);
+    $url = $base_uri.'src/view_header.php?'.$query_string;
 
     $s  = "<TR>\n" .
           html_tag( 'td', '', 'right', '', 'VALIGN="MIDDLE" WIDTH="20%"' ) . '<B>' . _("Options") . ":&nbsp;&nbsp;</B></TD>\n" .
@@ -641,89 +643,56 @@ function formatToolbar($mailbox, $passed_id, $passed_ent_id, $message, $color) {
 
 /* get the globals we may need */
 
-$username   = $_SESSION['username'];
-$key        = $_COOKIE['key'];
-$onetimepad = $_SESSION['onetimepad'];
-$msgs       = $_SESSION['msgs'];
-$base_uri   = $_SESSION['base_uri'];
-$delimiter  = $_SESSION['delimiter'];
-
-if (isset($_GET['passed_id'])) {
-    $passed_id = (int) $_GET['passed_id'];
-}
-elseif (isset($_POST['passed_id'])) {
-    $passed_id = (int) $_POST['passed_id'];
-}
-
-if (isset($_GET['passed_ent_id'])) {
-    $passed_ent_id = $_GET['passed_ent_id'];
-}
-elseif (isset($_POST['passed_ent_id'])) {
-    $passed_ent_id = $_POST['passed_ent_id'];
-}
-
-if (isset($_GET['sendreceipt'])) {
-    $sendreceipt = $_GET['sendreceipt'];
-}
-
-if (isset($_GET['sort'])) {
-    $sort = (int) $_GET['sort'];
-}
-elseif (isset($_POST['sort'])) {
-    $sort = (int) $_POST['sort'];
-}
-if (isset($_GET['startMessage'])) {
-    $startMessage = (int) $_GET['startMessage'];
-}
-elseif (isset($_POST['startMessage'])) {
-    $startMessage = (int) $_POST['startMessage'];
-}
-if (isset($_GET['show_more'])) {
-    $show_more = (int) $_GET['show_more'];
-}
-if (isset($_GET['show_more_cc'])) {
-    $show_more_cc = (int) $_GET['show_more_cc'];
-}
-if (isset($_GET['show_more_bcc'])) {
-    $show_more_bcc = (int) $_GET['show_more_bcc'];
-}
-if (isset($_GET['mailbox'])) {
-    $mailbox = $_GET['mailbox'];
-}
-elseif (isset($_POST['mailbox'])) {
-    $mailbox = $_POST['mailbox'];
-}
-if (isset($_GET['where'])) {
-    $where = $_GET['where'];
-}
-if (isset($_GET['what'])) {
-    $what = $_GET['what'];
-}
-if (isset($_GET['view_hdr'])) {
-    $view_hdr = (int) $_GET['view_hdr'];
-}
-if (isset($_SESSION['server_sort_array'])) {
-    $server_sort_array = $_SESSION['server_sort_array'];
-}
-if (isset($_SESSION['msgs'])) {
-    $msgs = $_SESSION['msgs'];
-}
-if (isset($_SESSION['msort'])) {
-    $msort = $_SESSION['msort'];
-}
-if (isset($_POST['move_id'])) {
-    $move_id = $_POST['move_id'];
-}
-if (isset($_SESSION['lastTargetMailbox'])) {
-    $lastTargetMailbox = $_SESSION['lastTargetMailbox'];
-}
-if (isset($_SESSION['messages'])) {
-    $messages = $_SESSION['messages'];
-} else {
+/** SESSION VARS */
+sqgetGlobalVar('username',  $username,      SQ_SESSION);
+sqgetGlobalVar('onetimepad',$onetimepad,    SQ_SESSION);
+sqgetGlobalVar('msgs',      $msgs,          SQ_SESSION);
+sqgetGlobalVar('base_uri',  $base_uri,      SQ_SESSION);
+sqgetGlobalVar('delimiter', $delimiter,     SQ_SESSION);
+sqgetGlobalVar('msgs',      $msgs,          SQ_SESSION);
+sqgetGlobalVar('msort',     $msort,         SQ_SESSION);
+sqgetGlobalVar('lastTargetMailbox', $lastTargetMailbox, SQ_SESSION);
+sqgetGlobalVar('server_sort_array', $server_sort_array, SQ_SESSION);
+if (!sqgetGlobalVar('messages', $messages, SQ_SESSION) ) {
     $messages = array();
 }
 
+/** COOKIE VARS */
+sqgetGlobalVar('key',       $key,           SQ_COOKIE);
 
+/** GET VARS */
+sqgetGlobalVar('sendreceipt',   $sendreceipt,   SQ_GET);
+sqgetGlobalVar('where',         $where,         SQ_GET);
+sqgetGlobalVar('what',          $what,          SQ_GET);
+if ( sqgetGlobalVar('show_more', $temp,  SQ_GET) ) {
+    $show_more = (int) $temp;
+}
+if ( sqgetGlobalVar('show_more_cc', $temp,  SQ_GET) ) {
+    $show_more_cc = (int) $temp;
+}
+if ( sqgetGlobalVar('show_more_bcc', $temp,  SQ_GET) ) {
+    $show_more_bcc = (int) $temp;
+}
+if ( sqgetGlobalVar('view_hdr', $temp,  SQ_GET) ) {
+    $view_hdr = (int) $temp;
+}
+
+/** POST VARS */
+sqgetGlobalVar('move_id',       $move_id,       SQ_POST);
+
+/** GET/POST VARS */
+sqgetGlobalVar('passed_ent_id', $passed_ent_id);
+sqgetGlobalVar('mailbox',       $mailbox);
+
+if ( sqgetGlobalVar('passed_id', $temp) ) {
+    $passed_id = (int) $temp;
+}
+if ( sqgetGlobalVar('sort', $temp) ) {
+    $sort = (int) $temp;
+}
+if ( sqgetGlobalVar('startMessage', $temp) ) {
+    $startMessage = (int) $temp;
+}
 
 /* end of get globals */
 global $uid_support, $sqimap_capabilities;
