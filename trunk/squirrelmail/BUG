@@ -1,6 +1,14 @@
-Known BUGS to be fixed before 0.4pre1:
+Known BUGS to be fixed before 0.4pre2:
+-------------------------------------------------------
+  -    In "Sent" folder, "from" is "Unknown Sender"
+  -    Does not delete folders correctly in UW that end in /
 
---SQUASHED--
+
+-----------------------SQUASHED------------------------
+--Fixed for 0.4pre2--
+
+
+--Fixed for 0.4pre1--
 (lme)  When more than one line of CCs or TOs is there, it doesn't have
        the (more) or (less) option that used to be there.. only displays
 		 the first line.
