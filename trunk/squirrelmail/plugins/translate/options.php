@@ -120,14 +120,18 @@ require_once(SM_PATH . 'include/load_prefs.php');
               _("No known limits, powered by Systran").
 	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
               'http://www.dictionary.com/translate' );
-    ShowTrad( 'InterTran',
-              _("No known limits, powered by Translation Experts's InterTran").
-	      "<br>".sprintf(_("Number of supported languages: %s"),"28")." " ,
-              'http://www.tranexp.com/' );
+    ShowTrad( 'Google Translate',
+              _("No known limits, powered by Systran").
+	      "<br>".sprintf(_("Number of supported language pairs: %s"),"12")." " ,
+              'http://www.google.com/translate' );
     ShowTrad( 'GPLTrans',
               _("No known limits, powered by GPLTrans (free, open source)").
 	      "<br>".sprintf(_("Number of supported language pairs: %s"),"8")." " ,
               'http://www.translator.cx/' );
+    ShowTrad( 'InterTran',
+              _("No known limits, powered by Translation Experts's InterTran").
+	      "<br>".sprintf(_("Number of supported languages: %s"),"28")." " ,
+              'http://www.tranexp.com/' );
     ShowTrad( 'OTEnet',
               _("Hellenic translations, no known limits, powered by Systran").
 	      "<br>".sprintf(_("Number of supported language pairs: %s"),"20")." " ,
@@ -151,15 +155,14 @@ require_once(SM_PATH . 'include/load_prefs.php');
     ShowOption('server', 'babelfish', 'Babelfish');
 //    ShowOption('server', 'go', 'Go.com');
     ShowOption('server', 'dictionary', 'Dictionary.com');
-    ShowOption('server', 'intertran', 'Intertran');
-    ShowOption('server', 'gpltrans', 'GPLTrans');
-    ShowOption('server', 'otenet', 'OTEnet');
+   ShowOption('server', 'google', 'Google Translate');
+   ShowOption('server', 'gpltrans', 'GPLTrans'); 
+   ShowOption('server', 'intertran', 'Intertran');
+     ShowOption('server', 'otenet', 'OTEnet');
     ShowOption('server', 'promt', 'PROMT');
     echo '</select>' .
          '</td></tr>' .
-         '<tr><td align=right nowrap>' .
-         _("When reading:") .
-         '</td>'.
+         '<tr>'.html_tag('td',_("When reading:"),'right','','nowrap').
          '<td><input type=checkbox name="translate_translate_show_read"';
     if ($translate_show_read)
         echo " CHECKED";
@@ -174,8 +177,7 @@ require_once(SM_PATH . 'include/load_prefs.php');
         echo " CHECKED";
     echo '> - ' . _("Translate inside the SquirrelMail frames").
          '</td></tr>'.
-         '<tr><td align=right nowrap>'.
-         _("When composing:") . '</td>'.
+         '<tr>'.html_tag('td',_("When composing:"),'right','','nowrap').
          '<td><input type=checkbox name="translate_translate_show_send"';
    if ($translate_show_send)
      echo " CHECKED";

@@ -149,7 +149,7 @@ function translate_pref() {
 
 
 /**
- * This function could be sped up.
+ * This function could be speed up.
  * It basically negates the process if a ! is found in the beginning and
  * matches a * at the end with 0 or more characters.
  */
@@ -395,7 +395,7 @@ function translate_form_intertran($message) {
         translate_lang_opt('',      '',    'spe', _("European Spanish")).
         translate_lang_opt('',      '',    'fin', _("Finnish")).
         translate_lang_opt('fr',    '',    'fre', _("French")).
-        translate_lang_opt('de',    '',    'ger', _("German")).
+        translate_lang_opt('de_DE', '',    'ger', _("German")).
         translate_lang_opt('',      '',    'grk', _("Greek")).
         translate_lang_opt('',      '',    'hun', _("Hungarian") . ' (CP 1250)').
         translate_lang_opt('',      '',    'ice', _("Icelandic")).
@@ -426,7 +426,7 @@ function translate_form_intertran($message) {
         translate_lang_opt('',    '',      'spe', _("European Spanish")).
         translate_lang_opt('',    '',      'fin', _("Finnish")).
         translate_lang_opt('',    'fr',    'fre', _("French")).
-        translate_lang_opt('',    'de',    'ger', _("German")).
+        translate_lang_opt('',    'de_DE',    'ger', _("German")).
         translate_lang_opt('',    '',      'grk', _("Greek")).
         translate_lang_opt('',    '',      'hun', _("Hungarian") . ' (CP 1250)').
         translate_lang_opt('',    '',      'ice', _("Icelandic")).
@@ -692,6 +692,44 @@ function translate_form_promt($message) {
     echo "</select><br>\n";
     echo "<input type=\"hidden\" name=\"template\" value=\"General\">\n";
     echo 'PROMT: <input type="submit" value="' . _("Translate") . '">';
+
+    translate_table_end();
+}
+
+function translate_form_google($message) {
+    translate_new_form('http://www.google.com/translate_t');
+?>
+    <input type="hidden" name="ie" value="Unknown">
+    <input type="hidden" name="oe" value="ASCII">
+    <input type="hidden" name="hl" value="en">
+    <input type="hidden" name="text" value="<?php echo $message; ?>">
+    <select name="langpair"><?php
+        echo translate_lang_opt('en_US', 'de_DE', 'en|de',
+				sprintf( _("%s to %s"),_("English"),_("German"))) .
+	     translate_lang_opt('en_US', 'es_ES',  'en|es',
+				sprintf( _("%s to %s"),_("English"),_("Spanish"))) .
+             translate_lang_opt('en_US', 'fr_FR', 'en|fr',
+                                sprintf( _("%s to %s"),_("English"),_("French"))) .
+             translate_lang_opt('en_US', 'it_IT', 'en|it',
+				sprintf( _("%s to %s"),_("English"),_("Italian"))) .
+	     translate_lang_opt('en_US', 'pt*',   'en|pt',
+                                sprintf( _("%s to %s"),_("English"),_("Portuguese"))) .
+	     translate_lang_opt('de_DE', 'en_US', 'de|en',
+                                sprintf( _("%s to %s"),_("German"),_("English"))) .
+             translate_lang_opt('de_DE', '', 'de|fr',
+                                sprintf( _("%s to %s"),_("German"),_("French"))) .
+             translate_lang_opt('es_ES', '', 'es|en',
+                                sprintf( _("%s to %s"),_("Spanish"),_("English"))) .
+             translate_lang_opt('fr_FR', '', 'fr|en',
+                                sprintf( _("%s to %s"),_("French"),_("English"))) .
+             translate_lang_opt('fr_FR', '', 'fr|de',
+				sprintf( _("%s to %s"),_("French"),_("German"))) .
+             translate_lang_opt('it_IT', '', 'it|en',
+                                sprintf( _("%s to %s"),_("Italian"),_("English"))) .
+             translate_lang_opt('pt*',   '', 'pt|en',
+                                sprintf( _("%s to %s"),_("Portuguese"),_("English")));
+    echo '</select>'.
+         'Google: <input type="Submit" value="' . _("Translate") . '">';
 
     translate_table_end();
 }
