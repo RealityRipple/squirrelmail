@@ -88,6 +88,7 @@
                        '/.+(\\?'.$var.')=(.*)$/AU',     /* at front and only var */
                        '/.+(\\&'.$var.')=(.*)$/AU'      /* at the end */
                      );
+//	preg_replace('/&amp;/','&',$url);	     
         switch (true) {
             case (preg_match($pat_a[0],$url,$regs)):
                 $k = $regs[1];
@@ -108,7 +109,7 @@
             default:
                 if ($val) {
                     if (strpos($url,'?')) {
-                        $url .= "&amp;$var=$val";
+                        $url .= "&$var=$val";
                     } else {
                         $url .= "?$var=$val";
                     }
@@ -119,7 +120,7 @@
         if ($k) {
             if ($val) {
                 $rpl = "$k=$val";
-		$rpl = preg_replace('/&/','&amp;',$rpl);
+//		$rpl = preg_replace('/&/','&amp;',$rpl);
             } else {
                 $rpl = '';
             }
