@@ -118,18 +118,30 @@ function newmail_sav() {
         $media_recent = '';
         $media_changetitle = '';
         $media_sel = '';
+        $popup_width = '';
+        $popup_height = '';
 
         sqgetGlobalVar('media_enable',      $media_enable,      SQ_POST);
         sqgetGlobalVar('media_popup',       $media_popup,       SQ_POST);
         sqgetGlobalVar('media_allbox',      $media_allbox,      SQ_POST);
         sqgetGlobalVar('media_recent',      $media_recent,      SQ_POST);
         sqgetGlobalVar('media_changetitle', $media_changetitle, SQ_POST);
+        sqgetGlobalVar('popup_width',       $popup_width,       SQ_POST);
+        sqgetGlobalVar('popup_height',      $popup_height,      SQ_POST);
+
+        // sanitize height and width
+        $popup_width = (int) $popup_width;
+        if ($popup_width<=0) $popup_width=200;
+        $popup_height = (int) $popup_height;
+        if ($popup_height<=0) $popup_height=130;
 
         setPref($data_dir,$username,'newmail_enable',$media_enable);
         setPref($data_dir,$username,'newmail_popup', $media_popup);
         setPref($data_dir,$username,'newmail_allbox',$media_allbox);
         setPref($data_dir,$username,'newmail_recent',$media_recent);
         setPref($data_dir,$username,'newmail_changetitle',$media_changetitle);
+        setPref($data_dir,$username,'newmail_popup_width',$popup_width);
+        setPref($data_dir,$username,'newmail_popup_height',$popup_height);
 
         if( sqgetGlobalVar('media_sel', $media_sel, SQ_POST) &&
             $media_sel == '(none)' ) {
@@ -177,16 +189,20 @@ function newmail_pref() {
     global $username,$data_dir;
     global $newmail_media,$newmail_enable,$newmail_popup,$newmail_allbox;
     global $newmail_recent, $newmail_changetitle;
-    global $newmail_userfile_type;
+    global $newmail_userfile_type, $newmail_userfile_name;
+    global $newmail_popup_width, $newmail_popup_height;
 
     $newmail_recent = getPref($data_dir,$username,'newmail_recent');
     $newmail_enable = getPref($data_dir,$username,'newmail_enable');
     $newmail_media = getPref($data_dir, $username, 'newmail_media', '(none)');
     $newmail_popup = getPref($data_dir, $username, 'newmail_popup');
+    $newmail_popup_width = getPref($data_dir, $username, 'newmail_popup_width',200);
+    $newmail_popup_height = getPref($data_dir, $username, 'newmail_popup_height',130);
     $newmail_allbox = getPref($data_dir, $username, 'newmail_allbox');
     $newmail_changetitle = getPref($data_dir, $username, 'newmail_changetitle');
 
     $newmail_userfile_type = getPref($data_dir, $username, 'newmail_userfile_type');
+    $newmail_userfile_name = getPref($data_dir,$username,'newmail_userfile_name','');
 }
 
 /**
@@ -209,6 +225,7 @@ function newmail_plugin() {
         $newmail_recent, $newmail_changetitle, $imapConnection, $PHP_SELF;
     global $newmail_mmedia, $newmail_allowsound;
     global $newmail_userfile_type;
+    global $newmail_popup_width, $newmail_popup_height;
 
     if ($newmail_enable == 'on' ||
         $newmail_popup == 'on' ||
@@ -279,20 +296,20 @@ function newmail_plugin() {
         }
 
         if ($totalNew > 0 && $newmail_popup == 'on') {
+            // Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
+            // Web URL:  http://fineline.xs.mw
+            // More code from Tyler Akins
             echo "<script language=\"JavaScript\">\n".
                 "<!--\n".
                 "function PopupScriptLoad() {\n".
                 'window.open("'.sqm_baseuri().'plugins/newmail/newmail.php?numnew='.$totalNew.
                 '", "SMPopup",'.
-                "\"width=200,height=130,scrollbars=no\");\n".
+                "\"width=$newmail_popup_width,height=$newmail_popup_height,scrollbars=no\");\n".
                 "if (BeforePopupScript != null)\n".
                 "BeforePopupScript();\n".
                 "}\n".
                 "BeforePopupScript = window.onload;\n".
                 "window.onload = PopupScriptLoad;\n".
-                // Idea by:  Nic Wolfe (Nic@TimelapseProductions.com)
-                // Web URL:  http://fineline.xs.mw
-                // More code from Tyler Akins
                 "// End -->\n".
                 "</script>\n";
         }
