@@ -333,6 +333,11 @@ function filter_search_and_delete($imap, $where, $what, $where_to) {
     } else {
         $search_str = "SEARCH CHARSET US-ASCII ALL ";
     }
+    if ($where == "Header") {
+       $what = explode(':', $what);
+       $where = trim($where . ' ' . $what[0]);
+       $what = addslashes(trim($what[1]));
+    }
     $search_str .= $where . ' {' . strlen($what) . "}\r\n" . $what . "\r\n";
     
     fputs ($imap, "a001 $search_str");

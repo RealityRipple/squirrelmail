@@ -96,6 +96,9 @@
         $sel = (($L && $filters[$theid]['where'] == 'Subject')?'selected':'');
         echo "<option value=\"Subject\" $sel>" . _ ("Subject") . '</option>';
 
+        $sel = (($L && $filters[$theid]['where'] == 'Header')?'selected':'');
+        echo "<option value=\"Header\" $sel>" . _ ("Header") . '</option>';
+
         echo         '</select>'.
                 '</td>'.
             '</tr>'.
