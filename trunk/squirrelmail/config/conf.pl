@@ -389,7 +389,7 @@ while (($command ne "q") && ($command ne "Q")) {
       print "6.  Usernames in Lowercase : $WHT$force_username_lowercase$NRM\n";
       print "7.  Allow use of priority  : $WHT$default_use_priority$NRM\n";
       print "8.  Hide SM attributions   : $WHT$hide_sm_attributions$NRM\n";
-      print "9.  Allow use of MDN       : $WHT$default_use_mdn$NRM\n";      
+      print "9.  Allow use of receipts  : $WHT$default_use_mdn$NRM\n";      
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 5) {
@@ -1547,7 +1547,7 @@ sub command39 {
       $default_value = "n";
    }
    
-   print "Enable read receipt support (y/n) [$WHT$default_value$NRM]: $WHT";
+   print "Enable support for read/delivery receipt support (y/n) [$WHT$default_value$NRM]: $WHT";
       $new_show = <STDIN>;
       if (($new_show =~ /^y\n/i) || (($new_show =~ /^\n/) && ($default_value eq "y"))) {
          return "true";

@@ -558,14 +558,6 @@ function showInputForm () {
         showComposeButtonRow();
     } else {
         echo '   <TR><TD COLSPAN=2 ALIGN=LEFT>';
-
-        $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
-        if ($default_use_mdn) {
-            if ($mdn_user_support) {
-                echo _("Confirm reading:").
-                    "<input type=\"checkbox\" name=\"request_mdn\" value=1>";
-            }
-        }
         echo ' &nbsp; <INPUT TYPE=SUBMIT NAME=send VALUE="' . _("Send") . '"></TD></TR>' . "\n";
     }
 
@@ -616,6 +608,26 @@ function showComposeButtonRow()
     global $use_javascript_addr_book, $save_as_draft,
            $default_use_priority, $mailprio, $default_use_mdn,
            $data_dir, $username;
+    
+    echo "  <TR><TD>\n</TD><TD>\n";
+    if ($default_use_priority) {
+        if(!isset($mailprio)) {
+            $mailprio = "3";
+	}
+	echo _("Priority") .':<select name="mailprio">'.
+             "<option value=1".($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
+             "<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
+             "<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
+             "</select>";
+    }
+    $mdn_user_support=getPref($data_dir, $username, 'mdn_user_support',$default_use_mdn);
+    if ($default_use_mdn) {
+      if ($mdn_user_support) {
+          echo "\n\t". _("Receipt") .': '.
+	    '<input type="checkbox" name="request_mdn" value=1>'. _("On read").
+	    ' <input type="checkbox" name="request_dr" value=1>'. _("On Delivery");
+      }
+    }
 
     echo "   <TR><td>\n   </td><td>\n";
     if ($use_javascript_addr_book) {
@@ -634,16 +646,6 @@ function showComposeButtonRow()
 
     if ($save_as_draft) {
         echo '<input type="submit" name ="draft" value="' . _("Save Draft") . "\">\n";
-    }
-    if ($default_use_priority) {
-        if(!isset($mailprio)) {
-            $mailprio = "3";
-        }
-        echo _("Priority") .':<select name="mailprio">'.
-             "<option value=1".($mailprio=='1'?' selected':'').'>'. _("High") .'</option>'.
-             "<option value=3".($mailprio=='3'?' selected':'').'>'. _("Normal") .'</option>'.
-             "<option value=5".($mailprio=='5'?' selected':'').'>'. _("Low").'</option>'.
-             "</select>";
     }
 
     do_hook('compose_button_row');
