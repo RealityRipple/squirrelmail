@@ -58,18 +58,5 @@
    $location = get_location();
    header ("Location: $location/folders.php?success=create");
    sqimap_logout($imapConnection);
-   /*   
-      displayPageHeader($color, "None");
-      echo "<BR><BR><BR><CENTER><B>";
-      echo _("Folder Created!");
-      echo "</B><BR><BR>";
-      echo _("The folder has been successfully created.");
-      echo "<BR><A HREF=\"webmail.php?right_frame=folders.php\" TARGET=_top>";
-      echo _("Click here");
-      echo "</A> ";
-      echo _("to continue.");
-      echo "</CENTER>";
-      echo "</BODY></HTML>";
-   */
 ?>
 
