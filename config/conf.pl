@@ -12,16 +12,16 @@ $NRM = "\x1B[0m";
 # First, lets read in the data already in there...
 ############################################################              
 if ( -e "config.php") {
-	$config = 1;
+   $config = 1;
    open (FILE, "config.php");
 } elsif (-e "config_default.php") {
-	$config = 2;
+   $config = 2;
    open (FILE, "config_default.php");
 } else {
-	print "No configuration file found.  Please get config_default.php or\n";
-	print "config.php before running this again.  This program needs a\n";
-	print "default config file to get default values.\n";
-	exit;
+   print "No configuration file found.  Please get config_default.php or\n";
+   print "config.php before running this again.  This program needs a\n";
+   print "default config file to get default values.\n";
+   exit;
 }
 
 #  Reads and parses the current configuration file (either
@@ -49,54 +49,54 @@ while ($line = <FILE>) {
             $sub =~ s/\]\["NAME"\]//;
             $sub = substr ($sub, @sub-1, 1);
             $theme_name[$sub] = $options[1];
-			} elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
+         } elsif ($options[0] =~ /^ldap_server\[[0-9]+\]/) {
             $sub = $options[0];
             $sub = substr ($sub, length($sub)-2, 1);
-				$continue = 0;
-				while (($tmp = <FILE>) && ($continue != 1)) {
-					if ($tmp =~ /\);\s*$/) {
-						$continue = 1;
-					}
-					
-					if ($tmp =~ /^\s*"host"/i) {
-						$tmp =~ s/^\s*"host"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						$host = $tmp;
-					} elsif ($tmp =~ /^\s*"base"/i) {
-						$tmp =~ s/^\s*"base"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						print $tmp."\n";
-						$base = $tmp;
-					} elsif ($tmp =~ /^\s*"charset"/i) {
-						$tmp =~ s/^\s*"charset"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						$charset = $tmp;
-					} elsif ($tmp =~ /^\s*"port"/i) {
-						$tmp =~ s/^\s*"port"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						$port = $tmp;
-					} elsif ($tmp =~ /^\s*"maxrows"/i) {
-						$tmp =~ s/^\s*"maxrows"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						$maxrows = $tmp;
-					} elsif ($tmp =~ /^\s*"name"/i) {
-						$tmp =~ s/^\s*"name"\s*=>\s*"//i;
-						$tmp =~ s/",\s*$//;
-						$tmp =~ s/"\);\s*$//;
-						$name = $tmp;
-					}
-				}
+            $continue = 0;
+            while (($tmp = <FILE>) && ($continue != 1)) {
+               if ($tmp =~ /\);\s*$/) {
+                  $continue = 1;
+               }
+               
+               if ($tmp =~ /^\s*"host"/i) {
+                  $tmp =~ s/^\s*"host"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  $host = $tmp;
+               } elsif ($tmp =~ /^\s*"base"/i) {
+                  $tmp =~ s/^\s*"base"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  print $tmp."\n";
+                  $base = $tmp;
+               } elsif ($tmp =~ /^\s*"charset"/i) {
+                  $tmp =~ s/^\s*"charset"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  $charset = $tmp;
+               } elsif ($tmp =~ /^\s*"port"/i) {
+                  $tmp =~ s/^\s*"port"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  $port = $tmp;
+               } elsif ($tmp =~ /^\s*"maxrows"/i) {
+                  $tmp =~ s/^\s*"maxrows"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  $maxrows = $tmp;
+               } elsif ($tmp =~ /^\s*"name"/i) {
+                  $tmp =~ s/^\s*"name"\s*=>\s*"//i;
+                  $tmp =~ s/",\s*$//;
+                  $tmp =~ s/"\);\s*$//;
+                  $name = $tmp;
+               }
+            }
             $ldap_host[$sub] = $host;
-				$ldap_base[$sub] = $base;
-				$ldap_name[$sub] = $name;
-				$ldap_port[$sub] = $port;
-				$ldap_maxrows[$sub] = $maxrows;
-				$ldap_charset[$sub] = $charset;
+            $ldap_base[$sub] = $base;
+            $ldap_name[$sub] = $name;
+            $ldap_port[$sub] = $port;
+            $ldap_maxrows[$sub] = $maxrows;
+            $ldap_charset[$sub] = $charset;
          } else {
             ${$options[0]} = $options[1];
          }   
@@ -116,9 +116,9 @@ while (($command ne "q") && ($command ne "Q")) {
    system "clear";
    if ($menu == 0) {
       print $WHT."SquirrelMail Configuration : ".$NRM;
-		if ($config == 1) { print "Read: config.php"; }
-		elsif ($config == 2) { print "Read: config_default.php"; }
-		print "\n";
+      if ($config == 1) { print "Read: config.php"; }
+      elsif ($config == 2) { print "Read: config_default.php"; }
+      print "\n";
 
       print $WHT."Main Menu --\n".$NRM;
       print "1.  Organization Preferences\n";
@@ -128,6 +128,8 @@ while (($command ne "q") && ($command ne "Q")) {
       print "5.  Themes\n";
       print "6.  Address Books (LDAP)\n";
       print "7.  Message of the Day (MOTD)\n";
+      print "\n";
+      print "D.  Set pre-defined settings for specific IMAP servers\n";
       print "\n";
    } elsif ($menu == 1) {
       print $WHT."Organization Preferences\n".$NRM;
@@ -148,6 +150,7 @@ while (($command ne "q") && ($command ne "Q")) {
          print "6.    SMTP Server        : $WHT$smtpServerAddress$NRM\n";
          print "7.    SMTP Port          : $WHT$smtpPort$NRM\n";
       }
+      print "8.  Server               : $WHT$imap_server_type$NRM\n";
       print "\n";
       print "R   Return to Main Menu\n";
    } elsif ($menu == 3) {
@@ -222,6 +225,8 @@ while (($command ne "q") && ($command ne "Q")) {
       if (($save =~ /^y/i) || ($save =~ /^\s*$/)) {
          save_data ();
        }
+   } elsif (($command eq "d") || ($command eq "D")) {
+      set_defaults ();
    } else {
       $saved = 0;
       if ($menu == 0) {
@@ -240,6 +245,7 @@ while (($command ne "q") && ($command ne "Q")) {
          elsif ($command == 5) { $sendmail_path      = command15 (); }
          elsif ($command == 6) { $smtpServerAddress  = command16 (); }
          elsif ($command == 7) { $smtpPort           = command17 (); }
+         elsif ($command == 8) { $imap_server_type   = command18 (); }
       } elsif ($menu == 3) {
          if    ($command == 1) { $default_folder_prefix          = command21 (); }
          elsif ($command == 2) { $show_prefix_option             = command22 (); }
@@ -262,7 +268,7 @@ while (($command ne "q") && ($command ne "Q")) {
             command41 (); 
          }
       } elsif ($menu == 6) {
-			if ($command == 1) { command61(); }
+         if ($command == 1) { command61(); }
       } elsif ($menu == 7) {
          if    ($command == 1) { $motd = command71 (); $motd =~ s/"/\\"/g;}
       }
@@ -426,6 +432,27 @@ sub command17 {
       $new_smtpPort =~ s/[\r|\n]//g;
    }
    return $new_smtpPort;
+}
+# imap_server_type 
+sub command18 {
+   print "Eash IMAP server has its own quirks.  As much as we tried to stick\n";
+   print "to standards, it doesn't help much if the IMAP server doesn't follow\n";
+   print "the same principles.  We have made some work-arounds for some of\n";
+   print "these servers.  If you would like to use them, please select your\n";
+   print "IMAP server.  If you do not wish to use these work-arounds, you can\n";
+   print "set this to \"other\", and none will be used.\n";
+   print "    cyrus      = Cyrus IMAP server\n";
+   print "    uw         = University of Washington's IMAP server\n";
+   print "    exchange   = Microsoft Exchange IMAP server\n";
+   print "    courier    = Courier IMAP server\n";
+   print "[$WHT$imap_server_type$NRM]: $WHT";
+   $new_imap_server_type = <STDIN>;
+   if ($new_imap_server_type eq "\n") {
+      $new_imap_server_type = $imap_server_type;
+   } else {
+      $new_imap_server_type =~ s/[\r|\n]//g;
+   }
+   return $new_imap_server_type;
 }
 
 # MOTD
@@ -906,7 +933,7 @@ sub command41 {
 
 
 sub command61 {
-	print "You can now define different LDAP servers.\n";
+   print "You can now define different LDAP servers.\n";
    print "[ldap] command (?=help) > ";
    $input = <STDIN>;
    $input =~ s/[\r|\n]//g;
@@ -914,80 +941,80 @@ sub command61 {
       if ($input =~ /^\s*l\s*/i) {
          $count = 0;
          while ($count <= $#ldap_host) {
-				print "$count. $ldap_host[$count]\n";
-				print "        base: $ldap_base[$count]\n";
-				if ($ldap_charset[$count]) {
-					print "     charset: $ldap_charset[$count]\n";
-				}
-				if ($ldap_port[$count]) {
-					print "        port: $ldap_port[$count]\n";
-				}
-				if ($ldap_name[$count]) {
-					print "        name: $ldap_name[$count]\n";
-				}
-				if ($ldap_maxrows[$count]) {
-					print "     maxrows: $ldap_maxrows[$count]\n";
-				}
-				print "\n";
+            print "$count. $ldap_host[$count]\n";
+            print "        base: $ldap_base[$count]\n";
+            if ($ldap_charset[$count]) {
+               print "     charset: $ldap_charset[$count]\n";
+            }
+            if ($ldap_port[$count]) {
+               print "        port: $ldap_port[$count]\n";
+            }
+            if ($ldap_name[$count]) {
+               print "        name: $ldap_name[$count]\n";
+            }
+            if ($ldap_maxrows[$count]) {
+               print "     maxrows: $ldap_maxrows[$count]\n";
+            }
+            print "\n";
             $count++;
          }
       } elsif ($input =~ /^\s*\+/) {
-			$sub = $#ldap_host + 1;
+         $sub = $#ldap_host + 1;
          
-			print "First, we need to have the hostname or the IP address where\n";
-			print "this LDAP server resides.  Example: ldap.bigfoot.com\n";
-			print "hostname: ";
+         print "First, we need to have the hostname or the IP address where\n";
+         print "this LDAP server resides.  Example: ldap.bigfoot.com\n";
+         print "hostname: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_host[$sub] = $name;
-			
-			print "\n";
+         
+         print "\n";
 
-			print "Next, we need the server root (base dn).  For this, an empty\n";
-			print "string is allowed.\n";
-			print "Example: ou=member_directory,o=netcenter.com\n";
-			print "base: ";
+         print "Next, we need the server root (base dn).  For this, an empty\n";
+         print "string is allowed.\n";
+         print "Example: ou=member_directory,o=netcenter.com\n";
+         print "base: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_base[$sub] = $name;
 
-			print "\n";
+         print "\n";
 
-			print "This is the TCP/IP port number for the LDAP server.  Default\n";
-			print "port is 389.  This is optional.  Press ENTER for default.\n";
-			print "port: ";
+         print "This is the TCP/IP port number for the LDAP server.  Default\n";
+         print "port is 389.  This is optional.  Press ENTER for default.\n";
+         print "port: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_port[$sub] = $name;
 
-			print "\n";
+         print "\n";
 
-			print "This is the charset for the server.  Default is utf-8.  This\n";
-			print "is also optional.  Press ENTER for default.\n";
-			print "charset: ";
+         print "This is the charset for the server.  Default is utf-8.  This\n";
+         print "is also optional.  Press ENTER for default.\n";
+         print "charset: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_charset[$sub] = $name;
 
-			print "\n";
+         print "\n";
 
-			print "This is the name for the server, used to tag the results of\n";
-			print "the search.  Default it \"LDAP: hostname\".  Press ENTER for default\n";
-			print "name: ";
+         print "This is the name for the server, used to tag the results of\n";
+         print "the search.  Default it \"LDAP: hostname\".  Press ENTER for default\n";
+         print "name: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_name[$sub] = $name;
 
-			print "\n";
+         print "\n";
 
-			print "You can specify the maximum number of rows in the search result.\n";
-			print "Default is unlimited.  Press ENTER for default.\n";
-			print "maxrows: ";
+         print "You can specify the maximum number of rows in the search result.\n";
+         print "Default is unlimited.  Press ENTER for default.\n";
+         print "maxrows: ";
          $name = <STDIN>;
          $name =~ s/[\r|\n]//g;
          $ldap_maxrows[$sub] = $name;
 
-			print "\n";
+         print "\n";
 
       } elsif ($input =~ /^\s*-\s*[0-9]?/) {
          if ($input =~ /[0-9]+\s*$/) {
@@ -1056,6 +1083,7 @@ sub save_data {
    print FILE "\t\$smtpServerAddress    = \"$smtpServerAddress\";\n";
    print FILE "\t\$smtpPort             =  $smtpPort;\n";
    print FILE "\t\$sendmailPath         = \"$sendmail_path\";\n";
+   print FILE "\t\$imap_server_type     = \"$imap_server_type\";\n";
    
    print FILE "\n";
 
@@ -1087,26 +1115,94 @@ sub save_data {
    print FILE "\n";
 
    for ($count=0; $count <= $#ldap_host; $count++) {
-		print FILE "\t\$ldap_server[$count] = Array(\n";
-		print FILE "\t\t\t\"host\" => \"$ldap_host[$count]\",\n";
-		print FILE "\t\t\t\"base\" => \"$ldap_base[$count]\"";
-		if ($ldap_name[$count]) {
-			print FILE ",\n\t\t\t\"name\" => \"$ldap_name[$count]\"";
-		}
-		if ($ldap_port[$count]) {
-			print FILE ",\n\t\t\t\"port\" => \"$ldap_port[$count]\"";
-		}
-		if ($ldap_charset[$count]) {
-			print FILE ",\n\t\t\t\"charset\" => \"$ldap_charset[$count]\"";
-		}
-		if ($ldap_maxrows[$count]) {
-			print FILE ",\n\t\t\t\"maxrows\" => \"$ldap_maxrows[$count]\"";
-		}
-   	print FILE ");\n\n";
+      print FILE "\t\$ldap_server[$count] = Array(\n";
+      print FILE "\t\t\t\"host\" => \"$ldap_host[$count]\",\n";
+      print FILE "\t\t\t\"base\" => \"$ldap_base[$count]\"";
+      if ($ldap_name[$count]) {
+         print FILE ",\n\t\t\t\"name\" => \"$ldap_name[$count]\"";
+      }
+      if ($ldap_port[$count]) {
+         print FILE ",\n\t\t\t\"port\" => \"$ldap_port[$count]\"";
+      }
+      if ($ldap_charset[$count]) {
+         print FILE ",\n\t\t\t\"charset\" => \"$ldap_charset[$count]\"";
+      }
+      if ($ldap_maxrows[$count]) {
+         print FILE ",\n\t\t\t\"maxrows\" => \"$ldap_maxrows[$count]\"";
+      }
+      print FILE ");\n\n";
    }
 
    print FILE "\t\$motd = \"$motd\";\n";
 
    print FILE "?>\n";
    close FILE;
+}
+
+sub set_defaults {
+   system "clear";
+   print "While we have been building SquirrelMail, we have discovered some\n";
+   print "preferences that work better with some servers that don't work so\n";
+   print "well with others.  If you select your IMAP server, this option will\n";
+   print "set some pre-defined settings for that server.\n";
+   print "\n";
+   print "Please note that you will still need to go through and make sure\n";
+   print "everything is correct.  This does not change everything.  There are\n";
+   print "only a few settings that thils will change.\n";
+   print "\n";
+
+   $continue = 0;
+   while ($continue != 1) {
+      print "Please select your IMAP server:\n";
+      print "    cyrus      = Cyrus IMAP server\n";
+      print "    uw         = University of Washington's IMAP server\n";
+      print "    exchange   = Microsoft Exchange IMAP server\n";
+      print "    courier    = Courier IMAP server\n";
+      print "    quit       = Do not change anything\n";
+      print "Command >> ";
+      $server = <STDIN>;
+      $server =~ s/[\r|\n]//g;
+
+      if      ($server eq "cyrus") { 
+			$default_folder_prefix = "";
+			$trash_folder = "INBOX.Trash";
+			$sent_folder = "INBOX.Sent";
+			$show_prefix_option = false;
+			$default_sub_of_inbox = true;
+			$show_contain_subfolders_option = false;
+			$imap_server_type = "cyrus";
+
+         $continue = 1;
+      } elsif ($server eq "uw") {
+			$default_folder_prefix = "mail/";
+			$trash_folder = "Trash";
+			$sent_folder = "Sent";
+			$show_prefix_option = true;
+			$default_sub_of_inbox = false;
+			$show_contain_subfolders_option = true;
+			$imap_server_type = "uw";
+			
+         $continue = 1;
+      } elsif ($server eq "exchange") {
+			$default_folder_prefix = "INBOX/";
+			$default_sub_of_inbox = true;
+			$trash_folder = "INBOX/Deleted Items";
+			$sent_folder = "INBOX/Sent Items";
+			$show_prefix_option = false;
+			$show_contain_subfolders_option = false;
+			
+			$imap_server_type = "exchange";
+         
+			$continue = 1;
+      } elsif ($server eq "courier") {
+			$imap_server_type = "courier";
+			
+         $continue = 1;
+		} elsif ($server eq "quit") {
+			$continue = 1;
+      } else {
+         print "Unrecognized server: $server\n";
+			print "\n";
+      }
+   }   
 }
