@@ -6,10 +6,11 @@
  * Copyright (c) 1999-2003 The SquirrelMail Project Team
  * Licensed under the GNU GPL. For full terms see the file COPYING.
  *
- * Originally by Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
+ * @author Alex Lemaresquier - Brainstorm - alex at brainstorm.fr
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

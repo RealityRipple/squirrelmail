@@ -10,9 +10,10 @@
  * available, and has cookie information.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
@@ -196,8 +197,7 @@ function create_collapse_link($boxnum) {
  * @param string $boxName name of the current mailbox
  * @param array $boxArray array for the current mailbox
  * @param $imapConnection current imap connection in use
- * @return array[0] unseen message string (for display)
- * @return array[1] unseen message count
+ * @return array unseen message string (for display), unseen message count
  */
 function create_unseen_string($boxName, $boxArray, $imapConnection, $unseen_type) {
     global $boxes, $unseen_type, $color, $unseen_cum;

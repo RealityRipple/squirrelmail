@@ -53,6 +53,7 @@ define('SMOPT_SAVE_NOOP', 'save_option_noop');
  * Also, I'd like to ask that people leave this alone (mostly :) until
  * I get it a little further along. That should only be a day or two or
  * three. I will remove this message when it is ready for primetime usage.
+ * @package squirrelmail
  */
 class SquirrelOption {
     /* The basic stuff. */

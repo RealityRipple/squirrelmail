@@ -11,9 +11,10 @@
  * this file will verify username and password.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */

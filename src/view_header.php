@@ -9,9 +9,10 @@
  * This is the code to view the message header.
  *
  * $Id$
+ * @package squirrelmail
  */
 
-/* Path for SquirrelMail required files. */
+/** Path for SquirrelMail required files. */
 define('SM_PATH','../');
 
 /* SquirrelMail required files. */
