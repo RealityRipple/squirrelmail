@@ -30,15 +30,15 @@ $username = $_SESSION['username'];
 $onetimepad = $_SESSION['onetimepad'];
 $mailbox = $_GET['mailbox'];
 $passed_id = $_GET['passed_id'];
+$ent_id = $_GET['ent_id'];
 $messages = $_SESSION['messages'];
 if (!isset($passed_ent_id)) {
    $passed_ent_id = '';
 } else {
-    $passed_ent_id = $_GET['passed_ent_id'];
+   $passed_ent_id = $_GET['passed_ent_id'];
 }
 
 /* end globals */
-
 $mailbox = decodeHeader($mailbox);
 
 global $uid_support;
