@@ -13,12 +13,13 @@
 
 /* Copies specified messages to specified folder */
 function sqimap_messages_copy ($imap_stream, $start, $end, $mailbox) {
-    $read = sqimap_run_command ($imap_stream, "COPY $start:$end \"$mailbox\"", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "COPY $start:$end \"$mailbox\"", true, $response, $message, $uid_support);
 }
 
 /* Deletes specified messages and moves them to trash if possible */
 function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
-    global $move_to_trash, $trash_folder, $auto_expunge;
+    global $move_to_trash, $trash_folder, $auto_expunge, $uid_support;
 
     if (($move_to_trash == true) && (sqimap_mailbox_exists($imap_stream, $trash_folder) && ($mailbox != $trash_folder))) {
         sqimap_messages_copy ($imap_stream, $start, $end, $trash_folder);
@@ -28,18 +29,20 @@ function sqimap_messages_delete ($imap_stream, $start, $end, $mailbox) {
 
 /* Sets the specified messages with specified flag */
 function sqimap_messages_flag ($imap_stream, $start, $end, $flag) {
-    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end +FLAGS (\\$flag)", true, $response, $message, $uid_support);
 }
 
 /* Remove specified flag from specified messages */
 function sqimap_messages_remove_flag ($imap_stream, $start, $end, $flag) {
-    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "STORE $start:$end -FLAGS (\\$flag)", true, $response, $message, $uid_support);
 }
 
 /* Returns some general header information -- FROM, DATE, and SUBJECT */
 class small_header {
     var $from = '', $subject = '', $date = '', $to = '', 
-        $priority = 0, $message_id = 0, $cc = '';
+        $priority = 0, $message_id = 0, $cc = '', $uid = '';
 }
 
 function sqimap_get_small_header ($imap_stream, $id, $sent) {
@@ -55,6 +58,7 @@ function sqimap_message_list_squisher($messages_array) {
     if( !is_array( $messages_array ) ) {
         return;
     }
+
     sort($messages_array, SORT_NUMERIC);
     $msgs_str = '';
     while ($messages_array) {
@@ -71,14 +75,14 @@ function sqimap_message_list_squisher($messages_array) {
             $msgs_str .= ':' . $end;
         }
     }
-
     return $msgs_str;
 }
 
 /* returns the references header lines */
 function get_reference_header ($imap_stream, $message) {
+    global $uid_support;
     $responses = array ();
-    $sid = sqimap_session_id();
+    $sid = sqimap_session_id($uid_support);
 	$results = array();
 	$references = "";
     $query = "$sid FETCH $message BODY[HEADER.FIELDS (References)]\r\n";
@@ -96,26 +100,44 @@ function get_reference_header ($imap_stream, $message) {
  * mailbox_display
  */
  
-function sqimap_get_sort_order ($imap_stream, $sort) {
+function sqimap_get_sort_order ($imap_stream, $sort, $mbxresponse) {
     global  $default_charset, $thread_sort_messages,
             $internal_date_sort, $server_sort_array,
-            $sent_folder, $mailbox;
-            
+            $sent_folder, $mailbox, $uid_support;
+
     if (session_is_registered('server_sort_array')) {
         session_unregister('server_sort_array');
     }
-    if ($sort == 6) {
-        $qty = sqimap_get_num_messages ($imap_stream, $mailbox);
-        $server_sort_array = range(1, $qty);
-        session_register('server_sort_array');
-        return $server_sort_array;
-    }
-    $sid = sqimap_session_id();
+
+    $sid = sqimap_session_id($uid_support);
     $sort_on = array();
     $reverse = 0;
     $server_sort_array = array();
     $sort_test = array();
     $sort_query = '';
+
+    if ($sort == 6) {
+        if ($uid_support) {
+	   $uidnext = $mbxresponse['UIDNEXT']-1;
+	   $uid_query = "$sid SEARCH UID 1:$uidnext\r\n";
+           fputs($imap_stream, $uid_query);
+           $uids = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
+           if (isset($uids[0])) {
+    	      if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
+        	  $server_sort_array = preg_split("/ /", trim($regs[1]));
+    	      }
+	   }
+           if (!preg_match("/OK/", $response)) {
+	       $server_sort_array = 'no';
+	   }
+        } else {
+	   $qty = $mbxresponse['EXISTS'];    
+           $server_sort_array = range(1, $qty);
+	}
+        session_register('server_sort_array');
+        return $server_sort_array;
+    }
+
     $sort_on = array (0=> 'DATE',
                       1=> 'DATE',
                       2=> 'FROM',
@@ -133,12 +155,12 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     if (!empty($sort_on[$sort])) {
         $sort_query = "$sid SORT ($sort_on[$sort]) ".strtoupper($default_charset)." ALL\r\n";
         fputs($imap_stream, $sort_query);
-        $sort_test = sqimap_read_data($imap_stream, $sid, false, $response, $message);
+        $sort_test = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
     }
     if (isset($sort_test[0])) {
-        if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
-            $server_sort_array = preg_split("/ /", trim($regs[1]));
-        }
+    	if (preg_match("/^\* SORT (.+)$/", $sort_test[0], $regs)) {
+        	$server_sort_array = preg_split("/ /", trim($regs[1]));
+    	}
     }
     if ($sort == 0 || $sort == 2 || $sort == 4) {
        $server_sort_array = array_reverse($server_sort_array);
@@ -149,6 +171,39 @@ function sqimap_get_sort_order ($imap_stream, $sort) {
     session_register('server_sort_array');
     return $server_sort_array;
 }
+
+
+function sqimap_get_php_sort_order ($imap_stream, $mbxresponse) {
+    global $uid_support;
+
+    if (session_is_registered('php_sort_array')) {
+        session_unregister('php_sort_array');
+    }
+
+    $sid = sqimap_session_id($uid_support);
+    $php_sort_array = array();
+
+    if ($uid_support) {
+       $uidnext = $mbxresponse['UIDNEXT']-1;
+       $uid_query = "$sid SEARCH UID 1:$uidnext\r\n";
+       fputs($imap_stream, $uid_query);
+          $uids = sqimap_read_data($imap_stream, $sid, true ,&$response, $message);
+          if (isset($uids[0])) {
+             if (preg_match("/^\* SEARCH (.+)$/", $uids[0], $regs)) {
+                $php_sort_array = preg_split("/ /", trim($regs[1]));
+    	     }
+	  }
+          if (!preg_match("/OK/", $response)) {
+	       $php_sort_array = 'no';
+	  }
+    } else {
+       $qty = $mbxresponse['EXISTS'];    
+       $php_sort_array = range(1, $qty);
+    }
+    session_register('php_sort_array');
+    return $php_sort_array;
+}	   
+
 	
 /* returns an indent array for printMessageinfo()
    this represents the amount of indent needed (value)
@@ -255,14 +310,14 @@ function get_parent_level ($imap_stream) {
 */
 
 function get_thread_sort ($imap_stream) {
-    global $thread_new, $sort_by_ref, $default_charset, $server_sort_array;
+    global $thread_new, $sort_by_ref, $default_charset, $server_sort_array, $uid_support;
     if (session_is_registered('thread_new')) {
         session_unregister('thread_new');
     }
     if (session_is_registered('server_sort_array')) {
         session_unregister('server_srot_array');
     }
-    $sid = sqimap_session_id();
+    $sid = sqimap_session_id($uid_support);
     $thread_temp = array ();
     if ($sort_by_ref == 1) {
         $sort_type = 'REFERENCES';
@@ -331,12 +386,13 @@ function elapsedTime($start) {
  return $timepassed;
 }
 
-
 function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     global $squirrelmail_language, $color, $data_dir, $username, $imap_server_type;
-    $start = gettimeofday();
+    global $uid_support;
+
     /* Get the small headers for each message in $msg_list */
-    $sid = sqimap_session_id();
+    $sid = sqimap_session_id($uid_support);
+
     $maxmsg = sizeof($msg_list);
     $msgs_str = sqimap_message_list_squisher($msg_list);
     $results = array();
@@ -349,17 +405,19 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
     for ($i = 0; $i < sizeof($msg_list); $i++) {
         $id2index[$msg_list[$i]] = $i;
     }
-
+    
     $internaldate = getPref($data_dir, $username, 'internal_date_sort');
     if ($internaldate) {
-	$query = "$sid FETCH $msgs_str (FLAGS RFC822.SIZE INTERNALDATE BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject X-Priority Content-Type)])\r\n";
+	$query = "$sid FETCH $msgs_str (FLAGS UID RFC822.SIZE INTERNALDATE BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject X-Priority Content-Type)])\r\n";
     } else {
-	$query = "$sid FETCH $msgs_str (FLAGS RFC822.SIZE BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject X-Priority Content-Type)])\r\n";
+	$query = "$sid FETCH $msgs_str (FLAGS UID RFC822.SIZE BODY.PEEK[HEADER.FIELDS (Date To From Cc Subject X-Priority Content-Type)])\r\n";
     }
+    echo $query;
     fputs ($imap_stream, $query);
-    $readin_list = sqimap_read_data_list($imap_stream, $sid, true, $response, $message);
-
+    $readin_list = sqimap_read_data_list($imap_stream, $sid, false, $response, $message);
+    $i = 0;
     foreach ($readin_list as $r) {
+      if (!$uid_support) {
         if (!preg_match("/^\\*\s+([0-9]+)\s+FETCH/iAU",$r[0], $regs)) {
             set_up_language($squirrelmail_language);
             echo '<br><b><font color=$color[2]>' .
@@ -376,8 +434,28 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
                   _("Unknown message number in reply from server: ") .
                   $regs[1] . "</font><br>\n";
         } else {
-    	    $read_list[$id2index[$regs[1]]] = $r;
+  	   $read_list[$id2index[$regs[1]]] = $r;
+	}
+      } else {
+        if (!preg_match("/^\\*\s+([0-9]+)\s+FETCH.*UID\s+([0-9]+)\s+/iAU",$r[0], $regs)) {
+            set_up_language($squirrelmail_language);
+            echo '<br><b><font color=$color[2]>' .
+                  _("ERROR : Could not complete request.") .
+                  '</b><br>' .
+                  _("Unknown response from IMAP server: ") . ' 1.' .
+                  $r[0] . "</font><br>\n";
+	} else 	if (! isset($id2index[$regs[2]]) || !count($id2index[$regs[2]])) {
+             set_up_language($squirrelmail_language);
+             echo '<br><b><font color=$color[2]>' .
+                  _("ERROR : Could not complete request.") .
+                  '</b><br>' .
+                  _("Unknown message number in reply from server: ") .
+                  $regs[2] . "</font><br>\n";
+        } else {
+    		$read_list[$id2index[$regs[2]]] = $r;
+                $unique_id = $regs[2];		
         }
+      }		
     }
     arsort($read_list);
 
@@ -416,7 +494,6 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
                $read_part = substr($prevline, 0, -2) . ' ' . ltrim($read_part);
             }
 	    $prev_line = $read_part;
-	    
 	    if ($read_part{0} == '*') {
 	        if ($internaldate) {
 		    if (preg_match ("/^.+INTERNALDATE\s+\"(.+)\".+/iUA",$read_part, $reg)) {
@@ -446,6 +523,10 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 			}
 		    }	          
     		}
+		if (preg_match ("/^.+UID\s+(\d+).+/iA",$read_part, $reg)) {
+		    $unique_id = $reg[1];
+        	}
+
 	    } else {
 		$firstchar = $read_part{0};	    	
 		if ($firstchar == 'T') {
@@ -522,6 +603,11 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
             $header->from = $from;
         }
 
+        if ($uid_support) {
+    	    $header->uid = $unique_id;
+        } else {
+    	    $header->uid = $msgi +1;
+	}	
         $header->date = $date;
         $header->subject = $subject;
         $header->to = $to;
@@ -538,46 +624,7 @@ function sqimap_get_small_header_list ($imap_stream, $msg_list, $issent) {
 	$header->inrepto = $inrepto;
         $result[] = $header;
     }
-//    echo 'processtime (us): ' . elapsedtime($start) .'<BR>';
     return $result;
-}
-
-
-
-
-/* Returns the flags for the specified messages */
-function sqimap_get_flags ($imap_stream, $i) {
-    $read = sqimap_run_command ($imap_stream, "FETCH $i:$i FLAGS", true, $response, $message);
-    if (ereg('FLAGS(.*)', $read[0], $regs)) {
-        return explode(' ', trim(ereg_replace('[\\(\\)\\\\]', '', $regs[1])));
-    }
-    return array('None');
-}
-
-function sqimap_get_flags_list ($imap_stream, $msg_list) {
-    $msgs_str = sqimap_message_list_squisher($msg_list);
-    for ($i = 0; $i < sizeof($msg_list); $i++) {
-        $id2index[$msg_list[$i]] = $i;
-    }
-    $result_list = sqimap_run_command_list ($imap_stream, "FETCH $msgs_str FLAGS", true, $response, $message);
-    $result_flags = array();
-
-    for ($i = 0; $i < sizeof($result_list); $i++) {
-        if (eregi('^\* ([0-9]+).*FETCH.*FLAGS(.*)', $result_list[$i][0], $regs)
-          && isset($id2index[$regs[1]]) && count($id2index[$regs[1]])) {
-            $result_flags[$id2index[$regs[1]]] = explode(" ", trim(ereg_replace('[\\(\\)\\\\]', '', $regs[2])));
-        } else {
-            set_up_language($squirrelmail_language);
-            echo "<br><b><font color=$color[2]>\n" .
-                 _("ERROR : Could not complete request.") .
-                 "</b><br>\n" .
-                 _("Unknown response from IMAP server: ") .
-                 $result_list[$i][0] . "</font><br>\n";
-            exit;
-        }
-    }
-    arsort($result_flags);
-    return $result_flags;
 }
 
 /*
@@ -585,13 +632,28 @@ function sqimap_get_flags_list ($imap_stream, $msg_list) {
  * See the documentation folder for more information about this array.
  */
 function sqimap_get_message ($imap_stream, $id, $mailbox) {
-    $header = sqimap_get_message_header($imap_stream, $id, $mailbox);
-    return sqimap_get_message_body($imap_stream, $header);
+    global $uid_support;
+    
+    $flags = array();
+    $read = sqimap_run_command ($imap_stream, "FETCH $id (FLAGS BODYSTRUCTURE)", true, $response, $message, $uid_support);
+    if (preg_match('/.+FLAGS\s\((.*)\)\s/AUi',$read[0],$regs)) {
+       if (trim($regs[1])) {
+          $flags = preg_split('/ /', $regs[1],-1,'PREG_SPLIT_NI_EMPTY');
+       }
+    } 
+    $bodystructure = implode('',$read);
+    $msg =  mime_structure($bodystructure,$flags);
+    $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);
+    $msg->addRFC822Header($read);
+    $msg->id = $id;
+    $msg->mailbox = $mailbox;
+    return $msg;
 }
 
 /* Wrapper function that reformats the header information. */
 function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
-    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[HEADER]", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[HEADER]", true, $response, $message, $uid_support);
     $header = sqimap_get_header($imap_stream, $read); 
     $header->id = $id;
     $header->mailbox = $mailbox;
@@ -600,7 +662,8 @@ function sqimap_get_message_header ($imap_stream, $id, $mailbox) {
 
 /* Wrapper function that reformats the entity header information. */
 function sqimap_get_ent_header ($imap_stream, $id, $mailbox, $ent) {
-    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.HEADER]", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "FETCH $id BODY[$ent.HEADER]", true, $response, $message, $uid_support);
     $header = sqimap_get_header($imap_stream, $read); 
     $header->id = $id;
     $header->mailbox = $mailbox;
@@ -622,247 +685,17 @@ function sqimap_get_entity_header ($imap_stream, &$read, &$type0, &$type1, &$bou
 
 /* function to get the mime headers */
 function sqimap_get_mime_ent_header ($imap_stream, $id, $mailbox, $ent) {
-    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.MIME]", true, $response, $message);
+    global $uid_support;
+    $read = sqimap_run_command ($imap_stream, "FETCH $id:$id BODY[$ent.MIME]", true, $response, $message, $uid_support);
     $header = sqimap_get_header($imap_stream, $read); 
     $header->id = $id;
     $header->mailbox = $mailbox;
     return $header;
 }
 
-
-/* Queries the IMAP server and gets all header information. */
-function sqimap_get_header ($imap_stream, $read) {
-    global $where, $what;
-
-    $hdr = new msg_header();
-    $i = 0;
-
-    /* Set up some defaults */
-    $hdr->type0 = "text";
-    $hdr->type1 = "plain";
-    $hdr->charset = "us-ascii";
-
-    $read_fold = array();
-
-    while ($i < count($read)) {
-        /* unfold multi-line headers */
-	/* remember line for to, cc and bcc */
-    	$read_fold[] = $read[$i];
-	$folded = false;
-    	while (($i + 1 < count($read)) && (strspn($read[$i + 1], "\t ") > 0) ) {
-    	    if ($read[$i+1] != '') $read_fold[] = $read[$i+1];
-    	    $read[$i + 1] = substr($read[$i], 0, -2) . ' ' . ltrim($read[$i+1]);
-	    array_splice($read, $i, 1);
-	    $folded = true;
-    	}
-	if (!$folded) {
-	    $read_fold = array();
-	}
-
-        if (substr($read[$i], 0, 17) == "MIME-Version: 1.0") {
-            $hdr->mime = true;
-            $i++;
-        }
-        /* ENCODING TYPE */
-        else if (substr(strtolower($read[$i]), 0, 26) == "content-transfer-encoding:") {
-            $hdr->encoding = strtolower(trim(substr($read[$i], 26)));
-            $i++;
-        }
-        /* CONTENT-TYPE */
-        else if (strtolower(substr($read[$i], 0, 13)) == "content-type:") {
-            $cont = strtolower(trim(substr($read[$i], 13)));
-            if (strpos($cont, ";")) {
-                $cont = substr($cont, 0, strpos($cont, ";"));
-            }
-
-            if (strpos($cont, "/")) {
-                $hdr->type0 = substr($cont, 0, strpos($cont, "/"));
-                $hdr->type1 = substr($cont, strpos($cont, "/")+1);
-            } else {
-                $hdr->type0 = $cont;
-            }
-
-            $line = $read[$i];
-            $i++;
-            while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
-                str_replace("\n", "", $line);
-                str_replace("\n", "", $read[$i]);
-                $line = "$line $read[$i]";
-                $i++;
-            }
-
-            /* Detect the boundary of a multipart message */
-            if (eregi('boundary="([^"]+)"', $line, $regs)) {
-                $hdr->boundary = $regs[1];
-            }
-
-            /* Detect the charset */
-            if (strpos(strtolower(trim($line)), "charset=")) {
-                $pos = strpos($line, "charset=") + 8;
-                $charset = trim($line);
-                if (strpos($line, ";", $pos) > 0) {
-                    $charset = substr($charset, $pos, strpos($line, ";", $pos)-$pos);
-                } else {
-                    $charset = substr($charset, $pos);
-                }
-                $charset = str_replace("\"", "", $charset);
-                $hdr->charset = $charset;
-            } else {
-                $hdr->charset = "us-ascii";
-            }
-	    /* Detect type in case of multipart/related */
-	    if (strpos(strtolower(trim($line)), "type=")) {
-		$pos = strpos($line, "type=") + 6;
-		$type = trim($line);
-                if (strpos($line, ";", $pos) > 0) {
-                    $type = substr($type, $pos, strpos($line, ";", $pos)-$pos);
-                } else {
-                    $type = substr($type, $pos);
-                }
-		$hdr->type = $type;
-	    }
-        }
-        else if (strtolower(substr($read[$i], 0, 20)) == "content-disposition:") {
-            /* Add better content-disposition support */
-            $line = $read[$i];
-            $i++;
-            while ( (substr(substr($read[$i], 0, strpos($read[$i], " ")), -1) != ":") && (trim($read[$i]) != "") && (trim($read[$i]) != ")")) {
-                str_replace("\n", "", $line);
-                str_replace("\n", "", $read[$i]);
-                $line = "$line $read[$i]";
-                $i++;
-            }
-
-            /* Detects filename if any */
-            if (strpos(strtolower(trim($line)), "filename=")) {
-                $pos = strpos($line, "filename=") + 9;
-                $name = trim($line);
-                if (strpos($line, " ", $pos) > 0) {
-                    $name = substr($name, $pos, strpos($line, " ", $pos));
-                } else {
-                    $name = substr($name, $pos);
-                }
-                $name = str_replace("\"", "", $name);
-                $hdr->filename = $name;
-            }
-        }
-        /* REPLY-TO */
-        else if (strtolower(substr($read[$i], 0, 9)) == "reply-to:") {
-            $hdr->replyto = trim(substr($read[$i], 9, strlen($read[$i])));
-            $i++;
-        }
-        /* FROM */
-        else if (strtolower(substr($read[$i], 0, 5)) == "from:") {
-            $hdr->from = trim(substr($read[$i], 5, strlen($read[$i]) - 6));
-            if (! isset($hdr->replyto) || $hdr->replyto == "") {
-                $hdr->replyto = $hdr->from;
-            }
-            $i++;
-        }
-        /* DATE */
-        else if (strtolower(substr($read[$i], 0, 5)) == "date:") {
-            $d = substr($read[$i], 5);
-            $d = trim($d);
-            $d = strtr($d, array('  ' => ' '));
-            $d = explode(' ', $d);
-            $hdr->date = getTimeStamp($d);
-            $i++;
-        }
-        /* SUBJECT */
-        else if (strtolower(substr($read[$i], 0, 8)) == "subject:") {
-            $hdr->subject = trim(substr($read[$i], 8, strlen($read[$i]) - 9));
-            if (strlen(Chop($hdr->subject)) == 0) {
-               $hdr->subject = _("(no subject)");
-            }
-            /*
-            if ($where == 'SUBJECT') {
-                 $hdr->subject = $what;
-                 // $hdr->subject = eregi_replace($what, "<b>\\0</b>", $hdr->subject);
-            }
-            */
-            $i++;
-        }
-        /* CC */
-        else if (strtolower(substr($read[$i], 0, 3)) == "cc:") {
-            $pos = 0;
-	    if (isset($read_fold[0])) {
-        	$hdr->cc[$pos] = trim(substr($read_fold[0], 4));
-		$pos++;
-        	while ($pos < count($read_fold)) {		    
-            	    $hdr->cc[$pos] = trim($read_fold[$pos]);
-            	    $pos++;
-		}
-            } else {
-        	$hdr->cc[$pos] = trim(substr($read[$i], 4));
-            }
-	    $i++;
-        }
-        /* BCC */
-        else if (strtolower(substr($read[$i], 0, 4)) == "bcc:") {
-            $pos = 0;
-	    if (isset($read_fold[0])) {
-        	$hdr->bcc[$pos] = trim(substr($read_fold[0], 5));
-		$pos++;
-        	while ($pos < count($read_fold)) {		    
-            	    $hdr->bcc[$pos] = trim($read_fold[$pos]);
-            	    $pos++;
-		}
-            } else {
-        	$hdr->bcc[$pos] = trim(substr($read[$i], 5));
-            }
-	    $i++;
-        }
-        /* TO */
-        else if (strtolower(substr($read[$i], 0, 3)) == "to:") {
-            $pos = 0;
-	    if (isset($read_fold[0])) {
-        	$hdr->to[$pos] = trim(substr($read_fold[0], 4));
-		$pos++;
-        	while ($pos < count($read_fold)) {		    
-            	    $hdr->to[$pos] = trim($read_fold[$pos]);
-            	    $pos++;
-		}
-            } else {
-        	$hdr->to[$pos] = trim(substr($read[$i], 4));
-            }
-	    $i++;
-	    
-        }
-        /* MESSAGE ID */
-        else if (strtolower(substr($read[$i], 0, 11)) == "message-id:") {
-            $hdr->message_id = trim(substr($read[$i], 11));
-            $i++;
-        }
-        /* ERROR CORRECTION */
-        else if (substr($read[$i], 0, 1) == ")") {
-            if (strlen(trim($hdr->subject)) == 0) {
-                $hdr->subject = _("(no subject)");
-            }
-            if (strlen(trim($hdr->from)) == 0) {
-                $hdr->from = _("(unknown sender)");
-            }
-            if (strlen(trim($hdr->date)) == 0) {
-                $hdr->date = time();
-            }
-            $i++;
-        }
-        /* X-PRIORITY */
-        else if (strtolower(substr($read[$i], 0, 11)) == "x-priority:") {
-            $hdr->priority = trim(substr($read[$i], 11));
-            $i++;
-        }
-        else {
-            $i++;
-        }
-	$read_fold=array();
-     }
-     return $hdr;
-}
-
 /* Returns the body of a message. */
 function sqimap_get_message_body ($imap_stream, &$header) {
-    $id = $header->id;
-    return decodeMime($imap_stream, $header);
+//    return decodeMime($imap_stream, $header->id);
 }
 
 ?>
