@@ -21,16 +21,14 @@ require_once('../functions/display_messages.php');
  *
  * @return	string	a 4 chars unique string
  */
+
+global $sqimap_session_id;
+$sqimap_session_id = 1;
 function sqimap_session_id() {
 
-    global $data_dir, $username;
+    global $data_dir, $username, $sqimap_session_id;
 
-    $IMAPSessionID = substr(session_id(), -4);
-    if( $IMAPSessionID == '' ) {
-        $IMAPSessionID = 'A001';
-    }
-
-    return( $IMAPSessionID );
+    return( sprintf("A%03d", $sqimap_session_id++) );
 }
 
 /******************************************************************************
@@ -39,14 +37,16 @@ function sqimap_session_id() {
 ******************************************************************************/
 
 function sqimap_run_command_list ($imap_stream, $query, $handle_errors, &$response, &$message) {
-    fputs ($imap_stream, sqimap_session_id() . ' ' . $query . "\r\n");
-    $read = sqimap_read_data_list ($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
+    $sid = sqimap_session_id();
+    fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+    $read = sqimap_read_data_list ($imap_stream, $sid, $handle_errors, $response, $message);
     return $read;
 }
 
 function sqimap_run_command ($imap_stream, $query, $handle_errors, &$response, &$message) {
-    fputs ($imap_stream, sqimap_session_id() . ' ' . $query . "\r\n");
-    $read = sqimap_read_data ($imap_stream, sqimap_session_id(), $handle_errors, $response, $message);
+    $sid = sqimap_session_id();
+    fputs ($imap_stream, $sid . ' ' . $query . "\r\n");
+    $read = sqimap_read_data ($imap_stream, $sid, $handle_errors, $response, $message);
     return $read;
 }
 
@@ -319,7 +319,7 @@ function sqimap_get_delimiter ($imap_stream = false) {
  */
 function sqimap_get_num_messages ($imap_stream, $mailbox) {
 
-    $read_ary = sqimap_run_command ($imap_stream, " EXAMINE \"$mailbox\"", true, $result, $message);
+    $read_ary = sqimap_run_command ($imap_stream, "EXAMINE \"$mailbox\"", true, $result, $message);
     for ($i = 0; $i < count($read_ary); $i++) {
      if (ereg("[^ ]+ +([^ ]+) +EXISTS", $read_ary[$i], $regs)) {
         return $regs[1];
