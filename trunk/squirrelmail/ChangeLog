@@ -225,6 +225,10 @@ Version 1.5.1 -- CVS
   - Fixed change_password_init hook.
   - Give an error to the user when SquirrelMail is not configured yet
     (instead of "failed to include config.php").
+  - Added swf and mp3 support to newmail plugin. Restored custom user media
+    support.
+  - Removed unused save_option_header() function from display and compose
+    option includes.
 
 Version 1.5.0
 --------------------
